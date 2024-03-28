@@ -1,0 +1,54 @@
+---
+title: FAQ
+---
+
+# Frequently Asked Questions
+
+## Which object storage are supported by Fusion
+
+Fusion currently supports AWS S3 and Google Storage. In the near future it will also support Azure Blob storage.
+
+## Can I use Fusion with Minio?
+
+Yes. [Minio](https://min.io/), implements a S3-compatible API, therefore it can be used in place of AWS S3.
+See the documentation how to configure your pipeline execution to use Fusion and Minio. (link to guide TBD).
+
+## Can I download Fusion?
+
+No. Currently, Fusion can only be used by enabling Wave containers in the configuration of your Nextflow pipeline.
+
+## Why I need Wave containers to use Fusion?
+
+Fusion is designed to work at level of job executions. For this reason, it needs to run in containerised job
+execution context.
+
+This would require to rebuild all containers used by your data pipeline to include the Fusion client each time a new
+version of the Fusion client is released, and it would make necessary to maintain a custom mirror or existing containers
+collections, such as [BioContainers](https://biocontainers.pro/) which is definitively not desirable.
+
+Wave allows adding the Fusion client in your pipeline containers at deploy time, without having to rebuild them or
+to maintainer a separate container images collection.
+
+## How Fusion works behind the scene?
+
+Fusion is implemented a FUSE driver that mounts the storage bucket in the job execution context as
+a POSIX file system. This allows the job script to read and write data over the object storage like it were local files.
+
+## Can Fusion mount more than one bucket in job file system
+
+Yes. Fusion any access to an object storage is automatically detected by Fusion and the corresponding bucket is mounted
+on-demand.
+
+## Can Fusion mount buckets of different vendors in the same execution?
+
+No. Fusion can mount multiple buckets but the must be of the vendor e.g. AWS S3 or Google Storage.
+
+## How Fusion can be faster of other existing FUSE driver?
+
+Fusion is not a general purpose file system. Instead, it has been designed to optimise the data transfer of Nextflow
+data pipeline taking advantage of the data model used by Nextflow. [to be improved]
+
+## I tried Fusion, but I didn't notice any performance improvement. Why?
+
+Make sure the computing nodes in your cluster have NVMe SSD storage or equivalent technology. Fusion implements an
+aggressive caching strategy that requires the use of local scratch storage bases on solid-state disks.

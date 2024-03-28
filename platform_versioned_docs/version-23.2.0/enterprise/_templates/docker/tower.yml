@@ -1,0 +1,48 @@
+# Replace these settings with a SMTP server provided by your cloud vendor
+# The mail scope is used for providing config to the underlying Micronaut framework
+mail:
+  from: "${TOWER_CONTACT_EMAIL}"
+  smtp:
+    host: ${TOWER_SMTP_HOST}
+    port: ${TOWER_SMTP_PORT}
+    user: ${TOWER_SMTP_USER}
+    password: ${TOWER_SMTP_PASSWORD}
+    # `starttls` should be enabled with a production SMTP host
+    auth: true
+    starttls:
+      enable: false
+      required: false
+
+# Duration of Tower sign-in email link validity
+auth:
+  mail:
+    duration: 30m
+
+# The tower scope is used for providing config for your Tower Enterprise installation
+tower:
+  trustedEmails:
+      - '*@org.xyz'
+      - 'named_user@org.xyz'
+
+  # Tower instance-wide configuration for authentication. For further information, see https://install.tower.nf/latest/configuration/authentication/
+  auth:
+    google:
+      allow-list:
+        - "*@org.xyz"
+    oidc:
+      allow-list:
+        - "*@org.xyz"
+
+  # Tower instance-wide configuration for SCM providers. For further information, see https://install.tower.nf/latest/configuration/git_integration/
+  scm:
+    providers:
+      github:
+        user: <YOUR GITHUB USER NAME>
+        password: <YOUR GITHUB ACCESS TOKEN OR PASSWORD>
+      gitlab:
+        user: <YOUR GITLAB USER NAME>
+        password: <YOUR GITLAB PASSWORD>
+        token: <YOUR GITLAB TOKEN>
+      bitbucket:
+        user: <YOUR BITBUCKET USER NAME>
+        password: <YOUR BITBUCKET TOKEN OR PASSWORD>

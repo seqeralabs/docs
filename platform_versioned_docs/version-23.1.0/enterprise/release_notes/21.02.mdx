@@ -1,0 +1,129 @@
+title: "21.02"
+
+# Release notes for version 21.02
+
+## Highlights
+
+Tower 21.02.x introduces support for:
+
+- Add Azure Batch provider
+- Add Altair PBS pro provider
+- Add sessionId to workflows search-box criteria
+- Add support for multiple GLS zones
+- Add Grid provider head job options
+- Add support for AWS Batch cost percentage
+- Add Azure Batch Forge
+- Add support for Grid Engine batch scheduler
+- Add Kubernetes service pod
+- Add support for Tower license
+- Improve detection of NF config profiles #1074
+- Fix issue on work dir path composition with ending slash
+- Fix issue when retrieving non-existing file via SSH/SCP
+- Fix issue resolving non-canonical GitHub/Gitlab project name #353
+- Fix issue with AWS Batch allocation strategy #931
+- Fix job phantom unknown status
+- Fix Prevent requeue mail with invalid addresses
+- Fix issue on creating AWS CE with manual config
+- Update backend base image to corretto:11.0.10
+- Bump NF 21.03.0-edge
+- Upgrade to Angular 11
+- Use Kubernetes Java-client 10.0.1
+- Upgrade Nextflow runtime to 21.03.0-edge
+
+## Updating Tower deployment from version 20.12.x to 21.02.x
+
+### License key
+
+As of this version, a license key must be provided to enable the Tower
+deployment feature. The license key should be specified using the configuration
+variable `TOWER_LICENSE`.
+
+:::caution
+If you don't have a license key, contact sales@seqera.io.
+:::
+
+### Compute environments
+
+The Tower compute environments that are available
+to users must be specified in the Tower configuration.
+
+The following ids options are available:
+
+- `awsbatch-platform`: AWS Batch cloud compute service
+- `gls-platform`: Google LifeSciences cloud compute service
+- `azbatch-platform`: Azure Batch cloud compute service
+- `lsf-platform`: IBM LSF batch scheduler
+- `slurm-platform`: Slurm batch scheduler
+- `altair-platform`: Altair PBS Pro batch scheduler
+- `univa-platform`: (Univa/Sun) GridEngine
+- `k8s-platform`: Kubernetes compute platform
+- `eks-platform`: AWS EKS compute platform
+- `gke-platform`: Google GKE compute platform
+
+Choose one or more of these platform ids and _append_ to your current `MICRONAUT_ENVIRONMENTS` variable, separating them via a comma.
+
+### Database schema
+
+This Tower version requires a database schema update. Follow these steps
+to update your DB instance and the Tower installation.
+
+#### Kubernetes based deployment
+
+**1.** Update the Tower container images in the Kubernetes manifest yaml files to:
+
+```
+195996028523.dkr.ecr.eu-west-1.amazonaws.com/nf-tower-enterprise/backend:v21.02.5
+195996028523.dkr.ecr.eu-west-1.amazonaws.com/nf-tower-enterprise/frontend:v21.02.5
+```
+
+If you are using AWS Batch with a custom launcher job definition you need to update it to use the following container image (please refer the configuration section for details):
+
+```
+public.ecr.aws/seqera-labs/tower/nf-launcher:21.04.0-edge
+```
+
+Refer to the manifests included in the Kubernetes section for details.
+
+**2.** Update the Tower _cron_ service using the following:
+
+```
+kubectl apply -f tower-cron.yml
+```
+
+:::note
+This task will automatically run the Tower database schema update tool.
+:::
+
+**3.** Update the Tower backend and frontend services using the following command:
+
+```
+kubectl apply -f tower-svc.yml
+```
+
+#### Custom deployment script
+
+**1.** Pull or update the Tower container images references in your deployment script(s) to:
+
+```
+195996028523.dkr.ecr.eu-west-1.amazonaws.com/nf-tower-enterprise/backend:v21.02.5
+195996028523.dkr.ecr.eu-west-1.amazonaws.com/nf-tower-enterprise/frontend:v21.02.5
+```
+
+If you are using AWS Batch with a custom launcher job definition you need to update it to use the following container image (please refer the configuration section for details):
+
+```
+public.ecr.aws/seqera-labs/tower/nf-launcher:21.04.0-edge
+```
+
+**2.** Update the Tower database schema by running the `/migrate-db.sh` provided in the
+backend container.
+
+:::note
+Make sure to include the identical environment as used in the normal backend execution.
+:::
+
+**3.** Once the schema update completes, deploy Tower following your usual procedure.
+
+## Questions/Feedback
+
+Contact us at [support@seqera.io](mailto:support@seqera.io).

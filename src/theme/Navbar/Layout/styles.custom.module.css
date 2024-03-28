@@ -1,0 +1,97 @@
+html {
+  @media (min-width: 997px) {
+    scroll-padding-top: 110px;
+    & :global(.theme-doc-toc-desktop) {
+      top: calc(var(--ifm-navbar-height) + 6.5rem) !important;
+    }
+  }
+}
+.siteHeader {
+  background: var(--ifm-background-surface-color);
+  background: var(--color-brand-1400);
+  position: sticky;
+  z-index: 20;
+  left: 0;
+  top: 0;
+  right: 0;
+  & :global(.navbar) {
+    align-items: center;
+  }
+  & :global(.navbar__item) {
+    white-space: nowrap;
+  }
+}
+.seqeraHeader {
+  position: relative;
+  height: 104px;
+  & > header {
+    z-index: 301;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    background: var(--ifm-background-surface-color);
+  }
+}
+.siteNav {
+  background: var(--ifm-background-surface-color);
+  border-bottom: 1px solid var(--ifm-toc-border-color);
+  border-top: 1px solid var(--ifm-toc-border-color);
+  & :global(.navbar__brand) {
+    display: none;
+  }
+  & :global(.navbar) {
+    background: transparent;
+    box-shadow: none;
+    & :global(.navbar__item) {
+      font-size: 14px;
+      font-weight: 600;
+      position: relative;
+      letter-spacing: 0.17px;
+      font-weight: 400;
+      font-size: 15px;
+      margin-right: 10px;
+      @media (min-width: 1100px) {
+        margin-right: 20px;
+      }
+      &:hover,
+      &:global(.navbar__link--active) {
+        &:after {
+          content: "";
+          position: absolute;
+          bottom: 2px;
+          left: 11px;
+          right: 11px;
+          height: 2px;
+          background: var(--ifm-toc-border-color);
+          display: block;
+        }
+      }
+      &:global(.navbar__link--active),
+      &.logo {
+        &:after {
+          background: var(--color-wave);
+        }
+      }
+      &.logo {
+        font-weight: bold;
+      }
+    }
+  }
+}
+/* Fix for new header height (safe?) */
+aside {
+  margin-top: -165px !important;
+  & > div > div {
+    padding-top: 165px !important;
+  }
+}
+
+html[data-theme="light"] {
+  & .siteHeader {
+    background: white;
+  }
+  & .siteNav {
+    border-top-color: var(--ifm-toc-border-color);
+  }
+}

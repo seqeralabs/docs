@@ -1,0 +1,12 @@
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -8px;
+}
+.grid > div {
+  padding: 8px;
+  width: 20%;
+}
+.grid.vertical > div {
+  width: 100%;
+}

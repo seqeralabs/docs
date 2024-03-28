@@ -1,0 +1,55 @@
+---
+title: "On-prem"
+description: Prerequisites for on-premises deployments
+date: "12 Apr 2023"
+tags: [on-prem, prerequisites, configuration]
+---
+
+This page describes the prerequisites for deploying Seqera Platform Enterprise to your on-premises infrastructure.
+
+See [Docker Compose](../docker-compose.mdx) for instructions to deploy via Docker Compose.
+
+See [Kubernetes](../kubernetes.mdx) for instructions to deploy via Kubernetes.
+
+## Prerequisites
+
+Ensure that you satisfy the requirements for your installation. Refer to this list of prerequisites:
+
+- **SMTP server**: An SMTP server is required to send emails from your Seqera instance.
+
+  If you don't have your own mail server, you can use an external service from a cloud provider. Visit the provider's corresponding **Prerequisites** page for more information and consult your IT team to select the most suitable solution for your organization.
+
+- **MySQL database**: An external database (i.e., external to your Docker Compose or Kubernetes deployment) is highly recommended for production deployments. If you don't have your own database service, you can use an external service from a cloud provider. Visit the provider's corresponding **Prerequisites** page for more information and consult your IT team to select the most suitable solution for your organization.
+
+  If you decide to use an external database, you must create a MySQL user and database manually. See [Configuration](../configuration/overview.mdx#seqera-and-redis-databases) for more details.
+
+- **(Optional) SSL certificate**: An SSL certificate is required for your Seqera instance to handle HTTPS traffic.
+
+:::caution
+From version 22.1.1, HTTP-only implementations **must** set the `TOWER_ENABLE_UNSAFE_MODE=true` environment variable in the Seqera hosting infrastructure to enable user login. HTTP must not be used in production environments.
+:::
+
+## Seqera container images
+
+Seqera Platform Enterprise is distributed as a collection of Docker containers available through the Seqera
+container registry [`cr.seqera.io`](https://cr.seqera.io). Contact [support](https://support.seqera.io) to get your container access credentials. Once you've received your credentials, retrieve the Seqera container images:
+
+1. Retrieve the **username** and **password** you received from Seqera support.
+
+2. Run the following Docker command to authenticate to the registry (using the `username` and `password` values copied in step 1):
+
+   ```bash
+   docker login -u '/\<USERNAME\>/' -p '/\PASSWORD\>/' cr.seqera.io
+   ```
+
+3. Pull the Seqera container images with the following commands:
+
+   ```bash
+   docker pull cr.seqera.io/private/nf-tower-enterprise/backend:v23.4.3
+
+   docker pull cr.seqera.io/private/nf-tower-enterprise/frontend:v23.4.3
+   ```
+
+:::caution
+`cr.seqera.io` is the default Seqera container image registry from version 22.4. Use of the AWS, Azure, and Google Cloud image registries in existing installations is still supported but is deprecated for **new installations** from June 2023.
+:::

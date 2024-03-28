@@ -1,0 +1,31 @@
+# Fusion using local execution and S3 object storage
+
+Fusion allow running Nextflow pipeline using the local executor and a S3 bucket as the pipeline scratch directory. This
+can be useful to scale vertically your pipeline execution using a large EC2 instance and without requiring to allocate
+a large EBS volume for the pipeline temporary data.
+
+The pipeline configuration looks like the following:
+
+```groovy
+wave.enabled = true
+docker.enabled = true
+fusion.enabled = true
+fusion.exportAwsAccessKeys = true
+```
+
+Save the above snippet to a file named `nextflow.config` into the pipeline launching directory.
+
+Then launch the pipeline execution with the usual run command:
+
+```
+nextflow run <YOUR PIPELINE SCRIPT> -w s3://<YOUR-BUCKET>/work
+```
+
+Replacing `YOUR PIPELINE SCRIPT` with the URI of your pipeline Git repository
+and `YOUR-BUCKET` with a S3 bucket of your choice.
+
+:::tip
+
+    To achieve best performance make sure to setup a SSD volumes as temporary directory.
+    See the section [SSD storage](#ssd-storage) for details.
+:::

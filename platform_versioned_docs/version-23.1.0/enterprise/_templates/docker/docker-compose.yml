@@ -1,0 +1,80 @@
+version: "3"
+services:
+  db:
+    image: mysql:5.6
+    networks:
+      - backend
+    expose:
+      - 3306
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_USER: tower
+      MYSQL_PASSWORD: tower
+      MYSQL_DATABASE: tower
+    restart: always
+  # enable this snippet to store the Mysql data in the host volume
+  #    volumes:
+  #      - $HOME/.tower/db/mysql:/var/lib/mysql
+
+  redis:
+    image: cr.seqera.io/public/redis:5.0.8
+    networks:
+      - backend
+    expose:
+      - 6379
+    command: --appendonly yes
+    restart: always
+  # enable this snippet to store the Redis data in the host volume
+  #    volumes:
+  #      - $HOME/.tower/db/redis:/data
+
+  cron:
+    image: cr.seqera.io/private/nf-tower-enterprise/backend:v23.1.3
+    command: -c '/wait-for-it.sh db:3306 -t 60; /migrate-db.sh; /tower.sh'
+    networks:
+      - frontend
+      - backend
+    volumes:
+      - $PWD/tower.yml:/tower.yml
+    env_file:
+      - tower.env
+    environment:
+      - MICRONAUT_ENVIRONMENTS=prod,redis,cron
+    restart: always
+    depends_on:
+      - db
+      - redis
+
+  backend:
+    image: cr.seqera.io/private/nf-tower-enterprise/backend:v23.1.3
+    command: -c '/wait-for-it.sh db:3306 -t 60; /tower.sh'
+    networks:
+      - frontend
+      - backend
+    expose:
+      - 8080
+    volumes:
+      - $PWD/tower.yml:/tower.yml
+    env_file:
+      - tower.env
+    environment:
+      - MICRONAUT_ENVIRONMENTS=prod,redis,ha
+    restart: always
+    depends_on:
+      - db
+      - redis
+      - cron
+
+  frontend:
+    image: cr.seqera.io/private/nf-tower-enterprise/frontend:v23.1.3
+    networks:
+      - frontend
+    ports:
+      - 8000:80
+    restart: always
+    depends_on:
+      - backend
+
+networks:
+  frontend: {}
+  backend: {}

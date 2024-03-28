@@ -1,0 +1,36 @@
+.button {
+  display: inline-block;
+  color: var(--color-brand-1100);
+  padding: 10px 22px;
+  border: 1px solid transparent;
+  background: #f7f7f7;
+  border-radius: 99px;
+  transition: all 0.2s;
+  line-height: 1;
+  white-space: nowrap;
+}
+.button:hover {
+  text-decoration: none;
+  color: var(--color-brand-1100);
+  border-color: #ccc;
+}
+.button:hover svg {
+  margin-left: 16px;
+}
+.cta {
+  font-weight: 600;
+  color: white;
+  background: #4256e7;
+}
+.cta:hover {
+  color: white;
+  border-color: transparent;
+}
+.button svg {
+  height: 13px;
+  margin-left: 12px;
+  transition: all 0.2s;
+  width: 9px;
+  position: relative;
+  top: 1px;
+}

@@ -1,0 +1,6 @@
+---
+- 
+  Environment variable:            '`TOWER_LAUNCH_CONTAINER`'
+  Description: > 
+    The container image to run the Nextflow execution (requires version 20.10.2 or later). This setting overrides the launch container selection for all organizations and workspaces in your account.
+  Value:                'Example: `nf-launcher:j17-23.04.1`'

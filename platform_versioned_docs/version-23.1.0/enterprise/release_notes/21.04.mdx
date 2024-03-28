@@ -1,0 +1,143 @@
+title: "21.04"
+
+# Release notes for version 21.04
+
+## Highlights
+
+Tower 21.04.x brings the following changes:
+
+- New Organizations feature
+- New Teams feature
+- New Workspace feature
+- New Launchpad feature
+- Add support for private Git repositories
+- Add support for downloading Nextflow timelines
+- Fix issues with Compute environment status reporting
+- Update Nextflow runtime to version 21.04.0
+
+## Updating Tower deployment from version 21.02.x to 21.04.x
+
+### License key
+
+As of version `21.02.x`, a license key must be provided to enable the Tower
+deployment feature. The license key should be specified using the configuration
+variable `TOWER_LICENSE`. If you don't have a license key, contact sales@seqera.io.
+
+### Compute environments
+
+The Tower compute environments to be made available
+to users must be specified in the Tower configuration.
+
+The following ids options are available:
+
+- `awsbatch-platform`: AWS Batch cloud compute service
+- `gls-platform`: Google LifeSciences cloud compute service
+- `azbatch-platform`: Azure Batch cloud compute service
+- `lsf-platform`: IBM LSF batch scheduler
+- `slurm-platform`: Slurm batch scheduler
+- `altair-platform`: Altair PBS Pro batch scheduler
+- `univa-platform`: (Univa/Sun) GridEngine
+- `k8s-platform`: Kubernetes compute platform
+- `eks-platform`: AWS EKS compute platform
+- `gke-platform`: Google GKE compute platform
+
+Choose one or more of these platform ids and _append_ to your current `MICRONAUT_ENVIRONMENTS`
+variable, separating them via a comma.
+
+### Database schema
+
+This Tower version requires a database schema update which requires the scheduling of several minutes of service downtime.
+
+PLEASE FOLLOW THESE STEPS TO UPGRADE YOUR TOWER VERSION:
+
+- Stop the current Tower service
+- Make a full database backup
+- Update your environment with the new Tower enterprise containers
+- Restore the service
+
+Find below more detailed instructions for your reference deployment.
+
+#### Kubernetes based deployment
+
+**1.** Stop the Tower service using the following command:
+
+```
+kubectl delete deployment frontend
+kubectl delete deployment backend
+kubectl delete deployment cron
+
+```
+
+**2.** Update the Tower container images in the Kubernetes manifest yaml files to:
+
+```
+195996028523.dkr.ecr.eu-west-1.amazonaws.com/nf-tower-enterprise/backend:v21.04.9
+195996028523.dkr.ecr.eu-west-1.amazonaws.com/nf-tower-enterprise/frontend:v21.04.9
+```
+
+If you are using AWS Batch with a custom launcher job definition, you will need to update it to use the following container image (please refer the configuration section for details):
+
+```
+public.ecr.aws/seqera-labs/tower/nf-launcher:21.04.0
+```
+
+Refer to the manifests included in the Kubernetes section for details.
+
+**3.** Apply the changes for the Tower _cron_ service using the following command:
+
+```
+kubectl apply -f tower-cron.yml
+```
+
+:::note
+This task will automatically run the Tower database schema update tool. It may take some minutes to complete.
+:::
+
+**4.** Once the `cron` container is in `running` status, deploy the Tower backend and frontend services using the following command:
+
+```
+kubectl apply -f tower-svc.yml
+```
+
+#### Docker compose deployment
+
+**1.** Stop the current deployment using the command `docker-compose stop`.
+**2.** Make backup of the Tower database.
+**3.** Update the docker-compose.yml file with the following container images:
+
+```
+195996028523.dkr.ecr.eu-west-1.amazonaws.com/nf-tower-enterprise/backend:v21.04.9
+195996028523.dkr.ecr.eu-west-1.amazonaws.com/nf-tower-enterprise/frontend:v21.04.9
+```
+
+**4.** Restart the service using the command `docker-compose start`.
+
+#### Custom deployment script
+
+**1.** Stop the current Tower deployment.
+**2.** Make a Tower database backup.
+**3.** Pull or update the Tower container images references in your
+deployment script(s) to:
+
+```
+195996028523.dkr.ecr.eu-west-1.amazonaws.com/nf-tower-enterprise/backend:v21.04.9
+195996028523.dkr.ecr.eu-west-1.amazonaws.com/nf-tower-enterprise/frontend:v21.04.9
+```
+
+If you are using AWS Batch with a custom launcher job definition you need to update it to use the following container image (please refer the configuration section for details):
+
+```
+public.ecr.aws/seqera-labs/tower/nf-launcher:21.04.0
+```
+
+**4.** Update the Tower database schema by running the `/migrate-db.sh` provided in the backend container.
+
+:::note
+Make sure to include the identical environment as used in the normal backend execution.
+:::
+
+**5.** Once the schema update completes, deploy Tower following your usual procedure.
+
+## Questions/Feedback
+
+Contact us at [support@seqera.io](mailto:support@seqera.io).

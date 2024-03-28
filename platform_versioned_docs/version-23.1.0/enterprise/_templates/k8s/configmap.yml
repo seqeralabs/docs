@@ -1,0 +1,47 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: tower-backend-cfg
+  labels:
+    app: backend-cfg
+data:
+  TOWER_SERVER_URL: "https://<YOUR PUBLIC TOWER HOST NAME>"
+  TOWER_CONTACT_EMAIL: "support@tower.nf"
+  TOWER_JWT_SECRET: "ReplaceThisWithALongSecretString"
+  TOWER_DB_URL: "jdbc:mysql://<YOUR DB HOST NAME AND PORT>/tower"
+  TOWER_DB_DRIVER: "org.mariadb.jdbc.Driver"
+  TOWER_DB_USER: "tower"
+  TOWER_DB_PASSWORD: "<YOUR DB PASSWORD>"
+  TOWER_DB_DIALECT: "io.seqera.util.MySQL55DialectCollateBin"
+  TOWER_DB_MIN_POOL_SIZE: "2"
+  TOWER_DB_MAX_POOL_SIZE: "10"
+  TOWER_DB_MAX_LIFETIME: "180000"
+  TOWER_SMTP_HOST: "<YOUR SMTP SERVER HOST NAME>"
+  TOWER_SMTP_USER: "<YOUR SMTP USER NAME>"
+  TOWER_SMTP_PASSWORD: "<YOUR SMTP USER PASSWORD>"
+  TOWER_CRYPTO_SECRETKEY: "<YOUR CRYPTO SECRET>"
+  TOWER_LICENSE: "<YOUR TOWER LICENSE KEY>"
+  TOWER_ENABLE_PLATFORMS: "awsbatch-platform,gls-platform,azbatch-platform,slurm-platform"
+  FLYWAY_LOCATIONS: "classpath:db-schema/mysql"
+  TOWER_REDIS_URL: "redis://<YOUR REDIS IP>:6379"
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: tower-yml
+  labels:
+    app: backend-cfg
+data:
+  tower.yml: |
+    mail:
+      smtp:
+        auth: true
+        # FIXME `starttls` should be enabled with a production SMTP host
+        starttls:
+          enable: false
+          required: false
+
+    # Uncomment to specify the duration of Tower sign-in email link validity
+    auth:
+      mail:
+        duration: 30m

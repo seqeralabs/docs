@@ -1,0 +1,44 @@
+---
+title: Fusion file system
+---
+
+# Fusion file system
+
+Cloud object stores such as AWS S3 are scalable and cost-effective, but they don’t present a POSIX interface.
+This means containerized applications must copy data to and from S3 for every task — a slow and inefficient process.
+
+Fusion is a virtual, lightweight, distributed file system that bridges the gap between pipelines and cloud-native
+storage. Fusion enables seamless filesystem I/O to cloud object stores via a standard POSIX interface resulting in
+simpler pipeline logic and faster, more efficient pipeline execution.
+
+## Features
+
+### Transparent, automated installation
+
+Traditionally, pipeline developers needed to bundle utilities in containers to copy data in and out of S3 storage.
+
+With Fusion, there is nothing to install or manage.The Fusion thin client is automatically installed using Wave’s container augmentation facilities, enabling containerized applications to read and write to S3 buckets as if they were local storage.
+
+### No shared file system required
+
+To share data among pipeline tasks, organizations often turn to shared file systems such as Amazon EFS, Amazon FSx for Lustre, or NFS.
+
+Fusion avoids the need to deploy, manage, and mount shared file systems on every cloud instance by providing the same functionality over S3 – significantly reducing cost and complexity.
+
+### Maximize pipeline performance and efficiency
+
+Copying data to and from S3 adds latency for every task, lengthening the time containers and cloud instances are deployed. This translates into longer runtimes and significantly higher costs for pipelines with thousands of tasks.
+
+Fusion eliminates these bottlenecks and delays, reducing execution time and cloud spending and using compute instances more efficiently.
+
+### Dramatically reduce data movement
+
+When pipelines run with S3 storage, tasks typically read data from a bucket, copy it to EBS storage for processing, and copy results back to S3.
+
+The result is significant overhead for every task. Fusion enables direct file access to S3 storage, eliminating unnecessary I/O and dramatically reducing data movement and overall runtime.
+
+### Seamless access to cloud object storage
+
+While some open-source projects provide a POSIX interface over S3 storage, they require developers to install and configure additional software and package it in containers or VMs.
+
+Unlike third-party solutions, Fusion is optimized for Nextflow and handles these tasks automatically, delivering fast, seamless access to cloud object storage.

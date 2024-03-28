@@ -1,0 +1,58 @@
+title: "21.12"
+
+# Release notes for version 21.12
+
+The Seqera team is happy to announce the `21.12.x` release for Tower.
+
+## New features and usability improvements
+
+### Shared workspaces
+
+Shared workspaces are a solution to synchronization and resource-sharing within an organization in Tower. With a shared workspace, it is now possible to create and set up pipelines in a single place. This will make the pipeline accessible to all members of an organization.
+
+[Learn more about the Shared workspaces feature.](https://help.tower.nf/21.12/orgs-and-teams/shared-workspaces/)
+
+### Pipeline reports [preview]
+
+First approach enabling Tower users to visualize and browse pipeline execution reports interactively inside Tower.
+
+Users can specify which files are pipeline reports using a new configuration field when defining a pipeline, making them available after the pipeline finished running.
+The supported file types that are rendered are: .pdf, .html and .txt. All reports, including those not in the rendered file formats, can be downloaded.
+
+:::caution
+This feature is undocumented because we plan to release soon a much improved version with extended rendering and robustness.
+:::
+
+### Add Dataset public APIs (#2240) [942f3f4e3]
+
+Allow the definition of data inputs as samplesheets (CSVs/TSVs etc) which can be chosen by a launcher when launching a pipeline. The goal of this feature is to allow users to manage collections of data that can be used for pipeline executions submitted by Tower.
+
+A dataset is represented in a tabular manner, i.e. in rows and columns. Each row represents a generic record made up of several fields. Each field may contain a file path or other metadata of any type. The first row represents the fields/columns names.
+A dataset is provided by the user as a CSV file (comma-separated values) or TSV file (tab-separated values).
+
+[Learn more about Tower Datasets.](https://www.seqera.io/blog/introducing-tower-datasets/)
+
+### Tower agent reverse connection
+
+Users with HPC clusters (e.g. SLURM) showed interest in being able to run jobs that track the specific user identity, rather than a general system-level user defined in the compute environment.
+
+A solution for this issue could be an agent-based solution, as it will enable further evolution later on.
+
+With the agent: The user will be able to run jobs on their HPC cluster via Tower, enabling them to track which runs have been executed by individual users using their internal management system (no need for extra steps to measure the quota used by each user).
+
+This process will be automatically taken care of by tower-client interaction, e.g. with an agent, eliminating the need of a multi factor authentication step.
+
+## Minor changes & improvements
+
+- Prevent the use of master as default branch (#2499) [791f45a11] : Due to the changes introduced by [Github regarding the name of the default branch](https://github.com/github/renaming/), Tower now acts intelligently about the name of the default branch.
+- Allow S3 as a work directory for EFS and FSx [6199d8fd6]
+- Starting from this release, it is now possible to specify an EFS or FSx mount as a work-directory on the AWS Batch platform.
+- Bump nf-launcher: j17-21.10.6
+
+## Changelog
+
+For a detailed list of all changes, please consult the Nextflow Tower [Changelog](./changelog.mdx).
+
+## Questions/Feedback
+
+Contact us at [support@seqera.io](mailto:support@seqera.io).

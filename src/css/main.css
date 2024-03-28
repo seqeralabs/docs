@@ -1,0 +1,75 @@
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .container-xl {
+    @apply mx-auto;
+    max-width: 1440px;
+  }
+
+  .container-lg {
+    @apply mx-auto;
+    max-width: 1248px;
+  }
+
+  .container-md {
+    @apply mx-auto;
+    max-width: 1008px;
+  }
+
+  .container-sm {
+    @apply mx-auto;
+    max-width: 900px;
+  }
+
+  .typo-display,
+  .typo-display span {
+    @apply font-display font-semibold text-2xl md:text-4xl lg:text-6xl antialiased;
+  }
+
+  .typo-hero {
+    @apply font-display font-semibold text-5xl lg:text-6xl antialiased;
+  }
+
+  .typo-h1 {
+    @apply font-display font-semibold text-2xl md:text-4xl lg:text-5xl antialiased;
+  }
+
+  .typo-h2 {
+    @apply font-display font-semibold text-2xl md:text-3xl lg:text-4xl antialiased;
+  }
+
+  .typo-h3 {
+    @apply font-display font-semibold text-2xl md:text-3xl antialiased;
+  }
+
+  .typo-h4 {
+    @apply font-display font-semibold text-xl md:text-2xl antialiased;
+  }
+
+  .typo-h5 {
+    @apply font-display text-base font-semibold antialiased tracking-wide;
+  }
+
+  .typo-h6 {
+    @apply font-display text-lg font-semibold antialiased;
+  }
+
+  .typo-blockquote {
+    @apply font-body text-xl antialiased;
+  }
+
+  .typo-intro {
+    @apply font-body text-base font-semibold antialiased;
+  }
+
+  .typo-body {
+    @apply text-base font-light antialiased;
+    font-weight: 400;
+  }
+
+  .typo-small {
+    @apply font-body text-sm antialiased;
+    font-weight: 400;
+  }
+}

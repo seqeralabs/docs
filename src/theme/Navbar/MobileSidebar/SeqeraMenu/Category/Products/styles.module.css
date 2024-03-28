@@ -1,0 +1,21 @@
+.products {
+  & li {
+    & a {
+      display: flex !important;
+      align-items: center;
+      & svg {
+        width: 16px;
+        height: 16px;
+        margin-right: 12px;
+      }
+      & span {
+        line-height: 1;
+      }
+    }
+  }
+}
+html[data-theme="dark"] {
+  & .products li a svg path[fill="#160F26"] {
+    fill: white !important;
+  }
+}

@@ -1,0 +1,14 @@
+.hero {
+  background: #eee;
+  border-bottom: 1px solid #ccc;
+  padding: 40px;
+}
+.page {
+  background-image: url("./images/home-1a.jpg");
+  background-size: cover;
+}
+html[data-theme="light"] {
+  & .page {
+    background-image: url("./images/home-1a-light.jpg");
+  }
+}

@@ -1,0 +1,11 @@
+---
+- 
+  Environment variable:            '`TOWER_ENABLE_AWS_SSM`'
+  Description: > 
+    Enable Seqera configuration value retrieval from [AWS Parameter Store](./aws_parameter_store.mdx). 
+  Value:                'Default: `false`'
+- 
+  Environment variable:            '`TOWER_ENABLE_AWS_SES`'
+  Description: > 
+    Use AWS Simple Email Service (SES) to send Seqera emails instead of SMTP.
+  Value:                'Default: `false`'

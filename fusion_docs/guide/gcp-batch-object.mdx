@@ -1,0 +1,35 @@
+# Fusion with Google cloud Batch and Google object storage
+
+Fusion allows the use of Google Storage as a virtual distributed file system with [Google Cloud Batch](https://cloud.google.com/batch).
+
+The minimal Nextflow configuration looks like the following:
+
+```groovy
+fusion.enabled = true
+wave.enabled = true
+process.scratch = false
+process.executor = 'google-batch'
+google.location  = '<YOUR GOOGLE LOCATION>'
+```
+
+In the above snippet replace `YOUR GOOGLE LOCATION` with the Google region of your choice e.g. `europe-west2`,
+and save it to a file named `nextflow.config` into the pipeline launching directory.
+
+Then launch the pipeline execution with the usual run command:
+
+```
+nextflow run <YOUR PIPELINE SCRIPT> -w gs://<YOUR-BUCKET>/work
+```
+
+Make sure to specify a Google Storage bucket to which you have read-write access as work directory.
+
+Google credentials should be provided via the `GOOGLE_APPLICATION_CREDENTIALS` environment variable
+or by using the `gcloud` auth application-default login command. You can find more details at in the
+[Nextflow documentation](https://www.nextflow.io/docs/latest/google.html#credentials).
+
+:::note
+
+    When Fusion is enabled, by default, only machine types that allow the mount of local SSD disks will be used.
+    If you specify your own machine type or machine series make sure they allow the use of local SSD disks, otherwise
+    the job scheduling will fail.
+:::

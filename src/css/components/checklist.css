@@ -1,0 +1,20 @@
+ul.checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  & li {
+    position: relative;
+    padding-left: 40px;
+    margin-top: 10px;
+    &:before {
+      content: "✓";
+      display: block;
+      position: absolute;
+      top: calc(50% - 15px);
+      left: 0;
+      line-height: 30px;
+      font-size: 30px;
+      color: var(--color-blue);
+    }
+  }
+}

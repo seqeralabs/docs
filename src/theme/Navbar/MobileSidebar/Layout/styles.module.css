@@ -1,0 +1,18 @@
+.button {
+  padding: 0.6rem 14px;
+}
+.panels {
+  & > div {
+    width: 100%;
+    transition: all 0.5s;
+  }
+  &.panel1Active > div {
+    transform: translateX(0%);
+  }
+  &.panel2Active > div {
+    transform: translateX(-100%);
+  }
+  &.panel3Active > div {
+    transform: translateX(-200%);
+  }
+}

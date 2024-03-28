@@ -1,0 +1,9 @@
+.header {
+  padding: 32px 0;
+  transition: all 0.2s;
+  -webkit-font-smoothing: antialiased;
+  & * {
+    line-height: 1;
+    font-family: "Inter", sans-serif;
+  }
+}

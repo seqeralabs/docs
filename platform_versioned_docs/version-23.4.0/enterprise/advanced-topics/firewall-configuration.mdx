@@ -1,0 +1,32 @@
+---
+title: "Firewall configuration"
+description: Configure your firewall to allow Seqera Cloud access
+date: "12 Apr 2023"
+tags: [firewall, configuration]
+---
+
+Seqera Platform Cloud ([tower.nf](https://tower.nf)) may need to connect to resources within your network, e.g., your storage server. To do so, your firewall must be configured to allow certain IPs to reach your resources.
+
+A dynamic list of IPs is kept up-to-date at https://meta.seqera.io/v1/.
+
+This endpoint returns a JSON object that can be parsed to dynamically adapt your firewall, e.g., in Python with the `requests` package:
+
+```python
+$ python3
+>>> import requests
+>>> requests.get("https://meta.seqera.io/v1/").json()
+{'tower.nf': ['18.171.4.252/32', '18.135.7.45/32', '18.169.21.18/32']}
+```
+### DNS allowlist
+
+In order for you to access resources such as Fusion tarballs, `nf-xpack` files, Wave cloud containers and other services, you'll need to add `*.seqera.io.cdn.cloudflare.net` to the allowlist in your network firewall. If DNS wildcards aren't supported by your firewall, you can use the following:
+
+- `fusionfs.seqera.io.cdn.cloudflare.net`
+- `nf-xpack.seqera.io.cdn.cloudflare.net`
+- `wave-cache-prod-cloudflare.seqera.io.cdn.cloudflare.net`
+
+If you chose to filter by specific DNS records, please note that new services may be added in the future.
+
+:::note 
+If your allowlist is based on IP addresses, allow all of the following IP addresses: https://www.cloudflare.com/ips/.
+:::

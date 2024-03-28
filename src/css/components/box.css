@@ -1,0 +1,21 @@
+.box {
+  border: 1px solid transparent;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media (min-width: 768px) {
+  .box {
+    border-radius: 16px;
+  }
+}
+
+html[data-theme="light"] {
+  & .box {
+    background: white;
+    color: var(--color-brand);
+  }
+}

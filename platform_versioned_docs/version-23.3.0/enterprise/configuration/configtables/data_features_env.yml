@@ -1,0 +1,31 @@
+---
+- 
+  Environment variable:            '`TOWER_DATA_EXPLORER_ENABLED`'
+  Description: > 
+    Enable [Data Explorer](../../data/data-explorer.mdx) in all workspaces.  
+  Value:                'Default: `false`'
+- 
+  Environment variable:            '`TOWER_DATA_EXPLORER_CLOUD_DISABLED_WORKSPACES`'
+  Description: > 
+    Disable Data Explorer automatic cloud bucket retrieval per workspace. 
+  Value:                'Example: `<workspace-id1>,<workspace-id2>`'
+-
+  Environment variable:            '`TOWER_DATA_EXPLORER_CREDENTIALS_TTL`'
+  Description: > 
+    Data Explorer interval to fetch credentials from cloud providers for new buckets.  
+  Value:                'Default: `20m`'
+-
+  Environment variable:            '`TOWER_DATA_EXPLORER_LINK_STORE_TTL`'
+  Description: > 
+    Data Explorer cloud bucket cache duration.  
+  Value:                'Default: `30m`'
+-
+  Environment variable:            '`TOWER_DATA_EXPLORER_MAX_RETRIES`'
+  Description: > 
+    The number of retries Data Explorer will attempt to fetch cloud buckets in the event of temporary errors.  
+  Value:                'Default: `3`'
+-
+  Environment variable:            '`TOWER_CONTENT_MAX_FILE_SIZE`'
+  Description: > 
+    Data Explorer download file size limit. **Increasing this value may degrade performance.** 
+  Value:                'Default: `25MB`'

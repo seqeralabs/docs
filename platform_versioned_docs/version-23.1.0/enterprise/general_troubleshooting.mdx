@@ -1,0 +1,318 @@
+---
+title: "Troubleshooting"
+description: General troubleshooting
+date: "21 Apr 2023"
+tags: [troubleshooting]
+---
+
+## Deployment
+
+### Deployments based on https://git.seqera.io/ repositories
+
+The `https://git.seqera.io` service has been decommissioned. You can access the configuration file templates needed for your deployment from these pages:
+
+[Docker compose](https://install.tower.nf/latest/docker-compose/)
+
+[Kubernetes](https://install.tower.nf/latest/kubernetes/#tower-cron-service)
+
+For further deployment and troubleshooting assistance, contact [Seqera Labs support](https://support.seqera.io)
+
+## Configuration
+
+### "o.h.e.jdbc.spi.SqlExceptionHelper - Incorrect string value" in cron log
+
+```bash
+
+ [scheduled-executor-thread-2] - WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 1366, SQLState: HY000
+ [scheduled-executor-thread-2] - ERROR o.h.e.jdbc.spi.SqlExceptionHelper - (conn=34) Incorrect string value: '\xF0\x9F\x94\x8D |...' for column 'error_report' at row 1
+ [scheduled-executor-thread-2] - ERROR i.s.t.service.job.JobSchedulerImpl - Oops .. unable to save status of job id=18165; name=nf-workflow-26uD5XXXXXXXX; opId=nf-workflow-26uD5XXXXXXXX; status=UNKNOWN
+
+```
+
+Runs will fail if your Nextflow script or Nextflow config contain illegal characters (such as emojis or other non-UTF8 characters). Validate your script and config files for any illegal characters before atttempting to run again.
+
+## Networking
+
+### Runs fail with `503` errors
+
+Error 503 suggests that a service is unreachable. In the Tower context, this means that one or more of the services being contacted as part of workflow execution are unavailable. Troubleshoot this error by ensuring all required services are running and available. Establishing connection to your database is often the culprit for this error.
+
+### "SocketTimeoutException: connect timed out" error
+
+This problem is often observed while trying to launch workflows from a self-hosted Git server, for e.g. Bitbucket, Gitlab etc.
+
+This error signals that the `backend/cron` container cannot connect to the Git remote host. This can be caused by a missing proxy configuration.
+
+<details>
+  <summary>Expand error log</summary>
+
+```bash
+
+ERROR i.s.t.c.GlobalErrorController - Oops... Unable to process request - Error ID: 6h3HBUkaPe03vgzoDPc5HO
+java.net.SocketTimeoutException: connect timed out
+        at java.base/java.net.PlainSocketImpl.socketConnect(Native Method)
+        at java.base/java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:399)
+        at java.base/java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:242)
+        at java.base/java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:224)
+        at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+        at java.base/java.net.Socket.connect(Socket.java:609)
+        at java.base/sun.security.ssl.SSLSocketImpl.connect(SSLSocketImpl.java:289)
+        at java.base/sun.net.NetworkClient.doConnect(NetworkClient.java:177)
+        at java.base/sun.net.www.http.HttpClient.openServer(HttpClient.java:474)
+        at java.base/sun.net.www.http.HttpClient.openServer(HttpClient.java:569)
+        at java.base/sun.net.www.protocol.https.HttpsClient.<init>(HttpsClient.java:265)
+        at java.base/sun.net.www.protocol.https.HttpsClient.New(HttpsClient.java:372)
+        at java.base/sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.getNewHttpClient(AbstractDelegateHttpsURLConnection.java:203)
+        at java.base/sun.net.www.protocol.http.HttpURLConnection.plainConnect0(HttpURLConnection.java:1187)
+        at java.base/sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:1081)
+        at java.base/sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:189)
+        at java.base/sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1592)
+        at java.base/sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1520)
+        at java.base/java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:527)
+        at java.base/sun.net.www.protocol.https.HttpsURLConnectionImpl.getResponseCode(HttpsURLConnectionImpl.java:334)
+        at nextflow.scm.RepositoryProvider.checkResponse(RepositoryProvider.groovy:167)
+        at nextflow.scm.RepositoryProvider.invoke(RepositoryProvider.groovy:136)
+        at nextflow.scm.RepositoryProvider.memoizedMethodPriv$invokeAndParseResponseString(RepositoryProvider.groovy:218)
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+        at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:107)
+        at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:323)
+        at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1259)
+        at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1026)
+        at org.codehaus.groovy.runtime.InvokerHelper.invokePogoMethod(InvokerHelper.java:1029)
+        at org.codehaus.groovy.runtime.InvokerHelper.invokeMethod(InvokerHelper.java:1012)
+        at org.codehaus.groovy.runtime.InvokerHelper.invokeMethodSafe(InvokerHelper.java:101)
+        at nextflow.scm.RepositoryProvider$_closure2.doCall(RepositoryProvider.groovy)
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+        at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:107)
+        at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:323)
+        at org.codehaus.groovy.runtime.metaclass.ClosureMetaClass.invokeMethod(ClosureMetaClass.java:263)
+        at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1026)
+        at groovy.lang.Closure.call(Closure.java:412)
+        at org.codehaus.groovy.runtime.memoize.Memoize$MemoizeFunction.lambda$call$0(Memoize.java:137)
+        at org.codehaus.groovy.runtime.memoize.ConcurrentCommonCache.getAndPut(ConcurrentCommonCache.java:137)
+        at org.codehaus.groovy.runtime.memoize.ConcurrentCommonCache.getAndPut(ConcurrentCommonCache.java:113)
+        at org.codehaus.groovy.runtime.memoize.Memoize$MemoizeFunction.call(Memoize.java:136)
+        at groovy.lang.Closure.call(Closure.java:428)
+        at nextflow.scm.RepositoryProvider.invokeAndParseResponse(RepositoryProvider.groovy)
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+        at org.codehaus.groovy.runtime.callsite.PlainObjectMetaMethodSite.doInvoke(PlainObjectMetaMethodSite.java:43)
+        at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSiteNoUnwrapNoCoerce.invoke(PogoMetaMethodSite.java:193)
+        at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:61)
+        at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:185)
+        at nextflow.scm.BitbucketRepositoryProvider.getCloneUrl(BitbucketRepositoryProvider.groovy:114)
+        at nextflow.scm.AssetManager.memoizedMethodPriv$getGitRepositoryUrl(AssetManager.groovy:394)
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+        at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:107)
+        at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:323)
+        at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1259)
+        at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1026)
+        at org.codehaus.groovy.runtime.InvokerHelper.invokePogoMethod(InvokerHelper.java:1029)
+        at org.codehaus.groovy.runtime.InvokerHelper.invokeMethod(InvokerHelper.java:1012)
+        at org.codehaus.groovy.runtime.InvokerHelper.invokeMethodSafe(InvokerHelper.java:101)
+        at nextflow.scm.AssetManager$_closure1.doCall(AssetManager.groovy)
+        at nextflow.scm.AssetManager$_closure1.doCall(AssetManager.groovy)
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+        at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:107)
+        at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:323)
+        at org.codehaus.groovy.runtime.metaclass.ClosureMetaClass.invokeMethod(ClosureMetaClass.java:263)
+        at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1026)
+        at groovy.lang.Closure.call(Closure.java:412)
+        at org.codehaus.groovy.runtime.memoize.Memoize$MemoizeFunction.lambda$call$0(Memoize.java:137)
+        at org.codehaus.groovy.runtime.memoize.ConcurrentCommonCache.getAndPut(ConcurrentCommonCache.java:137)
+        at org.codehaus.groovy.runtime.memoize.ConcurrentCommonCache.getAndPut(ConcurrentCommonCache.java:113)
+        at org.codehaus.groovy.runtime.memoize.Memoize$MemoizeFunction.call(Memoize.java:136)
+        at groovy.lang.Closure.call(Closure.java:406)
+        at nextflow.scm.AssetManager.getGitRepositoryUrl(AssetManager.groovy)
+
+```
+
+</details>
+
+**SOLUTION**
+
+Update the HTTP proxy configuration in the `backend` and `cron` environment. eg
+
+```bash
+
+export http_proxy="http://PROXY_SERVER:PORT"
+export https_proxy="https://PROXY_SERVER:PORT"
+
+```
+
+## Email server
+
+### How to configure SMTP gateway, which does not require authentication?
+
+**SOLUTION**
+
+Since the SMTP gateway allows sending email without the need to specify a user name and passwords, the `user` and `password` should be set to `null`.
+
+Please replace the `mail` section in your `tower.yml` with the following.
+
+```yaml
+mail:
+  from: "${TOWER_CONTACT_EMAIL}"
+  smtp:
+    host: ${TOWER_SMTP_HOST}
+    port: ${TOWER_SMTP_PORT}
+    user: null
+    password: null
+    auth: false
+    starttls:
+      enable: false
+      required: false
+```
+
+### Unable to receive emails for `TOWER_CONTACT_EMAIL`
+
+This error occurs due to the organizational security policy on for emails.
+
+In case you've setup the SMTP server correctly and the emails are sent correctly via Tower, but they are rejected by your organizational email ID
+
+**SOLUTION**
+
+You need to setup/configure the [`spf`, `dkim` and `dmarc`](https://www.namecheap.com/support/knowledgebase/article.aspx/317/2237/how-do-i-add-txtspfdkimdmarc-records-for-my-domain/) for your domain.
+
+For further assistance, please contact your IT staff.
+
+## Database
+
+### Sign in fails with `java.sql.SQLException` in the backend log
+
+While trying to log in, after the authentication, the `Oops... Unable to process request ` error message is observed.
+
+<details>
+  <summary>Expand error log</summary>
+
+```
+io.micronaut.transaction.exceptions.CannotCreateTransactionException: Could not open Hibernate Session for transaction
+…
+Caused by: org.hibernate.exception.GenericJDBCException: Unable to acquire JDBC Connection
+…
+java.sql.SQLException: The server time zone value ‘CEST’ is unrecognized or represents more than one time zone. You must configure either the server or JDBC driver (via the ‘serverTimezone’ configuration property) to use a more specific time zone value if you want to utilize time zone support.
+…
+
+```
+
+</details>
+
+**SOLUTION**
+
+Generally, this means that the webapp is not able to connect to the database and `JDBC` client needs to specify the time zone value via `serverTimezone`.
+
+To resolve this issue for `Europe/Amsterdam` time zone, please update the value of `TOWER_DB_URL` as shown below
+
+```bash
+export TOWER_DB_URL": "jdbc:mysql://<YOUR_DATABASE_IP>:3306/tower?serverTimezone=Europe/Amsterdam"
+```
+
+### `java.io.IOException: Unsupported protocol version 252` is observed while completed or terminated runs still display as in progress on Tower
+
+When a service is restarted or otherwise interrupted, this may result in invalid entries which corrupt the cache of your installation's Redis instance. If this error and behavior is observed, the key containing the invalid entry must be manually deleted in order to restore corrrect Tower behavior. Run the following commands (replace `container-name` with your container name):
+
+```bash
+
+## To check if the key exists
+docker exec -ti [container-name] redis-cli keys \* | grep workflow
+
+## This will show the hash contents of the key
+docker exec -ti [container-name] redis-cli hgetall "workflow/modified"
+
+## To delete the key
+docker exec -ti [container-name] redis-cli del "workflow/modified"
+
+```
+
+## Authentication
+
+### Sign in fails with a 500 error code frontend logs while using OpenID connect provider
+
+<details>
+  <summary>Expand error log</summary>
+
+```bash
+
+*8317 upstream sent too big header while reading response header from upstream, client: 10.170.157.186, server: localhost, request: "GET /oauth/callback
+
+```
+
+</details>
+
+**SOLUTION**
+
+This happens when using a OpenID connect, the callback request could send too big HTTP headers causing the Tower web server to report that error message.
+
+The solution consists of rebuilding the frontend container adding the following proxy directives in the `/etc/nginx/nginx.conf` file.
+
+```
+        proxy_buffer_size          128k;
+        proxy_buffers              4 256k;
+        proxy_busy_buffers_size    256k;
+```
+
+### Using `TOWER_JWT_SECRET` to generate user login tokens, user sign in fails, with `java.lang.IllegalArgumentException: JWT token generator secret should be 35 characters or longer` in the Tower backend log.
+
+The secret used to generate the login JWT token that is appended to user sign-in email URLs needs to be at least 35 characters long. See [here](./configuration/authentication.mdx).
+
+### On-prem HPC compute environment: `Exhausted available authentication method` error in Tower
+
+This error points to an issue with the SSH credentials used to authenticate Tower to your HPC cluster (LSF, Slurm, etc.), such as an invalid SSH key or inappropriate permissions on the user directory. Check the following:
+
+1. Test the SSH key to ensure it is still valid. If not, create new SSH keys and [re-create the compute environment](https://help.tower.nf/latest/compute-envs/lsf/) in Tower using the updated credentials.
+
+2. Check the backend logs for a stack trace similar to the following:
+
+   ```
+   [io-executor-thread-2] 10.42.0.1 ERROR i.s.t.c.GlobalErrorController - Oops... Unable to process request - Error ID: 5d7rDpS8pByF8YqfUVPvB4
+   net.schmizz.sshj.userauth.UserAuthException: Exhausted available authentication methods
+       at net.schmizz.sshj.SSHClient.auth(SSHClient.java:227)
+       at net.schmizz.sshj.SSHClient.authPublickey(SSHClient.java:342)
+       at net.schmizz.sshj.SSHClient.authPublickey(SSHClient.java:360)
+       at io.seqera.tower.service.platform.ssh.SSHClientFactory.createClient(SSHClientFactory.groovy:110)
+   ..
+   ..
+   Caused by: net.schmizz.sshj.userauth.UserAuthException: Problem getting public key from PKCS5KeyFile{resource=[PrivateKeyStringResource]}
+       at net.schmizz.sshj.userauth.method.KeyedAuthMethod.putPubKey(KeyedAuthMethod.java:47)
+       at net.schmizz.sshj.userauth.method.AuthPublickey.buildReq(AuthPublickey.java:62)
+       at net.schmizz.sshj.userauth.method.AuthPublickey.buildReq(AuthPublickey.java:81)
+       at net.schmizz.sshj.userauth.method.AbstractAuthMethod.request(AbstractAuthMethod.java:68)
+       at net.schmizz.sshj.userauth.UserAuthImpl.authenticate(UserAuthImpl.java:73)
+       at net.schmizz.sshj.SSHClient.auth(SSHClient.java:221)
+       ... 91 common frames omitted
+   Caused by: net.schmizz.sshj.userauth.keyprovider.PKCS5KeyFile$FormatException: Length mismatch: 1152 != 1191
+       at net.schmizz.sshj.userauth.keyprovider.PKCS5KeyFile$ASN1Data.<init>(PKCS5KeyFile.java:248)
+   ```
+
+3. Enable SSH library log tracing with the following environbment variable in your `tower.env` file for verbose debug logging of the SSH connection:
+
+```env
+TOWER_SSH_LOGLEVEL=TRACE
+```
+
+4. Check the permissions of the `/home` directory of the user tied to the cluster's SSH credentials. `/home/[user]` should be `chmod 755`, whereas `/home/[user]/ssh` requires `chmod 700`.
+
+```bash
+$ pwd ; ls -ld .
+/home/user
+drwxr-xr-x 41 user user 20480
+
+$ pwd; ls -ld .
+/home/user/.ssh
+drwx------ 2 user user 4096
+
+```

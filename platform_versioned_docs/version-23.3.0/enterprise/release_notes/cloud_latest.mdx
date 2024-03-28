@@ -1,0 +1,59 @@
+# Release notes for Seqera Cloud version 23.3.x
+
+We're excited to announce that Tower is now Seqera Platform. This name change underscores our vision to evolve Seqera as a single platform for the scientific data analysis lifecycle. 
+
+## The Seqera platform
+
+While the underlying platform remains the same, over time you can expect Seqera to become even more scalable, flexible and capable. In the coming weeks and months, references to Tower will be replaced across our product documentation and communications. 
+
+We're pleased to announce the immediate availability of Seqera 23.3, an important first step in delivering on this revamped product vision and roadmap. Seqera 23.3 includes significant new functionality, including a new Data Explorer, enhanced support for Google Cloud Batch and Google Life Sciences, and much more.
+
+## New features
+
+### Data Explorer
+
+Data Explorer is a powerful new feature of the Seqera platform that lets you easily visualize, search for, and manage data across different cloud providers. This enables you to easily link data to pipelines, troubleshoot runs, and examine outputs - all without switching context.
+
+Data Explorer addresses the scientific community's need to streamline data management for pipelines, from arrival in cloud storage, to diving into the different outputs of a pipeline, and passing data to downstream analysis.  We started simplifying this process with datasets, a convenient metadata layer to organize versioned, structured data. Data Explorer is the next big step to enable users to manage their data and analyses in one simple workflow.
+
+Data Explorer simplifies data management across multiple cloud object stores, including Amazon S3, Azure Blob Storage, and Google Cloud Storage. With Data Explorer, organizations can:
+
+- Browse, search for, preview, or upload data to cloud object stores prior to pipeline submission.
+- Link data to pipelines with a single click.
+- Easily view pipeline outputs or dive into task and working directory data.
+
+Data Explorer is accessible via the new Data Explorer tab in the latest Seqera release. You can also access the new interface to upload files or select datasets or destination storage buckets for pipeline runs.
+
+### Other feature improvements
+
+- Use Data Explorer to navigate workflow and task work directories
+- Upload files to buckets
+
+## Improvements
+
+### Enhanced Google Cloud support
+
+Seqera uses secrets to store the keys and tokens used by workflow tasks to interact with external systems, e.g., a password to connect to an external database or an API token. Seqera relies on third-party secret manager services to maintain security between the workflow execution context and the secret container. This means that no secure data is transmitted from Seqera to the compute environment.
+
+In Seqera 23.3, you can now take advantage of secrets in Google Cloud Batch or Google Life Sciences compute environments by using Google Secrets Manager as the underlying user secrets store.
+
+### Pipeline resource optimization
+
+Pipeline resource optimization allows you to minimize the resources used in your pipeline runs based on the resource use of previous runs.
+
+When a run completes successfully, Seqera automatically creates an _optimized profile_ for it. This profile consists of Nextflow configuration settings for each process and each of the following resource directives (where applicable): `cpus`, `memory`, and `time`. The optimized setting for a given process and resource directive is based on the maximum use of that resource across all tasks in that process.
+
+### Other improvements
+
+- Implement live events endpoint with WebSockets
+- Permission checker for pipeline launch with simple labels
+- Add support for nf-cloudcache
+- Add Fusion support for Azure Batch
+- Add Fusion support for EKS and GKE platform providers
+- Add support for service account, VPC, and subnet for Google Cloud Batch
+    
+## Changelog
+
+For a detailed list of all changes, see the Seqera [changelog](./changelog.mdx).
+
+
