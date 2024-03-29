@@ -5,9 +5,9 @@ date: "12 Feb 2024"
 tags: [compute, resource, optimization, configuration]
 ---
 
-[Pipeline resource optimization](../../pipeline-optimization/overview.mdx) takes the resource usage information from previous workflow runs to optimize subsequent runs. 
+[Pipeline resource optimization](../../pipeline-optimization/overview.mdx) takes the resource usage information from previous workflow runs to optimize subsequent runs.
 
-The pipeline resource optimization service requires a separate database schema to store its internal data, but also requires access to the Seqera schema. The Seqera and optimization service schemas can coexist on the same database instance. 
+The pipeline resource optimization service requires a separate database schema to store its internal data, but also requires access to the Seqera schema. The Seqera and optimization service schemas can coexist on the same database instance.
 
 ## Docker Compose deployment
 
@@ -17,26 +17,25 @@ Docker Compose makes use of a separate container to set up the pipeline resource
 
 To use the pipeline resource optimization service in a new Docker Compose installation of Seqera Enterprise, use the following steps:
 
-1. To run the service from a custom URL, declare the URL with the `GROUNDSWELL_SERVER_URL` environment variable in the `tower.env` file. A non-zero value for this environment variable activates the optimization service automatically, so the `TOWER_ENABLE_GROUNDSWELL` variable does not need to be set when you declare a custom URL. 
+1. To run the service from a custom URL, declare the URL with the `GROUNDSWELL_SERVER_URL` environment variable in the `tower.env` file. A non-zero value for this environment variable activates the optimization service automatically, so the `TOWER_ENABLE_GROUNDSWELL` variable does not need to be set when you declare a custom URL.
 
-2. Set the `TOWER_ENABLE_GROUNDSWELL` environment variable in the `tower.env` file to `true`. This enables the service at the default service URL of `http://groundswell:8090`. 
+2. Set the `TOWER_ENABLE_GROUNDSWELL` environment variable in the `tower.env` file to `true`. This enables the service at the default service URL of `http://groundswell:8090`.
 
-3. In your [docker-compose.yml](../_templates/docker/docker-compose.yml) file, uncomment the `groundswell` section at the bottom. 
+3. In your [docker-compose.yml](../_templates/docker/docker-compose.yml) file, uncomment the `groundswell` section at the bottom.
 
-    - To create a schema for the optimization service on the same local MySQL container, uncomment the `init.sql` script in the `volumes` section. 
+    - To create a schema for the optimization service on the same local MySQL container, uncomment the `init.sql` script in the `volumes` section.
 
 4. Download the [init.sql](../_templates/docker/init.sql) file. Store this file in the mount path of your `docker-compose.yml` file or update the `source: ./init.sql` line in your `docker-compose.yml` with the file path.
 
 5. When the pipeline resource optimization service is active, pipelines that can be optimized display a lightbulb icon in your Launchpad. Any pipeline with at least one successful run can be optimized.
 
-
 ### Existing installation
 
 To use the pipeline resource optimization service in an existing Docker Compose installation of Seqera Enterprise, use the following steps:
 
-1. To run the service from a custom URL, declare the URL with the `GROUNDSWELL_SERVER_URL` environment variable. A non-zero value for this environment variable activates the optimization service automatically, so the `TOWER_ENABLE_GROUNDSWELL` variable does not need to be set when you declare a custom URL. 
+1. To run the service from a custom URL, declare the URL with the `GROUNDSWELL_SERVER_URL` environment variable. A non-zero value for this environment variable activates the optimization service automatically, so the `TOWER_ENABLE_GROUNDSWELL` variable does not need to be set when you declare a custom URL.
 
-2. Set the `TOWER_ENABLE_GROUNDSWELL` environment variable to `true`. This enables the service at the default service URL `http://groundswell:8090`. 
+2. Set the `TOWER_ENABLE_GROUNDSWELL` environment variable to `true`. This enables the service at the default service URL `http://groundswell:8090`.
 
 3. In your [docker-compose.yml](../_templates/docker/docker-compose.yml) file, uncomment the `groundswell` section at the bottom. If you use a `docker-compose.yml` file older than version 23.3, download a newer version of the file to extract the `groundswell` section.
 

@@ -13,12 +13,12 @@ Leveraging the Fusion file system, you can now run the Nextflow head job of your
 - Update Enable GPU label, sublabel and add warning when activated
 - Set workflow status to unknown when job status is also in an unknown state
 - Add support for AWS SES (Simple Email Service) as an alternative to SMTP
-- Add ability to edit the names of Tower entities: 
-    - Organizations
-    - Workspaces
-    - Compute environments
-    - Pipelines 
-    - Actions
+- Add ability to edit the names of Tower entities:
+  - Organizations
+  - Workspaces
+  - Compute environments
+  - Pipelines
+  - Actions
 - Update runs list page with new status badges and improved layout
 - Add support for mobile screen layout in runs list page
 - Allow advanced settings in the AWS ECS config field
@@ -41,7 +41,7 @@ Leveraging the Fusion file system, you can now run the Nextflow head job of your
 
 ## Breaking changes and warnings
 
-Breaking changes and instructions listed here apply when updating from Tower version 23.1. If you are updating from an earlier version, see the release notes of previous versions for a complete picture of changes that may affect you. 
+Breaking changes and instructions listed here apply when updating from Tower version 23.1. If you are updating from an earlier version, see the release notes of previous versions for a complete picture of changes that may affect you.
 
 ### Updated AWS permissions policies
 
@@ -49,11 +49,11 @@ Several new Tower features over the last few releases require updated AWS IAM pe
 
 ### Wave requires container registry credentials
 
-The Wave containers service uses container registry [credentials](../../credentials/overview.mdx) in Tower to authenticate to your (public or private) container registries. This is separate from your existing cloud provider credentials stored in Tower. 
+The Wave containers service uses container registry [credentials](../../credentials/overview.mdx) in Tower to authenticate to your (public or private) container registries. This is separate from your existing cloud provider credentials stored in Tower.
 
-This means that, for example, AWS ECR (Elastic Container Registry) authentication requires an [ECR container registry credential](../../credentials/aws_registry_credentials.mdx) if you are running a compute environment with Wave enabled, even if your existing AWS credential in Tower has IAM access to your ECR. 
+This means that, for example, AWS ECR (Elastic Container Registry) authentication requires an [ECR container registry credential](../../credentials/aws_registry_credentials.mdx) if you are running a compute environment with Wave enabled, even if your existing AWS credential in Tower has IAM access to your ECR.
 
-See the relevant [container registry credentials](../../credentials/overview.mdx) page for provider-specific instructions. 
+See the relevant [container registry credentials](../../credentials/overview.mdx) page for provider-specific instructions.
 
 ## Upgrade steps
 
