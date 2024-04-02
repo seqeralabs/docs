@@ -66,14 +66,15 @@ For more information on relaunch and resume, see [Cache and resume](./cache-resu
 1. Select any **Config profiles** you wish to use. See [Nextflow Config profiles](https://www.nextflow.io/docs/latest/config.html#config-profiles) for more details.
 1. Enter any **Pipeline parameters** in YAML or JSON format:
 
-```
-reads: 's3://nf-bucket/exome-data/ERR013140_{1,2}.fastq.bz2'
-paired_end: true
-```
+    ```
+    reads: 's3://nf-bucket/exome-data/ERR013140_{1,2}.fastq.bz2'
+    paired_end: true
+    ```
 
     :::note
     In YAML, quotes should be used for paths but not for numbers or Boolean values.
     :::
+
 
 1. Select or create [resource labels](../resource-labels/overview.mdx) to apply to the resources consumed by the run, if needed.
 
