@@ -178,6 +178,7 @@
           "collapsed": true,
           "items": [
             "enterprise/advanced-topics/db-docker-to-RDS",
+            "enterprise/advanced-topics/use-iam-role",
             "enterprise/advanced-topics/custom-launch-container",
             "enterprise/advanced-topics/firewall-configuration"
           ]

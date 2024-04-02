@@ -13,22 +13,130 @@ AWS-based customers can configure Tower to interact with other AWS Services like
 
 ## Configure the Tower IAM policy
 
-!!! tip ""
+:::note
+The provided policies were designed with certain assumptions:
 
-    The provided policies were designed with certain assumptions:
+1. **IAM Policy**: Tower and Nextflow should have whole access to identified S3 Buckets.
+2. **Trust Policy**: The Role should be assumable by EC2, ECS, EKS, and only specifically-named IAM actors.
 
-    1. **IAM Policy**: Tower and Nextflow should have whole access to identified S3 Buckets.
-    2. **Trust Policy**: The Role should be assumable by EC2, ECS, EKS, and only specifically-named IAM actors.
-
-    You may wish to limit S3 access to specific prefixes, and/or Role assumption to more specific Platforms.
+You may wish to limit S3 access to specific prefixes, and/or Role assumption to more specific Platforms.
+:::
 
 Create a custom IAM Policy ([Tower-Role-Policy.json](../_templates/Tower-Role-Policy.json)).
 
 <details>
-  <summary>Click to view custom Tower-Role-Policy.json</summary>
+  <summary>View custom Tower-Role-Policy</summary>
 
-```json file=../_templates/Tower-Role-Policy.json
-
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "TowerForgePermissions",
+            "Effect": "Allow",
+            "Action": [
+                "ssm:GetParameters",
+                "iam:CreateInstanceProfile",
+                "iam:DeleteInstanceProfile",
+                "iam:GetRole",
+                "iam:RemoveRoleFromInstanceProfile",
+                "iam:CreateRole",
+                "iam:DeleteRole",
+                "iam:AttachRolePolicy",
+                "iam:PutRolePolicy",
+                "iam:AddRoleToInstanceProfile",
+                "iam:PassRole",
+                "iam:DetachRolePolicy",
+                "iam:ListAttachedRolePolicies",
+                "iam:DeleteRolePolicy",
+                "iam:ListRolePolicies",
+                "batch:CreateComputeEnvironment",
+                "batch:DescribeComputeEnvironments",
+                "batch:CreateJobQueue",
+                "batch:DescribeJobQueues",
+                "batch:UpdateComputeEnvironment",
+                "batch:DeleteComputeEnvironment",
+                "batch:UpdateJobQueue",
+                "batch:DeleteJobQueue",
+                "fsx:DeleteFileSystem",
+                "fsx:DescribeFileSystems",
+                "fsx:CreateFileSystem",
+                "ec2:DescribeSecurityGroups",
+                "ec2:DescribeAccountAttributes",
+                "ec2:DescribeSubnets",
+                "ec2:DescribeLaunchTemplates",
+                "ec2:DescribeLaunchTemplateVersions",
+                "ec2:CreateLaunchTemplate",
+                "ec2:DeleteLaunchTemplate",
+                "ec2:DescribeKeyPairs",
+                "ec2:DescribeVpcs",
+                "ec2:DescribeInstanceTypeOfferings",
+                "elasticfilesystem:DescribeMountTargets",
+                "elasticfilesystem:CreateMountTarget",
+                "elasticfilesystem:CreateFileSystem",
+                "elasticfilesystem:DescribeFileSystems",
+                "elasticfilesystem:DeleteMountTarget",
+                "elasticfilesystem:DeleteFileSystem",
+                "elasticfilesystem:UpdateFileSystem",
+                "elasticfilesystem:PutLifecycleConfiguration"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "TowerLaunchPermissions",
+            "Effect": "Allow",
+            "Action": [
+                "batch:DescribeJobQueues",
+                "batch:CancelJob",
+                "batch:SubmitJob",
+                "batch:ListJobs",
+                "batch:DescribeComputeEnvironments",
+                "batch:TerminateJob",
+                "batch:DescribeJobs",
+                "batch:RegisterJobDefinition",
+                "batch:DescribeJobDefinitions",
+                "ecs:DescribeTasks",
+                "ec2:DescribeInstances",
+                "ec2:DescribeInstanceTypes",
+                "ec2:DescribeInstanceAttribute",
+                "ecs:DescribeContainerInstances",
+                "ec2:DescribeInstanceStatus",
+                "ec2:DescribeImages",
+                "logs:Describe*",
+                "logs:Get*",
+                "logs:List*",
+                "logs:StartQuery",
+                "logs:StopQuery",
+                "logs:TestMetricFilter",
+                "logs:FilterLogEvents"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "BucketPolicy01",
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListAllMyBuckets",
+                "s3:ListBucket",
+                "s3:GetBucketLocation"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "BucketPolicy02",
+            "Effect": "Allow",
+            "Action": [
+                "s3:*Object*"
+            ],
+            "Resource": [
+                "arn:aws:s3:::YOUR-BUCKET-01/*",
+                "arn:aws:s3:::YOUR-BUCKET-02/*"
+            ]
+        }
+    ]
+}
 ```
 
 </details>
@@ -41,15 +149,48 @@ Create a custom IAM Policy ([Tower-Role-Policy.json](../_templates/Tower-Role-Po
 Review and modify the Role Trust Policy ([Tower-Role-Trust-Policy.json](../_templates/Tower-Role-Trust-Policy.json)).
 
 <details>
-  <summary>Click to view Tower-Role-Trust-Policy</summary>
+  <summary>View Tower-Role-Trust-Policy</summary>
 
-```json file=../_templates/Tower-Role-Trust-Policy.json
-
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Service": "ec2.amazonaws.com"
+        },
+        "Action": "sts:AssumeRole"
+      },
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Service": "ecs-tasks.amazonaws.com"
+        },
+        "Action": "sts:AssumeRole"
+      },
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Service": "eks.amazonaws.com"
+        },
+        "Action": "sts:AssumeRole"
+      },
+      {
+        "Sid": "AllowEc2AssumeRole",
+        "Effect": "Allow",
+        "Principal": {
+          "AWS": "arn:aws:iam::YOUR-AWS-ACCOUNT:USER-OR-ROLE/USER-OR-ROLE-ID"
+        },
+        "Action": "sts:AssumeRole"
+      }
+    ]
+}
 ```
 
 </details>
 
-1. Replace `YOUR-AWS-ACCOUNT` with your own AWS Account Id.
+1. Replace `YOUR-AWS-ACCOUNT` with your own AWS Account ID.
 
 2. Specify the Users and/or Roles able to assume the Tower IAM Role.
 
@@ -106,9 +247,3 @@ With the IAM artefacts complete, update your Tower application configuration:
    ```
 
 4. Log in to Tower and create a new AWS credential. You are now prompted for an AWS `arn` instead of access keys.
-
-   **Before Change**:
-   ![](./_images/tower_credentials_aws_keys.png)
-
-   **After Change**:
-   ![](./_images/tower_credentials_aws_role.png)
