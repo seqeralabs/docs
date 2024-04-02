@@ -157,3 +157,30 @@ The **errored** status is generally related to issues encountered when creating 
 ### My data studio can't be stopped
 
 If you're not able to stop a data studio, it's usually because the job running the studio failed for some reason. In this case, and if you have access to the AWS Console for your organization, you can stop the data studio from the compute environment screen. Contact your organization's AWS administrator if you don't have access to the AWS Console. Also contact your Seqera account manager so we can investigate the issue.
+
+### My data studio performance is poor
+
+If your data studio is very slow to respond it may be because the
+AWS Batch compute environment where it's running is being utilized for
+other jobs such as running Nextflow pipelines. Data studio sessions
+will compete for resources with the Nextflow pipeline head job and
+the platform does not currently have an established pattern of
+precedence - the compute environment is responsible for scheduling
+jobs to the available compute resources available.
+
+If you have access to the AWS Console for your organization, check
+the jobs associated with the AWS Batch compute environment and
+compare with the compute environment **Compute resources** settings.
+
+### What happens if the memory allocation of the data studio is exceeded?
+
+The running container in the AWS Batch compute environment is given
+the memory limits specified by the data studio configuration when
+adding or starting the session. The kernel then handles the memory
+just as if it was running natively on Linux. Linux can overcommit
+memory, meaning there is a possibility of getting out-of-memory
+reaped in a container environment. The kernel does have protections
+in place to prevent this from happening, but it can happen. In that
+case, the process gets hard-killed. This can manifest as a performance
+lag, killed subprocesses, or a killed data studio session (worst
+case scenario).
