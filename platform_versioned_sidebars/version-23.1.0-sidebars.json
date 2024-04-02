@@ -163,7 +163,8 @@
             "enterprise/advanced-topics/tower-container-images",
             "enterprise/advanced-topics/use-iam-role"
           ]
-        }
+        },
+        "enterprise/general_troubleshooting"
       ]
     },
     {
