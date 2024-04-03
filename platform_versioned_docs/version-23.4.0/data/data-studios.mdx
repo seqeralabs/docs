@@ -160,26 +160,10 @@ If you're not able to stop a data studio, it's usually because the job running t
 
 ### My data studio performance is poor
 
-A slow or unresponsive data studio may be due to its
-AWS Batch compute environment being utilized for
-other jobs, such as running Nextflow pipelines. Data studio sessions
-compete for resources with the Nextflow pipeline head job and
-Seqera does not currently have an established pattern of
-precedence. The compute environment is responsible for scheduling
-jobs to the available compute resources.
+A slow or unresponsive data studio may be due to its AWS Batch compute environment being utilized for other jobs, such as running Nextflow pipelines. The compute environment is responsible for scheduling jobs to the available compute resources. Data studio sessions compete for resources with the Nextflow pipeline head job and Seqera does not currently have an established pattern of precedence.
 
-If you have access to the AWS Console for your organization, check
-the jobs associated with the AWS Batch compute environment and
-compare with its **Compute resources** settings.
+If you have access to the AWS Console for your organization, check the jobs associated with the AWS Batch compute environment and compare with its **Compute resources** settings.
 
 ### What happens if the memory allocation of the data studio is exceeded?
 
-The running container in the AWS Batch compute environment inherits
-the memory limits specified by the data studio configuration when
-adding or starting the session. The kernel then handles the memory
-as if it was running natively on Linux. Linux can overcommit
-memory, leading to possible out-of-memory
-errors in a container environment. The kernel has protections
-in place to prevent this from happening, but it can happen. In this
-case, the process is killed. This can manifest as a performance
-lag, killed subprocesses, or at worst, a killed data studio session.
+The running container in the AWS Batch compute environment inherits the memory limits specified by the data studio configuration when adding or starting the session. The kernel then handles the memory as if it was running natively on Linux. Linux can overcommit memory, leading to possible out-of-memory errors in a container environment. The kernel has protections in place to prevent this from happening, but it can happen. In this case, the process is killed. This can manifest as a performance lag, killed subprocesses, or at worst, a killed data studio session.
