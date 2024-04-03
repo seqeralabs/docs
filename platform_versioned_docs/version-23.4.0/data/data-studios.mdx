@@ -178,7 +178,7 @@ The running container in the AWS Batch compute environment inherits
 the memory limits specified by the data studio configuration when
 adding or starting the session. The kernel then handles the memory
 as if it was running natively on Linux. Linux can overcommit
-memory, meaning there is a possibility of getting out-of-memory
+memory, leading to possible out-of-memory
 errors in a container environment. The kernel has protections
 in place to prevent this from happening, but it can happen. In this
 case, the process is killed. This can manifest as a performance
