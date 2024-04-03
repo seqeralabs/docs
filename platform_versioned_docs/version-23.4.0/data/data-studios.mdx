@@ -174,7 +174,7 @@ compare with its **Compute resources** settings.
 
 ### What happens if the memory allocation of the data studio is exceeded?
 
-The running container in the AWS Batch compute environment is given
+The running container in the AWS Batch compute environment inherits
 the memory limits specified by the data studio configuration when
 adding or starting the session. The kernel then handles the memory
 just as if it was running natively on Linux. Linux can overcommit
