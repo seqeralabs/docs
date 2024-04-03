@@ -185,7 +185,8 @@
             "enterprise/advanced-topics/custom-launch-container",
             "enterprise/advanced-topics/firewall-configuration"
           ]
-        }
+        },
+        "enterprise/general_troubleshooting"
       ]
     },
     {
