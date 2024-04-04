@@ -9,11 +9,11 @@ tags: [changelog]
 ### 23.4.0 Enterprise — 8 February 2024
 
 - **Breaking change:** Update `docker-compose` in deployment files to `docker compose`
-- **Breaking change:** SQL migration enhancements for MySQL 5.7 and above (see [Upgrade steps](../release_notes/enterprise_latest.mdx#upgrade-steps)) 
+- **Breaking change:** SQL migration enhancements for MySQL 5.7 and above (see [Upgrade steps](../release_notes/enterprise_latest.mdx#upgrade-steps))
 - Bump nf-jdk:corretto-17.0.10-jemalloc as base image
 - Upgrade Bootstrap to version 5
 - Allow previewing of Nextflow output files in Data Explorer
-- New base image nginx 1.25.3 for tower-frontend unprivileged 
+- New base image nginx 1.25.3 for tower-frontend unprivileged
 - Seqera Platform Enterprise license model change — requires new licenses for existing Enterprise customers
 - Feature: Changed default AzBatch image to ubuntu-server
 - Feature: Set private address for head job configuration in Google Batch
@@ -26,7 +26,7 @@ tags: [changelog]
 - Add support for Service Account, VPC and Subnetwork in Google Batch Advanced Settings
 - Add support for AWS Batch SPOT_PRICE_CAPACITY_OPTIMIZED allocation strategy
 - Add page size selector and pagination for the tasks table in the workflow details page
-- Add support for Fusion to EKS and GKE platform providers 
+- Add support for Fusion to EKS and GKE platform providers
 - Add support for Secrets for Google Batch and Google LS
 - Improve responsiveness for the workflow runs list page
 - Bump nf-launcher:j17-23.04.3
@@ -60,53 +60,54 @@ tags: [changelog]
 - Feature: [Data Explorer M4.2]: use Data Explorer to navigate workflow and tasks work directories
 - Feature: Do not install aws cli when fusion 2 is enabled
 - Added: Reverse proxy instructions to the docs
-- Added: Audit logs to data explorer 
-- Added: Docs page about meta endpoint for firewall configuration 
-- Improved: Audit logs count query by 
-- Improve error message when creating private data link as public 
-- Updated: Git integration page - admonition fix 
-- Fixed: Do not leave search box disabled when there are no  results in r… 
-- Fixed: Dataset limit provides misleading result 
-- Fixed: add missing https://*.$host to connect-src CSP headers 
-- Fixed: Missing double quote for _JAVA_OPTIONS value 
-- Fixed: Data explorer previewing Google files instead of downloading 
-- Fixed: Optimization service response proxied by Tower 
-- Fixed: Redisson Hibernate 2nd-level cache config 
-- Fixed: Live updates broadcasting 
-- Fixed: Description of wall time 
+- Added: Audit logs to data explorer
+- Added: Docs page about meta endpoint for firewall configuration
+- Improved: Audit logs count query by
+- Improve error message when creating private data link as public
+- Updated: Git integration page - admonition fix
+- Fixed: Do not leave search box disabled when there are no  results in r…
+- Fixed: Dataset limit provides misleading result
+- Fixed: add missing https://*.$host to connect-src CSP headers
+- Fixed: Missing double quote for _JAVA_OPTIONS value
+- Fixed: Data explorer previewing Google files instead of downloading
+- Fixed: Optimization service response proxied by Tower
+- Fixed: Redisson Hibernate 2nd-level cache config
+- Fixed: Live updates broadcasting
+- Fixed: Description of wall time
 - Migrate: Several Modals to Material design MatDialog
-- Migrate WorkflowLaunchReportsComponent to use MatDialog 
+- Migrate WorkflowLaunchReportsComponent to use MatDialog
 - Decrease audit log lifespan for cloud
-- tw CLI note about spot allocation strategy in AWS CEs 
-- task add download as json option for workflow run parameters 
-- Show cloud data links without schema prefix 
-- [Task] Implement pipelinesecretsprovider for Google Cloud 
-- [Data Explorer M3.2] Support uploading files to bucket 
+- tw CLI note about spot allocation strategy in AWS CEs
+- task add download as json option for workflow run parameters
+- Show cloud data links without schema prefix
+- [Task] Implement pipelinesecretsprovider for Google Cloud
+- [Data Explorer M3.2] Support uploading files to bucket
 - Implement live events endpoint with WebSockets
-- Set workflow unknown refactor 
+- Set workflow unknown refactor
 - Permission checker for pipeline launch with simple labels
-- Remove objects without name from explorer 
-- Delete unused LaunchpadItemComponent 
-- Add support for cloudcache 
-- Creation of public AWS datalinks fails in cloud 
-- Enhancements on the cloud bucket creation dialog 
-- tweak: adjust dataset form buttons according to figma 
-- Adjust batch locations and gcp locations list 
+- Remove objects without name from explorer
+- Delete unused LaunchpadItemComponent
+- Add support for cloudcache
+- Creation of public AWS datalinks fails in cloud
+- Enhancements on the cloud bucket creation dialog
+- tweak: adjust dataset form buttons according to figma
+- Adjust batch locations and gcp locations list
 - Return full error message when JsonParseException
-- Hide data explorer navigation elements if it is not enabled in the workspace 
-- Configuration overview updates 
+- Hide data explorer navigation elements if it is not enabled in the workspace
+- Configuration overview updates
 
 ### 23.2.0 - 31 Jul 2023
+
 - Added: Support for Fargate for head job
 - Added: Support for Graviton architecture to AWS Batch compute environment (Cloud preview)
 - Added: Ability to rename Actions, CEs, Pipelines, and Workspaces
 - Added: support for AWS SES (simple email service) as alternative to SMTP service for sending emails
-- Added: Ability to edit the names of Tower entities: 
-    - Organizations
-    - Workspaces
-    - Compute environments
-    - Pipelines 
-    - Actions
+- Added: Ability to edit the names of Tower entities:
+  - Organizations
+  - Workspaces
+  - Compute environments
+  - Pipelines
+  - Actions
 - Added: Support for mobile screen layout in **Runs** list page
 - Allow advanced settings in the AWS ECS config field
 - Allow Launcher users to create, edit, and upload datasets
@@ -118,6 +119,7 @@ tags: [changelog]
 - Set workflow status to unknown when job status is also in an unknown state
 
 ### 23.1.3 - 09 Jun 2023
+
 - Reverted: `Set BEST_FIT_PROGRESSIVE` as default AWS Batch allocation strategy (#5126)
 - Fixed: Unable to view workflow details on runs page on the newest version of Chrome #5105
 - Fixed: AWS SSE setting configuration (#5067)
@@ -126,6 +128,7 @@ tags: [changelog]
 - Bump: nf-launcher version j17-23.04.2
 
 ### 23.1.0 - 28 Apr 2023
+
 - Added: Fusion logs download (#4385) [49eb6dbe]
 - Added: Fusion support for Google Batch (#4654) [968d9fb1]
 - Added: Missing launch option in pipeline action menu (#4441) [56313780]
@@ -181,16 +184,19 @@ tags: [changelog]
 - Bump: Micronaut to version 3.8.5 (#4324) [79c1e50c]
 
 ### 22.4.2 - 21 Feb 2023
+
 - Fixed: Issue retrieving execution logs from CloudWatch (#4476) [638513b7]
 - Fixed: Issue setting AWS CloudWatch custom log group name (#4475) [f020719c]
 - Chore: Improve cloudwatch labels (#4498) [69b790fa]
 - Bump: nf-launcher:j17-22.10.7 [a7b6fd26]
 
 ### 22.4.1 - 10 Feb 2023
+
 - Fixed: Add auto height to selectable columns (#4409) [e4f62488]
 - Fixed: Remove duplicate ECS config input in AWS CE form (#4423) [3dbb0dad]
 
 ### 22.4.0 - 6 Feb 2023
+
 - Feat: All workflow runs page (#3777) [b89ba895]
 - Feat: Refresh the dashboard data every 5 seconds (#3935) [dd65935d]
 - Feat: Support for Gitea provider (#3995) [c1640d7b]
@@ -236,16 +242,19 @@ tags: [changelog]
 - Bump: Upgrade backend to Micronaut 3.7 (#3876) [11203a05]
 
 ### 22.3.2 - 9 Feb 2022
+
 - nf-launcher:j17-tw-22.3-nf-22.10.6
 
 ## 2022
 
 #### 22.3.1 - 12 Dec 2022
+
 - Fixed: Remove autoinjection of roles when `allowInstanceCredentials` property is true [BREAKING] (#4093) [1d6adc9f]
 - Fixed: AWS Batch kernel issue causing OOM error (#4015) [f59b9edd]
 - Bump: nf-launcher:j17-22.10.4 [26da757f]
 
 #### 22.3.0 - 4 Nov 2022
+
 - [BREAKING] Added: `batch:TagResource` to Batch instance role [dba6cb34]
 - Added: Support for Google Batch (#3532) [ba641280]
 - Added: Support for Resource Labels (#3511) [1fa2dc7e]
@@ -339,7 +348,7 @@ tags: [changelog]
 - Restyling of workflow detail header (#3547) [d2024f66]
 - Update xpack urls [BREAKING] [700436e5]
 
-#### 22.2.4 - 2 Sept 2022 
+#### 22.2.4 - 2 Sept 2022
 
 - Fixed: `BitBucketServer` Git provider #3670 [3b4172b]
 - Bump the quota limit for dataset per workspace to 100 (#3673) [c8df0e6]
@@ -503,7 +512,7 @@ tags: [changelog]
 - Fixed: Unable to download execution log from a workflow with working directory specified just as "bucket" name [d025917c]
 - Fixed: Prevent the creation of Spot fleet role [95acea2c]
 - Fixed: Prevent deletion of an active workflow run [ba1f1ce9]
-- Fixed: Prevent XSS attacks when uploading a datatable file (#2944)[6d98210c]
+- Fixed: Prevent XSS attacks when uploading a datatable file [#2944](6d98210c)
 - Allow partial searches [b8788b38]
 - Allow the use S3 bucket work dir along with EFS or FSx mounts [368d5caa]
 - Upload encrypted files at AWS S3 [40b87a2e]

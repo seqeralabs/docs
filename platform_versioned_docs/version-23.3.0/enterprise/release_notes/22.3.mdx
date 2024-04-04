@@ -76,7 +76,7 @@ This feature is currently only available on Tower Cloud (tower.nf). For more inf
 - Label and resource label APIs are now exposed
 - The amount of usable datasets (and dataset versions) per organization has been raised to 100 records by default
 - Customize head node resources from the launch/relaunch form
-    - As a user (with maintainer permissions) it is now possible to launch a pipeline in a Tower cloud environment, specifying the head node resources (memory and CPU) from the launch form. This allows you to properly dimension resources and avoid pipeline crashes. This feature is available for AWS, Google Life Sciences, and Kubernetes Compute Environments
+  - As a user (with maintainer permissions) it is now possible to launch a pipeline in a Tower cloud environment, specifying the head node resources (memory and CPU) from the launch form. This allows you to properly dimension resources and avoid pipeline crashes. This feature is available for AWS, Google Life Sciences, and Kubernetes Compute Environments
 - The **Revision** field in the launch form has been extended to allow a maximum length of 100 characters
 - Improve SSH connector resilience + UGE qstat
 
@@ -130,7 +130,6 @@ This Tower version requires a database schema update. Follow these steps to upda
 
        - Run the `/migrate-db.sh` script provided in the `backend` container. This will migrate the database schema.
        - Deploy Tower following your usual procedures.
-
 
 ## Nextflow launcher image
 

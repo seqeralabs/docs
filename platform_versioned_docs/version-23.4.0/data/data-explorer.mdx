@@ -10,10 +10,10 @@ With Data Explorer, you can browse and interact with remote data repositories fr
 :::note
 To disable Data Explorer globally for all workspaces and users in your account, set `TOWER_DATA_EXPLORER_ENABLED=false` in your environment variables (default: `true`).
 
-To disable Data Explorer automatic cloud bucket retrieval per workspace in your **Seqera Enterprise** account, specify comma-separated workspace IDs with the `TOWER_DATA_EXPLORER_CLOUD_DISABLED_WORKSPACES` environment variable. 
+To disable Data Explorer automatic cloud bucket retrieval per workspace in your **Seqera Enterprise** account, specify comma-separated workspace IDs with the `TOWER_DATA_EXPLORER_CLOUD_DISABLED_WORKSPACES` environment variable.
 :::
 
-Access the **Data Explorer** tab from any enabled workspace to view and manage all available cloud storage buckets. It is also integrated with the pipeline launch form and run detail pages, which allows you to select input data files and output directories or quickly view the output files of a run. 
+Access the **Data Explorer** tab from any enabled workspace to view and manage all available cloud storage buckets. It is also integrated with the pipeline launch form and run detail pages, which allows you to select input data files and output directories or quickly view the output files of a run.
 
 ## Add cloud storage buckets
 
@@ -25,7 +25,7 @@ To disable automatic cloud bucket retrieval per workspace, specify comma-separat
 
 - **Retrieve cloud buckets with workspace credentials**
 
-Private cloud storage buckets accessible to the credentials defined in your workspace are listed in Data Explorer automatically. The cloud storage permissions required for your [AWS](../compute-envs/aws-batch.mdx#iam), [Google Cloud](../compute-envs/google-cloud-batch.mdx#iam), and [Azure Batch](../compute-envs/azure-batch.mdx#create-a-storage-account) compute environment credentials allow full Data Explorer functionality. 
+Private cloud storage buckets accessible to the credentials defined in your workspace are listed in Data Explorer automatically. The cloud storage permissions required for your [AWS](../compute-envs/aws-batch.mdx#iam), [Google Cloud](../compute-envs/google-cloud-batch.mdx#iam), and [Azure Batch](../compute-envs/azure-batch.mdx#create-a-storage-account) compute environment credentials allow full Data Explorer functionality.
 
 - **Configure individual buckets manually**
 
@@ -71,7 +71,7 @@ File preview is supported for these object types:
 - Images (JPG, PNG, SVG, etc.)
 
 :::note
-The file size limit for preview is 10 MB. 10-25 MB files can still be downloaded directly. 
+The file size limit for preview is 10 MB. 10-25 MB files can still be downloaded directly.
 
 Seqera Enterprise users can increase the default 25 MB file size download limit with `tower.content.max-file-size` in the `tower.yml` [configuration](../enterprise/configuration/overview.mdx#data-features) file. Note that increasing this value may degrade Platform performance.
 :::
