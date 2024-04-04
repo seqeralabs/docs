@@ -43,13 +43,14 @@ Starting from 21.12, Tower uses the concept of secrets to store the keys and tok
 - Implementing a selection mechanism so users can dynamically select which secrets will be used by each pipeline launch.
 - Enable Tower to capture specific OIDC attributes as secrets.
 
-Full information about secrets is available [here](../../secrets/overview.mdx) 
+Full information about secrets is available [here](../../secrets/overview.mdx)
 
 ### Improved web reports
 
 Most Nextflow pipelines will generate reports or output files which are useful to inspect at the end of the pipeline execution. Since 21.12, Tower has a Reports feature that allows to directly visualise supported file types or to download them directly via the user interface.
 
 The key improvements in 22.1
+
 - Reports are configurable and are no longer limited to workdir subdirectories.
 - Tower enables the rendering of CSV and TSV files.
 
@@ -84,27 +85,27 @@ This Tower version requires a database schema update. Follow these steps to upda
 3. Redeploy the Tower application:
 
     **docker-compose**:
-    
+
        - Restart the application with `docker-compose restart`. This will automatically migrate the database schema.
 
-    **kubernetes**: 
-    
+    **kubernetes**:
+
        - Update the cron service with `kubectl apply -f tower-cron.yml`. This will automatically migrate the database schema.
        - Update the frontend and backend services with `kubectl apply -f tower-srv.yml`.
 
     **custom deployment**
-    
+
        - Run the `/migrate-db.sh` script provided in the `backend` container. This will migrate the database schema.
        - Deploy Tower following your usual procedures.
 
 ## Nextflow launcher image
 
 If you must host your container images on a private image registry, copy the [nf-launcher image](https://quay.io/seqeralabs/nf-launcher:j17-22.04.0) to your private registry. Then update your `tower.env` with the following environment variable:
-    
+
    `TOWER_LAUNCH_CONTAINER=<FULL_PATH_TO_YOUR_PRIVATE_IMAGE>`
-    
+
 !!! warning
-    If you're using AWS Batch, you will need to [configure a custom job-definition](../advanced-topics/custom-launch-container.mdx) and populate the `TOWER_LAUNCH_CONTAINER` with the job-definition name instead. 
+    If you're using AWS Batch, you will need to [configure a custom job-definition](../advanced-topics/custom-launch-container.mdx) and populate the `TOWER_LAUNCH_CONTAINER` with the job-definition name instead.
 
 ## Compute environments
 
@@ -132,4 +133,4 @@ For a detailed list of all changes, please consult the Nextflow Tower [Changelog
 
 ## Questions/Feedback
 
-Contact us at [support@seqera.io](mailto:support@seqera.io). 
+Contact us at [support@seqera.io](mailto:support@seqera.io).
