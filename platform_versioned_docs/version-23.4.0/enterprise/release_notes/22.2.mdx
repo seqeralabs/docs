@@ -73,23 +73,23 @@ This Tower version requires a database schema update. Follow these steps to upda
 3. Redeploy the Tower application:
 
     **docker compose**:
-     
+
      - Restart the application with `docker compose restart`. This will automatically migrate the database schema.
 
     **kubernetes**:
-     
+
      - Update the cron service with `kubectl apply -f tower-cron.yml`. This will automatically migrate the database schema.
      - Update the frontend and backend services with `kubectl apply -f tower-srv.yml`.
 
     **custom deployment**
-     
+
      - Run the `/migrate-db.sh` script provided in the `backend` container. This will migrate the database schema.
      - Deploy Tower following your usual procedures.
 
 ## Nextflow launcher image
 
 If you must host your container images on a private image registry, copy the [nf-launcher image](https://quay.io/seqeralabs/nf-launcher:j17-22.06.1-edge) to your private registry. Then update your `tower.env` with the following environment variable:
-   
+
    `TOWER_LAUNCH_CONTAINER=<FULL_PATH_TO_YOUR_PRIVATE_IMAGE>`
 
 !!! warning
@@ -121,4 +121,4 @@ For a detailed list of all changes, please consult the Nextflow Tower [Changelog
 
 ## Questions/Feedback
 
-Contact us at [support@seqera.io](mailto:support@seqera.io). 
+Contact us at [support@seqera.io](mailto:support@seqera.io).

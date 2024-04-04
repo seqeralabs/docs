@@ -195,13 +195,11 @@ To fix the problem, try the following:
 
 1. Set a JDK environment variable to force Nextflow and Seqera containers to use TLSv1.2 by default:
 
-
     ```
     export JAVA_OPTIONS="-Dmail.smtp.ssl.protocols=TLSv1.2"
     ```
 
 2. Add this parameter to your [nextflow.config file](./launch/advanced.mdx#nextflow-config-file):
-
 
     ```
     mail {
@@ -210,7 +208,6 @@ To fix the problem, try the following:
     ```
 
 3. Ensure these values are also set for Nextflow and/or Seqera:
-
 
     -   `mail.smtp.starttls.enable=true`
     -   `mail.smtp.starttls.required=true`
@@ -261,10 +258,12 @@ tower:
 
 Users with email addresses other than the `trustedEmails` list will undergo an approval process on the **Profile > Admin > Users** page. This has been used effectively as a backup method when SSO becomes unavailable.
 
-:::note 
-1. You must rebuild your containers (`docker compose down`) to force Seqera to implement this change. Ensure your database is persistent before issuing the teardown command. See [here](./enterprise/docker-compose.mdx) for more information. 
-2. All login attempts are visible to the root user at **Profile > Admin panel > Users**. 
+:::note
+
+1. You must rebuild your containers (`docker compose down`) to force Seqera to implement this change. Ensure your database is persistent before issuing the teardown command. See [here](./enterprise/docker-compose.mdx) for more information.
+2. All login attempts are visible to the root user at **Profile > Admin panel > Users**.
 3. Any user logged in prior to the restriction will not be subject to the new restriction. An admin of the organization should remove users that have previously logged in via (untrusted) email from the Admin panel users list. This will restart the approval process before they can log in via email.
+
 :::
 
 **Login failure: Admin approval is required when using Entra ID OIDC**

@@ -210,7 +210,7 @@ If you run the Redis service as a container in your Docker or Kubernetes install
 If the DB username and password variables are left empty when using [Docker Compose](../docker-compose.mdx), default `tower` database values are applied automatically. With [Kubernetes](../kubernetes.mdx) and custom DB deployments, `tower` values are not pre-filled.
 
 :::note
-We recommend using managed cloud database services for production deployments. 
+We recommend using managed cloud database services for production deployments.
 :::
 
 <Tabs>
@@ -283,7 +283,7 @@ tower:
         max-file-size: 25MB # Default
 ```
 
-Note that increasing this value may degrade Platform performance. 
+Note that increasing this value may degrade Platform performance.
 
 </TabItem>
 </Tabs>
@@ -332,7 +332,7 @@ Replace `{prefix}` in each configuration path with `/config/<application_name>`,
 
 ## Compute environments
 
-Configuration values to enable computing platforms and customize Tower Forge resource naming. 
+Configuration values to enable computing platforms and customize Tower Forge resource naming.
 
 <Tabs>
 <TabItem value="Environment variables" label="Environment variables" default>
@@ -361,14 +361,14 @@ Public Git repositories can be accessed without authentication, but are often su
 <Tabs>
 <TabItem value="Environment variables" label="Environment variables" default>
 
-Credentials and other secrets must not be hard-coded in environment variables in production environments. Credentials added using the application UI are SHA256-encrypted before secure storage and not exposed by any Seqera API. 
+Credentials and other secrets must not be hard-coded in environment variables in production environments. Credentials added using the application UI are SHA256-encrypted before secure storage and not exposed by any Seqera API.
 
 ::table{file=configtables/git_env.yml}
 
 </TabItem>
 <TabItem value="tower.yml" label="tower.yml" default>
 
-Credentials and other secrets must not be stored in plain text in production environments. Credentials added using the application UI are SHA256-encrypted before secure storage and not exposed by any Seqera API. 
+Credentials and other secrets must not be stored in plain text in production environments. Credentials added using the application UI are SHA256-encrypted before secure storage and not exposed by any Seqera API.
 
 YAML configuration keys in this table are listed in "dot" notation, i.e., a nested value:
 
@@ -409,7 +409,7 @@ tower:
 
 ## Mail server
 
-Configure values for SMTP email service integration. Production SMTP hosts must use a TLS-protected connection. See [SSL/TLS](../configuration/ssl_tls.mdx). 
+Configure values for SMTP email service integration. Production SMTP hosts must use a TLS-protected connection. See [SSL/TLS](../configuration/ssl_tls.mdx).
 
 AWS deployments also support [Amazon Simple Email Service (SES)](https://aws.amazon.com/ses/).
 
@@ -460,7 +460,7 @@ Replace `{prefix}` in each configuration path with `/config/<application_name>`,
 In AWS deployments, you can use AWS Simple Email Service (SES) instead of traditional SMTP for sending Seqera platform emails.
 
 :::note
-Simple Email Service (SES) is only supported in Seqera deployments on AWS. 
+Simple Email Service (SES) is only supported in Seqera deployments on AWS.
 :::
 
 To configure AWS SES as your Seqera email service:
@@ -525,7 +525,7 @@ tower:
 
 ## Logging
 
-Logging-related configuration values to aid troubleshooting. 
+Logging-related configuration values to aid troubleshooting.
 
 <Tabs>
 <TabItem value="Environment variables" label="Environment variables" default>
@@ -535,9 +535,9 @@ Logging-related configuration values to aid troubleshooting.
 </TabItem>
 <TabItem value="tower.yml" label="tower.yml" default>
 
-Set the logging detail level for various Seqera services. Logs for particular services may be requested by support to assist with troubleshooting an issue. Set the logging configuration parameter in your Seqera YAML configuration before attempting to reproduce your issue. The example below sets the detail level for application and database logging: 
+Set the logging detail level for various Seqera services. Logs for particular services may be requested by support to assist with troubleshooting an issue. Set the logging configuration parameter in your Seqera YAML configuration before attempting to reproduce your issue. The example below sets the detail level for application and database logging:
 
-`logger` is a root-level object in the `tower.yml` configuration file, i.e., it is not nested under `tower`. 
+`logger` is a root-level object in the `tower.yml` configuration file, i.e., it is not nested under `tower`.
 
 ```yaml
 logger:

@@ -34,6 +34,7 @@ These migration instructions assume:
 
 - You have sufficient EC2 instance space to store your data.
 - You have implemented a full maintenance outage.
+
 :::
 
 1. Connect to the EC2 instance with SSH and navigate to your Seqera instance's `docker compose` folder.
@@ -107,9 +108,11 @@ These migration instructions assume:
 
    1. Create a backup of your MySQL dump file (`tower_dumpfile.sql`).
    2. Run the following command on the dump file:
+
    ```bash
    sed 's/\sDEFINER=`[^`]*`@`[^`]*`//g' -i tower_dumpfile.sql
    ```
+
    :::
 
 10. Log in to the RDS instance and ensure that the Seqera database is populated with tables prefixed by `tw_`.
