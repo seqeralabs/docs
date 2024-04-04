@@ -27,7 +27,7 @@ Run the Seqera container with [Docker](../docker-compose.mdx) on an AWS EC2 inst
    From version 22.1.1, HTTP-only implementations **must** set the `TOWER_ENABLE_UNSAFE_MODE=true` environment variable in the Seqera hosting infrastructure to enable user login. HTTP must not be used in production environments.
    :::
 
-- **(Optional) AWS Parameter Store**: Store sensitive Seqera configuration values, such as database usernames and passwords, as SecureString [AWS Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) parameters. See [AWS Parameter Store configuration](../configuration/aws_parameter_store.mdx) for instructions. This is recommended for production environments. 
+- **(Optional) AWS Parameter Store**: Store sensitive Seqera configuration values as SecureString [AWS Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) parameters. See [AWS Parameter Store configuration](../configuration/aws_parameter_store.mdx) for instructions. This is recommended for production environments. 
 
 - **(Optional) DNS**: DNS is required to support human-readable domain names and load-balanced traffic.
 
@@ -62,7 +62,7 @@ If you're installing Seqera Enterprise with Kubernetes, an [Elastic Kubernetes S
 - **Ingress**
 
 1. ALB provisioning via the [AWS Load Balancer Controller](https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html)
-2. ALB integration with the [Amazon Certificate Manager](https://aws.amazon.com/certificate-manager/)
+1. ALB integration with the [Amazon Certificate Manager](https://aws.amazon.com/certificate-manager/)
 
 Additionally, the ingress assumes the presence of SSL certificates, DNS resolution, and ALB logging. If you've chosen not to use some or all of these features, you'll need to modify the manifest accordingly before applying it to the cluster.
 
@@ -73,23 +73,19 @@ container registry ([cr.seqera.io](https://cr.seqera.io)). Contact [support](htt
 
 1. Retrieve the **username** and **password** you received from Seqera support.
 
-2. Authenticate to the registry (using the `username` and `password` values copied in step 1):
+1. Authenticate to the registry (using the `username` and `password` values copied in step 1):
 
    ```bash
    docker login -u 'username' -p 'password' cr.seqera.io
    ```
 
-3. Pull the Seqera container images:
+1. Pull the Seqera container images:
 
    ```bash
    docker pull cr.seqera.io/private/nf-tower-enterprise/backend:v23.4.3
 
    docker pull cr.seqera.io/private/nf-tower-enterprise/frontend:v23.4.3
    ```
-
-:::note
-`cr.seqera.io` is the default Seqera container image registry from version 22.4. Use of the AWS, Azure, and Google Cloud image registries in existing installations is still supported but is deprecated for **new installations** from June 2023. See [here](../advanced-topics/seqera-container-images.md) for steps to use the Seqera private AWS Elastic Container Registry.
-:::
 
 ## AWS setup
 
@@ -101,124 +97,48 @@ From version 23.1, you can retrieve Seqera Enterprise configuration values remot
 
 ### Amazon SES
 
+Seqera Enterprise supports AWS Simple Email Service (SES) as an alternative to traditional SMTP servers for sending application emails. 
+
 :::caution
-If you use Simple Email Service in sandbox mode, both the _sender_ and the _receiver_ email addresses must be verified via AWS SES. Sandbox is not recommended for production use. See the [AWS docs](https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html) for instructions to move out of the sandbox.
+If you use AWS SES in sandbox mode, both the _sender_ and the _receiver_ email addresses must be verified via AWS SES. Sandbox is not recommended for production use. See the [AWS docs](https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html) for instructions to move out of the sandbox.
 :::
 
-1. From the [Amazon Simple Email Service](https://us-east-2.console.aws.amazon.com/ses) console, select **SMTP Settings**.
+- See [Obtaining SES SMTP credentials using the SES console](https://docs.aws.amazon.com/ses/latest/dg/smtp-credentials.html#smtp-credentials-console) for instructions to set up SES to send emails from your preferred address. 
 
-1. Select **Create my SMTP Credentials**, then **Create**.
-
-1. Select **Show User SMTP Credentials** to copy your credentials, or select **Download Credentials**.
-
-   :::note
-   The credentials (username and password) will not be shown to you again after this instance.
-   :::
-
-1. When redirected to the IAM dashboard, return to the [Amazon SES Console](https://us-east-2.console.aws.amazon.com/ses).
-
-1. Select **Email Addresses**, then **Verify a new Email Address**.
-
-1. A pop-up asking for your email should automatically appear. Enter your email address in the popup that appears and select **Verify This Email Address**.
-
-1. Open the verification link in the confirmation email from Amazon SES to confirm email address ownership.
-
-   :::note
-   The verification link is **only valid for 24 hours** after your original request for verification.**
-   :::
-
-You can now use Amazon SES to send email from this address.
-
-:::note
-To prevent emails from SES being flagged as spam, see [here](https://aws.amazon.com/premiumsupport/knowledge-center/ses-email-flagged-as-spam/).
-
-See the AWS documentation for further options to prevent email blocking, such as setting up [DKIM for a domain](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-authentication-dkim-easy-setup-domain.html) or [SPF authentication](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-authentication-spf.html).
-:::
+- To prevent emails from SES being flagged as spam, see these AWS instructions for setting up an email authentication method:
+   - [DKIM for a domain](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-authentication-dkim-easy-setup-domain.html) - [SPF authentication](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-authentication-spf.html)
 
 ### Amazon RDS
 
-1. From the [Amazon RDS console](https://console.aws.amazon.com/rds/), select **Create database > Standard create > MySQL**.
-
-1. Under **Edition**, select **MySQL Community** and version **8.0.x**.
-
-1. Enter the **DB cluster identifier**. For example, `seqera-db`.
-
-1. Enter the **Master username**, or keep the default.
-
-1. Enter the **Master password**:
-
-   - To use an automatically generated master password, select **Auto generate a password**.
-   - To use a custom master password, deselect **Auto generate a password**, enter your password and confirm.
-
-1. Under **Instance configuration**, select the **DB instance class** and instance type.
-
-1. Under **Connectivity**, select the correct **VPC security group**. Confirm this with your AWS administrator.
-
-1. Under **Additional configuration**, enter the **Initial database name**. For example, `seqera`. This name must be used consistently in all Seqera configuration files.
-
-1. Select **Create database**.
+See [Creating an Amazon RDS DB instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_CreateDBInstance.html) to guide you through the external database setup for your production deployment. Create a **MySQL8 Community** DB instance for this purpose.  
 
 After your database is created:
 
 1. Update the inbound rules for the underlying EC2 instance to allow MySQL connections.
 
-2. Update `TOWER_DB_URL` in your configuration value with the database hostname.
+1. Update `TOWER_DB_URL` in your Seqera [configuration](../configuration/overview.mdx#seqera-and-redis-databases) with the database hostname.
 
 ### Amazon EC2
 
-If you've never set up an Amazon EC2 instance for Linux, see [this guide](https://aws.amazon.com/ec2/getting-started/) to get started.
+See [Getting started with Amazon EC2](https://aws.amazon.com/ec2/getting-started/) for instructions to create your EC2 instance. Create an instance with these attributes:
 
-1. Open the [AWS EC2 console](https://console.aws.amazon.com/ec2).
+- **Amazon Machine Image (AMI)**: Amazon Linux 2023 Optimized
+- **Instance type**: c5a.xlarge or c5.large with 4 CPUs and 8 GB RAM
+- **Root storage**: 30 GB
+- **Tags**: It is helpful to use a descriptive `Name` value for your instance, such as `seqera-app-server`.
+- **Security Group name**: Seqera deployment manifests provided in this installation guide use `tower-sg` by default. If you choose to use a custom name, this must be updated consistently across your deployment files. 
+- **Keypair**: It is security best practice to use a **new** keypair for your production deployment instance.
 
-1. Select **Instances**, then **Launch instances**.
+After your instance is launched:
 
-1. You will be asked to choose an Amazon Machine Image (AMI). Scroll to the middle of the page and select **Amazon Linux 2**.
+1. Use the key pair to connect to the server with SSH and its public IP address. Terminal-based SSH is easier to use than browser-based SSH for copying and pasting text.
 
-1. Once you choose **Select**, you'll be redirected to **Step 2: Choose an Instance Type**.
+1. [Install Docker](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-docker.html#install-docker-instructions).
 
-1. Scroll down and select either **c5a.xlarge** or **c5.large** — these provide 4 CPUs and 8 GB of RAM.
-
-1. Select **Next: Configure Instance Details**.
-
-1. If required, configure the instance details settings. Then, select **Next: Add Storage**.
-
-1. Configure 20 GB root storage under **Size (GiB)**.
-
-1. (Optional) Select **Add Tags** to add case-sensitive key-value pairs (such as `key = Name` and `value = Webserver`).
-
-1. Select **Next: Configure Security Group**.
-
-1. Enter `tower-sg` as the Security Group name.
-
-1. Optionally, you can enter a description for your Security Group's name.
-
-1. Configure the type of protocol settings. Note that the security group port must be configured to 8000.
-
-1. Select **Review and Launch**.
-
-1. Once you have reviewed your instance, select **Launch**.
-
-1. Select an existing key pair or create a new one in the pop-up that appears.
-
-    If you already have an existing key pair, select **Choose an existing key pair** and choose from the available options in the drop-down menu.
-
-    If you don't have a key pair yet, select **Create a new keypair**. Enter a name, then select **Download Key Pair**.
-
-    **Note:** Once you download the key pair, store it in a secure and accessible location. You won't be able to download the file again after it is created.
-
-1. Select **Launch Instances**.
-
-1. Use the key pair to connect to the server using SSH and its public IP address. Terminal-based SSH is easier to use than browser-based SSH for copying and pasting text.
-
-1. Install Docker by following the [Installing Docker](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-docker.html#install-docker-instructions) instructions for Linux.
-
-1. Install Docker Compose by following the [manual installation instructions](https://docs.docker.com/compose/install/linux/#install-the-plugin-manually).
+1. [Install Docker Compose](https://docs.docker.com/compose/install/linux/#install-the-plugin-manually).
 
 1. Confirm that Docker Compose is installed:
 
     ```bash
     docker compose version
-    Docker Compose version v2.24.1
     ```
-
-1. Configure AWS CLI and retrieve the [Seqera container images](#seqera-container-images). AWS CLI v2 is pre-installed in Amazon Linux.
