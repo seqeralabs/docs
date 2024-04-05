@@ -98,10 +98,10 @@ After you have created a resource group and storage account, create a [Batch acc
 12. Go to your new Batch account, then select **Access Keys**.
 13. Store the access keys for your Azure Batch account, to be used when you create a Seqera compute environment.
 
-:::caution
-A newly-created Azure Batch account may not be entitled to create virtual machines without making a service request to Azure.
-See [Azure Batch service quotas and limits][az-batch-quotas] for more information.
-:::
+    :::caution
+    A newly-created Azure Batch account may not be entitled to create virtual machines without making a service request to Azure.
+    See [Azure Batch service quotas and limits][az-batch-quotas] for more information.
+    :::
 
 14. Select the **+ Quotas** tab of the Azure Batch account to check and increase existing quotas if necessary.
 15. Select **+ Request quota increase** and add the quantity of resources you require. Here is a brief guideline:
@@ -121,7 +121,7 @@ See [Azure Batch service quotas and limits][az-batch-quotas] for more informatio
 
 There are two ways to create an Azure Batch compute environment in Seqera Platform:
 
-- [**Batch Forge**](#batch-forge): Automatically creates Azure Batch resources.
+- [**Batch Forge**](#tower-forge): Automatically creates Azure Batch resources.
 - [**Manual**](#manual): For using existing Azure Batch resources.
 
 ### Batch Forge
