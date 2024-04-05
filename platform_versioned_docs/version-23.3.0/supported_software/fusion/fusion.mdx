@@ -25,7 +25,7 @@ Fusion v2 improves pipeline throughput for containerized tasks by simplifying di
 
 ### Configure Seqera Platform compute environments with Fusion
 
-#### Tower Forge AWS Batch compute environments with fast instance storage (recommended)
+#### Batch Forge AWS Batch compute environments with fast instance storage (recommended)
 
 We recommend using Fusion with AWS NVMe instances (fast instance storage) as this delivers the fastest performance when compared to environments using only AWS EBS (Elastic Block Store).
 
@@ -49,7 +49,7 @@ We recommend selecting 8xlarge or above for large and long-lived production pipe
 
 6. Use an S3 bucket as the pipeline work directory.
 
-#### Tower Forge AWS compute environments with Fusion only
+#### Batch Forge AWS compute environments with Fusion only
 
 To use Fusion in AWS environments without NVMe instances, enable Wave containers and Fusion v2 when creating a new compute environment without enabling fast instance storage. This option configures an AWS EBS (Elastic Bucket Store) disk with settings optimized for the Fusion file system.
 

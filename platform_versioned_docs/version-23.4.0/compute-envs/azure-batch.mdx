@@ -121,21 +121,21 @@ See [Azure Batch service quotas and limits][az-batch-quotas] for more informatio
 
 There are two ways to create an Azure Batch compute environment in Seqera Platform:
 
-- [**Tower Forge**](#tower-forge): Automatically creates Azure Batch resources.
+- [**Batch Forge**](#tower-forge): Automatically creates Azure Batch resources.
 - [**Manual**](#manual): For using existing Azure Batch resources.
 
-### Tower Forge
+### Batch Forge
 
-**Create a Tower Forge Azure Batch compute environment**
+Create a Batch Forge Azure Batch compute environment:
 
 1. In a workspace, select **Compute Environments > New Environment**.
 2. Enter a descriptive name, e.g., _Azure Batch (east-us)_.
 3. Select **Azure Batch** as the target platform.
 4. Choose existing Azure credentials or add a new credential. If you are using existing credentials, skip to step 7.
 
-:::tip
-You can create multiple credentials in your Seqera environment.
-:::
+    :::tip
+    You can create multiple credentials in your Seqera environment.
+    :::
 
 5. Enter a name for the credentials, e.g., _Azure Credentials_.
 6. Add the **Batch account** and **Blob Storage** account names and access keys.
@@ -177,9 +177,9 @@ This section is for users with a pre-configured Azure Batch pool. This requires 
 3. Select **Azure Batch** as the target platform.
 4. Select your existing Azure credentials or select **+** to add new credentials. If you choose to use existing credentials, skip to step 7.
 
-:::tip
-You can create multiple credentials in your Seqera environment.
-:::
+    :::tip
+    You can create multiple credentials in your Seqera environment.
+    :::
 
 5. Enter a name, e.g., _Azure Credentials_.
 6. Add the **Batch account** and **Blob Storage** credentials you created previously.

@@ -20,15 +20,15 @@ This guide assumes you have an existing [Azure Account](https://azure.microsoft.
 
 There are two ways to create a **Compute Environment** for **Azure Batch** with Tower.
 
-1. **Tower Forge**: This option automatically manages the Azure Batch resources in your Azure account.
+1. **Batch Forge**: This option automatically manages the Azure Batch resources in your Azure account.
 
 2. **Manual**: This option allows you to create a compute environment using existing Azure Batch resources.
 
-If you don't yet have an Azure Batch environment fully set up, it is suggested that you follow the [Tower Forge](#tower-forge) guide.
+If you don't yet have an Azure Batch environment fully set up, it is suggested that you follow the [Batch Forge](#tower-forge) guide.
 
 If you have been provided an Azure Batch queue from your account administrator, or if you have set up Azure Batch previously, directly follow the [Manual](#manual) guide.
 
-### Tower Forge
+### Batch Forge
 
 :::caution
 Follow these instructions only if you have **not** pre-configured an Azure Batch environment. Note that this option will create resources in your Azure account that you may be charged for by Azure.
@@ -73,7 +73,7 @@ When you open [this link](https://portal.azure.com/#blade/HubsExtension/BrowseRe
 8. Store the access keys for the newly created Azure Storage account.
 
    :::note
-   Blob container storage credentials are associated with the Batch pool configuration when it is created. Once your compute environment has been created with Tower Forge, these credentials should not be changed in Tower.
+   Blob container storage credentials are associated with the Batch pool configuration when it is created. Once your compute environment has been created with Batch Forge, these credentials should not be changed in Tower.
    :::
 
 ### Batch account
@@ -92,7 +92,7 @@ When you open [this link](https://portal.azure.com/#blade/HubsExtension/BrowseRe
 
 ### Compute Environment
 
-Tower Forge automates the configuration of an [Azure Batch](https://azure.microsoft.com/en-us/services/batch/) compute environment and queues required for the deployment of Nextflow pipelines.
+Batch Forge automates the configuration of an [Azure Batch](https://azure.microsoft.com/en-us/services/batch/) compute environment and queues required for the deployment of Nextflow pipelines.
 
 Once the Azure resources are set up, we can add a new **Azure Batch** environment in Tower. To create a new compute environment:
 

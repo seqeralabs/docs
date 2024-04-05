@@ -17,13 +17,13 @@ title: "\_todo"
 - [Can I have Nextflow automatically retry Tasks that fail due to Spot instance reclamation?](#aws_spot_retry)
 - **Can I have Nextflow automatically retry Tasks that fail due to Spot instance reclamation?** <a id="aws_spot_retry"></a>
 
-  Yes. As of Tower version ?????, any Spot-based AWS Batch Compute Environment created by Tower Forge will be automatically configured to retry each process 3 times. ??? If a retry policy is not defined???
+  Yes. As of Tower version ?????, any Spot-based AWS Batch Compute Environment created by Batch Forge will be automatically configured to retry each process 3 times. ??? If a retry policy is not defined???
 
   Given that Spots can be reclaimed during the execution of a job, it is a recommended practice that pipeline authors always include retry logic in their logic. ???See HERE for examples???
   https://github.com/seqeralabs/nf-tower-cloud/pull/2820/files
 
-  - [Why won't Secrets work with my legacy Tower Forge-created AWS Batch Compute Environment?](aws_secrets_legacy)
-  - **Why won't Secrets work with my legacy Tower Forge-created AWS Batch Compute Environment?** <a id="aws_secrets_legacy"></a>
+  - [Why won't Secrets work with my legacy Batch Forge-created AWS Batch Compute Environment?](aws_secrets_legacy)
+  - **Why won't Secrets work with my legacy Batch Forge-created AWS Batch Compute Environment?** <a id="aws_secrets_legacy"></a>
 
   The Secrets feature requires new permissions to be added to existing IAM Roles:
 
