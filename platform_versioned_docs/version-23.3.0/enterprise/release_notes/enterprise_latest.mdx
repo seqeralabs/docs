@@ -1,10 +1,10 @@
 # Release notes for Seqera Enterprise version 23.3.x
 
-We're excited to announce that Tower is now Seqera Platform. This name change underscores our vision to evolve Seqera as a single platform for the scientific data analysis lifecycle. 
+We're excited to announce that Tower is now Seqera Platform. This name change underscores our vision to evolve Seqera as a single platform for the scientific data analysis lifecycle.
 
 ## The Seqera platform
 
-While the underlying platform remains the same, over time you can expect Seqera to become even more scalable, flexible and capable. In the coming weeks and months, references to Tower will be replaced across our product documentation and communications. 
+While the underlying platform remains the same, over time you can expect Seqera to become even more scalable, flexible and capable. In the coming weeks and months, references to Tower will be replaced across our product documentation and communications.
 
 We're pleased to announce the availability of Seqera Enterprise 23.3, an important first step in delivering on this revamped product vision and roadmap. Seqera 23.3 includes significant new functionality, including a new Data Explorer, enhanced support for Google Cloud Batch and Google Life Sciences, and much more.
 
@@ -62,13 +62,13 @@ When a run completes successfully, Seqera automatically creates an _optimized pr
 
 **Login redirection logic update**
 
-Login redirection logic has changed in version 23.3. Seqera now prepends the [`TOWER_SERVER_URL`](../configuration/overview.mdx#basic-configuration) (or `tower.serverUrl` in `tower.yml` configuration) to the authentication redirect URL during the login flow. This is useful when your server URL contains a contextual path. 
+Login redirection logic has changed in version 23.3. Seqera now prepends the [`TOWER_SERVER_URL`](../configuration/overview.mdx#basic-configuration) (or `tower.serverUrl` in `tower.yml` configuration) to the authentication redirect URL during the login flow. This is useful when your server URL contains a contextual path.
 
-If you specify a DNS name as your `TOWER_SERVER_URL`, but access your Seqera instance using a different address (such as using an IP address that resolves to the server URL asynchronously), user login will not resolve. 
+If you specify a DNS name as your `TOWER_SERVER_URL`, but access your Seqera instance using a different address (such as using an IP address that resolves to the server URL asynchronously), user login will not resolve.
 
 **Revert default Tower name changes in documentation**
 
-A previous iteration of the rebranded Seqera documentation noted `seqera` as the default and example value for certain variables (such as default database names). The rebranding from Nextflow Tower to Seqera Platform is an ongoing, incremental process and as such, legacy `tower` values and naming conventions used by the Seqera backend will remain in place until a future release. Updates to configuration variables and values will be communicated well in advance to prepare users for any breaking changes. 
+A previous iteration of the rebranded Seqera documentation noted `seqera` as the default and example value for certain variables (such as default database names). The rebranding from Nextflow Tower to Seqera Platform is an ongoing, incremental process and as such, legacy `tower` values and naming conventions used by the Seqera backend will remain in place until a future release. Updates to configuration variables and values will be communicated well in advance to prepare users for any breaking changes.
 
 ## Upgrade steps
 
@@ -109,5 +109,3 @@ If you're using AWS Batch, you will need to [configure a custom job definition](
 ## Changelog
 
 For a detailed list of all changes, see the Seqera [changelog](./changelog.mdx).
-
-

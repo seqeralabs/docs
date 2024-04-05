@@ -2,7 +2,7 @@
 
 ## New features
 
-### Launchpad redesign and pipeline enhancements 
+### Launchpad redesign and pipeline enhancements
 
 To enhance pipeline search and navigation capabilities, we now support a new list view to complement the existing card view. The list view allows users to efficiently search for and navigate to their pipeline of choice, while also ensuring that the most relevant information is visible and the relationships between pipelines are clear. With this new feature, users can access their pipelines in either card or list view, making them easier to manage.
 
@@ -10,7 +10,7 @@ We've also introduced a new pipeline detail view that shows in-depth information
 
 ### Enhanced support for Fusion file system
 
-Tower 23.1 introduces support for the Fusion file system in Google Cloud Batch environments. Fusion is a distributed, lightweight file system for cloud-native pipelines that has been shown to improve performance by up to ~2.2x compared to cloud native object storage. 
+Tower 23.1 introduces support for the Fusion file system in Google Cloud Batch environments. Fusion is a distributed, lightweight file system for cloud-native pipelines that has been shown to improve performance by up to ~2.2x compared to cloud native object storage.
 
 With this new integration, Google Cloud Batch users can enjoy a faster, more efficient, and cheaper processing experience. Fusion offers many benefits, including faster real-time data processing, batch processing, and ETL operations, making it a valuable tool for managing complex data pipelines. By using Fusion with Google Cloud Batch, users can run their data integration workflows directly against data residing in Google Cloud Storage. This integration will allow Google users to streamline their data processing workflows, increase productivity, reduce cloud spending, and achieve better outcomes.
 
@@ -25,8 +25,8 @@ We have added a new secure way to connect two elements, Tower and Wave, using We
 - Filter runs by label
 - Admin panel enhancements: team and workspace management
 - Additional dashboard enhancements:
-    - Export dashboard data to CSV
-    - Improved date filtering
+  - Export dashboard data to CSV
+  - Improved date filtering
 - Default resource labels for compute environments per workspace
 - Fusion log download
 - Upgrade Micronaut to 3.8.5
@@ -38,7 +38,7 @@ We have added a new secure way to connect two elements, Tower and Wave, using We
 
 ## Breaking changes and warnings
 
-Breaking changes and instructions listed here apply when updating from Tower version 22.4. If you are updating from an earlier version, see the release notes of previous versions for a complete picture of changes that may affect you. 
+Breaking changes and instructions listed here apply when updating from Tower version 22.4. If you are updating from an earlier version, see the release notes of previous versions for a complete picture of changes that may affect you.
 
 ### Updated AWS permissions policies
 
@@ -46,11 +46,11 @@ Several new Tower features over the last few releases require updated AWS IAM pe
 
 ### Wave requires container registry credentials
 
-The Wave containers service uses container registry [credentials](../../credentials/overview.mdx) in Tower to authenticate to your (public or private) container registries. This is separate from your existing cloud provider credentials stored in Tower. 
+The Wave containers service uses container registry [credentials](../../credentials/overview.mdx) in Tower to authenticate to your (public or private) container registries. This is separate from your existing cloud provider credentials stored in Tower.
 
-This means that, for example, AWS ECR (Elastic Container Registry) authentication requires an [ECR container registry credential](../../credentials/aws_registry_credentials.mdx) if you are running a compute environment with Wave enabled, even if your existing AWS credential in Tower has IAM access to your ECR. 
+This means that, for example, AWS ECR (Elastic Container Registry) authentication requires an [ECR container registry credential](../../credentials/aws_registry_credentials.mdx) if you are running a compute environment with Wave enabled, even if your existing AWS credential in Tower has IAM access to your ECR.
 
-See the relevant [container registry credentials](../../credentials/overview.mdx) page for provider-specific instructions. 
+See the relevant [container registry credentials](../../credentials/overview.mdx) page for provider-specific instructions.
 
 ## Upgrade steps
 

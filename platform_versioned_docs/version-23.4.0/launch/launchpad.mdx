@@ -23,9 +23,9 @@ The **Launch form** is used to launch pipelines and to add pipelines to the Laun
 
 **Launch a saved pipeline**
 
-Select **Launch** next to the pipeline of your choice to open the pipeline launch form. 
+Select **Launch** next to the pipeline of your choice to open the pipeline launch form.
 
-Seqera uses a `nextflow_schema.json` file in the root of the pipeline repository to dynamically create a form with the necessary pipeline parameters. 
+Seqera uses a `nextflow_schema.json` file in the root of the pipeline repository to dynamically create a form with the necessary pipeline parameters.
 
 All pipelines contain at least these parameters:
 
@@ -33,11 +33,11 @@ All pipelines contain at least these parameters:
 **Labels**: Assign new or existing [labels](../labels/overview.mdx) to the run.
 **Input/output options**: Specify paths to pipeline input [datasets](../data/datasets.mdx), output directories, and other pipeline-specific I/O options. _input_ and _outdir_ are required fields common to all pipelines:
 
-- **input** 
-Specify compatible input datasets manually or from the drop-down menu. Select **Browse** to view the available datasets or browse for [Data Explorer](../data/data-explorer.mdx) files in a popup window. The Data Explorer tab allows you to select input datasets that match your [pipeline schema](../pipeline-schema/overview.mdx) `mimetype` criteria (`text/csv` for CSV files, or `text/tsv` for TSV files). 
+- **input**
+Specify compatible input datasets manually or from the drop-down menu. Select **Browse** to view the available datasets or browse for [Data Explorer](../data/data-explorer.mdx) files in a popup window. The Data Explorer tab allows you to select input datasets that match your [pipeline schema](../pipeline-schema/overview.mdx) `mimetype` criteria (`text/csv` for CSV files, or `text/tsv` for TSV files).
 
 - **outdir**
-Specify the output directory where run results will be saved. Specify the directory path manually, or select **Browse** to specify a cloud storage directory using [Data Explorer](../data/data-explorer.mdx). 
+Specify the output directory where run results will be saved. Specify the directory path manually, or select **Browse** to specify a cloud storage directory using [Data Explorer](../data/data-explorer.mdx).
 
 The remaining fields of the pipeline parameters form will vary for each pipeline, dependent on the parameters specified in the pipeline schema. When you have filled the necessary launch form details, select **Launch**. The **Runs** tab shows your new run in a **submitted** status at the top of the list. Select the run name to navigate to the [**View Workflow Run**](../monitoring/summary.mdx) page and view the configuration, parameters, status of individual tasks, and run report.
 
@@ -48,33 +48,41 @@ For more information on relaunch and resume, see [Cache and resume](./cache-resu
 **Quick launch an unconfigured pipeline**
 
 1. Select **launch a run without configuration** below the Launchpad heading.
-2. On the **Launch** form, enter an optional **Workflow run name** (or keep the randomly assigned default) and assign optional labels to the run.
-3. Select a **Compute environment** from the available options. See [Compute environments](../compute-envs/overview.mdx) to learn how to create an environment for your preferred execution platform.
-4. Enter a repository URL for the **Pipeline to launch** (e.g., `https://github.com/nf-core/rnaseq.git`).
+1. On the **Launch** form, enter an optional **Workflow run name** (or keep the randomly assigned default) and assign optional labels to the run.
+1. Select a **Compute environment** from the available options. See [Compute environments](../compute-envs/overview.mdx) to learn how to create an environment for your preferred execution platform.
+1. Enter a repository URL for the **Pipeline to launch** (e.g., `https://github.com/nf-core/rnaseq.git`).
 
-:::note
-Nextflow pipelines are Git repositories that can reside on any public or private Git-hosting platform. See [Git integration](../git/overview.mdx) in the Seqera docs and [Pipeline sharing](https://www.nextflow.io/docs/latest/sharing.html) in the Nextflow docs for more details.
-:::
+    :::note
+    Nextflow pipelines are Git repositories that can reside on any public or private Git-hosting platform. See [Git integration](../git/overview.mdx) in the Seqera docs and [Pipeline sharing](https://www.nextflow.io/docs/latest/sharing.html) in the Nextflow docs for more details.
+    :::
 
-5. Select a **Revision number** to use a specific version of the pipeline (optional). The Git default branch (e.g. main or master) or `manifest.defaultBranch` in the Nextflow configuration will be used by default.
-6. Enter the **Work directory**, which corresponds to the Nextflow work directory. You can also **Browse** for a cloud storage directory with Data Explorer. The default work directory of the compute environment will be used by default.
+1. Select a **Revision number** to use a specific version of the pipeline (optional). The Git default branch (e.g. main or master) or `manifest.defaultBranch` in the Nextflow configuration will be used by default.
+1. Enter the **Work directory**, which corresponds to the Nextflow work directory. You can also **Browse** for a cloud storage directory with Data Explorer. The default work directory of the compute environment will be used by default.
 
-:::note
-The credentials associated with the compute environment must have access to the work directory (e.g., an S3 bucket).
-:::
+    :::note
+    The credentials associated with the compute environment must have access to the work directory (e.g., an S3 bucket).
+    :::
 
-7. Select any **Config profiles** you wish to use. See [Nextflow Config profiles](https://www.nextflow.io/docs/latest/config.html#config-profiles) for more details.
-8. Enter any **Pipeline parameters** in YAML or JSON format:
+1. Select any **Config profiles** you wish to use. See [Nextflow Config profiles](https://www.nextflow.io/docs/latest/config.html#config-profiles) for more details.
+1. Enter any **Pipeline parameters** in YAML or JSON format:
 
-```
-reads: 's3://nf-bucket/exome-data/ERR013140_{1,2}.fastq.bz2'
-paired_end: true
-```
-:::note
-In YAML, quotes should be used for paths but not for numbers or Boolean values.
-:::
+    ```
+    reads: 's3://nf-bucket/exome-data/ERR013140_{1,2}.fastq.bz2'
+    paired_end: true
+    ```
 
-9. Once you have filled the necessary launch form details, select **Launch**. The **Runs** tab shows your new run in a **submitted** status on the top of the list. Select the run name to navigate to the run detail page and view the configuration, parameters, status of individual tasks, and run report.
+    :::note
+    In YAML, quotes should be used for paths but not for numbers or Boolean values.
+    :::
+
+
+1. Select or create [resource labels](../resource-labels/overview.mdx) to apply to the resources consumed by the run, if needed.
+
+1. Expand the [Pipeline secrets](../secrets/overview.mdx) dropdown to select user or workspace secrets to be used during the run, if needed.
+
+1. Apply any [Advanced options](./advanced.mdx), if needed.
+
+1. When you have filled the necessary launch form details, select **Launch**. The **Runs** tab shows your new run in a **submitted** status on the top of the list. Select the run name to navigate to the run detail page and view the configuration, parameters, status of individual tasks, and run report.
 
 :::note
 For more information on relaunch and resume, see [Cache and resume](./cache-resume.mdx).

@@ -15,11 +15,13 @@ The Administration Console allows Tower instance administrators to interact with
 2. Populate the variable with a sequence of comma-delimited email addresses (no spaces).<br/>Example: `TOWER_ROOT_USERS=foo@foo.com,bar@bar.com`
 3. If using a Tower version earlier than 21.12:
    1. Add the following configuration to _tower.yml_:
+
    ```yml
    tower:
      admin:
        root-users: "${TOWER_ROOT_USERS:[]}"
    ```
+
 4. Restart the `cron` and `backend` containers/Deployments.
 5. The console will now be available via your Profile drop-down menu.
 
@@ -56,6 +58,7 @@ If you have encountered the 403 error as a result of being a Launch user who did
    1. Query the list of pipelines via the `/pipelines` endpoint. Find the `pipelineId` of the pipeline you intend to launch.
    2. Once you have the `pipelineId`, call the `/pipelines/{pipelineId}/launch` API to retrieve the pipeline's `launch.id`.
    3. Include the `launch.id` in your call to the `/workflow/launch` API endpoint (see example below).
+
       ```
       {
       	"launch": {
@@ -471,6 +474,7 @@ The following configuration are suggested to work with the above stated AWS limi
 - Head Job Memory = 60000
 - Pre-run script = export NXF_OPTS="-Xms20G -Xmx40G"
 - Update the `nextflow.config` to increase the chunk size and slow down the number of transfers.
+
   ```
   aws {
     batch {
@@ -987,6 +991,7 @@ If you need to save files to an S3 bucket protected by a [bucket policy which en
    ```
 
 2. Add the following configuration to the **Advanced options > Pre-run script** textbox of the **Launch Pipeline** screen:
+
    ```bash
    export TOWER_AWS_SSE=AES256
    ```
