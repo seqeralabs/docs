@@ -124,6 +124,13 @@
         },
         {
           "type": "category",
+          "label": "Administration",
+          "items": [
+            "administration/audit-logs"
+          ]
+        },        
+        {
+          "type": "category",
           "label": "Advanced options",
           "items":[
             "enterprise/advanced-topics/manual-aws-batch-setup"
