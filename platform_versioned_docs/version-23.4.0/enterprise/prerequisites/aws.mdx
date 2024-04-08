@@ -59,7 +59,7 @@ If you're installing Seqera Enterprise with Kubernetes, an [Elastic Kubernetes S
    - `aws-auth` must be updated to [allow access to additional IAM users/roles](https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html) (if needed)
 
    - **Addons**
-   
+
    - Install the [cert-manager](https://cert-manager.io/docs/)
    - Install the [AWS Load Balancer Controller](https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html)
 
@@ -119,11 +119,14 @@ If you use AWS SES in sandbox mode, both the _sender_ and the _receiver_ email a
 
 See [Creating an Amazon RDS DB instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_CreateDBInstance.html) to guide you through the external database setup for your production deployment. 
 
-The Seqera requirements for your database are:
+External databases for Seqera Enterprise deployments require:
 
 - A **MySQL8 Community** DB instance
-- You must create your MySQL user and database schema manually. See [Database configuration](../configuration/overview.mdx#seqera-and-redis-databases) for more details.
-- After your database is created, update the inbound rules for the underlying EC2 instance to allow MySQL connections.
+- Manual MySQL user and database schema creation. See [Database configuration](../configuration/overview.mdx#seqera-and-redis-databases) for more details.
+
+After your database is created:
+
+- Update the inbound rules for the underlying EC2 instance to allow MySQL connections.
 - Update your Seqera [configuration](../configuration/overview.mdx#seqera-and-redis-databases) with the database hostname, username, and password.
 
 ### Amazon EC2
