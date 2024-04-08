@@ -13,11 +13,11 @@ Run the Seqera container with [Docker](../docker-compose.mdx) on an AWS EC2 inst
 
 - **SMTP server**: If you don't have an email server, you can use [Amazon Simple Email Service](https://aws.amazon.com/ses/).
 
+   :::note
    Amazon [blocks EC2 traffic over port 25 by default](https://aws.amazon.com/premiumsupport/knowledge-center/ec2-port-25-throttle/). Ensure that your integration uses a port that can successfully reach your SMTP server.
+   :::
 
 - **MySQL database**: An external database, such as one provided by [Amazon Relational Database Service](https://aws.amazon.com/rds/), is highly recommended for production deployments.
-
-   If you decide to use an external database, you must create a MySQL user and database manually. See [Configuration](../configuration/overview.mdx#seqera-and-redis-databases) for more details.
 
 - **(Optional) SSL certificate**: HTTP must not be used in production environments. An SSL certificate is required for your Seqera instance to handle HTTPS traffic.
 
@@ -35,36 +35,41 @@ Run the Seqera container with [Docker](../docker-compose.mdx) on an AWS EC2 inst
 
 ### Prerequisites for Docker
 
-An [EC2](https://aws.amazon.com/ec2/) instance is required. See the [detailed instructions](#aws-setup) to provision an EC2 instance for this purpose.
+An [EC2](https://aws.amazon.com/ec2/) instance is required. See the [detailed instructions](#amazon-ec2) to provision an EC2 instance for this purpose.
 
 ### Prerequisites for EKS
 
-If you're installing Seqera Enterprise with Kubernetes, an [Elastic Kubernetes Service (EKS)](https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html) cluster is required. See the [EKS documentation](https://docs.aws.amazon.com/eks/latest/userguide/getting-started.html) to provision your own cluster. Your EKS cluster must satisfy the following requirements:
+If you're installing Seqera Enterprise with Kubernetes, an [Elastic Kubernetes Service (EKS)](https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html) cluster is required. See the [EKS documentation](https://docs.aws.amazon.com/eks/latest/userguide/getting-started.html) to provision your own cluster.
 
-- Kubernetes 1.19 or later
+<details>
+   <summary>EKS cluster requirements</summary>
+   
+   - Kubernetes 1.19 or later
 
-- **Subnet requirements**
+   - **Subnet requirements**
 
-  - At least 2 subnets across two different Availability Zones
-  - Subnets must be tagged for [AWS Load Balancer Controller auto-discovery](https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html)
-  - Public subnets must be configured to [auto-assign IPs on launch](https://aws.amazon.com/blogs/containers/upcoming-changes-to-ip-assignment-for-eks-managed-node-groups/)
-  - Public and private subnets must allow egress traffic to the public internet
+   - At least 2 subnets across two different Availability Zones
+   - Subnets must be tagged for [AWS Load Balancer Controller auto-discovery](https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html)
+   - Public subnets must be configured to [auto-assign IPs on launch](https://aws.amazon.com/blogs/containers/upcoming-changes-to-ip-assignment-for-eks-managed-node-groups/)
+   - Public and private subnets must allow egress traffic to the public internet
 
-- **RBAC requirements**
+   - **RBAC requirements**
 
-  - The cluster must be created by a non-root user
-  - `aws-auth` must be updated to [allow access to additional IAM users/roles](https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html) (if needed)
+   - The cluster must be created by a non-root user
+   - `aws-auth` must be updated to [allow access to additional IAM users/roles](https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html) (if needed)
 
-- **Addons**
-  - Install the [cert-manager](https://cert-manager.io/docs/)
-  - Install the [AWS Load Balancer Controller](https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html)
+   - **Addons**
+   - Install the [cert-manager](https://cert-manager.io/docs/)
+   - Install the [AWS Load Balancer Controller](https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html)
 
-- **Ingress**
+   - **Ingress**
 
-1. ALB provisioning via the [AWS Load Balancer Controller](https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html)
-1. ALB integration with the [Amazon Certificate Manager](https://aws.amazon.com/certificate-manager/)
+      1. ALB provisioning via the [AWS Load Balancer Controller](https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html)
+      1. ALB integration with the [Amazon Certificate Manager](https://aws.amazon.com/certificate-manager/)
 
-Additionally, the ingress assumes the presence of SSL certificates, DNS resolution, and ALB logging. If you've chosen not to use some or all of these features, you'll need to modify the manifest accordingly before applying it to the cluster.
+      Additionally, the ingress assumes the presence of SSL certificates, DNS resolution, and ALB logging. If you've chosen not to use some or all of these features, you'll need to modify the manifest accordingly before applying it to the cluster.
+
+</details>
 
 ### Seqera container images
 
@@ -110,13 +115,14 @@ If you use AWS SES in sandbox mode, both the _sender_ and the _receiver_ email a
 
 ### Amazon RDS
 
-See [Creating an Amazon RDS DB instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_CreateDBInstance.html) to guide you through the external database setup for your production deployment. Create a **MySQL8 Community** DB instance for this purpose.  
+See [Creating an Amazon RDS DB instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_CreateDBInstance.html) to guide you through the external database setup for your production deployment. 
 
-After your database is created:
+The Seqera requirements for your database are:
 
-1. Update the inbound rules for the underlying EC2 instance to allow MySQL connections.
-
-1. Update `TOWER_DB_URL` in your Seqera [configuration](../configuration/overview.mdx#seqera-and-redis-databases) with the database hostname.
+- A **MySQL8 Community** DB instance
+- You must create your MySQL user and database schema manually. See [Database configuration](../configuration/overview.mdx#seqera-and-redis-databases) for more details.
+- After your database is created, update the inbound rules for the underlying EC2 instance to allow MySQL connections.
+- Update your Seqera [configuration](../configuration/overview.mdx#seqera-and-redis-databases) with the database hostname, username, and password.
 
 ### Amazon EC2
 
