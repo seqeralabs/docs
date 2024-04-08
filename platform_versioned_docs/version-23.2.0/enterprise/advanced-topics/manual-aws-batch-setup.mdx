@@ -114,30 +114,30 @@ Create a service role used by AWS Batch to launch EC2 instances on your behalf:
 1. In the [IAM Console](https://console.aws.amazon.com/iam/home), select **Create role** from the Roles page.
 1. Select **AWS service** as the trusted entity type, and **Batch** as the service.
 1. On the next page, the `AWSBatchServiceRole` is already attached. No further permissions are needed for this role.
-1. Enter `seqera-servicerole` as the role name and add an optional description and tags if needed, then select **Create**. 
+1. Enter `seqera-servicerole` as the role name and add an optional description and tags if needed, then select **Create**.
 
 ### Create an EC2 instance role
 
 Create a role that controls which AWS resources the EC2 instances launched by AWS Batch can access:
 
 1. In the [IAM Console](https://console.aws.amazon.com/iam/home), select **Create role** from the Roles page.
-1. Select AWS service as the trusted entity type, EC2 as the service, and _EC2 - Allows EC2 instances to call AWS services on your behalf_ as the use case. 
+1. Select AWS service as the trusted entity type, EC2 as the service, and _EC2 - Allows EC2 instances to call AWS services on your behalf_ as the use case.
 1. Select **Next: Permissions**. Search for the following policies to attach to the role:
 
 	- `AmazonEC2ContainerServiceforEC2Role`
 	- `AmazonS3FullAccess` (you may want to use a custom policy to allow access only on specific S3 buckets)
 	- `seqera-batchjob` (the instance role policy created above)
 
-1. Enter `seqera-instancerole` as the role name and add an optional description and tags if needed, then select **Create**. 
+1. Enter `seqera-instancerole` as the role name and add an optional description and tags if needed, then select **Create**.
 
 ### Create an EC2 SpotFleet role
 
 The EC2 SpotFleet role allows you to use Spot instances when you run jobs in AWS Batch. Create a role for the creation and launch of Spot fleets — Spot instances with similar compute capabilities (i.e., vCPUs and RAM):
 
 1. In the [IAM Console](https://console.aws.amazon.com/iam/home), select **Create role** from the Roles page.
-1. Select AWS service as the trusted entity type, EC2 as the service, and _EC2 - Spot Fleet Tagging_ as the use case. 
-1. On the next page, the `AmazonEC2SpotFleetTaggingRole` is already attached. No further permissions are needed for this role. 
-1. Enter `seqera-fleetrole` as the role name and add an optional description and tags if needed, then select **Create**. 
+1. Select AWS service as the trusted entity type, EC2 as the service, and _EC2 - Spot Fleet Tagging_ as the use case.
+1. On the next page, the `AmazonEC2SpotFleetTaggingRole` is already attached. No further permissions are needed for this role.
+1. Enter `seqera-fleetrole` as the role name and add an optional description and tags if needed, then select **Create**.
 
 ### Create a launch template
 
@@ -212,7 +212,7 @@ Create a launch template to configure the EC2 instances deployed by Batch jobs:
     --//--
     ```
 
-  1. In the line `| sed 's/$FORGE_ID/<your prefix>/g' \`, replace `<your prefix>` with your desired prefix to be added to the AWS resources created by your compute environment. 
+  1. In the line `| sed 's/$FORGE_ID/<your prefix>/g' \`, replace `<your prefix>` with your desired prefix to be added to the AWS resources created by your compute environment.
   1. Save the template with the name `seqera-launchtemplate`.
 
 </TabItem>
@@ -268,7 +268,7 @@ Create a launch template to configure the EC2 instances deployed by Batch jobs:
     --//--
     ```
 
-  1. In the line `| sed 's/$FORGE_ID/<your prefix>/g' \`, replace `<your prefix>` with your desired prefix to be added to the AWS resources created by your compute environment. 
+  1. In the line `| sed 's/$FORGE_ID/<your prefix>/g' \`, replace `<your prefix>` with your desired prefix to be added to the AWS resources created by your compute environment.
   1. Save the template with the name `seqera-launchtemplate`.
 
 </TabItem>
@@ -276,7 +276,8 @@ Create a launch template to configure the EC2 instances deployed by Batch jobs:
 
 ### Create the Batch compute environments
 
-Nextflow makes use of two job queues during workflow execution: 
+Nextflow makes use of two job queues during workflow execution:
+
 - A head queue to run the Nextflow application
 - A compute queue where Nextflow will submit job executions
 
@@ -286,43 +287,43 @@ While the compute queue can use a compute environment with Spot instances, the h
 Spot instances can significantly reduce your AWS compute costs, provided your workflow compute tasks can run on ephemeral instances.
 :::
 
-Create a compute environment for each queue in the AWS Batch console: 
+Create a compute environment for each queue in the AWS Batch console:
 
 <Tabs>
 <TabItem value="Head queue with on-demand instances" label="Head queue with on-demand instances" default>
 
 The head queue requires an on-demand compute environment. Do not select **Use Spot instances** during compute environment creation.
 
-1. In the [Batch Console](https://eu-west-1.console.aws.amazon.com/batch/home), select **Create** on the Compute environments page. 
-1. Select **Amazon EC2** as the compute environment configuration. 
+1. In the [Batch Console](https://eu-west-1.console.aws.amazon.com/batch/home), select **Create** on the Compute environments page.
+1. Select **Amazon EC2** as the compute environment configuration.
 
-    :::note 
-    Seqera AWS Batch compute environments created with [Tower Forge](../../compute-envs/aws-batch.md#tower-forge-compute-environment) support using Fargate for the head job, but manual compute environments must use EC2. 
+    :::note
+    Seqera AWS Batch compute environments created with [Tower Forge](../../compute-envs/aws-batch.md#tower-forge-compute-environment) support using Fargate for the head job, but manual compute environments must use EC2.
     :::
 
 1. Enter a name of your choice, and apply the `seqera-servicerole` and `seqera-instancerole`.
-1. Enter vCPU limits and instance types, if needed. 
+1. Enter vCPU limits and instance types, if needed.
 
     :::note
     To use the same queue for both head and compute tasks, you must assign sufficient resources to your compute environment.
     :::
 
-1. Expand **Additional configuration** and select the `seqera-launchtemplate` from the Launch template dropdown. 
-1. Configure VPCs, subnets, and security groups on the next page as needed. 
+1. Expand **Additional configuration** and select the `seqera-launchtemplate` from the Launch template dropdown.
+1. Configure VPCs, subnets, and security groups on the next page as needed.
 1. Review your configuration and select **Create compute environment**.  
 
 </TabItem>
 <TabItem value="Compute queue with Spot instances" label="Compute queue with Spot instances" default>
 
-Create this compute environment to use Spot instances for your workflow compute tasks. This compute environment cannot be assigned to the Nextflow head job queue. 
+Create this compute environment to use Spot instances for your workflow compute tasks. This compute environment cannot be assigned to the Nextflow head job queue.
 
-1. In the [Batch Console](https://eu-west-1.console.aws.amazon.com/batch/home), select **Create** on the Compute environments page. 
-1. Select **Amazon EC2** as the compute environment configuration. 
+1. In the [Batch Console](https://eu-west-1.console.aws.amazon.com/batch/home), select **Create** on the Compute environments page.
+1. Select **Amazon EC2** as the compute environment configuration.
 1. Enter a name of your choice, and apply the `seqera-servicerole` and `seqera-instancerole`.
 1. Select **Enable using Spot instances** to use Spot instances and save computing costs.  
 1. Select the `seqera-fleetrole` and enter vCPU limits and instance types, if needed.
-1. Expand **Additional configuration** and select the `seqera-launchtemplate` from the Launch template dropdown. 
-1. Configure VPCs, subnets, and security groups on the next page as needed. 
+1. Expand **Additional configuration** and select the `seqera-launchtemplate` from the Launch template dropdown.
+1. Configure VPCs, subnets, and security groups on the next page as needed.
 1. Review your configuration and select **Create compute environment**.  
 
 </TabItem>
@@ -356,4 +357,3 @@ You only need to create one queue if you intend to use on-demand instances for y
 </Tabs>
 
 Use the AWS resources created on this page to create your [manual AWS Batch compute environment](../../compute-envs/aws-batch.md#manual).
-

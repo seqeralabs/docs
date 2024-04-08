@@ -84,6 +84,7 @@
           "label": "Launch",
           "items": [
             "launch/launchpad",
+            "launch/cache-resume",
             "pipeline-optimization/overview",
             "launch/advanced"
           ]

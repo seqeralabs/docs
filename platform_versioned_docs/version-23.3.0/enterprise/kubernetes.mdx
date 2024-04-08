@@ -55,7 +55,7 @@ Seqera Platform Enterprise is distributed as a collection of Docker containers a
     - name: "cr.seqera.io"
     ```
 
-    This parameter is already included in the templates linked above. If you use a name other than `cr.seqera.io` for the secret, update this value accordingly in the configuration files. 
+    This parameter is already included in the templates linked above. If you use a name other than `cr.seqera.io` for the secret, update this value accordingly in the configuration files.
 
 ### Seqera ConfigMap
 
@@ -106,6 +106,7 @@ When using a managed Redis service, you must specify the service IP address or D
   ```bash
   TOWER_REDIS_URL=redis://<redis private IP>:6379
   ```
+
 **Azure Cache for Redis requirements**
 
 - Use a single-node cluster, as multi-node clusters are not supported
@@ -227,7 +228,6 @@ See the relevant documentation for configuring an ingress service on each cloud 
 - [Amazon](https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.2/guide/ingress/annotations/)
 - [Azure](https://docs.microsoft.com/en-us/azure/application-gateway/ingress-controller-annotations)
 - [Google Cloud](https://cloud.google.com/kubernetes-engine/docs/concepts/ingress)
-
 
 ### Check status
 
