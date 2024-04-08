@@ -122,7 +122,8 @@
             "orgs-and-teams/organizations",
             "orgs-and-teams/workspace-management",
             "orgs-and-teams/shared-workspaces",
-            "administration/overview"
+            "administration/overview",
+            "administration/audit-logs"
           ]
         },
         {
