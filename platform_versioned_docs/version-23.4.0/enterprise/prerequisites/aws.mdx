@@ -2,7 +2,7 @@
 title: "AWS"
 description: Prerequisites for AWS deployments
 date: "12 Apr 2023"
-tags: [aws, prerequisites, configuration]
+tags: [aws, prerequisites, configuration, ec2, ses, rds]
 ---
 
 This page describes the infrastructure and other prerequisites for deploying Seqera Platform Enterprise on Amazon Web Services (AWS).
@@ -14,14 +14,12 @@ Run the Seqera container with [Docker](../docker-compose.mdx) on an AWS EC2 inst
 - **SMTP server**: If you don't have an email server, you can use [Amazon Simple Email Service](https://aws.amazon.com/ses/).
 
    :::note
-   Amazon [blocks EC2 traffic over port 25 by default](https://aws.amazon.com/premiumsupport/knowledge-center/ec2-port-25-throttle/). Ensure that your integration uses a port that can successfully reach your SMTP server.
+   Amazon [blocks EC2 traffic over port 25 by default](https://aws.amazon.com/premiumsupport/knowledge-center/ec2-port-25-throttle/). Your integration must use a port that can successfully reach your SMTP server.
    :::
 
 - **MySQL database**: An external database, such as one provided by [Amazon Relational Database Service](https://aws.amazon.com/rds/), is highly recommended for production deployments.
 
-- **(Optional) SSL certificate**: HTTP must not be used in production environments. An SSL certificate is required for your Seqera instance to handle HTTPS traffic.
-
-   If you don't have a pre-existing SSL certificate, you can [request](https://docs.aws.amazon.com/acm/latest/userguide/gs.html) or [import](https://docs.aws.amazon.com/acm/latest/userguide/import-certificate.html) an SSL certificate into the [Amazon Certificate Manager](https://aws.amazon.com/certificate-manager/) (ACM).
+- **(Optional) SSL certificate**: HTTP must not be used in production environments. An SSL certificate is required for your Seqera instance to handle HTTPS traffic. See [SSL/TLS configuration](../configuration/ssl_tls.mdx#aws-deployments-manage-ssl-certificates-with-amazon-certificate-manager-acm) for more information.
 
    :::note
    From version 22.1.1, HTTP-only implementations **must** set the `TOWER_ENABLE_UNSAFE_MODE=true` environment variable in the Seqera hosting infrastructure to enable user login. HTTP must not be used in production environments.
@@ -29,17 +27,15 @@ Run the Seqera container with [Docker](../docker-compose.mdx) on an AWS EC2 inst
 
 - **(Optional) AWS Parameter Store**: Store sensitive Seqera configuration values as SecureString [AWS Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) parameters. See [AWS Parameter Store configuration](../configuration/aws_parameter_store.mdx) for instructions. This is recommended for production environments. 
 
-- **(Optional) DNS**: DNS is required to support human-readable domain names and load-balanced traffic.
-
-   If you don't have access to a pre-existing DNS service, use [Amazon Route 53](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html).
+- **(Optional) DNS**: DNS is required to support human-readable domain names and load-balanced traffic. If you don't have access to a pre-existing DNS service, use [Amazon Route 53](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html).
 
 ### Prerequisites for Docker
 
-An [EC2](https://aws.amazon.com/ec2/) instance is required. See the [detailed instructions](#amazon-ec2) to provision an EC2 instance for this purpose.
+An [EC2](https://aws.amazon.com/ec2/) instance is required. See [Amazon EC2](#amazon-ec2) for instructions to provision an EC2 instance for this purpose.
 
 ### Prerequisites for EKS
 
-If you're installing Seqera Enterprise with Kubernetes, an [Elastic Kubernetes Service (EKS)](https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html) cluster is required. See the [EKS documentation](https://docs.aws.amazon.com/eks/latest/userguide/getting-started.html) to provision your own cluster.
+If you're installing Seqera Enterprise with Kubernetes, an [Elastic Kubernetes Service (EKS)](https://docs.aws.amazon.com/eks/latest/userguide/getting-started.html) cluster is required. See the [EKS documentation](https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html) to provision your own cluster.
 
 <details>
    <summary>EKS cluster requirements</summary>
@@ -95,7 +91,7 @@ container registry ([cr.seqera.io](https://cr.seqera.io)). Contact [support](htt
 
 ## AWS setup
 
-This section provides guidance for setting up commonly-used AWS services for Seqera deployment.
+Set up commonly-used AWS services for Seqera deployment.
 
 ### Fetch Seqera config values from AWS Parameter Store
 

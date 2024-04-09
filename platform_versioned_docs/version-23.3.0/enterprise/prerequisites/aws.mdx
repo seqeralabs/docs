@@ -13,7 +13,9 @@ You can run the Seqera container with [Docker](../docker-compose.mdx) on an AWS 
 
 - **SMTP server**: If you don't have an email server, you can use [Amazon Simple Email Service](https://aws.amazon.com/ses/).
 
-Amazon [blocks EC2 traffic over port 25 by default](https://aws.amazon.com/premiumsupport/knowledge-center/ec2-port-25-throttle/). Ensure that your integration uses a port that can successfully reach your SMTP server.
+   :::note
+   Amazon [blocks EC2 traffic over port 25 by default](https://aws.amazon.com/premiumsupport/knowledge-center/ec2-port-25-throttle/). Your integration must use a port that can successfully reach your SMTP server.
+   :::
 
 - **MySQL database**: An external database, such as one provided by [Amazon Relational Database Service](https://aws.amazon.com/rds/), is highly recommended for production deployments.
 

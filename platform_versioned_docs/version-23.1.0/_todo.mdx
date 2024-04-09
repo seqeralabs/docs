@@ -61,3 +61,26 @@ AZURE Batch - SSL problem as per https://git.seqera.io/eagle/nf-support/issues/1
 https://github.com/nf-core/configs/blob/master/conf/google.config as per this ticket: https://git.seqera.io/pluto/nf-support/issues/6
 
 TO DO: As per Ben, document profile injection behaviour into Tower docs (e.g. nf-core automagically injecting google profile if executing on GLS)
+
+
+<!--- 13-4-2023: Keeping old intermediate CA solution for a lookback if needed.
+```
+javax.net.ssl.SSLHandshakeException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
+at java.base/sun.security.ssl.Alert.createSSLException(Alert.java:131)
+at java.base/sun.security.ssl.TransportContext.fatal(TransportContext.java:349)
+at java.base/sun.security.ssl.TransportContext.fatal(TransportContext.java:292)
+at java.base/sun.security.ssl.TransportContext.fatal(TransportContext.java:287)
+at java.base/sun.security.ssl.CertificateMessage$T12CertificateConsumer.checkServerCerts(CertificateMessage.java:654)
+        at java.base/sun.security.ssl.CertificateMessage$T12CertificateConsumer.onCertificate(CertificateMessage.java:473)
+at java.base/sun.security.ssl.CertificateMessage$T12CertificateConsumer.consume(CertificateMessage.java:369)
+at java.base/sun.security.ssl.SSLHandshake.consume(SSLHandshake.java:392)
+```
+
+#### SOLUTION 2: Adding intermediate certificates to your instance
+
+To allow Java to automatically download missing intermediate certificates, activate the **enableAIAcaIssuers** system property via an environment variable:
+
+```bash
+export JAVA_OPTS="-Dcom.sun.security.enableAIAcaIssuers=true"
+```
+-->
