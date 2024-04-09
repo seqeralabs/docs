@@ -11,27 +11,27 @@ This guide assumes you have an existing [Amazon Web Service (AWS)](https://aws.a
 
 There are two ways to create a **Compute Environment** for **AWS Batch** with Tower:
 
-1. **Tower Forge**: This option automatically manages the AWS Batch resources in your AWS account.
+1. **Batch Forge**: This option automatically manages the AWS Batch resources in your AWS account.
 
 2. **Manual**: This option allows you to create a compute environment using existing AWS Batch resources.
 
-If you don't have an AWS Batch environment fully set-up yet, it is suggested to follow the [Tower Forge](#tower-forge) guide.
+If you don't have an AWS Batch environment fully set up yet, follow the [Batch Forge](#tower-forge) guide.
 
 If you have been provided an AWS Batch queue from your account administrator, or if you have set up AWS Batch previously, please follow the [Manual](#manual) guide.
 
-### Tower Forge
+### Batch Forge
 
 :::caution
 Follow these instructions only if you have not pre-configured an AWS Batch environment. Note that this option will automatically create resources in your AWS account that you may be charged for by AWS.
 :::
 
-Tower Forge automates the configuration of an [AWS Batch](https://aws.amazon.com/batch/) compute environment and the queues required for deploying Nextflow pipelines.
+Batch Forge automates the configuration of an [AWS Batch](https://aws.amazon.com/batch/) compute environment and the queues required for deploying Nextflow pipelines.
 
 ### IAM
 
-To use the Tower Forge feature, Tower requires an Identity and Access Management (IAM) user with the permissions listed in [this policy file](https://github.com/seqeralabs/nf-tower-aws/blob/master/forge/forge-policy.json). These authorizations are more permissive than those required to only [launch](https://github.com/seqeralabs/nf-tower-aws/blob/master/launch/launch-policy.json) a pipeline, since Tower needs to manage AWS resources on your behalf. Note that launch permissions also require the S3 storage write permissions in [this policy file](https://github.com/seqeralabs/nf-tower-aws/blob/master/launch/s3-bucket-write.json).
+To use the Batch Forge feature, Tower requires an Identity and Access Management (IAM) user with the permissions listed in [this policy file](https://github.com/seqeralabs/nf-tower-aws/blob/master/forge/forge-policy.json). These authorizations are more permissive than those required to only [launch](https://github.com/seqeralabs/nf-tower-aws/blob/master/launch/launch-policy.json) a pipeline, since Tower needs to manage AWS resources on your behalf. Note that launch permissions also require the S3 storage write permissions in [this policy file](https://github.com/seqeralabs/nf-tower-aws/blob/master/launch/s3-bucket-write.json).
 
-We recommend creating separate IAM policies for Tower Forge and Tower launch permissions using the policy files linked above. These policies can then be assigned to the Tower IAM user.
+We recommend creating separate IAM policies for Batch Forge and Tower launch permissions using the policy files linked above. These policies can then be assigned to the Tower IAM user.
 
 #### Create Tower IAM policies
 
@@ -90,7 +90,7 @@ S3 stands for "Simple Storage Service" and is a type of **object storage**. To a
 3. Enter a unique name for your Bucket and select a region.
 
    :::caution
-   The region of the bucket should be in the _same region as the compute environment that we create in the next section_. Typically users select a region closest to their physical location but Tower Forge supports creating resources in any available AWS region.
+   The region of the bucket should be in the _same region as the compute environment that we create in the next section_. Typically users select a region closest to their physical location but Batch Forge supports creating resources in any available AWS region.
    :::
 
 4. Select the default options for **Configure options**.
@@ -105,7 +105,7 @@ S3 stands for "Simple Storage Service" and is a type of **object storage**. To a
 
 ### Compute Environment
 
-Tower Forge automates the configuration of an [AWS Batch](https://aws.amazon.com/batch/) compute environment and queues required for the deployment of Nextflow pipelines.
+Batch Forge automates the configuration of an [AWS Batch](https://aws.amazon.com/batch/) compute environment and queues required for the deployment of Nextflow pipelines.
 
 Once the AWS resources are set up, we can add a new **AWS Batch** environment in Tower. To create a new compute environment:
 
@@ -238,7 +238,7 @@ Jump to the documentation for [launching pipelines](../launch/launchpad.mdx).
 - Specify a custom **ECS agent configuration** for the ECS agent parameters used by AWS Batch. This is appended to the /etc/ecs/ecs.config file in each cluster node.
 
   :::note
-  Altering this file may result in a malfunctioning Tower Forge compute environment. See [Amazon ECS container agent configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) to learn more about the available parameters.
+  Altering this file may result in a malfunctioning Batch Forge compute environment. See [Amazon ECS container agent configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) to learn more about the available parameters.
   :::
 
 ### Manual
