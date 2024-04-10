@@ -34,14 +34,14 @@ You can access your Seqera instance through the UI, the [API](../api/overview.md
 
 ### Seqera Platform web-based UI
 
-1. Create an account and log in to Seqera at [cloud.seqera.io](https://cloud.seqera.io).
+1.  Create an account and log in to Seqera at [cloud.seqera.io](https://cloud.seqera.io).
 
    :::note
    Platform login sessions remain active as long as the application browser window remains open and active. When the browser window is terminated, automatic logout occurs within 6 hours by default.
    :::
 
-2. Create and configure a new [compute environment](../compute-envs/overview.mdx).
-3. Start [launching pipelines](../launch/launchpad.mdx).
+1.  Create and configure a new [compute environment](../compute-envs/overview.mdx).
+1.  Start [launching pipelines](../launch/launchpad.mdx).
 
 ### Seqera API
 
@@ -55,17 +55,17 @@ See [CLI](../cli/cli.mdx).
 
 If you have an existing environment where you run Nextflow directly, you can still leverage Seqera Platform capabilities by executing your Nextflow run with a `with-tower` flag:
 
-1. Create an account and log in to Seqera at [cloud.seqera.io](https://cloud.seqera.io).
-2. From your personal workspace: Go to the user menu and select **Settings > Your tokens**.
-3. Select **Add token**.
-4. Enter a unique name for your token, then select **Add**.
-5. Copy and store your token securely.
+1.  Create an account and log in to Seqera at [cloud.seqera.io](https://cloud.seqera.io).
+1.  From your personal workspace: Go to the user menu and select **Settings > Your tokens**.
+1.  Select **Add token**.
+1.  Enter a unique name for your token, then select **Add**.
+1.  Copy and store your token securely.
 
 :::caution
 The access token is displayed only once. Save the token value before closing the **Personal Access Token** window.
 :::
 
-6. Open a terminal window and create environment variables to store the Seqera access token and Nextflow version. Replace `<your access token>` with your newly-created token.
+1.  Open a terminal window and create environment variables to store the Seqera access token and Nextflow version. Replace `<your access token>` with your newly-created token.
 
    ```bash
    export TOWER_ACCESS_TOKEN=<your access token>
@@ -76,7 +76,7 @@ The access token is displayed only once. Save the token value before closing the
 Bearer token support requires Nextflow version 20.10.0 or later. Set with the `NXF_VER` environment variable.
 :::
 
-7. To submit a pipeline to a [workspace](../orgs-and-teams/workspace-management.mdx) using Nextflow, add the workspace ID to your environment:
+1.  To submit a pipeline to a [workspace](../orgs-and-teams/workspace-management.mdx) using Nextflow, add the workspace ID to your environment:
 
    ```bash
    export TOWER_WORKSPACE_ID=000000000000000
@@ -84,7 +84,7 @@ Bearer token support requires Nextflow version 20.10.0 or later. Set with the `N
 
    To find your workspace ID, select your organization in Seqera and navigate to the **Workspaces** tab.
 
-8. Run your Nextflow pipeline with the `-with-tower` flag:
+1.  Run your Nextflow pipeline with the `-with-tower` flag:
 
    ```bash
    nextflow run main.nf -with-tower

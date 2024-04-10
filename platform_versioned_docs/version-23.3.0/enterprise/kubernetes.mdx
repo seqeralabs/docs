@@ -19,13 +19,13 @@ Complete the following procedures to install Seqera Enterprise on a Kubernetes c
 
 Create a namespace for the Seqera resources.
 
-1. Create the namespace (e.g., `seqera-nf`):
+1.  Create the namespace (e.g., `seqera-nf`):
 
     ```bash
     kubectl create namespace seqera-nf
     ```
 
-2. Switch to the namespace:
+1.  Switch to the namespace:
 
     ```bash
     kubectl config set-context --current --namespace=seqera-nf
@@ -35,9 +35,9 @@ Create a namespace for the Seqera resources.
 
 Seqera Platform Enterprise is distributed as a collection of Docker containers available through the Seqera container registry [`cr.seqera.io`](https://cr.seqera.io). Contact [support](https://support.seqera.io) to get your container access credentials. After you've received your credentials, grant your cluster access to the registry:
 
-1. Retrieve the `name` and `secret` values from the JSON file that you received from Seqera support.
+1.  Retrieve the `name` and `secret` values from the JSON file that you received from Seqera support.
 
-2. Create a [secret](https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-kubectl/) with the `name` and `secret` values retrieved in the previous step:
+1.  Create a [secret](https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-kubectl/) with the `name` and `secret` values retrieved in the previous step:
 
     ```bash
     kubectl create secret docker-registry cr.seqera.io \
@@ -48,7 +48,7 @@ Seqera Platform Enterprise is distributed as a collection of Docker containers a
 
     The credential `name` contains a dollar `$` character. To prevent the Linux shell from interpreting this value as an environment variable, you must wrap it in single quotes.
 
-3. Configure the Seqera cron service and the application frontend and backend to use the secret created in the previous step (see [tower-cron.yml](./_templates/k8s/tower-cron.yml) and [tower-svc.yml](./_templates/k8s/tower-svc.yml)):
+1.  Configure the Seqera cron service and the application frontend and backend to use the secret created in the previous step (see [tower-cron.yml](./_templates/k8s/tower-cron.yml) and [tower-svc.yml](./_templates/k8s/tower-svc.yml)):
 
     ```yaml
     imagePullSecrets:
@@ -59,9 +59,9 @@ Seqera Platform Enterprise is distributed as a collection of Docker containers a
 
 ### Seqera ConfigMap
 
-1. Download and configure a [ConfigMap](_templates/k8s/configmap.yml) as detailed on the [configuration](configuration/overview.mdx) page.
+1.  Download and configure a [ConfigMap](_templates/k8s/configmap.yml) as detailed on the [configuration](configuration/overview.mdx) page.
 
-2. Deploy the ConfigMap to your cluster:
+1.  Deploy the ConfigMap to your cluster:
 
     ```bash
     kubectl apply -f configmap.yml
@@ -77,7 +77,7 @@ Seqera Enterprise requires a Redis database for caching purposes. Configure Redi
 
 **Deploy a Redis manifest to your cluster**
 
-1. Download the appropriate manifest for your infrastructure:
+1.  Download the appropriate manifest for your infrastructure:
 
     - [Azure AKS](_templates/k8s/redis.aks.yml)
 
@@ -85,7 +85,7 @@ Seqera Enterprise requires a Redis database for caching purposes. Configure Redi
 
     - [Google Kubernetes Engine](_templates/k8s/redis.gke.yml)
 
-2. Deploy to your cluster:
+1.  Deploy to your cluster:
 
     ```bash
     kubectl apply -f redis.*.yml
@@ -137,9 +137,9 @@ If you run the Redis service as a container as part of your Docker or Kubernetes
 
 ### Seqera cron service
 
-1. Download the [cron service manifest](_templates/k8s/tower-cron.yml) file.
+1.  Download the [cron service manifest](_templates/k8s/tower-cron.yml) file.
 
-2. Deploy the manifest to your cluster:
+1.  Deploy the manifest to your cluster:
 
   ```bash
   kubectl apply -f tower-cron.yml
@@ -151,9 +151,9 @@ This container creates the required database schema the first time it instantiat
 
 ### Seqera frontend and backend
 
-1. Download the [manifest](_templates/k8s/tower-svc.yml).
+1.  Download the [manifest](_templates/k8s/tower-svc.yml).
 
-2. Deploy the manifest to your cluster:
+1.  Deploy the manifest to your cluster:
 
   ```bash
   kubectl apply -f tower-svc.yml
@@ -241,21 +241,21 @@ kubectl get pods
 
 To confirm that Seqera Enterprise is properly configured, follow these steps:
 
-1. Log in to your Seqera instance.
+1.  Log in to your Seqera instance.
 
-2. Create an **organization**.
+1.  Create an **organization**.
 
-3. Create a **workspace** within that organization.
+1.  Create a **workspace** within that organization.
 
-4. Create a new **Compute environment**. See [Compute environments](../compute-envs/overview.mdx) for detailed instructions.
+1.  Create a new **Compute environment**. See [Compute environments](../compute-envs/overview.mdx) for detailed instructions.
 
-5. Select **Quick Launch** from the **Launchpad** tab in your workspace.
+1.  Select **Quick Launch** from the **Launchpad** tab in your workspace.
 
-6. Enter the repository URL for the `nf-core/rnaseq` pipeline (`https://github.com/nf-core/rnaseq`).
+1.  Enter the repository URL for the `nf-core/rnaseq` pipeline (`https://github.com/nf-core/rnaseq`).
 
-7. In the **Config profiles** dropdown, select the `test` profile.
+1.  In the **Config profiles** dropdown, select the `test` profile.
 
-8. In **Pipeline parameters**, change the output directory to a location based on your compute environment:
+1.  In **Pipeline parameters**, change the output directory to a location based on your compute environment:
 
     ```yaml
     # save to S3 bucket
@@ -265,7 +265,7 @@ To confirm that Seqera Enterprise is properly configured, follow these steps:
     outdir: /scratch/results
     ```
 
-9. Select **Launch**; you'll be redirected to the **Runs** tab for the workflow. After a few minutes, progress logs will be listed in that workflow's **Execution log** tab.
+1.  Select **Launch**; you'll be redirected to the **Runs** tab for the workflow. After a few minutes, progress logs will be listed in that workflow's **Execution log** tab.
 
 ## Optional addons
 
@@ -281,19 +281,19 @@ The initContainers will wait until both the Seqera and resource optimization dat
 
 The included [dbconsole.yml](_templates/k8s/dbconsole.yml) manifest can be used to deploy a simple web frontend to the Seqera database. Though not required, this can be useful for administrative purposes.
 
-1. Deploy the database console:
+1.  Deploy the database console:
 
   ```bash
   kubectl apply -f dbconsole.yml
   ```
 
-2. Enable a port-forward for the database console to your local machine:
+1.  Enable a port-forward for the database console to your local machine:
 
   ```bash
   kubectl port-forward deployment/dbconsole 8080:8080
   ```
 
-3. Access the database console in a web browser at `http://localhost:8080`.
+1.  Access the database console in a web browser at `http://localhost:8080`.
 
 ### High availability
 

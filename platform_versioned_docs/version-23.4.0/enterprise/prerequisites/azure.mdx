@@ -29,10 +29,10 @@ From version 22.1.1, HTTP-only implementations **must** set the `TOWER_ENABLE_UN
 
 While there are many ways to implement DNS and TLS-termination, Seqera recommends using the specialized native services offered by your cloud provider. In the case of Azure:
 
--   Use **Application Gateway** for TLS-termination and load-balancing.
--   Use [**App Service Domains**](https://docs.microsoft.com/en-us/azure/dns/dns-overview) for domain acquisition.
--   Use **Azure DNS** for domain record management.
--   Use **Azure Vault** for PKI certificate storage.
+- Use **Application Gateway** for TLS-termination and load-balancing.
+- Use [**App Service Domains**](https://docs.microsoft.com/en-us/azure/dns/dns-overview) for domain acquisition.
+- Use **Azure DNS** for domain record management.
+- Use **Azure Vault** for PKI certificate storage.
 
 These decisions should be made before you continue as they impact how Seqera configuration files are updated.
 
@@ -60,14 +60,14 @@ To customize your cluster's Ingress Controller to support HTTPS redirects and TL
 Seqera Platform Enterprise is distributed as a collection of Docker containers available through the Seqera
 container registry ([cr.seqera.io](https://cr.seqera.io)). Contact [support](https://support.seqera.io) to get your container access credentials. Once you've received your credentials, retrieve the Seqera container images:
 
-1. Retrieve the **username** and **password** you received from Seqera support.
-2. Run the following Docker command to authenticate to the registry (using the `username` and `password` values copied in step 1):
+1.  Retrieve the **username** and **password** you received from Seqera support.
+1.  Run the following Docker command to authenticate to the registry (using the `username` and `password` values copied in step 1):
 
    ```bash
    docker login -u '/\<USERNAME\>/' -p '/\PASSWORD\>/' cr.seqera.io
    ```
 
-3. Pull the Seqera container images with the following commands:
+1.  Pull the Seqera container images with the following commands:
 
    ```bash
    docker pull cr.seqera.io/private/nf-tower-enterprise/backend:v23.4.3
@@ -83,13 +83,13 @@ This section provides step-by-step instructions for some commonly used Azure ser
 
 ### Azure Resource Group
 
-1. Sign in to the [Azure portal](https://portal.azure.com).
+1.  Sign in to the [Azure portal](https://portal.azure.com).
 
-2. Select **Resource groups**.
+1.  Select **Resource groups**.
 
-3. Select **Add**.
+1.  Select **Add**.
 
-4. Enter the following values:
+1.  Enter the following values:
 
    - **Subscription**: Select your Azure subscription.
 
@@ -97,19 +97,19 @@ This section provides step-by-step instructions for some commonly used Azure ser
 
    - **Region**: Select the region where your assets will exist (e.g., `East US`).
 
-5. Select **Review and Create**.
+1.  Select **Review and Create**.
 
-6. Select **Create**.
+1.  Select **Create**.
 
 ### Azure Storage Account
 
-1. Sign in to the [Azure portal](https://portal.azure.com).
+1.  Sign in to the [Azure portal](https://portal.azure.com).
 
-2. Select **Storage accounts**.
+1.  Select **Storage accounts**.
 
-3. Select **Create**.
+1.  Select **Create**.
 
-4. Enter the following values:
+1.  Enter the following values:
 
    - **Subscription**: Select your Azure subscription.
 
@@ -123,71 +123,71 @@ This section provides step-by-step instructions for some commonly used Azure ser
 
    - **Redundancy**: Select `Geo-redundant storage (GRS)`.
 
-5. Select **Review + create**. Note that the default values are used in the other tabs. See the [Azure documentation](https://docs.microsoft.com/en-ca/azure/storage/common/storage-account-create?tabs=azure-portal#create-a-storage-account-1) for further details on each setting.
+1.  Select **Review + create**. Note that the default values are used in the other tabs. See the [Azure documentation](https://docs.microsoft.com/en-ca/azure/storage/common/storage-account-create?tabs=azure-portal#create-a-storage-account-1) for further details on each setting.
 
-6. Select **Create**.
+1.  Select **Create**.
 
 ### Azure Linux VM
 
 We recommend the following VM settings:
 
-1. Use **default values** unless otherwise specified.
-2. Provision at least **2 CPUS** and **8GB RAM**.
-3. Use the **Ubuntu Server 20.04 LTS - Gen2** image.
-4. Ensure your VM is **accessible by SSH**.
-5. Do not implement DNS or Load Balancing directly against the VM (do so via Azure Application Gateway instead).
+1.  Use **default values** unless otherwise specified.
+1.  Provision at least **2 CPUS** and **8GB RAM**.
+1.  Use the **Ubuntu Server 20.04 LTS - Gen2** image.
+1.  Ensure your VM is **accessible by SSH**.
+1.  Do not implement DNS or Load Balancing directly against the VM (do so via Azure Application Gateway instead).
 
 To create a VM:
 
-1. Configure the **Basics** tab:
+1.  Configure the **Basics** tab:
 
    - Ensure your **Region** is the same as your **Resource group**.
    - Do not set the VM as an **Azure Spot instance**.
    - Ensure your Security Group allows ingress on **Port 8000**.
 
-2. Configure the **Disks** tab:
+1.  Configure the **Disks** tab:
 
    - Ensure your OS disk type is **Standard SSD**.
 
-3. Configure the **Network** tab:
+1.  Configure the **Network** tab:
 
    - Ensure that a **Public IP** is assigned to the VM.
    - Do not place the VM in the backend pool of an existing load balancing solution.
 
-4. Select **Review + create**.
+1.  Select **Review + create**.
 
-5. Select **Create**.
+1.  Select **Create**.
 
 To make the VM's IP address static:
 
-1. Enter **Public IP addresses** in the search.
+1.  Enter **Public IP addresses** in the search.
 
-2. Under **Services**, select **Public IP addresses**.
+1.  Under **Services**, select **Public IP addresses**.
 
-3. On the **Public IP addresses** page, select the entry containing your VM name. A page opens with that IP's details.
+1.  On the **Public IP addresses** page, select the entry containing your VM name. A page opens with that IP's details.
 
-4. Select **Configuration** from the left-hand navigation panel.
+1.  Select **Configuration** from the left-hand navigation panel.
 
-5. Ensure that your IP address assignment is **Static**.
+1.  Ensure that your IP address assignment is **Static**.
 
-6. Do not add a custom DNS name label to the VM.
+1.  Do not add a custom DNS name label to the VM.
 
 To allow ingress on port 8000:
 
-1. Enter **Virtual Machines** in the search bar.
+1.  Enter **Virtual Machines** in the search bar.
 
-2. Under **Services**, select **Virtual machines**.
+1.  Under **Services**, select **Virtual machines**.
 
-3. On the **Virtual machines** page, select your VM name to navigate to the VM details.
+1.  On the **Virtual machines** page, select your VM name to navigate to the VM details.
 
-4. Select **Networking** from the left-hand navigation panel.
+1.  Select **Networking** from the left-hand navigation panel.
 
-5. **Add inbound port rule** for port 8000.
+1.  **Add inbound port rule** for port 8000.
 
 To install Docker:
 
 1.  Complete the steps for the [Install using the apt repository][docker] instructions.
-2.  Confirm that Docker Compose is installed:
+1.  Confirm that Docker Compose is installed:
 
     ```bash
     docker compose version

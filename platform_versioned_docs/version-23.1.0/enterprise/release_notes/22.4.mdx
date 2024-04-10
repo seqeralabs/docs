@@ -82,32 +82,32 @@ This Tower version requires a database schema update. Follow these steps to upda
 To ensure no loss of data, the database volume must be persistent on the local machine. Use the `volumes` key in the `db` or `redis` section of your docker-compose.yml file to specify a local path to the DB or Redis instance.
 :::
 
-1. Make a backup of the Tower database.
+1.  Make a backup of the Tower database.
 
-2. Download and update your container versions.
+2.  Download and update your container versions.
 
-3. Redeploy the Tower application:
+3.  Redeploy the Tower application:
 
    - **docker-compose**:
 
-     1. To migrate the database schema, restart the application with `docker-compose down`, then `docker-compose up`.
+     1.  To migrate the database schema, restart the application with `docker-compose down`, then `docker-compose up`.
 
    - **kubernetes**:
 
-     1. Update the cron service with `kubectl apply -f tower-cron.yml`. This will automatically migrate the database schema.
-     2. Update the frontend and backend services with `kubectl apply -f tower-srv.yml`.
+     1.  Update the cron service with `kubectl apply -f tower-cron.yml`. This will automatically migrate the database schema.
+     2.  Update the frontend and backend services with `kubectl apply -f tower-srv.yml`.
 
    - **custom deployment**:
-     1. Run the `/migrate-db.sh` script provided in the `backend` container. This will migrate the database schema.
-     2. Deploy Tower following your usual procedures.
+     1.  Run the `/migrate-db.sh` script provided in the `backend` container. This will migrate the database schema.
+     2.  Deploy Tower following your usual procedures.
 
 ## Nextflow launcher image
 
 If you must host your nf-launcher container image on a private image registry:
 
-1. Copy the [nf-launcher image](https://quay.io/seqeralabs/nf-launcher:j17-22.10.7) to your private registry.
+1.  Copy the [nf-launcher image](https://quay.io/seqeralabs/nf-launcher:j17-22.10.7) to your private registry.
 
-2. Update your `tower.env` with the following environment variable:
+2.  Update your `tower.env` with the following environment variable:
 
    `TOWER_LAUNCH_CONTAINER=<FULL_PATH_TO_YOUR_PRIVATE_IMAGE>`
 

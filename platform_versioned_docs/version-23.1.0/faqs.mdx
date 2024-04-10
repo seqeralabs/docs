@@ -11,10 +11,10 @@ tags: [faq, help]
 
 The Administration Console allows Tower instance administrators to interact with all users and organizations registered with the platform. Administrators must be identified in your Tower instance configuration files prior to instantiation of the application.
 
-1. Create a `TOWER_ROOT_USERS` environment variable (e.g. via _tower.env_ or Kubernetes ConfigMap).
-2. Populate the variable with a sequence of comma-delimited email addresses (no spaces).<br/>Example: `TOWER_ROOT_USERS=foo@foo.com,bar@bar.com`
-3. If using a Tower version earlier than 21.12:
-   1. Add the following configuration to _tower.yml_:
+1.  Create a `TOWER_ROOT_USERS` environment variable (e.g. via _tower.env_ or Kubernetes ConfigMap).
+1.  Populate the variable with a sequence of comma-delimited email addresses (no spaces).<br/>Example: `TOWER_ROOT_USERS=foo@foo.com,bar@bar.com`
+1.  If using a Tower version earlier than 21.12:
+   1.  Add the following configuration to _tower.yml_:
 
    ```yml
    tower:
@@ -22,8 +22,8 @@ The Administration Console allows Tower instance administrators to interact with
        root-users: "${TOWER_ROOT_USERS:[]}"
    ```
 
-4. Restart the `cron` and `backend` containers/Deployments.
-5. The console will now be available via your Profile drop-down menu.
+1.  Restart the `cron` and `backend` containers/Deployments.
+1.  The console will now be available via your Profile drop-down menu.
 
 ## API
 
@@ -53,11 +53,11 @@ One such value is `launch.id`; attempting to launch a pipeline without specifyin
 
 If you have encountered the 403 error as a result of being a Launch user who did not provide a `launch.id`, please try resolving the problem as follows:
 
-1. Provide the launch ID to the payload sent to the tower using the same endpoint. To do this;
+1.  Provide the launch ID to the payload sent to the tower using the same endpoint. To do this;
 
-   1. Query the list of pipelines via the `/pipelines` endpoint. Find the `pipelineId` of the pipeline you intend to launch.
-   2. Once you have the `pipelineId`, call the `/pipelines/{pipelineId}/launch` API to retrieve the pipeline's `launch.id`.
-   3. Include the `launch.id` in your call to the `/workflow/launch` API endpoint (see example below).
+   1.  Query the list of pipelines via the `/pipelines` endpoint. Find the `pipelineId` of the pipeline you intend to launch.
+   2.  Once you have the `pipelineId`, call the `/pipelines/{pipelineId}/launch` API to retrieve the pipeline's `launch.id`.
+   3.  Include the `launch.id` in your call to the `/workflow/launch` API endpoint (see example below).
 
       ```
       {
@@ -72,7 +72,7 @@ If you have encountered the 403 error as a result of being a Launch user who did
       }
       ```
 
-2. If a launch id remains unavailable to you, upgrade your user role to 'Maintain' or higher. This will allow you to execute quick launch-type pipeline invocations.
+1.  If a launch id remains unavailable to you, upgrade your user role to 'Maintain' or higher. This will allow you to execute quick launch-type pipeline invocations.
 
 ## Common Errors
 
@@ -88,9 +88,9 @@ Github imposes [rate limits](https://docs.github.com/en/rest/overview/resources-
 
 To resolve the problem, please try the following:
 
-1. Ensure there is at least one Github credential in your Workspace's Credentials tab.
-2. Ensure that the **Access token** field of all Github Credential objects is populated with a [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) value, NOT a user password. (_Github PATs are typically several dozen characters long and begin with a `ghp_`prefix; example:`ghp*IqIMNOZH6zOwIEB4T9A2g4EHMy8Ji42q4HA`*)
-3. Confirm that your PAT is providing the elevated threshold and transactions are being charged against it:
+1.  Ensure there is at least one Github credential in your Workspace's Credentials tab.
+1.  Ensure that the **Access token** field of all Github Credential objects is populated with a [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) value, NOT a user password. (_Github PATs are typically several dozen characters long and begin with a `ghp_`prefix; example:`ghp*IqIMNOZH6zOwIEB4T9A2g4EHMy8Ji42q4HA`*)
+1.  Confirm that your PAT is providing the elevated threshold and transactions are being charged against it:
 
    `curl -H "Authorization: token ghp_LONG_ALPHANUMERIC_PAT" -H "Accept: application/vnd.github.v3+json" https://api.github.com/rate_limit`
 
@@ -100,14 +100,14 @@ This error can occur if incorrect configuration values are assigned to the `back
 
 Please verify the following:
 
-1. The `MICRONAUT_ENVIRONMENTS` environment variable associated with the `backend` container:
+1.  The `MICRONAUT_ENVIRONMENTS` environment variable associated with the `backend` container:
    - Contains `prod,redis,ha`
    - Does not contain `cron`
-2. The `MICRONAUT_ENVIRONMENTS` environment variable associated with the `cron` container:
+1.  The `MICRONAUT_ENVIRONMENTS` environment variable associated with the `cron` container:
    - Contains `prod,redis,cron`
    - Does not contain `ha`
-3. You do not have another copy of the `MICRONAUT_ENVIRONMENTS` environment variable defined elsewhere in your application (e.g. a _tower.env_ file or Kubernetes ConfigMap).
-4. If you are using a separate container/pod to execute _migrate-db.sh_, there is no `MICRONAUT_ENVIRONMENTS` environment variable assigned to it.
+1.  You do not have another copy of the `MICRONAUT_ENVIRONMENTS` environment variable defined elsewhere in your application (e.g. a _tower.env_ file or Kubernetes ConfigMap).
+1.  If you are using a separate container/pod to execute _migrate-db.sh_, there is no `MICRONAUT_ENVIRONMENTS` environment variable assigned to it.
 
 **<p data-question>Q: Why do I get a `chmod: cannot access PATH/TO/bin/*: No such file or directory` exception?</p>**
 
@@ -186,8 +186,8 @@ Clients who use Amazon Aurora as their database solution may encounter a `java.s
 
 Please modify Tower Enterprise configuration as follows to try resolving the problem:
 
-1. Ensure your `TOWER_DB_DRIVER` uses the specified MariaDB URI.
-2. Modify your `TOWER_DB_URL` to: `TOWER_DB_URL=jdbc:mysql://YOUR_DOMAIN:YOUR_PORT/YOUR_TOWER_DB?usePipelineAuth=false&useBatchMultiSend=false`
+1.  Ensure your `TOWER_DB_DRIVER` uses the specified MariaDB URI.
+1.  Modify your `TOWER_DB_URL` to: `TOWER_DB_URL=jdbc:mysql://YOUR_DOMAIN:YOUR_PORT/YOUR_TOWER_DB?usePipelineAuth=false&useBatchMultiSend=false`
 
 ## Datasets
 
@@ -195,10 +195,10 @@ Please modify Tower Enterprise configuration as follows to try resolving the pro
 
 When uploading Datasets via the Tower UI or CLI, some steps are automatically done on your behalf. To upload Datasets via the TOwer API, additional steps are required:
 
-1. Explicitly define the MIME type of the file being uploaded.
-2. Make two calls to the API:
-   1. Create a Dataset object
-   2. Upload the samplesheet to the Dataset object.
+1.  Explicitly define the MIME type of the file being uploaded.
+1.  Make two calls to the API:
+   1.  Create a Dataset object
+   2.  Upload the samplesheet to the Dataset object.
 
 Example:
 
@@ -258,13 +258,13 @@ TLS connection errors can occur due to variability in the [default TLS version s
 
 To fix the problem, you can either:
 
-1. Set a JDK environment variable to force Nextflow and/or the Tower containers to use TLSv1.2 by default:
+1.  Set a JDK environment variable to force Nextflow and/or the Tower containers to use TLSv1.2 by default:
 
 ```
 export JAVA_OPTIONS="-Dmail.smtp.ssl.protocols=TLSv1.2"
 ```
 
-2. Add the following parameter to your nextflow.config file:
+1.  Add the following parameter to your nextflow.config file:
 
 ```
 mail {
@@ -323,9 +323,9 @@ Users with email addresses other than the `trustedEmails` list will undergo an a
 
 **Note:**
 
-1. You must rebuild your containers (i.e., `docker-compose down`) to force Tower to implement this change. Ensure your database is persistent before issuing the docker-compose down command. See [here](https://help.tower.nf/latest/enterprise/docker-compose/) for more information.
-2. All login attempts are visible to the root user at **Profile -> Admin panel -> Users**.
-3. Any user logged in prior to the restriction will not be subject to the new restriction. An admin of the organization should remove users that have previously logged in via (untrusted) email from the Admin panel users list. This will restart the approval process before they can log in via email.
+1.  You must rebuild your containers (i.e., `docker-compose down`) to force Tower to implement this change. Ensure your database is persistent before issuing the docker-compose down command. See [here](https://help.tower.nf/latest/enterprise/docker-compose/) for more information.
+1.  All login attempts are visible to the root user at **Profile -> Admin panel -> Users**.
+1.  Any user logged in prior to the restriction will not be subject to the new restriction. An admin of the organization should remove users that have previously logged in via (untrusted) email from the Admin panel users list. This will restart the approval process before they can log in via email.
 
 **<p data-question>Q: Why am I receiving login errors stating that admin approval is required when using Azure AD OIDC?</p>**
 
@@ -335,17 +335,17 @@ The Azure AD app integrated with Tower must have user consent settings configure
 
 This can occur for several reasons. Please verify the following:
 
-1. Your `TOWER_SERVER_URL` environment variable uses the `https://` prefix.
-2. Your `tower.yml` has `micronaut.ssl.enabled` set to `true`.
-3. Any Load Balancer instance that sends traffic to the Tower application is configured to use HTTPS as its backend protocol rather than TCP.
+1.  Your `TOWER_SERVER_URL` environment variable uses the `https://` prefix.
+1.  Your `tower.yml` has `micronaut.ssl.enabled` set to `true`.
+1.  Any Load Balancer instance that sends traffic to the Tower application is configured to use HTTPS as its backend protocol rather than TCP.
 
 **<p data-question>Q: Why isn't my OIDC callback working?</p>**
 
 Callbacks could fail for many reasons. To more effectively investigate the problem:
 
-1. Set the Tower environment variable to `TOWER_SECURITY_LOGLEVEL=DEBUG`.
-2. Ensure your `TOWER_OIDC_CLIENT`, `TOWER_OIDC_SECRET`, and `TOWER_OIDC_ISSUER` environment variables all match the values specified in your OIDC provider's corresponding application.
-3. Ensure your network infrastructure allow necessary egress and ingress traffic.
+1.  Set the Tower environment variable to `TOWER_SECURITY_LOGLEVEL=DEBUG`.
+1.  Ensure your `TOWER_OIDC_CLIENT`, `TOWER_OIDC_SECRET`, and `TOWER_OIDC_ISSUER` environment variables all match the values specified in your OIDC provider's corresponding application.
+1.  Ensure your network infrastructure allow necessary egress and ingress traffic.
 
 **<p data-question>Q: Why did Google SMTP start returning `Username and Password not accepted` errors?</p>**
 
@@ -388,7 +388,7 @@ Yes. You can mount the APM solution's JAR file in the `backend` container and se
 **<p data-question>Q: Is it possible to retrieve the trace file for a Tower-based workflow run?</p>**
 Yes. Although it is not possible to directly download the file via Tower, you can configure your workflow to export the file to persistent storage:
 
-1. Set the following block in your `nextflow.config`:
+1.  Set the following block in your `nextflow.config`:
 
 ```nextflow
 trace {
@@ -396,7 +396,7 @@ trace {
 }
 ```
 
-2. Add a copy command to your pipeline's **Advanced options > Post-run script** field:
+1.  Add a copy command to your pipeline's **Advanced options > Post-run script** field:
 
 ```
 # Example: Export the generated trace file to an S3 bucket
@@ -600,9 +600,9 @@ Runs will fail if your Nextflow script or Nextflow config contain illegal charac
 
 The Groovy shell used by Nextflow to execute your workflow has a hard limit on string size (64KiB). Check the size of your scripts with the `ls -llh` command. If the size is greater than 65,535 bytes, consider these mitigation techniques:
 
-1. Remove any unnecessary code or comments from the script.
-2. Move long script bodies into a separate script file in the pipeline `/bin` directory.
-3. Consider using DSL2 so you can move each function, process, and workflow definition into its own script and include these scripts as [modules](https://www.nextflow.io/docs/latest/dsl2.html#modules).
+1.  Remove any unnecessary code or comments from the script.
+1.  Move long script bodies into a separate script file in the pipeline `/bin` directory.
+1.  Consider using DSL2 so you can move each function, process, and workflow definition into its own script and include these scripts as [modules](https://www.nextflow.io/docs/latest/dsl2.html#modules).
 
 ## Nextflow Launcher
 
@@ -616,8 +616,8 @@ If you are restricted from using public container registries, please see Tower E
 
 Each Nextflow Tower release uses a specific nf-launcher image by default. This image is loaded with a specific Nextflow version, meaning that any workflow run in the container uses this Nextflow version by default. You can force your jobs to use a newer/older version of Nextflow with any of the following strategies:
 
-1. Use the **Pre-run script** advanced launch option to set the desired Nextflow version. Example: `export NXF_VER=22.08.0-edge`
-2. For jobs executing in an AWS Batch compute environment, create a [custom job definition](https://install.tower.nf/22.2/advanced-topics/custom-launch-container/) which references a different nf-launcher image.
+1.  Use the **Pre-run script** advanced launch option to set the desired Nextflow version. Example: `export NXF_VER=22.08.0-edge`
+1.  For jobs executing in an AWS Batch compute environment, create a [custom job definition](https://install.tower.nf/22.2/advanced-topics/custom-launch-container/) which references a different nf-launcher image.
 
 ## OIDC
 
@@ -697,8 +697,8 @@ This error can occur if the Nextflow head job fails to retrieve the necessary re
 
 To determine if this is the case, please do the following:
 
-1. Check your Nextflow log for an entry like `DEBUG nextflow.scm.RepositoryProvider - Request [credentials -:-]`.
-2. If the above is true, please check the protocol of the string that was assigned to your Tower instance's `TOWER_SERVER_URL` configuration value. It is possible this has been erroneously set to `http` rather than `https`.
+1.  Check your Nextflow log for an entry like `DEBUG nextflow.scm.RepositoryProvider - Request [credentials -:-]`.
+1.  If the above is true, please check the protocol of the string that was assigned to your Tower instance's `TOWER_SERVER_URL` configuration value. It is possible this has been erroneously set to `http` rather than `https`.
 
 ## Secrets
 
@@ -725,8 +725,8 @@ Users may encounter a few different errors when executing pipelines that use Sec
 
   To resolve the issue, please upgrade your Nextflow version to 22.08.0-edge. If you cannot upgrade, you can use the following as workarounds:
 
-  1. Use a different container image for each process.
-  2. Define the same set of Secrets in each process that uses the same container image.
+  1.  Use a different container image for each process.
+  2.  Define the same set of Secrets in each process that uses the same container image.
 
 ## Tower Agent
 
@@ -748,8 +748,8 @@ Yes. Provide a POSIX-compliant path to the `TOWER_CONFIG_FILE` environment varia
 
 There are two reasons why configurations specified in `tower.yml` are not being expressed by your Tower instance:
 
-1. There is a typo in one of the key value pairs.
-2. There is a duplicate key present in your file.
+1.  There is a typo in one of the key value pairs.
+1.  There is a duplicate key present in your file.
 
    ```yaml
    # EXAMPLE
@@ -785,8 +785,8 @@ You can force your Nextflow head job to use DSL2 syntax via any of the following
 
 Yes. As of v22.1, Nextflow Tower Enterprise can link to workflows stored in "local" git repositories. To do so:
 
-1. Volume mount your repository folder into the Tower Enterprise `backend` container.
-2. Update your `tower.yml` with the following configuration:
+1.  Volume mount your repository folder into the Tower Enterprise `backend` container.
+1.  Update your `tower.yml` with the following configuration:
 
 ```yml
 tower:
@@ -810,9 +810,9 @@ Activating the **Enable GPU** field while creating an AWS Batch environment with
 
 Note:
 
-1. Activation does not cause GPU-enabled instances to automatically spawn in your Batch cluster. You must still specify these in the Forge screen's **Advanced options > Instance types** field.
-2. Population of the Forge screen's **Advanced options > AMI Id** field will supersede the AWS-recommended AMI.
-3. Your Nextflow script must include [accelerator directives](https://www.nextflow.io/docs/latest/process.html?highlight=accelerator) to use the provisioned GPUs.
+1.  Activation does not cause GPU-enabled instances to automatically spawn in your Batch cluster. You must still specify these in the Forge screen's **Advanced options > Instance types** field.
+1.  Population of the Forge screen's **Advanced options > AMI Id** field will supersede the AWS-recommended AMI.
+1.  Your Nextflow script must include [accelerator directives](https://www.nextflow.io/docs/latest/process.html?highlight=accelerator) to use the provisioned GPUs.
 
 ## tw CLI
 
@@ -874,8 +874,8 @@ This problem will express itself with the following entry in your Nextflow log: 
 
 This can occur due to the following reasons:
 
-1. An access token value has been hardcoded in the `tower.accessToken` block of your `nextflow.config` (either via the git repository itself or override value in the launch form).
-2. In cases where your compute environment is an HPC cluster, the credentialized user's home directory contains a stateful `nextflow.config` with a hardcoded token (e.g. `~/.nextflow/config).
+1.  An access token value has been hardcoded in the `tower.accessToken` block of your `nextflow.config` (either via the git repository itself or override value in the launch form).
+1.  In cases where your compute environment is an HPC cluster, the credentialized user's home directory contains a stateful `nextflow.config` with a hardcoded token (e.g. `~/.nextflow/config).
 
 **<p data-question>Q: What privilege level is granted to a user assigned to a Workspace both as a Participant and Team member?</p>**
 
@@ -932,9 +932,9 @@ There are multiple reasons why your pipeline could fail with an `Essential conta
 
 Please try the following:
 
-1. [Upgrade your ECS Agent](https://github.com/aws/amazon-ecs-agent/releases) to [1.54.1](https://github.com/aws/amazon-ecs-agent/pull/2940) or newer ([instructions for checking your ECS Agent version](https://www.trendmicro.com/cloudoneconformity/knowledge-base/aws/ECS/latest-agent-version.html));
-2. Provision more storage space for your EC2 instance (preferably via ebs-autoscaling to ensure scalability).
-3. If the error is accompanied by `command exit status: 123` and a `permissions denied` error tied to a system command, please ensure that the binary is set to be executable (i.e. `chmod u+x`).
+1.  [Upgrade your ECS Agent](https://github.com/aws/amazon-ecs-agent/releases) to [1.54.1](https://github.com/aws/amazon-ecs-agent/pull/2940) or newer ([instructions for checking your ECS Agent version](https://www.trendmicro.com/cloudoneconformity/knowledge-base/aws/ECS/latest-agent-version.html));
+1.  Provision more storage space for your EC2 instance (preferably via ebs-autoscaling to ensure scalability).
+1.  If the error is accompanied by `command exit status: 123` and a `permissions denied` error tied to a system command, please ensure that the binary is set to be executable (i.e. `chmod u+x`).
 
 ### Queues
 
@@ -980,7 +980,7 @@ As of Nextflow Tower v21.12, you can specify an Amazon FSX for Lustre instance a
 
 If you need to save files to an S3 bucket protected by a [bucket policy which enforces AES256 server-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingServerSideEncryption.html), additional configuration settings must be provided to the [nf-launcher](https://quay.io/repository/seqeralabs/nf-launcher?tab=tags) script which invokes the Nextflow head job:
 
-1. Add the following configuration to the **Advanced options > Nextflow config file** textbox of the **Launch Pipeline** screen:
+1.  Add the following configuration to the **Advanced options > Nextflow config file** textbox of the **Launch Pipeline** screen:
 
    ```
    aws {
@@ -990,7 +990,7 @@ If you need to save files to an S3 bucket protected by a [bucket policy which en
    }
    ```
 
-2. Add the following configuration to the **Advanced options > Pre-run script** textbox of the **Launch Pipeline** screen:
+1.  Add the following configuration to the **Advanced options > Pre-run script** textbox of the **Launch Pipeline** screen:
 
    ```bash
    export TOWER_AWS_SSE=AES256
@@ -1031,7 +1031,7 @@ This can occur if a tool/library in your task container requires SSL certificate
 
 You may be able to solve the issue by:
 
-1. Mounting host certificates into the container ([example](https://github.com/nextflow-io/nextflow/blob/v21.10.6/plugins/nf-azure/src/main/nextflow/cloud/azure/batch/AzBatchService.groovy#L348-L351)).
+1.  Mounting host certificates into the container ([example](https://github.com/nextflow-io/nextflow/blob/v21.10.6/plugins/nf-azure/src/main/nextflow/cloud/azure/batch/AzBatchService.groovy#L348-L351)).
 
 **<p data-question>Q: Why is my deployment using Azure SQL database returning an error about `Connections using insecure transport are prohibited while --require_secure_transport=ON.`</p>**
 
@@ -1059,10 +1059,10 @@ process {
 
 The following roles are needed to be granted to the `nextflow-service-account`.
 
-1. Cloud Life Sciences Workflows Runner
-2. Service Account User
-3. Service Usage Consumer
-4. Storage Object Admin
+1.  Cloud Life Sciences Workflows Runner
+1.  Service Account User
+1.  Service Usage Consumer
+1.  Storage Object Admin
 
 For detailed information, please refer to this [guide.](https://cloud.google.com/life-sciences/docs/tutorials/nextflow#create_a_service_account_and_add_roles)
 
@@ -1108,24 +1108,24 @@ Nextflow is trying to use the Java VM defined for the following environment vari
 
 Possible reasons for this error:
 
-1. The queue where the Nextflow head job runs in a different environment/node than your login node userspace.
-2. If your HPC cluster uses modules, the Java module may not be loaded by default.
+1.  The queue where the Nextflow head job runs in a different environment/node than your login node userspace.
+1.  If your HPC cluster uses modules, the Java module may not be loaded by default.
 
 To troubleshoot:
 
-1. Open an interactive session with the head job queue.
-2. Launch the Nextflow job from the interactive session.
-3. If you cluster used modules:
-   1. Add `module load <your_java_module>` in the **Advanced Features > Pre-run script** field when creating your HPC Compute Environment within Nextflow Tower.
-4. If you cluster does not use modules:
-   1. Source an environment with java and Nextflow using the **Advanced Features > Pre-run script** field when creating your HPC Compute Environment within Nextflow Tower.
+1.  Open an interactive session with the head job queue.
+1.  Launch the Nextflow job from the interactive session.
+1.  If you cluster used modules:
+   1.  Add `module load <your_java_module>` in the **Advanced Features > Pre-run script** field when creating your HPC Compute Environment within Nextflow Tower.
+1.  If you cluster does not use modules:
+   1.  Source an environment with java and Nextflow using the **Advanced Features > Pre-run script** field when creating your HPC Compute Environment within Nextflow Tower.
 
 **<p data-question>Q: Why do pipelines I submit to my HPC cluster fail, but those submitted by another user succeed?</p>**
 
 Nextflow launcher scripts will fail if processed by a non-Bash shell (e.g., `zsh`, `tcsh`). This problem can be identified from certain error entries:
 
-1. Your _.nextflow.log_ contains an error like `Invalid workflow status - expected: SUBMITTED; current: FAILED`.
-2. Your Tower **Error report** tab contains an error like:
+1.  Your _.nextflow.log_ contains an error like `Invalid workflow status - expected: SUBMITTED; current: FAILED`.
+1.  Your Tower **Error report** tab contains an error like:
 
 ```yaml
 Slurm job submission failed
@@ -1136,6 +1136,6 @@ Slurm job submission failed
 
 Connect to the head node via SSH and run `ps -p $$` to verify your default shell. If you see an entry other than Bash, fix as follows:
 
-1. Check which shells are available to you: `cat /etc/shells`
-2. Change your shell: `chsh -s /usr/bin/bash` (note: the path to the binary may differ, depending on your HPC configuration)
-3. If submissions continue to fail after this shell change, ask your Tower admin to restart the **backend** and **cron** containers, and submit from Tower again.
+1.  Check which shells are available to you: `cat /etc/shells`
+1.  Change your shell: `chsh -s /usr/bin/bash` (note: the path to the binary may differ, depending on your HPC configuration)
+1.  If submissions continue to fail after this shell change, ask your Tower admin to restart the **backend** and **cron** containers, and submit from Tower again.

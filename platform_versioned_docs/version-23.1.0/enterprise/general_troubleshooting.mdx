@@ -273,9 +273,9 @@ The secret used to generate the login JWT token that is appended to user sign-in
 
 This error points to an issue with the SSH credentials used to authenticate Tower to your HPC cluster (LSF, Slurm, etc.), such as an invalid SSH key or inappropriate permissions on the user directory. Check the following:
 
-1. Test the SSH key to ensure it is still valid. If not, create new SSH keys and [re-create the compute environment](https://help.tower.nf/latest/compute-envs/lsf/) in Tower using the updated credentials.
+1.  Test the SSH key to ensure it is still valid. If not, create new SSH keys and [re-create the compute environment](https://help.tower.nf/latest/compute-envs/lsf/) in Tower using the updated credentials.
 
-2. Check the backend logs for a stack trace similar to the following:
+1.  Check the backend logs for a stack trace similar to the following:
 
    ```
    [io-executor-thread-2] 10.42.0.1 ERROR i.s.t.c.GlobalErrorController - Oops... Unable to process request - Error ID: 5d7rDpS8pByF8YqfUVPvB4
@@ -298,13 +298,13 @@ This error points to an issue with the SSH credentials used to authenticate Towe
        at net.schmizz.sshj.userauth.keyprovider.PKCS5KeyFile$ASN1Data.<init>(PKCS5KeyFile.java:248)
    ```
 
-3. Enable SSH library log tracing with the following environbment variable in your `tower.env` file for verbose debug logging of the SSH connection:
+1.  Enable SSH library log tracing with the following environbment variable in your `tower.env` file for verbose debug logging of the SSH connection:
 
 ```env
 TOWER_SSH_LOGLEVEL=TRACE
 ```
 
-4. Check the permissions of the `/home` directory of the user tied to the cluster's SSH credentials. `/home/[user]` should be `chmod 755`, whereas `/home/[user]/ssh` requires `chmod 700`.
+1.  Check the permissions of the `/home` directory of the user tied to the cluster's SSH credentials. `/home/[user]` should be `chmod 755`, whereas `/home/[user]/ssh` requires `chmod 700`.
 
 ```bash
 $ pwd ; ls -ld .

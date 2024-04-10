@@ -112,29 +112,29 @@ Complete the setup on Tower side adding the following environment variables to y
 
 To make use of [Azure AD for the OIDC](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-protocols-oidc) as identity provider for Tower, configure a new client in your Azure AD service:
 
-1. Log in to the [Azure portal](https://portal.azure.com/).
-2. Navigate to the **Azure Active Directory** service.
-3. Select **Manage Tenants**.
-4. Create a new **Tenant** (e.g. `NextflowTowerOrg`).
-5. Navigate to the newly-created Tenant.
-6. Go to **App Registrations**.
-7. Click **New Registration**.
-   1. Enter a name for the application.
-   2. Specify the scope of user verification (e.g. single tenant, multi-tenant, personal MSFT accounts, etc).
+1.  Log in to the [Azure portal](https://portal.azure.com/).
+1.  Navigate to the **Azure Active Directory** service.
+1.  Select **Manage Tenants**.
+1.  Create a new **Tenant** (e.g. `NextflowTowerOrg`).
+1.  Navigate to the newly-created Tenant.
+1.  Go to **App Registrations**.
+1.  Click **New Registration**.
+   1.  Enter a name for the application.
+   2.  Specify the scope of user verification (e.g. single tenant, multi-tenant, personal MSFT accounts, etc).
 
 :::note
 The Azure AD app must have user consent settings configured to "Allow user consent for apps" to ensure that admin approval is not required for each application login. See [User consent settings](https://learn.microsoft.com/en-us/azure/active-directory/manage-apps/configure-user-consent?pivots=portal#configure-user-consent-settings).
 :::
 
-8. Specify the **Redirect** (callback) URI (NOTE: Microsoft requires that this URI uses `HTTPS`)
+1.  Specify the **Redirect** (callback) URI (NOTE: Microsoft requires that this URI uses `HTTPS`)
 
-9. Open the newly-created app:
-   1. Note the Application (client) ID under the Essentials table
-   2. Generate Client credentials under the Essentials table
-   3. Click Endpoints and note the OpenID Connect metadata document URI
-10. Add users to your tenant as required.
+1.  Open the newly-created app:
+   1.  Note the Application (client) ID under the Essentials table
+   2.  Generate Client credentials under the Essentials table
+   3.  Click Endpoints and note the OpenID Connect metadata document URI
+1.  Add users to your tenant as required.
 
-11. Complete the setup on Tower side adding the following environment variables to your configuration:
+1.  Complete the setup on Tower side adding the following environment variables to your configuration:
 
     ```bash
     TOWER_OIDC_CLIENT=<YOUR_APPLICATION_ID>
@@ -142,7 +142,7 @@ The Azure AD app must have user consent settings configured to "Allow user conse
     TOWER_OIDC_ISSUER=<YOUR_OIDC_METADATA_URL_UP_TO_"v2.0">   (e.g. https://login.microsoftonline.com/000000-0000-0000-00-0000000000000/v2.0)
     ```
 
-12. Add `auth-oidc` to the end of the `MICRONAUT_ENVIRONMENTS` value for both the `cron` and `backend` services.
+1.  Add `auth-oidc` to the end of the `MICRONAUT_ENVIRONMENTS` value for both the `cron` and `backend` services.
 
 ## Configure user access allow list
 

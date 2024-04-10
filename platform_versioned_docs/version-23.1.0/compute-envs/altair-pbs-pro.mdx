@@ -23,35 +23,35 @@ To create a new compute environment for **PBS Pro** in Tower:
 
 1.  In a workspace, select **Compute environments** and then **New environment**.
 
-2.  Enter a descriptive name for this environment, e.g., "PBS Pro cluster".
+1.  Enter a descriptive name for this environment, e.g., "PBS Pro cluster".
 
-3.  Select **Altair PBS Pro** as the target platform.
+1.  Select **Altair PBS Pro** as the target platform.
 
-4.  Select your credentials, or select **+** and **SSH** or **Tower Agent** to add new credentials.
+1.  Select your credentials, or select **+** and **SSH** or **Tower Agent** to add new credentials.
 
-5.  Enter a name for the credentials.
+1.  Enter a name for the credentials.
 
-6.  Enter the absolute path of the **Work directory** to be used on the cluster.
+1.  Enter the absolute path of the **Work directory** to be used on the cluster.
 
-7.  Enter the absolute path of the **Launch directory** to be used on the cluster. If omitted, it will be the same as the work directory.
+1.  Enter the absolute path of the **Launch directory** to be used on the cluster. If omitted, it will be the same as the work directory.
 
-8.  Enter the **Login hostname**. This is usually the hostname or public IP address of the cluster's login node.
+1.  Enter the **Login hostname**. This is usually the hostname or public IP address of the cluster's login node.
 
-9.  Enter the **Head queue name**. This is the cluster queue to which the Nextflow job will be submitted.
+1.  Enter the **Head queue name**. This is the cluster queue to which the Nextflow job will be submitted.
 
-10. Enter the **Compute queue name**. This is the cluster queue to which the Nextflow job will submit tasks.
+1.  Enter the **Compute queue name**. This is the cluster queue to which the Nextflow job will submit tasks.
 
     :::tip
     The compute queue can be overridden by the Nextflow pipeline configuration. See the Nextflow [documentation](https://www.nextflow.io/docs/latest/process.html#queue) for more details.
     :::
 
-11. Expand **Staging options** to include optional pre- or post-run Bash scripts that execute before or after the Nextflow pipeline execution in your environment.
+1.  Expand **Staging options** to include optional pre- or post-run Bash scripts that execute before or after the Nextflow pipeline execution in your environment.
 
-12. Use the **Environment variables** option to specify custom environment variables for the Head job and/or Compute jobs.
+1.  Use the **Environment variables** option to specify custom environment variables for the Head job and/or Compute jobs.
 
-13. Configure any advanced options described below, as needed.
+1.  Configure any advanced options described below, as needed.
 
-14. Select **Create** to finalize the creation of the compute environment.
+1.  Select **Create** to finalize the creation of the compute environment.
 
 Jump to the documentation for [launching pipelines](../launch/launchpad.mdx).
 

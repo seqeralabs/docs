@@ -47,11 +47,11 @@ Datasets can point to files stored in various locations, such as Amazon S3 or Gi
 
 All Seqera users have access to the datasets feature in organization workspaces. To create a new dataset:
 
-1. Open the **Datasets** tab in your organization workspace.
-2. Select **New dataset**.
-3. Complete the **Name** and **Description** fields using information relevant to your dataset.
-4. Add the dataset file to your workspace with drag-and-drop or the system file explorer dialog.
-5. For dataset files that use the first row for column names, customize the dataset view with the **First row as header** option.
+1.  Open the **Datasets** tab in your organization workspace.
+1.  Select **New dataset**.
+1.  Complete the **Name** and **Description** fields using information relevant to your dataset.
+1.  Add the dataset file to your workspace with drag-and-drop or the system file explorer dialog.
+1.  For dataset files that use the first row for column names, customize the dataset view with the **First row as header** option.
 
 :::note
 The size of the dataset file must not exceed 10 MB.
@@ -61,9 +61,9 @@ The size of the dataset file must not exceed 10 MB.
 
 Seqera can accommodate multiple versions of a dataset. To add a new version for an existing dataset, follow these steps:
 
-1. Select **Edit** next to the dataset you wish to update.
-2. In the Edit dialog, select **Add a new version**.
-3. Upload the newer version of the dataset and select **Update**.
+1.  Select **Edit** next to the dataset you wish to update.
+1.  In the Edit dialog, select **Add a new version**.
+1.  Upload the newer version of the dataset and select **Update**.
 
 :::caution
 All subsequent versions of a dataset must be the same format (CSV or TSV) as the initial version.
@@ -73,9 +73,9 @@ All subsequent versions of a dataset must be the same format (CSV or TSV) as the
 
 To use a dataset with the saved pipelines in your workspace:
 
-1. Open any pipeline that contains a pipeline schema from the [Launchpad](../launch/launchpad.mdx).
-2. Select the input field for the pipeline, removing any default value.
-3. Pick the dataset to use as input to your pipeline.
+1.  Open any pipeline that contains a pipeline schema from the [Launchpad](../launch/launchpad.mdx).
+1.  Select the input field for the pipeline, removing any default value.
+1.  Pick the dataset to use as input to your pipeline.
 
 :::note
 The input field drop-down menu will only display datasets that match the file type specified in the `nextflow_schema.json` of the chosen pipeline. If the schema specifies `"mimetype": "text/csv"`, no TSV datasets will be available for use with that pipeline, and vice-versa.

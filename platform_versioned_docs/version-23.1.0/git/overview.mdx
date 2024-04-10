@@ -39,13 +39,13 @@ All credentials are (AES-256) encrypted before secure storage and are not expose
 
 When your Tower instance has multiple stored credentials, selection of the most relevant credential for your repository takes precedence in the following order:
 
-1. Tower evaluates all the stored credentials available to the current Workspace.
+1.  Tower evaluates all the stored credentials available to the current Workspace.
 
-2. Credentials are filtered by Git provider (GitHub, GitLab, Bitbucket, etc.)
+1.  Credentials are filtered by Git provider (GitHub, GitLab, Bitbucket, etc.)
 
-3. Tower selects the credential with a **Repository base URL** most similar to the target repository.
+1.  Tower selects the credential with a **Repository base URL** most similar to the target repository.
 
-4. If no **Repository base URL** values are specified in the Workspace credentials, the the most long-lived credential is selected.
+1.  If no **Repository base URL** values are specified in the Workspace credentials, the the most long-lived credential is selected.
 
 **Example**:
 
@@ -91,17 +91,17 @@ You can authenticate to Azure Devops repositories using a [personal access token
 
 Once you have created and copied your access token, create a new credential in Tower using these steps:
 
-1. Navigate to the **Credentials** tab. If you are using your personal workspace, select **Your credentials** from the user icon menu (top right).
+1.  Navigate to the **Credentials** tab. If you are using your personal workspace, select **Your credentials** from the user icon menu (top right).
 
-2. Select **Add Credentials**.
+1.  Select **Add Credentials**.
 
-3. Enter a **Name** for the new credentials.
+1.  Enter a **Name** for the new credentials.
 
-4. Select "Azure DevOps" as the **Provider**.
+1.  Select "Azure DevOps" as the **Provider**.
 
-5. Enter your **Username** and **Access token**.
+1.  Enter your **Username** and **Access token**.
 
-6. Enter the **Repository base URL** for which the credentials should be applied (recommended). This option can be used to apply the provided credentials to a specific repository, e.g. `https://dev.azure.com/{your organization}/{your project}`.
+1.  Enter the **Repository base URL** for which the credentials should be applied (recommended). This option can be used to apply the provided credentials to a specific repository, e.g. `https://dev.azure.com/{your organization}/{your project}`.
 
 ### GitHub
 
@@ -117,17 +117,17 @@ For **fine-grained** tokens, the repository's organization must [opt in](https:/
 
 Once you have created and copied your access token, create a new credential in Tower using these steps:
 
-1. Navigate to the **Credentials** tab. If you are using your personal workspace, select **Your credentials** from the user icon menu (top right).
+1.  Navigate to the **Credentials** tab. If you are using your personal workspace, select **Your credentials** from the user icon menu (top right).
 
-2. Select **Add Credentials**.
+1.  Select **Add Credentials**.
 
-3. Enter a **Name** for the new credentials.
+1.  Enter a **Name** for the new credentials.
 
-4. Select "GitHub" as the **Provider**.
+1.  Select "GitHub" as the **Provider**.
 
-5. Enter your **Username** and **Access token**.
+1.  Enter your **Username** and **Access token**.
 
-6. Enter the **Repository base URL** for which the credentials should be applied (recommended). This option can be used to apply the provided credentials to a specific repository, e.g. `https://github.com/seqeralabs`.
+1.  Enter the **Repository base URL** for which the credentials should be applied (recommended). This option can be used to apply the provided credentials to a specific repository, e.g. `https://github.com/seqeralabs`.
 
 ### GitLab
 
@@ -135,19 +135,19 @@ GitLab supports [Personal](https://docs.gitlab.com/ee/user/profile/personal_acce
 
 To connect Tower to a private [GitLab](https://gitlab.com/) repository:
 
-1. Navigate to the **Credentials** tab. If you are using your personal workspace, select **Your credentials** from the user icon menu (top right).
+1.  Navigate to the **Credentials** tab. If you are using your personal workspace, select **Your credentials** from the user icon menu (top right).
 
-2. Select **Add Credentials**.
+1.  Select **Add Credentials**.
 
-3. Enter a **Name** for the new credentials.
+1.  Enter a **Name** for the new credentials.
 
-4. Select "GitLab" as the **Provider**.
+1.  Select "GitLab" as the **Provider**.
 
-5. Enter your **Username**. For Group and Project access tokens, the username can be any non-empty value.
+1.  Enter your **Username**. For Group and Project access tokens, the username can be any non-empty value.
 
-6. Enter your token value in the **Password** and **Access token** fields.
+1.  Enter your token value in the **Password** and **Access token** fields.
 
-7. Enter the **Repository base URL** (recommended). This option is used to apply the credentials to a specific repository, e.g. `https://gitlab.com/seqeralabs`.
+1.  Enter the **Repository base URL** (recommended). This option is used to apply the credentials to a specific repository, e.g. `https://gitlab.com/seqeralabs`.
 
 ### Gitea
 
@@ -155,51 +155,51 @@ To connect Tower to a private [GitLab](https://gitlab.com/) repository:
 
 To connect to a private [Gitea](https://gitea.io/) repository, supply your Gitea user credentials to create a new credential in Tower with these steps:
 
-1. Navigate to the **Credentials** tab. If you are using your personal workspace, select **Your credentials** from the user icon menu (top right).
+1.  Navigate to the **Credentials** tab. If you are using your personal workspace, select **Your credentials** from the user icon menu (top right).
 
-2. Select **Add Credentials**.
+1.  Select **Add Credentials**.
 
-3. Enter a **Name** for the new credentials.
+1.  Enter a **Name** for the new credentials.
 
-4. Select "Gitea" as the **Provider**.
+1.  Select "Gitea" as the **Provider**.
 
-5. Enter your **Username**.
+1.  Enter your **Username**.
 
-6. Enter your **Password**.
+1.  Enter your **Password**.
 
-7. Enter your **Repository base URL** (required).
+1.  Enter your **Repository base URL** (required).
 
 ### Bitbucket
 
 To connect to a private BitBucket repository, refer to the [BitBucket documentation](https://support.atlassian.com/bitbucket-cloud/docs/app-passwords/) to learn how to create a BitBucket App password. Then, create a new credential in Tower using these steps:
 
-1. Navigate to the **Credentials** tab. If you are using your personal workspace, select **Your credentials** from the user icon menu (top right).
+1.  Navigate to the **Credentials** tab. If you are using your personal workspace, select **Your credentials** from the user icon menu (top right).
 
-2. Select **Add Credentials**.
+1.  Select **Add Credentials**.
 
-3. Enter a **Name** for the new credentials.
+1.  Enter a **Name** for the new credentials.
 
-4. Select "BitBucket" as the **Provider**.
+1.  Select "BitBucket" as the **Provider**.
 
-5. Enter your **Username** and **Password**.
+1.  Enter your **Username** and **Password**.
 
-6. Enter the **Repository base URL** (recommended). This option can be used to apply the provided credentials to a specific repository, e.g. `https://bitbucket.org/seqeralabs`.
+1.  Enter the **Repository base URL** (recommended). This option can be used to apply the provided credentials to a specific repository, e.g. `https://bitbucket.org/seqeralabs`.
 
 ### AWS CodeCommit
 
 To connect to a private AWS CodeCommit repository, refer to the [AWS documentation](https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-identity-based-access-control.html) to learn more about IAM permissions for CodeCommit. Then, supply the IAM account access key and secret key to create a credential in Tower using these steps:
 
-1. Navigate to the **Credentials** tab. If you are using your personal workspace, select **Your credentials** from the user icon menu (top right).
+1.  Navigate to the **Credentials** tab. If you are using your personal workspace, select **Your credentials** from the user icon menu (top right).
 
-2. Select **Add Credentials**.
+1.  Select **Add Credentials**.
 
-3. Enter a **Name** for the new credentials.
+1.  Enter a **Name** for the new credentials.
 
-4. Select "CodeCommit" as the **Provider**.
+1.  Select "CodeCommit" as the **Provider**.
 
-5. Enter the **Access key** and **Secret key** of the AWS IAM account that will be used to access the desired CodeCommit repository.
+1.  Enter the **Access key** and **Secret key** of the AWS IAM account that will be used to access the desired CodeCommit repository.
 
-6. Enter the **Repository base URL** for which the credentials should be applied (recommended). This option can be used to apply the provided credentials to a specific region, e.g. `https://git-codecommit.eu-west-1.amazonaws.com`.
+1.  Enter the **Repository base URL** for which the credentials should be applied (recommended). This option can be used to apply the provided credentials to a specific region, e.g. `https://git-codecommit.eu-west-1.amazonaws.com`.
 
 ### Self-hosted Git
 

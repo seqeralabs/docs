@@ -15,13 +15,13 @@ The following instructions create a Tower compute environment for a **generic Ku
 
 To prepare your Kubernetes cluster for the deployment of Nextflow pipelines using Tower, this guide assumes that you have already created the cluster and that you have administrative privileges.
 
-1. Verify the connection to your Kubernetes cluster:
+1.  Verify the connection to your Kubernetes cluster:
 
    ```bash
    kubectl cluster-info
    ```
 
-2. Create the Tower launcher:
+1.  Create the Tower launcher:
 
    ```bash
    kubectl apply -f https://help.tower.nf/latest/_templates/k8s/tower-launcher.yml
@@ -29,7 +29,7 @@ To prepare your Kubernetes cluster for the deployment of Nextflow pipelines usin
 
    This command creates a service account called `tower-launcher-sa` and the associated role bindings, all contained in a namespace called `tower-nf`. Tower uses the service account to launch Nextflow pipelines. Use this service account name when setting up the compute environment for this Kubernetes cluster in Tower.
 
-3. Create persistent storage. Tower requires a `ReadWriteMany` persistent volume claim (PVC) mounted to all nodes where workflow pods will be dispatched.
+1.  Create persistent storage. Tower requires a `ReadWriteMany` persistent volume claim (PVC) mounted to all nodes where workflow pods will be dispatched.
 
    You can use any storage solution that supports the `ReadWriteMany` [access mode](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes). The setup of this storage is beyond the scope of these instructions — the right solution for you will depend on what is available for your infrastructure or cloud vendor (NFS, GlusterFS, CephFS, Amazon FSx). Ask your cluster administrator for more information.
 
@@ -45,17 +45,17 @@ To prepare your Kubernetes cluster for the deployment of Nextflow pipelines usin
 
 ## Compute environment
 
-1. In a workspace, select **Compute environments** and then **New environment**.
+1.  In a workspace, select **Compute environments** and then **New environment**.
 
-2. Enter a descriptive name for this environment, e.g., "K8s cluster".
+1.  Enter a descriptive name for this environment, e.g., "K8s cluster".
 
-3. Select **Kubernetes** as the target platform.
+1.  Select **Kubernetes** as the target platform.
 
-4. From the **Credentials** drop-down, select existing Kubernetes credentials, or select **+** to add new credentials. If you have existing credentials, skip to step 7.
+1.  From the **Credentials** drop-down, select existing Kubernetes credentials, or select **+** to add new credentials. If you have existing credentials, skip to step 7.
 
-5. Enter a name, e.g., "K8s Credentials".
+1.  Enter a name, e.g., "K8s Credentials".
 
-6. Enter the **Service account token**.
+1.  Enter the **Service account token**.
 
    Obtain the token with the following command:
 
@@ -66,7 +66,7 @@ To prepare your Kubernetes cluster for the deployment of Nextflow pipelines usin
 
    Replace `<SERVICE-ACCOUNT-NAME>` with the name of the service account created in the [cluster preparation](#cluster-preparation) instructions (default: `tower-launcher-sa`).
 
-7. Enter the **Control plane URL**.
+1.  Enter the **Control plane URL**.
 
    Obtain the control plane URL with the following command:
 
@@ -76,25 +76,25 @@ To prepare your Kubernetes cluster for the deployment of Nextflow pipelines usin
 
    It can also be found in your `~/.kube/config` file under the `server` field corresponding to your cluster.
 
-8. Specify the **SSL certificate** to authenticate your connection.
+1.  Specify the **SSL certificate** to authenticate your connection.
 
    Find the certificate data in your `~/.kube/config` file. It is the `certificate-authority-data` field corresponding to your cluster.
 
-9. Specify the **Namespace** created in the [cluster preparation](#cluster-preparation) instructions, which is `tower-nf` by default.
+1.  Specify the **Namespace** created in the [cluster preparation](#cluster-preparation) instructions, which is `tower-nf` by default.
 
-10. Specify the **Head service account** created in the [cluster preparation](#cluster-preparation) instructions, which is `tower-launcher-sa` by default.
+1.  Specify the **Head service account** created in the [cluster preparation](#cluster-preparation) instructions, which is `tower-launcher-sa` by default.
 
-11. Specify the **Storage claim** created in the [cluster preparation](#cluster-preparation) instructions, which serves as a scratch filesystem for Nextflow pipelines. The storage claim is called `tower-scratch` in each of the provided examples.
+1.  Specify the **Storage claim** created in the [cluster preparation](#cluster-preparation) instructions, which serves as a scratch filesystem for Nextflow pipelines. The storage claim is called `tower-scratch` in each of the provided examples.
 
-12. Apply [**Resource labels**](../resource-labels/overview.mdx) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
+1.  Apply [**Resource labels**](../resource-labels/overview.mdx) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
 
-13. Expand **Staging options** to include optional pre- or post-run Bash scripts that execute before or after the Nextflow pipeline execution in your environment.
+1.  Expand **Staging options** to include optional pre- or post-run Bash scripts that execute before or after the Nextflow pipeline execution in your environment.
 
-14. You can use the **Environment variables** option to specify custom environment variables for the Head job and/or Compute jobs.
+1.  You can use the **Environment variables** option to specify custom environment variables for the Head job and/or Compute jobs.
 
-15. Configure any advanced options described below, as needed.
+1.  Configure any advanced options described below, as needed.
 
-16. Select **Create** to finalize the compute environment setup.
+1.  Select **Create** to finalize the compute environment setup.
 
 Jump to the documentation for [launching pipelines](../launch/launchpad.mdx).
 

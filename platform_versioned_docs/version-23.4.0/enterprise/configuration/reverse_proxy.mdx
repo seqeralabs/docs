@@ -11,13 +11,13 @@ As of February 2024, this configuration guide is not currently recommended for p
 
 To expose your Seqera instance behind a reverse proxy, complete the following steps:
 
-1. Use the [Seqera frontend unprivileged](../kubernetes.mdx#seqera-frontend-unprivileged) image.
-2. Add `TOWER_BASE_PATH` to the environment variables of the frontend container:
+1.  Use the [Seqera frontend unprivileged](../kubernetes.mdx#seqera-frontend-unprivileged) image.
+1.  Add `TOWER_BASE_PATH` to the environment variables of the frontend container:
    - `TOWER_BASE_PATH: "/myseqera/"` exposes your instance at `https://example.com/myseqera/` (this must match your proxy configuration)
-3. In the backend/cron environment variables or in the Seqera config file, edit the following environment variables:
+1.  In the backend/cron environment variables or in the Seqera config file, edit the following environment variables:
    - Set `TOWER_SERVER_URL` to the complete URL where you want to expose your instance, e.g., `TOWER_SERVER_URL: "https://example.com/myseqera"` (without the trailing slash)
    - Disable/unset `TOWER_LANDING_URL`
-4. Configure your reverse proxy to redirect all Seqera-related links to your Seqera frontend container:
+1.  Configure your reverse proxy to redirect all Seqera-related links to your Seqera frontend container:
 
 - If your frontend container listens on `http://tower-frontend:8080` and you're using Apache HTTP as your reverse proxy, add the following lines at the end of your configuration file (replace `/myseqera/` with the URL you defined in `TOWER_BASE_PATH`):
 

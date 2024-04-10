@@ -15,12 +15,12 @@ In Nextflow Tower 22.3, Seqera Labs introduced [resource labels](../../resource-
 
 In Tower Enterprise 22.4, an administrator can now:
 
--   Override and save the resource labels automatically assigned to a pipeline.
-  -   The pipeline will have a different resource label set from its associated compute environment. Resource labels added to the pipeline propagate to the cloud provider, without being permanently associated with the compute environment in Tower.
-  -   If a maintainer edits a pipeline and changes the compute environment, the resource labels field is updated with the resource labels of the new compute environment.
--   Override and save the resource labels associated with an action, following the same logic as pipelines above.
--   Override the resource labels associated with a workflow run before launch, enabling job-level tagging.
-  -   The resource labels tied to a workflow run are associated with specific cloud resources that do not include all resources tagged when a compute environment is created.
+- Override and save the resource labels automatically assigned to a pipeline.
+- The pipeline will have a different resource label set from its associated compute environment. Resource labels added to the pipeline propagate to the cloud provider, without being permanently associated with the compute environment in Tower.
+- If a maintainer edits a pipeline and changes the compute environment, the resource labels field is updated with the resource labels of the new compute environment.
+- Override and save the resource labels associated with an action, following the same logic as pipelines above.
+- Override the resource labels associated with a workflow run before launch, enabling job-level tagging.
+- The resource labels tied to a workflow run are associated with specific cloud resources that do not include all resources tagged when a compute environment is created.
 
 ### All runs view
 
@@ -64,8 +64,8 @@ The only requirement is that the new compute environment has access to the origi
 
 ### Warnings
 
-1. The default `nf-launcher` image includes a `curl` command which will fail if your Tower is secured with a private TLS certificate. To mitigate this problem, please see [these instructions](../configuration/ssl_tls.mdx).
-2. This version requires all database connections to use the following configuration value: `TOWER_DB_DRIVER=org.mariadb.jdbc.Driver`. Please update your configuration if you are upgrading. All other database configuration values should remain unchanged.
+1.  The default `nf-launcher` image includes a `curl` command which will fail if your Tower is secured with a private TLS certificate. To mitigate this problem, please see [these instructions](../configuration/ssl_tls.mdx).
+2.  This version requires all database connections to use the following configuration value: `TOWER_DB_DRIVER=org.mariadb.jdbc.Driver`. Please update your configuration if you are upgrading. All other database configuration values should remain unchanged.
 3.  This version expects the use of HTTPS by default for all browser client connections. If your Tower installation requires the use of unsecured HTTP, set the following environment variable in the infrastructure hosting the Tower application: `TOWER_ENABLE_UNSAFE_MODE=true`.
 4.  If you're upgrading from a version of Tower prior to `21.04.x`, please update your implementation to `21.04.x` before installing this release.
 
@@ -76,9 +76,9 @@ This Tower version requires a database schema update. Follow these steps to upda
 !!! warning
     To ensure no data loss, the database volume must be persistent on the local machine. Use the `volumes` key in the `db` or `redis` section of your `docker-compose.yml` file to specify a local path to the DB or Redis instance.
 
-1. Make a backup of the Tower database.
-2. Download and update your container versions.
-3. Redeploy the Tower application:
+1.  Make a backup of the Tower database.
+2.  Download and update your container versions.
+3.  Redeploy the Tower application:
 
     **docker-compose**:
 

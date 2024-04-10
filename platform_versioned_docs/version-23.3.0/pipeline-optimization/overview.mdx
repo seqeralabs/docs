@@ -21,19 +21,19 @@ On the **Launchpad**, you'll see a lightbulb icon on each pipeline that can be o
 
 ![optimizable runs](./_images/optimization_launchpad.png)
 
-1. Select the lightbulb icon to open the pipeline resource optimization configuration menu.
+1.  Select the lightbulb icon to open the pipeline resource optimization configuration menu.
 
 ![optimization profile menu](./_images/optimization_profile.png)
 
-2. Select a previous run from the dropdown. You can select any successful run.
+1.  Select a previous run from the dropdown. You can select any successful run.
 
-3. Select which **Targets** to optimize.
+1.  Select which **Targets** to optimize.
 
-4. Enable **Retry with dynamic resources** for failed tasks to be retried with increased resources. This option is useful if an optimized setting is too low and causes a task to fail.
+1.  Enable **Retry with dynamic resources** for failed tasks to be retried with increased resources. This option is useful if an optimized setting is too low and causes a task to fail.
 
-5. Select the **Optimized configuration** tab to preview your configuration.
+1.  Select the **Optimized configuration** tab to preview your configuration.
 
-6. Select **Save** to save the optimized configuration and enable it for the pipeline. All subsequent launches of the pipeline will use the optimized configuration.
+1.  Select **Save** to save the optimized configuration and enable it for the pipeline. All subsequent launches of the pipeline will use the optimized configuration.
 
 You can also toggle the optimized profile from the pipeline detail page.
 
@@ -57,10 +57,10 @@ However, it's common for a pipeline to process input files that vary widely in s
 
 The best way to handle this variation is to create multiple optimized profiles for specific ranges of input sizes. Here is an example strategy:
 
-1. Separate your input files into "bins" based on their size, e.g., _small_, _medium_, and _large_. Duplicate your pipeline in the **Launchpad** for each bin.
+1.  Separate your input files into "bins" based on their size, e.g., _small_, _medium_, and _large_. Duplicate your pipeline in the **Launchpad** for each bin.
 
-2. For each bin, run the pipeline with a few representative samples from that bin. When the run completes, Seqera automatically creates an optimized profile for it.
+1.  For each bin, run the pipeline with a few representative samples from that bin. When the run completes, Seqera automatically creates an optimized profile for it.
 
-3. Configure and enable the optimized profile for each pipeline.
+1.  Configure and enable the optimized profile for each pipeline.
 
 You now have multiple optimized profiles to handle a variety of input sizes. Although this example uses three bins, you can use as many or as few bins as you need to handle the variation of your input data.

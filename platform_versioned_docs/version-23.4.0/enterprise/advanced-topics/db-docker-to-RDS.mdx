@@ -23,9 +23,9 @@ While [Docker Compose](../docker-compose.mdx) is a fast and convenient way to de
 
 Before starting your migration:
 
-1. Create an RDS MySQL-compliant instance and populate it with a [Seqera user and database](../configuration/overview.mdx#seqera-and-redis-databases).
+1.  Create an RDS MySQL-compliant instance and populate it with a [Seqera user and database](../configuration/overview.mdx#seqera-and-redis-databases).
 
-2. Ensure both your database and EC2 instances' Security Group(s) have been configured to allow MySQL traffic (default: Port 3306).
+1.  Ensure both your database and EC2 instances' Security Group(s) have been configured to allow MySQL traffic (default: Port 3306).
 
 ## Migration steps
 
@@ -37,67 +37,67 @@ These migration instructions assume:
 
 :::
 
-1. Connect to the EC2 instance with SSH and navigate to your Seqera instance's `docker compose` folder.
+1.  Connect to the EC2 instance with SSH and navigate to your Seqera instance's `docker compose` folder.
 
-2. Shut down the application:
+1.  Shut down the application:
 
    ```bash
    docker compose down
    ```
 
-3. Mount a new folder into the MySQL container for migration activities:
+1.  Mount a new folder into the MySQL container for migration activities:
 
-   1. Create a new folder to hold migration artefacts:
+   1.  Create a new folder to hold migration artefacts:
 
       ```bash
       mkdir ~/tower_migration
       ```
 
-   2. Back up the database:
+   2.  Back up the database:
 
       ```bash
       sudo tar -zcvf ~/tower_migration/tower_backup.tar.gz ~/.tower/db/mysql
       ```
 
-4. Add a new volume entry for the db container to the Seqera `docker-compose.yml`:
+1.  Add a new volume entry for the db container to the Seqera `docker-compose.yml`:
 
    ```
    $HOME/tower_migration:/tower_migration
    ```
 
-5. Restart the application to confirm your changes were successful:
+1.  Restart the application to confirm your changes were successful:
 
    ```bash
    docker compose up
    ```
 
-6. Stop all the non-MySQL containers:
+1.  Stop all the non-MySQL containers:
 
    ```bash
    docker container stop <CONTAINER ID>
    ```
 
-7. Exec onto the MySQL container:
+1.  Exec onto the MySQL container:
 
    ```bash
    docker exec -it <CONTAINER ID> /bin/bash
    ```
 
-   1. Dump your data to disk:
+   1.  Dump your data to disk:
 
       ```bash
       mysqldump -u tower -p --databases tower --no-tablespaces --set-gtid-purged=OFF > /tower_migration/tower_dumpfile.sql
       ```
 
-   2. Exit the container.
+   2.  Exit the container.
 
-8. Stop the MySQL container:
+1.  Stop the MySQL container:
 
    ```bash
    docker container stop <CONTAINER ID>
    ```
 
-9. Import the dump file into your new RDS instance:
+1.  Import the dump file into your new RDS instance:
 
    ```bash
    mysql --host <DB-HOST> --port 3306 -u tower -p tower < ~/tower_migration/tower_dumpfile.sql
@@ -106,8 +106,8 @@ These migration instructions assume:
    :::note
    If you encounter an `Access denied; you need (at least one of) the SUPER or SET_USER_ID privilege(s) for this operation` error, do the following:
 
-   1. Create a backup of your MySQL dump file (`tower_dumpfile.sql`).
-   2. Run the following command on the dump file:
+   1.  Create a backup of your MySQL dump file (`tower_dumpfile.sql`).
+   2.  Run the following command on the dump file:
 
    ```bash
    sed 's/\sDEFINER=`[^`]*`@`[^`]*`//g' -i tower_dumpfile.sql
@@ -115,20 +115,20 @@ These migration instructions assume:
 
    :::
 
-10. Log in to the RDS instance and ensure that the Seqera database is populated with tables prefixed by `tw_`.
+1.  Log in to the RDS instance and ensure that the Seqera database is populated with tables prefixed by `tw_`.
 
-11. Modify the `tower.env` config file in the Seqera Docker folder:
+1.  Modify the `tower.env` config file in the Seqera Docker folder:
 
-    1. Comment out the existing `TOWER_DB-*` variables.
-    2. Add new entries [relevant to your database](../configuration/overview.mdx#seqera-and-redis-databases).
-    3. Save and exit.
+    1.  Comment out the existing `TOWER_DB-*` variables.
+    2.  Add new entries [relevant to your database](../configuration/overview.mdx#seqera-and-redis-databases).
+    3.  Save and exit.
 
-12. Restart the application:
+1.  Restart the application:
 
     ```bash
     docker compose up
     ```
 
-13. Confirm that Seqera Enterprise starts and that your data is available when you log in.
+1.  Confirm that Seqera Enterprise starts and that your data is available when you log in.
 
 The migration is complete and testing can begin.

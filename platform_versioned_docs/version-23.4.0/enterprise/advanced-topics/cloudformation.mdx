@@ -14,11 +14,11 @@ This guide assumes that all [prerequisites](../prerequisites/aws.mdx) have been 
 
 ## Set up an ECS cluster
 
-1. Navigate to the ECS console in AWS.
+1.  Navigate to the ECS console in AWS.
 
-2. Select **Create cluster**.
+1.  Select **Create cluster**.
 
-3. Select **Amazon ECS > Clusters > EC2 Linux + Networking**.
+1.  Select **Amazon ECS > Clusters > EC2 Linux + Networking**.
 
 ### ECS Cluster Configuration
 
@@ -47,13 +47,13 @@ This guide assumes that all [prerequisites](../prerequisites/aws.mdx) have been 
 
 ## Deploy Tower
 
-1. Download [aws-ecs-cloudformation.json](../_templates/cloudformation/aws-ecs-cloudformation.json) and [params.json.template](../_templates/cloudformation/params.json.template).
+1.  Download [aws-ecs-cloudformation.json](../_templates/cloudformation/aws-ecs-cloudformation.json) and [params.json.template](../_templates/cloudformation/params.json.template).
 
-2. Rename `params.template.json` to `params.json` and configure for your environment.
+1.  Rename `params.template.json` to `params.json` and configure for your environment.
 
    For more information on configuration, visit the [Configuration](../configuration/overview.mdx) section.
 
-3. Deploy the Tower stack to your ECS cluster:
+1.  Deploy the Tower stack to your ECS cluster:
 
    ```bash
    aws cloudformation create-stack \

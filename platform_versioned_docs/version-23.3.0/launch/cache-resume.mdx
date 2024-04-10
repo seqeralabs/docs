@@ -8,11 +8,11 @@ tags: [cache, launch, resume, relaunch]
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Nextflow maintains a [cache](https://www.nextflow.io/docs/latest/cache-and-resume.html) directory where it stores the intermediate results and metadata from workflow runs. Workflows executed in Seqera Platform use this caching mechanism to enable users to relaunch or resume failed or otherwise interrupted runs as needed. This eliminates the need to re-execute successfully completed tasks when a workflow is executed again due to task failures or other interruptions. 
+Nextflow maintains a [cache](https://www.nextflow.io/docs/latest/cache-and-resume.html) directory where it stores the intermediate results and metadata from workflow runs. Workflows executed in Seqera Platform use this caching mechanism to enable users to relaunch or resume failed or otherwise interrupted runs as needed. This eliminates the need to re-execute successfully completed tasks when a workflow is executed again due to task failures or other interruptions.
 
 ## Cache directory
 
-Nextflow stores all task executions to the task cache automatically, whether or not the resume or relaunch option is used. This makes it possible to resume or relaunch runs later if needed. Platform HPC and local compute environments use the default Nextflow cache directory (`.nextflow/cache`) to store the task cache. Cloud compute environments use the [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) mechanism to store the task cache in a sub-folder of the pipeline work directory. 
+Nextflow stores all task executions to the task cache automatically, whether or not the resume or relaunch option is used. This makes it possible to resume or relaunch runs later if needed. Platform HPC and local compute environments use the default Nextflow cache directory (`.nextflow/cache`) to store the task cache. Cloud compute environments use the [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) mechanism to store the task cache in a sub-folder of the pipeline work directory.
 
 To override the default cloud cache location in cloud compute environments, specify an alternate directory with the [cache](https://www.nextflow.io/docs/latest/process.html#process-cache) directive in your Nextflow configuration file (either in the **Advanced options > Nextflow config file** field on the launch form, or in the `nextflow.config` file in your pipeline repository).
 
@@ -21,44 +21,42 @@ To override the default cloud cache location in cloud compute environments, spec
 
 To customize the cache location used in your AWS Batch and Amazon EKS compute environments, specify an alternate cache directory in your Nextflow configuration:
 
-```groovy 
+```groovy
 cloudcache {
    enabled = true
    path = 's3://your-bucket/.cache'
    }
 ```
 
-The new cache directory must be accessible with the credentials associated with your compute environment. An alternate cloud storage location can be specified if you include the necessary credentials for that location in your Nextflow configuration. **This is not recommended for production environments**. 
+The new cache directory must be accessible with the credentials associated with your compute environment. An alternate cloud storage location can be specified if you include the necessary credentials for that location in your Nextflow configuration. **This is not recommended for production environments**.
 
 </TabItem>
 <TabItem value="Azure Batch" label="Azure Batch" default>
 
 To customize the cache location used in your Azure Batch compute environments, specify an alternate cache directory in your Nextflow configuration:
 
-```groovy 
+```groovy
 cloudcache {
    enabled = true
    path = 'az://your-container/.cache'
    }
 ```
 
-The new cache directory must be accessible with the credentials associated with your compute environment. An alternate cloud storage location can be specified if you include the necessary credentials for that location in your Nextflow configuration. **This is not recommended for production environments**. 
-
+The new cache directory must be accessible with the credentials associated with your compute environment. An alternate cloud storage location can be specified if you include the necessary credentials for that location in your Nextflow configuration. **This is not recommended for production environments**.
 
 </TabItem>
 <TabItem value="Google Cloud Batch and Google GKE" label="Google Cloud Batch and Google GKE " default>
 
 To customize the cache location used in your Google Cloud Batch and Google GKE compute environments, specify an alternate cache directory in your Nextflow configuration:
 
-```groovy 
+```groovy
 cloudcache {
    enabled = true
    path = 'gs://your-bucket/.cache'
    }
 ```
 
-The new cache directory must be accessible with the credentials associated with your compute environment. An alternate cloud storage location can be specified if you include the necessary credentials for that location in your Nextflow configuration. **This is not recommended for production environments**. 
-
+The new cache directory must be accessible with the credentials associated with your compute environment. An alternate cloud storage location can be specified if you include the necessary credentials for that location in your Nextflow configuration. **This is not recommended for production environments**.
 
 </TabItem>
 <TabItem value="Kubernetes" label="Kubernetes" default>
@@ -124,7 +122,7 @@ Kubernetes compute environments do not use cloud cache by default. To specify a 
          path = 'gs://your-bucket/.cache'
          }
       ```
-   
+
    </details>
 
 </TabItem>

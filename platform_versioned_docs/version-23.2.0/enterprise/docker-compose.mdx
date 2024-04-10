@@ -42,17 +42,17 @@ In order for your DB or Redis volume to persist after a `docker restart`, uncomm
 
 </details>
 
-1. Download and configure [tower.env](_templates/docker/tower.env).
+1.  Download and configure [tower.env](_templates/docker/tower.env).
 
-2. Download and configure [tower.yml](_templates/docker/tower.yml), update values for allowed emails.
+1.  Download and configure [tower.yml](_templates/docker/tower.yml), update values for allowed emails.
 
-3. Download and configure [docker-compose.yml](_templates/docker/docker-compose.yml).
+1.  Download and configure [docker-compose.yml](_templates/docker/docker-compose.yml).
 
    The `db` and `mail` containers should only be used for local testing; you may remove them if you have configured these services elsewhere.
 
    Make sure to customize the `TOWER_ENABLE_PLATFORMS` variable to include the execution platform(s) you will use.
 
-4. Deploy Tower and wait for it to initialize (takes a few minutes):
+1.  Deploy Tower and wait for it to initialize (takes a few minutes):
 
    ```bash
    docker-compose up
@@ -66,21 +66,21 @@ For more information on configuration, see [Configuration options](./configurati
 
 To make sure that Tower is properly configured, follow these steps:
 
-1. Login to Tower.
+1.  Login to Tower.
 
-2. Create an **organization**.
+1.  Create an **organization**.
 
-3. Create a **workspace** within that organization.
+1.  Create a **workspace** within that organization.
 
-4. Create a new **Compute Environment**. Refer to [Compute Environments](https://help.tower.nf/compute-envs/overview/) for detailed instructions.
+1.  Create a new **Compute Environment**. Refer to [Compute Environments](https://help.tower.nf/compute-envs/overview/) for detailed instructions.
 
-5. Select **Quick Launch** from the **Launchpad** tab in your workspace.
+1.  Select **Quick Launch** from the **Launchpad** tab in your workspace.
 
-6. Enter the repository URL for the `nf-core/rnaseq` pipeline (`https://github.com/nf-core/rnaseq`).
+1.  Enter the repository URL for the `nf-core/rnaseq` pipeline (`https://github.com/nf-core/rnaseq`).
 
-7. In the **Config profiles** dropdown, select the `test` profile.
+1.  In the **Config profiles** dropdown, select the `test` profile.
 
-8. In the **Pipeline parameters** text area, change the output directory to a sensible location based on your Compute Environment:
+1.  In the **Pipeline parameters** text area, change the output directory to a sensible location based on your Compute Environment:
 
    ```yaml
    # save to S3 bucket
@@ -90,7 +90,7 @@ To make sure that Tower is properly configured, follow these steps:
    outdir: /scratch/results
    ```
 
-9. Select **Launch**.
+1.  Select **Launch**.
 
    You'll be transitioned to the **Runs** tab for the workflow. After a few minutes, you'll see the progress logs in the **Execution log** tab for that workflow.
 

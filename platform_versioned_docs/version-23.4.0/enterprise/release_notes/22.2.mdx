@@ -51,8 +51,8 @@ Available reports are listed in a Reports tab on the Runs page. Users can select
 
 ## Notes
 
-1. As of version 22.1.x, Nextflow Tower Enterprise will follow a three month release cadence, using the following version number scheme: `YY.Q.PATCH`, where `YY` represents the year, `Q` represents the quarter and `PATCH` the incremental patch number.
-2. As of version 21.02.x, a license key must be provided to enable the Tower deployment feature. The license key should be specified using the configuration variable `TOWER_LICENSE`. If you don't have a license key, contact sales@seqera.io.
+1.  As of version 22.1.x, Nextflow Tower Enterprise will follow a three month release cadence, using the following version number scheme: `YY.Q.PATCH`, where `YY` represents the year, `Q` represents the quarter and `PATCH` the incremental patch number.
+2.  As of version 21.02.x, a license key must be provided to enable the Tower deployment feature. The license key should be specified using the configuration variable `TOWER_LICENSE`. If you don't have a license key, contact sales@seqera.io.
 
 ## Warnings
 
@@ -64,13 +64,13 @@ Available reports are listed in a Reports tab on the Runs page. Users can select
 
 This Tower version requires a database schema update. Follow these steps to update your DB instance and the Tower installation.
 
-1. Make a backup of the Tower database.
-2. Download and update your container versions to:
+1.  Make a backup of the Tower database.
+2.  Download and update your container versions to:
 
-    * `195996028523.dkr.ecr.eu-west-1.amazonaws.com/nf-tower-enterprise/backend:v22.2.1`
-    * `195996028523.dkr.ecr.eu-west-1.amazonaws.com/nf-tower-enterprise/frontend:v22.2.1`
+    - `195996028523.dkr.ecr.eu-west-1.amazonaws.com/nf-tower-enterprise/backend:v22.2.1`
+    - `195996028523.dkr.ecr.eu-west-1.amazonaws.com/nf-tower-enterprise/frontend:v22.2.1`
 
-3. Redeploy the Tower application:
+3.  Redeploy the Tower application:
 
     **docker compose**:
 

@@ -118,8 +118,8 @@ The Seqera Labs container registry `cr.seqera.io` is the default Tower container
 :::caution
 If you are unable to pull container images due to a `denied: Permission "artifactregistry.repositories.downloadArtifacts" denied on resouce "projects/nf-tower-enterprise/locations/eurpoe-west2/repositories/containers" (or it may not exist)` error, try the following:
 
-1. If your Docker requires sudo, [add sudo](https://cloud.google.com/artifact-registry/docs/docker/authentication#gcloud-helper) to the `gcloud auth configure-docker europe-west2-docker.pkg.dev` command.
+1.  If your Docker requires sudo, [add sudo](https://cloud.google.com/artifact-registry/docs/docker/authentication#gcloud-helper) to the `gcloud auth configure-docker europe-west2-docker.pkg.dev` command.
 
-2. If you installed Docker onto Ubuntu using `snap`, ensure your [containerd config](https://jhartman.pl/2022/03/23/how-to-fix-permission-artifactregistry-repositories-downloadartifacts-denied-on-resource-on-ubuntu-when-pulling-from-google-artifact-repository/) is properly updated.
+1.  If you installed Docker onto Ubuntu using `snap`, ensure your [containerd config](https://jhartman.pl/2022/03/23/how-to-fix-permission-artifactregistry-repositories-downloadartifacts-denied-on-resource-on-ubuntu-when-pulling-from-google-artifact-repository/) is properly updated.
 
    :::

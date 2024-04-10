@@ -7,23 +7,23 @@ tags: [testing, deployment]
 
 After your [Docker Compose](./docker-compose.mdx) or [Kubernetes](./kubernetes.mdx) installation is complete, follow these steps to test whether the application is running as expected:
 
-1. Log in to the application.
+1.  Log in to the application.
 
-2. Create an [organization](../orgs-and-teams/organizations.mdx).
+1.  Create an [organization](../orgs-and-teams/organizations.mdx).
 
-3. Create a [workspace](../orgs-and-teams/workspace-management.mdx) within the organization.
+1.  Create a [workspace](../orgs-and-teams/workspace-management.mdx) within the organization.
 
-4. Create a new [compute environment](../compute-envs/overview.mdx).
+1.  Create a new [compute environment](../compute-envs/overview.mdx).
 
-5. Add your [GitHub credentials](../git/overview.mdx).
+1.  Add your [GitHub credentials](../git/overview.mdx).
 
-6. Select **Quick Launch** from the **Launchpad** tab in your workspace.
+1.  Select **Quick Launch** from the **Launchpad** tab in your workspace.
 
-7. Enter the repository URL for the `nf-core/rnaseq` pipeline (`https://github.com/nf-core/rnaseq`).
+1.  Enter the repository URL for the `nf-core/rnaseq` pipeline (`https://github.com/nf-core/rnaseq`).
 
-8. In the **Config profiles** drop-down menu, select the `test` profile.
+1.  In the **Config profiles** drop-down menu, select the `test` profile.
 
-9. In **Pipeline parameters**, change the output directory to a location based on your compute environment:
+1.  In **Pipeline parameters**, change the output directory to a location based on your compute environment:
 
     ```yaml
     # Uncomment to save to an S3 bucket
@@ -33,4 +33,4 @@ After your [Docker Compose](./docker-compose.mdx) or [Kubernetes](./kubernetes.m
     # outdir: /scratch/results
     ```
 
-10. Select **Launch**. You'll be redirected to the **Runs** tab for the workflow. After a few minutes, progress logs will be listed in that workflow's **Execution log** tab.
+1.  Select **Launch**. You'll be redirected to the **Runs** tab for the workflow. After a few minutes, progress logs will be listed in that workflow's **Execution log** tab.

@@ -11,8 +11,8 @@ This guide assumes you have an existing Google Cloud account. Sign up for a free
 
 The guide is split into two parts:
 
-1. How to configure your Google Cloud account to use the Batch API.
-2. How to create a Google Cloud Batch compute environment in Seqera.
+1.  How to configure your Google Cloud account to use the Batch API.
+1.  How to create a Google Cloud Batch compute environment in Seqera.
 
 ## Configure Google Cloud
 
@@ -75,16 +75,16 @@ Ask your Google Cloud administrator to grant you the following IAM user permissi
 
 To configure a credential in Seqera, you must first create a [service account JSON key file][get-json]:
 
-1. In the Google Cloud navigation menu, select **IAM & Admin > Service Accounts**.
-2. Select the email address of the service account.
+1.  In the Google Cloud navigation menu, select **IAM & Admin > Service Accounts**.
+1.  Select the email address of the service account.
 
     :::note
     The Compute Engine default service account is not recommended for production environments due to its powerful permissions. To use a service account other than the Compute Engine default, specify the service account email address under **Advanced options** on the Seqera compute environment creation form.
     :::
 
-3. Select **Keys > Add key > Create new key**.
-4. Select **JSON** as the key type.
-5. Select **Create**.
+1.  Select **Keys > Add key > Create new key**.
+1.  Select **JSON** as the key type.
+1.  Select **Create**.
 
 A JSON file will be downloaded to your computer. This file contains the credential needed to configure the compute environment in Seqera.
 
@@ -96,23 +96,23 @@ Google Cloud Storage is a type of **object storage**. To access files and store 
 
 **Create a Cloud Storage bucket**
 
-1. In the hamburger menu (**≡**), select **Cloud Storage**.
-2. From the **Buckets** tab, select **Create**.
-3. Enter a name for your bucket. You will reference this name when you create the compute environment in Seqera.
-4. Select **Region** for the **Location type** and select the **Location** for your bucket. You'll reference this location when you create the compute environment in Seqera.
-5. Select **Standard** for the default storage class.
-6. Under **Access control**, select **Uniform**.
+1.  In the hamburger menu (**≡**), select **Cloud Storage**.
+1.  From the **Buckets** tab, select **Create**.
+1.  Enter a name for your bucket. You will reference this name when you create the compute environment in Seqera.
+1.  Select **Region** for the **Location type** and select the **Location** for your bucket. You'll reference this location when you create the compute environment in Seqera.
+1.  Select **Standard** for the default storage class.
+1.  Under **Access control**, select **Uniform**.
 
     :::note
     The Batch API is available in a limited number of [locations][batch-locations]. These locations are only used to store metadata about the pipeline operations. The storage bucket and compute resources can be in any region.
     :::
 
-7. Select any additional object data protection tools, per your organization's data protection requirements.
-8. Select **Create**.
-9. After the bucket is created, you are redirected to the **Bucket details** page.
-10. Select **Permissions**, then **Grant access** under **View by principals**.
-11. Copy the email address of your service account into **New principals**.
-12. Select the **Storage Admin** role.
+1.  Select any additional object data protection tools, per your organization's data protection requirements.
+1.  Select **Create**.
+1.  After the bucket is created, you are redirected to the **Bucket details** page.
+1.  Select **Permissions**, then **Grant access** under **View by principals**.
+1.  Copy the email address of your service account into **New principals**.
+1.  Select the **Storage Admin** role.
 
 :::tip
 You've created a project, enabled the necessary Google APIs, created a bucket, and created a service account JSON key file with the required credentials. You now have what you need to set up a new compute environment in Seqera.
@@ -122,26 +122,26 @@ You've created a project, enabled the necessary Google APIs, created a bucket, a
 
 After your Google Cloud resources have been created, create a new Seqera compute environment:
 
-1. In a workspace, select **Compute Environments > New Environment**.
-2. Enter a descriptive name for this environment, e.g., _Google Cloud Batch (europe-north1)_.
-3. Select **Google Cloud Batch** as the target platform.
-4. From the **Credentials** drop-down, select existing Google credentials, or select **+** to add new credentials. If you choose to use existing credentials, skip to step 7.
-5. Enter a name for the credentials, e.g., _Google Cloud Credentials_.
-6. Enter the **Service account key** from the JSON key file you created earlier.
-7. Select the **Location** where you will execute your pipelines. See [Location][location] to learn more.
-8. In the **Pipeline work directory** field, enter your storage bucket URL, e.g., `gs://my-bucket`. This bucket must be accessible in the location selected in the previous step.
+1.  In a workspace, select **Compute Environments > New Environment**.
+1.  Enter a descriptive name for this environment, e.g., _Google Cloud Batch (europe-north1)_.
+1.  Select **Google Cloud Batch** as the target platform.
+1.  From the **Credentials** drop-down, select existing Google credentials, or select **+** to add new credentials. If you choose to use existing credentials, skip to step 7.
+1.  Enter a name for the credentials, e.g., _Google Cloud Credentials_.
+1.  Enter the **Service account key** from the JSON key file you created earlier.
+1.  Select the **Location** where you will execute your pipelines. See [Location][location] to learn more.
+1.  In the **Pipeline work directory** field, enter your storage bucket URL, e.g., `gs://my-bucket`. This bucket must be accessible in the location selected in the previous step.
 
     :::note
     When you specify a Cloud Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad.mdx#launch-form) form.
     :::
 
-9. (_Optional_) Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers][wave-docs] for more information.
-10. (_Optional_) Select **Enable Fusion v2** to allow access to your S3-hosted data via the [Fusion v2][fusion-docs] virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled in the previous step. See [Fusion file system][platform-fusion-docs] for configuration details.
-11. Enable **Spot** to use spot instances, which have significantly reduced cost compared to on-demand instances.
-12. Apply [**Resource labels**][resource-labels] to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
-13. Expand **Staging options** to include optional [pre- or post-run Bash scripts][pre-post-run-scripts] that execute before or after the Nextflow pipeline execution in your environment.
-14. Specify custom **Environment variables** for the Head job and/or Compute jobs.
-15. Configure any advanced options you need:
+1.  (_Optional_) Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers][wave-docs] for more information.
+1.  (_Optional_) Select **Enable Fusion v2** to allow access to your S3-hosted data via the [Fusion v2][fusion-docs] virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled in the previous step. See [Fusion file system][platform-fusion-docs] for configuration details.
+1.  Enable **Spot** to use spot instances, which have significantly reduced cost compared to on-demand instances.
+1.  Apply [**Resource labels**][resource-labels] to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
+1.  Expand **Staging options** to include optional [pre- or post-run Bash scripts][pre-post-run-scripts] that execute before or after the Nextflow pipeline execution in your environment.
+1.  Specify custom **Environment variables** for the Head job and/or Compute jobs.
+1.  Configure any advanced options you need:
 
     - Enable **Use Private Address** to ensure that your Google Cloud VMs aren't accessible to the public internet.
 
@@ -159,7 +159,7 @@ After your Google Cloud resources have been created, create a new Seqera compute
     **VPC** and **Subnet** must both be specified for your compute environment to use either.
     :::
 
-16. Select **Create** to finish the compute environment setup.
+1.  Select **Create** to finish the compute environment setup.
 
 Your new compute environment may take a few minutes to become available for pipeline execution after it is added to your workspace.
 

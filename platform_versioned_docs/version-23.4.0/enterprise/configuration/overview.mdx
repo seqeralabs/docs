@@ -465,13 +465,13 @@ Simple Email Service (SES) is only supported in Seqera deployments on AWS.
 
 To configure AWS SES as your Seqera email service:
 
-1. Set `TOWER_ENABLE_AWS_SES=true` in your environment variables.
-2. Specify the email address used to send Seqera emails with one of the following:
+1.  Set `TOWER_ENABLE_AWS_SES=true` in your environment variables.
+1.  Specify the email address used to send Seqera emails with one of the following:
     - the `TOWER_CONTACT_EMAIL` environment variable
     - a `mail.from` entry in `tower.yml`
     - a `/config/<application_name>/mail/from` AWS Parameter Store entry
-3. The [AWS SES service](https://docs.aws.amazon.com/ses/index.html) must run in the same region as your Seqera instance.
-4. The [Seqera IAM role](../../compute-envs/aws-batch.mdx#iam) must include the `ses:SendRawEmail` permission.
+1.  The [AWS SES service](https://docs.aws.amazon.com/ses/index.html) must run in the same region as your Seqera instance.
+1.  The [Seqera IAM role](../../compute-envs/aws-batch.mdx#iam) must include the `ses:SendRawEmail` permission.
 
 ## Nextflow launch container
 

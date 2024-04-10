@@ -77,15 +77,15 @@ _Reference architecture diagram of Tower on AWS using Elastic Kubernetes Service
 Nextflow Tower is distributed as a collection of Docker containers available through the Seqera Labs
 container registry [`cr.seqera.io`](https://cr.seqera.io). Contact [support](https://support.seqera.io) to get your container access credentials. Once you have received your credentials, log in to the registry using these steps:
 
-1. Retrieve the **name** and **secret** values from the JSON file you received from Seqera Labs support.
+1.  Retrieve the **name** and **secret** values from the JSON file you received from Seqera Labs support.
 
-2. Authenticate to the registry (using the `name` and `secret` values copied in step 1):
+1.  Authenticate to the registry (using the `name` and `secret` values copied in step 1):
 
    ```bash
    docker login -u '<NAME>' -p '<SECRET>' cr.seqera.io
    ```
 
-3. Pull the Nextflow Tower container images:
+1.  Pull the Nextflow Tower container images:
 
    ```bash
    docker pull {{ images.tower_be_image }}

@@ -9,11 +9,11 @@ You can use Tower through the web interface, the API, the CLI, or in Nextflow di
 
 ### Tower web interface
 
-1. Create an account and log in to Tower, available free of charge at [tower.nf](https://cloud.tower.nf).
+1.  Create an account and log in to Tower, available free of charge at [tower.nf](https://cloud.tower.nf).
 
-2. Create and configure a new [compute environment](../compute-envs/overview.mdx).
+1.  Create and configure a new [compute environment](../compute-envs/overview.mdx).
 
-3. Start [launching pipelines](../launch/launchpad.mdx).
+1.  Start [launching pipelines](../launch/launchpad.mdx).
 
 ### Tower API
 
@@ -25,17 +25,17 @@ See [CLI](../cli.mdx).
 
 ### Nextflow `-with-tower`
 
-1. Create an account and log in to Tower.
+1.  Create an account and log in to Tower.
 
-2. Create a new token. You can access your tokens from the **Settings** drop-down menu:
+1.  Create a new token. You can access your tokens from the **Settings** drop-down menu:
 
    ![](./_images/usage_create_token.png)
 
-3. Name your token.
+1.  Name your token.
 
    ![](./_images/usage_name_token.png)
 
-4. Store your token securely.
+1.  Store your token securely.
 
    ![](./_images/usage_token.png)
 
@@ -43,7 +43,7 @@ See [CLI](../cli.mdx).
 The token will only be displayed once. You must copy and save the token before closing the Personal Access Token window.
 :::
 
-5. Open a terminal and enter the following commands:
+1.  Open a terminal and enter the following commands:
 
    ```bash
    export TOWER_ACCESS_TOKEN=eyxxxxxxxxxxxxxxxQ1ZTE=
@@ -64,7 +64,7 @@ export TOWER_WORKSPACE_ID=000000000000000
 
 The workspace ID can be found on the organization workspaces overview page.
 
-6. Run your Nextflow pipeline with the `-with-tower` flag:
+1.  Run your Nextflow pipeline with the `-with-tower` flag:
 
    ```bash
    nextflow run hello.nf -with-tower

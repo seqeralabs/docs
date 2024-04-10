@@ -1,7 +1,7 @@
 title: "cert_on_frontend"
 This example assumes deployment on an Amazon Linux 2 AMI.
 
-1. Install nginx and other required packages:
+1.  Install nginx and other required packages:
 
    ```yml
    sudo amazon-linux-extras install nginx1.12
@@ -12,9 +12,9 @@ This example assumes deployment on an Amazon Linux 2 AMI.
    sudo amazon-linux-extras install epel -y
    ```
 
-2. Generate a [private certificate and key](https://www.digitalocean.com/community/tutorials/openssl-essentials-working-with-ssl-certificates-private-keys-and-csrs).
+1.  Generate a [private certificate and key](https://www.digitalocean.com/community/tutorials/openssl-essentials-working-with-ssl-certificates-private-keys-and-csrs).
 
-3. Create a `ssl.conf` file.
+1.  Create a `ssl.conf` file.
 
    ```conf
 
@@ -52,15 +52,15 @@ This example assumes deployment on an Amazon Linux 2 AMI.
 
    ```
 
-4. Make a local copy of the `frontend` container's `/etc/nginx/nginx.conf` file.
+1.  Make a local copy of the `frontend` container's `/etc/nginx/nginx.conf` file.
 
-5. Add the following to the `server` block of your local `nginx.conf` file:
+1.  Add the following to the `server` block of your local `nginx.conf` file:
 
    ```conf
    include /etc/nginx/ssl.conf;
    ```
 
-6. Modify the `frontend` container definition in your `docker-compose.yml` file:
+1.  Modify the `frontend` container definition in your `docker-compose.yml` file:
 
    ```yml
    frontend:

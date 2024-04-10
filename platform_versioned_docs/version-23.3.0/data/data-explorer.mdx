@@ -122,29 +122,29 @@ Apply a [CORS configuration](https://learn.microsoft.com/en-us/rest/api/storages
 
 **Seqera Cloud Azure CORS configuration**
 
-1. From the [Azure portal](https://portal.azure.com), go to the **Storage account** you wish to configure.
-2. Under **Settings** in the left navigation menu, select **Resource sharing (CORS)**.
-3. Add a new entry under **Blob service**:
+1.  From the [Azure portal](https://portal.azure.com), go to the **Storage account** you wish to configure.
+1.  Under **Settings** in the left navigation menu, select **Resource sharing (CORS)**.
+1.  Add a new entry under **Blob service**:
 
 - **Allowed origins**: `https://tower.nf`
 - **Allowed methods**: `GET,POST,PUT,DELETE,HEAD`
 - **Allowed headers**: `x-ms-blob-type,content-type`
 - **Exposed headers**: `x-ms-blob-type`
 
-4. Select **Save** to apply the CORS configuration.
+1.  Select **Save** to apply the CORS configuration.
 
 **Seqera Enterprise Azure CORS configuration**
 
-1. From the [Azure portal](https://portal.azure.com), go to the Storage account you wish to configure.
-2. Under **Settings** in the left navigation menu, select **Resource sharing (CORS)**.
-3. Add a new entry under **Blob service**:
+1.  From the [Azure portal](https://portal.azure.com), go to the Storage account you wish to configure.
+1.  Under **Settings** in the left navigation menu, select **Resource sharing (CORS)**.
+1.  Add a new entry under **Blob service**:
 
 - **Allowed origins**: `https://<your_seqera_instance_url>`
 - **Allowed methods**: `GET,POST,PUT,DELETE,HEAD`
 - **Allowed headers**: `x-ms-blob-type,content-type`
 - **Exposed headers**: `x-ms-blob-type`
 
-4. Select **Save** to apply the CORS configuration.
+1.  Select **Save** to apply the CORS configuration.
 
 ### Google Cloud Storage CORS configuration
 

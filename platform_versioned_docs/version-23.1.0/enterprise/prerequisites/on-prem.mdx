@@ -12,15 +12,15 @@ This page describes the prerequisites for deploying Tower to your on-premises in
 Nextflow Tower is distributed as a collection of Docker containers available through the Seqera Labs
 container registry [`cr.seqera.io`](https://cr.seqera.io). Contact [support](https://support.seqera.io) to get your container access credentials. Once you have received your credentials, log in to the registry using these steps:
 
-1. Retrieve the **username** and **password** you received from Seqera Labs support.
+1.  Retrieve the **username** and **password** you received from Seqera Labs support.
 
-2. Run the following Docker command to authenticate to the registry (using the `username` and `password` values copied in step 1):
+1.  Run the following Docker command to authenticate to the registry (using the `username` and `password` values copied in step 1):
 
    ```bash
    docker login -u '/\<USERNAME\>/' -p '/\PASSWORD\>/' cr.seqera.io
    ```
 
-3. Pull the Nextflow Tower container images with the following commands:
+1.  Pull the Nextflow Tower container images with the following commands:
 
    ```bash
    docker pull {{ images.tower_be_image }}

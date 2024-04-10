@@ -62,9 +62,9 @@ This Tower version requires a database schema update. Follow these steps to upda
 !!! warning ""
     To ensure no data loss, the database volume must be persistent on the local machine. Use the `volumes` key in the `db` or `redis` section of your docker-compose.yml file to specify a local path to the DB or Redis instance.
 
-1. Make a backup of the Tower database.
-2. Download and update your container versions.
-3. Redeploy the Tower application:
+1.  Make a backup of the Tower database.
+2.  Download and update your container versions.
+3.  Redeploy the Tower application:
 
     **docker-compose**:
 
@@ -84,8 +84,8 @@ This Tower version requires a database schema update. Follow these steps to upda
 
 If you must host your nf-launcher container image on a private image registry:
 
-1. Copy the [nf-launcher image](https://quay.io/seqeralabs/nf-launcher:j17-23.04.2-up3) to your private registry.
-2. Update your `tower.env` with the launch container environment variable:
+1.  Copy the [nf-launcher image](https://quay.io/seqeralabs/nf-launcher:j17-23.04.2-up3) to your private registry.
+2.  Update your `tower.env` with the launch container environment variable:
 
     `TOWER_LAUNCH_CONTAINER=<FULL_PATH_TO_YOUR_PRIVATE_IMAGE>`
 

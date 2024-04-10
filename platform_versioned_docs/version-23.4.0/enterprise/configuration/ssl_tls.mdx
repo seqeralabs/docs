@@ -18,19 +18,19 @@ If you secure related infrastructure (such as private Git repositories) with cer
 
 **Configure private certificate trust**
 
-1. This guide assumes you're using the original containers supplied by Seqera.
-2. Replace `TARGET_HOSTNAME`, `TARGET_ALIAS`, and `PRIVATE_CERT.pem` with your unique values.
-3. Previous instructions advised using `openssl`. The native `keytool` utility is preferred as it simplifies steps and better accommodates private CA certificates.
+1.  This guide assumes you're using the original containers supplied by Seqera.
+1.  Replace `TARGET_HOSTNAME`, `TARGET_ALIAS`, and `PRIVATE_CERT.pem` with your unique values.
+1.  Previous instructions advised using `openssl`. The native `keytool` utility is preferred as it simplifies steps and better accommodates private CA certificates.
 
 **Use Docker volume**
 
-1. Retrieve the private certificate on your Seqera container host:
+1.  Retrieve the private certificate on your Seqera container host:
 
 ```
 keytool -printcert -rfc -sslserver TARGET_HOSTNAME:443  >  /PRIVATE_CERT.pem
 ```
 
-2. Modify the `backend` and `cron` container configuration blocks in `docker-compose.yml`:
+1.  Modify the `backend` and `cron` container configuration blocks in `docker-compose.yml`:
 
 ```yaml
 CONTAINER_NAME:
@@ -52,19 +52,19 @@ CONTAINER_NAME:
 
 **Use K8s ConfigMap**
 
-1. Retrieve the private certificate on a machine with CLI access to your Kubernetes cluster:
+1.  Retrieve the private certificate on a machine with CLI access to your Kubernetes cluster:
 
 ```bash
 keytool -printcert -rfc -sslserver TARGET_HOSTNAME:443 > /PRIVATE_CERT.pem
 ```
 
-2. Load the certificate as a `ConfigMap` in the same namespace where your Seqera instance will run:
+1.  Load the certificate as a `ConfigMap` in the same namespace where your Seqera instance will run:
 
 ```bash
 kubectl create configmap private-cert-pemstore --from-file=/PRIVATE_CERT.pem
 ```
 
-3. Modify both the `backend` and `cron` Deployment objects:
+1.  Modify both the `backend` and `cron` Deployment objects:
 
 - Define a new volume based on the certificate `ConfigMap`:
 
@@ -110,7 +110,7 @@ kubectl create configmap private-cert-pemstore --from-file=/PRIVATE_CERT.pem
 
 **Download on Pod start**
 
-1. Modify both the `backend` and `cron` Deployment objects to retrieve and load the certificate prior to running your Seqera instance:
+1.  Modify both the `backend` and `cron` Deployment objects to retrieve and load the certificate prior to running your Seqera instance:
 
 ```yaml
 spec:
@@ -133,9 +133,9 @@ If you secure infrastructure such as private Git repositories or your Seqera Ent
 
 **Import private certificates via pre-run script**
 
-1. This configuration assumes you're using the default `nf-launcher` image supplied by Seqera.
-2. Replace `TARGET_HOSTNAME`, `TARGET_ALIAS`, and `PRIVATE_CERT.pem` with your unique values.
-3. Previous instructions advised using `openssl`. The native `keytool` utility is preferred as it simplifies steps and better accommodates private CA certificates.
+1.  This configuration assumes you're using the default `nf-launcher` image supplied by Seqera.
+1.  Replace `TARGET_HOSTNAME`, `TARGET_ALIAS`, and `PRIVATE_CERT.pem` with your unique values.
+1.  Previous instructions advised using `openssl`. The native `keytool` utility is preferred as it simplifies steps and better accommodates private CA certificates.
 
 Add the following to your compute environment [pre-run script](../../launch/advanced.mdx#pre-and-post-run-scripts):
 

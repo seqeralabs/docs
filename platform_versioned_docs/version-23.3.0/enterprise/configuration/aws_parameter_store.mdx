@@ -23,10 +23,10 @@ Due to the order of operations when deploying Seqera Enterprise, some configurat
 
 To enable Seqera use AWS Parameter Store values:
 
-1. Grant [AWS Parameter Store permissions](https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-access.html) to your Seqera host instance.
-2. Add `TOWER_ENABLE_AWS_SSM=true` in the `tower.env` configuration file.
-3. Create individual parameters in the AWS Parameter Store (see below).
-4. Start your Seqera instance and confirm the following entries appear in the **backend** container log:
+1.  Grant [AWS Parameter Store permissions](https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-access.html) to your Seqera host instance.
+1.  Add `TOWER_ENABLE_AWS_SSM=true` in the `tower.env` configuration file.
+1.  Create individual parameters in the AWS Parameter Store (see below).
+1.  Start your Seqera instance and confirm the following entries appear in the **backend** container log:
 
 ```bash
 [main] - INFO  i.m.context.DefaultBeanContext - Reading bootstrap environment configuration
@@ -43,8 +43,8 @@ Seqera does not support StringList parameters. Configuration parameters with mul
 
 To create Seqera configuration parameters in AWS Parameter Store, do the following:
 
-1. Navigate to the **Parameter Store** from the **AWS Systems Manager Service** console.
-2. From the **My parameters** tab, select **Create parameter** and populate as follows:
+1.  Navigate to the **Parameter Store** from the **AWS Systems Manager Service** console.
+1.  From the **My parameters** tab, select **Create parameter** and populate as follows:
 
 | Field | Description |
 | ----- | ----------- |

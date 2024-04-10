@@ -41,9 +41,9 @@ Attempting to launch a pipeline without specifying a `launch.id` in the API payl
 
 Launch users must add a `launch.id` to pipeline launch requests:
 
-1. Query the list of pipelines via the `/pipelines` endpoint. Find the `pipelineId` of the pipeline you intend to launch.
-2. Call the `/pipelines/{pipelineId}/launch` API to retrieve the pipeline's `launch.id`.
-3. Include the `launch.id` in your request to the `/workflow/launch` API endpoint:
+1.  Query the list of pipelines via the `/pipelines` endpoint. Find the `pipelineId` of the pipeline you intend to launch.
+1.  Call the `/pipelines/{pipelineId}/launch` API to retrieve the pipeline's `launch.id`.
+1.  Include the `launch.id` in your request to the `/workflow/launch` API endpoint:
 
    ```
    {
@@ -68,9 +68,9 @@ GitHub imposes [rate limits](https://docs.github.com/en/rest/overview/resources-
 
 Try the following:
 
-1. Ensure there's at least one GitHub credential in your workspace's **Credentials** tab.
-2. Ensure that the **Access token** field of all GitHub credential objects is populated with a [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) value and **not** a user password. GitHub PATs are typically longer than passwords and include a `ghp_` prefix. For example:`ghp*IqIMNOZH6zOwIEB4T9A2g4EHMy8Ji42q4HA`
-3. Confirm that your PAT is providing the elevated threshold and transactions are being charged against it:
+1.  Ensure there's at least one GitHub credential in your workspace's **Credentials** tab.
+1.  Ensure that the **Access token** field of all GitHub credential objects is populated with a [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) value and **not** a user password. GitHub PATs are typically longer than passwords and include a `ghp_` prefix. For example:`ghp*IqIMNOZH6zOwIEB4T9A2g4EHMy8Ji42q4HA`
+1.  Confirm that your PAT is providing the elevated threshold and transactions are being charged against it:
 
    `curl -H "Authorization: token ghp_LONG_ALPHANUMERIC_PAT" -H "Accept: application/vnd.github.v3+json" https://api.github.com/rate_limit`
 
@@ -80,14 +80,14 @@ This error can occur if incorrect configuration values are assigned to the `back
 
 Please verify the following:
 
-1. The `MICRONAUT_ENVIRONMENTS` environment variable associated with the `backend` container:
+1.  The `MICRONAUT_ENVIRONMENTS` environment variable associated with the `backend` container:
    - Contains `prod,redis,ha`
    - Does not contain `cron`
-2. The `MICRONAUT_ENVIRONMENTS` environment variable associated with the `cron` container:
+1.  The `MICRONAUT_ENVIRONMENTS` environment variable associated with the `cron` container:
    - Contains `prod,redis,cron`
    - Does not contain `ha`
-3. You don't have another copy of the `MICRONAUT_ENVIRONMENTS` environment variable defined elsewhere in your application (such as a `tower.env` file or Kubernetes `ConfigMap`).
-4. If you're using a separate container/pod to execute `migrate-db.sh`, ensure there's no `MICRONAUT_ENVIRONMENTS` environment variable assigned to it.
+1.  You don't have another copy of the `MICRONAUT_ENVIRONMENTS` environment variable defined elsewhere in your application (such as a `tower.env` file or Kubernetes `ConfigMap`).
+1.  If you're using a separate container/pod to execute `migrate-db.sh`, ensure there's no `MICRONAUT_ENVIRONMENTS` environment variable assigned to it.
 
 **_No such variable_ error**
 
@@ -133,8 +133,8 @@ Clients who use Amazon Aurora as their database solution may encounter a _java.s
 
 Please modify the Seqera Enterprise configuration as follows to try resolving the problem:
 
-1. Ensure your `TOWER_DB_DRIVER` uses the specified MariaDB URI.
-2. Modify your `TOWER_DB_URL` to: `TOWER_DB_URL=jdbc:mysql://YOUR_DOMAIN:YOUR_PORT/YOUR_TOWER_DB?usePipelineAuth=false&useBatchMultiSend=false`
+1.  Ensure your `TOWER_DB_DRIVER` uses the specified MariaDB URI.
+1.  Modify your `TOWER_DB_URL` to: `TOWER_DB_URL=jdbc:mysql://YOUR_DOMAIN:YOUR_PORT/YOUR_TOWER_DB?usePipelineAuth=false&useBatchMultiSend=false`
 
 ## Datasets
 
@@ -142,10 +142,10 @@ Please modify the Seqera Enterprise configuration as follows to try resolving th
 
 When uploading datasets via the Seqera UI or CLI, some steps are automatically done on your behalf. To upload datasets via the Seqera API, additional steps are required:
 
-1. Explicitly define the MIME type of the file being uploaded.
-2. Make two calls to the API:
-   1. Create a dataset object.
-   2. Upload the samplesheet to the dataset object.
+1.  Explicitly define the MIME type of the file being uploaded.
+1.  Make two calls to the API:
+   1.  Create a dataset object.
+   2.  Upload the samplesheet to the dataset object.
 
 Example:
 
@@ -193,13 +193,13 @@ TLS connection errors can occur due to variability in the [default TLS version s
 
 To fix the problem, try the following:
 
-1. Set a JDK environment variable to force Nextflow and Seqera containers to use TLSv1.2 by default:
+1.  Set a JDK environment variable to force Nextflow and Seqera containers to use TLSv1.2 by default:
 
     ```
     export JAVA_OPTIONS="-Dmail.smtp.ssl.protocols=TLSv1.2"
     ```
 
-2. Add this parameter to your [nextflow.config file](./launch/advanced.mdx#nextflow-config-file):
+1.  Add this parameter to your [nextflow.config file](./launch/advanced.mdx#nextflow-config-file):
 
     ```
     mail {
@@ -207,10 +207,10 @@ To fix the problem, try the following:
     }
     ```
 
-3. Ensure these values are also set for Nextflow and/or Seqera:
+1.  Ensure these values are also set for Nextflow and/or Seqera:
 
-    -   `mail.smtp.starttls.enable=true`
-    -   `mail.smtp.starttls.required=true`
+    - `mail.smtp.starttls.enable=true`
+    - `mail.smtp.starttls.required=true`
 
 ## Git integration
 
@@ -260,9 +260,9 @@ Users with email addresses other than the `trustedEmails` list will undergo an a
 
 :::note
 
-1. You must rebuild your containers (`docker compose down`) to force Seqera to implement this change. Ensure your database is persistent before issuing the teardown command. See [here](./enterprise/docker-compose.mdx) for more information.
-2. All login attempts are visible to the root user at **Profile > Admin panel > Users**.
-3. Any user logged in prior to the restriction will not be subject to the new restriction. An admin of the organization should remove users that have previously logged in via (untrusted) email from the Admin panel users list. This will restart the approval process before they can log in via email.
+1.  You must rebuild your containers (`docker compose down`) to force Seqera to implement this change. Ensure your database is persistent before issuing the teardown command. See [here](./enterprise/docker-compose.mdx) for more information.
+1.  All login attempts are visible to the root user at **Profile > Admin panel > Users**.
+1.  Any user logged in prior to the restriction will not be subject to the new restriction. An admin of the organization should remove users that have previously logged in via (untrusted) email from the Admin panel users list. This will restart the approval process before they can log in via email.
 
 :::
 
@@ -298,7 +298,7 @@ Mount the APM solution's JAR file in Seqera's `backend` container and set the ag
 
 Although it's not possible to directly download the trace logs via Seqera, you can configure your workflow to export the file to persistent storage:
 
-1. Set this block in your [`nextflow.config`](./launch/advanced.mdx#nextflow-config-file):
+1.  Set this block in your [`nextflow.config`](./launch/advanced.mdx#nextflow-config-file):
 
    ```nextflow
    trace {
@@ -306,7 +306,7 @@ Although it's not possible to directly download the trace logs via Seqera, you c
    }
    ```
 
-2. Add a copy command to your pipeline's **Advanced options > Post-run script** field:
+1.  Add a copy command to your pipeline's **Advanced options > Post-run script** field:
 
    ```
    # Example: Export the generated trace file to an S3 bucket
@@ -521,9 +521,9 @@ Runs will fail if your Nextflow script or Nextflow config contain illegal charac
 
 The Groovy shell used by Nextflow to execute your workflow has a hard limit on string size (64KiB). Check the size of your scripts with the `ls -llh` command. If the size is greater than 65,535 bytes, consider these mitigation techniques:
 
-1. Remove any unnecessary code or comments from the script.
-2. Move long script bodies into a separate script file in the pipeline `/bin` directory.
-3. Consider using DSL2 so you can move each function, process, and workflow definition into its own script and include these scripts as [modules](https://www.nextflow.io/docs/latest/dsl2.html#modules).
+1.  Remove any unnecessary code or comments from the script.
+1.  Move long script bodies into a separate script file in the pipeline `/bin` directory.
+1.  Consider using DSL2 so you can move each function, process, and workflow definition into its own script and include these scripts as [modules](https://www.nextflow.io/docs/latest/dsl2.html#modules).
 
 ## Nextflow Launcher
 
@@ -744,9 +744,9 @@ Docker Hub imposes a rate limit of 100 anonymous pulls per 6 hours. Add the foll
 
 If your run fails with an _Essential container in task exited - CannotInspectContainerError: Could not transition to inspecting; timed out after waiting 30s_ error, try the following:
 
-1. Upgrade your [ECS Agent](https://github.com/aws/amazon-ecs-agent/releases) to [1.54.1](https://github.com/aws/amazon-ecs-agent/pull/2940) or newer. See [here](https://www.trendmicro.com/cloudoneconformity/knowledge-base/aws/ECS/latest-agent-version.html) for instructions to check your ECS Agent version.
-2. Provision more storage for your EC2 instance (preferably via EBS-autoscaling to ensure scalability).
-3. If the error is accompanied by _command exit status: 123_ and a _permissions denied_ error tied to a system command, ensure that the ECS Agent binary is set to be executable (`chmod u+x`).
+1.  Upgrade your [ECS Agent](https://github.com/aws/amazon-ecs-agent/releases) to [1.54.1](https://github.com/aws/amazon-ecs-agent/pull/2940) or newer. See [here](https://www.trendmicro.com/cloudoneconformity/knowledge-base/aws/ECS/latest-agent-version.html) for instructions to check your ECS Agent version.
+1.  Provision more storage for your EC2 instance (preferably via EBS-autoscaling to ensure scalability).
+1.  If the error is accompanied by _command exit status: 123_ and a _permissions denied_ error tied to a system command, ensure that the ECS Agent binary is set to be executable (`chmod u+x`).
 
 ### Queues
 
@@ -778,7 +778,7 @@ process {
 
 If you need to save files to an S3 bucket with a policy that [enforces AES256 server-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingServerSideEncryption.html), the [nf-launcher](https://quay.io/repository/seqeralabs/nf-launcher?tab=tags) script which invokes the Nextflow head job requires additional configuration:
 
-1. Add the following configuration to the **Advanced options > Nextflow config file** textbox of the **Launch Pipeline** screen:
+1.  Add the following configuration to the **Advanced options > Nextflow config file** textbox of the **Launch Pipeline** screen:
 
    ```
    aws {
@@ -788,7 +788,7 @@ If you need to save files to an S3 bucket with a policy that [enforces AES256 se
    }
    ```
 
-2. Add the following configuration to the **Advanced options > Pre-run script** textbox of the **Launch Pipeline** screen:
+1.  Add the following configuration to the **Advanced options > Pre-run script** textbox of the **Launch Pipeline** screen:
 
    ```bash
    export TOWER_AWS_SSE=AES256
@@ -804,12 +804,12 @@ If you need to save files to an S3 bucket with a policy that [enforces AES256 se
 
 The default Azure Batch implementation in Seqera Platform uses a single pool for head and compute nodes. This means that all jobs spawn dedicated/on-demand VMs by default. To save cloud costs by using low priority VMs for compute jobs, specify separate pools for head and compute jobs:
 
-1. Create two Batch pools in Azure:
+1.  Create two Batch pools in Azure:
     - One Dedicated
     - One [Low priority](https://learn.microsoft.com/en-us/azure/batch/batch-spot-vms#differences-between-spot-and-low-priority-vms).
-2. Create a manual [Azure Batch](./compute-envs/azure-batch.mdx#manual) compute environment in Seqera Platform.
-3. In **Compute pool name** (step 10 in the guide linked above), specify your dedicated Batch pool.
-4. Specify the Low priority pool using the `process.queue` [directive](https://www.nextflow.io/docs/latest/process.html#queue) in your `nextflow.config` file (either via the launch form, or your pipeline repository's `nextflow.config` file).
+1.  Create a manual [Azure Batch](./compute-envs/azure-batch.mdx#manual) compute environment in Seqera Platform.
+1.  In **Compute pool name** (step 10 in the guide linked above), specify your dedicated Batch pool.
+1.  Specify the Low priority pool using the `process.queue` [directive](https://www.nextflow.io/docs/latest/process.html#queue) in your `nextflow.config` file (either via the launch form, or your pipeline repository's `nextflow.config` file).
 
 ### AKS
 
@@ -858,10 +858,10 @@ process {
 
 The following roles must be granted to the `nextflow-service-account`:
 
-1. Cloud Life Sciences Workflows Runner
-2. Service Account User
-3. Service Usage Consumer
-4. Storage Object Admin
+1.  Cloud Life Sciences Workflows Runner
+1.  Service Account User
+1.  Service Usage Consumer
+1.  Storage Object Admin
 
 For detailed information, see [this guide](https://cloud.google.com/life-sciences/docs/tutorials/nextflow#create_a_service_account_and_add_roles).
 
@@ -907,24 +907,24 @@ Nextflow is trying to use the Java VM defined for the following environment vari
 
 Possible reasons for this error:
 
-1. The queue where the Nextflow head job runs is in a different environment/node than your login node userspace.
-2. If your HPC cluster uses modules, the Java module may not be loaded by default.
+1.  The queue where the Nextflow head job runs is in a different environment/node than your login node userspace.
+1.  If your HPC cluster uses modules, the Java module may not be loaded by default.
 
 To troubleshoot:
 
-1. Open an interactive session with the head job queue.
-2. Launch the Nextflow job from the interactive session.
-3. If your cluster uses modules:
+1.  Open an interactive session with the head job queue.
+1.  Launch the Nextflow job from the interactive session.
+1.  If your cluster uses modules:
    - Add `module load <your_java_module>` in the **Advanced Features > Pre-run script** field when creating your HPC compute environment in Seqera.
-4. If your cluster doesn't use modules:
-   1. Source an environment with Java and Nextflow using the **Advanced Features > Pre-run script** field when creating your HPC compute environment in Seqera.
+1.  If your cluster doesn't use modules:
+   1.  Source an environment with Java and Nextflow using the **Advanced Features > Pre-run script** field when creating your HPC compute environment in Seqera.
 
 **Pipeline submissions to HPC clusters fail for some users**
 
 Nextflow launcher scripts will fail if processed by a non-Bash shell (e.g., `zsh`, `tcsh`). This problem can be identified from certain error entries:
 
-1. Your _.nextflow.log_ contains an error like _Invalid workflow status - expected: SUBMITTED; current: FAILED_.
-2. Your Seqera **Error report** tab contains an error like:
+1.  Your _.nextflow.log_ contains an error like _Invalid workflow status - expected: SUBMITTED; current: FAILED_.
+1.  Your Seqera **Error report** tab contains an error like:
 
 ```yaml
 Slurm job submission failed
@@ -935,6 +935,6 @@ Slurm job submission failed
 
 Connect to the head node via SSH and run `ps -p $$` to verify your default shell. If you see an entry other than Bash, fix as follows:
 
-1. Check which shells are available to you: `cat /etc/shells`
-2. Change your shell: `chsh -s /usr/bin/bash` (the path to the binary may differ, depending on your HPC configuration)
-3. If submissions continue to fail after this shell change, ask your Seqera Platform admin to restart the **backend** and **cron** containers, then submit again.
+1.  Check which shells are available to you: `cat /etc/shells`
+1.  Change your shell: `chsh -s /usr/bin/bash` (the path to the binary may differ, depending on your HPC configuration)
+1.  If submissions continue to fail after this shell change, ask your Seqera Platform admin to restart the **backend** and **cron** containers, then submit again.
