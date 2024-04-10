@@ -782,11 +782,11 @@ No. You can inject values directly into `tower.yml` or - in the case of a Kubern
 
 Please contact Seqera Labs for more details if this is of interest.
 
-### Tower Forge
+### Batch Forge
 
-**<p data-question>Q: What does the `Enable GPU` option do when building an AWS Batch cluster via Tower Forge?</p>**
+**<p data-question>Q: What does the `Enable GPU` option do when building an AWS Batch cluster via Batch Forge?</p>**
 
-Activating the **Enable GPU** field while creating an AWS Batch environment with Tower Forge will result in an [AWS-recommended GPU-optimized ECS AMI](https://docs.aws.amazon.com/batch/latest/userguide/batch-gpu-ami.html) being used as your Batch cluster's default image.
+Activating the **Enable GPU** field while creating an AWS Batch environment with Batch Forge will result in an [AWS-recommended GPU-optimized ECS AMI](https://docs.aws.amazon.com/batch/latest/userguide/batch-gpu-ami.html) being used as your Batch cluster's default image.
 
 Note:
 
@@ -887,12 +887,12 @@ Yes, Nextflow supports Graviton architecture — use AWS Batch queues with Gravi
 
 **<p data-question>Q:How often are Docker images pulled by the ECS Agent?</p>**
 
-As part of the AWS Batch creation process, Tower Forge will set ECS Agent parameters in the EC2 Launch Template that is created for your cluster's EC2 instances:
+As part of the AWS Batch creation process, Batch Forge will set ECS Agent parameters in the EC2 Launch Template that is created for your cluster's EC2 instances:
 
 - For clients using Tower Enterprise v22.01 or later:
-  - Any AWS Batch environment created by Tower Forge will set the ECS Agent's `ECS_IMAGE_PULL_BEHAVIOUR` set to `once`.
+  - Any AWS Batch environment created by Batch Forge will set the ECS Agent's `ECS_IMAGE_PULL_BEHAVIOUR` set to `once`.
 - For clients using Tower Enterprise v21.12 or earlier:
-  - Any AWS Batch environment created by Tower Forge will set the ECS Agent's `ECS_IMAGE_PULL_BEHAVIOUR` set to `default`.
+  - Any AWS Batch environment created by Batch Forge will set the ECS Agent's `ECS_IMAGE_PULL_BEHAVIOUR` set to `default`.
 
 Please see the [AWS ECS documentation](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) for an in-depth explanation of this difference.
 
@@ -950,11 +950,11 @@ No. Nextflow Tower must be supplied with a username & password to connect to its
 
 **<p data-question>Q: Can I use EFS as my work directory?</p>**
 
-As of Nextflow Tower v21.12, you can specify an Amazon Elastic File System instance as your Nextflow work directory when creating your AWS Batch Compute Environment via Tower Forge.
+As of Nextflow Tower v21.12, you can specify an Amazon Elastic File System instance as your Nextflow work directory when creating your AWS Batch Compute Environment via Batch Forge.
 
 **<p data-question>Q: Can I use FSX for Luster as my work directory?</p>**
 
-As of Nextflow Tower v21.12, you can specify an Amazon FSX for Lustre instance as your Nextflow work directory when creating your AWS Batch Compute Environment via Tower Forge.
+As of Nextflow Tower v21.12, you can specify an Amazon FSX for Lustre instance as your Nextflow work directory when creating your AWS Batch Compute Environment via Batch Forge.
 
 **<p data-question>Q: How do I configure my Tower-invoked pipeline to be able to write to an S3 bucket that enforces AES256 server-side encryption?</p>**
 
