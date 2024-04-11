@@ -99,7 +99,8 @@
             "monitoring/summary",
             "monitoring/processes",
             "monitoring/aggregate_stats",
-            "monitoring/tasks"
+            "monitoring/tasks",
+            "monitoring/cloud-costs"
           ]
         },
         {
