@@ -1,0 +1,18 @@
+name: vale
+# Trigger manually
+on: [workflow_dispatch]
+
+jobs:
+  vale:
+    name: runner / vale
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+      # Fails with EPIPE if vale STDOUT is too large
+      - uses: errata-ai/vale-action@reviewdog
+        with:
+          files: '["platform_versioned_docs"]'
+          vale_flags: '--glob=**/*.md'
