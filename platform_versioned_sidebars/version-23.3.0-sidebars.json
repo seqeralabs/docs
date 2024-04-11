@@ -91,7 +91,8 @@
             "monitoring/summary",
             "monitoring/processes",
             "monitoring/aggregate_stats",
-            "monitoring/tasks"
+            "monitoring/tasks",
+            "monitoring/audit-logs"
           ]
         },
         {
@@ -122,8 +123,7 @@
             "orgs-and-teams/organizations",
             "orgs-and-teams/workspace-management",
             "orgs-and-teams/shared-workspaces",
-            "administration/overview",
-            "administration/audit-logs"
+            "administration/overview"
           ]
         },
         {

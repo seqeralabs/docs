@@ -99,7 +99,8 @@
             "monitoring/summary",
             "monitoring/processes",
             "monitoring/aggregate_stats",
-            "monitoring/tasks"
+            "monitoring/tasks",
+            "monitoring/audit-logs"
           ]
         },
         {
@@ -121,14 +122,7 @@
             "supported_software/fusion/fusion",
             "supported_software/dragen/overview"
           ]
-        },
-        {
-          "type": "category",
-          "label": "Administration",
-          "items": [
-            "administration/audit-logs"
-          ]
-        },        
+        },       
         {
           "type": "category",
           "label": "Advanced options",
