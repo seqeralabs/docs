@@ -21,16 +21,42 @@ The list layout is the default **Launchpad** view. Use the toggle to the right o
 
 The **Launch form** is used to launch pipelines and to add pipelines to the Launchpad. Select **Launch** next to a saved pipeline in the Launchpad list, or select **launch a run without configuration** below the Launchpad heading to perform a quick launch of an unsaved pipeline.
 
-**Launch a saved pipeline**
+### Launch a saved pipeline
 
 Select **Launch** next to the pipeline of your choice to open the pipeline launch form.
 
+The launch form consist of three sections ([General config](#general-config), [Run parameters](#run-parameters), and [Advanced options](#advanced-options)) to specify your run parameters before execution, and an execution summary. Use section headings or select **Previous** and **Next** buttons at the bottom of the page to navigate between sections. 
+
+For saved pipelines, **General config** and **Run parameters** fields are prefilled and can be edited before launch. 
+
+#### General config 
+
+- **Pipeline to launch**: A Git repository name or URL. For saved pipelines, this is prefilled and cannot be edited. Private repositories require [access credentials](../credentials/overview.mdx).
+
+- **Revision number**: A valid repository commit ID, tag, or branch name. For saved pipelines, this is prefilled and cannot be edited.
+
+- **Config profiles**: One or more [configuration profile](https://www.nextflow.io/docs/latest/config.html#config-profiles) names to use for the execution. Config profiles must be defined in the `nextflow.config` file in the pipeline repository.
+
+- **Workflow run name**: A unique identifier for the run, pre-filled with a random name. This can be customized.
+
+- **Labels**: Assign new or existing [labels](../labels/overview.mdx) to the run.
+
+- **Compute environment**: The [compute environment](../compute-envs/overview.mdx) where the run will be launched. The compute environment for saved pipelines is preselected, but you can select or create an alternative compute environment for the run.
+
+- **Work directory**: The bucket path where pipeline scratch data is stored. Seqera will create a scratch sub-folder if only a bucket location is specified. 
+
+#### Run parameters 
+
 Seqera uses a `nextflow_schema.json` file in the root of the pipeline repository to dynamically create a form with the necessary pipeline parameters.
+
+Enter the **Run parameters** in one of the following ways:
+- **Input form view** displays form fields to enter text, select attributes from dropdowns, or browse locations with Data Explorer.
+- **Config view** displays a raw schema that you can edit directly. Select JSON or YAML format from the **View as** dropdown.
+- **Upload params file** allows you to upload a JSON or YAML file with run parameters.
+
 
 All pipelines contain at least these parameters:
 
-**Workflow run name**: A unique identifier for the run, pre-filled with a random name. This can be customized.
-**Labels**: Assign new or existing [labels](../labels/overview.mdx) to the run.
 **Input/output options**: Specify paths to pipeline input [datasets](../data/datasets.mdx), output directories, and other pipeline-specific I/O options. _input_ and _outdir_ are required fields common to all pipelines:
 
 - **input**
