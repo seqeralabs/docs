@@ -122,7 +122,7 @@
             "supported_software/fusion/fusion",
             "supported_software/dragen/overview"
           ]
-        },       
+        },
         {
           "type": "category",
           "label": "Advanced options",
