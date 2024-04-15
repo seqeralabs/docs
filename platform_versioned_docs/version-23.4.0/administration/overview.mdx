@@ -5,21 +5,13 @@ date: "21 Apr 2023"
 tags: [administration, user, workspace, organization]
 ---
 
-Seqera Platform simplifies the development and execution of workflows by providing a centralized interface for managing users and resources. This is achieved through the context of workspaces, which form part of organizations:
-
-- [Organizations](../orgs-and-teams/organizations.mdx): Organizations are the top-level structure and contain workspaces, members, and teams. You can also add external collaborators to an organization.
-- [User workspaces](../orgs-and-teams/workspace-management.mdx): Each user has a unique personal workspace to manage resources such as pipelines, compute environments, and credentials.
-- [Organization workspaces](../orgs-and-teams/workspace-management.mdx): You can create multiple workspaces within an organization context and associate each of these workspaces with dedicated teams of users, providing fine-grained access control for each team.
-
-As a root user, you can access a comprehensive overview of the organizations, workspaces, users, and teams in your Seqera account from the **Admin panel**. It also includes tabs for application event audit logs, administrative statistics, and system configuration options.
-
-The **Admin panel** menu is accessible in the user menu if you're logged in as a root user. This role should only be assigned to a system administrator as it provides high-level visibility and configuration access to your account.
+As a root user, you can access a comprehensive overview of the organizations, workspaces, users, and teams in your Seqera account from the **Admin panel**. It also includes tabs for application event audit logs, administrative statistics, and system configuration options. The root user system role should only be assigned to a system administrator as it provides high-level visibility and configuration access to your account.
 
 :::tip
 See [the basic configuration information](../enterprise/configuration/overview.mdx#basic-configuration) to learn how to add root users, using the `TOWER_ROOT_USERS` environment variable, to your account.
 :::
 
-## Organization administration
+## Manage organizations
 
 :::note
 From version 23.2, organization owners and root users can edit organization names on the **Edit organization** page.
@@ -31,13 +23,13 @@ The **Organization administration** tab lists all the organizations in your acco
 - Select **Add organization** to create a new organization from scratch.
 - Select an organization name from the table to edit or delete it.
 
-## Membership administration
+## Manage members
 
 Select **Manage users** to access the **Membership administration** page, where you can view all the memberships for the selected organization from the organizations list. You can also list and search for all users that are members or owners of the selected organization, change a user's role, remove a member from the organization, or add a new user to the organization.
 
 You can only add existing users to an organization. You can't remove a membership if the user being removed is the last owner of the selected organization until you promote another user to **Owner** before removing or demoting the last owner.
 
-## Workspace administration
+## Manage workspaces
 
 The **Workspaces** tab lists all the workspaces in your account. If a user is concurrently assigned to a workspace as both a named _participant_ and member of a _team_, Seqera assigns the higher of the two privilege sets.
 
@@ -53,7 +45,7 @@ As a best practice, use teams as the primary vehicle for assigning rights within
 - Select **Add workspace** to create a new workspace. Choose a workspace name that isn't already in use. If the new workspace name already exists in the system, the creation will fail. Once the new workspace has been created, it's listed in the **Workspaces** tab list.
 - Select a workspace name to edit or delete it.
 
-## User administration
+## Manage users
 
 The **Users** tab lists all the users in your account.
 
@@ -74,7 +66,7 @@ You can apply one of the following roles to workspace participants:
 4. **Launch**: The participant can launch pipelines and modify the pipeline input/output parameters in the Launchpad. They cannot modify the launch configuration or other resources.
 5. **View**: The participant can view workspace pipelines and runs in read-only mode.
 
-## Team administration
+## Manage teams
 
 **Available from version 23.1.X**
 
