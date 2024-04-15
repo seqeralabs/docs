@@ -103,7 +103,7 @@ export default async function createConfigAsync() {
         {
           id: "wave",
           routeBasePath: "/wave",
-          path: "wave_docs",
+          path: "wave_docs/wave_repo/docs",
           remarkPlugins: [
             (await import("remark-code-import")).default,
             (await require("remark-math")).default,
