@@ -2,7 +2,7 @@
 - 
   Environment variable:            '`TOWER_DATA_EXPLORER_ENABLED`'
   Description: > 
-    Enable [Data Explorer](../../data/data-explorer.mdx) in all workspaces.  
+    Enable [Data Explorer](https://docs.seqera.io/platform/latest/data/data-explorer) in all workspaces.  
   Value:                'Default: `false`'
 - 
   Environment variable:            '`TOWER_DATA_EXPLORER_CLOUD_DISABLED_WORKSPACES`'
