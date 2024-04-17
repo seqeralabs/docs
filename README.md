@@ -10,8 +10,13 @@ Generally speaking, changes to the docs should first be made in the product repo
 
 For more information, see:
 
-- [Writing new content](#writing-new-content)
-- [Fixing legacy version content](#fixing-legacy-content)
+- [Seqera documentation](#seqera-documentation)
+  - [Architecture](#architecture)
+      - [Seqera Platform](#seqera-platform)
+      - [Wave](#wave)
+  - [Writing new content](#writing-new-content)
+  - [Fixing legacy content](#fixing-legacy-content)
+  - [Check with Vale style guide](#check-with-vale-style-guide)
 
 ## Architecture
 
@@ -76,3 +81,18 @@ Version-specific changes to legacy documentation sets currently occur directly i
 2. Create the change in the related files in the correct version (e.g., `23.1.0`) directory, and any other versions affected
 3. Raise a PR based for review, requesting the same 2 reviews as for new content
 4. After approval, merge the PR to the master branch
+
+## Check with Vale style guide
+
+This repository includes a set of Vale style guide rules reflecting style and grammar conventions that apply to this documentation set. To use Vale, complete the following steps:
+
+1. [Install](https://vale.sh/docs/vale-cli/installation/) it for your platform.
+1. Install the rules package by running `vale sync`.
+
+To run Vale, enter the following command:
+
+```
+vale --glob='**/*.md' .
+```
+
+You can also specify a limited subset of files, such as `platform_versioned_docs/version-23.4.0` instead of `.`.
