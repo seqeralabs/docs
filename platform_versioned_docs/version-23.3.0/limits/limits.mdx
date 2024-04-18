@@ -11,12 +11,18 @@ Seqera Platform elements and features have default limits per workspace and orga
 
 | Description  | Value |
 | ------------ | ----- |
-| Active runs  | Cloud: 5 Enterprise: Unlimited    |
+| Active runs  | 5     |
 | Members      | 50    |
 | Participants | 50    |
 | Pipelines    | 100   |
 | Datasets     | 100   |
 | Labels       | 1000  |
+
+:::note 
+Some Enterprise instances on older licenses are limited to 100 labels per workspace. [Contact support](mailto:support@seqera.io) to upgrade your license.
+
+Enterprise customers can increase the maximum active runs per workspace by setting the `TOWER_LAUNCH_MAXRUNS` [environment variable](../enterprise/configuration/overview.mdx#basic-configuration).
+:::
 
 ### Organizations
 

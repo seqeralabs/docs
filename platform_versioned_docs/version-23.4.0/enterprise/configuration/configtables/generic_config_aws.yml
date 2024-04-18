@@ -34,3 +34,8 @@
   Description: > 
     Enable or disable user private workspaces (requires version 22.1.0 or later).
   Value:                'Default: `true`'
+- 
+  AWS Parameter Store:   '`{prefix}/tower/limits/max-runs`'
+  Description: >
+    Set the maximum active runs per workspace. 
+  Value:                'Default: 5'
