@@ -15,7 +15,8 @@
     "write-heading-ids": "docusaurus write-heading-ids",
     "typecheck": "tsc",
     "fetch-docs": "node internal/fetch-docs.mjs",
-    "sanitize-existing": "node internal/sanitize-existing.mjs"
+    "sanitize-existing": "node internal/sanitize-existing.mjs",
+    "markdownlint": "markdownlint-cli2 'platform_versioned_docs/**/*.mdx' 'wave_docs/**/*.mdx' 'fusion_docs/**/*.mdx' --config .markdownlint-cli2.cjs"
   },
   "dependencies": {
     "@docusaurus/core": "3.0.0",
@@ -48,6 +49,7 @@
     "eslint-plugin-react": "^7.33.2",
     "fast-glob": "^3.3.1",
     "fs-extra": "^11.1.1",
+    "markdownlint-cli2": "^0.12.1",
     "path": "^0.12.7",
     "postcss": "^8.4.32",
     "prettier": "^3.0.3",
