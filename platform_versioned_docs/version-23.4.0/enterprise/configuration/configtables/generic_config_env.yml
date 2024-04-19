@@ -44,8 +44,3 @@
   Description: > 
     Enable or disable user private workspaces (requires version 22.1.0 or later).
   Value:                'Default: `true`'
-- 
-  Environment variable:            '`TOWER_LAUNCH_MAXRUNS`'
-  Description: >
-    Set the maximum active runs per workspace. 
-  Value:                'Default: 5'
