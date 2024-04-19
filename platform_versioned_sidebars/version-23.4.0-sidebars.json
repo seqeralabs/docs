@@ -101,7 +101,8 @@
               "monitoring/dashboard",
               "monitoring/run-details"
             ]
-            }
+            },
+            "monitoring/cloud-costs"
           ]
         },
         {
