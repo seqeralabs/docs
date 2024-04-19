@@ -11,19 +11,19 @@ This guide assumes you have an existing [Amazon Web Service (AWS)](https://aws.a
 
 There are two ways to create a **compute environment** for **AWS Batch** with Tower:
 
-1. [**Tower Forge**](#tower-forge): This option automatically creates the AWS Batch resources in your AWS account. This eliminates the need to set up your AWS Batch infrastructure manually.
+1. [**Batch Forge**](#tower-forge): This option automatically creates the AWS Batch resources in your AWS account. This eliminates the need to set up your AWS Batch infrastructure manually.
 
 2. [**Manual**](#manual): This option allows Tower to use existing AWS Batch resources.
 
-## Tower Forge
+## Batch Forge
 
-Tower Forge automates the configuration of an [AWS Batch](https://aws.amazon.com/batch/) compute environment and the queues required for deploying Nextflow pipelines. Note that this option will automatically create resources in your AWS account that you may be charged for by AWS.
+Batch Forge automates the configuration of an [AWS Batch](https://aws.amazon.com/batch/) compute environment and the queues required for deploying Nextflow pipelines. Note that this option will automatically create resources in your AWS account that you may be charged for by AWS.
 
 ### IAM
 
-To use the Tower Forge feature, Tower requires an Identity and Access Management (IAM) user with the permissions listed in [this policy file](https://github.com/seqeralabs/nf-tower-aws/blob/master/forge/forge-policy.json). These authorizations are more permissive than those required to only [launch](https://github.com/seqeralabs/nf-tower-aws/blob/master/launch/launch-policy.json) a pipeline, since Tower needs to manage AWS resources on your behalf. Note that launch permissions also require the S3 storage write permissions in [this policy file](https://github.com/seqeralabs/nf-tower-aws/blob/master/launch/s3-bucket-write.json).
+To use the Batch Forge feature, Tower requires an Identity and Access Management (IAM) user with the permissions listed in [this policy file](https://github.com/seqeralabs/nf-tower-aws/blob/master/forge/forge-policy.json). These authorizations are more permissive than those required to only [launch](https://github.com/seqeralabs/nf-tower-aws/blob/master/launch/launch-policy.json) a pipeline, since Tower needs to manage AWS resources on your behalf. Note that launch permissions also require the S3 storage write permissions in [this policy file](https://github.com/seqeralabs/nf-tower-aws/blob/master/launch/s3-bucket-write.json).
 
-We recommend creating separate IAM policies for Tower Forge and Tower launch permissions using the policy files linked above. These policies can then be assigned to the Tower IAM user.
+We recommend creating separate IAM policies for Batch Forge and Tower launch permissions using the policy files linked above. These policies can then be assigned to the Tower IAM user.
 
 #### Create Tower IAM policies
 
@@ -97,7 +97,7 @@ S3 is used by Nextflow for the storage of intermediate files. In production pipe
 
 ### Compute environment
 
-Tower Forge automates the configuration of an [AWS Batch](https://aws.amazon.com/batch/) compute environment and queues required for the deployment of Nextflow pipelines.
+Batch Forge automates the configuration of an [AWS Batch](https://aws.amazon.com/batch/) compute environment and queues required for the deployment of Nextflow pipelines.
 
 Once the AWS resources are set up, we can add a new **AWS Batch** environment in Tower. To create a new compute environment:
 
@@ -146,7 +146,7 @@ The bucket should be in the same region selected in the previous step.
     Fast instance storage requires an EC2 instance type that uses NVMe disks. Tower validates any instance types you specify (from **Advanced options > Instance types**) during compute environment creation. If you do not specify an instance type, a standard EC2 instance with NVMe disks will be used (`'c5ad', 'c5d', 'c6id', 'i3', 'i4i', 'm5ad', 'm5d', 'm6id', 'r5ad', 'r5d', 'r6id'` EC2 instance families) for fast storage.
     :::
 
-12. Set the **Config mode** to **Tower Forge**.
+12. Set the **Config mode** to **Batch Forge**.
 
 13. Select a **Provisioning model**. In most cases this will be **Spot**.
 
@@ -187,13 +187,13 @@ Requires Fargate, Wave containers, and Fusion v2 file system to be enabled. This
 
     - To use an existing EFS file system, enter the **EFS file system id** and **EFS mount path**. This is the path where the EFS volume is accessible to the compute environment. For simplicity, we advise that you use `/mnt/efs` as the EFS mount path.
     - To create a new EFS file system, enter the **EFS mount path**. We advise that you specify `/mnt/efs` as the EFS mount path.
-    - EFS file systems created by Tower Forge are automatically tagged in AWS with `Name=TowerForge-<id>`, with `<id>` being the compute environment ID. Any manually added Tower resource label with the key `Name` (capital N) will override the automatically-assigned `TowerForge-<id>` label.
+    - EFS file systems created by Batch Forge are automatically tagged in AWS with `Name=TowerForge-<id>`, with `<id>` being the compute environment ID. Any manually added Tower resource label with the key `Name` (capital N) will override the automatically-assigned `TowerForge-<id>` label.
 
 21. To use **FSx for Lustre**, you can either select **Use existing FSx file system** and specify an existing FSx instance, or select **Create new FSx file system** to create one. If you intend to use the FSx file system as your work directory, you will need to specify `<your_FSx_mount_path>/work` in the **Pipeline work directory** field (step 8 of this guide).
 
     - To use an existing FSx file system, enter the **FSx DNS name** and **FSx mount path**. The FSx mount path is the path where the FSx volume is accessible to the compute environment. For simplicity, we advise that you use `/mnt/fsx` as the FSx mount path.
     - To create a new FSx file system, enter the **FSx size** (in GB) and the **FSx mount path**. We advise that you specify `/mnt/fsx` as the FSx mount path.
-    - FSx file systems created by Tower Forge are automatically tagged in AWS with `Name=TowerForge-<id>`, with `<id>` being the compute environment ID. Any manually added Tower resource label with the key `Name` (capital N) will override the automatically-assigned `TowerForge-<id>` label.
+    - FSx file systems created by Batch Forge are automatically tagged in AWS with `Name=TowerForge-<id>`, with `<id>` being the compute environment ID. Any manually added Tower resource label with the key `Name` (capital N) will override the automatically-assigned `TowerForge-<id>` label.
 
 22. Select **Dispose resources** if you want Tower to automatically delete these AWS resources if you delete the compute environment in Tower.
 
@@ -252,7 +252,7 @@ Keeping EC2 instances running may result in additional costs. You will be billed
 - Specify a custom **ECS agent configuration** for the ECS agent parameters used by AWS Batch. This is appended to the `/etc/ecs/ecs.config` file in each cluster node.
 
 :::note
-Altering this file may result in a malfunctioning Tower Forge compute environment. See [Amazon ECS container agent configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) to learn more about the available parameters.
+Altering this file may result in a malfunctioning Batch Forge compute environment. See [Amazon ECS container agent configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) to learn more about the available parameters.
 :::
 
 ## Manual

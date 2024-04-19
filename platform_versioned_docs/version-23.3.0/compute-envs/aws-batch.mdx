@@ -11,20 +11,22 @@ This guide assumes you have an existing [Amazon Web Service (AWS)](https://aws.a
 
 There are two ways to create a Seqera Platform compute environment for AWS Batch:
 
-1. [**Tower Forge**](#tower-forge): This option automatically creates the AWS Batch resources in your AWS account. This eliminates the need to set up your AWS Batch infrastructure manually.
+1. [**Batch Forge**](#tower-forge): This option automatically creates the AWS Batch resources in your AWS account. This eliminates the need to set up your AWS Batch infrastructure manually.
 2. [**Manual**](#manual): This option allows Seqera to use existing AWS Batch resources.
 
-## Tower Forge
+## Batch Forge
 
-Tower Forge automates the configuration of an [AWS Batch](https://aws.amazon.com/batch/) compute environment and the queues required for deploying Nextflow pipelines.
+Batch Forge automates the configuration of an [AWS Batch](https://aws.amazon.com/batch/) compute environment and the queues required for deploying Nextflow pipelines.
 
-**Tower Forge automatically creates resources in your AWS account that you may be charged for by AWS.**
+:::caution
+Batch Forge automatically creates resources that you may be charged for in your AWS account. See [Cloud costs](../monitoring/cloud-costs.mdx) for guidelines to manage cloud resources effectively and prevent unexpected costs.
+:::
 
 ### IAM
 
-Tower Forge requires an Identity and Access Management (IAM) user with the permissions listed in [this policy file](https://github.com/seqeralabs/nf-tower-aws/blob/master/forge/forge-policy.json). These authorizations are more permissive than those required to only [launch](https://github.com/seqeralabs/nf-tower-aws/blob/master/launch/launch-policy.json) a pipeline, since Seqera needs to manage AWS resources on your behalf. Note that launch permissions also require the S3 storage write permissions in [this policy file](https://github.com/seqeralabs/nf-tower-aws/blob/master/launch/s3-bucket-write.json).
+Batch Forge requires an Identity and Access Management (IAM) user with the permissions listed in [this policy file](https://github.com/seqeralabs/nf-tower-aws/blob/master/forge/forge-policy.json). These authorizations are more permissive than those required to only [launch](https://github.com/seqeralabs/nf-tower-aws/blob/master/launch/launch-policy.json) a pipeline, since Seqera needs to manage AWS resources on your behalf. Note that launch permissions also require the S3 storage write permissions in [this policy file](https://github.com/seqeralabs/nf-tower-aws/blob/master/launch/s3-bucket-write.json).
 
-We recommend that you create separate IAM policies for Tower Forge and launch permissions using the policy files above. These policies can then be assigned to the Seqera IAM user.
+We recommend that you create separate IAM policies for Batch Forge and launch permissions using the policy files above. These policies can then be assigned to the Seqera IAM user.
 
 **Create Seqera IAM policies**
 
@@ -77,11 +79,15 @@ To maximize data transfer resilience and minimize cost, storage should be in the
 S3 is used by Nextflow for the storage of intermediate files. In production pipelines, this can amount to a lot of data. To reduce costs, consider using a retention policy when creating a bucket, such as automatically deleting intermediate files after 30 days. See [here](https://aws.amazon.com/premiumsupport/knowledge-center/s3-empty-bucket-lifecycle-rule/) for more information.
 :::
 
-### Tower Forge compute environment
+### Batch Forge compute environment
 
-Tower Forge automates the configuration of an [AWS Batch](https://aws.amazon.com/batch/) compute environment and the queues required to deploy Nextflow pipelines. After your IAM user and S3 bucket have been set up, create a new **AWS Batch** compute environment in Seqera.
+Batch Forge automates the configuration of an [AWS Batch](https://aws.amazon.com/batch/) compute environment and the queues required to deploy Nextflow pipelines. After your IAM user and S3 bucket have been set up, create a new **AWS Batch** compute environment in Seqera.
 
-**Create a Tower Forge AWS Batch compute environment**
+:::caution
+Batch Forge automatically creates resources that you may be charged for in your AWS account. See [Cloud costs](../monitoring/cloud-costs.mdx) for guidelines to manage cloud resources effectively and prevent unexpected costs.
+:::
+
+**Create a Batch Forge AWS Batch compute environment**
 
 1. In a workspace, select **Compute environments > New environment**.
 2. Enter a descriptive name for this environment, e.g., _AWS Batch Spot (eu-west-1)_.
@@ -125,7 +131,7 @@ Extensive benchmarking of Fusion v2 has demonstrated that the increased cost ass
 Fast instance storage requires an EC2 instance type that uses NVMe disks. Seqera validates any instance types you specify (from **Advanced options > Instance types**) during compute environment creation. If you do not specify an instance type, a standard EC2 instance with NVMe disks will be used (`'c5ad', 'c5d', 'c6id', 'i3', 'i4i', 'm5ad', 'm5d', 'm6id', 'r5ad', 'r5d', 'r6id'` EC2 instance families) for fast storage.
 :::
 
-13. Set the **Config mode** to **Tower Forge**.
+13. Set the **Config mode** to **Batch Forge**.
 14. Select a **Provisioning model**. In most cases, this will be **Spot**. You can specify an allocation strategy and instance types under [**Advanced options**](#advanced-options). If advanced options are omitted, Seqera Platform 23.2 and later versions default to `BEST_FIT_PROGRESSIVE` for on-demand and `SPOT_CAPACITY_OPTIMIZED` for spot compute environments.
 
 :::note
@@ -163,13 +169,13 @@ Fargate requires the Fusion v2 file system and a **spot** provisioning model. Fa
 
 - To use an existing EFS file system, enter the **EFS file system id** and **EFS mount path**. This is the path where the EFS volume is accessible to the compute environment. For simplicity, we recommend that you use `/mnt/efs` as the EFS mount path.
 - To create a new EFS file system, enter the **EFS mount path**. We advise that you specify `/mnt/efs` as the EFS mount path.
-- EFS file systems created by Tower Forge are automatically tagged in AWS with `Name=TowerForge-<id>`, with `<id>` being the compute environment ID. Any manually-added resource label with the key `Name` (capital N) will override the automatically-assigned `TowerForge-<id>` label.
+- EFS file systems created by Batch Forge are automatically tagged in AWS with `Name=TowerForge-<id>`, with `<id>` being the compute environment ID. Any manually-added resource label with the key `Name` (capital N) will override the automatically-assigned `TowerForge-<id>` label.
 
  23. To use **FSx for Lustre**, you can either select **Use existing FSx file system** and specify an existing FSx instance, or select **Create new FSx file system** to create one. To use the FSx file system as your work directory, specify `<your_FSx_mount_path>/work` in the **Pipeline work directory** field (step 8 of this guide).
 
 - To use an existing FSx file system, enter the **FSx DNS name** and **FSx mount path**. The FSx mount path is the path where the FSx volume is accessible to the compute environment. For simplicity, we recommend that you use `/mnt/fsx` as the FSx mount path.
 - To create a new FSx file system, enter the **FSx size** (in GB) and the **FSx mount path**. We advise that you specify `/mnt/fsx` as the FSx mount path.
-- FSx file systems created by Tower Forge are automatically tagged in AWS with `Name=TowerForge-<id>`, with `<id>` being the compute environment ID. Any manually-added resource label with the key `Name` (capital N) will override the automatically-assigned `TowerForge-<id>` label.
+- FSx file systems created by Batch Forge are automatically tagged in AWS with `Name=TowerForge-<id>`, with `<id>` being the compute environment ID. Any manually-added resource label with the key `Name` (capital N) will override the automatically-assigned `TowerForge-<id>` label.
 
 24. Select **Dispose resources** to automatically delete these AWS resources if you delete the compute environment in Seqera Platform.
 25. Apply [**Resource labels**](../resource-labels/overview.mdx) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
@@ -182,7 +188,7 @@ Fargate requires the Fusion v2 file system and a **spot** provisioning model. Fa
 
 Seqera Platform compute environments for AWS Batch include advanced options to configure instance types, resource allocation, custom networking, and CloudWatch and ECS agent integration.
 
-**Tower Forge AWS Batch advanced options**
+**Batch Forge AWS Batch advanced options**
 
 Specify the **Allocation strategy** and indicate any preferred **Instance types**. AWS applies quotas for the number of running and requested [Spot](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-limits.html) and [On-demand](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-on-demand-instances.html#ec2-on-demand-instances-limits) instances per account. AWS will [allocate](https://aws.amazon.com/ec2/faqs/#how-many-instances-ec2) instances from up to 20 instance types, based on those requested for the compute environment. AWS excludes the largest instances when you request more than 20 instance types.
 
@@ -221,7 +227,7 @@ Keeping EC2 instances running may result in additional costs. You will be billed
 - Specify a custom **ECS agent configuration** for the ECS agent parameters used by AWS Batch. This is appended to the `/etc/ecs/ecs.config` file in each cluster node.
 
 :::note
-Altering this file may result in a malfunctioning Tower Forge compute environment. See [Amazon ECS container agent configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) to learn more about the available parameters.
+Altering this file may result in a malfunctioning Batch Forge compute environment. See [Amazon ECS container agent configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) to learn more about the available parameters.
 :::
 
 See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in your AWS Batch compute environment.
@@ -253,6 +259,10 @@ Seqera can use S3 to store the intermediate files and output data generated by p
 ### Seqera manual compute environment
 
 With your AWS environment and resources set up and your user permissions configured, create an AWS Batch compute environment in Seqera manually.
+
+:::caution
+Your Seqera compute environment uses resources that you may be charged for in your AWS account. See [Cloud costs](../monitoring/cloud-costs.mdx) for guidelines to manage cloud resources effectively and prevent unexpected costs.
+:::
 
 **Create a manual Seqera compute environment**
 
