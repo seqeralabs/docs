@@ -68,6 +68,10 @@ Create parameters in the AWS Parameter Store individually, using the format
 /config/tower-app/mail.smtp.password : <your_password>
 ```
 
+:::caution
+The default application name is `tower-app`. To deploy multiple instances from the same Seqera Enterprise account, set a custom application name for each instance with the `micronaut.application.name` value in your `tower.yml` configuration file.
+:::
+
 Sensitive values (such as database passwords) should be SecureString type parameters. See [AWS Parameter Store](./aws_parameter_store.mdx) for detailed instructions.
 
 </TabItem>
