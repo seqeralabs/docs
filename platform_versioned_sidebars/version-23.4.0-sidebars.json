@@ -102,6 +102,7 @@
               "monitoring/run-details"
             ]
             },
+            "monitoring/audit-logs",
             "monitoring/cloud-costs"
           ]
         },
