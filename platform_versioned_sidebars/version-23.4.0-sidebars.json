@@ -18,7 +18,7 @@
       "items": [
         {
           "type": "category",
-          "label": "Start collaborating",
+          "label": "Workspaces",
           "items": [            
             "administration/overview",            
             "orgs-and-teams/organizations",            
