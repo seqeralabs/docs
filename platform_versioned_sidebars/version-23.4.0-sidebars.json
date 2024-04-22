@@ -94,13 +94,17 @@
           "type": "category",
           "label": "Monitoring",
           "items": [
-            "monitoring/overview",
-            "monitoring/dashboard",
-            "monitoring/execution",
-            "monitoring/summary",
-            "monitoring/processes",
-            "monitoring/aggregate_stats",
-            "monitoring/tasks"
+            {
+            "type": "category",
+            "label": "Runs",
+            "items": [
+              "monitoring/overview",
+              "monitoring/dashboard",
+              "monitoring/run-details"
+            ]
+            },
+            "monitoring/audit-logs",
+            "monitoring/cloud-costs"
           ]
         },
         {
