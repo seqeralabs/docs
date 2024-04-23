@@ -68,7 +68,7 @@ spec:
             - |
               echo "$(date): starting check for db $TOWER_DB_URL"
               # Strip initial Java connection string and options after '?' from URI
-              until mysqlsh --uri "$(echo $TOWER_DB_URL |sed -e 's@jdbc:\(.*\)?.*@\1@')" -u"$TOWER_DB_USER" -p"$TOWER_DB_PASSWORD" --sql -e "SELECT VERSION()"; do
+              until mysqlsh --uri "$(echo $TOWER_DB_URL |sed -e 's@jdbc:\(.*\)@\1@')" -u"$TOWER_DB_USER" -p"$TOWER_DB_PASSWORD" --sql -e "SELECT VERSION()"; do
                 echo "$(date): see you in $SLEEP_PERIOD_SECONDS seconds"
                 sleep $SLEEP_PERIOD_SECONDS
               done
