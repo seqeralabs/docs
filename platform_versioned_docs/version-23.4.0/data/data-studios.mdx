@@ -5,7 +5,7 @@ date: "12 March 2024"
 tags: [data, studios]
 ---
 
-Data Studios is a unified platform where you can host a combination of images and compute environments for interactive analysis using your preferred tools, like Jupyter notebooks, RStudio, and Visual Studio Code IDEs. Each data studio session is an individual interactive environment that encapsulates the live environment for dynamic data analysis.
+Data Studios is a unified platform where you can host a combination of container images and compute environments for interactive analysis using your preferred tools, like Jupyter notebooks, RStudio, and Visual Studio Code IDEs. Each data studio session is an individual interactive environment that encapsulates the live environment for dynamic data analysis.
 
 :::note
 Data Studios is currently in **private preview** and is not yet generally available. To request access, please contact your Seqera account manager.
@@ -50,25 +50,25 @@ Data Studios currently provides three container image templates: JupyterLab, RSt
 
 The following [conda-forge](https://conda-forge.org/) packages are available by default:
 
-- python
-- pip
-- jedi-language-server
-- jupyterlab
-- jupyter-collaboration
-- jupyterlab-git
-- jupytext
-- jupyter-dash
-- ipywidgets
-- pandas[all]
-- scikit-learn
-- statsmodels
-- itables
-- seaborn[stats]
-- altair
-- plotly
-- r-ggplot2
-- nb_black
-- qgrid
+- `python`
+- `pip`
+- `jedi-language-server`
+- `jupyterlab`
+- `jupyter-collaboration`
+- `jupyterlab-git`
+- `jupytext`
+- `jupyter-dash`
+- `ipywidgets`
+- `pandas[all]`
+- `scikit-learn`
+- `statsmodels`
+- `itables`
+- `seaborn[stats]`
+- `altair`
+- `plotly`
+- `r-ggplot2`
+- `nb_black`
+- `qgrid`
 
 To install additional packages, execute `!pip install <packagename>` commands in your notebook environment.
 
@@ -78,7 +78,7 @@ To install packages, execute `install.packages("<packagename>")` commands in you
 
 **Visual Studio Code**
 
-To install extensions, click the Extensions button.
+To install extensions, select **Extensions**.
 
 ### Start a data studio
 
