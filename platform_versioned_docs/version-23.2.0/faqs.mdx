@@ -27,7 +27,7 @@ The Administration Console allows Tower instance administrators to interact with
 
 ## API
 
-**<p data-question>Q:I am trying to query more results than the maximum return size allows. Can I do pagination?</p>**
+**<p data-question>Q: I'm trying to query more results than the maximum return size allows. Can I do pagination?</p>**
 
 Yes. We recommend using pagination to fetch the results in smaller chunks through multiple API calls with the help of `max` and subsequent `offset` parameters. You will receive an error like below if you run into the maximum result limit.
 
@@ -45,11 +45,11 @@ curl -X GET "https://$TOWER_SERVER_URL/workflow/$WORKFLOW_ID/tasks?workspaceId=$
     -H "Authorization: Bearer $TOWER_ACCESS_TOKEN"
 ```
 
-**<p data-question>Q: Why am I receiving a 403 HTTP Response when trying to launch a pipeline via the `/workflow/launch` API endpoint?</p>**
+**<p data-question>Q: Why am I receiving a 403 HTTP response when trying to launch a pipeline via the `/workflow/launch` API endpoint?</p>**
 
-Launch users have more restricted permissions within a Workspace than Power users. While both can launch pipelines via API calls, Launch users must specify additional values that are optional for a Power user.
+Launch users have more restricted permissions within a workspace than power users. While both can launch pipelines via API calls, Launch users must specify additional values that are optional for a power user.
 
-One such value is `launch.id`; attempting to launch a pipeline without specifying a `launch.id` in the API payload is equivalent to using the "Start Quick Launch" button within a workspace (a feature only available to Power users).
+One such value is `launch.id`; attempting to launch a pipeline without specifying a `launch.id` in the API payload is equivalent to using the "Start Quick Launch" button within a workspace (a feature only available to power users).
 
 If you have encountered the 403 error as a result of being a Launch user who did not provide a `launch.id`, please try resolving the problem as follows:
 
@@ -72,24 +72,24 @@ If you have encountered the 403 error as a result of being a Launch user who did
       }
       ```
 
-2. If a launch id remains unavailable to you, upgrade your user role to 'Maintain' or higher. This will allow you to execute quick launch-type pipeline invocations.
+2. If a launch id remains unavailable to you, upgrade your user role to Maintain or higher. This will allow you to execute quick launch-type pipeline invocations.
 
-## Common Errors
+## Common errors
 
 **<p data-question>Q: After following the log-in link, why is my screen frozen at `/auth?success=true`?</p>**
 
-Starting with v22.1, Tower Enterprise implements stricter cookie security by default and will only send an auth cookie if the client is connected via HTTPS. The lack of an auth token will cause HTTP-only log-in attempts to fail (thereby causing the frozen screen).
+Starting with v22.1, Seqera Platform implements stricter cookie security by default and will only send an auth cookie if the client is connected via HTTPS. The lack of an auth token will cause HTTP-only log-in attempts to fail (thereby causing the frozen screen).
 
 To remediate this problem, set the following environment variable `TOWER_ENABLE_UNSAFE_MODE=true`.
 
-**<p data-question>Q: "Unknown pipeline repository or missing credentials" error when pulling from a public Github repository?</p>**
+**<p data-question>Q: "Unknown pipeline repository or missing credentials" error when pulling from a public GitHub repository?</p>**
 
-Github imposes [rate limits](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting) on repository pulls (including public repositories), where unauthenticated requests are capped at 60 requests/hour and authenticated requests are capped at 5000/hour. Tower users tend to encounter this error due to the 60 request/hour cap.
+GitHub imposes [rate limits](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting) on repository pulls (including public repositories), where unauthenticated requests are capped at 60 requests/hour and authenticated requests are capped at 5000/hour. Tower users tend to encounter this error due to the 60 request/hour cap.
 
 To resolve the problem, please try the following:
 
-1. Ensure there is at least one Github credential in your Workspace's Credentials tab.
-2. Ensure that the **Access token** field of all Github Credential objects is populated with a [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) value, NOT a user password. (_Github PATs are typically several dozen characters long and begin with a `ghp_`prefix; example:`ghp*IqIMNOZH6zOwIEB4T9A2g4EHMy8Ji42q4HA`*)
+1. Ensure there is at least one GitHub credential in your Workspace's Credentials tab.
+2. Ensure that the **Access token** field of all GitHub Credential objects is populated with a [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) value, NOT a user password. (_GitHub PATs are typically several dozen characters long and begin with a `ghp_`prefix; example:`ghp*IqIMNOZH6zOwIEB4T9A2g4EHMy8Ji42q4HA`*)
 3. Confirm that your PAT is providing the elevated threshold and transactions are being charged against it:
 
    `curl -H "Authorization: token ghp_LONG_ALPHANUMERIC_PAT" -H "Accept: application/vnd.github.v3+json" https://api.github.com/rate_limit`
@@ -128,13 +128,13 @@ The `sleep` commands within your Nextflow workflows may differ in behaviour depe
 
 **<p data-question>Q: Why does relaunching/resuming a run fail with `field revision is not writable`?</p>**
 
-A known issue with Tower versions prior to 22.3 caused resuming runs to fail for users with the launch role. This issue was fixed in Tower 22.3. Upgrade to the latest version of Tower to allow launch users to resume runs.
+A known issue with versions prior to 22.3 caused resuming runs to fail for users with the launch role. This issue was fixed in version 22.3. Upgrade to the latest version of Seqera to allow launch users to resume runs.
 
 ## Compute Environments
 
-**<p data-question>Q: Can the name of a Compute Environment created in Tower contain special characters?</p>**
+**<p data-question>Q: Can the name of a Compute Environment created in Seqera contain special characters?</p>**
 
-No. Tower version 21.12 and later do not support the inclusion of special characters in the name of Compute Environment objects.
+No. version 21.12 and later do not support the inclusion of special characters in the name of Compute Environment objects.
 
 **<p data-question>Q: How do I set NXF_OPTS values for a Compute Environment?</p>**
 
@@ -970,11 +970,11 @@ No. Nextflow Tower must be supplied with a username & password to connect to its
 
 **<p data-question>Q: Can I use EFS as my work directory?</p>**
 
-As of Nextflow Tower v21.12, you can specify an Amazon Elastic File System instance as your Nextflow work directory when creating your AWS Batch Compute Environment via Batch Forge.
+As of Seqera Platform v21.12, you can specify an Amazon Elastic File System instance as your Nextflow work directory when creating your AWS Batch Compute Environment via Batch Forge.
 
 **<p data-question>Q: Can I use FSX for Luster as my work directory?</p>**
 
-As of Nextflow Tower v21.12, you can specify an Amazon FSX for Lustre instance as your Nextflow work directory when creating your AWS Batch Compute Environment via Batch Forge.
+As of Seqera Platform v21.12, you can specify an Amazon FSX for Lustre instance as your Nextflow work directory when creating your AWS Batch Compute Environment via Batch Forge.
 
 **<p data-question>Q: How do I configure my Tower-invoked pipeline to be able to write to an S3 bucket that enforces AES256 server-side encryption?</p>**
 
@@ -1019,9 +1019,7 @@ EOT
 
 **<p data-question>Q: Why is my Azure Batch VM quota set to 0?</p>**
 
-In order to manage capacity during the global health pandemic, Microsoft has reduced core quotas for new Batch accounts. Depending on your region and subscription type, a newly-created account may not be entitled to any VMs without first making a service request to Azure.
-
-Please see Azure's [Batch service quotas and limits](https://docs.microsoft.com/en-us/azure/batch/batch-quota-limit#view-batch-quotas) page for further details.
+In order to manage capacity during the global health pandemic, Microsoft has reduced core quotas for new Batch accounts. Depending on your region and subscription type, a newly-created account may not be entitled to any VMs without first making a service request to Azure. Please see Azure's [Batch service quotas and limits](https://docs.microsoft.com/en-us/azure/batch/batch-quota-limit#view-batch-quotas) page for further details.
 
 ### SSL
 
@@ -1070,7 +1068,7 @@ For detailed information, please refer to this [guide.](https://cloud.google.com
 
 **<p data-question>Q: Pod failing with 'Invalid value: "xxx": must be less or equal to memory limit' error</p>**
 
-This error may be encountered when you specify a value in the **Head Job memory** field during the creation of a Kubernetes-type Compute Environment.
+This error may be encountered when you specify a value in the **Head Job memory** field during the creation of a Kubernetes-type compute environment.
 
 If you receive an error that includes `field: spec.containers[x].resources.requests` and `message: Invalid value: "xxx": must be less than or equal to memory limit`, your Kubernetes cluster may be configured with [system resource limits](https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/) which deny the Nextflow head job's resource request. To isolate which component is causing the problem, try to launch a Pod directly on your cluster via your Kubernetes administration solution. Example:
 
@@ -1093,7 +1091,7 @@ spec:
   restartPolicy: Never
 ```
 
-## On-Prem HPC
+## On-prem HPC
 
 **<p data-question>Q: "java: command not found"</p>**
 
@@ -1118,7 +1116,7 @@ To troubleshoot:
 3. If you cluster used modules:
    1. Add `module load <your_java_module>` in the **Advanced Features > Pre-run script** field when creating your HPC Compute Environment within Nextflow Tower.
 4. If you cluster does not use modules:
-   1. Source an environment with java and Nextflow using the **Advanced Features > Pre-run script** field when creating your HPC Compute Environment within Nextflow Tower.
+   1. Source an environment with Java and Nextflow using the **Advanced Features > Pre-run script** field when creating your HPC Compute Environment within Nextflow Tower.
 
 **<p data-question>Q: Why do pipelines I submit to my HPC cluster fail, but those submitted by another user succeed?</p>**
 
@@ -1136,6 +1134,6 @@ Slurm job submission failed
 
 Connect to the head node via SSH and run `ps -p $$` to verify your default shell. If you see an entry other than Bash, fix as follows:
 
-1. Check which shells are available to you: `cat /etc/shells`
-2. Change your shell: `chsh -s /usr/bin/bash` (note: the path to the binary may differ, depending on your HPC configuration)
-3. If submissions continue to fail after this shell change, ask your Tower admin to restart the **backend** and **cron** containers, and submit from Tower again.
+1. Check which shells are available to you: `cat /etc/shells`.
+2. Change your shell: `chsh -s /usr/bin/bash` (note: the path to the binary may differ, depending on your HPC configuration).
+3. If submissions continue to fail after this shell change, ask your Seqera admin to restart the **backend** and **cron** containers, and submit again.
