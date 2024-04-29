@@ -25,15 +25,15 @@ To disable automatic cloud bucket retrieval per workspace, specify comma-separat
 
 - **Retrieve cloud buckets with workspace credentials**
 
-Private cloud storage buckets accessible to the credentials defined in your workspace are listed in Data Explorer automatically. The cloud storage permissions required for your [AWS](../compute-envs/aws-batch.mdx#iam), [Google Cloud](../compute-envs/google-cloud-batch.mdx#iam), and [Azure Batch](../compute-envs/azure-batch.mdx#create-a-storage-account) compute environment credentials allow full Data Explorer functionality.
+  Private cloud storage buckets accessible to the credentials defined in your workspace are listed in Data Explorer automatically. The cloud storage permissions required for your [AWS](../compute-envs/aws-batch.mdx#iam), [Google Cloud](../compute-envs/google-cloud-batch.mdx#iam), and [Azure Batch](../compute-envs/azure-batch.mdx#create-a-storage-account) compute environment credentials allow full Data Explorer functionality.
 
 - **Configure individual buckets manually**
 
-Select **Add cloud bucket** from the Data Explorer tab to add individual buckets (or directory paths within buckets). Specify the **Provider**, **Bucket path**, **Name**, **Credentials**, and **Description**, then select **Add**. For public cloud buckets, select **Public** from the **Credentials** drop-down menu.
+  Select **Add cloud bucket** from the Data Explorer tab to add individual buckets (or directory paths within buckets). Specify the **Provider**, **Bucket path**, **Name**, **Credentials**, and **Description**, then select **Add**. For public cloud buckets, select **Public** from the **Credentials** drop-down menu.
 
-:::note
-The **Add cloud bucket** option is only shown to users with sufficient permissions (workspace maintainers or higher).
-:::
+  :::note
+  The **Add cloud bucket** option is only shown to users with sufficient permissions (workspace maintainers or higher).
+  :::
 
 ## Browse cloud storage buckets
 
@@ -41,44 +41,44 @@ The **Add cloud bucket** option is only shown to users with sufficient permissio
 
 - **View bucket details**
 
-To view bucket details such as the cloud provider, bucket address, and credentials, select the information icon next to a bucket in the Data Explorer list.
+  To view bucket details such as the cloud provider, bucket address, and credentials, select the information icon next to a bucket in the Data Explorer list.
 
 - **Search and filter buckets**
 
-Search for buckets by name and region (e.g., `region:eu-west-2`) in the search field, and filter by provider.
+  Search for buckets by name and region (e.g., `region:eu-west-2`) in the search field, and filter by provider.
 
 - **Hide buckets from list view**
 
-Workspace maintainers can hide buckets from the Data Explorer list view. Select multiple buckets, then select **Hide** in the Data Explorer toolbar. To hide buckets individually, select **Hide** from the options menu of a bucket in the list.
+  Workspace maintainers can hide buckets from the Data Explorer list view. Select multiple buckets, then select **Hide** in the Data Explorer toolbar. To hide buckets individually, select **Hide** from the options menu of a bucket in the list.
 
-The Data Explorer list filter defaults to **Only visible**. Select **Only hidden** or **All** from the filtering menu to view hidden buckets in the list. You can **Unhide** a bucket from its options menu in the list view.
+  The Data Explorer list filter defaults to **Only visible**. Select **Only hidden** or **All** from the filtering menu to view hidden buckets in the list. You can **Unhide** a bucket from its options menu in the list view.
 
 - **View bucket contents**
 
-Select a bucket name from the Data Explorer list to view the contents of that bucket. From the **View cloud bucket** page, you can browse directories and search for objects by name in a particular directory. The file type, size, and path of objects are displayed in columns to the right of the object name. To view bucket details such as the cloud provider, bucket address, and credentials, select the information icon.
+  Select a bucket name from the Data Explorer list to view the contents of that bucket. From the **View cloud bucket** page, you can browse directories and search for objects by name in a particular directory. The file type, size, and path of objects are displayed in columns to the right of the object name. To view bucket details such as the cloud provider, bucket address, and credentials, select the information icon.
 
 - **Preview and download files**
 
-From the **View cloud bucket** page, you can preview and download files. Select the download icon in the **Actions** column to download a file directly from the list view. Select a file to open a preview window that includes a **Download** button.
+  From the **View cloud bucket** page, you can preview and download files. Select the download icon in the **Actions** column to download a file directly from the list view. Select a file to open a preview window that includes a **Download** button.
 
-File preview is supported for these object types:
+  File preview is supported for these object types:
 
-- Nextflow output files ( `.command.*`, `.fusion.*` and `.exitcode` )
-- Text
-- CSV and TSV
-- PDF
-- HTML
-- Images (JPG, PNG, SVG, etc.)
+  - Nextflow output files ( `.command.*`, `.fusion.*` and `.exitcode` )
+  - Text
+  - CSV and TSV
+  - PDF
+  - HTML
+  - Images (JPG, PNG, SVG, etc.)
 
-:::note
-The file size limit for preview is 10 MB. 10-25 MB files can still be downloaded directly.
+  :::note
+  The file size limit for preview is 10 MB. 10-25 MB files can still be downloaded directly.
 
-Seqera Enterprise users can increase the default 25 MB file size download limit with `tower.content.max-file-size` in the `tower.yml` [configuration](../enterprise/configuration/overview.mdx#data-features) file. Note that increasing this value may degrade Platform performance.
-:::
+  Seqera Enterprise users can increase the default 25 MB file size download limit with `tower.content.max-file-size` in the `tower.yml` [configuration](../enterprise/configuration/overview.mdx#data-features) file. Note that increasing this value may degrade Platform performance.
+  :::
 
 - **Copy bucket/object paths**
 
-Select the **Path** of an object on the **View cloud bucket** page to copy its absolute path to the clipboard. Use these object paths to specify input data locations during [pipeline launch](../launch/launchpad.mdx), or add them to a [dataset](../data/datasets.mdx) for pipeline input.
+  Select the **Path** of an object on the **View cloud bucket** page to copy its absolute path to the clipboard. Use these object paths to specify input data locations during [pipeline launch](../launch/launchpad.mdx), or add them to a [dataset](../data/datasets.mdx) for pipeline input.
 
 ## Upload files to private buckets
 
@@ -130,10 +130,10 @@ Apply a [CORS configuration](https://learn.microsoft.com/en-us/rest/api/storages
 2. Under **Settings** in the left navigation menu, select **Resource sharing (CORS)**.
 3. Add a new entry under **Blob service**:
 
-- **Allowed origins**: `https://tower.nf`
-- **Allowed methods**: `GET,POST,PUT,DELETE,HEAD`
-- **Allowed headers**: `x-ms-blob-type,content-type`
-- **Exposed headers**: `x-ms-blob-type`
+   - **Allowed origins**: `https://tower.nf`
+   - **Allowed methods**: `GET,POST,PUT,DELETE,HEAD`
+   - **Allowed headers**: `x-ms-blob-type,content-type`
+   - **Exposed headers**: `x-ms-blob-type`
 
 4. Select **Save** to apply the CORS configuration.
 
@@ -143,10 +143,10 @@ Apply a [CORS configuration](https://learn.microsoft.com/en-us/rest/api/storages
 2. Under **Settings** in the left navigation menu, select **Resource sharing (CORS)**.
 3. Add a new entry under **Blob service**:
 
-- **Allowed origins**: `https://<your_seqera_instance_url>`
-- **Allowed methods**: `GET,POST,PUT,DELETE,HEAD`
-- **Allowed headers**: `x-ms-blob-type,content-type`
-- **Exposed headers**: `x-ms-blob-type`
+   - **Allowed origins**: `https://<your_seqera_instance_url>`
+   - **Allowed methods**: `GET,POST,PUT,DELETE,HEAD`
+   - **Allowed headers**: `x-ms-blob-type,content-type`
+   - **Exposed headers**: `x-ms-blob-type`
 
 4. Select **Save** to apply the CORS configuration.
 
