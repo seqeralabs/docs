@@ -58,7 +58,7 @@ Examples of valid _path patterns_ are:
 - `multiqc.html`: This will match all the published files with this name.
 - `**/multiqc.html`: This is a glob expression that matches any subfolder. It is equivalent to the previous expression.
 - `results/output.txt`: This will match all the `output.txt` files inside any _results_ folder.
-- `*_output.tsv`: This will match any file that ends with “\_output.tsv”
+- `*_output.tsv`: This will match any file that ends with "\_output.tsv"
 
 :::caution
 When you use `*` it is important to also use double quotes, otherwise it is not a valid YAML.
@@ -79,7 +79,7 @@ If you have these two paths `/workdir/sample1/out/sheet.tsv` and `/workdir/sampl
 
 ### mimeType
 
-By default the mime type is deduced from the file extension, so in general you don’t need to explicitly define it. Optionally, you can define it to force a viewer, for example showing a `txt` file as a `tsv`. It is important that it is a valid mime type text, otherwise it will be ignored and the extension will be used instead.
+By default the mime type is deduced from the file extension, so in general you don't need to explicitly define it. Optionally, you can define it to force a viewer, for example showing a `txt` file as a `tsv`. It is important that it is a valid mime type text, otherwise it will be ignored and the extension will be used instead.
 
 ### Limitations
 
