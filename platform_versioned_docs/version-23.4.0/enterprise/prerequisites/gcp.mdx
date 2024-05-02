@@ -17,7 +17,7 @@ Run the Seqera container with [Docker](../docker-compose.mdx) on a GCP VM instan
 - **SSL certificate**: An SSL certificate is required for your Seqera instance to handle HTTPS traffic.
 
   :::caution
-  From version 22.1.1, HTTP-only implementations **must** set the `TOWER_ENABLE_UNSAFE_MODE=true` environment variable in the Seqera hosting infrastructure to enable user login. HTTP must not be used in production environments.
+  HTTP-only implementations **must** set the `TOWER_ENABLE_UNSAFE_MODE=true` environment variable in the Seqera hosting infrastructure to enable user login. HTTP must not be used in production environments.
   :::
 
 - **(Optional) Public IP address**: A public IP address can be reserved for the Seqera ingress to keep the IP address constant across restarts.
