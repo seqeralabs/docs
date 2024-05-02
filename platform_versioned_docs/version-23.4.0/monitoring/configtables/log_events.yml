@@ -17,8 +17,8 @@
   Note:                'Events for public and private buckets are logged.'
 - 
   Resource:            'Data Explorer files'
-  Events logged:       'Upload, download, preview'
-  Note:                'Events for private and public bucket files are logged.'
+  Events logged:       'Download, upload, preview'
+  Note:                'Events for public and private bucket files are logged.'
 - 
   Resource:            'Organizations'
   Events logged:      'Add, delete'
