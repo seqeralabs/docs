@@ -7,10 +7,11 @@ tags: [ssl, tls, https, configuration]
 
 We recommend using public TLS certificates wherever possible. Private certificates are supported, but require additional configuration during Seqera Enterprise installation and Nextflow execution.
 
-<!-- GW Note: Mar 22/23
-Removed `export SSL_CERT_FILE=/TARGET_HOSTNAME.pem` from the Nextflow container configuration as I thought it
-made sense to harmonize commands across the Tower & Nextflow containers (since they use the same underlying image).
--->
+## Azure deployments: Use Application Gateway for TLS termination and load balancing
+
+See [Configure an Application Gateway](https://learn.microsoft.com/en-us/azure/application-gateway/create-ssl-portal) to set up an Application Gateway with TLS termination in the Azure portal. 
+
+See [Import a certificate in Azure Key Vault](https://learn.microsoft.com/en-us/azure/key-vault/certificates/tutorial-import-certificate?tabs=azure-portal) to store your TLS certificate keys securely with Azure. 
 
 ## Configure Seqera to trust your private certificate
 
