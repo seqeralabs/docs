@@ -7,11 +7,6 @@ tags: [ssl, tls, https, configuration]
 
 We recommend using public TLS certificates wherever possible. Private certificates are supported, but require additional configuration during Seqera Enterprise installation and Nextflow execution.
 
-<!-- GW Note: Mar 22/23
-Removed `export SSL_CERT_FILE=/TARGET_HOSTNAME.pem` from the Nextflow container configuration as I thought it
-made sense to harmonize commands across the Tower & Nextflow containers (since they use the same underlying image).
--->
-
 ## Configure Seqera to trust your private certificate
 
 If you secure related infrastructure (such as private Git repositories) with certificates issued by a private Certificate Authority, these certificates must be loaded into the Seqera Enterprise containers. You can achieve this in several ways.
@@ -230,25 +225,3 @@ TLS v1.2 can be explicitly enabled by default using JDK environment variables:
 ```bash
 _JAVA_OPTIONS="-Dmail.smtp.ssl.protocols=TLSv1.2"
 ```
-
-<!--- 13-4-2023: Keeping old intermediate CA solution for a lookback if needed.
-```
-javax.net.ssl.SSLHandshakeException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
-at java.base/sun.security.ssl.Alert.createSSLException(Alert.java:131)
-at java.base/sun.security.ssl.TransportContext.fatal(TransportContext.java:349)
-at java.base/sun.security.ssl.TransportContext.fatal(TransportContext.java:292)
-at java.base/sun.security.ssl.TransportContext.fatal(TransportContext.java:287)
-at java.base/sun.security.ssl.CertificateMessage$T12CertificateConsumer.checkServerCerts(CertificateMessage.java:654)
-        at java.base/sun.security.ssl.CertificateMessage$T12CertificateConsumer.onCertificate(CertificateMessage.java:473)
-at java.base/sun.security.ssl.CertificateMessage$T12CertificateConsumer.consume(CertificateMessage.java:369)
-at java.base/sun.security.ssl.SSLHandshake.consume(SSLHandshake.java:392)
-```
-
-#### SOLUTION 2: Adding intermediate certificates to your instance
-
-To allow Java to automatically download missing intermediate certificates, activate the **enableAIAcaIssuers** system property via an environment variable:
-
-```bash
-export JAVA_OPTS="-Dcom.sun.security.enableAIAcaIssuers=true"
-```
--->
