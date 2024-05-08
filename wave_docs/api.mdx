@@ -56,7 +56,7 @@ The endpoint returns the name of the container request made available by Wave.
 | `containerConfig.layers.location`   | Either a HTTP URL from where a container layer tar gzip file should be downloaded or tar gzip file base64 encoded and prefixed with `data:` string (optional). |
 | `containerConfig.layers.tarDigest`  | The SHA256checksum of the provided tar file e.g. `sha256:a7c724b02...`.                                                                                        |
 | `containerConfig.layers.gzipDigest` | The SHA256 checksum of the provided layer tar gzip file e.g. `sha256:a7c724b02...`.                                                                            |
-| `containerConfig.layers.gzipSize`   | The size in bytes of the the provided layer tar gzip file.                                                                                                     |
+| `containerConfig.layers.gzipSize`   | The size in bytes of the provided layer tar gzip file.                                                                                                     |
 | `containerFile`                     | Dockerfile used for building a new container encoded in base64 (optional). When provided, the attribute `containerImage` should be omitted.                    |
 | `condaFile`                         | Conda environment file encoded as base64 string.                                                                                                               |
 | `spackFile`                         | Spack recipe file encoded as base64 string.                                                                                                                    |
