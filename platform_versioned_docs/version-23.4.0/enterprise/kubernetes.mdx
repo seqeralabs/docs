@@ -19,7 +19,7 @@ Complete the following procedures to install Seqera Enterprise on a Kubernetes c
 
 Create a namespace for the Seqera resources.
 
-1. Create the namespace (e.g., `seqera-nf`):
+1. Create the namespace:
 
     ```bash
     kubectl create namespace seqera-nf
@@ -37,7 +37,7 @@ Seqera Platform Enterprise is distributed as a collection of Docker containers a
 
 1. Retrieve the `name` and `secret` values from the JSON file that you received from Seqera support.
 
-2. Create a [secret](https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-kubectl/) with the `name` and `secret` values retrieved in the previous step:
+1. Create a [secret][kubectl-secret] with the `name` and `secret` values retrieved in the previous step:
 
     ```bash
     kubectl create secret docker-registry cr.seqera.io \
@@ -48,7 +48,7 @@ Seqera Platform Enterprise is distributed as a collection of Docker containers a
 
     The credential `name` contains a dollar `$` character. To prevent the Linux shell from interpreting this value as an environment variable, you must wrap it in single quotes.
 
-3. Configure the Seqera cron service and the application frontend and backend to use the secret created in the previous step (see [tower-cron.yml](./_templates/k8s/tower-cron.yml) and [tower-svc.yml](./_templates/k8s/tower-svc.yml)):
+1. Configure the Seqera cron service and the application frontend and backend to use the secret created in the previous step (see [tower-cron.yml](./_templates/k8s/tower-cron.yml) and [tower-svc.yml](./_templates/k8s/tower-svc.yml)):
 
     ```yaml
     imagePullSecrets:
@@ -68,14 +68,14 @@ Seqera Platform Enterprise is distributed as a collection of Docker containers a
     ```
 
 :::note
-The `configmap.yml` manifest includes both the `tower.env` file and `tower.yml` file. These files are made available to the other containers through volume mounts.
+The `configmap.yml` manifest includes both the `tower.env` and `tower.yml` files. These files are made available to the other containers through volume mounts.
 :::
 
 ### Redis
 
 Seqera Enterprise requires a Redis database for caching purposes. Configure Redis manually by deploying a manifest to your cluster, or configure a managed Redis service.
 
-**Deploy a Redis manifest to your cluster**
+#### Deploy a Redis manifest to your cluster
 
 1. Download the appropriate manifest for your infrastructure:
 
@@ -85,61 +85,60 @@ Seqera Enterprise requires a Redis database for caching purposes. Configure Redi
 
     - [Google Kubernetes Engine](_templates/k8s/redis.gke.yml)
 
-2. Deploy to your cluster:
+1. Deploy to your cluster:
 
     ```bash
     kubectl apply -f redis.*.yml
     ```
 
-**Managed Redis services**
+1. To run the Redis service as a container as part of your Docker or Kubernetes installation, specify the service name as part of the `TOWER_REDIS_URL`:
 
-Seqera supports managed Redis services such as [Amazon ElastiCache](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/WhatIs.html), [Azure Cache for Redis](https://learn.microsoft.com/en-gb/azure/azure-cache-for-redis/cache-overview), or [Google Memorystore](https://cloud.google.com/memorystore/docs/redis).
+  ```bash
+  TOWER_REDIS_URL=redis://redis:6379
+  ```
 
-When using a managed Redis service, you must specify the service IP address or DNS name for the `TOWER_REDIS_URL` as described in the following sections.
+#### Managed Redis services
 
-**AWS ElastiCache requirements**
+Seqera supports managed Redis services such as [Amazon ElastiCache][aws-elasticache], [Azure Cache for Redis][azure-cache], or [Google Memorystore][memorystore].
+
+<Tabs>
+<TabItem value="AWS ElastiCache" label="AWS ElastiCache" default>
 
 - Use a single-node cluster, as multi-node clusters are not supported
-- Use an instance with at least 6GB capacity ([cache.m4.large](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html) or greater)
+- Use an instance with at least 6GB capacity ([cache.m4.large][aws-cache-instances] or greater)
 - Specify your private ElastiCache instance in the Seqera environment variables:
 
   ```bash
   TOWER_REDIS_URL=redis://<redis private IP>:6379
   ```
 
-**Azure Cache for Redis requirements**
+</TabItem>
+<TabItem value="Azure Cache for Redis" label="Azure Cache for Redis" default>
 
 - Use a single-node cluster, as multi-node clusters are not supported
-- Use an instance with at least 6GB capacity ([C3](https://azure.microsoft.com/en-gb/pricing/details/cache/) or greater)
+- Use an instance with at least 6GB capacity ([C3][azure-cache-instances] or greater)
 - Specify your private Azure Cache for Redis instance in the Seqera environment variables:
 
   ```bash
   TOWER_REDIS_URL=redis://<redis private IP>:6379
   ```
 
-**Google Memorystore requirements**
+</TabItem>
+<TabItem value="Google Memorystore" label="Google Memorystore" default>
 
 - Use a single-node cluster, as multi-node clusters are not supported
-- Use an instance with at least 6GB capacity ([M2](https://cloud.google.com/memorystore/docs/redis/pricing#instance_pricing) or greater)
+- Use an instance with at least 6GB capacity ([M2][google-cache-instances] or greater)
 - Specify your private Memorystore instance in the Seqera environment variables:
 
   ```bash
   TOWER_REDIS_URL=redis://<redis private IP>:6379
   ```
 
-**Self-hosted Redis service**
-
-If you run the Redis service as a container as part of your Docker or Kubernetes installation, you must specify the service name as part of the `TOWER_REDIS_URL`:
-
-  ```bash
-  TOWER_REDIS_URL=redis://redis:6379
-  ```
-
 ### Seqera cron service
 
 1. Download the [cron service manifest](_templates/k8s/tower-cron.yml) file.
 
-2. Deploy the manifest to your cluster:
+1. Deploy the manifest to your cluster:
 
   ```bash
   kubectl apply -f tower-cron.yml
@@ -153,7 +152,7 @@ This container creates the required database schema the first time it instantiat
 
 1. Download the [manifest](_templates/k8s/tower-svc.yml).
 
-2. Deploy the manifest to your cluster:
+1. Deploy the manifest to your cluster:
 
   ```bash
   kubectl apply -f tower-svc.yml
@@ -207,31 +206,29 @@ If further customization of the config file is needed, mount a config map/secret
 
 An ingress is used to make Seqera Enterprise publicly accessible, load-balance traffic, terminate TLS, and offer name-based virtual hosting. The included ingress will create an external IP address and forward HTTP traffic to the Seqera frontend.
 
-Download the appropriate manifest and configure it according to your infrastructure:
+1. Download the appropriate manifest and configure it according to your infrastructure:
 
-- [Azure AKS](_templates/k8s/ingress.aks.yml)
+  - [Azure AKS](_templates/k8s/ingress.aks.yml)
+  - [Amazon EKS](_templates/k8s/ingress.eks.yml)
+  - [Google Kubernetes Engine](_templates/k8s/ingress.gke.yml)
 
-- [Amazon EKS](_templates/k8s/ingress.eks.yml)
+1. Deploy the manifest to your cluster:
 
-- [Google Kubernetes Engine](_templates/k8s/ingress.gke.yml)
+  ```bash
+  kubectl apply -f ingress.*.yml
+  ```
 
-Deploy the manifest to your cluster:
+See [Kubernetes ingress][k8s-ingress] for more information. If you don't need to make Seqera externally accessible, use a service resource to expose a [node port][k8s-node-port] or a [load balancer][k8s-load-balancer] service to make it accessible within your intranet.
 
-```bash
-kubectl apply -f ingress.*.yml
-```
+See the cloud provider documentation for configuring an ingress service on each cloud provider:
 
-See the Kubernetes documentation on the [ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) resource for more information. If you don't need to make Seqera externally accessible, you can also use a service resource to expose a [node port](https://kubernetes.io/docs/concepts/services-networking/service/#nodeport) or a [load balancer](https://kubernetes.io/docs/concepts/services-networking/service/#loadbalancer) service to make it accessible within your intranet.
-
-See the relevant documentation for configuring an ingress service on each cloud provider:
-
-- [Amazon](https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.2/guide/ingress/annotations/)
-- [Azure](https://docs.microsoft.com/en-us/azure/application-gateway/ingress-controller-annotations)
-- [Google Cloud](https://cloud.google.com/kubernetes-engine/docs/concepts/ingress)
+- [Amazon][aws-configure-ingress]
+- [Azure][azure-configure-ingress]
+- [Google Cloud][google-configure-ingress]
 
 ### Check status
 
-Make sure that all services are up and running:
+Check that all services are up and running:
 
 ```bash
 kubectl get pods
@@ -239,33 +236,7 @@ kubectl get pods
 
 ## Test the application
 
-To confirm that Seqera Enterprise is properly configured, follow these steps:
-
-1. Log in to your Seqera instance.
-
-2. Create an **organization**.
-
-3. Create a **workspace** within that organization.
-
-4. Create a new **Compute environment**. See [Compute environments](../compute-envs/overview.mdx) for detailed instructions.
-
-5. Select **Quick Launch** from the **Launchpad** tab in your workspace.
-
-6. Enter the repository URL for the `nf-core/rnaseq` pipeline (`https://github.com/nf-core/rnaseq`).
-
-7. In the **Config profiles** dropdown, select the `test` profile.
-
-8. In **Pipeline parameters**, change the output directory to a location based on your compute environment:
-
-    ```yaml
-    # save to S3 bucket
-    outdir: s3://<your-bucket>/results
-
-    # save to scratch directory (Kubernetes)
-    outdir: /scratch/results
-    ```
-
-9. Select **Launch**; you'll be redirected to the **Runs** tab for the workflow. After a few minutes, progress logs will be listed in that workflow's **Execution log** tab.
+See [Test deployment](./testing.mdx).
 
 ## Optional features
 
@@ -279,7 +250,7 @@ The initContainers will wait until both the Seqera and pipeline optimization ser
 
 ### Database console
 
-The included [dbconsole.yml](_templates/k8s/dbconsole.yml) manifest can be used to deploy a simple web frontend to the Seqera database. Though not required, this can be useful for administrative purposes.
+Use the [dbconsole.yml](_templates/k8s/dbconsole.yml) manifest to deploy a simple web frontend to the Seqera database. Though not required, this can be useful for administrative purposes.
 
 1. Deploy the database console:
 
@@ -287,13 +258,13 @@ The included [dbconsole.yml](_templates/k8s/dbconsole.yml) manifest can be used 
   kubectl apply -f dbconsole.yml
   ```
 
-2. Enable a port-forward for the database console to your local machine:
+1. Enable a port-forward for the database console to your local machine:
 
   ```bash
   kubectl port-forward deployment/dbconsole 8080:8080
   ```
 
-3. Access the database console in a web browser at `http://localhost:8080`.
+1. Access the database console in a web browser at `http://localhost:8080`.
 
 ### High availability
 
@@ -306,3 +277,17 @@ To configure Seqera Enterprise for high availability, note that:
 - The `cron` service may only have a single instance
 
 - The `groundswell` service may only have a single instance
+
+[aws-cache-instances]: https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html
+[aws-configure-ingress]: https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.2/guide/ingress/annotations/
+[aws-elasticache]: https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/WhatIs.html
+[azure-cache]: https://learn.microsoft.com/en-gb/azure/azure-cache-for-redis/cache-overview
+[azure-cache-instances]: https://azure.microsoft.com/en-gb/pricing/details/cache/
+[azure-configure-ingress]: https://docs.microsoft.com/en-us/azure/application-gateway/ingress-controller-annotations
+[google-cache-instances]: https://cloud.google.com/memorystore/docs/redis/pricing#instance_pricing
+[google-configure-ingress]: https://cloud.google.com/kubernetes-engine/docs/concepts/ingress
+[k8s-ingress]: https://kubernetes.io/docs/concepts/services-networking/ingress/
+[k8s-load-balancer]: https://kubernetes.io/docs/concepts/services-networking/service/#loadbalancer
+[k8s-node-port]: https://kubernetes.io/docs/concepts/services-networking/service/#nodeport
+[kubectl-secret]: https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-kubectl/
+[memorystore]: https://cloud.google.com/memorystore/docs/redis
