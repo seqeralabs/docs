@@ -40,7 +40,7 @@ Seqera Platform Enterprise is distributed as a collection of Docker containers a
 
 1. Retrieve the `name` and `secret` values from the JSON file that you received from Seqera support.
 
-1. Create a [secret][kubectl-secret] with the `name` and `secret` values retrieved in the previous step:
+1. Create a [secret][kubectl-secret]:
 
     ```bash
     kubectl create secret docker-registry cr.seqera.io \
@@ -49,7 +49,7 @@ Seqera Platform Enterprise is distributed as a collection of Docker containers a
       --docker-password='<YOUR SECRET>'
     ```
 
-    The credential `name` contains a dollar `$` character. To prevent the Linux shell from interpreting this value as an environment variable, you must wrap it in single quotes.
+    The credential `name` contains a dollar `$` character. Wrap the name in single quotes to prevent the Linux shell from interpreting this value as an environment variable.
 
 1. Configure the Seqera cron service and the application frontend and backend to use the secret created in the previous step (see [tower-cron.yml](./_templates/k8s/tower-cron.yml) and [tower-svc.yml](./_templates/k8s/tower-svc.yml)):
 
@@ -83,9 +83,7 @@ Seqera Enterprise requires a Redis database for caching purposes. Configure Redi
 1. Download the appropriate manifest for your infrastructure:
 
     - [Azure AKS](_templates/k8s/redis.aks.yml)
-
     - [Amazon EKS](_templates/k8s/redis.eks.yml)
-
     - [Google Kubernetes Engine](_templates/k8s/redis.gke.yml)
 
 1. Deploy to your cluster:
@@ -96,9 +94,9 @@ Seqera Enterprise requires a Redis database for caching purposes. Configure Redi
 
 1. To run the Redis service as a container as part of your Docker or Kubernetes installation, specify the service name as part of the `TOWER_REDIS_URL`:
 
-  ```bash
-  TOWER_REDIS_URL=redis://redis:6379
-  ```
+    ```bash
+    TOWER_REDIS_URL=redis://redis:6379
+    ```
 
 #### Managed Redis services
 
@@ -109,7 +107,7 @@ Seqera supports managed Redis services such as [Amazon ElastiCache][aws-elastica
 
 - Use a single-node cluster, as multi-node clusters are not supported
 - Use an instance with at least 6GB capacity ([cache.m4.large][aws-cache-instances] or greater)
-- Specify your private ElastiCache instance in the Seqera environment variables:
+- Specify your private ElastiCache instance in the Seqera [environment variables](./configuration/overview.mdx#database-and-redis-manual-configuration):
 
   ```bash
   TOWER_REDIS_URL=redis://<redis private IP>:6379
@@ -120,7 +118,7 @@ Seqera supports managed Redis services such as [Amazon ElastiCache][aws-elastica
 
 - Use a single-node cluster, as multi-node clusters are not supported
 - Use an instance with at least 6GB capacity ([C3][azure-cache-instances] or greater)
-- Specify your private Azure Cache for Redis instance in the Seqera environment variables:
+- Specify your private Azure Cache for Redis instance in the Seqera [environment variables](./configuration/overview.mdx#database-and-redis-manual-configuration):
 
   ```bash
   TOWER_REDIS_URL=redis://<redis private IP>:6379
@@ -131,7 +129,7 @@ Seqera supports managed Redis services such as [Amazon ElastiCache][aws-elastica
 
 - Use a single-node cluster, as multi-node clusters are not supported
 - Use an instance with at least 6GB capacity ([M2][google-cache-instances] or greater)
-- Specify your private Memorystore instance in the Seqera environment variables:
+- Specify your private Memorystore instance in the Seqera [environment variables](./configuration/overview.mdx#database-and-redis-manual-configuration):
 
   ```bash
   TOWER_REDIS_URL=redis://<redis private IP>:6379
@@ -146,9 +144,9 @@ Seqera supports managed Redis services such as [Amazon ElastiCache][aws-elastica
 
 1. Deploy the manifest to your cluster:
 
-  ```bash
-  kubectl apply -f tower-cron.yml
-  ```
+    ```bash
+    kubectl apply -f tower-cron.yml
+    ```
 
 :::caution
 This container creates the required database schema the first time it instantiates. This process can take a few minutes to complete and must finish before you instantiate the Seqera backend. Ensure this container is in the `READY` state before proceeding to the next step.
@@ -214,15 +212,15 @@ An ingress is used to make Seqera Enterprise publicly accessible, load-balance t
 
 1. Download the appropriate manifest and configure it according to your infrastructure:
 
-  - [Azure AKS](_templates/k8s/ingress.aks.yml)
-  - [Amazon EKS](_templates/k8s/ingress.eks.yml)
-  - [Google Kubernetes Engine](_templates/k8s/ingress.gke.yml)
+    - [Azure AKS](_templates/k8s/ingress.aks.yml)
+    - [Amazon EKS](_templates/k8s/ingress.eks.yml)
+    - [Google Kubernetes Engine](_templates/k8s/ingress.gke.yml)
 
 1. Deploy the manifest to your cluster:
 
-  ```bash
-  kubectl apply -f ingress.*.yml
-  ```
+    ```bash
+    kubectl apply -f ingress.*.yml
+    ```
 
 See [Kubernetes ingress][k8s-ingress] for more information. If you don't need to make Seqera externally accessible, use a service resource to expose a [node port][k8s-node-port] or a [load balancer][k8s-load-balancer] service to make it accessible within your intranet.
 
@@ -260,15 +258,15 @@ Use the [dbconsole.yml](_templates/k8s/dbconsole.yml) manifest to deploy a simpl
 
 1. Deploy the database console:
 
-  ```bash
-  kubectl apply -f dbconsole.yml
-  ```
+    ```bash
+    kubectl apply -f dbconsole.yml
+    ```
 
 1. Enable a port-forward for the database console to your local machine:
 
-  ```bash
-  kubectl port-forward deployment/dbconsole 8080:8080
-  ```
+    ```bash
+    kubectl port-forward deployment/dbconsole 8080:8080
+    ```
 
 1. Access the database console in a web browser at `http://localhost:8080`.
 
@@ -277,11 +275,8 @@ Use the [dbconsole.yml](_templates/k8s/dbconsole.yml) manifest to deploy a simpl
 To configure Seqera Enterprise for high availability, note that:
 
 - The `backend` service can be run in multiple replicas
-
 - The `frontend` service is replicable, however in most scenarios it is not necessary
-
 - The `cron` service may only have a single instance
-
 - The `groundswell` service may only have a single instance
 
 [aws-cache-instances]: https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html
