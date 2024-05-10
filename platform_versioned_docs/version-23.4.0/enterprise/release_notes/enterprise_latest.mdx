@@ -59,6 +59,10 @@ If you specify a DNS name as your `TOWER_SERVER_URL`, but access your Seqera ins
 
 A previous iteration of the rebranded Seqera documentation noted `seqera` as the default and example value for certain variables (such as default database names). The rebranding from Nextflow Tower to Seqera Platform is an ongoing, incremental process and as such, legacy `tower` values and naming conventions used by the Seqera backend will remain in place until a future release. Updates to configuration variables and values will be communicated well in advance to prepare users for any breaking changes.
 
+**ARM64 CPU architecture support enabled by default**
+
+The `TOWER_ENABLE_ARM64` configuration environment variable is no longer needed to enable Graviton instance support in AWS Batch compute environments. ARM64 CPU architecture support is enabled by default. 
+
 ## Upgrade steps
 
 This version requires a database schema update. Follow these steps to update your DB instance and the Seqera installation.
