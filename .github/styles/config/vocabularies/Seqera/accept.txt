@@ -19,6 +19,7 @@ OAuth
 Kubernetes
 Gitpod
 Hashicorp
+RStudio
 
 # Acronyms
 AMI
@@ -53,6 +54,7 @@ hardcoded
 uncomment
 burstable
 unparsable
+config
 
 # Seqera Platform UI
 hostname
