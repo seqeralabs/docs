@@ -27,7 +27,7 @@ These decisions must be made before you continue as they impact how Seqera confi
 
 ### Prerequisites for Docker
 
-A [Linux VM][azure-linux] instance is required to deploy Seqera Enterprise via Docker Compose. See the [detailed instructions](#azure-setup) to provision a VM instance for this purpose.
+A Linux VM instance is required to deploy Seqera Enterprise via Docker Compose. See the [detailed instructions](#azure-setup) to provision a VM instance for this purpose.
 
 ### Prerequisites for AKS
 
@@ -82,7 +82,7 @@ Create a resource group:
 
 Create a storage account:
 - [Via the Azure portal][azure-storage-portal]
-- [Via the Azure CLI][[azure-storage-cli]]
+- [Via the Azure CLI][azure-storage-cli]
 
 <details>
    <summary>Create a storage account via Azure portal</summary>
@@ -207,7 +207,7 @@ Create an Azure Linux VM:
   1. Under **Basics**, select your **Subscription** and **Resource group**.
   1. Under **Instance details**:
       - Enter a **VM name**
-      - Select the same **Resgion** as your resource group.
+      - Select the same **Region** as your resource group.
       - Select the **Ubuntu Server 20.04 LTS - Gen2** image.
       - Do not set the VM as an **Azure Spot instance**.
       - Select the **Size** — B2ps v2 or higher is recommended.
