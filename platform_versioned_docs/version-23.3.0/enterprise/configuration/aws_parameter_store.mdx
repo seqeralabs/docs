@@ -35,7 +35,11 @@ To enable Seqera use AWS Parameter Store values:
 
 ## Create configuration values in AWS Parameter Store
 
-Store Seqera configuration values as individual parameters in the AWS Parameter Store. Values must be namespaced to avoid collisions if multiple Seqera instances exist in the same AWS Account (e.g., Dev / Staging / Prod). Seqera uses `tower-app` by default, but this can be modified via the `tower.application.name` key in the `tower.yml` file.
+Store Seqera configuration values as individual parameters in the AWS Parameter Store.
+
+:::caution
+The default application name is `tower-app`. To deploy multiple instances from the same Seqera Enterprise account, set a custom application name for each instance with the `micronaut.application.name` value in your `tower.yml` configuration file.
+:::
 
 We recommend storing sensitive values, such as database passwords, as SecureString-type parameters. These parameters require additional IAM KMS key permissions to be decrypted.
 
