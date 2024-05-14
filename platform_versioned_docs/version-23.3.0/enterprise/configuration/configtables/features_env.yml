@@ -12,7 +12,7 @@
 - 
   Environment variable:            '`TOWER_ENABLE_ARM64`'
   Description: > 
-    Enable support for ARM64 CPU architecture. Required to enable Graviton instance support in AWS Batch compute environments. 
+    Enable support for ARM64 CPU architecture (AWS Batch compute environments only). Required to enable Graviton instance support. 
   Value:                'Default: `false`'
 - 
   Environment variable:            '`TOWER_ENABLE_AWS_SSM`'
