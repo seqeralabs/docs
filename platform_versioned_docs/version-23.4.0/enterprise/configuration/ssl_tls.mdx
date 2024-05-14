@@ -5,7 +5,15 @@ date: "21 Apr 2023"
 tags: [ssl, tls, https, configuration]
 ---
 
-We recommend using public TLS certificates wherever possible. Private certificates are supported, but require additional configuration during Seqera Enterprise installation and Nextflow execution.
+HTTP must not be used in production environments. An SSL certificate is required for your Seqera instance to handle HTTPS traffic. Private certificates are supported, but require additional configuration during Seqera Enterprise installation and Nextflow execution.
+
+## AWS deployments: Manage SSL certificates with Amazon Certificate Manager (ACM)
+
+Use [Amazon Certificate Manager](https://aws.amazon.com/certificate-manager/) (ACM) to apply SSL certificates to your AWS deployment:
+
+- If you have an existing SSL certificate, see [Importing certificates into AWS Certificate Manager](https://docs.aws.amazon.com/acm/latest/userguide/import-certificate.html).
+
+- If you don't have an existing SSL certificate, see [Issuing and managing certificates](https://docs.aws.amazon.com/acm/latest/userguide/gs.html).
 
 ## Configure Seqera to trust your private certificate
 
@@ -145,8 +153,6 @@ update-ca-trust
 ## Configure Seqera to present a SSL/TLS certificate
 
 You can secure your Seqera instance with a TLS certificate in several ways.
-
-**Certificate configuration options**
 
 **Load balancer (recommended)**
 
