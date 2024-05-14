@@ -36,6 +36,7 @@ The following identity providers are currently supported:
 - GitHub
 - Google
 - Keycloak
+- Entra
 - Okta
 
 ### GitHub identity provider
@@ -130,7 +131,6 @@ This must be an `https://` URI, per Microsoft's requirements.
     TOWER_OIDC_SECRET=<YOUR_CLIENT_CREDENTIALS_SECRET>
     TOWER_OIDC_ISSUER=<YOUR_OIDC_METADATA_URL_UP_TO_"v2.0">   (e.g. https://login.microsoftonline.com/000000-0000-0000-00-0000000000000/v2.0)
     ```
-
 12. Add `auth-oidc` to the `MICRONAUT_ENVIRONMENTS` environment variable for both the `cron` and `backend` services.
 
 ### Okta identity provider
