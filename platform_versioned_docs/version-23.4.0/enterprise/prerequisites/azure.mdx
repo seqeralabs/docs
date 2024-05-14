@@ -13,7 +13,7 @@ Run the Seqera container with [Docker](../docker-compose.mdx) on an Azure VM ins
 
 - **SMTP server**: If you don't have an email server, see [Azure's recommended method of sending email][azure-sendmail]. Microsoft recommends [Microsoft 365][msft-365] or the third party service [SendGrid][sendgrid].
 
-- **MySQL database**: An external database such as [Azure Database for MySQL][azure-db-create] is highly recommended for production deployments.
+- **MySQL database**: An external database such as [Azure Database for MySQL][azure-db-create-portal] is highly recommended for production deployments.
 
 - **SSL certificate**: An SSL certificate is required for your Seqera instance to handle HTTPS traffic. See [SSL/TLS configuration](../configuration/ssl_tls.mdx#azure-deployments-use-application-gateway-for-tls-termination-and-load-balancing) for more information.
 
@@ -127,7 +127,7 @@ Create a storage account:
 
 External databases for Seqera Enterprise deployments require:
 - A **MySQL8 Community** DB instance
-- At least 2 vCPUs, 8 GB memory, and 30 GB SSD storage
+- At least **2 vCPUs**, **8 GB memory**, and **30 GB** SSD storage
 - Manual MySQL user and database schema creation. See [Database configuration](../configuration/overview.mdx#seqera-and-redis-databases) for more details.
 
 :::caution 
