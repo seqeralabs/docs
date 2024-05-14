@@ -23,6 +23,10 @@ You may wish to limit S3 access to specific prefixes, and/or Role assumption to 
 1. Modify the S3 bucket write policy by adding `"arn:aws:s3:::YOUR-BUCKET-NAME"` for each bucket that will be used as a pipeline work directory. 
 1. Revise the scope of access to a specific prefix in the S3 buckets, if needed (modify `"arn:aws:s3:::YOUR-BUCKET-NAME/*"`).
 
+:::note
+AWS credentials in Seqera are used to access S3 cloud buckets in [Data Explorer](../../data/data-explorer.mdx). If the scope of access for the Seqera IAM policy excludes buckets or directories you need to access in Data Explorer, create additional Seqera credentials with S3 access specific to your Data Explorer needs. 
+:::
+
 ## Modify the Seqera IAM role trust policy (optional)
 
 You can optionally create a Seqera role trust policy to allow EC2 instances or EKS clusters (depending on your Seqera deployment) to assume the Seqera IAM role.
