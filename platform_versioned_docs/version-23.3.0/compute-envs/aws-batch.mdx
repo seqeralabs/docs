@@ -161,7 +161,9 @@ Fargate requires the Fusion v2 file system and a **spot** provisioning model. Fa
 20. Select **Use Graviton CPU architecture** to execute on Graviton-based EC2 instances (ARM64 CPU architecture). When enabled, `c6g` instance types are used by default for compute jobs. You can specify your own **Instance types** under [**Advanced options**](#advanced-options). Seqera Platform supports all AWS Batch-compatible Graviton2 and Graviton3 instance types.
 
     :::note
-    Graviton requires Fargate, Wave containers, and Fusion v2 file system to be enabled. This feature is not compatible with GPU-based architecture.
+    Graviton requires Fargate, Wave containers, and Fusion v2 file system to be enabled. This feature is not compatible with GPU-based architecture. 
+    
+    In Seqera Enterprise deployments, set `TOWER_ENABLE_ARM64=true` to enable Graviton instance support. 
     :::
 
 21. Enter any additional **Allowed S3 buckets** that your workflows require to read input data or write output data. The **Pipeline work directory** bucket above is added by default to the list of **Allowed S3 buckets**.
