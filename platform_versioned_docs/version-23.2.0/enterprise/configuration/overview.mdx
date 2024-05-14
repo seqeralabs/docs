@@ -5,8 +5,6 @@ date: "21 Apr 2023"
 tags: [configuration]
 ---
 
-# Tower configuration
-
 The configuration of your Tower instance can be controlled using various environment variables specified in the [tower.env](../_templates/docker/tower.env) and [tower.yml](../_templates/docker/tower.yml) files. Note that a number of core Tower configuration values must be specified using environment variables in `tower.env`.
 
 In the [tower.yml](../_templates/docker/tower.yml) file, configuration options are objects nested within the `tower` object. This is formatted as follows:
@@ -44,7 +42,9 @@ Specify general Tower configuration values in your environment variables. The bo
 
 `TOWER_CRON_SERVER_PORT`: Define the HTTP port usd by the Tower cron service (default: `8080`, requires Tower 21.06.1 or later).
 
-`TOWER_USER_WORKSPACE_ENABLED` : Enable or disable the showing of the user private workspace context. (default: `true`, requires Tower 22.1.0 or later).
+`TOWER_USER_WORKSPACE_ENABLED`: Enable or disable the showing of the user private workspace context. (default: `true`, requires Tower 22.1.0 or later).
+
+`TOWER_ENABLE_ARM64`: Enable support for ARM64 CPU architectures. Required to enable Graviton in AWS Batch compute environments. 
 ```
 
 </details>
