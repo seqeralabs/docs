@@ -1,0 +1,3 @@
+[submodule "wave_docs/wave_repo"]
+	path = wave_docs/wave_repo
+	url = https://github.com/seqeralabs/wave
