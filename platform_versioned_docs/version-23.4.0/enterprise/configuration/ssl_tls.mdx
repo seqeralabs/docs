@@ -7,12 +7,6 @@ tags: [ssl, tls, https, configuration]
 
 HTTP must not be used in production environments. An SSL certificate is required for your Seqera instance to handle HTTPS traffic. Private certificates are supported, but require additional configuration during Seqera Enterprise installation and Nextflow execution.
 
-## Azure deployments: Use Application Gateway for TLS termination and load balancing
-
-See [Configure an Application Gateway](https://learn.microsoft.com/en-us/azure/application-gateway/create-ssl-portal) to set up an Application Gateway with TLS termination in the Azure portal. 
-
-See [Import a certificate in Azure Key Vault](https://learn.microsoft.com/en-us/azure/key-vault/certificates/tutorial-import-certificate?tabs=azure-portal) to store your TLS certificate keys securely with Azure. 
-
 ## AWS deployments: Manage SSL certificates with Amazon Certificate Manager (ACM)
 
 Use [Amazon Certificate Manager](https://aws.amazon.com/certificate-manager/) (ACM) to apply SSL certificates to your AWS deployment:
@@ -20,6 +14,12 @@ Use [Amazon Certificate Manager](https://aws.amazon.com/certificate-manager/) (A
 - If you have an existing SSL certificate, see [Importing certificates into AWS Certificate Manager](https://docs.aws.amazon.com/acm/latest/userguide/import-certificate.html).
 
 - If you don't have an existing SSL certificate, see [Issuing and managing certificates](https://docs.aws.amazon.com/acm/latest/userguide/gs.html).
+
+## Azure deployments: Use Application Gateway for TLS termination and load balancing
+
+See [Configure an Application Gateway](https://learn.microsoft.com/en-us/azure/application-gateway/create-ssl-portal) to set up an Application Gateway with TLS termination in the Azure portal. 
+
+See [Import a certificate in Azure Key Vault](https://learn.microsoft.com/en-us/azure/key-vault/certificates/tutorial-import-certificate?tabs=azure-portal) to store your TLS certificate keys securely with Azure. 
 
 ## Configure Seqera to trust your private certificate
 
