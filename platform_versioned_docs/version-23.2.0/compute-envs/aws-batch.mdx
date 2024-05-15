@@ -172,14 +172,13 @@ The bucket should be in the same region selected in the previous step.
 
 17. Select **Enable GPUs** if you intend to run GPU-dependent workflows in the compute environment. See [GPU usage](./overview.mdx#aws-batch) for more information.
 
-18. Select **Use Graviton CPU architecture** to execute the pipeline on Graviton-based EC2 instances (i.e., ARM64 CPU architecture). When enabled, Tower automatically selects `m6g`, `r6g` and `c6g` instance types for compute jobs. You can override this selection in the **Instance types** field under **Advanced settings**.
+18. Select **Use Graviton CPU architecture** to execute the pipeline on Graviton-based EC2 instances (ARM64 CPU architecture). When enabled, Tower automatically selects `m6g`, `r6g` and `c6g` instance types for compute jobs. You can override this selection in the **Instance types** field under **Advanced settings**.
 
-:::note
-Requires Fargate, Wave containers, and Fusion v2 file system to be enabled. This feature is not compatible with GPU-based architecture.
+    :::note
+    Requires Fargate, Wave containers, and Fusion v2 file system to be enabled. This feature is not compatible with GPU-based architecture.
 
-        This is a preview feature that requires the use of Nextflow `23.06.0-edge`. Graviton support is currently only available in a [Tower Cloud](https://tower.nf/) public instance.
-
-:::
+    This is a preview feature that requires the use of Nextflow `23.06.0-edge`. In Tower Enterprise deployments, set `TOWER_ENABLE_ARM64=true` to enable Graviton instance support. 
+    :::
 
 19. Enter any additional **Allowed S3 buckets** that your workflows require to read input data or write output data. The **Pipeline work directory** bucket above is added by default to the list of **Allowed S3 buckets**.
 

@@ -15,6 +15,7 @@ tags: [changelog]
 - Allow previewing of Nextflow output files in Data Explorer
 - New base image nginx 1.25.3 for tower-frontend unprivileged
 - Seqera Platform Enterprise license model change — requires new licenses for existing Enterprise customers
+- Remove tower.enable.arm64 config option
 - Feature: Changed default AzBatch image to ubuntu-server
 - Feature: Set private address for head job configuration in Google Batch
 - Feature: VM instance template support for Google Batch
@@ -99,7 +100,7 @@ tags: [changelog]
 ### 23.2.0 - 31 Jul 2023
 
 - Added: Support for Fargate for head job
-- Added: Support for Graviton architecture to AWS Batch compute environment (Cloud preview)
+- Added: Support for Graviton architecture in AWS Batch compute environments
 - Added: Ability to rename Actions, CEs, Pipelines, and Workspaces
 - Added: support for AWS SES (simple email service) as alternative to SMTP service for sending emails
 - Added: Ability to edit the names of Tower entities:
