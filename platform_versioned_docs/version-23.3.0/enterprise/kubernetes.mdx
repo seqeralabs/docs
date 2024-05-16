@@ -82,8 +82,8 @@ Seqera Enterprise requires a Redis database for caching purposes. Configure Redi
 
 1. Download the appropriate manifest for your infrastructure:
 
-    - [Azure AKS](_templates/k8s/redis.aks.yml)
     - [Amazon EKS](_templates/k8s/redis.eks.yml)
+    - [Azure AKS](_templates/k8s/redis.aks.yml)
     - [Google Kubernetes Engine](_templates/k8s/redis.gke.yml)
 
 1. Deploy to your cluster:
@@ -210,10 +210,10 @@ If further customization of the config file is needed, mount a config map/secret
 
 An ingress is used to make Seqera Enterprise publicly accessible, load-balance traffic, terminate TLS, and offer name-based virtual hosting. The included ingress will create an external IP address and forward HTTP traffic to the Seqera frontend.
 
-1. Download the appropriate manifest and configure it according to your infrastructure:
+1. Download and configure the appropriate manifest for your infrastructure:
 
-    - [Azure AKS](_templates/k8s/ingress.aks.yml)
     - [Amazon EKS](_templates/k8s/ingress.eks.yml)
+    - [Azure AKS](_templates/k8s/ingress.aks.yml)
     - [Google Kubernetes Engine](_templates/k8s/ingress.gke.yml)
 
 1. Deploy the manifest to your cluster:
