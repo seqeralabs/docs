@@ -5,12 +5,15 @@ date: "21 Apr 2023"
 tags: [ssl, tls, https, configuration]
 ---
 
-We recommend using public TLS certificates wherever possible. Private certificates are supported, but require additional configuration during Seqera Enterprise installation and Nextflow execution.
+HTTP must not be used in production environments. An SSL certificate is required for your Seqera instance to handle HTTPS traffic. Private certificates are supported, but require additional configuration during Seqera Enterprise installation and Nextflow execution.
 
-<!-- GW Note: Mar 22/23
-Removed `export SSL_CERT_FILE=/TARGET_HOSTNAME.pem` from the Nextflow container configuration as I thought it
-made sense to harmonize commands across the Tower & Nextflow containers (since they use the same underlying image).
--->
+## AWS deployments: Manage SSL certificates with Amazon Certificate Manager (ACM)
+
+Use [Amazon Certificate Manager](https://aws.amazon.com/certificate-manager/) (ACM) to apply SSL certificates to your AWS deployment:
+
+- If you have an existing SSL certificate, see [Importing certificates into AWS Certificate Manager](https://docs.aws.amazon.com/acm/latest/userguide/import-certificate.html).
+
+- If you don't have an existing SSL certificate, see [Issuing and managing certificates](https://docs.aws.amazon.com/acm/latest/userguide/gs.html).
 
 ## Configure Seqera to trust your private certificate
 
@@ -151,8 +154,6 @@ update-ca-trust
 
 You can secure your Seqera instance with a TLS certificate in several ways.
 
-**Certificate configuration options**
-
 **Load balancer (recommended)**
 
 Place a load balancer, configured to present a certificate and act as a TLS termination point, in front of your Seqera instance.
@@ -230,25 +231,3 @@ TLS v1.2 can be explicitly enabled by default using JDK environment variables:
 ```bash
 _JAVA_OPTIONS="-Dmail.smtp.ssl.protocols=TLSv1.2"
 ```
-
-<!--- 13-4-2023: Keeping old intermediate CA solution for a lookback if needed.
-```
-javax.net.ssl.SSLHandshakeException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
-at java.base/sun.security.ssl.Alert.createSSLException(Alert.java:131)
-at java.base/sun.security.ssl.TransportContext.fatal(TransportContext.java:349)
-at java.base/sun.security.ssl.TransportContext.fatal(TransportContext.java:292)
-at java.base/sun.security.ssl.TransportContext.fatal(TransportContext.java:287)
-at java.base/sun.security.ssl.CertificateMessage$T12CertificateConsumer.checkServerCerts(CertificateMessage.java:654)
-        at java.base/sun.security.ssl.CertificateMessage$T12CertificateConsumer.onCertificate(CertificateMessage.java:473)
-at java.base/sun.security.ssl.CertificateMessage$T12CertificateConsumer.consume(CertificateMessage.java:369)
-at java.base/sun.security.ssl.SSLHandshake.consume(SSLHandshake.java:392)
-```
-
-#### SOLUTION 2: Adding intermediate certificates to your instance
-
-To allow Java to automatically download missing intermediate certificates, activate the **enableAIAcaIssuers** system property via an environment variable:
-
-```bash
-export JAVA_OPTS="-Dcom.sun.security.enableAIAcaIssuers=true"
-```
--->
