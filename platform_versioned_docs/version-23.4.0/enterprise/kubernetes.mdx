@@ -22,13 +22,13 @@ Complete the following procedures to install Seqera Enterprise on a Kubernetes c
 
 Create a namespace for the Seqera resources.
 
-1. Create the namespace:
+Create the namespace:
 
     ```bash
     kubectl create namespace seqera-nf
     ```
 
-2. Switch to the namespace:
+Switch to the namespace:
 
     ```bash
     kubectl config set-context --current --namespace=seqera-nf
@@ -62,9 +62,9 @@ Seqera Platform Enterprise is distributed as a collection of Docker containers a
 
 ### Seqera ConfigMap
 
-1. Download and configure a [ConfigMap](_templates/k8s/configmap.yml) as detailed on the [configuration](configuration/overview.mdx) page.
+Download and configure a [ConfigMap](_templates/k8s/configmap.yml) as detailed on the [configuration](configuration/overview.mdx) page.
 
-2. Deploy the ConfigMap to your cluster:
+To deploy the ConfigMap to your cluster, run the following:
 
     ```bash
     kubectl apply -f configmap.yml
@@ -140,8 +140,9 @@ Seqera supports managed Redis services such as [Amazon ElastiCache][aws-elastica
 
 ### Seqera cron service
 
-1. Download the [cron service manifest](_templates/k8s/tower-cron.yml) file.
-1. Deploy the manifest to your cluster:
+Download the [cron service manifest](_templates/k8s/tower-cron.yml) file.
+
+To deploy the manifest to your cluster, run the following:
 
     ```bash
     kubectl apply -f tower-cron.yml
@@ -153,8 +154,9 @@ This container creates the required database schema the first time it instantiat
 
 ### Seqera frontend and backend
 
-1. Download the [manifest](_templates/k8s/tower-svc.yml).
-1. Deploy the manifest to your cluster:
+Download the [manifest](_templates/k8s/tower-svc.yml).
+
+To deploy the manifest to your cluster, run the following:
 
   ```bash
   kubectl apply -f tower-svc.yml
@@ -206,15 +208,15 @@ If further customization of the config file is needed, mount a config map/secret
 
 ### Seqera ingress
 
-An ingress is used to make Seqera Enterprise publicly accessible, load-balance traffic, terminate TLS, and offer name-based virtual hosting. The included ingress will create an external IP address and forward HTTP traffic to the Seqera frontend.
+An ingress is used to make Seqera Enterprise publicly accessible, load-balance traffic, terminate TLS, and offer name-based virtual hosting. The included ingress manifest will create an external IP address and forward HTTP traffic to the Seqera frontend.
 
-1. Download and configure the appropriate manifest for your infrastructure:
+Download and configure the appropriate manifest for your infrastructure:
 
     - [Amazon EKS](_templates/k8s/ingress.eks.yml)
     - [Azure AKS](_templates/k8s/ingress.aks.yml)
     - [Google Kubernetes Engine](_templates/k8s/ingress.gke.yml)
 
-1. Deploy the manifest to your cluster:
+To deploy the manifest to your cluster, run the following:
 
     ```bash
     kubectl apply -f ingress.*.yml
