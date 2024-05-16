@@ -10,19 +10,11 @@ import TabItem from '@theme/TabItem';
 
 This guide assumes that all prerequisites have been met. Visit the corresponding **Prerequisites** page for your infrastructure provider.
 
-:::note
-You may also use this guide for deployments to other cloud platforms. However, you must satisfy any prerequisites for those platforms. Use at your own risk.
-:::
-
-## Deploy Seqera Platform Enterprise on Kubernetes
-
-Complete the following procedures to install Seqera Enterprise on a Kubernetes cluster:
+Complete the following procedures to install Seqera Platform Enterprise on a Kubernetes cluster:
 
 ### Create a namespace
 
-Create a namespace for the Seqera resources.
-
-Create the namespace:
+Create a namespace for the Seqera resources:
 
     ```bash
     kubectl create namespace seqera-nf
@@ -36,7 +28,7 @@ Switch to the namespace:
 
 ### Configure container registry credentials
 
-Seqera Platform Enterprise is distributed as a collection of Docker containers available through the Seqera container registry [`cr.seqera.io`](https://cr.seqera.io). Contact [support](https://support.seqera.io) to get your container access credentials. After you've received your credentials, grant your cluster access to the registry:
+Seqera Enterprise is distributed as a collection of Docker containers available through the Seqera container registry [`cr.seqera.io`](https://cr.seqera.io). Contact [support](https://support.seqera.io) to get your container access credentials. After you've received your credentials, grant your cluster access to the registry:
 
 1. Retrieve the `name` and `secret` values from the JSON file that you received from Seqera support.
 
@@ -238,7 +230,7 @@ Check that all services are up and running:
 kubectl get pods
 ```
 
-## Test the application
+### Test the application
 
 See [Test deployment](./testing.mdx).
 
