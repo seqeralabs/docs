@@ -41,7 +41,7 @@ This functionality is available to users with the **Maintain** role and above.
 You'll be returned to the Data Studios landing page that displays the list of data studios in your workspace. The data studio you created will be listed with the status **stopped**.
 
 :::note
-By default, Data Studios has read and write permissions to any mounted data path. This means that data can be written from the data studio session back to the cloud storage path mounted. To stop potential data loss, only one data studio session per workspace can mount a unique data path. When adding a new data studio, data paths already mounted to other running data studios are unavailable. If a new file is uploaded to the cloud storage bucket path while a session is running, the file may not be available to the data studio session immediately.
+By default, Data Studios only has read permissions to mounted data paths. Write permissions can be added for specific cloud storage buckets during the compute environment configuration by defining additional **Allowed S3 Buckets**. This means that data can be written from the data studio session back to the cloud storage path mounted. To stop potential data loss, only one data studio session per workspace can mount a unique data path. When adding a new data studio, data paths already mounted to other running data studios are unavailable. If a new file is uploaded to the cloud storage bucket path while a session is running, the file may not be available to the data studio session immediately.
 :::
 
 ### About container image templates
@@ -202,7 +202,7 @@ In your tertiary analysis environment, open a new Terminal and type `ls -la /wor
 
 If your data studio doesn't advance from **starting** status to **running** status within 30 minutes, and you have access to the AWS Console for your organization, check that the AWS Batch compute environment associated with the session is in the **ENABLED** state with a **VALID** status. You can also check the **Compute resources** settings. Contact your organization's AWS administrator if you don't have access to the AWS Console.
 
-If sufficient resources are not available, **Stop** your data studio and any others that may be running before trying again.
+If sufficient compute environment resources are unavailable, **Stop** your data studio and any others that may be running before trying again. If you have access to the AWS Console for your organization, you can terminate a specific data studio from the AWS Batch Jobs page (filtering by compute environment queue).
 
 ### My data studio status is **errored**
 
