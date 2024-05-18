@@ -32,10 +32,12 @@ function isActive(id) {
 }
 
 const LinkItem = ({ to, children }) => {
+  let href = to;
+  if (!to.startsWith("http")) href = `https://seqera.io${to}`;
   return (
     <li>
       <Link
-        to={to}
+        to={href}
         className={clsx(styles.link, { [styles.active]: isActive(to) })}
       >
         {children}
@@ -49,7 +51,7 @@ const Products = () => {
     <div className="flex">
       <div className="w-[20%] flex-none">
         <Panel highlighted>
-          <Link to="/platform/">
+          <Link to="/platform/" className="leading-[0] block">
             <LogoPlatform />
           </Link>
           <div className={clsx(styles.description, styles.dark)}>
@@ -79,7 +81,7 @@ const Products = () => {
         <div className="p-1 w-[50%]">
           <Panel className="flex">
             <div className="pr-3">
-              <Link to="/nextflow/">
+              <Link className="block leading-[0]" to="/nextflow/">
                 <LogoNextflow />
               </Link>
               <div className={styles.description}>
@@ -116,7 +118,7 @@ const Products = () => {
         <div className="p-1 w-[50%]">
           <Panel className="flex">
             <div className="pr-3">
-              <Link to="/multiqc/">
+              <Link className="block leading-[0]" to="/multiqc/">
                 <LogoMultiQC />
               </Link>
               <div className={styles.description}>
@@ -153,7 +155,7 @@ const Products = () => {
         <div className="p-1 w-[50%]">
           <Panel className="flex">
             <div className="pr-3">
-              <Link to="/wave/">
+              <Link className="block leading-[0]" to="/wave/">
                 <LogoWave />
               </Link>
               <div className={styles.description}>
@@ -187,7 +189,9 @@ const Products = () => {
         <div className="p-1 w-[50%]">
           <Panel className="flex">
             <div className="pr-3">
-              <LogoFusion />
+              <Link className="block leading-[0]" to="/fusion/">
+                <LogoFusion />
+              </Link>
               <div className={styles.description}>
                 Distributed, lightweight file system for cloud data pipelines
               </div>

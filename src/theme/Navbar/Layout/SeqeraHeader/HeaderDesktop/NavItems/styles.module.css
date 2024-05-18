@@ -21,6 +21,9 @@
     display: inline-flex;
     align-items: center;
     border-radius: 6px;
+    border: none;
+    background-color: transparent;
+    font-family: inherit;
     & .chevron {
       margin-left: 10px;
       fill: var(--color-brand);

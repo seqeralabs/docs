@@ -18,7 +18,7 @@ const NavItems = ({ isDark = false, hideMenu }) => {
   return (
     <div className="container-lg w-full px-4 flex items-center justify-between">
       <div className="flex items-center">
-        <Link to="/" noBorder>
+        <Link to="/" noBorder className="leading-[0]">
           {isDark ? (
             <LogoDark height={22} width={112} className={styles.logo} />
           ) : (
@@ -40,7 +40,7 @@ const NavItems = ({ isDark = false, hideMenu }) => {
               <ForumIcon className="mr-2" />
               Forums
             </NavItem>
-            <NavItem id="http://docs.seqera.io" simple>
+            <NavItem id="http://docs.seqera.io" simple isActive>
               <DocsIcon className="mr-2" />
               Docs
             </NavItem>

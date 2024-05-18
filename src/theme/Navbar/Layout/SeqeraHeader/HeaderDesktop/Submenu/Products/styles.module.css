@@ -11,6 +11,7 @@
   margin-top: 10px;
   padding: 6px 12px;
   font-size: 11px;
+  line-height: 16.5px;
   font-weight: 600;
   border-radius: 99px;
   background: var(--color-brand-900);
@@ -34,20 +35,26 @@
   }
 }
 .links {
+  list-style: none;
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0;
   & li {
     padding: 1px 0;
     & a {
       display: inline-flex;
       align-items: center;
-      padding: 6px 8px;
+      padding: 5px 8px;
       font-size: 14px;
       border-radius: 6px;
       transition: all 0.3s;
+      color: inherit;
       & svg {
         margin-right: 8px;
       }
       &:hover,
       &.active {
+        text-decoration: none;
         background: var(--color-brand-200);
       }
     }
@@ -62,6 +69,8 @@
   }
 }
 .github {
+  line-height: 0;
+  display: block;
   position: absolute;
   bottom: 16px;
   right: 16px;

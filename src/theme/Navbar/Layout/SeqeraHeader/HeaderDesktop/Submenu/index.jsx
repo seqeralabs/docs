@@ -1,27 +1,27 @@
-import React from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import React from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
-import Products from "./Products"
-import Resources from "./Resources"
+import Products from "./Products";
+import Resources from "./Resources";
 
-import { useHeaderContext } from "../../context"
+import { useHeaderContext } from "../../context";
 
 const navVariants = {
   enter: { y: -20, opacity: 0 },
   idle: { y: 0, opacity: 1 },
   exit: { opacity: 0, y: -20 },
-}
+};
 
 const transition = {
   ease: "easeOut",
   duration: 0.2,
-}
+};
 
 const Submenu = ({ hideMenu }) => {
-  const { activeMenu, isMenuOpen } = useHeaderContext()
-  // const activeMenu = "products"
-  // const isMenuOpen = true
-  if (hideMenu) return null
+  const { activeMenu, isMenuOpen } = useHeaderContext();
+  // const activeMenu = "products";
+  // const isMenuOpen = true;
+  if (hideMenu) return null;
   return (
     <AnimatePresence>
       {isMenuOpen && (
@@ -42,7 +42,7 @@ const Submenu = ({ hideMenu }) => {
         </motion.div>
       )}
     </AnimatePresence>
-  )
-}
+  );
+};
 
-export default Submenu
+export default Submenu;

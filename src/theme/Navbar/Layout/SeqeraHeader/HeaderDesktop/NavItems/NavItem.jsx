@@ -1,18 +1,13 @@
 import React from "react";
 import clsx from "clsx";
 
-import Link from "../Submenu/shared/Link";
+import Link from "@docusaurus/Link";
 import AngleDown from "../../_shared/angle-down.inline.svg";
 import { useHeaderContext } from "../../context";
 
 import styles from "./styles.module.css";
 
-function isActive(id) {
-  if (typeof window === "undefined") return false;
-  return window.location.pathname === id;
-}
-
-const NavItem = ({ id, children, simple }) => {
+const NavItem = ({ id, children, simple, isActive }) => {
   const [lastClickTime, setLastClickTime] = React.useState(null);
   const context = useHeaderContext();
   const { isActiveNested, isMenuOpen } = context;
@@ -20,16 +15,19 @@ const NavItem = ({ id, children, simple }) => {
   const timeoutTime = isMenuOpen ? 0 : delay;
   const timeoutRef = React.useRef(null);
 
+  let to = id;
+  if (!id.startsWith("http")) to = `https://seqera.io${id}`;
+
   if (simple) {
     return (
-      <Link
-        to={id}
+      <a
+        href={to}
         className={clsx(styles.navItem, {
-          [styles.active]: isActive(id),
+          [styles.active]: isActive,
         })}
       >
         {children}
-      </Link>
+      </a>
     );
   }
 
