@@ -18,9 +18,9 @@ const transition = {
 };
 
 const Submenu = ({ hideMenu }) => {
-  // const { activeMenu, isMenuOpen } = useHeaderContext();
-  const activeMenu = "resources";
-  const isMenuOpen = true;
+  const { activeMenu, isMenuOpen } = useHeaderContext();
+  // const activeMenu = "resources";
+  // const isMenuOpen = true;
   if (hideMenu) return null;
   return (
     <AnimatePresence>
