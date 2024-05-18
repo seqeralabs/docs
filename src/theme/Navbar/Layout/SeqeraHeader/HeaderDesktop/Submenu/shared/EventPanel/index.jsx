@@ -2,7 +2,6 @@ import React from "react";
 import useGlobalData from "@docusaurus/useGlobalData";
 
 import Panel from "../Panel";
-import Button from "../../../../../../../../components/Button";
 
 import styles from "./styles.module.css";
 
@@ -19,12 +18,12 @@ const EventPanel = ({ large }) => {
       <h3>{event.title}</h3>
       <div className={styles.date}>{event.date}</div>
       <div className={styles.description}>{excerpt}</div>
-      <Button
-        to={`https://seqera.io/events/${event.slug.current}`}
+      <a
+        href={`https://seqera.io/events/${event.slug.current}`}
         className={styles.button}
       >
         Learn more
-      </Button>
+      </a>
     </Panel>
   );
 };
