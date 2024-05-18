@@ -65,8 +65,8 @@ const Column = ({ title, links }) => {
             <Link
               to={href}
               className={clsx(
-                "flex items-center text-[14px] px-3 rounded-lg text-brand",
-                "transition-all duration-500 ease-in-out hover:bg-brand-200",
+                "flex items-center text-[14px] px-3 rounded-lg text-brand hover:text-brand",
+                "transition-all duration-500 ease-in-out hover:bg-brand-200 hover:no-underline",
                 "h-[37px]",
                 { "bg-brand-200": isActive(href) },
               )}

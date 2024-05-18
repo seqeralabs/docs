@@ -1,29 +1,5 @@
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  width: 100%;
-  & h3 {
-    font-size: 28px;
-    font-family: Degular, sans-serif;
-    font-weight: 600;
-    overflow: hidden;
-    white-space: nowrap;
-    line-height: 1;
-  }
-  & .label {
-    background: var(--color-product-600);
-    font-weight: 600;
-    color: white;
-    font-size: 10px;
-    line-height: 1;
-    padding: 6px 8px;
-    border-radius: 4px;
-    text-transform: uppercase;
-  }
-}
 .date {
-  margin: 6px 0 16px 0;
+  margin: 0px 0 16px 0;
   font-size: 10px;
   color: var(--color-product-300);
 }

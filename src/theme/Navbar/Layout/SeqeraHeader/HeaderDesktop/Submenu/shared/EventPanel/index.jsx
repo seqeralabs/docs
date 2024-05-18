@@ -15,7 +15,7 @@ const EventPanel = ({ large }) => {
     excerpt = event.description.split(" ").slice(0, 32).join(" ") + "...";
   return (
     <Panel large={large} highlighted className={styles.eventPanel}>
-      <h3>{event.title}</h3>
+      <h3 className="mb-2">{event.title}</h3>
       <div className={styles.date}>{event.date}</div>
       <div className={styles.description}>{excerpt}</div>
       <a
