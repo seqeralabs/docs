@@ -1,5 +1,5 @@
 import React from "react";
-import classNames from "classnames";
+import clsx from "clsx";
 import Link from "../../_shared/Link";
 
 import NavItem from "./NavItem";

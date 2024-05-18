@@ -1,5 +1,5 @@
 import React from "react";
-import classNames from "classnames";
+import clsx from "clsx";
 import { motion, AnimatePresence } from "framer-motion";
 
 import Link from "./Link";
@@ -28,7 +28,7 @@ const Panels = ({ children, products, isOpen }) => {
           exit="exit"
           variants={navVariants}
           transition={transition}
-          className={classNames(styles.panels, {
+          className={clsx(styles.panels, {
             [styles.products]: products,
           })}
         >
@@ -58,13 +58,13 @@ const Panel = ({
   if (cta) CTAs = [cta];
   return (
     <div
-      className={classNames(styles.panel, className, {
+      className={clsx(styles.panel, className, {
         [styles.highlighted]: highlighted,
         [styles.large]: large,
       })}
     >
       {Image ? (
-        <Link to={imageURL} className={classNames("block", styles.panelTitle)}>
+        <Link to={imageURL} className={clsx("block", styles.panelTitle)}>
           <Image />
         </Link>
       ) : title ? (

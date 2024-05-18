@@ -1,5 +1,5 @@
 import React from "react";
-import classNames from "classnames";
+import clsx from "clsx";
 import Link from "@docusaurus/Link";
 
 import styles from "./styles.module.css";
@@ -20,7 +20,7 @@ const Card: React.FC<Props> = ({ children, to, title, Img, id }) => {
       <a
         href={to}
         target="_blank"
-        className={classNames(styles.card, styles[id])}
+        className={clsx(styles.card, styles[id])}
         rel="noopener noreferrer"
       >
         {Img ? (
@@ -35,7 +35,7 @@ const Card: React.FC<Props> = ({ children, to, title, Img, id }) => {
     );
 
   return (
-    <Link to={to} className={classNames(styles.card, styles[id])}>
+    <Link to={to} className={clsx(styles.card, styles[id])}>
       {Img ? (
         <div>
           <Img />

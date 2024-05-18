@@ -1,5 +1,5 @@
 import React from "react";
-import classnames from "classnames";
+import clsx from "clsx";
 
 import AngleDown from "../../_shared/angle-down.inline.svg";
 
@@ -40,7 +40,7 @@ const NavItem = ({ id, children }) => {
   return (
     <button
       type="button"
-      className={classnames(styles.navItem, {
+      className={clsx(styles.navItem, {
         [styles.active]: isActiveNested(id),
         [styles.menuOpen]: isMenuOpen,
       })}

@@ -1,5 +1,5 @@
 import React from "react";
-import classNames from "classnames";
+import clsx from "clsx";
 
 import styles from "./styles.module.css";
 
@@ -31,7 +31,7 @@ const Products = ({ isOpen }) => {
           <>
             <Link
               to="https://tower.nf/login"
-              className={classNames(styles.button, styles.cta)}
+              className={clsx(styles.button, styles.cta)}
             >
               Sign up
             </Link>

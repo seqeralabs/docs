@@ -1,6 +1,6 @@
 import React from "react";
 import useGlobalData from "@docusaurus/useGlobalData";
-import classNames from "classnames";
+import clsx from "clsx";
 
 import Link from "../../_shared/Link";
 import Panels from "./Panels";
@@ -36,7 +36,7 @@ const Company = ({ isOpen }) => {
           <>
             <Link
               to={links.company.Careers}
-              className={classNames(styles.button, styles.cta)}
+              className={clsx(styles.button, styles.cta)}
             >
               See all open roles
             </Link>

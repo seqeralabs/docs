@@ -1,12 +1,12 @@
 import React from "react";
-import classnames from "classnames";
+import clsx from "clsx";
 import Link from "@docusaurus/Link";
 
 import styles from "./styles.module.css";
 
 const NavItemDocs = () => {
   return (
-    <Link className={classnames(styles.navItem, styles.docs)} to="/">
+    <Link className={clsx(styles.navItem, styles.docs)} to="/">
       Docs
     </Link>
   );
