@@ -23,7 +23,7 @@ html {
 }
 .seqeraHeader {
   position: relative;
-  height: 104px;
+  height: 72px;
   & > header {
     z-index: 301;
     position: absolute;
