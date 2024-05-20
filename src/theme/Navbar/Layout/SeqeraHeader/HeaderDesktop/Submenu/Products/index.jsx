@@ -12,6 +12,7 @@ import LogoFusion from "./images/fusion.inline.svg";
 import {
   About,
   Core,
+  DocsDark,
   Docs,
   Github,
   Tag,
@@ -64,7 +65,7 @@ const Products = () => {
               Overview
             </LinkItem>
             <LinkItem to="https://docs.seqera.io">
-              <Docs />
+              <DocsDark />
               Documentation
             </LinkItem>
             <LinkItem to="/pricing/">

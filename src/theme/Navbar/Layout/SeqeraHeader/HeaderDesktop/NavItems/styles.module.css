@@ -34,6 +34,8 @@
   &:hover,
   &.active {
     background-color: var(--color-brand-200);
+    color: var(--color-brand);
+    text-decoration: none;
   }
   &.active {
     & .chevron {
