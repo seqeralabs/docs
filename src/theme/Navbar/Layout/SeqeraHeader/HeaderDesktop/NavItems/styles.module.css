@@ -6,37 +6,38 @@
   display: none;
   align-items: center;
   margin: 0 -2px;
-  & .navItem {
-    position: relative;
-    margin: 0 2px;
-    padding: 8px 12px;
+}
+.navItem {
+  position: relative;
+  margin: 0 2px;
+  padding: 0 12px;
+  height: 40px;
+  transition: all 0.2s;
+  color: var(--color-brand);
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.17px;
+  text-decoration: none;
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 6px;
+  border: none;
+  background-color: transparent;
+  font-family: inherit;
+  & .chevron {
+    margin-left: 10px;
+    fill: var(--color-brand);
     transition: all 0.2s;
-    color: var(--color-brand);
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 400;
-    letter-spacing: 0.17px;
-    text-decoration: none;
-    outline: none;
-    display: inline-flex;
-    align-items: center;
-    border-radius: 6px;
-    border: none;
-    background-color: transparent;
-    font-family: inherit;
+  }
+  &:hover,
+  &.active {
+    background-color: var(--color-brand-200);
+  }
+  &.active {
     & .chevron {
-      margin-left: 10px;
-      fill: var(--color-brand);
-      transition: all 0.2s;
-    }
-    &:hover,
-    &.active {
-      background-color: var(--color-brand-200);
-    }
-    &.active {
-      & .chevron {
-        transform: rotate(180deg);
-      }
+      transform: rotate(180deg);
     }
   }
 }

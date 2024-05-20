@@ -78,7 +78,7 @@ export default function NavbarLayout({ children }) {
             "navbar__link--active": isHome,
           })}
         >
-          Docs
+          Home
         </Link>
         {children}
         <NavbarBackdrop onClick={mobileSidebar.toggle} />

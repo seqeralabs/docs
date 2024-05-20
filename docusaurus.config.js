@@ -145,11 +145,6 @@ export default async function createConfigAsync() {
 
     themeConfig: {
       image: "img/share.jpg",
-      colorMode: {
-        defaultMode: "dark",
-        disableSwitch: false,
-        respectPrefersColorScheme: false,
-      },
       navbar: {
         logo: {
           alt: "Seqera",

@@ -59,7 +59,7 @@ const Column = ({ title, links }) => {
       <h3 className="text-[12px] font-display text-brand-700 font-semibold font-title mt-[2px] mb-[2px]">
         {title}
       </h3>
-      <ul className="mt-2 -mx-2 p-0">
+      <ul className="mt-2 -mx-2 p-0 list-none">
         {links.map(([label, href, Icon]) => (
           <li key={label}>
             <Link
