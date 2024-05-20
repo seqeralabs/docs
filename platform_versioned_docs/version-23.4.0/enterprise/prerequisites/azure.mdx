@@ -15,13 +15,13 @@ Run the Seqera container with [Docker](../docker-compose.mdx) on an Azure VM ins
 
 - **MySQL database**: An external database such as [Azure Database for MySQL][azure-db-create-portal] is highly recommended for production deployments.
 
-- **SSL certificate**: An SSL certificate is required for your Seqera instance to handle HTTPS traffic. See [SSL/TLS configuration](../configuration/ssl_tls.mdx#azure-deployments-use-application-gateway-for-tls-termination-and-load-balancing) for more information.
+- **SSL certificate**: An SSL certificate is required for your Seqera instance to handle HTTPS traffic.
 
   :::caution
   HTTP-only implementations **must** set the `TOWER_ENABLE_UNSAFE_MODE=true` environment variable in the Seqera hosting infrastructure to enable user login. HTTP must not be used in production environments.
   :::
 
-- **(Optional) DNS**: DNS is required to support human-readable domain names and load-balanced traffic. See [Azure DNS][azure-dns] to learn about domain aquisition and record management.
+- **DNS**: (Optional) DNS is required to support human-readable domain names and load-balanced traffic. See [Azure DNS][azure-dns] to learn about domain aquisition and record management.
 
 These decisions must be made before you continue as they impact how Seqera configuration files are updated.
 
@@ -32,8 +32,6 @@ A Linux VM instance is required to deploy Seqera Enterprise via Docker Compose. 
 ### Prerequisites for AKS
 
 An [Azure Kubernetes Service (AKS)][aks-walkthrough] cluster is required to deploy Seqera Enterprise via Kubernetes.
-
-To customize your cluster's Ingress Controller to support HTTPS redirects and TLS certificates, see [Application Gateway Ingress Controller][application-gateway-ingress].
 
 ## Azure setup
 
@@ -46,7 +44,7 @@ Create a resource group:
 - [Via the Azure CLI][azure-rg-cli]
 
 <details>
-   <summary>Create a resource group via Azure portal</summary>
+  <summary>Create a resource group via Azure portal</summary>
 
   1. Sign in to the [Azure portal](https://portal.azure.com).
 
@@ -56,11 +54,9 @@ Create a resource group:
 
   1. Enter the following values:
 
-    - **Subscription**: Select your Azure subscription.
-
-    - **Resource group**: Enter a new resource group name (such as `towerrg`).
-
-    - **Region**: Select the region where your assets will exist (such as `East US`).
+      - **Subscription**: Select your Azure subscription.
+      - **Resource group**: Enter a new resource group name (such as `towerrg`).
+      - **Region**: Select the region where your assets will exist (such as `East US`).
 
   1. Select **Review and Create**.
 
@@ -68,13 +64,13 @@ Create a resource group:
 
 </details>
 <details>
-   <summary>Create a resource group via Azure CLI</summary>
+  <summary>Create a resource group via Azure CLI</summary>
 
   Run the `az group create` command:
 
-   ```console
+  ```console
   az group create --name $MY_RESOURCE_GROUP_NAME --location $REGION
-   ```
+  ```
 
 </details>
 
@@ -85,7 +81,7 @@ Create a storage account:
 - [Via the Azure CLI][azure-storage-cli]
 
 <details>
-   <summary>Create a storage account via Azure portal</summary>
+  <summary>Create a storage account via Azure portal</summary>
 
   1. Sign in to the [Azure portal](https://portal.azure.com).
 
@@ -95,17 +91,12 @@ Create a storage account:
 
   1. Enter the following values:
 
-    - **Subscription**: Select your Azure subscription.
-
-    - **Resource group**: Enter your resource group name.
-
-    - **Storage account name**: Enter a new storage account name (e.g., `towerstorage`).
-
-    - **Region**: Select the region where your Resource Group exists (e.g., `East US`).
-
-    - **Performance**: Select `Standard`.
-
-    - **Redundancy**: Select `Geo-redundant storage (GRS)`.
+      - **Subscription**: Select your Azure subscription.
+      - **Resource group**: Enter your resource group name.
+      - **Storage account name**: Enter a new storage account name (e.g., `towerstorage`).
+      - **Region**: Select the region where your Resource Group exists (e.g., `East US`).
+      - **Performance**: Select `Standard`.
+      - **Redundancy**: Select `Geo-redundant storage (GRS)`.
 
   1. Select **Review + create**. The default values are used in the other tabs. See [Create a storage account][azure-storage] for further details on each setting.
 
@@ -113,13 +104,13 @@ Create a storage account:
 
 </details>
 <details>
-   <summary>Create a storage account via Azure CLI</summary>
+  <summary>Create a storage account via Azure CLI</summary>
 
   Run the `az storage account create` command:
 
-   ```console
+  ```console
   az storage account create -n towerstorage -g towerrg -l eastus --sku Standard_GRS
-   ```
+  ```
 
 </details>
 
@@ -145,17 +136,17 @@ Create an Azure MySQL DB instance:
   1. Select **Create**.
   1. On the **Select Azure Database for MySQL deployment option** pane, select **Flexible server** as the deployment option.
   1. On the Basics tab, enter or select the following information:
-    - Your **Subscription** name 
-    - Your **Resource group** name 
-    - A **Server name** such as `towerdbserver`
-    - Your **Region**
-    - The **Workload type**, based on your required `max_connections`
-    - **High availability** — high availability is recommended for production deployments 
-    - **Standby availability zone** — standby server zone location
-    - **MySQL version** — 8.0 
-    - An **Admin username** to access the server 
-    - A **Password** to access the server 
-    - Your **Compute + storage** requirements, considering the minimum performance requirements outlined above 
+      - Your **Subscription** name 
+      - Your **Resource group** name 
+      - A **Server name** such as `towerdbserver`
+      - Your **Region**
+      - The **Workload type**, based on your required `max_connections`
+      - **High availability** — high availability is recommended for production deployments 
+      - **Standby availability zone** — standby server zone location
+      - **MySQL version** — 8.0 
+      - An **Admin username** to access the server 
+      - A **Password** to access the server 
+      - Your **Compute + storage** requirements, considering the minimum performance requirements outlined above 
   1. Configure networking options. 
   1. Select **Review + create**, then **Create**. 
 
@@ -165,19 +156,19 @@ Create an Azure MySQL DB instance:
 
   1. Run `az mysql flexible-server create` to create your server:
 
-  ```console
-  az mysql flexible-server create --location eastus --resource-group towerrg --name towerdbserver --admin-user username --admin-password password --sku-name Standard_B2ms --tier Burstable --public-access 0.0.0.0 --storage-size 30 --version 8.0 --high-availability ZoneRedundant --zone 1 --standby-zone 3 --storage-auto-grow Enabled --iops 500
-  ```
+    ```console
+    az mysql flexible-server create --location eastus --resource-group towerrg --name towerdbserver --admin-user username --admin-password password --sku-name Standard_B2ms --tier Burstable --public-access 0.0.0.0 --storage-size 30 --version 8.0 --high-availability ZoneRedundant --zone 1 --standby-zone 3 --storage-auto-grow Enabled --iops 500
+    ```
 
-  The `sku-name`, `tier`, `storage-size`, and `iops` values depend on your performance requirements.
+      The `sku-name`, `tier`, `storage-size`, and `iops` values depend on your performance requirements.
 
   1. Run `az mysql flexible-server db create` to create a database on your server:
 
-  ```console 
-  az mysql flexible-server db create --resource-group towerrg
-                                   --server-name towerdbserver
-                                   --database-name towerdb
-  ```                                
+    ```console 
+    az mysql flexible-server db create --resource-group towerrg
+                                    --server-name towerdbserver
+                                    --database-name towerdb
+    ```                                
 
 </details>
 
@@ -195,7 +186,6 @@ Create a VM instance with these attributes:
 - At least **2 CPUS** and **8GB RAM**.
 - **Ubuntu Server 22.04 LTS - Gen2** image.
 - **Accessible by SSH**.
-- Implement DNS or load balancing via [Azure Application Gateway][azure-dns].
 
 Create an Azure Linux VM:
 - [Via the Azure portal][azure-linux-vm-portal]
@@ -218,7 +208,8 @@ Create an Azure Linux VM:
       - Enter a **Key pair name**
   1. Under **Inbound port rules**:
       - Select **Allow selected ports**
-      - Select **SSH (22)** and **HTTP (80)** from the dropdown
+      - Select **SSH (22)**, **HTTP (8000)**, **HTTP (80)**, and **HTTPS (443)** (required for SSL termination in production environments) from the dropdown
+
   1. Select **Review + create** at the bottom of the page.
   1. Review your VM details, then select **Create**.
   1. When the **Generate new key pair** window opens, select **Download private key and create resource**. Your key file will be download as `myKey.pem`. Note the path to which it was downloaded.
@@ -240,6 +231,14 @@ Create an Azure Linux VM:
   1. On the **Virtual machines** page, select your VM name to navigate to the VM details.
   1. Select **Networking** from the left-hand navigation panel.
   1. **Add inbound port rule** for port 8000.
+
+  To allow ingress on port 443 (required for SSL/TLS termination in production environments):
+
+  1. Enter **Virtual Machines** in the search bar.
+  1. Under **Services**, select **Virtual machines**.
+  1. On the **Virtual machines** page, select your VM name to navigate to the VM details.
+  1. Select **Networking** from the left-hand navigation panel.
+  1. **Add inbound port rule** for port 443.
 
   Connect to the VM via SSH:
 
@@ -280,19 +279,19 @@ Seqera Platform Enterprise is distributed as a collection of Docker containers a
 container registry ([cr.seqera.io](https://cr.seqera.io)). Contact [support](https://support.seqera.io) to get your container access credentials. After you've received your credentials, retrieve the Seqera container images on your Azure VM:
 
 1. Retrieve the **username** and **password** you received from Seqera support.
-2. Run the following Docker command to authenticate to the registry (using the `username` and `password` values copied in step 1):
+1. Run the following Docker command to authenticate to the registry (using the `username` and `password` values copied in step 1):
 
-   ```bash
-   docker login -u '/\<USERNAME\>/' -p '/\PASSWORD\>/' cr.seqera.io
-   ```
+    ```bash
+    docker login -u '/\<USERNAME\>/' -p '/\PASSWORD\>/' cr.seqera.io
+    ```
 
-3. Pull the Seqera container images with the following commands:
+1. Pull the Seqera container images with the following commands:
 
-   ```bash
-   docker pull cr.seqera.io/private/nf-tower-enterprise/backend:v23.4.3
+    ```bash
+    docker pull cr.seqera.io/private/nf-tower-enterprise/backend:v23.4.3
 
-   docker pull cr.seqera.io/private/nf-tower-enterprise/frontend:v23.4.3
-   ```
+    docker pull cr.seqera.io/private/nf-tower-enterprise/frontend:v23.4.3
+    ```
 
 ## Next steps 
 
@@ -300,7 +299,6 @@ See [Configuration](../configuration/overview.mdx).
 
 [docker]: https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
 [aks-walkthrough]: https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough-portal
-[application-gateway-ingress]: https://azure.github.io/application-gateway-kubernetes-ingress/
 [azure-db-create-cli]: https://learn.microsoft.com/en-us/azure/mysql/flexible-server/quickstart-create-server-cli
 [azure-db-create-portal]: https://learn.microsoft.com/en-us/azure/mysql/flexible-server/quickstart-create-server-portal
 [azure-db-config]: https://docs.microsoft.com/en-us/azure/mysql/connect-java#prepare-a-configuration-file-to-connect-to-azure-database-for-mysql
