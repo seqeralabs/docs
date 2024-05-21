@@ -58,3 +58,11 @@ html.plugin-id-fusion {
     }
   }
 }
+
+/**
+Material Design Icons (SVG)
+*/
+.mdi-icon {
+  vertical-align: middle;
+  margin: -4px;
+}
