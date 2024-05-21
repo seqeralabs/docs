@@ -107,9 +107,9 @@ Kubernetes compute environments do not use cloud cache by default. To specify a 
    <details>
       <summary>Google Cloud Storage</summary>
 
-      1. See [these instructions](../compute-envs/google-cloud-batch.md#iam) to set up IAM and create a JSON key file for the custom service account with permissions to your Google Cloud storage account. 
+      1. See [these instructions](../compute-envs/google-cloud-batch.mdx#iam) to set up IAM and create a JSON key file for the custom service account with permissions to your Google Cloud storage account. 
       2. If you run the [gcloud CLI authentication flow](https://nextflow.io/docs/edge/google.html#credentials) with `gcloud auth application-default login`, your Application Default Credentials are written to `$HOME/.config/gcloud/application_default_credentials.json` and picked up by Nextflow automatically. Otherwise, declare the `GOOGLE_APPLICATION_CREDENTIALS` environment variable explicitly with the local path to your service account credentials file created in the previous step. 
-      3. Add the following to the **Nextflow Config file** field when you [launch](../launch/launchpad.md#launch-form) your pipeline:
+      3. Add the following to the **Nextflow Config file** field when you [launch](../launch/launchpad.mdx#launch-form) your pipeline:
 
       ```groovy
       // Specify cloud storage credentials
