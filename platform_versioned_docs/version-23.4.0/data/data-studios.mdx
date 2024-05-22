@@ -182,10 +182,10 @@ When you restart a data studio, or start a new data studio from a previously cre
 
 Checkpoints can be renamed and the name has to be unique per data studio. Spaces in checkpoint names are converted to underscores automatically.
 
-Checkpoint files in the compute environment work directory may be shared by multiple data studios. Each checkpoint file is cleaned up asynchronously by Seqera Platform after the last data studio referencing the checkpoint is deleted.
+Checkpoint files in the compute environment work directory may be shared by multiple data studios. Each checkpoint file is cleaned up asynchronously after the last data studio referencing the checkpoint is deleted.
 
 :::note
-The cleanup process is best effort and not guaranteed. Seqera Platform tries to remove the checkpoint, but it can fail. For example, if the compute environment credentials used do not have sufficient permissions to delete objects from storage buckets.
+The cleanup process is a best effort and not guaranteed. Seqera attempts to remove the checkpoint, but it can fail—for example, if the compute environment credentials used do not have sufficient permissions to delete objects from storage buckets.
 :::
 
 ## Data studio statuses
