@@ -88,9 +88,29 @@ Data Explorer supports file uploads to your private cloud storage buckets. From 
 You must configure cross-origin resource sharing (CORS) for your cloud storage provider to allow file uploads from Seqera. CORS configuration differs for each provider.
 :::
 
-### AWS S3 CORS configuration
+## Download multiple files
 
-Apply a [CORS configuration](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ManageCorsUsing.html) to enable file uploads from Seqera to specific S3 buckets. The CORS configuration is a JSON file that defines the origins, headers, and methods allowed for resource sharing requests to a bucket. Follow [these AWS instructions](https://docs.aws.amazon.com/AmazonS3/latest/userguide/enabling-cors-examples.html) to apply the CORS configuration below to each bucket you wish to enable file uploads for:
+You can download up to a maximum of 1,000 files using the browser interface, or an unlimited number of files with the auto-generated download script that uses your cloud provider's CLI and credentials.
+
+:::note
+If you use a non-Chromium based browser, such as Safari or Firefox, file paths are concatenated with an underscore (`_`) character and the cloud bucket directory structure is not reproduced locally. For example, the file `s3://example-us-east-1/path/to/files/my-file-1.txt` is saved as `path_to_files_my-file-1.txt`.
+:::
+
+Open the cloud bucket and navigate to the folder that you'd like to download files and folders from. By default, you can download the contents of the current directory by choosing **Download current directory**. Alternatively, use checkboxes to select specific files and folders, and select the **Download** button. You can **Download files** via the browser or **Download using code**.
+
+The code snippet provided is specific to the cloud provider you've configured. You may be prompted to authenticate during the download process. Refer to your cloud provider's documentation for troubleshooting credential-related issues:
+
+- [GCP](https://cloud.google.com/sdk/gcloud/reference/storage)
+- [AWS](https://docs.aws.amazon.com/cli/latest/reference/s3/)
+- [Azure](https://learn.microsoft.com/en-us/cli/azure/storage?view=azure-cli-latest)
+
+## CORS configurations
+
+Each public cloud provider has a specific way to allow Cross-Origin Resource Sharing (CORS) for both uploads and multi-file downloads.
+
+### Amazon S3 CORS configuration
+
+Apply a [CORS configuration](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ManageCorsUsing.html) to enable file uploads and folder downloads from the Seqera Platform to and from specific S3 buckets. The CORS configuration is a JSON file that defines the origins, headers, and methods allowed for resource sharing requests to a bucket. Follow [these AWS instructions](https://docs.aws.amazon.com/AmazonS3/latest/userguide/enabling-cors-examples.html) to apply the CORS configuration below to each bucket you wish to enable file uploads and folder downloads for:
 
 **Seqera Cloud S3 CORS configuration**
 
@@ -122,7 +142,7 @@ Replace `<your-seqera-instance.url>` with your Seqera Enterprise server URL:
 CORS configuration in Azure Blob Storage is set at the account level. This means that CORS rules for your account apply to every blob in the account.
 :::
 
-Apply a [CORS configuration](https://learn.microsoft.com/en-us/rest/api/storageservices/cross-origin-resource-sharing--cors--support-for-the-azure-storage-services#enabling-cors-for-azure-storage) to enable file uploads from Seqera to your Azure Blob Storage account.
+Apply a [CORS configuration](https://learn.microsoft.com/en-us/rest/api/storageservices/cross-origin-resource-sharing--cors--support-for-the-azure-storage-services#enabling-cors-for-azure-storage) to enable file uploads and folder downloads from the Seqera Platform to and from your Azure Blob Storage account.
 
 **Seqera Cloud Azure CORS configuration**
 
@@ -179,3 +199,18 @@ Google Cloud Storage only supports CORS configuration via gcloud CLI.
   "maxAgeSeconds": 3600
 }
 ```
+
+## Participant roles
+
+The role assigned to a user affects what functionality is available in Data Explorer. The specific functionality for each role is described in the following list of roles:
+
+- **View** role: Can only view contents of cloud storage buckets. Cannot download, upload, or preview.
+- **Launch** role: Can only view contents of cloud storage buckets. Cannot download, upload, or preview.
+- **Connect** role: Can only view contents of cloud storage buckets. Cannot download, upload, or preview.
+- **Maintain** role: Can view, download, upload, and preview contents of cloud storage buckets.
+- **Admin** role: Can view, download, upload, and preview contents of cloud storage buckets.
+- **Owner** role: Can view, download, upload, and preview contents of cloud storage buckets.
+
+For more information on roles in Seqera Platform, see [Participant roles][roles].
+
+[roles]: platform_versioned_docs/version-23.4.0/orgs-and-teams/workspace-management.mdx#participant-roles
