@@ -5,11 +5,9 @@ date: "14 May 2024"
 tags: [nextflow, getting started, get started]
 ---
 
-The Nextflow scripting language is an extension of the Groovy programming language. Nextflow lets you run analysis pipelines on virtually any computing environment. From version `22.03.0-edge` DSL2 became the default DSL version. If you're still using DSL1, the [migrating from DSL1 page](https://www.nextflow.io/docs/latest/dsl1.html) should be read before you proceed.
+The Nextflow scripting language is an extension of the Groovy programming language. It is a workflow framework that can be used in a wide range of applications to integrate shell commands as individual processes in one cohesive pipeline that's portable, reproducible, scalable, and checkpointed. 
 
-Nextflow is a workflow framework that can be used in a wide range of applications to integrate different shell commands as individual processes in one cohesive pipeline that's portable, reproducible, scalable, and checkpointed. 
-
-Processes run locally by default. This works well for pipeline development, testing, and small-scale workflows. For large-scale computational pipelines, a High-Performance Computing (HPC) cluster or cloud platform is recommended.
+Nextflow lets you run analysis pipelines on virtually any computing environment. Processes run locally by default. This works well for pipeline development, testing, and small-scale workflows. For large-scale computational pipelines, a High-Performance Computing (HPC) cluster or cloud platform is recommended.
 
 - [I'm completely new. What is Nextflow?](#nextflow-overview)
 - I want to [install](#install-nextflow) Nextflow for the first time
@@ -22,13 +20,13 @@ Install Nextflow locally, or run it [in a container](https://training.nextflow.
 
 #### Download Nextflow
 
-Open your terminal and execute this command:
+Open a terminal and execute this command:
 
 ```
 wget -qO- https://get.nextflow.io | bash
 ``` 
 
-Alternatively, you could use the curl command:
+Alternatively, use the curl command:
 
 ```
 curl -s https://get.nextflow.io | bash
@@ -44,7 +42,7 @@ Finally, ensure the Nextflow executable is in your `$PATH`. The executable could
 
 ### Check your installation
 
-Check that you have correctly installed nextflow by running the following command:
+Confirm that you have correctly installed Nextflow with the following command:
 
 ```
 nextflow info
@@ -79,15 +77,23 @@ nextflow info nextflow-io/hello
     v1.2 [t]
 ```
 
-## Processes and channels
+## Nextflow overview
 
-In practice, a Nextflow pipeline script is made by joining individual processes together. A process can be written in any scripting language that the Linux platform can execute (Bash, Perl, Ruby, Python, etc.).
+The rise of big data has made it increasingly necessary to be able to analyze and perform experiments on large datasets in a portable and reproducible manner. Parallelization and distributed computing are the best ways to tackle this challenge, but the tools commonly available to computational scientists often lack good support for these techniques, or they provide a model that fits poorly with the needs of computational scientists and often require knowledge of complex tools and APIs. Nextflow was created to address these challenges. The Nextflow runtime integrates with many popular execution platforms (HPC schedulers, cloud providers) and software tools (Git, Docker, Conda), allowing you to fully describe a computational pipeline with all of its dependencies and run it in nearly any environment — write once, run anywhere.
+
+Nextflow enables scalable and reproducible scientific workflows with software containers. It allows the adaptation of pipelines written in the most common scripting languages. Its fluent DSL (domain-specific language) simplifies the implementation and deployment of complex parallel and reactive workflows on clouds and clusters. 
+
+The Nextflow language is inspired by [the Unix philosophy](https://en.wikipedia.org/wiki/Unix_philosophy), in which many simple command line tools can be chained together into increasingly complex tasks. Similarly, a Nextflow script consists of composing many simple processes into increasingly complex pipelines. Each process executes a given tool or scripting language, and by specifying the process inputs and outputs, Nextflow coordinates the execution of tasks for you. 
+
+### Processes and channels
+
+In practice, a Nextflow pipeline script is made by joining individual processes together. A process can be written in any scripting language that can be executed on the Linux platform (Bash, Perl, Ruby, Python, etc.).
 
 Processes are executed independently and are isolated from each other, so they do not share a common (writable) state. Processes communicate via asynchronous FIFO (first in, first out) queues, called _channels_ in Nextflow.
 
 - Any process can define one or more channels as inputs and outputs. Channels are then used to manipulate data flow from one process to the next.
 - The interaction between these processes, and ultimately the pipeline execution flow itself, is implicitly defined by these input and output declarations.
-- A process may contain any of the following definition blocks: directives, inputs, outputs, `when` clause, and the `process` script.
+- A process may contain any of the following definition blocks: directives, `input`, `output`, `when` clause, and `process` script.
 
 The syntax is defined as follows:
 
@@ -118,10 +124,10 @@ A channel has two major properties:
 
 Nextflow defines two types of channels: queue channels and value channels. The difference between queue and value channels is relevant for processes with multiple input channels.
 
-- Queue channels are collections of items that can contain many elements, but each element is consumed after it is used. A queue channel can be created by factory methods ([of](https://www.nextflow.io/docs/latest/channel.html#of), [fromPath](https://www.nextflow.io/docs/latest/channel.html#frompath), etc), operators ([map](https://www.nextflow.io/docs/latest/operator.html#operator-map), [flatMap](https://www.nextflow.io/docs/latest/operator.html#operator-flatmap), etc), and [processes](https://www.nextflow.io/docs/latest/process.html#process-output).
-- Value channels are collections of a single item that can be reused in different processes. A value channel can be bound (i.e. assigned) with only one value, and consumed any number of times by a process or an operator. A value channel can be created with the value factory method or by any operator that produces a single value (first, collect, reduce, etc). A process will also emit value channels if it is invoked with all value channels, including simple values which are implicitly wrapped in a value channel.
+- Queue channels are collections of items that can contain many elements, but each element is consumed after it is used. A queue channel can be created by factory methods (such as [of](https://www.nextflow.io/docs/latest/channel.html#of), [fromPath](https://www.nextflow.io/docs/latest/channel.html#frompath), etc.), operators ([map](https://www.nextflow.io/docs/latest/operator.html#operator-map), [flatMap](https://www.nextflow.io/docs/latest/operator.html#operator-flatmap), etc.), and [processes](https://www.nextflow.io/docs/latest/process.html#process-output).
+- Value channels are collections of a single item that can be reused in different processes. A value channel can be bound (assigned) with only one value, and consumed any number of times by a process or an operator. A value channel can be created with the value factory method or by any operator that produces a single value (first, collect, reduce, etc). A process will also emit value channels if it is invoked with all value channels, including simple values which are implicitly wrapped in a value channel.
 
-Lastly, Nextflow operators are methods that allow you to manipulate channels. Every operator, with the exception of `set` and `subscribe`, produces one or more new channels, allowing you to chain operators to fit your needs. The Nextflow reference documentation has a [list of operators](https://www.nextflow.io/docs/latest/operator.html).
+Lastly, Nextflow operators are methods that allow you to manipulate channels. Every operator, with the exception of `set` and `subscribe`, produces one or more new channels, allowing you to chain operators to fit your needs. See [Operators](https://www.nextflow.io/docs/latest/operator.html) for a detailed list.
 
 The interaction between processes, and ultimately the pipeline execution flow itself, is then explicitly defined in a workflow. In Nextflow, a workflow is a composition of processes and dataflow logic (channels and operators). The workflow definition starts with the keyword `workflow`. Workflows include an optional name, followed by the workflow body, delimited by curly braces. Workflows are lazily executed, which means that Nextflow parses the entire workflow structure first, and then executes the entire workflow at once. The order in which a task is executed is determined only by its dependencies, so a task will be executed as soon as all of its required inputs are available.
 
@@ -142,7 +148,7 @@ workflow [ name ] {
 }
 ```
 
-Visit the [Nextflow workflow reference material](https://www.nextflow.io/docs/latest/workflow.html) for more examples of workflows.
+See [Workflows](https://www.nextflow.io/docs/latest/workflow.html) for more examples.
 
 A Nextflow script looks like this:
 
@@ -185,35 +191,27 @@ workflow {
 }
 ```
 
-The above example defines two processes. Their execution order is not determined by the fact that the `blastSearch` process comes before `extractTopHits` in the script (it could also be written the other way around). Instead, execution order is determined by their _dependencies_ -- `extractTopHits` depends on the output of `blastSearch`, so `blastSearch` will be executed first, and then `extractTopHits`.
+The above example defines two processes. Their execution order is not determined by the fact that the `blastSearch` process comes before `extractTopHits` in the script. Instead, execution order is determined by their _dependencies_: `extractTopHits` depends on the output of `blastSearch`, so `blastSearch` will be executed first.
 
-When the workflow is started, it will create two processes and one channel (`query_ch`) and it will link all of them. Both processes will be started at the same time and they will listen to their respective input channels. Whenever `blastSearch` emits a value, `extractTopHits` will receive it (i.e. `extractTopHits` consumes the channel in a *reactive* way).
-
-## Nextflow overview
-
-The rise of big data has made it increasingly necessary to be able to analyze and perform experiments on large datasets in a portable and reproducible manner. Parallelization and distributed computing are the best ways to tackle this challenge, but the tools commonly available to computational scientists often lack good support for these techniques, or they provide a model that fits poorly with the needs of computational scientists and often require knowledge of complex tools and APIs. Nextflow was created to address these challenges. The Nextflow runtime integrates with many popular execution platforms (HPC schedulers, cloud providers) and software tools (Git, Docker, Conda), allowing you to fully describe a computational pipeline with all of its dependencies and run it in nearly any environment -- write once, run anywhere.
-
-Nextflow enables scalable and reproducible scientific workflows using software containers. It allows the adaptation of pipelines written in the most common scripting languages. Its fluent DSL simplifies the implementation and the deployment of complex parallel and reactive workflows on clouds and clusters. 
-
-The Nextflow language is inspired by [the Unix philosophy](https://en.wikipedia.org/wiki/Unix_philosophy), in which many simple command line tools can be chained together into increasingly complex tasks. Similarly, a Nextflow script consists of composing many simple processes into increasingly complex pipelines. Each process executes a given tool or scripting language, and by specifying the process inputs and outputs, Nextflow coordinates the execution of tasks for you. 
-
-Nextflow can execute any piece of Groovy code or use any library for the JVM platform. Each process can be written in any scripting language that can be executed by the Linux platform (Bash, Perl, Ruby, Python, etc.). The Nextflow syntax has been specialized to ease the writing of computational pipelines in a declarative manner. In practice a Nextflow pipeline script is made by joining together different processes. 
-
-Ready to get started running pipelines? The [Nextflow reference documentation](https://www.nextflow.io/docs/latest/cli.html) is a good place to start. 
+When the workflow is started, it creates two processes linked by one channel (`query_ch`). Both processes will be started at the same time and they will listen to their respective input channels. Whenever `blastSearch` emits a value, `extractTopHits` will receive it (`extractTopHits` consumes the channel in a *reactive* way).
 
 ### Implementation patterns
 
-This advanced documentation discusses recurring patterns in Nextflow and solutions to many common implementation requirements. Code examples are available with notes to follow along and a GitHub repository. A curated list of Nextflow implementation patterns can be found here [https://nextflow-io.github.io/patterns/index.html](https://nextflow-io.github.io/patterns/index.html).
+See [Nextflow patterns](https://nextflow-io.github.io/patterns/index.html) for a curated list of recurring patterns in Nextflow and solutions to many common implementation requirements. Code examples are available with notes to follow along and a GitHub repository. 
 
 ## Pipelines
 
-A collection of Nextflow pipelines compiled by various contributors to the open source Nextflow project can be found here [https://github.com/nextflow-io/awesome-nextflow](https://github.com/nextflow-io/awesome-nextflow). There are also pipeline examples available [here](https://www.nextflow.io/example1.html).
+See [Awesome Nextflow](https://github.com/nextflow-io/awesome-nextflow) for a list of Nextflow pipelines compiled by various contributors to the open source Nextflow project. Also see Nextflow's [Basic pipeline example](https://www.nextflow.io/example1.html).
 
-### How to run a pipeline
+### Develop a pipeline
 
-Nextflow provides a powerful way to develop pipelines. However, it does not provide standards for how pipelines should be developed. This gap has led to the establishment of pipeline registries, such as [nf-core](https://nf-co.re/), with tools and implementation guidelines that provide support and standards for pipeline development. Nextflow works best when you have an active internet connection, as it is able to fetch all pipeline requirements. Nextflow provides a robust command line interface for the management and execution pipelines. 
+Nextflow provides a powerful way to develop pipelines. However, it does not provide standards for how pipelines should be developed. This gap has led to the establishment of pipeline registries such as [nf-core](https://nf-co.re/), with tools and implementation guidelines that provide support and standards for pipeline development.
 
-If you're new to running pipelines, this [Nextflow hands-on training workshop](https://training.nextflow.io/hands_on/02_workflow/#pipeline-steps) is a good place to start. You can also take a look at [Creating a pipeline](https://nf-co.re/docs/tutorials/adding_a_pipeline/creating_a_pipeline) in the nf-core tutorials.
+See [Creating a pipeline](https://nf-co.re/docs/tutorials/adding_a_pipeline/creating_a_pipeline) for a guide to pipeline development with nf-core.
+
+### Run a pipeline
+
+If you're new to running pipelines, this [Nextflow hands-on training workshop](https://training.nextflow.io/hands_on/02_workflow/#pipeline-steps) is a good place to start.
 
 ## Tips and tricks
 
