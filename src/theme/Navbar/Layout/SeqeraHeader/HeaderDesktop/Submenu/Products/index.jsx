@@ -73,7 +73,7 @@ const Products = () => {
               Pricing
             </LinkItem>
           </ul>
-          <Link to="https://cloud.seqera.io" className={styles.button}>
+          <Link to="https://cloud.seqera.io/login" className={styles.button}>
             Get started
           </Link>
         </Panel>
