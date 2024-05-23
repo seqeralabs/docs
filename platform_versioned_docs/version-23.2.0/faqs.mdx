@@ -5,11 +5,13 @@ date: "24 Apr 2023"
 tags: [faq, help]
 ---
 
+
+
 ## Administration Console
 
 **<p data-question>Q: How do I access the Administration Console?</p>**
 
-The Administration Console allows Tower instance administrators to interact with all users and organizations registered with the platform. Administrators must be identified in your Tower instance configuration files prior to instantiation of the application.
+The Administration Console allows Tower instance administrators to interact with all users and organizations registered with the platform. Administrators must be identified in your Seqera instance configuration files prior to instantiation of the application.
 
 1. Create a `TOWER_ROOT_USERS` environment variable (e.g. via _tower.env_ or Kubernetes ConfigMap).
 2. Populate the variable with a sequence of comma-delimited email addresses (no spaces).<br/>Example: `TOWER_ROOT_USERS=foo@foo.com,bar@bar.com`
@@ -22,18 +24,18 @@ The Administration Console allows Tower instance administrators to interact with
        root-users: "${TOWER_ROOT_USERS:[]}"
    ```
 
-4. Restart the `cron` and `backend` containers/Deployments.
-5. The console will now be available via your Profile drop-down menu.
+4. Restart the `cron` and `backend` containers/deployments.
+5. The console will be available in the **Profile** drop-down menu.
 
 ## API
 
 **<p data-question>Q: I'm trying to query more results than the maximum return size allows. Can I do pagination?</p>**
 
-Yes. We recommend using pagination to fetch the results in smaller chunks through multiple API calls with the help of `max` and subsequent `offset` parameters. You will receive an error like below if you run into the maximum result limit.
+Yes. We recommend using pagination to fetch the results in smaller chunks through multiple API calls with the help of `max` and subsequent `offset` parameters. You'll receive an error like the one below if you run into the maximum result limit.
 
 `{object} length parameter cannot be greater than 100 (current value={value_sent})`
 
-We have laid out an example below using the workflow endpoint.
+We've laid out an example below using the workflow endpoint.
 
 ```
 curl -X GET "https://$TOWER_SERVER_URL/workflow/$WORKFLOW_ID/tasks?workspaceId=$WORKSPACE_ID&max=100" \
@@ -49,11 +51,11 @@ curl -X GET "https://$TOWER_SERVER_URL/workflow/$WORKFLOW_ID/tasks?workspaceId=$
 
 Launch users have more restricted permissions within a workspace than power users. While both can launch pipelines via API calls, Launch users must specify additional values that are optional for a power user.
 
-One such value is `launch.id`; attempting to launch a pipeline without specifying a `launch.id` in the API payload is equivalent to using the "Start Quick Launch" button within a workspace (a feature only available to power users).
+One such value is `launch.id`; attempting to launch a pipeline without specifying a `launch.id` in the API payload is equivalent to using the **Start Quick Launch** button within a workspace (a feature only available to power users).
 
 If you have encountered the 403 error as a result of being a Launch user who did not provide a `launch.id`, please try resolving the problem as follows:
 
-1. Provide the launch ID to the payload sent to the tower using the same endpoint. To do this;
+1. Provide the launch ID to the payload sent to platform using the same endpoint. To do this;
 
    1. Query the list of pipelines via the `/pipelines` endpoint. Find the `pipelineId` of the pipeline you intend to launch.
    2. Once you have the `pipelineId`, call the `/pipelines/{pipelineId}/launch` API to retrieve the pipeline's `launch.id`.
@@ -72,7 +74,7 @@ If you have encountered the 403 error as a result of being a Launch user who did
       }
       ```
 
-2. If a launch id remains unavailable to you, upgrade your user role to Maintain or higher. This will allow you to execute quick launch-type pipeline invocations.
+2. If a launch id is still unavailable, upgrade your user role to Maintain or higher. This will allow you to execute quick launch-type pipeline invocations.
 
 ## Common errors
 
@@ -84,11 +86,11 @@ To remediate this problem, set the following environment variable `TOWER_ENABLE_
 
 **<p data-question>Q: "Unknown pipeline repository or missing credentials" error when pulling from a public GitHub repository?</p>**
 
-GitHub imposes [rate limits](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting) on repository pulls (including public repositories), where unauthenticated requests are capped at 60 requests/hour and authenticated requests are capped at 5000/hour. Tower users tend to encounter this error due to the 60 request/hour cap.
+GitHub imposes [rate limits](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting) on repository pulls (including public repositories), where unauthenticated requests are capped at 60 requests/hour and authenticated requests are capped at 5000/hour. Users tend to encounter this error due to the 60 request/hour cap.
 
 To resolve the problem, please try the following:
 
-1. Ensure there is at least one GitHub credential in your Workspace's Credentials tab.
+1. Ensure there is at least one GitHub credential in your workspace's **Credentials** tab.
 2. Ensure that the **Access token** field of all GitHub Credential objects is populated with a [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) value, NOT a user password. (_GitHub PATs are typically several dozen characters long and begin with a `ghp_`prefix; example:`ghp*IqIMNOZH6zOwIEB4T9A2g4EHMy8Ji42q4HA`*)
 3. Confirm that your PAT is providing the elevated threshold and transactions are being charged against it:
 
