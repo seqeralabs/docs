@@ -18,7 +18,7 @@ const NavItems = ({ isDark = false, hideMenu }) => {
   return (
     <div className="container-lg w-full px-4 flex items-center justify-between">
       <div className="flex items-center">
-        <Link to="/" noBorder className="leading-[0]">
+        <Link to="/" noBorder className="leading-[0]" sameTab>
           {isDark ? (
             <LogoDark height={22} width={112} className={styles.logo} />
           ) : (

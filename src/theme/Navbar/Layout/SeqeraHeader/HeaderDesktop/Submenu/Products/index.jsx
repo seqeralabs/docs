@@ -55,7 +55,11 @@ const Products = () => {
     <div className="flex">
       <div className="w-[20%] flex-none">
         <Panel highlighted>
-          <Link to="/platform/" className="leading-[0] block">
+          <Link
+            to="https://seqera.io/platform/"
+            className="leading-[0] block"
+            sameTab
+          >
             <LogoPlatform />
           </Link>
           <div className={clsx(styles.description, styles.dark)}>
@@ -89,7 +93,11 @@ const Products = () => {
         <div className="p-1 w-[50%]">
           <Panel className="flex">
             <div className="pr-3">
-              <Link className="block leading-[0]" to="/nextflow/">
+              <Link
+                className="block leading-[0]"
+                to="https://seqera.io/nextflow/"
+                sameTab
+              >
                 <LogoNextflow />
               </Link>
               <div className={styles.description}>
@@ -126,7 +134,11 @@ const Products = () => {
         <div className="p-1 w-[50%]">
           <Panel className="flex">
             <div className="pr-3">
-              <Link className="block leading-[0]" to="/multiqc/">
+              <Link
+                className="block leading-[0]"
+                to="https://seqera.io/multiqc/"
+                sameTab
+              >
                 <LogoMultiQC />
               </Link>
               <div className={styles.description}>
@@ -163,7 +175,11 @@ const Products = () => {
         <div className="p-1 w-[50%]">
           <Panel className="flex">
             <div className="pr-3">
-              <Link className="block leading-[0]" to="/wave/">
+              <Link
+                className="block leading-[0]"
+                to="https://seqera.io/wave/"
+                sameTab
+              >
                 <LogoWave />
               </Link>
               <div className={styles.description}>
@@ -197,7 +213,11 @@ const Products = () => {
         <div className="p-1 w-[50%]">
           <Panel className="flex">
             <div className="pr-3">
-              <Link className="block leading-[0]" to="/fusion/">
+              <Link
+                className="block leading-[0]"
+                to="https://seqera.io/fusion/"
+                sameTab
+              >
                 <LogoFusion />
               </Link>
               <div className={styles.description}>

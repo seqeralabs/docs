@@ -14,6 +14,7 @@ const NavMeta = ({ isDark }) => {
     <div className="items-center hidden md:flex">
       <div className="hidden xl:flex">
         <Link
+          sameTab
           className={clsx(styles.button, { [styles.dark]: isDark })}
           target="_self"
           to="https://cloud.seqera.io/login"
@@ -22,6 +23,7 @@ const NavMeta = ({ isDark }) => {
         </Link>
       </div>
       <Link
+        sameTab
         className={clsx(
           styles.button,
           styles.cta,
