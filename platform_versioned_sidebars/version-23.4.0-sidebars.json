@@ -54,6 +54,7 @@
           "label": "Data",
           "items": [
             "data/data-explorer",
+            "data/data-studios",
             "data/datasets"
           ]
         },
