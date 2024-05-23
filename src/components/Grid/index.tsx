@@ -1,12 +1,12 @@
 import React from "react";
-import classNames from "classnames";
+import clsx from "clsx";
 
 import styles from "./styles.module.css";
 
 const Grid = ({ children, ...variants }) => {
   return (
     <div
-      className={classNames(styles.grid, {
+      className={clsx(styles.grid, {
         [styles.vertical]: variants.vertical,
       })}
     >
