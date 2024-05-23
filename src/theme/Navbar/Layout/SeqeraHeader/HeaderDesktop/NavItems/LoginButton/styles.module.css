@@ -23,6 +23,8 @@
     height: 2px;
   }
   &:hover {
+    text-decoration: none;
+    color: var(--color-brand);
     &::after {
       background-color: var(--color-brand);
     }
