@@ -55,10 +55,14 @@ function isActive(id) {
 
 const LinkItem = ({ to, children }) => {
   let href = to;
-  if (!to.startsWith("http")) href = `https://seqera.io${to}`;
+  let sameTab = false;
+  if (!to.startsWith("http")) {
+    href = `https://seqera.io${to}`;
+  }
+  if (href.includes("seqera.io")) sameTab = true;
   return (
     <Link
-      samePage
+      sameTab={sameTab}
       to={href}
       className={clsx(
         "flex items-center text-[14px] px-3 rounded-lg text-brand hover:text-brand",

@@ -87,8 +87,8 @@
   line-height: 1;
   transition: all 0.3s;
   &:hover {
-    background: var(--sl-blue);
-    border-color: var(--sl-blue);
-    color: white;
+    background: white;
+    border-color: white;
+    color: var(--color-brand);
   }
 }

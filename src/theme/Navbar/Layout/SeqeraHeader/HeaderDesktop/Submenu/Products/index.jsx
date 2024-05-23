@@ -34,11 +34,14 @@ function isActive(id) {
 
 const LinkItem = ({ to, children }) => {
   let href = to;
+  let sameTab = false;
   if (!to.startsWith("http")) href = `https://seqera.io${to}`;
+  if (href.includes("seqera.io")) sameTab = true;
   return (
     <li>
       <Link
         to={href}
+        sameTab={sameTab}
         className={clsx(styles.link, { [styles.active]: isActive(to) })}
       >
         {children}
@@ -73,7 +76,11 @@ const Products = () => {
               Pricing
             </LinkItem>
           </ul>
-          <Link to="https://cloud.seqera.io/login" className={styles.button}>
+          <Link
+            to="https://cloud.seqera.io/login"
+            className={styles.button}
+            sameTab
+          >
             Get started
           </Link>
         </Panel>
