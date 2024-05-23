@@ -54,9 +54,15 @@ Contentful/relevant files include:
 
 #### Wave
 
-- Wave documentation content is copied to this repo from [wave](https://github.com/seqeralabs/wave/tree/master/docs). New contributions to Wave documentation must be made from feature branches in `wave/docs`.
+Wave documentation is available as a Git submodule. Changes to the Wave documentation must be made in the [Wave repo](https://github.com/seqeralabs/wave/tree/master/docs).
 
-- Wave documentation is unversioned, and lives in the `wave_docs` directory.
+To enable access to the Wave docs in the submodule, after cloning this repository you must run `git submodule update --init --recursive`.
+
+To incorporate documentation changes from the Wave repository, run the following command: `git submodule update --recursive --remote`. This is mandatory, or published documentation cannot reflect any changes made to the Wave documentation since this command was last run.
+
+If you accidentally run the aforementioned command and want to revert, run the following command to revert to the previous commit ID for the Wave repository: `git submodule update --init`.
+
+Wave documentation is not versioned, and lives in the `wave_docs` directory.
 
 ## Writing new content
 
