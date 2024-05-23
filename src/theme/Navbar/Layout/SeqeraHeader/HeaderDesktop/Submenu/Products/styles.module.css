@@ -2,6 +2,7 @@
   margin-top: 10px;
   font-size: 14px;
   line-height: 1.3;
+  text-wrap: balance;
   color: var(--color-brand-800);
   &.dark {
     color: var(--color-brand-100);

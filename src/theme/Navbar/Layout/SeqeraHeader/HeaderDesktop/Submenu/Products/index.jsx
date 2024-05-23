@@ -101,7 +101,7 @@ const Products = () => {
                 <LogoNextflow />
               </Link>
               <div className={styles.description}>
-                Full integrated and scalable tools for modern bioinformatics
+                Portable, reproducible data-driven computational pipelines at scale
               </div>
               <div className={clsx(styles.label, styles.nextflow)}>
                 For writing data pipeline workflows
@@ -142,10 +142,10 @@ const Products = () => {
                 <LogoMultiQC />
               </Link>
               <div className={styles.description}>
-                Open-source tool to aggregate bioinformatic analyses results
+                Open-source tool to simplify and streamline quality control analysis
               </div>
               <div className={clsx(styles.label, styles.multiqc)}>
-                For analyzing your workflow results
+                For reporting and analytics
               </div>
             </div>
             <div>
@@ -183,8 +183,7 @@ const Products = () => {
                 <LogoWave />
               </Link>
               <div className={styles.description}>
-                Open-source container creation and distribution for data
-                analysis
+                Open-source container creation and distribution for data analysis
               </div>
               <div className={clsx(styles.label, styles.wave)}>
                 For managing your workflow containers
@@ -221,7 +220,7 @@ const Products = () => {
                 <LogoFusion />
               </Link>
               <div className={styles.description}>
-                Distributed, lightweight file system for cloud data pipelines
+                Distributed, lightweight file system for data pipelines in the cloud
               </div>
               <div className={clsx(styles.label, styles.fusion)}>
                 Cloud-native file system for data management
