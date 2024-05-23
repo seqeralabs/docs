@@ -124,7 +124,7 @@ Additionally, you can add a new data studio from any existing data studio checkp
 
 This functionality is available to all user roles excluding the **View** role.
 
-To connect to a running data studio session, select the three dots next to the status message and choose **Connect**. A new browser tab will open, displaying the status of the data studio session. Select **Connect**.
+To connect to a running data studio session, select the three dots next to the status message and choose **Connect**. A new browser tab will open containing the data studio environment.
 
 :::warning
 An active connection to a data studio session will not prevent administrative actions that might disrupt that connection. For example, a data studio can be stopped by another workspace user while you are active in the session, the underlying credentials can be changed, or the compute environment can be deleted. These are independent actions and the user in the session won't be alerted to any changes - the only alert will be a server connection error in the active session browser tab.
@@ -139,6 +139,8 @@ Once connected, the data studio session list will update to display the status o
 This functionality is available to all user roles excluding the **View** role.
 
 To share a link to a running data studio with collaborators inside your workspace, select the three dots next to the status message for the data studio you want to share, then select **Copy data studio URL**. Using this link, other authenticated users can access the session directly.
+
+![](./_images/data_studios_collaboration.png)
 
 :::note
 Collaborators need valid workspace permissions to connect to the running data studio.
