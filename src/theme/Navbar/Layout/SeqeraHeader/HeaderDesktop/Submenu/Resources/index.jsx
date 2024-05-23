@@ -53,6 +53,25 @@ function isActive(id) {
   return window.location.pathname === id;
 }
 
+const LinkItem = ({ to, children }) => {
+  let href = to;
+  if (!to.startsWith("http")) href = `https://seqera.io${to}`;
+  return (
+    <Link
+      samePage
+      to={href}
+      className={clsx(
+        "flex items-center text-[14px] px-3 rounded-lg text-brand hover:text-brand",
+        "transition-all duration-500 ease-in-out hover:bg-brand-200 hover:no-underline",
+        "h-[37px]",
+        { "bg-brand-200": isActive(href) },
+      )}
+    >
+      {children}
+    </Link>
+  );
+};
+
 const Column = ({ title, links }) => {
   return (
     <div className="flex flex-col items-start w-[25%]">
@@ -62,18 +81,10 @@ const Column = ({ title, links }) => {
       <ul className="mt-2 -mx-2 p-0 list-none">
         {links.map(([label, href, Icon]) => (
           <li key={label}>
-            <Link
-              to={href}
-              className={clsx(
-                "flex items-center text-[14px] px-3 rounded-lg text-brand hover:text-brand",
-                "transition-all duration-500 ease-in-out hover:bg-brand-200 hover:no-underline",
-                "h-[37px]",
-                { "bg-brand-200": isActive(href) },
-              )}
-            >
+            <LinkItem to={href}>
               <Icon className="w-4 h-4 mr-2" />
               {label}
-            </Link>
+            </LinkItem>
           </li>
         ))}
       </ul>

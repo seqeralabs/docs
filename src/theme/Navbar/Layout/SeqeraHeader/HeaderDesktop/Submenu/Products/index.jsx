@@ -139,7 +139,7 @@ const Products = () => {
                   <Docs />
                   Documentation
                 </LinkItem>
-                <LinkItem to="#">
+                <LinkItem to="https://multiqc.info/modules/">
                   <Modules />
                   Modules
                 </LinkItem>
