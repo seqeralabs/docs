@@ -81,7 +81,7 @@ const Menu = () => {
               target="_blank"
               rel="noopener noreferrer"
               href="https://tower.nf/login"
-              className={classNames(styles.button, styles.cta)}
+              className={clsx(styles.button, styles.cta)}
             >
               Login
             </a>

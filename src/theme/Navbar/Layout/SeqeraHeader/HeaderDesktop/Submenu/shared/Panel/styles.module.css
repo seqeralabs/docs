@@ -1,0 +1,13 @@
+.panel {
+  position: relative;
+  background: var(--color-brand-100);
+  color: var(--color-brand);
+  padding: 20px;
+  border-radius: 6px;
+  width: 100%;
+  height: 100%;
+  &.highlighted {
+    background: var(--color-brand);
+    color: white;
+  }
+}
