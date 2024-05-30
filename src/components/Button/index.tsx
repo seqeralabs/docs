@@ -1,5 +1,5 @@
 import React from "react";
-import classNames from "classnames";
+import clsx from "clsx";
 import Link from "@docusaurus/Link";
 
 import styles from "./styles.module.css";
@@ -22,7 +22,7 @@ const Button: React.FC<Props> = ({ to, children, cta, className, arrow }) => {
       <a
         href={to}
         target="_blank"
-        className={classNames(styles.button, className, { [styles.cta]: cta })}
+        className={clsx(styles.button, className, { [styles.cta]: cta })}
         rel="noopener noreferrer"
       >
         {children}
@@ -33,7 +33,7 @@ const Button: React.FC<Props> = ({ to, children, cta, className, arrow }) => {
   return (
     <Link
       to={to}
-      className={classNames(styles.button, className, { [styles.cta]: cta })}
+      className={clsx(styles.button, className, { [styles.cta]: cta })}
     >
       {children}
       {arrow && <Arrow />}

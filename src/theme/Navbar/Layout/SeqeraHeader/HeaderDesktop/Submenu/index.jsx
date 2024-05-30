@@ -1,14 +1,9 @@
 import React from "react";
-import Link from "../../_shared/Link";
 import { motion, AnimatePresence } from "framer-motion";
 
 import Products from "./Products";
-import Community from "./Community";
-import Company from "./Company";
 import Resources from "./Resources";
-import AngleRight from "../../_shared/angle-right.inline.svg";
 
-import styles from "./styles.module.css";
 import { useHeaderContext } from "../../context";
 
 const navVariants = {
@@ -22,8 +17,11 @@ const transition = {
   duration: 0.2,
 };
 
-const Submenu = () => {
+const Submenu = ({ hideMenu }) => {
   const { activeMenu, isMenuOpen } = useHeaderContext();
+  // const activeMenu = "resources";
+  // const isMenuOpen = true;
+  if (hideMenu) return null;
   return (
     <AnimatePresence>
       {isMenuOpen && (
@@ -33,18 +31,13 @@ const Submenu = () => {
           exit="exit"
           variants={navVariants}
           transition={transition}
+          className="absolute top-[100%] left-0 right-0"
         >
-          <div className="container-lg px-4 pt-8 ">
-            <div className="relative min-h-[318px]">
-              <Products isOpen={activeMenu === "products"} />
-              <Resources isOpen={activeMenu === "resources"} />
-              <Community isOpen={activeMenu === "community"} />
-              <Company isOpen={activeMenu === "company"} />
+          <div className="container-lg p-2 ">
+            <div className="relative bg-white rounded-md p-2 shadow-lg">
+              {activeMenu === "products" && <Products />}
+              {activeMenu === "resources" && <Resources />}
             </div>
-            <Link className={styles.learnMore} to="/about">
-              Learn more about Seqera and our mission
-              <AngleRight className="inline-block ml-2" />
-            </Link>
           </div>
         </motion.div>
       )}

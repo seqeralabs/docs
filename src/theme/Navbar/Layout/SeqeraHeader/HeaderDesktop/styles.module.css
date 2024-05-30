@@ -1,9 +1,23 @@
+:root {
+  --headerHeight: 72px;
+}
 .header {
-  padding: 32px 0;
+  z-index: 20;
+  position: fixed;
+  height: var(--headerHeight);
+  display: flex;
+  align-items: center;
+  top: 0;
+  left: 0;
+  right: 0;
   transition: all 0.2s;
-  -webkit-font-smoothing: antialiased;
-  & * {
-    line-height: 1;
-    font-family: "Inter", sans-serif;
+  background: #fff;
+  &.minimal,
+  &.staticPosition {
+    position: absolute;
+    background: transparent;
+  }
+  &.hasScrolled {
+    box-shadow: 0 0 100px rgba(0, 0, 0, 0.2);
   }
 }
