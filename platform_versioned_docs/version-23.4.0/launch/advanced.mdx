@@ -43,7 +43,10 @@ reports:
 
 You can run custom code either before or after the execution of the Nextflow script. These fields allow you to enter shell commands.
 
-Pre-run scripts are executed in the nf-launch script prior to invoking Nextflow processes. Pre-run scripts are useful for executor setup (e.g., to load a private CA certificate) and troubleshooting. For example, add `sleep 3600` to your pre-run script to instruct Nextflow to wait 3600 seconds (60 minutes) before process execution after the nf-launcher container is started, to create a window in which to test connectivity and other issues before your Nextflow processes execute.
+Pre-run scripts are executed in the nf-launch script prior to invoking Nextflow processes. Pre-run scripts are useful for:
+- Specifying an alternate Nextflow version to use for the run. For example, `export NXF_VER=24.04.2`.
+- Executor setup, such as loading a private CA certificate.
+- Troubleshooting. For example, add `sleep 3600` to your pre-run script to instruct Nextflow to wait 3600 seconds (60 minutes) before process execution after the nf-launcher container is started, to create a window in which to test connectivity and other issues before your Nextflow processes execute.
 
 Post-run scripts are executed after all Nextflow processes have completed. Post-run scripts are useful for triggering a third party service via API request.
 
