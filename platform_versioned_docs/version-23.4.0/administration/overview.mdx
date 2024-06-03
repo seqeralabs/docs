@@ -8,7 +8,7 @@ tags: [administration, user, workspace, organization]
 As a root user, you can access a comprehensive overview of the organizations, workspaces, users, and teams in your Seqera account from the **Admin panel**. It also includes tabs for application event audit logs, administrative statistics, and system configuration options. The root user system role should only be assigned to a system administrator as it provides high-level visibility and configuration access to your account.
 
 :::tip
-See [Basic configuration](../enterprise/configuration/overview.mdx#basic-configuration) to learn how to add root users to your account with the `TOWER_ROOT_USERS` environment variable.
+See [Basic configuration](../enterprise/configuration/overview#basic-configuration) to learn how to add root users to your account with the `TOWER_ROOT_USERS` environment variable.
 :::
 
 ## Manage organizations
@@ -23,11 +23,15 @@ The **Organization administration** tab lists all the organizations in your acco
 - Select **Add organization** to create a new organization from scratch.
 - Select an organization name from the table to edit or delete it.
 
+See [Organization management](../orgs-and-teams/organizations) for more information. 
+
 ## Manage members
 
 Select **Manage users** to access the **Membership administration** page, where you can view all the memberships for the selected organization from the organizations list. You can also list and search for all users that are members or owners of the selected organization, change a user's role, remove a member from the organization, or add a new user to the organization.
 
-You can only add existing users to an organization. You can't remove a membership if the user being removed is the last owner of the selected organization until you promote another user to **Owner** before removing or demoting the last owner.
+You can only add existing users to an organization. You can't remove a membership if the user being removed is the last owner of the selected organization until you promote another user to **Owner** first.
+
+See [Members](../orgs-and-teams/organizations#members) for more information. 
 
 ## Manage workspaces
 
@@ -45,6 +49,8 @@ As a best practice, use teams as the primary vehicle for assigning rights within
 - Select **Add workspace** to create a new workspace. Choose a workspace name that isn't already in use. If the new workspace name already exists in the system, the creation will fail. Once the new workspace has been created, it's listed in the **Workspaces** tab list.
 - Select a workspace name to edit or delete it.
 
+See [Workspace management](../orgs-and-teams/workspace-management) for more information.
+
 ## Manage users
 
 The **Users** tab lists all the users in your account.
@@ -53,7 +59,7 @@ The **Users** tab lists all the users in your account.
 - Select **Add user** to create a new user. If the new user email already exists in the system, the user creation fails. Once you've created the new user, inform them that access has been granted.
 - Select a username from the table to edit or delete the user.
 
-There are a number of different user roles in Seqera:
+There are two organization user roles in Seqera:
 
 * **Owner**: After an organization is created, the user who created the organization is the default owner of that organization. Owners have full read/write access to modify members, teams, collaborators, and settings within an organization.
 * **Member**: A member is a user who is internal to the organization. Members have an organization role and can operate in one or more organization workspaces. In each workspace, members can have a participant role that defines the permissions granted to them within that workspace.
@@ -66,6 +72,8 @@ You can apply one of the following roles to workspace participants:
 4. **Launch**: The participant can launch pipelines and modify the pipeline input/output parameters in the Launchpad. They cannot modify the launch configuration or other resources.
 5. **View**: The participant can view workspace pipelines and runs in read-only mode.
 
+See [User roles](../orgs-and-teams/roles) for more information. 
+
 ## Manage teams
 
 **Available from version 23.1.x**
@@ -77,3 +85,5 @@ The **Team administration** tab lists all the teams in your account.
 - Select **Edit** next to a team to edit the team's details or delete it.
 
 From the teams list, you have an overview of the number of members and the unique ID of each team. Select **Edit** to view a team's page, or select the number next to **Members:** to go to the **Members** tab of the team page. From the **Members of team** tab, you can list and search for all users that are members of the selected team, change a user's role, remove a member from the team, or add a new member to the team.
+
+See [Teams](../orgs-and-teams/organizations#teams) for more information. 
