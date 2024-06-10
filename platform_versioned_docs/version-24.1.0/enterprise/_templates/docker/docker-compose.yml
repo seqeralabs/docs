@@ -1,0 +1,129 @@
+version: "3"
+services:
+  db:
+    image: mysql:8.0
+    platform: linux/amd64
+    networks:
+      - backend
+    expose:
+      - 3306
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_USER: tower
+      MYSQL_PASSWORD: tower
+      MYSQL_DATABASE: tower
+    healthcheck:
+      test: ["CMD", "mysqladmin" , "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+    restart: always
+    volumes:
+      #  To use the pipeline resource optimization service, uncomment the lines below to mount the initialization script
+      #  - type: bind
+      #    source: ./init.sql
+      #    target: /docker-entrypoint-initdb.d/init.sql
+
+      # Store the MySQL data in a directory on the host
+      - $HOME/.tower/db/mysql:/var/lib/mysql
+
+  redis:
+    image: cr.seqera.io/public/redis:6.0
+    platform: linux/amd64
+    networks:
+      - backend
+    expose:
+      - 6379
+    command: --appendonly yes
+    restart: always
+    # Store the Redis data in a directory on the host
+    volumes:
+      - $HOME/.tower/db/redis:/data
+
+  migrate:
+    image: cr.seqera.io/private/nf-tower-enterprise/migrate-db:v23.4.3
+    platform: linux/amd64
+    command: -c "/migrate-db.sh"
+    networks:
+      - backend
+    volumes:
+      - $PWD/tower.yml:/tower.yml
+    env_file:
+      # Seqera environment variables — see https://docs.seqera.io/platform/latest/enterprise/configuration/overview for details
+      - tower.env
+    restart: no
+
+    depends_on:
+      db:
+        condition: service_healthy
+
+  cron:
+    image: cr.seqera.io/private/nf-tower-enterprise/backend:v23.4.3
+    platform: linux/amd64
+    command: -c '/tower.sh'
+    networks:
+      - backend
+    volumes:
+      - $PWD/tower.yml:/tower.yml
+    env_file:
+      - tower.env
+    environment:
+      # Micronaut environments are required. Do not edit these values
+      - MICRONAUT_ENVIRONMENTS=prod,redis,cron
+    restart: always
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+
+
+  backend:
+    image: cr.seqera.io/private/nf-tower-enterprise/backend:v23.4.3
+    platform: linux/amd64
+    command: -c '/wait-for-it.sh db:3306 -t 60; /tower.sh'
+    networks:
+      - frontend
+      - backend
+    expose:
+      - 8080
+    volumes:
+      - $PWD/tower.yml:/tower.yml
+    env_file:
+      # Seqera environment variables — see https://docs.seqera.io/platform/latest/enterprise/configuration/overview for details
+      - tower.env
+    environment:
+      # Micronaut environments are required. Do not edit these values
+      - MICRONAUT_ENVIRONMENTS=prod,redis,ha
+    restart: always
+    depends_on:
+      - db
+      - redis
+      - cron
+
+  frontend:
+    image: cr.seqera.io/private/nf-tower-enterprise/frontend:v23.4.3
+    platform: linux/amd64
+    networks:
+      - frontend
+    ports:
+      - 8000:80
+    restart: always
+    depends_on:
+      - backend
+
+  # Uncomment the following section to enable the pipeline resource optimization service. Add TOWER_ENABLE_GROUNDSWELL 
+  # or GROUNDSWELL_SERVER_URL to tower.env environment variables
+  # groundswell:
+  #   image: cr.seqera.io/private/nf-tower-enterprise/groundswell:0.3.3
+  #   command: bash -c 'bin/wait-for-it.sh db:3306 -t 60; bin/migrate-db.sh; bin/serve.sh'
+  #   networks:
+  #     - backend
+  #   ports:
+  #     - 8090:8090
+  #   env_file:
+  #     - groundswell.env
+  #   restart: always
+  #   depends_on:
+  #     - db
+
+networks:
+  frontend: {}
+  backend: {}

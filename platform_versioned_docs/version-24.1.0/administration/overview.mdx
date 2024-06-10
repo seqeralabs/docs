@@ -1,0 +1,87 @@
+---
+title: "Manage your organization"
+description: "Overview of Seqera user and organization administration"
+date: "21 Apr 2023"
+tags: [administration, user, workspace, organization]
+---
+
+Seqera Platform simplifies the development and execution of workflows by providing a centralized interface for managing users and resources. This is achieved through the context of workspaces, which form part of organizations:
+
+- [Organizations](../orgs-and-teams/organizations.mdx): Organizations are the top-level structure and contain workspaces, members, and teams. You can also add external collaborators to an organization.
+- [User workspaces](../orgs-and-teams/workspace-management.mdx): Each user has a unique personal workspace to manage resources such as pipelines, compute environments, and credentials.
+- [Organization workspaces](../orgs-and-teams/workspace-management.mdx): You can create multiple workspaces within an organization context and associate each of these workspaces with dedicated teams of users, providing fine-grained access control for each team.
+
+As a root user, you can access a comprehensive overview of the organizations, workspaces, users, and teams in your Seqera account from the **Admin panel**. It also includes tabs for application event [audit logs](../monitoring/audit-logs.mdx), administrative statistics, and system configuration options.
+
+The **Admin panel** menu is accessible in the user menu if you're logged in as a root user. This role should only be assigned to a system administrator as it provides high-level visibility and configuration access to your account.
+
+:::tip
+See [Basic configuration](../enterprise/configuration/overview.mdx#basic-configuration) to learn how to add root users to your account with the `TOWER_ROOT_USERS` environment variable.
+:::
+
+## Organization administration
+
+:::note
+From version 23.2, organization owners and root users can edit organization names on the **Edit organization** page.
+:::
+
+The **Organization administration** tab lists all the organizations in your account.
+
+- Use the search function to find a specific organization by its name or email and perform various operations with that organization.
+- Select **Add organization** to create a new organization from scratch.
+- Select an organization name from the table to edit or delete it.
+
+## Membership administration
+
+Select **Manage users** to access the **Membership administration** page, where you can view all the memberships for the selected organization from the organizations list. You can also list and search for all users that are members or owners of the selected organization, change a user's role, remove a member from the organization, or add a new user to the organization.
+
+You can only add existing users to an organization. You can't remove a membership if the user being removed is the last owner of the selected organization until you promote another user to **Owner** before removing or demoting the last owner.
+
+## Workspace administration
+
+The **Workspaces** tab lists all the workspaces in your account. If a user is concurrently assigned to a workspace as both a named _participant_ and member of a _team_, Seqera assigns the higher of the two privilege sets.
+
+Example:
+
+- If the participant role is Launch and the team role is Admin, the user will have Admin rights.
+- If the participant role is Admin and the team role is Launch, the user will have Admin rights.
+- If the participant role is Launch and the team role is Launch, the user will have Launch rights.
+
+As a best practice, use teams as the primary vehicle for assigning rights within a workspace and only add named participants when one-off privilege escalations are deemed necessary.
+
+- Use the search function to find a specific workspace by name to view and edit that workspace.
+- Select **Add workspace** to create a new workspace. Choose a workspace name that isn't already in use. If the new workspace name already exists in the system, the creation will fail. Once the new workspace has been created, it's listed in the **Workspaces** tab list.
+- Select a workspace name to edit or delete it.
+
+## User administration
+
+The **Users** tab lists all the users in your account.
+
+- Use the search function to find a specific user by name or email to view or edit that user.
+- Select **Add user** to create a new user. If the new user email already exists in the system, the user creation fails. Once you've created the new user, inform them that access has been granted.
+- Select a username from the table to edit or delete the user.
+
+There are a number of different user roles in Seqera:
+
+* **Owner**: After an organization is created, the user who created the organization is the default owner of that organization. Owners have full read/write access to modify members, teams, collaborators, and settings within an organization.
+* **Member**: A member is a user who is internal to the organization. Members have an organization role and can operate in one or more organization workspaces. In each workspace, members can have a participant role that defines the permissions granted to them within that workspace.
+
+You can apply one of the following roles to workspace participants:
+
+1. **Owner**: The participant has full permissions for all resources within the workspace, including the workspace settings.
+2. **Admin**: The participant has full permissions for resources associated with the workspace. They can create, modify, and delete pipelines, compute environments, actions, and credentials. They can add/remove users to the workspace and edit workspace settings, but cannot delete the workspace.
+3. **Maintain**: The participant can launch pipelines and modify pipeline executions (e.g., they can change the pipeline launch compute environments, parameters, pre/post-run scripts, and Nextflow configuration) and create new pipelines in the Launchpad. Users with maintain permissions cannot modify compute environments and credentials.
+4. **Launch**: The participant can launch pipelines and modify the pipeline input/output parameters in the Launchpad. They cannot modify the launch configuration or other resources.
+5. **View**: The participant can view workspace pipelines and runs in read-only mode.
+
+## Team administration
+
+**Available from version 23.1.X**
+
+The **Team administration** tab lists all the teams in your account.
+
+- Use the search function to find a specific team, by name or description, and perform various operations.
+- Select **Add team** to create a new team.
+- Select **Edit** next to a team to edit the team's details or delete it.
+
+From the teams list, you have an overview of the number of members and the unique ID of each team. Select **Edit** to view a team's page, or select the number next to **Members:** to go to the **Members** tab of the team page. From the **Members of team** tab, you can list and search for all users that are members of the selected team, change a user's role, remove a member from the team, or add a new member to the team.

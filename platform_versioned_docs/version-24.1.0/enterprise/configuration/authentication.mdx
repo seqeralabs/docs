@@ -1,0 +1,184 @@
+---
+title: "Authentication"
+description: Seqera configuration options for authentication
+date: "21 Apr 2023"
+tags: [authentication, configuration]
+---
+
+Seqera Platform supports email and various OAuth providers for login authentication.
+
+:::note
+Platform login sessions remain active as long as the application browser window remains open and active. When the browser window is terminated, automatic logout occurs within 6 hours by default.
+:::
+
+## OpenID Connect configuration
+
+Seqera Enterprise can be configured to integrate with several authentication providers to enable single sign-on (SSO) login.
+
+Configure OIDC authentication with the following environment variables:
+
+- `TOWER_OIDC_CLIENT`: The client ID provided by your authentication service.
+- `TOWER_OIDC_SECRET`: The client secret provided by your authentication service.
+- `TOWER_OIDC_ISSUER`: The authentication service URL to which Seqera connects to authenticate the sign-in request, e.g., `https://dev-886323.okta.com/oauth2/default`.
+
+Some providers require the full authentication service URL (such as the Okta example above), while others require only the SSO root domain (without the trailing sub-directories).
+
+In your OpenID provider settings, specify the following URL as a callback address or authorized redirect:
+
+```
+https://<YOUR HOST OR IP>/oauth/callback/oidc
+```
+
+## Identity providers
+
+The following identity providers are currently supported:
+
+- GitHub
+- Google
+- Keycloak
+- Entra
+- Okta
+
+### GitHub identity provider
+
+To use GitHub as SSO provider for Seqera:
+
+1. Register your Seqera instance as a [GitHub OAuth App](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app)
+   in your organization settings page.
+
+2. When creating the OAuth App, specify the following path as callback URL: `https://<your-deployment-domain-name>/oauth/callback/github` (replace `<your-deployment-domain-name>` with the domain name of your deployment).
+
+3. Include the following variables in the backend environment configuration:
+
+   - `TOWER_GITHUB_CLIENT`: The client ID provided by GitHub when registering the new OAuth App.
+   - `TOWER_GITHUB_SECRET`: The client secret provided by GitHub when registering the new OAuth App.
+
+### Google Cloud identity provider
+
+To use Google as the identity provider for Seqera:
+
+1. Visit the [Google Cloud console](https://console.developers.google.com) and create a new project.
+2. From the sidebar, select the **Credentials** tab.
+3. Select **Create credentials > OAuth client ID**.
+4. On the next page, select **Web Application** type.
+5. Enter the redirect URL: `https://<your-deployment-domain-name>/oauth/callback/google` (replace `<{your-deployment-domain-name>` with the domain name of your deployment).
+6. Confirm the operation. You'll then receive a `client ID` and `secret ID`.
+7. Include the `client ID` and `secret ID` in the following variables in the Seqera backend environment configuration:
+
+- `TOWER_GOOGLE_CLIENT`: The client ID provided by Google above.
+- `TOWER_GOOGLE_SECRET`: The client secret provided by Google above.
+
+### Keycloak identity provider
+
+To use [Keycloak](https://www.keycloak.org/) as the identity provider for Seqera, configure a new client in your Keycloak service with these steps:
+
+1. In the **Realm settings**, ensure the **Endpoints** field includes _OpenID Endpoint Configuration_.
+2. Open the **Client** page and select **Create** to set up a new client for Seqera.
+3. In the **Settings** tag, include the following fields:
+   - **Client Id**: An ID of your choice, e.g., `seqera`
+   - **Enabled**: `ON`
+   - **Client Protocol**: `openid-connect`
+   - **Access Type**: `confidential`
+   - **Standard Flow Enabled**: `ON`
+   - **Implicit Flow Enabled**: `OFF`
+   - **Direct Access Grants Enabled**: `ON`
+   - **Valid Redirect URIs**: https:///\<YOUR HOST\>//oauth/callback/oidc, e.g., `http://localhost:8000/oauth/callback/oidc`
+4. Select **Save**.
+5. In the **Credentials** tab, note the **Secret** field.
+6. In the **Keys** tab, set the field **Use JWKS URL** to `OFF`.
+7. Complete the setup in Seqera by adding the following environment variables to your configuration:
+
+   - `TOWER_OIDC_CLIENT`: The client ID assigned in step 3 above.
+   - `TOWER_OIDC_SECRET`: The contents of the **Secret** field noted in step 5 above.
+   - `TOWER_OIDC_ISSUER`: The Keycloak issuer URL. Locate this on the **Realm Settings** page, from _OpenID Configuration_ in the **Endpoints** field. From the JSON payload displayed, copy the value associated with `issues`, e.g., `http://localhost:9000/auth/realms/master`.
+
+### Entra ID OIDC provider
+
+To use [Entra ID OIDC](https://learn.microsoft.com/en-us/entra/identity-platform/v2-protocols-oidc) as the identity provider for Seqera, configure a new client in your Entra ID service:
+
+1. Log in to the [Azure portal](https://portal.azure.com/).
+2. Go to the **Entra ID** service.
+3. Select **Manage Tenants**.
+4. Create a new **Tenant**, e.g., `SeqeraOrg`.
+5. Select the new tenant.
+6. Go to **App Registrations**.
+7. Select **New Registration** and specify the following:
+
+   1. A name for the application.
+   2. The scope of user verification (e.g., single tenant, multi-tenant, personal MSFT accounts, etc).
+
+:::note
+The Entra ID app must have user consent settings configured to **Allow user consent for apps** to ensure that admin approval is not required for each application login. See [User consent settings](https://learn.microsoft.com/en-us/azure/active-directory/manage-apps/configure-user-consent?pivots=portal#configure-user-consent-settings).
+:::
+
+8. Specify the **Redirect** (callback) URI.
+
+:::note
+This must be an `https://` URI, per Microsoft's requirements.
+:::
+
+9. Open the newly-created app:
+
+   1. Note the `Application (client) ID` on the **Essentials** table.
+   2. Generate **Client credentials** on the **Essentials** table.
+   3. Select **Endpoints** and note the OpenID Connect metadata document URI.
+
+10. Add users to your tenant as required.
+11. Complete the setup in Seqera by adding the following environment variables to your configuration:
+
+    ```bash
+    TOWER_OIDC_CLIENT=<YOUR_APPLICATION_ID>
+    TOWER_OIDC_SECRET=<YOUR_CLIENT_CREDENTIALS_SECRET>
+    TOWER_OIDC_ISSUER=<YOUR_OIDC_METADATA_URL_UP_TO_"v2.0">   (e.g. https://login.microsoftonline.com/000000-0000-0000-00-0000000000000/v2.0)
+    ```
+12. Add `auth-oidc` to the `MICRONAUT_ENVIRONMENTS` environment variable for both the `cron` and `backend` services.
+
+### Okta identity provider
+
+To use [Okta](https://www.okta.com/) as the identity provider for Seqera:
+
+1. Sign in to your Okta organization with your administrator account.
+2. From the **Admin Console** side navigation, select **Applications > Applications**.
+3. Select **Add Application**.
+4. Select **Create New App**.
+5. Select the **OpenID Connect** sign-on method.
+6. Select **Create**.
+7. Enter a name for your new app integration, e.g., `Seqera`.
+8. In **Configure OpenID Connect**, add the following redirect URIs:
+
+   - **Sign-in redirect URIs** : `https://<YOUR HOST OR IP>/oauth/callback/oidc`
+   - **Sign-out redirect URIs** : `https://<YOUR HOST OR IP>/logout`
+
+9. Select **Save**.
+10. Okta automatically redirects to your new application settings. Complete the setup in Seqera by adding the following environment variables to your configuration:
+
+    - `TOWER_OIDC_CLIENT`: Copy the **Client ID** value from **General > Client Credentials** for the corresponding app client configuration.
+    - `TOWER_OIDC_SECRET`: Copy the **Client secret** value from **General > Client Credentials** for the corresponding app client configuration.
+    - `TOWER_OIDC_ISSUER`: Copy the Okta issuer URL from **Sign On > OpenID Connect ID Token** for the corresponding app client configuration.
+
+## Configure user access allow list
+
+When using a public authentication provider such as Google or GitHub, you may need to restrict the access to specific user email addresses or domains.
+
+Replace `<PROVIDER>` in the snippets below with `github`, `google`, or `oidc`. `oidc` is used to specify any other authentication service based on OpenID Connect, such as Okta, Entra ID, Keycloak, etc. Include each provider separately if you specify more than one.
+
+The allow list entries are case-insensitive.
+
+**Environment variables**
+
+```env
+TOWER_AUTH_<PROVIDER>_ALLOW_LIST=*@foo.com,user1@bar.com
+```
+
+**tower.yml**
+
+```yaml
+
+tower:
+auth:
+   <PROVIDER>:
+      allow-list:
+      - "*@foo.com"
+      - "me@bar.com"
+
+```
