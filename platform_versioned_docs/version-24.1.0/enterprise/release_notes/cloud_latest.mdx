@@ -1,29 +1,31 @@
-# Release notes for Seqera Cloud version 23.4.x
+# Release notes for Seqera Cloud version 24.1
 
-Seqera Platform Cloud version 23.4 introduces a redesigned UI, VM instance template support for Google Cloud Batch, and bug fixes and other performance enhancements.
+## Seqera Pipelines & Containers
 
-## New features
+Introducing Seqera Pipelines and Seqera Containers - two revolutionary free and open resources designed to make it easier for bioinformaticians to discover and launch Nextflow pipelines as well as construct and share containers.  
 
-### Form redesign
+Seqera Pipelines allows you to search and filter the largest collection of curated Nextflow pipelines and then directly launch or add them to your workspace in Seqera Platform.
 
-Seqera Platform 23.4 features refreshed forms and UI elements aimed at enhancing user experience and streamlining form navigation. This redesign encompasses all application interface forms, including pipelines, compute environments, Data Explorer, and administrative pages to create a more intuitive user journey.
+Seqera Containers enables you to find and combine tools across PyPi, Bioconda, and Conda-forge - then have them automatically scanned for vulnerabilities, built into a container, and made available via a public URI that will be retained for a minimum of 5 years.   
 
-### Google Cloud Batch: VM instance template support
+Explore them today, or read more in our blog and join us in shaping the future of scientific research.  
 
-Seqera now supports VM instance templates for head and compute jobs in Google Cloud Batch compute environments. [VM instance templates][gcp-vm-instance-template] provide a convenient way to save a VM configuration, thereby allowing you to define the resources allocated to Batch jobs.
+## Seqera Compute
 
-## Other improvements
+Presenting Seqera Compute - a fully optimized runtime designed to revolutionize scientific computing on Seqera Platform. Now available in private preview, Seqera Compute enables scientists to concentrate on their work by integrating compute, storage, credential management, and performance optimizations into a single, cohesive service. 
 
-- Forms UI copy improvements
-- Update docker-compose in deployment files
-- SQL migration enhancements for MySQL 5.7 and above
-- Changed default AzBatch image to ubuntu-server
-- Set private address for head job configuration in Google Batch
-- Nextflow output file preview in Data Explorer
-- License model updates
+Sign up now for the private preview. 
 
-## Changelog
+## Data Studios
 
-For a detailed list of all changes, see the Seqera [changelog](./changelog.mdx).
+Data Studios is now publicly available for Seqera Cloud!
 
-[gcp-vm-instance-template]: https://cloud.google.com/compute/docs/instance-templates
+Data Studios closes the loop from development, to deployment and insights, allowing you to create, manage, share notebook environments in Seqera with the click of a button. It's now easier than ever to transition Nextflow-generated data to JupyterLab, RStudio, and VSCode environments with pre-built templates that can easily leverage existing Compute Environments and Data in Seqera Platform.
+
+Data Studios also makes it seamless to work across teams with multi-user support, built-in authentication, and automatic snapshots as you work that enable collaboration and reproducibility while remaining secure.
+Get inspired by examples running Data Studios, in the Seqera Platform Community Showcase. 
+
+## Data Explorer
+
+Data Explorer is now Generally Available, with an even more exciting update - multi-file and multi-folder download capability! This allows users to effortlessly download entire datasets of pipeline results with just a few clicks and share them with their team. This update bypasses the need for cloud credentials or complex DevOps configurations, offering a user-friendly alternative to traditional cloud storage services without the hassle of command-line interface wrangling or intricate user interfaces.
+
