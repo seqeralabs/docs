@@ -45,6 +45,7 @@
                 "credentials/gitea_registry_credentials"
               ]
             },
+            "credentials/managed_identities",
             "credentials/ssh_credentials",
             "credentials/agent_credentials"
           ]
