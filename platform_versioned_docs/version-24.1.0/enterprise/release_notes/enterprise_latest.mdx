@@ -21,17 +21,21 @@ This allows users to bypass the need for cloud credentials or complex DevOps con
 
 ## Extended data roles
 
-## Micronaut v4
+Three additional user roles have been introduced alongside Data Studios. These roles provide flexibility for admins to provide users with the permissions they need, without compromising security. The roles support the following actions:
+
+- **Maintain**: The ability to create, update, start, stop, change configuration, and delete data studio sessions.
+- **Connect**: The ability to open a connection to a running session and interact with the contents.
+- **View**: The ability to list, search, and see the status/configuration/details of data studios.
 
 ## Managed identities
 
-### Other feature improvements
+Seqera managed identities resolve the limitations of SSH access by enabling granular access control to HPC clusters for individual workspace users.
 
-- OpenAPI support for Data Explorer
-- Login configuration now includes the ability to remove email login
-- Graviton3 EC2 instance families added as valid NVMe instances
+## Other feature improvements
+
 - Retrieve reports from primary compute environment on Nextflow CLI runs
 - Personal workspace updates (add)
+- The standard email login can be disabled in the `tower.yml` file in the `TOWER_LOGIN_DISABLE_EMAIL=true` environment variable provided an alternative OIDC provider is set up first.
 
 ## Breaking changes
 
