@@ -1,6 +1,6 @@
 ---
 title: "Data Studios"
-description: "Data Studios Public Preview."
+description: "Data Studios public preview."
 date: "17 May 2024"
 tags: [data, studios]
 ---
@@ -8,7 +8,7 @@ tags: [data, studios]
 Data Studios is a unified platform where you can host a combination of container images and compute environments for interactive tertiary analysis using your preferred tools, like JupyterLab and RStudio Notebooks, or Visual Studio Code IDEs. Each data studio session is an individual interactive environment that encapsulates the live environment for dynamic data analysis.
 
 :::note
-Data Studios is currently in **Public Preview**.
+Data Studios is currently in **public preview** and is available from Seqera Platform v24.1.
 :::
 
 **Requirements**
@@ -23,9 +23,83 @@ Before you get started, ensure you have the following:
 Currently, Data Studios only supports AWS Batch compute environments that **do not** have Fargate enabled.
 :::
 
-## Overview
 
-Select the **Data Studios** tab to view all data studios. The list includes the name, cloud provider, analysis template, region, author, creation date, and the status of each session. In this view, you can add a new data studio session, as well as start, stop, and connect to an existing data studio session. You can dynamically filter the list of data studio sessions using the search bar and searching by name (default), author username, or compute environment name. Selecting the session name opens a detailed view of the data studio, displaying configuration information.
+## Deploy Seqera Platform with Data studios
+
+This guide assumes that all prerequisites have been met. Visit the corresponding **Prerequisites** page for your infrastructure provider.
+
+## Docker compose
+
+To run data studios in docker compose setup uncomment following values in the `_templates/docker/data-studios.env` file:
+
+```dotenv
+# Data studios settings
+TOWER_DATA_STUDIO_ALLOWED_WORKSPACES=<ALLOWED WORKSPACES>
+# Enable Data Explorer to enable mounting data to your data studios
+TOWER_DATA_EXPLORER_ENABLED=true
+TOWER_DATA_EXPLORER_CLOUD_DISABLED_WORKSPACES=
+TOWER_DATA_STUDIO_CONNECT_URL=<YOUR CONNECT URL, SAME AS `CONNECT_PROXY_URL` IN `data-studios.env` >
+TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN=<YOUR INITIAL ACCESS TOKEN, IDEANTICAL AS `INITIAL_ACCESS_TOKEN` in `data-studios.env`>
+TOWER_OIDC_PEM_PATH=<PATH TO PEM FILE>
+```
+
+fill `_templates/docker/data-studios.env` values and uncomment following lines in the `_templates/docker/docker-compose.yml` file:
+
+```yaml
+  connect-proxy:
+    image: cr.seqera.io/private/nf-tower-enterprise/data-studio/tower-connect-proxy:0.6.14
+    platform: linux/amd64
+    env_file:
+      - data-studios.env
+    networks:
+      - frontend
+      - backend
+    ports:
+      - 9090:9090
+    restart: always
+    depends_on:
+      - redis
+
+  connect-server:
+    image: cr.seqera.io/private/nf-tower-enterprise/data-studio/tower-connect-server:v0.6.14
+    platform: linux/amd64
+    env_file:
+      - data-studios.env
+    networks:
+      - backend
+    ports:
+      - 7070:7070
+    restart: always
+```
+
+Data studios RSA key is required for the data studios functionality. Generate your key and provide the path to it in the
+`TOWER_OIDC_PEM_PATH` variable in the `data-studios.env` file. Next mount the pem file in the `backend` service in the `docker-compose.yml` file.
+
+See example in the configuration with `data-studios-rsa.pem` file mounted in the `backend` service:
+```yaml
+  backend:
+    volumes:
+      - $PWD/data-studios-rsa.pem:/data-studios-rsa.pem
+```
+
+## Kubernetes
+
+TBD
+
+## DNS setup
+
+Proxy domain (`CONNECT_PROXY_URL`) has to be a subdomain of main platform domain (example: if platform domain is
+`tower.io`, then proxy domain should be `connect.tower.io`).
+Data studios require a wildcard DNS record that will match request for non-existent subdomains.
+It is specified by a `*` as part of the domain name, example: `*.tower.io`. It should be pointed to the port 9090.
+
+Example of setup:
+```
+*.tower.io -> 9090
+tower.io -> 8000
+```
+
+Select the **Data Studios** tab in Platform to view all data studios. The list includes the name, cloud provider, analysis template, region, author, creation date, and the status of each session. In this view, you can add a new data studio session, as well as start, stop, and connect to an existing data studio session. You can dynamically filter the list of data studio sessions using the search bar and searching by name (default), author username, or compute environment name. Selecting the session name opens a detailed view of the data studio, displaying configuration information.
 
 ## Add a data studio
 
