@@ -36,6 +36,17 @@ To create a new **HPC** compute environment:
 1.  Select your HPC environment from the **Platform** dropdown menu.
 1.  Select your existing managed identity, SSH, or Tower Agent credentials, or select **+** and **SSH** or **Tower Agent** to add new credentials.
 1.  Enter the absolute path of the **Work directory** to be used on the cluster.
+
+  :::caution 
+  All managed identity users must be a part of the same Linux user group. The group must have access to the HPC compute environment work directory. Set group permissions for the work directory as follows (replace `sharedgroupname` and `<WORKDIR>` with your group name and work directory):
+
+  ```bash
+  chgrp -R sharedgroupname <WORKDIR>
+  chmod -R g+wxs <WORKDIR>
+  setfacl -Rdm g:sharedgroupname:rwxs <WORKDIR>
+  ```
+  :::
+
 1.  Enter the absolute path of the **Launch directory** to be used on the cluster. If omitted, it will be the same as the work directory.
 1.  Enter the **Login hostname**. This is usually the hostname or public IP address of the cluster's login node.
 1.  Enter the **Head queue name**. This is the [default](https://www.nextflow.io/docs/latest/process.html#queue) cluster queue to which the Nextflow job will be submitted.
