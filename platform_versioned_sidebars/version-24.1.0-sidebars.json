@@ -165,7 +165,8 @@
             "enterprise/configuration/reverse_proxy",
             "enterprise/configuration/ssl_tls",
             "enterprise/configuration/pipeline_optimization",
-            "enterprise/configuration/wave"
+            "enterprise/configuration/wave",
+            "enterprise/data-studios"
           ]
         },
         {
@@ -175,8 +176,7 @@
           "items": [
             "enterprise/docker-compose",
             "enterprise/kubernetes",
-            "enterprise/testing",
-            "enterprise/data-studios"
+            "enterprise/testing"          
           ]
         },
         {
