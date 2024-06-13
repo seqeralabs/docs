@@ -175,7 +175,8 @@
           "items": [
             "enterprise/docker-compose",
             "enterprise/kubernetes",
-            "enterprise/testing"
+            "enterprise/testing",
+            "enterprise/data-studios"
           ]
         },
         {
