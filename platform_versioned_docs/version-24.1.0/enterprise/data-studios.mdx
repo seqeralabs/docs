@@ -24,7 +24,7 @@ TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN=<YOUR INITIAL ACCESS TOKEN, IDEANTI
 TOWER_OIDC_PEM_PATH=<PATH TO PEM FILE>
 ```
 
-fill `_templates/docker/data-studios.env` values and uncomment following lines in the `_templates/docker/docker-compose.yml` file:
+Fill in the values for `_templates/docker/data-studios.env` and uncomment the following lines in the `_templates/docker/docker-compose.yml` file:
 
 ```yaml
   connect-proxy:
@@ -53,10 +53,10 @@ fill `_templates/docker/data-studios.env` values and uncomment following lines i
     restart: always
 ```
 
-Data studios RSA key is required for the data studios functionality. Generate your key and provide the path to it in the
-`TOWER_OIDC_PEM_PATH` variable in the `data-studios.env` file. Next mount the pem file in the `backend` service in the `docker-compose.yml` file.
+An RSA key is required for the Data Studios functionality. Generate your key and provide the path to it in the
+`TOWER_OIDC_PEM_PATH` variable in the `data-studios.env` file. Next mount the `pem` file in the `backend` service in the `docker-compose.yml` file.
 
-See example in the configuration with `data-studios-rsa.pem` file mounted in the `backend` service:
+See this example in the configuration with `data-studios-rsa.pem` file mounted in the `backend` service:
 ```yaml
   backend:
     volumes:
@@ -65,9 +65,10 @@ See example in the configuration with `data-studios-rsa.pem` file mounted in the
 
 
 ## DNS setup
-Proxy domain (`CONNECT_PROXY_URL`) has to be a subdomain of main platform domain (example: if platform domain is
+
+The proxy domain (`CONNECT_PROXY_URL`) has to be a subdomain of main platform domain (example: if the platform domain is
 `tower.io`, then proxy domain should be `example.tower.io`).
-Data studios require a wildcard DNS record that will match request for non-existent subdomains.
+Data Studios requires a wildcard DNS record that will match requests for non-existent subdomains.
 It is specified by a `*` as part of the domain name, example: `*.tower.io`. It should be pointed to the port 9090.
 
 Example of setup:
