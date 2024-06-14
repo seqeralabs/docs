@@ -5,9 +5,9 @@ date: "12 Jun 2024"
 tags: [docker, compose, kubernetes, data, studios, deployment]
 ---
 
-This guide assumes that all prerequisites have been met. Visit the corresponding **Prerequisites** page for your infrastructure provider.
-
 ## Docker compose
+
+This guide assumes that all services will be run in the same container as the rest of the platform services.
 
 To run data studios in docker compose setup uncomment following values in the `_templates/docker/data-studios.env` file:
 
@@ -63,12 +63,10 @@ See example in the configuration with `data-studios-rsa.pem` file mounted in the
       - $PWD/data-studios-rsa.pem:/data-studios-rsa.pem
 ```
 
-## Kubernetes
-TBD
 
 ## DNS setup
 Proxy domain (`CONNECT_PROXY_URL`) has to be a subdomain of main platform domain (example: if platform domain is
-`tower.io`, then proxy domain should be `connect.tower.io`).
+`tower.io`, then proxy domain should be `example.tower.io`).
 Data studios require a wildcard DNS record that will match request for non-existent subdomains.
 It is specified by a `*` as part of the domain name, example: `*.tower.io`. It should be pointed to the port 9090.
 
@@ -77,3 +75,5 @@ Example of setup:
 *.tower.io -> 9090
 tower.io -> 8000
 ```
+
+Additionally a valid wildcard ssl certificate to cover the third level domain is required.
