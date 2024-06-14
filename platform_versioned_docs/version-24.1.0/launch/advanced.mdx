@@ -7,15 +7,14 @@ tags: [advanced, launch]
 
 You can modify the configuration and execution of a pipeline with advanced launch options.
 
-## Nextflow config file
+### Nextflow config file
 
-The **Nextflow config file** field allows you to add settings to the Nextflow configuration file.
+Add settings to the Nextflow configuration file. This must follow the same syntax as the [Nextflow configuration file](https://www.nextflow.io/docs/latest/config.html#config-syntax).
+
 
 :::note
 Nextflow parameters defined in this field override the same parameters in your `nextflow.config` file.
 :::
-
-This text should follow the same syntax as the [Nextflow configuration file](https://www.nextflow.io/docs/latest/config.html#config-syntax).
 
 For example, modify the **manifest** section to give the pipeline a name and description that will show up in the Seqera monitoring section:
 
@@ -28,9 +27,9 @@ For example, modify the **manifest** section to give the pipeline a name and des
     }
 ```
 
-## Seqera Cloud config file
+### Seqera Cloud config file
 
-The **Seqera Cloud config file** field allows you to configure per-pipeline Seqera reporting behavior. Settings specified here override the same settings in the [`tower.yml`](../enterprise/configuration/overview.mdx) file for this execution. Use the `reports` key to specify report paths, titles, and MIME types:
+Configure per-pipeline Seqera reporting behavior. Settings specified here override the same settings in the `tower.yml` [configuration file](../enterprise/configuration/overview.mdx) for this execution. Use the `reports` key to specify report paths, titles, and MIME types:
 
 ```yml
 reports:
@@ -39,19 +38,23 @@ reports:
     mimeType: "text/html"
 ```
 
-## Pre and post-run scripts
+### Pre and post-run scripts
 
-You can run custom code either before or after the execution of the Nextflow script. These fields allow you to enter shell commands.
+Run custom code either before or after the execution of the Nextflow script. These fields allow you to enter shell commands.
 
-Pre-run scripts are executed in the nf-launch script prior to invoking Nextflow processes. Pre-run scripts are useful for executor setup (e.g., to load a private CA certificate) and troubleshooting. For example, add `sleep 3600` to your pre-run script to instruct Nextflow to wait 3600 seconds (60 minutes) before process execution after the nf-launcher container is started, to create a window in which to test connectivity and other issues before your Nextflow processes execute.
+**Pre-run scripts** are executed in the nf-launch script prior to invoking Nextflow processes. Pre-run scripts are useful for executor setup (such as loading a private CA certificate) and troubleshooting. For example, add `sleep 3600` to your pre-run script to instruct Nextflow to wait 3600 seconds before process execution after the nf-launcher container is started. This allows you to create a window in which to test connectivity and other issues before your Nextflow processes execute.
 
-Post-run scripts are executed after all Nextflow processes have completed. Post-run scripts are useful for triggering a third party service via API request.
+**Post-run scripts** are executed after all Nextflow processes have completed. Post-run scripts are useful for triggering a third party service via an API request.
 
-## Pull latest
+### Pull latest
 
-Enable this option to ensure that Nextflow pulls the latest version from the Git repository. This is equivalent to using the `-latest` flag.
+Instruct Nextflow to pull the latest pipeline version from the Git repository. This is equivalent to using the `-latest` flag.
 
-## Main script
+### Stub run 
+
+Replace Nextflow process commands with command [stubs](https://www.nextflow.io/docs/latest/process.html#stub), where defined, before execution. 
+
+### Main script
 
 Nextflow will attempt to run the script named `main.nf` in the project repository by default. You can change this with the `manifest.mainScript` option or by providing the script filename to run in this field.
 
@@ -59,6 +62,14 @@ Nextflow will attempt to run the script named `main.nf` in the project repositor
 If you specify a custom main script, the root of the default branch in your pipeline repository must still contain blank `main.nf` and `nextflow.config` files for Nextflow to interpret the pipeline correctly. See [Nextflow configuration](../faqs.mdx#nextflow-configuration) for more information on this known Nextflow behavior.
 :::
 
-## Workflow entry name
+### Workflow entry name
 
 Nextflow DSL2 provides the ability to launch workflows with specific names. Enter the name of the workflow to be executed in this field.
+
+### Schema name 
+
+Specify the name of a pipeline schema file in the workflow repository root folder to override the default `nextflow_schema.json`. 
+
+### Head job CPUs and memory
+
+Specify the compute resources allocated to the Nextflow head job. These fields are only displayed for runs executing on [AWS Batch](../compute-envs/aws-batch.mdx) and [Azure Batch](../compute-envs/azure-batch.mdx) compute environments. 
