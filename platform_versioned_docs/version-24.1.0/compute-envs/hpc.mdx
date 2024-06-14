@@ -43,7 +43,7 @@ To create a new **HPC** compute environment:
   ```bash
   chgrp -R sharedgroupname <WORKDIR>
   chmod -R g+wxs <WORKDIR>
-  setfacl -Rdm g:sharedgroupname:rwxs <WORKDIR>
+  setfacl -Rdm g::rwX <WORKDIR>
   ```
   :::
 
