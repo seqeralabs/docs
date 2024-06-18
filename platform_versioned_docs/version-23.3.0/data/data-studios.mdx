@@ -8,7 +8,7 @@ tags: [data, studios]
 Data Studios is a unified platform where you can host a combination of images and compute environments for interactive analysis using your preferred tools, like Jupyter notebooks, RStudio, and Visual Studio Code IDEs. Each data studio session is an individual interactive environment that encapsulates the live environment for dynamic data analysis.
 
 :::note
-Data Studios is currently in **private preview** and is not yet generally available. To request access, please contact your Seqera account manager.
+Data Studios is currently in **private preview** and is not yet generally available. To request access, please contact your Seqera account executive.
 :::
 
 **Requirements**
@@ -92,7 +92,7 @@ Data studios have the following possible statuses:
 - **running**: When a data studio session is **running**, you can connect to it, copy the data studio URL, or stop it. In addition, the session can continue to process requests/run computations in the absence of an ongoing connection.
 - **stopping**: The recently-running session is in the process of being stopped.
 - **stopped**: When a session is stopped, the associated compute resources are deallocated and any unsaved state is lost. You can start a session or delete the data studio when it's in this state.
-- **errored**: This state most often indicates that there has been an error starting the data studio but it is in a **stopped** state. There might be errors reported by the data studio session itself but these currently will be overwritten with a **running** status if the studio is still running. If you encounter an error with the private preview release of Data Studios, please reach out to your Seqera account manager.
+- **errored**: This state most often indicates that there has been an error starting the data studio but it is in a **stopped** state. There might be errors reported by the data studio session itself but these currently will be overwritten with a **running** status if the studio is still running. If you encounter an error with the private preview release of Data Studios, please reach out to your Seqera account executive.
 
 ## Troubleshooting
 
@@ -104,8 +104,8 @@ If sufficient resources are not available, **Stop** your data studio and any oth
 
 ### My data studio status is **errored**
 
-The **errored** status is generally related to issues encountered when creating the data studio resources in the compute environment (e.g., invalid credentials, insufficient permissions, network issues). It can also be related to insufficient compute resources, which are set in your compute environment configuration. Contact your organization's AWS administrator if you don't have access to the AWS Console. Please also reach out to your account manager so we can investigate the issue.
+The **errored** status is generally related to issues encountered when creating the data studio resources in the compute environment (e.g., invalid credentials, insufficient permissions, network issues). It can also be related to insufficient compute resources, which are set in your compute environment configuration. Contact your organization's AWS administrator if you don't have access to the AWS Console. Please also reach out to your account executive so we can investigate the issue.
 
 ### My data studio can't be stopped
 
-If you're not able to stop a data studio, it's usually because the job running the studio failed for some reason. In this case, and if you have access to the AWS Console for your organization, you can stop the data studio from the compute environment screen. Contact your organization's AWS administrator if you don't have access to the AWS Console. Also contact your Seqera account manager so we can investigate the issue.
+If you're not able to stop a data studio, it's usually because the job running the studio failed for some reason. In this case, and if you have access to the AWS Console for your organization, you can stop the data studio from the compute environment screen. Contact your organization's AWS administrator if you don't have access to the AWS Console. Also contact your Seqera account executive so we can investigate the issue.
