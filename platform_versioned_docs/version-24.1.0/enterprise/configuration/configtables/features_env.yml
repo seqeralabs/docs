@@ -19,3 +19,8 @@
   Description: > 
     Use AWS Simple Email Service (SES) to send Seqera emails instead of SMTP.
   Value:                'Default: `false`'
+- 
+  Environment variable:            '`TOWER_ALLOW_NEXTFLOW_LOGS`'
+  Description: > 
+    Allow log and report files from Nextflow CLI runs (`-with-tower`) to be included in Seqera reports. Runs must be launched from a workspace primary compute environment. 
+  Value:                'Default: `false`'
