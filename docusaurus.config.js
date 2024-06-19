@@ -94,7 +94,9 @@ export default async function createConfigAsync() {
             (await require("remark-yaml-to-table")).default,
           ],
           rehypePlugins: [(await require("rehype-katex")).default],
-          editUrl: "https://github.com/seqeralabs/docs/tree/master/",
+          editUrl: ({ docPath }) => {
+            return `https://github.com/MultiQC/MultiQC/blob/main/docs${docPath.replace('multiqc_docs/multiqc_repo/docs', '')}`
+          },
           sidebarPath: "./multiqc_docs/sidebar.json",
         },
       ],      [
