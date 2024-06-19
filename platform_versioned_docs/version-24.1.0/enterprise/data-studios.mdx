@@ -1,0 +1,84 @@
+---
+title: "Data studios deployment"
+description: Deploy Seqera Platform with Data studios
+date: "12 Jun 2024"
+tags: [docker, compose, kubernetes, data, studios, deployment]
+---
+
+## Docker compose
+
+This guide assumes that all services will be run in the same container as the rest of the platform services.
+
+To run Data Studios in `docker compose` setup uncomment following values in the `_templates/docker/tower.env` file:
+
+```dotenv
+# Data Studios settings
+TOWER_DATA_STUDIO_ALLOWED_WORKSPACES=<ALLOWED WORKSPACES>
+
+# Enable Data Explorer to enable mounting data to your data studios
+TOWER_DATA_EXPLORER_ENABLED=true
+TOWER_DATA_EXPLORER_CLOUD_DISABLED_WORKSPACES=
+
+TOWER_DATA_STUDIO_CONNECT_URL=<YOUR CONNECT URL, SAME AS `CONNECT_PROXY_URL` IN `data-studios.env` >
+TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN=<YOUR INITIAL ACCESS TOKEN, IDEANTICAL AS `INITIAL_ACCESS_TOKEN` in `data-studios.env`>
+TOWER_OIDC_PEM_PATH=<PATH TO PEM FILE>
+```
+
+Fill in the values for `_templates/docker/data-studios.env` and uncomment the following lines in the `_templates/docker/docker-compose.yml` file:
+
+```yaml
+  connect-proxy:
+    image: cr.seqera.io/private/nf-tower-enterprise/data-studio/tower-connect-proxy:0.6.14
+    platform: linux/amd64
+    env_file:
+      - data-studios.env
+    networks:
+      - frontend
+      - backend
+    ports:
+      - 9090:9090
+    restart: always
+    depends_on:
+      - redis
+
+  connect-server:
+    image: cr.seqera.io/private/nf-tower-enterprise/data-studio/tower-connect-server:v0.6.14
+    platform: linux/amd64
+    env_file:
+      - data-studios.env
+    networks:
+      - backend
+    ports:
+      - 7070:7070
+    restart: always
+```
+
+An RSA key is required for the Data Studios functionality. Generate your key and provide the path to it in the
+`TOWER_OIDC_PEM_PATH` variable in the `data-studios.env` file. Next mount the `pem` file in the `backend` service in the `docker-compose.yml` file.
+
+See this example in the configuration with `data-studios-rsa.pem` file mounted in the `backend` service:
+```yaml
+  backend:
+    volumes:
+      - $PWD/data-studios-rsa.pem:/data-studios-rsa.pem
+```
+
+
+## DNS setup
+
+The proxy domain (`CONNECT_PROXY_URL`) has to be a subdomain of main platform domain (example: if the platform domain is
+`tower.io`, then the proxy domain should be `example.tower.io`).
+Data Studios requires a wildcard DNS record that will match requests for non-existent subdomains.
+It is specified by a `*` as part of the domain name, example: `*.tower.io`. It should be pointed to the port 9090.
+
+Example of setup:
+```
+*.tower.io -> 9090
+tower.io -> 8000
+```
+
+Additionally, a valid wildcard ssl certificate to cover the third level domain is required.
+
+:::note
+We recommend using only a third-level domain if possible, as costs may increase with the number of subdomains.
+:::
