@@ -18,7 +18,7 @@
       "collapsed": true,
       "items": [
         "core/reports/reports",
-        "core/reports/customization"
+        "core/reports/customisation"
       ]
     },
     "core/custom_content/index",
@@ -58,7 +58,7 @@
         "modules/bakta",
         "modules/bamdst",
         "modules/bamtools",
-        "modulest/bbduk",
+        "modules/bbduk",
         "modules/bbmap",
         "modules/bcftools",
         "modules/bcl2fastq",
