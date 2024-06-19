@@ -18,6 +18,7 @@ module.exports = {
       xl: "1280px",
     },
     fontFamily: {
+      title: ["Degular", "Helvetica", "sans-serif"],
       display: ["Inter", "Helvetica", "sans-serif"],
       body: ["Inter", "Helvetica", "sans-serif"],
     },

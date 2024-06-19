@@ -61,3 +61,14 @@ AZURE Batch - SSL problem as per https://git.seqera.io/eagle/nf-support/issues/1
 https://github.com/nf-core/configs/blob/master/conf/google.config as per this ticket: https://git.seqera.io/pluto/nf-support/issues/6
 
 TO DO: As per Ben, document profile injection behaviour into Tower docs (e.g. nf-core automagically injecting google profile if executing on GLS)
+
+Azure prereqs notes dump:
+
+<!-- To do: Write section on this. Use Application Gateway. Blurb about why  -->
+
+<!-- ? Where to get from? [Free managed cert through App Service. Can generate own. Can buy from Azure (via GoDaddy). Store in Azure Key Vault](https://docs.microsoft.com/en-us/azure/app-service/configure-ssl-certificate) -->
+<!-- ### Option 1: Microsoft-Specific -->
+<!-- ? This is? [Application Gateway with TLS](https://docs.microsoft.com/en-us/azure/application-gateway/create-ssl-portal), [Application Gateway DNS](https://docs.microsoft.com/en-us/azure/application-gateway/application-gateway-faq), route traffic via DNS system (Route53/Azure DNS) -->
+
+<!-- App service seems to offer DNS and certs but appears to be a full deployment solution - no need for the VM. -->
+<!-- URL xxxxx.azurewebsites.net -> seems to allow custom domains (can buy from Azure) -->
