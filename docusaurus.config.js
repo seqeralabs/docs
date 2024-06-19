@@ -97,7 +97,7 @@ export default async function createConfigAsync() {
           editUrl: ({ docPath }) => {
             return `https://github.com/MultiQC/MultiQC/blob/main/docs${docPath.replace('multiqc_docs/multiqc_repo/docs', '')}`
           },
-          sidebarPath: "./multiqc_docs/sidebar.json",
+          sidebarPath: "./multiqc_docs/sidebar.js",
         },
       ],      [
         "@docusaurus/plugin-content-docs",
