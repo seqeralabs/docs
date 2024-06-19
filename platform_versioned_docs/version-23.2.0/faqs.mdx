@@ -299,7 +299,7 @@ $ curl -o /dev/null -s -w "%{http_code}\n" --connect-timeout 2  "https://api.clo
 
 **<p data-question>Q: Can I completely disable the email login feature?</p>**
 
-The email login feature cannot be completely removed from the login screen.
+Yes. As of Seqera Platform 24.1 you can disable the email login screen in the `tower.yml` file in the TOWER_LOGIN_DISABLE_EMAIL=true environment variable provided an alternative OIDC provider is set up first. See, [the configuration overview page](https://docs.seqera.io/platform/24.1.0/enterprise/configuration/overview) for more information.
 
 **<p data-question>Q: Can I restrict access to a subset of email addresses, or none?</p>**
 
