@@ -4,21 +4,24 @@ Seqera Platform Enterprise version 24.1.0 introduces two new features: Data Expl
 
 ## Data Studios
 
-[Data Studios](./data-studios.mdx) closes the loop from development, to deployment and insights, allowing you to create, manage, share notebook environments in Seqera with the click of a button. It's now easier than ever to transition Nextflow-generated data to JupyterLab, RStudio, and VSCode environments with pre-built templates that can easily leverage existing compute environments and data in Seqera Platform. Data Studios also makes it seamless to work across teams with multi-user support, built-in authentication, and automatic snapshots as you work that enable collaboration and reproducibility while remaining secure.
+[Data Studios](./data-studios.mdx) closes the loop from development, to deployment and insights, allowing you to create, manage, share notebook environments in Seqera with the click of a button. Data Studios also makes it seamless to work across teams with multi-user support, built-in authentication, and automatic snapshots as you work.
+
+- Host a combination of container images and compute environments for interactive analysis using your preferred tools, like Jupyter notebooks, RStudio, and Visual Studio Code IDEs.
+- Checkpoints provide a stable point-in-time snapshot.
+- Collaborate and share data in real time.
 
 ## Data Explorer
 
-[Data Explorer](./data-explorer.mdx) is now Generally Available and from version 24.1 it supports multi-file and multi-folder download.
+[Data Explorer](./data-explorer.mdx) is now Generally Available and supports multi-file and multi-folder download. This allows users download entire datasets of pipeline results to share with their team. This is an alternative to traditional cloud storage services without requiring a command-line interface or user interfaces.
 
-This allows users to bypass the need for cloud credentials or complex DevOps configurations and easily download entire datasets of pipeline results with to share with their team. This is a user-friendly alternative to traditional cloud storage services without the hassle of a command-line interface or intricate user interfaces.
+## Extended data roles **< add link to content when platform PR is merged >**
 
-## Extended data roles
+The **Connect** user role has been added to the existing user roles. User roles provide flexibility for admins to provide users with the permissions they need, without compromising security. Existing roles have been updated with functionality related to Data Studios and Data Explorer:
 
-The **Connect** user role has been added to the existing user roles. User roles provide flexibility for admins to provide users with the permissions they need, without compromising security. The roles support the following actions:
-
-- **Maintain**: The ability to create, update, start, stop, change configuration, and delete data studio sessions.
 - **Connect**: The ability to open a connection to a running session and interact with the contents.
+- **Maintain**: The ability to create, update, start, stop, change configuration, and delete data studio sessions.
 - **View**: The ability to list, search, and see the status/configuration/details of data studios.
+- **Launch**: The ability to open a connection to a running session and interact with the contents.
 
 ## Managed identities
 
@@ -26,7 +29,7 @@ Seqera managed identities resolve the limitations of SSH access by enabling gran
 
 ## Other feature improvements
 
-- Retrieve reports from primary compute environment on Nextflow CLI runs.
+- Retrieve reports from primary compute environment on Nextflow CLI runs. **< include link to content when merged >**
 - The standard email login can be disabled in the `tower.yml` file in the `TOWER_LOGIN_DISABLE_EMAIL=true` environment variable provided an alternative OIDC provider is set up first. See, [the configuration overview page](https://docs.seqera.io/platform/24.1.0/enterprise/configuration/overview) for more information.
 
 ## Breaking changes
@@ -34,6 +37,8 @@ Seqera managed identities resolve the limitations of SSH access by enabling gran
 < to be added >
 
 ## Upgrade steps
+
+< to be confirmed >
 
 This version requires a database schema update. Follow these steps to update your DB instance and the Seqera installation.
 
