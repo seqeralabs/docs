@@ -1,0 +1,52 @@
+{
+  "sidebar": [
+    "index",
+    {
+      "type": "category",
+      "label": "Getting started",
+      "collapsed": true,
+      "items": [
+        "core/index",
+        "core/getting_started/quick_start",
+        "core/getting_started/installation",
+        "core/getting_started/running_multiqc",
+        "core/getting_started/config"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Reports",
+      "collapsed": true,
+      "items": [
+        "core/reports/reports",
+        "core/reports/customization"
+      ]
+    },
+    "core/custom_content/index",
+    {
+      "type": "category",
+      "label": "Usage",
+      "collapsed": true,
+      "items": [
+        "core/usage/downstream",
+        "core/usage/pipelines",
+        "core/usage/scripts",
+        "core/usage/troubleshooting"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Development",
+      "collapsed": true,
+      "items": [
+        "core/development/index",
+        "core/development/modules",
+        "core/development/plots",
+        "core/development/plugins",
+        "core/development/templates",
+        "core/development/compatibility",
+        "core/development/contributing"
+      ]
+    }
+  ]
+}

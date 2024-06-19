@@ -84,6 +84,22 @@ export default async function createConfigAsync() {
       [
         "@docusaurus/plugin-content-docs",
         {
+          id: "multiqc",
+          routeBasePath: "/multiqc",
+          path: "multiqc_docs",
+          remarkPlugins: [
+            (await import("remark-code-import")).default,
+            (await require("remark-math")).default,
+            (await import("docusaurus-remark-plugin-tab-blocks")).default,
+            (await require("remark-yaml-to-table")).default,
+          ],
+          rehypePlugins: [(await require("rehype-katex")).default],
+          editUrl: "https://github.com/seqeralabs/docs/tree/master/",
+          sidebarPath: "./multiqc_docs/sidebar.json",
+        },
+      ],      [
+        "@docusaurus/plugin-content-docs",
+        {
           id: "fusion",
           routeBasePath: "/fusion",
           path: "fusion_docs",
@@ -166,10 +182,9 @@ export default async function createConfigAsync() {
             target: "_blank",
           },
           {
-            to: "https://multiqc.info/docs/",
-            html: 'MultiQC <svg width="12" height="12" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU" style="margin-left:4px;opacity:0.6;"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg>',
+            to: "/multiqc/",
+            label: "MultiQC",
             position: "left",
-            target: "_blank",
           },
           {
             to: "/wave/",
