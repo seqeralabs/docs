@@ -32,7 +32,7 @@ table_columns_visible:
 
 See the [relevant section of the documentation](http://multiqc.info/docs/#hiding-columns) for more detail.
 
-In addition to this, it's possible to customise which coverage thresholds calculated
+In addition to this, it's possible to customize which coverage thresholds calculated
 by the Qualimap BamQC module _(default: 1, 5, 10, 30, 50)_ and which of these are hidden in the
 General Statistics tablewhen the report loads _(default: all hidden except 30X)_.
 

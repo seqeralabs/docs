@@ -40,7 +40,7 @@ up MultiQC execution, zip files will be skipped if the file name suggests
 that they will share a sample name with data that has already been parsed.
 :::
 
-You can customise the patterns used for finding these files in your
+You can customize the patterns used for finding these files in your
 MultiQC config (see [Module search patterns](#module-search-patterns)).
 The below code shows the default file patterns:
 
@@ -98,7 +98,7 @@ Please see the [package readme](https://github.com/mikelove/fastqcTheoreticalGC)
 for more details.
 
 Result files from this package are searched for with the following search pattern
-(can be customised as described above):
+(can be customized as described above):
 
 ```yaml
 sp:
@@ -119,7 +119,7 @@ fastqc_config:
 
 The overrepresented sequences table shows the most common sequences found,
 measured by the number of samples they occur as overrepresented. By default, the
-table shows top 20 sequences. This can be customised in the config:
+table shows top 20 sequences. This can be customized in the config:
 
 ```yaml
 fastqc_config:
@@ -136,7 +136,7 @@ fastqc_config:
 
 ### Changing the order of sections
 
-Remember that it is possible to customise the order in which the different module sections appear
+Remember that it is possible to customize the order in which the different module sections appear
 in the report if you wish.
 See [the docs](https://multiqc.info/docs/#order-of-module-and-module-subsection-output) for more information.
 

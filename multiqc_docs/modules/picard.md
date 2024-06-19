@@ -36,7 +36,7 @@ Supported commands:
 
 ### Coverage Levels
 
-It's possible to customise the HsMetrics _"Target Bases 30X"_ coverage and
+It's possible to customize the HsMetrics _"Target Bases 30X"_ coverage and
 WgsMetrics _"Fraction of Bases over 30X"_ that are
 shown in the general statistics table. This must correspond to field names in the
 picard report, such as `PCT_TARGET_BASES_2X` / `PCT_10X`. Any numbers not found in the
@@ -50,7 +50,7 @@ The coverage levels available for WgsMetrics are
 [typically](http://broadinstitute.github.io/picard/picard-metric-definitions.html#CollectWgsMetrics.WgsMetrics)
 1, 5, 10, 15, 20, 25, 30, 40, 50, 60, 70, 80, 90 and 100X.
 
-To customise this, add the following to your MultiQC config:
+To customize this, add the following to your MultiQC config:
 
 ```yaml
 picard_config:
@@ -100,7 +100,7 @@ picard_config:
 Only values listed in `HsMetrics_table_cols` will be included in the table.
 Anything listed in `HsMetrics_table_cols_hidden` will be hidden by default.
 
-A similar config is available for customising the HsMetrics columns in the General Stats table:
+A similar config is available for customizing the HsMetrics columns in the General Stats table:
 
 ```yaml
 picard_config:
@@ -114,7 +114,7 @@ picard_config:
 
 By default, the insert size plot is smoothed to contain a maximum of 500 data points per sample.
 This is to prevent the MultiQC report from being very large with big datasets.
-If you would like to customise this value to get a better resolution you can set the following
+If you would like to customize this value to get a better resolution you can set the following
 MultiQC config values, with the new maximum number of points:
 
 ```yaml
@@ -153,7 +153,7 @@ first library were taken and all others were ignored.
 
 ### ValidateSamFile Search Pattern
 
-Generally, Picard adds identifiable content to the output of function calls. This is not the case for ValidateSamFile. In order to identify logs the MultiQC Picard submodule `ValidateSamFile` will search for filenames that contain 'validatesamfile' or 'ValidateSamFile'. One can customise the used search pattern by overwriting the `picard/sam_file_validation` pattern in your MultiQC config. For example:
+Generally, Picard adds identifiable content to the output of function calls. This is not the case for ValidateSamFile. In order to identify logs the MultiQC Picard submodule `ValidateSamFile` will search for filenames that contain 'validatesamfile' or 'ValidateSamFile'. One can customize the used search pattern by overwriting the `picard/sam_file_validation` pattern in your MultiQC config. For example:
 
 ```yaml
 sp:
@@ -180,7 +180,7 @@ If running with very high coverage samples or using the Picard `CAP_COVERAGE` op
 the coverage histogram can become very large indeed. For eaxmple, if reporting coverages of 1 million,
 it will have 1 million data points per sample. That can crash the browser and take a long time to run.
 
-There are two customisation MultiQC options to help with this.
+There are two customization MultiQC options to help with this.
 Firstly, MultiQC will automatically "smooth" the histogram to a maximum of `1000` data points by binning.
 This should stop the browser from crashing. You can tweak how many bins are used with the following:
 

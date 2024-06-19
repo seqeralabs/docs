@@ -24,8 +24,8 @@ Supported scripts:
 - `read_gc`
 - `tin`
 
-You can choose to hide sections of RSeQC output and customise their order.
-To do this, add and customise the following to your MultiQC config file:
+You can choose to hide sections of RSeQC output and customize their order.
+To do this, add and customize the following to your MultiQC config file:
 
 ```yaml
 rseqc_sections:

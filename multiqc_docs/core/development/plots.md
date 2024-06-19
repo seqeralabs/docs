@@ -120,12 +120,12 @@ config = {
     "logswitch_active": False,                # Initial display with 'Log10' active?
     "logswitch_label": "Log10",               # Label for 'Log10' button
     "hide_zero_cats": True,                   # Hide categories where data for all samples is 0
-    # Customising the plot
+    # customizing the plot
     "title": None,                            # Plot title - should be in format "Module Name: Plot Title"
     "ylab": None,                             # Y axis label
     "ymax": None,                             # Max bar size limit (default is calculated from data)
     "xsuffix": "%",                           # Suffix for the X-axis values and labels. Parsed from tt_label by default
-    "tt_label": "{x}: {y:.2f}%",              # Customise tooltip label, e.g. '{point.x} base pairs'
+    "tt_label": "{x}: {y:.2f}%",              # customize tooltip label, e.g. '{point.x} base pairs'
     "stacking": "relative",                   # Set to "group" to have category bars side by side
     "tt_decimals": 0,                         # Number of decimal places to use in the tooltip number
     "tt_suffix": "",                          # Suffix to add after tooltip number
@@ -160,7 +160,7 @@ data2 = ...
 html = bargraph.plot([data1, data2], pconfig=pconfig)
 ```
 
-You can also customise any plot configuration per-dataset, for example,
+You can also customize any plot configuration per-dataset, for example,
 the y-axis label, min/max values, or title:
 
 ```python
@@ -196,7 +196,7 @@ cats = [
 ]
 ```
 
-Or with additional customisation such as name and colour:
+Or with additional customization such as name and colour:
 
 ```python
 from multiqc.plots import bargraph
@@ -275,7 +275,7 @@ pconfig = {
     "x_lines": None,             # Extra vertical lines
     "xsuffix": "%",              # Suffix for the X-axis values and labels. Parsed from tt_label by default
     "ysuffix": "%",              # Suffix for the Y-axis values and labels. Parsed from tt_label by default
-    "tt_label": "{x}: {y:.2f}",  # Customise tooltip label, e.g. '{point.x} base pairs'
+    "tt_label": "{x}: {y:.2f}",  # customize tooltip label, e.g. '{point.x} base pairs'
     "tt_decimals": None,         # Tooltip decimals when categories = True (when false use tt_label)
     "height": 500,               # The default height of the plot, in pixels
     "style": "line",             # The style of the line. Can be "line" or "lines+markers"
@@ -464,13 +464,13 @@ You can also supply a list of key names to restrict the data in the table
 to certain keys / columns. This also specifies the order that columns
 should be displayed in.
 
-For more customisation, the headers can be supplied as a dictionary. Each
+For more customization, the headers can be supplied as a dictionary. Each
 key should match the keys used in the data dictionary, but values can
-customise the output.
+customize the output.
 
 Finally, the function accepts a config dictionary as a third parameter.
 This can set global options for the table (e.g. a title) and can also hold
-default values to customise the output of all table columns.
+default values to customize the output of all table columns.
 
 The default header keys are:
 
@@ -578,7 +578,7 @@ html = table.plot(data, headers=headers, pconfig=...)
 
 ### Table decimal places
 
-You can customise how many decimal places a number has by using the `format` config
+You can customize how many decimal places a number has by using the `format` config
 key for that column. The default format string is `"{:,.1f}"`, which specifies a
 float number with a single decimal place. To remove decimals use `"{:,d}"`.
 To have two decimal places, use `"{:,.2f}"`.
@@ -637,7 +637,7 @@ headers = {
 ### Conditional formatting of data values
 
 MultiQC has configuration options to allow users to configure
-["Conditional formatting"](../reports/customisation.md#conditional-formatting),
+["Conditional formatting"](../reports/customization.md#conditional-formatting),
 with highlighted values in table cells.
 
 Developers can also make use of this functionality within the header config dictionaries

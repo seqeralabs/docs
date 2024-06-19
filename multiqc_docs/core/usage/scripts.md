@@ -78,7 +78,7 @@ multiqc.parse_logs(
 )
 ```
 
-Parse logs found in the `data` directory and run FastQC module twice for two sets of files - raw and trimmed reads - according to the provided path pattern (see [Order of modules](../reports/customisation.md#order-of-modules) for details).
+Parse logs found in the `data` directory and run FastQC module twice for two sets of files - raw and trimmed reads - according to the provided path pattern (see [Order of modules](../reports/customization.md#order-of-modules) for details).
 
 ```python
 multiqc.parse_logs('data',

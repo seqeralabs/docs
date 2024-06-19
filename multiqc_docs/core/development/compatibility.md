@@ -20,19 +20,6 @@ On December 18th 2023, just after the v1.19 release of MultiQC, the GitHub repo 
   - DockerHub: `ewels/multiqc` became `multiqc/multiqc`
   - GitHub Packages: `ghcr.io/ewels/multiqc` became `ghcr.io/multiqc/multiqc`
 
-### GitHub repository name change
-
-The repository <https://github.com/MultiQC/MultiQC> was moved to <https://github.com/MultiQC/MultiQC>.
-All issues, pull-requests and other GitHub metadata moved with it.
-In most cases, GitHub should automatically redirect to the new location and you should not notice any difference.
-However, if you have a local clone / fork of the repository it's still a good idea to update the remote name.
-
-Assuming that you have forked the repo and have a local clone, configured with a remote called `upstream` with which you pull in new changes (with `git pull upstream`), you can rename the remote with the following:
-
-```bash
-git remote set-url upstream git@github.com:MultiQC/MultiQC.git
-```
-
 ### Default branch name changed
 
 At the same time as moving the repo, we also changed the default branch name from `master` to `main`. This is inline with changing industry standards.

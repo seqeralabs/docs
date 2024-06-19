@@ -13,7 +13,7 @@ MultiQC has a special _"custom content"_ module.
 Custom content parsing is a little more restricted than standard modules. Specifically:
 
 - Only one plot per section is possible
-- Plot customisation is more limited
+- Plot customization is more limited
 
 All plot types can be generated using custom content - see the
 [test files](https://github.com/MultiQC/test-data/tree/main/data/custom_content)
@@ -21,8 +21,8 @@ for examples of how data should be structured.
 
 :::note
 Use the name `custom_content` to refer to this module within configuration
-settings that require a module name, such as [`module_order`](../reports/customisation.md#order-of-modules) or
-[`run_modules`](../reports/customisation.md#removing-modules-or-sections).
+settings that require a module name, such as [`module_order`](../reports/customization.md#order-of-modules) or
+[`run_modules`](../reports/customization.md#removing-modules-or-sections).
 :::
 
 ## Data from a released tool
@@ -64,7 +64,7 @@ ignore_images: false
 
 If you can choose exactly how your data output looks, then the easiest way to parse it
 is to use a MultiQC-specific format. If the filename ends in `*_mqc.(yaml|yml|json|txt|csv|tsv|log|out|png|jpg|jpeg|html)`
-then it will be found by any standard MultiQC installation with no additional customisation
+then it will be found by any standard MultiQC installation with no additional customization
 required (v0.9 onwards).
 
 These files contain configuration information specifying how the data should be parsed,
@@ -281,7 +281,7 @@ And work with the following data file:
 # [...]
 ```
 
-This kind of customisation should work with most Custom Content types.
+This kind of customization should work with most Custom Content types.
 For example, using an image called `some_science_mqc.jpeg` gives us a report section `some_science`,
 which we can then add a nicer name and description to:
 
@@ -420,7 +420,7 @@ in the `pconfig` scope (see above example). Files that are just tables use `head
 The first column in every table is reserved for the sample name. As such, it shouldn't contain data.
 All header configuration will be ignored for the first column. The only exception is name:
 this can be tweaked using the somewhat tricky `col1_header` field in the `pconfig` scope (see table docs).
-Alternatively, you can customise the column name by including a 'header row' in the first line of the `tsv`
+Alternatively, you can customize the column name by including a 'header row' in the first line of the `tsv`
 or `csv` itself specifying the column names, with the first column with the name of your choice, and
 subsequent columns including the key(s) defined in the header.
 

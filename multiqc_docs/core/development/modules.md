@@ -54,9 +54,9 @@ When you are writing a module that generates many similar plots, or table column
 This is problematic for two reasons:
 
 - It's bespoke to that module, so more difficult to maintain and comprehend
-- Almost every table column, section and plot should have significant customisation. Descriptions, colour schemes, help text and more. Heavily optimised code will often need a lot of refactoring to pack this in.
+- Almost every table column, section and plot should have significant customization. Descriptions, colour schemes, help text and more. Heavily optimised code will often need a lot of refactoring to pack this in.
 
-It's usually better to copy and paste a bit in these cases. The code is then easier to understand and easier to customise.
+It's usually better to copy and paste a bit in these cases. The code is then easier to understand and easier to customize.
 
 ### Colour matters
 
@@ -646,7 +646,7 @@ for f in self.find_log_files('mymod'):
 ```
 
 If you have different files for different sections of the module, or are
-customising the sample name, you can tweak the fields. The default arguments
+customizing the sample name, you can tweak the fields. The default arguments
 are as shown:
 
 ```python
@@ -691,7 +691,7 @@ well as in the section _Software Versions_ in the end of the report.
 :::tip
 For tools that don't output software versions in their logs these can instead
 be provided in a separate YAML file.
-See [Customising Reports](../reports/customisation.md#listing-software-versions) for details.
+See [customizing Reports](../reports/customization.md#listing-software-versions) for details.
 :::
 
 In some cases, a log may include multiple version numbers for a single tool.
@@ -879,7 +879,7 @@ Colour scales can be reversed by adding the suffix `-rev` to the name. For examp
 
 The following scales are available:
 
-![color brewer](../../../docs/images/cbrewer_scales.png)
+![color brewer](../../images/cbrewer_scales.png)
 
 For categorical metrics that can take a value from a predefined set, use one of the categorical color scales: Set2, Accent, Set1, Set3, Dark2, Paired, Pastel2, Pastel1. For numerical metrics, consider one the "sequential" color scales from the table above.
 
@@ -926,7 +926,7 @@ This supports the following arguments:
 - `name`: Name of the section, used for the title
 - `anchor`: The URL anchor - must be unique, used when clicking the name in the side-nav
 - `description`: A very short descriptive text to go above the plot (markdown).
-- `comment`: A comment to add under the description. Big and blue text, mostly for users to customise the report (markdown).
+- `comment`: A comment to add under the description. Big and blue text, mostly for users to customize the report (markdown).
 - `helptext`: Longer help text explaining what users should look for (markdown).
 - `plot`: Results from one of the MultiQC plotting functions
 - `content`: Any custom HTML

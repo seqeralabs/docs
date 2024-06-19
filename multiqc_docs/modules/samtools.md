@@ -28,7 +28,7 @@ out (no consistent file name) and has no header lines
 result files must have the string `idxstat` somewhere in the filename.
 
 There are a few MultiQC config options that you can add to
-customise how the idxstats module works. A typical configuration
+customize how the idxstats module works. A typical configuration
 could look as follows:
 
 ```yaml

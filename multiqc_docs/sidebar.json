@@ -1,12 +1,11 @@
 {
   "sidebar": [
-    "index",
+    "core/index",
     {
       "type": "category",
       "label": "Getting started",
       "collapsed": true,
       "items": [
-        "core/index",
         "core/getting_started/quick_start",
         "core/getting_started/installation",
         "core/getting_started/running_multiqc",

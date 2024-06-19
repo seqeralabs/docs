@@ -127,7 +127,7 @@ extra_fn_clean_exts:
 #### `regex`
 
 You can also remove a substring with a regular expression.
-A useful website to work with writing regexes is <https://regex101.com>.
+A useful website to work with writing regexes is [Regex101](https://regex101.com).
 
 :::info{title=Example}
 
@@ -375,7 +375,7 @@ This is because it loading and processing the data for all plots at once. To mit
 large reports may show plots as grey boxes with a _"Show Plot"_ button. Clicking this will
 render the plot as normal and prevents the browser from trying to do everything at once.
 
-By default this behaviour kicks in when a plot has 50 samples or more. This can be customised
+By default this behaviour kicks in when a plot has 50 samples or more. This can be customized
 by changing the `num_datasets_plot_limit` config option.
 
 ### Flat / interactive plots
@@ -430,7 +430,7 @@ fail silently and add negligable run time.
 However, if you prefer you can explicitly disable the version check by adding
 `no_version_check: true` to your MultiQC config.
 
-The check is done with the main MultiQC website (<https://multiqc.info>).
+The check is done with the main [MultiQC website](https://multiqc.info).
 The only statistics that are collected are the number of checks and the version of MultiQC
 that is being run. No identifiable information (eg. IP address etc) is stored.
 
@@ -546,17 +546,17 @@ know you have files for. MultiQC supports a _lot_ of different tools and searche
 for matching files for all of them every time you run it.
 
 You can do this with the `-m` / `--module` flag (can be repeated) or in a MultiQC
-config file by using `config.module_order`. See [Order of modules](../reports/customisation.md#order-of-modules).
+config file by using `config.module_order`. See [Order of modules](../reports/customization.md#order-of-modules).
 
 ### Optimise file search patterns
 
-Secondly, think about customising the search patterns of the slowest searches.
+Secondly, think about customizing the search patterns of the slowest searches.
 
 As an example, logs from Picard are published to `STDOUT` and so can have any file name.
 Some people concatenate logs, so the contents can be anywhere in the file and the files
 must also be searched by subsequent tools in case they contain multiple outputs.
 If you know that all of your Picard MarkDuplicate log files have the filename
-`mysamplename_markduplicates.log` then you can safely customise that search pattern
+`mysamplename_markduplicates.log` then you can safely customize that search pattern
 with the following MultiQC config:
 
 ```yaml

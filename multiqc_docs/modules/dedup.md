@@ -8,7 +8,7 @@ description: >
 Improved Duplicate Removal for merged/collapsed reads in ancient DNA analysis
 
 By default, tables show read counts in thousands.
-To customise this, you can set the following MultiQC config variables:
+To customize this, you can set the following MultiQC config variables:
 
 ```yaml
 ancient_read_count_prefix: "K"

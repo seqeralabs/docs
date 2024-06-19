@@ -16,7 +16,7 @@ If you have BISCUIT data from before this, please use MultiQC v1.8.
 ### Insert Size Distribution
 
 The second tab of this plot uses the config option `read_count_multiplier`,
-so if millions of reads is not useful for your data you can customise this.
+so if millions of reads is not useful for your data you can customize this.
 
 See [Number base (multiplier)](https://multiqc.info/docs/#number-base-multiplier)
 in the documentation.

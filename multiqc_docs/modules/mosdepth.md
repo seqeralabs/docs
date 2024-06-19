@@ -29,7 +29,7 @@ Using "region" if exists, otherwise "global". Plotting 3 figures:
 - Average coverage per contig/chromosome.
 
 Also plotting the percentage of the genome covered at a threshold in the General Stats section.
-The default thresholds are 1, 5, 10, 30, 50, which can be customised in the config as follows:
+The default thresholds are 1, 5, 10, 30, 50, which can be customized in the config as follows:
 
 ```yaml
 mosdepth_config:
@@ -92,7 +92,7 @@ This is disabled by default as there can be very many in some cases.
 Besides the `{prefix}.mosdepth.global.dist.txt` and `{prefix}.mosdepth.region.dist.txt`
 files, the `{prefix}.mosdepth.summary.txt` file is used for the General Stats table.
 
-The module also plots an X/Y relative chromosome coverage per sample. By default, it finds chromosome named X/Y or chrX/chrY, but that can be customised:
+The module also plots an X/Y relative chromosome coverage per sample. By default, it finds chromosome named X/Y or chrX/chrY, but that can be customized:
 
 ```yaml
 mosdepth_config:

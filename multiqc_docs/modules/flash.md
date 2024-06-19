@@ -22,7 +22,7 @@ The module can also parse the `.hist` numeric histograms output by FLASh.
 
 Note that the histogram's file format and extension are too generic by themselves which could result in the accidental parsing a file output by another tool. To get around this, the MultiQC module only parses files with the filename pattern `*flash*.hist`.
 
-To customise this (for example, enabling for any file ending in `*.hist`), use the following config change:
+To customize this (for example, enabling for any file ending in `*.hist`), use the following config change:
 
 ```yaml
 sp:

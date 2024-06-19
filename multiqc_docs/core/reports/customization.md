@@ -5,11 +5,11 @@ description: Making MultiQC reports bespoke for your use case
 
 # Customize reports
 
-MultiQC offers a few ways to customise reports to easily add your own
+MultiQC offers a few ways to customize reports to easily add your own
 branding and some additional report-level information. These features
 are primarily designed for core genomics facilities.
 
-Note that much more extensive customisation of reports is possible using
+Note that much more extensive customization of reports is possible using
 [custom templates](../development/templates.md).
 
 ## Titles and introductory text
@@ -79,7 +79,7 @@ report_header_info:
 
 Then this will be displayed at the top of reports:
 
-![report project info](../../../docs/images/report_proj_info.png)
+![report project info](../../images/report_proj_info.png)
 
 Note that you can also specify a path to a config file using `-c`.
 
@@ -450,7 +450,7 @@ in the report's left hand side navigation, the web browser URL has `#gatk-compar
 appended. Here, you would add `gatk-compare-overlap` to the `remove_sections` config.
 :::
 
-Finally, you can prevent MultiQC from finding the files for a module or submodule by customising
+Finally, you can prevent MultiQC from finding the files for a module or submodule by customizing
 its search pattern. For example, to skip Picard Base Calling metrics, you could use the following:
 
 ```yaml
@@ -569,7 +569,7 @@ Let me know if this is a problem..
 ### Order of module and module subsection output
 
 The `module_order` config changes the order in which each MultiQC module is executed.
-However, sometimes it's desirable to customise the order of specific sections in a report,
+However, sometimes it's desirable to customize the order of specific sections in a report,
 independent of the order of module execution. For example, the `custom_content` module can
 generate multiple sections from different input files.
 Also, `module_order` does not allow you to change the sequence of sections within a MultiQC module.
@@ -608,13 +608,13 @@ report_section_order:
   mod_section_2: remove
 ```
 
-## Customising plots
+## customizing plots
 
 Almost every plot in all MultiQC reports are created using standard plotting functions
 and a plot config. You can override any plot config variable you like for any plot to
-customise how these are generated.
+customize how these are generated.
 
-To do this, first find the plot that you would like to customise and copy it's unique ID.
+To do this, first find the plot that you would like to customize and copy it's unique ID.
 You can find this by clicking export - the name next to the checkbox is the ID.
 
 Next, you need to find the plot config key(s) that you would like to change.
@@ -628,7 +628,7 @@ custom_plot_config:
     xmax: 300
 ```
 
-You can customise multiple variables for multiple plots:
+You can customize multiple variables for multiple plots:
 
 ```yaml
 custom_plot_config:
@@ -656,7 +656,7 @@ custom_plot_config:
         color: "#c3e6c3"
 ```
 
-As of version 1.8, this also works for customising the config of bargraph categories:
+As of version 1.8, this also works for customizing the config of bargraph categories:
 
 ```yaml
 custom_plot_config:
@@ -669,7 +669,7 @@ custom_plot_config:
       color: "#8bbc21"
 ```
 
-## Customising tables
+## customizing tables
 
 Much like with the custom plot config above, you can override almost any configuration options for tables.
 To see what's available, read the documentation about [Creating a table](../development/plots.md#creating-a-table).
@@ -677,13 +677,13 @@ To see what's available, read the documentation about [Creating a table](../deve
 Tables have configuration at two levels:
 
 1. Entire table
-   - Affects all columns and data. These configs are the same as _plot configs_ and can be overridden with `custom_plot_config` as described in the [Customising plots](#customising-plots) section.
+   - Affects all columns and data. These configs are the same as _plot configs_ and can be overridden with `custom_plot_config` as described in the [customizing plots](#customizing-plots) section.
 2. Specific columns
    - Table columns (headers) have their own configuration scope:`custom_table_header_config`. See below.
 
 ### Config for an entire table
 
-Here we are customising the _Picard HSMetrics_ table.
+Here we are customizing the _Picard HSMetrics_ table.
 We're setting a non-standard title for the first column (usually _"Sample name"_) and changing the minimum value for the colour scale for _all_ columns.
 
 :::note
@@ -721,13 +721,13 @@ custom_table_header_config:
 The first key is the table ID, the second is the header ID for the column you want to change.
 
 :::tip
-The easiest way to find these IDs is by clicking _Configure Columns_ above the table you want to customise.
+The easiest way to find these IDs is by clicking _Configure Columns_ above the table you want to customize.
 
-![Table: configure columns button](../../../docs/images/table_configure_columns.png)
+![Table: configure columns button](../../images/table_configure_columns.png)
 
 The table ID is shown at the top of the modal window. The _ID_ column shows the column (header) ID.
 
-![Table: configure columns button](../../../docs/images/table_header_ids.png)
+![Table: configure columns button](../../images/table_header_ids.png)
 :::
 
 ### Hiding columns
@@ -736,7 +736,7 @@ Report tables such as the General Statistics table can get quite wide. To help w
 columns in the report can be hidden. Some MultiQC modules include columns which are hidden
 by default, others may be uninteresting to some users.
 
-To allow customisation of this behaviour, the defaults can be changed by adding to your
+To allow customization of this behaviour, the defaults can be changed by adding to your
 MultiQC config file. This is done with the `table_columns_visible` value. Open a MultiQC
 report and click _Configure Columns_ above a table. Make a note of the _Group_ and _ID_
 for the column that you'd like to alter. For example, to make the `% Duplicate Reads`
@@ -881,7 +881,7 @@ table_cond_formatting_rules:
       - lt: 70
 ```
 
-Note that the formatting is done in a specific order - `pass`/`warn`/`fail` by default, so that anything matching both `warn` and `fail` will be formatted as `fail` for example. This can be customised with `table_cond_formatting_colours` (see below).
+Note that the formatting is done in a specific order - `pass`/`warn`/`fail` by default, so that anything matching both `warn` and `fail` will be formatted as `fail` for example. This can be customized with `table_cond_formatting_colours` (see below).
 
 To find the unique ID for your table / column, right click it in a report and inspect it's HTML (_Inpsect_ in Chrome).
 
@@ -904,9 +904,9 @@ table_cond_formatting_colours:
   - fail: "#d9534f"
 ```
 
-These can be overridden or added to with any string / CSS hex colour combinations you like. You can generate hex colour codes with lots of tools, for example <http://htmlcolorcodes.com/>
+These can be overridden or added to with any string / CSS hex colour combinations you like. You can generate hex colour codes with lots of tools, such as [HTML color codes](http://htmlcolorcodes.com/).
 
-Note that the different sets of rules are formatted in order. So if a value matches both `pass` and `fail` then it will be formatted as a `fail`
+Note that the different sets of rules are formatted in order. So if a value matches both `pass` and `fail` then it will be formatted as a `fail`.
 
 ## Number base (multiplier)
 
@@ -915,7 +915,7 @@ MultiQC sometimes divides them by one million (typically read counts). If your
 samples have very low read counts then this can result in the table showing
 counts of `0.0`, which isn't very helpful.
 
-To change this behaviour, you can customise three config variables in your MultiQC
+To change this behaviour, you can customize three config variables in your MultiQC
 config. The defaults are as follows:
 
 ```yaml
@@ -952,7 +952,7 @@ long_read_count_desc: "thousands"
 
 By default, the interactive plots in MultiQC reports use spaces for thousands
 separators and points for decimal places (_e.g._ `1 234 567.89`). Different countries
-have different preferences for this, so you can customise the two using a couple of
+have different preferences for this, so you can customize the two using a couple of
 configuration parameters - `decimalPoint_format` and `thousandsSep_format`.
 
 For example, the following config would result in the following alternative
