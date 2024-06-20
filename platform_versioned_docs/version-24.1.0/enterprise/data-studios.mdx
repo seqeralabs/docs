@@ -1,13 +1,32 @@
 ---
-title: "Data studios deployment"
+title: "Data Studios deployment"
 description: Deploy Seqera Platform with Data studios
 date: "12 Jun 2024"
 tags: [docker, compose, kubernetes, data, studios, deployment]
 ---
 
-## Docker compose
+## DNS configuration
 
-This guide assumes that all services will be run in the same container as the rest of the platform services.
+The proxy domain (`CONNECT_PROXY_URL`) has to be a subdomain of main platform domain (example: if the platform domain is
+`tower.io`, then the proxy domain should be `example.tower.io`).
+Data Studios requires a wildcard DNS record that will match requests for non-existent subdomains.
+It is specified by a `*` as part of the domain name, example: `*.tower.io`. It should be pointed to the port 9090.
+
+Example of setup:
+```
+*.tower.io -> 9090
+tower.io -> 8000
+```
+
+You must provide a valid wildcard TLS certificate for the third level domain.
+
+:::note
+We recommend using only a third-level domain if possible, as costs may increase with the number of subdomains.
+:::
+
+## Docker Compose
+
+This guide assumes that all services will be run in the same container as the rest of your Seqera Platform services.
 
 ### Prerequisites
 
@@ -22,19 +41,36 @@ This guide assumes that all services will be run in the same container as the re
 
 1. Open `data-studios.env` in an editor, and make the following changes:
    1. Uncomment the `connect-proxy` and `connect-server` services.
-
+   1. Set the following environment variables:
+      - `TOWER_BASE_URL`
+      - `INITIAL_ACCESS_TOKEN`
+      - `CONNECT_PROXY_URL`
 
 1. Edit your existing Seqera `tower.env` configuration file, and ensure that the following variables are set:
 
-- `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES`
-- `TOWER_DATA_EXPLORER_ENABLED=true`
-- `TOWER_DATA_STUDIO_CONNECT_URL`
-- `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`
-- `TOWER_OIDC_PEM_PATH`
+   - `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES`
+   - `TOWER_DATA_EXPLORER_ENABLED=true`
+   - `TOWER_DATA_STUDIO_CONNECT_URL`
+   - `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`
+   - `TOWER_OIDC_PEM_PATH`
+
+1. Open the `docker-compose.yml`, and uncomment the volume mount for the PEM key file for the `backend` service in the `volumes` list:
+
+  ```yaml
+      volumes:
+        - $PWD/tower.yml:/tower.yml
+        # Data studios RSA key is required for the data studios functionality. Uncomment the line below to mount the key.
+        #- $PWD/data-studios-rsa.pem:/data-studios-rsa.pem
+  ```
+
+1. Start your Platform instance: `docker compose -d up`.
+
+---
 
 To run Data Studios in `docker compose` setup uncomment following values in the `_templates/docker/tower.env` file:
 
 # Data studios settings
+```yaml
 TOWER_BASE_URL=<YOUR TOWER URL, IDENTICAL AS `TOWER_SERVER_URL` in `tower.env`>
 CONNECT_HTTP_PORT=9090
 TOWER_CONNECT_ADDRESS=connect-proxy:9090
@@ -42,6 +78,7 @@ TOWER_CONNECT_TUNNEL=connect-server:7070
 REDIS_ADDRESS: redis:6379
 CONNECT_PROXY_URL=<YOUR CONNECT URL, It has to be a subdomain of your tower domain, example: https://connect.tower.io >
 INITIAL_ACCESS_TOKEN=<YOUR INITIAL ACCESS TOKEN, IDEANTICAL AS `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN` in `tower.env`>
+```
 
 ### Existing content
 
@@ -98,24 +135,7 @@ See this example in the configuration with `data-studios-rsa.pem` file mounted i
 ```
 
 
-## DNS setup
-
-The proxy domain (`CONNECT_PROXY_URL`) has to be a subdomain of main platform domain (example: if the platform domain is
-`tower.io`, then the proxy domain should be `example.tower.io`).
-Data Studios requires a wildcard DNS record that will match requests for non-existent subdomains.
-It is specified by a `*` as part of the domain name, example: `*.tower.io`. It should be pointed to the port 9090.
-
-Example of setup:
-```
-*.tower.io -> 9090
-tower.io -> 8000
-```
-
-Additionally, a valid wildcard ssl certificate to cover the third level domain is required.
-
-:::note
-We recommend using only a third-level domain if possible, as costs may increase with the number of subdomains.
-:::
+TBD for Docker?
 
 This is required to enable for all organizational workspaces, provided the environment variable is entirely omitted.
 

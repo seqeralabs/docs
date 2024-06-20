@@ -244,6 +244,14 @@ Define a set of credentials for the resource optimization database in the `tower
 
 The initContainers will wait until both the Seqera and pipeline optimization service databases are ready before starting the migration in the Seqera database and finally starting the resource optimization container.
 
+### Data Studios
+
+Seqera Platform provides an interactive tertiary analysis environment that you can enable for organizational workspaces. For more information enabling Data Studios, see [Data Studios deployment](/enterprise/data-studios.mdx).
+
+:::note
+Data Studios is currently in **public preview** and is available from Seqera Platform v24.1. If you experience any problems during the deployment process please contact your account executive. Data Studios in Enterprise is not enabled by default. You can enable Data Studios in the [environment variables configuration](./enterprise/configuration/overview#opt-in-seqera-features).
+:::
+
 ### Database console
 
 Use the [dbconsole.yml](_templates/k8s/dbconsole.yml) manifest to deploy a simple web frontend to the Seqera database. Though not required, this can be useful for administrative purposes.
