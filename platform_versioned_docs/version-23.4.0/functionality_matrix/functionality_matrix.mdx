@@ -5,9 +5,11 @@ date: "21 Apr 2023"
 tags: [compatibility, nextflow, nf-launcher]
 ---
 
-Each Seqera Platform version makes use of `nf-launcher` to determine the Nextflow version used as its baseline. You can override this version with the `NXF_VER` environment variable during pipeline launch, but note that Seqera may not work reliably with Nextflow versions other than the baseline version.
+The two most recent major Seqera Platform versions (23.4.x, 23.3.x, etc.) are supported at any given time.
 
-The two most recent major versions (23.4.x, 23.3.x, etc.) of Seqera Platform are supported at any given time.
+Each version makes use of `nf-launcher` to determine the Nextflow version used as its baseline. You can override this version during pipeline launch, but note that Seqera may not work reliably with Nextflow versions other than the baseline version. To use a Nextflow version other than the baseline in your pipeline run, use a [pre-run script](./launch/advanced#pre-and-post-run-scripts) during launch.
+
+If no Nextflow version is specified in your configuration, Seqera defaults to the baseline version outlined below:
 
 | Platform version | nf-launcher version | Nextflow version | Fusion version |
 | ---------------- | ------------------- | ---------------- | -------------- |
@@ -23,11 +25,3 @@ The two most recent major versions (23.4.x, 23.3.x, etc.) of Seqera Platform are
 :::note 
 Nextflow edge versions after 24.04.2 use Fusion 2.4 by default. 
 :::
-
----
-
-To use a Nextflow version other than the baseline in your pipeline run, use a [pre-run script](./launch/advanced#pre-and-post-run-scripts) during launch. For example, enter `export NXF_VER=24.04.2` in the **Pre-run script** field to take advantage of [new Nextflow features](https://nextflow.io/blog/2024/nextflow-2404-highlights.html) before a Platform version is released with 24.04.2 as its baseline. 
-
-If no Nextflow version is specified in your configuration, Seqera defaults to the baseline version outlined above.
-
-<!-- revisit this page for latest release, add Agent interoperability for HPCs, etc. in future PR-->
