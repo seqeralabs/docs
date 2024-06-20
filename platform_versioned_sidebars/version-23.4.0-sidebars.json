@@ -7,8 +7,9 @@
       "collapsed": true,
       "items": [
         "getting-started/overview",
-        "getting-started/deployment-options",        
-        {
+        "getting-started/deployment-options",
+        "getting-started/nextflow-getting-started",
+         {
           "type": "category",
           "label": "Start collaborating",
           "items": [            
