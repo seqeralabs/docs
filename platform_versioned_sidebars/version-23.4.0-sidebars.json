@@ -7,17 +7,8 @@
       "collapsed": true,
       "items": [
         "getting-started/overview",
-        "getting-started/deployment-options",        
-        {
-          "type": "category",
-          "label": "Start collaborating",
-          "items": [            
-            "administration/overview",            
-            "orgs-and-teams/organizations",            
-            "orgs-and-teams/workspace-management",            
-            "orgs-and-teams/shared-workspaces"            
-          ]
-        }        
+        "getting-started/deployment-options",
+        "getting-started/start-collaborating"              
       ]
     },
     {
@@ -25,6 +16,16 @@
       "label": "User guide",
       "collapsed": true,
       "items": [
+        {
+          "type": "category",
+          "label": "Administration",
+          "items": [            
+            "administration/overview",            
+            "orgs-and-teams/organizations",            
+            "orgs-and-teams/workspace-management",            
+            "orgs-and-teams/roles"            
+          ]
+        },        
         {
           "type": "category",
           "label": "Credentials",
