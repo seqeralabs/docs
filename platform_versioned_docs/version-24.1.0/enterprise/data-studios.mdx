@@ -9,7 +9,41 @@ tags: [docker, compose, kubernetes, data, studios, deployment]
 
 This guide assumes that all services will be run in the same container as the rest of the platform services.
 
+### Prerequisites
+
+- Allow inbound traffic to port 9090 on EC2 instance
+- Allow traffic on port 9090 through AWS LB
+- An RSA private key in PEM format
+- An AWS Route53 wildcard DNS record, such as `*.<seqera_platform_domain>`
+
+### Procedure
+
+1. Download the Data Studios `data-studios.env` environment configuration file.
+
+1. Open `data-studios.env` in an editor, and make the following changes:
+   1. Uncomment the `connect-proxy` and `connect-server` services.
+
+
+1. Edit your existing Seqera `tower.env` configuration file, and ensure that the following variables are set:
+
+- `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES`
+- `TOWER_DATA_EXPLORER_ENABLED=true`
+- `TOWER_DATA_STUDIO_CONNECT_URL`
+- `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`
+- `TOWER_OIDC_PEM_PATH`
+
 To run Data Studios in `docker compose` setup uncomment following values in the `_templates/docker/tower.env` file:
+
+# Data studios settings
+TOWER_BASE_URL=<YOUR TOWER URL, IDENTICAL AS `TOWER_SERVER_URL` in `tower.env`>
+CONNECT_HTTP_PORT=9090
+TOWER_CONNECT_ADDRESS=connect-proxy:9090
+TOWER_CONNECT_TUNNEL=connect-server:7070
+REDIS_ADDRESS: redis:6379
+CONNECT_PROXY_URL=<YOUR CONNECT URL, It has to be a subdomain of your tower domain, example: https://connect.tower.io >
+INITIAL_ACCESS_TOKEN=<YOUR INITIAL ACCESS TOKEN, IDEANTICAL AS `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN` in `tower.env`>
+
+### Existing content
 
 ```dotenv
 # Data Studios settings
@@ -20,7 +54,7 @@ TOWER_DATA_EXPLORER_ENABLED=true
 TOWER_DATA_EXPLORER_CLOUD_DISABLED_WORKSPACES=
 
 TOWER_DATA_STUDIO_CONNECT_URL=<YOUR CONNECT URL, SAME AS `CONNECT_PROXY_URL` IN `data-studios.env` >
-TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN=<YOUR INITIAL ACCESS TOKEN, IDEANTICAL AS `INITIAL_ACCESS_TOKEN` in `data-studios.env`>
+TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN=<YOUR INITIAL ACCESS TOKEN, IDENTICAL AS `INITIAL_ACCESS_TOKEN` in `data-studios.env`>
 TOWER_OIDC_PEM_PATH=<PATH TO PEM FILE>
 ```
 
@@ -82,3 +116,20 @@ Additionally, a valid wildcard ssl certificate to cover the third level domain i
 :::note
 We recommend using only a third-level domain if possible, as costs may increase with the number of subdomains.
 :::
+
+This is required to enable for all organizational workspaces, provided the environment variable is entirely omitted.
+
+```yaml
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: platform-tower-yml
+  namespace: platform-stage
+  labels:
+    app: backend-cfg
+data:
+  tower.yml: |-
+    tower:
+      data-studio:
+        allowed-workspaces: null
+```

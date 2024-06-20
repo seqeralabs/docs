@@ -2,7 +2,7 @@
 - 
   Environment variable:            '`TOWER_DATA_EXPLORER_ENABLED`'
   Description: > 
-    Enable [Data Explorer](https://docs.seqera.io/platform/latest/data/data-explorer) in all workspaces.  
+    Enable [Data Explorer](https://docs.seqera.io/platform/latest/data/data-explorer) in all workspaces. To mount data inside a data studio, you must enable Data Explorer.
   Value:                'Default: `false`'
 - 
   Environment variable:            '`TOWER_DATA_EXPLORER_CLOUD_DISABLED_WORKSPACES`'
@@ -29,3 +29,23 @@
   Description: > 
     Data Explorer download file size limit. **Increasing this value may degrade performance.** 
   Value:                'Default: `25MB`'
+-
+  Environment variable:            '`TOWER_DATA_STUDIO_ALLOWED_WORKSPACES`'
+  Description: > 
+    Enable [Data Studios](https://docs.seqera.io/platform/latest/data/data-studios) in the specified workspaces. To enable Data Studios for all workspaces, do not include this variable in your environment file.
+  Value:                'Example: `<workspace-id1>,<workspace-id2>`'
+-
+  Environment variable:            '`TOWER_DATA_STUDIO_CONNECT_URL`'
+  Description: > 
+    
+  Value:                'Address of the connect service'
+-
+  Environment variable:            '`TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`'
+  Description: > 
+    An access token that is used for registering new clients with Seqera Platform as an OIDC provider. Any alphanumeric value is allowed.
+  Value:                'Default: `""`'
+-
+  Environment variable:            '`TOWER_OIDC_PEM_PATH`'
+  Description: > 
+    The path to a PEM certificate used for signing the OIDC tokens for the OpenID connect provider.
+  Value:                ''
