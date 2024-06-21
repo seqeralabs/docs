@@ -18,6 +18,12 @@ Example of setup:
 tower.io -> 8000
 ```
 
+```
+tower.io -> tower address
+connect.tower.io -> connect proxy address
+ahdsyg.tower.io -> studio address
+```
+
 You must provide a valid wildcard TLS certificate for the third level domain.
 
 :::note
@@ -42,14 +48,14 @@ This guide assumes that all services will be run in the same container as the re
 1. Open `data-studios.env` in an editor, and make the following changes:
    1. Uncomment the `connect-proxy` and `connect-server` services.
    1. Set the following environment variables:
-      - `TOWER_BASE_URL`
-      - `INITIAL_ACCESS_TOKEN`
+      - `PLATFORM_URL`
       - `CONNECT_PROXY_URL`
+      - `CONNECT_OIDC_CLIENT_REGISTRATION_TOKEN`
 
 1. Edit your existing Seqera `tower.env` configuration file, and ensure that the following variables are set:
 
    - `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES`
-   - `TOWER_DATA_EXPLORER_ENABLED=true`
+   - `TOWER_DATA_EXPLORER_ENABLED`
    - `TOWER_DATA_STUDIO_CONNECT_URL`
    - `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`
    - `TOWER_OIDC_PEM_PATH`
@@ -64,6 +70,38 @@ This guide assumes that all services will be run in the same container as the re
   ```
 
 1. Start your Platform instance: `docker compose -d up`.
+
+### Kubernetes
+
+This procedure describes how to configure Data Studios for Kubernetes deployments of Seqera Platform.
+
+1. Download the Kubernetes manifest for the Data Studios service.
+
+1. Create a Secret that contains the initial access token:
+
+    ```yaml
+    apiVersion: v1
+    kind: Secret
+    type: Opaque
+    metadata:
+      name: connect-proxy-secret
+      namespace: connect-stage
+    stringData:
+      INITIAL_ACCESS_TOKEN: <INITIAL_ACCESS_TOKEN>
+    ```
+
+1. Edit your ConfigMap named `platform-backend-cfg` for Platform and add the following environment variables:
+
+  ```yaml
+    TOWER_DATA_STUDIO_ALLOWED_WORKSPACES=<ALLOWED WORKSPACES>
+    TOWER_DATA_STUDIO_CONNECT_URL=<YOUR CONNECT URL, SAME AS `CONNECT_PROXY_URL` IN `data-studios.env`>
+    TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN=<YOUR INITIAL ACCESS TOKEN, IDENTICAL AS `INITIAL_ACCESS_TOKEN` in `data-studios.env`>
+    TOWER_OIDC_PEM_PATH=<PATH TO PEM FILE>
+  ```
+
+1. Apply your updated configuration: `kubectl apply -f configmap.yml`
+
+### Parking
 
 ---
 
@@ -80,8 +118,6 @@ CONNECT_PROXY_URL=<YOUR CONNECT URL, It has to be a subdomain of your tower doma
 INITIAL_ACCESS_TOKEN=<YOUR INITIAL ACCESS TOKEN, IDEANTICAL AS `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN` in `tower.env`>
 ```
 
-### Existing content
-
 ```dotenv
 # Data Studios settings
 TOWER_DATA_STUDIO_ALLOWED_WORKSPACES=<ALLOWED WORKSPACES>
@@ -90,6 +126,7 @@ TOWER_DATA_STUDIO_ALLOWED_WORKSPACES=<ALLOWED WORKSPACES>
 TOWER_DATA_EXPLORER_ENABLED=true
 TOWER_DATA_EXPLORER_CLOUD_DISABLED_WORKSPACES=
 
+TOWER_DATA_STUDIO_ALLOWED_WORKSPACES=<ALLOWED WORKSPACES>
 TOWER_DATA_STUDIO_CONNECT_URL=<YOUR CONNECT URL, SAME AS `CONNECT_PROXY_URL` IN `data-studios.env` >
 TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN=<YOUR INITIAL ACCESS TOKEN, IDENTICAL AS `INITIAL_ACCESS_TOKEN` in `data-studios.env`>
 TOWER_OIDC_PEM_PATH=<PATH TO PEM FILE>

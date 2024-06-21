@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: connect-proxy
+  namespace: connect-stage
+  labels:
+    app.kubernetes.io/component: tower-connect-proxy
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: tower-connect-proxy
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: tower-connect-proxy
+    spec:
+      nodeSelector:
+        kubernetes.io/arch: amd64
+      containers:
+        - name: proxy
+          image: 195996028523.dkr.ecr.eu-west-1.amazonaws.com/nf-tower/data-studio/tower-connect-proxy:v0.6.12
+          command:
+            - caddy
+            - run
+            - --config
+            - /proxy-config/Caddyfile
+          env:
+            - name: CONNECT_HTTP_PORT
+              value: "80"
+            - name: REDIS_SERVER
+              value: "tower-stage.mwm4wq.0001.euw2.cache.amazonaws.com:6379"
+            - name: REDIS_PREFIX
+              value: "connect:session"
+            - name: REDIS_TLS_ENABLE
+              value: "false"
+            - name: REDIS_DB
+              value: "1"
+            - name: TOWER_CONNECT_DOMAIN
+              value: connect.cloud.stage-seqera.io
+            - name: TOWER_CONNECT_TUNNEL
+              value: connect-server:7070
+            - name: TOWER_BASE_URL
+              value: "https://cloud.stage-seqera.io"
+            - name: INITIAL_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: connect-proxy-secret
+                  key: INITIAL_ACCESS_TOKEN
+            - name: LOCAL_CACHE_TTL
+              value: 2m
+          ports:
+            - containerPort: 80
+              name: proxy
+          volumeMounts:
+            - mountPath: /proxy-config
+              name: proxy-config
+      volumes:
+        - name: proxy-config
+          configMap:
+            name: connect-proxy-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: connect-proxy
+  namespace: connect-stage
+  labels:
+    app.kubernetes.io/component: tower-connect-proxy
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      name: connect-proxy
+      targetPort: proxy
+  selector:
+    app.kubernetes.io/component: tower-connect-proxy
