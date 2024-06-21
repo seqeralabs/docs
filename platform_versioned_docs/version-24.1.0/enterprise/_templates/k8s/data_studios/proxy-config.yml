@@ -18,7 +18,7 @@ data:
             redis_password        {$REDIS_PASSWORD}
             redis_user            {$REDIS_USER}
             redis_db              {$REDIS_DB:0}
-            redis_tls_enable      {$REDIS_TLS_ENABLE:false}      
+            redis_tls_enable      {$REDIS_TLS_ENABLE:false}
             redis_tls_key_file    {$REDIS_TLS_KEY_FILE:}
             redis_tls_cert_file   {$REDIS_TLS_CERT_FILE:}
             redis_tls_skip_verify {$REDIS_TLS_SKIP_VERIFY}

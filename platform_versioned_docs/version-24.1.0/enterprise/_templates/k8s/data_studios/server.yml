@@ -20,7 +20,7 @@ spec:
         kubernetes.io/arch: amd64
       containers:
         - name: server
-          image: 195996028523.dkr.ecr.eu-west-1.amazonaws.com/nf-tower/data-studio/tower-connect-server:v0.6.12
+          image: cr.seqera.io/private/nf-tower-enterprise/data-studio/connect-server:0.7.0
           ports:
             - containerPort: 7070
               name: server
@@ -34,7 +34,7 @@ spec:
             - name: LISTENER_PORT
               value: "7777"
             - name: REDIS_ADDRESS
-              value: tower-stage.mwm4wq.0001.euw2.cache.amazonaws.com:6379
+              value: <REDIS_ADDRESS>
             - name: REDIS_PREFIX
               value: connect:session
             - name: REDIS_TLS_ENABLE
