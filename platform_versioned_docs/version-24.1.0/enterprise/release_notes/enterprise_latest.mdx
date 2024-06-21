@@ -62,15 +62,23 @@ Enterprise deployments that have customized this value previously will need to a
 
 ## Upgrade steps
 
-< to be confirmed >
+This version requires a database schema update. Make a backup of your Platform database prior to upgrade. 
 
-This version requires a database schema update. Follow these steps to update your DB instance and the Seqera installation.
+:::caution
+If you are upgrading from a version older than 23.4.1, update your installation to version 23.4.4 first, before updating to 24.1.0 using the steps below.
+:::
+
+Docker Compose deployments require downtime while upgrading services. Restarting the application may take several minutes. See [Docker compose deployment](../docker-compose.mdx) for more information.
+
+K8s deployments may upgrade with zero downtime. Apply the 24.1 `tower-cron.yml` to your cron pod and wait for the cron pod to be running, before applying the `tower-svc.yml` to your backend pod and restarting the service. If the cron pod update is interrupted, you may need to restore the instance from your DB backup and start again. See [Kubernetes deployment](../kubernetes.mdx) for more information. 
+
+For custom deployments with third-party services such as ArgoCD, [contact support](https://support.seqera.io) for assistance during upgrade. 
+
+Follow these steps to update your DB instance and the Seqera installation:
 
 :::caution
 The database volume is persistent on the local machine by default if you use the `volumes` key in the `db` or `redis` section of your `docker-compose.yml` file to specify a local path to the DB or Redis instance. If your database is not persistent, you must back up your database before performing any application or database upgrades.
 :::
-
-To upgrade your database schema:
 
 1. Make a backup of the Seqera Platform database. If you use the pipeline optimization service and your `groundswell` database resides in a database instance separate from your Seqera database, make a backup of your `groundswell` database as well.
 2. Download the 24.1 versions of your deployment templates and update your Seqera container versions:
