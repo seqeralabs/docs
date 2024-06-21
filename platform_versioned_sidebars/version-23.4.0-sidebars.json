@@ -4,7 +4,7 @@
     {
       "type": "category",
       "label": "Get started",
-      "collapsed": true,
+      "collapsed": false,
       "items": [
         "getting-started/overview",
         "getting-started/deployment-options",
