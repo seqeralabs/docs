@@ -21,7 +21,6 @@ metadata:
       VantaDescription=Nextflow Tower ALB, Environment=staging
     kubernetes.io/ingress.class: alb
   name: connect-ingress
-  namespace: connect-stage
 spec:
   rules:
     - host: "*.connect.cloud.stage-seqera.io"

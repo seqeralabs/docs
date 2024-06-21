@@ -5,7 +5,13 @@ date: "12 Jun 2024"
 tags: [docker, compose, kubernetes, data, studios, deployment]
 ---
 
+You can enable Data Studios as part of your Seqera Platform instance.
+
 ## DNS configuration
+
+Each data studio is reachable at a unique URL, which includes a randomly generated subdomain name. For example, a data studio URL can be: `https://abcd.example.com/`, where `example.com` is your Seqera base domain name.
+
+To allow for uniquely generated third level domains, you must provide a wildcard TLS certificate. A wildcard certificate is one where the common name includes `*.` in the domain name, such as `*.example.com`.
 
 The proxy domain (`CONNECT_PROXY_URL`) has to be a subdomain of main platform domain (example: if the platform domain is
 `tower.io`, then the proxy domain should be `example.tower.io`).
@@ -62,22 +68,35 @@ This guide assumes that all services will be run in the same container as the re
 
 1. Open the `docker-compose.yml`, and uncomment the volume mount for the PEM key file for the `backend` service in the `volumes` list:
 
-  ```yaml
-      volumes:
-        - $PWD/tower.yml:/tower.yml
-        # Data studios RSA key is required for the data studios functionality. Uncomment the line below to mount the key.
-        #- $PWD/data-studios-rsa.pem:/data-studios-rsa.pem
-  ```
+    ```yaml
+        volumes:
+          - $PWD/tower.yml:/tower.yml
+          # Data studios RSA key is required for the data studios functionality. Uncomment the line below to mount the key.
+          #- $PWD/data-studios-rsa.pem:/data-studios-rsa.pem
+    ```
 
 1. Start your Platform instance: `docker compose -d up`.
 
-### Kubernetes
+## Kubernetes
 
 This procedure describes how to configure Data Studios for Kubernetes deployments of Seqera Platform.
 
-1. Download the Kubernetes manifest for the Data Studios service.
+### Procedure
 
-1. Create a Secret that contains the initial access token:
+1. Download the Kubernetes manifests for the Data Studios service:
+
+    - [Ingress](./_templates/k8s/data_studios/ingress.aks.yml)
+    - [Proxy config](./_templates/k8s/data_studios/proxy-config.yml)
+    - [Proxy](./_templates/k8s/data_studios/proxy.yml)
+    - [Server](./_templates/k8s/data_studios/server.yml)
+
+1. Change your Kubernetes context to the one where your Platform instance runs:
+
+    ```
+    kubectl config set-context --current --namespace=<namespace>
+    ```
+
+1. Create a Secret that contains the initial access token. Any alphanumeric value is allowed.
 
     ```yaml
     apiVersion: v1
@@ -90,16 +109,32 @@ This procedure describes how to configure Data Studios for Kubernetes deployment
       INITIAL_ACCESS_TOKEN: <INITIAL_ACCESS_TOKEN>
     ```
 
-1. Edit your ConfigMap named `platform-backend-cfg` for Platform and add the following environment variables:
+1. Edit the ConfigMap named `platform-backend-cfg` in the `configmap.yml` for Platform.
+    -  Add the following environment variables:
 
-  ```yaml
-    TOWER_DATA_STUDIO_ALLOWED_WORKSPACES=<ALLOWED WORKSPACES>
-    TOWER_DATA_STUDIO_CONNECT_URL=<YOUR CONNECT URL, SAME AS `CONNECT_PROXY_URL` IN `data-studios.env`>
-    TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN=<YOUR INITIAL ACCESS TOKEN, IDENTICAL AS `INITIAL_ACCESS_TOKEN` in `data-studios.env`>
-    TOWER_OIDC_PEM_PATH=<PATH TO PEM FILE>
-  ```
+       - `TOWER_DATA_STUDIO_CONNECT_URL`
+       - `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`: Use the same access token that you specified in the previous step
+       - `TOWER_OIDC_PEM_PATH`
 
-1. Apply your updated configuration: `kubectl apply -f configmap.yml`
+    - If you want to restrict Data Studios to specific organization workspaces, list each workspace ID in the `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES`.
+    - If you want to allow access to Data Studios in every organizational workspace, do not include the `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES`.
+
+1. Optional: If you want to allow access to Data Studios in every organizational workspace, edit the ConfigMap named `tower-yml` in the `configmap.yml` and include the following stanza with your existing configuration:
+
+    ```yaml
+    data:
+      tower.yml: |-
+        tower:
+          data-studio:
+            allowed-workspaces: null
+    ```
+
+1. Apply the updated configuration: `kubectl apply -f configmap.yml`
+1. Apply the Data Studios manifests:
+
+    ```
+    kubectl apply -f ingress.aks.yml proxy-config.yml proxy.yml server.yml
+    ```
 
 ### Parking
 
@@ -169,24 +204,4 @@ See this example in the configuration with `data-studios-rsa.pem` file mounted i
   backend:
     volumes:
       - $PWD/data-studios-rsa.pem:/data-studios-rsa.pem
-```
-
-
-TBD for Docker?
-
-This is required to enable for all organizational workspaces, provided the environment variable is entirely omitted.
-
-```yaml
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: platform-tower-yml
-  namespace: platform-stage
-  labels:
-    app: backend-cfg
-data:
-  tower.yml: |-
-    tower:
-      data-studio:
-        allowed-workspaces: null
 ```
