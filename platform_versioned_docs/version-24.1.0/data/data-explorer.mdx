@@ -14,25 +14,23 @@ To disable Data Explorer automatic cloud bucket retrieval per workspace in your 
 :::
 
 Access the **Data Explorer** tab from any enabled workspace to view and manage all available cloud storage buckets. It is also integrated with the pipeline launch form and run detail pages, which allows you to select input data files and output directories or quickly view the output files of a run.
+
 ## Participant roles
 
 The role assigned to a workspace user affects what functionality is available in Data Explorer. The specific functionality for each role is described in the following list of roles:
 
-- **View** role: Can only view contents of cloud storage buckets. Cannot download, upload, or preview. Cannot hide or add buckets.
-- **Launch** role: Can only view contents of cloud storage buckets. Cannot download, upload, or preview. Cannot hide or add buckets.
-- **Connect** role: Can only view contents of cloud storage buckets. Cannot download, upload, or preview. Cannot hide or add buckets.
-- **Maintain** role: Can view download, upload, and preview contents of cloud storage buckets. Can hide and add buckets.
-- **Admin** role: Can view, download, upload, and preview contents of cloud storage buckets. Can hide and add buckets.
-- **Owner** role: Can view, download, upload, and preview contents of cloud storage buckets. Can hide and add buckets.
+- **View**: Can only view contents of cloud storage buckets. Cannot download, upload, or preview. Cannot hide or add buckets.
+- **Launch**: Can only view contents of cloud storage buckets. Cannot download, upload, or preview. Cannot hide or add buckets.
+- **Connect**: Can only view contents of cloud storage buckets. Cannot download, upload, or preview. Cannot hide or add buckets.
+- **Maintain**: Can view download, upload, and preview contents of cloud storage buckets. Can hide and add buckets.
+- **Admin**: Can view, download, upload, and preview contents of cloud storage buckets. Can hide and add buckets.
+- **Owner**: Can view, download, upload, and preview contents of cloud storage buckets. Can hide and add buckets.
 
 For more information on roles in Seqera Platform, see [Participant roles][roles].
+
 ## Add cloud storage buckets
 
 Data Explorer lists public and private cloud storage buckets. Buckets accessible to your workspace cloud credentials are retrieved automatically; workspace maintainers can also configure buckets manually.
-
-:::note
-To disable automatic cloud bucket retrieval per workspace, specify comma-separated workspace IDs using the `TOWER_DATA_EXPLORER_CLOUD_DISABLED_WORKSPACES` environment variable.
-:::
 
 - **Retrieve cloud buckets with workspace credentials**
 
@@ -208,4 +206,4 @@ Google Cloud Storage only supports CORS configuration via gcloud CLI.
 }
 ```
 
-[roles]: platform_versioned_docs/version-23.4.0/orgs-and-teams/workspace-management.mdx#participant-roles
+[roles]: platform_versioned_docs/version-24.1.0/orgs-and-teams/roles.mdx
