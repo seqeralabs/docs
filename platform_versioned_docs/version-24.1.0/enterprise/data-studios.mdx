@@ -90,6 +90,14 @@ This procedure describes how to configure Data Studios for Kubernetes deployment
     - [Proxy](./_templates/k8s/data_studios/proxy.yml)
     - [Server](./_templates/k8s/data_studios/server.yml)
 
+1. Edit the `server.yml` file and set the `REDIS_ADDRESS` environment variable to the host name or IP address of the Redis server that you configured for Platform.
+
+1. Edit the `proxy.yml` file and set the following variables:
+
+    - `REDIS_SERVER`
+    - `TOWER_CONNECT_DOMAIN`
+    - `TOWER_BASE_URL`
+
 1. Change your Kubernetes context to the one where your Platform instance runs:
 
     ```
