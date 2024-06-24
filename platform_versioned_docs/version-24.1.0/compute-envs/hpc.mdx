@@ -23,7 +23,9 @@ To launch pipelines into an **HPC** cluster from Seqera, the following requireme
 
 ## Credentials
 
-Seqera requires SSH access to your HPC cluster to run pipelines. Use [managed identities](../credentials/managed_identities.mdx) to enable granular access control and preserve individual cluster user identities. If you do not need to grant multiple users access to your cluster, use workspace [SSH credentials](../credentials/ssh_credentials.mdx) for cluster login. 
+Seqera requires SSH access to your HPC cluster to run pipelines. Use [managed identities](../credentials/managed_identities.mdx) to enable granular access control and preserve individual cluster user identities. 
+
+You can also use workspace [SSH credentials](../credentials/ssh_credentials.mdx) for cluster login, but this provides service account access to your HPC to all Platform users. This means that all users will be granted the same file system access, and all activity is logged under the same user account on your HPC cluster. 
 
 For HPC clusters that do not allow direct access through an SSH client, a secure connection can be authenticated with [Tower Agent](../supported_software/agent/agent.mdx).  
 
@@ -45,6 +47,8 @@ To create a new **HPC** compute environment:
   chmod -R g+wxs <WORKDIR>
   setfacl -Rdm g::rwX <WORKDIR>
   ```
+
+  These commands change the group ownership of all files and directories in the work directory to `sharedgroupname`, ensure new files inherit the directory's group, and apply default ACL entries to allow the group read, write, and execute permissions for new files and directories. This setup facilitates shared access and consistent permissions management in the directory.
   :::
 
 1.  Enter the absolute path of the **Launch directory** to be used on the cluster. If omitted, it will be the same as the work directory.
