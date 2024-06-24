@@ -13,27 +13,14 @@ Each data studio is reachable at a unique URL, which includes a randomly generat
 
 To allow for uniquely generated third level domains, you must provide a wildcard TLS certificate. A wildcard certificate is one where the common name includes `*.` in the domain name, such as `*.example.com`.
 
-The proxy domain (`CONNECT_PROXY_URL`) has to be a subdomain of main platform domain (example: if the platform domain is
-`tower.io`, then the proxy domain should be `example.tower.io`).
-Data Studios requires a wildcard DNS record that will match requests for non-existent subdomains.
-It is specified by a `*` as part of the domain name, example: `*.tower.io`. It should be pointed to the port 9090.
+Data Studios uses the following set of domains and subdomains:
 
-Example of setup:
-```
-*.tower.io -> 9090
-tower.io -> 8000
-```
-
-```
-tower.io -> tower address
-connect.tower.io -> connect proxy address
-ahdsyg.tower.io -> studio address
-```
-
-You must provide a valid wildcard TLS certificate for the third level domain.
+- The domain that you set for `TOWER_SERVER_URL`, such as `example.com`.
+- A wildcard subdomain that you must configure specifically for Data Studios. This wildcard subdomain is the parent for each unique data studios session URL, such as `abcd.example.com`.
+- The connection proxy, defined by `CONNECT_PROXY_URL`. This URL is used internally and by convention is `connect.example.com`. This domain must be a subdomain of your Platform, so you cannot use `connect.example.net` if your Platform domain is `example.com`.
 
 :::note
-We recommend using only a third-level domain if possible, as costs may increase with the number of subdomains.
+We recommend using only a third-level domain to minimize additional costs that you might incur from additional nesting of subdomains.
 :::
 
 ## Docker Compose
@@ -54,19 +41,19 @@ This guide assumes that all services will be run in the same container as the re
 1. Open `data-studios.env` in an editor, and make the following changes:
    1. Uncomment the `connect-proxy` and `connect-server` services.
    1. Set the following environment variables:
-      - `PLATFORM_URL`
-      - `CONNECT_PROXY_URL`
-      - `CONNECT_OIDC_CLIENT_REGISTRATION_TOKEN`
+      - `PLATFORM_URL`: Specify the same value assigned to `TOWER_SERVER_URL`.
+      - `CONNECT_PROXY_URL`: Specify a base domain name for the connect proxy subdomain. For example, if you specify `example.com` then `connect.example.com` is the fully qualified domain name for the proxy.
+      - `CONNECT_OIDC_CLIENT_REGISTRATION_TOKEN`: 
 
 1. Edit your existing Seqera `tower.env` configuration file, and ensure that the following variables are set:
 
-   - `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES`
-   - `TOWER_DATA_EXPLORER_ENABLED`
-   - `TOWER_DATA_STUDIO_CONNECT_URL`
-   - `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`
-   - `TOWER_OIDC_PEM_PATH`
+   - `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES`: Enable [Data Studios](https://docs.seqera.io/platform/latest/data/data-studios) in the specified workspaces.
+   - `TOWER_DATA_EXPLORER_ENABLED`: Specifies whether to enable Data Explorer. You must enable Data Explorer to mount data inside a data studio instance.
+   - `TOWER_DATA_STUDIO_CONNECT_URL`: Specifies the URL of the Data Studios connect proxy, such as `https://connect.tower.example.com/`.
+   - `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`: An access token that is used for registering new clients with Seqera Platform. Any alphanumeric value is allowed.
+   - `TOWER_OIDC_PEM_PATH`: The file path to a PEM certificate that is used for signing the OIDC tokens for the OpenID connect provider.
 
-1. Open the `docker-compose.yml`, and uncomment the volume mount for the PEM key file for the `backend` service in the `volumes` list:
+1. Open the `docker-compose.yml`, and uncomment the volume mount for the PEM key file for the `backend` service in the `volumes` list. Your PEM file must be named `data-studios-rsa.pem`.
 
     ```yaml
         volumes:
@@ -94,9 +81,9 @@ This procedure describes how to configure Data Studios for Kubernetes deployment
 
 1. Edit the `proxy.yml` file and set the following variables:
 
-    - `REDIS_SERVER`
-    - `TOWER_CONNECT_DOMAIN`
-    - `TOWER_BASE_URL`
+    - `REDIS_SERVER`: Specify the host name or IP address of the Redis server that you configure for Platform.
+    - `TOWER_CONNECT_DOMAIN`: Specify a base domain name for the connect proxy subdomain. For example, if you specify `example.com` then `connect.example.com` is the fully qualified domain name for the proxy.
+    - `TOWER_BASE_URL`: Specifies the base URL for your Platform installation, such as `https://tower.example.com/`.
 
 1. Change your Kubernetes context to the one where your Platform instance runs:
 
@@ -120,9 +107,9 @@ This procedure describes how to configure Data Studios for Kubernetes deployment
 1. Edit the ConfigMap named `platform-backend-cfg` in the `configmap.yml` for Platform.
     -  Add the following environment variables:
 
-       - `TOWER_DATA_STUDIO_CONNECT_URL`
-       - `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`: Use the same access token that you specified in the previous step
-       - `TOWER_OIDC_PEM_PATH`
+       - `TOWER_DATA_STUDIO_CONNECT_URL`: Specifies the URL of the Data Studios connect proxy, such as `https://connect.tower.example.com/`.
+       - `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`: Use the same access token that you specified in the Secret named `connect-proxy-secret`.
+       - `TOWER_OIDC_PEM_PATH`: The file path to a PEM certificate that is used for signing the OIDC tokens for the OpenID connect provider.
 
     - If you want to restrict Data Studios to specific organization workspaces, list each workspace ID in the `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES`.
     - If you want to allow access to Data Studios in every organizational workspace, do not include the `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES`.
@@ -144,72 +131,6 @@ This procedure describes how to configure Data Studios for Kubernetes deployment
     kubectl apply -f ingress.aks.yml proxy-config.yml proxy.yml server.yml
     ```
 
-### Parking
+    It can take several minutes for Kubernetes to apply your changes, during which new pods are rolled out.
 
----
-
-To run Data Studios in `docker compose` setup uncomment following values in the `_templates/docker/tower.env` file:
-
-# Data studios settings
-```yaml
-TOWER_BASE_URL=<YOUR TOWER URL, IDENTICAL AS `TOWER_SERVER_URL` in `tower.env`>
-CONNECT_HTTP_PORT=9090
-TOWER_CONNECT_ADDRESS=connect-proxy:9090
-TOWER_CONNECT_TUNNEL=connect-server:7070
-REDIS_ADDRESS: redis:6379
-CONNECT_PROXY_URL=<YOUR CONNECT URL, It has to be a subdomain of your tower domain, example: https://connect.tower.io >
-INITIAL_ACCESS_TOKEN=<YOUR INITIAL ACCESS TOKEN, IDEANTICAL AS `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN` in `tower.env`>
-```
-
-```dotenv
-# Data Studios settings
-TOWER_DATA_STUDIO_ALLOWED_WORKSPACES=<ALLOWED WORKSPACES>
-
-# Enable Data Explorer to enable mounting data to your data studios
-TOWER_DATA_EXPLORER_ENABLED=true
-TOWER_DATA_EXPLORER_CLOUD_DISABLED_WORKSPACES=
-
-TOWER_DATA_STUDIO_ALLOWED_WORKSPACES=<ALLOWED WORKSPACES>
-TOWER_DATA_STUDIO_CONNECT_URL=<YOUR CONNECT URL, SAME AS `CONNECT_PROXY_URL` IN `data-studios.env` >
-TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN=<YOUR INITIAL ACCESS TOKEN, IDENTICAL AS `INITIAL_ACCESS_TOKEN` in `data-studios.env`>
-TOWER_OIDC_PEM_PATH=<PATH TO PEM FILE>
-```
-
-Fill in the values for `_templates/docker/data-studios.env` and uncomment the following lines in the `_templates/docker/docker-compose.yml` file:
-
-```yaml
-  connect-proxy:
-    image: cr.seqera.io/private/nf-tower-enterprise/data-studio/tower-connect-proxy:0.6.14
-    platform: linux/amd64
-    env_file:
-      - data-studios.env
-    networks:
-      - frontend
-      - backend
-    ports:
-      - 9090:9090
-    restart: always
-    depends_on:
-      - redis
-
-  connect-server:
-    image: cr.seqera.io/private/nf-tower-enterprise/data-studio/tower-connect-server:v0.6.14
-    platform: linux/amd64
-    env_file:
-      - data-studios.env
-    networks:
-      - backend
-    ports:
-      - 7070:7070
-    restart: always
-```
-
-An RSA key is required for the Data Studios functionality. Generate your key and provide the path to it in the
-`TOWER_OIDC_PEM_PATH` variable in the `data-studios.env` file. Next mount the `pem` file in the `backend` service in the `docker-compose.yml` file.
-
-See this example in the configuration with `data-studios-rsa.pem` file mounted in the `backend` service:
-```yaml
-  backend:
-    volumes:
-      - $PWD/data-studios-rsa.pem:/data-studios-rsa.pem
-```
+1. To confirm that Data Studios is available, log in to your Platform instance and navigate to a organizational workspace for which Data Studios is enabled. The **Data Studios** tab is included with the available tabs.

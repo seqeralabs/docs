@@ -42,10 +42,10 @@
 -
   Environment variable:            '`TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`'
   Description: > 
-    An access token that is used for registering new clients with Seqera Platform as an OIDC provider. Any alphanumeric value is allowed.
+    An access token that is used for registering new clients with Seqera Platform. Any alphanumeric value is allowed.
   Value:                'Default: `""`'
 -
   Environment variable:            '`TOWER_OIDC_PEM_PATH`'
   Description: > 
-    The path to a PEM certificate used for signing the OIDC tokens for the OpenID connect provider.
+    The file path to a PEM certificate that is used for signing the OIDC tokens for the OpenID connect provider.
   Value:                ''
