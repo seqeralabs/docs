@@ -22,5 +22,5 @@
 - 
   Environment variable:            '`TOWER_ALLOW_NEXTFLOW_LOGS`'
   Description: > 
-    Allow log and report files from Nextflow CLI runs (`-with-tower`) to be included in Seqera reports. Runs must be launched from a workspace primary compute environment. 
+    Allow log and report files from Nextflow CLI runs (`-with-tower`) to be accessible in the Seqera UI. Runs must be executed in a workspace's primary compute environment. 
   Value:                'Default: `false`'

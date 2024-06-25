@@ -32,9 +32,9 @@ Any configuration provided in the interface will override configuration supplied
 
 ### Configure reports for Nextflow CLI runs 
 
-Seqera can manage the reports and log files for pipeline runs launched with Nextflow CLI (`nextflow run <pipeline> -with-tower`) when the run is launched with a workspace primary compute environment. Specify the Seqera workspace from which to run the pipeline by setting the `TOWER_WORKSPACE_ID` environment variable. This workspace must have a primary compute environment set. Reports are listed under the **Reports** tab on the run details page. 
+The reports and log files for pipeline runs launched with Nextflow CLI (`nextflow run <pipeline> -with-tower`) can be accessed in the Seqera UI. The compute environment where the run is executed must be a Seqera workspace primary compute environment. Specify the workspace by setting the `TOWER_WORKSPACE_ID` environment variable. Reports are listed under the **Reports** tab on the run details page.
 
-Execution logs for pipelines run with a primary compute environment are available in the **Reports** tab by default. To specify additional report files to be made available, your pipeline repository root folder must include a `tower.yml` file that specifies the files to be included (see below).  
+Execution logs for pipelines run with a primary compute environment are available in the **Logs** tab by default. To specify additional report files to be made available, your pipeline repository root folder must include a `tower.yml` file that specifies the files to be included (see below).  
 
 ### Reports implementation
 
