@@ -19,47 +19,35 @@ spec:
         - name: proxy
           image: cr.seqera.io/private/nf-tower-enterprise/data-studio/connect-proxy:0.7.0
           command:
-            - caddy
-            - run
-            - --config
-            - /proxy-config/Caddyfile
+            - serve
           env:
             - name: CONNECT_HTTP_PORT
               value: "80"
               # "hostname.domain.cache.amazonaws.com:6379"
-            - name: REDIS_SERVER
-              value: <REDIS_SERVER>
-            - name: REDIS_PREFIX
+            - name: CONNECT_REDIS_ADDRESS
+              value: <CONNECT_REDIS_ADDRESS>
+            - name: CONNECT_REDIS_PREFIX
               value: "connect:session"
-            - name: REDIS_TLS_ENABLE
+            - name: CONNECT_REDIS_TLS_ENABLE
               value: "false"
-            - name: REDIS_DB
+            - name: CONNECT_REDIS_DB
               value: "1"
-              # connect.cloud.example.com
-            - name: TOWER_CONNECT_DOMAIN
-              value: <TOWER_CONNECT_DOMAIN>
+            - name: CONNECT_PROXY_URL
+              value: <CONNECT_PROXY_URL>
             - name: TOWER_CONNECT_TUNNEL
               value: connect-server:7070
-              # "https://cloud.example.com"
-            - name: TOWER_BASE_URL
-              value: <TOWER_BASE_URL>
-            - name: INITIAL_ACCESS_TOKEN
+            - name: PLATFORM_URL
+              value: <PLATFORM_URL>
+            - name: CONNECT_OIDC_CLIENT_REGISTRATION_TOKEN
               valueFrom:
                 secretKeyRef:
                   name: connect-proxy-secret
-                  key: INITIAL_ACCESS_TOKEN
+                  key: CONNECT_OIDC_CLIENT_REGISTRATION_TOKEN
             - name: LOCAL_CACHE_TTL
               value: 2m
           ports:
             - containerPort: 80
               name: proxy
-          volumeMounts:
-            - mountPath: /proxy-config
-              name: proxy-config
-      volumes:
-        - name: proxy-config
-          configMap:
-            name: connect-proxy-config
 ---
 apiVersion: v1
 kind: Service

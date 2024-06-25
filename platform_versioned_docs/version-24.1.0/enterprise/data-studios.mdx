@@ -77,13 +77,13 @@ This procedure describes how to configure Data Studios for Kubernetes deployment
     - [Proxy](./_templates/k8s/data_studios/proxy.yml)
     - [Server](./_templates/k8s/data_studios/server.yml)
 
-1. Edit the `server.yml` file and set the `REDIS_ADDRESS` environment variable to the host name or IP address of the Redis server that you configured for Platform.
+1. Edit the `server.yml` file and set the `CONNECT_REDIS_ADDRESS` environment variable to the host name or IP address of the Redis server that you configured for Platform.
 
 1. Edit the `proxy.yml` file and set the following variables:
 
-    - `REDIS_SERVER`: Specify the host name or IP address of the Redis server that you configure for Platform.
-    - `TOWER_CONNECT_DOMAIN`: Specify a base domain name for the connect proxy subdomain. For example, if you specify `example.com` then `connect.example.com` is the fully qualified domain name for the proxy.
-    - `TOWER_BASE_URL`: Specifies the base URL for your Platform installation, such as `https://tower.example.com/`.
+    - `CONNECT_REDIS_ADDRESS`: Specify the host name or IP address of the Redis server that you configure for Platform.
+    - `CONNECT_PROXY_URL`: Specify a base domain name for the connect proxy subdomain. For example, if you specify `example.com` then `connect.example.com` is the fully qualified domain name for the proxy.
+    - `PLATFORM_URL`: Specifies the base URL for your Platform installation, such as `https://tower.example.com/`.
 
 1. Change your Kubernetes context to the one where your Platform instance runs:
 
@@ -96,12 +96,11 @@ This procedure describes how to configure Data Studios for Kubernetes deployment
     ```yaml
     apiVersion: v1
     kind: Secret
-    type: Opaque
     metadata:
-      name: connect-proxy-secret
-      namespace: connect-stage
-    stringData:
-      INITIAL_ACCESS_TOKEN: <INITIAL_ACCESS_TOKEN>
+      name: platform-oidc-certs
+      namespace: platform-stage
+    data:
+      oidc.pem: <BASE64_ENCODED_SECRET>
     ```
 
 1. Edit the ConfigMap named `platform-backend-cfg` in the `configmap.yml` for Platform.

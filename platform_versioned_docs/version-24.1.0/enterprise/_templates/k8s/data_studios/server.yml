@@ -26,19 +26,19 @@ spec:
             - containerPort: 7777
               name: entrypoint
           env:
-            - name: HOST_DOMAIN
+            - name: CONNECT_HOST_DOMAIN
               value: connect-server
-            - name: TUNNEL_PORT
+            - name: CONNECT_TUNNEL_PORT
               value: "7070"
-            - name: LISTENER_PORT
+            - name: CONNECT_LISTENER_PORT
               value: "7777"
-            - name: REDIS_ADDRESS
+            - name: CONNECT_REDIS_ADDRESS
               value: <REDIS_ADDRESS>
-            - name: REDIS_PREFIX
+            - name: CONNECT_REDIS_PREFIX
               value: connect:session
-            - name: REDIS_TLS_ENABLE
+            - name: CONNECT_REDIS_TLS_ENABLE
               value: "false"
-            - name: REDIS_DB
+            - name: CONNECT_REDIS_DB
               value: "1"
             - name: CONNECT_SERVER_LOG_LEVEL
               value: info
