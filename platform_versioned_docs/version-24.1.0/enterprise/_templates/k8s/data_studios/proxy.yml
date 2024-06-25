@@ -34,7 +34,7 @@ spec:
               value: "1"
             - name: CONNECT_PROXY_URL
               value: <CONNECT_PROXY_URL>
-            - name: TOWER_CONNECT_TUNNEL
+            - name: CONNECT_TUNNEL_URL
               value: connect-server:7070
             - name: PLATFORM_URL
               value: <PLATFORM_URL>
@@ -42,7 +42,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: connect-proxy-secret
-                  key: CONNECT_OIDC_CLIENT_REGISTRATION_TOKEN
+                  key: OIDC_CLIENT_REGISTRATION_TOKEN
             - name: LOCAL_CACHE_TTL
               value: 2m
           ports:
