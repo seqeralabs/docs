@@ -30,7 +30,7 @@
     Your Seqera system administrator contact email.
   Value:                '`tower@your-company.com`'
 - 
-  AWS Parameter Store:    '`{prefix}/tower/disable-email`'
+  AWS Parameter Store:    '`{prefix}/tower/auth/disable-email`'
   Description: > 
     Set to `true` to disable the email login. Ensure that you've configured an alternative authentication provider first.
   Value:                '`Default: `false`'  
