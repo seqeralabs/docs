@@ -117,16 +117,6 @@ spec:
 - Use **Custom service pod specs** to provide custom options for the compute environment pod. See above for an example.
 - Use **Head Job CPUs** and **Head Job memory** to specify the hardware resources allocated for the Nextflow workflow pod.
 
-<!--revisit for k8s CE pages consolidation:
-
-Fusion v2 config options
-
-Did you actually follow this steps during your review?
-
-When I set up my EKS installation a while ago (following @bentsherman 's guide here: https://seqera.io/blog/deploying-nextflow-on-amazon-eks/) I ran into difficulties getting the Tower-EKS link up and had to go off-script to get things working.
-
-We should probably verify nothing changes depending on EKS version (e.g. 1.25). @enekui-->
-
 ### Fusion v2
 
 To use [Fusion v2](../supported_software/fusion/fusion.mdx) in your Seqera EKS compute environment, both the head service and compute service accounts must have access to the S3 bucket specified as the work directory.

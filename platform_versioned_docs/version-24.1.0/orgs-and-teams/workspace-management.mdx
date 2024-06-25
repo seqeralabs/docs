@@ -1,5 +1,5 @@
 ---
-title: "User workspaces"
+title: "Workspaces"
 description: "Manage users and teams for an organization in Seqera Platform."
 date: "24 Apr 2023"
 tags: [workspaces, teams, users, administration]
@@ -49,23 +49,43 @@ A new workspace participant can be an existing organization member, team, or col
 3. Enter the **Name** of the new participant.
 4. Optionally, update the participant **role**.
 
-## Participant roles
-
-Organization owners can assign role-based access levels to any **participant** in an organization workspace.
-
-:::tip
-You can group **members** and **collaborators** into **teams** and apply a role to that team. Members and collaborators inherit the access role of the team.
-:::
-
-You can apply one of the following roles to workspace participants:
-
-1. **Owner**: The participant has full permissions for all resources within the workspace, including the workspace settings.
-2. **Admin**: The participant has full permissions for resources associated with the workspace and access to all the actions associated with all roles, including all data-related roles. They can create, modify, and delete pipelines, compute environments, actions, credentials, and secrets. They can also add/remove users in the workspace and edit the workspace settings. A participant with this role cannot delete a workspace.
-3. **Maintain**: The participant can launch pipelines and modify pipeline executions (e.g., change the pipeline launch compute environment, parameters, pre/post-run scripts, Nextflow config), create new pipeline configurations in the Launchpad, and add secrets. They can upload, download, and preview data in Data Explorer, hide/unhide buckets, manage buckets, and manage the metadata associated with buckets.They can also add, update, and delete a data studio session. This includes starting, stopping, and changing the configuration. A participant with this role cannot modify compute environment settings and credentials.
-4. **Launch**: The participant can launch pipelines and modify the pipeline input/output parameters in the Launchpad. This includes starting, stopping, and changing the configuration. They cannot modify the launch configuration or other resources. They can list, search and view the status, configuration, and details of data studio sessions and connect to a running data studio session.
-5. **Connect**: The participant can list, search, and view the status, configuration, and details of data studios sessions. They cannot add, update (start/stop/change config) or delete data studios sessions. They can also connect to a running data studio session and interact with the contents, and access team resources in read-only mode.They cannot launch or maintain pipelines.A participant with this role also cannot manage any data in Data Explorer — uploading, downloading, or previewing data, hiding/unhiding, managing buckets, or managing the metadata associated with buckets.
-6. **View**: The participant can only access team resources in read-only mode. This includes the ability to list, search, and view the status, configuration, and details of mounted data in Data Explorer and data studio sessions.
-
 ## Workspace run monitoring
 
 To allow users executing pipelines from the command line to share their runs with a given workspace, see [deployment options](../getting-started/deployment-options.mdx#nextflow--with-tower).
+
+Seqera Platform introduces the concept of shared workspaces as a solution for synchronization and resource sharing within an organization. A shared workspace enables the creation of pipelines in a centralized location, making them accessible to all members of an organization.
+
+The benefits of using a shared workspace within an organization include:
+
+- **Define once and share everywhere**: Set up shared resources once and automatically share them across the organization.
+- **Centralize the management of key resources**: Organization administrators can ensure the correct pipeline configuration is used in all areas of an organization without the need to replicate pipelines across multiple workspaces.
+- **Immediate update adoption**: Updated parameters for a shared pipeline become immediately available across the entire organization, reducing the risk of pipeline discrepancies.
+- **Computational resource provision**: Pipelines in shared workflows can be shared along with the required computational resources. This eliminates the need to duplicate resource setup in individual workspaces across the organization. Shared workspaces centralize and simplify resource sharing within an organization.
+
+### Create a shared workspace
+
+Creating a shared workspace is similar to the creation of a private workspace, with the exception of the **Visibility** option, which must be set to **Shared**.
+
+### Create a shared pipeline
+
+When you create a pipeline within a shared workspace, associating it with a [compute environment](../compute-envs/overview.mdx) is optional.
+
+If a compute environment from the shared workspace is associated with the pipeline, it will be available to users in other workspaces who can launch the shared pipeline using the provided environment by default.
+
+### Use shared pipelines from a private workspace
+
+Once a pipeline is set up in a shared workspace and associated with a compute environment within that shared workspace, any user can launch the pipeline from a private workspace using the shared workspace's compute environment. This eliminates the need for users to replicate shared compute environments in their private workspaces.
+
+:::note
+The shared compute environment will not be available to launch other pipelines limited to that specific private workspace.
+:::
+
+If a pipeline from a shared workspace is shared **without** an associated compute environment, users from other workspaces can run it from their local workspaces. By default, the **primary** compute environment of the local workspace will be selected.
+
+### Make shared pipelines visible in a private workspace
+
+:::note
+Pipelines from _all_ shared workspaces are visible when the visibility is set to **Shared workspaces**.
+:::
+
+To view pipelines from shared workspaces, go to the [Launchpad](../launch/launchpad.mdx) and set the **Filter > Pipelines from** option to **This and shared workspaces**.

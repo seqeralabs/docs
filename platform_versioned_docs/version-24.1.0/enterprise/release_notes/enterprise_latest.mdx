@@ -1,47 +1,88 @@
 # Release notes for Seqera Enterprise version 24.1.0
 
-Seqera Platform Enterprise version 24.1.0 introduces two new features: Data Explorer and Data Studios. A number of bug fixes and performance enhancements have also been included in this major release.
+Seqera Platform Enterprise version 24.1.0 introduces three new features: Data Studios (in public preview), Data Studios, and managed identities. A number of bug fixes and performance enhancements have also been included in this major release.
 
 ## Data Studios
 
-[Data Studios](./data-studios.mdx) closes the loop from development, to deployment and insights, allowing you to create, manage, share notebook environments in Seqera with the click of a button. It's now easier than ever to transition Nextflow-generated data to JupyterLab, RStudio, and VSCode environments with pre-built templates that can easily leverage existing compute environments and data in Seqera Platform. Data Studios also makes it seamless to work across teams with multi-user support, built-in authentication, and automatic snapshots as you work that enable collaboration and reproducibility while remaining secure.
+[Data Studios](./data-studios.mdx) closes the loop from development to deployment and insights, allowing you to create, manage, and share notebook environments in Seqera with the click of a button. Data Studios also makes it seamless to work across teams with multi-user support, built-in authentication, and automatic snapshots as you work.
+
+- Host a combination of container images and compute environments for interactive analysis using your preferred tools, like Jupyter notebooks, RStudio, and Visual Studio Code IDEs.
+- Checkpoints provide a stable point-in-time snapshot.
+- Collaborate and share data in real time.
+
+Data Studios is available as a public preview. [Contact support](https://support.seqera.io) to request access to this feature. 
 
 ## Data Explorer
 
-[Data Explorer](./data-explorer.mdx) is now Generally Available and from version 24.1 it supports multi-file and multi-folder download.
+[Data Explorer](./data-explorer.mdx) allows you to browse and interact with remote data repositories from organization workspaces in Seqera Platform. It supports AWS S3, Azure Blob Storage, and Google Cloud Storage repositories.
 
-This allows users to bypass the need for cloud credentials or complex DevOps configurations and easily download entire datasets of pipeline results with to share with their team. This is a user-friendly alternative to traditional cloud storage services without the hassle of a command-line interface or intricate user interfaces.
+Data Explorer is now Generally Available and supports multi-file and multi-folder download. This allows users to download entire datasets of pipeline results to share with their team.
 
-## Extended data roles
+## Extended data roles **< add link to content when platform PR is merged >**
 
-Three additional user roles have been introduced alongside Data Studios. These roles provide flexibility for admins to provide users with the permissions they need, without compromising security. The roles support the following actions:
+The **Connect** user role has been added to the existing user roles. User roles provide flexibility for admins to provide users with the permissions they need, without compromising security. Existing roles have been updated with functionality related to Data Studios:
 
-- **Maintain**: The ability to create, update, start, stop, change configuration, and delete data studio sessions.
 - **Connect**: The ability to open a connection to a running session and interact with the contents.
+- **Maintain**: The ability to create, update, start, stop, change configuration, and delete data studio sessions.
 - **View**: The ability to list, search, and see the status/configuration/details of data studios.
+- **Launch**: The ability to open a connection to a running session and interact with the contents.
 
 ## Managed identities
 
-Seqera managed identities resolve the limitations of SSH access by enabling granular access control to HPC clusters for individual workspace users.
+Managed identities offer significant advantages for High-Performance Computing (HPC) environments by enabling granular access control for individual workspace users. Unlike traditional SSH credentials that grant all workspace users access to HPC clusters with the same service account, managed identities ensure each user’s activity is logged under their own credentials.
 
 ## Other feature improvements
 
-- Retrieve reports from primary compute environment on Nextflow CLI runs.
+- Retrieve reports from primary compute environment on Nextflow CLI runs. **< include link to content when merged >**
 - The standard email login can be disabled in the `tower.yml` file in the `TOWER_LOGIN_DISABLE_EMAIL=true` environment variable provided an alternative OIDC provider is set up first. See, [the configuration overview page](https://docs.seqera.io/platform/24.1.0/enterprise/configuration/overview) for more information.
 
 ## Breaking changes
 
-< to be added >
+**MariaDB driver: New MySQL connection parameter required**
+
+MariaDB driver 3.x requires a special parameter in the connection URL to connect to a MySQL database (`?permitMysqlScheme=true`):
+
+`jdbc:mysql://<domain>:<port>/tower?permitMysqlScheme=true`
+
+All deployments using a MySQL database (regardless of version: 5.6, 5.7, or 8) should be updated accordingly once a Platform version including the upgrade is deployed.
+
+**MariaDB driver: No truncation support for MySQL 5.6**
+
+The MariaDB driver has dropped support for the `jdbcCompliantTruncation` param, which was true by default and always set the `STRICT_TRANS_TABLES` SQL mode (the `STRICT_TRANS_TABLES` mode throws an error when the value of a VARCHAR column exceeds its limit, instead of truncating it to fit). Most common installations of MySQL 5.7 and 8 already include this mode at the server level, but the Docker container version of MySQL 5.6 does not.
+
+The SQL mode must be set explicitly through the connection URL for deployments still using MySQL 5.6:
+
+`jdbc:mysql://<domain>:<port>/tower?permitMysqlScheme=true&sessionVariables=sql_mode='STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION'`
+
+**Micronaut property key changes**
+
+The property that determines the expiration time of the JWT access token (used for authenticating web sessions and Nextflow-Platform interactions) has changed:
+
+| Previous                                                         | New                                                          |
+| ---------------------------------------------------------------- | ------------------------------------------------------------ |
+| `micronaut.security.token.jwt.generator.access-token.expiration` | `micronaut.security.token.generator.access-token.expiration` |
+	
+Enterprise deployments that have customized this value previously will need to adopt the new format.
 
 ## Upgrade steps
 
-This version requires a database schema update. Follow these steps to update your DB instance and the Seqera installation.
+This version requires a database schema update. Make a backup of your Platform database prior to upgrade. 
+
+:::caution
+If you are upgrading from a version older than 23.4.1, update your installation to version 23.4.4 first, before updating to 24.1.0 using the steps below.
+:::
+
+Docker Compose deployments require downtime while upgrading services. Restarting the application may take several minutes. See [Docker compose deployment](../docker-compose.mdx) for more information.
+
+K8s deployments may upgrade with zero downtime. Apply the 24.1 `tower-cron.yml` to your cron pod and wait for the cron pod to be running, before applying the `tower-svc.yml` to your backend pod and restarting the service. If the cron pod update is interrupted, you may need to restore the instance from your DB backup and start again. See [Kubernetes deployment](../kubernetes.mdx) for more information. 
+
+For custom deployments with third-party services such as ArgoCD, [contact support](https://support.seqera.io) for assistance during upgrade. 
+
+Follow these steps to update your DB instance and the Seqera installation:
 
 :::caution
 The database volume is persistent on the local machine by default if you use the `volumes` key in the `db` or `redis` section of your `docker-compose.yml` file to specify a local path to the DB or Redis instance. If your database is not persistent, you must back up your database before performing any application or database upgrades.
 :::
-
-To upgrade your database schema:
 
 1. Make a backup of the Seqera Platform database. If you use the pipeline optimization service and your `groundswell` database resides in a database instance separate from your Seqera database, make a backup of your `groundswell` database as well.
 2. Download the 24.1 versions of your deployment templates and update your Seqera container versions:
