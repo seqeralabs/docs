@@ -44,8 +44,9 @@
   Description: > 
     An access token that is used for registering new clients with Seqera Platform. Any alphanumeric value is allowed.
   Value:                'Default: `""`'
--
-  Environment variable:            '`TOWER_OIDC_PEM_PATH`'
-  Description: > 
-    The file path to a PEM certificate that is used for signing the OIDC tokens for the OpenID connect provider.
-  Value:                ''
+# For Docker this must be set, but for Kubernetes it is unnecessary to modify.
+#-
+#  Environment variable:            '`TOWER_OIDC_PEM_PATH`'
+#  Description: > 
+#    The file path to a PEM certificate that is used for signing the OIDC tokens for the OpenID connect provider.
+#  Value:                ''
