@@ -9,18 +9,18 @@ You can enable Data Studios as part of your Seqera Platform instance.
 
 ## DNS configuration
 
-Each data studio is reachable at a unique URL, which includes a randomly generated subdomain name. For example, a data studio URL can be: `https://abcd.example.com/`, where `example.com` is your Seqera base domain name.
+Each data studio is reachable at a unique URL that includes a randomly generated subdomain name. For example: `https://abcd.example.com/`, where `example.com` is your Seqera base domain name.
 
-To allow for uniquely generated third-level domains, you must provide a wildcard TLS certificate. A wildcard certificate is one where the common name includes `*.` in the domain name, such as `*.example.com`.
+Provide a wildcard TLS certificate to allow for uniquely generated subdomains. A wildcard certificate common name includes `*.` in the domain name, such as `*.example.com`, thereby securing any subdomain name at this level.
 
 Data Studios uses the following set of domains and subdomains:
 
 - The domain that you set for `TOWER_SERVER_URL`, such as `example.com`.
 - A wildcard subdomain that you must configure specifically for Data Studios. This wildcard subdomain is the parent for each unique data studios session URL, such as `abcd.example.com`.
-- The connection proxy, defined by `CONNECT_PROXY_URL`. This URL is used internally and by convention is `connect.example.com`. This domain must be a subdomain of your Platform, so you cannot use `connect.example.net` if your Platform domain is `example.com`.
+- The connection proxy, defined by `CONNECT_PROXY_URL`. This URL is used internally and by convention is `connect.example.com`. This domain must be a subdomain of your Platform domain, so you cannot use `connect.example.net` if your Platform domain is `example.com`.
 
 :::note
-We recommend using only a third-level domain to minimize additional costs that you might incur from additional nesting of subdomains.
+We recommend using only a third-level domain to minimize the costs of additional nesting of subdomains.
 :::
 
 ## Docker Compose
@@ -29,8 +29,8 @@ This guide assumes that all services will be run in the same container as the re
 
 ### Prerequisites
 
-- Allow inbound traffic to port 9090 on EC2 instance
-- Allow traffic on port 9090 through AWS LB
+- Allow inbound traffic to port 9090 on the EC2 instance
+- Allow traffic on port 9090 through the AWS LB (Load Balancer)
 - An AWS Route53 wildcard DNS record, such as `*.<seqera_platform_domain>`
 
 ### Procedure
@@ -50,7 +50,7 @@ This guide assumes that all services will be run in the same container as the re
     openssl rsa -pubout -in private.pem -out public.pem
     ```
 
-1. Open the `docker-compose.yml`, and uncomment the volume mount for the PEM key file for the `backend` service in the `volumes` list. Your PEM file must be named `data-studios-rsa.pem`.
+1. Open the `docker-compose.yml` and uncomment the volume mount for the PEM key file for the `backend` service in the `volumes` list. Your PEM file must be named `data-studios-rsa.pem`.
 
     ```yaml
     volumes:
@@ -63,20 +63,19 @@ This guide assumes that all services will be run in the same container as the re
    1. Uncomment the `connect-proxy` and `connect-server` services.
    1. Set the following environment variables:
       - `PLATFORM_URL`: Specify the same value assigned to `TOWER_SERVER_URL`.
-      - `CONNECT_PROXY_URL`: Specify a base domain name for the connect proxy subdomain. For example, if you specify `example.com` then `connect.example.com` is the fully qualified domain name for the proxy.
-      - `CONNECT_OIDC_CLIENT_REGISTRATION_TOKEN`: Specify the base64-encoded value that you captured in the `client_token` environment variable.
+      - `CONNECT_PROXY_URL`: Specify a base domain name for the connect proxy subdomain. For example, if you specify the base domain `example.com` then `connect.example.com` is the fully qualified domain name for the proxy.
+      - `CONNECT_OIDC_CLIENT_REGISTRATION_TOKEN`: Specify the same base64-encoded value set in the `client_token` environment variable.
 
-1. Open `data-studios.env` in an editor, and ensure that the following variables are set:
+1. Open `data-studios.env` in an editor and set the following variables:
 
-    -  Set the following environment variables:
 
-      - `TOWER_DATA_EXPLORER_ENABLED`: Specifies whether to enable Data Explorer. You must enable Data Explorer to mount data inside a data studio instance.
-       - `TOWER_DATA_STUDIO_CONNECT_URL`: Specifies the URL of the Data Studios connect proxy, such as `https://connect.tower.example.com/`.
-       - `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`: Specify the base64-encoded value that you captured in the `client_token` environment variable.
-       - `TOWER_OIDC_PEM_PATH`: The file path to a PEM certificate, which is mounted as a volume inside the container, that is used for signing the OIDC tokens for the OpenID connect provider.
+      - `TOWER_DATA_EXPLORER_ENABLED`: Set `true` to enable Data Explorer. You must enable Data Explorer to mount data inside a data studio instance.
+       - `TOWER_DATA_STUDIO_CONNECT_URL`: The URL of the Data Studios connect proxy, such as `https://connect.tower.example.com/`.
+       - `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`: The same base64-encoded value set in the `client_token` environment variable.
+       - `TOWER_OIDC_PEM_PATH`: The file path to a PEM certificate used for signing the OIDC tokens for the OpenID connect provider, mounted as a volume inside the container.
 
-    - If you want to restrict Data Studios to specific organization workspaces, list each workspace ID in the `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES`.
-    - If you want to allow access to Data Studios in every organizational workspace, do not include the `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES`.
+    - To restrict Data Studios to specific organization workspaces, provide a comma-separated list of workspace IDs in the `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES` environment variable.
+    - To allow access to Data Studios in every organizational workspace, do not set the `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES` environment variable.
 
 1. Optional: If you want to allow access to Data Studios in every organizational workspace, edit the `tower.yml` file and include the following stanza with your existing configuration:
 
@@ -108,7 +107,7 @@ This procedure describes how to configure Data Studios for Kubernetes deployment
     - [Proxy](./_templates/k8s/data_studios/proxy.yml)
     - [Server](./_templates/k8s/data_studios/server.yml)
 
-1. Change your Kubernetes context to the one where your Platform instance runs:
+1. Change your Kubernetes context to the namespace where your Platform instance runs:
 
     ```
     kubectl config set-context --current --namespace=<namespace>
@@ -120,13 +119,13 @@ This procedure describes how to configure Data Studios for Kubernetes deployment
     client_token=$(openssl rand -base64 32 | tr -d /=+ | cut -c -32)
     ```
 
-1. Edit the `server.yml` file and set the `CONNECT_REDIS_ADDRESS` environment variable to the host name or IP address of the Redis server that you configured for Platform.
+1. Edit the `server.yml` file and set the `CONNECT_REDIS_ADDRESS` environment variable to the hostname or IP address of the Redis server configured for Platform.
 
 1. Edit the `proxy.yml` file and set the following variables:
 
-    - `CONNECT_REDIS_ADDRESS`: Specify the host name or IP address of the Redis server that you configure for Platform.
-    - `CONNECT_PROXY_URL`: Specify a base domain name for the connect proxy subdomain. For example, if you specify `example.com` then `connect.example.com` is the fully qualified domain name for the proxy.
-    - `PLATFORM_URL`: Specifies the base URL for your Platform installation, such as `https://tower.example.com/`.
+    - `CONNECT_REDIS_ADDRESS`: The hostname or IP address of the Redis server configured for Platform.
+    - `CONNECT_PROXY_URL`: A base domain name for the connect proxy subdomain. For example, if you specify the base domain `example.com` then `connect.example.com` is the fully qualified domain name for the proxy.
+    - `PLATFORM_URL`: The base URL for your Platform installation, such as `https://tower.example.com/`.
 
 1. Generate an RSA public/private key pair. A key size of at least 2048 bits is recommended. In the following example, the `openssl` command is used to generate the key pair:
 
@@ -141,7 +140,7 @@ This procedure describes how to configure Data Studios for Kubernetes deployment
     base64_pem=$(cat public.pem | base64)
     ```
 
-1. Create a Secret file named `secret.yml`, and set the `oidc.pem` key to the value of the base64-encoded public/private key pair:
+1. Create a Secret file named `secret.yml` and set the `oidc.pem` key to the value of the base64-encoded public/private key pair:
 
     ```yaml
     apiVersion: v1
@@ -167,16 +166,15 @@ This procedure describes how to configure Data Studios for Kubernetes deployment
     kubectl apply -f tower-cron.yml
     ```
 
-1. Edit the ConfigMap named `platform-backend-cfg` in the `configmap.yml` for Platform.
-    -  Add the following environment variables:
+1. Edit the ConfigMap named `platform-backend-cfg` in the `configmap.yml` for Platform by adding the following environment variables:
 
-       - `TOWER_DATA_STUDIO_CONNECT_URL`: Specifies the URL of the Data Studios connect proxy, such as `https://connect.tower.example.com/`.
-       - `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`: Use the same base64-encoded access token that you specified in the Secret named `connect-proxy-secret`.
+       - `TOWER_DATA_STUDIO_CONNECT_URL`: The URL of the Data Studios connect proxy, such as `https://connect.tower.example.com/`.
+       - `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`: The same base64-encoded access token specified in the Secret named `connect-proxy-secret`.
 
-    - If you want to restrict Data Studios to specific organization workspaces, list each workspace ID in the `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES`.
-    - If you want to allow access to Data Studios in every organizational workspace, do not include the `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES`.
+    - To restrict Data Studios to specific organization workspaces, provide a comma-separated list of workspace IDs in the `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES` environment variable.
+    - To allow access to Data Studios in every organizational workspace, do not set the `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES`.
 
-1. Optional: If you want to allow access to Data Studios in every organizational workspace, edit the ConfigMap named `tower-yml` in the `configmap.yml` and include the following stanza with your existing configuration:
+1. Optional: To allow access to Data Studios in every organizational workspace, edit the ConfigMap named `tower-yml` in the `configmap.yml` and include the following snippet:
 
     ```yaml
     data:
@@ -195,4 +193,4 @@ This procedure describes how to configure Data Studios for Kubernetes deployment
 
     It can take several minutes for Kubernetes to apply your changes, during which new pods are rolled out.
 
-1. To confirm that Data Studios is available, log in to your Platform instance and navigate to a organizational workspace for which Data Studios is enabled. The **Data Studios** tab is included with the available tabs.
+1. To confirm that Data Studios is available, log in to your Platform instance and navigate to an organizational workspace that has Data Studios enabled. The **Data Studios** tab is included with the available tabs.
