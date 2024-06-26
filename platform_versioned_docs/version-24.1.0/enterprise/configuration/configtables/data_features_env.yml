@@ -36,17 +36,16 @@
   Value:                'Example: `<workspace-id1>,<workspace-id2>`'
 -
   Environment variable:            '`TOWER_DATA_STUDIO_CONNECT_URL`'
-  Description: > 
-    
-  Value:                'Address of the connect service'
+  Description: >
+    The URL of the Data Studios connect proxy, such as `https://connect.tower.example.com/`. The connect proxy is used internally by Seqera Platform.
+  Value:                ''
 -
   Environment variable:            '`TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`'
   Description: > 
     An access token used to register new clients in Seqera Platform. Any alphanumeric value is allowed.
-  Value:                'Default: `""`'
-# For Docker this must be set, but for Kubernetes it is unnecessary to modify.
-#-
-#  Environment variable:            '`TOWER_OIDC_PEM_PATH`'
-#  Description: > 
-#    The file path to a PEM certificate used to sign the OIDC tokens for the OpenID connect provider.
-#  Value:                ''
+  Value:                'd5XDoRzHpWo1c............mDnfBpB'
+-
+  Environment variable:            '`TOWER_OIDC_PEM_PATH`'
+  Description: > 
+    The file path to a PEM certificate used to sign the OIDC tokens for the OpenID connect provider. This variable is required for Docker-based installations. For Kubernetes-based installations, this variable is included as part of the backend container deployment.
+  Value:                'For example, `/data-studios-rsa.pem`'
