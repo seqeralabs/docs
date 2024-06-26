@@ -40,6 +40,11 @@
     Your Seqera system administrator contact email.
   Value:                '`seqera@your-company.com`'
 - 
+  Environment variable:            '`TOWER_AUTH_DISABLE_EMAIL`'
+  Description: > 
+    Set to `true` to disable the email login. Ensure that you've configured an alternative authentication provider first.
+  Value:                '`Default: `false`'  
+-
   Environment variable:            '`TOWER_USER_WORKSPACE_ENABLED`'
   Description: > 
     Enable or disable user private workspaces (requires version 22.1.0 or later).
