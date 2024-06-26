@@ -24,6 +24,10 @@ data:
   TOWER_ENABLE_PLATFORMS: "awsbatch-platform,gls-platform,googlebatch-platform,azbatch-platform,uge-platform,slurm-platform"
   FLYWAY_LOCATIONS: "classpath:db-schema/mysql"
   TOWER_REDIS_URL: "redis://<YOUR REDIS IP>:6379" # For a managed Redis service, specify the IP address or DNS name of the service endpoint. If you use the containerized Redis service, specify "redis" instead of an IP address.
+  # Data Studios templates
+  TOWER_DATA_STUDIO_TEMPLATES_JUPYTER_REPOSITORY: 'cr.seqera.io/public/data-studio-jupyter:rc'
+  TOWER_DATA_STUDIO_TEMPLATES_RSTUDIO_REPOSITORY: 'cr.seqera.io/public/data-studio-rstudio:rc'
+  TOWER_DATA_STUDIO_TEMPLATES_VSCODE_REPOSITORY: 'cr.seqera.io/public/data-studio-vscode:rc'
 ---
 kind: ConfigMap
 apiVersion: v1
