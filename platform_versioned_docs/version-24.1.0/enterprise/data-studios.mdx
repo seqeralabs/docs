@@ -23,6 +23,14 @@ Data Studios uses the following set of domains and subdomains:
 We recommend using only a third-level domain to minimize the costs of additional nesting of subdomains.
 :::
 
+## Data Studios workspace availability
+
+You can configure which organizational workspaces have access Data Studios. This configuration is set in the `tower.yml` file. The `tower.data-studio.allowed-workspaces` field supports the following options:
+
+- `allowed-workspaces: []`: Disables Data Studios. This is the default if the `allowed-workspaces` field is not specified.
+- `allowed-workspaces: [ <WORKSPACE_ID>, <WORKSPACE_ID> ]`: Enables Data Studios for the comma separated list of organizational workspace IDs.
+- `allowed-workspaces: []`: Enables Data Studios for all organizational workspaces.
+
 ## Docker Compose
 
 This guide assumes that all services will be run in the same container as the rest of your Seqera Platform services.
@@ -69,22 +77,17 @@ This guide assumes that all services will be run in the same container as the re
 1. Open `data-studios.env` in an editor and set the following variables:
 
 
-      - `TOWER_DATA_EXPLORER_ENABLED`: Set `true` to enable Data Explorer. You must enable Data Explorer to mount data inside a data studio instance.
-       - `TOWER_DATA_STUDIO_CONNECT_URL`: The URL of the Data Studios connect proxy, such as `https://connect.tower.example.com/`.
-       - `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`: The same base64-encoded value set in the `client_token` environment variable.
-       - `TOWER_OIDC_PEM_PATH`: The file path to a PEM certificate used for signing the OIDC tokens for the OpenID connect provider, mounted as a volume inside the container.
+   - `TOWER_DATA_EXPLORER_ENABLED`: Set `true` to enable Data Explorer. You must enable Data Explorer to mount data inside a data studio instance.
+   - `TOWER_DATA_STUDIO_CONNECT_URL`: The URL of the Data Studios connect proxy, such as `https://connect.tower.example.com/`.
+   - `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`: The same base64-encoded value set in the `client_token` environment variable.
+   - `TOWER_OIDC_PEM_PATH`: The file path to a PEM certificate used for signing the OIDC tokens for the OpenID connect provider, mounted as a volume inside the container.
 
-    - To restrict Data Studios to specific organization workspaces, provide a comma-separated list of workspace IDs in the `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES` environment variable.
-    - To allow access to Data Studios in every organizational workspace, do not set the `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES` environment variable.
-
-1. Optional: If you want to allow access to Data Studios in every organizational workspace, edit the `tower.yml` file and include the following stanza with your existing configuration:
+1. Edit the `tower.yml` file and include the following snippet:
 
     ```yaml
-    data:
-      tower.yml: |-
-        tower:
-          data-studio:
-            allowed-workspaces: null
+    tower:
+      data-studio:
+        allowed-workspaces: null
     ```
 
 1. Start your Platform instance: `docker compose -d up`.
@@ -174,13 +177,10 @@ This procedure describes how to configure Data Studios for Kubernetes deployment
 
 1. Edit the ConfigMap named `platform-backend-cfg` in the `configmap.yml` for Platform by adding the following environment variables:
 
-       - `TOWER_DATA_STUDIO_CONNECT_URL`: The URL of the Data Studios connect proxy, such as `https://connect.tower.example.com/`.
-       - `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`: The same base64-encoded access token specified in the Secret named `connect-proxy-secret`.
+   - `TOWER_DATA_STUDIO_CONNECT_URL`: The URL of the Data Studios connect proxy, such as `https://connect.tower.example.com/`.
+   - `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`: The same base64-encoded access token specified in the Secret named `connect-proxy-secret`.
 
-    - To restrict Data Studios to specific organization workspaces, provide a comma-separated list of workspace IDs in the `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES` environment variable.
-    - To allow access to Data Studios in every organizational workspace, do not set the `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES`.
-
-1. Optional: To allow access to Data Studios in every organizational workspace, edit the ConfigMap named `tower-yml` in the `configmap.yml` and include the following snippet:
+1. Edit the ConfigMap named `tower-yml` in the `configmap.yml` and include the following snippet:
 
     ```yaml
     data:
