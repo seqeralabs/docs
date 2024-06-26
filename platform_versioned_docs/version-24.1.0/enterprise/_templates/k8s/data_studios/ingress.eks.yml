@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/certificate-arn: <CERTIFICATE_ARN>
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+    alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
+    alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS-1-2-Ext-2018-06
+    alb.ingress.kubernetes.io/load-balancer-attributes: >
+      idle_timeout.timeout_seconds=301,
+      routing.http2.enabled=false,
+      access_logs.s3.enabled=true,
+      access_logs.s3.bucket=<YOUR_LOGS-S3_BUCKET>,
+      access_logs.s3.prefix=<YOUR_LOGS_PREFIX>
+  name: connect-ingress
+spec:
+  rules:
+    - host: "<CONNECT_PROXY_URL>"
+      http:
+        paths:
+          - backend:
+              service:
+                name: connect-proxy
+                port:
+                  number: 80
+            pathType: ImplementationSpecific
+            path: /*

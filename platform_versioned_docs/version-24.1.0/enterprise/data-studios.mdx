@@ -119,6 +119,12 @@ This procedure describes how to configure Data Studios for Kubernetes deployment
     client_token=$(openssl rand -base64 32 | tr -d /=+ | cut -c -32)
     ```
 
+1. Edit the `ingress.yml` and set the following values:
+
+    - `alb.ingress.kubernetes.io/certificate-arn` annotation:
+    - `alb.ingress.kubernetes.io/load-balancer-attributes` annotation:
+    - `spec.rules.host` field:
+
 1. Edit the `server.yml` file and set the `CONNECT_REDIS_ADDRESS` environment variable to the hostname or IP address of the Redis server configured for Platform.
 
 1. Edit the `proxy.yml` file and set the following variables:
