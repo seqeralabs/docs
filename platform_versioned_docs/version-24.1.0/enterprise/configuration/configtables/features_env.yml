@@ -12,10 +12,15 @@
 - 
   Environment variable:            '`TOWER_ENABLE_AWS_SSM`'
   Description: > 
-    Enable Seqera configuration value retrieval from [AWS Parameter Store](https://docs.seqera.io/platform/latest/enterprise/configuration/aws_parameter_store). 
+    Enable Seqera configuration value retrieval from [AWS Parameter Store](https://docs.seqera.io/platform/24.1.0/enterprise/configuration/aws_parameter_store). 
   Value:                'Default: `false`'
 - 
   Environment variable:            '`TOWER_ENABLE_AWS_SES`'
   Description: > 
     Use AWS Simple Email Service (SES) to send Seqera emails instead of SMTP.
   Value:                'Default: `false`'
+- 
+  Environment variable:            '`TOWER_STEPPED_LAUNCH_FORM_ALLOWED_WORKSPACES`'
+  Description: > 
+    Enable the [stepped launch form](https://docs.seqera.io/platform/24.1.0/launch/launchpad#launch-form) in the workspaces specified. Set empty (`TOWER_STEPPED_LAUNCH_FORM_ALLOWED_WORKSPACES=`) to enable the new launch form in all workspaces, or provide a comma-separated list of workspace IDs to enable the form per workspace. 
+  Value:                'Example: `976xxxxxxxx604,402xxxxxxxx677`'
