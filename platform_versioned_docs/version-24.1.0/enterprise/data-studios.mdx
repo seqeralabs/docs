@@ -45,10 +45,10 @@ This guide assumes that all services will be run in the same container as the re
 
 1. Download the Data Studios [environment configuration file](./_templates/docker/data-studios.env).
 
-1. Create an initial access token:
+1. Create an initial OIDC registration token, which can be any secure random string. For example, using openssl:
 
     ```
-    client_token=$(openssl rand -base64 32 | tr -d /=+ | cut -c -32)
+    oidc_registration_token=$(openssl rand -base64 32 | tr -d /=+ | cut -c -32)
     ```
 
 1. Generate an RSA public/private key pair. A key size of at least 2048 bits is recommended. In the following example, the `openssl` command is used to generate the key pair:
@@ -73,13 +73,13 @@ This guide assumes that all services will be run in the same container as the re
     1. Set the following environment variables:
         - `PLATFORM_URL`: The same value assigned to `TOWER_SERVER_URL`. For example, `https://example.com`.
         - `CONNECT_PROXY_URL`: A URL for the connect proxy subdomain. We recommend you set a first-level subdomain of your `PLATFORM_URL` for your connect proxy. For example, `https://connect.example.com`.
-        - `CONNECT_OIDC_CLIENT_REGISTRATION_TOKEN`: The same base64-encoded value set in the `client_token` environment variable.
+        - `CONNECT_OIDC_CLIENT_REGISTRATION_TOKEN`: The same value set in the `oidc_registration_token` environment variable.
 
 1. Open `data-studios.env` in an editor and set the following variables:
 
     - `TOWER_DATA_EXPLORER_ENABLED`: Set `true` to enable Data Explorer. You must enable Data Explorer to mount data inside a data studio instance.
-    - `TOWER_DATA_STUDIO_CONNECT_URL`: The URL of the Data Studios connect proxy, such as `https://connect.tower.example.com/`.
-    - `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`: The same base64-encoded value set in the `client_token` environment variable.
+    - `TOWER_DATA_STUDIO_CONNECT_URL`: The URL of the Data Studios connect proxy, such as `https://connect.example.com/`.
+    - `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`: The same value set in the `oidc_registration_token` environment variable.
     - `TOWER_OIDC_PEM_PATH`: The file path to a PEM certificate used for signing the OIDC tokens for the OpenID connect provider, mounted as a volume inside the container.
 
 1. Edit the `tower.yml` file and include the following snippet:
@@ -115,10 +115,10 @@ This procedure describes how to configure Data Studios for Kubernetes deployment
     kubectl config set-context --current --namespace=<namespace>
     ```
 
-1. Create an initial access token:
+1. Create an initial OIDC registration token, which can be any secure random string. For example, using openssl:
 
     ```
-    client_token=$(openssl rand -base64 32 | tr -d /=+ | cut -c -32)
+    oidc_registration_token=$(openssl rand -base64 32 | tr -d /=+ | cut -c -32)
     ```
 
 1. Edit the `server.yml` file and set the `CONNECT_REDIS_ADDRESS` environment variable to the hostname or IP address of the Redis server configured for Platform.
@@ -128,6 +128,7 @@ This procedure describes how to configure Data Studios for Kubernetes deployment
     - `CONNECT_REDIS_ADDRESS`: The hostname or IP address of the Redis server configured for Platform.
     - `CONNECT_PROXY_URL`: A URL for the connect proxy subdomain. We recommend you set a first-level subdomain of your Platform installation domain (`PLATFORM_URL` below) for your connect proxy, to be able to use the same wildcard TLS certificate for all data studio instance URLs and avoid additional domain nesting. For example, `https://connect.example.com`.
     - `PLATFORM_URL`: The base URL for your Platform installation, such as `https://example.com/`.
+    - `CONNECT_OIDC_CLIENT_REGISTRATION_TOKEN`: The same value as the `oidc_registration_token` value created previously.
 
 1. Edit your Platform installation's `ingress.eks.yml` file:
 
@@ -180,10 +181,10 @@ This procedure describes how to configure Data Studios for Kubernetes deployment
     kubectl apply -f tower-cron.yml
     ```
 
-1. Edit the ConfigMap named `platform-backend-cfg` in the `configmap.yml` for Platform by adding the following environment variables:
+1. Edit the ConfigMap named `platform-backend-cfg` in the `configmap.yml` for Platform by editing the following environment variables:
 
    - `TOWER_DATA_STUDIO_CONNECT_URL`: The URL of the Data Studios connect proxy, such as `https://connect.example.com/`.
-   - `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`: The same base64-encoded access token specified in the Secret named `connect-proxy-secret`.
+   - `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`: The same value as the `oidc_registration_token` value created previously.
 
 1. Edit the ConfigMap named `tower-yml` in the `configmap.yml` and include the following snippet:
 
@@ -199,6 +200,13 @@ This procedure describes how to configure Data Studios for Kubernetes deployment
 
     ```
     kubectl apply -f configmap.yml
+    ```
+
+1. Restart the backend service of your Platform deployment to load the updated configuration. For example:
+
+    ```
+    kubectl scale --replicas=0 deployment/backend
+    kubectl scale --replicas=1 deployment/backend
     ```
 
 1. Apply the Data Studios manifests:

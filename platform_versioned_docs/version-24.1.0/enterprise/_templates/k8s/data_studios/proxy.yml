@@ -39,10 +39,7 @@ spec:
             - name: PLATFORM_URL
               value: <PLATFORM_URL>
             - name: CONNECT_OIDC_CLIENT_REGISTRATION_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: connect-proxy-secret
-                  key: OIDC_CLIENT_REGISTRATION_TOKEN
+              value: <YOUR_RANDOMLY_GENERATED_SECRET>
             - name: LOCAL_CACHE_TTL
               value: 2m
           ports:
