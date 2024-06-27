@@ -37,7 +37,7 @@
 -
   Environment variable:            '`TOWER_DATA_STUDIO_CONNECT_URL`'
   Description: >
-    The URL of the Data Studios connect proxy, such as `https://connect.tower.example.com/`. The connect proxy is used internally by Seqera Platform.
+    The URL of the Data Studios connect proxy. The connect proxy is used internally by Seqera Platform.
   Value:                ''
 -
   Environment variable:            '`TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`'
