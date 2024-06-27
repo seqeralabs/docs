@@ -70,7 +70,7 @@ This guide assumes that all services will be run in the same container as the re
 1. Open `data-studios.env` in an editor, and make the following changes:
    1. Uncomment the `connect-proxy` and `connect-server` services.
    1. Set the following environment variables:
-      - `PLATFORM_URL`: Specify the same value assigned to `TOWER_SERVER_URL`.
+      - `PLATFORM_URL`: The same value assigned to `TOWER_SERVER_URL`.
       - `CONNECT_PROXY_URL`: Specify a base domain name for the connect proxy subdomain. For example, if you specify the base domain `example.com` then `connect.example.com` is the fully qualified domain name for the proxy.
       - `CONNECT_OIDC_CLIENT_REGISTRATION_TOKEN`: Specify the same base64-encoded value set in the `client_token` environment variable.
 
