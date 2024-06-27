@@ -15,13 +15,22 @@ To disable Data Explorer automatic cloud bucket retrieval per workspace in your 
 
 Access the **Data Explorer** tab from any enabled workspace to view and manage all available cloud storage buckets. It is also integrated with the pipeline launch form and run detail pages, which allows you to select input data files and output directories or quickly view the output files of a run.
 
+## Participant roles
+
+The role assigned to a workspace user affects what functionality is available in Data Explorer. The specific functionality for each role is described in the following list of roles:
+
+- **View**: Can only view contents of cloud storage buckets. Cannot download, upload, or preview. Cannot hide or add buckets.
+- **Launch**: Can only view contents of cloud storage buckets. Cannot download, upload, or preview. Cannot hide or add buckets.
+- **Connect**: Can only view contents of cloud storage buckets. Cannot download, upload, or preview. Cannot hide or add buckets.
+- **Maintain**: Can view download, upload, and preview contents of cloud storage buckets. Can hide and add buckets.
+- **Admin**: Can view, download, upload, and preview contents of cloud storage buckets. Can hide and add buckets.
+- **Owner**: Can view, download, upload, and preview contents of cloud storage buckets. Can hide and add buckets.
+
+For more information on roles in Seqera Platform, see [Participant roles][roles].
+
 ## Add cloud storage buckets
 
 Data Explorer lists public and private cloud storage buckets. Buckets accessible to your workspace cloud credentials are retrieved automatically; workspace maintainers can also configure buckets manually.
-
-:::note
-To disable automatic cloud bucket retrieval per workspace, specify comma-separated workspace IDs using the `TOWER_DATA_EXPLORER_CLOUD_DISABLED_WORKSPACES` environment variable.
-:::
 
 - **Retrieve cloud buckets with workspace credentials**
 
@@ -31,9 +40,6 @@ To disable automatic cloud bucket retrieval per workspace, specify comma-separat
 
   Select **Add cloud bucket** from the Data Explorer tab to add individual buckets (or directory paths within buckets). Specify the **Provider**, **Bucket path**, **Name**, **Credentials**, and **Description**, then select **Add**. For public cloud buckets, select **Public** from the **Credentials** drop-down menu.
 
-  :::note
-  The **Add cloud bucket** option is only shown to users with sufficient permissions (workspace maintainers or higher).
-  :::
 
 ## Browse cloud storage buckets
 
@@ -49,13 +55,13 @@ To disable automatic cloud bucket retrieval per workspace, specify comma-separat
 
 - **Hide buckets from list view**
 
-  Workspace maintainers can hide buckets from the Data Explorer list view. Select multiple buckets, then select **Hide** in the Data Explorer toolbar. To hide buckets individually, select **Hide** from the options menu of a bucket in the list.
+  Using checkboxes, choose one or more buckets, then select the **Hide** icon in the Data Explorer toolbar. To hide buckets individually, select **Hide** from the three dots options menu of a bucket in the list.
 
-  The Data Explorer list filter defaults to **Only visible**. Select **Only hidden** or **All** from the filtering menu to view hidden buckets in the list. You can **Unhide** a bucket from its options menu in the list view.
+  The Data Explorer list filter defaults to **Only visible**. Select **Only hidden** or **All** from the filtering menu to view hidden buckets in the list. You can unhide a bucket by selecting **Show** from the three dots options menu in the list view.
 
 - **View bucket contents**
 
-  Select a bucket name from the Data Explorer list to view the contents of that bucket. From the **View cloud bucket** page, you can browse directories and search for objects by name in a particular directory. The file type, size, and path of objects are displayed in columns to the right of the object name. To view bucket details such as the cloud provider, bucket address, and credentials, select the information icon.
+  Select a bucket name from the Data Explorer list to view the contents of that bucket. From the **View cloud bucket** page, you can browse directories and search for objects by name in a particular directory. The size and path of an object is displayed in columns to the right of the object name. To view bucket details such as the cloud provider, bucket address, and credentials, select the information icon.
 
 - **Preview and download files**
 
@@ -200,17 +206,4 @@ Google Cloud Storage only supports CORS configuration via gcloud CLI.
 }
 ```
 
-## Participant roles
-
-The role assigned to a user affects what functionality is available in Data Explorer. The specific functionality for each role is described in the following list of roles:
-
-- **View** role: Can only view contents of cloud storage buckets. Cannot download, upload, or preview.
-- **Launch** role: Can only view contents of cloud storage buckets. Cannot download, upload, or preview.
-- **Connect** role: Can only view contents of cloud storage buckets. Cannot download, upload, or preview.
-- **Maintain** role: Can view, download, upload, and preview contents of cloud storage buckets.
-- **Admin** role: Can view, download, upload, and preview contents of cloud storage buckets.
-- **Owner** role: Can view, download, upload, and preview contents of cloud storage buckets.
-
-For more information on roles in Seqera Platform, see [Participant roles][roles].
-
-[roles]: platform_versioned_docs/version-23.4.0/orgs-and-teams/workspace-management.mdx#participant-roles
+[roles]: platform_versioned_docs/version-24.1.0/orgs-and-teams/roles.mdx

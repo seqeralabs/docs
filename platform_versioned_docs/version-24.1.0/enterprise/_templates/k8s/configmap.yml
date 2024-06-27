@@ -52,7 +52,7 @@ data:
         duration: 30m
 
     # Set a custom application name for the Micronaut environment to deploy multiple instances from the same Enterprise account
-    # Required for AWS Parameter Store configuration. For more information, see https://docs.seqera.io/platform/23.4.0/enterprise/configuration/aws_parameter_store 
+    # Required for AWS Parameter Store configuration. For more information, see https://docs.seqera.io/platform/latest/enterprise/configuration/aws_parameter_store 
     micronaut:
       application:
         name: tower-app
