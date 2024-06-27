@@ -21,7 +21,7 @@ Data Studios uses the following set of domains and subdomains:
 
 - The domain that you set for `TOWER_SERVER_URL`, such as `example.com`.
 - A wildcard subdomain that you must configure specifically for Data Studios. This wildcard subdomain is the parent for each unique data studios session URL, such as `abcd.example.com`.
-- The connection proxy, defined by `CONNECT_PROXY_URL`. This URL is used internally and by convention is `connect.example.com`. This domain must be a subdomain of your Platform domain, so you cannot use `connect.example.net` if your Platform domain is `example.com`.
+- The connection proxy, defined by `CONNECT_PROXY_URL`. This URL is a first-level subdomain of your `TOWER_SERVER_URL`. For example, `https://connect.example.com`. 
 
 :::note
 We recommend using only a third-level domain to minimize the costs of additional nesting of subdomains.
