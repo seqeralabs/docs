@@ -28,3 +28,14 @@ spec:
             backend:
               serviceName: frontend
               servicePort: 80
+# Uncomment the host section below to enable Data Studios. Replace <YOUR-TOWER-HOST-NAME> with the base domain of your Platform installation. See [Data Studios configuration](https://docs.seqera.io/platform/24.1.0/enterprise/data-studios) for more information.              
+#    - host: "*.<YOUR-TOWER-HOST-NAME>"
+#      http:
+#        paths:
+#          - backend:
+#              service:
+#                name: connect-proxy
+#                port:
+#                  number: 80
+#            pathType: ImplementationSpecific
+#            path: /*
