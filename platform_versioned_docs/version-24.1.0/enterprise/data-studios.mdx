@@ -132,7 +132,7 @@ This procedure describes how to configure Data Studios for Kubernetes deployment
 1. Edit your Platform installation's `ingress.eks.yml` file:
 
     - Uncomment the `host` section at the bottom of the file.
-    - Replace `<CONNECT_DOMAIN>` with the domain of your `CONNECT_PROXY_URL` value specified in the `proxy.yml` file above. For example, if your connect proxy URL is `https://example.com`, set the `<CONNECT_DOMAIN>` value as `example.com`.
+    - Replace `<YOUR-TOWER-HOST-NAME>` with the base domain of your Platform installation. For example, `example.com`.
 
     :::note
     This assumes that you have an existing Platform installation Ingress already configured with the following fields:
