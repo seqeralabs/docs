@@ -75,7 +75,7 @@ This guide assumes that all services will be run in the same container as the re
 
     1. Uncomment the `connect-proxy` and `connect-server` services.
     1. Set the following environment variables:
-        - `PLATFORM_URL`: The same value assigned to `TOWER_SERVER_URL`.
+        - `PLATFORM_URL`: The same value assigned to `TOWER_SERVER_URL`. For example, `https://example.com`.
         - `CONNECT_PROXY_URL`: A URL for the connect proxy subdomain. We recommend you set a first-level subdomain of your `PLATFORM_URL` for your connect proxy. For example, `https://connect.example.com`.
         - `CONNECT_OIDC_CLIENT_REGISTRATION_TOKEN`: The same base64-encoded value set in the `client_token` environment variable.
 
