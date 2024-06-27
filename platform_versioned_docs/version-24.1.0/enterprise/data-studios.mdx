@@ -130,7 +130,7 @@ This procedure describes how to configure Data Studios for Kubernetes deployment
 1. Edit the `proxy.yml` file and set the following variables:
 
     - `CONNECT_REDIS_ADDRESS`: The hostname or IP address of the Redis server configured for Platform.
-    - `CONNECT_PROXY_URL`: A base domain URL for the connect proxy subdomain. We recommend you set the base URL for your Platform installation (`PLATFORM_URL` below) for your connect proxy, to be able to use the same wildcard TLS certificate for all data studio instance URLs and avoid additional domain nesting. 
+    - `CONNECT_PROXY_URL`: A URL for the connect proxy subdomain. We recommend you set a first-level subdomain of your Platform installation domain (`PLATFORM_URL` below) for your connect proxy, to be able to use the same wildcard TLS certificate for all data studio instance URLs and avoid additional domain nesting. For example, `https://connect.example.com`.
     - `PLATFORM_URL`: The base URL for your Platform installation, such as `https://example.com/`.
 
 1. Edit your Platform installation's `ingress.eks.yml` file:
