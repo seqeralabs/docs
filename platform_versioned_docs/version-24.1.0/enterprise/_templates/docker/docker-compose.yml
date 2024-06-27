@@ -111,7 +111,7 @@ services:
     depends_on:
       - backend
 
-  # Uncomment the following section to enable the data studios functionality. See detailed guide at ../../data-studios.mdx
+# Uncomment the following section to enable Data Studios functionality. See [Data Studios configuration](../../data-studios.mdx) for more information.
 #  connect-proxy:
 #    image: cr.seqera.io/private/nf-tower-enterprise/data-studio/connect-proxy:0.7.0
 #    platform: linux/amd64

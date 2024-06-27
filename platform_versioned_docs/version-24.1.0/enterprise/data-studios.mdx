@@ -25,7 +25,7 @@ Data Studios uses the following set of domains and subdomains:
 
 ## Data Studios workspace availability
 
-You can configure which organizational workspaces have access Data Studios. This configuration is set in the `tower.yml` file. The `tower.data-studio.allowed-workspaces` field supports the following options:
+You can configure which organizational workspaces have access to Data Studios. This configuration is set in the `tower.yml` file. The `tower.data-studio.allowed-workspaces` field supports the following options:
 
 - `allowed-workspaces: []`: Disables Data Studios. This is the default if the `allowed-workspaces` field is not specified.
 - `allowed-workspaces: [ <WORKSPACE_ID>,<WORKSPACE_ID> ]`: Enables Data Studios for the comma-separated list of organizational workspace IDs.
@@ -51,19 +51,21 @@ This guide assumes that all services will be run in the same container as the re
     oidc_registration_token=$(openssl rand -base64 32 | tr -d /=+ | cut -c -32)
     ```
 
-1. Generate an RSA public/private key pair. A key size of at least 2048 bits is recommended. In the following example, the `openssl` command is used to generate the key pair:
+1. Generate an RSA public/private key pair. A key size of at least 2048 bits is recommended. For example, use `openssl` to generate the key pair:
 
     ```shell
     openssl genrsa -out private.pem 2048
     openssl rsa -pubout -in private.pem -out public.pem
     ```
 
+1. Download the [data-studios-rsa.pem](./_templates/docker/data-studios-rsa.pem) file and replace its contents with the content of your private and public key files, in the same order (private key on top, public key directly beneath it). Save the file as `data-studios-rsa.pem`, in the same directory as your `docker-compose.yml` file. 
+
 1. Open the `docker-compose.yml` and uncomment the volume mount for the PEM key file for the `backend` service in the `volumes` list. Your PEM file must be named `data-studios-rsa.pem`.
 
     ```yaml
     volumes:
       - $PWD/tower.yml:/tower.yml
-      # Data studios RSA key is required for the data studios functionality. Uncomment the line below to mount the key.
+      # An RSA key is required for Data Studios functionality. Uncomment the line below to mount the key.
       #- $PWD/data-studios-rsa.pem:/data-studios-rsa.pem
     ```
 
@@ -82,7 +84,7 @@ This guide assumes that all services will be run in the same container as the re
     - `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`: The same value set in the `oidc_registration_token` environment variable.
     - `TOWER_OIDC_PEM_PATH`: The file path to a PEM certificate used for signing the OIDC tokens for the OpenID connect provider, mounted as a volume inside the container.
 
-1. Edit the `tower.yml` file and include the following snippet:
+1. Edit the `tower.yml` file and include the following snippet to enable Data Studios in all organization workspaces:
 
     ```yaml
     tower:
@@ -97,6 +99,8 @@ This guide assumes that all services will be run in the same container as the re
     ```
     docker ps
     ```
+
+1. To confirm that Data Studios is available, log in to your Platform instance and navigate to an organizational workspace that has Data Studios enabled. The **Data Studios** tab is included with the available tabs.
 
 ## Kubernetes
 
@@ -115,13 +119,13 @@ This procedure describes how to configure Data Studios for Kubernetes deployment
     kubectl config set-context --current --namespace=<namespace>
     ```
 
+1. Edit the `server.yml` file and set the `CONNECT_REDIS_ADDRESS` environment variable to the hostname or IP address of the Redis server configured for Platform.
+
 1. Create an initial OIDC registration token, which can be any secure random string. For example, using openssl:
 
     ```
     oidc_registration_token=$(openssl rand -base64 32 | tr -d /=+ | cut -c -32)
     ```
-
-1. Edit the `server.yml` file and set the `CONNECT_REDIS_ADDRESS` environment variable to the hostname or IP address of the Redis server configured for Platform.
 
 1. Edit the `proxy.yml` file and set the following variables:
 
@@ -149,13 +153,15 @@ This procedure describes how to configure Data Studios for Kubernetes deployment
       openssl rsa -pubout -in private.pem -out public.pem
     ```
 
+1. Download the [data-studios-rsa.pem](./_templates/docker/data-studios-rsa.pem) file and replace its contents with the content of your private and public key files created in the previous step, in the same order (private key on top, public key directly beneath it).
+
 1. Apply a base64 encoding to the PEM file that you created in the previous step:
 
     ```
-    base64_pem=$(cat public.pem | base64)
+    base64_pem=$(cat data-studios-rsa.pem | base64)
     ```
 
-1. Create a Secret file named `secret.yml` and set the `oidc.pem` key to the value of the base64-encoded public/private key pair:
+1. Create a Secret file named `secret.yml` and set the `oidc.pem` key by pasting the contents of the base64-encoded public/private key pair:
 
     ```yaml
     apiVersion: v1

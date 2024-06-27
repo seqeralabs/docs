@@ -23,7 +23,6 @@ spec:
           env:
             - name: CONNECT_HTTP_PORT
               value: "80"
-              # "hostname.domain.cache.amazonaws.com:6379"
             - name: CONNECT_REDIS_ADDRESS
               value: <CONNECT_REDIS_ADDRESS>
             - name: CONNECT_REDIS_PREFIX
