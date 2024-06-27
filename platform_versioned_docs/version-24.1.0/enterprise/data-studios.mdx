@@ -75,8 +75,8 @@ This guide assumes that all services will be run in the same container as the re
 
     1. Uncomment the `connect-proxy` and `connect-server` services.
     1. Set the following environment variables:
-        - `PLATFORM_URL`: The same value assigned to `TOWER_SERVER_URL`.
-        - `CONNECT_PROXY_URL`: A base domain name for the connect proxy subdomain. For example, if you specify the base domain `example.com` then `connect.example.com` is the fully qualified domain name for the proxy.
+        - `PLATFORM_URL`: The same value assigned to `TOWER_SERVER_URL`. For example, `https://example.com`.
+        - `CONNECT_PROXY_URL`: A URL for the connect proxy subdomain. We recommend you set a first-level subdomain of your `PLATFORM_URL` for your connect proxy. For example, `https://connect.example.com`.
         - `CONNECT_OIDC_CLIENT_REGISTRATION_TOKEN`: The same base64-encoded value set in the `client_token` environment variable.
 
 1. Open `data-studios.env` in an editor and set the following variables:
@@ -130,7 +130,7 @@ This procedure describes how to configure Data Studios for Kubernetes deployment
 1. Edit the `proxy.yml` file and set the following variables:
 
     - `CONNECT_REDIS_ADDRESS`: The hostname or IP address of the Redis server configured for Platform.
-    - `CONNECT_PROXY_URL`: A base domain URL for the connect proxy subdomain. We recommend you set the base URL for your Platform installation (`PLATFORM_URL` below) for your connect proxy, to be able to use the same wildcard TLS certificate for all data studio instance URLs and avoid additional domain nesting. 
+    - `CONNECT_PROXY_URL`: A URL for the connect proxy subdomain. We recommend you set a first-level subdomain of your Platform installation domain (`PLATFORM_URL` below) for your connect proxy, to be able to use the same wildcard TLS certificate for all data studio instance URLs and avoid additional domain nesting. For example, `https://connect.example.com`.
     - `PLATFORM_URL`: The base URL for your Platform installation, such as `https://example.com/`.
 
 1. Edit your Platform installation's `ingress.eks.yml` file:
