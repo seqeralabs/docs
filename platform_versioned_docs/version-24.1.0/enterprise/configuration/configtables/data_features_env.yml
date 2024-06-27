@@ -48,4 +48,4 @@
   Environment variable:            '`TOWER_OIDC_PEM_PATH`'
   Description: > 
     The file path to a PEM certificate used to sign the OIDC tokens for the OpenID connect provider. This variable is required for Docker-based installations. For Kubernetes-based installations, this variable is included as part of the backend container deployment.
-  Value:                'For example, `/data-studios-rsa.pem`'
+  Value:                'Example: `/data-studios-rsa.pem`'
