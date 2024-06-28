@@ -194,33 +194,15 @@ To create a new compute environment for AWS Batch (without Forge):
 
     ![](./_images/azure_tower_manual.png)
 
-11. If the Azure Batch Pool you have selected has an attached user-assigned **Managed Identity**, you can select it here.
+11. You can use the **Environment variables** option to specify custom environment variables for the Head job and/or Compute jobs.
 
-**SCREENSHOT HERE**
+12. Configure any advanced options described below, as needed.
 
-12. You can use the **Environment variables** option to specify custom environment variables for the Head job and/or Compute jobs.
-
-13. Configure any advanced options described below, as needed.
-
-14. Select **Create** to finalize the compute environment setup. It will take a few seconds for all the resources to be created, and then you will be ready to launch pipelines.
+13. Select **Create** to finalize the compute environment setup. It will take a few seconds for all the resources to be created, and then you will be ready to launch pipelines.
 
     ![](./_images/azure_newly_created_env.png)
 
 Jump to the documentation for [Launching Pipelines](../launch/launchpad.mdx).
-
-#### Using a Managed Identity to authenticate to Azure Services
-
-It is possible for Nextflow to authenticate to Azure Services using a Managed Identity instead of access keys, which is more secure but must be running on Azure infrastructure. When adding a manual Azure Batch compute environment it is possible to enable this feature of Nextflow. Note, Seqera Platform must use the access keys to submit the initial Task to Azure Batch to run Nextflow, which will then authenticate using the Managed Identity.
-
-1. In Azure, create a user-assigned Managed Identity. See the [Azure documentation](https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/how-manage-user-assigned-managed-identities) for details. After creation, make sure to note down the Client ID of the Managed Identity.
-
-2. Make sure the user-assigned Managed Identity has the appropriate roles for Nextflow. See [Nextflow documentation](https://www.nextflow.io/docs/latest/azure.html#required-role-assignments) for details.
-
-3. Associate the user-assigned Managed Identity with the Azure Batch Pool, see [documentation](https://learn.microsoft.com/en-us/troubleshoot/azure/hpc/batch/use-managed-identities-azure-batch-account-pool#set-up-managed-identity-in-your-batch-pool) for details.
-
-4. When creating the Seqera Platform Compute Environment, select the Azure Batch Pool by name then add the Managed Identity client ID in the input field as described above.
-
-After submitting a pipeline to this compute environment, Nextflow will authenticate using the Managed Identity attached to the Azure Batch Node it is running on instead of using access keys.
 
 ### Advanced options
 
