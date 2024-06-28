@@ -194,11 +194,15 @@ To create a new compute environment for AWS Batch (without Forge):
 
     ![](./_images/azure_tower_manual.png)
 
-11. You can use the **Environment variables** option to specify custom environment variables for the Head job and/or Compute jobs.
+11. If the Azure Batch Pool you have selected has an attached user-assigned **Managed Identity**, you can select it here and Nextflow will use the Managed Identity to authenticate to the Azure Storage account and Azure Batch account instead of using access keys.
 
-12. Configure any advanced options described below, as needed.
+**SCREENSHOT HERE**
 
-13. Select **Create** to finalize the compute environment setup. It will take a few seconds for all the resources to be created, and then you will be ready to launch pipelines.
+12. You can use the **Environment variables** option to specify custom environment variables for the Head job and/or Compute jobs.
+
+13. Configure any advanced options described below, as needed.
+
+14. Select **Create** to finalize the compute environment setup. It will take a few seconds for all the resources to be created, and then you will be ready to launch pipelines.
 
     ![](./_images/azure_newly_created_env.png)
 
