@@ -214,7 +214,7 @@ Your Seqera compute environment uses resources that you may be charged for in yo
 
 15. Click **Add** to complete the compute environment setup. The creation of resources will take a few seconds, after which you can launch pipelines.
 
-### Managed Identity
+### Managed identity
 
 Nextflow can authenticate to Azure services using a Managed Identity, offering enhanced security compared to access keys, but this method requires running on Azure infrastructure. When using the Seqera Platform with a manually configured compute environment that has a Managed Identity attached to the Azure Batch Pool, Nextflow can utilize this Managed Identity for authentication. However, the Seqera Platform still needs to use access keys to submit the initial task to Azure Batch to run Nextflow, which will then proceed with the Managed Identity for subsequent authentication.
 
