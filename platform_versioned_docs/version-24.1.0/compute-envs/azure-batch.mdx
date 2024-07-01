@@ -216,7 +216,8 @@ Your Seqera compute environment uses resources that you may be charged for in yo
 
 ### Managed identity
 
-Nextflow can authenticate to Azure services using a Managed Identity, offering enhanced security compared to access keys, but this method requires running on Azure infrastructure. When using the Seqera Platform with a manually configured compute environment that has a Managed Identity attached to the Azure Batch Pool, Nextflow can utilize this Managed Identity for authentication. However, the Seqera Platform still needs to use access keys to submit the initial task to Azure Batch to run Nextflow, which will then proceed with the Managed Identity for subsequent authentication.
+Nextflow can authenticate to Azure services using a managed identity. This method offers enhanced security compared to access keys, but must run on Azure infrastructure. 
+
 
 1. In Azure, create a user-assigned Managed Identity. Refer to the [Azure documentation](https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/how-manage-user-assigned-managed-identities) for detailed steps. After creation, make sure to record the Client ID of the Managed Identity.
 2. Ensure the user-assigned Managed Identity has the necessary roles for Nextflow. Consult the [Nextflow documentation](https://www.nextflow.io/docs/latest/azure.html#required-role-assignments) for role requirements.
