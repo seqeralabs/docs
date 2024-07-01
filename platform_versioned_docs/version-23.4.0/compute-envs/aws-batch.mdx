@@ -43,19 +43,16 @@ We recommend that you create separate IAM policies for Batch Forge and launch pe
 **Create an IAM user**
 
 1. From the [AWS IAM console](https://console.aws.amazon.com/iam), select **Users** in the left navigation menu, then select **Add User** at the top right of the page.
-2. Enter a name for your user (e.g., _seqera_) and select the **Programmatic access** type.
-3. Select **Next: Permissions**.
-4. Select **Next: Tags > Next: Review > Create User**.
-
-:::note
-For the time being, you can ignore the "user has no permissions" warning. Permissions will be applied using the **IAM Policy**.
-:::
-
-5. Save the **Access key ID** and **Secret access key** in a secure location as you will use these when creating credentials in Seqera.
-6. After you have saved the keys, select **Close**.
-7. Back in the users table, select the newly created user, then select **Add permissions** under the **Permissions** tab.
-8. Select **Attach existing policies**, then search for and select each of the policies created above.
-9. Select **Next: Review > Add permissions**.
+2. Enter a name for your user (e.g., _seqera_).
+3. Select **Next: Permissions > Add policies directly**.
+4. Search and tick out: `launch-policy`, `forge-policy`, `s3-bucket-write`.
+5. Select **Next: Tags > Next: Review > Create User**.
+6. Click in your user (e.g., _seqera_).
+7. Go to `Secure credentials` tab and choose `Create access keys`.
+7. In `Access key best practices & alternatives` page choose `Application running outside AWS` use case.
+8. Select **Next: Tags**.
+9. In `Retrieve access keys` save in a secure location your **Access key ID** and **Secret access key** as you will use these when creating credentials in Seqera.
+6. After you have saved the keys, select **Done**.
 
 ### S3 Bucket
 
