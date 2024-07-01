@@ -72,4 +72,16 @@
     @apply font-body text-sm antialiased;
     font-weight: 400;
   }
+
+}
+
+svg.excalidraw {
+  @apply h-full max-w-full;
+}
+[data-theme="dark"] svg.excalidraw {
+  /* Not sure why dark:hue-rotate-180 dark:invert doesn't work */
+  filter: invert(1) hue-rotate(180deg);
+}
+svg.excalidraw path[fill="#fff"] {
+  @apply fill-transparent;
 }

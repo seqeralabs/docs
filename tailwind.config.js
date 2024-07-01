@@ -10,6 +10,7 @@ const getSpacing = () => {
 
 module.exports = {
   content: ["src/**/*.jsx", "src/**/*.tsx"],
+  darkMode: ["class", '[data-theme="dark"]'],
   theme: {
     screens: {
       sm: "640px",
