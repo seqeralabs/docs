@@ -1,6 +1,6 @@
 # Seqera Platform Enterprise 24.1.x
 
-Seqera Platform Enterprise version 24.1.0 introduces three new features: Data Studios (in public preview), Data Explorer, and managed identities. A number of bug fixes and performance enhancements have also been included in this major release.
+Seqera Platform Enterprise version 24.1.1 introduces three new features: Data Studios (in public preview), Data Explorer, and managed identities. A number of bug fixes and performance enhancements have also been included in this major release.
 
 ## Data Studios
 
@@ -49,7 +49,7 @@ MariaDB driver 3.x requires a special parameter in the connection URL to connect
 
 `jdbc:mysql://<domain>:<port>/tower?permitMysqlScheme=true`
 
-All deployments using a MySQL database (regardless of version: 5.6, 5.7, or 8) should be updated accordingly when upgrading to Platform version 24.1.0 or later.
+All deployments using a MySQL database (regardless of version: 5.6, 5.7, or 8) should be updated accordingly when upgrading to Platform version 24.1.1 or later.
 
 **MariaDB driver: No truncation support for MySQL 5.6**
 
@@ -74,7 +74,7 @@ Enterprise deployments that have customized this value previously will need to a
 This version requires a database schema update. Make a backup of your Platform database prior to upgrade. 
 
 :::caution
-If you are upgrading from a version older than 23.4.1, update your installation to version [23.4.4](./23.4.mdx) first, before updating to 24.1.0 with the steps below.
+If you are upgrading from a version older than 23.4.1, update your installation to version [23.4.4](./23.4.mdx) first, before updating to 24.1.1 with the steps below.
 :::
 
 Docker Compose deployments require downtime while upgrading services. Restarting the application may take several minutes. See [Docker compose deployment](../docker-compose.mdx) for more information.
