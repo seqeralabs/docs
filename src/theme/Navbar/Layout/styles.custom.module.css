@@ -84,6 +84,9 @@ aside {
   margin-top: -165px !important;
   & > div > div {
     padding-top: 165px !important;
+    & nav {
+      margin-right: 0.5rem;
+    }
   }
 }
 
