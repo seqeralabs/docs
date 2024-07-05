@@ -228,17 +228,7 @@ Create a launch template to configure the EC2 instances deployed by Batch jobs:
           exec > >(tee /var/log/tower-forge.log|logger -t TowerForge -s 2>/dev/console) 2>&1
           ##
           yum install -q -y jq sed wget unzip nvme-cli lvm2
-          wget -q https://s3.amazonaws.com/amazoncloudwatch-agent/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm
-          rpm -U ./amazon-cloudwatch-agent.rpm
-          rm -f ./amazon-cloudwatch-agent.rpm
-          curl -s https://nf-xpack.seqera.io/amazon-cloudwatch-agent/config-v0.3.json \
-            | sed 's/$FORGE_ID/<your prefix>/g' \
-            > /opt/aws/amazon-cloudwatch-agent/bin/config.json
-          /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl \
-            -a fetch-config \
-            -m ec2 \
-            -s \
-            -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json
+
           mkdir -p /etc/ecs
           echo ECS_IMAGE_PULL_BEHAVIOR=once >> /etc/ecs/ecs.config
           echo ECS_ENABLE_AWSLOGS_EXECUTIONROLE_OVERRIDE=true >> /etc/ecs/ecs.config
