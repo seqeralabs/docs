@@ -1,0 +1,112 @@
+---
+title: "Tower Enterprise 22.4.x"
+description: "Tower Enterprise version 22.4 release notes"
+date: "21 Apr 2023"
+tags: [release, enterprise, 22.4]
+---
+
+# Release notes for version 22.4.x
+
+## New features
+
+### Resource Labels
+
+In Nextflow Tower 22.3, Seqera Labs introduced [resource labels](../../resource-labels/overview.mdx) — a flexible tagging system for the cloud services consumed by a run. Workspace administrators can now customize the resource labels associated with pipelines, actions, and runs. This improves the feature’s flexibility as resource labels are no longer inherited only from the compute environment.
+
+In Tower Enterprise 22.4, an administrator can now:
+
+-   Override and save the resource labels automatically assigned to a pipeline.
+  -   The pipeline will have a different resource label set from its associated compute environment. Resource labels added to the pipeline propagate to the cloud provider, without being permanently associated with the compute environment in Tower.
+  -   If a maintainer edits a pipeline and changes the compute environment, the resource labels field is updated with the resource labels of the new compute environment.
+-   Override and save the resource labels associated with an action, following the same logic as pipelines above.
+-   Override the resource labels associated with a workflow run before launch, enabling job-level tagging.
+  -   The resource labels tied to a workflow run are associated with specific cloud resources that do not include all resources tagged when a compute environment is created.
+
+### All runs view
+
+A comprehensive new view of _All runs_ accessible to each user across the entire Tower instance is now available. This feature is especially useful for monitoring multiple workspaces at once and identifying execution patterns across workspaces and organizations.
+
+Segmented by organizations and workspaces, the interface facilitates overall status monitoring and early detection of execution issues, such as pipeline-related problems or infrastructure issues that can affect multiple workspaces simultaneously.
+
+The **All runs** view is accessible via the user menu.
+
+### Wave support for Tower Enterprise
+
+All Tower instances with internet access can now connect to the Seqera Labs Wave container service to leverage its container augmentation and Fusion v2 file system capabilities. See the [Wave containers documentation](https://www.nextflow.io/docs/latest/wave.html) for more information about Wave containers.
+
+The Wave integration also allows for the secure transfer of credentials required to access private registries between services. See the [Tower documentation](https://docs.seqera.io/platform/23.3.0) to learn how to use the feature in your enterprise installation.
+
+### Fusion file system support
+
+Tower 22.4 adds official support for the Fusion file system. Fusion file system is a lightweight client that enables containerized tasks to access data in Amazon S3 (and other object stores in future) using POSIX file access semantics. Depending on your data handling requirements, Fusion 2.0 improves pipeline throughput and/or reduces cloud computing costs. For additional information on Fusion 2.0 and newly published benchmark results, see the recent article [Breakthrough performance and cost-efficiency with the new Fusion file system](https://seqera.io/blog/breakthrough-performance-and-cost-efficiency-with-the-new-fusion-file-system/). The Wave service is a prerequisite for using the Fusion file system.
+
+### Resuming runs on a different compute environment
+
+Tower 22.4 allows users with sufficient permissions to change their compute environment when resuming a run. Users with a maintainer role or above can now select a new compute environment when resuming a run.
+
+This is especially useful if the original run failed due to infrastructure limitations of the compute environment, such as insufficient memory being available to a task. Now, it is possible to select a new compute environment when the run is resumed, without the need to restart from the first task.
+
+The only requirement is that the new compute environment has access to the original run workdir.
+
+### Other enhancements
+
+- Update to Java 17
+- Support for Gitea credentials and repositories
+- UI fixes in the run detail page
+  - Alphabetical sorting for reports
+  - Horizontal scrolling for log window
+- ECS configuration in the advanced setup for AWS compute environments
+- Nextflow: Support for S3 Glacier file retrieval
+- Nextflow: Define the storage class for published files
+- Actions: duplicate the launch for every run from an action to ease management and retrieval (this change is not retroactive — old actions’ runs need to be relaunched for changes to take effect)
+
+## Breaking changes & warnings
+
+### Warnings
+
+1. The default `nf-launcher` image includes a `curl` command which will fail if your Tower is secured with a private TLS certificate. To mitigate this problem, please see [these instructions](../configuration/ssl_tls.mdx).
+2. This version requires all database connections to use the following configuration value: `TOWER_DB_DRIVER=org.mariadb.jdbc.Driver`. Please update your configuration if you are upgrading. All other database configuration values should remain unchanged.
+3.  This version expects the use of HTTPS by default for all browser client connections. If your Tower installation requires the use of unsecured HTTP, set the following environment variable in the infrastructure hosting the Tower application: `TOWER_ENABLE_UNSAFE_MODE=true`.
+4.  If you're upgrading from a version of Tower prior to `21.04.x`, please update your implementation to `21.04.x` before installing this release.
+
+## Upgrade steps
+
+This Tower version requires a database schema update. Follow these steps to update your DB instance and the Tower installation.
+
+!!! warning
+    To ensure no data loss, the database volume must be persistent on the local machine. Use the `volumes` key in the `db` or `redis` section of your `docker-compose.yml` file to specify a local path to the DB or Redis instance.
+
+1. Make a backup of the Tower database.
+2. Download and update your container versions.
+3. Redeploy the Tower application:
+
+    **docker compose**:
+
+      - To migrate the database schema, restart the application with `docker compose down`, then `docker compose up`.
+
+    **kubernetes**:
+
+      - Update the cron service with `kubectl apply -f tower-cron.yml`. This will automatically migrate the database schema.
+      - Update the frontend and backend services with `kubectl apply -f tower-srv.yml`.
+
+    **custom deployment**:
+
+       - Run the `/migrate-db.sh` script provided in the `backend` container. This will migrate the database schema.
+       - Deploy Tower following your usual procedures.
+
+## Nextflow launcher image
+
+If you must host your nf-launcher container image on a private image registry, copy the [nf-launcher image](https://quay.io/seqeralabs/nf-launcher:j17-22.10.7) to your private registry. Then update your `tower.env` with the following environment variable:
+
+    `TOWER_LAUNCH_CONTAINER=<FULL_PATH_TO_YOUR_PRIVATE_IMAGE>`
+
+!!! warning
+    If you're using AWS Batch, you will need to [configure a custom job definition](../advanced-topics/custom-launch-container.mdx) and populate the `TOWER_LAUNCH_CONTAINER` with the job definition name instead.
+
+## Changelog
+
+For a detailed list of all changes, see the Nextflow Tower [Changelog](./changelog.mdx).
+
+## Sharing feedback
+
+Share your feedback via [**support.seqera.io**](https://support.seqera.io).

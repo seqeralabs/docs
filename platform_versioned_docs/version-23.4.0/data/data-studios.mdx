@@ -132,8 +132,6 @@ An active connection to a data studio session will not prevent administrative ac
 
 Once connected, the data studio session list will update to display the status of **running** and any connected user will have their avatar displayed under the status in both the list of Data Studios and in each data studio session detail page.
 
-![](./_images/data_studios.png)
-
 ## Collaborate in a data studio
 
 This functionality is available to all user roles excluding the **View** role.
@@ -198,7 +196,7 @@ Data studios have the following possible statuses:
 - **running**: When a data studio session is **running**, you can connect to it, copy the data studio URL, or stop it. In addition, the session can continue to process requests/run computations in the absence of an ongoing connection.
 - **stopping**: The recently-running session is in the process of being stopped.
 - **stopped**: When a session is stopped, the associated compute resources are deallocated. You can start or delete the data studio when it's in this state.
-- **errored**: This state most often indicates that there has been an error starting the data studio session but it is in a **stopped** state. There might be errors reported by the session itself but these currently will be overwritten with a **running** status if the data studio session is still running. If you encounter an error with the Public-Preview release of Data Studios, please reach out to your Seqera account manager.
+- **errored**: This state most often indicates that there has been an error starting the data studio session but it is in a **stopped** state. There might be errors reported by the session itself but these currently will be overwritten with a **running** status if the data studio session is still running. If you encounter an error with the Public-Preview release of Data Studios, please reach out to your Seqera account executive.
 
 ## Troubleshooting
 
@@ -216,11 +214,11 @@ If sufficient compute environment resources are unavailable, **Stop** your data 
 
 ### My data studio status is **errored**
 
-The **errored** status is generally related to issues encountered when creating the data studio resources in the compute environment (e.g., invalid credentials, insufficient permissions, network issues). It can also be related to insufficient compute resources, which are set in your compute environment configuration. Contact your organization's AWS administrator if you don't have access to the AWS Console. Please also reach out to your account manager so we can investigate the issue.
+The **errored** status is generally related to issues encountered when creating the data studio resources in the compute environment (e.g., invalid credentials, insufficient permissions, network issues). It can also be related to insufficient compute resources, which are set in your compute environment configuration. Contact your organization's AWS administrator if you don't have access to the AWS Console. Please also reach out to your account executive so we can investigate the issue.
 
 ### My data studio can't be **stopped**
 
-If you're not able to stop a data studio session, it's usually because the Batch job running the data studio failed for some reason. In this case, and if you have access to the AWS Console for your organization, you can stop the data studio from the compute environment screen. Contact your organization's AWS administrator if you don't have access to the AWS Console. Also contact your Seqera account manager so we can investigate the issue.
+If you're not able to stop a data studio session, it's usually because the Batch job running the data studio failed for some reason. In this case, and if you have access to the AWS Console for your organization, you can stop the data studio from the compute environment screen. Contact your organization's AWS administrator if you don't have access to the AWS Console. Also contact your Seqera account executive so we can investigate the issue.
 
 ### My data studio performance is poor
 
