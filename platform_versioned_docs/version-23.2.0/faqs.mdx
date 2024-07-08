@@ -279,13 +279,13 @@ In both cases, please ensure these values are also set for Nextflow and/or Seqer
 
 **<p data-question>Q: Authentication to BitBucket fails, with the backend log containing a warning: "Can't retrieve revisions for pipeline - https://my.bitbucketserver.com/path/to/pipeline/repo - Cause: Get branches operation not support by BitbucketServerRepositoryProvider provider"</p>**
 
-If you have supplied correct BitBucket credentials and URL details in your `tower.yml`, but experience this error, update to at least v22.3.0. This version addresses SCM provider authentication issues and is likely to resolve the retrieval failure described here.
+If you've supplied correct BitBucket credentials and URL details in your `tower.yml`, but experience this error, update to at least v22.3.0. This version addresses SCM provider authentication issues and is likely to resolve the retrieval failure described here.
 
 ## Healthcheck
 
 **<p data-question>Q: Does Seqera offer a healthcheck API endpoint?</p>**
 
-Yes. Customers wishing to implement automated healtcheck functionality should use the `service-info` endpoint.
+Yes. You can use the `service-info` endpoint to implement the automated healthcheck functionality.
 
 Example:
 
@@ -303,7 +303,9 @@ Yes. As of Seqera Platform 24.1 you can disable the email login screen in the `t
 
 **<p data-question>Q: Can I restrict access to a subset of email addresses, or none?</p>**
 
-Removing the email section from the login page is not currently supported (as of v23.1.3). You can, however, restrict which email identities may log into your instance using the `trustedEmails` configuration paramater in your `tower.yml` file:
+Removing the email section from the login page is supported (as of v24.1.1).
+
+For versions prior to 24.1.1, you can restrict which email identities may log into your instance using the `trustedEmails` configuration paramater in your `tower.yml` file:
 
 ```yaml
 # tower.yml
@@ -319,11 +321,11 @@ tower:
 
 Users with email addresses other than the `trustedEmails` list will undergo an approval process on the **Profile > Admin > Users** page. This has been used effectively as a backup method when SSO becomes unavailable.
 
-**Note:**
-
+:::note
 1. You must rebuild your containers (i.e., `docker-compose down`) to force Seqera to implement this change. Ensure your database is persistent before issuing the docker-compose down command. See [here](https://docs.seqera.io/platform/23.4.0/enterprise/docker-compose) for more information.
 2. All login attempts are visible to the root user at **Profile > Admin panel > Users**.
 3. Any user logged in prior to the restriction will not be subject to the new restriction. An admin of the organization should remove users that have previously logged in via (untrusted) email from the Admin panel users list. This will restart the approval process before they can log in via email.
+:::
 
 **<p data-question>Q: Why am I receiving login errors stating that admin approval is required when using Azure AD OIDC?</p>**
 
@@ -335,7 +337,7 @@ This can occur for several reasons. Please verify the following:
 
 1. Your `TOWER_SERVER_URL` environment variable uses the `https://` prefix.
 2. Your `tower.yml` has `micronaut.ssl.enabled` set to `true`.
-3. Any Load Balancer instance that sends traffic to the Tower application is configured to use HTTPS as its backend protocol rather than TCP.
+3. Any load balancer instance that sends traffic to the Tower application is configured to use HTTPS as its backend protocol rather than TCP.
 
 **<p data-question>Q: Why isn't my OIDC callback working?</p>**
 
@@ -347,7 +349,7 @@ Callbacks could fail for many reasons. To more effectively investigate the probl
 
 **<p data-question>Q: Why did Google SMTP start returning `Username and Password not accepted` errors?</p>**
 
-Previously functioning Tower Enterprise email integration with Google SMTP are likely to encounter errors as of May 30, 2022 due to a [security posture change](https://support.google.com/accounts/answer/6010255#more-secure-apps-how&zippy=%2Cuse-more-secure-apps) implemented by Google.
+Previously functioning email integration with Google SMTP are likely to encounter errors as of May 30, 2022 due to a [security posture change](https://support.google.com/accounts/answer/6010255#more-secure-apps-how&zippy=%2Cuse-more-secure-apps) implemented by Google.
 
 To reestablish email connectivity, please follow the instructions at [https://support.google.com/accounts/answer/3466521](https://support.google.com/accounts/answer/3466521) to provision an app password. Update your `TOWER_SMTP_PASSWORD` environment variable with the app password, and restart the application.
 
@@ -355,13 +357,13 @@ To reestablish email connectivity, please follow the instructions at [https://su
 
 **<p data-question>Q: Version 22.3.1: My downloaded Nextflow log file is broken.</p>**
 
-A Tower Launcher issue has been identified which affects the Nextflow log file download in Tower version 22.3.1. A patch was released in version 22.3.2 that addresses this behavior. Update Tower to version 22.3.2 or later.
+A Tower Launcher issue has been identified which affects the Nextflow log file download in Seqera Platform v22.3.1. A patch was released in version 22.3.2 that addresses this behavior. Update to version 22.3.2 or later.
 
-**<p data-question>Q: Can Tower enable detailed logging related to sign-in activity?</p>**
+**<p data-question>Q: Can Seqera enable detailed logging related to sign-in activity?</p>**
 
 Yes. For more detailed logging related to login events, set the following environment variable: `TOWER_SECURITY_LOGLEVEL=DEBUG`.
 
-**<p data-question>Q: Can Tower enable detailed logging related to application activities?</p>**
+**<p data-question>Q: Can Seqera enable detailed logging related to application activities?</p>**
 
 Yes. For more detailed logging related to application activities, set the following environment variable: `TOWER_LOG_LEVEL=TRACE`.
 
@@ -369,21 +371,20 @@ Yes. For more detailed logging related to application activities, set the follow
 
 **<p data-question>Q: Is my data safe?</p>**
 
-Yes, your data stays strictly within **your** infrastructure itself. When you launch a workflow through Tower, you need to connect your infrastructure (HPC/VMs/K8s) by creating the appropriate credentials and compute environment in a workspace.
+Yes, your data stays strictly within **your** infrastructure itself. When you launch a workflow through Seqera, you need to connect your infrastructure (HPC/VMs/K8s) by creating the appropriate credentials and compute environment in a workspace. This configuration is used to trigger a Nextflow workflow within your infrastructure similar to using the Nextflow CLI, therefore Platform does not manipulate any data itself and no data is transferred to the associated infrastructure.
 
-Tower then uses this configuration to trigger a Nextflow workflow within your infrastructure similar to what is done via the Nextflow CLI, therefore Tower does not manipulate any data itself and no data is transferred to the infrastructure where Tower is running.
-
-**<p data-question>Q: Is there a maximum number of open browser tabs which Tower can run in parallel?</p>**
+**<p data-question>Q: Is there a maximum number of open browser tabs which Platform can run in parallel?</p>**
 
 Yes. Due to a limitation of [server-side event technology implementation in HTTP/1.1](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events), only five tabs can be open simultaneously (per browser product). Any more will remain stuck in a loading state.
 
 ## Monitoring
 
-**<p data-question>Q: Can Tower integrate with 3rd party Java-based Application Performance Monitoring (APM) solutions?</p>**
+**<p data-question>Q: Can Platform integrate with third-party Java-based Application Performance Monitoring (APM) solutions?</p>**
 
 Yes. You can mount the APM solution's JAR file in the `backend` container and set the agent JVM option via the `JAVA_OPTS` env variable.
 
-**<p data-question>Q: Is it possible to retrieve the trace file for a Tower-based workflow run?</p>**
+**<p data-question>Q: Is it possible to retrieve the trace file for a Seqera-based workflow run?</p>**
+
 Yes. Although it is not possible to directly download the file via Tower, you can configure your workflow to export the file to persistent storage:
 
 1. Set the following block in your `nextflow.config`:
@@ -402,17 +403,17 @@ trace {
 aws s3 cp ./trace.txt s3://MY_BUCKET/trace/trace.txt
 ```
 
-**<p data-question>Q: When monitoring pipeline execution via the Runs tab, why do I occasionally see Tower reporting "_Live events sync offline_"?</p>**
+**<p data-question>Q: When monitoring pipeline execution via the Runs tab, why do I occasionally see "_Live events sync offline_"?</p>**
 
-Nextflow Tower uses [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) to push real-time updates to your browser. The client must establish a connection to the Nextflow Tower server's `/api/live` endpoint to initiate the stream of data, and this connection can occasionally fail due to factors like network latency.
+Seqera Platform uses [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) to push real-time updates to your browser. The client must establish a connection to the server's `/api/live` endpoint to initiate the stream of data, and this connection can occasionally fail due to factors like network latency.
 
 To resolve the issue, please try reloading the UI to reinitiate the client's connection to the server. If reloading fails to resolve the problem, please contact Seqera Support for assistance with webserver timeout settings adjustments.
 
 ## Nextflow Configuration
 
-**<p data-question>Q: How can I specify Nextflow CLI run arguments when launching from Tower?</p>**
+**<p data-question>Q: How can I specify Nextflow CLI run arguments when launching from Platform?</p>**
 
-As of Nextflow v22.09.1-edge, when invoking a pipeline from Tower, you can specify [Nextflow CLI run arguments](https://www.nextflow.io/docs/latest/cli.html?highlight=dump#run) by setting the `NXF_CLI_OPTS` environment variable via pre-run script:
+As of Nextflow v22.09.1-edge, when invoking a pipeline from Platform, you can specify [Nextflow CLI run arguments](https://www.nextflow.io/docs/latest/cli.html?highlight=dump#run) by setting the `NXF_CLI_OPTS` environment variable via pre-run script:
 
 ```
 # Example:
