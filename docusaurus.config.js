@@ -72,7 +72,7 @@ export default async function createConfigAsync() {
           editUrl: "https://github.com/seqeralabs/docs/tree/master/",
           sidebarPath: false,
           versions: {
-            // Force path to be /platform/23.3.0 instead of /platform
+            // Force path to be /platform/24.1.1 instead of /platform
             // (Applies to latest version only)
             [platform_latest_version]: {
               label: platform_latest_version,
