@@ -166,7 +166,9 @@ Create a launch template to configure the EC2 instances deployed by Batch jobs:
           exec > >(tee /var/log/tower-forge.log|logger -t TowerForge -s 2>/dev/console) 2>&1
           ##
           yum install -q -y jq sed wget unzip nvme-cli lvm2
-          wget -q https://s3.amazonaws.com/amazoncloudwatch-agent/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm
+          #Uncomment either the AMD64 or ARM64 line below to install the correct version of Amazon CloudWatch Agent for your CPU architecture
+          #wget -q https://amazoncloudwatch-agent.s3.amazonaws.com/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm
+          #wget -q https://amazoncloudwatch-agent.s3.amazonaws.com/amazon_linux/arm64/latest/amazon-cloudwatch-agent.rpm
           rpm -U ./amazon-cloudwatch-agent.rpm
           rm -f ./amazon-cloudwatch-agent.rpm
           curl -s https://github.com/seqeralabs/nf-tower-aws/tree/master/cloudwatch-config/agent-config.json \
@@ -214,6 +216,7 @@ Create a launch template to configure the EC2 instances deployed by Batch jobs:
     --//--
     ```
 
+  1. Uncomment the appropriate `wget` line to download the version of Amazon Cloudwatch Agent for your CPU architecture (AMD64 or ARM64).
   1. In the line `| sed 's/seqera-prefix/<your prefix>/g' \`, replace `<your prefix>` with your desired prefix to be added to the AWS resources created by your compute environment.
   1. Save the template with the name `seqera-launchtemplate`.
 
@@ -240,7 +243,9 @@ Create a launch template to configure the EC2 instances deployed by Batch jobs:
           exec > >(tee /var/log/tower-forge.log|logger -t TowerForge -s 2>/dev/console) 2>&1
           ##
           yum install -q -y jq sed wget unzip nvme-cli lvm2
-          wget -q https://s3.amazonaws.com/amazoncloudwatch-agent/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm
+          #Uncomment either the AMD64 or ARM64 line below to install the correct version of Amazon CloudWatch Agent for your CPU architecture
+          #wget -q https://amazoncloudwatch-agent.s3.amazonaws.com/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm
+          #wget -q https://amazoncloudwatch-agent.s3.amazonaws.com/amazon_linux/arm64/latest/amazon-cloudwatch-agent.rpm
           rpm -U ./amazon-cloudwatch-agent.rpm
           rm -f ./amazon-cloudwatch-agent.rpm
           curl -s https://github.com/seqeralabs/nf-tower-aws/tree/master/cloudwatch-config/agent-config.json \
@@ -272,6 +277,7 @@ Create a launch template to configure the EC2 instances deployed by Batch jobs:
     --//--
     ```
 
+  1. Uncomment the appropriate `wget` line to download the version of Amazon Cloudwatch Agent for your CPU architecture (either AMD64 or ARM64).
   1. In the line `| sed 's/seqera-prefix/<your prefix>/g' \`, replace `<your prefix>` with your desired prefix to be added to the AWS resources created by your compute environment.
   1. Save the template with the name `seqera-launchtemplate`.
 
