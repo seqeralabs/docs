@@ -1,0 +1,62 @@
+# Proper nouns
+Seqera
+Slurm
+Spack
+RNASeq
+Nextflow
+Illumina
+Fargate
+Micronaut
+Conda
+Okta
+Gitea
+SLURM
+Slurm
+JFrog
+Keycloak
+GitHub
+OAuth
+Kubernetes
+Gitpod
+Hashicorp
+RStudio
+
+# Acronyms
+AMI
+API
+VM
+VPC
+CE
+URI
+FPGA
+HTTP
+
+# Compute resources
+CPU
+NVMe
+GPU
+FSx
+
+# Kubernetes
+Dockerfile
+initContainers
+Cron
+Autoscaling
+Autoscale
+
+# Other
+subnets
+autoscaling
+prefilled
+unencrypted
+preemptible
+hardcoded
+uncomment
+burstable
+unparsable
+config
+
+# Seqera Platform UI
+hostname
+textbox
+lightbulb

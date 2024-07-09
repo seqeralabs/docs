@@ -44,7 +44,7 @@ The AWS Batch compute environment creation form in Seqera includes an **Enable G
 
 Some important considerations:
 
-- The **Enable GPUs** setting causes Tower Forge to specify the most current [AWS-recommended GPU-optimized ECS AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html) as the EC2 fleet AMI when creating the compute environment. This setting can be overridden by **AMI ID** in the advanced options.
+- The **Enable GPUs** setting causes Batch Forge to specify the most current [AWS-recommended GPU-optimized ECS AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html) as the EC2 fleet AMI when creating the compute environment. This setting can be overridden by **AMI ID** in the advanced options.
 - The **Enable GPUs** setting alone does not deploy GPU instances in your compute environment. You must still specify GPU-enabled instance types in the **Advanced options > Instance types** field.
 - Your Nextflow script must include [accelerator directives](https://www.nextflow.io/docs/latest/process.html?highlight=accelerator#accelerator) to use the provisioned GPUs.
 - The NVIDIA Container Runtime uses [environment variables](https://github.com/NVIDIA/nvidia-container-runtime#environment-variables-oci-spec) in container images to specify a GPU-accelerated container. These variables should be included in the [`containerOptions`](https://www.nextflow.io/docs/latest/process.html#process-containeroptions) directive for each GPU-dependent process in your Nextflow script. For example:

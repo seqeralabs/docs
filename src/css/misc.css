@@ -14,7 +14,7 @@ html:not(.plugin-id-platform) .navbar .dropdown {
 }
 
 /**
- * Product theming 
+ * Product theming
  */
 
 /* Platform */
@@ -27,6 +27,34 @@ html.plugin-id-platform {
   & nav.menu .menu__list {
     & .menu__link--active {
       background: var(--color-product-600);
+    }
+  }
+}
+
+/* Nextflow */
+html.plugin-id-nextflow {
+  & nav.navbar .navbar__items {
+    & a[href="/nextflow"]:after {
+      background: var(--color-nextflow);
+    }
+  }
+  & nav.menu .menu__list {
+    & .menu__link--active {
+      background: var(--color-nextflow);
+    }
+  }
+}
+
+/* MultiQC */
+html.plugin-id-multiqc {
+  & nav.navbar .navbar__items {
+    & a[href="/multiqc"]:after {
+      background: var(--color-multiqc);
+    }
+  }
+  & nav.menu .menu__list {
+    & .menu__link--active {
+      background: var(--color-multiqc);
     }
   }
 }
@@ -57,4 +85,12 @@ html.plugin-id-fusion {
       background: var(--color-fusion);
     }
   }
+}
+
+/**
+Material Design Icons (SVG)
+*/
+.mdi-icon {
+  vertical-align: middle;
+  margin: -4px;
 }

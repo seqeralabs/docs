@@ -23,14 +23,14 @@ html {
 }
 .seqeraHeader {
   position: relative;
-  height: 104px;
+  height: 72px;
   & > header {
     z-index: 301;
     position: absolute;
     left: 0;
     right: 0;
     top: 0;
-    background: var(--ifm-background-surface-color);
+    background: white;
   }
 }
 .siteNav {
@@ -84,6 +84,9 @@ aside {
   margin-top: -165px !important;
   & > div > div {
     padding-top: 165px !important;
+    & nav {
+      margin-right: 0.5rem;
+    }
   }
 }
 

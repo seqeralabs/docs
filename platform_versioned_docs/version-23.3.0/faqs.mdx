@@ -721,12 +721,12 @@ You can monitor your AWS account for any orphaned EBS volumes via the EC2 consol
 
 **ECS Agent Docker image pull frequency**
 
-As part of the AWS Batch creation process, Tower Forge will set ECS Agent parameters in the EC2 launch template that is created for your cluster's EC2 instances:
+As part of the AWS Batch creation process, Batch Forge will set ECS Agent parameters in the EC2 launch template that is created for your cluster's EC2 instances:
 
 - For clients using Seqera Enterprise v22.01 or later:
-  - Any AWS Batch environment created by Tower Forge will set the ECS Agent's `ECS_IMAGE_PULL_BEHAVIOUR` to `once`.
+  - Any AWS Batch environment created by Batch Forge will set the ECS Agent's `ECS_IMAGE_PULL_BEHAVIOUR` to `once`.
 - For clients using Seqera Enterprise v21.12 or earlier:
-  - Any AWS Batch environment created by Tower Forge will set the ECS Agent's `ECS_IMAGE_PULL_BEHAVIOUR` to `default`.
+  - Any AWS Batch environment created by Batch Forge will set the ECS Agent's `ECS_IMAGE_PULL_BEHAVIOUR` to `default`.
 
 See the [AWS ECS documentation](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) for an in-depth explanation of this difference.
 

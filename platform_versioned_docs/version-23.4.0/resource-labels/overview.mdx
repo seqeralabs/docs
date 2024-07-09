@@ -10,7 +10,7 @@ Resource labels are sent to the service provider for each cloud compute environm
 
 Resource labels are applied to elements during:
 
-- Compute environment creation with Forge
+- Compute environment creation with Batch Forge
 - Submission
 - Execution
 
@@ -97,7 +97,7 @@ When the compute environment is created with Forge, the following resources will
 
 At execution time, when the jobs are submitted to Batch, the requests are set up to propagate tags to all the instances created by the head job.
 
-The [`forge-policy.json`](https://github.com/seqeralabs/nf-tower-aws/blob/master/forge/forge-policy.json) file contains the roles needed for Tower Forge-created AWS compute environments to tag AWS resources. Specifically, the required roles are `iam:TagRole`, `iam:TagInstanceProfile`, and `batch:TagResource`.
+The [`forge-policy.json`](https://github.com/seqeralabs/nf-tower-aws/blob/master/forge/forge-policy.json) file contains the roles needed for Batch Forge-created AWS compute environments to tag AWS resources. Specifically, the required roles are `iam:TagRole`, `iam:TagInstanceProfile`, and `batch:TagResource`.
 
 To view and manage the resource labels applied to AWS resources by Seqera and Nextflow, go to the [AWS Tag Editor](https://docs.aws.amazon.com/tag-editor/latest/userguide/find-resources-to-tag.html) (as an administrative user) and follow these steps:
 
@@ -116,7 +116,7 @@ To include the cost information associated with your resource labels in your AWS
 - The key and value cannot begin or end with dashes `-` or underscores `_`.
 - The key and value cannot contain a consecutive combination of `-` or `_` characters (`--`, `__`, `-_`, etc.)
 - A maximum of 25 resource labels can be applied to each resource.
-- A maximum of 100 resource labels can be used in each workspace.
+- A maximum of 1000 resource labels can be used in each workspace.
 - Keys and values cannot start with `aws` or `user`, as these are reserved prefixes appended to tags by AWS.
 - Keys and values are case-sensitive in AWS.
 
@@ -143,7 +143,7 @@ When the compute environment is created with Forge, the following resources will
 - The key and value cannot begin or end with dashes `-` or underscores `_`.
 - The key and value cannot contain a consecutive combination of `-` or `_` characters (`--`, `__`, `-_`, etc.)
 - A maximum of 25 resource labels can be applied to each resource.
-- A maximum of 100 resource labels can be used in each workspace.
+- A maximum of 1000 resource labels can be used in each workspace.
 - Keys and values in Google Cloud Resource Manager may contain only lowercase letters. Resource labels created with uppercase characters are changed to lowercase before propagating to Google Cloud.
 
 See [here](https://cloud.google.com/resource-manager/docs/creating-managing-labels#requirements) for more information on Google Cloud Resource Manager labeling.
@@ -162,7 +162,7 @@ When creating an Azure Batch compute environment with Forge, resource labels are
 - The key and value cannot begin or end with dashes `-` or underscores `_`.
 - The key and value cannot contain a consecutive combination of `-` or `_` characters (`--`, `__`, `-_`, etc.)
 - A maximum of 25 resource labels can be applied to each resource.
-- A maximum of 100 resource labels can be used in each workspace.
+- A maximum of 1000 resource labels can be used in each workspace.
 - Keys are case-insensitive, but values are case-sensitive.
 - Microsoft advises against using a non-English language in your resource labels, as this can lead to decoding progress failure while loading your VM's metadata.
 
@@ -197,6 +197,6 @@ The following resources will be tagged using the labels associated with the comp
 - The key and value cannot begin or end with dashes `-` or underscores `_`.
 - The key and value cannot contain a consecutive combination of `-` or `_` characters (`--`, `__`, `-_`, etc.)
 - A maximum of 25 resource labels can be applied to each resource.
-- A maximum of 100 resource labels can be used in each workspace.
+- A maximum of 1000 resource labels can be used in each workspace.
 
 See [here](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set) for more information on Kubernetes object labeling.

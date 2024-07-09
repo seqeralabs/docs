@@ -10,8 +10,14 @@ Generally speaking, changes to the docs should first be made in the product repo
 
 For more information, see:
 
-- [Writing new content](#writing-new-content)
-- [Fixing legacy version content](#fixing-legacy-content)
+- [Seqera documentation](#seqera-documentation)
+  - [Architecture](#architecture)
+    - [Seqera Platform](#seqera-platform)
+    - [Wave](#wave)
+  - [Writing new content](#writing-new-content)
+  - [Fixing legacy content](#fixing-legacy-content)
+  - [Check with Vale style guide](#check-with-vale-style-guide)
+  - [Creating internal links](#creating-internal-links)
 
 ## Architecture
 
@@ -31,15 +37,10 @@ Contentful/relevant files include:
 │   ├── version-23.2.0-sidebars.json
 │   └── version-23.3.0-sidebars.json
 ├── platform_versions.json
-└── wave_docs // unversioned Wave docs
-    ├── api.md
-    ├── cli
-    ├── faq.md
-    ├── guide.md
-    └── index.md
+└── wave_docs // Git submodule
 ```
 
-#### Seqera Platform
+### Seqera Platform
 
 - Content is copied to this repo from [nf-tower-cloud](https://github.com/seqeralabs/nf-tower-cloud/tree/master/docs). New contributions to Platform documentation must be made there first.
 
@@ -47,11 +48,17 @@ Contentful/relevant files include:
 
 - We have a script which can select a commit (or ideally release tag) to be used for publishing a new version on the docs website.
 
-#### Wave
+### Wave
 
-- Wave documentation content is copied to this repo from [wave](https://github.com/seqeralabs/wave/tree/master/docs). New contributions to Wave documentation must be made from feature branches in `wave/docs`.
+Wave documentation is available as a Git submodule. Changes to the Wave documentation must be made in the [Wave repo](https://github.com/seqeralabs/wave/tree/master/docs).
 
-- Wave documentation is unversioned, and lives in the `wave_docs` directory.
+To enable access to the Wave docs in the submodule, after cloning this repository you must run `git submodule update --init --recursive`.
+
+To incorporate documentation changes from the Wave repository, run the following command: `git submodule update --recursive --remote`. This is mandatory, or published documentation cannot reflect any changes made to the Wave documentation since this command was last run.
+
+If you accidentally run the aforementioned command and want to revert, run the following command to revert to the previous commit ID for the Wave repository: `git submodule update --init`.
+
+Wave documentation is not versioned, and lives in the `wave_docs` directory.
 
 ## Writing new content
 
@@ -76,3 +83,26 @@ Version-specific changes to legacy documentation sets currently occur directly i
 2. Create the change in the related files in the correct version (e.g., `23.1.0`) directory, and any other versions affected
 3. Raise a PR based for review, requesting the same 2 reviews as for new content
 4. After approval, merge the PR to the master branch
+
+## Check with Vale style guide
+
+This repository includes a set of Vale style guide rules reflecting style and grammar conventions that apply to this documentation set. To use Vale, complete the following steps:
+
+1. [Install](https://vale.sh/docs/vale-cli/installation/) it for your platform.
+1. Install the rules package by running `vale sync`.
+
+To run Vale, enter the following command:
+
+```
+vale --glob='**/*.md' .
+```
+
+You can also specify a limited subset of files, such as `platform_versioned_docs/version-23.4.0` instead of `.`.
+
+## Creating internal links
+
+You can link between Markdown files with relative links within the same documentation set. If you need to link to a different documentation set, such as Wave or Fusion, you **must** use an absolute path. For example:
+
+```
+For more information, see [Fusion](/fusion_docs/guide.mdx).
+```

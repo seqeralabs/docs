@@ -52,7 +52,7 @@ Search and filter pipelines and runs using one or more resource labels. The reso
 
 ### Overview of resource labels in a workspace
 
-All resource labels used in a workspace can be viewed in the workspace’s Settings tab. Resource labels can only be edited or deleted by admins and only if they are not already associated with **any** Tower resource. This applies to resource labels associated with compute environments and runs.
+All resource labels used in a workspace can be viewed in the workspace's Settings tab. Resource labels can only be edited or deleted by admins and only if they are not already associated with **any** Tower resource. This applies to resource labels associated with compute environments and runs.
 
 When you add or edit a resource label from the workspace settings menu, you can optionally set the **"Use as default in compute environment form"** option. Workspace default resource labels are prefilled in the resource labels field when creating a new compute environment in that workspace.
 
@@ -103,7 +103,7 @@ When the compute environment is created with Forge, the following resources will
 
 At execution time, when the jobs are submitted to Batch, the requests are set up to propagate tags to all the instances created by the head job.
 
-The [`forge-policy.json`](https://github.com/seqeralabs/nf-tower-aws/blob/master/forge/forge-policy.json) file contains the roles needed for Tower Forge-created AWS compute environments to tag AWS resources. Specifically, the required roles are `iam:TagRole`, `iam:TagInstanceProfile`, and `batch:TagResource`.
+The [`forge-policy.json`](https://github.com/seqeralabs/nf-tower-aws/blob/master/forge/forge-policy.json) file contains the roles needed for Batch Forge-created AWS compute environments to tag AWS resources. Specifically, the required roles are `iam:TagRole`, `iam:TagInstanceProfile`, and `batch:TagResource`.
 
 To view and manage the resource labels applied to AWS resources by Tower and Nextflow, navigate to the [AWS Tag Editor](https://docs.aws.amazon.com/tag-editor/latest/userguide/find-resources-to-tag.html)(as an administrative user) and follow these steps:
 
