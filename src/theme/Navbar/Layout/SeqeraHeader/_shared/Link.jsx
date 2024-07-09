@@ -1,9 +1,11 @@
 import React from "react";
 import DocusaurusLink from "@docusaurus/Link";
 
-const Link = ({ children, className, onClick, title, ...props }) => {
-  const to = props?.to || props?.href;
-  const isExternal = !to?.startsWith("https://seqera.io");
+const Link = ({ children, className, onClick, title, sameTab, ...props }) => {
+  let to = props?.to || props?.href;
+  if (!to.startsWith("http")) to = `https://seqera.io${to}`;
+  let isExternal = true;
+  if (sameTab) isExternal = false;
 
   return (
     <DocusaurusLink

@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "@theme/Layout";
-import classNames from "classnames";
+import clsx from "clsx";
 
 import styles from "./styles.module.css";
 
@@ -18,7 +18,7 @@ import Resources from "./Resources";
 export default function Home(): JSX.Element {
   return (
     <Layout>
-      <div className={classNames("md:p-8", styles.page)}>
+      <div className={clsx("md:p-8", styles.page)}>
         <div className="container-lg flex flex-wrap text-brand-1000">
           <div className="w-full md:w-3/5 flex lg:pl-3">
             <div className={"box px-4 pt-8 pb-10 sm:p-10"}>
@@ -66,7 +66,7 @@ export default function Home(): JSX.Element {
               </div>
               <div>
                 <Card
-                  to="https://multiqc.info/docs/"
+                  to="/multiqc/"
                   title="MultiQC"
                   Img={MultiQC}
                   id="multiqc"

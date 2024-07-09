@@ -1,5 +1,5 @@
 import React from "react";
-import classNames from "classnames";
+import clsx from "clsx";
 import { motion, AnimatePresence } from "framer-motion";
 
 import AngleDown from "../../../Layout/SeqeraHeader/_shared/angle-down.inline.svg";
@@ -30,7 +30,7 @@ const Category = ({
   };
 
   return (
-    <div className={classNames(styles.category, { [styles.active]: isOpen })}>
+    <div className={clsx(styles.category, { [styles.active]: isOpen })}>
       <button type="button" onClick={toggle}>
         <span>{label}</span>
         <AngleDown />

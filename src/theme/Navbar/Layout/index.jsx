@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import classNames from "classnames";
 import clsx from "clsx";
 import { useThemeConfig } from "@docusaurus/theme-common";
 import {
@@ -75,15 +74,11 @@ export default function NavbarLayout({ children }) {
       >
         <Link
           to="/"
-          className={classNames(
-            "navbar__item navbar__link -ml-3",
-            custom.logo,
-            {
-              "navbar__link--active": isHome,
-            },
-          )}
+          className={clsx("navbar__item navbar__link -ml-3", custom.logo, {
+            "navbar__link--active": isHome,
+          })}
         >
-          Docs
+          Home
         </Link>
         {children}
         <NavbarBackdrop onClick={mobileSidebar.toggle} />

@@ -10,6 +10,7 @@ const getSpacing = () => {
 
 module.exports = {
   content: ["src/**/*.jsx", "src/**/*.tsx"],
+  darkMode: ["class", '[data-theme="dark"]'],
   theme: {
     screens: {
       sm: "640px",
@@ -18,6 +19,7 @@ module.exports = {
       xl: "1280px",
     },
     fontFamily: {
+      title: ["Degular", "Helvetica", "sans-serif"],
       display: ["Inter", "Helvetica", "sans-serif"],
       body: ["Inter", "Helvetica", "sans-serif"],
     },

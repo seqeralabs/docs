@@ -1,0 +1,56 @@
+---
+- 
+  Environment variable:            '`TOWER_LOG_APPENDER`'
+  Description: > 
+     The output format of Seqera logs.
+  Value:                'Options: `STDOUT`, `JSON`'
+- 
+  Environment variable:            '`TOWER_LOG_LEVEL`'
+  Description: > 
+     Seqera application logging detail level.
+  Value:                'Options: `TRACE`, `DEBUG`, `INFO`, `WARN`, `ERROR`'
+- 
+  Environment variable:            '`TOWER_SECURITY_LOGLEVEL`'
+  Description: > 
+     Seqera authentication logging detail level.
+  Value:                'Options: `TRACE`, `DEBUG`, `INFO`, `WARN`, `ERROR`'
+- 
+  Environment variable:            '`TOWER_LOG_DIR`'
+  Description: > 
+     Base directory to store Seqera logs.
+  Value:                
+- 
+  Environment variable:            '`TOWER_LOG_PATTERN`'
+  Description: > 
+    The logging format emitted to STDOUT. See [here](https://logback.qos.ch/manual/layouts.html#conversionWord) for a reference of the full logback pattern syntax.
+  Value:                '`%d{MMM-dd HH:mm:ss.SSS} [%t] %X{ip:--} %-5level %logger{36} - %msg%n}  # Default logging pattern shown`'
+- 
+  Environment variable:            '`TOWER_LOG_MAX_HISTORY`'
+  Description: > 
+     The maximum number of log files retained by the logging system.
+  Value: 
+- 
+  Environment variable:            '`TOWER_LOG_MAX_SIZE`'
+  Description: > 
+     The maximum file size of the Seqera backend log file. When this limit is reached, a new log file is created.
+  Value: 
+- 
+  Environment variable:            '`LOGGER_LEVELS_IO_SEQERA_TOWER_AGENT`'
+  Description: > 
+     Tower Agent logging detail level.
+  Value:                'Options: `TRACE`, `DEBUG`, `INFO`, `WARN`, `ERROR`'
+- 
+  Environment variable:            '`TOWER_AGENT_HEARTBEAT`'
+  Description: > 
+     Tower Agent polling interval.
+  Value:                'Example: `10s`'
+- 
+  Environment variable:            '`TOWER_SSH_LOGLEVEL`'
+  Description: > 
+     Event logging detail level for the SSH connection library used by Seqera.
+  Value:                'Options: `TRACE`, `DEBUG`, `INFO`, `WARN`, `ERROR`'
+- 
+  Environment variable:            '`TOWER_ALLOW_NEXTFLOW_LOGS`'
+  Description: > 
+     Set `true` to allow Seqera to retrieve logs and reports for runs launched with Nextflow CLI.
+  Value:                'Default: `false`'
