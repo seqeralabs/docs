@@ -276,7 +276,7 @@ Create a launch template to configure the EC2 instances deployed by Batch jobs:
     --//--
     ```
 
-  1. Uncomment the appropriate `wget` line to download the version of Amazon Cloudwatch Agent for your CPU architecture (either AMD64 or ARM64). Download the [cloudwatch-agent](../_templates/cloudwatch/agent-config.json) to customize it. 
+  1. Uncomment the appropriate `wget` line to download the version of Amazon Cloudwatch Agent for your CPU architecture (either AMD64 or ARM64).
   1. In the line `| sed 's/seqera-prefix/<your prefix>/g' \`, replace `<your prefix>` with your desired prefix to be added to the AWS resources created by your compute environment.
   1. Save the template with the name `seqera-launchtemplate`.
 
