@@ -12,11 +12,12 @@ For more information, see:
 
 - [Seqera documentation](#seqera-documentation)
   - [Architecture](#architecture)
-      - [Seqera Platform](#seqera-platform)
-      - [Wave](#wave)
+    - [Seqera Platform](#seqera-platform)
+    - [Wave](#wave)
   - [Writing new content](#writing-new-content)
   - [Fixing legacy content](#fixing-legacy-content)
   - [Check with Vale style guide](#check-with-vale-style-guide)
+  - [Creating internal links](#creating-internal-links)
 
 ## Architecture
 
@@ -36,15 +37,10 @@ Contentful/relevant files include:
 │   ├── version-23.2.0-sidebars.json
 │   └── version-23.3.0-sidebars.json
 ├── platform_versions.json
-└── wave_docs // unversioned Wave docs
-    ├── api.md
-    ├── cli
-    ├── faq.md
-    ├── guide.md
-    └── index.md
+└── wave_docs // Git submodule
 ```
 
-#### Seqera Platform
+### Seqera Platform
 
 - Content is copied to this repo from [nf-tower-cloud](https://github.com/seqeralabs/nf-tower-cloud/tree/master/docs). New contributions to Platform documentation must be made there first.
 
@@ -52,7 +48,7 @@ Contentful/relevant files include:
 
 - We have a script which can select a commit (or ideally release tag) to be used for publishing a new version on the docs website.
 
-#### Wave
+### Wave
 
 Wave documentation is available as a Git submodule. Changes to the Wave documentation must be made in the [Wave repo](https://github.com/seqeralabs/wave/tree/master/docs).
 
@@ -102,3 +98,11 @@ vale --glob='**/*.md' .
 ```
 
 You can also specify a limited subset of files, such as `platform_versioned_docs/version-23.4.0` instead of `.`.
+
+## Creating internal links
+
+You can link between Markdown files with relative links within the same documentation set. If you need to link to a different documentation set, such as Wave or Fusion, you **must** use an absolute path. For example:
+
+```
+For more information, see [Fusion](/fusion_docs/guide.mdx).
+```
