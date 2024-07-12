@@ -6,6 +6,18 @@
       "label": "Get started",
       "collapsed": false,
       "items": [
+        {
+          "type": "category",
+          "label": "Community showcase tutorial",
+          "items": [
+            "getting-started/quickstart-demo/nextflow-introduction",
+            "getting-started/quickstart-demo/platform-introduction",
+            "getting-started/quickstart-demo/launch-pipelines",
+            "getting-started/quickstart-demo/add-pipelines",
+            "getting-started/quickstart-demo/add-datasets",
+            "getting-started/quickstart-demo/monitor-runs"
+          ]
+        },
         "getting-started/overview",
         "getting-started/deployment-options",        
         "getting-started/start-collaborating"              
