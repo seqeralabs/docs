@@ -1,24 +1,32 @@
-## Introduction to Data Studios
-After running a pipeline, you may want to perform tertiary analysis in platforms like Jupyter Notebook or RStudio. Setting up the infrastructure for these platforms, including accessing pipeline data, results, and necessary bioinformatics packages, can be complex and time-consuming.
+---
+title: "Data Studios"
+description: "An introduction to Data Studios in Seqera Platform"
+date: "8 Jul 2024"
+tags: [platform, data, data studios]
+---
 
-Data Studios streamlines this process for Seqera Platform users by allowing them to add interactive analysis environments based on templates, similar to how they add and share pipelines and datasets.
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
-Platform manages all the details, enabling users to easily select their preferred interactive tool and analyze their data within the platform.
+Tertiary analysis of pipeline results is often performed in platforms like Jupyter Notebook or RStudio. Setting up the infrastructure for these platforms, including accessing pipeline data, results, and necessary bioinformatics packages, can be complex and time-consuming.
 
-On the **Data Studios** tab, you can monitor and see the details of the data studios in your workspace.
+Data Studios streamlines this process for Seqera Platform users with interactive analysis environments based on templates, similar to adding and sharing pipelines and datasets.
 
-Data studios will have a name, followed by the cloud provider they are run on, the container image being used (Jupyter, VS Code, or RStudio), the user who created the data studio, the timestamp of creation, and the status indicating whether it has started, stopped, or is running. 
+Platform manages all the details, enabling you to easily select your preferred interactive tool and analyze your data.
+
+In the **Data Studios** tab, you can monitor and see the details of the data studios in your workspace.
+
+Each data studio is listed with a name, the cloud provider where it runs, the container image used (Jupyter, VS Code, or RStudio), the user who created the data studio, the timestamp of creation, and the status indicating whether it has started, stopped, or is running. 
 
 ![Data studios overview](./assets/data-studios-overview.png)
 
-Select the three dots menu to:
+Select the options menu next to a data studio to:
 - See the details of the data studio
 - Connect to the studio
-- Start the studio
-- Stop the studio
+- Start or stop the studio
 - Copy the data studio URL
 
-## Analyse RNAseq data in Data Studios
+### Analyze RNAseq data in Data Studios
 
 We can use Data Studios to perform bespoke analysis on the results of upstream workflows. For example, we can run the nf-core/rnaseq workflow to quantify gene expression, followed by nf-core/differentialabundance to derive differential expression statistics, and then use Data Studios to interrogate and visualize the results of those analyses. 
 

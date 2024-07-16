@@ -1,0 +1,62 @@
+---
+title: "Data Explorer"
+description: "An introduction to Data Explorer in Seqera Platform"
+date: "8 Jul 2024"
+tags: [platform, data, data explorer]
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+For pipeline runs in the cloud, users typically need access to buckets and blob storage to view pipeline results and upload files (such as samplesheets and reference data) for analysis. Managing credentials and permissions for multiple users and training users to navigate cloud consoles and CLIs can be complicated. Data Explorer provides the simplified alternative of viewing your data directly in Platform.
+
+From your Platform organization workspace, Data Explorer lets you browse and interact with remote data from AWS S3, Azure Blob Storage, and Google Cloud Storage repositories.
+
+### View pipeline outputs
+
+In Data Explorer, you can:
+
+  - **View bucket details**:
+    Select the information icon next to a bucket in the list to view the cloud provider, bucket address, and credentials.
+
+    ![Bucket details](assets/data-explorer-view-details.gif)
+
+  - **View bucket contents**
+    Select a bucket name from the list to view the bucket contents. 
+    
+    The file type, size, and path of objects are displayed in columns next to the object name. For example, view the outputs of your nf-core/rnaseq run:
+
+    ![Data Explorer bucket](assets/sp-cloud-data-explorer.gif)
+
+   - **Preview files**: 
+    Select a file to open a preview window that includes a **Download** button. For example, view the resultant gene counts of the salmon quantification step of your nf-core/rnaseq run:
+
+    ![Preview pipeline results](assets/data-explorer-preview-files.gif)
+
+### Add a cloud bucket
+
+Data Explorer enables you to add public cloud storage buckets to view and use data from resources such as:
+
+- [The Cancer Genome Atlas (TCGA)](https://registry.opendata.aws/tcga/)
+- [1000 Genomes Project](https://registry.opendata.aws/1000-genomes/)
+- [NCBI SRA](https://registry.opendata.aws/ncbi-sra/)
+- [Genome in a Bottle Consortium](https://docs.opendata.aws/giab/readme.html)
+- [MSSNG Database](https://cloud.google.com/life-sciences/docs/resources/public-datasets/mssng)
+- [Genome Aggregation Database (gnomAD)](https://cloud.google.com/life-sciences/docs/resources/public-datasets/gnomad) 
+
+Private cloud buckets accessible by the credentials in your workspace are added to Data Explorer automatically. 
+
+To add individual buckets (or directory paths within buckets):
+
+1. From the **Data Explorer** tab, select **Add cloud bucket**. 
+1. Specify the bucket details:
+    - The cloud **Provider**.
+    - An existing cloud **Bucket path**.
+    - A unique **Name** for the bucket.
+    - The **Credentials** used to access the bucket. For public cloud buckets, select **Public** from the dropdown menu.
+    - An optional bucket **Description**.
+1. Select **Add**.
+
+  ![Add public bucket](assets/data-explorer-add-bucket.gif)
+
+You can now use this data in your analysis without the need to interact with cloud consoles or CLI tools. 

@@ -15,7 +15,10 @@
             "getting-started/quickstart-demo/launch-pipelines",
             "getting-started/quickstart-demo/add-pipelines",
             "getting-started/quickstart-demo/add-datasets",
-            "getting-started/quickstart-demo/monitor-runs"
+            "getting-started/quickstart-demo/monitor-runs",
+            "getting-started/quickstart-demo/view-run-information",
+            "getting-started/quickstart-demo/pipeline-optimization",
+            "getting-started/quickstart-demo/data-explorer"
           ]
         },
         "getting-started/overview",
