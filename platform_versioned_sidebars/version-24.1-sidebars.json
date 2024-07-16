@@ -204,7 +204,16 @@
       "collapsed": true,
       "items": [
         "api/overview",
-        "cli/cli"
+        {
+        "type": "category",
+        "label": "CLI",
+        "collapsed": true,
+        "items": [
+          "cli/cli",
+          "cli/installation",
+          "cli/commands"
+        ]
+        }
       ]
     },
     {
