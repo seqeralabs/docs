@@ -246,7 +246,7 @@ Create a launch template to configure the EC2 instances deployed by Batch jobs:
               -a fetch-config \
               -m ec2 \
               -s \
-              -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json          
+              -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json
             mkdir -p /etc/ecs
             echo ECS_IMAGE_PULL_BEHAVIOR=once >> /etc/ecs/ecs.config
             echo ECS_ENABLE_AWSLOGS_EXECUTIONROLE_OVERRIDE=true >> /etc/ecs/ecs.config
