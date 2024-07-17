@@ -169,8 +169,8 @@ Create a launch template to configure the EC2 instances deployed by Batch jobs:
           wget -q https://amazoncloudwatch-agent.s3.amazonaws.com/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm
           rpm -U ./amazon-cloudwatch-agent.rpm
           rm -f ./amazon-cloudwatch-agent.rpm
-          curl -s https://docs.seqera.io/assets/files/agent-config-271e21b968c9a9da90f87eb7f3c6b92b.json \
-            | sed 's/seqera-prefix/<your prefix>/g' \
+          curl -s https://nf-xpack.seqera.io/amazon-cloudwatch-agent/custom-v0.1.json \
+          #  | sed 's/custom-id/<your custom ID>/g' \
             > /opt/aws/amazon-cloudwatch-agent/bin/config.json
           /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl \
             -a fetch-config \
@@ -214,7 +214,7 @@ Create a launch template to configure the EC2 instances deployed by Batch jobs:
     --//--
     ```
 
-  1. In the line `| sed 's/seqera-prefix/<your prefix>/g' \`, replace `<your prefix>` with your desired prefix to be added to the AWS resources created by your compute environment.
+  1. To prepend a custom identifier to the CloudWatch log streams for AWS resources created by your manual compute environment, uncomment the `| sed 's/custom-id/<your custom ID>/g' \` line and replace `<your custom ID>` with your custom ID. If ommitted, this defaults to `custom-id`.
   1. Save the template with the name `seqera-launchtemplate`.
 
 </TabItem>
@@ -241,7 +241,8 @@ Create a launch template to configure the EC2 instances deployed by Batch jobs:
           wget -q https://amazoncloudwatch-agent.s3.amazonaws.com/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm
           rpm -U ./amazon-cloudwatch-agent.rpm
           rm -f ./amazon-cloudwatch-agent.rpm
-          curl -s https://docs.seqera.io/assets/files/agent-config-271e21b968c9a9da90f87eb7f3c6b92b.json \
+          curl -s https://nf-xpack.seqera.io/amazon-cloudwatch-agent/custom-v0.1.json \
+          #  | sed 's/custom-id/<your custom ID>/g' \
             > /opt/aws/amazon-cloudwatch-agent/bin/config.json
           /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl \
             -a fetch-config \
@@ -269,7 +270,7 @@ Create a launch template to configure the EC2 instances deployed by Batch jobs:
     --//--
     ```
 
-  1. In the line `| sed 's/seqera-prefix/<your prefix>/g' \`, replace `<your prefix>` with your desired prefix to be added to the AWS resources created by your compute environment.
+  1. To prepend a custom identifier to the CloudWatch log streams for AWS resources created by your manual compute environment, uncomment the `| sed 's/custom-id/<your custom ID>/g' \` line and replace `<your custom ID>` with your custom ID. If ommitted, this defaults to `custom-id`.
   1. Save the template with the name `seqera-launchtemplate`.
 
 </TabItem>
