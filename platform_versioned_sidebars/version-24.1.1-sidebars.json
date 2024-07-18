@@ -18,7 +18,8 @@
             "getting-started/quickstart-demo/monitor-runs",
             "getting-started/quickstart-demo/view-run-information",
             "getting-started/quickstart-demo/pipeline-optimization",
-            "getting-started/quickstart-demo/data-explorer"
+            "getting-started/quickstart-demo/data-explorer",
+            "getting-started/quickstart-demo/data-studios"
           ]
         },
         "getting-started/overview",
