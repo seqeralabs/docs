@@ -8,11 +8,28 @@ tags: [platform, launch, pipelines, launchpad]
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Each workspace has a Launchpad that allows users to easily create and share Nextflow pipelines that can be executed on any infrastructure supported by the Platform, including all public clouds and most HPC schedulers. A Launchpad pipeline consists of a pre-configured workflow repository, compute environment, and launch parameters.
+:::info
+This tutorial provides an introduction to Seqera Platform, including instructions to:
+- Launch, monitor, and optimize the [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline
+- Select pipeline input data with [Data Explorer](../../data/data-explorer.mdx) and Platform [datasets](../../data/datasets.mdx)
+- Perform tertiary analysis of pipeline results with [Data Studios](../../data/data-studios.mdx)
 
-Users can create their own pipelines, share them with others on the Launchpad, or add over a hundred community pipelines available from nf-core and other sources.
+The Platform Community Showcase workspace contains all the resources needed to follow along with this tutorial. All [Seqera Cloud](https://cloud.seqera.io) users have access to this example workspace by default. 
+:::
 
-See [Add pipelines](./add-pipeline.mdx) to learn how to add pipelines to your own workspaces.
+The Launchpad in every Platform workspace allows users to easily create and share Nextflow pipelines that can be executed on any supported infrastructure, including all public clouds and most HPC schedulers. A Launchpad pipeline consists of a pre-configured workflow repository, [compute environment](../../compute-envs/overview.mdx), and launch parameters.
+
+The Community Showcase contains 15 preconfigured pipelines, including [nf-core/rnaseq](https://github.com/nf-core/rnaseq), a bioinformatics pipeline used to analyze RNA sequencing data. 
+
+The workspace also includes three preconfigured AWS Batch compute environments to run Showcase pipelines, and various Platform datasets and public data sources (accessed via Data Explorer) to use as pipeline input. 
+
+:::info
+To skip this Community Showcase tutorial and start running pipelines on your own infrastructure:
+1. Create an [organization](../../orgs-and-teams/organizations.mdx) and add members.
+1. Create a [workspace](../../orgs-and-teams/workspace-management.mdx) and add workspace participants.
+1. Create a workspace [compute environment](../../compute-envs/overview.mdx) for your cloud or HPC compute infrastructure.
+1. [Add pipelines](./add-pipeline.mdx) to your workspace.
+:::
 
 ## Launch the nf-core/rnaseq pipeline
 
@@ -22,28 +39,32 @@ Navigate to the Launchpad in the `community/showcase` workspace and select **Lau
 
 ### Nextflow parameter schema
 
-When you select **Launch**, a parameters page allows you to fine-tune the pipeline execution. This parameters form is rendered from a [`nextflow_schema.json`](https://github.com/nf-core/rnaseq/blob/master/nextflow_schema.json) file in the root of the pipeline Git repository. `nextflow_schema.json` is a simple JSON-based schema describing pipeline parameters for pipeline developers to easily adapt their in-house Nextflow pipelines to be executed via Seqera Platform.
+When you select **Launch**, a launch form allows you to configure the pipeline execution. The pipeline parameters in this form are rendered from a [pipeline schema](https://github.com/nf-core/rnaseq/blob/master/nextflow_schema.json) file in the root of the pipeline Git repository. `nextflow_schema.json` is a simple JSON-based schema describing pipeline parameters for pipeline developers to easily adapt their in-house Nextflow pipelines to be executed in Seqera Platform.
 
-See [Best Practices for Deploying Pipelines with the Seqera Platform](https://seqera.io/blog/best-practices-for-deploying-pipelines-with-seqera-platform/) to learn how to automatically build the parameter schema for any Nextflow pipeline using tooling maintained by the nf-core community. 
+:::tip
+See [Best Practices for Deploying Pipelines with the Seqera Platform](https://seqera.io/blog/best-practices-for-deploying-pipelines-with-seqera-platform/) to learn how to build the parameter schema for any Nextflow pipeline automatically with tooling maintained by the nf-core community. 
+:::
 
 ### Parameter selection
 
-Adjust the following Platform-specific options if needed:
+Adjust the following Platform-specific options:
 
 - `Workflow run name`: A unique identifier for the run, pre-filled with a random name. This can be customized.
-- `Labels`: Assign new or existing labels to the run. For example, Project ID or genome version.
+- `Labels`: Assign new or existing labels to the run. For example, a project ID or genome version.
 
-Each pipeline has a set of parameters that need to be provided in order to run it. The following parameters are mandatory:
+Each pipeline requires a set of parameters to run:
 
 - `input`:
 
-    Most nf-core pipelines use the `input` parameter in a standardized way to specify an input samplesheet that contains paths to any input files (such as FastQ files) and any additional metadata required to run the pipeline. The `input` parameter can accept a file path to a samplesheet in the S3 bucket selected through Data Explorer (such as `s3://my-bucket/my-samplesheet.csv`). Alternatively, the Seqera Platform has a **Datasets** feature that allows you to upload structured data (like samplesheets) for use with Nextflow pipelines.
+    Most nf-core pipelines use the `input` parameter in a standardized way to specify an input samplesheet that contains paths to any input files (such as FastQ files) and any additional metadata needed to run the pipeline. The `input` parameter can accept a file path to a samplesheet in cloud storage (such as `s3://my-bucket/my-samplesheet.csv`), selected through [Data Explorer](../../data/data-explorer.mdx). You can also upload samplesheets and other structured data to Platform using CSV or TSV-formatted [datasets](../../data/datasets.mdx).
 
     Select **Browse** next to the `input` parameter to search and select a pre-loaded dataset called `rnaseq_sample_data`.
 
     ![Input parameters](assets/sp-cloud-launch-parameters-input.gif)
     
+    :::tip
     See [Add datasets](./add-datasets.mdx) to upload your own samplesheets in the **Datasets** tab of your workspace.
+    :::
 
 - `outdir`:
 
@@ -53,6 +74,8 @@ Each pipeline has a set of parameters that need to be provided in order to run i
 
     ![Output parameters](assets/sp-cloud-launch-parameters-outdir.gif)
 
-Modify and specify other parameters to customize the pipeline execution through the parameters form. For example, in the **Read trimming options** section, change the `trimmer` to select `fastp` in the dropdown menu instead of `trimgalore`, then select **Launch**.
+Modify and specify other parameters to customize the pipeline execution through the parameters form. For example, under **Read trimming options**, change the `trimmer` to select `fastp` in the dropdown menu instead of `trimgalore`.
 
 ![Read trimming options](./assets/trimmer-settings.png)
+
+Select **Launch** to start the run and be directed to the **Runs** tab with your run in a **submitted** status at the top of the list.
