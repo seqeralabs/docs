@@ -190,7 +190,7 @@ Seqera Platform compute environments for AWS Batch include advanced options to c
 
 **Batch Forge AWS Batch advanced options**
 
-Specify the **Allocation strategy** and indicate any preferred **Instance types**. AWS applies quotas for the number of running and requested [Spot](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-limits.html) and [On-demand](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-on-demand-instances.html#ec2-on-demand-instances-limits) instances per account. AWS will [allocate](https://aws.amazon.com/ec2/faqs/#how-many-instances-ec2) instances from up to 20 instance types, based on those requested for the compute environment. AWS excludes the largest instances when you request more than 20 instance types.
+Specify the **Allocation strategy** and indicate any preferred **Instance types**. AWS applies quotas for the number of running and requested [Spot](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-limits.html) and [On-demand](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-on-demand-instances.html#ec2-on-demand-instances-limits) instances per account. AWS will allocate instances from up to 20 instance types, based on those requested for the compute environment. AWS excludes the largest instances when you request more than 20 instance types.
 
 :::note
 If these advanced options are omitted, Seqera Platform 23.2 and later versions' allocation strategy defaults are `BEST_FIT_PROGRESSIVE` for on-demand and `SPOT_CAPACITY_OPTIMIZED` for spot compute environments.
