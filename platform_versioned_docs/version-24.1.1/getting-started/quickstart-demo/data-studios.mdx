@@ -16,8 +16,6 @@ Platform manages all the details, enabling you to easily select your preferred i
 
 In the **Data Studios** tab, you can monitor and see the details of the data studios in your workspace.
 
-Each data studio is listed with a name, the cloud provider where it runs, the container image used (Jupyter, VS Code, or RStudio), the user who created the data studio, the timestamp of creation, and the status indicating whether it has started, stopped, or is running. 
-
 ![Data studios overview](./assets/data-studios-overview.png)
 
 Select the options menu next to a data studio to:
@@ -28,25 +26,21 @@ Select the options menu next to a data studio to:
 
 ### Analyze RNAseq data in Data Studios
 
-Data Studios is used to perform bespoke analysis on the results of upstream workflows. For example, run the nf-core/rnaseq workflow to quantify gene expression, followed by nf-core/differentialabundance to derive differential expression statistics, and then use Data Studios to interrogate and visualize the results of those analyses. 
-
-In the Community showcase workspace, we have run nf-core/rnaseq results through the nf-core/differentialabundance pipeline. The workspace contains a data studio with these results from cloud storage mounted into the studio to perform further analysis. One of these outputs is an RShiny application, which can be deployed for interactive analysis.
+Data Studios is used to perform bespoke analysis on the results of upstream workflows. For example, in the Community showcase workspace we have run the nf-core/rnaseq workflow to quantify gene expression, followed by nf-core/differentialabundance to derive differential expression statistics. The workspace contains a data studio with these results from cloud storage mounted into the studio to perform further analysis. One of these outputs is an RShiny application, which can be deployed for interactive analysis.
 
 ### Open the RNAseq analysis studio 
 
-Select the **rnaseq_to_differentialabundance** data studio. This studio consists of an RStudio environment that uses an existing compute environment available in the showcase workspace. 
-
-The studio also contains mounted data generated from the nf-core/rnaseq pipeline and subsequent nf-core/differentialabundance pipeline, directly from AWS S3. 
-
-Data Studios allows you to specify the resources each studio will use. When creating your own data studios with shared compute environment resources, you must allocate sufficient resources to the compute environment to prevent data studio or pipeline run interruptions. 
+Select the **rnaseq_to_differentialabundance** data studio. This studio consists of an RStudio environment that uses an existing compute environment available in the showcase workspace. The studio also contains mounted data generated from the nf-core/rnaseq pipeline and subsequent nf-core/differentialabundance pipeline, directly from AWS S3. 
 
 ![RNAseq studio details](assets/rnaseq-diffab-studio-details.gif)
+
+:::info
+Data Studios allows you to specify the resources each studio will use. When [creating your own data studios](../../data/data-studios.mdx) with shared compute environment resources, you must allocate sufficient resources to the compute environment to prevent data studio or pipeline run interruptions. 
+:::
 
 ### Connect to the data studio
 
 This data studio will start an RStudio environment which already contains the necessary R packages for deploying an RShiny app to interact with various comparisons and visualizations of the RNAseq data. The studio also contains an R Markdown document with the commands in place to generate the RShiny application.
-
-![RNAseq studio details](assets/rnaseq-diffab-studio-details.gif)
 
 Deploy the RShiny app in the data studio by selecting the green play button on the last chunk of the R script:
 
@@ -54,15 +48,13 @@ Deploy the RShiny app in the data studio by selecting the green play button on t
 
 ### Explore results in the RShiny app
 
-The RShiny app will deploy in a separate browser window, providing a data interface.
-
-Here you can view information about your sample data, perform QC or exploratory analysis, and view the results of differential expression analyses.
+The RShiny app will deploy in a separate browser window, providing a data interface. Here you can view information about your sample data, perform QC or exploratory analysis, and view the results of differential expression analyses.
 
 ![RShiny app exploration](assets/rnaseq-diffab-rshiny-app-explore.gif)
 
 #### Sample clustering with PCA plots
 
-Under the 'QC/Exploratory' tab, select the PCA (Principal Component Analysis) plot to visualize how the samples group together based on their gene expression profiles.
+In the **QC/Exploratory** tab, select the PCA (Principal Component Analysis) plot to visualize how the samples group together based on their gene expression profiles.
 
 In this example, we used RNA sequencing data from the publicly-available ENCODE project, which includes samples from four different cell lines: 
 
@@ -82,7 +74,7 @@ From this PCA plot, you can gain insights into the consistency and quality of yo
 
 #### Gene expression changes with Volcano plots 
 
-Under the **Differential** tab, select **Volcano plots** to compare genes with significant changes in expression between two samples. For example, filter for `Type: H1 vs MCF-7` to view the differences in expression between these two cell lines.
+In the **Differential** tab, select **Volcano plots** to compare genes with significant changes in expression between two samples. For example, filter for `Type: H1 vs MCF-7` to view the differences in expression between these two cell lines.
 
 1. **Identify upregulated and downregulated genes**: The x-axis of the volcano plot represents the log2 fold change in gene expression between the H1 and MCF-7 samples, while the y-axis represents the statistical significance of the changes.
 

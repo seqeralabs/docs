@@ -20,8 +20,6 @@ The [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline works with inpu
 
 **Example nf-core/rnaseq dataset**
 
-<center>
-
 | sample              | fastq_1                              | fastq_2                              | strandedness |
 | ------------------- | ------------------------------------ | ------------------------------------ | ------------ |
 | WT_REP1             | s3://nf-core-awsmegatests/rnaseq/... | s3://nf-core-awsmegatests/rnaseq/... | reverse      |
@@ -32,11 +30,9 @@ The [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline works with inpu
 | RAP1_UNINDUCED_REP2 | s3://nf-core-awsmegatests/rnaseq/... |                                      | reverse      |
 | RAP1_IAA_30M_REP1   | s3://nf-core-awsmegatests/rnaseq/... | s3://nf-core-awsmegatests/rnaseq/... | reverse      |
 
-</center>
-
 Download the nf-core/rnaseq [samplesheet_test.csv](samplesheet_test.csv).
 
-## Add the dataset
+## Add a dataset
 
 From the **Datasets** tab, select **Add Dataset**.
 
@@ -47,9 +43,9 @@ Specify the following dataset details:
 - A **Name** for the dataset, such as `nf-core-rnaseq-test-dataset`.
 - A **Description** for the dataset.
 - Select the **First row as header** option to prevent Platform from parsing the header row of the samplesheet as asample data.
-- Select **Upload file** and browse to the CSV file downloaded previously. This CSV file specifies the paths to 7 small FASTQ files for a sub-sampled yeast RNAseq dataset.
+- Select **Upload file** and browse to your downloaded `samplesheet_test.csv` file. This CSV file specifies the paths to 7 small FASTQ files for a sub-sampled yeast RNAseq dataset.
 
-Notice the location of the files point to a path on S3. This could also be a path to a shared filesystem, if using an HPC compute environment. Using the path to the files, Nextflow will stage the files into the task working directory. 
+Notice the location of the files point to a path on S3. This could also be a path to a shared filesystem, if using an HPC compute environment. Nextflow will use these paths to stage the files into the task working directory. 
 
 :::info
 Platform does not store the data used for analysis in pipelines. The datasets must provide the locations of data that is stored on your own infrastructure.

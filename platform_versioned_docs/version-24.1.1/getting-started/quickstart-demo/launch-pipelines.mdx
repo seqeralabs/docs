@@ -2,7 +2,7 @@
 title: "Launch pipelines"
 description: "An introduction to launching pipelines in the seqeralabs/showcase workspace"
 date: "8 Jul 2024"
-tags: [platform, launch, pipelines, launchpad]
+tags: [platform, launch, pipelines, launchpad, showcase tutorial]
 ---
 
 import Tabs from '@theme/Tabs';
@@ -39,7 +39,7 @@ Navigate to the Launchpad in the `community/showcase` workspace and select **Lau
 
 ### Nextflow parameter schema
 
-When you select **Launch**, a launch form allows you to configure the pipeline execution. The pipeline parameters in this form are rendered from a [pipeline schema](https://github.com/nf-core/rnaseq/blob/master/nextflow_schema.json) file in the root of the pipeline Git repository. `nextflow_schema.json` is a simple JSON-based schema describing pipeline parameters for pipeline developers to easily adapt their in-house Nextflow pipelines to be executed in Seqera Platform.
+The launch form lets you configure the pipeline execution. The pipeline parameters in this form are rendered from a [pipeline schema](../../pipeline-schema/overview.mdx) file in the root of the pipeline Git repository. `nextflow_schema.json` is a simple JSON-based schema describing pipeline parameters for pipeline developers to easily adapt their in-house Nextflow pipelines to be executed in Platform.
 
 :::tip
 See [Best Practices for Deploying Pipelines with the Seqera Platform](https://seqera.io/blog/best-practices-for-deploying-pipelines-with-seqera-platform/) to learn how to build the parameter schema for any Nextflow pipeline automatically with tooling maintained by the nf-core community. 
@@ -54,27 +54,47 @@ Adjust the following Platform-specific options:
 
 Each pipeline requires a set of parameters to run:
 
-- `input`:
+#### input
 
-    Most nf-core pipelines use the `input` parameter in a standardized way to specify an input samplesheet that contains paths to any input files (such as FastQ files) and any additional metadata needed to run the pipeline. The `input` parameter can accept a file path to a samplesheet in cloud storage (such as `s3://my-bucket/my-samplesheet.csv`), selected through [Data Explorer](../../data/data-explorer.mdx). You can also upload samplesheets and other structured data to Platform using CSV or TSV-formatted [datasets](../../data/datasets.mdx).
+Most nf-core pipelines use the `input` parameter in a standardized way to specify an input samplesheet that contains paths to input files (such as FastQ files) and any additional metadata needed to run the pipeline. Use **Browse** to select either a file path in cloud storage via **Data Explorer**, or a pre-loaded **Dataset**: 
 
-    Select **Browse** next to the `input` parameter to search and select a pre-loaded dataset called `rnaseq_sample_data`.
+<details>
 
-    ![Input parameters](assets/sp-cloud-launch-parameters-input.gif)
-    
-    :::tip
-    See [Add datasets](./add-datasets.mdx) to upload your own samplesheets in the **Datasets** tab of your workspace.
-    :::
+  <summary>**Data Explorer**</summary>
 
-- `outdir`:
+  In the **Data Explorer** tab, search for `seqeralabs-showcase/samplesheet-location/samplesheet.csv` and select the `samplesheet.csv` file.
 
-    Most nf-core pipelines use the `outdir` parameter in a standardized way to specify where the final results created by the pipeline are published. `outdir` must be unique for each pipeline run. Otherwise, your results will be overwritten. To publish these files to an S3 bucket, provide the directory path to the appropriate storage location (such as `s3://my-bucket/my-results`).
+</details>
+<details>
 
-    For the `outdir` parameter, specify an S3 directory path manually, or select **Browse** to specify a cloud storage directory using Data Explorer.
+  <summary>**Datasets**</summary>
 
-    ![Output parameters](assets/sp-cloud-launch-parameters-outdir.gif)
+  In the **Datasets** tab, search for and select a pre-loaded dataset called `rnaseq_sample_data`.
 
-Modify and specify other parameters to customize the pipeline execution through the parameters form. For example, under **Read trimming options**, change the `trimmer` to select `fastp` in the dropdown menu instead of `trimgalore`.
+</details>
+
+![Input parameters](assets/sp-cloud-launch-parameters-input.gif)
+
+:::tip
+- See [Add a cloud bucket](./data-explorer.mdx#add-a-cloud-bucket) to add private and public cloud storage buckets to your workspace.
+- See [Add a dataset](./add-datasets.mdx#add-a-dataset) to upload your own samplesheets in the **Datasets** tab of your workspace.
+:::
+
+#### output
+
+Most nf-core pipelines use the `outdir` parameter in a standardized way to specify where the final results created by the pipeline are published. `outdir` must be unique for each pipeline run. Otherwise, your results will be overwritten. 
+
+For this tutorial test run, keep the default `outdir` value (`./results`).
+
+:::info
+For the `outdir` parameter in pipeline runs in your own workspace, select **Browse** to specify a cloud storage directory using Data Explorer, or enter a cloud storage directory path to publish pipeline results to manually.
+
+![Output parameters](assets/sp-cloud-launch-parameters-outdir.gif)
+:::
+
+#### Pipeline-specific parameters
+
+Modify other parameters to customize the pipeline execution through the parameters form. For example, under **Read trimming options**, change the `trimmer` to select `fastp` in the dropdown menu instead of `trimgalore`.
 
 ![Read trimming options](./assets/trimmer-settings.png)
 
