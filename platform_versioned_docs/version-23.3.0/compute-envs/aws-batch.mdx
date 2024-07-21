@@ -158,7 +158,7 @@ Fargate requires the Fusion v2 file system and a **spot** provisioning model. Fa
 :::
 
 19. Select **Enable GPUs** if you intend to run GPU-dependent workflows in the compute environment. See [GPU usage](./overview.mdx#aws-batch) for more information.
-20. Select **Use Graviton CPU architecture** to execute on Graviton-based EC2 instances (ARM64 CPU architecture). When enabled, `c6g` instance types are used by default for compute jobs. You can specify your own **Instance types** under [**Advanced options**](#advanced-options). Seqera Platform supports all AWS Batch-compatible Graviton2 and Graviton3 instance types.
+20. Select **Use Graviton CPU architecture** to execute on Graviton-based EC2 instances (ARM64 CPU architecture). When enabled, `c6g` instance types are used by default for compute jobs. You can specify your own **Instance types** under [**Advanced options**](#advanced-options). Seqera Platform supports all AWS Batch-compatible Graviton2 instance types. In 23.3, Graviton3 instances are supported without the fast instance storage option. From v23.4, there is full Graviton3 support.
 
     :::note
     Graviton requires Fargate, Wave containers, and Fusion v2 file system to be enabled. This feature is not compatible with GPU-based architecture. 
@@ -192,7 +192,7 @@ Seqera Platform compute environments for AWS Batch include advanced options to c
 
 **Batch Forge AWS Batch advanced options**
 
-Specify the **Allocation strategy** and indicate any preferred **Instance types**. AWS applies quotas for the number of running and requested [Spot](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-limits.html) and [On-demand](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-on-demand-instances.html#ec2-on-demand-instances-limits) instances per account. AWS will [allocate](https://aws.amazon.com/ec2/faqs/#how-many-instances-ec2) instances from up to 20 instance types, based on those requested for the compute environment. AWS excludes the largest instances when you request more than 20 instance types.
+Specify the **Allocation strategy** and indicate any preferred **Instance types**. AWS applies quotas for the number of running and requested [Spot](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-limits.html) and [On-demand](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-on-demand-instances.html#ec2-on-demand-instances-limits) instances per account. AWS will allocate instances from up to 20 instance types, based on those requested for the compute environment. AWS excludes the largest instances when you request more than 20 instance types.
 
 :::note
 If these advanced options are omitted, Seqera Platform 23.2 and later versions' allocation strategy defaults are `BEST_FIT_PROGRESSIVE` for on-demand and `SPOT_CAPACITY_OPTIMIZED` for spot compute environments.
