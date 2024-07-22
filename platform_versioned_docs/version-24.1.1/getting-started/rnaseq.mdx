@@ -1,0 +1,76 @@
+---
+title: "RNA-Seq"
+description: "An introduction to running nf-core/rnaseq in Seqera Platform"
+date: "21 Jul 2024"
+tags: [platform, compute environment, rnaseq, aws, gcp, azure]
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+The [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline is a highly configurable and robust workflow designed to analyze RNA sequencing (RNA-seq) data. It performs quality control, alignment, quantification, and differential expression analysis. This guide details how to run nf-core/rnaseq on a cloud compute environment in Platform, including: 
+
+- Compute environment recommendations and setup
+- Adding nf-core/rnaseq to your Platform organization workspace 
+- Importing your input data
+- Launching the pipeline from your workspace Launchpad
+- Viewing run details and execution logs
+- Setting up tertiary analysis with Data Studios 
+- RNA-seq data and resource requirements
+
+## Compute environment setup
+
+Configure your Platform compute environment with sufficient resources to run nf-core/rnaseq. Compute and storage requirements are dependent on the number of samples and the sequencing depth of your input data. See [RNA-seq data and requirements](#rna-seq-data-and-requirements) for details on RNA-seq datasets and the CPU and memory requirements for important steps of the nf-core/rnaseq pipeline. 
+
+:::info
+All nf-core pipelines include a `test_full` profile that is associated with a test dataset. The following specifications are a guideline based on internal runs of nf-core/rnaseq performed with the `test_full` configuration profile, using a dataset with **x** samples and a total size of **x** GB.
+:::
+
+### Recommended compute environment resources
+
+| **Setting**                    | **AWS Batch**                         | **GCP Batch**                 | **Azure Batch**                |
+|--------------------------------|---------------------------------------|------------------------------|--------------------------------|
+| **Instance Types**             | `m5.large` - `m5.2xlarge` | `n2-standard-2` - `n2-standard-8`          | `Standard_D2s_v3` - `Standard_D8s_v3`          |
+| **vCPUs**                      | 2 - 8                               | 2 - 8               | 2 - 8               |
+| **Memory (GiB)**               | 8 - 32                             | 8 - 32              | 8 - 32              |
+| **Max CPUs**                  | 500                                   | 500           | 500           |
+| **Min CPUs**                  | 0                                     | 0           | 0           |
+
+### Create a compute environment with Batch Forge 
+
+1. Enter a uique **Name** for the compute environment and select the **Platform**.
+1. Select the **+** icon to create credentials for Platform to access the compute environment:
+
+| **Provider** | **Field**                | **Description**                                                                                  |
+|--------------|--------------------------|--------------------------------------------------------------------------------------------------|
+| **AWS Batch**| **Name**                 | A unique name for the credentials.                                               |
+|              | **Access Key**           | AWS access key ID to access the service.                                             |
+|              | **Secret Key**           | AWS secret key to access the service.    |
+| **GCP Batch**| **Name**                 | A unique name for the credentials.         |
+|              | **Service Account Key**  |  The contents of the Google service account JSON key file.  |
+| **Azure Batch**| **Name**               | A unique name for the credentials.         |
+|              | **Batch Account Name**   | The account name of the Azure Batch service.                      |
+|              | **Batch Account Key**    | The account key of the Azure Batch service.                                   |
+|              | **Blob Storage Account Name** | The account name of the Blob Storage service.                               |
+|              | **Blob Storage Account Key** | The account key used to authenticate access to the Blob storage service.       |
+
+1. 
+
+
+### RNA-seq data and requirements
+
+RNA-seq data typically consists of raw sequencing reads from high-throughput sequencing technologies like Illumina. These reads are used to quantify gene expression levels and discover novel transcripts. A typical RNA-seq dataset can range from a few GB to several hundred GB, depending on the number of samples and the sequencing depth.
+
+For example, the publicly available 1000 Genomes dataset contains RNA-seq data for over 2500 samples, with low-coverage individual FASTQ files ranging from 30 to 50 GB in size.
+
+#### Pipeline Steps and Computing Resource Requirements
+
+The nf-core/rnaseq pipeline involves several key steps, each with distinct computational requirements:
+
+| **Pipeline step**                   | **Tools**                 | **Resource needs**           | **Description**                                                                                   |
+|-------------------------------------|---------------------------|------------------------------|---------------------------------------------------------------------------------------------------|
+| **Quality Control (QC)**            | FastQC, MultiQC           | Moderate CPU, low memory     | Initial quality checks of raw reads to assess sequencing quality and identify potential issues.   |
+| **Read Trimming**                   | Trim Galore!              | Moderate CPU, moderate memory| Removal of adapter sequences and low-quality bases to prepare reads for alignment.               |
+| **Read Alignment**                  | HISAT2, STAR              | High CPU, high memory        | Alignment of trimmed reads to a reference genome, typically the most resource-intensive step.    |
+| **Quantification**                  | featureCounts, Salmon     | Moderate CPU, moderate memory| Counting the number of reads mapped to each gene or transcript to measure expression levels.     |
+| **Differential Expression Analysis**| DESeq2, edgeR             | Low CPU, moderate memory     | Statistical analysis to identify genes with significant changes in expression between conditions. |
