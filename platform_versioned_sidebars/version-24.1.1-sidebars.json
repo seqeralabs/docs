@@ -20,7 +20,8 @@
         "getting-started/quickstart-demo/add-pipelines",
         "getting-started/quickstart-demo/add-data",
         "getting-started/quickstart-demo/monitor-runs",
-        "getting-started/start-collaborating"              
+        "getting-started/start-collaborating",
+        "getting-started/quickstart-demo/automation"            
       ]
     },
     {
