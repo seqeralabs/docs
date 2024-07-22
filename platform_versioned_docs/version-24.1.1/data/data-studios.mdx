@@ -82,7 +82,9 @@ The default user is the `root` account. To install extensions, select **Extensio
 
 **Xpra**
 
-The default user is the `root` account. The image is based on ubuntu:jammy. Additional system-level packages can be installed in a terminal window using `apt install <packagename>`.
+[Xpra](https://github.com/Xpra-org/xpra), known as "screen for X", allows you to run X11 programs by giving you remote access to individual graphical applications. The container template image also installs Nvidia Linux X64 (AMD64/EM64T) drivers for Ubuntu 22.04 for running GPU-enabled applications. To take advantage of these GPU drivers, ensure the compute environment used specifies GPU instance families.
+
+The default user is the `root` account. The image is based on ubuntu:jammy. Additional system-level packages can be installed in a terminal window using `apt install <packagename>`. 
 
 ## Start a data studio
 
