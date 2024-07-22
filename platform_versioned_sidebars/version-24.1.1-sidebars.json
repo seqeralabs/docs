@@ -6,9 +6,7 @@
       "label": "Get started",
       "collapsed": false,
       "items": [
-            "getting-started/quickstart-demo/comm-showcase"
-          ]
-        },
+        "getting-started/quickstart-demo/comm-showcase",
         "getting-started/deployment-options",        
         "getting-started/quickstart-demo/add-pipelines",
         "getting-started/quickstart-demo/add-data",
