@@ -18,8 +18,8 @@
         },
         "getting-started/deployment-options",        
         "getting-started/quickstart-demo/add-pipelines",
+        "getting-started/quickstart-demo/add-data",
         "getting-started/quickstart-demo/monitor-runs",
-        "getting-started/quickstart-demo/data-explorer",
         "getting-started/start-collaborating"              
       ]
     },

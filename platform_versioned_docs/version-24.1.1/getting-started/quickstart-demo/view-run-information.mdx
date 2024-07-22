@@ -30,15 +30,10 @@ The pipeline launched [previously](./launch-pipelines.mdx) is listed on the **Ru
 As the pipeline runs, run details will populate with the following tabs:
 
 - **Command-line**: The Nextflow command invocation used to run the pipeline. This contains details about the pipeline version (`-r 3.14.0` flag) and profile, if specified (`-profile test` flag).
-
 - **Parameters**: The exact set of parameters used in the execution. This is helpful for reproducing the results of a previous run.
-
 - **Resolved Nextflow configuration**: The full Nextflow configuration settings used for the run. This includes parameters, but also settings specific to task execution (such as memory, CPUs, and output directory).
-
 - **Execution Log**: A summarized Nextflow log providing information about the pipeline and the status of the run.
-
 - **Datasets**: Link to datasets, if any were used in the run.
-
 - **Reports**: View pipeline outputs directly in the Platform.
 
 ![View the nf-core/rnaseq run](assets/sp-cloud-run-info.gif)
@@ -127,7 +122,7 @@ If a task fails, a good place to begin troubleshooting is the task's work direct
 
 Nextflow hash-addresses each task of the pipeline and creates unique directories based on these hashes. Instead of navigating through a bucket on the cloud console or filesystem to find the contents of this directory, use the **Data Explorer** tab in the Task window to view the work directory.
 
-Data Explorer allows you to view the log files and output files generated for each task in its working directory, directly within Platform. You can view, download, and retrieve the link for these intermediate files in cloud storage from the Data Explorer tab to simplify troubleshooting.
+Data Explorer allows you to view the log files and output files generated for each task in its working directory, directly within Platform. You can view, download, and retrieve the link for these intermediate files in cloud storage from the **Data Explorer** tab to simplify troubleshooting.
 
 ![Task data explorer](assets/sp-cloud-task-data-explorer.gif)
 
