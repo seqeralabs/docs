@@ -52,6 +52,9 @@ export default async function createConfigAsync() {
             trackingID: "G-NR1CNM213G",
             anonymizeIP: true,
           },
+          googleTagManager: {
+            containerId: "GTM-MBCJKK4",
+          },
         },
       ],
     ],
