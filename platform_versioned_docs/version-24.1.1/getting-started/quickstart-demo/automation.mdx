@@ -74,20 +74,21 @@ The key features are:
 
 See the [seqerakit GitHub repository](https://github.com/seqeralabs/seqera-kit/) for installation and usage details.
 
-:::info
-**Example pipeline launch seqerakit configuration and command**
+<details>
+  <summary>**Example pipeline launch seqerakit configuration and command**</summary>
 
-Create a YAML file called `hello.yaml`:
+  Create a YAML file called `hello.yaml`:
 
-    launch:
-    - name: "hello-world"
-        url: "https://github.com/nextflow-io/hello"
-        workspace: "seqeralabs/showcase"
+      launch:
+      - name: "hello-world"
+          url: "https://github.com/nextflow-io/hello"
+          workspace: "seqeralabs/showcase"
 
-Then run seqerakit with:
+  Then run seqerakit with:
 
-    $ seqerakit hello.yaml
-:::
+      $ seqerakit hello.yaml
+
+</details>
 
 ## Resources
 Common use cases for the automation methods above include automatically executing a pipeline as data arrives from a sequencer, or integrating Platform into a broader customer-facing application. For a step-by-step guide to set up these automation methods, see [Workflow automation for Nextflow pipelines](https://seqera.io/blog/workflow-automation/).
