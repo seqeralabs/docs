@@ -180,7 +180,9 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
 
   The optional `--params-file` flag is used to pass a set of default parameters that will be associated with the pipeline in the Launchpad.
 
-  > **Note**: The `params-file` must be a YAML or JSON file using [Nextflow configuration file][nextflow-config] syntax.
+  :::tip
+  The `params-file` must be a YAML or JSON file using [Nextflow configuration file][nextflow-config] syntax.
+  :::
 
   ### Import and export a pipeline
 
@@ -216,7 +218,9 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
 
   If no custom parameters are passed via the CLI during launch, the defaults set for the pipeline in the Launchpad will be used.
 
-  > **Note**: tw CLI users are bound to the same user permissions that apply in the Platform UI. Launch users can launch pre-configured pipelines in the workspaces they have access to, but they cannot add or run new pipelines.
+  :::note
+  tw CLI users are bound to the same user permissions that apply in the Platform UI. Launch users can launch pre-configured pipelines in the workspaces they have access to, but they cannot add or run new pipelines.
+  :::
 
   ```console
   $ tw launch my_rnaseq_nf_pipeline 
@@ -231,7 +235,9 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
   - `0`: When the run reaches the desired state.
   - `1`: When the run reaches a state that makes it impossible to reach the desired state.
 
-  > **Tip**: Use `--wait=SUCCEEDED` if you want the command to wait until the pipeline execution is complete.
+  :::tip
+  Use `--wait=SUCCEEDED` if you want the command to wait until the pipeline execution is complete.
+  :::
 
   ### Launch a pipeline with custom parameters
 
@@ -263,7 +269,9 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
   - Other parameters such as `--profile` and `--revision` can also be specified.
   - A non-primary compute environment can be used to launch the pipeline. Omit `--compute-env` to launch with the workspace default compute environment.
 
-  > **Note**: CLI users are bound to the same user permissions that apply in the Platform UI. Launch users can launch pre-configured pipelines in the workspaces they have access to, but they cannot add or run new pipelines.
+  :::note
+  CLI users are bound to the same user permissions that apply in the Platform UI. Launch users can launch pre-configured pipelines in the workspaces they have access to, but they cannot add or run new pipelines.
+  :::
 
 </details>
 <details>
@@ -441,7 +449,9 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
 
   See [User workspaces][user-workspaces] for more information.
 
-  > **Note**: This section assumes that you already have access to an organization in Seqera Platform.
+  :::note
+  This section assumes that you already have access to an organization in Seqera Platform.
+  :::
 
   ### Create a workspace
 
@@ -453,7 +463,9 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
     A 'SHARED' workspace 'shared-workspace' added for 'my-tower-org' organization
   ```
 
-  > **Note**: By default, a workspace is set to private when created.
+  :::note
+  By default, a workspace is set to private when created.
+  :::
 
   ### List workspaces
 
