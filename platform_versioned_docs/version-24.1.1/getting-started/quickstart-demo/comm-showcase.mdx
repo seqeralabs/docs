@@ -76,8 +76,7 @@ Most nf-core pipelines use the `input` parameter in a standardized way to specif
 ![Input parameters](assets/sp-cloud-launch-parameters-input.gif)
 
 :::tip
-- See [Add a cloud bucket](./data-explorer.mdx#add-a-cloud-bucket) to add private and public cloud storage buckets to your workspace.
-- See [Add a dataset](./add-datasets.mdx#add-a-dataset) to upload your own samplesheets in the **Datasets** tab of your workspace.
+- See [Add data](./add-data.mdx) to learn how to add datasets and Data Explorer cloud buckets to your own workspaces.
 :::
 
 #### output
@@ -205,10 +204,6 @@ Data Explorer allows you to view the log files and output files generated for ea
 
 ## Tertiary analysis with Data Studios 
 
-:::info
-See [Data Studios](../../data/data-studios.mdx) to learn how to create data studios in your own workspace. 
-:::
-
 Tertiary analysis of pipeline results is often performed in platforms like Jupyter Notebook or RStudio. Setting up the infrastructure for these platforms, including accessing pipeline data and the necessary bioinformatics packages, can be complex and time-consuming.
 
 Data Studios streamlines the process of creating interactive analysis environments for Platform users. With built-in templates, creating a data studio is as simple as adding and sharing pipelines or datasets. Platform manages all the details, enabling you to easily select your preferred interactive tool and analyze your data.
@@ -291,6 +286,10 @@ Using the volcano plot, you can effectively identify and explore the genes with 
 ### Collaborate in the data studio
 
 To share the results of your RNAseq analysis or allow colleagues to perform exploratory analysis, share a link to the data studio by selecting the options menu for the data studio you want to share, then select **Copy data studio URL**. With this link, other authenticated users with the **Connect** [role](../../orgs-and-teams/roles.mdx) (or greater) can access the session directly.
+
+:::info
+See [Data Studios](../../data/data-studios.mdx) to learn how to create data studios in your own workspace. 
+:::
 
 ## Pipeline optimization 
 
