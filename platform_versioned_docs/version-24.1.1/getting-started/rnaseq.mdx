@@ -18,44 +18,396 @@ The [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline is a highly con
 - Setting up tertiary analysis with Data Studios 
 - RNA-seq data and resource requirements
 
-## Compute environment setup
+:::info
+**Prerequisites**
+This guide includes setting up a cloud compute environment in Platform. You need the following to get started:
+- [Maintain](../orgs-and-teams/roles.mdx) (or greater) permissions in an existing organization workspace.
+- An existing AWS, Azure, or Google cloud account with access to the cloud provider's Batch service.
+- Existing access credentials with permissions to create and manage compute and storage resources in your cloud provider account.
+:::
+
+### Compute environment setup
 
 Configure your Platform compute environment with sufficient resources to run nf-core/rnaseq. Compute and storage requirements are dependent on the number of samples and the sequencing depth of your input data. See [RNA-seq data and requirements](#rna-seq-data-and-requirements) for details on RNA-seq datasets and the CPU and memory requirements for important steps of the nf-core/rnaseq pipeline. 
 
 :::info
-All nf-core pipelines include a `test_full` profile that is associated with a test dataset. The following specifications are a guideline based on internal runs of nf-core/rnaseq performed with the `test_full` configuration profile, using a dataset with **x** samples and a total size of **x** GB.
+All nf-core pipelines include a `test_full` profile that is associated with a test dataset. The following specifications are a guideline based on internal runs of nf-core/rnaseq performed with the `test_full` configuration profile, which uses a dataset with **x** samples and a total size of **x** GB.
 :::
 
-### Recommended compute environment resources
+#### Recommended compute environment resources
 
 | **Setting**                    | **AWS Batch**                         | **GCP Batch**                 | **Azure Batch**                |
 |--------------------------------|---------------------------------------|------------------------------|--------------------------------|
-| **Instance Types**             | `m5.large` - `m5.2xlarge` | `n2-standard-2` - `n2-standard-8`          | `Standard_D2s_v3` - `Standard_D8s_v3`          |
-| **vCPUs**                      | 2 - 8                               | 2 - 8               | 2 - 8               |
-| **Memory (GiB)**               | 8 - 32                             | 8 - 32              | 8 - 32              |
-| **Max CPUs**                  | 500                                   | 500           | 500           |
-| **Min CPUs**                  | 0                                     | 0           | 0           |
+| **Instance Types**             | `m5.large` - `m5.2xlarge`             | `n2-standard-2` - `n2-standard-8`  | `Standard_D2s_v3` - `Standard_D8s_v3` |
+| **vCPUs**                      | 2 - 8                                 | 2 - 8                         | 2 - 8                          |
+| **Memory (GiB)**               | 8 - 32                                | 8 - 32                        | 8 - 32                         |
+| **Max CPUs**                   | 500                                   | 500                           | 500                            |
+| **Min CPUs**                   | 0                                     | 0                             | 0                              |
 
-### Create a compute environment with Batch Forge 
+#### Create a compute environment
 
-1. Enter a uique **Name** for the compute environment and select the **Platform**.
-1. Select the **+** icon to create credentials for Platform to access the compute environment:
+From the **Compute Environments** tab in your organization workspace, select **Add compute environment** and complete the following fields:
 
-| **Provider** | **Field**                | **Description**                                                                                  |
-|--------------|--------------------------|--------------------------------------------------------------------------------------------------|
-| **AWS Batch**| **Name**                 | A unique name for the credentials.                                               |
-|              | **Access Key**           | AWS access key ID to access the service.                                             |
-|              | **Secret Key**           | AWS secret key to access the service.    |
-| **GCP Batch**| **Name**                 | A unique name for the credentials.         |
-|              | **Service Account Key**  |  The contents of the Google service account JSON key file.  |
-| **Azure Batch**| **Name**               | A unique name for the credentials.         |
-|              | **Batch Account Name**   | The account name of the Azure Batch service.                      |
-|              | **Batch Account Key**    | The account key of the Azure Batch service.                                   |
-|              | **Blob Storage Account Name** | The account name of the Blob Storage service.                               |
-|              | **Blob Storage Account Key** | The account key used to authenticate access to the Blob storage service.       |
+<Tabs>
+<TabItem value="AWS Batch" label="AWS Batch" default>
 
-1. 
+| **Field**                             | **Description**                                            |
+|---------------------------------------|------------------------------------------------------------|
+| **Name**                              | A unique name for the compute environment.                 |
+| **Platform**                          | AWS Batch                                                  |
+| **Credentials**                       | Select existing credentials, or **+** to create new credentials:|
+|                                       | **Access Key:** AWS access key ID                          |
+|                                       | **Secret Key:** AWS secret access key                      |
+| **Region**                            | The target execution region.                               |
+| **Pipeline work directory**           | An S3 bucket path in the same execution region.            |
+| **Enable Wave Containers**            | Use the Wave containers service to provision containers.   |
+| **Enable Fusion v2**                  | Access your S3-hosted data via the Fusion v2 file system.  |
+| **Enable Fast Instance Storage**      | Use NVMe instance storage to speed up I/O and disk access. Requires Fusion v2.|
+| **Config Mode**                       | Batch Forge                                                |
+| **Provisioning Model**                | Choose between Spot and On-demand instances.               |
+| **Max CPUs**                          | Sensible values for production use range between 2000 and 5000.|
 
+
+</TabItem>
+<TabItem value="Azure Batch" label="Azure Batch" default>
+
+| **Field**                             | **Description**                                            |
+|---------------------------------------|------------------------------------------------------------|
+| **Name**                              | A unique name for the compute environment.                 |
+| **Platform**                          | Azure Batch                                                |
+| **Credentials**                       | Select existing credentials, or **+** to create new credentials:|
+|                                       | **Batch Account Name:** The Azure Batch account name       |
+|                                       | **Batch Account Key:** The Azure Batch account key         |
+|                                       | **Blob Storage Account Name:** Azure Blob storage account name |
+|                                       | **Blob Storage Account Key:** Azure Blob storage account key |
+| **Location**                          | The target execution region.                               |
+| **Pipeline Work Directory**           | An Azure Blob storage path in the same execution region.   |
+| **Enable Wave Containers**            | Use the Wave containers service to provision containers.   |
+| **Enable Fusion v2**                  | Access your Blob storage data via the Fusion v2 file system.|
+| **Config Mode**                       | Batch Forge                                                |
+| **VMs Type**                          | Azure Batch VM type. Uses Standard_D4_v3 VMs if ommitted.  |
+
+</TabItem>
+<TabItem value="Google Cloud Batch" label="Google Cloud Batch" default>
+
+| **Field**                             | **Description**                                            |
+|---------------------------------------|------------------------------------------------------------|
+| **Name**                              | A unique name for the compute environment.                 |
+| **Platform**                          | Google Cloud Batch                                         |
+| **Credentials**                       | Select existing credentials, or **+** to create new credentials:|
+| **Credentials**                       | **Service Account Key:** Service account JSON key file.    |
+| **Location**                          | The target execution region.                               |
+| **Pipeline Work Directory**           | A Google Cloud Storage path in the same execution region.  |
+| **Enable Wave Containers**            | Use the Wave containers service to provision containers.   |
+| **Enable Fusion v2**                  | Access your Google Cloud storage data via the Fusion v2 file system.|
+| **Spot**                              | Toggle to use Spot instances.                              |
+
+</TabItem>
+</Tabs>
+
+### Add nf-core/rnaseq to the Launchpad
+
+[Seqera Pipelines](https://seqera.io/pipelines) is an open-source resource that provides a curated collection of high-quality, open-source pipelines that can be imported directly to your workspace Launchpad in Platform. Each pipeline includes a curated test dataset to use in a test run to confirm compute environment compatibility in just a few steps.
+
+To use Seqera Pipelines to import the `nf-core-rnaseq` pipeline to your workspace Launchpad:
+
+![Seqera Pipelines add to Launchpad](./quickstart-demo/assets/seqera-pipelines-add-pipeline.gif)
+
+1. Search for `nf-core-rnaseq` and select **Launch** next to the pipeline name in the list. In the **Add pipeline** tab, select **Cloud** or **Enterprise** depending on your Platform account type, then provide the information needed for Seqera Pipelines to access your Platform instance:
+    - **Seqera Cloud**: Paste your Platform **Access token** and select **Next**.  
+    - **Seqera Enterprise**: Specify the **Seqera Platform URL** (hostname) and **Base API URL** for your Enterprise instance, then paste your Platform **Access token** and select **Next**.
+    :::tip
+    If you do not have a Platform access token, select **Get your access token from Seqera Platform** to open the Access tokens page in a new browser tab.
+    :::
+1. Select your Platform **Organization**, **Workspace**, and **Compute environment** for the imported pipeline. 
+1. (Optional) Customize the **Pipeline Name** and **Pipeline Description**.
+1. Select **Add Pipeline**. 
+
+:::info
+To add a custom pipeline not listed in Seqera Pipelines to your Platform workspace, see [this example](./quickstart-demo/add-pipelines.mdx#) for manual Launchpad instructions. 
+:::
+
+### Add input data
+
+The [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline works with input datasets (samplesheets) containing sample names, fastq file locations, and indications of strandedness. 
+
+<details>
+  <summary>**Example nf-core/rnaseq dataset**</summary>
+    
+  | sample              | fastq_1                              | fastq_2                              | strandedness |
+  | ------------------- | ------------------------------------ | ------------------------------------ | ------------ |
+  | WT_REP1             | s3://nf-core-awsmegatests/rnaseq/... | s3://nf-core-awsmegatests/rnaseq/... | reverse      |
+  | WT_REP1             | s3://nf-core-awsmegatests/rnaseq/... | s3://nf-core-awsmegatests/rnaseq/... | reverse      |
+  | WT_REP2             | s3://nf-core-awsmegatests/rnaseq/... | s3://nf-core-awsmegatests/rnaseq/... | reverse      |
+  | RAP1_UNINDUCED_REP1 | s3://nf-core-awsmegatests/rnaseq/... |                                      | reverse      |
+  | RAP1_UNINDUCED_REP2 | s3://nf-core-awsmegatests/rnaseq/... |                                      | reverse      |
+  | RAP1_UNINDUCED_REP2 | s3://nf-core-awsmegatests/rnaseq/... |                                      | reverse      |
+  | RAP1_IAA_30M_REP1   | s3://nf-core-awsmegatests/rnaseq/... | s3://nf-core-awsmegatests/rnaseq/... | reverse      |
+
+</details>
+
+In Platform, samplesheets and other data can be made easily accessible in one of two ways: 
+- Use **Data Explorer** to browse and interact with remote data from AWS S3, Azure Blob Storage, and Google Cloud Storage repositories, directly in your organization workspace.
+- Use **Datasets** to upload structured data to your workspace in CSV (Comma-Separated Values) or TSV (Tab-Separated Values) format.
+
+<details>
+  <summary>**Add a cloud bucket via Data Explorer**</summary> 
+
+  Private cloud storage buckets accessible to the credentials in your workspace are added to Data Explorer automatically by default. However, you can also add custom directory paths within buckets to your workspace to simplify direct access.
+
+  To add individual buckets (or directory paths within buckets):
+
+  1. From the **Data Explorer** tab, select **Add cloud bucket**. 
+  1. Specify the bucket details:
+      - The cloud **Provider**.
+      - An existing cloud **Bucket path**.
+      - A unique **Name** for the bucket.
+      - The **Credentials** used to access the bucket. For public cloud buckets, select **Public** from the dropdown menu.
+      - An optional bucket **Description**.
+  1. Select **Add**.
+
+    ![Add public bucket](./quickstart-demo/assets/data-explorer-add-bucket.gif)
+
+  You can now select data directly from this bucket as input when launching your pipeline, without the need to interact with cloud consoles or CLI tools. 
+
+</details>
+
+<details>
+  <summary>**Add a dataset**</summary>
+
+  From the **Datasets** tab, select **Add Dataset**.
+
+  ![Add a dataset](./quickstart-demo/assets/sp-cloud-add-a-dataset.gif)
+
+  Specify the following dataset details:
+
+  - A **Name** for the dataset, such as `nf-core-rnaseq-dataset`.
+  - A **Description** for the dataset.
+  - Select the **First row as header** option to prevent Platform from parsing the header row of the samplesheet as sample data.
+  - Select **Upload file** and browse to your CSV or TSV samplesheet file in local storage, or simply drag and drop it into the box.
+
+  The dataset is now listed in your organization workspace datasets and can be selected as input when launching your pipeline. 
+
+  :::info
+  Platform does not store the data used for analysis in pipelines. The datasets must provide the locations of data that is stored on your own infrastructure.
+  :::
+
+</details>
+
+### Launch nf-core/rnaseq
+
+With your compute environment created, the nf-core/rnaseq pipeline added to your workspace Launchpad, and your samplesheet accessible in Platform, you are ready to launch. Navigate to the Launchpad in the `community/showcase` workspace and select **Launch** next to the `nf-core-rnaseq` pipeline to open the launch form.
+
+ ![Launch a pipeline](./quickstart-demo/assets/sp-cloud-launch-form.gif)
+
+### Nextflow parameter schema
+
+The launch form lets you configure the pipeline execution. The pipeline parameters in this form are rendered from a [pipeline schema](../pipeline-schema/overview.mdx) file in the root of the pipeline Git repository. `nextflow_schema.json` is a simple JSON-based schema describing pipeline parameters for pipeline developers to easily adapt their in-house Nextflow pipelines to be executed in Platform.
+
+:::tip
+See [Best Practices for Deploying Pipelines with the Seqera Platform](https://seqera.io/blog/best-practices-for-deploying-pipelines-with-seqera-platform/) to learn how to build the parameter schema for any Nextflow pipeline automatically with tooling maintained by the nf-core community. 
+:::
+
+### Parameter selection
+
+Adjust the following Platform-specific options:
+
+- `Workflow run name`: A unique identifier for the run, pre-filled with a random name. This can be customized.
+- `Labels`: Assign new or existing labels to the run. For example, a project ID or genome version.
+
+nf-core/rnaseq requires a set of parameters to run:
+
+#### input
+
+Use **Browse** to select either the cloud storage file path to your samplesheet via **Data Explorer**, or your uploaded **Dataset**: 
+
+<details>
+
+  <summary>**Data Explorer**</summary>
+
+  In the **Data Explorer** tab, select the existing cloud bucket that contains your samplesheet, then browse or search for the samplesheet file to select it as input.
+
+</details>
+<details>
+
+  <summary>**Datasets**</summary>
+
+  In the **Datasets** tab, search for and select your existing dataset.
+
+</details>
+
+![Input parameters](./quickstart-demo/assets/sp-cloud-launch-parameters-input.gif)
+
+#### output
+
+Use the `outdir` parameter to specify where the final results created by the pipeline are published. `outdir` must be unique for each pipeline run. Otherwise, your results will be overwritten. 
+
+Select **Browse** to specify a cloud storage directory using Data Explorer, or enter a cloud storage directory path to publish pipeline results to manually.
+
+![Output parameters](./quickstart-demo/assets/sp-cloud-launch-parameters-outdir.gif)
+
+#### Pipeline-specific parameters
+
+Modify other parameters to customize the pipeline execution through the parameters form. For example, under **Read trimming options**, change the `trimmer` to select `fastp` in the dropdown menu instead of `trimgalore`.
+
+![Read trimming options](./quickstart-demo/assets/trimmer-settings.png)
+
+Select **Launch** to start the run and be directed to the **Runs** tab with your run in a **submitted** status at the top of the list.
+
+### View run details
+
+Select your new run from the **Runas** tab list to view the run details.
+
+#### Run details page
+
+As the pipeline runs, run details will populate with the following tabs:
+
+- **Command-line**: The Nextflow command invocation used to run the pipeline. This includes details about the pipeline version (`-r` flag) and profile, if specified (`-profile` flag).
+- **Parameters**: The exact set of parameters used in the execution. This is helpful for reproducing the results of a previous run.
+- **Resolved Nextflow configuration**: The full Nextflow configuration settings used for the run. This includes parameters, but also settings specific to task execution (such as memory, CPUs, and output directory).
+- **Execution Log**: A summarized Nextflow log providing information about the pipeline and the status of the run.
+- **Datasets**: Link to datasets, if any were used in the run.
+- **Reports**: View pipeline outputs directly in the Platform.
+
+![View the nf-core/rnaseq run](./quickstart-demo/assets/sp-cloud-run-info.gif)
+
+### View reports
+
+Most Nextflow pipelines generate reports or output files which are useful to inspect at the end of the pipeline execution. Reports can contain quality control (QC) metrics that are important to assess the integrity of the results.
+
+![Reports tab](./quickstart-demo/assets/reports-tab.png)
+
+For example, for the nf-core/rnaseq pipeline, view the [MultiQC](../../../multiqc_docs/multiqc_repo/docs/markdown/index.mdx) report generated. MultiQC is a helpful reporting tool to generate aggregate statistics and summaries from bioinformatics tools.
+
+![Reports MultiQC preview](./quickstart-demo/assets/reports-preview.png)
+
+The paths to report files point to a location in cloud storage (in the `outdir` directory specified during launch), but you can view the contents directly and download each file without navigating to the cloud or a remote filesystem.
+
+#### Specify outputs in reports
+
+To customize and instruct Platform where to find reports generated by the pipeline, a [tower.yml](https://github.com/nf-core/rnaseq/blob/master/tower.yml) file that contains the locations of the generated reports must be included in the pipeline repository. 
+
+In the nf-core/rnaseq pipeline, the MULTIQC process step generates a MultiQC report file in HTML format:
+
+```yaml
+reports:
+  multiqc_report.html:
+    display: "MultiQC HTML report"
+```
+
+:::info
+See [Reports](../reports/overview.mdx) to configure reports for pipeline runs in your own workspace. 
+:::
+
+### View general information
+
+The run details page includes general information about who executed the run and when, the Git hash and tag used, and additional details about the compute environment and Nextflow version used.
+
+![General run information](./quickstart-demo/assets/general-run-details.gif)
+
+The **General** panel displays top-level information about a pipeline run:
+
+- Unique workflow run ID
+- Workflow run name
+- Timestamp of pipeline start
+- Pipeline version and Git commit ID
+- Nextflow session ID
+- Username of the launcher
+- Work directory path
+
+### View details for a task
+
+Scroll down the page to view:
+
+- The progress of individual pipeline **Processes**
+- **Aggregated stats** for the run (total walltime, CPU hours)
+- **Workflow metrics** (CPU efficiency, memory efficiency)
+- A **Task details** table for every task in the workflow
+
+The task details table provides further information on every step in the pipeline, including task statuses and metrics.
+
+### Task details
+
+Select a task in the task table to open the **Task details** dialog. The dialog has three tabs: **About**, **Execution log**, and **Data Explorer**.
+
+#### About
+
+The **About** tab includes:
+
+1. **Name**: Process name and tag
+2. **Command**: Task script, defined in the pipeline process
+3. **Status**: Exit code, task status, and number of attempts
+4. **Work directory**: Directory where the task was executed
+5. **Environment**: Environment variables that were supplied to the task
+6. **Execution time**: Metrics for task submission, start, and completion time
+7. **Resources requested**: Metrics for the resources requested by the task
+8. **Resources used**: Metrics for the resources used by the task
+
+![Task details window](./quickstart-demo/assets/task-details.gif)
+
+#### Execution log
+
+The **Execution log** tab provides a real-time log of the selected task's execution. Task execution and other logs (such as stdout and stderr) are available for download from here, if still available in your compute environment.
+
+### Task work directory in Data Explorer
+
+If a task fails, a good place to begin troubleshooting is the task's work directory.
+
+Nextflow hash-addresses each task of the pipeline and creates unique directories based on these hashes. Instead of navigating through a bucket on the cloud console or filesystem to find the contents of this directory, use the **Data Explorer** tab in the Task window to view the work directory.
+
+Data Explorer allows you to view the log files and output files generated for each task in its working directory, directly within Platform. You can view, download, and retrieve the link for these intermediate files in cloud storage from the **Data Explorer** tab to simplify troubleshooting.
+
+![Task data explorer](./quickstart-demo/assets/sp-cloud-task-data-explorer.gif)
+
+### Resume a pipeline
+
+Platform uses [Nextflow resume](../launch/cache-resume.mdx) to resume a failed or cancelled workflow run with the same parameters, using the cached results of previously completed tasks and only executing failed and pending tasks.
+
+![Resume a run](./quickstart-demo/assets/sp-cloud-resume-a-run.gif)
+
+To resume a failed or canceled run in your own workspace:
+
+- Select **Resume** from the options menu next to the run.
+- Edit the parameters before launch, if needed.
+- If you have the appropriate [permissions](../orgs-and-teams/roles.mdx), you may edit the compute environment if needed.
+
+### Data Studios 
+
+TODO 
+
+### Pipeline optimization 
+
+Seqera Platform's task-level resource usage metrics allow you to determine the resources requested for a task and what was actually used. This information helps you fine-tune your configuration more accurately.
+
+However, manually adjusting resources for every task in your pipeline is impractical. Instead, you can leverage the pipeline optimization feature on the Launchpad.
+
+Pipeline optimization analyzes resource usage data from previous runs to optimize the resource allocation for future runs. After a successful run, optimization becomes available, indicated by the lightbulb icon next to the pipeline turning black.
+
+#### Optimize nf-core/rnaseq
+
+Navigate back to the Launchpad and select the lightbulb icon next to nf-core/rnaseq to view the optimized profile. You have the flexibility to tailor the optimization's target settings and incorporate a retry strategy as needed.
+
+### View optimized configuration
+
+When you select the lightbulb, you can access an optimized configuration profile in the second tab of the **Customize optimization profile** window.
+
+This profile consists of Nextflow configuration settings for each process and each resource directive (where applicable):  **cpus**, **memory**, and **time**. The optimized setting for a given process and resource directive is based on the maximum use of that resource across all tasks in that process.
+
+Once optimization is selected, subsequent runs of that pipeline will inherit the optimized configuration profile, indicated by the black lightbulb icon with a checkmark. 
+
+:::info 
+Optimization profiles are generated from one run at a time, defaulting to the most recent run, and _not_ an aggregation of previous runs.
+:::
+
+![Optimized configuration](./quickstart-demo/assets/optimize-configuration.gif)
+
+Verify the optimized configuration of a given run by inspecting the resource usage plots for that run and these fields in the run's task table:
+
+| Description  | Key                    |
+| ------------ | ---------------------- |
+| CPU usage    | `pcpu`                 |
+| Memory usage | `peakRss`              |
+| Runtime      | `start` and `complete` |
 
 ### RNA-seq data and requirements
 
@@ -74,3 +426,7 @@ The nf-core/rnaseq pipeline involves several key steps, each with distinct compu
 | **Read Alignment**                  | HISAT2, STAR              | High CPU, high memory        | Alignment of trimmed reads to a reference genome, typically the most resource-intensive step.    |
 | **Quantification**                  | featureCounts, Salmon     | Moderate CPU, moderate memory| Counting the number of reads mapped to each gene or transcript to measure expression levels.     |
 | **Differential Expression Analysis**| DESeq2, edgeR             | Low CPU, moderate memory     | Statistical analysis to identify genes with significant changes in expression between conditions. |
+
+#### Benchmarking
+
+TODO
