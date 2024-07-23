@@ -10,6 +10,9 @@ spec:
       http:
         paths:
           - path: /*
+            pathType: ImplementationSpecific
             backend:
-              serviceName: frontend
-              servicePort: 80
+              service:
+                name: frontend
+                port:
+                  number: 80

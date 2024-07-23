@@ -8,7 +8,7 @@ tags: [data, explorer]
 With Data Explorer, you can browse and interact with remote data repositories from organization workspaces in Seqera Platform. It supports AWS S3, Azure Blob Storage, and Google Cloud Storage repositories.
 
 :::note
-To disable Data Explorer globally for all workspaces and users in your account, set `TOWER_DATA_EXPLORER_ENABLED=false` in your environment variables (default: `true`).
+To enable Data Explorer globally for all workspaces and users in your **Seqera Enterprise** account, set `TOWER_DATA_EXPLORER_ENABLED=true` in your environment variables (default: `false`).
 
 To disable Data Explorer automatic cloud bucket retrieval per workspace in your **Seqera Enterprise** account, specify comma-separated workspace IDs with the `TOWER_DATA_EXPLORER_CLOUD_DISABLED_WORKSPACES` environment variable.
 :::
@@ -206,4 +206,4 @@ Google Cloud Storage only supports CORS configuration via gcloud CLI.
 }
 ```
 
-[roles]: platform_versioned_docs/version-24.1.0/orgs-and-teams/roles.mdx
+[roles]: ../orgs-and-teams/roles.mdx

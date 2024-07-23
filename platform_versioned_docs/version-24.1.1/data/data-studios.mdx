@@ -5,7 +5,9 @@ date: "17 May 2024"
 tags: [data, studios]
 ---
 
-Data Studios is a unified platform where you can host a combination of container images and compute environments for interactive tertiary analysis using your preferred tools, like JupyterLab and RStudio Notebooks, or Visual Studio Code IDEs. Each data studio session is an individual interactive environment that encapsulates the live environment for dynamic data analysis.
+Data Studios is a unified platform where you can host a combination of container images and compute environments for interactive tertiary analysis using your preferred tools, like JupyterLab and RStudio Notebooks, Visual Studio Code IDEs, or Xpra remote desktops. Each data studio session is an individual interactive environment that encapsulates the live environment for dynamic data analysis.
+
+On Seqera Cloud, the free tier permits only one running data studio session at a time. To run simultaneous data studios, [contact Seqera][contact] for a Seqera Cloud Pro license.
 
 :::note
 Data Studios is currently in **public preview** and is available from Seqera Platform v24.1.1. If you experience any problems during the deployment process please contact your account executive. Data Studios in Enterprise is not enabled by default. You can enable Data Studios in the [environment variables configuration](../enterprise/data-studios.mdx).
@@ -17,7 +19,7 @@ Before you get started, ensure you have the following:
 
 - Valid credentials to access your cloud storage data resources.
 - At least the **Maintain** role set of permissions.
-- A compute environment with sufficient resources. This is highly dependent on the volume of data you wish to process, but it's recommended to have at least 2 CPUs allocated with 8192 MB of memory. See [AWS Batch](./compute-envs/aws-batch) for more information about compute environment configuration.
+- A compute environment with sufficient resources. This is highly dependent on the volume of data you wish to process, but it's recommended to have at least 2 CPUs allocated with 8192 MB of memory. See [AWS Batch](../compute-envs/aws-batch.mdx) for more information about compute environment configuration.
 
 :::note
 Currently, Data Studios only supports AWS Batch compute environments that **do not** have Fargate enabled.
@@ -30,9 +32,9 @@ Select the **Data Studios** tab in Platform to view all data studios. The list i
 This functionality is available to users with the **Maintain** role and above.
 
 1. Select **Add data studio**.
-2. Select a container image template from the three options provided (JupyterLab, RStudio Server, or Visual Studio Code).
+2. Select a container image template from the four options provided (JupyterLab, RStudio Server, Visual Studio Code, or Xpra).
 3. Select a compute environment. Currently, only AWS Batch is supported.
-4. Mount data using Data Explorer: Select one or more datasets to mount. Datasets are mounted using the [Fusion file system](https://seqera.io/fusion) and are available at `/workspace/data/<dataset>`. Mounted data doesn't need to match the compute environment or region of the cloud provider of the data studio. However, this might cause increased costs or errors.
+4. Mount data using Data Explorer: Select one or more datasets to mount. Datasets are mounted using the [Fusion file system](https://docs.seqera.io/fusion) and are available at `/workspace/data/<dataset>`. Mounted data doesn't need to match the compute environment or region of the cloud provider of the data studio. However, this might cause increased costs or errors.
 5. Optional: Enter CPU and memory allocations. The default values are 2 CPUs and 8192 MB memory (RAM).
 6. Select **Add**.
 
@@ -44,7 +46,7 @@ By default, data studio sessions only have read permissions to mounted data path
 
 ### About container image templates
 
-Data Studios currently provides three container image templates: JupyterLab, RStudio Server, and Visual Studio Code. The image templates install a very limited number of packages when the data studio session container is built. Users have permission to install additional packages as needed.
+Data Studios currently provides four container image templates: JupyterLab, RStudio Server, Visual Studio Code, and Xpra. The image templates install a very limited number of packages when the data studio session container is built. Users have permission to install additional packages as needed.
 
 **JupyterLab**
 
@@ -79,6 +81,12 @@ The default user is the `rstudio` account and has [sudo](https://en.wikipedia.or
 **Visual Studio Code**
 
 The default user is the `root` account. To install extensions, select **Extensions**. Additional system-level packages can be installed in a terminal window using `apt install <packagename>`.
+
+**Xpra**
+
+[Xpra](https://github.com/Xpra-org/xpra), known as _screen for X_, allows you to run X11 programs by giving you remote access to individual graphical applications. The container template image also installs NVIDIA Linux x64 (AMD64/EM64T) drivers for Ubuntu 22.04 for running GPU-enabled applications. To use these GPU drivers, make sure that your compute environment specifies GPU instance families.
+
+The default user is the `root` account. The image is based on `ubuntu:jammy`. Additional system-level packages can be installed in a terminal window using `apt install <package_name>`.
 
 ## Start a data studio
 
@@ -237,3 +245,5 @@ By default, AWS Batch compute environments that are created with Batch Forge res
 A data studio is allocated a 5GB overlay filesystem partition by default for installing software packages and other local configuration. This limit is irrespective of the boot disk size of the container. If you exceed the available storage space, you cannot reliably make local changes to the data studio container until you free up disk space.
 
 Each time you stop and start a data studio, an additional 5GB allocation is provided. If you are experiencing a disk size limitation, as a workaround you can stop and restart the data studio.
+
+[contact]: https://seqera.io/contact-us/
