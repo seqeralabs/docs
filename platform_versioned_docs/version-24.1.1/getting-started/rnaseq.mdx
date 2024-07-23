@@ -8,27 +8,26 @@ tags: [platform, compute environment, rnaseq, aws, gcp, azure]
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-The [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline is a highly configurable and robust workflow designed to analyze RNA sequencing (RNA-seq) data. It performs quality control, alignment, quantification, and differential expression analysis. This guide details how to run nf-core/rnaseq on a cloud compute environment in Platform, including: 
+This guide details how to run RNA sequencing data analysis, from quality control to differential expression analysis, on a cloud compute environment in Platform, including: 
 
-- Compute environment recommendations and setup
-- Adding nf-core/rnaseq to your Platform organization workspace 
-- Importing your input data
-- Launching the pipeline from your workspace Launchpad
-- Viewing run details and execution logs
-- Setting up tertiary analysis with Data Studios 
-- RNA-seq data and resource requirements
+- Creating a compute environment to run your pipeline
+- Adding pipelines to your workspace 
+- Importing your pipeline input data
+- Launching the pipeline and monitoring execution from your workspace
+- Setting up a tertiary analysis environment 
+- Resource allocation guidance for RNA-seq data
 
 :::info
 **Prerequisites**
-This guide includes setting up a cloud compute environment in Platform. You need the following to get started:
+This guide includes setting up a cloud compute environment in Platform. You will need the following to get started:
 - [Admin](../orgs-and-teams/roles.mdx) permissions in an existing organization workspace.
 - An existing AWS, Azure, or Google cloud account with access to the cloud provider's Batch service.
 - Existing access credentials with permissions to create and manage compute and storage resources in your cloud provider account.
 :::
 
-### Compute environment setup
+## Compute environment
 
-Configure your Platform compute environment with sufficient resources to run nf-core/rnaseq. Compute and storage requirements are dependent on the number of samples and the sequencing depth of your input data. See [RNA-seq data and requirements](#rna-seq-data-and-requirements) for details on RNA-seq datasets and the CPU and memory requirements for important steps of the nf-core/rnaseq pipeline. 
+Compute and storage requirements for RNA-seq analysis are dependent on the number of samples and the sequencing depth of your input data. See [RNA-seq data and requirements](#rna-seq-data-and-requirements) for details on RNA-seq datasets and the CPU and memory requirements for important steps of RNA-seq pipelines. 
 
 :::info
 All nf-core pipelines include a `test_full` profile that is associated with a test dataset. The following specifications are a guideline based on internal runs of nf-core/rnaseq performed with the `test_full` configuration profile, which uses a dataset with **x** samples and a total size of **x** GB.
@@ -44,7 +43,7 @@ All nf-core pipelines include a `test_full` profile that is associated with a te
 | **Max CPUs**                   | 500                                   | 500                           | 500                            |
 | **Min CPUs**                   | 0                                     | 0                             | 0                              |
 
-#### Create a compute environment
+### Create a compute environment
 
 From the **Compute Environments** tab in your organization workspace, select **Add compute environment** and complete the following fields:
 
@@ -105,7 +104,11 @@ From the **Compute Environments** tab in your organization workspace, select **A
 </TabItem>
 </Tabs>
 
-### Add nf-core/rnaseq to the Launchpad
+## Add your pipeline to Platform 
+
+:::info
+The [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline is a highly configurable and robust workflow designed to analyze RNA sequencing (RNA-seq) data. It performs quality control, alignment, quantification, and differential expression analysis.
+:::
 
 [Seqera Pipelines](https://seqera.io/pipelines) is an open-source resource that provides a curated collection of high-quality, open-source pipelines that can be imported directly to your workspace Launchpad in Platform. Each pipeline includes a curated test dataset to use in a test run to confirm compute environment compatibility in just a few steps.
 
@@ -127,7 +130,7 @@ To use Seqera Pipelines to import the `nf-core-rnaseq` pipeline to your workspac
 To add a custom pipeline not listed in Seqera Pipelines to your Platform workspace, see [this example](./quickstart-demo/add-pipelines.mdx#) for manual Launchpad instructions. 
 :::
 
-### Add input data
+## Pipeline input data
 
 The [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline works with input datasets (samplesheets) containing sample names, fastq file locations, and indications of strandedness. 
 
@@ -194,21 +197,13 @@ In Platform, samplesheets and other data can be made easily accessible in one of
 
 </details>
 
-### Launch nf-core/rnaseq
+## Launch nf-core/rnaseq
 
 With your compute environment created, the nf-core/rnaseq pipeline added to your workspace Launchpad, and your samplesheet accessible in Platform, you are ready to launch. Navigate to the Launchpad in the `community/showcase` workspace and select **Launch** next to the `nf-core-rnaseq` pipeline to open the launch form.
 
  ![Launch a pipeline](./quickstart-demo/assets/sp-cloud-launch-form.gif)
 
-### Nextflow parameter schema
-
-The launch form lets you configure the pipeline execution. The pipeline parameters in this form are rendered from a [pipeline schema](../pipeline-schema/overview.mdx) file in the root of the pipeline Git repository. `nextflow_schema.json` is a simple JSON-based schema describing pipeline parameters for pipeline developers to easily adapt their in-house Nextflow pipelines to be executed in Platform.
-
-:::tip
-See [Best Practices for Deploying Pipelines with the Seqera Platform](https://seqera.io/blog/best-practices-for-deploying-pipelines-with-seqera-platform/) to learn how to build the parameter schema for any Nextflow pipeline automatically with tooling maintained by the nf-core community. 
-:::
-
-### Parameter selection
+#### Parameter selection
 
 Adjust the following Platform-specific options:
 
@@ -254,9 +249,9 @@ Modify other parameters to customize the pipeline execution through the paramete
 
 Select **Launch** to start the run and be directed to the **Runs** tab with your run in a **submitted** status at the top of the list.
 
-### View run details
+## Run monitoring
 
-Select your new run from the **Runas** tab list to view the run details.
+Select your new run from the **Runs** tab list to view the run details.
 
 #### Run details page
 
@@ -299,7 +294,7 @@ reports:
 See [Reports](../reports/overview.mdx) to configure reports for pipeline runs in your own workspace. 
 :::
 
-### View general information
+#### View general information
 
 The run details page includes general information about who executed the run and when, the Git hash and tag used, and additional details about the compute environment and Nextflow version used.
 
@@ -315,7 +310,7 @@ The **General** panel displays top-level information about a pipeline run:
 - Username of the launcher
 - Work directory path
 
-### View details for a task
+#### View details for a task
 
 Scroll down the page to view:
 
@@ -326,11 +321,9 @@ Scroll down the page to view:
 
 The task details table provides further information on every step in the pipeline, including task statuses and metrics.
 
-### Task details
+#### Task details
 
 Select a task in the task table to open the **Task details** dialog. The dialog has three tabs: **About**, **Execution log**, and **Data Explorer**.
-
-#### About
 
 The **About** tab includes:
 
@@ -349,7 +342,7 @@ The **About** tab includes:
 
 The **Execution log** tab provides a real-time log of the selected task's execution. Task execution and other logs (such as stdout and stderr) are available for download from here, if still available in your compute environment.
 
-### Task work directory in Data Explorer
+#### Task work directory in Data Explorer
 
 If a task fails, a good place to begin troubleshooting is the task's work directory.
 
@@ -359,19 +352,7 @@ Data Explorer allows you to view the log files and output files generated for ea
 
 ![Task data explorer](./quickstart-demo/assets/sp-cloud-task-data-explorer.gif)
 
-### Resume a pipeline
-
-Platform uses [Nextflow resume](../launch/cache-resume.mdx) to resume a failed or cancelled workflow run with the same parameters, using the cached results of previously completed tasks and only executing failed and pending tasks.
-
-![Resume a run](./quickstart-demo/assets/sp-cloud-resume-a-run.gif)
-
-To resume a failed or canceled run in your own workspace:
-
-- Select **Resume** from the options menu next to the run.
-- Edit the parameters before launch, if needed.
-- If you have the appropriate [permissions](../orgs-and-teams/roles.mdx), you may edit the compute environment if needed.
-
-### Data Studios 
+## Tertiary analysis
 
 TODO 
 
@@ -409,7 +390,7 @@ Verify the optimized configuration of a given run by inspecting the resource usa
 | Memory usage | `peakRss`              |
 | Runtime      | `start` and `complete` |
 
-### RNA-seq data and requirements
+## RNA-seq data and requirements
 
 RNA-seq data typically consists of raw sequencing reads from high-throughput sequencing technologies like Illumina. These reads are used to quantify gene expression levels and discover novel transcripts. A typical RNA-seq dataset can range from a few GB to several hundred GB, depending on the number of samples and the sequencing depth.
 
