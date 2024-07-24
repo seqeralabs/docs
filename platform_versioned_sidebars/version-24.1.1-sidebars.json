@@ -7,11 +7,11 @@
       "collapsed": false,
       "items": [
         "getting-started/quickstart-demo/comm-showcase",
-        "getting-started/deployment-options",        
+        "getting-started/deployment-options",   
+        "getting-started/workspace-setup",     
         "getting-started/quickstart-demo/add-pipelines",
         "getting-started/quickstart-demo/add-data",
         "getting-started/quickstart-demo/monitor-runs",
-        "getting-started/start-collaborating",
         "getting-started/quickstart-demo/automation"            
       ]
     },
