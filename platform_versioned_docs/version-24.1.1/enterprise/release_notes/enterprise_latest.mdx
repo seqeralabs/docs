@@ -1,5 +1,15 @@
 # Seqera Platform Enterprise 24.1.x
 
+:::warning
+In order to ensure our customers have success with Seqera Platform 24.1+ we recommend pausing planned upgrades to 24.1+ on production systems until further notice. 
+
+Our team has identified an issue in a dependency library which may cause a memory leak under certain conditions at scale.  While we have not seen this issue surface in any production Enterprise deployments, we recommend pausing release plans while we work on expediting a fix with the library maintainers. 
+
+We have reached out to all users running 24.1 directly and recommend continuing Seqera Platform use as normal while waiting for a patch release. 
+
+If you have any further questions, please [contact support](https://support.seqera.io).
+:::
+
 Seqera Platform Enterprise version 24.1.1 introduces three new features: Data Studios (in public preview), Data Explorer, and managed identities. A number of bug fixes and performance enhancements have also been included in this major release.
 
 ## Data Studios
@@ -70,6 +80,16 @@ The property that determines the expiration time of the JWT access token (used f
 Enterprise deployments that have customized this value previously will need to adopt the new format.
 
 ## Upgrade steps
+
+:::warning
+In order to ensure our customers have success with Seqera Platform 24.1+ we recommend pausing planned upgrades to 24.1+ on production systems until further notice. 
+
+Our team has identified an issue in a dependency library which may cause a memory leak under certain conditions at scale.  While we have not seen this issue surface in any production Enterprise deployments, we recommend pausing release plans while we work on expediting a fix with the library maintainers. 
+
+We have reached out to all users running 24.1 directly and recommend continuing Seqera Platform use as normal while waiting for a patch release. 
+
+If you have any further questions, please [contact support](https://support.seqera.io).
+:::
 
 This version requires a database schema update. Make a backup of your Platform database prior to upgrade. 
 
