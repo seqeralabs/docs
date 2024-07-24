@@ -8,7 +8,7 @@ tags: [platform, compute environment, rnaseq, aws, gcp, azure]
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-This guide details how to run RNA sequencing data analysis, from quality control to differential expression analysis, on a cloud compute environment in Platform, including: 
+This guide details how to run RNA sequencing data analysis, from quality control to differential expression analysis, on a cloud compute environment in Platform. It includes: 
 
 - Creating a compute environment to run your pipeline
 - Adding pipelines to your workspace 
@@ -17,9 +17,9 @@ This guide details how to run RNA sequencing data analysis, from quality control
 - Setting up a tertiary analysis environment 
 - Resource allocation guidance for RNA-seq data
 
-:::info
-**Prerequisites**
-This guide includes setting up a cloud compute environment in Platform. You will need the following to get started:
+:::info[**Prerequisites**]
+
+You will need the following to get started:
 - [Admin](../orgs-and-teams/roles.mdx) permissions in an existing organization workspace.
 - An existing AWS, Azure, or Google cloud account with access to the cloud provider's Batch service.
 - Existing access credentials with permissions to create and manage compute and storage resources in your cloud provider account.
@@ -43,7 +43,7 @@ All nf-core pipelines include a `test_full` profile that is associated with a te
 | **Max CPUs**                   | 500                                   | 500                           | 500                            |
 | **Min CPUs**                   | 0                                     | 0                             | 0                              |
 
-### Create a compute environment
+### Create compute environment
 
 From the **Compute Environments** tab in your organization workspace, select **Add compute environment** and complete the following fields:
 
@@ -104,7 +104,7 @@ From the **Compute Environments** tab in your organization workspace, select **A
 </TabItem>
 </Tabs>
 
-## Add your pipeline to Platform 
+## Add pipeline to Platform 
 
 :::info
 The [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline is a highly configurable and robust workflow designed to analyze RNA sequencing (RNA-seq) data. It performs quality control, alignment, quantification, and differential expression analysis.
@@ -197,49 +197,35 @@ In Platform, samplesheets and other data can be made easily accessible in one of
 
 </details>
 
-## Launch nf-core/rnaseq
+## Launch pipeline
 
-With your compute environment created, the nf-core/rnaseq pipeline added to your workspace Launchpad, and your samplesheet accessible in Platform, you are ready to launch. Navigate to the Launchpad in the `community/showcase` workspace and select **Launch** next to the `nf-core-rnaseq` pipeline to open the launch form.
+With your compute environment created, nf-core/rnaseq added to your workspace Launchpad, and your samplesheet accessible in Platform, you are ready to launch your pipeline. Navigate to the Launchpad and select **Launch** next to `nf-core-rnaseq` to open the launch form.
 
  ![Launch a pipeline](./quickstart-demo/assets/sp-cloud-launch-form.gif)
 
-#### Parameter selection
-
-Adjust the following Platform-specific options:
-
-- `Workflow run name`: A unique identifier for the run, pre-filled with a random name. This can be customized.
-- `Labels`: Assign new or existing labels to the run. For example, a project ID or genome version.
-
-nf-core/rnaseq requires a set of parameters to run:
-
-#### input
-
-Use **Browse** to select either the cloud storage file path to your samplesheet via **Data Explorer**, or your uploaded **Dataset**: 
+Enter a unique run name and add new or existing labels to the run for easy categorization, before specifying your pipeline inputs and outputs:
 
 <details>
+  <summary>**input**</summary>
 
-  <summary>**Data Explorer**</summary>
+  Use **Browse** to select your pipeline input data: 
 
-  In the **Data Explorer** tab, select the existing cloud bucket that contains your samplesheet, then browse or search for the samplesheet file to select it as input.
+  - In the **Data Explorer** tab, select the existing cloud bucket that contains your samplesheet, then browse or search for the samplesheet file to select it as input.
+  - In the **Datasets** tab, search for and select your existing dataset.
+
+  ![Input parameters](./quickstart-demo/assets/sp-cloud-launch-parameters-input.gif)
 
 </details>
 <details>
+  <summary>**outdir**</summary>
 
-  <summary>**Datasets**</summary>
+  Use the `outdir` parameter to specify where the final results created by the pipeline are published. `outdir` must be unique for each pipeline run. Otherwise, your results will be overwritten. 
 
-  In the **Datasets** tab, search for and select your existing dataset.
+  Select **Browse** to specify a cloud storage directory using Data Explorer, or enter a cloud storage directory path to publish pipeline results to manually.
+
+  ![Output parameters](./quickstart-demo/assets/sp-cloud-launch-parameters-outdir.gif)
 
 </details>
-
-![Input parameters](./quickstart-demo/assets/sp-cloud-launch-parameters-input.gif)
-
-#### output
-
-Use the `outdir` parameter to specify where the final results created by the pipeline are published. `outdir` must be unique for each pipeline run. Otherwise, your results will be overwritten. 
-
-Select **Browse** to specify a cloud storage directory using Data Explorer, or enter a cloud storage directory path to publish pipeline results to manually.
-
-![Output parameters](./quickstart-demo/assets/sp-cloud-launch-parameters-outdir.gif)
 
 #### Pipeline-specific parameters
 
