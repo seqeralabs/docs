@@ -1,6 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: seqera-nf
   name: connect-proxy
   labels:
     app.kubernetes.io/component: tower-connect-proxy
@@ -10,6 +11,7 @@ spec:
       app.kubernetes.io/component: tower-connect-proxy
   template:
     metadata:
+      namespace: seqera-nf
       labels:
         app.kubernetes.io/component: tower-connect-proxy
     spec:
@@ -48,6 +50,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  namespace: seqera-nf
   name: connect-proxy
   labels:
     app.kubernetes.io/component: tower-connect-proxy

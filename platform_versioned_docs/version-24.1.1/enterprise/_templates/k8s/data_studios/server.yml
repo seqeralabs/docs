@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: connect-server
+  namespace: seqera-nf
   labels:
     app.kubernetes.io/component: connect-server
 spec:
@@ -12,6 +13,7 @@ spec:
   serviceName: connect-server
   template:
     metadata:
+      namespace: seqera-nf
       labels:
         app.kubernetes.io/component: connect-server
     spec:
@@ -47,6 +49,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: connect-server
+  namespace: seqera-nf
   labels:
     app.kubernetes.io/component: connect-server
 spec:
