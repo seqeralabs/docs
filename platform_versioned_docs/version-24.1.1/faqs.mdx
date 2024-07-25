@@ -127,7 +127,7 @@ k8s.securityContext = [
 
 **Seqera Enterprise 22.2.0: Database connection failure**
 
-Seqera Enterprise 22.2.0 [introduced a breaking change](./enterprise/release_notes/22.2.mdx#database-schema) whereby the `TOWER_DB_DRIVER` is now required to be `org.mariadb.jdbc.Driver`.
+Seqera Enterprise 22.2.0 introduced a breaking change whereby the `TOWER_DB_DRIVER` is now required to be `org.mariadb.jdbc.Driver`.
 
 Clients who use Amazon Aurora as their database solution may encounter a _java.sql.SQLNonTransientConnectionException: ... could not load system variables_ error, likely due to a [known error](https://jira.mariadb.org/browse/CONJ-824) tracked within the MariaDB project.
 
