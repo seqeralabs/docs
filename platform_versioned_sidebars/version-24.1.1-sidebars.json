@@ -217,7 +217,7 @@
       "label": "Releases",
       "collapsed": true,
       "items": [
-        "enterprise/release_notes/changelog",        
+        "cloud/changelog",        
         "enterprise/release_notes/enterprise_latest",
         {
           "type": "category",
