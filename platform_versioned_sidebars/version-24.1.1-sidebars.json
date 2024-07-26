@@ -221,7 +221,7 @@
       "label": "Releases",
       "collapsed": true,
       "items": [
-        "enterprise/release_notes/changelog",        
+        "cloud/changelog",        
         "enterprise/release_notes/enterprise_latest",
         {
           "type": "category",
@@ -233,8 +233,7 @@
             "enterprise/release_notes/23.2",
             "enterprise/release_notes/23.1",
             "enterprise/release_notes/22.4",
-            "enterprise/release_notes/22.3",
-            "enterprise/release_notes/22.2"
+            "enterprise/release_notes/22.3"
           ]
         },
         "functionality_matrix/functionality_matrix"
