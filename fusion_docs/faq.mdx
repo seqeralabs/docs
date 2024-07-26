@@ -4,30 +4,27 @@ title: FAQ
 
 # Frequently Asked Questions
 
-## Which object storage are supported by Fusion
+**Cloud object storage providers supported by Fusion**
 
-Fusion currently supports AWS S3 and Google Storage. In the near future it will also support Azure Blob storage.
+Fusion currently supports AWS S3, Azure Blob Storage, and Google Cloud Storage.
 
-## Can I use Fusion with Minio?
+**Fusion support for MinIO**
 
-Yes. [Minio](https://min.io/), implements a S3-compatible API, therefore it can be used in place of AWS S3.
+[MinIO](https://min.io/), which implements an S3-compatible API, is supported in place of AWS S3.
 See the documentation how to configure your pipeline execution to use Fusion and Minio. (link to guide TBD).
 
-## Can I download Fusion?
 
-No. Currently, Fusion can only be used by enabling Wave containers in the configuration of your Nextflow pipeline.
+**Fusion as a separate download**
 
-## Why I need Wave containers to use Fusion?
+Currently, Fusion can be used only by enabling Wave containers in the configuration of your Nextflow pipeline. Fusion is not available as a separate download.
 
-Fusion is designed to work at level of job executions. For this reason, it needs to run in containerised job
-execution context.
+**Wave containers as a prerequisite for using Fusion**
 
-This would require to rebuild all containers used by your data pipeline to include the Fusion client each time a new
-version of the Fusion client is released, and it would make necessary to maintain a custom mirror or existing containers
-collections, such as [BioContainers](https://biocontainers.pro/) which is definitively not desirable.
+Fusion works at the level of Netflow job execution. For this reason, it needs to run in containerized job execution context.
 
-Wave allows adding the Fusion client in your pipeline containers at deploy time, without having to rebuild them or
-to maintainer a separate container images collection.
+This would require to rebuild all containers used by your data pipeline to include the Fusion client each time a new version of the Fusion client is released, and it would make necessary to maintain a custom mirror or existing containers collections, such as [BioContainers](https://biocontainers.pro/) which is definitively not desirable.
+
+Wave allows adding the Fusion client in your pipeline containers at deploy time, without having to rebuild them or to maintainer a separate container image collection.
 
 ## How Fusion works behind the scene?
 
