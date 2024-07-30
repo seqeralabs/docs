@@ -56,6 +56,13 @@ Seqera Enterprise is distributed as a collection of Docker containers available 
 
 Download and configure a [ConfigMap](_templates/k8s/configmap.yml). See [Configuration](configuration/overview.mdx) for more information.
 
+import ConfigMap from '!!raw-loader!./_templates/k8s/configmap.yml'
+
+<details>
+  <summary>configmap.yml</summary>
+  <CodeBlock language="yaml">{ConfigMap}</CodeBlock>
+</details>
+
 Deploy the ConfigMap to your cluster after it is configured:
 
     ```bash
