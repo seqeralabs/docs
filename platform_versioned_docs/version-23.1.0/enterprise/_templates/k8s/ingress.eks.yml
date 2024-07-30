@@ -17,14 +17,20 @@ metadata:
       access_logs.s3.prefix=YOUR-LOGS-PREFIX
 spec:
   rules:
-    - host: YOUR-TOWER-HOST-NAME
+    - host: <YOUR-TOWER-HOST-NAME>
       http:
         paths:
           - path: /*
+            pathType: ImplementationSpecific
             backend:
-              serviceName: ssl-redirect
-              servicePort: use-annotation
+              service:
+                name: ssl-redirect
+                port:
+                  name: use-annotation
           - path: /*
+            pathType: ImplementationSpecific
             backend:
-              serviceName: frontend
-              servicePort: 80
+              service:
+                name: frontend
+                port:
+                  number: 80

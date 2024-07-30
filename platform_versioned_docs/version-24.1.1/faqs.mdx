@@ -127,7 +127,7 @@ k8s.securityContext = [
 
 **Seqera Enterprise 22.2.0: Database connection failure**
 
-Seqera Enterprise 22.2.0 [introduced a breaking change](./enterprise/release_notes/22.2.mdx#database-schema) whereby the `TOWER_DB_DRIVER` is now required to be `org.mariadb.jdbc.Driver`.
+Seqera Enterprise 22.2.0 introduced a breaking change whereby the `TOWER_DB_DRIVER` is now required to be `org.mariadb.jdbc.Driver`.
 
 Clients who use Amazon Aurora as their database solution may encounter a _java.sql.SQLNonTransientConnectionException: ... could not load system variables_ error, likely due to a [known error](https://jira.mariadb.org/browse/CONJ-824) tracked within the MariaDB project.
 
@@ -807,6 +807,7 @@ The default Azure Batch implementation in Seqera Platform uses a single pool for
 1. Create two Batch pools in Azure:
     - One Dedicated
     - One [Low priority](https://learn.microsoft.com/en-us/azure/batch/batch-spot-vms#differences-between-spot-and-low-priority-vms).
+    - **Note**: Both pools must meet the requirements of a pre-existing pool as detailed in the [Nextflow documentation](https://www.nextflow.io/docs/latest/azure.html#requirements-on-pre-existing-named-pools).
 2. Create a manual [Azure Batch](./compute-envs/azure-batch.mdx#manual) compute environment in Seqera Platform.
 3. In **Compute pool name** (step 10 in the guide linked above), specify your dedicated Batch pool.
 4. Specify the Low priority pool using the `process.queue` [directive](https://www.nextflow.io/docs/latest/process.html#queue) in your `nextflow.config` file (either via the launch form, or your pipeline repository's `nextflow.config` file).

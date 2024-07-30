@@ -38,7 +38,7 @@
   tower.yml:            '`tower.auth.disable-email`'
   Description: > 
     Set to `true` to disable the email login. Ensure that you've configured an alternative authentication provider first.
-  Value:                '`Default: `false`'  
+  Value:                'Default: `false`'  
 -
   tower.yml:            '`tower.admin.user-workspace-enabled`'
   Description: > 
