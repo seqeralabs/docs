@@ -209,7 +209,7 @@
         "label": "CLI",
         "collapsed": true,
         "items": [
-          "cli/cli",
+          "cli/overview",
           "cli/installation",
           "cli/commands"
         ]
