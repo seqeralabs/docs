@@ -7,8 +7,7 @@
       "items": [
         "index",
         "features",
-        "community-registry",
-        "api",
+        "get_started/wave-cli",
         "metrics",
         "faq"
       ]
@@ -35,6 +34,7 @@
         "guides/module-containers",
         "guides/fusion-file-system"
       ]
-    }
+    },
+    "api"
   ]
 }
