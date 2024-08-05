@@ -1,4 +1,14 @@
-# Seqera Platform Enterprise 24.1.x
+# Enterprise 24.1.x
+
+:::caution 
+In order to ensure our customers have success with Seqera Platform 24.1+ we recommend pausing planned upgrades to 24.1+ on production systems until further notice. 
+
+Our team has identified an issue in a dependency library which may cause a memory leak under certain conditions at scale.  While we have not seen this issue surface in any production Enterprise deployments, we recommend pausing release plans while we work on expediting a fix with the library maintainers. 
+
+We have reached out to all users running 24.1 directly and recommend continuing Seqera Platform use as normal while waiting for a patch release. 
+
+If you have any further questions, please [contact support](https://support.seqera.io).
+:::
 
 Seqera Platform Enterprise version 24.1.1 introduces three new features: Data Studios (in public preview), Data Explorer, and managed identities. A number of bug fixes and performance enhancements have also been included in this major release.
 
@@ -71,9 +81,19 @@ Enterprise deployments that have customized this value previously will need to a
 
 ## Upgrade steps
 
+:::caution 
+In order to ensure our customers have success with Seqera Platform 24.1+ we recommend pausing planned upgrades to 24.1+ on production systems until further notice. 
+
+Our team has identified an issue in a dependency library which may cause a memory leak under certain conditions at scale.  While we have not seen this issue surface in any production Enterprise deployments, we recommend pausing release plans while we work on expediting a fix with the library maintainers. 
+
+We have reached out to all users running 24.1 directly and recommend continuing Seqera Platform use as normal while waiting for a patch release. 
+
+If you have any further questions, please [contact support](https://support.seqera.io).
+:::
+
 This version requires a database schema update. Make a backup of your Platform database prior to upgrade. 
 
-:::caution
+:::info
 If you are upgrading from a version older than 23.4.1, update your installation to version [23.4.4](./23.4.mdx) first, before updating to 24.1.1 with the steps below.
 :::
 
@@ -121,6 +141,6 @@ If you're using AWS Batch, you will need to [configure a custom job definition](
 
 ## Changelog
 
-For a detailed list of all changes, see the Seqera [changelog](./changelog.mdx).
+For a detailed list of all changes, see the Seqera [changelog](../../cloud/changelog.mdx).
 
 [gcp-vm-instance-template]: https://cloud.google.com/compute/docs/instance-templates

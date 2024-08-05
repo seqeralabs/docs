@@ -4,9 +4,7 @@ This repository contains the documentation published to [docs.seqera.io](https:/
 
 Changes merged to [master](https://github.com/seqeralabs/docs) are deployed to production automatically via Netlify. Pull requests have their own deployment preview.
 
-The source of truth for all products' documentation lives in their respective product repositories, such as [nf-tower-cloud](https://github.com/seqeralabs/nf-tower-cloud). These repositories contain a `docs` folder which house the _latest_ version of that product's documentation.
-
-Generally speaking, changes to the docs should first be made in the product repository, and then imported into this one. Exceptions may include manual fixes to earlier versions of documentation, or when updates are made to Docusaurus itself.
+The source of truth for all products' documentation lives in their respective product repositories, such as [wave](https://github.com/seqeralabs/wave). These repositories contain a `docs` folder which house the _latest_ version of that product's documentation.
 
 For more information, see:
 
@@ -42,47 +40,41 @@ Contentful/relevant files include:
 
 ### Seqera Platform
 
-- Content is copied to this repo from [nf-tower-cloud](https://github.com/seqeralabs/nf-tower-cloud/tree/master/docs). New contributions to Platform documentation must be made there first.
+The Platform documentation is versioned and lives in the `platform_versioned_docs` directory. Each version in this directory also requires a sidebar config, which lives in the `platform_versioned_sidebars` directory. Versions also need to be specified in `platform_versions.json`. When adding a new latest version, the `docusaurus.config.js` needs to be updated as well.
 
-- The Platform documentation is versioned and lives in the `platform_versioned_docs` directory. Each version in this directory also requires a sidebar config, which lives in the `platform_versioned_sidebars` directory. Versions also need to be specified in `platform_versions.json`. When adding a new latest version, the `docusaurus.config.js` needs to be updated as well.
-
-- We have a script which can select a commit (or ideally release tag) to be used for publishing a new version on the docs website.
+We have a script which can select a commit (or ideally release tag) to be used for publishing a new version on the docs website.
 
 ### Wave
 
-Wave documentation is available as a Git submodule. Changes to the Wave documentation must be made in the [Wave repo](https://github.com/seqeralabs/wave/tree/master/docs).
+Wave documentation is available as a Git submodule. Wave documentation is not versioned, and lives in the `wave_docs` directory. Changes to the Wave documentation must be made in the [Wave repo](https://github.com/seqeralabs/wave/tree/master/docs). To enable access to the Wave docs in the submodule, after cloning this repository you must run `git submodule update --init --recursive`.
 
-To enable access to the Wave docs in the submodule, after cloning this repository you must run `git submodule update --init --recursive`.
-
-To incorporate documentation changes from the Wave repository, run the following command: `git submodule update --recursive --remote`. This is mandatory, or published documentation cannot reflect any changes made to the Wave documentation since this command was last run.
-
-If you accidentally run the aforementioned command and want to revert, run the following command to revert to the previous commit ID for the Wave repository: `git submodule update --init`.
-
-Wave documentation is not versioned, and lives in the `wave_docs` directory.
+To incorporate documentation changes from the Wave repository, run the following command: `git submodule update --recursive --remote`. This is mandatory, or published documentation cannot reflect any changes made to the Wave documentation since this command was last run. If you accidentally run the aforementioned command and want to revert, run the following command to revert to the previous commit ID for the Wave repository: `git submodule update --init`.
 
 ## Writing new content
 
-All new content originates in the related development repository. This is the source of truth. For example, Seqera Platform documentation for new features are created in the `nf-tower-cloud` repository in the `docs` directory. A `sidebar.json` is also expected.
+All new content originates in the docs repo. This is the source of truth.
 
 To publish new content:
 
-1. Create a new branch in the product repo, such as `gh-issue-number`, or use an existing developer-provided work branch that includes documentation updates.
+1. Create a new branch in the docs repo, such as `gh-issue-number`.
 2. Complete the necessary work.
-3. Raise a PR to merge your updates to master, requesting 2 reviews:
+4. Raise a PR to merge your updates to master
+5. Add relevant labels to your PR and request reviews from:
    - Language review from a docs-codeowners member
    - Technical review from the backend engineer or other SME closest to the feature
-4. Merge the PR once approved, if you created a new branch in the first step.
+6. Check and review the changes using the Netlify preview.
+7. Merge the PR once approved, if you created a new branch in the first step.
 
-Once merged to the master branch of the product repo, the docs content can then be copied to this repository. This can be done using the [fetch script](https://github.com/seqeralabs/docs/blob/master/internal/fetch-docs.mjs), which allows you to selected commit ID or release tag, which will be used to create a new version number on the website.
+Once merged to the master branch, the changes will be live immediately.
 
 ## Fixing legacy content
 
 Version-specific changes to legacy documentation sets currently occur directly in this repository. Each product has a `product_versioned_docs` folder in this repository. That folder contains a subfolder for each version — edit the files in these versioned folders directly to update versioned content on docs.seqera.io:
 
-1. Create a new branch in this repository, such as `product-gh-issue-number`
-2. Create the change in the related files in the correct version (e.g., `23.1.0`) directory, and any other versions affected
-3. Raise a PR based for review, requesting the same 2 reviews as for new content
-4. After approval, merge the PR to the master branch
+1. Create a new branch in this repository, such as `product-gh-issue-number`.
+2. Create the change in the related files in the correct version (e.g., `23.1.0`) directory, and any other versions affected.
+3. Raise a PR based for review, requesting the same 2 reviews as for new content.
+4. After approval, merge the PR to the master branch.
 
 ## Check with Vale style guide
 
