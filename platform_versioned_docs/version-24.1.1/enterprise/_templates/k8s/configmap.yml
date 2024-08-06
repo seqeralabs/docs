@@ -2,6 +2,7 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: tower-backend-cfg
+  namespace: seqera-nf
   labels:
     app: backend-cfg
 data:
@@ -37,6 +38,7 @@ data:
 kind: ConfigMap
 apiVersion: v1
 metadata:
+  namespace: seqera-nf
   name: tower-yml
   labels:
     app: backend-cfg

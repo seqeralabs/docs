@@ -2,6 +2,7 @@ kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
   name: standard
+  namespace: seqera-nf
   labels:
     app: redis
   annotations:
@@ -17,6 +18,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: redis-data
+  namespace: seqera-nf
   labels:
     app: redis
 spec:
@@ -31,6 +33,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: redis
+  namespace: seqera-nf
   labels:
     app: redis
 spec:
@@ -40,6 +43,7 @@ spec:
   serviceName: redis
   template:
     metadata:
+      namespace: seqera-nf
       labels:
         app: redis
     spec:
@@ -66,6 +70,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: redis
+  namespace: seqera-nf
   labels:
     app: redis
 spec:

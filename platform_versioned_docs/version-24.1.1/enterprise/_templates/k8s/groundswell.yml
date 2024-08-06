@@ -25,6 +25,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: groundswell
+  namespace: seqera-nf
   labels:
     app: groundswell
 spec:
@@ -39,6 +40,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: seqera-nf
   name: groundswell
   labels:
     app: groundswell
@@ -51,6 +53,7 @@ spec:
 
   template:
     metadata:
+      namespace: seqera-nf
       labels:
         app: groundswell
     spec:
