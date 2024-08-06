@@ -54,12 +54,12 @@ Post-run scripts are executed after all Nextflow processes have completed. Post-
 
 Enable this option to ensure that Nextflow pulls the latest version from the Git repository. This is equivalent to using the `-latest` flag.
 
-## Main script
+### Main script
 
-Nextflow will attempt to run the script named `main.nf` in the project repository by default. You can change this with the `manifest.mainScript` option or by providing the script filename to run in this field.
+Nextflow will attempt to run the script named `main.nf` in the project repository by default. A custom script filename can be configured using `manifest.mainScript` or by providing the script filename in this field.
 
 :::note
-If you specify a custom main script, the root of the default branch in your pipeline repository must still contain blank `main.nf` and `nextflow.config` files for Nextflow to interpret the pipeline correctly. See [Nextflow configuration](../faqs.mdx#nextflow-configuration) for more information on this known Nextflow behavior.
+If you specify a custom script filename, the root of the default branch in your pipeline repository must still contain blank `main.nf` and `nextflow.config` files. See [Nextflow configuration](../faqs.mdx#nextflow-configuration) for more information on this known Nextflow behavior.
 :::
 
 ## Workflow entry name
