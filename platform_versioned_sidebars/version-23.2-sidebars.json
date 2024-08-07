@@ -1,0 +1,196 @@
+{
+  "platformSidebar": [
+    "index",
+    {
+      "type": "category",
+      "label": "Getting started",
+      "collapsed": true,
+      "items": [
+        "getting-started/community-showcase",
+        "getting-started/definitions",
+        "getting-started/deployment-options",
+        "getting-started/workspace"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "User guide",
+      "collapsed": true,
+      "items": [
+        {
+          "type": "category",
+          "label": "Credentials",
+          "items": [
+            "credentials/overview",
+            "git/overview",
+            {
+              "type": "category",
+              "label": "Container registry credentials",
+              "items": [
+                "credentials/aws_registry_credentials",
+                "credentials/azure_registry_credentials",
+                "credentials/docker_hub_registry_credentials",
+                "credentials/google_registry_credentials",
+                "credentials/quay_registry_credentials"
+              ]
+            },
+            "credentials/ssh_credentials",
+            "credentials/agent_credentials"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Compute",
+          "items": [
+            "compute-envs/overview",
+            {
+              "type": "category",
+              "label": "Cloud providers",
+              "items": [
+                "compute-envs/aws-batch",
+                "compute-envs/azure-batch",
+                "compute-envs/google-cloud-batch",
+                "compute-envs/google-cloud-lifesciences",
+                "compute-envs/k8s",
+                "compute-envs/eks",
+                "compute-envs/gke"
+              ]
+            },
+            "compute-envs/hpc"
+          ]
+        },
+        "datasets/overview",
+        {
+          "type": "category",
+          "label": "Launch",
+          "items": [
+            "launch/launchpad",
+            "launch/advanced"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Monitoring",
+          "items": [
+            "monitoring/overview",
+            "dashboard/overview",
+            "monitoring/execution",
+            "monitoring/summary",
+            "monitoring/processes",
+            "monitoring/aggregate_stats",
+            "monitoring/tasks"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Label",
+          "items": [
+            "labels/overview",
+            "resource-labels/overview"
+          ]
+        },
+        "pipeline-actions/overview",
+        "reports/overview",
+        "pipeline-schema/overview",
+        "secrets/overview",
+        {
+          "type": "category",
+          "label": "Software integration",
+          "items": [
+            "supported_software/agent/agent",
+            "supported_software/fusion/fusion",
+            "supported_software/dragen/overview"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Administration",
+          "items": [
+            "orgs-and-teams/overview",
+            "orgs-and-teams/organizations",
+            "orgs-and-teams/workspace-management",
+            "orgs-and-teams/shared-workspaces",
+            "administration/overview"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Advanced options",
+          "items":[
+            "enterprise/advanced-topics/manual-aws-batch-setup"
+          ]
+        }      
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Installation guide",
+      "collapsed": true,
+      "items": [
+        "enterprise/index",
+        {
+          "type": "category",
+          "label": "Prerequisites",
+          "collapsed": true,
+          "items": [
+            "enterprise/prerequisites/aws",
+            "enterprise/prerequisites/azure",
+            "enterprise/prerequisites/gcp",
+            "enterprise/prerequisites/on-prem"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Configuration",
+          "collapsed": true,
+          "items": [
+            "enterprise/configuration/overview",
+            "enterprise/configuration/authentication",
+            "enterprise/configuration/ssl_tls",
+            "enterprise/configuration/wave"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Installation",
+          "collapsed": true,
+          "items": [
+            "enterprise/docker-compose",
+            "enterprise/kubernetes"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Advanced topics",
+          "collapsed": true,
+          "items": [
+            "enterprise/advanced-topics/cloudformation",
+            "enterprise/advanced-topics/db-docker-to-RDS",
+            "enterprise/advanced-topics/custom-launch-container",
+            "enterprise/advanced-topics/seqera-container-images",
+            "enterprise/advanced-topics/use-iam-role"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Developer tools",
+      "collapsed": true,
+      "items": [
+        "api/overview",
+        "cli/cli"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Reference",
+      "collapsed": true,
+      "items": [
+        "data-privacy/overview",
+        "limits/limits"
+      ]
+    },
+    "faqs"
+  ]
+}

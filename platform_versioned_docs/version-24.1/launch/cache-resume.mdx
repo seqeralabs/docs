@@ -1,0 +1,155 @@
+---
+title: "Nextflow cache and resume"
+description: "Guide to Nextflow cache and resume in Seqera Platform"
+date: "21 Apr 2023"
+tags: [cache, launch, resume, relaunch]
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Nextflow maintains a [cache](https://www.nextflow.io/docs/latest/cache-and-resume.html) directory where it stores the intermediate results and metadata from workflow runs. Workflows executed in Seqera Platform use this caching mechanism to enable users to relaunch or resume failed or otherwise interrupted runs as needed. This eliminates the need to re-execute successfully completed tasks when a workflow is executed again due to task failures or other interruptions. 
+
+## Cache directory
+
+Nextflow stores all task executions to the task cache automatically, whether or not the resume or relaunch option is used. This makes it possible to resume or relaunch runs later if needed. Platform HPC and local compute environments use the default Nextflow cache directory (`.nextflow/cache`) to store the task cache. Cloud compute environments use the [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) mechanism to store the task cache in a sub-folder of the pipeline work directory. 
+
+To override the default cloud cache location in cloud compute environments, specify an alternate directory with the [cache](https://www.nextflow.io/docs/latest/process.html#process-cache) directive in your Nextflow configuration file (either in the **Advanced options > Nextflow config file** field on the launch form, or in the `nextflow.config` file in your pipeline repository).
+
+<Tabs>
+<TabItem value="AWS Batch and Amazon EKS" label="AWS Batch and Amazon EKS" default>
+
+To customize the cache location used in your AWS Batch and Amazon EKS compute environments, specify an alternate cache directory in your Nextflow configuration:
+
+```groovy 
+cloudcache {
+   enabled = true
+   path = 's3://your-bucket/.cache'
+   }
+```
+
+The new cache directory must be accessible with the credentials associated with your compute environment. An alternate cloud storage location can be specified if you include the necessary credentials for that location in your Nextflow configuration. **This is not recommended for production environments**. 
+
+</TabItem>
+<TabItem value="Azure Batch" label="Azure Batch" default>
+
+To customize the cache location used in your Azure Batch compute environments, specify an alternate cache directory in your Nextflow configuration:
+
+```groovy 
+cloudcache {
+   enabled = true
+   path = 'az://your-container/.cache'
+   }
+```
+
+The new cache directory must be accessible with the credentials associated with your compute environment. An alternate cloud storage location can be specified if you include the necessary credentials for that location in your Nextflow configuration. **This is not recommended for production environments**. 
+
+
+</TabItem>
+<TabItem value="Google Cloud Batch and Google GKE" label="Google Cloud Batch and Google GKE " default>
+
+To customize the cache location used in your Google Cloud Batch and Google GKE compute environments, specify an alternate cache directory in your Nextflow configuration:
+
+```groovy 
+cloudcache {
+   enabled = true
+   path = 'gs://your-bucket/.cache'
+   }
+```
+
+The new cache directory must be accessible with the credentials associated with your compute environment. An alternate cloud storage location can be specified if you include the necessary credentials for that location in your Nextflow configuration. **This is not recommended for production environments**. 
+
+
+</TabItem>
+<TabItem value="Kubernetes" label="Kubernetes" default>
+
+Kubernetes compute environments do not use cloud cache by default. To specify a cloud storage cache directory, include the cloud cache path and necessary credentials for that location in your Nextflow configuration. **This is not recommended for production environments**.
+
+   <details>
+      <summary>AWS S3</summary>
+
+      ```groovy
+      // Specify cloud storage credentials
+      aws {
+         accessKey = '<YOUR S3 ACCESS KEY>'
+         secretKey = '<YOUR S3 SECRET KEY>'
+         region = '<YOUR REGION>'
+         }
+      // Set the cloud cache path
+      cloudcache {
+         enabled = true
+         path = 's3://your-bucket/.cache'
+         }
+      ```
+
+   </details>
+
+   <details>
+      <summary>Azure Blob Storage</summary>
+
+      ```groovy
+      // Specify cloud storage credentials
+      azure {
+      storage {
+         accountName = '<YOUR AZURE BLOB STORAGE ACCOUNT NAME>'
+         accountKey = '<YOUR AZURE BLOB STORAGE ACCOUNT KEY>'
+         }
+      }
+      // Set the cloud cache path
+      cloudcache {
+         enabled = true
+         path = 'az://your-container/.cache'
+         }
+      ```
+
+   </details>
+
+   <details>
+      <summary>Google Cloud Storage</summary>
+
+      1. See [these instructions](../compute-envs/google-cloud-batch.mdx#iam) to set up IAM and create a JSON key file for the custom service account with permissions to your Google Cloud storage account. 
+      2. If you run the [gcloud CLI authentication flow](https://nextflow.io/docs/edge/google.html#credentials) with `gcloud auth application-default login`, your Application Default Credentials are written to `$HOME/.config/gcloud/application_default_credentials.json` and picked up by Nextflow automatically. Otherwise, declare the `GOOGLE_APPLICATION_CREDENTIALS` environment variable explicitly with the local path to your service account credentials file created in the previous step. 
+      3. Add the following to the **Nextflow Config file** field when you [launch](../launch/launchpad.mdx#launch-form) your pipeline:
+
+      ```groovy
+      // Specify cloud storage credentials
+      google {
+         location                        = '<YOUR BUCKET LOCATION>'
+         project                         = '<YOUR PROJECT ID>'
+         batch.serviceAccountEmail       = '<YOUR SERVICE ACCOUNT EMAIL>'
+         }
+      // Set the cloud cache path
+      cloudcache {
+         enabled = true
+         path = 'gs://your-bucket/.cache'
+         }
+      ```
+   
+   </details>
+
+</TabItem>
+</Tabs>
+
+## Relaunch a workflow run
+
+An effective way to troubleshoot a workflow execution is to **Relaunch** it with different parameters. Select the **Runs** tab, open the options menu to the right of the run, and select **Relaunch**. You can edit parameters, such as **Pipeline to launch** and **Revision number** before launch. Select **Launch** to execute the run from scratch.
+
+:::note
+The **Relaunch** option is only available for runs launched from the Seqera Platform interface.
+:::
+
+## Resume a workflow run
+
+Seqera uses Nextflow's **resume** functionality to resume a workflow run with the same parameters, using the cached results of previously completed tasks and only executing failed and pending tasks. Select **Resume** from the options menu to the right of the run of your choice to launch a resumed run of the same workflow, with the option to edit some parameters before launch. Unlike a relaunch, you cannot edit the pipeline to launch or the work directory during a run resume.
+
+:::note
+The **Resume** option is only available for runs launched from the Seqera Platform interface.
+:::
+
+:::tip
+For a detailed explanation of the Nextflow resume feature, see _Demystifying Nextflow resume_ ([Part 1](https://www.nextflow.io/blog/2019/demystifying-nextflow-resume.html) and [Part 2](https://www.nextflow.io/blog/2019/troubleshooting-nextflow-resume.html)) in the Nextflow blog.
+:::
+
+#### Change compute environment during run resume
+
+Users with appropriate permissions can change the compute environment when resuming a run. The new compute environment must have access to the original run work directory. This means that the new compute environment must have a work directory that matches the root path of the original pipeline work directory. For example, if the original pipeline work directory is `s3://foo/work/12345`, the new compute environment must have access to `s3://foo/work`.
