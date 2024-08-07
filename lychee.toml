@@ -1,0 +1,10 @@
+# https://lychee.cli.rs/usage/config/
+scheme = ["https", "http"]
+exclude = [
+  '^https://portal.azure.com/',
+  '^https://gitlab.com/profile/personal_access_tokens'
+]
+exclude_path = [
+  "^.+/README.mdx",
+  "^.+/_todo.mdx"
+]
