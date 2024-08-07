@@ -1,6 +1,7 @@
 [submodule "wave_docs/wave_repo"]
 	path = wave_docs/wave_repo
 	url = https://github.com/seqeralabs/wave
+	branch = add-nf-wave-topics-to-docs
 [submodule "multiqc_docs/multiqc_repo"]
 	path = multiqc_docs/multiqc_repo
 	url = https://github.com/MultiQC/MultiQC

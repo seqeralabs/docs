@@ -1,26 +1,34 @@
 {
   "sidebar": [
-    "index",
     {
       "type": "category",
-      "label": "Wave CLI",
+      "label": "Wave",
       "collapsed": false,
-      "link": {
-        "type": "doc",
-        "id": "cli/index"
-      },
       "items": [
-        "cli/install",
-        "cli/build-directory",
-        "cli/build-docker",
-        "cli/build-conda",
-        "cli/build-spack",
-        "cli/build-singularity",
-        "cli/build-freeze"
+        "index",
+        "get-started",
+        "provisioning"
       ]
     },
-    "guide",
-    "api",
+    {
+      "type": "category",
+      "label": "Developer tools",
+      "collapsed": false,
+      "items": [
+        {
+          "type": "category",
+          "label": "Wave CLI",
+          "collapsed": true,
+          "items": [
+            "cli/index",
+            "cli/install",
+            "cli/build"
+          ]
+        },
+        "api"
+      ]
+    },
+    "nextflow",
     "faq"
   ]
 }
