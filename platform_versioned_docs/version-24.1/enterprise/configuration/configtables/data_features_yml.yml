@@ -1,0 +1,11 @@
+---
+-
+  tower.yml:            '`tower.content.max-file-size`'
+  Description: >
+    You can set the Data Explorer downloadable file size limit. Increasing this value may degrade Platform performance.
+  Value:                'Default: `25MB`'
+-
+  tower.yml:            '`tower.data.data-link-items.tree-list.max-allowed`'
+  Description: >
+    You can set the max number of items listed in Data Explorer.
+  Value:                'Default: `1000`'

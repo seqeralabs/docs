@@ -271,6 +271,8 @@ Configuration values that enable opt-in Seqera features per instance or workspac
 
 ### Data features
 
+Configuration values used by Seqera for Data Explorer.
+
 <Tabs>
 <TabItem value="Environment variables" label="Environment variables" default>
 
@@ -279,15 +281,7 @@ Configuration values that enable opt-in Seqera features per instance or workspac
 </TabItem>
 <TabItem value="tower.yml" label="tower.yml" default>
 
-You can set the Data Explorer downloadable file size limit with the following snippet in your `tower.yml` file:
-
-```yml
-tower:
-    content:
-        max-file-size: 25MB # Default
-```
-
-Note that increasing this value may degrade Platform performance.
+::table{file=configtables/data_features_yml.yml}
 
 </TabItem>
 </Tabs>
