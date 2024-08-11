@@ -5,8 +5,9 @@ name: Links
 on:
   repository_dispatch:
   workflow_dispatch:
+  # Run on Sunday only
   schedule:
-    - cron: "00 18 * * *"
+  - cron: "00 18 * * 6"
 
 jobs:
   linkChecker:
@@ -17,8 +18,9 @@ jobs:
       - name: Link Checker
         id: lychee
         uses: lycheeverse/lychee-action@v1
+        # --verbose --no-progress
         with:
-          args: --base . --verbose --no-progress './**/*.md'
+          args: --base . -v -n -s https -s http './**/*.mdx'
 
       - name: Create Issue From File
         if: env.lychee_exit_code != 0
