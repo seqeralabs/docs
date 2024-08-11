@@ -7,5 +7,5 @@
 -
   tower.yml:            '`tower.data.data-link-items.tree-list.max-allowed`'
   Description: >
-    You can set the max number of items listed in Data Explorer.
+    You can set the maximum number of items listed in Data Explorer.
   Value:                'Default: `1000`'
