@@ -14,16 +14,22 @@ Complete the following procedures to install Seqera Platform Enterprise on a Kub
 
 ### Create a namespace
 
+Create a namespace to isolate Kubernetes resources used by Seqera Platform from the other resources on your cluster.
+
+:::note
+This installation guide assumes the use of `seqera-platform` as the installation namespace. Consider using a different one that better fits your cluster naming convention.
+:::
+
 Create a namespace for the Seqera resources:
 
     ```bash
-    kubectl create namespace seqera-nf
+    kubectl create namespace seqera-platform
     ```
 
 Switch to the namespace:
 
     ```bash
-    kubectl config set-context --current --namespace=seqera-nf
+    kubectl config set-context --current --namespace=seqera-platform
     ```
 
 ### Configure container registry credentials
