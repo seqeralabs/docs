@@ -6,9 +6,21 @@ tags: [changelog]
 ---
 ## 2024
 
+### 24.2.0.cycle21 - 14 August 2024
+
+- Feature: Add global Nextflow configs in compute environments
+- Feature: Added flexibility for pipeline names in workspaces
+- Feature: Added tags propagation to launch template
+- Feature: Add backend and UI to include managed identities into the configuration when using a manual Azure CE
+- Feature: Implement custom launch container logic
+- Fix: Improve workflow launch L&F
+- Fix: Allow changing the workDir when launching a pipeline
+- Fix: Properly handle special characters in prompt modal confirmation text regex
+- Bump nextflow 24.04 + codecommit 0.2.1
+
 ### 24.2.0_cycle20 Cloud — 25 July 2024
 
-- Feat: Add code blocks syntax highlighting and background color
+- Feature: Add code blocks syntax highlighting and background color
 - Improvement: Role selector dropdown detail
 - Improvement: Update navbar help & support links
 - Fix: Disable launch form submit button during form validation
@@ -23,15 +35,15 @@ tags: [changelog]
 
 ### 24.1.1 Enterprise - July 2024
 
-- Data Studios: Added the ability to rename data studio checkpoints 
-- Data Explorer: Added OpenAPI support for Data Explorer
-- Data Explorer: Show loading in Workflow/Task Data Explorer tab while waiting for data link cache refresh
-- Personal workspace: Datasets can now be used in personal workspaces
-- Personal workspace: Pipeline secrets can now be used in personal workspaces
-- Compute: Add Graviton3 EC2 instance family as valid NVMe instance types
-- Compute: Add new G6 EC2 instance family as valid NVMe instance types
-- Enhancement: Retrieve reports from primary compute environment on NF CLI runs
-- Enhancement: At nf-launcher, propagate a curl failures and exit
+- Feature: Data Studios: Added the ability to rename data studio checkpoints 
+- Feature: Data Explorer: Added OpenAPI support for Data Explorer
+- Feature: Data Explorer: Show loading in Workflow/Task Data Explorer tab while waiting for data link cache refresh
+- Feature: Personal workspace: Datasets can now be used in personal workspaces
+- Feature: Personal workspace: Pipeline secrets can now be used in personal workspaces
+- Feature: Add Graviton3 EC2 instance family as valid NVMe instance types
+- Feature: Add new G6 EC2 instance family as valid NVMe instance types
+- Improvement: Retrieve reports from primary compute environment on NF CLI runs
+- Improvement: At nf-launcher, propagate a curl failures and exit
 - Security: Upgrade base Docker images to get upstream updates
 - Deprecate EBS autoscale in the Seqera Platform user interface
 - Bump nf-launcher:j17-23.10.1-up1
