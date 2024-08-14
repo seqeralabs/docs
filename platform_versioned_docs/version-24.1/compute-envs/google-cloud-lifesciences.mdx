@@ -123,16 +123,14 @@ You can create multiple credentials in your Seqera workspace. See [Credentials](
 9. You can enable **Preemptible** to use preemptible instances, which have significantly reduced cost compared to on-demand instances.
 10. You can use a **Filestore file system** to automatically mount a Google Filestore volume in your pipelines.
 11. Apply [**Resource labels**](../resource-labels/overview.mdx) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
-12. Expand **Staging options** to include optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre--post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
+12. Expand **Staging options** to include:
+    - Optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre--post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
+    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Configuration settings in this field override the same values in the pipeline Nextflow config file. 
 13. Use the **Environment variables** option to specify custom environment variables for the Head job and/or Compute jobs.
 14. Configure any advanced options you need:
-
     - Enable **Use Private Address** to ensure that your Google Cloud VMs aren't accessible to the public internet.
-
     - Use **Boot disk size** to control the boot disk size of VMs.
-
     - Use **Head Job CPUs** and **Head Job Memory** to specify the CPUs and memory allocated for head jobs.
-
 15. Select **Create** to finalize the compute environment setup.
 
 See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in your Google Cloud Life Sciences compute environment.
