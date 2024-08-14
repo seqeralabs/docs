@@ -91,7 +91,9 @@ The **Storage claim** isn't needed when Fusion v2 is enabled.
 :::
 
 14. Apply [**Resource labels**](../resource-labels/overview.mdx) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
-15. Expand **Staging options** to include optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre--post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
+15. Expand **Staging options** to include:
+    - Optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre--post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
+    - Global Nextflow configuration settings for all pipelines launched with this environment. Configuration values in this field override the same values in the pipeline Nextflow config file. 
 16. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
 17. Configure any advanced options described in the next section, as needed.
 18. Select **Create** to finalize the compute environment setup.

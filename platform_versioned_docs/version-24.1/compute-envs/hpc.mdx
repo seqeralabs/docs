@@ -39,36 +39,37 @@ To create a new **HPC** compute environment:
 1.  Select your existing managed identity, SSH, or Tower Agent credentials, or select **+** and **SSH** or **Tower Agent** to add new credentials.
 1.  Enter the absolute path of the **Work directory** to be used on the cluster.
 
-  :::caution 
-  All managed identity users must be a part of the same Linux user group. The group must have access to the HPC compute environment work directory. Set group permissions for the work directory as follows (replace `sharedgroupname` and `<WORKDIR>` with your group name and work directory):
+    :::caution 
+    All managed identity users must be a part of the same Linux user group. The group must have access to the HPC compute environment work directory. Set group permissions for the work directory as follows (replace `sharedgroupname` and `<WORKDIR>` with your group name and work directory):
 
-  ```bash
-  chgrp -R sharedgroupname <WORKDIR>
-  chmod -R g+wxs <WORKDIR>
-  setfacl -Rdm g::rwX <WORKDIR>
-  ```
+    ```bash
+    chgrp -R sharedgroupname <WORKDIR>
+    chmod -R g+wxs <WORKDIR>
+    setfacl -Rdm g::rwX <WORKDIR>
+    ```
 
-  These commands change the group ownership of all files and directories in the work directory to `sharedgroupname`, ensure new files inherit the directory's group, and apply default ACL entries to allow the group read, write, and execute permissions for new files and directories. This setup facilitates shared access and consistent permissions management in the directory.
-  :::
+    These commands change the group ownership of all files and directories in the work directory to `sharedgroupname`, ensure new files inherit the directory's group, and apply default ACL entries to allow the group read, write, and execute permissions for new files and directories. This setup facilitates shared access and consistent permissions management in the directory.
+    :::
 
 1.  Enter the absolute path of the **Launch directory** to be used on the cluster. If omitted, it will be the same as the work directory.
 1.  Enter the **Login hostname**. This is usually the hostname or public IP address of the cluster's login node.
 1.  Enter the **Head queue name**. This is the [default](https://www.nextflow.io/docs/latest/process.html#queue) cluster queue to which the Nextflow job will be submitted.
 1. Enter the **Compute queue name**. This is the [default](https://www.nextflow.io/docs/latest/process.html#queue) cluster queue to which the Nextflow job will submit tasks.
-1. Expand **Staging options** to include optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre--post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
+1. Expand **Staging options** to include:
+    - Optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre--post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
+    - Global Nextflow configuration settings for all pipelines launched with this environment. Configuration values in this field override the same values in the pipeline Nextflow config file. 
 1. Specify custom **Environment variables** for the head job and/or compute jobs.
 1. Configure any advanced options needed:
-
     - Use the **Nextflow queue size** to limit the number of jobs that Nextflow can submit to the scheduler at the same time.
     - Use the **Head job submit options** to add platform-specific submit options for the head job. You can optionally apply these options to compute jobs as well:
 
-  :::note
-  Once set during compute environment creation, these options can't be overridden at pipeline launch time.
-  :::
+    :::note
+    Once set during compute environment creation, these options can't be overridden at pipeline launch time.
+    :::
 
-  :::note
-  In IBM LSF compute environments, use **Unit for memory limits**, **Per job memory limits**, and **Per task reserve** to control how memory is requested for Nextflow jobs.
-  :::
+    :::note
+    In IBM LSF compute environments, use **Unit for memory limits**, **Per job memory limits**, and **Per task reserve** to control how memory is requested for Nextflow jobs.
+    :::
 
 1. Select **Create** to finalize the creation of the compute environment.
 

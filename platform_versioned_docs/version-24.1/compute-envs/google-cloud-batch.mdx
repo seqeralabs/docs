@@ -168,7 +168,10 @@ Apply [**Resource labels**][resource-labels] to the cloud resources consumed by 
 
 #### Scripting and environment variables
 
-Expand **Staging options** to include optional [pre- or post-run Bash scripts][pre-post-run-scripts] that execute before or after the Nextflow pipeline execution in your environment.
+Expand **Staging options** to include:
+  - Optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre--post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
+  - Global Nextflow configuration settings for all pipelines launched with this environment. Configuration values in this field override the same values in the pipeline Nextflow config file. 
+
 
 Specify custom **Environment variables** for the head and compute jobs.
 
