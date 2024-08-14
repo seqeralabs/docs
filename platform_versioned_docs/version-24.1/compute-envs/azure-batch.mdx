@@ -161,7 +161,7 @@ Create a Batch Forge Azure Batch compute environment:
 1. Apply [**Resource labels**](../resource-labels/overview.mdx). This will populate the **Metadata** fields of the Azure Batch pool.
 1. Expand **Staging options** to include:
     - Optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre--post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
-    - Global Nextflow configuration settings for all pipelines launched with this environment. Configuration values in this field override the same values in the pipeline Nextflow config file. 
+    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Configuration settings in this field override the same values in the pipeline Nextflow config file. 
 1. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
 1. Configure any advanced options you need:
 
@@ -211,7 +211,7 @@ Your Seqera compute environment uses resources that you may be charged for in yo
 1. Apply [**Resource labels**](../resource-labels/overview.mdx). This will populate the **Metadata** fields of the Azure Batch pool.
 1. Expand **Staging options** to include:
     - Optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre--post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
-    - Global Nextflow configuration settings for all pipelines launched with this environment. Configuration values in this field override the same values in the pipeline Nextflow config file. 
+    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Configuration settings in this field override the same values in the pipeline Nextflow config file. 
 1. Define custom **Environment Variables** for the **Head Job** and/or **Compute Jobs**.
 1. Configure any necessary advanced options:
     - Use **Jobs cleanup policy** to control how Nextflow process jobs are deleted on completion. Active jobs consume the quota of the Azure Batch account. By default, jobs are terminated by Nextflow and removed from the quota when all tasks succesfully complete. If set to _Always_, all jobs are deleted by Nextflow after pipeline completion. If set to _Never_, jobs are never deleted. If set to _On success_, successful tasks are removed but failed tasks will be left for debugging purposes.
