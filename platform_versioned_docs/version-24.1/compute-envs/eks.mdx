@@ -119,68 +119,76 @@ spec:
 
 ### Fusion v2
 
-To use [Fusion v2](../supported_software/fusion/fusion.mdx) in your Seqera EKS compute environment, both the head service and compute service accounts must have access to the S3 bucket specified as the work directory.
+To use [Fusion v2](../supported_software/fusion/fusion.mdx) in your Seqera EKS compute environment:
+1. Use Seqera Platform version 23.1 or later.
+1. Use an S3 bucket as the pipeline work directory. 
+1. Both the head service and compute service accounts must have access to the S3 bucket specified as the work directory.
 
-**Configure IAM to use Fusion v2**
+<details>
+  <summary>Configure IAM to use Fusion v2</summary>
 
-1. Allow the IAM role access to your S3 bucket:
+  1. Allow the IAM role access to your S3 bucket:
 
-```json
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": ["s3:ListBucket"],
-            "Resource": ["arn:aws:s3:::<YOUR-BUCKET>"]
-        },
-        {
-            "Action": [
-                "s3:GetObject",
-                "s3:PutObject",
-                "s3:PutObjectTagging",
-                "s3:DeleteObject"
-            ],
-            "Resource": ["arn:aws:s3:::<YOUR-BUCKET>/*"],
-            "Effect": "Allow"
-        }
-    ]
-}
-```
-
-Replace `<YOUR-BUCKET>` with a bucket name of your choice.
-
-2. The IAM role must have a trust relationship with your Kubernetes service account:
-
-```json
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": {
-                "Federated": "arn:aws:iam::<YOUR-ACCOUNT-ID>:oidc-provider/oidc.eks.<YOUR-REGION>.amazonaws.com/id/<YOUR-CLUSTER-ID>"
+    ```json
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Effect": "Allow",
+                "Action": ["s3:ListBucket"],
+                "Resource": ["arn:aws:s3:::<YOUR-BUCKET>"]
             },
-            "Action": "sts:AssumeRoleWithWebIdentity",
-            "Condition": {
-                "StringEquals": {
-                    "oidc.eks.eu-west-2.amazonaws.com/id/<YOUR CLUSTER ID>:aud": "sts.amazonaws.com",
-                    "oidc.eks.eu-west-2.amazonaws.com/id/<YOUR CLUSTER ID>:sub": "system:serviceaccount:<YOUR-EKS-SERVICE-ACCOUNT>"
+            {
+                "Action": [
+                    "s3:GetObject",
+                    "s3:PutObject",
+                    "s3:PutObjectTagging",
+                    "s3:DeleteObject"
+                ],
+                "Resource": ["arn:aws:s3:::<YOUR-BUCKET>/*"],
+                "Effect": "Allow"
+            }
+        ]
+    }
+    ```
+
+    Replace `<YOUR-BUCKET>` with a bucket name of your choice.
+
+  2. The IAM role must have a trust relationship with your Kubernetes service account:
+
+    ```json
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Effect": "Allow",
+                "Principal": {
+                    "Federated": "arn:aws:iam::<YOUR-ACCOUNT-ID>:oidc-provider/oidc.eks.<YOUR-REGION>.amazonaws.com/id/<YOUR-CLUSTER-ID>"
+                },
+                "Action": "sts:AssumeRoleWithWebIdentity",
+                "Condition": {
+                    "StringEquals": {
+                        "oidc.eks.eu-west-2.amazonaws.com/id/<YOUR CLUSTER ID>:aud": "sts.amazonaws.com",
+                        "oidc.eks.eu-west-2.amazonaws.com/id/<YOUR CLUSTER ID>:sub": "system:serviceaccount:<YOUR-EKS-SERVICE-ACCOUNT>"
+                    }
                 }
             }
-        }
-    ]
-}
-```
+        ]
+    }
+    ```
 
-Replace `<YOUR-ACCOUNT-ID>`, `<YOUR-REGION>`, `<YOUR-CLUSTER-ID>`, `<YOUR-EKS-SERVICE-ACCOUNT>` with your corresponding values.
+    Replace `<YOUR-ACCOUNT-ID>`, `<YOUR-REGION>`, `<YOUR-CLUSTER-ID>`, `<YOUR-EKS-SERVICE-ACCOUNT>` with your corresponding values.
 
-3. Annotate the Kubernetes service account with the IAM role:
+  3. Annotate the Kubernetes service account with the IAM role:
 
-```shell
-kubectl annotate serviceaccount <YOUR-EKS-SERVICE-ACCOUNT> --namespace <YOUR-EKS-NAMESPACE> eks.amazonaws.com/role-arn=arn:aws:iam::<YOUR-ACCOUNT-ID>:role/<YOUR-IAM-ROLE>
-```
+    ```shell
+    kubectl annotate serviceaccount <YOUR-EKS-SERVICE-ACCOUNT> --namespace <YOUR-EKS-NAMESPACE> eks.amazonaws.com/role-arn=arn:aws:iam::<YOUR-ACCOUNT-ID>:role/<YOUR-IAM-ROLE>
+    ```
 
-Replace `<YOUR-EKS-SERVICE-ACCOUNT>`, `<YOUR-EKS-NAMESPACE>`, and `<YOUR-IAM-ROLE>` with your corresponding values.
+    Replace `<YOUR-EKS-SERVICE-ACCOUNT>`, `<YOUR-EKS-NAMESPACE>`, and `<YOUR-IAM-ROLE>` with your corresponding values.
 
-See the [AWS documentation](https://docs.aws.amazon.com/eks/latest/userguide/associate-service-account-role.html) for further details.
+    See the [AWS documentation](https://docs.aws.amazon.com/eks/latest/userguide/associate-service-account-role.html) for further details.
+
+</details>
+
+We recommend using Fusion with AWS NVMe instances as this delivers the fastest performance when compared to environments using only AWS EBS (Elastic Block Store). 

@@ -49,7 +49,7 @@ We recommend selecting 8xlarge or above for large and long-lived production pipe
 
 6. Use an S3 bucket as the pipeline work directory.
 
-#### Batch Forge AWS compute environments with Fusion only
+#### AWS Batch Forge compute environments with Fusion only
 
 To use Fusion in AWS environments without NVMe instances, enable Wave containers and Fusion v2 when creating a new compute environment without enabling fast instance storage. This option configures an AWS EBS (Elastic Bucket Store) disk with settings optimized for the Fusion file system.
 
@@ -66,6 +66,25 @@ To use Fusion in AWS environments without NVMe instances, enable Wave containers
    - EBS boot disk throughput is increased to 325MB/s
 
 6. Use an S3 bucket as the pipeline work directory.
+
+#### Azure Batch Forge compute environments with Fusion
+
+Azure virtual machines include fast SSDs and require no additional storage configuration for Fusion. For optimal performance, use VMs with sufficient local storage to support Fusion's streaming data throughput. 
+
+1. For this configuration, use Seqera Platform version 23.1 or later.
+1. Create an [Azure Batch compute environment](../../compute-envs/azure-batch.mdx#batch-forge).
+1. Use an Azure Blob storage container as the pipeline work directory.
+1. Enable Wave containers and Fusion v2.
+1. Select the **Batch Forge** config mode.
+1. Specify suitable VM sizes under **VMs type**. 
+
+:::tip
+We recommend selecting machine types with an attached temp storage disk of at least 512Gb and random read of 1000 IOPS for large and long-lived production pipelines. The suffix `d` after the core number (e.g. `Standard_E32*d*_v5`) denotes a VM with a local temp disk. Larger local storage increases Fusion's throughput and reduces the chance of overloading the machine. See [Sizes for virtual machines in Azure](https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/overview) for more information.
+:::
+
+#### Google Cloud Batch coompute environments with Fusion
+
+
 
 #### Fusion in manual compute environments
 
