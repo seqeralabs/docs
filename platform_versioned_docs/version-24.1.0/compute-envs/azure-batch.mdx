@@ -13,25 +13,27 @@ Ensure you have sufficient permissions to create resource groups, an Azure Stora
 
 ## Concepts
 
+### Regions
+
+Azure regions are distinct geographic areas that contain multiple data centers, strategically located around the world, to provide high availability, fault tolerance, and low latency for cloud services. Each region offers a wide range of Azure services, and by choosing a specific region, users can optimize performance, ensure data residency compliance, and meet regulatory requirements. Azure regions also enable redundancy and disaster recovery options by allowing resources to be replicated across different regions, enhancing the resilience of applications and data.
+
+### Resource group
+
+An Azure Resource Group is a logical container that holds related Azure resources such as virtual machines, storage accounts, databases, and more. It serves as a management boundary, allowing you to organize, deploy, monitor, and manage all the resources within it as a single entity. Resources in a Resource Group share the same lifecycle, meaning they can be deployed, updated, and deleted together. This grouping also enables easier access control, monitoring, and cost management, making it a foundational element in organizing and managing cloud infrastructure in Azure.
+
 ### Accounts
 
 Seqera Platform relies on an existing Azure Storage and Azure Batch account. You need at least 1 valid Azure Storage account and Azure Batch account within your subscription.
 
 Azure uses 'accounts' for each service. For example, an [Azure Storage account][az-learn-storage] will house a collection of blob containers, file shares, queues, and tables. While you can have multiple Azure Storage and Azure Batch accounts in an Azure subscription, each compute environment on the platform can only use one of each (one storage and one Batch account). You can set up multiple compute environments on the platform with different credentials, storage accounts, and Batch accounts.
 
-### Resource group
-
-An Azure Resource Group is a logical container that holds related Azure resources such as virtual machines, storage accounts, databases, and more. It serves as a management boundary, allowing you to organize, deploy, monitor, and manage all the resources within it as a single entity. Resources in a Resource Group share the same lifecycle, meaning they can be deployed, updated, and deleted together. This grouping also enables easier access control, monitoring, and cost management, making it a foundational element in organizing and managing cloud infrastructure in Azure.
-
 ### Service Principal
 
 An Azure Service Principal is an identity created for use with applications, hosted services, or automated tools to access Azure resources. It acts like a "user identity" with a specific set of permissions assigned to it. Seqera Platform can use an Azure Service Principal to authenticate and authorize access to Azure Batch for job execution and Azure Storage for data management. By assigning the necessary roles to the Service Principal, Seqera can securely interact with these Azure services, ensuring that only authorized operations are performed during pipeline execution.
 
-### Regions
+## Azure Resources
 
-Azure regions are distinct geographic areas that contain multiple data centers, strategically located around the world, to provide high availability, fault tolerance, and low latency for cloud services. Each region offers a wide range of Azure services, and by choosing a specific region, users can optimize performance, ensure data residency compliance, and meet regulatory requirements. Azure regions also enable redundancy and disaster recovery options by allowing resources to be replicated across different regions, enhancing the resilience of applications and data.
-
-### Create a resource group
+### Resource group
 
 An Azure Batch and Azure Storage account need to be linked to a resource group in Azure, so it is necessary to create one.
 
@@ -45,7 +47,7 @@ A resource group can be created while creating an Azure Storage Account or Azure
 4. Select **Review and Create** to proceed.
 5. Select **Create**.
 
-## Storage account
+### Storage account
 
 After creating a resource group, set up an [Azure storage account][az-learn-storage].
 
@@ -80,7 +82,7 @@ After creating a resource group, set up an [Azure storage account][az-learn-stor
 Blob container storage credentials are associated with the Batch pool configuration. Avoid changing these credentials in your Seqera instance after you have created the compute environment.
 :::
 
-## Batch account
+### Batch account
 
 After you have created a resource group and storage account, create a [Batch account][az-learn-batch].
 
@@ -149,7 +151,7 @@ The two Azure credential types use entirely different authentication methods. Yo
 9. Enter a name for the credentials, such as _Azure Credentials_.
 10. Add the Application ID, Secret ID, Secret, **Batch account**, and **Blob Storage** account names to the relevant fields.
 
-### Compute environment
+## Seqera Platform
 
 There are two ways to create an Azure Batch compute environment in Seqera Platform:
 
@@ -195,7 +197,7 @@ Create a Batch Forge Azure Batch compute environment:
 
 **See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in your Azure Batch compute environment.**
 
-## Manual
+### Manual
 
 This section is for users with a pre-configured Azure Batch pool. This requires an existing Azure Batch account with an existing pool.
 
