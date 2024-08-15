@@ -21,21 +21,27 @@ Azure uses 'accounts' for each service. For example, an [Azure Storage account][
 
 ### Resource group
 
-To create Azure Batch and Azure Storage accounts, first create a [resource group][az-learn-rg] in your preferred region.
+An Azure Resource Group is a logical container that holds related Azure resources such as virtual machines, storage accounts, databases, and more. It serves as a management boundary, allowing you to organize, deploy, monitor, and manage all the resources within it as a single entity. Resources in a Resource Group share the same lifecycle, meaning they can be deployed, updated, and deleted together. This grouping also enables easier access control, monitoring, and cost management, making it a foundational element in organizing and managing cloud infrastructure in Azure.
 
-:::note
-A resource group can be created while creating an Azure Storage Account or Azure Batch account.
-:::
+### Service Principal
+
+An Azure Service Principal is an identity created for use with applications, hosted services, or automated tools to access Azure resources. It acts like a "user identity" with a specific set of permissions assigned to it. Seqera Platform can use an Azure Service Principal to authenticate and authorize access to Azure Batch for job execution and Azure Storage for data management. By assigning the necessary roles to the Service Principal, Seqera can securely interact with these Azure services, ensuring that only authorized operations are performed during pipeline execution.
 
 ### Regions
 
-Azure resources can operate across regions, but this incurs additional costs and security requirements. It is recommended to place all resources in the same region. See the [Azure product page on data residency][az-data-residency] for more information.
+Azure regions are distinct geographic areas that contain multiple data centers, strategically located around the world, to provide high availability, fault tolerance, and low latency for cloud services. Each region offers a wide range of Azure services, and by choosing a specific region, users can optimize performance, ensure data residency compliance, and meet regulatory requirements. Azure regions also enable redundancy and disaster recovery options by allowing resources to be replicated across different regions, enhancing the resilience of applications and data.
 
 ## Resource group
 
 A resource group in Azure is a unit of related resources in Azure. As a rule of thumb, resources that have a similar lifecycle should be within the same resource group. You can delete a resource group and all associated components together. We recommend placing all platform compute resources in the same resource group, but this is not necessary.
 
 ### Create a resource group
+
+An Azure Batch and Azure Storage account need to be linked to a resource group in Azure, so it is necessary to create one.
+
+:::note
+A resource group can be created while creating an Azure Storage Account or Azure Batch account.
+:::
 
 1. Log in to your Azure account, go to the [Create Resource group][az-create-rg] page, and select **Create new resource group**.
 2. Enter a name for the resource group, e.g., _towerrg_.
@@ -116,6 +122,36 @@ After you have created a resource group and storage account, create a [Batch acc
     - **Batch accounts per region per subscription**: Set this to the number of Azure Batch accounts per region per subscription. Only one is required.
     - **Spot/low-priority vCPUs**: Platform does not support spot or low-priority machines when using Forge, so when using Forge this number can be zero. When manually setting up a pool, select an appropriate number of concurrent vCPUs here.
     - **Total Dedicated vCPUs per VM series**: See the Azure documentation for [virtual machine sizes][az-vm-sizes] to help determine the machine size you need. We recommend the latest version of the ED series available in your region as a cost-effective and appropriately-sized machine for running Nextflow. However, you will need to select alternative machine series that have additional requirements, such as those with additional GPUs or faster storage. Increase the quota by the number of required concurrent CPUs. In Azure, machines are charged per cpu minute so there is no additional cost for a higher number.
+
+### Credentials
+
+There are two Azure credential options available, primary Access Keys and a Service Principal. Primary access keys are simple to use but provide full access to the storage and batch account. Furthermore there can only be two per account so they are a single point of failure. A Service Principal provides an account which can be granted access to the Azure Batch and Storage resources, providing role based access which can be precisely controlled. Furthermore, some features of Azure Batch are only available to a Service Principal instead of primary access keys.
+
+:::note
+The two Azure Credentials types follow entirely different authenetication methods. You can add more than one credential to a workspace but only one can be used at a time. While they can be used concurrently they are not cross compatible and access granted by one will not be conferred to another. 
+:::
+
+#### Access Keys
+
+1. Navigate to the Azure Portal and sign in.
+2. Locate the Azure Batch account and select "Keys" under "Account management". Here you will see the Primary and Secondary keys. Copy one of the keys and save it in a secure location to be used later.
+3. Locate the Azure Storage account and under the "Security and Networking" section select "Access keys". Here you will see Key1 and Key2 options. Copy one of them and save it to a secure location to be used later. Be sure to delete them after saving them in Seqera Platform.
+4. On Seqera Platform, go to your workspace and select add a new credential and select type "Azure Credentials"
+5. Enter a name for the credentials, e.g., _Azure Credentials_.
+6. Add the **Batch account** and **Blob Storage** account names and access keys.
+
+#### Service Princiapl
+
+1. In the Azure Portal, navigate to "Microsoft Entra ID" and under "App registrations" click "New registration". See [Azure documentation](https://learn.microsoft.com/en-us/entra/identity-platform/howto-create-service-principal-portal) for more details.
+2. Provide a name for the application. The application will have a service principal automatically associated with it.
+3. We now need to assign roles to the Service Prinicipal. Go to the Azure Storage account and under "Access Control (IAM)", click "Add role assignment".
+4. Choose the roles "Storage Blob Data Reader" and "Storage Blob Data Contributor", then select "Members", "Select Members" and and search for your newly created Service Principal and assign the role.
+5. Repeat the same process for the Azure Batch account but with the role "Azure Batch Contributor".
+6. Seqera Platform will need credentials to authenticate as the Service Principal. Navigate to the app registration again, on the "Overview" page save the "Application (client) ID" value to be used on Seqera Platform.
+7. From there, click "Certificates & secrets". Click "New client secret". A new secret will be created containing a value and secret ID. Save both of these somewhere secure to be used in Seqera Platform. Be sure to delete them after saving them in Seqera Platform.
+4. On Seqera Platform, go to your workspace and select add a new credential and select type "Azure Credentials" then select the "Service Prinicipal" tab.
+5. Enter a name for the credentials, e.g., _Azure Credentials_.
+6. Add the Application ID, the Secret ID, Secret, **Batch account** and **Blob Storage** account names to the relevant fields.
 
 ### Compute environment
 
