@@ -42,10 +42,10 @@ A resource group can be created while creating an Azure Storage Account or Azure
 :::
 
 1. Log in to your Azure account, go to the [Create Resource group][az-create-rg] page, and select **Create new resource group**.
-2. Enter a name for the resource group, e.g., _towerrg_.
-3. Choose the preferred region.
-4. Select **Review and Create** to proceed.
-5. Select **Create**.
+1. Enter a name for the resource group, e.g., _towerrg_.
+1. Choose the preferred region.
+1. Select **Review and Create** to proceed.
+1. Select **Create**.
 
 ### Storage account
 
@@ -59,24 +59,24 @@ After creating a resource group, set up an [Azure storage account][az-learn-stor
     If you haven't created a resource group, you can do so now.
     :::
 
-2. Enter a name for the storage account (e.g., _towerrgstorage_).
-3. Choose the preferred region (same as the Batch account).
-4. The platform supports any performance or redundancy settings — select the most appropriate settings for your use case.
-5. Select **Next: Advanced**.
-6. Enable _storage account key access_.
-7. Select **Next: Networking**.
+1. Enter a name for the storage account (e.g., _towerrgstorage_).
+1. Choose the preferred region (same as the Batch account).
+1. The platform supports any performance or redundancy settings — select the most appropriate settings for your use case.
+1. Select **Next: Advanced**.
+1. Enable _storage account key access_.
+1. Select **Next: Networking**.
    - Enable public access from all networks. You can enable public access from selected virtual networks and IP addresses, but you will be unable to use Forge to create compute resources. Disabling public access is not supported.
-8. Select **Data protection**.
+1. Select **Data protection**.
     - Configure appropriate settings. All settings are supported by the platform.
-9. Select **Encryption**.
+1. Select **Encryption**.
     - Only Microsoft-managed keys (MMK) are supported.
-10. In **tags**, add any required tags for the storage account.
-11. Select **Review and Create**.
-12. Select **Create** to create the Azure Storage account.
-13. You will need at least one blob storage container to act as a working directory for Nextflow.
-14. Go to your new storage account and select **+ Container** to create a new Blob storage container. A new container dialogue will open. Enter a suitable name, e.g., _towerrgstorage-container_.
-15. Go to the **Access Keys** section of your new storage account (_towerrgstorage_ in this example).
-16. Store the access keys for your Azure Storage account, to be used when you create a Seqera compute environment.
+1. In **tags**, add any required tags for the storage account.
+1. Select **Review and Create**.
+1. Select **Create** to create the Azure Storage account.
+1. You will need at least one blob storage container to act as a working directory for Nextflow.
+1. Go to your new storage account and select **+ Container** to create a new Blob storage container. A new container dialogue will open. Enter a suitable name, e.g., _towerrgstorage-container_.
+1. Go to the **Access Keys** section of your new storage account (_towerrgstorage_ in this example).
+1. Store the access keys for your Azure Storage account, to be used when you create a Seqera compute environment.
 
 :::caution
 Blob container storage credentials are associated with the Batch pool configuration. Avoid changing these credentials in your Seqera instance after you have created the compute environment.
@@ -89,26 +89,26 @@ After you have created a resource group and storage account, create a [Batch acc
 ### Create a Batch account
 
 1. Log in to your Azure account and select **Create a batch account** on [this page][az-create-batch].
-2. Select the existing resource group or create a new one.
-3. Enter a name for the Batch account, e.g., _towerrgbatch_.
-4. Choose the preferred region (same as the storage account).
-5. Select **Advanced**.
-6. For _Pool allocation mode_, select Batch service.
-7. For _Authentication mode_, ensure _Shared Key_ is selected.
-8. Select **Networking**. Ensure networking access is sufficient for the platform and any additional required resources.
-9. In **tags**, add any required tags for the Batch account.
-10. Select **Review and Create**.
-11. Select **Create**.
-12. Go to your new Batch account, then select **Access Keys**.
-13. Store the access keys for your Azure Batch account, to be used when you create a Seqera compute environment.
+1. Select the existing resource group or create a new one.
+1. Enter a name for the Batch account, e.g., _towerrgbatch_.
+1. Choose the preferred region (same as the storage account).
+1. Select **Advanced**.
+1. For _Pool allocation mode_, select Batch service.
+1. For _Authentication mode_, ensure _Shared Key_ is selected.
+1. Select **Networking**. Ensure networking access is sufficient for the platform and any additional required resources.
+1. In **tags**, add any required tags for the Batch account.
+1. Select **Review and Create**.
+1. Select **Create**.
+1. Go to your new Batch account, then select **Access Keys**.
+1. Store the access keys for your Azure Batch account, to be used when you create a Seqera compute environment.
 
     :::caution
     A newly-created Azure Batch account may not be entitled to create virtual machines without making a service request to Azure.
     See [Azure Batch service quotas and limits][az-batch-quotas] for more information.
     :::
 
-14. Select the **+ Quotas** tab of the Azure Batch account to check and increase existing quotas if necessary.
-15. Select **+ Request quota increase** and add the quantity of resources you require. Here is a brief guideline:
+1. Select the **+ Quotas** tab of the Azure Batch account to check and increase existing quotas if necessary.
+1. Select **+ Request quota increase** and add the quantity of resources you require. Here is a brief guideline:
 
     - **Active jobs and schedules**: Each Nextflow process will require an active Azure Batch job per pipeline while running, so increase this number to a high level. See [here][az-learn-jobs] to learn more about jobs in Azure Batch.
     - **Pools**: Each platform compute environment requires one Azure Batch pool. Each pool is composed of multiple machines of one virtual machine size.
@@ -132,24 +132,24 @@ The two Azure credential types use entirely different authentication methods. Yo
 #### Access Keys
 
 1. Navigate to the Azure Portal and sign in.
-2. Locate the Azure Batch account and select "Keys" under "Account management." Here, you will see the Primary and Secondary keys. Copy one of the keys and save it in a secure location for later use.
-3. Locate the Azure Storage account and, under the "Security and Networking" section, select "Access keys". Here, you will see Key1 and Key2 options. Copy one of them and save it in a secure location for later use. Be sure to delete them after saving them in Seqera Platform.
-4. In Seqera Platform, go to your workspace, select "Add a new credential," and choose the "Azure Credentials" type.
-5. Enter a name for the credentials, such as _Azure Credentials_.
-6. Add the **Batch account** and **Blob Storage** account names and access keys.
+1. Locate the Azure Batch account and select "Keys" under "Account management." Here, you will see the Primary and Secondary keys. Copy one of the keys and save it in a secure location for later use.
+1. Locate the Azure Storage account and, under the "Security and Networking" section, select "Access keys". Here, you will see Key1 and Key2 options. Copy one of them and save it in a secure location for later use. Be sure to delete them after saving them in Seqera Platform.
+1. In Seqera Platform, go to your workspace, select "Add a new credential," and choose the "Azure Credentials" type.
+1. Enter a name for the credentials, such as _Azure Credentials_.
+1. Add the **Batch account** and **Blob Storage** account names and access keys.
 
 #### Service Principal
 
 1. In the Azure Portal, navigate to "Microsoft Entra ID," and under "App registrations," click "New registration." See the [Azure documentation][az-create-sp] for more details.
-2. Provide a name for the application. The application will automatically have a Service Principal associated with it.
-3. Assign roles to the Service Principal. Go to the Azure Storage account, and under "Access Control (IAM)," click "Add role assignment."
-4. Choose the roles "Storage Blob Data Reader" and "Storage Blob Data Contributor", then select "Members", click "Select Members", search for your newly created Service Principal, and assign the role.
-5. Repeat the same process for the Azure Batch account, but use the "Azure Batch Contributor" role.
-6. Seqera Platform will need credentials to authenticate as the Service Principal. Navigate back to the app registration, and on the "Overview" page, save the "Application (client) ID" value for use in Seqera Platform.
-7. Then, click "Certificates & secrets" and select "New client secret." A new secret will be created containing a value and secret ID. Save both of these securely for use in Seqera Platform. Be sure to delete them after saving them in Seqera Platform.
-8. In Seqera Platform, go to your workspace, select "Add a new credential," choose the "Azure Credentials" type, then select the "Service Principal" tab.
-9. Enter a name for the credentials, such as _Azure Credentials_.
-10. Add the Application ID, Secret ID, Secret, **Batch account**, and **Blob Storage** account names to the relevant fields.
+1. Provide a name for the application. The application will automatically have a Service Principal associated with it.
+1. Assign roles to the Service Principal. Go to the Azure Storage account, and under "Access Control (IAM)," click "Add role assignment."
+1. Choose the roles "Storage Blob Data Reader" and "Storage Blob Data Contributor", then select "Members", click "Select Members", search for your newly created Service Principal, and assign the role.
+1. Repeat the same process for the Azure Batch account, but use the "Azure Batch Contributor" role.
+1. Seqera Platform will need credentials to authenticate as the Service Principal. Navigate back to the app registration, and on the "Overview" page, save the "Application (client) ID" value for use in Seqera Platform.
+1. Then, click "Certificates & secrets" and select "New client secret." A new secret will be created containing a value and secret ID. Save both of these securely for use in Seqera Platform. Be sure to delete them after saving them in Seqera Platform.
+1. In Seqera Platform, go to your workspace, select "Add a new credential," choose the "Azure Credentials" type, then select the "Service Principal" tab.
+1. Enter a name for the credentials, such as _Azure Credentials_.
+1. Add the Application ID, Secret ID, Secret, **Batch account**, and **Blob Storage** account names to the relevant fields.
 
 ## Seqera Platform
 
@@ -167,33 +167,33 @@ Batch Forge automatically creates resources that you may be charged for in your 
 Create a Batch Forge Azure Batch compute environment:
 
 1. In a workspace, select **Compute Environments > New Environment**.
-2. Enter a descriptive name, e.g., _Azure Batch (east-us)_.
-3. Select **Azure Batch** as the target platform.
-4. Choose existing Azure credentials or add a new credential.
-5. Select a **Region**, e.g., _eastus_.
-6. In the **Pipeline work directory** field, enter the Azure blob container created previously, e.g., `az://towerrgstorage-container/work`.
+1. Enter a descriptive name, e.g., _Azure Batch (east-us)_.
+1. Select **Azure Batch** as the target platform.
+1. Choose existing Azure credentials or add a new credential.
+1. Select a **Region**, e.g., _eastus_.
+1. In the **Pipeline work directory** field, enter the Azure blob container created previously, e.g., `az://towerrgstorage-container/work`.
 
     :::note
     When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad.mdx#launch-form) form.
     :::
 
-7. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers][wave-docs] for more information.
-8. Select **Enable Fusion v2** to allow access to your Azure Blob Storage data via the [Fusion v2][nf-fusion-docs] virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled. See [Fusion file system](../supported_software/fusion/fusion.mdx) for configuration details.
-9. Set the **Config mode** to **Batch Forge**.
-10. Enter the default **VMs type**, depending on your quota limits set previously. The default is _Standard_D4_v3_.
-11. Enter the **VMs count**. If autoscaling is enabled (default), this is the maximum number of VMs you wish the pool to scale up to. If autoscaling is disabled, this is the fixed number of virtual machines in the pool.
-12. Enable **Autoscale** to scale up and down automatically, based on the number of pipeline tasks. The number of VMs will vary from **0** to **VMs count**.
-13. Enable **Dispose resources** for Seqera to automatically delete the Batch pool if the compute environment is deleted on the platform.
-14. Select or create [**Container registry credentials**](../credentials/azure_registry_credentials.mdx) to authenticate a registry (used by the [Wave containers](https://www.nextflow.io/docs/latest/wave.html) service). It is recommended to use an [Azure Container registry](https://azure.microsoft.com/en-gb/products/container-registry) within the same region for maximum performance.
-15. Apply [**Resource labels**](../resource-labels/overview.mdx). This will populate the **Metadata** fields of the Azure Batch pool.
-16. Expand **Staging options** to include optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
-17. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
-18. Configure any advanced options you need:
+1. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers][wave-docs] for more information.
+1. Select **Enable Fusion v2** to allow access to your Azure Blob Storage data via the [Fusion v2][nf-fusion-docs] virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled. See [Fusion file system](../supported_software/fusion/fusion.mdx) for configuration details.
+1. Set the **Config mode** to **Batch Forge**.
+1. Enter the default **VMs type**, depending on your quota limits set previously. The default is _Standard_D4_v3_.
+1. Enter the **VMs count**. If autoscaling is enabled (default), this is the maximum number of VMs you wish the pool to scale up to. If autoscaling is disabled, this is the fixed number of virtual machines in the pool.
+1. Enable **Autoscale** to scale up and down automatically, based on the number of pipeline tasks. The number of VMs will vary from **0** to **VMs count**.
+1. Enable **Dispose resources** for Seqera to automatically delete the Batch pool if the compute environment is deleted on the platform.
+1. Select or create [**Container registry credentials**](../credentials/azure_registry_credentials.mdx) to authenticate a registry (used by the [Wave containers](https://www.nextflow.io/docs/latest/wave.html) service). It is recommended to use an [Azure Container registry](https://azure.microsoft.com/en-gb/products/container-registry) within the same region for maximum performance.
+1. Apply [**Resource labels**](../resource-labels/overview.mdx). This will populate the **Metadata** fields of the Azure Batch pool.
+1. Expand **Staging options** to include optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
+1. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
+1. Configure any advanced options you need:
 
     - Use **Jobs cleanup policy** to control how Nextflow process jobs are deleted on completion. Active jobs consume the quota of the Azure Batch account. By default, jobs are terminated by Nextflow and removed from the quota when all tasks succesfully complete. If set to _Always_, all jobs are deleted by Nextflow after pipeline completion. If set to _Never_, jobs are never deleted. If set to _On success_, successful tasks are removed but failed tasks will be left for debugging purposes.
     - Use **Token duration** to control the duration of the SAS token generated by Nextflow. This must be as long as the longest period of time the pipeline will run.
 
-19. Select **Add** to finalize the compute environment setup. It will take a few seconds for all the resources to be created before the compute environment is ready to launch pipelines.
+1. Select **Add** to finalize the compute environment setup. It will take a few seconds for all the resources to be created before the compute environment is ready to launch pipelines.
 
 **See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in your Azure Batch compute environment.**
 
@@ -249,9 +249,9 @@ Nextflow can authenticate to Azure services using a managed identity. This metho
 When you use a manually configured compute environment with a managed identity attached to the Azure Batch Pool, Nextflow can use this managed identity for authentication. However, Platform still needs to use access keys to submit the initial task to Azure Batch to run Nextflow, which will then proceed with the managed identity for subsequent authentication.
 
 1. In Azure, create a user-assigned managed identity. See [Manage user-assigned managed identities](https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/how-manage-user-assigned-managed-identities) for detailed steps. After creation, record the Client ID of the managed identity.
-2. The user-assigned managed identity must have the necessary access roles for Nextflow. See [Required role assignments](https://www.nextflow.io/docs/latest/azure.html#required-role-assignments) for more information.
-3. Associate the user-assigned managed identity with the Azure Batch Pool. See [Set up managed identity in your batch pool](https://learn.microsoft.com/en-us/troubleshoot/azure/hpc/batch/use-managed-identities-azure-batch-account-pool#set-up-managed-identity-in-your-batch-pool) for more information.
-4. When you set up the Platform compute environment, select the Azure Batch pool by name and enter the managed identity client ID in the specified field as instructed above.
+1. The user-assigned managed identity must have the necessary access roles for Nextflow. See [Required role assignments](https://www.nextflow.io/docs/latest/azure.html#required-role-assignments) for more information.
+1. Associate the user-assigned managed identity with the Azure Batch Pool. See [Set up managed identity in your batch pool](https://learn.microsoft.com/en-us/troubleshoot/azure/hpc/batch/use-managed-identities-azure-batch-account-pool#set-up-managed-identity-in-your-batch-pool) for more information.
+1. When you set up the Platform compute environment, select the Azure Batch pool by name and enter the managed identity client ID in the specified field as instructed above.
 
 When you submit a pipeline to this compute environment, Nextflow will authenticate using the managed identity associated with the Azure Batch node it runs on, rather than relying on access keys.
 
