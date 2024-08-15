@@ -1,0 +1,549 @@
+---
+title: "Configuration overview"
+description: Overview of Seqera configuration options
+date: "21 Apr 2023"
+tags: [configuration]
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+:::note
+Nextflow Tower Enterprise is now Seqera Platform Enterprise. Existing configuration parameters, configuration files, and API endpoints that include _Tower_ currently remain unchanged.
+:::
+
+Set Seqera configuration values using environment variables, a `tower.yml` configuration file, or individual values stored in AWS Parameter Store. Sensitive values such as database passwords should be stored securely (e.g., as SecureString type parameters in AWS Parameter Store).
+
+<Tabs>
+<TabItem value="Environment variables" label="Environment variables" default>
+
+    Declare environment variables in a [tower.env](../_templates/docker/tower.env) file. For example:
+
+    ```bash
+    TOWER_CONTACT_EMAIL=hello@foo.com
+    TOWER_SMTP_HOST=your.smtphost.com
+    ```
+
+    See the `Environment variables` option in each section below.
+
+</TabItem>
+<TabItem value="tower.yml" label="tower.yml" default>
+
+    Declare YAML configuration values in a [tower.yml](../_templates/docker/tower.yml) file. For example:
+
+    ```yml
+    mail:
+        from: "hello@foo.com"
+        smtp:
+            host: "your.smtphost.com"
+    ```
+
+    See the `tower.yml` option in each section below. YAML configuration keys on this page are listed in "dot" notation, i.e., the SMTP host value in the snippet above is represented as `mail.smtp.host` in the tables that follow.
+
+    Don't declare duplicate keys in your `tower.yml` configuration file. Platform will only enforce the last instance of configuration keys that are defined more than once, for example:
+
+    ```yaml
+    # This block will not be enforced due to the duplicate `tower` key below
+    tower:
+        trustedEmails:
+            - user@example.com
+
+    # This block will be enforced because it's defined last
+    tower:
+        auth:
+            oidc:
+                - "*@foo.com"
+    ```
+
+</TabItem>
+<TabItem value="AWS Parameter Store" label="AWS Parameter Store" default>
+
+AWS Parameter Store configuration is only supported for AWS deployments.
+
+Create parameters in the AWS Parameter Store individually, using the format
+`/config/<application_name>/<cfg_path> : <cfg_value>`. For example:
+
+```bash
+/config/tower-app/mail.smtp.user : <your_username>
+/config/tower-app/mail.smtp.password : <your_password>
+```
+
+:::caution
+The default application name is `tower-app`. To deploy multiple instances from the same Seqera Enterprise account, set a custom application name for each instance with the `micronaut.application.name` value in your `tower.yml` configuration file.
+:::
+
+Sensitive values (such as database passwords) should be SecureString type parameters. See [AWS Parameter Store](./aws_parameter_store.mdx) for detailed instructions.
+
+</TabItem>
+</Tabs>
+
+## Configuration values not supported in tower.yml or AWS Parameter Store
+
+Due to the order of operations when deploying Seqera Enterprise, some configuration values can only be retrieved from **environment variables** (`tower.env`). The following configuration values are not supported for `tower.yml` or AWS Parameter Store configuration and must be set as environment variables:
+
+<Tabs>
+<TabItem value="Environment variables" label="Environment variables" default>
+
+::table{file=configtables/req_env_vars.yml}
+
+</TabItem>
+</Tabs>
+
+## Basic configuration
+
+Basic configuration options such as the Seqera instance server URL, application name, and license key.
+
+<Tabs>
+<TabItem value="Environment variables" label="Environment variables" default>
+
+::table{file=configtables/generic_config_env.yml}
+
+</TabItem>
+<TabItem value="tower.yml" label="tower.yml" default>
+
+YAML configuration keys in this table are listed in "dot" notation, i.e., a nested value:
+
+```yaml
+...
+mail:
+    smtp:
+        host: "your.smtphost.com"
+...
+```
+
+is represented as `mail.smtp.host`.
+
+::table{file=configtables/generic_config_yml.yml}
+
+</TabItem>
+<TabItem value="AWS Parameter Store" label="AWS Parameter Store" default>
+
+AWS Parameter Store configuration is only supported for AWS deployments.
+
+Replace `{prefix}` in each configuration path with `/config/<application_name>`, where `application_name` is `tower` or your custom application name. See [AWS Parameter Store](./aws_parameter_store.mdx).
+
+::table{file=configtables/generic_config_aws.yml}
+
+</TabItem>
+</Tabs>
+
+## Seqera and Redis databases
+
+Configuration values that control Seqera's interaction with databases and Redis instances. `TOWER_DB_USER`, `TOWER_DB_PASSWORD`, and `TOWER_DB_URL` must be specified using environment variables during initial Seqera Enterprise deployment in a new environment. A new installation will fail if DB values are only defined in `tower.yml` or the AWS Parameter Store. Once the database has been created, these values can be added to `tower.yml` or [AWS Parameter Store](./aws_parameter_store.mdx) entries and removed from your environment variables.
+
+:::note
+From Seqera Enterprise version 23.3, Redis version 7 is officially supported. Follow your cloud provider specifications to upgrade your instance.
+:::
+
+If you use a database **other than** the provided `db` container, you must create a user and database schema manually.
+
+<Tabs>
+<TabItem value="MySQL DB schema creation" label="MySQL DB schema creation" default>
+
+```SQL
+CREATE DATABASE tower;
+ALTER DATABASE tower CHARACTER SET utf8 COLLATE utf8_bin;
+
+CREATE USER 'tower' IDENTIFIED BY <password>;
+GRANT ALL PRIVILEGES ON tower.* TO tower@'%' ;
+```
+
+</TabItem>
+<TabItem value="MariaDB schema creation" label="MariaDB schema creation" default>
+
+```SQL
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, REFERENCES, INDEX, ALTER, CREATE TEMPORARY TABLES, LOCK TABLES, EXECUTE, CREATE VIEW, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, EVENT, TRIGGER on tower.* TO tower@'%';
+```
+
+</TabItem>
+</Tabs>
+
+### Managed Redis services
+
+Seqera supports managed Redis services such as [Amazon ElastiCache](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/WhatIs.html), [Azure Cache for Redis](https://learn.microsoft.com/en-gb/azure/azure-cache-for-redis/cache-overview), or [Google Memorystore](https://cloud.google.com/memorystore/docs/redis).
+
+When using a managed Redis service, you must specify the service IP address or DNS name for the `TOWER_REDIS_URL` as described in the following sections.
+
+<Tabs>
+<TabItem value="AWS ElastiCache" label="AWS ElastiCache" default>
+
+- Use a single-node cluster, as multi-node clusters are not supported
+- Use an instance with at least 6GB capacity ([cache.m4.large](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html) or greater)
+- Specify your private ElastiCache instance in the Seqera environment variables:
+
+```bash
+TOWER_REDIS_URL=redis://<redis private IP>:6379
+```
+
+</TabItem>
+<TabItem value="Azure Cache for Redis" label="Azure Cache for Redis" default>
+
+- Use a single-node cluster, as multi-node clusters are not supported
+- Use an instance with at least 6GB capacity ([C3](https://azure.microsoft.com/en-gb/pricing/details/cache/) or greater)
+- Specify your private Azure Cache for Redis instance in the Seqera environment variables:
+
+```bash
+TOWER_REDIS_URL=redis://<redis private IP>:6379
+```
+
+</TabItem>
+<TabItem value="Google Memorystore" label="Google Memorystore" default>
+
+- Use a single-node cluster, as multi-node clusters are not supported
+- Use an instance with at least 6GB capacity ([M2](https://cloud.google.com/memorystore/docs/redis/pricing#instance_pricing) or greater)
+- Specify your private Memorystore instance in the Seqera environment variables:
+
+```bash
+TOWER_REDIS_URL=redis://<redis private IP>:6379
+```
+
+</TabItem>
+<TabItem value="Self-hosted Redis" label="Self-hosted Redis" default>
+
+If you run the Redis service as a container in your Docker or Kubernetes installation, specify the service name as part of the `TOWER_REDIS_URL`:
+
+  ```bash
+  TOWER_REDIS_URL=redis://redis:6379
+  ```
+
+</TabItem>
+</Tabs>
+
+### Database and Redis manual configuration
+
+If the DB username and password variables are left empty when using [Docker Compose](../docker-compose.mdx), default `tower` database values are applied automatically. With [Kubernetes](../kubernetes.mdx) and custom DB deployments, `tower` values are not pre-filled.
+
+:::note
+We recommend using managed cloud database services for production deployments.
+:::
+
+<Tabs>
+<TabItem value="Environment variables" label="Environment variables" default>
+
+::table{file=configtables/db_env.yml}
+
+</TabItem>
+<TabItem value="tower.yml" label="tower.yml" default>
+
+`TOWER_DB_USER`, `TOWER_DB_PASSWORD`, and `TOWER_DB_URL` must be specified using **environment variables** during initial Seqera Enterprise deployment in a new environment.
+
+YAML configuration keys in this table are listed in "dot" notation, i.e., a nested value:
+
+```yaml
+...
+mail:
+    smtp:
+        host: "your.smtphost.com"
+...
+```
+
+is represented as `mail.smtp.host`.
+
+::table{file=configtables/db_yml.yml}
+
+</TabItem>
+<TabItem value="AWS Parameter Store" label="AWS Parameter Store" default>
+
+AWS Parameter Store configuration is only supported for AWS deployments.
+
+`TOWER_DB_USER`, `TOWER_DB_PASSWORD`, and `TOWER_DB_URL` must be specified using **environment variables** during initial Seqera Enterprise deployment in a new environment.
+
+Replace `{prefix}` in each configuration path with `/config/<application_name>`, where `application_name` is `tower` or your custom application name. See [AWS Parameter Store](./aws_parameter_store.mdx).
+
+::table{file=configtables/db_aws.yml}
+
+</TabItem>
+</Tabs>
+
+## Opt-in Seqera features
+
+Configuration values that enable opt-in Seqera features per instance or workspace.
+
+### Core features
+
+<Tabs>
+<TabItem value="Environment variables" label="Environment variables" default>
+
+::table{file=configtables/features_env.yml}
+
+</TabItem>
+</Tabs>
+
+### Data features
+
+Configuration values used by Seqera for Data Explorer.
+
+<Tabs>
+<TabItem value="Environment variables" label="Environment variables" default>
+
+::table{file=configtables/data_features_env.yml}
+
+</TabItem>
+<TabItem value="tower.yml" label="tower.yml" default>
+
+::table{file=configtables/data_features_yml.yml}
+
+</TabItem>
+</Tabs>
+
+## Cryptographic options
+
+Configuration values used by Seqera to encrypt your data.
+
+:::caution
+Do not modify your crypto secret key between starts. Changing this value will prevent the decryption of existing data.
+:::
+
+<Tabs>
+<TabItem value="Environment variables" label="Environment variables" default>
+
+::table{file=configtables/crypto_env.yml}
+
+</TabItem>
+<TabItem value="tower.yml" label="tower.yml" default>
+
+YAML configuration keys in this table are listed in "dot" notation, i.e., a nested value:
+
+```yaml
+...
+mail:
+    smtp:
+        host: "your.smtphost.com"
+...
+```
+
+is represented as `mail.smtp.host`.
+
+::table{file=configtables/crypto_yml.yml}
+
+</TabItem>
+<TabItem value="AWS Parameter Store" label="AWS Parameter Store" default>
+
+AWS Parameter Store configuration is only supported for AWS deployments.
+
+Replace `{prefix}` in each configuration path with `/config/<application_name>`, where `application_name` is `tower` or your custom application name. See [AWS Parameter Store](./aws_parameter_store.mdx).
+
+::table{file=configtables/crypto_aws.yml}
+
+</TabItem>
+</Tabs>
+
+## Compute environments
+
+Configuration values to enable computing platforms and customize Batch Forge resource naming.
+
+<Tabs>
+<TabItem value="Environment variables" label="Environment variables" default>
+
+::table{file=configtables/compute_env.yml}
+
+</TabItem>
+</Tabs>
+
+## Git integration
+
+Seqera Platform has built-in support for public and private Git repositories. Create [Git provider credentials](../../git/overview.mdx) to allow Seqera to interact with the following services:
+
+- [GitHub](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
+- [BitBucket](https://confluence.atlassian.com/bitbucketserver/personal-access-tokens-939515499.html)
+- [GitLab](https://gitlab.com/profile/personal_access_tokens)
+- [Gitea](https://docs.gitea.io/en-us/development/api-usage/#generating-and-listing-api-tokens)
+- [Azure Repos](https://learn.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate)
+
+:::caution
+Credentials configured in your SCM providers list override Git credentials in your (organization or personal) workspace.
+:::
+
+Public Git repositories can be accessed without authentication, but are often subject to [throttling](https://docs.github.com/en/rest/overview/resources-in-the-rest-api?apiVersion=2022-11-28#rate-limits-for-requests-from-personal-accounts). We recommend always adding Git credentials to your Seqera workspace, regardless of the repository type you use.
+
+<Tabs>
+<TabItem value="Environment variables" label="Environment variables" default>
+
+Credentials and other secrets must not be hard-coded in environment variables in production environments. Credentials added using the application UI are SHA256-encrypted before secure storage and not exposed by any Seqera API.
+
+::table{file=configtables/git_env.yml}
+
+</TabItem>
+<TabItem value="tower.yml" label="tower.yml" default>
+
+Credentials and other secrets must not be stored in plain text in production environments. Credentials added using the application UI are SHA256-encrypted before secure storage and not exposed by any Seqera API.
+
+YAML configuration keys in this table are listed in "dot" notation, i.e., a nested value:
+
+```yaml
+...
+mail:
+    smtp:
+        host: "your.smtphost.com"
+...
+```
+
+is represented as `mail.smtp.host`.
+
+::table{file=configtables/git_yml.yml}
+
+</TabItem>
+<TabItem value="AWS Parameter Store" label="AWS Parameter Store" default>
+
+AWS Parameter Store configuration is only supported for AWS deployments.
+
+Replace `{prefix}` in each configuration path with `/config/<application_name>`, where `application_name` is `tower` or your custom application name. See [AWS Parameter Store](./aws_parameter_store.mdx).
+
+::table{file=configtables/git_aws.yml}
+
+</TabItem>
+</Tabs>
+
+### Local repositories
+
+Seqera Enterprise can connect to workflows stored in local Git repositories. To do so, volume mount your local repository folder in your Seqera backend container. Then, update your `tower.yml`:
+
+```yml
+tower:
+  pipeline:
+    allow-local-repos:
+      - /path/to/repo
+```
+
+## Mail server
+
+Configure values for SMTP email service integration. Production SMTP hosts must use a TLS-protected connection. See [SSL/TLS](../configuration/ssl_tls.mdx).
+
+AWS deployments also support [Amazon Simple Email Service (SES)](https://aws.amazon.com/ses/).
+
+### SMTP service integration
+
+To use an SMTP gateway for mail service, set SMTP user and password values to `null`.
+
+:::caution
+Your organization's email security policy may prevent the `TOWER_CONTACT_EMAIL` address from receiving Seqera emails. If this occurs after successful SMTP configuration, you may need to configure `spf`, `dkim`, and `dmarc` records for your domain. Contact your IT support staff for further assistance.
+:::
+
+<Tabs>
+<TabItem value="Environment variables" label="Environment variables" default>
+
+::table{file=configtables/mail_server_env.yml}
+
+</TabItem>
+<TabItem value="tower.yml" label="tower.yml" default>
+
+YAML configuration keys in this table are listed in "dot" notation, i.e., a nested value:
+
+```yaml
+...
+mail:
+    smtp:
+        host: "your.smtphost.com"
+...
+```
+
+is represented as `mail.smtp.host`.
+
+::table{file=configtables/mail_server_yml.yml}
+
+</TabItem>
+<TabItem value="AWS Parameter Store" label="AWS Parameter Store" default>
+
+AWS Parameter Store configuration is only supported for AWS deployments.
+
+Replace `{prefix}` in each configuration path with `/config/<application_name>`, where `application_name` is `tower` or your custom application name. See [AWS Parameter Store](./aws_parameter_store.mdx).
+
+::table{file=configtables/mail_server_aws.yml}
+
+</TabItem>
+</Tabs>
+
+### AWS SES integration
+
+In AWS deployments, you can use AWS Simple Email Service (SES) instead of traditional SMTP for sending Seqera platform emails.
+
+:::note
+Simple Email Service (SES) is only supported in Seqera deployments on AWS.
+:::
+
+To configure AWS SES as your Seqera email service:
+
+1. Set `TOWER_ENABLE_AWS_SES=true` in your environment variables.
+2. Specify the email address used to send Seqera emails with one of the following:
+    - the `TOWER_CONTACT_EMAIL` environment variable
+    - a `mail.from` entry in `tower.yml`
+    - a `/config/<application_name>/mail/from` AWS Parameter Store entry
+3. The [AWS SES service](https://docs.aws.amazon.com/ses/index.html) must run in the same region as your Seqera instance.
+4. The [Seqera IAM role](../../compute-envs/aws-batch.mdx#iam) must include the `ses:SendRawEmail` permission.
+
+## Nextflow launch container
+
+:::caution
+Do not replace the [Seqera-provided default image](../../functionality_matrix/functionality_matrix.mdx) unless absolutely necessary.
+:::
+
+<Tabs>
+<TabItem value="Environment variables" label="Environment variables" default>
+
+| Environment Variable      | Description                                                                                                     | Value                              |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------- | ---------------------------------- |
+| `TOWER_LAUNCH_CONTAINER`  | The container image to run the Nextflow execution. This setting overrides the launch container selection for all organizations and workspaces in your account. | Example: `quay.io/seqeralabs/nf-launcher:j17-23.04.3` |
+
+</TabItem>
+</Tabs>
+
+## Seqera API
+
+Enable the API endpoints to host the Seqera Enterprise OpenAPI specification and use the [tw CLI](https://github.com/seqeralabs/tower-cli).
+
+<Tabs>
+<TabItem value="Environment variables" label="Environment variables" default>
+
+| Environment variable   | Description                                                                   | Value           |
+| ---------------------- | ----------------------------------------------------------------------------- | --------------- |
+| `TOWER_ENABLE_OPENAPI` | Enable the OpenAPI documentation endpoint, e.g., [cloud.seqera.io/openapi/index.html](https://cloud.seqera.io/openapi/index.html). | Default: `true` |
+
+</TabItem>
+</Tabs>
+
+## Custom navigation menu
+
+Modify your Seqera instance's navigation menu options.
+
+<Tabs>
+<TabItem value="tower.yml" label="tower.yml" default>
+
+```yaml
+tower:
+    navbar:
+    menus:
+        - label: "My Community"
+        url: "https://host.com/foo"
+        - label: "My Pipelines"
+        url: "https://other.com/bar"
+```
+
+</TabItem>
+</Tabs>
+
+## Logging
+
+Logging-related configuration values to aid troubleshooting. See [Audit logs](../../monitoring/audit-logs.mdx) for more information on application event logging.
+
+<Tabs>
+<TabItem value="Environment variables" label="Environment variables" default>
+
+::table{file=configtables/tower_logging.yml}
+
+</TabItem>
+<TabItem value="tower.yml" label="tower.yml" default>
+
+Set the logging detail level for various Seqera services. Logs for particular services may be requested by support to assist with troubleshooting an issue. Set the logging configuration parameter in your Seqera YAML configuration before attempting to reproduce your issue. The example below sets the detail level for application and database logging:
+
+`logger` is a root-level object in the `tower.yml` configuration file, i.e., it is not nested under `tower`.
+
+```yaml
+logger:
+  levels:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type: TRACE
+    io.seqera.tower: TRACE
+```
+
+</TabItem>
+</Tabs>

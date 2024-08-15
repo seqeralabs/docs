@@ -66,7 +66,7 @@ export default function Home(): JSX.Element {
               </div>
               <div>
                 <Card
-                  to="https://multiqc.info/docs/"
+                  to="/multiqc/"
                   title="MultiQC"
                   Img={MultiQC}
                   id="multiqc"
