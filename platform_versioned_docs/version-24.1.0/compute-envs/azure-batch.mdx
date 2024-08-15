@@ -31,10 +31,6 @@ An Azure Service Principal is an identity created for use with applications, hos
 
 Azure regions are distinct geographic areas that contain multiple data centers, strategically located around the world, to provide high availability, fault tolerance, and low latency for cloud services. Each region offers a wide range of Azure services, and by choosing a specific region, users can optimize performance, ensure data residency compliance, and meet regulatory requirements. Azure regions also enable redundancy and disaster recovery options by allowing resources to be replicated across different regions, enhancing the resilience of applications and data.
 
-## Resource group
-
-A resource group in Azure is a unit of related resources in Azure. As a rule of thumb, resources that have a similar lifecycle should be within the same resource group. You can delete a resource group and all associated components together. We recommend placing all platform compute resources in the same resource group, but this is not necessary.
-
 ### Create a resource group
 
 An Azure Batch and Azure Storage account need to be linked to a resource group in Azure, so it is necessary to create one.
@@ -125,33 +121,33 @@ After you have created a resource group and storage account, create a [Batch acc
 
 ### Credentials
 
-There are two Azure credential options available, primary Access Keys and a Service Principal. Primary access keys are simple to use but provide full access to the storage and batch account. Furthermore there can only be two per account so they are a single point of failure. A Service Principal provides an account which can be granted access to the Azure Batch and Storage resources, providing role based access which can be precisely controlled. Furthermore, some features of Azure Batch are only available to a Service Principal instead of primary access keys.
+There are two Azure credential options available: primary Access Keys and a Service Principal. Primary Access Keys are simple to use but provide full access to the storage and batch accounts. Additionally, there can only be two keys per account, making them a single point of failure. A Service Principal, on the other hand, provides an account that can be granted access to Azure Batch and Storage resources, allowing for role-based access control with more precise permissions. Moreover, some Azure Batch features are only available when using a Service Principal instead of primary Access Keys.
 
 :::note
-The two Azure Credentials types follow entirely different authenetication methods. You can add more than one credential to a workspace but only one can be used at a time. While they can be used concurrently they are not cross compatible and access granted by one will not be conferred to another. 
+The two Azure credential types use entirely different authentication methods. You can add more than one credential to a workspace, but only one can be used at a time. While they can be used concurrently, they are not cross-compatible, and access granted by one will not be shared with the other.
 :::
 
 #### Access Keys
 
 1. Navigate to the Azure Portal and sign in.
-2. Locate the Azure Batch account and select "Keys" under "Account management". Here you will see the Primary and Secondary keys. Copy one of the keys and save it in a secure location to be used later.
-3. Locate the Azure Storage account and under the "Security and Networking" section select "Access keys". Here you will see Key1 and Key2 options. Copy one of them and save it to a secure location to be used later. Be sure to delete them after saving them in Seqera Platform.
-4. On Seqera Platform, go to your workspace and select add a new credential and select type "Azure Credentials"
-5. Enter a name for the credentials, e.g., _Azure Credentials_.
+2. Locate the Azure Batch account and select "Keys" under "Account management." Here, you will see the Primary and Secondary keys. Copy one of the keys and save it in a secure location for later use.
+3. Locate the Azure Storage account and, under the "Security and Networking" section, select "Access keys". Here, you will see Key1 and Key2 options. Copy one of them and save it in a secure location for later use. Be sure to delete them after saving them in Seqera Platform.
+4. In Seqera Platform, go to your workspace, select "Add a new credential," and choose the "Azure Credentials" type.
+5. Enter a name for the credentials, such as _Azure Credentials_.
 6. Add the **Batch account** and **Blob Storage** account names and access keys.
 
-#### Service Princiapl
+#### Service Principal
 
-1. In the Azure Portal, navigate to "Microsoft Entra ID" and under "App registrations" click "New registration". See [Azure documentation](https://learn.microsoft.com/en-us/entra/identity-platform/howto-create-service-principal-portal) for more details.
-2. Provide a name for the application. The application will have a service principal automatically associated with it.
-3. We now need to assign roles to the Service Prinicipal. Go to the Azure Storage account and under "Access Control (IAM)", click "Add role assignment".
-4. Choose the roles "Storage Blob Data Reader" and "Storage Blob Data Contributor", then select "Members", "Select Members" and and search for your newly created Service Principal and assign the role.
-5. Repeat the same process for the Azure Batch account but with the role "Azure Batch Contributor".
-6. Seqera Platform will need credentials to authenticate as the Service Principal. Navigate to the app registration again, on the "Overview" page save the "Application (client) ID" value to be used on Seqera Platform.
-7. From there, click "Certificates & secrets". Click "New client secret". A new secret will be created containing a value and secret ID. Save both of these somewhere secure to be used in Seqera Platform. Be sure to delete them after saving them in Seqera Platform.
-4. On Seqera Platform, go to your workspace and select add a new credential and select type "Azure Credentials" then select the "Service Prinicipal" tab.
-5. Enter a name for the credentials, e.g., _Azure Credentials_.
-6. Add the Application ID, the Secret ID, Secret, **Batch account** and **Blob Storage** account names to the relevant fields.
+1. In the Azure Portal, navigate to "Microsoft Entra ID," and under "App registrations," click "New registration." See the [Azure documentation][az-create-sp] for more details.
+2. Provide a name for the application. The application will automatically have a Service Principal associated with it.
+3. Assign roles to the Service Principal. Go to the Azure Storage account, and under "Access Control (IAM)," click "Add role assignment."
+4. Choose the roles "Storage Blob Data Reader" and "Storage Blob Data Contributor", then select "Members", click "Select Members", search for your newly created Service Principal, and assign the role.
+5. Repeat the same process for the Azure Batch account, but use the "Azure Batch Contributor" role.
+6. Seqera Platform will need credentials to authenticate as the Service Principal. Navigate back to the app registration, and on the "Overview" page, save the "Application (client) ID" value for use in Seqera Platform.
+7. Then, click "Certificates & secrets" and select "New client secret." A new secret will be created containing a value and secret ID. Save both of these securely for use in Seqera Platform. Be sure to delete them after saving them in Seqera Platform.
+8. In Seqera Platform, go to your workspace, select "Add a new credential," choose the "Azure Credentials" type, then select the "Service Principal" tab.
+9. Enter a name for the credentials, such as _Azure Credentials_.
+10. Add the Application ID, Secret ID, Secret, **Batch account**, and **Blob Storage** account names to the relevant fields.
 
 ### Compute environment
 
@@ -262,6 +258,7 @@ Your Seqera compute environment uses resources that you may be charged for in yo
 [az-learn-jobs]: https://learn.microsoft.com/en-us/azure/batch/jobs-and-tasks
 [az-create-rg]: https://portal.azure.com/#create/Microsoft.ResourceGroup
 [az-create-storage]: https://portal.azure.com/#create/Microsoft.StorageAccount-ARM
+[az-create-sp](https://learn.microsoft.com/en-us/entra/identity-platform/howto-create-service-principal-portal)
 
 [wave-docs]: https://docs.seqera.io/wave
 [nf-fusion-docs]: https://www.nextflow.io/docs/latest/fusion.html
