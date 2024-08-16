@@ -105,16 +105,44 @@ Batch Forge automatically creates resources that you may be charged for in your 
     :::
 1. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers](https://www.nextflow.io/docs/latest/wave.html) for more information.
 1. Select **Enable Fusion v2** to allow access to your S3-hosted data via the [Fusion v2](https://www.nextflow.io/docs/latest/fusion.html) virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled. See [Fusion file system](../supported_software/fusion/fusion.mdx) for configuration details.
-    When using Fusion v2 without fast instance storage (see below), the following EBS settings are applied to optimize file system performance:
-    - EBS autoscaling is disabled
+
+    <details>
+    <summary>Use Fusion v2 file system</summary>
+
+    :::note
+    The compute recommendations below are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files and a total size of approximately 123.5 GB. 
+    :::
+
+    We recommend using Fusion with AWS NVMe instances (fast instance storage) as this delivers the fastest performance when compared to environments using only AWS EBS (Elastic Block Store).
+
+    1. For this configuration, use Seqera Platform version 23.1 or later.
+    1. Use an S3 bucket as the pipeline work directory.
+    1. Enable **Wave containers**, **Fusion v2**, and **fast instance storage**.
+    1. Select the **Batch Forge** config mode.
+    1. Fast instance storage requires an EC2 instance type that uses NVMe disks. Seqera validates the **Instance types** you specify under **Advanced options**:
+      - If unspecified, Seqera selects the following NVMe-based instance type families: `'c5ad', 'c5d', 'c6id', 'i3', 'i4i', 'm5ad', 'm5d', 'm6id', 'r5ad', 'r5d', 'r6id'`
+      - To specify an NVMe instance family type, select from the following:
+        - Intel: `'c5ad', 'c5d', 'c6id', 'dl1', 'f1', 'g4ad', 'g4dn', 'g5', 'i3', 'i3en', 'i4i', 'm5ad', 'm5d', 'm5dn', 'm6id', 'p3dn', 'p4d', 'p4de', 'r5ad', 'r5d', 'r5dn', 'r6id', 'x2idn', 'x2iedn', 'z1d'`
+        - ARM: `'c6gd', 'm6gd', 'r6gd', 'x2gd', 'im4gn', 'is4gen'`
+
+    :::note
+    When enabling fast instance storage, do not select the `optimal` instance type families (c4, m4, r4) for your compute environment as these are not NVMe-based instances. Specify the NVMe instance types listed above.
+    :::
+
+    :::tip
+    We recommend selecting 8xlarge or above for large and long-lived production pipelines. Dedicated networking ensures a guaranteed network speed service level compared with "burstable" instances. See [Instance network bandwidth](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-network-bandwidth.html) for more information.
+    :::
+
+    When using Fusion v2 without fast instance storage, the following EBS settings are applied to optimize file system performance:
+
     - EBS boot disk size is increased to 100 GB
     - EBS boot disk type GP3 is selected
     - EBS boot disk throughput is increased to 325 MB/s
+
     Extensive benchmarking of Fusion v2 has demonstrated that the increased cost associated with these settings are generally outweighed by the costs saved due to decreased run time.
-1. Select **Enable fast instance storage** to use NVMe instance storage to speed up I/O and disk access operations. NVMe instance storage requires Fusion v2 to be enabled.
-    :::note
-    Fast instance storage requires an EC2 instance type that uses NVMe disks. Seqera validates any instance types you specify (from **Advanced options > Instance types**) during compute environment creation. If you do not specify an instance type, a standard EC2 instance with NVMe disks will be used (`'c5ad', 'c5d', 'c6id', 'i3', 'i4i', 'm5ad', 'm5d', 'm6id', 'r5ad', 'r5d', 'r6id'` EC2 instance families) for fast storage.
-    :::
+
+    </details>
+
 1. Set the **Config mode** to **Batch Forge**.
 1. Select a **Provisioning model**. In most cases, this will be **Spot**. You can specify an allocation strategy and instance types under [**Advanced options**](#advanced-options). If advanced options are omitted, Seqera Platform 23.2 and later versions default to `BEST_FIT_PROGRESSIVE` for on-demand and `SPOT_CAPACITY_OPTIMIZED` for spot compute environments.
     :::note
@@ -154,7 +182,11 @@ Batch Forge automatically creates resources that you may be charged for in your 
     - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Configuration settings in this field override the same values in the pipeline Nextflow config file. 
 1. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
 1. Configure any advanced options described in the next section, as needed.
-1. Select **Create** to finalize the compute environment setup. It will take a few seconds for all the resources to be created before you are ready to [launch pipelines](../launch/launchpad.mdx).
+1. Select **Create** to finalize the compute environment setup. It will take a few seconds for all the AWS resources to be created before you are ready to launch pipelines.
+
+:::info 
+See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in your AWS Batch compute environment.
+:::
 
 ### Advanced options
 
@@ -200,8 +232,6 @@ Specify the **Allocation strategy** and indicate any preferred **Instance types*
   :::note
   Altering this file may result in a malfunctioning Batch Forge compute environment. See [Amazon ECS container agent configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) to learn more about the available parameters.
   :::
-
-See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in your AWS Batch compute environment.
 
 ## Manual
 
@@ -251,6 +281,45 @@ Your Seqera compute environment uses resources that you may be charged for in yo
     :::note
     When you specify an S3 bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. Seqera adds a `cloudcache` block to the Nextflow configuration file for all runs executed with this compute environment. This block includes the path to a `cloudcache` folder in your work directory, e.g., `s3://seqera-bucket/cloudcache/.cache`. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad.mdx#launch-form) form.
     :::
+1. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers](https://www.nextflow.io/docs/latest/wave.html) for more information.
+1. Select **Enable Fusion v2** to allow access to your S3-hosted data via the [Fusion v2](https://www.nextflow.io/docs/latest/fusion.html) virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled. See [Fusion file system](../supported_software/fusion/fusion.mdx) for configuration details.
+
+    <details>
+    <summary>Use Fusion v2 file system</summary>
+
+    :::note
+    The compute recommendations below are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files and a total size of approximately 123.5 GB. 
+    :::
+
+    We recommend using Fusion with AWS NVMe instances (fast instance storage) as this delivers the fastest performance when compared to environments using only AWS EBS (Elastic Block Store).
+
+    1. For this configuration, use Seqera Platform version 23.1 or later.
+    1. Use an S3 bucket as the pipeline work directory.
+    1. Enable **Wave containers**, **Fusion v2**, and **fast instance storage**.
+    1. Fast instance storage requires an EC2 instance type that uses NVMe disks. Seqera validates the **Instance types** you specify under **Advanced options**:
+      - If unspecified, Seqera selects the following NVMe-based instance type families: `'c5ad', 'c5d', 'c6id', 'i3', 'i4i', 'm5ad', 'm5d', 'm6id', 'r5ad', 'r5d', 'r6id'`
+      - To specify an NVMe instance family type, select from the following:
+        - Intel: `'c5ad', 'c5d', 'c6id', 'dl1', 'f1', 'g4ad', 'g4dn', 'g5', 'i3', 'i3en', 'i4i', 'm5ad', 'm5d', 'm5dn', 'm6id', 'p3dn', 'p4d', 'p4de', 'r5ad', 'r5d', 'r5dn', 'r6id', 'x2idn', 'x2iedn', 'z1d'`
+        - ARM: `'c6gd', 'm6gd', 'r6gd', 'x2gd', 'im4gn', 'is4gen'`
+
+    :::note
+    When enabling fast instance storage, do not select the `optimal` instance type families (c4, m4, r4) for your compute environment as these are not NVMe-based instances. Specify the NVMe instance types listed above.
+    :::
+
+    :::tip
+    We recommend selecting 8xlarge or above for large and long-lived production pipelines. Dedicated networking ensures a guaranteed network speed service level compared with "burstable" instances. See [Instance network bandwidth](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-network-bandwidth.html) for more information.
+    :::
+
+    When using Fusion v2 without fast instance storage, the following EBS settings are applied to optimize file system performance:
+
+    - EBS boot disk size is increased to 100 GB
+    - EBS boot disk type GP3 is selected
+    - EBS boot disk throughput is increased to 325 MB/s
+
+    Extensive benchmarking of Fusion v2 has demonstrated that the increased cost associated with these settings are generally outweighed by the costs saved due to decreased run time.
+
+    </details>
+
 1. Set the **Config mode** to **Manual**.
 1. Enter the **Head queue**, which is the name of the AWS Batch queue that the Nextflow main job will run.
 1. Enter the **Compute queue**, which is the name of the AWS Batch queue where tasks will be submitted.
@@ -261,6 +330,10 @@ Your Seqera compute environment uses resources that you may be charged for in yo
 1. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
 1. Configure any advanced options described in the next section, as needed.
 1. Select **Create** to finalize the compute environment setup.
+
+:::info
+See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in your AWS Batch compute environment.
+:::
 
 ### Advanced options
 
@@ -273,5 +346,3 @@ Seqera Platform compute environments for AWS Batch include advanced options to c
 - Add an execution role ARN to the **Batch execution role** field to grant permissions to make API calls on your behalf to the ECS container used by Batch. This is required if the pipeline launched with this compute environment needs access to the secrets stored in this workspace. This field can be ignored if you are not using secrets.
 - Use **AWS CLI tool path** to specify the location of the `aws` CLI.
 - Specify a **CloudWatch Log group** for the `awslogs` driver to stream the logs entry to an existing Log group in Cloudwatch.
-
-See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in your AWS Batch compute environment.

@@ -156,29 +156,33 @@ Select **Enable Wave containers** to facilitate access to private container repo
 
 Select **Enable Fusion v2** to allow access to your Google Cloud Storage data via the [Fusion v2][fusion-docs] virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled. See [Fusion file system][platform-fusion-docs] for configuration details.
 
-    <details>
-    <summary>Use Fusion v2</summary>
+<details>
+  <summary>Use Fusion v2</summary>
 
-    1. Use Seqera Platform version 23.1 or later.
-    1. Use a Google Cloud Storage bucket as the pipeline work directory.
-    1. Enable **Wave containers** and **Fusion v2**.
-    1. Specify suitable virtual machine types and local storage settings, or accept the default machine settings listed below. Seqera benchmark testing results recommend a `n2-highmem-16-lssd` VM or larger for production use. Benchmarking consisted of X concurrent runs of X nf-core pipelines, with a total input data size of X. 
+  :::note
+  The compute recommendations below are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files and a total size of approximately 123.5 GB. 
+  :::
 
-    :::note
-    To specify virtual machine settings in Platform during compute environment creation, use a **Compute jobs instance template** under **Advanced options**. See Advanced options below and [Create instance templates](https://cloud.google.com/compute/docs/instance-templates/create-instance-templates) for more information.
+  1. Use Seqera Platform version 23.1 or later.
+  1. Use a Google Cloud Storage bucket as the pipeline work directory.
+  1. Enable **Wave containers** and **Fusion v2**.
+  1. Specify suitable virtual machine types and local storage settings, or accept the default machine settings listed below. An `n2-highmem-16-lssd` VM or larger is recommended for production use.
 
-    To specify virtual machine settings per pipeline run in Platform, or as a persistent configuration in your Nextflow pipeline repository, use Nextflow process directives. See [Google Cloud Batch process definition](https://www.nextflow.io/docs/latest/google.html#process-definition) for more information.
-    :::
+  :::note
+  To specify virtual machine settings in Platform during compute environment creation, use the **Global Nextflow config** field to apply custom Nextflow process directives to all pipeline runs launched with this compute environment.
 
-    When Fusion v2 is enabled, the following virtual machine settings are applied:
-    - A 375 GB local NVMe SSD is selected for all compute jobs.
-    - If you do not specify a machine type, a VM from the following families that support local SSDs will be selected: `n1-*`, `n2-*`, `n2d-*`, `c2-*`, `c2d-*`, `m3-*`.
-    - Any machine types you specify manually (either via instance templates or in Nextflow process definitions) must support local SSDs.
-    - Local SSDs are only offered in multiples of 375 GB. You can increment the number of SSDs used per process with the `disk` directive to request multiples of 375 GB. 
-    - Fusion v2 can also use persistent disks for caching. Override the disk requested by Fusion using the `disk` directive and the `type: pd-standard`.
-    - The `machineType` directive can be used to specify a VM instance type, family, or custom machine type in a comma-separated list of patterns. For example, `c2-*`, `n1-standard-1`, `custom-2-4`, `n*`, `m?-standard-*`.
+  To specify virtual machine settings per pipeline run in Platform, or as a persistent configuration in your Nextflow pipeline repository, use Nextflow process directives. See [Google Cloud Batch process definition](https://www.nextflow.io/docs/latest/google.html#process-definition) for more information.
+  :::
 
-    </details>
+  When Fusion v2 is enabled, the following virtual machine settings are applied:
+  - A 375 GB local NVMe SSD is selected for all compute jobs.
+  - If you do not specify a machine type, a VM from the following families that support local SSDs will be selected: `n1-*`, `n2-*`, `n2d-*`, `c2-*`, `c2d-*`, `m3-*`.
+  - Any machine types you specify in the Nextflow config must support local SSDs.
+  - Local SSDs are only offered in multiples of 375 GB. You can increment the number of SSDs used per process with the `disk` directive to request multiples of 375 GB. 
+  - Fusion v2 can also use persistent disks for caching. Override the disk requested by Fusion using the `disk` directive and the `type: pd-standard`.
+  - The `machineType` directive can be used to specify a VM instance type, family, or custom machine type in a comma-separated list of patterns. For example, `c2-*`, `n1-standard-1`, `custom-2-4`, `n*`, `m?-standard-*`.
+
+</details>
 
 :::note
 Wave containers and Fusion v2 are recommended features for added capability and improved performance, but neither are required to execute workflows in your compute environment.
@@ -203,16 +207,14 @@ If you use VM instance templates for the head or compute jobs (see step 6 below)
 :::
 
 1. Enable **Use Private Address** to ensure that your Google Cloud VMs aren't accessible to the public internet.
-2. Use **Boot disk size** to control the boot disk size of VMs.
-3. Use **Head Job CPUs** and **Head Job Memory** to specify the CPUs and memory allocated for head jobs.
-4. Use **Service Account email** to specify a service account email address other than the Compute Engine default to execute workflows with this compute environment (recommended for productions environments).
-5. Use **VPC** and **Subnet** to specify the name of a VPC network and subnet to be used by this compute environment. If your organization's VPC architecture relies on network tags, you can apply network tags to VM instance templates used for the Nextflow head and compute jobs (see below).
-
+1. Use **Boot disk size** to control the boot disk size of VMs.
+1. Use **Head Job CPUs** and **Head Job Memory** to specify the CPUs and memory allocated for head jobs.
+1. Use **Service Account email** to specify a service account email address other than the Compute Engine default to execute workflows with this compute environment (recommended for productions environments).
+1. Use **VPC** and **Subnet** to specify the name of a VPC network and subnet to be used by this compute environment. If your organization's VPC architecture relies on network tags, you can apply network tags to VM instance templates used for the Nextflow head and compute jobs (see below).
     :::note
     You must specify both a **VPC** and **Subnet** for your compute environment to use either.
     :::
-
-6. Use **Head job instance template** and **Compute jobs instance template** to specify the name or fully-qualified reference of a VM instance template, without the `template://` prefix, to use for the head and compute jobs. [VM instance templates][gcp-vm-instance-template] allow you to define the resources allocated to Batch jobs. Configuration values defined in a VM instance template override any conflicting values you specify while creating your Seqera compute environment.
+1. Use **Head job instance template** and **Compute jobs instance template** to specify the name or fully-qualified reference of a VM instance template, without the `template://` prefix, to use for the head and compute jobs. [VM instance templates][gcp-vm-instance-template] allow you to define the resources allocated to Batch jobs. Configuration values defined in a VM instance template override any conflicting values you specify while creating your Seqera compute environment.
 
     You can use network tags in VM instance templates to enable cross-network and cross-project distribution of compute resources. This is useful if your head and compute instances must reside in different GCP projects or across isolated networking infrastructures. Note that the use of network tags does not affect the resource labels applied to your compute environment.
 
@@ -224,7 +226,9 @@ If you use VM instance templates for the head or compute jobs (see step 6 below)
 
 Select **Create** to finalize the compute environment setup.
 
+:::info
 See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in your Google Cloud Batch compute environment.
+:::
 
 [batch-locations]: https://cloud.google.com/batch/docs/locations
 [create-sa]: https://cloud.google.com/iam/docs/service-accounts-create#creating
