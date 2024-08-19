@@ -14,8 +14,8 @@
 - 
   Environment variable:            '`TOWER_DB_URL`'
   Description: > 
-    The URL to access your database. **For installation in a new environment, this value must be set as an environment variable.**
-  Value:               'Example: `jdbc:mysql://db:3306/tower`'
+    The URL to access your database. **For installation in a new environment, this value must be set as an environment variable.** See the [24.1 release notes](https://docs.seqera.io/platform/24.1/enterprise/release_notes/enterprise_latest#breaking-changes) for information about the format of the URL.
+  Value:               'Example: `jdbc:mysql://db:3306/tower?permitMysqlScheme=true`'
 - 
   Environment variable:            '`TOWER_APP_NAME`'
   Description: > 
