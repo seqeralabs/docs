@@ -1,17 +1,14 @@
 import React from "react";
 import styles from "./styles.module.css";
+import ProductLogo from "./ProductLogo";
 
-import Fusion from "./images/fusion.inline.svg";
-import Nextflow from "./images/nextflow.inline.svg";
-import MultiQC from "./images/multiqc.inline.svg";
-import Platform from "./images/platform2.inline.svg";
-import Wave from "./images/wave.inline.svg";
-import Caret from "./images/Caret.svg";
+import Caret from "./images/caret.svg";
+
 
 const ProductSwitcher = () => {
   return (
     <div className={styles.productSwitcherWrapper}>
-      <MultiQC />
+      <ProductLogo />
       <Caret className={styles.caret} />
     </div>
   )

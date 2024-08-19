@@ -86,10 +86,28 @@ svg.excalidraw path[fill="#fff"] {
   @apply fill-transparent;
 }
 
+/* Hide the top navbar on desktop */
 @media (min-width: 996px) {
   .navbar {
     height: 0;
     width: 0;
     display: none !important;
   }
+}
+
+
+/* Custom styling for the Algolia search box */
+
+[data-theme='light'] .DocSearch {
+  --docsearch-searchbox-background: var(--ifm-color-white);
+}
+
+[data-theme='dark'] .DocSearch {
+  --docsearch-searchbox-background: var(--ifm-color-black);
+}
+[data-theme='light'] .DocSearch-Button {
+  box-shadow: inset 0 0 0 1px #D0CFD4;
+}
+[data-theme='dark'] .DocSearch-Button {
+  box-shadow: inset 0 0 0 1px var(--color-brand-800);
 }
