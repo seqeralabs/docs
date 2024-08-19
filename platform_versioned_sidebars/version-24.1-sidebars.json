@@ -82,7 +82,8 @@
               ]
             },
             "compute-envs/k8s",
-            "compute-envs/hpc"
+            "compute-envs/hpc",
+            "supported_software/fusion/fusion"
           ]
         },
         "pipeline-schema/overview",
@@ -129,7 +130,6 @@
           "label": "Software integration",
           "items": [
             "supported_software/agent/agent",
-            "supported_software/fusion/fusion",
             "supported_software/dragen/overview"
           ]
         },
