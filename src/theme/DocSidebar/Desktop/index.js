@@ -11,6 +11,7 @@ export default function DesktopWrapper(props) {
       <SearchBar />
       <ProductSwitcher />
       <Desktop {...props} />
+      <hr />
       <NavbarColorModeToggle className={styles.colorModeToggle} />
     </div>
   );
