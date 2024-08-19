@@ -10,7 +10,7 @@ export default function DesktopWrapper(props) {
     <div className={styles.DocSidebarWrapper}>
       <SearchBar />
       <ProductSwitcher />
-      <Desktop {...props} className={styles.DocSidebarWrapperNav} />
+      <Desktop {...props} />
       <NavbarColorModeToggle className={styles.colorModeToggle} />
     </div>
   );

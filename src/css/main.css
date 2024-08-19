@@ -111,3 +111,11 @@ svg.excalidraw path[fill="#fff"] {
 [data-theme='dark'] .DocSearch-Button {
   box-shadow: inset 0 0 0 1px var(--color-brand-800);
 }
+
+
+@media (min-width: 997px) {
+  .sidebar_node_modules-\@docusaurus-theme-classic-lib-theme-DocSidebar-Desktop-styles-module {
+    padding-top: 0 !important;
+    width: 100% !important;
+  }
+}

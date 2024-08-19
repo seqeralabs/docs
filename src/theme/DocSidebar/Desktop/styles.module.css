@@ -16,14 +16,9 @@ aside {
     flex-direction: column;
     & nav {
         padding: 0;
-        margin-right: 60px;
     }
   }
 
-.DocSidebarWrapperNav {
-    padding-top: 0;
-    background-color: red;;
-}
 .colorModeToggle {
     margin: 16px 0;
 }
