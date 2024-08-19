@@ -85,3 +85,11 @@ svg.excalidraw {
 svg.excalidraw path[fill="#fff"] {
   @apply fill-transparent;
 }
+
+@media (min-width: 996px) {
+  .navbar {
+    height: 0;
+    width: 0;
+    display: none !important;
+  }
+}

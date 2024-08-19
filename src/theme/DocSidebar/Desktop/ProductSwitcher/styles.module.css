@@ -1,0 +1,14 @@
+.productSwitcherWrapper {
+    background-color: #fff;
+    border: 1px solid #eaecef;
+    border-radius: 5px;
+    margin: 15px 0;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.caret {
+    width: 24px;
+}

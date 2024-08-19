@@ -1,0 +1,17 @@
+import React from 'react';
+import Desktop from '@theme-original/DocSidebar/Desktop';
+import SearchBar from '@theme-original/SearchBar';
+import styles from "./styles.module.css";
+import ProductSwitcher from "./ProductSwitcher";
+
+export default function DesktopWrapper(props) {
+  return (
+    <>
+      <div className={styles.DocSidebarWrapper}>
+        <SearchBar />
+        <ProductSwitcher />
+        <Desktop {...props} className={styles.DocSidebarWrapperNav} />
+      </div>
+    </>
+  );
+}

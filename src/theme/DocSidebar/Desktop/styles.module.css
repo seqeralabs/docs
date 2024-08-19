@@ -1,0 +1,18 @@
+aside {
+    border-right: 0 !important;
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.DocSidebarWrapper {
+    margin-top: -180px !important;
+    padding: 180px 30px 0;
+    & nav {
+        padding: 0;
+        margin-right: 60px;
+    }
+  }
+
+.DocSidebarWrapperNav {
+    padding-top: 0;
+    background-color: red;;
+}
