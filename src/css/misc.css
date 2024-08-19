@@ -94,3 +94,31 @@ Material Design Icons (SVG)
   vertical-align: middle;
   margin: -4px;
 }
+
+/* Inject theme-specific styling for <details> elements */
+[data-theme='light'] {
+  --details-bg: #fff;
+  --details-code-bg: rgb(246, 247, 248);
+}
+
+[data-theme='dark'] {
+  --details-bg: rgb(25, 60, 71);
+  --details-code-bg: var(--ifm-code-background);
+}
+
+details {
+  background-color: var(--details-bg) !important;
+  border-top-width: 0 !important;
+  border-bottom-width: 0 !important;
+  border-right-width: 0 !important;
+  border-left-width: 5px !important;
+}
+
+details.alert > div > div {
+  border-top: 1px solid #000 !important;
+}
+
+details.alert code {
+  /* var(--ifm-code-background) */
+  background-color: var(--details-code-bg);
+}
