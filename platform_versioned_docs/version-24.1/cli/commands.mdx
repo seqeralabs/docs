@@ -37,6 +37,7 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
   ### Add credentials
 
   Run `tw credentials add -h` to view a list of providers.
+
   Run `tw credentials add <provider> -h` to view the required fields for your provider.
 
   :::note
@@ -98,11 +99,12 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
 <details>
   <summary>**Compute environments**</summary>
 
-  Compute environments in Seqera define the execution platform where a pipeline runs. A compute environment is composed of the credentials, configuration, and storage options related to a particular computing platform.  See [Seqera Platform compute environments][compute-envs] for more information on supported compute environments.
+  Compute environments define the execution platform where a pipeline runs. A compute environment is composed of the credentials, configuration, and storage options related to a particular computing platform.  See [Seqera Platform compute environments][compute-envs] for more information on supported compute environments.
 
   ### Add a compute environment
 
   Run `tw compute-envs add -h` to view the list of supported platforms.
+
   Run `tw compute-envs add <platform> -h` to view the required and optional fields for your platform.
 
   You must add the credentials for your provider before creating your compute environment.
@@ -161,12 +163,72 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
   ```
 </details>
 <details>
+  <summary>**Datasets**</summary>
+
+  Run `tw datasets -h` to view the list of supported operations.
+
+  Run `tw datasets add -h` to view the required and optional fields for adding your dataset.
+
+  [Datasets](../data/datasets.mdx) are CSV (comma-separated values) and TSV (tab-separated values) files stored in a workspace, used as inputs during pipeline execution. The most commonly used datasets for Nextflow pipelines are samplesheets, where each row consists of a sample, the location of files for that sample (such as FASTQ files), and other sample details.
+
+  ### Add a dataset 
+
+  Add a preconfigured dataset file to a workspace:
+
+  ```console
+  % tw datasets add --name=samplesheet1 --header samplesheet_test.csv
+
+  Dataset 'samplesheet1' added at user workspace with id '60gGrD4I2Gk0TUpEGOj5Td'
+  ```
+
+  :::note 
+  Include the `--header` flag if the first row of your samplesheet file is a header.
+  :::
+
+  ### View a dataset 
+
+  View a stored dataset's details:
+
+  ```console
+  % tw datasets view -n samplesheet1
+
+  Dataset at 97652229034604 workspace:
+
+    -------------+-------------------------------
+     ID          | 60gGrD4I2Gk0TUpEGOj5Td
+     Name        | samplesheet1
+     Description |
+     Media Type  | text/csv
+     Created     | Mon, 19 Aug 2024 07:59:16 GMT
+     Updated     | Mon, 19 Aug 2024 07:59:17 GMT
+  ```
+
+  ### Download a dataset 
+
+  View a stored dataset's contents: 
+
+  ```console 
+  % tw datasets download -n samplesheet1
+
+  sample,fastq_1,fastq_2,strandedness
+  WT_REP1,https://raw.githubusercontent.com/nf-core/test-datasets/rnaseq/testdata/GSE110004/SRR6357070_1.fastq.gz,https://raw.githubusercontent.com/nf-core/test-datasets/rnaseq/testdata/GSE110004/SRR6357070_2.fastq.gz,auto
+  WT_REP1,https://raw.githubusercontent.com/nf-core/test-datasets/rnaseq/testdata/GSE110004/SRR6357071_1.fastq.gz,https://raw.githubusercontent.com/nf-core/test-datasets/rnaseq/testdata/GSE110004/SRR6357071_2.fastq.gz,auto
+  WT_REP2,https://raw.githubusercontent.com/nf-core/test-datasets/rnaseq/testdata/GSE110004/SRR6357072_1.fastq.gz,https://raw.githubusercontent.com/nf-core/test-datasets/rnaseq/testdata/GSE110004/SRR6357072_2.fastq.gz,reverse
+  RAP1_UNINDUCED_REP1,https://raw.githubusercontent.com/nf-core/test-datasets/rnaseq/testdata/GSE110004/SRR6357073_1.fastq.gz,,reverse
+  RAP1_UNINDUCED_REP2,https://raw.githubusercontent.com/nf-core/test-datasets/rnaseq/testdata/GSE110004/SRR6357074_1.fastq.gz,,reverse
+  RAP1_UNINDUCED_REP2,https://raw.githubusercontent.com/nf-core/test-datasets/rnaseq/testdata/GSE110004/SRR6357075_1.fastq.gz,,reverse
+  RAP1_IAA_30M_REP1,https://raw.githubusercontent.com/nf-core/test-datasets/rnaseq/testdata/GSE110004/SRR6357076_1.fastq.gz,https://raw.githubusercontent.com/nf-core/test-datasets/rnaseq/testdata/GSE110004/SRR6357076_2.fastq.gz,reverse
+  ```
+
+</details>  
+<details>
   <summary>**Pipelines**</summary>
 
-  Pipelines define pre-configured workflows in a workspace. A pipeline consists of a workflow repository, launch parameters, and a compute environment.
-
   Run `tw pipelines -h` to view the list of supported operations.
+
   Run `tw pipelines add -h` to view the required and optional fields for adding your pipeline.
+
+  Pipelines define pre-configured workflows in a workspace. A pipeline consists of a workflow repository, launch parameters, and a compute environment.
 
   ### Add a pipeline
 
@@ -352,7 +414,9 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
 
   If no `keyword` is defined, the filtering is applied to the `runName`, `projectName` (the pipeline name), and `username`.
 
-  > Note: The `after` and `before` flags require an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp with UTC timezone (`YYYY-MM-DDThh:mm:ss.sssZ`)
+  :::note
+  The `after` and `before` flags require an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp with UTC timezone (`YYYY-MM-DDThh:mm:ss.sssZ`).
+  :::
 
   ```console
   $ tw runs list --filter hello_slurm_20240530
@@ -440,9 +504,28 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
 
 </details>
 <details>
+  <summary>**Organizations**</summary>
+
+  Run `tw organizations -h` to view supported workspace operations.
+
+  Run `tw organizations add -h` to view the required and optional fields for adding your workspace.
+
+  Organizations are the top-level structure and contain workspaces, members, and teams. You can also add external collaborators to an organization. See [Organization management](../orgs-and-teams/organizations.mdx) for more information. 
+
+  ### Add an organization
+
+  ```console 
+  tw organizations add -n TestOrg2 -f 2nd\ Test\ Organization\ LLC -l RSA
+
+  Organization 'TestOrg2' with ID '204336622618177' was added
+  ```
+
+</details>  
+<details>
   <summary>**Workspaces**</summary>
 
   Run `tw workspaces -h` to view supported workspace operations.
+
   Run `tw workspaces add -h` to view the required and optional fields for adding your workspace.
 
   Workspaces provide the context in which a user launches workflow executions, defines the available resources, and manages who can access those resources. Workspaces contain pipelines, runs, actions, datasets, compute environments, credentials, and secrets. Access permissions are controlled with participants, collaborators, and teams.
@@ -453,7 +536,7 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
   This section assumes that you already have access to an organization in Seqera Platform.
   :::
 
-  ### Create a workspace
+  ### Add a workspace
 
   In the example below, we create a shared workspace to be used for sharing pipelines with other private workspaces. See [Shared workspaces][shared-workspaces] for more information.
 
@@ -486,6 +569,7 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
   <summary>**Participants**</summary>
 
   Run `tw participants -h` to view supported participant operations.
+
   Run `tw participants add -h` to view the required and optional fields for adding a participant.
 
   ### List participants
@@ -523,6 +607,26 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
   ```
 
 </details>
+<details>
+  <summary>**Actions**</summary>
+
+  Run `tw actions -h` to view supported operations.
+
+  Run `tw actions add -h` to view the required and optional fields for adding an action.
+
+  [Actions](../pipeline-actions/overview.mdx) enable event-based pipeline execution, such as triggering a pipeline launch with a GitHub webhook whenever the pipeline repository is updated.
+
+</details>
+<details>
+  <summary>**Secrets**</summary>
+
+  Run `tw secrets -h` to view supported operations.
+
+  Run `tw secrets add -h` to view the required and optional fields for adding a secret.
+
+  [Secrets](../secrets/overview.mdx) are used to store the keys and tokens used by workflow tasks to interact with external systems, such as a password to connect to an external database or an API token.
+
+</details>  
 
 [compute-envs]: ../compute-envs/overview.mdx
 [credentials]: ../credentials/overview.mdx

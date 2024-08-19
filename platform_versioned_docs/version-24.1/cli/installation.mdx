@@ -9,15 +9,14 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 1. Download the latest [version][releases] for your OS from the CLI GitHub repository.
-
-2. Rename and make the file executable:
+1. Rename and make the file executable:
 
     ```bash
     mv tw-* tw
     chmod +x ./tw
     ```
 
-3. Move the file to a directory accessible to your `$PATH` variable:
+1. Move the file to a directory accessible to your `$PATH` variable:
 
     ```bash
     sudo mv tw /usr/local/bin/
@@ -102,7 +101,6 @@ tw-binary -Djavax.net.ssl.trustStore=/absolute/path/to/cacerts $@
 tw CLI is a platform binary executable created by a native compilation from Java GraalVM. To compile and build a development version of the binary:
 
 1. If necessary, install [SDKMan!](https://sdkman.io/)
-
 1. From the root of the tower-cli project, install GraalVM:
 
     ```bash
