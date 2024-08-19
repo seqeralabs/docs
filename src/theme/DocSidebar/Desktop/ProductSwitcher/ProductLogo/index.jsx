@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from '@docusaurus/router';
 import styles from "./styles.module.css";
 
 import Fusion from "../images/fusion.inline.svg";
@@ -16,12 +17,13 @@ import WaveDark from "../images/wave.dark.inline.svg";
 
 
 const ProductSwitcher = ({ product }) => {
+  const location = useLocation();
   if (product === undefined) {
-    if(window.location.pathname.startsWith("/fusion")) { product = "fusion"; }
-    if(window.location.pathname.startsWith("/nextflow")) { product = "nextflow"; }
-    if(window.location.pathname.startsWith("/multiqc")) { product = "multiqc"; }
-    if(window.location.pathname.startsWith("/platform")) { product = "platform"; }
-    if(window.location.pathname.startsWith("/wave")) { product = "wave"; }
+    if(location.pathname.startsWith("/fusion")) { product = "fusion"; }
+    if(location.pathname.startsWith("/nextflow")) { product = "nextflow"; }
+    if(location.pathname.startsWith("/multiqc")) { product = "multiqc"; }
+    if(location.pathname.startsWith("/platform")) { product = "platform"; }
+    if(location.pathname.startsWith("/wave")) { product = "wave"; }
   }
   return (
     <>
