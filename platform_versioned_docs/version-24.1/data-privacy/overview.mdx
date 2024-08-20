@@ -19,14 +19,14 @@ When a Platform user account is deleted, the following happens:
 
 - The user account email is changed to `none@your-domain`. Any runs and run metadata associated with the user account will then display that email address.
 - The username is changed to `username-<timestamp of deletion>`.
-- All organization, workspace, and team memberships are deleted.
-- All access tokens are deleted.
+- All of the user's organization, workspace, and team memberships are deleted.
+- All of the user's access tokens are deleted from their personal workspace.
 
 For Enterprise installations, in addition to the above: 
 
-- All the user's credentials are deleted.
-- All the user's compute environments are deleted.
-- All actions created by the user are deleted.
+- All the user's credentials are deleted from their personal workspace.
+- All the user's compute environments are deleted from their personal workspace.
+- All actions created by the user are deleted from their personal workspace.
 
 ### Metadata stored by Seqera Platform
 
