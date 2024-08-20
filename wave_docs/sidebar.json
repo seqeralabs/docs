@@ -10,25 +10,17 @@
         "provisioning"
       ]
     },
+    "nextflow",
     {
       "type": "category",
       "label": "Developer tools",
       "collapsed": false,
       "items": [
-        {
-          "type": "category",
-          "label": "Wave CLI",
-          "collapsed": true,
-          "items": [
-            "cli/index",
-            "cli/install",
-            "cli/build"
-          ]
-        },
+        "cli/index",
+        "cli/reference",
         "api"
       ]
     },
-    "nextflow",
     "faq"
   ]
 }
