@@ -15,12 +15,12 @@ It may be possible to access some data within your storage from the application 
 
 ### User deletion
 
-When a user account is deleted, the following happens:
+When a Platform user account is deleted, the following happens:
 
-- Their email is changed to `none@your-domain` and any runs and runs metadata associated with their account will display that email address going forward.
-- Their username is changed to `username-<timestamp of deletion>`.
-- All their memberships, including team memberships, are deleted.
-- All tokens are deleted.
+- The user account email is changed to `none@your-domain`. Any runs and run metadata associated with the user account will then display that email address.
+- The username is changed to `username-<timestamp of deletion>`.
+- All organization, workspace, and team memberships are deleted.
+- All access tokens are deleted.
 
 For Enterprise installations, in addition to the above: 
 
