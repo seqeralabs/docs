@@ -123,7 +123,7 @@ After you have created a resource group and storage account, create a [Batch acc
 
 ### Credentials
 
-There are two Azure credential options available: primary Access Keys and a Service Principal. Primary Access Keys are simple to use but provide full access to the storage and batch accounts. Additionally, there can only be two keys per account, making them a single point of failure. A Service Principal, on the other hand, provides an account that can be granted access to Azure Batch and Storage resources, allowing for role-based access control with more precise permissions. Moreover, some Azure Batch features are only available when using a Service Principal instead of primary Access Keys.
+There are two types of Azure credentials available: primary Access Keys and a Service Principal. Primary Access Keys are simple to use but provide full access to the storage and batch accounts. Additionally, there can only be two keys per account, making them a single point of failure. A Service Principal, on the other hand, provides an account that can be granted access to Azure Batch and Storage resources, allowing for role-based access control with more precise permissions. Moreover, some Azure Batch features are only available when using a Service Principal instead of primary Access Keys.
 
 :::note
 The two Azure credential types use entirely different authentication methods. You can add more than one credential to a workspace, but only one can be used at a time. While they can be used concurrently, they are not cross-compatible, and access granted by one will not be shared with the other.
