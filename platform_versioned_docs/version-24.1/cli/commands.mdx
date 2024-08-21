@@ -522,8 +522,8 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
   
   If a workspace is not defined, the `TOWER_WORKSPACE_ID` workspace is used by default. Data links can be one of two types:
 
-  `v1-cloud-<id>`: Cloud data links auto-discovered using credentials attached to the workspace.
-  `v1-user-<id>`: Custom data links created by users.
+  - `v1-cloud-<id>`: Cloud data links auto-discovered using credentials attached to the workspace.
+  - `v1-user-<id>`: Custom data links created by users.
 
   ```console
   $ tw data-links list -w seqeralabs/showcase
