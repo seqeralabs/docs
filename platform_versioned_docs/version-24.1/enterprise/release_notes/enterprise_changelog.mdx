@@ -7,15 +7,15 @@ tags: [changelog]
 
 ### 24.1.2 Enterprise - 22 August 2024
 
-Fix: Disable launch form submit button during form validation
-Fix: Allow workDir edit during pipeline launch 
-Fix: Data Explorer preview for Azure Blob Storage files
-Fix: GCP resource leak 
-Fix: Remote config read issue
-Fix: Dependency vulnerabilities 
-Improvement: Add tag propagation for storage volumes to AWS launch template
-Improvement: Implement custom H8 2nd-level cache to replace Redisson cache 
-Improvement: Extend "determineTextFormat" helper function 
+- Fix: Disable launch form **Submit** button during form validation
+- Fix: Allow `workDir` edit during pipeline launch 
+- Fix: Data Explorer preview for Azure Blob Storage files
+- Fix: GCP resource leak 
+- Fix: Remote config read issue
+- Fix: Dependency vulnerabilities 
+- Improvement: Add tag propagation for storage volumes to AWS launch template
+- Improvement: Implement custom H8 2nd-level cache to replace Redisson cache 
+- Improvement: Extend `determineTextFormat` helper function 
 
 ### 24.1.1 Enterprise - July 2024
 
@@ -48,22 +48,22 @@ Improvement: Extend "determineTextFormat" helper function
 
 - **Breaking change:** Update `docker-compose` in deployment files to `docker compose`
 - **Breaking change:** SQL migration enhancements for MySQL 5.7 and above (see [Upgrade steps](../enterprise/release_notes/enterprise_latest.mdx#upgrade-steps))
+- Feature: Changed default AzBatch image to ubuntu-server
+- Feature: Set private address for head job configuration in Google Batch
+- Feature: VM instance template support for Google Batch
 - Bump nf-jdk:corretto-17.0.10-jemalloc as base image
 - Upgrade Bootstrap to version 5
 - Allow previewing of Nextflow output files in Data Explorer
 - New base image nginx 1.25.3 for tower-frontend unprivileged
 - Seqera Platform Enterprise license model change — requires new licenses for existing Enterprise customers
 - Remove tower.enable.arm64 config option
-- Feature: Changed default AzBatch image to ubuntu-server
-- Feature: Set private address for head job configuration in Google Batch
-- Feature: VM instance template support for Google Batch
 
 ## 2023
 
 ### 23.3.0 Enterprise - 27 November 2023
 
-- Add support for Service Account, VPC and Subnetwork in Google Batch Advanced Settings
-- Add support for AWS Batch SPOT_PRICE_CAPACITY_OPTIMIZED allocation strategy
+- Add support for Service Account, VPC, and Subnetwork in Google Batch Advanced Settings
+- Add support for AWS Batch `SPOT_PRICE_CAPACITY_OPTIMIZED` allocation strategy
 - Add page size selector and pagination for the tasks table in the workflow details page
 - Add support for Fusion to EKS and GKE platform providers
 - Add support for Secrets for Google Batch and Google LS
