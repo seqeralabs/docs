@@ -179,7 +179,9 @@ Extensive benchmarking of Fusion v2 has demonstrated that the increased cost ass
 
 24. Select **Dispose resources** to automatically delete these AWS resources if you delete the compute environment in Seqera Platform.
 25. Apply [**Resource labels**](../resource-labels/overview.mdx) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
-26. Expand **Staging options** to include optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre--post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
+26. Expand **Staging options** to include:
+  - Optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre--post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
+  - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Configuration settings in this field override the same values in the pipeline Nextflow config file. 
 27. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
 28. Configure any advanced options described in the next section, as needed.
 29. Select **Create** to finalize the compute environment setup. It will take a few seconds for all the resources to be created before you are ready to [launch pipelines](../launch/launchpad.mdx).
@@ -267,29 +269,33 @@ Your Seqera compute environment uses resources that you may be charged for in yo
 **Create a manual Seqera compute environment**
 
 1. In a workspace, select **Compute environments > New environment**.
-2. Enter a descriptive name for this environment, e.g., _AWS Batch Manual (eu-west-1)_.
-3. Select **AWS Batch** as the target platform.
-4. Select **+** to add new credentials.
-5. Enter a name for the credentials, e.g., _AWS Credentials_.
-6. Enter the **Access key** and **Secret key** for your IAM user.
+1. Enter a descriptive name for this environment, e.g., _AWS Batch Manual (eu-west-1)_.
+1. Select **AWS Batch** as the target platform.
+1. Select **+** to add new credentials.
+1. Enter a name for the credentials, e.g., _AWS Credentials_.
+1. Enter the **Access key** and **Secret key** for your IAM user.
 
-  :::note
-  You can create multiple credentials in your Seqera environment. See [Credentials](../credentials/overview.mdx).
-  :::
+    :::note
+    You can create multiple credentials in your Seqera environment. See [Credentials](../credentials/overview.mdx).
+    :::
 
-7. Select a **Region**, e.g., _eu-west-1 - Europe (Ireland)_.
-8. Enter an S3 bucket path for the **Pipeline work directory**, e.g., `s3://seqera-bucket`. This bucket must be in the same region chosen in the previous step.
+1. Select a **Region**, e.g., _eu-west-1 - Europe (Ireland)_.
+1. Enter an S3 bucket path for the **Pipeline work directory**, e.g., `s3://seqera-bucket`. This bucket must be in the same region chosen in the previous step.
 
-  :::note
-  When you specify an S3 bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. Seqera adds a `cloudcache` block to the Nextflow configuration file for all runs executed with this compute environment. This block includes the path to a `cloudcache` folder in your work directory, e.g., `s3://seqera-bucket/cloudcache/.cache`. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad.mdx#launch-form) form.
-  :::
+    :::note
+    When you specify an S3 bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. Seqera adds a `cloudcache` block to the Nextflow configuration file for all runs executed with this compute environment. This block includes the path to a `cloudcache` folder in your work directory, e.g., `s3://seqera-bucket/cloudcache/.cache`. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad.mdx#launch-form) form.
+    :::
 
-9. Set the **Config mode** to **Manual**.
-10. Enter the **Head queue**, which is the name of the AWS Batch queue that the Nextflow main job will run.
-11. Enter the **Compute queue**, which is the name of the AWS Batch queue where tasks will be submitted.
-12. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
-13. Configure any advanced options described in the next section, as needed.
-14. Select **Create** to finalize the compute environment setup.
+1. Set the **Config mode** to **Manual**.
+1. Enter the **Head queue**, which is the name of the AWS Batch queue that the Nextflow main job will run.
+1. Enter the **Compute queue**, which is the name of the AWS Batch queue where tasks will be submitted.
+1. Apply [**Resource labels**](../resource-labels/overview.mdx) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
+1. Expand **Staging options** to include:
+    - Optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre--post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
+    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Configuration settings in this field override the same values in the pipeline Nextflow config file. 
+1. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
+1. Configure any advanced options described in the next section, as needed.
+1. Select **Create** to finalize the compute environment setup.
 
 ### Advanced options
 
