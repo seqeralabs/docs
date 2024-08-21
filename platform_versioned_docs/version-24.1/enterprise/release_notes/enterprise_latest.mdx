@@ -1,14 +1,4 @@
-# Enterprise 24.1.x
-
-:::caution 
-In order to ensure our customers have success with Seqera Platform 24.1+ we recommend pausing planned upgrades to 24.1+ on production systems until further notice. 
-
-Our team has identified an issue in a dependency library which may cause a memory leak under certain conditions at scale.  While we have not seen this issue surface in any production Enterprise deployments, we recommend pausing release plans while we work on expediting a fix with the library maintainers. 
-
-We have reached out to all users running 24.1 directly and recommend continuing Seqera Platform use as normal while waiting for a patch release. 
-
-If you have any further questions, please [contact support](https://support.seqera.io).
-:::
+# Enterprise 24.1
 
 Seqera Platform Enterprise version 24.1 introduces three new features: Data Studios (in public preview), Data Explorer, and managed identities. A number of bug fixes and performance enhancements have also been included in this major release.
 
@@ -32,10 +22,10 @@ Data Explorer is now Generally Available and supports multi-file and multi-folde
 
 User roles provide flexibility for admins to provide users with the permissions they need, without compromising security. The **Connect** user role has been added to the existing user roles with functionality related to Data Studios:
 
-- **Connect**: The ability to open a connection to a running session and interact with the contents.
-- **Maintain**: The ability to create, update, start, stop, change configuration, and delete data studio sessions.
-- **View**: The ability to list, search, and see the status/configuration/details of data studios.
-- **Launch**: The ability to open a connection to a running session and interact with the contents.
+- **Connect**: Open a connection to a running data studio session and interact with the contents.
+- **Maintain**: Create, update, start, stop, change configuration, and delete data studio sessions.
+- **View**: List, search, and view the status/configuration/details of data studios.
+- **Launch**: Open a connection to a running data studio session and interact with the contents.
 
 See [User roles](../../orgs-and-teams/roles.mdx) for more information.
 
@@ -79,65 +69,24 @@ The property that determines the expiration time of the JWT access token (used f
 	
 Enterprise deployments that have customized this value previously will need to adopt the new format.
 
-## Upgrade steps
+## Upgrade steps 
 
-:::caution 
-In order to ensure our customers have success with Seqera Platform 24.1+ we recommend pausing planned upgrades to 24.1+ on production systems until further notice. 
+1. This version includes an update to the Platform Enterprise H8 cache. **Do not start the upgrade while any pipelines are in a running state as active run data may be lost.**
+1. This version requires a database schema update. Make a backup of your Platform database prior to upgrade.
+1. If you are upgrading from a version older than 23.4.1, update your installation to version [23.4.4](./23.4.mdx) first, before updating to 24.1.2 with the steps below.
+1. We recommend adding the following environment variable to your Platform configuration values (`tower.env`, `configmap.yml`, etc. ):
 
-Our team has identified an issue in a dependency library which may cause a memory leak under certain conditions at scale.  While we have not seen this issue surface in any production Enterprise deployments, we recommend pausing release plans while we work on expediting a fix with the library maintainers. 
+    ```console 
+    JAVA_OPTS: -Xms1000M -Xmx2000M -XX:MaxDirectMemorySize=800m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144
+    ```
 
-We have reached out to all users running 24.1 directly and recommend continuing Seqera Platform use as normal while waiting for a patch release. 
-
-If you have any further questions, please [contact support](https://support.seqera.io).
-:::
-
-This version requires a database schema update. Make a backup of your Platform database prior to upgrade. 
-
-:::info
-If you are upgrading from a version older than 23.4.1, update your installation to version [23.4.4](./23.4.mdx) first, before updating to 24.1.1 with the steps below.
-:::
+See [Upgrade installation](../upgrade.mdx) for database backup and installation upgrade guidance.
 
 Docker Compose deployments require downtime while upgrading services. Restarting the application may take several minutes. See [Docker compose deployment](../docker-compose.mdx) for more information.
 
 For Kubernetes deployments, apply the 24.1 `tower-cron.yml` to your cron pod and wait for the cron pod to be running before applying the `tower-svc.yml` to your backend pod and restarting the service. If the cron pod update is interrupted, you may need to restore the instance from your DB backup and start again. See [Kubernetes deployment](../kubernetes.mdx) for more information. 
 
-For custom deployments with third-party services such as ArgoCD, [contact support](https://support.seqera.io) for assistance during upgrade. 
-
-Follow these steps to update your DB instance and the Seqera installation:
-
-:::caution
-The database volume is persistent on the local machine by default if you use the `volumes` key in the `db` or `redis` section of your `docker-compose.yml` file to specify a local path to the DB or Redis instance. If your database is not persistent, you must back up your database before performing any application or database upgrades.
-:::
-
-1. Make a backup of the Seqera Platform database. If you use the pipeline optimization service and your `groundswell` database resides in a database instance separate from your Seqera database, make a backup of your `groundswell` database as well.
-2. Download the 24.1 versions of your deployment templates and update your Seqera container versions:
-    - [docker-compose.yml](../_templates/docker/docker-compose.yml) for Docker Compose deployments
-    - [tower-cron.yml](../_templates/k8s/tower-cron.yml) and [tower-svc.yml](../_templates/k8s/tower-svc.yml) for Kubernetes deployments
-3. Restart the application.
-4. If you're using a containerized database as part of your implementation:
-    1. Stop the application.
-    2. Upgrade the MySQL image.
-    3. Restart the application.
-5. If you're using Amazon RDS or other managed database services:
-    1. Stop the application.
-    2. Upgrade your database instance.
-    3. Restart the application.
-6. If you're using the pipeline optimization service (`groundswell` database) in a database separate from your Seqera database, update the MySQL image for your `groundswell` database instance while the application is down (during step 4 or 5 above). If you're using the same database instance for both, the `groundswell` update will happen automatically during the Seqera database update.
-
-**Custom deployment**:
-
-- Run the `/migrate-db.sh` script provided in the `migrate-db` container. This will migrate the database schema.
-- Deploy Seqera following your usual procedures.
-
-## Nextflow launcher image
-
-If you must host your nf-launcher container image on a private image registry, copy the [nf-launcher image](https://quay.io/seqeralabs/nf-launcher:j17-24.04.2) to your private registry. Then update your `tower.env` with the launch container environment variable:
-
-    `TOWER_LAUNCH_CONTAINER=<FULL_PATH_TO_YOUR_PRIVATE_IMAGE>`
-
-:::caution
-If you're using AWS Batch, you will need to [configure a custom job definition](../advanced-topics/custom-launch-container.mdx) and populate the `TOWER_LAUNCH_CONTAINER` with the job definition name instead.
-:::
+For custom deployments with third-party services such as ArgoCD, [contact support](https://support.seqera.io) for assistance during upgrade.  
 
 ## Changelog
 
