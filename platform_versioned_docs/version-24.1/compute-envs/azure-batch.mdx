@@ -121,24 +121,25 @@ After you have created a resource group and storage account, create a [Batch acc
 
 ### Credentials
 
-There are two types of Azure credentials available: primary access keys and service principals. Primary access keys are simple to use but provide full access to the Storage and Batch accounts. Azure allows only two access keys per account, making them a single point of failure. A service principal provides an account which can be granted access to Azure Batch and Storage resources. Service principals therefore enable role-based access control with more precise permissions. Moreover, some Azure Batch features are only available when using a service principal.
+There are two types of Azure credentials available: access keys and service principals. Access keys are simple to use but provide full access to the Storage and Batch accounts. Azure allows only two access keys per account, making them a single point of failure. A service principal provides an account which can be granted access to Azure Batch and Storage resources. Service principals therefore enable role-based access control with more precise permissions. Moreover, some Azure Batch features are only available when using a service principal.
 
 :::note
-The two Azure credential types use entirely different authentication methods. You can add more than one credential to a workspace, but only one can be used at a time. While credentials can be used concurrently, they are not cross-compatible — access granted by one credential will not be shared with the other.
+The two Azure credential types use entirely different authentication methods. You can add more than one credential to a workspace, but Platform compute environments use only one credential at any given time. While separate credentials can be used by separate compute environments concurrently, they are not cross-compatible — access granted by one credential will not be shared with the other.
 :::
 
 #### Access keys
 
-To create a primary access key:
+To create an access key:
 
 1. Navigate to the Azure Portal and sign in.
 1. Locate the Azure Batch account and select **Keys** under **Account management**. The Primary and Secondary keys are listed here. Copy one of the keys and save it in a secure location for later use.
-1. Locate the Azure Storage account and, under the **Security and Networking** section, select **Access keys**. Key1 and Key2 options are listed here. Copy one of them and save it in a secure location for later use. Delete the stored key after adding it to a credential in Platform.
+1. Locate the Azure Storage account and, under the **Security and Networking** section, select **Access keys**. Key1 and Key2 options are listed here. Copy one of them and save it in a secure location for later use.
 1. In your Platform workspace **Credentials** tab, select the **Add credentials** button and complete the following fields:
     - Enter a **Name** for the credentials
     - **Provider**: Azure
     - Select the **Shared key** tab 
     - Add the **Batch account** and **Blob Storage account** names and access keys to the relevant fields.
+1. Delete the copied keys from their temporary location after they have been added to a credential in Platform.
 
 #### Service principal
 
@@ -157,12 +158,13 @@ To create a service principal:
     1. Repeat the same process for the Azure Batch account, using the **Azure Batch Contributor** role.
 1. Platform will need credentials to authenticate as the service principal:
     1. Navigate back to the app registration. On the **Overview** page, save the **Application (client) ID** value for use in Platform.
-    1. Select **Certificates & secrets**, then **New client secret**. A new secret is created containing a value and secret ID. Save both values securely for use in Platform. Delete these stored values after saving them in Platform.
+    1. Select **Certificates & secrets**, then **New client secret**. A new secret is created containing a value and secret ID. Save both values securely for use in Platform. 
 1. In your Platform workspace **Credentials** tab, select the **Add credentials** button and complete the following fields:
     - Enter a **Name** for the credentials
     - **Provider**: Azure
-    - Select the **Service principal** tab 
-    - Add the Application ID, Secret ID, Secret, **Batch account**, and **Blob Storage account** names to the relevant fields.
+    - Select the **Entra** tab 
+    - Complete the remaining fields: **Batch account name**, **Blob Storage account name**, **Tenant ID** (Application (client) ID in Azure), **Client ID** (Client secret ID in Azure), **Client secret** (Client secret value in Azure).
+1. Delete the ID and secret values from their temporary location after they have been added to a credential in Platform.
 
 ## Platform compute environment
 
