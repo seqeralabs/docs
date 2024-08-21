@@ -19,7 +19,7 @@ spec:
         kubernetes.io/arch: amd64
       containers:
         - name: server
-          image: cr.seqera.io/private/nf-tower-enterprise/data-studio/connect-server:0.7.0
+          image: cr.seqera.io/private/nf-tower-enterprise/data-studio/connect-server:0.7.2
           ports:
             - containerPort: 7070
               name: server
