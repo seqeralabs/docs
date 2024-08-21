@@ -15,6 +15,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Omit files
+        run: find platform_versioned_docs -type f \( -name 'README.mdx' -o -name '_todo.mdx' \) -exec rm {} +
+
       - name: Link Checker
         id: lychee
         uses: lycheeverse/lychee-action@v1
