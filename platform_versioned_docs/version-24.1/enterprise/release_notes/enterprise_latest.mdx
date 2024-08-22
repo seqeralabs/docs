@@ -76,7 +76,7 @@ Enterprise deployments that have customized this value previously will need to a
 
 ## Upgrade steps 
 
-1. This version includes an update to the Platform Enterprise H8 cache. **Do not start the upgrade while any pipelines are in a running state as active run data may be lost.**
+1. This version includes an update to the Platform Enterprise H8 cache. **Do not start the upgrade while any pipelines are in a `running` state as active run data may be lost.**
 1. This version requires a database schema update. Make a backup of your Platform database prior to upgrade.
 1. If you are upgrading from a version older than 23.4.1, update your installation to version [23.4.4](./23.4.mdx) first, before updating to 24.1.2 with the steps below.
 1. For recommended Platform memory settings, add the following environment variable to your Platform configuration values (`tower.env`, `configmap.yml`, etc. ):
