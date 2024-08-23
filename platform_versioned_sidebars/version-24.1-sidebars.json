@@ -182,7 +182,8 @@
           "items": [
             "enterprise/docker-compose",
             "enterprise/kubernetes",
-            "enterprise/testing"          
+            "enterprise/testing",
+            "enterprise/upgrade"          
           ]
         },
         {
@@ -221,7 +222,8 @@
       "label": "Releases",
       "collapsed": true,
       "items": [
-        "cloud/changelog",        
+        "cloud/changelog",
+        "enterprise/release_notes/enterprise_changelog",       
         "enterprise/release_notes/enterprise_latest",
         {
           "type": "category",
