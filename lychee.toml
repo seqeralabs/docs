@@ -2,9 +2,10 @@
 scheme = ["https", "http"]
 exclude = [
   '^https://portal.azure.com/',
-  '^https://gitlab.com/profile/personal_access_tokens'
-]
-exclude_path = [
-  "^.+/README.mdx",
-  "^.+/_todo.mdx"
+  '^https://gitlab.com/profile/personal_access_tokens',
+  '^https://my.bitbucketserver.com/path/to/pipeline/repo',
+  '^https://github.com/organizations/',
+  '^https://github.com/pipeline-repo',
+  '^https://api.tower.nf/ephemeral/example.json',
+  '^https://api.cloud.seqera.io/workflow/launch'
 ]
