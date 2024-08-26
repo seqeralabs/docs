@@ -53,7 +53,7 @@ To use the pipeline resource optimization service in an existing Docker Compose 
     ```sql
     CREATE DATABASE IF NOT EXISTS `swell`;
     CREATE USER 'swell'@'%' IDENTIFIED BY 'swell';
-    GRANT ALL PRIVILEGES ON `%`.* TO  'swell'@'%';
+    GRANT ALL PRIVILEGES ON `%`.* TO 'swell'@'%';
     FLUSH PRIVILEGES;
     ```
 
@@ -75,28 +75,38 @@ To use the pipeline resource optimization service in an existing Docker Compose 
 
 Kubernetes deployments use an [initContainer](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/) that runs during pod initialization to set up the pipeline resource optimization service. To use the service in new or existing Kubernetes installations of Seqera Enterprise, do the following:
 
-1. Download the [groundswell manifest](../_templates/k8s/groundswell.yml).
+1. Download the [groundswell manifest](../_templates/k8s/groundswell.yml):
 
-2. Define a set of credentials for the optimization database. This can be the same database used for Seqera, but in a different schema.
-
-3. Log in to your database server and run the following commands:
-
-    ```sql
-    CREATE DATABASE IF NOT EXISTS `swell`;
-    CREATE USER 'swell'@'%' IDENTIFIED BY 'swell';
-    GRANT ALL PRIVILEGES ON *.* TO 'swell'@'%';
-    FLUSH PRIVILEGES;
+    ```yaml file=../_templates/k8s/groundswell.yml
     ```
 
-4. If you use Amazon RDS or other managed database services, run the following commands in your database instance:
+1. To run the service from a custom URL, declare the URL with the `GROUNDSWELL_SERVER_URL` environment variable in the `configmap.yml` file that you downloaded for your [Platform installation][platform-k8s]. A non-zero value for this environment variable activates the optimization service automatically, so `TOWER_ENABLE_GROUNDSWELL` does not need to be set when you declare a custom URL.
 
-    ```sql
-    CREATE DATABASE IF NOT EXISTS `swell`;
-    CREATE USER 'swell'@'%' IDENTIFIED BY 'swell';
-    GRANT ALL PRIVILEGES ON `%`.* TO  'swell'@'%';
-    FLUSH PRIVILEGES;
-    ```
+1. Define a set of credentials for the optimization database. This can be the same database used for Seqera, but in a different schema.
 
-5. The initContainers process will wait until both the Seqera and pipeline resource optimization service databases are ready before starting the migration in the Seqera database and finally starting the optimization container.
+1. Log in to your database server and run the following commands:
 
-6. When the pipeline resource optimization service is active, pipelines that can be optimized display a lightbulb icon in your Launchpad. Any pipeline with at least one successful run can be optimized.
+   - If you use Amazon RDS or other managed database services, run the following commands in your database instance:
+
+      ```sql
+      CREATE DATABASE IF NOT EXISTS `swell`;
+      CREATE USER 'swell'@'%' IDENTIFIED BY 'swell';
+      GRANT ALL PRIVILEGES ON `%`.* TO 'swell'@'%';
+      FLUSH PRIVILEGES;
+      ```
+
+    - If you do not use a managed database service, run the following commands in your database instance:
+
+      ```sql
+      CREATE DATABASE IF NOT EXISTS `swell`;
+      CREATE USER 'swell'@'%' IDENTIFIED BY 'swell';
+      GRANT ALL PRIVILEGES ON *.* TO 'swell'@'%';
+      FLUSH PRIVILEGES;
+      ```
+
+The initContainers process will wait until both the Seqera and pipeline resource optimization service databases are ready before starting the migration in the Seqera database and finally starting the optimization container.
+
+When the pipeline resource optimization service is active, pipelines that can be optimized display a lightbulb icon in your Launchpad. Any pipeline with at least one successful run can be optimized.
+
+
+[platform-k8s]: ../kubernetes.mdx
