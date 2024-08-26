@@ -12,7 +12,7 @@
 - 
   Environment variable:            '`TOWER_ENABLE_AWS_SSM`'
   Description: > 
-    Enable Seqera configuration value retrieval from [AWS Parameter Store](https://docs.seqera.io/platform/24.1.0/enterprise/configuration/aws_parameter_store). 
+    Enable Seqera configuration value retrieval from [AWS Parameter Store](https://docs.seqera.io/platform/latest/enterprise/configuration/aws_parameter_store). 
   Value:                'Default: `false`'
 - 
   Environment variable:            '`TOWER_ENABLE_AWS_SES`'
