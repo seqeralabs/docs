@@ -30,7 +30,7 @@ Ensure you have sufficient permissions to create resource groups, an Azure Stora
 
   Seqera Platform relies on an existing Azure Storage and Azure Batch account. At least one valid Azure Storage and Azure Batch account is required per Azure subscription.
 
-  Azure uses accounts for each service. For example, an [Azure Storage account][az-learn-storage] will house a collection of blob containers, file shares, queues, and tables. While you can have multiple Azure Storage and Azure Batch accounts in an Azure subscription, a Platform compute environment can only use one of each (one Storage and one Batch account). You can set up multiple Platform compute environments to use different credentials, Storage accounts, and Batch accounts.
+  Azure uses accounts for each service. For example, an [Azure Storage account][az-learn-storage] will house a collection of blob containers, file shares, queues, and tables. An Azure subscription can have multiple Azure Storage and Azure Batch accounts. However, a Platform compute environment can only use one of each (one Storage and one Batch account). Multiple Platform compute environments can be set to use different credentials, Storage accounts, and Batch accounts.
 
 </details>
 <details>
