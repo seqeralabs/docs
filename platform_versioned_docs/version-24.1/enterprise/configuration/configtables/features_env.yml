@@ -27,5 +27,5 @@
 - 
   Environment variable:            '`TOWER_STEPPED_LAUNCH_FORM_ALLOWED_WORKSPACES`'
   Description: > 
-    Enable the [stepped launch form](https://docs.seqera.io/platform/24.1.0/launch/launchpad#launch-form) in the workspaces specified. Set empty (`TOWER_STEPPED_LAUNCH_FORM_ALLOWED_WORKSPACES=`) to enable the new launch form in all workspaces, or provide a comma-separated list of workspace IDs to enable the form per workspace. 
+    Enable the [stepped launch form](https://docs.seqera.io/platform/latest/launch/launchpad#launch-form) in the workspaces specified. Set empty (`TOWER_STEPPED_LAUNCH_FORM_ALLOWED_WORKSPACES=`) to enable the new launch form in all workspaces, or provide a comma-separated list of workspace IDs to enable the form per workspace. 
   Value:                'Example: `976xxxxxxxx604,402xxxxxxxx677`'
