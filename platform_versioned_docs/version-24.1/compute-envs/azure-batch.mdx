@@ -124,7 +124,7 @@ After you have created a resource group and storage account, create a [Batch acc
 There are two types of Azure credentials available: access keys and service principals. Access keys are simple to use but provide full access to the Storage and Batch accounts. Azure allows only two access keys per account, making them a single point of failure. A service principal provides an account which can be granted access to Azure Batch and Storage resources. Service principals therefore enable role-based access control with more precise permissions. Moreover, some Azure Batch features are only available when using a service principal.
 
 :::note
-The two Azure credential types use entirely different authentication methods. You can add more than one credential to a workspace, but Platform compute environments use only one credential at any given time. While separate credentials can be used by separate compute environments concurrently, they are not cross-compatible — access granted by one credential will not be shared with the other.
+The two Azure credential types use different authentication methods. You can add more than one credential to a workspace, but Platform compute environments use only one credential at any given time. While separate credentials can be used by separate compute environments concurrently, they are not cross-compatible — access granted by one credential will not be shared with the other.
 :::
 
 #### Access keys
