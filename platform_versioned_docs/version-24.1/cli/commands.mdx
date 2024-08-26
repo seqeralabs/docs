@@ -167,11 +167,11 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
 
   Run `tw datasets -h` to view the list of supported operations.
 
-  Run `tw datasets add -h` to view the required and optional fields for adding your dataset.
-
   [Datasets](../data/datasets.mdx) are CSV (comma-separated values) and TSV (tab-separated values) files stored in a workspace, used as inputs during pipeline execution. The most commonly used datasets for Nextflow pipelines are samplesheets, where each row consists of a sample, the location of files for that sample (such as FASTQ files), and other sample details.
 
   ### Add a dataset 
+
+  Run `tw datasets add -h` to view the required and optional fields for adding your dataset.
 
   Add a preconfigured dataset file to a workspace:
 
@@ -226,11 +226,11 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
 
   Run `tw pipelines -h` to view the list of supported operations.
 
-  Run `tw pipelines add -h` to view the required and optional fields for adding your pipeline.
-
   Pipelines define pre-configured workflows in a workspace. A pipeline consists of a workflow repository, launch parameters, and a compute environment.
 
   ### Add a pipeline
+
+  Run `tw pipelines add -h` to view the required and optional fields for adding your pipeline.
 
   Add a pre-configured pipeline to the Launchpad:
 
@@ -271,8 +271,9 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
   ```console
   tw pipelines update --name=my_rnaseq_nf_pipeline --params-file=my_rnaseq_nf_pipeline_params_2.yaml
   ```
-
-  ## Launch pipelines
+</details>  
+<details>
+  <summary>**Launch pipelines**</summary>
 
   Run `tw launch -h` to view supported launch options.
 
@@ -649,11 +650,11 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
 
   Run `tw organizations -h` to view supported workspace operations.
 
-  Run `tw organizations add -h` to view the required and optional fields for adding your workspace.
-
   Organizations are the top-level structure and contain workspaces, members, and teams. You can also add external collaborators to an organization. See [Organization management](../orgs-and-teams/organizations.mdx) for more information. 
 
   ### Add an organization
+
+  Run `tw organizations add -h` to view the required and optional fields for adding your workspace.
 
   ```console 
   tw organizations add -n TestOrg2 -f 2nd\ Test\ Organization\ LLC -l RSA
@@ -667,8 +668,6 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
 
   Run `tw workspaces -h` to view supported workspace operations.
 
-  Run `tw workspaces add -h` to view the required and optional fields for adding your workspace.
-
   Workspaces provide the context in which a user launches workflow executions, defines the available resources, and manages who can access those resources. Workspaces contain pipelines, runs, actions, datasets, compute environments, credentials, and secrets. Access permissions are controlled with participants, collaborators, and teams.
 
   See [User workspaces][user-workspaces] for more information.
@@ -678,6 +677,8 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
   :::
 
   ### Add a workspace
+
+  Run `tw workspaces add -h` to view the required and optional fields for adding your workspace.
 
   In the example below, we create a shared workspace to be used for sharing pipelines with other private workspaces. See [Shared workspaces][shared-workspaces] for more information.
 
@@ -711,8 +712,6 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
 
   Run `tw participants -h` to view supported participant operations.
 
-  Run `tw participants add -h` to view the required and optional fields for adding a participant.
-
   ### List participants
 
   ```console
@@ -726,6 +725,8 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
   ```
 
   ### Add participants
+
+  Run `tw participants add -h` to view the required and optional fields for adding a participant.
 
   To add a new _collaborator_ to the workspace, use the `add` subcommand. The default role assigned to a _collaborator_ is `Launch`.
 
