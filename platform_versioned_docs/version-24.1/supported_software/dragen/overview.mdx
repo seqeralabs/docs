@@ -21,7 +21,7 @@ To showcase the capability of this integration, we have implemented a proof of c
 
 You can run this pipeline at your convenience without any extra setup. Note however that it will be deployed in the compute environment owned by the Community Showcase.
 
-To deploy the pipeline on your own AWS cloud infrastructure, follow the instructions that follow.
+To deploy the pipeline on your own AWS cloud infrastructure, follow the instructions in the next section.
 
 ## Deploy DRAGEN in your own workspace
 
@@ -35,9 +35,9 @@ Batch Forge automates most of the tasks required to set up an AWS Batch compute 
 
 In order to enable support for DRAGEN acceleration, simply toggle the **Enable DRAGEN** option when setting up the compute environment via Batch Forge.
 
-In the **DRAGEN AMI ID** field, enter the AWS AMI ID provided by Illumina.
+In the **DRAGEN AMI ID** field, enter the AWS AMI ID provided by Illumina. Then select the instance type from the drop-down menu.
 
-:::caution
+:::note
 The Region you select must contain DRAGEN F1 instances.
 :::
 
