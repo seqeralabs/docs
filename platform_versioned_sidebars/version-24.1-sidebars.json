@@ -246,13 +246,13 @@
       "label": "Troubleshooting",
       "collapsed": true,
       "items": [
-        "troubleshooting/troubleshooting",
-        "troubleshooting/faqs",
-        "troubleshooting/nextflow",
-        "troubleshooting/aws-troubleshooting",
-        "troubleshooting/azure-troubleshooting",
-        "troubleshooting/workspaces-troubleshooting",
-        "troubleshooting/databases-and-datsasets"        
+        "troubleshooting-and-faqs/troubleshooting",
+        "troubleshooting-and-faqs/faqs",
+        "troubleshooting-and-faqs/nextflow",
+        "troubleshooting-and-faqs/aws-troubleshooting",
+        "troubleshooting-and-faqs/azure-troubleshooting",
+        "troubleshooting-and-faqs/workspaces-troubleshooting",
+        "troubleshooting-and-faqs/databases-and-datsasets"        
       ]
     },
     {
