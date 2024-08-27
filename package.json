@@ -19,11 +19,11 @@
     "markdownlint": "markdownlint-cli2 'platform_versioned_docs/**/*.mdx' 'wave_docs/**/*.mdx' 'fusion_docs/**/*.mdx' --config .markdownlint-cli2.cjs"
   },
   "dependencies": {
-    "@docusaurus/core": "3.0.0",
-    "@docusaurus/plugin-google-gtag": "3.0.0",
-    "@docusaurus/preset-classic": "3.0.0",
+    "@docusaurus/core": "^3.5.2",
+    "@docusaurus/plugin-google-gtag": "^3.5.2",
+    "@docusaurus/plugin-google-tag-manager": "^3.5.2",
+    "@docusaurus/preset-classic": "^3.5.2",
     "@mdx-js/react": "^3.0.0",
-    "@docusaurus/plugin-google-tag-manager": "3.0.0",
     "clsx": "^1.2.1",
     "docusaurus-remark-plugin-tab-blocks": "^3.0.0",
     "framer-motion": "^11.0.0",
