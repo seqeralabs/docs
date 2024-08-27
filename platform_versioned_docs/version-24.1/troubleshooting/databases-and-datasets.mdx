@@ -1,0 +1,63 @@
+---
+title: "Databases and datasets"
+description: "Dataset and datyaabase troubleshooting with Seqera Platform."
+date: "26 August 2024"
+tags: [faq, help, database, dataset]
+---
+
+## Databases
+
+**Seqera Enterprise 22.2.0: Database connection failure**
+
+Seqera Enterprise 22.2.0 introduced a breaking change whereby the `TOWER_DB_DRIVER` is now required to be `org.mariadb.jdbc.Driver`.
+
+Clients who use Amazon Aurora as their database solution may encounter a _java.sql.SQLNonTransientConnectionException: ... could not load system variables_ error, likely due to a [known error](https://jira.mariadb.org/browse/CONJ-824) tracked within the MariaDB project.
+
+Please modify the Seqera Enterprise configuration as follows to try resolving the problem:
+
+1. Ensure your `TOWER_DB_DRIVER` uses the specified MariaDB URI.
+2. Modify your `TOWER_DB_URL` to: `TOWER_DB_URL=jdbc:mysql://YOUR_DOMAIN:YOUR_PORT/YOUR_TOWER_DB?usePipelineAuth=false&useBatchMultiSend=false`
+
+## Datasets
+
+**API: Dataset upload failure**
+
+When uploading datasets via the Seqera UI or CLI, some steps are automatically done on your behalf. To upload datasets via the Seqera API, additional steps are required:
+
+1. Explicitly define the MIME type of the file being uploaded.
+2. Make two calls to the API:
+   1. Create a dataset object.
+   2. Upload the samplesheet to the dataset object.
+
+Example:
+
+```console
+# Step 1: Create the dataset object.
+$ curl -X POST "https://api.cloud.seqera.io/workspaces/$WORKSPACE_ID/datasets/" -H "Content-Type: application/json" -H "Authorization: Bearer $TOWER_ACCESS_TOKEN" --data '{"name":"placeholder", "description":"A placeholder for the data we will submit in the next call"}'
+
+# Step 2: Upload the datasheet into the dataset object.
+$ curl -X POST "https://api.cloud.seqera.io/workspaces/$WORKSPACE_ID/datasets/$DATASET_ID/upload"  -H "Accept: application/json"  -H "Authorization: Bearer $TOWER_ACCESS_TOKEN"  -H "Content-Type: multipart/form-data" -F "file=@samplesheet_full.csv; type=text/csv"
+```
+
+:::tip
+You can also use the [tower-cli](https://github.com/seqeralabs/tower-cli) to upload the dataset to a particular workspace:
+
+    ```console
+    tw datasets add --name "cli_uploaded_samplesheet" ./samplesheet_full.csv
+    ```
+
+:::
+
+**Datasets converted to 'application/vnd.ms-excel' data type during upload using Firefox**
+
+This is a known issue when using Firefox browser with Seqera versions older than 22.2.0. You can either (a) upgrade to 22.2.0 or higher, or (b) use Chrome.
+
+Seqera displays this error for this issue:
+
+```
+"Given file is not a dataset file. Detected media type: 'application/vnd.ms-excel'. Allowed types: 'text/csv, text/tab-separated-values'"
+```
+
+**v22.2: TSV-formatted datasets not shown in Tower launch screen input field drop-down menu**
+
+An issue was identified in Seqera version 22.2 which caused TSV datasets to be unavailable in the input data drop-down menu on the launch screen. This has been fixed in version 22.4.1.

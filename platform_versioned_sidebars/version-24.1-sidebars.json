@@ -241,6 +241,43 @@
         "functionality_matrix/functionality_matrix"
       ]
     },
-    "faqs"
+    {
+      "type": "category",
+      "label": "Troubleshooting",
+      "collapsed": true,
+      "items": [
+        "troubleshooting/troubleshooting",
+        "troubleshooting/faqs",
+        "troubleshooting/nextflow",
+        "troubleshooting/aws-troubleshooting",
+        "troubleshooting/azure-troubleshooting",
+        "troubleshooting/workspaces-troubleshooting",
+        "troubleshooting/databases-and-datsasets"        
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Releases",
+      "collapsed": true,
+      "items": [
+        "cloud/changelog",
+        "enterprise/release_notes/enterprise_changelog",       
+        "enterprise/release_notes/enterprise_latest",
+        {
+          "type": "category",
+          "label": "Legacy versions",
+          "collapsed": true,
+          "items": [
+            "enterprise/release_notes/23.4",
+            "enterprise/release_notes/23.3",
+            "enterprise/release_notes/23.2",
+            "enterprise/release_notes/23.1",
+            "enterprise/release_notes/22.4",
+            "enterprise/release_notes/22.3"
+          ]
+        },
+        "functionality_matrix/functionality_matrix"
+      ]
+    }    
   ]
 }
