@@ -21,11 +21,11 @@
   Note:                'Events for public and private bucket files are logged.'
 - 
   Resource:            'Organizations'
-  Events logged:      'Add, delete'
+  Events logged:       'Add, delete'
   Note:                'Log entry includes the organization ID.'
 - 
   Resource:            'Participants'
-  Events logged:      'Add, update role, delete'
+  Events logged:       'Add, update role, delete'
   Note:                'Log entry includes the participant ID.'
 - 
   Resource:            'Pipelines'
@@ -50,7 +50,7 @@
 - 
   Resource:            'Users'
   Events logged:       'Add, edit, delete'
-  Note:                'Log entry includes the user ID.'
+  Note:                'Log entry includes the user ID. See [user deletion](https://docs.seqera.io/platform/24.1/data-privacy/overview#user-deletion).'
 - 
   Resource:            'User sessions'
   Events logged:       'Login'

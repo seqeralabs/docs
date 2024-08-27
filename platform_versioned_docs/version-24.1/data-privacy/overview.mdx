@@ -13,6 +13,21 @@ When you launch a workflow through Seqera Platform, you need to connect your inf
 
 It may be possible to access some data within your storage from the application interface - for example, viewing logs and reports generated in a pipeline run. However, this data is never stored within the platform's infrastructure.
 
+### User deletion
+
+When a Platform user account is deleted, the following happens:
+
+- The user account email is changed to `none@your-domain`. Any runs and run metadata associated with the user account will then display that email address.
+- The username is changed to `username-<timestamp of deletion>`.
+- All of the user's organization, workspace, and team memberships are deleted.
+- All of the user's access tokens are deleted from their personal workspace.
+
+For Enterprise installations, in addition to the above: 
+
+- All the user's credentials are deleted from their personal workspace.
+- All the user's compute environments are deleted from their personal workspace.
+- All actions created by the user are deleted from their personal workspace.
+
 ### Metadata stored by Seqera Platform
 
 Workflow execution metadata is sent by the Nextflow runtime to the application when:
