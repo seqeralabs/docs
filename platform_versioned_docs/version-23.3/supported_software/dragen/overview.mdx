@@ -17,11 +17,11 @@ When deploying data analysis workflows, some tasks will need to use normal insta
 
 ## Getting started
 
-To showcase the capability of this integration, we have implemented a proof of concept pipeline called [nf-dragen](https://github.com/seqeralabs/nf-dragen). To run it, sign into Seqera Platform, navigate to the [Community Showcase](https://tower.nf/orgs/community/workspaces/showcase/launchpad) and select the "nf-dragen" pipeline.
+To showcase the capability of this integration, we have implemented a proof of concept pipeline called [nf-dragen](https://github.com/seqeralabs/nf-dragen). To run it, sign into Seqera Platform, navigate to the [Community Showcase](https://cloud.seqera.io/orgs/community/workspaces/showcase/launchpad) and select the "nf-dragen" pipeline.
 
 You can run this pipeline at your convenience without any extra setup. Note however that it will be deployed in the compute environment owned by the Community Showcase.
 
-To deploy the pipeline on your own AWS cloud infrastructure, follow the instructions that follow.
+To deploy the pipeline on your own AWS cloud infrastructure, follow the instructions in the next section.
 
 ## Deploy DRAGEN in your own workspace
 
@@ -33,13 +33,11 @@ DRAGEN is a commercial technology provided by Illumina, so you will need to purc
 
 Batch Forge automates most of the tasks required to set up an AWS Batch compute environment. See [AWS Batch](../../compute-envs/aws-batch.mdx) for more details.
 
-In order to enable support for DRAGEN acceleration, simply toggle the **Enable DRAGEN** option when setting up the compute environment via Batch Forge.
+In order to enable support for DRAGEN acceleration, simply toggle the **Enable DRAGEN (beta)** option when setting up the compute environment via Batch Forge.
 
-In the **DRAGEN AMI ID** field, enter the AWS AMI ID provided by Illumina.
+In the **DRAGEN AMI ID** field, enter the AWS AMI ID provided by Illumina. Then select the instance type from the drop-down menu.
 
-![](./_images/dragen_ce_ami.png)
-
-:::caution
+:::note
 The Region you select must contain DRAGEN F1 instances.
 :::
 
