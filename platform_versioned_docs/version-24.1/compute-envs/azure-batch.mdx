@@ -255,7 +255,7 @@ Create a manual Seqera Azure Batch compute environment:
     - Optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre--post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
     - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Configuration settings in this field override the same values in the pipeline Nextflow config file. 
     :::info
-    To use managed identities, Platform requires requires Nextflow version 24.06.0-edge or later. Add `export NXF_VER=24.06.0-edge` to the **Global Nextflow config** field for your compute environment to use this Nextflow version by default. 
+    To use managed identities, Platform requires Nextflow version 24.06.0-edge or later. Add `export NXF_VER=24.06.0-edge` to the **Global Nextflow config** field for your compute environment to use this Nextflow version by default. 
     :::
 1. Define custom **Environment Variables** for the **Head Job** and/or **Compute Jobs**.
 1. Configure any necessary advanced options:
@@ -266,7 +266,7 @@ Create a manual Seqera Azure Batch compute environment:
 ### Managed identity
 
 :::info
-To use managed identities, Platform requires requires Nextflow version 24.06.0-edge or later. Add `export NXF_VER=24.06.0-edge` to the **Global Nextflow config** field in advanced options for your compute environment to use this Nextflow version by default. 
+To use managed identities, Platform requires requires Nextflow version 24.06.0-edge or later. Add `export NXF_VER=24.06.0-edge` to the **Global Nextflow config** field in advanced options for your compute environment to use this Nextflow version by default (see manual instructions above). 
 :::
 
 Nextflow can authenticate to Azure services using a managed identity. This method offers enhanced security compared to access keys, but must run on Azure infrastructure. 
