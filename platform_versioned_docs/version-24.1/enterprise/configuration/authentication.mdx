@@ -47,7 +47,6 @@ To use GitHub as SSO provider for Seqera:
    in your organization settings page.
 2. When creating the OAuth App, specify the following path as callback URL: `https://<your-deployment-domain-name>/oauth/callback/github` (replace `<your-deployment-domain-name>` with the domain name of your deployment).
 3. Include the following variables in the backend environment configuration:
-
    - `TOWER_GITHUB_CLIENT`: The client ID provided by GitHub when registering the new OAuth App.
    - `TOWER_GITHUB_SECRET`: The client secret provided by GitHub when registering the new OAuth App.
 
@@ -62,7 +61,6 @@ To use Google as the identity provider for Seqera:
 5. Enter the redirect URL: `https://<your-deployment-domain-name>/oauth/callback/google` (replace `<{your-deployment-domain-name>` with the domain name of your deployment).
 6. Confirm the operation. You'll then receive a `client ID` and `secret ID`.
 7. Include the `client ID` and `secret ID` in the following variables in the Seqera backend environment configuration:
-
 - `TOWER_GOOGLE_CLIENT`: The client ID provided by Google above.
 - `TOWER_GOOGLE_SECRET`: The client secret provided by Google above.
 
@@ -85,7 +83,6 @@ To use [Keycloak](https://www.keycloak.org/) as the identity provider for Seqera
 5. In the **Credentials** tab, note the **Secret** field.
 6. In the **Keys** tab, set the field **Use JWKS URL** to `OFF`.
 7. Complete the setup in Seqera by adding the following environment variables to your configuration:
-
    - `TOWER_OIDC_CLIENT`: The client ID assigned in step 3 above.
    - `TOWER_OIDC_SECRET`: The contents of the **Secret** field noted in step 5 above.
    - `TOWER_OIDC_ISSUER`: The Keycloak issuer URL. Locate this on the **Realm Settings** page, from _OpenID Configuration_ in the **Endpoints** field. From the JSON payload displayed, copy the value associated with `issues`, e.g., `http://localhost:9000/auth/realms/master`.
@@ -101,29 +98,24 @@ To use [Entra ID OIDC](https://learn.microsoft.com/en-us/entra/identity-platform
 5. Select the new tenant.
 6. Go to **App Registrations**.
 7. Select **New Registration** and specify the following:
-
    1. A name for the application.
    2. The scope of user verification (e.g., single tenant, multi-tenant, personal MSFT accounts, etc).
-
 :::note
 The Entra ID app must have user consent settings configured to **Allow user consent for apps** to ensure that admin approval is not required for each application login. See [User consent settings](https://learn.microsoft.com/en-us/azure/active-directory/manage-apps/configure-user-consent?pivots=portal#configure-user-consent-settings).
 :::
 
 8. Specify the **Redirect** (callback) URI.
-
 :::note
 This must be an `https://` URI, per Microsoft's requirements.
 :::
 
 9. Open the newly-created app:
-
    1. Note the `Application (client) ID` on the **Essentials** table.
    2. Generate **Client credentials** on the **Essentials** table.
    3. Select **Endpoints** and note the OpenID Connect metadata document URI.
 
 10. Add users to your tenant as required.
 11. Complete the setup in Seqera by adding the following environment variables to your configuration:
-
     ```bash
     TOWER_OIDC_CLIENT=<YOUR_APPLICATION_ID>
     TOWER_OIDC_SECRET=<YOUR_CLIENT_CREDENTIALS_SECRET>
@@ -143,13 +135,11 @@ To use [Okta](https://www.okta.com/) as the identity provider for Seqera:
 6. Select **Create**.
 7. Enter a name for your new app integration, e.g., `Seqera`.
 8. In **Configure OpenID Connect**, add the following redirect URIs:
-
    - **Sign-in redirect URIs** : `https://<YOUR HOST OR IP>/oauth/callback/oidc`
    - **Sign-out redirect URIs** : `https://<YOUR HOST OR IP>/logout`
 
 9. Select **Save**.
 10. Okta automatically redirects to your new application settings. Complete the setup in Seqera by adding the following environment variables to your configuration:
-
     - `TOWER_OIDC_CLIENT`: Copy the **Client ID** value from **General > Client Credentials** for the corresponding app client configuration.
     - `TOWER_OIDC_SECRET`: Copy the **Client secret** value from **General > Client Credentials** for the corresponding app client configuration.
     - `TOWER_OIDC_ISSUER`: Copy the Okta issuer URL from **Sign On > OpenID Connect ID Token** for the corresponding app client configuration.
