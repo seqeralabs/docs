@@ -51,7 +51,7 @@ A resource group can be created while creating an Azure Storage Account or Azure
 :::
 
 1. Log in to your Azure account, go to the [Create Resource group][az-create-rg] page, and select **Create new resource group**.
-1. Enter a name for the resource group, such as _towerrg_.
+1. Enter a name for the resource group, such as _seqeracompute_.
 1. Choose the preferred region.
 1. Select **Review and Create** to proceed.
 1. Select **Create**.
@@ -64,7 +64,7 @@ After creating a resource group, set up an [Azure Storage account][az-learn-stor
     :::note
     If you haven't created a resource group, you can do so now.
     :::
-1. Enter a name for the storage account, such as _towerrgstorage_.
+1. Enter a name for the storage account, such as _seqeracomputestorage_.
 1. Choose the preferred region. This must be the same region as the Batch account.
 1. The platform supports any performance or redundancy settings — select the most appropriate settings for your use case.
 1. Select **Next: Advanced**.
@@ -79,8 +79,8 @@ After creating a resource group, set up an [Azure Storage account][az-learn-stor
 1. Select **Review and Create**.
 1. Select **Create** to create the Azure Storage account.
     - You will need at least one blob storage container to act as a working directory for Nextflow.
-1. Go to your new storage account and select **+ Container** to create a new Blob storage container. A new container dialogue will open. Enter a suitable name, e.g., _towerrgstorage-container_.
-1. Go to the **Access Keys** section of your new storage account (_towerrgstorage_ in this example).
+1. Go to your new storage account and select **+ Container** to create a new Blob storage container. A new container dialogue will open. Enter a suitable name, e.g., _seqeracomputestorage-container_.
+1. Go to the **Access Keys** section of your new storage account (_seqeracomputestorage_ in this example).
 1. Store the access keys for your Azure Storage account, to be used when you create a Seqera compute environment.
 
 :::caution
@@ -93,7 +93,7 @@ After you have created a resource group and storage account, create a [Batch acc
 
 1. Log in to your Azure account and select **Create a batch account** on [this page][az-create-batch].
 1. Select the existing resource group or create a new one.
-1. Enter a name for the Batch account, such as _towerrgbatch_.
+1. Enter a name for the Batch account, such as _seqeracomputebatch_.
 1. Choose the preferred region. This must be the same region as the Storage account.
 1. Select **Advanced**.
 1. For **Pool allocation mode**, select Batch service.
@@ -186,7 +186,7 @@ Create a Batch Forge Azure Batch compute environment:
 1. Select **Azure Batch** as the target platform.
 1. Choose existing Azure credentials or add a new credential.
 1. Select a **Region**, e.g., _eastus_.
-1. In the **Pipeline work directory** field, enter the Azure blob container created previously, e.g., `az://towerrgstorage-container/work`.
+1. In the **Pipeline work directory** field, enter the Azure blob container created previously, e.g., `az://seqeracomputestorage-container/work`.
     :::note
     When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad.mdx#launch-form) form.
     :::
@@ -230,7 +230,7 @@ Your Seqera compute environment uses resources that you may be charged for in yo
 1. Enter a name, e.g., _Azure Credentials_.
 1. Add the **Batch account** and **Blob Storage** credentials you created previously.
 1. Select a **Region**, e.g., _eastus (East US)_.
-1. In the **Pipeline work directory** field, add the Azure blob container created previously, e.g., `az://towerrgstorage-container/work`.
+1. In the **Pipeline work directory** field, add the Azure blob container created previously, e.g., `az://seqeracomputestorage-container/work`.
     :::note
     When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad.mdx#launch-form) form.
     :::
