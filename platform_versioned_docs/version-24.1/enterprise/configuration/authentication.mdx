@@ -45,9 +45,7 @@ To use GitHub as SSO provider for Seqera:
 
 1. Register your Seqera instance as a [GitHub OAuth App](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app)
    in your organization settings page.
-
 2. When creating the OAuth App, specify the following path as callback URL: `https://<your-deployment-domain-name>/oauth/callback/github` (replace `<your-deployment-domain-name>` with the domain name of your deployment).
-
 3. Include the following variables in the backend environment configuration:
 
    - `TOWER_GITHUB_CLIENT`: The client ID provided by GitHub when registering the new OAuth App.
