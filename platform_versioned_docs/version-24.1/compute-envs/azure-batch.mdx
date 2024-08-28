@@ -149,7 +149,9 @@ To create an access key:
 #### Entra service principal
 
 :::info
-Batch Forge compute environments must use access keys for authentication. Service principals are only supported in manual compute environments. 
+Batch Forge compute environments must use access keys for authentication. Service principals are only supported in manual compute environments.
+
+The use of Entra service principals in manual compute environments requires the use of a [managed identity](#managed-identity). 
 :::
 
 See [Create a service principal][az-create-sp] for more details. 
@@ -262,7 +264,7 @@ Create a manual Seqera Azure Batch compute environment:
 
 Nextflow can authenticate to Azure services using a managed identity. This method offers enhanced security compared to access keys, but must run on Azure infrastructure. 
 
-When you use a manually configured compute environment with a managed identity attached to the Azure Batch Pool, Nextflow can use this managed identity for authentication. However, Platform still needs to use access keys to submit the initial task to Azure Batch to run Nextflow, which will then proceed with the managed identity for subsequent authentication.
+When you use a manually configured compute environment with a managed identity attached to the Azure Batch Pool, Nextflow can use this managed identity for authentication. However, Platform still needs to use access keys or an Entra service principal to submit the initial task to Azure Batch to run Nextflow, which will then proceed with the managed identity for subsequent authentication.
 
 1. In Azure, create a user-assigned managed identity. See [Manage user-assigned managed identities](https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/how-manage-user-assigned-managed-identities) for detailed steps. After creation, record the Client ID of the managed identity.
 1. The user-assigned managed identity must have the necessary access roles for Nextflow. See [Required role assignments](https://www.nextflow.io/docs/latest/azure.html#required-role-assignments) for more information.
