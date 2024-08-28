@@ -101,6 +101,8 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
 
   Compute environments define the execution platform where a pipeline runs. A compute environment is composed of the credentials, configuration, and storage options related to a particular computing platform.  See [Compute environments][compute-envs] for more information on supported providers.
 
+Run `tw compute-envs -h` to view the list of supported compute environment operations.
+
   ### Add a compute environment
 
   Run `tw compute-envs add -h` to view the list of supported providers.
@@ -186,7 +188,7 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
   :::note 
   The maximum supported dataset file size is 10 MB.
   :::
-
+  
   ### Delete a dataset 
 
   To delete a workspace dataset, specify either the dataset name (`-n` flag) or ID (`-i` flag):
@@ -216,7 +218,7 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
 
   ### List datasets 
 
-  Run `tw datasets add -h` to view the optional fields for listing and filtering datasets.
+  Run `tw datasets list -h` to view the optional fields for listing and filtering datasets.
 
   ```console 
   tw datasets list -f data
@@ -230,7 +232,7 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
 
   ### View a dataset 
 
-  View a stored dataset's details:
+  Run `tw datasets view -h` to view the required and optional fields for viewing a stored dataset's details.
 
   ```console
   tw datasets view -n samplesheet1
@@ -603,11 +605,13 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
 
   ### Delete a label 
 
-  ```console
-  tw labels delete -i 203879852150462
+  Run `tw labels delete -h` to view the required and optional fields for deleting labels. 
 
-  Label '203879852150462' deleted at '97652229034604' workspace
-  ```
+    ```console
+    tw labels delete -i 203879852150462
+
+    Label '203879852150462' deleted at '97652229034604' workspace
+    ```
 
 </details>  
 <details>
@@ -775,7 +779,7 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
 
   Run `tw members -h` to view supported member operations.
 
-  Manage organization members. 
+  Manage organization members. Organization membership management requires organization `OWNER` permissions. 
 
   ### List members 
 
@@ -806,13 +810,17 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
 
   ### Delete a member
 
-  ```console
-  tw members delete -u user1 -o TestOrg2
+    Run `tw members delete -h` view all the required and optional fields for deleting organization members.
 
-  Member 'user1' deleted from organization 'TestOrg2'
-  ```
+    ```console
+    tw members delete -u user1 -o TestOrg2
+
+    Member 'user1' deleted from organization 'TestOrg2'
+    ```
 
   ### Update member role 
+
+  Run `tw members update -h` view all the required and optional fields for updating organization members.
 
   ```console 
   tw members update -u user1 -r OWNER -o TestOrg2
@@ -834,11 +842,11 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
 
   See [User workspaces][user-workspaces] for more information.
 
-  :::note
-  This section assumes that you already have access to an organization in Seqera Platform.
-  :::
-
   ### Add a workspace
+
+  :::note
+  Workspace management operations require organization `OWNER` permissions.
+  :::
 
   Run `tw workspaces add -h` to view the required and optional fields for adding your workspace.
 
@@ -875,6 +883,10 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
   Run `tw participants -h` to view supported participant operations.
 
   Manage workspace participants. 
+
+  :::note
+  The operations listed below require workspace `OWNER` or `ADMIN` permissions.
+  :::
 
   ### List participants
 
@@ -919,6 +931,10 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
   Run `tw teams -h` to view supported team operations.
 
   Manage organization teams.
+
+  :::note
+  Team management operations require organization `OWNER` permissions. 
+  :::
 
   ### List teams
 
@@ -976,6 +992,8 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
 <details>
   <summary>**Collaborators**</summary>
 
+Run `tw collaborators -h` view all the required and optional fields for managing organization collaborators.
+
   Manage organization collaborators. 
 
   ### List collaborators
@@ -998,21 +1016,27 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
 <details>
   <summary>**Actions**</summary>
 
-  Run `tw actions -h` to view supported operations.
-
-  Run `tw actions add -h` to view the required and optional fields for adding an action.
+  Run `tw actions -h` to view supported pipeline action operations.
 
   [Actions](../pipeline-actions/overview.mdx) enable event-based pipeline execution, such as triggering a pipeline launch with a GitHub webhook whenever the pipeline repository is updated.
+
+  ### Add a pipeline action
+  
+  Run `tw actions add -h` to view the required and optional fields for adding an action.
+
 
 </details>
 <details>
   <summary>**Secrets**</summary>
 
-  Run `tw secrets -h` to view supported operations.
+  Run `tw secrets -h` to view supported workspace secret operations.
+  
+  [Secrets](../secrets/overview.mdx) are used to store the keys and tokens used by workflow tasks to interact with external systems, such as a password to connect to an external database or an API token.
+
+  ### Add a workspace secret
 
   Run `tw secrets add -h` to view the required and optional fields for adding a secret.
 
-  [Secrets](../secrets/overview.mdx) are used to store the keys and tokens used by workflow tasks to interact with external systems, such as a password to connect to an external database or an API token.
 
 </details>  
 
