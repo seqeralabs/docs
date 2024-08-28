@@ -605,13 +605,13 @@ Run `tw compute-envs -h` to view the list of supported compute environment opera
 
   ### Delete a label 
 
-Run `tw labels delete -h` to view the required and optional fields for deleting labels. 
+  Run `tw labels delete -h` to view the required and optional fields for deleting labels. 
 
-  ```console
-  tw labels delete -i 203879852150462
+    ```console
+    tw labels delete -i 203879852150462
 
-  Label '203879852150462' deleted at '97652229034604' workspace
-  ```
+    Label '203879852150462' deleted at '97652229034604' workspace
+    ```
 
 </details>  
 <details>
@@ -779,7 +779,7 @@ Run `tw labels delete -h` to view the required and optional fields for deleting 
 
   Run `tw members -h` to view supported member operations.
 
-  Manage organization members. 
+  Manage organization members. Organization membership management requires organization `OWNER` permissions. 
 
   ### List members 
 
@@ -810,17 +810,17 @@ Run `tw labels delete -h` to view the required and optional fields for deleting 
 
   ### Delete a member
 
-Run `tw members delete -h` view all the required and optional fields for deleting organization members.
+    Run `tw members delete -h` view all the required and optional fields for deleting organization members.
 
-  ```console
-  tw members delete -u user1 -o TestOrg2
+    ```console
+    tw members delete -u user1 -o TestOrg2
 
-  Member 'user1' deleted from organization 'TestOrg2'
-  ```
+    Member 'user1' deleted from organization 'TestOrg2'
+    ```
 
   ### Update member role 
 
-Run `tw members update -h` view all the required and optional fields for updating organization members.
+  Run `tw members update -h` view all the required and optional fields for updating organization members.
 
   ```console 
   tw members update -u user1 -r OWNER -o TestOrg2
@@ -842,11 +842,11 @@ Run `tw members update -h` view all the required and optional fields for updatin
 
   See [User workspaces][user-workspaces] for more information.
 
-  :::note
-  This section assumes that you already have access to an organization in Seqera Platform.
-  :::
-
   ### Add a workspace
+
+  :::note
+  Workspace management operations require organization `OWNER` permissions.
+  :::
 
   Run `tw workspaces add -h` to view the required and optional fields for adding your workspace.
 
@@ -883,6 +883,10 @@ Run `tw members update -h` view all the required and optional fields for updatin
   Run `tw participants -h` to view supported participant operations.
 
   Manage workspace participants. 
+
+  :::note
+  The operations listed below require workspace `OWNER` or `ADMIN` permissions.
+  :::
 
   ### List participants
 
@@ -927,6 +931,10 @@ Run `tw members update -h` view all the required and optional fields for updatin
   Run `tw teams -h` to view supported team operations.
 
   Manage organization teams.
+
+  :::note
+  Team management operations require organization `OWNER` permissions. 
+  :::
 
   ### List teams
 
@@ -1010,11 +1018,12 @@ Run `tw collaborators -h` view all the required and optional fields for managing
 
   Run `tw actions -h` to view supported pipeline action operations.
 
-  ### Adding a pipeline action
+  [Actions](../pipeline-actions/overview.mdx) enable event-based pipeline execution, such as triggering a pipeline launch with a GitHub webhook whenever the pipeline repository is updated.
+
+  ### Add a pipeline action
   
   Run `tw actions add -h` to view the required and optional fields for adding an action.
 
-  [Actions](../pipeline-actions/overview.mdx) enable event-based pipeline execution, such as triggering a pipeline launch with a GitHub webhook whenever the pipeline repository is updated.
 
 </details>
 <details>
@@ -1025,6 +1034,7 @@ Run `tw collaborators -h` view all the required and optional fields for managing
   [Secrets](../secrets/overview.mdx) are used to store the keys and tokens used by workflow tasks to interact with external systems, such as a password to connect to an external database or an API token.
 
   ### Add a workspace secret
+
   Run `tw secrets add -h` to view the required and optional fields for adding a secret.
 
 
