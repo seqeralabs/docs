@@ -77,7 +77,7 @@ This guide assumes that all services will be run in the same container as the re
         - `CONNECT_PROXY_URL`: A URL for the connect proxy subdomain. We recommend you set a first-level subdomain of your `PLATFORM_URL` for your connect proxy. For example, `https://connect.example.com`.
         - `CONNECT_OIDC_CLIENT_REGISTRATION_TOKEN`: The same value set in the `oidc_registration_token` environment variable.
 
-1. Open `data-studios.env` in an editor and set the following variables:
+1. Open `tower.env` in an editor and set the following variables:
 
     - `TOWER_DATA_EXPLORER_ENABLED`: Set `true` to enable Data Explorer. You must enable Data Explorer to mount data inside a data studio instance.
     - `TOWER_DATA_STUDIO_CONNECT_URL`: The URL of the Data Studios connect proxy, such as `https://connect.example.com/`.
