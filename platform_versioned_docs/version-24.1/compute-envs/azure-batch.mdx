@@ -13,32 +13,23 @@ Ensure you have sufficient permissions to create resource groups, an Azure Stora
 
 ## Azure concepts
 
-<details>
-  <summary>**Regions**</summary>
+#### Regions
 
-  Azure regions are specific geographic locations around the world where Microsoft has established data centers to host its cloud services. Each Azure region is a collection of data centers that provide users with high availability, fault tolerance, and low latency for cloud services. Each region offers a wide range of Azure services that can be chosen to optimize performance, ensure data residency compliance, and meet regulatory requirements. Azure regions also enable redundancy and disaster recovery options by allowing resources to be replicated across different regions, enhancing the resilience of applications and data.
+Azure regions are specific geographic locations around the world where Microsoft has established data centers to host its cloud services. Each Azure region is a collection of data centers that provide users with high availability, fault tolerance, and low latency for cloud services. Each region offers a wide range of Azure services that can be chosen to optimize performance, ensure data residency compliance, and meet regulatory requirements. Azure regions also enable redundancy and disaster recovery options by allowing resources to be replicated across different regions, enhancing the resilience of applications and data.
 
-</details>  
-<details>
-  <summary>**Resource groups**</summary>
+#### Resource groups
 
-  An Azure resource group is a logical container that holds related Azure resources such as virtual machines, storage accounts, databases, and more. A resource group serves as a management boundary to organize, deploy, monitor, and manage the resources within it as a single entity. Resources in a resource group share the same lifecycle, meaning they can be deployed, updated, and deleted together. This also enables easier access control, monitoring, and cost management, making resource groups a foundational element in organizing and managing cloud infrastructure in Azure.
+An Azure resource group is a logical container that holds related Azure resources such as virtual machines, storage accounts, databases, and more. A resource group serves as a management boundary to organize, deploy, monitor, and manage the resources within it as a single entity. Resources in a resource group share the same lifecycle, meaning they can be deployed, updated, and deleted together. This also enables easier access control, monitoring, and cost management, making resource groups a foundational element in organizing and managing cloud infrastructure in Azure.
 
-</details>
-<details>
-  <summary>**Accounts**</summary>
+#### Accounts
 
-  Seqera Platform relies on an existing Azure Storage and Azure Batch account. At least one valid Azure Storage and Azure Batch account is required per Azure subscription.
+Seqera Platform relies on an existing Azure Storage and Azure Batch account. At least one valid Azure Storage and Azure Batch account is required per Azure subscription.
 
-  Azure uses accounts for each service. For example, an [Azure Storage account][az-learn-storage] will house a collection of blob containers, file shares, queues, and tables. An Azure subscription can have multiple Azure Storage and Azure Batch accounts. However, a Platform compute environment can only use one of each (one Storage and one Batch account). Multiple Platform compute environments can be set to use different credentials, Storage accounts, and Batch accounts.
+Azure uses accounts for each service. For example, an [Azure Storage account][az-learn-storage] will house a collection of blob containers, file shares, queues, and tables. An Azure subscription can have multiple Azure Storage and Azure Batch accounts. However, a Platform compute environment can only use one of each (one Storage and one Batch account). Multiple Platform compute environments can be set to use different credentials, Storage accounts, and Batch accounts.
 
-</details>
-<details>
-  <summary>**Service principals**</summary>
+#### Service principals
 
-  An Azure service principal is an identity created for use with applications, hosted services, or automated tools to access Azure resources. A service principal is effectively a user identity with a set of permissions assigned to it. Platform can use an Azure service principal to authenticate and authorize access to Azure Batch for job execution and Azure Storage for data management. By assigning the necessary roles to the service principal, Platform can securely interact with these Azure services. This ensures that only authorized operations are performed during pipeline execution.
-
-</details>  
+An Azure service principal is an identity created for use with applications, hosted services, or automated tools to access Azure resources. A service principal is effectively a user identity with a set of permissions assigned to it. Platform can use an Azure service principal to authenticate and authorize access to Azure Batch for job execution and Azure Storage for data management. By assigning the necessary roles to the service principal, Platform can securely interact with these Azure services. This ensures that only authorized operations are performed during pipeline execution.
 
 ## Create Azure resources
 
@@ -121,13 +112,27 @@ After you have created a resource group and storage account, create a [Batch acc
 
 ### Credentials
 
-There are two types of Azure credentials available: access keys and service principals. Access keys are simple to use but provide full access to the Storage and Batch accounts. Azure allows only two access keys per account, making them a single point of failure. A service principal provides an account which can be granted access to Azure Batch and Storage resources. Service principals therefore enable role-based access control with more precise permissions. Moreover, some Azure Batch features are only available when using a service principal.
+There are two types of Azure credentials available: access keys and Entra service principals.
+
+Access keys are simple to use but have several limitations:
+- Access keys are long-lived. 
+- Access keys provide full access to the Storage and Batch accounts. 
+- Azure allows only two access keys per account, making them a single point of failure. 
+
+Entra service principals are accounts which can be granted access to Azure Batch and Storage resources: 
+- Service principals enable role-based access control with more precise permissions. 
+- Service principals map to a many-to-many relationship with Batch and Storage accounts.
+- Some Azure Batch features are only available when using a service principal.
 
 :::note
 The two Azure credential types use different authentication methods. You can add more than one credential to a workspace, but Platform compute environments use only one credential at any given time. While separate credentials can be used by separate compute environments concurrently, they are not cross-compatible — access granted by one credential will not be shared with the other.
 :::
 
 #### Access keys
+
+:::info
+Batch Forge compute environments must use access keys for authentication. Service principals are only supported in manual compute environments. 
+:::
 
 To create an access key:
 
@@ -141,13 +146,15 @@ To create an access key:
     - Add the **Batch account** and **Blob Storage account** names and access keys to the relevant fields.
 1. Delete the copied keys from their temporary location after they have been added to a credential in Platform.
 
-#### Service principal
+#### Entra service principal
 
-:::note
-See [Create a service principal][az-create-sp] for more details. 
+:::info
+Batch Forge compute environments must use access keys for authentication. Service principals are only supported in manual compute environments. 
 :::
 
-To create a service principal:
+See [Create a service principal][az-create-sp] for more details. 
+
+To create an Entra service principal:
 
 1. In the Azure Portal, navigate to **Microsoft Entra ID**. Under **App registrations**, select **New registration**.
 1. Provide a name for the application. The application will automatically have a service principal associated with it.
@@ -182,11 +189,14 @@ Batch Forge automatically creates resources that you may be charged for in your 
 Create a Batch Forge Azure Batch compute environment:
 
 1. In a workspace, select **Compute Environments > New Environment**.
-1. Enter a descriptive name, e.g., _Azure Batch (east-us)_.
+1. Enter a descriptive name, such as _Azure Batch (east-us)_.
 1. Select **Azure Batch** as the target platform.
 1. Choose existing Azure credentials or add a new credential.
-1. Select a **Region**, e.g., _eastus_.
-1. In the **Pipeline work directory** field, enter the Azure blob container created previously, e.g., `az://towerrgstorage-container/work`.
+    :::info
+    Batch Forge compute environments must use access keys for authentication. Entra service principals are only supported in manual compute environments. 
+    :::
+1. Select a **Region**, such as _eastus_.
+1. In the **Pipeline work directory** field, enter the Azure blob container created previously. For example, `az://towerrgstorage-container/work`.
     :::note
     When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad.mdx#launch-form) form.
     :::
@@ -218,26 +228,24 @@ This section is for users with a pre-configured Azure Batch pool. This requires 
 Your Seqera compute environment uses resources that you may be charged for in your Azure account. See [Cloud costs](../monitoring/cloud-costs.mdx) for guidelines to manage cloud resources effectively and prevent unexpected costs.
 :::
 
-**Create a manual Seqera Azure Batch compute environment**
+Create a manual Seqera Azure Batch compute environment:
 
 1. In a workspace, select **Compute Environments > New Environment**.
-1. Enter a descriptive name for this environment, e.g., _Azure Batch (east-us)_.
-1. Select **Azure Batch** as the target platform.
-1. Select your existing Azure credentials or select **+** to add new credentials. If you choose to use existing credentials, skip to step 7.
-    :::tip
-    You can create multiple credentials in your Seqera environment.
+1. Enter a descriptive name for this environment, such as _Azure Batch (east-us)_.
+1. For **Provider**, select **Azure Batch**.
+1. Select your existing Azure credentials (access keys or Entra service principal) or select **+** to add new credentials.
+    :::note
+    To authenticate using an Entra service principal, you must include a user-assigned managed identity. See [Managed identity](#managed-identity) below. 
     :::
-1. Enter a name, e.g., _Azure Credentials_.
-1. Add the **Batch account** and **Blob Storage** credentials you created previously.
-1. Select a **Region**, e.g., _eastus (East US)_.
-1. In the **Pipeline work directory** field, add the Azure blob container created previously, e.g., `az://towerrgstorage-container/work`.
+1. Select a **Region**, such as _eastus (East US)_.
+1. In the **Pipeline work directory** field, add the Azure blob container created previously. For example, `az://towerrgstorage-container/work`.
     :::note
     When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad.mdx#launch-form) form.
     :::
 1. Set the **Config mode** to **Manual**.
 1. Enter the **Compute Pool name**. This is the name of the Azure Batch pool you created previously in the Azure Batch account.
     :::note
-    The default Azure Batch implementation uses a single pool for head and compute nodes. To use separate pools for head and compute nodes (e.g., to use low-priority VMs for compute jobs), see [this FAQ entry](../faqs.mdx#azure).
+    The default Azure Batch implementation uses a single pool for head and compute nodes. To use separate pools for head and compute nodes (for example, to use low-priority VMs for compute jobs), see [this FAQ entry](../faqs.mdx#azure).
     :::
 1. Enter a user-assigned **Managed identity client ID**, if one is attached to your Azure Batch pool. See [Managed Identity](#managed-identity) below.
 1. Apply [**Resource labels**](../resource-labels/overview.mdx). This will populate the **Metadata** fields of the Azure Batch pool.
@@ -258,7 +266,7 @@ When you use a manually configured compute environment with a managed identity a
 
 1. In Azure, create a user-assigned managed identity. See [Manage user-assigned managed identities](https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/how-manage-user-assigned-managed-identities) for detailed steps. After creation, record the Client ID of the managed identity.
 1. The user-assigned managed identity must have the necessary access roles for Nextflow. See [Required role assignments](https://www.nextflow.io/docs/latest/azure.html#required-role-assignments) for more information.
-1. Associate the user-assigned managed identity with the Azure Batch Pool. See [Set up managed identity in your batch pool](https://learn.microsoft.com/en-us/troubleshoot/azure/hpc/batch/use-managed-identities-azure-batch-account-pool#set-up-managed-identity-in-your-batch-pool) for more information.
+1. Associate the user-assigned managed identity with the Azure Batch Pool. See [Set up managed identity in your Batch pool](https://learn.microsoft.com/en-us/troubleshoot/azure/hpc/batch/use-managed-identities-azure-batch-account-pool#set-up-managed-identity-in-your-batch-pool) for more information.
 1. When you set up the Platform compute environment, select the Azure Batch pool by name and enter the managed identity client ID in the specified field as instructed above.
 
 When you submit a pipeline to this compute environment, Nextflow will authenticate using the managed identity associated with the Azure Batch node it runs on, rather than relying on access keys.
