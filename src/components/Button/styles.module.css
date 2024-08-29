@@ -1,13 +1,13 @@
 .button {
   display: inline-block;
   color: var(--color-brand-1100);
-  padding: 10px 22px;
+  padding: 20% 10%;
   border: 1px solid transparent;
   background: #f7f7f7;
   border-radius: 99px;
   transition: all 0.2s;
   line-height: 1;
-  white-space: nowrap;
+  white-space: normal;
 }
 .button:hover {
   text-decoration: none;
