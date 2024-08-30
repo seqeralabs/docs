@@ -287,12 +287,17 @@ Run `tw compute-envs -h` to view the list of supported compute environment opera
   Add a pre-configured pipeline to the Launchpad:
 
   ```console
-  tw pipelines add --name=my_rnaseq_nf_pipeline --params-file=my_rnaseq_nf_pipeline_params.yaml https://github.com/nextflow-io/rnaseq-nf
+  tw pipelines add --name=my_rnaseq_nf_pipeline \
+  --params-file=my_rnaseq_nf_pipeline_params.yaml \
+  --config=<path/to/nextflow/conf/file> \
+  https://github.com/nextflow-io/rnaseq-nf
 
   New pipeline 'my_rnaseq_nf_pipeline' added at user workspace
   ```
 
   The optional `--params-file` flag is used to pass a set of default parameters that will be associated with the pipeline in the Launchpad.
+
+  The optional `--config` flag is used to pass a custom Nextflow configuration file — configuration values passed here override the same values in the default pipeline `nextflow.conf`.
 
   :::tip
   The `params-file` must be a YAML or JSON file using [Nextflow configuration file][nextflow-config] syntax.
@@ -339,12 +344,16 @@ Run `tw compute-envs -h` to view the list of supported compute environment opera
   :::
 
   ```console
-  tw launch my_rnaseq_nf_pipeline 
+  tw launch my_rnaseq_nf_pipeline \
+  --config=<path/to/nextflow/conf/file> \
+
 
     Workflow 1XCXxX0vCX8xhx submitted at user workspace.
 
-      https://tower.nf/user/user1/watch/1XCXxX0vCX8xhx
+      https://cloud.seqera.io/user/user1/watch/1XCXxX0vCX8xhx
   ```
+
+  The optional `--config` flag is used to pass a custom Nextflow configuration file — configuration values passed here override the same values in the default pipeline `nextflow.conf`.
 
   When using `--wait`, `tw` can exit with one of two exit codes:
 
@@ -364,7 +373,7 @@ Run `tw compute-envs -h` to view the list of supported compute environment opera
 
     Workflow 2XDXxX0vCX8xhx submitted at user workspace.
 
-      https://tower.nf/user/user1/watch/2XDXxX0vCX8xhx
+      https://cloud.seqera.io/user/user1/watch/2XDXxX0vCX8xhx
   ```
 
   See [Nextflow configuration][nextflow-config] for more information.
@@ -374,15 +383,19 @@ Run `tw compute-envs -h` to view the list of supported compute environment opera
   The CLI can directly launch pipelines that have not been added to the Launchpad in a Platform workspace by using the full pipeline repository URL:
 
   ```console
-  tw launch https://github.com/nf-core/rnaseq --params-file=./custom_rnaseq_params.yaml \
-  --compute-env=my_aws_ce --revision 3.8.1 --profile=test,docker  
+  tw launch https://github.com/nf-core/rnaseq \
+  --params-file=./custom_rnaseq_params.yaml \
+  --config=<path/to/nextflow/conf/file> \
+  --compute-env=my_aws_ce --revision 3.8.1 \
+  --profile=test,docker  
 
     Workflow 2XDXxX0vCX8xhx submitted at user workspace.
 
-      https://tower.nf/user/user1/watch/2XDXxX0vCX8xhx
+      https://cloud.seqera.io/user/user1/watch/2XDXxX0vCX8xhx
   ```
 
   - Pipeline parameters are defined within the `custom_rnaseq_params.yaml` file.
+  - The optional `--config` flag is used to pass a custom Nextflow configuration file — configuration values passed here override the same values in the default pipeline `nextflow.conf`.
   - Other parameters such as `--profile` and `--revision` can also be specified.
   - A non-primary compute environment can be used to launch the pipeline. Omit `--compute-env` to launch with the workspace default compute environment.
 
