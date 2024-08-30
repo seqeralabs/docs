@@ -15,10 +15,6 @@ Tower is composed of several modules that can be configured and deployed accordi
 
 ## Architecture
 
-:::note
-To deploy Nextflow Tower on your infrastructure, you will need a **license key**. [Contact us](mailto:sales@seqera.io) to obtain a license.
-:::
-
 Tower is composed of several Seqera-provided services and standard services that can be provisioned by Tower or by the client.
 
 ![Tower Architecture Diagram](./_images/tower_reference_architecture.png)
@@ -37,9 +33,7 @@ Tower cron is an auxiliary backend service that executes regularly-occurring act
 
 ### Tower frontend
 
-The Tower frontend is an NGINX web server that serves the [Angular](https://angular.io/) application and reverse-proxies HTTP traffic to the Tower backend.
-
-The frontend should run on port `80` within the container, and it should be the only service that accepts incoming HTTP traffic. The frontend can also be exposed via HTTPS or a load balancer.
+The Tower frontend is an NGINX web server that serves the [Angular](https://angular.io/) application and reverse-proxies HTTP traffic to the Tower backend. The frontend should run on port `80` within the container, and it should be the only service that accepts incoming HTTP traffic. The frontend can also be exposed via HTTPS or a load balancer.
 
 ### Redis database
 
