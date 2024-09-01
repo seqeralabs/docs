@@ -5,10 +5,10 @@ date: "12 Jun 2024"
 tags: [docker, compose, kubernetes, data, studios, deployment]
 ---
 
-Enable Data Studios as part of your Seqera Platform instance. Only the Amazon AWS public cloud is currently supported.
+Enable Data Studios as part of your Seqera Platform instance. You must have Data Explorer enabled to use Data Studios. Only the Amazon AWS public cloud is currently supported.
 
 :::caution 
-You must complete the upgrade of your Platform Enterprise installation to version 24.1.0 before enabling and configuring Data Studios.
+You must complete the upgrade of your Platform Enterprise installation to version 24.1.4 before enabling and configuring Data Studios.
 :::
 
 ## DNS configuration
@@ -77,7 +77,7 @@ This guide assumes that all services will be run in the same container as the re
         - `CONNECT_PROXY_URL`: A URL for the connect proxy subdomain. We recommend you set a first-level subdomain of your `PLATFORM_URL` for your connect proxy. For example, `https://connect.example.com`.
         - `CONNECT_OIDC_CLIENT_REGISTRATION_TOKEN`: The same value set in the `oidc_registration_token` environment variable.
 
-1. Open `data-studios.env` in an editor and set the following variables:
+1. Open `tower.env` in an editor and set the following variables:
 
     - `TOWER_DATA_EXPLORER_ENABLED`: Set `true` to enable Data Explorer. You must enable Data Explorer to mount data inside a data studio instance.
     - `TOWER_DATA_STUDIO_CONNECT_URL`: The URL of the Data Studios connect proxy, such as `https://connect.example.com/`.

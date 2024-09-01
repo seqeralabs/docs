@@ -91,12 +91,14 @@ Apply a [CORS configuration](https://docs.aws.amazon.com/AmazonS3/latest/usergui
 **Seqera Cloud S3 CORS configuration**
 
 ```json
-{
-  "AllowedHeaders": ["*"],
-  "AllowedMethods": ["PUT", "POST", "DELETE", "GET"],
-  "AllowedOrigins": ["https://cloud.seqera.io"],
-  "ExposeHeaders": ["ETag"]
-}
+[
+  {
+    "AllowedHeaders": ["*"],
+    "AllowedMethods": ["PUT", "POST", "DELETE", "GET"],
+    "AllowedOrigins": ["https://cloud.seqera.io"],
+    "ExposeHeaders": ["ETag"]
+  }
+]
 ```
 
 **Seqera Enterprise S3 CORS configuration**
@@ -104,12 +106,14 @@ Apply a [CORS configuration](https://docs.aws.amazon.com/AmazonS3/latest/usergui
 Replace `<your-seqera-instance.url>` with your Seqera Enterprise server URL:
 
 ```json
-{
-  "AllowedHeaders": ["*"],
-  "AllowedMethods": ["PUT", "POST", "DELETE", "GET"],
-  "AllowedOrigins": ["https://<your-seqera-instance.url>"],
-  "ExposeHeaders": ["ETag"]
-}
+[
+  {
+    "AllowedHeaders": ["*"],
+    "AllowedMethods": ["PUT", "POST", "DELETE", "GET"],
+    "AllowedOrigins": ["https://<your-seqera-instance.url>"],
+    "ExposeHeaders": ["ETag"]
+  }
+]
 ```
 
 ### Azure Blob Storage CORS configuration
