@@ -8,27 +8,22 @@ tags: [api]
 import MDXComponents from "@theme-original/MDXComponents";
 import Button from "@site/src/components/Button";
 
-The Seqera Platform services API provides a programmatic interface for all operations available in the Platform web UI. This allows organizations to integrate Platform seamlessly into existing processes.
+The Seqera Platform services API is a programmatic interface for all operations available in the Platform web UI. This allows organizations to integrate Platform seamlessly into existing processes.
 
-The API can be accessed from `https://api.cloud.seqera.io`. All API endpoints use HTTPS, and all request and response payloads use [JSON](https://www.json.org/) encoding. All timestamps use the [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) date-time standard format: `YYYY-MM-DDTHH:MM:SSZ`.
+### API reference
 
-:::note
-From version 23.4, the Platform API is live on `https://api.cloud.seqera.io`. The legacy API `https://api.tower.nf` remains fully operational, so existing API integrations will continue to perform as expected. Deprecation of the legacy API will be communicated well in advance to avoid any breaking changes to your integrations.
-:::
-
-### Platform API reference documentation
-
-The Platform API reference is an interactive list of all API endpoints and includes request and response payload examples to test requests in the browser:
-
-<Button label="Platform OpenAPI reference" link="https://cloud.seqera.io/openapi/index.html" />
+The Platform API reference is an interactive list of all API endpoints and includes request and response payload examples to test requests in the browser.
 
 :::info 
-The interactive API reference requires authentication with a Platform access token to perform requests. 
+The API requires authentication with a Platform access token to perform requests. 
 
 <Button label="Create an access token" link="https://cloud.seqera.io/tokens" />
 :::
 
-The Seqera API uses the OpenAPI standard. Download the current OpenAPI schema file here: 
+<Button label="Platform OpenAPI reference" link="https://cloud.seqera.io/openapi/index.html" /> 
+<br></br>
+
+The API and its interactive reference is built on the OpenAPI standard. Download the current OpenAPI schema file here: 
 
 <Button label="Download Platform OpenAPI schema" link="https://cloud.seqera.io/openapi/seqera-api-latest.yml" />
 
@@ -36,22 +31,34 @@ The Seqera API uses the OpenAPI standard. Download the current OpenAPI schema fi
 For more information on the OpenAPI standard, see [OpenAPI](https://swagger.io/specification/).
 :::
 
+### Encoding and formatting standards
+
+- The API can be accessed from `https://api.cloud.seqera.io`. 
+- All API endpoints use HTTPS, and all request and response payloads use [JSON](https://www.json.org/) encoding. 
+- All timestamps use the [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) date-time standard format: `YYYY-MM-DDTHH:MM:SSZ`.
+
+:::note
+From version 23.4, the Platform API is live on `https://api.cloud.seqera.io`. The legacy API `https://api.tower.nf` remains fully operational, so existing API integrations will continue to perform as expected. Deprecation of the legacy API will be communicated well in advance to avoid any breaking changes to your integrations.
+:::
+
 ### Programmatic API
 
-You can use tools such as [openapi-python-client](https://github.com/openapi-generators/openapi-python-client) to generate a programmatic API for a particular language (e.g., Python) based on the OpenAPI schema. However, we do not guarantee that any OpenAPI client generators will work with the Platform API.
+Both the [Platform CLI](../cli/overview.mdx) and [seqerakit](https://github.com/seqeralabs/seqera-kit) are built on the Platform API and provide a programmatic automation layer for operations in Platform.
+
+You can also use tools such as [openapi-python-client](https://github.com/openapi-generators/openapi-python-client) to generate your own programmatic API for a particular language (such as Python) based on the OpenAPI schema. However, we do not guarantee that any OpenAPI client generators will work with the Platform API.
 
 ### Authentication
 
 The API requires an authentication token to be specified in each API request using the
 [Bearer](https://swagger.io/docs/specification/authentication/bearer-authentication) HTTP header.
 
-Your personal access token can be found in the user menu under [**Your tokens**](https://cloud.seqera.io/tokens).
+Once created, use your access token to authenticate requests to the API via cURL, Postman, or within your code.
 
-To create a new access token, provide a token name and select **Create**.
+<Button label="Create an access token" link="https://cloud.seqera.io/tokens" />
 
-The token is only displayed once. Store your token in a safe place.
-
-Once created, use the token to authenticate requests to the API via cURL, Postman, or within your code.
+:::note
+The token is only displayed once when it is created. Store your token in a safe place.
+:::
 
 ### cURL example
 
@@ -59,8 +66,8 @@ Once created, use the token to authenticate requests to the API via cURL, Postma
 curl -H "Authorization: Bearer eyJ...YTk0" https://api.cloud.seqera.io/workflow
 ```
 
-:::tip
-Your token must be included in every API call. See [Bearer token authentication](https://swagger.io/docs/specification/authentication/bearer-authentication) for more information.
+:::info
+Your access token must be included in every API call.
 :::
 
 ### Parameters
@@ -79,7 +86,7 @@ curl -H "Authorization: Bearer QH..E5M="
 
 ### Client errors
 
-Two typical standard errors, i.e., not `200` or `204` status responses, are returned by the API.
+Two typical standard errors (i.e., response statuses other than `200` or `204`) are returned by the API.
 
 #### Bad Request
 
