@@ -60,7 +60,7 @@ After you have prepared your Kubernetes cluster and assigned a service account r
 1. In a workspace, select **Compute environments > New environment**.
 1. Enter a descriptive name for this environment, e.g., _Amazon EKS (eu-west-1)_.
 1. From the **Provider** drop-down menu, select **Amazon EKS**.
-1. Under **Storage**, select either **Fusion storage** (recommended) or **Legacy storage**. The [Fusion v2](../supported_software/fusion/fusion.mdx) virtual distributed file system allows access to your AWS S3-hosted data (`s3://` URLs). This eliminates the need to configure a shared file system in your Kubernetes cluster. See [Fusion v2](#fusion-v2) below.
+1. Under **Storage**, select either **Fusion storage** (recommended) or **Legacy storage**. The [Fusion v2](https://docs.seqera.io/fusion) virtual distributed file system allows access to your AWS S3-hosted data (`s3://` URLs). This eliminates the need to configure a shared file system in your Kubernetes cluster. See [Fusion v2](#fusion-v2) below.
 1. From the **Credentials** drop-down menu, select existing AWS credentials, or select **+** to add new credentials. If you choose to use existing credentials, skip to step 9.
     :::note
     The user must have the IAM permissions required to describe and list EKS clusters, per service account role requirements in the previous section.
@@ -117,7 +117,7 @@ See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in 
 
 ### Fusion v2
 
-To use [Fusion v2](../supported_software/fusion/fusion.mdx) in your Seqera EKS compute environment:
+To use [Fusion v2](https://docs.seqera.io/fusion) in your Seqera EKS compute environment:
 1. Use Seqera Platform version 23.1 or later.
 1. Use an S3 bucket as the pipeline work directory. 
 1. Both the head service and compute service accounts must have access to the S3 bucket specified as the work directory.
