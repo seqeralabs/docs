@@ -7,7 +7,7 @@ tags: [faq, help, aws help, aws troubleshooting]
 
 ## EBS
 
-**EBS Autoscaling: EBS volumes remain active after job completion**
+### EBS Autoscaling: EBS volumes remain active after job completion
 
 The EBS autoscaling solution relies on an AWS-provided script which runs on each container host. This script performs AWS EC2 API requests to delete EBS volumes when the jobs using those volumes have been completed.
 
@@ -15,7 +15,7 @@ When running large Batch clusters (hundreds of compute nodes or more), EC2 API r
 
 You can monitor your AWS account for any orphaned EBS volumes via the EC2 console or with a Lambda function. See [here](https://aws.amazon.com/blogs/mt/controlling-your-aws-costs-by-deleting-unused-amazon-ebs-volumes/) for more information.
 
-## ECS
+### ECS
 
 **ECS Agent Docker image pull frequency**
 

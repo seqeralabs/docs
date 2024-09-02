@@ -7,7 +7,7 @@ tags: [faq, help, database, dataset]
 
 ## Databases
 
-**Seqera Enterprise 22.2.0: Database connection failure**
+### Seqera Enterprise 22.2.0: Database connection failure
 
 Seqera Enterprise 22.2.0 introduced a breaking change whereby the `TOWER_DB_DRIVER` is now required to be `org.mariadb.jdbc.Driver`.
 
@@ -20,7 +20,7 @@ Please modify the Seqera Enterprise configuration as follows to try resolving th
 
 ## Datasets
 
-**API: Dataset upload failure**
+### API: Dataset upload failure
 
 When uploading datasets via the Seqera UI or CLI, some steps are automatically done on your behalf. To upload datasets via the Seqera API, additional steps are required:
 
@@ -45,10 +45,9 @@ You can also use the [tower-cli](https://github.com/seqeralabs/tower-cli) to upl
     ```console
     tw datasets add --name "cli_uploaded_samplesheet" ./samplesheet_full.csv
     ```
-
 :::
 
-**Datasets converted to 'application/vnd.ms-excel' data type during upload using Firefox**
+### Datasets converted to 'application/vnd.ms-excel' data type during upload using Firefox
 
 This is a known issue when using Firefox browser with Seqera versions older than 22.2.0. You can either (a) upgrade to 22.2.0 or higher, or (b) use Chrome.
 
@@ -58,6 +57,6 @@ Seqera displays this error for this issue:
 "Given file is not a dataset file. Detected media type: 'application/vnd.ms-excel'. Allowed types: 'text/csv, text/tab-separated-values'"
 ```
 
-**v22.2: TSV-formatted datasets not shown in Tower launch screen input field drop-down menu**
+### v22.2: TSV-formatted datasets not shown in Tower launch screen input field drop-down menu
 
 An issue was identified in Seqera version 22.2 which caused TSV datasets to be unavailable in the input data drop-down menu on the launch screen. This has been fixed in version 22.4.1.

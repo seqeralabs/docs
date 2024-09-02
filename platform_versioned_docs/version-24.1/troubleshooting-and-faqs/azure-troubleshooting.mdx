@@ -7,7 +7,7 @@ tags: [faq, help, azure help, azure troubleshooting]
 
 ## Batch compute environments
 
-**Use separate Batch pools for head and compute nodes**
+## Use separate Batch pools for head and compute nodes
 
 The default Azure Batch implementation in Seqera Platform uses a single pool for head and compute nodes. This means that all jobs spawn dedicated/on-demand VMs by default. To save cloud costs by using low priority VMs for compute jobs, specify separate pools for head and compute jobs:
 
@@ -21,7 +21,7 @@ The default Azure Batch implementation in Seqera Platform uses a single pool for
 
 ## AKS
 
-**_... /.git/HEAD.lock: Operation not supported_ error**
+### _... /.git/HEAD.lock: Operation not supported_ error
 
 This problem can occur if your Nextflow pod uses an Azure Files-type (SMB) Persistent Volume as its storage medium. By default, the `jgit` library used by Nextflow attempts a filesystem link operation which [is not supported](https://docs.microsoft.com/en-us/azure/storage/files/files-smb-protocol?tabs=azure-portal#limitations) by Azure Files (SMB). 
 
@@ -36,7 +36,7 @@ EOT
 
 ## SSL
 
-**_Problem with the SSL CA cert (path? access rights?)_ error**
+### _Problem with the SSL CA cert (path? access rights?)_ error
 
 This can occur if a tool/library in your task container requires SSL certificates to validate the identity of an external data source. Mount SSL certificates into the container to resolve this issue. See [SSL/TLS](./enterprise/configuration/ssl_tls.mdx#configure-tower-to-trust-your-private-certificate) for more information.
 
