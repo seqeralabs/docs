@@ -68,6 +68,19 @@ k8s.securityContext = [
 ]
 ```
 
+## Databases
+
+**Seqera Enterprise 22.2.0: Database connection failure**
+
+Seqera Enterprise 22.2.0 introduced a breaking change whereby the `TOWER_DB_DRIVER` is now required to be `org.mariadb.jdbc.Driver`.
+
+Clients who use Amazon Aurora as their database solution may encounter a _java.sql.SQLNonTransientConnectionException: ... could not load system variables_ error, likely due to a [known error](https://jira.mariadb.org/browse/CONJ-824) tracked within the MariaDB project.
+
+Please modify the Seqera Enterprise configuration as follows to try resolving the problem:
+
+1. Ensure your `TOWER_DB_DRIVER` uses the specified MariaDB URI.
+2. Modify your `TOWER_DB_URL` to: `TOWER_DB_URL=jdbc:mysql://YOUR_DOMAIN:YOUR_PORT/YOUR_TOWER_DB?usePipelineAuth=false&useBatchMultiSend=false`
+
 ## Email and TLS
 
 **TLS errors**

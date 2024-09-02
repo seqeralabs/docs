@@ -7,7 +7,7 @@ tags: [faq, help, nextflow help, nextflow troubleshooting]
 
 ## Nextflow configuration
 
-### Default Nextflow DSL version in Seqera
+**Default Nextflow DSL version in Seqera**
 
 From [Nextflow 22.03.0-edge](https://github.com/nextflow-io/nextflow/releases/tag/v22.03.0-edge), DSL2 is the default syntax.
 
@@ -26,23 +26,23 @@ From Nextflow v22.09.1-edge, you can specify [Nextflow CLI run arguments](https:
 export NXF_CLI_OPTS='-dump-hashes'
 ```
 
-### Cloud compute environment execution: `--outdir` artefacts not available
+**Cloud compute environment execution: `--outdir` artefacts not available**
 
 Nextflow resolves relative paths against the current working directory. In a classic grid HPC, this normally corresponds to a subdirectory of the `$HOME` directory. In a cloud execution environment, however, the path will be resolved relative to the **container file system**, meaning files will be lost when the container is terminated. See [here](https://github.com/nextflow-io/nextflow/issues/2661#issuecomment-1047259845) for more details.
 
 Specify the absolute path to your persistent storage using the `NXF_FILE_ROOT` environment variable in your [`nextflow.config`](./launch/advanced.mdx#nextflow-config-file) file. This resolves the relative paths defined in your Netflow script so that output files are written to your stateful storage, rather than ephemeral container storage.
 
-### Nextflow: Ignore Singularity cache
+**Nextflow: Ignore Singularity cache**
 
 To ignore the Singularity cache, add this configuration item to your workflow: `process.container = 'file:///some/singularity/image.sif'`.
 
-### Nextflow error: _WARN: Cannot read project manifest ... path=nextflow.config_
+**Nextflow error: _WARN: Cannot read project manifest ... path=nextflow.config_**
 
 This error can occur when executing a pipeline where the source Git repository's default branch is not populated with `main.nf` and `nextflow.config` files, regardless of whether the invoked pipeline is using a non-default revision/branch (e.g. `dev`).
 
 Currently, you can resolve this by creating blank `main.nf` and `nextflow.config` files in the default branch. This will allow the pipeline to run, using the content of the `main.nf` and `nextflow.config` in your target revision.
 
-### Use multiple Nextflow configuration files for different environments
+**Use multiple Nextflow configuration files for different environments**
 
 The main `nextflow.config` file will always be imported by default. Instead of managing multiple `nextflow.config` files (each customized for an environment), you can create unique environment config files and import them as [config profiles](https://www.nextflow.io/docs/latest/config.html#config-profiles) in the main `nextflow.config`.
 
@@ -62,7 +62,7 @@ profiles {
 <truncated>
 ```
 
-### AWS S3 upload file size limits
+**AWS S3 upload file size limits**
 
 You may encounter _`WARN: Failed to publish file: s3://<bucket-name>`_ log messages, often related to AWS S3 object size limitations when using the multipart upload feature.
 
@@ -93,7 +93,7 @@ The following configuration is suggested to overcome AWS limitations:
   }
   ```
 
-### Nextflow unable to parse a params file from Seqera
+**Nextflow unable to parse a params file from Seqera**
 
 Ephemeral endpoints can only be consumed once. Nextflow versions older than `22.04` may try to call the same endpoint more than once, resulting in an error:
 
@@ -101,11 +101,11 @@ _Cannot parse params file: /ephemeral/example.json - Cause: Server returned HTTP
 
 To resolve this problem, upgrade Nextflow to version `22.04.x` or later.
 
-### Prevent Nextflow from uploading intermediate files from local scratch to AWS S3 work directory
+**Prevent Nextflow from uploading intermediate files from local scratch to AWS S3 work directory**
 
 Nextflow will only unstage files/folders that have been explicitly defined as process outputs. If your workflow has processes that generate folder-type outputs, ensure that the process also purges any intermediate files in those folders. Otherwise, the intermediate files are copied as part of the task unstaging process, resulting in additional storage costs and lengthened pipeline execution times.
 
-### Values specified in Git repository `nextflow.config` change during Seqera launch
+**Values specified in Git repository `nextflow.config` change during Seqera launch**
 
 Some values specified in your pipeline repository's `nextflow.config` may change when the pipeline is invoked via Seqera. This occurs because Seqera is configured with a set of default values that override the pipeline configuration.
 
@@ -143,7 +143,7 @@ Nextflow configuration values affected by this behaviour include:
 - aws.client.uploadChunkSize
 - aws.client.storageEncryption
 
-### Fusion v1 execution: _Missing output file(s) [X] expected by process [Y]_ error
+**Fusion v1 execution: _Missing output file(s) [X] expected by process [Y]_ error**
 
 Fusion v1 has a limitation which causes tasks that run for less than 60 seconds to fail as the output file generated by the task is not yet detected by Nextflow. This is a limitation inherited from a Goofys driver used by the Fusion v1 implementation. [Fusion v2](./supported_software/fusion/fusion.mdx) resolves this issue.
 
@@ -155,7 +155,7 @@ From **Pipeline settings > Advanced options > Nextflow config file** add this li
 process.afterScript = 'sleep 60'
 ```
 
-### Jobs remain in RUNNING status when a pipeline run is canceled
+**Jobs remain in RUNNING status when a pipeline run is canceled**
 
 Your instance's behavior when canceling a run depends on the Nextflow [`errorStrategy`](https://www.nextflow.io/docs/latest/process.html#errorstrategy) defined in your process script. If the process `errorStrategy` is set to `finish`, an orderly pipeline shutdown is initiated when you cancel (or otherwise interrupt) a run. This instructs Nextflow to wait for the completion of any submitted jobs. To ensure that all jobs are terminated when your run is canceled, set `errorStrategy` to `terminate` in your Nextflow config. For example:
 
@@ -170,7 +170,7 @@ process terminateError {
 
 ```
 
-### Cached tasks run from scratch during pipeline relaunch
+**Cached tasks run from scratch during pipeline relaunch**
 
 When relaunching a pipeline, Seqera relies on Nextflow's `resume` functionality for the continuation of a workflow execution. This skips previously completed tasks and uses a cached result in downstream tasks, rather than running the completed tasks again. The unique ID (hash) of the task is calculated using a composition of the task's:
 
@@ -198,7 +198,7 @@ See [here](https://www.nextflow.io/blog/2019/demystifying-nextflow-resume.html) 
 
 Runs will fail if your Nextflow script or Nextflow config contain illegal characters (such as emojis or other non-UTF8 characters). Validate your script and config files for any illegal characters before atttempting to run again.
 
-### Run failures: Nextflow script exceeds 64KiB
+**Run failures: Nextflow script exceeds 64KiB**
 
 The Groovy shell used by Nextflow to execute your workflow has a hard limit on string size (64KiB). Check the size of your scripts with the `ls -llh` command. If the size is greater than 65,535 bytes, consider these mitigation techniques:
 
@@ -208,13 +208,13 @@ The Groovy shell used by Nextflow to execute your workflow has a hard limit on s
 
 ## Nextflow Launcher
 
-### Seqera Platform / [nf-launcher image](https://quay.io/repository/seqeralabs/nf-launcher?tab=tags) compatibility
+**Seqera Platform / [nf-launcher image](https://quay.io/repository/seqeralabs/nf-launcher?tab=tags) compatibility**
 
 Your Seqera installation knows the nf-launcher image version it needs and will specify this value automatically when launching a pipeline.
 
 If you're restricted from using public container registries, see Seqera Enterprise release [instructions](./enterprise/release_notes/23.2.mdx#nextflow-launcher-image) for the specific image to set as the default when invoking pipelines.
 
-### Specify Nextflow version
+**Specify Nextflow version**
 
 Each Seqera Platform release uses a specific nf-launcher image by default. This image is loaded with a specific Nextflow version that any workflow run in the container uses by default. Force your jobs to use a newer/older version of Nextflow with one of the following strategies:
 
