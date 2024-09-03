@@ -297,7 +297,7 @@ Run `tw compute-envs -h` to view the list of supported compute environment opera
 
   The optional `--params-file` flag is used to pass a set of default parameters that will be associated with the pipeline in the Launchpad.
 
-  The optional `--config` flag is used to pass a custom Nextflow configuration file — configuration values passed here override the same values in the default pipeline repository `nextflow.conf` file and the compute environment **Nextflow config** field in Platform.
+  The optional `--config` flag is used to pass a custom Nextflow configuration file — configuration values passed here override the same values in the default pipeline repository `nextflow.conf` file. When this flag is set, all configuration values specified in Platform pipeline or compute environment **Nextflow config** fields are ignored.
 
   :::tip
   The `params-file` must be a YAML or JSON file using [Nextflow configuration file][nextflow-config] syntax.
@@ -353,7 +353,7 @@ Run `tw compute-envs -h` to view the list of supported compute environment opera
       https://cloud.seqera.io/user/user1/watch/1XCXxX0vCX8xhx
   ```
 
-  The optional `--config` flag is used to pass a custom Nextflow configuration file — configuration values passed here override the same values in the default pipeline repository `nextflow.conf` file and the pipeline or compute environment **Nextflow config** field in Platform.
+  The optional `--config` flag is used to pass a custom Nextflow configuration file — configuration values passed here override the same values in the default pipeline repository `nextflow.conf` file. When this flag is set, all configuration values specified in Platform pipeline or compute environment **Nextflow config** fields are ignored.
 
   When using `--wait`, `tw` can exit with one of two exit codes:
 
@@ -395,7 +395,7 @@ Run `tw compute-envs -h` to view the list of supported compute environment opera
   ```
 
   - Pipeline parameters are defined within the `custom_rnaseq_params.yaml` file.
-  - The optional `--config` flag is used to pass a custom Nextflow configuration file — configuration values passed here override the same values in the default pipeline repository `nextflow.conf` file and the compute environment **Nextflow config** field in Platform.
+  - The optional `--config` flag is used to pass a custom Nextflow configuration file — configuration values passed here override the same values in the default pipeline repository `nextflow.conf` file. When this flag is set, all configuration values specified in Platform pipeline or compute environment **Nextflow config** fields are ignored.
   - Other parameters such as `--profile` and `--revision` can also be specified.
   - A non-primary compute environment can be used to launch the pipeline. Omit `--compute-env` to launch with the workspace default compute environment.
 
