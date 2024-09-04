@@ -14,7 +14,7 @@ The CLI performs operations in the user workspace context by default. Use the `T
 
 Use the `-h` or `--help` parameter to list the available commands and their associated options.
 
-![`tw --help`](./_images/tw-info.jpg)
+[![`tw --help`](./_images/tw-info.jpg)](https://github.com/seqeralabs/tower-cli)
 
 For help with a specific subcommand, run the command with `-h` or `--help` appended. For example, `tw credentials add google -h`.
 
@@ -24,7 +24,7 @@ Use `tw --output=json <command>` to dump and store Seqera Platform entities in J
 Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use jq to retrieve specific values in the JSON output. For example, `tw --output=json workspaces list | jq -r '.workspaces[].orgId'` returns the organization ID for each workspace listed.
 :::
 
-<details>
+<details open>
   <summary>**Credentials**</summary>
 
   To launch pipelines in a Platform workspace, you need [credentials][credentials] for:
@@ -96,7 +96,7 @@ Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use
   ```
 
 </details>
-<details>
+<details open>
   <summary>**Compute environments**</summary>
 
   Compute environments define the execution platform where a pipeline runs. A compute environment is composed of the credentials, configuration, and storage options related to a particular computing platform.  See [Compute environments][compute-envs] for more information on supported providers.
@@ -166,7 +166,7 @@ Run `tw compute-envs -h` to view the list of supported compute environment opera
     New AWS-BATCH compute environment 'my_aws_ce_v1' added at user workspace
   ```
 </details>
-<details>
+<details open>
   <summary>**Datasets**</summary>
 
   Run `tw datasets -h` to view the list of supported operations.
@@ -273,7 +273,7 @@ Run `tw compute-envs -h` to view the list of supported compute environment opera
   ```
 
 </details>  
-<details>
+<details open>
   <summary>**Pipelines**</summary>
 
   Run `tw pipelines -h` to view the list of supported operations.
@@ -330,7 +330,7 @@ Run `tw compute-envs -h` to view the list of supported compute environment opera
   --params-file=my_rnaseq_nf_pipeline_params_2.yaml
   ```
 </details>  
-<details>
+<details open>
   <summary>**Launch pipelines**</summary>
 
   Run `tw launch -h` to view supported launch options.
@@ -404,7 +404,7 @@ Run `tw compute-envs -h` to view the list of supported compute environment opera
   :::
 
 </details>
-<details>
+<details open>
   <summary>**Runs**</summary>
 
   Run `tw runs -h` to view supported runs operations.  
@@ -571,7 +571,7 @@ Run `tw compute-envs -h` to view the list of supported compute environment opera
   ```
 
 </details>
-<details>
+<details open>
   <summary>**Labels**</summary>
 
   Run `tw labels -h` to view supported label operations.  
@@ -627,7 +627,7 @@ Run `tw compute-envs -h` to view the list of supported compute environment opera
     ```
 
 </details>  
-<details>
+<details open>
   <summary>**Data links**</summary>
 
   Run `tw data-links -h` to view supported data link operations.
@@ -769,7 +769,7 @@ Run `tw compute-envs -h` to view the list of supported compute environment opera
   FOLDER | technical/                                 | 0        
   ```
 </details>
-<details>
+<details open>
   <summary>**Organizations**</summary>
 
   Run `tw organizations -h` to view supported workspace operations.
@@ -787,7 +787,7 @@ Run `tw compute-envs -h` to view the list of supported compute environment opera
   ```
 
 </details>  
-<details>
+<details open>
   <summary>**Members**</summary>
 
   Run `tw members -h` to view supported member operations.
@@ -846,7 +846,7 @@ Run `tw compute-envs -h` to view the list of supported compute environment opera
   Run `tw members leave -o <organization_name>` to be removed from the given organization's members.
 
 </details>  
-<details>
+<details open>
   <summary>**Workspaces**</summary>
 
   Run `tw workspaces -h` to view supported workspace operations.
@@ -890,7 +890,7 @@ Run `tw compute-envs -h` to view the list of supported compute environment opera
   ```
 
 </details>
-<details>
+<details open>
   <summary>**Participants**</summary>
 
   Run `tw participants -h` to view supported participant operations.
@@ -938,7 +938,7 @@ Run `tw compute-envs -h` to view the list of supported compute environment opera
   ```
 
 </details>
-<details>
+<details open>
   <summary>**Teams**</summary>
 
   Run `tw teams -h` to view supported team operations.
@@ -1002,7 +1002,7 @@ Run `tw compute-envs -h` to view the list of supported compute environment opera
   ```
 
 </details>  
-<details>
+<details open>
   <summary>**Collaborators**</summary>
 
 Run `tw collaborators -h` view all the required and optional fields for managing organization collaborators.
@@ -1026,7 +1026,7 @@ Run `tw collaborators -h` view all the required and optional fields for managing
   ```
 
 </details>
-<details>
+<details open>
   <summary>**Actions**</summary>
 
   Run `tw actions -h` to view supported pipeline action operations.
@@ -1039,7 +1039,7 @@ Run `tw collaborators -h` view all the required and optional fields for managing
 
 
 </details>
-<details>
+<details open>
   <summary>**Secrets**</summary>
 
   Run `tw secrets -h` to view supported workspace secret operations.
