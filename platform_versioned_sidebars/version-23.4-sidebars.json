@@ -203,8 +203,7 @@
             "cli/installation",
             "cli/commands"
           ]
-          },
-          "pipeline-actions/overview"
+          }
         ]
     },
     {
