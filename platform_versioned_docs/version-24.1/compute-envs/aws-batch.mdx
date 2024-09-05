@@ -117,7 +117,7 @@ Batch Forge automatically creates resources that you may be charged for in your 
 
     We recommend using Fusion with AWS NVMe instances (fast instance storage) as this delivers the fastest performance when compared to environments using only AWS EBS (Elastic Block Store).
 
-    1. For this configuration, use Seqera Platform version 23.1 or later.
+    1. Use Seqera Platform version 23.1 or later.
     1. Use an S3 bucket as the pipeline work directory.
     1. Enable **Wave containers**, **Fusion v2**, and **fast instance storage**.
     1. Select the **Batch Forge** config mode.
@@ -128,7 +128,9 @@ Batch Forge automatically creates resources that you may be charged for in your 
     :::
 
     :::tip
-    We recommend selecting 8xlarge or above for large and long-lived production pipelines. Dedicated networking ensures a guaranteed network speed service level compared with "burstable" instances. See [Instance network bandwidth](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-network-bandwidth.html) for more information.
+    We recommend selecting 8xlarge or above for large and long-lived production pipelines: 
+    - A local temp storage disk of at least 200 GB and a random read speed of 1000 MBps or more. If working with files larger than 100 GB, increase temp storage accordingly.
+    - Dedicated networking ensures a guaranteed network speed service level compared with "burstable" instances. See [Instance network bandwidth](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-network-bandwidth.html) for more information.
     :::
 
     When using Fusion v2 without fast instance storage, the following EBS settings are applied to optimize file system performance:
@@ -291,7 +293,7 @@ Your Seqera compute environment uses resources that you may be charged for in yo
 
     We recommend using Fusion with AWS NVMe instances (fast instance storage) as this delivers the fastest performance when compared to environments using only AWS EBS (Elastic Block Store).
 
-    1. For this configuration, use Seqera Platform version 23.1 or later.
+    1. Use Seqera Platform version 23.1 or later.
     1. Use an S3 bucket as the pipeline work directory.
     1. Enable **Wave containers**, **Fusion v2**, and **fast instance storage**.
     1. Fast instance storage requires an EC2 instance type that uses NVMe disks. Specify NVMe-based instance types in **Instance types** under **Advanced options**. If left unspecified, Platform selects instances from AWS NVMe-based instance type families. See [Instance store temporary block storage for EC2 instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html) for more information.
@@ -301,7 +303,9 @@ Your Seqera compute environment uses resources that you may be charged for in yo
     :::
 
     :::tip
-    We recommend selecting 8xlarge or above for large and long-lived production pipelines. Dedicated networking ensures a guaranteed network speed service level compared with "burstable" instances. See [Instance network bandwidth](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-network-bandwidth.html) for more information.
+    We recommend selecting 8xlarge or above for large and long-lived production pipelines: 
+    - A local temp storage disk of at least 200 GB and a random read speed of 1000 MBps or more. If working with files larger than 100 GB, increase temp storage accordingly.
+    - Dedicated networking ensures a guaranteed network speed service level compared with "burstable" instances. See [Instance network bandwidth](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-network-bandwidth.html) for more information.
     :::
 
     When using Fusion v2 without fast instance storage, the following EBS settings are applied to optimize file system performance:
