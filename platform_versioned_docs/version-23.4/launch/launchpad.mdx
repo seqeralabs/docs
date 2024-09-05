@@ -51,21 +51,16 @@ For more information on relaunch and resume, see [Cache and resume](./cache-resu
 1. On the **Launch** form, enter an optional **Workflow run name** (or keep the randomly assigned default) and assign optional labels to the run.
 1. Select a **Compute environment** from the available options. See [Compute environments](../compute-envs/overview.mdx) to learn how to create an environment for your preferred execution platform.
 1. Enter a repository URL for the **Pipeline to launch** (e.g., `https://github.com/nf-core/rnaseq.git`).
-
     :::note
     Nextflow pipelines are Git repositories that can reside on any public or private Git-hosting platform. See [Git integration](../git/overview.mdx) in the Seqera docs and [Pipeline sharing](https://www.nextflow.io/docs/latest/sharing.html) in the Nextflow docs for more details.
     :::
-
 1. Select a **Revision number** to use a specific version of the pipeline (optional). The Git default branch (e.g. main or master) or `manifest.defaultBranch` in the Nextflow configuration will be used by default.
 1. Enter the **Work directory**, which corresponds to the Nextflow work directory. You can also **Browse** for a cloud storage directory with Data Explorer. The default work directory of the compute environment will be used by default.
-
     :::note
     The credentials associated with the compute environment must have access to the work directory (e.g., an S3 bucket).
     :::
-
 1. Select any **Config profiles** you wish to use. See [Nextflow Config profiles](https://www.nextflow.io/docs/latest/config.html#config-profiles) for more details.
 1. Enter any **Pipeline parameters** in YAML or JSON format:
-
     ```
     reads: 's3://nf-bucket/exome-data/ERR013140_{1,2}.fastq.bz2'
     paired_end: true
@@ -74,14 +69,9 @@ For more information on relaunch and resume, see [Cache and resume](./cache-resu
     :::note
     In YAML, quotes should be used for paths but not for numbers or Boolean values.
     :::
-
-
 1. Select or create [resource labels](../resource-labels/overview.mdx) to apply to the resources consumed by the run, if needed.
-
 1. Expand the [Pipeline secrets](../secrets/overview.mdx) dropdown to select user or workspace secrets to be used during the run, if needed.
-
 1. Apply any [Advanced options](./advanced.mdx), if needed.
-
 1. When you have filled the necessary launch form details, select **Launch**. The **Runs** tab shows your new run in a **submitted** status on the top of the list. Select the run name to navigate to the run detail page and view the configuration, parameters, status of individual tasks, and run report.
 
 :::note
@@ -91,6 +81,8 @@ For more information on relaunch and resume, see [Cache and resume](./cache-resu
 ## Add new pipeline
 
 From the Launchpad, select **Add pipeline** to add a new pipeline with pre-saved parameters to your workspace. The fields on the new pipeline form are similar to the pipeline launch form.
+
+See [Add pipelines](../getting-started/quickstart-demo/add-pipelines.mdx) for instructions to add pipelines to your workspace via [Seqera Pipelines](https://seqera.io/pipelines) or the Launchpad.
 
 :::tip
 To create your own customized Nextflow schema for your pipeline, see [Pipeline schema](../pipeline-schema/overview.mdx) and the `nf-core` workflows that have adopted this. [nf-core/eager](https://github.com/nf-core/eager/blob/2.3.3/nextflow_schema.json) and [nf-core/rnaseq](https://github.com/nf-core/rnaseq/blob/3.0/nextflow_schema.json) are excellent examples.

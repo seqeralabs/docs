@@ -3,147 +3,132 @@
     "index",
     {
       "type": "category",
-      "label": "Get started",
-      "collapsed": false,
+      "label": "Tutorials",
+      "collapsed": true,
       "items": [
-        "getting-started/quickstart-demo/comm-showcase",
-        "getting-started/deployment-options",   
-        "getting-started/workspace-setup",     
-        "getting-started/quickstart-demo/add-pipelines",
-        "getting-started/quickstart-demo/add-data",
-        "getting-started/quickstart-demo/monitor-runs",
-        "getting-started/quickstart-demo/automation"                 
+        "getting-started/quickstart-demo/comm-showcase"         
       ]
     },
     {
       "type": "category",
-      "label": "User guide",
+      "label": "Get started",
       "collapsed": true,
       "items": [
+        "getting-started/deployment-options",   
+        "getting-started/workspace-setup",     
+        "getting-started/quickstart-demo/add-pipelines",
+        "getting-started/quickstart-demo/add-data",
+        "getting-started/quickstart-demo/launch-pipelines",
+        "getting-started/quickstart-demo/monitor-runs",
+        "getting-started/quickstart-demo/automation"            
+      ]
+    },         
+    {
+      "type": "category",
+      "label": "Credentials",
+      "items": [
+        "credentials/overview",
+        "git/overview",
         {
           "type": "category",
-          "label": "Administration",
-          "items": [            
-            "administration/overview",            
-            "orgs-and-teams/organizations",            
-            "orgs-and-teams/workspace-management",            
-            "orgs-and-teams/roles"            
-          ]
-        },        
-        {
-          "type": "category",
-          "label": "Credentials",
+          "label": "Container registry credentials",
           "items": [
-            "credentials/overview",
-            "git/overview",
-            {
-              "type": "category",
-              "label": "Container registry credentials",
-              "items": [
-                "credentials/docker_hub_registry_credentials",
-                "credentials/aws_registry_credentials",
-                "credentials/azure_registry_credentials",
-                "credentials/google_registry_credentials",
-                "credentials/quay_registry_credentials",
-                "credentials/gitlab_registry_credentials",
-                "credentials/github_registry_credentials",
-                "credentials/gitea_registry_credentials"
-              ]
-            },
-            "credentials/ssh_credentials",
-            "credentials/agent_credentials"
+            "credentials/docker_hub_registry_credentials",
+            "credentials/aws_registry_credentials",
+            "credentials/azure_registry_credentials",
+            "credentials/google_registry_credentials",
+            "credentials/quay_registry_credentials",
+            "credentials/gitlab_registry_credentials",
+            "credentials/github_registry_credentials",
+            "credentials/gitea_registry_credentials"
           ]
         },
+        "credentials/managed_identities",
+        "credentials/ssh_credentials",
+        "credentials/agent_credentials"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Compute",
+      "items": [
+        "compute-envs/overview",
         {
           "type": "category",
-          "label": "Data",
+          "label": "Cloud",
           "items": [
-            "data/data-explorer",
-            "data/data-studios",
-            "data/datasets"
+            "compute-envs/aws-batch",
+            "compute-envs/azure-batch",
+            "compute-envs/google-cloud-batch",
+            "compute-envs/google-cloud-lifesciences",
+            "compute-envs/eks",
+            "compute-envs/gke"
           ]
         },
-        {
-          "type": "category",
-          "label": "Compute",
-          "items": [
-            "compute-envs/overview",
-            {
-              "type": "category",
-              "label": "Cloud",
-              "items": [
-                "compute-envs/aws-batch",
-                "compute-envs/azure-batch",
-                "compute-envs/google-cloud-batch",
-                "compute-envs/google-cloud-lifesciences",
-                "compute-envs/eks",
-                "compute-envs/gke"
-              ]
-            },
-            "compute-envs/k8s",
-            "compute-envs/hpc"
-          ]
-        },
-        "pipeline-schema/overview",
-        {
-          "type": "category",
-          "label": "Launch",
-          "items": [
-            "launch/launchpad",
-            "launch/cache-resume",
-            "pipeline-optimization/overview",
-            "launch/advanced"
-          ]
-        },
-        {
-          "type": "category",
-          "label": "Monitoring",
-          "items": [
-            {
-            "type": "category",
-            "label": "Runs",
-            "items": [
-              "monitoring/overview",
-              "monitoring/dashboard",
-              "monitoring/run-details"
-            ]
-            },
-            "monitoring/audit-logs",
-            "monitoring/cloud-costs"
-          ]
-        },
-        {
-          "type": "category",
-          "label": "Label",
-          "items": [
-            "labels/overview",
-            "resource-labels/overview"
-          ]
-        },
-        "secrets/overview",
-        "pipeline-actions/overview",
-        "reports/overview",
-        {
-          "type": "category",
-          "label": "Software integration",
-          "items": [
-            "supported_software/agent/agent",
-            "supported_software/fusion/fusion",
-            "supported_software/dragen/overview"
-          ]
-        },
+        "compute-envs/k8s",
+        "compute-envs/hpc",
+        "resource-labels/overview",
+        "supported_software/fusion/fusion",
+        "supported_software/agent/agent",
+        "supported_software/dragen/overview",
         {
           "type": "category",
           "label": "Advanced options",
           "items":[
             "enterprise/advanced-topics/manual-aws-batch-setup"
           ]
-        }      
+        }
+        ]
+    },
+    {
+      "type": "category",
+      "label": "Data",
+      "items": [
+        "getting-started/quickstart-demo/add-data",
+        "data/data-explorer",
+        "data/datasets"
       ]
     },
     {
       "type": "category",
-      "label": "Installation guide",
+      "label": "Pipelines",
+      "items": [
+        "getting-started/quickstart-demo/add-pipelines",
+        "pipeline-schema/overview",
+        "launch/launchpad",
+        "labels/overview",
+        {
+        "type": "category",
+        "label": "Monitor runs",
+        "items": [
+          "monitoring/overview",
+          "monitoring/dashboard",
+          "monitoring/run-details"
+        ]
+        },
+        "reports/overview",
+        "launch/cache-resume",
+        "secrets/overview",
+        "pipeline-optimization/overview",
+        "launch/advanced"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Administration",
+      "items": [     
+        "getting-started/workspace-setup",     
+        "administration/overview",            
+        "orgs-and-teams/organizations",            
+        "orgs-and-teams/workspace-management",            
+        "orgs-and-teams/roles",
+        "monitoring/audit-logs",
+        "monitoring/cloud-costs"
+        ]
+    },   
+    {
+      "type": "category",
+      "label": "Enterprise",
       "collapsed": true,
       "items": [
         "enterprise/index",
@@ -180,12 +165,13 @@
           "items": [
             "enterprise/docker-compose",
             "enterprise/kubernetes",
-            "enterprise/testing"
+            "enterprise/testing",
+            "enterprise/upgrade"          
           ]
         },
         {
           "type": "category",
-          "label": "Advanced topics",
+          "label": "Advanced",
           "collapsed": true,
           "items": [
             "enterprise/advanced-topics/db-docker-to-RDS",
@@ -193,7 +179,8 @@
             "enterprise/advanced-topics/custom-launch-container",
             "enterprise/advanced-topics/firewall-configuration"
           ]
-        }
+        },
+        "enterprise/general_troubleshooting"
       ]
     },
     {
@@ -201,9 +188,24 @@
       "label": "Developer tools",
       "collapsed": true,
       "items": [
+        {
+          "type": "doc",
+          "id": "getting-started/quickstart-demo/automation",
+          "label": "Overview"
+        },          
         "api/overview",
-        "cli/cli"
-      ]
+        {
+          "type": "category",
+          "label": "CLI",
+          "collapsed": true,
+          "items": [
+            "cli/overview",
+            "cli/installation",
+            "cli/commands"
+          ]
+          },
+          "pipeline-actions/overview"
+        ]
     },
     {
       "type": "category",
@@ -219,21 +221,18 @@
       "label": "Releases",
       "collapsed": true,
       "items": [
-        "enterprise/release_notes/changelog",
-        "enterprise/release_notes/cloud_latest",
+        "cloud/changelog",
+        "enterprise/release_notes/enterprise_changelog",       
         "enterprise/release_notes/enterprise_latest",
         {
           "type": "category",
           "label": "Legacy versions",
           "collapsed": true,
           "items": [
+            "enterprise/release_notes/23.4",
             "enterprise/release_notes/23.3",
             "enterprise/release_notes/23.2",
-            "enterprise/release_notes/23.1",
-            "enterprise/release_notes/22.4",
-            "enterprise/release_notes/22.3",
-            "enterprise/release_notes/22.2",
-            "enterprise/release_notes/21.12"
+            "enterprise/release_notes/23.1"
           ]
         },
         "functionality_matrix/functionality_matrix"

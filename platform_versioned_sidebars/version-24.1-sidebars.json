@@ -4,7 +4,7 @@
     {
       "type": "category",
       "label": "Tutorials",
-      "collapsed": false,
+      "collapsed": true,
       "items": [
         "getting-started/quickstart-demo/comm-showcase"         
       ]
@@ -94,7 +94,6 @@
       "label": "Pipelines",
       "items": [
         "getting-started/quickstart-demo/add-pipelines",
-        "getting-started/quickstart-demo/monitor-runs",
         "pipeline-schema/overview",
         "launch/launchpad",
         "labels/overview",
@@ -182,7 +181,8 @@
             "enterprise/advanced-topics/custom-launch-container",
             "enterprise/advanced-topics/firewall-configuration"
           ]
-        }
+        },
+        "enterprise/general_troubleshooting"
       ]
     },
     {
@@ -201,7 +201,9 @@
           "label": "CLI",
           "collapsed": true,
           "items": [
-            "cli/cli"
+            "cli/overview",
+            "cli/installation",
+            "cli/commands"
           ]
           },
           "pipeline-actions/overview"
