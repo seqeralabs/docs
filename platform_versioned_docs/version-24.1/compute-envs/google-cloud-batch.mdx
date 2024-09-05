@@ -178,7 +178,7 @@ Select **Enable Fusion v2** to allow access to your Google Cloud Storage data vi
   - A 375 GB local NVMe SSD is selected for all compute jobs.
   - If you do not specify a machine type, a VM from families that support local SSDs will be selected.
   - Any machine types you specify in the Nextflow config must support local SSDs.
-  - Local SSDs are only offered in multiples of 375 GB. You can increment the number of SSDs used per process with the `disk` directive to request multiples of 375 GB. 
+  - Local SSDs are only offered in multiples of 375 GB. You can increment the number of SSDs used per process with the `disk` directive to request multiples of 375 GB. To work with files larger than 100 GB, use at least two SSDs (750 GB or more).
   - Fusion v2 can also use persistent disks for caching. Override the disk requested by Fusion using the `disk` directive and the `type: pd-standard`.
   - The `machineType` directive can be used to specify a VM instance type, family, or custom machine type in a comma-separated list of patterns. For example, `c2-*`, `n1-standard-1`, `custom-2-4`, `n*`, `m?-standard-*`.
 
