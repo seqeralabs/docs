@@ -13,8 +13,8 @@ The AWS Batch services quota for the job queue is 50 jobs. For more information 
 
 There are two ways to create a Seqera Platform compute environment for AWS Batch:
 
-1. [**Batch Forge**](#tower-forge): This option automatically creates the AWS Batch resources in your AWS account. This eliminates the need to set up your AWS Batch infrastructure manually.
-2. [**Manual**](#manual): This option allows Seqera to use existing AWS Batch resources.
+- [**Batch Forge**](#tower-forge): This option automatically creates the AWS Batch resources in your AWS account. This eliminates the need to set up your AWS Batch infrastructure manually.
+- [**Manual**](#manual): This option allows Seqera to use existing AWS Batch resources.
 
 ## Batch Forge
 
@@ -121,14 +121,10 @@ Batch Forge automatically creates resources that you may be charged for in your 
     1. Use an S3 bucket as the pipeline work directory.
     1. Enable **Wave containers**, **Fusion v2**, and **fast instance storage**.
     1. Select the **Batch Forge** config mode.
-    1. Fast instance storage requires an EC2 instance type that uses NVMe disks. Seqera validates the **Instance types** you specify under **Advanced options**:
-      - If unspecified, Seqera selects the following NVMe-based instance type families: `'c5ad', 'c5d', 'c6id', 'i3', 'i4i', 'm5ad', 'm5d', 'm6id', 'r5ad', 'r5d', 'r6id'`
-      - To specify an NVMe instance family type, select from the following:
-        - Intel: `'c5ad', 'c5d', 'c6id', 'dl1', 'f1', 'g4ad', 'g4dn', 'g5', 'i3', 'i3en', 'i4i', 'm5ad', 'm5d', 'm5dn', 'm6id', 'p3dn', 'p4d', 'p4de', 'r5ad', 'r5d', 'r5dn', 'r6id', 'x2idn', 'x2iedn', 'z1d'`
-        - ARM: `'c6gd', 'm6gd', 'r6gd', 'x2gd', 'im4gn', 'is4gen'`
+    1. Fast instance storage requires an EC2 instance type that uses NVMe disks. Specify NVMe-based instance types in **Instance types** under **Advanced options**. If left unspecified, Platform selects instances from AWS NVMe-based instance type families. See [Instance store temporary block storage for EC2 instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html) for more information.
 
     :::note
-    When enabling fast instance storage, do not select the `optimal` instance type families (c4, m4, r4) for your compute environment as these are not NVMe-based instances. Specify the NVMe instance types listed above.
+    When enabling fast instance storage, do not select the `optimal` instance type families (c4, m4, r4) for your compute environment as these are not NVMe-based instances. Specify AWS NVMe-based instance types, or leave the **Instance types** field empty for Platform to select NVMe instances for you.
     :::
 
     :::tip
@@ -298,14 +294,10 @@ Your Seqera compute environment uses resources that you may be charged for in yo
     1. For this configuration, use Seqera Platform version 23.1 or later.
     1. Use an S3 bucket as the pipeline work directory.
     1. Enable **Wave containers**, **Fusion v2**, and **fast instance storage**.
-    1. Fast instance storage requires an EC2 instance type that uses NVMe disks. Seqera validates the **Instance types** you specify under **Advanced options**:
-      - If unspecified, Seqera selects the following NVMe-based instance type families: `'c5ad', 'c5d', 'c6id', 'i3', 'i4i', 'm5ad', 'm5d', 'm6id', 'r5ad', 'r5d', 'r6id'`
-      - To specify an NVMe instance family type, select from the following:
-        - Intel: `'c5ad', 'c5d', 'c6id', 'dl1', 'f1', 'g4ad', 'g4dn', 'g5', 'i3', 'i3en', 'i4i', 'm5ad', 'm5d', 'm5dn', 'm6id', 'p3dn', 'p4d', 'p4de', 'r5ad', 'r5d', 'r5dn', 'r6id', 'x2idn', 'x2iedn', 'z1d'`
-        - ARM: `'c6gd', 'm6gd', 'r6gd', 'x2gd', 'im4gn', 'is4gen'`
+    1. Fast instance storage requires an EC2 instance type that uses NVMe disks. Specify NVMe-based instance types in **Instance types** under **Advanced options**. If left unspecified, Platform selects instances from AWS NVMe-based instance type families. See [Instance store temporary block storage for EC2 instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html) for more information.
 
     :::note
-    When enabling fast instance storage, do not select the `optimal` instance type families (c4, m4, r4) for your compute environment as these are not NVMe-based instances. Specify the NVMe instance types listed above.
+    When enabling fast instance storage, do not select the `optimal` instance type families (c4, m4, r4) for your compute environment as these are not NVMe-based instances. Specify AWS NVMe-based instance types, or leave the **Instance types** field empty for Platform to select NVMe instances for you.
     :::
 
     :::tip
