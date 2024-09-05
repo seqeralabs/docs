@@ -247,7 +247,8 @@
       "collapsed": true,
       "items": [
         "troubleshooting-and-faqs/troubleshooting",
-        "troubleshooting-and-faqs/faqs",
+        "troubleshooting-and-faqs/api-and-cli",
+        "troubleshooting-and-faqs/data-studios-troubleshooting",
         "troubleshooting-and-faqs/nextflow",
         "troubleshooting-and-faqs/aws-troubleshooting",
         "troubleshooting-and-faqs/azure-troubleshooting",

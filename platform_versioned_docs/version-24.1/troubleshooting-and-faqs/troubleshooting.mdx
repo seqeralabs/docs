@@ -1,3 +1,4 @@
+
 ---
 title: "General troubleshooting"
 description: "Troubleshooting Seqera Platform"
@@ -44,6 +45,21 @@ The `sleep` commands in your Nextflow workflows may differ in behavior depending
 
 - If used within an `errorStrategy` block, the Groovy sleep function will be used (which takes its value in milliseconds).
 - If used within a process script block, that language's sleep binary/method will be used. **Example:** [this BASH script](https://www.nextflow.io/docs/latest/metrics.html?highlight=sleep) uses the BASH sleep binary, which takes its value in seconds.
+
+
+**Large number of batch job definitions**
+
+Platform will normally look for an existing job definition that matches your workflow requirement. If nothing matches, it will recreate it. You can use a simple bash script to clear job definitions. You can tailor this according to your needs, e.g., deregister only job definitions older than x days.
+
+```bash
+jobs=$(aws --region eu-west-1 batch describe-job-definitions | jq -r .jobDefinitions[].jobDefinitionArn)
+
+for x in $jobs; do 
+  echo "Deregister $x"; 
+  sleep 0.01;  
+  aws --region eu-west-1 batch deregister-job-definition --job-definition $x; 
+done
+```
 
 ## Containers
 
