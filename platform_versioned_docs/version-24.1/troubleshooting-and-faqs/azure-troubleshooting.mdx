@@ -5,7 +5,7 @@ date: "26 August 2024"
 tags: [faq, help, azure help, azure troubleshooting]
 ---
 
-## Batch compute environments
+### Batch compute environments
 
 **Use separate Batch pools for head and compute nodes**
 
@@ -19,7 +19,7 @@ The default Azure Batch implementation in Seqera Platform uses a single pool for
 3. In **Compute pool name** (step 10 in the guide linked above), specify your dedicated Batch pool.
 4. Specify the Low priority pool using the `process.queue` [directive](https://www.nextflow.io/docs/latest/process.html#queue) in your `nextflow.config` file (either via the launch form, or your pipeline repository's `nextflow.config` file).
 
-## AKS
+### AKS
 
 **_... /.git/HEAD.lock: Operation not supported_ error**
 
@@ -34,7 +34,7 @@ cat <<EOT > ~/.gitconfig
 EOT
 ```
 
-## SSL
+### SSL
 
 **_Problem with the SSL CA cert (path? access rights?)_ error**
 
