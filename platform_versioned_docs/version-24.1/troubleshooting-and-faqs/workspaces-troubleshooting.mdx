@@ -5,7 +5,7 @@ date: "26 August 2024"
 tags: [faq, help, workspaces help, workspaces troubleshooting]
 ---
 
-## Seqera-invoked pipeline contacting a workspace other than the launch workspace
+**Seqera-invoked pipeline contacting a workspace other than the launch workspace**
 
 You may encounter this entry in your Nextflow log:
 
@@ -18,7 +18,7 @@ If the workspace ID in this message differs from your launch workspace, Seqera r
 
 ## Queues
 
-### Multiple AWS Batch queues for a single job execution
+**Multiple AWS Batch queues for a single job execution**
 
 Although you can only create/identify a single work queue during the definition of your AWS Batch compute environment in Seqera, you can spread tasks across multiple queues when your job is sent to Batch for execution via your pipeline configuration Add the following snippet to your `nextflow.config`, or the **Advanced Features > Nextflow config file** field of the Seqera Launch UI, for processes to be distributed across two AWS Batch queues, depending on the assigned name.
 
@@ -40,7 +40,7 @@ process {
 
 ## Storage
 
-### Enable pipelines to write to S3 buckets that enforces AES256 server-side encryption
+**Enable pipelines to write to S3 buckets that enforces AES256 server-side encryption**
 
 If you need to save files to an S3 bucket with a policy that [enforces AES256 server-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingServerSideEncryption.html), the [nf-launcher](https://quay.io/repository/seqeralabs/nf-launcher?tab=tags) script which invokes the Nextflow head job requires additional configuration:
 
