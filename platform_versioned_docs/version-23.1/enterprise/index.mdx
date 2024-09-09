@@ -6,7 +6,7 @@ tags: [installation, deployment]
 ---
 
 :::tip
-It is highly recommended to first [**Sign up**](https://tower.nf) and try the hosted version of Tower for free, or request a [**demo**](https://cloud.tower.nf/demo/) for deployment to your own cloud or on-prem infrastructure.
+Seqera Enterprise requires a license. If you have not already purchased a license, [contact us](https://seqera.io/contact-us/) for more information.
 :::
 
 Tower is a web application with a microservice-oriented architecture that is designed to maximize portability, scalability and security.
@@ -14,10 +14,6 @@ Tower is a web application with a microservice-oriented architecture that is des
 Tower is composed of several modules that can be configured and deployed according to your organization's requirements. These modules are provided as Docker container images which are securely hosted on several major cloud platforms.
 
 ## Architecture
-
-:::note
-To deploy Nextflow Tower on your infrastructure, you will need a **license key**. [Contact us](mailto:sales@seqera.io) to obtain a license.
-:::
 
 Tower is composed of several Seqera-provided services and standard services that can be provisioned by Tower or by the client.
 
@@ -37,9 +33,7 @@ Tower cron is an auxiliary backend service that executes regularly-occurring act
 
 ### Tower frontend
 
-The Tower frontend is an NGINX web server that serves the [Angular](https://angular.io/) application and reverse-proxies HTTP traffic to the Tower backend.
-
-The frontend should run on port `80` within the container, and it should be the only service that accepts incoming HTTP traffic. The frontend can also be exposed via HTTPS or a load balancer.
+The Tower frontend is an NGINX web server that serves the [Angular](https://angular.io/) application and reverse-proxies HTTP traffic to the Tower backend. The frontend should run on port `80` within the container, and it should be the only service that accepts incoming HTTP traffic. The frontend can also be exposed via HTTPS or a load balancer.
 
 ### Redis database
 
