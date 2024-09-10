@@ -1,1 +1,13 @@
-/platform/latest/*   /platform/24.1.1/:splat   301
+/platform/latest/*   /platform/24.1/:splat   301
+
+# Add redirects to account for Wave docs refresh
+/wave/cli/install   /wave/cli               301
+/wave/guide         /wave/nextflow          301
+
+# Add redirects to account for version renaming
+/platform/24.1.1/*  /platform/24.1/:splat   301
+/platform/23.4.0/*  /platform/23.4/:splat   301
+/platform/23.3.0/*  /platform/23.3/:splat   301
+/platform/23.2.0/*  /platform/23.2/:splat   301
+/platform/23.1.0/*  /platform/23.1/:splat   301
+/platform/22.4.0/*  /platform/22.4/:splat   301
