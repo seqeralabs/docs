@@ -5,17 +5,27 @@ date: "12 Apr 2023"
 tags: [firewall, configuration]
 ---
 
-Seqera Platform Cloud ([tower.nf](https://tower.nf)) may need to connect to resources within your network, e.g., your storage server. To do so, your firewall must be configured to allow certain IPs to reach your resources.
+Seqera Platform Cloud ([cloud.seqera.io](https://cloud.seqera.io)) may need to connect to resources within your network, e.g., your storage server. To do so, your firewall must be configured to allow certain IPs to reach your resources.
 
-A dynamic list of IPs is kept up-to-date at https://meta.seqera.io/v1/.
+A dynamic list of IPs is kept up-to-date at https://meta.seqera.io.
 
 This endpoint returns a JSON object that can be parsed to dynamically adapt your firewall, e.g., in Python with the `requests` package:
 
 ```python
 $ python3
 >>> import requests
->>> requests.get("https://meta.seqera.io/v1/").json()
-{'tower.nf': ['18.171.4.252/32', '18.135.7.45/32', '18.169.21.18/32']}
+>>> requests.get("https://meta.seqera.io").json()
+{
+  "cloud.seqera.io": [
+    "18.135.7.45/32",
+    "18.169.21.18/32",
+    "18.171.4.252/32"
+  ],
+  "licenses.seqera.io": [
+    "35.176.121.51/32",
+    "35.178.254.247/32"
+  ]
+}
 ```
 
 ### DNS allowlist
