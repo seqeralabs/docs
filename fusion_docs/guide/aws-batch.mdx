@@ -24,7 +24,7 @@ See [AWS Batch](https://docs.seqera.io/platform/latest/compute-envs/aws-batch) f
 Fusion file system implements a lazy download and upload algorithm that runs in the background to transfer files in
 parallel to and from the object storage into the container-local temporary directory (`/tmp`). To achieve optimal performance, set up an SSD volume as the temporary directory.
 
-Several AWS EC2 instance types include one or more NVMe SSD volumes. These volumes must be formatted to be used. See [SSD instance storage](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ssd-instance-store.html) for details. Seqera Platform automatically formats and configures NVMe instance storage with the “Fast instance storage” option when creating an AWS Batch compute environment.
+Several AWS EC2 instance types include one or more NVMe SSD volumes. These volumes must be formatted to be used. See [SSD instance storage](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ssd-instance-store.html) for details. Seqera Platform automatically formats and configures NVMe instance storage with the “Fast instance storage” option when you create an AWS Batch compute environment.
 :::
 
 1. Add the following to your `nextflow.conf` file:

@@ -14,6 +14,21 @@ Yes. [Minio](https://min.io/) implements an S3-compatible API, therefore it can 
 
 No. Fusion can only be used directly in supported [Seqera Platform compute environments](https://docs.seqera.io/platform/latest/compute-envs/overview), or by enabling [Wave containers](https://docs.seqera.io/wave) in your Nextflow configuration.
 
+### Can I pin a specific Fusion version to use with Nextflow?
+
+Yes. Add the Fusion version's config URL using the `containerConfigUrl` option in the Fusion block of your Nextflow configuration (replace `v2.4.2` with the version of your choice):
+
+```groovy
+fusion {
+  enabled = true
+  containerConfigUrl = 'https://fusionfs.seqera.io/releases/v2.4.2-amd64.json' 
+}
+```
+
+:::note
+For ARM CPU architectures, use https://fusionfs.seqera.io/releases/v2.4.2-arm64.json. 
+:::
+
 ### Why do I need Wave containers to use Fusion?
 
 Fusion is designed to work at the job execution level. This means it must run in a containerized job execution context.
