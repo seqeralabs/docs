@@ -62,8 +62,47 @@ NAME           TYPE                             DATA   AGE
 cr.seqera.io   kubernetes.io/dockerconfigjson   1      26s
 ```
 
+```
+kubectl run pull-test --restart=Never --image-pull-policy=Always \
+  --image cr.seqera.io/private/nf-tower-enterprise/backend:v24.1.4
+  --command \
+  --overrides='{ "spec": { "imagePullSecrets": [ { "name": "cr.seqera.io" } ] } }' \
+  --override-type=strategic -- /bin/true
+```
+
+```
+pod/pull-test created
+```
+
+```
+kubectl get pods/pull-test -o=custom-columns=NAME:.metadata.name,STATUS:.status.phase
+NAME        STATUS
+```
+
+```
+pull-test   Succeeded
+```
+
 ## Configure Seqera Platform
 
+TOWER_ROOT_USERS
+
+TOWER_SERVER_URL: "http://localhost:8080"
+TOWER_CONTACT_EMAIL: "<email>"
+TOWER_JWT_SECRET: ""
+TOWER_DB_URL: jdbc:mysql://mysql:3306/tower?permitMysqlScheme=true
+TOWER_DB_DRIVER: "org.mariadb.jdbc.Driver"
+TOWER_DB_USER: "tower"
+TOWER_DB_PASSWORD: "tower"
+TOWER_DB_DIALECT: "io.seqera.util.MySQL55DialectCollateBin"
+TOWER_SMTP_HOST: "<smtp_host_name>"
+TOWER_SMTP_USER: ""
+TOWER_SMTP_PASSWORD: ""
+TOWER_CRYPTO_SECRETKEY: "<YOUR CRYPTO SECRET>"
+TOWER_LICENSE: "<license_key>"
+TOWER_ENABLE_PLATFORMS: "local-platform"
+FLYWAY_LOCATIONS: "classpath:db-schema/mysql"
+TOWER_REDIS_URL: "redis://redis:6379"
 
 ```
 kubectl apply -f configmap.yml
@@ -75,9 +114,9 @@ configmap/tower-yml created
 
 ```
 kubectl apply -f redis.yml
-persistentvolumeclaim/redis-data unchanged
-statefulset.apps/redis unchanged
-service/redis unchanged
+persistentvolumeclaim/redis-data created
+statefulset.apps/redis created
+service/redis created
 ```
 
 ## Deploy a MySQL instance
