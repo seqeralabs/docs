@@ -63,9 +63,8 @@ cr.seqera.io   kubernetes.io/dockerconfigjson   1      26s
 ```
 
 ```
-kubectl run pull-test --restart=Never --image-pull-policy=Always \
-  --image cr.seqera.io/private/nf-tower-enterprise/backend:v24.1.4
-  --command \
+kubectl run pull-test --command --restart=Never --image-pull-policy=Always \
+  --image cr.seqera.io/private/nf-tower-enterprise/backend:v24.1.4 \
   --overrides='{ "spec": { "imagePullSecrets": [ { "name": "cr.seqera.io" } ] } }' \
   --override-type=strategic -- /bin/true
 ```
@@ -85,8 +84,11 @@ pull-test   Succeeded
 
 ## Configure Seqera Platform
 
+Configure the following environment variables. For more information about Seqera configuration options, see [Configuration overview](./configuration/overview.mdx).
+
 TOWER_ROOT_USERS
 
+```
 TOWER_SERVER_URL: "http://localhost:8080"
 TOWER_CONTACT_EMAIL: "<email>"
 TOWER_JWT_SECRET: ""
@@ -103,6 +105,7 @@ TOWER_LICENSE: "<license_key>"
 TOWER_ENABLE_PLATFORMS: "local-platform"
 FLYWAY_LOCATIONS: "classpath:db-schema/mysql"
 TOWER_REDIS_URL: "redis://redis:6379"
+```
 
 ```
 kubectl apply -f configmap.yml
@@ -111,6 +114,8 @@ configmap/tower-yml created
 ```
 
 ## Deploy a Redis instance
+
+Need to confirm provider storage class.
 
 ```
 kubectl apply -f redis.yml
