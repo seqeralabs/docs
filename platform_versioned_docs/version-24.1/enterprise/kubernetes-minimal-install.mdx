@@ -5,3 +5,205 @@ date: "11 Sep 2024"
 tags: [kubernetes, deployment]
 ---
 
+This installation guide describes how to install Seqera Platform on a Kubernetes cluster.
+
+## Prerequisites
+
+The following prerequisites are required to deploy Seqera on a Kubernetes cluster.
+
+- A Kubernetes cluster version 1.30.2 or newer
+- The `kubectl` CLI is installed locally
+- Access to the cluster with the `cluster-admin` role
+
+## Create a namespace
+
+```
+kubectl create namespace seqera-platform
+```
+
+```js file=./_templates/k8s/redis.aks.yml showLineNumbers
+```
+
+Output:
+
+```
+namespace/seqera-platform created
+```
+
+```
+kubectl config set-context --current --namespace=seqera-platform
+```
+
+Output:
+
+```
+Context "default" modified.
+```
+
+## Configure container registry credentials
+
+```
+kubectl create secret docker-registry cr.seqera.io \
+  --docker-server=cr.seqera.io \
+  --docker-username='<username>' \
+  --docker-password='<password>'
+```
+
+```
+secret/cr.seqera.io created
+```
+
+```
+kubectl get secrets cr.seqera.io
+```
+
+```
+NAME           TYPE                             DATA   AGE
+cr.seqera.io   kubernetes.io/dockerconfigjson   1      26s
+```
+
+## Configure Seqera Platform
+
+
+```
+kubectl apply -f configmap.yml
+configmap/tower-backend-cfg created
+configmap/tower-yml created
+```
+
+## Deploy a Redis instance
+
+```
+kubectl apply -f redis.yml
+persistentvolumeclaim/redis-data unchanged
+statefulset.apps/redis unchanged
+service/redis unchanged
+```
+
+## Deploy a MySQL instance
+
+```
+kubectl create -f mysql.yml
+persistentvolumeclaim/mysql-pvc created
+statefulset.apps/mysql created
+service/mysql created
+```
+
+## Deploy Seqera cron deployment
+
+```
+kubectl apply -f tower-cron.yml
+```
+
+```
+kubectl rollout status deployment/cron
+deployment "cron" successfully rolled out
+```
+
+## Deploy Seqera frontend and backend deployments
+
+```bash
+kubectl apply -f tower-svc.yml
+```
+
+```
+deployment.apps/backend configured
+deployment.apps/frontend configured
+service/backend configured
+service/frontend configured
+```
+
+## Create a new user account
+
+```
+kubectl port-forward services/frontend 8080:80
+Forwarding from 127.0.0.1:8080 -> 8000
+Forwarding from [::1]:8080 -> 8000
+```
+
+Access the Platform UI. Enter your email address.
+
+```
+kubectl port-forward services/mailcatcher 1080
+```
+
+Open the authentication email with the subject _Complete your sign-in to Seqera_ and select **Complete sign-in**. Seqera creates the initial administrator account and ties it to your email address.
+
+## Next steps
+
+- Configure OpenID Connect (OIDC) for seamless integration with your identify provider
+- Configure ingress for your public cloud provider for load balancing and TLS termination
+- Configure access to your organization's email server
+
+## Parking
+
+```
+kubectl create namespace seqera-platform
+namespace/seqera-platform created
+
+kubectl config set-context --current --namespace=seqera-platform
+Context "docker-desktop" modified.
+
+kubectl create secret docker-registry cr.seqera.io \
+                         --docker-server=cr.seqera.io \
+                         --docker-username='jason.boxman@seqera.io' \
+                         --docker-password='<password>'
+secret/cr.seqera.io created
+ 
+kubectl get secrets cr.seqera.io
+NAME           TYPE                             DATA   AGE
+cr.seqera.io   kubernetes.io/dockerconfigjson   1      26s
+
+kubectl apply -f configmap.yml
+configmap/tower-backend-cfg created
+configmap/tower-yml created
+
+kubectl create -f mysql.yml
+persistentvolumeclaim/mysql-pvc created
+statefulset.apps/mysql created
+service/mysql-headless created
+
+# Try this because next step is required
+kubectl rollout status deployment/cron
+deployment "cron" successfully rolled out
+
+kubectl port-forward services/frontend 8080:80
+Forwarding from 127.0.0.1:8080 -> 8000
+Forwarding from [::1]:8080 -> 8000
+
+kubectl port-forward services/mailcatcher 1080
+```
+
+```
+kubectl get all
+NAME                           READY   STATUS    RESTARTS   AGE
+pod/backend-69d554df9d-ptsjn   1/1     Running   0          22h
+pod/cron-564c846f7c-79pl6      1/1     Running   0          8h
+pod/frontend-c768bbf7f-dxj7g   1/1     Running   0          36h
+pod/mailcatcher                1/1     Running   0          8h
+pod/mysql-0                    1/1     Running   0          37h
+pod/redis-0                    1/1     Running   0          23m
+
+NAME                  TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)            AGE
+service/backend       ClusterIP      10.96.179.57     <none>        8080/TCP           37h
+service/frontend      ClusterIP      10.103.127.27    <none>        80/TCP       37h
+service/mailcatcher   ClusterIP      10.96.207.80     <none>        587/TCP,1080/TCP   8h
+service/mysql         ClusterIP      None             <none>        3306/TCP           37h
+service/redis         ClusterIP      10.111.114.163   <none>        6379/TCP           2d5h
+service/smtp          ClusterIP      10.104.195.72    <none>        587/TCP            24h
+
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/backend    1/1     1            1           37h
+deployment.apps/cron       1/1     1            1           37h
+deployment.apps/frontend   1/1     1            1           36h
+
+NAME                                  DESIRED   CURRENT   READY   AGE
+replicaset.apps/backend-69d554df9d    1         1         1       37h
+replicaset.apps/cron-564c846f7c       1         1         1       37h
+replicaset.apps/frontend-6d88cdb487   0         0         0       36h
+replicaset.apps/frontend-c768bbf7f    1         1         1       36h
+
+NAME                     READY   AGE
+statefulset.apps/mysql   1/1     37h
+statefulset.apps/redis   1/1     2d5h
+```
