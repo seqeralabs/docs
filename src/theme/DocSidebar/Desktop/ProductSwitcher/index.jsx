@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useLocation } from '@docusaurus/router';
+import Link from '@docusaurus/Link';
 
 import styles from "./styles.module.css";
 import ProductLogo from "./ProductLogo";
@@ -76,9 +77,9 @@ const ProductSwitcher = () => {
         {products
           .filter((product) => product.name !== currentProduct)
           .map((product) => (
-            <a
+            <Link
               key={product.name}
-              href={product.url}
+              to={product.url}
               className={styles.dropdownItem}
               onClick={(e) => {
                 e.stopPropagation();
@@ -92,7 +93,7 @@ const ProductSwitcher = () => {
                 <product.logoDark className={styles.productLogo + " " + styles.themeDark} />
               </div>
               {product.name === "Nextflow" && <ExternalLinkIcon className={styles.externalLinkIcon} />}
-            </a>
+            </Link>
           ))}
       </div>
     </button>
