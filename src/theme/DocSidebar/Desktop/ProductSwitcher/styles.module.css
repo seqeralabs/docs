@@ -15,13 +15,109 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+    position: relative;
+    background: none;
+    border: 1px solid #D0CFD4;
+    cursor: pointer;
+    width: 100%;
+}
+
+.productSwitcherWrapperOpen {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.productSwitcherButton {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
 }
 
 .caret {
+    margin-left: 8px;
     width: 24px;
     height: 24px;
     fill: #000;
+    transform: rotate(-90deg);
+    transition: transform 200ms ease-in-out;
 }
 [data-theme='dark'] .caret {
     fill: #fff;
+}
+
+.caretOpen {
+    transform: rotate(0);
+}
+
+.dropdown {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 100ms ease-in-out, visibility 100ms ease-in-out;
+    position: absolute;
+    top: 100%;
+    left: -1px;
+    right: -1px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    z-index: 1000;
+    margin-top: 1px;
+}
+
+.dropdownItem {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    text-decoration: none;
+    color: #333;
+    width: 100%;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.dropdownItem:last-child {
+    border-bottom: none;
+}
+
+.productLogo {
+    height: 24px;
+}
+
+[data-theme='dark'] .dropdown {
+    background-color: var(--color-brand-1400);
+    border: 1px solid var(--color-brand-800);
+}
+
+[data-theme='dark'] .dropdownItem {
+    color: #fff;
+    border-bottom-color: var(--color-brand-800);
+}
+
+[data-theme='dark'] .dropdownItem:hover {
+    background-color: var(--color-brand-1300);
+}
+
+.themeLight {
+    display: inline-block;
+}
+
+.themeDark {
+    display: none;
+}
+
+[data-theme='dark'] .themeLight {
+    display: none;
+}
+
+[data-theme='dark'] .themeDark {
+    display: inline-block;
+}
+
+.dropdownVisible {
+    opacity: 1;
+    visibility: visible;
 }
