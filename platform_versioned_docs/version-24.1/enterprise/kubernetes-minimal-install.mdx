@@ -15,163 +15,397 @@ The following prerequisites are required to deploy Seqera on a Kubernetes cluste
 - The `kubectl` CLI is installed locally
 - Access to the cluster with the `cluster-admin` role
 
-## Create a namespace
+## 1. Create a namespace
 
-```
-kubectl create namespace seqera-platform
-```
+Create a namespace to isolate Kubernetes resources used by Seqera Platform from the other resources on your cluster.
 
-```js file=./_templates/k8s/redis.aks.yml showLineNumbers
-```
+:::tip
+This installation guide assumes the use of `seqera-platform` as the installation namespace. Consider using a different one that better fits your cluster naming convention.
+:::
 
-Output:
+1. Create a namespace for the Seqera resources:
 
-```
-namespace/seqera-platform created
-```
+    ```
+    kubectl create namespace seqera-platform
+    ```
 
-```
-kubectl config set-context --current --namespace=seqera-platform
-```
+    <details>
+    <summary>View command output</summary>
+    ```
+    namespace/seqera-platform created
+    ```
+    </details>
 
-Output:
+1. Switch to the namespace:
 
-```
-Context "default" modified.
-```
+    ```
+    kubectl config set-context --current --namespace=seqera-platform
+    ```
 
-## Configure container registry credentials
+## 2. Configure container registry credentials
 
-```
-kubectl create secret docker-registry cr.seqera.io \
-  --docker-server=cr.seqera.io \
-  --docker-username='<username>' \
-  --docker-password='<password>'
-```
+Seqera Enterprise is distributed as a collection of Docker containers available through the Seqera container registry [`cr.seqera.io`](https://cr.seqera.io). Contact [support](https://support.seqera.io) to get your container access credentials. After you've received your credentials, grant your cluster access to the registry:
 
-```
-secret/cr.seqera.io created
-```
+1. Retrieve the `name` and `secret` values from the JSON file that you received from Seqera support.
 
-```
-kubectl get secrets cr.seqera.io
-```
+1. Create a [secret][kubectl-secret] for the image pull secret:
 
-```
-NAME           TYPE                             DATA   AGE
-cr.seqera.io   kubernetes.io/dockerconfigjson   1      26s
-```
+    ```
+    kubectl create secret docker-registry cr.seqera.io \
+      --docker-server=cr.seqera.io \
+      --docker-username='<name>' \
+      --docker-password='<secret>'
+    ```
 
-```
-kubectl run pull-test --command --restart=Never --image-pull-policy=Always \
-  --image cr.seqera.io/private/nf-tower-enterprise/backend:v24.1.4 \
-  --overrides='{ "spec": { "imagePullSecrets": [ { "name": "cr.seqera.io" } ] } }' \
-  --override-type=strategic -- /bin/true
-```
+    The credential `name` contains a dollar `$` character. Wrap the name in single quotes to prevent the Linux shell from interpreting this value as an environment variable.
 
-```
-pod/pull-test created
-```
+    <details>
+    <summary>View command output</summary>
+    ```
+    secret/cr.seqera.io created
+    ```
+    </details>
 
-```
-kubectl get pods/pull-test -o=custom-columns=NAME:.metadata.name,STATUS:.status.phase
-NAME        STATUS
-```
+1. Confirm that the secret exists:
 
-```
-pull-test   Succeeded
-```
+    ```
+    kubectl get secrets cr.seqera.io
+    ```
 
-## Configure Seqera Platform
+    <details>
+    <summary>View command output</summary>
+    ```
+    NAME           TYPE                             DATA   AGE
+    cr.seqera.io   kubernetes.io/dockerconfigjson   1      26s
+    ```
+    </details>
+
+1. Confirm that you can pull containers from `cr.seqera.io`:
+
+   1. Pull a container from the private repository:
+
+        ```
+        kubectl run pull-test --command --restart=Never --image-pull-policy=Always \
+          --image cr.seqera.io/private/nf-tower-enterprise/backend:v24.1.4 \
+          --overrides='{ "spec": { "imagePullSecrets": [ { "name": "cr.seqera.io" } ] } }' \
+          --override-type=strategic -- /bin/true
+        ```
+
+        <details>
+        <summary>View command output</summary>
+        ```
+        pod/pull-test created
+        ```
+        </details>
+
+    1. Confirm that the container was pulled:
+
+        ```
+        kubectl get pods/pull-test -o=custom-columns=NAME:.metadata.name,STATUS:.status.phase
+        ```
+
+        <details>
+        <summary>View command output</summary>
+        ```
+        NAME        STATUS
+        pull-test   Succeeded
+        ```
+        </details>
+
+## 3. Configure Seqera Platform
 
 Configure the following environment variables. For more information about Seqera configuration options, see [Configuration overview](./configuration/overview.mdx).
 
-TOWER_ROOT_USERS
+:::tip
+The `configmap.yml` manifest includes both the `tower.env` and `tower.yml` files. These files are made available to the other containers through volume mounts.
+:::
 
-```
-TOWER_SERVER_URL: "http://localhost:8080"
-TOWER_CONTACT_EMAIL: "<email>"
-TOWER_JWT_SECRET: ""
-TOWER_DB_URL: jdbc:mysql://mysql:3306/tower?permitMysqlScheme=true
-TOWER_DB_DRIVER: "org.mariadb.jdbc.Driver"
-TOWER_DB_USER: "tower"
-TOWER_DB_PASSWORD: "tower"
-TOWER_DB_DIALECT: "io.seqera.util.MySQL55DialectCollateBin"
-TOWER_SMTP_HOST: "<smtp_host_name>"
-TOWER_SMTP_USER: ""
-TOWER_SMTP_PASSWORD: ""
-TOWER_CRYPTO_SECRETKEY: "<YOUR CRYPTO SECRET>"
-TOWER_LICENSE: "<license_key>"
-TOWER_ENABLE_PLATFORMS: "local-platform"
-FLYWAY_LOCATIONS: "classpath:db-schema/mysql"
-TOWER_REDIS_URL: "redis://redis:6379"
-```
+1. Create a file named `configmap.yml` with the following Kubernetes manifest:
 
-```
-kubectl apply -f configmap.yml
-configmap/tower-backend-cfg created
-configmap/tower-yml created
-```
+    <details>
+    <summary>Show `configmap.yml` file</summary>
+    ```js file=./_templates/k8s/k8s_min/configmap.yml {10,12-13,22,25-26} showLineNumbers
+    ```
+    </details>
 
-## Deploy a Redis instance
+1. Generate two unique secrets with the following command: `openssl rand -base64 36`
 
-Need to confirm provider storage class.
+1. Edit the `configmap.yml` file and set the following environment variables:
 
-```
-kubectl apply -f redis.yml
-persistentvolumeclaim/redis-data created
-statefulset.apps/redis created
-service/redis created
-```
+    - `TOWER_ROOT_USERS`: Specify your email address
+    - `TOWER_JWT_SECRET`: Specify a unique secret that is at least 35 alphanumeric characters
+    - `TOWER_CRYPTO_SECRETKEY`: Specify a unique secret.
+    - `TOWER_LICENSE`: Specify your Seqera license key, if known. Otherwise, leave this empty.
 
-## Deploy a MySQL instance
+1. Apply the config map:
 
-```
-kubectl create -f mysql.yml
-persistentvolumeclaim/mysql-pvc created
-statefulset.apps/mysql created
-service/mysql created
-```
+    ```
+    kubectl apply -f configmap.yml
+    ```
 
-## Deploy Seqera cron deployment
+    <details>
+    <summary>View command output</summary>
+    ```
+    configmap/tower-backend-cfg created
+    configmap/tower-yml created
+    ```
+    </details>
 
-```
-kubectl apply -f tower-cron.yml
-```
+## 4. Deploy a Redis instance
 
-```
-kubectl rollout status deployment/cron
-deployment "cron" successfully rolled out
-```
+Seqera Enterprise requires a Redis database for caching purposes. Configure Redis manually by deploying a manifest to your cluster.
 
-## Deploy Seqera frontend and backend deployments
+1. Create a file named `redis.yml` with the following Kubernetes manifest:
 
-```bash
-kubectl apply -f tower-svc.yml
-```
+    <details>
+    <summary>Show `redis.yml` file</summary>
+    ```js file=./_templates/k8s/k8s_min/redis.yml {14} showLineNumbers
+    ```
+    </details>
 
-```
-deployment.apps/backend configured
-deployment.apps/frontend configured
-service/backend configured
-service/frontend configured
-```
+1. Set the `spec.storageClassName` field for the persistent volume claim:
 
-## Create a new user account
+   1. Obtain the default storage class name that your Kubernetes cluster provides:
 
-```
-kubectl port-forward services/frontend 8080:80
-Forwarding from 127.0.0.1:8080 -> 8000
-Forwarding from [::1]:8080 -> 8000
-```
+       ```
+       kubectl get storageclass -o=custom-columns=NAME:.metadata.name,PROVISIONER:.provisioner
+       ```
 
-Access the Platform UI. Enter your email address.
+        <details>
+        <summary>View command output</summary>
+        ```
+        NAME       PROVISIONER
+        hostpath   docker.io/hostpath
+        ```
+        </details>
 
-```
-kubectl port-forward services/mailcatcher 1080
-```
+    1. Edit the `redis.yml` file and set `spec.storageClassName` to the name of the default storage class from the output from the previous step.
 
-Open the authentication email with the subject _Complete your sign-in to Seqera_ and select **Complete sign-in**. Seqera creates the initial administrator account and ties it to your email address.
+1. Apply the manifest:
+
+    ```
+    kubectl apply -f redis.yml
+    ```
+
+    <details>
+    <summary>View command output</summary>
+    ```
+    persistentvolumeclaim/redis-data created
+    statefulset.apps/redis created
+    service/redis created
+    ```
+    </details>
+
+1. Confirm that Redis is available:
+
+    ```
+    kubectl get statefulsets/redis
+    ```
+
+    <details>
+    <summary>View command output</summary>
+    ```
+    NAME    READY   AGE
+    redis   1/1     3d5h
+    ```
+    </details>
+
+## 5. Deploy a MySQL instance
+
+1. Create a file named `mysql.yml` with the following Kubernetes manifest:
+
+    <details>
+    <summary>Show `mysql.yml` file</summary>
+    ```js file=./_templates/k8s/k8s_min/mysql.yml {14} showLineNumbers
+    ```
+    </details>
+
+1. Set the `spec.storageClassName` field for the persistent volume claim:
+
+   1. Obtain the default storage class name that your Kubernetes cluster provides:
+
+       ```
+       kubectl get storageclass -o=custom-columns=NAME:.metadata.name,PROVISIONER:.provisioner
+       ```
+
+        <details>
+        <summary>View command output</summary>
+        ```
+        NAME       PROVISIONER
+        hostpath   docker.io/hostpath
+        ```
+        </details>
+
+    1. Edit the `mysql.yml` file and set `spec.storageClassName` to the name of the default storage class from the output from the previous step.
+
+1. Apply the manifest:
+
+    ```
+    kubectl create -f mysql.yml
+    ```
+
+    <details>
+    <summary>View command output</summary>
+    ```
+    persistentvolumeclaim/mysql-pvc created
+    statefulset.apps/mysql created
+    service/mysql created
+    ```
+    </details>
+
+1. Confirm that MySQL is available:
+
+    ```
+    kubectl get statefulsets/redis
+    ```
+
+    <details>
+    <summary>View command output</summary>
+    ```
+    NAME    READY   AGE
+    mysql   1/1     2d12h
+    ```
+    </details>
+
+
+## 6. Deploy Seqera
+
+Seqera Platform consists of deployments for a cron service, a backend service, and a frontend service.
+
+1. Create the manifest files:
+    - Create a file named `tower-cron.yml` with the following Kubernetes manifest:
+
+      <details>
+      <summary>Show `tower-cron.yml` file</summary>
+      ```js file=./_templates/k8s/k8s_min/tower-cron.yml showLineNumbers
+      ```
+      </details>
+
+    - Create a file named `tower-svc.yml` with the following Kubernetes manifest:
+
+      <details>
+      <summary>Show `tower-svc.yml` file</summary>
+      ```js file=./_templates/k8s/k8s_min/tower-svc.yml showLineNumbers
+      ```
+      </details>
+
+1. Deploy the cron service:
+
+      :::caution
+      This manifest includes an init container that creates the required database schema the first time it instantiates. This process can take a few minutes to complete and must finish before you instantiate the Seqera backend. Ensure this container is in the `READY` state before proceeding to the next step.
+      :::
+
+    1. Apply the `tower-cron.yml` manifest:
+
+        ```
+        kubectl apply -f tower-cron.yml
+        ```
+
+        <details>
+        <summary>View command output</summary>
+        ```
+        deployment.apps/cron configured
+        ```
+        </details>
+
+    1. Confirm that cron service deployed successfully:
+
+        ```
+        kubectl rollout status deployment/cron
+        ```
+
+        <details>
+        <summary>View command output</summary>
+          deployment "cron" successfully rolled out
+        </details>
+
+1. Deploy the backend and frontend services:
+
+    1. Apply the `tower-svc.yml` manifest:
+
+        ```
+        kubectl apply -f tower-svc.yml
+        ```
+
+        <details>
+        <summary>View command output</summary>
+        ```
+        deployment.apps/backend configured
+        deployment.apps/frontend configured
+        service/backend configured
+        service/frontend configured
+        ```
+        </details>
+
+    1. Confirm that cron service deployed successfully:
+
+        ```
+        kubectl get deployments
+        ```
+
+        <details>
+        <summary>View command output</summary>
+        ```
+        NAME       READY   UP-TO-DATE   AVAILABLE   AGE
+        backend    1/1     1            1           2d6h
+        cron       1/1     1            1           2d6h
+        frontend   1/1     1            1           2d6h
+        ```
+        </details>
+
+## 7. Create a new user account
+
+Use the same email address that you specified for the `TOWER_ROOT_USERS` environment variable.
+
+1. Open a port forward to the frontend to access the Seqera UI:
+
+    ```
+    kubectl port-forward services/frontend 8080:80 &
+    ```
+
+    <details>
+    <summary>View command output</summary>
+    Forwarding from 127.0.0.1:8080 -> 8000
+    Forwarding from [::1]:8080 -> 8000
+    </details>
+
+1. In a web browser, visit `http://localhost:8080/`. In the **Sign in to Seqera platform** form, enter the email address that you set the `TOWER_ROOT_USERS` environment variable to.
+
+1. Create a file named `mailcatcher.yml` with the following manifest:
+
+    <details>
+    <summary>Show `mailcatcher.yml` file</summary>
+    ```js file=./_templates/k8s/k8s_min/mailcatcher.yml showLineNumbers
+    ```
+    </details>
+
+1. Deploy the MatchCatcher application, so that you can access the email that Seqera sends with your authentication token:
+
+    ```
+    kubectl apply -f mailcatcher.yml
+    ```
+
+1. Open a port forward to the MailCatcher application, to access its web UI:
+
+    ```
+    kubectl port-forward services/mailcatcher 1080 &
+    ```
+
+    <details>
+    <summary>View command output</summary>
+    ```
+    Forwarding from 127.0.0.1:1080 -> 1080
+    Forwarding from [::1]:1080 -> 1080
+    ```
+    </details>
+
+1. In a web browser, visit `http://localhost:1080/`.
+
+1. Open the authentication email with the subject _Complete your sign-in to Seqera_ and select **Complete sign-in**. Seqera redirects your browser to the **Launchpad** page.
+
+1. Optional: To stop the background port forward processes, you can run `jobs` in your shell, and then run `kill -15 <pid>` to stop each process. If you stop the port forward to the frontend, you can no longer access the Seqera UI. We recommend using a cloud provider's load balancers in conjunction with the Kubernetes ingress functionality for persistent access to your installation.
+
+Your installation of Seqera Platform is complete.
 
 ## Next steps
 
@@ -179,75 +413,6 @@ Open the authentication email with the subject _Complete your sign-in to Seqera_
 - Configure ingress for your public cloud provider for load balancing and TLS termination
 - Configure access to your organization's email server
 
-## Parking
 
-```
-kubectl create namespace seqera-platform
-namespace/seqera-platform created
-
-kubectl config set-context --current --namespace=seqera-platform
-Context "docker-desktop" modified.
-
-kubectl create secret docker-registry cr.seqera.io \
-                         --docker-server=cr.seqera.io \
-                         --docker-username='jason.boxman@seqera.io' \
-                         --docker-password='<password>'
-secret/cr.seqera.io created
- 
-kubectl get secrets cr.seqera.io
-NAME           TYPE                             DATA   AGE
-cr.seqera.io   kubernetes.io/dockerconfigjson   1      26s
-
-kubectl apply -f configmap.yml
-configmap/tower-backend-cfg created
-configmap/tower-yml created
-
-kubectl create -f mysql.yml
-persistentvolumeclaim/mysql-pvc created
-statefulset.apps/mysql created
-service/mysql-headless created
-
-# Try this because next step is required
-kubectl rollout status deployment/cron
-deployment "cron" successfully rolled out
-
-kubectl port-forward services/frontend 8080:80
-Forwarding from 127.0.0.1:8080 -> 8000
-Forwarding from [::1]:8080 -> 8000
-
-kubectl port-forward services/mailcatcher 1080
-```
-
-```
-kubectl get all
-NAME                           READY   STATUS    RESTARTS   AGE
-pod/backend-69d554df9d-ptsjn   1/1     Running   0          22h
-pod/cron-564c846f7c-79pl6      1/1     Running   0          8h
-pod/frontend-c768bbf7f-dxj7g   1/1     Running   0          36h
-pod/mailcatcher                1/1     Running   0          8h
-pod/mysql-0                    1/1     Running   0          37h
-pod/redis-0                    1/1     Running   0          23m
-
-NAME                  TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)            AGE
-service/backend       ClusterIP      10.96.179.57     <none>        8080/TCP           37h
-service/frontend      ClusterIP      10.103.127.27    <none>        80/TCP       37h
-service/mailcatcher   ClusterIP      10.96.207.80     <none>        587/TCP,1080/TCP   8h
-service/mysql         ClusterIP      None             <none>        3306/TCP           37h
-service/redis         ClusterIP      10.111.114.163   <none>        6379/TCP           2d5h
-service/smtp          ClusterIP      10.104.195.72    <none>        587/TCP            24h
-
-NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/backend    1/1     1            1           37h
-deployment.apps/cron       1/1     1            1           37h
-deployment.apps/frontend   1/1     1            1           36h
-
-NAME                                  DESIRED   CURRENT   READY   AGE
-replicaset.apps/backend-69d554df9d    1         1         1       37h
-replicaset.apps/cron-564c846f7c       1         1         1       37h
-replicaset.apps/frontend-6d88cdb487   0         0         0       36h
-replicaset.apps/frontend-c768bbf7f    1         1         1       36h
-
-NAME                     READY   AGE
-statefulset.apps/mysql   1/1     37h
-statefulset.apps/redis   1/1     2d5h
-```
+<!-- links -->
+[kubectl-secret]: https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-kubectl/
