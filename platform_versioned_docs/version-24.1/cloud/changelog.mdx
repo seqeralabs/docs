@@ -50,7 +50,7 @@ tags: [changelog]
 ## 2023
 
 <details>
-<summary>#### 23.3.0 - 16 October 2023</summary>
+<summary>23.3.0 - 16 October 2023</summary>
 
 - Data Explorer: Use Data Explorer to navigate workflow and tasks work directories
 - Data Explorer: Support uploading files to bucket
@@ -91,7 +91,7 @@ tags: [changelog]
 </details>
 
 <details>
-<summary>#### 23.2.0 - 31 Jul 2023</summary>
+<summary>23.2.0 - 31 Jul 2023</summary>
 
 - Added support for Fargate for head job
 - Added support for Graviton architecture in AWS Batch compute environments
@@ -115,7 +115,7 @@ tags: [changelog]
 </details>
 
 <details>
-<summary>#### 23.1.3 - 09 Jun 2023</summary>
+<summary>23.1.3 - 09 Jun 2023</summary>
 
 - Reverted `Set BEST_FIT_PROGRESSIVE` as default AWS Batch allocation strategy  
 - Fixed the inability to to view workflow details on runs page on the newest version of Chrome  
@@ -123,7 +123,8 @@ tags: [changelog]
 - Bump nf-launcher version j17-23.04.2
 </details>
 
-#### 23.1.0 - 28 Apr 2023
+<details>
+<summary>23.1.0 - 28 Apr 2023</summary>
 
 - Added Fusion logs download  
 - Added Fusion support for Google Batch 
@@ -175,21 +176,27 @@ tags: [changelog]
 - Fixed a workflow deletion failure when has a launch record associated 
 - Fixed a bug where Workflow launch form autoselects CE when workspace is shared  
 - Bump Version nf-launcher:j17-23.04.1  
-- Bump Micronaut to version 3.8.5  
+- Bump Micronaut to version 3.8.5
+</details>
 
-#### 22.4.2 - 21 Feb 2023
+<details>
+<summary>22.4.2 - 21 Feb 2023</summary>
 
-- Fixed: Issue retrieving execution logs from CloudWatch (#4476) [638513b7]
-- Fixed: Issue setting AWS CloudWatch custom log group name (#4475) [f020719c]
-- Chore: Improve cloudwatch labels (#4498) [69b790fa]
-- Bump: nf-launcher:j17-22.10.7 [a7b6fd26]
+- Fixed an issue retrieving execution logs from CloudWatch 
+- Fixed an issue setting AWS CloudWatch custom log group name
+- Improve cloudwatch labels 
+- Bump nf-launcher:j17-22.10.7  
+</details>
 
-#### 22.4.1 - 10 Feb 2023
+<details>
+<summary>22.4.1 - 10 Feb 2023</summary>
 
-- Fixed: Add auto height to selectable columns (#4409) [e4f62488]
-- Fixed: Remove duplicate ECS config input in AWS CE form (#4423) [3dbb0dad]
+- Added auto height to selectable columns 
+- Removed duplicate ECS config input in AWS CE form
+</details>
 
-#### 22.4.0 - 6 Feb 2023
+<details>
+<summary>22.4.0 - 6 Feb 2023</summary>
 
 - [BREAKING] Remove autoinjection of roles when `allowInstanceCredentials` property is true 
 - Added all workflow runs page  
@@ -234,8 +241,12 @@ tags: [changelog]
 - Bump nextflow 22.10.6 in get started page  
 - Bump nf-launcher:j17-22.10.6 
 - Bump Upgrade backend to Micronaut 3.7 
+</details>
 
 ## 2022
+
+<details>
+<summary>2022</summary>
 
 #### 22.3.2 - 9 Feb 2022
 
@@ -245,7 +256,7 @@ tags: [changelog]
 
 - [BREAKING] Remove autoinjection of roles when `allowInstanceCredentials` property is true  
 - Fixed AWS Batch kernel issue causing OOM error  
-- Bump nf-launcher:j17-22.10.4 
+- Bump nf-launcher:j17-22.10.4
 
 #### 22.3.0 - 4 Nov 2022
 
@@ -332,25 +343,25 @@ tags: [changelog]
 - Open up all endpoints and parameters related to labels and resource labels 
 - Restyling of workflow detail header  
 - Bump nf-launcher:j17-22.10.1  
-- Bump Angular 14 
+- Bump Angular 14
 
 #### 22.2.4 - 2 Sept 2022
 
 - Fixed `BitBucketServer` Git provider  
-- Bump the quota limit for dataset per workspace to 100  
+- Bump the quota limit for dataset per workspace to 100
 
-#### 22.2.3 - 11 Aug 202
+#### 22.2.3 - 11 Aug 2022
 
 - Rollback to nf-launcher:j17-22.06.1-edge  
 
-#### 22.2.2 - 8 Aug 202
+#### 22.2.2 - 8 Aug 2022
 
 - Remove deprecated share button  
 - Bump nf-launcher@22.08.0-edge  
 
 #### 22.1.8 - 8 Aug 2022
 
-- Fixed the resume functionality on Google Life Sciences 
+- Fixed the resume functionality on Google Life Sciences
 
 #### 22.2.1 - 5 Aug 2022
 
@@ -359,67 +370,63 @@ tags: [changelog]
 - Improve SSH connector resilience + UGE qstat
 - Fixed patch invalid job transition to unknown status
 
-#### 22.1.7 - 25 Jul 2022
+#### 22.1.7 - 25 Jul 2022 
 
 - Improved the SSH connector resilience + UGE qstat  
+ 
+#### 22.2.0 - 15 Jul 2022 
 
-#### 22.2.0 - 15 Jul 2022
-
-##### Breaking Changes
+##### Breaking changes
 
 - The MySql DB driver `com.mysql.cj.jdbc.Driver` has been replaced by `org.mariadb.jdbc.Driver`
 - Env variable `TOWER_DB_DRIVER` referencing the first should be changed with the latter
 
-##### Other Changes
+##### Other changes
 
-- Feat: Added support for Illumina DRAGEN
-- Feat: Added support to mysql8
-- Feat: Allow access remote pipelines via Tower Agent
-- Feat: Feature 3025 reports download limit
-- Feat: Adds used datasets tab to run details page
-- Feat: Add support for redis password
-- Feat: Pipeline reports index page
-- Feat: Feature 2663 / Labels
-- Feat: Add support for AWS CodeCode repositories
-- Feat: `runName` filled with random run name by default if not in relaunch mode
-- Feat: Allow the ability to send cluster options from head queue to child nodes
-- Feat: Add advanced search capabilities to runs page
-- Fixed: Error when trying to remove unexistent csv renderer options component
-- Fixed: Invalid escape of blank chars in URL [ci fast]
-- Fixed: Issue download report with blanks
-- Fixed: Nginx proxy pass decoding
-- Fixed: Solves #3077 by modifying the validation logic
-- Fixed: Set dataset file mime type depending on file extension
-- Fixed: Use mdiag command to check MOAB platform
-- Fixed: Do not force a `main.nf` file at default branch when creating a pipeline
-- Fixed: Suggest valid runName when launcher resumes
-- Fixed: Populate timestamps for partial workflow progress updates
-- Fixed: Enable maintainers to create workspace secrets
-- Fixed: Prevent infinite redirection when `landingUrl` = `applicationUrl`
-- Fixed: Change MOAB queue status command
-- Fixed: Hide workflow run datasets tab in the personal workspace context
-- Fixed: Add the support for USR2 signal for grid providers launcher script
-- Fixed: Fix perms for encrypted bucket
-- Fixed: Missing dataset in workflow run page
-- Fixed: 3309 compute environment not visible when viewing actions
-- Fixed: Multiple dropdown menus remain when selecting
-- Fixed: `IllegalArgumentException` on empty config file
-- Fixed: Can't relaunch failed workflow without commit
-- Fixed: Cancel button malfunctions in most menus where elements get added
-- Fixed: Prevent the deletion of a CE when the status is CREATING.
-- Fixed: Produce two different entries for custom user config and optimized config
-- Fixed: Tweak: remove "None" item from select inputs when the field is required
-- Fixed: Fixed the case when optimization config was not shown for workflow details page
-- Fixed: Disallow relative path workdir
-- Fixed: Use `NotFound` exception at Google LS provider
-- Chore: Update `ENVIRONMENT*VARIABLE_NAME` regex to allow `NXF*` env variables
-- Chore: Update `computeJobRole` and `headJobRole` validation
-- Chore: Bump ebs-autoscale to version 2.4.6-6ce65d32 [ci fast]
-- Chore: Add KMS permissions required by EBS autoscale
-- Chore: Upgrade to Micronaut 3.4.x
-- Chore: Typography sync between tower and design
-
-* Full Changelog: v22.1.5-enterprise...v22.2.0-rc0-enterprise
+- Added support for Illumina DRAGEN
+- Added support to mysql8
+- Allow access remote pipelines via Tower Agent
+- Feature 3025 reports download limit
+- Adds used datasets tab to run details page
+- Add support for redis password
+- Added pipeline reports index page
+- Added Labels
+- Added support for AWS CodeCode repositories
+- `runName` filled with random run name by default if not in relaunch mode
+- Allow the ability to send cluster options from head queue to child nodes
+- Add advanced search capabilities to runs page
+- Fixed an error when trying to remove unexistent csv renderer options component
+- Fixed invalid escape of blank chars in URL [ci fast]
+- Fixed Nginx proxy pass decoding
+- Fixed set dataset file mime type depending on file extension
+- Fixed use mdiag command to check MOAB platform
+- Fixed do not force a `main.nf` file at default branch when creating a pipeline
+- Suggest valid runName when launcher resumes
+- Populate timestamps for partial workflow progress updates
+- Enable maintainers to create workspace secrets
+- Prevent infinite redirection when `landingUrl` = `applicationUrl`
+- Change MOAB queue status command
+- Hide workflow run datasets tab in the personal workspace context
+- Add the support for USR2 signal for grid providers launcher script
+- Fix perms for encrypted bucket
+- Missing dataset in workflow run page
+- 3309 compute environment not visible when viewing actions
+- Multiple dropdown menus remain when selecting
+- Fixed `IllegalArgumentException` on empty config file
+- Fixed an issue where you can't relaunch failed workflow without commit
+- Fixed cancel button malfunctions in most menus where elements get added
+- Prevent the deletion of a CE when the status is CREATING.
+- Produce two different entries for custom user config and optimized config
+- Remove "None" item from select inputs when the field is required
+- Fixed the case when optimization config was not shown for workflow details page
+- Disallow relative path workdir
+- Use `NotFound` exception at Google LS provider
+- Update `ENVIRONMENT*VARIABLE_NAME` regex to allow `NXF*` env variables
+- Update `computeJobRole` and `headJobRole` validation
+- Bump ebs-autoscale to version 2.4.6-6ce65d32 [ci fast]
+- Add KMS permissions required by EBS autoscale
+- Upgrade to Micronaut 3.4.x
+- Typography sync between tower and design
 
 #### 22.1.6 - 15 Jul 2022
 
@@ -427,99 +434,99 @@ tags: [changelog]
 
 #### 22.1.5 - 7 Jun 2022
 
-- Fixed: Perms for encrypted bucket [96f00f39]
-- Add the support for USR2 signal to launcher script [40c4ab68]
+- Fixed perms for encrypted bucket  
+- Add the support for USR2 signal to launcher script 
 
 #### 22.1.4 - 1 Jun 2022
 
-- Enable maintainers to create workspace secrets [2d1a225f]
-- Forward revision when creating a pipeline (#3203) [2ff2f171]
-- Change MOAB queue status command (#3219) [4eda7f90]
+- Enable maintainers to create workspace secrets  
+- Forward revision when creating a pipeline 
+- Change MOAB queue status command  
 
 #### 22.1.3 - 18 May 2022
 
 - Update Nextflow to 22.04.3
-- Bump: nf-launcher:j17-22.04.3
-- Bump: nf-jdk:corretto-11.0.15_up1
+- Bump nf-launcher:j17-22.04.3
+- Bump nf-jdk:corretto-11.0.15_up1
 
 #### 22.1.2 - 9 May 2022
 
-- Fixed: Add KMS permissions required by EBS autoscale with encrypted volumes [387ed6c3]
-- Fixed: Update HTTP content security policy to allow host URLs for frames and workers [327b27ac]
-- Fixed: Minor navigation error when removing unexistent CSV renderer component [a501225c]
-- Fixed: Issue downloading a report with containing a blank character [70ab2033]
-- Fixed: Nginx proxy pass decoding break query parameters with blank character [48a2ef6b]
-- Fixed: Kubernetes control plan URL only allow host name [1b4b1240][da552afc]
-- Bump:  ebs-autoscale to version 2.4.6-6ce65d32 [d52de172]
+- Add KMS permissions required by EBS autoscale with encrypted volumes  
+- Update HTTP content security policy to allow host URLs for frames and workers  
+- Minor navigation error when removing unexistent CSV renderer component  
+- Issue downloading a report with containing a blank character  
+- Nginx proxy pass decoding break query parameters with blank character  
+- Kubernetes control plan URL only allow host name  
+- Bump  ebs-autoscale to version 2.4.6-6ce65d32  
 
 #### 22.1.1 - 25 Apr 2022
 
-- Added: EBS encrypt role policy at AWS forge creation (#2817) [ci fast]
-- Added: `TOWER_ENABLE_UNSAFE_MODE` setting to allow cookies over HTTP (#3023) [69100d51]
-- Improved: Cloud price download logs [a0e69b57]
-- Fixed: Azcopy cache commands (#3022) [4932a54d]
-- Fixed: AES regular expression [a7b1ed02]
-- Fixed: Update CSP to allow captcha frame [a984ec39]
-- Fixed: Download of task log files (#3004) [3389a8d7]
-- Fixed: Dataset table is not rendered in Safari [ab297ff4]
-- Fixed: Avoid analytics service making calls when there's no analytics URL (#2991) [fd56afab]
-- Fixed: NF version in welcome page [c5c8492c]
-- Allow NXF env variables (#3026) [553015d8]
-- Remove log trace from workflow limiter [64f8161e]
-- Bump: nf-launcher:j17-22.04.0 [9e55c873]
-- Bump: nf-jdk:corretto-11.0.15 as base image [1832c282]
+- Added EBS encrypt role policy at AWS forge creation  
+- Added `TOWER_ENABLE_UNSAFE_MODE` setting to allow cookies over HTTP  
+- Improved cloud price download logs  
+- Fixed Azcopy cache commands  
+- Fixed AES regular expression  
+- Update CSP to allow captcha frame  
+- Fixed download of task log files  
+- Fixed dataset table is not rendered in Safari  
+- Avoid analytics service making calls when there's no analytics URL  
+- Fixed NF version in welcome page  
+- Allow NXF env variables  
+- Remove log trace from workflow limiter  
+- Bump nf-launcher:j17-22.04.0  
+- Bump nf-jdk:corretto-11.0.15 as base image  
 
 #### 22.1.0 - 12 Apr 2022
 
-- Added: Secure cookies [e28a3388]
-- Added: `GetLogsEvents` perm to AWS Batch instance role [04b18668]
-- Added: Credentials view page [f3c63483]
-- Added: ECS pull strategy in user-data template [e1b4914a]
-- Added: Root users environment when `TOWER_ROOT_USERS` variable is provided [e09db3e5]
-- Added: Tower system message
-- Added: Support for JSON formatted logs [92122adb]
-- Added: Support for AWS agent and logging [6e68fd98][c080e9d4]
-- Added: Navigate back button to second level screens (#2578) (#2623) (5 weeks ago)
-- Added: Validation for SSH hostname and username [d0115de0][efb962bf]
-- Added: Config option to disable user private workspace [9e667bc0]
-- Added: Share run deprecation banner
-- Improved: Secrets obfuscation in log file [7e52c76b]
-- Improved: EBS autoscaling [fe7fe728]
-- Fixed: Job status is updated in the in-memory tracker before running the job in the local CE platform (#2460) (3 months ago)
-- Fixed: Normalize dataset name [fcbe417d]
-- Fixed: Allow dot in AWS ARN string [d5c5cd9e]
-- Fixed: Issue with K8s compute env stalling in creating status [72c03cd9]
-- Fixed: Set cookie acceptance cookie path to / [e2e](#2773) [ba0cae7a]
-- Fixed: EFS and FSx permission when job run with non-root user (#2659) [0e169bb9]
-- Fixed: Reports at grid and agent platforms [ba397137]
-- Fixed: Load SLURM CE details in view mode [80cc0e9b]
-- Fixed: Display dates with YYYY-MM-DD format on runs page [830606af]
-- Fixed: Unable to download execution log from a workflow with working directory specified just as "bucket" name [d025917c]
-- Fixed: Prevent the creation of Spot fleet role [95acea2c]
-- Fixed: Prevent deletion of an active workflow run [ba1f1ce9]
-- Fixed: Prevent XSS attacks when uploading a datatable file [#2944] (6d98210c)
-- Allow partial searches [b8788b38]
-- Allow the use S3 bucket work dir along with EFS or FSx mounts [368d5caa]
-- Upload encrypted files at AWS S3 [40b87a2e]
-- Use default listening port (80) [a64852d9]
-- Increase tower config max size to 3500 character [a01ee72c]
-- Disable resume for failed workflows [3c2c7ad3]
-- Set max length validator to the workflow launch form fields [5326114b]
-- Check valid EFS and FSx mount points [633fdcd8]
-- Make Dataset api public (#2240) [2fd32c51]
-- Increase agent websockets payload size to 5Mb [5f3e5428]
-- 484005bd - Always retry NF process when using AWS sport instances
-- fe7fe728 - Improve EBS autoscaling (8 days ago)
-- 8dc800c2 - feature: improve parse the pipeline schema
-- Default to Nextflow DSL version 1 [e88a3e59]
-- 8759d92e - Validate launch/relaunch action depending the user role
+- Added Secure cookies  
+- Added `GetLogsEvents` perm to AWS Batch instance role  
+- Added credentials view page 
+- Added ECS pull strategy in user-data template  
+- Added root users environment when `TOWER_ROOT_USERS` variable is provided  
+- Added Tower system message
+- Added support for JSON formatted logs 
+- Added support for AWS agent and logging  
+- Added navigate back button to second level screens  
+- Added validation for SSH hostname and username  
+- Added config option to disable user private workspace 
+- Added share run deprecation banner
+- Improved secrets obfuscation in log file  
+- Improved EBS autoscaling  
+- Job status is updated in the in-memory tracker before running the job in the local CE platform 
+- Normalize dataset name  
+- Allow dot in AWS ARN string 
+- Fixed an issue with K8s compute env stalling in creating status  
+- Set cookie acceptance cookie path to /  
+- Fixed EFS and FSx permission when job run with non-root user  
+- Reports at grid and agent platforms  
+- Load SLURM CE details in view mode  
+- Display dates with YYYY-MM-DD format on runs page  
+- Unable to download execution log from a workflow with working directory specified just as "bucket" name  
+- Prevent the creation of Spot fleet role  
+- Prevent deletion of an active workflow run 
+- Prevent XSS attacks when uploading a datatable file  
+- Allow partial searches  
+- Allow the use of the S3 bucket work dir along with EFS or FSx mounts  
+- Upload encrypted files at AWS S3  
+- Use default listening port (80)  
+- Increase tower config max size to 3500 character  
+- Disable resume for failed workflows 
+- Set max length validator to the workflow launch form fields  
+- Check valid EFS and FSx mount points  
+- Make Dataset API public 
+- Increase agent websockets payload size to 5Mb  
+- Always retry NF process when using AWS spot instances
+- Improve EBS autoscaling  
+- Improve parse the pipeline schema
+- Default to Nextflow DSL version 1  
+- Validate launch/relaunch action depending the user role
 - Upgrade Angular 13
-- Upgrade Micronaut 3.x (#2364)
-- Upgrade logback to version 1.2.8 (#2418)
-- Bump: log4js from 6.3.0 to 6.4.0 in /tower-web (#2535)
-- Bump: base image nf-jdk:corretto-11.0.14_2
-- Bump: nf-launcher 22.03.1-edge
-- Bump: base image nf-jdk:corretto-11.0.14_2 [ci fast] [d6113805]
+- Upgrade Micronaut 3.x  
+- Upgrade logback to version 1.2.8 
+- Bump log4js from 6.3.0 to 6.4.0 in /tower-web  
+- Bump base image nf-jdk:corretto-11.0.14_2
+- Bump nf-launcher 22.03.1-edge
+- Bump base image nf-jdk:corretto-11.0.14_2  
 
 #### 21.12.3 - 31 Mar 2022
 
@@ -527,42 +534,46 @@ tags: [changelog]
 
 #### 21.12.2 - 31 Mar 2022
 
-- Fixed: Issue with K8s compute env stalling in creating status [3745e793]
-- Fixed: Upload encrypted files at AWS S3 [716d2938]
-- Fixed: EFS/FSx permission when using non-root container (#2659) [002f4426]
+- Fixed an issue with K8s compute env stalling in creating status [3745e793]
+- Fixed upload encrypted files at AWS S3 [716d2938]
+- Fixed EFS/FSx permission when using non-root container (#2659) [002f4426]
 - Create `/.nextflow` folder in backend container [333a8a68]
-- Bump: nf-launcher:j17-21.10.6 [8b3d6490]
+- Bump nf-launcher:j17-21.10.6 [8b3d6490]
 
 #### 21.12.1 - 3 Feb 2022
 
-- Fixed: Reports endpoint exception on NF CLI workflows [c310c3cf]
+- Fixed reports endpoint exception on NF CLI workflows [c310c3cf]
 - Disable H8 stats verbose logging [7e5e08b0]
 - Enable root users environment when `TOWER_ROOT_USERS` variable is provided [390e079a]
 
 #### 21.12.0 - 17 Jan 2022
 
-- Added: Shared workspace feature
-- Added: Pipeline reports feature [preview]
-- Added: Dataset public APIs
-- Added: Tower agent reverse connection
-- Added: Dataset API public [ci fast](#2240) [942f3f4e3]
-- Fixed: Auto-normalize inline credentials name (#2405) [9d5453716]
-- Fixed: Prevent making multiple get pipeline info requests in workflow launch form [ci skip](#2406) [e21619bd1]
-- Fixed: Set `Launch.resumeLaunchId` only if it's a resume. (#2427) [a784e635b]
-- Fixed: Possible `connectionId null` reference exception [ci skip](#2413)
-- Updated: Resources descriptions [538069df9]
-- Prevent the use of master as default branch (#2499) [791f45a11]
-- Allow the use of S3 as work directory when using EFS and FSx mounts [6199d8fd6]
-- Display dates with YYYY-MM-DD format on runs page [5d2f3215a]
-- Change email template office address [5edfa3a26]
-- Increase agent websockets payload size to 5Mb [4ce9af8f2]
-- Bump: nf-launcher 21.10.4 based on correto:17.0.1 based image
+- Added shared workspace feature
+- Added pipeline reports feature [preview]
+- Added dataset public APIs
+- Added Tower agent reverse connection
+- Added dataset API public  
+- Fixed auto-normalize inline credentials name  
+- Prevent making multiple get pipeline info requests in workflow launch form  
+- Set `Launch.resumeLaunchId` only if it's a resume  
+- Possible `connectionId null` reference exception  
+- Updated resources descriptions  
+- Prevent the use of master as default branch  
+- Allow the use of S3 as work directory when using EFS and FSx mounts  
+- Display dates with YYYY-MM-DD format on runs page  
+- Change email template office address 
+- Increase agent websockets payload size to 5Mb  
+- Bump nf-launcher 21.10.4 based on correto:17.0.1 base image
 
-#### 21.10.3 - 3 Feb
+#### 21.10.3 - 3 Feb 2022
 
-- Enabled `root` users environment when `TOWER_ROOT_USERS` variable is provided  
+- Enabled `root` users environment when `TOWER_ROOT_USERS` variable is provided
+</details>
 
 ## 2021
+
+<details>
+<summary>2021</summary>
 
 #### 21.10.2 - 10 Dec
 
@@ -626,14 +637,14 @@ The `21.10.x` release series starts with `v21.10.1`
 
 #### 21.06.1 - 27 Aug
 
-- Fixed: OpenId attributes blows up response header [7b3c5ae58]
-- Fixed: Mention in the Get started page how setup Tower workspace id [b16ead35a]
-- Fixed: Tune AWS client caching timeout [f4ffe10d5](#1950)
-- Fixed: Pipeline params JSON parsing on Windows client #1949
-- Fixed: Add better control of cron/redis config (#1944) [45579b5bd]
-- Fixed: DB migration detected table on foreign schema - Bump migtool 1.0.2 705c905db
-- Fixed: For the case when blur event handler was executed before chip selection event handler #1932
-- Fixed: Bug 1926/Modify bootDiskSize Config Param #1931
+- Fixed an issue where OpenId attributes blows up response header  
+- Mention in the Get started page how setup Tower workspace ID 
+- Tune AWS client caching timeout  
+- Pipeline params JSON parsing on Windows client  
+- Add better control of cron/redis config  
+- DB migration detected table on foreign schema - Bump migtool 1.0.2 705c905db
+- For the case when blur event handler was executed before chip selection event handler  
+- Bug 1926/Modify bootDiskSize Config Param  
 
 #### 21.06.0 - 26 Jul
 
@@ -700,7 +711,7 @@ The `21.10.x` release series starts with `v21.10.1`
 - Added support for BitBucket server  
 - Fixed admin project security vulnerabilities  
 - Fixed missing GitLab token creds  
-- Fixed: Action launch user  
+- Fixed Action launch user  
 - Use `RegExp.test` for JSON schema pattern validation and small pipeline input form fix  
 - Reorganized login page  
 - Do not config mail proxy using global proxy settings  
@@ -765,7 +776,7 @@ The `21.10.x` release series starts with `v21.10.1`
 
 #### 20.12.4 - 23 March
 
-- Added: Support for AWS Marketplace
+- Added support for AWS Marketplace
 
 #### 20.12.2 - Feb 16
 
@@ -793,14 +804,18 @@ The `21.10.x` release series starts with `v21.10.1`
 
 - Improved SSH client debugging
 - Fixed backend container security
+</details>
 
 ## 2020
 
+<details>
+<summary>2020</summary>
+
 #### 20.10.3 - 30 Nov
 
-- Fixed: Migration tool when using MariaDB
-- Fixed: Execution issue with Batch forge when creating a new FSx file system
-- Fixed: Invalid warn message
+- Fixed migration tool when using MariaDB
+- Fixed execution issue with Batch forge when creating a new FSx file system
+- Fixed invalid warn message
 
 #### 20.10.2 - 2 Nov
 
@@ -848,7 +863,7 @@ The `21.10.x` release series starts with `v21.10.1`
 
 #### 20.06.1 - 12 Aug
 
-- Fixed: Reverse proxy scheme and port forwarding when using local Docker environment
+- Fixed reverse proxy scheme and port forwarding when using local Docker environment
 
 #### 20.06.0 - 16 Jun
 
@@ -872,3 +887,4 @@ The `21.10.x` release series starts with `v21.10.1`
 - Improved K8s deployment descriptors
 - Fixed critical issue saving tasks
 - Fixed invalid tag deserialization error
+</details>
