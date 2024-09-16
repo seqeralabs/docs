@@ -248,8 +248,8 @@ A temporary workaround for this issue is to implement a `retry` error strategy i
 ```bash
 process {
     errorStrategy = 'retry'
-    maxRetries    = ​3
-    memory  = 1.GB * task.attempt
+    maxRetries    = 3
+    memory = { 1.GB * task.attempt }
 }
 ```
 
