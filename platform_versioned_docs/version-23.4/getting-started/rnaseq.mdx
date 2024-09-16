@@ -20,7 +20,7 @@ This guide details how to run bulk RNA sequencing data analysis, from quality co
 :::info[**Prerequisites**]
 
 You will need the following to get started:
-- [Admin](../orgs-and-teams/roles.mdx) permissions in an existing organization workspace.
+- [Admin](../orgs-and-teams/roles.mdx) permissions in an existing organization workspace. See [Set up your workspace](./workspace-setup.mdx) to create an organization and workspace from scratch.
 - An existing AWS, Azure, or Google cloud account with access to the cloud provider's Batch service.
 - Existing access credentials with permissions to create and manage compute and storage resources in your cloud provider account.
 :::
@@ -340,7 +340,117 @@ Data Explorer allows you to view the log files and output files generated for ea
 
 ## Tertiary analysis
 
-TODO 
+Set up an environment for tertiary analysis of your pipeline data and enable collaboration with other workspace participants. 
+
+Tertiary analysis of pipeline results is often performed in platforms like Jupyter Notebook or RStudio. Setting up the infrastructure for these platforms, including accessing pipeline data and the necessary bioinformatics packages, can be complex and time-consuming.
+
+**Data Studios** streamlines the process of creating interactive analysis environments for Platform users. With built-in templates for platforms like Jupyter Notebook, RStudio, and VSCode, creating a data studio is as simple as adding and sharing pipelines or datasets.
+
+### Create an RStudio analysis environment with Data Studios
+
+From the **Data Studios** tab, select **Add a data studio** and complete the following:
+- Select the latest **RStudio** container image template from the dropdown list.
+- Select an AWS Batch compute environment. 
+:::note
+Data studios compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and data studio sessions. The default CPU and memory allocation for data studios is 2 CPUs and 8192 MB RAM. 
+:::
+- Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the output data of your RNA-seq run. 
+- Optional: Enter CPU and memory allocations. The default values are 2 CPUs and 8192 MB memory (RAM).
+- Select **Add**.
+- Once the data studio has been created, select the options menu next to it and select **Start**.
+- When the data studio is in a running state, **Connect** to it. 
+
+### Configure the data studio environment
+
+The RStudio environment can be configured with the packages you wish to install and the R scripts you wish to run. For the purpoises of this guide, the following environment configuration can be used to analyze the gene level counts of your RNA-seq data:
+
+```console
+# Adapted from source: https://combine-australia.github.io/RNAseq-R/09-applying-rnaseq-solutions.html
+
+# Install libraries and packages
+install.packages("BiocManager")
+BiocManager::install(c("limma"))
+BiocManager::install(c("edgeR"))
+BiocManager::install(c("org.Dm.eg.db"))
+BiocManager::install(c("gplots"))
+BiocManager::install(c("RColorBrewer"))
+library(limma)
+library(edgeR)
+library(gplots)
+library(RColorBrewer)
+library(org.Dm.eg.db)
+
+# Read data
+counts <- read.delim(file="/workspace/data/<PATH_TO_YOUR_COUNTS_FILE>")
+targets <- read.delim(file="/workspace/data/<PATH_TO_YOUR_SAMPLE_INFO_FILE>")
+# Confirm data was read correctly
+head(counts)
+targets
+# Filter out lowly expressed genes
+table(targets$Group)
+# Check relationship between CPM and samples
+mycpm <- cpm(counts)
+plot(counts[,1],mycpm[,1],xlim=c(0,20),ylim=c(0,5))
+abline(v=10,col=2)
+abline(h=2,col=4)
+# Filter on a CPM of 2 or 3 in at least 3 samples
+thresh <- mycpm > 2
+keep <- rowSums(thresh) >= 3
+table(keep)
+counts.keep <- counts[keep,]
+dim(counts.keep)
+y <- DGEList(counts.keep)
+# Plot library sizes
+barplot(y$samples$lib.size)
+
+par(mfrow=c(1,1))
+# Get log2 counts per million
+logcpm <- cpm(y$counts,log=TRUE)
+# Check distributions of samples using boxplots
+boxplot(logcpm, xlab="", ylab="Log2 counts per million",las=2,outline=FALSE)
+# Add a blue horizontal line that corresponds to the median logCPM
+abline(h=median(logcpm),col="blue")
+title("Boxplots of logCPMs (unnormalised)")
+
+par(mfrow=c(1,2),oma=c(2,0,0,0))
+group.col <- c("red","blue")[targets$Group]
+boxplot(logcpm, xlab="", ylab="Log2 counts per million",las=2,col=group.col,
+        pars=list(cex.lab=0.8,cex.axis=0.8))
+abline(h=median(logcpm),col="blue")
+title("Boxplots of logCPMs\n(coloured by groups)",cex.main=0.8)
+
+lib.col <- c("light pink","light green")[targets$Library]
+boxplot(logcpm, xlab="", ylab="Log2 counts per million",las=2, col=lib.col,
+        pars=list(cex.lab=0.8,cex.axis=0.8))
+abline(h=median(logcpm),col="blue")
+title("Boxplots of logCPMs\n(coloured by library prep)",cex.main=0.8)
+
+par(mfrow=c(1,2))
+plotMDS(y,col=group.col)
+legend("topright",legend=levels(targets$Group),fill=c("red","blue"))
+plotMDS(y,col=lib.col)
+legend("topleft",legend=levels(targets$Library),fill=c("light pink","light green"))
+
+logcounts <- cpm(y,log=TRUE)
+var_genes <- apply(logcounts, 1, var)
+select_var <- names(sort(var_genes, decreasing=TRUE))[1:500]
+
+highly_variable_lcpm <- logcounts[select_var,]
+dim(highly_variable_lcpm)
+mypalette <- brewer.pal(11,"RdYlBu")
+morecols <- colorRampPalette(mypalette)
+heatmap.2(highly_variable_lcpm,col=rev(morecols(50)),trace="none", main="Top 500 most variable genes across samples",ColSideColors=group.col,scale="row",margins=c(10,5))
+```
+
+Customize the configuration to use your pipeline data by specifying your `<PATH_TO_YOUR_COUNTS_FILE>` and `<PATH_TO_YOUR_SAMPLE_INFO_FILE>`.
+
+### Explore results
+
+
+
+### Collaborate in the data studio
+
+To share the results of your RNAseq analysis or allow colleagues to perform exploratory analysis, share a link to the data studio by selecting the options menu for the data studio you want to share, then select **Copy data studio URL**. With this link, other authenticated users with the **Connect** [role](../orgs-and-teams/roles.mdx) (or greater) can access the session directly.
 
 ### Pipeline optimization 
 
