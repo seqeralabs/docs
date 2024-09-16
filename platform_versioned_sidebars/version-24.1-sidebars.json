@@ -228,7 +228,7 @@
         "enterprise/release_notes/enterprise_latest",
         {
           "type": "category",
-          "label": "Legacy versions",
+          "label": "Previous versions",
           "collapsed": true,
           "items": [
             "enterprise/release_notes/23.4",

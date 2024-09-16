@@ -7,36 +7,33 @@ tags: [changelog]
 
 ### v24.2.0_cycle23 Cloud - 2 September 2024
 
-- Fix: [Data Explorer] enable task working directory navigation using Data Explorer in personal workspaces by adding routing
-- Fix: Remove -/+ increment buttons from numeric input components in Platform, including compute environment and launch form interfaces
-- Fix: Hide compute environment variables section actions when component is disabled (previously indicated that environment variables could be edited in this state)
+- Data Explorer: Enable task working directory navigation using Data Explorer in personal workspaces by adding routing
+- Remove -/+ increment buttons from numeric input components in Platform, including compute environment and launch form interfaces
+- Hide compute environment variables section actions when component is disabled (previously indicated that environment variables could be edited in this state)
 
 ### 24.2.0_cycle21 Cloud - 13 August 2024
 
-- Feature: Add global Nextflow configuration support in compute environments
-- Feature: Add flexibility for pipeline names in workspaces
-- Feature: Add tag propagation to launch templates
-- Feature: Add managed identities support for manual Azure Batch compute environments
-- Feature: Implement custom launch container logic
-- Fix: Improve workflow launch screen look and feel
-- Fix: Allow pipeline work directory to be changed during pipeline launch
-- Fix: Handle special characters in prompt modal confirmation text regex
+- Add global Nextflow configuration support in compute environments
+- Improved flexibility for pipeline names in workspaces
+- Improved tag propagation to launch templates
+- Add managed identities support for manual Azure Batch compute environments
+- Implement custom launch container logic
+- Improved workflow launch screen look and feel
+- Allow pipeline work directory to be changed during pipeline launch
+- Handle special characters in prompt modal confirmation text regex
 - Bump nf-launcher:j17-24.04.4
 - Bump codecommit 0.2.1
 
 ### 24.2.0_cycle20 Cloud — 25 July 2024
 
-- Feature: Add code blocks syntax highlighting and background color
-- Improvement: Role selector dropdown detail
-- Improvement: Update navbar help & support links
-- Fix: Disable launch form submit button during form validation
-- Fix: Update team guest welcome email visuals and copy
-- Fix: Tag search with underscore
-- Fix: Add missing gap between shared badge and labels
-- Fix: Data Studios template override
-- Fix: View credentials back navigation
-- Fix: Data Explorer search bar misalignment
-- Fix: Parameters merging in schema form without key in schema
+- Add code blocks syntax highlighting and background color in Platform
+- Update navbar help & support links in Platform
+- Disable launch form submit button during form validation
+- Tag search with underscore
+- Data Studios template override
+- View credentials back navigation
+- Fixed Data Explorer search bar misalignment
+- Parameters merging in schema form without key in schema
 - Bump nf-launcher:24.04.3
 
 ### 24.1.x Cloud - May 2024
@@ -50,49 +47,49 @@ tags: [changelog]
 - Data Explorer:
   * Multi-download functionality
 
-### 23.3.0 Cloud - 16 October 2023
+## 2023
+
+#### 23.3.0 Cloud - 16 October 2023
 
 - Feature: Add feedback form to mkdocs
-- Feature: [Data Explorer M4.2]: use Data Explorer to navigate workflow and tasks work directories
-- Feature: Do not install aws cli when fusion 2 is enabled
+- Feature: Data Explorer: Use Data Explorer to navigate workflow and tasks work directories
+- Feature: Do not install AWS CLI when fusion 2 is enabled
 - Added: Reverse proxy instructions to the docs
-- Added: Audit logs to data explorer
+- Added: Audit logs to Data Explorer
 - Added: Docs page about meta endpoint for firewall configuration
-- Improved: Audit logs count query by
-- Improve error message when creating private data link as public
+- Improved: Audit logs count query
+- Improved: Error message when creating private data link as public
 - Updated: Git integration page - admonition fix
-- Fixed: Do not leave search box disabled when there are no  results in r…
+- Fixed: Do not leave search box disabled when there are no results
 - Fixed: Dataset limit provides misleading result
-- Fixed: add missing https://*.$host to connect-src CSP headers
-- Fixed: Missing double quote for _JAVA_OPTIONS value
-- Fixed: Data explorer previewing Google files instead of downloading
+- Fixed: Add missing `https://*.$host` to connect-src CSP headers
+- Fixed: Missing double quote for `_JAVA_OPTIONS` value
+- Fixed: Data Explorer previewing Google files instead of downloading
 - Fixed: Optimization service response proxied by Tower
 - Fixed: Redisson Hibernate 2nd-level cache config
-- Fixed: Live updates broadcasting
 - Fixed: Description of wall time
-- Migrate: Several Modals to Material design MatDialog
-- Migrate WorkflowLaunchReportsComponent to use MatDialog
-- Decrease audit log lifespan for cloud
+- Migrated: Several Modals to Material design MatDialog
+- Migrated: WorkflowLaunchReportsComponent to use MatDialog
+- Decrease audit log lifespan for Cloud
 - tw CLI note about spot allocation strategy in AWS CEs
-- task add download as json option for workflow run parameters
+- Add download as JSON option for workflow run parameters
 - Show cloud data links without schema prefix
-- [Task] Implement pipelinesecretsprovider for Google Cloud
+- Implement pipelinesecretsprovider for Google Cloud
 - [Data Explorer M3.2] Support uploading files to bucket
 - Implement live events endpoint with WebSockets
 - Set workflow unknown refactor
 - Permission checker for pipeline launch with simple labels
 - Remove objects without name from explorer
-- Delete unused LaunchpadItemComponent
+- Delete unused `LaunchpadItemComponent`
 - Add support for cloudcache
 - Creation of public AWS datalinks fails in cloud
 - Enhancements on the cloud bucket creation dialog
-- tweak: adjust dataset form buttons according to figma
+- Adjust dataset form buttons according to figma
 - Adjust batch locations and gcp locations list
 - Return full error message when JsonParseException
-- Hide data explorer navigation elements if it is not enabled in the workspace
-- Configuration overview updates
+- Hide Data Explorer navigation elements if it is not enabled in the workspace
 
-### 23.2.0 - 31 Jul 2023
+#### 23.2.0 - 31 Jul 2023
 
 - Added: Support for Fargate for head job
 - Added: Support for Graviton architecture in AWS Batch compute environments
@@ -105,16 +102,16 @@ tags: [changelog]
   - Pipelines
   - Actions
 - Added: Support for mobile screen layout in **Runs** list page
+- Fixed: AWS Batch allocation strategy: `BEST_FIT_PROGRESSIVE` for on-demand CEs and `SPOT_CAPACITY_OPTIMIZED` for spot CEs
+- Updated **Runs** list page with new status badges and improved layout
+- Enable GPU label, sublabel, and add warning when activated
 - Allow advanced settings in the AWS ECS config field
 - Allow Launcher users to create, edit, and upload datasets
-- Fixed: AWS Batch allocation strategy: `BEST_FIT_PROGRESSIVE` for on-demand CEs and `SPOT_CAPACITY_OPTIMIZED` for spot CEs
-- Updated: **Runs** list page with new status badges and improved layout
-- Updated: Enable GPU label, sublabel, and add warning when activated
 - Increase the AWS Batch Memory / CPUs ratio to 4GB
 - Harmonize list sorting in **Compute environments** and **Credentials** list pages
 - Set workflow status to unknown when job status is also in an unknown state
 
-### 23.1.3 - 09 Jun 2023
+#### 23.1.3 - 09 Jun 2023
 
 - Reverted: `Set BEST_FIT_PROGRESSIVE` as default AWS Batch allocation strategy (#5126)
 - Fixed: Unable to view workflow details on runs page on the newest version of Chrome #5105
@@ -123,7 +120,7 @@ tags: [changelog]
 - Fixed: Mat dropdown options height (#5134)
 - Bump: nf-launcher version j17-23.04.2
 
-### 23.1.0 - 28 Apr 2023
+#### 23.1.0 - 28 Apr 2023
 
 - Added: Fusion logs download (#4385) [49eb6dbe]
 - Added: Fusion support for Google Batch (#4654) [968d9fb1]
@@ -179,19 +176,19 @@ tags: [changelog]
 - Bump: Version nf-launcher:j17-23.04.1 [72eaa795]
 - Bump: Micronaut to version 3.8.5 (#4324) [79c1e50c]
 
-### 22.4.2 - 21 Feb 2023
+#### 22.4.2 - 21 Feb 2023
 
 - Fixed: Issue retrieving execution logs from CloudWatch (#4476) [638513b7]
 - Fixed: Issue setting AWS CloudWatch custom log group name (#4475) [f020719c]
 - Chore: Improve cloudwatch labels (#4498) [69b790fa]
 - Bump: nf-launcher:j17-22.10.7 [a7b6fd26]
 
-### 22.4.1 - 10 Feb 2023
+#### 22.4.1 - 10 Feb 2023
 
 - Fixed: Add auto height to selectable columns (#4409) [e4f62488]
 - Fixed: Remove duplicate ECS config input in AWS CE form (#4423) [3dbb0dad]
 
-### 22.4.0 - 6 Feb 2023
+#### 22.4.0 - 6 Feb 2023
 
 - Feat: All workflow runs page (#3777) [b89ba895]
 - Feat: Refresh the dashboard data every 5 seconds (#3935) [dd65935d]
@@ -237,11 +234,11 @@ tags: [changelog]
 - Bump: nf-launcher:j17-22.10.6 [570658c5]
 - Bump: Upgrade backend to Micronaut 3.7 (#3876) [11203a05]
 
+## 2022
+
 ### 22.3.2 - 9 Feb 2022
 
 - nf-launcher:j17-tw-22.3-nf-22.10.6
-
-## 2022
 
 #### 22.3.1 - 12 Dec 2022
 
