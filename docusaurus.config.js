@@ -36,6 +36,20 @@ export default async function createConfigAsync() {
       [
         "classic",
         {
+          blog: {
+            blogTitle: 'Blog title',
+            blogDescription: 'Blog',
+            blogSidebarCount: 5,
+            blogSidebarTitle: 'All our posts',
+            path: 'release_notes',
+            routeBasePath: '/release_notes',
+            //processBlogPosts: () => ({}),
+            //include: ['**/*.{md,mdx}'],
+            feedOptions: {
+              type: 'rss',
+              language: 'en-US',
+            }
+          },
           docs: false,
           theme: {
             customCss: [
