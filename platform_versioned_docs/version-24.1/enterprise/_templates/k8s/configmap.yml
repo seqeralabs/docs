@@ -27,11 +27,11 @@ data:
   # Data Studios configuration variables
   TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN: '<YOUR_RANDOMLY_GENERATED_STRING>' # This must match the value of CONNECT_OIDC_CLIENT_REGISTRATION_TOKEN in your proxy.yml file.
   TOWER_DATA_STUDIO_CONNECT_URL: 'https://connect.<YOUR PUBLIC TOWER HOST NAME>' #
-  TOWER_DATA_STUDIO_TEMPLATES_JUPYTER_REPOSITORY: 'cr.seqera.io/public/data-studio-jupyter:0.7.0'
+  TOWER_DATA_STUDIO_TEMPLATES_JUPYTER_REPOSITORY: 'public.cr.seqera.io/platform/data-studio-jupyter:4.1.5-0.7.1'
   TOWER_DATA_STUDIO_TEMPLATES_JUPYTER_ICON: 'jupyter'
-  TOWER_DATA_STUDIO_TEMPLATES_RSTUDIO_REPOSITORY: 'cr.seqera.io/public/data-studio-rstudio:0.7.0'
+  TOWER_DATA_STUDIO_TEMPLATES_RSTUDIO_REPOSITORY: 'public.cr.seqera.io/platform/data-studio-rstudio:4.4.1-0.7.1'
   TOWER_DATA_STUDIO_TEMPLATES_RSTUDIO_ICON: 'rstudio'
-  TOWER_DATA_STUDIO_TEMPLATES_VSCODE_REPOSITORY: 'cr.seqera.io/public/data-studio-vscode:0.7.0'
+  TOWER_DATA_STUDIO_TEMPLATES_VSCODE_REPOSITORY: 'public.cr.seqera.io/platform/data-studio-vscode:1.83.0-0.7.1'
   TOWER_DATA_STUDIO_TEMPLATES_VSCODE_ICON: 'vscode'
 ---
 kind: ConfigMap
