@@ -1,0 +1,26 @@
+## Create a namespace
+
+Create a namespace to isolate Kubernetes resources used by Seqera Platform from the other resources on your cluster.
+
+:::tip
+This installation guide assumes the use of `seqera-platform` as the installation namespace. Consider using a different one that better fits your cluster naming convention.
+:::
+
+1. Create a namespace for the Seqera resources:
+
+    ```
+    kubectl create namespace seqera-platform
+    ```
+
+    <details>
+    <summary>View command output</summary>
+    ```
+    namespace/seqera-platform created
+    ```
+    </details>
+
+1. Switch to the namespace:
+
+    ```
+    kubectl config set-context --current --namespace=seqera-platform
+    ```

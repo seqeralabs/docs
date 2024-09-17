@@ -1,0 +1,71 @@
+<!-- This partial includes no heading so it can be reused -->
+<!-- This partial uses HTML ol to force a configurable step number -->
+
+<ol start={props.step || '2'}>
+<li>
+Deploy the cron service:
+
+:::caution
+This manifest includes an init container that creates the required database schema the first time it instantiates. This process can take a few minutes to complete and must finish before you instantiate the Seqera backend. Ensure this container is in the `READY` state before proceeding to the next step.
+:::
+
+1. Apply the `tower-cron.yml` manifest:
+
+    ```
+    kubectl apply -f tower-cron.yml
+    ```
+
+    <details>
+    <summary>View command output</summary>
+    ```
+    deployment.apps/cron configured
+    ```
+    </details>
+
+1. Confirm that cron service deployed successfully:
+
+    ```
+    kubectl rollout status deployment/cron
+    ```
+
+    <details>
+    <summary>View command output</summary>
+      deployment "cron" successfully rolled out
+    </details>
+</li>
+<li>
+Deploy the backend and frontend services:
+
+1. Apply the `tower-svc.yml` manifest:
+
+    ```
+    kubectl apply -f tower-svc.yml
+    ```
+
+    <details>
+    <summary>View command output</summary>
+    ```
+    deployment.apps/backend configured
+    deployment.apps/frontend configured
+    service/backend configured
+    service/frontend configured
+    ```
+    </details>
+
+1. Confirm that cron service deployed successfully:
+
+    ```
+    kubectl get deployments
+    ```
+
+    <details>
+    <summary>View command output</summary>
+    ```
+    NAME       READY   UP-TO-DATE   AVAILABLE   AGE
+    backend    1/1     1            1           2d6h
+    cron       1/1     1            1           2d6h
+    frontend   1/1     1            1           2d6h
+    ```
+    </details>
+</li>
+</ol>

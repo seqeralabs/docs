@@ -1,9 +1,13 @@
 ---
-title: Install Seqera Platform on Kubernetes
-description: Deploy Seqera Platform Enterprise with Kubernetes
+title: Install on a Kubernetes cluster
+description: Deploy Seqera Platform Enterprise on a Kubernetes cluster
 date: "11 Sep 2024"
 tags: [kubernetes, deployment]
 ---
+
+import CreateNamespace from './_partials/_k8s-install-ns.mdx';
+import ConfigureRegistry from './_partials/_k8s-install-registry.mdx';
+import DeployManifests from './_partials/_k8s-install-deploy-no-heading.mdx';
 
 This installation guide describes how to install Seqera Platform on a Kubernetes cluster.
 
@@ -15,104 +19,10 @@ The following prerequisites are required to deploy Seqera on a Kubernetes cluste
 - The `kubectl` CLI is installed locally
 - Access to the cluster with the `cluster-admin` role
 
-## 1. Create a namespace
+<CreateNamespace />
+<ConfigureRegistry />
 
-Create a namespace to isolate Kubernetes resources used by Seqera Platform from the other resources on your cluster.
-
-:::tip
-This installation guide assumes the use of `seqera-platform` as the installation namespace. Consider using a different one that better fits your cluster naming convention.
-:::
-
-1. Create a namespace for the Seqera resources:
-
-    ```
-    kubectl create namespace seqera-platform
-    ```
-
-    <details>
-    <summary>View command output</summary>
-    ```
-    namespace/seqera-platform created
-    ```
-    </details>
-
-1. Switch to the namespace:
-
-    ```
-    kubectl config set-context --current --namespace=seqera-platform
-    ```
-
-## 2. Configure container registry credentials
-
-Seqera Enterprise is distributed as a collection of Docker containers available through the Seqera container registry [`cr.seqera.io`](https://cr.seqera.io). Contact [support](https://support.seqera.io) to get your container access credentials. After you've received your credentials, grant your cluster access to the registry:
-
-1. Retrieve the `name` and `secret` values from the JSON file that you received from Seqera support.
-
-1. Create a [secret][kubectl-secret] for the image pull secret:
-
-    ```
-    kubectl create secret docker-registry cr.seqera.io \
-      --docker-server=cr.seqera.io \
-      --docker-username='<name>' \
-      --docker-password='<secret>'
-    ```
-
-    The credential `name` contains a dollar `$` character. Wrap the name in single quotes to prevent the Linux shell from interpreting this value as an environment variable.
-
-    <details>
-    <summary>View command output</summary>
-    ```
-    secret/cr.seqera.io created
-    ```
-    </details>
-
-1. Confirm that the secret exists:
-
-    ```
-    kubectl get secrets cr.seqera.io
-    ```
-
-    <details>
-    <summary>View command output</summary>
-    ```
-    NAME           TYPE                             DATA   AGE
-    cr.seqera.io   kubernetes.io/dockerconfigjson   1      26s
-    ```
-    </details>
-
-1. Confirm that you can pull containers from `cr.seqera.io`:
-
-   1. Pull a container from the private repository:
-
-        ```
-        kubectl run pull-test --command --restart=Never --image-pull-policy=Always \
-          --image cr.seqera.io/private/nf-tower-enterprise/backend:v24.1.4 \
-          --overrides='{ "spec": { "imagePullSecrets": [ { "name": "cr.seqera.io" } ] } }' \
-          --override-type=strategic -- /bin/true
-        ```
-
-        <details>
-        <summary>View command output</summary>
-        ```
-        pod/pull-test created
-        ```
-        </details>
-
-    1. Confirm that the container was pulled:
-
-        ```
-        kubectl get pods/pull-test -o=custom-columns=NAME:.metadata.name,STATUS:.status.phase
-        ```
-
-        <details>
-        <summary>View command output</summary>
-        ```
-        NAME        STATUS
-        pull-test   Succeeded
-        ```
-        </details>
-
-## 3. Configure Seqera Platform
+## Configure Seqera Platform
 
 Configure the following environment variables. For more information about Seqera configuration options, see [Configuration overview](./configuration/overview.mdx).
 
@@ -124,11 +34,11 @@ The `configmap.yml` manifest includes both the `tower.env` and `tower.yml` files
 
     <details>
     <summary>Show `configmap.yml` file</summary>
-    ```js file=./_templates/k8s/k8s_min/configmap.yml {10,12-13,22,25-26} showLineNumbers
+    ```js file=./_templates/k8s/k8s_min/configmap.yml {10,13,25-26} showLineNumbers
     ```
     </details>
 
-1. Generate two unique secrets with the following command: `openssl rand -base64 36`
+1. Generate two unique secrets with the following command: `openssl rand -base64 32 | tr -d /=+ | cut -c -32`
 
 1. Edit the `configmap.yml` file and set the following environment variables:
 
@@ -151,7 +61,7 @@ The `configmap.yml` manifest includes both the `tower.env` and `tower.yml` files
     ```
     </details>
 
-## 4. Deploy a Redis instance
+## Deploy a Redis instance
 
 Seqera Enterprise requires a Redis database for caching purposes. Configure Redis manually by deploying a manifest to your cluster.
 
@@ -210,7 +120,7 @@ Seqera Enterprise requires a Redis database for caching purposes. Configure Redi
     ```
     </details>
 
-## 5. Deploy a MySQL instance
+## Deploy a MySQL instance
 
 1. Create a file named `mysql.yml` with the following Kubernetes manifest:
 
@@ -267,8 +177,7 @@ Seqera Enterprise requires a Redis database for caching purposes. Configure Redi
     ```
     </details>
 
-
-## 6. Deploy Seqera
+## Deploy Seqera
 
 Seqera Platform consists of deployments for a cron service, a backend service, and a frontend service.
 
@@ -289,69 +198,7 @@ Seqera Platform consists of deployments for a cron service, a backend service, a
       ```
       </details>
 
-1. Deploy the cron service:
-
-      :::caution
-      This manifest includes an init container that creates the required database schema the first time it instantiates. This process can take a few minutes to complete and must finish before you instantiate the Seqera backend. Ensure this container is in the `READY` state before proceeding to the next step.
-      :::
-
-    1. Apply the `tower-cron.yml` manifest:
-
-        ```
-        kubectl apply -f tower-cron.yml
-        ```
-
-        <details>
-        <summary>View command output</summary>
-        ```
-        deployment.apps/cron configured
-        ```
-        </details>
-
-    1. Confirm that cron service deployed successfully:
-
-        ```
-        kubectl rollout status deployment/cron
-        ```
-
-        <details>
-        <summary>View command output</summary>
-          deployment "cron" successfully rolled out
-        </details>
-
-1. Deploy the backend and frontend services:
-
-    1. Apply the `tower-svc.yml` manifest:
-
-        ```
-        kubectl apply -f tower-svc.yml
-        ```
-
-        <details>
-        <summary>View command output</summary>
-        ```
-        deployment.apps/backend configured
-        deployment.apps/frontend configured
-        service/backend configured
-        service/frontend configured
-        ```
-        </details>
-
-    1. Confirm that cron service deployed successfully:
-
-        ```
-        kubectl get deployments
-        ```
-
-        <details>
-        <summary>View command output</summary>
-        ```
-        NAME       READY   UP-TO-DATE   AVAILABLE   AGE
-        backend    1/1     1            1           2d6h
-        cron       1/1     1            1           2d6h
-        frontend   1/1     1            1           2d6h
-        ```
-        </details>
+<DeployManifests step={2} />
 
 ## 7. Create a new user account
 

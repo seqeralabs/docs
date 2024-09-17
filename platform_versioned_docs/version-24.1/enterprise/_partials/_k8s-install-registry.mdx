@@ -1,0 +1,70 @@
+## Configure container registry credentials
+
+Seqera Enterprise is distributed as a collection of Docker containers available through the Seqera container registry [`cr.seqera.io`](https://cr.seqera.io). Contact [support](https://support.seqera.io) to get your container access credentials. After you've received your credentials, grant your cluster access to the registry:
+
+1. Retrieve the `name` and `secret` values from the JSON file that you received from Seqera support.
+
+1. Create a [secret][kubectl-secret] for the image pull secret:
+
+    ```
+    kubectl create secret docker-registry cr.seqera.io \
+      --docker-server=cr.seqera.io \
+      --docker-username='<name>' \
+      --docker-password='<secret>'
+    ```
+
+    The credential `name` contains a dollar `$` character. Wrap the name in single quotes to prevent the Linux shell from interpreting this value as an environment variable.
+
+    <details>
+    <summary>View command output</summary>
+    ```
+    secret/cr.seqera.io created
+    ```
+    </details>
+
+1. Confirm that the secret exists:
+
+    ```
+    kubectl get secrets cr.seqera.io
+    ```
+
+    <details>
+    <summary>View command output</summary>
+    ```
+    NAME           TYPE                             DATA   AGE
+    cr.seqera.io   kubernetes.io/dockerconfigjson   1      26s
+    ```
+    </details>
+
+1. Confirm that you can pull containers from `cr.seqera.io`:
+
+   1. Pull a container from the private repository:
+
+        ```
+        kubectl run pull-test --command --restart=Never --image-pull-policy=Always \
+          --image cr.seqera.io/private/nf-tower-enterprise/backend:v24.1.4 \
+          --overrides='{ "spec": { "imagePullSecrets": [ { "name": "cr.seqera.io" } ] } }' \
+          --override-type=strategic -- /bin/true
+        ```
+
+        <details>
+        <summary>View command output</summary>
+        ```
+        pod/pull-test created
+        ```
+        </details>
+
+    1. Confirm that the container was pulled:
+
+        ```
+        kubectl get pods/pull-test -o=custom-columns=NAME:.metadata.name,STATUS:.status.phase
+        ```
+
+        <details>
+        <summary>View command output</summary>
+        ```
+        NAME        STATUS
+        pull-test   Succeeded
+        ```
+        </details>
+
