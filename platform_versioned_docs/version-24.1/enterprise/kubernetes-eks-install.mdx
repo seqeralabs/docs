@@ -10,7 +10,7 @@ import TabItem from '@theme/TabItem';
 
 import CreateNamespace from './_partials/_k8s-install-ns.mdx';
 import ConfigureRegistry from './_partials/_k8s-install-registry.mdx';
-import DeployManifests from './_partials/_k8s-install-deploy-no-heading.mdx';
+import DeployManifests from './_partials/_k8s-install-deploy.mdx';
 
 This installation guide describes how to install Seqera Platform on Enterprise on Amazon Web Services (AWS) Elastic Kubernetes Service (EKS). When you complete the steps in this guide you'll have an installation suitable for product use on EKS.
 
@@ -120,7 +120,6 @@ aws rds create-db-instance \
     --master-username DB_USER \
     --master-user-password DB_PASSWORD \
 ```
-
 </TabItem>
 </Tabs>
 
@@ -129,16 +128,58 @@ After your database is created:
 - Update the inbound rules for the underlying EC2 instance to allow MySQL connections.
 - Update your Seqera [configuration](../configuration/overview.mdx#seqera-and-redis-databases) with the database hostname, username, and password.
 
-## 1. Create a namespace
+## Installation
+
+### 1. Create a namespace
 
 <CreateNamespace />
 
-## 2. Configure container registry credentials
+### 2. Configure container registry credentials
 
 <ConfigureRegistry />
 
+## 3. Configure Seqera Platform
+
+Configure the following environment variables. For more information about Seqera configuration options, see [Configuration overview](./configuration/overview.mdx).
+
+:::tip
+The `configmap.yml` manifest includes both the `tower.env` and `tower.yml` files. These files are made available to the other containers through volume mounts.
+:::
+
+1. Create a file named `configmap.yml` with the following Kubernetes manifest:
+
+    <details>
+    <summary>Show `configmap.yml` file</summary>
+    ```js file=./_templates/k8s/configmap.yml showLineNumbers
+    ```
+    </details>
+
+1. Generate two unique secrets with the following command: `openssl rand -base64 32 | tr -d /=+ | cut -c -32`
+
+1. Edit the `configmap.yml` file and set the following environment variables:
+
+    - `TOWER_ROOT_USERS`: Specify your email address
+    - `TOWER_JWT_SECRET`: Specify a unique secret that is at least 35 alphanumeric characters
+    - `TOWER_CRYPTO_SECRETKEY`: Specify a unique secret.
+    - `TOWER_LICENSE`: Specify your Seqera license key, if known. Otherwise, leave this empty.
+    - TOWER_REDIS_URL
+
+1. Apply the config map:
+
+    ```
+    kubectl apply -f configmap.yml
+    ```
+
+    <details>
+    <summary>View command output</summary>
+    ```
+    configmap/tower-backend-cfg created
+    configmap/tower-yml created
+    ```
+    </details>
+
 <!-- replace with proper manifests for EKS -->
-## Deploy Seqera
+### 4. Deploy Seqera
 
 Seqera Platform consists of deployments for a cron service, a backend service, and a frontend service.
 
@@ -161,6 +202,72 @@ Seqera Platform consists of deployments for a cron service, a backend service, a
 
 <DeployManifests step={2} />
 
+### 5. Seqera ingress
+
+An ingress is used to make Seqera Enterprise publicly accessible, load-balance traffic, terminate TLS, and offer name-based virtual hosting. The included ingress manifest will create an external IP address and forward HTTP traffic to the Seqera frontend.
+
+Download and configure the appropriate manifest for your infrastructure:
+
+    - [Amazon EKS](_templates/k8s/ingress.eks.yml)
+
+To deploy the manifest to your cluster, run the following:
+
+    ```bash
+    kubectl apply -f ingress.*.yml
+    ```
+
+See [Kubernetes ingress][k8s-ingress] for more information. If you don't need to make Seqera externally accessible, use a service resource to expose a [node port][k8s-node-port] or a [load balancer][k8s-load-balancer] service to make it accessible within your intranet.
+
+See the cloud provider documentation for configuring an ingress service on each cloud provider:
+
+- [Amazon][aws-configure-ingress]
+
+### 6. Check status
+
+Check that all services are up and running:
+
+```bash
+kubectl get pods
+```
+
+### 7. Test the application
+
+See [Test deployment](./testing.mdx).
+
+### Optional: Configure database console
+
+Use the [dbconsole.yml](_templates/k8s/dbconsole.yml) manifest to deploy a simple web frontend to the Seqera database. Though not required, this can be useful for administrative purposes.
+
+1. Deploy the database console:
+
+    ```bash
+    kubectl apply -f dbconsole.yml
+    ```
+
+1. Enable a port-forward for the database console to your local machine:
+
+    ```bash
+    kubectl port-forward deployment/dbconsole 8080:8080
+    ```
+
+1. Access the database console in a web browser at `http://localhost:8080`.
+
+## Next steps
+
+- Configure OpenID Connect (OIDC) for seamless integration with your identify provider
+- Configure ingress for your public cloud provider for load balancing and TLS termination
+- Configure access to your organization's email server
+- Configure Data Studios
+- Configure pipeline resource optimization
+- Configure Wave containers integration
+
+
 <!-- links -->
 [aws-elasticache]: https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/WhatIs.html
 [aws-cache-instances]: https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html
+[aws-configure-ingress]: https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.2/guide/ingress/annotations/
+
+[k8s-ingress]: https://kubernetes.io/docs/concepts/services-networking/ingress/
+[k8s-load-balancer]: https://kubernetes.io/docs/concepts/services-networking/service/#loadbalancer
+[k8s-node-port]: https://kubernetes.io/docs/concepts/services-networking/service/#nodeport
+
