@@ -62,7 +62,8 @@
             "compute-envs/google-cloud-batch",
             "compute-envs/google-cloud-lifesciences",
             "compute-envs/eks",
-            "compute-envs/gke"
+            "compute-envs/gke",
+            "monitoring/cloud-costs"
           ]
         },
         "compute-envs/k8s",
@@ -123,8 +124,7 @@
         "orgs-and-teams/organizations",            
         "orgs-and-teams/workspace-management",            
         "orgs-and-teams/roles",
-        "monitoring/audit-logs",
-        "monitoring/cloud-costs"
+        "monitoring/audit-logs"
         ]
     },   
     {
