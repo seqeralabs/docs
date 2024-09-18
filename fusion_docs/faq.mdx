@@ -59,8 +59,7 @@ Fusion is not a general purpose file system. It has been designed to optimize th
 
 ### I tried Fusion, but I didn't notice any performance improvement. Why?
 
-The computing nodes in your cluster should use NVMe SSD storage or an equivalent technology. Fusion implements an
-aggressive caching strategy that requires the use of local scratch storage based on solid-state disks. See your Platform compute environment page for optimal compute instance and storage recommendations: 
+If you didn’t notice any performance improvement with Fusion, the bottleneck may lie in other factors, such as network latency or memory limitations. Fusion’s caching strategy relies heavily on NVMe SSD or similar storage technology, so ensure your computing nodes are using the recommended storage. Check your Platform compute environment page for optimal instance and storage configurations:
 
 - [AWS Batch](https://docs.seqera.io/platform/latest/compute-envs/aws-batch)
 - [Azure Batch](https://docs.seqera.io/platform/latest/compute-envs/azure-batch)
