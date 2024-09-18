@@ -20,29 +20,17 @@ spec:
     - host: <YOUR-TOWER-HOST-NAME>
       http:
         paths:
-          - path: /*
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: ssl-redirect
-                port:
-                  name: use-annotation
-          - path: /*
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: frontend
-                port:
-                  number: 80
-
-# Uncomment the host section below to enable Data Studios. Replace <YOUR-TOWER-HOST-NAME> with the base domain of your Platform installation. See [Data Studios configuration](https://docs.seqera.io/platform/24.1.1/enterprise/data-studios) for more information.
-#    - host: "*.<YOUR-TOWER-HOST-NAME>"
-#      http:
-#        paths:
-#          - backend:
-#              service:
-#                name: connect-proxy
-#                port:
-#                  number: 80
-#            pathType: ImplementationSpecific
-#            path: /*
+        - path: /*
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: ssl-redirect
+              port:
+                name: use-annotation
+        - path: /*
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: frontend
+              port:
+                number: 80
