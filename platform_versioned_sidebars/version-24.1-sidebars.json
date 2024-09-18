@@ -167,6 +167,8 @@
           "items": [
             "enterprise/docker-compose",
             "enterprise/kubernetes",
+            "enterprise/kubernetes-minimal-install",
+            "enterprise/kubernetes-eks-install",
             "enterprise/testing",
             "enterprise/upgrade"          
           ]
