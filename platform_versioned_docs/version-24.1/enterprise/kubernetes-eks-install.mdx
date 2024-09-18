@@ -20,9 +20,9 @@ This installation guide describes how to install Seqera Platform on Enterprise o
 
 - **MySQL database**: An external database, such as one provided by [Amazon Relational Database Service](https://aws.amazon.com/rds/), is highly recommended for production deployments.
 
-- **SSL certificate**: HTTP must not be used in production environments. An SSL certificate is required for your Seqera instance to handle HTTPS traffic. See [SSL/TLS configuration](../configuration/ssl_tls.mdx#aws-deployments-manage-ssl-certificates-with-amazon-certificate-manager-acm) for more information.
+- **SSL certificate**: HTTP must not be used in production environments. An SSL certificate is required for your Seqera instance to handle HTTPS traffic. See [SSL/TLS configuration](./configuration/ssl_tls.mdx#aws-deployments-manage-ssl-certificates-with-amazon-certificate-manager-acm) for more information.
 
-- **Optional: AWS Parameter Store**: Store sensitive Seqera configuration values as SecureString [AWS Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) parameters. See [AWS Parameter Store configuration](../configuration/aws_parameter_store.mdx) for instructions. This is recommended for production environments. 
+- **Optional: AWS Parameter Store**: Store sensitive Seqera configuration values as SecureString [AWS Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) parameters. See [AWS Parameter Store configuration](./configuration/aws_parameter_store.mdx) for instructions. This is recommended for production environments. 
 
 - **Optional: DNS**: DNS is required to support human-readable domain names and load-balanced traffic. If you don't have access to a pre-existing DNS service, use [Amazon Route 53](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html).
 
@@ -62,7 +62,7 @@ Set up commonly-used AWS services for Seqera deployment.
 
 ### Fetch Seqera config values from AWS Parameter Store
 
-From version 23.1, you can retrieve Seqera Enterprise configuration values remotely from the AWS Parameter Store. See [AWS Parameter Store configuration](../configuration/aws_parameter_store.mdx) for instructions. 
+From version 23.1, you can retrieve Seqera Enterprise configuration values remotely from the AWS Parameter Store. See [AWS Parameter Store configuration](./configuration/aws_parameter_store.mdx) for instructions. 
 
 ### Amazon SES
 
@@ -93,7 +93,7 @@ External databases for Seqera Enterprise deployments require:
 
 - A **MySQL8 Community** DB instance
 - At least 2 vCPUs, 8 GB memory, and 30 GB SSD storage
-- Manual MySQL user and database schema creation. See [Database configuration](../configuration/overview.mdx#seqera-and-redis-databases) for more details.
+- Manual MySQL user and database schema creation. See [Database configuration](./configuration/overview.mdx#seqera-and-redis-databases) for more details.
 
 :::caution 
 Recommended instance class and storage requirements depend on the number of parallel pipelines you expect to run. 
@@ -126,7 +126,7 @@ aws rds create-db-instance \
 After your database is created:
 
 - Update the inbound rules for the underlying EC2 instance to allow MySQL connections.
-- Update your Seqera [configuration](../configuration/overview.mdx#seqera-and-redis-databases) with the database hostname, username, and password.
+- Update your Seqera [configuration](./configuration/overview.mdx#seqera-and-redis-databases) with the database hostname, username, and password.
 
 ## Installation
 
