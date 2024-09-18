@@ -8,9 +8,9 @@ tags: [fusion, storage, compute, azure batch, blob storage]
 Fusion simplifies and improves the efficiency of Nextflow pipelines in [Azure Batch](https://azure.microsoft.com/en-us/products/batch) in several ways:
 
 - No need to use the Azure CLI tool for copying data to and from Azure Blob Storage.
-- No need to create custom containers to include the Azure CLI tool.
-- Fusion uses an efficient data transfer and caching algorithm that provides much faster throughput compared to Azure CLI and does not require a local copy of data files.
-- Replacing the Azure CLI with a native API client, the transfer is much more robust at scale.
+- No need to install the Azure CLI tool to the node machine
+- By replacing the Azure CLI with a native API client, the transfer is much more robust at scale.
+- By streaming relevant data and monitoring the virtual machine storage, Fusion can use more data than the capacity of the attached storage drive
 
 ### Platform Azure Batch compute environments 
 
