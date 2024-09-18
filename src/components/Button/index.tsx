@@ -75,5 +75,6 @@ export default function Button ({
                 {label}
             </button>
         </Link>
+    </p>
     );
 }
