@@ -40,7 +40,7 @@ const NavItems = ({ isDark = false, hideMenu }) => {
               <ForumIcon className="mr-2" />
               Forum
             </NavItem>
-            <NavItem id="http://docs.seqera.io" simple isActive>
+            <NavItem id="https://docs.seqera.io" simple isActive>
               <DocsIcon className="mr-2" />
               Docs
             </NavItem>
