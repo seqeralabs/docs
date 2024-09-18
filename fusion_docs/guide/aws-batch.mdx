@@ -32,7 +32,7 @@ Several AWS EC2 instance types include one or more NVMe SSD volumes. These volum
     ```groovy
     process.executor = 'awsbatch'
     process.queue = '<YOUR AWS BATCH QUEUE>'
-    process.scratch = false // Required for SSD volumes
+    process.scratch = false
     process.containerOptions = '-v /path/to/ssd:/tmp' // Required for SSD volumes
     aws.region = '<YOUR AWS REGION>'
     fusion.enaled = true
