@@ -1,7 +1,7 @@
 .button {
   display: inline-block;
   color: var(--color-brand-1100);
-  padding: 20% 10%;
+  padding: 10px 22px;
   border: 1px solid transparent;
   background: #f7f7f7;
   border-radius: 99px;
