@@ -80,7 +80,7 @@ If you use AWS SES in sandbox mode, both the _sender_ and the _receiver_ email a
    
    - [SPF authentication](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-authentication-spf.html)
 
-#### Managed Redis services
+### Managed Redis services
 
 Seqera supports managed Redis services such as [Amazon ElastiCache][aws-elasticache].
 
@@ -118,7 +118,7 @@ aws rds create-db-instance \
     --vpc-security-group-ids SECURITY_GROUP \
     --db-subnet-group SUBNET_GROUP \
     --master-username DB_USER \
-    --master-user-password DB_PASSWORD \
+    --master-user-password DB_PASSWORD
 ```
 </TabItem>
 </Tabs>
@@ -158,11 +158,18 @@ The `configmap.yml` manifest includes both the `tower.env` and `tower.yml` files
 
 1. Edit the `configmap.yml` file and set the following environment variables:
 
-    - `TOWER_ROOT_USERS`: Specify your email address
-    - `TOWER_JWT_SECRET`: Specify a unique secret that is at least 35 alphanumeric characters
+    - `TOWER_CONTACT_EMAIL`:
+    - `TOWER_SERVER_URL`:
+    - `TOWER_REDIS_URL`: Specify the host name for your Amazon ElastiCache Redis instance.
+    - `TOWER_DB_URL`:
+    - `TOWER_DB_USER`:
+    - `TOWER_DB_PASSWORD`:
+    - `TOWER_SMTP_HOST`:
+    - `TOWER_SMTP_USER`:
+    - `TOWER_SMTP_PASSWORD`:
+    - `TOWER_JWT_SECRET`: Specify a unique secret that is at least 35 alphanumeric characters.
     - `TOWER_CRYPTO_SECRETKEY`: Specify a unique secret.
     - `TOWER_LICENSE`: Specify your Seqera license key, if known. Otherwise, leave this empty.
-    - TOWER_REDIS_URL
 
 1. Apply the config map:
 
@@ -178,7 +185,6 @@ The `configmap.yml` manifest includes both the `tower.env` and `tower.yml` files
     ```
     </details>
 
-<!-- replace with proper manifests for EKS -->
 ### 4. Deploy Seqera
 
 Seqera Platform consists of deployments for a cron service, a backend service, and a frontend service.
@@ -202,30 +208,27 @@ Seqera Platform consists of deployments for a cron service, a backend service, a
 
 <DeployManifests step={2} />
 
-### 5. Seqera ingress
+### 5. Configure HTTPS traffic load balancer
 
-An ingress is used to make Seqera Enterprise publicly accessible, load-balance traffic, terminate TLS, and offer name-based virtual hosting. The included ingress manifest will create an external IP address and forward HTTP traffic to the Seqera frontend.
+The Kubernetes ingress resource is used to make Seqera Enterprise publicly accessible, load-balance traffic, terminate TLS, and offer name-based virtual hosting. The included ingress manifest will create an external IP address and forward HTTP traffic to the Seqera frontend.
 
-Download and configure the appropriate manifest for your infrastructure.
+1. Create a file named `ingress.yml` with the following Kubernetes manifest:
 
+    <details>
+    <summary>Show `ingress.yml` file</summary>
+    ```js file=./_templates/k8s/ingress.eks.yml showLineNumbers
+    ```
+    </details>
 
-<details>
-<summary>Show `ingress.eks.yml` file</summary>
-```js file=./_templates/k8s/ingress.eks.yml showLineNumbers
-```
-</details>
-
-To deploy the manifest to your cluster, run the following:
+1. To deploy the manifest to your cluster, run the following:
 
     ```bash
-    kubectl apply -f ingress.*.yml
+    kubectl apply -f ingress.yml
     ```
 
 See [Kubernetes ingress][k8s-ingress] for more information. If you don't need to make Seqera externally accessible, use a service resource to expose a [node port][k8s-node-port] or a [load balancer][k8s-load-balancer] service to make it accessible within your intranet.
 
-See the cloud provider documentation for configuring an ingress service on each cloud provider:
-
-- [Amazon][aws-configure-ingress]
+See the [AWS Load Balancer Controller documentation][aws-configure-ingress] for configuring an ingress service.
 
 ### 6. Check status
 
@@ -259,19 +262,22 @@ Use the [dbconsole.yml](_templates/k8s/dbconsole.yml) manifest to deploy a simpl
 
 ## Next steps
 
-- Configure OpenID Connect (OIDC) for seamless integration with your identify provider
-- Configure ingress for your public cloud provider for load balancing and TLS termination
-- Configure access to your organization's email server
-- Configure Data Studios
-- Configure pipeline resource optimization
-- Configure Wave containers integration
+- Configure [OpenID Connect (OIDC)][authentication] for seamless integration with your identify provider
+- Configure [pipeline resource optimization][groundswell]
+- Configure [Wave containers integration][wave-containers]
+- Configure [Data Studios][data-studios]
 
 
 <!-- links -->
 [aws-elasticache]: https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/WhatIs.html
 [aws-cache-instances]: https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html
-[aws-configure-ingress]: https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.2/guide/ingress/annotations/
+[aws-configure-ingress]: https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.8/
 
 [k8s-ingress]: https://kubernetes.io/docs/concepts/services-networking/ingress/
 [k8s-load-balancer]: https://kubernetes.io/docs/concepts/services-networking/service/#loadbalancer
 [k8s-node-port]: https://kubernetes.io/docs/concepts/services-networking/service/#nodeport
+
+[wave-containers]: ./configuration/wave.mdx
+[groundswell]: ./configuration/pipeline_optimization.mdx
+[data-studios]: ./data-studios.mdx
+[authentication]: ./configuration/authentication.mdx

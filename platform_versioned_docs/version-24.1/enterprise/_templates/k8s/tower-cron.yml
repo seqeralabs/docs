@@ -15,7 +15,7 @@ spec:
         app: cron
     spec:
       imagePullSecrets:
-      - name: "cr.seqera.io"
+      - name: cr.seqera.io
       volumes:
       - name: config-volume
         configMap:

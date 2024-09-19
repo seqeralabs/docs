@@ -11,7 +11,7 @@ data:
   TOWER_SERVER_URL: "http://localhost:8080"
   TOWER_CONTACT_EMAIL: "user@example.com"
   TOWER_REDIS_URL: "redis://redis:6379"
-  TOWER_DB_URL: jdbc:mysql://mysql:3306/tower?permitMysqlScheme=true
+  TOWER_DB_URL: "jdbc:mysql://mysql:3306/tower?permitMysqlScheme=true"
   TOWER_DB_DRIVER: "org.mariadb.jdbc.Driver"
   TOWER_DB_USER: "tower"
   TOWER_DB_PASSWORD: "tower"

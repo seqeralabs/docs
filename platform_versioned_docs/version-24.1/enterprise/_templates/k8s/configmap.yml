@@ -7,7 +7,8 @@ metadata:
 data:
   TOWER_SERVER_URL: "https://<seqera_platform_hostname>"
   TOWER_CONTACT_EMAIL: "<system_email_address>"
-  TOWER_DB_URL: jdbc:mysql://<database_host_name>:3306/tower?permitMysqlScheme=true
+  TOWER_REDIS_URL: "redis://<redis_host_name>:6379"
+  TOWER_DB_URL: "jdbc:mysql://<database_host_name>:3306/tower?permitMysqlScheme=true"
   TOWER_DB_DRIVER: "org.mariadb.jdbc.Driver"
   TOWER_DB_DIALECT: "io.seqera.util.MySQL55DialectCollateBin"
   TOWER_DB_USER: "<db_username>"
@@ -20,7 +21,6 @@ data:
   TOWER_LICENSE: "<license>"
   TOWER_ENABLE_PLATFORMS: "awsbatch-platform,gls-platform,googlebatch-platform,azbatch-platform,uge-platform,slurm-platform"
   FLYWAY_LOCATIONS: "classpath:db-schema/mysql"
-  TOWER_REDIS_URL: "redis://<redis_host_name>:6379"
 ---
 kind: ConfigMap
 apiVersion: v1

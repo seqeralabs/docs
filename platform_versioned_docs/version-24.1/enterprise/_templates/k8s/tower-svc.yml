@@ -19,7 +19,7 @@ spec:
         app: backend
     spec:
       imagePullSecrets:
-      - name: "cr.seqera.io"
+      - name: cr.seqera.io
       volumes:
       - name: config-volume
         configMap:
@@ -76,7 +76,7 @@ spec:
         app: frontend
     spec:
       imagePullSecrets:
-      - name: "cr.seqera.io"
+      - name: cr.seqera.io
       containers:
       - name: frontend
         image: cr.seqera.io/private/nf-tower-enterprise/frontend:v24.1.4
@@ -107,5 +107,5 @@ spec:
   ports:
   - port: 80
   selector:
-    app: "frontend"
+    app: frontend
 ---
