@@ -338,7 +338,7 @@ Data Explorer allows you to view the log files and output files generated for ea
 
 ![Task data explorer](./quickstart-demo/assets/sp-cloud-task-data-explorer.gif)
 
-## Tertiary analysis
+## Tertiary analysis with Data Studios
 
 Set up an environment for tertiary analysis of your pipeline data and enable collaboration with other workspace participants. 
 
@@ -352,7 +352,7 @@ From the **Data Studios** tab, select **Add a data studio** and complete the fol
 - Select the latest **RStudio** container image template from the dropdown list.
 - Select an AWS Batch compute environment. 
 :::note
-Data studios compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and data studio sessions. The default CPU and memory allocation for data studios is 2 CPUs and 8192 MB RAM. 
+Data studios compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and data studio sessions. The default CPU and memory allocation for a data studio is 2 CPUs and 8192 MB RAM. 
 :::
 - Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the output data of your RNA-seq run. 
 - Optional: Enter CPU and memory allocations. The default values are 2 CPUs and 8192 MB memory (RAM).
@@ -362,7 +362,7 @@ Data studios compete for computing resources when sharing compute environments. 
 
 ### Configure the data studio environment
 
-The RStudio environment can be configured with the packages you wish to install and the R scripts you wish to run. For the purpoises of this guide, the following environment configuration can be used to analyze the gene level counts of your RNA-seq data:
+The RStudio environment can be configured with the packages you wish to install and the R scripts you wish to run. For the purposes of this guide, the following environment configuration can be used to analyze the gene level counts of your RNA-seq data:
 
 ```console
 # Adapted from source: https://combine-australia.github.io/RNAseq-R/09-applying-rnaseq-solutions.html
