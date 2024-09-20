@@ -12,9 +12,11 @@ import CreateNamespace from './_partials/_k8s-install-ns.mdx';
 import ConfigureRegistry from './_partials/_k8s-install-registry.mdx';
 import DeployManifests from './_partials/_k8s-install-deploy.mdx';
 
-This installation guide describes how to install Seqera Platform on Enterprise on Amazon Web Services (AWS) Elastic Kubernetes Service (EKS). When you complete the steps in this guide you'll have an installation suitable for product use on EKS.
+This installation guide describes how to install Seqera Platform on Enterprise on Amazon Web Services (AWS) [Elastic Kubernetes Service (EKS)](https://docs.aws.amazon.com/eks/latest/userguide/getting-started.html). When you complete the steps in this guide you'll have an installation suitable for product use on EKS.
 
 ## Prerequisites
+
+The following prerequisites are required to complete this installation guide:
 
 - **SMTP server**: If you don't have an email server, use [Amazon Simple Email Service](https://aws.amazon.com/ses/).
 
@@ -22,15 +24,9 @@ This installation guide describes how to install Seqera Platform on Enterprise o
 
 - **SSL certificate**: HTTP must not be used in production environments. An SSL certificate is required for your Seqera instance to handle HTTPS traffic. See [SSL/TLS configuration](./configuration/ssl_tls.mdx#aws-deployments-manage-ssl-certificates-with-amazon-certificate-manager-acm) for more information.
 
-- **Optional: AWS Parameter Store**: Store sensitive Seqera configuration values as SecureString [AWS Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) parameters. See [AWS Parameter Store configuration](./configuration/aws_parameter_store.mdx) for instructions. This is recommended for production environments. 
+- **Optional: AWS Parameter Store**: Store sensitive Seqera configuration values as SecureString [AWS Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) parameters. See [AWS Parameter Store configuration](./configuration/aws_parameter_store.mdx) for instructions. This is recommended for production environments.
 
 - **Optional: DNS**: DNS is required to support human-readable domain names and load-balanced traffic. If you don't have access to a pre-existing DNS service, use [Amazon Route 53](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html).
-
-### Prerequisites for EKS
-
-If you're installing Seqera Enterprise with Kubernetes, an [Elastic Kubernetes Service (EKS)](https://docs.aws.amazon.com/eks/latest/userguide/getting-started.html) cluster is required. See the [EKS documentation](https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html) to provision your own cluster.
-
-- Kubernetes 1.19 or later
 
 - **Subnet requirements**
 
@@ -60,9 +56,9 @@ Additionally, the ingress assumes the presence of SSL certificates, DNS resoluti
 
 Set up commonly-used AWS services for Seqera deployment.
 
-### Fetch Seqera config values from AWS Parameter Store
+### Provision an EKS cluster
 
-From version 23.1, you can retrieve Seqera Enterprise configuration values remotely from the AWS Parameter Store. See [AWS Parameter Store configuration](./configuration/aws_parameter_store.mdx) for instructions. 
+See the [EKS documentation](https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html) to provision your own Kubernetes cluster. Kubernetes version 1.19 or later is required.
 
 ### Amazon SES
 
@@ -128,7 +124,13 @@ After your database is created:
 - Update the inbound rules for the underlying EC2 instance to allow MySQL connections.
 - Update your Seqera [configuration](./configuration/overview.mdx#seqera-and-redis-databases) with the database hostname, username, and password.
 
+### Fetch Seqera config values from AWS Parameter Store
+
+From version 23.1, you can optionally retrieve Seqera Enterprise configuration values remotely from the AWS Parameter Store. See [AWS Parameter Store configuration](./configuration/aws_parameter_store.mdx) for instructions.
+
 ## Installation
+
+Complete the following sections to install Seqera Platform Enterprise on your EKS cluster.
 
 ### 1. Create a namespace
 
