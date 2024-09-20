@@ -52,7 +52,7 @@ The following prerequisites are required to complete this installation guide:
 
 Additionally, the ingress assumes the presence of SSL certificates, DNS resolution, and ALB logging. If you've chosen not to use some or all of these features, you'll need to modify the manifest accordingly before applying it to the cluster.
 
-## AWS setup
+## Amazon Web Services (AWS) setup
 
 Set up commonly-used AWS services for Seqera deployment.
 
@@ -87,7 +87,7 @@ Seqera supports managed Redis services such as [Amazon ElastiCache][aws-elastica
 
 External databases for Seqera Enterprise deployments require:
 
-- A **MySQL8 Community** DB instance
+- A MySQL8 Community DB instance
 - At least 2 vCPUs, 8 GB memory, and 30 GB SSD storage
 - Manual MySQL user and database schema creation. See [Database configuration](./configuration/overview.mdx#seqera-and-redis-databases) for more details.
 
@@ -160,15 +160,15 @@ The `configmap.yml` manifest includes both the `tower.env` and `tower.yml` files
 
 1. Edit the `configmap.yml` file and set the following environment variables:
 
-    - `TOWER_CONTACT_EMAIL`:
-    - `TOWER_SERVER_URL`:
+    - `TOWER_CONTACT_EMAIL`: Specify a contact email address for the Seqera administrator.
+    - `TOWER_SERVER_URL`: Specify your fully qualified host name for Platform Enterprise, such as `https://example.com:8000`.
     - `TOWER_REDIS_URL`: Specify the host name for your Amazon ElastiCache Redis instance.
-    - `TOWER_DB_URL`:
-    - `TOWER_DB_USER`:
-    - `TOWER_DB_PASSWORD`:
-    - `TOWER_SMTP_HOST`:
-    - `TOWER_SMTP_USER`:
-    - `TOWER_SMTP_PASSWORD`:
+    - `TOWER_DB_URL`: Specify the Amazon RDS instance URI connection string, such as `jdbc:mysql://<host_name>:3306/tower?permitMysqlScheme=true`. Replace `<host_name>` with the RDS instance's host name.
+    - `TOWER_DB_USER`: Specify the Amazon RDS instance user name.
+    - `TOWER_DB_PASSWORD`: Specify the Amazon RDS instance password.
+    - `TOWER_SMTP_HOST`: Specify the mail server host name.
+    - `TOWER_SMTP_USER`: Specify the mail server user name.
+    - `TOWER_SMTP_PASSWORD`: Specify the mail server password.
     - `TOWER_JWT_SECRET`: Specify a unique secret that is at least 35 alphanumeric characters.
     - `TOWER_CRYPTO_SECRETKEY`: Specify a unique secret.
     - `TOWER_LICENSE`: Specify your Seqera license key, if known. Otherwise, leave this empty.
