@@ -12,3 +12,7 @@ html[data-theme="light"] {
     background-image: url("./images/home-1a-light.jpg");
   }
 }
+
+.sidebarProductLogos a {
+  @apply flex justify-between items-center my-4 border-solid border border-gray-500 rounded px-4 py-3 bg-white hover:bg-[#e8ebfc] w-full leading-none;
+}
