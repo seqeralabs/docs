@@ -13,6 +13,13 @@ html:not(.plugin-id-platform) .navbar .dropdown {
   font-size: 0.9em;
 }
 
+ol li > p:first-child {
+  margin-top: 0 !important;
+}
+ol li > p:last-child {
+  margin-bottom: 0 !important;
+}
+
 /**
 Material Design Icons (SVG)
 */

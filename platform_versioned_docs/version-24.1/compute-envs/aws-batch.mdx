@@ -5,14 +5,16 @@ date: "21 Apr 2023"
 tags: [aws, batch, compute environment]
 ---
 
-:::note
+:::tip
 This guide assumes you have an existing [Amazon Web Service (AWS)](https://aws.amazon.com/) account.
+
+The AWS Batch services quota for the job queue is 50 jobs. For more information on AWS Batch service quotas, see [AWS Batch service quotas][quota].
 :::
 
 There are two ways to create a Seqera Platform compute environment for AWS Batch:
 
-1. [**Batch Forge**](#tower-forge): This option automatically creates the AWS Batch resources in your AWS account. This eliminates the need to set up your AWS Batch infrastructure manually.
-2. [**Manual**](#manual): This option allows Seqera to use existing AWS Batch resources.
+- [**Batch Forge**](#tower-forge): This option automatically creates the AWS Batch resources in your AWS account. This eliminates the need to set up your AWS Batch infrastructure manually.
+- [**Manual**](#manual): This option allows Seqera to use existing AWS Batch resources.
 
 ## Batch Forge
 
@@ -31,31 +33,29 @@ We recommend that you create separate IAM policies for Batch Forge and launch pe
 **Create Seqera IAM policies**
 
 1. Open the [AWS IAM console](https://console.aws.amazon.com/iam).
-2. From the left navigation menu, select **Policies** under **Access management**.
-3. Select **Create policy**.
-4. On the **Create policy** page, select the **JSON** tab.
-5. Copy the contents of your policy JSON file ([Forge](https://github.com/seqeralabs/nf-tower-aws/blob/master/forge/forge-policy.json) or [Launch](https://github.com/seqeralabs/nf-tower-aws/blob/master/launch/launch-policy.json), depending on the policy being created) and replace the default text in the policy editor area under the JSON tab. To create a Launch user, you must also create the [S3 bucket write policy](https://github.com/seqeralabs/nf-tower-aws/blob/master/launch/s3-bucket-write.json) separately to attach to your Launch user.
-6. Select **Next: Tags**.
-7. Select **Next: Review**.
-8. Enter a name and description for the policy on the **Review policy** page, then select **Create policy**.
-9. Repeat these steps for both the `forge-policy.json` and `launch-policy.json` files. For a Launch user, also create the `s3-bucket-write-policy.json` listed in step 5 above.
+1. From the left navigation menu, select **Policies** under **Access management**.
+1. Select **Create policy**.
+1. On the **Create policy** page, select the **JSON** tab.
+1. Copy the contents of your policy JSON file ([Forge](https://github.com/seqeralabs/nf-tower-aws/blob/master/forge/forge-policy.json) or [Launch](https://github.com/seqeralabs/nf-tower-aws/blob/master/launch/launch-policy.json), depending on the policy being created) and replace the default text in the policy editor area under the JSON tab. To create a Launch user, you must also create the [S3 bucket write policy](https://github.com/seqeralabs/nf-tower-aws/blob/master/launch/s3-bucket-write.json) separately to attach to your Launch user.
+1. Select **Next: Tags**.
+1. Select **Next: Review**.
+1. Enter a name and description for the policy on the **Review policy** page, then select **Create policy**.
+1. Repeat these steps for both the `forge-policy.json` and `launch-policy.json` files. For a Launch user, also create the `s3-bucket-write-policy.json` listed in step 5 above.
 
 **Create an IAM user**
 
 1. From the [AWS IAM console](https://console.aws.amazon.com/iam), select **Users** in the left navigation menu, then select **Add User** at the top right of the page.
-2. Enter a name for your user (e.g., _seqera_) and select the **Programmatic access** type.
-3. Select **Next: Permissions**.
-4. Select **Next: Tags > Next: Review > Create User**.
-
-  :::note
-  For the time being, you can ignore the "user has no permissions" warning. Permissions will be applied using the **IAM Policy**.
-  :::
-
-5. Save the **Access key ID** and **Secret access key** in a secure location as you will use these when creating credentials in Seqera.
-6. After you have saved the keys, select **Close**.
-7. Back in the users table, select the newly created user, then select **Add permissions** under the **Permissions** tab.
-8. Select **Attach existing policies**, then search for and select each of the policies created above.
-9. Select **Next: Review > Add permissions**.
+1. Enter a name for your user (e.g., _seqera_) and select the **Programmatic access** type.
+1. Select **Next: Permissions**.
+1. Select **Next: Tags > Next: Review > Create User**.
+    :::note
+    For the time being, you can ignore the "user has no permissions" warning. Permissions will be applied using the **IAM Policy**.
+    :::
+1. Save the **Access key ID** and **Secret access key** in a secure location as you will use these when creating credentials in Seqera.
+1. After you have saved the keys, select **Close**.
+1. Back in the users table, select the newly created user, then select **Add permissions** under the **Permissions** tab.
+1. Select **Attach existing policies**, then search for and select each of the policies created above.
+1. Select **Next: Review > Add permissions**.
 
 ### S3 Bucket
 
@@ -64,16 +64,14 @@ S3 (Simple Storage Service) is a type of **object storage**. To access files and
 **Create an S3 bucket**
 
 1. Navigate to the [S3 service](https://console.aws.amazon.com/s3/home).
-2. Select **Create New Bucket**.
-3. Enter a unique name for your bucket and select a region.
-
-  :::note
-  To maximize data transfer resilience and minimize cost, storage should be in the same region as compute.
-  :::
-
-4. Select the default options in **Configure options**.
-5. Select the default options in **Set permissions**.
-6. Review and select **Create bucket**.
+1. Select **Create New Bucket**.
+1. Enter a unique name for your bucket and select a region.
+    :::note
+    To maximize data transfer resilience and minimize cost, storage should be in the same region as compute.
+    :::
+1. Select the default options in **Configure options**.
+1. Select the default options in **Set permissions**.
+1. Review and select **Create bucket**.
 
 :::note
 S3 is used by Nextflow for the storage of intermediate files. In production pipelines, this can amount to a lot of data. To reduce costs, consider using a retention policy when creating a bucket, such as automatically deleting intermediate files after 30 days. See [here](https://aws.amazon.com/premiumsupport/knowledge-center/s3-empty-bucket-lifecycle-rule/) for more information.
@@ -90,101 +88,105 @@ Batch Forge automatically creates resources that you may be charged for in your 
 **Create a Batch Forge AWS Batch compute environment**
 
 1. In a workspace, select **Compute environments > New environment**.
-2. Enter a descriptive name for this environment, e.g., _AWS Batch Spot (eu-west-1)_.
-3. Select **AWS Batch** as the target platform.
-4. From the **Credentials** drop-down, select existing AWS credentials, or select **+** to add new credentials. If you're using existing credentials, skip to step 8.
-
-  :::note
-  You can create multiple credentials in your Seqera environment. See [Credentials](../credentials/overview.mdx).
-  :::
-
-5. Enter a name, e.g., _AWS Credentials_.
-6. Add the **Access key** and **Secret key**. These are the keys you saved previously when you created the Seqera IAM user.
-7. (Optional) Under **Assume role**, specify the IAM role to be assumed by the Seqera IAM user to access the compute environment's AWS resources.
-
-  :::note
-  When using AWS keys without an assumed role, the associated AWS user account must have [Launch](https://github.com/seqeralabs/nf-tower-aws/tree/master/launch) and [Forge](https://github.com/seqeralabs/nf-tower-aws/tree/master/forge) permissions. When an assumed role is provided, the keys are only used to retrieve temporary credentials impersonating the role specified. In this case, [Launch](https://github.com/seqeralabs/nf-tower-aws/tree/master/launch) and [Forge](https://github.com/seqeralabs/nf-tower-aws/tree/master/forge) permissions must be granted to the role instead of the user account.
-  :::
-
-8. Select a **Region**, e.g., _eu-west-1 - Europe (Ireland)_.
-9. Enter your S3 bucket path in the **Pipeline work directory** field, e.g., `s3://seqera-bucket`. This bucket must be in the same region chosen in the previous step.
-
+1. Enter a descriptive name for this environment, e.g., _AWS Batch Spot (eu-west-1)_.
+1. Select **AWS Batch** as the target platform.
+1. From the **Credentials** drop-down, select existing AWS credentials, or select **+** to add new credentials. If you're using existing credentials, skip to step 8.
+    :::note
+    You can create multiple credentials in your Seqera environment. See [Credentials](../credentials/overview.mdx).
+    :::
+1. Enter a name, e.g., _AWS Credentials_.
+1. Add the **Access key** and **Secret key**. These are the keys you saved previously when you created the Seqera IAM user.
+1. (Optional) Under **Assume role**, specify the IAM role to be assumed by the Seqera IAM user to access the compute environment's AWS resources.
+    :::note
+    When using AWS keys without an assumed role, the associated AWS user account must have [Launch](https://github.com/seqeralabs/nf-tower-aws/tree/master/launch) and [Forge](https://github.com/seqeralabs/nf-tower-aws/tree/master/forge) permissions. When an assumed role is provided, the keys are only used to retrieve temporary credentials impersonating the role specified. In this case, [Launch](https://github.com/seqeralabs/nf-tower-aws/tree/master/launch) and [Forge](https://github.com/seqeralabs/nf-tower-aws/tree/master/forge) permissions must be granted to the role instead of the user account.
+    :::
+1. Select a **Region**, e.g., _eu-west-1 - Europe (Ireland)_.
+1. Enter your S3 bucket path in the **Pipeline work directory** field, e.g., `s3://seqera-bucket`. This bucket must be in the same region chosen in the previous step.
     :::note
     When you specify an S3 bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. Seqera adds a `cloudcache` block to the Nextflow configuration file for all runs executed with this compute environment. This block includes the path to a `cloudcache` folder in your work directory, e.g., `s3://seqera-bucket/cloudcache/.cache`. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad.mdx#launch-form) form.
     :::
+1. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers](https://www.nextflow.io/docs/latest/wave.html) for more information.
+1. Select **Enable Fusion v2** to allow access to your S3-hosted data via the [Fusion v2](https://docs.seqera.io/fusion) virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled. See [Fusion file system](../supported_software/fusion/fusion.mdx) for configuration details.
 
-10. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers](https://www.nextflow.io/docs/latest/wave.html) for more information.
-11. Select **Enable Fusion v2** to allow access to your S3-hosted data via the [Fusion v2](https://www.nextflow.io/docs/latest/fusion.html) virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled. See [Fusion file system](../supported_software/fusion/fusion.mdx) for configuration details.
+    <details>
+    <summary>Use Fusion v2 file system</summary>
 
-When using Fusion v2 without fast instance storage (see below), the following EBS settings are applied to optimize file system performance:
+    :::note
+    The compute recommendations below are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files and a total size of approximately 123.5 GB. 
+    :::
 
-- EBS autoscaling is disabled
-- EBS boot disk size is increased to 100 GB
-- EBS boot disk type GP3 is selected
-- EBS boot disk throughput is increased to 325 MB/s
+    We recommend using Fusion with AWS NVMe instances (fast instance storage) as this delivers the fastest performance when compared to environments using only AWS EBS (Elastic Block Store).
 
-Extensive benchmarking of Fusion v2 has demonstrated that the increased cost associated with these settings are generally outweighed by the costs saved due to decreased run time.
+    1. Use Seqera Platform version 23.1 or later.
+    1. Use an S3 bucket as the pipeline work directory.
+    1. Enable **Wave containers**, **Fusion v2**, and **fast instance storage**.
+    1. Select the **Batch Forge** config mode.
+    1. Fast instance storage requires an EC2 instance type that uses NVMe disks. Specify NVMe-based instance types in **Instance types** under **Advanced options**. If left unspecified, Platform selects instances from AWS NVMe-based instance type families. See [Instance store temporary block storage for EC2 instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html) for more information.
 
-12. Select **Enable fast instance storage** to use NVMe instance storage to speed up I/O and disk access operations. NVMe instance storage requires Fusion v2 to be enabled.
+    :::note
+    When enabling fast instance storage, do not select the `optimal` instance type families (c4, m4, r4) for your compute environment as these are not NVMe-based instances. Specify AWS NVMe-based instance types, or leave the **Instance types** field empty for Platform to select NVMe instances for you.
+    :::
 
-  :::note
-  Fast instance storage requires an EC2 instance type that uses NVMe disks. Seqera validates any instance types you specify (from **Advanced options > Instance types**) during compute environment creation. If you do not specify an instance type, a standard EC2 instance with NVMe disks will be used (`'c5ad', 'c5d', 'c6id', 'i3', 'i4i', 'm5ad', 'm5d', 'm6id', 'r5ad', 'r5d', 'r6id'` EC2 instance families) for fast storage.
-  :::
+    :::tip
+    We recommend selecting 8xlarge or above for large and long-lived production pipelines: 
+    - A local temp storage disk of at least 200 GB and a random read speed of 1000 MBps or more. To work with files larger than 100 GB, increase temp storage accordingly (400 GB or more).
+    - Dedicated networking ensures a guaranteed network speed service level compared with "burstable" instances. See [Instance network bandwidth](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-network-bandwidth.html) for more information.
+    :::
 
-13. Set the **Config mode** to **Batch Forge**.
-14. Select a **Provisioning model**. In most cases, this will be **Spot**. You can specify an allocation strategy and instance types under [**Advanced options**](#advanced-options). If advanced options are omitted, Seqera Platform 23.2 and later versions default to `BEST_FIT_PROGRESSIVE` for on-demand and `SPOT_CAPACITY_OPTIMIZED` for spot compute environments.
+    When using Fusion v2 without fast instance storage, the following EBS settings are applied to optimize file system performance:
 
-  :::note
-  You can create a compute environment that launches either spot or on-demand instances. Spot instances can cost as little as 20% of on-demand instances, and with Nextflow's ability to automatically relaunch failed tasks, spot is almost always the recommended provisioning model. Note, however, that when choosing spot instances, Seqera will also create a dedicated queue for running the main Nextflow job using a single on-demand instance to prevent any execution interruptions.
-  :::
+    - EBS boot disk size is increased to 100 GB
+    - EBS boot disk type GP3 is selected
+    - EBS boot disk throughput is increased to 325 MB/s
 
-15. Enter the **Max CPUs**, e.g., `64`. This is the maximum number of combined CPUs (the sum of all instances' CPUs) AWS Batch will provision at any time.
-16. Select **EBS Auto scale (deprecated)** to allow the EC2 virtual machines to dynamically expand the amount of available disk space during task execution. This feature is deprecated, and is not compatible with Fusion v2.
+    Extensive benchmarking of Fusion v2 has demonstrated that the increased cost associated with these settings are generally outweighed by the costs saved due to decreased run time.
 
-  :::note
-  When you run large AWS Batch clusters (hundreds of compute nodes or more), EC2 API rate limits may cause the deletion of unattached EBS volumes to fail. You should delete volumes that remain active after Nextflow jobs have completed to avoid additional costs. Monitor your AWS account for any orphaned EBS volumes via the EC2 console, or with a Lambda function. See [here](https://aws.amazon.com/blogs/mt/controlling-your-aws-costs-by-deleting-unused-amazon-ebs-volumes/) for more information.
-  :::
+    </details>
 
-17. With the optional **Enable Fusion mounts (deprecated)** feature enabled, S3 buckets specified in **Pipeline work directory** and **Allowed S3 Buckets** are mounted as file system volumes in the EC2 instances carrying out the Batch job execution. These buckets can then be accessed at `/fusion/s3/<bucket-name>`. For example, if the bucket name is `s3://imputation-gp2`, your pipeline will access it using the file system path `/fusion/s3/imputation-gp2`. **Note:** This feature has been deprecated. Consider using Fusion v2 (see above) for enhanced performance and stability.
+1. Set the **Config mode** to **Batch Forge**.
+1. Select a **Provisioning model**. In most cases, this will be **Spot**. You can specify an allocation strategy and instance types under [**Advanced options**](#advanced-options). If advanced options are omitted, Seqera Platform 23.2 and later versions default to `BEST_FIT_PROGRESSIVE` for on-demand and `SPOT_CAPACITY_OPTIMIZED` for spot compute environments.
+    :::note
+    You can create a compute environment that launches either spot or on-demand instances. Spot instances can cost as little as 20% of on-demand instances, and with Nextflow's ability to automatically relaunch failed tasks, spot is almost always the recommended provisioning model. Note, however, that when choosing spot instances, Seqera will also create a dedicated queue for running the main Nextflow job using a single on-demand instance to prevent any execution interruptions.
+    :::
+1. Enter the **Max CPUs**, e.g., `64`. This is the maximum number of combined CPUs (the sum of all instances' CPUs) AWS Batch will provision at any time.
+1. Select **EBS Auto scale (deprecated)** to allow the EC2 virtual machines to dynamically expand the amount of available disk space during task execution. This feature is deprecated, and is not compatible with Fusion v2.
+    :::note
+    When you run large AWS Batch clusters (hundreds of compute nodes or more), EC2 API rate limits may cause the deletion of unattached EBS volumes to fail. You should delete volumes that remain active after Nextflow jobs have completed to avoid additional costs. Monitor your AWS account for any orphaned EBS volumes via the EC2 console, or with a Lambda function. See [here](https://aws.amazon.com/blogs/mt/controlling-your-aws-costs-by-deleting-unused-amazon-ebs-volumes/) for more information.
+    :::
+1. With the optional **Enable Fusion mounts (deprecated)** feature enabled, S3 buckets specified in **Pipeline work directory** and **Allowed S3 Buckets** are mounted as file system volumes in the EC2 instances carrying out the Batch job execution. These buckets can then be accessed at `/fusion/s3/<bucket-name>`. For example, if the bucket name is `s3://imputation-gp2`, your pipeline will access it using the file system path `/fusion/s3/imputation-gp2`. **Note:** This feature has been deprecated. Consider using Fusion v2 (see above) for enhanced performance and stability.
+    :::note
+    You do not need to modify your pipeline or files to take advantage of this feature. Nextflow will automatically recognize and replace any reference to files prefixed with `s3://` with the corresponding Fusion mount paths.
+    :::
+1. Select **Enable Fargate for head job** to run the Nextflow head job with the [AWS Fargate](https://aws.amazon.com/fargate/) container service and speed up pipeline launch. Fargate is a serverless compute engine that enables users to run containers without the need to provision servers or clusters in advance. AWS takes a few minutes to spin up an EC2 instance, whereas jobs can be launched with Fargate in under a minute (depending on container size). We recommend Fargate for most pipeline deployments, but EC2 is more suitable for environments that use GPU instances, custom AMIs, or that require more than 16 vCPUs. If you specify a custom AMI ID in the [Advanced options](#advanced-options) below, this will not be applied to the Fargate-enabled head job. See [here](https://docs.aws.amazon.com/batch/latest/userguide/fargate.html#when-to-use-fargate) for more information on Fargate's limitations.
+    :::note
+    Fargate requires the Fusion v2 file system and a **spot** provisioning model. Fargate is not compatible with EFS and FSx file systems.
+    :::
+1. Select **Enable GPUs** if you intend to run GPU-dependent workflows in the compute environment. See [GPU usage](./overview.mdx#aws-batch) for more information.
+1. Select **Use Graviton CPU architecture** to execute on Graviton-based EC2 instances (i.e., ARM64 CPU architecture). When enabled, `m6g`, `r6g`, and `c6g` instance types are used by default for compute jobs, but 3rd-generation Graviton [instances](https://www.amazonaws.cn/en/ec2/graviton/) are also supported. You can specify your own **Instance types** under [**Advanced options**](#advanced-options).
+    :::note
+    Graviton requires Fargate, Wave containers, and Fusion v2 file system to be enabled. This feature is not compatible with GPU-based architecture.
+    :::
+1. Enter any additional **Allowed S3 buckets** that your workflows require to read input data or write output data. The **Pipeline work directory** bucket above is added by default to the list of **Allowed S3 buckets**.
+1. To use **EFS**, you can either select **Use existing EFS file system** and specify an existing EFS instance, or select **Create new EFS file system** to create one. To use the EFS file system as your work directory, specify `<your_EFS_mount_path>/work` in the **Pipeline work directory** field (step 8 of this guide).
+    - To use an existing EFS file system, enter the **EFS file system id** and **EFS mount path**. This is the path where the EFS volume is accessible to the compute environment. For simplicity, we recommend that you use `/mnt/efs` as the EFS mount path.
+    - To create a new EFS file system, enter the **EFS mount path**. We advise that you specify `/mnt/efs` as the EFS mount path.
+    - EFS file systems created by Batch Forge are automatically tagged in AWS with `Name=TowerForge-<id>`, with `<id>` being the compute environment ID. Any manually-added resource label with the key `Name` (capital N) will override the automatically-assigned `TowerForge-<id>` label.
+1. To use **FSx for Lustre**, you can either select **Use existing FSx file system** and specify an existing FSx instance, or select **Create new FSx file system** to create one. To use the FSx file system as your work directory, specify `<your_FSx_mount_path>/work` in the **Pipeline work directory** field (step 8 of this guide).
+    - To use an existing FSx file system, enter the **FSx DNS name** and **FSx mount path**. The FSx mount path is the path where the FSx volume is accessible to the compute environment. For simplicity, we recommend that you use `/mnt/fsx` as the FSx mount path.
+    - To create a new FSx file system, enter the **FSx size** (in GB) and the **FSx mount path**. We advise that you specify `/mnt/fsx` as the FSx mount path.
+    - FSx file systems created by Batch Forge are automatically tagged in AWS with `Name=TowerForge-<id>`, with `<id>` being the compute environment ID. Any manually-added resource label with the key `Name` (capital N) will override the automatically-assigned `TowerForge-<id>` label.
+1. Select **Dispose resources** to automatically delete these AWS resources if you delete the compute environment in Seqera Platform.
+1. Apply [**Resource labels**](../resource-labels/overview.mdx) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
+1. Expand **Staging options** to include:
+    - Optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre--post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
+    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Configuration settings in this field override the same values in the pipeline Nextflow config file. 
+1. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
+1. Configure any advanced options described in the next section, as needed.
+1. Select **Create** to finalize the compute environment setup. It will take a few seconds for all the AWS resources to be created before you are ready to launch pipelines.
 
-  :::note
-  You do not need to modify your pipeline or files to take advantage of this feature. Nextflow will automatically recognize and replace any reference to files prefixed with `s3://` with the corresponding Fusion mount paths.
-  :::
-
-18. Select **Enable Fargate for head job** to run the Nextflow head job with the [AWS Fargate](https://aws.amazon.com/fargate/) container service and speed up pipeline launch. Fargate is a serverless compute engine that enables users to run containers without the need to provision servers or clusters in advance. AWS takes a few minutes to spin up an EC2 instance, whereas jobs can be launched with Fargate in under a minute (depending on container size). We recommend Fargate for most pipeline deployments, but EC2 is more suitable for environments that use GPU instances, custom AMIs, or that require more than 16 vCPUs. If you specify a custom AMI ID in the [Advanced options](#advanced-options) below, this will not be applied to the Fargate-enabled head job. See [here](https://docs.aws.amazon.com/batch/latest/userguide/fargate.html#when-to-use-fargate) for more information on Fargate's limitations.
-
-  :::note
-  Fargate requires the Fusion v2 file system and a **spot** provisioning model. Fargate is not compatible with EFS and FSx file systems.
-  :::
-
-19. Select **Enable GPUs** if you intend to run GPU-dependent workflows in the compute environment. See [GPU usage](./overview.mdx#aws-batch) for more information.
-20. Select **Use Graviton CPU architecture** to execute on Graviton-based EC2 instances (i.e., ARM64 CPU architecture). When enabled, `m6g`, `r6g`, and `c6g` instance types are used by default for compute jobs, but 3rd-generation Graviton [instances](https://www.amazonaws.cn/en/ec2/graviton/) are also supported. You can specify your own **Instance types** under [**Advanced options**](#advanced-options).
-
-  :::note
-  Graviton requires Fargate, Wave containers, and Fusion v2 file system to be enabled. This feature is not compatible with GPU-based architecture.
-  :::
-
-21. Enter any additional **Allowed S3 buckets** that your workflows require to read input data or write output data. The **Pipeline work directory** bucket above is added by default to the list of **Allowed S3 buckets**.
-22. To use **EFS**, you can either select **Use existing EFS file system** and specify an existing EFS instance, or select **Create new EFS file system** to create one. To use the EFS file system as your work directory, specify `<your_EFS_mount_path>/work` in the **Pipeline work directory** field (step 8 of this guide).
-
-  - To use an existing EFS file system, enter the **EFS file system id** and **EFS mount path**. This is the path where the EFS volume is accessible to the compute environment. For simplicity, we recommend that you use `/mnt/efs` as the EFS mount path.
-  - To create a new EFS file system, enter the **EFS mount path**. We advise that you specify `/mnt/efs` as the EFS mount path.
-  - EFS file systems created by Batch Forge are automatically tagged in AWS with `Name=TowerForge-<id>`, with `<id>` being the compute environment ID. Any manually-added resource label with the key `Name` (capital N) will override the automatically-assigned `TowerForge-<id>` label.
-
-23. To use **FSx for Lustre**, you can either select **Use existing FSx file system** and specify an existing FSx instance, or select **Create new FSx file system** to create one. To use the FSx file system as your work directory, specify `<your_FSx_mount_path>/work` in the **Pipeline work directory** field (step 8 of this guide).
-
-  - To use an existing FSx file system, enter the **FSx DNS name** and **FSx mount path**. The FSx mount path is the path where the FSx volume is accessible to the compute environment. For simplicity, we recommend that you use `/mnt/fsx` as the FSx mount path.
-  - To create a new FSx file system, enter the **FSx size** (in GB) and the **FSx mount path**. We advise that you specify `/mnt/fsx` as the FSx mount path.
-  - FSx file systems created by Batch Forge are automatically tagged in AWS with `Name=TowerForge-<id>`, with `<id>` being the compute environment ID. Any manually-added resource label with the key `Name` (capital N) will override the automatically-assigned `TowerForge-<id>` label.
-
-24. Select **Dispose resources** to automatically delete these AWS resources if you delete the compute environment in Seqera Platform.
-25. Apply [**Resource labels**](../resource-labels/overview.mdx) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
-26. Expand **Staging options** to include:
-  - Optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre--post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
-  - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Configuration settings in this field override the same values in the pipeline Nextflow config file. 
-27. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
-28. Configure any advanced options described in the next section, as needed.
-29. Select **Create** to finalize the compute environment setup. It will take a few seconds for all the resources to be created before you are ready to [launch pipelines](../launch/launchpad.mdx).
+:::info 
+See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in your AWS Batch compute environment.
+:::
 
 ### Advanced options
 
@@ -197,7 +199,6 @@ Specify the **Allocation strategy** and indicate any preferred **Instance types*
   :::note
   If these advanced options are omitted, allocation strategy defaults are `BEST_FIT_PROGRESSIVE` for on-demand and `SPOT_CAPACITY_OPTIMIZED` for spot compute environments.
   :::
-
   :::caution
   tw CLI v0.8 and earlier does not support the `SPOT_PRICE_CAPACITY_OPTIMIZED` allocation strategy in AWS Batch. You cannot currently use CLI to create or otherwise interact with AWS Batch spot compute environments that use this allocation strategy.
   :::
@@ -205,18 +206,18 @@ Specify the **Allocation strategy** and indicate any preferred **Instance types*
 - Configure a custom networking setup using the **VPC ID**, **Subnets**, and **Security groups** fields.
 - You can specify a custom **AMI ID**.
 
-  :::note
-  To use a custom AMI, make sure the AMI is based on an Amazon Linux-2 ECS-optimized image that meets the Batch requirements. To learn more about approved versions of the Amazon ECS-optimized AMI, see [this AWS guide](https://docs.aws.amazon.com/batch/latest/userguide/compute_resource_AMIs.html#batch-ami-spec).
+    :::note
+    To use a custom AMI, make sure the AMI is based on an Amazon Linux-2 ECS-optimized image that meets the Batch requirements. To learn more about approved versions of the Amazon ECS-optimized AMI, see [this AWS guide](https://docs.aws.amazon.com/batch/latest/userguide/compute_resource_AMIs.html#batch-ami-spec).
 
-  If a custom AMI is specified and the **Enable GPU** option is also selected, the custom AMI will be used instead of the AWS-recommended GPU-optimized AMI.
-  :::
+    If a custom AMI is specified and the **Enable GPU** option is also selected, the custom AMI will be used instead of the AWS-recommended GPU-optimized AMI.
+    :::
 
 - If you need to debug the EC2 instance provisioned by AWS Batch, specify a **Key pair** to log in to the instance via SSH.
 - You can set **Min CPUs** to be greater than `0`, in which case some EC2 instances will remain active. An advantage of this is that pipeline executions will initialize faster.
 
-  :::note
-  Keeping EC2 instances running may result in additional costs. You will be billed for these running EC2 instances regardless of whether you are executing pipelines or not.
-  :::
+    :::note
+    Keeping EC2 instances running may result in additional costs. You will be billed for these running EC2 instances regardless of whether you are executing pipelines or not.
+    :::
 
 - Use **Head Job CPUs** and **Head Job Memory** to specify the hardware resources allocated for the Nextflow head job. The default head job memory allocation is 4096 MiB.
 - Use **Head Job role** and **Compute Job role** to grant fine-grained IAM permissions to the **Head Job** and **Compute Jobs**.
@@ -231,8 +232,6 @@ Specify the **Allocation strategy** and indicate any preferred **Instance types*
   :::note
   Altering this file may result in a malfunctioning Batch Forge compute environment. See [Amazon ECS container agent configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) to learn more about the available parameters.
   :::
-
-See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in your AWS Batch compute environment.
 
 ## Manual
 
@@ -253,10 +252,10 @@ Seqera can use S3 to store the intermediate files and output data generated by p
 **Assign an S3 access policy to Seqera IAM users**
 
 1. Go to the IAM User table in the [IAM service](https://console.aws.amazon.com/iam/home).
-2. Select the IAM user.
-3. Select **Add inline policy**.
-4. Copy the contents of [this policy](https://github.com/seqeralabs/nf-tower-aws/blob/master/launch/s3-bucket-write.json) into the **JSON** tab. Replace `YOUR-BUCKET-NAME` (lines 10 and 21) with your bucket name.
-5. Name your policy and select **Create policy**.
+1. Select the IAM user.
+1. Select **Add inline policy**.
+1. Copy the contents of [this policy](https://github.com/seqeralabs/nf-tower-aws/blob/master/launch/s3-bucket-write.json) into the **JSON** tab. Replace `YOUR-BUCKET-NAME` (lines 10 and 21) with your bucket name.
+1. Name your policy and select **Create policy**.
 
 ### Seqera manual compute environment
 
@@ -274,17 +273,50 @@ Your Seqera compute environment uses resources that you may be charged for in yo
 1. Select **+** to add new credentials.
 1. Enter a name for the credentials, e.g., _AWS Credentials_.
 1. Enter the **Access key** and **Secret key** for your IAM user.
-
     :::note
     You can create multiple credentials in your Seqera environment. See [Credentials](../credentials/overview.mdx).
     :::
-
 1. Select a **Region**, e.g., _eu-west-1 - Europe (Ireland)_.
 1. Enter an S3 bucket path for the **Pipeline work directory**, e.g., `s3://seqera-bucket`. This bucket must be in the same region chosen in the previous step.
-
     :::note
     When you specify an S3 bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. Seqera adds a `cloudcache` block to the Nextflow configuration file for all runs executed with this compute environment. This block includes the path to a `cloudcache` folder in your work directory, e.g., `s3://seqera-bucket/cloudcache/.cache`. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad.mdx#launch-form) form.
     :::
+1. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers](https://www.nextflow.io/docs/latest/wave.html) for more information.
+1. Select **Enable Fusion v2** to allow access to your S3-hosted data via the [Fusion v2](https://docs.seqera.io/fusion) virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled. See [Fusion file system](../supported_software/fusion/fusion.mdx) for configuration details.
+
+    <details>
+    <summary>Use Fusion v2 file system</summary>
+
+    :::note
+    The compute recommendations below are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files and a total size of approximately 123.5 GB. 
+    :::
+
+    We recommend using Fusion with AWS NVMe instances (fast instance storage) as this delivers the fastest performance when compared to environments using only AWS EBS (Elastic Block Store).
+
+    1. Use Seqera Platform version 23.1 or later.
+    1. Use an S3 bucket as the pipeline work directory.
+    1. Enable **Wave containers**, **Fusion v2**, and **fast instance storage**.
+    1. Fast instance storage requires an EC2 instance type that uses NVMe disks. Specify NVMe-based instance types in **Instance types** under **Advanced options**. If left unspecified, Platform selects instances from AWS NVMe-based instance type families. See [Instance store temporary block storage for EC2 instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html) for more information.
+
+    :::note
+    When enabling fast instance storage, do not select the `optimal` instance type families (c4, m4, r4) for your compute environment as these are not NVMe-based instances. Specify AWS NVMe-based instance types, or leave the **Instance types** field empty for Platform to select NVMe instances for you.
+    :::
+
+    :::tip
+    We recommend selecting 8xlarge or above for large and long-lived production pipelines: 
+    - A local temp storage disk of at least 200 GB and a random read speed of 1000 MBps or more. To work with files larger than 100 GB, increase temp storage accordingly (400 GB or more).
+    - Dedicated networking ensures a guaranteed network speed service level compared with "burstable" instances. See [Instance network bandwidth](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-network-bandwidth.html) for more information.
+    :::
+
+    When using Fusion v2 without fast instance storage, the following EBS settings are applied to optimize file system performance:
+
+    - EBS boot disk size is increased to 100 GB
+    - EBS boot disk type GP3 is selected
+    - EBS boot disk throughput is increased to 325 MB/s
+
+    Extensive benchmarking of Fusion v2 has demonstrated that the increased cost associated with these settings are generally outweighed by the costs saved due to decreased run time.
+
+    </details>
 
 1. Set the **Config mode** to **Manual**.
 1. Enter the **Head queue**, which is the name of the AWS Batch queue that the Nextflow main job will run.
@@ -297,6 +329,10 @@ Your Seqera compute environment uses resources that you may be charged for in yo
 1. Configure any advanced options described in the next section, as needed.
 1. Select **Create** to finalize the compute environment setup.
 
+:::info
+See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in your AWS Batch compute environment.
+:::
+
 ### Advanced options
 
 Seqera Platform compute environments for AWS Batch include advanced options to configure resource allocation, execution roles, custom AWS CLI tool paths, and CloudWatch integration.
@@ -308,5 +344,3 @@ Seqera Platform compute environments for AWS Batch include advanced options to c
 - Add an execution role ARN to the **Batch execution role** field to grant permissions to make API calls on your behalf to the ECS container used by Batch. This is required if the pipeline launched with this compute environment needs access to the secrets stored in this workspace. This field can be ignored if you are not using secrets.
 - Use **AWS CLI tool path** to specify the location of the `aws` CLI.
 - Specify a **CloudWatch Log group** for the `awslogs` driver to stream the logs entry to an existing Log group in Cloudwatch.
-
-See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in your AWS Batch compute environment.
