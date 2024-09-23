@@ -50,7 +50,8 @@ const VersionSwitcher = () => {
       >
         <span>v{currentVersion.label} {currentVersion.label == versions[0].label ? " (current)": ""}</span>
         <Caret
-          className={`w-6 h-6 ml-2 transition-transform duration-200 fill-black dark:fill-white ${isOpen ? "rotate-0" : "-rotate-90"}`}
+          className={`w-6 h-6 ml-2 transition-transform duration-200 fill-black dark:fill-white`}
+          style={{ transform: isOpen ? "rotate(0)" : "rotate(-90deg)" }}
         />
       </button>
       {isOpen && (
