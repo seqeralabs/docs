@@ -2,17 +2,17 @@ import React from "react";
 import { useLocation } from '@docusaurus/router';
 import styles from "./styles.module.css";
 
-import Fusion from "../images/fusion.inline.svg";
-import Nextflow from "../images/nextflow.inline.svg";
-import MultiQC from "../images/multiqc.inline.svg";
-import Platform from "../images/platform2.inline.svg";
-import Wave from "../images/wave.inline.svg";
+import Fusion from "../images/fusion.svg";
+import Nextflow from "../images/nextflow.svg";
+import MultiQC from "../images/multiqc.svg";
+import Platform from "../images/platform.svg";
+import Wave from "../images/wave.svg";
 
-import FusionDark from "../images/fusion.dark.inline.svg";
-import NextflowDark from "../images/nextflow.dark.inline.svg";
-import MultiQCDark from "../images/multiqc.dark.inline.svg";
-import PlatformDark from "../images/platform2.dark.inline.svg";
-import WaveDark from "../images/wave.dark.inline.svg";
+import FusionDark from "../images/fusion.dark.svg";
+import NextflowDark from "../images/nextflow.dark.svg";
+import MultiQCDark from "../images/multiqc.dark.svg";
+import PlatformDark from "../images/platform.dark.svg";
+import WaveDark from "../images/wave.dark.svg";
 
 
 
