@@ -1,10 +1,10 @@
 /* Theme-specific styles */
-[data-theme='light'] .productSwitcherWrapper {
+[data-theme='light'] .productSwitcherButton {
     background-color: #fff;
     border: 1px solid #D0CFD4;
 }
 
-[data-theme='dark'] .productSwitcherWrapper {
+[data-theme='dark'] .productSwitcherButton {
     background-color: var(--color-brand-1400);
     border: 1px solid var(--color-brand-800);
 }
@@ -29,18 +29,20 @@
 
 /* Product Switcher Wrapper */
 .productSwitcherWrapper {
-    border-radius: 5px;
+    position: relative;
     margin: 15px 0 20px;
+}
+.productSwitcherButton {
+    border-radius: 5px;
     padding: 12px 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative;
     cursor: pointer;
     width: 100%;
 }
 
-.productSwitcherWrapperOpen {
+.productSwitcherButtonOpen {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
@@ -92,10 +94,16 @@
     color: #333;
     width: 100%;
     border-bottom: 1px solid #e0e0e0;
+    transition: background 100ms;
 }
 
 .dropdownItem:last-child {
     border-bottom: none;
+}
+
+.productSwitcherButton:hover,
+.dropdownItem:hover {
+    background: #E8EBFC;
 }
 
 .dropdownItemContent {

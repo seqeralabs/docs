@@ -66,13 +66,15 @@ const ProductSwitcher = () => {
   const currentProduct = getCurrentProduct();
 
   return (
-    <button
-      onClick={toggleDropdown}
-      className={`${styles.productSwitcherWrapper} ${isOpen ? styles.productSwitcherWrapperOpen : ''}`}
-      ref={dropdownRef}
-    >
-      <ProductLogo />
-      <Caret className={`${styles.caret} ${isOpen ? styles.caretOpen : ''}`} />
+    <div className={styles.productSwitcherWrapper}>
+      <button
+        onClick={toggleDropdown}
+        className={`${styles.productSwitcherButton} ${isOpen ? styles.productSwitcherButtonOpen : ''}`}
+        ref={dropdownRef}
+      >
+        <ProductLogo />
+        <Caret className={`${styles.caret} ${isOpen ? styles.caretOpen : ''}`} />
+      </button>
       <div className={`${styles.dropdown} ${isOpen ? styles.dropdownVisible : ''}`}>
         {products
           .filter((product) => product.name !== currentProduct)
@@ -96,7 +98,7 @@ const ProductSwitcher = () => {
             </Link>
           ))}
       </div>
-    </button>
+    </div>
   );
 };
 
