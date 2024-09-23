@@ -1,144 +1,145 @@
 /* Theme-specific styles */
-[data-theme='light'] .productSwitcherButton {
-    background-color: #fff;
-    border: 1px solid #D0CFD4;
+[data-theme="light"] .productSwitcherButton {
+  background-color: #fff;
+  border: 1px solid #d0cfd4;
 }
 
-[data-theme='dark'] .productSwitcherButton {
-    background-color: var(--color-brand-1400);
-    border: 1px solid var(--color-brand-800);
+[data-theme="dark"] .productSwitcherButton {
+  background-color: var(--color-brand-1400);
+  border: 1px solid var(--color-brand-800);
 }
 
-[data-theme='dark'] .caret {
-    fill: #fff;
+[data-theme="dark"] .caret {
+  fill: #fff;
 }
 
-[data-theme='dark'] .dropdown {
-    background-color: var(--color-brand-1400);
-    border-color: var(--color-brand-800);
+[data-theme="dark"] .dropdown {
+  background-color: var(--color-brand-1400);
+  border-color: var(--color-brand-800);
 }
 
-[data-theme='dark'] .dropdownItem {
-    color: #fff;
-    border-bottom-color: var(--color-brand-800);
+[data-theme="dark"] .dropdownItem {
+  color: #fff;
+  border-bottom-color: var(--color-brand-800);
 }
 
-[data-theme='dark'] .dropdownItem:hover {
-    background-color: var(--color-brand-1300);
+[data-theme="dark"] .dropdownItem:hover {
+  background-color: var(--color-brand-1300);
 }
 
 /* Product Switcher Wrapper */
 .productSwitcherWrapper {
-    position: relative;
-    margin: 15px 0 20px;
+  position: relative;
+  margin: 15px 0 20px;
 }
 .productSwitcherButton {
-    border-radius: 5px;
-    padding: 12px 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    width: 100%;
+  border-radius: 5px;
+  padding: 12px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  width: 100%;
 }
 
 .productSwitcherButtonOpen {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 /* Caret */
 .caret {
-    margin-left: 8px;
-    width: 24px;
-    height: 24px;
-    fill: #000;
-    transform: rotate(-90deg);
-    transition: transform 200ms ease-in-out;
+  margin-left: 8px;
+  width: 24px;
+  height: 24px;
+  fill: #000;
+  transform: rotate(-90deg);
+  transition: transform 200ms ease-in-out;
 }
 
 .caretOpen {
-    transform: rotate(0);
+  transform: rotate(0);
 }
 
 /* Dropdown */
 .dropdown {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 100ms ease-in-out, visibility 100ms ease-in-out;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-top: none;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    z-index: 1000;
-}
-
-.dropdownVisible {
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 100ms ease-in-out,
+    visibility 100ms ease-in-out;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  z-index: 1000;
+  &.dropdownVisible {
     opacity: 1;
     visibility: visible;
+  }
 }
 
 /* Dropdown Items */
 .dropdownItem {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 15px;
-    text-decoration: none;
-    color: #333;
-    width: 100%;
-    border-bottom: 1px solid #e0e0e0;
-    transition: background 100ms;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 15px;
+  text-decoration: none;
+  color: #333;
+  width: 100%;
+  border-bottom: 1px solid #e0e0e0;
+  transition: background 100ms;
 }
 
 .dropdownItem:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .productSwitcherButton:hover,
 .dropdownItem:hover {
-    background: #E8EBFC;
+  background: #e8ebfc;
 }
-[data-theme='dark'] .productSwitcherButton:hover,
-[data-theme='dark'] .dropdownItem:hover {
-    background: #000000;
+[data-theme="dark"] .productSwitcherButton:hover,
+[data-theme="dark"] .dropdownItem:hover {
+  background: #000000;
 }
 
 .dropdownItemContent {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .productLogo {
-    height: 24px;
+  height: 24px;
 }
 
 .externalLinkIcon {
-    margin-left: 8px;
+  margin-left: 8px;
 }
 
 .dropdownItem svg {
-    vertical-align: middle;
+  vertical-align: middle;
 }
 
 /* Theme-specific display */
 .themeLight {
-    display: inline-block;
+  display: inline-block;
 }
 
 .themeDark {
-    display: none;
+  display: none;
 }
 
-[data-theme='dark'] .themeLight {
-    display: none;
+[data-theme="dark"] .themeLight {
+  display: none;
 }
 
-[data-theme='dark'] .themeDark {
-    display: inline-block;
+[data-theme="dark"] .themeDark {
+  display: inline-block;
 }
