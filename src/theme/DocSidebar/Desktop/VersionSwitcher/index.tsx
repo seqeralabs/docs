@@ -43,26 +43,26 @@ const VersionSwitcher = () => {
     <div className="relative">
       <button
         onClick={toggleDropdown}
-        className={`flex justify-between items-center w-full rounded-md my-4 py-3 px-4 cursor-pointer bg-white dark:bg-brand-1400 border border-gray-300 dark:border-brand-800 ${
+        className={`flex justify-between items-center w-full rounded-md mb-4 py-2 px-4 cursor-pointer text-sm bg-white dark:bg-brand-1400 border border-gray-300 dark:border-brand-800 hover:bg-[#e8ebfc] dark:hover:bg-brand-1300 border-solid ${
           isOpen ? "rounded-b-none" : ""
         }`}
         ref={dropdownRef}
       >
-        <span>Version: {currentVersion.label}</span>
+        <span>v{currentVersion.label} {currentVersion.label == versions[0].label ? " (current)": ""}</span>
         <Caret
           className={`w-6 h-6 ml-2 transition-transform duration-200 fill-black dark:fill-white ${isOpen ? "rotate-0" : "-rotate-90"}`}
         />
       </button>
       {isOpen && (
-        <div className="absolute left-0 right-0 top-full z-10 bg-white dark:bg-brand-1400 border border-gray-300 dark:border-brand-800 border-t-0 rounded-b-md">
-          {versions?.map((version) => (
+        <div className="absolute left-0 right-0 top-full z-10 bg-white dark:bg-brand-1400 border-solid border border-gray-300 dark:border-brand-800 border-t-0 rounded-b-md">
+          {versions?.map((version, idx) => (
             <Link
               key={version.name}
               to={version.path}
-              className="flex items-center w-full p-3 border-b border-gray-200 dark:border-brand-800 last:border-b-0 text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-brand-1300"
+              className="flex items-center w-full p-3 border-solid border-0 border-b border-gray-300 dark:border-brand-800 last:border-b-0 text-gray-800 hover:text-gray-800 hover:no-underline text-sm dark:text-white hover:bg-[#e8ebfc] dark:hover:bg-brand-1300"
               onClick={() => handleSelectVersion(version.name)}
             >
-              {version.label}
+              v{version.label} {idx == 0 ? " (current)" : ""}
             </Link>
           ))}
         </div>

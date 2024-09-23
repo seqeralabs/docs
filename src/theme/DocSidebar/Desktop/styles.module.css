@@ -27,3 +27,7 @@ aside {
 .colorModeToggle {
     margin-bottom: 16px;
 }
+
+[data-theme='dark'] hr {
+    opacity: 0.5;
+}

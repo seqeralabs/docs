@@ -30,7 +30,7 @@
 /* Product Switcher Wrapper */
 .productSwitcherWrapper {
   position: relative;
-  margin: 15px 0 20px;
+  margin: 15px 0;
 }
 .productSwitcherButton {
   border-radius: 5px;
