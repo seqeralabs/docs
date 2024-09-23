@@ -22,7 +22,7 @@ You will need the following to get started:
 
 - [Admin](../orgs-and-teams/roles.mdx) permissions in an existing organization workspace. See [Set up your workspace](./workspace-setup.mdx) to create an organization and workspace from scratch.
 - An existing AWS cloud account with access to the AWS Batch service.
-- Existing access credentials with permissions to create and manage compute and storage resources in your cloud provider account.
+- Existing access credentials with permissions to create and manage resources in your AWS account.
 :::
 
 ## Compute environment
@@ -35,7 +35,9 @@ In this guide, we will create an AWS Batch compute environment with sufficient r
 The compute recommendations below are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files and a total size of approximately 123.5 GB. 
 :::
 
-#### Recommended compute environment resources
+### Recommended compute environment resources
+
+The following compute resources are recommended for production pipelines, depending on the size of your input dataset:
 
 | **Setting**                    | **Value**                             |
 |--------------------------------|---------------------------------------|
@@ -44,6 +46,17 @@ The compute recommendations below are based on internal benchmarking performed b
 | **Memory (GiB)**               | 8 - 32                                |
 | **Max CPUs**                   | >500                                  |
 | **Min CPUs**                   | 0                                     |
+
+#### Fusion file system 
+
+The [Fusion](../supported_software/fusion/fusion.mdx) file system enables seamless filesystem I/O to cloud object stores via a standard POSIX interface, resulting in
+simpler pipeline logic and faster, more efficient pipeline execution. While Fusion is not required for pipeline execution, it is recommended for optimal performance. See [Compute benchmarks](#compute-benchmarks) at the end of this guide.
+
+We recommend using Fusion with AWS NVMe instances (fast instance storage) as this delivers the fastest performance when compared to environments using only AWS EBS (Elastic Block Store). Batch Forge selects instances automatically based on your compute environment configuration, but you can optionally specify instance types. To enable fast instance storage (see Create compute environment below), you must select EC2 instances with NVMe SSD storage (`m5d.large` - `m5d.2xlarge` or greater). 
+
+:::note 
+Fusion requires a license for use in Seqera Platform compute environments or directly in Nextflow. Fusion can be trialed at no cost. [Contact Seqera](https://seqera.io/contact-us/) for more details.
+:::
 
 ### Create compute environment
 
@@ -200,114 +213,156 @@ Modify other parameters to customize the pipeline execution through the paramete
 
 Select **Launch** to start the run and be directed to the **Runs** tab with your run in a **submitted** status at the top of the list.
 
-## Run monitoring
+<details>
+  <summary>**Run monitoring**</summary>
 
-Select your new run from the **Runs** tab list to view the run details.
+  ## Run monitoring
 
-#### Run details page
+  Select your new run from the **Runs** tab list to view the run details.
 
-As the pipeline runs, run details will populate with the following tabs:
+  #### Run details page
 
-- **Command-line**: The Nextflow command invocation used to run the pipeline. This includes details about the pipeline version (`-r` flag) and profile, if specified (`-profile` flag).
-- **Parameters**: The exact set of parameters used in the execution. This is helpful for reproducing the results of a previous run.
-- **Resolved Nextflow configuration**: The full Nextflow configuration settings used for the run. This includes parameters, but also settings specific to task execution (such as memory, CPUs, and output directory).
-- **Execution Log**: A summarized Nextflow log providing information about the pipeline and the status of the run.
-- **Datasets**: Link to datasets, if any were used in the run.
-- **Reports**: View pipeline outputs directly in the Platform.
+  As the pipeline runs, run details will populate with the following tabs:
 
-![View the nf-core/rnaseq run](./quickstart-demo/assets/sp-cloud-run-info.gif)
+  - **Command-line**: The Nextflow command invocation used to run the pipeline. This includes details about the pipeline version (`-r` flag) and profile, if specified (`-profile` flag).
+  - **Parameters**: The exact set of parameters used in the execution. This is helpful for reproducing the results of a previous run.
+  - **Resolved Nextflow configuration**: The full Nextflow configuration settings used for the run. This includes parameters, but also settings specific to task execution (such as memory, CPUs, and output directory).
+  - **Execution Log**: A summarized Nextflow log providing information about the pipeline and the status of the run.
+  - **Datasets**: Link to datasets, if any were used in the run.
+  - **Reports**: View pipeline outputs directly in the Platform.
 
-### View reports
+  ![View the nf-core/rnaseq run](./quickstart-demo/assets/sp-cloud-run-info.gif)
 
-Most Nextflow pipelines generate reports or output files which are useful to inspect at the end of the pipeline execution. Reports can contain quality control (QC) metrics that are important to assess the integrity of the results.
+  ### View reports
 
-![Reports tab](./quickstart-demo/assets/reports-tab.png)
+  Most Nextflow pipelines generate reports or output files which are useful to inspect at the end of the pipeline execution. Reports can contain quality control (QC) metrics that are important to assess the integrity of the results.
 
-For example, for the nf-core/rnaseq pipeline, view the [MultiQC](../../../multiqc_docs/multiqc_repo/docs/markdown/index.mdx) report generated. MultiQC is a helpful reporting tool to generate aggregate statistics and summaries from bioinformatics tools.
+  ![Reports tab](./quickstart-demo/assets/reports-tab.png)
 
-![Reports MultiQC preview](./quickstart-demo/assets/reports-preview.png)
+  For example, for the nf-core/rnaseq pipeline, view the [MultiQC](../../../multiqc_docs/multiqc_repo/docs/markdown/index.mdx) report generated. MultiQC is a helpful reporting tool to generate aggregate statistics and summaries from bioinformatics tools.
 
-The paths to report files point to a location in cloud storage (in the `outdir` directory specified during launch), but you can view the contents directly and download each file without navigating to the cloud or a remote filesystem.
+  ![Reports MultiQC preview](./quickstart-demo/assets/reports-preview.png)
 
-#### Specify outputs in reports
+  The paths to report files point to a location in cloud storage (in the `outdir` directory specified during launch), but you can view the contents directly and download each file without navigating to the cloud or a remote filesystem.
 
-To customize and instruct Platform where to find reports generated by the pipeline, a [tower.yml](https://github.com/nf-core/rnaseq/blob/master/tower.yml) file that contains the locations of the generated reports must be included in the pipeline repository. 
+  #### Specify outputs in reports
 
-In the nf-core/rnaseq pipeline, the MULTIQC process step generates a MultiQC report file in HTML format:
+  To customize and instruct Platform where to find reports generated by the pipeline, a [tower.yml](https://github.com/nf-core/rnaseq/blob/master/tower.yml) file that contains the locations of the generated reports must be included in the pipeline repository. 
 
-```yaml
-reports:
-  multiqc_report.html:
-    display: "MultiQC HTML report"
-```
+  In the nf-core/rnaseq pipeline, the MULTIQC process step generates a MultiQC report file in HTML format:
 
-:::info
-See [Reports](../reports/overview.mdx) to configure reports for pipeline runs in your own workspace. 
-:::
+  ```yaml
+  reports:
+    multiqc_report.html:
+      display: "MultiQC HTML report"
+  ```
 
-#### View general information
+  :::info
+  See [Reports](../reports/overview.mdx) to configure reports for pipeline runs in your own workspace. 
+  :::
 
-The run details page includes general information about who executed the run and when, the Git hash and tag used, and additional details about the compute environment and Nextflow version used.
+  #### View general information
 
-![General run information](./quickstart-demo/assets/general-run-details.gif)
+  The run details page includes general information about who executed the run and when, the Git hash and tag used, and additional details about the compute environment and Nextflow version used.
 
-The **General** panel displays top-level information about a pipeline run:
+  ![General run information](./quickstart-demo/assets/general-run-details.gif)
 
-- Unique workflow run ID
-- Workflow run name
-- Timestamp of pipeline start
-- Pipeline version and Git commit ID
-- Nextflow session ID
-- Username of the launcher
-- Work directory path
+  The **General** panel displays top-level information about a pipeline run:
 
-#### View details for a task
+  - Unique workflow run ID
+  - Workflow run name
+  - Timestamp of pipeline start
+  - Pipeline version and Git commit ID
+  - Nextflow session ID
+  - Username of the launcher
+  - Work directory path
 
-Scroll down the page to view:
+  #### View details for a task
 
-- The progress of individual pipeline **Processes**
-- **Aggregated stats** for the run (total walltime, CPU hours)
-- **Workflow metrics** (CPU efficiency, memory efficiency)
-- A **Task details** table for every task in the workflow
+  Scroll down the page to view:
 
-The task details table provides further information on every step in the pipeline, including task statuses and metrics.
+  - The progress of individual pipeline **Processes**
+  - **Aggregated stats** for the run (total walltime, CPU hours)
+  - **Workflow metrics** (CPU efficiency, memory efficiency)
+  - A **Task details** table for every task in the workflow
 
-#### Task details
+  The task details table provides further information on every step in the pipeline, including task statuses and metrics.
 
-Select a task in the task table to open the **Task details** dialog. The dialog has three tabs: **About**, **Execution log**, and **Data Explorer**.
+  #### Task details
 
-The **About** tab includes:
+  Select a task in the task table to open the **Task details** dialog. The dialog has three tabs: **About**, **Execution log**, and **Data Explorer**.
 
-1. **Name**: Process name and tag
-2. **Command**: Task script, defined in the pipeline process
-3. **Status**: Exit code, task status, and number of attempts
-4. **Work directory**: Directory where the task was executed
-5. **Environment**: Environment variables that were supplied to the task
-6. **Execution time**: Metrics for task submission, start, and completion time
-7. **Resources requested**: Metrics for the resources requested by the task
-8. **Resources used**: Metrics for the resources used by the task
+  The **About** tab includes:
 
-![Task details window](./quickstart-demo/assets/task-details.gif)
+  1. **Name**: Process name and tag
+  2. **Command**: Task script, defined in the pipeline process
+  3. **Status**: Exit code, task status, and number of attempts
+  4. **Work directory**: Directory where the task was executed
+  5. **Environment**: Environment variables that were supplied to the task
+  6. **Execution time**: Metrics for task submission, start, and completion time
+  7. **Resources requested**: Metrics for the resources requested by the task
+  8. **Resources used**: Metrics for the resources used by the task
 
-#### Execution log
+  ![Task details window](./quickstart-demo/assets/task-details.gif)
 
-The **Execution log** tab provides a real-time log of the selected task's execution. Task execution and other logs (such as stdout and stderr) are available for download from here, if still available in your compute environment.
+  #### Execution log
 
-#### Task work directory in Data Explorer
+  The **Execution log** tab provides a real-time log of the selected task's execution. Task execution and other logs (such as stdout and stderr) are available for download from here, if still available in your compute environment.
 
-If a task fails, a good place to begin troubleshooting is the task's work directory.
+  #### Task work directory in Data Explorer
 
-Nextflow hash-addresses each task of the pipeline and creates unique directories based on these hashes. Instead of navigating through a bucket on the cloud console or filesystem to find the contents of this directory, use the **Data Explorer** tab in the Task window to view the work directory.
+  If a task fails, a good place to begin troubleshooting is the task's work directory.
 
-Data Explorer allows you to view the log files and output files generated for each task in its working directory, directly within Platform. You can view, download, and retrieve the link for these intermediate files in cloud storage from the **Data Explorer** tab to simplify troubleshooting.
+  Nextflow hash-addresses each task of the pipeline and creates unique directories based on these hashes. Instead of navigating through a bucket on the cloud console or filesystem to find the contents of this directory, use the **Data Explorer** tab in the Task window to view the work directory.
 
-![Task data explorer](./quickstart-demo/assets/sp-cloud-task-data-explorer.gif)
+  Data Explorer allows you to view the log files and output files generated for each task in its working directory, directly within Platform. You can view, download, and retrieve the link for these intermediate files in cloud storage from the **Data Explorer** tab to simplify troubleshooting.
+
+  ![Task data explorer](./quickstart-demo/assets/sp-cloud-task-data-explorer.gif)
+
+</details>
 
 ## Tertiary analysis with Data Studios
 
 Set up an environment for tertiary analysis of your pipeline data and enable collaboration with other workspace participants. 
 
 **Data Studios** streamlines the process of creating interactive analysis environments for Platform users. With built-in templates for platforms like Jupyter Notebook, RStudio, and VSCode, creating a data studio is as simple as adding and sharing pipelines or datasets.
+
+For the purposes of this guide, we will create an RStudio environment in which to normalize the pipeline output data, perform differential expression analysis, and visualize the data with MDS plots, volcano plots, and a heatmap of the most differentially expressed genes.  
+
+### Prepare your data
+
+#### Gene counts 
+
+Salmon is the default tool used during the `pseudo-aligner` step of the nf-core/rnaseq pipeline. In the pipeline output data, the `/salmon` directory contains the tool's output, including a `salmon.merged.gene_counts.tsv` file. 
+
+#### Sample info
+
+The analysis script provided in this section requires a sample information file to parse the counts data in the `salmon.merged.gene_counts.tsv` file. nf-core/rnaseq does not produce this sample information file automatically. To create a sample information file based on the genes in your `salmon.merged.gene_counts.tsv` file:
+
+1. Note the names of the columns (excluding the first column, which typically contains gene IDs) in your `salmon.merged.gene_counts.tsv` file. These are your sample names.
+1. Identify the group or condition that each sample belongs to. This information should come from your experimental design.
+1. Create a new text file named `sampleinfo.txt`, with two columns:
+    - First column header: Sample
+    - Second column header: Group
+1. For each sample in your `salmon.merged.gene_counts.tsv` file:
+    - In the "Sample" column, write the exact sample name as it appears in the gene counts file.
+    - In the "Group" column, write the corresponding group name.
+
+For example, for the dataset used in a `test_full` run of nf-core/rnaseq, the `sampleinfo.txt` looks like this:
+
+```
+Sample        Group
+GM12878_REP1  GM12878
+GM12878_REP2  GM12878
+H1_REP1       H1
+H1_REP2       H1
+K562_REP1     K562
+K562_REP2     K562
+MCF7_REP1     MCF7
+MCF7_REP2     MCF7
+```
+
+To make your `sampleinfo.txt` file accessible to the data studio, upload it to the directory that contains your pipeline output data. Select this bucket or directory when you **Mount data** during data studio setup.
 
 ### Create an RStudio analysis environment with Data Studios
 
@@ -323,9 +378,9 @@ Data studios compete for computing resources when sharing compute environments. 
 - Once the data studio has been created, select the options menu next to it and select **Start**.
 - When the data studio is in a running state, **Connect** to it. 
 
-### Configure the data studio environment
+### Perform the analysis and explore results
 
-The RStudio environment can be configured with the packages you wish to install and the R scripts you wish to run. For the purposes of this guide, the following script will be used to install the necessary packages and perform the analysis:
+The RStudio environment can be configured with the packages you wish to install and the R script you wish to run. For the purposes of this guide, the following script will be used to install the necessary packages and perform the analysis:
 
 ```console
 # 1a. Install required packages
@@ -485,59 +540,72 @@ print(paste("Number of top DE genes in heatmap:", length(top_genes)))
 This script is written for RNA-seq and differential expression analysis of human data, based on nf-core/rnaseq's `test_full` dataset. The script performs the following steps:
 
 1. Installs and loads necessary libraries.
-2. Reads in the count data and sample information.
-3. Creates a DGEList object and filters out low-count genes.
-4. Normalizes the data.
+1. Reads in the count data and sample information.
+1. Creates a DGEList object and filters out low-count genes.
+1. Normalizes the data.
 1. Displays a summary of the filtered data. 
-6. Creates an MDS plot (both displayed in RStudio and saved as a PNG file).
-7. Performs differential expression analysis for each specified contrast.
-8. Prints the number of differentially expressed genes for each comparison and saves the full results to CSV files.
-9. Creates volcano plots for each comparison (both displayed in RStudio and saved as PNG files).
-10. Creates a heatmap of the top differentially expressed genes (both displayed in RStudio and saved as a PNG file).
+1. Creates an MDS plot (both displayed in RStudio and saved as a PNG file).
+1. Performs differential expression analysis for each specified contrast.
+1. Prints the number of differentially expressed genes for each comparison and saves the full results to CSV files.
+1. Creates volcano plots for each comparison (both displayed in RStudio and saved as PNG files).
+1. Creates a heatmap of the top differentially expressed genes (both displayed in RStudio and saved as a PNG file).
 
-Customize the configuration to use your pipeline data by specifying your `<PATH_TO_YOUR_COUNTS_FILE>` and `<PATH_TO_YOUR_SAMPLE_INFO_FILE>`.
+#### Customize the R script 
 
-### Explore results
+1. In steps `2a` and `2d` of the R script in the previous section, specify the paths to your `salmon.merged.gene_counts.tsv` and `sampleinfo.txt` files.
+1. In step `7d`, modify the contrasts based on the comparisons you want to make between your sample groups:
 
+    ```r
+    my.contrasts <- makeContrasts(
+    Sample1vsSample2 = Sample1 - Sample2,
+    Sample2vsSample3 = Sample2 - Sample3,
+    ...
+    levels = design
+   )
+    ```
 
+1. Each of the plots produced by the script (MDS plots, volcano plots, and a heatmap) are displayed in the RStudio plots viewer and saved to a PNG file. You can remove the `save to file` section for each plot, or change the output file format as needed. 
 
 ### Collaborate in the data studio
 
 To share the results of your RNAseq analysis or allow colleagues to perform exploratory analysis, share a link to the data studio by selecting the options menu for the data studio you want to share, then select **Copy data studio URL**. With this link, other authenticated users with the **Connect** [role](../orgs-and-teams/roles.mdx) (or greater) can access the session directly.
 
-### Pipeline optimization 
+<details>
+  <summary>**Pipeline optimization**</summary>
 
-Seqera Platform's task-level resource usage metrics allow you to determine the resources requested for a task and what was actually used. This information helps you fine-tune your configuration more accurately.
+  Seqera Platform's task-level resource usage metrics allow you to determine the resources requested for a task and what was actually used. This information helps you fine-tune your configuration more accurately.
 
-However, manually adjusting resources for every task in your pipeline is impractical. Instead, you can leverage the pipeline optimization feature on the Launchpad.
+  However, manually adjusting resources for every task in your pipeline is impractical. Instead, you can leverage the pipeline optimization feature on the Launchpad.
 
-Pipeline optimization analyzes resource usage data from previous runs to optimize the resource allocation for future runs. After a successful run, optimization becomes available, indicated by the lightbulb icon next to the pipeline turning black.
+  Pipeline optimization analyzes resource usage data from previous runs to optimize the resource allocation for future runs. After a successful run, optimization becomes available, indicated by the lightbulb icon next to the pipeline turning black.
 
-#### Optimize nf-core/rnaseq
+  #### Optimize nf-core/rnaseq
 
-Navigate back to the Launchpad and select the lightbulb icon next to nf-core/rnaseq to view the optimized profile. You have the flexibility to tailor the optimization's target settings and incorporate a retry strategy as needed.
+  Navigate back to the Launchpad and select the lightbulb icon next to nf-core/rnaseq to view the optimized profile. You have the flexibility to tailor the optimization's target settings and incorporate a retry strategy as needed.
 
-#### View optimized configuration
+  #### View optimized configuration
 
-When you select the lightbulb, you can access an optimized configuration profile in the second tab of the **Customize optimization profile** window.
+  When you select the lightbulb, you can access an optimized configuration profile in the second tab of the **Customize optimization profile** window.
 
-This profile consists of Nextflow configuration settings for each process and each resource directive (where applicable):  **cpus**, **memory**, and **time**. The optimized setting for a given process and resource directive is based on the maximum use of that resource across all tasks in that process.
+  This profile consists of Nextflow configuration settings for each process and each resource directive (where applicable):  **cpus**, **memory**, and **time**. The optimized setting for a given process and resource directive is based on the maximum use of that resource across all tasks in that process.
 
-Once optimization is selected, subsequent runs of that pipeline will inherit the optimized configuration profile, indicated by the black lightbulb icon with a checkmark. 
+  Once optimization is selected, subsequent runs of that pipeline will inherit the optimized configuration profile, indicated by the black lightbulb icon with a checkmark. 
 
-:::info 
-Optimization profiles are generated from one run at a time, defaulting to the most recent run, and _not_ an aggregation of previous runs.
-:::
+  :::info 
+  Optimization profiles are generated from one run at a time, defaulting to the most recent run, and _not_ an aggregation of previous runs.
+  :::
 
-![Optimized configuration](./quickstart-demo/assets/optimize-configuration.gif)
+  ![Optimized configuration](./quickstart-demo/assets/optimize-configuration.gif)
 
-Verify the optimized configuration of a given run by inspecting the resource usage plots for that run and these fields in the run's task table:
+  Verify the optimized configuration of a given run by inspecting the resource usage plots for that run and these fields in the run's task table:
 
-| Description  | Key                    |
-| ------------ | ---------------------- |
-| CPU usage    | `pcpu`                 |
-| Memory usage | `peakRss`              |
-| Runtime      | `start` and `complete` |
+  | Description  | Key                    |
+  | ------------ | ---------------------- |
+  | CPU usage    | `pcpu`                 |
+  | Memory usage | `peakRss`              |
+  | Runtime      | `start` and `complete` |
+
+</details>
 
 ## RNA-seq data and requirements
 
@@ -545,7 +613,7 @@ RNA-seq data typically consists of raw sequencing reads from high-throughput seq
 
 For example, the publicly available 1000 Genomes dataset contains RNA-seq data for over 2500 samples, with low-coverage individual FASTQ files ranging from 30 to 50 GB in size.
 
-#### Pipeline Steps and Computing Resource Requirements
+### Pipeline steps and computing resource requirements
 
 The nf-core/rnaseq pipeline involves several key steps, each with distinct computational requirements:
 
@@ -557,6 +625,9 @@ The nf-core/rnaseq pipeline involves several key steps, each with distinct compu
 | **Quantification**                  | featureCounts, Salmon     | Moderate CPU, moderate memory| Counting the number of reads mapped to each gene or transcript to measure expression levels.     |
 | **Differential Expression Analysis**| DESeq2, edgeR             | Low CPU, moderate memory     | Statistical analysis to identify genes with significant changes in expression between conditions. |
 
-#### Benchmarking
+### Compute benchmarks
 
-TODO
+The compute recommendations in this guide are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files and a total size of approximately 123.5 GB.
+
+TODO: show comparitive CPU, job duration, and walltime plots for Fusion and non-Fusion runs with `test_full`. 
+
