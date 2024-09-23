@@ -68,15 +68,14 @@
     transition: opacity 100ms ease-in-out, visibility 100ms ease-in-out;
     position: absolute;
     top: 100%;
-    left: -1px;
-    right: -1px;
+    left: 0;
+    right: 0;
     background-color: white;
     border: 1px solid #ccc;
     border-top: none;
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
     z-index: 1000;
-    margin-top: 1px;
 }
 
 .dropdownVisible {
@@ -104,6 +103,10 @@
 .productSwitcherButton:hover,
 .dropdownItem:hover {
     background: #E8EBFC;
+}
+[data-theme='dark'] .productSwitcherButton:hover,
+[data-theme='dark'] .dropdownItem:hover {
+    background: #000000;
 }
 
 .dropdownItemContent {
