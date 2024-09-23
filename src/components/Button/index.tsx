@@ -1,5 +1,5 @@
 import React, { ReactNode, CSSProperties } from 'react';
-import clsx from 'clsx'; 
+import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 
 // Define the Button type to control the props that can be passed to the Button component.
@@ -28,16 +28,16 @@ type Button = {
 }
 
 // Button component that accepts the specified props.
-export default function Button ({ 
-    size = null, 
-    outline = false, 
-    variant = 'primary', 
-    block = false, 
-    disabled = false, 
-    className, 
-    style, 
-    link, 
-    label 
+export default function Button ({
+    size = null,
+    outline = false,
+    variant = 'primary',
+    block = false,
+    disabled = false,
+    className,
+    style,
+    link,
+    label
 }: Button) {
     // Map the size prop values to corresponding CSS classes.
     const sizeMap = {
@@ -56,25 +56,23 @@ export default function Button ({
     // If the button is disabled, set the destination to null.
     const destination = disabled ? null : link;
     return (
-    <p>
-        <Link to={destination}>
-            <button
-                className={clsx(
-                    'button',
-                    sizeClass,
-                    outlineClass,
-                    variantClass,
-                    blockClass,
-                    disabledClass,
-                    className
-                )}
-                style={style}
-                role='button'
-                aria-disabled={disabled}
-            >
-                {label}
-            </button>
-        </Link>
-    </p>
+    <Link to={destination}>
+        <button
+            className={clsx(
+                'button',
+                sizeClass,
+                outlineClass,
+                variantClass,
+                blockClass,
+                disabledClass,
+                className
+            )}
+            style={style}
+            role='button'
+            aria-disabled={disabled}
+        >
+            {label}
+        </button>
+    </Link>
     );
 }
