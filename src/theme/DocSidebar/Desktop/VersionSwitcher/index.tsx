@@ -59,7 +59,7 @@ const VersionSwitcher = () => {
             <Link
               key={version.name}
               to={version.path}
-              className="flex items-center w-full p-3 border-solid border-0 border-b border-gray-300 dark:border-brand-800 last:border-b-0 text-gray-800 hover:text-gray-800 hover:no-underline text-sm dark:text-white hover:bg-[#e8ebfc] dark:hover:bg-brand-1300"
+              className="block w-full py-3 px-4 border-solid border-0 border-b border-gray-300 dark:border-brand-800 last:border-b-0 text-gray-1000 hover:text-gray-1000 hover:no-underline text-sm dark:text-white hover:bg-[#e8ebfc] dark:hover:bg-brand-1300"
               onClick={() => handleSelectVersion(version.name)}
             >
               v{version.label} {idx == 0 ? " (current)" : ""}
