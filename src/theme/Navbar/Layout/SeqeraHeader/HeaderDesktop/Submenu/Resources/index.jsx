@@ -24,7 +24,7 @@ import {
 
 const links = {
   Education: [
-    ["Documentation", "http://docs.seqera.io/", Docs],
+    ["Documentation", "https://docs.seqera.io/", Docs],
     ["Podcast", "/podcasts/", Podcast],
     ["Blog", "/blog/", Blog],
   ],

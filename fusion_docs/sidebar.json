@@ -1,21 +1,18 @@
 {
   "sidebar": [
     "index",
+    "get-started",
     {
       "type": "category",
       "label": "User guide",
       "collapsed": false,
-      "link": {
-        "type": "doc",
-        "id": "guide"
-      },
       "items": [
-        "guide/local-s3",
-        "guide/aws-batch-s3",
-        "guide/aws-eks-s3",
-        "guide/gcp-batch-object",
-        "guide/gcp-gke-object",
-        "guide/ssd"
+        "guide/aws-batch",
+        "guide/gcp-batch",
+        "guide/azure-batch",
+        "guide/aws-eks",
+        "guide/gcp-gke",
+        "guide/local"
       ]
     },
     "troubleshooting",
