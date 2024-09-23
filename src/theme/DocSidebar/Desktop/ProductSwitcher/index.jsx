@@ -83,10 +83,6 @@ const ProductSwitcher = () => {
               key={product.name}
               to={product.url}
               className={styles.dropdownItem}
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsOpen(false);
-              }}
               target={product.name === "Nextflow" ? "_blank" : undefined}
               rel={product.name === "Nextflow" ? "noopener noreferrer" : undefined}
             >
