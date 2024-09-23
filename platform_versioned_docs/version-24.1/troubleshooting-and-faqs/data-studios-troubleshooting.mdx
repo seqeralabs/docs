@@ -33,7 +33,7 @@ If you have access to the AWS Console for your organization, check the jobs asso
 
 ### Memory allocation of the data studio is exceeded
 
-The running container in the AWS Batch compute environment inherits the memory limits specified by the data studio configuration when adding or starting the data studio session. The kernel then handles the memory as if running natively on Linux. Linux can overcommit memory, leading to possible out-of-memory errors in a container environment. The kernel has protections in place to prevent this, but it can happen, and in this case, the process is killed. This can manifest as a performance lag, killed subprocesses, or at worst, a killed data studio session. Running data studio sessions have automated snapshots created every five minutes, so if the running container is killed only those changes made after the prior snapshot creation are lost.
+The running container in the AWS Batch compute environment inherits the memory limits specified by the data studio configuration when adding or starting the data studio session. The kernel then handles the memory as if running natively on Linux. Linux can overcommit memory, leading to possible out-of-memory errors in a container environment. The kernel has protections in place to prevent this, but it can happen, and in this case, the process is killed. This can manifest as a performance lag, killed subprocesses, or at worst, a killed data studio session. Running data studio sessions have automated snapshots created every five minutes, so if the running container is killed only those changes made after the prior snapshot creation will be lost.
 
 ### All datasets are read-only
 
