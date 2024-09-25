@@ -5,13 +5,37 @@ date: "4 July 2024"
 tags: [changelog]
 ---
 
-### v24.2.0_cycle23 Cloud - 2 September 2024
+### v24.2.0_cycle24 25 September 2024
+
+- Feature: Azure service principal credentials
+- Fix: Connection to Redis SSL server
+- Fix: pairingId declaration in API schema
+- Fix: Copying empty list for cloud data links
+- Feature: Data Studios: Add direct Data Explorer browse link to mounted data items
+- Style: Fix visual glitches in launch form
+- Improvement: Data Explorer: Highlight invalid custom datalinks
+- Fix: Datalink status always null
+- Feature: Data Studios: Make StudioDetailsPage tabs routable
+- Fix: Update lastUsed on compute environment when creating a data studio job
+[PLAT-493] fix broken data studios e2e test after change in mounted data disabled selection logic by @alvaromartmart in #7560
+- Improvement: Disable AWS and Google Batch spot instance auto retry
+- Improvement: Data explorer: Remove folder validation
+- Feature: define cache configuration once, only override changes
+- Improvement: Update 204 pipeline schema response description
+- Improvement: Patch workflow revision
+- Improvement: Render Parameters UI correctly with new schemas based on 2020-12 draft
+- Improvement: Upgrade to Angular 16
+- Improvement: Pipeline launch form: Delegate form creation to a form builder service
+- Improvement: Add Posthog integration
+- Fix: `Terminated by Tower` error
+
+### v24.2.0_cycle23 - 2 September 2024
 
 - Fix: [Data Explorer] enable task working directory navigation using Data Explorer in personal workspaces by adding routing
 - Fix: Remove -/+ increment buttons from numeric input components in Platform, including compute environment and launch form interfaces
 - Fix: Hide compute environment variables section actions when component is disabled (previously indicated that environment variables could be edited in this state)
 
-### 24.2.0_cycle21 Cloud - 13 August 2024
+### 24.2.0_cycle21 - 13 August 2024
 
 - Feature: Add global Nextflow configuration support in compute environments
 - Feature: Add flexibility for pipeline names in workspaces
@@ -24,7 +48,7 @@ tags: [changelog]
 - Bump nf-launcher:j17-24.04.4
 - Bump codecommit 0.2.1
 
-### 24.2.0_cycle20 Cloud — 25 July 2024
+### 24.2.0_cycle20 — 25 July 2024
 
 - Feature: Add code blocks syntax highlighting and background color
 - Improvement: Role selector dropdown detail
@@ -39,7 +63,7 @@ tags: [changelog]
 - Fix: Parameters merging in schema form without key in schema
 - Bump nf-launcher:24.04.3
 
-### 24.1.x Cloud - May 2024
+### 24.1.0 - May 2024
 
 - Managed identities:
   * Allow organization members and collaborators to list managed identities
@@ -50,7 +74,7 @@ tags: [changelog]
 - Data Explorer:
   * Multi-download functionality
 
-### 23.3.0 Cloud - 16 October 2023
+### 23.3.0 - 16 October 2023
 
 - Feature: Add feedback form to mkdocs
 - Feature: [Data Explorer M4.2]: use Data Explorer to navigate workflow and tasks work directories
