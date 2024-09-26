@@ -225,7 +225,7 @@
       "items": [
         "cloud/changelog",
         "enterprise/release_notes/enterprise_changelog",
-        "enterprise/release_notes/enterprise_latest",
+        "enterprise/release_notes/enterprise_latest",    
         {
           "type": "category",
           "label": "Legacy versions",
