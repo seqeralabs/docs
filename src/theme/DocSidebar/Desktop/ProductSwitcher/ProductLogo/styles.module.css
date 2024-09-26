@@ -9,6 +9,11 @@
   align-items: center;
   & svg {
     width: 100%;
-    height: 21px;
+    height: 18px;
+  }
+  &.lg {
+    & svg {
+      height: 21px;
+    }
   }
 }

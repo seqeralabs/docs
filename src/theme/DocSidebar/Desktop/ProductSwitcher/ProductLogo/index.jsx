@@ -1,4 +1,5 @@
 import React from "react";
+import clsx from "clsx";
 import { useLocation } from "@docusaurus/router";
 import styles from "./styles.module.css";
 
@@ -58,7 +59,9 @@ const ProductSwitcher = ({ product }) => {
   const Logo = logos[product].light;
   const LogoDark = logos[product].dark;
   return (
-    <span className={styles.item}>
+    <span
+      className={clsx(styles.item, { [styles.lg]: product === "Platform" })}
+    >
       <Logo className={styles.themeLight} />
       <LogoDark className={styles.themeDark} />
     </span>
