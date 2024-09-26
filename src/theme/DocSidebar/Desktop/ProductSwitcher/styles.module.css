@@ -28,7 +28,7 @@
 .button {
   background-color: #fff;
   border: 1px solid #d0cfd4;
-  border-radius: 5px;
+  border-radius: 8px;
   width: 100%;
   & .caret {
     width: 24px;
@@ -44,7 +44,7 @@
 
 .items {
   background-color: white;
-  border-radius: 5px;
+  border-radius: 8px;
   border: 1px solid #d0cfd4;
   &.dropdown {
     visibility: hidden;
@@ -57,9 +57,15 @@
     right: 0;
     opacity: 0;
     border-top: none;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
     z-index: 1000;
+    & .item {
+      &:first-child {
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+      }
+    }
   }
 }
 .item {
@@ -75,12 +81,12 @@
     border-bottom: none;
   }
   &:first-child {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
   }
   &:last-child {
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
   }
 }
 

@@ -2,6 +2,7 @@ import React from "react";
 import Layout from "@theme/Layout";
 import clsx from "clsx";
 
+import useMediaQuery from "../../theme/Navbar/Layout/SeqeraHeader/hooks/useMediaQuery";
 import Sidebar from "../../theme/DocSidebar/Desktop";
 
 const ExternalLinkIcon = () => (
@@ -36,12 +37,15 @@ import Grid from "../../components/Grid";
 import Resources from "./Resources";
 
 export default function Home(): JSX.Element {
+  const isMobile = useMediaQuery("(max-width: 996px)");
   return (
     <Layout>
       <div className="flex w-full">
-        <div className={styles.sidebarContainer}>
-          <Sidebar path="/" />
-        </div>
+        {!isMobile && (
+          <div className={styles.sidebarContainer}>
+            <Sidebar path="/" />
+          </div>
+        )}
         <main className="flex-grow">
           <div className={clsx("md:p-8", styles.page)}>
             <div className="container-lg flex flex-wrap text-brand-1000">
