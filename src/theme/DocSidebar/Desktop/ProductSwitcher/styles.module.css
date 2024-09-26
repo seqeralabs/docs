@@ -1,145 +1,112 @@
-/* Theme-specific styles */
-[data-theme="light"] .productSwitcherButton {
-  background-color: #fff;
-  border: 1px solid #d0cfd4;
-}
-
-[data-theme="dark"] .productSwitcherButton {
-  background-color: var(--color-brand-1400);
-  border: 1px solid var(--color-brand-800);
-}
-
-[data-theme="dark"] .caret {
-  fill: #fff;
-}
-
-[data-theme="dark"] .dropdown {
-  background-color: var(--color-brand-1400);
-  border-color: var(--color-brand-800);
-}
-
-[data-theme="dark"] .dropdownItem {
-  color: #fff;
-  border-bottom-color: var(--color-brand-800);
-}
-
-[data-theme="dark"] .dropdownItem:hover {
-  background-color: var(--color-brand-1300);
-}
-
-/* Product Switcher Wrapper */
-.productSwitcherWrapper {
+.switcher {
   position: relative;
   margin: 15px 0;
+  &.open {
+    & .button {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      & .caret {
+        transform: rotate(0);
+      }
+    }
+    & .dropdown {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
 }
-.productSwitcherButton {
-  border-radius: 5px;
-  padding: 12px 15px;
+.button,
+.item {
+  height: 50px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  padding: 12px 15px;
   cursor: pointer;
+  position: relative;
+}
+.button {
+  background-color: #fff;
+  border: 1px solid #d0cfd4;
+  border-radius: 5px;
   width: 100%;
-}
-
-.productSwitcherButtonOpen {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
-/* Caret */
-.caret {
-  margin-left: 8px;
-  width: 24px;
-  height: 24px;
-  fill: #000;
-  transform: rotate(-90deg);
-  transition: transform 200ms ease-in-out;
-}
-
-.caretOpen {
-  transform: rotate(0);
-}
-
-/* Dropdown */
-.dropdown {
-  opacity: 0;
-  visibility: hidden;
-  transition:
-    opacity 100ms ease-in-out,
-    visibility 100ms ease-in-out;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background-color: white;
-  border: 1px solid #ccc;
-  border-top: none;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
-  z-index: 1000;
-  &.dropdownVisible {
-    opacity: 1;
-    visibility: visible;
+  & .caret {
+    width: 24px;
+    height: 24px;
+    fill: #000;
+    transform: rotate(-90deg);
+    transition: transform 200ms ease-in-out;
+  }
+  &:hover {
+    background: #e8ebfc;
   }
 }
 
-/* Dropdown Items */
-.dropdownItem {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 15px;
+.items {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  &.dropdown {
+    visibility: hidden;
+    transition:
+      opacity 100ms ease-in-out,
+      visibility 100ms ease-in-out;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    border-top: none;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    z-index: 1000;
+  }
+}
+.item {
   text-decoration: none;
   width: 100%;
   border-bottom: 1px solid #e0e0e0;
   transition: background 100ms;
   @apply text-gray-1000;
+  &:hover {
+    background: #e8ebfc;
+  }
+  &:last-child {
+    border-bottom: none;
+  }
+  & svg {
+    vertical-align: middle;
+  }
 }
 
-.dropdownItem:last-child {
-  border-bottom: none;
-}
+/* Dark theme */
 
-.productSwitcherButton:hover,
-.dropdownItem:hover {
-  background: #e8ebfc;
-}
-[data-theme="dark"] .productSwitcherButton:hover,
-[data-theme="dark"] .dropdownItem:hover {
-  background: #000000;
-}
+[data-theme="dark"] {
+  & .button {
+    background-color: var(--color-brand-1400);
+    border: 1px solid var(--color-brand-800);
+    &:hover {
+      background-color: var(--color-brand-1300);
+    }
+    & .caret {
+      fill: #fff;
+    }
+  }
 
-.dropdownItemContent {
-  display: flex;
-  align-items: center;
-}
+  & .dropdown {
+    background-color: var(--color-brand-1400);
+    border-color: var(--color-brand-800);
+  }
 
-.productLogo {
-    height: 21px;
+  & .dropdownItem {
+    color: #fff;
+    border-bottom-color: var(--color-brand-800);
+    &:hover {
+      background-color: var(--color-brand-1300);
+    }
+  }
 }
 
 .externalLinkIcon {
   margin-left: 8px;
-}
-
-.dropdownItem svg {
-  vertical-align: middle;
-}
-
-/* Theme-specific display */
-.themeLight {
-  display: inline-block;
-}
-
-.themeDark {
-  display: none;
-}
-
-[data-theme="dark"] .themeLight {
-  display: none;
-}
-
-[data-theme="dark"] .themeDark {
-  display: inline-block;
 }

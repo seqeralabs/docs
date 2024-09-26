@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from '@docusaurus/router';
+import { useLocation } from "@docusaurus/router";
 import styles from "./styles.module.css";
 
 import Fusion from "../images/fusion.svg";
@@ -14,51 +14,55 @@ import MultiQCDark from "../images/multiqc.dark.svg";
 import PlatformDark from "../images/platform.dark.svg";
 import WaveDark from "../images/wave.dark.svg";
 
-
-
 const ProductSwitcher = ({ product }) => {
   const location = useLocation();
   if (product === undefined) {
-    if(location.pathname.startsWith("/fusion")) { product = "fusion"; }
-    if(location.pathname.startsWith("/nextflow")) { product = "nextflow"; }
-    if(location.pathname.startsWith("/multiqc")) { product = "multiqc"; }
-    if(location.pathname.startsWith("/platform")) { product = "platform"; }
-    if(location.pathname.startsWith("/wave")) { product = "wave"; }
+    if (location.pathname.startsWith("/fusion")) {
+      product = "Fusion";
+    }
+    if (location.pathname.startsWith("/nextflow")) {
+      product = "Nextflow";
+    }
+    if (location.pathname.startsWith("/multiqc")) {
+      product = "MultiQC";
+    }
+    if (location.pathname.startsWith("/platform")) {
+      product = "Platform";
+    }
+    if (location.pathname.startsWith("/wave")) {
+      product = "Wave";
+    }
   }
+  const logos = {
+    Platform: {
+      light: Platform,
+      dark: PlatformDark,
+    },
+    Nextflow: {
+      light: Nextflow,
+      dark: NextflowDark,
+    },
+    MultiQC: {
+      light: MultiQC,
+      dark: MultiQCDark,
+    },
+    Wave: {
+      light: Wave,
+      dark: WaveDark,
+    },
+    Fusion: {
+      light: Fusion,
+      dark: FusionDark,
+    },
+  };
+  const Logo = logos[product].light;
+  const LogoDark = logos[product].dark;
   return (
-    <>
-      {product == "fusion" && (
-        <>
-          <Fusion className={styles.themeLight} />
-          <FusionDark className={styles.themeDark} />
-        </>
-      )}
-      {product == "nextflow" && (
-        <>
-          <Nextflow className={styles.themeLight} />
-          <NextflowDark className={styles.themeDark} />
-        </>
-      )}
-      {product == "multiqc" && (
-        <>
-          <MultiQC className={styles.themeLight} />
-          <MultiQCDark className={styles.themeDark} />
-        </>
-      )}
-      {product == "platform" && (
-        <>
-          <Platform className={styles.themeLight} />
-          <PlatformDark className={styles.themeDark} />
-        </>
-      )}
-      {product == "wave" && (
-        <>
-          <Wave className={styles.themeLight} />
-          <WaveDark className={styles.themeDark} />
-        </>
-      )}
-    </>
-  )
-}
+    <span className={styles.item}>
+      <Logo className={styles.themeLight} />
+      <LogoDark className={styles.themeDark} />
+    </span>
+  );
+};
 
 export default ProductSwitcher;
