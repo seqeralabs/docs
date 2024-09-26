@@ -4,39 +4,10 @@ import { useLocation } from "@docusaurus/router";
 import Link from "@docusaurus/Link";
 
 import ProductLogo from "./ProductLogo";
+import LinkOut from "./LinkOut.inline.svg";
 
 import styles from "./styles.module.css";
 import Caret from "./images/caret.svg";
-
-import MultiQC from "./images/multiqc.svg";
-import Nextflow from "./images/nextflow.svg";
-import Wave from "./images/wave.svg";
-import Fusion from "./images/fusion.svg";
-import Platform from "./images/platform.svg";
-
-import MultiQCDark from "./images/multiqc.dark.svg";
-import NextflowDark from "./images/nextflow.dark.svg";
-import WaveDark from "./images/wave.dark.svg";
-import FusionDark from "./images/fusion.dark.svg";
-import PlatformDark from "./images/platform.dark.svg";
-
-const ExternalLinkIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="12"
-    height="12"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-    <polyline points="15 3 21 3 21 9"></polyline>
-    <line x1="10" y1="14" x2="21" y2="3"></line>
-  </svg>
-);
 
 const products = [
   {
@@ -112,9 +83,7 @@ const ProductSwitcher = ({ isDropdown }) => {
             }
           >
             <ProductLogo product={product.name} />
-            {product.name === "Nextflow" && (
-              <ExternalLinkIcon className={styles.externalLinkIcon} />
-            )}
+            {product.name === "Nextflow" && <LinkOut />}
           </Link>
         ))}
       </div>
