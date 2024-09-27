@@ -2,10 +2,9 @@
   position: relative;
   margin: 15px 0;
   .button {
-    transition: height 200ms linear;
     border-bottom-color: var(--color-brand-200) !important;
+    z-index: 10;
     &.active {
-      height: 55px;
       & .caret {
         transform: rotate(0);
       }
@@ -92,6 +91,21 @@
   &.open {
     opacity: 1;
     visibility: visible;
+    &.secondary {
+      &:after {
+        content: " ";
+        display: block;
+        position: absolute;
+        top: -2px;
+        left: -1px;
+        right: -1px;
+        height: 2px;
+        background: white;
+        border-left: 1px solid var(--color-brand-300);
+        border-right: 1px solid var(--color-brand-300);
+        border-bottom: 1px solid var(--color-brand-300);
+      }
+    }
   }
 }
 
