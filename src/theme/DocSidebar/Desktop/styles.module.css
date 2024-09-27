@@ -1,6 +1,5 @@
 :global(.theme-doc-sidebar-container) {
   border-right: 0 !important;
-  background: rgba(0, 0, 0, 0.02);
   margin-top: unset !important;
 }
 [data-theme="light"] :global(.theme-doc-sidebar-container) {

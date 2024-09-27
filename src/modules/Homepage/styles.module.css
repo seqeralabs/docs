@@ -18,5 +18,5 @@ html[data-theme="light"] {
 }
 .sidebarContainer {
   flex: none;
-  /* margin-top: calc(-1 * var(--ifm-navbar-height)); */
+  background: rgba(0, 0, 0, 0.02);
 }
