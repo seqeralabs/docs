@@ -1,0 +1,32 @@
+:global(.theme-doc-sidebar-container) {
+  border-right: 0 !important;
+  margin-top: unset !important;
+}
+[data-theme="light"] :global(.theme-doc-sidebar-container) {
+  background: rgba(0, 0, 0, 0.02);
+}
+[data-theme="dark"] :global(.theme-doc-sidebar-container) {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.sidebar {
+  padding: 30px 30px 0;
+  max-height: 100dvh;
+  width: 300px;
+  & nav {
+    padding: 0;
+  }
+  /* Remove strange padding around docs sidebar nav */
+  & div[class^="sidebar"] {
+    padding-top: 0 !important;
+    width: auto !important;
+  }
+}
+
+.colorModeToggle {
+  margin-bottom: 16px;
+}
+
+[data-theme="dark"] hr {
+  opacity: 0.5;
+}
