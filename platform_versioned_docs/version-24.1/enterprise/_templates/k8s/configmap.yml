@@ -24,6 +24,12 @@ data:
   TOWER_ENABLE_PLATFORMS: "awsbatch-platform,gls-platform,googlebatch-platform,azbatch-platform,uge-platform,slurm-platform"
   FLYWAY_LOCATIONS: "classpath:db-schema/mysql"
   TOWER_REDIS_URL: "redis://<YOUR REDIS IP>:6379" # For a managed Redis service, specify the IP address or DNS name of the service endpoint. If you use the containerized Redis service, specify "redis" instead of an IP address.
+
+  # Pipeline resource optimization service. Set TOWER_ENABLE_GROUNDSWELL true to use default service URL (http://groundswell:8090)
+  # Use GROUNDSWELL_SERVER_URL to specify a custom service URL (enables the service by default)
+  TOWER_ENABLE_GROUNDSWELL: false
+  GROUNDSWELL_SERVER_URL: http://groundswell:8090
+
   # Data Studios configuration variables
   TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN: '<YOUR_RANDOMLY_GENERATED_STRING>' # This must match the value of CONNECT_OIDC_CLIENT_REGISTRATION_TOKEN in your proxy.yml file.
   TOWER_DATA_STUDIO_CONNECT_URL: 'https://connect.<YOUR PUBLIC TOWER HOST NAME>' #

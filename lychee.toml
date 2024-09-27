@@ -7,5 +7,6 @@ exclude = [
   '^https://github.com/organizations/',
   '^https://github.com/pipeline-repo',
   '^https://api.tower.nf/ephemeral/example.json',
-  '^https://api.cloud.seqera.io/workflow/launch'
+  '^https://api.cloud.seqera.io/workflow/launch',
+  '^https://git.seqera.io'
 ]
