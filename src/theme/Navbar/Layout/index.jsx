@@ -25,6 +25,9 @@ function NavbarBackdrop(props) {
   );
 }
 
+{
+  /* Desktop nav */
+}
 function Container({ children, isMobile }) {
   if (isMobile) return children;
   return (
@@ -32,13 +35,22 @@ function Container({ children, isMobile }) {
       <div className={custom.seqeraHeader}>
         <SeqeraHeader theme="dark" />
       </div>
-      <div className={custom.siteNav}>
-        <div className="container-lg">{children}</div>
-      </div>
+      {/* Navbar normally goes here.
+      Docusaurus expects a classname, so we have a dummy element
+      with zero dimensions and display:none in main.css.
+      See https://github.com/facebook/docusaurus/issues/7505 
+
+      Note - navbar is used for mobile styles, so CSS
+      only hides it on bigger screens.
+      */}
+      <div className="navbar" />
     </div>
   );
 }
 
+{
+  /* Mobile nav */
+}
 export default function NavbarLayout({ children }) {
   const {
     navbar: { hideOnScroll, style },
