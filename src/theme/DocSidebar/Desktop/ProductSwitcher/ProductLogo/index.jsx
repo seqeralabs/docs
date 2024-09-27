@@ -60,7 +60,7 @@ const ProductSwitcher = ({ product }) => {
   const LogoDark = logos[product].dark;
   return (
     <span
-      className={clsx(styles.item, { [styles.lg]: product === "Platform" })}
+      className={styles.item}
     >
       <Logo className={styles.themeLight} />
       <LogoDark className={styles.themeDark} />
