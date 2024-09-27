@@ -181,7 +181,32 @@ With your compute environment created, nf-core/rnaseq added to your workspace La
 
  ![Launch a pipeline](./quickstart-demo/assets/sp-cloud-launch-form.gif)
 
-Enter a unique run name and add new or existing labels to the run for easy categorization, before specifying your pipeline inputs and outputs:
+The launch form consists of **General config**, **Run parameters**, and **Advanced options** sections to specify your run parameters before execution, and an execution summary. Use section headings or select the **Previous** and **Next** buttons at the bottom of the page to navigate between sections. 
+
+### General config 
+
+- **Pipeline to launch**: The pipeline Git repository name or URL. For saved pipelines, this is prefilled and cannot be edited.
+- **Revision number**: A valid repository commit ID, tag, or branch name. For saved pipelines, this is prefilled and cannot be edited.
+- **Config profiles**: One or more [configuration profile](https://www.nextflow.io/docs/latest/config.html#config-profiles) names to use for the execution. Config profiles must be defined in the `nextflow.config` file in the pipeline repository.
+- **Workflow run name**: A unique identifier for the run, pre-filled with a random name. This can be customized.
+- **Labels**: Assign new or existing [labels](../labels/overview.mdx) to the run.
+- **Compute environment**: Your AWS Batch compute environment. 
+- **Work directory**: The cloud storage path where pipeline scratch data is stored. Platform will create a scratch sub-folder if only a cloud bucket location is specified.
+  :::note
+  The credentials associated with the compute environment must have access to the work directory.
+  :::
+
+### Run parameters 
+
+There are three ways to enter **Run parameters** prior to launch:
+
+- The **Input form view** displays form fields to enter text, select attributes from dropdowns, and browse input and output locations with [Data Explorer](../data/data-explorer.mdx).
+- The **Config view** displays a raw schema that you can edit directly. Select JSON or YAML format from the **View as** dropdown.
+- **Upload params file** allows you to upload a JSON or YAML file with run parameters.
+
+Platform uses the `nextflow_schema.json` file in the root of the pipeline repository to dynamically create a form with the necessary pipeline parameters. 
+
+Specify your input and output parameters:
 
 <details>
   <summary>**input**</summary>
@@ -205,13 +230,17 @@ Enter a unique run name and add new or existing labels to the run for easy categ
 
 </details>
 
-#### Pipeline-specific parameters
-
 Modify other parameters to customize the pipeline execution through the parameters form. For example, under **Read trimming options**, change the `trimmer` to select `fastp` in the dropdown menu instead of `trimgalore`.
 
 ![Read trimming options](./quickstart-demo/assets/trimmer-settings.png)
 
-Select **Launch** to start the run and be directed to the **Runs** tab with your run in a **submitted** status at the top of the list.
+### Advanced settings 
+
+- Use [resource labels](../resource-labels/overview.mdx) to tag the computing resources created during the workflow execution. While resource labels for the run are inherited from the compute environment and pipeline, admins can override them from the launch form. Applied resource label names must be unique. 
+- [Pipeline secrets](../secrets/overview.mdx) are used to store keys and tokens used by workflow tasks to interact with external systems. Enter the names of any stored user or workspace secrets required for the workflow execution.
+- See [Advanced options](../launch/advanced.mdx) for more details.
+
+After you have filled the necessary launch details, select **Launch**. The **Runs** tab shows your new run in a **submitted** status at the top of the list. Select the run name to navigate to the [**View Workflow Run**](../monitoring/overview.mdx) page and view the configuration, parameters, status of individual tasks, and run report.
 
 <details>
   <summary>**Run monitoring**</summary>
@@ -570,6 +599,66 @@ This script is written for RNA-seq and differential expression analysis of human
 
 To share the results of your RNAseq analysis or allow colleagues to perform exploratory analysis, share a link to the data studio by selecting the options menu for the data studio you want to share, then select **Copy data studio URL**. With this link, other authenticated users with the **Connect** [role](../orgs-and-teams/roles.mdx) (or greater) can access the session directly.
 
+## RNA-seq data and requirements
+
+RNA-seq data typically consists of raw sequencing reads from high-throughput sequencing technologies like Illumina. These reads are used to quantify gene expression levels and discover novel transcripts. A typical RNA-seq dataset can range from a few GB to several hundred GB, depending on the number of samples and the sequencing depth.
+
+For example, the publicly available 1000 Genomes dataset contains RNA-seq data for over 2500 samples, with low-coverage individual FASTQ files ranging from 30 to 50 GB in size.
+
+### Pipeline steps and computing resource requirements
+
+The nf-core/rnaseq pipeline involves several key steps, each with distinct computational requirements:
+
+| **Pipeline step**                   | **Tools**                 | **Resource needs**           | **Description**                                                                                   |
+|-------------------------------------|---------------------------|------------------------------|---------------------------------------------------------------------------------------------------|
+| **Quality Control (QC)**            | FastQC, MultiQC           | Moderate CPU, low memory     | Initial quality checks of raw reads to assess sequencing quality and identify potential issues.   |
+| **Read Trimming**                   | Trim Galore!              | Moderate CPU, moderate memory| Removal of adapter sequences and low-quality bases to prepare reads for alignment.               |
+| **Read Alignment**                  | HISAT2, STAR              | High CPU, high memory        | Alignment of trimmed reads to a reference genome, typically the most resource-intensive step.    |
+| **Quantification**                  | featureCounts, Salmon     | Moderate CPU, moderate memory| Counting the number of reads mapped to each gene or transcript to measure expression levels.     |
+| **Differential Expression Analysis**| DESeq2, edgeR             | Low CPU, moderate memory     | Statistical analysis to identify genes with significant changes in expression between conditions. |
+
+### Pipeline performance
+
+The compute recommendations in this guide are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files and a total size of approximately 123.5 GB.
+
+This benchmark compares pipeline run metrics between an AWS Batch compute environment with Fusion file system and fast instance storage enabled (**Fusionv2** group) and an identical AWS Batch compute environment using S3 storage without Fusion (**plainS3** group).
+
+#### Overall run metrics
+
+The Fusion file system used with NVMe instance storage contributed to a 34 % improvement in total pipeline runtime and a 49 % reduction in CPU hours, with a 7 % improvement in CPU efficiency.
+
+![Run metrics overview](./_images/cpu-table.png)
+
+#### Process run time
+
+The Fusion file system demonstrates significant performance improvements for most processes in the nf-core/rnaseq pipeline, particularly for I/O-intensive tasks: 
+
+- The most time-consuming processes see improvements of 36-70%, saving hours of runtime in a full pipeline execution.
+- Most processes show significant performance improvements with Fusion, with time savings ranging from 35% to 99%.
+- The most substantial improvements are seen in I/O-intensive tasks like SAMTOOLS_FLAGSTAT (95.20% faster) and SAMTOOLS_IDXSTATS (99.14% faster).
+- SALMON_INDEX shows a notable 70.15% improvement, reducing runtime from 102.18 minutes to 30.50 minutes.
+- STAR_ALIGN_IGENOMES, one of the most time-consuming processes, is 53.82% faster with Fusion, saving nearly an hour of runtime.
+
+![Run time per process](./_images/process-runtime.png) 
+
+| Process | S3 Runtime (min) | Fusion Runtime (min) | Time Saved (min) | Improvement (%) |
+|---------|------------------|----------------------|------------------|-----------------|
+| SAMTOOLS_IDXSTATS | 18.54 | 0.16 | 18.38 | 99.14% |
+| SAMTOOLS_FLAGSTAT | 22.94 | 1.10 | 21.84 | 95.20% |
+| SAMTOOLS_STATS | 22.54 | 3.18 | 19.36 | 85.89% |
+| SALMON_INDEX | 102.18 | 30.50 | 71.68 | 70.15% |
+| BEDTOOLS_GENOMECOV_FW | 19.53 | 7.10 | 12.43 | 63.64% |
+| BEDTOOLS_GENOMECOV_REV | 18.88 | 7.35 | 11.53 | 61.07% |
+| PICARD_MARKDUPLICATES | 102.15 | 41.60 | 60.55 | 59.27% |
+| STRINGTIE | 17.63 | 7.60 | 10.03 | 56.89% |
+| RSEQC_READDISTRIBUTION | 16.33 | 7.19 | 9.14 | 55.97% |
+| STAR_ALIGN_IGENOMES | 106.42 | 49.15 | 57.27 | 53.82% |
+| SALMON_QUANT | 30.83 | 15.58 | 15.25 | 49.46% |
+| RSEQC_READDUPLICATION | 19.42 | 12.15 | 7.27 | 37.44% |
+| QUALIMAP_RNASEQ | 141.40 | 90.40 | 51.00 | 36.07% |
+| TRIMGALORE | 51.22 | 33.00 | 18.22 | 35.57% |
+| DUPRADAR | 49.04 | 77.81 | -28.77 | -58.67% |
+
 <details>
   <summary>**Pipeline optimization**</summary>
 
@@ -606,28 +695,3 @@ To share the results of your RNAseq analysis or allow colleagues to perform expl
   | Runtime      | `start` and `complete` |
 
 </details>
-
-## RNA-seq data and requirements
-
-RNA-seq data typically consists of raw sequencing reads from high-throughput sequencing technologies like Illumina. These reads are used to quantify gene expression levels and discover novel transcripts. A typical RNA-seq dataset can range from a few GB to several hundred GB, depending on the number of samples and the sequencing depth.
-
-For example, the publicly available 1000 Genomes dataset contains RNA-seq data for over 2500 samples, with low-coverage individual FASTQ files ranging from 30 to 50 GB in size.
-
-### Pipeline steps and computing resource requirements
-
-The nf-core/rnaseq pipeline involves several key steps, each with distinct computational requirements:
-
-| **Pipeline step**                   | **Tools**                 | **Resource needs**           | **Description**                                                                                   |
-|-------------------------------------|---------------------------|------------------------------|---------------------------------------------------------------------------------------------------|
-| **Quality Control (QC)**            | FastQC, MultiQC           | Moderate CPU, low memory     | Initial quality checks of raw reads to assess sequencing quality and identify potential issues.   |
-| **Read Trimming**                   | Trim Galore!              | Moderate CPU, moderate memory| Removal of adapter sequences and low-quality bases to prepare reads for alignment.               |
-| **Read Alignment**                  | HISAT2, STAR              | High CPU, high memory        | Alignment of trimmed reads to a reference genome, typically the most resource-intensive step.    |
-| **Quantification**                  | featureCounts, Salmon     | Moderate CPU, moderate memory| Counting the number of reads mapped to each gene or transcript to measure expression levels.     |
-| **Differential Expression Analysis**| DESeq2, edgeR             | Low CPU, moderate memory     | Statistical analysis to identify genes with significant changes in expression between conditions. |
-
-### Compute benchmarks
-
-The compute recommendations in this guide are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files and a total size of approximately 123.5 GB.
-
-TODO: show comparitive CPU, job duration, and walltime plots for Fusion and non-Fusion runs with `test_full`. 
-
