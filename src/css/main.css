@@ -114,6 +114,9 @@ svg.excalidraw path[fill="#fff"] {
 }
 
 /* Custom styling for sidebar nav links */
+.theme-doc-sidebar-container > div {
+  top: 74px;
+}
 nav.menu .menu__list .menu__link {
   border-radius: 5px;
   font-weight: 400;
