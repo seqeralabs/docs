@@ -3,7 +3,6 @@ import TOC from "@theme-original/DocSidebar/Desktop";
 import SearchBar from "@theme-original/SearchBar";
 import NavbarColorModeToggle from "@theme/Navbar/ColorModeToggle";
 import ProductSwitcher from "./ProductSwitcher";
-import VersionSwitcher from "./VersionSwitcher";
 
 import styles from "./styles.module.css";
 
@@ -30,12 +29,7 @@ const DesktopWrapper: React.FC<Props> = (props) => {
     <div className={styles.sidebar}>
       <SearchBar />
       <ProductSwitcher isDropdown={!!props.sidebar} />
-      {!!props.sidebar && (
-        <>
-          <VersionSwitcher />
-          <TOC {...props} />
-        </>
-      )}
+      {!!props.sidebar && <TOC {...props} />}
       <hr />
       <NavbarColorModeToggle className={styles.colorModeToggle} />
     </div>

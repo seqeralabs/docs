@@ -8,6 +8,7 @@ import LinkOut from "./LinkOut.inline.svg";
 
 import styles from "./styles.module.css";
 import Caret from "./images/caret.svg";
+import VersionSwitcher from "./VersionSwitcher";
 
 const products = [
   {
@@ -30,8 +31,9 @@ const ProductSwitcher = ({ isDropdown }) => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsOpen(false);
+      const ref = dropdownRef.current;
+      if (!ref?.contains(event.target)) {
+        setTimeout(() => setIsOpen(false), 100);
       }
     };
 
@@ -58,19 +60,27 @@ const ProductSwitcher = ({ isDropdown }) => {
   if (!isDropdown) items = products;
 
   return (
-    <div className={clsx(styles.switcher, { [styles.open]: isOpen })}>
+    <div className={clsx(styles.switcher)}>
       {isDropdown && (
-        <button
-          onClick={toggleDropdown}
-          className={styles.button}
-          ref={dropdownRef}
-        >
-          <ProductLogo />
-          <Caret className={styles.caret} />
-        </button>
+        <div className={styles.items}>
+          <button
+            onClick={toggleDropdown}
+            className={clsx(styles.item, styles.button, {
+              [styles.active]: isOpen,
+            })}
+            ref={dropdownRef}
+          >
+            <ProductLogo />
+            <Caret className={styles.caret} />
+          </button>
+          <VersionSwitcher />
+        </div>
       )}
       <div
-        className={clsx(styles.items, isDropdown ? styles.dropdown : undefined)}
+        className={clsx(styles.items, {
+          [styles.dropdown]: isDropdown,
+          [styles.open]: isOpen,
+        })}
       >
         {items.map((product) => (
           <Link
