@@ -20,10 +20,11 @@ import Resources from "./Resources";
 
 export default function Home(): JSX.Element {
   const isMobile = useMediaQuery("(max-width: 996px)");
+  const disabled = true;
   return (
     <Layout>
       <div className="flex w-full">
-        {!isMobile && (
+        {!isMobile && !disabled && (
           <div className={styles.sidebarContainer}>
             <Sidebar path="/" />
           </div>
