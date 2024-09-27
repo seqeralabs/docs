@@ -25,6 +25,7 @@ const products = [
 
 const ProductSwitcher = ({ isDropdown }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isSecondaryOpen, setIsSecondaryOpen] = useState(false);
   const dropdownRef = useRef(null);
   const location = useLocation();
 
@@ -61,17 +62,22 @@ const ProductSwitcher = ({ isDropdown }) => {
   return (
     <div className={clsx(styles.switcher)}>
       {isDropdown && (
-        <div className={styles.items}>
+        <div
+          className={clsx(styles.items, {
+            [styles.active]: isOpen || isSecondaryOpen,
+          })}
+        >
           <button
             onClick={toggleDropdown}
-            className={clsx(styles.item, styles.button, {
-              [styles.active]: isOpen,
-            })}
+            className={clsx(styles.item, styles.button)}
             ref={dropdownRef}
           >
             <ProductLogo />
           </button>
-          <VersionSwitcher />
+          <VersionSwitcher
+            isOpen={isSecondaryOpen}
+            setIsOpen={setIsSecondaryOpen}
+          />
         </div>
       )}
       <div

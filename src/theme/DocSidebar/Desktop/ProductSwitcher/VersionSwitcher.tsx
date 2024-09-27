@@ -10,8 +10,7 @@ import Link from "@docusaurus/Link";
 import styles from "./styles.module.css";
 import clsx from "clsx";
 
-const VersionSwitcher = () => {
-  const [isOpen, setIsOpen] = useState(false);
+const VersionSwitcher = ({ isOpen, setIsOpen }) => {
   const dropdownRef = useRef(null);
   const location = useLocation();
   const { preferredVersion, savePreferredVersionName } =
