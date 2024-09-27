@@ -22,9 +22,9 @@
 .item {
   height: 34px;
   display: flex;
-  align-items: start;
+  align-items: center;
   justify-content: space-between;
-  padding: 10px 12px;
+  padding: 0 12px;
   cursor: pointer;
   position: relative;
   width: 100%;
