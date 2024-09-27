@@ -6,7 +6,6 @@ import {
 } from "@docusaurus/plugin-content-docs/client";
 import { useLocation } from "@docusaurus/router";
 import Link from "@docusaurus/Link";
-import Caret from "./images/caret.svg";
 
 import styles from "./styles.module.css";
 import clsx from "clsx";
@@ -59,10 +58,6 @@ const VersionSwitcher = () => {
           v{currentVersion.label}{" "}
           {currentVersion.label == versions[0].label ? " (current)" : ""}
         </span>
-        <Caret
-          className={`w-6 h-6 ml-2 transition-transform duration-200 fill-brand-800 dark:fill-white`}
-          style={{ transform: isOpen ? "rotate(0)" : "rotate(-90deg)" }}
-        />
       </button>
       {isOpen && (
         <div

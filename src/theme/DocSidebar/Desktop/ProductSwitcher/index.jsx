@@ -7,7 +7,6 @@ import ProductLogo from "./ProductLogo";
 import LinkOut from "./LinkOut.inline.svg";
 
 import styles from "./styles.module.css";
-import Caret from "./images/caret.svg";
 import VersionSwitcher from "./VersionSwitcher";
 
 const products = [
@@ -71,7 +70,6 @@ const ProductSwitcher = ({ isDropdown }) => {
             ref={dropdownRef}
           >
             <ProductLogo />
-            <Caret className={styles.caret} />
           </button>
           <VersionSwitcher />
         </div>

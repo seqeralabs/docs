@@ -1,11 +1,23 @@
 .switcher {
   position: relative;
-  margin: 15px 0;
+  margin: 8px 0 15px 0;
   .button {
     border-bottom-color: var(--color-brand-200) !important;
     z-index: 10;
+    &:after {
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="4 4 16 16"><path d="M11.8152 13.1989L10.0167 11.1432C9.80447 10.9013 9.97697 10.5214 10.2991 10.5214H13.8961C13.9682 10.5214 14.0388 10.5421 14.0994 10.5811C14.16 10.6201 14.2081 10.6758 14.2379 10.7414C14.2677 10.8071 14.2779 10.8799 14.2674 10.9512C14.2569 11.0226 14.226 11.0893 14.1785 11.1435L12.38 13.1985C12.3448 13.2388 12.3014 13.2711 12.2527 13.2932C12.204 13.3153 12.1511 13.3268 12.0976 13.3268C12.0441 13.3268 11.9912 13.3153 11.9425 13.2932C11.8938 13.2711 11.8504 13.2388 11.8152 13.1985V13.1989Z" /></svg>')
+        50% / 24px 24px;
+      content: "";
+      margin-left: auto;
+      min-width: 1.25rem;
+      height: 100%;
+      transform: rotate(180deg);
+      width: 1.25rem;
+      transition: transform var(--ifm-transition-fast) linear;
+      transform: rotate(-90deg);
+    }
     &.active {
-      & .caret {
+      &:after {
         transform: rotate(0);
       }
     }
@@ -13,11 +25,11 @@
 }
 
 .item {
-  height: 50px;
+  height: 34px;
   display: flex;
   align-items: start;
   justify-content: space-between;
-  padding: 16px;
+  padding: 10px 12px;
   cursor: pointer;
   position: relative;
   width: 100%;
@@ -28,8 +40,8 @@
   font-family: Inter, sans-serif;
   & .caret {
     fill: var(--color-brand-800) !important;
-    width: 24px;
-    height: 24px;
+    width: 18px;
+    height: 18px;
     fill: #000;
     transform: rotate(-90deg);
     transition: transform 200ms ease-in-out;
@@ -54,7 +66,7 @@
   width: 100%;
   transition: background 100ms;
   @apply text-gray-1000;
-  border-bottom: 1px solid var(--color-brand-300);
+  border-bottom: 1px solid var(--color-brand-200);
   &:hover {
     background: #e8ebfc;
   }
@@ -74,7 +86,7 @@
     opacity 100ms ease-in-out,
     visibility 100ms ease-in-out;
   position: absolute;
-  top: 50px;
+  top: 34px;
   left: 0;
   right: 0;
   opacity: 0;
@@ -82,7 +94,7 @@
   border-top-right-radius: 0px;
   z-index: 1000;
   &.secondary {
-    top: calc(100% - 6px);
+    top: calc(100% - 4px);
   }
   & .item:first-child {
     border-top-left-radius: 0px;
@@ -96,10 +108,10 @@
         content: " ";
         display: block;
         position: absolute;
-        top: -2px;
+        top: -3px;
         left: -1px;
         right: -1px;
-        height: 2px;
+        height: 3px;
         background: white;
         border-left: 1px solid var(--color-brand-300);
         border-right: 1px solid var(--color-brand-300);
@@ -130,5 +142,11 @@
         }
       }
     }
+  }
+  & .dropdown.open.secondary:after {
+    background: var(--color-brand-1400);
+    border-left: 1px solid var(--color-brand-800);
+    border-right: 1px solid var(--color-brand-800);
+    border-bottom: 1px solid var(--color-brand-800);
   }
 }
