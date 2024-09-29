@@ -22,6 +22,13 @@ Tower Agent is distributed as a single executable file to simply download and ex
 
 2. (Optional) Move it to a folder that's in your $PATH.
 
+### Environment variables
+
+The following environment variables are available:
+
+- `TW_AGENT_WORKDIR`: Sets the work directory for the agent. By default, this directory resolves to the `${HOME}/work` path, where `HOME` is the home directory of the user that the agent runs as. The work directory can also be overridden by specifying the `--work-dir` argument.
+- `TW_AGENT_USER`: Sets the user name that the agent identifies as running as. By default, this is the Linux user name that the agent runs as and is the value of the `USER` environment variable.
+
 ### Quickstart
 
 Before running the Agent:
