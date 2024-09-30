@@ -10,9 +10,10 @@
 }
 
 .sidebar {
-  padding: 30px 30px 0;
-  max-height: 100dvh;
+  padding-top: 30px;
+  height: 100dvh;
   width: 300px;
+  position: relative;
   & nav {
     padding: 0;
   }
@@ -20,6 +21,27 @@
   & div[class^="sidebar"] {
     padding-top: 0 !important;
     width: auto !important;
+  }
+}
+.sidebarHeader {
+  position: relative;
+  z-index: 10;
+  padding: 0 30px;
+}
+.sidebarHeaderFade {
+  height: 15px;
+  background: linear-gradient(180deg, rgba(249,249,249,1) 0%, rgba(249,249,249,0) 100%);
+}
+.sidebarNav {
+  margin-top: -15px;
+  padding: 30px;
+  height: calc(100% - 180px);
+  overflow-y: auto;
+  & > div {
+    margin-top: 15px;
+  }
+  & div {
+    height: auto;
   }
 }
 
