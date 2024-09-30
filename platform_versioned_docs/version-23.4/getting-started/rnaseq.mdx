@@ -8,26 +8,26 @@ tags: [platform, compute environment, rnaseq, aws, gcp, azure]
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-This guide details how to run bulk RNA sequencing data analysis, from quality control to differential expression analysis, on a cloud compute environment in Platform. It includes: 
+This guide details how to run bulk RNA sequencing (RNA-Seq) data analysis, from quality control to differential expression analysis, on a cloud compute environment in Platform. It includes: 
 
 - Creating an AWS Batch compute environment to run your pipeline and analysis data studio
 - Adding pipelines to your workspace 
 - Importing your pipeline input data
 - Launching the pipeline and monitoring execution from your workspace
 - Setting up a tertiary analysis environment with Data Studios
-- Resource allocation guidance for RNA-seq data
+- Resource allocation guidance for RNA-Seq data
 
 :::info[**Prerequisites**]
 You will need the following to get started:
 
 - [Admin](../orgs-and-teams/roles.mdx) permissions in an existing organization workspace. See [Set up your workspace](./workspace-setup.mdx) to create an organization and workspace from scratch.
 - An existing AWS cloud account with access to the AWS Batch service.
-- Existing access credentials with permissions to create and manage resources in your AWS account.
+- Existing access credentials with permissions to create and manage resources in your AWS account. See [IAM](../compute-envs/aws-batch.mdx#iam) for guidance to set up IAM permissions for Platform. 
 :::
 
 ## Compute environment
 
-Compute and storage requirements for RNA-seq analysis are dependent on the number of samples and the sequencing depth of your input data. See [RNA-seq data and requirements](#rna-seq-data-and-requirements) for details on RNA-seq datasets and the CPU and memory requirements for important steps of RNA-seq pipelines. 
+Compute and storage requirements for RNA-Seq analysis are dependent on the number of samples and the sequencing depth of your input data. See [RNA-Seq data and requirements](#rna-seq-data-and-requirements) for details on RNA-Seq datasets and the CPU and memory requirements for important steps of RNA-Seq pipelines. 
 
 In this guide, we will create an AWS Batch compute environment with sufficient resources allocated to run the [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline with a large (123.5 GB) dataset. This compute environment will also be used to run a Data Studios RStudio environment for tertiary analysis of the resulting pipeline data. 
 
@@ -37,7 +37,7 @@ The compute recommendations below are based on internal benchmarking performed b
 
 ### Recommended compute environment resources
 
-The following compute resources are recommended for production pipelines, depending on the size of your input dataset:
+The following compute resources are recommended for production RNA-Seq pipelines, depending on the size of your input dataset:
 
 | **Setting**                    | **Value**                             |
 |--------------------------------|---------------------------------------|
@@ -49,8 +49,8 @@ The following compute resources are recommended for production pipelines, depend
 
 #### Fusion file system 
 
-The [Fusion](../supported_software/fusion/fusion.mdx) file system enables seamless filesystem I/O to cloud object stores via a standard POSIX interface, resulting in
-simpler pipeline logic and faster, more efficient pipeline execution. While Fusion is not required for pipeline execution, it is recommended for optimal performance. See [Compute benchmarks](#compute-benchmarks) at the end of this guide.
+The [Fusion](../supported_software/fusion/fusion.mdx) file system enables seamless filesystem I/O to cloud object stores for
+simpler pipeline logic and faster, more efficient execution. While Fusion is not required to run nf-core/rnaseq, it is recommended for optimal performance. See [Pipeline performance](#pipeline-performance) at the end of this guide.
 
 We recommend using Fusion with AWS NVMe instances (fast instance storage) as this delivers the fastest performance when compared to environments using only AWS EBS (Elastic Block Store). Batch Forge selects instances automatically based on your compute environment configuration, but you can optionally specify instance types. To enable fast instance storage (see Create compute environment below), you must select EC2 instances with NVMe SSD storage (`m5d.large` - `m5d.2xlarge` or greater). 
 
@@ -78,19 +78,19 @@ From the **Compute Environments** tab in your organization workspace, select **A
 | **Provisioning Model**                | Choose between Spot and On-demand instances.               |
 | **Max CPUs**                          | Sensible values for production use range between 2000 and 5000.|
 | **Enable Fargate for head job**       | Run the Nextflow head job using the Fargate container service to speed up pipeline launch. Requires Fusion v2.|
-| **Allowed S3 buckets**                | Additional S3 buckets or paths to be granted read-write permission for this compute environment. Add data to be mounted in your data studio here.|
+| **Allowed S3 buckets**                | Additional S3 buckets or paths to be granted read-write permission for this compute environment. Add data paths to be mounted in your data studio here, if different from your pipeline work directory.|
 | **Resource labels**                   | `name=value` pairs to tag the AWS resources created by this compute environment.|
 
 
 ## Add pipeline to Platform 
 
 :::info
-The [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline is a highly configurable and robust workflow designed to analyze RNA sequencing (RNA-seq) data. It performs quality control, alignment, quantification, and differential expression analysis.
+The [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline is a highly configurable and robust workflow designed to analyze RNA-Seq data. It performs quality control, alignment, quantification, and differential expression analysis.
 :::
 
-[Seqera Pipelines](https://seqera.io/pipelines) is an open-source resource that provides a curated collection of high-quality, open-source pipelines that can be imported directly to your workspace Launchpad in Platform. Each pipeline includes a curated test dataset to use in a test run to confirm compute environment compatibility in just a few steps.
+[Seqera Pipelines](https://seqera.io/pipelines) is an open-source resource that provides a curated collection of high quality, open source pipelines that can be imported directly to your workspace Launchpad in Platform. Each pipeline includes a curated test dataset to use in a test run to confirm compute environment compatibility in just a few steps.
 
-To use Seqera Pipelines to import the `nf-core-rnaseq` pipeline to your workspace Launchpad:
+To use Seqera Pipelines to import the `nf-core-rnaseq` pipeline to your workspace:
 
 ![Seqera Pipelines add to Launchpad](./quickstart-demo/assets/seqera-pipelines-add-pipeline.gif)
 
@@ -170,7 +170,7 @@ In Platform, samplesheets and other data can be made easily accessible in one of
   The dataset is now listed in your organization workspace datasets and can be selected as input when launching your pipeline. 
 
   :::info
-  Platform does not store the data used for analysis in pipelines. The datasets must provide the locations of data that is stored on your own infrastructure.
+  Platform does not store the data used for analysis in pipelines. The dataset must specify the locations of data stored on your own infrastructure.
   :::
 
 </details>
@@ -368,30 +368,35 @@ Salmon is the default tool used during the `pseudo-aligner` step of the nf-core/
 
 The analysis script provided in this section requires a sample information file to parse the counts data in the `salmon.merged.gene_counts.tsv` file. nf-core/rnaseq does not produce this sample information file automatically. To create a sample information file based on the genes in your `salmon.merged.gene_counts.tsv` file:
 
-1. Note the names of the columns (excluding the first column, which typically contains gene IDs) in your `salmon.merged.gene_counts.tsv` file. These are your sample names.
-1. Identify the group or condition that each sample belongs to. This information should come from your experimental design.
-1. Create a new text file named `sampleinfo.txt`, with two columns:
-    - First column header: Sample
-    - Second column header: Group
-1. For each sample in your `salmon.merged.gene_counts.tsv` file:
-    - In the "Sample" column, write the exact sample name as it appears in the gene counts file.
-    - In the "Group" column, write the corresponding group name.
+<details>
+  <summary>**Create a sample info file**</summary>
 
-For example, for the dataset used in a `test_full` run of nf-core/rnaseq, the `sampleinfo.txt` looks like this:
+  1. Note the names of the columns (excluding the first column, which typically contains gene IDs) in your `salmon.merged.gene_counts.tsv` file. These are your sample names.
+  1. Identify the group or condition that each sample belongs to. This information should come from your experimental design.
+  1. Create a new text file named `sampleinfo.txt`, with two columns:
+      - First column header: Sample
+      - Second column header: Group
+  1. For each sample in your `salmon.merged.gene_counts.tsv` file:
+      - In the "Sample" column, write the exact sample name as it appears in the gene counts file.
+      - In the "Group" column, write the corresponding group name.
 
-```
-Sample        Group
-GM12878_REP1  GM12878
-GM12878_REP2  GM12878
-H1_REP1       H1
-H1_REP2       H1
-K562_REP1     K562
-K562_REP2     K562
-MCF7_REP1     MCF7
-MCF7_REP2     MCF7
-```
+  For example, for the dataset used in a `test_full` run of nf-core/rnaseq, the `sampleinfo.txt` looks like this:
 
-To make your `sampleinfo.txt` file accessible to the data studio, upload it to the directory that contains your pipeline output data. Select this bucket or directory when you **Mount data** during data studio setup.
+  ```
+  Sample        Group
+  GM12878_REP1  GM12878
+  GM12878_REP2  GM12878
+  H1_REP1       H1
+  H1_REP2       H1
+  K562_REP1     K562
+  K562_REP2     K562
+  MCF7_REP1     MCF7
+  MCF7_REP2     MCF7
+  ```
+
+  To make your `sampleinfo.txt` file accessible to the data studio, upload it to the directory that contains your pipeline output data. Select this bucket or directory when you **Mount data** during data studio setup.
+
+</details>
 
 ### Create an RStudio analysis environment with Data Studios
 
@@ -401,7 +406,7 @@ From the **Data Studios** tab, select **Add a data studio** and complete the fol
 :::note
 Data studios compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and data studio sessions. The default CPU and memory allocation for a data studio is 2 CPUs and 8192 MB RAM. 
 :::
-- Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the pipeline work directory of your RNA-seq run. 
+- Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the pipeline work directory of your RNA-Seq run. 
 - Optional: Enter CPU and memory allocations. The default values are 2 CPUs and 8192 MB memory (RAM).
 - Select **Add**.
 - Once the data studio has been created, select the options menu next to it and select **Start**.
@@ -409,201 +414,227 @@ Data studios compete for computing resources when sharing compute environments. 
 
 ### Perform the analysis and explore results
 
-The RStudio environment can be configured with the packages you wish to install and the R script you wish to run. For the purposes of this guide, the following script will be used to install the necessary packages and perform the analysis:
+The RStudio environment can be configured with the packages you wish to install and the R script you wish to run. For the purposes of this guide, run the following scripts in the RStudio console to install the necessary packages and perform the analysis:
 
-```console
-# 1a. Install required packages
-if (!requireNamespace("BiocManager", quietly = TRUE))
-  install.packages("BiocManager")
-BiocManager::install(c("limma", "edgeR", "ggplot2", "gplots"))
+1. Install and load the necessary packages and libraries:
 
-# 1b. Load required libraries
-library(limma)
-library(edgeR)
-library(ggplot2)
-library(gplots)
+    ```console
+    # Install required packages
+    if (!requireNamespace("BiocManager", quietly = TRUE))
+      install.packages("BiocManager")
+    BiocManager::install(c("limma", "edgeR", "ggplot2", "gplots"))
 
-# 2a. Read in the count data
-counts <- read.delim(file="/workspace/data/<PATH_TO_YOUR_COUNTS_FILE>", row.names=1)
+    # Load required libraries
+    library(limma)
+    library(edgeR)
+    library(ggplot2)
+    library(gplots)
+    ```
 
-# 2b. Remove the gene_name column if it exists
-if("gene_name" %in% colnames(counts)) {
-  counts <- counts[, -which(colnames(counts) == "gene_name")]
-}
+1. Read and convert the count data and sample information:
 
-# 2c. Convert to matrix
-counts <- as.matrix(counts)
+    :::info
+    Replace `<PATH_TO_YOUR_COUNTS_FILE>` and `<PATH_TO_YOUR_SAMPLE_INFO_FILE>` with the paths to your `salmon.merged.gene_counts.tsv` and `sampleinfo.txt` files.
+    :::
 
-# 2d. Read in the sample information
-targets <- read.table(file="/workspace/data/<PATH_TO_YOUR_SAMPLE_INFO_FILE>", 
-                      header=TRUE, stringsAsFactors=FALSE, sep="", check.names=FALSE)
+    ```console
+    # Read in the count data
+    counts <- read.delim(file="/workspace/data/<PATH_TO_YOUR_COUNTS_FILE>", row.names=1)
 
-# 2e. Ensure column names are correct
-colnames(targets) <- c("Sample", "Group")
+    # Remove the gene_name column if it exists
+    if("gene_name" %in% colnames(counts)) {
+      counts <- counts[, -which(colnames(counts) == "gene_name")]
+    }
 
-# 3a. Create a DGEList object
-y <- DGEList(counts, group=targets$Group)
+    # Convert to matrix
+    counts <- as.matrix(counts)
 
-# 3b. Calculate CPM (counts per million) values
-mycpm <- cpm(y)
+    # Read in the sample information
+    targets <- read.table(file="/workspace/data/<PATH_TO_YOUR_SAMPLE_INFO_FILE>", 
+                          header=TRUE, stringsAsFactors=FALSE, sep="", check.names=FALSE)
 
-# 3c. Filter low count genes
-thresh <- mycpm > 0.5
-keep <- rowSums(thresh) >= 2
-y <- y[keep, , keep.lib.sizes=FALSE]
+    # Ensure column names are correct
+    colnames(targets) <- c("Sample", "Group")
+    ```
 
-# 4. Normalize the data
-y <- calcNormFactors(y)
+1. Create a DGEList object and filter out low-count genes:
 
-# 5. Print summary of filtered data
-print(dim(y))
-print(y$samples)
+    ```console
+    # Create a DGEList object
+    y <- DGEList(counts, group=targets$Group)
 
-# 6. Create MDS plot
-# 6a. Display in RStudio
-plotMDS(y, col=as.numeric(factor(targets$Group)), labels=targets$Group)
-legend("topright", legend=levels(factor(targets$Group)), 
-       col=1:nlevels(factor(targets$Group)), pch=20)
+    # Calculate CPM (counts per million) values
+    mycpm <- cpm(y)
 
-# 6b. Save MDS plot to file
-png("MDS_plot.png", width = 800, height = 600)
-plotMDS(y, col=as.numeric(factor(targets$Group)), labels=targets$Group)
-legend("topright", legend=levels(factor(targets$Group)), 
-       col=1:nlevels(factor(targets$Group)), pch=20)
-dev.off()
+    # Filter low count genes
+    thresh <- mycpm > 0.5
+    keep <- rowSums(thresh) >= 2
+    y <- y[keep, , keep.lib.sizes=FALSE]
+    ```
 
-# 7. Perform differential expression analysis
-# 7a. Design matrix
-design <- model.matrix(~0+group, data=y$samples)
-colnames(design) <- levels(y$samples$group)
+1. Normalize the data:
 
-# 7b. Estimate dispersion
-y <- estimateDisp(y, design)
+    ```console
+    # Normalize the data
+    y <- calcNormFactors(y)
+    ```
 
-# 7c. Fit the model
-fit <- glmQLFit(y, design)
+1. Print a summary of the filtered data:
 
-# 7d. Define contrasts
-my.contrasts <- makeContrasts(
-  GM12878vsH1 = GM12878 - H1,
-  GM12878vsK562 = GM12878 - K562,
-  GM12878vsMCF7 = GM12878 - MCF7,
-  H1vsK562 = H1 - K562,
-  H1vsMCF7 = H1 - MCF7,
-  K562vsMCF7 = K562 - MCF7,
-  levels = design
-)
+    ```console 
+    # Print summary of filtered data
+    print(dim(y))
+    print(y$samples)
+    ```
 
-# 7e. Perform differential expression analysis for each contrast
-results <- lapply(colnames(my.contrasts), function(contrast) {
-  qlf <- glmQLFTest(fit, contrast=my.contrasts[,contrast])
-  topTags(qlf, n=Inf)
-})
-names(results) <- colnames(my.contrasts)
+1. Create an MDS plot, displayed in RStudio plots viewer (`a`) and saved as a PNG file (`b`):
 
-# 8a. Print the number of differentially expressed genes for each comparison
-for (name in names(results)) {
-  de_genes <- sum(results[[name]]$table$FDR < 0.05)
-  print(paste("Number of DE genes in", name, ":", de_genes))
-}
+    ```console 
+    # Create MDS plot
+    # a. Display in RStudio
+    plotMDS(y, col=as.numeric(factor(targets$Group)), labels=targets$Group)
+    legend("topright", legend=levels(factor(targets$Group)), 
+          col=1:nlevels(factor(targets$Group)), pch=20)
 
-# 8b. Save results
-for (name in names(results)) {
-  write.csv(results[[name]], file=paste0("DE_genes_", name, ".csv"))
-}
+    # b. Save MDS plot to file (change `png` to `pdf` to create a PDF file)
+    png("MDS_plot.png", width = 800, height = 600)
+    plotMDS(y, col=as.numeric(factor(targets$Group)), labels=targets$Group)
+    legend("topright", legend=levels(factor(targets$Group)), 
+          col=1:nlevels(factor(targets$Group)), pch=20)
+    dev.off()
+    ```
 
-# 9. Create volcano plots for differential expression comparisons
-# 9a. Function to create a volcano plot
-create_volcano_plot <- function(res, title) {
-  ggplot(res$table, aes(x = logFC, y = -log10(FDR))) +
-    geom_point(aes(color = FDR < 0.05 & abs(logFC) > 1), size = 0.5) +
-    scale_color_manual(values = c("black", "red")) +
-    labs(title = title, x = "Log2 Fold Change", y = "-Log10 FDR") +
-    theme_minimal()
-}
+1. Perform differential expression analysis:
 
-# 9b. Create volcano plots for each comparison
-for (name in names(results)) {
-  p <- create_volcano_plot(results[[name]], name)
-  # Display in RStudio
-  print(p)
-  # Save to file
-  ggsave(paste0("volcano_plot_", name, ".png"), p, width = 8, height = 6, dpi = 300)
-}
+    :::info 
+    This script is written for the analysis of human data, based on nf-core/rnaseq's `test_full` dataset. To adapt the script for your data, modify the contrasts based on the comparisons you want to make between your sample groups:
 
-# 10. Create a heatmap of top 50 differentially expressed genes
-# 10a. Get top 50 DE genes from each comparison
-top_genes <- unique(unlist(lapply(results, function(x) rownames(x$table)[1:50])))
-
-# 10b. Get log-CPM values for these genes
-log_cpm <- cpm(y, log = TRUE)
-top_gene_expr <- log_cpm[top_genes,]
-
-# 10c. Print dimensions of top_gene_expr
-print(dim(top_gene_expr))
-
-# 10d. Create a color palette
-my_palette <- colorRampPalette(c("blue", "white", "red"))(100)
-
-# 10e. Create a heatmap using heatmap.2
-# Display in RStudio
-heatmap.2(as.matrix(top_gene_expr), scale = "row", col = my_palette,
-          trace = "none", dendrogram = "column", margins = c(5, 10),
-          labRow = FALSE, 
-          ColSideColors = rainbow(length(unique(y$samples$group)))[factor(y$samples$group)],
-          main = "Top DE Genes Across Samples")
-
-# Save heatmap to file
-png("heatmap_top_DE_genes.png", width = 1000, height = 1200)
-heatmap.2(as.matrix(top_gene_expr), scale = "row", col = my_palette,
-          trace = "none", dendrogram = "column", margins = c(5, 10),
-          labRow = FALSE, 
-          ColSideColors = rainbow(length(unique(y$samples$group)))[factor(y$samples$group)],
-          main = "Top DE Genes Across Samples")
-dev.off()
-
-# 10g. Print the number of top genes in the heatmap
-print(paste("Number of top DE genes in heatmap:", length(top_genes)))
-```
-
-This script is written for RNA-seq and differential expression analysis of human data, based on nf-core/rnaseq's `test_full` dataset. The script performs the following steps:
-
-1. Installs and loads necessary libraries.
-1. Reads in the count data and sample information.
-1. Creates a DGEList object and filters out low-count genes.
-1. Normalizes the data.
-1. Displays a summary of the filtered data. 
-1. Creates an MDS plot (both displayed in RStudio and saved as a PNG file).
-1. Performs differential expression analysis for each specified contrast.
-1. Prints the number of differentially expressed genes for each comparison and saves the full results to CSV files.
-1. Creates volcano plots for each comparison (both displayed in RStudio and saved as PNG files).
-1. Creates a heatmap of the top differentially expressed genes (both displayed in RStudio and saved as a PNG file).
-
-#### Customize the R script 
-
-1. In steps `2a` and `2d` of the R script in the previous section, specify the paths to your `salmon.merged.gene_counts.tsv` and `sampleinfo.txt` files.
-1. In step `7d`, modify the contrasts based on the comparisons you want to make between your sample groups:
-
-    ```r
+    ```console
     my.contrasts <- makeContrasts(
     Sample1vsSample2 = Sample1 - Sample2,
     Sample2vsSample3 = Sample2 - Sample3,
     ...
     levels = design
-   )
+    )
+    ```
+    :::
+
+    ```console
+    # Perform differential expression analysis
+    # Design matrix
+    design <- model.matrix(~0+group, data=y$samples)
+    colnames(design) <- levels(y$samples$group)
+
+    # Estimate dispersion
+    y <- estimateDisp(y, design)
+
+    # Fit the model
+    fit <- glmQLFit(y, design)
+
+    # Define contrasts
+    my.contrasts <- makeContrasts(
+      GM12878vsH1 = GM12878 - H1,
+      GM12878vsK562 = GM12878 - K562,
+      GM12878vsMCF7 = GM12878 - MCF7,
+      H1vsK562 = H1 - K562,
+      H1vsMCF7 = H1 - MCF7,
+      K562vsMCF7 = K562 - MCF7,
+      levels = design
+    )
+
+    # Perform differential expression analysis for each contrast
+    results <- lapply(colnames(my.contrasts), function(contrast) {
+      qlf <- glmQLFTest(fit, contrast=my.contrasts[,contrast])
+      topTags(qlf, n=Inf)
+    })
+    names(results) <- colnames(my.contrasts)
     ```
 
-1. Each of the plots produced by the script (MDS plots, volcano plots, and a heatmap) are displayed in the RStudio plots viewer and saved to a PNG file. You can remove the `save to file` section for each plot, or change the output file format as needed. 
+1. Print the number of differentially expressed genes for each comparison and save the results to CSV files:    
+
+    ```console
+    # Print the number of differentially expressed genes for each comparison
+    for (name in names(results)) {
+      de_genes <- sum(results[[name]]$table$FDR < 0.05)
+      print(paste("Number of DE genes in", name, ":", de_genes))
+    }
+
+    # Save results
+    for (name in names(results)) {
+      write.csv(results[[name]], file=paste0("DE_genes_", name, ".csv"))
+    }
+    ```
+
+1. Create volcano plots for each differential expression comparison, displayed in RStudio plots viewer and saved as PNG files:
+
+    ```console 
+    # Create volcano plots for differential expression comparisons
+    # Function to create a volcano plot
+    create_volcano_plot <- function(res, title) {
+      ggplot(res$table, aes(x = logFC, y = -log10(FDR))) +
+        geom_point(aes(color = FDR < 0.05 & abs(logFC) > 1), size = 0.5) +
+        scale_color_manual(values = c("black", "red")) +
+        labs(title = title, x = "Log2 Fold Change", y = "-Log10 FDR") +
+        theme_minimal()
+    }
+
+    # Create volcano plots for each comparison
+    for (name in names(results)) {
+      p <- create_volcano_plot(results[[name]], name)
+      # Display in RStudio
+      print(p)
+      # Save to file (change `.png` to `.pdf` to create PDF files)
+      ggsave(paste0("volcano_plot_", name, ".png"), p, width = 8, height = 6, dpi = 300)
+    }
+    ```
+
+1. Create a heatmap of the top 50 differentially expressed genes:
+
+    ```console 
+    # Create a heatmap of top 50 differentially expressed genes
+    # Get top 50 DE genes from each comparison
+    top_genes <- unique(unlist(lapply(results, function(x) rownames(x$table)[1:50])))
+
+    # Get log-CPM values for these genes
+    log_cpm <- cpm(y, log = TRUE)
+    top_gene_expr <- log_cpm[top_genes,]
+
+    # Print dimensions of top_gene_expr
+    print(dim(top_gene_expr))
+
+    # Create a color palette
+    my_palette <- colorRampPalette(c("blue", "white", "red"))(100)
+
+    # Create a heatmap using heatmap.2
+    # Display in RStudio
+    heatmap.2(as.matrix(top_gene_expr), scale = "row", col = my_palette,
+              trace = "none", dendrogram = "column", margins = c(5, 10),
+              labRow = FALSE, 
+              ColSideColors = rainbow(length(unique(y$samples$group)))[factor(y$samples$group)],
+              main = "Top DE Genes Across Samples")
+
+    # Save heatmap to file (change `png` to `pdf` to create a PDF file)
+    png("heatmap_top_DE_genes.png", width = 1000, height = 1200)
+    heatmap.2(as.matrix(top_gene_expr), scale = "row", col = my_palette,
+              trace = "none", dendrogram = "column", margins = c(5, 10),
+              labRow = FALSE, 
+              ColSideColors = rainbow(length(unique(y$samples$group)))[factor(y$samples$group)],
+              main = "Top DE Genes Across Samples")
+    dev.off()
+
+    # Print the number of top genes in the heatmap
+    print(paste("Number of top DE genes in heatmap:", length(top_genes)))
+    ```
 
 ### Collaborate in the data studio
 
-To share the results of your RNAseq analysis or allow colleagues to perform exploratory analysis, share a link to the data studio by selecting the options menu for the data studio you want to share, then select **Copy data studio URL**. With this link, other authenticated users with the **Connect** [role](../orgs-and-teams/roles.mdx) (or greater) can access the session directly.
+To share your results or allow colleagues to perform exploratory analysis, share a link to the data studio by selecting the options menu for the data studio you want to share, then select **Copy data studio URL**. With this link, other authenticated users with the **Connect** [role](../orgs-and-teams/roles.mdx) (or greater) can access the session directly.
 
-## RNA-seq data and requirements
+## RNA-Seq data and requirements
 
-RNA-seq data typically consists of raw sequencing reads from high-throughput sequencing technologies like Illumina. These reads are used to quantify gene expression levels and discover novel transcripts. A typical RNA-seq dataset can range from a few GB to several hundred GB, depending on the number of samples and the sequencing depth.
+RNA-Seq data typically consists of raw sequencing reads from high-throughput sequencing technologies like Illumina. These reads are used to quantify gene expression levels and discover novel transcripts. A typical RNA-Seq dataset can range from a few GB to several hundred GB, depending on the number of samples and the sequencing depth.
 
-For example, the publicly available 1000 Genomes dataset contains RNA-seq data for over 2500 samples, with low-coverage individual FASTQ files ranging from 30 to 50 GB in size.
+For example, the publicly available 1000 Genomes dataset contains RNA-Seq data for over 2500 samples, with low-coverage individual FASTQ files ranging from 30 to 50 GB in size.
 
 ### Pipeline steps and computing resource requirements
 
@@ -670,7 +701,7 @@ The Fusion file system demonstrates significant performance improvements for mos
 
   #### Optimize nf-core/rnaseq
 
-  Navigate back to the Launchpad and select the lightbulb icon next to nf-core/rnaseq to view the optimized profile. You have the flexibility to tailor the optimization's target settings and incorporate a retry strategy as needed.
+  Select the lightbulb icon next to nf-core/rnaseq in your workspace Launchpad to view the optimized profile. You have the flexibility to tailor the optimization's target settings and incorporate a retry strategy as needed.
 
   #### View optimized configuration
 
