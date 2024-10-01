@@ -1,9 +1,6 @@
 html {
   @media (min-width: 997px) {
     scroll-padding-top: 110px;
-    & :global(.theme-doc-toc-desktop) {
-      top: calc(var(--ifm-navbar-height) + 6.5rem) !important;
-    }
   }
 }
 .siteHeader {
