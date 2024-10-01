@@ -50,7 +50,7 @@ export default async function createConfigAsync() {
               language: 'en-US',
             }
           },
-          docs: true,
+          docs: false,
           theme: {
             customCss: [
               require.resolve("./src/css/main.css"),
