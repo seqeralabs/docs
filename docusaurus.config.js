@@ -112,7 +112,7 @@ export default async function createConfigAsync() {
           ],
           rehypePlugins: [(await require("rehype-katex")).default],
           editUrl: ({ docPath }) => {
-            return `https://github.com/MultiQC/MultiQC/blob/main/docs${docPath.replace('multiqc_docs/multiqc_repo/docs', '')}`
+            return `https://github.com/MultiQC/MultiQC/blob/main/docs/markdown/${docPath.replace('multiqc_docs/multiqc_repo/docs', '')}`
           },
           sidebarPath: "./multiqc_docs/sidebar.js",
         },
