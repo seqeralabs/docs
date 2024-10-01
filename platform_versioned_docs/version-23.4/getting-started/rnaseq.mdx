@@ -60,6 +60,8 @@ Fusion requires a license for use in Seqera Platform compute environments or dir
 
 ### Create compute environment
 
+![Add Platform compute environment](./_images/create-ce.gif)
+
 From the **Compute Environments** tab in your organization workspace, select **Add compute environment** and complete the following fields:
 
 | **Field**                             | **Description**                                            |
@@ -92,7 +94,7 @@ The [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline is a highly con
 
 To use Seqera Pipelines to import the `nf-core-rnaseq` pipeline to your workspace:
 
-![Seqera Pipelines add to Launchpad](./quickstart-demo/assets/seqera-pipelines-add-pipeline.gif)
+![Seqera Pipelines add to Launchpad](./_images/pipelines-add.gif)
 
 1. Search for `nf-core-rnaseq` and select **Launch** next to the pipeline name in the list. In the **Add pipeline** tab, select **Cloud** or **Enterprise** depending on your Platform account type, then provide the information needed for Seqera Pipelines to access your Platform instance:
     - **Seqera Cloud**: Paste your Platform **Access token** and select **Next**.  
@@ -179,11 +181,13 @@ In Platform, samplesheets and other data can be made easily accessible in one of
 
 With your compute environment created, nf-core/rnaseq added to your workspace Launchpad, and your samplesheet accessible in Platform, you are ready to launch your pipeline. Navigate to the Launchpad and select **Launch** next to `nf-core-rnaseq` to open the launch form.
 
- ![Launch a pipeline](./quickstart-demo/assets/sp-cloud-launch-form.gif)
+ ![Launch a pipeline](./_images/launch-form-1.gif)
 
 The launch form consists of **General config**, **Run parameters**, and **Advanced options** sections to specify your run parameters before execution, and an execution summary. Use section headings or select the **Previous** and **Next** buttons at the bottom of the page to navigate between sections. 
 
 ### General config 
+
+![General config tab](./_images/launch-form-2.gif)
 
 - **Pipeline to launch**: The pipeline Git repository name or URL. For saved pipelines, this is prefilled and cannot be edited.
 - **Revision number**: A valid repository commit ID, tag, or branch name. For saved pipelines, this is prefilled and cannot be edited.
@@ -197,6 +201,8 @@ The launch form consists of **General config**, **Run parameters**, and **Advanc
   :::
 
 ### Run parameters 
+
+![Run parameters](./_images/launch-form-3.gif)
 
 There are three ways to enter **Run parameters** prior to launch:
 
@@ -399,6 +405,8 @@ The analysis script provided in this section requires a sample information file 
 </details>
 
 ### Create an RStudio analysis environment with Data Studios
+
+![Add data studio](./_images/create-ds.gif)
 
 From the **Data Studios** tab, select **Add a data studio** and complete the following:
 - Select the latest **RStudio** container image template from the dropdown list.
@@ -626,6 +634,8 @@ The RStudio environment can be configured with the packages you wish to install 
     print(paste("Number of top DE genes in heatmap:", length(top_genes)))
     ```
 
+![RStudio plots](./_images/rstudio.gif)
+
 ### Collaborate in the data studio
 
 To share your results or allow colleagues to perform exploratory analysis, share a link to the data studio by selecting the options menu for the data studio you want to share, then select **Copy data studio URL**. With this link, other authenticated users with the **Connect** [role](../orgs-and-teams/roles.mdx) (or greater) can access the session directly.
@@ -656,7 +666,11 @@ This benchmark compares pipeline run metrics between an AWS Batch compute enviro
 
 #### Overall run metrics
 
-The Fusion file system used with NVMe instance storage contributed to a 34 % improvement in total pipeline runtime and a 49 % reduction in CPU hours, with a 7 % improvement in CPU efficiency.
+The Fusion file system used with NVMe instance storage contributed to a 34 % improvement in total pipeline runtime and a 49 % reduction in CPU hours. 
+
+Total pipeline run cost: 
+- Fusion file system with fast instance storage: $ 34.90
+- Plain S3 storage without Fusion: $ 58.40
 
 ![Run metrics overview](./_images/cpu-table.png)
 
