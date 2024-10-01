@@ -240,7 +240,7 @@
         {
       "type": "link",
       "label": "Release notes",
-      "href": "https://docs.seqera.io/release_notes",
+      "href": "https://docs.seqera.io/release_notes"
        },
         "functionality_matrix/functionality_matrix"
       ]
