@@ -40,7 +40,7 @@ export default async function createConfigAsync() {
             blogTitle: 'Blog title',
             blogDescription: 'Blog',
             blogSidebarCount: 5,
-            blogSidebarTitle: 'All our posts',
+            blogSidebarTitle: 'Seqera release notes',
             path: 'release_notes',
             routeBasePath: '/release_notes',
             //processBlogPosts: () => ({}),
@@ -50,7 +50,7 @@ export default async function createConfigAsync() {
               language: 'en-US',
             }
           },
-          docs: false,
+          docs: true,
           theme: {
             customCss: [
               require.resolve("./src/css/main.css"),
