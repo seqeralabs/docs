@@ -1,6 +1,6 @@
 ---
 title: "AWS"
-description: "Nextflow troubleshooting with Seqera Platform."
+description: "AWS troubleshooting with Seqera Platform."
 date: "26 August 2024"
 tags: [faq, help, aws help, aws troubleshooting]
 ---
@@ -13,7 +13,7 @@ The EBS autoscaling solution relies on an AWS-provided script which runs on each
 
 When running large Batch clusters (hundreds of compute nodes or more), EC2 API rate limits may cause the deletion of unattached EBS volumes to fail. Volumes that remain active after Nextflow jobs have been completed will incur additional costs and should therefore be manually deleted.
 
-You can monitor your AWS account for any orphaned EBS volumes via the EC2 console or with a Lambda function. See [here](https://aws.amazon.com/blogs/mt/controlling-your-aws-costs-by-deleting-unused-amazon-ebs-volumes/) for more information.
+You can monitor your AWS account for any orphaned EBS volumes via the EC2 console or with a Lambda function. See [Controlling your AWS costs by deleting unused Amazon EBS volumes](https://aws.amazon.com/blogs/mt/controlling-your-aws-costs-by-deleting-unused-amazon-ebs-volumes/) for more information.
 
 ### ECS
 
@@ -32,16 +32,18 @@ See the [AWS ECS documentation](https://docs.aws.amazon.com/AmazonECS/latest/dev
 This behaviour can't be changed within Seqera Platform.
 :::
 
-**_CannotPullContainerError: Error response from daemon: error parsing HTTP 429 response body: invalid character 'T' looking for beginning of value: "Too Many Requests (HAP429)"_**
+### Container errors
+
+**CannotPullContainerError: Error response from daemon: error parsing HTTP 429 response body: invalid character 'T' looking for beginning of value: "Too Many Requests (HAP429)"**
 
 Docker Hub imposes a rate limit of 100 anonymous pulls per 6 hours. Add the following to your launch template to avoid this issue:
 
 `echo ECS_IMAGE_PULL_BEHAVIOR=once >> /etc/ecs/ecs.config`
 
-**_CannotInspectContainerError_**
+**CannotInspectContainerError**
 
 If your run fails with an _Essential container in task exited - CannotInspectContainerError: Could not transition to inspecting; timed out after waiting 30s_ error, try the following:
 
-1. Upgrade your [ECS Agent](https://github.com/aws/amazon-ecs-agent/releases) to [1.54.1](https://github.com/aws/amazon-ecs-agent/pull/2940) or newer. See [here](https://www.trendmicro.com/cloudoneconformity/knowledge-base/aws/ECS/latest-agent-version.html) for instructions to check your ECS Agent version.
+1. Upgrade your [ECS Agent](https://github.com/aws/amazon-ecs-agent/releases) to [1.54.1](https://github.com/aws/amazon-ecs-agent/pull/2940) or newer. See [Check for ECS Container Instance Agent Version](https://www.trendmicro.com/cloudoneconformity/knowledge-base/aws/ECS/latest-agent-version.html) for instructions to check your ECS Agent version.
 2. Provision more storage for your EC2 instance (preferably via EBS-autoscaling to ensure scalability).
 3. If the error is accompanied by _command exit status: 123_ and a _permissions denied_ error tied to a system command, ensure that the ECS Agent binary is set to be executable (`chmod u+x`).
