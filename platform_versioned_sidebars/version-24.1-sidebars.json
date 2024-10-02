@@ -222,10 +222,21 @@
       "type": "category",
       "label": "Releases",
       "collapsed": true,
-      "items": [
-        "cloud/changelog",
-        "enterprise/release_notes/enterprise_changelog",
-        "enterprise/release_notes/enterprise_latest",    
+      "items": [               
+        {
+          "type": "category",
+          "label": "Enterprise release notes",
+          "collapsed": true,
+          "items": [
+         "enterprise/release_notes/enterprise_changelog",
+        "enterprise/release_notes/enterprise_latest"
+          ]
+        },
+        {
+          "type": "link",
+          "label": "Cloud release notes",
+          "href": "/release_notes/"
+           },    
         {
           "type": "category",
           "label": "Legacy versions",
@@ -237,11 +248,7 @@
             "enterprise/release_notes/23.1"
           ]
         },
-        {
-      "type": "link",
-      "label": "Release notes",
-      "href": "/release_notes/"
-       },
+        
         "functionality_matrix/functionality_matrix"
       ]
     },
