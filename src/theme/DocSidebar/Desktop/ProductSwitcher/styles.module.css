@@ -1,6 +1,6 @@
 .switcher {
   position: relative;
-  margin: 8px 0 15px 0;
+  margin: 8px 0 0 0;
   .button {
     border-bottom-color: var(--color-brand-200) !important;
     z-index: 10;
