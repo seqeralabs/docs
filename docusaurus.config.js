@@ -46,8 +46,10 @@ export default async function createConfigAsync() {
             //processBlogPosts: () => ({}),
             //include: ['**/*.{md,mdx}'],
             feedOptions: {
-              type: 'rss',
-              language: 'en-US',
+            type: 'rss', // 'rss', 'atom', or both
+            title: 'Seqera Cloud release notes',
+            description: 'Stay updated with our blog posts!',
+            copyright: `Copyright © ${new Date().getFullYear()} Seqera Labs`,
             }
           },
           docs: false,

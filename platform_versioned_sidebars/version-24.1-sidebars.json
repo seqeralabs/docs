@@ -228,7 +228,7 @@
           "label": "Enterprise release notes",
           "collapsed": true,
           "items": [
-         "enterprise/release_notes/enterprise_changelog",
+        "enterprise/release_notes/enterprise_changelog",
         "enterprise/release_notes/enterprise_latest"
           ]
         },
