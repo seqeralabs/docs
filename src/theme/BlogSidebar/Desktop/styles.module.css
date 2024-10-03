@@ -1,3 +1,14 @@
+aside {
+  width: var(--doc-sidebar-width) !important;
+  padding: 30px;
+}
+[data-theme="light"] aside {
+  background: rgb(249, 249, 249);
+}
+[data-theme="dark"] aside {
+  background: rgb(27, 24, 35);
+}
+
 .sidebar {
   max-height: calc(100vh - (var(--ifm-navbar-height) + 2rem));
   overflow-y: auto;
@@ -6,8 +17,8 @@
 }
 
 .sidebarItemTitle {
-  font-size: var(--ifm-h3-font-size);
-  font-weight: var(--ifm-font-weight-bold);
+  font-size: 1em;
+  font-weight: 600;
   margin: 8px 0;
   height: 34px;
   padding: 0 12px;
@@ -20,6 +31,13 @@
   justify-content: space-between;
   align-items: center;
   & a {
+    color: var(--color-brand-1000);
+    text-decoration: none;
+    &:hover {
+      color: var(--ifm-link-hover-color);
+    }
+  }
+  & .RssIconLink {
     display: inline-block;
     height: 24px;
     & svg {
@@ -35,25 +53,40 @@
   margin-left: 0.5em;
 }
 
-.sidebarItemList {
-  font-size: 0.9rem;
+
+[data-theme='light'] aside {
+  .sidebarItemLink {
+    color: #000;
+    border-radius: 5px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    display: block;
+    line-height: 1.25;
+    padding: var(--ifm-menu-link-padding-vertical) var(--ifm-menu-link-padding-horizontal);
+  }
+  .sidebarItemLinkActive {
+    background: #E8EBFC;
+    color: #4256E7;
+  }
+}
+[data-theme='dark'] nav.menu .menu__list {
+  & .menu__link {
+    color: rgba(255, 255, 255, 0.9);
+  }
+  & .menu__link--active:not(.menu__link--sublist) {
+    background: rgba(0, 0, 0, 0.2);
+    color: #98a3ff;
+  }
 }
 
 .sidebarItem {
-  margin-top: 0.7rem;
-}
+  margin-top: 0.25rem;
 
-.sidebarItemLink {
-  color: var(--ifm-font-color-base);
-  display: block;
 }
 
 .sidebarItemLink:hover {
   text-decoration: none;
-}
-
-.sidebarItemLinkActive {
-  color: var(--ifm-color-primary) !important;
+  background: var(--ifm-menu-color-background-hover);
 }
 
 @media (max-width: 996px) {
@@ -63,6 +96,5 @@
 }
 
 .yearGroupHeading {
-  margin-top: 1.6rem;
-  margin-bottom: 0.4rem;
+  margin: 1.6rem 0 0.4rem 0.7rem;
 }
