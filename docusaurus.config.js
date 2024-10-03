@@ -41,8 +41,8 @@ export default async function createConfigAsync() {
             blogDescription: 'Blog',
             blogSidebarCount: 5,
             blogSidebarTitle: 'Seqera Cloud changelog',
-            path: 'cloud_changelog',
-            routeBasePath: '/cloud_changelog',
+            path: 'changelog',
+            routeBasePath: '/changelog',
             //processBlogPosts: () => ({}),
             //include: ['**/*.{md,mdx}'],
             feedOptions: {

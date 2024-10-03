@@ -10,7 +10,7 @@ export default function BlogPostItemWrapper(props) {
         <a href="https://docs.seqera.io/platform/latest" style={{ marginRight: '1rem' }}>
           Back to Docs
         </a>
-        <a href="/cloud_changelog/rss.xml" target="_blank" rel="noopener noreferrer">
+        <a href="/changelog/rss.xml" target="_blank" rel="noopener noreferrer">
           Subscribe to RSS
         </a>
       </div>

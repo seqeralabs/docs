@@ -222,7 +222,7 @@
       "type": "category",
       "label": "Releases",
       "collapsed": true,
-      "items": [               
+      "items": [
         {
           "type": "category",
           "label": "Enterprise",
@@ -235,8 +235,8 @@
         {
           "type": "link",
           "label": "Cloud",
-          "href": "/cloud_changelog/"
-           },    
+          "href": "/changelog/tags/seqera-cloud"
+           },
         {
           "type": "category",
           "label": "Legacy versions",
@@ -248,7 +248,7 @@
             "enterprise/release_notes/23.1"
           ]
         },
-        
+
         "functionality_matrix/functionality_matrix"
       ]
     },
