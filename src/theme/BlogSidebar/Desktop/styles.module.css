@@ -1,0 +1,68 @@
+.sidebar {
+  max-height: calc(100vh - (var(--ifm-navbar-height) + 2rem));
+  overflow-y: auto;
+  position: sticky;
+  top: calc(var(--ifm-navbar-height) + 2rem);
+}
+
+.sidebarItemTitle {
+  font-size: var(--ifm-h3-font-size);
+  font-weight: var(--ifm-font-weight-bold);
+  margin: 8px 0;
+  height: 34px;
+  padding: 0 12px;
+  width: 100%;
+  font-family: Inter, sans-serif;
+  background-color: white;
+  border-radius: 9px;
+  border: 1px solid var(--color-brand-300);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  & a {
+    display: inline-block;
+    height: 24px;
+    & svg {
+      color: var(--color-multiqc-600);
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+.backToDocs {
+  font-size: 0.9rem;
+  color: var(--color-brand-600);
+  margin-left: 0.5em;
+}
+
+.sidebarItemList {
+  font-size: 0.9rem;
+}
+
+.sidebarItem {
+  margin-top: 0.7rem;
+}
+
+.sidebarItemLink {
+  color: var(--ifm-font-color-base);
+  display: block;
+}
+
+.sidebarItemLink:hover {
+  text-decoration: none;
+}
+
+.sidebarItemLinkActive {
+  color: var(--ifm-color-primary) !important;
+}
+
+@media (max-width: 996px) {
+  .sidebar {
+    display: none;
+  }
+}
+
+.yearGroupHeading {
+  margin-top: 1.6rem;
+  margin-bottom: 0.4rem;
+}

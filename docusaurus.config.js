@@ -37,17 +37,17 @@ export default async function createConfigAsync() {
         "classic",
         {
           blog: {
-            blogTitle: 'Seqera Cloud changelog',
+            blogTitle: 'Seqera Changelog',
             blogDescription: 'Blog',
-            blogSidebarCount: 5,
-            blogSidebarTitle: 'Seqera Cloud changelog',
+            blogSidebarCount: 5000,
+            blogSidebarTitle: 'Changelog',
             path: 'changelog',
             routeBasePath: '/changelog',
             //processBlogPosts: () => ({}),
             //include: ['**/*.{md,mdx}'],
             feedOptions: {
             type: 'all', // 'rss', 'atom', or both
-            title: 'Seqera Cloud changelog',
+            title: 'Seqera Changelog',
             description: 'Stay updated with our blog posts!',
             copyright: `Copyright © ${new Date().getFullYear()} Seqera Labs`,
             }
