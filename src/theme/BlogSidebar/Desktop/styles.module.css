@@ -1,11 +1,11 @@
-aside {
+.blogAside {
   width: var(--doc-sidebar-width) !important;
   padding: 30px;
 }
-[data-theme="light"] aside {
+[data-theme="light"] .blogAside {
   background: rgb(249, 249, 249);
 }
-[data-theme="dark"] aside {
+[data-theme="dark"] .blogAside {
   background: rgb(27, 24, 35);
 }
 

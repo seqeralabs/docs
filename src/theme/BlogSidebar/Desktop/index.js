@@ -27,7 +27,7 @@ const ListComponent = ({items}) => {
 function BlogSidebarDesktop({sidebar}) {
   const items = useVisibleBlogSidebarItems(sidebar.items);
   return (
-    <aside>
+    <aside className={styles.blogAside}>
       <nav
         className={clsx(styles.sidebar, 'thin-scrollbar')}
         aria-label={translate({
