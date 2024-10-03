@@ -41,7 +41,7 @@ export default function BlogPostItemFooter() {
   // BlogPost footer - list view
   else {
     return (
-      <footer className={clsx(styles.blogFooter, "row docusaurus-mt-lg")}>
+      <footer className={styles.blogFooter}>
         {truncatedPost && (
           <div
             className={styles.readMore}>
