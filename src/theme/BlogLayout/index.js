@@ -13,7 +13,7 @@ export default function BlogLayout(props) {
     <Layout {...layoutProps}>
       <div className={styles.blogWrapper}>
         <BlogSidebar sidebar={sidebar} />
-        <main>
+        <main className={styles.blogMain}>
           <div className="container padding-top--lg padding-bottom--lg">
             <div className="row">
               <div className="col">

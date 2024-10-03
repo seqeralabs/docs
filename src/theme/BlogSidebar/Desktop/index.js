@@ -42,7 +42,7 @@ function BlogSidebarDesktop({sidebar}) {
             <RssIcon />
           </Link>
         </div>
-        <Link href="https://docs.seqera.io/platform/latest" className={styles.backToDocs}>
+        <Link href="/" className={styles.backToDocs}>
           &larr; back to docs
         </Link>
         <BlogSidebarContent
