@@ -5,6 +5,9 @@ import {ThemeClassNames} from '@docusaurus/theme-common';
 import EditMetaRow from '@theme/EditMetaRow';
 import TagsListInline from '@theme/TagsListInline';
 import ReadMoreLink from '@theme/BlogPostItem/Footer/ReadMoreLink';
+
+import styles from './styles.module.css';
+
 export default function BlogPostItemFooter() {
   const {metadata, isBlogPostPage} = useBlogPost();
   const {
@@ -16,10 +19,6 @@ export default function BlogPostItemFooter() {
   } = metadata;
   // A post is truncated if it's in the "list view" and it has a truncate marker
   const truncatedPost = !isBlogPostPage && hasTruncateMarker;
-  const renderFooter = truncatedPost || editUrl;
-  if (!renderFooter) {
-    return null;
-  }
   // BlogPost footer - details view
   if (isBlogPostPage) {
     const canDisplayEditMetaRow = !!(editUrl || lastUpdatedAt || lastUpdatedBy);
@@ -42,7 +41,7 @@ export default function BlogPostItemFooter() {
   // BlogPost footer - list view
   else {
     return (
-      <footer className="row docusaurus-mt-lg">
+      <footer className={clsx(styles.blogFooter, "row docusaurus-mt-lg")}>
         {truncatedPost && (
           <div
             className={clsx('col text--right', {
