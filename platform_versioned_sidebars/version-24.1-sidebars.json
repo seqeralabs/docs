@@ -235,7 +235,7 @@
         {
           "type": "link",
           "label": "Cloud",
-          "href": "/release_notes/"
+          "href": "/cloud_changelog/"
            },    
         {
           "type": "category",
