@@ -1,20 +1,22 @@
 import React from 'react';
-import BlogLayout from '@theme-original/BlogLayout';
-import Link from '@docusaurus/Link';
+import BlogPostItem from '@theme-original/BlogPostItem';
 
-export default function BlogLayoutWrapper(props) {
+export default function BlogPostItemWrapper(props) {
   return (
     <>
-      <BlogLayout {...props} />
-      <div style={{ marginTop: '2rem', textAlign: 'center' }}>
-        <Link to="/docs/">Back to Docs</Link> {/* "Back to Docs" link */}
-      </div>
-      <div style={{ marginTop: '1rem', textAlign: 'center' }}>
+      {/* Links at the top */}
+      <div style={{ marginBottom: '1rem', textAlign: 'right' }}>
+        {/* External link to the docs page */}
+        <a href="https://docs.seqera.io/platform/latest" style={{ marginRight: '1rem' }}>
+          Back to Docs
+        </a>
         <a href="/blog/rss.xml" target="_blank" rel="noopener noreferrer">
-          <button style={{ padding: '0.5rem 1rem', fontSize: '16px' }}>Subscribe to RSS</button>
+          Subscribe to RSS
         </a>
       </div>
+
+      {/* The original blog post content */}
+      <BlogPostItem {...props} />
     </>
   );
 }
-
