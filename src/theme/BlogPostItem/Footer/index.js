@@ -44,9 +44,7 @@ export default function BlogPostItemFooter() {
       <footer className={clsx(styles.blogFooter, "row docusaurus-mt-lg")}>
         {truncatedPost && (
           <div
-            className={clsx('col text--right', {
-              'col--3': tagsExists,
-            })}>
+            className={styles.readMore}>
             <ReadMoreLink blogPostTitle={title} to={metadata.permalink} />
           </div>
         )}
