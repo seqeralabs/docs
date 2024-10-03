@@ -225,16 +225,16 @@
       "items": [               
         {
           "type": "category",
-          "label": "Enterprise release notes",
+          "label": "Enterprise",
           "collapsed": true,
           "items": [
-        "enterprise/release_notes/enterprise_changelog",
-        "enterprise/release_notes/enterprise_latest"
+           "enterprise/release_notes/enterprise_changelog",
+           "enterprise/release_notes/enterprise_latest"
           ]
         },
         {
           "type": "link",
-          "label": "Cloud release notes",
+          "label": "Cloud",
           "href": "/release_notes/"
            },    
         {
