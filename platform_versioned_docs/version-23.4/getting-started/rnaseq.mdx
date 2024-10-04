@@ -52,7 +52,7 @@ The following compute resources are recommended for production RNA-Seq pipelines
 The [Fusion](../supported_software/fusion/fusion.mdx) file system enables seamless read and write operations to cloud object stores, leading to
 simpler pipeline logic and faster, more efficient execution. While Fusion is not required to run nf-core/rnaseq, it is recommended for optimal performance. See [Pipeline performance](#pipeline-performance) at the end of this guide.
 
-We recommend using Fusion with AWS NVMe instances (fast instance storage) as this delivers the fastest performance when compared to environments using only AWS EBS (Elastic Block Store). Batch Forge selects instances automatically based on your compute environment configuration, but you can optionally specify instance types. To enable fast instance storage (see Create compute environment below), you must select EC2 instances with NVMe SSD storage (`m5d` or `r5d`). 
+We recommend using Fusion with AWS NVMe instances (fast instance storage) as this delivers the fastest performance when compared to environments using only AWS EBS (Elastic Block Store). Batch Forge selects instances automatically based on your compute environment configuration, but you can optionally specify instance types. To enable fast instance storage (see Create compute environment below), you must select EC2 instances with NVMe SSD storage (`m5d` or `r5d` families). 
 
 :::note 
 Fusion requires a license for use in Seqera Platform compute environments or directly in Nextflow. Fusion can be trialed at no cost. [Contact Seqera](https://seqera.io/contact-us/) for more details.
