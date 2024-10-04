@@ -225,16 +225,20 @@
       "items": [
         {
           "type": "category",
-          "label": "Enterprise",
+          "label": "Enterprise release notes",
           "collapsed": true,
-          "items": [
-           "enterprise/release_notes/enterprise_changelog",
+          "items": [ 
            "enterprise/release_notes/enterprise_latest"
           ]
         },
         {
           "type": "link",
-          "label": "Cloud",
+          "label": "Enterprise changelog",
+          "href": "/changelog/tags/seqera-enterprise"
+           },
+        {
+          "type": "link",
+          "label": "Cloud changelog",
           "href": "/changelog/tags/seqera-cloud"
            },
         {
