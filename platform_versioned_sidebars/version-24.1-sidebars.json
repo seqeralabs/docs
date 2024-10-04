@@ -227,7 +227,7 @@
           "type": "category",
           "label": "Enterprise release notes",
           "collapsed": true,
-          "items": [ 
+          "items": [
            "enterprise/release_notes/enterprise_latest"
           ]
         },
@@ -235,12 +235,12 @@
           "type": "link",
           "label": "Enterprise changelog",
           "href": "/changelog/tags/seqera-enterprise"
-           },
+        },
         {
           "type": "link",
           "label": "Cloud changelog",
           "href": "/changelog/tags/seqera-cloud"
-           },
+        },
         {
           "type": "category",
           "label": "Legacy versions",
