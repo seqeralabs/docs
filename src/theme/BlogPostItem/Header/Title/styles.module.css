@@ -1,0 +1,19 @@
+.title {
+  font-size: 3rem;
+}
+.blogTitleLink {
+  color: var(--text-color);
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+/**
+  Blog post title should be smaller on smaller devices
+**/
+@media (max-width: 576px) {
+  .title {
+    font-size: 2rem;
+  }
+}
