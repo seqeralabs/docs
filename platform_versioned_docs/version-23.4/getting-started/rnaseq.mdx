@@ -652,6 +652,7 @@ The nf-core/rnaseq pipeline involves several key steps, each with distinct compu
 | **Quality Control (QC)**            | FastQC, MultiQC           | Moderate CPU, low memory     | Initial quality checks of raw reads to assess sequencing quality and identify potential issues.   |
 | **Read Trimming**                   | Trim Galore!              | Moderate CPU, moderate memory| Removal of adapter sequences and low-quality bases to prepare reads for alignment.               |
 | **Read Alignment**                  | HISAT2, STAR              | High CPU, high memory        | Alignment of trimmed reads to a reference genome, typically the most resource-intensive step.    |
+| **Pseudoalignment**              | Salmon, Kallisto              | High CPU, low memory        | A faster, more accurate method of gene expression quantification than alignment using read compatibility.    |
 | **Quantification**                  | featureCounts, Salmon     | Moderate CPU, moderate memory| Counting the number of reads mapped to each gene or transcript to measure expression levels.     |
 | **Differential Expression Analysis**| DESeq2, edgeR             | Low CPU, moderate memory     | Statistical analysis to identify genes with significant changes in expression between conditions. |
 
