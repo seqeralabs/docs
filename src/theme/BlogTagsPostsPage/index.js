@@ -24,12 +24,13 @@ function BlogTagsPostsPageMetadata({tag}) {
   );
 }
 function BlogTagsPostsPageContent({tag, items, sidebar, listMetadata}) {
-  console.log('tag', tag);
+  let title = tag.label.replace(/\b\w/g, function(char) { return char.toUpperCase(); });
+  if(title == 'Multiqc') title = 'MultiQC';
   return (
     <BlogLayout sidebar={sidebar}>
       {tag.unlisted && <Unlisted />}
       <header className="margin-bottom--xl">
-        <Heading as="h1" style={{ textTransform: 'capitalize', fontSize: '3em' }}>Changelog: {tag.label}</Heading>
+        <Heading as="h1" style={{ fontSize: '3em' }}>Changelog: {title}</Heading>
         {tag.description && <p>{tag.description}</p>}
       </header>
       <BlogPostItems items={items} isTagPage={true} />
