@@ -9,7 +9,7 @@ tags: [troubleshooting, help]
 
 **_Unknown pipeline repository or missing credentials_ error from public GitHub repositories**
 
-GitHub imposes [rate limits](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting) on repository pulls (including public repositories), where unauthenticated requests are capped at 60 requests/hour and authenticated requests are capped at 5000/hour. Seqera Platform users tend to encounter this error due to the 60 request/hour cap.
+GitHub imposes [rate limits](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting) on repository pulls (including public repositories), where unauthenticated requests are capped at 60 requests/hour and authenticated requests are capped at 5000 requests/hour. Seqera Platform users tend to encounter this error due to the 60 requests/hour cap.
 
 Try the following:
 
@@ -23,7 +23,7 @@ Try the following:
 
 This error can occur if incorrect configuration values are assigned to the `backend` and `cron` containers' [`MICRONAUT_ENVIRONMENTS`](./enterprise/configuration/overview.mdx#compute-environments) environment variable. You may see other unexpected system behavior, like two exact copies of the same Nextflow job submitted to the executor for scheduling.
 
-Please verify the following:
+Verify the following:
 
 1. The `MICRONAUT_ENVIRONMENTS` environment variable associated with the `backend` container:
    - Contains `prod,redis,ha`
@@ -36,19 +36,19 @@ Please verify the following:
 
 **_No such variable_ error**
 
-This error can occur if you execute a DSL 1-based Nextflow workflow using [Nextflow 22.03.0-edge](https://github.com/nextflow-io/nextflow/releases/tag/v22.03.0-edge) or later.
+This error can occur if you execute a DSL1-based Nextflow workflow using [Nextflow 22.03.0-edge](https://github.com/nextflow-io/nextflow/releases/tag/v22.03.0-edge) or later.
 
 **Sleep commands in Nextflow workflows**
 
 The `sleep` commands in your Nextflow workflows may differ in behavior depending on where they are:
 
 - If used within an `errorStrategy` block, the Groovy sleep function will be used (which takes its value in milliseconds).
-- If used within a process script block, that language's sleep binary/method will be used. **Example:** [this BASH script](https://www.nextflow.io/docs/latest/metrics.html?highlight=sleep) uses the BASH sleep binary, which takes its value in seconds.
+- If used within a process script block, that language's sleep binary/method will be used. For example, [this bash script](https://www.nextflow.io/docs/latest/metrics.html?highlight=sleep) uses the bash sleep binary, which takes its value in seconds.
 
 
 **Large number of batch job definitions**
 
-Platform will normally look for an existing job definition that matches your workflow requirement. If nothing matches, it will recreate it. You can use a simple bash script to clear job definitions. You can tailor this according to your needs, e.g., deregister only job definitions older than x days.
+Platform normally looks for an existing job definition that matches your workflow requirement. If nothing matches, it recreates the job definition. You can use a simple bash script to clear job definitions. You can tailor this according to your needs, e.g., deregister only job definitions older than x days.
 
 ```bash
 jobs=$(aws --region eu-west-1 batch describe-job-definitions | jq -r .jobDefinitions[].jobDefinitionArn)
@@ -89,7 +89,7 @@ k8s.securityContext = [
 
 Seqera Enterprise 22.2.0 introduced a breaking change whereby the `TOWER_DB_DRIVER` is now required to be `org.mariadb.jdbc.Driver`.
 
-Clients who use Amazon Aurora as their database solution may encounter a _java.sql.SQLNonTransientConnectionException: ... could not load system variables_ error, likely due to a [known error](https://jira.mariadb.org/browse/CONJ-824) tracked within the MariaDB project.
+If you use Amazon Aurora as your database solution, you may encounter a _java.sql.SQLNonTransientConnectionException: ... could not load system variables_ error, likely due to a [known error](https://jira.mariadb.org/browse/CONJ-824) tracked within the MariaDB project.
 
 Please modify the Seqera Enterprise configuration as follows to try resolving the problem:
 
@@ -143,8 +143,7 @@ To implement automated healthcheck functionality, use Seqera's `service-info` en
 Example:
 
 ```
-# Run a healthcheck and extract the HTTP response code:
-$ curl -o /dev/null -s -w "%{http_code}\n" --connect-timeout 2  "https://api.cloud.seqera.io/service-info"  -H "Accept: application/json"
+curl -o /dev/null -s -w "%{http_code}\n" --connect-timeout 2  "https://api.cloud.seqera.io/service-info"  -H "Accept: application/json"
 200
 ```
 
@@ -225,8 +224,6 @@ Although it's not possible to directly download the trace logs via Seqera, you c
 2. Add a copy command to your pipeline's **Advanced options > Post-run script** field:
 
    ```
-   # Example: Export the generated trace file to an S3 bucket
-   # Ensure that your Nextflow head job has the necessary permissions to interact with the target storage medium
    aws s3 cp ./trace.txt s3://MY_BUCKET/trace/trace.txt
    ```
 
@@ -234,7 +231,7 @@ Although it's not possible to directly download the trace logs via Seqera, you c
 
 Seqera Platform uses [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) to push real-time updates to your browser. The client must establish a connection to the server's `/api/live` endpoint to initiate the stream of data, and this connection can occasionally fail due to factors like network latency.
 
-To resolve the issue, please try reloading the Seqera browser tab to reinitiate the client's connection to the server. If reloading fails to resolve the problem, please contact [Seqera support](https://support.seqera.io) for assistance with webserver timeout settings adjustments.
+To resolve the issue, try reloading the Platform browser tab to reinitiate the client's connection to the server. If reloading fails to resolve the problem, contact [Seqera support](https://support.seqera.io) for assistance with webserver timeout settings adjustments.
 
 
 ## Optimization
@@ -257,7 +254,7 @@ process {
 
 **Use the Nextflow SQL DB plugin to query AWS Athena**
 
-From [Nextflow 22.05.0-edge](https://github.com/nextflow-io/nextflow/releases/tag/v22.05.0-edge), your Nextflow pipelines can query data from AWS Athena. Add these configuration items to your `nextflow.config` (**Note:** the use of secrets is optional):
+From [Nextflow 22.05.0-edge](https://github.com/nextflow-io/nextflow/releases/tag/v22.05.0-edge), your Nextflow pipelines can query data from AWS Athena. Add these configuration items to your `nextflow.config`. The use of secrets is optional:
 
 ```
 plugins {
@@ -298,7 +295,6 @@ This solution requires Docker Engine [17.07 or greater](https://docs.docker.com/
 
     You may need to add additional commands to your Launch template, depending on your security posture:<br/>
     `cp /root/.docker/config.json /home/ec2-user/.docker/config.json && chmod 777 /home/ec2-user/.docker/config.json`
-
 :::
 
 For **Azure Batch**, create a **Container registry**-type credential in your Seqera workspace and associate it with the Azure Batch compute environment defined in the same workspace.
@@ -319,8 +315,8 @@ The [ECS Agent must have access](https://docs.aws.amazon.com/batch/latest/usergu
 
 You may encounter errors when executing pipelines that use secrets via AWS Batch:
 
-- If you use nf-sqldb version 0.4.1 or earlier and have secrets in your `nextflow.config`, you may encounter _nextflow.secret.MissingSecretException: Unknown config secret_ errors in your Nextflow log.<br/>
-  Resolve this error by explicitly defining the `xpack-amzn` plugin in your configuration:<br/>
+- If you use `nf-sqldb` version 0.4.1 or earlier and have secrets in your `nextflow.config`, you may encounter _nextflow.secret.MissingSecretException: Unknown config secret_ errors in your Nextflow log.
+  Resolve this error by explicitly defining the `xpack-amzn` plugin in your configuration:
 
   ```
   plugins {
@@ -329,9 +325,9 @@ You may encounter errors when executing pipelines that use secrets via AWS Batch
   }
   ```
 
-- If you have two or more processes that use the same container image, but only a subset of these processes use secrets, your secret-using processes may fail during the initial run and then succeed when resumed. This is due to a bug in how Nextflow (`22.07.1-edge` and earlier) registers jobs with AWS Batch.
+- If you have two or more processes that use the same container image, but only a subset of these processes use secrets, your secret-using processes may fail during the initial run and then succeed when resumed. This is due to a bug in how Nextflow (22.07.1-edge and earlier) registers jobs with AWS Batch.
 
-  To resolve the issue, upgrade your Nextflow to version `22.08.0-edge` or later. If you cannot upgrade, use the following as workarounds:
+  To resolve the issue, upgrade your Nextflow to version 22.08.0-edge or later. If you cannot upgrade, use the following as workarounds:
 
   - Use a different container image for each process.
   - Define the same set of secrets in each process that uses the same container image.
@@ -356,7 +352,7 @@ process {
 }
 ```
 
-**Seqera Service account permissions for GLS and GKE**
+**Seqera Service account permissions for Google Life Sciences and GKE**
 
 The following roles must be granted to the `nextflow-service-account`:
 
@@ -398,7 +394,7 @@ spec:
 
 **_java: command not found_ error**
 
-When submitting jobs to your on-prem HPC (using either SSH or Tower Agent authentication), the following error may appear in your Nextflow logs, even with Java on your `$PATH` environment variable:
+When submitting jobs to your on-prem HPC (using either SSH or Tower Agent authentication), the following error may appear in your Nextflow logs, even with Java on your `PATH` environment variable:
 
 ```
 java: command not found

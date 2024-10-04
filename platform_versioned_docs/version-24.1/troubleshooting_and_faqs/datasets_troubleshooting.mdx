@@ -16,25 +16,29 @@ When uploading datasets via the Seqera UI or CLI, some steps are automatically d
 
 Example:
 
-```console
-# Step 1: Create the dataset object.
-$ curl -X POST "https://api.cloud.seqera.io/workspaces/$WORKSPACE_ID/datasets/" -H "Content-Type: application/json" -H "Authorization: Bearer $TOWER_ACCESS_TOKEN" --data '{"name":"placeholder", "description":"A placeholder for the data we will submit in the next call"}'
+**Step 1: Create the dataset object.**
 
-# Step 2: Upload the datasheet into the dataset object.
-$ curl -X POST "https://api.cloud.seqera.io/workspaces/$WORKSPACE_ID/datasets/$DATASET_ID/upload"  -H "Accept: application/json"  -H "Authorization: Bearer $TOWER_ACCESS_TOKEN"  -H "Content-Type: multipart/form-data" -F "file=@samplesheet_full.csv; type=text/csv"
+```bash
+curl -X POST "https://api.cloud.seqera.io/workspaces/$WORKSPACE_ID/datasets/" -H "Content-Type: application/json" -H "Authorization: Bearer $TOWER_ACCESS_TOKEN" --data '{"name":"placeholder", "description":"A placeholder for the data we will submit in the next call"}'
+```
+
+**Step 2: Upload the datasheet into the dataset object.**
+
+```bash
+curl -X POST "https://api.cloud.seqera.io/workspaces/$WORKSPACE_ID/datasets/$DATASET_ID/upload"  -H "Accept: application/json"  -H "Authorization: Bearer $TOWER_ACCESS_TOKEN"  -H "Content-Type: multipart/form-data" -F "file=@samplesheet_full.csv; type=text/csv"
 ```
 
 :::tip
 You can also use the [tower-cli](https://github.com/seqeralabs/tower-cli) to upload the dataset to a particular workspace:
 
-    ```console
+    ```bash
     tw datasets add --name "cli_uploaded_samplesheet" ./samplesheet_full.csv
     ```
 :::
 
 ### Datasets converted to 'application/vnd.ms-excel' data type
 
-This is a known issue when using Firefox browser with Seqera versions older than 22.2.0. You can either (a) upgrade to 22.2.0 or higher, or (b) use Chrome.
+This is a known issue when using Firefox browser with Seqera versions older than 22.2.0. You can either upgrade to 22.2.0 or higher, or use Chrome.
 
 Seqera displays this error for this issue:
 

@@ -28,7 +28,7 @@ curl -X GET "https://$TOWER_SERVER_URL/workflow/$WORKFLOW_ID/tasks? workspaceId=
 
 **Connection errors when creating or viewing AWS Batch compute environments with `tw compute-envs` commands**
 
-tw CLI v0.8 and earlier does not support the `SPOT_PRICE_CAPACITY_OPTIMIZED` [allocation strategy](./compute-envs/aws-batch.mdx#advanced-options) in AWS Batch. Creating or viewing AWS Batch compute environments with this allocation strategy will lead to errors. This issue was [addressed in CLI v0.9](https://github.com/seqeralabs/tower-cli/issues/332).
+Versions of tw CLI earlier than v0.8 do not support the `SPOT_PRICE_CAPACITY_OPTIMIZED` [allocation strategy](./compute-envs/aws-batch.mdx#advanced-options) in AWS Batch. Creating or viewing AWS Batch compute environments with this allocation strategy will lead to errors. This issue was [addressed in CLI v0.9](https://github.com/seqeralabs/tower-cli/issues/332).
 
 **Segfault errors**
 
@@ -38,9 +38,7 @@ To resolve segfault errors, first upgrade your tw CLI to the latest available ve
 
 **Insecure HTTP errors**
 
-_ERROR: You are trying to connect to an insecure server: `http://hostname:port/api` if you want to force the connection use '--insecure'. NOT RECOMMENDED!_
-
-This error indicates that your Seqera host accepts connections using insecure HTTP instead of HTTPS. If your host cannot be configured to accept HTTPS connections, add the `--insecure` flag **before** your CLI command:
+The error _ERROR: You are trying to connect to an insecure server: `http://hostname:port/api` if you want to force the connection use '--insecure'. NOT RECOMMENDED!_ indicates that your Seqera host accepts connections using insecure HTTP instead of HTTPS. If your host cannot be configured to accept HTTPS connections, add the `--insecure` flag **before** your CLI command:
 
 ```
 tw --insecure info

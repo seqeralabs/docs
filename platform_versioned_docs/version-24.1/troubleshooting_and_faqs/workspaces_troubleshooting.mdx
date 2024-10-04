@@ -9,7 +9,7 @@ tags: [faq, help, workspaces help, workspaces troubleshooting]
 
 You may encounter this entry in your Nextflow log:
 
-*Unexpected response for request http://TOWER_SERVER_URL/api/trace/TRACE_ID/begin?workspaceId=WORKSPACE_ID* 
+*Unexpected response for request `http://TOWER_SERVER_URL/api/trace/TRACE_ID/begin?workspaceId=WORKSPACE_ID`* 
 
 If the workspace ID in this message differs from your launch workspace, Seqera retrieved an incorrect Seqera access token from a Nextflow configuration file:
 
@@ -20,7 +20,7 @@ If the workspace ID in this message differs from your launch workspace, Seqera r
 
 **Multiple AWS Batch queues for a single job execution**
 
-Although you can only create/identify a single work queue during the definition of your AWS Batch compute environment in Seqera, you can spread tasks across multiple queues when your job is sent to Batch for execution via your pipeline configuration Add the following snippet to your `nextflow.config`, or the **Advanced Features > Nextflow config file** field of the Seqera Launch UI, for processes to be distributed across two AWS Batch queues, depending on the assigned name.
+Although you can only create/identify a single work queue during the definition of your AWS Batch compute environment in Seqera, you can spread tasks across multiple queues when your job is sent to Batch for execution via your pipeline configuration. Add the following snippet to your `nextflow.config`, or the **Advanced Features > Nextflow config file** field of the Seqera Launch UI, for processes to be distributed across two AWS Batch queues, depending on the assigned name.
 
 ```bash
 # nextflow.config
