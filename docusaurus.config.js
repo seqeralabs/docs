@@ -49,7 +49,7 @@ export default async function createConfigAsync() {
             type: 'all', // 'rss', 'atom', or both
             title: 'Seqera Changelog',
             description: 'Stay updated with our blog posts!',
-            copyright: `Copyright © ${new Date().getFullYear()} Seqera Labs`,
+            copyright: `Copyright © ${new Date().getFullYear()} Seqera`,
             }
           },
           docs: false,
