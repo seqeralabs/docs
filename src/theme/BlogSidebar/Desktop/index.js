@@ -26,10 +26,16 @@ const ListComponent = ({items}) => {
 };
 function BlogSidebarDesktop({sidebar}) {
   const items = useVisibleBlogSidebarItems(sidebar.items);
+
+  // Figure out if we're looking at a product tag or changelog entry
   const pathMatch = location.pathname.match(/\/changelog\/(?:tags\/)?([^\/]+)(?:\/v[\d.]+.*)?/);
-  let product = pathMatch ? pathMatch[1] : null;
-  product = product.includes('seqera') ? 'platform' : product;
-  product = ['multiqc', 'fusion', 'platform', 'wave', 'nextflow'].includes(product) ? product : '';
+  const product = pathMatch ? pathMatch[1] : null;
+  const product_platform = product?.includes('seqera') ? 'platform' : product;
+  const returnToDocs = '/' + ['multiqc', 'fusion', 'platform', 'wave', 'nextflow'].includes(product_platform) ? product_platform : '';
+
+  // Filter the sidebar for just this product
+  const filteredItems = product ? items.filter(item => item.permalink.includes(`/changelog/${product}/`)) : items;
+
   return (
     <aside className={styles.blogAside}>
       <nav
@@ -46,11 +52,11 @@ function BlogSidebarDesktop({sidebar}) {
             <RssIcon />
           </Link>
         </div>
-        <Link href={`/${product}`} className={styles.backToDocs}>
+        <Link href={`/${returnToDocs}`} className={styles.backToDocs}>
           &larr; back to docs
         </Link>
         <BlogSidebarContent
-          items={items}
+          items={filteredItems}
           ListComponent={ListComponent}
           yearGroupHeadingClassName={styles.yearGroupHeading}
         />
