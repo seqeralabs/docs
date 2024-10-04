@@ -26,6 +26,10 @@ const ListComponent = ({items}) => {
 };
 function BlogSidebarDesktop({sidebar}) {
   const items = useVisibleBlogSidebarItems(sidebar.items);
+  const pathMatch = location.pathname.match(/\/changelog\/(?:tags\/)?([^\/]+)(?:\/v[\d.]+.*)?/);
+  let product = pathMatch ? pathMatch[1] : null;
+  product = product.includes('seqera') ? 'platform' : product;
+  product = ['multiqc', 'fusion', 'platform', 'wave', 'nextflow'].includes(product) ? product : '';
   return (
     <aside className={styles.blogAside}>
       <nav
@@ -42,7 +46,7 @@ function BlogSidebarDesktop({sidebar}) {
             <RssIcon />
           </Link>
         </div>
-        <Link href="/" className={styles.backToDocs}>
+        <Link href={`/${product}`} className={styles.backToDocs}>
           &larr; back to docs
         </Link>
         <BlogSidebarContent

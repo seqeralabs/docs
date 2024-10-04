@@ -44,7 +44,8 @@ export default async function createConfigAsync() {
             path: 'changelog',
             routeBasePath: '/changelog',
             //processBlogPosts: () => ({}),
-            //include: ['**/*.{md,mdx}'],
+            include: ['**/*.{md,mdx}'],
+            showReadingTime: false,
             feedOptions: {
             type: 'all', // 'rss', 'atom', or both
             title: 'Seqera Changelog',
