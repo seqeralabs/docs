@@ -44,6 +44,10 @@ const VersionSwitcher = ({ isOpen, setIsOpen }) => {
     (version) => version.label !== currentVersion.label,
   );
 
+  // Extract the part of the URL after the current version
+  const currentVersionPrefix = `/platform/${currentVersion.label}`;
+  const urlSuffix = location.pathname.replace(currentVersionPrefix, "");
+
   return (
     <>
       <button
@@ -67,7 +71,7 @@ const VersionSwitcher = ({ isOpen, setIsOpen }) => {
           {items?.map((version) => (
             <Link
               key={version.name}
-              to={version.path}
+              to={`${version.path}${urlSuffix}`} // Append the suffix to the version path
               className={styles.item}
               onClick={() => handleSelectVersion(version.name)}
             >
