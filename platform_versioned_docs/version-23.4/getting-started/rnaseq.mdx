@@ -88,6 +88,8 @@ From the **Compute Environments** tab in your organization workspace, select **A
 
 :::info
 The [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline is a highly configurable and robust workflow designed to analyze RNA-Seq data. It performs quality control, alignment and quantification.
+
+![nf-core/rnaseq subway map](./_images/nf-core-rnaseq_metro_map_animated.svg)
 :::
 
 [Seqera Pipelines](https://seqera.io/pipelines) is an open-source resource that provides a curated collection of high quality, open source pipelines that can be imported directly to your workspace Launchpad in Platform. Each pipeline includes a curated test dataset to use in a test run to confirm compute environment compatibility in just a few steps.
@@ -112,20 +114,23 @@ To add a custom pipeline not listed in Seqera Pipelines to your Platform workspa
 
 ## Pipeline input data
 
-The [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline works with input datasets (samplesheets) containing sample names, FASTQ file locations, and indications of strandedness. 
+The [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline works with input datasets (samplesheets) containing sample names, FASTQ file locations, and indications of strandedness. For example, the dataset used in the `test_full` profile is derived from the publicly available iGenomes collection of datasets, commonly used in bioinformatics analyses. 
+
+This dataset represents RNA-seq samples from various human cell lines (GM12878, K562, MCF7, and H1) with biological replicates, stored in AWS S3 buckets as part of the iGenomes resource. These RNA-seq datasets consist of paired-end sequencing reads, which can be used to study gene expression patterns in different cell types.
 
 <details>
-  <summary>**Example nf-core/rnaseq dataset**</summary>
+  <summary>**nf-core/rnaseq test_full profile dataset**</summary>
     
-  | sample              | fastq_1                              | fastq_2                              | strandedness |
-  | ------------------- | ------------------------------------ | ------------------------------------ | ------------ |
-  | WT_REP1             | s3://nf-core-awsmegatests/rnaseq/... | s3://nf-core-awsmegatests/rnaseq/... | reverse      |
-  | WT_REP1             | s3://nf-core-awsmegatests/rnaseq/... | s3://nf-core-awsmegatests/rnaseq/... | reverse      |
-  | WT_REP2             | s3://nf-core-awsmegatests/rnaseq/... | s3://nf-core-awsmegatests/rnaseq/... | reverse      |
-  | RAP1_UNINDUCED_REP1 | s3://nf-core-awsmegatests/rnaseq/... |                                      | reverse      |
-  | RAP1_UNINDUCED_REP2 | s3://nf-core-awsmegatests/rnaseq/... |                                      | reverse      |
-  | RAP1_UNINDUCED_REP2 | s3://nf-core-awsmegatests/rnaseq/... |                                      | reverse      |
-  | RAP1_IAA_30M_REP1   | s3://nf-core-awsmegatests/rnaseq/... | s3://nf-core-awsmegatests/rnaseq/... | reverse      |
+  | sample | fastq_1 | fastq_2 | strandedness |
+  |--------|---------|---------|--------------|
+  | GM12878_REP1 | s3://ngi-igenomes/test-data/rnaseq/SRX1603629_T1_1.fastq.gz | s3://ngi-igenomes/test-data/rnaseq/SRX1603629_T1_2.fastq.gz | reverse |
+  | GM12878_REP2 | s3://ngi-igenomes/test-data/rnaseq/SRX1603630_T1_1.fastq.gz | s3://ngi-igenomes/test-data/rnaseq/SRX1603630_T1_2.fastq.gz | reverse |
+  | K562_REP1 | s3://ngi-igenomes/test-data/rnaseq/SRX1603392_T1_1.fastq.gz | s3://ngi-igenomes/test-data/rnaseq/SRX1603392_T1_2.fastq.gz | reverse |
+  | K562_REP2 | s3://ngi-igenomes/test-data/rnaseq/SRX1603393_T1_1.fastq.gz | s3://ngi-igenomes/test-data/rnaseq/SRX1603393_T1_2.fastq.gz | reverse |
+  | MCF7_REP1 | s3://ngi-igenomes/test-data/rnaseq/SRX2370490_T1_1.fastq.gz | s3://ngi-igenomes/test-data/rnaseq/SRX2370490_T1_2.fastq.gz | reverse |
+  | MCF7_REP2 | s3://ngi-igenomes/test-data/rnaseq/SRX2370491_T1_1.fastq.gz | s3://ngi-igenomes/test-data/rnaseq/SRX2370491_T1_2.fastq.gz | reverse |
+  | H1_REP1 | s3://ngi-igenomes/test-data/rnaseq/SRX2370468_T1_1.fastq.gz | s3://ngi-igenomes/test-data/rnaseq/SRX2370468_T1_2.fastq.gz | reverse |
+  | H1_REP2 | s3://ngi-igenomes/test-data/rnaseq/SRX2370469_T1_1.fastq.gz | s3://ngi-igenomes/test-data/rnaseq/SRX2370469_T1_2.fastq.gz | reverse |
 
 </details>
 
@@ -219,7 +224,7 @@ Specify your input and output parameters:
 
   Use **Browse** to select your pipeline input data: 
 
-  - In the **Data Explorer** tab, select the existing cloud bucket that contains your samplesheet, then browse or search for the samplesheet file to select it as input.
+  - In the **Data Explorer** tab, select the existing cloud bucket that contains your samplesheet, browse or search for the samplesheet file, and select the chain icon to copy the file path before closing the data selection window and pasting the file path in the input field.
   - In the **Datasets** tab, search for and select your existing dataset.
 
   ![Input parameters](./quickstart-demo/assets/sp-cloud-launch-parameters-input.gif)
@@ -355,9 +360,7 @@ After you have filled the necessary launch details, select **Launch**. The **Run
 
 ## Tertiary analysis with Data Studios
 
-Set up an environment for tertiary analysis of your pipeline data and enable collaboration with other workspace participants. 
-
-**Data Studios** streamlines the process of creating interactive analysis environments for Platform users, with built-in templates for platforms like Jupyter Notebook, RStudio, and VSCode. Creating a data studio in Seqera Platform is as simple as adding and sharing pipelines or datasets.
+**Data Studios** streamlines the process of creating interactive analysis environments for Platform users. With built-in templates for platforms like Jupyter Notebook, RStudio, and VSCode, creating a data studio is as simple as adding and sharing pipelines or datasets. The data studio URL can also be shared with any user with the [Connect role](../orgs-and-teams/roles.mdx) for real-time access and collaboration.
 
 For the purposes of this guide, we will create an RStudio environment in which to normalize the pipeline output data, perform differential expression analysis, and visualize the data with exploratory plots.  
 
@@ -423,7 +426,7 @@ The RStudio environment can be configured with the packages you wish to install 
 
 1. Install and load the necessary packages and libraries:
 
-    ```console
+    ```r
     # Install required packages
     if (!requireNamespace("BiocManager", quietly = TRUE))
       install.packages("BiocManager")
@@ -442,7 +445,7 @@ The RStudio environment can be configured with the packages you wish to install 
     Replace `<PATH_TO_YOUR_COUNTS_FILE>` and `<PATH_TO_YOUR_SAMPLE_INFO_FILE>` with the paths to your `salmon.merged.gene_counts.tsv` and `sampleinfo.txt` files.
     :::
 
-    ```console
+    ```r
     # Read in the count data
     counts <- read.delim(file="/workspace/data/<PATH_TO_YOUR_COUNTS_FILE>", row.names=1)
 
@@ -464,7 +467,7 @@ The RStudio environment can be configured with the packages you wish to install 
 
 1. Create a DGEList object and filter out low-count genes:
 
-    ```console
+    ```r
     # Create a DGEList object
     y <- DGEList(counts, group=targets$Group)
 
@@ -479,14 +482,14 @@ The RStudio environment can be configured with the packages you wish to install 
 
 1. Normalize the data:
 
-    ```console
+    ```r
     # Normalize the data
     y <- calcNormFactors(y)
     ```
 
 1. Print a summary of the filtered data:
 
-    ```console 
+    ```r
     # Print summary of filtered data
     print(dim(y))
     print(y$samples)
@@ -494,7 +497,11 @@ The RStudio environment can be configured with the packages you wish to install 
 
 1. Create an MDS plot, displayed in RStudio plots viewer (`a`) and saved as a PNG file (`b`):
 
-    ```console 
+    :::info
+    MDS plots are used to visualize the overall similarity between RNA-seq samples based on their gene expression profiles, helping to identify sample clusters and potential batch effects.
+    :::
+    
+    ```r
     # Create MDS plot
     # a. Display in RStudio
     plotMDS(y, col=as.numeric(factor(targets$Group)), labels=targets$Group)
@@ -511,21 +518,7 @@ The RStudio environment can be configured with the packages you wish to install 
 
 1. Perform differential expression analysis:
 
-    :::info 
-    This script is written for the analysis of human data, based on nf-core/rnaseq's `test_full` dataset. To adapt the script for your data, modify the contrasts based on the comparisons you want to make between your sample groups:
-
-    ```console
-    my.contrasts <- makeContrasts(
-    Sample1vsSample2 = Sample1 - Sample2,
-    Sample2vsSample3 = Sample2 - Sample3,
-    ...
-    levels = design
-    )
-    ```
-    :::
-
-    ```console
-    # Perform differential expression analysis
+    ```r
     # Design matrix
     design <- model.matrix(~0+group, data=y$samples)
     colnames(design) <- levels(y$samples$group)
@@ -555,9 +548,22 @@ The RStudio environment can be configured with the packages you wish to install 
     names(results) <- colnames(my.contrasts)
     ```
 
+    :::info 
+    This script is written for the analysis of human data, based on nf-core/rnaseq's `test_full` dataset. To adapt the script for your data, modify the contrasts based on the comparisons you want to make between your sample groups:
+
+    ```r
+    my.contrasts <- makeContrasts(
+    Sample1vsSample2 = Sample1 - Sample2,
+    Sample2vsSample3 = Sample2 - Sample3,
+    ...
+    levels = design
+    )
+    ```
+    :::
+
 1. Print the number of differentially expressed genes for each comparison and save the results to CSV files:    
 
-    ```console
+    ```r
     # Print the number of differentially expressed genes for each comparison
     for (name in names(results)) {
       de_genes <- sum(results[[name]]$table$FDR < 0.05)
@@ -572,7 +578,11 @@ The RStudio environment can be configured with the packages you wish to install 
 
 1. Create volcano plots for each differential expression comparison, displayed in RStudio plots viewer and saved as PNG files:
 
-    ```console 
+    :::info
+    Volcano plots in RNA-seq analysis display the magnitude of gene expression changes (log2 fold change) against their statistical significance. This allows for quick identification of significantly up- and down-regulated genes between two conditions.
+    :::
+
+    ```r
     # Create volcano plots for differential expression comparisons
     # Function to create a volcano plot
     create_volcano_plot <- function(res, title) {
@@ -595,7 +605,11 @@ The RStudio environment can be configured with the packages you wish to install 
 
 1. Create a heatmap of the top 50 differentially expressed genes:
 
-    ```console 
+    :::info
+    Heatmaps in RNA-seq analysis provide a color-coded representation of gene expression levels across multiple samples or conditions, enabling the visualization of expression patterns and sample clustering based on similarity.
+    :::
+
+    ```r
     # Create a heatmap of top 50 differentially expressed genes
     # Get top 50 DE genes from each comparison
     top_genes <- unique(unlist(lapply(results, function(x) rownames(x$table)[1:50])))
@@ -640,8 +654,6 @@ To share your results or allow colleagues to perform exploratory analysis, share
 ## RNA-Seq data and requirements
 
 RNA-Seq data typically consists of raw sequencing reads from high-throughput sequencing technologies. These reads are used to quantify gene expression levels and discover novel transcripts. A typical RNA-Seq dataset can range from a few GB to several hundred GB, depending on the number of samples and the sequencing depth.
-
-For example, the publicly available 1000 Genomes dataset contains RNA-Seq data for over 2500 samples, with low-coverage individual FASTQ files ranging from 30 to 50 GB in size.
 
 ### Pipeline steps and computing resource requirements
 
