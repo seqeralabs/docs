@@ -32,7 +32,7 @@ Compute and storage requirements for RNA-Seq analysis are dependent on the numbe
 In this guide, we will create an AWS Batch compute environment with sufficient resources allocated to run the [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline with a large (123.5 GB) dataset. This compute environment will also be used to run a Data Studios RStudio environment for tertiary analysis of the resulting pipeline data. 
 
 :::note
-The compute recommendations below are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files and a total size of approximately 123.5 GB. 
+The compute recommendations below are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files (8 paired-end samples) and a total size of approximately 123.5 GB. 
 :::
 
 ### Recommended compute environment resources
