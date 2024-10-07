@@ -13,10 +13,6 @@ Seqera Platform Enterprise is a web application with a microservice-oriented arc
 
 ## Architecture
 
-:::note
-To deploy Seqera Enterprise on your infrastructure, you need a **license key**. [Contact us](mailto:sales@seqera.io) to obtain a license.
-:::
-
 ![Platform architecture diagram](./_images/seqera_reference_architecture.png)
 
 ### Platform backend
@@ -33,9 +29,7 @@ Cron is an auxiliary backend service that executes regularly-occurring activitie
 
 ### Platform frontend
 
-The Seqera frontend is an NGINX web server that serves the [Angular](https://angular.io/) application and reverse-proxies HTTP traffic to the backend.
-
-The frontend should run on port `80` within the container and should be the only service that accepts incoming HTTP traffic. The frontend can also be exposed via HTTPS or a load balancer.
+The Seqera frontend is an NGINX web server that serves the [Angular](https://angular.io/) application and reverse-proxies HTTP traffic to the backend. The frontend should run on port `80` within the container and should be the only service that accepts incoming HTTP traffic. The frontend can also be exposed via HTTPS or a load balancer.
 
 ### Redis database
 
