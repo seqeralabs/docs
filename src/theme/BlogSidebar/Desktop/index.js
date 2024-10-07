@@ -1,6 +1,7 @@
 import React, {memo} from 'react';
 import clsx from 'clsx';
 import {translate} from '@docusaurus/Translate';
+import { useLocation } from '@docusaurus/router';
 import {
   useVisibleBlogSidebarItems,
   BlogSidebarItemList,
@@ -28,6 +29,7 @@ function BlogSidebarDesktop({sidebar}) {
   const items = useVisibleBlogSidebarItems(sidebar.items);
 
   // Figure out if we're looking at a product tag or changelog entry
+  const location = useLocation();
   const pathMatch = location.pathname.match(/\/changelog\/(?:tags\/)?([^\/]+)(?:\/v[\d.]+.*)?/);
   const product = pathMatch ? pathMatch[1] : null;
   const product_platform = product?.includes('seqera') ? 'platform' : product;
