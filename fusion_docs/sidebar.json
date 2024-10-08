@@ -16,6 +16,11 @@
       ]
     },
     "troubleshooting",
-    "faq"
+    "faq",
+    {
+      "type": "link",
+      "label": "Changelog",
+      "href": "/changelog/tags/fusion"
+    }
   ]
 }
