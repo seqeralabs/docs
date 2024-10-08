@@ -32,6 +32,9 @@ export default async function createConfigAsync() {
       locales: ["en"],
     },
 
+    // .md files should be MD and not MDX
+    markdown: {format: 'detect'},
+
     presets: [
       [
         "classic",
