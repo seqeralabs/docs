@@ -19,6 +19,7 @@ spec:
         - name: proxy
           image: cr.seqera.io/private/nf-tower-enterprise/data-studio/connect-proxy:0.7.2
           command:
+            - caddy
             - serve
           env:
             - name: CONNECT_HTTP_PORT
