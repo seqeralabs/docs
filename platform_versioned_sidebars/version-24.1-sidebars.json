@@ -215,9 +215,24 @@
       "label": "Releases",
       "collapsed": true,
       "items": [
-        "cloud/changelog",
-        "enterprise/release_notes/enterprise_changelog",
-        "enterprise/release_notes/enterprise_latest",
+        {
+          "type": "category",
+          "label": "Enterprise release notes",
+          "collapsed": true,
+          "items": [
+           "enterprise/release_notes/enterprise_latest"
+          ]
+        },
+        {
+          "type": "link",
+          "label": "Enterprise changelog",
+          "href": "/changelog/tags/seqera-enterprise"
+        },
+        {
+          "type": "link",
+          "label": "Cloud changelog",
+          "href": "/changelog/tags/seqera-cloud"
+        },
         {
           "type": "category",
           "label": "Legacy versions",
@@ -229,6 +244,7 @@
             "enterprise/release_notes/23.1"
           ]
         },
+
         "functionality_matrix/functionality_matrix"
       ]
     },
