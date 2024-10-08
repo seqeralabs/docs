@@ -33,7 +33,7 @@ function BlogSidebarDesktop({sidebar}) {
   const pathMatch = location.pathname.match(/\/changelog\/(?:tags\/)?([^\/]+)(?:\/v[\d.]+.*)?/);
   const product = pathMatch ? pathMatch[1] : null;
   const product_platform = product?.includes('seqera') ? 'platform' : product;
-  const returnToDocs = '/' + ['multiqc', 'fusion', 'platform', 'wave', 'nextflow'].includes(product_platform) ? product_platform : '';
+  const returnToDocs = ['multiqc', 'fusion', 'platform', 'wave', 'nextflow'].includes(product_platform) ? product_platform : '';
 
   // Filter the sidebar for just this product
   const filteredItems = product ? items.filter(item => item.permalink.includes(`/changelog/${product}/`)) : items;
