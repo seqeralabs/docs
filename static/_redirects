@@ -1,6 +1,6 @@
 /platform/latest/*   /platform/24.1/:splat   301
 
-/nextflow           https://www.nextflow.io/docs/latest/ 301
+/nextflow           https://www.nextflow.io/docs/latest/ 301!
 
 # Add redirects to account for Wave docs refresh
 /wave/cli/install   /wave/cli               301
