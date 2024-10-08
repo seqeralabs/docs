@@ -82,9 +82,12 @@ gh -R "$REPO" release list --json tagName,publishedAt --limit 1000 | jq -r 'sort
 
   # Capitalize the first letter of the product
   capitalized_product=$(echo "$product" | awk '{print toupper(substr($0,1,1)) tolower(substr($0,2))}')
+  if [[ "$capitalized_product" == "Multiqc" ]]; then
+    capitalized_product="MultiQC"
+  fi
 
-  # Create a file in changelog/{product} directory with the name {tagName}.mdx
-  filename="changelog/${product}/${tag}.mdx"
+  # Create a file in changelog/{product} directory with the name {tagName}.md
+  filename="changelog/${product}/${tag}.md"
 
   # Check if the file already exists
   if [ -f "$filename" ]; then
