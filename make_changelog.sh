@@ -61,7 +61,7 @@ fi
 CAPITALIZED_TAG="$(echo "$TAG" | awk '{print toupper(substr($0,1,1)) tolower(substr($0,2))}')"
 
 # Fetch the releases and process them
-gh -R "$REPO" release list --json tagName,publishedAt | jq -r '.[] | "\(.tagName) \(.publishedAt)"' | while read tag publishedAt; do
+gh -R "$REPO" release list --json tagName,publishedAt --limit 1000 | jq -r '.[] | "\(.tagName) \(.publishedAt)"' | while read tag publishedAt; do
   # Format the date to yyyy-mm-dd
   date=$(echo $publishedAt | cut -d'T' -f1)
 
