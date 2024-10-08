@@ -1,0 +1,20 @@
+---
+title: Nextflow v0.9.0
+date: 2014-08-11
+tags: [nextflow]
+---
+
+- Added GitHub/Git support. It allows one to pull and run pipelines published on a 
+  remote GitHub repository 
+- Changed command line structure. Since this version it is organised in sub-commands. 
+  The following sub-commands are available:
+  - ls: list all downloaded pipelines; 
+  - run: launch a pipeline execution;
+  - pull: download or update a pipeline hosted on GitHub;
+  - info: show pipeline information; 
+  - drop: remote a locally stored pipeline; 
+  - clone: copy a pipeline to a directory specified;  
+  - history: list all pipeline runs;  
+  - help: show program help.
+- Added 'baseDir' and 'workDir' script variables
+- Removed Merge processor

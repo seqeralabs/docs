@@ -1,0 +1,12 @@
+---
+title: Nextflow v0.22.4
+date: 2016-11-04
+tags: [nextflow]
+---
+
+- Added `--no-requeue` flag to SLURM job submission 
+- Report log content when a wrapper script execution fail #213
+- Improved error message when cache DB cannot be created
+- Logging error track trace on task re-submit failure
+- Fixed Channel.fromPath throws an exception when the argument is a S3 path
+- Modified `make_temp` so that uses `NXF_TEMP` when defined

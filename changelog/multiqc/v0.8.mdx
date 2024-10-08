@@ -1,0 +1,70 @@
+---
+title: Multiqc v0.8
+date: 2016-09-26
+tags: [multiqc]
+---
+
+Module updates:
+- [**GATK**](https://software.broadinstitute.org/gatk/) - new module!
+  - Added support for VariantEval reports, only parsing a little of the information
+    in there so far, but it's a start.
+  - Module originally written by @robinandeer at the [OBF Codefest](https://www.open-bio.org/wiki/Codefest_2016),
+    finished off by @ewels
+- [**Bcftools**](https://samtools.github.io/bcftools/) - new module!
+- [**QUAST**](http://quast.bioinf.spbau.ru/) - new module!
+  - QUAST is a tool for assessing de novo assemblies against reference genomes.
+- **Bismark** now supports reports from `bam2nuc`, giving Cytosine coverage in General Stats.
+- **Bowtie1**
+  - Updated to try to find bowtie command before log, handle multiple logs in one file. Same as bowtie2.
+- **FastQC**
+  - Sample pass/warn/fail lists now display properly even with large numbers of samples
+  - Sequence content heatmap display is better with many samples
+- **Kallisto**
+  - Now supports logs from SE data.
+- **Picard**
+  - `BaseDistributionByCycle` - new submodule! Written by @mlusignan
+  - `RnaSeqMetrics` - new submodule! This one by @ewels ;)
+  - `AlignmentSummaryMetrics` - another new submodule!
+  - Fixed truncated files crash bug for Python 3 _(#306)_
+- **Qualimap RNASeqQC**
+  - Fixed parsing bug affecting counts in _Genomic Origin_ plot.
+  - Module now works with European style thousand separators (`1.234,56` instead of `1,234.56`)
+- **RSeQC**
+  - `infer_experiment` - new submodule! Written by @Hammarn
+- **Samtools**
+  - `stats` submodule now has separate bar graph showing alignment scores
+  - `flagstat` - new submodule! Written by @HLWiencko
+  - `idxstats` - new submodule! This one by @ewels again
+
+Core updates:
+- New `--export`/`-p` option to generate static images plot in `multiqc_plots` (`.png`, `.svg` and `.pdf`)
+  - Configurable with `export_plots`, `plots_dir_name` and `export_plot_formats` config options
+  - `--flat` option no longer saves plots in `multiqc_data/multiqc_plots`
+- New `--comment`/`-b` flag to add a comment to the top of reports.
+- New `--dirs-depth`/`-dd` flag to specify how many directories to prepend with `--dirs`/`-d`
+  - Specifying a postive number will take that many directories from the end of the path
+  - A negative number will take directories from the start of the path.
+- Directory paths now appended before cleaning, so `fn_clean_exts` will now affect these names.
+- New `custom_logo` attributes to add your own logo to reports.
+- New `report_header_info` config option to add arbitrary information to the top of reports.
+- New `--pdf` option to create a PDF report
+  - Depends on [Pandoc](http://pandoc.org) being installed and is in a beta-stage currently.
+  - Note that specifying this will make MultiQC use the `simple` template, giving a HTML report with
+    much reduced functionality.
+- New `fn_clean_sample_names` config option to turn off sample name cleaning
+  - This will print the full filename for samples. Less pretty reports and rows
+    on the General Statistics table won't line up, but can prevent overwriting.
+- Table header defaults can now be set easily
+- General Statistics table now hidden if empty.
+- Some new defaults in the sample name cleaning
+- Updated the `simple` template.
+  - Now has no toolbox or nav, no JavaScript and is better suited for printing / PDFs.
+  - New `config.simple_output` config flag so code knows when we're trying to avoid JS.
+- Fixed some bugs with config settings (eg. template) being overwritten.
+- NFS log file deletion bug fixed by @brainstorm (#265)
+- Fixed bug in `--ignore` behaviour with directory names.
+- Fixed nasty bug in beeswarm dot plots where sample names were mixed up (#278)
+- Beeswarm header text is now more informative (sample count with more info on a tooltip)
+- Beeswarm plots now work when reports have > 1000 samples
+
+Many thanks to those at the [OpenBio Codefest 2016](https://www.open-bio.org/wiki/Codefest_2016) who worked on MultiQC projects.

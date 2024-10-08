@@ -1,0 +1,51 @@
+---
+title: Nextflow v19.04.0
+date: 2019-04-17
+tags: [nextflow]
+---
+
+- Added support for NCBI_API_KEY variable [e4d9b62c]
+- Added warning message when using untested Java version [35acd1cb]
+- Added parameter and workflow metadata to weblog payload #1077
+- Added warning on publish with a null var [7d58bfb7] [95c219fb]
+- Fixed Echo directive when Ansi log is enabled #1112 #996
+- Fixed Do not mount inputs when `stageInMode == copy` #1105
+- Fixed `splitCsv` operator fails to parse values containing commas #1102 
+- Fixed missing return type for Date.format method
+- Fixed Channel operations `toList` followed by `merge` hang execution #1083
+- Avoid printing execution summary when no processes are computed #996
+- Improved error reporting for null publishDir [0b9b52f0]
+
+(from 19.03.0-edge)
+- Fix Nextflow hangs submitting jobs to AWS Batch #1024
+- Fix process builder incomplete output [2fe1052c]
+- Fix Grid executor reports invalid queue status #1045
+- Fix Script execute permission is lost in container #1060
+- Fix K8s serviceAccount is not honoured #1049
+- Fix K8s kuberun login path #1072
+- Fix K8s imagePullSecret and imagePullPolicy #1062
+- Fix Google Storage docs #1023
+- Fix Env variable NXF_CONDA_CACHEDIR is ignored #1051
+- Fix failing task due to legacy sleep command [3e150b56]
+- Fix SplitText operator should accept a closure parameter #1021
+- Add Channel.fromSRA factory method #1070
+- Add voluntary/involuntary context switches to metrics #1047
+- Add noHttps option to singularity config #1041)
+- Add docker-daemon Singularity support #1043 [dfef1391]
+- Use peak_vmem and peak_rss as default output in the trace file instead of rss and vmem #1020
+- Improve ansi log rendering #996 [33038a18]
+
+(from 19.02.0-edge)
+- Added foreign files caching ability #686
+- Added Ansi logging as default console output
+- Added Gitea source code provider [ae04fc37]
+- Fixed Join operator returns invalid remainder values #1015
+- Fixed Invalid trigger of integration tests [7aa5908a]
+- Fixed memory allocation for SGE executor [29353c90]
+- Fixed properties access for TaskConfig and LazyMap [09b74a52]
+- Fixed Invalid decimal separator in mem unit string #999
+- Fixed tail error on launcher script [38afea6c]
+- Improved Execution and Timeline memory reporting #980 #986 #1012 #1014 #1016 #1018 [01426097] [7d6c29f0]
+- Improved Google pipelines file copy strategy [678405b2]
+- Improved output file stage out behaviour docs #961 #1013
+- Upgraded Groovy runtime to version 2.5.6

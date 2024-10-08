@@ -1,0 +1,14 @@
+---
+title: Nextflow v0.23.0
+date: 2016-12-13
+tags: [nextflow]
+---
+
+- Added support for Singularity containers #252
+- Added support for HTTP/S and FTP files (read-only)
+- Fixed stream close leak while copy foreign file to local file system
+- Fixed Task scheduling may hang while checking for job completion #261
+- Fixed Specifying the keyFile cloud config attribute result in an error #263
+- Added support for multiple target channels in `tap` operator #255
+- Added `uri` property to Path and File objects
+- Made NXF_SCRATCH variable accessible to `beforeScript` handler

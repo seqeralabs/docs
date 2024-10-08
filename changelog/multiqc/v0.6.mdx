@@ -1,0 +1,38 @@
+---
+title: Multiqc v0.6
+date: 2016-04-29
+tags: [multiqc]
+---
+
+Date released: 2016-04-29
+
+Key highlights in this report are **new plot types**! Beeswarm and generalised tables. **Three new modules**, a major internal **code refactoring** around plotting and tables (now easier to understand, maintain and add to) and a whole swath of other minor module updates, new functions and features..
+
+Changelog:
+- New [Salmon](http://combine-lab.github.io/salmon/) module.
+- New [Trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic) module.
+- New [Bamtools stats](https://github.com/pezmaster31/bamtools) module.
+- New beeswarm plot type. General Stats table replaced with this when many samples in report.
+- New RSeQC module: Actually a suite of 8 new modules supporting various outputs from RSeQC
+- Rewrote bowtie2 module: Now better at parsing logs and tries to scrape input from wrapper logs.
+- Made cutadapt show counts by default instead of obs/exp
+- Dynamic plots now update their labels properly when changing datasets and to percentages
+- Config files now loaded from working directory if present
+- Started new docs describing how each module works
+- Refactored featureCounts module. Now handles summaries describing multiple samples.
+- Stopped using so many hidden files. `.multiqc.log` now called `multiqc.log`
+- New `-c`/`--config` command line option to specify a MultiQC configuration file
+- Can now load run-specific config files called `multiqc_config.yaml` in working directory
+- Large code refactoring - moved plotting code out of `BaseModule` and into new `multiqc.plots` submodules
+- Generalised code used to generate the General Stats table so that it can be used by modules
+- Removed interactive report tour, replaced with a link to a youtube tutorial
+- Made it possible to permanently hide the blue welcome message for all future reports
+- New option to smooth data for line plots. Avoids mega-huge plots. Applied to SnpEff, RSeQC, Picard.
+- Added percentage view to Picard insert size plot
+- Bugfix: Qualimap handles infinity symbol (thanks @chapmanb )
+- Bugfix: Made SnpEff less fussy about required fields for making plots
+- Bufgix: UTF-8 file paths handled properly in Py2.7+
+- Bugfix: Extending two config variables wasn't working. Now fixed.
+- Bugfix: Dragging the height bar of plots now works again.
+- Bugfix: Plots now properly change y axis limits and labels when changing datasets
+- Bugfix: Flat plots now have correct path in `default_dev` template

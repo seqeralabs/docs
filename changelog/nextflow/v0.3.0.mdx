@@ -1,0 +1,12 @@
+---
+title: Nextflow v0.3.0
+date: 2013-07-11
+tags: [nextflow]
+---
+
+11 Jul 2013
+- Decoupled the processors logic by the execution strategy implementation 
+- Normalised script level arguments so that a blank char may be used in place of the equals char
+- Added a new configuration option named 'clusterOptions' where specify grid native configuration parameters
+- Added a new configuration option named 'scratch' which enable/disable usage of scratch temporary folder when using cluster executors
+- Enhanced implementation of LSF executor

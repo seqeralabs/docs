@@ -1,0 +1,84 @@
+---
+title: Multiqc v1.1
+date: 2017-07-18
+tags: [multiqc]
+---
+
+
+#### New Modules:
+
+* [**BioBloom Tools**](https://github.com/bcgsc/biobloom)
+    * Create Bloom filters for a given reference and then to categorize sequences
+* [**Conpair**](https://github.com/nygenome/Conpair)
+    * Concordance and contamination estimator for tumor–normal pairs
+* [**Disambiguate**](https://github.com/AstraZeneca-NGS/disambiguate)
+    * Bargraph displaying the percentage of reads aligning to two different reference genomes.
+* [**Flexbar**](https://github.com/seqan/flexbar)
+    * Flexbar is a tool for flexible barcode and adapter removal.
+* [**HISAT2**](https://ccb.jhu.edu/software/hisat2/)
+    * New module for the HISAT2 aligner.
+    * Made possible by updates to HISAT2 logging by @infphilo (requires `--new-summary` HISAT2 flag).
+* [**HOMER**](http://homer.ucsd.edu/homer/)
+    * Support for summary statistics from the `findPeaks` tool.
+* [**Jellyfish**](http://www.cbcb.umd.edu/software/jellyfish/)
+    * Histograms to estimate library complexity and coverage from k-mer content.
+    * Module written by @vezzi
+* [**MACS2**](https://github.com/taoliu/MACS)
+    * Summary of redundant rate from MACS2 peak calling.
+* [**QoRTs**](http://hartleys.github.io/QoRTs/)
+    * QoRTs is toolkit for analysis, QC and data management of RNA-Seq datasets.
+* [**THetA2**](http://compbio.cs.brown.edu/projects/theta/)
+    * THeTA2 _(Tumor Heterogeneity Analysis)_ estimates tumour purity and clonal / subclonal copy number.
+
+#### Module updates:
+
+* **BCFtools**
+    * Option to collapse complementary changes in substitutions plot, useful for non-strand specific experiments (thanks to @vladsaveliev)
+* **Bismark**
+    * M-Bias plots no longer show read 2 for single-end data.
+* **Custom Content**
+    * New option to print raw HTML content to the report.
+* **FastQ Screen**
+    * Fixed edge-case bug where many-sample plot broke if total number of reads was less than the subsample number.
+    * Fixed incorrect logic of config option `fastqscreen_simpleplot` (thanks to @daler)
+    * Organisms now alphabetically sorted in fancy plot so that order is nonrandom (thanks to @daler)
+    * Fixed bug where `%No Hits` was missed in logs from recent versions of FastQ Screen.
+* **HTSeq Counts**
+    * Fixed but so that module still works when `--additional-attr` is specified in v0.8 HTSeq above (thanks to @nalcala)
+* **Picard**
+    * CollectInsertSize: Fixed bug that could make the General Statistics _Median Insert Size_ value incorrect.
+    * Fixed error in sample name regex that left trailing `]` characters and was generally broken (thanks to @jyh1 for spotting this)
+* **Preseq**
+    * Improved plots display (thanks to @vladsaveliev)
+* **Qualimap**
+    * Only calculate bases over target coverage for values in General Statistics. Should give a speed increase for very high coverage datasets.
+* **QUAST**
+    * Module is now compatible with runs from [MetaQUAST](http://quast.sourceforge.net/metaquast) (thanks to @vladsaveliev)
+* **RSeQC**
+    * Changed default order of sections
+    * Added config option to reorder and hide module report sections
+
+#### New MultiQC features:
+
+* If a report already exists, execution is no longer halted.
+    * `_1` is appended to the filename, iterating if this also exists.
+    * `-f`/`--force` still overwrites existing reports as before
+    * Feature written by [@Hammarn](https://github.com/Hammarn)
+* New ability to run modules multiple times in a single report
+    * Each run can be given different configuration options, including filters for input files
+    * For example, have FastQC after trimming as well as FastQC before trimming.
+    * See the relevant [documentation](http://multiqc.info/docs/#order-of-modules) for more instructions.
+* New option to customise the order of report _sections_
+    * This is in addition / alternative to changing the order of module execution
+    * Allows one module to have sections in multiple places (eg. Custom Content)
+* Tables have new column options `floor`, `ceiling` and `minRange`.
+* Reports show warning if JavaScript is disabled
+* Config option `custom_logo` now works with file paths relative to config file directory and cwd.
+
+#### Bug Fixes:
+
+* Table headers now sort columns again after scrolling the table
+* Fixed buggy table header tooltips
+* Base `clean_s_name` function now strips excess whitespace.
+* Line graphs don't smooth lines if not needed (number of points < maximum number allowed)
+* PDF output now respects custom output directory.

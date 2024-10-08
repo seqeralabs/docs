@@ -1,0 +1,46 @@
+---
+title: Nextflow v0.25.0
+date: 2017-06-26
+tags: [nextflow]
+---
+
+### Improvements and fixed issue  
+
+- Fixed Dataflow threads pool get exhausted with a large number of tasks #92
+- Fixed Custom function cannot be invoked in the workflow completion handler #374
+- Fixed Runtime errors are not reported in the `workflow.errorMessage` property #369
+- Fixed Warn if params.something is defined twice in a NF script #372
+- Fixed `Map.Entry` values deserialisation process fail #373
+- Fixed List active operators that may hang the script execution #315
+- Fixed launcher error message #366
+- Fixed AWS spot instance `bootStorageSize` property is ignored #368
+- Fixed Implicit variable `task` is not accessible in cached processes #363
+- Fixed Do not export user environment when submitting job to SGE-like batch scheduler #362
+- Fixed Process termination can throw a `ConcurrentModificationException` hiding the error cause message #359
+- Fixed `GroovyRuntimeException` during foreign file copy process #360
+- Fixed Helper function to compare version numbers #319
+- Fixed Docker input file mounts should be read-only for enforce container security #346
+- Fixed Extend `each` repeater syntax to support file collections #355
+- Fixed Modified task properties are not accessible in the command script during task retry #345
+- Fixed PublishDir warning message
+- Fixed Spread operator mishandles Iterable values provided as a dataflow variable #353
+- Fixed UUID cli options are wrongly interpreted as `Duration` objects #349
+- New `toInteger` converter operator
+- New `randomSample` operator #344
+- New `simpleName` extension method to Path/File objects #354
+- New warning message when input tuple cardinality does not match declared length #348
+- Improved use example into ext directive documentation #327
+- Improved error handing when parsing trace file #371
+- Improved error reporting for process missing input definition
+- Improved launcher script to support https protocol by default #379
+- Change `maxErrors` default to -1
+- Deprecated identifier `channel` as variable name
+
+
+### Special note 
+  
+* Directive `maxErrors` new default is `-1`, this means that by default this value is ignored when a task execution is retried and only maxRetries value the is taken in consideration. 
+* Docker input mounts are now enforced as read-only. This has been done to mitigate possible security concerns when using Docker containers. It must noted that this is coherent with the idempotent nature of nextflow processes by which a task cannot have side-effects (and therefore modify the input files).    
+* SGE, PBS/Torque  and NGSII executors do not specify any more the `-V` flag when submitting a job request. If you need to export the user environment in your task you will need to add it by using the `clusterOptions` directive.
+
+

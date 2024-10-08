@@ -1,0 +1,18 @@
+---
+title: Nextflow v0.29.0
+date: 2018-04-24
+tags: [nextflow]
+---
+
+0.29.0  - 24 Apr 2018
+- Fixed Buffer operator fails to recognise optional parameter when a closing condition is specified #652
+- Fixed PublishDir mode "copyNoFollow" does not work for directories #658
+- Update NameGenerator adjectives #656 
+
+(already included in 0.29.0-RC1)
+- Added `containerOptions` directive #415
+- Added support for multiple `publishDir` directives for process #256
+- Added cleanup feature to delete workflow work dir on completion #649
+- Added label directive and process configuration selectors `withLabel` and `withName` #623
+- Fixed Invalid process cache when using a different environment module #627
+- Upgrading groovy runtime to version 2.4.15

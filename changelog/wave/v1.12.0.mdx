@@ -1,0 +1,48 @@
+---
+title: Wave v1.12.0
+date: 2024-09-17
+tags: [wave]
+---
+
+## What's Changed
+* Change k8s delete job propogation policy to foreground by @munishchouhan in https://github.com/seqeralabs/wave/pull/595
+* Improve blob cache reliability by @pditommaso in https://github.com/seqeralabs/wave/pull/596
+* Add trusted builds timeout by @pditommaso in https://github.com/seqeralabs/wave/pull/600
+* docs: Update wave rate limits by @gavinelder in https://github.com/seqeralabs/wave/pull/606
+* Refresh Wave documentation by @jason-seqera in https://github.com/seqeralabs/wave/pull/516
+* Fix docs link by @jason-seqera in https://github.com/seqeralabs/wave/pull/611
+* Fix outdated Platform docs URLs on nextflow.mdx by @llewellyn-sl in https://github.com/seqeralabs/wave/pull/612
+* Links to Platform docs must be external to resolve by @jason-seqera in https://github.com/seqeralabs/wave/pull/613
+* Fix too many requests error by @pditommaso in https://github.com/seqeralabs/wave/pull/610
+* Improve container view page by @pditommaso in https://github.com/seqeralabs/wave/pull/615
+* added /v1alpha2/container/{token} by @munishchouhan in https://github.com/seqeralabs/wave/pull/609
+* added GET /v1alpha2/container/{token} in typespec by @munishchouhan in https://github.com/seqeralabs/wave/pull/618
+* Add Job manager  by @pditommaso in https://github.com/seqeralabs/wave/pull/605
+* add build in progress status in build page by @munishchouhan in https://github.com/seqeralabs/wave/pull/607
+* added bioinf example in docs by @munishchouhan in https://github.com/seqeralabs/wave/pull/621
+* Converge job service by @pditommaso in https://github.com/seqeralabs/wave/pull/620
+* Simplify tests by @pditommaso in https://github.com/seqeralabs/wave/pull/627
+* Improve registry auth error handling by @pditommaso in https://github.com/seqeralabs/wave/pull/628
+* Fix Retry policy delay multiplier by @pditommaso in https://github.com/seqeralabs/wave/pull/629
+* Do not retry on build failure by @pditommaso in https://github.com/seqeralabs/wave/pull/632
+* Fix K8s job status detection by @pditommaso in https://github.com/seqeralabs/wave/pull/630
+* Remove unneeded timeout logic by @pditommaso in https://github.com/seqeralabs/wave/pull/633
+* Deferred resources cleanup by @pditommaso in https://github.com/seqeralabs/wave/pull/636
+* added containerImage in scan by @munishchouhan in https://github.com/seqeralabs/wave/pull/635
+* Use public repo for s5cmd by @pditommaso in https://github.com/seqeralabs/wave/pull/639
+* Bump trivy 0.55 by @pditommaso in https://github.com/seqeralabs/wave/pull/638
+* Update scan model by @pditommaso in https://github.com/seqeralabs/wave/pull/637
+* Add entropy to cron services by @pditommaso in https://github.com/seqeralabs/wave/pull/640
+* Increase cache-tower-client to 1min by @pditommaso in https://github.com/seqeralabs/wave/pull/641
+* Fix failure duration by @pditommaso in https://github.com/seqeralabs/wave/pull/643
+* Improve blob cache info by @pditommaso in https://github.com/seqeralabs/wave/pull/644
+* Improve job dispatcher by @pditommaso in https://github.com/seqeralabs/wave/pull/645
+* Run docker process in background by @pditommaso in https://github.com/seqeralabs/wave/pull/647
+
+## Breaking changes 
+* Build status records used by this version are not compatible 1.11.x and earlier versions. **No builds should be running while deploying this version**   
+
+## New Contributors
+* @gavinelder made their first contribution in https://github.com/seqeralabs/wave/pull/606
+
+**Full Changelog**: https://github.com/seqeralabs/wave/compare/v1.10.4...v1.12.0

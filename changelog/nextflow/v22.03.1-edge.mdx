@@ -1,0 +1,17 @@
+---
+title: Nextflow v22.03.1-edge
+date: 2022-04-06
+tags: [nextflow]
+---
+
+- Fix default dsl env detection [b9a09bf6]
+- Handle K8s timeout error - 500 status code (#2756) [89a1a46b] <xhejtman>
+- Honour background option for kuberun command [b1b0ddd9] <kfrancisdev>
+- Add Aws Batch native retry on spot reclaim [cd95e297]
+- Improve Aws Batch error reporting [00443510]
+- Add missing workflow err report [fa687789]
+- Use local nextflow when packing docker image (#2757) [40271b08] <xhejtman>
+- Add retry policy Azure create job [792820a2]
+- Fix log message in nf-azure [80a0e937] <Manuele Simi>
+- Prevent build on tag [5b660c73]
+- Fix missing linux/amd64 platform on docker build [05f117d7]
