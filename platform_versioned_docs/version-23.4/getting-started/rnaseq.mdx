@@ -3,6 +3,7 @@ title: "RNA-Seq"
 description: "An introduction to running nf-core/rnaseq in Seqera Platform"
 date: "21 Jul 2024"
 tags: [platform, compute environment, rnaseq, aws, gcp, azure]
+toc_max_heading_level: 2
 ---
 
 import Tabs from '@theme/Tabs';
@@ -52,7 +53,7 @@ The following compute resources are recommended for production RNA-Seq pipelines
 The [Fusion](../supported_software/fusion/fusion.mdx) file system enables seamless read and write operations to cloud object stores, leading to
 simpler pipeline logic and faster, more efficient execution. While Fusion is not required to run nf-core/rnaseq, it is recommended for optimal performance. See [Pipeline performance](#pipeline-performance) at the end of this guide.
 
-We recommend using Fusion with AWS NVMe instances (fast instance storage) as this delivers the fastest performance when compared to environments using only AWS EBS (Elastic Block Store). Batch Forge selects instances automatically based on your compute environment configuration, but you can optionally specify instance types. To enable fast instance storage (see Create compute environment below), you must select EC2 instances with NVMe SSD storage (`m5d` or `r5d` families). 
+Fusion works best with AWS NVMe instances (fast instance storage) as this delivers the fastest performance when compared to environments using only AWS EBS (Elastic Block Store). Batch Forge selects instances automatically based on your compute environment configuration, but you can optionally specify instance types. To enable fast instance storage (see Create compute environment below), you must select EC2 instances with NVMe SSD storage (`m5d` or `r5d` families). 
 
 :::note 
 Fusion requires a license for use in Seqera Platform compute environments or directly in Nextflow. Fusion can be trialed at no cost. [Contact Seqera](https://seqera.io/contact-us/) for more details.
@@ -150,7 +151,7 @@ In Platform, samplesheets and other data can be made easily accessible in one of
       - The cloud **Provider**.
       - An existing cloud **Bucket path**.
       - A unique **Name** for the bucket.
-      - The **Credentials** used to access the bucket. For public cloud buckets, select **Public** from the dropdown menu.
+      - The **Credentials** used to access the bucket. For public cloud buckets, select **Public** from the menu.
       - An optional bucket **Description**.
   1. Select **Add**.
 
@@ -215,8 +216,8 @@ The launch form consists of **General config**, **Run parameters**, and **Advanc
 
 There are three ways to enter **Run parameters** prior to launch:
 
-- The **Input form view** displays form fields to enter text, select attributes from dropdowns, and browse input and output locations with [Data Explorer](../data/data-explorer.mdx).
-- The **Config view** displays raw configuration text that you can edit directly. Select JSON or YAML format from the **View as** dropdown.
+- The **Input form view** displays form fields to enter text or select attributes from lists, and browse input and output locations with [Data Explorer](../data/data-explorer.mdx).
+- The **Config view** displays raw configuration text that you can edit directly. Select JSON or YAML format from the **View as** list.
 - **Upload params file** allows you to upload a JSON or YAML file with run parameters.
 
 Platform uses the `nextflow_schema.json` file in the root of the pipeline repository to dynamically create a form with the necessary pipeline parameters. 
@@ -245,7 +246,7 @@ Specify your input and output parameters:
 
 </details>
 
-Modify other parameters to customize the pipeline execution through the parameters form. For example, under **Read trimming options**, change the `trimmer` to select `fastp` in the dropdown menu instead of `trimgalore`.
+Modify other parameters to customize the pipeline execution through the parameters form. For example, under **Read trimming options**, change the `trimmer` and select `fastp` instead of `trimgalore`.
 
 ![Read trimming options](./quickstart-demo/assets/trimmer-settings.png)
 
@@ -366,7 +367,7 @@ After you have filled the necessary launch details, select **Launch**. The **Run
 
 **Data Studios** streamlines the process of creating interactive analysis environments for Platform users. With built-in templates for platforms like Jupyter Notebook, RStudio, and VSCode, creating a data studio is as simple as adding and sharing pipelines or datasets. The data studio URL can also be shared with any user with the [Connect role](../orgs-and-teams/roles.mdx) for real-time access and collaboration.
 
-For the purposes of this guide, you can create an RStudio environment in which to normalize the pipeline output data, perform differential expression analysis, and visualize the data with exploratory plots.  
+For the purposes of this guide, an RStudio environment will be used to normalize the pipeline output data, perform differential expression analysis, and visualize the data with exploratory plots.
 
 ### Prepare your data
 
@@ -413,7 +414,7 @@ The analysis script provided in this section requires a sample information file 
 ![Add data studio](./_images/create-ds.gif)
 
 From the **Data Studios** tab, select **Add a data studio** and complete the following:
-- Select the latest **RStudio** container image template from the dropdown list.
+- Select the latest **RStudio** container image template from the list.
 - Select your AWS Batch compute environment. 
 :::note
 Data studios compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and data studio sessions. The default CPU and memory allocation for a data studio is 2 CPUs and 8192 MB RAM. 
