@@ -184,6 +184,10 @@ In Platform, samplesheets and other data can be made easily accessible in one of
 
 ## Launch pipeline
 
+:::note
+This guide is based on version 3.15.1 of the nf-core/rnaseq pipeline. Launch form parameters may differ in other versions. 
+:::
+
 With your compute environment created, nf-core/rnaseq added to your workspace Launchpad, and your samplesheet accessible in Platform, you are ready to launch your pipeline. Navigate to the Launchpad and select **Launch** next to `nf-core-rnaseq` to open the launch form.
 
  ![Launch a pipeline](./_images/launch-form-1.gif)
@@ -447,10 +451,11 @@ The RStudio environment can be configured with the packages you wish to install 
 
     ```r
     # Read in the count data
-    counts <- read.delim(file="/workspace/data/<PATH_TO_YOUR_COUNTS_FILE>", row.names=1)
+    counts <- read.delim(file = "/workspace/data/<PATH_TO_YOUR_COUNTS_FILE>", row.names =
+                          1)
 
     # Remove the gene_name column if it exists
-    if("gene_name" %in% colnames(counts)) {
+    if ("gene_name" %in% colnames(counts)) {
       counts <- counts[, -which(colnames(counts) == "gene_name")]
     }
 
@@ -458,8 +463,13 @@ The RStudio environment can be configured with the packages you wish to install 
     counts <- as.matrix(counts)
 
     # Read in the sample information
-    targets <- read.table(file="/workspace/data/<PATH_TO_YOUR_SAMPLE_INFO_FILE>", 
-                          header=TRUE, stringsAsFactors=FALSE, sep="", check.names=FALSE)
+    targets <- read.table(
+      file = "/workspace/data/<PATH_TO_YOUR_SAMPLE_INFO_FILE>",
+      header = TRUE,
+      stringsAsFactors = FALSE,
+      sep = "",
+      check.names = FALSE
+    )
 
     # Ensure column names are correct
     colnames(targets) <- c("Sample", "Group")
@@ -469,7 +479,7 @@ The RStudio environment can be configured with the packages you wish to install 
 
     ```r
     # Create a DGEList object
-    y <- DGEList(counts, group=targets$Group)
+    y <- DGEList(counts, group = targets$Group)
 
     # Calculate CPM (counts per million) values
     mycpm <- cpm(y)
@@ -477,7 +487,7 @@ The RStudio environment can be configured with the packages you wish to install 
     # Filter low count genes
     thresh <- mycpm > 0.5
     keep <- rowSums(thresh) >= 2
-    y <- y[keep, , keep.lib.sizes=FALSE]
+    y <- y[keep, , keep.lib.sizes = FALSE]
     ```
 
 1. Normalize the data:
@@ -504,15 +514,23 @@ The RStudio environment can be configured with the packages you wish to install 
     ```r
     # Create MDS plot
     # a. Display in RStudio
-    plotMDS(y, col=as.numeric(factor(targets$Group)), labels=targets$Group)
-    legend("topright", legend=levels(factor(targets$Group)), 
-          col=1:nlevels(factor(targets$Group)), pch=20)
+    plotMDS(y, col = as.numeric(factor(targets$Group)), labels = targets$Group)
+    legend(
+      "topright",
+      legend = levels(factor(targets$Group)),
+      col = 1:nlevels(factor(targets$Group)),
+      pch = 20
+    )
 
     # b. Save MDS plot to file (change `png` to `pdf` to create a PDF file)
     png("MDS_plot.png", width = 800, height = 600)
-    plotMDS(y, col=as.numeric(factor(targets$Group)), labels=targets$Group)
-    legend("topright", legend=levels(factor(targets$Group)), 
-          col=1:nlevels(factor(targets$Group)), pch=20)
+    plotMDS(y, col = as.numeric(factor(targets$Group)), labels = targets$Group)
+    legend(
+      "topright",
+      legend = levels(factor(targets$Group)),
+      col = 1:nlevels(factor(targets$Group)),
+      pch = 20
+    )
     dev.off()
     ```
 
@@ -520,7 +538,7 @@ The RStudio environment can be configured with the packages you wish to install 
 
     ```r
     # Design matrix
-    design <- model.matrix(~0+group, data=y$samples)
+    design <- model.matrix( ~ 0 + group, data = y$samples)
     colnames(design) <- levels(y$samples$group)
 
     # Estimate dispersion
@@ -542,8 +560,8 @@ The RStudio environment can be configured with the packages you wish to install 
 
     # Perform differential expression analysis for each contrast
     results <- lapply(colnames(my.contrasts), function(contrast) {
-      qlf <- glmQLFTest(fit, contrast=my.contrasts[,contrast])
-      topTags(qlf, n=Inf)
+      qlf <- glmQLFTest(fit, contrast = my.contrasts[, contrast])
+      topTags(qlf, n = Inf)
     })
     names(results) <- colnames(my.contrasts)
     ```
@@ -553,10 +571,10 @@ The RStudio environment can be configured with the packages you wish to install 
 
     ```r
     my.contrasts <- makeContrasts(
-    Sample1vsSample2 = Sample1 - Sample2,
-    Sample2vsSample3 = Sample2 - Sample3,
-    ...
-    levels = design
+      Sample1vsSample2 = Sample1 - Sample2,
+      Sample2vsSample3 = Sample2 - Sample3,
+      ...
+      levels = design
     )
     ```
     :::
@@ -572,7 +590,7 @@ The RStudio environment can be configured with the packages you wish to install 
 
     # Save results
     for (name in names(results)) {
-      write.csv(results[[name]], file=paste0("DE_genes_", name, ".csv"))
+      write.csv(results[[name]], file = paste0("DE_genes_", name, ".csv"))
     }
     ```
 
@@ -587,7 +605,8 @@ The RStudio environment can be configured with the packages you wish to install 
     # Function to create a volcano plot
     create_volcano_plot <- function(res, title) {
       ggplot(res$table, aes(x = logFC, y = -log10(FDR))) +
-        geom_point(aes(color = FDR < 0.05 & abs(logFC) > 1), size = 0.5) +
+        geom_point(aes(color = FDR < 0.05 &
+                        abs(logFC) > 1), size = 0.5) +
         scale_color_manual(values = c("black", "red")) +
         labs(title = title, x = "Log2 Fold Change", y = "-Log10 FDR") +
         theme_minimal()
@@ -599,7 +618,13 @@ The RStudio environment can be configured with the packages you wish to install 
       # Display in RStudio
       print(p)
       # Save to file (change `.png` to `.pdf` to create PDF files)
-      ggsave(paste0("volcano_plot_", name, ".png"), p, width = 8, height = 6, dpi = 300)
+      ggsave(
+        paste0("volcano_plot_", name, ".png"),
+        p,
+        width = 8,
+        height = 6,
+        dpi = 300
+      )
     }
     ```
 
@@ -612,11 +637,12 @@ The RStudio environment can be configured with the packages you wish to install 
     ```r
     # Create a heatmap of top 50 differentially expressed genes
     # Get top 50 DE genes from each comparison
-    top_genes <- unique(unlist(lapply(results, function(x) rownames(x$table)[1:50])))
+    top_genes <- unique(unlist(lapply(results, function(x)
+      rownames(x$table)[1:50])))
 
     # Get log-CPM values for these genes
     log_cpm <- cpm(y, log = TRUE)
-    top_gene_expr <- log_cpm[top_genes,]
+    top_gene_expr <- log_cpm[top_genes, ]
 
     # Print dimensions of top_gene_expr
     print(dim(top_gene_expr))
@@ -626,19 +652,33 @@ The RStudio environment can be configured with the packages you wish to install 
 
     # Create a heatmap using heatmap.2
     # Display in RStudio
-    heatmap.2(as.matrix(top_gene_expr), scale = "row", col = my_palette,
-              trace = "none", dendrogram = "column", margins = c(5, 10),
-              labRow = FALSE, 
-              ColSideColors = rainbow(length(unique(y$samples$group)))[factor(y$samples$group)],
-              main = "Top DE Genes Across Samples")
+    heatmap.2(
+      as.matrix(top_gene_expr),
+      scale = "row",
+      col = my_palette,
+      trace = "none",
+      dendrogram = "column",
+      margins = c(5, 10),
+      labRow = FALSE,
+      ColSideColors = rainbow(length(unique(y$samples$group)))[factor(y$samples$group)],
+      main = "Top DE Genes Across Samples"
+    )
 
     # Save heatmap to file (change `png` to `pdf` to create a PDF file)
-    png("heatmap_top_DE_genes.png", width = 1000, height = 1200)
-    heatmap.2(as.matrix(top_gene_expr), scale = "row", col = my_palette,
-              trace = "none", dendrogram = "column", margins = c(5, 10),
-              labRow = FALSE, 
-              ColSideColors = rainbow(length(unique(y$samples$group)))[factor(y$samples$group)],
-              main = "Top DE Genes Across Samples")
+    png("heatmap_top_DE_genes.png",
+        width = 1000,
+        height = 1200)
+    heatmap.2(
+      as.matrix(top_gene_expr),
+      scale = "row",
+      col = my_palette,
+      trace = "none",
+      dendrogram = "column",
+      margins = c(5, 10),
+      labRow = FALSE,
+      ColSideColors = rainbow(length(unique(y$samples$group)))[factor(y$samples$group)],
+      main = "Top DE Genes Across Samples"
+    )
     dev.off()
 
     # Print the number of top genes in the heatmap
