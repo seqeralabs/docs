@@ -119,7 +119,8 @@ export default async function createConfigAsync() {
           },
           sidebarPath: "./multiqc_docs/sidebar.js",
         },
-      ],      [
+      ],      
+      [
         "@docusaurus/plugin-content-docs",
         {
           id: "fusion",
