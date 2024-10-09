@@ -59,7 +59,7 @@ export default {
       },
       {
         "type": "category",
-        "label": "Modules",
+        "label": "Supported Tools",
         "link": {type: "doc", id: "modules"},
         "items": [
           {
