@@ -11,3 +11,5 @@
 /platform/23.2.0/*  /platform/23.2/:splat   301
 /platform/23.1.0/*  /platform/23.1/:splat   301
 /platform/22.4.0/*  /platform/22.4/:splat   301
+
+/platform/latest/data-studios   /platform/latest/data_studios/  301
