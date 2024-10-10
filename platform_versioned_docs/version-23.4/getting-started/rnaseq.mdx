@@ -674,13 +674,15 @@ The nf-core/rnaseq pipeline involves several key steps, each with distinct compu
 #### Overall run metrics
 
 **Total pipeline run cost (USD)**: 
+
 - Fusion file system with fast instance storage: $34.90
 - Plain S3 storage without Fusion: $58.40
 
-**Pipeline runtime**
+**Pipeline runtime**:
+
 The Fusion file system used with NVMe instance storage contributed to a 34% improvement in total pipeline runtime and a 49% reduction in CPU hours. 
 
-![Run metrics overview](./_images/cpu-table.png)
+![Run metrics overview](./_images/cpu-table-2.png)
 
 #### Process run time
 
@@ -692,7 +694,7 @@ The Fusion file system demonstrates significant performance improvements for mos
 - SALMON_INDEX shows a notable 70.15% improvement, reducing runtime from 102.18 minutes to 30.50 minutes.
 - STAR_ALIGN_IGENOMES, one of the most time-consuming processes, is 53.82% faster with Fusion, saving nearly an hour of runtime.
 
-![Average runtime of nf-core/rnaseq processes for eight samples using the Fusion file system and plain S3 storage. Error bars = standard deviation of the mean.](./_images/process-runtime.png) 
+![Average runtime of nf-core/rnaseq processes for eight samples using the Fusion file system and plain S3 storage. Error bars = standard deviation of the mean.](./_images/process-runtime-2.png) 
 
 | Process | S3 Runtime (min) | Fusion Runtime (min) | Time Saved (min) | Improvement (%) |
 |---------|------------------|----------------------|------------------|-----------------|

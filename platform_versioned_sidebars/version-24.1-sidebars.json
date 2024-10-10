@@ -6,8 +6,9 @@
       "label": "Tutorials",
       "collapsed": true,
       "items": [
-        "getting-started/quickstart-demo/comm-showcase"
-      ]
+        "getting-started/quickstart-demo/comm-showcase",
+        "getting-started/rnaseq"    
+        ]
     },
     {
       "type": "category",
