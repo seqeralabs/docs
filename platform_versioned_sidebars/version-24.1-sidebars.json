@@ -114,7 +114,15 @@
         "launch/advanced"
       ]
     },
-    "data/data-studios",
+    {
+      "type": "category",
+      "label": "Data Studios",
+      "items": [
+        "data_studios/index",
+        "data_studios/custom-envs",
+        "data_studios/managing"
+      ]
+    },
     {
       "type": "category",
       "label": "Administration",

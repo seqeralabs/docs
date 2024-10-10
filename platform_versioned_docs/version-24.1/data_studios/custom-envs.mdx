@@ -7,3 +7,83 @@ tags: [data, studios]
 
 In addition to the Seqera-provided container template images, you can provide your own custom container environments, either by augmenting the Seqera-provided images with a list of Conda packages that you provide or by providing your own base container template image.
 
+## Conda packages
+
+### Prerequisites
+
+- Wave must be configured, generally `https://wave.seqera.io`
+
+### Conda package syntax
+
+When you add a new data studio, you can customize its configuration to install a list of Conda packages to the template. The supported schema is identical to that used by the Conda `environment.yml` environment file. For more information on the Conda environment file, see [Creating an environment file manually][env-manually].
+
+```yaml title="Example environment.yml file"
+name: example-env
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.7
+  - numpy
+  - pandas
+  - scikit-learn
+  - pip:
+    - matplotlib
+    - seaborn
+    - jupyter
+```
+
+To create a data studio with custom Conda packages, see [Add a data studio][add-ds].
+
+## Custom container template image
+
+For advanced use cases, you can build your own container template image.
+
+:::note
+Amazon Elastic Container Registry (ECR) is the only supported private container registry.
+:::
+
+### Prerequisites
+
+- A container template image accessible from either a public container registry or in a private Amazon ECR repository
+
+### Dockerfile configuration
+
+WIP.
+
+```
+FROM public.cr.seqera.io/platform/connect-client:0.7.1 as connect #our base image
+
+FROM ubuntu:20.04
+RUN apt-get update --yes && apt-get install --yes --no-install-recommends python3
+
+
+## our requirements
+# 1. add connect binary
+COPY --from=connect /connect-client /usr/bin/connect-client
+# 2. install requred system packages
+RUN apt-get update --yes && apt-get install --yes --no-install-recomments \
+    ca-certificates \
+    wget \
+    fuse \
+    btrfs-progs \
+    squashfs-tools \
+    && apt-get clean && rm -rf /var/lib/apt/lists/* 
+# 3. install fusion
+RUN wget https://fusionfs.seqera.io/releases/pkg/2/4/2/fusion-amd64.tar.gz && \
+    tar xvzf fusion-amd64.tar.gz && \
+    rm fusion-amd64.tar.gz
+# 4. configure fusion env variables
+ENV FUSION_LOG_OUTPUT=/tmp/.fusion.log
+ENV FUSION_COMMAND_BUFFER_SIZE=0
+ENV FUSION_VALIDATE_WORK=false
+# 5. use connect and fusion as the entrypoint
+ENTRYPOINT ["/usr/bin/fusion", "/usr/bin/connect-client"]
+# 6. their command needs to open an http port on the port specified by the env variable CONNECT_TOOL_PORT
+CMD ["/usr/bin/bash", "-c", "python3 -m http.server $CONNECT_TOOL_PORT"]
+```
+
+<!-- links -->
+[add-ds]: ./managing.mdx#add-a-data-studio
+
+[env-manually]: https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-file-manually
