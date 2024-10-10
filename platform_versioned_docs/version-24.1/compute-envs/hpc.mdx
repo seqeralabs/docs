@@ -29,13 +29,16 @@ You can also use workspace [SSH credentials](../credentials/ssh_credentials.mdx)
 
 For HPC clusters that do not allow direct access through an SSH client, a secure connection can be authenticated with [Tower Agent](../supported_software/agent/agent.mdx).
 
-## Set directories at runtime
+## Work and launch directories
 
-For instances where the work directory or launch directory must be set at runtime, you can use variable expansion. The following variables are supported:
+For instances where the work directory or launch directory must be set dynamically at runtime you can use variable expansion. This works in conjunction with Tower Agent. The path that results from variable expansion must exist prior to workflow execution as the agent does not create missing directories.
 
-- `TW_AGENT_WORKDIR`: Resolves to the work directory for the agent. By default, this directory resolves to the `${HOME}/work` path, where `HOME` is the home directory of the user that the agent runs as. The work directory can be overridden by specifying the `--work-dir` argument.
-- `TW_AGENT_USER`: Resolves to the user name that the agent is running as. By default, this is the Unix user name that the agent runs as. On systems where the agent cannot determine what user it runs as, it falls back to the value of the `USER` environment variable.
+For example, if the HPC cluster file system has a `/workspace` directory with subdirectories for each user that can run jobs, the value for the work directory can be the following: `/workspace/$TW_AGENT_USER`. For a user `user`, the work directory resolves to the `/workspace/user1` directory.
 
+The following variables are supported:
+
+- `TW_AGENT_WORKDIR`: Resolves to the work directory for Tower Agent. By default, this directory resolves to the `${HOME}/work` path, where `HOME` is the home directory of the user that the agent runs as. The work directory can be overridden by specifying the `--work-dir` argument when configuring Tower Agent. For more information, see the [Tower Agent][agent] documentation.
+- `TW_AGENT_USER`: Resolves to the username that the agent is running as. By default, this is the Unix username that the agent runs as. On systems where the agent cannot determine which user it runs as, it falls back to the value of the `USER` environment variable.
 
 ## Seqera HPC compute environment
 
@@ -45,9 +48,9 @@ To create a new **HPC** compute environment:
 1.  Enter a descriptive name for this environment. Use only alphanumeric characters, dashes, and underscores.
 1.  Select your HPC environment from the **Platform** dropdown menu.
 1.  Select your existing managed identity, SSH, or Tower Agent credentials, or select **+** and **SSH** or **Tower Agent** to add new credentials.
-1.  Enter the absolute path of the **Work directory** to be used on the cluster.
+1.  Enter the absolute path of the **Work directory** to be used on the cluster. The `TW_AGENT_WORKDIR` and `TW_AGENT_USER` variables can be used when entering the file system path.
 
-    :::caution 
+    :::caution
     All managed identity users must be a part of the same Linux user group. The group must have access to the HPC compute environment work directory. Set group permissions for the work directory as follows (replace `sharedgroupname` and `<WORKDIR>` with your group name and work directory):
 
     ```bash
@@ -82,3 +85,7 @@ To create a new **HPC** compute environment:
 1. Select **Create** to finalize the creation of the compute environment.
 
 See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in your HPC compute environment.
+
+
+<!-- links -->
+[agent]: ../supported_software/agent/agent.mdx
