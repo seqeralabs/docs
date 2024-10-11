@@ -197,7 +197,7 @@ Create a Batch Forge Azure Batch compute environment:
     :::
 1. Add the **Batch account** and **Blob Storage** account names and access keys.
 1. Select a **Region**, such as _eastus_.
-1. In the **Pipeline work directory** field, enter the Azure blob container created previously. For example, `az://towerrgstorage-container/work`.
+1. In the **Pipeline work directory** field, enter the Azure blob container created previously. For example, `az://seqeracomputestorage-container/work`.
     :::note
     When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad.mdx#launch-form) form.
     :::
