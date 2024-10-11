@@ -11,9 +11,9 @@ In addition to the Seqera-provided container template images, you can provide yo
 
 ### Prerequisites
 
-- Wave must be configured, generally `https://wave.seqera.io`
+- Wave must be configured. For more information, see [Wave containers][wave].
 
-### Conda package syntax
+### Conda package syntax {#conda-package-syntax}
 
 When you add a new data studio, you can customize its configuration to install a list of Conda packages to the template. The supported schema is identical to that used by the Conda `environment.yml` environment file. For more information on the Conda environment file, see [Creating an environment file manually][env-manually].
 
@@ -35,7 +35,7 @@ dependencies:
 
 To create a data studio with custom Conda packages, see [Add a data studio][add-ds].
 
-## Custom container template image
+## Custom container template image {#custom-containers}
 
 For advanced use cases, you can build your own container template image.
 
@@ -45,45 +45,91 @@ Amazon Elastic Container Registry (ECR) is the only supported private container 
 
 ### Prerequisites
 
-- A container template image accessible from either a public container registry or in a private Amazon ECR repository
+- Access to a container image repository, either a public container registry or in a private Amazon ECR repository
+- A container template image
 
-### Dockerfile configuration
+### Dockerfile configuration {#dockerfile}
 
-WIP.
+For your custom template container image, you must use a Seqera provided base image and include several additional build steps for compatibility with Data Studios.
 
-```
-FROM public.cr.seqera.io/platform/connect-client:0.7.1 as connect #our base image
+The container must use the value of the `CONNECT_TOOL_PORT` environment variable as the listening port for whatever interactive software that you include in your custom container.
 
-FROM ubuntu:20.04
-RUN apt-get update --yes && apt-get install --yes --no-install-recommends python3
+The minimal Dockerfile includes directives to accomplish the following:
 
+- Pulls a Seqera-provided base image with prerequisite binaries
+- Installs prerequisite packages, such as wget and fuse
+- Installs and configures Seqera Fusion
+- Sets the container entry points
 
-## our requirements
-# 1. add connect binary
+Customize the following Dockerfile to include any additional software that you require:
+
+```docker title="Minimal Dockerfile"
+# Seqera base image
+FROM public.cr.seqera.io/platform/connect-client:0.7.1 as connect
+
+# 1. Add connect binary
 COPY --from=connect /connect-client /usr/bin/connect-client
-# 2. install requred system packages
-RUN apt-get update --yes && apt-get install --yes --no-install-recomments \
+
+# 2. Install required system packages
+RUN apt-get update --yes && apt-get install --yes --no-install-recommends \
     ca-certificates \
     wget \
     fuse \
     btrfs-progs \
     squashfs-tools \
-    && apt-get clean && rm -rf /var/lib/apt/lists/* 
-# 3. install fusion
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# 3. Install Fusion
 RUN wget https://fusionfs.seqera.io/releases/pkg/2/4/2/fusion-amd64.tar.gz && \
     tar xvzf fusion-amd64.tar.gz && \
     rm fusion-amd64.tar.gz
-# 4. configure fusion env variables
+
+# 4. Configure Fusion env variables
 ENV FUSION_LOG_OUTPUT=/tmp/.fusion.log
 ENV FUSION_COMMAND_BUFFER_SIZE=0
 ENV FUSION_VALIDATE_WORK=false
-# 5. use connect and fusion as the entrypoint
+
+# 5. Configure connect and Fusion as the entrypoint
 ENTRYPOINT ["/usr/bin/fusion", "/usr/bin/connect-client"]
-# 6. their command needs to open an http port on the port specified by the env variable CONNECT_TOOL_PORT
-CMD ["/usr/bin/bash", "-c", "python3 -m http.server $CONNECT_TOOL_PORT"]
 ```
+
+To run a basic Python-based HTTP server, build a container from the following Dockerfile. When a data studio runs the custom template environment, the value for the `CONNECT_TOOL_PORT` environment variable is provided dynamically.
+
+```docker title="Example Dockerfile with Python HTTP server"
+FROM public.cr.seqera.io/platform/connect-client:0.7.1 as connect
+
+FROM ubuntu:20.04
+RUN apt-get update --yes && apt-get install --yes --no-install-recommends python3
+
+COPY --from=connect /connect-client /usr/bin/connect-client
+
+RUN apt-get update --yes && apt-get install --yes --no-install-recommends \
+    ca-certificates \
+    wget \
+    fuse \
+    btrfs-progs \
+    squashfs-tools \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN wget https://fusionfs.seqera.io/releases/pkg/2/4/2/fusion-amd64.tar.gz && \
+    tar xvzf fusion-amd64.tar.gz && \
+    rm fusion-amd64.tar.gz
+
+ENV FUSION_LOG_OUTPUT=/tmp/.fusion.log
+ENV FUSION_COMMAND_BUFFER_SIZE=0
+ENV FUSION_VALIDATE_WORK=false
+
+ENTRYPOINT ["/usr/bin/fusion", "/usr/bin/connect-client"]
+
+CMD ["/usr/bin/bash", "-c", "python3 -m http.server $CONNECT_TOOL_PORT"]
+
+```
+
+To create a data studio with a custom template image, see [Add a data studio][add-ds].
+
 
 <!-- links -->
 [add-ds]: ./managing.mdx#add-a-data-studio
+[wave]: ../enterprise/configuration/wave.mdx
 
 [env-manually]: https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-file-manually

@@ -15,7 +15,7 @@ To add a new data studio, complete the following steps:
 1. For the **Compute & Data** section, complete the following steps:
 
    1. Customize the following fields:
-      - **Select compute environment**: Currently, only AWS Batch is supported.
+      - **Select compute environment**: Only AWS Batch is supported.
       - **CPUs allocated**: The default allocation is 2 CPUs.
       - **Maximum memory allocated**: The default allocation is 8192 MiB of memory.
    1. Select **Mount data**, and then from the **Mount data** modal, select data to mount. Select **Mount data** to confirm your selection.
@@ -28,17 +28,27 @@ To add a new data studio, complete the following steps:
 
 1. For the **General config** section, complete the following steps:
 
-   1. Customize the following fields:
-      - **Template**: Select a data studio template from the dropdown list. For information about providing your own template with the **Prebuild container image** selection, see TBD.
+   - To use one of the Seqera-provided templates, complete the following steps:
 
-        :::tip
-        If you select the **Prebuild container image** template, you cannot also select **Install Conda packages** as these customization choices are mutually exclusive.
-        :::
+     1. Customize the following fields:
+        - **Template**: Select a data studio template from the dropdown list.
+        - **Data studio name**
+        - Optional: **Description**
+     1. Optional: Select **Install Conda packages** to enter or upload a list of Conda packages to include with the data studio. For information on the syntax for specifying the Conda packages, see [Conda package syntax][conda-syntax].
+     1. Select **Next**.
 
-      - **Data studio name**
-      - Optional: **Description**
-   1. Optional: Select **Install Conda packages** to enter or upload a list of Conda packages to include with the data studio. For information on the syntax for specifying the Conda packages, see [Conda package syntax][conda-syntax].
-   1. Select **Next**.
+   - To use a custom template image that you supply, complete the following steps:
+
+     1. Customize the following fields:
+        - **Template**: Select **Prebuild container image** from the list. For information about providing your own template, see [Custom container template image][custom-image].
+
+          :::tip
+          If you select the **Prebuild container image** template, you cannot also select **Install Conda packages** as these customization choices are mutually exclusive.
+          :::
+
+        - **Data studio name**
+        - Optional: **Description**
+     1. Select **Next**.
 
 1. For the **Summary** section, complete the following steps:
    1. Ensure that the specified configuration is correct.
@@ -134,3 +144,4 @@ You can only delete a data studio when it's **stopped**. Select the three dots n
 
 <!-- links -->
 [conda-syntax]: ./custom-envs.mdx#conda-package-syntax
+[custom-image]: ./custom-envs.mdx#custom-containers
