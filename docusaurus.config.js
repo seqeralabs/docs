@@ -36,6 +36,23 @@ export default async function createConfigAsync() {
       [
         "classic",
         {
+          blog: {
+            blogTitle: 'Seqera Changelog',
+            blogDescription: 'Blog',
+            blogSidebarCount: 5000,
+            blogSidebarTitle: 'Changelog',
+            path: 'changelog',
+            routeBasePath: '/changelog',
+            //processBlogPosts: () => ({}),
+            include: ['**/*.{md,mdx}'],
+            showReadingTime: false,
+            feedOptions: {
+            type: 'all', // 'rss', 'atom', or both
+            title: 'Seqera Changelog',
+            description: 'Stay updated with our blog posts!',
+            copyright: `Copyright © ${new Date().getFullYear()} Seqera`,
+            }
+          },
           docs: false,
           theme: {
             customCss: [
@@ -260,11 +277,13 @@ export default async function createConfigAsync() {
           "json",
           "yaml",
           "groovy",
+          "java",
           "ini",
           "nginx",
           "bash",
           "docker",
           "python",
+          "r",
           "typescript",
         ],
       },
