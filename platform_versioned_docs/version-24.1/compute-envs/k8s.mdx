@@ -91,11 +91,10 @@ After you've prepared your Kubernetes cluster for Seqera integration, create a c
     - To authenticate using a Kubernetes service account, enter your **Service account token**. Obtain the token with the following command:
 
         ```bash
-        SECRET=$(kubectl get secrets | grep <SERVICE-ACCOUNT-NAME> | cut -f1 -d ' ')
-        kubectl describe secret $SECRET | grep -E '^token' | cut -f2 -d':' | tr -d '\t'
+        kubectl get secret -o json <SERVICE-ACCOUNT-TOKEN-NAME> | jq -r '.data["token"]' | base64 -d
         ```
 
-        Replace `<SERVICE-ACCOUNT-NAME>` with the name of the service account created in the [cluster preparation](#cluster-preparation) instructions (default: `tower-launcher-sa`).
+        Replace `<SERVICE-ACCOUNT-TOKEN-NAME>` with the name of the service account token created in the [cluster preparation](#cluster-preparation) instructions (default: `tower-launcher-token`).
 
     - To authenticate using an X509 client certificate, paste the contents of your certificate and key file (including the `-----BEGIN...-----` and `-----END...-----` lines) in the **Client certificate** and **Client Key** fields respectively. See the [Kubernetes documentation](https://kubernetes.io/docs/tasks/administer-cluster/certificates/) for instructions to generate your client certificate and key.
 
