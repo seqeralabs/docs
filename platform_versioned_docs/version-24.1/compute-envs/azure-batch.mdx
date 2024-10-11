@@ -263,7 +263,7 @@ Create a manual Seqera Azure Batch compute environment:
     To authenticate using an Entra service principal, you must include a user-assigned managed identity. See [Managed identity](#managed-identity) below. 
     :::
 1. Select a **Region**, such as _eastus (East US)_.
-1. In the **Pipeline work directory** field, add the Azure blob container created previously. For example, `az://towerrgstorage-container/work`.
+1. In the **Pipeline work directory** field, add the Azure blob container created previously. For example, `az://seqeracomputestorage-container/work`.
     :::note
     When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad.mdx#launch-form) form.
     :::
