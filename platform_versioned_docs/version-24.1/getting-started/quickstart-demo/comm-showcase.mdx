@@ -3,6 +3,7 @@ title: "Explore Platform Cloud"
 description: "Seqera Platform Cloud demonstration walkthrough"
 date: "8 Jul 2024"
 tags: [platform, launch, pipelines, launchpad, showcase tutorial]
+toc_max_heading_level: 3
 ---
 
 import Tabs from '@theme/Tabs';
@@ -38,7 +39,9 @@ This guide is based on version 3.14.0 of the nf-core/rnaseq pipeline. Launch for
 
 Navigate to the Launchpad in the `community/showcase` workspace and select **Launch** next to the `nf-core-rnaseq` pipeline to open the launch form.
 
- ![Launch a pipeline](assets/sp-cloud-launch-form.gif)
+ ![Launch a pipeline](../_images/cs-launch-form-1.gif)
+
+The launch form consists of **General config**, **Run parameters**, and **Advanced options** sections to specify your run parameters before execution, and an execution summary. Use section headings or select the **Previous** and **Next** buttons at the bottom of the page to navigate between sections. 
 
 <details>
   <summary>Nextflow parameter schema</summary>
@@ -51,38 +54,32 @@ Navigate to the Launchpad in the `community/showcase` workspace and select **Lau
 
 </details>
 
-### Parameter selection
+### General config 
 
-Adjust the following Platform-specific options:
+Most Showcase pipeline parameters are prefilled. Specify the following fields to identify your run amongst other workspace runs:
 
 - **Workflow run name**: A unique identifier for the run, pre-filled with a random name. This can be customized.
 - **Labels**: Assign new or existing labels to the run. For example, a project ID or genome version.
 
-`nf-core/rnaseq` requires a set of parameters to run:
+### Run parameters 
+
+There are three ways to enter **Run parameters** prior to launch:
+
+- The **Input form view** displays form fields to enter text, select attributes from dropdowns, and browse input and output locations with [Data Explorer](../data/data-explorer.mdx).
+- The **Config view** displays a raw schema that you can edit directly. Select JSON or YAML format from the **View as** dropdown.
+- **Upload params file** allows you to upload a JSON or YAML file with run parameters.
 
 #### input
 
 Most nf-core pipelines use the `input` parameter in a standardized way to specify an input samplesheet that contains paths to input files (such as FASTQ files) and any additional metadata needed to run the pipeline. Use **Browse** to select either a file path in cloud storage via **Data Explorer**, or a pre-loaded **Dataset**: 
 
-<details>
+- In the **Data Explorer** tab, select the `nf-tower-data` bucket, then search for and select the `rnaseq_sample_data.csv` file.
+- In the **Datasets** tab, search for and select `rnaseq_sample_data`.
 
-  <summary>**Data Explorer**</summary>
-
-  In the **Data Explorer** tab, select the `nf-tower-data` bucket, then search for and select the `rnaseq_sample_data.csv` file.
-
-</details>
-<details>
-
-  <summary>**Datasets**</summary>
-
-  In the **Datasets** tab, search for and select `rnaseq_sample_data`.
-
-</details>
-
-![Input parameters](assets/sp-cloud-launch-parameters-input.gif)
+![Input parameters](../_images/cs-launch-input.gif)
 
 :::tip
-- See [Add data](./add-data.mdx) to learn how to add datasets and Data Explorer cloud buckets to your own workspaces.
+See [Add data](./add-data.mdx) to learn how to add datasets and Data Explorer cloud buckets to your own workspaces.
 :::
 
 #### output
@@ -93,8 +90,6 @@ For this tutorial test run, keep the default `outdir` value (`./results`).
 
 :::tip 
 For the `outdir` parameter in pipeline runs in your own workspace, select **Browse** to specify a cloud storage directory using Data Explorer, or enter a cloud storage directory path to publish pipeline results to manually.
-
-![Output parameters](assets/sp-cloud-launch-parameters-outdir.gif)
 :::
 
 #### Pipeline-specific parameters

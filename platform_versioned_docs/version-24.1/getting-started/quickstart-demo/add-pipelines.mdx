@@ -10,15 +10,15 @@ import TabItem from '@theme/TabItem';
 
 The Launchpad lists the preconfigured Nextflow pipelines that can be executed on the [compute environments](../../compute-envs/overview.mdx) in your workspace. 
 
-Platform offers two methods to import pipelines to your workspace Launchpad — directly from Seqera Pipelines, or manually via **Add pipeline** in Platform. This page illustrates each method, using [nf-core/rnaseq](https://github.com/nf-core/rnaseq) as an example.
+Platform offers two methods to import pipelines to your workspace Launchpad — directly from Seqera Pipelines, or manually via **Add pipeline** in Platform.
 
-### Import nf-core/rnaseq from Seqera Pipelines
+### Import from Seqera Pipelines
 
-[Seqera Pipelines](https://seqera.io/pipelines) is an open-source resource that provides a curated collection of high-quality, open-source pipelines. Each pipeline includes a curated test dataset to use in a test run in just a few steps.
+[Seqera Pipelines](https://seqera.io/pipelines) provides a curated collection of high quality open-source pipelines. Each pipeline includes a curated test dataset to use in a test run in just a few steps.
 
-![Seqera Pipelines overview](assets/seqera-pipelines-overview.gif)
+![Seqera Pipelines add to Launchpad](assets/seqera-pipelines-add-pipeline.gif)
 
-To import the `nf-core/rnaseq` pipeline:
+To import a pipeline:
 1. Select **Launch** next to the pipeline name in the list. In the **Add pipeline** tab, select **Cloud** or **Enterprise** depending on your Platform account type, then provide the information needed for Seqera Pipelines to access your Platform instance:
     - **Seqera Cloud**: Paste your Platform **Access token** and select **Next**.  
     - **Seqera Enterprise**: Specify the **Seqera Platform URL** (hostname) and **Base API URL** for your Enterprise instance, then paste your Platform **Access token** and select **Next**.
@@ -32,50 +32,45 @@ To import the `nf-core/rnaseq` pipeline:
     :::
 1. Select **Add Pipeline**. 
 
-![Seqera Pipelines add to Launchpad](assets/seqera-pipelines-add-pipeline.gif)
-
 :::tip
-To launch pipelines directly with CLI tools, select the **Launch Pipeline** tab to grab commands for Nextflow, [Seqera Platform CLI](./automation.mdx), and [nf-core/tools](https://nf-co.re/docs/nf-core-tools):
+To launch pipelines directly with CLI tools, select the **Launch Pipeline** tab to grab commands for [Seqera Platform CLI](./automation.mdx#platform-cli), Nextflow, and [nf-core/tools](https://nf-co.re/docs/nf-core-tools):
 
 ![Launch Seqera Pipeline](assets/seqera-pipelines-launch-cli.png)
 :::
 
-### Add nf-core/rnaseq from the Launchpad 
+### Add from the Launchpad 
 
 ![Add nf-core/rnaseq pipeline](assets/sp-cloud-add-rnaseq.gif)
 
 From your workspace Launchpad, select **Add Pipeline** and specify the following pipeline details:
 
-- **Name**: `nf-core/rnaseq`, or a custom name of your choice. Pipeline names must be unique per workspace. 
+- **Name**: A custom name of your choice. Pipeline names must be unique per workspace. 
 - (*Optional*) **Description**: A summary of the pipeline or any information that may be useful to workspace participants when selecting a pipeline to launch. 
-- (*Optional*) **Labels**: Categorize the pipeline according to arbitrary criteria (such as reference genome version) that may help workspace participants to select the appropriate pipeline for their analysis.
+- (*Optional*) **Labels**: Categorize the pipeline according to arbitrary criteria (such research group or reference genome version) that may help workspace participants to select the appropriate pipeline for their analysis.
 - **Compute environment**: Select an existing workspace [compute environment](../../compute-envs/overview.mdx).
-- **Pipeline to launch**: `https://github.com/nf-core/rnaseq`
-    - Platform allows you to select any public or private Git repository that contains Nextflow source code.
+- **Pipeline to launch**: The URL of any public or private Git repository that contains Nextflow source code.
 - **Revision number**: Platform will search all of the available tags and branches in the provided pipeline repository and render a dropdown to select the appropriate version. 
     :::tip
     Selecting a specific pipeline version is important for reproducibility as this ensures that each run with the same input data will generate the same results.
     :::
-- (*Optional*) **Config profiles**: `test`
-    - Select a predefined profile for the Nextflow pipeline. 
+- (*Optional*) **Config profiles**: Select a predefined profile for the Nextflow pipeline. 
     :::info 
-    All nf-core pipelines include a `test` profile that is associated with a minimal test dataset. This profile runs the pipeline with heavily sub-sampled input data for the purposes of [CI/CD](https://resources.github.com/devops/ci-cd/) and to quickly confirm that the pipeline runs on your infrastructure.
+    nf-core pipelines include a `test` profile that is associated with a minimal test dataset. This profile runs the pipeline with heavily sub-sampled input data for the purposes of [CI/CD](https://resources.github.com/devops/ci-cd/) and to quickly confirm that the pipeline runs on your infrastructure.
     :::
-- (*Optional*) **Pipeline parameters**:
-    - Set any custom pipeline parameters that will be prepopulated when users launch the pipeline from the Launchpad. For example, set the path to local reference genomes so users don't have to worry about locating these files when launching the pipeline.
+- (*Optional*) **Pipeline parameters**: Set any custom pipeline parameters that will be prepopulated when users launch the pipeline from the Launchpad. For example, set the path to local reference genomes so users don't have to worry about locating these files when launching the pipeline.
     ![Add pipeline parameters](assets/sp-cloud-pipeline-params.gif)
-- (*Optional*) **Pre-run script**:
-    -  Define Bash code that executes before the pipeline launches in the same environment where Nextflow runs. 
+- (*Optional*) **Pre-run script**: Define Bash code that executes before the pipeline launches in the same environment where Nextflow runs. 
     :::info 
     Pre-run scripts are useful for defining executor settings, troubleshooting, and defining a specific version of Nextflow with the `NXF_VER` environment variable.
-    :::
+
     ![Specify NF version in pre-run script](assets/sp-cloud-pre-run-options.gif) 
+    :::
 
 :::note
 Pre-filled pipeline settings (such as compute environment, config profiles, and pipeline parameters) can be overridden during pipeline launch by workspace participants with the necessary [permissions](../../orgs-and-teams/roles.mdx).
 ::: 
 
-After you have populated the appropriate fields, select **Add**. `nf-core/rnaseq` is now available for workspace participants to launch in the preconfigured compute environment.
+After you have populated the appropriate fields, select **Add**. Your pipeline is now available for workspace participants to launch in the preconfigured compute environment.
 
 
 
