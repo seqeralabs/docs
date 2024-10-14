@@ -210,8 +210,8 @@ If you use VM instance templates for the head or compute jobs (see step 6 below)
 :::
 
 1. Enable **Use Private Address** to ensure that your Google Cloud VMs aren't accessible to the public internet.
-1. Use **Boot disk size** to control the boot disk size of VMs.
-1. Use **Head Job CPUs** and **Head Job Memory** to specify the CPUs and memory allocated for head jobs.
+1. Use **Boot disk size** to control the persistent disk size that each task and the head job will be provided.   
+1. Use **Head Job CPUs** and **Head Job Memory** to specify the CPUs and memory allocated for the head job.
 1. Use **Service Account email** to specify a service account email address other than the Compute Engine default to execute workflows with this compute environment (recommended for productions environments).
 1. Use **VPC** and **Subnet** to specify the name of a VPC network and subnet to be used by this compute environment. If your organization's VPC architecture relies on network tags, you can apply network tags to VM instance templates used for the Nextflow head and compute jobs (see below).
     :::note
