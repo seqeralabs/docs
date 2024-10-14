@@ -8,13 +8,12 @@ tags: [seqera cloud]
 
 - Quick launch is now error resilient when adding a pipeline that does not have a master branch.
 - Improved query times on some clean up job queries.
-- User interface consolidation on the Kubernetes Credentials form when switching among Service Account Token and X509 Client certificates.
 - NF Launcher image is now by default pulled from `cr.seqera.io` public registry instead of quay.
 - Data studio sessions can now share mounted data across the same workspace.
-- The new Launch Form is now available in Quick Launch and Personal Workpace.
-- Improved fetching of the cloud cost by preventing a failure to halt the full cost alignment to fail https://seqera.atlassian.net/browse/PLAT-234
+- The new Launch Form is now available in Quick Launch and personal workspaces.
+- Improved fetching of the cloud cost estimation for GCP's spot instances.
 - ECS container timeout configuration is now defaulted to 10 minutes (`ECS_CONTAINER_CREATE_TIMEOUT=10m,ECS_CONTAINER_STOP_TIMEOUT=10m,ECS_MANIFEST_PULL_TIMEOUT=10m`).
-- New dashboard for Data Studios.
+- New [dashboard for Data Studios](https://docs.seqera.io/platform/latest/monitoring/dashboard#data-studios).
 
 ### Bug fixes
 
