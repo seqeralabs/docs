@@ -33,7 +33,7 @@ For HPC clusters that do not allow direct access through an SSH client, a secure
 
 For instances where the work directory or launch directory must be set dynamically at runtime you can use variable expansion. This works in conjunction with Tower Agent. The path that results from variable expansion must exist prior to workflow execution as the agent does not create missing directories.
 
-For example, if the HPC cluster file system has a `/workspace` directory with subdirectories for each user that can run jobs, the value for the work directory can be the following: `/workspace/$TW_AGENT_USER`. For a user `user`, the work directory resolves to the `/workspace/user1` directory.
+For example, if the HPC cluster file system has a `/workspace` directory with subdirectories for each user that can run jobs, the value for the work directory can be the following: `/workspace/$TW_AGENT_USER`. For a user `user1`, the work directory resolves to the `/workspace/user1` directory.
 
 The following variables are supported:
 
