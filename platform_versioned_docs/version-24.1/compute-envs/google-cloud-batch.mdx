@@ -48,7 +48,7 @@ Alternatively, you can enable each API manually by selecting your project in the
 
 ### IAM
 
-Seqera requires a service account with appropriate permissions to interact with your Google Cloud resources. As an IAM user, you must have access to the service account that will be submitting Batch jobs.
+Seqera requires a service account with appropriate permissions to interact with your Google Cloud resources. As an IAM user, you must have access to the service account that submits Batch jobs.
 
 :::caution
 By default, Google Cloud Batch uses the default Compute Engine service account to submit jobs. This service account is granted the Editor (`roles/Editor`) role. While this service account has the necessary permissions needed by Seqera, this role is not recommended for production environments. Control job access using a custom service account with only the permissions necessary for Seqera to execute Batch jobs instead.
@@ -86,7 +86,7 @@ To configure a credential in Seqera, you must first create a [service account JS
 4. Select **JSON** as the key type.
 5. Select **Create**.
 
-A JSON file will be downloaded to your computer. This file contains the credential needed to configure the compute environment in Seqera.
+A JSON file is downloaded to your computer. This file contains the credential needed to configure the compute environment in Seqera.
 
 You can manage your key from the **Service Accounts** page.
 
@@ -176,7 +176,7 @@ Select **Enable Fusion v2** to allow access to your Google Cloud Storage data vi
 
   When Fusion v2 is enabled, the following virtual machine settings are applied:
   - A 375 GB local NVMe SSD is selected for all compute jobs.
-  - If you do not specify a machine type, a VM from families that support local SSDs will be selected.
+  - If you do not specify a machine type, a VM from families that support local SSDs is selected.
   - Any machine types you specify in the Nextflow config must support local SSDs.
   - Local SSDs are only offered in multiples of 375 GB. You can increment the number of SSDs used per process with the `disk` directive to request multiples of 375 GB. To work with files larger than 100 GB, use at least two SSDs (750 GB or more).
   - Fusion v2 can also use persistent disks for caching. Override the disk requested by Fusion using the `disk` directive and the `type: pd-standard`.
@@ -210,7 +210,7 @@ If you use VM instance templates for the head or compute jobs (see step 6 below)
 :::
 
 1. Enable **Use Private Address** to ensure that your Google Cloud VMs aren't accessible to the public internet.
-1. Use **Boot disk size** to control the persistent disk size that each task and the head job will be provided.   
+1. Use **Boot disk size** to control the persistent disk size that each task and the head job are provided.
 1. Use **Head Job CPUs** and **Head Job Memory** to specify the CPUs and memory allocated for the head job.
 1. Use **Service Account email** to specify a service account email address other than the Compute Engine default to execute workflows with this compute environment (recommended for productions environments).
 1. Use **VPC** and **Subnet** to specify the name of a VPC network and subnet to be used by this compute environment. If your organization's VPC architecture relies on network tags, you can apply network tags to VM instance templates used for the Nextflow head and compute jobs (see below).
