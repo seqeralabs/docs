@@ -1,0 +1,23 @@
+---
+title: Seqera Cloud v24.2.0_cycle25
+date: 2024-10-14
+tags: [seqera cloud]
+---
+
+### Feature updates and improvements
+
+- Quick launch is now error resilient when adding a pipeline that does not have a master branch.
+- Improved query times on some clean up job queries.
+- User interface consolidation on the Kubernetes Credentials form when switching among Service Account Token and X509 Client certificates.
+- NF Launcher image is now by default pulled from `cr.seqera.io` public registry instead of quay.
+- Data studio sessions can now share mounted data across the same workspace.
+- The new Launch Form is now available in Quick Launch and Personal Workpace.
+- Improved fetching of the cloud cost by preventing a failure to halt the full cost alignment to fail https://seqera.atlassian.net/browse/PLAT-234
+- ECS container timeout configuration is now defaulted to 10 minutes (`ECS_CONTAINER_CREATE_TIMEOUT=10m,ECS_CONTAINER_STOP_TIMEOUT=10m,ECS_MANIFEST_PULL_TIMEOUT=10m`).
+- New dashboard for Data Studios.
+
+### Bug fixes
+
+- If the revision wasn't specified in Quick Launch, schemas weren't correctly fetched.
+- Retrieving managed identity IDs on updates resulted in the incorrect managed identity being displayed.
+- **Start in new tab** from the Data Studio form didn't navigate back the main tab to Data Studios page.
