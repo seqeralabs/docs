@@ -16,4 +16,4 @@
 
 # Redirect from old FAQ to new FAQ
 
-/platform/24.1/faq/*  /platform/24.1/troubleshooting-and-faqs/troubleshooting/:splat   301
+/platform/24.1/faq/*  /platform/24.1/troubleshooting_and_faqs/troubleshooting/:splat   301
