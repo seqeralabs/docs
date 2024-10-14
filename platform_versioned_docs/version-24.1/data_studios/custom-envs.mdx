@@ -52,7 +52,15 @@ Amazon Elastic Container Registry (ECR) is the only supported private container 
 
 For your custom template container image, you must use a Seqera provided base image and include several additional build steps for compatibility with Data Studios.
 
+#### Ports
+
 The container must use the value of the `CONNECT_TOOL_PORT` environment variable as the listening port for whatever interactive software that you include in your custom container.
+
+#### Signals
+
+Upon termination, the container's main process must handle the `SIGTERM` signal and perform any necessarily cleanup. After a 30 second grace period, the container receives the `SIGKILL` signal.
+
+#### Minimal Dockerfile
 
 The minimal Dockerfile includes directives to accomplish the following:
 
