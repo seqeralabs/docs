@@ -2,8 +2,8 @@ import React from "https://esm.sh/react@18.2.0";
 import { ImageResponse } from "https://deno.land/x/og_edge/mod.ts";
 
 // const baseUrl = "https://seqera.io";
-const baseUrl = "http://localhost:8888";
-// const baseUrl = "https://deploy-preview-64--seqera.netlify.app";
+// const baseUrl = "http://localhost:8888";
+const baseUrl = "https://deploy-preview-264--seqera-docs.netlify.app";
 
 const InterFont = fetch(`${baseUrl}/fonts/inter/Inter-Regular.ttf`).then(
   (res) => res.arrayBuffer(),
