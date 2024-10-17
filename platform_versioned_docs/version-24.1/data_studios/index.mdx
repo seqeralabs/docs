@@ -77,7 +77,8 @@ The default user is the `root` account. The image is based on `ubuntu:jammy`. Ad
 ## Session statuses
 
 Data studios have the following possible statuses:
-
+- **building**: A custom environment is being built using the [Wave](/wave/) service that will serve as a template image for a new data studio session
+- **build-failed**:  A custom environment build failed. This is a non-recoverable error. Logs are provided to assist with troubleshooting.
 - **starting**: The data studio is initializing.
 - **running**: When a data studio session is **running**, you can connect to it, copy the data studio URL, or stop it. In addition, the session can continue to process requests/run computations in the absence of an ongoing connection.
 - **stopping**: The recently-running session is in the process of being stopped.
