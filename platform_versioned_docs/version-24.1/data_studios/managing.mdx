@@ -52,11 +52,11 @@ To add a new data studio, complete the following steps:
 
 1. For the **Summary** section, complete the following steps:
    1. Ensure that the specified configuration is correct.
-   1. Select **Add**, and then select from the following choices:
-      - **Add only**: Save the data studio for future use.
-      - **Add and start**: Save and immediately start the data studio.
+   1. Save your configuration:
+      - If you want to save the data studio for future use, select **Add only**.
+      - If you want to save and immediately start the data studio, select **Add and start**.
 
-You'll be returned to the Data Studios landing page that displays the list of data studios in your workspace. The data studio you created will be listed with the status **stopped**. You can inspect the configuration details by selecting the data studio session name.
+You'll be returned to the Data Studios landing page that displays the list of data studios in your workspace. You can inspect the configuration details of the data studio that you created by selecting the data studio session name. The data studio you created will be listed with a status of either **stopped** or **starting**, depending on whether you elected to only add the data studio or to start it as well.
 
 :::note
 By default, data studio sessions only have read permissions to mounted data paths. Write permissions can be added for specific cloud storage buckets during the compute environment configuration by defining additional **Allowed S3 Buckets**. This means that data can be written from the data studio session back to the cloud storage path(s) mounted. To stop potential data loss, only one data studio session per workspace can mount a unique data path. When adding a new data studio, data paths already mounted to other running data studios are unavailable. If a new file is uploaded to the cloud storage bucket path while a session is running, the file may not be available to the data studio session immediately.
