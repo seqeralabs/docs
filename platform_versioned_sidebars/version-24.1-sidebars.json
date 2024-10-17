@@ -249,6 +249,20 @@
         "functionality_matrix/functionality_matrix"
       ]
     },
-    "faqs"
+    {
+      "type": "category",
+      "label": "Troubleshooting",
+      "collapsed": true,
+      "items": [
+        "troubleshooting_and_faqs/troubleshooting",
+        "troubleshooting_and_faqs/api_and_cli",
+        "troubleshooting_and_faqs/data_studios_troubleshooting",
+        "troubleshooting_and_faqs/nextflow",
+        "troubleshooting_and_faqs/aws_troubleshooting",
+        "troubleshooting_and_faqs/azure_troubleshooting",
+        "troubleshooting_and_faqs/workspaces_troubleshooting",
+        "troubleshooting_and_faqs/datasets_troubleshooting"
+      ]
+    }
   ]
 }
