@@ -108,7 +108,7 @@ ENTRYPOINT ["/usr/bin/fusion", "/usr/bin/connect-client"]
 For example, to run a basic Python-based HTTP server, build a container from the following Dockerfile. When a data studio runs the custom template environment, the value for the `CONNECT_TOOL_PORT` environment variable is provided dynamically.
 
 ```docker title="Example Dockerfile with Python HTTP server"
-FROM public.cr.seqera.io/platform/connect-client:0.7.1 as connect
+FROM public.cr.seqera.io/platform/connect-client:0.7 as connect
 
 FROM ubuntu:20.04
 RUN apt-get update --yes && apt-get install --yes --no-install-recommends python3
