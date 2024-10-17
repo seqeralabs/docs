@@ -12,10 +12,14 @@ In addition to the Seqera-provided container template images, you can provide yo
 ### Prerequisites
 
 - Wave must be configured. For more information, see [Wave containers][wave].
+ 
+ :::note
+ Enterprise deployments must either allow access to the public Wave server, or self-host their own Wave server.
+ :::
 
 ### Conda package syntax {#conda-package-syntax}
 
-When you add a new data studio, you can customize its configuration to install a list of Conda packages to the template. The supported schema is identical to that used by the Conda `environment.yml` environment file. For more information on the Conda environment file, see [Creating an environment file manually][env-manually].
+When adding a new data studio session, you can customize its configuration to install a list of Conda packages to the template image. The supported schema is identical to that used by the Conda `environment.yml` environment file. For more information on the Conda environment file, see [Creating an environment file manually][env-manually].
 
 ```yaml title="Example environment.yml file"
 name: example-env
@@ -45,12 +49,12 @@ Amazon Elastic Container Registry (ECR) is the only supported private container 
 
 ### Prerequisites
 
-- Access to a container image repository, either a public container registry or in a private Amazon ECR repository
+- Access to a container image repository, either a public container registry or a private Amazon ECR repository
 - A container template image
 
 ### Dockerfile configuration {#dockerfile}
 
-For your custom template container image, you must use a Seqera provided base image and include several additional build steps for compatibility with Data Studios.
+For your custom template container image, you must use a Seqera-provided base image and include several additional build steps for compatibility with Data Studios.
 
 #### Ports
 
@@ -101,7 +105,7 @@ ENV FUSION_VALIDATE_WORK=false
 ENTRYPOINT ["/usr/bin/fusion", "/usr/bin/connect-client"]
 ```
 
-To run a basic Python-based HTTP server, build a container from the following Dockerfile. When a data studio runs the custom template environment, the value for the `CONNECT_TOOL_PORT` environment variable is provided dynamically.
+For example, to run a basic Python-based HTTP server, build a container from the following Dockerfile. When a data studio runs the custom template environment, the value for the `CONNECT_TOOL_PORT` environment variable is provided dynamically.
 
 ```docker title="Example Dockerfile with Python HTTP server"
 FROM public.cr.seqera.io/platform/connect-client:0.7.1 as connect
