@@ -77,7 +77,7 @@ Customize the following Dockerfile to include any additional software that you r
 
 ```docker title="Minimal Dockerfile"
 # Seqera base image
-FROM public.cr.seqera.io/platform/connect-client:0.7.1 as connect
+FROM public.cr.seqera.io/platform/connect-client:0.7 as connect
 
 # 1. Add connect binary
 COPY --from=connect /connect-client /usr/bin/connect-client
