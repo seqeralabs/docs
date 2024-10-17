@@ -1,7 +1,7 @@
 function getShareImage(event) {
   // const host = "https://seqera.io";
   // const host = "http://localhost:3000";
-  const host = "https://deploy-preview-264--seqera.netlify.app";
+  const host = "https://deploy-preview-264--seqera-docs.netlify.app";
   const path = "og-generate.png";
 
   const info = {
