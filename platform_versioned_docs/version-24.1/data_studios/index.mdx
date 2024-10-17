@@ -77,8 +77,9 @@ The default user is the `root` account. The image is based on `ubuntu:jammy`. Ad
 ## Session statuses
 
 Data studios have the following possible statuses:
-- **building**: A custom environment is being built using the [Wave](/wave/) service that will serve as a template image for a new data studio session
-- **build-failed**:  A custom environment build failed. This is a non-recoverable error. Logs are provided to assist with troubleshooting.
+
+- **building**: When a custom environment is building the template image for a new data studio session. The [Wave] performs the build action.
+- **build-failed**:  When a custom environment build has failed. This is a non-recoverable error. Logs are provided to assist with troubleshooting.
 - **starting**: The data studio is initializing.
 - **running**: When a data studio session is **running**, you can connect to it, copy the data studio URL, or stop it. In addition, the session can continue to process requests/run computations in the absence of an ongoing connection.
 - **stopping**: The recently-running session is in the process of being stopped.
@@ -111,5 +112,6 @@ The cleanup process is a best effort and not guaranteed. Seqera attempts to remo
 <!-- links -->
 [contact]: https://seqera.io/contact-us/
 [vsc]: https://code.visualstudio.com/
+[Wave]: https://seqera.io/wave/
 
 [custom-envs]: ./custom-envs.mdx
