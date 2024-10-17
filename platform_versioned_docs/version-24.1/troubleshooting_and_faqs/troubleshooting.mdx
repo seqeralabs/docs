@@ -273,8 +273,7 @@ sql {
 Then, call the functionality in your workflow:
 
 ```
-// Example
-  channel.sql.fromQuery("select * from test", db: "athena", emitColumns:true).view()
+channel.sql.fromQuery("select * from test", db: "athena", emitColumns:true).view()
 }
 ```
 
