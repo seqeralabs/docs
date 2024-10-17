@@ -72,6 +72,10 @@ process {
 
 **Enable pipelines to write to S3 buckets that enforces AES256 server-side encryption**
 
+:::note
+This solution requires Seqera v21.10.4 and Nextflow [22.04.0](https://github.com/nextflow-io/nextflow/releases/tag/v22.04.0) or later.
+:::
+
 If you need to save files to an S3 bucket with a policy that [enforces AES256 server-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingServerSideEncryption.html), the [nf-launcher](https://quay.io/repository/seqeralabs/nf-launcher?tab=tags) script which invokes the Nextflow head job requires additional configuration:
 
 1. Add the following configuration to the **Advanced options > Nextflow config file** textbox of the **Launch Pipeline** screen:
@@ -89,5 +93,3 @@ If you need to save files to an S3 bucket with a policy that [enforces AES256 se
    ```bash
    export TOWER_AWS_SSE=AES256
    ```
-
-**Note:** This solution requires Seqera v21.10.4 and Nextflow [22.04.0](https://github.com/nextflow-io/nextflow/releases/tag/v22.04.0) or later.
