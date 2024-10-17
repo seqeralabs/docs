@@ -39,7 +39,7 @@ To ignore the Singularity cache, add this configuration item to your workflow: `
 
 This error can occur when executing a pipeline where the source Git repository's default branch is not populated with `main.nf` and `nextflow.config` files, regardless of whether the invoked pipeline is using a non-default revision/branch (e.g., `dev`).
 
-Currently, you can resolve this by creating empty `main.nf` and `nextflow.config` files in the default branch. This allows the pipeline to run,by using the content of the `main.nf` and `nextflow.config` in your target revision.
+Currently, you can resolve this by creating empty `main.nf` and `nextflow.config` files in the default branch. This allows the pipeline to run and use the content of the `main.nf` and `nextflow.config` in your target revision.
 
 **Use multiple Nextflow configuration files for different environments**
 
@@ -61,7 +61,7 @@ profiles {
 
 **AWS S3 upload file size limits**
 
-You may encounter _`WARN: Failed to publish file: s3://<bucket-name>`_ log messages, often related to AWS S3 object size limitations when using the multipart upload feature.
+You may encounter _`WARN: Failed to publish file: s3://<bucket-name>`_ log messages. These are often related to AWS S3 object size limitations when using the multipart upload feature.
 
 See the [AWS documentation](https://docs.aws.amazon.com/AmazonS3/latest/userguide/qfacts.html) for more information, particularly _maximum number of parts per upload_.
 
@@ -130,12 +130,12 @@ aws {
 
 This change occurs because Seqera superimposes its 10 MB default value rather than the value specified in your `nextflow.config`.
 
-To force the Seqera-invoked job to use your `nextflow.config` value, add the configuration setting in the workspace Launch screen's [**Nextflow config file** field](./launch/launchpad.mdx). For our example above, you would add `aws.client.uploadChunkSize = 209715200 // 200 MB`.
+To force the Seqera-invoked job to use your `nextflow.config` value, add the configuration setting in the workspace Launch screen's [**Nextflow config file** field](./launch/launchpad.mdx). For the example above, you would add `aws.client.uploadChunkSize = 209715200 // 200 MB`.
 
 Nextflow configuration values affected by this behaviour include:
 
-- aws.client.uploadChunkSize
-- aws.client.storageEncryption
+- `aws.client.uploadChunkSize`
+- `aws.client.storageEncryption`
 
 **Fusion v1 execution: _Missing output file(s) [X] expected by process [Y]_ error**
 
