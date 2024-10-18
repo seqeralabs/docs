@@ -70,7 +70,7 @@ Most containers use the root user by default. However, some users prefer to defi
 touch: cannot touch '/fsx/work/ab/27d78d2b9b17ee895b88fcee794226/.command.begin': Permission denied
 ```
 
-This should not occur when using AWS Batch from Seqera version 22.1.0. In other situations, you can avoid this issue by forcing all task containers to run as root. Add one of the following snippets to your [Nextflow configuration](./launch/advanced.mdx#nextflow-config-file):
+This should not occur when using AWS Batch from Seqera version 22.1.0. In other situations, you can avoid this issue by forcing all task containers to run as root. Add one of the following snippets to your [Nextflow configuration](../launch/advanced.mdx#nextflow-config-file):
 
 ```
 // cloud executors
@@ -115,7 +115,7 @@ To fix the problem, try the following:
     export JAVA_OPTIONS="-Dmail.smtp.ssl.protocols=TLSv1.2"
     ```
 
-2. Add this parameter to your [nextflow.config file](./launch/advanced.mdx#nextflow-config-file):
+2. Add this parameter to your [nextflow.config file](../launch/advanced.mdx#nextflow-config-file):
 
     ```
     mail {
@@ -211,7 +211,7 @@ Mount the APM solution's JAR file in Seqera's `backend` container and set the ag
 
 Although it's not possible to directly download the trace logs via Seqera, you can configure your workflow to export the file to persistent storage:
 
-1. Set this block in your [`nextflow.config`](./launch/advanced.mdx#nextflow-config-file):
+1. Set this block in your [`nextflow.config`](../launch/advanced.mdx#nextflow-config-file):
 
    ```nextflow
    trace {
@@ -306,7 +306,7 @@ This error can occur if the Nextflow head job fails to retrieve the necessary re
 
 **_Missing AWS execution role arn_ error during Seqera launch**
 
-The [ECS Agent must have access](https://docs.aws.amazon.com/batch/latest/userguide/execution-IAM-role.html) to retrieve secrets from the AWS Secrets Manager. Secrets-using pipelines launched from your instance in an AWS Batch compute environment will encounter this error if an IAM Execution Role is not provided. See [Secrets](./secrets/overview.mdx) for more information.
+The [ECS Agent must have access](https://docs.aws.amazon.com/batch/latest/userguide/execution-IAM-role.html) to retrieve secrets from the AWS Secrets Manager. Secrets-using pipelines launched from your instance in an AWS Batch compute environment will encounter this error if an IAM Execution Role is not provided. See [Secrets](../secrets/overview.mdx) for more information.
 
 **AWS Batch task failures with secrets**
 
