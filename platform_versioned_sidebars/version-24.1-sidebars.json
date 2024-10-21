@@ -189,12 +189,7 @@
       "type": "category",
       "label": "Developer tools",
       "collapsed": true,
-      "items": [
-        {
-          "type": "doc",
-          "id": "getting-started/quickstart-demo/automation",
-          "label": "Overview"
-        },          
+      "items": [         
         "api/overview",
         {
           "type": "category",
@@ -206,7 +201,17 @@
             "cli/commands"
           ]
           },
-          "pipeline-actions/overview"
+          {
+            "type": "category",
+            "label": "seqerakit",
+            "collapsed": true,
+            "items": [
+              "seqerakit/overview",
+              "seqerakit/installation",
+              "seqerakit/commands"
+            ]
+            },
+        "pipeline-actions/overview"
         ]
     },
     {
