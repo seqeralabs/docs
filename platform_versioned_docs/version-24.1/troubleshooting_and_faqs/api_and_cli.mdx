@@ -28,7 +28,7 @@ curl -X GET "https://$TOWER_SERVER_URL/workflow/$WORKFLOW_ID/tasks? workspaceId=
 
 **Connection errors when creating or viewing AWS Batch compute environments with `tw compute-envs` commands**
 
-Versions of tw CLI earlier than v0.8 do not support the `SPOT_PRICE_CAPACITY_OPTIMIZED` [allocation strategy](./compute-envs/aws-batch.mdx#advanced-options) in AWS Batch. Creating or viewing AWS Batch compute environments with this allocation strategy will lead to errors. This issue was [addressed in CLI v0.9](https://github.com/seqeralabs/tower-cli/issues/332).
+Versions of tw CLI earlier than v0.8 do not support the `SPOT_PRICE_CAPACITY_OPTIMIZED` [allocation strategy](../compute-envs/aws-batch.mdx#advanced-options) in AWS Batch. Creating or viewing AWS Batch compute environments with this allocation strategy will lead to errors. This issue was [addressed in CLI v0.9](https://github.com/seqeralabs/tower-cli/issues/332).
 
 **Segfault errors**
 
@@ -50,7 +50,7 @@ HTTP must not be used in production environments.
 
 **Resume/relaunch runs with tw CLI**
 
-Runs can be [relaunched](./launch/launchpad.mdx#relaunch-pipeline-run) with `tw runs relaunch` command.
+Runs can be [relaunched](../launch/launchpad.mdx#relaunch-pipeline-run) with `tw runs relaunch` command.
 
 ```
 tw runs relaunch -i 3adMwRdD75ah6P -w 161372824019700
