@@ -66,23 +66,21 @@ The benefits of using a shared workspace within an organization include:
 
 Creating a shared workspace is similar to the creation of a private workspace, with the exception of the **Visibility** option, which must be set to **Shared**.
 
-![](./_images/shared_visibility.png)
-
 ### Create a shared pipeline
 
-When you create a pipeline within a shared workspace, associating it with a [compute environment](../compute-envs/overview.mdx) is optional.
+When you create a pipeline in a shared workspace, associating it with a [compute environment](../compute-envs/overview.mdx) is optional.
 
-If a compute environment from the shared workspace is associated with the pipeline, it will be available to users in other workspaces who can launch the shared pipeline using the provided environment by default.
+If a compute environment from the shared workspace is associated with the pipeline, it will be available to users in other organization workspaces to launch the shared pipeline with the associated compute environment by default.
 
 ### Use shared pipelines from a private workspace
 
-Once a pipeline is set up in a shared workspace and associated with a compute environment within that shared workspace, any user can launch the pipeline from a private workspace using the shared workspace's compute environment. This eliminates the need for users to replicate shared compute environments in their private workspaces.
+Once a pipeline is set up in a shared workspace and associated with a compute environment in that workspace, any user can launch the pipeline from an organization workspace using the shared workspace's compute environment. This eliminates the need for users to replicate shared compute environments in their private workspaces.
 
 :::note
 The shared compute environment will not be available to launch other pipelines limited to that specific private workspace.
 :::
 
-If a pipeline from a shared workspace is shared **without** an associated compute environment, users from other workspaces can run it from their local workspaces. By default, the **primary** compute environment of the local workspace will be selected.
+If a pipeline from a shared workspace is shared **without** an associated compute environment, users can run it from other organization workspaces. By default, the **primary** compute environment of the launching workspace will be selected.
 
 ### Make shared pipelines visible in a private workspace
 

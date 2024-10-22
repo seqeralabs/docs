@@ -1,0 +1,5 @@
+User-agent: atlassian-bot
+Allow: /
+
+User-agent: *
+Allow: /

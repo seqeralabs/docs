@@ -58,6 +58,11 @@ export default {
             dirName: 'modules'
           }
         ]
+      },
+      {
+        "type": "link",
+        "label": "Changelog",
+        "href": "/changelog/tags/multiqc"
       }
     ]
   ]
