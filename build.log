@@ -1,0 +1,241 @@
+
+> seqera-docs@0.0.0 build
+> docusaurus build
+
+[INFO] [en] Creating an optimized production build...
+[WARNING] Docusaurus found blog posts without truncation markers:
+- "changelog/seqera-cloud/v24.2.0_cycle25.mdx"
+- "changelog/seqera-enterprise/v24.1.7.mdx"
+- "changelog/nextflow/v24.09.0-edge.mdx"
+- "changelog/wave_1.12.4.mdx"
+- "changelog/seqera-cloud/v24.2.0_cycle24.mdx"
+- "changelog/wave_1.12.3.mdx"
+- "changelog/seqera-cloud/v24.2.0_cycle23.mdx"
+- "changelog/seqera-cloud/v24.2.0_cycle21.mdx"
+- "changelog/nextflow/v24.04.4.mdx"
+- "changelog/seqera-cloud/v24.2.0_cycle20.mdx"
+- "changelog/seqera-cloud/v24.1.0_cycle17.mdx"
+
+We recommend using truncation markers (`<!-- truncate -->` or `{/* truncate */}`) in blog posts to create shorter previews on blog paginated lists.
+Tip: turn this security off with the `onUntruncatedBlogPosts: 'ignore'` blog plugin option.
+Error fetching jobs SyntaxError: Unexpected token < in JSON at position 0
+    at JSON.parse (<anonymous>)
+    at parseJSONFromBytes (node:internal/deps/undici/undici:6662:19)
+    at successSteps (node:internal/deps/undici/undici:6636:27)
+    at node:internal/deps/undici/undici:1236:60
+    at node:internal/process/task_queues:140:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:203:9)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:137:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+Error fetching events SyntaxError: Unexpected token < in JSON at position 0
+    at JSON.parse (<anonymous>)
+    at parseJSONFromBytes (node:internal/deps/undici/undici:6662:19)
+    at successSteps (node:internal/deps/undici/undici:6636:27)
+    at node:internal/deps/undici/undici:1236:60
+    at node:internal/process/task_queues:140:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:203:9)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:137:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+[WARNING] Duplicate routes found!
+- Attempting to create page at /platform/latest, but a page already exists at this route.
+- Attempting to create page at /platform/23.1, but a page already exists at this route.
+- Attempting to create page at /platform/23.1/cli, but a page already exists at this route.
+This could lead to non-deterministic routing behavior.
+ℹ Compiling Client
+ℹ Compiling Server
+✔ Server: Compiled successfully in 4.41s
+✔ Client: Compiled successfully in 5.51s
+[WARNING] Docusaurus found broken links!
+
+Please check the pages of your site in the list below, and make sure you don't reference any path that does not exist.
+Note: it's possible to ignore broken links with the 'onBrokenLinks' Docusaurus configuration, and let the build pass.
+
+Exhaustive list of all broken links found:
+- Broken link on source page path = /platform/24.1/compute-envs/azure-batch:
+   -> linking to ../faqs.mdx#azure (resolved as: /platform/24.1/faqs.mdx#azure)
+- Broken link on source page path = /platform/24.1/launch/advanced:
+   -> linking to ../faqs.mdx#nextflow-configuration (resolved as: /platform/24.1/faqs.mdx#nextflow-configuration)
+- Broken link on source page path = /platform/24.1/troubleshooting_and_faqs/api_and_cli:
+   -> linking to ./compute-envs/aws-batch.mdx#advanced-options (resolved as: /platform/24.1/troubleshooting_and_faqs/compute-envs/aws-batch.mdx#advanced-options)
+   -> linking to ./launch/launchpad.mdx#relaunch-pipeline-run (resolved as: /platform/24.1/troubleshooting_and_faqs/launch/launchpad.mdx#relaunch-pipeline-run)
+- Broken link on source page path = /platform/24.1/troubleshooting_and_faqs/azure_troubleshooting:
+   -> linking to ./compute-envs/azure-batch.mdx#manual (resolved as: /platform/24.1/troubleshooting_and_faqs/compute-envs/azure-batch.mdx#manual)
+   -> linking to ./launch/advanced.mdx#pre--post-run-scripts (resolved as: /platform/24.1/troubleshooting_and_faqs/launch/advanced.mdx#pre--post-run-scripts)
+   -> linking to ./enterprise/configuration/ssl_tls.mdx#configure-tower-to-trust-your-private-certificate (resolved as: /platform/24.1/troubleshooting_and_faqs/enterprise/configuration/ssl_tls.mdx#configure-tower-to-trust-your-private-certificate)
+- Broken link on source page path = /platform/24.1/troubleshooting_and_faqs/nextflow:
+   -> linking to ./launch/advanced.mdx#pre--post-run-scripts (resolved as: /platform/24.1/troubleshooting_and_faqs/launch/advanced.mdx#pre--post-run-scripts)
+   -> linking to ./launch/advanced.mdx#nextflow-config-file (resolved as: /platform/24.1/troubleshooting_and_faqs/launch/advanced.mdx#nextflow-config-file)
+   -> linking to ./launch/launchpad.mdx (resolved as: /platform/24.1/troubleshooting_and_faqs/launch/launchpad.mdx)
+   -> linking to ./supported_software/fusion/fusion.mdx (resolved as: /platform/24.1/troubleshooting_and_faqs/supported_software/fusion/fusion.mdx)
+   -> linking to ./enterprise/release_notes/23.2.mdx#nextflow-launcher-image (resolved as: /platform/24.1/troubleshooting_and_faqs/enterprise/release_notes/23.2.mdx#nextflow-launcher-image)
+   -> linking to ./enterprise/advanced-topics/custom-launch-container.mdx (resolved as: /platform/24.1/troubleshooting_and_faqs/enterprise/advanced-topics/custom-launch-container.mdx)
+- Broken link on source page path = /platform/24.1/troubleshooting_and_faqs/troubleshooting:
+   -> linking to ./enterprise/configuration/overview.mdx#compute-environments (resolved as: /platform/24.1/troubleshooting_and_faqs/enterprise/configuration/overview.mdx#compute-environments)
+   -> linking to ./launch/advanced.mdx#nextflow-config-file (resolved as: /platform/24.1/troubleshooting_and_faqs/launch/advanced.mdx#nextflow-config-file)
+   -> linking to ./enterprise/docker-compose.mdx (resolved as: /platform/24.1/troubleshooting_and_faqs/enterprise/docker-compose.mdx)
+   -> linking to ./secrets/overview.mdx (resolved as: /platform/24.1/troubleshooting_and_faqs/secrets/overview.mdx)
+
+[WARNING] Docusaurus found broken anchors!
+
+Please check the pages of your site in the list below, and make sure you don't reference any anchor that does not exist.
+Note: it's possible to ignore broken anchors with the 'onBrokenAnchors' Docusaurus configuration, and let the build pass.
+
+Exhaustive list of all broken anchors found:
+- Broken anchor on source page path = /multiqc/getting_started/installation:
+   -> linking to #pip (resolved as: /multiqc/getting_started/installation#pip)
+- Broken anchor on source page path = /multiqc/modules/fastqc:
+   -> linking to #module-search-patterns (resolved as: /multiqc/modules/fastqc#module-search-patterns)
+- Broken anchor on source page path = /multiqc/modules/featurecounts:
+   -> linking to #module-search-patterns (resolved as: /multiqc/modules/featurecounts#module-search-patterns)
+- Broken anchor on source page path = /platform/22.4/compute-envs/aws-batch:
+   -> linking to #tower-forge (resolved as: /platform/22.4/compute-envs/aws-batch#tower-forge)
+- Broken anchor on source page path = /platform/22.4/compute-envs/azure-batch:
+   -> linking to #tower-forge (resolved as: /platform/22.4/compute-envs/azure-batch#tower-forge)
+- Broken anchor on source page path = /platform/22.4/compute-envs/eks:
+   -> linking to #cluster-preparation (resolved as: /platform/22.4/compute-envs/eks#cluster-preparation)
+- Broken anchor on source page path = /platform/22.4/compute-envs/gke:
+   -> linking to #cluster-preparation (resolved as: /platform/22.4/compute-envs/gke#cluster-preparation)
+- Broken anchor on source page path = /platform/22.4/orgs-and-teams/overview:
+   -> linking to /platform/22.4/orgs-and-teams/organizations#Members
+- Broken anchor on source page path = /platform/22.4/supported_software/dragen/overview:
+   -> linking to /platform/22.4/compute-envs/aws-batch?h=forge#tower-forge
+- Broken anchor on source page path = /platform/23.1/compute-envs/aws-batch:
+   -> linking to #tower-forge (resolved as: /platform/23.1/compute-envs/aws-batch#tower-forge)
+- Broken anchor on source page path = /platform/23.1/compute-envs/azure-batch:
+   -> linking to #tower-forge (resolved as: /platform/23.1/compute-envs/azure-batch#tower-forge)
+- Broken anchor on source page path = /platform/23.1/enterprise/advanced-topics/db-docker-to-RDS:
+   -> linking to /platform/23.1/enterprise/configuration/database_and_redis#configure-towerenv_1
+- Broken anchor on source page path = /platform/23.1/enterprise/release_notes/changelog:
+   -> linking to #2773 (resolved as: /platform/23.1/enterprise/release_notes/changelog#2773)
+   -> linking to #2240 (resolved as: /platform/23.1/enterprise/release_notes/changelog#2240)
+   -> linking to #2406 (resolved as: /platform/23.1/enterprise/release_notes/changelog#2406)
+   -> linking to #2413 (resolved as: /platform/23.1/enterprise/release_notes/changelog#2413)
+   -> linking to #1950 (resolved as: /platform/23.1/enterprise/release_notes/changelog#1950)
+   -> linking to #1660 (resolved as: /platform/23.1/enterprise/release_notes/changelog#1660)
+- Broken anchor on source page path = /platform/23.1/orgs-and-teams/overview:
+   -> linking to /platform/23.1/orgs-and-teams/organizations#Members
+- Broken anchor on source page path = /platform/23.1/supported_software/dragen/overview:
+   -> linking to /platform/23.1/compute-envs/aws-batch?h=forge#tower-forge
+- Broken anchor on source page path = /platform/23.2/compute-envs/aws-batch:
+   -> linking to #tower-forge (resolved as: /platform/23.2/compute-envs/aws-batch#tower-forge)
+- Broken anchor on source page path = /platform/23.2/compute-envs/azure-batch:
+   -> linking to #tower-forge (resolved as: /platform/23.2/compute-envs/azure-batch#tower-forge)
+- Broken anchor on source page path = /platform/23.2/enterprise/advanced-topics/db-docker-to-RDS:
+   -> linking to /platform/23.2/enterprise/configuration/database_and_redis#configure-towerenv_1
+- Broken anchor on source page path = /platform/23.2/enterprise/advanced-topics/manual-aws-batch-setup:
+   -> linking to /platform/23.2/compute-envs/aws-batch#batch-forge-compute-environment
+- Broken anchor on source page path = /platform/23.2/orgs-and-teams/overview:
+   -> linking to /platform/23.2/orgs-and-teams/organizations#Members
+- Broken anchor on source page path = /platform/23.2/supported_software/dragen/overview:
+   -> linking to /platform/23.2/compute-envs/aws-batch?h=forge#tower-forge
+- Broken anchor on source page path = /platform/23.3/compute-envs/aws-batch:
+   -> linking to #tower-forge (resolved as: /platform/23.3/compute-envs/aws-batch#tower-forge)
+   -> linking to /platform/23.3/launch/advanced#pre--post-run-scripts
+- Broken anchor on source page path = /platform/23.3/compute-envs/azure-batch:
+   -> linking to #tower-forge (resolved as: /platform/23.3/compute-envs/azure-batch#tower-forge)
+- Broken anchor on source page path = /platform/23.3/compute-envs/eks:
+   -> linking to /platform/23.3/launch/advanced#pre--post-run-scripts
+- Broken anchor on source page path = /platform/23.3/compute-envs/gke:
+   -> linking to /platform/23.3/launch/advanced#pre--post-run-scripts
+- Broken anchor on source page path = /platform/23.3/compute-envs/google-cloud-lifesciences:
+   -> linking to /platform/23.3/launch/advanced#pre--post-run-scripts
+- Broken anchor on source page path = /platform/23.3/compute-envs/hpc:
+   -> linking to /platform/23.3/launch/advanced#pre--post-run-scripts
+- Broken anchor on source page path = /platform/23.3/compute-envs/k8s:
+   -> linking to /platform/23.3/launch/advanced#pre--post-run-scripts
+- Broken anchor on source page path = /platform/23.3/enterprise/general_troubleshooting:
+   -> linking to /platform/23.3/enterprise/configuration/overview#tower-and-redis-databases
+- Broken anchor on source page path = /platform/23.3/enterprise/kubernetes:
+   -> linking to /platform/23.3/enterprise/configuration/ssl_tls##configure-seqera-to-present-a-ssltls-certificate
+- Broken anchor on source page path = /platform/23.3/enterprise/release_notes/changelog:
+   -> linking to #2773 (resolved as: /platform/23.3/enterprise/release_notes/changelog#2773)
+   -> linking to #2240 (resolved as: /platform/23.3/enterprise/release_notes/changelog#2240)
+   -> linking to #2406 (resolved as: /platform/23.3/enterprise/release_notes/changelog#2406)
+   -> linking to #2413 (resolved as: /platform/23.3/enterprise/release_notes/changelog#2413)
+   -> linking to #1950 (resolved as: /platform/23.3/enterprise/release_notes/changelog#1950)
+   -> linking to #1660 (resolved as: /platform/23.3/enterprise/release_notes/changelog#1660)
+- Broken anchor on source page path = /platform/23.3/faqs:
+   -> linking to /platform/23.3/launch/advanced#pre--post-run-scripts
+   -> linking to /platform/23.3/launch/launchpad#relaunch-pipeline-run
+   -> linking to /platform/23.3/enterprise/configuration/ssl_tls#configure-tower-to-trust-your-private-certificate
+- Broken anchor on source page path = /platform/23.3/supported_software/dragen/overview:
+   -> linking to /platform/23.3/compute-envs/aws-batch?h=forge#tower-forge
+   -> linking to /platform/23.3/compute-envs/aws-batch#tower-forge
+- Broken anchor on source page path = /platform/23.3/supported_software/fusion:
+   -> linking to /platform/23.3/compute-envs/aws-batch#tower-forge
+- Broken anchor on source page path = /platform/23.4/compute-envs/aws-batch:
+   -> linking to #tower-forge (resolved as: /platform/23.4/compute-envs/aws-batch#tower-forge)
+   -> linking to /platform/23.4/launch/advanced#pre--post-run-scripts
+- Broken anchor on source page path = /platform/23.4/compute-envs/azure-batch:
+   -> linking to #tower-forge (resolved as: /platform/23.4/compute-envs/azure-batch#tower-forge)
+- Broken anchor on source page path = /platform/23.4/compute-envs/eks:
+   -> linking to /platform/23.4/launch/advanced#pre--post-run-scripts
+- Broken anchor on source page path = /platform/23.4/compute-envs/gke:
+   -> linking to /platform/23.4/launch/advanced#pre--post-run-scripts
+- Broken anchor on source page path = /platform/23.4/compute-envs/google-cloud-lifesciences:
+   -> linking to /platform/23.4/launch/advanced#pre--post-run-scripts
+- Broken anchor on source page path = /platform/23.4/compute-envs/hpc:
+   -> linking to /platform/23.4/launch/advanced#pre--post-run-scripts
+- Broken anchor on source page path = /platform/23.4/data/data-explorer:
+   -> linking to /platform/23.4/orgs-and-teams/workspace-management#participant-roles
+- Broken anchor on source page path = /platform/23.4/enterprise/general_troubleshooting:
+   -> linking to /platform/23.4/enterprise/configuration/overview#tower-and-redis-databases
+- Broken anchor on source page path = /platform/23.4/enterprise/kubernetes:
+   -> linking to /platform/23.4/enterprise/configuration/ssl_tls##configure-seqera-to-present-a-ssltls-certificate
+- Broken anchor on source page path = /platform/23.4/enterprise/release_notes/changelog:
+   -> linking to #2773 (resolved as: /platform/23.4/enterprise/release_notes/changelog#2773)
+   -> linking to #2240 (resolved as: /platform/23.4/enterprise/release_notes/changelog#2240)
+   -> linking to #2406 (resolved as: /platform/23.4/enterprise/release_notes/changelog#2406)
+   -> linking to #2413 (resolved as: /platform/23.4/enterprise/release_notes/changelog#2413)
+   -> linking to #1950 (resolved as: /platform/23.4/enterprise/release_notes/changelog#1950)
+   -> linking to #1660 (resolved as: /platform/23.4/enterprise/release_notes/changelog#1660)
+- Broken anchor on source page path = /platform/23.4/faqs:
+   -> linking to /platform/23.4/launch/advanced#pre--post-run-scripts
+   -> linking to /platform/23.4/launch/launchpad#relaunch-pipeline-run
+   -> linking to /platform/23.4/enterprise/configuration/ssl_tls#configure-tower-to-trust-your-private-certificate
+- Broken anchor on source page path = /platform/23.4/getting-started/overview:
+   -> linking to /platform/23.4/administration/overview#membership-administration
+- Broken anchor on source page path = /platform/23.4/supported_software/dragen/overview:
+   -> linking to /platform/23.4/compute-envs/aws-batch?h=forge#tower-forge
+   -> linking to /platform/23.4/compute-envs/aws-batch#tower-forge
+- Broken anchor on source page path = /platform/23.4/supported_software/fusion:
+   -> linking to /platform/23.4/compute-envs/aws-batch#tower-forge
+- Broken anchor on source page path = /platform/24.1/cloud/changelog:
+   -> linking to #2773 (resolved as: /platform/24.1/cloud/changelog#2773)
+   -> linking to #2240 (resolved as: /platform/24.1/cloud/changelog#2240)
+   -> linking to #2406 (resolved as: /platform/24.1/cloud/changelog#2406)
+   -> linking to #2413 (resolved as: /platform/24.1/cloud/changelog#2413)
+   -> linking to #1950 (resolved as: /platform/24.1/cloud/changelog#1950)
+   -> linking to #1660 (resolved as: /platform/24.1/cloud/changelog#1660)
+- Broken anchor on source page path = /platform/24.1/compute-envs/aws-batch:
+   -> linking to #tower-forge (resolved as: /platform/24.1/compute-envs/aws-batch#tower-forge)
+   -> linking to /platform/24.1/launch/advanced#pre--post-run-scripts
+- Broken anchor on source page path = /platform/24.1/compute-envs/azure-batch:
+   -> linking to #tower-forge (resolved as: /platform/24.1/compute-envs/azure-batch#tower-forge)
+   -> linking to /platform/24.1/launch/advanced#pre--post-run-scripts
+- Broken anchor on source page path = /platform/24.1/compute-envs/eks:
+   -> linking to /platform/24.1/launch/advanced#pre--post-run-scripts
+- Broken anchor on source page path = /platform/24.1/compute-envs/gke:
+   -> linking to /platform/24.1/launch/advanced#pre--post-run-scripts
+- Broken anchor on source page path = /platform/24.1/compute-envs/google-cloud-batch:
+   -> linking to /platform/24.1/launch/advanced#pre--post-run-scripts
+- Broken anchor on source page path = /platform/24.1/compute-envs/google-cloud-lifesciences:
+   -> linking to /platform/24.1/launch/advanced#pre--post-run-scripts
+- Broken anchor on source page path = /platform/24.1/compute-envs/hpc:
+   -> linking to /platform/24.1/launch/advanced#pre--post-run-scripts
+- Broken anchor on source page path = /platform/24.1/compute-envs/k8s:
+   -> linking to /platform/24.1/launch/advanced#pre--post-run-scripts
+- Broken anchor on source page path = /platform/24.1/data/data-explorer:
+   -> linking to /platform/24.1/compute-envs/azure-batch#create-a-storage-account
+- Broken anchor on source page path = /platform/24.1/enterprise/general_troubleshooting:
+   -> linking to /platform/24.1/enterprise/configuration/overview#tower-and-redis-databases
+- Broken anchor on source page path = /platform/24.1/enterprise/kubernetes:
+   -> linking to /platform/24.1/enterprise/configuration/ssl_tls##configure-seqera-to-present-a-ssltls-certificate
+- Broken anchor on source page path = /platform/24.1/getting-started/overview:
+   -> linking to /platform/24.1/administration/overview#membership-administration
+- Broken anchor on source page path = /platform/24.1/supported_software/dragen/overview:
+   -> linking to /platform/24.1/compute-envs/aws-batch?h=forge#tower-forge
+   -> linking to /platform/24.1/compute-envs/aws-batch#tower-forge
+
+[SUCCESS] Generated static files in "build".
+[INFO] Use `npm run serve` command to test your build locally.
