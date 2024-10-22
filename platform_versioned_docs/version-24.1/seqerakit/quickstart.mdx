@@ -1,0 +1,46 @@
+---
+title: "Quickstart"
+description: "seqerakit Hello World pipeline example"
+date: "21 Oct 2024"
+tags: [seqerakit, cli, automation, commands, hello world]
+---
+
+You must provide a YAML file that defines the options for each of the entities you would like to create in Seqera Platform.
+
+You will need to have an account on Seqera Platform (see [Plans and pricing](https://seqera.io/pricing/)). You will also need access to a Workspace and a pre-defined Compute Environment where you can launch a pipeline.
+
+### Launch via YAML
+
+1. Create a YAML file called `hello-world-config.yml` with the contents below, and customise the `<YOUR_WORKSPACE>` and `<YOUR_COMPUTE_ENVIRONMENT>` entries as required:
+
+   ```yaml
+   launch:
+     - name: 'hello-world'                              # Workflow name
+       workspace: '<YOUR_WORKSPACE>'                    # Workspace name
+       compute-env: '<YOUR_COMPUTE_ENVIRONMENT>'        # Compute environment
+       revision: 'master'                               # Pipeline revision
+       pipeline: 'https://github.com/nextflow-io/hello' # Pipeline URL
+   ```
+
+2. Launch the pipeline with `seqerakit`:
+
+   ```bash
+   seqerakit hello-world-config.yml
+   ```
+
+3. Login to your Seqera Platform instance and check the Runs page in the appropriate Workspace for the pipeline you just launched!
+
+### Launch via a Python script
+
+You can also launch the same pipeline via a Python script. This will essentially allow you to extend the functionality on offer within the Seqera Platform CLI by leveraging the flexibility and customisation options available in Python.
+
+1. Download the [`launch_hello_world.py`](./examples/python/launch_hello_world.py) Python script and customise the `<YOUR_WORKSPACE>` and `<YOUR_COMPUTE_ENVIRONMENT>` entries as required.
+
+2. Launch the pipeline with `seqerakit`:
+
+```bash
+   python launch_hello_world.py
+```
+
+3. Login to your Seqera Platform instance and check the Runs page in the appropriate Workspace for the pipeline you just launched!
+
