@@ -86,27 +86,11 @@ FROM public.cr.seqera.io/platform/connect-client:0.7 as connect
 # 1. Add connect binary
 COPY --from=connect /connect-client /usr/bin/connect-client
 
-# 2. Install required system packages
-RUN apt-get update --yes && apt-get install --yes --no-install-recommends \
-    ca-certificates \
-    wget \
-    fuse \
-    btrfs-progs \
-    squashfs-tools \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+# 2. Install connect dependencies
+RUN /usr/bin/connect-client --install
 
-# 3. Install Fusion
-RUN wget https://fusionfs.seqera.io/releases/pkg/2/4/2/fusion-amd64.tar.gz && \
-    tar xvzf fusion-amd64.tar.gz && \
-    rm fusion-amd64.tar.gz
-
-# 4. Configure Fusion env variables
-ENV FUSION_LOG_OUTPUT=/tmp/.fusion.log
-ENV FUSION_COMMAND_BUFFER_SIZE=0
-ENV FUSION_VALIDATE_WORK=false
-
-# 5. Configure connect and Fusion as the entrypoint
-ENTRYPOINT ["/usr/bin/fusion", "/usr/bin/connect-client"]
+# 3. Configure connect as the entrypoint
+ENTRYPOINT ["/usr/bin/connect-client"]
 ```
 
 For example, to run a basic Python-based HTTP server, build a container from the following Dockerfile. When a data studio runs the custom template environment, the value for the `CONNECT_TOOL_PORT` environment variable is provided dynamically.
@@ -118,32 +102,15 @@ FROM ubuntu:20.04
 RUN apt-get update --yes && apt-get install --yes --no-install-recommends python3
 
 COPY --from=connect /connect-client /usr/bin/connect-client
-
-RUN apt-get update --yes && apt-get install --yes --no-install-recommends \
-    ca-certificates \
-    wget \
-    fuse \
-    btrfs-progs \
-    squashfs-tools \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
-
-RUN wget https://fusionfs.seqera.io/releases/pkg/2/4/2/fusion-amd64.tar.gz && \
-    tar xvzf fusion-amd64.tar.gz && \
-    rm fusion-amd64.tar.gz
-
-ENV FUSION_LOG_OUTPUT=/tmp/.fusion.log
-ENV FUSION_COMMAND_BUFFER_SIZE=0
-ENV FUSION_VALIDATE_WORK=false
-
-ENTRYPOINT ["/usr/bin/fusion", "/usr/bin/connect-client"]
+RUN /usr/bin/connect-client --install
+ENTRYPOINT ["/usr/bin/connect-client"]
 
 CMD ["/usr/bin/bash", "-c", "python3 -m http.server $CONNECT_TOOL_PORT"]
-
 ```
 
-## Inspect custom container template build status {#build-status}
+### Inspect container augmentation build status {#build-status}
 
-You can inspect the progress of a custom container template build, including any errors if the build fails. A link to the [Wave service][wave-home] container build report is always available for builds.
+You can inspect the progress of a custom container template image build, including any errors if the build fails. A link to the [Wave service][wave-home] container build report is always available for builds.
 
 If the custom container template image build fails, the data studio session has the **build-failed** status. The details about build failures are available when inspecting the session details in the **Error report** tab.
 
