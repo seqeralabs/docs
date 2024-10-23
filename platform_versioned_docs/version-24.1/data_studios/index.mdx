@@ -87,16 +87,12 @@ Data studios have the following possible statuses:
 - **errored**: This state most often indicates that there has been an error starting the data studio session but it is in a **stopped** state. There might be errors reported by the session itself but these currently will be overwritten with a **running** status if the data studio session is still running.
 
   :::tip
-  If you encounter an error with the public preview release of Data Studios, please reach out to your [Seqera account executive][contact].
+  If you encounter an error with the public preview release of Data Studios [contact Seqera support][contact].
   :::
 
 ## Session checkpoints
 
-When you start a session, it automatically creates a *checkpoint*. A checkpoint saves changes that you make to the root filesystem and stores it in the compute environment's pipeline work directory in the `.studios/checkpoints` directory under a unique name.
-
-:::note
-The checkpoint is updated every five minutes.
-:::
+When you start a session, it automatically creates a *checkpoint*. A checkpoint saves changes that you make to the root filesystem and stores it in the compute environment's pipeline work directory in the `.studios/checkpoints` directory under a unique name. The checkpoint is updated every five minutes.
 
 When you stop and start a data studio session, or start a new data studio session from a previously created checkpoint, changes such as installed software packages and configuration files are restored and made available in the data studio session. Changes made to mounted datasets are not included in a checkpoint.
 
@@ -110,7 +106,7 @@ The cleanup process is a best effort and not guaranteed. Seqera attempts to remo
 
 
 <!-- links -->
-[contact]: https://seqera.io/contact-us/
+[contact]: https://support.seqera.io/
 [vsc]: https://code.visualstudio.com/
 [Wave]: https://seqera.io/wave/
 
