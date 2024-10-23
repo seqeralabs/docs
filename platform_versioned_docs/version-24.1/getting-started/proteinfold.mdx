@@ -1,0 +1,27 @@
+---
+title: "Protein structure prediction"
+description: "An introduction to running nf-core/proteinfold in Seqera Platform"
+date: "21 Jul 2024"
+tags: [platform, seqera pipelines, data studios, proteinfold, alphafold, colabfold, compute environment, aws]
+toc_max_heading_level: 2
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+This guide details how to perform best-practice analysis for protein 3D structure prediction on an AWS Batch compute environment in Platform. It includes: 
+
+- Creating AWS Batch compute environments to run your pipeline and downstream analysis
+- Adding pipelines to your workspace 
+- Importing your pipeline input data
+- Launching the pipeline and monitoring execution from your workspace
+- Setting up a custom analysis environment with Data Studios
+- Compute resource allocation guidance for proteinfold data
+
+:::info[**Prerequisites**]
+You will need the following to get started:
+
+- [Admin](../orgs-and-teams/roles.mdx) permissions in an existing organization workspace. See [Set up your workspace](./workspace-setup.mdx) to create an organization and workspace from scratch.
+- An existing AWS cloud account with access to the AWS Batch service.
+- Existing access credentials with permissions to create and manage resources in your AWS account. See [IAM](../compute-envs/aws-batch.mdx#iam) for guidance to set up IAM permissions for Platform. 
+:::
