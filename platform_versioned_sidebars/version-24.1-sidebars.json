@@ -7,7 +7,8 @@
       "collapsed": true,
       "items": [
         "getting-started/quickstart-demo/comm-showcase",
-        "getting-started/rnaseq"    
+        "getting-started/rnaseq",
+        "getting-started/proteinfold"
         ]
     },
     {
