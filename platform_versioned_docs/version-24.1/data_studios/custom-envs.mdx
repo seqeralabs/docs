@@ -83,7 +83,7 @@ Customize the following Dockerfile to include any additional software that you r
 FROM public.cr.seqera.io/platform/connect-client:0.7 AS connect
 
 # 1. Add connect binary
-COPY --from=connect /connect-client /usr/bin/connect-client
+COPY --from=connect /usr/bin/connect-client /usr/bin/connect-client
 
 # 2. Install connect dependencies
 RUN /usr/bin/connect-client --install
@@ -100,7 +100,7 @@ FROM public.cr.seqera.io/platform/connect-client:0.7 AS connect
 FROM ubuntu:20.04
 RUN apt-get update --yes && apt-get install --yes --no-install-recommends python3
 
-COPY --from=connect /connect-client /usr/bin/connect-client
+COPY --from=connect /usr/bin/connect-client /usr/bin/connect-client
 RUN /usr/bin/connect-client --install
 ENTRYPOINT ["/usr/bin/connect-client", "--entrypoint"]
 
