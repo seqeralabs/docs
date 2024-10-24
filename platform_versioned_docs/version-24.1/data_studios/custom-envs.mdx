@@ -73,7 +73,7 @@ Upon termination, the container's main process must handle the `SIGTERM` signal 
 The minimal Dockerfile includes directives to accomplish the following:
 
 - Pulls a Seqera-provided base image with prerequisite binaries
-- Installs and configures Seqera Fusion
+- Copies the `connect` binary into the build
 - Sets the container entry point
 
 Customize the following Dockerfile to include any additional software that you require:
