@@ -102,7 +102,7 @@ After you have created a resource group and Storage account, create a [Batch acc
     - **Active jobs and schedules**: Each Nextflow process will require an active Azure Batch job per pipeline while running, so increase this number to a high level. See [here][az-learn-jobs] to learn more about jobs in Azure Batch.
     - **Pools**: Each platform compute environment requires one Azure Batch pool. Each pool is composed of multiple machines of one virtual machine size.
     :::note
-    To use separate pools for head and compute nodes, see [this FAQ entry](../troubleshooting_and_faqs/azure.mdx).
+    To use separate pools for head and compute nodes, see [this FAQ entry](../troubleshooting_and_faqs/azure_troubleshooting.mdx).
     :::
     - **Batch accounts per region per subscription**: Set this to the number of Azure Batch accounts per region per subscription. Only one is required.
     - **Spot/low-priority vCPUs**: Platform does not support spot or low-priority machines when using Forge, so when using Forge this number can be zero. When manually setting up a pool, select an appropriate number of concurrent vCPUs here.
@@ -295,7 +295,7 @@ Create a manual Seqera Azure Batch compute environment:
 1. Set the **Config mode** to **Manual**.
 1. Enter the **Compute Pool name**. This is the name of the Azure Batch pool you created previously in the Azure Batch account.
     :::note
-    The default Azure Batch implementation uses a single pool for head and compute nodes. To use separate pools for head and compute nodes (for example, to use low-priority VMs for compute jobs), see [this FAQ entry](../troubleshooting_and_faqs/azure.mdx).
+    The default Azure Batch implementation uses a single pool for head and compute nodes. To use separate pools for head and compute nodes (for example, to use low-priority VMs for compute jobs), see [this FAQ entry](../troubleshooting_and_faqs/azure_troubleshooting.mdx).
     :::
 1. Enter a user-assigned **Managed identity client ID**, if one is attached to your Azure Batch pool. See [Managed Identity](#managed-identity) below.
 1. Apply [**Resource labels**](../resource-labels/overview.mdx). This will populate the **Metadata** fields of the Azure Batch pool.
