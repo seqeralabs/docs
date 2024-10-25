@@ -110,7 +110,7 @@ See [Azure Batch service quotas and limits][az-batch-quotas] for more informatio
     - **Pools**: Each Platform compute environment requires one Azure Batch pool. Each pool is composed of multiple machines of one virtual machine size.
 
     :::note
-    To use separate pools for head and compute nodes, see [this FAQ entry](../faqs.mdx#azure).
+    To use separate pools for head and compute nodes, see [this FAQ entry](../troubleshooting_and_faqs/azure.mdx).
     :::
 
     - **Batch accounts per region per subscription**: Set this to the number of Azure Batch accounts per region per subscription. Only one is required.
@@ -202,7 +202,7 @@ You can create multiple credentials in your Seqera environment.
 10. Enter the **Compute Pool name**. This is the name of the Azure Batch pool you created previously in the Azure Batch account.
 
     :::note
-    The default Azure Batch implementation uses a single pool for head and compute nodes. To use separate pools for head and compute nodes (e.g., to use low-priority VMs for compute jobs), see [this FAQ entry](../faqs.mdx#azure).
+    The default Azure Batch implementation uses a single pool for head and compute nodes. To use separate pools for head and compute nodes (e.g., to use low-priority VMs for compute jobs), see [this FAQ entry](../troubleshooting_and_faqs/azure.mdx).
     :::
 
 11. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
