@@ -16,7 +16,6 @@ This guide details how to perform best-practice analysis for protein 3D structur
 - Importing your pipeline input data
 - Launching the pipeline and monitoring execution from your workspace
 - Setting up a custom analysis environment with Data Studios
-- Compute resource allocation guidance for proteinfold data
 
 :::info[**Prerequisites**]
 You will need the following to get started:
@@ -30,7 +29,7 @@ You will need the following to get started:
 
 The compute and storage requirements for protein structure prediction depend on the number and length of protein sequences being analyzed and the size of the database used for prediction by the deep learning models (AlphaFold2, ColabFold). Input sequences typically range from a few KB for single proteins to several MB for large datasets, and reference databases can be extremely large, from 100 GB to several TB. Protein folding pipelines generate intermediate files during execution, such as for alignments and feature representations, the sizes of which vary based on the number of sequences and the complexity of the analysis.
 
-Given the data sizes and computational intensity, production pipelines require GPUs for optimal performance, multi-core CPUs for non-GPU tasks, and low-latency, high-throughput cloud storage file handling.
+Given the data sizes and computational intensity, production pipelines perform best with GPUs and low-latency, high-throughput cloud storage file handling.
 
 ### GPUs
 
@@ -39,15 +38,21 @@ The nf-core/proteinfold pipeline performs protein folding prediction using one o
 ### Fusion file system
 
 The [Fusion](../supported_software/fusion/fusion.mdx) file system enables seamless read and write operations to cloud object stores, leading to
-simpler pipeline logic and faster, more efficient execution. While Fusion is not required to run nf-core/proteinfold, it significantly enhances I/O-intensive tasks and eliminates the need for intermediate data copies, which is particularly beneficial when working with the large databases required for AlphaFold2 and ColabFold. 
+simpler pipeline logic and faster, more efficient execution. While Fusion is not required to run nf-core/proteinfold, it significantly enhances I/O-intensive tasks and eliminates the need for intermediate data copies, which is particularly beneficial when working with the large databases used by deep learning models for prediction. 
 
-Fusion works best with AWS NVMe instances (fast instance storage) as this delivers the fastest performance when compared to environments using only AWS EBS (Elastic Block Store). Batch Forge selects instances automatically based on your compute environment configuration, but you can optionally specify instance types. To enable fast instance storage (see Create compute environment below), you must select EC2 instances with NVMe SSD storage (`m6id` or `r6id` families). 
+Fusion works best with AWS NVMe instances (fast instance storage) as this delivers the fastest performance when compared to environments using only AWS EBS (Elastic Block Store). Batch Forge selects instances automatically based on your compute environment configuration, but you can optionally specify instance types. To enable fast instance storage (see Create compute environment below), you must select EC2 instances with NVMe SSD storage (`g4dn` or `g5` families). 
 
 :::note 
 Fusion requires a license for use in Seqera Platform compute environments or directly in Nextflow. Fusion can be trialed at no cost. [Contact Seqera](https://seqera.io/contact-us/) for more details.
 :::
 
 ### Create compute environment
+
+:::info
+The same compute environment can be used for pipeline execution and running your Data Studios notebook environment, but Data Studios does not support AWS Fargate and data studio sessions must run on CPUs. To use this compute environment for both nf-core/proteinfold execution and your data studio, leave **Enable Fargate for head job** disabled and include at least one CPU-based EC2 instance family (c6id, r6id, etc.) in your **Instance types**. 
+
+Alternatively, create a second basic AWS Batch compute environment with at least 2 CPUs and 8192 MB of RAM for your data studio.
+:::
 
 From the **Compute Environments** tab in your organization workspace, select **Add compute environment** and complete the following fields:
 
@@ -252,17 +257,11 @@ After you have filled the necessary launch details, select **Launch**. The **Run
   - **Datasets**: Link to datasets, if any were used in the run.
   - **Reports**: View pipeline outputs directly in the Platform.
 
-  ![View the nf-core/rnaseq run](./quickstart-demo/assets/sp-cloud-run-info.gif)
+  ![View the nf-core/rnaseq run](./_images/pf-run-details.gif)
 
   #### View reports
 
   Most Nextflow pipelines generate reports or output files which are useful to inspect at the end of the pipeline execution. Reports can contain quality control (QC) metrics that are important to assess the integrity of the results.
-
-  ![Reports tab](./quickstart-demo/assets/reports-tab.png)
-
-  For example, for the nf-core/rnaseq pipeline, view the [MultiQC](https://docs.seqera.io/multiqc) report generated. MultiQC is a helpful reporting tool to generate aggregate statistics and summaries from bioinformatics tools.
-
-  ![Reports MultiQC preview](./quickstart-demo/assets/reports-preview.png)
 
   The paths to report files point to a location in cloud storage (in the `outdir` directory specified during launch), but you can view the contents directly and download each file without navigating to the cloud or a remote filesystem.
 
@@ -274,7 +273,7 @@ After you have filled the necessary launch details, select **Launch**. The **Run
 
   The run details page includes general information about who executed the run, when it was executed, the Git commit ID and/or tag used, and additional details about the compute environment and Nextflow version used.
 
-  ![General run information](./quickstart-demo/assets/general-run-details.gif)
+  ![General run information](./_images/pf-run-details-general.gif)
 
   #### View details for a task
 
@@ -291,7 +290,7 @@ After you have filled the necessary launch details, select **Launch**. The **Run
 
   Select a task in the task table to open the **Task details** dialog. The dialog has three tabs:
 
-  ![Task details window](./quickstart-demo/assets/task-details.gif)
+  ![Task details window](./_images/pf-task-details.gif)
 
   - The **About** tab contains extensive task execution details. 
   - The **Execution log** tab provides a real-time log of the selected task's execution. Task execution and other logs (such as stdout and stderr) are available for download from here, if still available in your compute environment.
@@ -299,13 +298,11 @@ After you have filled the necessary launch details, select **Launch**. The **Run
 
   Nextflow hash-addresses each task of the pipeline and creates unique directories based on these hashes. Data Explorer allows you to view the log files and output files generated for each task in its working directory, directly within Platform. You can view, download, and retrieve the link for these intermediate files in cloud storage from the **Data Explorer** tab to simplify troubleshooting.
 
-  ![Task Data Explorer](./quickstart-demo/assets/sp-cloud-task-data-explorer.gif)
-
 </details>
 
 ## Tertiary analysis with Data Studios
 
-**Data Studios** streamlines the process of creating interactive analysis environments for Platform users. With built-in templates for platforms like Jupyter Notebook, RStudio, and VSCode, creating a data studio is as simple as adding and sharing pipelines or datasets. The data studio URL can also be shared with any user with the [Connect role](../orgs-and-teams/roles.mdx) for real-time access and collaboration.
+[Data Studios](../data/data-studios.mdx) streamlines the process of creating interactive analysis environments for Platform users. With built-in templates for platforms like Jupyter Notebook, RStudio, and VSCode, creating a data studio is as simple as adding and sharing pipelines or datasets. The data studio URL can also be shared with any user with the [Connect role](../orgs-and-teams/roles.mdx) for real-time access and collaboration.
 
 For the purposes of this guide, a Jupyter notebook environment will be used for interactive visualization of the predicted protein structures, optionally comparing AlphaFold2 and Colabfold structures for the same sequence data. 
 
@@ -315,10 +312,15 @@ For the purposes of this guide, a Jupyter notebook environment will be used for 
 
 From the **Data Studios** tab, select **Add a data studio** and complete the following:
 - Select your AWS Batch compute environment. 
-:::note
-Data studios compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and data studio sessions. The default CPU and memory allocation for a data studio is 2 CPUs and 8192 MB RAM. 
+:::info
+The same compute environment can be used for pipeline execution and running your Data Studios notebook environment, but Data Studios does not support AWS Fargate and data studio sessions must run on CPUs. To use one compute environment for both nf-core/proteinfold execution and your data studio, leave **Enable Fargate for head job** disabled and include at least one CPU-based EC2 instance family (`c6id`, `r6id`, etc.) in your **Instance types**. 
+
+Alternatively, create a second basic AWS Batch compute environment with at least 2 CPUs and 8192 MB of RAM for your data studio.
 :::
 - Optional: Enter CPU and memory allocations. The default values are 2 CPUs and 8192 MB memory (RAM).
+:::note
+Data studios compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and data studio sessions. 
+:::
 - Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the pipeline work directory of your RNA-Seq run. 
 - Select the latest **Jupyter** container image template from the list.
 - Optional: Enter a unique name and description for the data studio. 
@@ -476,6 +478,4 @@ The Jupyter environment can be configured with the packages you wish to install 
     ```
 
 ![Protein structure visualization](./_images/protein-structure-visualization.gif)
-
-### Pipeline performance guidelines and metrics? TBD 
 
