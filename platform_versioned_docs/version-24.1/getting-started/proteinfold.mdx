@@ -71,10 +71,10 @@ From the **Compute Environments** tab in your organization workspace, select **A
 | **Config Mode**                       | Batch Forge                                                |
 | **Provisioning Model**                | Choose between Spot and On-demand instances.               |
 | **Max CPUs**                          | Sensible values for production use range between 2000 and 5000.|
-| **Enable Fargate for head job**       | Run the Nextflow head job using the Fargate container service to speed up pipeline launch. Requires Fusion v2.|
+| **Enable Fargate for head job**       | Run the Nextflow head job using the Fargate container service to speed up pipeline launch. Requires Fusion v2. Do not enable for Data Studios compute environments. |
 | **Use Amazon-recommended GPU-optimized ECS AMI**  | When enabled, Batch Forge specifies the most current AWS-recommended GPU-optimized ECS AMI as the EC2 fleet AMI when creating the compute environment. |
 | **Allowed S3 buckets**                | Additional S3 buckets or paths to be granted read-write permission for this compute environment. For the purposes of this guide, add `s3://proteinfold-dataset` to grant compute environment access to the DB and params used for prediction by AlphaFold2 and ColabFold. |
-| **Instance types**                    | Specify the instance types to be used for computation. You must include GPU-enabled instance types (`g4dn`, `g5`) when the Amazon-recommended GPU-optimized ECS AMI is in use. | 
+| **Instance types**                    | Specify the instance types to be used for computation. You must include GPU-enabled instance types (`g4dn`, `g5`) when the Amazon-recommended GPU-optimized ECS AMI is in use. Include CPU-based instance families for Data Studios compute environments. | 
 | **Resource labels**                   | `name=value` pairs to tag the AWS resources created by this compute environment.|
 
 ## Add pipeline to Platform
@@ -306,7 +306,7 @@ After you have filled the necessary launch details, select **Launch**. The **Run
 
 For the purposes of this guide, a Jupyter notebook environment will be used for interactive visualization of the predicted protein structures, optionally comparing AlphaFold2 and Colabfold structures for the same sequence data. 
 
-### Create a Jupyter notebook environment with Data Studios
+### Create a Jupyter notebook data studio
 
 ![Add data studio](./_images/add-ds-pf.gif)
 
