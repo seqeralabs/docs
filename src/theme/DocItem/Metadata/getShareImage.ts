@@ -1,11 +1,19 @@
-function getShareImage(event) {
-  // const host = "https://seqera.io";
-  // const host = "http://localhost:3000";
-  const host = "https://deploy-preview-264--seqera-docs.netlify.app";
+function getShareImage(item) {
+  const host = "https://seqera.io";
   const path = "og-generate.png";
 
+  let title = item.title;
+  const wordCount = title.split(" ").length;
+  if (wordCount === 1) {
+    let source = item.sourceDirName;
+    if (source === "cli") source = "CLI";
+    if (source === "api") source = "API";
+    title = `${title} (${source})`;
+  }
+
   const info = {
-    title: event.title,
+    title,
+    subTitle: item.description,
   };
 
   let queryString = "";

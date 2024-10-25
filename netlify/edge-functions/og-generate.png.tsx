@@ -26,10 +26,10 @@ export default async function handler(request: Request) {
   const preTitle = params.get("preTitle");
   const title = params.get("title") || defaultTitle;
   const subTitle = params.get("subTitle") || defaultSubTitle;
-  let fontSize = 74;
+  let fontSize = 60;
 
   // Accomodate for long titles
-  if (title.length > 70) fontSize = 60;
+  if (title.length > 70) fontSize = 50;
   if (title.length > 80) fontSize = 40;
 
   const bgImg = `${baseUrl}/img/og/bg-default.jpg`;
@@ -71,7 +71,19 @@ export default async function handler(request: Request) {
               maxWidth: "40rem",
             }}
           >
-            <img src={logoImg} style={{ width: 200 }} />
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <img src={logoImg} style={{ width: 200, marginRight: 30 }} />
+              <span
+                style={{
+                  fontSize: 35,
+                  lineHeight: 1,
+                  marginBottom: "-1px",
+                  opacity: 0.8,
+                }}
+              >
+                DOCS
+              </span>
+            </div>
             {!!preTitle && (
               <div
                 style={{
