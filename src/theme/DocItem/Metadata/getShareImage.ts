@@ -1,5 +1,5 @@
 function getShareImage(item) {
-  const host = "https://seqera.io";
+  const host = "https://docs.seqera.io";
   const path = "og-generate.png";
 
   let title = item.title;
