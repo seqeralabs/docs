@@ -1,0 +1,47 @@
+---
+title: Seqera Cloud v24.2.0_cycle26
+date: 2024-10-28
+tags: [seqera cloud]
+---
+
+### Seqera Cloud authentication updates
+
+Seqera Platform Cloud has migrated to a new authentication provider, which includes two major changes to the login flow. 
+
+#### Passwords for email login 
+
+- Users signing in via email: The next time you sign in to Seqera Cloud, select the option to create a new account — "Create one" — and add a password for your existing account.  All your existing account information will be preserved and all future sign-ins can be completed with your new password.  
+ 
+- Users using Github/Google sign-in: You are not required to define a password for your account and shouldn’t see any changes on your next sign-in.  
+
+#### Account linking 
+
+Users that sign in with multiple accounts associated with the same email address: You will be prompted to optionally merge your accounts into a single account. This will merge all your work across the two different accounts into the same account and give you the option to sign in via either method of authentication.  
+
+If you choose not to merge accounts, you will not be prompted again. If you wish to merge accounts later, or would like to merge accounts with different email addresses, contact [Seqera Support](https://support.seqera.io).  
+
+### Feature updates and improvements
+
+- Data Studios now support GPUs
+- The pipeline parameters input form now supports JSON schema draft 2020-12
+- Augment Data Studios images with custom Conda environment
+- Data studio creation now includes YAML validation
+- Data Studios build stats are now included in the Dashboard
+- New data studios now include "Add only" and "Add and start" actions
+
+### Bug fixes 
+
+- Add back to login button in authentication error screen
+- Add custom token cookie login handler for Nextflow requests to receive authentication cookies
+- Data Studios UI fixes
+- Jedis connection pool config which caused potential instabilities
+- Improve Data Studios error messaging 
+- Delete data studio checkpoint on build failure
+- Update default Data Studios tool versions
+- Failed data studios can now be deleted 
+- Set launch form to parameters step view by default when a pipeline schema is present, regardless of specification
+- Dashboard persisted filters exclude workspace IDs the user no longer has access to
+- Do not fetch info for "INVALID" status pipelines, fetch for all other statuses including "DISABLED"
+- Fixed a problem with Azure Entra credential creation
+- Return an empty list of data studios when receiving an invalid status
+- Fallback to primary compute environment when launching a shared pipeline without an associated compute environment from a private workspace
