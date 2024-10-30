@@ -96,7 +96,9 @@ Pre-run scripts are executed in the nf-launch script prior to invoking Nextflow 
     nextflow self-update
     export NXF_VER=24.10.0
     ```
-
+    :::info
+    `nextflow self-update` is required before updating a pre-24.10.0 version of Nextflow to version 24.10.0 or later. 
+    :::
 - Executor setup, such as loading a private CA certificate.
 - Troubleshooting. For example, add `sleep 3600` to your pre-run script to instruct Nextflow to wait 3600 seconds (60 minutes) before process execution after the nf-launcher container is started, to create a window in which to test connectivity and other issues before your Nextflow processes execute.
 
