@@ -49,7 +49,7 @@ Fusion requires a license for use in Seqera Platform compute environments or dir
 ### Create compute environment
 
 :::info
-The same compute environment can be used for pipeline execution and running your Data Studios notebook environment, but Data Studios does not support AWS Fargate and data studio sessions must run on CPUs. To use this compute environment for both nf-core/proteinfold execution and your data studio, leave **Enable Fargate for head job** disabled and include at least one CPU-based EC2 instance family (c6id, r6id, etc.) in your **Instance types**. 
+The same compute environment can be used for pipeline execution and running your Data Studios notebook environment, but Data Studios does not support AWS Fargate and data studio sessions must run on CPUs. To use this compute environment for both nf-core/proteinfold execution and your data studio, leave **Enable Fargate for head job** disabled and include at least one CPU-based EC2 instance family (`c6id`, `r6id`, etc.) in your **Instance types**. 
 
 Alternatively, create a second basic AWS Batch compute environment with at least 2 CPUs and 8192 MB of RAM for your data studio.
 :::
