@@ -28,11 +28,17 @@ When launcing pipelines in Platform, Nextflow configuration values can be suppli
 
 Configuration values set in the **Global Nextflow config** field during compute environment creation are pre-filled in the **Nextflow config file** field during pipeline launch. These pre-filled values from the compute environment can be overridden manually during launch. 
 
+| Nextflow configuration order of priority (highest to lowest) |
+| ------------------------------------------------------------ |
+| Pipeline launch form **Nextflow config file** field |
+| Compute environment **Global Nextflow config** field |
+| Pipeline repository `nextflow.config` file |
+
 For example, if:
 
 1. The `nextflow.config` file in your pipeline repository contains this manifest: 
 
-    ```ini
+    ```ini title="Pipeline repository config file"
     manifest {
         name = 'A'
         description = 'Pipeline description A'
@@ -43,7 +49,7 @@ For example, if:
 
 2. Your compute environment **Global Nextflow config** field contains this manifest:
 
-    ```ini
+    ```ini title="Compute environment Global Nextflow config field"
     manifest {
         name = 'B'
         description = 'Pipeline description B'
@@ -54,7 +60,7 @@ For example, if:
 
 3. You specify this manifest in the **Nextflow config file** field on the pipeline launch form:
 
-    ```ini
+    ```ini title="Pipeline launch form Nextflow config file field"
     manifest {
         name = 'C'
         description = 'Pipeline description C'
@@ -65,7 +71,7 @@ For example, if:
 
 The resolved configuration will contain the **Nextflow config file** field's manifest:
 
-    ```ini
+    ```ini title="Pipeline launch form Nextflow config file field"
     manifest {
         name = 'C'
         description = 'Pipeline description C'
