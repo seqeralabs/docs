@@ -329,6 +329,7 @@ From the **Data Studios** tab, select **Add a data studio** and complete the fol
     - Select the latest **Jupyter** container image template from the list.
     - Optional: Enter a unique name and description for the data studio. 
     - Check **Install Conda packages** and paste the following Conda environment YAML snippet:
+
     ```yaml 
     channels:
       - bioconda
@@ -339,6 +340,7 @@ From the **Data Studios** tab, select **Add a data studio** and complete the fol
       - conda-forge::nglview=3.1.2
       - conda-forge::ipywidgets=8.1.5
     ```
+
 - Confirm the data studio details in the **Summary** tab
 - Select **Add** and choose whether to add and start the studio immediately.
 - When the data studio is created and in a running state, **Connect** to it. 
@@ -405,8 +407,8 @@ The Jupyter environment can be configured with the packages and scripts you need
 
     ```python 
     # Replace with the actual paths to your AlphaFold2 and ColabFold PDB files
-    alphafold_pdb = "/path/to/your/alphafold/output.pdb"
-    colabfold_pdb = "/path/to/your/colabfold/output.pdb"
+    alphafold_pdb = "data/path/to/your/alphafold/output.pdb"
+    colabfold_pdb = "data/path/to/your/colabfold/output.pdb"
 
     # Create a dictionary of files
     pdb_files = {
