@@ -53,7 +53,7 @@ Fusion requires a license for use in Seqera Platform compute environments or dir
 ### Create compute environment
 
 :::info
-The same compute environment can be used for pipeline execution and running your Data Studios notebook environment, but Data Studios does not support AWS Fargate and data studio sessions must run on CPUs. To use this compute environment for both nf-core/proteinfold execution and your data studio, leave **Enable Fargate for head job** disabled and include at least one CPU-based EC2 instance family (`c6id`, `r6id`, etc.) in your **Instance types**. 
+The same compute environment can be used for pipeline execution and running your Data Studios notebook environment, but Data Studios does not support AWS Fargate. To use this compute environment for both nf-core/proteinfold execution and your data studio, leave **Enable Fargate for head job** disabled and include a CPU-based EC2 instance family (`c6id`, `r6id`, etc.) in your **Instance types**. 
 
 Alternatively, create a second basic AWS Batch compute environment and a data studio with at least 2 CPUs and 8192 MB of RAM.
 :::
@@ -80,6 +80,8 @@ From the **Compute Environments** tab in your organization workspace, select **A
 | **Allowed S3 buckets**                | Additional S3 buckets or paths to be granted read-write permission for this compute environment. For the purposes of this guide, add `s3://proteinfold-dataset` to grant compute environment access to the DB and params used for prediction by AlphaFold2 and ColabFold. |
 | **Instance types**                    | Specify the instance types to be used for computation. You must include GPU-enabled instance types (`g4dn`, `g5`) when the Amazon-recommended GPU-optimized ECS AMI is in use. Include CPU-based instance families for Data Studios compute environments. | 
 | **Resource labels**                   | `name=value` pairs to tag the AWS resources created by this compute environment.|
+
+![Create AWS Batch compute environment](./_images/pf-ce.gif)
 
 ## Add pipeline to Platform
 
@@ -183,8 +185,6 @@ The launch form consists of **General config**, **Run parameters**, and **Advanc
 
 ### General config 
 
-![General config tab](./_images/proteinfold-lf1.gif)
-
 - **Pipeline to launch**: The pipeline Git repository name or URL: `https://github.com/nf-core/proteinfold`. For saved pipelines, this is prefilled and cannot be edited.
 - **Revision number**: A valid repository commit ID, tag, or branch name: `1.1.1`. For saved pipelines, this is prefilled and cannot be edited.
 - **Config profiles**: One or more [configuration profile](https://www.nextflow.io/docs/latest/config.html#config-profiles) names to use for the execution. Config profiles must be defined in the `nextflow.config` file in the pipeline repository. Benchmarking runs for this guide used nf-core profiles with included test datasets — `test_full_alphafold2_multimer` for Alphafold2 and `test_full_alphafold2_multimer` for Colabfold.  
@@ -195,6 +195,8 @@ The launch form consists of **General config**, **Run parameters**, and **Advanc
     :::note
     The credentials associated with the compute environment must have access to the work directory.
     :::
+
+![General config tab](./_images/proteinfold-lf1.gif)
 
 ### Run parameters 
 
