@@ -5,8 +5,10 @@ date: "21 Apr 2023"
 tags: [aws, batch, compute environment]
 ---
 
-:::note
+:::tip
 This guide assumes you have an existing [Amazon Web Service (AWS)](https://aws.amazon.com/) account.
+
+The AWS Batch services quota for the job queue is 50 jobs. For more information on AWS Batch service quotas, see [AWS Batch service quotas][quota].
 :::
 
 There are two ways to create a **compute environment** for **AWS Batch** with Tower:
@@ -91,9 +93,9 @@ S3 (Simple Storage Service) is a type of **object storage**. To access files and
 
 6. Review and select **Create bucket**.
 
-   :::caution
-   S3 is used by Nextflow for the storage of intermediate files. In production pipelines, this can amount to a large quantity of data. To reduce costs, consider using a retention policy when creating a bucket, such as automatically deleting intermediate files after 30 days. See [here](https://aws.amazon.com/premiumsupport/knowledge-center/s3-empty-bucket-lifecycle-rule/) for more information.
-   :::
+:::caution
+S3 is used by Nextflow for the storage of intermediate files. In production pipelines, this can amount to a large quantity of data. To reduce costs, consider using a retention policy when creating a bucket, such as automatically deleting intermediate files after 30 days. See [here](https://aws.amazon.com/premiumsupport/knowledge-center/s3-empty-bucket-lifecycle-rule/) for more information.
+:::
 
 ### Compute environment
 
@@ -113,62 +115,62 @@ Once the AWS resources are set up, we can add a new **AWS Batch** environment in
 
 6.  Add the **Access key** and **Secret key**. These are the keys you saved previously when you created the AWS [IAM user](#iam).
 
-    :::tip
-    You can create multiple credentials in your Tower environment.
-    :::
+        :::tip
+        You can create multiple credentials in your Tower environment.
+        :::
 
 7.  Select a **Region**, e.g., "eu-west-1 - Europe (Ireland)".
 
 8.  Enter the S3 bucket path created in the previous section to the **Pipeline work directory** field, e.g. `s3://unique-tower-bucket`.
 
-    :::caution
-    The bucket should be in the same region selected in the previous step.
-    :::
+        :::caution
+        The bucket should be in the same region selected in the previous step.
+        :::
 
 9.  Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers](https://www.nextflow.io/docs/latest/wave.html) for more information.
 
 10. Select **Enable Fusion v2** to allow access to your S3-hosted data via the [Fusion v2](https://www.nextflow.io/docs/latest/fusion.html) virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled (see above). See [Fusion file system](../supported_software/fusion/fusion.mdx) for configuration details.
 
-    :::note
-    When using Fusion v2 without fast instance storage (see below), the following EBS settings are applied to optimize file system performance:
+        :::note
+        When using Fusion v2 without fast instance storage (see below), the following EBS settings are applied to optimize file system performance:
 
-    - EBS autoscaling is disabled
-    - EBS boot disk size is increased to 100 GB
-    - EBS boot disk type GP3 is selected
-    - EBS boot disk throughput is increased to 325 MB/s
+        - EBS autoscaling is disabled
+        - EBS boot disk size is increased to 100 GB
+        - EBS boot disk type GP3 is selected
+        - EBS boot disk throughput is increased to 325 MB/s
 
-    Extensive benchmarking of Fusion v2 has demonstrated that the increased cost associated with these settings are generally outweighed by the costs saved due to decreased run time.
-    :::
+        Extensive benchmarking of Fusion v2 has demonstrated that the increased cost associated with these settings are generally outweighed by the costs saved due to decreased run time.
+        :::
 
 11. Select **Enable fast instance storage** to allow the use of NVMe instance storage to speed up I/O and disk access operations. NVMe instance storage requires Fusion v2 to be enabled (see above).
 
-    :::note
-    Fast instance storage requires an EC2 instance type that uses NVMe disks. Tower validates any instance types you specify (from **Advanced options > Instance types**) during compute environment creation. If you do not specify an instance type, a standard EC2 instance with NVMe disks will be used (`'c5ad', 'c5d', 'c6id', 'i3', 'i4i', 'm5ad', 'm5d', 'm6id', 'r5ad', 'r5d', 'r6id'` EC2 instance families) for fast storage.
-    :::
+        :::note
+        Fast instance storage requires an EC2 instance type that uses NVMe disks. Tower validates any instance types you specify (from **Advanced options > Instance types**) during compute environment creation. If you do not specify an instance type, a standard EC2 instance with NVMe disks will be used (`'c5ad', 'c5d', 'c6id', 'i3', 'i4i', 'm5ad', 'm5d', 'm6id', 'r5ad', 'r5d', 'r6id'` EC2 instance families) for fast storage.
+        :::
 
 12. Set the **Config mode** to **Batch Forge**.
 
 13. Select a **Provisioning model**. In most cases this will be **Spot**.
 
-    :::tip
-    You can choose to create a compute environment that launches either Spot or On-demand instances. Spot instances can cost as little as 20% of on-demand instances, and with Nextflow's ability to automatically relaunch failed tasks, Spot is almost always the recommended provisioning model.
+        :::tip
+        You can choose to create a compute environment that launches either Spot or On-demand instances. Spot instances can cost as little as 20% of on-demand instances, and with Nextflow's ability to automatically relaunch failed tasks, Spot is almost always the recommended provisioning model.
 
-    Note, however, that when choosing Spot instances, Tower will also create a dedicated queue for running the main Nextflow job using a single on-demand instance in order to prevent any execution interruptions.
-    :::
+        Note, however, that when choosing Spot instances, Tower will also create a dedicated queue for running the main Nextflow job using a single on-demand instance in order to prevent any execution interruptions.
+        :::
 
 14. Enter the **Max CPUs** e.g. `64`. This is the maximum number of combined CPUs (the sum of all instances CPUs) AWS Batch will provision at any time.
 
 15. Select **EBS Auto scale** to allow the EC2 virtual machines to dynamically expand the amount of available disk space during task execution.
 
-    :::caution
-    When running large AWS Batch clusters (hundreds of compute nodes or more), EC2 API rate limits may cause the deletion of unattached EBS volumes to fail. Volumes that remain active after Nextflow jobs have completed will incur additional costs, and should be manually deleted. Monitor your AWS account for any orphaned EBS volumes via the EC2 console, or with a Lambda function. See [here](https://aws.amazon.com/blogs/mt/controlling-your-aws-costs-by-deleting-unused-amazon-ebs-volumes/) for more information.
-    :::
+        :::caution
+        When running large AWS Batch clusters (hundreds of compute nodes or more), EC2 API rate limits may cause the deletion of unattached EBS volumes to fail. Volumes that remain active after Nextflow jobs have completed will incur additional costs, and should be manually deleted. Monitor your AWS account for any orphaned EBS volumes via the EC2 console, or with a Lambda function. See [here](https://aws.amazon.com/blogs/mt/controlling-your-aws-costs-by-deleting-unused-amazon-ebs-volumes/) for more information.
+        :::
 
 16. With the optional **Enable Fusion mounts (deprecated)** feature enabled, S3 buckets specified in **Pipeline work directory** and **Allowed S3 Buckets** are mounted as file system volumes in the EC2 instances carrying out the Batch job execution. These buckets can then be accessed at `/fusion/s3/<bucket-name>`. For example, if the bucket name is `s3://imputation-gp2`, your pipeline will access it using the file system path `/fusion/s3/imputation-gp2`. **Note:** This feature has been deprecated. Consider using Fusion v2 (see above) for enhanced performance and stability.
 
-    :::tip
-    You do not need to modify your pipeline or files to take advantage of this feature. Nextflow will automatically recognize and replace any reference to files prefixed with `s3://` with the corresponding Fusion mount paths.
-    :::
+        :::tip
+        You do not need to modify your pipeline or files to take advantage of this feature. Nextflow will automatically recognize and replace any reference to files prefixed with `s3://` with the corresponding Fusion mount paths.
+        :::
 
 17. Select **Enable GPUs** if you intend to run GPU-dependent workflows in the compute environment. See [GPU usage](./overview.mdx#aws-batch) for more information.
 
@@ -210,21 +212,21 @@ Jump to the documentation for [launching pipelines](../launch/launchpad.mdx).
 
 - You can specify a custom **AMI ID**.
 
-  :::caution
-  To use a custom AMI, make sure the AMI is based on an Amazon Linux-2 ECS optimized image that meets the Batch requirements. To learn more about approved versions of the Amazon ECS optimized AMI, see [this AWS guide](https://docs.aws.amazon.com/batch/latest/userguide/compute_resource_AMIs.html#batch-ami-spec)
-  :::
+    :::caution
+    To use a custom AMI, make sure the AMI is based on an Amazon Linux-2 ECS optimized image that meets the Batch requirements. To learn more about approved versions of the Amazon ECS optimized AMI, see [this AWS guide](https://docs.aws.amazon.com/batch/latest/userguide/compute_resource_AMIs.html#batch-ami-spec)
+    :::
 
-  :::caution
-  If a custom AMI is specified and the **Enable GPU** option is also selected, the custom AMI will be used instead of the AWS-recommended GPU-optimized AMI.
-  :::
+    :::caution
+    If a custom AMI is specified and the **Enable GPU** option is also selected, the custom AMI will be used instead of the AWS-recommended GPU-optimized AMI.
+    :::
 
 - If you need to debug the EC2 instance provisioned by AWS Batch, specify a **Key pair** to log in to the instance via SSH.
 
 - You can set **Min CPUs** to be greater than `0`, in which case some EC2 instances will remain active. An advantage of this is that pipeline executions will initialize faster.
 
-  :::caution
-  Keeping EC2 instances running may result in additional costs. You will be billed for these running EC2 instances regardless of whether you are executing pipelines or not.
-  :::
+    :::caution
+    Keeping EC2 instances running may result in additional costs. You will be billed for these running EC2 instances regardless of whether you are executing pipelines or not.
+    :::
 
 - Use **Head Job CPUs** and **Head Job Memory** to specify the hardware resources allocated for the Head Job.
 
@@ -244,9 +246,9 @@ Jump to the documentation for [launching pipelines](../launch/launchpad.mdx).
 
 - Specify a custom **ECS agent configuration** for the ECS agent parameters used by AWS Batch. This is appended to the `/etc/ecs/ecs.config` file in each cluster node.
 
-  :::note
-  Altering this file may result in a malfunctioning Batch Forge compute environment. See [Amazon ECS container agent configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) to learn more about the available parameters.
-  :::
+    :::note
+    Altering this file may result in a malfunctioning Batch Forge compute environment. See [Amazon ECS container agent configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) to learn more about the available parameters.
+    :::
 
 ## Manual
 
@@ -292,9 +294,9 @@ To create a new compute environment for AWS Batch (without Forge):
 
 6. Enter the **Access key** and **Secret key** for your IAM user.
 
-   :::tip
-   You can create multiple credentials in your Tower environment. See the [Credentials](../credentials/overview.mdx) section.
-   :::
+    :::tip
+    You can create multiple credentials in your Tower environment. See the [Credentials](../credentials/overview.mdx) section.
+    :::
 
 7. Select a **Region**, e.g., "eu-west-1 - Europe (Ireland)".
 
@@ -325,3 +327,6 @@ Jump to the documentation for [launching pipelines](../launch/launchpad.mdx).
 - Use **AWS CLI tool path** to specify the location of the `aws` CLI.
 
 - Specify a **CloudWatch Log group** for the `awslogs` driver to stream the logs entry to an existing Log group in Cloudwatch.
+
+
+[quota]: https://docs.aws.amazon.com/batch/latest/userguide/service_limits.html

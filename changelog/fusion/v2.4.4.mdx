@@ -1,0 +1,28 @@
+---
+title: Fusion v2.4.4
+date: 2024-09-30
+tags: [fusion]
+---
+
+Bugfix release to improve stability.
+
+{/* truncate */}
+
+### Feature updates and improvements
+
+- Fix: move a folder with inner folders and big files
+- Fix: propagate truncating to zero to the remote store
+- Fix: move that overwrites a file scheduled to upload
+- Azure: Prefer Nextflow-provided SAS token for authentication
+- Define a default exit code 174 on Fusion IO error
+
+### How to pin this version
+
+```groovy
+fusion {
+  enabled = true
+  containerConfigUrl = 'https://fusionfs.seqera.io/releases/v2.4.4-amd64.json'
+}
+```
+
+_NOTE: For ARM64 use https://fusionfs.seqera.io/releases/v2.4.4-arm64.json_

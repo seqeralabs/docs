@@ -1,0 +1,119 @@
+.blogAside {
+  width: var(--doc-sidebar-width) !important;
+  padding: 30px;
+}
+[data-theme="light"] .blogAside {
+  background: rgb(249, 249, 249);
+}
+[data-theme="dark"] .blogAside {
+  background: rgb(27, 24, 35);
+}
+
+.sidebar {
+  max-height: calc(100vh - (var(--ifm-navbar-height) + 2rem));
+  overflow-y: auto;
+  position: sticky;
+  top: calc(var(--ifm-navbar-height) + 2rem);
+}
+
+.sidebarItemTitle {
+  font-size: 1em;
+  font-weight: 600;
+  margin: 8px 0;
+  height: 34px;
+  padding: 0 12px;
+  width: 100%;
+  font-family: Inter, sans-serif;
+  background-color: white;
+  border-radius: 9px;
+  border: 1px solid var(--color-brand-300);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  & a {
+    color: var(--color-brand-1000);
+    text-decoration: none;
+    &:hover {
+      color: var(--ifm-link-hover-color);
+    }
+  }
+  & .RssIconLink {
+    display: inline-block;
+    height: 24px;
+    & svg {
+      color: var(--color-multiqc-600);
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+/* Dark theme */
+
+[data-theme="dark"] .sidebarItemTitle {
+  border-color: var(--color-brand-800);
+  background-color: var(--color-brand-1400);
+  & a {
+    color: #fff;
+    &:hover {
+      color: var(--ifm-link-hover-color);
+    }
+  }
+}
+
+
+.backToDocs {
+  font-size: 0.9rem;
+  color: var(--color-brand-600);
+  margin-left: 0.5em;
+}
+[data-theme="dark"] .backToDocs {
+  color: var(--color-brand-400);
+}
+
+
+.sidebarItemLink {
+  border-radius: 5px;
+  font-weight: 400;
+  font-size: 0.9rem;
+  display: block;
+  line-height: 1.25;
+  padding: var(--ifm-menu-link-padding-vertical) var(--ifm-menu-link-padding-horizontal);
+}
+[data-theme='light'] .blogAside {
+  .sidebarItemLink {
+    color: #000;
+  }
+  .sidebarItemLinkActive {
+    background: #E8EBFC;
+    color: #4256E7;
+  }
+}
+[data-theme='dark'] .blogAside {
+  .sidebarItemLink {
+    color: rgba(255, 255, 255, 0.9);
+  }
+  .sidebarItemLinkActive {
+    background: rgba(0, 0, 0, 0.2);
+    color: #98a3ff;
+  }
+}
+
+.sidebarItem {
+  margin-top: 0.25rem;
+
+}
+
+.sidebarItemLink:hover {
+  text-decoration: none;
+  background: var(--ifm-menu-color-background-hover);
+}
+
+@media (max-width: 996px) {
+  .sidebar {
+    display: none;
+  }
+}
+
+.yearGroupHeading {
+  margin: 1.6rem 0 0.4rem 0.7rem;
+}

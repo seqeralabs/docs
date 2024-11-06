@@ -36,6 +36,23 @@ export default async function createConfigAsync() {
       [
         "classic",
         {
+          blog: {
+            blogTitle: 'Seqera Changelog',
+            blogDescription: 'Blog',
+            blogSidebarCount: 5000,
+            blogSidebarTitle: 'Changelog',
+            path: 'changelog',
+            routeBasePath: '/changelog',
+            //processBlogPosts: () => ({}),
+            include: ['**/*.{md,mdx}'],
+            showReadingTime: false,
+            feedOptions: {
+            type: 'all', // 'rss', 'atom', or both
+            title: 'Seqera Changelog',
+            description: 'Stay updated with our blog posts!',
+            copyright: `Copyright © ${new Date().getFullYear()} Seqera`,
+            }
+          },
           docs: false,
           theme: {
             customCss: [
@@ -98,7 +115,7 @@ export default async function createConfigAsync() {
           ],
           rehypePlugins: [(await require("rehype-katex")).default],
           editUrl: ({ docPath }) => {
-            return `https://github.com/MultiQC/MultiQC/blob/main/docs${docPath.replace('multiqc_docs/multiqc_repo/docs', '')}`
+            return `https://github.com/MultiQC/MultiQC/blob/main/docs/markdown/${docPath.replace('multiqc_docs/multiqc_repo/docs', '')}`
           },
           sidebarPath: "./multiqc_docs/sidebar.js",
         },
@@ -260,11 +277,13 @@ export default async function createConfigAsync() {
           "json",
           "yaml",
           "groovy",
+          "java",
           "ini",
           "nginx",
           "bash",
           "docker",
           "python",
+          "r",
           "typescript",
         ],
       },

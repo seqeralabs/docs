@@ -1,9 +1,6 @@
 html {
   @media (min-width: 997px) {
     scroll-padding-top: 110px;
-    & :global(.theme-doc-toc-desktop) {
-      top: calc(var(--ifm-navbar-height) + 6.5rem) !important;
-    }
   }
 }
 .siteHeader {
@@ -23,7 +20,8 @@ html {
 }
 .seqeraHeader {
   position: relative;
-  height: 72px;
+  height: 73px;
+  border-bottom: 1px solid var(--ifm-toc-border-color);
   & > header {
     z-index: 301;
     position: absolute;
@@ -36,7 +34,6 @@ html {
 .siteNav {
   background: var(--ifm-background-surface-color);
   border-bottom: 1px solid var(--ifm-toc-border-color);
-  border-top: 1px solid var(--ifm-toc-border-color);
   & :global(.navbar__brand) {
     display: none;
   }
@@ -76,16 +73,6 @@ html {
       &.logo {
         font-weight: bold;
       }
-    }
-  }
-}
-/* Fix for new header height (safe?) */
-aside {
-  margin-top: -165px !important;
-  & > div > div {
-    padding-top: 165px !important;
-    & nav {
-      margin-right: 0.5rem;
     }
   }
 }
