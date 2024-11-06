@@ -160,7 +160,7 @@ export default function Home(): JSX.Element {
                       <div className="w-full max-w-[25%]">
                         <p className="font-title typo-h4 font-medium">Data Studios</p>
                         <ul className="list-none p-0 leading-8">
-                          <li><Link to="/platform/24.1/data/data-studios">Data Studios overview</Link></li>
+                          <li><Link to="/platform/24.1/data_studios">Data Studios overview</Link></li>
                           <li><Link to="/platform/24.1/enterprise/data-studios">Deploy Data Studios</Link></li>
                           <li><Link to="/platform/24.1/data/data-explorer">Data Explorer</Link></li>
                         </ul>
