@@ -3,6 +3,7 @@ import clsx from "clsx";
 import Link from "../../_shared/Link";
 
 import NavItem from "./NavItem";
+import AiIcon from "./images/AiIcon.svg";
 import Logo from "./images/Logo.svg";
 import LogoDark from "./images/LogoDark.svg";
 import ContainersIcon from "./images/ContainersIcon.svg";
@@ -27,6 +28,11 @@ const NavItems = ({ isDark = false, hideMenu }) => {
         </Link>
         {!hideMenu && (
           <nav className={clsx(styles.nav, { [styles.dark]: isDark })}>
+            <NavItem id="/ask-ai/" simple>
+              <AiIcon className="mr-2" />
+              Seqera AI
+              <div className={styles.pill}>Beta</div>
+            </NavItem>
             <NavItem id="/pipelines/" simple>
               <PipelinesIcon className="mr-2" />
               Pipelines
