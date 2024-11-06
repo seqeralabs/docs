@@ -115,7 +115,7 @@ export default function Home(): JSX.Element {
                 <p className="font-title typo-h2 font-semibold w-full text-left">Documentation</p>
                 <p className="font-title typo-h4 font-normal w-full text-left">Explore our guides, documentation, and examples to build with Seqera.</p>
               </div>
-              <Button link="https://docs.seqera.io/platform/24.1/getting-started/quickstart-demo/comm-showcase" label="Get started with Seqera Cloud" variant="primary" size="medium" className="mb-8 mt-4" />
+              <Button link="https://docs.seqera.io/platform/latest/getting-started/quickstart-demo/comm-showcase" label="Get started with Seqera Cloud" variant="primary" size="medium" className="mb-8 mt-4" />
               <p className="font-title typo-h3 font-semibold w-full text-left mb-8 mt-8">Recommended articles</p>
               <div className="flex flex-col w-full">
 
@@ -152,24 +152,24 @@ export default function Home(): JSX.Element {
                     <div className="w-full max-w-[100%] md:max-w-[50%] lg:max-w-[25%]">
                         <p className="font-title typo-h4 font-medium">Platform</p>
                         <ul className="list-none p-0 leading-8">
-                          <li><Link to="/platform/24.1/getting-started/quickstart-demo/add-pipelines">Add pipelines</Link></li>
-                          <li><Link to="/platform/24.1/getting-started/quickstart-demo/monitor-runs">Monitor runs</Link></li>
-                          <li><Link to="/platform/24.1/getting-started/quickstart-demo/automation">Automation</Link></li>
+                          <li><Link to="/platform/latest/getting-started/quickstart-demo/add-pipelines">Add pipelines</Link></li>
+                          <li><Link to="/platform/latest/getting-started/quickstart-demo/monitor-runs">Monitor runs</Link></li>
+                          <li><Link to="/platform/latest/getting-started/quickstart-demo/automation">Automation</Link></li>
                         </ul>
                       </div>
                       <div className="w-full max-w-[100%] md:max-w-[50%] lg:max-w-[25%]">
                         <p className="font-title typo-h4 font-medium">Data Studios</p>
                         <ul className="list-none p-0 leading-8">
-                          <li><Link to="/platform/24.1/data_studios">Data Studios overview</Link></li>
-                          <li><Link to="/platform/24.1/enterprise/data-studios">Deploy Data Studios</Link></li>
-                          <li><Link to="/platform/24.1/data/data-explorer">Data Explorer</Link></li>
+                          <li><Link to="/platform/latest/data_studios">Data Studios overview</Link></li>
+                          <li><Link to="/platform/latest/enterprise/data-studios">Deploy Data Studios</Link></li>
+                          <li><Link to="/platform/latest/data/data-explorer">Data Explorer</Link></li>
                         </ul>
                       </div>
                       <div className="w-full max-w-[100%] md:max-w-[50%] lg:max-w-[25%]">
                         <p className="font-title typo-h4 font-medium">Developer tools</p>
                         <ul className="list-none p-0 leading-8">
-                          <li><Link to="/platform/24.1/api/overview">Platform API</Link></li>
-                          <li><Link to="/platform/24.1/cli/overview">Platform CLI</Link></li>
+                          <li><Link to="/platform/latest/api/overview">Platform API</Link></li>
+                          <li><Link to="/platform/latest/cli/overview">Platform CLI</Link></li>
                           <li><Link to="https://nextflow.io/docs/latest/cli.html">Nextflow CLI</Link></li>
                         </ul>
                       </div>
@@ -206,11 +206,11 @@ export default function Home(): JSX.Element {
                       <p className="font-title typo-h4 font-medium">Platform</p>
                     </div>
                     <div className="flex flex-row flex-wrap w-full gap-4">
-                      <Link to="/platform/24.1/getting-started/quickstart-demo/comm-showcase" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand">
+                      <Link to="/platform/latest/getting-started/quickstart-demo/comm-showcase" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand">
                         <img src="/img/cloud.svg" alt="Seqera Cloud" className="mb-3" />
                         <p className="m-0 text-brand text-lg mb-1">Seqera Cloud</p>
                       </Link>
-                      <Link to="/platform/24.1/enterprise" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand">
+                      <Link to="/platform/latest/enterprise" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand">
                         <img src="/img/enterprise.svg" alt="Seqera Enterprise" className="mb-3" />
                         <p className="m-0 text-brand text-lg mb-1">Seqera Enterprise</p>
                       </Link>
@@ -225,15 +225,15 @@ export default function Home(): JSX.Element {
                       <p className="font-title typo-h4 font-medium">Cloud</p>
                     </div>
                     <div className="flex flex-row flex-wrap w-full gap-4">
-                      <Link to="/platform/24.1/enterprise/prerequisites/aws" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand">
+                      <Link to="/platform/latest/enterprise/prerequisites/aws" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand">
                         <img src="/img/aws.svg" alt="AWS" className="mb-3" />
                         <p className="m-0 text-brand text-lg mb-1">AWS</p>
                       </Link>
-                      <Link to="/platform/24.1/enterprise/prerequisites/gcp#gcp-setup" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand">
+                      <Link to="/platform/latest/enterprise/prerequisites/gcp#gcp-setup" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand">
                         <img src="/img/gcp.svg" alt="GCP" className="mb-3" />
                         <p className="m-0 text-brand text-lg mb-1">GCP</p>
                       </Link>
-                      <Link to="/platform/24.1/enterprise/prerequisites/azure" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand">
+                      <Link to="/platform/latest/enterprise/prerequisites/azure" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand">
                         <img src="/img/azure.svg" alt="Azure" className="mb-3" />
                         <p className="m-0 text-brand text-lg mb-1">Azure</p>
                       </Link>
