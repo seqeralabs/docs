@@ -154,7 +154,7 @@ export default function Home(): JSX.Element {
                         <ul className="list-none p-0 leading-8">
                           <li><Link to="/platform/24.1/getting-started/quickstart-demo/add-pipelines">Add pipelines</Link></li>
                           <li><Link to="/platform/24.1/getting-started/quickstart-demo/monitor-runs">Monitor runs</Link></li>
-                          <li><Link to="/platform/24.1/getting-started/quickstart-demo/automationn">Automation</Link></li>
+                          <li><Link to="/platform/24.1/getting-started/quickstart-demo/automation">Automation</Link></li>
                         </ul>
                       </div>
                       <div className="w-full max-w-[100%] md:max-w-[50%] lg:max-w-[25%]">
