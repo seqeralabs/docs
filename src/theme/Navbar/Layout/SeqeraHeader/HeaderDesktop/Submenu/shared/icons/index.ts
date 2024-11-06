@@ -1,4 +1,5 @@
 import About from "./About.svg";
+import AboutWhite from "./AboutWhite.svg";
 import Blog from "./Blog.svg";
 import Careers from "./Careers.svg";
 import CaseStudies from "./CaseStudies.svg";
@@ -24,6 +25,7 @@ import Modules from "./Modules.svg";
 
 export {
   About,
+  AboutWhite,
   Blog,
   Careers,
   CaseStudies,
