@@ -3,13 +3,13 @@ import clsx from "clsx";
 import Link from "../../_shared/Link";
 
 import NavItem from "./NavItem";
-import Logo from "./images/Logo.inline.svg";
-import LogoDark from "./images/LogoDark.inline.svg";
-import ContainersIcon from "./images/ContainersIcon.inline.svg";
-import DocsIcon from "./images/DocsIcon.inline.svg";
-import HamburgerIcon from "./images/HamburgerIcon.inline.svg";
-import ForumIcon from "./images/ForumIcon.inline.svg";
-import PipelinesIcon from "./images/PipelinesIcon.inline.svg";
+import Logo from "./images/Logo.svg";
+import LogoDark from "./images/LogoDark.svg";
+import ContainersIcon from "./images/ContainersIcon.svg";
+import DocsIcon from "./images/DocsIcon.svg";
+import HamburgerIcon from "./images/HamburgerIcon.svg";
+import ForumIcon from "./images/ForumIcon.svg";
+import PipelinesIcon from "./images/PipelinesIcon.svg";
 import LoginButton from "./LoginButton";
 
 import styles from "./styles.module.css";
