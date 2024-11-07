@@ -48,16 +48,21 @@ const MultiqcModules = ({ modules }: { modules: Module[] }) => {
                         type="text"
                         value={filterValue}
                         onChange={(e) => setFilterValue(e.target.value)}
-                        className="peer my-3 inline-block w-full rounded-sm border-gray-300 bg-black/5 p-3 shadow-sm outline-0 focus:border-blue-500/20 focus:ring focus:ring-blue-500/20 focus:ring-opacity-50 dark:bg-black/20 sm:mx-3"
+                        className="my-3 inline-block w-full rounded-lg border border-solid border-gray-500 bg-black/5 p-2 pr-10  focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-black/20 sm:mx-3"
                         placeholder="Tool name, description or keyword"
                     />
-                    <button
-                        onClick={handleClearFilter}
-                        id="clear_filter"
-                        className="absolute right-0 top-6 inline-block h-6 w-6 p-0.5 opacity-0 peer-focus:opacity-100 peer-active:opacity-100"
-                    >
-                        x
-                    </button>
+                    {filterValue && (
+                        <button
+                            onClick={handleClearFilter}
+                            id="clear_filter"
+                            className="absolute -right-4 top-4 bg-transparent border-0 text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
+                            aria-label="Clear search"
+                        >
+                            <svg className="h-6 w-6" viewBox="0 0 22 22" fill="currentColor">
+                                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                            </svg>
+                        </button>
+                    )}
                 </div>
                 <div className="flex flex-col">
                     <div className="grid-cols-4 lg:grid">
@@ -71,17 +76,19 @@ const MultiqcModules = ({ modules }: { modules: Module[] }) => {
                     </div>
                     {filteredModules.map((module: Module) => (
                         <div className="module-row grid-cols-4 lg:grid">
-                        <div className="flex items-center border-gray-200 px-4 pb-0 pt-2 dark:border-gray-700 lg:border-b lg:pb-2">
                             <a
-                            href={"/multiqc/modules/" + module.id.split("/").pop().replace(".md", "")}
-                            className="typo-body text-blue-600 dark:text-blue-400"
+                                href={"/multiqc/modules/" + module.id.split("/").pop().replace(".md", "")}
+                                className=" hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer hover:no-underline"
                             >
-                            {module.data.name}
+                                <div className="flex items-start border-gray-200 px-4 pb-0 pt-2 dark:border-gray-700 lg:border-b lg:pb-2 hover:underline">
+                                    <span className="typo-body text-blue-600 dark:text-blue-400 ">
+                                        {module.data.name}
+                                    </span>
+                                </div>
                             </a>
-                        </div>
-                        <div className="col-span-3 flex items-center border-b border-gray-200 px-4 pb-3 text-gray-600 dark:border-gray-700 dark:text-gray-300 lg:py-2">
-                            {module.data.summary}
-                        </div>
+                            <div className="col-span-3 flex items-start border-b border-gray-200 px-4 pb-3 text-gray-800 dark:border-gray-700 dark:text-gray-300 lg:py-2">
+                                {module.data.summary}
+                            </div>
                         </div>
                     ))}
                 </div>
