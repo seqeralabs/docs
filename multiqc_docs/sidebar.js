@@ -63,6 +63,11 @@ export default {
         "collapsed": true,
         "link": {type: "doc", id: "modules"},
         "items": []
+      },
+      {
+        "type": "link",
+        "label": "Changelog",
+        "href": "/changelog/tags/multiqc"
       }
     ]
   ]

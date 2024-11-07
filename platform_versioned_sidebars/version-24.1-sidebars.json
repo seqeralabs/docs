@@ -6,8 +6,10 @@
       "label": "Tutorials",
       "collapsed": true,
       "items": [
-        "getting-started/quickstart-demo/comm-showcase"
-      ]
+        "getting-started/quickstart-demo/comm-showcase",
+        "getting-started/rnaseq",
+        "getting-started/proteinfold"
+        ]
     },
     {
       "type": "category",
@@ -85,7 +87,6 @@
       "type": "category",
       "label": "Data",
       "items": [
-        "getting-started/quickstart-demo/add-data",
         "data/data-explorer",
         "data/datasets"
       ]
@@ -94,7 +95,6 @@
       "type": "category",
       "label": "Pipelines",
       "items": [
-        "getting-started/quickstart-demo/add-pipelines",
         "pipeline-schema/overview",
         "launch/launchpad",
         "labels/overview",
@@ -114,12 +114,19 @@
         "launch/advanced"
       ]
     },
-    "data/data-studios",
+    {
+      "type": "category",
+      "label": "Data Studios",
+      "items": [
+        "data_studios/index",
+        "data_studios/custom-envs",
+        "data_studios/managing"
+      ]
+    },
     {
       "type": "category",
       "label": "Administration",
       "items": [
-        "getting-started/workspace-setup",
         "administration/overview",
         "orgs-and-teams/organizations",
         "orgs-and-teams/workspace-management",
@@ -190,11 +197,6 @@
       "label": "Developer tools",
       "collapsed": true,
       "items": [
-        {
-          "type": "doc",
-          "id": "getting-started/quickstart-demo/automation",
-          "label": "Overview"
-        },
         "api/overview",
         {
           "type": "category",
@@ -223,9 +225,24 @@
       "label": "Releases",
       "collapsed": true,
       "items": [
-        "cloud/changelog",
-        "enterprise/release_notes/enterprise_changelog",
-        "enterprise/release_notes/enterprise_latest",
+        {
+          "type": "category",
+          "label": "Enterprise release notes",
+          "collapsed": true,
+          "items": [
+           "enterprise/release_notes/enterprise_latest"
+          ]
+        },
+        {
+          "type": "link",
+          "label": "Enterprise changelog",
+          "href": "/changelog/tags/seqera-enterprise"
+        },
+        {
+          "type": "link",
+          "label": "Cloud changelog",
+          "href": "/changelog/tags/seqera-cloud"
+        },
         {
           "type": "category",
           "label": "Legacy versions",
@@ -237,9 +254,24 @@
             "enterprise/release_notes/23.1"
           ]
         },
+
         "functionality_matrix/functionality_matrix"
       ]
     },
-    "faqs"
+    {
+      "type": "category",
+      "label": "Troubleshooting",
+      "collapsed": true,
+      "items": [
+        "troubleshooting_and_faqs/troubleshooting",
+        "troubleshooting_and_faqs/api_and_cli",
+        "troubleshooting_and_faqs/data_studios_troubleshooting",
+        "troubleshooting_and_faqs/nextflow",
+        "troubleshooting_and_faqs/aws_troubleshooting",
+        "troubleshooting_and_faqs/azure_troubleshooting",
+        "troubleshooting_and_faqs/workspaces_troubleshooting",
+        "troubleshooting_and_faqs/datasets_troubleshooting"
+      ]
+    }
   ]
 }
