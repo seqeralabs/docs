@@ -69,20 +69,15 @@ const VersionSwitcher = ({ isOpen, setIsOpen }) => {
           })}
         >
           {items?.map((version) => (
-            <div
+            <Link
               key={version.name}
-              onClick={() => {
-                handleSelectVersion(version.name); // Perform state change
-              }}
+              to={`${version.path}${urlSuffix}`} // Append the suffix to the version path
+              className={styles.item}
+              onClick={() => handleSelectVersion(version.name)}
             >
-              <Link
-                to={`${version.path}${urlSuffix}`} // Append the suffix to the version path
-                className={styles.item}
-              >
-                v{version.label}{" "}
-                {version.label === versions[0].label ? " (current)" : ""}
-              </Link>
-            </div>
+              v{version.label}{" "}
+              {version.label === versions[0].label ? " (current)" : ""}
+            </Link>
           ))}
         </div>
       )}
