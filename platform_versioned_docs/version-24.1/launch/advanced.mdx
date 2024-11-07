@@ -17,8 +17,6 @@ For example, modify the **manifest** section to give the pipeline a name and des
     manifest {
         name = 'My_RNASeq_Pipeline'
         description = 'Generates RNASeq results using a test profile'
-        mainScript = 'main.nf'
-        defaultBranch = 'master'
     }
 ```
 
@@ -42,8 +40,6 @@ For example, if:
     manifest {
         name = 'A'
         description = 'Pipeline description A'
-        mainScript = 'main.nf'
-        defaultBranch = 'master'
     }
     ```
 
@@ -53,8 +49,6 @@ For example, if:
     manifest {
         name = 'B'
         description = 'Pipeline description B'
-        mainScript = 'main.nf'
-        defaultBranch = 'master'
     }
     ```
 
@@ -64,8 +58,6 @@ For example, if:
     manifest {
         name = 'C'
         description = 'Pipeline description C'
-        mainScript = 'main.nf'
-        defaultBranch = 'master'
     }
     ```
 
@@ -75,8 +67,6 @@ The resolved configuration will contain the **Nextflow config file** field's man
     manifest {
         name = 'C'
         description = 'Pipeline description C'
-        mainScript = 'main.nf'
-        defaultBranch = 'master'
     }
     ```
 
