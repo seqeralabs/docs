@@ -28,11 +28,11 @@ When launcing pipelines in Platform, Nextflow configuration values can be suppli
 
 Configuration values set in the **Global Nextflow config** field during compute environment creation are pre-filled in the **Nextflow config file** field during pipeline launch. These pre-filled values from the compute environment can be overridden manually during launch. 
 
-| Nextflow configuration order of priority (highest to lowest) |
-| ------------------------------------------------------------ |
-| Pipeline launch form **Nextflow config file** field |
-| Compute environment **Global Nextflow config** field |
-| Pipeline repository `nextflow.config` file |
+| Priority | Nextflow configuration                               |
+|----------|------------------------------------------------------|
+| Highest  | Pipeline launch form **Nextflow config file** field  |
+| Medium   | Compute environment **Global Nextflow config** field |
+| Lowest   | Pipeline repository `nextflow.config` file           |
 
 For example, if:
 
