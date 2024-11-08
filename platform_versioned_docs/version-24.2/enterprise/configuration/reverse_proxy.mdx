@@ -1,0 +1,46 @@
+---
+title: "Reverse proxy"
+description: Configuration options for reverse proxy connection
+date: "5 Oct 2023"
+tags: [reverse-proxy, configuration]
+---
+
+:::caution
+As of February 2024, this configuration guide is not currently recommended for production use, as the instructions are actively under development and will likely change.
+:::
+
+To expose your Seqera instance behind a reverse proxy, complete the following steps:
+
+1. Use the [Seqera frontend unprivileged](../kubernetes.mdx#seqera-frontend-unprivileged) image.
+2. Add `TOWER_BASE_PATH` to the environment variables of the frontend container:
+   - `TOWER_BASE_PATH: "/myseqera/"` exposes your instance at `https://example.com/myseqera/` (this must match your proxy configuration)
+3. In the backend/cron environment variables or in the Seqera config file, edit the following environment variables:
+   - Set `TOWER_SERVER_URL` to the complete URL where you want to expose your instance, e.g., `TOWER_SERVER_URL: "https://example.com/myseqera"` (without the trailing slash)
+   - Disable/unset `TOWER_LANDING_URL`
+4. Configure your reverse proxy to redirect all Seqera-related links to your Seqera frontend container:
+
+- If your frontend container listens on `http://tower-frontend:8080` and you're using Apache HTTP as your reverse proxy, add the following lines at the end of your configuration file (replace `/myseqera/` with the URL you defined in `TOWER_BASE_PATH`):
+
+   ```
+   LoadModule proxy_module modules/mod_proxy.so
+   LoadModule proxy_http_module modules/mod_proxy_http.so
+   LoadModule rewrite_module modules/mod_rewrite.so
+
+   RewriteEngine  on
+   RewriteRule       "^/myseqera/(.*)$"  http://tower-frontend:8080/$1 [P]
+   ProxyPassReverse  "/myseqera/"        http://tower-frontend:8080/
+   RewriteRule       "^/api/(.*)$"       http://tower-frontend:8080/api/$1 [P]
+   ProxyPassReverse  "/api/"             http://tower-frontend:8080/api/
+   RewriteRule       "^/auth/(.*)$"      http://tower-frontend:8080/auth/$1 [P]
+   ProxyPassReverse  "/auth/"            http://tower-frontend:8080/auth/
+   RewriteRule       "^/oauth/(.*)$"     http://tower-frontend:8080/oauth/$1 [P]
+   ProxyPassReverse  "/oauth/"           http://tower-frontend:8080/oauth/
+   RewriteRule       "^/openapi/(.*)$"   http://tower-frontend:8080/openapi/$1 [P]
+   ProxyPassReverse  "/openapi/"         http://tower-frontend:8080/openapi/
+   RewriteRule       "^/content/(.*)$"   http://tower-frontend:8080/content/$1 [P]
+   ProxyPassReverse  "/content/"         http://tower-frontend:8080/content/
+   ```
+
+- A similar configuration should be applied for NGINX or other reverse proxies. Redirect visits to `/api/`, `/oauth/`, `/openapi/`, and `/content/`.
+
+After you configure the reverse proxy, the Seqera frontend URL (default `http://tower-frontend:8080`) should return a blank page. This behavior is expected, because Seqera is now configured to work only from behind the reverse proxy.
