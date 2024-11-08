@@ -65,9 +65,9 @@ export default {
         "items": []
       },
       {
-        "type": "doc",
+        "type": "link",
         "label": "Changelog",
-        "id": "changelog"
+        "href": "/changelog/tags/multiqc"
       }
     ]
   ]
