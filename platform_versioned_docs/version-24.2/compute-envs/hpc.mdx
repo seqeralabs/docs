@@ -68,7 +68,10 @@ To create a new **HPC** compute environment:
 1. Enter the **Compute queue name**. This is the [default](https://www.nextflow.io/docs/latest/process.html#queue) cluster queue to which the Nextflow job will submit tasks.
 1. Expand **Staging options** to include:
     - Optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre--post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
-    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Configuration settings in this field override the same values in the pipeline Nextflow config file. 
+    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch. 
+    :::info
+    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced.mdx#nextflow-config-file) for more information on configuration priority. 
+    :::
 1. Specify custom **Environment variables** for the head job and/or compute jobs.
 1. Configure any advanced options needed:
     - Use the **Nextflow queue size** to limit the number of jobs that Nextflow can submit to the scheduler at the same time.

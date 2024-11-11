@@ -1,9 +1,13 @@
 ---
-title: "Google Life Sciences"
+title: "Google Life Sciences (deprecated)"
 description: "Instructions to set up Google Life Sciences in Seqera Platform"
 date: "21 Apr 2023"
 tags: [google, gcp, life sciences, compute environment]
 ---
+
+:::info
+Google Cloud Life Sciences is [deprecated](https://cloud.google.com/life-sciences/docs/getting-support) and will no longer be available on Google Cloud after July 8, 2025.
+:::
 
 This guide assumes you have an existing Google Cloud account. Sign up for a free account [here](https://cloud.google.com/). Seqera Platform provides integration to Google Cloud via the [Cloud Life Sciences API](https://cloud.google.com/life-sciences/docs/reference/rest).
 
@@ -123,9 +127,12 @@ You can create multiple credentials in your Seqera workspace. See [Credentials](
 9. You can enable **Preemptible** to use preemptible instances, which have significantly reduced cost compared to on-demand instances.
 10. You can use a **Filestore file system** to automatically mount a Google Filestore volume in your pipelines.
 11. Apply [**Resource labels**](../resource-labels/overview.mdx) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
-12. Expand **Staging options** to include:
+1. Expand **Staging options** to include:
     - Optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre--post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
-    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Configuration settings in this field override the same values in the pipeline Nextflow config file. 
+    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch. 
+    :::info
+    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced.mdx#nextflow-config-file) for more information on configuration priority. 
+    :::
 13. Use the **Environment variables** option to specify custom environment variables for the Head job and/or Compute jobs.
 14. Configure any advanced options you need:
     - Enable **Use Private Address** to ensure that your Google Cloud VMs aren't accessible to the public internet.
