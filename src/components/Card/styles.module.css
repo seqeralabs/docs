@@ -26,7 +26,7 @@
   box-shadow: 0 0 15px rgba(226, 134, 80);
 }
 .card.platform:hover {
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 15px #110C1C;
 }
 .card.platform svg {
   height: 25px;
@@ -40,5 +40,8 @@ html[data-theme="dark"] {
     & svg path[fill="#160F26"] {
       fill: var(--color-brand-200) !important;
     }
+  }
+  & .card.platform:hover {
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
   }
 }

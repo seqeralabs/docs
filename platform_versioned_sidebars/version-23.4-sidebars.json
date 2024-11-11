@@ -6,7 +6,8 @@
       "label": "Tutorials",
       "collapsed": true,
       "items": [
-        "getting-started/quickstart-demo/comm-showcase"         
+        "getting-started/quickstart-demo/comm-showcase",
+        "getting-started/rnaseq"         
       ]
     },
     {
@@ -14,15 +15,15 @@
       "label": "Get started",
       "collapsed": true,
       "items": [
-        "getting-started/deployment-options",   
-        "getting-started/workspace-setup",     
+        "getting-started/deployment-options",
+        "getting-started/workspace-setup",
         "getting-started/quickstart-demo/add-pipelines",
         "getting-started/quickstart-demo/add-data",
         "getting-started/quickstart-demo/launch-pipelines",
         "getting-started/quickstart-demo/monitor-runs",
-        "getting-started/quickstart-demo/automation"            
+        "getting-started/quickstart-demo/automation"
       ]
-    },         
+    },
     {
       "type": "category",
       "label": "Credentials",
@@ -61,7 +62,8 @@
             "compute-envs/google-cloud-batch",
             "compute-envs/google-cloud-lifesciences",
             "compute-envs/eks",
-            "compute-envs/gke"
+            "compute-envs/gke",
+            "monitoring/cloud-costs"
           ]
         },
         "compute-envs/k8s",
@@ -83,7 +85,6 @@
       "type": "category",
       "label": "Data",
       "items": [
-        "getting-started/quickstart-demo/add-data",
         "data/data-explorer",
         "data/datasets"
       ]
@@ -92,7 +93,6 @@
       "type": "category",
       "label": "Pipelines",
       "items": [
-        "getting-started/quickstart-demo/add-pipelines",
         "pipeline-schema/overview",
         "launch/launchpad",
         "labels/overview",
@@ -115,16 +115,14 @@
     {
       "type": "category",
       "label": "Administration",
-      "items": [     
-        "getting-started/workspace-setup",     
-        "administration/overview",            
-        "orgs-and-teams/organizations",            
-        "orgs-and-teams/workspace-management",            
+      "items": [
+        "administration/overview",
+        "orgs-and-teams/organizations",
+        "orgs-and-teams/workspace-management",
         "orgs-and-teams/roles",
-        "monitoring/audit-logs",
-        "monitoring/cloud-costs"
+        "monitoring/audit-logs"
         ]
-    },   
+    },
     {
       "type": "category",
       "label": "Enterprise",
@@ -164,7 +162,7 @@
           "items": [
             "enterprise/docker-compose",
             "enterprise/kubernetes",
-            "enterprise/testing"        
+            "enterprise/testing"
           ]
         },
         {
@@ -186,11 +184,6 @@
       "label": "Developer tools",
       "collapsed": true,
       "items": [
-        {
-          "type": "doc",
-          "id": "getting-started/quickstart-demo/automation",
-          "label": "Overview"
-        },          
         "api/overview",
         {
           "type": "category",
@@ -218,7 +211,7 @@
       "label": "Releases",
       "collapsed": true,
       "items": [
-        "enterprise/release_notes/changelog",  
+        "enterprise/release_notes/changelog",
         "enterprise/release_notes/cloud_latest",
         "enterprise/release_notes/enterprise_latest",
         {

@@ -1,0 +1,14 @@
+[data-theme="dark"] .themeLight,
+[data-theme="light"] .themeDark {
+  display: none;
+}
+
+.item {
+  max-width: 178px;
+  display: flex;
+  align-items: center;
+  flex: none;
+  & svg {
+    height: 15px;
+  }
+}
