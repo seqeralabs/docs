@@ -1,4 +1,4 @@
-/platform/latest/*   /platform/24.1/:splat   301
+/platform/latest/*   /platform/24.2/:splat   301
 
 /nextflow           https://www.nextflow.io/docs/latest/ 301!
 
@@ -16,5 +16,6 @@
 
 # Redirect from old FAQ to new FAQ
 /platform/24.1/faqs/*  /platform/24.1/troubleshooting_and_faqs/troubleshooting/:splat   301
+/platform/24.2/faqs/*  /platform/24.1/troubleshooting_and_faqs/troubleshooting/:splat   301
 
 /platform/latest/data-studios   /platform/latest/data_studios/  301
