@@ -10,8 +10,9 @@
 .navItem {
   position: relative;
   margin: 0 2px;
-  padding: 0 12px;
-  height: 40px;
+  /* padding: 0 12px; */
+  padding: 8px 9px;
+  /* height: 40px; */
   transition: all 0.2s;
   color: var(--color-brand);
   cursor: pointer;
@@ -31,6 +32,18 @@
     fill: var(--color-brand);
     transition: all 0.2s;
   }
+  & .pill {
+    display: inline-block;
+    padding: 3px 8px;
+    margin: 4px;
+    background: #E6E5E8;
+    border: 1px solid var(--color-brand);
+    border-radius: 12px;
+    font-size: 10px;
+    line-height: 0.8;
+    color: var(--color-brand-1100);
+  }
+  
   &:hover,
   &.active {
     background-color: var(--color-brand-200);
@@ -55,6 +68,7 @@
 @media (max-width: 1023px) {
   & .logo {
     width: 114px;
-    margin-top: 2px;
+    height: 24px;
+    margin-left: 4px;
   }
 }
