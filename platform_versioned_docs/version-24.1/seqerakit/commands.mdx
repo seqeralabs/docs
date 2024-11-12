@@ -31,7 +31,7 @@ See [Defining your YAML file using CLI options](#defining-your-yaml-file-using-c
 
 ### Dryrun
 
-It is recommended to confirm that your configuration and command are correct before creating resources in your Platform account, particularly when automating the end-to-end creation of multiple Platform entities at once. To print the commands that would be executed with Platform CLI when using a YAML file, run your seqerakit command with the `--dryrun` flag:
+Confirm that your configuration and command are correct before creating resources in your Seqera account, particularly when automating the end-to-end creation of multiple entities at once. To print the commands that would be executed with Platform CLI when using a YAML file, run your seqerakit command with the `--dryrun` flag:
 
 ```bash
 seqerakit file.yaml --dryrun
@@ -67,7 +67,7 @@ You can target the creation of `pipelines` only by running:
 seqerakit test.yml --targets pipelines
 ```
 
-This will process only the pipelines block from the YAML file and ignore other blocks such as `workspaces` and `compute-envs`.
+This will process only the pipelines block from the YAML file and ignore `workspaces` and `compute-envs`.
 
 To create both workspaces and pipelines, run:
 
@@ -77,7 +77,7 @@ seqerakit test.yml --targets workspaces,pipelines
 
 ### Delete resources
 
-Instead of adding or creating resources, recursively delete resources in your YAML file by specifying the `--delete` flag:
+Instead of adding or creating resources, specify the `--delete` flag to recursively delete resources in your YAML file:
 
 ```bash
 seqerakit file.yml --delete

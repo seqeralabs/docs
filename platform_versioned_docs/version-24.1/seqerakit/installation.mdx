@@ -13,7 +13,7 @@ tags: [seqerakit, cli, automation, installation]
 
 ### Pip
 
-If you already have [Seqera Platform CLI](https://github.com/seqeralabs/tower-cli#1-installation) and Python installed on your system, install `seqerakit` directly from [PyPI](https://pypi.org/project/seqerakit/):
+If you already have [Seqera Platform CLI](../cli/installation.mdx) and Python installed on your system, install `seqerakit` directly from [PyPI](https://pypi.org/project/seqerakit/):
 
 ```console
 pip install seqerakit
@@ -65,7 +65,7 @@ Install the development branch of `seqerakit` on your local machine to test the 
 
 ### Configuration
 
-Create a Seqera Platform access token using the [Seqera Platform](https://cloud.seqera.io/) web interface via the **Your Tokens** page in your profile.
+Create a [Seqera](https://cloud.seqera.io/) access token via the **Your Tokens** page in your profile.
 
 `seqerakit` reads your access token from the `TOWER_ACCESS_TOKEN` environment variable:
 
@@ -73,23 +73,23 @@ Create a Seqera Platform access token using the [Seqera Platform](https://cloud.
 export TOWER_ACCESS_TOKEN=<Your Platform access token>
 ```
 
-For Platform Enterprise installations, you must specify the custom API endpoint used to connect to the Platform. Export the API endpoint environment variable:
+For Enterprise installations, specify the custom API endpoint used to connect to Seqera. Export the API endpoint environment variable:
 
 ```bash
 export TOWER_API_ENDPOINT=<Platform API URL>
 ```
 
-By default, this is set to `https://api.cloud.seqera.io` to connect to Seqera Platform Cloud.
+By default, this is set to `https://api.cloud.seqera.io` to connect to Seqera Cloud.
 
 ### Usage
 
-To confirm the installation of `seqerakit`, configuration of the Seqera Platform CLI and connection to the Platform is working as expected. This will run the `tw info` command under the hood:
+To confirm the installation of `seqerakit`, configuration of the Seqera Platform CLI and connection to Seqera is working as expected. This will run the `tw info` command under the hood:
 
 ```bash
 seqerakit --info
 ```
 
-Use `--version` or `-v` to retrieve the current version of your seqerakit installation:
+Use `--version` or `-v` to retrieve the current version of your `seqerakit` installation:
 
 ```bash
 seqerakit --version
@@ -101,4 +101,4 @@ Use the `--help` or `-h` parameter to list the available commands and their asso
 seqerakit --help
 ```
 
-See [Commands](./commands.mdx) for detailed instructions to use seqerakit.
+See [Commands](./commands.mdx) for detailed instructions to use `seqerakit`.
