@@ -30,7 +30,7 @@ You will need the following to get started:
 
 Compute and storage requirements for RNA-Seq analysis are dependent on the number of samples and the sequencing depth of your input data. See [RNA-Seq data and requirements](#rna-seq-data-and-requirements) for details on RNA-Seq datasets and the CPU and memory requirements for important steps of RNA-Seq pipelines. 
 
-In this guide, you will create an AWS Batch compute environment with sufficient resources allocated to run the [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline with a large dataset. This compute environment will also be used to run a Data Studios RStudio environment for tertiary analysis of the resulting pipeline data. 
+In this guide, you will create an AWS Batch compute environment with sufficient resources allocated to run the [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline with a large dataset. This compute environment will also be used to run a Data Studios RStudio environment for interactive analysis of the resulting pipeline data. 
 
 :::note
 The compute recommendations below are based on internal benchmarking performed by Seqera. See [RNA-Seq data and requirements](#rna-seq-data-and-requirements) for more information. 
@@ -319,7 +319,7 @@ After you have filled the necessary launch details, select **Launch**. The **Run
 
 </details>
 
-## Tertiary analysis with Data Studios
+## Interactive analysis with Data Studios
 
 **Data Studios** streamlines the process of creating interactive analysis environments for Platform users. With built-in templates for platforms like Jupyter Notebook, RStudio, and VSCode, creating a data studio is as simple as adding and sharing pipelines or datasets. The data studio URL can also be shared with any user with the [Connect role](../orgs-and-teams/roles.mdx) for real-time access and collaboration.
 
