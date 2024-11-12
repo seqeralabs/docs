@@ -17,6 +17,10 @@ a {
   }
 }
 
+pre, code {
+  max-height: 300px !important;
+}
+
 .page {
   /* background-image: url("./images/home-1a.jpg");
   background-size: cover; */
