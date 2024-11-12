@@ -18,10 +18,7 @@ a {
 }
 
 pre, code {
-  border-radius: .5rem;
-  height: 300px !important;
-  /* height: 300px !important; */
-  /* background-color: var(--color-brand) !important; */
+  max-height: 300px !important;
 }
 
 .page {

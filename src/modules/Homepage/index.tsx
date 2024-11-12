@@ -110,7 +110,7 @@ export default function Home(): JSX.Element {
         )}
         <main className="flex-grow">
           <div className={clsx("p-8 md:p-8 py-10", styles.page)}>
-            <div className="container-md flex flex-wrap text-brand-1000">
+            <div className="container-md flex flex-wrap text-brand-1000 dark:text-white">
               <div className="flex flex-col w-full">
                 <p className="font-title typo-h2 font-semibold w-full text-left">Documentation</p>
                 <p className="font-title typo-h4 font-normal w-full text-left">Explore our guides, documentation, and examples to build with Seqera.</p>
@@ -187,17 +187,17 @@ export default function Home(): JSX.Element {
                       <p className="font-title typo-h4 font-medium">Open source</p>
                     </div>
                     <div className="flex flex-row flex-wrap w-full gap-4">
-                      <Link to="https://nextflow.io/docs/latest/index.html" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand">
+                      <Link to="https://nextflow.io/docs/latest/index.html" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800">
                         <img src="/img/nextflow-icon.svg" alt="Nextflow" className="mb-3" />
-                        <p className="m-0 text-brand text-lg mb-1">Nextflow</p>
+                        <p className="m-0 text-brand dark:text-white text-lg mb-1">Nextflow</p>
                       </Link>
-                      <Link to="/wave" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand">
+                      <Link to="/wave" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800">
                         <img src="/img/wave-icon.svg" alt="Wave" className="mb-3" />
-                        <p className="m-0 text-brand text-lg mb-1">Wave</p>
+                        <p className="m-0 text-brand dark:text-white text-lg mb-1">Wave</p>
                       </Link>
-                      <Link to="/multiqc" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand">
+                      <Link to="/multiqc" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800">
                         <img src="/img/multiqc-icon.svg" alt="MultiQC" className="mb-3" />
-                        <p className="m-0 text-brand text-lg mb-1">MultiQC</p>
+                        <p className="m-0 text-brand dark:text-white text-lg mb-1">MultiQC</p>
                       </Link>
                     </div>
                   </div>
@@ -206,17 +206,17 @@ export default function Home(): JSX.Element {
                       <p className="font-title typo-h4 font-medium">Platform</p>
                     </div>
                     <div className="flex flex-row flex-wrap w-full gap-4">
-                      <Link to="/platform/latest/getting-started/quickstart-demo/comm-showcase" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand">
-                        <img src="/img/cloud.svg" alt="Seqera Cloud" className="mb-3" />
-                        <p className="m-0 text-brand text-lg mb-1">Seqera Cloud</p>
+                      <Link to="/platform/latest/getting-started/quickstart-demo/comm-showcase" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800">
+                        <div className="w-6 h-6 mb-3 bg-[url('/img/cloud.svg')] dark:bg-[url('/img/cloud-white.svg')] bg-contain bg-no-repeat bg-center"></div>
+                        <p className="m-0 text-brand dark:text-white text-lg mb-1">Seqera Cloud</p>
                       </Link>
-                      <Link to="/platform/latest/enterprise" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand">
-                        <img src="/img/enterprise.svg" alt="Seqera Enterprise" className="mb-3" />
-                        <p className="m-0 text-brand text-lg mb-1">Seqera Enterprise</p>
+                      <Link to="/platform/latest/enterprise" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800">
+                        <div className="w-6 h-6 mb-3 bg-[url('/img/enterprise.svg')] dark:bg-[url('/img/enterprise-white.svg')] bg-contain bg-no-repeat bg-center"></div>
+                        <p className="m-0 text-brand dark:text-white text-lg mb-1">Seqera Enterprise</p>
                       </Link>
-                      <Link to="/fusion" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand">
+                      <Link to="/fusion" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800">
                         <img src="/img/fusion-icon.svg" alt="Fusion" className="mb-3" />
-                        <p className="m-0 text-brand text-lg mb-1">Fusion</p>
+                        <p className="m-0 text-brand dark:text-white text-lg mb-1">Fusion</p>
                       </Link>
                     </div>
                   </div>
@@ -225,17 +225,17 @@ export default function Home(): JSX.Element {
                       <p className="font-title typo-h4 font-medium">Cloud</p>
                     </div>
                     <div className="flex flex-row flex-wrap w-full gap-4">
-                      <Link to="/platform/latest/enterprise/prerequisites/aws" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand">
-                        <img src="/img/aws.svg" alt="AWS" className="mb-3" />
-                        <p className="m-0 text-brand text-lg mb-1">AWS</p>
+                      <Link to="/platform/latest/enterprise/prerequisites/aws" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800">
+                        <div className="w-6 h-6 mb-3 bg-[url('/img/aws.svg')] dark:bg-[url('/img/aws-white.svg')] bg-contain bg-no-repeat bg-center"></div>
+                        <p className="m-0 text-brand dark:text-white text-lg mb-1">AWS</p>
                       </Link>
-                      <Link to="/platform/latest/enterprise/prerequisites/gcp#gcp-setup" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand">
-                        <img src="/img/gcp.svg" alt="GCP" className="mb-3" />
-                        <p className="m-0 text-brand text-lg mb-1">GCP</p>
+                      <Link to="/platform/latest/enterprise/prerequisites/gcp#gcp-setup" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800">
+                        <div className="w-6 h-6 mb-3 bg-[url('/img/gcp.svg')] dark:bg-[url('/img/gcp-white.svg')] bg-contain bg-no-repeat bg-center"></div>
+                        <p className="m-0 text-brand dark:text-white text-lg mb-1">GCP</p>
                       </Link>
-                      <Link to="/platform/latest/enterprise/prerequisites/azure" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand">
-                        <img src="/img/azure.svg" alt="Azure" className="mb-3" />
-                        <p className="m-0 text-brand text-lg mb-1">Azure</p>
+                      <Link to="/platform/latest/enterprise/prerequisites/azure" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800">
+                        <div className="w-6 h-6 mb-3 bg-[url('/img/azure.svg')] dark:bg-[url('/img/azure-white.svg')] bg-contain bg-no-repeat bg-center"></div>
+                        <p className="m-0 text-brand dark:text-white text-lg mb-1">Azure</p>
                       </Link>
                     </div>
                   </div>
@@ -245,19 +245,19 @@ export default function Home(): JSX.Element {
                     <p className="font-title typo-h4 font-medium">Support</p>
                   </div>
                   <div className="flex flex-row flex-wrap w-full gap-4">
-                    <Link to="https://support.seqera.io" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand">
-                      <img src="/img/help.svg" alt="Help center" className="mb-3" />
-                      <p className="m-0 text-brand text-lg mb-1">Help center</p>
+                    <Link to="https://support.seqera.io" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800">
+                      <div className="w-6 h-6 mb-3 bg-[url('/img/help.svg')] dark:bg-[url('/img/help-white.svg')] bg-contain bg-no-repeat bg-center"></div>
+                      <p className="m-0 text-brand dark:text-white text-lg mb-1">Help center</p>
                       <p className="m-0 text-sm text-brand-600">Contact support for help with your Pro or Enterprise account</p>
                     </Link>
-                    <Link to="https://community.seqera.io" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand">
-                      <img src="/img/forum.svg" alt="Community forum" className="mb-3" />
-                      <p className="m-0 text-brand text-lg mb-1">Community forum</p>
+                    <Link to="https://community.seqera.io" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800">
+                      <div className="w-6 h-6 mb-3 bg-[url('/img/forum.svg')] dark:bg-[url('/img/forum-white.svg')] bg-contain bg-no-repeat bg-center"></div>
+                      <p className="m-0 text-brand dark:text-white text-lg mb-1">Community forum</p>
                       <p className="m-0 text-sm text-brand-600">Discuss topics with other users</p>
                     </Link>
-                    <Link to="https://status.seqera.io" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand">
-                      <img src="/img/status.svg" alt="Service status" className="mb-3" />
-                      <p className="m-0 text-brand text-lg mb-1">Service status</p>
+                    <Link to="https://status.seqera.io" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800">
+                      <div className="w-6 h-6 mb-3 bg-[url('/img/status.svg')] dark:bg-[url('/img/status-white.svg')] bg-contain bg-no-repeat bg-center"></div>
+                      <p className="m-0 text-brand dark:text-white text-lg mb-1">Service status</p>
                       <p className="m-0 text-sm text-brand-600">Check the status of Seqera services</p>
                     </Link>
                   </div>
