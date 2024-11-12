@@ -31,3 +31,6 @@ internal/tmp
 
 # Local Netlify folder
 .netlify
+
+# MultiQC repo clone
+multiqc_docs/multiqc_repo
