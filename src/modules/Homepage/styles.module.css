@@ -17,13 +17,6 @@ a {
   }
 }
 
-pre, code {
-  border-radius: .5rem;
-  height: 300px !important;
-  /* height: 300px !important; */
-  /* background-color: var(--color-brand) !important; */
-}
-
 .page {
   /* background-image: url("./images/home-1a.jpg");
   background-size: cover; */
