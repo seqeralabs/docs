@@ -184,7 +184,7 @@ export default function Home(): JSX.Element {
                     </div>
                   <div className="flex flex-col w-full">
                     <div className="flex flex-row w-full">
-                      <p className="font-title typo-h4 font-medium">Open Source</p>
+                      <p className="font-title typo-h4 font-medium">Open source</p>
                     </div>
                     <div className="flex flex-row flex-wrap w-full gap-4">
                       <Link to="https://nextflow.io/docs/latest/index.html" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand">
