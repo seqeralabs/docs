@@ -1,0 +1,48 @@
+---
+title: "Data studios"
+description: "Data Studios troubleshooting with Seqera Platform."
+date: "26 August 2024"
+tags: [faq, help, data studios, troubleshooting]
+---
+
+## View all mounted datasets
+
+In your interactive analysis environment, open a new terminal and type `ls -la /workspace/data`. This displays all the mounted datasets available in the current data studio.
+
+![](./_images/data_studios_notebook_fusion.png)
+
+## Data studio is stuck in **starting**
+
+If your data studio doesn't advance from **starting** status to **running** status within 30 minutes, and you have access to the AWS Console for your organization, check that the AWS Batch compute environment associated with the data studio session is in the **ENABLED** state with a **VALID** status. You can also check the **Compute resources** settings. Contact your organization's AWS administrator if you don't have access to the AWS Console.
+
+If sufficient compute environment resources are unavailable, **Stop** your data studio and any others that may be running before trying again. If you have access to the AWS Console for your organization, you can terminate a specific data studio from the AWS Batch Jobs page (filtering by compute environment queue).
+
+## Data studio status is **errored**
+
+The **errored** status is generally related to issues encountered when creating the data studio resources in the compute environment (e.g., invalid credentials, insufficient permissions, network issues). It can also be related to insufficient compute resources, which are set in your compute environment configuration. Contact your organization's AWS administrator if you don't have access to the AWS Console. Also contact your Seqera account executive so we can investigate the issue.
+
+## Data studio can't be **stopped**
+
+If you're not able to stop a data studio session, it's usually because the Batch job running the data studio failed for some reason. In this case, and if you have access to the AWS Console for your organization, you can stop the data studio from the compute environment screen. Contact your organization's AWS administrator if you don't have access to the AWS Console. Also contact your Seqera account executive so we can investigate the issue.
+
+## Data studio performance is poor
+
+A slow or unresponsive data studio may be due to its AWS Batch compute environment being utilized for other jobs, such as running Nextflow pipelines. The compute environment is responsible for scheduling jobs to the available compute resources. Data Studio sessions compete for resources with the Nextflow pipeline head job and Seqera does not currently have an established pattern of precedence.
+
+If you have access to the AWS Console for your organization, check the jobs associated with the AWS Batch compute environment and compare the resources allocated with its **Compute resources** settings.
+
+## Memory allocation of the data studio is exceeded
+
+The running container in the AWS Batch compute environment inherits the memory limits specified by the data studio configuration when adding or starting the data studio session. The kernel then handles the memory as if running natively on Linux. Linux can overcommit memory, leading to possible out-of-memory errors in a container environment. The kernel has protections in place to prevent this, but it can happen, and in this case, the process is killed. This can manifest as a performance lag, killed subprocesses, or at worst, a killed data studio session. Running data studio sessions have automated snapshots created every five minutes, so if the running container is killed only those changes made after the prior snapshot creation will be lost.
+
+## All datasets are read-only
+
+By default, AWS Batch compute environments that are created with Batch Forge restrict access to S3 to the working directory only, unless additional **Allowed S3 Buckets** are specified. If the compute environment does not have write access to the mounted dataset, it will be mounted as read-only.
+
+## Allocated storage for the data studio is exceeded
+
+A data studio is allocated a 5 GB overlay filesystem partition by default for installing software packages and other local configuration. This limit is irrespective of the boot disk size of the container. If you exceed the available storage space, you cannot reliably make local changes to the data studio container until you free up disk space.
+
+Each time you stop and start a data studio, an additional 5 GB allocation is provided. If you are experiencing a disk size limitation, as a workaround you can stop and restart the data studio.
+
+[contact]: https://seqera.io/contact-us/
