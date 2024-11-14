@@ -36,6 +36,23 @@ export default async function createConfigAsync() {
       [
         "classic",
         {
+          blog: {
+            blogTitle: 'Seqera Changelog',
+            blogDescription: 'Blog',
+            blogSidebarCount: 5000,
+            blogSidebarTitle: 'Changelog',
+            path: 'changelog',
+            routeBasePath: '/changelog',
+            //processBlogPosts: () => ({}),
+            include: ['**/*.{md,mdx}'],
+            showReadingTime: false,
+            feedOptions: {
+            type: 'all', // 'rss', 'atom', or both
+            title: 'Seqera Changelog',
+            description: 'Stay updated with our blog posts!',
+            copyright: `Copyright © ${new Date().getFullYear()} Seqera`,
+            }
+          },
           docs: false,
           theme: {
             customCss: [
@@ -98,11 +115,12 @@ export default async function createConfigAsync() {
           ],
           rehypePlugins: [(await require("rehype-katex")).default],
           editUrl: ({ docPath }) => {
-            return `https://github.com/MultiQC/MultiQC/blob/main/docs${docPath.replace('multiqc_docs/multiqc_repo/docs', '')}`
+            return `https://github.com/MultiQC/MultiQC/blob/main/docs/markdown/${docPath.replace('multiqc_docs/multiqc_repo/docs', '')}`
           },
           sidebarPath: "./multiqc_docs/sidebar.js",
         },
-      ],      [
+      ],      
+      [
         "@docusaurus/plugin-content-docs",
         {
           id: "fusion",
@@ -257,15 +275,19 @@ export default async function createConfigAsync() {
         theme: themes.oneLight,
         darkTheme: themes.oneDark,
         additionalLanguages: [
-          "json",
-          "yaml",
-          "groovy",
-          "ini",
-          "nginx",
           "bash",
           "docker",
+          "groovy",
+          "ini",
+          "java",
+          "json",
+          "nginx",
           "python",
+          "r",
+          "shell-session",
+          "sql",
           "typescript",
+          "yaml"
         ],
       },
       algolia: {
