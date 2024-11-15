@@ -32,6 +32,10 @@ export default async function createConfigAsync() {
       locales: ["en"],
     },
 
+    future: {
+      experimental_faster: true,
+    },
+
     presets: [
       [
         "classic",
@@ -119,7 +123,8 @@ export default async function createConfigAsync() {
           },
           sidebarPath: "./multiqc_docs/sidebar.js",
         },
-      ],      [
+      ],      
+      [
         "@docusaurus/plugin-content-docs",
         {
           id: "fusion",
@@ -274,17 +279,19 @@ export default async function createConfigAsync() {
         theme: themes.oneLight,
         darkTheme: themes.oneDark,
         additionalLanguages: [
-          "json",
-          "yaml",
-          "groovy",
-          "java",
-          "ini",
-          "nginx",
           "bash",
           "docker",
+          "groovy",
+          "ini",
+          "java",
+          "json",
+          "nginx",
           "python",
           "r",
+          "shell-session",
+          "sql",
           "typescript",
+          "yaml"
         ],
       },
       algolia: {

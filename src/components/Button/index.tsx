@@ -1,5 +1,9 @@
 import React, { ReactNode, CSSProperties } from 'react';
 import clsx from 'clsx';
+import Arrow from "./Arrow";
+
+import styles from './styles.module.css';
+
 import Link from '@docusaurus/Link';
 
 // Define the Button type to control the props that can be passed to the Button component.
@@ -21,6 +25,7 @@ type Button = {
     className?: string;
     // The style prop is an object that allows you to add custom styles to the button.
     style?: CSSProperties;
+    arrow?: boolean;
     // The link prop is a string that determines the URL the button should link to.
     link: string;
     // The label prop is a string that determines the text of the button.
@@ -37,7 +42,8 @@ export default function Button ({
     className,
     style,
     link,
-    label
+    label,
+    arrow,
 }: Button) {
     // Map the size prop values to corresponding CSS classes.
     const sizeMap = {
@@ -72,6 +78,7 @@ export default function Button ({
             aria-disabled={disabled}
         >
             {label}
+            {arrow && <Arrow key="arrow" className={styles.arrow} />}
         </button>
     </Link>
     );

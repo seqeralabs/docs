@@ -1,0 +1,124 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  labels:
+    app: backend
+spec:
+  selector:
+    matchLabels:
+      app: backend
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      imagePullSecrets:
+        - name: "cr.seqera.io"
+      volumes:
+        - name: config-volume
+          configMap:
+            name: tower-yml
+      containers:
+        - name: backend
+          image: cr.seqera.io/private/nf-tower-enterprise/backend:v24.1.7
+          envFrom:
+            - configMapRef:
+                name: tower-backend-cfg
+          env:
+            - name: MICRONAUT_ENVIRONMENTS
+              value: "prod,redis,ha"
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: config-volume
+              mountPath: /tower.yml
+              subPath: tower.yml
+          resources:
+            requests:
+              cpu: "1"
+              memory: "1200Mi"
+            limits:
+              memory: "4200Mi"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            timeoutSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 10
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  labels:
+    app: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      imagePullSecrets:
+        - name: "cr.seqera.io"
+      containers:
+        - name: frontend
+          image: cr.seqera.io/private/nf-tower-enterprise/frontend:v24.1.7
+          ports:
+            - containerPort: 80
+      restartPolicy: Always
+---
+# Services
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  labels:
+    app: backend
+spec:
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+  selector:
+    app: backend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-api
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  type: NodePort
+  selector:
+    app: backend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+  selector:
+    app: "frontend"
+---

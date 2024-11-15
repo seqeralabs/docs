@@ -3,13 +3,31 @@
   border-bottom: 1px solid #ccc;
   padding: 40px;
 }
+
+a {
+  color: #4256e7;
+  &:hover {
+    color: #2c3999;
+  }
+  &:active {
+    color: #3443B4;
+  }
+  &:disabled {
+    color: #7B89EE;
+  }
+}
+
+pre, code {
+  max-height: 300px !important;
+}
+
 .page {
-  background-image: url("./images/home-1a.jpg");
-  background-size: cover;
+  /* background-image: url("./images/home-1a.jpg");
+  background-size: cover; */
 }
 html[data-theme="light"] {
   & .page {
-    background-image: url("./images/home-1a-light.jpg");
+    /* background-image: url("./images/home-1a-light.jpg"); */
   }
 }
 
