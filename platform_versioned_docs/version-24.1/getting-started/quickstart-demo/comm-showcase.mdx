@@ -10,19 +10,20 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 :::info
-This demo tutorial provides an introduction to Seqera Platform, including instructions to:
+This demo tutorial provides an introduction to Seqera Cloud, including instructions to:
+
 - Launch, monitor, and optimize the [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline
 - Select pipeline input data with [Data Explorer](../../data/data-explorer.mdx) and Platform [datasets](../../data/datasets.mdx)
-- Perform tertiary analysis of pipeline results with [Data Studios](../../data/data-studios.mdx)
+- Perform interactive analysis of pipeline results with [Data Studios](../../data_studios/index.mdx)
 
-The Platform Community Showcase is a Seqera-managed demonstration workspace with all the resources needed to follow along with this tutorial. All [Seqera Cloud](https://cloud.seqera.io) users have access to this example workspace by default. 
+The Community Showcase is a Seqera-managed demonstration workspace with all the resources needed to follow along with this tutorial. All [Seqera Cloud](https://cloud.seqera.io) users have access to this example workspace by default. 
 :::
 
-The Launchpad in every Platform workspace allows users to easily create and share Nextflow pipelines that can be executed on any supported infrastructure, including all public clouds and most HPC schedulers. A Launchpad pipeline consists of a pre-configured workflow repository, [compute environment](../../compute-envs/overview.mdx), and launch parameters.
+The Launchpad in every workspace allows users to easily create and share Nextflow pipelines that can be executed on any supported infrastructure, including all public clouds and most HPC schedulers. A Launchpad pipeline consists of a pre-configured workflow repository, [compute environment](../../compute-envs/overview.mdx), and launch parameters.
 
 The Community Showcase contains 15 preconfigured pipelines, including [nf-core/rnaseq](https://github.com/nf-core/rnaseq), a bioinformatics pipeline used to analyze RNA sequencing data. 
 
-The workspace also includes three preconfigured AWS Batch compute environments to run Showcase pipelines, and various Platform datasets and public data sources (accessed via Data Explorer) to use as pipeline input. 
+The workspace also includes three preconfigured AWS Batch compute environments to run Community Showcase pipelines, and various datasets and public data sources (accessed via Data Explorer) to use as pipeline input. 
 
 :::note
 To skip this Community Showcase demo and start running pipelines on your own infrastructure:
@@ -46,7 +47,7 @@ The launch form consists of **General config**, **Run parameters**, and **Advanc
 <details>
   <summary>Nextflow parameter schema</summary>
 
-  The launch form lets you configure the pipeline execution. The pipeline parameters in this form are rendered from a [pipeline schema](../../pipeline-schema/overview.mdx) file in the root of the pipeline Git repository. `nextflow_schema.json` is a simple JSON-based schema describing pipeline parameters for pipeline developers to easily adapt their in-house Nextflow pipelines to be executed in Platform.
+  The launch form lets you configure the pipeline execution. The pipeline parameters in this form are rendered from a [pipeline schema](../../pipeline-schema/overview.mdx) file in the root of the pipeline Git repository. `nextflow_schema.json` is a simple JSON-based schema describing pipeline parameters for pipeline developers to easily adapt their in-house Nextflow pipelines to be executed in Seqera Platform.
 
   :::tip
   See [Best Practices for Deploying Pipelines with the Seqera Platform](https://seqera.io/blog/best-practices-for-deploying-pipelines-with-seqera-platform/) to learn how to build the parameter schema for any Nextflow pipeline automatically with tooling maintained by the nf-core community. 
@@ -56,7 +57,7 @@ The launch form consists of **General config**, **Run parameters**, and **Advanc
 
 ### General config 
 
-Most Showcase pipeline parameters are prefilled. Specify the following fields to identify your run amongst other workspace runs:
+Most Community Showcase pipeline parameters are prefilled. Specify the following fields to identify your run among other workspace runs:
 
 - **Workflow run name**: A unique identifier for the run, pre-filled with a random name. This can be customized.
 - **Labels**: Assign new or existing labels to the run. For example, a project ID or genome version.
@@ -227,9 +228,9 @@ If a task fails, a good place to begin troubleshooting is the task's work direct
 
 </details>
 
-## Tertiary analysis
+## Interactive analysis
 
-Tertiary analysis of pipeline results is often performed in platforms like Jupyter Notebook or RStudio. Setting up the infrastructure for these platforms, including accessing pipeline data and the necessary bioinformatics packages, can be complex and time-consuming.
+Interactive analysis of pipeline results is often performed in platforms like Jupyter Notebook or RStudio. Setting up the infrastructure for these platforms, including accessing pipeline data and the necessary bioinformatics packages, can be complex and time-consuming.
 
 **Data Studios** streamlines the process of creating interactive analysis environments for Platform users. With built-in templates, creating a data studio is as simple as adding and sharing pipelines or datasets.
 
@@ -252,7 +253,7 @@ Deploy the RShiny app in the data studio by selecting the green play button on t
 ![Run RShiny app](./assets/rnaseq-diffab-run-rshiny-app.png)
 
 :::note
-Data Studios allows you to specify the resources each studio will use. When [creating your own data studios](../../data/data-studios.mdx) with shared compute environment resources, you must allocate sufficient resources to the compute environment to prevent data studio or pipeline run interruptions. 
+Data Studios allows you to specify the resources each studio will use. When [creating your own data studios](../../data_studios/index.mdx) with shared compute environment resources, you must allocate sufficient resources to the compute environment to prevent data studio or pipeline run interruptions. 
 :::
 
 ### Explore results
@@ -310,12 +311,12 @@ The RShiny app will deploy in a separate browser window, providing a data interf
 To share the results of your RNAseq analysis or allow colleagues to perform exploratory analysis, share a link to the data studio by selecting the options menu for the data studio you want to share, then select **Copy data studio URL**. With this link, other authenticated users with the **Connect** [role](../../orgs-and-teams/roles.mdx) (or greater) can access the session directly.
 
 :::note
-See [Data Studios](../../data/data-studios.mdx) to learn how to create data studios in your own workspace. 
+See [Data Studios](../../data_studios/index.mdx) to learn how to create data studios in your own workspace. 
 :::
 
 ## Pipeline optimization 
 
-Seqera Platform's task-level resource usage metrics allow you to determine the resources requested for a task and what was actually used. This information helps you fine-tune your configuration more accurately.
+Seqera's task-level resource usage metrics allow you to determine the resources requested for a task and what was actually used. This information helps you fine-tune your configuration more accurately.
 
 However, manually adjusting resources for every task in your pipeline is impractical. Instead, you can leverage the pipeline optimization feature available on the Launchpad.
 

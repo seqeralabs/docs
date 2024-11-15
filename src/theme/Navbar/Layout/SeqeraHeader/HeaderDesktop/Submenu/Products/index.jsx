@@ -11,6 +11,7 @@ import LogoFusion from "./images/fusion.inline.svg";
 
 import {
   About,
+  AboutWhite,
   Core,
   DocsDark,
   Docs,
@@ -68,7 +69,7 @@ const Products = () => {
           <div className={clsx(styles.label)}>All-in-one cloud platform</div>
           <ul className={clsx(styles.links, styles.dark, "mt-4 mb-6")}>
             <LinkItem to="/platform/">
-              <About />
+              <AboutWhite />
               Overview
             </LinkItem>
             <LinkItem to="https://docs.seqera.io">
