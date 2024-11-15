@@ -1,4 +1,4 @@
-## To see the full list of options available run: "tw actions add"
+## To see the full list of options available, run: "tw actions add -h"
 actions:
   - type: 'github'                                        # required
     name: 'my_github_action'                              # required

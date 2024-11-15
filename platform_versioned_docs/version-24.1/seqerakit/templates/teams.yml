@@ -1,4 +1,4 @@
-## To see the full list of options available run: "tw teams add"
+## To see the full list of options available, run: "tw teams add -h"
 teams:
   - name: 'my_team'                 # required
     organization: 'my_organization' # required

@@ -1,4 +1,4 @@
-## To see the full list of options available run: "tw workspaces add"
+## To see the full list of options available, run: "tw workspaces add -h"
 workspaces:
   - name: 'my_workspace'              # required
     full-name: 'my_workspace'         # required

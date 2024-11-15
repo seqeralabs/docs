@@ -213,9 +213,10 @@
             "label": "seqerakit",
             "collapsed": true,
             "items": [
-              "seqerakit/overview",
               "seqerakit/installation",
-              "seqerakit/commands"
+              "seqerakit/commands",
+              "seqerakit/yaml-configuration",
+              "seqerakit/templates"
             ]
             },
         "pipeline-actions/overview"

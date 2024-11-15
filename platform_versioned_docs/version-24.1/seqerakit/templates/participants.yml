@@ -1,4 +1,4 @@
-## To see the full list of options available run: "tw participants add"
+## To see the full list of options available, run: "tw participants add -h"
 participants:
   - name: 'my_team'                           # required
     type: 'TEAM'                              # required

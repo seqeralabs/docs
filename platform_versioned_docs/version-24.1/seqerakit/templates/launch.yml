@@ -1,7 +1,7 @@
-## To see the full list of options available run: "tw launch"
+## To see the full list of options available, run: "tw launch -h"
 ## The options will vary if you are launching a pipeline:
-##   1. Pre-configured in the Seqera Platform Launchpad where most options have already been specified
-##   2. From source via a remote Git URL where you will need to explicitly specify all launch options
+##   1. Pre-configured in the Seqera Launchpad with most options already specified
+##   2. From source via a remote Git repository URL where you must explicitly specify all launch options
 ## Note: overwrite is not supported for "tw launch"
 
 launch:

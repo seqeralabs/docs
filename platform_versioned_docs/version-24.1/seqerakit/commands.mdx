@@ -27,7 +27,7 @@ seqerakit --help
     $ cat file.yaml | seqerakit -
     ```
 
-See [Defining your YAML file using CLI options](#defining-your-yaml-file-using-cli-options) for guidance on formatting your input YAML files.
+See [Define your YAML file using CLI options](#define-your-yaml-file-using-cli-options) for guidance on formatting your input YAML files.
 
 ### Dryrun
 
@@ -85,9 +85,9 @@ seqerakit file.yml --delete
 
 For example, if you have a `file.yml` that defines an organization, workspace, team, credentials, and compute environment that have already been created, run `seqerakit file.yml --delete` to recursively delete the same resources.
 
-### Using `tw`-specific CLI options
+### Use `tw`-specific CLI options
 
-`tw`-specific CLI options can be specified with the `--cli=` flag:
+Specify `tw`-specific CLI options with the `--cli=` flag:
 
 ```bash
 seqerakit file.yaml --cli="--arg1 --arg2"
@@ -101,11 +101,9 @@ The `--verbose` option for `tw` CLI is currently not supported by `seqerakit`.
 
 #### Example: HTTP-only connections
 
-The Platform CLI expects to connect to a Seqera Platform instance that is secured by a TLS certificate. If your Platform Enterprise instance does not present a certificate, you will need to qualify and run your `tw` commands with the `--insecure` flag.
+The Platform CLI expects to connect to a Seqera instance that is secured by a TLS certificate. If your Seqera Enterprise instance does not present a certificate, you must run your `tw` commands with the `--insecure` flag.
 
-To use `tw` specific CLI options such as `--insecure`, use the `--cli=` flag, followed by the options you would like to use enclosed in double quotes.
-
-For example:
+To use `tw`-specific CLI options such as `--insecure`, use the `--cli=` flag, followed by the options to use enclosed in double quotes:
 
 ```bash
 seqerakit file.yaml --cli="--insecure"

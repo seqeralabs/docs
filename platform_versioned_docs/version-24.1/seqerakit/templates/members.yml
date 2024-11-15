@@ -1,5 +1,5 @@
-## To see the full list of options available run: "tw members add"
-participants:
+## To see the full list of options available, run: "tw members add -h"
+members:
   - user: 'bob@myorg.io'                           # required
     organization: 'myorg'                          # required
     overwrite: True                                # optional

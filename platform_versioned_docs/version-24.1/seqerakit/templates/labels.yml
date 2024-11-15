@@ -1,4 +1,4 @@
-## To see the full list of options available run: "tw labels add"
+## To see the full list of options available, run: "tw labels add -h"
 labels:
   - name: 'label_name'                          # required
     value: 'label_value'                        # required

@@ -1,4 +1,4 @@
-## To see the full list of options available run: "tw datasets add"
+## To see the full list of options available, run: "tw datasets add -h"
 datasets:
   - name: 'my_dataset'                        # required
     description: 'My test dataset'            # optional

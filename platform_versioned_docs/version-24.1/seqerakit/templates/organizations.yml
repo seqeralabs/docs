@@ -1,4 +1,4 @@
-## To see the full list of options available run: "tw organizations add"
+## To see the full list of options available, run: "tw organizations add -h"
 organizations:
   - name: 'my_organization'               # required
     full-name: 'my_organization'          # required
