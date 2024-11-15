@@ -30,7 +30,7 @@ If you secure related infrastructure (such as private Git repositories) with cer
 1. Retrieve the private certificate on your Seqera container host:
 
 ```
-keytool -printcert -rfc -sslserver TARGET_HOSTNAME:443  >  /PRIVATE_CERT.pem
+keytool -printcert -rfc -sslserver TARGET_HOSTNAME:443  >  $HOME/PRIVATE_CERT.pem
 ```
 
 2. Modify the `backend` and `cron` container configuration blocks in `docker-compose.yml`:
@@ -41,13 +41,11 @@ CONTAINER_NAME:
 
   # Add a new mount for the downloaded certificate
   volumes:
-    - type: bind
-      source: /PRIVATE_CERT.pem
-      target: /etc/pki/ca-trust/source/anchors/PRIVATE_CERT.pem
+      - $HOME/tower.yml:/tower.yml
+      - $HOME/PRIVATE_CERT.pem:/etc/pki/ca-trust/source/anchors/PRIVATE_CERT.pem
 
   # Add a new keytool import line PRIOR to 'update-ca-trust' for the certificate
-  command: >
-    sh -c "keytool -import -trustcacerts -storepass changeit -noprompt -alias TARGET_ALIAS -file /etc/pki/ca-trust/source/anchor/TARGET_HOSTNAME.pem &&
+  command: -c "keytool -import -trustcacerts -storepass changeit -noprompt -alias TARGET_ALIAS -file /etc/pki/ca-trust/source/anchors/PRIVATE_CERT.pem &&
           update-ca-trust &&
           /wait-for-it.sh db:3306 -t 60 &&
           /tower.sh"
