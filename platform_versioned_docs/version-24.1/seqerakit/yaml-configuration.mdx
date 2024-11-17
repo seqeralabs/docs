@@ -68,13 +68,13 @@ To determine the options to provide as definitions in your YAML file, run the Pl
 
 See [Templates](./templates.mdx) for YAML file templates for each of the entities that can be created in Seqera.
 
-## YAML Configuration Options
+### YAML Configuration Options
 
-There are several options that can be provided in your YAML configuration file, that are handled specially by seqerakit and/or are not exposed as `tw` CLI options.
+Some options handled specially by seqerakit or not exposed as `tw` CLI options can be provided in your YAML configuration file.
 
-### 1. Pipeline parameters using `params` and `params-file`
+#### Pipeline parameters using `params` and `params-file`
 
-To specify pipeline parameters, you may either use `params:` to specify a list of parameters, or use `params-file:` to point to a parameters file.
+To specify pipeline parameters, use `params:` to specify a list of parameters or `params-file:` to point to a parameters file.
 
 For example, to specify pipeline parameters within your YAML:
 
@@ -84,13 +84,13 @@ params:
   fasta: 's3://path/to/reference.fasta'
 ```
 
-Alternatively, to specify a file containing pipeline parameters:
+To specify a file containing pipeline parameters:
 
 ```yaml
 params-file: '/path/to/my/parameters.yaml'
 ```
 
-Optionally, you may provide both:
+Or provide both:
 
 ```yaml
 params-file: '/path/to/my/parameters.yaml'
@@ -99,13 +99,15 @@ params:
   fasta: 's3://path/to/reference.fasta'
 ```
 
-**Note**: If duplicate parameters are provided, the parameters provided as key-value pairs inside the `params` nested dictionary of the YAML file will take precedence **over** values in the provided `params-file`.
+:::note 
+If duplicate parameters are provided, the parameters provided as key-value pairs inside the `params` nested dictionary of the YAML file will take precedence **over** values in the `params-file`.
+:::
 
-### 2. `overwrite` Functionality
+#### `overwrite`
 
-For every entity defined in your YAML file, you can specify `overwrite: True` to overwrite any existing entities in Seqera Platform of the same name.
+For every entity defined in your YAML file, specify `overwrite: True` to overwrite any existing Seqera entities of the same name.
 
-`seqerakit` will first check to see if the name of the entity exists, if so, it will invoke a `tw <subcommand> delete` command before attempting to create it based on the options defined in the YAML file.
+`seqerakit` will first check to see if the name of the entity exists. If so, it will invoke a `tw <subcommand> delete` command before attempting to create it based on the options defined in the YAML file.
 
 ```console
 DEBUG:root: Overwrite is set to 'True' for organizations
@@ -117,9 +119,9 @@ DEBUG:root: Running command: tw organizations delete --name $SEQERA_ORGANIZATION
 DEBUG:root: Running command: tw organizations add --name $SEQERA_ORGANIZATION_NAME --full-name $SEQERA_ORGANIZATION_NAME --description 'Example of an organization'
 ```
 
-### 3. Specifying JSON configuration files with `file-path`
+#### Specify JSON configuration files with `file-path`
 
-The Seqera Platform CLI allows export and import of entities through JSON configuration files for pipelines and compute environments. To use these files to add a pipeline or compute environment to a workspace, use the `file-path` key to specify a path to a JSON configuration file.
+The Platform CLI allows the export and import of entities through JSON configuration files for pipelines and compute environments. To use these files to add a pipeline or compute environment to a workspace, use the `file-path` key to specify a path to a JSON configuration file.
 
 An example of the `file-path` option is provided in the [compute-envs.yml](./templates/compute-envs.yml) template:
 
