@@ -20,6 +20,7 @@ import Labels from '!!raw-loader!./templates/labels.yml';
 import Launch from '!!raw-loader!./templates/launch.yml';
 import Secrets from '!!raw-loader!./templates/secrets.yml';
 import Actions from '!!raw-loader!./templates/actions.yml';
+import EndToEnd from '!!raw-loader!./templates/seqerakit-e2e.yml';
 
 Customize YAML configuration templates to use in seqerakit commands to create, update, or delete Seqera resources. Create or delete multiple resources with a single seqerakit command by combining them into a single configuration file.
 
@@ -39,6 +40,28 @@ To use the templates on this page:
 :::info 
 See [Specify targets](./commands.mdx#specify-targets) to create or delete only selected resources from configuration templates that contain multiple resource entries. 
 ::: 
+
+### End-to-end example
+
+A template to create the follwing resources:
+
+- An organization
+- A workspace 
+- A team
+- Participants
+- Credentials
+- Secrets 
+- Compute environments
+- Datasets 
+- Pipelines 
+
+The templates also contains `launch` entries to launch saved pipelines. 
+
+<CodeBlock language="yaml">
+{EndToEnd}
+</CodeBlock>
+
+[Download seqerakit-e2e.yml](./templates/seqerakit-e2e.yml)
 
 ### Administration
 

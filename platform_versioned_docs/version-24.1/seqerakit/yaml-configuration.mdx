@@ -9,7 +9,7 @@ To determine the options to provide as definitions in your YAML file, run the Pl
 
 1. Retrieve CLI options:
 
-    Obtain a list of available CLI options for defining your YAML file with the Platform CLI help command. For example, to add a pipeline to your workspace, view the options as follows:
+    Obtain a list of available CLI options for defining your YAML file with the Platform CLI help command. For example, to add a pipeline to your workspace, view the options for adding a pipeline:
 
     ```console
     $ tw pipelines add -h
@@ -64,27 +64,9 @@ To determine the options to provide as definitions in your YAML file, run the Pl
 - To list multiple values (such as multiple `labels`, `instance-types`, or `allow-buckets`), separate values with commas. This is shown with `labels` in the preceding example.
 - For complex configurations, see [Templates](./templates.mdx).
 
-## Templates
+### Templates
 
 See [Templates](./templates.mdx) for YAML file templates for each of the entities that can be created in Seqera.
-
-## Real world example
-
-Please see [`seqerakit-e2e.yml`](./examples/yaml/seqerakit-e2e.yml) for an end-to-end example that highlights how you can use `seqerakit` to create everything sequentially in Seqera Platform all the way from creating a new Organization to launching a pipeline.
-
-You can modify this YAML to similarly create Seqera Platform resources end-to-end for your setup. This YAML encodes environment variables to protect sensitive keys, usernames, and passwords that are required to create or add certain resources (i.e. credentials, compute environments). Prior to running it with `seqerakit examples/yaml/seqerakit-e2e.yml`, you will have to set the following environment variables:
-
-```console
-$TOWER_GITHUB_PASSWORD
-$DOCKERHUB_PASSWORD
-$AWS_ACCESS_KEY_ID
-$AWS_SECRET_ACCESS_KEY
-$AWS_ASSUME_ROLE_ARN
-$AZURE_BATCH_KEY
-$AZURE_STORAGE_KEY
-$GOOGLE_KEY
-$SENTIEON_LICENSE_BASE64
-```
 
 ## YAML Configuration Options
 
