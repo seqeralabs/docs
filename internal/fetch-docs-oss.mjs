@@ -22,7 +22,7 @@ const repositories = [
 
 // Function to clone or update a repository
 async function cloneOrUpdateRepo({ name, url, path: repoPath }) {
-  const exists = await fs.pathExists(repoPath);
+  const exists = await fs.pathExists(repoPath + "/.git");
   
   if (exists) {
     console.log(`${name}: Cloned repo already exists, will pull latest changes`);
