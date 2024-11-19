@@ -32,5 +32,6 @@ internal/tmp
 # Local Netlify folder
 .netlify
 
-# MultiQC repo clone
+# OSS repo clones
 multiqc_docs/multiqc_repo
+wave_docs/wave_repo
