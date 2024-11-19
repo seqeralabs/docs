@@ -35,6 +35,10 @@ export default async function createConfigAsync() {
     // .md files should be MD and not MDX
     markdown: {format: 'detect'},
 
+    future: {
+      experimental_faster: true,
+    },
+
     presets: [
       [
         "classic",
