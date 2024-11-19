@@ -1,6 +1,6 @@
 ---
 title: Seqera Enterprise v23.4_major
-date: 2024-04-21
+date: 2024-02-08
 tags: [seqera enterprise]
 ---
 
@@ -66,6 +66,10 @@ A previous iteration of the rebranded Seqera documentation noted `seqera` as the
 **ARM64 CPU architecture support enabled by default**
 
 The **Use Graviton CPU architecture** option is now available by default during AWS Batch compute environment creation. The `TOWER_ENABLE_ARM64` configuration environment variable is no longer needed to enable ARM64 CPU architecture support. 
+
+**Data Explorer default set to `false`**
+
+In previous versions, Data Explorer was enabled by default using `TOWER_DATA_EXPLORER_ENABLED=true`. From version 2.4.3, the default is `TOWER_DATA_EXPLORER_ENABLED=false`. If you have upgraded from a previous version and no longer have access to Data Explorer, please check and update your environment variables accordingly.
 
 ## Upgrade steps
 
