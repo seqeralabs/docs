@@ -55,7 +55,7 @@ When a cloud storage location is provided as the pipeline work directory in a cl
 
 **Login redirection logic update**
 
-Login redirection logic has changed in version 23.4. Seqera now prepends the [`TOWER_SERVER_URL`](../platform_versioned_docs/version-23.4/configuration/overview.mdx#basic-configuration) (or `tower.serverUrl` in `tower.yml` configuration) to the authentication redirect URL during the login flow. This is useful when your server URL contains a contextual path.
+Login redirection logic has changed in version 23.4. Seqera now prepends the [`TOWER_SERVER_URL`](https://docs.seqera.io/platform/23.4/configuration/overview.mdx#basic-configuration) (or `tower.serverUrl` in `tower.yml` configuration) to the authentication redirect URL during the login flow. This is useful when your server URL contains a contextual path.
 
 If you specify a DNS name as your `TOWER_SERVER_URL`, but access your Seqera instance using a different address (such as using an IP address that resolves to the server URL asynchronously), user login will not resolve.
 
@@ -108,7 +108,7 @@ If you must host your nf-launcher container image on a private image registry, c
     `TOWER_LAUNCH_CONTAINER=<FULL_PATH_TO_YOUR_PRIVATE_IMAGE>`
 
 :::caution
-If you're using AWS Batch, you will need to [configure a custom job definition](../advanced-topics/custom-launch-container.mdx) and populate the `TOWER_LAUNCH_CONTAINER` with the job definition name instead.
+If you're using AWS Batch, you will need to [configure a custom job definition](https://docs.seqera.io/platform/23.4/advanced-topics/custom-launch-container.mdx) and populate the `TOWER_LAUNCH_CONTAINER` with the job definition name instead.
 :::
 
 [gcp-vm-instance-template]: https://cloud.google.com/compute/docs/instance-templates
