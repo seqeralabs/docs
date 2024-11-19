@@ -30,6 +30,18 @@ Currently, Data Studios only supports AWS Batch compute environments that **do n
 
 Data Studios provides four container image templates: JupyterLab, RStudio Server, Visual Studio Code, and Xpra. The image templates install a very limited number of packages when the session container is built. You can install additional packages as needed during a session.
 
+The image template names include the version of the included analysis application and the Seqera image template version itself. The Seqera version string is of the following format:
+
+```ignore title="Image template version"
+<tool_version>-<seqera_version>-[u-<update_version>]
+```
+
+The following version strings apply:
+
+- `<tool_version>`: Analysis application version, such as `4.2.5` for JupyterLab
+- `<seqera_version>`: Seqera template image version, such as `0.7.0`
+- `<update_version`: Seqera template image update version for instances where a breaking change is introduced
+
 You can also create your own container image templates. For more information, see [Custom environments][custom-envs].
 
 **JupyterLab 4.2.5**
