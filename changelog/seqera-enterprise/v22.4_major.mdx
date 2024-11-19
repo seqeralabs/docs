@@ -8,7 +8,7 @@ tags: [seqera enterprise]
 
 ### Resource Labels
 
-In Nextflow Tower 22.3, Seqera Labs introduced [resource labels](../../resource-labels/overview.mdx) — a flexible tagging system for the cloud services consumed by a run. Workspace administrators can now customize the resource labels associated with pipelines, actions, and runs. This improves the feature’s flexibility as resource labels are no longer inherited only from the compute environment.
+In Nextflow Tower 22.3, Seqera Labs introduced [resource labels](../platform_versioned_docs/version-22.4/resource-labels/overview.mdx) — a flexible tagging system for the cloud services consumed by a run. Workspace administrators can now customize the resource labels associated with pipelines, actions, and runs. This improves the feature’s flexibility as resource labels are no longer inherited only from the compute environment.
 
 In Tower Enterprise 22.4, an administrator can now:
 
@@ -61,7 +61,7 @@ The only requirement is that the new compute environment has access to the origi
 
 ### Warnings
 
-1. The default `nf-launcher` image includes a `curl` command which will fail if your Tower is secured with a private TLS certificate. To mitigate this problem, please see [these instructions](../configuration/ssl_tls.mdx).
+1. The default `nf-launcher` image includes a `curl` command which will fail if your Tower is secured with a private TLS certificate. To mitigate this problem, please see [these instructions](../platform_versioned_docs/version-22.4/configuration/ssl_tls.mdx).
 2. This version requires all database connections to use the following configuration value: `TOWER_DB_DRIVER=org.mariadb.jdbc.Driver`. Please update your configuration if you are upgrading. All other database configuration values should remain unchanged.
 3.  This version expects the use of HTTPS by default for all browser client connections. If your Tower installation requires the use of unsecured HTTP, set the following environment variable in the infrastructure hosting the Tower application: `TOWER_ENABLE_UNSAFE_MODE=true`.
 4.  If you're upgrading from a version of Tower prior to `21.04.x`, please update your implementation to `21.04.x` before installing this release.
@@ -98,7 +98,7 @@ If you must host your nf-launcher container image on a private image registry, c
     `TOWER_LAUNCH_CONTAINER=<FULL_PATH_TO_YOUR_PRIVATE_IMAGE>`
 
 !!! warning
-    If you're using AWS Batch, you will need to [configure a custom job definition](../advanced-topics/custom-launch-container.mdx) and populate the `TOWER_LAUNCH_CONTAINER` with the job definition name instead.
+    If you're using AWS Batch, you will need to [configure a custom job definition](../platform_versioned_docs/version-22.4/advanced-topics/custom-launch-container.mdx) and populate the `TOWER_LAUNCH_CONTAINER` with the job definition name instead.
 
 ## Sharing feedback
 
