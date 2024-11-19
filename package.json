@@ -20,7 +20,7 @@
     "fetch-docs": "node internal/fetch-docs.mjs",
     "fetch-docs-oss": "node internal/fetch-docs-oss.mjs",
     "sanitize-existing": "node internal/sanitize-existing.mjs",
-    "markdownlint": "markdownlint-cli2 'platform_versioned_docs/**/*.mdx' 'wave_docs/**/*.mdx' 'fusion_docs/**/*.mdx' --config .markdownlint-cli2.cjs",
+    "markdownlint": "markdownlint-cli2 'platform_versioned_docs/**/*.mdx' 'wave_docs/**/*.mdx' 'fusion_docs/**/*.mdx' --config .markdownlint-cli2.cjs"
   },
   "dependencies": {
     "@docusaurus/core": "^3.6.0",
