@@ -160,6 +160,11 @@ Extensive benchmarking of Fusion v2 has demonstrated that the increased cost ass
     :::
 
 19. Select **Enable GPUs** if you intend to run GPU-dependent workflows in the compute environment. See [GPU usage](./overview.mdx#aws-batch) for more information.
+
+    :::note 
+    Seqera only supports NVIDIA GPUs. Select instances with NVIDIA GPUs for your GPU-dependent processes. 
+    :::
+    
 20. Select **Use Graviton CPU architecture** to execute on Graviton-based EC2 instances (i.e., ARM64 CPU architecture). When enabled, `m6g`, `r6g`, and `c6g` instance types are used by default for compute jobs, but 3rd-generation Graviton [instances](https://www.amazonaws.cn/en/ec2/graviton/) are also supported. You can specify your own **Instance types** under [**Advanced options**](#advanced-options).
 
     :::note
