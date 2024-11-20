@@ -55,7 +55,7 @@ When a cloud storage location is provided as the pipeline work directory in a cl
 
 **Login redirection logic update**
 
-Login redirection logic has changed in version 23.4. Seqera now prepends the [`TOWER_SERVER_URL`](https://docs.seqera.io/platform/23.4/configuration/overview.mdx#basic-configuration) (or `tower.serverUrl` in `tower.yml` configuration) to the authentication redirect URL during the login flow. This is useful when your server URL contains a contextual path.
+Login redirection logic has changed in version 23.4. Seqera now prepends the [`TOWER_SERVER_URL`](https://docs.seqera.io/platform/23.4/enterprise/configuration/overview) (or `tower.serverUrl` in `tower.yml` configuration) to the authentication redirect URL during the login flow. This is useful when your server URL contains a contextual path.
 
 If you specify a DNS name as your `TOWER_SERVER_URL`, but access your Seqera instance using a different address (such as using an IP address that resolves to the server URL asynchronously), user login will not resolve.
 
@@ -83,8 +83,8 @@ To upgrade your database schema:
 
 1. Make a backup of the Seqera Platform database. If you use the pipeline optimization service and your `groundswell` database resides in a database instance separate from your Seqera database, make a backup of your `groundswell` database as well.
 2. Download the 23.4 versions of your deployment templates and update your Seqera container versions:
-    - [docker-compose.yml](../_templates/docker/docker-compose.yml) for Docker Compose deployments
-    - [tower-cron.yml](../_templates/k8s/tower-cron.yml) and [tower-svc.yml](../_templates/k8s/tower-svc.yml) for Kubernetes deployments
+    - [docker-compose.yml](https://docs.seqera.io/assets/files/docker-compose-d00e0de8ffaf5450e7181a8f097da3f9.yml) for Docker Compose deployments
+    - [tower-cron.yml](https://docs.seqera.io/assets/files/tower-cron-a67d359af51fc5f00f0ae35e630aa27f.yml) and [tower-svc.yml](https://docs.seqera.io/assets/files/tower-svc-69dd889ab195b2eef349f2e14a97af99.yml) for Kubernetes deployments
 3. Restart the application.
 4. If you're using a containerized database as part of your implementation:
     1. Stop the application.
@@ -108,7 +108,7 @@ If you must host your nf-launcher container image on a private image registry, c
     `TOWER_LAUNCH_CONTAINER=<FULL_PATH_TO_YOUR_PRIVATE_IMAGE>`
 
 :::caution
-If you're using AWS Batch, you will need to [configure a custom job definition](https://docs.seqera.io/platform/23.4/advanced-topics/custom-launch-container.mdx) and populate the `TOWER_LAUNCH_CONTAINER` with the job definition name instead.
+If you're using AWS Batch, you will need to [configure a custom job definition](https://docs.seqera.io/platform/23.4/enterprise/advanced-topics/custom-launch-container) and populate the `TOWER_LAUNCH_CONTAINER` with the job definition name instead.
 :::
 
 [gcp-vm-instance-template]: https://cloud.google.com/compute/docs/instance-templates

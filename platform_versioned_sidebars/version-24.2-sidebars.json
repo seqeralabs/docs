@@ -222,17 +222,9 @@
     },
     {
       "type": "category",
-      "label": "Releases",
+      "label": "Changelogs",
       "collapsed": true,
       "items": [
-        {
-          "type": "category",
-          "label": "Enterprise release notes",
-          "collapsed": true,
-          "items": [
-           "enterprise/release_notes/enterprise_latest"
-          ]
-        },
         {
           "type": "link",
           "label": "Enterprise changelog",

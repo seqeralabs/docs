@@ -50,11 +50,11 @@ Several new Tower features over the last few releases require updated AWS IAM pe
 
 ### Wave requires container registry credentials
 
-The Wave containers service uses container registry [credentials](https://docs.seqera.io/platform/23.1/credentials/overview.mdx) in Tower to authenticate to your (public or private) container registries. This is separate from your existing cloud provider credentials stored in Tower.
+The Wave containers service uses container registry [credentials](https://docs.seqera.io/platform/23.1/credentials/overview) in Tower to authenticate to your (public or private) container registries. This is separate from your existing cloud provider credentials stored in Tower.
 
-This means that, for example, AWS ECR (Elastic Container Registry) authentication requires an [ECR container registry credential](https://docs.seqera.io/platform/23.1/credentials/aws_registry_credentials.mdx) if you are running a compute environment with Wave enabled, even if your existing AWS credential in Tower has IAM access to your ECR.
+This means that, for example, AWS ECR (Elastic Container Registry) authentication requires an [ECR container registry credential](https://docs.seqera.io/platform/23.1/credentials/aws_registry_credentials) if you are running a compute environment with Wave enabled, even if your existing AWS credential in Tower has IAM access to your ECR.
 
-See the relevant [container registry credentials](https://docs.seqera.io/platform/23.1/credentials/overview.mdx) page for provider-specific instructions.
+See the relevant [container registry credentials](https://docs.seqera.io/platform/23.1/credentials/overview) page for provider-specific instructions.
 
 ## Upgrade steps
 
@@ -88,7 +88,7 @@ If you must host your nf-launcher container image on a private image registry, c
     `TOWER_LAUNCH_CONTAINER=<FULL_PATH_TO_YOUR_PRIVATE_IMAGE>`
 
 !!! warning ""
-    If you're using AWS Batch, you will need to [configure a custom job definition](https://docs.seqera.io/platform/23.1/advanced-topics/custom-launch-container.mdx) and populate the `TOWER_LAUNCH_CONTAINER` with the job definition name instead.
+    If you're using AWS Batch, you will need to [configure a custom job definition](https://docs.seqera.io/platform/23.1/advanced-topics/custom-launch-container) and populate the `TOWER_LAUNCH_CONTAINER` with the job definition name instead.
 
 ## Sharing feedback
 

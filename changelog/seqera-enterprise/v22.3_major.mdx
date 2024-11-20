@@ -4,11 +4,15 @@ date: 2022-11-01
 tags: [seqera enterprise]
 ---
 
+:::note
+The documentation for v22.3 is no longer supported. These release notes are for reference only. 
+:::
+
 ## New features
 
 ### Resource labels
 
-Tower now supports applying [resource labels](https://docs.seqera.io/platform/22.3/resource-labels/overview.mdx) to compute environments and other Tower elements. This offers a flexible tagging system for annotation and tracking of the cloud services consumed by a run.
+Tower now supports applying [resource labels](https://docs.seqera.io/platform/22.3/resource-labels/overview) to compute environments and other Tower elements. This offers a flexible tagging system for annotation and tracking of the cloud services consumed by a run.
 
 Resource labels are sent to the service provider for each cloud compute environment in `key=value` format. They can be created, edited, and applied by a workspace admin or owner.
 
@@ -20,13 +24,13 @@ version-24.2/monitoring/dashboard.mdx
 
 ### Dashboard
 
-Tower 22.3 introduces a [dashboard](https://docs.seqera.io/platform/22.3/monitoring/dashboard.mdx) interface to view total runs and run status, filtered by organization or user workspace. This facilitates overall run status monitoring and early detection of execution issues.
+Tower 22.3 introduces a [dashboard](https://docs.seqera.io/platform/22.3/monitoring/dashboard) interface to view total runs and run status, filtered by organization or user workspace. This facilitates overall run status monitoring and early detection of execution issues.
 
 Select **Dashboard** from the user menu in the Tower web UI.
 
 ### Google Batch support
 
-Tower now supports [Google Cloud Batch](https://docs.seqera.io/platform/22.3/compute-envs/google-cloud-batch.mdx) compute environments. Google Cloud Batch is a comprehensive cloud service suitable for multiple use cases, including HPC, AI/ML, and data processing. Tower now provides an integration with your existing Google Cloud account via the Batch API. While it is similar to the Google Cloud Life Sciences API, Google Cloud Batch offers a broader set of capabilities.
+Tower now supports [Google Cloud Batch](https://docs.seqera.io/platform/22.3/compute-envs/google-cloud-batch) compute environments. Google Cloud Batch is a comprehensive cloud service suitable for multiple use cases, including HPC, AI/ML, and data processing. Tower now provides an integration with your existing Google Cloud account via the Batch API. While it is similar to the Google Cloud Life Sciences API, Google Cloud Batch offers a broader set of capabilities.
 
 Google Cloud Batch automatically provisions resources, manages capacity, and allows batch workloads to run at scale. The API has built-in support for data ingestion from Google Cloud Storage buckets. This makes data ingestion and sharing datasets efficient and reliable.
 
@@ -49,7 +53,7 @@ This feature is currently only available on Tower Cloud (tower.nf). For more inf
 
 Tower now supports the Nextflow [Wave](https://www.nextflow.io/docs/latest/wave.html) container provisioning and augmentation service. When a pipeline is run in Nextflow using Wave, the Wave service uses a Dockerfile stored in the process directory to build a container in the target registry. When the container to be used for process execution is returned, the Wave service can add functional layers and data on-the-fly before it is returned to Nextflow for actual process execution.
 
-Wave also enables the use of private container registries in Nextflow — [registry credentials](https://docs.seqera.io/platform/22.3/credentials/overview.mdx) stored in Tower are used to authenticate to private container registries with the Wave service.
+Wave also enables the use of private container registries in Nextflow — [registry credentials](https://docs.seqera.io/platform/22.3/credentials/overview) stored in Tower are used to authenticate to private container registries with the Wave service.
 
 The [Wave container provisioning service](https://seqera.io/wave/) is available free of charge as a technology preview to all Nextflow and Tower users. During the preview period, anonymous users can build up to 10 container images per day and pull 100 containers per hour. Tower authenticated users can build 100 container images per hour and pull 1000 containers per minute. After the preview period, we plan to make the Wave service available free of charge to academic users and open-source software (OSS) projects.
 
@@ -137,7 +141,7 @@ If you must host your nf-launcher container image on a private image registry, c
     `TOWER_LAUNCH_CONTAINER=<FULL_PATH_TO_YOUR_PRIVATE_IMAGE>`
 
 !!! warning
-If you're using AWS Batch, you will need to [configure a custom job-definition](https://docs.seqera.io/platform/22.3/advanced-topics/custom-launch-container.mdx) and populate the `TOWER_LAUNCH_CONTAINER` with the job-definition name instead.
+If you're using AWS Batch, you will need to [configure a custom job-definition](https://docs.seqera.io/platform/22.3/advanced-topics/custom-launch-container) and populate the `TOWER_LAUNCH_CONTAINER` with the job-definition name instead.
 
 ## New compute environments
 
