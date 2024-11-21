@@ -70,7 +70,7 @@ See [Templates](./templates.mdx) for YAML file templates for each of the entitie
 
 ### YAML Configuration Options
 
-Some options handled specially by seqerakit or not exposed as `tw` CLI options can be provided in your YAML configuration file.
+Some options handled specially by `seqerakit` or not exposed as `tw` CLI options can be provided in your YAML configuration file.
 
 #### Pipeline parameters using `params` and `params-file`
 
@@ -107,7 +107,7 @@ If duplicate parameters are provided, the parameters provided as key-value pairs
 
 For every entity defined in your YAML file, specify `overwrite: True` to overwrite any existing Seqera entities of the same name.
 
-`seqerakit` will first check to see if the name of the entity exists. If so, it will invoke a `tw <subcommand> delete` command before attempting to create it based on the options defined in the YAML file.
+Seqerakit will first check to see if the name of the entity exists. If so, it will invoke a `tw <subcommand> delete` command before attempting to create it based on the options defined in the YAML file.
 
 ```console
 DEBUG:root: Overwrite is set to 'True' for organizations

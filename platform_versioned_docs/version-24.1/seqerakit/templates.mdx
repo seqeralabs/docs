@@ -22,12 +22,12 @@ import Secrets from '!!raw-loader!./templates/secrets.yml';
 import Actions from '!!raw-loader!./templates/actions.yml';
 import EndToEnd from '!!raw-loader!./templates/seqerakit-e2e.yml';
 
-Customize YAML configuration templates to use in seqerakit commands to create, update, or delete Seqera resources. Create or delete multiple resources with a single seqerakit command by combining them into a single configuration file.
+Customize YAML configuration templates to use in `seqerakit` commands to create, update, or delete Seqera resources. Create or delete multiple resources with a single command by combining them into a single configuration file.
 
 To use the templates on this page:
 1. Copy the template text or download the YML files you need. 
 1. Edit the values to specify your resource details, and save as a YML file.
-1. Specify the YML template file in your seqerakit commands: 
+1. Specify the YML template file in your `seqerakit` commands: 
     - To create the resources specified in the file:
     ```console 
     seqerakit /path/to/file.yml

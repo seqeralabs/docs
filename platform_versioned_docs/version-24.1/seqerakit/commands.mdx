@@ -13,7 +13,7 @@ seqerakit --help
 
 ### Input
 
-`seqerakit` supports input through paths to YAML configuration files or directly from standard input (stdin).
+Seqerakit supports input through paths to YAML configuration files or directly from standard input (stdin).
 
 - Using file path:
 
@@ -31,7 +31,7 @@ See [Define your YAML file using CLI options](#define-your-yaml-file-using-cli-o
 
 ### Dryrun
 
-Confirm that your configuration and command are correct before creating resources in your Seqera account, particularly when automating the end-to-end creation of multiple entities at once. To print the commands that would be executed with Platform CLI when using a YAML file, run your seqerakit command with the `--dryrun` flag:
+Confirm that your configuration and command are correct before creating resources in your Seqera account, particularly when automating the end-to-end creation of multiple entities at once. To print the commands that would be executed with Platform CLI when using a YAML file, run your `seqerakit` command with the `--dryrun` flag:
 
 ```bash
 seqerakit file.yaml --dryrun
@@ -96,7 +96,7 @@ seqerakit file.yaml --cli="--arg1 --arg2"
 See [CLI commands](../cli/commands.mdx) or run `tw -h` for the full list of options.
 
 :::note
-The `--verbose` option for `tw` CLI is currently not supported by `seqerakit`.
+The `--verbose` option for `tw` CLI is currently not supported in `seqerakit` commands.
 :::
 
 #### Example: HTTP-only connections
