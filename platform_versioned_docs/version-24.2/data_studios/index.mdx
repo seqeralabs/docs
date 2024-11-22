@@ -30,17 +30,29 @@ Currently, Data Studios only supports AWS Batch compute environments that **do n
 
 Data Studios provides four container image templates: JupyterLab, RStudio Server, Visual Studio Code, and Xpra. The image templates install a very limited number of packages when the session container is built. You can install additional packages as needed during a session.
 
-To see the latest versions of the images, see [public.cr.seqera.io](https://public.cr.seqera.io/). Seqera recommends that you use the latest available version of the container image templates.
-
 The image template names include the version of the analysis application and the Seqera image template version itself. The Seqera version string looks like this:
 
 ```ignore title="Image template version"
-<tool_version>-<seqera_version>-[u-<update_version>]
+<tool_version>-<seqera_version>
 ```
 
 - `<tool_version>`: Analysis application version, such as `4.2.5` for JupyterLab
 - `<seqera_version>`: Seqera template image version, such as `0.7.0`
-- `<update_version`: Seqera template image update version for instances where a breaking change is introduced
+
+Additionally, the Seqera version string looks like this:
+
+```ignore title="Seqera version"
+<major>-<minor>-<patch>-[u-<update_version>]
+```
+
+- `<major>`: Signifies breaking changes in the underlying Seqera container
+- `<minor>`: Signifies non-breaking changes in the underlying Seqera container
+- `<patch>`: Signifies minor non-breaking changes in the underlying Seqera container
+- `<update_version>`: Seqera image template update version for instances where a breaking change is introduced
+
+When pushed to the container registry, an image template is tagged with a `<major>.<minor>` tag. For example, the `data-studio-jupyter` image template with the tag `:4.2.3-0.7.1` is also tagged as `data-studio-jupyter:4.2.3-0.7`. Use of only the `<major>.<minor>` is preferred. Seqera recommends that you use the latest available version of the container image templates.
+
+To see the latest versions of the images, see [public.cr.seqera.io](https://public.cr.seqera.io/).
 
 You can also create your own container image templates. For more information, see [Custom environments][custom-envs].
 
