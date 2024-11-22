@@ -16,10 +16,6 @@ Tower now supports applying [resource labels](https://docs.seqera.io/platform/22
 
 Resource labels are sent to the service provider for each cloud compute environment in `key=value` format. They can be created, edited, and applied by a workspace admin or owner.
 
-/Users/justine.geffen/docs/changelog/seqera-cloud/v24.1.0_cycle17.mdx
-/Users/justine.geffen/docs/platform_versioned_docs/version-24.2/monitoring/dashboard.mdx
-version-24.2/monitoring/dashboard.mdx
-
 **Note**: Resource labels modified on your cloud provider platform do not update in Tower automatically.
 
 ### Dashboard
@@ -71,34 +67,34 @@ This feature is currently only available on Tower Cloud (tower.nf). For more inf
 
 ### Other enhancements
 
-- Owners have full permissions for all workspaces in their organization
-- Navigation restyling
-- Launch/relaunch form allows head node resource customization
-- Runs page supports task name search in Tasks table
-- Expand boot EBS volume size
-- Label and resource label APIs are now exposed
-- The amount of usable datasets (and dataset versions) per organization has been raised to 100 records by default
-- Customize head node resources from the launch/relaunch form
-  - As a user (with maintainer permissions) it is now possible to launch a pipeline in a Tower cloud environment, specifying the head node resources (memory and CPU) from the launch form. This allows you to properly dimension resources and avoid pipeline crashes. This feature is available for AWS, Google Life Sciences, and Kubernetes Compute Environments
-- The **Revision** field in the launch form has been extended to allow a maximum length of 100 characters
-- Improve SSH connector resilience + UGE qstat
+- Owners have full permissions for all workspaces in their organization.
+- Navigation restyling.
+- Launch/relaunch form allows head node resource customization.
+- Runs page supports task name search in Tasks table.
+- Expand boot EBS volume size.
+- Label and resource label APIs are now exposed.
+- The amount of usable datasets (and dataset versions) per organization has been raised to 100 records by default.
+- Customize head node resources from the launch/relaunch form.
+  - As a user (with maintainer permissions) it is now possible to launch a pipeline in a Tower cloud environment, specifying the head node resources (memory and CPU) from the launch form. This allows you to properly dimension resources and avoid pipeline crashes. This feature is available for AWS, Google Life Sciences, and Kubernetes Compute Environments.
+- The **Revision** field in the launch form has been extended to allow a maximum length of 100 characters.
+- Improve SSH connector resilience + UGE qstat.
 
 ## Fixes
 
-- `BitBucketServer` Git provider
-- Container registry name
-- Missing file existence check for Google Life Sciences
-- Resume functionality on Google Life Sciences
-- Improved error traceability when an exception occurs in the prerun script block
-- Fixed a bug that prevented a run to be resumed for users with launch permissions
-- Saving status for a job fails when a DB exception occurs
-- Escape qstat command for Altair PBS batch scheduler
+- `BitBucketServer` Git provider.
+- Container registry name.
+- Missing file existence check for Google Life Sciences.
+- Resume functionality on Google Life Sciences.
+- Improved error traceability when an exception occurs in the prerun script block.
+- Fixed a bug that prevented a run to be resumed for users with launch permissions.
+- Saving status for a job fails when a DB exception occurs.
+- Escape qstat command for Altair PBS batch scheduler.
 
 ## Breaking changes and warnings
 
 ### Breaking changes
 
-- In previous versions, some assets required by Batch Forge were downloaded from S3 bucket named `nf-xpack.s3.eu-west-1.amazonaws.com`. As of version 22.3.x, those assets are now downloaded from `[https://nf-xpack.seqera.io](https://nf-xpack.seqera.io/)`. Make sure your network policy allows access to the seqera.io domain.
+- In previous versions, some assets required by Batch Forge were downloaded from S3 bucket named `nf-xpack.s3.eu-west-1.amazonaws.com`. As of version 22.3.x, those assets are now downloaded from `[https://nf-xpack.seqera.io](https://nf-xpack.seqera.io/)`. Make sure your network policy allows access to the `seqera.io` domain.
 
 - Use of the resource labels feature with AWS Batch requires an update of the IAM policy used by the account running Tower. The required changes can be found [here](https://github.com/seqeralabs/nf-tower-aws/commit/65b4659d93c0639ea95cc96369865b328a17bb15).
 
