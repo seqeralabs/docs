@@ -12,37 +12,37 @@ Leveraging the Fusion file system, you can now run the Nextflow head job of your
 
 ### Other improvements
 
-- Add support for Graviton architecture in AWS Batch compute environments
-- Allow Launcher users to create, edit, and upload datasets
-- Harmonize list sorting in Compute environments and Credentials list pages
-- Update Enable GPU label, sublabel and add warning when activated
-- Set workflow status to unknown when job status is also in an unknown state
-- Add support for AWS SES (Simple Email Service) as an alternative to SMTP
+- Add support for Graviton architecture in AWS Batch compute environments.
+- Allow Launcher users to create, edit, and upload datasets.
+- Harmonize list sorting in Compute environments and Credentials list pages.
+- Update Enable GPU label, sublabel and add warning when activated.
+- Set workflow status to unknown when job status is also in an unknown state.
+- Add support for AWS SES (Simple Email Service) as an alternative to SMTP.
 - Add ability to edit the names of Tower entities:
   - Organizations
   - Workspaces
   - Compute environments
   - Pipelines
   - Actions
-- Update runs list page with new status badges and improved layout
-- Add support for mobile screen layout in runs list page
-- Allow advanced settings in the AWS ECS config field
-- Increase the AWS Batch Memory / CPUs ratio to 4GB
+- Update runs list page with new status badges and improved layout.
+- Add support for mobile screen layout in runs list page.
+- Allow advanced settings in the AWS ECS config field.
+- Increase the AWS Batch Memory / CPUs ratio to 4GB.
 
 ## Fixes
 
-- Disable **Resume** option for runs that cannot be resumed
-- Fix task detail modal width
-- Reserved word checks are now case insensitive
-- Fix support for AWS SSE encryption for Nextflow head job
-- Fix race condition causing the "No workflow runs" notice being incorrectly displayed
-- Fix Pipeline form page breaking during tab reload
-- Fix an issue resolving Workspace in the Admin panel when several workspaces exist with the same name in different organizations
-- Fix AWS Batch allocation strategy: `BEST_FIT_PROGRESSIVE` for on-demand CEs and `SPOT_CAPACITY_OPTIMIZED` for spot CEs
-- Fix token creation unique name check is now case-insensitive
-- Fix issue propagating `before:` search keywords from Dashboard to runs page
-- Fix issue with the "copy to clipboard" button using a legacy tooltip implementation
-- Fix incorrect units displayed for `syscr` and `syscw` in task details modal
+- Disable **Resume** option for runs that cannot be resumed.
+- Fix task detail modal width.
+- Reserved word checks are now case insensitive.
+- Fix support for AWS SSE encryption for Nextflow head job.
+- Fix race condition causing the "No workflow runs" notice being incorrectly displayed.
+- Fix Pipeline form page breaking during tab reload.
+- Fix an issue resolving Workspace in the Admin panel when several workspaces exist with the same name in different organizations.
+- Fix AWS Batch allocation strategy: `BEST_FIT_PROGRESSIVE` for on-demand CEs and `SPOT_CAPACITY_OPTIMIZED` for spot CEs.
+- Fix token creation unique name check is now case-insensitive.
+- Fix issue propagating `before:` search keywords from Dashboard to runs page.
+- Fix issue with the "copy to clipboard" button using a legacy tooltip implementation.
+- Fix incorrect units displayed for `syscr` and `syscw` in task details modal.
 
 ## Breaking changes and warnings
 
