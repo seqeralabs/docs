@@ -30,13 +30,13 @@ Currently, Data Studios only supports AWS Batch compute environments that **do n
 
 Data Studios provides four container image templates: JupyterLab, RStudio Server, Visual Studio Code, and Xpra. The image templates install a very limited number of packages when the session container is built. You can install additional packages as needed during a session.
 
+To see the latest versions of the images, see [public.cr.seqera.io](https://public.cr.seqera.io/). Seqera recommends that you use the latest available version of the container image templates.
+
 The image template names include the version of the analysis application and the Seqera image template version itself. The Seqera version string looks like this:
 
 ```ignore title="Image template version"
 <tool_version>-<seqera_version>-[u-<update_version>]
 ```
-
-The following version strings apply:
 
 - `<tool_version>`: Analysis application version, such as `4.2.5` for JupyterLab
 - `<seqera_version>`: Seqera template image version, such as `0.7.0`
@@ -70,19 +70,27 @@ The default user is the `root` account. The following [conda-forge](https://cond
 
 To install additional Python packages, execute `!pip install <packagename>` commands in your notebook environment. Additional system-level packages can be installed in a terminal window using `apt install <packagename>`.
 
+To see the list of all JupyterLab image templates available, see [public.cr.seqera.io/repo/platform/data-studio-jupyter](https://public.cr.seqera.io/repo/platform/data-studio-jupyter).
+
 **RStudio Server 4.4.1**
 
 The default user is the `root` account. To install R packages, execute `install.packages("<packagename>")` commands in your notebook environment. Additional system-level packages can be installed in a terminal window using `apt install <packagename>`.
 
+To see the list of all RStudio Server image templates available, see [public.cr.seqera.io/repo/platform/data-studio-rstudio](https://public.cr.seqera.io/repo/platform/data-studio-rstudio).
+
 **Visual Studio Code 1.93.1**
 
 [Visual Studio Code][vsc] is an integrated development environment (IDE) that supports many programming languages. The default user is the `root` account. To install extensions, select **Extensions**. Additional system-level packages can be installed in a terminal window using `apt install <packagename>`.
+
+To see the list of all Visual Studio Code image templates available, see [public.cr.seqera.io/platform/data-studio-vscode](https://public.cr.seqera.io/repo/platform/data-studio-vscode).
 
 **Xpra 6.2.0**
 
 [Xpra](https://github.com/Xpra-org/xpra), known as _screen for X_, allows you to run X11 programs by giving you remote access to individual graphical applications. The container template image also installs NVIDIA Linux x64 (AMD64/EM64T) drivers for Ubuntu 22.04 for running GPU-enabled applications. To use these GPU drivers, your compute environment must specify GPU instance families.
 
 The default user is the `root` account. The image is based on `ubuntu:jammy`. Additional system-level packages can be installed in a terminal window using `apt install <package_name>`.
+
+To see the list of all Xpra image templates available, see [public.cr.seqera.io/repo/platform/data-studio-xpra](https://public.cr.seqera.io/repo/platform/data-studio-xpra).
 
 ## Session statuses
 
