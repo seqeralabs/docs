@@ -4,21 +4,21 @@
 ##   2. Via a JSON file exported from Seqera with the "tw compute-envs export" command
 compute-envs:
 # To create a compute environment from a JSON configuration file (AWS Example)
-  - name: 'my_aws_compute_environment'                              # required
-    workspace: 'my_organization/my_workspace'                       # required
-    credentials: 'my_aws_credentials'                               # required
+  - name: 'your-aws-compute-environment'                            # required
+    workspace: 'your-organization/workspace-1'                      # required
+    credentials: 'your-aws-credentials'                             # required
     wait: 'AVAILABLE'                                               # optional
-    file-path: './compute-envs/my_aws_compute_environment.json'     # required
+    file-path: './compute-envs/aws_compute_environment.json'        # required
     overwrite: True                                                 # optional
     
 # To create a compute environment with options specified through YAML (AWS Example)
   - type: aws-batch                                                 # required
-    config-mode: forge                                              # required for AWS and Azure
-    name: 'my_aws_compute_environment'                              # required
-    workspace: 'my_organization/my_workspace'                       # required
-    credentials: 'my_aws_credentials'                               # required
+    config-mode: forge                                              # required for AWS and Azure (forge or manual)
+    name: 'your-aws-compute-environment'                            # required
+    workspace: 'your-organization/workspace-1'                      # required
+    credentials: 'your-aws-credentials'                             # required
     region: 'eu-west-1'                                             # required 
-    work-dir: 's3://my-bucket'                                      # required
+    work-dir: 's3://your-bucket'                                    # required
     provisioning-model: 'SPOT'                                      # optional
     fusion-v2: False                                                # optional
     wave: False                                                     # optional
@@ -31,6 +31,6 @@ compute-envs:
     vpc-id: 'vpc-1234567890'                                        # optional            
     subnets: 'subnet-1234567890,subnet-1234567891'                  # optional, comma-separated list
     security-groups: 'sg-1234567890,sg-1234567891'                  # optional, comma-separated list
-    allow-buckets: 's3://my-bucket,s3://my-other-bucket'            # optional, comma-separated list
+    allow-buckets: 's3://your-bucket,s3://your-other-bucket'        # optional, comma-separated list
     wait: 'AVAILABLE'                                               # optional                     
     overwrite: False                                                # optional

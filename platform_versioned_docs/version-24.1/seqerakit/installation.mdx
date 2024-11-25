@@ -59,18 +59,18 @@ Install the development branch of `seqerakit` on your local machine to test the 
 
 1. You must have [Python](https://www.python.org/downloads/) and [Git](https://git-scm.com/downloads) installed on your system.
 1. To install directly from pip:
-    ```bash
+    ```shell-session
     pip install git+https://github.com/seqeralabs/seqera-kit.git@dev
     ```
 1. Alternatively, clone the repository locally and install manually:
-    ```bash
+    ```shell-session
     git clone https://github.com/seqeralabs/seqera-kit.git
     cd seqera-kit
     git checkout dev
     pip install .
     ```
 1. Verify your installation:
-    ```bash
+    ```shell-session
     pip show seqerakit
     ```
 
@@ -80,13 +80,13 @@ Create a [Seqera](https://cloud.seqera.io/) access token via **Your Tokens** in 
 
 Seqerakit reads your access token from the `TOWER_ACCESS_TOKEN` environment variable:
 
-```bash
+```shell-session
 export TOWER_ACCESS_TOKEN=<Your Seqera access token>
 ```
 
 For Enterprise installations, specify the custom API endpoint used to connect to Seqera. Export the API endpoint environment variable:
 
-```bash
+```shell-session
 export TOWER_API_ENDPOINT=<Seqera Enterprise API URL>
 ```
 
@@ -96,7 +96,7 @@ By default, this is set to `https://api.cloud.seqera.io` to connect to Seqera Cl
 
 To confirm the installation of `seqerakit`, configuration of the Platform CLI, and connection to Seqera is working as expected, run this command: 
 
-```bash
+```shell-session
 seqerakit --info
 ```
 
@@ -104,13 +104,13 @@ This runs the `tw info` command under the hood.
 
 Use `--version` or `-v` to retrieve the current version of your `seqerakit` installation:
 
-```bash
+```shell-session
 seqerakit --version
 ```
 
 Use the `--help` or `-h` parameter to list the available commands and their associated options:
 
-```bash
+```shell-session
 seqerakit --help
 ```
 

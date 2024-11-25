@@ -1,5 +1,5 @@
 ## To see the full list of options available, run: "tw members add -h"
 members:
-  - user: 'bob@myorg.io'                           # required
-    organization: 'myorg'                          # required
-    overwrite: True                                # optional
+  - user: 'user@domain.com'                           # required
+    organization: 'your-organization'                 # required
+    overwrite: True                                   # optional

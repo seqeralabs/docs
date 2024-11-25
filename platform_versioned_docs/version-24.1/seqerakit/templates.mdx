@@ -29,11 +29,11 @@ To use the templates on this page:
 1. Edit the values to specify your resource details, and save as a YML file.
 1. Specify the YML template file in your `seqerakit` commands: 
     - To create the resources specified in the file:
-    ```console 
+    ```shell-session 
     seqerakit /path/to/file.yml
     ```
     - To delete the existing resources specified in the file:
-    ```console 
+    ```shell-session 
     seqerakit /path/to/file.yml --delete
     ```
 
@@ -41,27 +41,7 @@ To use the templates on this page:
 See [Specify targets](./commands.mdx#specify-targets) to create or delete only selected resources from configuration templates that contain multiple resource entries. 
 ::: 
 
-### End-to-end example
-
-A template to create the follwing resources:
-
-- An organization
-- A workspace 
-- A team
-- Participants
-- Credentials
-- Secrets 
-- Compute environments
-- Datasets 
-- Pipelines 
-
-The templates also contains `launch` entries to launch saved pipelines. 
-
-<CodeBlock language="yaml">
-{EndToEnd}
-</CodeBlock>
-
-[Download seqerakit-e2e.yml](./templates/seqerakit-e2e.yml)
+See [End-to-end example](#end-to-end-example) for a template that contains examples of all Seqera resources that can be created with Seqerakit. 
 
 ### Administration
 
@@ -196,3 +176,25 @@ Add or delete pipeline actions.
 </CodeBlock>
 
 [Download actions.yml](./templates/actions.yml)
+
+### End-to-end example
+
+A template to create the follwing resources:
+
+- An organization
+- A workspace 
+- A team
+- Participants
+- Credentials
+- Secrets 
+- Compute environments
+- Datasets 
+- Pipelines 
+
+The templates also contains `launch` entries to launch saved pipelines. 
+
+<CodeBlock language="yaml">
+{EndToEnd}
+</CodeBlock>
+
+[Download seqerakit-e2e.yml](./templates/seqerakit-e2e.yml)

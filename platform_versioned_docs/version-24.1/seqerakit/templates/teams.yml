@@ -1,8 +1,8 @@
 ## To see the full list of options available, run: "tw teams add -h"
 teams:
-  - name: 'my_team'                 # required
-    organization: 'my_organization' # required
-    description: 'My test team'     # optional
-    members:                        # optional
-      - 'my_team_member@gmail.com'
-    overwrite: True                 # optional
+  - name: 'your-team'                           # required
+    organization: 'your-organization'           # required
+    description: 'Your team description.'       # optional
+    members:                                    # optional
+      - 'team-member@domain.com'
+    overwrite: True                             # optional

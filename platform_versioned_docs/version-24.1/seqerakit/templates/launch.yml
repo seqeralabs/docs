@@ -5,18 +5,19 @@
 ## Note: overwrite is not supported for "tw launch"
 
 launch:
-  - name: 'my_launchpad_launch'                           # required
-    workspace: 'my_organization/my_workspace'             # required
-    pipeline: 'my_launchpad_pipeline'                     # required
+  - name: 'launchpad-launch'                              # required
+    workspace: 'your-organization/workspace-1'            # required
+    pipeline: 'nf-core-rnaseq'                            # required
     params:                                               # optional
-      outdir: 's3://my_bucket/my_results'
-  - name: 'my_remote_launch'                              # required
-    workspace: 'my_organization/my_workspace'             # required
-    compute-env: 'my_aws_compute_environment'             # required
+      outdir: 's3://your-bucket/results'
+
+  - name: 'remote-launch'                                 # required
+    workspace: 'your-organization/workspace-1'            # required
+    compute-env: 'your-aws-compute-environment'           # required
     pipeline: 'https://github.com/my_username/my_repo'    # required
-    work-dir: 's3://my_bucket'                            # optional
+    work-dir: 's3://your-bucket'                          # optional
     profile: 'test'                                       # optional
     revision: 'main'                                      # optional
-    params-file: './pipelines/my_params.yml'              # optional
-    config: './pipelines/my_nextflow.config'              # optional
-    pre-run: './pipelines/my_pre_run.txt'                 # optional
+    params-file: './pipelines/params.yml'                 # optional
+    config: './pipelines/nextflow.config'                 # optional
+    pre-run: './pipelines/pre-run.txt'                    # optional

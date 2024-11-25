@@ -11,9 +11,11 @@ To determine the options to provide as definitions in your YAML file, run the Pl
 
     Obtain a list of available CLI options for defining your YAML file with the Platform CLI `help` command. For example, to add a pipeline to your workspace, view the options for adding a pipeline:
 
-    ```console
-    $ tw pipelines add -h
+    ```shell-session
+    tw pipelines add -h
+    ```
 
+    ```shell-session
     Usage: tw pipelines add [OPTIONS] PIPELINE_URL
 
     Add a workspace pipeline.
@@ -109,7 +111,7 @@ For every entity defined in your YAML file, specify `overwrite: True` to overwri
 
 Seqerakit will first check to see if the name of the entity exists. If so, it will invoke a `tw <subcommand> delete` command before attempting to create it based on the options defined in the YAML file.
 
-```console
+```shell-session
 DEBUG:root: Overwrite is set to 'True' for organizations
 
 DEBUG:root: Running command: tw -o json organizations list

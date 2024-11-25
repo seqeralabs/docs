@@ -7,7 +7,7 @@ tags: [seqerakit, cli, automation, commands]
 
 Use the `--help` or `-h` parameter to list available commands and options:
 
-```bash
+```shell-session
 seqerakit --help
 ```
 
@@ -17,14 +17,14 @@ Seqerakit supports input through paths to YAML configuration files or directly f
 
 - Using file path:
 
-    ```bash
+    ```shell-session
     seqerakit /path/to/file.yaml
     ```
 
 - Using stdin:
 
-    ```console
-    $ cat file.yaml | seqerakit -
+    ```shell-session
+    cat /path/to/file.yaml | seqerakit -
     ```
 
 See [Define your YAML file using CLI options](#define-your-yaml-file-using-cli-options) for guidance on formatting your input YAML files.
@@ -33,7 +33,7 @@ See [Define your YAML file using CLI options](#define-your-yaml-file-using-cli-o
 
 Confirm that your configuration and command are correct before creating resources in your Seqera account, particularly when automating the end-to-end creation of multiple entities at once. To print the commands that would be executed with Platform CLI when using a YAML file, run your `seqerakit` command with the `--dryrun` flag:
 
-```bash
+```shell-session
 seqerakit file.yaml --dryrun
 ```
 
@@ -63,7 +63,7 @@ pipelines:
 
 You can target the creation of `pipelines` only by running:
 
-```bash
+```shell-session
 seqerakit test.yml --targets pipelines
 ```
 
@@ -71,7 +71,7 @@ This will process only the pipelines block from the YAML file and ignore `worksp
 
 To create both workspaces and pipelines, run:
 
-```bash
+```shell-session
 seqerakit test.yml --targets workspaces,pipelines
 ```
 
@@ -79,7 +79,7 @@ seqerakit test.yml --targets workspaces,pipelines
 
 Instead of adding or creating resources, specify the `--delete` flag to recursively delete resources in your YAML file:
 
-```bash
+```shell-session
 seqerakit file.yml --delete
 ```
 
@@ -89,7 +89,7 @@ For example, if you have a `file.yml` that defines an organization, workspace, t
 
 Specify `tw`-specific CLI options with the `--cli=` flag:
 
-```bash
+```shell-session
 seqerakit file.yaml --cli="--arg1 --arg2"
 ```
 
@@ -105,6 +105,6 @@ The Platform CLI expects to connect to a Seqera instance that is secured by a TL
 
 To use `tw`-specific CLI options such as `--insecure`, use the `--cli=` flag, followed by the options to use enclosed in double quotes:
 
-```bash
+```shell-session
 seqerakit file.yaml --cli="--insecure"
 ```
