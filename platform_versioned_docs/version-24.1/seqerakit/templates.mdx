@@ -7,20 +7,20 @@ toc_max_heading_level: 4
 ---
 
 import CodeBlock from '@theme/CodeBlock';
-import Organizations from '!!raw-loader!./templates/organizations.yml';
-import Members from '!!raw-loader!./templates/members.yml';
-import Workspaces from '!!raw-loader!./templates/workspaces.yml';
-import Teams from '!!raw-loader!./templates/teams.yml';
-import Participants from '!!raw-loader!./templates/participants.yml';
-import ComputeEnvironments from '!!raw-loader!./templates/compute-envs.yml';
-import Pipelines from '!!raw-loader!./templates/pipelines.yml';
-import Credentials from '!!raw-loader!./templates/credentials.yml';
-import Datasets from '!!raw-loader!./templates/datasets.yml';
-import Labels from '!!raw-loader!./templates/labels.yml';
-import Launch from '!!raw-loader!./templates/launch.yml';
-import Secrets from '!!raw-loader!./templates/secrets.yml';
-import Actions from '!!raw-loader!./templates/actions.yml';
-import EndToEnd from '!!raw-loader!./templates/seqerakit-e2e.yml';
+import Organizations from '!!raw-loader!./templates/organizations.yaml';
+import Members from '!!raw-loader!./templates/members.yaml';
+import Workspaces from '!!raw-loader!./templates/workspaces.yaml';
+import Teams from '!!raw-loader!./templates/teams.yaml';
+import Participants from '!!raw-loader!./templates/participants.yaml';
+import ComputeEnvironments from '!!raw-loader!./templates/compute-envs.yaml';
+import Pipelines from '!!raw-loader!./templates/pipelines.yaml';
+import Credentials from '!!raw-loader!./templates/credentials.yaml';
+import Datasets from '!!raw-loader!./templates/datasets.yaml';
+import Labels from '!!raw-loader!./templates/labels.yaml';
+import Launch from '!!raw-loader!./templates/launch.yaml';
+import Secrets from '!!raw-loader!./templates/secrets.yaml';
+import Actions from '!!raw-loader!./templates/actions.yaml';
+import EndToEnd from '!!raw-loader!./templates/seqerakit-e2e.yaml';
 
 Customize YAML configuration templates to use in `seqerakit` commands to create, update, or delete Seqera resources. Create or delete multiple resources with a single command by combining them into a single configuration file.
 
@@ -30,11 +30,11 @@ To use the templates on this page:
 1. Specify the YML template file in your `seqerakit` commands: 
     - To create the resources specified in the file:
     ```shell-session 
-    seqerakit /path/to/file.yml
+    seqerakit /path/to/file.yaml
     ```
     - To delete the existing resources specified in the file:
     ```shell-session 
-    seqerakit /path/to/file.yml --delete
+    seqerakit /path/to/file.yaml --delete
     ```
 
 :::info 
@@ -55,7 +55,7 @@ Add or delete organizations.
 {Organizations}
 </CodeBlock>
 
-[Download organizations.yml](./templates/organizations.yml)
+[Download organizations.yaml](./templates/organizations.yaml)
 
 #### Members
 
@@ -65,7 +65,7 @@ Add or delete organization members.
 {Members}
 </CodeBlock>
 
-[Download members.yml](./templates/members.yml)
+[Download members.yaml](./templates/members.yaml)
 
 #### Workspaces 
 
@@ -75,7 +75,7 @@ Add or delete workspaces.
 {Workspaces}
 </CodeBlock>
 
-[Download workspaces.yml](./templates/workspaces.yml)
+[Download workspaces.yaml](./templates/workspaces.yaml)
 
 #### Teams 
 
@@ -85,7 +85,7 @@ Add or delete teams.
 {Teams}
 </CodeBlock>
 
-[Download teams.yml](./templates/teams.yml)
+[Download teams.yaml](./templates/teams.yaml)
 
 #### Participants 
 
@@ -95,7 +95,7 @@ Add or delete participants in workspaces and teams.
 {Participants}
 </CodeBlock>
 
-[Download participants.yml](./templates/participants.yml)
+[Download participants.yaml](./templates/participants.yaml)
 
 ### Credentials
 
@@ -105,7 +105,7 @@ Add or delete compute environment, Git, and container registry credentials in wo
 {Credentials}
 </CodeBlock>
 
-[Download credentials.yml](./templates/credentials.yml)
+[Download credentials.yaml](./templates/credentials.yaml)
 
 ### Compute environments 
 
@@ -115,7 +115,7 @@ Add or delete compute environments.
 {ComputeEnvironments}
 </CodeBlock>
 
-[Download compute-envs.yml](./templates/compute-envs.yml)
+[Download compute-envs.yaml](./templates/compute-envs.yaml)
 
 ### Pipelines 
 
@@ -125,7 +125,7 @@ Add or delete pipelines in workspace Launchpads.
 {Pipelines}
 </CodeBlock>
 
-[Download pipelines.yml](./templates/pipelines.yml)
+[Download pipelines.yaml](./templates/pipelines.yaml)
 
 ### Launch
 
@@ -135,7 +135,7 @@ Launch a Nextflow pipeline.
 {Launch}
 </CodeBlock>
 
-[Download launch.yml](./templates/launch.yml)
+[Download launch.yaml](./templates/launch.yaml)
 
 ### Datasets
 
@@ -145,7 +145,7 @@ Add or delete workspace datasets for pipeline input data.
 {Datasets}
 </CodeBlock>
 
-[Download datasets.yml](./templates/datasets.yml)
+[Download datasets.yaml](./templates/datasets.yaml)
 
 ### Labels
 
@@ -155,7 +155,7 @@ Add or delete labels and resource labels to apply to workspace compute environme
 {Labels}
 </CodeBlock>
 
-[Download labels.yml](./templates/labels.yml)
+[Download labels.yaml](./templates/labels.yaml)
 
 ### Secrets
 
@@ -165,7 +165,7 @@ Add or delete user and workspace secrets.
 {Secrets}
 </CodeBlock>
 
-[Download secrets.yml](./templates/secrets.yml)
+[Download secrets.yaml](./templates/secrets.yaml)
 
 ### Actions
 
@@ -175,7 +175,7 @@ Add or delete pipeline actions.
 {Actions}
 </CodeBlock>
 
-[Download actions.yml](./templates/actions.yml)
+[Download actions.yaml](./templates/actions.yaml)
 
 ### End-to-end example
 
@@ -197,4 +197,4 @@ The templates also contains `launch` entries to launch saved pipelines.
 {EndToEnd}
 </CodeBlock>
 
-[Download seqerakit-e2e.yml](./templates/seqerakit-e2e.yml)
+[Download seqerakit-e2e.yaml](./templates/seqerakit-e2e.yaml)

@@ -109,7 +109,7 @@ If duplicate parameters are provided, the parameters provided as key-value pairs
 
 For every entity defined in your YAML file, specify `overwrite: True` to overwrite any existing Seqera entities of the same name.
 
-Seqerakit will first check to see if the name of the entity exists. If so, it will invoke a `tw <subcommand> delete` command before attempting to create it based on the options defined in the YAML file.
+Seqerakit will first check to see if the name of the entity exists. If so, it will invoke a `tw <resource> delete` command before attempting to create it based on the options defined in the YAML file.
 
 ```shell-session
 DEBUG:root: Overwrite is set to 'True' for organizations
@@ -125,7 +125,7 @@ DEBUG:root: Running command: tw organizations add --name $SEQERA_ORGANIZATION_NA
 
 The Platform CLI allows the export and import of entities through JSON configuration files for pipelines and compute environments. To use these files to add a pipeline or compute environment to a workspace, use the `file-path` key to specify a path to a JSON configuration file.
 
-An example of the `file-path` option is provided in the [compute-envs.yml](./templates/compute-envs.yml) template:
+An example of the `file-path` option is provided in the [compute-envs.yaml](./templates/compute-envs.yaml) template:
 
 ```yaml
 compute-envs:

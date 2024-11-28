@@ -18,13 +18,13 @@ Seqerakit supports input through paths to YAML configuration files or directly f
 - Using file path:
 
     ```shell-session
-    seqerakit /path/to/file.yaml
+    seqerakit file.yaml
     ```
 
 - Using stdin:
 
     ```shell-session
-    cat /path/to/file.yaml | seqerakit -
+    cat file.yaml | seqerakit -
     ```
 
 See [Define your YAML file using CLI options](#define-your-yaml-file-using-cli-options) for guidance on formatting your input YAML files.
@@ -58,7 +58,7 @@ Supported resource names include:
 - workspaces
 
 
-For example, given a `test.yml` file that defines the following resources:
+For example, given a `test.yaml` file that defines the following resources:
 
 ```yaml
 workspaces:
@@ -81,15 +81,15 @@ pipelines:
 You can target the creation of `pipelines` only by running:
 
 ```shell-session
-seqerakit test.yml --targets pipelines
+seqerakit test.yaml --targets pipelines
 ```
 
-This will process only the pipelines block from the YAML file and ignore `workspaces` and `compute-envs`.
+This command will create only the pipelines defined in the YAML file and ignore `workspaces` and `compute-envs`.
 
 To create both workspaces and pipelines, run:
 
 ```shell-session
-seqerakit test.yml --targets workspaces,pipelines
+seqerakit test.yaml --targets workspaces,pipelines
 ```
 
 ### Delete resources
@@ -97,10 +97,10 @@ seqerakit test.yml --targets workspaces,pipelines
 Instead of adding or creating resources, specify the `--delete` flag to recursively delete resources in your YAML file:
 
 ```shell-session
-seqerakit file.yml --delete
+seqerakit file.yaml --delete
 ```
 
-For example, if you have a `file.yml` that defines an organization, workspace, team, credentials, and compute environment that have already been created, run `seqerakit file.yml --delete` to recursively delete the same resources.
+For example, if you have a `file.yaml` that defines an organization, workspace, team, credentials, and compute environment that have already been created, run `seqerakit file.yaml --delete` to recursively delete the same resources.
 
 ### Use `tw`-specific CLI options
 
