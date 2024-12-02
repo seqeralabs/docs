@@ -342,7 +342,7 @@ Click **Resource files** then select *Http url**. For the URL, add `https://nf-x
     - Communicate with the head node (running Nextflow) and Seqera Platform to relay log files and information.
 As such, very restrictive networking may prevent pipelines running successfully.
 1. **Mount configuration**: Nextflow *only* supports Azure File Shares. Select `Azure Files Share`, then add the following details:
-    - **Source**: Use the URL in the format https://${accountName}.file.core.windows.net/${fileShareName}
+    - **Source**: Use the URL in the format `https://${accountName}.file.core.windows.net/${fileShareName}`
     - **Relative mount path**: The path to the directory where the file share will be mounted on the VM.
     - **Add the Storage account name** and **Storage account key** (managed identity is not supported).
 
