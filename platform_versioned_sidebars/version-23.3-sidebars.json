@@ -199,8 +199,19 @@
       "collapsed": true,
       "items": [
         "api/overview",
-        "cli/cli"
-      ]
+        "cli/cli",
+        {
+          "type": "category",
+          "label": "Seqerakit",
+          "collapsed": true,
+          "items": [
+            "seqerakit/installation",
+            "seqerakit/commands",
+            "seqerakit/yaml-configuration",
+            "seqerakit/templates"
+          ]
+          }
+    ]
     },
     {
       "type": "category",

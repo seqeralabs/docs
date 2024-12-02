@@ -210,7 +210,7 @@
           },
           {
             "type": "category",
-            "label": "seqerakit",
+            "label": "Seqerakit",
             "collapsed": true,
             "items": [
               "seqerakit/installation",
