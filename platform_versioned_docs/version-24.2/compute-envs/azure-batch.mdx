@@ -173,14 +173,14 @@ To create an Entra service principal:
     - Complete the remaining fields: **Batch account name**, **Blob Storage account name**, **Tenant ID** (Application (client) ID in Azure), **Client ID** (Client secret ID in Azure), **Client secret** (Client secret value in Azure).
 1. Delete the ID and secret values from their temporary location after they have been added to a credential in Platform.
 
-## Platform compute environment
+## Add Platform compute environment
 
 There are two ways to create an Azure Batch compute environment in Seqera Platform:
 
 - [**Batch Forge**](#tower-forge): Automatically creates Azure Batch resources.
 - [**Manual**](#manual): For using existing Azure Batch resources.
 
-### VM size selection
+#### VM size considerations
 
 Azure Batch requires you to select an appropriate VM size for your compute environment(s). There are a number of considerations when selecting an appropriate VM size for your compute environment(s). Please see the Azure documentation for [virtual machine sizes][az-vm-sizes] for more information.
 
@@ -281,7 +281,7 @@ Create a Batch Forge Azure Batch compute environment:
 See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in your Azure Batch compute environment.
 :::
 
-## Manual
+### Manual
 
 It is possible to set up Seqera Platform to use a pre-existing Azure Batch pool. This allows the use of more advanced Azure Batch features, such as custom VM images and private networking.
 
@@ -422,7 +422,7 @@ The following settings can be modified after creating a pool:
 See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in your Azure Batch compute environment.
 :::
 
-### Managed identity
+#### Managed identity
 
 :::info
 To use managed identities, Platform requires requires Nextflow version 24.06.0-edge or later.
