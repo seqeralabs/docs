@@ -185,17 +185,17 @@ There are two ways to create an Azure Batch compute environment in Seqera Platfo
 Azure Batch requires you to select an appropriate VM size for your compute environment(s). There are a number of considerations when selecting an appropriate VM size for your compute environment(s). Please see the Azure documentation for [virtual machine sizes][az-vm-sizes] for more information.
 
 1. **Family**: The first letter of the VM size name indicates the family of the machine. For example, `Standard_E16d_v5` is a member of the E family.
-    - A: Economical machines, low power machines
-    - B: Burstable machines which use credits for cost allocation
-    - D: General purpose machines suitable for most applications
-    - DC: D machines with additional confidential compute capabilities
-    - E: The same as D but with more memory. These are generally the best machines for bioinformatics workloads.
-    - EC: The same as E but with additional confidential compute capabilities
-    - F: Compute optimized machines which come with a faster CPU compared to D-series machines.
-    - M: Memory optimized machines which come with extremely large and fast memory layers, typically more than is needed for bioinformatics workloads.
-    - L: Storage optimized machines which come with large locally attached NVME storage drives. Not these need to be configured before use with Azure Batch.
-    - N: Accelerated computing machines which come with FPGAs, GPUs or custom ASICs.
-    - H: High performance machines which come with the fastest processors and memory
+    - *A*: Economical machines, low power machines
+    - *B*: Burstable machines which use credits for cost allocation
+    - *D*: General purpose machines suitable for most applications
+    - *DC*: D machines with additional confidential compute capabilities
+    - *E*: The same as D but with more memory. These are generally the best machines for bioinformatics workloads.
+    - *EC*: The same as E but with additional confidential compute capabilities
+    - *F*: Compute optimized machines which come with a faster CPU compared to D-series machines.
+    - *M*: Memory optimized machines which come with extremely large and fast memory layers, typically more than is needed for bioinformatics workloads.
+    - *L*: Storage optimized machines which come with large locally attached NVME storage drives. Not these need to be configured before use with Azure Batch.
+    - *N*: Accelerated computing machines which come with FPGAs, GPUs or custom ASICs.
+    - *H*: High performance machines which come with the fastest processors and memory
 
 In general, we recommend using the E family of machines for bioinformatics workloads since these are cost effective, widely available and sufficiently fast.
 
