@@ -300,7 +300,7 @@ If not described below, please use the default settings.
 1. **Identity**: Select **User assigned** to use a managed identity for the pool. Click the "Add" for User-assigned managed identity and select the Managed Identity with the correct permissions to the storage account and Batch account.
 1. **Operating System**: It is possible to use any Linux based image here, however we recommend using it with a Microsoft Azure Batch provided image. Note, there are two generations of Azure Virtual Machine images and certain VM series are only available in one generation. See [Azure Virtual Machine series][az-vm-gen] for more information. For default settings, please select the following:
     - **Publisher**: `microsoft-azure-batch`
-    - **Offer**: `ubuntu-server-container-rdma`
+    - **Offer**: `ubuntu-server-container`
     - **Sku**: `20.04 LTS`
     - **Security type**: `standard`
 1. **OS disk storage account type**: Certain VM series only support a specific storage account type. See [Azure managed disk types][az-disk-type] and [Azure Virtual Machine series][az-vm-gen] for more information. In general, a VM series with the suffix *s* will support *Premium LRS* storage account type, e.g. a `standard_e16ds_v5` will support `Premium_LRS` but a `standard_e16d_v5` will not. Premium LRS will offer the best performance.
