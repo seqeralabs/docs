@@ -202,7 +202,7 @@ When uploading Datasets via the Tower UI or CLI, some steps are automatically do
 
 Example:
 
-```console
+```bash
 # Step 1: Create the Dataset object
 $ curl -X POST "https://api.cloud.seqera.io/workspaces/$WORKSPACE_ID/datasets/" -H "Content-Type: application/json" -H "Authorization: Bearer $TOWER_ACCESS_TOKEN" --data '{"name":"placeholder", "description":"A placeholder for the data we will submit in the next call"}'
 
@@ -213,7 +213,7 @@ $ curl -X POST "https://api.cloud.seqera.io/workspaces/$WORKSPACE_ID/datasets/$D
 :::tip
 You can also use the [tower-cli](https://github.com/seqeralabs/tower-cli) to upload the dataset to a particular workspace.
 
-    ```console
+    ```bash
     tw datasets add --name "cli_uploaded_samplesheet" ./samplesheet_full.csv
     ```
 
