@@ -144,7 +144,11 @@ To create an access key:
     - Add the **Batch account** and **Blob Storage account** names and access keys to the relevant fields.
 1. Delete the copied keys from their temporary location after they have been added to a credential in Platform.
 
-#### Entra service principal
+#### Entra service principal and managed identity
+
+If using Entra for authentication, you must also create a service principal and managed identity. Seqera Platform uses the Service Principal to authenticate to Azure Batch and storage. It submits a Nextflow task as the head process to run Nextflow, which authenticates to Azure Batch and storage using the Managed Identity attached to the node pool.
+
+Therefore, you must create both an Entra service principal and a managed identity. You add the Service Principal to your Seqera Platform credentials and attach the managed identity to your Azure Batch node pool which will run Nextflow.
 
 :::info
 Batch Forge compute environments must use access keys for authentication. Service principals are only supported in manual compute environments.
@@ -152,7 +156,9 @@ Batch Forge compute environments must use access keys for authentication. Servic
 The use of Entra service principals in manual compute environments requires the use of a [managed identity](#managed-identity). 
 :::
 
-See [Create a service principal][az-create-sp] for more details. 
+##### Service principal
+
+See [Create a service principal][az-create-sp] for more details.
 
 To create an Entra service principal:
 
@@ -172,6 +178,23 @@ To create an Entra service principal:
     - Select the **Entra** tab 
     - Complete the remaining fields: **Batch account name**, **Blob Storage account name**, **Tenant ID** (Application (client) ID in Azure), **Client ID** (Client secret ID in Azure), **Client secret** (Client secret value in Azure).
 1. Delete the ID and secret values from their temporary location after they have been added to a credential in Platform.
+
+##### Managed identity
+
+:::info
+To use managed identities, Platform requires requires Nextflow version 24.06.0-edge or later.
+:::
+
+Nextflow can authenticate to Azure services using a managed identity. This method offers enhanced security compared to access keys, but must run on Azure infrastructure. 
+
+When you use a manually configured compute environment with a managed identity attached to the Azure Batch Pool, Nextflow can use this managed identity for authentication. However, Platform still needs to use access keys or an Entra service principal to submit the initial task to Azure Batch to run Nextflow, which will then proceed with the managed identity for subsequent authentication.
+
+1. In Azure, create a user-assigned managed identity. See [Manage user-assigned managed identities](https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/how-manage-user-assigned-managed-identities) for detailed steps. After creation, record the Client ID of the managed identity.
+1. The user-assigned managed identity must have the necessary access roles for Nextflow. See [Required role assignments](https://www.nextflow.io/docs/latest/azure.html#required-role-assignments) for more information.
+1. Associate the user-assigned managed identity with the Azure Batch Pool. See [Set up managed identity in your Batch pool](https://learn.microsoft.com/en-us/troubleshoot/azure/hpc/batch/use-managed-identities-azure-batch-account-pool#set-up-managed-identity-in-your-batch-pool) for more information.
+1. When you set up the Platform compute environment, select the Azure Batch pool by name and enter the managed identity client ID in the specified field as instructed above.
+
+When you submit a pipeline to this compute environment, Nextflow will authenticate using the managed identity associated with the Azure Batch node it runs on, rather than relying on access keys.
 
 ## Add Platform compute environment
 
@@ -421,23 +444,6 @@ The following settings can be modified after creating a pool:
 :::info
 See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in your Azure Batch compute environment.
 :::
-
-#### Managed identity
-
-:::info
-To use managed identities, Platform requires requires Nextflow version 24.06.0-edge or later.
-:::
-
-Nextflow can authenticate to Azure services using a managed identity. This method offers enhanced security compared to access keys, but must run on Azure infrastructure. 
-
-When you use a manually configured compute environment with a managed identity attached to the Azure Batch Pool, Nextflow can use this managed identity for authentication. However, Platform still needs to use access keys or an Entra service principal to submit the initial task to Azure Batch to run Nextflow, which will then proceed with the managed identity for subsequent authentication.
-
-1. In Azure, create a user-assigned managed identity. See [Manage user-assigned managed identities](https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/how-manage-user-assigned-managed-identities) for detailed steps. After creation, record the Client ID of the managed identity.
-1. The user-assigned managed identity must have the necessary access roles for Nextflow. See [Required role assignments](https://www.nextflow.io/docs/latest/azure.html#required-role-assignments) for more information.
-1. Associate the user-assigned managed identity with the Azure Batch Pool. See [Set up managed identity in your Batch pool](https://learn.microsoft.com/en-us/troubleshoot/azure/hpc/batch/use-managed-identities-azure-batch-account-pool#set-up-managed-identity-in-your-batch-pool) for more information.
-1. When you set up the Platform compute environment, select the Azure Batch pool by name and enter the managed identity client ID in the specified field as instructed above.
-
-When you submit a pipeline to this compute environment, Nextflow will authenticate using the managed identity associated with the Azure Batch node it runs on, rather than relying on access keys.
 
 [az-data-residency]: https://azure.microsoft.com/en-gb/explore/global-infrastructure/data-residency/#select-geography
 [az-batch-quotas]: https://docs.microsoft.com/en-us/azure/batch/batch-quota-limit#view-batch-quotas
