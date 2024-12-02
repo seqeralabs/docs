@@ -195,7 +195,18 @@
             "cli/installation",
             "cli/commands"
           ]
-          }
+          },
+          {
+            "type": "category",
+            "label": "Seqerakit",
+            "collapsed": true,
+            "items": [
+              "seqerakit/installation",
+              "seqerakit/commands",
+              "seqerakit/yaml-configuration",
+              "seqerakit/templates"
+            ]
+            }
         ]
     },
     {
