@@ -9,24 +9,26 @@ const __dirname = path.dirname(__filename);
 
 const repositories = [
   {
-    name: 'multiqc',
-    url: 'https://github.com/MultiQC/MultiQC.git',
-    path: path.join(__dirname, "..", "multiqc_docs", "multiqc_repo")
+    name: "multiqc",
+    url: "https://github.com/MultiQC/MultiQC.git",
+    path: path.join(__dirname, "..", "multiqc_docs", "multiqc_repo"),
   },
   {
-    name: 'wave',
-    url: 'https://github.com/seqeralabs/wave.git',
-    path: path.join(__dirname, "..", "wave_docs", "wave_repo")
-  }
+    name: "wave",
+    url: "https://github.com/seqeralabs/wave.git",
+    path: path.join(__dirname, "..", "wave_docs", "wave_repo"),
+  },
 ];
 
 // Function to clone or update a repository
 async function cloneOrUpdateRepo({ name, url, path: repoPath }) {
   const exists = await fs.pathExists(repoPath + "/.git");
-  
+
   try {
     if (exists) {
-      console.log(`${name}: Cloned repo already exists, will pull latest changes`);
+      console.log(
+        `${name}: Cloned repo already exists, will pull latest changes`,
+      );
       await git(repoPath).pull();
       console.log(`✅ ${name}: Pulled latest changes`);
     } else {
@@ -35,7 +37,7 @@ async function cloneOrUpdateRepo({ name, url, path: repoPath }) {
       console.log(`✅ ${name}: Cloned`);
     }
   } catch (error) {
-    console.error(`❌ Error processing ${repo.name}:`);
+    console.error(`❌ Error processing ${repoPath}:`);
     console.error(error.message);
     if (exists) {
       console.error(`Try removing the directory: ${repoPath}`);
