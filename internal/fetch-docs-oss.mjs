@@ -12,16 +12,18 @@ const repositories = [
     name: "multiqc",
     url: "https://github.com/MultiQC/MultiQC.git",
     path: path.join(__dirname, "..", "multiqc_docs", "multiqc_repo"),
+    branch: "main",
   },
   {
     name: "wave",
     url: "https://github.com/seqeralabs/wave.git",
     path: path.join(__dirname, "..", "wave_docs", "wave_repo"),
+    branch: "master",
   },
 ];
 
 // Function to clone or update a repository
-async function cloneOrUpdateRepo({ name, url, path: repoPath }) {
+async function cloneOrUpdateRepo({ name, url, path: repoPath, branch }) {
   const exists = await fs.pathExists(repoPath + "/.git");
 
   try {
@@ -29,7 +31,8 @@ async function cloneOrUpdateRepo({ name, url, path: repoPath }) {
       console.log(
         `${name}: Cloned repo already exists, will pull latest changes`,
       );
-      await git(repoPath).pull();
+      // pull and checkout the branch
+      await git(repoPath).pull("origin", branch);
       console.log(`✅ ${name}: Pulled latest changes`);
     } else {
       console.log(`${name}: Cloning into ${repoPath}`);
