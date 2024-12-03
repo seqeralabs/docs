@@ -26,13 +26,13 @@ Seqerakit has three dependencies:
 
 If you already have [Platform CLI](../cli/installation.mdx) and Python installed on your system, install Seqerakit directly from [PyPI](https://pypi.org/project/seqerakit/):
 
-```console
+```bash
 pip install seqerakit
 ```
 
 Overwrite an existing installation to use the latest version:
 
-```console
+```bash
 pip install --upgrade --force-reinstall seqerakit
 ```
 
@@ -40,7 +40,7 @@ pip install --upgrade --force-reinstall seqerakit
 
 To install `seqerakit` and its dependencies via Conda, first configure the correct channels:
 
-```console
+```bash
 conda config --add channels bioconda
 conda config --add channels conda-forge
 conda config --set channel_priority strict
@@ -48,7 +48,7 @@ conda config --set channel_priority strict
 
 Then create a conda environment with `seqerakit` installed:
 
-```console
+```bash
 conda env create -n seqerakit seqerakit
 conda activate seqerakit
 ```
@@ -59,18 +59,18 @@ Install the development branch of `seqerakit` on your local machine to test the 
 
 1. You must have [Python](https://www.python.org/downloads/) and [Git](https://git-scm.com/downloads) installed on your system.
 1. To install directly from pip:
-    ```shell-session
+    ```bash
     pip install git+https://github.com/seqeralabs/seqera-kit.git@dev
     ```
 1. Alternatively, clone the repository locally and install manually:
-    ```shell-session
+    ```bash
     git clone https://github.com/seqeralabs/seqera-kit.git
     cd seqera-kit
     git checkout dev
     pip install .
     ```
 1. Verify your installation:
-    ```shell-session
+    ```bash
     pip show seqerakit
     ```
 
@@ -80,13 +80,13 @@ Create a [Seqera](https://cloud.seqera.io/tokens) access token via **Your Tokens
 
 Seqerakit reads your access token from the `TOWER_ACCESS_TOKEN` environment variable:
 
-```shell-session
+```bash
 export TOWER_ACCESS_TOKEN=<Your Seqera access token>
 ```
 
 For Enterprise installations, specify the custom API endpoint used to connect to Seqera. Export the API endpoint environment variable:
 
-```shell-session
+```bash
 export TOWER_API_ENDPOINT=<Seqera Enterprise API URL>
 ```
 
@@ -96,7 +96,7 @@ By default, this is set to `https://api.cloud.seqera.io` to connect to Seqera Cl
 
 To confirm the installation of `seqerakit`, configuration of the Platform CLI, and connection to Seqera is working as expected, run this command: 
 
-```shell-session
+```bash
 seqerakit --info
 ```
 
@@ -104,13 +104,13 @@ This runs the `tw info` command under the hood.
 
 Use `--version` or `-v` to retrieve the current version of your `seqerakit` installation:
 
-```shell-session
+```bash
 seqerakit --version
 ```
 
 Use the `--help` or `-h` option to list the available commands and their associated options:
 
-```shell-session
+```bash
 seqerakit --help
 ```
 
