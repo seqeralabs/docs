@@ -98,7 +98,18 @@ To upgrade your database schema:
 
 **Custom deployment**:
 
-- Run the `/migrate-db.sh` script provided in the `migrate-db` container. This will migrate the database schema.
+- Apply the database migration:
+
+  - If you use Azure Database for MySQL:
+    1. Connect to the database as a role with sufficient privileges to drop a column and run the following query:
+
+        ```sql
+        ALTER TABLE tw_label_resource DROP COLUMN IF EXISTS my_row_id;
+        ```
+
+    1. Run the `/migrate-db.sh` script provided in the `backend` container. This will migrate the database schema.
+
+  - If you use any other database, run the `/migrate-db.sh` script provided in the `backend` container. This will migrate the database schema.
 - Deploy Seqera following your usual procedures.
 
 ## Nextflow launcher image
