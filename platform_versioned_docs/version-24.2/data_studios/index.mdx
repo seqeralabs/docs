@@ -102,6 +102,15 @@ Checkpoint files in the compute environment work directory may be shared by mult
 The cleanup process is a best effort and not guaranteed. Seqera attempts to remove the checkpoint, but it can fail if, for example, the compute environment credentials used do not have sufficient permissions to delete objects from storage buckets.
 :::
 
+## Session volume automatic resizing
+
+By default, a data studio session allocates an initial 2GB of storage. Available disk space is continually monitored and if the available space declines below a 1GB threshold, Data Studios dynamically resizes the file system to include an additional 2 GB of available space.
+
+This approach ensures that a session does not initially include unnecessary free space while accommodating the installation of large software packages that might be required for data analysis.
+
+The maximum storage allocation for a session is limited by the compute environment disk boot size. By default, this is 30 GB. This limit is shared by all data studio sessions running on the same compute environment.
+
+If the maximize allocation size is reached, it is possible to reclaim storage space. To do so, stop the session, which triggers a snapshot from the active volume. Data Studios uploads the snapshot to cloud storage with Fusion. Starting from the newly saved snapshot loads all previous data from the snapshot. The newly started instance again has 2 GB of available space.
 
 <!-- links -->
 [contact]: https://support.seqera.io/
