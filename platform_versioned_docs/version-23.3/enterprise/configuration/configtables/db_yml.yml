@@ -31,13 +31,13 @@
   Description: > 
     Maximum lifespan of database connections, in milliseconds. 
   Value:              'Default: `1800000`'
-- 
-  tower.yml:            '`redisson.uri`'
+-
+  tower.yml:            '`TOWER_REDIS_URL`'
   Description: > 
     The URL to access your Seqera Redis instance.
   Value:              'Example: `redis://redis:6379`'
 - 
-  tower.yml:            '`redisson.password`'
+  tower.yml:            '`TOWER_REDIS_PASSWORD`'
   Description: > 
     The password of your Seqera Redis instance.
-  Value:              
+  Value:  
