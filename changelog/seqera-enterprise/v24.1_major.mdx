@@ -4,11 +4,11 @@ date: 2024-07-04
 tags: [seqera enterprise]
 ---
 
-Seqera Platform Enterprise version 24.1 introduces three new features: Data Studios (in public preview), Data Explorer, and managed identities. A number of bug fixes and performance enhancements have also been included in this major release.
+Seqera Platform Enterprise version 24.1 introduces three new features: Data Studios (in public preview), Data Explorer, and managed identities. A number of bug fixes and performance enhancements are included in this major release.
 
 ## Data Studios
 
-[Data Studios](https://docs.seqera.io/platform/24.2/data_studios) closes the loop from development to deployment and insights, allowing you to create, manage, and share notebook environments in Seqera with the click of a button. Data Studios also makes it seamless to work across teams with multi-user support, built-in authentication, and automatic snapshots as you work.
+[Data Studios](https://docs.seqera.io/platform/24.2/data_studios) closes the loop from development to deployment and insights, allowing you to create, manage, and share notebook environments in Seqera with the click of a button. Data Studios makes it seamless to work across teams with multi-user support, built-in authentication, and automatic snapshots as you work.
 
 - Host a combination of container images and compute environments for interactive analysis using your preferred tools, like Jupyter notebooks, RStudio, and Visual Studio Code IDEs.
 - Checkpoints provide a stable point-in-time snapshot.
@@ -27,8 +27,8 @@ Data Explorer is now Generally Available and supports multi-file and multi-folde
 User roles provide flexibility for admins to provide users with the permissions they need, without compromising security. The **Connect** user role has been added to the existing user roles with functionality related to Data Studios:
 
 - **Connect**: Open a connection to a running data studio session and interact with the contents.
-- **Maintain**: Create, update, start, stop, change configuration, and delete data studio sessions.
-- **View**: List, search, and view the status/configuration/details of data studios.
+- **Maintain**: Create, update, start, stop, configure, and delete data studio sessions.
+- **View**: List, search, and view the status, configuration, and details of data studios.
 - **Launch**: Open a connection to a running data studio session and interact with the contents.
 
 See [User roles](https://docs.seqera.io/platform/24.2/orgs-and-teams/roles) for more information.
@@ -41,7 +41,7 @@ See [Managed identities](https://docs.seqera.io/platform/24.2/credentials/manage
 
 ## Other feature improvements
 
-- A redesigned [pipeline launch form](https://docs.seqera.io/platform/24.2/getting-started/quickstart-demo/launch-pipelines) provides an improved workflow and an interface to create and edit run parameters as raw JSON/YAML. Enable the new launch form per workspace via [environment variable](https://docs.seqera.io/platform/24.2/enterprise/configuration/overview#core-featuress).
+- A redesigned [pipeline launch form](https://docs.seqera.io/platform/24.2/getting-started/quickstart-demo/launch-pipelines) provides an improved workflow and an interface to create and edit run parameters as raw JSON/YAML. Enable the new launch form per workspace via [environment variable](https://docs.seqera.io/platform/24.2/enterprise/configuration/overview#core-features).
 - Retrieve reports from primary compute environment on Nextflow CLI runs. See [Configure reports for Nextflow CLI runs](https://docs.seqera.io/platform/24.2/reports/overview#configure-reports-for-nextflow-cli-runs) for more information. 
 - The standard email login can be disabled via `tower.yml` or an environment variable, provided an alternative OIDC provider is set up first. See [Basic configuration](https://docs.seqera.io/platform/24.2/enterprise/configuration/overview#basic-configuration) for more information.
 
