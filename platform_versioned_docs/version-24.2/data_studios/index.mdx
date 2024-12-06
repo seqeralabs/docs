@@ -30,7 +30,32 @@ Currently, Data Studios only supports AWS Batch compute environments that **do n
 
 Data Studios provides four container image templates: JupyterLab, RStudio Server, Visual Studio Code, and Xpra. The image templates install a very limited number of packages when the session container is built. You can install additional packages as needed during a session.
 
-You can also create your own container image templates. For more information, see [Custom environments][custom-envs].
+The image template tag includes the version of the analysis application, an optional incompatibility flag, and the Seqera Connect version. Connect is the proprietary Seqera webserver client that manages communication with the container. The tag string looks like this:
+
+```ignore title="Image template tag"
+<tool_version>-[u<update_version>]-<connect_version>
+```
+
+- `<tool_version>`: Third-party analysis application that follows its own semantic versioning `<major>.<minor>.<patch>`, such as `4.2.5` for JupyterLab.
+- `<update_version>`: Optional analysis application update version, such as `u1`, for instances where a backwards incompatible change is introduced.
+- `<connect_version>`: Seqera Connect client version, such as `0.7` or `0.7.0`.
+
+Additionally, the Seqera Connect client version string has the format:
+
+```ignore title="Seqera version tag subset"
+<major>.<minor>.<patch>
+```
+
+- `<major>`: Signifies major version changes in the underlying Seqera Connect client.
+- `<minor>`: Signifies breaking changes in the underlying Seqera Connect client.
+- `<patch>`: Signifies patch (non-breaking) changes in the underlying Seqera Connect client.
+
+When pushed to the container registry, an image template is tagged with the following tags:
+
+- `<tool_version>-<major>.<minor>`, such as `4.2.3-0.7`. When adding a new data studio container template image this is the tag displayed in Seqera Platform.
+- `<tool_version>-<major>.<minor>.<patch>`, such as `4.2.3-0.7.1`.
+
+To view the latest versions of the images, see [public.cr.seqera.io](https://public.cr.seqera.io/). You can also augment the Seqera-provided image templates or use your own custom container image templates. This approach is recommended for managing reproducible analysis environments. For more information, see [Custom environments][custom-envs].
 
 **JupyterLab 4.2.5**
 
@@ -56,21 +81,29 @@ The default user is the `root` account. The following [conda-forge](https://cond
 - `nb_black=1.0.7`
 - `qgrid=1.3.1`
 
-To install additional Python packages, execute `!pip install <packagename>` commands in your notebook environment. Additional system-level packages can be installed in a terminal window using `apt install <packagename>`.
+To install additional Python packages during a running session, execute `!pip install <packagename>` commands in your notebook environment. Additional system-level packages can be installed in a terminal window using `apt install <packagename>`.
+
+To see the list of all JupyterLab image templates available, see [public.cr.seqera.io/repo/platform/data-studio-jupyter](https://public.cr.seqera.io/repo/platform/data-studio-jupyter).
 
 **RStudio Server 4.4.1**
 
-The default user is the `root` account. To install R packages, execute `install.packages("<packagename>")` commands in your notebook environment. Additional system-level packages can be installed in a terminal window using `apt install <packagename>`.
+The default user is the `root` account. To install R packages during a running session, execute `install.packages("<packagename>")` commands in your notebook environment. Additional system-level packages can be installed in a terminal window using `apt install <packagename>`.
+
+To see the list of all RStudio Server image templates available, see [public.cr.seqera.io/repo/platform/data-studio-rstudio](https://public.cr.seqera.io/repo/platform/data-studio-rstudio).
 
 **Visual Studio Code 1.93.1**
 
-[Visual Studio Code][vsc] is an integrated development environment (IDE) that supports many programming languages. The default user is the `root` account. To install extensions, select **Extensions**. Additional system-level packages can be installed in a terminal window using `apt install <packagename>`.
+[Visual Studio Code][vsc] is an integrated development environment (IDE) that supports many programming languages. The default user is the `root` account. To install extensions during a running session, select **Extensions**. Additional system-level packages can be installed in a terminal window using `apt install <packagename>`.
+
+To see the list of all Visual Studio Code image templates available, see [public.cr.seqera.io/platform/data-studio-vscode](https://public.cr.seqera.io/repo/platform/data-studio-vscode).
 
 **Xpra 6.2.0**
 
 [Xpra](https://github.com/Xpra-org/xpra), known as _screen for X_, allows you to run X11 programs by giving you remote access to individual graphical applications. The container template image also installs NVIDIA Linux x64 (AMD64/EM64T) drivers for Ubuntu 22.04 for running GPU-enabled applications. To use these GPU drivers, your compute environment must specify GPU instance families.
 
-The default user is the `root` account. The image is based on `ubuntu:jammy`. Additional system-level packages can be installed in a terminal window using `apt install <package_name>`.
+The default user is the `root` account. The image is based on `ubuntu:jammy`. Additional system-level packages can be installed during a running session in a terminal window using `apt install <package_name>`.
+
+To see the list of all Xpra image templates available, see [public.cr.seqera.io/repo/platform/data-studio-xpra](https://public.cr.seqera.io/repo/platform/data-studio-xpra).
 
 ## Session statuses
 
