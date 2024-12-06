@@ -30,32 +30,32 @@ Currently, Data Studios only supports AWS Batch compute environments that **do n
 
 Data Studios provides four container image templates: JupyterLab, RStudio Server, Visual Studio Code, and Xpra. The image templates install a very limited number of packages when the session container is built. You can install additional packages as needed during a session.
 
-The image template tag includes the version of the analysis application and the Seqera image template version itself. The tag string looks like this:
+The image template tag includes the version of the analysis application, an optional incompatibility flag, and the Seqera Connect version. Connect is the proprietary Seqera webserver client that manages communication with the container. The tag string looks like this:
 
 ```ignore title="Image template tag"
 <tool_version>-[u<update_version>]-<seqera_version>
 ```
 
-- `<tool_version>`: Analysis application version, such as `4.2.5` for JupyterLab
-- `<update_version>`: Seqera image template update integer version, such as `u1`, for instances where a breaking change is introduced
-- `<seqera_version>`: Seqera template image version, such as `0.7.0`
+- `<tool_version>`: Third party analysis application that follows it's own semantic versioning `<major>.<minor>.<patch>`, such as `4.2.5` for JupyterLab.
+- `<update_version>`: Optional analysis application update version, such as `u1`, for instances where a backwards incompatible change is introduced.
+- `<connect_version>`: Seqera Connect client version, such as `0.7` or `0.7.0`.
 
-Additionally, the Seqera version string looks like this:
+Additionally, the Seqera Connect client version string has the format:
 
 ```ignore title="Seqera version tag subset"
 <major>.<minor>.<patch>
 ```
 
-- `<major>`: Signifies breaking changes in the underlying Seqera container
-- `<minor>`: Signifies non-breaking changes in the underlying Seqera container
+- `<major>`: Signifies major version changes in the underlying Seqera Connect client.
+- `<minor>`: Signifies breaking changes in the underlying Seqera Connect client.
 - `<patch>`: Signifies minor non-breaking changes in the underlying Seqera container
 
 When pushed to the container registry, an image template is tagged with the following tags:
 
-- `<major>.<minor>`, such as `4.2.3-0.7`. When adding a new data studio this tag is the tag displayed in Seqera Platform.
-- `<major>.<minor>.<patch>`, such as `4.2.3-0.7.1`.
+- `<tool_version>-<major>.<minor>`, such as `4.2.3-0.7`. When adding a new data studio container template image this is the tag displayed in Seqera Platform.
+- `<tool_version>-<major>.<minor>.<patch>`, such as `4.2.3-0.7.1`.
 
-To see the latest versions of the images, see [public.cr.seqera.io](https://public.cr.seqera.io/). You can also create your own container image templates. For more information, see [Custom environments][custom-envs].
+To view the latest versions of the images, see [public.cr.seqera.io](https://public.cr.seqera.io/). You can also augment the Seqera-provided image templates or use your own custom container image templates. This approach is recommended for managing reproducible analysis environments. For more information, see [Custom environments][custom-envs].
 
 **JupyterLab 4.2.5**
 
