@@ -39,10 +39,5 @@ The running container in the AWS Batch compute environment inherits the memory l
 
 By default, AWS Batch compute environments that are created with Batch Forge restrict access to S3 to the working directory only, unless additional **Allowed S3 Buckets** are specified. If the compute environment does not have write access to the mounted dataset, it will be mounted as read-only.
 
-## Allocated storage for the data studio is exceeded
-
-A data studio is allocated a 5 GB overlay filesystem partition by default for installing software packages and other local configuration. This limit is irrespective of the boot disk size of the container. If you exceed the available storage space, you cannot reliably make local changes to the data studio container until you free up disk space.
-
-Each time you stop and start a data studio, an additional 5 GB allocation is provided. If you are experiencing a disk size limitation, as a workaround you can stop and restart the data studio.
 
 [contact]: https://seqera.io/contact-us/
