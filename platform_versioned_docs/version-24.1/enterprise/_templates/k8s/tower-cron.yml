@@ -34,9 +34,6 @@ spec:
             - name: config-volume
               mountPath: /tower.yml
               subPath: tower.yml
-            # Volume mount for Data Studios
-            #- name: cert-volume
-            #  mountPath: /data/certs
       containers:
         - name: backend
           image: cr.seqera.io/private/nf-tower-enterprise/backend:v24.1.7
@@ -47,6 +44,9 @@ spec:
             - name: config-volume
               mountPath: /tower.yml
               subPath: tower.yml
+            # Volume mount for Data Studios
+            #- name: cert-volume
+            #  mountPath: /data/certs
           env:
             - name: MICRONAUT_ENVIRONMENTS
               value: "prod,redis,cron"
