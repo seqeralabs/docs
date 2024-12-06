@@ -72,7 +72,7 @@ The recommended machine type and storage requirements depend on the number of pa
 See [Create a MySQL instance][gcloudsql-create] for gcloud CLI instructions.
 
 1. Create your MySQL instance with the following command:
-    ```console 
+    ```bash 
     gcloud sql instances create INSTANCE_NAME \
     --database-version=MYSQL_8_0 \
     --cpu=2 \
@@ -82,14 +82,14 @@ See [Create a MySQL instance][gcloudsql-create] for gcloud CLI instructions.
     ```
 1. Note the private IP address as it must be supplied to the `TOWER_DB_URL` environment variable during Seqera configuration. 
 1. Set the password for the root MySQL user:
-    ```console
+    ```bash
     gcloud sql users set-password root \
     --host=% \
     --instance INSTANCE_NAME \
     --password PASSWORD
     ```
 1. Create a database named `tower` on the instance: 
-    ```console 
+    ```bash 
     gcloud sql databases create tower \
     --instance=INSTANCE_NAME \
     ```

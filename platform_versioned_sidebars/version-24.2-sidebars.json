@@ -208,6 +208,17 @@
             "cli/commands"
           ]
           },
+          {
+            "type": "category",
+            "label": "Seqerakit",
+            "collapsed": true,
+            "items": [
+              "seqerakit/installation",
+              "seqerakit/commands",
+              "seqerakit/yaml-configuration",
+              "seqerakit/templates"
+            ]
+            },
           "pipeline-actions/overview"
         ]
     },
@@ -222,17 +233,9 @@
     },
     {
       "type": "category",
-      "label": "Releases",
+      "label": "Changelogs",
       "collapsed": true,
       "items": [
-        {
-          "type": "category",
-          "label": "Enterprise release notes",
-          "collapsed": true,
-          "items": [
-           "enterprise/release_notes/enterprise_latest"
-          ]
-        },
         {
           "type": "link",
           "label": "Enterprise changelog",
@@ -242,19 +245,7 @@
           "type": "link",
           "label": "Cloud changelog",
           "href": "/changelog/tags/seqera-cloud"
-        },
-        {
-          "type": "category",
-          "label": "Legacy versions",
-          "collapsed": true,
-          "items": [
-            "enterprise/release_notes/23.4",
-            "enterprise/release_notes/23.3",
-            "enterprise/release_notes/23.2",
-            "enterprise/release_notes/23.1"
-          ]
-        },
-
+        },        
         "functionality_matrix/functionality_matrix"
       ]
     },

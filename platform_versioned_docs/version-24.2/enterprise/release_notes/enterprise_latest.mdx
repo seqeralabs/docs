@@ -80,7 +80,7 @@ Enterprise deployments that have customized this value previously will need to a
 1. This version requires a database schema update. Make a backup of your Platform database prior to upgrade.
 1. If you are upgrading from a version older than 23.4.1, update your installation to version [23.4.4](./23.4.mdx) first, before updating to 24.1 with the steps below.
 1. For recommended Platform memory settings, add the following environment variable to your Platform configuration values (`tower.env`, `configmap.yml`, etc. ):
-    ```console 
+    ```bash 
     JAVA_OPTS: -Xms1000M -Xmx2000M -XX:MaxDirectMemorySize=800m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144
     ```
 1. See [Upgrade installation](../upgrade.mdx) for database backup and installation upgrade guidance.
@@ -95,6 +95,6 @@ For custom deployments with third-party services such as ArgoCD, [contact suppor
 
 ## Changelog
 
-For a detailed list of all changes, see the Platform Enterprise [changelog](./enterprise_changelog.mdx).
+For a detailed list of all changes, see the Platform Enterprise [changelog](https://docs.seqera.io/changelog/tags/seqera-enterprise).
 
 [gcp-vm-instance-template]: https://cloud.google.com/compute/docs/instance-templates

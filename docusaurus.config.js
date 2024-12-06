@@ -33,7 +33,7 @@ export default async function createConfigAsync() {
     },
 
     future: {
-      experimental_faster: true,
+      experimental_faster: false,
     },
 
     presets: [

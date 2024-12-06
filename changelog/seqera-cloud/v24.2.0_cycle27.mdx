@@ -1,0 +1,28 @@
+---
+title: Seqera Cloud v24.2.0_cycle27
+date: 2024-11-26
+tags: [seqera cloud]
+---
+
+### Feature updates and improvements
+
+- Add AWS Forge support for Amazon Linux 2023.
+- Deprecate Google Life Sciences API.
+- Refactor reports file streaming over Agent connections.
+- Bump Nextflow launcher to 24.10.0.
+- Add name validation to custom containers during Data Studio session creation.
+
+### Bug fixes 
+
+- Propagate EFS mount path to container volume.
+- Include optimization data to launch request, if present.
+- Correctly update user through profile page.
+- Input form view not working for private GitHub repos during pipeline quicklaunch.
+- Improve layout on large displays.
+- Add missing permissions check to data studio checkpoint "Start as new" option.
+- Workspace secrets not selected by default during pipeline quicklaunch with new launch form.
+- Add volumes to data studio job definition.
+- Users with "Maintain" role and lower can edit resource labels when launching with the new pipeline launch form.
+- Do not register the "User" route if user personal workspace is disabled.
+- Apply the old launch form behavior to the new launch form when launching a shared pipeline from a private workspace.
+- Improved error messaging for expired Git credentials.
