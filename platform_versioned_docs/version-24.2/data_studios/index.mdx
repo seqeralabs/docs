@@ -104,7 +104,7 @@ The cleanup process is a best effort and not guaranteed. Seqera attempts to remo
 
 ## Session volume automatic resizing
 
-By default, a data studio session allocates an initial 2 GB of storage. Available disk space is continually monitored and if the available space declines below a 1 GB threshold, Data Studios dynamically resizes the file system to include an additional 2 GB of available disk space.
+By default, a session allocates an initial 2 GB of storage. Available disk space is continually monitored and if the available space drops below a 1 GB threshold, the file system is dynamically-resized to include an additional 2 GB of available disk space.
 
 This approach ensures that a session doesn't initially include unnecessary free disk space, while providing the flexibility to accommodate installation of large software packages required for data analysis.
 
