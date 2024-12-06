@@ -110,7 +110,9 @@ This approach ensures that a session doesn't initially include unnecessary free 
 
 The maximum storage allocation for a session is limited by the compute environment disk boot size. By default, this is 30 GB. This limit is shared by all data studio sessions running on the same compute environment.
 
-If the maximize allocation size is reached, it is possible to reclaim storage space. To do so, stop the session, which triggers a snapshot from the active volume. Data Studios uploads the snapshot to cloud storage with Fusion. Starting from the newly saved snapshot loads all previous data from the snapshot. The newly started instance again has 2 GB of available space.
+If the maximum allocation size is reached, it is possible to reclaim storage space using a snapshot. 
+
+Stop the active session to trigger a snapshot from the active volume. Data Studios uploads the snapshot to cloud storage with Fusion. When you start from the newly saved snapshot, all previous data is loaded. The newly-started session will have 2 GB of available space.
 
 <!-- links -->
 [contact]: https://support.seqera.io/
