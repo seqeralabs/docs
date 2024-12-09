@@ -1,0 +1,82 @@
+---
+title: Snapshot for AWS Batch
+description: "Overview of the Fusion Snapshot feature for AWS Batch"
+date: "23 Aug 2024"
+tags: [fusion, storage, compute, file system, snapshot]
+---
+
+Fusion Snapshot enables you to create a checkpoint of a running Nextflow process and restore it on a different machine. Leveraging the Fusion file system, Snapshot enables you to move the task between different instances connected to the same S3 bucket.
+
+More specifically, the first use case for this feature is for Nextflow users to leverage AWS Spot instances without restarting an entire task from scratch if an instance is terminated. When a Spot instance interruption occurs, the task is restored from the last checkpoint on a new AWS instance, saving time and computational resources.
+
+Seqera Platform AWS Batch compute environments simplify the configuration and use of Fusion and Fusion Snapshot.
+
+### Seqera Platform compute environment requirements
+
+Fusion Snapshot v1.0.0 requires the following [Seqera compute environment](https://docs.seqera.io/platform/latest/compute-envs/aws-batch) configuration:
+
+- **Provider**: AWS Batch
+- **Pipeline work directory**: An S3 bucket in the same region as the compute environment
+- **Enable Wave containers**
+- **Enable Fusion v2**
+- **Enable fast instance storage**
+- **Config mode**: Batch Forge (recommended)
+- **Provisioning model**: Spot 
+- **Nextflow config**: Set AWS Batch max spot attempts and the custom Fusion container URL [shown below](#enable-snapshot-via-nextflow-config)
+- **Instance types**: See recommended instance sizes below
+- **AMI ID**: Amazon Linux 2023 ECS Optimized
+
+### Nextflow CLI execution config requirements
+
+See [AWS Batch](./guide/aws-batch.mdx#nextflow-cli) for standard Fusion configuration in a Nextflow CLI execution. In addition to this standard configuration, Snapshot requires the following: 
+
+- `nextflow.conf` [parameters](#enable-snapshot-via-nextflow-config) as outlined below
+- [Recommended instance sizes](#recommended-instance-sizes) for sufficient performance as outlined below
+- SSD volumes used for the Fusion `/tmp` directory 
+- AWS Batch queues that use a compute environment with an [Amazon Linux 2023 ECS-optimized AMI](#amazon-linux-2023-ecs-optimized-ami) as outlined below
+- `workDir`: An S3 bucket in the same region as the compute environment
+
+### Enable Snapshot via Nextflow config 
+
+Set the following Nextflow config values in the **Nextflow config** field under **Staging options** when creating your AWS Batch Seqera compute environment (`maxSpotAttempts` can be any value over `0`): 
+
+```java
+aws.batch.maxSpotAttempts= 5
+fusion.containerConfigUrl = 'TODO'
+```
+
+### Recommended instance sizes
+
+Fusion Snapshot requires EC2 instances with enough memory and network bandwidth to dump the cache of intermediate files from the Linux kernel of the instance to S3 storage before AWS reclaims the Spot instance. When AWS issues a spot instance reclamation notice, Fusion has two minutes to complete this transfer. 
+
+It is recommended to select instances with guaranteed network bandwidth (as opposed to bandwidth _up to_ a maximum value) and maintain a ratio of 5:1 between memory and network bandwidth. 
+
+For example, when taking bandwidth and the compute necessary to take the Snapshot into account, a  `c6i.8xlarge` instance with 64 GIB memory and a guaranteed network bandwidth of 12.5 Gbps can take approximately 70 seconds to dump the entire instance to S3 storage before instance reclamation occurs. 
+
+### Amazon Linux 2023 ECS-optimized AMI 
+
+To obtain sufficient performance, Fusion Snapshot requires instances with Amazon Linux 2023 (which ships with Linux Kernel 6.1), with an ECS Container-optimized AMI. 
+
+To find the recommended AL2023 ECS Optimized AMI for your region, run the following (replace `eu-central-1` with your AWS region):
+
+```bash 
+export REGION=eu-central-1
+aws ssm get-parameter --name "/aws/service/ecs/optimized-ami/amazon-linux-2023/recommended" --region $REGION
+```
+
+The result for the `eu-central-1` region is similar to the following:
+
+```bash 
+{
+    "Parameter": {
+        "Name": "/aws/service/ecs/optimized-ami/amazon-linux-2023/recommended",
+        "Type": "String",
+        "Value": "{\"ecs_agent_version\":\"1.88.0\",\"ecs_runtime_version\":\"Docker version 25.0.6\",\"image_id\":\"ami-0281c9a5cd9de63bd\",\"image_name\":\"al2023-ami-ecs-hvm-2023.0.20241115-kernel-6.1-x86_64\",\"image_version\":\"2023.0.20241115\",\"os\":\"Amazon Linux 2023\",\"schema_version\":1,\"source_image_name\":\"al2023-ami-minimal-2023.6.20241111.0-kernel-6.1-x86_64\"}",
+        "Version": 61,
+        "LastModifiedDate": "2024-11-18T17:08:46.926000+01:00",
+        "ARN": "arn:aws:ssm:eu-central-1::parameter/aws/service/ecs/optimized-ami/amazon-linux-2023/recommended",
+        "DataType": "text"
+    }
+```
+
+Note the `image_id` in your result (in this example, `ami-0281c9a5cd9de63bd`). Specify this ID in the **AMI ID** field under **Advanced options** when you create your AWS Batch Seqera compute environment. 
