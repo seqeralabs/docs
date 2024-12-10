@@ -7,9 +7,7 @@ tags: [fusion, storage, compute, file system, snapshot]
 
 Fusion Snapshots enable you to create a checkpoint of a running Nextflow process and restore it on a different machine. Leveraging the Fusion file system, you can move the task between different instances connected to the same S3 bucket.
 
-More specifically, the first use case for this feature is for Seqera Platform and Nextflow CLI users to leverage AWS Spot instances without restarting an entire task from scratch if an instance is terminated. When a Spot instance interruption occurs, the task is restored from the last checkpoint on a new AWS instance, saving time and computational resources.
-
-Seqera Platform AWS Batch compute environments simplify the configuration and use of Fusion and Fusion Snapshots.
+More specifically, the first use case for this feature is for Seqera Platform users to leverage AWS Spot instances without restarting an entire task from scratch if an instance is terminated. When a Spot instance interruption occurs, the task is restored from the last checkpoint on a new AWS instance, saving time and computational resources.
 
 ### Seqera Platform compute environment requirements
 
@@ -26,24 +24,13 @@ Fusion Snapshots v1.0.0 requires the following [Seqera compute environment](http
 - **Instance types**: See recommended instance sizes below
 - **AMI ID**: Amazon Linux 2023 ECS Optimized
 
-### Nextflow CLI execution config requirements
-
-See [AWS Batch](./guide/aws-batch.mdx#nextflow-cli) for standard Fusion configuration in a Nextflow CLI execution. To use Snapshots, also configure the following: 
-
-- `nextflow.conf` [parameters](#enable-snapshot-via-nextflow-config) as outlined below
-- [Recommended instance sizes](#recommended-instance-sizes) for sufficient performance as outlined below
-- SSD volumes used for the Fusion `/tmp` directory 
-- AWS Batch queues that use a compute environment with an [Amazon Linux 2023 ECS-optimized AMI](#amazon-linux-2023-ecs-optimized-ami) as outlined below
-- `workDir`: An S3 bucket in the same region as the compute environment
-
 ### Enable Snapshots via Nextflow config 
 
 :::note
 Fusion Snapshots is a private preview feature that requires setting a custom `fusion.containerConfigUrl`. [Contact Seqera](https://support.seqera.io) to request access to this feature. 
 :::
 
-- To use Fusion Snapshots in a Seqera AWS Batch compute environment, set the following Nextflow config values in the **Nextflow config** field under **Staging options**: 
-- To use Fusion Snapshots in a Nextflow CLI execution with the AWS Batch executor, set the following values in your pipeline `nextflow.conf` file:
+To use Fusion Snapshots in a Seqera AWS Batch compute environment, set the following Nextflow config values in the **Nextflow config** field under **Staging options**: 
 
 ```java
 aws.batch.maxSpotAttempts= 5
