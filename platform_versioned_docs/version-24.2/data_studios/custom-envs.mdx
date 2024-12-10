@@ -26,17 +26,12 @@ When adding a new data studio session, you can customize its configuration to in
 ```yaml title="Example environment.yml file"
 name: example-env
 channels:
-  - defaults
   - conda-forge
 dependencies:
-  - python=3.7
   - numpy
-  - pandas
-  - scikit-learn
   - pip:
     - matplotlib
     - seaborn
-    - jupyter
 ```
 
 To create a data studio with custom Conda packages, see [Add a data studio][add-ds].
