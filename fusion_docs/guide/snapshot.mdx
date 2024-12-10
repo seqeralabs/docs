@@ -5,7 +5,7 @@ date: "23 Aug 2024"
 tags: [fusion, storage, compute, file system, snapshot]
 ---
 
-Fusion Snapshot enables you to create a checkpoint of a running Nextflow process and restore it on a different machine. Leveraging the Fusion file system, Snapshot enables you to move the task between different instances connected to the same S3 bucket.
+Fusion Snapshots enable you to create a checkpoint of a running Nextflow process and restore it on a different machine. Leveraging the Fusion file system, you can move the task between different instances connected to the same S3 bucket.
 
 More specifically, the first use case for this feature is for Nextflow users to leverage AWS Spot instances without restarting an entire task from scratch if an instance is terminated. When a Spot instance interruption occurs, the task is restored from the last checkpoint on a new AWS instance, saving time and computational resources.
 
