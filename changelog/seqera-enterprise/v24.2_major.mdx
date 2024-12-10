@@ -1,0 +1,84 @@
+---
+title: Seqera Enterprise v24.2_major
+date: 2024-12-10
+tags: [seqera enterprise]
+---
+
+Seqera Platform Enterprise version 24.2 introduces a number of new features to Data Studios, the addition of the global Nextflow config, as well as a number of bug fixes and performance enhancements.
+
+## New features
+
+- Data Studios
+  - New telemetry metrics for Data Studio and improved metrics telemetry for signin
+  - Data Studios build events are now added to the auditlog. This captures custom environment builds in the audit log to give you insight into how often, and which, custom environments are created. The events `data_studio_session_build_started` and `data_studio_session_build_failed` are added to the `tw_audit_log` table.
+  - New [data studios dashboard](https://docs.seqera.io/platform/24.2/monitoring/dashboard#data-studios) provides information about Data Studios usage which can help you manage your resources.
+  - GPU resource definition for data studios (#7695)
+  - Add direct Data Explorer browse link to mounted data items, so that I can easily inspect the data used in my session.
+- Nextflow
+  - Add global Nextflow config: ability to define the Nextflow config in the CE as a "global" configuration. The configuration defined in the pipeline config and at launch level, can override the one defined in the CE config.
+- New Launch Form active by default 
+- Add AWS Forge support for Amazon Linux 2023 (#7734)
+- Deprecate Google Life Sciences API (#7675) (just on the UI)
+- Jedis progress store (#7493)
+- json schema support  (#7534)
+- Feature/azure service principal creds (#7444)
+- Bump nf-launcher:j17-24.10.2 (#7839)
+- Upgrade to Angular 16 (#6073)
+- Security fixes: All security fixes for previous versions. 
+
+## Improvements 
+
+- update CE helper text in new launch form to remove mention of non existing +  button (#7828)
+- Improve error message on launchpad if the branch is missing (#7772)
+- improve layout in big screens (#7365)
+- connect to live studio updates in Studio details page (#7765)
+- Use Jedis in place of Redisson in DistributedMailService  (#7496)
+- Refactor reports file streaming over Agent connections (#7692)
+- remove required validator from gitlab credentials password field (#7752)
+- Expired git credentials: Better error message (#7637)
+- Add name validation to custom container in Data Studio creation (#7719)
+- add volumes to data studio job definition (#7739)
+- Increase AWS agent timeout (#7626)
+- update Kubernetes credentials form UI (#7587)
+- [Data explorer] Remove folder validation (#7545)
+- Disable AWS and Google Batch spot auto retry (#7472)
+- global nextflow config and managed identity client ID copy fixes (#7495)
+- [Data Studios] Display warning on free tier Data Studios limits (#7128)
+- adds tags propagation to launch template (#7429)
+- Added flexibility for pipeline names in workspaces (#7272)
+- Implement custom launch container logic (#7298) (probably not needed...let's check on  this)
+
+## Bug fixes
+
+- add missing target="_blank" to data studio connect CTA (#7825)
+- when updating a CE, do not validate credentials when the same record is given (#7823)
+- edit ce when missing credentials (#7763)
+- check if workspace is disabled before fetching data links (#7789)
+- allow resume with compatible CE is broken when using agent and $TW_AGENT_WORKDIR as work dir. (#7754)
+- reports full screen (#7777)
+- propagate efs mount path as well (#7759)
+- Input form view not working for private GitHub repo using Quick Pipeline Launch (#7762)
+- workspace secrets are not being selected by default when doing quicklaunch with new form (#7743)
+- in new launch form users with "Maintain" role and lower can edit resource labels when launching (#7745)
+- Fixes a problem with Entra and javax.mail transitive dependency
+- shared pipelines without associated CE do not fallback to primary CE (#7646)
+- display initial mounted data when starting an existing studio (#7645)
+- PLAT-593: return the managedIdentityId when describing compute… (#7617)
+- send fetch schema request in quicklaunchmode even if revision is empty (#7606)
+- task tag search with underscore
+- improve performance of query is reported as intensive on RDS database (#7200)
+- avoid using master as fallback pipeline revision (#7586)
+- Update lastUsed on CE when creating job for data studio (#7543)
+- enable task workdir navigation using Data Explorer in the personal workspace (#7525)
+- allow changing the workDir when launching a pipeline (#7385)
+- File name is not encoded when requesting download URL #7436 (#7467)
+- Accessing reports of NF CLI runs fails with `TOWER_CONTENT_URL` set (#7230)
+- [Bug] NF schema nested objects values are not preserved after going trough input form (#7368)
+- [Data Explorer] Show CORS modal also when detecting incorrect eTag configuration, link to seqera docs (#7394)
+
+## Breaking changes and warnings
+
+Replace /redisson/* references for the AWS parameter store with TOWER_REDIS_*.
+Replace redisson.* references for the tower.yml with TOWER_REDIS_*. Setting TOWER_REDIS_* values directly in the YAML file (for example, TOWER_REDIS_URL: redis://...) in tower.yml is feasible.
+
+## Upgrade steps
