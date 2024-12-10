@@ -28,6 +28,7 @@ internal/tmp
 .github/styles/*
 # Include our own configuration
 !.github/styles/config
+!.github/styles/Google
 
 # Local Netlify folder
 .netlify

@@ -20,3 +20,5 @@
 
 /platform/24.1/data/data-studios   /platform/24.1/data_studios/  301
 /platform/24.2/data/data-studios   /platform/24.2/data_studios/  301
+# Redirect to fix temporarily broken URL in UI
+/platform/24.2/data/data_studios   /platform/24.2/data_studios/  301
