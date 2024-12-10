@@ -47,7 +47,7 @@ fusion.containerConfigUrl = 'TODO'
 
 ### Recommended instance sizes
 
-Fusion Snapshot requires EC2 instances with enough memory and network bandwidth to dump the cache of intermediate files from the Linux kernel of the instance to S3 storage before AWS reclaims the Spot instance. When AWS issues a spot instance reclamation notice, Fusion has two minutes to complete this transfer. 
+Fusion Snapshots require EC2 instances with enough memory and network bandwidth to dump the cache of intermediate files from the Linux kernel of the instance to S3 storage before AWS reclaims the Spot instance. When AWS issues a spot instance reclamation notice, Fusion has two minutes to complete this transfer. 
 
 It is recommended to select instances with guaranteed network bandwidth (as opposed to bandwidth _up to_ a maximum value) and maintain a ratio of 5:1 between memory and network bandwidth. 
 
