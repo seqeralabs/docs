@@ -13,7 +13,7 @@
         "guide/aws-eks",
         "guide/gcp-gke",
         "guide/local",
-        "guide/snapshot"
+        "guide/snapshots"
       ]
     },
     "troubleshooting",

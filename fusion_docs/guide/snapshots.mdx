@@ -1,13 +1,13 @@
 ---
-title: Snapshot for AWS Batch
-description: "Overview of the Fusion Snapshot feature for AWS Batch"
+title: Fusion Snapshots for AWS Batch
+description: "Overview of the Fusion Snapshots feature for AWS Batch"
 date: "23 Aug 2024"
 tags: [fusion, storage, compute, file system, snapshot]
 ---
 
 Fusion Snapshots enable you to create a checkpoint of a running Nextflow process and restore it on a different machine. Leveraging the Fusion file system, you can move the task between different instances connected to the same S3 bucket.
 
-More specifically, the first use case for this feature is for Nextflow users to leverage AWS Spot instances without restarting an entire task from scratch if an instance is terminated. When a Spot instance interruption occurs, the task is restored from the last checkpoint on a new AWS instance, saving time and computational resources.
+More specifically, the first use case for this feature is for Seqera Platform and Nextflow CLI users to leverage AWS Spot instances without restarting an entire task from scratch if an instance is terminated. When a Spot instance interruption occurs, the task is restored from the last checkpoint on a new AWS instance, saving time and computational resources.
 
 Seqera Platform AWS Batch compute environments simplify the configuration and use of Fusion and Fusion Snapshots.
 
@@ -20,15 +20,15 @@ Fusion Snapshots v1.0.0 requires the following [Seqera compute environment](http
 - **Enable Wave containers**
 - **Enable Fusion v2**
 - **Enable fast instance storage**
-- **Config mode**: Batch Forge (recommended)
+- **Config mode**: Batch Forge
 - **Provisioning model**: Spot 
-- **Nextflow config**: Set AWS Batch max spot attempts and the custom Fusion container URL [shown below](#enable-snapshot-via-nextflow-config)
+- **Nextflow config**: Set AWS Batch max spot attempts and the custom Fusion container URL received from Seqera [shown below](#enable-snapshot-via-nextflow-config)
 - **Instance types**: See recommended instance sizes below
 - **AMI ID**: Amazon Linux 2023 ECS Optimized
 
 ### Nextflow CLI execution config requirements
 
-See [AWS Batch](./guide/aws-batch.mdx#nextflow-cli) for standard Fusion configuration in a Nextflow CLI execution. In addition to this standard configuration, ensure the following: 
+See [AWS Batch](./guide/aws-batch.mdx#nextflow-cli) for standard Fusion configuration in a Nextflow CLI execution. To use Snapshots, also configure the following: 
 
 - `nextflow.conf` [parameters](#enable-snapshot-via-nextflow-config) as outlined below
 - [Recommended instance sizes](#recommended-instance-sizes) for sufficient performance as outlined below
@@ -38,26 +38,33 @@ See [AWS Batch](./guide/aws-batch.mdx#nextflow-cli) for standard Fusion configur
 
 ### Enable Snapshots via Nextflow config 
 
-Set the following Nextflow config values in the **Nextflow config** field under **Staging options** when creating your AWS Batch Seqera compute environment (`maxSpotAttempts` can be any value over `0`): 
+:::note
+Fusion Snapshots is a private preview feature that requires setting a custom `fusion.containerConfigUrl`. [Contact Seqera](https://support.seqera.io) to request access to this feature. 
+:::
+
+- To use Fusion Snapshots in a Seqera AWS Batch compute environment, set the following Nextflow config values in the **Nextflow config** field under **Staging options**: 
+- To use Fusion Snapshots in a Nextflow CLI execution with the AWS Batch executor, set the following values in your pipeline `nextflow.conf` file:
 
 ```java
 aws.batch.maxSpotAttempts= 5
-fusion.containerConfigUrl = 'TODO'
+fusion.containerConfigUrl = '<CUSTOM-CONTAINER-URL>'
 ```
+
+`maxSpotAttempts` must be a value higher than `0`.
 
 ### Recommended instance sizes
 
-Fusion Snapshots require EC2 instances with enough memory and network bandwidth to dump the cache of intermediate files from the Linux kernel of the instance to S3 storage before AWS reclaims the Spot instance. When AWS issues a spot instance reclamation notice, Fusion has two minutes to complete this transfer. 
+Fusion Snapshots require EC2 Spot instances with enough memory and network bandwidth to dump the cache of task intermediate files to S3 storage before AWS terminates an instance. When AWS issues a Spot instance reclamation notice, Fusion has two minutes to complete this transfer. 
 
 It is recommended to select instances with guaranteed network bandwidth (as opposed to bandwidth _up to_ a maximum value) and maintain a ratio of 5:1 between memory and network bandwidth. 
 
-For example, when taking bandwidth and the compute necessary to take the Snapshots into account, a  `c6i.8xlarge` instance with 64 GIB memory and a guaranteed network bandwidth of 12.5 Gbps can take approximately 70 seconds to dump the entire instance to S3 storage before instance reclamation occurs. 
+For example, taking into account the bandwidth and compute necessary to create a snapshot, a  `c6i.8xlarge` instance with 64 GIB memory and a guaranteed network bandwidth of 12.5 Gbps can take approximately 70 seconds to dump the entire instance to S3 storage before instance reclamation occurs. 
 
 ### Amazon Linux 2023 ECS-optimized AMI 
 
 To obtain sufficient performance, Fusion Snapshots require instances with Amazon Linux 2023 (which ships with Linux Kernel 6.1), with an ECS Container-optimized AMI. 
 
-To find the recommended AL2023 ECS Optimized AMI for your region, run the following (replace `eu-central-1` with your AWS region):
+To find the recommended AL2023 ECS-optimized AMI for your region, run the following (replace `eu-central-1` with your AWS region):
 
 ```bash 
 export REGION=eu-central-1
@@ -79,4 +86,4 @@ The result for the `eu-central-1` region is similar to the following:
     }
 ```
 
-Note the `image_id` in your result (in this example, `ami-0281c9a5cd9de63bd`). Specify this ID in the **AMI ID** field under **Advanced options** when you create your AWS Batch Seqera compute environment. 
+Note the `image_id` in your result (in this example, `ami-0281c9a5cd9de63bd`). Specify this ID in the **AMI ID** field under **Advanced options** when you create your Seqera compute environment. 
