@@ -25,7 +25,7 @@ spec:
             - name: CONNECT_HTTP_PORT
               value: "80"
             - name: CONNECT_REDIS_ADDRESS
-              value: <CONNECT_REDIS_ADDRESS>
+              value: <CONNECT_REDIS_ADDRESS>:6379
             - name: CONNECT_REDIS_PREFIX
               value: "connect:session"
             - name: CONNECT_REDIS_TLS_ENABLE
