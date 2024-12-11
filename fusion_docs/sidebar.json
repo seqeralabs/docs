@@ -12,7 +12,7 @@
         "guide/azure-batch",
         "guide/aws-eks",
         "guide/gcp-gke",
-        "guide/local",
+        "guide/local"
       ]
     },
     "troubleshooting",
