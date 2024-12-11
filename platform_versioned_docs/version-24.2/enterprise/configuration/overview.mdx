@@ -132,7 +132,12 @@ Replace `{prefix}` in each configuration path with `/config/<application_name>`,
 Configuration values that control Seqera's interaction with databases and Redis instances. `TOWER_DB_USER`, `TOWER_DB_PASSWORD`, and `TOWER_DB_URL` must be specified using environment variables during initial Seqera Enterprise deployment in a new environment. A new installation will fail if DB values are only defined in `tower.yml` or the AWS Parameter Store. Once the database has been created, these values can be added to `tower.yml` or [AWS Parameter Store](./aws_parameter_store.mdx) entries and removed from your environment variables.
 
 :::note
-From Seqera Enterprise version 23.3, Redis version 7 is officially supported. Follow your cloud provider specifications to upgrade your instance.
+From Seqera Enterprise version 24.2:
+
+- Redis version 6.2 or greater is required.
+- Redis version 7 is officially supported.
+
+Follow your cloud provider specifications to upgrade your instance.
 :::
 
 If you use a database **other than** the provided `db` container, you must create a user and database schema manually.
