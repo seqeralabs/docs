@@ -121,19 +121,20 @@ Create an Azure MySQL DB instance:
   1. Select **Create**.
   1. On the **Select Azure Database for MySQL deployment option** pane, select **Flexible server** as the deployment option.
   1. On the **Basics** tab, enter or select the following:
-      - Your **Subscription** name 
-      - Your **Resource group** name 
+      - Your **Subscription** name
+      - Your **Resource group** name
       - A **Server name** such as `towerdbserver`
       - Your **Region**
       - The **Workload type**, based on your required `max_connections`
-      - **High availability** — high availability is recommended for production deployments 
+      - **High availability** — high availability is recommended for production deployments
       - **Standby availability zone** — standby server zone location
-      - **MySQL version** — 8.0 
-      - An **Admin username** to access the server 
-      - A **Password** to access the server 
-      - Your **Compute + storage** requirements, considering the minimum performance requirements outlined above 
-  1. Configure networking options. 
-  1. Select **Review + create**, then **Create**. 
+      - **MySQL version** — 8.0
+      - An **Admin username** to access the server
+      - A **Password** to access the server
+      - Your **Compute + storage** requirements, considering the minimum performance requirements outlined above
+  1. Configure networking options.
+  1. Select **Review + create**, then **Create**.
+  1. Disable invisible primary keys, which can interfere with upgrades to newer releases of Seqera Platform Enterprise. Azure Database for MySQL creates invisible primary keys automatically by default. For more information, see [Steps to disable a GIPK][azure-gipk].
 
 </details>
 <details>
@@ -149,11 +150,12 @@ Create an Azure MySQL DB instance:
 
   1. Run `az mysql flexible-server db create` to create a database on your server:
 
-      ```bash 
+      ```bash
       az mysql flexible-server db create --resource-group towerrg
                                       --server-name towerdbserver
                                       --database-name towerdb
       ```                                
+  1. Disable invisible primary keys, which can interfere with upgrades to newer releases of Seqera Platform Enterprise. Azure Database for MySQL creates invisible primary keys automatically by default. For more information, see [Steps to disable a GIPK][azure-gipk].
 
 </details>
 
@@ -284,6 +286,7 @@ See [Configuration](../configuration/overview.mdx).
 [azure-db-create-cli]: https://learn.microsoft.com/en-us/azure/mysql/flexible-server/quickstart-create-server-cli
 [azure-db-create-portal]: https://learn.microsoft.com/en-us/azure/mysql/flexible-server/quickstart-create-server-portal
 [azure-db-config]: https://docs.microsoft.com/en-us/azure/mysql/connect-java#prepare-a-configuration-file-to-connect-to-azure-database-for-mysql
+[azure-gipk]: https://learn.microsoft.com/en-us/azure/mysql/flexible-server/concepts-limitations#steps-to-disable-a-gipk
 [azure-dns]: https://docs.microsoft.com/en-us/azure/dns/dns-overview
 [azure-linux-vm-cli]: https://learn.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-cli#create-the-virtual-machine
 [azure-linux-vm-portal]: https://learn.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal?tabs=ubuntu
