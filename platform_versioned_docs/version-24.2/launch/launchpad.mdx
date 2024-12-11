@@ -47,6 +47,37 @@ For saved pipelines, **General config** and **Run parameters** fields are prefil
   The credentials associated with the compute environment must have access to the work directory.
   :::
 
+#### Config profiles
+
+The dropdown of available config profiles is populated by inspecting the Nextflow configuration in the pipeline repository. A limited form of static analysis is used to detect profiles in the main configuration and included configurations that match any of the following patterns:
+
+- Includes with a static string:
+  ```groovy
+  includeConfig 'conf/profiles.config'
+  includeConfig 'http://...'
+  ```
+
+- Includes with dynamic string that depends only on parameters that are defined in the config:
+  ```groovy
+  includeConfig params.custom_config
+  includeConfig "${params.custom_config_base}/nfcore_custom.config"
+  ```
+
+- Includes with a ternary expression:
+  ```groovy
+  includeConfig params.custom_config_base ? "${params.custom_config_base}/nfcore_custom.config" : "/dev/null"
+  ```
+  In this case, only the "true" branch (i.e. `"${params.custom_config_base}/nfcore_custom.config"`) is inspected.
+
+- Includes within a try-catch statement:
+  ```groovy
+  try {
+      includeConfig "${params.custom_config_base}/nfcore_custom.config"
+  } catch (Exception e) {
+      // ...
+  }
+  ```
+
 ### Run parameters 
 
 There are three ways to enter **Run parameters** prior to launch:
