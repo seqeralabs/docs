@@ -41,8 +41,8 @@ FSx
 Dockerfile
 initContainers
 Cron
-Autoscaling
-Autoscale
+[Aa]utoscaling
+[Aa]utoscale
 
 # Other
 subnets

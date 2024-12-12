@@ -24,3 +24,6 @@
 
 # Redirect first result on Google for CLI docs
 /platform/23.3/cli /platform/latest/cli/overview/:splat 301
+
+# Redirect to fix temporarily broken URL in UI
+/platform/24.2/data/data_studios   /platform/24.2/data_studios/  301
