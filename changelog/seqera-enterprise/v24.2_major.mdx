@@ -6,47 +6,46 @@ tags: [seqera enterprise]
 
 Seqera Platform Enterprise version 24.2 introduces a number of new features to Data Studios, the addition of the global Nextflow config, as well as a number of bug fixes and performance enhancements.
 
-## New features
+## New features and improvements
 
 - Data Studios
   - New telemetry metrics for Data Studio and improved metrics telemetry for signin
   - Data Studios build events are now added to the auditlog. This captures custom environment builds in the audit log to give you insight into how often, and which, custom environments are created. The events `data_studio_session_build_started` and `data_studio_session_build_failed` are added to the `tw_audit_log` table.
   - New [data studios dashboard](https://docs.seqera.io/platform/24.2/monitoring/dashboard#data-studios) provides information about Data Studios usage which can help you manage your resources.
-  - GPU resource definition for data studios (#7695)
+  - GPU resource definition for data studios: Adds GPU resources to Data Studios.
   - Add direct Data Explorer browse link to mounted data items, so that I can easily inspect the data used in my session.
+  - When you use Data Studios and are close to reaching the tier limit as a free tier user, warnings will be displayed in the Platform interface.
+  - Add name validation to custom container in Data Studio creation (#7719)
+  - Connect to live studio updates in Studio details page (#7765)
+  - Add volumes to data studio job definition (#7739)
 - Nextflow
   - Add global Nextflow config: ability to define the Nextflow config in the CE as a "global" configuration. The configuration defined in the pipeline config and at launch level, can override the one defined in the CE config.
-- New Launch Form active by default 
-- Add AWS Forge support for Amazon Linux 2023 (#7734)
-- Deprecate Google Life Sciences API (#7675) (just on the UI)
-- Jedis progress store (#7493)
+- [Data explorer] Remove folder validation (#7545)
+- New Launch Form is enabled by default. If you've activated the new launch form already using the environment variable `TOWER_STEPPED_LAUNCH_FORM_ALLOWED_WORKSPACES`, nothing will change. If you have not yet activated it, it will show by default. You can disable this per workspace, or across your entire deployment (empty, null, comma-separated). When `null` (undefined) ->  no workspaces are enabled, when empty -> all are enabled
+- Add AWS Forge support for Amazon Linux 2023 - AWS forge was only able to create CE that was compatible with AL2. It's not possible to specify as an image in the Forge setup. (#7734)
+- Add Google Life Sciences API deprecation notice to Seqera Platform UI. The Google Life Sciences API will be deprecated in June 2025.
+- Jedis progress store - replaces redisson and is easier than redisson (#7493)
 - json schema support  (#7534)
-- Feature/azure service principal creds (#7444)
-- Bump nf-launcher:j17-24.10.2 (#7839)
-- Upgrade to Angular 16 (#6073)
-- Security fixes: All security fixes for previous versions. 
-
-## Improvements 
-
+- Feature/azure service principal creds - prevents spillover of credentials, and config needs to be done and Adam wrote the docs (#7444)
 - update CE helper text in new launch form to remove mention of non existing +  button (#7828)
 - Improve error message on launchpad if the branch is missing (#7772)
 - improve layout in big screens (#7365)
-- connect to live studio updates in Studio details page (#7765)
 - Use Jedis in place of Redisson in DistributedMailService  (#7496)
 - Refactor reports file streaming over Agent connections (#7692)
 - remove required validator from gitlab credentials password field (#7752)
 - Expired git credentials: Better error message (#7637)
-- Add name validation to custom container in Data Studio creation (#7719)
-- add volumes to data studio job definition (#7739)
 - Increase AWS agent timeout (#7626)
 - update Kubernetes credentials form UI (#7587)
-- [Data explorer] Remove folder validation (#7545)
 - Disable AWS and Google Batch spot auto retry (#7472)
 - global nextflow config and managed identity client ID copy fixes (#7495)
-- [Data Studios] Display warning on free tier Data Studios limits (#7128)
 - adds tags propagation to launch template (#7429)
 - Added flexibility for pipeline names in workspaces (#7272)
 - Implement custom launch container logic (#7298) (probably not needed...let's check on  this)
+
+- Bump nf-launcher:j17-24.10.2 (#7839)
+- Upgrade to Angular 16 (#6073)
+- Security fixes: All security fixes for previous versions. 
+
 
 ## Bug fixes
 
