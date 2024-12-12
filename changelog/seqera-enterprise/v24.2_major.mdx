@@ -4,11 +4,13 @@ date: 2024-12-10
 tags: [seqera enterprise]
 ---
 
-Seqera Platform Enterprise version 24.2 introduces a number of new features to Data Studios, the addition of the global Nextflow config, as well as a number of bug fixes and performance enhancements.
+Seqera Enterprise version 24.2 introduces a number of new features to Data Studios, the addition of the global Nextflow config, as well as a number of bug fixes and performance enhancements.
 
 ## New features and improvements
 
-- Data Studios
+
+### Data Studios
+
   - New telemetry metrics for Data Studio and improved metrics telemetry for signin
   - Data Studios build events are now added to the auditlog. This captures custom environment builds in the audit log to give you insight into how often, and which, custom environments are created. The events `data_studio_session_build_started` and `data_studio_session_build_failed` are added to the `tw_audit_log` table.
   - New [data studios dashboard](https://docs.seqera.io/platform/24.2/monitoring/dashboard#data-studios) provides information about Data Studios usage which can help you manage your resources.
@@ -18,8 +20,13 @@ Seqera Platform Enterprise version 24.2 introduces a number of new features to D
   - Add name validation to custom container in Data Studio creation (#7719)
   - Connect to live studio updates in Studio details page (#7765)
   - Add volumes to data studio job definition (#7739)
-- Nextflow
+
+### Nextflow
+
   - Add global Nextflow config: ability to define the Nextflow config in the CE as a "global" configuration. The configuration defined in the pipeline config and at launch level, can override the one defined in the CE config.
+
+### Platform
+
 - [Data explorer] Remove folder validation (#7545)
 - New Launch Form is enabled by default. If you've activated the new launch form already using the environment variable `TOWER_STEPPED_LAUNCH_FORM_ALLOWED_WORKSPACES`, nothing will change. If you have not yet activated it, it will show by default. You can disable this per workspace, or across your entire deployment (empty, null, comma-separated). When `null` (undefined) ->  no workspaces are enabled, when empty -> all are enabled
 - Add AWS Forge support for Amazon Linux 2023 - AWS forge was only able to create CE that was compatible with AL2. It's not possible to specify as an image in the Forge setup. (#7734)
