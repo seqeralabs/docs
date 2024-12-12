@@ -15,6 +15,14 @@
   Resource:            'Data Explorer cloud buckets'
   Events logged:       'Add, edit, delete, hide, show'
   Note:                'Events for public and private buckets are logged.'
+-
+  Resource: 'Data Studios sessions'
+  Events logged: 'Add, started, connected, disconnected, stopped, deleted'
+  Note: 'Does not include temporary states (starting, stopping, deleting)'
+-
+  Resource: 'Data Studios custom environments'
+  Events logged: 'Build started, build succeeded, build failed'
+  Note: 'Applied only to Wave-enabled custom environment creation'
 - 
   Resource:            'Data Explorer files'
   Events logged:       'Download, upload, preview'
