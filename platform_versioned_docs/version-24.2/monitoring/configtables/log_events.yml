@@ -17,7 +17,7 @@
   Note:                'Events for public and private buckets are logged.'
 -
   Resource: 'Data Studios sessions'
-  Events logged: 'Add, started, connected, disconnected, stopped, deleted'
+  Events logged: 'Add, start, connect, disconnect, stop, delete'
   Note: 'Does not include temporary states (starting, stopping, deleting)'
 -
   Resource: 'Data Studios custom environments'
