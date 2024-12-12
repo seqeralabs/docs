@@ -13,7 +13,7 @@
   Note:                'Log entry includes the credential ID. A log entry is also created each time the credentials are accessed by the application.'
 - 
   Resource:            'Data Explorer cloud buckets'
-  Events logged:       'Add, edit, delete, hide, show'
+  Events logged:       'Add, edit, remove, hide, show'
   Note:                'Events for public and private buckets are logged.'
 -
   Resource: 'Data Studios sessions'
