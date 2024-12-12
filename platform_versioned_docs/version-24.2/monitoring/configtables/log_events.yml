@@ -21,7 +21,7 @@
   Note: 'Does not include temporary states (starting, stopping, deleting)'
 -
   Resource: 'Data Studios custom environments'
-  Events logged: 'Build started, build succeeded, build failed'
+  Events logged: 'Build start, build success, build fail'
   Note: 'Applied only to Wave-enabled custom environment creation'
 - 
   Resource:            'Data Explorer files'
