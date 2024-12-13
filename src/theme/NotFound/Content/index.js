@@ -25,7 +25,7 @@ export default function NotFoundContent({className, path}) {
             <Translate
               id="theme.NotFound.p2"
               description="The 2nd paragraph of the 404 page">
-              You can return to the docs [here](https://docs.seqera.io/platform) or use the search bar to find what you're looking for. 
+              <a href="https://docs.seqera.io/platform">Return to the docs</a>. 
             
             </Translate>
           </p>
