@@ -23,30 +23,30 @@ In the Azure Portal:
 
 - Create an Azure Storage account with the default settings.
 - In the Azure Storage account, add a single blob container called `work`. This is our Nextflow working directory.
-- Create a new Batch account. Use Batch Managed for now, with the default settings. Use the same region as your Storage account and attach the storage account to the Batch account when prompted.
-- In the Azure Batch page on the Azure Portal, click Quotas
-- Click "Request Quota Increase"
-- For Quota Type, select "Batch", click Next
-- Click "Enter Details", then select the Location as the region of your Batch account and the Batch account
-- Select EDv5 Series
-- Select Spot/low-priority vCPUS (all Series)
-- Select Active jobs and job schedules per Batch account
-- Select Pools per Batch account
+- Create a new Batch account. Use Batch Managed for now, with the default settings. Use the same region as your Storage account and attach the Storage account to the Batch account when prompted.
+- In the Azure Batch page on the Azure Portal, select **Quotas**.
+- Select **Request Quota Increase**.
+- For **Quota Type**, select **Batch** then select **Next**.
+- Select **Enter Details**, then choose the **Location** as the region of your Batch account.
+- Select **EDv5 Series**
+- Select **Spot/low-priority vCPUS (all Series)**.
+- Select **Active jobs and job schedules per Batch account**.
+- Select **Pools per Batch account**.
 
 For each value, increase each to a minimum of the following:
 
-- EDv5 Series: 192
-- Active jobs and job schedules per Batch account: 100
-- Pools per Batch account: 50
-- Spot/low-priority vCPUS (all Series): 192
+- **EDv5 Series**: 192
+- **Active jobs and job schedules per Batch account**: 100
+- **Pools per Batch account**: 50
+- **Spot/low-priority vCPUS (all Series)**: 192
 
-#### Setup Seqera Cloud
+#### Set up Seqera Cloud
 
 In Seqera Cloud:
 
 - Create a new account.
 - Create a new organization and workspace.
-- Add a Github PAT token to the workspace to prevent API rate limiting issues with Github.
+- Add a GitHub PAT token to the workspace to prevent API rate-limiting issues with GitHub.
 
 ## Walkthrough
 
@@ -80,7 +80,7 @@ Next, we need to create a compute environment with Batch Forge.
 TODO: Add hello-world pipeline here
 TODO: Launch the pipeline
 
-Behaviour:
+Behavior:
 
 - Seqera Platform will submit a Nextflow job and task to this pool.
 - The Nextflow job will execute and submit each task to the same node pool on Azure Batch.
@@ -134,7 +134,7 @@ process.queue = 'tower-pool-${id}'
 
 Launch the pipeline by clicking "Launch".
 
-Behaviour:
+Behavior:
 
 - Seqera Platform will submit a Nextflow job and task to the first pool, which uses dedicated VMs.
 - The Nextflow job will execute and submit each task to the second pool which uses low-priority VMs.
@@ -167,7 +167,7 @@ The node pool will increase to a minimum of 1 node. Now, when we make adjustment
 
 Launch the hello-world-low-priority again and although it will be hard to tell, it will respond much faster. The _latency_ of the pipeline has gone done, although overall time will be similar.
 
-Behaviour:
+Behavior:
 
 - The head node will stay up and running.
 - The worker node pool will autoscale up and down based on the number of tasks waiting.
@@ -213,7 +213,7 @@ azure {
 
 As before, click "Launch" to run the pipeline.
 
-Behaviour:
+Behavior:
 
 - Seqera Platform will submit a Nextflow job and task to the first pool, which uses dedicated VMs.
 - The Nextflow job will create pools in the Azure Batch account based on the pipeline's requirements.
@@ -262,7 +262,7 @@ azure {
 
 Launch the pipeline by clicking "Launch".
 
-Behaviour:
+Behavior:
 
 - Seqera Platform will submit a Nextflow job and task to the first pool, which uses dedicated VMs.
 - The Nextflow job will create pools in the Azure Batch account based on the pipeline's requirements.
@@ -328,9 +328,9 @@ Launch the pipeline by clicking "Launch".
 The pipeline will run as before, but using the managed identity to authenticate to Azure Batch and Storage. No keys or storage required.
 
 > [!NOTE]
-> If we wishes, we could use User Subscription mode instead of Batch Managed here although this is out of the scope of this tutorial.
+> If we wished, we could use User Subscription mode instead of Batch Managed here although this is out of the scope of this tutorial.
 
-Behaviour:
+Behavior:
 - Seqera Platform will authenticate to Azure Batch and Azure Storage using a service principal
 - It will submit a job and task to the Azure Batch service using the service principal
 - The task will run Nextflow, which will authenticate to Azure Batch and Azure Storage using the managed identity
@@ -379,7 +379,7 @@ The pipeline will run as before, but it will run on the node pool attached to th
 
 Using this technique is how we can run pipelines on Azure Batch with more restrictive networking and security requirements.
 
-Behaviour:
+Behavior:
 - Each worker node will be attached to the vnet and use the security and networking rules of that virtual network subnetwork.
 - All other behaviour will be as normal
 
@@ -433,7 +433,7 @@ Launch the pipeline by clicking "Launch".
 
 The pipeline will run as before, but using the managed identity to authenticate to Azure Batch and Storage. Furthermore, it will create worker pools attached to the vnet.
 
-Behaviour:
+Behavior:
 - The same as the previous example, but with additional worker node pools attached to the vnet.
 
 Advantages:
