@@ -11,22 +11,22 @@ export default function NotFoundContent({className, path}) {
             <Translate
               id="theme.NotFound.title"
               description="The title of the 404 page">
-              Page Not Found
+              Page not found
             </Translate>: {path}
           </Heading>
           <p>
             <Translate
               id="theme.NotFound.p1"
               description="The first paragraph of the 404 page">
-              We could not find what you were looking for.
+              The page you're looking for has moved or doesn't exist.
             </Translate>
           </p>
           <p>
             <Translate
               id="theme.NotFound.p2"
               description="The 2nd paragraph of the 404 page">
-              Please contact the owner of the site that linked you to the
-              original URL and let them know their link is broken.
+              You can return to the docs [here](https://docs.seqera.io/platform) or use the search bar to find what you're looking for. 
+            
             </Translate>
           </p>
         </div>

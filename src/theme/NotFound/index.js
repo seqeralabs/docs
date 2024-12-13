@@ -6,7 +6,7 @@ import NotFoundContent from '@theme/NotFound/Content';
 export default function Index({ location: { pathname } }) {
   const title = translate({
     id: 'theme.NotFound.title',
-    message: `Page Not Found: ${pathname}`,
+    message: `Page not found: ${pathname}`,
   });
   return (
     <>
