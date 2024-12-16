@@ -8,7 +8,6 @@ Seqera Enterprise version 24.2 introduces a number of new features to Data Studi
 
 ## New features and improvements
 
-
 ### Nextflow
 
   - Add global Nextflow config: ability to define the Nextflow config in the CE as a "global" configuration. The configuration defined in the pipeline config and at launch level, can override the one defined in the CE config.
@@ -46,14 +45,13 @@ Seqera Enterprise version 24.2 introduces a number of new features to Data Studi
 
 ### Compute Environments
 
-- AWS Forge support has been added for Amazon Linux 2023. Previously AWS Forge was only able to create CE that was compatible with AL2. Seqera now supports Amazon Linux 2023 - and if you specify an AMI ID then it spins up the right one. This does not change the defaults. It's not possible to specify as an image in the Forge setup. (#7734)
+- AWS Forge support has been added for Amazon Linux 2023. Previously AWS Forge was only able to create CE that was compatible with AL2. Seqera now supports Amazon Linux 2023 - and if you specify an AMI ID then it spins up the right one. This does not change the defaults. It's not possible to specify as an image in the Forge setup.
 - Google Life Sciences API deprecation notice has been added to the to Seqera Platform UI. The Google Life Sciences API will be deprecated in June 2025.
 
 ### Credentials 
 
 - Azure Batch service principal creds and managed identities prevents spillover of credentials, and config needs to be done. 
-- Remove required validator from GitLab credentials password field (#7752)
-- Update Kubernetes credentials form UI (#7587)
+- Remove required validator from GitLab credentials password field.
 
 ### Secrets
 
@@ -65,59 +63,57 @@ Seqera Enterprise version 24.2 introduces a number of new features to Data Studi
 
 ### Settings
 
-- Added flexibility for pipeline names in workspaces (#7272)
+- Added flexibility for pipeline names in workspaces. This change forces name uniqueness at the workspace level for private workspaces while keeping the uniqueness at the organization level for shared workspaces.
 
 ### User/authentication
 
 - N/A
 
+### General
 
-- Jedis progress store - replaces redisson and is easier than redisson (#7493)
-- Use Jedis in place of Redisson in DistributedMailService  (#7496)
-- Refactor reports file streaming over Agent connections (#7692)
-- json schema support  (#7534)
-- improve layout in big screens (#7365)
-- Expired git credentials: Better error message (#7637)
-- Increase AWS agent timeout (#7626)
-- Disable AWS and Google Batch spot auto retry (#7472)
-
-
-- Bump nf-launcher:j17-24.10.2 (#7839)
-- Upgrade to Angular 16 (#6073)
-- Security fixes: All security fixes for previous versions. 
+- Platform Progress store using Jedis in place of Redisson library. 
+- Use Jedis in place of Redisson in `DistributedMailService`.
+- Refactor reports file streaming over Agent connections directly to the browser.
+- JSON schema draft 2020-12 features inside parameters input form support. Includes: Nested parameters, "anyOf", "allOf", and "oneOf" input form validation support, "dependantSchemas" initial support, and "if-then-else" support.
+- Increase ECS agent config setting to tune the timeout for several container actions
+   - `ECS_CONTAINER_CREATE_TIMEOUT=10m`: Timeout for creating a container.
+   - `ECS_CONTAINER_STOP_TIMEOUT=10m`: Timeout for stopping a container. Increase to prevent Nextflow from being forcibly killed and leave running jobs.
+   - `ECS_MANIFEST_PULL_TIMEOUT=10m`: Timeout for pulling a container manifest. This may be needed when pulling a Wave container with a long build time.
+- Disable AWS and Google Batch spot auto retry: This disables the automatic retry of Batch jobs submitted by Nextflow if favour of using classic Nextflow retry mechanism. This is because the Batch automatic retry is completely transparent (invisble) to the Platform and end-user. Nextflow retry gives a better feedback and allows the user to have more control over it.
+- Bump nf-launcher:j17-24.10.2 
+- Upgrade to Angular 16
+- Security fixes: All security fixes for previous versions
 
 
 ## Bug fixes
 
-- add missing target="_blank" to data studio connect CTA (#7825)
-- when updating a CE, do not validate credentials when the same record is given (#7823)
-- edit ce when missing credentials (#7763)
-- check if workspace is disabled before fetching data links (#7789)
-- allow resume with compatible CE is broken when using agent and $TW_AGENT_WORKDIR as work dir. (#7754)
-- reports full screen (#7777)
-- propagate efs mount path as well (#7759)
-- Input form view not working for private GitHub repo using Quick Pipeline Launch (#7762)
-- workspace secrets are not being selected by default when doing quicklaunch with new form (#7743)
-- in new launch form users with "Maintain" role and lower can edit resource labels when launching (#7745)
-- Fixes a problem with Entra and javax.mail transitive dependency
-- shared pipelines without associated CE do not fallback to primary CE (#7646)
-- display initial mounted data when starting an existing studio (#7645)
-- PLAT-593: return the managedIdentityId when describing compute… (#7617)
-- send fetch schema request in quicklaunchmode even if revision is empty (#7606)
-- task tag search with underscore
-- improve performance of query is reported as intensive on RDS database (#7200)
-- avoid using master as fallback pipeline revision (#7586)
-- Update lastUsed on CE when creating job for data studio (#7543)
-- enable task workdir navigation using Data Explorer in the personal workspace (#7525)
-- allow changing the workDir when launching a pipeline (#7385)
-- File name is not encoded when requesting download URL #7436 (#7467)
-- Accessing reports of NF CLI runs fails with `TOWER_CONTENT_URL` set (#7230)
-- [Bug] NF schema nested objects values are not preserved after going trough input form (#7368)
-- [Data Explorer] Show CORS modal also when detecting incorrect eTag configuration, link to seqera docs (#7394)
+- Check if a workspace is disabled before fetching data links.
+- Allow resume with compatible CE is broken when using agent and `$TW_AGENT_WORKDIR` as work dir. 
+- Input form view not working for private GitHub repo using Quick Pipeline Launch.
+- Workspace secrets are not being selected by default when doing Quicklaunch with new form.
+- In new launch form users with "Maintain" role and lower can edit resource labels when launching.
+- Fixes a problem with Entra and `javax.mail` transitive dependency.
+- Shared pipelines without associated CE do not fallback to primary CE.
+- Display initial mounted data when starting an existing Data Studio session.
+- Adds the `managedIdentityId` to the response payload, when describing a compute environment.
+- Send fetch schema request in `quicklaunchmode` even if revision is empty.
+- Task tag search with underscore.
+- Improve performance of query is reported as intensive on RDS database. Added index to `tw_workflow(complete)` column, which improves the performance of the query that finds workflows with missing progress. Added index to `tw_workflow(status`)` column conditionally; the index was already present in the `cloud.seqera.io` database, but not included among the database migration scripts.
+- Avoid using master as fallback pipeline revision.
+- Update `lastUsed` on compute environment when creating job for Data Studio session.
+- Enable task `workDir` navigation using Data Explorer in the personal workspace.
+- Allow changing the `workDir` when launching a pipeline.
+- File name is not encoded when requesting download URL.
+- Accessing reports of Nextflow CLI runs fails with `TOWER_CONTENT_URL` set.
+- NF schema nested objects values are not preserved after going through input form. Removes processing of unsupported JSON schema types inside our pipeline input form components.
+- Show CORS modal when detecting incorrect eTag configuration for Data Explorer and update link to Seqera docs.
 
 ## Breaking changes and warnings
 
-Replace `/redisson/*` references for the AWS parameter store with `TOWER_REDIS_*`. Replace `redisson.*` references for the `tower.yml` with `TOWER_REDIS_*`. Setting `TOWER_REDIS_*` values directly in the YAML file (for example, `TOWER_REDIS_URL: redis://...`) in `tower.yml` is feasible.
+From this version of Seqera Platform, `redisson.*` properties will be deprecated. If you have set `redisson.*` properties directly, do the following:
+
+- Replace `/redisson/*` references for the AWS parameter store with `TOWER_REDIS_*`.
+- Replace `redisson.*` references for the `tower.yml` with `TOWER_REDIS_*`. You can set `TOWER_REDIS_*` values directly in the YAML file (for example, `TOWER_REDIS_URL: redis://...`) in `tower.yml`.
 
 ## Upgrade steps 
 
@@ -137,7 +133,3 @@ For Kubernetes deployments, apply the 24.1 `tower-cron.yml` to your cron pod and
 
 For custom deployments with third-party services such as ArgoCD, [contact support](https://support.seqera.io) for assistance during upgrade. 
 ::: 
-
-
-?? 
-  - Add direct Data Explorer browse link to mounted data items, to easily inspect the data used in a session.
