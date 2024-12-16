@@ -108,10 +108,38 @@ Seqera Enterprise version 24.2 introduces a number of new features to Data Studi
 
 ## Breaking changes and warnings
 
+### Redisson properties deprecated
+
 From this version of Seqera Platform, `redisson.*` properties will be deprecated. If you have set `redisson.*` properties directly, do the following:
 
 - Replace `/redisson/*` references for the AWS parameter store with `TOWER_REDIS_*`.
 - Replace `redisson.*` references for the `tower.yml` with `TOWER_REDIS_*`. You can set `TOWER_REDIS_*` values directly in the YAML file (for example, `TOWER_REDIS_URL: redis://...`) in `tower.yml`.
+
+### MariaDB driver: New MySQL connection parameter required
+
+MariaDB driver 3.x requires a special parameter in the connection URL to connect to a MySQL database:
+
+`jdbc:mysql://<domain>:<port>/tower?permitMysqlScheme=true`
+
+All deployments using a MySQL database (regardless of version: 5.6, 5.7, or 8) should be updated accordingly when upgrading to Platform version 24.1 or later.
+
+### MariaDB driver: No truncation support for MySQL 5.6
+
+The MariaDB driver has dropped support for the `jdbcCompliantTruncation` parameter, which was true by default and set the `STRICT_TRANS_TABLES` SQL mode. The `STRICT_TRANS_TABLES` mode produces an error when the value of a VARCHAR column exceeds its limit, instead of truncating it to fit. Most common installations of MySQL 5.7 and 8 already include this mode at the server level, but the Docker container version of MySQL 5.6 does not.
+
+The SQL mode must be set explicitly through the connection URL for deployments still using MySQL 5.6:
+
+`jdbc:mysql://<domain>:<port>/tower?permitMysqlScheme=true&sessionVariables=sql_mode='STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION'`
+
+### Micronaut property key changes
+
+The property that determines the expiration time of the JWT access token (used for authenticating web sessions and Nextflow-Platform interactions) has changed:
+
+| Previous                                                         | New                                                          |
+| ---------------------------------------------------------------- | ------------------------------------------------------------ |
+| `micronaut.security.token.jwt.generator.access-token.expiration` | `micronaut.security.token.generator.access-token.expiration` |
+	
+Enterprise deployments that have customized this value previously will need to adopt the new format.
 
 ## Upgrade steps 
 
