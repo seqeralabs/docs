@@ -1,6 +1,6 @@
 ---
 title: Seqera Enterprise v24.2_major
-date: 2024-12-10
+date: 2024-12-18
 tags: [seqera enterprise]
 ---
 
@@ -34,10 +34,10 @@ https://docs.seqera.io/platform/24.2/enterprise/advanced-topics/custom-launch-co
 
 ### Data Studios
  
- - Data Studios custom environments
+ - Data Studios [custom environments](https://docs.seqera.io/platform/24.2/data_studios/custom-envs):
     - Create custom analysis environments or link to publicly/privately hosted ECR container. 
     - Custom environment build events are now added to the auditlog. This captures custom environment builds in the audit log to give you insight into how often, and which, custom environments are created. The events `data_studio_session_build_started` and `data_studio_session_build_failed` are added to the `tw_audit_log` table.
-- Data Studios dashboard 
+- Data Studios dashboard:
     -  New [dashboard](https://docs.seqera.io/platform/24.2/monitoring/dashboard#data-studios) provides information about Data Studios usage which can help you manage your resources.
   - Hybrid compute enviroments now supported in Data Studios.
     - Optionally define GPU allocation when creating a Data Studios session.
@@ -45,12 +45,12 @@ https://docs.seqera.io/platform/24.2/enterprise/advanced-topics/custom-launch-co
 
 ### Compute Environments
 
-- AWS Forge support has been added for Amazon Linux 2023. Previously AWS Forge was only able to create CE that was compatible with AL2. Seqera now supports Amazon Linux 2023 - and if you specify an AMI ID then it spins up the right one. This does not change the defaults. It's not possible to specify as an image in the Forge setup.
-- Google Life Sciences API deprecation notice has been added to the to Seqera Platform UI. The Google Life Sciences API will be deprecated in June 2025.
+- AWS Forge support has been added for Amazon Linux 2023. Previously AWS Forge was only able to create CEs compatible with AL2; Seqera now supports Amazon Linux 2023. 
+- The Google Life Sciences API will be deprecated in June 2025. A Google Life Sciences API deprecation notice has been added to the to Seqera Platform UI. 
 
 ### Credentials 
 
-- Azure Batch service principal creds and managed identities prevents spillover of credentials, and config needs to be done. 
+- Azure Batch service principal credentials and managed identities prevents spillover of credentials. 
 - Remove required validator from GitLab credentials password field.
 
 ### Secrets
