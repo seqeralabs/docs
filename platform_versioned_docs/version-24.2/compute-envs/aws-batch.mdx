@@ -202,18 +202,18 @@ Seqera Platform compute environments for AWS Batch include advanced options to c
 
 Specify the **Allocation strategy** and indicate any preferred **Instance types**. AWS applies quotas for the number of running and requested [Spot](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-limits.html) and [On-demand](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-on-demand-instances.html#ec2-on-demand-instances-limits) instances per account. AWS will allocate instances from up to 20 instance types, based on those requested for the compute environment. AWS excludes the largest instances when you request more than 20 instance types.
 
-  :::note
-  If these advanced options are omitted, allocation strategy defaults are `BEST_FIT_PROGRESSIVE` for on-demand and `SPOT_CAPACITY_OPTIMIZED` for spot compute environments.
-  :::
-  :::caution
-  tw CLI v0.8 and earlier does not support the `SPOT_PRICE_CAPACITY_OPTIMIZED` allocation strategy in AWS Batch. You cannot currently use CLI to create or otherwise interact with AWS Batch spot compute environments that use this allocation strategy.
-  :::
+    :::note
+    If these advanced options are omitted, allocation strategy defaults are `BEST_FIT_PROGRESSIVE` for on-demand and `SPOT_CAPACITY_OPTIMIZED` for spot compute environments.
+    :::
+    :::caution
+    tw CLI v0.8 and earlier does not support the `SPOT_PRICE_CAPACITY_OPTIMIZED` allocation strategy in AWS Batch. You cannot currently use CLI to create or otherwise interact with AWS Batch spot compute environments that use this allocation strategy.
+    :::
 
 - Configure a custom networking setup using the **VPC ID**, **Subnets**, and **Security groups** fields.
 - You can specify a custom **AMI ID**.
 
     :::note
-    To use a custom AMI, make sure the AMI is based on an Amazon Linux-2 ECS-optimized image that meets the Batch requirements. To learn more about approved versions of the Amazon ECS-optimized AMI, see [this AWS guide](https://docs.aws.amazon.com/batch/latest/userguide/compute_resource_AMIs.html#batch-ami-spec).
+    From version 24.2, Seqera supports Amazon Linux 2023 ECS-optimized AMIs, in addition to previously supported Amazon Linux-2 AMIs. To learn more about approved versions of the Amazon ECS-optimized AMI, see [this AWS guide](https://docs.aws.amazon.com/batch/latest/userguide/compute_resource_AMIs.html#batch-ami-spec).
 
     If a custom AMI is specified and the **Enable GPU** option is also selected, the custom AMI will be used instead of the AWS-recommended GPU-optimized AMI.
     :::
@@ -235,9 +235,9 @@ Specify the **Allocation strategy** and indicate any preferred **Instance types*
 - Specify a **CloudWatch Log group** for the `awslogs` driver to stream the logs entry to an existing Log group in Cloudwatch.
 - Specify a custom **ECS agent configuration** for the ECS agent parameters used by AWS Batch. This is appended to the `/etc/ecs/ecs.config` file in each cluster node.
 
-  :::note
-  Altering this file may result in a malfunctioning Batch Forge compute environment. See [Amazon ECS container agent configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) to learn more about the available parameters.
-  :::
+    :::note
+    Altering this file may result in a malfunctioning Batch Forge compute environment. See [Amazon ECS container agent configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) to learn more about the available parameters.
+    :::
 
 ## Manual
 
@@ -329,7 +329,7 @@ Your Seqera compute environment uses resources that you may be charged for in yo
 1. Enter the **Compute queue**, which is the name of the AWS Batch queue where tasks will be submitted.
 1. Apply [**Resource labels**](../resource-labels/overview.mdx) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
 1. Expand **Staging options** to include:
-    - Optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre--post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
+    - Optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
     - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch. 
     :::info
     Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced.mdx#nextflow-config-file) for more information on configuration priority. 
