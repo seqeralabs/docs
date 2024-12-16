@@ -98,7 +98,7 @@ Seqera Enterprise version 24.2 introduces a number of new features to Data Studi
 - Adds the `managedIdentityId` to the response payload, when describing a compute environment.
 - Send fetch schema request in `quicklaunchmode` even if revision is empty.
 - Task tag search with underscore.
-- Improve performance of query is reported as intensive on RDS database. Added index to `tw_workflow(complete)` column, which improves the performance of the query that finds workflows with missing progress. Added index to `tw_workflow(status`)` column conditionally; the index was already present in the `cloud.seqera.io` database, but not included among the database migration scripts.
+- Improve performance of query is reported as intensive on RDS database. Added index to `tw_workflow(complete)` column, which improves the performance of the query that finds workflows with missing progress. Added index to `tw_workflow(status)` column conditionally; the index was already present in the `cloud.seqera.io` database, but not included among the database migration scripts.
 - Avoid using master as fallback pipeline revision.
 - Update `lastUsed` on compute environment when creating job for Data Studio session.
 - Enable task `workDir` navigation using Data Explorer in the personal workspace.
