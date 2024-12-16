@@ -10,15 +10,13 @@ Seqera Enterprise version 24.2 introduces a number of new features to Data Studi
 
 ### Nextflow
 
-  - Add global Nextflow config: ability to define the Nextflow config in the CE as a "global" configuration. The configuration defined in the pipeline config and at launch level, can override the one defined in the CE config.
-  - global nextflow config and managed identity client ID copy fixes (#7495)
+  - Adds global Nextflow config: This provides the ability to define the Nextflow config in the CE as a "global" configuration. The configuration is defined in the pipeline config and at launch level and can override the one defined in the CE config.
 
 ### Launchpad
 
-- New Launch Form is enabled by default. If you've activated the new launch form already using the environment variable `TOWER_STEPPED_LAUNCH_FORM_ALLOWED_WORKSPACES`, nothing will change. If you have not yet activated it, it will show by default. You can disable this per workspace, or across your entire deployment (empty, null, comma-separated). When `null` (undefined) ->  no workspaces are enabled, when empty -> all are enabled
-- Implement custom launch container logic (#7298) (probably not needed...let's check on  this)
-- Improve error message on launchpad if the branch is missing (#7772)
-- adds tags propagation to launch template (#7429)
+- New Launch Form is enabled by default. If you've activated the new launch form already using the environment variable `TOWER_STEPPED_LAUNCH_FORM_ALLOWED_WORKSPACES`, nothing will change. If the launch form has not been activated, it will now show by default. You can disable this per workspace, or across your entire deployment using environment variables. When the environment variable is `null` (undefined), no workspaces are enabled. When it's left empty, all are enabled.
+- Implemented custom launch container logic to specify a custom container to run Nextflow when submitting a workflow execution. This is currently only available as an API request.
+- Tags propagation has been added to launch template, to enforce the resource label propagations to instances and volumes.
 
 ### Runs
 
@@ -30,7 +28,7 @@ Seqera Enterprise version 24.2 introduces a number of new features to Data Studi
 
 ### Data Explorer 
 
-- Add direct Data Explorer browse link to mounted data items, so that I can easily inspect the data used in a session.
+- Added a direct Data Explorer browse link to mounted data items, so that data used in a session can be inspected easily.
 
 ### Data Studios
  
