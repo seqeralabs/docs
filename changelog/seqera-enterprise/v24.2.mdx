@@ -15,7 +15,7 @@ Seqera Enterprise version 24.2 introduces a number of new features to Data Studi
 ### Launchpad
 
 - The new [Launch Form](https://docs.seqera.io/platform/24.2/launch/launchpad#launch-form) is enabled by default. If you've activated the new launch form already using the environment variable `TOWER_STEPPED_LAUNCH_FORM_ALLOWED_WORKSPACES`, nothing will change. If the launch form has not been activated, it will now show by default. You can disable this per workspace, or across your entire deployment using environment variables. When the environment variable is `null` (undefined), no workspaces are enabled. When it's left empty, all are enabled.
-- Implemented custom launch container logic to specify a custom container to run Nextflow when submitting a workflow execution.
+- Implemented custom launch container logic to specify a custom container to run Nextflow when submitting a workflow execution. This is only available via API. 
 - Tags propagation has been added to launch template, to enforce the resource label propagations to instances and volumes.
 
 ### Runs
