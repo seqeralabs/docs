@@ -57,7 +57,7 @@ The dropdown of available config profiles is populated by inspecting the Nextflo
   includeConfig 'http://...'
   ```
 
-- Includes with dynamic string that depends only on parameters that are defined in the config:
+- Includes with dynamic string that depends on parameters defined in the config:
   ```groovy
   includeConfig params.custom_config
   includeConfig "${params.custom_config_base}/nfcore_custom.config"
@@ -67,7 +67,10 @@ The dropdown of available config profiles is populated by inspecting the Nextflo
   ```groovy
   includeConfig params.custom_config_base ? "${params.custom_config_base}/nfcore_custom.config" : "/dev/null"
   ```
-  In this case, only the "true" branch (i.e. `"${params.custom_config_base}/nfcore_custom.config"`) is inspected.
+  
+  :::note
+  Only the "true" branch is inspected.
+  :::
 
 - Includes within a try-catch statement:
   ```groovy
