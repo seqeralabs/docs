@@ -65,14 +65,14 @@ Seqera Enterprise version 24.2 introduces new Data Studios features, global Next
 - Check if a workspace is disabled before fetching data links.
 - Allow resume with compatible compute environments when using Tower Agent and `$TW_AGENT_WORKDIR` as working directory. 
 - Fix input form view for private GitHub repositories using pipeline Quicklaunch.
-- Fix default workspace secret selection when using pipeline Quicklaunch.
+- Fix issue where workspace secrets were not being selected by default when using pipeline Quicklaunch.
 - Fix incorrect role access in new launch form which allowed users with "Maintain" role and lower to edit resource labels when launching.
-- Entra and `javax.mail` transitive dependency problem fixed.
+- Fix Entra and `javax.mail` transitive dependency problem.
 - Shared pipelines without an associated compute environment now fallback to the workspace primary compute environment.
 - Display initial mounted data when starting an existing Data Studio session.
 - Add `managedIdentityId` to the API response payload when describing a compute environment.
 - Send fetch schema request in `quicklaunchmode`, even if revision is empty.
-- Fix search for task tags using underscores.
+- Fix issue where searching for task tags using underscores wasn't returning the expected values.
 - Improve performance of queries reported as intensive on the RDS database. Added an index to the `tw_workflow(complete)` column, which improves the performance of the query that finds workflows with missing progress. Added an index to the `tw_workflow(status)` column conditionally; the index was already present in the `cloud.seqera.io` database, but not previously included in the database migration scripts.
 - Avoid using master as the fallback pipeline revision, so that pipeline repositories without a master version don't return errors on Quicklaunch. 
 - Update `lastUsed` on compute environment when creating a job for a Data Studios session.
