@@ -78,9 +78,9 @@ Seqera Enterprise version 24.2 introduces a number of new features to Data Studi
    - `ECS_CONTAINER_STOP_TIMEOUT=10m`: Timeout for stopping a container. Increase to prevent Nextflow from being forcibly killed and leave running jobs.
    - `ECS_MANIFEST_PULL_TIMEOUT=10m`: Timeout for pulling a container manifest. This may be needed when pulling a Wave container with a long build time.
 - Disable AWS and Google Batch spot auto retry: This disables the automatic retry of Batch jobs submitted by Nextflow if favour of using classic Nextflow retry mechanism. This is because the Batch automatic retry is completely transparent (invisble) to the Platform and end-user. Nextflow retry gives a better feedback and allows the user to have more control over it.
-- Bump nf-launcher:j17-24.10.2 
-- Upgrade to Angular 16
-- Security fixes: All security fixes for previous versions
+- Bump nf-launcher:j17-24.10.2.
+- Upgrade to Angular 16.
+- Security fixes: All security fixes for previous versions.
 
 
 ## Bug fixes
@@ -90,14 +90,14 @@ Seqera Enterprise version 24.2 introduces a number of new features to Data Studi
 - Input form view not working for private GitHub repo using Quick Pipeline Launch.
 - Workspace secrets are not being selected by default when doing Quicklaunch with new form.
 - In new launch form users with "Maintain" role and lower can edit resource labels when launching.
-- Fixes a problem with Entra and `javax.mail` transitive dependency.
+- Entra and `javax.mail` transitive dependency problem fixed.
 - Shared pipelines without associated CE do not fallback to primary CE.
 - Display initial mounted data when starting an existing Data Studio session.
 - Adds the `managedIdentityId` to the response payload, when describing a compute environment.
 - Send fetch schema request in `quicklaunchmode` even if revision is empty.
-- Task tag search with underscore.
+- Searches for a task tag using underscores were not returning the expected values.
 - Improve performance of query is reported as intensive on RDS database. Added index to `tw_workflow(complete)` column, which improves the performance of the query that finds workflows with missing progress. Added index to `tw_workflow(status)` column conditionally; the index was already present in the `cloud.seqera.io` database, but not included among the database migration scripts.
-- Avoid using master as fallback pipeline revision.
+- Avoid using master as fallback pipeline revision so that pipeline repositories without master don't return errors on quick launch. 
 - Update `lastUsed` on compute environment when creating job for Data Studio session.
 - Enable task `workDir` navigation using Data Explorer in the personal workspace.
 - Allow changing the `workDir` when launching a pipeline.
