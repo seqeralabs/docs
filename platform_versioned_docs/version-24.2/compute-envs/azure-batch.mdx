@@ -333,6 +333,10 @@ If not described below, please use the default settings.
 1. **Scale**: Azure Node pools can be fixed in size or autoscale based on a formula. We recommend autoscaling to enable scaling your resources down to zero when not in use. Click **Auto scale**. Change the **AutoScale evaluation interval** to 5 minutes, this is the minimum period between evaluations of the autoscale formula. For formula, you can use any valid formula, please see the documentation [here][az-batch-autoscale] for more information. This is the default autoscaling formula, with a maximum of 8 VMs:
 
 ```
+// Get pool lifetime since creation.
+lifespan = time() - time("2024-10-30T00:00:00.880011Z");
+interval = TimeInterval_Minute * 5;
+
 // Compute the target nodes based on pending tasks.
 // $PendingTasks == The sum of $ActiveTasks and $RunningTasks
 $samples = $PendingTasks.GetSamplePercent(interval);
@@ -341,7 +345,7 @@ $targetVMs = $tasks > 0 ? $tasks : max(0, $TargetDedicatedNodes/2);
 targetPoolSize = max(0, min($targetVMs, 8));
 
 // For first interval deploy 1 node, for other intervals scale up/down as per tasks.
-$TargetDedicatedNodes = targetPoolSize;
+$TargetLowPriorityNodes = lifespan < interval ? 1 : targetPoolSize;
 $NodeDeallocationOption = taskcompletion;
 ```
 
