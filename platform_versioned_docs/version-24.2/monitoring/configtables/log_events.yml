@@ -13,8 +13,16 @@
   Note:                'Log entry includes the credential ID. A log entry is also created each time the credentials are accessed by the application.'
 - 
   Resource:            'Data Explorer cloud buckets'
-  Events logged:       'Add, edit, delete, hide, show'
+  Events logged:       'Add, edit, remove, hide, show'
   Note:                'Events for public and private buckets are logged.'
+-
+  Resource: 'Data Studios sessions'
+  Events logged: 'Add, start, connect, disconnect, stop, delete'
+  Note: 'Does not include temporary states (starting, stopping, deleting)'
+-
+  Resource: 'Data Studios custom environments'
+  Events logged: 'Build start, build success, build fail'
+  Note: 'Applied only to Wave-enabled custom environment creation'
 - 
   Resource:            'Data Explorer files'
   Events logged:       'Download, upload, preview'
