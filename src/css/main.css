@@ -163,7 +163,6 @@ nav.menu .menu__list-item--collapsed .menu__link--sublist:after,
 }
 /* Custom styling for code blocks content */
 .theme-code-block pre {
-  white-space: pre-wrap; 
-  word-wrap: break-word; 
+  white-space: pre; 
   overflow-x: auto; 
 }
