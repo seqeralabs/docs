@@ -153,3 +153,16 @@ nav.menu .menu__list-item--collapsed .menu__link--sublist:after,
     color: #98a3ff;
   }
 }
+
+/* Custom styling for code blocks */
+.theme-code-block {
+  overflow-x: auto; 
+  max-width: 100%; 
+  width: 100%; 
+  box-sizing: border-box;
+}
+/* Custom styling for code blocks content */
+.theme-code-block pre {
+  white-space: pre; 
+  overflow-x: auto; 
+}
