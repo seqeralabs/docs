@@ -19,9 +19,12 @@ jobs:
         run: |
           git submodule update --init --recursive
       # Fail the build in PRs, but not for Netlify previews or production builds
-      - name: Replace credentials
+      - name: Fail build on error
         run: |
           sed -Ei 's/onBroken([A-Za-z]+): "warn"/onBroken\1: "throw"/g' docusaurus.config.js
+      - name: Faster builds
+        run: |
+          sed -Ei 's/experimental_faster: "false"/experimental_faster: "true"/g' docusaurus.config.js
       # Install and build Docusaurus website
       - name: Build Docusaurus website
         run: |
