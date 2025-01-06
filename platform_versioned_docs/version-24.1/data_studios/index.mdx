@@ -26,6 +26,12 @@ Before you get started, you need the following:
 Currently, Data Studios only supports AWS Batch compute environments that **do not** have Fargate enabled.
 :::
 
+## Limitations
+
+If you configured your AWS Batch compute environment to include an EFS file system with **EFS file system > EFS mount path**, the mount path must be explicitly specified. The mount path cannot be the same as your CE work directory. If the EFS file system is mounted as your CE work directory, Data Studios snapshots cannot be saved and studios sessions fail.
+
+For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
+
 ## Container image templates
 
 Data Studios provides four container image templates: JupyterLab, RStudio Server, Visual Studio Code, and Xpra. The image templates install a very limited number of packages when the session container is built. You can install additional packages as needed during a session.
@@ -108,5 +114,6 @@ The cleanup process is a best effort and not guaranteed. Seqera attempts to remo
 [vsc]: https://code.visualstudio.com/
 [Wave]: https://seqera.io/wave/
 
+[aws-batch]: ../compute-envs/aws-batch.mdx
 [custom-envs]: ./custom-envs.mdx
 [build-status]: ./custom-envs.mdx#build-status
