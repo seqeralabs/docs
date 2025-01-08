@@ -54,7 +54,7 @@
     "eslint-plugin-react": "^7.33.2",
     "fast-glob": "^3.3.1",
     "fs-extra": "^11.1.1",
-    "markdownlint-cli2": "^0.12.1",
+    "markdownlint-cli2": "^0.17.1",
     "path": "^0.12.7",
     "postcss": "^8.4.32",
     "prettier": "^3.0.3",
