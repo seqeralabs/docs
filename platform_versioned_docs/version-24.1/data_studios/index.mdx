@@ -28,7 +28,7 @@ Currently, Data Studios only supports AWS Batch compute environments that **do n
 
 ## Limitations
 
-If you configured your AWS Batch compute environment to include an EFS file system with **EFS file system > EFS mount path**, the mount path must be explicitly specified. The mount path cannot be the same as your CE work directory. If the EFS file system is mounted as your CE work directory, Data Studios snapshots cannot be saved and studios sessions fail.
+If you configured your AWS Batch compute environment to include an EFS file system with **EFS file system > EFS mount path**, the mount path must be explicitly specified. The mount path cannot be the same as your compute environment work directory. If the EFS file system is mounted as your compute environment work directory, Data Studios snapshots cannot be saved and studios sessions fail.
 
 For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
 
