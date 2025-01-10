@@ -36,7 +36,13 @@ We recommend that you create separate IAM policies for Batch Forge and launch pe
 1. From the left navigation menu, select **Policies** under **Access management**.
 1. Select **Create policy**.
 1. On the **Create policy** page, select the **JSON** tab.
-1. Copy the contents of your policy JSON file ([Forge](https://github.com/seqeralabs/nf-tower-aws/blob/master/forge/forge-policy.json) or [Launch](https://github.com/seqeralabs/nf-tower-aws/blob/master/launch/launch-policy.json), depending on the policy being created) and replace the default text in the policy editor area under the JSON tab. To create a Launch user, you must also create the [S3 bucket write policy](https://github.com/seqeralabs/nf-tower-aws/blob/master/launch/s3-bucket-write.json) separately to attach to your Launch user.
+
+1. Copy the contents of your policy JSON file ([Forge](https://github.com/seqeralabs/nf-tower-aws/blob/master/forge/forge-policy.json) or [Launch](https://github.com/seqeralabs/nf-tower-aws/blob/master/launch/launch-policy.json), depending on the policy being created) and replace the default text in the policy editor area under the JSON tab.
+
+1. To create a Launch user, you must also create the [S3 bucket write policy](https://github.com/seqeralabs/nf-tower-aws/blob/master/launch/s3-bucket-write.json) separately to attach to your Launch user.
+
+1. To use Data Explorer and Data Studios, you must create the [Data policy](https://github.com/seqeralabs/nf-tower-aws/blob/master/data/data-explorer-policy.json) separately to attach to your Platform users.
+
 1. Select **Next: Tags**.
 1. Select **Next: Review**.
 1. Enter a name and description for the policy on the **Review policy** page, then select **Create policy**.
