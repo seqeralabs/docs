@@ -25,7 +25,7 @@ spec:
             name: tower-yml
       containers:
         - name: backend
-          image: cr.seqera.io/private/nf-tower-enterprise/backend:v24.1.7
+          image: cr.seqera.io/private/nf-tower-enterprise/backend:v24.2.2
           envFrom:
             - configMapRef:
                 name: tower-backend-cfg
@@ -78,7 +78,7 @@ spec:
         - name: "cr.seqera.io"
       containers:
         - name: frontend
-          image: cr.seqera.io/private/nf-tower-enterprise/frontend:v24.1.7
+          image: cr.seqera.io/private/nf-tower-enterprise/frontend:v24.2.2
           ports:
             - containerPort: 80
       restartPolicy: Always
