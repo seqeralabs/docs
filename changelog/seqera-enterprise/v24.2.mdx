@@ -63,6 +63,8 @@ Seqera Enterprise version 24.2 introduces new Data Studios features, global Next
 
 - Refactor now reports file streaming over Agent connections directly to the browser.
 - Input forms now support JSON schema draft 2020-12 features. Includes: Nested parameters, "anyOf", "allOf", and "oneOf" input form validation support, "dependantSchemas" initial support, and "if-then-else" support. This improves support of JSON schema and prevents form errors for unrecognized validations.
+- Enterprise telemetry now differentiates between Platform UI and CLI workflow executions. 
+- Azure Batch job termination now includes the Nextflow head job, so queues no longer remain active after a workflow completes. 
 - ECS agent configuration variables have been added to set the timeout for several container actions:
     - `ECS_CONTAINER_CREATE_TIMEOUT=10m`: Timeout for creating a container.
     - `ECS_CONTAINER_STOP_TIMEOUT=10m`: Timeout for stopping a container. Increase to prevent Nextflow from being forcibly killed and leave running jobs.
@@ -77,6 +79,10 @@ Seqera Enterprise version 24.2 introduces new Data Studios features, global Next
 
 ## Bug fixes
 
+- Fix AWS base image security vulnerabilities.
+- Fix runs list view deselecting checked runs. 
+- Fix Azure DevOps issues when launching from non-deafult project repositories. 
+- Fix pipeline editing errors for repositories without a `main.nf` file. 
 - Check if a workspace is disabled before fetching data links.
 - Allow resume with compatible compute environments when using Tower Agent and `$TW_AGENT_WORKDIR` as working directory. 
 - Fix input form view for private GitHub repositories using pipeline Quicklaunch.
