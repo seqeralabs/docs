@@ -12,7 +12,7 @@ The documentation for v22.4 is no longer supported. These release notes are for 
 
 ### Resource Labels
 
-In Nextflow Tower 22.3, Seqera Labs introduced [resource labels](https://docs.seqera.io/platform/22.4/resource-labels/overview) — a flexible tagging system for the cloud services consumed by a run. Workspace administrators can now customize the resource labels associated with pipelines, actions, and runs. This improves the feature’s flexibility as resource labels are no longer inherited only from the compute environment.
+In Nextflow Tower 22.3, Seqera Labs introduced [resource labels](https://docs.seqera.io/platform/latest/labels/overview) — a flexible tagging system for the cloud services consumed by a run. Workspace administrators can now customize the resource labels associated with pipelines, actions, and runs. This improves the feature’s flexibility as resource labels are no longer inherited only from the compute environment.
 
 In Tower Enterprise 22.4, an administrator can now:
 
@@ -35,7 +35,7 @@ The **All runs** view is accessible via the user menu.
 
 All Tower instances with internet access can now connect to the Seqera Labs Wave container service to leverage its container augmentation and Fusion v2 file system capabilities. See the [Wave containers documentation](https://www.nextflow.io/docs/latest/wave.html) for more information about Wave containers.
 
-The Wave integration also allows for the secure transfer of credentials required to access private registries between services. See the [Tower documentation](https://docs.seqera.io/platform/23.3.0) to learn how to use the feature in your enterprise installation.
+The Wave integration also allows for the secure transfer of credentials required to access private registries between services. See the [Tower documentation](https://docs.seqera.io/platform/23.3) to learn how to use the feature in your enterprise installation.
 
 ### Fusion file system support
 
@@ -65,7 +65,7 @@ The only requirement is that the new compute environment has access to the origi
 
 ### Warnings
 
-1. The default `nf-launcher` image includes a `curl` command which will fail if your Tower is secured with a private TLS certificate. To mitigate this problem, please see [these instructions](https://docs.seqera.io/platform/22.4/configuration/ssl_tls).
+1. The default `nf-launcher` image includes a `curl` command which will fail if your Tower is secured with a private TLS certificate. To mitigate this problem, please see [these instructions](https://docs.seqera.io/platform/latest/enterprise/configuration/ssl_tls).
 2. This version requires all database connections to use the following configuration value: `TOWER_DB_DRIVER=org.mariadb.jdbc.Driver`. Please update your configuration if you are upgrading. All other database configuration values should remain unchanged.
 3.  This version expects the use of HTTPS by default for all browser client connections. If your Tower installation requires the use of unsecured HTTP, set the following environment variable in the infrastructure hosting the Tower application: `TOWER_ENABLE_UNSAFE_MODE=true`.
 4.  If you're upgrading from a version of Tower prior to `21.04.x`, please update your implementation to `21.04.x` before installing this release.
@@ -102,7 +102,7 @@ If you must host your nf-launcher container image on a private image registry, c
     `TOWER_LAUNCH_CONTAINER=<FULL_PATH_TO_YOUR_PRIVATE_IMAGE>`
 
 !!! warning
-    If you're using AWS Batch, you will need to [configure a custom job definition](https://docs.seqera.io/platform/22.4/advanced-topics/custom-launch-container) and populate the `TOWER_LAUNCH_CONTAINER` with the job definition name instead.
+    If you're using AWS Batch, you will need to [configure a custom job definition](https://docs.seqera.io/platform/latest/enterprise/advanced-topics/custom-launch-container) and populate the `TOWER_LAUNCH_CONTAINER` with the job definition name instead.
 
 ## Sharing feedback
 
