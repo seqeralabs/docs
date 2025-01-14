@@ -8,6 +8,7 @@
   border-radius: 8px;
   font-weight: 600;
   transition: all 0.2s;
+  text-decoration: none !important;
   &:hover .arrow {
     transform: translateX(3px);
   }
@@ -22,6 +23,10 @@
   font-size: 12px;
   font-weight: 400;
   padding: 5px 13px;
+}
+.button.medium {
+  font-size: 13px;
+  padding: 6px 27px;
 }
 .button.wide {
   padding: 7px 27px;
@@ -51,14 +56,14 @@
   }
 }
 .button.blue {
-  background: var(--sl-blue);
+  background: var(--color-blu);
   &:hover {
     background-color: white;
     color: var(--color-brand);
   }
 }
 .button.blue2 {
-  background: var(--sl-blue);
+  background: var(--color-blu);
   &:hover {
     background-color: white;
     background: var(--color-brand);
@@ -100,4 +105,11 @@
 .button.disabled {
   background-color: var(--color-gray-200);
   color: var(--color-gray-600);
+}
+.alt {
+  &:hover {
+    background-color: var(--color-blu-700) !important;
+    border-color: var(--color-blu-700) !important;
+    color: #fff !important;
+  }
 }

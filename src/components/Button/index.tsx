@@ -12,6 +12,8 @@ type Props = {
   className?: string;
   sameTab?: boolean;
   small?: boolean;
+  medium?: boolean;
+  alt?: boolean;
   wide?: boolean;
   wider?: boolean;
   large?: boolean;
@@ -39,6 +41,8 @@ const Button: React.FC<Props> = ({
 }) => {
   const cn = clsx(styles.button, className, {
     [styles.small]: attributes.small,
+    [styles.medium]: attributes.medium,
+    [styles.alt]: attributes.alt,
     [styles.wide]: attributes.wide,
     [styles.wider]: attributes.wider,
     [styles.large]: attributes.large,
