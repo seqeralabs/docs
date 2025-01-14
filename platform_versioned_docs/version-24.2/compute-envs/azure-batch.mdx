@@ -437,9 +437,6 @@ The following settings can be modified after creating a pool:
     :::info
     Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced.mdx#nextflow-config-file) for more information on configuration priority. 
     :::
-    :::info
-    Nextflow must be version 24.10.0 or later to use managed identities.
-    :::
 1. Define custom **Environment Variables** for the **Head Job** and/or **Compute Jobs**.
 1. Configure any necessary advanced options:
     - Use **Jobs cleanup policy** to control how Nextflow process jobs are deleted on completion. Active jobs consume the quota of the Azure Batch account. By default, jobs are terminated by Nextflow and removed from the quota when all tasks succesfully complete. If set to _Always_, all jobs are deleted by Nextflow after pipeline completion. If set to _Never_, jobs are never deleted. If set to _On success_, successful tasks are removed but failed tasks will be left for debugging purposes.
