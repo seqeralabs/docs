@@ -313,7 +313,6 @@ export default async function createConfigAsync() {
     ],
   };
 }
-
 new Crawler({
   appId: 'YOUR_APP_ID',
   apiKey: 'YOUR_API_KEY',
