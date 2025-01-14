@@ -1,85 +1,88 @@
-import React, { ReactNode, CSSProperties } from 'react';
-import clsx from 'clsx';
+import React from "react";
+import clsx from "clsx";
+
 import Arrow from "./Arrow";
+import styles from "./styles.module.css";
 
-import styles from './styles.module.css';
+type Props = {
+  children: React.ReactNode;
+  onClick?: () => void;
+  href?: string;
+  to?: string;
+  className?: string;
+  sameTab?: boolean;
+  small?: boolean;
+  wide?: boolean;
+  wider?: boolean;
+  large?: boolean;
+  white?: boolean;
+  white2?: boolean;
+  brand?: boolean;
+  brand2?: boolean;
+  blue?: boolean;
+  blue2?: boolean;
+  secondary?: boolean;
+  secondaryWhite?: boolean;
+  arrow?: boolean;
+  disabled?: boolean;
+} & React.HTMLAttributes<HTMLButtonElement>;
 
-import Link from '@docusaurus/Link';
+const Button: React.FC<Props> = ({
+  children,
+  onClick,
+  href,
+  to,
+  className,
+  sameTab,
+  disabled,
+  ...attributes
+}) => {
+  const cn = clsx(styles.button, className, {
+    [styles.small]: attributes.small,
+    [styles.wide]: attributes.wide,
+    [styles.wider]: attributes.wider,
+    [styles.large]: attributes.large,
+    [styles.white]: attributes.white,
+    [styles.white2]: attributes.white2,
+    [styles.brand]: attributes.brand,
+    [styles.brand2]: attributes.brand2,
+    [styles.blue]: attributes.blue,
+    [styles.blue2]: attributes.blue2,
+    [styles.secondary]: attributes.secondary,
+    [styles.secondaryWhite]: attributes.secondaryWhite,
+    [styles.disabled]: disabled,
+  });
 
-// Define the Button type to control the props that can be passed to the Button component.
-type Button = {
-    // The size prop can be one of the following values: 'sm', 'lg', 'small', 'medium', 'large', or null.
-    // We'll convert 'small' to 'sm' and 'large' to 'lg' in the component. 'medium' will be considered null.
-    size?: 'sm' | 'lg' | 'small' | 'medium' | 'large' | null;
-    // The outline prop is a boolean that determines if the button should be an outline button.
-    outline?: boolean;
-    // The variant prop is a string that determines the color of the button.
-    // It can be one of the following values: 'primary', 'secondary', 'danger', 'warning', 'success', 'info', 'link', or any other string.
-    // The default value is 'primary'.
-    variant: 'primary' | 'secondary' | 'danger' | 'warning' | 'success' | 'info' | 'link' | string;
-    // The block prop is a boolean that determines if the button should be a block-level button.
-    block?: boolean;
-    // The disabled prop is a boolean that determines if the button should be disabled.
-    disabled?: boolean;
-    // The className prop is a string that allows you to add custom classes to the button.
-    className?: string;
-    // The style prop is an object that allows you to add custom styles to the button.
-    style?: CSSProperties;
-    arrow?: boolean;
-    // The link prop is a string that determines the URL the button should link to.
-    link: string;
-    // The label prop is a string that determines the text of the button.
-    label: string;
-}
+  const content = [children];
+  if (attributes.arrow) {
+    content.push(<Arrow key="arrow" className={styles.arrow} />);
+  }
 
-// Button component that accepts the specified props.
-export default function Button ({
-    size = null,
-    outline = false,
-    variant = 'primary',
-    block = false,
-    disabled = false,
-    className,
-    style,
-    link,
-    label,
-    arrow,
-}: Button) {
-    // Map the size prop values to corresponding CSS classes.
-    const sizeMap = {
-        sm: 'sm',
-        small: 'sm',
-        lg: 'lg',
-        large: 'lg',
-        medium: null,
-    };
-    const buttonSize = size ? sizeMap[size] : '';
-    const sizeClass = buttonSize ? `button--${buttonSize}` : '';
-    const outlineClass = outline ? 'button--outline' : '';
-    const variantClass = variant ? `button--${variant}` : '';
-    const blockClass = block ? 'button--block' : '';
-    const disabledClass = disabled ? 'disabled' : '';
-    // If the button is disabled, set the destination to null.
-    const destination = disabled ? null : link;
+  const url = to || href;
+
+  if (url) {
+    let isOutLink = url.startsWith("http");
+    if (sameTab) isOutLink = false;
+    if (sameTab === false) isOutLink = true;
     return (
-    <Link to={destination}>
-        <button
-            className={clsx(
-                'button',
-                sizeClass,
-                outlineClass,
-                variantClass,
-                blockClass,
-                disabledClass,
-                className
-            )}
-            style={style}
-            role='button'
-            aria-disabled={disabled}
-        >
-            {label}
-            {arrow && <Arrow key="arrow" className={styles.arrow} />}
-        </button>
-    </Link>
+      <a
+        href={url}
+        onClick={onClick}
+        className={cn}
+        target={isOutLink ? "_blank" : undefined}
+        rel={isOutLink ? "noreferrer" : undefined}
+        aria-disabled={disabled}
+      >
+        {content}
+      </a>
     );
-}
+  }
+
+  return (
+    <button type="button" onClick={onClick} className={cn} disabled={disabled}>
+      {content}
+    </button>
+  );
+};
+
+export default Button;
