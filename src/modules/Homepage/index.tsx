@@ -115,7 +115,7 @@ export default function Home(): JSX.Element {
                 <p className="font-title typo-h2 font-semibold w-full text-left">Documentation</p>
                 <p className="font-title typo-h4 font-normal w-full text-left">Explore our guides, documentation, and examples to build with Seqera.</p>
               </div>
-              <Button to="/platform/latest/getting-started/quickstart-demo/comm-showcase" blue medium className="mb-8 mt-4">Get started with Seqera Cloud</Button>
+              <Button to="/platform/latest/getting-started/quickstart-demo/comm-showcase" blue medium alt className="mb-8 mt-4">Get started with Seqera Cloud</Button>
               <p className="font-title typo-h3 font-semibold w-full text-left mb-8 mt-8">Recommended articles</p>
               <div className="flex flex-col w-full">
 
