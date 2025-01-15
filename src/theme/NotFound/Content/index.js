@@ -18,7 +18,7 @@ export default function NotFoundContent({className, path}) {
             <Translate
               id="theme.NotFound.p1"
               description="The first paragraph of the 404 page">
-              The page you're looking for has moved or doesn't exist.
+              404: Something has gone wrong with our dataflow. The page you are looking for does not exist.
             </Translate>
           </p>
           <p>
