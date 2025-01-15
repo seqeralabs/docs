@@ -273,7 +273,7 @@ export default async function createConfigAsync() {
             ],
           },
         ],
-        copyright: `${new Date().getFullYear()} © Seqera`,
+        copyright: `© ${new Date().getFullYear()} Seqera`,
       },
       prism: {
         theme: themes.oneLight,
