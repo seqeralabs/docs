@@ -25,8 +25,18 @@ spec:
         #    secretName: platform-oidc-certs
       initContainers:
         - name: migrate-db
-          image: cr.seqera.io/private/nf-tower-enterprise/migrate-db:v24.1.7
+          image: cr.seqera.io/private/nf-tower-enterprise/migrate-db:v24.2.2
           command: ["sh", "-c", "/migrate-db.sh"]
+          envFrom:
+            - configMapRef:
+                name: tower-backend-cfg
+          volumeMounts:
+            - name: config-volume
+              mountPath: /tower.yml
+              subPath: tower.yml
+      containers:
+        - name: backend
+          image: cr.seqera.io/private/nf-tower-enterprise/backend:v24.2.2
           envFrom:
             - configMapRef:
                 name: tower-backend-cfg
@@ -37,16 +47,6 @@ spec:
             # Volume mount for Data Studios
             #- name: cert-volume
             #  mountPath: /data/certs
-      containers:
-        - name: backend
-          image: cr.seqera.io/private/nf-tower-enterprise/backend:v24.1.7
-          envFrom:
-            - configMapRef:
-                name: tower-backend-cfg
-          volumeMounts:
-            - name: config-volume
-              mountPath: /tower.yml
-              subPath: tower.yml
           env:
             - name: MICRONAUT_ENVIRONMENTS
               value: "prod,redis,cron"
