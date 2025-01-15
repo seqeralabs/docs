@@ -35,7 +35,6 @@ const CookieBanner = () => {
   const denyAll = () => {
     setCookie("preferencesSet", true);
     setCookie("preferencesChoice", "essential");
-    window.posthog?.opt_out_capturing();
   };
 
   useEffect(() => {
