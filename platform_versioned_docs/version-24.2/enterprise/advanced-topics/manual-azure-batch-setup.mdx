@@ -47,7 +47,7 @@ In Seqera Cloud:
 
 ## Compute environment and pipeline configuration
 
-### 1. Azure Batch with Seqera Batch Forge
+### Option 1. Azure Batch with Seqera Batch Forge
 
 The first configuration is a simple Azure Batch compute environment created with Batch Forge. This environment uses the same Batch pool for both the Nextflow head job and task nodes. 
 
@@ -103,7 +103,7 @@ Disadvantages:
 - Because the processes require larger resources than the head node, you often have oversized machines running Nextflow or undersized machines running processes.
 - Dedicated nodes only.
 
-### 2. Use a separate node and head pool on Seqera Platform
+### Option 2. Use a separate node and head pool on Seqera Platform
 
 This configuration separates head and task nodes into different Batch pools. 
 
@@ -160,7 +160,7 @@ Disadvantages:
 - Still fairly inflexible.
 - You have to wait a long time for nodes to autoscale up and down in response to the work.
 
-### 3. Configure the head pool with a hot node
+### Option 3. Configure the head pool with a hot node
 
 This configuration separates the head and task pools as before and leaves a single head node up and running to make the response time faster.
 
@@ -195,7 +195,7 @@ If you do not wish to continue paying for the head node, scale the node pool bac
 You can also delete the compute environment in Platform, which will delete the head node.
 :::
 
-### 4. Use the Nextflow autopool feature
+### Option4. Use the Nextflow autopool feature
 
 With the autopool feature, Nextflow automatically creates and manages Azure Batch pools based on your pipeline's requirements.
 
@@ -248,7 +248,7 @@ Disadvantages:
 - You may be overly specific and end up with a lot of pools, which can exhaust your quota for the maximum number of pools.
 - This configuration does not use low-priority nodes.
 
-### 5. Use Nextflow autopool feature with low-priority nodes
+### Option 5. Use Nextflow autopool feature with low-priority nodes
 
 To configure your pipeline to use Nextflow autopool with low-priority nodes:
 
@@ -296,7 +296,7 @@ Disadvantages:
 
 - Spot and low-priority nodes can be preempted, which can cause the pipeline to fail.
 
-### 6. Use Entra authentication
+### Option 6. Use Entra authentication
 
 Seqera can utilize an Azure Entra service principal to authenticate and access Azure Batch for job execution and Azure Storage for data management, and Nextflow can authenticate to Azure services using a managed identity. This method offers enhanced security compared to access keys, but must run on Azure infrastructure. 
 
@@ -368,7 +368,7 @@ Disadvantages:
 - The setup is quite complicated with room for error.
 - Errors can be harder to troubleshoot.
 
-### 7. Use a node pool attached to a VNet
+### Option 7. Use a node pool attached to a VNet
 
 It is common to attach Azure Batch pools to a virtual network. This is useful to connect to other resources in the same VNet or place things behind enhanced security. Seqera Platform does not support this feature directly, so you must manually create an Azure Batch pool.
 
@@ -414,7 +414,7 @@ Disadvantages:
 - It requires fairly complicated setup.
 - If security is too restrictive, it can fail silently and be unable to report the error state.
 
-### 8. Use a node pool attached to a VNet with worker nodes attached to the same VNet
+### Option 8. Use a node pool attached to a VNet with worker nodes attached to the same VNet
 
 Finally, you can combine some of the previous approaches. Nextflow can create and modify Azure Batch pools based on the pipeline requirements. You can also attach Azure Batch pools to a VNet. Next, attach the worker nodes to the same VNet. 
 
@@ -466,13 +466,13 @@ Disadvantages:
 
 - The same as before, but with increased complexity which can introduce errors.
 
-### 9. Clear up resources
+### Clear up resources
 
 Once you have completed setup and workflow execution, you can delete the pipelines and compute environments from Seqera.
 
 In Azure, you can delete the Batch account, which will delete all pools, jobs, and tasks. You can then delete the Storage account.
 
-If you wish to keep the Azure resources, you can remove each pool within a Batch account and mark any active jobs as terminated.
+If you wish to keep the Azure resources, you can remove each pool within a Batch account and mark any active jobs as terminated to free up any quotas on your Azure Batch account.
 
 [install-azure-cli]: https://learn.microsoft.com/en-us/cli/azure/install-azure-cli
 [install-seqera-cli]: ../../cli/installation.mdx
