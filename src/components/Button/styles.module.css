@@ -1,45 +1,116 @@
 .button {
-  display: inline-block;
-  color: var(--color-brand-1100);
-  padding: 10px 22px;
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 17px;
   border: 1px solid transparent;
-  background: #f7f7f7;
-  border-radius: 99px;
-  transition: all 0.2s;
-  line-height: 1;
-  white-space: normal;
-}
-.button:hover.arrow {
-  transform: translateX(3px);
-}
-.button.arrow {
-  margin-left: 12px;
-  height: 13px;
-  width: 9px;
-  transition: all 0.2s;
-}
-.button:hover {
-  text-decoration: none;
-  color: var(--color-brand-1100);
-  border-color: #ccc;
-}
-.button:hover svg {
-  margin-left: 16px;
-}
-.cta {
+  background: var(--color-brand);
+  color: #fff;
+  border-radius: 8px;
   font-weight: 600;
-  color: white;
-  background: #4256e7;
-}
-.cta:hover {
-  color: white;
-  border-color: transparent;
-}
-.button svg {
-  height: 13px;
-  margin-left: 12px;
   transition: all 0.2s;
-  width: 9px;
-  position: relative;
-  top: 1px;
+  text-decoration: none !important;
+  cursor: pointer;
+  &:hover .arrow {
+    transform: translateX(3px);
+  }
+  & .arrow {
+    margin-left: 12px;
+    height: 13px;
+    width: 9px;
+    transition: all 0.2s;
+  }
+}
+.button.small {
+  font-size: 12px;
+  font-weight: 400;
+  padding: 5px 13px;
+}
+.button.medium {
+  font-size: 13px;
+  padding: 6px 27px;
+}
+.button.wide {
+  padding: 7px 27px;
+}
+.button.wider {
+  padding: 7px 34px;
+}
+.button.large {
+  padding: 10px 34px;
+}
+.button.secondary {
+  background: transparent;
+  border-color: var(--color-brand);
+  color: var(--color-brand);
+  &:hover {
+    background-color: var(--color-brand);
+    color: #fff;
+  }
+}
+.button.secondaryWhite {
+  background: transparent;
+  border-color: var(--color-white);
+  color: var(--color-white);
+  &:hover {
+    background-color: var(--color-white);
+    color: var(--color-brand);
+  }
+}
+.button.blue {
+  background: var(--color-blu);
+  &:hover {
+    background-color: white;
+    color: var(--color-brand);
+  }
+}
+.button.blue2 {
+  background: var(--color-blu);
+  &:hover {
+    background-color: white;
+    background: var(--color-brand);
+  }
+}
+.button.white {
+  background: #fff;
+  color: var(--color-brand);
+  &:hover {
+    background-color: var(--color-brand);
+    color: #fff;
+  }
+}
+.button.brand {
+  color: #fff;
+  background: var(--color-brand);
+  &:hover {
+    background-color: #fff;
+    color: var(--color-brand);
+  }
+}
+.button.brand2 {
+  color: #fff;
+  background: var(--color-brand);
+  &:hover {
+    background-color: #fff;
+    border-color: var(--color-brand);
+    color: var(--color-brand);
+  }
+}
+.button.white2 {
+  border-color: white;
+  color: white;
+  &:hover {
+    background-color: white;
+    color: var(--color-brand);
+  }
+}
+.button.disabled {
+  background-color: var(--color-gray-200);
+  color: var(--color-gray-600);
+}
+.alt {
+  &:hover {
+    background-color: var(--color-blu-700) !important;
+    border-color: var(--color-blu-700) !important;
+    color: #fff !important;
+  }
 }
