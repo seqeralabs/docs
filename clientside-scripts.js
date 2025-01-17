@@ -11,18 +11,6 @@ function addScripts() {
 
   if(!canProceed()) return;
 
-  // Usersnap
-  (function usersnap() {
-    window.onUsersnapLoad = function (api) {
-      api.init();
-    };
-    var script = document.createElement("script");
-    script.defer = 1;
-    script.src =
-      "https://widget.usersnap.com/global/load/feddb12e-0a8b-45c2-86c1-56f5a9d428f6?onload=onUsersnapLoad";
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-
   // HotJar
   (function(h,o,t,j,a,r){
     h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};

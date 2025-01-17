@@ -146,7 +146,7 @@ Upgrading to version 24.2 requires backend downtime in order for the database mi
 
 1. This version includes an update to the Platform Enterprise H8 cache. **Do not start the upgrade while any pipelines are in a `running` state as active run data may be lost.**
 1. This version requires a database schema update. Make a backup of your Platform database prior to upgrade.
-1. If you are upgrading from a version older than 23.4.1, update your installation to version [23.4.4](https://docs.seqera.io/changelog/seqera-enterprise/v23.4_major) first, before updating to 24.2 with the steps below.
+1. If you are upgrading from a version older than 23.4.1, update your installation to version [23.4.4](https://docs.seqera.io/changelog/seqera-enterprise/v23.4) first, before updating to 24.2 with the steps below.
 1. For recommended Platform memory settings, add the following environment variable to your Platform configuration values (`tower.env`, `configmap.yml`, etc.):
     ```bash 
     JAVA_OPTS: -Xms1000M -Xmx2000M -XX:MaxDirectMemorySize=800m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144
@@ -154,9 +154,9 @@ Upgrading to version 24.2 requires backend downtime in order for the database mi
 1. See [Upgrade installation](https://docs.seqera.io/platform/24.2/enterprise/upgrade) for installation upgrade guidance.
 
 :::info
-Docker Compose deployments require downtime while upgrading services. Restarting the application may take several minutes. See [Docker compose deployment](https://docs.seqera.io/platform/24.2/enterprise/docker-compose) for more information.
+Docker Compose deployments require downtime while upgrading services. Restarting the application may take several minutes. See [Docker compose deployment](https://docs.seqera.io/platform/latest/enterprise/docker-compose) for more information.
 
-For Kubernetes deployments, apply the 24.2 `tower-cron.yml` to your cron pod and wait for the cron pod to be running before applying the `tower-svc.yml` to your backend pod and restarting the service. If the cron pod update is interrupted, you may need to restore the instance from your DB backup and start again. See [Kubernetes deployment](https://docs.seqera.io/platform/24.2/enterprise/kubernetes) for more information. 
+For Kubernetes deployments, apply the 24.2 `tower-cron.yml` to your cron pod and wait for the cron pod to be running before applying the `tower-svc.yml` to your backend pod and restarting the service. If the cron pod update is interrupted, you may need to restore the instance from your DB backup and start again. See [Kubernetes deployment](https://docs.seqera.io/platform/latest/enterprise/kubernetes) for more information. 
 
 For custom deployments with third-party services such as ArgoCD, [contact support](https://support.seqera.io) for assistance during upgrade. 
 ::: 
