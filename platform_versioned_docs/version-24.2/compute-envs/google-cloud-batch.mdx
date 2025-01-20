@@ -199,8 +199,14 @@ Apply [**Resource labels**][resource-labels] to the cloud resources consumed by 
 - Expand **Staging options** to include:
     - Optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre--post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
     - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch. 
+    - You can change the the error strategy settings (`errorStrategy`, `maxRetries`) for Batch jobs submitted by Nextflow in **Staging options > Nextflow config**. This ensures you don't incur unneccessary costs. For example:
+
+    ```
+    process.errorStrategy = retry
+    process.maxRetries = 3
+    ```
     :::info
-    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced.mdx#nextflow-config-file) for more information on configuration priority. 
+    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced.mdx#nextflow-config-file) for more information on configuration priority.
     :::
 
 
