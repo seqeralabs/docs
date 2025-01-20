@@ -1,0 +1,30 @@
+---
+title: Seqera Cloud v24.2.0_cycle28
+date: 2025-01-21
+tags: [seqera cloud]
+---
+
+### Feature updates and improvements
+
+- Data Studios:
+    - Added studio endpoints to the Open API spec.
+- Dynamic page title: New dynamic page title for easy bookmarking.
+- Free tier:
+    - New organization types added to give free tier users more insight into their usage and limits.
+- Restore `errorStrategy` default Nextflow config for AWS and GCP launches. The Nextflow job now correctly terminates after pipeline completion.
+- Improve error message when cannot fetch pipeline info.
+- Azure jobs automatically terminate after completion.
+- Send only added/updated run parameters when launching a pipeline. 
+- Updated list of EC2 families with NVMe disk available.
+- Upgrade to Angular 17
+- Bump Nextflow launcher to 24.10.3
+
+### Bug fixes 
+
+- Allow unsetting schemaName when editing a pipeline.
+- Use preferred_username as fallback email field for OIDC login.
+- Drop last characters in job definition name if longer than the prescribed limit.
+- Compute environment creation form allows pre and post run scripts to be longer than the accepted value of 1024. 
+- Prohibit duplicate Git credentials and tie-break on `lastUpdated` for existing duplicates.
+- Disable reset selection on data change in workflow list component.
+- Take into account the alternative `mainScript` path.

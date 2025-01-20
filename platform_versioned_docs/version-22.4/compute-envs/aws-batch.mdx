@@ -229,7 +229,7 @@ Jump to the documentation for [launching pipelines](../launch/launchpad.mdx).
 
 - If you're using **Spot** instances, then you can also specify the **Cost percentage**, which is the maximum allowed price of a **Spot** instance as a percentage of the **On-Demand** price for that instance type. Spot instances will not be launched until the current spot price is below the specified cost percentage.
 
-- You can control the error strategy settings (`errorStrategy`, `maxRetries`) for Batch jobs submitted by Nextflow in **Staging options > Nextflow config**. This ensures you don't incur unneccessary costs. For example:
+- You can change the the error strategy settings (`errorStrategy`, `maxRetries`) for Batch jobs submitted by Nextflow in **Staging options > Nextflow config**. This ensures you don't incur unneccessary costs. For example:
 
     ```
     process.errorStrategy = retry
