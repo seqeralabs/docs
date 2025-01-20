@@ -49,19 +49,19 @@ In Seqera Cloud:
 
 ### Option 1. Azure Batch with Seqera Batch Forge
 
-Behavior:
+**Behavior**:
 
 - Seqera Platform will submit a Nextflow job and task to this pool.
 - The Nextflow job will execute and submit each task to the same node pool on Azure Batch.
 - The node pool will autoscale up and down based on the number of waiting tasks.
 
-Advantages:
+**Advantages**:
 
 - Simple to set up.
 - Low cost.
 - Autoscales for number of waiting tasks.
 
-Disadvantages:
+**Disadvantages**:
 
 - The Nextflow job will submit each task to the same node pool on Azure Batch, which can cause bottlenecks.
 - Because the processes require larger resources than the head node, you often have oversized machines running Nextflow or undersized machines running processes.
@@ -105,19 +105,19 @@ Select **Launch** next to the pipeline name in your workspace Launchpad to compl
 
 ### Option 2. Use a separate node and head pool on Seqera Platform
 
-Behavior:
+**Behavior**:
 
 - Seqera Platform will submit a Nextflow job and task to the first pool, which uses dedicated VMs.
 - The Nextflow job will execute and submit each task to the second pool, which uses low-priority VMs.
 - Both pools will autoscale up and down based on the number of waiting tasks.
 
-Advantages:
+**Advantages**:
 
 - The processes are not bottlenecked by the head node.
 - You can set the worker nodes to use a different VM size than the head node.
 - Cheaper nodes for work than for running Nextflow.
 
-Disadvantages:
+**Disadvantages**:
 
 - More complex to set up.
 - Still fairly inflexible.
@@ -162,17 +162,17 @@ Select **Launch** next to the `hello-world-low-priority` pipeline in your worksp
 
 ### Option 3. Configure the head pool with a hot node
 
-Behavior:
+**Behavior**:
 
 - A "hot" head node is left running.
 - The head node will run Nextflow as soon as the work is created.
 - The worker node pool will autoscale up and down based on the number of waiting tasks.
 
-Advantages:
+**Advantages**:
 
 - The latency of the pipeline is reduced.
 
-Disadvantages:
+**Disadvantages**:
 
 - The always-on head node incurs additional cost.
 
@@ -198,7 +198,7 @@ You can also delete the compute environment in Platform, which will delete the h
 
 ### Option 4. Use the Nextflow autopool feature
 
-Behavior:
+**Behavior**:
 
 - Seqera will submit a Nextflow job and task to the first pool, which uses dedicated VMs.
 - The Nextflow job will create pools in the Azure Batch account based on the pipeline's requirements.
@@ -210,13 +210,13 @@ Behavior:
 Nextflow will create a range of pools based on resource sizes and try to reuse them for similar tasks. This means that if you run a process with different CPU, memory, or machineType, it will create a new pool for that process.
 :::
 
-Advantages:
+**Advantages**:
 
 - Nextflow handles the creation and management of pools.
 - You can create flexible pools with the correct VM size and autoscale settings.
 - The pools are highly configurable via Nextflow configuration.
 
-Disadvantages:
+**Disadvantages**:
 
 - You may be overly specific and end up with a lot of pools, which can exhaust your quota for the maximum number of pools.
 - This configuration does not use low-priority nodes.
@@ -252,7 +252,7 @@ Select **Launch** next to the `hello-world-autopool` pipeline in your workspace 
 
 ### Option 5. Use Nextflow autopool feature with low-priority nodes
 
-Behavior:
+**Behavior**:
 
 - Seqera submits a Nextflow job and task to the first pool, which uses dedicated VMs.
 - The Nextflow job creates pools in the Azure Batch account based on the pipeline's requirements.
@@ -261,13 +261,13 @@ Behavior:
 - The pools are created with the autoscale settings specified in the Nextflow config.
 - These pools use low-priority nodes. It achieves this by modifying the autoscale formula.
 
-Advantages:
+**Advantages**:
 
 - Nextflow handles the creation and management of pools.
 - You can create flexible pools with the correct VM size and autoscale settings.
 - This configuration uses low-priority nodes.
 
-Disadvantages:
+**Disadvantages**:
 
 - Spot and low-priority nodes can be preempted, which can cause the pipeline to fail.
 
@@ -300,21 +300,21 @@ Select **Launch** next to the `hello-world-autopool-low-priority` pipeline in yo
 
 ### Option 6. Use Entra authentication
 
-Behavior:
+**Behavior**:
 
 - Seqera authenticates to Azure Batch and Azure Storage using a service principal.
 - It submits a job and task to the Azure Batch service using the service principal.
 - The task runs Nextflow, which authenticates to Azure Batch and Azure Storage using the managed identity.
 - All processes run on the head node as in the first example.
 
-Advantages:
+**Advantages**:
 
 - No keys or short access tokens are exchanged, increasing security.
 - A service prinicipal can have very granular permissions, so you can grant it only the permissions it needs.
 - Managed identities can be scoped to a specific resource, so the Nextflow head job has very restricted permissions.
 - Different managed IDs can have different permissions, so different compute environments can have different scoped permissions.
 
-Disadvantages:
+**Disadvantages**:
 
 - The setup is quite complicated with room for error.
 - Errors can be harder to troubleshoot.
@@ -372,17 +372,17 @@ You can also use User Subscription mode instead of Batch Managed here, but this 
 
 ### Option 7. Use a node pool attached to a VNet
 
-Behavior:
+**Behavior**:
 
 - Each node is attached to the VNet and uses the security and networking rules of that virtual network subnetwork.
 - All other behaviour is as normal.
 
-Advantages:
+**Advantages**:
 
 - Security can be increased by restricting the virtual network subnet.
 - Exchange of data can be faster and cheaper than other services.
 
-Disadvantages:
+**Disadvantages**:
 
 - It requires fairly complicated setup.
 - If security is too restrictive, it can fail silently and be unable to report the error state.
@@ -418,18 +418,18 @@ Using this technique allows you to run pipelines on Azure Batch with more restri
 
 ### Option 8. Use a node pool attached to a VNet with worker nodes attached to the same VNet
 
-Behavior:
+**Behavior**:
 
 - We use a separate head node pool to run Nextflow, along with automatically created Nextflow autoscale pools to run processes.
 - Each worker node is attached to the VNet and uses the security and networking rules of that virtual network subnetwork.
 
-Advantages:
+**Advantages**:
 
 - Security can be increased by restricting the virtual network subnet.
 - Exchange of data can be faster and cheaper than other services.
 - Additionally, you get the advantages of using worker nodes with autopools.
 
-Disadvantages:
+**Disadvantages**:
 
 - The set up is very complicated now and errors are likely to occur.
 - Errors can be hard to troubleshoot.
