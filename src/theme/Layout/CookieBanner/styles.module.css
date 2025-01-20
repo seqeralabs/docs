@@ -1,0 +1,7 @@
+@media (min-width: 1024px) {
+  .banner {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+  }
+}

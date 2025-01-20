@@ -11,9 +11,7 @@
 /* COLORS */
 /*********/
 :root {
-  --color-blue: #4256e7; /* Used a lot, but is not present in the DS */
-  --color-blue2: #3c95fd;
-
+  --color-blu: var(--color-blu-DEFAULT);
   --color-brand: var(--color-brand-DEFAULT);
   --color-nextflow: var(--color-nextflow-DEFAULT);
   --color-wave: var(--color-wave-DEFAULT);
