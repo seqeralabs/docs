@@ -20,6 +20,10 @@ Kubernetes
 Gitpod
 Hashicorp
 RStudio
+Seqerakit
+Fusion
+Wave
+[Cc]onfig
 
 # Acronyms
 AMI
@@ -30,6 +34,7 @@ CE
 URI
 FPGA
 HTTP
+tw
 
 # Compute resources
 CPU
@@ -55,6 +60,10 @@ uncomment
 burstable
 unparsable
 config
+Pre-run scripts
+samplesheet
+datasheet
+
 
 # Seqera Platform UI
 hostname
