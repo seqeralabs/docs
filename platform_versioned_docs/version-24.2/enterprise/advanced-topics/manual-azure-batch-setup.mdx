@@ -389,7 +389,7 @@ Disadvantages:
 
 It is common to attach Azure Batch pools to a virtual network. This is useful to connect to other resources in the same VNet or place things behind enhanced security. Seqera Platform does not support this feature directly, so you must manually create an Azure Batch pool.
 
-See [Create a pool with a Virtual Network in the Azure portal](https://learn.microsoft.com/en-us/azure/batch/batch-virtual-network#create-a-pool-with-a-virtual-network-in-the-azure-portal) to create an Azure Batch pool manually that is compatible with Seqera and Nextflow. Use the following settings:
+See [Create a Nextflow-compatible Azure Batch pool](../../compute-envs/azure-batch.mdx#create-a-nextflow-compatible-azure-batch-pool) to create an Azure Batch pool manually that is compatible with Seqera and Nextflow. Use the following settings:
 
 - Name & ID: `3-azure-batch-vnet`
 - Add the managed identity created earlier as a user-assigned managed identity.
