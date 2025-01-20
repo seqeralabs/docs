@@ -205,9 +205,7 @@ Jump to the documentation for [launching pipelines](../launch/launchpad.mdx).
 
   :::caution
   To use a custom AMI, make sure the AMI is based on an Amazon Linux-2 ECS optimized image that meets the Batch requirements. To learn more about approved versions of the Amazon ECS optimized AMI, see [this AWS guide](https://docs.aws.amazon.com/batch/latest/userguide/compute_resource_AMIs.html#batch-ami-spec)
-  :::
-
-  :::caution
+  
   If a custom AMI is specified and the **Enable GPU** option is also selected, the custom AMI will be used instead of the AWS-recommended GPU-optimized AMI.
   :::
 
@@ -230,6 +228,13 @@ Jump to the documentation for [launching pipelines](../launch/launchpad.mdx).
 - Enter the **Boot disk size** (in GB) to specify the size of the boot disk in the VMs created by this compute environment.
 
 - If you're using **Spot** instances, then you can also specify the **Cost percentage**, which is the maximum allowed price of a **Spot** instance as a percentage of the **On-Demand** price for that instance type. Spot instances will not be launched until the current spot price is below the specified cost percentage.
+
+- You can control the error strategy settings (`errorStrategy`, `maxRetries`) for Batch jobs submitted by Nextflow in **Staging options > Nextflow config**. This ensures you don't incur unneccessary costs. For example:
+
+    ```
+    process.errorStrategy = retry
+    process.maxRetries = 3
+    ```
 
 - You can use **AWS CLI tool path** to specify the location of the `aws` CLI.
 
