@@ -8,14 +8,14 @@ tags: [seqera cloud]
 
 - Data Studios:
     - Added data studio API endpoints to the OpenAPI spec.
-- Dynamic page title: New dynamic page title for easy bookmarking.
+- New dynamic page title for easy bookmarking.
 - Free tier:
-    - New organization types added so free tier users can monitor their usage and limits.
+    - New organization types added to allow free tier users to monitor their usage and limits.
 - Restore `errorStrategy` default Nextflow config for AWS and GCP launches. The Nextflow job now correctly terminates after pipeline completion.
-- Improved error messaging when pipeline info can't be fetched to indicate whether the issue is due to a missing resource, or failed authentication due to expired credentials.
+- Improved error messaging when pipeline info can't be fetched indicates whether the issue is due to a missing resource, or failed authentication due to expired credentials.
 - Azure jobs are now automatically terminated after all tasks are complete.
 - Send only added/updated run parameters when launching a pipeline. This includes all defaults and parameters passed during the launch.
-- Updated list of EC2 families with NVMe disk available.
+- Updated list of EC2 families with NVMe disks available.
 - Upgrade to Angular 17
 - Bump Nextflow launcher to 24.10.3
 
@@ -23,8 +23,8 @@ tags: [seqera cloud]
 
 - Allow unsetting `schemaName` when editing a pipeline.
 - Use `preferred_username` as fallback email field for OIDC login.
-- Drop the last characters in job definition name if longer than the prescribed limit.
-- Compute environment creation form allows pre and post run scripts to be longer than the accepted value of 1024.
+- Drop the last characters in job definition name, if longer than the prescribed limit.
+- Compute environment creation form allows pre- and post-run scripts to be longer than the accepted value of 1024 characters.
 - Prohibit duplicate Git credentials and tie-break on `lastUpdated` for existing duplicates.
 - Disable reset selection on data change in workflow list component.
 - Take into account the alternative `mainScript` path.
