@@ -25,6 +25,6 @@ tags: [seqera cloud]
 - Use `preferred_username` as fallback email field for OIDC login.
 - Drop the last characters in job definition name, if longer than the prescribed limit.
 - Compute environment creation form allows pre- and post-run scripts to be longer than the accepted value of 1024 characters.
-- Prohibit duplicate Git credentials and tie-break on `lastUpdated` for existing duplicates.
+- Prohibit duplicate Git credentials and tie-break on `lastUpdated` for existing duplicates. Going forward, preference is given to the credentials updated last in the situation when there are multiple candidates. Additionally a duplicate check is added when creating new credentials, to avoid new duplicate cases.
 - Disable reset selection on data change in workflow list component.
 - Take into account the alternative `mainScript` path.
