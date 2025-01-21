@@ -22,11 +22,11 @@
     "markdownlint": "markdownlint-cli2 'platform_versioned_docs/**/*.mdx' 'wave_docs/**/*.mdx' 'fusion_docs/**/*.mdx' --config .markdownlint-cli2.cjs"
   },
   "dependencies": {
-    "@docusaurus/core": "^3.6.3",
-    "@docusaurus/faster": "^3.6.3",
-    "@docusaurus/plugin-google-gtag": "^3.6.3",
-    "@docusaurus/plugin-google-tag-manager": "^3.6.3",
-    "@docusaurus/preset-classic": "^3.6.3",
+    "@docusaurus/core": "^3.7.0",
+    "@docusaurus/faster": "^3.7.0",
+    "@docusaurus/plugin-google-gtag": "^3.7.0",
+    "@docusaurus/plugin-google-tag-manager": "^3.7.0",
+    "@docusaurus/preset-classic": "^3.7.0",
     "@mdx-js/react": "^3.0.0",
     "clsx": "^1.2.1",
     "docusaurus-remark-plugin-tab-blocks": "^3.1.0",
@@ -45,8 +45,8 @@
     "remark-yaml-to-table": "github:seqeralabs/remark-yaml-to-table"
   },
   "devDependencies": {
-    "@docusaurus/eslint-plugin": "^3.6.3",
-    "@docusaurus/module-type-aliases": "^3.6.3",
+    "@docusaurus/eslint-plugin": "^3.7.0",
+    "@docusaurus/module-type-aliases": "^3.7.0",
     "@tsconfig/docusaurus": "^1.0.5",
     "autoprefixer": "^10.4.16",
     "dotenv": "^16.3.1",
