@@ -25,7 +25,7 @@ spec:
         #    secretName: platform-oidc-certs
       initContainers:
         - name: migrate-db
-          image: cr.seqera.io/private/nf-tower-enterprise/migrate-db:v24.2.2
+          image: cr.seqera.io/private/nf-tower-enterprise/migrate-db:v24.2.3
           command: ["sh", "-c", "/migrate-db.sh"]
           envFrom:
             - configMapRef:
@@ -36,7 +36,7 @@ spec:
               subPath: tower.yml
       containers:
         - name: backend
-          image: cr.seqera.io/private/nf-tower-enterprise/backend:v24.2.2
+          image: cr.seqera.io/private/nf-tower-enterprise/backend:v24.2.3
           envFrom:
             - configMapRef:
                 name: tower-backend-cfg
