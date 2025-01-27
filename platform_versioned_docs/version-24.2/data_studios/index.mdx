@@ -127,6 +127,21 @@ Data studios have the following possible statuses:
   If you encounter an error with the public preview release of Data Studios, [contact Seqera support][contact].
   :::
 
+## Session data links
+
+You can configure a Data Studio to include one or more data links, where cloud buckets that you have configured in your compute environment are exposed within the studio session.
+
+If your compute environment includes a cloud bucket in the **Allowed S3 bucket** list, the bucket is writeable from within a session when that bucket is included as a data link.
+
+You can limit write access to just a subdirectory of a data bucket by creating an additional data bucket for only that subdirectory, and then using this bucket as a data link. For example, if you have the following S3 buckets:
+
+- `s3://biopharmaXs`: Entire bucket
+- `3://biopharmaX/experiments/project-A/experiment-1/data`: Subdirectory for use from a studio session
+
+You can expose only the `s3://biopharmaX/experiments/project-A/experiment-1/data` in a studio session as `/workspace/data/biopharmaxs-project-a-experiment-1`
+
+For more information, see [Limit Data Studio access to a specific cloud bucket subdirectory][cloud-bucket-subdirectory].
+
 ## Session checkpoints
 
 When you start a session, it automatically creates a *checkpoint*. A checkpoint saves changes that you make to the root filesystem and stores it in the compute environment's pipeline work directory in the `.studios/checkpoints` folder with a unique name. The checkpoint is updated every five minutes.
@@ -161,3 +176,4 @@ Stop the active session to trigger a snapshot from the active volume. Data Studi
 [aws-batch]: ../compute-envs/aws-batch.mdx
 [custom-envs]: ./custom-envs.mdx
 [build-status]: ./custom-envs.mdx#build-status
+[cloud-bucket-subdirectory]: ./managing.mdx#cloud-bucket-subdirectory
