@@ -6,7 +6,7 @@ tags: [seqera cloud]
 
 ### Breaking change
 
-- Restore `errorStrategy` default Nextflow config for AWS and GCP launches. The Nextflow job now correctly terminates after pipeline completion. The impact of this change is that pipelines will experience more job failures. Spot failures will no longer be silent and parameters should be set to account for this.
+- Restore `errorStrategy` and `maxRetries` default Nextflow config for AWS and GCP launches. Platform will not overwrite existing error strategy coded in the pipeline repository.
 
 - For AWS this will manifest as generic failures with exit code 1 and messaging indicating termination of host machine. 
 - Spot retries in AWS need to be actively enabled. Alternatively the generic failure is handled at the Nextflow level. 
