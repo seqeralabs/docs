@@ -10,7 +10,7 @@ tags: [seqera cloud]
 - For AWS this might manifest as more failures.
 - Automatic spot retries in AWS and GCP need to be actively enabled. Alternatively the generic failure is handled at the Nextflow level.
 
-**You can revert to the previous setting but this is recommended for short-running tasks only:**
+**You can revert to the default setting used in Nextflow prior to 24.10 with the following configuration options:**
 ```
 aws.batch.maxSpotAttempts = 5
 google.batch.maxSpotAttempts = 5
