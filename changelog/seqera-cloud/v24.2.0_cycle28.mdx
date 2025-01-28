@@ -7,9 +7,8 @@ tags: [seqera cloud]
 ### Breaking change
 
 - Restore `errorStrategy` and `maxRetries` default Nextflow config for AWS and GCP launches. Platform will not overwrite existing error strategy coded in the pipeline repository.
-
-- For AWS this will manifest as generic failures with exit code 1 and messaging indicating termination of host machine. 
-- Spot retries in AWS need to be actively enabled. Alternatively the generic failure is handled at the Nextflow level. 
+- For AWS this might manifest as more failures.
+- Automatic spot retries in AWS and GCP need to be actively enabled. Alternatively the generic failure is handled at the Nextflow level.
 
 **You can revert to the previous setting but this is recommended for short-running tasks only:**
 ```
