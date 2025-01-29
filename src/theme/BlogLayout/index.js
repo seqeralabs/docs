@@ -14,8 +14,8 @@ export default function BlogLayout(props) {
         <BlogSidebar sidebar={sidebar} />
         <main className={styles.blogMain}>
           <div className="container padding-top--lg padding-bottom--lg">
-            <div className="row">
-              <div className="col">
+            <div className={clsx(styles.blogBody, "row")}>
+              <div className={clsx(styles.blogContent, "col")}>
                 {children}
               </div>
               {toc && (
