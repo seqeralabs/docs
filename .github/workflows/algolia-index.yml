@@ -1,0 +1,27 @@
+name: Update Algolia Index
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  update-index:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          npm install # Ensure `gray-matter` is in package.json
+
+      - name: Parse and Index Docs
+        env:
+          ALGOLIA_APP_ID: 5E8JEKSR3W
+          ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
+          ALGOLIA_INDEX_NAME: test_docs_webhooks
+        run: |
+          node scripts/indexDocs.js
