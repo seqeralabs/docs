@@ -17,7 +17,7 @@ google.batch.maxSpotAttempts = 5
 ```
 Set `task.maxRetries` to a non-zero value to restore Platform to prior behaviour.
 
-**How do I retry spot failures while making them visible?**
+**How do I retry Spot failures while making them visible?**
 
 There is no mechanism in Nextflow to specifically control Spot retries. However you can set `process.maxRetries = 5` to retry all failures (including Spot reclamations) a specified number of times before failure.
 
