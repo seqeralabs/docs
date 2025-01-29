@@ -7,7 +7,7 @@ tags: [seqera cloud]
 ### Breaking change
 
 - Restore `errorStrategy` and `maxRetries` default Nextflow config for AWS and GCP launches. Platform will not overwrite existing error strategy coded in the pipeline repository.
-- For AWS this might manifest as more failures.
+- If you want to automatically retry on task failures (e.g., from Spot reclamations), you will now need to explicitly set `errorStrategy` and `maxRetries`.
 - Automatic spot retries in AWS and GCP need to be actively enabled. Alternatively the generic failure is handled at the Nextflow level.
 
 **You can revert to the default setting used in Nextflow prior to 24.10 with the following configuration options:**
