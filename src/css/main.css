@@ -151,7 +151,3 @@ nav.menu .menu__list-item--collapsed .menu__link--sublist:after,
     color: #98a3ff;
   }
 }
-
-.theme-code-block code {
-  max-width: 100px;
-}
