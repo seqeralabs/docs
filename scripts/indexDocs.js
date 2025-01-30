@@ -4,8 +4,8 @@ const matter = require('gray-matter');
 const algoliasearch = require('algoliasearch');
 
 // Algolia client initialization
-const client = algoliasearch(process.env.ALGOLIA_APP_ID, process.env.ALGOLIA_API_KEY);
-const index = client.initIndex(process.env.ALGOLIA_INDEX_NAME);
+const client = algoliasearch(5E8JEKSR3W, secrets.ALGOLIA_API_KEY);
+const index = client.initIndex(test_docs_webhooks);
 
 // Directory containing Markdown files
 const docsDir = path.join(__dirname, '../docs');
