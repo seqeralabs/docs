@@ -123,13 +123,13 @@ This configuration requires Docker or a similar container engine to run pipeline
 
   1. Run a local instance of Minio using Docker:
 
-  ```
-  docker run -p 9000:9000 \
-    --rm -d -p 9001:9001 \
-    -e "MINIO_ROOT_USER=admin" \
-    -e "MINIO_ROOT_PASSWORD=secret" \
-    quay.io/minio/minio server /data --console-address ":9001"
-  ```
+      ```
+      docker run -p 9000:9000 \
+        --rm -d -p 9001:9001 \
+        -e "MINIO_ROOT_USER=admin" \
+        -e "MINIO_ROOT_PASSWORD=secret" \
+        quay.io/minio/minio server /data --console-address ":9001"
+      ```
 
   1. Open the Mino console `http://localhost:9001`
 
