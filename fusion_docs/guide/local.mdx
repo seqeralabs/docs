@@ -68,12 +68,12 @@ This configuration requires Docker or a similar container engine to run pipeline
   1. Run the pipeline with the Nextflow run command:
 
       ```
-      nextflow run <PIPELINE_SCRIPT> -w az://<ç>/scratch
+      nextflow run <PIPELINE_SCRIPT> -w az://<BLOB_STORAGE>/scratch
       ```
 
       Replace the following:
       - `<PIPELINE_SCRIPT>`: your pipeline Git repository URI
-      - `<AZ_CONTAINER>`: your Azure Blob Storage
+      - `<BLOB_STORAGE>`: your Azure Blob Storage
 
   :::tip
   To achieve optimal performance, set up an SSD volume as the temporary directory.
