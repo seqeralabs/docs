@@ -30,7 +30,7 @@ To use Fusion directly in Nextflow with a Google GKE cluster, you must configure
     - **Enable Workload Identity** in the cluster **Security** settings.
     - **Enable GKE Metadata Server** in the node group **Security** settings.
 1. See [Authenticate to Google Cloud APIs from GKE workloads](https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity#kubectl) to configure the cluster.
-1. Replace the following example values with values corresponding your environment:
+1. Replace the following example values with values corresponding to your environment:
     - `CLUSTER_NAME`: the GKE cluster name — `cluster-1`
     - `COMPUTE_REGION`: the GKE cluster region — `europe-west1`
     - `NAMESPACE`: the GKE namespace — `fusion-demo`
@@ -79,25 +79,27 @@ To use Fusion directly in Nextflow with a Google GKE cluster, you must configure
 
 #### Nextflow configuration
 
-1. Add the following to your `nextflow.conf` file:
+1. Add the following to your `nextflow.config` file:
 
     ```
     wave.enabled = true
     fusion.enabled = true
     process.executor = 'k8s'
     process.scratch = false
-    k8s.context = '<YOUR-GKE-CLUSTER-CONTEXT>'
+    k8s.context = '<GKE-CLUSTER-CONTEXT>'
     k8s.namespace = 'fusion-demo'
     k8s.serviceAccount = 'fusion-sa'
     k8s.pod.nodeSelector = 'iam.gke.io/gke-metadata-server-enabled=true'
     ```
 
-    Replace `<YOUR-GKE-CLUSTER-CONTEXT>` with the context name in your Kubernetes configuration.
+    Replace `<GKE_CLUSTER_CONTEXT>` with the context name in your Kubernetes configuration.
 
-1. Run the pipeline with the usual run command:
+1. Run the pipeline with the Nextflow run command:
 
     ```
-    nextflow run <YOUR PIPELINE SCRIPT> -w gs://<YOUR-BUCKET>/work
+    nextflow run <PIPELINE_SCRIPT> -w gs://<GCS_BUCKET>/work
     ```
 
-    Replace `<YOUR-BUCKET>` with a Google Cloud Storage bucket to which you have read-write access.
+    Replace the following:
+    - `<PIPELINE_SCRIPT>`: your pipeline Git repository URI
+    - `<GCS_BUCKET>`: your Google Cloud Storage bucket
