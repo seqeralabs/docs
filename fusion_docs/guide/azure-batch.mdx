@@ -35,9 +35,9 @@ We recommend selecting machine types with a local temp storage disk of at least 
 1. Run the pipeline with the Nextflow run command:
 
     ```
-    nextflow run <PIPELINE_SCRIPT> -w az://<AZ_CONTAINER>/scratch
+    nextflow run <PIPELINE_SCRIPT> -w az://<BLOB_STORAGE>/scratch
     ```
 
     Replace the following:
     - `<PIPELINE_SCRIPT>`: your pipeline Git repository URI
-    - `<AZ_CONTAINER>`: Azure Blob Storage
+    - `<BLOB_STORAGE>`: Azure Blob Storage
