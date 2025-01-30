@@ -93,8 +93,8 @@ You can also specify a limited subset of files, such as `platform_versioned_docs
 
 ## Creating internal links
 
-You can link between Markdown files with relative links within the same documentation set. If you need to link to a different documentation set, such as Wave or Fusion, you **must** use an absolute path. For example:
+You can link between Markdown files with relative links within the same documentation set. If you need to link to a different documentation set, such as Wave or Fusion, you **must** use the https path. For example:
 
 ```
-For more information, see [Fusion](/fusion_docs/guide.mdx).
+For more information, see [Fusion](https://docs.seqera.io/fusion).
 ```

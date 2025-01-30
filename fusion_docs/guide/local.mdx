@@ -12,14 +12,16 @@ With Fusion, you can run Nextflow pipelines using the local executor and a cloud
 is useful to scale your pipeline execution vertically with a large compute instance, without the need to allocate
 a large storage volume for temporary pipeline data.
 
-:::note
-This configuration requires the use of Docker (or a similar container engine) for the execution of your pipeline tasks.
+## Nextflow CLI
+
+:::tip
+This configuration requires Docker or a similar container engine to run pipeline tasks.
 :::
 
 <Tabs>
 <TabItem value="AWS S3" label="AWS S3" default>
 
-  1. Set `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables to grant Nextflow and Fusion access to your storage credentials.
+  1. Set `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables to grant Nextflow and Fusion access to your storage credentials. See [Credentials](https://www.nextflow.io/docs/latest/google.html#credentials) for more information.
 
   1. Add the following to your `nextflow.config` file:
 
@@ -52,7 +54,7 @@ This configuration requires the use of Docker (or a similar container engine) fo
 </TabItem>
 <TabItem value="Azure Blob Storage" label="Azure Blob Storage" default>
 
-  1. Set `AZURE_STORAGE_ACCOUNT_NAME` and `AZURE_STORAGE_ACCOUNT_KEY` or `AZURE_STORAGE_SAS_TOKEN` environment variables to grant Nextflow and Fusion access to your storage credentials.
+  1. Set `AZURE_STORAGE_ACCOUNT_NAME` and `AZURE_STORAGE_ACCOUNT_KEY` or `AZURE_STORAGE_SAS_TOKEN` environment variables to grant Nextflow and Fusion access to your storage credentials. See [Credentials](https://www.nextflow.io/docs/latest/google.html#credentials) for more information.
 
   1. Add the following to your `nextflow.config` file:
 
@@ -85,7 +87,7 @@ This configuration requires the use of Docker (or a similar container engine) fo
 </TabItem>
 <TabItem value="Google Cloud Storage" label="Google Cloud Storage" default>
 
-  1. Set the `GOOGLE_APPLICATION_CREDENTIALS` environment variable with your service account JSON key to grant Nextflow and Fusion access to your storage credentials.
+  1. Set the `GOOGLE_APPLICATION_CREDENTIALS` environment variable with your service account JSON key to grant Nextflow and Fusion access to your storage credentials. See [Credentials](https://www.nextflow.io/docs/latest/google.html#credentials) for more information.
 
   1. Add the following to your `nextflow.config` file:
 
@@ -133,7 +135,7 @@ This configuration requires the use of Docker (or a similar container engine) fo
 
   1. Create storage credentials and a bucket.
 
-  1. Set `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables to grant Nextflow and Fusion access to your storage credentials.
+  1. Set `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables to grant Nextflow and Fusion access to your storage credentials. See [Credentials](https://www.nextflow.io/docs/latest/google.html#credentials) for more information.
 
   1. Add the following to your `nextflow.config` file:
 
