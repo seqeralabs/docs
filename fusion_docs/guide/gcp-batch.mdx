@@ -33,24 +33,24 @@ When Fusion v2 is enabled, the following virtual machine settings are applied:
 1. Provide your Google credentials via the `GOOGLE_APPLICATION_CREDENTIALS` environment variable
 or with the `gcloud` auth application-default login command. See [Credentials](https://www.nextflow.io/docs/latest/google.html#credentials) for more information.
 
-1. Add the following to your `nextflow.conf` file:
+1. Add the following to your `nextflow.config` file:
 
     ```groovy
     fusion.enabled = true
     wave.enabled = true
     process.scratch = false
     process.executor = 'google-batch'
-    google.location  = '<YOUR GOOGLE LOCATION>'
+    google.location  = '<GOOGLE_LOCATION>'
     ```
 
-    Replace `<YOUR GOOGLE LOCATION>` with the Google region of your choice, such as `europe-west2`.
+    Replace `<GOOGLE_LOCATION>` with the Google region of your choice. For example, `europe-west2`.
 
-1. Run the pipeline with the usual run command:
+1. Run the pipeline with the Nextflow run command:
 
     ```
-    nextflow run <YOUR PIPELINE SCRIPT> -w gs://<YOUR-BUCKET>/work
+    nextflow run <PIPELINE_SCRIPT> -w gs://<GCS_BUCKET>/work
     ```
 
-    Replace `<YOUR-BUCKET>` with a Google Cloud Storage bucket to which you have read-write access.
-
-
+    Replace the following:
+    - `<PIPELINE_SCRIPT>`: your pipeline Git repository URI
+    - `<GCS_BUCKET>`: your Google Cloud Storage bucket to which you have read-write access
