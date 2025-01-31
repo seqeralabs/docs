@@ -2,6 +2,7 @@
   "sidebar": [
     "index",
     "get-started",
+    "licensing",
     {
       "type": "category",
       "label": "User guide",
