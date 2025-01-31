@@ -7,7 +7,7 @@ Nextflow
 Illumina
 Fargate
 Micronaut
-Conda
+[Cc]onda
 Okta
 Gitea
 SLURM
@@ -24,6 +24,7 @@ Seqerakit
 Fusion
 Wave
 [Cc]onfig
+Xpra
 
 # Acronyms
 AMI
@@ -54,18 +55,21 @@ subnets
 autoscaling
 prefilled
 unencrypted
+deallocated
 preemptible
 hardcoded
-uncomment
+[Uu]ncomment
 burstable
 unparsable
 config
 Pre-run scripts
 samplesheet
 datasheet
+openssl
 
 
 # Seqera Platform UI
 hostname
 textbox
 lightbulb
+errored
