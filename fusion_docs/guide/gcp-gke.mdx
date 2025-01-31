@@ -108,7 +108,7 @@ To use Fusion directly in Nextflow with a GKE cluster, you must configure a clus
 When using Fusion, pods will run as privileged by default.
 :::
 
-To use Fusion with without the need for escalating privileges, install the Nextflow [FUSE device plugin](https://github.com/nextflow-io/k8s-fuse-plugin) on your Kubernetes cluster and add set `fusion.privileged` to `false` in your `nextflow.config` file:
+To use Fusion without the need for escalating privileges, install the Nextflow [FUSE device plugin](https://github.com/nextflow-io/k8s-fuse-plugin) on your Kubernetes cluster and add set `fusion.privileged` to `false` in your `nextflow.config` file:
 
 ```
 fusion.privileged = false

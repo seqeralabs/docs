@@ -105,7 +105,7 @@ This configuration requires Docker or a similar container engine to run pipeline
       ```
 
       Replace the following:
-      - `<PIPELINE_SCRIPT>`: your pipeline Git repository URI
+      - `<PIPELINE_SCRIPT>`: your pipeline Git repository URI.
       - `<GCS_BUCKET>`: your Google Cloud Storage bucket to which you have read-write access.
 
 
@@ -119,9 +119,9 @@ This configuration requires Docker or a similar container engine to run pipeline
   :::
 
 </TabItem>
-<TabItem value="Minio" label="Minio" default>
+<TabItem value="MinIO" label="MinIO" default>
 
-  1. Run a local instance of Minio using Docker:
+  1. Run a local instance of MinIO using Docker:
 
       ```
       docker run -p 9000:9000 \
@@ -131,7 +131,7 @@ This configuration requires Docker or a similar container engine to run pipeline
         quay.io/minio/minio server /data --console-address ":9001"
       ```
 
-  1. Open the Mino console `http://localhost:9001`
+  1. Open the MinIO console `http://localhost:9001`
 
   1. Create storage credentials and a bucket.
 
