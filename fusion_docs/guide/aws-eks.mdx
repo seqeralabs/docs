@@ -140,10 +140,7 @@ Create a namespace and a service account in your Kubernetes cluster to run the j
     k8s.serviceAccount = 'fusion-sa'
     ```
 
-    Replace the following:
-    - `<K8S_CLUSTER_CONTEXT>`: your Kubernetes context
-    - `<K8S_NAMESPACE>`: your namespace
-    - `<K8S_SERVICE_ACCOUNT>` your service account
+    Replace `<K8S_CLUSTER_CONTEXT>` with your Kubernetes context.
 
 1. Run the pipeline with the Nextflow run command:
 
@@ -154,3 +151,15 @@ Create a namespace and a service account in your Kubernetes cluster to run the j
     Replace the following:
     - `<PIPELINE_SCRIPT>`: your pipeline Git repository URI
     - `<S3_BUCKET>`: your S3 bucket
+
+:::note
+When using Fusion, pods will run as privileged by default.
+:::
+
+To use Fusion with without the need for escalating privileges, install the Nextflow [FUSE device plugin](https://github.com/nextflow-io/k8s-fuse-plugin) on your Kubernetes cluster and add set `fusion.privileged` to `false` in your `nextflow.config` file:
+
+```
+fusion.privileged = false
+```
+
+To use a custom FUSE device plugin, specify it via the `k8s.fuseDevicePlugin` configuration option. See [Kubernetes](https://www.nextflow.io/docs/latest/reference/config.html#k8s) configuration options for details.
