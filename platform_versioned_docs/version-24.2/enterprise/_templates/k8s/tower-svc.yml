@@ -23,6 +23,10 @@ spec:
         - name: config-volume
           configMap:
             name: tower-yml
+        # Volume for Data Studios
+        #- name: cert-volume
+        #  secret:
+        #    secretName: platform-oidc-certs
       containers:
         - name: backend
           image: cr.seqera.io/private/nf-tower-enterprise/backend:v24.2.3
@@ -32,12 +36,18 @@ spec:
           env:
             - name: MICRONAUT_ENVIRONMENTS
               value: "prod,redis,ha"
+            # TLS certificate for Data Studios
+            #- name: TOWER_OIDC_PEM_PATH
+            #  value: '/data/certs/oidc.pem'
           ports:
             - containerPort: 8080
           volumeMounts:
             - name: config-volume
               mountPath: /tower.yml
               subPath: tower.yml
+            # Volume mount for Data Studios
+            #- name: cert-volume
+            #  mountPath: /data/certs
           resources:
             requests:
               cpu: "1"
