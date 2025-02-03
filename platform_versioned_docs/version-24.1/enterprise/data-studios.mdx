@@ -221,6 +221,13 @@ This procedure describes how to configure Data Studios for Kubernetes deployment
     kubectl apply -f tower-svc.yml
     ```
 
+1. Restart the cron service of your Platform deployment to load the updated configuration. For example:
+
+    ```
+    kubectl delete -f tower-cron.yml
+    kubectl apply -f tower-cron.yml
+    ```
+
 1. Restart the backend service of your Platform deployment to load the updated configuration. For example:
 
     ```
