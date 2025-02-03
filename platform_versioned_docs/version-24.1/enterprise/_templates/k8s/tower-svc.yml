@@ -23,7 +23,7 @@ spec:
         - name: config-volume
           configMap:
             name: tower-yml
-        # Volume for Data Studios
+        # Volume for Studios
         #- name: cert-volume
         #  secret:
         #    secretName: platform-oidc-certs
@@ -36,7 +36,7 @@ spec:
           env:
             - name: MICRONAUT_ENVIRONMENTS
               value: "prod,redis,ha"
-            # TLS certificate for Data Studios
+            # TLS certificate for Studios
             #- name: TOWER_OIDC_PEM_PATH
             #  value: '/data/certs/oidc.pem'
           ports:
@@ -45,7 +45,7 @@ spec:
             - name: config-volume
               mountPath: /tower.yml
               subPath: tower.yml
-            # Volume mount for Data Studios
+            # Volume mount for Studios
             #- name: cert-volume
             #  mountPath: /data/certs
           resources:
