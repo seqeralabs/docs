@@ -322,9 +322,9 @@ Manage [Studio sessions](../data_studios/index.mdx) hosted in Seqera Platform. S
   Description         |                                                            
   Created on          | Fri, 31 Jan 2025 18:12:27 GMT                              
   Created by          | rob-newman | rob.newman@seqera.io                          
-  Template            | public.cr.seqera.io/platform/data-studio-jupyter:4.1.5-0.7 
+  Template            | public.cr.seqera.io/platform/studio-jupyter:4.1.5-0.7 
   Mounted Data        |                                                            
-  Compute environment | aws-datastudios-sandbox-ireland-16cpus                     
+  Compute environment | aws-studios-sandbox-ireland-16cpus                     
   Region              | eu-west-1                                                  
   GPU allocated       | 0                                                          
   CPU allocated       | 2                                                          
@@ -345,10 +345,10 @@ Manage [Studio sessions](../data_studios/index.mdx) hosted in Seqera Platform. S
 
      Templates                                                     
     ---------------------------------------------------------------
-     public.cr.seqera.io/platform/data-studio-jupyter:4.2.5-0.7    
-     public.cr.seqera.io/platform/data-studio-rstudio:4.4.1-u1-0.7 
-     public.cr.seqera.io/platform/data-studio-vscode:1.93.1-0.7    
-     public.cr.seqera.io/platform/data-studio-xpra:6.2.0-r2-1-0.7
+     public.cr.seqera.io/platform/studio-jupyter:4.2.5-0.7    
+     public.cr.seqera.io/platform/studio-rstudio:4.4.1-u1-0.7 
+     public.cr.seqera.io/platform/studio-vscode:1.93.1-0.7    
+     public.cr.seqera.io/platform/studio-xpra:6.2.0-r2-1-0.7
   ```
 
   ### Add a Studio session
@@ -360,12 +360,12 @@ Manage [Studio sessions](../data_studios/index.mdx) hosted in Seqera Platform. S
   ```bash
   tw studios add -n new-analysis -w community/showcase \
   --description="New Python analysis for RNA experiment ABC" \
-  --template="public.cr.seqera.io/platform/data-studio-jupyter:4.1.5-0.7" \
+  --template="public.cr.seqera.io/platform/studio-jupyter:4.1.5-0.7" \
   --compute-env=48bB2PDk83AxskE40lealy \
   --cpu=2 \
   --memory=8192
 
-    Data Studio 2aa60bb7 CREATED at [community / showcase] workspace.
+    Studio 2aa60bb7 CREATED at [community / showcase] workspace.
   ```
 
   ### Start a Studio session
