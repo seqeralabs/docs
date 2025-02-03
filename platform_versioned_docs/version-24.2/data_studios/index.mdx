@@ -36,7 +36,7 @@ For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
 
 Data Studios provides four container image templates: JupyterLab, RStudio Server, Visual Studio Code, and Xpra. The image templates install a very limited number of packages when the session container is built. You can install additional packages as needed during a session.
 
-The image template tag includes the version of the analysis application, an optional incompatibility flag, and the Seqera Connect version. Connect is the proprietary Seqera webserver client that manages communication with the container. The tag string looks like this:
+The image template tag includes the version of the analysis application, an optional incompatibility flag, and the Seqera Connect version. Connect is the proprietary Seqera web server client that manages communication with the container. The tag string looks like this:
 
 ```ignore title="Image template tag"
 <tool_version>-[u<update_version>]-<connect_version>
