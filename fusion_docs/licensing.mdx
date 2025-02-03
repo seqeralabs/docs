@@ -11,11 +11,24 @@ Your Fusion license is bundled with your Seqera Enterprise license.
 
 If you have a Data Studios license, you do not need a Fusion license to use Fusion with your studios. All Data Studios templates include Fusion.
 
-For Nextflow pipeline runs, Platform generates a short-lived JWT for Fusion. By using a short-lived token, pipeline runs do not need to initiate any outbound network connections to Seqera. The JWT is contained in the `FUSION_LICENSE_TOKEN` in the executing pipeline environment. License checks occur when a pipeline run starts, and execution is never interrupted if license expiration happens during a run.
+Fusion versions 2.4.7 and newer include a license enforcement mechanism.
+
+## Nextflow integration
+
+For Nextflow pipeline runs, Platform generates a short-lived JWT for Fusion. By using a short-lived token, pipeline runs do not need to initiate any outbound network connections to Seqera. The JWT is contained in the `FUSION_LICENSE_TOKEN` in the executing pipeline environment.
+
+License checks occur when a pipeline run starts, and execution is never interrupted if license expiration happens during a run.
+
+For more information on using Fusion with Nextflow, see [Get started][get-started].
 
 ## Seqera Cloud
 
 If you are a Cloud customer, your license entitlement for Fusion is managed by Seqera.
+
+Cloud free-tier customers are subject to the following usage limits:
+
+- Maximum 5,000 tasks per month
+- Maximum of 1 TB of read bandwidth per month
 
 ## Seqera Enterprise
 
@@ -32,3 +45,6 @@ If your Platform installation has network access, license renewal occurs daily a
 If your Platform installation is air-gapped, license renewal is handled manually, with Seqera supplying you with an updated license certificate annually. The following diagram illustrates the license renewal workflow.
 
 ![](./_images/fusion-license-air-gap.svg)
+
+
+[get-started]: ./get-started.mdx
