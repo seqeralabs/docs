@@ -6,4 +6,4 @@ tags: [seqera enterprise]
 
 ### Bug fixes
 
-- Fixes a bug while reading profiles (`includeConfig`) coming from a ternary operator configuration.
+A change in the nf-core tools template made config profile search in the pipeline launch form inconsistent in Platform as it's prepended by a ternary operator. This release introduces a fix that improves config profile name parsing.
