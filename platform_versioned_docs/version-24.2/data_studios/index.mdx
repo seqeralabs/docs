@@ -124,27 +124,27 @@ Data studios have the following possible statuses:
 - **errored**: This state most often indicates that there has been an error starting the data studio session but it is in a **stopped** state. There might be errors reported by the session itself but these will be overwritten with a **running** status if the data studio session is still running.
 
   :::tip
-  If you encounter an error with the public preview release of Data Studios, [contact Seqera support][contact].
+  If you encounter an error with the public preview release of Studios, [contact Seqera support][contact].
   :::
 
 ## Session data links
 
-You can configure a Data Studio to include one or more data links, where cloud buckets that you have configured in your compute environment are exposed within the studio session.
+You can configure a Studio to mount one or more data links, where cloud buckets that you have configured in your compute environment are read-only, or read-write available to the session.
 
 If your compute environment includes a cloud bucket in the **Allowed S3 bucket** list, the bucket is writeable from within a session when that bucket is included as a data link.
 
-You can limit write access to just a subdirectory of a data bucket by creating an additional data bucket for only that subdirectory, and then using this bucket as a data link. For example, if you have the following S3 buckets:
+You can limit write access to just a subdirectory of a bucket by creating a custom data-link for only that subdirectory in Data Explorer, and then mount the data-link to the Studio session. For example, if you have the following S3 buckets:
 
 - `s3://biopharmaXs`: Entire bucket
-- `3://biopharmaX/experiments/project-A/experiment-1/data`: Subdirectory for use from a studio session
+- `3://biopharmaX/experiments/project-A/experiment-1/data`: Subdirectory to mount in a Studio session
 
-You can expose the `s3://biopharmaX/experiments/project-A/experiment-1/data` bucket subdirectory in a studio session as `/workspace/data/biopharmaxs-project-a-experiment-1`.
+You can expose the `s3://biopharmaX/experiments/project-A/experiment-1/data` bucket subdirectory in a studio session as `/workspace/data/biopharmaxs-project-a-experiment-1-data`.
 
-For more information, see [Limit Data Studio access to a specific cloud bucket subdirectory][cloud-bucket-subdirectory].
+For more information, see [Limit Studio access to a specific cloud bucket subdirectory][cloud-bucket-subdirectory].
 
 ## Session checkpoints
 
-When you start a session, it automatically creates a *checkpoint*. A checkpoint saves changes that you make to the root filesystem and stores it in the compute environment's pipeline work directory in the `.studios/checkpoints` folder with a unique name. The checkpoint is updated every five minutes.
+When starting a Studio session, a *checkpoint* is automatically created. A checkpoint saves all changes made to the root filesystem and stores it in the attached compute environment's pipeline work directory in the `.studios/checkpoints` folder with a unique name. The current checkpoint is updated every five minutes during a session.
 
 When you stop and start a data studio session, or start a new data studio session from a previously created checkpoint, changes such as installed software packages and configuration files are restored and made available in the data studio session. Changes made to mounted data are not included in a checkpoint.
 
