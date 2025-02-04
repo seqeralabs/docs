@@ -19,14 +19,14 @@ Configure OIDC authentication with the following environment variables:
 
 - `TOWER_OIDC_CLIENT`: The client ID provided by your authentication service.
 - `TOWER_OIDC_SECRET`: The client secret provided by your authentication service.
-- `TOWER_OIDC_ISSUER`: The authentication service URL to which Seqera connects to authenticate the sign-in request, e.g., `https://dev-886323.okta.com/oauth2/default`.
+- `TOWER_OIDC_ISSUER`: The authentication service URL to which Seqera connects to authenticate the sign-in request.
 
-Some providers require the full authentication service URL (such as the Okta example above), while others require only the SSO root domain (without the trailing sub-directories).
+Some providers require the full authentication service URL while others require only the SSO root domain (without the trailing sub-directories).
 
 In your OpenID provider settings, specify the following URL as a callback address or authorized redirect:
 
 ```
-https://<YOUR HOST OR IP>/oauth/callback/oidc
+https://<YOUR_HOST_OR_IP>/oauth/callback/oidc
 ```
 
 ## Identity providers
@@ -82,7 +82,7 @@ To use [Keycloak](https://www.keycloak.org/) as the identity provider for Seqera
    - **Standard Flow Enabled**: `ON`
    - **Implicit Flow Enabled**: `OFF`
    - **Direct Access Grants Enabled**: `ON`
-   - **Valid Redirect URIs**: https:///\<YOUR HOST\>//oauth/callback/oidc, e.g., `http://localhost:8000/oauth/callback/oidc`
+   - **Valid Redirect URIs**: https:///\<YOUR_HOST\>//oauth/callback/oidc, e.g., `http://localhost:8000/oauth/callback/oidc`
 4. Select **Save**.
 5. In the **Credentials** tab, note the **Secret** field.
 6. In the **Keys** tab, set the field **Use JWKS URL** to `OFF`.
@@ -129,7 +129,7 @@ This must be an `https://` URI, per Microsoft's requirements.
     ```bash
     TOWER_OIDC_CLIENT=<YOUR_APPLICATION_ID>
     TOWER_OIDC_SECRET=<YOUR_CLIENT_CREDENTIALS_SECRET>
-    TOWER_OIDC_ISSUER=<YOUR_OIDC_METADATA_URL_UP_TO_"v2.0">   (e.g. https://login.microsoftonline.com/000000-0000-0000-00-0000000000000/v2.0)
+    TOWER_OIDC_ISSUER=<YOUR_OIDC_METADATA_URL_UP_TO_"v2.0">  (e.g. https://login.microsoftonline.com/000000-0000-0000-00-0000000000000/v2.0)
     ```
 12. Add `auth-oidc` to the `MICRONAUT_ENVIRONMENTS` environment variable for both the `cron` and `backend` services.
 
@@ -146,8 +146,8 @@ To use [Okta](https://www.okta.com/) as the identity provider for Seqera:
 7. Enter a name for your new app integration, e.g., `Seqera`.
 8. In **Configure OpenID Connect**, add the following redirect URIs:
 
-   - **Sign-in redirect URIs** : `https://<YOUR HOST OR IP>/oauth/callback/oidc`
-   - **Sign-out redirect URIs** : `https://<YOUR HOST OR IP>/logout`
+   - **Sign-in redirect URIs** : `https://<YOUR_HOST_OR_IP>/oauth/callback/oidc`
+   - **Sign-out redirect URIs** : `https://<YOUR_HOST_OR_IP>/logout`
 
 9. Select **Save**.
 10. Okta automatically redirects to your new application settings. Complete the setup in Seqera by adding the following environment variables to your configuration:
@@ -155,6 +155,10 @@ To use [Okta](https://www.okta.com/) as the identity provider for Seqera:
     - `TOWER_OIDC_CLIENT`: Copy the **Client ID** value from **General > Client Credentials** for the corresponding app client configuration.
     - `TOWER_OIDC_SECRET`: Copy the **Client secret** value from **General > Client Credentials** for the corresponding app client configuration.
     - `TOWER_OIDC_ISSUER`: Copy the Okta issuer URL from **Sign On > OpenID Connect ID Token** for the corresponding app client configuration.
+
+:::note
+Connection strings can differ based on the Issuer type. This should be verified via the Okta console.
+:::
 
 ## Configure user access allow list
 
