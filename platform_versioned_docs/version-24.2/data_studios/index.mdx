@@ -136,7 +136,7 @@ If your compute environment includes a cloud bucket in the **Allowed S3 bucket**
 You can limit write access to just a subdirectory of a bucket by creating a custom data-link for only that subdirectory in Data Explorer, and then mount the data-link to the Studio session. For example, if you have the following S3 buckets:
 
 - `s3://biopharmaXs`: Entire bucket
-- `3://biopharmaX/experiments/project-A/experiment-1/data`: Subdirectory to mount in a Studio session
+- `s3://biopharmaX/experiments/project-A/experiment-1/data`: Subdirectory to mount in a Studio session
 
 You can expose the `s3://biopharmaX/experiments/project-A/experiment-1/data` bucket subdirectory in a studio session as `/workspace/data/biopharmaxs-project-a-experiment-1-data`.
 
