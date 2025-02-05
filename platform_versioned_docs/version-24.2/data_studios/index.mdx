@@ -138,7 +138,7 @@ You can limit write access to just a subdirectory of a bucket by creating a cust
 - `s3://biopharmaXs`: Entire bucket
 - `s3://biopharmaX/experiments/project-A/experiment-1/data`: Subdirectory to mount in a Studio session
 
-You can expose the `s3://biopharmaX/experiments/project-A/experiment-1/data` bucket subdirectory in a studio session as `/workspace/data/biopharmaxs-project-a-experiment-1-data`.
+Mounted data links are exposed at the `/workspace/data/` directory path inside a Studio session. For example, the bucket subdirectory `s3://biopharmaX/experiments/project-A/experiment-1/data`, when mounted as a data link, is exposed at `/workspace/data/biopharmaxs-project-a-experiment-1-data`.
 
 For more information, see [Limit Studio access to a specific cloud bucket subdirectory][cloud-bucket-subdirectory].
 
