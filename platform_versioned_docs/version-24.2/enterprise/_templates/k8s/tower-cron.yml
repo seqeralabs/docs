@@ -19,10 +19,6 @@ spec:
         - name: config-volume
           configMap:
             name: tower-yml
-        # Volume for Data Studios
-        #- name: cert-volume
-        #  secret:
-        #    secretName: platform-oidc-certs
       initContainers:
         - name: migrate-db
           image: cr.seqera.io/private/nf-tower-enterprise/migrate-db:v24.2.4
@@ -44,15 +40,9 @@ spec:
             - name: config-volume
               mountPath: /tower.yml
               subPath: tower.yml
-            # Volume mount for Data Studios
-            #- name: cert-volume
-            #  mountPath: /data/certs
           env:
             - name: MICRONAUT_ENVIRONMENTS
               value: "prod,redis,cron"
-            # TLS certificate for Data Studios
-            #- name: TOWER_OIDC_PEM_PATH
-            #  value: '/data/certs/oidc.pem'
           ports:
             - containerPort: 8080
           readinessProbe:
