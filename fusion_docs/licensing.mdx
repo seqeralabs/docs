@@ -15,7 +15,7 @@ For Nextflow pipeline runs with Fusion enabled, Nextflow requests from Platform 
 
 License checks occur when a pipeline run starts, and execution is never interrupted if license expiration happens during a run.
 
-If Fusion is unable to verify the license provided by Nextflow, the pipeline exits with an error. If the license is valid, but expires between retrieval and validation by Fusion, Nextflow exits with an error code.
+If Fusion is unable to validate the license provided by Nextflow, the pipeline will exit with an error message. If the license is valid but expires between retrieval and validation by Fusion, Nextflow will stop and an error code will be displayed.
 
 For more information on using Fusion with Nextflow, see [Get started][get-started].
 
@@ -30,7 +30,7 @@ Cloud free-tier customers are subject to the following usage limits:
 
 ## Seqera Enterprise
 
-If you are an Enterprise customer, you can use Fusion in both networked and air-gapped environments. Each approach necessitates a different license renewal workflow.
+If you are an Enterprise customer, you can use Fusion in both networked and air-gapped environments.
 
 ### License renewal for networked environments
 
@@ -40,7 +40,7 @@ If your Platform installation has network access, license renewal occurs daily a
 
 ### License renewal for air-gapped environments
 
-If your Platform installation is air-gapped, license renewal is handled manually, with Seqera supplying you with an updated license certificate annually. The following diagram illustrates the license renewal workflow.
+If your Platform installation is air-gapped, Seqera renews your license on an annual basis and provides a license certificate. The following diagram illustrates the license renewal workflow.
 
 ![](./_images/fusion-license-air-gap.svg)
 
