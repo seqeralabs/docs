@@ -42,6 +42,13 @@ Data Explorer lists public and private cloud storage buckets. Buckets accessible
 
   Select **Add cloud bucket** from the Data Explorer tab to add individual buckets (or directory paths within buckets). Specify the **Provider**, **Bucket path**, **Name**, **Credentials**, and **Description**, then select **Add**. For public cloud buckets, select **Public** from the **Credentials** drop-down menu.
 
+## Remove cloud storage buckets
+
+A workspace maintainer can remove a manually created cloud storage bucket.
+
+From the **Data Explorer** tab, find the cloud bucket that you want to delete. Select the options menu for the bucket, and select **Remove**. When prompted, select **Remove** from the confirmation modal that appears.
+
+If you remove a data link associated with a cloud storage bucket, the data link is automatically removed from the relevant Studio configuration.
 
 ## Browse cloud storage buckets
 
@@ -96,7 +103,7 @@ Data Explorer supports file uploads to your private cloud storage buckets. From 
 You must configure cross-origin resource sharing (CORS) for your cloud storage provider to allow file uploads from Seqera. CORS configuration differs for each provider.
 :::
 
-## Download multiple files
+## Download multiple files {#download-multiple-files-using-a-script}
 
 You can download up to a maximum of 1,000 files using the browser interface, or an unlimited number of files with the auto-generated download script that uses your cloud provider's CLI and credentials.
 

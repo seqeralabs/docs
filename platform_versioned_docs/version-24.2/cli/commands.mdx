@@ -272,7 +272,176 @@ Run `tw compute-envs -h` to view the list of supported compute environment opera
   https://api.cloud.seqera.io/workspaces/97652229034xxx/datasets/6vBGj6aWWpBuLpGKjJDxxx/v/2/n/samplesheet_test.csv
   ```
 
-</details>  
+</details> 
+
+<details open>
+  <summary>**Studios**</summary>
+
+  Run `tw studios -h` to view the list of supported operations.
+
+Manage [Studio sessions](../data_studios/index.mdx) hosted in Seqera Platform. Studio sessions allow interactive analysis using Jupyter, RStudio, VSCode, and Xpra. Additional custom analysis environments can be defined as needed.
+
+  :::note
+  Most Studio operations require workspace `MAINTAIN` permissions. 
+  :::
+
+  ### List Studio sessions
+
+  Run `tw studios list -h` to view the required and optional fields for listing Studio sessions.
+
+  If a workspace is not defined, the `TOWER_WORKSPACE_ID` workspace is used by default.
+
+  ```bash
+  tw studios list -w community/showcase 
+
+  Studios at [community / showcase] workspace:
+
+     ID       | Name                            | Description                                        | User       | Status   
+    ----------+---------------------------------+----------------------------------------------------+------------+----------
+     13083356 | studio-jupyter-demo             | Demo Studio session for Jupyter                    | user1      | RUNNING  
+     419e602a | studio-rstudio-demo             | Demo Studio session for RStudio v4.4.1             | user2      | RUNNING  
+     722cb780 | studio-vscode-demo              | Demo Studio session for VSCode v1.83.0             | user3      | RUNNING  
+     950e56f5 | studio-multiqc-demo             | Demo MultiQC Studio session                        | user1      | RUNNING
+  ```
+
+  ### View a Studio session
+
+  Run `tw studios view -h` to view the required and optional fields for viewing session details.
+
+  ```bash
+  tw studios view -i 23ce7967 -w community/showcase
+
+    Studio at workspace '[community / showcase]'
+
+ ---------------------+------------------------------------------------------------
+  SessionID           | 23ce7967                                                   
+  Name                | experiment-analysis-session                                                     
+  Status              | STARTING                                                   
+  Status Last Update  | Fri, 31 Jan 2025 19:35:07 GMT                              
+  Studio URL          | https://a23ce7967.connect.cloud.seqera.io                  
+  Description         |                                                            
+  Created on          | Fri, 31 Jan 2025 18:12:27 GMT                              
+  Created by          | rob-newman | rob.newman@seqera.io                          
+  Template            | public.cr.seqera.io/platform/data-studio-jupyter:4.1.5-0.7 
+  Mounted Data        |                                                            
+  Compute environment | aws-datastudios-sandbox-ireland-16cpus                     
+  Region              | eu-west-1                                                  
+  GPU allocated       | 0                                                          
+  CPU allocated       | 2                                                          
+  Memory allocated    | 8192                                                       
+  Build reports       | NA 
+  ```
+
+  ### List available templates for Studio sessions
+
+  Run `tw studios templates -h` to view the required and optional fields for session templates.
+
+  Templates are the container image templates used as the foundation for Studio sessions. See [Container image templates](../data_studios/index.mdx#container-image-templates) for more information.
+
+  ```bash
+  tw studios templates -w community/showcase
+
+    Available templates for Studios:
+
+     Templates                                                     
+    ---------------------------------------------------------------
+     public.cr.seqera.io/platform/data-studio-jupyter:4.2.5-0.7    
+     public.cr.seqera.io/platform/data-studio-rstudio:4.4.1-u1-0.7 
+     public.cr.seqera.io/platform/data-studio-vscode:1.93.1-0.7    
+     public.cr.seqera.io/platform/data-studio-xpra:6.2.0-r2-1-0.7
+  ```
+
+  ### Add a Studio session
+
+  Run `tw studios add -h` to view the required and optional fields for adding sessions.
+
+  Add a new Studio session in a workspace.
+
+  ```bash
+  tw studios add -n new-analysis -w community/showcase \
+  --description="New Python analysis for RNA experiment ABC" \
+  --template="public.cr.seqera.io/platform/data-studio-jupyter:4.1.5-0.7" \
+  --compute-env=48bB2PDk83AxskE40lealy \
+  --cpu=2 \
+  --memory=8192
+
+    Studio 2aa60bb7 CREATED at [community / showcase] workspace.
+  ```
+
+  ### Start a Studio session
+
+  Run `tw studios start -h` to view the required and optional fields for adding sessions.
+
+  Start (or restart) an existing Studio session in a workspace.
+
+  ```bash
+  tw studios start -i 2aa60bb7 -w community/showcase
+
+   Studio 2aa60bb7 START successfully submitted at [community / showcase] workspace.
+
+    https://cloud.seqera.io/orgs/community/workspaces/showcase/studios/2aa60bb7/connect
+  ```
+
+  ### Stop a Studio session
+
+  Run `tw studios stop -h` to view the required and optional fields for adding sessions.
+
+  Stop an existing Studio session in a workspace.
+
+  ```bash
+  tw studios stop -i 13083356 -w community/showcase
+
+    Studio 13083356 STOP successfully submitted at [community / showcase] workspace.
+  ```
+
+  ### List checkpoints of a Studio session
+
+  Run `tw studios checkpoints -h` to view the required and optional fields for viewing checkpoints for a session.
+
+  List all checkpoints for an existing Studio session in a workspace. See [Session checkpoints](../data_studios/index.mdx#session-checkpoints) for more information.
+
+  ```bash
+  tw studios checkpoints -i 19a3abbd -w community/showcase
+
+  Checkpoints at studio 19a3abbd at [community / showcase] workspace:
+
+     ID   | Name                 | Author     | Date Created                  | Date Saved                    
+    ------+----------------------+------------+-------------------------------+-------------------------------
+     2010 | my_custom_named_ckpt | rob-newman | Fri, 31 Jan 2025 20:22:15 GMT | Fri, 31 Jan 2025 20:33:00 GMT 
+     2011 | foo_1738355617       | rob-newman | Fri, 31 Jan 2025 20:33:37 GMT | Fri, 31 Jan 2025 20:35:22 GMT 
+  ```
+
+  ### Start a new Studio session from an existing session checkpoint
+
+  Run `tw studios start-as-new -h` to view the required and optional fields for adding and starting a new session from an existing session checkpoint.
+
+  Add a new session from an existing parent Studio session and checkpoint. Useful for experimentation without impacting the parent Studio session state.
+
+  ```bash
+  tw studios start-as-new -pid=657ddbca \
+  -n=analysis-env-from-parent \
+  -w community/showcase \
+  --description="New sandbox for temporary analysis"  \
+  --cpu=2 \
+  --memory=8192 \ 
+  -a
+
+    Studio 19a3abbd CREATED at [community / showcase] workspace and auto-started.
+  ```
+
+  ### Delete a Studio session
+
+  Run `tw studios delete -h` to view the required and optional fields for listing sessions.
+
+  Delete an existing Studio session from a workspace.
+
+  ```bash
+  tw studios delete -i 2aa60bb7                                                                              
+
+  Studio 2aa60bb7 deleted at [community / showcase] workspace.
+  ```
+</details>
+
 <details open>
   <summary>**Pipelines**</summary>
 
