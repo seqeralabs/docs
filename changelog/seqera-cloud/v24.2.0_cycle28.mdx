@@ -4,7 +4,7 @@ date: 2025-01-22
 tags: [seqera cloud]
 ---
 
-### Breaking change
+### Breaking changes
 
 - Restore `errorStrategy` and `maxRetries` default Nextflow config for AWS and GCP launches. Platform will not overwrite existing error strategy coded in the pipeline repository.
 - If you want to automatically retry on task failures (e.g., from spot reclamations), you will now need to explicitly set `errorStrategy` and `maxRetries`.

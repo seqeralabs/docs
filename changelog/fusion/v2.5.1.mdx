@@ -4,7 +4,15 @@ date: 2025-01-27
 tags: [fusion]
 ---
 
-## How to pin this version
+Bugfix release to improve stability.
+
+### Bug fixes
+
+- Logs removed when `removeLogs` is false
+- Unique IDs in file fragments
+- Remove exit code on `serveFusion`
+
+### How to pin this version
 
 ```bash
 fusion {
@@ -12,21 +20,7 @@ fusion {
   containerConfigUrl = 'https://fusionfs.seqera.io/releases/v2.5.1-amd64.json'
 }
 ```
-_**NOTE**: For ARM64 use `https://fusionfs.seqera.io/releases/v2.5.1-arm64.json` url._
 
-## What's Changed
-* fix: do not remove logs if removeLogs is false by @jordeu in https://github.com/seqeralabs/fusion/pull/700
-* fix: unique ids in fragments by @fntlnz in https://github.com/seqeralabs/fusion/pull/703
-* fix: remove exit code on serveFusion by @fntlnz in https://github.com/seqeralabs/fusion/pull/704
-* build: fix fusion stats file name on branches by @fntlnz in https://github.com/seqeralabs/fusion/pull/708
-* build: Configure Dependabot by @stefanoboriero in https://github.com/seqeralabs/fusion/pull/688
-* build(deps): bump golangci/golangci-lint-action from 4.0.0 to 6.1.1 by @dependabot in https://github.com/seqeralabs/fusion/pull/691
-* build(deps): bump actions/setup-java from 1 to 4 by @dependabot in https://github.com/seqeralabs/fusion/pull/690
-* build(deps): bump jreleaser/release-action from 1 to 2 by @dependabot in https://github.com/seqeralabs/fusion/pull/692
-* build(deps): bump mikepenz/action-junit-report from 4 to 5 by @dependabot in https://github.com/seqeralabs/fusion/pull/693
-* build: Raw Fusion Stats output in CI by @fntlnz in https://github.com/seqeralabs/fusion/pull/580
-* build(deps): bump the actions_minors_and_patch group across 1 directory with 6 updates by @dependabot in https://github.com/seqeralabs/fusion/pull/695
-* build(deps): bump the gomod_minors_and_patch group with 27 updates by @dependabot in https://github.com/seqeralabs/fusion/pull/694
-
-
-**Full Changelog**: https://github.com/seqeralabs/fusion/compare/v2.5.0...v2.5.1
+:::info 
+For ARM64 CPU architecture, use `containerConfigUrl = 'https://fusionfs.seqera.io/releases/v2.5.1-arm64.json'`.
+:::

@@ -1,10 +1,29 @@
 ---
-title: Fusion Release v2.5.0
+title: Fusion v2.5.0
 date: 2025-01-14
 tags: [fusion]
 ---
 
-## How to pin this version
+Fusion 2.5.0 significantly enhances performance and efficiency in file operations. 
+
+Fusion now handles small files more effectively and intelligently manages Nextflow task files by minimizing intermediate file uploads. A key improvement is the selective retention of only essential task output files upon completion, reducing storage overhead. Network optimization has been implemented to decrease bandwidth usage by consolidating upload operations. Additionally, the underlying architecture has undergone substantial refactoring to support the future integration of diverse remote storage solutions, setting the foundation for expanded storage capabilities.
+
+### Feature updates and improvements
+
+- Chunked async content management
+- Nextflow-compatible pattern classifier
+- Define a default exit code on Fusion-IO errors
+- Object API refactoring
+- Bump golang.org/x/crypto to 0.31.0
+- Bump golang.org/x/net to 0.33.0
+
+### Bug fixes 
+
+- AsyncStore move issues
+- Log file deletion during spot instance reclamation 
+- Transient object persistence
+
+### How to pin this version
 
 ```bash
 fusion {
@@ -13,25 +32,6 @@ fusion {
 }
 ```
 
-_**NOTE**: For ARM64 use `https://fusionfs.seqera.io/releases/v2.5.0-arm64.json` url._
-
-## Description
-The latest release significantly enhances performance and efficiency in file operations. The system now handles small files more effectively and intelligently manages Nextflow task files by minimizing intermediate file uploads. A key improvement is the selective retention of only essential task output files upon completion, reducing storage overhead. Network optimization has been implemented to decrease bandwidth usage by consolidating upload operations. Additionally, the underlying architecture has undergone substantial refactoring to support the future integration of diverse remote storage solutions, setting the foundation for expanded storage capabilities.
-
-## What's Changed
-* Chunked async content management by @jordeu in https://github.com/seqeralabs/fusion/pull/562
-* Pattern classifier nf compatible by @jordeu in https://github.com/seqeralabs/fusion/pull/625
-* Define a default exit code on Fusion-IO error by @pabloaledo in https://github.com/seqeralabs/fusion/pull/631
-* Object API rm docker tests by @pabloaledo in https://github.com/seqeralabs/fusion/pull/649
-* Do not persist transient objects by @jordeu in https://github.com/seqeralabs/fusion/pull/659
-* Complete OTEL instrumentation part 1 + part 2 by @fntlnz in https://github.com/seqeralabs/fusion/pull/660
-* Do not delete the logs file at spot reclaim uploading by @jordeu in https://github.com/seqeralabs/fusion/pull/670
-* build(deps): bump golang.org/x/crypto from 0.25.0 to 0.31.0 by @dependabot in https://github.com/seqeralabs/fusion/pull/662
-* build: Allow Dependabot to push on PR workflows by @stefanoboriero in https://github.com/seqeralabs/fusion/pull/678
-* build: do not release on master branch only on release branches by @jordeu in https://github.com/seqeralabs/fusion/pull/679
-* build: use underscores as separators in generated container config URLs by @fntlnz in https://github.com/seqeralabs/fusion/pull/680
-* fix: Fix AsyncStore move issues by @jordeu in https://github.com/seqeralabs/fusion/pull/683
-* build: Add Changelog automation for docs.seqera.io by @alberto-miranda in https://github.com/seqeralabs/fusion/pull/682
-* chore: Object API refactoring by @jordeu in https://github.com/seqeralabs/fusion/pull/684
-* build(deps): bump golang.org/x/crypto from 0.28.0 to 0.31.0 by @dependabot in https://github.com/seqeralabs/fusion/pull/685
-* build(deps): bump golang.org/x/net from 0.30.0 to 0.33.0 by @dependabot in https://github.com/seqeralabs/fusion/pull/686
+:::info 
+For ARM64 CPU architecture, use `containerConfigUrl = 'https://fusionfs.seqera.io/releases/v2.5.0-arm64.json'`.
+:::
