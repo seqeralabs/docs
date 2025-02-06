@@ -23,21 +23,31 @@ spec:
         - name: config-volume
           configMap:
             name: tower-yml
+        # Volume for Studios
+        #- name: cert-volume
+        #  secret:
+        #    secretName: platform-oidc-certs
       containers:
         - name: backend
-          image: cr.seqera.io/private/nf-tower-enterprise/backend:v24.2.3
+          image: cr.seqera.io/private/nf-tower-enterprise/backend:v24.2.4
           envFrom:
             - configMapRef:
                 name: tower-backend-cfg
           env:
             - name: MICRONAUT_ENVIRONMENTS
               value: "prod,redis,ha"
+            # TLS certificate for Studios
+            #- name: TOWER_OIDC_PEM_PATH
+            #  value: '/data/certs/oidc.pem'
           ports:
             - containerPort: 8080
           volumeMounts:
             - name: config-volume
               mountPath: /tower.yml
               subPath: tower.yml
+            # Volume mount for Studios
+            #- name: cert-volume
+            #  mountPath: /data/certs
           resources:
             requests:
               cpu: "1"
@@ -78,7 +88,7 @@ spec:
         - name: "cr.seqera.io"
       containers:
         - name: frontend
-          image: cr.seqera.io/private/nf-tower-enterprise/frontend:v24.2.3
+          image: cr.seqera.io/private/nf-tower-enterprise/frontend:v24.2.4
           ports:
             - containerPort: 80
       restartPolicy: Always
