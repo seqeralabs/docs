@@ -127,6 +127,12 @@ Data studios have the following possible statuses:
   If you encounter an error with the public preview release of Data Studios, [contact Seqera support][contact].
   :::
 
+## Session management
+
+A Studio can have a session lifespan, after which the session is automatically shutdown.
+
+When a change to session lifespans is made, it applies only to newly started sessions. Running sessions are not effected by changes to the session lifespan.
+
 ## Session checkpoints
 
 When you start a session, it automatically creates a *checkpoint*. A checkpoint saves changes that you make to the root filesystem and stores it in the compute environment's pipeline work directory in the `.studios/checkpoints` folder with a unique name. The checkpoint is updated every five minutes.
