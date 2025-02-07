@@ -127,9 +127,15 @@ Data studios have the following possible statuses:
   If you encounter an error with the public preview release of Data Studios, [contact Seqera support][contact].
   :::
 
+## Collaboration
+
+By default a studio session is collaborative, and other members of the workspace with connect to a running session. Users with only the **View** role cannot connect to a collaborative session.
+
+Additionally, if a session is configured to run in private mode, only the user that created the Studio can connect to it.
+
 ## Session management
 
-A Studio can have a session lifespan, after which the session is automatically shutdown.
+A Studio can have a session lifespan. Upon expiration, a snapshot is taken and then the session is automatically shutdown. A session can be extended multiple times before it is shutdown if necessary.
 
 When a change to session lifespans is made, it applies only to newly started sessions. Running sessions are not effected by changes to the session lifespan.
 
