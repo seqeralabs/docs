@@ -137,8 +137,7 @@ To create a separate node pool to run all the processes:
     - **VMs count**: `4`
 1. Note the compute environment ID, which is the first item on the compute environment page.
 1. In the Azure Portal, go to the Batch account you created earlier.
-1. Go to the **Pools** tab and create a new pool.
-1. Find the pool called `tower-pool-${id}`, where `${id}` is the ID you noted earlier.
+1. Go to the **Pools** tab and find the pool called `tower-pool-${id}`, where `${id}` is the ID you made a note of earlier.
 1. Select **Scale**.
 1. An Autoscale formula is displayed. On the second-to-last line, there will be a line that starts with `$TargetDedicatedNodes`. Change this string to `$TargetLowPriorityNodes`.
 1. Select **Evaluate**, then **Save**.
