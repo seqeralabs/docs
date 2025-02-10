@@ -139,8 +139,9 @@
       "type": "category",
       "label": "Enterprise",
       "collapsed": true,
-      "items": 
+      "items": [
         "enterprise/index"
+      ]
     },
     {
       "type": "category",
