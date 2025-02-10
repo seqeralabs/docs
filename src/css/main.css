@@ -72,7 +72,6 @@
     @apply font-body text-sm antialiased;
     font-weight: 400;
   }
-
 }
 
 svg.excalidraw {
@@ -95,21 +94,20 @@ svg.excalidraw path[fill="#fff"] {
   }
 }
 
-
 /* Custom styling for the Algolia search box */
-[data-theme='light'] .DocSearch {
+[data-theme="light"] .DocSearch {
   --docsearch-searchbox-background: var(--ifm-color-white);
 }
-[data-theme='dark'] .DocSearch {
+[data-theme="dark"] .DocSearch {
   --docsearch-searchbox-background: var(--ifm-color-black);
 }
 .DocSearch-Button {
   width: 100%;
 }
-[data-theme='light'] .DocSearch-Button {
-  box-shadow: inset 0 0 0 1px #D0CFD4;
+[data-theme="light"] .DocSearch-Button {
+  box-shadow: inset 0 0 0 1px #d0cfd4;
 }
-[data-theme='dark'] .DocSearch-Button {
+[data-theme="dark"] .DocSearch-Button {
   box-shadow: inset 0 0 0 1px var(--color-brand-800);
 }
 
@@ -131,20 +129,20 @@ nav.menu .menu__list .menu__link--sublist-caret:after,
     50% / 24px 24px;
   transform: rotate(0deg);
 }
-nav.menu .menu__list-item--collapsed .menu__link--sublist:after, 
+nav.menu .menu__list-item--collapsed .menu__link--sublist:after,
 .menu__list-item--collapsed .menu__caret:before {
   transform: rotate(-90deg);
 }
-[data-theme='light'] nav.menu .menu__list {
+[data-theme="light"] nav.menu .menu__list {
   & .menu__link {
     color: #000;
   }
   & .menu__link--active:not(.menu__link--sublist) {
-    background: #E8EBFC;
-    color: #4256E7;
+    background: #e8ebfc;
+    color: #4256e7;
   }
 }
-[data-theme='dark'] nav.menu .menu__list {
+[data-theme="dark"] nav.menu .menu__list {
   & .menu__link {
     color: rgba(255, 255, 255, 0.9);
   }

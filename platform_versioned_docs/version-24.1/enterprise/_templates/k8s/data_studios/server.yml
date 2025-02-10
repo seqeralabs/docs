@@ -15,7 +15,9 @@ spec:
       labels:
         app.kubernetes.io/component: connect-server
     spec:
-      nodeSelector: 
+      imagePullSecrets:
+        - name: "cr.seqera.io"
+      nodeSelector:
         kubernetes.io/arch: amd64
       containers:
         - name: server

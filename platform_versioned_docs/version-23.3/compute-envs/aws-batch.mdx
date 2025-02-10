@@ -116,7 +116,7 @@ Batch Forge automatically creates resources that you may be charged for in your 
     :::
 
 10. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers](https://www.nextflow.io/docs/latest/wave.html) for more information.
-11. Select **Enable Fusion v2** to allow access to your S3-hosted data via the [Fusion v2](https://www.nextflow.io/docs/latest/fusion.html) virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled. See [Fusion file system](../supported_software/fusion/fusion.mdx) for configuration details.
+11. Select **Enable Fusion v2** to allow access to your S3-hosted data via the [Fusion v2](https://docs.seqera.io/fusion) virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled. See [Fusion file system](../supported_software/fusion/fusion.mdx) for configuration details.
 
 When using Fusion v2 without fast instance storage (see below), the following EBS settings are applied to optimize file system performance:
 
@@ -160,6 +160,11 @@ Extensive benchmarking of Fusion v2 has demonstrated that the increased cost ass
     :::
 
 19. Select **Enable GPUs** if you intend to run GPU-dependent workflows in the compute environment. See [GPU usage](./overview.mdx#aws-batch) for more information.
+
+    :::note 
+    Seqera only supports NVIDIA GPUs. Select instances with NVIDIA GPUs for your GPU-dependent processes. 
+    :::
+    
 20. Select **Use Graviton CPU architecture** to execute on Graviton-based EC2 instances (ARM64 CPU architecture). When enabled, `c6g` instance types are used by default for compute jobs. You can specify your own **Instance types** under [**Advanced options**](#advanced-options). Seqera Platform supports all AWS Batch-compatible Graviton2 instance types. In 23.3, Graviton3 instances are supported without the fast instance storage option. From v23.4, there is full Graviton3 support.
 
     :::note

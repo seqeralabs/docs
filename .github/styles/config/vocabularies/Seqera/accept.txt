@@ -7,7 +7,7 @@ Nextflow
 Illumina
 Fargate
 Micronaut
-Conda
+[Cc]onda
 Okta
 Gitea
 SLURM
@@ -20,6 +20,11 @@ Kubernetes
 Gitpod
 Hashicorp
 RStudio
+Seqerakit
+Fusion
+Wave
+[Cc]onfig
+Xpra
 
 # Acronyms
 AMI
@@ -30,6 +35,7 @@ CE
 URI
 FPGA
 HTTP
+tw
 
 # Compute resources
 CPU
@@ -41,22 +47,29 @@ FSx
 Dockerfile
 initContainers
 Cron
-Autoscaling
-Autoscale
+[Aa]utoscaling
+[Aa]utoscale
 
 # Other
 subnets
 autoscaling
 prefilled
 unencrypted
+deallocated
 preemptible
 hardcoded
-uncomment
+[Uu]ncomment
 burstable
 unparsable
 config
+Pre-run scripts
+samplesheet
+datasheet
+openssl
+
 
 # Seqera Platform UI
 hostname
 textbox
 lightbulb
+errored

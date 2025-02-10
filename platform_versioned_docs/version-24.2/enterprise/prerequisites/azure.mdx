@@ -59,7 +59,7 @@ Create a resource group:
 
   Run the `az group create` command:
 
-  ```console
+  ```bash
   az group create --name $MY_RESOURCE_GROUP_NAME --location $REGION
   ```
 
@@ -93,7 +93,7 @@ Create a storage account:
 
   Run the `az storage account create` command:
 
-  ```console
+  ```bash
   az storage account create -n towerstorage -g towerrg -l eastus --sku Standard_GRS
   ```
 
@@ -121,19 +121,20 @@ Create an Azure MySQL DB instance:
   1. Select **Create**.
   1. On the **Select Azure Database for MySQL deployment option** pane, select **Flexible server** as the deployment option.
   1. On the **Basics** tab, enter or select the following:
-      - Your **Subscription** name 
-      - Your **Resource group** name 
+      - Your **Subscription** name
+      - Your **Resource group** name
       - A **Server name** such as `towerdbserver`
       - Your **Region**
       - The **Workload type**, based on your required `max_connections`
-      - **High availability** — high availability is recommended for production deployments 
+      - **High availability** — high availability is recommended for production deployments
       - **Standby availability zone** — standby server zone location
-      - **MySQL version** — 8.0 
-      - An **Admin username** to access the server 
-      - A **Password** to access the server 
-      - Your **Compute + storage** requirements, considering the minimum performance requirements outlined above 
-  1. Configure networking options. 
-  1. Select **Review + create**, then **Create**. 
+      - **MySQL version** — 8.0
+      - An **Admin username** to access the server
+      - A **Password** to access the server
+      - Your **Compute + storage** requirements, considering the minimum performance requirements outlined above
+  1. Configure networking options.
+  1. Select **Review + create**, then **Create**.
+  1. Disable invisible primary keys, which can interfere with upgrades to newer releases of Seqera Platform Enterprise. Azure Database for MySQL creates invisible primary keys automatically by default. For more information, see [Steps to disable a GIPK][azure-gipk].
 
 </details>
 <details>
@@ -141,7 +142,7 @@ Create an Azure MySQL DB instance:
 
   1. Run `az mysql flexible-server create` to create your server:
 
-      ```console
+      ```bash
       az mysql flexible-server create --location eastus --resource-group towerrg --name towerdbserver --admin-user username --admin-password password --sku-name Standard_B2ms --tier Burstable --public-access 0.0.0.0 --storage-size 30 --version 8.0 --high-availability ZoneRedundant --zone 1 --standby-zone 3 --storage-auto-grow Enabled --iops 500
       ```
 
@@ -149,11 +150,12 @@ Create an Azure MySQL DB instance:
 
   1. Run `az mysql flexible-server db create` to create a database on your server:
 
-      ```console 
+      ```bash
       az mysql flexible-server db create --resource-group towerrg
                                       --server-name towerdbserver
                                       --database-name towerdb
       ```                                
+  1. Disable invisible primary keys, which can interfere with upgrades to newer releases of Seqera Platform Enterprise. Azure Database for MySQL creates invisible primary keys automatically by default. For more information, see [Steps to disable a GIPK][azure-gipk].
 
 </details>
 
@@ -242,7 +244,7 @@ Create an Azure Linux VM:
 
   Run `az vm create`:
 
-  ```console 
+  ```bash 
   az vm create \
     --resource-group towerrg \
     --name towervm \
@@ -270,9 +272,9 @@ container registry ([cr.seqera.io](https://cr.seqera.io)). Contact [support](htt
 1. Pull the Seqera container images with the following commands:
 
     ```bash
-    docker pull cr.seqera.io/private/nf-tower-enterprise/backend:v24.1.7
+    docker pull cr.seqera.io/private/nf-tower-enterprise/backend:v24.2.4
 
-    docker pull cr.seqera.io/private/nf-tower-enterprise/frontend:v24.1.7
+    docker pull cr.seqera.io/private/nf-tower-enterprise/frontend:v24.2.4
     ```
 
 ## Next steps 
@@ -284,6 +286,7 @@ See [Configuration](../configuration/overview.mdx).
 [azure-db-create-cli]: https://learn.microsoft.com/en-us/azure/mysql/flexible-server/quickstart-create-server-cli
 [azure-db-create-portal]: https://learn.microsoft.com/en-us/azure/mysql/flexible-server/quickstart-create-server-portal
 [azure-db-config]: https://docs.microsoft.com/en-us/azure/mysql/connect-java#prepare-a-configuration-file-to-connect-to-azure-database-for-mysql
+[azure-gipk]: https://learn.microsoft.com/en-us/azure/mysql/flexible-server/concepts-limitations#steps-to-disable-a-gipk
 [azure-dns]: https://docs.microsoft.com/en-us/azure/dns/dns-overview
 [azure-linux-vm-cli]: https://learn.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-cli#create-the-virtual-machine
 [azure-linux-vm-portal]: https://learn.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal?tabs=ubuntu

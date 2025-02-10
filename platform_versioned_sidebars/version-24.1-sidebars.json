@@ -196,7 +196,7 @@
       "type": "category",
       "label": "Developer tools",
       "collapsed": true,
-      "items": [
+      "items": [         
         "api/overview",
         {
           "type": "category",
@@ -208,7 +208,18 @@
             "cli/commands"
           ]
           },
-          "pipeline-actions/overview"
+          {
+            "type": "category",
+            "label": "Seqerakit",
+            "collapsed": true,
+            "items": [
+              "seqerakit/installation",
+              "seqerakit/commands",
+              "seqerakit/yaml-configuration",
+              "seqerakit/templates"
+            ]
+            },
+        "pipeline-actions/overview"
         ]
     },
     {

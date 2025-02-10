@@ -28,6 +28,11 @@ internal/tmp
 .github/styles/*
 # Include our own configuration
 !.github/styles/config
+!.github/styles/Google
 
 # Local Netlify folder
 .netlify
+
+# OSS repo clones
+multiqc_docs/multiqc_repo
+wave_docs/wave_repo

@@ -115,7 +115,7 @@ See [Creating an Amazon RDS DB instance](https://docs.aws.amazon.com/AmazonRDS/l
 
 To create a DB instance with the AWS CLI, call the [create-db-instance](https://docs.aws.amazon.com/cli/latest/reference/rds/create-db-instance.html) command, replacing `INSTANCE_NAME`, `SECURITY_GROUP`, `DB_USER`, and `DB_PASSWORD` with your unique values:
 
-```console
+```bash
 aws rds create-db-instance \
     --engine mysql \ 
     --db-instance-identifier INSTANCE_NAME \
@@ -178,9 +178,9 @@ container registry ([cr.seqera.io](https://cr.seqera.io)). Contact [support](htt
 1. Pull the Seqera container images:
 
    ```bash
-   docker pull cr.seqera.io/private/nf-tower-enterprise/backend:v24.1.7
+   docker pull cr.seqera.io/private/nf-tower-enterprise/backend:v24.2.4
 
-   docker pull cr.seqera.io/private/nf-tower-enterprise/frontend:v24.1.7
+   docker pull cr.seqera.io/private/nf-tower-enterprise/frontend:v24.2.4
    ```
 
 ## Next steps 

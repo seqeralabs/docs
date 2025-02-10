@@ -36,7 +36,7 @@ export default async function createConfigAsync() {
     markdown: {format: 'detect'},
 
     future: {
-      experimental_faster: true,
+      experimental_faster: false,
     },
 
     presets: [
@@ -276,7 +276,7 @@ export default async function createConfigAsync() {
             ],
           },
         ],
-        copyright: `${new Date().getFullYear()} © Seqera`,
+        copyright: `© ${new Date().getFullYear()} Seqera`,
       },
       prism: {
         theme: themes.oneLight,

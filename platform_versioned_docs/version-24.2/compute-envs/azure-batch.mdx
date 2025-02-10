@@ -27,7 +27,7 @@ Azure uses accounts for each service. For example, an [Azure Storage account][az
 
 #### Service principals
 
-An Azure service principal is an identity created specifically for applications, hosted services, or automated tools to access Azure resources. It acts like a user identity with a defined set of permissions, enabling resources authenticated through the service principal to perform actions within the Azure account. The platform can utilize an Azure service principal to authenticate and access Azure Batch for job execution and Azure Storage for data management.
+An Azure service principal is an identity created specifically for applications, hosted services, or automated tools to access Azure resources. It acts like a user identity with a defined set of permissions, enabling resources authenticated through the service principal to perform actions within the Azure account. Seqera can utilize an Azure service principal to authenticate and access Azure Batch for job execution and Azure Storage for data management.
 
 ## Create Azure resources
 
@@ -144,7 +144,11 @@ To create an access key:
     - Add the **Batch account** and **Blob Storage account** names and access keys to the relevant fields.
 1. Delete the copied keys from their temporary location after they have been added to a credential in Platform.
 
-#### Entra service principal
+#### Entra service principal and managed identity
+
+To use Entra for authentication, you must create a service principal and managed identity. Seqera uses the service principal to authenticate to Azure Batch and Azure Storage. It submits a Nextflow task as the head process to run Nextflow, which authenticates to Azure Batch and Storage using the managed identity attached to the node pool.
+
+Therefore, you must create both an Entra service principal and a managed identity. You add the service principal to your Seqera credentials and attach the managed identity to your Azure Batch node pool which will run Nextflow.
 
 :::info
 Batch Forge compute environments must use access keys for authentication. Service principals are only supported in manual compute environments.
@@ -152,7 +156,9 @@ Batch Forge compute environments must use access keys for authentication. Servic
 The use of Entra service principals in manual compute environments requires the use of a [managed identity](#managed-identity). 
 :::
 
-See [Create a service principal][az-create-sp] for more details. 
+##### Service principal
+
+See [Create a service principal][az-create-sp] for more details.
 
 To create an Entra service principal:
 
@@ -173,13 +179,61 @@ To create an Entra service principal:
     - Complete the remaining fields: **Batch account name**, **Blob Storage account name**, **Tenant ID** (Application (client) ID in Azure), **Client ID** (Client secret ID in Azure), **Client secret** (Client secret value in Azure).
 1. Delete the ID and secret values from their temporary location after they have been added to a credential in Platform.
 
-## Platform compute environment
+##### Managed identity
+
+:::info
+To use managed identities, Seqera requires Nextflow version 24.06.0-edge or later.
+:::
+
+Nextflow can authenticate to Azure services using a managed identity. This method offers enhanced security compared to access keys, but must run on Azure infrastructure. 
+
+When you use a manually-configured compute environment with a managed identity attached to the Azure Batch Pool, Nextflow can use this managed identity for authentication. However, Seqera still needs to use access keys or an Entra service principal to submit the initial task to Azure Batch to run Nextflow, which will then proceed with the managed identity for subsequent authentication.
+
+1. In Azure, create a user-assigned managed identity. See [Manage user-assigned managed identities](https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/how-manage-user-assigned-managed-identities) for detailed steps. Take note of the client ID of the managed identity when you create it.
+1. The user-assigned managed identity must have the necessary access roles for Nextflow. See [Required role assignments](https://www.nextflow.io/docs/latest/azure.html#required-role-assignments) for more information.
+1. Associate the user-assigned managed identity with the Azure Batch Pool. See [Set up managed identity in your Batch pool](https://learn.microsoft.com/en-us/troubleshoot/azure/hpc/batch/use-managed-identities-azure-batch-account-pool#set-up-managed-identity-in-your-batch-pool) for more information.
+1. When you set up the Seqera compute environment, select the Azure Batch pool by name and enter the managed identity client ID in the specified field as instructed above.
+
+When you submit a pipeline to this compute environment, Nextflow will authenticate using the managed identity associated with the Azure Batch node it runs on, rather than relying on access keys.
+
+## Add Seqera compute environment
 
 There are two ways to create an Azure Batch compute environment in Seqera Platform:
 
 - [**Batch Forge**](#tower-forge): Automatically creates Azure Batch resources.
 - [**Manual**](#manual): For using existing Azure Batch resources.
 
+### VM size considerations
+
+Azure Batch requires you to select an appropriate VM size for your compute environment. There are a number of considerations when selecting VM sizes — See [Sizes for virtual machines in Azure][az-vm-sizes] for more information.
+
+1. **Family**: The first letter of the VM size name indicates the machine family. For example, `Standard_E16d_v5` is a member of the E family.
+    - *A*: Economical machines, low power machines.
+    - *B*: Burstable machines which use credits for cost allocation.
+    - *D*: General purpose machines suitable for most applications.
+    - *DC*: D machines with additional confidential compute capabilities.
+    - *E*: The same as D but with more memory. These are generally the best machines for bioinformatics workloads.
+    - *EC*: The same as E but with additional confidential compute capabilities.
+    - *F*: Compute optimized machines which come with a faster CPU compared to D-series machines.
+    - *M*: Memory optimized machines which come with extremely large and fast memory layers, typically more than is needed for bioinformatics workloads.
+    - *L*: Storage optimized machines which come with large locally attached NVMe storage drives. Note that these need to be configured before you can use them with Azure Batch.
+    - *N*: Accelerated computing machines which come with FPGAs, GPUs, or custom ASICs.
+    - *H*: High performance machines which come with the fastest processors and memory.
+
+In general, we recommend using the E family of machines for bioinformatics workloads since these are cost-effective, widely available, and sufficiently fast.
+
+1. **vCPUs**: The machine's number of vCPUs. This is the main factor in determining the speed of the machine.
+1. **features**: Additional machine features. For example, some machines come with a local SSD.
+    - d: A local storage disk. Azure Batch can use this disk automatically instead of the operating system disk.
+    - s: The VM supports a [premium storage account][az-premium-storage].
+    - a: AMD CPUs instead of Intel.
+    - p: ARM-based CPUs, such as Azure Cobalt.
+    - l: Reduced memory with a large cost reduction.
+
+1. **Version**: The version of the VM size. This is the generation of the machine. Typically, more recent is better but availability can vary between regions. 
+
+In the Azure Portal on the page for your Azure Batch account, request an appropriate quota for your desired VM size. See [Azure Batch service quotas and limits][az-batch-quotas] for more information.
+ 
 ### Batch Forge
 
 :::caution
@@ -250,17 +304,90 @@ Create a Batch Forge Azure Batch compute environment:
 See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in your Azure Batch compute environment.
 :::
 
-## Manual
+### Manual
 
-This section is for users with a pre-configured Azure Batch pool. This requires an existing Azure Batch account with an existing pool.
+You can configure Seqera Platform to use a pre-existing Azure Batch pool. This allows the use of more advanced Azure Batch features, such as custom VM images and private networking. See [Azure Batch security best practices][az-batch-best-practices] for more information.
 
 :::caution
 Your Seqera compute environment uses resources that you may be charged for in your Azure account. See [Cloud costs](../monitoring/cloud-costs.mdx) for guidelines to manage cloud resources effectively and prevent unexpected costs.
 :::
 
-Create a manual Seqera Azure Batch compute environment:
+#### Create a Nextflow-compatible Azure Batch pool
 
-1. In a workspace, select **Compute Environments > New Environment**.
+If not described below, use the default settings:
+
+1. **Account**: You must have an existing Azure Batch account. Ideally, you should already have tested whether you can run an Azure Batch task within this account. Any type of account is compatible.
+1. **Quota**: You must check you have sufficient quota for the number of pools, jobs, and vCPUs per series. See [Azure Batch service quotas and limits][az-batch-quotas] for more information.
+1. On the Azure Batch page of the Azure Portal, select **Pools** and then **+ Add**.
+1. **Name**: Enter a **Pool ID** and **Display Name**. This ID will be used by Seqera and Nextflow.
+1. **Identity**: Select **User assigned** to use a managed identity for the pool. Select **Add** for the user-assigned managed identity and select the managed identity with the correct permissions to the Azure Storage and Batch accounts.
+1. **Operating System**: You can use any Linux-based image here, but it is recommended to use it with a Microsoft Azure Batch-provided image. Note that there are two generations of Azure Virtual Machine images, and certain VM series are only available in one generation. See [Azure Virtual Machine series][az-vm-gen] for more information. For default settings, select the following:
+    - **Publisher**: `microsoft-azure-batch`
+    - **Offer**: `ubuntu-server-container`
+    - **Sku**: `20.04 LTS`
+    - **Security type**: `standard`
+1. **OS disk storage account type**: Certain VM series only support a specific Storage account type. See [Azure managed disk types][az-disk-type] and [Azure Virtual Machine series][az-vm-gen] for more information. In general, a VM series with the suffix *s* supports a *Premium LRS* Storage account type. For example, a `standard_e16ds_v5` supports `Premium_LRS` but a `standard_e16d_v5` does not. Premium LRS offers the best performance.
+1. **OS disk size**: The size of the OS disk in GB. This must be sufficient to hold every Docker container the VM will run, plus any logging or further files. If you are not using a machine with attached storage, you must increase this disk size to accommodate task files (see VM type below). If you are using a machine with attached storage, this setting can be left at the OS default size.
+1. **Container configuration**: Container configuration must be turned on. Do this by switching it from **None** to **Custom**. The type is **Docker compatible** which should be the only available option. This will enable the VM to use Docker images and is sufficient. However, you can add further options: 
+    - Under **Container image names** you can add containers for the VM to grab at startup time. Add a list of fully qualified Docker URIs, such as `quay.io/seqeralabs/nf-launcher:j17-23.04.2`. - Under **Container registries**, you can add any container registries that require additional authentication. Select **Container registries**, then **Add**. Here, you can add a registry username, password, and registry server. If you attached the managed identity earlier, select this as an authentication method so you don't have to enter a username and password.
+1. **VM size**: This is the size of the VM. See [Sizes for virtual machines in Azure][az-vm-sizes] for more information.
+1. **Scale**: Azure Node pools can be fixed in size or autoscale based on a formula. Autoscaling is recommended to enable scaling your resources down to zero when not in use. Select **Auto scale** and change the **AutoScale evaluation interval** to 5 minutes - this is the minimum period between evaluations of the autoscale formula. For **Formula**, you can use any valid formula — See [Create a formula to automatically scale compute nodes in a Batch pool][az-batch-autoscale] for more information. This is the default autoscaling formula, with a maximum of 8 VMs:
+
+    ```
+    // Get pool lifetime since creation.
+    lifespan = time() - time("2024-10-30T00:00:00.880011Z");
+    interval = TimeInterval_Minute * 5;
+
+    // Compute the target nodes based on pending tasks.
+    // $PendingTasks == The sum of $ActiveTasks and $RunningTasks
+    $samples = $PendingTasks.GetSamplePercent(interval);
+    $tasks = $samples < 70 ? max(0, $PendingTasks.GetSample(1)) : max( $PendingTasks.GetSample(1), avg($PendingTasks.GetSample(interval)));
+    $targetVMs = $tasks > 0 ? $tasks : max(0, $TargetDedicatedNodes/2);
+    targetPoolSize = max(0, min($targetVMs, 8));
+
+    // For first interval, deploy 1 node, for other intervals scale up/down as per tasks.
+    $TargetLowPriorityNodes = lifespan < interval ? 1 : targetPoolSize;
+    $NodeDeallocationOption = taskcompletion;
+    ```
+
+1. **Start task**: This is the task that will run on each VM when it joins the pool. This can be used to install additional software on the VM. When using Batch Forge, this is used to install `azcopy` for staging files onto and off of the node. Select **Enabled** and add the following command line to install `azcopy`:
+
+    ```shell
+    bash -c "chmod +x azcopy && mkdir $AZ_BATCH_NODE_SHARED_DIR/bin/ && cp azcopy $AZ_BATCH_NODE_SHARED_DIR/bin/"
+    ```
+
+    Select **Resource files** then select **Http url**. For the **URL**, add `https://nf-xpack.seqera.io/azcopy/linux_amd64_10.8.0/azcopy` and for **File path** enter `azcopy`. Every other setting can be left default.
+
+    :::note
+    When not using Fusion, every node **must** have `azcopy` installed.
+    :::
+
+1. **Task Slots**: Set task slots to the machine's number of vCPUs. For example, select `4` for a `Standard_D4_v3` VM size.
+1. **Task scheduling policy**: This can be set to `Pack` or `Spread`. `Pack` will attempt to schedule tasks from the same job on the same VM, while `Spread` will attempt to distribute tasks evenly across VMs.
+1. **Virtual Network**: If you are using a virtual network, you can select it here. Be sure to select the correct virtual network and subnet. The VMs require:
+    - Access to container registries (such as quay.io and docker.io) to pull containers.
+    - Access to Azure Storage to copy data using `azcopy`.
+    - Access to any remote files required by the pipeline, such as AWS S3 storage.
+    - Communication with the head node that runs Nextflow and Seqera to relay logs and information.
+    Note that overly-restrictive networking may prevent pipelines from running successfully.
+1. **Mount configuration**: Nextflow *only* supports Azure File Shares. Select `Azure Files Share`, then add:
+    - **Source**: URL in format `https://${accountName}.file.core.windows.net/${fileShareName}`
+    - **Relative mount path**: Path where the file share will be mounted on the VM
+    - **Storage account name** and **Storage account key** (managed identity is not supported)
+    
+Leave the node pool to start and create a single Azure VM. Monitor the VM to ensure it starts correctly. If any errors occur, check and correct them - you may need to create a new Azure node pool if issues persist.
+
+The following settings can be modified after creating a pool:
+
+- Autoscale formula
+- Start task
+- Application packages
+- Node communication
+- Metadata
+
+#### Create a manual Seqera Azure Batch compute environment
+
+1. In a workspace, select **Compute Environments**, then **Add compute environment**.
 1. Enter a descriptive name for this environment, such as _Azure Batch (east-us)_.
 1. For **Provider**, select **Azure Batch**.
 1. Select your existing Azure credentials (access keys or Entra service principal) or select **+** to add new credentials.
@@ -310,9 +437,6 @@ Create a manual Seqera Azure Batch compute environment:
     :::info
     Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced.mdx#nextflow-config-file) for more information on configuration priority. 
     :::
-    :::info
-    To use managed identities, Platform requires Nextflow version 24.06.0-edge or later. Add `export NXF_VER=24.06.0-edge` to the **Global Nextflow config** field for your compute environment to use this Nextflow version by default. 
-    :::
 1. Define custom **Environment Variables** for the **Head Job** and/or **Compute Jobs**.
 1. Configure any necessary advanced options:
     - Use **Jobs cleanup policy** to control how Nextflow process jobs are deleted on completion. Active jobs consume the quota of the Azure Batch account. By default, jobs are terminated by Nextflow and removed from the quota when all tasks succesfully complete. If set to _Always_, all jobs are deleted by Nextflow after pipeline completion. If set to _Never_, jobs are never deleted. If set to _On success_, successful tasks are removed but failed tasks will be left for debugging purposes.
@@ -323,25 +447,9 @@ Create a manual Seqera Azure Batch compute environment:
 See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in your Azure Batch compute environment.
 :::
 
-### Managed identity
-
-:::info
-To use managed identities, Platform requires requires Nextflow version 24.06.0-edge or later. Add `export NXF_VER=24.06.0-edge` to the **Global Nextflow config** field in advanced options for your compute environment to use this Nextflow version by default (see manual instructions above). 
-:::
-
-Nextflow can authenticate to Azure services using a managed identity. This method offers enhanced security compared to access keys, but must run on Azure infrastructure. 
-
-When you use a manually configured compute environment with a managed identity attached to the Azure Batch Pool, Nextflow can use this managed identity for authentication. However, Platform still needs to use access keys or an Entra service principal to submit the initial task to Azure Batch to run Nextflow, which will then proceed with the managed identity for subsequent authentication.
-
-1. In Azure, create a user-assigned managed identity. See [Manage user-assigned managed identities](https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/how-manage-user-assigned-managed-identities) for detailed steps. After creation, record the Client ID of the managed identity.
-1. The user-assigned managed identity must have the necessary access roles for Nextflow. See [Required role assignments](https://www.nextflow.io/docs/latest/azure.html#required-role-assignments) for more information.
-1. Associate the user-assigned managed identity with the Azure Batch Pool. See [Set up managed identity in your Batch pool](https://learn.microsoft.com/en-us/troubleshoot/azure/hpc/batch/use-managed-identities-azure-batch-account-pool#set-up-managed-identity-in-your-batch-pool) for more information.
-1. When you set up the Platform compute environment, select the Azure Batch pool by name and enter the managed identity client ID in the specified field as instructed above.
-
-When you submit a pipeline to this compute environment, Nextflow will authenticate using the managed identity associated with the Azure Batch node it runs on, rather than relying on access keys.
-
 [az-data-residency]: https://azure.microsoft.com/en-gb/explore/global-infrastructure/data-residency/#select-geography
 [az-batch-quotas]: https://docs.microsoft.com/en-us/azure/batch/batch-quota-limit#view-batch-quotas
+[az-batch-best-practices]: https://learn.microsoft.com/en-us/azure/batch/security-best-practices
 [az-vm-sizes]: https://learn.microsoft.com/en-us/azure/virtual-machines/sizes
 [az-create-account]: https://azure.microsoft.com/en-us/free/
 [az-learn-rg]: https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resource-groups-portal#create-resource-groups
@@ -351,7 +459,12 @@ When you submit a pipeline to this compute environment, Nextflow will authentica
 [az-learn-jobs]: https://learn.microsoft.com/en-us/azure/batch/jobs-and-tasks
 [az-create-rg]: https://portal.azure.com/#create/Microsoft.ResourceGroup
 [az-create-storage]: https://portal.azure.com/#create/Microsoft.StorageAccount-ARM
-[az-create-sp]: https://learn.microsoft.com/en-us/entra/identity-platform/howto-create-service-principal-portal
+[az-premium-storage]: https://learn.microsoft.com/en-us/azure/virtual-machines/premium-storage-performance
+[az-vm-gen]: https://learn.microsoft.com/en-us/azure/virtual-machines/generation-2
+[az-disk-type]: https://learn.microsoft.com/en-us/azure/virtual-machines/disks-types
+[az-batch-autoscale]: https://learn.microsoft.com/en-us/azure/batch/batch-automatic-scaling
+[az-file-shares]: https://www.nextflow.io/docs/latest/azure.html#azure-file-shares
+[az-vm-sizes]: https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/overview
 
 [wave-docs]: https://docs.seqera.io/wave
 [fusion-docs]: https://docs.seqera.io/fusion

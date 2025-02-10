@@ -154,7 +154,7 @@ When you specify a Cloud Storage bucket as your work directory, this bucket is u
 
 Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers][wave-docs] for more information.
 
-Select **Enable Fusion v2** to allow access to your GCS-hosted data via the [Fusion v2][fusion-docs] virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled in the previous step. See [Fusion file system][platform-fusion-docs] for configuration details.
+Select **Enable Fusion v2** to allow access to your GCS-hosted data via the [Fusion v2](https://docs.seqera.io/fusion) virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled in the previous step. See [Fusion file system][platform-fusion-docs] for configuration details.
 
 :::note
 Wave containers and Fusion v2 are recommended features for added capability and improved performance, but neither are required to execute workflows in your compute environment.
@@ -207,7 +207,6 @@ See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in 
 [get-json]: https://cloud.google.com/iam/docs/keys-list-get#get-key
 [location]: https://cloud.google.com/compute/docs/regions-zones#available
 [wave-docs]: https://www.nextflow.io/docs/latest/wave.html
-[fusion-docs]: https://www.nextflow.io/docs/latest/fusion.html
 [platform-fusion-docs]: ../supported_software/fusion/fusion.mdx
 [pre-post-run-scripts]: ../launch/advanced.mdx#pre-and-post-run-scripts
 [resource-labels]: ../resource-labels/overview.mdx
