@@ -1,0 +1,269 @@
+{
+  "platformSidebar": [
+    "index",
+    {
+      "type": "category",
+      "label": "Tutorials",
+      "collapsed": true,
+      "items": [
+        "getting-started/quickstart-demo/comm-showcase",
+        "getting-started/rnaseq",
+        "getting-started/proteinfold"
+        ]
+    },
+    {
+      "type": "category",
+      "label": "Get started",
+      "collapsed": true,
+      "items": [
+        "getting-started/deployment-options",
+        "getting-started/workspace-setup",
+        "getting-started/quickstart-demo/add-pipelines",
+        "getting-started/quickstart-demo/add-data",
+        "getting-started/quickstart-demo/launch-pipelines",
+        "getting-started/quickstart-demo/monitor-runs",
+        "getting-started/quickstart-demo/automation"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Credentials",
+      "items": [
+        "credentials/overview",
+        "git/overview",
+        {
+          "type": "category",
+          "label": "Container registry credentials",
+          "items": [
+            "credentials/docker_hub_registry_credentials",
+            "credentials/aws_registry_credentials",
+            "credentials/azure_registry_credentials",
+            "credentials/google_registry_credentials",
+            "credentials/quay_registry_credentials",
+            "credentials/gitlab_registry_credentials",
+            "credentials/github_registry_credentials",
+            "credentials/gitea_registry_credentials"
+          ]
+        },
+        "credentials/managed_identities",
+        "credentials/ssh_credentials",
+        "credentials/agent_credentials"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Compute",
+      "items": [
+        "compute-envs/overview",
+        {
+          "type": "category",
+          "label": "Cloud",
+          "items": [
+            "compute-envs/aws-batch",
+            "compute-envs/azure-batch",
+            "compute-envs/google-cloud-batch",
+            "compute-envs/google-cloud-lifesciences",
+            "compute-envs/eks",
+            "compute-envs/gke",
+            "monitoring/cloud-costs"
+          ]
+        },
+        "compute-envs/k8s",
+        "compute-envs/hpc",
+        "resource-labels/overview",
+        "supported_software/fusion/fusion",
+        "supported_software/agent/agent",
+        "supported_software/dragen/overview",
+        {
+          "type": "category",
+          "label": "Advanced options",
+          "items":[
+            "enterprise/advanced-topics/manual-aws-batch-setup",
+            "enterprise/advanced-topics/manual-azure-batch-setup"
+          ]
+        }
+        ]
+    },
+    {
+      "type": "category",
+      "label": "Data",
+      "items": [
+        "data/data-explorer",
+        "data/datasets"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Pipelines",
+      "items": [
+        "pipeline-schema/overview",
+        "launch/launchpad",
+        "labels/overview",
+        {
+        "type": "category",
+        "label": "Monitor runs",
+        "items": [
+          "monitoring/overview",
+          "monitoring/dashboard",
+          "monitoring/run-details"
+        ]
+        },
+        "reports/overview",
+        "launch/cache-resume",
+        "secrets/overview",
+        "pipeline-optimization/overview",
+        "launch/advanced"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Data Studios",
+      "items": [
+        "data_studios/index",
+        "data_studios/custom-envs",
+        "data_studios/managing"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Administration",
+      "items": [
+        "administration/overview",
+        "orgs-and-teams/organizations",
+        "orgs-and-teams/workspace-management",
+        "orgs-and-teams/roles",
+        "monitoring/audit-logs"
+        ]
+    },
+    {
+      "type": "category",
+      "label": "Enterprise",
+      "collapsed": true,
+      "items": [
+        "enterprise/index",
+        {
+          "type": "category",
+          "label": "Prerequisites",
+          "collapsed": true,
+          "items": [
+            "enterprise/prerequisites/aws",
+            "enterprise/prerequisites/azure",
+            "enterprise/prerequisites/gcp",
+            "enterprise/prerequisites/on-prem"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Configuration",
+          "collapsed": true,
+          "items": [
+            "enterprise/configuration/overview",
+            "enterprise/configuration/authentication",
+            "enterprise/configuration/aws_parameter_store",
+            "enterprise/configuration/networking",
+            "enterprise/configuration/reverse_proxy",
+            "enterprise/configuration/ssl_tls",
+            "enterprise/configuration/pipeline_optimization",
+            "enterprise/configuration/wave",
+            "enterprise/data-studios"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Installation",
+          "collapsed": true,
+          "items": [
+            "enterprise/docker-compose",
+            "enterprise/kubernetes",
+            "enterprise/testing",
+            "enterprise/upgrade"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Advanced",
+          "collapsed": true,
+          "items": [
+            "enterprise/advanced-topics/db-docker-to-RDS",
+            "enterprise/advanced-topics/use-iam-role",
+            "enterprise/advanced-topics/custom-launch-container",
+            "enterprise/advanced-topics/firewall-configuration"
+          ]
+        },
+        "enterprise/general_troubleshooting"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Developer tools",
+      "collapsed": true,
+      "items": [
+        "api/overview",
+        {
+          "type": "category",
+          "label": "CLI",
+          "collapsed": true,
+          "items": [
+            "cli/overview",
+            "cli/installation",
+            "cli/commands"
+          ]
+          },
+          {
+            "type": "category",
+            "label": "Seqerakit",
+            "collapsed": true,
+            "items": [
+              "seqerakit/installation",
+              "seqerakit/commands",
+              "seqerakit/yaml-configuration",
+              "seqerakit/templates"
+            ]
+            },
+          "pipeline-actions/overview"
+        ]
+    },
+    {
+      "type": "category",
+      "label": "Reference",
+      "collapsed": true,
+      "items": [
+        "data-privacy/overview",
+        "limits/limits"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Changelogs",
+      "collapsed": true,
+      "items": [
+        {
+          "type": "link",
+          "label": "Enterprise changelog",
+          "href": "/changelog/tags/seqera-enterprise"
+        },
+        {
+          "type": "link",
+          "label": "Cloud changelog",
+          "href": "/changelog/tags/seqera-cloud"
+        },        
+        "functionality_matrix/functionality_matrix"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Troubleshooting",
+      "collapsed": true,
+      "items": [
+        "troubleshooting_and_faqs/troubleshooting",
+        "troubleshooting_and_faqs/api_and_cli",
+        "troubleshooting_and_faqs/data_studios_troubleshooting",
+        "troubleshooting_and_faqs/nextflow",
+        "troubleshooting_and_faqs/aws_troubleshooting",
+        "troubleshooting_and_faqs/azure_troubleshooting",
+        "troubleshooting_and_faqs/workspaces_troubleshooting",
+        "troubleshooting_and_faqs/datasets_troubleshooting"
+      ]
+    }
+  ]
+}
