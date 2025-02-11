@@ -43,5 +43,10 @@ By default, AWS Batch compute environments that are created with Batch Forge res
 
 Check whether the instance type you selected [supports GPU](https://aws.amazon.com/ec2/instance-types/). If you specify multiple GPUs make sure that multi-GPU instances can be launched by your compute environment and are not limited by the maximum CPU config that you've set.
 
+## Container template image security scan false positives
+
+### VSCode
+
+A security scan of the latest Seqera-provided VSCode [container template](../data_studios#container-image-templates) returns multiple false positive critical vulnerabilities from both Trivy and Docker Scout (CVE-2019-19919, CVE-2021-23369, CVE-2021-23383, CVE-2019-20920). Both systems incorrectly map the VSCode extension `handlebars` with the npm extension `handlebars`. This is an [open known issue](https://github.com/aquasecurity/trivy/discussions/6112).
 
 [contact]: https://seqera.io/contact-us/
