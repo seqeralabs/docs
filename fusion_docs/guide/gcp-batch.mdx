@@ -38,12 +38,15 @@ or with the `gcloud` auth application-default login command. See [Credentials](h
     ```groovy
     fusion.enabled = true
     wave.enabled = true
+    tower.accessToken = '<PLATFORM_ACCESS_TOKEN>'  
     process.scratch = false
     process.executor = 'google-batch'
     google.location  = '<GOOGLE_LOCATION>'
     ```
 
-    Replace `<GOOGLE_LOCATION>` with the Google region of your choice. For example, `europe-west2`.
+    Replace the following:
+    - `<GOOGLE_LOCATION>`: your Google region of your choice
+    - `<PLATFORM_ACCESS_TOKEN>`: your Platform access token
 
 1. Run the pipeline with the Nextflow run command:
 

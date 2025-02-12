@@ -39,12 +39,14 @@ Seqera Platform automatically formats and configures NVMe instance storage with 
     aws.region = '<AWS_REGION>'
     fusion.enabled = true
     wave.enabled = true
+    tower.accessToken = '<PLATFORM_ACCESS_TOKEN>'
     ```
 
     Replace the following:
     - `<AWS_BATCH_QUEUE>`: the path to your AWS Batch queue
     - `<PATH_TO_SSD>`: your SSD path
     - `<AWS_REGION>`: your AWS region
+    - `<PLATFORM_ACCESS_TOKEN>`: your Platform access token 
 
 1. Run the pipeline with the Nextflow run command:
 

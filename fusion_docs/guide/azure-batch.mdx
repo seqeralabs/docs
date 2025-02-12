@@ -30,7 +30,10 @@ We recommend selecting machine types with a local temp storage disk of at least 
     fusion.enabled = true
     wave.enabled = true
     process.executor = 'azure-batch'
+    tower.accessToken = '<PLATFORM_ACCESS_TOKEN>'    
     ```
+
+    Repalce `<PLATFORM_ACCESS_TOKEN>` with your Seqera Platform access token.
 
 1. Run the pipeline with the Nextflow run command:
 

@@ -134,13 +134,16 @@ Create a namespace and a service account in your Kubernetes cluster to run the j
     ```groovy
     wave.enabled = true
     fusion.enabled = true
+    tower.accessToken = '<PLATFORM_ACCESS_TOKEN>'
     process.executor = 'k8s'
     k8s.context = '<K8S_CLUSTER_CONTEXT>'
     k8s.namespace = 'fusion-demo'
     k8s.serviceAccount = 'fusion-sa'
     ```
 
-    Replace `<K8S_CLUSTER_CONTEXT>` with your Kubernetes context.
+    Replace the following:
+    - `<PLATFORM_ACCESS_TOKEN>`: your Platform access token
+    - `<K8S_CLUSTER_CONTEXT>`: your Kubernetes context.
 
 1. Run the pipeline with the Nextflow run command:
 
