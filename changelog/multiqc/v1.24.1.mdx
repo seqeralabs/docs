@@ -1,0 +1,16 @@
+---
+title: MultiQC v1.24.1
+date: 2024-08-21
+tags: [multiqc]
+---
+
+A bug fix release mainly to restore compatibility with Python 3.8. Aside from that, few other minor bug fixes:
+
+{/* truncate */}
+
+### Fixes
+
+- FastQC: Fix long-standing issue misplacing status labels when `anchor` is specified in the custom config ([#2790](https://github.com/MultiQC/MultiQC/pull/2790))
+- Freyja: Handle empty inputs, and ensure deterministic sample order ([#2788](https://github.com/MultiQC/MultiQC/pull/2788))
+- Allow numeric `xcats` and `ycats` for the heatmap plot ([#2787](https://github.com/MultiQC/MultiQC/pull/2787))
+- Make sure that config's `extra_fn_clean_exts` and `fn_clean_exts` don't conflict when both specified ([#2783](https://github.com/MultiQC/MultiQC/pull/2783))
