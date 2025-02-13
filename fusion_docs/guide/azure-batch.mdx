@@ -27,13 +27,13 @@ We recommend selecting machine types with a local temp storage disk of at least 
 1. Add the following to your `nextflow.config` file:
 
     ```groovy
-    fusion.enabled = true
-    wave.enabled = true
     process.executor = 'azure-batch'
+    wave.enabled = true
+    fusion.enabled = true
     tower.accessToken = '<PLATFORM_ACCESS_TOKEN>'    
     ```
 
-    Repalce `<PLATFORM_ACCESS_TOKEN>` with your Platform access token.
+    Replace `<PLATFORM_ACCESS_TOKEN>` with your Platform access token.
 
 1. Run the pipeline with the Nextflow run command:
 

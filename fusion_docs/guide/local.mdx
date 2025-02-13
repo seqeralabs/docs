@@ -149,13 +149,13 @@ This configuration requires Docker or a similar container engine to run pipeline
   1. Add the following to your `nextflow.config` file:
 
       ```groovy
-      aws.client.endpoint = 'http://localhost:9000'
-      aws.client.s3PathStyleAccess = true
       wave.enabled = true
       docker.enabled = true
       fusion.enabled = true
       fusion.exportStorageCredentials = true
       tower.accessToken = '<PLATFORM_ACCESS_TOKEN>'
+      aws.client.endpoint = 'http://localhost:9000'
+      aws.client.s3PathStyleAccess = true
       ```
 
       Replace `<PLATFORM_ACCESS_TOKEN>` with your Platform access token.
@@ -193,23 +193,23 @@ This configuration requires Docker or a similar container engine to run pipeline
   1. Add the following to your `nextflow.config` file:
 
       ```groovy
-      aws.region = '<AWS_REGION>'
-      aws.client.endpoint = 'https://<BUCKET_NAMESPACE>.compat.objectstorage.<AWS_REGION>.oraclecloud.com'
-      aws.client.protocol = 'https'
-      aws.client.signerOverride = 'AWSS3V4SignerType'
-      aws.client.s3PathStyleAccess = true
       wave.enabled = true
       docker.enabled = true
       docker.containerOptions = '-e FUSION_AWS_REGION=<AWS_REGION>'
       fusion.enabled = true
       fusion.exportStorageCredentials = true
       tower.accessToken = '<PLATFORM_ACCESS_TOKEN>'
+      aws.region = '<AWS_REGION>'
+      aws.client.endpoint = 'https://<BUCKET_NAMESPACE>.compat.objectstorage.<AWS_REGION>.oraclecloud.com'
+      aws.client.protocol = 'https'
+      aws.client.signerOverride = 'AWSS3V4SignerType'
+      aws.client.s3PathStyleAccess = true
       ```
 
       Replace the following:
-      - `<AWS_REGION>`: your AWS region
-      - `<BUCKET_NAMESPACE>`: your bucket name
-      - `<PLATFORM_ACCESS_TOKEN>`: your Platform access token.
+      - `<AWS_REGION>` with your AWS region.
+      - `<PLATFORM_ACCESS_TOKEN>` with your Platform access token.
+      - `<BUCKET_NAMESPACE>` with your bucket name.
 
   1. Run the pipeline with the Nextflow run command:
 
@@ -218,8 +218,8 @@ This configuration requires Docker or a similar container engine to run pipeline
       ```
 
       Replace the following:
-      - `PIPELINE_SCRIPT`: your pipeline Git repository URI
-      - `BUCKET`: your bucket
+      - `<PIPELINE_SCRIPT>`: your pipeline Git repository URI
+      - `<BUCKET>`: your bucket
 
   :::tip
   To achieve optimal performance, set up an SSD volume as the temporary directory.
