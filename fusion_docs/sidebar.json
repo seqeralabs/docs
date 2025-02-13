@@ -15,7 +15,7 @@
         {
           "type": "category",
           "label": "Local execution",
-          "collapsed": false,
+          "collapsed": true,
           "items": [
             "guide/local/aws-s3",
             "guide/local/google-cloud",
@@ -23,7 +23,7 @@
             "guide/local/minio",
             "guide/local/oracle-object"
           ]
-        },
+        }
       ]
     },
     "reference",
