@@ -54,5 +54,43 @@ ERROR system error 2 (No such file or directory) [path:/sys/fs/cgroup/memory/mem
 
 This is displayed because logging is set to `stderr` by default to ensure all logs are shown during the session, and can safely be ignored.
 
+## Container template image security scan false positives
+
+### VSCode
+
+When running an SCA security scan (e.g., with Trivy) on the latest Seqera-provided VSCode image [container template](../data_studios#container-image-templates), you may encounter multiple false-positive findings. This issue is due to how VSCode defines extensions, which can cause certain security scanners to incorrectly identify them as `npm` packages.
+
+This is a known limitation and has been discussed in the Trivy community [here(https://github.com/aquasecurity/trivy/discussions/6112)].
+
+These are the false positive confirmed findings:
+
+| Component        | Vulnerability id⁠    |
+| :--------------- | :------------------- |
+| handlebars:1.0.0 | CVE-2021-23383⁠      |
+| handlebars:1.0.0 | CVE-2021-23369⁠      |
+| handlebars:1.0.0 | CVE-2019-19919⁠      |
+| handlebars:1.0.0 | GHSA-q42p-pg8m-cqh6  |
+| handlebars:1.0.0 | GHSA-q2c6-c6pm-g3gh⁠ |
+| handlebars:1.0.0 | GHSA-g9r4-xpmj-mj65⁠ |
+| handlebars:1.0.0 | GHSA-2cf5-4w76-r9qv⁠ |
+| handlebars:1.0.0 | CVE-2019-20920⁠      |
+| handlebars:1.0.0 | CVE-2015-8861⁠       |
+| handlebars:1.0.0 | GMS-2015-33⁠         |
+| npm:1.0.1        | CVE-2019-16777⁠      |
+| npm:1.0.1        | CVE-2019-16776⁠      |
+| npm:1.0.1        | CVE-2019-16775⁠      |
+| npm:1.0.1        | CVE-2018-7408⁠       |
+| npm:1.0.1        | CVE-2016-3956⁠       |
+| npm:1.0.1        | CVE-2020-15095⁠      |
+| npm:1.0.1        | CVE-2013-4116⁠       |
+| npm:1.0.1        | GMS-2016-23⁠         |
+| grunt:1.0.0      | CVE-2022-1537⁠       |
+| grunt:1.0.0      | CVE-2020-7729⁠       |
+| grunt:1.0.0      | CVE-2022-0436⁠       |
+| pug:1.0.0        | CVE-2021-21353⁠      |
+| pug:1.0.0        | CVE-2024-36361⁠      |
+| json:1.0.0       | CVE-2020-7712⁠       |
+| ini:1.0.0        | CVE-2020-7788⁠       |
+| diff:1.0.0       | GHSA-h6ch-v84p-w6p9⁠ |
 
 [contact]: https://seqera.io/contact-us/
