@@ -1,0 +1,31 @@
+---
+- 
+  Environment variable:            '`TOWER_ENABLE_WAVE`'
+  Description: > 
+    Enable Seqera integration with [Wave containers](https://wave.seqera.io). 
+  Value:                'Default: `false`'
+- 
+  Environment variable:            '`WAVE_SERVER_URL`'
+  Description: > 
+    Define the Wave containers service endpoint URL. 
+  Value:                'Example: `https://wave.seqera.io`'
+- 
+  Environment variable:            '`TOWER_ENABLE_AWS_SSM`'
+  Description: > 
+    Enable Seqera configuration value retrieval from [AWS Parameter Store](https://docs.seqera.io/platform/latest/enterprise/configuration/aws_parameter_store). 
+  Value:                'Default: `false`'
+- 
+  Environment variable:            '`TOWER_ENABLE_AWS_SES`'
+  Description: > 
+    Use AWS Simple Email Service (SES) to send Seqera emails instead of SMTP.
+  Value:                'Default: `false`'
+- 
+  Environment variable:            '`TOWER_ALLOW_NEXTFLOW_LOGS`'
+  Description: > 
+    Allow log and report files from Nextflow CLI runs (`-with-tower`) to be accessible in the Seqera UI. Run output files must be accessible to your Seqera workspace primary compute environment.
+  Value:                'Default: `false`'
+- 
+  Environment variable:            '`TOWER_STEPPED_LAUNCH_FORM_ALLOWED_WORKSPACES`'
+  Description: > 
+    Disable the [stepped launch form](https://docs.seqera.io/platform/latest/launch/launchpad#launch-form) in the workspaces specified. Omit or set empty (`TOWER_STEPPED_LAUNCH_FORM_ALLOWED_WORKSPACES=`) to enable the new launch form in all workspaces, or provide a comma-separated list of workspace IDs to enable the form per workspace. 
+  Value:                'Default: Enabled for all workspaces'
