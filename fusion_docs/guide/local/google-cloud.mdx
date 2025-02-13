@@ -1,0 +1,47 @@
+---
+title: Local execution with Google Cloud Storage
+description: "Use Fusion with the Nextflow local executor and Google Cloud Storage"
+date: "23 Aug 2024"
+tags: [fusion, storage, compute, local, google cloud]
+---
+
+With Fusion, you can run Nextflow pipelines using the local executor and Google Cloud Storage. This
+is useful to scale your pipeline execution vertically with a large compute instance, without the need to allocate
+a large storage volume for temporary pipeline data.
+
+## Nextflow CLI
+
+:::tip
+This configuration requires Docker or a similar container engine to run pipeline tasks.
+:::
+
+1. Set the `GOOGLE_APPLICATION_CREDENTIALS` environment variable with your service account JSON key to grant Nextflow and Fusion access to your storage credentials. See [Credentials](https://www.nextflow.io/docs/latest/google.html#credentials) for more information.
+
+1. Add the following to your `nextflow.config` file:
+
+    ```groovy
+    wave.enabled = true
+    docker.enabled = true
+    fusion.enabled = true
+    fusion.exportStorageCredentials = true
+    ```
+
+1. Run the pipeline with the Nextflow run command:
+
+    ```
+    nextflow run <PIPELINE_SCRIPT> -w gs://<GCS_BUCKET>/work
+    ```
+
+    Replace the following:
+    - `<PIPELINE_SCRIPT>`: your pipeline Git repository URI
+    - `<GCS_BUCKET>`: your Google Cloud Storage bucket to which you have read-write access
+
+
+:::tip
+To achieve optimal performance, set up an SSD volume as the temporary directory.
+:::
+
+:::warning
+The option `fusion.exportStorageCredentials` leaks credentials on the task launcher script created by Nextflow.
+This option should only be used for testing and development purposes.
+:::
