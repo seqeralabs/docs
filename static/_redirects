@@ -1,4 +1,4 @@
-/platform/latest/*   /platform/24.2/:splat   301
+/platform/latest/*   /platform/24.3/:splat   301
 
 /nextflow           https://www.nextflow.io/docs/latest/ 301!
 
