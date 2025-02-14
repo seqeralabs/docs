@@ -1,5 +1,10 @@
 /platform/latest/*   /platform/24.3/:splat   301
 
+# Temporarily redirect latest Platform docs Enterprise pages to current Enterprise version (cloud.latest - 1)
+# Remove when Enterprise version is released and Cloud and ENT latest major versions are at parity
+/platform/latest/enterprise/* /platform/24.2/enterprise/:splat 301
+/platform/24.3/enterprise/* /platform/24.2/enterprise/:splat 301
+
 /nextflow           https://www.nextflow.io/docs/latest/ 301!
 
 # Add redirects to account for Wave docs refresh
