@@ -45,11 +45,7 @@ To enable Fusion in your Nextflow pipeline add the following snippet to your `ne
 ```groovy
 fusion.enabled = true
 wave.enabled = true
-tower.accessToken = '<your access token>'
+tower.accessToken = '<PLATFORM_ACCESS_TOKEN>'
 ```
 
-:::tip
-
-    The use of the Tower access token is not mandatory, however, it's required to enable access to private repositories
-    and it allows higher service rate limits compared to anonymous users.
-:::
+Replace `<PLATFORM_ACCESS_TOKEN>` with your Platform access token.

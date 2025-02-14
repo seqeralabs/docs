@@ -192,13 +192,7 @@ This procedure describes how to configure Data Studios for Kubernetes deployment
     kubectl apply -f secret.yml
     ```
 
-1. Edit the `tower-cron.yml` file and uncomment the `volumes.cert-volume`, `volumeMounts.cert-volume`, and `env.TOWER_OIDC_PEM_PATH` fields so that the public/private key pair is available to Platform.
-
-1. Apply the configuration change to Platform:
-
-    ```
-    kubectl apply -f tower-cron.yml
-    ```
+1. Edit the `tower-svc.yml` file and uncomment the `volumes.cert-volume`, `volumeMounts.cert-volume`, and `env.TOWER_OIDC_PEM_PATH` fields so that the public/private key pair is available to Platform.
 
 1. Edit the ConfigMap named `platform-backend-cfg` in the `configmap.yml` for Platform by editing the following environment variables:
 
@@ -220,6 +214,20 @@ This procedure describes how to configure Data Studios for Kubernetes deployment
     ```
     kubectl apply -f configmap.yml
     ```
+
+1. Apply the configuration change to Platform:
+
+    ```
+    kubectl apply -f tower-svc.yml
+    ```
+
+1. Restart the cron service of your Platform deployment to load the updated configuration. For example:
+
+    ```
+    kubectl delete -f tower-cron.yml
+    kubectl apply -f tower-cron.yml
+    ```
+
 
 1. Restart the backend service of your Platform deployment to load the updated configuration. For example:
 

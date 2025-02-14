@@ -13,8 +13,8 @@ Use Fusion directly in the following Seqera Platform compute environments:
 - [AWS Batch](https://docs.seqera.io/platform/latest/compute-envs/aws-batch)
 - [Azure Batch](https://docs.seqera.io/platform/latest/compute-envs/azure-batch)
 - [Google Cloud Batch](https://docs.seqera.io/platform/latest/compute-envs/google-cloud-batch)
-- [Amazon EKS](https://docs.seqera.io/platform/latest/compute-envs/eks)
-- [Google GKE](https://docs.seqera.io/platform/latest/compute-envs/gke)
+- [Amazon Elastic Kubernetes Service](https://docs.seqera.io/platform/latest/compute-envs/eks)
+- [Google Kubernetes Engine](https://docs.seqera.io/platform/latest/compute-envs/gke)
 
 See the Platform compute environment page for your cloud provider for Fusion configuration instructions and optimal compute and storage recommendations. 
 
@@ -47,10 +47,7 @@ To enable Fusion in your Nextflow pipeline, add the following snippet to your `n
 ```groovy
 fusion.enabled = true
 wave.enabled = true
-tower.accessToken = '<your Platform access token>' //optional
+tower.accessToken = '<PLATFORM_ACCESS_TOKEN>'
 ```
 
-:::tip
-The use of the Platform access token is not mandatory, however, it's required to enable access to private repositories
-and it allows higher service rate limits compared to anonymous users.
-:::
+Replace `<PLATFORM_ACCESS_TOKEN>` with your Platform access token.

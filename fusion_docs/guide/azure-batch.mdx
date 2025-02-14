@@ -24,18 +24,23 @@ See [Azure Batch](https://docs.seqera.io/platform/latest/compute-envs/azure-batc
 We recommend selecting machine types with a local temp storage disk of at least 200 GB and a random read speed of 1000 MBps or more for large and long-lived production pipelines. The suffix `d` after the core number (e.g., `Standard_E16*d*_v5`) denotes a VM with a local temp disk. Select instances with Standard SSDs — Fusion does not support Azure network-attached storage (Premium SSDv2, Ultra Disk, etc.). Larger local storage increases Fusion's throughput and reduces the chance of overloading the machine. See [Sizes for virtual machines in Azure](https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/overview) for more information.
 :::
 
-1. Add the following to your `nextflow.conf` file:
+1. Add the following to your `nextflow.config` file:
 
     ```groovy
-    fusion.enabled = true
-    wave.enabled = true
     process.executor = 'azure-batch'
+    wave.enabled = true
+    fusion.enabled = true
+    tower.accessToken = '<PLATFORM_ACCESS_TOKEN>'    
     ```
 
-1. Run the pipeline with the usual run command:
+    Replace `<PLATFORM_ACCESS_TOKEN>` with your Platform access token.
+
+1. Run the pipeline with the Nextflow run command:
 
     ```
-    nextflow run <YOUR PIPELINE SCRIPT> -w az://<YOUR CONTAINER>/scratch
+    nextflow run <PIPELINE_SCRIPT> -w az://<BLOB_STORAGE>/scratch
     ```
 
-    Replace `<YOUR PIPELINE SCRIPT>` with your pipeline Git repository URI and `<YOUR CONTAINER>` with your Blob Storage container.
+    Replace the following:
+    - `<PIPELINE_SCRIPT>`: your pipeline Git repository URI.
+    - `<BLOB_STORAGE>`: your Azure Blob Storage.
