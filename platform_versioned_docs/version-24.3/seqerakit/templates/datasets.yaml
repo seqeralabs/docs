@@ -1,0 +1,8 @@
+## To see the full list of options available, run: "tw datasets add -h"
+datasets:
+  - name: 'your-dataset'                           # required
+    description: 'Your dataset description'        # optional
+    header: true                                   # optional
+    workspace: 'your-organization/workspace-1'     # required
+    file-path: './datasets/dataset.csv'            # required
+    overwrite: True                                # optional
