@@ -82,17 +82,20 @@ To use Fusion directly in Nextflow with a GKE cluster, you must configure a clus
 1. Add the following to your `nextflow.config` file:
 
     ```
-    wave.enabled = true
-    fusion.enabled = true
     process.executor = 'k8s'
     process.scratch = false
+    wave.enabled = true
+    fusion.enabled = true
+    tower.accessToken = '<PLATFORM_ACCESS_TOKEN>'  
     k8s.context = '<GKE-CLUSTER-CONTEXT>'
     k8s.namespace = 'fusion-demo'
     k8s.serviceAccount = 'fusion-sa'
     k8s.pod.nodeSelector = 'iam.gke.io/gke-metadata-server-enabled=true'
     ```
 
-    Replace `<GKE_CLUSTER_CONTEXT>` with the context name in your Kubernetes configuration.
+    Replace the following:
+    - `<PLATFORM_ACCESS_TOKEN>`: your Platform access token.
+    - `<GKE_CLUSTER_CONTEXT>`: your Kubernetes configuration context name.
 
 1. Run the pipeline with the Nextflow run command:
 
@@ -101,8 +104,8 @@ To use Fusion directly in Nextflow with a GKE cluster, you must configure a clus
     ```
 
     Replace the following:
-    - `<PIPELINE_SCRIPT>`: your pipeline Git repository URI
-    - `<GCS_BUCKET>`: your Google Cloud Storage bucket
+    - `<PIPELINE_SCRIPT>`: your pipeline Git repository URI.
+    - `<GCS_BUCKET>`: your Google Cloud Storage bucket.
 
 :::note
 When using Fusion, pods will run as privileged by default.
