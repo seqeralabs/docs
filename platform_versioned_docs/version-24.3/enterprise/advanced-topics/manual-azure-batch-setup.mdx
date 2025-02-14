@@ -1,12 +1,12 @@
 ---
-title: Azure Batch walkthrough
-headline: "Azure Batch walkthrough"
-description: "A tutorial for using advanced features of Azure Batch with Seqera Platform"
+title: Azure Batch compute environment setup
+headline: "Azure Batch compute environment tutorial"
+description: "A tutorial for using Azure Batch with Seqera Platform"
 ---
 
-This guide details how to set up more complex Azure Batch compute environments with Seqera Platform. It begins with the simplest possible setup before adding complexity, therefore it is designed to be performed stepwise.
+This guide details how to set up an Azure Batch and Seqera Cloud account to run a workflow in a Seqera Azure Batch compute environment.
 
-The first step indicates how to configure a simple Azure Batch compute environment on Azure and Seqera Platform, however beyond that is not required for most users and is only recommended for those who need to customize their compute environments.
+It begins with the simplest possible setup and then details more complex environment configuration options. 
 
 ## Prerequisites
 
@@ -137,7 +137,8 @@ To create a separate node pool to run all the processes:
     - **VMs count**: `4`
 1. Note the compute environment ID, which is the first item on the compute environment page.
 1. In the Azure Portal, go to the Batch account you created earlier.
-1. Go to the **Pools** tab and find the pool called `tower-pool-${id}`, where `${id}` is the ID you made a note of earlier.
+1. Go to the **Pools** tab and create a new pool.
+1. Find the pool called `tower-pool-${id}`, where `${id}` is the ID you noted earlier.
 1. Select **Scale**.
 1. An Autoscale formula is displayed. On the second-to-last line, there will be a line that starts with `$TargetDedicatedNodes`. Change this string to `$TargetLowPriorityNodes`.
 1. Select **Evaluate**, then **Save**.
