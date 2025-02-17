@@ -9,24 +9,17 @@ export default async function createConfigAsync() {
     tagline: "Documentation for Seqera Labs products",
     favicon: "img/favicon--dynamic.svg",
 
-    // Set the production url of your site here
+    // Set the production URL of your site here
     url: "https://docs.seqera.io",
-    // Set the /<baseUrl>/ pathname under which your site is served
-    // For GitHub pages deployment, it is often '/<projectName>/'
     baseUrl: "/",
     trailingSlash: false,
 
-    // GitHub pages deployment config.
-    // If you aren't using GitHub pages, you don't need these.
-    organizationName: "seqeralabs", // Usually your GitHub org/user name.
-    projectName: "docs", // Usually your repo name.
+    organizationName: "seqeralabs", // GitHub org/user name.
+    projectName: "docs", // GitHub repo name.
 
     onBrokenLinks: "warn",
     onBrokenMarkdownLinks: "warn",
 
-    // Even if you don't use internalization, you can use this field to set useful
-    // metadata like html lang. For example, if your site is Chinese, you may want
-    // to replace "en" with "zh-Hans".
     i18n: {
       defaultLocale: "en",
       locales: ["en"],
@@ -47,14 +40,13 @@ export default async function createConfigAsync() {
             blogSidebarTitle: 'Changelog',
             path: 'changelog',
             routeBasePath: '/changelog',
-            //processBlogPosts: () => ({}),
             include: ['**/*.{md,mdx}'],
             showReadingTime: false,
             feedOptions: {
-            type: 'all', // 'rss', 'atom', or both
-            title: 'Seqera Changelog',
-            description: 'Stay updated with our blog posts!',
-            copyright: `Copyright © ${new Date().getFullYear()} Seqera`,
+              type: 'all',
+              title: 'Seqera Changelog',
+              description: 'Stay updated with our blog posts!',
+              copyright: `Copyright © ${new Date().getFullYear()} Seqera`,
             }
           },
           docs: false,
@@ -80,6 +72,7 @@ export default async function createConfigAsync() {
       ],
     ],
     plugins: [
+      // Platform Section (no versioning)
       [
         "@docusaurus/plugin-content-docs",
         {
@@ -95,9 +88,26 @@ export default async function createConfigAsync() {
           rehypePlugins: [(await require("rehype-katex")).default],
           editUrl: "https://github.com/seqeralabs/docs/tree/master/",
           sidebarPath: false,
+          versions: {},
+        },
+      ],
+      // Enterprise Section (with versioning)
+      [
+        "@docusaurus/plugin-content-docs",
+        {
+          id: "enterprise",
+          routeBasePath: "/enterprise",
+          includeCurrentVersion: true,
+          remarkPlugins: [
+            (await import("remark-code-import")).default,
+            (await require("remark-math")).default,
+            (await import("docusaurus-remark-plugin-tab-blocks")).default,
+            (await require("remark-yaml-to-table")).default,
+          ],
+          rehypePlugins: [(await require("rehype-katex")).default],
+          editUrl: "https://github.com/seqeralabs/docs/tree/master/",
+          sidebarPath: "path/to/enterprise/sidebar", // Define custom sidebar path for enterprise
           versions: {
-            // Force path to be /platform/24.1 instead of /platform
-            // (Applies to latest version only)
             [platform_latest_version]: {
               label: platform_latest_version,
               path: platform_latest_version,
@@ -105,6 +115,7 @@ export default async function createConfigAsync() {
           },
         },
       ],
+      // Other Sections (multiqc, fusion, wave, etc.)
       [
         "@docusaurus/plugin-content-docs",
         {
@@ -123,7 +134,7 @@ export default async function createConfigAsync() {
           },
           sidebarPath: "./multiqc_docs/sidebar.js",
         },
-      ],      
+      ],
       [
         "@docusaurus/plugin-content-docs",
         {
