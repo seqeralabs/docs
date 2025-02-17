@@ -1,9 +1,6 @@
 import { themes } from "prism-react-renderer";
 const path = require("path");
 
-// Only needed if enterprise docs are referencing a platform version
-import platform_latest_version from "./platform_latest_version.js";
-
 export default async function createConfigAsync() {
   return {
     title: "Seqera Docs",
@@ -46,7 +43,7 @@ export default async function createConfigAsync() {
               type: "all",
               title: "Seqera Changelog",
               description: "Stay updated with our blog posts!",
-              copyright: `Copyright © ${new Date().getFullYear()} Seqera`,
+              copyright: `© ${new Date().getFullYear()} Seqera`,
             },
           },
           docs: false,
@@ -73,14 +70,14 @@ export default async function createConfigAsync() {
     ],
 
     plugins: [
+      // -------------------------------------------------------------------------
       // Cloud Section (single unversioned docs)
+      // -------------------------------------------------------------------------
       [
         "@docusaurus/plugin-content-docs",
         {
           id: "cloud",
           routeBasePath: "/cloud",
-          // "false" means "no current version," which leads to zero docs if you have no explicit versions.
-          // So set this to "true" for a single (latest) doc set with no versioning:
           includeCurrentVersion: true,
           remarkPlugins: [
             (await import("remark-code-import")).default,
@@ -91,17 +88,27 @@ export default async function createConfigAsync() {
           rehypePlugins: [(await require("rehype-katex")).default],
           editUrl: "https://github.com/seqeralabs/docs/tree/master/",
           sidebarPath: false,
-          // No "versions" field => no explicit multi-version
+          // No "versions" => unversioned
         },
       ],
 
-      // Enterprise Section (with versioning)
+      // -------------------------------------------------------------------------
+      // Enterprise Section (with a folder named "platform_enterprise")
+      // and a single version folder "version-24.3"
+      // -------------------------------------------------------------------------
       [
         "@docusaurus/plugin-content-docs",
         {
           id: "enterprise",
-          routeBasePath: "/enterprise",
-          includeCurrentVersion: true,
+          // URL base path: /platform_enterprise/...
+          routeBasePath: "/platform_enterprise",
+
+          // Tells the plugin to look for docs in the local "platform_enterprise" folder
+          path: "platform_enterprise",
+
+          // No separate "current" doc => use just the version folder
+          includeCurrentVersion: false,
+
           remarkPlugins: [
             (await import("remark-code-import")).default,
             (await require("remark-math")).default,
@@ -110,11 +117,13 @@ export default async function createConfigAsync() {
           ],
           rehypePlugins: [(await require("rehype-katex")).default],
           editUrl: "https://github.com/seqeralabs/docs/tree/master/",
-          sidebarPath: "path/to/enterprise/sidebar", // Adjust if you have a sidebar file
+          sidebarPath: "path/to/enterprise/sidebar",
+
+          // This is how we define the single version "version-24.3"
           versions: {
-            [platform_latest_version]: {
-              label: platform_latest_version,
-              path: platform_latest_version,
+            "version-24.3": {
+              label: "24.3",
+              path: "version-24.3",
             },
           },
         },
@@ -199,7 +208,7 @@ export default async function createConfigAsync() {
         };
       },
 
-      // Custom routing plugin (for platform/latest)
+      // Custom routing plugin (for /platform/latest)
       function routing() {
         return {
           name: "latest-routing",
@@ -259,10 +268,11 @@ export default async function createConfigAsync() {
             type: "search",
             position: "right",
           },
+          // If you have a separate plugin for Platform, keep this. Otherwise remove it.
           {
             type: "docsVersionDropdown",
             position: "right",
-            docsPluginId: "platform", // If you have a separate plugin for Platform
+            docsPluginId: "platform",
           },
         ],
       },
