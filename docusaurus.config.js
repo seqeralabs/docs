@@ -125,7 +125,7 @@ export default async function createConfigAsync() {
           ],
           rehypePlugins: [(await require("rehype-katex")).default],
           editUrl: "https://github.com/seqeralabs/docs/tree/master/",
-          sidebarPath: "./platform_enterprise/enterprise_sidebar.js",
+          sidebarPath: "./platform_enterprise/enterprise_sidebars.js",
 
           // This is how we define the single version "version-24.3"
           versions: {
