@@ -134,7 +134,9 @@ RStudio sessions do not currently support user collaboration.
 
 ## Session management
 
-You can set a lifespan for a Studio session. Upon expiration, a snapshot is taken and then the session is automatically shutdown. A session can be extended multiple times before it is shut down. When a change to session lifespan is made, it applies only to newly-started sessions. Running sessions are not affected by changes to the session lifespan.
+You can set a session lifespan for a Studio. Upon expiration, a snapshot is taken and the session is automatically shut down. Prior to expiry, a session's lifespan can be extended multiple times before it is shut down.
+
+Workspace-level settings to studio lifespan are only applied to newly started studio sessions. Studios that are already running will have the lifespan that was originally set applied to them.
 
 ## Session data links
 
