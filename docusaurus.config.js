@@ -2,7 +2,6 @@ import { themes } from "prism-react-renderer";
 const path = require("path");
 
 import platform_latest_version from "./platform_latest_version.js";
-import cloud_current from './cloud_current.js';
 
 export default async function createConfigAsync() {
   return {
