@@ -1,6 +1,7 @@
 import { themes } from "prism-react-renderer";
 const path = require("path");
 
+// Only needed if enterprise docs are referencing a platform version
 import platform_latest_version from "./platform_latest_version.js";
 
 export default async function createConfigAsync() {
@@ -9,13 +10,12 @@ export default async function createConfigAsync() {
     tagline: "Documentation for Seqera Labs products",
     favicon: "img/favicon--dynamic.svg",
 
-    // Set the production URL of your site here
     url: "https://docs.seqera.io",
     baseUrl: "/",
     trailingSlash: false,
 
-    organizationName: "seqeralabs", // GitHub org/user name.
-    projectName: "docs", // GitHub repo name.
+    organizationName: "seqeralabs",
+    projectName: "docs",
 
     onBrokenLinks: "warn",
     onBrokenMarkdownLinks: "warn",
@@ -34,20 +34,20 @@ export default async function createConfigAsync() {
         "classic",
         {
           blog: {
-            blogTitle: 'Seqera Changelog',
-            blogDescription: 'Blog',
+            blogTitle: "Seqera Changelog",
+            blogDescription: "Blog",
             blogSidebarCount: 5000,
-            blogSidebarTitle: 'Changelog',
-            path: 'changelog',
-            routeBasePath: '/changelog',
-            include: ['**/*.{md,mdx}'],
+            blogSidebarTitle: "Changelog",
+            path: "changelog",
+            routeBasePath: "/changelog",
+            include: ["**/*.{md,mdx}"],
             showReadingTime: false,
             feedOptions: {
-              type: 'all',
-              title: 'Seqera Changelog',
-              description: 'Stay updated with our blog posts!',
+              type: "all",
+              title: "Seqera Changelog",
+              description: "Stay updated with our blog posts!",
               copyright: `Copyright © ${new Date().getFullYear()} Seqera`,
-            }
+            },
           },
           docs: false,
           theme: {
@@ -71,14 +71,17 @@ export default async function createConfigAsync() {
         },
       ],
     ],
+
     plugins: [
-      // Platform Section (no versioning)
+      // Cloud Section (single unversioned docs)
       [
         "@docusaurus/plugin-content-docs",
         {
           id: "cloud",
           routeBasePath: "/cloud",
-          includeCurrentVersion: false,
+          // "false" means "no current version," which leads to zero docs if you have no explicit versions.
+          // So set this to "true" for a single (latest) doc set with no versioning:
+          includeCurrentVersion: true,
           remarkPlugins: [
             (await import("remark-code-import")).default,
             (await require("remark-math")).default,
@@ -88,8 +91,10 @@ export default async function createConfigAsync() {
           rehypePlugins: [(await require("rehype-katex")).default],
           editUrl: "https://github.com/seqeralabs/docs/tree/master/",
           sidebarPath: false,
+          // No "versions" field => no explicit multi-version
         },
       ],
+
       // Enterprise Section (with versioning)
       [
         "@docusaurus/plugin-content-docs",
@@ -105,7 +110,7 @@ export default async function createConfigAsync() {
           ],
           rehypePlugins: [(await require("rehype-katex")).default],
           editUrl: "https://github.com/seqeralabs/docs/tree/master/",
-          sidebarPath: "path/to/enterprise/sidebar", // Define custom sidebar path for enterprise
+          sidebarPath: "path/to/enterprise/sidebar", // Adjust if you have a sidebar file
           versions: {
             [platform_latest_version]: {
               label: platform_latest_version,
@@ -114,7 +119,8 @@ export default async function createConfigAsync() {
           },
         },
       ],
-      // Other Sections (multiqc, fusion, wave, etc.)
+
+      // MultiQC Section
       [
         "@docusaurus/plugin-content-docs",
         {
@@ -129,11 +135,16 @@ export default async function createConfigAsync() {
           ],
           rehypePlugins: [(await require("rehype-katex")).default],
           editUrl: ({ docPath }) => {
-            return `https://github.com/MultiQC/MultiQC/blob/main/docs/markdown/${docPath.replace('multiqc_docs/multiqc_repo/docs', '')}`
+            return `https://github.com/MultiQC/MultiQC/blob/main/docs/markdown/${docPath.replace(
+              "multiqc_docs/multiqc_repo/docs",
+              ""
+            )}`;
           },
           sidebarPath: "./multiqc_docs/sidebar.js",
         },
       ],
+
+      // Fusion Section
       [
         "@docusaurus/plugin-content-docs",
         {
@@ -151,6 +162,8 @@ export default async function createConfigAsync() {
           sidebarPath: "./fusion_docs/sidebar.json",
         },
       ],
+
+      // Wave Section
       [
         "@docusaurus/plugin-content-docs",
         {
@@ -165,11 +178,16 @@ export default async function createConfigAsync() {
           ],
           rehypePlugins: [(await require("rehype-katex")).default],
           editUrl: ({ docPath }) => {
-            return `https://github.com/seqeralabs/wave/blob/master/docs/${docPath.replace('wave_docs/wave_repo/docs', '')}`
+            return `https://github.com/seqeralabs/wave/blob/master/docs/${docPath.replace(
+              "wave_docs/wave_repo/docs",
+              ""
+            )}`;
           },
           sidebarPath: "./wave_docs/sidebar.json",
         },
       ],
+
+      // Tailwind plugin
       async function tailwind() {
         return {
           name: "docusaurus-tailwindcss",
@@ -180,6 +198,8 @@ export default async function createConfigAsync() {
           },
         };
       },
+
+      // Custom routing plugin (for platform/latest)
       function routing() {
         return {
           name: "latest-routing",
@@ -194,6 +214,8 @@ export default async function createConfigAsync() {
           },
         };
       },
+
+      // Seqera custom plugins
       path.resolve(__dirname, "plugins_custom/seqera_jobs"),
       path.resolve(__dirname, "plugins_custom/seqera_events"),
     ],
@@ -240,7 +262,7 @@ export default async function createConfigAsync() {
           {
             type: "docsVersionDropdown",
             position: "right",
-            docsPluginId: "platform",
+            docsPluginId: "platform", // If you have a separate plugin for Platform
           },
         ],
       },
@@ -301,7 +323,7 @@ export default async function createConfigAsync() {
           "shell-session",
           "sql",
           "typescript",
-          "yaml"
+          "yaml",
         ],
       },
       algolia: {
@@ -311,7 +333,9 @@ export default async function createConfigAsync() {
         contextualSearch: false,
       },
     },
+
     clientModules: [require.resolve("./clientside-scripts.js")],
+
     stylesheets: [
       {
         href: "https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css",
