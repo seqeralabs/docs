@@ -108,15 +108,10 @@ export default async function createConfigAsync() {
         "@docusaurus/plugin-content-docs",
         {
           id: "enterprise",
-          // URL base path: /platform_enterprise/...
-          routeBasePath: "/platform_enterprise",
-
-          // Tells the plugin to look for docs in the local "platform_enterprise" folder
           path: "platform_enterprise",
-
+          routeBasePath: "/platform_enterprise",
           // No separate "current" doc => use just the version folder
           includeCurrentVersion: false,
-
           remarkPlugins: [
             (await import("remark-code-import")).default,
             (await require("remark-math")).default,
@@ -126,8 +121,6 @@ export default async function createConfigAsync() {
           rehypePlugins: [(await require("rehype-katex")).default],
           editUrl: "https://github.com/seqeralabs/docs/tree/master/",
           sidebarPath: "./platform_enterprise/enterprise_sidebars.js",
-
-          // This is how we define the single version "version-24.3"
           versions: {
             "version-24.3": {
               label: "24.3",
