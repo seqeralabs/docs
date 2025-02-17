@@ -1,13 +1,13 @@
 ---
 title: "Custom environments"
-description: "Custom environments for Data Studios"
+description: "Custom environments for Studios"
 date: "1 Oct 2024"
 tags: [data, studios]
 ---
 
 In addition to the Seqera-provided container template images, you can provide your own custom container environments by augmenting the Seqera-provided images with a list of Conda packages or by providing your own base container template image.
 
-Data Studios uses the [Wave][wave-home] service to build custom container template images.
+Studios uses the [Wave][wave-home] service to build custom container template images.
 
 ## Conda packages
 
@@ -21,7 +21,7 @@ Data Studios uses the [Wave][wave-home] service to build custom container templa
 
 ### Conda package syntax {#conda-package-syntax}
 
-When adding a new data studio session, you can customize its configuration to install a list of Conda packages to the template image. The supported schema is identical to that used by the Conda `environment.yml` file. For more information on the Conda environment file, see [Creating an environment file manually][env-manually].
+When adding a new Studio, you can customize its configuration to install a list of Conda packages to the template image. The supported schema is identical to that used by the Conda `environment.yml` file. For more information on the Conda environment file, see [Creating an environment file manually][env-manually].
 
 ```yaml title="Example environment.yml file"
 channels:

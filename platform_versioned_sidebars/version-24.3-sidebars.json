@@ -117,11 +117,11 @@
     },
     {
       "type": "category",
-      "label": "Data Studios",
+      "label": "Studios",
       "items": [
-        "data_studios/index",
-        "data_studios/custom-envs",
-        "data_studios/managing"
+        "studios/index",
+        "studios/custom-envs",
+        "studios/managing"
       ]
     },
     {
