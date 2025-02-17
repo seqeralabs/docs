@@ -2,6 +2,7 @@ import { themes } from "prism-react-renderer";
 const path = require("path");
 
 import platform_latest_version from "./platform_latest_version.js";
+import cloud_current from './cloud_current.js';
 
 export default async function createConfigAsync() {
   return {
@@ -88,12 +89,6 @@ export default async function createConfigAsync() {
           rehypePlugins: [(await require("rehype-katex")).default],
           editUrl: "https://github.com/seqeralabs/docs/tree/master/",
           sidebarPath: false,
-          versions: {
-           [cloud_current]: {
-              label: "current",
-              path: "current",
-            },
-         },
         },
       ],
       // Enterprise Section (with versioning)
