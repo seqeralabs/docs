@@ -7,16 +7,24 @@ export default async function createConfigAsync() {
     tagline: "Documentation for Seqera Labs products",
     favicon: "img/favicon--dynamic.svg",
 
+    // Set the production url of your site here
     url: "https://docs.seqera.io",
+    // Set the /<baseUrl>/ pathname under which your site is served
+    // For GitHub pages deployment, it is often '/<projectName>/'
     baseUrl: "/",
     trailingSlash: false,
 
-    organizationName: "seqeralabs",
-    projectName: "docs",
+    // GitHub pages deployment config.
+    // If you aren't using GitHub pages, you don't need these.
+    organizationName: "seqeralabs", //Usually your GitHub org/user name
+    projectName: "docs", // Usually your repo name
 
     onBrokenLinks: "warn",
     onBrokenMarkdownLinks: "warn",
 
+    // Even if you don't use internalization, you can use this field to set useful
+    // metadata like html lang. For example, if your site is Chinese, you may want
+    // to replace "en" with "zh-Hans".
     i18n: {
       defaultLocale: "en",
       locales: ["en"],
@@ -31,17 +39,17 @@ export default async function createConfigAsync() {
         "classic",
         {
           blog: {
-            blogTitle: "Seqera Changelog",
-            blogDescription: "Blog",
+            blogTitle: 'Seqera Changelog',
+            blogDescription: 'Blog',
             blogSidebarCount: 5000,
-            blogSidebarTitle: "Changelog",
-            path: "changelog",
-            routeBasePath: "/changelog",
-            include: ["**/*.{md,mdx}"],
+            blogSidebarTitle: 'Changelog',
+            path: 'changelog',
+            routeBasePath: '/changelog',
+            include: ['**/*.{md,mdx}'],
             showReadingTime: false,
             feedOptions: {
-              type: "all",
-              title: "Seqera Changelog",
+              type: 'all', // 'rss', 'atom', or both
+              title: 'Seqera Changelog',
               description: "Stay updated with our blog posts!",
               copyright: `© ${new Date().getFullYear()} Seqera`,
             },
@@ -117,7 +125,7 @@ export default async function createConfigAsync() {
           ],
           rehypePlugins: [(await require("rehype-katex")).default],
           editUrl: "https://github.com/seqeralabs/docs/tree/master/",
-          sidebarPath: "path/to/enterprise/sidebar",
+          sidebarPath: "./platform_enterprise/enterprise_sidebar.js",
 
           // This is how we define the single version "version-24.3"
           versions: {
