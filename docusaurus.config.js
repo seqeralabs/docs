@@ -88,7 +88,12 @@ export default async function createConfigAsync() {
           rehypePlugins: [(await require("rehype-katex")).default],
           editUrl: "https://github.com/seqeralabs/docs/tree/master/",
           sidebarPath: false,
-          versions: {},
+          versions: {
+           [cloud_current]: {
+              label: "current",
+              path: "current",
+            },
+         },
         },
       ],
       // Enterprise Section (with versioning)
