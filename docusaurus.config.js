@@ -115,7 +115,7 @@ export default async function createConfigAsync() {
           path: "platform_enterprise",
 
           // No separate "current" doc => use just the version folder
-          includeCurrentVersion: false,
+          includeCurrentVersion: platform_enterprise,
 
           remarkPlugins: [
             (await import("remark-code-import")).default,
