@@ -145,6 +145,14 @@
     },
     {
       "type": "category",
+      "label": "Seqera AI",
+      "collapsed": true,
+      "items": [
+        "seqera_ai/index"          
+      ]
+      },
+    {
+      "type": "category",
       "label": "Developer tools",
       "collapsed": true,
       "items": [
@@ -169,15 +177,7 @@
               "seqerakit/yaml-configuration",
               "seqerakit/templates"
             ]
-            },
-        {
-            "type": "category",
-            "label": "Seqera AI",
-            "collapsed": true,
-            "items": [
-              "seqera_ai/index"          
-            ]
-            },
+            },        
           "pipeline-actions/overview"
         ]
     },
