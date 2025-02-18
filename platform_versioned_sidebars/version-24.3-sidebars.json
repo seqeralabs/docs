@@ -170,6 +170,14 @@
               "seqerakit/templates"
             ]
             },
+        {
+            "type": "category",
+            "label": "Seqera AI",
+            "collapsed": true,
+            "items": [
+              "seqera_ai/index"          
+            ]
+            },
           "pipeline-actions/overview"
         ]
     },
