@@ -1,0 +1,37 @@
+---
+title: Fusion licensing
+description: "Overview of how Fusion licensing works"
+date: "30 Jan 2025"
+tags: [fusion, storage, compute, file system, posix, client]
+---
+
+You need a license to use the Fusion file system and the license is bundled with your Seqera Enterprise license. Additionally, if you have a Studios license, you don't need a Fusion license to use Fusion with your studios. All Studios templates include Fusion.
+
+## License management 
+
+### Seqera Cloud
+
+If you are a Cloud customer, your license entitlement for Fusion is managed by Seqera.
+
+### Seqera Enterprise
+
+If you are an Enterprise customer, you can use Fusion in both networked and air-gapped environments.
+
+### Nextflow integration
+
+Fusion file system requires the use of Seqera Platform. Ensure that you either add `tower.accessToken` to your config, or define the `TOWER_ACCESS_TOKEN` variable  in your launch environment.
+
+For more information on using Fusion with Nextflow, see [Get started][get-started].
+
+## License renewal
+
+If your Platform installation has network access, license renewal occurs daily automatically. The following diagram illustrates the license renewal workflow.
+
+![](./_images/fusion-license.svg)
+
+If your Platform installation is air-gapped, Seqera renews your license on an annual basis and provides a license certificate. The following diagram illustrates the license renewal workflow.
+
+![](./_images/fusion-license-air-gap.svg)
+
+
+[get-started]: ./get-started.mdx
