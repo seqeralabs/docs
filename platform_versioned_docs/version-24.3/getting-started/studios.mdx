@@ -66,8 +66,8 @@ From the **Data Studios** tab, select **Add a data studio** and complete the fol
     ```
 
 - Confirm the data studio details in the **Summary** tab
-- Select **Add** and choose whether to add and start the studio immediately.
-- When the data studio is created and in a running state, **Connect** to it. 
+- Select **Add** or choose to **Add and start** the studio immediately.
+- If you chose to **Add** the studio in the preceding step, select **Connect** in the options menu to open the studio in a new browser tab. 
 
 ![Add data studio](./_images/add-ds-pf.gif)
 
@@ -133,9 +133,8 @@ Data studios compete for computing resources when sharing compute environments. 
 :::
 - Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the results of your nf-core/differentialabundance pipeline run. 
 - Optional: Enter CPU and memory allocations. The default values are 2 CPUs and 8192 MB memory (RAM).
-- Select **Add**.
-- Once the studio has been created, select the options menu next to it and select **Start**.
-- When the studio is in a running state, **Connect** to it. 
+- Select **Add** or choose to **Add and start** the studio immediately.
+- If you chose to **Add** the studio in the preceding step, select **Start** in the options menu, then **Connect** to open the studio in a new browser tab when it is running. 
 
 ![Add data studio](./_images/create-ds.gif)
 
@@ -175,12 +174,48 @@ Data studios compete for computing resources when sharing compute environments. 
 
 ![Explore the RShiny app](./quickstart-demo/assets/rnaseq-diffab-rshiny-app-explore.gif)
 
-## Xpra: Perform interactive digital pathology analysis 
+## Xpra: Interactive digital pathology analysis of cancer imaging data
+
+In this section, we'll explore how Studios and Xpra remote desktop technology enables interactive digital pathology analysis using QuPath, a powerful open-source software for bioimage analysis. We'll demonstrate how to set up an Xpra environment, install QuPath, and analyze cancer imaging data from the Imaging Data Commons (IDC). See [Using QuPath for visualization](https://learn.canceridc.dev/tutorials/slide-microscopy/qpath-for-sm-visualization) for the full IDC tutorial. 
+
+### Add public cloud data using Data Explorer
+
+For the purposes of following the [IDC visualization tutorial](https://learn.canceridc.dev/tutorials/slide-microscopy/qpath-for-sm-visualization), you must add the public IDC cancer data S3 bucket to your workspace using Data Explorer:
+
+1. From the **Data Explorer** tab, select **Add cloud bucket**. 
+1. Specify the bucket details:
+    - **Provider**: AWS
+    - **Bucket path**: `s3://idc-open-data/`
+    - A unique **Name** for the bucket, such as `idc-open-data`.
+    - **Credentials**: Select **Public** from the dropdown menu.
+    - An optional bucket **Description**.
+1. Select **Add**.
 
 ### Create an Xpra studio 
 
+From the **Data Studios** tab, select **Add a data studio** and complete the following:
+- Select the latest **Xpra** container image template from the list.
+- Select your AWS Batch compute environment. 
+:::note
+Studios compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and data studio sessions. The default CPU and memory allocation for a studio is 2 CPUs and 8192 MB RAM. 
+:::
+- Mount data using Data Explorer: For the purposes of this guide, mount the IDC open data S3 bucket you added previously. 
+- Optional: Enter CPU and memory allocations.
+- Select **Add** or choose to **Add and start** the studio immediately.
+- If you chose to **Add** the studio in the preceding step, select **Connect** in the options menu to open the studio in a new browser tab. 
+
 ### Perform the analysis and explore results 
 
+1. Configure the Xpra environment by installing QuPath:
+
+    ```shell
+    sudo apt install xz-utils
+    wget https://github.com/qupath/qupath/releases/download/v0.5.1/QuPath-v0.5.1-Linux.tar.xz
+    tar -xf QuPath-v0.5.1-Linux.tar.xz
+    chmod u+x ./QuPath/bin/QuPath
+    ```
+
+1. TODO
 
 ## VS Code: Create a Python Conda environment with nf-core tools to develop Nextflow pipelines 
 
