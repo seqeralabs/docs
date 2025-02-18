@@ -1,11 +1,11 @@
 ---
-title: "Data Studios deployment"
+title: "Studios deployment"
 description: Deploy Seqera Platform with Data studios
 date: "12 Jun 2024"
 tags: [docker, compose, kubernetes, data, studios, deployment]
 ---
 
-Enable Data Studios as part of your Seqera Platform instance. You must have Data Explorer enabled to use Data Studios. Only the Amazon AWS public cloud is currently supported.
+Enable Studios as part of your Seqera Platform instance. You must have Data Explorer enabled to use Data Studios. Only the Amazon AWS public cloud is currently supported.
 
 :::caution 
 You must complete the upgrade of your Platform Enterprise installation to version 24.1.4 before enabling and configuring Data Studios.
@@ -13,27 +13,27 @@ You must complete the upgrade of your Platform Enterprise installation to versio
 
 ## DNS configuration
 
-Each data studio is reachable at a unique URL that includes a randomly generated subdomain name. For example: `https://abcd.example.com/`, where `example.com` is your Seqera base domain name.
+Each Studio is reachable at a unique URL that includes a randomly generated subdomain name. For example: `https://abcd.example.com/`, where `example.com` is your Seqera base domain name.
 
 Provide a wildcard TLS certificate to allow for uniquely generated subdomains. A wildcard certificate common name includes `*.` in the domain name, such as `*.example.com`, thereby securing any subdomain name at this level.
 
-Data Studios uses the following set of domains and subdomains:
+Studios uses the following set of domains and subdomains:
 
 - The domain that you set for `TOWER_SERVER_URL`, such as `example.com`.
 - A wildcard subdomain that you must configure specifically for Data Studios. This wildcard subdomain is the parent for each unique data studios session URL, such as `abcd.example.com`.
 - The connection proxy, defined by `CONNECT_PROXY_URL`. This URL is a first-level subdomain of your `TOWER_SERVER_URL`. For example, `https://connect.example.com`. 
 
-## Data Studios workspace availability
+## Studios workspace availability
 
-You can configure which organizational workspaces have access to Data Studios. This configuration is set in the `tower.yml` file. The `tower.data-studio.allowed-workspaces` field supports the following options:
+You can configure which organizational workspaces have access to Studios. This configuration is set in the `tower.yml` file. The `tower.data-studio.allowed-workspaces` field supports the following options:
 
-- `allowed-workspaces: []`: Disables Data Studios. This is the default if the `allowed-workspaces` field is not specified.
-- `allowed-workspaces: [ <WORKSPACE_ID>,<WORKSPACE_ID> ]`: Enables Data Studios for the comma-separated list of organizational workspace IDs.
-- `allowed-workspaces: null`: Enables Data Studios for all organizational workspaces.
+- `allowed-workspaces: []`: Disables Studios. This is the default if the `allowed-workspaces` field is not specified.
+- `allowed-workspaces: [ <WORKSPACE_ID>,<WORKSPACE_ID> ]`: Enables Studios for the comma-separated list of organizational workspace IDs.
+- `allowed-workspaces: null`: Enables Studios for all organizational workspaces.
 
 ## Available data studio environment images
 
-Each of the provided Data Studios environments includes a particular version of the underlying data analytics software package.
+Each of the provided Studios environments includes a particular version of the underlying data analytics software package.
 
 To quickly identify which version of the software an image includes, the version string for each container is in the form of `<software_version>-<seqera_version>`. For example, if the version string for the RStudio Server is `4.4.1-0.7.4`, version `4.4.1` is the RStudio version and `0.7.4` is the version of this Seqera-built container image.
 
@@ -93,11 +93,11 @@ This guide assumes that all services will be run in the same container as the re
 1. Open `tower.env` in an editor and set the following variables:
 
     - `TOWER_DATA_EXPLORER_ENABLED`: Set `true` to enable Data Explorer. You must enable Data Explorer to mount data inside a data studio instance.
-    - `TOWER_DATA_STUDIO_CONNECT_URL`: The URL of the Data Studios connect proxy, such as `https://connect.example.com/`.
+    - `TOWER_DATA_STUDIO_CONNECT_URL`: The URL of the Studios connect proxy, such as `https://connect.example.com/`.
     - `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`: The same value set in the `oidc_registration_token` environment variable.
     - `TOWER_OIDC_PEM_PATH`: The file path to a PEM certificate used for signing the OIDC tokens for the OpenID connect provider, mounted as a volume inside the container.
 
-1. Edit the `tower.yml` file and include the following snippet to enable Data Studios in all organization workspaces:
+1. Edit the `tower.yml` file and include the following snippet to enable Studios in all organization workspaces:
 
     ```yaml
     tower:
@@ -113,7 +113,7 @@ This guide assumes that all services will be run in the same container as the re
     docker ps
     ```
 
-1. To confirm that Data Studios is available, log in to your Platform instance and navigate to an organizational workspace that has Data Studios enabled. The **Data Studios** tab is included with the available tabs.
+1. To confirm that Studios is available, log in to your Platform instance and navigate to an organizational workspace that has Data Studios enabled. The **Studios** tab is included with the available tabs.
 
 ## Kubernetes
 
@@ -121,7 +121,7 @@ This procedure describes how to configure Data Studios for Kubernetes deployment
 
 ### Procedure
 
-1. Download the Kubernetes manifests for the Data Studios service:
+1. Download the Kubernetes manifests for the Studios service:
 
     - [Proxy](./_templates/k8s/data_studios/proxy.yml)
     - [Server](./_templates/k8s/data_studios/server.yml)
@@ -174,7 +174,7 @@ This procedure describes how to configure Data Studios for Kubernetes deployment
     base64_pem=$(cat data-studios-rsa.pem | base64)
     ```
 
-1. Create a Secret file named `secret.yml` and set the `oidc.pem` key by pasting the contents of the base64-encoded public/private key pair:
+1. Create a secret file named `secret.yml` and set the `oidc.pem` key by pasting the contents of the base64-encoded public/private key pair:
 
     ```yaml
     apiVersion: v1
@@ -186,17 +186,17 @@ This procedure describes how to configure Data Studios for Kubernetes deployment
       oidc.pem: <BASE64_ENCODED_PEM_FILE>
     ```
 
-1. Create the Secret:
+1. Create the secret:
 
     ```
     kubectl apply -f secret.yml
     ```
 
-1. Edit the `tower-svc.yml` file and uncomment the `volumes.cert-volume`, `volumeMounts.cert-volume`, and `env.TOWER_OIDC_PEM_PATH` fields so that the public/private key pair is available to Platform.
+1. Edit the `tower-src.yml` file and uncomment the `volumes.cert-volume`, `volumeMounts.cert-volume`, and `env.TOWER_OIDC_PEM_PATH` fields so that the public/private key pair is available to Platform.
 
 1. Edit the ConfigMap named `platform-backend-cfg` in the `configmap.yml` for Platform by editing the following environment variables:
 
-   - `TOWER_DATA_STUDIO_CONNECT_URL`: The URL of the Data Studios connect proxy, such as `https://connect.example.com/`.
+   - `TOWER_DATA_STUDIO_CONNECT_URL`: The URL of the Studios connect proxy, such as `https://connect.example.com/`.
    - `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`: The same value as the `oidc_registration_token` value created previously.
 
 1. Edit the ConfigMap named `tower-yml` in the `configmap.yml` and include the following snippet:
@@ -236,7 +236,7 @@ This procedure describes how to configure Data Studios for Kubernetes deployment
     kubectl scale --replicas=1 deployment/backend
     ```
 
-1. Apply the Data Studios manifests:
+1. Apply the Studios manifests:
 
     ```
     kubectl apply -f ingress.aks.yml proxy.yml server.yml
@@ -244,4 +244,4 @@ This procedure describes how to configure Data Studios for Kubernetes deployment
 
     It can take several minutes for Kubernetes to apply your changes, during which new pods are rolled out.
 
-1. To confirm that Data Studios is available, log in to your Platform instance and navigate to an organizational workspace that has Data Studios enabled. The **Data Studios** tab is included with the available tabs.
+1. To confirm that Studios is available, log in to your Platform instance and navigate to an organizational workspace that has Studios enabled. The **Studios** tab is included with the available tabs.
