@@ -1,0 +1,348 @@
+---
+title: "Studios for interactive analysis"
+description: "An tutorial for creating interactive analysis Studios for Jupyter, RStudio, VSCode, and more"
+date: "17 Feb 2025"
+tags: [platform, studios, data studios, jupyter, rstudio, xpra, vscode, conda]
+toc_max_heading_level: 2
+---
+
+Seqera Studios allows users to host a variety of container images in Seqera Platform compute environments for dynamic analysis using popular tools such as Jupyter and RStudio notebooks, Visual Studio Code IDEs, and Xpra remote desktops. Each Studio session provides an individual interactive environment that encapsulates the live environment for real-time data analysis.
+
+In this guide, we'll explore how Seqera Studios seamlessly integrates with your existing workflows, bridging the gap between pipeline execution and interactive analysis. We'll demonstrate how to set up and use different types of Studios, showcasing real-world use cases that highlight the power and flexibility that Studios can bring to your analysis workflows. 
+
+## Overview 
+
+Seqera Studios is a powerful feature of the Seqera Platform that enables seamless integration of interactive analysis environments with your existing bioinformatics workflows. It addresses the common challenge of transitioning between automated pipeline executions and exploratory data analysis, providing a unified solution for the entire data analysis lifecycle.
+
+**Key Features and Benefits**:
+
+- Unified Platform: Host various container images and compute environments in one place.
+- Preferred Tools: Support for popular analysis tools like JupyterLab, RStudio, VSCode, and Xpra.
+- Seamless Integration: Easily transition from pipeline outputs to interactive analysis.
+- Collaboration: Share interactive environments to foster teamwork and knowledge sharing.
+- Reproducibility: Version-controlled containers ensure consistent and replicable analyses.
+- Cost Efficiency: On-demand, scalable compute environments optimize resource usage.
+
+**Requirements**:
+
+- Valid credentials for your cloud storage account and compute environment
+- To create and configure Studios, you need at least the "Maintain" workspace user role
+- A workspace compute environment with sufficient resources (recommended minimum: 2 CPUs, 8192 MB memory)
+- Data Explorer enabled in your workspace
+- Studios currently supports AWS Batch compute environments (without Fargate)
+
+
+## Jupyter: Python-based visualization of protein structure prediction data 
+
+In this section, we'll demonstrate how to set up a Jupyter notebook Studio for visualizing results from the [nf-core/proteinfold](https://nf-co.re/proteinfold/1.1.1) pipeline.
+
+### Create a Jupyter notebook studio
+
+From the **Data Studios** tab, select **Add a data studio** and complete the following:
+- In the **Compute & Data** tab:
+    - Select an AWS Batch compute environment. 
+        :::info
+        The same compute environment can be used for pipeline execution and running your Studios notebook environment, but Data Studios does not support AWS Fargate. To use one compute environment for both nf-core/proteinfold pipeline execution and your studio, leave **Enable Fargate for head job** disabled. Alternatively, create a second basic AWS Batch compute environment with at least 2 CPUs and 8192 MB of RAM for your studio.
+        :::
+    - Optional: Enter CPU and memory allocations. The default values are 2 CPUs and 8192 MB memory (RAM).
+        :::note
+        Studios compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and data studio sessions. 
+        :::
+    - Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the pipeline work directory of your Proteinfold run. 
+- In the **General config** tab:
+    - Select the latest **Jupyter** container image template from the list.
+    - Optional: Enter a unique name and description for the data studio. 
+    - Check **Install Conda packages** and paste the following Conda environment YAML snippet:
+
+    ```yaml 
+    channels:
+      - bioconda
+      - conda-forge
+    dependencies:
+      - python=3.10
+      - conda-forge::biopython=1.84
+      - conda-forge::nglview=3.1.2
+      - conda-forge::ipywidgets=8.1.5
+    ```
+
+- Confirm the data studio details in the **Summary** tab.
+- Select **Add** or choose to **Add and start** the studio immediately.
+- If you chose to **Add** the studio in the preceding step, select **Connect** in the options menu to open the studio in a new browser tab. 
+
+![Add data studio](./_images/add-ds-pf.gif)
+
+### Visualize protein structures 
+
+The Jupyter environment can be configured with the packages and scripts you need for interactive analysis. For the purposes of this guide, download and run this script to install the necessary packages and perform visualization. The steps performed by the script are detailed individually below:
+
+
+<summary>Jupyter notebook script individual steps</summary>
+<details>
+    1. Import libraries:
+
+        ```python 
+        from Bio import PDB
+        import numpy as np
+        from pymol import cmd
+        from Bio.PDB.DSSP import dssp_dict_from_pdb_file
+        import mdtraj as md
+        ```
+
+    1. Set up PDB file paths: 
+
+        ```python 
+        alphafold2_multimer_standard = "./H1065.alphafold_multimer.pdb"
+        esmfold_multimer = "./H1065.esmfold_multimer.pdb"
+        ```
+
+    1. Initialize PDB parser:
+
+        ```python
+        parser = PDB.PDBParser(QUIET=True)
+        ```
+
+    1. Load the two structures from your PDB files: 
+
+        ```python 
+        structure1 = parser.get_structure("protein1", alphafold2_multimer_standard)
+        structure2 = parser.get_structure("protein2", esmfold_multimer)
+        ```
+
+    1. Get CA atoms from both structures: 
+
+        ```python 
+        ca_atoms_1 = [atom for atom in structure1.get_atoms() if atom.name == 'CA']
+        ca_atoms_2 = [atom for atom in structure2.get_atoms() if atom.name == 'CA']
+        ```
+
+    1. Check if the structures have the same number of CA atoms, else superimpose the atoms and calculate the RMSD: 
+
+        ```python 
+        if len(ca_atoms_1) != len(ca_atoms_2):
+            print(f"Warning: Structures have different numbers of CA atoms")
+            print(f"Structure 1: {len(ca_atoms_1)} CA atoms")
+            print(f"Structure 2: {len(ca_atoms_2)} CA atoms")
+        else:
+            # Initialize Superimposer
+            super_imposer = PDB.Superimposer()
+            
+            # Set the atoms to be superimposed
+            super_imposer.set_atoms(ca_atoms_1, ca_atoms_2)
+            
+            # Calculate RMSD
+            rmsd = super_imposer.rms
+            
+            print(f"RMSD between structures: {rmsd:.2f} Å")
+        ```
+
+    1. Compare secondary structures: 
+
+        ```python 
+        def compare_secondary_structure(pdb1, pdb2):
+            dssp1 = dssp_dict_from_pdb_file(pdb1)[0]
+            dssp2 = dssp_dict_from_pdb_file(pdb2)[0]
+            
+            matches = 0
+            total = min(len(dssp1), len(dssp2))
+            
+            for res1, res2 in zip(dssp1.keys(), dssp2.keys()):
+                if dssp1[res1] == dssp2[res2]:
+                    matches += 1
+            
+            return matches / total * 100
+        ```
+
+    1. Calculate contact maps: 
+
+        ```python 
+        def calculate_contact_map(structure, threshold=8.0):
+            ca_atoms = [atom for atom in structure.get_atoms() if atom.name == 'CA']
+            n = len(ca_atoms)
+            contact_map = np.zeros((n, n))
+            
+            for i, atom1 in enumerate(ca_atoms):
+                for j, atom2 in enumerate(ca_atoms):
+                    dist = atom1 - atom2
+                    contact_map[i,j] = 1 if dist < threshold else 0
+                    
+            return contact_map
+        ```
+
+    1. Calculate contact map similarity: 
+
+        ```python 
+        contact_map1 = calculate_contact_map(structure1)
+        contact_map2 = calculate_contact_map(structure2)
+        contact_similarity = np.sum(contact_map1 == contact_map2) / contact_map1.size
+        ```
+
+    1. Calculate the per-residue RMSD: 
+
+        ```python 
+        def calculate_per_residue_rmsd(struct1, struct2):
+            per_res_rmsd = []
+            for (res1, res2) in zip(struct1.get_residues(), struct2.get_residues()):
+                atoms1 = [atom.get_coord() for atom in res1 if atom.name in ['N', 'CA', 'C', 'O']]
+                atoms2 = [atom.get_coord() for atom in res2 if atom.name in ['N', 'CA', 'C', 'O']]
+                if len(atoms1) == len(atoms2):
+                    rmsd = np.sqrt(np.mean(np.sum((np.array(atoms1) - np.array(atoms2))**2, axis=1)))
+                    per_res_rmsd.append(rmsd)
+            return per_res_rmsd
+        ```
+
+    1. Calculate and print additional metrics: 
+
+        ```python 
+        ss_agreement = compare_secondary_structure("protein1.pdb", "protein2.pdb")
+        per_res_rmsd = calculate_per_residue_rmsd(structure1, structure2)
+
+        print(f"Secondary structure agreement: {ss_agreement:.1f}%")
+        print(f"Contact map similarity: {contact_similarity:.3f}")
+        print(f"Average per-residue RMSD: {np.mean(per_res_rmsd):.2f} Å")
+        ```
+
+    1. Visualize structures in PyMOL:
+
+        ```python 
+        cmd.load("protein1.pdb", "protein1")
+        cmd.load("protein2.pdb", "protein2")
+        ```
+
+    1. Apply contrasting structure colors:
+
+        ```python 
+        cmd.color("cyan", "protein1")
+        cmd.color("magenta", "protein2")
+        ```
+
+    1. Align structures: 
+
+        ```python 
+        cmd.align("protein1", "protein2")
+        ```
+
+    1. Set visualization parameters:
+
+        ```python 
+        cmd.show("cartoon")
+        cmd.zoom("all")
+        ```
+
+    1. (Optional) Save the session:
+
+        ```python 
+        cmd.save("comparison.pse")
+        ```
+
+    1. Visualize the per-residue RMSD in PyMOL:
+
+        ```python 
+        cmd.alter("protein1", f"b={per_res_rmsd}")
+        cmd.spectrum("b", "blue_white_red", "protein1")
+        cmd.show("cartoon")
+        ```
+</details>    
+
+## RStudio: Analyze RNASeq data and differential expression statistics 
+
+In this section, we have run the **nf-core/rnaseq** pipeline to quantify gene expression in RNA sequencing data, followed by **nf-core/differentialabundance** to derive differential expression statistics. This section demonstrates how to create a studio to perform further analysis with these results from cloud storage. One of these outputs is an RShiny application that can be deployed for interactive analysis.
+
+### Create an RStudio notebook studio 
+
+From the **Data Studios** tab, select **Add a data studio** and complete the following:
+- Select the latest **RStudio** container image template from the list.
+- Select your AWS Batch compute environment. 
+:::note
+Data studios compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and data studio sessions. The default CPU and memory allocation for a data studio is 2 CPUs and 8192 MB RAM. 
+:::
+- Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the results of your nf-core/differentialabundance pipeline run. 
+- Optional: Enter CPU and memory allocations. The default values are 2 CPUs and 8192 MB memory (RAM).
+- Select **Add** or choose to **Add and start** the studio immediately.
+- If you chose to **Add** the studio in the preceding step, select **Start** in the options menu, then **Connect** to open the studio in a new browser tab when it is running. 
+
+![Add data studio](./_images/create-ds.gif)
+
+### Perform the analysis and explore results
+
+1. Configure the RStudio environment with installed packages, including ShinyNGS:
+
+    ```r 
+    if (!require("BiocManager", quietly = TRUE))
+      install.packages("BiocManager")
+
+    BiocManager::install(version = "3.11", ask = FALSE)
+    BiocManager::install(c("SummarizedExperiment", "GSEABase", "limma"))
+
+    install.packages(c("devtools", "matrixStats", "rmarkdown", "markdown"))
+    install.packages("shiny", repos = "https://cran.rstudio.com/")
+
+    devtools::install_version("cpp11", version = "0.2.1", repos = "http://cran.us.r-project.org")
+    devtools::install_github('pinin4fjords/shinyngs', upgrade_dependencies = FALSE)
+    ```
+
+1. Download the RDS file from your nf-core/differentialabundance results (see [Shiny app](https://nf-co.re/differentialabundance/1.5.0/docs/output/#shiny-app) from the nf-core documentation for file details): 
+
+    ```r 
+    download.file("https://your-bucket.your-s3-region.amazonaws.com/differentialabundance/your-results/shinyngs_app/you-study-name/data.rds", 'data.rds')
+    ```
+
+1. Import libraries, read your RDS data, and launch the RShiny app:
+
+    ```r 
+    library(shinyngs)
+    library(markdown)
+    esel <- readRDS("data.rds")
+    app <- prepareApp("rnaseq", esel)
+    shiny::shinyApp(app$ui, app$server)
+    ```
+
+![Explore the RShiny app](./quickstart-demo/assets/rnaseq-diffab-rshiny-app-explore.gif)
+
+## Xpra: Interactive digital pathology analysis of cancer imaging data
+
+In this section, we'll explore how Studios and Xpra remote desktop technology enables interactive digital pathology analysis using QuPath, a powerful open-source software for bioimage analysis. We'll demonstrate how to set up an Xpra environment, install QuPath, and analyze cancer imaging data from the Imaging Data Commons (IDC). See [Using QuPath for visualization](https://learn.canceridc.dev/tutorials/slide-microscopy/qpath-for-sm-visualization) for the full IDC tutorial. 
+
+### Add public cloud data using Data Explorer
+
+For the purposes of following the [IDC visualization tutorial](https://learn.canceridc.dev/tutorials/slide-microscopy/qpath-for-sm-visualization), you must add the public IDC cancer data S3 bucket to your workspace using Data Explorer:
+
+1. From the **Data Explorer** tab, select **Add cloud bucket**. 
+1. Specify the bucket details:
+    - **Provider**: AWS
+    - **Bucket path**: `s3://idc-open-data/`
+    - A unique **Name** for the bucket, such as `idc-open-data`.
+    - **Credentials**: Select **Public** from the dropdown menu.
+    - An optional bucket **Description**.
+1. Select **Add**.
+
+### Create an Xpra studio 
+
+From the **Data Studios** tab, select **Add a data studio** and complete the following:
+- Select the latest **Xpra** container image template from the list.
+- Select your AWS Batch compute environment. 
+:::note
+Studios compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and data studio sessions. The default CPU and memory allocation for a studio is 2 CPUs and 8192 MB RAM. 
+:::
+- Mount data using Data Explorer: For the purposes of this guide, mount the IDC open data S3 bucket you added previously. 
+- Optional: Enter CPU and memory allocations.
+- Select **Add** or choose to **Add and start** the studio immediately.
+- If you chose to **Add** the studio in the preceding step, select **Connect** in the options menu to open the studio in a new browser tab. 
+
+### Perform the analysis and explore results 
+
+1. Configure the Xpra environment by installing QuPath:
+
+    ```shell
+    sudo apt install xz-utils
+    wget https://github.com/qupath/qupath/releases/download/v0.5.1/QuPath-v0.5.1-Linux.tar.xz
+    tar -xf QuPath-v0.5.1-Linux.tar.xz
+    chmod u+x ./QuPath/bin/QuPath
+    ```
+
+1. TODO
+
+## VS Code: Create a Python Conda environment with nf-core tools to develop Nextflow pipelines 
+
+### Create a VS Code studio 
+
+### Customize your development environment
