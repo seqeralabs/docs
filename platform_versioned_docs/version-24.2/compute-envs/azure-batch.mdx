@@ -168,7 +168,7 @@ To create an Entra service principal:
     1. Go to the Azure Storage account. Under **Access Control (IAM)**, select **Add role assignment**.
     1. Select the **Storage Blob Data Reader** and **Storage Blob Data Contributor** roles.
     1. Select **Members**, then **Select Members**. Search for your newly created service principal and assign the role.
-    1. Repeat the same process for the Azure Batch account, using the **Azure Batch Contributor** role.
+    1. Repeat the same process for the Azure Batch account, using the **Azure Batch Data Contributor** role.
 1. Platform will need credentials to authenticate as the service principal:
     1. Navigate back to the app registration. On the **Overview** page, save the **Application (client) ID** value for use in Platform.
     1. Select **Certificates & secrets**, then **New client secret**. A new secret is created containing a value and secret ID. Save both values securely for use in Platform. 
