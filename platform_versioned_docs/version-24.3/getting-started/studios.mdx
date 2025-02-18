@@ -34,7 +34,7 @@ Seqera Studios is a powerful feature of the Seqera Platform that enables seamles
 
 ## Jupyter: Python-based visualization of protein structure prediction data 
 
-In this section, we'll demonstrate how to set up a JupyterLab Studio for visualizing results from the [nf-core/proteinfold](https://nf-co.re/proteinfold/1.1.1) pipeline.
+In this section, we'll demonstrate how to set up a Jupyter notebook Studio for visualizing results from the [nf-core/proteinfold](https://nf-co.re/proteinfold/1.1.1) pipeline.
 
 ### Create a Jupyter notebook studio
 
@@ -73,173 +73,175 @@ From the **Data Studios** tab, select **Add a data studio** and complete the fol
 
 ### Visualize protein structures 
 
-The Jupyter environment can be configured with the packages and scripts you need for interactive analysis. For the purposes of this guide, run the following scripts in individual code cells to install the necessary packages and perform visualization:
+The Jupyter environment can be configured with the packages and scripts you need for interactive analysis. For the purposes of this guide, download and run this script to install the necessary packages and perform visualization. The steps performed by the script are detailed individually below:
 
 
-1. Import libraries:
+<summary>Jupyter notebook script individual steps</summary>
+<details>
+    1. Import libraries:
 
-    ```python 
-    from Bio import PDB
-    import numpy as np
-    from pymol import cmd
-    from Bio.PDB.DSSP import dssp_dict_from_pdb_file
-    import mdtraj as md
-    ```
+        ```python 
+        from Bio import PDB
+        import numpy as np
+        from pymol import cmd
+        from Bio.PDB.DSSP import dssp_dict_from_pdb_file
+        import mdtraj as md
+        ```
 
-1. Set up PDB file paths: 
+    1. Set up PDB file paths: 
 
-    ```python 
-    alphafold2_multimer_standard = "./H1065.alphafold_multimer.pdb"
-    esmfold_multimer = "./H1065.esmfold_multimer.pdb"
-    ```
+        ```python 
+        alphafold2_multimer_standard = "./H1065.alphafold_multimer.pdb"
+        esmfold_multimer = "./H1065.esmfold_multimer.pdb"
+        ```
 
-1. Initialize PDB parser:
+    1. Initialize PDB parser:
 
-    ```python
-    parser = PDB.PDBParser(QUIET=True)
-    ```
+        ```python
+        parser = PDB.PDBParser(QUIET=True)
+        ```
 
-1. Load the two structures from your PDB files: 
+    1. Load the two structures from your PDB files: 
 
-    ```python 
-    structure1 = parser.get_structure("protein1", alphafold2_multimer_standard)
-    structure2 = parser.get_structure("protein2", esmfold_multimer)
-    ```
+        ```python 
+        structure1 = parser.get_structure("protein1", alphafold2_multimer_standard)
+        structure2 = parser.get_structure("protein2", esmfold_multimer)
+        ```
 
-1. Get CA atoms from both structures: 
+    1. Get CA atoms from both structures: 
 
-    ```python 
-    ca_atoms_1 = [atom for atom in structure1.get_atoms() if atom.name == 'CA']
-    ca_atoms_2 = [atom for atom in structure2.get_atoms() if atom.name == 'CA']
-    ```
+        ```python 
+        ca_atoms_1 = [atom for atom in structure1.get_atoms() if atom.name == 'CA']
+        ca_atoms_2 = [atom for atom in structure2.get_atoms() if atom.name == 'CA']
+        ```
 
-1. Check if the structures have the same number of CA atoms, else superimpose the atoms and calculate the RMSD: 
+    1. Check if the structures have the same number of CA atoms, else superimpose the atoms and calculate the RMSD: 
 
-    ```python 
-    if len(ca_atoms_1) != len(ca_atoms_2):
-        print(f"Warning: Structures have different numbers of CA atoms")
-        print(f"Structure 1: {len(ca_atoms_1)} CA atoms")
-        print(f"Structure 2: {len(ca_atoms_2)} CA atoms")
-    else:
-        # Initialize Superimposer
-        super_imposer = PDB.Superimposer()
-        
-        # Set the atoms to be superimposed
-        super_imposer.set_atoms(ca_atoms_1, ca_atoms_2)
-        
-        # Calculate RMSD
-        rmsd = super_imposer.rms
-        
-        print(f"RMSD between structures: {rmsd:.2f} Å")
-    ```
+        ```python 
+        if len(ca_atoms_1) != len(ca_atoms_2):
+            print(f"Warning: Structures have different numbers of CA atoms")
+            print(f"Structure 1: {len(ca_atoms_1)} CA atoms")
+            print(f"Structure 2: {len(ca_atoms_2)} CA atoms")
+        else:
+            # Initialize Superimposer
+            super_imposer = PDB.Superimposer()
+            
+            # Set the atoms to be superimposed
+            super_imposer.set_atoms(ca_atoms_1, ca_atoms_2)
+            
+            # Calculate RMSD
+            rmsd = super_imposer.rms
+            
+            print(f"RMSD between structures: {rmsd:.2f} Å")
+        ```
 
-1. Compare secondary structures: 
+    1. Compare secondary structures: 
 
-    ```python 
-    def compare_secondary_structure(pdb1, pdb2):
-        dssp1 = dssp_dict_from_pdb_file(pdb1)[0]
-        dssp2 = dssp_dict_from_pdb_file(pdb2)[0]
-        
-        matches = 0
-        total = min(len(dssp1), len(dssp2))
-        
-        for res1, res2 in zip(dssp1.keys(), dssp2.keys()):
-            if dssp1[res1] == dssp2[res2]:
-                matches += 1
-        
-        return matches / total * 100
-    ```
+        ```python 
+        def compare_secondary_structure(pdb1, pdb2):
+            dssp1 = dssp_dict_from_pdb_file(pdb1)[0]
+            dssp2 = dssp_dict_from_pdb_file(pdb2)[0]
+            
+            matches = 0
+            total = min(len(dssp1), len(dssp2))
+            
+            for res1, res2 in zip(dssp1.keys(), dssp2.keys()):
+                if dssp1[res1] == dssp2[res2]:
+                    matches += 1
+            
+            return matches / total * 100
+        ```
 
-1. Calculate contact maps: 
+    1. Calculate contact maps: 
 
-    ```python 
-    def calculate_contact_map(structure, threshold=8.0):
-        ca_atoms = [atom for atom in structure.get_atoms() if atom.name == 'CA']
-        n = len(ca_atoms)
-        contact_map = np.zeros((n, n))
-        
-        for i, atom1 in enumerate(ca_atoms):
-            for j, atom2 in enumerate(ca_atoms):
-                dist = atom1 - atom2
-                contact_map[i,j] = 1 if dist < threshold else 0
-                
-        return contact_map
-    ```
+        ```python 
+        def calculate_contact_map(structure, threshold=8.0):
+            ca_atoms = [atom for atom in structure.get_atoms() if atom.name == 'CA']
+            n = len(ca_atoms)
+            contact_map = np.zeros((n, n))
+            
+            for i, atom1 in enumerate(ca_atoms):
+                for j, atom2 in enumerate(ca_atoms):
+                    dist = atom1 - atom2
+                    contact_map[i,j] = 1 if dist < threshold else 0
+                    
+            return contact_map
+        ```
 
-1. Calculate contact map similarity: 
+    1. Calculate contact map similarity: 
 
-    ```python 
-    contact_map1 = calculate_contact_map(structure1)
-    contact_map2 = calculate_contact_map(structure2)
-    contact_similarity = np.sum(contact_map1 == contact_map2) / contact_map1.size
-    ```
+        ```python 
+        contact_map1 = calculate_contact_map(structure1)
+        contact_map2 = calculate_contact_map(structure2)
+        contact_similarity = np.sum(contact_map1 == contact_map2) / contact_map1.size
+        ```
 
-1. Calculate the per-residue RMSD: 
+    1. Calculate the per-residue RMSD: 
 
-    ```python 
-    def calculate_per_residue_rmsd(struct1, struct2):
-        per_res_rmsd = []
-        for (res1, res2) in zip(struct1.get_residues(), struct2.get_residues()):
-            atoms1 = [atom.get_coord() for atom in res1 if atom.name in ['N', 'CA', 'C', 'O']]
-            atoms2 = [atom.get_coord() for atom in res2 if atom.name in ['N', 'CA', 'C', 'O']]
-            if len(atoms1) == len(atoms2):
-                rmsd = np.sqrt(np.mean(np.sum((np.array(atoms1) - np.array(atoms2))**2, axis=1)))
-                per_res_rmsd.append(rmsd)
-        return per_res_rmsd
-    ```
+        ```python 
+        def calculate_per_residue_rmsd(struct1, struct2):
+            per_res_rmsd = []
+            for (res1, res2) in zip(struct1.get_residues(), struct2.get_residues()):
+                atoms1 = [atom.get_coord() for atom in res1 if atom.name in ['N', 'CA', 'C', 'O']]
+                atoms2 = [atom.get_coord() for atom in res2 if atom.name in ['N', 'CA', 'C', 'O']]
+                if len(atoms1) == len(atoms2):
+                    rmsd = np.sqrt(np.mean(np.sum((np.array(atoms1) - np.array(atoms2))**2, axis=1)))
+                    per_res_rmsd.append(rmsd)
+            return per_res_rmsd
+        ```
 
-1. Calculate and print additional metrics: 
+    1. Calculate and print additional metrics: 
 
-    ```python 
-    ss_agreement = compare_secondary_structure("protein1.pdb", "protein2.pdb")
-    per_res_rmsd = calculate_per_residue_rmsd(structure1, structure2)
+        ```python 
+        ss_agreement = compare_secondary_structure("protein1.pdb", "protein2.pdb")
+        per_res_rmsd = calculate_per_residue_rmsd(structure1, structure2)
 
-    print(f"Secondary structure agreement: {ss_agreement:.1f}%")
-    print(f"Contact map similarity: {contact_similarity:.3f}")
-    print(f"Average per-residue RMSD: {np.mean(per_res_rmsd):.2f} Å")
-    ```
+        print(f"Secondary structure agreement: {ss_agreement:.1f}%")
+        print(f"Contact map similarity: {contact_similarity:.3f}")
+        print(f"Average per-residue RMSD: {np.mean(per_res_rmsd):.2f} Å")
+        ```
 
-1. Visualize structures in PyMOL:
+    1. Visualize structures in PyMOL:
 
-    ```python 
-    cmd.load("protein1.pdb", "protein1")
-    cmd.load("protein2.pdb", "protein2")
-    ```
+        ```python 
+        cmd.load("protein1.pdb", "protein1")
+        cmd.load("protein2.pdb", "protein2")
+        ```
 
-1. Apply contrasting structure colors:
+    1. Apply contrasting structure colors:
 
-    ```python 
-    cmd.color("cyan", "protein1")
-    cmd.color("magenta", "protein2")
-    ```
+        ```python 
+        cmd.color("cyan", "protein1")
+        cmd.color("magenta", "protein2")
+        ```
 
-1. Align structures: 
+    1. Align structures: 
 
-    ```python 
-    cmd.align("protein1", "protein2")
-    ```
+        ```python 
+        cmd.align("protein1", "protein2")
+        ```
 
-1. Set visualization parameters:
+    1. Set visualization parameters:
 
-    ```python 
-    cmd.show("cartoon")
-    cmd.zoom("all")
-    ```
+        ```python 
+        cmd.show("cartoon")
+        cmd.zoom("all")
+        ```
 
-1. (Optional) Save the session:
+    1. (Optional) Save the session:
 
-    ```python 
-    cmd.save("comparison.pse")
-    ```
+        ```python 
+        cmd.save("comparison.pse")
+        ```
 
-1. Visualize the per-residue RMSD in PyMOL:
+    1. Visualize the per-residue RMSD in PyMOL:
 
-    ```python 
-    cmd.alter("protein1", f"b={per_res_rmsd}")
-    cmd.spectrum("b", "blue_white_red", "protein1")
-    cmd.show("cartoon")
-    ```
-
+        ```python 
+        cmd.alter("protein1", f"b={per_res_rmsd}")
+        cmd.spectrum("b", "blue_white_red", "protein1")
+        cmd.show("cartoon")
+        ```
+</details>    
 
 ## RStudio: Analyze RNASeq data and differential expression statistics 
 
