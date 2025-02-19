@@ -34,7 +34,7 @@ For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
 
 ## Container image templates
 
-Studios provides four container image templates: JupyterLab, RStudio Server, Visual Studio Code, and Xpra. The image templates install a very limited number of packages when the session container is built. You can install additional packages as needed during a session.
+There are four container image templates provided: JupyterLab, RStudio Server, Visual Studio Code, and Xpra. The image templates install a very limited number of packages when the Studio session container is built. You can install additional packages as needed during a Studio session.
 
 The image template tag includes the version of the analysis application, an optional incompatibility flag, and the Seqera Connect version. Connect is the proprietary Seqera web server client that manages communication with the container. The tag string looks like this:
 
@@ -87,13 +87,13 @@ The default user is the `root` account. The following [conda-forge](https://cond
 - `nb_black=1.0.7`
 - `qgrid=1.3.1`
 
-To install additional Python packages during a running session, execute `!pip install <packagename>` commands in your notebook environment. Additional system-level packages can be installed in a terminal window using `apt install <packagename>`.
+To install additional Python packages during a running Studio session, execute `!pip install <packagename>` commands in your notebook environment. Additional system-level packages can be installed in a terminal window using `apt install <packagename>`.
 
 To see the list of all JupyterLab image templates available, see [public.cr.seqera.io/repo/platform/data-studio-jupyter][ds-jupyter].
 
 **RStudio Server 4.4.1**
 
-The default user is the `root` account. To install R packages during a running session, execute `install.packages("<packagename>")` commands in your notebook environment. Additional system-level packages can be installed in a terminal window using `apt install <packagename>`.
+The default user is the `root` account. To install R packages during a running Studio session, execute `install.packages("<packagename>")` commands in your notebook environment. Additional system-level packages can be installed in a terminal window using `apt install <packagename>`.
 
 To see the list of all RStudio Server image templates available, see [public.cr.seqera.io/repo/platform/data-studio-rstudio][ds-rstudio].
 
@@ -111,7 +111,7 @@ The default user is the `root` account. The image is based on `ubuntu:jammy`. Ad
 
 To see the list of all Xpra image templates available, see [public.cr.seqera.io/repo/platform/data-studio-xpra][ds-xpra].
 
-## Session statuses
+## Studio session statuses
 
 Studios have the following possible statuses:
 
@@ -127,7 +127,7 @@ Studios have the following possible statuses:
   If you encounter an error with the public preview release of Studios, [contact Seqera support][contact].
   :::
 
-## Session data links
+## Studio session data links
 
 You can configure a Studio to mount one or more data links, where cloud buckets that you have configured in your compute environment are read-only, or read-write available to the session.
 
@@ -142,11 +142,11 @@ Mounted data links are exposed at the `/workspace/data/` directory path inside a
 
 For more information, see [Limit Studio access to a specific cloud bucket subdirectory][cloud-bucket-subdirectory].
 
-## Session checkpoints
+## Studio session checkpoints
 
 When starting a Studio session, a *checkpoint* is automatically created. A checkpoint saves all changes made to the root filesystem and stores it in the attached compute environment's pipeline work directory in the `.studios/checkpoints` folder with a unique name. The current checkpoint is updated every five minutes during a session.
 
-When you stop and start a Studio session, or start a new Studio session from a previously created checkpoint, changes such as installed software packages and configuration files are restored and made available in the Studio session. Changes made to mounted data are not included in a checkpoint.
+When you stop and start a Studio session, or start a new one from a previously created checkpoint, changes such as installed software packages and configuration files are restored and made available in the Studio session. Changes made to mounted data are not included in a checkpoint.
 
 Checkpoints can be renamed and the name has to be unique per Studio. Spaces in checkpoint names are converted to underscores automatically.
 
