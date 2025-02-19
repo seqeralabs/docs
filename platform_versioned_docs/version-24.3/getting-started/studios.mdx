@@ -34,7 +34,7 @@ Seqera Studios is a powerful feature of the Seqera Platform that enables seamles
 
 ## Jupyter: Python-based visualization of protein structure prediction data 
 
-In this section, we'll demonstrate how to set up a Jupyter notebook Studio for visualizing results from the [nf-core/proteinfold](https://nf-co.re/proteinfold/1.1.1) pipeline.
+In this section, we'll demonstrate how to set up a Jupyter notebook Studio for visualizing results from [nf-core/proteinfold](https://nf-co.re/proteinfold/1.1.1), a bioinformatics best-practice analysis pipeline for Protein 3D structure prediction.
 
 ### Create a Jupyter notebook studio
 
@@ -73,11 +73,14 @@ From the **Data Studios** tab, select **Add a data studio** and complete the fol
 
 ### Visualize protein structures 
 
-The Jupyter environment can be configured with the packages and scripts you need for interactive analysis. For the purposes of this guide, download and run this script to install the necessary packages and perform visualization. The steps performed by the script are detailed individually below:
+The following instructions set up a Jupyter notebook to visualize and compare protein structures produced by Alphafold 2 and ESMFold, creating an interactive visualization of the two structures overlayed in one image with contrasting colors. The script retrieves the CA atoms from both structures, checks whether the structures have the same number of CA atoms, creates a contact map, calculates the per-residue RMSD for each structure, and visualizes the structures, secondary structures, and per-residue RMSD using PyMOL. 
+
+The Jupyter environment can be configured with the packages and scripts you need for interactive analysis. Run the following scripts in individual code cells to install the necessary packages and perform visualization:
 
 
-<summary>Jupyter notebook script individual steps</summary>
 <details>
+<summary>Jupyter notebook script individual steps</summary>
+
     1. Import libraries:
 
         ```python 
@@ -343,6 +346,42 @@ Studios compete for computing resources when sharing compute environments. Ensur
 
 ## VS Code: Create a Python Conda environment with nf-core tools to develop Nextflow pipelines 
 
+Using Studios with VS Code allows you to set up a portable and interactive Nextflow developer environment that contains all the tools you need to code and run Nextflow pipelines. This section will demonstrate how to set up a VS Code Studio with Conda, nf-core tools, and Apptainer, add public data and run the nf-core/fetchngs pipeline with the `test` profile, and create a VS Code project to start coding your own Nextflow pipelines.  
+
+### Create an AWS Batch compute environment 
+
+Studios requires an AWS Batch compute environment. If you do not have an existing compute environment with at least 4 CPUs available, create one with the following attributes:
+
+- **Region**: To reduce costs, your compute environment should be in the same region as your data. To use the iGenomes public data bucket that contains the nf-core/fetchngs `test` profile data, select **eu-west-1**.
+- Use **On-demand** EC2 instances. 
+- Studios does not support AWS Fargate. Do not enable **Use Fargate for head job**. 
+- At least 4 available CPUs 
+
+### Add public data using Data Explorer 
+
+The nf-core/fetchngs pipeline uses data from the NGI iGenomes public dataset for its `test` profile. To add this data to your workspace:
+
+1. From the **Data Explorer** tab, select **Add cloud bucket**.
+1. Specify the bucket details:
+      - **Provider**: AWS
+      - **Bucket path**: `s3://ngi-igenomes/test-data/`
+      - A unique **Name** for the bucket: "ngi-igenomes-test-data", or similar
+      - **Credentials**: **Public**.
+      - An optional bucket **Description**.
+1. Select **Add**.
+
 ### Create a VS Code studio 
 
+From the **Data Studios** tab, select **Add a data studio** and complete the following:
+- Select the latest **VS Code** container image template from the list.
+- Select your AWS Batch compute environment. 
+:::note
+Studios compete for computing resources when sharing compute environments. Shared compute environments must have sufficient resources to run both your pipelines and studio sessions.
+:::
+- Mount data using Data Explorer: For the purposes of this guide, mount the NGI iGenomes S3 bucket you added previously. 
+- Allocate at least 4 CPUs and 8192 MB RAM. 
+- Select **Add** or choose to **Add and start** the studio immediately.
+- If you chose to **Add** the studio in the preceding step, select **Connect** in the options menu to open the studio in a new browser tab. 
+
 ### Customize your development environment
+
