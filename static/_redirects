@@ -24,12 +24,13 @@
 /platform/24.2/faqs/*  /platform/latest/troubleshooting_and_faqs/troubleshooting/:splat   301
 
 # Redirect previous Data Studios content to new structure
-/platform/24.1/data/data-studios   /platform/latest/data_studios/  301
-/platform/24.2/data/data-studios   /platform/latest/data_studios/  301
-
-# Redirect all Data Studios content to Studios
 /platform/24.1/data/data-studios   /platform/latest/studios/  301
 /platform/24.2/data/data-studios   /platform/latest/studios/  301
+
+# Redirect all Data Studios content to Studios
+/platform/24.1/data/data-studios   /platform/latest/studios/*  301
+/platform/24.2/data/data-studios   /platform/latest/studios/*  301
+/platform/24.3/data/data-studios   /platform/latest/studios/*  301
 /platform/latest/data-studios/*    /platform/latest/studios/* 301
 
 # Redirect first result on Google for CLI docs
