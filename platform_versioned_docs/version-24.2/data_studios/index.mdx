@@ -23,7 +23,7 @@ Before you get started, you need the following:
 - [Data Explorer](../data/data-explorer.mdx) is enabled.
 
 :::note
-Currently, Data Studios only supports AWS Batch compute environments that **do not** have Fargate enabled.
+Currently, Studios only supports AWS Batch compute environments that **do not** have Fargate enabled.
 :::
 
 ## Limitations
@@ -34,7 +34,7 @@ For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
 
 ## Container image templates
 
-Data Studios provides four container image templates: JupyterLab, RStudio Server, Visual Studio Code, and Xpra. The image templates install a very limited number of packages when the session container is built. You can install additional packages as needed during a session.
+Studios provides four container image templates: JupyterLab, RStudio Server, Visual Studio Code, and Xpra. The image templates install a very limited number of packages when the session container is built. You can install additional packages as needed during a session.
 
 The image template tag includes the version of the analysis application, an optional incompatibility flag, and the Seqera Connect version. Connect is the proprietary Seqera web server client that manages communication with the container. The tag string looks like this:
 
@@ -111,29 +111,40 @@ The default user is the `root` account. The image is based on `ubuntu:jammy`. Ad
 
 To see the list of all Xpra image templates available, see [public.cr.seqera.io/repo/platform/data-studio-xpra][ds-xpra].
 
-## Session statuses
+## Studios statuses
 
-Data studios have the following possible statuses:
+Studios can have the following possible statuses:
 
-- **building**: When a custom environment is building the template image for a new data studio session. The [Wave] service performs the build action. For more information on this status, see [Inspect custom container template build status][build-status].
-- **build-failed**:  When a custom environment build has failed. This is a non-recoverable error. Logs are provided to assist with troubleshooting. For more information on this status, see [Inspect custom container template build status][build-status].
-- **starting**: The data studio is initializing.
-- **running**: When a data studio session is **running**, you can connect to it, copy the data studio URL, or stop it. In addition, the session can continue to process requests/run computations in the absence of an ongoing connection.
-- **stopping**: The recently-running session is in the process of being stopped.
-- **stopped**: When a session is stopped, the associated compute resources are deallocated. You can start or delete the data studio when it's in this state.
-- **errored**: This state most often indicates that there has been an error starting the data studio session but it is in a **stopped** state. There might be errors reported by the session itself but these will be overwritten with a **running** status if the data studio session is still running.
+- **building**: When a custom environment is building the template image for a new Studio session. The [Wave] service performs the build action. For more information on this status, see [Inspect custom container template build status][build-status].
+- **build-failed**: When a custom environment build has failed. This is a non-recoverable error. Logs are provided to assist with troubleshooting. For more information on this status, see [Inspect custom container template build status][build-status].
+- **starting**: The Studio session is initializing.
+- **running**: When a Studio session is **running**, you can connect to it, copy the URL, or stop it. In addition, it can continue to process requests/run computations in the absence of an ongoing connection.
+- **stopping**: The Studio session is in the process of being stopped.
+- **stopped**: When a Studio session is stopped, the associated compute resources are deallocated. You can start or delete the session when it's in this state.
+- **errored**: This state most often indicates that there has been an error starting the Studio session but it is in a **stopped** state. There might be errors reported by the session itself but these will be overwritten with a **running** status if the session is still running.
 
-  :::tip
-  If you encounter an error with the public preview release of Studios, [contact Seqera support][contact].
-  :::
+
+## Collaboration
+
+By default a Studios session is collaborative. All workspace members can connect to a running session with the exception of those with only the **View** role. If a session is configured to run in private mode, only the user who created the session can connect to it.
+
+:::tip
+RStudio sessions do not currently support user collaboration.
+:::
+
+## Session management
+
+You can set a session lifespan for a Studio. Upon expiration, a snapshot is taken and the session is automatically shut down. Prior to expiry, a session's lifespan can be extended multiple times before it is shut down.
+
+Workspace-level settings to studio lifespan are only applied to newly started studio sessions. Studios that are already running will have the lifespan that was originally set applied to them.
 
 ## Session data links
 
-You can configure a Studio to mount one or more data links, where cloud buckets that you have configured in your compute environment are read-only, or read-write available to the session.
+You can configure a Studio session to mount one or more data links, where cloud buckets that you have configured in your compute environment are read-only, or read-write available.
 
 If your compute environment includes a cloud bucket in the **Allowed S3 bucket** list, the bucket is writeable from within a session when that bucket is included as a data link.
 
-You can limit write access to just a subdirectory of a bucket by creating a custom data-link for only that subdirectory in Data Explorer, and then mount the data-link to the Studio session. For example, if you have the following S3 buckets:
+You can limit write access to just a subdirectory of a bucket by creating a custom data link for only that subdirectory in Data Explorer, and then mount the data link to the Studio session. For example, if you have the following S3 buckets:
 
 - `s3://biopharmaXs`: Entire bucket
 - `s3://biopharmaX/experiments/project-A/experiment-1/data`: Subdirectory to mount in a Studio session
@@ -146,11 +157,11 @@ For more information, see [Limit Studio access to a specific cloud bucket subdir
 
 When starting a Studio session, a *checkpoint* is automatically created. A checkpoint saves all changes made to the root filesystem and stores it in the attached compute environment's pipeline work directory in the `.studios/checkpoints` folder with a unique name. The current checkpoint is updated every five minutes during a session.
 
-When you stop and start a data studio session, or start a new data studio session from a previously created checkpoint, changes such as installed software packages and configuration files are restored and made available in the data studio session. Changes made to mounted data are not included in a checkpoint.
+When you stop and start a Studio session, or start a new Studio session from a previously created checkpoint, changes such as installed software packages and configuration files are restored and made available in the session. Changes made to mounted data are not included in a checkpoint.
 
-Checkpoints can be renamed and the name has to be unique per data studio. Spaces in checkpoint names are converted to underscores automatically.
+Checkpoints can be renamed and the name has to be unique per Studio session. Spaces in checkpoint names are converted to underscores automatically.
 
-Checkpoint files in the compute environment work directory may be shared by multiple data studios. Each checkpoint file is cleaned up asynchronously after the last data studio referencing the checkpoint is deleted.
+Checkpoint files in the compute environment work directory may be shared by multiple Studio sessions. Each checkpoint file is cleaned up asynchronously after the session that referenced the checkpoint is deleted.
 
 :::note
 The cleanup process is a best effort and not guaranteed. Seqera attempts to remove the checkpoint, but it can fail if, for example, the compute environment credentials used do not have sufficient permissions to delete objects from storage buckets.
@@ -166,7 +177,7 @@ The maximum storage allocation for a session is limited by the compute environme
 
 If the maximum allocation size is reached, it is possible to reclaim storage space using a snapshot. 
 
-Stop the active session to trigger a snapshot from the active volume. Data Studios uploads the snapshot to cloud storage with Fusion. When you start from the newly saved snapshot, all previous data is loaded and the newly-started session will have 2 GB of available space.
+Stop the active Studios session to trigger a snapshot from the active volume. The snapshot is uploaded to cloud storage with Fusion. When you start from the newly-saved snapshot, all previous data is loaded and the newly-started Studios session will have 2 GB of available space.
 
 {/* links */}
 [contact]: https://support.seqera.io/
