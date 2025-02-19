@@ -146,7 +146,7 @@ For more information, see [Limit Studio access to a specific cloud bucket subdir
 
 When starting a Studio session, a *checkpoint* is automatically created. A checkpoint saves all changes made to the root filesystem and stores it in the attached compute environment's pipeline work directory in the `.studios/checkpoints` folder with a unique name. The current checkpoint is updated every five minutes during a session.
 
-When you stop and start a Studio session, or start a new one from a previously created checkpoint, changes such as installed software packages and configuration files are restored and made available in the Studio session. Changes made to mounted data are not included in a checkpoint.
+When you stop and start a Studios session, or start a new session from a previously created checkpoint, changes such as installed software packages and configuration files are restored and made available. Changes made to mounted data are not included in a checkpoint.
 
 Checkpoints can be renamed and the name has to be unique per Studio. Spaces in checkpoint names are converted to underscores automatically.
 
