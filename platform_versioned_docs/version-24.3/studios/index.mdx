@@ -10,7 +10,7 @@ Studios is a unified platform where you can host a combination of container imag
 On Seqera Cloud, the free tier permits only one running session at a time. To run simultaneous sessions, [contact Seqera][contact] for a Seqera Cloud Pro license.
 
 :::note
-Studios is currently in **public preview** and is available from Seqera Platform v24.1. [Contact Seqera support](https://support.seqera.io) if you experience any problems during the deployment process. Data Studios in Enterprise is not enabled by default. You can enable Data Studios in the [environment variables configuration](../../version-24.2/enterprise/studios.mdx).
+Studios is currently in **public preview** and is available from Seqera Platform v24.1. [Contact Seqera support](https://support.seqera.io) if you experience any problems during the deployment process. Studios in Enterprise is not enabled by default. You can enable Studios in the [environment variables configuration](../../version-24.2/enterprise/studios.mdx).
 :::
 
 ## Requirements
@@ -150,7 +150,7 @@ When you stop and start a Studio session, or start a new Studio session from a p
 
 Checkpoints can be renamed and the name has to be unique per Studio. Spaces in checkpoint names are converted to underscores automatically.
 
-Checkpoint files in the compute environment work directory may be shared by multiple data studios. Each checkpoint file is cleaned up asynchronously after the last Studio referencing the checkpoint is deleted.
+Checkpoint files in the compute environment work directory may be shared by multiple Studios. Each checkpoint file is cleaned up asynchronously after the last Studio referencing the checkpoint is deleted.
 
 :::note
 The cleanup process is a best effort and not guaranteed. Seqera attempts to remove the checkpoint, but it can fail if, for example, the compute environment credentials used do not have sufficient permissions to delete objects from storage buckets.

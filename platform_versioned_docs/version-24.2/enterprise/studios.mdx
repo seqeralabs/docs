@@ -20,7 +20,7 @@ Provide a wildcard TLS certificate to allow for uniquely generated subdomains. A
 Studios uses the following set of domains and subdomains:
 
 - The domain that you set for `TOWER_SERVER_URL`, such as `example.com`.
-- A wildcard subdomain that you must configure specifically for Data Studios. This wildcard subdomain is the parent for each unique data studios session URL, such as `abcd.example.com`.
+- A wildcard subdomain that you must configure specifically for Studios. This wildcard subdomain is the parent for each unique Studios session URL, such as `abcd.example.com`.
 - The connection proxy, defined by `CONNECT_PROXY_URL`. This URL is a first-level subdomain of your `TOWER_SERVER_URL`. For example, `https://connect.example.com`. 
 
 ## Studios workspace availability
@@ -31,7 +31,7 @@ You can configure which organizational workspaces have access to Studios. This c
 - `allowed-workspaces: [ <WORKSPACE_ID>,<WORKSPACE_ID> ]`: Enables Studios for the comma-separated list of organizational workspace IDs.
 - `allowed-workspaces: null`: Enables Studios for all organizational workspaces.
 
-## Available data studio environment images
+## Available Studio environment images
 
 Each of the provided Studios environments includes a particular version of the underlying data analytics software package.
 
@@ -56,7 +56,7 @@ This guide assumes that all services will be run in the same container as the re
 
 ### Procedure
 
-1. Download the Data Studios [environment configuration file](./_templates/docker/data-studios.env).
+1. Download the Studios [environment configuration file](./_templates/docker/data-studios.env).
 
 1. Create an initial OIDC registration token, which can be any secure random string. For example, using openssl:
 
@@ -92,7 +92,7 @@ This guide assumes that all services will be run in the same container as the re
 
 1. Open `tower.env` in an editor and set the following variables:
 
-    - `TOWER_DATA_EXPLORER_ENABLED`: Set `true` to enable Data Explorer. You must enable Data Explorer to mount data inside a data studio instance.
+    - `TOWER_DATA_EXPLORER_ENABLED`: Set `true` to enable Data Explorer. You must enable Data Explorer to mount data inside a Studio.
     - `TOWER_DATA_STUDIO_CONNECT_URL`: The URL of the Studios connect proxy, such as `https://connect.example.com/`.
     - `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`: The same value set in the `oidc_registration_token` environment variable.
     - `TOWER_OIDC_PEM_PATH`: The file path to a PEM certificate used for signing the OIDC tokens for the OpenID connect provider, mounted as a volume inside the container.
@@ -113,11 +113,11 @@ This guide assumes that all services will be run in the same container as the re
     docker ps
     ```
 
-1. To confirm that Studios is available, log in to your Platform instance and navigate to an organizational workspace that has Data Studios enabled. The **Studios** tab is included with the available tabs.
+1. To confirm that Studios is available, log in to your Platform instance and navigate to an organizational workspace that has Studios enabled. The **Studios** tab is included with the available tabs.
 
 ## Kubernetes
 
-This procedure describes how to configure Data Studios for Kubernetes deployments of Seqera Platform.
+This procedure describes how to configure Studios for Kubernetes deployments of Seqera Platform.
 
 ### Procedure
 
@@ -143,7 +143,7 @@ This procedure describes how to configure Data Studios for Kubernetes deployment
 1. Edit the `proxy.yml` file and set the following variables:
 
     - `CONNECT_REDIS_ADDRESS`: The hostname or IP address of the Redis server configured for Platform.
-    - `CONNECT_PROXY_URL`: A URL for the connect proxy subdomain. We recommend you set a first-level subdomain of your Platform installation domain (`PLATFORM_URL` below) for your connect proxy, to be able to use the same wildcard TLS certificate for all data studio instance URLs and avoid additional domain nesting. For example, `https://connect.example.com`.
+    - `CONNECT_PROXY_URL`: A URL for the connect proxy subdomain. We recommend you set a first-level subdomain of your Platform installation domain (`PLATFORM_URL` below) for your connect proxy, to be able to use the same wildcard TLS certificate for all Studio session URLs and avoid additional domain nesting. For example, `https://connect.example.com`.
     - `PLATFORM_URL`: The base URL for your Platform installation, such as `https://example.com/`.
     - `CONNECT_OIDC_CLIENT_REGISTRATION_TOKEN`: The same value as the `oidc_registration_token` value created previously.
 

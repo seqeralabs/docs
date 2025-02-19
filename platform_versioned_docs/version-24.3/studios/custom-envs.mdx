@@ -2,7 +2,7 @@
 title: "Custom environments"
 description: "Custom environments for Studios"
 date: "1 Oct 2024"
-tags: [data, studios]
+tags: [environments, custom, studios]
 ---
 
 In addition to the Seqera-provided container template images, you can provide your own custom container environments by augmenting the Seqera-provided images with a list of Conda packages or by providing your own base container template image.
@@ -33,7 +33,7 @@ dependencies:
     - seaborn
 ```
 
-To create a data studio with custom Conda packages, see [Add a data studio][add-ds].
+To create a Studio with custom Conda packages, see [Add a Studio][add-s].
 
 ## Custom container template image {#custom-containers}
 
@@ -50,9 +50,9 @@ Public container registries are supported by default. Amazon Elastic Container R
 
 ### Dockerfile configuration {#dockerfile}
 
-For your custom template container image, you must use a Seqera-provided base image and include several additional build steps for compatibility with Data Studios.
+For your custom template container image, you must use a Seqera-provided base image and include several additional build steps for compatibility with Studios.
 
-To create a data studio with a custom template image, see [Add a data studio][add-ds].
+To create a Studio with a custom template image, see [Add a Studio][add-s].
 
 #### Ports
 
@@ -86,7 +86,7 @@ RUN /usr/bin/connect-client --install
 ENTRYPOINT ["/usr/bin/connect-client", "--entrypoint"]
 ```
 
-For example, to run a basic Python-based HTTP server, build a container from the following Dockerfile. When a data studio runs the custom template environment, the value for the `CONNECT_TOOL_PORT` environment variable is provided dynamically.
+For example, to run a basic Python-based HTTP server, build a container from the following Dockerfile. When a Studio runs the custom template environment, the value for the `CONNECT_TOOL_PORT` environment variable is provided dynamically.
 
 ```docker title="Example Dockerfile with Python HTTP server"
 FROM public.cr.seqera.io/platform/connect-client:0.7 AS connect
@@ -105,7 +105,7 @@ CMD ["/usr/bin/bash", "-c", "python3 -m http.server $CONNECT_TOOL_PORT"]
 
 You can inspect the progress of a custom container template image build, including any errors if the build fails. A link to the [Wave service][wave-home] container build report is always available for builds.
 
-If the custom container template image build fails, the data studio session has the **build-failed** status. The details about build failures are available when inspecting the session details in the **Error report** tab.
+If the custom container template image build fails, the Studio session has the **build-failed** status. The details about build failures are available when inspecting the session details in the **Error report** tab.
 
 To inspect the status of an ongoing build, or a successful or failed build, complete the following steps:
 

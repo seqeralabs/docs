@@ -2,7 +2,7 @@
 title: "Manage Studio sessions"
 description: "Manage Studio sessions."
 date: "6 February 2025"
-tags: [data, studios]
+tags: [data, session, studios]
 ---
 
 Select the **Studios** tab in Platform to view all Studio sessions. The list includes the name, cloud provider, analysis template, region, author, creation date, and status of each session. In this view, you can add a new Studio and start, stop, or connect to an existing session. Dynamically filter the list of Studios using the search bar to search by name (default), author username, or compute environment name. Select a Studio to open a detailed view that displays configuration information.
@@ -24,7 +24,7 @@ To add a new Studio, complete the following steps:
    1. Select **Mount data**, and then from the **Mount data** modal, select data to mount. Select **Mount data** to confirm your selection.
 
         :::tip
-        Datasets are mounted using the [Fusion file system](https://docs.seqera.io/fusion) and are available at `/workspace/data/<dataset>`. Mounted data doesn't need to match the compute environment or region of the cloud provider of the data studio. However, this might cause increased costs or errors.
+        Datasets are mounted using the [Fusion file system](https://docs.seqera.io/fusion) and are available at `/workspace/data/<dataset>`. Mounted data doesn't need to match the compute environment or region of the cloud provider of the Studio. However, this might cause increased costs or errors.
         :::
 
    1. Select **Next**.
@@ -34,10 +34,10 @@ To add a new Studio, complete the following steps:
    - To use one of the Seqera-provided container templates, complete the following steps:
 
      1. Customize the following fields:
-        - **Container template**: Select a data studio template from the dropdown list.
+        - **Container template**: Select a Studio template from the dropdown list.
         - **Studio name**
         - Optional: **Description**
-     1. Optional: Select **Install Conda packages** to enter or upload a list of Conda packages to include with the data studio. For more information on the syntax for specifying Conda packages, see [Conda package syntax][conda-syntax].
+     1. Optional: Select **Install Conda packages** to enter or upload a list of Conda packages to include with the Studio. For more information on the syntax for specifying Conda packages, see [Conda package syntax][conda-syntax].
      1. Select **Next**.
 
    - To use a custom container template image that you supply, complete the following steps:
@@ -49,7 +49,7 @@ To add a new Studio, complete the following steps:
           If you select the **Prebuilt container image** template, you cannot select **Install Conda packages** as these options are mutually exclusive.
           :::
 
-        - **Data studio name**
+        - **Studio name**
         - Optional: **Description**
      1. Select **Next**.
 
@@ -81,7 +81,7 @@ Once a session is in a **running** state, you can connect to it, obtain the publ
 
 This functionality is available to users with the **Maintain** role and above.
 
-You can use any existing Studio as the foundation for adding a new data studio. This functionality creates a clone of the Studio, including its checkpoint history, preserving any modifications made to the original Studio. When you create a session in this way, future changes are isolated from the original session.
+You can use any existing Studio as the foundation for adding a new Studio. This functionality creates a clone of the Studio, including its checkpoint history, preserving any modifications made to the original Studio. When you create a session in this way, future changes are isolated from the original session.
 
 When adding a new session from an existing session or checkpoint, the following fields cannot be changed:
 
@@ -104,7 +104,7 @@ To connect to a running session, select the three dots next to the status messag
 An active connection to a session will not prevent administrative actions that might disrupt that connection. For example, a session can be stopped by another workspace user while you are active in the session, the underlying credentials can be changed, or the compute environment can be deleted. These are independent actions and the user in the session won't be alerted to any changes - the only alert will be a server connection error in the active session browser tab.
 :::
 
-Once connected, the session will display the status of **running** in the list, and any connected user's avatar will be displayed under the status in both the list of data studios and in each Studio's detail page.
+Once connected, the session will display the status of **running** in the list, and any connected user's avatar will be displayed under the status in both the list of Studios and in each Studio's detail page.
 
 ## Collaborate in a Studio
 
