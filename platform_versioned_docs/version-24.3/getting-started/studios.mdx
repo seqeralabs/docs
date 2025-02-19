@@ -303,17 +303,17 @@ Data studios compete for computing resources when sharing compute environments. 
 
 ## Xpra: Interactive digital pathology analysis of cancer imaging data
 
-In this section, we'll explore how Studios and Xpra remote desktop technology enables interactive digital pathology analysis using QuPath, a powerful open-source software for bioimage analysis. We'll demonstrate how to set up an Xpra environment, install QuPath, and analyze cancer imaging data from the Imaging Data Commons (IDC). See [Using QuPath for visualization](https://learn.canceridc.dev/tutorials/slide-microscopy/qpath-for-sm-visualization) for the full IDC tutorial. 
+Studios and Xpra remote desktop technology enables interactive genetic variant visualization using IGV desktop, a powerful open-source tool for the visual exploration of genomic data. This section demonstrates how to add public data from the 1000 Genomes project to your workspace, set up an Xpra environment with IGV desktop pre-installed, and explore a variant of interest. 
 
 ### Add public cloud data using Data Explorer
 
-For the purposes of following the [IDC visualization tutorial](https://learn.canceridc.dev/tutorials/slide-microscopy/qpath-for-sm-visualization), you must add the public IDC cancer data S3 bucket to your workspace using Data Explorer:
+Add the 1000 Genomes S3 bucket to your workspace using Data Explorer:
 
 1. From the **Data Explorer** tab, select **Add cloud bucket**. 
 1. Specify the bucket details:
     - **Provider**: AWS
-    - **Bucket path**: `s3://idc-open-data/`
-    - A unique **Name** for the bucket, such as `idc-open-data`.
+    - **Bucket path**: `s3://1000genomes`
+    - A unique **Name** for the bucket, such as `1000G`.
     - **Credentials**: Select **Public** from the dropdown menu.
     - An optional bucket **Description**.
 1. Select **Add**.
@@ -326,23 +326,33 @@ From the **Data Studios** tab, select **Add a data studio** and complete the fol
 :::note
 Studios compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and data studio sessions. The default CPU and memory allocation for a studio is 2 CPUs and 8192 MB RAM. 
 :::
-- Mount data using Data Explorer: For the purposes of this guide, mount the IDC open data S3 bucket you added previously. 
+- Mount the 1000 Genomes S3 bucket you added previously using Data Explorer. 
 - Optional: Enter CPU and memory allocations.
+- Check **Install Conda packages** and paste the following into the YML field:
+
+    ```yaml 
+    channels:
+    - conda-forge
+    - bioconda
+    dependencies:
+    - igv
+    - samtools
+    ```
+
 - Select **Add** or choose to **Add and start** the studio immediately.
 - If you chose to **Add** the studio in the preceding step, select **Connect** in the options menu to open the studio in a new browser tab. 
 
-### Perform the analysis and explore results 
+### View variants in IGV desktop
 
-1. Configure the Xpra environment by installing QuPath:
+1. In the Xpra terminal, run `igv` to open IGV desktop.
+1. In IGV, change the genome version to hg19.
+1. Select **File**, then **Load from file**, then navigate to `/workspace/data/xpra-1000Genomes/phase3/data/HG00096/high_coverage_alignment` and select the `.bai` file, as shown below:
 
-    ```shell
-    sudo apt install xz-utils
-    wget https://github.com/qupath/qupath/releases/download/v0.5.1/QuPath-v0.5.1-Linux.tar.xz
-    tar -xf QuPath-v0.5.1-Linux.tar.xz
-    chmod u+x ./QuPath/bin/QuPath
-    ```
+    ![Load BAM file in IGV desktop](./_images/xpra-data-studios-IGV-load-bam.png)
 
-1. TODO
+1. Search for PCSK9 and zoom into one of the exons of the gene. If you are on genome version hg19 and everything worked as expected, you should see a coverage graph and reads as shown below:
+
+    ![BAM file view](xpra-data-studios-IGV-view-bam.png)
 
 ## VS Code: Create a Python Conda environment with nf-core tools to develop Nextflow pipelines 
 
