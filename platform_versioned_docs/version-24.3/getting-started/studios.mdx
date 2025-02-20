@@ -3,7 +3,7 @@ title: "Studios for interactive analysis"
 description: "An tutorial for creating interactive analysis Studios for Jupyter, RStudio, VSCode, and more"
 date: "17 Feb 2025"
 tags: [platform, studios, data studios, jupyter, rstudio, xpra, vscode, conda]
-toc_max_heading_level: 2
+toc_max_heading_level: 3
 ---
 
 Seqera Studios allows users to host a variety of container images in Seqera Platform compute environments for dynamic analysis using popular tools such as Jupyter and RStudio notebooks, Visual Studio Code IDEs, and Xpra remote desktops. Each studio session provides an individual interactive environment that encapsulates the live environment for real-time data analysis.
@@ -43,8 +43,8 @@ For the purposes of this guide, add the proteinfold results (H1065 sequence) fro
 1. From the **Data Explorer** tab, select **Add cloud bucket**. 
 1. Specify the bucket details:
     - **Provider**: AWS
-    - **Bucket path**: `s3://nf-core-awsmegatests/proteinfold/results-9bea0dc4ebb26358142afbcab3d7efd962d3a820/`
-    - A unique **Name** for the bucket, such as `nf-core-awsmegatests-proteinfold`.
+    - **Bucket path**: `s3://nf-core-awsmegatests/proteinfold/results-9bea0dc4ebb26358142afbcab3d7efd962d3a820`
+    - A unique **Name** for the bucket, such as `nf-core-awsmegatests-proteinfold-h1065`.
     - **Credentials**: Select **Public** from the dropdown menu.
     - An optional bucket **Description**.
 1. Select **Add**.
@@ -112,8 +112,8 @@ Run the following scripts in individual code cells in your Jupyter notebook to i
     1. Set up PDB file paths: 
 
         ```python 
-        alphafold2_multimer_standard = "/workspace/data/proteinfold_1_1_1_results/mode_alphafold2_multimer/alphafold2/standard/H1065.alphafold.pdb"
-        esmfold_multimer = "/workspace/data/proteinfold_1_1_1_results/mode_esmfold_multimer/esmfold/H1065.pdb"
+        alphafold2_multimer_standard = "/workspace/data/nf-core-awsmegatests-proteinfold-h1065/mode_alphafold2_multimer/alphafold2/standard/H1065.alphafold.pdb"
+        esmfold_multimer = "/workspace/data/nf-core-awsmegatests-proteinfold-h1065/mode_esmfold_multimer/esmfold/H1065.pdb"
         ```
 
     1. Load structures from the PDB files and retrieve lists of C-alpha atoms from both structures: 
@@ -219,7 +219,7 @@ Run the following scripts in individual code cells in your Jupyter notebook to i
             view3.addLabel("ESMFold", {'position': {'x': 20, 'y': 0, 'z': 0}, 'backgroundColor': 'darkgrey', 'fontColor': 'white'})
             
             return view1, view2, view3        
-      ```
+        ```
 
     1. Display interactive 3D structure views: 
 
