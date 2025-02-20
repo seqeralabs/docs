@@ -368,16 +368,16 @@ From the **Data Studios** tab, select **Add a data studio** and complete the fol
     - Mount the 1000 Genomes S3 bucket you added previously using Data Explorer. 
 - In the **General config** tab:
     - Select the latest **Xpra** container image template from the list.
-    - Optional: Enter a unique name and description for the data studio. 
+    - Optional: Enter a unique name and description for the studio. 
     - Check **Install Conda packages** and paste the following into the YML field:
 
         ```yaml 
         channels:
-        - conda-forge
-        - bioconda
+          - conda-forge
+          - bioconda
         dependencies:
-        - igv
-        - samtools
+          - igv
+          - samtools
         ```
 
 - Select **Add** or choose to **Add and start** the studio immediately.
@@ -408,7 +408,7 @@ Studios requires an AWS Batch compute environment. If you do not have an existin
 - Studios does not support AWS Fargate. Do not enable **Use Fargate for head job**. 
 - At least 4 available CPUs.
 
-#### Add public data using Data Explorer 
+#### Add data using Data Explorer 
 
 The nf-core/fetchngs pipeline uses data from the NGI iGenomes public dataset for its `test` profile. To add this data to your workspace:
 
@@ -424,15 +424,42 @@ The nf-core/fetchngs pipeline uses data from the NGI iGenomes public dataset for
 #### Create a VS Code studio 
 
 From the **Data Studios** tab, select **Add a data studio** and complete the following:
-- Select the latest **VS Code** container image template from the list.
-- Select your AWS Batch compute environment. 
-:::note
-Studios compete for computing resources when sharing compute environments. Shared compute environments must have sufficient resources to run both your pipelines and studio sessions.
-:::
-- Mount data using Data Explorer: For the purposes of this guide, mount the NGI iGenomes S3 bucket you added previously. 
-- Allocate at least 4 CPUs and 8192 MB RAM. 
+- In the **Compute & Data** tab:
+    - Select your AWS Batch compute environment. 
+      :::note
+      Studios compete for computing resources when sharing compute environments. Shared compute environments must have sufficient resources to run both your pipelines and studio sessions.
+      :::    
+    - Allocate at least 4 CPUs and 8192 MB RAM. 
+    - Mount data using Data Explorer: For the purposes of this guide, mount the NGI iGenomes S3 bucket you added previously. 
+- In the **General config** tab:
+    - Select the latest **VS Code** container image template from the list.
+    - Optional: Enter a unique name and description for the studio. 
+    - Check **Install Conda packages** and paste the following into the YML field:
+
+        ```yaml
+        channels:
+          - conda-forge
+          - bioconda
+          - anaconda
+        dependencies:
+          - nf-core
+          - conda
+        ```
+
 - Select **Add** or choose to **Add and start** the studio immediately.
 - If you chose to **Add** the studio in the preceding step, select **Connect** in the options menu to open the studio in a new browser tab. 
+- Once inside the studio, run `code.` to be able to use the clipboard.
 
-#### Customize your development environment
+#### Run nf-core/fetchngs with Conda 
+
+Run the following Nextflow command to run nf-core/fetchngs with Conda:
+
+```shell
+nextflow run nf-core/fetchngs -profile test,conda --outdir ./nf-core-fetchngs-conda-out -resume
+```
+
+#### Write a Nextflow pipeline with nf-core tools 
+
+- Run `nf-core pipelines create` to create a new pipeline. Choose which parts of the nf-core template you want to use.
+- Run `code [your new pipeline]` to open the new pipeline as a project in VSCode. This allows you to code your pipeline with the help of the Nextflow language server and nf-core tools.
 
