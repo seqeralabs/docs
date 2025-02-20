@@ -250,6 +250,32 @@ The Jupyter environment can be configured with the packages and scripts you need
 
 In this section, we have run the **nf-core/rnaseq** pipeline to quantify gene expression in RNA sequencing data, followed by **nf-core/differentialabundance** to derive differential expression statistics. This section demonstrates how to create a studio to perform further analysis with these results from cloud storage. One of these outputs is an RShiny application that can be deployed for interactive analysis.
 
+#### Create an AWS Batch compute environment 
+
+Studios requires an AWS Batch compute environment. If you do not have an existing compute environment with at least 2 CPUs available, create one with the following attributes:
+
+- **Region**: To reduce costs, your compute environment should be in the same region as your data. To browse the nf-core AWS megatests public data optimally, select **eu-west-1**.
+- **Provisioning model**: Use **On-demand** EC2 instances. 
+- Studios does not support AWS Fargate. Do not enable **Use Fargate for head job**. 
+- At least 2 available CPUs.
+
+#### Add public data using Data Explorer
+
+For the purposes of this guide, add the nf-core AWS megatests S3 bucket to your workspace using Data Explorer:
+
+1. From the **Data Explorer** tab, select **Add cloud bucket**. 
+1. Specify the bucket details:
+    - **Provider**: AWS
+    - **Bucket path**: `s3://nf-core-awsmegatests`
+    - A unique **Name** for the bucket, such as `nf-core-awsmegatests`.
+    - **Credentials**: Select **Public** from the dropdown menu.
+    - An optional bucket **Description**.
+1. Select **Add**.
+
+:::info 
+To use your own pipeline data for interactive analysis, add the cloud bucket that contains the results of your nf-core/differentialabundance pipeline run. See [Add a cloud bucket](./quickstart-demo/add-data.mdx#add-a-cloud-bucket) for more information. 
+:::
+
 #### Create an RStudio notebook studio 
 
 From the **Data Studios** tab, select **Add a data studio** and complete the following:
@@ -258,7 +284,7 @@ From the **Data Studios** tab, select **Add a data studio** and complete the fol
 :::note
 Data studios compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and data studio sessions. The default CPU and memory allocation for a data studio is 2 CPUs and 8192 MB RAM. 
 :::
-- Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the results of your nf-core/differentialabundance pipeline run. 
+- Mount data using Data Explorer: Mount the nf-core AWS megatests S3 bucket, or the directory path that contains the results of your nf-core/differentialabundance pipeline run. 
 - Optional: Enter CPU and memory allocations. The default values are 2 CPUs and 8192 MB memory (RAM).
 - Select **Add** or choose to **Add and start** the studio immediately.
 - If you chose to **Add** the studio in the preceding step, select **Start** in the options menu, then **Connect** to open the studio in a new browser tab when it is running. 
@@ -286,7 +312,7 @@ Data studios compete for computing resources when sharing compute environments. 
 1. Download the RDS file from your nf-core/differentialabundance results (see [Shiny app](https://nf-co.re/differentialabundance/1.5.0/docs/output/#shiny-app) from the nf-core documentation for file details): 
 
     ```r 
-    download.file("https://your-bucket.your-s3-region.amazonaws.com/differentialabundance/your-results/shinyngs_app/you-study-name/data.rds", 'data.rds')
+    download.file("https://bucket.s3-region.amazonaws.com/differentialabundance/results/shinyngs_app/study-name/data.rds", 'data.rds')
     ```
 
 1. Import libraries, read your RDS data, and launch the RShiny app:
@@ -303,16 +329,16 @@ Data studios compete for computing resources when sharing compute environments. 
 
 ### Xpra: Visualize genetic variants with IGV
 
-Studios and Xpra remote desktop technology enables interactive genetic variant visualization using IGV desktop, a powerful open-source tool for the visual exploration of genomic data. This section demonstrates how to add public data from the 1000 Genomes project to your workspace, set up an Xpra environment with IGV desktop pre-installed, and explore a variant of interest. 
+Studios and Xpra remote desktop technology enables many interactive analysis and troubleshooting workflows. One such workflow is to perform genetic variant visualization using IGV desktop, a powerful open-source tool for the visual exploration of genomic data. This section demonstrates how to add public data from the 1000 Genomes project to your workspace, set up an Xpra environment with IGV desktop pre-installed, and explore a variant of interest. 
 
 #### Create an AWS Batch compute environment 
 
 Studios requires an AWS Batch compute environment. If you do not have an existing compute environment with at least 2 CPUs available, create one with the following attributes:
 
 - **Region**: To reduce costs, your compute environment should be in the same region as your data. To browse the 1000 Genomes public data optimally, select **us-east-1**.
-- Use **On-demand** EC2 instances. 
+- **Provisioning model**: Use **On-demand** EC2 instances. 
 - Studios does not support AWS Fargate. Do not enable **Use Fargate for head job**. 
-- At least 2 available CPUs 
+- At least 2 available CPUs .
 
 #### Add public data using Data Explorer
 
@@ -361,7 +387,7 @@ Studios compete for computing resources when sharing compute environments. Ensur
 
 1. Search for PCSK9 and zoom into one of the exons of the gene. If you are on genome version hg19 and everything worked as expected, you should see a coverage graph and reads as shown below:
 
-    ![BAM file view](xpra-data-studios-IGV-view-bam.png)
+    ![BAM file view](./_images/xpra-data-studios-IGV-view-bam.png)
 
 ### VS Code: Create an interactive Nextflow developer environment
 
