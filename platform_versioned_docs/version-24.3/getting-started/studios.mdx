@@ -6,9 +6,9 @@ tags: [platform, studios, data studios, jupyter, rstudio, xpra, vscode, conda]
 toc_max_heading_level: 3
 ---
 
-Seqera Studios allows users to host a variety of container images in Seqera Platform compute environments for dynamic analysis using popular tools such as Jupyter and RStudio notebooks, Visual Studio Code IDEs, and Xpra remote desktops. Each studio session provides an individual interactive environment that encapsulates the live environment for real-time data analysis.
+[Seqera Studios](../data_studios/index.mdx) allows users to host a variety of container images in Seqera Platform compute environments for dynamic analysis using popular tools such as Jupyter and RStudio notebooks, Visual Studio Code IDEs, and Xpra remote desktops. Each studio session provides an individual interactive environment that encapsulates the live environment for real-time data analysis.
 
-This guide explores how Studios seamlessly integrates with your existing workflows, bridging the gap between pipeline execution and interactive analysis. It details how to set up and use different types of Studios, showcasing real-world use cases that highlight the power and flexibility that Studios can bring to your analysis workflows. 
+This guide explores how Studios integrates with your existing workflows, bridging the gap between pipeline execution and interactive analysis. It details how to set up and use each type of studio, demonstrating a practical use case for each.
 
 :::info[**Prerequisites**]
 You will need the following to get started:
@@ -87,14 +87,11 @@ From the **Data Studios** tab, select **Add a data studio** and complete the fol
 - Select **Add** or choose to **Add and start** the studio immediately.
 - If you chose to **Add** the studio in the preceding step, select **Connect** in the options menu to open the studio in a new browser tab. 
 
-![Add data studio](./_images/add-ds-pf.gif)
-
 #### Visualize protein structures 
 
 The following Python script visualizes and compares protein structures produced by Alphafold 2 and ESMFold, creating a composite interactive 3D image of the two structures with contrasting colors. The script retrieves the CA atoms from both structures, checks whether the structures have the same number of CA atoms, creates a contact map, calculates the per-residue RMSD for each structure, and visualizes the structures, secondary structures, and per-residue RMSD using PyMOL. 
 
-Run the following scripts in individual code cells in your Jupyter notebook to install the necessary packages and perform visualization:
-
+Run the following script in your Jupyter notebook to install the necessary packages and perform visualization:
 
 <details>
 <summary>Python script</summary>
@@ -240,7 +237,7 @@ Run the following scripts in individual code cells in your Jupyter notebook to i
 
 ### RStudio: Analyze RNASeq data and differential expression statistics 
 
-Studios and RStudio notebooks enable interactive analysis using R libraries and tools. For example, Shiny for R enables you to render functions in a reactive application and explore your data in a custom user interface. The public data used in this section consists of RNA sequencing data that was processed by the **nf-core/rnaseq** pipeline to quantify gene expression, followed by **nf-core/differentialabundance** to derive differential expression statistics. This section demonstrates how to create a studio to perform further analysis with these results from cloud storage. One of these outputs is an RShiny application that can be deployed for interactive analysis.
+Studios and RStudio notebooks enable interactive analysis using R libraries and tools. For example, Shiny for R enables you to render functions in a reactive application and build a custom user interface to explore your data. The public data used in this section consists of RNA sequencing data that was processed by the **nf-core/rnaseq** pipeline to quantify gene expression, followed by **nf-core/differentialabundance** to derive differential expression statistics. This section demonstrates how to create a studio to perform further analysis with these results from cloud storage. One of these outputs is an RShiny application that can be deployed for interactive analysis.
 
 #### Create an AWS Batch compute environment 
 
