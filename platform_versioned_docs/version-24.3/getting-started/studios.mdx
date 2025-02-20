@@ -36,7 +36,7 @@ Studios requires an AWS Batch compute environment. If you do not have an existin
 - Studios does not support AWS Fargate. Do not enable **Use Fargate for head job**. 
 - At least 2 available CPUs and 8192 MB of RAM. 
 
-#### Add public data using Data Explorer
+#### Add data using Data Explorer
 
 For the purposes of this guide, add the proteinfold results (H1065 sequence) from the nf-core AWS megatests S3 bucket to your workspace using Data Explorer:
 
@@ -57,10 +57,7 @@ To use your own pipeline data for interactive visualization, add the cloud bucke
 
 From the **Data Studios** tab, select **Add a data studio** and complete the following:
 - In the **Compute & Data** tab:
-    - Select an AWS Batch compute environment. 
-        :::info
-        The same compute environment can be used for pipeline execution and running your Studios notebook environment, but Studios does not support AWS Fargate. To use one compute environment for both nf-core/proteinfold pipeline execution and your studio, leave **Enable Fargate for head job** disabled. Alternatively, create a second basic AWS Batch compute environment with at least 2 CPUs and 8192 MB of RAM for your studio.
-        :::
+    - Select your AWS Batch compute environment. 
     - Optional: Enter CPU and memory allocations. The default values are 2 CPUs and 8192 MB memory (RAM).
         :::note
         Studios compete for computing resources when sharing compute environments. Ensure your shared compute environment has sufficient resources to run both your pipelines and studio sessions. 
@@ -112,160 +109,138 @@ Run the following scripts in individual code cells in your Jupyter notebook to i
         import numpy as np
         ```
 
-    1. Set up PDB file paths and initialize the PDB parser: 
+    1. Set up PDB file paths: 
 
         ```python 
         alphafold2_multimer_standard = "/workspace/data/proteinfold_1_1_1_results/mode_alphafold2_multimer/alphafold2/standard/H1065.alphafold.pdb"
         esmfold_multimer = "/workspace/data/proteinfold_1_1_1_results/mode_esmfold_multimer/esmfold/H1065.pdb"
-
-        parser = PDB.PDBParser(QUIET=True)
         ```
 
-    1. Load the two structures from your PDB files: 
+    1. Load structures from the PDB files and retrieve lists of C-alpha atoms from both structures: 
 
         ```python 
-        structure1 = parser.get_structure("protein1", alphafold2_multimer_standard)
-        structure2 = parser.get_structure("protein2", esmfold_multimer)
-        ```
-
-    1. Get CA atoms from both structures: 
-
-        ```python 
-        ca_atoms_1 = [atom for atom in structure1.get_atoms() if atom.name == 'CA']
-        ca_atoms_2 = [atom for atom in structure2.get_atoms() if atom.name == 'CA']
-        ```
-
-    1. Check if the structures have the same number of CA atoms, else superimpose the atoms and calculate the RMSD: 
-
-        ```python 
-        if len(ca_atoms_1) != len(ca_atoms_2):
-            print(f"Warning: Structures have different numbers of CA atoms")
-            print(f"Structure 1: {len(ca_atoms_1)} CA atoms")
-            print(f"Structure 2: {len(ca_atoms_2)} CA atoms")
-        else:
-            # Initialize Superimposer
-            super_imposer = PDB.Superimposer()
+        def align_structures(ref_pdb_path, mobile_pdb_path):
+            """Align mobile structure to reference structure and return aligned coordinates"""
+            # Set up parser
+            parser = PDB.PDBParser()
             
-            # Set the atoms to be superimposed
-            super_imposer.set_atoms(ca_atoms_1, ca_atoms_2)
+            # Load structures
+            ref_structure = parser.get_structure("reference", ref_pdb_path)
+            mobile_structure = parser.get_structure("mobile", mobile_pdb_path)
             
-            # Calculate RMSD
-            rmsd = super_imposer.rms
+            # Get lists of C-alpha atoms from both structures
+            ref_atoms = []
+            mobile_atoms = []
             
-            print(f"RMSD between structures: {rmsd:.2f} Å")
+            for model in ref_structure:
+                for chain in model:
+                    for residue in chain:
+                        if 'CA' in residue:
+                            ref_atoms.append(residue['CA'])
+                            
+            for model in mobile_structure:
+                for chain in model:
+                    for residue in chain:
+                        if 'CA' in residue:
+                            mobile_atoms.append(residue['CA'])
         ```
 
-    1. Compare secondary structures: 
+    1. Align structures using Superimposer: 
 
         ```python 
-        def compare_secondary_structure(pdb1, pdb2):
-            dssp1 = dssp_dict_from_pdb_file(pdb1)[0]
-            dssp2 = dssp_dict_from_pdb_file(pdb2)[0]
+        # Align structures using Superimposer
+        super_imposer = Superimposer()
+        super_imposer.set_atoms(ref_atoms, mobile_atoms)
+        super_imposer.apply(mobile_structure.get_atoms())
+        
+        # Save aligned structure
+        io = PDB.PDBIO()
+        io.set_structure(mobile_structure)
+        aligned_pdb_path = "./"+mobile_pdb_path.split("/")[-1].replace('.pdb', '_aligned.pdb')
+        io.save(aligned_pdb_path)
+        
+        return aligned_pdb_path
+        ```
+
+    1. Create a view for a single structure: 
+
+        ```python 
+        def create_structure_view(pdb_path, color, width=400, height=400, label=None):
+            """Create a view for a single structure"""
+            view = py3Dmol.view(width=width, height=height)
             
-            matches = 0
-            total = min(len(dssp1), len(dssp2))
+            with open(pdb_path, 'r') as f:
+                pdb_data = f.read()
+            view.addModel(pdb_data, "pdb")
+            view.setStyle({'model': -1}, {'cartoon': {'color': color}})
+            view.zoomTo()
             
-            for res1, res2 in zip(dssp1.keys(), dssp2.keys()):
-                if dssp1[res1] == dssp2[res2]:
-                    matches += 1
+            if label:
+                view.addLabel(label, {
+                    'position': {'x': 0, 'y': 0, 'z': 0},
+                    'backgroundColor': color,
+                    'fontColor': 'white'
+                })
             
-            return matches / total * 100
+            return view
         ```
 
-    1. Calculate contact maps: 
+    1. Create individual and combined structure views: 
 
         ```python 
-        def calculate_contact_map(structure, threshold=8.0):
-            ca_atoms = [atom for atom in structure.get_atoms() if atom.name == 'CA']
-            n = len(ca_atoms)
-            contact_map = np.zeros((n, n))
+        def visualize_structures(pdb1_path, pdb2_path):
+            # Align the second structure to the first
+            aligned_pdb2_path = align_structures(pdb1_path, pdb2_path)
             
-            for i, atom1 in enumerate(ca_atoms):
-                for j, atom2 in enumerate(ca_atoms):
-                    dist = atom1 - atom2
-                    contact_map[i,j] = 1 if dist < threshold else 0
-                    
-            return contact_map
-        ```
+            # Create three separate views
+            view1 = create_structure_view(pdb1_path, 'blue', label="AlphaFold2")
+            view2 = create_structure_view(aligned_pdb2_path, 'darkgrey', label="ESMFold")
+            
+            # Create combined view
+            view3 = py3Dmol.view(width=800, height=400)
+            
+            # Load and display first structure (AlphaFold2)
+            with open(pdb1_path, 'r') as f:
+                pdb1_data = f.read()
+            view3.addModel(pdb1_data, "pdb")
+            view3.setStyle({'model': -1}, {'cartoon': {'color': 'blue'}})
+            
+            # Load and display aligned second structure (ESMFold)
+            with open(aligned_pdb2_path, 'r') as f:
+                pdb2_data = f.read()
+            view3.addModel(pdb2_data, "pdb")
+            view3.setStyle({'model': 1}, {'cartoon': {'color': 'darkgrey'}})
+            
+            # Set up the combined view
+            view3.zoomTo()
+            
+            # Add labels for combined view
+            view3.addLabel("AlphaFold2", {'position': {'x': -20, 'y': 0, 'z': 0}, 'backgroundColor': 'blue', 'fontColor': 'white'})
+            view3.addLabel("ESMFold", {'position': {'x': 20, 'y': 0, 'z': 0}, 'backgroundColor': 'darkgrey', 'fontColor': 'white'})
+            
+            return view1, view2, view3        
+      ```
 
-    1. Calculate contact map similarity: 
-
-        ```python 
-        contact_map1 = calculate_contact_map(structure1)
-        contact_map2 = calculate_contact_map(structure2)
-        contact_similarity = np.sum(contact_map1 == contact_map2) / contact_map1.size
-        ```
-
-    1. Calculate the per-residue RMSD: 
-
-        ```python 
-        def calculate_per_residue_rmsd(struct1, struct2):
-            per_res_rmsd = []
-            for (res1, res2) in zip(struct1.get_residues(), struct2.get_residues()):
-                atoms1 = [atom.get_coord() for atom in res1 if atom.name in ['N', 'CA', 'C', 'O']]
-                atoms2 = [atom.get_coord() for atom in res2 if atom.name in ['N', 'CA', 'C', 'O']]
-                if len(atoms1) == len(atoms2):
-                    rmsd = np.sqrt(np.mean(np.sum((np.array(atoms1) - np.array(atoms2))**2, axis=1)))
-                    per_res_rmsd.append(rmsd)
-            return per_res_rmsd
-        ```
-
-    1. Calculate and print additional metrics: 
-
-        ```python 
-        ss_agreement = compare_secondary_structure("protein1.pdb", "protein2.pdb")
-        per_res_rmsd = calculate_per_residue_rmsd(structure1, structure2)
-
-        print(f"Secondary structure agreement: {ss_agreement:.1f}%")
-        print(f"Contact map similarity: {contact_similarity:.3f}")
-        print(f"Average per-residue RMSD: {np.mean(per_res_rmsd):.2f} Å")
-        ```
-
-    1. Visualize structures in PyMOL:
+    1. Display interactive 3D structure views: 
 
         ```python 
-        cmd.load("protein1.pdb", "protein1")
-        cmd.load("protein2.pdb", "protein2")
+        # Visualize the structures
+        view1, view2, view3 = visualize_structures(alphafold2_multimer_standard, esmfold_multimer)
+
+        # Display all views
+        print("AlphaFold2 Structure:")
+        view1.show()
+        print("\nESMFold Structure:")
+        view2.show()
+        print("\nAligned Structures:")
+        view3.show()        
         ```
 
-    1. Apply contrasting structure colors:
-
-        ```python 
-        cmd.color("cyan", "protein1")
-        cmd.color("magenta", "protein2")
-        ```
-
-    1. Align structures: 
-
-        ```python 
-        cmd.align("protein1", "protein2")
-        ```
-
-    1. Set visualization parameters:
-
-        ```python 
-        cmd.show("cartoon")
-        cmd.zoom("all")
-        ```
-
-    1. (Optional) Save the session:
-
-        ```python 
-        cmd.save("comparison.pse")
-        ```
-
-    1. Visualize the per-residue RMSD in PyMOL:
-
-        ```python 
-        cmd.alter("protein1", f"b={per_res_rmsd}")
-        cmd.spectrum("b", "blue_white_red", "protein1")
-        cmd.show("cartoon")
-        ```
 </details>    
 
 ### RStudio: Analyze RNASeq data and differential expression statistics 
 
-In this section, we have run the **nf-core/rnaseq** pipeline to quantify gene expression in RNA sequencing data, followed by **nf-core/differentialabundance** to derive differential expression statistics. This section demonstrates how to create a studio to perform further analysis with these results from cloud storage. One of these outputs is an RShiny application that can be deployed for interactive analysis.
+Studios and RStudio notebooks enable interactive analysis using R libraries and tools. For example, Shiny for R enables you to render functions in a reactive application and explore your data in a custom user interface. The public data used in this section consists of RNA sequencing data that was processed by the **nf-core/rnaseq** pipeline to quantify gene expression, followed by **nf-core/differentialabundance** to derive differential expression statistics. This section demonstrates how to create a studio to perform further analysis with these results from cloud storage. One of these outputs is an RShiny application that can be deployed for interactive analysis.
 
 #### Create an AWS Batch compute environment 
 
@@ -276,7 +251,7 @@ Studios requires an AWS Batch compute environment. If you do not have an existin
 - Studios does not support AWS Fargate. Do not enable **Use Fargate for head job**. 
 - At least 2 available CPUs.
 
-#### Add public data using Data Explorer
+#### Add data using Data Explorer
 
 For the purposes of this guide, add the nf-core AWS megatests S3 bucket to your workspace using Data Explorer:
 
@@ -296,13 +271,16 @@ To use your own pipeline data for interactive analysis, add the cloud bucket tha
 #### Create an RStudio notebook studio 
 
 From the **Data Studios** tab, select **Add a data studio** and complete the following:
-- Select the latest **RStudio** container image template from the list.
-- Select your AWS Batch compute environment. 
-:::note
-Data studios compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and data studio sessions. The default CPU and memory allocation for a data studio is 2 CPUs and 8192 MB RAM. 
-:::
-- Mount data using Data Explorer: Mount the nf-core AWS megatests S3 bucket, or the directory path that contains the results of your nf-core/differentialabundance pipeline run. 
-- Optional: Enter CPU and memory allocations. The default values are 2 CPUs and 8192 MB memory (RAM).
+- In the **Compute & Data** tab:
+    - Select your AWS Batch compute environment. 
+      :::note
+      Data studios compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and data studio sessions. The default CPU and memory allocation for a data studio is 2 CPUs and 8192 MB RAM. 
+      :::
+    - Optional: Enter CPU and memory allocations. The default values are 2 CPUs and 8192 MB memory (RAM).
+    - Mount data using Data Explorer: Mount the nf-core AWS megatests S3 bucket, or the directory path that contains the results of your nf-core/differentialabundance pipeline run. 
+- In the **General config** tab:
+    - Select the latest **RStudio** container image template from the list.
+    - Optional: Enter a unique name and description for the data studio. 
 - Select **Add** or choose to **Add and start** the studio immediately.
 - If you chose to **Add** the studio in the preceding step, select **Start** in the options menu, then **Connect** to open the studio in a new browser tab when it is running. 
 
@@ -310,7 +288,7 @@ Data studios compete for computing resources when sharing compute environments. 
 
 #### Perform the analysis and explore results
 
-1. Configure the RStudio environment with installed packages, including ShinyNGS:
+1. Configure the RStudio environment with installed packages, including [ShinyNGS](https://github.com/pinin4fjords/shinyngs):
 
     ```r 
     if (!require("BiocManager", quietly = TRUE))
@@ -326,9 +304,13 @@ Data studios compete for computing resources when sharing compute environments. 
     devtools::install_github('pinin4fjords/shinyngs', upgrade_dependencies = FALSE)
     ```
 
-1. Download the RDS file from your nf-core/differentialabundance results (see [Shiny app](https://nf-co.re/differentialabundance/1.5.0/docs/output/#shiny-app) from the nf-core documentation for file details): 
+1. Download the RDS file from nf-core AWS megatests or your own nf-core/differentialabundance results (see [Shiny app](https://nf-co.re/differentialabundance/1.5.0/docs/output/#shiny-app) from the nf-core documentation for file details): 
 
     ```r 
+    # For nf-core AWS megatests
+    download.file("https://nf-core-awsmegatests.s3-eu-west-1.amazonaws.com/differentialabundance/results-3dd360fed0dca1780db1bdf5dce85e5258fa2253/shinyngs_app/study/data.rds", 'data.rds')
+
+    # For your nf-core/differentialabundance results, replace the URL with your RDS file URL)
     download.file("https://bucket.s3-region.amazonaws.com/differentialabundance/results/shinyngs_app/study-name/data.rds", 'data.rds')
     ```
 
@@ -357,7 +339,7 @@ Studios requires an AWS Batch compute environment. If you do not have an existin
 - Studios does not support AWS Fargate. Do not enable **Use Fargate for head job**. 
 - At least 2 available CPUs .
 
-#### Add public data using Data Explorer
+#### Add data using Data Explorer
 
 Add the 1000 Genomes S3 bucket to your workspace using Data Explorer:
 
@@ -370,26 +352,33 @@ Add the 1000 Genomes S3 bucket to your workspace using Data Explorer:
     - An optional bucket **Description**.
 1. Select **Add**.
 
+:::info 
+To use your own data for interactive analysis, see [Add a cloud bucket](./quickstart-demo/add-data.mdx#add-a-cloud-bucket) for instructions to add your own public or private cloud bucket. 
+:::
+
 #### Create an Xpra studio 
 
 From the **Data Studios** tab, select **Add a data studio** and complete the following:
-- Select the latest **Xpra** container image template from the list.
-- Select your AWS Batch compute environment. 
-:::note
-Studios compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and data studio sessions. The default CPU and memory allocation for a studio is 2 CPUs and 8192 MB RAM. 
-:::
-- Mount the 1000 Genomes S3 bucket you added previously using Data Explorer. 
-- Optional: Enter CPU and memory allocations.
-- Check **Install Conda packages** and paste the following into the YML field:
+- In the **Compute & Data** tab:
+    - Select your AWS Batch compute environment. 
+      :::note
+      Studios compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and data studio sessions. The default CPU and memory allocation for a studio is 2 CPUs and 8192 MB RAM. 
+      :::
+    - Optional: Enter CPU and memory allocations.  
+    - Mount the 1000 Genomes S3 bucket you added previously using Data Explorer. 
+- In the **General config** tab:
+    - Select the latest **Xpra** container image template from the list.
+    - Optional: Enter a unique name and description for the data studio. 
+    - Check **Install Conda packages** and paste the following into the YML field:
 
-    ```yaml 
-    channels:
-    - conda-forge
-    - bioconda
-    dependencies:
-    - igv
-    - samtools
-    ```
+        ```yaml 
+        channels:
+        - conda-forge
+        - bioconda
+        dependencies:
+        - igv
+        - samtools
+        ```
 
 - Select **Add** or choose to **Add and start** the studio immediately.
 - If you chose to **Add** the studio in the preceding step, select **Connect** in the options menu to open the studio in a new browser tab. 
@@ -402,7 +391,7 @@ Studios compete for computing resources when sharing compute environments. Ensur
 
     ![Load BAM file in IGV desktop](./_images/xpra-data-studios-IGV-load-bam.png)
 
-1. Search for PCSK9 and zoom into one of the exons of the gene. If you are on genome version hg19 and everything worked as expected, you should see a coverage graph and reads as shown below:
+1. Search for PCSK9 and zoom into one of the exons of the gene. A coverage graph and reads should be shown, as below:
 
     ![BAM file view](./_images/xpra-data-studios-IGV-view-bam.png)
 
@@ -415,9 +404,9 @@ Using Studios with VS Code allows you to set up a portable and interactive Nextf
 Studios requires an AWS Batch compute environment. If you do not have an existing compute environment with at least 4 CPUs available, create one with the following attributes:
 
 - **Region**: To reduce costs, your compute environment should be in the same region as your data. To use the iGenomes public data bucket that contains the nf-core/fetchngs `test` profile data, select **eu-west-1**.
-- Use **On-demand** EC2 instances. 
+- **Provisioning model**: Use **On-demand** EC2 instances. 
 - Studios does not support AWS Fargate. Do not enable **Use Fargate for head job**. 
-- At least 4 available CPUs 
+- At least 4 available CPUs.
 
 #### Add public data using Data Explorer 
 
