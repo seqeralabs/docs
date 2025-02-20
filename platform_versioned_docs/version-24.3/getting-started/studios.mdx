@@ -6,35 +6,52 @@ tags: [platform, studios, data studios, jupyter, rstudio, xpra, vscode, conda]
 toc_max_heading_level: 2
 ---
 
-Seqera Studios allows users to host a variety of container images in Seqera Platform compute environments for dynamic analysis using popular tools such as Jupyter and RStudio notebooks, Visual Studio Code IDEs, and Xpra remote desktops. Each Studio session provides an individual interactive environment that encapsulates the live environment for real-time data analysis.
+Seqera Studios allows users to host a variety of container images in Seqera Platform compute environments for dynamic analysis using popular tools such as Jupyter and RStudio notebooks, Visual Studio Code IDEs, and Xpra remote desktops. Each studio session provides an individual interactive environment that encapsulates the live environment for real-time data analysis.
 
-In this guide, we'll explore how Seqera Studios seamlessly integrates with your existing workflows, bridging the gap between pipeline execution and interactive analysis. We'll demonstrate how to set up and use different types of Studios, showcasing real-world use cases that highlight the power and flexibility that Studios can bring to your analysis workflows. 
+This guide explores how Studios seamlessly integrates with your existing workflows, bridging the gap between pipeline execution and interactive analysis. It details how to set up and use different types of Studios, showcasing real-world use cases that highlight the power and flexibility that Studios can bring to your analysis workflows. 
 
-### Overview 
-
-Seqera Studios is a powerful feature of the Seqera Platform that enables seamless integration of interactive analysis environments with your existing bioinformatics workflows. It addresses the common challenge of transitioning between automated pipeline executions and exploratory data analysis, providing a unified solution for the entire data analysis lifecycle.
-
-**Key Features and Benefits**:
-
-- Unified Platform: Host various container images and compute environments in one place.
-- Preferred Tools: Support for popular analysis tools like JupyterLab, RStudio, VSCode, and Xpra.
-- Seamless Integration: Easily transition from pipeline outputs to interactive analysis.
-- Collaboration: Share interactive environments to foster teamwork and knowledge sharing.
-- Reproducibility: Version-controlled containers ensure consistent and replicable analyses.
-- Cost Efficiency: On-demand, scalable compute environments optimize resource usage.
-
-**Requirements**:
+:::info[**Prerequisites**]
+You will need the following to get started:
 
 - Valid credentials for your cloud storage account and compute environment
-- To create and configure Studios, you need at least the "Maintain" workspace user role
-- A workspace compute environment with sufficient resources (recommended minimum: 2 CPUs, 8192 MB memory)
-- Data Explorer enabled in your workspace
-- Studios currently supports AWS Batch compute environments (without Fargate)
-
+- To create and configure Studios, you need at least the "Maintain" workspace [user role](../orgs-and-teams/roles.mdx)
+- An AWS Batch workspace compute environment (**without Fargate**) with sufficient resources (minimum: 2 CPUs, 8192 MB memory)
+- [Data Explorer](../data/data-explorer.mdx) enabled in your workspace
+:::
 
 ### Jupyter: Python-based visualization of protein structure prediction data 
 
-In this section, we'll demonstrate how to set up a Jupyter notebook Studio for visualizing results from [nf-core/proteinfold](https://nf-co.re/proteinfold/1.1.1), a bioinformatics best-practice analysis pipeline for Protein 3D structure prediction.
+Studios and Jupyter notebooks enable interactive analysis using Python libraries and tools. For example, PyMOL is a powerful tool used for visualizing and comparing structures produced by workflows such as [nf-core/proteinfold](https://nf-co.re/proteinfold/1.1.1), a bioinformatics best-practice analysis pipeline for protein 3D structure prediction. This section demonstrates how to create an AWS Batch compute environment, add the nf-core AWS megatests public proteinfold data to your workspace, create a Jupyter studio, and run the provided Python script to produce interactive composite 3D images of the H1065 sequence. 
+
+:::note
+This script and instructions can also be used to visualize the structures from the results of nf-core/proteinfold runs with your own public or private data. 
+:::
+
+#### Create an AWS Batch compute environment 
+
+Studios requires an AWS Batch compute environment. If you do not have an existing compute environment available, create one with the following attributes:
+
+- **Region**: To reduce costs, your compute environment should be in the same region as your data. To browse the nf-core AWS megatests public data optimally, select **eu-west-1**.
+- **Provisioning model**: Use **On-demand** EC2 instances. 
+- Studios does not support AWS Fargate. Do not enable **Use Fargate for head job**. 
+- At least 2 available CPUs and 8192 MB of RAM. 
+
+#### Add public data using Data Explorer
+
+For the purposes of this guide, add the proteinfold results (H1065 sequence) from the nf-core AWS megatests S3 bucket to your workspace using Data Explorer:
+
+1. From the **Data Explorer** tab, select **Add cloud bucket**. 
+1. Specify the bucket details:
+    - **Provider**: AWS
+    - **Bucket path**: `s3://nf-core-awsmegatests/proteinfold/results-9bea0dc4ebb26358142afbcab3d7efd962d3a820/`
+    - A unique **Name** for the bucket, such as `nf-core-awsmegatests-proteinfold`.
+    - **Credentials**: Select **Public** from the dropdown menu.
+    - An optional bucket **Description**.
+1. Select **Add**.
+
+:::info 
+To use your own pipeline data for interactive visualization, add the cloud bucket that contains the results of your nf-core/proteinfold pipeline run. See [Add a cloud bucket](./quickstart-demo/add-data.mdx#add-a-cloud-bucket) for more information. 
+:::
 
 #### Create a Jupyter notebook studio
 
@@ -42,13 +59,13 @@ From the **Data Studios** tab, select **Add a data studio** and complete the fol
 - In the **Compute & Data** tab:
     - Select an AWS Batch compute environment. 
         :::info
-        The same compute environment can be used for pipeline execution and running your Studios notebook environment, but Data Studios does not support AWS Fargate. To use one compute environment for both nf-core/proteinfold pipeline execution and your studio, leave **Enable Fargate for head job** disabled. Alternatively, create a second basic AWS Batch compute environment with at least 2 CPUs and 8192 MB of RAM for your studio.
+        The same compute environment can be used for pipeline execution and running your Studios notebook environment, but Studios does not support AWS Fargate. To use one compute environment for both nf-core/proteinfold pipeline execution and your studio, leave **Enable Fargate for head job** disabled. Alternatively, create a second basic AWS Batch compute environment with at least 2 CPUs and 8192 MB of RAM for your studio.
         :::
     - Optional: Enter CPU and memory allocations. The default values are 2 CPUs and 8192 MB memory (RAM).
         :::note
-        Studios compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and data studio sessions. 
+        Studios compete for computing resources when sharing compute environments. Ensure your shared compute environment has sufficient resources to run both your pipelines and studio sessions. 
         :::
-    - Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the pipeline work directory of your Proteinfold run. 
+    - Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the nf-core AWS megatests proteinfold data, or the pipeline work directory of your nf-core/proteinfold run. 
 - In the **General config** tab:
     - Select the latest **Jupyter** container image template from the list.
     - Optional: Enter a unique name and description for the data studio. 
@@ -56,13 +73,17 @@ From the **Data Studios** tab, select **Add a data studio** and complete the fol
 
     ```yaml 
     channels:
-      - bioconda
-      - conda-forge
+    - schrodinger
+    - conda-forge
+    - bioconda
     dependencies:
-      - python=3.10
-      - conda-forge::biopython=1.84
-      - conda-forge::nglview=3.1.2
-      - conda-forge::ipywidgets=8.1.5
+    - python=3.10
+    - schrodinger::pymol-bundle
+    - conda-forge::libgl
+    - pip
+    - pip:
+      - biopython==1.85
+      - mdtraj==1.10.3
     ```
 
 - Confirm the data studio details in the **Summary** tab.
@@ -73,34 +94,30 @@ From the **Data Studios** tab, select **Add a data studio** and complete the fol
 
 #### Visualize protein structures 
 
-The following instructions set up a Jupyter notebook to visualize and compare protein structures produced by Alphafold 2 and ESMFold, creating an interactive visualization of the two structures overlayed in one image with contrasting colors. The script retrieves the CA atoms from both structures, checks whether the structures have the same number of CA atoms, creates a contact map, calculates the per-residue RMSD for each structure, and visualizes the structures, secondary structures, and per-residue RMSD using PyMOL. 
+The following Python script visualizes and compares protein structures produced by Alphafold 2 and ESMFold, creating a composite interactive 3D image of the two structures with contrasting colors. The script retrieves the CA atoms from both structures, checks whether the structures have the same number of CA atoms, creates a contact map, calculates the per-residue RMSD for each structure, and visualizes the structures, secondary structures, and per-residue RMSD using PyMOL. 
 
-The Jupyter environment can be configured with the packages and scripts you need for interactive analysis. Run the following scripts in individual code cells to install the necessary packages and perform visualization:
+Run the following scripts in individual code cells in your Jupyter notebook to install the necessary packages and perform visualization:
 
 
 <details>
-<summary>Jupyter notebook script individual steps</summary>
+<summary>Python script</summary>
 
     1. Import libraries:
 
         ```python 
+        import py3Dmol
+        from IPython.display import display
         from Bio import PDB
+        from Bio.PDB import Superimposer
         import numpy as np
-        from pymol import cmd
-        from Bio.PDB.DSSP import dssp_dict_from_pdb_file
-        import mdtraj as md
         ```
 
-    1. Set up PDB file paths: 
+    1. Set up PDB file paths and initialize the PDB parser: 
 
         ```python 
-        alphafold2_multimer_standard = "./H1065.alphafold_multimer.pdb"
-        esmfold_multimer = "./H1065.esmfold_multimer.pdb"
-        ```
+        alphafold2_multimer_standard = "/workspace/data/proteinfold_1_1_1_results/mode_alphafold2_multimer/alphafold2/standard/H1065.alphafold.pdb"
+        esmfold_multimer = "/workspace/data/proteinfold_1_1_1_results/mode_esmfold_multimer/esmfold/H1065.pdb"
 
-    1. Initialize PDB parser:
-
-        ```python
         parser = PDB.PDBParser(QUIET=True)
         ```
 
