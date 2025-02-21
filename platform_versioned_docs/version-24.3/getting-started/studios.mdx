@@ -24,7 +24,7 @@ You will need the following to get started:
 Studios and Jupyter notebooks enable interactive analysis using Python libraries and tools. For example, PyMOL is a powerful tool used for visualizing and comparing structures produced by workflows such as [nf-core/proteinfold](https://nf-co.re/proteinfold/1.1.1), a bioinformatics best-practice analysis pipeline for protein 3D structure prediction. This section demonstrates how to create an AWS Batch compute environment, add the nf-core AWS megatests public proteinfold data to your workspace, create a Jupyter studio, and run the provided Python script to produce interactive composite 3D images of the H1065 sequence. 
 
 :::note
-This script and instructions can also be used to visualize the structures from the results of nf-core/proteinfold runs with your own public or private data. 
+This script and instructions can also be used to visualize the structures from nf-core/proteinfold runs performed with your own public or private data. 
 :::
 
 #### Create an AWS Batch compute environment 
@@ -67,7 +67,6 @@ From the **Data Studios** tab, select **Add a data studio** and complete the fol
     - Select the latest **Jupyter** container image template from the list.
     - Optional: Enter a unique name and description for the data studio. 
     - Check **Install Conda packages** and paste the following Conda environment YAML snippet:
-
     ```yaml 
     channels:
     - schrodinger
@@ -82,8 +81,6 @@ From the **Data Studios** tab, select **Add a data studio** and complete the fol
       - biopython==1.85
       - mdtraj==1.10.3
     ```
-
-- Confirm the data studio details in the **Summary** tab.
 - Select **Add** or choose to **Add and start** the studio immediately.
 - If you chose to **Add** the studio in the preceding step, select **Connect** in the options menu to open the studio in a new browser tab. 
 
@@ -334,7 +331,7 @@ Studios requires an AWS Batch compute environment. If you do not have an existin
 - **Region**: To reduce costs, your compute environment should be in the same region as your data. To browse the 1000 Genomes public data optimally, select **us-east-1**.
 - **Provisioning model**: Use **On-demand** EC2 instances. 
 - Studios does not support AWS Fargate. Do not enable **Use Fargate for head job**. 
-- At least 2 available CPUs .
+- At least 2 available CPUs.
 
 #### Add data using Data Explorer
 
@@ -367,7 +364,6 @@ From the **Data Studios** tab, select **Add a data studio** and complete the fol
     - Select the latest **Xpra** container image template from the list.
     - Optional: Enter a unique name and description for the studio. 
     - Check **Install Conda packages** and paste the following into the YML field:
-
         ```yaml 
         channels:
           - conda-forge
@@ -376,7 +372,6 @@ From the **Data Studios** tab, select **Add a data studio** and complete the fol
           - igv
           - samtools
         ```
-
 - Select **Add** or choose to **Add and start** the studio immediately.
 - If you chose to **Add** the studio in the preceding step, select **Connect** in the options menu to open the studio in a new browser tab. 
 
@@ -385,11 +380,8 @@ From the **Data Studios** tab, select **Add a data studio** and complete the fol
 1. In the Xpra terminal, run `igv` to open IGV desktop.
 1. In IGV, change the genome version to hg19.
 1. Select **File**, then **Load from file**, then navigate to `/workspace/data/xpra-1000Genomes/phase3/data/HG00096/high_coverage_alignment` and select the `.bai` file, as shown below:
-
     ![Load BAM file in IGV desktop](./_images/xpra-data-studios-IGV-load-bam.png)
-
 1. Search for PCSK9 and zoom into one of the exons of the gene. A coverage graph and reads should be shown, as below:
-
     ![BAM file view](./_images/xpra-data-studios-IGV-view-bam.png)
 
 ### VS Code: Create an interactive Nextflow developer environment
@@ -403,7 +395,7 @@ Studios requires an AWS Batch compute environment. If you do not have an existin
 - **Region**: To reduce costs, your compute environment should be in the same region as your data. To use the iGenomes public data bucket that contains the nf-core/fetchngs `test` profile data, select **eu-west-1**.
 - **Provisioning model**: Use **On-demand** EC2 instances. 
 - Studios does not support AWS Fargate. Do not enable **Use Fargate for head job**. 
-- At least 4 available CPUs.
+- At least 4 available CPUs and 16384 MB memory (RAM).
 
 #### Add data using Data Explorer 
 
@@ -432,7 +424,6 @@ From the **Data Studios** tab, select **Add a data studio** and complete the fol
     - Select the latest **VS Code** container image template from the list.
     - Optional: Enter a unique name and description for the studio. 
     - Check **Install Conda packages** and paste the following into the YML field:
-
         ```yaml
         channels:
           - conda-forge
@@ -442,7 +433,6 @@ From the **Data Studios** tab, select **Add a data studio** and complete the fol
           - nf-core
           - conda
         ```
-
 - Select **Add** or choose to **Add and start** the studio immediately.
 - If you chose to **Add** the studio in the preceding step, select **Connect** in the options menu to open the studio in a new browser tab. 
 - Once inside the studio, run `code.` to be able to use the clipboard.
