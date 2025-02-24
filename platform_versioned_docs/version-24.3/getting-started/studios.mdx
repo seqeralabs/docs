@@ -66,7 +66,7 @@ From the **Studios** tab, select **Add a studio** and complete the following:
 - In the **General config** tab:
     - Select the latest **Jupyter** container image template from the list.
     - Optional: Enter a unique name and description for the studio. 
-    - Check **Install Conda packages** and paste the following Conda environment YAML snippet:
+    - Check **Install Conda packages** and paste the following into the YAML textfield:
     ```yaml 
     channels:
     - schrodinger
@@ -372,7 +372,7 @@ From the **Studios** tab, select **Add a studio** and complete the following:
 - In the **General config** tab:
     - Select the latest **Xpra** container image template from the list.
     - Optional: Enter a unique name and description for the studio. 
-    - Check **Install Conda packages** and paste the following into the YML field:
+    - Check **Install Conda packages** and paste the following into the YAML textfield:
         ```yaml 
         channels:
           - conda-forge
@@ -395,7 +395,7 @@ From the **Studios** tab, select **Add a studio** and complete the following:
 
 ## VS Code: Create an interactive Nextflow developer environment
 
-Using Studios with VS Code allows you to set up a portable and interactive Nextflow developer environment that contains all the tools you need to code and run Nextflow pipelines. This section will demonstrate how to set up a VS Code Studio with Conda, nf-core tools, and Apptainer, add public data and run the nf-core/fetchngs pipeline with the `test` profile, and create a VS Code project to start coding your own Nextflow pipelines.  
+Using Studios and Visual Studio Code allows you to create a portable and interactive Nextflow development environment with all the tools you need to develop and run Nextflow pipelines. This section demonstrates how to set up a VS Code Studio with Conda and nf-core tools, add public data and run the nf-core/fetchngs pipeline with the `test` profile, and create a VS Code project to start coding your own Nextflow pipelines. 
 
 #### Create an AWS Batch compute environment 
 
@@ -427,12 +427,12 @@ From the **Studios** tab, select **Add a studio** and complete the following:
       :::note
       Studio sessions compete for computing resources when sharing compute environments. Shared compute environments must have sufficient resources to run both your pipelines and studio sessions.
       :::    
-    - Allocate at least 4 CPUs and 8192 MB RAM. 
+    - Allocate at least 4 CPUs and 16000 MB RAM. 
     - Mount data using Data Explorer: For the purposes of this guide, mount the NGI iGenomes S3 bucket you added previously. 
 - In the **General config** tab:
     - Select the latest **VS Code** container image template from the list.
     - Optional: Enter a unique name and description for the studio. 
-    - Check **Install Conda packages** and paste the following into the YML field:
+    - Check **Install Conda packages** and paste the following into the YAML textfield:
         ```yaml
         channels:
           - conda-forge
@@ -444,7 +444,7 @@ From the **Studios** tab, select **Add a studio** and complete the following:
         ```
 - Select **Add** or choose to **Add and start** a studio session immediately.
 - If you chose to **Add** the studio in the preceding step, select **Connect** in the options menu to open a studio session in a new browser tab. 
-- Once inside the studio, run `code.` to be able to use the clipboard.
+- Once inside the studio, run `code .` to be able to use the clipboard.
 
 ### Run nf-core/fetchngs with Conda 
 
