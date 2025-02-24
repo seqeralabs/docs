@@ -38,6 +38,11 @@ To add a new data studio, complete the following steps:
         - **Data studio name**
         - Optional: **Description**
      1. Optional: Select **Install Conda packages** to enter or upload a list of Conda packages to include with the data studio. For more information on the syntax for specifying Conda packages, see [Conda package syntax][conda-syntax].
+        - **Session lifespan**: Depending on your workspace settings, you may be able to choose between the following options.
+          -  Stop the session automatically after a predefined period of time. 
+               - If there is a existing defined session lifespan workspace setting, you won't be able to edit this. If no workspace setting is defined, you can edit this field. The default value is 8 hours.
+               - If you increase this default value, it applies only to that session. Once you've stopped the session, the value returns to default.
+          -  Keep the session running until it's manually stopped or encounters an error which ends the session. 
      1. Select **Next**.
 
    - To use a custom container template image that you supply, complete the following steps:
@@ -89,6 +94,7 @@ When adding a new session from an existing session or checkpoint, the following 
 - **Original data studio session and checkpoint**
 - **Compute environment**
 - **Installed Conda packages**
+- **Session duration**
 
 To add a new session from an existing **stopped** session, complete the steps described in [Add a data studio](#add-a-data-studio).
 
