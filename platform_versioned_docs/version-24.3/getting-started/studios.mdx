@@ -1,27 +1,31 @@
 ---
 title: "Studios for interactive analysis"
 description: "An tutorial for creating interactive analysis Studios for Jupyter, RStudio, VSCode, and more"
-date: "17 Feb 2025"
+date: "24 Feb 2025"
 tags: [platform, studios, data studios, jupyter, rstudio, xpra, vscode, conda]
 toc_max_heading_level: 3
 ---
 
-[Studios](../data_studios/index.mdx) allows users to host a variety of container images directly in Seqera Platform compute environments for analysis using popular environments including Jupyter (Python) and RStudio notebooks (R), Visual Studio Code IDEs, and Xpra remote desktops. Each Studio session provides a dedicated interactive environment that encapsulates the live environment.
+[Studios](../data_studios/index.mdx) allows users to host a variety of container images directly in Seqera Platform compute environments for analysis using popular environments including [Jupyter](https://jupyter.org/) (Python) and [RStudio](https://posit.co/products/open-source/rstudio/) notebooks (R), [Visual Studio Code](https://code.visualstudio.com/) IDEs, and [Xpra](https://xpra.org/index.html) remote desktops. Each Studio session provides a dedicated interactive environment that encapsulates the live environment.
 
 This guide explores how Studios integrates with your existing workflows, bridging the gap between pipeline execution and interactive analysis. It details how to set up and use each type of Studio, demonstrating a practical use case for each.
 
 :::info[**Prerequisites**]
 You will need the following to get started:
 
-- Valid credentials for your cloud storage account and compute environment.
 - To create and configure Studios, you need at least the "Maintain" workspace [user role](../orgs-and-teams/roles.mdx).
 - An AWS Batch workspace compute environment (**without Fargate**) with sufficient resources (minimum: 2 CPUs, 8192 MB memory).
+- Valid [credentials](../credentials/overview.mdx) for your cloud storage account and compute environment.
 - [Data Explorer](../data/data-explorer.mdx) enabled in your workspace.
+:::
+
+:::note
+The scripts and instructions provided in this guide were tested on 24 February 2025. Library and package versions recommended here may become outdated and lead to unexpected results over time. 
 :::
 
 ## Jupyter: Python-based visualization of protein structure prediction data 
 
-Studios and Jupyter notebooks enable interactive analysis using Python libraries and tools. For example, PyMOL is a powerful tool used for visualizing and comparing structures produced by workflows such as [nf-core/proteinfold](https://nf-co.re/proteinfold/1.1.1), a bioinformatics best-practice analysis pipeline for protein 3D structure prediction. This section demonstrates how to create an AWS Batch compute environment, add the nf-core AWS megatests public proteinfold data to your workspace, create a Jupyter Studio, and run the provided Python script to produce interactive composite 3D images of the H1065 sequence. 
+Jupyter notebooks enable interactive analysis using Python libraries and tools. For example, PyMOL is a powerful tool used for visualizing and comparing structures produced by workflows such as [nf-core/proteinfold](https://nf-co.re/proteinfold/1.1.1), a bioinformatics best-practice analysis pipeline for protein 3D structure prediction. This section demonstrates how to create an AWS Batch compute environment, add the nf-core AWS megatests public proteinfold data to your workspace, create a Jupyter Studio, and run the provided Python script to produce interactive composite 3D images of the H1065 sequence. 
 
 :::note
 This script and instructions can also be used to visualize the structures from nf-core/proteinfold runs performed with your own public or private data. 
@@ -29,7 +33,7 @@ This script and instructions can also be used to visualize the structures from n
 
 #### Create an AWS Batch compute environment
 
-Studios require an AWS Batch compute environment. If you do not have an existing compute environment available, create one with the following attributes:
+Studios require an AWS Batch compute environment. If you do not have an existing compute environment available, [create one](../compute-envs/aws-batch.mdx#batch-forge-compute-environment) with the following attributes:
 
 - **Region**: To reduce costs, your compute environment should be in the same region as your data. To browse the nf-core AWS megatests public data optimally, select **eu-west-1**.
 - **Provisioning model**: Use **On-demand** EC2 instances. 
@@ -91,7 +95,124 @@ The following Python script visualizes and compares protein structures produced 
 Run the following script in your Jupyter notebook to install the necessary packages and perform visualization:
 
 <details>
-<summary>Python script</summary>
+<summary>Full Python script</summary>
+
+    ```python 
+    import py3Dmol
+    from IPython.display import display
+    from Bio import PDB
+    from Bio.PDB import Superimposer
+    import numpy as np
+
+    # Keep file paths unchanged to visualize structures of the H1065 sequence in nf-core AWS megatests. 
+    # Update file paths (to PDB files) to visualize structures of your own nf-core/proteinfold output data.
+    alphafold2_multimer_standard = "/workspace/data/nf-core-awsmegatests-proteinfold-h1065/mode_alphafold2_multimer/alphafold2/standard/H1065.alphafold.pdb"
+    esmfold_multimer = "/workspace/data/nf-core-awsmegatests-proteinfold-h1065/mode_esmfold_multimer/esmfold/H1065.pdb"
+
+    def align_structures(ref_pdb_path, mobile_pdb_path):
+        """Align mobile structure to reference structure and return aligned coordinates"""
+        # Set up parser
+        parser = PDB.PDBParser()
+        
+        # Load structures
+        ref_structure = parser.get_structure("reference", ref_pdb_path)
+        mobile_structure = parser.get_structure("mobile", mobile_pdb_path)
+        
+        # Get lists of C-alpha atoms from both structures
+        ref_atoms = []
+        mobile_atoms = []
+        
+        for model in ref_structure:
+            for chain in model:
+                for residue in chain:
+                    if 'CA' in residue:
+                        ref_atoms.append(residue['CA'])
+                        
+        for model in mobile_structure:
+            for chain in model:
+                for residue in chain:
+                    if 'CA' in residue:
+                        mobile_atoms.append(residue['CA'])
+
+    # Align structures using Superimposer
+    super_imposer = Superimposer()
+    super_imposer.set_atoms(ref_atoms, mobile_atoms)
+    super_imposer.apply(mobile_structure.get_atoms())
+    
+    # Save aligned structure
+    io = PDB.PDBIO()
+    io.set_structure(mobile_structure)
+    aligned_pdb_path = "./"+mobile_pdb_path.split("/")[-1].replace('.pdb', '_aligned.pdb')
+    io.save(aligned_pdb_path)
+    
+    return aligned_pdb_path
+
+    def create_structure_view(pdb_path, color, width=400, height=400, label=None):
+        """Create a view for a single structure"""
+        view = py3Dmol.view(width=width, height=height)
+        
+        with open(pdb_path, 'r') as f:
+            pdb_data = f.read()
+        view.addModel(pdb_data, "pdb")
+        view.setStyle({'model': -1}, {'cartoon': {'color': color}})
+        view.zoomTo()
+        
+        if label:
+            view.addLabel(label, {
+                'position': {'x': 0, 'y': 0, 'z': 0},
+                'backgroundColor': color,
+                'fontColor': 'white'
+            })
+        
+        return view
+
+    def visualize_structures(pdb1_path, pdb2_path):
+        # Align the second structure to the first
+        aligned_pdb2_path = align_structures(pdb1_path, pdb2_path)
+        
+        # Create three separate views
+        view1 = create_structure_view(pdb1_path, 'blue', label="AlphaFold2")
+        view2 = create_structure_view(aligned_pdb2_path, 'darkgrey', label="ESMFold")
+        
+        # Create combined view
+        view3 = py3Dmol.view(width=800, height=400)
+        
+        # Load and display first structure (AlphaFold2)
+        with open(pdb1_path, 'r') as f:
+            pdb1_data = f.read()
+        view3.addModel(pdb1_data, "pdb")
+        view3.setStyle({'model': -1}, {'cartoon': {'color': 'blue'}})
+        
+        # Load and display aligned second structure (ESMFold)
+        with open(aligned_pdb2_path, 'r') as f:
+            pdb2_data = f.read()
+        view3.addModel(pdb2_data, "pdb")
+        view3.setStyle({'model': 1}, {'cartoon': {'color': 'darkgrey'}})
+        
+        # Set up the combined view
+        view3.zoomTo()
+        
+        # Add labels for combined view
+        view3.addLabel("AlphaFold2", {'position': {'x': -20, 'y': 0, 'z': 0}, 'backgroundColor': 'blue', 'fontColor': 'white'})
+        view3.addLabel("ESMFold", {'position': {'x': 20, 'y': 0, 'z': 0}, 'backgroundColor': 'darkgrey', 'fontColor': 'white'})
+        
+        return view1, view2, view3     
+
+    # Visualize the structures
+    view1, view2, view3 = visualize_structures(alphafold2_multimer_standard, esmfold_multimer)
+
+    # Display all views
+    print("AlphaFold2 Structure:")
+    view1.show()
+    print("\nESMFold Structure:")
+    view2.show()
+    print("\nAligned Structures:")
+    view3.show()        
+    ```
+
+</details>
+<details>
+<summary>Python script individual steps</summary>
 
     1. Import libraries:
 
@@ -240,7 +361,7 @@ RStudio notebooks enable interactive analysis using R libraries and tools. For e
 
 #### Create an AWS Batch compute environment 
 
-Studios require an AWS Batch compute environment. If you do not have an existing compute environment with at least 2 CPUs available, create one with the following attributes:
+Studios require an AWS Batch compute environment. If you do not have an existing compute environment available, [create one](../compute-envs/aws-batch.mdx#batch-forge-compute-environment) with the following attributes:
 
 - **Region**: To minimize costs, your compute environment should be in the same region as your data. To browse the nf-core AWS megatests public data optimally, select **eu-west-1**.
 - **Provisioning model**: Use **On-demand** EC2 instances. 
@@ -287,7 +408,7 @@ From the **Studios** tab, select **Add a Studio** and complete the following:
 The following R script installs and configures the prerequisite packages and libraries to deploy ShinyNGS, an RShiny application created by members of the nf-core community to explore genomic data. The script also downloads the RDS file from nf-core AWS megatests to use as input data for the Shiny app's various plots, heatmaps, and tables. To use your own nf-core/rnaseq and nf-core/differentialabundance results, modify the script as instructed in step 2 below: 
 
 <details>
-<summary>R script</summary>
+<summary>R script individual steps</summary>
 
     1. Configure the RStudio environment with installed packages, including [ShinyNGS](https://github.com/pinin4fjords/shinyngs):
 
@@ -335,7 +456,7 @@ Studios and Xpra provides remote desktop functionality that enables many interac
 
 #### Create an AWS Batch compute environment 
 
-Studios requires an AWS Batch compute environment. If you do not have an existing compute environment with at least 2 CPUs available, create one with the following attributes:
+Studios require an AWS Batch compute environment. If you do not have an existing compute environment available, [create one](../compute-envs/aws-batch.mdx#batch-forge-compute-environment) with the following attributes:
 
 - **Region**: To minimize costs, your compute environment should be in the same region as your data. To browse the 1000 Genomes public data optimally, select **us-east-1**.
 - **Provisioning model**: Use **On-demand** EC2 instances. 
@@ -399,7 +520,7 @@ Using Studios and Visual Studio Code allows you to create a portable and interac
 
 #### Create an AWS Batch compute environment 
 
-Studios requires an AWS Batch compute environment. If you do not have an existing compute environment with at least 4 CPUs available, create one with the following attributes:
+Studios require an AWS Batch compute environment. If you do not have an existing compute environment available, [create one](../compute-envs/aws-batch.mdx#batch-forge-compute-environment) with the following attributes:
 
 - **Region**: To minimize costs, your compute environment should be in the same region as your data. To use the iGenomes public data bucket that contains the nf-core/fetchngs `test` profile data, select **eu-west-1**.
 - **Provisioning model**: Use **On-demand** EC2 instances. 
