@@ -6,9 +6,9 @@ tags: [platform, studios, data studios, jupyter, rstudio, xpra, vscode, conda]
 toc_max_heading_level: 3
 ---
 
-[Studios](../data_studios/index.mdx) allows users to host a variety of container images directly in Seqera Platform compute environments for analysis using popular environments including Jupyter (Python) and RStudio notebooks (R), Visual Studio Code IDEs, and Xpra remote desktops. Each studio session provides a dedicated interactive environment that encapsulates the live environment.
+[Studios](../data_studios/index.mdx) allows users to host a variety of container images directly in Seqera Platform compute environments for analysis using popular environments including Jupyter (Python) and RStudio notebooks (R), Visual Studio Code IDEs, and Xpra remote desktops. Each Studio session provides a dedicated interactive environment that encapsulates the live environment.
 
-This guide explores how Studios integrates with your existing workflows, bridging the gap between pipeline execution and interactive analysis. It details how to set up and use each type of studio, demonstrating a practical use case for each.
+This guide explores how Studios integrates with your existing workflows, bridging the gap between pipeline execution and interactive analysis. It details how to set up and use each type of Studio, demonstrating a practical use case for each.
 
 :::info[**Prerequisites**]
 You will need the following to get started:
@@ -21,7 +21,7 @@ You will need the following to get started:
 
 ## Jupyter: Python-based visualization of protein structure prediction data 
 
-Studios and Jupyter notebooks enable interactive analysis using Python libraries and tools. For example, PyMOL is a powerful tool used for visualizing and comparing structures produced by workflows such as [nf-core/proteinfold](https://nf-co.re/proteinfold/1.1.1), a bioinformatics best-practice analysis pipeline for protein 3D structure prediction. This section demonstrates how to create an AWS Batch compute environment, add the nf-core AWS megatests public proteinfold data to your workspace, create a Jupyter studio, and run the provided Python script to produce interactive composite 3D images of the H1065 sequence. 
+Studios and Jupyter notebooks enable interactive analysis using Python libraries and tools. For example, PyMOL is a powerful tool used for visualizing and comparing structures produced by workflows such as [nf-core/proteinfold](https://nf-co.re/proteinfold/1.1.1), a bioinformatics best-practice analysis pipeline for protein 3D structure prediction. This section demonstrates how to create an AWS Batch compute environment, add the nf-core AWS megatests public proteinfold data to your workspace, create a Jupyter Studio, and run the provided Python script to produce interactive composite 3D images of the H1065 sequence. 
 
 :::note
 This script and instructions can also be used to visualize the structures from nf-core/proteinfold runs performed with your own public or private data. 
@@ -53,19 +53,19 @@ For the purposes of this guide, add the proteinfold results (H1065 sequence) fro
 To use your own pipeline data for interactive visualization, add the cloud bucket that contains the results of your nf-core/proteinfold pipeline run. See [Add a cloud bucket](./quickstart-demo/add-data.mdx#add-a-cloud-bucket) for more information. 
 :::
 
-### Create a Jupyter studio
+### Create a Jupyter Studio
 
-From the **Studios** tab, select **Add a studio** and complete the following:
+From the **Studios** tab, select **Add a Studio** and complete the following:
 - In the **Compute & Data** tab:
     - Select your AWS Batch compute environment. 
         :::note
-        Studio sessions compete for computing resources when sharing compute environments. Ensure your shared compute environment has sufficient resources to run both your pipelines and studio sessions. 
+        Studio sessions compete for computing resources when sharing compute environments. Ensure your shared compute environment has sufficient resources to run both your pipelines and Studio sessions. 
         :::
     - Optional: Enter CPU and memory allocations. The default values are 2 CPUs and 8192 MB memory (RAM).
     - Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the nf-core AWS megatests proteinfold data, or the pipeline work directory of your nf-core/proteinfold run. 
 - In the **General config** tab:
     - Select the latest **Jupyter** container image template from the list.
-    - Optional: Enter a unique name and description for the studio. 
+    - Optional: Enter a unique name and description for the Studio. 
     - Check **Install Conda packages** and paste the following into the YAML textfield:
     ```yaml 
     channels:
@@ -81,8 +81,8 @@ From the **Studios** tab, select **Add a studio** and complete the following:
       - biopython==1.85
       - mdtraj==1.10.3
     ```
-- Select **Add** or choose to **Add and start** the studio session immediately.
-- If you chose to **Add** the studio in the preceding step, select **Connect** in the options menu to open a studio session in a new browser tab. 
+- Select **Add** or choose to **Add and start** a Studio session immediately.
+- If you chose to **Add** the Studio in the preceding step, select **Connect** in the options menu to open a Studio session in a new browser tab. 
 
 ### Visualize protein structures 
 
@@ -236,7 +236,7 @@ Run the following script in your Jupyter notebook to install the necessary packa
 
 ## RStudio: Analyze RNASeq data and differential expression statistics 
 
-Studios and RStudio notebooks enable interactive analysis using R libraries and tools. For example, Shiny for R enables you to render functions in a reactive application and build a custom user interface to explore your data. The public data used in this section consists of RNA sequencing data that was processed by the **nf-core/rnaseq** pipeline to quantify gene expression, followed by **nf-core/differentialabundance** to derive differential expression statistics. This section demonstrates how to create a studio to perform further analysis with these results from cloud storage. One of these outputs is an RShiny application that can be deployed for interactive analysis.
+RStudio notebooks enable interactive analysis using R libraries and tools. For example, Shiny for R enables you to render functions in a reactive application and build a custom user interface to explore your data. The public data used in this section consists of RNA sequencing data that was processed by the **nf-core/rnaseq** pipeline to quantify gene expression, followed by **nf-core/differentialabundance** to derive differential expression statistics. This section demonstrates how to create a Studio to perform further analysis with these results from cloud storage. One of these outputs is an RShiny application that can be deployed for interactive analysis.
 
 #### Create an AWS Batch compute environment 
 
@@ -264,23 +264,23 @@ For the purposes of this guide, add the nf-core AWS megatests S3 bucket to your 
 To use your own pipeline data for interactive analysis, add the cloud bucket that contains the results of your nf-core/differentialabundance pipeline run. See [Add a cloud bucket](./quickstart-demo/add-data.mdx#add-a-cloud-bucket) for more information. 
 :::
 
-### Create an RStudio notebook studio 
+### Create an RStudio notebook Studio 
 
-From the **Studios** tab, select **Add a studio** and complete the following:
+From the **Studios** tab, select **Add a Studio** and complete the following:
 - In the **Compute & Data** tab:
     - Select your AWS Batch compute environment. 
       :::note
-      Studio sessions compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and studio sessions.
+      Studio sessions compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and Studio sessions.
       :::    
     - Optional: Enter CPU and memory allocations. The default values are 2 CPUs and 8192 MB memory (RAM).
     - Mount data using Data Explorer: Mount the nf-core AWS megatests S3 bucket, or the directory path that contains the results of your nf-core/differentialabundance pipeline run. 
 - In the **General config** tab:
     - Select the latest **RStudio** container image template from the list.
-    - Optional: Enter a unique name and description for the studio. 
-- Select **Add** or choose to **Add and start** a studio session immediately.
-- If you chose to **Add** the studio in the preceding step, select **Start** in the options menu, then **Connect** to open a studio session in a new browser tab when it is running. 
+    - Optional: Enter a unique name and description for the Studio. 
+- Select **Add** or choose to **Add and start** a Studio session immediately.
+- If you chose to **Add** the Studio in the preceding step, select **Start** in the options menu, then **Connect** to open a Studio session in a new browser tab when it is running. 
 
-![Add studio](./_images/create-ds.gif)
+![Add a Studio](./_images/create-ds.gif)
 
 ### Configure environment and explore data in RShiny app
 
@@ -359,19 +359,19 @@ Add the 1000 Genomes S3 bucket to your workspace using Data Explorer:
 To use your own data for interactive analysis, see [Add a cloud bucket](./quickstart-demo/add-data.mdx#add-a-cloud-bucket) for instructions to add your own public or private cloud bucket. 
 :::
 
-### Create an Xpra studio 
+### Create an Xpra Studio 
 
-From the **Studios** tab, select **Add a studio** and complete the following:
+From the **Studios** tab, select **Add a Studio** and complete the following:
 - In the **Compute & Data** tab:
     - Select your AWS Batch compute environment. 
       :::note
-      Studio sessions compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and studio sessions.
+      Studio sessions compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and Studio sessions.
       :::
     - Optional: Enter CPU and memory allocations. 
     - Mount the 1000 Genomes S3 bucket you added previously using Data Explorer. 
 - In the **General config** tab:
     - Select the latest **Xpra** container image template from the list.
-    - Optional: Enter a unique name and description for the studio. 
+    - Optional: Enter a unique name and description for the Studio. 
     - Check **Install Conda packages** and paste the following into the YAML textfield:
         ```yaml 
         channels:
@@ -381,8 +381,8 @@ From the **Studios** tab, select **Add a studio** and complete the following:
           - igv
           - samtools
         ```
-- Select **Add** or choose to **Add and start** a studio session immediately.
-- If you chose to **Add** the studio in the preceding step, select **Connect** in the options menu to open a studio session in a new browser tab. 
+- Select **Add** or choose to **Add and start** a Studio session immediately.
+- If you chose to **Add** the Studio in the preceding step, select **Connect** in the options menu to open a Studio session in a new browser tab. 
 
 ### View variants in IGV desktop
 
@@ -419,19 +419,19 @@ The nf-core/fetchngs pipeline uses data from the NGI iGenomes public dataset for
       - An optional bucket **Description**.
 1. Select **Add**.
 
-### Create a VS Code studio 
+### Create a VS Code Studio 
 
-From the **Studios** tab, select **Add a studio** and complete the following:
+From the **Studios** tab, select **Add a Studio** and complete the following:
 - In the **Compute & Data** tab:
     - Select your AWS Batch compute environment. 
       :::note
-      Studio sessions compete for computing resources when sharing compute environments. Shared compute environments must have sufficient resources to run both your pipelines and studio sessions.
+      Studio sessions compete for computing resources when sharing compute environments. Shared compute environments must have sufficient resources to run both your pipelines and Studio sessions.
       :::    
     - Allocate at least 4 CPUs and 16000 MB RAM. 
     - Mount data using Data Explorer: For the purposes of this guide, mount the NGI iGenomes S3 bucket you added previously. 
 - In the **General config** tab:
     - Select the latest **VS Code** container image template from the list.
-    - Optional: Enter a unique name and description for the studio. 
+    - Optional: Enter a unique name and description for the Studio. 
     - Check **Install Conda packages** and paste the following into the YAML textfield:
         ```yaml
         channels:
@@ -442,9 +442,9 @@ From the **Studios** tab, select **Add a studio** and complete the following:
           - nf-core
           - conda
         ```
-- Select **Add** or choose to **Add and start** a studio session immediately.
-- If you chose to **Add** the studio in the preceding step, select **Connect** in the options menu to open a studio session in a new browser tab. 
-- Once inside the studio, run `code .` to be able to use the clipboard.
+- Select **Add** or choose to **Add and start** a Studio session immediately.
+- If you chose to **Add** the Studio in the preceding step, select **Connect** in the options menu to open a Studio session in a new browser tab. 
+- Once inside the Studio session, run `code .` to use the clipboard.
 
 ### Run nf-core/fetchngs with Conda 
 
