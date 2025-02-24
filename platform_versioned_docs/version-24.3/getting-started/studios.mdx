@@ -29,9 +29,9 @@ This script and instructions can also be used to visualize the structures from n
 
 #### Create an AWS Batch compute environment
 
-Studios requires an AWS Batch compute environment. If you do not have an existing compute environment available, create one with the following attributes:
+Studios require an AWS Batch compute environment. If you do not have an existing compute environment available, create one with the following attributes:
 
-- **Region**: To minimize costs, your compute environment should be in the same region as your data. To browse the nf-core AWS megatests public data optimally, select **eu-west-1**.
+- **Region**: To reduce costs, your compute environment should be in the same region as your data. To browse the nf-core AWS megatests public data optimally, select **eu-west-1**.
 - **Provisioning model**: Use **On-demand** EC2 instances. 
 - Studios does not support AWS Fargate. Do not enable **Use Fargate for head job**. 
 - At least 2 available CPUs and 8192 MB of RAM. 
@@ -59,7 +59,7 @@ From the **Studios** tab, select **Add a studio** and complete the following:
 - In the **Compute & Data** tab:
     - Select your AWS Batch compute environment. 
         :::note
-        Studios compete for computing resources when sharing compute environments. Ensure your shared compute environment has sufficient resources to run both your pipelines and studio sessions. 
+        Studio sessions compete for computing resources when sharing compute environments. Ensure your shared compute environment has sufficient resources to run both your pipelines and studio sessions. 
         :::
     - Optional: Enter CPU and memory allocations. The default values are 2 CPUs and 8192 MB memory (RAM).
     - Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the nf-core AWS megatests proteinfold data, or the pipeline work directory of your nf-core/proteinfold run. 
@@ -82,7 +82,7 @@ From the **Studios** tab, select **Add a studio** and complete the following:
       - mdtraj==1.10.3
     ```
 - Select **Add** or choose to **Add and start** the studio session immediately.
-- If you chose to **Add** the studio in the preceding step, select **Connect** in the options menu to open the studio session in a new browser tab. 
+- If you chose to **Add** the studio in the preceding step, select **Connect** in the options menu to open a studio session in a new browser tab. 
 
 ### Visualize protein structures 
 
@@ -240,7 +240,7 @@ Studios and RStudio notebooks enable interactive analysis using R libraries and 
 
 #### Create an AWS Batch compute environment 
 
-Studios requires an AWS Batch compute environment. If you do not have an existing compute environment with at least 2 CPUs available, create one with the following attributes:
+Studios require an AWS Batch compute environment. If you do not have an existing compute environment with at least 2 CPUs available, create one with the following attributes:
 
 - **Region**: To minimize costs, your compute environment should be in the same region as your data. To browse the nf-core AWS megatests public data optimally, select **eu-west-1**.
 - **Provisioning model**: Use **On-demand** EC2 instances. 
@@ -270,55 +270,62 @@ From the **Studios** tab, select **Add a studio** and complete the following:
 - In the **Compute & Data** tab:
     - Select your AWS Batch compute environment. 
       :::note
-      Studios compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and studio sessions.
+      Studio sessions compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and studio sessions.
       :::    
     - Optional: Enter CPU and memory allocations. The default values are 2 CPUs and 8192 MB memory (RAM).
     - Mount data using Data Explorer: Mount the nf-core AWS megatests S3 bucket, or the directory path that contains the results of your nf-core/differentialabundance pipeline run. 
 - In the **General config** tab:
     - Select the latest **RStudio** container image template from the list.
     - Optional: Enter a unique name and description for the studio. 
-- Select **Add** or choose to **Add and start** the studio immediately.
-- If you chose to **Add** the studio in the preceding step, select **Start** in the options menu, then **Connect** to open the studio in a new browser tab when it is running. 
+- Select **Add** or choose to **Add and start** a studio session immediately.
+- If you chose to **Add** the studio in the preceding step, select **Start** in the options menu, then **Connect** to open a studio session in a new browser tab when it is running. 
 
 ![Add studio](./_images/create-ds.gif)
 
 ### Configure environment and explore data in RShiny app
 
-1. Configure the RStudio environment with installed packages, including [ShinyNGS](https://github.com/pinin4fjords/shinyngs):
+The following R script installs and configures the prerequisite packages and libraries to deploy ShinyNGS, an RShiny application created by members of the nf-core community to explore genomic data. The script also downloads the RDS file from nf-core AWS megatests to use as input data for the Shiny app's various plots, heatmaps, and tables. To use your own nf-core/rnaseq and nf-core/differentialabundance results, modify the script as instructed in step 2 below: 
 
-    ```r 
-    if (!require("BiocManager", quietly = TRUE))
-      install.packages("BiocManager")
+<details>
+<summary>R script</summary>
 
-    BiocManager::install(version = "3.20", ask = FALSE)
-    BiocManager::install(c("SummarizedExperiment", "GSEABase", "limma"))
+    1. Configure the RStudio environment with installed packages, including [ShinyNGS](https://github.com/pinin4fjords/shinyngs):
 
-    install.packages(c("devtools", "matrixStats", "rmarkdown", "markdown"))
-    install.packages("shiny", repos = "https://cran.rstudio.com/")
+        ```r 
+        if (!require("BiocManager", quietly = TRUE))
+          install.packages("BiocManager")
 
-    devtools::install_version("cpp11", version = "0.2.1", repos = "http://cran.us.r-project.org")
-    devtools::install_github('pinin4fjords/shinyngs', upgrade_dependencies = FALSE)
-    ```
+        BiocManager::install(version = "3.20", ask = FALSE)
+        BiocManager::install(c("SummarizedExperiment", "GSEABase", "limma"))
 
-1. Download the RDS file from nf-core AWS megatests or your own nf-core/differentialabundance results (see [Shiny app](https://nf-co.re/differentialabundance/1.5.0/docs/output/#shiny-app) from the nf-core documentation for file details): 
+        install.packages(c("devtools", "matrixStats", "rmarkdown", "markdown"))
+        install.packages("shiny", repos = "https://cran.rstudio.com/")
 
-    ```r 
-    # For nf-core AWS megatests
-    download.file("https://nf-core-awsmegatests.s3-eu-west-1.amazonaws.com/differentialabundance/results-3dd360fed0dca1780db1bdf5dce85e5258fa2253/shinyngs_app/study/data.rds", 'data.rds')
+        devtools::install_version("cpp11", version = "0.2.1", repos = "http://cran.us.r-project.org")
+        devtools::install_github('pinin4fjords/shinyngs', upgrade_dependencies = FALSE)
+        ```
 
-    # For your nf-core/differentialabundance results, replace the URL with your RDS file URL)
-    download.file("https://bucket.s3-region.amazonaws.com/differentialabundance/results/shinyngs_app/study-name/data.rds", 'data.rds')
-    ```
+    1. Download the RDS file from nf-core AWS megatests or your own nf-core/differentialabundance results (see [Shiny app](https://nf-co.re/differentialabundance/1.5.0/docs/output/#shiny-app) from the nf-core documentation for file details): 
 
-1. Import libraries, read your RDS data, and launch the RShiny app:
+        ```r 
+        # For nf-core AWS megatests
+        download.file("https://nf-core-awsmegatests.s3-eu-west-1.amazonaws.com/differentialabundance/results-3dd360fed0dca1780db1bdf5dce85e5258fa2253/shinyngs_app/study/data.rds", 'data.rds')
 
-    ```r 
-    library(shinyngs)
-    library(markdown)
-    esel <- readRDS("data.rds")
-    app <- prepareApp("rnaseq", esel)
-    shiny::shinyApp(app$ui, app$server)
-    ```
+        # For your nf-core/differentialabundance results, replace the URL with your RDS file URL)
+        download.file("https://bucket.s3-region.amazonaws.com/differentialabundance/results/shinyngs_app/study-name/data.rds", 'data.rds')
+        ```
+
+    1. Import libraries, read your RDS data, and launch the RShiny app:
+
+        ```r 
+        library(shinyngs)
+        library(markdown)
+        esel <- readRDS("data.rds")
+        app <- prepareApp("rnaseq", esel)
+        shiny::shinyApp(app$ui, app$server)
+        ```
+
+</details>
 
 ![Explore the RShiny app](./quickstart-demo/assets/rnaseq-diffab-rshiny-app-explore.gif)
 
@@ -358,7 +365,7 @@ From the **Studios** tab, select **Add a studio** and complete the following:
 - In the **Compute & Data** tab:
     - Select your AWS Batch compute environment. 
       :::note
-      Studios compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and studio sessions.
+      Studio sessions compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and studio sessions.
       :::
     - Optional: Enter CPU and memory allocations. 
     - Mount the 1000 Genomes S3 bucket you added previously using Data Explorer. 
@@ -374,8 +381,8 @@ From the **Studios** tab, select **Add a studio** and complete the following:
           - igv
           - samtools
         ```
-- Select **Add** or choose to **Add and start** the studio immediately.
-- If you chose to **Add** the studio in the preceding step, select **Connect** in the options menu to open the studio in a new browser tab. 
+- Select **Add** or choose to **Add and start** a studio session immediately.
+- If you chose to **Add** the studio in the preceding step, select **Connect** in the options menu to open a studio session in a new browser tab. 
 
 ### View variants in IGV desktop
 
@@ -418,7 +425,7 @@ From the **Studios** tab, select **Add a studio** and complete the following:
 - In the **Compute & Data** tab:
     - Select your AWS Batch compute environment. 
       :::note
-      Studios compete for computing resources when sharing compute environments. Shared compute environments must have sufficient resources to run both your pipelines and studio sessions.
+      Studio sessions compete for computing resources when sharing compute environments. Shared compute environments must have sufficient resources to run both your pipelines and studio sessions.
       :::    
     - Allocate at least 4 CPUs and 8192 MB RAM. 
     - Mount data using Data Explorer: For the purposes of this guide, mount the NGI iGenomes S3 bucket you added previously. 
@@ -435,8 +442,8 @@ From the **Studios** tab, select **Add a studio** and complete the following:
           - nf-core
           - conda
         ```
-- Select **Add** or choose to **Add and start** the studio immediately.
-- If you chose to **Add** the studio in the preceding step, select **Connect** in the options menu to open the studio in a new browser tab. 
+- Select **Add** or choose to **Add and start** a studio session immediately.
+- If you chose to **Add** the studio in the preceding step, select **Connect** in the options menu to open a studio session in a new browser tab. 
 - Once inside the studio, run `code.` to be able to use the clipboard.
 
 ### Run nf-core/fetchngs with Conda 
