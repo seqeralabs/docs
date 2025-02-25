@@ -53,7 +53,7 @@ fusion.containerConfigUrl = '<CUSTOM_CONTAINER_URL>'
 :::info Example
 A c6id.8xlarge instance provides 64 GiB memory and 12.5 Gbps guaranteed network bandwidth. This configuration can transfer the entire memory contents to S3 in approximately 70 seconds, well within the 2-minute reclamation window.
 
-Instances with network-to-memory ratios lower than 5:1 may not complete transfers before termination, potentially resulting in task failures.
+Instances with memory-to-network ratios over 5:1 may not complete transfers before termination, potentially resulting in task failures.
 :::
 
 #### Recommended instance types
