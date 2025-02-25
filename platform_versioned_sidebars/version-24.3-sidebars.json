@@ -118,11 +118,11 @@
     },
     {
       "type": "category",
-      "label": "Data Studios",
+      "label": "Studios",
       "items": [
-        "data_studios/index",
-        "data_studios/custom-envs",
-        "data_studios/managing"
+        "studios/index",
+        "studios/custom-envs",
+        "studios/managing"
       ]
     },
     {
@@ -208,7 +208,7 @@
       "items": [
         "troubleshooting_and_faqs/troubleshooting",
         "troubleshooting_and_faqs/api_and_cli",
-        "troubleshooting_and_faqs/data_studios_troubleshooting",
+        "troubleshooting_and_faqs/studios_troubleshooting",
         "troubleshooting_and_faqs/nextflow",
         "troubleshooting_and_faqs/aws_troubleshooting",
         "troubleshooting_and_faqs/azure_troubleshooting",
