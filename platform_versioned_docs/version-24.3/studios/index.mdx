@@ -28,7 +28,7 @@ Currently, Studios only supports AWS Batch compute environments that **do not** 
 
 ## Limitations
 
-If you configured your AWS Batch compute environment to include an EFS file system with **EFS file system > EFS mount path**, the mount path must be explicitly specified. The mount path cannot be the same as your compute environment work directory. If the EFS file system is mounted as your compute environment work directory, snapshots cannot be saved and sessions fail. To mount an EFS volume in a studio session (for example, if your organization has a custom, managed, and standardized software stack in an EFS volume), add the EFS volume to the compute environment (system ID and mount path). The volume will be available at the specified mount path in the session.
+If you configured your AWS Batch compute environment to include an EFS file system with **EFS file system > EFS mount path**, the mount path must be explicitly specified. The mount path cannot be the same as your compute environment work directory. If the EFS file system is mounted as your compute environment work directory, snapshots cannot be saved and sessions fail. To mount an EFS volume in a Studio session (for example, if your organization has a custom, managed, and standardized software stack in an EFS volume), add the EFS volume to the compute environment (system ID and mount path). The volume will be available at the specified mount path in the session.
 
 For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
 
@@ -115,17 +115,13 @@ To see the list of all Xpra image templates available, including security scan r
 
 Sessions have the following possible statuses:
 
-- **building**: When a custom environment is building the template image for a new Studio session. The [Wave] service performs the build action. For more information on this status, see [Inspect custom container template build status][build-status].
+- **building**: When a custom environment is building the template image for a new session. The [Wave] service performs the build action. For more information on this status, see [Inspect custom container template build status][build-status].
 - **build-failed**:  When a custom environment build has failed. This is a non-recoverable error. Logs are provided to assist with troubleshooting. For more information on this status, see [Inspect custom container template build status][build-status].
 - **starting**: The Studio is initializing.
-- **running**: When a Studio session is **running**, you can connect to it, copy the URL, or stop it. In addition, the session can continue to process requests/run computations in the absence of an ongoing connection.
-- **stopping**: The recently-running Studio session is in the process of being stopped.
-- **stopped**: When a Studio session is stopped, the associated compute resources are deallocated. You can start or delete the session when it's in this state.
-- **errored**: This state most often indicates that there has been an error starting the Studio session but it is in a **stopped** state. There might be errors reported by the session itself but these will be overwritten with a **running** status if the session is still running.
-
-  :::tip
-  If you encounter an error with the public preview release of Studios, [contact Seqera support][contact].
-  :::
+- **running**: When a session is **running**, you can connect to it, copy the URL, or stop it. In addition, the session can continue to process requests/run computations in the absence of an ongoing connection.
+- **stopping**: The recently-running session is in the process of being stopped.
+- **stopped**: When a session is stopped, the associated compute resources are deallocated. You can start or delete the session when it's in this state.
+- **errored**: This state most often indicates that there has been an error starting the session but it is in a **stopped** state. There might be errors reported by the session itself but these will be overwritten with a **running** status if the session is still running.
 
 ## Studio session data links
 
@@ -144,9 +140,9 @@ For more information, see [Limit Studio access to a specific cloud bucket subdir
 
 ## Studio session checkpoints
 
-When starting a Studio session, a *checkpoint* is automatically created. A checkpoint saves all changes made to the root filesystem and stores it in the attached compute environment's pipeline work directory in the `.studios/checkpoints` folder with a unique name. The current checkpoint is updated every five minutes during a session.
+When starting a session, a *checkpoint* is automatically created. A checkpoint saves all changes made to the root filesystem and stores it in the attached compute environment's pipeline work directory in the `.studios/checkpoints` folder with a unique name. The current checkpoint is updated every five minutes during a session.
 
-When you stop and start a Studios session, or start a new session from a previously created checkpoint, changes such as installed software packages and configuration files are restored and made available. Changes made to mounted data are not included in a checkpoint.
+When you stop and start a session, or start a new session from a previously created checkpoint, changes such as installed software packages and configuration files are restored and made available. Changes made to mounted data are not included in a checkpoint.
 
 Checkpoints can be renamed and the name has to be unique per Studio. Spaces in checkpoint names are converted to underscores automatically.
 

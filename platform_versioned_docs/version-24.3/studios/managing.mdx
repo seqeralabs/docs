@@ -118,7 +118,7 @@ To share a link to a running session with collaborators inside your workspace, s
 Collaborators need valid workspace permissions to connect to the running Studio.
 :::
 
-## Stop a Studio
+## Stop a Studio session
 
 This functionality is available to users with the **Maintain** role and above.
 
@@ -126,19 +126,17 @@ To stop a running session, select the three dots next to the status message and 
 
 Stopping a running session creates a new checkpoint.
 
-## Restart a stopped Studio
+## Restart a stopped session
 
-This functionality is available to users with the **Maintain** role and above.
-
-When you restart a stopped session, the session uses the most recent checkpoint.
+This functionality is available to users with the **Maintain** role and above. When you restart a stopped session, the session uses the most recent checkpoint.
 
 ## Start a new session from a checkpoint
 
 This functionality is available to users with the **Maintain** role and above.
 
-You can start a new session from an existing stopped session. This will inherit the history of the parent checkpoint state. From the list of **stopped** Studios in your workspace, select the three dots next to the status message for the data studio and select **Start as new**. Alternatively, select the **Checkpoints** tab on the detail page, select the three dots in the **Actions** column, and then select **Start as new** to start a new session.
+You can start a new session from an existing stopped session. This will inherit the history of the parent checkpoint state. From the list of **stopped** Studios in your workspace, select the three dots next to the status message for the Studio you want to start and select **Start as new**. Alternatively, select the **Checkpoints** tab on the detail page, select the three dots in the **Actions** column, and then select **Start as new** to start a new session.
 
-## Delete a Studio session
+## Delete a Studios
 
 This functionality is available to users with the **Maintain** role and above.
 
@@ -160,7 +158,7 @@ To limit read-write access to a specific subdirectory, complete the following st
    - Optional: **Description**: Enter a description for this cloud bucket.
 1. Select **Add** to create a custom data-link to a subdirectory in the cloud bucket.
 
-When defining a new Studio session, you can configure the **Mounted data** by selecting the custom data-link created by the previous steps.
+When defining a new Studio, you can configure the **Mounted data** by selecting the custom data-link created by the previous steps.
 
 
 {/* links */}

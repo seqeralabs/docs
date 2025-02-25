@@ -8,7 +8,7 @@ tags: [docker, compose, kubernetes, data, studios, deployment]
 Enable Studios as part of your Seqera Platform instance. You must have Data Explorer enabled to use Studios. Only the Amazon AWS public cloud is currently supported.
 
 :::caution 
-You must complete the upgrade of your Platform Enterprise installation to version 24.1.4 before enabling and configuring Data Studios.
+You must complete the upgrade of your Platform Enterprise installation to version 24.1.4 before enabling and configuring Studios.
 :::
 
 ## DNS configuration
@@ -20,7 +20,7 @@ Provide a wildcard TLS certificate to allow for uniquely generated subdomains. A
 Studios uses the following set of domains and subdomains:
 
 - The domain that you set for `TOWER_SERVER_URL`, such as `example.com`.
-- A wildcard subdomain that you must configure specifically for Studios. This wildcard subdomain is the parent for each unique Studios session URL, such as `abcd.example.com`.
+- A wildcard subdomain that you must configure specifically for Studios. This wildcard subdomain is the parent for each unique session URL, such as `abcd.example.com`.
 - The connection proxy, defined by `CONNECT_PROXY_URL`. This URL is a first-level subdomain of your `TOWER_SERVER_URL`. For example, `https://connect.example.com`. 
 
 ## Studios workspace availability
@@ -33,7 +33,7 @@ You can configure which organizational workspaces have access to Studios. This c
 
 ## Available Studio environment images
 
-Each of the provided Studios environments includes a particular version of the underlying data analytics software package.
+Each of the provided environments includes a particular version of the underlying data analytics software package.
 
 To quickly identify which version of the software an image includes, the version string for each container is in the form of `<software_version>-<seqera_version>`. For example, if the version string for the RStudio Server is `4.4.1-0.7.4`, version `4.4.1` is the RStudio version and `0.7.4` is the version of this Seqera-built container image.
 
@@ -78,7 +78,7 @@ This guide assumes that all services will be run in the same container as the re
     ```yaml
     volumes:
       - $PWD/tower.yml:/tower.yml
-      # An RSA key is required for Data Studios functionality. Uncomment the line below to mount the key.
+      # An RSA key is required for Studios functionality. Uncomment the line below to mount the key.
       #- $PWD/data-studios-rsa.pem:/data-studios-rsa.pem
     ```
 
@@ -143,7 +143,7 @@ This procedure describes how to configure Studios for Kubernetes deployments of 
 1. Edit the `proxy.yml` file and set the following variables:
 
     - `CONNECT_REDIS_ADDRESS`: The hostname or IP address of the Redis server configured for Platform.
-    - `CONNECT_PROXY_URL`: A URL for the connect proxy subdomain. We recommend you set a first-level subdomain of your Platform installation domain (`PLATFORM_URL` below) for your connect proxy, to be able to use the same wildcard TLS certificate for all Studio session URLs and avoid additional domain nesting. For example, `https://connect.example.com`.
+    - `CONNECT_PROXY_URL`: A URL for the connect proxy subdomain. We recommend you set a first-level subdomain of your Platform installation domain (`PLATFORM_URL` below) for your connect proxy, to be able to use the same wildcard TLS certificate for all session URLs and avoid additional domain nesting. For example, `https://connect.example.com`.
     - `PLATFORM_URL`: The base URL for your Platform installation, such as `https://example.com/`.
     - `CONNECT_OIDC_CLIENT_REGISTRATION_TOKEN`: The same value as the `oidc_registration_token` value created previously.
 
