@@ -407,8 +407,6 @@ From the **Studios** tab, select **Add a Studio** and complete the following:
 - Select **Add** or choose to **Add and start** a Studio session immediately.
 - If you chose to **Add** the Studio in the preceding step, select **Start** in the options menu, then **Connect** to open a Studio session in a new browser tab when it is running. 
 
-![Add a Studio](./_images/create-ds.gif)
-
 ### Configure environment and explore data in RShiny app
 
 The following R script installs and configures the prerequisite packages and libraries to deploy ShinyNGS, an RShiny application created by members of the nf-core community to explore genomic data. The script also downloads the RDS file from nf-core AWS megatests to use as input data for the Shiny app's various plots, heatmaps, and tables. To use your own nf-core/rnaseq and nf-core/differentialabundance results, modify the script as instructed in step 2 below: 
@@ -597,6 +595,8 @@ nextflow run nf-core/fetchngs -profile test,conda --outdir ./nf-core-fetchngs-co
 
 - Run `nf-core pipelines create` to create a new pipeline. Choose which parts of the nf-core template you want to use.
 - Run `code [your new pipeline]` to open the new pipeline as a project in VSCode. This allows you to code your pipeline with the help of the Nextflow language server and nf-core tools.
+
+![VS Code Studio session](./_images/guide-vs-code-studio-nf-env-1080p-cropped.gif)
 
 #### Interactive collaboration 
 
