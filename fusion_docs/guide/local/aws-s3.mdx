@@ -1,0 +1,49 @@
+---
+title: AWS S3
+description: "Use Fusion with the Nextflow local executor and AWS S3"
+date: "13 Feb 2025"
+tags: [fusion, storage, compute, local, s3]
+---
+
+With Fusion, you can run Nextflow pipelines using the local executor and AWS S3. This
+is useful to scale your pipeline execution vertically with a large compute instance, without the need to allocate
+a large storage volume for temporary pipeline data.
+
+### Nextflow CLI
+
+:::tip
+This configuration requires Docker or a similar container engine to run pipeline tasks.
+:::
+
+1. Set `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables to grant Nextflow and Fusion access to your storage credentials. See [Credentials](https://www.nextflow.io/docs/latest/google.html#credentials) for more information.
+
+1. Add the following to your `nextflow.config` file:
+
+    ```groovy
+    wave.enabled = true
+    docker.enabled = true
+    tower.accessToken = '<PLATFORM_ACCESS_TOKEN>'
+    fusion.enabled = true
+    fusion.exportStorageCredentials = true
+    ```
+
+    Replace `<PLATFORM_ACCESS_TOKEN>` with your Platform access token.
+
+1. Run the pipeline with the Nextflow run command:
+
+    ```
+    nextflow run <PIPELINE_SCRIPT> -w s3://<S3_BUCKET>/work
+    ```
+
+    Replace the following:
+    - `<PIPELINE_SCRIPT>`: your pipeline Git repository URI.
+    - `<S3_BUCKET>`: your S3 bucket name.
+
+:::tip
+To achieve optimal performance, set up an SSD volume as the temporary directory.
+:::
+
+:::warning
+The option `fusion.exportStorageCredentials` leaks credentials on the task launcher script created by Nextflow.
+This option should only be used for testing and development purposes.
+:::

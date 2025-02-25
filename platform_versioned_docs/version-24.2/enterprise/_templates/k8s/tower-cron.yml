@@ -21,7 +21,7 @@ spec:
             name: tower-yml
       initContainers:
         - name: migrate-db
-          image: cr.seqera.io/private/nf-tower-enterprise/migrate-db:v24.2.3
+          image: cr.seqera.io/private/nf-tower-enterprise/migrate-db:v24.2.4
           command: ["sh", "-c", "/migrate-db.sh"]
           envFrom:
             - configMapRef:
@@ -32,7 +32,7 @@ spec:
               subPath: tower.yml
       containers:
         - name: backend
-          image: cr.seqera.io/private/nf-tower-enterprise/backend:v24.2.3
+          image: cr.seqera.io/private/nf-tower-enterprise/backend:v24.2.4
           envFrom:
             - configMapRef:
                 name: tower-backend-cfg

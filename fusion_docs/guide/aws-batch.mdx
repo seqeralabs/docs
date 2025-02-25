@@ -36,15 +36,17 @@ Seqera Platform automatically formats and configures NVMe instance storage with 
     process.queue = '<AWS_BATCH_QUEUE>'
     process.scratch = false
     process.containerOptions = '-v <PATH_TO_SSD>:/tmp' // Required for SSD volumes
-    aws.region = '<AWS_REGION>'
-    fusion.enabled = true
     wave.enabled = true
+    fusion.enabled = true
+    tower.accessToken = '<PLATFORM_ACCESS_TOKEN>'
+    aws.region = '<AWS_REGION>'
     ```
 
     Replace the following:
-    - `<AWS_BATCH_QUEUE>`: the path to your AWS Batch queue
-    - `<PATH_TO_SSD>`: your SSD path
-    - `<AWS_REGION>`: your AWS region
+    - `<AWS_BATCH_QUEUE>`: the path to your AWS Batch queue.
+    - `<PATH_TO_SSD>` with your SSD path.
+    - `<PLATFORM_ACCESS_TOKEN>`: your Platform access token.
+
 
 1. Run the pipeline with the Nextflow run command:
 
@@ -53,8 +55,8 @@ Seqera Platform automatically formats and configures NVMe instance storage with 
     ```
 
     Replace the following:
-    - `<PIPELINE_SCRIPT>`: your pipeline Git repository URI 
-    - `<S3_BUCKET>`: your S3 bucket
+    - `<PIPELINE_SCRIPT>`: your pipeline Git repository URI.
+    - `<S3_BUCKET>`: your S3 bucket.
 
 :::tip
 You can use an EBS gp3 volume with a throughput of 325 MiB/s (or more) and a size of 100 GiB (or larger) as an alternative to configuring NVMe storage on your compute node. While slower than NVMe storage, this configuration provides sufficient performance for many workloads.
