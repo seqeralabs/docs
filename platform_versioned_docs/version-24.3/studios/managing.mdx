@@ -34,7 +34,7 @@ To add a new Studio, complete the following steps:
    - To use one of the Seqera-provided container templates, complete the following steps:
 
      1. Customize the following fields:
-        - **Container template**: Select a Studio template from the dropdown list.
+        - **Container template**: Select a template from the dropdown list.
         - **Studio name**
         - Optional: **Description**
      1. Optional: Select **Install Conda packages** to enter or upload a list of Conda packages to include with the Studio. For more information on the syntax for specifying Conda packages, see [Conda package syntax][conda-syntax].
@@ -59,7 +59,7 @@ To add a new Studio, complete the following steps:
       - If you want to save the Studio for future use, select **Add only**.
       - If you want to save and immediately start the Studio, select **Add and start**.
 
-You'll be returned to the Studios landing page that displays the list of Studio sessions in your workspace. You can inspect the configuration details of the session that you created by selecting the session name. The Studio that you created will be listed with a status of either **stopped** or **starting**, depending on whether you elected to only add it or to start a session as well.
+You'll be returned to the Studios landing page that displays the list of Studio sessions in your workspace. Select a Studio to inspect its configuration details. The Studio you created will be listed with a status of either **stopped** or **starting**, based on whether you elected to **Add** it or to **Add and start** a session as well.
 
 :::note
 By default, sessions only have read permissions to mounted data paths. Write permissions can be added for specific cloud storage buckets during the compute environment configuration by defining additional **Allowed S3 Buckets**. This means that data can be written from the session back to the cloud storage path(s) mounted. To stop potential data loss, only one session per workspace can mount a unique data path. When adding a new session, data paths already mounted to other running sessions are unavailable. If a new file is uploaded to the cloud storage bucket path while a session is running, the file may not be available to the session immediately.
@@ -69,23 +69,23 @@ By default, sessions only have read permissions to mounted data paths. Write per
 
 This functionality is available to users with the **Maintain** role and above.
 
-A Studio needs to be started before you can connect to it. Select the three dots next to the status message for the Studio you want to start, then select **Start**. You can optionally change the configuration of the Studio, then select **Start in new tab**. A new browser tab will open that displays the startup state of the session. Once the session is running, you can connect to it. A session will run until it is stopped manually or it encounters a technical issue.
+A Studio session needs to be started before you can connect to it. Select the three dots next to the status message for the Studio you want to start, then select **Start**. You can optionally change the configuration of the Studio, then select **Start in new tab**. A new browser tab will open that displays the startup state of the session. Once the session is running, you can connect to it. A session will run until it is stopped manually or it encounters a technical issue.
 
 :::note
 A session consumes resources until it's **stopped**.
 :::
 
-Once a session is in a **running** state, you can connect to it, obtain the public link to the session to share with collaborators inside your workspace, and stop it.
+Once a Studio session is in a **running** state, you can connect to it, obtain a public link to the session to share with collaborators inside your workspace, and stop it.
 
 ## Start an existing Studio as a new session
 
 This functionality is available to users with the **Maintain** role and above.
 
-You can use any existing Studio as the foundation for adding a new Studio. This functionality creates a clone of the Studio, including its checkpoint history, preserving any modifications made to the original Studio. When you create a session in this way, future changes are isolated from the original session.
+You can use any existing Studio as the foundation for adding a new session. This functionality creates a clone of the session, including its checkpoint history, preserving any modifications made to the original Studio. When you create a session in this way, future changes are isolated from the original session.
 
 When adding a new session from an existing session or checkpoint, the following fields cannot be changed:
 
-- **Studio Template**
+- **Studio template**
 - **Original Studio session and checkpoint**
 - **Compute environment**
 - **Installed Conda packages**
@@ -106,7 +106,7 @@ An active connection to a session will not prevent administrative actions that m
 
 Once connected, the session will display the status of **running** in the list, and any connected user's avatar will be displayed under the status in both the list of Studios and in each Studio's detail page.
 
-## Collaborate in a Studio
+## Collaborate in a Studio session
 
 This functionality is available to all user roles excluding the **View** role.
 
