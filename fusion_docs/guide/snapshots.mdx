@@ -18,7 +18,7 @@ More specifically, the first use case for this feature is for Seqera Platform us
 Fusion Snapshots v1.0.0 requires the following [Seqera compute environment](https://docs.seqera.io/platform/latest/compute-envs/aws-batch) configuration:
 
 - **Provider**: AWS Batch
-- **Pipeline work directory**: An S3 bucket in the same region as the compute environment
+- **Pipeline work directory**: An S3 bucket located in the same region as your AWS Batch compute resources
 - **Enable Wave containers**
 - **Enable Fusion v2**
 - **Enable fast instance storage**
@@ -43,17 +43,40 @@ fusion.containerConfigUrl = '<CUSTOM_CONTAINER_URL>'
 
 `maxSpotAttempts` must be a value higher than `0`.
 
-### Recommended instance sizes
+### EC2 instance selection guidelines
 
-Fusion Snapshots require EC2 Spot instances with enough memory and network bandwidth to dump the cache of task intermediate files to S3 storage before AWS terminates an instance. When AWS issues a Spot instance reclamation notice, Fusion has two minutes to complete this transfer. 
+- Choose EC2 Spot instances with sufficient memory and network bandwidth to dump the cache of task intermediate files to S3 storage before AWS terminates an instance
+- Select instances with guaranteed network bandwidth (not instances with bandwidth "up to" a maximum value)
+- Maintain a 5:1 ratio between memory (GiB) and network bandwidth (Gbps)
+- Recommended instance families: `c6id`, `r6id`, or `m6id` series instances work optimally with Fusion fast instance storage
 
-It is recommended to select instances with guaranteed network bandwidth (as opposed to bandwidth _up to_ a maximum value) and maintain a ratio of 5:1 between memory and network bandwidth. 
+:::info "Example"
+A c6id.8xlarge instance provides 64 GiB memory and 12.5 Gbps guaranteed network bandwidth. This configuration can transfer the entire memory contents to S3 in approximately 70 seconds, well within the 2-minute reclamation window.
+:::
 
-For example, taking into account the bandwidth and compute necessary to create a snapshot, a  `c6i.8xlarge` instance with 64 GIB memory and a guaranteed network bandwidth of 12.5 Gbps can take approximately 70 seconds to dump the entire instance to S3 storage before instance reclamation occurs. 
+:::note
+Instances with lower network-to-memory ratios may not complete transfers before termination, potentially resulting in task failures.
+:::
 
-### Amazon Linux 2023 ECS-optimized AMI 
+#### Recommended instance types
+
+| Instance Type   | Memory (GiB) | Network Bandwidth (Gbps) | Memory:Bandwidth Ratio | Est. Snapshot Time |
+|----------------|--------------|--------------------------|------------------------|-------------------|
+| c6id.4xlarge   | 32           | 12.5                     | 2.56:1                 | ~45 seconds       |
+| c6id.8xlarge   | 64           | 12.5                     | 5.12:1                 | ~70 seconds       |
+| r6id.2xlarge   | 64           | 12.5                     | 5.12:1                 | ~70 seconds       |
+| m6id.4xlarge   | 64           | 12.5                     | 5.12:1                 | ~70 seconds       |
+| c6id.12xlarge  | 96           | 18.75                    | 5.12:1                 | ~70 seconds       |
+| r6id.4xlarge   | 128          | 12.5                     | 10.24:1                | ~105 seconds      |
+| m6id.8xlarge   | 128          | 25                       | 5.12:1                 | ~70 seconds       |
+
+### Platform Enterprise: Select an Amazon Linux 2023 ECS-optimized AMI 
 
 To obtain sufficient performance, Fusion Snapshots require instances with Amazon Linux 2023 (which ships with Linux Kernel 6.1), with an ECS Container-optimized AMI. 
+
+:::note
+Selecting an Amazon Linux 2023 ECS-Optimized AMI is only required for Seqera Enterprise instances. Seqera Cloud AWS Batch compute environments select this AMI by default. 
+:::
 
 To find the recommended AL2023 ECS-optimized AMI for your region, run the following (replace `eu-central-1` with your AWS region):
 
