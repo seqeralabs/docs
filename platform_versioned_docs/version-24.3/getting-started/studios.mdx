@@ -355,6 +355,12 @@ Run the following script in your Jupyter notebook to install the necessary packa
 
 </details>    
 
+![Visualize predicted protein structures in a Jupyter notebook Studio](./_images/protein-vis-short-gif-1080p-cropped.gif)
+
+#### Interactive collaboration 
+
+To share a link to the running Studio session with collaborators inside your workspace, select the options menu for your Jupyter Studio session, then select **Copy Studio URL**. Using this link, other authenticated users can access the session directly to collaborate in real time.
+
 ## RStudio: Analyze RNASeq data and differential expression statistics 
 
 RStudio notebooks enable interactive analysis using R libraries and tools. For example, Shiny for R enables you to render functions in a reactive application and build a custom user interface to explore your data. The public data used in this section consists of RNA sequencing data that was processed by the **nf-core/rnaseq** pipeline to quantify gene expression, followed by **nf-core/differentialabundance** to derive differential expression statistics. This section demonstrates how to create a Studio to perform further analysis with these results from cloud storage. One of these outputs is an RShiny application that can be deployed for interactive analysis.
@@ -450,6 +456,10 @@ The following R script installs and configures the prerequisite packages and lib
 
 ![Explore the RShiny app](./quickstart-demo/assets/rnaseq-diffab-rshiny-app-explore.gif)
 
+#### Interactive collaboration 
+
+To share a link to the running Studio session with collaborators inside your workspace, select the options menu for your RStudio session, then select **Copy Studio URL**. Using this link, other authenticated users can access the session directly to collaborate in real time.
+
 ## Xpra: Visualize genetic variants with IGV
 
 Studios and Xpra provides remote desktop functionality that enables many interactive analysis and troubleshooting workflows. One such workflow is to perform genetic variant visualization using IGV desktop, a powerful open-source tool for the visual exploration of genomic data. This section demonstrates how to add public data from the [1000 Genomes project](https://www.coriell.org/1/NHGRI/Collections/1000-Genomes-Project-Collection/1000-Genomes-Project) to your workspace, set up an Xpra environment with IGV desktop pre-installed, and explore a variant of interest. 
@@ -514,9 +524,13 @@ From the **Studios** tab, select **Add a Studio** and complete the following:
 1. Search for PCSK9 and zoom into one of the exons of the gene. A coverage graph and reads should be shown, as below:
     ![BAM file view](./_images/xpra-data-studios-IGV-view-bam.png)
 
-## VS Code: Create an interactive Nextflow developer environment
+#### Interactive collaboration 
 
-Using Studios and Visual Studio Code allows you to create a portable and interactive Nextflow development environment with all the tools you need to develop and run Nextflow pipelines. This section demonstrates how to set up a VS Code Studio with Conda and nf-core tools, add public data and run the nf-core/fetchngs pipeline with the `test` profile, and create a VS Code project to start coding your own Nextflow pipelines. 
+To share a link to the running Studio session with collaborators inside your workspace, select the options menu for your Xpra Studio session, then select **Copy Studio URL**. Using this link, other authenticated users can access the session directly to collaborate in real time.
+
+## VS Code: Create an interactive Nextflow development environment
+
+Using Studios and Visual Studio Code allows you to create a portable and interactive Nextflow development environment with all the tools you need to develop and run Nextflow pipelines. This section demonstrates how to set up a VS Code Studio with Conda and nf-core tools, add public data and run the nf-core/fetchngs pipeline with the `test` profile, and create a VS Code project to start coding your own Nextflow pipelines. The Studio includes the [Nextflow VS Code extension](https://marketplace.visualstudio.com/items?itemName=nextflow.nextflow), which makes use of the Nextflow language server to provide syntax highlighting, code navigation, code completion, and diagnostics for Nextflow scripts and configuration files.  
 
 #### Create an AWS Batch compute environment 
 
@@ -567,6 +581,10 @@ From the **Studios** tab, select **Add a Studio** and complete the following:
 - If you chose to **Add** the Studio in the preceding step, select **Connect** in the options menu to open a Studio session in a new browser tab. 
 - Once inside the Studio session, run `code .` to use the clipboard.
 
+:::tip 
+See [User and workspace settings](https://code.visualstudio.com/docs/editor/settings) if you wish to import existing VS Code configuration and preferences to your Studio session's VS Code environment. 
+:::
+
 ### Run nf-core/fetchngs with Conda 
 
 Run the following Nextflow command to run nf-core/fetchngs with Conda:
@@ -579,3 +597,7 @@ nextflow run nf-core/fetchngs -profile test,conda --outdir ./nf-core-fetchngs-co
 
 - Run `nf-core pipelines create` to create a new pipeline. Choose which parts of the nf-core template you want to use.
 - Run `code [your new pipeline]` to open the new pipeline as a project in VSCode. This allows you to code your pipeline with the help of the Nextflow language server and nf-core tools.
+
+#### Interactive collaboration 
+
+To share a link to the running Studio session with collaborators inside your workspace, select the options menu for your VS Code Studio session, then select **Copy Studio URL**. Using this link, other authenticated users can access the session directly to collaborate in real time.
