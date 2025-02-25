@@ -23,8 +23,7 @@
             "guide/local/minio",
             "guide/local/oracle-object"
           ]
-        },
-        "guide/snapshots"
+        }
       ]
     },
     "reference",
