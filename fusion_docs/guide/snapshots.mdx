@@ -45,10 +45,10 @@ fusion.containerConfigUrl = '<CUSTOM_CONTAINER_URL>'
 
 ### EC2 instance selection guidelines
 
-- Choose EC2 Spot instances with sufficient memory and network bandwidth to dump the cache of task intermediate files to S3 storage before AWS terminates an instance
-- Select instances with guaranteed network bandwidth (not instances with bandwidth "up to" a maximum value)
-- Maintain a 5:1 ratio between memory (GiB) and network bandwidth (Gbps)
-- Recommended instance families: `c6id`, `r6id`, or `m6id` series instances work optimally with Fusion fast instance storage
+- Choose EC2 Spot instances with sufficient memory and network bandwidth to dump the cache of task intermediate files to S3 storage before AWS terminates an instance.
+- Select instances with guaranteed network bandwidth (not instances with bandwidth "up to" a maximum value).
+- Maintain a 5:1 ratio between memory (GiB) and network bandwidth (Gbps).
+- Recommended instance families: `c6id`, `r6id`, or `m6id` series instances work optimally with Fusion fast instance storage.
 
 :::info "Example"
 A c6id.8xlarge instance provides 64 GiB memory and 12.5 Gbps guaranteed network bandwidth. This configuration can transfer the entire memory contents to S3 in approximately 70 seconds, well within the 2-minute reclamation window.
