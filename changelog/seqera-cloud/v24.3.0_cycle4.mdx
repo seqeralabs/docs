@@ -30,16 +30,16 @@ Affected endpoints:
 
 - **Studios**
   - Add support for unlimited and fully restricted running Studios quota. This change makes the quota handling consistent with other quotas and introduces negative value interpreted as disabled/fully restricted/blocked.
-  - Add Studio session lifespan setting. This feature allows you to set a lifespan for a session, so that it stops after a defined period of time.
+  - Add Studio session lifespan setting. This feature allows you to set a lifespan for a session, after which the session is stopped automatically. 
   - Add Studios resource labels support. Workspace admins and owners can edit resource labels inherited from the compute environment and apply them to a Studio session. The edited resource labels associated with each session don’t affect the default resource labels associated with the compute environment.
   - Increase studios `LONG_INITIALIZATION_TIMEOUT_MS` to 5 minutes.
 - **Free tier**
-  - Reduce the maximum number of members on Free Tier to 3 for new organizations.
-  - Resource tracking in the Platform UI to allow for better management of free tier limits.
+  - Reduce the maximum number of organization members to 3.
+  - Resource tracking in the Platform UI for improved management of free tier limits.
   - User disable/re-enable is now supported.
 - **Fusion**
-  - Default to Amazon Linux 2023 AMI when Fusion v2 is enabled
-- Implement collapsible view for JSON workflow parameters tab and add view as YAML option.
+  - AWS Batch compute environments default to Amazon Linux 2023 AMI when Fusion v2 is enabled
+- Implement collapsible view for JSON workflow parameters tab and add **View as YAML** option.
 - Notify the user when secrets cleanup fails.
 - Update the Pipeline name regular expression to allow Pipeline names containing dots ('.').
 - Mark long-running jobs with a warning: This warning will be displayed when a workflow has been in the `RUNNING` state for more than 3 hours and no single task moved from one state to the next.
@@ -49,7 +49,7 @@ Affected endpoints:
 ### Bug fixes
 
 - **Studios**
-  - Fixed an issue with missing escape from SQL free text search for `DataStudioCheckpointListQuery`. This resulted in not allowing searches for names containing special SQL wildcard characters (_, %).
+  - Fixed an issue with searches for names containing special SQL wildcard characters (_, %).
   - Fixed an issue to ensure that the **Maintain** role is not able to change resource labels inherited from the selected compute environment when adding/starting a Studio.
 
 
