@@ -132,6 +132,7 @@
         "administration/overview",
         "orgs-and-teams/organizations",
         "orgs-and-teams/workspace-management",
+        "orgs-and-teams/usage",
         "orgs-and-teams/roles",
         "monitoring/audit-logs"
         ]
