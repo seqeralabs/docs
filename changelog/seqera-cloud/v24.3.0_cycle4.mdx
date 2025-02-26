@@ -29,7 +29,6 @@ Affected endpoints:
 ### Feature updates and improvements
 
 - **Studios**
-  - Add support for unlimited and fully restricted running Studios quota. This change makes the quota handling consistent with other quotas and introduces negative value interpreted as disabled/fully restricted/blocked.
   - Add Studio session lifespan setting. This feature allows you to set a lifespan for a session, after which the session is stopped automatically. 
   - Add Studios resource labels support. Workspace admins and owners can edit resource labels inherited from the compute environment and apply them to a Studio session. The edited resource labels associated with each session don’t affect the default resource labels associated with the compute environment.
   - Increase studios `LONG_INITIALIZATION_TIMEOUT_MS` to 5 minutes.
