@@ -40,12 +40,6 @@
     Data Explorer download file size limit. **Increasing this value may degrade performance.** 
   Value:                'Default: `25MB`'
 -
-  Environment variable:            '`TOWER_DATA_STUDIO_ALLOWED_WORKSPACES`'
-  Description: >
-    Comma separated list of workspaces for which Studios is enabled. When `null` (undefined), all workspaces are enabled; when left empty, none are enabled.            .
-  Value:                '`null`'
--
--
   Environment variable:            '`TOWER_DATA_STUDIO_CONNECT_URL`'
   Description: >
     The URL of the Data Studios connect proxy. The connect proxy is used internally by Seqera Platform. See [Data Studios deployment](https://docs.seqera.io/platform/latest/enterprise/data-studios).
