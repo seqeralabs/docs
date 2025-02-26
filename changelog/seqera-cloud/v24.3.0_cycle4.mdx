@@ -1,0 +1,56 @@
+---
+title: Seqera Cloud v24.3.0_cycle4
+date: 2025-02-26
+tags: [seqera cloud]
+---
+
+:::note
+From Wednesday 26 February 2025, Seqera’s endpoints will no longer support Windows XP and Safari versions 8 and below (including OSx 10.10 or older). This change is necessary to ensure the security and performance of our services. We recommend updating your operating system and browser version to ensure uninterrupted access to our services.
+
+Affected endpoints: 
+- cr.seqera.io
+- *.connect.cloud.seqera.io
+- intern.seqera.io
+- ai.seqera.io
+- hub.seqera.io
+- cloud.seqera.io
+- api.cloud.seqera.io
+- user-data.cloud.seqera.io
+- tower.nf
+- api.tower.nf
+- public.cr.seqera.io
+- auth.cr.seqera.io
+- wave.seqera.io
+- licenses.seqera.io
+- licman.seqera.io
+- api.multiqc.info
+:::
+
+### Feature updates and improvements
+
+- **Studios**
+  - Add support for unlimited and fully restricted running Studios quota. This change makes the quota handling consistent with other quotas and introduces negative value interpreted as disabled/fully restricted/blocked.
+  - Add Studio session lifespan setting. This feature allows you to set a lifespan for a session, so that it stops after a defined period of time.
+  - Add Studios resource labels support. Workspace admins and owners can edit resource labels inherited from the compute environment and apply them to a Studio session. The edited resource labels associated with each session don’t affect the default resource labels associated with the compute environment.
+  - Increase studios `LONG_INITIALIZATION_TIMEOUT_MS` to 5 minutes.
+- **Free tier**
+  - Reduce the maximum number of members on Free Tier to 3 for new organizations.
+  - Resource tracking in the Platform UI to allow for better management of free tier limits.
+  - User disable/re-enable is now supported.
+- **Fusion**
+  - Default to Amazon Linux 2023 AMI when Fusion v2 is enabled
+- Implement collapsible view for JSON workflow parameters tab and add view as YAML option.
+- Add read-only `workflow.requiresAttention` attribute to avoid possible race conditions while updating the workflow messages and other workflow entities at the same time.
+- Notify the user when secrets cleanup fails.
+- Update the Pipeline name regular expression to allow Pipeline names containing dots ('.').
+- Mark long-running jobs with a warning: This warning will be displayed when a workflow has been in the `RUNNING` state for more than 3 hours and no single task moved from one state to the next.
+- Set `ECS_CONTAINER_START_TIMEOUT` to 10 minutes in the ECS settings used by AWS Batch CEs in order to prevent the error `Task failed to start - DockerTimeoutError: Could not transition to started; timed out after waiting 3m0s`.
+- Upgrade to Angular 18
+
+### Bug fixes
+
+- **Studios**
+  - Fixed an issue with missing escape from SQL free text search for `DataStudioCheckpointListQuery`. This resulted in not allowing searches for names containing special SQL wildcard characters (_, %).
+  - Fixed an issue to ensure that the **Maintain** role is not able to change resource labels inherited from the selected compute environment when adding/starting a Studio.
+
+
