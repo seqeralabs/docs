@@ -24,13 +24,13 @@
 /platform/24.2/faqs/*  /platform/latest/troubleshooting_and_faqs/troubleshooting/:splat   301
 
 # Redirect 24.1 → /platform/latest/studios/:splat
-/platform/24.1/data/data_studios/*  /platform/latest/studios/:splat  301
+/platform/24.1/data_studios/*  /platform/latest/studios/:splat  301
 
 # Redirect 24.2 → /platform/24.2/studios/:splat
-/platform/24.2/data/data_studios/*  /platform/24.2/studios/:splat   301
+/platform/24.2/data_studios/*  /platform/24.2/studios/:splat   301
 
 # Redirect 24.3 → /platform/latest/studios/:splat
-/platform/24.3/data/data_studios/*  /platform/latest/studios/:splat 301
+/platform/24.3/data_studios/*  /platform/latest/studios/:splat 301
 
 # Redirect "latest" → /platform/latest/studios/:splat
 /platform/latest/data_studios/*     /platform/latest/studios/:splat  301
