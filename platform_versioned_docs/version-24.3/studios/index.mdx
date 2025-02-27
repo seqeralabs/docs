@@ -121,7 +121,11 @@ Sessions have the following possible statuses:
 - **running**: When a session is **running**, you can connect to it, copy the URL, or stop it. In addition, the session can continue to process requests/run computations in the absence of an ongoing connection.
 - **stopping**: The recently-running session is in the process of being stopped.
 - **stopped**: When a session is stopped, the associated compute resources are deallocated. You can start or delete the session when it's in this state.
-- **errored**: This state most often indicates that there has been an error starting the session but it is in a **stopped** state. There might be errors reported by the session itself but these will be overwritten with a **running** status if the session is still running.
+- **errored**: This state most often indicates that there has been an error starting the session but it is in a **stopped** state. 
+
+:::note
+There might be errors reported by the session itself but these will be overwritten with a **running** status if the session is still running.
+:::
 
 ## Studio session data links
 
