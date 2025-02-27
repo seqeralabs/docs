@@ -44,6 +44,7 @@ This guide applies a Kubernetes manifest that creates a service account named `t
     kind: Secret
     metadata:
       name: tower-launcher-token
+      namespace: tower-nf
       annotations:
         kubernetes.io/service-account.name: tower-launcher-sa
     type: kubernetes.io/service-account-token
