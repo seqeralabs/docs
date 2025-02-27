@@ -62,7 +62,7 @@ To add a new Studio, complete the following steps:
 You'll be returned to the Studios landing page that displays the list of Studio sessions in your workspace. Select a Studio to inspect its configuration details. The Studio you created will be listed with a status of either **stopped** or **starting**, based on whether you elected to **Add** it or to **Add and start** a session as well.
 
 :::note
-By default, sessions only have read permissions to mounted data paths. Write permissions can be added for specific cloud storage buckets during the compute environment configuration by defining additional **Allowed S3 Buckets**. This means that data can be written from the session back to the cloud storage path(s) mounted. To stop potential data loss, only one session per workspace can mount a unique data path. When adding a new session, data paths already mounted to other running sessions are unavailable. If a new file is uploaded to the cloud storage bucket path while a session is running, the file may not be available to the session immediately.
+By default, sessions only have read permissions to mounted data paths. Write permissions can be added for specific cloud storage buckets during the compute environment configuration by defining additional **Allowed S3 Buckets**. This means that data can be written from the session back to the cloud storage path(s) mounted. If a new file is uploaded to the cloud storage bucket path while a session is running, the file may not be available to the session immediately.
 :::
 
 ## Start a Studio session
