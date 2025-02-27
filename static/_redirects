@@ -23,16 +23,16 @@
 /platform/24.1/faqs/*  /platform/latest/troubleshooting_and_faqs/troubleshooting/:splat   301
 /platform/24.2/faqs/*  /platform/latest/troubleshooting_and_faqs/troubleshooting/:splat   301
 
-# Send 24.1 → /platform/latest/studios/:splat
+# Redirect 24.1 → /platform/latest/studios/:splat
 /platform/24.1/data/data_studios/*  /platform/latest/studios/:splat  301
 
-# Send 24.2 → /platform/24.2/studios/:splat
+# Redirect 24.2 → /platform/24.2/studios/:splat
 /platform/24.2/data/data_studios/*  /platform/24.2/studios/:splat   301
 
-# Send 24.3 → /platform/latest/studios/:splat
+# Redirect 24.3 → /platform/latest/studios/:splat
 /platform/24.3/data/data_studios/*  /platform/latest/studios/:splat 301
 
-# Send "latest" → /platform/latest/studios/:splat
+# Redirect "latest" → /platform/latest/studios/:splat
 /platform/latest/data_studios/*     /platform/latest/studios/:splat  301
 
 # Redirect first result on Google for CLI docs
