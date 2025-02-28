@@ -38,7 +38,7 @@ const VersionSwitcher = ({ isOpen, setIsOpen }) => {
 
   if (typeof window === "undefined") return null;
   if (!versions) return null;
-  if (!location.pathname.startsWith("/platform")) return null;
+  if (!location.pathname.startsWith("/platform/")) return null;
 
   const items = versions.filter(
     (version) => version.label !== currentVersion.label,
