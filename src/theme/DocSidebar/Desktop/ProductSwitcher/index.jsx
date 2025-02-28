@@ -11,8 +11,12 @@ import VersionSwitcher from "./VersionSwitcher";
 
 const products = [
   {
-    name: "Platform",
-    url: "/platform/",
+    name: "Platform Cloud",
+    url: "/platform-cloud/",
+  },
+  {
+    name: "Platform Enterprise",
+    url: "/platform-enterprise/",
   },
   {
     name: "Nextflow",
@@ -49,7 +53,8 @@ const ProductSwitcher = ({ isDropdown }) => {
     if (location.pathname.startsWith("/fusion")) return "Fusion";
     if (location.pathname.startsWith("/nextflow")) return "Nextflow";
     if (location.pathname.startsWith("/multiqc")) return "MultiQC";
-    if (location.pathname.startsWith("/platform")) return "Platform";
+    if (location.pathname.startsWith("/platform-cloud")) return "Platform Cloud";
+    if (location.pathname.startsWith("/platform-enterprise")) return "Platform Enterprise";
     if (location.pathname.startsWith("/wave")) return "Wave";
     return null;
   };
