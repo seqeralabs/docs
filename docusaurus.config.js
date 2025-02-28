@@ -70,8 +70,8 @@ export default async function createConfigAsync() {
             ],
           },
           docs: {
-            path: 'platform_versioned_docs',
-            sidebarPath: require.resolve(`./platform_versioned_sidebars/version-24.3-sidebars.json`),
+            path: 'api_docs_test',
+            sidebarPath: require.resolve(`./api_docs_test/api/sidebar.ts`),
             docItemComponent: '@theme/ApiItem', // Ensures API entities render properly
           },
           gtag: {
