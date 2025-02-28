@@ -138,14 +138,6 @@
     },
     {
       "type": "category",
-      "label": "Enterprise",
-      "collapsed": true,
-      "items": [
-        "enterprise/index"
-      ]
-    },
-    {
-      "type": "category",
       "label": "Developer tools",
       "collapsed": true,
       "items": [
