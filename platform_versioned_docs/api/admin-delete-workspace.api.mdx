@@ -1,0 +1,71 @@
+---
+id: admin-delete-workspace
+title: "Delete workspace"
+description: "Deletes the given workspace."
+sidebar_label: "Delete workspace"
+hide_title: true
+hide_table_of_contents: true
+api: eJyFU01v2zAM/SuGTisQxOlQDJhPy9AMKDZgw9phhyAHxaZrLbakSHS6wNB/Hyk7zkeD9WSJeiQfH587UYDPnbKojBaZuIcaEHyCFSTPagc6eTFu463MYSomwlhwkqEPBYHnRaN0n/H7gCKQlU42FHNeZMtOaLoQeKxDqROhuJmVWNH5nMFYKdFtA07liSpAoyoVOAI72LbKAbVH18JE+LyCRoqsE7i33EdphOcILY1rJPahD3cihBWne2u0B88Z72cz/pz3//5VhAk93b1+ujZvQsjkUJV6ECPIW6dwH4f/DNKBm7c0aLZcMQNSpjKsXhELRb34VaSSy6ejTj7tTjQL4lj5kWfuRzitP0pQIVoxSMP3dQRRpD98Oejy5wUjY6VLE9MV1ox/hC2tOZn/eHi1neHJ1hJZ3sSD2yniOoBzo1HmyMVaVw9UfJamPuZNlSEQ7UvVcS2l+XR8ICI78kzf53b6cTrjkDUeG6m54mCkfgFHX15y7CILsszbdh70QviLKY1EpqSOkXg3bGUp4lYIe9wLXbJTN9NSK2LJ4K5bSw+/XB0Ch7ctOPYBHXfSKblmeckVhfJ8JheUsvbwnwHe/Rz8fpO88WNcnWUISr0XTKFu+UbHDewvfsmwCifevF98WzwtCCjPnXXhpDjM1R4kREQ8mQ3oEMaWyHduFsI/G5GKBQ==
+sidebar_class_name: "delete api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Delete workspace"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/admin/workspaces/{workspaceId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Deletes the given workspace.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"path","description":"Workspace numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK"},"204":{"description":"AdminDeleteWorkspace 204 response"}}}
+>
+  
+</StatusCodes>
+
+
+      

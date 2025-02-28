@@ -1,0 +1,71 @@
+---
+id: list-actions
+title: "List actions"
+description: "Lists all available actions in a user context, enriched by `attributes`. Append `?workspaceId` to list actions in a workspace context."
+sidebar_label: "List actions"
+hide_title: true
+hide_table_of_contents: true
+api: eJztV99vIjcQ/lesfepJFNL2VKm8tFxCI9Q0uQLXPkSRMLsDOPHae/Zscgjxv3fG3uVHWEjuWqlV1RdYe8Yz8818tserJAOfOlWgsibpJlfKoxdSayEfpdJyqkHIlIVeKCOkKD04kVqD8AlbAoxT6QIyMV2KiUR0aloi+Elb9IoCTCYmPz5Z9+ALmcIgmwi0QpOHfZMbjdpuO2kltgAnWWmQVWH14hqSFdLJHBCcT7q3q8TQgHR2HJGOYjQfS3BLGuxj/GPjz5Q5EAChMjCoZgocKXsClMuku0pwWbBhRUHNg2hmXS4xTn3/NlmvWxvvW/CnnfeyTPGnpAzXS8Sj1CV4zo4yqS4z4MTgAoQDXxBmEF9NqBag/eRNWwwBS0fJk0ZAXuAyLt+odAmW1pM3Qs2EzRUiZO0mWNI5yfEphNzvzHuKysxJAJQeSnASzSZ3rQQValaJpfiNAfZqEJSNNanUEQeL356d8d9+Bm5+Iduh0gZZKotCqzTUunPvWWV1GKyd3kOKXHvHzEAVHVQ8egWqIwZUdoh83aqK2iAoVAFamWaht6VLG0TbVM4VLsopTaB9IkYdpLQ9iibYGEosT9blfNjvjQfXlzTVOx8Pfu/TR384vBnS//veh1H/oslBNEsOtPQ4AjBNLjZEzyTC16jyEBIPzh3Qb0PWji2Cx6rOpwuRKeZIroxE65qsk9/sxuhl0kVXwpqB5UBJyovXxsIInnupglhex128L28lOZGTDZJmVboXgTiYNZIjtTltxkEz36LwV/Bezo8Qr/QLcNdHeRnE/ZzO7Eb5ZyerIVcvVGS95dplyFVkXD/Uf11T/sX8fUGkfPLPtH06kty/AKTaNGMOfQ8OK1kDN7NwA/3PiC9hxH+DCYdHbBCM2TIffyYrrNo7AbfxVDfr33N7HW9TTtxnoXVolNBF/vw6m1qrQRqWKn8BM1lqbBLvpO2KEV5ML9CG6ZLZfJ43VWd30bbbG1btRDuOB2Zm4+Y7ocsKpPG2qfl4JzNqqqg18/g5XQgvUY6vvdskr/YkF/5kdfKjm3cn/r5z1h1E/l1D21Q3xMJY5A6dmJgFUx7S0ilchqPoHUhHDC1xQcM7Zid1ygvLTfQcQoySRUlHbtrpev2I4cbQd61sol8gFnUjGeodlGgmfvxcs+7+CUNciosV9nGEOoKPBEH03g8OuuJKVGiJTF5Bj4xHlVJLHJW5ThQvGyudrkLx3U7Hh3VtZbktikddcPvTVsAkp5dC9PNN+4f2WTgdrcdchipXDfzVzrvkeXyrLVP+PS+kqio87FDiVNiXIT2rqsi3m/6YaLAgxDy1Wk2lhw9Or9c8HV8pzBw6HBkMMWUmtYcTKXjhAdUY2AMsD95o1eGThLvg9e7/sSfUCWB7z78trjseOMXAwnakMtANw20QJTyu7KUpFLiz6uAk2tvEl/0x6cr9nflsJ+72JNIsd2xT8YPG2D6AIQLU4SOPyREdP38C7hqTwQ==
+sidebar_class_name: "get api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List actions"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/actions"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Lists all available actions in a user context, enriched by `attributes`. Append `?workspaceId` to list actions in a workspace context.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"attributes","in":"query","description":"Additional attribute values to include in the response (`labels`). Returns an empty value (`labels: null`) if omitted.","schema":{"type":"array","items":{"type":"string","enum":["labels"],"title":"ActionQueryAttribute"}}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"actions":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"pipeline":{"type":"string"},"source":{"type":"string","enum":["github","tower"],"title":"Action.Source"},"status":{"type":"string","enum":["CREATING","ACTIVE","ERROR","PAUSED"],"title":"Action.Status"},"lastSeen":{"type":"string","format":"date-time"},"dateCreated":{"type":"string","format":"date-time"},"event":{"type":"object","properties":{"discriminator":{"type":"string","readOnly":true},"timestamp":{"type":"string","format":"date-time"}},"discriminator":{"propertyName":"discriminator","mapping":{"github":{"type":"object","properties":{"ref":{"type":"string"},"commitId":{"type":"string"},"commitMessage":{"type":"string"},"pusherName":{"type":"string"},"pusherEmail":{"type":"string"},"timestamp":{"type":"string","format":"date-time"},"discriminator":{"type":"string","readOnly":true}},"title":"GithubActionEvent"},"tower":{"type":"object","properties":{"timestamp":{"type":"string","format":"date-time"},"workflowId":{"type":"string"},"discriminator":{"type":"string","readOnly":true}},"title":"Action.TowerActionEvent"}}},"oneOf":[{"type":"object","properties":{"ref":{"type":"string"},"commitId":{"type":"string"},"commitMessage":{"type":"string"},"pusherName":{"type":"string"},"pusherEmail":{"type":"string"},"timestamp":{"type":"string","format":"date-time"},"discriminator":{"type":"string","readOnly":true}},"title":"GithubActionEvent"},{"type":"object","properties":{"timestamp":{"type":"string","format":"date-time"},"workflowId":{"type":"string"},"discriminator":{"type":"string","readOnly":true}},"title":"Action.TowerActionEvent"}],"title":"Action.EventType"},"endpoint":{"type":"string"},"labels":{"type":"array","items":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"},"value":{"type":"string"},"resource":{"type":"boolean"},"isDefault":{"type":"boolean"}},"title":"LabelDbDto"}},"usageCmd":{"type":"string"}},"title":"ListActionsResponse.ActionInfo"}}},"title":"ListActionsResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

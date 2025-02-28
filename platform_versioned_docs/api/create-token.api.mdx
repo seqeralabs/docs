@@ -1,0 +1,71 @@
+---
+id: create-token
+title: "Create an API token"
+description: "Create an API token"
+sidebar_label: "Create an API token"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVU1PGzEQ/SsrnxcSWlqJnBoolRCVQHycohwmu0Ni8NrG9gLRav97Z+xNspAIUNVDL5HXnvG8N+950ghj0UGQRp+VYiROHELAG/OAWuTC4WONPhybcilGjSjRF05aDqbQcVGg91ng2KyIeVmXQKmF0QF14DSwVski1hjce85thC8WWAGvwtIi3WZm91hwonWMKEj0fKqhwl6UD07quWjbXAQZFK4RJzAR91WHoeUoBiQdErXgaowb3hrt0+1fhsNtXhfn/w4+RFjnuNzBgSjENtPJBuUkMZ7mH1w8Ay+LcR0W2xfnxMc6JMQ92rLsBUriNkdHkXfGVRDS1vdD2tC1UjDjxnaJKwEqePmNes4Fvw1zUUm9+jzIt5kp8OHWY7kL3bpmSQj3gqT7KYM/kpSfTuqZoCf/R+ZI8rM7KO5wlwGOofwbI/dFrKgezD+h4yrwXYufOmfcFvKvO6y7esuZNiEDpcwz4YnRR9vRP+tEB8sMFVZM8j+lS4cei9rJQA9p0ohjBIcu2X8ybaf5G2ZJ9gx0Nr48SxOKoFQYFoaHnDVRWQucLwbx3ItNjWsmmQD3K60xL0KwHB7D6HsWg2gnLX6tvHr/HCIxbt7VZpSevkBlFW7GW+/hSH1nYqWuF9f4SJIyDfGWZHdkFQR+HZlH9yTJ6F0wCwlFFLJ2qkPtR4OBj3n70lAQaSlVfP535sfmgIA8ofOpzsH+0f6Qt7htFege7t19fgVz3bSAL2FAYKXmuyKkppNgIjoJSMgFa0M7TUMjDm+dalvepuY51p6WT+BkGlEkPSUglNR8tsUDz1lxkhy8d8N1OVzVXH/LzW2+yuD5YMO7sdOefS4vrm9Y7O5fsTIl5zh45n9M+h0JWpjIP3oo7jU0E/W8juYX6U62Brx21hsnRVbdEehlDyG1J0bEoUYtyjsqSYN2Spf/AQPqtJE=
+sidebar_class_name: "post api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Create an API token"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/tokens"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Create an API token
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Access token create request","content":{"application/json":{"schema":{"type":"object","properties":{"name":{"type":"string"}},"title":"CreateAccessTokenRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"accessKey":{"type":"string"},"token":{"required":["name"],"type":"object","properties":{"basicAuth":{"type":"string","deprecated":true},"id":{"type":"integer","format":"int64","nullable":true},"name":{"maxLength":50,"minLength":1,"type":"string"},"lastUsed":{"type":"string","format":"date-time"},"dateCreated":{"type":"string","format":"date-time"}},"title":"AccessToken"}},"title":"CreateAccessTokenResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"409":{"description":"Duplicated element","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

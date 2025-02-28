@@ -1,0 +1,71 @@
+---
+id: delete-organization
+title: "Delete organization"
+description: "Deletes the organization identified by the given `orgId`."
+sidebar_label: "Delete organization"
+hide_title: true
+hide_table_of_contents: true
+api: eJylVE2P0zAQ/SuWTyCVtkCFRE50tUWqQIB2l1NVad1k2rib2F570qVE+e/MOOl3BQdOsWeex2/83qSWGYTUa4faGpnIWygAIQjMQVi/Ukb/VpwSOgODeqkhE4ttTK/0Box4JNQ0e+zLnrQOfARPs32l70c1COKUVyWFfZDJrJaGNgSNJSirmYFTmNP6lNZxGWGqErxOD5Q84T08V9oD3Yy+gp4MaQ6lkkktcev4Em0QVhG6tL5U2IY+jGTTzPl4cNYECHzi3XDEnzMKX8Qb8c2K1FIhg7LpydFweIm7UZlgMhCQ7tqhCaacK3QaWxisA2PrI5YH/jNZQghqBZJ4deTtYg0p13OeXxl1S3QHPHQZ0Guzop7oqMaCQxPvrb/r+qNME5m/v9LhTj9hLApVFPaF+DA8QFp5jdso2g0oD35ckUzJbM6PR4rmljXPouZRZ87KASkbBnXUt5GHOvfcdtvCcbV9Fzmik52GvF9EEEXaxeedgOsXjPy0Wdp4vGv5Hp6pFTH+Mb1wUpdyhUL2gQjgNzolx7dg1kulUa/KFx2VkAwGIZ7ra0sgkkwX0T9L++mQICIbcnZ7z9v+x/6QQ84GLFVUu7N7Oxkn43VOsz4Y579GsntPhF84oJZpwIhRbKzuNJrx9AWCJu0Ukpw5MeZEXS9UgJ++aBoOk6U9O4CWG+W1WvBTkx8yHXhN+i9VEeAvnby660z+Wvx7oK9S74LKbCWzKCre0fIJtvv/SDMnYA4qozLMr82N0xQcHp26GMcTJ99Ovk4eJgRXp848c2K84CoperyIeLBPYJpmzxF5zxyb5g+xW+KT
+sidebar_class_name: "delete api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Delete organization"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/orgs/{orgId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Deletes the organization identified by the given `orgId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

@@ -1,0 +1,71 @@
+---
+id: cancel-workflow
+title: "Cancel workflow"
+description: "Cancels the workflow execution identified by the given `workflowId`."
+sidebar_label: "Cancel workflow"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVFFr2zAQ/itCTxu0cbaFwfy0tnRQBmtJO/YQClXsS6zWllRJTmuM//vuZLlOmtBtsJfElj/dfd/dd9fyHFxmpfFSK57yM6EyKB3zBbAnbR9WpX5i8AxZTQAmc1BeriTkbNkE0FpuQLG7AXuR3034EdcGrKAbF/lL0F8Rgp+NsKICD9bxdNFyhS8IG2MgRBIbI3yBz7sUhzjMeSvVeuRkEWrhsZYWMKu3NRxxlxVQCZ623DeGkvSXeNcd7eR1RmQwJn6swTYHMwcgU3UFVma7ufdySeVhHT6ttK2E748+zzD7bU8VnD/VeUN3Mo1o5elRGFPKLNQvuXeUut0Prpf3kHmM7aUv6eC8Mr6haPM+MGZBlZjGGa0cOLr7cTqjv11Zl9/ZMfuh2cAAL82m033cqchZJI1p/5rv2JIFr8A5sQaO8l/LMJZM42VPdAAeatyo2Fpt51FflDubfjqgcLAjU9ozUaJ7kA/BHTrbSt8EH56CsGBPajRdurilHqFJC00WNjqIDoZMeTJYNWlH03ZJFnzOx6jXVIRe0HbsF02F92YwDr0vAwhP+odvg2vun3xgS8Wdj7Y5fxaVoUq0Hfl2pUPoWJxreETR7OTqYs/H8ZMphSdjMgd2IzNwEUydFVnobG3LSNOlSeLCvYnUCMLmyjIYeqW/jh+QyAbHus/zYfJlMqUjql4lgi/izPUr4WXFvKa4NQ7/ayXFknt49gkqxzFHYkFfG9u64Ft00p1tFDuLjijICAht26Vw8NOWXUfH/cIgE+XSiWVJdl+J0sEbwv6wTg4SfoBmb2NtRFkTkpNjN8JKyv+PXN7N45S+Z2/u14Ok4qFQzTabbbKxkN0togsQOcYifj3grGdxfENhxgB7W4VWdn/jJMvA+Dex28N7dXl9Q0MVN22lc7pjBfWZfgNZHaoSZjWctbwUal2HJcT7mDSCYneCX01sUHWwHOiXgLjRD6DQM0N1PL1TYbruNw8Dnns=
+sidebar_class_name: "post api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Cancel workflow"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/workflow/{workflowId}/cancel"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Cancels the workflow execution identified by the given `workflowId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workflowId","in":"path","description":"Workflow string identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"content":{"application/json":{"schema":{"type":"object","title":"EmptyBodyRequest"}}}}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

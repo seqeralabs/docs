@@ -1,0 +1,71 @@
+---
+id: delete-action
+title: "Delete action"
+description: "Deletes the pipeline action identified by the given `actionId`."
+sidebar_label: "Delete action"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVF1vEzEQ/CuWn0AKSYAKiTyRqkGqQIDaIh6iSnXuNjk3F9ux91Ki0/13du27fDRRERJPiXfHu7PematlDiHz2qG2Ro7kFZSAEAQWIJx2UGoDQmWcFToHg3quIRezbUQs9AaMeEj56/yhL3vSOvAqnXf1xhFASae8WlHABzma1tLQgUDdfQJoJuEUFvT/mFmqIQJ6bRZ7Lp6AHtaV9kD90FfQkyErYKXkqJa4ddwgXZJN09v1fLJ+GZzKYN92XYHfnvT91QGFqVbgdXbc+6SXNgiLmJpbv1KYQh8uqPs9Uw3OmgCBb7wbXvDPcb/vX8Qb8c2KzFIhg7LpyYvh8BR3qXLBg0NA6tWhCaacK3UWVzB4DIytD1ju32oqVxCCWoAkXi15O3uEjOs5z3tEnYh2wHMvKlFjyaGJ99bftPNRponM35+ZsFOIMBaFKkv7RHwYHiCrvMZtFMclKA9+XJEWRtN7fjxSTmFZVXlUVdQTZ+UgKSgM6k5KjdxXu+Xh0yCHNXezFIiu2ySfZxFEkfTnc7fGxyeMLLWZ23i9HfwW1jSQGP+4PhFPm3KlQlaDCOA3OiN/JTBvjRhzscqXLZUwGgxCvNfXlkC0OF1GFc3tp32CiGzIR6nP2/7H/pBDzgZcqbjzVujJga2HnxOs98L5D9Zv3xPhNw5oZDIVMYqD1e2mpq3XA6FHO9vTagvizem6nqkAP33ZNBxOlmQ15DqoWcm6nasywAtz/MWwZ0kuYXvyTdiosmKkZOltlNfc/x+5vLpp7fZavPD9OkupDSqzPeTSUd29XXNP2AJUTpWYW0qPswwcHlw8+Sgc+elq8nVyNyG4OnbGMyfEBmd50doi4s4uwTTNjibymTk2zR+6dDT2
+sidebar_class_name: "delete api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Delete action"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/actions/{actionId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Deletes the pipeline action identified by the given `actionId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"actionId","in":"path","description":"Action string identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

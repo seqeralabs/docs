@@ -1,0 +1,71 @@
+---
+id: create-workflow-launch
+title: "Launch workflow"
+description: "Submits a workflow execution."
+sidebar_label: "Launch workflow"
+hide_title: true
+hide_table_of_contents: true
+api: eJytV1Fz2jgQ/isePZNAaHq98tQkl5vJXXvNBG4yU4YHYS+gxJZcSQ6hDP/9diUby+AA1+kLg7XfSrur1fdJa5aAibXIrVCSDdiwmGbCmohHS6WfZ6laRvAKcUHmc9ZhKgfN6eMuQfSNBm7hsUR+5oWMFwjKueYZWNCGDcZrJvEDwTShyXkM6Nphglb7XoBe4UczhscKGMkiAy3iSCQgrZgJ0Ag28QIyzgZrZlc5TSykhbkzzZTOuPVDv12yzaazXd2oQsfweGoMQwePlr8qlA6TRZryaYooqwvYbCYdpgEXN/ZaJSuaY78Krv6pK2tUgnGmWOEq0pILz/NUxG5Duk+G/Nb7QanpE8TkmGvaPivAkNXPexwnkgBjrBZyzjYURZYXFm7ly107QBfyH1f7FlsuckiFbDdS0f8Qun1SeBFG+ET3jAaMKVuzNWA5E/N7rWYi9ZmVEK41pw4QFjLT4oq+hQE9hFiD/Z+O2wb6KW8f8ghebWtGVi1B3zhMe5XpHJo33XMND4Ucup5rByhjDyMyLg6ZsUv16s0m8I36plmDKRqmqVIpcOkiw8P0GanH2Ha7scUUI283KjximfixpbGWtUPIiOt5c+dqHJ5oSO+SU7b1EEuxBfDkLzW9yYvjLu/6rPb4ApnSqy/TE70SrJkn7Za8AwfCnWEJwEVnhSXeYk2ifygJKUR4+XgLt/GUJzSt7ljQ7XKupPEHst/r7RPh179/HedVota67Ufz8JFSIgi9bIv1mic/Q9R1VcYsQxLjc2CoD4dzqYAHE7nVWum9yN+1VLkS9kgqG/EU08Z4No5V40ILu3Jafg1cg74qLArHeEIihkK/UHQZILZw4k821q1K3U2ra0E10ZDy9jmE023TWFibV+Lqjq4D4Yj/82fVpE9L33xUz4daSm9feZan0JQ4ErG6z5vaVY9vJaseqpWqHtsKVOC51aV6LJCjcOmmCo0r02RHZULDvoqE1lAl6oUa4hDkE2hCMNqQgmC8qQC1IST+ejTg+6AMAc2HBfPsTjTQ5HM/smVw/7nL2fVErVRdm2uGHvcmO0Tba6HR3g5JIif1L896H876H0cX7wfvLwb93897Hy6+udYTcqZc51a8Ad/xGEVX93f7N0pvylNuiWYj3OsXEYMpwcQVPHZcUei0PAVm0O0a53cuFNUXy546Pp+pT7UBA3nBy7Zf5+L843mvUu+MO6Yp78Cex7Y3+90Q1zVhHX0HlEfVYh91MSXhhNUFvi4ZYMyCdcqDSBtALIHG9XrKDfyr082Ghv0tnBgmEYauyVj6GU8NHIjxyDuhNcRnWO09RV54WhCS0XPh9OVPeyIciKLtSVLHMqEPLfyTAanW9yrOSUXyE9z4WM5GtEbtu6c1lJf3uIpjyO1BbEjp91+HI+Ld8oGSqYR8NKctpV+M0x9AVBenYzRGtCvnhZMm5ueko8KbJL9D6i6r6gYlV0GE2CgOMVLPILFZqupZ+sZwcfL/AMgtINw=
+sidebar_class_name: "post api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Launch workflow"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/workflow/launch"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Submits a workflow execution.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"sourceWorkspaceId","in":"query","description":"Source workspace numeric identifier","schema":{"type":"integer","format":"int64","nullable":true}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Workflow launch request","content":{"application/json":{"schema":{"type":"object","properties":{"launch":{"type":"object","properties":{"id":{"type":"string"},"computeEnvId":{"type":"string"},"runName":{"type":"string"},"pipeline":{"type":"string"},"workDir":{"type":"string"},"revision":{"type":"string"},"sessionId":{"type":"string"},"configProfiles":{"type":"array","items":{"type":"string"}},"userSecrets":{"type":"array","items":{"type":"string"}},"workspaceSecrets":{"type":"array","items":{"type":"string"}},"configText":{"type":"string"},"towerConfig":{"type":"string"},"paramsText":{"type":"string"},"preRunScript":{"type":"string"},"postRunScript":{"type":"string"},"mainScript":{"type":"string"},"entryName":{"type":"string"},"schemaName":{"type":"string"},"resume":{"type":"boolean"},"pullLatest":{"type":"boolean"},"stubRun":{"type":"boolean"},"optimizationId":{"type":"string"},"optimizationTargets":{"type":"string"},"labelIds":{"type":"array","items":{"type":"integer","format":"int64"}},"headJobCpus":{"type":"integer","format":"int32"},"headJobMemoryMb":{"type":"integer","format":"int32"},"dateCreated":{"type":"string","format":"date-time"}},"title":"WorkflowLaunchRequest"}},"title":"SubmitWorkflowLaunchRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"workflowId":{"type":"string"}},"title":"SubmitWorkflowLaunchResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

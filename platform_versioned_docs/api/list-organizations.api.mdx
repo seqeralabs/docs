@@ -1,0 +1,71 @@
+---
+id: list-organizations
+title: "List organizations"
+description: "Lists all available organizations in a user context."
+sidebar_label: "List organizations"
+hide_title: true
+hide_table_of_contents: true
+api: eJydVU1P20AQ/SvWnqOEAqrUnAqCVqhVWwE9IQ5je5IsrHfN7jhpsPLfO7N2SBy7lPaUbObrzcybl1rlGDKvS9LOqqn6qgOFBIxJYAnaQGowcX4OVj+DuIRE2wSSKqBPMmcJf9FYjZQr0Uf7Vd4m+b4fxB4leCiQ0Ac1vauV5Qd7emeQjVpKP1Xo1/zoAtrP05SVmETnaEnPNHqOCNkCC1DTWtG6lLSBvLZztdncj5THUDIEDGI/PjqSj4MSXzhHbMaSWKEsjc5ixclDEJe6X8KlD5iRNOaledJNAXIE5kY/456r5szzCHTmfAHU/HRyrDY8uM6YdjHgPcgwNGER/l6201BvDCNl3NzJav5g+unNoI3RdaKGO3l/Kr6zyphvcasDiVaYBm5l0FbCWr7tTKnjDYMVW4FFiv7NGBr3ayFVr9JIoa0KJp9yKxvjG++4e8NMd8xg5xVThjRJBuFezBWn1BBisAM73Pamk+llzRfpBTm27pl7B3Pdklbc2O90iLbnkCce+WoC/Qt/JUR7zGUSBYYAc4w9v8qvreOrTV5673wP+cnAwW3VIrGORGzcivGIe8Cs8prWUSPOETz6s4oW/LyXW2YBWThRmDlGjCAmNWGaisRsg2+k1wb3fooX6AuicqsakW/RiX9pvnza0uphRRGUtjMXw9s+b/CJ8SdnP656atWaSgMk7ExYr5Y6w9A6y5Igi0uq5OQilDCdTEKMG2snNC1YeCOrZ+7jzsBAlqyeTZ134w/jo3g8LlABccWtpAqXupJ9iLLekeV/9b6dpDwn3KyOx1o1KtJs5U7FrfDSFgxR3nWdQkCWms1Gfm7kXvac6yB1ea8zMAFfQfuWP4NBaI+43v3bLMFU4qKEUkvwWqpHijFYhJzTCKwm5izLsKS9qN51dYj5+fKWfaFLuAOCxexbnbfrvdw8ouhx6x7R8pi2wEneXIhP6jfoqqd7
+sidebar_class_name: "get api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List organizations"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/orgs"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Lists all available organizations in a user context.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"role","in":"query","description":"Organization user role identifier","schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"totalSize":{"type":"integer","format":"int32"},"organizations":{"type":"array","items":{"type":"object","properties":{"description":{"type":"string"},"logoId":{"type":"string"},"logoUrl":{"type":"string"},"orgId":{"type":"integer","format":"int64"},"fullName":{"type":"string"},"website":{"type":"string"},"paying":{"type":"boolean"},"memberId":{"type":"integer","format":"int64"},"memberRole":{"type":"string","enum":["owner","member","collaborator"],"title":"OrgRole"},"location":{"type":"string"},"name":{"type":"string"}},"title":"OrganizationDbDto"}}},"title":"ListOrganizationsResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

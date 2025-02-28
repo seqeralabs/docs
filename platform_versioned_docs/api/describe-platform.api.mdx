@@ -1,0 +1,71 @@
+---
+id: describe-platform
+title: "Describe platform"
+description: "Retrieves the details of the computing platform identified by the given `platformId`."
+sidebar_label: "Describe platform"
+hide_title: true
+hide_table_of_contents: true
+api: eJy9V99v2zYQ/lcEPW2AYadbMWB+WoLGgTcMzeJufQgClKZONhOJVEjKrmvof98d9duSHdtp+mSL/Mjvu+PxeLf1AzBci8QKJf2xfwdWC1iB8ewSvAAsE5HxVOg+uYqT1Aq58JKI2VDp2BMBSCtCAYE33zjQQqxAel9KxDT4MvQHvkpAM+KYBsjywXHO4bYAISBhmsVgQRt/fL/1JX4gsN4FIYIEJswu8X9bdbmPZ1A9yqtUaYRqeE6FBuS1OoWBb/gSYuaPt77dJESSL/KzbFDxrpV+MgnjUBM/p6A3HebPJdCTaQxa8DZ3h0tICws3RXqZzYd+e99i17DIPbVDfY4lHPEkiEXmNRs+ENgkShowNP/LxQX9tJ3x8S/ckys0UVqaZUkSCe6OffRoCLLtUqj5I3BLEaApSKzICWIKPRmqPqSS8DF0YXJ4jzXTEuWbxh5Ma0aWCwux6fWc/6jm/6SQwsFltefuc0+j8yyz4KOjDovKz6VDXK7vlWSFjWjocm2umOXLMt7/Lpw0/LPQ7NDzlD+BPcbqPRLdHTtPyJXjdthQRDDbmB3KE6WIoNdXgew7vIEfqzQPvTOkT8zXSSXZLYHQTN7MiGMkXTcFuCVPsLllQp8Y0quEf/8zEOYDhCyNmv6eKxUBk8dZ91/CHVDEbHH4tp2lb+9FayWts85lSood1ABPtbCbG63S5AfagCc6PTeqZk3NuRXpXL4qY+yR/w0z9feX78TmkSMxaUoOExaLSBwVQw0mFkWKzyzWJbDYnLL0CJU+PcFv8TqRS09cgla6N/jEZT/gGblRahHBS4+IsUq/Jj/svUSlY3onLdMLeOEt2aN/Uopux0o/2qfaqoR0Jxvrd6vmu6IgIxaEve8rya5Y4FGtgnpOqc2a5U0MxlC6e7GyKYEHXXattdId5b/2FJNlx+BJZT26q2vU08y5rgK8AqZBX6YUavcP5EusHJeKugw6vkERhf6obCXMaFt3FZlfbzcj63NLmptWxiytTcqS3r11DoQj+Z9JWc8/rsvkVFSvheUzeEaLvMvbaaeLKKaqrsqAXgmOTVgOpmNj3B1bqqNCihmPRsatGwqFIDw5Ebl2IlR/1BOUbLGpynneDX8fXtBQooyNmaxvRxVclYhdkds6et6sSyw8beGrpfPCXgW1OpPLbHJftYQG8eNGf4gnv0SrCLLdzpmBf3WUZTScdzsULIEwbB5RWIfYD8EBC1/o63qFYm3WaR1XLEoJ6d6D4+l/uisu4M/eYbZGq/jWVLudZM33QB9aEOGJbm6QH+zhe2WVr4HcNNWUchuhkT0gegkswL1IXw645BwS21jaSYmtbHJz/QmxrJ0TdnJAsydty8KQdIhP6glkllUqLX2TwCz7H2PyGGs=
+sidebar_class_name: "get api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Describe platform"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/platforms/{platformId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Retrieves the details of the computing platform identified by the given `platformId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"platformId","in":"path","description":"Platform string identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"regionId","in":"query","required":true,"schema":{"type":"string"}},{"name":"credentialsId","in":"query","required":true,"schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"metainfo":{"type":"object","oneOf":[{"type":"object","properties":{"warnings":{"type":"array","items":{"type":"string"}},"jobQueues":{"type":"array","items":{"required":["name","state"],"type":"object","properties":{"name":{"type":"string"},"state":{"type":"string"}},"title":"AwsBatchPlatformMetainfo.JobQueue"}},"buckets":{"type":"array","items":{"type":"object","properties":{"path":{"type":"string"}},"title":"AwsBatchPlatformMetainfo.Bucket"}},"fileSystems":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"},"dns":{"type":"string"},"mount":{"type":"string"}},"title":"AwsBatchPlatformMetainfo.FsxFileSystem"}},"efsFileSystems":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"}},"title":"AwsBatchPlatformMetainfo.EfsFileSystem"}},"keyPairs":{"type":"array","items":{"type":"string"}},"vpcs":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"},"isDefault":{"type":"boolean"}},"title":"AwsBatchPlatformMetainfo.Vpc"}},"images":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"description":{"type":"string"}},"title":"AwsBatchPlatformMetainfo.Image"}},"securityGroups":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"vpcId":{"type":"string"}},"title":"AwsBatchPlatformMetainfo.SecurityGroup"}},"subnets":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"},"zone":{"type":"string"},"vpcId":{"type":"string"}},"title":"AwsBatchPlatformMetainfo.Subnet"}},"instanceFamilies":{"type":"array","items":{"type":"string"}},"allocStrategy":{"type":"array","items":{"type":"string"}}},"title":"AwsBatchPlatformMetainfo"},{"type":"object","properties":{"warnings":{"type":"array","items":{"type":"string"}},"zones":{"type":"array","items":{"type":"string"}},"locations":{"type":"array","items":{"type":"string"}},"buckets":{"type":"array","items":{"type":"object","properties":{"path":{"type":"string"}},"title":"GooglePlatformMetainfo.Bucket"}},"filestores":{"type":"array","items":{"type":"object","properties":{"name":{"type":"string"},"location":{"type":"string"},"target":{"type":"string"}},"title":"GooglePlatformMetainfo.Filestore"}}},"title":"GooglePlatformMetainfo"}],"title":"PlatformMetainfo"}},"title":"DescribePlatformResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

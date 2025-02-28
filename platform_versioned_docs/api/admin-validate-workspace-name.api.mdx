@@ -1,0 +1,71 @@
+---
+id: admin-validate-workspace-name
+title: "Validate workspace name"
+description: "Confirms the validity of the given workspace `name` in an organization context. Append `?name=<your_workspace_name>`."
+sidebar_label: "Validate workspace name"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVO9v0zAQ/VcsfwKpNAUmpEX86mCgCWlD24AP1bS6yaX1ltie7XSUKP87d07Spms1xCf4lNh+53vP9+4qnoJLrDReasVj/kGrTNrCMb8AthS5TKVfMZ2F9VwuQbF7bW+dEQmwqRIFTJlUTCim7Vwo+UvQRSzRysNPP2RjY0ClbPqOoG9er3Rpr9cXXNPm2+mQD7g2YEPoSYosxmkh1XfKLjz86OCniEaoERZ/PFjH40nF6Q4MwfQYOuCSVBjhF/i/Le2sT1CVBViZMJmC8jKTYBFv4a6UFpCBtyUMuEsWUAgeV9yvDCWRqGoeoJm2hfDN1qsDXteDNRPV0AxE7kqwqx0ma0WMsMzr5qVRK9+T1Hkr1RxTXBFDZ7Ry4Oj8xeiAPg9UfmHP2KluKqA8rwf8YDTaxR2JlJFecB6TdmiECWNymYRXim4cYasep80TTXgBzok5cOTVUtWzG0joPmOpoF42RDvgHk0YKn1OW8fWanve6sOTOjB/uUdhZxWmtGciz/U98gnow130x7KRAwxyKEjjf6oWDx0kpcV+C74+AmHBjkt0cjy5ouKj6Rea2mMOISuZPOaRoGaJ0P8uqkIX1NG6w1zUd1Z7/QXpa7j2k6zpLrw3nRFpPQsg3Gl+PnXWv7n3QZNUmQ7hrbYLuMMKsfHXkx3nt0cmF546iDmwS4k0WzAVRiShMKXNWyoujiIX4oZSIwhrI/PQeZl+vzlAIkucCU2e58PD4Yi2jHa+EKGsbXt2Y6U3x9qO3aJabVzyz4ZiWw8KivDJcKKgovAwVVv9CQ/VpwGK9cdP3M3BjQVwsTYBumiBL0KBVTUTDr7ZvK5pu5lUZLxUOjHLyfSZyB088i6PzrG95G9htZmQCC4JwsncS2Elpf1LCk/O2xZ9yv483/dSajeFWvUpdVSb56yvELgAkeI1xK85GycJGN+L2hkmW137+fgSsWK71x70Vrh9LyMsV0Bc6ltQWLKOoKc1Eazr3x/KtGY=
+sidebar_class_name: "get api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Validate workspace name"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/admin/orgs/{orgId}/workspaces/validate"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Confirms the validity of the given workspace `name` in an organization context. Append `?name=<your_workspace_name>`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"name","in":"query","description":"Workspace name to validate","schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"409":{"description":"Duplicate element","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

@@ -69,11 +69,6 @@ export default async function createConfigAsync() {
               require.resolve("./src/css/fonts/degular.css"),
             ],
           },
-          docs: {
-            path: 'platform_versioned_docs',
-            sidebarPath: require.resolve(`./platform_versioned_sidebars/version-24.3-sidebars.json`),
-            docItemComponent: '@theme/ApiItem', // Ensures API entities render properly
-          },
           gtag: {
             trackingID: "G-NR1CNM213G",
             anonymizeIP: true,
@@ -163,22 +158,6 @@ export default async function createConfigAsync() {
             return `https://github.com/seqeralabs/wave/blob/master/docs/${docPath.replace('wave_docs/wave_repo/docs', '')}`
           },
           sidebarPath: "./wave_docs/sidebar.json",
-        },
-      ],
-      [
-        'docusaurus-plugin-openapi-docs',
-        {
-          id: "api", // plugin id
-          docsPluginId: "classic", // configured for preset-classic
-          config: {
-            petstore: {
-              specPath: "platform_versioned_docs/openapi-spec-test/seqera-api-with-admin.yml",
-              outputDir: "platform_versioned_docs/api",
-              sidebarOptions: {
-                groupPathsBy: "tag",
-              },
-            }
-          }
         },
       ],
       async function tailwind() {

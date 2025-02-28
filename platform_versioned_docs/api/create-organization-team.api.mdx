@@ -1,0 +1,71 @@
+---
+id: create-organization-team
+title: "Create team"
+description: "Creates a new team in the organization identified by the given `orgId`."
+sidebar_label: "Create team"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVm1v0zAQ/iuWxQcmtWuBgVglBHsBqQKp0za+0A3mJtfWI7GD7XTrQv47d3bapGtXJuADX9rYfu58z7264DHYyMjMSa14jx8ZEA4sE0zBDXMgUiYVc1Ng2kyEkneCgEzGoJwcS4jZaO6PJ3IGil0hqh9f7fIW1xkYD+7HS72Dho5z1I2wTBiRggNjeW9YcIULhHs1eCrJpky4KX6vGtpUxVSegpFRbZZBvIEfuTSAtzuTQ4vbaAqp4L2Cu3lGl0jlYOKhY21S4cLWqz1elpdBHKw71PGcZFZvJ+NZ5DmxCohqIo0alSO4yLJERt66zrUlmWLdAD26hogEM0PechKsPyXP4H9NYBj8glZtl5TxY+i1uMqTRIwSWLgGicQDlczDumxVYSh4Km4/gZqg/3t7XQqWw0iRA74ORfvuoP3l4iK+fPq211j9HLa/4dabxtbOTvGs9eJ1+YQvCVhnpJrw8l5YV258/rK7CY8+D9nUJFudN7gSru0k8tjALxHWfc7iv1GCWpx05EOfDWSamAknTH+DyiY6GE8yp1XmlHS8mq5+w2Za2RDZ593uehYOPv77pNuOuhesteCQlv6jknDprs8m2agqhXSEXeFI54HcIxQusvZh35PXj0fHTj8YkeBzCgkC9jZ5/VDEf1LzzWpOwVoxeURBL4BbSb03Rps1y19syJdFS2ZKOyaSRN+gPR69v44+zgMd7PGQQEok/1O6eGghyo10cz9EDkEYMAc5NZHhJTVznDBTTXMo0z5qfqT0eAfnjO0UftqUHUpey2tdZ0QmGNbUuLRt6lzGq7lC65EH4U74+LDIz+sb5wmQk07rqfL+VqRZAs3iq6bfsg+tBqSujbrRNDalGmuvrPLTGfzAcLODk/6apuooS4SjKmIWzExGOPYDmIIsIh/knKrTM7W9Tsd6uV2pEYRxlomvvrF+Vx+gITMs23DPs9393S5tkdtToRocQ835F8Z984o6y/7he6QKmoNb10Hi+LJAu/LQfEI6DOnZQQnQWzw/QkZg/kwpbRBQFCNhAVtWWdI2xtJQyuHnTBgZRiomYCwtfWN8xiKxsIXf09OqTnbY7180GylUm0LNOVmR5LTCz+8wXz6kyksETnF+oRqyL5wdBSva56Shll2r67K1kDiIIsjcVmyz2E4GZ+dUDtUTKtUxyRhxQ9MUf72d2nvFV5nfK3A4q0nu2wAPOql4xGrt3as1z2qjJzBiHnGuv4PCqC0c42hNjinLX7g7yTI=
+sidebar_class_name: "post api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Create team"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/orgs/{orgId}/teams"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Creates a new team in the organization identified by the given `orgId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Team create request","content":{"application/json":{"schema":{"type":"object","properties":{"team":{"required":["name"],"type":"object","properties":{"id":{"type":"integer","format":"int64","nullable":true,"readOnly":true},"name":{"maxLength":40,"pattern":"^[a-zA-Z\\d](?:[a-zA-Z\\d]|[-_](?=[a-zA-Z\\d])){1,38}$","type":"string"},"description":{"maxLength":250,"type":"string"},"dateCreated":{"type":"string","format":"date-time","readOnly":true},"lastUpdated":{"type":"string","format":"date-time","readOnly":true}},"title":"Team"},"avatarId":{"type":"string"}},"title":"CreateTeamRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"team":{"type":"object","properties":{"description":{"type":"string"},"teamId":{"type":"integer","format":"int64"},"avatarUrl":{"type":"string"},"membersCount":{"type":"integer","format":"int64"},"name":{"type":"string"}},"title":"TeamDbDto"}},"title":"CreateTeamResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"409":{"description":"Duplicated element","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

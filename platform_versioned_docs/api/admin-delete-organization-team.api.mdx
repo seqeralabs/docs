@@ -1,0 +1,71 @@
+---
+id: admin-delete-organization-team
+title: "Delete team"
+description: "Deletes the given team."
+sidebar_label: "Delete team"
+hide_title: true
+hide_table_of_contents: true
+api: eJx9U8Fu2zAM/RVBpw0I4mwoBsynZWgGFBvQYc1OQQ6KzcRcbcmR6GyZoX8fKbtN03Y5WRIf+R7J516XEAqPLaGzOtfXUANBUFSB2uEBrCIwzVRPtGvBG0HdlIyblw3aAXzrd8bi3xRbMpixrfGm4ZAPOl/12vKFc6QSJ080ClNrqOLzOb3kK9s14LFQWIIl3CJ4xnnYd+iBucl3MNGhqKAxOu81HVupjpZgl6Bb5xtDw9OHKx3jWtJD62yAIBnvZzP5nFPfftVxwqGrl6ELzSpOUA/FmYqFQdF5pGPq/DMYD37ecav5ai1CeCyVkwmWqV4alkR1ZoQlkyGFrB9mFfWp3p00POh/WvWx/4qo1eNc5L5JIH4ZDl8ehvLrNyWdaLcupSPVgr+DPS9Yzb/fvNjKGGprQzJbFcAfsGCXDODCWTIFSbHO16OUkGdZSHlTdAziZWGddrJ1n04BFnJgmww876YfpzN5al2gxlipOHpnmH4y43N5fRLAVrlo33FKBH8o40bYgsyT5PbjBlY6bUCwsgP+5qNjeW0VKxJI329MgJ++jlGe9x142TQfD8aj2cgoee8lBjnznremDnBB8Zsfo7Hfqv+b/1Xx46OxRy3sdSc3Pt7D8fSzxXV84rnrxbfFcsEYc+6dZ15JLbxanttPiKW7BxvjiU3uQhbjPy+Kd+c=
+sidebar_class_name: "delete api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Delete team"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/admin/teams/{teamId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Deletes the given team.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"teamId","in":"path","description":"Team numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK"},"204":{"description":"AdminDeleteOrganizationTeam 204 response"}}}
+>
+  
+</StatusCodes>
+
+
+      

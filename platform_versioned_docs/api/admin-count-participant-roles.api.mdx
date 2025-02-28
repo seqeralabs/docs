@@ -1,0 +1,71 @@
+---
+id: admin-count-participant-roles
+title: "Count workspace participants"
+description: "Returns the number of workspace participants. Append `?type=<user>` or `?type=<team>` to return results only for the given type."
+sidebar_label: "Count workspace participants"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVm1v0zAQ/iuWP4E0NQMhJCreuq0gxEZRV8SHaRJuem28JXZmX1pKlf/OnZOm6dpt5RufkvjOd88995aVnICPnc5RWyO7cghYOOMFJiBMkY3BCTsVC+tufa5iELlyqGOdK4O+I3p5DmYifn3AZQ7v3hYe3PtfwrrmBEFldIJWuGCYHr5I0Qtr0qWYkiY7muk5GME3OvJI2hycYjhfJgSoN8m0ObWFwe8b10ObgidVQqMyQHBedq9W0tAHXWnQkoEjqTmsXGFC79ux/myiokjB6VjoCRjUUw2OlB3cFdoBgUBXwJH0cQKZkt2VZKR0XxuEWVClQDKF1dHrV7IsjxowQbdGcVeAW+7AaMUVOBDPmEdmkdl7Lvd49ui0mZGfa4bpc2s88UHyl8fH/Nh2MPhKNmJLaA2yVOV5quNAcXTjWWW168KObyBG5thxQlBXDtCiSi/1HziIh5Chpl5aV5RzipnQCFk4V2k6mIYkPu6/ZY/L4yAMGXAdH6zO7H8Lydvhm9S18/igNFWPCIlfne6VWDfjit6V0SUqTaJF2oUJcKtYQj7TVI0tdYp1ksoANbIFOahtkVkun4OjZuUHoS98fihAxf3KQBWZVuE1VYWJk6oGTZXUuYZFG/XP2gEDCQ4ednTRvzjpD+lg1O9d0ON0cH7eOxkMe6PBsG2y1VYjNlXH2JsrVO6H258Jzv1jGuVe+2fjM7SSm/6J5iH/FyGBPky0w2ZJ2Qqqb2hMJTDZdd6GttY61749Nf2wHhWszfoe4sJpXIa+OwHlKPiCBmX36pqd0mRNLM/gGYRYeIZ2ZRQyHDVD1ker1sAto3bHR3EIc+PpksdMRUbbX0NDgpivBx5/j4MSnVQvn9bc3CwwJEObqQ3X68gv4Y6Wh+h9/7IzZmtRnipkigVleq4Jfq3M81HFISUFpz5A8d0o8uFeR1vZtHBw+3EjICBzymnl50XnTec4jD7rMVNhuta7ICT9gWV6H+9qM7H/h6Vc5wfhN0ZEIfU1d0vVI1VhXDWtvykN+uhub+N7IVf1QbWWEFlsY7UaKw/UfGXJx9XG5PKcaK/GKW/jqUo9PMLW0/t0bzC3sNys67lKC1aR3Adz5TT7/kccz4b1D8Rz8cSfxl48601plm08a5xtVstrUk9ATcgYQ6w0enEMObbu7qz9rR7/3B/x9N5ux3vt197P27gobUFjZG/BUOoaOvmbAZblX8LvmD0=
+sidebar_class_name: "get api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Count workspace participants"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/admin/workspaces/{workspaceId}/participants/count"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Returns the number of workspace participants. Append `?type=<user>` or `?type=<team>` to return results only for the given type.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"path","description":"Workspace numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"type","in":"query","description":"Participant type (user or team)","schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"totalSize":{"type":"integer","format":"int64"},"participants":{"type":"array","items":{"allOf":[{"type":"object","properties":{"participantId":{"type":"integer","format":"int64"},"memberId":{"type":"integer","format":"int64"},"userName":{"type":"string"},"firstName":{"type":"string"},"lastName":{"type":"string"},"email":{"type":"string"},"orgRole":{"type":"string","enum":["owner","member","collaborator"],"title":"OrgRole"},"teamId":{"type":"integer","format":"int64"},"teamName":{"type":"string"},"wspRole":{"type":"string","enum":["owner","admin","maintain","launch","connect","view"],"title":"WspRole"},"type":{"type":"string","enum":["MEMBER","TEAM","COLLABORATOR"],"title":"ParticipantType"},"teamAvatarUrl":{"type":"string"},"userAvatarUrl":{"type":"string"}},"title":"ParticipantDbDto"},{"type":"object","properties":{"teamMembersCount":{"type":"integer","format":"int64"}}}],"title":"EnrichedParticipantDbDto"}}},"title":"EnrichedListParticipantsResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

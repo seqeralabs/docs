@@ -1,0 +1,63 @@
+---
+id: info
+title: "General Tower service features and version"
+description: "General Tower service features and version"
+sidebar_label: "General Tower service features and version"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVU1v2zAM/SuBzlnSdcWA5bQ0SItg/UI/tkPRA2MzjlpZcik5aRbkv5eSndQp7CbFdopDPYqP5BO5FCZDAieNHsWiJ0Z6YkRbENrMaItW9Jbi8ODA/8RoI5KZhzLw8hfDIqMdaudPIcuUjMJF3UfrIUthoymm4L/cIkN2MuNHjBw7ZuTDOlkEsEgzGWGIvRM8Q7KyuL8EWkdSJ2LVZhLy9wfHkUlT6Xyedb65m96y0VZOgQgWzEA6TG2NF7spk0h9BW5ae6mG2Rhod1Ip6nyfwA3uCsaoagnkVGfnAyed8qaLwHBg9EQmneLPOZNhTAPI3zpFIDdGcCPuP82gGkOyKUFijhNDKbjC9O0wsOFO/zH0ZDOIcKhhrLDajLExCkGHbihl5iNtHegIB4Qxy0yCsvVoBTrmxO5qk+U0kFJ7Obmz2IQohdx0DBrUwsloj1bUF7wtLLdyS3nNdaoUvr8JvK7JmYlAXWNm6krR5keaEfIz9HV1lONbbufwciIV3si/uJPF9yMfbw6zj5uUkMl1bOeo1L64vs8B440I9hF9M8eS5H+/lE0JXhFO5Et9M/GZh+ZAmbwhY+Q3saEziv+ZkO8hRG6YgmxQqC/BBb64Cf8OlDwzSe1bqWjrpjJ1G+zX5Rrw04ARR3WL4BjiFuFzjtZ9ZiN4F0leMfc8/ayFBMVDe+eYLIAfTrQhkaEt5qv2O86nqLl/qnXLsqFWuX5aEx5oOW++Fk+T1nrNtDmomxq/GxMMjMKsF93S64ssNqbFKCfpFjc+w4LtMU9JpH6+tRumzmUeHmC+MwHEluLjZN37x7kLWcn1Utx0x0uv1b8aifdZlUeZAucltM7LluBSQ5shFajYXrdbqLkjfRpYKCyE/fl2wEQ2e1d87fzoHHgTDyGXQmishpDNpwq7xX5TIMci7nIOUlf2V1H0e7FVdJbLlBl4+3I5hjDdVytvZjXSgu38OQOSfjT5f8XmirncvfuleMKFn7BRhJnvK7/YPLzP97JdPVQ0cDq85ba8AqD7Mi4=
+sidebar_class_name: "get api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"General Tower service features and version"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/service-info"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+General Tower service features and version
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"serviceInfo":{"type":"object","properties":{"version":{"type":"string"},"apiVersion":{"type":"string"},"commitId":{"type":"string"},"authTypes":{"type":"array","items":{"type":"string"}},"loginPath":{"type":"string"},"navbar":{"type":"object","properties":{"menus":{"type":"array","items":{"type":"object","properties":{"label":{"type":"string"},"url":{"type":"string"}},"title":"NavbarConfig.NavbarMenu"}}},"title":"NavbarConfig"},"heartbeatInterval":{"type":"integer","format":"int32"},"userWorkspaceEnabled":{"type":"boolean"},"allowInstanceCredentials":{"type":"boolean"},"landingUrl":{"type":"string"},"termsOfUseUrl":{"type":"string"},"contentUrl":{"type":"string"},"analytics":{"type":"object","properties":{"url":{"type":"string"},"siteId":{"type":"integer","format":"int32"}},"title":"Analytics"},"allowLocalRepos":{"type":"boolean","deprecated":true},"contentMaxFileSize":{"type":"integer","format":"int64"},"waveEnabled":{"type":"boolean"},"groundswellEnabled":{"type":"boolean"},"groundswellAllowedWorkspaces":{"type":"array","items":{"type":"integer","format":"int64"}},"waveAllowedWorkspaces":{"type":"array","items":{"type":"integer","format":"int64"}},"forgePrefix":{"type":"string"},"seqeraCloud":{"type":"boolean"},"evalWorkspaceIds":{"type":"array","items":{"type":"integer","format":"int64"}},"contactEmail":{"type":"string"},"allowNextflowCliLogs":{"type":"boolean"}},"title":"ServiceInfo"}},"title":"ServiceInfoResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

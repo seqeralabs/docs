@@ -1,0 +1,71 @@
+---
+id: admin-delete-organization-member
+title: "Remove member from organization"
+description: "Removes the given member from the given organization."
+sidebar_label: "Remove member from organization"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVN9v0zAQ/lcsP4EUNR2akMgTRSvSBAi0jaeqD25yacwSO7WdQIn8v3PnpFnaTZ009hT7fD++u+++dDwDmxpZO6kVT/gNVLoFy1wBbCtbUKyCagOG5UZXE6s2W6HkX0FhMx5xXYMJl+sMsyyySqorKMHB94njt5AKvWthRIWPxvJk1XGFF4zCnBgdcUlAauEKPB+jmyZjqqnAyJTJDJSTuQyZDewaaQBBONNAxG1aQCV40nG3r6mIVA62wTXXphKuN72/5N5HI5K+52fA9N28Pow1hdtaKwuWIt7N5/Q5mcQX7iN8unz8dHb4DEPYIT31zC2kjZFuH5j4BMKAWTTYbrJaExSkqdDEaRYyBvLolceC6sRImo27QJ2P+7nh/TBAzx8K3NIM+pamZcaRFM7VfBgV3TfBCS394fNhTr9+uwBcqlyHcOlK8r+FHe4gW/y4fkTV8FSXwtG4mQXTyhTXvHdOtXIidZSsMeUAxSZxbEPcTGp0Qv5kGWjK9ceHBwTSYst9nYvZh9mcTLW2rhKKMg4r1QvrSE1TDZ1C7gIo3Kj/0OQwVwd/XIyt4yYjstBgN5C44oFE0i/SiJ/koMGBSTKNYsBtKLAvCuu6jbDw05Tek3nXgKEFwmMrjBQbIgTXKZOWzrg+uSgtnOnxzc2gmLfseZE/2dhgFGrPCUXZ0A2P97Af/y0k8RdhOqf1F6AZR+rXfiKxq+XX5d0SvcSxMk6UEEb7ZAGkJXjc6XtQ3o/1HN2pmPf/AHguCxY=
+sidebar_class_name: "delete api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Remove member from organization"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/admin/orgs/{orgId}/members/{memberId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Removes the given member from the given organization.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"memberId","in":"path","description":"Member numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK"},"204":{"description":"AdminDeleteOrganizationMember 204 response"}}}
+>
+  
+</StatusCodes>
+
+
+      

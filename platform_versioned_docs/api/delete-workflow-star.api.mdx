@@ -1,0 +1,71 @@
+---
+id: delete-workflow-star
+title: "Unstar workflow"
+description: "Removes the workflow identified by the given `workflowId` from your list of starred workflows."
+sidebar_label: "Unstar workflow"
+hide_title: true
+hide_table_of_contents: true
+api: eJy1VF1v0zAU/SuWn0CamgITEnlisCJNIEAbEw/VpLnJTePNsT3b6Yii/vfd6yRLQ6uiPfDU1D7X59xzP1qeg8+ctEEazVN+CZXZgGehBPZo3H2hzCOTOeggCwk5WzXxai03oNntgLjIb1nhTMUaUzumpA/MFMwH4RzGDCg/4yfcWHCCyC5ypDsHBQF+94ArDECIFU5UeOw8T5ct1/gHoSMXQiRptSKU+D1NYHgL2Z3U61E7vezgoZYoiafB1XDCfVZCJXja8tBYIumC+HZ7MuH1VmQwEj/U4JqDzBHIdF2Bk9mUe49L6gDreFUYV4nQHb0/RfYbkuqt0R48Rbydz+lnyvfjK4ZmBl/RgW6FtUpm0dvkzhOk3Sc1qzvIApnsqBJBdgQ75h4ygwcZFB19diCm9brsdSKMgKfzdweUDjVn2gQmFIZiDSL6dB/9HTGFqXX+kvTGyi55Bd6LNXB08XjWA/BoygvnzDRLvMT2LA01cB4bODYtNmPKk8HJpB093Sa+62wPWe1kaK5Id6fhEwgH7qym6GcZZQh2aBn6v4ogPOk+vgz9cvcYolapCxPDe81X8ICOs7OfF3td2l9ZJQK1HfPgNjLDie/AZLjIouG1U70UnyaJj3EzaRCEnksV27UwH8cLFLLBoe143sw+zOZ0ZI0PlYjl6ifqWpMdz2vhb4ntWPX/v456wwP8CQl6guONkmPmbV/SJd8Rmk62UKwqdlmJKRKwbVfCw7VT2y0dd2uCVlguvVgp6s5CKA9HEv7HEjko9x6avT21EaomJKddshFOEv8Ltby67IfqNTu6VQ+K6g+FbnbV7IrtbdzeILoEkeNbpK8DnGUZ2LATujf+lNjzGJ4vvi1+LXAWngC+DmGf
+sidebar_class_name: "delete api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Unstar workflow"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/workflow/{workflowId}/star"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Removes the workflow identified by the given `workflowId` from your list of starred workflows.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workflowId","in":"path","description":"Workflow string identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"workflowId":{"type":"string"}},"title":"CreateWorkflowStarResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"Not found","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

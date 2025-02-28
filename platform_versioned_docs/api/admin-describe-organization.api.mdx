@@ -1,0 +1,71 @@
+---
+id: admin-describe-organization
+title: "Describe organization"
+description: "Retrieves the details of the given organization."
+sidebar_label: "Describe organization"
+hide_title: true
+hide_table_of_contents: true
+api: eJydVE1v00AQ/SvWnkCK4oIQEj6RqoAqJEBpOVU9rO1JvK296+6OU4Ll/87M2E3ixNCKk9c7b2bn471pVQ4h86ZG46xK1BLQG9hAiLCAKAfUpgyRW8nv2mzARs6vtTW/NXvM1Uy5Grz8XOYUYJFXxl5IzBS+H0AJWWuvK0DwQSU3rbL0Qx4UjzxnyvD7tcaCzuOkDsNEtqnAmywyOVg0KwOe8B4eGuOBEkDfwEyFrIBKq6RVuK35EWMR1gJdOV9p7K/ev1Ndd8vuoXY2QGCPt2dn/DlK4Su5Zo6iWGSrruvSZJJRfBcY0p4+6tI7yJAL99wkNP0Dhw18Hj3KYwcONCa7Vt1MlW7tuPN/Mf305aSt7/pLGkQ3TVl+k2FNBHqENBicttV6y6e9KXWuBG3ZVkGVgn9xDj18Se6nL80UECuIU8o9WvHv0TKystSpI4I6r2jSaJAjMKUklnQpOx7FvgI7XXY3irSb5kV6gW5knVLCcmAbATvGBsgab3ArojgH7cEvGpJBcnPL5CTFFI6ltQZhByskUbFmocU0xhC3MsxO7UNdMRV7/hwG3NVRINZqkInMRUB00x8+P7X/7hGlHGNXTtyHsq7ggUQfLX5cnoh1MNWlRp5iFMBvTEYLpQezhnQmGmqYmpJKSOI4iN/cOB5nRWtHpr9yH/cGSmRDy6N/5838w/xMSOYCVlrGN2yUp6aPVtVxou1ezv+z9YZGIvzCmGo1wummF1s/ohslI1KitUCfpNccjbSglBnQtqkOQBLtOr5+aMAzC+i40d7olHtNnMhN4DNxYKXLAP8o5NVyWISvo+eX5mQJw6W2W8VZlA3/0fEetrtd3d0SsACdUxjOr7ctsgxqPPA62ZEjNn/5dE1YPeblEQ8l+mRG1DlBXLt7sF23SxD5nxPsuj8ZPlxY
+sidebar_class_name: "get api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Describe organization"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/admin/orgs/{orgId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Retrieves the details of the given organization.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"organization":{"type":"object","properties":{"description":{"type":"string"},"logoId":{"type":"string"},"logoUrl":{"type":"string"},"orgId":{"type":"integer","format":"int64"},"fullName":{"type":"string"},"website":{"type":"string"},"paying":{"type":"boolean"},"memberId":{"type":"integer","format":"int64"},"memberRole":{"type":"string","enum":["owner","member","collaborator"],"title":"OrgRole"},"location":{"type":"string"},"name":{"type":"string"}},"title":"OrganizationDbDto"}},"title":"DescribeOrganizationResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

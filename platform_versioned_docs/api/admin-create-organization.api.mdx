@@ -1,0 +1,71 @@
+---
+id: admin-create-organization
+title: "Create organization"
+description: "Creates a new organization."
+sidebar_label: "Create organization"
+hide_title: true
+hide_table_of_contents: true
+api: eJy1Vm1v0zAQ/iuVxQcm9W0wIaiEoGMgVSA27eULXUFucm29JXawnXVd6H/nzs4aN81eJMSXLb577tXPnVuwGEykRWaFkmzAPmngFkyLtyQsW0rPuRR3nJRd1mYqA+0OoxixwzgV0hscB0DEafidg7GHKl6xQVELEWJbEZnTR2mCxpGSFqQlQ55liYgcoHdlyLpgJlpAyunLrjJAf2p6BREZZpryswIMacPc6UwBhAZMfMxmeZJ85ymgkaR/k/YTzkQcBBSY3xw0gmZKp9x60ZsD8oaO+TRBlNU5UCN4fCyTlT+vy3DoKuW330DO7YINDvoYjVsLmrrzc8w7d8POj8vLePLywyA4/Rl3fqHofSDa2yv226/frl+wTQHGaiHnDENtitwOt9/vN4C3rqiObzJIVMSb0Q3gJUyNsC6TqtKmnGPkkmdU2PBSH/SbcB0r3A3u9Djhxl5k8b84QS9WWLrHLbr6wudq1OA4tNkditOS3muCVVQsM9ZgMiWN59qrfr9haL7+v8l4HF1jRgMRHuiHV13opFGHSYyeNVQ1Jj/GrR1dxlf0VammSiXA3T2mkE5BPzsHDz9VSUOkNgOZp7RY1FI6e492V0YLQeHWVNqtmYpVzldtknYqkM1lP8DPo+mRVU8y0XONqEhIA1GuhUXmjwt2CFyDHuY0yuPJekKV2IWibZ8pt51xflHHepyWfw9v0bDKxxkx0NMm9LRJf2FtRnAHo+twIJT4jy/3Xb9aWlcFMfu0eks+3/I08xdQ57DvUzDkG8pUsu2J2oir/leyDakaiB6IhJwpV17Z7TP4jQ9ka3gy2glXqrKEWyJXy4C+ERG+tB5Mo80jN9o5TYxrlRn0esbZdYUilqVcJI6UM/WxUmAiN6CNj7PffdftO+7jfaU8bI7nwtajXk+zqHbMEz8Fyhu1cGt7WJRwM5X7YfccGTPHEeZm3RD5F0QhlBfFlBvAzbBekxjvVxP98POGa+HfT2QfGuBWRn4QM69hRTn57DrnFJ3gSU5Z7GzDdfveYhhFkNlHsSHLT47PzomP5S+XVMVko/mS3gj8654t5brlaO5kBT45cp7zOWG9T2Iv3yZ/jeyuqlLF5SrIENvjEOfqGiS2qF2WYumM6aLzvyKbVY8=
+sidebar_class_name: "post api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Create organization"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/admin/orgs"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Creates a new organization.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Organization creation request","content":{"application/json":{"schema":{"type":"object","properties":{"organization":{"required":["fullName","name"],"type":"object","properties":{"id":{"type":"integer","format":"int64","nullable":true,"readOnly":true},"name":{"maxLength":40,"pattern":"^[a-zA-Z\\d](?:[a-zA-Z\\d]|[-_](?=[a-zA-Z\\d])){1,38}$","type":"string"},"fullName":{"maxLength":100,"type":"string"},"description":{"maxLength":1000,"type":"string"},"location":{"maxLength":100,"type":"string"},"website":{"pattern":"","type":"string"},"dateCreated":{"type":"string","format":"date-time","readOnly":true},"lastUpdated":{"type":"string","format":"date-time","readOnly":true}},"title":"Organization"},"logoId":{"type":"string"}},"title":"CreateOrganizationRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"organization":{"type":"object","properties":{"description":{"type":"string"},"logoId":{"type":"string"},"logoUrl":{"type":"string"},"orgId":{"type":"integer","format":"int64"},"fullName":{"type":"string"},"website":{"type":"string"},"paying":{"type":"boolean"},"memberId":{"type":"integer","format":"int64"},"memberRole":{"type":"string","enum":["owner","member","collaborator"],"title":"OrgRole"},"location":{"type":"string"},"name":{"type":"string"}},"title":"OrganizationDbDto"}},"title":"CreateOrganizationResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

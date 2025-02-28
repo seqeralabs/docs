@@ -1,0 +1,71 @@
+---
+id: update-organization
+title: "Update organization"
+description: "Updates the details of the organization identified by the given `orgId`."
+sidebar_label: "Update organization"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVsFuGjEQ/RXLp1YiQNuoUjk1aVMpqpRGJDmhSDG7Azjx2o7thdDV/ntn7IWFsKJS1UMuyOt5M34zHr+h4jn4zEkbpNF8xO9sLgJ4FhbAcghCKs/MLH4aNxda/haEZDIHHeRMQs6m62ieyyVo9oCoy/yhz3vcWHARfJlvA//aiYEQK5woIIDzfDSpuMYPhMYQaJVEyIqwwPU+y90wTJcFOJm1lBziHTyX0gGeHFwJPe6zBRSCjyoe1pYOkTrAPEJnxhUipK3Pp7yu75M7+HBu8jX5HDm9jHmxxgHDZQYj60Buwlols4gbPHryrQ6JmOkjZORoHVUsSPAHR27BPjip57zucWXmhgrbYZqVSl3FUnYYVzD1MnTbrFjTqjVNjVEg6KY0xhRTBame8fyUWGcg3X06WoIMFKSjHcZNBWuC7V9f3PDWaJ9q83F42nErP9kJuzJsU390Oh0OD3HnIv+X22oZTXgB3os5cGyU45e4AR4txYVzxo2b/Cj9yPxTR4abB8W0CUwoZVaQv+Ucvhzm8L1MBIGBgoJYv1H+aPSQlU6GddSmcxAO3FmJajSa3JNGoHAtDEmbLeOpJFQjPkD18oMqaljN2yA3lEVitBtqS2oRguWNTsWnF0G4kxY/NiL1uAqROVVn3KrUxYsorILDgjfJtoLR7rQ60e5t5aHd2qhCEtL23bcIvRekJuWemZhbU94beMbWZWfXlwdS3pisEoGEmHlwS5nhBEpg6g2Rxd4onWrq5EeDgY9+fWkQhO0hVRTwmfnaGpDIEkdLOudD/0t/GEXO+FCI2FkN76RFe/PtNc2qbdL/OSKbuw/wEgZYARx4SDDmWTX9NKFp6BE6SlMR+26BCZChqqbCw51TdU3b2AqOWhWXS+FkEmts3Fx6WuPNz4TycCSxd+Pmfb1nfx+wndSbTaHXnFiokr5w+QTr7Vyv7xG4AJFjGOKXbN8Si5NbitD6HuhB3dt4nGUZ2HAUu/tIr+9u6TE1A70wObk4saL/CvgbaZpYlPhG417FldDzMqoHTyHp6Yn9l/vqpcakOguBFxYRt+YJdF1v6xLom+pS138AvPxRbg==
+sidebar_class_name: "put api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Update organization"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"put"}
+  path={"/orgs/{orgId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Updates the details of the organization identified by the given `orgId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Organization update request","content":{"application/json":{"schema":{"type":"object","properties":{"description":{"type":"string"},"logoId":{"type":"string"},"fullName":{"type":"string"},"website":{"type":"string"},"paying":{"type":"boolean","nullable":true},"location":{"type":"string"},"name":{"type":"string"}},"title":"UpdateOrganizationRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"409":{"description":"Duplicate element","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

@@ -1,0 +1,71 @@
+---
+id: admin-delete-organization-team-member
+title: "Delete team member"
+description: "Deletes the given member from the given team."
+sidebar_label: "Delete team member"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVN9v0zAQ/lcsP4FUNQVNSOSJohVpAjTEylPVBze5LGaJndpOoUT+37mz3azdxiZVPMU+34/vu+8uAy/BFkZ2TmrFc34JDTiwzNXAbuUOFGuh3YBhldHtkdWBaKd8wnUHRlDsVYnR87KVKqa4NrdCyT/hbYnOX0MajOiEES06GMvz1cAVXjCS8mGKCZeEohOuxvMpNMrCVN+CkQWTJSgnKxlSGtj20gAicKaHCbdFDa3g+cDdvqPsUjm4Da6VNq1w0fTugns/GSFEoi+AiDT+P4w1hdtOKwuWIt7OZvQ5LX79mfsJPl08fnqx8wzD2KEE8eYWit5Itw8yfARhwMx7pJyv1gQHNao1iVqGrEE5euWZoFoZKWazIQrns9g9NBza6LMx8FDphhoS+R3XG/tTO9fx1De6b4ITWuLh06FpP3+5wECqSodw6Rryv4EtTiObf7t6pFt66hrhqPfMgtnJAgc9OhdaOVE4StabJkGxeZbZEDeVGp1QTNkEzSr94f4BgeyQeazzZvp+OiNTp61rhaKMab6iOmFz0lI9RDkEHDhRZyxiaqGD3y5DljjBCCJwGZJwKx6EI1+SDr/5uHVJPbIdrUESEIehRjaUYRg2wsIP03hP5m0PhuYHjzthpNiQDDhNpbR0xumpRGPhGZqvvqelec3+vd9PcktGofacqjc93fB4B/v7/wmt91lgntvzM+CMTfVrf7Ral4svi+UCvcTpIjwY/NDTJwugHsFjqe9AoSYjfbpTMe//AnWmApg=
+sidebar_class_name: "delete api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Delete team member"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/admin/teams/{teamId}/members/{memberId}/delete"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Deletes the given member from the given team.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"teamId","in":"path","description":"Team numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"memberId","in":"path","description":"Member numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK"},"204":{"description":"AdminDeleteOrganizationTeamMember 204 response"}}}
+>
+  
+</StatusCodes>
+
+
+      

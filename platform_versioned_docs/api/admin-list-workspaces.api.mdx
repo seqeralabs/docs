@@ -1,0 +1,71 @@
+---
+id: admin-list-workspaces
+title: "List workspaces"
+description: "Retrieves a list of all workspaces in your Seqera Platform account. Append `?search=<workspacename>` to return results for a given `<workspacename>`."
+sidebar_label: "List workspaces"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVW1v2jAQ/iuWPyPoumnS0N6ytd3Qpg1B136oKtUJB7h1bNd2oAzx33fnQEhKS6t+2qfEvufuuXcv+Qh85qQN0mje5QMITsIMPBNMSR+YGTOhFJsbd+OtyFAgNVuYwrEh3IITrK9EGBuXM5FlptChzRJrQY/Y1ScPwmXTD+8rZS1y+HjFgmEOQuE0fnyhgmdoAAkncgaaXd3Ht3mLG4tc5GNvhF4mo1zqn+jeeeUWYqxwiA/gPO9eLDkpIzYXdyiTFNxtAW6Bh2bIfTGROtpmiN24hDCfTSEXvLvkYWHJlNQBJuBQRAGLUF69PuSrVaviM+Oxh/Bsygr+MrYyxfvZTqTCpLASyqosPcTpsfp6ggyXLY6JsEZ7TC3KDw8O6NM0/PsH2sgM+qkDSYW1SmYxrs61J8hyl8Kk15BRwNZRUYMsCYIJQg3lX3hWBlp825A1BeGcoPhlgNw/zTmTXqZSybDYTUGLgy5ybCTeH/TOktNjvBl+TwbHRxxzE2RQBD7bWkCfjJtQez7h/9s3Df+freGMgn1+Fj4qOmMoUjPX8ZhDnsafzCglUoNTZOgoaIRILpBAxF8lCh17CUuqy3zNJMzr8Q4hKxxG+5WKfhcG5FIZ+K/YjzuNVAv0acRJodQjqNXWh99ukuhRNflH6VEwCKghmpvhXIYp6vT02AzWLU1wUvDrcOK++ILzAS4pwhSPlzQBOCZTQ/tmEifUChLxTkxdZ15fPRtDQ+r2srnq5qpwpiHYzdzROY0gvCl/TjZFv56HGLNEp6N6lf+4c5N+b2fK1yK7WcfYDTNJ+7oE05iKLI5p4dTaFd/tdHzUa0tDrYTdoGLPjc3nrQAdmeFWLXletd+1D+jKGh9yEYd8vYwo76yRl4aLy+2u+G/fmXWdqLk7mEqcC4w0Jmy5rv9FNTq1SLFZppgOki6XqfDwx6nViq7LlUz9NZJepAqwn8ZCediTnEdfpAe9u4FF9czNhCoIwemJeBFh9R7t4aowL6R7/EHaQ1q9dFvSSzo4SaxxZLEIIEZoiNJdaiVZBrbu6s4b1Rj0b8entBubQ3tvSKP1zYOjFzXbWPqIODU3oLH8G9cDnZEId84/1IhBKA==
+sidebar_class_name: "get api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List workspaces"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/admin/workspaces"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Retrieves a list of all workspaces in your Seqera Platform account. Append `?search=<workspacename>` to return results for a given `<workspacename>`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"max","in":"query","description":"Pagination max results","schema":{"type":"integer","format":"int32"}},{"name":"offset","in":"query","description":"Pagination offset","schema":{"type":"integer","format":"int32"}},{"name":"search","in":"query","description":"Filter search parameter","schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"totalSize":{"type":"integer","format":"int32"},"workspaces":{"type":"array","items":{"type":"object","properties":{"visibility":{"type":"string","enum":["PRIVATE","SHARED"],"title":"Visibility"},"orgId":{"type":"integer","format":"int64"},"workspaceId":{"type":"integer","format":"int64"},"role":{"type":"string","enum":["user","root","owner","member","collaborator","admin","maintain","launch","connect","view"],"title":"SecurityContextRole"},"orgName":{"type":"string"},"workspaceName":{"type":"string"},"workspaceFullName":{"type":"string"}},"title":"OrgAndWorkspaceDbDto"}}},"title":"ListWorkspacesWithOrgInfoResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

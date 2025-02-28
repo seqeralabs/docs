@@ -1,0 +1,71 @@
+---
+id: admin-delete-workspace-participant
+title: "Remove workspace participant"
+description: "Removes the given participant from the given workspace."
+sidebar_label: "Remove workspace participant"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVN9r2zAQ/leMnjYIcTbKYH5aRjMoG6y0HXsIeVDsc63FlhzpnC4Y/e+7UxzHTssC3Z4s6X593313bkUGLrWqRmW0SMQdVGYHLsICoke1Ax3V0qJKVS01Rrk11cD0ZOzG1TKFqZgIU4OVnOUmozzzrFL6GkpA+Hn0uj1lIn/KKysyWyeSZSs0XSiuT0lZJkIxpFpiQecxzj5ppJsKrEojlYFGlSuw5Gxh2ygLhARtAxPh0gIqKZJW4L7mOkojPAbX3NhK4uHpw5XwftKDGVC/AGdA7f8DWnG4q4124Dji/WzGnzGC71+Fn5Dp6rnpghYRBUXHAsxfOEgbq3AfhPkM0oKdN8Q6Wa4YDKlWGBY5CzmDlmwVseRKca+hi9uBnj4e9JNMo+56cSp7z705UB0W71tVINaiayHf18GJXg6HL8f+/XrCQEfp3IRwhSX738OWRjWa394807Ez1aVEliFyYHeKiHTOqdEoU+RkjS07KC6JYxfipsqQE+mqyiBfbj6dDARkR8N+qPNu+nE646faOKyk5ozd0B028LRbwwU8x9sGRDRm/7S5XVsRfmNMzGnKCVjg13bKLkVQlnxP2tIlGW/rUF62jteHBqcgspysbdfSwQ9bes/P2wYszxodd9IquWaVaPIy5fhMk5bL0sFfuL+569brbXThx/Ai1+5R6r1gCGXDNzpuYH/2S+Kfw6tgXfxBvALYuL9+5Qereb34tnhYkKsc787ZroQ+v1iFNAoeD2YD2vu+KPKdi3n/B7FaK30=
+sidebar_class_name: "delete api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Remove workspace participant"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/admin/workspaces/{workspaceId}/participants/{participantId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Removes the given participant from the given workspace.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"path","description":"Workspace numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"participantId","in":"path","description":"Participant numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK"},"204":{"description":"AdminDeleteWorkspaceParticipant 204 response"}}}
+>
+  
+</StatusCodes>
+
+
+      

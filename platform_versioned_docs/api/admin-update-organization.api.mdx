@@ -1,0 +1,71 @@
+---
+id: admin-update-organization
+title: "Update organization"
+description: "Updates the details of the given organization."
+sidebar_label: "Update organization"
+hide_title: true
+hide_table_of_contents: true
+api: eJyVVEtv2zAM/iuGThuQxVlRDFhOa4cNKAZsRR+nogfFpmO1sqRKctrM8H8fSblx03gddklk8uP7IztRQii8clFZI5bi2pUyQshiDVkJUSodMlvx51ptwGTWr6VRvyXh52ImrAPPH2clmp+UjTLJx68XQMQ56WUDEXwQy5tOGPxAPHpDu5lQFNvJWON7P6GXbjLTNuBVkakSTFSVAo94Dw+t8oDho29hJkJRQyPFshNx6yiIMhHWDK2sb2RMok/Hou9vkzmEeGrLLdm8Eb3lurLBAN0VFj2bSGbSOa0KxuV3gWy7w0Ts6g4KMnSe2hYVhIOQO3CIXpm16GdC27Wl7k6oqlbrn9zKCeUjrIKK0zont/QaVStrNUialEGfcqUh9ZPjp8ImHZnp6KiJKpITcUiHi6GDPcH2x8eC4KwJqTdHi8XEVH5Q5KPF8aHqLwTMEJw9O+bsAhStV3HLbDwF6cGftMi/5c0tsQKpWltitGt5YETNpcgluc+RtSHvmLu9GF1d0rxT2i8d7npTx+jEwE9uOYNQkh7fn8l59xg5ReLRxcjOb0+ycRoOax56PhJllIz8GGU7WoyiZzakBRrnPSLMnpOeNrayXNsw5Ut4wEOQnZyfHazwoHJaRlrALIDfqAKPTALTFsmCt6j1euhTWOZ5YLu5sgjCRVKaF7eyX0YFJrLBk5LifJx/ni+Y3DbERjJfh7wTI/aO1+s0u3Gd//8KDhOO8BRzrBPPGabB1XQDd24Ec4cuJrIH/5bp9iHXakyXAF23kgGuve57EuPgPdETnxvpVVpJJGupAr1xzpXUAd4o493FsFvvs3+f0ckSBqE0W0FZ6Ja+8HkP29317m8RWIMs0Q3ll3RfUxYfrsjDaHtwJ/eW7fz6itZhOMWNLcnEy0e68vjLoS0XylvGsk5oadatXBM2uaTlkfu792rXONHJ4nAIjLiy92D6fldrpG+qte//AJ2lfZ4=
+sidebar_class_name: "put api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Update organization"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"put"}
+  path={"/admin/orgs/{orgId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Updates the details of the given organization.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Organization update request","content":{"application/json":{"schema":{"type":"object","properties":{"description":{"type":"string"},"logoId":{"type":"string"},"fullName":{"type":"string"},"website":{"type":"string"},"paying":{"type":"boolean","nullable":true},"location":{"type":"string"},"name":{"type":"string"}},"title":"UpdateOrganizationRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK"},"204":{"description":"AdminUpdateOrganization 204 response"}}}
+>
+  
+</StatusCodes>
+
+
+      

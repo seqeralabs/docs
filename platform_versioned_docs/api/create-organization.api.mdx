@@ -1,0 +1,71 @@
+---
+id: create-organization
+title: "Create organization"
+description: "Creates a new organization."
+sidebar_label: "Create organization"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVm1P2zAQ/iuRtQ9D6hsDTaPStJXBJLRpIF6+rHSTm1xbQ2IH26GUrP99d3bapG0oaNOkfWlj33Ovfu7snEVgQi1SK5RkXfZJA7dgAh5ImAZKj7kUj5yELdZgKgXtFifREntawSBEw10Gxh6qaMa6+Zr1KjYInXpQKKBqqKQFaUmNp2ksQodr3xjSzZkJJ5Bw+rKzFNCaGt5ASIqppsCsAEPSatC0JgdCA0bcZ6Msjr/xBFBJ0t+g8YwxEVUcCoxvDBpBI6UTbv3W232yhob5MEaU1RlQGXh0KuOZX88Ld2gq4Q9fQY7thHX3O+iNWwuaavOjz5uPveb36+to8PpDt7L61W/+xK33la2dnXy3sfdu/ootEzBWCzlm6GqZ5Kq73U6nBrxyQOv4OoVYhbweXQOewtAI6yIpM62LOUIqeD5VC17IK/UmXNMKd4IbNY65sVdp9DdG0IoVls5xhaw+8bE6qTFc1dlsifOC3nOClVQsItZgUiWN59qbTqemZb78u87Yjl5jRg0RnqiHF13puFaGQZy8qKnWmLyNWxuylM/oqxQNlYqBu3NMIBmCfnEMHn6u4hpPDQYyS2iwqKl0+h7tjowGgsJxqbQbMyWrnK21TtrIQNan/QQ/j4ZHVj3LRM81oiIC9+vYdsijPxnI1RGbgDF8/ILRugBuTfJYa6U3It+r6ZPF1RRIZQMex2qK8Tj0wSb6KPPpQAAxJJTjf5otCg2EmRYWJ1Q/Z4fANeheRiO3P5gPiHF2oug6TpU7NJyzKGNt7DPDSu0LCt+HUrWxjGZibUpwB6OGcSDc8R+fF31xM7UuZCrLeXnXHz/wJPUtsj5lPJMrY3jZ1OXe6ukst8sOKfeWbV8ziipbQo6US68o7QXcIUGC3tnJhrtClMbcUvsHBvS9CPER5MHECx46XmQ001ypTLfdNk6vJRTNgYSL2I2NkfpYCjCQe9DG+9ltHbQ6bjrhSSW8WhzfrSvvrfUw85Kgz7zSihO18GDbmJRwUy/z49izo88cO5A9EyINrvN8yA3gzJ7PaRvPVRPh8POea+FfNsg3VMD7EnlBXLyFGcXio2pekleCxxl532iheWOh0QtDSO1WbJXXZ6cXl8TD4kWZqIh0NJ/S7Y2/7kGhXJUcvd1ejo8BOc5cxzFvk1jLV0m/RnKXVSHiclaJEMvjEJfqFiSWqFGkYmmN4aLx33ix4ks=
+sidebar_class_name: "post api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Create organization"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/orgs"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Creates a new organization.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Organization create request","content":{"application/json":{"schema":{"type":"object","properties":{"organization":{"required":["fullName","name"],"type":"object","properties":{"id":{"type":"integer","format":"int64","nullable":true,"readOnly":true},"name":{"maxLength":40,"pattern":"^[a-zA-Z\\d](?:[a-zA-Z\\d]|[-_](?=[a-zA-Z\\d])){1,38}$","type":"string"},"fullName":{"maxLength":100,"type":"string"},"description":{"maxLength":1000,"type":"string"},"location":{"maxLength":100,"type":"string"},"website":{"pattern":"","type":"string"},"dateCreated":{"type":"string","format":"date-time","readOnly":true},"lastUpdated":{"type":"string","format":"date-time","readOnly":true}},"title":"Organization"},"logoId":{"type":"string"}},"title":"CreateOrganizationRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"organization":{"type":"object","properties":{"description":{"type":"string"},"logoId":{"type":"string"},"logoUrl":{"type":"string"},"orgId":{"type":"integer","format":"int64"},"fullName":{"type":"string"},"website":{"type":"string"},"paying":{"type":"boolean"},"memberId":{"type":"integer","format":"int64"},"memberRole":{"type":"string","enum":["owner","member","collaborator"],"title":"OrgRole"},"location":{"type":"string"},"name":{"type":"string"}},"title":"OrganizationDbDto"}},"title":"CreateOrganizationResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"409":{"description":"Duplicate element","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

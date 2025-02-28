@@ -1,0 +1,71 @@
+---
+id: describe-pipeline-schema
+title: "Describe pipeline schema"
+description: "Retrieves the pipeline schema of the pipeline identified by the given `pipelineId`, enriched by `attributes`."
+sidebar_label: "Describe pipeline schema"
+hide_title: true
+hide_table_of_contents: true
+api: eJzVVk1v2zAM/SuCThuQJVlXDFhOy7APFAO2od3QQxEgis0kam3Jleh0geH/PlK247hxs7aHATs1lp7I9yjqsYWMwUdOZ6itkRN5Dug0bMALXIPIdAaJNiB8tIZUCbvsLusYDOqlhlgstmFrpTdgxLxBnMXzgQDjNJ0PmLlCSrDIEfx8KAfSZuAU5z6LKfvHwGUBP+rjFyEtwTLlVAoIzsvJVSENfRC8zUIQzfQzhWv63dXURBMmT4GotLQdYR3c5toBpUeXw0BWUuWkkLjNOIs2CKsAXVqXKqyW3p7KshzsqNxZd+MzFe1xuc3BbQ/IXDbAfjbPy+5t7iK4fCyHiwAXd8eptIVZqsQ/qTIDafIkUYsEqqruc20b4DjJaYMTG5Xk3JBWaBMleUx9Z0KzOfCZNR4mYl5xm9MS5s70du+A2pLbyD+AiqxZ6tVQnNebKkmEXnY6VmgvbKoRIebmhd9ZYmN4uEDKOcXKNELq99Y9RTQrjkCVp45uTtaN7uVsIFEjl09238K0rV5ZljO+paoGIfzJeMx/uoX8/pXikjiku+VdlWWJjsKjG117hhR7zNtb37FiMhVvu7iGCJmm44eLukp7oLvWV+70HG6VDyk8rwWxPgKdjE/7JIlX4psVjSrCnfZJ/6BiwYLA43NrkIL3agV/L0IDPCr1k3PW3VN4On7To7DxRWEscivaO+LDcA9R7jRugxF+AOXATXNyvcnVjPuBXHJt2UtXEDiyIU7kqOlyPypa1yxHu75rooY7qATtx95pWiNmjU3x9yKAaKX68bnxges7DGy1WdpwvC7ABdySMDH9cXboStVWlihkOxEe3EZH9PArMN+eisLt5S6pqfjJaOTDuaG2/J5SpZNgQ0v7vt0gIhuaHVWe18N3w3HoTesxVeHua29q5s9967jPtWh76Z9PzPoiEH7jiGpFDkpSQkWK+ravdoORLXbSmZLtk16TesYWxUJ5+OWSsuTlyoy5t2Lt2cFb/3+wBH+Zab2Mb2B7MDaD0dOq5HHx+PSPG2dHWPSNz2dy+Q+m1pFCdGZzW4EZfzhdzfMndcaL89pKX4rj/4X1kmqmqNnu02nI7vV1OSP0GlRMsZhgBZhGEWS4d/TA9TuG+eXTT8Kqrt/d87cQvZcWPaOA+GlvwNBTalgifzPBsvwD//D9fA==
+sidebar_class_name: "get api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Describe pipeline schema"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/pipelines/{pipelineId}/schema"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Retrieves the pipeline schema of the pipeline identified by the given `pipelineId`, enriched by `attributes`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"pipelineId","in":"path","description":"Pipeline numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"sourceWorkspaceId","in":"query","description":"Source workspace numeric identifier","required":false,"schema":{"type":"integer","format":"int64","nullable":true}},{"name":"attributes","in":"query","description":"Attribute values to include in the response: `schema` returns the pipeline schema, `params` returns the pipeline config. Returns all if `attributes` is omitted.","explode":false,"schema":{"type":"array","items":{"type":"string","enum":["schema","params"],"title":"PipelineSchemaAttributes"}}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"required":["schema"],"type":"object","properties":{"schema":{"type":"string"},"params":{"type":"string"}},"title":"PipelineSchemaResponse"}}}},"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

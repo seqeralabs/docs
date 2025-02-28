@@ -152,6 +152,11 @@
         "api/overview",
         {
           "type": "category",
+          "label": "API",
+          "items": "require(../platform_versioned_docs/api/sidebar.js)"
+        },
+        {
+          "type": "category",
           "label": "CLI",
           "collapsed": true,
           "items": [

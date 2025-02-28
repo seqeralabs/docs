@@ -1,0 +1,71 @@
+---
+id: admin-list-organization-team-members
+title: "List team members"
+description: "Returns a list of members of the given team. Append `?search=` to filter results for a given partial name."
+sidebar_label: "List team members"
+hide_title: true
+hide_table_of_contents: true
+api: eJy9VU1v2zAM/SuCThsQJF03DFiAYcvQdSj20SHtTkWAKg4Tq5UlV6LTpob/+0jZcZIlzbIedrIlPvGRFPlUygmExOsctbOyL4eAhbdBKGF0QOGmIoNsDD7wL6YgZnoOViCorCsGeQ52Iq4/BFA+Sd9fC3Riqg2CFx5CYTCIqfPkrD6VK49aGWFVBl3ZkS4Hr5j4bELUg0mm7TdiPfczZfVjtFwS0fc6AjpADugo8qJ/VUr2Qwc5GPLQkZozyBWm9L+ZFrsRtsjA60ToCVjUUw2ecB7uCu2BAkBfQEeGJIVMyX4pcZGzd20RZhFKqWQK6623b2RVddoQMvWw5L8rwC+2AvipZtrGjARhl9WRB/O9Pt7gc9NpADyYsoU/j62+3v1sp/W111DRXtQuzoBe2xkxjLj8IXc2QGD78dERfzYdn38lH4mjOC2yVeW50UnMq3cTGFJuU7jxDSSccO65yVDXBOhQmQv9CAfdb0c2vb+GVt4rTl4jZOHvhEUA/yMWcSt74tM+4JNWo/YY1Vyh8jtNVAhtdlq8Mzu80QkaDJon6e5trEOdday6MWrsaEadl3RZqJE9SBrQIftqK8Tze1BBuR4HgqsVXy0AJ+MTdLS/ZmC1aNRh2DQSAxgSICm8xkUUik/UleAHBSlD/2rEfUfNmTpWnVmciygafdlTrEE9FpTQK2tdqXpZqz9Lpxfcb/UNr7tus0oR82Xn83ocQbRT/5wuU725x5iotlMXjzd5XcAdKaMY/DzbmrPGlBuFXDEaOD/XCYQGzIOikjgohTdNKKHf64V4rqudbFsk0n5cGSiQOeVZ87zqvuse8VbuAmYqjlkjB1z1+AKIVWU2gixX8/p/H5Sm/AgP2KMKkVxxz/k4DvUVX8l4xYzlS6Zvv30+ltlQe6SUNIPLcqwC/PKmqni7lj7uqIkOamz42ZgqE2BPAZ5U/p3B3sKifU7myhSMkCzFzyJsdX8PV4t5Jt3Twr+HtH1RVqQjXnjNrP9Y4RfD5g1/KZ5+53cGsxR1u1gPZRlk0xjViJApqAn54cBq4yBJIF8v29a7tCEzXz5fElZtysQfshC97wyJ2jAiLt0tWGrFNkJec4BV9RuMn1ju
+sidebar_class_name: "get api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List team members"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/admin/teams/{teamId}/members"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Returns a list of members of the given team. Append `?search=` to filter results for a given partial name.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"teamId","in":"path","description":"Team numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"max","in":"query","description":"Pagination max results","schema":{"type":"integer","format":"int32"}},{"name":"offset","in":"query","description":"Pagination offset","schema":{"type":"integer","format":"int32"}},{"name":"search","in":"query","description":"Filter search parameter","schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"totalSize":{"type":"integer","format":"int64"},"members":{"type":"array","items":{"type":"object","properties":{"userName":{"type":"string"},"firstName":{"type":"string"},"lastName":{"type":"string"},"avatar":{"type":"string"},"email":{"type":"string"},"role":{"type":"string","enum":["owner","member","collaborator"],"title":"OrgRole"},"memberId":{"type":"integer","format":"int64"},"userId":{"type":"integer","format":"int64"}},"title":"MemberDbDto"}}},"title":"ListMembersResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      
