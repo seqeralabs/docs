@@ -70,7 +70,7 @@ export default async function createConfigAsync() {
             ],
           },
           docs: {
-            path: 'api_docs_test',
+            path: 'api',
             sidebarPath: require.resolve(`./api_docs_test/api/sidebar.js`),
             docItemComponent: '@theme/ApiItem', // Ensures API entities render properly
           },
@@ -166,12 +166,12 @@ export default async function createConfigAsync() {
         },
       ],
       [
-        'docusaurus-plugin-openapi-docs',
+        "docusaurus-plugin-openapi-docs",
         {
           id: "api", // plugin id
           docsPluginId: "classic", // configured for preset-classic
           config: {
-            petstore: {
+            platform: {
               specPath: "api_docs_test/openapi-spec-test/seqera-api-with-admin.yml",
               outputDir: "api_docs_test/api",
               sidebarOptions: {
