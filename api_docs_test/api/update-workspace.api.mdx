@@ -1,0 +1,71 @@
+---
+id: update-workspace
+title: "Update workspace"
+description: "Updates the details of the workspace identified by the given `workspaceId`."
+sidebar_label: "Update workspace"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVm1v2zgM/iuGsA8tkDTprRi2AMMuXTusuMNWpO0GLO3dFJtJ1NqSKsltM8//faTs2E7iS4eiH+6LYVGPKJJ6+JKxCGxohHZCSTZgFzriDmzg5hBE4LiIbaCmfnmvzI3VPIRARCCdmAqIgsnC783EHcjgewU5ib7vsQ5TGgwnzSdRpfvrEoP7mhuegANj2WCcMYkLxCkzQ3yHCTJIczfH/1UrP5sZl+KHVx3INAEjwtoqg3gDt6kwgNc6k0KH2XAOCWeDjLmFpkuEdDDz0KkyCXeF6NUBy/NOZUnDn632VD49vzFXxXGw7lBFCzrzX1enPrxBiUZdoUK10tEZrnUsQh+v3rWlg9mmFWpyDSEd1IYezgmwtHsnrJiIWLhFA2udEXKGWECP8fHY6ejky/D8GCVnH4ej4yOGhjvhYgJ/qTXka6FbV4j70zSOP/n4t2zK9o28vmyNZaMyHDlhVh/CC6xW0haO/tHvb8b381/PF8mKTrSobRnXLpcOdppBp0BuVSui36ESqsZb+ISCVHq/DGbCH/4GOUNiDw76lJUOU5Kc/2fMuz+G3W+Xl9HVzrtBY/Vz3P0XRW8bot3dbL/z8nX+gnW2P2rjuv1+vwW8xpBVfNuBZ6coMui9AfxGbQqryBKu6wS6hYdibl1Bvt8+1KBtXRab0iMfiUmTzgVhic+IO2ij7CGPnlIFmoRMwFo+g8e5twRuTcljY5TZsPxlS7It+0UglQt4HKt7tMej32yij9LCHay6RdL8L13FTQthajw5sckdAjdghinReXxF9R074FxRg9Spv5U6zID1sA3aXuabYd6rSgeKGl0pZ7X2M3KvMLV5R2Xt3DnNyuZD64kHoaT4+bDk5/W98y5R2EZ16zl+4ImOYb0jNLJq9XVq4lepX8vkyjqn3jpV3tYyjmdwi1QIhqcnG4rLLR1zRzkVWDB3AgNTgokEPPQkSE1c+m0HvZ715/aEopKQ4GTjS+NU/VlvUCnBYaS4Z3/vzV6fRFpZl3BPodLuIs3riWjdxqym4jNPVOVbOnhwPYwAjiRooPczK4kzpvnJInSwnKNq7pC0OdMg+eboHB3Ksgm3cGHiPCcxPrshvuLvHTeiaBvI3khY+ke2TnlsYYvfO6MyyXaDx8e1VrdKIZcLaog8TmmFvzewqKZEGtaeZNMjI9sTDGoGNr9C+Bx4hMoobAXifWFI95z01Bo2ahU5VZwYhiFotxXbLCCnF+eUz+WgmKiIjhh+TzMofr2xysfFlwkvy7BxyVnqKxsrVFL289XisVYsvFOt4UAeecS5ugGZ51V0HK0pLnn+C3cwSXI=
+sidebar_class_name: "put api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Update workspace"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"put"}
+  path={"/orgs/{orgId}/workspaces/{workspaceId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Updates the details of the workspace identified by the given `workspaceId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"path","description":"Workspace numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Workspace update request","content":{"application/json":{"schema":{"type":"object","properties":{"visibility":{"type":"string","enum":["PRIVATE","SHARED"],"title":"Visibility"},"description":{"type":"string"},"fullName":{"type":"string"},"name":{"type":"string"}},"title":"UpdateWorkspaceRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"workspace":{"required":["fullName","name","visibility"],"type":"object","properties":{"id":{"type":"integer","format":"int64","nullable":true},"name":{"maxLength":40,"pattern":"^[a-zA-Z\\d](?:[a-zA-Z\\d]|[-_](?=[a-zA-Z\\d])){1,38}$","type":"string"},"fullName":{"maxLength":100,"type":"string"},"description":{"maxLength":1000,"type":"string"},"visibility":{"type":"string","enum":["PRIVATE","SHARED"],"title":"Visibility"},"dateCreated":{"type":"string","format":"date-time"},"lastUpdated":{"type":"string","format":"date-time"}},"title":"Workspace"}},"title":"DescribeWorkspaceResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"409":{"description":"Duplicate name","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

@@ -1,0 +1,71 @@
+---
+id: admin-delete-user
+title: "Delete user"
+description: "Deletes the given user."
+sidebar_label: "Delete user"
+hide_title: true
+hide_table_of_contents: true
+api: eJx9U8Fu2zAM/RVBpw0I4mwoBsynpWgGFBuwYW1PQQ6KTddcbcmR6GyBoX8fKbtNk3Y9WRIfHx/J50GXEAqPHaGzOtdX0ABBUFSDusc9WNUH8HM9064DbwR1XTJuWbZoR/AdAzjeGW9avvqg8/WgLV8YJ9mcMNMo7J2hms+nJSVf2b4Fj4XCEixhhYnSw65HD1yPfA8zHYoaWqPzQdOhE3a0BPcJWjnfGhqfPl3oGDeSHjpnAwTJ+LhYyOe09I9vOs44dPEydNagYpB6JGR6FgNF75EOqdtLMB78suf28vVGivMoaieTKhNHGpBEdWaEOZPBhGwY5xP1ke9Gmhw1P2d96rkm6vQ0C7lvE4hfxsPXx0H8/kNJJ9rKpXSkRvA3sONFquXP6xebmEJdY0jmqVjbHgt2wwgunCVTkJD1vpmkhDzLQsqbo2MQLwibtIfKfTkGWMieGx7rfJh/ni/kqXOBWmOFcfLLOPFkunN5QxLA9njTptOUCP5Sxo2w7bhOkjtMG1jrtAHGph3wN59cymurWZFAhmFrAtz5JkZ53vXgZdN83BuPZiuj5L2XGOTMe65ME+ANxe9+TWZ+r/5v+FfFT4/GHrRUb3q58fEBDscfLG7iM89drb6vbleMMafeOfNKauFVem4/IW7dA9gYn6qR3KVYjP8A39dvNQ==
+sidebar_class_name: "delete api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Delete user"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/admin/users/{userId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Deletes the given user.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"userId","in":"path","description":"User numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK"},"204":{"description":"AdminDeleteUser 204 response"}}}
+>
+  
+</StatusCodes>
+
+
+      

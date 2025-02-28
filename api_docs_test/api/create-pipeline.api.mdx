@@ -1,0 +1,71 @@
+---
+id: create-pipeline
+title: "Create pipeline"
+description: "Creates a new pipeline in a user context. Append `?workspaceId` to create the pipeline in a workspace context."
+sidebar_label: "Create pipeline"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNWOtv2zYQ/1cEfc7DSdN1yZfNeRTwljZB4mxAjQClpbPDRBJVkorrGv7fd0fqQdmU4wbZsC+GeQ/yjrz73Z0WYQwqkjzXXGThSXgmgWlQAQsymAU5zyHhGQQ8Q0qhQAaRyDR813tBP88hi4Ovv82EfFI5i2AQfw20CCKzRaAfYEW/Fqw3CXdCkYNkdPggro+/LtWQnTPJUtAgVXgyWoQZLlDMORJlOBn+rQA5x0Xbnb/rI7MiBcmjgMeQaT7hIFFYRQ+QsvBkEep5ThtztGtqWBMhU6Yt6ZejcLm83wkl4ClKn4p4Tjrtoyqjrf9IC0px3Mz4m2lSYnme8MgI7D8q0lysmyHGjxCRYi7pfjQHRVzrfS2ltOTZNFyuOO3h86iDkbAiix5ePpnHXvVIpHmh4SJ7HvgFZJF97jK6Cg4vk174nEv/pvDMVZerCpQqo8lrcDbh02spJjyxnpUiTEpG4cM1pMqjiroU/reAr6t/UrGO1ldpW5OHmC5ej7SYgTwzMv5bpgRSneq5hJsiuzXR4xcQSm+WSBnfxMa4l/POILCh38mWoIoWayxEAiwzlhVJcklgpf18pYsxWu5nCkyWlP+okcdztisyZHLafjk3h8aQDOJtnnUDvOyED8DiP8T4LC9eVnl3GDYanyAVcv5pvKVWjHdmcdbjt6NAcrt4BWCs01wnUCLqJBGzS4McNyXEvdk1OCe1a0F90nJpgZhLsl/LAmyc5CJTNqUPe711eL768+1w2INcL0i2Qqzb/Z1/AeIlYApzjRHiZROqbW0dCXfmKjE/cqn0RolLtkFAyOnWtqBs5z5uf7DdbrVG555Uc8Y84dp/jzEk0M4oB20SdPouj38m5d4Uoly5W8104REjpC5S7LLCq+vh4NPgy8U50sr//dPLC1zdfe7/1R9cmtV9k6lVjl6tH1MBwzawsE3v8arceWZJ0VlfRCGjjgrD1TlMWJF4C4yDVJfk4fn4XIuyYldd0asbq05X8oRp8rzDm6kfHlxUrY1rDF59x3XOKhZbtCUwRqEjH96esvg1DXCD7KMwxVaOTcFE2sZLrAQ3On4hpZBrlr/zVIpqIgkyoQOWYLFDe4z08br0eWHdgQABICUf/6femt44KqQBMBylToFJkP1CY/s/uqfxBuesB0FTGPV8ZvYiXrhfFTEVNlvckg/WHnej2qQHrfNqwDJpY4SQYv98rJL3caaN3XQ3N814dfGdpXkCzdDToFT7+muyrX/NuplsKMUaentkaej1pNKQmjLf0Oq5xNGsx5GG5kwh7tHt4WNUse5XhguXsT48uFx3OGgOas0Ejj/OKOBQWxOAQ283/g3D7ffd4lG3+c41ON29e2G2qaferd3GW0rduNvlah1sNvKWPzcEqo501Ltf6a97nu65t9IbYyN5eLTb+7B7eDw8eH/y/uDk8Ne93oeDL+12FzenWpFNhIn/MgFv4RvCSNC/HqzFbMmqoDzAp3/mEahSmNCDRQY9CpmUuaRO9veV0dvjgq4bXyExxW8ifm8YVOxAltF4sHe816tmuJRlTjZZH+vvM6smLhoI+++/CJUIQst9vCNuSrG5iUUJSaOwgSR6WIIrJC4WY6bgTibLJZHtFyGCupgrNk7oSScsUbDB2Re+F3lNewI8ZeWTVNlxhCHh6jOTnM43OGvjDncjw6zqmT1+d0i7N7prpWO5U2n0owhyvVHWxfPrq9shQW/53SoVMelINqNkxF+00yYTFgtTloi2wBDPpoWpNKHdk4CatXF+BdeNV1Wbl80dC/FxjMRQPEGGD1Tdm6Y1moub/wPpSRid
+sidebar_class_name: "post api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Create pipeline"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/pipelines"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Creates a new pipeline in a user context. Append `?workspaceId` to create the pipeline in a workspace context.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Pipeline creation request","content":{"application/json":{"schema":{"type":"object","properties":{"name":{"type":"string"},"description":{"type":"string"},"icon":{"type":"string"},"launch":{"type":"object","properties":{"id":{"type":"string"},"computeEnvId":{"type":"string"},"runName":{"type":"string"},"pipeline":{"type":"string"},"workDir":{"type":"string"},"revision":{"type":"string"},"sessionId":{"type":"string"},"configProfiles":{"type":"array","items":{"type":"string"}},"userSecrets":{"type":"array","items":{"type":"string"}},"workspaceSecrets":{"type":"array","items":{"type":"string"}},"configText":{"type":"string"},"towerConfig":{"type":"string"},"paramsText":{"type":"string"},"preRunScript":{"type":"string"},"postRunScript":{"type":"string"},"mainScript":{"type":"string"},"entryName":{"type":"string"},"schemaName":{"type":"string"},"resume":{"type":"boolean"},"pullLatest":{"type":"boolean"},"stubRun":{"type":"boolean"},"optimizationId":{"type":"string"},"optimizationTargets":{"type":"string"},"labelIds":{"type":"array","items":{"type":"integer","format":"int64"}},"headJobCpus":{"type":"integer","format":"int32"},"headJobMemoryMb":{"type":"integer","format":"int32"},"dateCreated":{"type":"string","format":"date-time"}},"title":"WorkflowLaunchRequest"},"labelIds":{"type":"array","items":{"type":"integer","format":"int64"}}},"title":"CreatePipelineRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"pipeline":{"type":"object","properties":{"pipelineId":{"type":"integer","format":"int64"},"name":{"type":"string"},"description":{"type":"string"},"icon":{"type":"string"},"repository":{"type":"string"},"userId":{"type":"integer","format":"int64"},"userName":{"type":"string"},"userFirstName":{"type":"string"},"userLastName":{"type":"string"},"orgId":{"type":"integer","format":"int64"},"orgName":{"type":"string"},"workspaceId":{"type":"integer","format":"int64"},"workspaceName":{"type":"string"},"visibility":{"type":"string"},"deleted":{"type":"boolean"},"lastUpdated":{"type":"string","format":"date-time"},"optimizationId":{"type":"string"},"optimizationTargets":{"type":"string"},"optimizationStatus":{"type":"string","enum":["OPTIMIZED","OPTIMIZABLE","UNAVAILABLE"],"title":"PipelineOptimizationStatus"},"labels":{"type":"array","items":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"},"value":{"type":"string"},"resource":{"type":"boolean"},"isDefault":{"type":"boolean"}},"title":"LabelDbDto"}},"computeEnv":{"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"platform":{"type":"string"},"region":{"type":"string"}},"title":"ComputeEnvDbDto"}},"title":"PipelineDbDto"}},"title":"CreatePipelineResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"409":{"description":"Duplicate element","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      
