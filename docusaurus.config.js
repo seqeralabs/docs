@@ -83,8 +83,8 @@ export default async function createConfigAsync() {
       [
         "@docusaurus/plugin-content-docs",
         {
-          id: "platform-enterprise",
-          routeBasePath: "/platform-enterprise",
+          id: "platform",
+          routeBasePath: "/platform",
           includeCurrentVersion: false,
           remarkPlugins: [
             (await import("remark-code-import")).default,
