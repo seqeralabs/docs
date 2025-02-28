@@ -2,7 +2,7 @@
 title: "Protein structure prediction"
 description: "An introduction to running nf-core/proteinfold in Seqera Platform"
 date: "21 Jul 2024"
-tags: [platform, seqera pipelines, data studios, proteinfold, alphafold, colabfold, compute environment, aws]
+tags: [platform, seqera pipelines, studios, proteinfold, alphafold, colabfold, compute environment, aws]
 toc_max_heading_level: 2
 ---
 
@@ -15,7 +15,7 @@ This guide details how to perform best-practice analysis for protein 3D structur
 - Adding the nf-core/proteinfold pipeline to your workspace 
 - Importing your pipeline input data
 - Launching the pipeline and monitoring execution from your workspace
-- Setting up a custom analysis environment with Data Studios
+- Setting up a custom analysis environment with Studios
 
 :::info[**Prerequisites**]
 You will need the following to get started:
@@ -53,7 +53,7 @@ Fusion requires a license for use in Seqera Platform compute environments or dir
 ### Create compute environment
 
 :::info
-The same compute environment can be used for pipeline execution and running your Data Studios notebook environment, but Data Studios does not support AWS Fargate. To use this compute environment for both nf-core/proteinfold execution and your data studio, leave **Enable Fargate for head job** disabled and include a CPU-based EC2 instance family (`c6id`, `r6id`, etc.) in your **Instance types**. 
+The same compute environment can be used for pipeline execution and running your Studios notebook environment, but Studios does not support AWS Fargate. To use this compute environment for both nf-core/proteinfold execution and your data studio, leave **Enable Fargate for head job** disabled and include a CPU-based EC2 instance family (`c6id`, `r6id`, etc.) in your **Instance types**. 
 
 Alternatively, create a second basic AWS Batch compute environment and a data studio with at least 2 CPUs and 8192 MB of RAM.
 :::
@@ -75,10 +75,10 @@ From the **Compute Environments** tab in your organization workspace, select **A
 | **Config Mode**                       | Batch Forge                                                |
 | **Provisioning Model**                | Choose between Spot and On-demand instances.               |
 | **Max CPUs**                          | Sensible values for production use range between 2000 and 5000.|
-| **Enable Fargate for head job**       | Run the Nextflow head job using the Fargate container service to speed up pipeline launch. Requires Fusion v2. Do not enable for Data Studios compute environments. |
+| **Enable Fargate for head job**       | Run the Nextflow head job using the Fargate container service to speed up pipeline launch. Requires Fusion v2. Do not enable for Studios compute environments. |
 | **Use Amazon-recommended GPU-optimized ECS AMI**  | When enabled, Batch Forge specifies the most current AWS-recommended GPU-optimized ECS AMI as the EC2 fleet AMI when creating the compute environment. |
 | **Allowed S3 buckets**                | Additional S3 buckets or paths to be granted read-write permission for this compute environment. For the purposes of this guide, add `s3://proteinfold-dataset` to grant compute environment access to the DB and params used for prediction by AlphaFold2 and ColabFold. |
-| **Instance types**                    | Specify the instance types to be used for computation. You must include GPU-enabled instance types (`g4dn`, `g5`) when the Amazon-recommended GPU-optimized ECS AMI is in use. Include CPU-based instance families for Data Studios compute environments. | 
+| **Instance types**                    | Specify the instance types to be used for computation. You must include GPU-enabled instance types (`g4dn`, `g5`) when the Amazon-recommended GPU-optimized ECS AMI is in use. Include CPU-based instance families for Studios compute environments. | 
 | **Resource labels**                   | `name=value` pairs to tag the AWS resources created by this compute environment.|
 
 ![Create AWS Batch compute environment](./_images/pf-ce.gif)
@@ -236,7 +236,7 @@ Specify your pipeline input and output and modify other pipeline parameters as n
 ![Mode options](./_images/proteinfold-mode.gif)
 
 :::info
-For the purposes of this guide, run the pipeline in both `alphafold2` and `colabfold` modes. Specify unique directory paths for the `outdir` parameter (such as "Alphafold2" and "ColabFold") to ensure output data is kept separate and not overwritten. Predicted protein structures for each model will be visualized side-by-side in the [Interactive analysis](#interactive-analysis-with-data-studios) section.
+For the purposes of this guide, run the pipeline in both `alphafold2` and `colabfold` modes. Specify unique directory paths for the `outdir` parameter (such as "Alphafold2" and "ColabFold") to ensure output data is kept separate and not overwritten. Predicted protein structures for each model will be visualized side-by-side in the [Interactive analysis](#interactive-analysis-with-studios) section.
 ::: 
 
 ### Advanced settings 
@@ -306,25 +306,25 @@ After you have filled the necessary launch details, select **Launch**. The **Run
 
 </details>
 
-## Interactive analysis with Data Studios
+## Interactive analysis with Studios
 
-[Data Studios](../data_studios/index.mdx) streamlines the process of creating interactive analysis environments for Platform users. With built-in templates for platforms like Jupyter Notebook, RStudio, and VSCode, creating a data studio is as simple as adding and sharing pipelines or datasets. The data studio URL can also be shared with any user with the [Connect role](../orgs-and-teams/roles.mdx) for real-time access and collaboration.
+[Studios](../studios/index.mdx) streamlines the process of creating interactive analysis environments for Platform users. With built-in templates for platforms like Jupyter Notebook, RStudio, and VS Code, creating a data studio is as simple as adding and sharing pipelines or datasets. The Studio URL can also be shared with any user with the [Connect role](../orgs-and-teams/roles.mdx) for real-time access and collaboration.
 
 For the purposes of this guide, a Jupyter notebook environment will be used for interactive visualization of the predicted protein structures, optionally comparing AlphaFold2 and Colabfold structures for the same sequence data. 
 
-### Create a Jupyter notebook data studio
+### Create a Jupyter notebookStudio
 
-From the **Data Studios** tab, select **Add a data studio** and complete the following:
+From the **Studios** tab, select **Add a Studio** and complete the following:
 - In the **Compute & Data** tab:
     - Select your AWS Batch compute environment. 
         :::info
-        The same compute environment can be used for pipeline execution and running your Data Studios notebook environment, but Data Studios does not support AWS Fargate and data studio sessions must run on CPUs. To use one compute environment for both nf-core/proteinfold execution and your data studio, leave **Enable Fargate for head job** disabled and include at least one CPU-based EC2 instance family (`c6id`, `r6id`, etc.) in your **Instance types**. 
+        The same compute environment can be used for pipeline execution and running your Studios notebook environment, but Studios does not support AWS Fargate and data studio sessions must run on CPUs. To use one compute environment for both nf-core/proteinfold execution and your Studio, leave **Enable Fargate for head job** disabled and include at least one CPU-based EC2 instance family (`c6id`, `r6id`, etc.) in your **Instance types**. 
 
         Alternatively, create a second basic AWS Batch compute environment with at least 2 CPUs and 8192 MB of RAM for your data studio.
         :::
     - Optional: Enter CPU and memory allocations. The default values are 2 CPUs and 8192 MB memory (RAM).
         :::note
-        Data studios compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and data studio sessions. 
+        Studios compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and data studio sessions. 
         :::
     - Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the pipeline work directory of your Proteinfold run. 
 - In the **General config** tab:
@@ -343,11 +343,11 @@ From the **Data Studios** tab, select **Add a data studio** and complete the fol
       - conda-forge::ipywidgets=8.1.5
     ```
 
-- Confirm the data studio details in the **Summary** tab
-- Select **Add** and choose whether to add and start the studio immediately.
-- When the data studio is created and in a running state, **Connect** to it. 
+- Confirm the Studio details in the **Summary** tab
+- Select **Add** and choose whether to add and start the Studio immediately.
+- When the Studio is created and in a running state, **Connect** to it. 
 
-![Add data studio](./_images/add-ds-pf.gif)
+![Add Studio](./_images/add-s-pf.gif)
 
 ### Visualize protein structures
 

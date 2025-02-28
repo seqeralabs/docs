@@ -1,13 +1,13 @@
 ---
 title: "Custom environments"
-description: "Custom environments for Data Studios"
+description: "Custom environments for Studios"
 date: "1 Oct 2024"
-tags: [data, studios]
+tags: [environments, custom, studio, studio]
 ---
 
 In addition to the Seqera-provided container template images, you can provide your own custom container environments by augmenting the Seqera-provided images with a list of Conda packages or by providing your own base container template image.
 
-Data Studios uses the [Wave][wave-home] service to build custom container template images.
+Studios uses the [Wave][wave-home] service to build custom container template images.
 
 ## Conda packages
 
@@ -21,7 +21,7 @@ Data Studios uses the [Wave][wave-home] service to build custom container templa
 
 ### Conda package syntax {#conda-package-syntax}
 
-When adding a new data studio session, you can customize its configuration to install a list of Conda packages to the template image. The supported schema is identical to that used by the Conda `environment.yml` file. For more information on the Conda environment file, see [Creating an environment file manually][env-manually].
+When adding a new Studio, you can customize its configuration to install a list of Conda packages to the template image. The supported schema is identical to that used by the Conda `environment.yml` file. For more information on the Conda environment file, see [Creating an environment file manually][env-manually].
 
 ```yaml title="Example environment.yml file"
 channels:
@@ -33,7 +33,7 @@ dependencies:
     - seaborn
 ```
 
-To create a data studio with custom Conda packages, see [Add a data studio][add-ds].
+To create a Studio with custom Conda packages, see [Add a Studio][add-s].
 
 ## Custom container template image {#custom-containers}
 
@@ -50,9 +50,9 @@ Public container registries are supported by default. Amazon Elastic Container R
 
 ### Dockerfile configuration {#dockerfile}
 
-For your custom template container image, you must use a Seqera-provided base image and include several additional build steps for compatibility with Data Studios.
+For your custom template container image, you must use a Seqera-provided base image and include several additional build steps for compatibility with Studios.
 
-To create a data studio with a custom template image, see [Add a data studio][add-ds].
+To create a Studio with a custom template image, see [Add a Studio][add-s].
 
 #### Ports
 
@@ -86,7 +86,7 @@ RUN /usr/bin/connect-client --install
 ENTRYPOINT ["/usr/bin/connect-client", "--entrypoint"]
 ```
 
-For example, to run a basic Python-based HTTP server, build a container from the following Dockerfile. When a data studio runs the custom template environment, the value for the `CONNECT_TOOL_PORT` environment variable is provided dynamically.
+For example, to run a basic Python-based HTTP server, build a container from the following Dockerfile. When a Studio runs the custom template environment, the value for the `CONNECT_TOOL_PORT` environment variable is provided dynamically.
 
 ```docker title="Example Dockerfile with Python HTTP server"
 FROM public.cr.seqera.io/platform/connect-client:0.7 AS connect
@@ -105,18 +105,18 @@ CMD ["/usr/bin/bash", "-c", "python3 -m http.server $CONNECT_TOOL_PORT"]
 
 You can inspect the progress of a custom container template image build, including any errors if the build fails. A link to the [Wave service][wave-home] container build report is always available for builds.
 
-If the custom container template image build fails, the data studio session has the **build-failed** status. The details about build failures are available when inspecting the session details in the **Error report** tab.
+If the custom container template image build fails, the Studio session has the **build-failed** status. The details about build failures are available when inspecting the session details in the **Error report** tab.
 
 To inspect the status of an ongoing build, or a successful or failed build, complete the following steps:
 
-1. Select the **Data Studios** tab in Seqera Platform.
-1. From the list of data studio sessions, select the name of the session with **building** or **build-failed** status that you want to inspect, and then select **View**.
+1. Select the **Studios** tab in Seqera Platform.
+1. From the list of sessions, select the name of the session with **building** or **build-failed** status that you want to inspect, and then select **View**.
 1. In the **Details** tab, scroll to **Build reports** and select **Summary** to open the Wave service container build report for your build.
 1. Optional: If the build failed, select the **Error report** tab to view the errors associated with the build failure.
 
 
-<!-- links -->
-[add-ds]: ./managing.mdx#add-a-data-studio
+{/* links */}
+[add-s]: ./managing.mdx#add-a-studio
 [wave]: ../../version-24.2/enterprise/configuration/wave.mdx
 
 [wave-home]: https://seqera.io/wave/
