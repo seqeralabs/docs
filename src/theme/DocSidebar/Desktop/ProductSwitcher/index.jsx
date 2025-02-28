@@ -16,7 +16,7 @@ const products = [
   },
   {
     name: "Platform Enterprise",
-    url: "/platform-enterprise/",
+    url: "/platform/",
   },
   {
     name: "Nextflow",
