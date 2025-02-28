@@ -172,8 +172,8 @@ export default async function createConfigAsync() {
           docsPluginId: "classic", // configured for preset-classic
           config: {
             petstore: {
-              specPath: "platform_versioned_docs/openapi-spec-test/seqera-api-with-admin.yml",
-              outputDir: "platform_versioned_docs/api",
+              specPath: "api_docs_test/openapi-spec-test/seqera-api-with-admin.yml",
+              outputDir: "api_docs_test/api",
               sidebarOptions: {
                 groupPathsBy: "tag",
               },
