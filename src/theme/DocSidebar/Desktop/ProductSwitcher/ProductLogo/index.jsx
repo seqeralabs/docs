@@ -34,7 +34,12 @@ const ProductSwitcher = ({ product }) => {
       product = "Wave";
     }
   }
+
   const logos = {
+    "Platform Enterprise": {
+      light: Platform,
+      dark: PlatformDark,
+    },
     Platform: {
       light: Platform,
       dark: PlatformDark,
@@ -56,14 +61,14 @@ const ProductSwitcher = ({ product }) => {
       dark: FusionDark,
     },
   };
-  const Logo = logos[product].light;
-  const LogoDark = logos[product].dark;
+
+  const Logo = logos[product]?.light;
+  const LogoDark = logos[product]?.dark;
+
   return (
-    <span
-      className={styles.item}
-    >
-      <Logo className={styles.themeLight} />
-      <LogoDark className={styles.themeDark} />
+    <span className={styles.item}>
+      {Logo && <Logo className={styles.themeLight} />}
+      {LogoDark && <LogoDark className={styles.themeDark} />}
     </span>
   );
 };
