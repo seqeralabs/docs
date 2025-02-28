@@ -71,7 +71,7 @@ export default async function createConfigAsync() {
           },
           docs: {
             path: 'api_docs_test',
-            sidebarPath: require.resolve(`./api_docs_test/api/sidebar.ts`),
+            sidebarPath: require.resolve(`./api_docs_test/api/sidebar.js`),
             docItemComponent: '@theme/ApiItem', // Ensures API entities render properly
           },
           gtag: {
