@@ -46,7 +46,7 @@ To use GitHub as SSO provider for Seqera:
 1. Register your Seqera instance as a [GitHub OAuth App](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app)
    in your organization settings page.
 
-2. When creating the OAuth App, specify the following path as callback URL: `https://<your-deployment-domain-name>/oauth/callback/github` (replace `<your-deployment-domain-name>` with the domain name of your deployment).
+2. When creating the OAuth App, specify the following path as callback URL: `https://<deployment-domain-name>/oauth/callback/github` (replace `<deployment-domain-name>` with the domain name of your deployment).
 
 3. Include the following variables in the backend environment configuration:
 
@@ -61,7 +61,7 @@ To use Google as the identity provider for Seqera:
 2. From the sidebar, select the **Credentials** tab.
 3. Select **Create credentials > OAuth client ID**.
 4. On the next page, select **Web Application** type.
-5. Enter the redirect URL: `https://<your-deployment-domain-name>/oauth/callback/google` (replace `<{your-deployment-domain-name>` with the domain name of your deployment).
+5. Enter the redirect URL: `https://<deployment-domain-name>/oauth/callback/google` (replace `<{deployment-domain-name>` with the domain name of your deployment).
 6. Confirm the operation. You'll then receive a `client ID` and `secret ID`.
 7. Include the `client ID` and `secret ID` in the following variables in the Seqera backend environment configuration:
 
@@ -127,9 +127,9 @@ This must be an `https://` URI, per Microsoft's requirements.
 11. Complete the setup in Seqera by adding the following environment variables to your configuration:
 
     ```bash
-    TOWER_OIDC_CLIENT=<YOUR_APPLICATION_ID>
-    TOWER_OIDC_SECRET=<YOUR_CLIENT_CREDENTIALS_SECRET>
-    TOWER_OIDC_ISSUER=<YOUR_OIDC_METADATA_URL_UP_TO_"v2.0">  (e.g. https://login.microsoftonline.com/000000-0000-0000-00-0000000000000/v2.0)
+    TOWER_OIDC_CLIENT=<APPLICATION_ID>
+    TOWER_OIDC_SECRET=<CLIENT_CREDENTIALS_SECRET>
+    TOWER_OIDC_ISSUER=<OIDC_METADATA_URL_UP_TO_"v2.0"> (e.g. https://login.microsoftonline.com/000000-0000-0000-00-0000000000000/v2.0)
     ```
 12. Add `auth-oidc` to the `MICRONAUT_ENVIRONMENTS` environment variable for both the `cron` and `backend` services.
 
