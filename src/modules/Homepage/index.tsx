@@ -158,10 +158,10 @@ export default function Home(): JSX.Element {
                         </ul>
                       </div>
                       <div className="w-full max-w-[100%] md:max-w-[50%] lg:max-w-[25%]">
-                        <p className="font-title typo-h4 font-medium">Data Studios</p>
+                        <p className="font-title typo-h4 font-medium">Studios</p>
                         <ul className="list-none p-0 leading-8">
-                          <li><Link to="/platform/latest/data_studios">Data Studios overview</Link></li>
-                          <li><Link to="/platform/latest/enterprise/data-studios">Deploy Data Studios</Link></li>
+                          <li><Link to="/platform/latest/studios">Studios overview</Link></li>
+                          <li><Link to="/platform/latest/enterprise/studios">Studios</Link></li>
                           <li><Link to="/platform/latest/data/data-explorer">Data Explorer</Link></li>
                         </ul>
                       </div>
@@ -225,15 +225,15 @@ export default function Home(): JSX.Element {
                       <p className="font-title typo-h4 font-medium">Cloud</p>
                     </div>
                     <div className="flex flex-row flex-wrap w-full gap-4">
-                      <Link to="/platform/latest/enterprise/prerequisites/aws" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800">
+                      <Link to="/platform/latest/compute-envs/aws-batch" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800">
                         <div className="w-6 h-6 mb-3 bg-[url('/img/aws.svg')] dark:bg-[url('/img/aws-white.svg')] bg-contain bg-no-repeat bg-center"></div>
                         <p className="m-0 text-brand dark:text-white text-lg mb-1">AWS</p>
                       </Link>
-                      <Link to="/platform/latest/enterprise/prerequisites/gcp#gcp-setup" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800">
+                      <Link to="/platform/latest/compute-envs/google-cloud-batch" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800">
                         <div className="w-6 h-6 mb-3 bg-[url('/img/gcp.svg')] dark:bg-[url('/img/gcp-white.svg')] bg-contain bg-no-repeat bg-center"></div>
                         <p className="m-0 text-brand dark:text-white text-lg mb-1">GCP</p>
                       </Link>
-                      <Link to="/platform/latest/enterprise/prerequisites/azure" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800">
+                      <Link to="/platform/latest/compute-envs/azure-batch" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800">
                         <div className="w-6 h-6 mb-3 bg-[url('/img/azure.svg')] dark:bg-[url('/img/azure-white.svg')] bg-contain bg-no-repeat bg-center"></div>
                         <p className="m-0 text-brand dark:text-white text-lg mb-1">Azure</p>
                       </Link>

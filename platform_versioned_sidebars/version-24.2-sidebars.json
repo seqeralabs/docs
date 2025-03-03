@@ -165,7 +165,7 @@
             "enterprise/configuration/ssl_tls",
             "enterprise/configuration/pipeline_optimization",
             "enterprise/configuration/wave",
-            "enterprise/data-studios"
+            "enterprise/studios"
           ]
         },
         {
