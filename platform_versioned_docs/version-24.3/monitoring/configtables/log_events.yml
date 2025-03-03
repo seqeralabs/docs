@@ -16,11 +16,11 @@
   Events logged:       'Add, edit, remove, hide, show'
   Note:                'Events for public and private buckets are logged.'
 -
-  Resource: 'Data Studios sessions'
+  Resource: 'Studios sessions'
   Events logged: 'Add, start, connect, disconnect, stop, delete'
   Note: 'Does not include temporary states (starting, stopping, deleting)'
 -
-  Resource: 'Data Studios custom environments'
+  Resource: 'Studios custom environments'
   Events logged: 'Build start, build success, build fail'
   Note: 'Applied only to Wave-enabled custom environment creation'
 - 
