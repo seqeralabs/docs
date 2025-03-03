@@ -43,8 +43,8 @@ Seqera Enterprise is distributed as a collection of Docker containers available 
     ```bash
     kubectl create secret docker-registry cr.seqera.io \
       --docker-server=cr.seqera.io \
-      --docker-username='<YOUR NAME>' \
-      --docker-password='<YOUR SECRET>'
+      --docker-username='<DOCKER_USER>' \
+      --docker-password='<DOCKER_PASSWORD>'
     ```
 
     The credential `name` contains a dollar `$` character. Wrap the name in single quotes to prevent the Linux shell from interpreting this value as an environment variable.
@@ -250,12 +250,12 @@ Define a set of credentials for the resource optimization database in the `tower
 
 The initContainers will wait until both the Seqera and pipeline optimization service databases are ready before starting the migration in the Seqera database and finally starting the resource optimization container.
 
-### Data Studios
+### Studios
 
-[Data Studios](../data_studios/index.mdx) is an interactive analysis environment available in organizational workspaces. To enable Data Studios, see [Data Studios deployment](./data-studios.mdx).
+[Studios](../data_studios/index.mdx) is an interactive analysis environment available in organizational workspaces. To enable Studios, see [Studios deployment](./studios.mdx).
 
 :::note
-Data Studios is currently in **public preview** and is available from Seqera Platform v24.1. If you experience any problems during the deployment process [contact Seqera support](https://support.seqera.io). Data Studios in Enterprise is not installed by default.
+Studios is currently in **public preview** and is available from Seqera Platform v24.1. If you experience any problems during the deployment process [contact Seqera support](https://support.seqera.io). Studios in Enterprise is not installed by default.
 :::
 
 ### Database console
