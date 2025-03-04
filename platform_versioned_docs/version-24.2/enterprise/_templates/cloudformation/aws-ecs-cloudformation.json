@@ -69,7 +69,7 @@
                 "ContainerDefinitions": [
                     {
                     "Name": "redis",
-                    "Image": "cr.seqera.io/public/redis:6.0",
+                    "Image": "cr.seqera.io/public/redis:7.0.10",
                     "Memory": 2000,
                     "Cpu": 0,
                     "PortMappings": [{
