@@ -158,10 +158,10 @@ export default function Home(): JSX.Element {
                         </ul>
                       </div>
                       <div className="w-full max-w-[100%] md:max-w-[50%] lg:max-w-[25%]">
-                        <p className="font-title typo-h4 font-medium">Data Studios</p>
+                        <p className="font-title typo-h4 font-medium">Studios</p>
                         <ul className="list-none p-0 leading-8">
-                          <li><Link to="/platform/latest/data_studios">Data Studios overview</Link></li>
-                          <li><Link to="/platform/latest/enterprise/data-studios">Deploy Data Studios</Link></li>
+                          <li><Link to="/platform/latest/studios">Studios overview</Link></li>
+                          <li><Link to="/platform/24.2/enterprise/studios">Enterprise deployment</Link></li>
                           <li><Link to="/platform/latest/data/data-explorer">Data Explorer</Link></li>
                         </ul>
                       </div>
@@ -176,8 +176,8 @@ export default function Home(): JSX.Element {
                       <div className="w-full max-w-[100%] md:max-w-[50%] lg:max-w-[25%]">
                         <p className="font-title typo-h4 font-medium">MultiQC</p>
                         <ul className="list-none p-0 leading-8">
-                          <li><Link to="/multiqc/getting_started/quick_start">Getting started</Link></li>
-                          <li><Link to="/multiqc/getting_started/running_multiqc">Running</Link></li>
+                          <li><Link to="/multiqc/getting_started/quick_start">Get started</Link></li>
+                          <li><Link to="/multiqc/getting_started/running_multiqc">Run MultiQC</Link></li>
                           <li><Link to="/multiqc/modules">Modules</Link></li>
                         </ul>
                       </div>
