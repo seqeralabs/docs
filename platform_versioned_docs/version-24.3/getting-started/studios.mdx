@@ -2,11 +2,11 @@
 title: "Studios for interactive analysis"
 description: "Creating interactive analysis Studios for Jupyter, RStudio, VS Code, and more"
 date: "24 Feb 2025"
-tags: [platform, studios, data studios, jupyter, rstudio, xpra, vscode, conda]
+tags: [platform, studios, jupyter, rstudio, xpra, vscode, conda]
 toc_max_heading_level: 3
 ---
 
-[Studios](../data_studios/index.mdx) allows users to host a variety of container images directly in Seqera Platform compute environments for analysis using popular environments including [Jupyter](https://jupyter.org/) (Python) and [RStudio](https://posit.co/products/open-source/rstudio/) notebooks (R), [Visual Studio Code](https://code.visualstudio.com/) IDEs, and [Xpra](https://xpra.org/index.html) remote desktops. Each Studio session provides a dedicated interactive environment that encapsulates the live environment.
+[Studios](../studios/index.mdx) allows users to host a variety of container images directly in Seqera Platform compute environments for analysis using popular environments including [Jupyter](https://jupyter.org/) (Python) and [RStudio](https://posit.co/products/open-source/rstudio/) notebooks (R), [Visual Studio Code](https://code.visualstudio.com/) IDEs, and [Xpra](https://xpra.org/index.html) remote desktops. Each Studio session provides a dedicated interactive environment that encapsulates the live environment.
 
 This guide explores how Studios integrates with your existing workflows, bridging the gap between pipeline execution and interactive analysis. It details how to set up and use each type of Studio, demonstrating a practical use case for each.
 
@@ -430,7 +430,7 @@ The following R script installs and configures the prerequisite packages and lib
         devtools::install_github('pinin4fjords/shinyngs', upgrade_dependencies = FALSE)
         ```
 
-    1. Download the RDS file from nf-core AWS megatests or your own nf-core/differentialabundance results (see [Shiny app](https://nf-co.re/differentialabundance/1.5.0/docs/output/#shiny-app) from the nf-core documentation for file details): 
+    1. Download the RDS file from nf-core AWS megatests or your own *nf-core/differentialabundance* results (see [Shiny app](https://nf-co.re/differentialabundance/1.5.0/docs/output/#shiny-app) from the nf-core documentation for file details): 
 
         ```r 
         # For nf-core AWS megatests
@@ -456,7 +456,7 @@ The following R script installs and configures the prerequisite packages and lib
 
 #### Interactive collaboration 
 
-To share a link to the running Studio session with collaborators inside your workspace, select the options menu for your RStudio session, then select **Copy Studio URL**. Using this link, other authenticated users can access the session directly to collaborate in real time.
+To share a link to the running session with collaborators inside your workspace, select the options menu for your RStudio session, then select **Copy Studio URL**. Using this link, other authenticated users can access the session directly to collaborate in real time.
 
 ## Xpra: Visualize genetic variants with IGV
 
@@ -510,8 +510,8 @@ From the **Studios** tab, select **Add a Studio** and complete the following:
           - igv
           - samtools
         ```
-- Select **Add** or choose to **Add and start** a Studio session immediately.
-- If you chose to **Add** the Studio in the preceding step, select **Connect** in the options menu to open a Studio session in a new browser tab. 
+- Select **Add** or choose to **Add and start** a session immediately.
+- If you chose to **Add** the Studio in the preceding step, select **Connect** in the options menu to open a session in a new browser tab. 
 
 ### View variants in IGV desktop
 
@@ -524,11 +524,11 @@ From the **Studios** tab, select **Add a Studio** and complete the following:
 
 #### Interactive collaboration 
 
-To share a link to the running Studio session with collaborators inside your workspace, select the options menu for your Xpra Studio session, then select **Copy Studio URL**. Using this link, other authenticated users can access the session directly to collaborate in real time.
+To share a link to the running session with collaborators inside your workspace, select the options menu for your Xpra session, then select **Copy Studio URL**. Using this link, other authenticated users can access the session directly to collaborate in real time.
 
 ## VS Code: Create an interactive Nextflow development environment
 
-Using Studios and Visual Studio Code allows you to create a portable and interactive Nextflow development environment with all the tools you need to develop and run Nextflow pipelines. This section demonstrates how to set up a VS Code Studio with Conda and nf-core tools, add public data and run the nf-core/fetchngs pipeline with the `test` profile, and create a VS Code project to start coding your own Nextflow pipelines. The Studio includes the [Nextflow VS Code extension](https://marketplace.visualstudio.com/items?itemName=nextflow.nextflow), which makes use of the Nextflow language server to provide syntax highlighting, code navigation, code completion, and diagnostics for Nextflow scripts and configuration files.  
+Using Studios and Visual Studio Code allows you to create a portable and interactive Nextflow development environment with all the tools you need to develop and run Nextflow pipelines. This section demonstrates how to set up a VS Code Studio with Conda and nf-core tools, add public data and run the *nf-core/fetchngs* pipeline with the `test` profile, and create a VS Code project to start coding your own Nextflow pipelines. The Studio includes the [Nextflow VS Code extension](https://marketplace.visualstudio.com/items?itemName=nextflow.nextflow), which makes use of the Nextflow language server to provide syntax highlighting, code navigation, code completion, and diagnostics for Nextflow scripts and configuration files.  
 
 #### Create an AWS Batch compute environment 
 
@@ -600,4 +600,4 @@ nextflow run nf-core/fetchngs -profile test,conda --outdir ./nf-core-fetchngs-co
 
 #### Interactive collaboration 
 
-To share a link to the running Studio session with collaborators inside your workspace, select the options menu for your VS Code Studio session, then select **Copy Studio URL**. Using this link, other authenticated users can access the session directly to collaborate in real time.
+To share a link to the running session with collaborators inside your workspace, select the options menu for your VS Code Studio session, then select **Copy Studio URL**. Using this link, other authenticated users can access the session directly to collaborate in real time.
