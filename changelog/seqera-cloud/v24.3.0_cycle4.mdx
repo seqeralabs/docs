@@ -39,7 +39,7 @@ Affected endpoints:
   - AWS Batch compute environments default to Amazon Linux 2023 AMI when Fusion v2 is enabled
 - Implement collapsible view for JSON workflow parameters tab and add **View as YAML** option.
 - Notify the user when secrets cleanup fails.
-- Update the Pipeline name regular expression to allow Pipeline names containing dots ('.').
+- Update the pipeline name regular expression to allow pipeline names containing dots ('.').
 - Mark long-running jobs with a warning: This warning will be displayed when a workflow has been in the `RUNNING` state for more than 3 hours and no single task moved from one state to the next.
 - Set `ECS_CONTAINER_START_TIMEOUT` to 10 minutes in the ECS settings used by AWS Batch CEs in order to prevent the error `Task failed to start - DockerTimeoutError: Could not transition to started; timed out after waiting 3m0s`.
 - Upgrade to Angular 18
