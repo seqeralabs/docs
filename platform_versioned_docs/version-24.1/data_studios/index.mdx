@@ -98,6 +98,10 @@ Data studios have the following possible statuses:
 
 When you start a session, it automatically creates a *checkpoint*. A checkpoint saves changes that you make to the root filesystem and stores it in the compute environment's pipeline work directory in the `.studios/checkpoints` folder with a unique name. The checkpoint is updated every five minutes.
 
+:::warning
+Checkpoints vary in size depending on libraries installed in your session environment. This can potentially result in many large files stored in the compute environment's pipeline work directory and saved to cloud storage. This storage will incur costs based on the cloud provider. Due to the architecture of Studios, you cannot delete any checkpoint files to save on storage costs. Deleting a Studio session's checkpoints will result in a corrupted Studio session that cannot be started nor recovered.
+:::
+
 When you stop and start a data studio session, or start a new data studio session from a previously created checkpoint, changes such as installed software packages and configuration files are restored and made available in the data studio session. Changes made to mounted data are not included in a checkpoint.
 
 Checkpoints can be renamed and the name has to be unique per data studio. Spaces in checkpoint names are converted to underscores automatically.
@@ -109,11 +113,10 @@ The cleanup process is a best effort and not guaranteed. Seqera attempts to remo
 :::
 
 
-<!-- links -->
+{/* links */}
 [contact]: https://support.seqera.io/
 [vsc]: https://code.visualstudio.com/
 [Wave]: https://seqera.io/wave/
-
 [aws-batch]: ../compute-envs/aws-batch.mdx
 [custom-envs]: ./custom-envs.mdx
 [build-status]: ./custom-envs.mdx#build-status
