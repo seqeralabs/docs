@@ -10,7 +10,7 @@ Studios is a unified platform where you can host a combination of container imag
 On Seqera Cloud, the free tier permits only one running session at a time. To run simultaneous sessions, [contact Seqera][contact] for a Seqera Cloud Pro license.
 
 :::note
-Data Studios is currently in **public preview** and is available from Seqera Platform v24.1. [Contact Seqera support](https://support.seqera.io) if you experience any problems during the deployment process. Data Studios in Enterprise is not enabled by default. You can enable Data Studios in the [environment variables configuration](../enterprise/data-studios.mdx).
+Studios is currently in **public preview** and is available from Seqera Platform v24.1. [Contact Seqera support](https://support.seqera.io) if you experience any problems during the deployment process. Studios in Enterprise is not enabled by default. You can enable it  in the [environment variables configuration](../enterprise/studios.mdx).
 :::
 
 ## Requirements
@@ -156,6 +156,10 @@ For more information, see [Limit Studio access to a specific cloud bucket subdir
 ## Session checkpoints
 
 When starting a Studio session, a *checkpoint* is automatically created. A checkpoint saves all changes made to the root filesystem and stores it in the attached compute environment's pipeline work directory in the `.studios/checkpoints` folder with a unique name. The current checkpoint is updated every five minutes during a session.
+
+:::warning
+Checkpoints vary in size depending on libraries installed in your session environment. This can potentially result in many large files stored in the compute environment's pipeline work directory and saved to cloud storage. This storage will incur costs based on the cloud provider. Due to the architecture of Studios, you cannot delete any checkpoint files to save on storage costs. Deleting a Studio session's checkpoints will result in a corrupted Studio session that cannot be started nor recovered.
+:::
 
 When you stop and start a Studio session, or start a new Studio session from a previously created checkpoint, changes such as installed software packages and configuration files are restored and made available in the session. Changes made to mounted data are not included in a checkpoint.
 

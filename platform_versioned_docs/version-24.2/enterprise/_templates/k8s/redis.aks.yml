@@ -44,7 +44,7 @@ spec:
         app: redis
     spec:
       containers:
-        - image: cr.seqera.io/public/redis:6.0
+        - image: cr.seqera.io/public/redis:7.0.10
           name: redis
           args:
             - --appendonly yes

@@ -32,15 +32,15 @@
 -
   Environment variable:            '`TOWER_DATA_STUDIO_CONNECT_URL`'
   Description: >
-    The URL of the Data Studios connect proxy. The connect proxy is used internally by Seqera Platform. See [Data Studios deployment](https://docs.seqera.io/platform/latest/enterprise/data-studios).
+    The URL of the Data Studios connect proxy. The connect proxy is used internally by Seqera Platform. See [Data Studios deployment](https://docs.seqera.io/platform//platform/24.2/enterprise/studios).
   Value:                'Example: `https://connect.example.com/`'
 -
   Environment variable:            '`TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`'
   Description: > 
-    An access token used to register new clients in Seqera Platform. Any alphanumeric value is allowed. See [Data Studios deployment](https://docs.seqera.io/platform/latest/enterprise/data-studios).
+    An access token used to register new clients in Seqera Platform. Any alphanumeric value is allowed. See [Data Studios deployment](https://docs.seqera.io/platform//platform/24.2/enterprise/studios).
   Value:                'd5XDoRzHpWo1c............mDnfBpB'
 -
   Environment variable:            '`TOWER_OIDC_PEM_PATH`'
   Description: > 
-    The file path to a PEM certificate used to sign the OIDC tokens for the OpenID connect provider. See [Data Studios deployment](https://docs.seqera.io/platform/latest/enterprise/data-studios).
+    The file path to a PEM certificate used to sign the OIDC tokens for the OpenID connect provider. See [Data Studios deployment](https://docs.seqera.io/platform//platform/24.2/enterprise/studios).
   Value:                'Example: `/data-studios-rsa.pem`'
