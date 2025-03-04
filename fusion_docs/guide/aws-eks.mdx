@@ -123,24 +123,27 @@ Create a namespace and a service account in your Kubernetes cluster to run the j
     ```
 
     Replace the following:
-    - `<ACCOUNT_ID>`: your AWS account ID
-    - `<REGION>`: your AWS region
-    - `<CLUSTER_ID>`: your cluster ID
+    - `<ACCOUNT_ID>`: AWS account ID
+    - `<REGION>`: AWS region
+    - `<CLUSTER_ID>`: cluster ID
 
 #### Nextflow configuration
 
 1. Add the following to your `nextflow.config` file:
 
     ```groovy
+    process.executor = 'k8s'
     wave.enabled = true
     fusion.enabled = true
-    process.executor = 'k8s'
+    tower.accessToken = '<PLATFORM_ACCESS_TOKEN>'
     k8s.context = '<K8S_CLUSTER_CONTEXT>'
     k8s.namespace = 'fusion-demo'
     k8s.serviceAccount = 'fusion-sa'
     ```
 
-    Replace `<K8S_CLUSTER_CONTEXT>` with your Kubernetes context.
+    Replace the following:
+    - `<PLATFORM_ACCESS_TOKEN>`: your Platform access token.
+    - `<K8S_CLUSTER_CONTEXT>`: your Kubernetes context.
 
 1. Run the pipeline with the Nextflow run command:
 
@@ -149,8 +152,8 @@ Create a namespace and a service account in your Kubernetes cluster to run the j
     ```
 
     Replace the following:
-    - `<PIPELINE_SCRIPT>`: your pipeline Git repository URI
-    - `<S3_BUCKET>`: your S3 bucket
+    - `<PIPELINE_SCRIPT>`: your pipeline Git repository URI.
+    - `<S3_BUCKET>`: your S3 bucket.
 
 :::note
 When using Fusion, pods will run as privileged by default.
