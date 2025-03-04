@@ -176,8 +176,8 @@ export default function Home(): JSX.Element {
                       <div className="w-full max-w-[100%] md:max-w-[50%] lg:max-w-[25%]">
                         <p className="font-title typo-h4 font-medium">MultiQC</p>
                         <ul className="list-none p-0 leading-8">
-                          <li><Link to="/multiqc/getting_started/quick_start">Getting started</Link></li>
-                          <li><Link to="/multiqc/getting_started/running_multiqc">Running</Link></li>
+                          <li><Link to="/multiqc/getting_started/quick_start">Get started</Link></li>
+                          <li><Link to="/multiqc/getting_started/running_multiqc">Run MultiQC</Link></li>
                           <li><Link to="/multiqc/modules">Modules</Link></li>
                         </ul>
                       </div>
