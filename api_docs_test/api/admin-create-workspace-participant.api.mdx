@@ -1,0 +1,71 @@
+---
+id: admin-create-workspace-participant
+title: "Add workspace participant"
+description: "Adds a participant to the given workspace."
+sidebar_label: "Add workspace participant"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVt9v2jAQ/lciP20SK2yaJo2n0ZZJ1dpRMao+VDwcyQFuk9i1HSiK8r/vzg4kLZS10l5ax76f3913RykStLGR2kmVi74YJImNINJgnIylhtxFTkVuidFCrjCP1so8WA0xnoiOUBoNsOJF4lUzmZ8ZBIe3W6nrxg7Jk1XI0KGxon9Xipw+SG9nkqx0hOQoNLglnZ+HtjMa5UWGRsaRTDB3ci7RkLDBx0IapEicKbAjbLzEDES/FG6j2Y/MHS686FyZDFy4+vZVVNU0qKN1pyrZsM4eKlGG2QxNVMuRlViRQcqLpEHrVMYeiu69ZZVy37+a3WPsYTAMnJNo/StCxvi9Ic6OKCya3wTbyAwzkGlLyzoj8wXLhEDfaJLknXQphiRb5RrXeVYs8hxbf2G1ym3I4Euvtw/Z6Nf/g6jVje8SfjOs74KsqcJB+OfSWPfqawpHHvHVmiqzGKv0gBYpERuITkKtcx9uyMWDn6YwU8RQZcS0qfOotsWlf0/vsfCroa+tfmuAwHOCAwUyDf6YQpHHy9AweSjqSuK6HfVt7YAD8Q5ed3Q1vDodjuliMhxc0b+z0eXl4HQ0HkxG47bJVrdP2FSd42AFDsyNOVwJrv0xieqg/fPZuVNH2Rb4xHRjKYtxYaTb+Dl5imDIaUEzsX835WFFQ3SpeObqIsxVfhJdj2x3N09tt2zN1qrbYoYlWZ62Wz9/mImBP21vu+yWzmlRz1T+nnkhugmHn9tmuV87nyUzfNxM1OETZLrujrrlegeGWVPKhpC9infCXHndGrs/+EiLJxpcX+wtifpJp+C4gyNysZIERS3MAwliP0UKLp9PzPa7Xev1TqQSOxp6tz+aBwpkRasr+Pl88v2kx1daWZeBH2f1PuNlscO9vUlfBls28/F9e7cuisMn16VMiULcmKEdQy/c7VjWdAN99J/v2nZDeGImTI8lZcQWynIGFqnLq4qvqZiG+5GOKzASZlwK6s5EWj5TqeaQWjyS44dxvUY+Rv/Y5QcTrC8h3/B4gLTgLzo+4ObFr4hqSuJLhISMcYhB4iwE8slzvbGwt5iqzlZjEMeo3VHZNhmvbybMiPoXRKYSVjGw5h8n9NcHqzwunmj+rqTZly8KWLBsMMn8gef0e0E3n9RBOKhmXmKiHjCnum3RcfzNuFTVX6s9amY=
+sidebar_class_name: "put api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Add workspace participant"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"put"}
+  path={"/admin/workspaces/{workspaceId}/participants/add"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Adds a participant to the given workspace.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"path","description":"Workspace numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Add member request","content":{"application/json":{"schema":{"type":"object","properties":{"teamId":{"type":"integer","format":"int64"},"userNameOrEmail":{"type":"string"},"memberId":{"type":"integer","format":"int64"}},"title":"AddParticipantRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"participant":{"type":"object","properties":{"participantId":{"type":"integer","format":"int64"},"memberId":{"type":"integer","format":"int64"},"userName":{"type":"string"},"firstName":{"type":"string"},"lastName":{"type":"string"},"email":{"type":"string"},"orgRole":{"type":"string","enum":["owner","member","collaborator"],"title":"OrgRole"},"teamId":{"type":"integer","format":"int64"},"teamName":{"type":"string"},"wspRole":{"type":"string","enum":["owner","admin","maintain","launch","connect","view"],"title":"WspRole"},"type":{"type":"string","enum":["MEMBER","TEAM","COLLABORATOR"],"title":"ParticipantType"},"teamAvatarUrl":{"type":"string"},"userAvatarUrl":{"type":"string"}},"title":"ParticipantDbDto"}},"title":"AddParticipantResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

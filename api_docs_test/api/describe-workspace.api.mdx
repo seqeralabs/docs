@@ -1,0 +1,71 @@
+---
+id: describe-workspace
+title: "Describe workspace"
+description: "Retrieves the details of the workspace identified by the given `workspaceId`."
+sidebar_label: "Describe workspace"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVW1v0zAQ/iuRxYdNSl/GJgSREHSsQAWCqXtBoivMTa6ttzTObKdbF/LfuXPSJH3RxtC+tPH5ubvnzveSsgC0r0RshIyYx/pglIA5aMdMwQnAcBFqR47t8Vaqax1zHxwRQGTEWEDgjBb2biLmEDmXJaQXXDaZy2QMipPtXoDWj6yvEfxYohARc8VnYEBp5g1SFuEBkVJNUMNlgkjF3Ezxe5XpdzXhkbi3xp0omYESfsVLIV7BTSIUoGOjEnCZ9qcw48xLmVnE5EREBiYWOpZqxk0uenXAsswtmdQiepBPGdPzkxmSuo5lpEGTxst2m/7W8vEFVX2JViJDtzyOQ+Hb9LSuNEHSTadydAW+oVdQ9FJG5A7KmOlQMR+wcRKG3ygvbp4el82FFiMRCrNgSPNhsyL4l3jRNHrhoxDyXGWFL1Sd8buvEE0w+95Bm0rHYN1Q8L8GvHHfafy8uAiGO++82unPoPEbRW9rot3ddM/df529YCVhjVUfTRi6KiNcdbfXbm8Br7zAOn6bQi1bVSaKa5cBVg5l+bjfO++cdlFy8rnT7x7ZzApDCWHnlQUiwA18UIC/wTaDZWYJ1zACw0KlkGtzFgdPUcoqAlXv1qUbnd0vChZRhDvYVrKHPHCoukCbp9RuvSBnoDWfwOO1twRuBFyPoquUVBvM97c023KsOZE0Dg9DeYt8CK7BT5R9Xxxmh8AVqE5CFTEYUh/jpJtKGoUTsBxpknisheNOt1I79LJW2X0oqk2fjFXWTygZeWB1H2VsU2NiVgwZOo8sCCX5x8flE1/dGstaRGNp1YtEnMANBuh0jnsbc664ikNuqFIcDWoukGsBplfkvn3FRIUFFe21WtrqNYWkQp/hWrENP5bvqwtqENwDuZ+95ptmm0Sx1GbGbQ0UI3lZbNVCWmeZVtX07CutSLGBO9PCLOBGQJI21rR4zwGtL41Qb7nGqiclaX2lYE1MMUBSStMR13CmwiwjMfaFojLCzzlXIh+IWFSB0PSNRTTmoYYHIt/pF52y6zy+LbeGVQh5tKBRz8OETvh5DYtySdOu/C9Oj2zM/yBUT2w2RPgUeIDGKG05ouP7EJua7saoWenST91TxPLV5lprJmt9Ky98UIs4ldcQZVlJ09CZCGbZX602QwM=
+sidebar_class_name: "get api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Describe workspace"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/orgs/{orgId}/workspaces/{workspaceId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Retrieves the details of the workspace identified by the given `workspaceId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"path","description":"Workspace numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"workspace":{"required":["fullName","name","visibility"],"type":"object","properties":{"id":{"type":"integer","format":"int64","nullable":true},"name":{"maxLength":40,"pattern":"^[a-zA-Z\\d](?:[a-zA-Z\\d]|[-_](?=[a-zA-Z\\d])){1,38}$","type":"string"},"fullName":{"maxLength":100,"type":"string"},"description":{"maxLength":1000,"type":"string"},"visibility":{"type":"string","enum":["PRIVATE","SHARED"],"title":"Visibility"},"dateCreated":{"type":"string","format":"date-time"},"lastUpdated":{"type":"string","format":"date-time"}},"title":"Workspace"}},"title":"DescribeWorkspaceResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

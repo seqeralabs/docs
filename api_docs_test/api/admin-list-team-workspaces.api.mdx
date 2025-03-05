@@ -1,0 +1,71 @@
+---
+id: admin-list-team-workspaces
+title: "List team workspaces"
+description: "Returns a list of the workspaces to which the given team belongs. Append `?search=` to filter results for a given partial name."
+sidebar_label: "List team workspaces"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVttu4zYQ/RWCTy1g2NltUaAGitbBNsWixW6QpMhDYCC0PLKYUCRDjuz1Cvr3naFk2V47iZunPul2OGcuZ2ZUyznELGiP2lk5lleAVbBRKGF0ROFygQWIlQuP0asMokAnVoXOivR+oZdgBYIqxQyMs4s4FBPvwc7F/e8RVMiK3+75SK4NQhABYmUwitwFYmhPexVQKyOsKmEoB9J5CIq9+TgnfybzUtt/yJUbIrnt3SAcnaMTZDXK8V0t+Tjh2Rc6OJCao/EKC7rfD5EtCVuVEHQm9Bws6lxDIFyAp0oHIF4MFQxkzAoolRzXEteerWuLsEhQiqBU2L765WfZNIPehVJ92fA/VRDWBw5cqoW2KURB2E1S5Ml8P73f43N5HgFPpuzhb2Nrq/oy20Vb7RYq+kId44wYtF0Qw5TTH72zkapL39+fnfFl3/Dnv8lG5shPi/xVeW90luIaPUSG1IcUbvYAGQfsA2sLdUuw1fQOVoWgOB6NUMbXbbiwYJWeoI8BYz+lFB7EPtj6crK1/sTrNi8qY55Fpe7LtFcWT+beOXPlzBG7AwnUX9SW0q1sMqK4jelaKrKi0q1RlU1ConraNrlLDStJQkCNbFbeRp8ISH/bd5uwLrdefJh9QNeiHCpzrb/CiU3bm+UR05s+X/OMuOrkSLiGoRGyKmhcp3FzTtqGMKlovozvpqxeknjheGQtUnel0TOWoxT5iMdSHNXtdGpGq91BtrF7zcJtdbVrvY+jQPSbFuLnWQLRm/bmYhPcwwpTaNrmLh3vQryGJ5qsYnL58aBhu0/eKOQcUeeGpeZp34K541SWOq4KpnMljkejmM4NteOSU21Nym3u/th+IEeWNKNbnnfDX4dnSUIuYqlSv3ZzhQvQbpK95Oz5WW97/3+wqLqyIHzBEWWORE2BpfzUXfXvet2n+tN13O+nnShJPAXlg/F1PVMR/g2mafh1O15Zb3Md1czwasqVifBCYp7dLkf9fYR1v7KWylSMkDzu30TY75YXuHrMG+meXy4vkPZba0s65YegmfU/ZviHq+4/4Ufx/L/EUWc2W8aud13ZONlpo5kSsgA1JzvsWPtxkmXgd9N2sPv2htBff97w2N2fIN9NjGT9qEskw4S4cY9gSYq9h/zMDjbNNzsQg9Y=
+sidebar_class_name: "get api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List team workspaces"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/admin/teams/{teamId}/workspaces"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Returns a list of the workspaces to which the given team belongs. Append `?search=` to filter results for a given partial name.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"teamId","in":"path","description":"Team numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"max","in":"query","description":"Pagination max results","schema":{"type":"integer","format":"int32"}},{"name":"offset","in":"query","description":"Pagination offset","schema":{"type":"integer","format":"int32"}},{"name":"search","in":"query","description":"Filter search parameter","schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"workspaces":{"type":"array","items":{"type":"object","properties":{"orgId":{"type":"integer","format":"int64"},"orgName":{"type":"string"},"workspaceId":{"type":"integer","format":"int64"},"workspaceName":{"type":"string"},"workspaceFullName":{"type":"string"},"participantId":{"type":"integer","format":"int64"},"participantRole":{"type":"string","enum":["owner","admin","maintain","launch","connect","view"],"title":"WspRole"}},"title":"WorkspaceParticipantDbDto"}},"totalSize":{"type":"integer","format":"int64"}},"title":"ListWorkspaceByTeamResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

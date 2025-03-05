@@ -1,0 +1,71 @@
+---
+id: admin-list-organization-teams
+title: "List organization teams"
+description: "Returns a list of teams in your organization. Append `?search=<teamname>` to return results for a given `<teamname>`."
+sidebar_label: "List organization teams"
+hide_title: true
+hide_table_of_contents: true
+api: eJzFVdtOGzEQ/RXLz1FCaVWpqLe0QIWKCgL6hJCYbLyJYdc29mwgRPn3ztjZZUNCmvLSp2Q9Z+bMfWZyqELmtUNtjdyTZworb4IAUeiAwuYCFZRBaCOmtvLC+hEY/QgM74q+c8oMxfWXoMBn408fGWygVJ+vBVrhozH6CVWBQeTWk92RnigjrlvQruxI65SPRo+G5EV/WGpzTA6ctOgu2BGCOvCkhsoHuXc5k2yDVEp4IJnmGO4q5af0sRzZKYy0iYYEYWunCBaysSpB7s0kTh2b0gbVSHkSkcclYHp6uyvn807DZ/M8KNyasoG/ji3ldzPboS4oKSJBRZOldZwBvTajJQZAehtUqMJzlhVt8B5YYKqigEFBT+grRVqoqEBrWOZXHUn5dtYEFQG7Ozv8s+z/yU+ymVlKh0GWgnOFzmL6ejeBIbNVX+zgRmWcV+e5hVAnArQIxbl+VH9N9Pt3ct6RscnXhNiEBEVxksd+20y8FNJKJhIRt/hWXsEEEPxvX6w1VapyQEPw3VYpX1sYTLVe0wYSNXIhJQ/Z/mAfreTe2BxrexdsHVNb6dd6dzry3vrb4CBT/xBd7LI6jAPjNbXKsBVOO8pazCsmrpWzRXcyjIFBZZXXOI0V/0YTpXy/wjF9XjENDdbY8qIaxZl2wCLZA15bPVzsqdrGOfdsyljbUhPSGNHVY8bfgwiil/TnsI7z5h5jqbTJbVRfBHOu7mh3iv7p0cpKWIhcAcjpot3gJ5qyugDzsEEW01txk0VXwl6vF6JeV1sC0bzpIqY5t1+fBOTIhLov8bzpfuju8JOzAUuIrb/YK8fxjLSKLur8PBuVZvL/2w1a1APVA/YoZbQEKaIqTV8q8aWMJZb1wqBWGFPELJjNBhAUzep8zs9peXL3DHXgJUndkkMR1Ia4X7xQax27VdPm7E2gqBgRh/ZVhM192sDVYF5J9/KB2kDaXL7NpAm8dMSeFK74w+t0q2iCqWoKhsTM9Uma/SxTrh3byvVZmvsfBxeEheVBfja47WsBZtqyTb0SERf2Vhnql9p95G8iohX0BwuvTNA=
+sidebar_class_name: "get api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List organization teams"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/admin/teams"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Returns a list of teams in your organization. Append `?search=<teamname>` to return results for a given `<teamname>`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"max","in":"query","description":"Pagination max results","schema":{"type":"integer","format":"int32"}},{"name":"offset","in":"query","description":"Pagination offset","schema":{"type":"integer","format":"int32"}},{"name":"search","in":"query","description":"Filter search parameter","schema":{"type":"string"}},{"name":"attributes","in":"query","schema":{"type":"array","nullable":true,"items":{"type":"string"}}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"totalSize":{"type":"integer","format":"int64"},"teams":{"type":"array","items":{"allOf":[{"type":"object","properties":{"description":{"type":"string"},"teamId":{"type":"integer","format":"int64"},"avatarUrl":{"type":"string"},"membersCount":{"type":"integer","format":"int64"},"name":{"type":"string"}},"title":"TeamDbDto"},{"type":"object","properties":{"organizationId":{"type":"integer","format":"int64"},"organizationName":{"type":"string"},"workspacesCount":{"type":"integer","format":"int64"}}}],"title":"EnrichedTeamDbDto"}}},"title":"EnrichedListTeamsResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      
