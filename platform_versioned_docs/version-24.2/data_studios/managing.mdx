@@ -35,9 +35,13 @@ To add a new data studio, complete the following steps:
 
      1. Customize the following fields:
         - **Container template**: Select a data studio template from the dropdown list.
-        - **Data studio name**
+        - **Session name**
         - Optional: **Description**
      1. Optional: Select **Install Conda packages** to enter or upload a list of Conda packages to include with the data studio. For more information on the syntax for specifying Conda packages, see [Conda package syntax][conda-syntax].
+     1. Optional: Select **Private** to enable private mode.
+     1. For **Session lifespan**, select either:
+        - **Automatically stop the session after a predefined lifespan** and input a **Lifespan** if the default is not appropriate.
+        - **Always keep the session running**
      1. Select **Next**.
 
    - To use a custom container template image that you supply, complete the following steps:
@@ -49,8 +53,12 @@ To add a new data studio, complete the following steps:
           If you select the **Prebuilt container image** template, you cannot select **Install Conda packages** as these options are mutually exclusive.
           :::
 
-        - **Data studio name**
+        - **Session name**
         - Optional: **Description**
+     1. Optional: Select **Private** to enable private mode.
+     1. For **Session lifespan**, select either:
+        - **Automatically stop the session after a predefined lifespan** and input a **Lifespan** if the default is not appropriate.
+        - **Always keep the session running**
      1. Select **Next**.
 
 1. For the **Summary** section, complete the following steps:
@@ -161,6 +169,16 @@ To limit read-write access to a specific subdirectory, complete the following st
 1. Select **Add** to create a custom data-link to a subdirectory in the cloud bucket.
 
 When defining a new Studio session, you can configure the **Mounted data** by selecting the custom data-link created by the previous steps.
+
+## Modify session lifespan for all Studios
+
+For users with the **Admin** role, the lifespan for all newly launched studio sessions is configurable for a workspace.
+
+1. Select **Settings**, and then for the Studios card select **Edit settings**.
+1. Specify the session lifespan:
+   - If you want to allow sessions to run indefinitely (the default), select **Always keep the session running**
+   - If you want to sessions to automatically shut down after a specific lifetime, select **Automatically stop the session after a predefined lifespan**, and then input a **Lifespan** in hours between 1-120 hours.
+1. Select **Update** to commit your changes.
 
 
 <!-- links -->

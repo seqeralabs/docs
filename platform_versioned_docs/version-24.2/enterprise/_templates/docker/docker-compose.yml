@@ -27,7 +27,7 @@ services:
       - $HOME/.tower/db/mysql:/var/lib/mysql
 
   redis:
-    image: cr.seqera.io/public/redis:6.0
+    image: cr.seqera.io/public/redis:7.0.10
     platform: linux/amd64
     networks:
       - backend
