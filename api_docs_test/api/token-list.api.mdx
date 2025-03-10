@@ -1,0 +1,63 @@
+---
+id: token-list
+title: "List all available API tokens"
+description: "List all available API tokens"
+sidebar_label: "List all available API tokens"
+hide_title: true
+hide_table_of_contents: true
+api: eJyNVFFv2kAM/ivRPTOgWzdpPI1O3VSt0qa1fUI8mMTA0eQu9Tm0KOK/z74kLKVI5SkX32f7sz/7auNLJGDr3U1mJubeP6K7tYHNwBCG0ruAwUxq83E81k+GISVbKl7Qv38JLPWO0bHeQlnmNo3RRpugkNqEdI0F6Il3JYqTX2ww1fglaW62TQLWzKGHAyLYCcwyFtFO+FRZQqE5Mw4KNPPBOzEXEGw6rXjdCxuYrFsJNMOSUMhqQKYK95Iq6wGtlLVCEuTSUwHcmL5cisFVeQ6LHA+OkY64FvByi26lCT+PB6awrvu9GBwREK8cAj8EzE6xO+TMhOEHthJfPPTnO2FD+jwn8WLLytVM0xRDiBKLvXehgvcuw99WeUUJ7PKU9leQJaoIxlk5ewj6IhaSEFZn6NgB35TcL+KayNMb5p9OTG038YnznECe+2fho/CAaUWWd0KuNlcIhNRMz2y+nw+OwmjT1DuBLdg4Dsn0z03SzrGIj7z2ulMrjBWBBjKjw32X7E5709TZT3kodc1cKjzC5H8RQWJpDj86zTfPHIuwbumje9uXO3ySepWbOS6hvSpzYB2dJCBtrYxBC1ZRIY2iVpS3VMJkNArRb2i9gERXm8fdWPpv/y+EyBYpNHkuhl+HYzWVPnABcSSalXm3i68IH3rC+MIjoW2dRo3k6rbDs+4lEcHWkk4tdS0vAT5Qvt+rWYaWVGM5boFss8kisTggZNJblf8Rd+3KlCrfFvIqvkrH062DcZD65/W9YOG1gEeCxejdG+d2vdhCMyLiEgrVQUuCm42dy0j/AyXN8b8=
+sidebar_class_name: "get api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List all available API tokens"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/tokens"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+List all available API tokens
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"tokens":{"type":"array","items":{"required":["name"],"type":"object","properties":{"basicAuth":{"type":"string","deprecated":true},"id":{"type":"integer","format":"int64","nullable":true},"name":{"maxLength":50,"minLength":1,"type":"string"},"lastUsed":{"type":"string","format":"date-time"},"dateCreated":{"type":"string","format":"date-time"}},"title":"AccessToken"}}},"title":"ListAccessTokensResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

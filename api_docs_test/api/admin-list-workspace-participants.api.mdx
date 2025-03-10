@@ -1,0 +1,71 @@
+---
+id: admin-list-workspace-participants
+title: "List workspace participants"
+description: "Retrieves a list of participants for the given workspace. Append `?search=<participantname>` to return results for a given `<participantname>`."
+sidebar_label: "List workspace participants"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVllvGzcQ/isEn1JAkNy0KBAhl5woRVA7MmQFeTAMmFqNtLR3SZrkSlGF/e+d4R7atQ4rfurTHhzO9809Gz4DF1lpvNSK9/kYvJWwBMcES6TzTM+ZEdbLSBqhvGNzbZmPgS3kEhRbafvgjIigywbGgJqxuw8OhI3id28b15RI4f0d85pZ8JlV+HBZUmoTpa673Rtd3uHagBXE7usM+Q1mqVQXSOxHhXzVYIfiqAOverCO9282nPTgtZonKulwSZYa4WN8b5tfa2UqS8HKiMkZKC/nEiwKW3jMpAUk4m0GHe6iGFLB+xvu14ZwpPKwCKJoWSp88euvP3med2oyqfhZkXjMwK53WFyJhVTBZoaylbP4yXh/vG7h6fncgT8ZshZ/GVoR/uNoX2SCEWKFKKtDtg/TYT6qRQshnDzRf+heh6ssScQ0gSJmeX5LYXRGKweO5F+fndGjTXD0D96MNNqrPJ0KYxIZBf/07h2JbHYh9fQeInKcsZS0XhYAXnuRXMt/4aQ8CRm8TejtFWGtIEulhzT8F0kymockP47f0EcldBKHFNIp2JPFMwf2WwjOTtxQXFrnD54m4sgh+lcme0+0XYx1sucWXsLSRbdwvVKBbmFLiCdlgsZuoi3HNPDSkwY+KnWhWg8iPdlqEj5IfeXMqQQF9TQiKlC1CK+JyFQoIsxBVQR1KWHVZP2jBCAiAeAw0OXw8nw4xh+T4eASH59GFxeD89F4MBmNmyobrXRCqkobB0vhhf1u90eCYn9MIt+r//P0s9ecivqZ4kH8yxBA90lnRTE+32vzhlFDhW08htkueJNaJUWjpTlRxmWrIGmSdxBlVvp1qLtz7F9ofIaDpH9zS6DYxmJNc2oROmiYMX3eCxHu1UPI9TaNgZT3THuEVRjX1GAKNzSRagfE3puq9dH3NAjhn+LlS+WV+5UPYZBqrsP10uZreMTRygZXX3cadHlkEuHJudip7VIi8VKYOqOIQjAyCnqg4vq9ngv3ulLzungD7MftARJZYjQLnN+7b7pnoelp51MR+mrZ5SkS2/2CPfFRi+5m26r/hwtMGS0PP30PHYr1TVVT1EqRIDd1C9imCH7021tLywOYazG6jO5uNlPhAIsvz+l3MREpPWfS0eDDdJyLxMERpx1cOPZyf4B1vcUsRZKRRCjlFwHW68YRrFrmhXCH940joPUicxy0EC53kq3oLX1YWWwevxSMV+Nyy/yNPbOO7iVfrQtq3eRT8WymVH6L4jGIGSojioXEIIrANH29s/u0Gt3fwwmNsHZnetKJmktKmxfmbpCY6AdQmL+1O+mbCOb5fwG4WrA=
+sidebar_class_name: "get api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List workspace participants"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/admin/workspaces/{workspaceId}/participants"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Retrieves a list of participants for the given workspace. Append `?search=<participantname>` to return results for a given `<participantname>`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"path","description":"Workspace numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"max","in":"query","description":"Pagination max results","schema":{"type":"integer","format":"int32"}},{"name":"offset","in":"query","description":"Pagination offset","schema":{"type":"integer","format":"int32"}},{"name":"search","in":"query","description":"Filter search parameter","schema":{"type":"string"}},{"name":"type","in":"query","schema":{"type":"string","nullable":true}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"totalSize":{"type":"integer","format":"int64"},"participants":{"type":"array","items":{"allOf":[{"type":"object","properties":{"participantId":{"type":"integer","format":"int64"},"memberId":{"type":"integer","format":"int64"},"userName":{"type":"string"},"firstName":{"type":"string"},"lastName":{"type":"string"},"email":{"type":"string"},"orgRole":{"type":"string","enum":["owner","member","collaborator"],"title":"OrgRole"},"teamId":{"type":"integer","format":"int64"},"teamName":{"type":"string"},"wspRole":{"type":"string","enum":["owner","admin","maintain","launch","connect","view"],"title":"WspRole"},"type":{"type":"string","enum":["MEMBER","TEAM","COLLABORATOR"],"title":"ParticipantType"},"teamAvatarUrl":{"type":"string"},"userAvatarUrl":{"type":"string"}},"title":"ParticipantDbDto"},{"type":"object","properties":{"teamMembersCount":{"type":"integer","format":"int64"}}}],"title":"EnrichedParticipantDbDto"}}},"title":"EnrichedListParticipantsResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      
