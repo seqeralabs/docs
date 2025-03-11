@@ -1,0 +1,63 @@
+---
+id: ga-service-info
+title: "GA4GH workflow execution service API info"
+description: "GA4GH workflow execution service API info"
+sidebar_label: "GA4GH workflow execution service API info"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVVlv2zAM/iuBn7OkRzBgeVoapFmwXuixPhTFwNiMo1aWXInOsSD/fZTsuE7htBnWFx8USZHfx2MV6BQNkNBqFAXdYAg3aGYixJGa6KAZGLSpVhZt0F0FRwcH7hWhDY1InQ1bXP5ktVArQkXuFNJUitB7bD9Zp7IKbDjFBNwXLVNkIz1+wpDYMDXufhL5BTM0VuQmhaIlI1QcrJvsV/x65zjUSSLI5VBnm9H0loW2cgrGwJIjEISJrbFiM6ljoa6AprVOFczGYD5OKkGV7XPxDnMJY5S1AWSmTs4HJEg60YWPsK/VRMSt/Oecg2GdHUrO6xTB0BiBRkypmUH1DsGiGA3HONEmAcpFx0c+GovmXptnm0KIAwVjiVUyxlpLBOXZkFLPR8oSqBD7BiOuHAHS1mtLUBEndlebLKeBJrGXkzuLuzSK2tx1DArkkkS4BxX1gDcDy1RuVd5unCrA98qLN5ic6RDkNaa6Doom911qkDvL4Uomw9fczmFxKiTeiD/4YRRfO+6+OczeJyk2OlORnaOU++r1XA4YlUWwT9HvjrEI8tOdsijGK4MTsagnE194IPalznZkjNwTZTij6L8DchxCSIMExI4KdRBc4IIm/O5Lcabj2l6p1FZ1iK99u3fqZvcJRA2DLxla+rwhnti4HlgCyuzvUEcfF+mbVrlHOzBGm+tiG5U5Hdfso80+ayhNDcjLx3vb1hv2OsMfjTkT6WBt4ALDzJvZHLtG72rUEPkWTJCm2q3HGH2+fiUE7Rg68bQ9R9ueHbYLsy+FiWV3RtDyxqGWA3PCkxVNL9vaJ1Oi1Kl7NcemV2JJ/nG6AeVpTj4J796Zl0y7cnXBBm8zLI5SCeSw3SRmC+Wi7srB5kOx3XY774CWcGlgXpX+2u+vBxxIuauDw9a31oET8eCiBHyxKPDZ/AvIW8GX+BDXfZtTEKqy8nICHgJPAJsyBfycHXrcKzQ88jrjmJzqajUGvyPWayfmmjdLlvPnDIxwA8795fsvYgK6D6vgGZduTochpo527vvMd/nb5lg/VkpkOLhlov4CS+U5Jg==
+sidebar_class_name: "get api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"GA4GH workflow execution service API info"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/ga4gh/wes/v1/service-info"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+GA4GH workflow execution service API info
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"version":{"type":"string"},"apiVersion":{"type":"string"},"commitId":{"type":"string"},"authTypes":{"type":"array","items":{"type":"string"}},"loginPath":{"type":"string"},"navbar":{"type":"object","properties":{"menus":{"type":"array","items":{"type":"object","properties":{"label":{"type":"string"},"url":{"type":"string"}},"title":"NavbarConfig.NavbarMenu"}}},"title":"NavbarConfig"},"heartbeatInterval":{"type":"integer","format":"int32"},"userWorkspaceEnabled":{"type":"boolean"},"allowInstanceCredentials":{"type":"boolean"},"landingUrl":{"type":"string"},"termsOfUseUrl":{"type":"string"},"contentUrl":{"type":"string"},"analytics":{"type":"object","properties":{"url":{"type":"string"},"siteId":{"type":"integer","format":"int32"}},"title":"Analytics"},"allowLocalRepos":{"type":"boolean","deprecated":true},"contentMaxFileSize":{"type":"integer","format":"int64"},"waveEnabled":{"type":"boolean"},"groundswellEnabled":{"type":"boolean"},"groundswellAllowedWorkspaces":{"type":"array","items":{"type":"integer","format":"int64"}},"waveAllowedWorkspaces":{"type":"array","items":{"type":"integer","format":"int64"}},"forgePrefix":{"type":"string"},"seqeraCloud":{"type":"boolean"},"evalWorkspaceIds":{"type":"array","items":{"type":"integer","format":"int64"}},"contactEmail":{"type":"string"},"allowNextflowCliLogs":{"type":"boolean"}},"title":"ServiceInfo"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"type":"object","properties":{"msg":{"type":"string"},"status_code":{"type":"integer","format":"int32"}},"title":"WesErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

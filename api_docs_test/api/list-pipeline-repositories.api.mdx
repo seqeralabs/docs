@@ -1,0 +1,71 @@
+---
+id: list-pipeline-repositories
+title: "List user pipeline repositories"
+description: "Lists known Nextflow pipeline Git repositories, extracted from existing runs. Append `?workspaceId` to list repositories in a workspace context."
+sidebar_label: "List user pipeline repositories"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVMFu2zAM/RVB5yLptmLActlSoCuCDVvRbtihKFDFZhI1tqRSdLLAyL+PlO3EaYIOu+2USH4k3yMfVescYoY2kPVOj/RXGymqpfNrp77Bb5oVfq2CDVBYB+rakkIIPlryaCGeKYagyQhyNUNf8pHjrZsrrFwcqHEI4HL1+HHtcRmDyWCSPyryqmDYQSZlnTJqB1OZd8S5B/pM+wBohN4kbwnetHxuewkYGAyaEggw6tF9rR0fOKBXmjFWRD5XgBs+HEr/tSvuqhLQZsrm4MjOLCCDY7aA0uhRrWkTJLFlhvP0aeaxNNRcvb/Q2+3DmUaIwbvIxDji7fm5/BzW+/6FQ5NOR/LVhFDYLCkdPkWB1MdF/fQJMhKxKH0h2xToJhR7UINoRKUlKPv3kZAnxCy3Z5osFfCiqxM387cte0Ex7OIU/0uT8wi5l5H+RYiEWASe5b0uIUYzB839el1fBzyhYi/iCtHjEfN3JzrfOUo5T8oU7HHmI/AIWYWWNslAl2AQcFzRgo8PMlR218KLC+eQOBr5pIe77g/x0JFdujtR3yjpJ92JWRCFzmJyniYQ3zR/Pnf+elpToml5RCm8VX4Hz6xIjW8mR65uP4XCkNhURcCVzXjhGrCMjfdXklVYtFTiaDiMKW5gPYN4crZI9p75T/sPTGTFy9bUeTP4MDiXK24AlSYNvd1AMZequPD+IXnRpwPK9d5L/+Nz1I5MjkPuKj8oLDr1rm4Ncd9bR3kIelLZQwvuj2Dqemoi/MRiu5Xr5k0S2+U2mmkhCzIzRYRXuvOXF+sk0yVsjh7FlSkqQWrx+MqglfrJ80wXTM7ZhFgTOs4yCNSLOlr3g025vvrBWHPo9xf+Ttm7V8tterm5SQnxwy/BcaM6/iRnLsQ7/gfV91+l
+sidebar_class_name: "get api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List user pipeline repositories"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/pipelines/repositories"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Lists known Nextflow pipeline Git repositories, extracted from existing runs. Append `?workspaceId` to list repositories in a workspace context.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"pipelines":{"type":"array","items":{"type":"string"}}},"title":"ListPipelineInfoResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

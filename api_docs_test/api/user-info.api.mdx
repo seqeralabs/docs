@@ -1,0 +1,63 @@
+---
+id: user-info
+title: "Describe current user"
+description: "Describe current user"
+sidebar_label: "Describe current user"
+hide_title: true
+hide_table_of_contents: true
+api: eJyVVU1P20AQ/SvRngMJFCo1p/LVKmpVqhbUA+IwsSfJEttrZscBauW/d2btBMcxFC6xvftm3pvPlMblSMDWZePYjMy1RxpnU2f6htDnLvPozag0h8OhPmL0Edlc4QK+/CawyGWMGest5Hlio+BscOcVUhofzTEFfeOnHMXITe4wYjHMSanZVgSFEOuT8L6whKLlxoihTQSpdz8gRXPb/48XGzeYrAibide+mTpKgaujj0dm1XAp8BQev2M247kZHQ03DJ7JZjPFVjK2gYfHx21kg6ayENOpJc8dPAfDLqIE3gF2NIPM/oWqFm8w2KpdG99lAEtgoEZC21fjuPMyc2yndR80ABPnEoRMEYyU+supNNuZdljVPbuwFGiBLF5fRWnWTqIIvd9V06hJDIx7bCW7mgv5OCOU344QXjJSous8fp9RjAluG2ykayIsJ1iP3fnknF3IH2L8asQxTqFI+I+jhc8hwvHbur7Bdx56YYLK+6uecwEo5Khr0k8h7ulkouf3jHxzmFMpEMzeMMNr4G5rNQK4IHK7yj907Kj1eutJW/YgSdyD6FG4x6ggy08irjSnCIR0Uug43NyublvjsklYT2xIYu+FfSUtijx3ujhnGCIBdWAGertnqz265vmtaalCbLJtopwz5woPMC14AMlJ9fJlXc27Bw76g3s1r1PyG+8l1N7Jz7Fpq6+v8gRYm6In6pZWJqYGaz0hCvUsKKml+NFg4IPdvtUw6i0YaD8/X4iQJZKveA72P+0P9Sh3nlMI3ZCFhfZiAltbqc4F4yMPRK4N/R5ElXVyb8xzcqVMc2HSw7KcgMdrSlYrPZZWJa2svC6BLEw0RVJYMUCI9a9Gir5AgRjdHbkWbwlJoeQ7Pa3tsCn014srwcJ27Vq1Ct7rK8ieGr5FZkBcuQVmIrVfi2D9FiJp5H/a2pbK
+sidebar_class_name: "get api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Describe current user"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/user-info"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Describe current user
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"user":{"required":["email","userName"],"type":"object","properties":{"id":{"type":"integer","format":"int64"},"userName":{"maxLength":40,"type":"string"},"email":{"maxLength":255,"type":"string","format":"email"},"firstName":{"maxLength":100,"type":"string"},"lastName":{"maxLength":100,"type":"string"},"organization":{"maxLength":100,"type":"string"},"description":{"maxLength":1000,"type":"string"},"avatar":{"type":"string"},"avatarId":{"type":"string"},"notification":{"type":"boolean"},"termsOfUseConsent":{"type":"boolean"},"marketingConsent":{"type":"boolean"},"lastAccess":{"type":"string","format":"date-time"},"dateCreated":{"type":"string","format":"date-time"},"lastUpdated":{"type":"string","format":"date-time"},"deleted":{"type":"boolean"}},"title":"UserDbDto"},"needConsent":{"type":"boolean"},"defaultWorkspaceId":{"type":"integer","format":"int64"}},"title":"DescribeUserResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

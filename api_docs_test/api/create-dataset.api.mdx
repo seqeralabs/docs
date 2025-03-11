@@ -1,0 +1,71 @@
+---
+id: create-dataset
+title: "Create dataset"
+description: "Creates a new Tower dataset in the user context. Include the dataset file and details in your request body. Append `?workspaceId` to create the dataset in a workspace context."
+sidebar_label: "Create dataset"
+hide_title: true
+hide_table_of_contents: true
+api: eJzVVm1v2zYQ/isEsQ8r4LdkxdAYGFqn64BgA1I0KQrMzVpaPNtMKFIlqTie5v/eO1KyZcvwhm0fti+GdXyOfO7uuSMrLsFnThVBWcPH/LUDEcAzwQys2K1dgWNSBOEhMGVYWAIrPdoyawI8hQG7MpkuJcSVBjhXGpgwkkkIQmlPnmtbOubgSwk+sJmV6wGbFAUg6PPLlXUPvhAZXMnPLFiWRRJ7W+IOgm1x2+N5j9sCnCD2V3LL/8fkhauFcCKHAM7z8bTiBj8Q1ToQMYoCR2JujR/76fiwPdGUOTiVMSXBBDVX4BDssyXkgo8rHtYFbayQ1iIuza3LRUim75/zzeaux+vwLzF68tk/qubcBF9jcacYqwnkIYpCqyxGO7z35FZ1OdjZPWQxdke5CQo8rabQtygfnDILvjmIuLOOgKCChsPcvqv5bQhBZJUDLEBwJUSDL6zx6eTz0agb7vXP/15otUjo747JNEWMaT/trCT95uLpFzCLsOTj8/NeN0lN9lq4s9GI9BVQXBTQb1PR/33S//XjR3n37ctx6+uPaf8Tmn5omZ49q856Fy823/AjZx0UZP/I0RGHHKQSt9G6B39xDCxBYz/IVlZn1moQhlPZhLw2er2tI2YWUtllVxstkROuHxTm6MgmWvjwvpD/ZJOWCpvePqHMpD2SJmKeH1PfpZB/p8Pa6srBe7H4CwJrgCd7641z1nWYf3ekb5pxx4wNTGiNI1ryiL44MlTKFA4wrHpOMf5Ho8VFD1npVFjHQX0JwoGblCTj6R0NT5ziS0sjvrA+TXZa48O6+T3f7XBDISQ67X22jJYhFM30jg0QQWhJf35qBHm/SjKj1Lzbze43TyIvNOyG6k7L+9nfNZ0ycxsJ1Am4gS9YRjZ5e9VxqpcKLQJ1BsPb9lFleCUnMFVPZLF6pdN1MH48HProN1AWQVhApePdM7evdgtI5BFvwnTO2eBiMCIT5TMXphVOaqfm7j1kWO0U9D98LtQSoM8h5hjvfkxBzGRVS2rKt5JC2S1JbWirqhna3ju92ZA5PRdIqVJ5MdPUJXOhPZxI1p88Jo4ye4B1573yKHRJSE5t8SicovNjmyBdnJu4GxFLrq/T8f14Pex8O52/6TUekyyDIpzEttvx7fXNLbVO/ajJrSQfJ1Y0xfEXedIjjbxjR0ZbhZeCWZRxUPC0JzWa2O/Tg76MUdVLwqxbDLE4EXFrH8BggZq8BfpGurj5V1tqxv4=
+sidebar_class_name: "post api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Create dataset"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/datasets"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Creates a new Tower dataset in the user context. Include the dataset file and details in your request body. Append `?workspaceId` to create the dataset in a workspace context.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Dataset create request","content":{"application/json":{"schema":{"type":"object","properties":{"name":{"type":"string"},"description":{"type":"string"}},"title":"CreateDatasetRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"dataset":{"required":["name"],"type":"object","properties":{"id":{"maxLength":22,"type":"string"},"name":{"maxLength":100,"pattern":"^[a-zA-Z\\d](?:[a-zA-Z\\d]|[-_](?=[a-zA-Z\\d])){1,98}$","type":"string"},"description":{"maxLength":1000,"type":"string"},"mediaType":{"maxLength":80,"type":"string"},"deleted":{"type":"boolean","readOnly":true},"dateCreated":{"type":"string","format":"date-time","readOnly":true},"lastUpdated":{"type":"string","format":"date-time","readOnly":true}},"title":"Dataset"}},"title":"CreateDatasetResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"409":{"description":"Duplicate element","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

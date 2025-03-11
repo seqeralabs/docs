@@ -1,0 +1,71 @@
+---
+id: admin-update-workspace
+title: "Update workspace"
+description: "Updates the details of the given workspace."
+sidebar_label: "Update workspace"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVm1v0zAQ/iuRxYdN6ttgQhAJQfeCmEAwdd2Q6Apyk2vrLYmN7XQrIf+dOydt0qyUIe1LFZ+fO989fu7cjIVgAi2UFTJhPrtUIbdgPDsHLwTLRWQ8OXXLmVhA4t1JfWsUD6DDWkwq0Jw8z0L07YexSIoAX1coBCmueQwWtGH+KGMJLhC8joOuLSbobMXtHL83E1pH8pI0Bi0CT4SQWDEVoBGs4WcqNODxVqfQYiaYQ8yZnzG7VHSOSCzMHHQqdcxtYXp5yPJ8XLiDsUcyXJLP345OXVFeicZYgcSwiSUfrlQkAsdC98aQY/YwCzm5gYAclSbOrABDuwthxEREwi5rWGO1SGaIBawYKWPng7Or/vAULRcf+oPTE4aJW2EjAl9VEfIGdc2AuD9No+iz43/LZrJ9I68Oa9ztoKQjJ8zmRTiDUTIxRaHPe72H/H75+HRMruVEiyqXUVVyWWCrTjoRuTOsCB8jJQyNp/AJkVRWvyIz5vefIJmhsP3DHvWCxUag4r+PePtXv/3t+joc7731a6vfo/YPNL2pmfb3s4PWi1f5M9bafam14w56vS3ghkI28dscnlyiqKBjDfgbbgu4ZpZwbSuwLHSKuLGF+B7tVJNtNYzq1hPHxKQu50KwpGcCGghS7erGqXUEXIPup8TUaEyjA0faXNLYU6nTDQ0vn3U5DcHuWo6mm9UmXc6qsBek7EJl9eDr6ubWKlYONFpPHAgtxcf7Vc03d9bVRR0zqMbZ6T2PVQTNKVO7qc1mrMhcy6myJRvrnOb1VLpcSzIv4Ce+BF7//OxB4HJLRdzSPXkG9EIgMSWY+p8Hrv9THZV1G7/bNc6vIyTJLMaHyLXbVL6rNkie+KwU5xx0Xnd6ZFLS2Jg7eZd5F9Kpnq5mjlk1hf7zASzvysK97WKF+IxhAq6OrFTEiDlFILbSBC78+vuHappj0gTOsgk3cKmjPCczXqcmAeLngmtRjBiUYygMfaP8pjwysKOevUE5DPe9fzylW2spjTxZ0uTkUUor/LyFZeMRz8cInwMPMRilWCCOi0TaQ4pTRXgw6vPWyqMfBKDsTmy9+84vh9QT5QMey5BcNL+j/wb465KVjhfXas6W4UBJZimfEbYISR3ENxuw0XCuqK104J05xFDeQpLna3YsrYmXPP8Dd7w5Ug==
+sidebar_class_name: "put api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Update workspace"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"put"}
+  path={"/admin/workspaces/{workspaceId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Updates the details of the given workspace.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"path","description":"Workspace numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Workspace update request","content":{"application/json":{"schema":{"type":"object","properties":{"visibility":{"type":"string","enum":["PRIVATE","SHARED"],"title":"Visibility"},"description":{"type":"string"},"fullName":{"type":"string"},"name":{"type":"string"}},"title":"UpdateWorkspaceRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"workspace":{"required":["fullName","name","visibility"],"type":"object","properties":{"id":{"type":"integer","format":"int64","nullable":true},"name":{"maxLength":40,"pattern":"^[a-zA-Z\\d](?:[a-zA-Z\\d]|[-_](?=[a-zA-Z\\d])){1,38}$","type":"string"},"fullName":{"maxLength":100,"type":"string"},"description":{"maxLength":1000,"type":"string"},"visibility":{"type":"string","enum":["PRIVATE","SHARED"],"title":"Visibility"},"dateCreated":{"type":"string","format":"date-time"},"lastUpdated":{"type":"string","format":"date-time"}},"title":"Workspace"}},"title":"DescribeWorkspaceResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

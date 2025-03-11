@@ -1,0 +1,71 @@
+---
+id: launch-action
+title: "Trigger Tower Launch action"
+description: "Triggers the execution of the Tower Launch action identified by the given `actionId`."
+sidebar_label: "Trigger Tower Launch action"
+hide_title: true
+hide_table_of_contents: true
+api: eJy1Vd9v0zAQ/lciP4E02gETEn2iQ0OaQNq0FfFQVZqbXBtvie3ZTrsqyv/One0s7RKKQPBSNfZ3d9/9+M41y8CmRmgnlGQTNjNivQZjE5dDAk+QVnSRqJU/mKktmOQbr2SaJzz1VyID6cRKQJYsdx61FhuQyV24v8zuRuyEKQ2Gh2+MEjxMPQAvNTe8BIdh2WReM4kfCGrtESCImuYux/+HfIOPxDoj5LrjYhBo4LESBjCeMxWcMJvmUHI2qZnbaQoQjFjTnDzH3CrzYDVPoQv7WIHZ9eL+aIGJrEowIj2M3YslpIO1v1opU3IXjj6cYfRFoArWnatsRzaDKRah6hGKjlKFPqUjA651IVJf3/G9Jau6T0Et7yElQ22oG06ApVtffDuE41kmyCUvrvcsqJhYMuaEK+BFL28iuYYAh/X3B1YraUPYd6en/VSvvv67vKiVq0JtaeAGWv4L/oEhJYCQsyGO5zz7myZ01ZizEqzla2DY+eM5tMCjCVwYo0yP+fuB6rYaTKRyCS+wOMiH4BZ1boTbefmdAzdgphWqbTJf0HiiNnNFutXKJ+2VOGHjoFA7rlupNuMwpaxzeUsVCNnsO35OKHdOt4Kh76UH4Un486VVy/3WeapU2ZtOLhdPvNQFHAwywYRcKR8lFukWHjH5ZHp92ZNyvNIFd6TNxILZiBRsBFOHMT9yVpkiMraT8dh6u5FQCMImi8JreqU+dRdIZINbLcR5O/o4OqUjqmLJ/XzEtRO37tB+fUm37kbuvy3r2BoHT26MZcE1iKx98nXs/TxuZ4voyd6iju3HmclpVBBX10tu4bspmoaOwzalMcuE5cuCBLHihYUjaf5m1w6yfYBdb51veFERktFMb7gRFP8Puby6iTp+nRx5egYpxUMud/tcWqrPRWwWiM2BZ+iJuIXrz4HBmxk56cx7O4fesmAxTVPQ7ih2X9rXV7czUl18gkqVkY3hW3pJ8ddTVTo0nfYZndXYcLmu/IpiwSeJjx9K/IWkfVaDxcBZ8YiZegCJ89LWxtE3FaZpfgJVOgVF
+sidebar_class_name: "post api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Trigger Tower Launch action"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/actions/{actionId}/launch"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Triggers the execution of the Tower Launch action identified by the given `actionId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"actionId","in":"path","description":"Action string identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Action launch request","content":{"application/json":{"schema":{"type":"object","properties":{"params":{"type":"object","additionalProperties":true}},"title":"LaunchActionRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"workflowId":{"type":"string"}},"title":"LaunchActionResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

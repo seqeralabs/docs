@@ -1,0 +1,71 @@
+---
+id: update-action
+title: "Update action"
+description: "Updates the details of the action identified by the given `actionId`. The `source` of an existing action cannot be changed."
+sidebar_label: "Update action"
+hide_title: true
+hide_table_of_contents: true
+api: eJzFV1tPIzcU/isjP7USJIFlu908FSiVaPeCIKhSIyScmZPEMGMPtieQRvPf62PPjJ2MCbv70pco8bkfH3/fyYZkoFLJSs0EJ2NyW2ZUg0r0EpIMNGW5SsTc/qQp6iQsA67ZnEGWzNZWsGAr4Mm9k19m94NkYk7vlahkCvdoTnkCL0xpxhetm5RyLnQygyRdUr6AbEAOiChBUuely+XU6hthSSUtQINUZDzdEG5+GKU2qlFgWEBJ9dJ8367K+UiUlphBV4E0ihKeKibBxNOyggOi0iUUlIw3RK9LDOCMSF0fdDGfhXxUJU3Bh32qQK57cf9uFRNeFSBZuh27F4txDQsrmgtZUO2Ofjkx0e9cqqD0mcjWaBMtsbI9SxpV4ygVxifXaEDLMmep7e/wQaHVpp+CmD1AioalxNvQDBRKXeW9phyQnFY8Xb7tgGVR81QUZaXhgq8u4wqy4l9ei12yEnLG40K8pN+ZjDuFFVPMdaAnVKBUM4LRhPmcLa6kmLPcVdaoUCkpTgDTUKjo/JBKgbyBVIL+TsNu4H7I2qU8gRcdrUiLZ5DnVifeZXx36lXzUsJ1xW/sKMYVhNL7NQrK9onN+Mr1q0PgJvhVsQRVbYlmQuRAuc2syvNPCHc6Lle6mpnM40JhXl7B/u3gKhI7VJlQudi+ufANzSC/zL7lWvcgxAFZAs3+FLPzsnrb5N0x8RafoRBy/Xn2jVYIMecSzGek7sAA9Q5NC8Bmp5nOoQHFeS6eP1nkuG6QKtQIgd/L612wdrdbCq7cQzwenfRx8etfyWHyRSQtDhqjk9Gor3dGsx9BTZ/RlBQGOOgCiIHq/VjYKkZfa9uECymFvG7qw/Jt5u8iFbakmSCh0ty01uRTWyRLK8n02vLlGVAJ8rQy9Die3iGfGDJdCiRag8CWX1FEho5R1XDTUmtNvKsbrNxVETrsCllqXbbMZh+MVTIn7ssf7Wg8PLsrx45ee167eKFFmYNnHD9VnmiQSvz5NoP48444/JHnC3/W0URg2bGDPwtIIQy9zQXTVnS3g/WhoI/loTTEah9oC6KDegJkDk63ADk438ZhLwjh158GqBu0IQDbsGEOY90GFaJqs1O1OOp+7iKndxQFzHAEWpycju524G4UAbPRDlQZhDg+ORx9ODz+ODl6P35/ND7+dTD6cPSPHUXG58JOcvMAb+DJPKzk9Oqyt9c1ojKnGsEuMXe9YqlZm50yood5POisknnzKtR4OFTWbsAE9te0PbeoOhe/eYFJZGVWXBfnaPBxMGo5tKA8eBcOI5ttejfBjQew/3mjb2BBmxkdmnYxS522KZsGcKbNCq+M9rjb5vF6BU7QlGw2M6rgVuZ1jcdu00ZEy5iisxwvdk5zBXt68MYeHk3yEda9VX9F8wo1CcLnikqG8b8zl5+uG8r4OdnztySaUrsb8HWYS5tq17v6rmF24wlzc+Jzl8HhBJ148x694f8cZ3GaplDqvbohi1zdThDnm38nhcjQRNJnBAjzaTMVpbtqZE4825g3zReVJUPiXOJTpNukskMitqhoL8yoWI2JeARe111rNP7GvtT1f7W0KlI=
+sidebar_class_name: "put api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Update action"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"put"}
+  path={"/actions/{actionId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Updates the details of the action identified by the given `actionId`. The `source` of an existing action cannot be changed.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"actionId","in":"path","description":"Action string identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Action update request","content":{"application/json":{"schema":{"type":"object","properties":{"name":{"type":"string"},"launch":{"type":"object","properties":{"id":{"type":"string"},"computeEnvId":{"type":"string"},"runName":{"type":"string"},"pipeline":{"type":"string"},"workDir":{"type":"string"},"revision":{"type":"string"},"sessionId":{"type":"string"},"configProfiles":{"type":"array","items":{"type":"string"}},"userSecrets":{"type":"array","items":{"type":"string"}},"workspaceSecrets":{"type":"array","items":{"type":"string"}},"configText":{"type":"string"},"towerConfig":{"type":"string"},"paramsText":{"type":"string"},"preRunScript":{"type":"string"},"postRunScript":{"type":"string"},"mainScript":{"type":"string"},"entryName":{"type":"string"},"schemaName":{"type":"string"},"resume":{"type":"boolean"},"pullLatest":{"type":"boolean"},"stubRun":{"type":"boolean"},"optimizationId":{"type":"string"},"optimizationTargets":{"type":"string"},"labelIds":{"type":"array","items":{"type":"integer","format":"int64"}},"headJobCpus":{"type":"integer","format":"int32"},"headJobMemoryMb":{"type":"integer","format":"int32"},"dateCreated":{"type":"string","format":"date-time"}},"title":"WorkflowLaunchRequest"}},"title":"UpdateActionRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      
