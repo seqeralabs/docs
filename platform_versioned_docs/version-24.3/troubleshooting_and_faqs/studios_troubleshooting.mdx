@@ -15,6 +15,12 @@ In your interactive analysis environment, open a new terminal and type `ls -la /
 
 When adding a compute environment, setting the Advanced options **Head job CPUs** and **Head job memory** for Nextflow **also applies** to any Studio session created in the compute environment. This is because Studio sessions are managed by the Nextflow runner job. To avoid artifically constraining the resources of your Studio sessions, **do not define these optional compute environment settings**.
 
+## Rebuild of a failed custom Studios environment: rebuilding from cache
+
+Occassionally, building a custom Studios image using the Wave service will fail, typically due to conflicting libraries. When attempting to rebuild the image, if it has the same name and tag, Studios and Wave will use the cached version (if available). Changing the version number and/or tag will ensure that the custom image is freshly pulled again.
+
+This is determined by the configuration of the Elastic Container Service (ECS) agent defined by the `ECS_IMAGE_PULL_BEHAVIOR` environment variable. In the case of the Seqera Platform Cloud, when creating the compute environment this is set to the value **once**. Enterprise installations of Seqera Platform may be configured differently. Contact your organization's administrator to learn more.
+
 ## Session is stuck in **starting**
 
 If your Studio session doesn't advance from **starting** status to **running** status within 30 minutes, and you have access to the AWS Console for your organization, check that the AWS Batch compute environment associated with the session is in the **ENABLED** state with a **VALID** status. You can also check the **Compute resources** settings. Contact your organization's AWS administrator if you don't have access to the AWS Console.
