@@ -225,8 +225,4 @@ If you rely on silent Spot retries (the previous default behavior), you may now 
 - **AWS**: Generic failure with `exit code 1`. You may see messages indicating the host machine was terminated.
 - **Google**: Spot reclamation typically produces a specific code, but is now surfaced as a recognizable task failure in Nextflow logs.
 
-<<<<<<< HEAD
-Since the default for spot retries is now zero, you must actively enable a retry strategy if you want Nextflow to handle reclaimed Spot instances automatically. See [the changelog](https://docs.seqera.io/changelog/tags/seqera-cloud#breaking-changes) for more information.
-=======
 Since the default for Spot retries is now zero, you must actively enable a retry strategy if you want Nextflow to handle reclaimed Spot instances automatically. For more information, see the [Spot instance failures and retries](https://www.nextflow.io/docs/latest/updating-spot-retries.html) guide. 
->>>>>>> b3569fd062f525de48d37583f702ec4d959c6817
