@@ -11,6 +11,10 @@ In your interactive analysis environment, open a new terminal and type `ls -la /
 
 ![](./_images/studios_notebook_fusion.png)
 
+## Session size limited by compute environment advanced options: Head job CPUs and Head job memory
+
+When adding a compute environment, setting the Advanced options **Head job CPUs** and **Head job memory** for Nextflow **also applies** to any Studio session created in the compute environment. This is because Studio sessions are managed by the Nextflow runner job. To avoid artifically constraining the resources of your Studio sessions, **do not define these optional compute environment settings**.
+
 ## Session is stuck in **starting**
 
 If your Studio session doesn't advance from **starting** status to **running** status within 30 minutes, and you have access to the AWS Console for your organization, check that the AWS Batch compute environment associated with the session is in the **ENABLED** state with a **VALID** status. You can also check the **Compute resources** settings. Contact your organization's AWS administrator if you don't have access to the AWS Console.
