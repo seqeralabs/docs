@@ -98,7 +98,7 @@ When adding a new session from an existing session or checkpoint, the following 
 
 To add a new session from an existing **stopped** session, complete the steps described in [Add a Studio](#add-a-studio).
 
-Additionally, you can add a new session from any existing Studio checkpoint except the currently running checkpoint. From the detail page, select the **Checkpoints** tab and in the **Actions** column, select **Start as new Studio**. This is useful for interactive analysis experimentation without impacting the state of the original Studio.
+Additionally, you can add a new session from any existing Studio checkpoint except the currently running checkpoint. From the detail page, select the **Checkpoints** tab and in the **Actions** column, select **Add as new Studio**. This is useful for interactive analysis experimentation without impacting the state of the original Studio.
 
 ## Connect to a Studio
 
@@ -140,7 +140,7 @@ This functionality is available to users with the **Maintain** role and above. W
 
 This functionality is available to users with the **Maintain** role and above.
 
-You can start a new session from an existing stopped session. This will inherit the history of the parent checkpoint state. From the list of **stopped** Studios in your workspace, select the three dots next to the status message for the Studio you want to start and select **Start as new**. Alternatively, select the **Checkpoints** tab on the detail page, select the three dots in the **Actions** column, and then select **Start as new** to start a new session.
+You can start a new session from an existing stopped session. This will inherit the history of the parent checkpoint state. From the list of **stopped** Studios in your workspace, select the three dots next to the status message for the Studio you want to start and select **Add as new**. Alternatively, select the **Checkpoints** tab on the detail page, select the three dots in the **Actions** column, and then select **Add as new Studio** to start a new session.
 
 ## Delete a Studios
 
@@ -166,9 +166,41 @@ To limit read-write access to a specific subdirectory, complete the following st
 
 When defining a new Studio, you can configure the **Mounted data** by selecting the custom data-link created by the previous steps.
 
+## Migrate a Studio from an earlier container image template
+
+As Studios matures and new versions of JupyterLab, RStudio Server, Visual Studio Code, and Xpra are released, new Seqera-provided image templates will be periodically released including updated versions of Seqera Connect. The most recent container template images will be tagged `latest` and earlier template images will be tagged `deprecated`.
+
+:::tip
+Always use the `latest` tagged template image for new Studios. Only two earlier minor versions of [Seqera Connect][connect] are supported by Seqera.
+:::
+
+To migrate a Studio to a more recent container version and Seqera Connect:
+
+1. Select the Studio that you wish to migrate from the list of Studios.
+1. Select **Add as new**. By default this selects the latest session checkpoint.
+1. In the **General config** section, change the image template selection in the dropdown list to use the `latest` tagged version of the same interactive environment.
+1. For the **Summary** section, ensure that the specified configuration is correct.
+1. Immediately start the new, duplicated Studio session by selecting **Add and start**.
+1. **Connect** to the new running Studio session.
+   1. Make a note of any package or environment errors displayed.
+1. **Stop** the running Studio session.
+1. Go back to the original Studio:
+   1. **Start** the session.
+   1. **Connect** to the session.
+   1. Uninstall any packages related to the errors:
+      1. JupyterLab: Execute `!pip uninstall <packagename>` or `apt remove <packagename>` to uninstall system-level packages.
+      1. RStudio Server: Execute `uninstall.packages("<packagename>")` to uninstall R packages or `apt remove <packagename>` to uninstall system-level packages.
+      1. Visual Studio Code: Select the **Manage** gear button at the right of an extension entry and then choose **Uninstall** from the dropdown menu.
+      1. Xpra: Use `apt remove <packagename>` to uninstall system-level packages.
+   1. **Stop** the running Studio session. A new checkpoint is created.
+1. Repeat Step 1 **Add as new** using the new, most recent created checkpoint from the steps above.
+
+:::warning
+Due to the nature of fully customizable, containerized applications, users can modify environments leading to a variety of configurations and outcomes. This is therefore a best effort to support Studio migrations and a successful outcome is not guaranteed.
+:::
 
 {/* links */}
 [aws-gpu]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-gpu.html
-
 [conda-syntax]: ./custom-envs.mdx#conda-package-syntax
 [custom-image]: ./custom-envs.mdx#custom-containers
+[connect]: ./index.mdx#container-image-templates
