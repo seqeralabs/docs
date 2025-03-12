@@ -17,7 +17,7 @@ When adding a compute environment, setting the Advanced options **Head job CPUs*
 
 ## Rebuild of a failed custom Studios environment: rebuilding from cache
 
-Occassionally, building a custom Studios image using the Wave service will fail, typically due to conflicting libraries. When attempting to rebuild the image, if it has the same name and tag, Studios and Wave will use the cached version (if available). Changing the version number and/or tag will ensure that the custom image is freshly pulled again.
+Occasionally, building a custom Studios image using the Wave service will fail. This is typically due to conflicting libraries. When attempting to rebuild the image, if it reuses the same name and tag, Studios and Wave will use the cached version (if available). Changing the version number and/or tag will ensure that the custom image is freshly pulled again.
 
 This is determined by the configuration of the Elastic Container Service (ECS) agent defined by the `ECS_IMAGE_PULL_BEHAVIOR` environment variable. In the case of the Seqera Platform Cloud, when creating the compute environment this is set to the value **once**. Enterprise installations of Seqera Platform may be configured differently. Contact your organization's administrator to learn more.
 
