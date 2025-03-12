@@ -220,7 +220,7 @@ Up to version 24.10, Nextflow silently retried Spot instance failures up to 5 ti
 From v24.10, the default setting was changed to `0` for Spot retries on AWS and Google, meaning that no ‘internal’ retries are attempted on these platforms by default. Spot reclamations now lead to an immediate failure, exposed to Nextflow in the same way as other generic failures (returning for example, `exit code 1` on AWS). Nextflow will treat these failures like any other job failure unless you actively configure a retry strategy.
 
 **Impact on existing workflows**
-If you have been relying on silent Spot retries (the previous default behavior), you may now see more tasks fail with the following characteristics:
+If you rely on silent Spot retries (the previous default behavior), you may now see more tasks fail with the following characteristics:
 
 - **AWS**: Generic failure with `exit code 1`. You may see messages indicating the host machine was terminated.
 - **Google**: Spot reclamation typically produces a specific code, but is now surfaced as a recognizable task failure in Nextflow logs.
