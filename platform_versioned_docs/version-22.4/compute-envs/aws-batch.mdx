@@ -216,7 +216,7 @@ Jump to the documentation for [launching pipelines](../launch/launchpad.mdx).
 - You can set **Min CPUs** to be greater than `0`, in which case some EC2 instances will remain active. An advantage of this is that pipeline executions will initialize faster.
 
   :::caution
-  Setting Min CPUs to a value greater than 0 will keep the required instances active, even when not running your pipeline executions. Note that this will result in additional AWS charges.
+  Setting Min CPUs to a value greater than 0 will keep the required compute instances active, even when not running your pipeline executions. Note that this will result in additional AWS charges.
   :::
 
 - You can use **Head Job CPUs** and **Head Job Memory** to specify the hardware resources allocated for the Head Job.
