@@ -1,18 +1,18 @@
 ---
-title: "Legacy Tower container image registries"
-description: Legacy Tower container deployments
+title: "Legacy Seqera container image registries"
+description: Legacy Seqera container deployments
 date: "12 Apr 2023"
 tags: [on-prem, prerequisites, configuration]
 ---
 
 :::caution
-The Seqera container registry `cr.seqera.io` is the default Tower container image registry from version 22.4. AWS, Azure, and Google Cloud Tower image registries in existing installations are still supported but are deprecated for **new installations** from June 2023.
+The Seqera container registry `cr.seqera.io` is the default Seqera Enterprise container image registry from version 22.4. AWS, Azure, and Google Cloud Seqera image registries in existing installations are still supported but are deprecated for **new installations** from June 2023.
 :::
 
-???+ example "Legacy Tower image instructions"
+???+ example "Legacy Seqera image instructions"
 
     === "AWS"
-        Seqera publishes legacy Tower Enterprise containers to a private Elastic Container Registry (ECR) on AWS. Retrieve them with the following steps:
+        Seqera publishes legacy Seqera Enterprise containers to a private Elastic Container Registry (ECR) on AWS. Retrieve them with the following steps:
 
         1. **Provide Seqera with your AWS Account ID.**
 
@@ -53,11 +53,11 @@ The Seqera container registry `cr.seqera.io` is the default Tower container imag
                 ```
 
     === "Azure"
-        Seqera publishes legacy Tower Enterprise containers to a private Azure Container Registry instance. Retrieve them with the following steps:
+        Seqera publishes legacy Seqera Enterprise containers to a private Azure Container Registry instance. Retrieve them with the following steps:
 
         1. **Acquire credentials from Seqera.**
 
-            If you chose to retrieve your Tower Enterprise containers from Seqera's Azure Container Registry, you were supplied with a user ID and authentication token during the onboarding process.
+            If you chose to retrieve your Seqera Enterprise containers from Seqera's Azure Container Registry, you were supplied with a user ID and authentication token during the onboarding process.
 
         2. **Retrieve a local copy of the container.**
 
@@ -81,7 +81,7 @@ The Seqera container registry `cr.seqera.io` is the default Tower container imag
             ```
 
     === "Google Cloud"
-        Seqera publishes legacy Tower Enterprise containers to a private Artifact Registry (AR) on GCP. Retrieve them with the following steps:
+        Seqera publishes legacy Seqera Enterprise containers to a private Artifact Registry (AR) on GCP. Retrieve them with the following steps:
 
         5. **Provide Labs with your GCP Service Account.**
 
