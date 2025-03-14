@@ -285,7 +285,7 @@ Nextflow makes use of two job queues during workflow execution:
 - A head queue to run the Nextflow application
 - A compute queue where Nextflow will submit job executions
 
-While the compute queue can use a compute environment with Spot instances, the head queue requires an on-demand compute environment. If you intend to use an on-demand compute environment for compute jobs, the same job queue can be used for both head and compute.
+While the compute queue can use a compute environment with Spot Instances, the head queue requires an on-demand compute environment. If you intend to use an on-demand compute environment for compute jobs, the same job queue can be used for both head and compute.
 
 :::note
 Spot instances can significantly reduce your AWS compute costs, provided your workflow compute tasks can run on ephemeral instances.
@@ -296,7 +296,7 @@ Create a compute environment for each queue in the AWS Batch console:
 <Tabs>
 <TabItem value="Head queue with on-demand instances" label="Head queue with on-demand instances" default>
 
-The head queue requires an on-demand compute environment. Do not select **Use Spot instances** during compute environment creation.
+The head queue requires an on-demand compute environment. Do not select **Use Spot Instances** during compute environment creation.
 
 1. In the [Batch Console](https://eu-west-1.console.aws.amazon.com/batch/home), select **Create** on the Compute environments page.
 1. Select **Amazon EC2** as the compute environment configuration.
@@ -315,12 +315,12 @@ The head queue requires an on-demand compute environment. Do not select **Use Sp
 </TabItem>
 <TabItem value="Compute queue with Spot instances" label="Compute queue with Spot instances" default>
 
-Create this compute environment to use Spot instances for your workflow compute tasks. This compute environment cannot be assigned to the Nextflow head job queue.
+Create this compute environment to use Spot Instances for your workflow compute tasks. This compute environment cannot be assigned to the Nextflow head job queue.
 
 1. In the [Batch Console](https://eu-west-1.console.aws.amazon.com/batch/home), select **Create** on the Compute environments page.
 1. Select **Amazon EC2** as the compute environment configuration.
 1. Enter a name of your choice, and apply the `seqera-servicerole` and `seqera-instancerole`.
-1. Select **Enable using Spot instances** to use Spot instances and save computing costs.  
+1. Select **Enable using Spot instances** to use Spot Instances and save computing costs.  
 1. Select the `seqera-fleetrole` and enter vCPU limits and instance types, if needed.
 1. Expand **Additional configuration** and select the `seqera-launchtemplate` from the Launch template dropdown.
 1. Configure VPCs, subnets, and security groups on the next page as needed.
@@ -334,7 +334,7 @@ Create this compute environment to use Spot instances for your workflow compute 
 Create a Batch queue to be associated with each compute environment.
 
 :::note
-You only need to create one queue if you intend to use on-demand instances for your workflow compute tasks. Compute environments with Spot instances require separate queues for the head and compute tasks.
+You only need to create one queue if you intend to use On-Demand Instances for your workflow compute tasks. Compute environments with Spot Instances require separate queues for the head and compute tasks.
 :::
 
 <Tabs>

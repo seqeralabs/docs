@@ -215,7 +215,7 @@ Seqera Platform compute environments for AWS Batch include advanced options to c
 Specify the **Allocation strategy** and indicate any preferred **Instance types**. AWS applies quotas for the number of running and requested [Spot](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-limits.html) and [On-Demand](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-on-demand-instances.html#ec2-on-demand-instances-limits) instances per account. AWS will allocate instances from up to 20 instance types, based on those requested for the compute environment. AWS excludes the largest instances when you request more than 20 instance types.
 
     :::note
-    If these advanced options are omitted, allocation strategy defaults are `BEST_FIT_PROGRESSIVE` for On-Demand and `SPOT_CAPACITY_OPTIMIZED` for Spot compute environments.
+    If these advanced options are omitted, allocation strategy defaults are `BEST_FIT_PROGRESSIVE` for on-demand and `SPOT_CAPACITY_OPTIMIZED` for Spot compute environments.
     :::
     :::caution
     tw CLI v0.8 and earlier does not support the `SPOT_PRICE_CAPACITY_OPTIMIZED` allocation strategy in AWS Batch. You cannot currently use CLI to create or otherwise interact with AWS Batch Spot compute environments that use this allocation strategy.
@@ -247,7 +247,7 @@ Specify the **Allocation strategy** and indicate any preferred **Instance types*
 - Add an execution role ARN to the **Batch execution role** field to grant permissions to make API calls on your behalf to the ECS container used by Batch. This is required if the pipeline launched with this compute environment needs access to the secrets stored in this workspace. This field can be ignored if you are not using secrets.
 - Specify an EBS block size (in GB) in the **EBS auto-expandable block size** field to control the initial size of the EBS auto-expandable volume. New blocks of this size are added when the volume begins to run out of free space. This feature is deprecated, and is not compatible with Fusion v2.
 - Enter the **Boot disk size** (in GB) to specify the size of the boot disk in the VMs created by this compute environment.
-- If you're using **Spot** instances, you can also specify the **Cost percentage**, which is the maximum allowed price of a **Spot** instance as a percentage of the **On-Demand** price for that instance type. Spot instances will not be launched until the current spot price is below the specified cost percentage.
+- If you're using **Spot** Instances, you can also specify the **Cost percentage**, which is the maximum allowed price of a **Spot** instance as a percentage of the **On-Demand** price for that instance type. Spot Instances will not be launched until the current spot price is below the specified cost percentage.
 - Use **AWS CLI tool path** to specify the location of the `aws` CLI.
 - Specify a **CloudWatch Log group** for the `awslogs` driver to stream the logs entry to an existing Log group in Cloudwatch.
 - Specify a custom **ECS agent configuration** for the ECS agent parameters used by AWS Batch. This is appended to the `/etc/ecs/ecs.config` file in each cluster node.

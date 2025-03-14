@@ -137,7 +137,7 @@ Extensive benchmarking of Fusion v2 has demonstrated that the increased cost ass
 14. Select a **Provisioning model**. In most cases, this will be **Spot**. You can specify an allocation strategy and instance types under [**Advanced options**](#advanced-options). If advanced options are omitted, Seqera Platform 23.2 and later versions default to `BEST_FIT_PROGRESSIVE` for on-demand and `SPOT_CAPACITY_OPTIMIZED` for spot compute environments.
 
     :::note
-    You can create a compute environment that launches either spot or on-demand instances. Spot instances can cost as little as 20% of on-demand instances, and with Nextflow's ability to automatically relaunch failed tasks, spot is almost always the recommended provisioning model. Note, however, that when choosing spot instances, Seqera will also create a dedicated queue for running the main Nextflow job using a single on-demand instance to prevent any execution interruptions.
+    You can create a compute environment that launches either Spot or On-Demand Instances. Spot Instances can cost as little as 20% of On-Demand Instances, and with Nextflow's ability to automatically relaunch failed tasks, spot is almost always the recommended provisioning model. Note, however, that when choosing Spot Instances, Seqera will also create a dedicated queue for running the main Nextflow job using a single On-Demand Instance to prevent any execution interruptions.
     :::
 
 15. Enter the **Max CPUs**, e.g., `64`. This is the maximum number of combined CPUs (the sum of all instances' CPUs) AWS Batch will provision at any time.
@@ -228,7 +228,7 @@ tw CLI v0.8 and earlier does not support the `SPOT_PRICE_CAPACITY_OPTIMIZED` all
 - Add an execution role ARN to the **Batch execution role** field to grant permissions to make API calls on your behalf to the ECS container used by Batch. This is required if the pipeline launched with this compute environment needs access to the secrets stored in this workspace. This field can be ignored if you are not using secrets.
 - Specify an EBS block size (in GB) in the **EBS auto-expandable block size** field to control the initial size of the EBS auto-expandable volume. New blocks of this size are added when the volume begins to run out of free space.
 - Enter the **Boot disk size** (in GB) to specify the size of the boot disk in the VMs created by this compute environment.
-- If you're using **Spot** instances, you can also specify the **Cost percentage**, which is the maximum allowed price of a **Spot** instance as a percentage of the **On-Demand** price for that instance type. Spot instances will not be launched until the current spot price is below the specified cost percentage.
+- If you're using **Spot** Instances, you can also specify the **Cost percentage**, which is the maximum allowed price of a **Spot** Instance as a percentage of the **On-Demand** price for that instance type. Spot Instances will not be launched until the current spot price is below the specified cost percentage.
 - Use **AWS CLI tool path** to specify the location of the `aws` CLI.
 - Specify a **CloudWatch Log group** for the `awslogs` driver to stream the logs entry to an existing Log group in Cloudwatch.
 - Specify a custom **ECS agent configuration** for the ECS agent parameters used by AWS Batch. This is appended to the `/etc/ecs/ecs.config` file in each cluster node.
