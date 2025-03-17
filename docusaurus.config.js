@@ -205,8 +205,8 @@ export default async function createConfigAsync() {
           },
         };
       },
-      path.resolve(__dirname, "plugins_custom/seqera_jobs"),
-      path.resolve(__dirname, "plugins_custom/seqera_events"),
+      // path.resolve(__dirname, "plugins_custom/seqera_jobs"),
+      // path.resolve(__dirname, "plugins_custom/seqera_events"),
     ],
     themes: ["docusaurus-theme-openapi-docs"],
     themeConfig: {
