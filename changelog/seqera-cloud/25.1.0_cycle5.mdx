@@ -5,7 +5,7 @@ tags: [seqera cloud]
 ---
 
 
-## Feature updates and improvements
+### Feature updates and improvements
 
 **Studios**
   - Private sessions: When adding a new session, the number of concurrent connections can now be defined in the **General Config > Collaboration**.
@@ -14,6 +14,10 @@ tags: [seqera cloud]
 **Seqera Compute**
   - Updated Seqera Compute compute environment creation form with new fields: Advanced options, Pre/post run scripts, Nextflow config.
   - Added a **Features** tab to the admin workspace management page and a toggle with confirmation for enabling/disabling Seqera Compute.
+
+**Nextflow**
+  - Update `WfManifest` class in Tower to include the new `icon` property introduced in Nextflow.
+  - Add a new migration file to add the new icon column into all the tables of entities that use the `WfManifest` class as @Embedded property.
 
 - Audit log update: Publish a new *pipeline_updated* audit event whenever a user updates a pipeline.
 - AWS Cloud Provider compute environments: Support running the head job on AWS EC2 instances as an alternative to AWS Batch.
