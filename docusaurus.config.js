@@ -57,7 +57,7 @@ export default async function createConfigAsync() {
             copyright: `Copyright © ${new Date().getFullYear()} Seqera`,
             }
           },
-          docs: false,
+          // docs: false,
           theme: {
             customCss: [
               require.resolve("./src/css/main.css"),
@@ -70,7 +70,7 @@ export default async function createConfigAsync() {
             ],
           },
           docs: {
-            path: 'api',
+            path: './api_docs_test/api',
             sidebarPath: require.resolve(`./api_docs_test/api/sidebar.js`),
             docItemComponent: '@theme/ApiItem', // Ensures API entities render properly
           },
@@ -208,7 +208,7 @@ export default async function createConfigAsync() {
       path.resolve(__dirname, "plugins_custom/seqera_jobs"),
       path.resolve(__dirname, "plugins_custom/seqera_events"),
     ],
-
+    themes: ["docusaurus-theme-openapi-docs"],
     themeConfig: {
       image: "img/share.jpg",
       navbar: {
