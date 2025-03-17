@@ -11,10 +11,9 @@ Select the **Studios** tab in Platform to view all Studio sessions. The list inc
 
 This functionality is available to users with the **Maintain** role and above.
 
-To add a new Studio, complete the following steps:
+To add a new Studio, select the **Studios** tab in your workspace then select **Add Studio**.
 
-1. In a workspace, select **Studios**, and then select **Add Studio**.
-1. For the **Compute & Data** section, complete the following steps:
+### Compute and Data
 
    1. Customize the following fields:
       - **Select compute environment**: Only AWS Batch is supported.
@@ -29,7 +28,7 @@ To add a new Studio, complete the following steps:
 
    1. Select **Next**.
 
-1. For the **General config** section, complete the following steps:
+### General config
 
    - To use one of the Seqera-provided container templates, complete the following steps:
 
@@ -38,7 +37,8 @@ To add a new Studio, complete the following steps:
         - **Studio name**
         - Optional: **Description**
      1. Optional: Select **Install Conda packages** to enter or upload a list of Conda packages to include with the Studio. For more information on the syntax for specifying Conda packages, see [Conda package syntax][conda-syntax].
-        - **Session lifespan**: Depending on your workspace settings, you may be able to choose between the following options.
+     1. **Collaboration**: By default, all Studios are collaborative. This means all workspace users with the launch role and above can connect to the session. You can toggle **Private** on which means that only the workspace user who created the Studio can start and connect to it. When **Private** is on, workspace administrators can still start, stop, and delete sessions but cannot connect to them.
+     1. **Session lifespan**: Depending on your workspace settings, you may be able to choose between the following options.
           -  **Stop the session automatically after a predefined period of time.**
                - If there is an existing defined session lifespan workspace setting, you won't be able to edit this. If no workspace setting is defined, you can edit this field. The minimum value is 1 hour and the maximum is 120 hours. The default value is 8 hours. 
                - If you change the default value, the change applies only to that session. Once you've stopped the session, the value returns to default.
@@ -58,7 +58,8 @@ To add a new Studio, complete the following steps:
         - Optional: **Description**
      1. Select **Next**.
 
-1. For the **Summary** section, complete the following steps:
+### Summary
+
    1. Ensure that the specified configuration is correct.
    1. Save your configuration:
       - If you want to save the Studio for future use, select **Add only**.
