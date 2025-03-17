@@ -1,7 +1,7 @@
 ---
 title: "Studios deployment"
 description: Deploy Seqera Platform with Data studios
-date: "12 Jun 2024"
+date: "17 Mar 2025"
 tags: [docker, compose, kubernetes, data, studios, deployment]
 ---
 
@@ -33,16 +33,18 @@ You can configure which organizational workspaces have access to Studios. This c
 
 ## Available Studio environment images
 
-Each of the provided environments includes a particular version of the underlying data analytics software package.
+Each of the provided environments includes a particular version of the underlying software package and the version of Seqera Connect, an integrated web- and file-server.
 
-To quickly identify which version of the software an image includes, the version string for each container is in the form of `<software_version>-<seqera_version>`. For example, if the version string for the RStudio Server is `4.4.1-0.7.4`, version `4.4.1` is the RStudio version and `0.7.4` is the version of this Seqera-built container image.
+To quickly identify which version of the software an image includes, the version string for each container is in the form of `<software_version>-<seqera_connect_version>`. For example, if the version string for the RStudio Server is `4.4.1-0.8`, version `4.4.1` is the RStudio version and `0.8` is the Connect version of this Seqera-built container image. Learn more about Studios [environment versioning](../../latest/studios/index.mdx#container-image-templates).
 
 The latest environment versions are listed below:
 
-- JupyterLab: `public.cr.seqera.io/platform/data-studio-jupyter:4.1.5-0.7.4`
-- RStudio Server: `public.cr.seqera.io/platform/data-studio-rstudio:4.4.1-0.7.4`
-- Visual Studio Code: `public.cr.seqera.io/platform/data-studio-vscode:1.83.0-0.7.4`
-- Xpra: `public.cr.seqera.io/platform/data-studio-xpra:6.0-r0-1-0.7.4`
+- JupyterLab: `public.cr.seqera.io/platform/data-studio-jupyter:4.2.5-0.8`
+- RStudio Server: `public.cr.seqera.io/platform/data-studio-rstudio:4.4.1-0.8`
+- Visual Studio Code: `public.cr.seqera.io/platform/data-studio-vscode:1.93.0-0.8`
+- Xpra: `public.cr.seqera.io/platform/data-studio-xpra:6.2-r2-1-0.8`
+
+When adding a new Studio, the latest environment versions are tagged `recommended`, and earlier compatible versions are tagged `deprecated`.
 
 ## Docker Compose
 
