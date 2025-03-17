@@ -4,21 +4,39 @@ date: 2025-03-19
 tags: [seqera cloud]
 ---
 
+:::note
+From Wednesday, February 26, 2025, Seqera endpoints no longer support Windows XP and Safari versions 8 and below (including OSx 10.10 or older). This change is necessary to ensure the security and performance of our services. We recommend updating your operating system and browser version to ensure uninterrupted access to our services.
+
+Affected endpoints: 
+- cr.seqera.io
+- *.connect.cloud.seqera.io
+- intern.seqera.io
+- ai.seqera.io
+- hub.seqera.io
+- cloud.seqera.io
+- api.cloud.seqera.io
+- user-data.cloud.seqera.io
+- tower.nf
+- api.tower.nf
+- public.cr.seqera.io
+- auth.cr.seqera.io
+- wave.seqera.io
+- licenses.seqera.io
+- licman.seqera.io
+- api.multiqc.info
+:::
 
 ### Feature updates and improvements
 
-**Studios**
+- **Studios**
   - Private sessions: When adding a new session, the number of concurrent connections can now be defined in the **General Config > Collaboration**.
-  - Dynamic studio templates: Labels have been added to indicate the status of support (e.g., *Recommended*, *Deprecated*) for a Studio template version. Users can now also switch the Studio's base template image when starting a session as new. 
-
-**Seqera Compute**
+  - Dynamic studio templates: Labels have been added to indicate the status of support (e.g., *Recommended*, *Deprecated*) for a Studio template version. Users can now also switch the Studio's base template image when starting a session as new.
+- **Seqera Compute**
   - Updated Seqera Compute compute environment creation form with new fields: Advanced options, Pre/post run scripts, Nextflow config.
   - Added a **Features** tab to the admin workspace management page and a toggle with confirmation for enabling/disabling Seqera Compute.
-
-**Nextflow**
+- **Nextflow**
   - Update `WfManifest` class in Tower to include the new `icon` property introduced in Nextflow.
   - Add a new migration file to add the new icon column into all the tables of entities that use the `WfManifest` class as @Embedded property.
-
 - Audit log update: Publish a new *pipeline_updated* audit event whenever a user updates a pipeline.
 - AWS Cloud Provider compute environments: Support running the head job on AWS EC2 instances as an alternative to AWS Batch.
 - Added `totalProcesses` count to workflow progress responses.
@@ -31,4 +49,3 @@ tags: [seqera cloud]
 - Fixed a bug where resource labels were erroneously editable for the maintain role when starting an existing Studio.
 - Fixed a potential `NullPointerException` on code related to Google Batch, where the method is expected to return `null`.
 - Fixed an issue where users were not able to remove the organization logo.
-09a8fb05ee bug: Fixed an issue where create/update pipeline would fail if the re… 2cc1d73b17 
