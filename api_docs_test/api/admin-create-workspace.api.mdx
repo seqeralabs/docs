@@ -1,0 +1,71 @@
+---
+id: admin-create-workspace
+title: "Create workspace"
+description: "Creates a new workspace in the given organization."
+sidebar_label: "Create workspace"
+hide_title: true
+hide_table_of_contents: true
+api: eJztVm1v0zAQ/iuRxQcm9SUd4y0SggJDTCA2dQUkykBucm29JXZmO9tKyH/nzkmT9IXx8okPfGnj89357rnnfM5ZBCbUIrVCSRawFxq4BeNxT8K1d630hUl5CJ6Qnl2ANxdXID2l51yKb5xseqzDVAraLY4idDGMEiFLPx9X9qiUcs0TsKANCyY5k7hAZXSFRh0m6PCU2wV+r0d03DrMk1kCWoSeiEBaMROgUV/DZSY04NlWZ9BhJlxAwlmQM7tM6RAhLcyd6kzphNtS9OCAFcVZaQ7GPlfRkmzWT68z8ELKiGKo9NFbqNCxtGTF0zQWoVPonxsyzbfjUNNzCMkw1QSZFWBot0aZFk0yEzbL4vgd4dQp4eqwK2HEVMTCLhlGfrtbEf0OBOgaT+HTGEr4iuosNE34zVuQc6xJcOBTAS1Wj0D5MuHdb8Pup8+fo7O7T4PW6vuk+xVFT1qivb180Ln3qLjD6oCN1ULOGR5VZ7h+3MD3dyivVWZTf5dBC60GiWq7wwDJRCifjI4+DMeHKDl9PRwdvnTICkuAsA+NBwoAKV0SO9rlsEaW9LpWYFpoFHNj36fRnxgVTQBNB7WlG901qhhZkM56NziBSZU0JSn2fX+b5Mdv/pP5P5n/GTKXdCU2k5qBMNMua5waz4Fr0MOMcJqc0e2NI2WhaOykyt3JboYErM9pCvVxvJh+7oZM0a+paVjj9pR4XXKs7bzObWFtyqqZQuupU0JJ+fFqlfH5tXVZUb+MmolyeMOTNIatziA++yt2tgCsKdTI1nu1Frf50Cr7Wlmx3fcPuv7D7v7j8eB+cH8Q7D/q+Q8Hn9hGKX+uSDkJOVMOkqpip3CJA98bnhxthVdtpTG3RAbPgL4SiHilTJcMD90lk+m4gtcE/b5xdj2hiMsJF7Hr6Zl61mxQD+DroTxn0Hvc80lEZU+466EKzDL75u2yGWPeXHV/99ypmGHhxvYxUXy6YBwunbyi34Q5+tHTCAmIf8HqndPiIJJ3QZxF7TyfcgPvdVwUJEb2aOI7fl5xLcr7DNkfCUPfWK8Zjw3cktfdUXXz7nm/fj/tzKcScrkkrvE4oxV+XsCyfrYVZ6i4AB6hG4qv3HtRRtEdk4fGdmuoFJ2VxTAMIbW36rY7/eT4dEwNWD3YEhWRjebX9BbEXxencqi4vnayHAkv5xmfk27pk6jN17t9o7tdVjuRwIo5jbG6AIlVWwFjaU3AFMUPyjbXgA==
+sidebar_class_name: "post api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Create workspace"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/admin/orgs/{orgId}/workspaces"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Creates a new workspace in the given organization.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Workspace creation request","content":{"application/json":{"schema":{"type":"object","properties":{"workspace":{"required":["fullName","name","visibility"],"type":"object","properties":{"id":{"type":"integer","format":"int64","nullable":true},"name":{"maxLength":40,"pattern":"^[a-zA-Z\\d](?:[a-zA-Z\\d]|[-_](?=[a-zA-Z\\d])){1,38}$","type":"string"},"fullName":{"maxLength":100,"type":"string"},"description":{"maxLength":1000,"type":"string"},"visibility":{"type":"string","enum":["PRIVATE","SHARED"],"title":"Visibility"},"dateCreated":{"type":"string","format":"date-time"},"lastUpdated":{"type":"string","format":"date-time"}},"title":"Workspace"}},"title":"CreateWorkspaceRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"workspace":{"required":["fullName","name","visibility"],"type":"object","properties":{"id":{"type":"integer","format":"int64","nullable":true},"name":{"maxLength":40,"pattern":"^[a-zA-Z\\d](?:[a-zA-Z\\d]|[-_](?=[a-zA-Z\\d])){1,38}$","type":"string"},"fullName":{"maxLength":100,"type":"string"},"description":{"maxLength":1000,"type":"string"},"visibility":{"type":"string","enum":["PRIVATE","SHARED"],"title":"Visibility"},"dateCreated":{"type":"string","format":"date-time"},"lastUpdated":{"type":"string","format":"date-time"}},"title":"Workspace"}},"title":"CreateWorkspaceResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

@@ -1,0 +1,71 @@
+---
+id: admin-delete-organization
+title: "Delete organization"
+description: "Deletes the given organization."
+sidebar_label: "Delete organization"
+hide_title: true
+hide_table_of_contents: true
+api: eJyNU01v2zAM/SuCThsQxNlQDJhPy9AMKDZgw9qdghwUm4m52pIj0dkyQ/99pOymSdp9nCxRj+Tj43OvSwiFx5bQWZ3ra6iBICiqQG1xD1Y5vzUWfxkBTPVEuxZ8utyUjJ+XDdoh6fMJkHGt8abhsA86X/ba8oXxXI3zJhqlWWuo4vM5g9MyynYNeCwUlmAJNwie8R52HXrg9uQ7mOhQVNAYnfeaDq00QUuwTdCN842hIfTmSse4kvTQOhsgSMbr2Uw+FxQ+6jjhp6unT3+YVzFYPRTmNkwKis4jHdLw78F48POOx82XKyHBylROBCxTraSXvOrMSIeMdQpZn9SK+rHarYw6MD+teZy8Imr1qIjc1wnEkeHw4UGO7z8osUS7cSkdqRb8Lex4u2r+5ebJXsantjYkqqoAfo8FW2UAF86SKUiKdb4eqYQ8y0LKm6JjEK8J67SNjXv3+MBE9uyToc+r6dvpTEKtC9QYKxVH8wy6nznykmafiLBZ/svLo2oEPynjwdiU3DfR78d9LHXah/ieN8KffHAwr7BifgLo+7UJ8M3XMUp414GXrfNxbzyatQjLHigxyJl3vjF1gL/wfvF1NPhL9e+f4dkRxqCxBy0s6k5ufLyHw/EfjKt4YsPrxafF3YIh5txQFwZKkzxbnVVIiDt3DzbGYzOSuzSL8Tfn14PF
+sidebar_class_name: "delete api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Delete organization"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/admin/orgs/{orgId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Deletes the given organization.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK"},"204":{"description":"AdminDeleteOrganization 204 response"}}}
+>
+  
+</StatusCodes>
+
+
+      

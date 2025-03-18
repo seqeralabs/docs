@@ -1,0 +1,71 @@
+---
+id: validate-workflow-constraints
+title: "Check that the given run name of a workflow has a valid format. When the session ID is given: check that no other workflow in the system exists with the combination of both elements"
+description: "Check that the given run name of a workflow has a valid format. When the session ID is given: check that no other workflow in the system exists with the combination of both elements"
+sidebar_label: "Check that the given run name of a workflow has a valid format. When the session ID is given: check that no other workflow in the system exists with the combination of both elements"
+hide_title: true
+hide_table_of_contents: true
+api: eJzVVUtv2zAM/iuCzlmSDb00p/WRDcGAbli79VD0oNhMrMSWXIlOGhj57yNlOXaWbit22i6JKZEfyY8P1dKW4BRqa2apnMjvKtepQri3br3I7fbKGo9OaYNeDmSpnCoAwXk5eailIYFsXGVu+GsgtSHxqQK3IyEFnzhdMjSdtoCCtAUbCrRiE72Rtk8yKJSc1BJ3JaOSW22Wcr8fHBx58L4J9HWuor6YXb/a2eNAOvAlZQ2e79+Nz/jv2MHnT+KNuLEisQbBoNwP5Nl4fKp3qVLhgIL0OBQzEwLo8l9YVyikaFoYsldlmesklGO08gxS94JlLO2A6vQgC8pNLUFSwDEHO19Bwnil45qibjJoFV9iVqLGnI+mzln3NSZON/uQ0vlpStdVEyCkAnIoKOyhmD5rj4TYpaZM2ic/scVcm5DVv5ouXXpIKqdxF1r7EpQDd1FhRuIjt8UxD1cZJGuBmUL6AbHUGzBd/nYhlNi2bZgpT2JT/aboQ3GfkT5b9mjSvsGZiKRDN1ZY0nMdnI6GO49QCGDyvdhqzMJxj2sOY07GbaV4gml6M8uDvoTAneIE5agFH/WHJPJxywVpyO2zcuA3QyzbmWJ5HpTopPn40LT5RK62GIqgzcIG81iMW3iiDSQuvsxOJjlelblCJo7IchudgI/K3EkqCZ1UuTyG4iejkQ92Q21JiZpJ8x27fd9dUCAb2mONn7fD8+GYj0rrsVChD+PO+V8LfUTkoVYIzzgiOml7UraBtDo2wYNsHZP1oQ2o8TPihK/req48fHP5fs/Hze7lWUm1V/Oc53Shcg8nvg8D/8dH4MUo17A7emRIv2ItyS/DX/j+5avwG+/9l6fz/8iC0xxA2BLEFaiUep9ZaQwvkgRK7FmdrDxGOUzlx+kd6arjAftpoAJ6vFJm18OmCgWNO7sGQ1Vqo0eWyRGtuR/lEcL6
+sidebar_class_name: "get api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Check that the given run name of a workflow has a valid format. When the session ID is given: check that no other workflow in the system exists with the combination of both elements"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/workflow/validate"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Check that the given run name of a workflow has a valid format. When the session ID is given: check that no other workflow in the system exists with the combination of both elements
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"runName","in":"query","description":"Workflow run name to validate","schema":{"type":"string"}},{"name":"sessionId","in":"query","description":"Workflow session ID to validate","schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request. Invalid run name format","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"409":{"description":"Duplicated element. Existing run name and session ID combination","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

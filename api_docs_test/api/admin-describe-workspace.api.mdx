@@ -1,0 +1,71 @@
+---
+id: admin-describe-workspace
+title: "Describe workspace"
+description: "Retrieves the details of the given workspace."
+sidebar_label: "Describe workspace"
+hide_title: true
+hide_table_of_contents: true
+api: eJyVVVlv00AQ/ivWiodWSuIUEAJLCAwtUIGgSg8k0oA29iTZ1ld3x2mD8X9nZu3azqFCX9qd8TfXN0cKEYIJtMpQpYnwxAhQK1iCcXABTggoVWScdGbFuVpC4tym+tpkMoCB6Ik0Ay3Z9jgkaz+MVXJoHU7h+z2OYJnUMgYEbYQ3LkRCAsEbT2TcE4rjZxIX9F5PqvHkJHkMWgWOCiFBNVOgCazhJlcaKAHUOfSECRYQS+EVAlcZx1EJwtxCZ6mOJVaqF89FWU7Y3GRpYsCwxdPhkP+tx//2mUyDlLwkyF9llkUqsGW7V4YhxXbQdHoFAXLtmklCVQVoamahzXwsZnkUfWVeehU9PbFURk1VpHAlKM2H3arwf+ol1xRFTiOouCrrWGQay7svkMyJfe/5kBuG1C0u/udY9n/7/R+Xl+Fk743Xkf6M+79I9bqj2t8vDnrPXpZPRJOwoYFK5oJCNRWuhzsYDneA1zqwid9l0GGrZaL+3BNAk8Msn4yOL/yzI9KcfvJHR4eWWYVMiLhoPXACEuG9Bvob7nLYMMu4Pioqi4wiafA8Cx9jVLYJtBvT1W7t06geWEKVDDQQ5NrWTav1DqQG7efM1HjC8017t0h5O+dg54Y3zBOu5F11m3E0btFZx1K0bk95sqsp6zpvqlsgZqLeOpanFkSa6vHhvuarW7R1qWSWWvO6vlO4oRvi+CfHW4tff8oiiUydY0AvFeVag3klZWBXMtdRnYrxXNdYu4FKufMxnTC7AbP0bfuBJ4bOURXnYPBqMGRVlhqMpZ24+kbds9+evc0si/Y0PPp81hQi3KFLVdIJpCRsLUXdqLGwjSJs2yoSvO7tpCYvKHEGF8VUGjjXUVmy+iYHzXNBz6XUqtp8mpJQGX7TVMxkZOCBivZG9Y3ad/5xhnfWUitlsuKDJqOcJXpew2rjB6CcEHwBMiRnnGKF8IMAMuzYbt3etRH/eHRGWLk+oBsDab3vzIvIs4iz9BqSsmzSRJY5wbL8CwlkdRA=
+sidebar_class_name: "get api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Describe workspace"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/admin/workspaces/{workspaceId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Retrieves the details of the given workspace.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"path","description":"Workspace numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"workspace":{"required":["fullName","name","visibility"],"type":"object","properties":{"id":{"type":"integer","format":"int64","nullable":true},"name":{"maxLength":40,"pattern":"^[a-zA-Z\\d](?:[a-zA-Z\\d]|[-_](?=[a-zA-Z\\d])){1,38}$","type":"string"},"fullName":{"maxLength":100,"type":"string"},"description":{"maxLength":1000,"type":"string"},"visibility":{"type":"string","enum":["PRIVATE","SHARED"],"title":"Visibility"},"dateCreated":{"type":"string","format":"date-time"},"lastUpdated":{"type":"string","format":"date-time"}},"title":"Workspace"}},"title":"DescribeWorkspaceResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

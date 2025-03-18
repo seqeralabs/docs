@@ -1,0 +1,71 @@
+---
+id: update-trace-heartbeat
+title: "Period request to signal the execution is still on-going"
+description: "Period request to signal the execution is still on-going"
+sidebar_label: "Period request to signal the execution is still on-going"
+hide_title: true
+hide_table_of_contents: true
+api: eJztV1Fv2zYQ/iuCnjbAjbm2GDA/Lek6rBiGBWmCPRh5OEtnmwlFKiSVxBD033tHSZYUeYncBhiw7SWIqY933x153x3L2ORowUujP6XxIr7KU/B4aSHB3xCsXyH4eBbnYCFDj9bFi2UZa/pB4Adjb9fKPNDOWSw1reTgt/R/ii6xMmertPhXA4uct1JvIpmi9nIt0RLU4l0hLZJvbwucxS7ZYgbxooz9Lmcn9aa4qmYDvy4nip3juwLt7qDnAIx0kaGVydD3yJfUHjfh09rYjCIPSz++J+/XNVV0/sykO94zdBVSFm3bnEUNmEwlhqxqz1sgz5VMQrbnN473lWMSZnWDSUi65bPxEh1/pV8bi85NQKJOOWUvxfXubVxREopVJr3nE5iEt4XWx1hPEsR0svUEKB1TwWuQajIYVsZOj9J5YyeD5UYfgbZINxrdRLQykH7Ii5fhfEtr+B+YGbubuCFHuL046kh5xxGMGH4cI2sSuueDDIG1wOUtPWYTKkDqFB8nhlNrykhuZv+X0b+pjKh1ZVLDkPnKGIWg/4tlximRXmHbuc6b7vILeroN9P1vAeBhvH0/K1w0bS8YGPb2sOByo5vSfivEuI3++fvrdcyM6MLmUHE/Q78myPwJ9P4QxTNIv6a7d8lY7pnRUPEKIXy01tgR83cHktuOepE2PgJFMxnxYbjDpLDS78J0d0bZQHta0Ci3WF7z5DM0c06TlNnnIPImclS6oCK/xQgfyVTwIR0NfFKpyOg3G8OkZxSP3xqeM/OiHivZRzz3fAjzspsnq/m2N3227D5zMuvE9Dnuc7P1Pm/HulDfAUQr9T+/tjVw8+BD1HxIF91Q9/ERslzh02Fr3wfEQOVFT8PFQKFFp7+iU1fR007RKaPo6Z7oqZroa5IYKo54oieirxZiqAVi0FCX+94o2s7X3qjZPxdoX5zrV8DrhF5d8ylLvTbhkjTl8hnvqAyi0/NPo/dC8ylX4FkwI4f2XlLuGjDXOiSh1gurmgvnFvO5C/tOpCEQlbtUQWjX5ufuAxG5p+dT7eeHk59ORFBt43wGQSma0/iG4hrEsi8Kj49+ThHJ0OcC77IpvGUcCo+2LgZPua72qPa3RJGhZbkCh1dWVRUv1w8uvlCpdLAKJ78G5XDEY6+QLz3HDhK+xd3oxXcPqmBkzNp0D1ay/yO5fHfR6PH30bPv04Ok2qlU7/ps+mSbXNINDOlMyRbzqwEfahZvLtlMZ2DUP/jJW+84pZrL/bPY6566nl9dsuo1D9XMpLzFwgO/t+lv4GpCUoLChbUyVqA3Reg2cW2SqweGEvtEUkNQB7NB1yUgLs0taroybXI8/+a8VNUXLXyYfg==
+sidebar_class_name: "put api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Period request to signal the execution is still on-going"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"put"}
+  path={"/trace/{workflowId}/heartbeat"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Period request to signal the execution is still on-going
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workflowId","in":"path","description":"Workflow string identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Trace heartbeat request","content":{"application/json":{"schema":{"type":"object","properties":{"progress":{"type":"object","properties":{"pending":{"type":"integer","format":"int32"},"submitted":{"type":"integer","format":"int32"},"running":{"type":"integer","format":"int32"},"succeeded":{"type":"integer","format":"int32"},"cached":{"type":"integer","format":"int32"},"failed":{"type":"integer","format":"int32"},"aborted":{"type":"integer","format":"int32"},"stored":{"type":"integer","format":"int32"},"ignored":{"type":"integer","format":"int32"},"retries":{"type":"integer","format":"int32"},"loadCpus":{"type":"integer","format":"int64"},"loadMemory":{"type":"integer","format":"int64"},"peakRunning":{"type":"integer","format":"int32"},"peakCpus":{"type":"integer","format":"int64"},"peakMemory":{"type":"integer","format":"int64"},"processes":{"type":"array","items":{"type":"object","properties":{"index":{"type":"integer","format":"int32"},"name":{"type":"string"},"pending":{"type":"integer","format":"int32"},"submitted":{"type":"integer","format":"int32"},"running":{"type":"integer","format":"int32"},"succeeded":{"type":"integer","format":"int32"},"cached":{"type":"integer","format":"int32"},"failed":{"type":"integer","format":"int32"},"aborted":{"type":"integer","format":"int32"},"stored":{"type":"integer","format":"int32"},"ignored":{"type":"integer","format":"int32"},"retries":{"type":"integer","format":"int32"},"terminated":{"type":"boolean"},"loadCpus":{"type":"integer","format":"int64"},"loadMemory":{"type":"integer","format":"int64"},"peakRunning":{"type":"integer","format":"int32"},"peakCpus":{"type":"integer","format":"int64"},"peakMemory":{"type":"integer","format":"int64"}},"title":"TraceProgressDetail"}}},"title":"TraceProgressData"}},"title":"TraceHeartbeatRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"message":{"type":"string"}},"title":"TraceHeartbeatResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      
