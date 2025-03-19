@@ -34,7 +34,7 @@ Affected endpoints:
 - **Nextflow**
   - Update `WfManifest` class to include the new `icon` property introduced in Nextflow.
   - Add a new migration file to add the new icon column into all the tables of entities that use the `WfManifest` class as @Embedded property.
-- Audit log update: Publish a new *pipeline_updated* audit event whenever a user updates a pipeline.
+- Audit log update: Pipeline edit events are now logged.
 - Added `totalProcesses` count to workflow progress responses.
 - Switch AWS Batch compute environment dependencies to AWS SDK v2.
 - New workflow job monitoring collects and publishes Platform metrics.
