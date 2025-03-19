@@ -9,26 +9,51 @@ import AiIcon from "../../theme/Navbar/Layout/SeqeraHeader/HeaderDesktop/NavItem
 // import algoliasearch from "algoliasearch/lite";
 import {algoliasearch} from 'algoliasearch';
 
-// Define environment variable types
-declare global {
-  interface ImportMeta {
-    env: {
-      PUBLIC_ALGOLIA_APP_ID: string;
-      PUBLIC_ALGOLIA_API_KEY: string;
-    };
-  }
-}
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
-// const appId = import.meta.env.PUBLIC_ALGOLIA_APP_ID;
-// const apiKey = import.meta.env.PUBLIC_ALGOLIA_API_KEY;
+
+// Define environment variable types
+// declare global {
+//   interface ImportMeta {
+//     env: {
+//       PUBLIC_DOCUSAURUS_ALGOLIA_APP_ID: string;
+//       PUBLIC_DOCUSAURUS_ALGOLIA_API_KEY: string;
+//       PUBLIC_DOCUSAURUS_ALGOLIA_INDEX_NAME: string;
+//     };
+//   }
+// }
+
+// const {
+//   siteConfig: {customFields},
+// } = useDocusaurusContext();
+
+
+// // Add proper type assertions
+// const {siteConfig} = useDocusaurusContext();
+// const algoliaConfig = siteConfig.customFields?.algolia as any || {};
+// const appId = algoliaConfig.appId as string;
+// const apiKey = algoliaConfig.apiKey as string;
+// const envIndexName = algoliaConfig.indexName as string;
+
+
 // Initialize the client the correct way
-const searchClient = algoliasearch(appId, apiKey);
+// const searchClient = algoliasearch(appId, apiKey);
 
 // Add getRecommendations method manually
-// searchClient.getRecommendations = async () => ({ results: [] });
-(searchClient as any).getRecommendations = async () => ({ results: [] });
+// (searchClient as any).getRecommendations = async () => ({ results: [] });
 
 export default function Search() {
+  const {siteConfig} = useDocusaurusContext();
+  const algoliaConfig = siteConfig.customFields?.algolia as any || {};
+  const appId = algoliaConfig.appId as string;
+  const apiKey = algoliaConfig.apiKey as string;
+  const envIndexName = algoliaConfig.indexName as string;
+
+  const searchClient = algoliasearch(appId, apiKey);
+
+  (searchClient as any).getRecommendations = async () => ({ results: [] });
+
+  
   const [isOpen, setIsOpen] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -168,7 +193,7 @@ export default function Search() {
                         searchClient,
                         queries: [
                           {
-                            indexName: 'Docs crawler',
+                            indexName: envIndexName,
                             params: {
                               query,
                               hitsPerPage: 4,
