@@ -7,6 +7,10 @@ tags: [troubleshooting, help]
 
 ## Common errors
 
+**_timeout is not an integer or out of range_** or **_ERR timeout is not an integer or out of range_**
+
+This error can occur if you're using Seqera Platfrom v24.2 upwards and have an outdated version of Redis. From v24.2 Redis version 6.2 or greater is required. Follow your cloud provider specifications to upgrade your instance.
+
 **_Unknown pipeline repository or missing credentials_ error from public GitHub repositories**
 
 GitHub imposes [rate limits](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting) on repository pulls (including public repositories), where unauthenticated requests are capped at 60 requests/hour and authenticated requests are capped at 5000 requests/hour. Seqera Platform users tend to encounter this error due to the 60 requests/hour cap.

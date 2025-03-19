@@ -11,13 +11,13 @@ Select the **Studios** tab in Platform to view all Studio sessions. The list inc
 
 This functionality is available to users with the **Maintain** role and above.
 
-To add a new Studio, complete the following steps:
+To add a new Studio, select the **Studios** tab in your workspace then select **Add Studio**.
 
-1. In a workspace, select **Studios**, and then select **Add Studio**.
-1. For the **Compute & Data** section, complete the following steps:
+### Compute and Data
 
    1. Customize the following fields:
-      - **Select compute environment**: Only AWS Batch is supported.
+      - **Select compute environment**: Only AWS Batch (without Fargate enabled) is supported.
+      - **Define resource labels**: Any [resource label](../labels/overview) already defined for the compute environment is added by default. Additional custom resource labels can be added or removed as needed.
       - **CPUs allocated**: The default allocation is 2 CPUs.
       - **GPUs allocated**: Available only if the selected compute environment has GPU support enabled. For more information about GPUs on AWS, see [Amazon ECS task definitions for GPU workloads][aws-gpu]. The default allocation is 0 GPUs.
       - **Maximum memory allocated**: The default allocation is 8192 MiB of memory.
@@ -29,7 +29,7 @@ To add a new Studio, complete the following steps:
 
    1. Select **Next**.
 
-1. For the **General config** section, complete the following steps:
+### General config
 
    - To use one of the Seqera-provided container templates, complete the following steps:
 
@@ -38,7 +38,8 @@ To add a new Studio, complete the following steps:
         - **Studio name**
         - Optional: **Description**
      1. Optional: Select **Install Conda packages** to enter or upload a list of Conda packages to include with the Studio. For more information on the syntax for specifying Conda packages, see [Conda package syntax][conda-syntax].
-        - **Session lifespan**: Depending on your workspace settings, you may be able to choose between the following options.
+     1. **Collaboration**: By default, all Studios are collaborative. This means all workspace users with the launch role and above can connect to the session. You can toggle **Private** on which means that only the workspace user who created the Studio can connect to it. When **Private** is on, workspace administrators can still start, stop, and delete sessions but cannot connect to them.
+     1. **Session lifespan**: Depending on your workspace settings, you may be able to choose between the following options.
           -  **Stop the session automatically after a predefined period of time.**
                - If there is an existing defined session lifespan workspace setting, you won't be able to edit this. If no workspace setting is defined, you can edit this field. The minimum value is 1 hour and the maximum is 120 hours. The default value is 8 hours. 
                - If you change the default value, the change applies only to that session. Once you've stopped the session, the value returns to default.
@@ -58,10 +59,11 @@ To add a new Studio, complete the following steps:
         - Optional: **Description**
      1. Select **Next**.
 
-1. For the **Summary** section, complete the following steps:
+### Summary
+
    1. Ensure that the specified configuration is correct.
    1. Save your configuration:
-      - If you want to save the Studio for future use, select **Add only**.
+      - To not immediately start the session, select **Add only**.
       - If you want to save and immediately start the Studio, select **Add and start**.
 
 You'll be returned to the Studios landing page that displays the list of Studio sessions in your workspace. Select a Studio to inspect its configuration details. The Studio you created will be listed with a status of either **stopped** or **starting**, based on whether you elected to **Add** it or to **Add and start** a session as well.
@@ -98,7 +100,7 @@ When adding a new session from an existing session or checkpoint, the following 
 
 To add a new session from an existing **stopped** session, complete the steps described in [Add a Studio](#add-a-studio).
 
-Additionally, you can add a new session from any existing Studio checkpoint except the currently running checkpoint. From the detail page, select the **Checkpoints** tab and in the **Actions** column, select **Start as new Studio**. This is useful for interactive analysis experimentation without impacting the state of the original Studio.
+Additionally, you can add a new session from any existing Studio checkpoint except the currently running checkpoint. From the detail page, select the **Checkpoints** tab and in the **Actions** column, select **Add as new Studio**. This is useful for interactive analysis experimentation without impacting the state of the original Studio.
 
 ## Connect to a Studio
 
@@ -140,7 +142,7 @@ This functionality is available to users with the **Maintain** role and above. W
 
 This functionality is available to users with the **Maintain** role and above.
 
-You can start a new session from an existing stopped session. This will inherit the history of the parent checkpoint state. From the list of **stopped** Studios in your workspace, select the three dots next to the status message for the Studio you want to start and select **Start as new**. Alternatively, select the **Checkpoints** tab on the detail page, select the three dots in the **Actions** column, and then select **Start as new** to start a new session.
+You can start a new session from an existing stopped session. This will inherit the history of the parent checkpoint state. From the list of **stopped** Studios in your workspace, select the three dots next to the status message for the Studio you want to start and select **Add as new**. Alternatively, select the **Checkpoints** tab on the detail page, select the three dots in the **Actions** column, and then select **Add as new Studio** to start a new session.
 
 ## Delete a Studios
 
@@ -166,9 +168,41 @@ To limit read-write access to a specific subdirectory, complete the following st
 
 When defining a new Studio, you can configure the **Mounted data** by selecting the custom data-link created by the previous steps.
 
+## Migrate a Studio from an earlier container image template
+
+As Studios matures and new versions of JupyterLab, RStudio Server, Visual Studio Code, and Xpra are released, new Seqera-provided image templates will be periodically released including updated versions of Seqera Connect. The most recent container template images will be tagged `latest` and earlier template images will be tagged `deprecated`.
+
+:::tip
+Always use the `latest` tagged template image for new Studios. Only two earlier minor versions of [Seqera Connect][connect] are supported by Seqera.
+:::
+
+To migrate a Studio to a more recent container version and Seqera Connect:
+
+1. Select the Studio that you wish to migrate from the list of Studios.
+1. Select **Add as new**. By default this selects the latest session checkpoint.
+1. In the **General config** section, change the image template selection in the dropdown list to use the `latest` tagged version of the same interactive environment.
+1. For the **Summary** section, ensure that the specified configuration is correct.
+1. Immediately start the new, duplicated Studio session by selecting **Add and start**.
+1. **Connect** to the new running Studio session.
+   1. Make a note of any package or environment errors displayed.
+1. **Stop** the running Studio session.
+1. Go back to the original Studio:
+   1. **Start** the session.
+   1. **Connect** to the session.
+   1. Uninstall any packages related to the errors:
+      1. JupyterLab: Execute `!pip uninstall <packagename>` or `apt remove <packagename>` to uninstall system-level packages.
+      1. RStudio Server: Execute `uninstall.packages("<packagename>")` to uninstall R packages or `apt remove <packagename>` to uninstall system-level packages.
+      1. Visual Studio Code: Select the **Manage** gear button at the right of an extension entry and then choose **Uninstall** from the dropdown menu.
+      1. Xpra: Use `apt remove <packagename>` to uninstall system-level packages.
+   1. **Stop** the running Studio session. A new checkpoint is created.
+1. Repeat Step 1 **Add as new** using the new, most recent created checkpoint from the steps above.
+
+:::warning
+Due to the nature of fully customizable, containerized applications, users can modify environments leading to a variety of configurations and outcomes. This is therefore a best effort to support Studio migrations and a successful outcome is not guaranteed.
+:::
 
 {/* links */}
 [aws-gpu]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-gpu.html
-
 [conda-syntax]: ./custom-envs.mdx#conda-package-syntax
 [custom-image]: ./custom-envs.mdx#custom-containers
+[connect]: ./index.mdx#container-image-templates
