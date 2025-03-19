@@ -13,6 +13,8 @@ import ForumIcon from "./images/ForumIcon.svg";
 import PipelinesIcon from "./images/PipelinesIcon.svg";
 import LoginButton from "./LoginButton";
 
+import Search from "@site/src/components/Search/Search";
+
 import styles from "./styles.module.css";
 
 const NavItems = ({ isDark = false, hideMenu }) => {
@@ -56,7 +58,10 @@ const NavItems = ({ isDark = false, hideMenu }) => {
           </nav>
         )}
       </div>
-      {!hideMenu && <LoginButton isDark={isDark} />}
+      <div className="flex items-center">
+        <Search />
+        {!hideMenu && <LoginButton isDark={isDark} />}
+      </div>
     </div>
   );
 };
