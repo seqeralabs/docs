@@ -141,12 +141,18 @@ export default function Search() {
         <div className="fixed inset-0 bg-black bg-opacity-25 z-40 flex items-start justify-center pt-1">
           <div 
             ref={modalRef} 
-            className="w-full max-w-2xl bg-white rounded-md left-20 border-blue-500 border p-2"
+            className="w-full max-w-2xl bg-white rounded-tl-md rounded-tr-md left-20 border-blue-500 border p-2"
             style={{ position: 'relative', zIndex: 50, maxHeight: '80vh', overflowY: 'auto' }}
           >
             <div ref={containerRef}>
               <Autosearch
                 openOnFocus={true}
+                initialState={{
+                  query: '',
+                  collections: [],
+                  isOpen: true,
+                  activeItemId: null,
+                }}
                 classNames={{
                   form: 'custom-search-form',
                   input: 'custom-search-input',
@@ -182,13 +188,13 @@ export default function Search() {
                       footer({ state }) {
                         return (
                           <ul className="typo-small">
-                            <li className="text-gray-1000 font-medium typo-small aa-SourceFooterHeader">Suggested</li>
+                            <li className="text-gray-1000 font-medium typo-small aa-SourceFooterHeader">Seqera AI</li>
                             <li className="aa-Item hover:bg-gray-100">
                               <a href={`/ask-ai?prompt=${state?.query || ''}`} className="aa-ItemLink flex items-center p-3">
                                 <div className="aa-ItemContent">
                                   <div className="aa-ItemTitle flex items-center">
                                     <AiIcon className="mr-2 w-5 h-5" />
-                                    Ask Seqera AI
+                                    Start a new thread with Seqera AI
                                   </div>
                                 </div>
                               </a>
@@ -196,28 +202,16 @@ export default function Search() {
                           </ul>
                         );
                       },
+                      noResults( state ) {
+                        return (
+                          <div className="typo-small">
+                            <p className="text-gray-1000 font-medium typo-small">No results for "<b>{`${state?.query}`}</b>"</p>
+                          </div>
+                        );
+                      },
                     },
                   },
                 ]}
-                renderNoResults={({ render, html, state }, root) => { 
-                  render(
-                    <ul className="typo-small">
-                      <li className="text-gray-1000 font-medium typo-small">Suggested</li>
-                      <li className="aa-Item hover:bg-gray-100">
-                        <a href="/ask-ai/" className="aa-ItemLink flex items-center p-3">
-                          <div className="aa-ItemContent">
-                            <div className="aa-ItemTitle flex items-center">
-                              <AiIcon className="mr-2 w-5 h-5" />
-                              Ask Seqera AI
-                            </div>
-                          </div>
-                        </a>
-                      </li>
-                    </ul>,
-                    root
-                  );
-                }}
-                renderFooter={null}
                 debug={true}
                 onClose={() => setIsOpen(false)}
               />
