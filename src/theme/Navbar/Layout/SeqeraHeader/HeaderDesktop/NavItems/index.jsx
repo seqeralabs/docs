@@ -31,25 +31,19 @@ const NavItems = ({ isDark = false, hideMenu }) => {
         {!hideMenu && (
           <nav className={clsx(styles.nav, { [styles.dark]: isDark })}>
             <NavItem id="/ask-ai/" simple>
-              <AiIcon className="mr-2" />
               Seqera AI
-              <div className={styles.pill}>Beta</div>
             </NavItem>
             <NavItem id="/pipelines/" simple>
-              <PipelinesIcon className="mr-2" />
               Pipelines
             </NavItem>
             <NavItem id="/containers/" simple>
-              <ContainersIcon className="mr-2" />
               Containers
             </NavItem>
             <NavItem id="products">Products</NavItem>
             <NavItem id="https://community.seqera.io" simple>
-              <ForumIcon className="mr-2" />
               Forum
             </NavItem>
             <NavItem id="https://docs.seqera.io" simple isActive>
-              <DocsIcon className="mr-2" />
               Docs
             </NavItem>
             <NavItem id="resources">

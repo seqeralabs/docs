@@ -53,6 +53,29 @@ export default function Search() {
     };
   }, [isOpen]);
 
+  // Disable body scrolling when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      // Save the current scroll position
+      const scrollY = window.scrollY;
+      
+      // Add styles to prevent scrolling on the body
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
+      
+      return () => {
+        // Re-enable scrolling when component unmounts or modal closes
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        
+        // Restore scroll position
+        window.scrollTo(0, scrollY);
+      };
+    }
+  }, [isOpen]);
+
   // Auto-focus search input when modal opens
   useEffect(() => {
     if (isOpen) {
@@ -88,7 +111,7 @@ export default function Search() {
     if (isOpen) {
       // Apply CSS to ensure dropdowns appear above the modal
       const style = document.createElement('style');
-      style.id = 'algolia-z-index-fix';
+      style.id = 'search-z-index-fix';
       style.innerHTML = `
         .aa-Panel {
           z-index: 9999 !important;
@@ -104,7 +127,7 @@ export default function Search() {
       
       return () => {
         // Clean up when component unmounts or modal closes
-        const styleElement = document.getElementById('algolia-z-index-fix');
+        const styleElement = document.getElementById('search-z-index-fix');
         if (styleElement) {
           styleElement.remove();
         }
@@ -115,15 +138,22 @@ export default function Search() {
   return (
     <>
       {isOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-40 flex items-start justify-center pt-[20vh]">
+        <div className="fixed inset-0 bg-black bg-opacity-25 z-40 flex items-start justify-center pt-1">
           <div 
             ref={modalRef} 
-            className="w-full max-w-2xl bg-white rounded-lg shadow-lg"
-            style={{ position: 'relative', zIndex: 50 }}
+            className="w-full max-w-2xl bg-white rounded-md left-20 border-blue-500 border p-2"
+            style={{ position: 'relative', zIndex: 50, maxHeight: '80vh', overflowY: 'auto' }}
           >
             <div ref={containerRef}>
               <Autosearch
                 openOnFocus={true}
+                classNames={{
+                  form: 'custom-search-form',
+                  input: 'custom-search-input',
+                  panel: 'custom-search-panel',
+                  item: 'custom-search-item',
+                  // Add more class overrides as needed
+                }}
                 getSources={({ query }) => [
                   {
                     sourceId: 'docs',
@@ -152,7 +182,7 @@ export default function Search() {
                       footer({ state }) {
                         return (
                           <ul className="typo-small">
-                            <li className="text-gray-1000 font-medium typo-small">Suggested</li>
+                            <li className="text-gray-1000 font-medium typo-small aa-SourceFooterHeader">Suggested</li>
                             <li className="aa-Item hover:bg-gray-100">
                               <a href={`/ask-ai?prompt=${state?.query || ''}`} className="aa-ItemLink flex items-center p-3">
                                 <div className="aa-ItemContent">
@@ -197,16 +227,20 @@ export default function Search() {
       )}
       
       {/* Optional: Add a button to open the search */}
-      <button 
+      <div 
         onClick={() => setIsOpen(true)}
-        className="hidden md:flex items-center px-3 py-1.5 border border-gray-300 rounded-md text-sm text-gray-500"
+        className="md:flex items-center px-3 py-2 rounded-md text-sm text-gray-700 cursor-pointer"
+        style={{ 
+          boxShadow: '0 0 0 1px rgba(0, 0, 0, 0.15)',
+          height: '44px',
+        }}
       >
         <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
-        Search... 
+        Search docs... 
         <span className="ml-2 text-xs border border-gray-300 px-1.5 py-0.5 rounded">⌘K</span>
-      </button>
+      </div>
     </>
   );
 }
