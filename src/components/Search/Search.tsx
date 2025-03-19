@@ -1,62 +1,65 @@
 import React, { createElement, useState, useEffect, useRef } from "react";
 
 // Import the required components
-import ProductItem from './ProductItem';
+import ProductItem, { setCloseSearchModalCallback } from './ProductItem';
 import { getAlgoliaResults } from '@algolia/autocomplete-js';
 // Use direct CommonJS import pattern
 import Autosearch from "./AlgoliaSearch";
 import AiIcon from "../../theme/Navbar/Layout/SeqeraHeader/HeaderDesktop/NavItems/images/AiIcon";
-// import algoliasearch from "algoliasearch/lite";
-import {algoliasearch} from 'algoliasearch';
+// Import algoliasearch
+import { algoliasearch } from 'algoliasearch';
+import { createLocalStorageRecentSearchesPlugin } from '@algolia/autocomplete-plugin-recent-searches';
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 
-// Define environment variable types
-// declare global {
-//   interface ImportMeta {
-//     env: {
-//       PUBLIC_DOCUSAURUS_ALGOLIA_APP_ID: string;
-//       PUBLIC_DOCUSAURUS_ALGOLIA_API_KEY: string;
-//       PUBLIC_DOCUSAURUS_ALGOLIA_INDEX_NAME: string;
-//     };
-//   }
-// }
-
-// const {
-//   siteConfig: {customFields},
-// } = useDocusaurusContext();
-
-
-// // Add proper type assertions
-// const {siteConfig} = useDocusaurusContext();
-// const algoliaConfig = siteConfig.customFields?.algolia as any || {};
-// const appId = algoliaConfig.appId as string;
-// const apiKey = algoliaConfig.apiKey as string;
-// const envIndexName = algoliaConfig.indexName as string;
-
-
-// Initialize the client the correct way
-// const searchClient = algoliasearch(appId, apiKey);
-
-// Add getRecommendations method manually
-// (searchClient as any).getRecommendations = async () => ({ results: [] });
-
 export default function Search() {
   const {siteConfig} = useDocusaurusContext();
   const algoliaConfig = siteConfig.customFields?.algolia as any || {};
-  const appId = algoliaConfig.appId as string;
-  const apiKey = algoliaConfig.apiKey as string;
-  const envIndexName = algoliaConfig.indexName as string;
+  const appId = algoliaConfig.appId;
+  const apiKey = algoliaConfig.apiKey;
+  const envIndexName = algoliaConfig.indexName;
 
+  // Create the search client
   const searchClient = algoliasearch(appId, apiKey);
-
+  
+  // Add getRecommendations method to the client to fix the linter error
   (searchClient as any).getRecommendations = async () => ({ results: [] });
 
+  const recentSearchesPlugin = createLocalStorageRecentSearchesPlugin({
+    key: 'seqera-docs-recent-searches',
+    limit: 5,
+    transformSource({ source }) {
+      return {
+        ...source,
+        onSelect({ item }) {
+          setIsOpen(true);
+        },
+        templates: {
+          ...source.templates,
+          header() {
+            return (
+              <div className="text-gray-1000 font-medium typo-small">Recent Searches</div>
+            );
+          },
+        },
+      };
+    },
+  });
   
   const [isOpen, setIsOpen] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Register the close modal callback
+  // useEffect(() => {
+  //   setCloseSearchModalCallback(() => setIsOpen(false));
+    
+  //   // Cleanup when component unmounts
+  //   return () => {
+  //     setCloseSearchModalCallback(null);
+  //   };
+  // }, []);
 
   // Handle keyboard shortcut (Command+K)
   useEffect(() => {
@@ -118,7 +121,14 @@ export default function Search() {
   // Handle click outside to close
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+      // Check if the click is inside the modal or any Algolia autocomplete elements
+      const isInsideModal = modalRef.current && modalRef.current.contains(event.target as Node);
+      
+      // Check if the click is inside any Algolia autocomplete elements
+      const isInsideAutocomplete = 
+        (event.target as Element)?.closest('.aa-Panel')
+      
+      if (!isInsideModal && !isInsideAutocomplete) {
         setIsOpen(false);
       }
     };
@@ -174,10 +184,10 @@ export default function Search() {
                 openOnFocus={true}
                 initialState={{
                   query: '',
-                  collections: [],
                   isOpen: true,
-                  activeItemId: null,
                 }}
+                defaultActiveItemId={0}
+                plugins={[recentSearchesPlugin]}
                 classNames={{
                   form: 'custom-search-form',
                   input: 'custom-search-input',
@@ -190,7 +200,7 @@ export default function Search() {
                     sourceId: 'docs',
                     getItems() {
                       return getAlgoliaResults({
-                        searchClient,
+                        searchClient: searchClient,
                         queries: [
                           {
                             indexName: envIndexName,
@@ -205,6 +215,8 @@ export default function Search() {
                     },
                     templates: {
                       item({ item, components }) {
+                        // Use ProductItem directly without wrapping in a div with click handler
+                        // The ProductItem component now handles its own navigation
                         return <ProductItem hit={item} components={components} />;
                       },
                       header() {
@@ -215,7 +227,7 @@ export default function Search() {
                           <ul className="typo-small">
                             <li className="text-gray-1000 font-medium typo-small aa-SourceFooterHeader">Seqera AI</li>
                             <li className="aa-Item hover:bg-gray-100">
-                              <a href={`/ask-ai?prompt=${state?.query || ''}`} className="aa-ItemLink flex items-center p-3">
+                              <a href={`https://seqera.io/ask-ai?prompt=${state?.query || ''}`} className="aa-ItemLink flex items-center p-3">
                                 <div className="aa-ItemContent">
                                   <div className="aa-ItemTitle flex items-center">
                                     <AiIcon className="mr-2 w-5 h-5" />
@@ -238,7 +250,9 @@ export default function Search() {
                   },
                 ]}
                 debug={true}
-                onClose={() => setIsOpen(false)}
+                showEmptyQuerySuggestions={true}
+                // Don't close the modal when interacting with search results
+                // onClose={() => setIsOpen(false)}
               />
             </div>
           </div>
@@ -248,9 +262,9 @@ export default function Search() {
       {/* Optional: Add a button to open the search */}
       <div 
         onClick={() => setIsOpen(true)}
-        className="md:flex items-center px-3 py-2 rounded-md text-sm text-gray-700 cursor-pointer"
+        className="md:flex items-center px-3 py-2 rounded-md text-sm text-gray-800 cursor-pointer hover:text-gray-1000 transition-all duration-100"
         style={{ 
-          boxShadow: '0 0 0 1px rgba(0, 0, 0, 0.15)',
+          boxShadow: '0 0 0 1px rgba(0, 0, 0, 0.25)',
           height: '44px',
         }}
       >

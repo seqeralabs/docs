@@ -1,5 +1,21 @@
 import React, { createElement } from 'react';
 
+// Create a simple event system for closing the modal
+// This will be a globally accessible function that components can call
+let closeSearchModalCallback = null;
+
+// Function to set the callback
+export const setCloseSearchModalCallback = (callback) => {
+  closeSearchModalCallback = callback;
+};
+
+// Function to trigger the callback
+export const closeSearchModal = () => {
+  if (typeof closeSearchModalCallback === 'function') {
+    closeSearchModalCallback();
+  }
+};
+
 export default function ProductItem({ hit, components }) {
   // Modify highlight results to preserve spaces between highlighted terms
   const modifyHighlightValue = (highlightObj) => {
@@ -28,8 +44,12 @@ export default function ProductItem({ hit, components }) {
     hierarchy: modifiedHighlights.hierarchy,
     version: modifiedHighlights.version
   };
+  
   return (
-    <a href={hit.url} className="search-item-link px-2 py-2 flex whitespace-pre-wrap">
+    <a 
+      href={hit.url} 
+      className="search-item-link px-2 py-2 flex whitespace-pre-wrap"
+    >
       {/* <div className="flex flex-col flex-1/12">
         <img src="/images/icons/docs_search.svg" alt="Documentation search" className="w-6 h-6" />
       </div> */}
