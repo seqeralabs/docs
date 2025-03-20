@@ -47,6 +47,16 @@ export default function Search() {
     },
   });
   
+  // Add this function to save searches
+  const saveRecentSearch = (title: string, url: string) => {
+    if (title.trim()) {
+      recentSearchesPlugin.data.addItem({
+        id: url,
+        label: title
+      });
+    }
+  };
+
   const [isOpen, setIsOpen] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -182,11 +192,12 @@ export default function Search() {
             <div ref={containerRef}>
               <Autosearch
                 openOnFocus={true}
-                initialState={{
-                  query: '',
-                  isOpen: true,
-                }}
-                defaultActiveItemId={0}
+                // initialState={{
+                //   query: '',
+                //   collections: [],
+                //   isOpen: true,
+                //   activeItemId: null,
+                // }}
                 plugins={[recentSearchesPlugin]}
                 classNames={{
                   form: 'custom-search-form',
@@ -195,62 +206,111 @@ export default function Search() {
                   item: 'custom-search-item',
                   // Add more class overrides as needed
                 }}
-                getSources={({ query }) => [
-                  {
-                    sourceId: 'docs',
-                    getItems() {
-                      return getAlgoliaResults({
-                        searchClient: searchClient,
-                        queries: [
-                          {
-                            indexName: envIndexName,
-                            params: {
-                              query,
-                              hitsPerPage: 4,
-                              attributesToHighlight: ['*'],
+                getSources={({ query }) => {
+                  // If there's a query, only return the docs source
+                  if (query) {
+                    return [{
+                      sourceId: 'docs',
+                      getItems() {
+                        return getAlgoliaResults({
+                          searchClient: searchClient,
+                          queries: [
+                            {
+                              indexName: envIndexName,
+                              params: {
+                                query,
+                                hitsPerPage: 4,
+                                attributesToHighlight: ['*'],
+                              },
                             },
-                          },
-                        ],
-                      });
+                          ],
+                        });
+                      },
+                      onSelect({ item }) {
+                        // Save the clicked result
+                        if (item._highlightResult?.hierarchy?.lvl0?.value) {
+                          saveRecentSearch(
+                            item._highlightResult.hierarchy.lvl0.value,
+                            item.url
+                          );
+                        }
+                      },
+                      templates: {
+                        item({ item, components }) {
+                          return <ProductItem hit={item} components={components} />;
+                        },
+                        header() {
+                          return <div className="text-gray-1000 font-medium typo-small">Documentation</div>;
+                        },
+                        footer({ state }) {
+                          return (
+                            <ul className="typo-small">
+                              <li className="text-gray-1000 font-medium typo-small aa-SourceFooterHeader">Seqera AI</li>
+                              <li className="aa-Item hover:bg-gray-100">
+                                <a href={`https://seqera.io/ask-ai?prompt=${state?.query || ''}`} className="aa-ItemLink flex items-center p-3">
+                                  <div className="aa-ItemContent">
+                                    <div className="aa-ItemTitle flex items-center">
+                                      <AiIcon className="mr-2 w-5 h-5" />
+                                      Start a new thread with Seqera AI
+                                    </div>
+                                  </div>
+                                </a>
+                              </li>
+                            </ul>
+                          );
+                        },
+                        noResults({ state }) {
+                          return (
+                            <div className="typo-small">
+                              <p className="text-gray-1000 font-medium typo-small">No results for "<b>{`${state?.query}`}</b>"</p>
+                            </div>
+                          );
+                        },
+                      },
+                    }];
+                  }
+                  
+                  // If no query, only return the recent searches source
+                  return [{
+                    sourceId: 'recent-searches',
+                    getItems() {
+                      const source = recentSearchesPlugin.data;
+                      return (source as any).items || [];
                     },
                     templates: {
-                      item({ item, components }) {
-                        // Use ProductItem directly without wrapping in a div with click handler
-                        // The ProductItem component now handles its own navigation
-                        return <ProductItem hit={item} components={components} />;
-                      },
                       header() {
-                        return <div className="text-gray-1000 font-medium typo-small">Documentation</div>;
-                      },
-                      footer({ state }) {
                         return (
-                          <ul className="typo-small">
-                            <li className="text-gray-1000 font-medium typo-small aa-SourceFooterHeader">Seqera AI</li>
-                            <li className="aa-Item hover:bg-gray-100">
-                              <a href={`https://seqera.io/ask-ai?prompt=${state?.query || ''}`} className="aa-ItemLink flex items-center p-3">
-                                <div className="aa-ItemContent">
-                                  <div className="aa-ItemTitle flex items-center">
-                                    <AiIcon className="mr-2 w-5 h-5" />
-                                    Start a new thread with Seqera AI
-                                  </div>
-                                </div>
-                              </a>
-                            </li>
-                          </ul>
+                          <div className="text-gray-1000 font-medium typo-small">Recent Searches</div>
                         );
                       },
-                      noResults( state ) {
+                      item({ item }) {
                         return (
-                          <div className="typo-small">
-                            <p className="text-gray-1000 font-medium typo-small">No results for "<b>{`${state?.query}`}</b>"</p>
+                          <a 
+                            href={item.id} 
+                            className="aa-ItemLink flex items-center p-3"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              window.location.href = item.id;
+                              setIsOpen(false);
+                            }}
+                          >
+                            <div className="aa-ItemContent">
+                              <div className="aa-ItemTitle">{item.label}</div>
+                            </div>
+                          </a>
+                        );
+                      },
+                      noResults() {
+                        return (
+                          <div className="p-3 text-sm text-gray-500">
+                            No recent searches
                           </div>
                         );
-                      },
-                    },
-                  },
-                ]}
+                      }
+                    }
+                  }];
+                }}
                 debug={true}
-                showEmptyQuerySuggestions={true}
                 // Don't close the modal when interacting with search results
                 // onClose={() => setIsOpen(false)}
               />
