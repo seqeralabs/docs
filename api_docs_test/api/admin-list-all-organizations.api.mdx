@@ -1,0 +1,71 @@
+---
+id: admin-list-all-organizations
+title: "List organizations"
+description: "Retrieves a list of all organizations in your Seqera Platform account. Append `?search=<orgname>` to return results for a given `<orgname>`."
+sidebar_label: "List organizations"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVdtOGzEQ/RXLz1FCaVWpqLdUlAoVFQT0CSExu5lNDF57sb2BNMq/d8ZONlmypIinPu1lzsyZ+8zlCH3uVBWUNfJAnmNwCqfoBQitfBC2EKC1sG4MRv0BhnmhjJjZ2okLvEcH4kxDKKwrBeS5rU3oi2FVoRmJmy8eweWTTx9J30CJn29EsMJhqJ2hh6918IJUiW2spmjEzRrZlz1pK7LPnMcjcm44KpU5Ia+GWp9uOkTIChxpBXReHlzNJZsgjRIeSaY4svsa3Yw+2vGewViZaEQQduUSwXw+wRLkwVyGWcWmlAk4RkciDhVC+vV2Xy4WvYbPFoXH8GLKBv46tpTc3WxHSlNSRIKKJktdnJ5Kb8bEcN2TlIiKEoue5ft7e/xoGz79STZyS36awFKoKq3yGNfg1jNkvk1hs1vMOeDKcWmDSgTBBtAX6g++KAPUFq3ir3XAOeAUqICl/zdtK6CtNPSktmPLjfeM6LfTnTLyrqXVHcn7d4wtaq1/xWp2GHrAzFMonbIKZvy2FmXWagTDshLLDN2LfUjwc1LfZupJNHVJIyXtg4n6CR1rrzVklubTOkktE1RgC5ImM9qKWUoN0RmB6Q570bLUlPkwOwyWpBti3gStNXC+bFqGMdBjXjsVZnEjfKMJQDesw4Q+r7nHaRAmlvfKOM5gBSySA+AtM6AixjWwNHHBnZy6ZtNQ4/0khGo1U7EaEUR/0svRKum3DyGGqExho/oyluUmHZ4db03wUlStlqxHN1U5begE5hGEPI5gzQ0ZXfEHg4GPen1luYglKB1rXtivawE5MqWNmXje9D/092JrWR9KiEVbLpqTeAmebNwn09Osgv/thiwrFPAxDCiJKo5InWY31fxKxprLOLqee3lCKeD/83kGHmnQFwv+nVYsd9NIecg0UvcUoD3uyMazF6bTrzucNWdrCrpmhOSV/yrC5r7s4Gowr6R7/sDsIG0u15r0mj+cYtY4oFQEhBEZ4nQnrWGeY7Xp6tbNaY31j++XhIX2oD4ZzGh9dT3MbMM2lT4iLu0dGir/yvXA30REG+Yv2sQvCA==
+sidebar_class_name: "get api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List organizations"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/admin/orgs"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Retrieves a list of all organizations in your Seqera Platform account. Append `?search=<orgname>` to return results for a given `<orgname>`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"max","in":"query","description":"Pagination max results","schema":{"type":"integer","format":"int32"}},{"name":"offset","in":"query","description":"Pagination offset","schema":{"type":"integer","format":"int32"}},{"name":"search","in":"query","description":"Filter search parameter","schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"totalSize":{"type":"integer","format":"int32"},"organizations":{"type":"array","items":{"type":"object","properties":{"description":{"type":"string"},"logoId":{"type":"string"},"logoUrl":{"type":"string"},"orgId":{"type":"integer","format":"int64"},"fullName":{"type":"string"},"website":{"type":"string"},"paying":{"type":"boolean"},"memberId":{"type":"integer","format":"int64"},"memberRole":{"type":"string","enum":["owner","member","collaborator"],"title":"OrgRole"},"location":{"type":"string"},"name":{"type":"string"}},"title":"OrganizationDbDto"}}},"title":"ListOrganizationsResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

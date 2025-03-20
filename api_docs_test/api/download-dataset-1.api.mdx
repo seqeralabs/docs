@@ -1,0 +1,71 @@
+---
+id: download-dataset-1
+title: "Download dataset content"
+description: "Downloads the content of the dataset identified by the given `datasetId` and `version`."
+sidebar_label: "Download dataset content"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVVFr2zAQ/itCTxuEuN3KYH5aS9tRBt1ou+0hlEWxz4laR3IlOVkw/u+9k2U7abOMBAZ7CJGl73TfnT59qngKNjGycFIrHvNzvVS5FqllbgYs0cqBckxn/jMVTlhwTKY4KTMJKZus/MpULkCxcQBcpWMmVMrGCzAW9x0P+YDrAoygLFfpWp7zJuLXMSIKYcQcHMbweFRxhR+IXGrzaAuRAMYNuCSShXAzHG8y/9nimCrnYGTS0zQINvBUSgOY25kSBtwmM5gLHlfcrQrKI7HUqYdm2syFa6Y+nPC6HnRkugJ3UglFMeuMVNM9eTRBG1lDG3fm/NFgqPgJGOY0S0OLD0yayRyuabgr6yWCGAUwbFqjkZAVtdHKJahoLx73BLaFVhYsrb87OqK/zexfv+Ce7e64Kooil4kXWfRgCVL9McXaMU+kEmaFSbF8frIt0ZlIGXEH6/bJ2Jc74nOwVkyBY2GBiJ48QEL7FYbuhpNNpS1w2+FwJ11OUxfGaHMTGtQxf7+lRe2tY0o7JvJcL5GPR5+8Rl8jJtOlSv/XKnHRQlIa6VbeI85AGDCnJUozHt2TatBAZpocZgo+K6k25lHnIjaq1hyljoJIcbq723W0iKpw5+pIRVV7FWrep7+l+pta1kl05cycK3hQOH1PPAhnmsFlK76HpfM1S5VpHx5qv4UnPDl2+u3q1aULS0UuHGmYWTALiZUFMB2cSPzBlSYPVGwcRdbHDaVGEJ6dzL3FZfpTv4BEWrOJ+fHw4/CIpgpt3Vz4Yw/m0Nr3lju+wbXqZfQPn5bQcge/XYRdQbtC0r72Kghg1D8jFgPizUel1QCtrDv8giZ686Vf3Nkiam2GfaG9q2qCMd9NXtc0jT5hSJ44XAgjxYQOFMWaSktjFGcmcgs7WvXmJtypt+wvz9rW0sOkUCsqQuQlfeHwEVYvHlTy+4No7XriDuDUd/1gRjsfwAMoted+MKE938YDKHZarO8ROwPc2XilNcunSQKFWwt85eMbhvn54g6xYtPGXtiW330rKbwDHnGnH0HVdcfR0TcRrOtnLn6bJg==
+sidebar_class_name: "get api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Download dataset content"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/workspaces/{workspaceId}/datasets/{datasetId}/v/{version}/n/{fileName}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Downloads the content of the dataset identified by the given `datasetId` and `version`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"path","description":"Workspace numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"datasetId","in":"path","description":"Dataset string identifier","required":true,"schema":{"type":"string"}},{"name":"version","in":"path","description":"Version number to download","required":true,"schema":{"type":"string"}},{"name":"fileName","in":"path","description":"File name for the downloaded dataset content","required":true,"schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"string","format":"binary"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"Not found","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

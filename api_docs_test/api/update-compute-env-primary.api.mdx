@@ -1,0 +1,71 @@
+---
+id: update-compute-env-primary
+title: "Define primary compute environment"
+description: "Selects the compute environment identified by the given `computeEnvId` as the primary compute environment in the given workspace context."
+sidebar_label: "Define primary compute environment"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVV1P2zAU/SuWnzYJ2m6rJq1PA8YkNGmgFrSHCgk3uW0NiW1spyWK8t+513Ha9EOMve2ljZ37cc7x8U3FU3CJlcZLrfiITyCDxDvml8ASnZvCAwO1klarHJRnMsVfOZeQslkZohZyBYo9xOBLtbpKH5hoKhgrc2HL45VUJ32t7ZMzIqGmysOL7/ETrg1YQbiuUkR2Z1Lh4WLT5qapjXFGWJGDB+v4aFpxhQuM7wLCIEnsjPBLfN6lfHEEnPNWqsWWrcUsC8+FtIBYvC3ghLtkCbngo4r70lDHJonX9ckGxIbXFsNzAQH1Log/GwFUkYOVyW7vg14SVVqEV3Ntc+Gbra9D7H7fQAXnz3VaUk7QVHl6FMZkMgmq9h8dta4Oi+vZI5oAa3vpM9q4zI0vqdq4KYxdkCW2cUYrB45yPw+G9LdL6/oXO2W/NWsRYNJwMDiMOxcpi6Cx7bvxbo9kynNwTiyAI/19GsaSlbxsgLaBxw5uy9habceRX6Q7HHw5wrA1KVPaM5Fleo14KNxBUljpy2DKcxAW7FmB/htN7+mM0LFLTcY2OpAO3hzxfvTtKdrR9auui+u+2Xi+LT4hLRpe3RYbakvvTesfWs9CEO40Dz9b8zyufQBNGo+37rl8EbkhQaqa7DvXoXTUaALPyJ2d3Vwd2Dm+Mpnw5E/mwK5kAi4G0wGLJBxwYbMI0436fRfyelJjEJ6xzIKv5/r79gUCWeFVb/p86n3rDWiLRMxFsEe8ej9gLtWbI2gfdeei/FdzMB4lLfuoKE4RJBx0q6JrprzrGkwZ7U2/1jjouyXZDTOqaiYc3Nmsrmm7GUtk1VQ6McvoUs1F5uANkf4ytI7ifoLyYC6uRFZQJKd7sRJWUv9/xPJhHGfBR/begX4UX9wUquwCa3HvyFrfY/wSRIrVCGwTctFAOr2lQtsSB4OMvhJNxlmSgPFvxnbnxc315JYucBzuuU4px4o1faPwN8DVQaIwF8JexTOhFkWYe7ypSddd7E6LvekQWB0VBM0TIm71Eyg0UKuPpzUJU9evCPvtgw==
+sidebar_class_name: "post api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Define primary compute environment"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/compute-envs/{computeEnvId}/primary"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Selects the compute environment identified by the given `computeEnvId` as the primary compute environment in the given workspace context.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"computeEnvId","in":"path","description":"Compute environment string identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"content":{"application/json":{"schema":{"type":"object","title":"EmptyBodyRequest"}}}}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

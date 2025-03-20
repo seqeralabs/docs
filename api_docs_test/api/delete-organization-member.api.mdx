@@ -1,0 +1,71 @@
+---
+id: delete-organization-member
+title: "Delete member"
+description: "Deletes the member identified by the given `memberId`."
+sidebar_label: "Delete member"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVE1v2zAM/SuCThuQxdlWDFhOa9EMKPaJtjsFBarYTKzWllRJTpcZ+u8jZdlJmqIbup0sk0/UI/nIlhfgciuNl1rxKT+FCjw45ktgNdQLsEwWoLxcSijYYhMdK7kGxa47/1lxPeYjrg1YQUHOiiHMN7sSSv6K5i8RjEAjrKjRaR2fzluu8AcvaLvCiyMuiYQRvsTzPrPdYEw1NViZb7lRZAt3jbSA73vbwIi7vIRa8GnL/cbQI1J5WEXoUtta+M707oiHMBqY9Fn9PZlUp//O6YquO6OVA0c33kyO6POAySf2in3VLNcYSHkeRvxoMjnEnYiCERlwHt/q0QgTxlQyj5lkN46w7Q7LLf85VsY5sQKOvBJ5vbiBnOIZS/33siPaA7dZOm+lWlGduZe+ItPMWm3PU37oCZH520cy7JXFlPZMVJW+Rz4Ed5A3VvpNFNIJCAv2uMFuTedXVDxUWalJjUVUY9QeeXmGanNZGzUXsq59+N93PvBt6AuqRJfV7gNDYqX3hqe20v8igtDSHT72Pb2595GyVEsdr6cqXMAdZseOv58daCy5TCU8SYM5sGuZ42x2YGqhyGMLG1slKm6aZS7eG0uNIOyirKKklvrD1oFE1phy987r8fvxhExGO1+LKIA0C90YJ4E/JNhuVfT8tZHK6OGnzzBTnDgkEvNpU7fmtBscQqf9jkgNI9MwrNjuEukTvG0XwsEPW4VAZpS8JYXgcS2sFAuqO+qlkI7OqI+lqBw8kdyL8zQEL9mfl9CjCSWjUBtOLKqG/vB4C5th99EK+ndOT+2iZ1Ab6huuEFuCKDASVa9zH+c5GL9z8WCZ7M3h6ezz7HKGcLE/RA+GJj7wKC9sbURc6ltQIQw0Pf0TxxB+A09YV7Y=
+sidebar_class_name: "delete api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Delete member"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/orgs/{orgId}/members/{memberId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Deletes the member identified by the given `memberId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"memberId","in":"path","description":"Organization member numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      
