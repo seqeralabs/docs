@@ -212,7 +212,7 @@ Each Seqera Platform release uses a specific nf-launcher image by default. This 
 - Use a [pre-run script](../launch/advanced.mdx#pre--post-run-scripts) to set the desired Nextflow version. For example: `export NXF_VER=22.08.0-edge`
 - For jobs executing in an AWS Batch compute environment, create a [custom job definition](../enterprise/advanced-topics/custom-launch-container.mdx) which references a different nf-launcher image.
 
-## Spot Instance failures and retries in Nextflow
+## Spot instance failures and retries in Nextflow
 
 Up to version 24.10, Nextflow silently retried Spot instance failures up to five times when using AWS Batch or Google Batch. These retries were controlled by cloud-specific configuration parameters (e.g., `aws.batch.maxSpotAttempts`) and happened in cloud infrastructure without explicit visibility to Nextflow. 
 
