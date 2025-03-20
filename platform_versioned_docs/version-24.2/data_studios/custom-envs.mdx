@@ -72,7 +72,7 @@ Customize the following Dockerfile to include any additional software that you r
 
 ```docker title="Minimal Dockerfile"
 # Seqera base image
-FROM public.cr.seqera.io/platform/connect-client:0.7 AS connect
+FROM public.cr.seqera.io/platform/connect-client:0.8 AS connect
 
 # 1. Add connect binary
 COPY --from=connect /usr/bin/connect-client /usr/bin/connect-client
@@ -87,7 +87,7 @@ ENTRYPOINT ["/usr/bin/connect-client", "--entrypoint"]
 For example, to run a basic Python-based HTTP server, build a container from the following Dockerfile. When a data studio runs the custom template environment, the value for the `CONNECT_TOOL_PORT` environment variable is provided dynamically.
 
 ```docker title="Example Dockerfile with Python HTTP server"
-FROM public.cr.seqera.io/platform/connect-client:0.7 AS connect
+FROM public.cr.seqera.io/platform/connect-client:0.8 AS connect
 
 FROM ubuntu:20.04
 RUN apt-get update --yes && apt-get install --yes --no-install-recommends python3
@@ -112,8 +112,7 @@ To inspect the status of an ongoing build, or a successful or failed build, comp
 1. In the **Details** tab, scroll to **Build reports** and select **Summary** to open the Wave service container build report for your build.
 1. Optional: If the build failed, select the **Error report** tab to view the errors associated with the build failure.
 
-
-<!-- links -->
+{/* links */}
 [add-s]: ./managing.mdx#add-a-studio
 [wave]: ../enterprise/configuration/wave.mdx
 
