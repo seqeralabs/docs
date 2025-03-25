@@ -35,7 +35,7 @@ export default async function createConfigAsync() {
     future: {
       experimental_faster: false,
     },
-
+    themes: ['docusaurus-theme-openapi-docs'],
     presets: [
       [
         "classic",
@@ -68,11 +68,6 @@ export default async function createConfigAsync() {
               require.resolve("./src/css/fonts/inter.css"),
               require.resolve("./src/css/fonts/degular.css"),
             ],
-          },
-          docs: {
-            path: 'api',
-            sidebarPath: require.resolve(`./api_docs_test/api/sidebar.js`),
-            docItemComponent: '@theme/ApiItem', // Ensures API entities render properly
           },
           gtag: {
             trackingID: "G-NR1CNM213G",
@@ -110,6 +105,16 @@ export default async function createConfigAsync() {
           },
         },
       ],
+      [
+        "@docusaurus/plugin-content-docs",
+        {
+          id: "platform-api",
+          routeBasePath: "/platform-api",
+          path: "api/docs",
+          sidebarPath: "api/docs/sidebar.js",
+          docItemComponent: '@theme/ApiItem'
+        },
+      ],      
       [
         "@docusaurus/plugin-content-docs",
         {
@@ -178,7 +183,7 @@ export default async function createConfigAsync() {
                 groupPathsBy: "tag",
               },
             }
-          }
+          },
         },
       ],
       async function tailwind() {
