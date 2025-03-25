@@ -1,0 +1,63 @@
+---
+id: info
+title: "General Seqera service features and version."
+description: "General Seqera service features and version."
+sidebar_label: "General Seqera service features and version."
+hide_title: true
+hide_table_of_contents: true
+api: eJylVU1z2jAQ/SuMzhTSJNPOcCphSMrkc0rSHpgc1vJiK5ElR5JJKMN/70o2BDI2kOkJIz1Jb/e93V0wnaMBJ7QaxazHRmqqWZsZtLlWFi3rLdjx0ZH/idFyI3IPJeDtJcG4Vg6V87uQ51LwcFH3yXrIglmeYgb+y81zpEM6ekLu6GBu/LNOlA9YNDPBMby9FzxDY0V5fwW0zgiVsGWbSIjfO7a5zjLhfJx1ZwuX3tOi3dgFY2BODITDzNacomNSJ0LdgUtrL1Uwi8DsDypDVRzycMNxCRHKWgKFqVunDSec9Es3geFAq6lIOuWfayJDmAaQvzVFMC5CcCPS38xg8w1BSwka4jjVJgNXLp0cBzak9B9tnm0OHIcKIombYkRaSwQV1JBSv46UdaA4DgzGZDMB0tajJaiYAnuoDZbCQJPZ2+mDxSZEZeSmbVAg507wA6RIi4hKp8lkubYu1Uk/F5c434P4SV+7teuvaa0ydqU5yF9Il9Qkqk0lnBukIvVZd6bA98iv4e1cSByLv7hXy2+n/r1XmO2WMDG6ULF9RSkPxfV9DBivLXJISTRzpLstz+yYHIqmSVo6lOCdwal4q923+EL9cSB10UAfyf5rwqP4vyl7QYC7YQaiwYw+STf45qb0O5DiSidNZaETXdSbmlpTIaVXpXLChq3GG+24Yf1XNR98myDEad2EOIO4ZfClQOs+Myr8EWG8WSbUFq2FBNlje2//LIE7y2VojDZbzJftD5wvUJHasjUOqreqwdSaUqsraCa2qM+0qgHUIRIZUq36sZlg4BTGAOtWx76Icpha5IURbj72MZZ8z6iBoukXW2MjdS738ADzSgYQrZQf5yuvPL26EJdYzcu1PoF0/27EPsZVbeUSnLfcKjBbgSvP+cvCwAhUbK/bLd3fET4MLB0Znv3xvkFE1iOZfe2cfO8crfpYBkFbBSGcT+Z2K4B1jhz5vkthCLUx3cq8T9hW3skzaeigE7ZYRBB6/3Lpl8mShprvhD5nYERZBJPHcq7FlPHeZMGefX9mfc4x99JSkRehpD96d/m4YYOL4T0p8w9rkD62
+sidebar_class_name: "get api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"General Seqera service features and version."}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/service-info"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+General Seqera service features and version.
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"serviceInfo":{"type":"object","properties":{"version":{"type":"string"},"apiVersion":{"type":"string"},"commitId":{"type":"string"},"authTypes":{"type":"array","items":{"type":"string"}},"loginPath":{"type":"string"},"navbar":{"type":"object","properties":{"menus":{"type":"array","items":{"type":"object","properties":{"label":{"type":"string"},"url":{"type":"string"}},"title":"NavbarConfig.NavbarMenu"}}},"title":"NavbarConfig"},"heartbeatInterval":{"type":"integer","format":"int32"},"userWorkspaceEnabled":{"type":"boolean"},"allowInstanceCredentials":{"type":"boolean"},"landingUrl":{"type":"string"},"termsOfUseUrl":{"type":"string"},"contentUrl":{"type":"string"},"analytics":{"type":"object","properties":{"hubspotId":{"type":"string"},"posthogApiKey":{"type":"string"},"posthogApiHost":{"type":"string"}},"title":"Analytics"},"allowLocalRepos":{"type":"boolean","deprecated":true},"contentMaxFileSize":{"type":"integer","format":"int64"},"waveEnabled":{"type":"boolean"},"groundswellEnabled":{"type":"boolean"},"groundswellAllowedWorkspaces":{"type":"array","items":{"type":"integer","format":"int64"}},"scmsServerUrl":{"type":"string"},"forgePrefix":{"type":"string"},"seqeraCloud":{"type":"boolean"},"evalWorkspaceIds":{"type":"array","items":{"type":"integer","format":"int64"}},"contactEmail":{"type":"string"},"allowNextflowCliLogs":{"type":"boolean"},"logoutUrl":{"type":"string","nullable":true}},"title":"ServiceInfo"}},"title":"ServiceInfoResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

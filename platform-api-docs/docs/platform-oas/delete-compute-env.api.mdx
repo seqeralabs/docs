@@ -1,0 +1,71 @@
+---
+id: delete-compute-env
+title: "Delete compute environment"
+description: "Deletes the compute environment identified by the given `computeEnvId`."
+sidebar_label: "Delete compute environment"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNlN9v0zAQx/8Vy08gdW1hE4g+sR9FmkCAtiEeqklzk2vjLbE928moovzv3DlJmywRPyQeeNma89d3n/P9KHkMLrLSeKkVX/ALSMGDYz4BFunM5B4YqEJarTJQnskY/8qNhJitd0G1lQUodteIl6q4jO+mfMK1ASvI62W893u+F6HACCsyNFrHF6uSK/xAYdcPiiRBGeET/N0nPR+hc95KtT1AWrxl4TGXFhDC2xwm3EUJZIIvSu53hiLWl3hVTfYQT9o+OCMiODA85mB3A4jvrZCpPAMro37sQSypPGzD0UbbTPja9OYEo98SqjNaOXB04/X8hP714335yI7YZ42lQUfK82rCT+bzoe5MxIwSB+cxVqtGmTAmlVGoy+zekbbsUB7easUzcE5sgSNXA6/X9xCRP2OpuF7WoK1w7EW5lz4l09Jaba+a/PCkCuTHIxm2bcOU9kykqX5CnqB+N1Sfa7XBfDxVPaYWI/N/mjAeOohyK/0uNPwZCAv2NMfeXqxuqf44DYmmaQmpQJgROuWzZiqOsNndrOzOSMUPbq8pr5qx63yPmXhv2q6k73UQoaX+8aFtyfsnH3KRaqPD9Sana3jE4rDTr5eDQWiOTCo8dTZzYAsZ4SKpxVQQEYWC5DZtUNxiNnPh3lRqFGFNZBomYqPfHw4QpMAlUcd5NT1+O52TzWjnMxHq2UxtvWPG1tZz3PLQIf9w4zWv7OGHn+FD4NpAzJBu2RRyxbuFxCuL3rrDFkgwK9KV5Vo4+GbTqiJzvX2oa2LpxDqljt2I1MEvEvvNbhqlfYDdYP0VIs1JyalFC2Elxf9LlhdXzaC9ZH+6t0f5GqNQuy5Yy917zOoW9QmIGL0RbC05jSIwvnN5sB96g3ix/LS8WaJc9Cfp2eSEAKNsWMeguNEPoKpqj+rpmxir6ickmZ0W
+sidebar_class_name: "delete api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Delete compute environment"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/compute-envs/{computeEnvId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Deletes the compute environment identified by the given `computeEnvId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"computeEnvId","in":"path","description":"Compute environment string identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"409":{"description":"Conflicting deletion","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

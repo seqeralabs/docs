@@ -1,0 +1,71 @@
+---
+id: workspace-validate
+title: "Validate workspace name"
+description: "Confirms the validity of the given workspace name. Append `?name=<your_workspace_name>`."
+sidebar_label: "Validate workspace name"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVO9v0zAQ/VcsfwKpNIVNICJ+dTDQhDTQNuBDNTE3uSTeEtuznY4S5X/nzknarq1AfEDiU2L7+e4937treAousdJ4qRWP+VutMmkrx3wBbCFKmUq/ZDoL61wuQLE7bW+cEQkwJSoYs6kxoFJ29ZqWL18sdW2/rzDfafPV1ZiPuDZgBaU5STHRtwHxlZIID4gwwiLag3U8njWcriJS2xxvjLgkfkb4Av/vk/5kc6HkzxCcqboCKxMmU1BeZhIs4i3c1tICJva2hhF3SQGV4HHD/dJQEqk85AGaaVsJ3209PeRtO1oxCZ+eyG0NdrnD5BQRzOvu5TpRO6mct1LlGPiSeDmjlQNH508mh/TZ0vaRPWKnmiUaGSrP2xE/nEx2cUciZaQSnMekAxphwphSJuFtomtH2GaD0/phZrwC50QOHHn1VPX8GhKKZyxVz8uO6ADcowmvSl/S1rG12p71+vCkDcwP9igcfMGU9kyUpb5DPgH9fBf9ru7kAIMSKtL4n6rFQwdJbbF/gpuPQFiw0xr9G88uqfho9UJTL+QQspK1Yx6h313UBNe30aqRXLTpqT7wOSnrWG6GXxEtvDeDBWk9DyDc6X7eD1a/vvNBjVSZDtd7Vedwi7Vh088nO07vj0wpPHUMc2AXEmn2YCqJSEJJalv2VFwcRS7cG0uNIKyKLEOnZfrN+gCJLHAGdHkejw+ejSe0Z7TzlQgV7ftxGB1bI2mba7M2yL+cb/2be/jhI3wWnBJIOohv+trOaJY5hMbDTFuXFxerAqM3ChRLF5pmLhx8sWXb0nY3dchOqXRiXpKVM1E6+I3kPTNpL9UbWK5nHIJrgnAy6kJYScn+MvGDs77dHrI/T+i9lPpNoZablAaq3SO2lwgsQKQYhvh1Z9MkAeM3bu0Mhnsd+OH4ArHifvdsdUuIvpcRFikgLvQNKCzUQNDTmgi27S+AH46e
+sidebar_class_name: "get api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Validate workspace name"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/orgs/{orgId}/workspaces/validate"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Confirms the validity of the given workspace name. Append `?name=<your_workspace_name>`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"name","in":"query","description":"Name to validate","schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"409":{"description":"Duplicate element","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

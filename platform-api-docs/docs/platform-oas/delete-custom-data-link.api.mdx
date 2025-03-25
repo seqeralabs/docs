@@ -1,0 +1,71 @@
+---
+id: delete-custom-data-link
+title: "Delete data link in a user or workspace context"
+description: "Delete data link in a user or workspace context"
+sidebar_label: "Delete data link in a user or workspace context"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVUtv2zAM/iuCThuQNd1abEBOa9cUKFCsQx+noAfGZmo1tqRKcrLA8H8fqdiOM/uw3naKTH4kPz5TSWPRQVBG36RyJq8wx4A/Sh9McQUBbpVey4m04KAghfNytqikpg8Cpw2ALCdSaZJYCBm9U/SJU5a9sk+C5QQTKkUd1EqhI4zDt1I5pKDBlTiRPsmwADmrZNhZ9u6DU/pF1vWkC7g1bu0tJHiI+Fai2w1C3sUH5KKzELos0KnkmMQgqNIBX6JqZVwBYS/6ek40npmzt0Z79Gzx5fSUf44DP5RJgt7LekL686F+rL6CkKJ1zZbnY54vIb2nkqEPRC4xxFMHRoG1uUpiB6evnqFVL61DlReyIGLwgpISabI1y1dM2J91PAZB7TNrgWO9kEGFnEVz54y771jXdSR+NiR+1w6Y0CYIyHOzJT4RPVKgnyZcm1KnE7HNUIuQYa+HxomEkuEGQu4FOIw+V2zAys4ErBLKi1R5WOaYEsINXfH4ijiYW/AHR/9reUnpMSmdCru4hJdI+buLkjZutnjm8RwbtV6WSgsQpUcXS9VVIib7m2nShmeGr0AaTePes3c5ZSef2ImfVoetr+WB0gPXZJ9fn1iXYhaCbReOv5cRRJL947rdttdtiHVQemWieVOPB3yjMRIXv24Gy96obA6Bl1ZQhhtFW9iAOT9IYjNLlzdU/Gw69dHuRBkCUT9VHpd9Zb4fFERkQ0dvH+fzydm3k1OWWeNDAXEWmsv0/mIf5dCViZVTyoRuG8WJfKumCwt56ALZz3rXl3qfESXGVNUSPD65vK5ZvD+PPC7tLsjZinYHBwS6mf/n4zlKeY27waHeQF4yUvKQbsApJvJOUh/um1X7KMb/T0bZNELQuz6NlmWvgvUzoTOElHwxsT3ggo65DT3TwTXgjLq1uZrfzh/nBIfj2f9r1mOAUWbUvIh4NGvUdd0RDfzNHOv6D9m1qPA=
+sidebar_class_name: "delete api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Delete data link in a user or workspace context"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/data-links/{dataLinkId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Delete data link in a user or workspace context
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"dataLinkId","in":"path","description":"Datalink identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Optional workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Success"},"204":{"description":"DeleteCustomDataLink 204 response"},"400":{"description":"BadRequest","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"NotFound, when the workspace or credentials are not found or when the api is disabled for the workspace or data link was not found","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

@@ -1,0 +1,71 @@
+---
+id: list-data-links
+title: "List data links in a user or workspace context"
+description: "List data links in a user or workspace context"
+sidebar_label: "List data links in a user or workspace context"
+hide_title: true
+hide_table_of_contents: true
+api: eJztWFFT4zYQ/isaP/sIBaadyVO5467DlDlugOsLkymKvY5FZMlIckIuk//eXTl2nNgEAzdtH3hKrF2tvl2tPu1qGegcDHdCq/M4GAYXwroz7viFUFMbhEHODc/AgbHB8HYZKPxArbk2U5vzCHBOGAiFQw8FmAV+xGAjI3IyiKOX/g+XrJ7BVJGBERETMSgnEgEGZ9kohYwHw2XgFjmtIJSDiRcl2mTclUO/ngSrVVjDiAx4I1za3kAac56BYJ0RarK1oAVuorTnSqUyLigwfIKHjEup52iSJQaAOXh0lY5WLMagSww6o6UYVzGbwgKjFtshuzMwQZt3IdOG3eVGzxC5uesJOuOPPRGjJm3PGAzTCUPYmWVOszEwA64wCuKQFRZihnvCcj4RyidO//07PtpCppPEgusJrlRurY9fBmyulQX7aiAzYcVYSOEWPcHUx4LikwhJ/xBGIZ1l4wXbsvf0Ho3CYIMd5UeHh/Szs+afaCPS6IZyJOV5LkXkAz+4t6SybC+hx/cQUWQxWfB8O1EuENcne6PKjeHebdru502IuMOTcB3IDsGWMx1yDIAuTARXkHTKy4FdQRgAJipSUjAuoinmEIbSCSdJpaKvG5qx8vj9edlnhc8peSZaT9BEGPAfhal//8bAG04bCQ9IlZHO8sJB14rfqpW8X5OnXG5Q0L59MPBQCFQlfILozce44c8o/Ml79V9EatUWfmrEh+R5McaMP40isHisZBP7WGsJXBH4VMQ4q1tmHXeFDwly8GXir7JdBw3w+FLJRTB0poCNw3+dXpyfofz8a/mvw5uD69I+Mcp+s6sRosnQDz7p2oKOYJw5XY5rvB+uxQ/oeUm2DFm62q/WdIMapHN0eNQmHAp0jrz6TjvvtPNOO++08/Np56SrzvnI4ytMPbDuJcTTzNbKwWcTtFckPhujTQv4cUeBVjVQTGlXFvmIx2uftLW/avdFFwor6XkKirkUGr0RlrXN/oQb8DYTmkDCegrPBROWxcJyzMyyIN4y9X+NIZ0KiApDpTEdh4/YAIE5LVyKnyOqiLfDRdnjeyNGzRG2bIpx6gGMD0cdOO/rI6HEqjzV1MlOfGeRc7IcDMjEB7luaisE1xSC0p0mjtqj1Lm8KuD90fZKOFL++VJl//3cebeFSrSfvnb/2vMRO/123uok1qJcckeHCBtBMxPINGtl8odHfu8KI9dQ7HAwKCnuQGjixowL6Q9fon/fCBDIDPv1cp1fDo5/Ozj0LKuty7jf+nXX8+LYdl+qJBygI8Jznoe7XMf9NmjEHfc2RQw0ulyOuYXvRq5WNFw2W5QOVUIHwwQPALSWrHO698tCJ0hsrVuvGDMuC9L0dPoKHE8+LOxBsPuA8VYM/8aTwx536ueRt/rx+oeIPejKd5C3Quv3DLEHRv3o8VYkL3mD2INnS2+DaUQfmEO+8Lml+iHFkoKKNDym5cyyUWjMal0zZKUm5D8+31DFtk2xO5TaLJG4aiJCyvAaN3oKCmmjgu/oGxfCq+UfgpAx+w==
+sidebar_class_name: "get api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List data links in a user or workspace context"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/data-links"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+List data links in a user or workspace context
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Optional workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"credentialsId","in":"query","description":"Optional credentials identifier","schema":{"type":"string"}},{"name":"search","in":"query","description":"Optional search criteria, allowing free text search on datalink name and keywords: `region`, or `provider`","schema":{"type":"string"}},{"name":"max","in":"query","description":"Optional max number of items to be returned, used for pagination","schema":{"type":"integer","format":"int32"}},{"name":"offset","in":"query","description":"Optional offset used for paginated responses","schema":{"type":"integer","format":"int32"}},{"name":"visibility","in":"query","description":"Optional parameter to filter results by visibility","schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"dataLinks":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"description":{"type":"string"},"resourceRef":{"type":"string"},"type":{"type":"string","enum":["bucket"],"title":"DataLinkType"},"provider":{"type":"string","enum":["aws","google","azure","azure_entra","seqeracompute"],"title":"DataLinkProvider"},"region":{"type":"string"},"credentials":{"type":"array","items":{"required":["id","name","provider"],"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"provider":{"type":"string","enum":["aws","google","azure","azure_entra","seqeracompute"],"title":"DataLinkProvider"}},"title":"DataLinkCredentials"}},"publicAccessible":{"type":"boolean"},"hidden":{"type":"boolean"},"status":{"allOf":[{"type":"string","readOnly":true,"enum":["VALID","INVALID"],"title":"DataLink.Status"},{"type":"string","readOnly":true}]},"message":{"type":"string"}},"title":"DataLinkDto"}},"totalSize":{"type":"integer","format":"int64"}},"title":"DataLinksListResponse"}}}},"202":{"description":"Accepted","content":{"application/json":{"schema":{"type":"object","properties":{"dataLinks":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"description":{"type":"string"},"resourceRef":{"type":"string"},"type":{"type":"string","enum":["bucket"],"title":"DataLinkType"},"provider":{"type":"string","enum":["aws","google","azure","azure_entra","seqeracompute"],"title":"DataLinkProvider"},"region":{"type":"string"},"credentials":{"type":"array","items":{"required":["id","name","provider"],"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"provider":{"type":"string","enum":["aws","google","azure","azure_entra","seqeracompute"],"title":"DataLinkProvider"}},"title":"DataLinkCredentials"}},"publicAccessible":{"type":"boolean"},"hidden":{"type":"boolean"},"status":{"allOf":[{"type":"string","readOnly":true,"enum":["VALID","INVALID"],"title":"DataLink.Status"},{"type":"string","readOnly":true}]},"message":{"type":"string"}},"title":"DataLinkDto"}},"totalSize":{"type":"integer","format":"int64"}},"title":"DataLinksListResponse"}}}},"400":{"description":"BadRequest","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"NotFound, when the workspace or credentials are not found or when the api is disabled for the workspace","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

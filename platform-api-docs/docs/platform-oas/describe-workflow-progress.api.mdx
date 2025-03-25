@@ -1,0 +1,71 @@
+---
+id: describe-workflow-progress
+title: "Retrieve the execution progress for the given Workflow ID"
+description: "Retrieve the execution progress for the given Workflow ID"
+sidebar_label: "Retrieve the execution progress for the given Workflow ID"
+hide_title: true
+hide_table_of_contents: true
+api: eJztWEtv4zYQ/iuCTi2Qxulm0QI+Na8ugrao4WTRg5EDLY1sxpKokCM7hqH/vjPUw1KkXVPdw6LYnkSR3zw4Dw45B19loAVKld6H/tS/BRNouYR/lN5EsdrNtFppMMY/8zOhRQII2vjTxcFP6YcIdhWQqM98mdJMJnBN49ByypgzTdb8PINapitPhpCijCRogmp4yaUGko86hzPfBGtIhD89+LjPWEhJ5BfFWUeuyUQAR8EvOej9oGQL9NI8AS2DruyeLJkirOxSpHQisJz65T1Jf2JVTaZSA4Yp3l1c8Kcr7+8/iDRQxCVFXhVZFsvAWnjybBhy6AtVy2cIkI2s2R8oSwFZbf2TyN1bf9Hc0awLPxAkki0VZPmfSlSjR0m2tCN2cCRkDKU1tzf4+rCTGLAnY8LflBAe/gWJsnbmn0dhNryQ2Mk5vBzHZdCA2FS0PGxo+aemzSAN2b1sXRFe7xF4VudpWs6afJlIRKuayYMAILTjrYrbau60RCipyVEnDFuJdHF7WwE3fK26K/d6S274yk1u4MrvbuDScXdRJAMJabBvkVHuLLtUFG30LWz0/AsS47qBKkqd0Ta6x+x3blx1OQa5Yxw04eyGb0WwG0EnA9xIOrntaFRlsO/Xon0AuDFqDhJ3eHVguBE0h407fIz6rQPMjQBeIchR6bYAobXgA5A8nbTnjyXODwXCDcVO98CpAC05jPsJOTnYWMLgxywcQ0RUKDGGVnm2yVPY0zKgKgJm1q9AvR389+pMtb3/K853U3Fqj/cTzr0a8c0y0xCUOcZX1XH16XP0rhVrkH5UDfsSB7eqNshhVJ0b5DCu8g2yGFsLB5mMrY6DTEaVxc9y+J4K5TeoeLPyQCgLHs8rFPGsLnsn9b5895abLZO3AkVn4QNgvTavno60zoj3Q4/HaxF6XE7B4JhXZLsCJyRKrOB0RaqBg3eQWv87rZXuaX458Oyt2wheqtATMV0moLSsoUsQpffedg2uQWjQVzlSei2e+EXdZTMH0gG24OEavPL+xDzrh7BHPrBLK7mF1Gu6Cve39j6Aa8VNjBXY3XIfYupP6qfx5HDsVRST7NjYqBV8YHuWtmmr2ZhnjZjVHQP+X1oQzZSD3+vweN6h3bhMI2XJK1s+wAvZyLua3feaFNVSFgvkKPMM6K2kUKzAHAgisIGQ67hSxUwnE2PpzqUiEMWCjG10Ruq34wIfjaBNKefn88tfzy9sjtKlPhE2jqqOyteYvrObxmAIrzihPcmUJVrND5VbFk3HgqinnSZS4xkKjrV9eiz8w2EpDHzUcVHwdNnp4XgKpRFLezmJRGygp0mTQqf6QIMqb4CkvGk1bUWcM9Ln4N0KLVn+SF1+mFcJ+6P3xcbYoFL1NTzdt7VpK1uZsngi9JpqM/Fi/UrAFd39MmyR9o4W3liTSx/uHgkrupnwJvIt90G1yG8W8ag2kJLvai2R/1nBovgEHGD/hA==
+sidebar_class_name: "get api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Retrieve the execution progress for the given Workflow ID"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/workflow/{workflowId}/progress"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Retrieve the execution progress for the given Workflow ID
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workflowId","in":"path","description":"Workflow string identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"progress":{"type":"object","properties":{"workflowProgress":{"required":["cached","cpuLoad","cpuTime","cpus","failed","invCtxSwitch","loadCpus","loadMemory","loadTasks","memoryReq","memoryRss","peakCpus","peakMemory","peakTasks","pending","readBytes","running","submitted","succeeded","volCtxSwitch","writeBytes"],"type":"object","properties":{"pending":{"type":"integer","format":"int64"},"submitted":{"type":"integer","format":"int64"},"running":{"type":"integer","format":"int64"},"succeeded":{"type":"integer","format":"int64"},"failed":{"type":"integer","format":"int64"},"cached":{"type":"integer","format":"int64"},"memoryEfficiency":{"type":"number","format":"float"},"cpuEfficiency":{"type":"number","format":"float"},"cpus":{"type":"integer","format":"int64"},"cpuTime":{"type":"integer","format":"int64"},"cpuLoad":{"type":"integer","format":"int64"},"memoryRss":{"type":"integer","format":"int64"},"memoryReq":{"type":"integer","format":"int64"},"readBytes":{"type":"integer","format":"int64"},"writeBytes":{"type":"integer","format":"int64"},"volCtxSwitch":{"type":"integer","format":"int64"},"invCtxSwitch":{"type":"integer","format":"int64"},"cost":{"type":"number"},"loadTasks":{"type":"integer","format":"int64"},"loadCpus":{"type":"integer","format":"int64"},"loadMemory":{"type":"integer","format":"int64"},"peakCpus":{"type":"integer","format":"int64"},"peakTasks":{"type":"integer","format":"int64"},"peakMemory":{"type":"integer","format":"int64"},"executors":{"type":"array","items":{"type":"string"}},"dateCreated":{"type":"string","format":"date-time"},"lastUpdated":{"type":"string","format":"date-time"}},"title":"WorkflowLoad"},"processesProgress":{"type":"array","items":{"required":["cached","cpuLoad","cpuTime","cpus","failed","invCtxSwitch","loadCpus","loadMemory","loadTasks","memoryReq","memoryRss","peakCpus","peakMemory","peakTasks","pending","process","readBytes","running","submitted","succeeded","volCtxSwitch","writeBytes"],"type":"object","properties":{"pending":{"type":"integer","format":"int64"},"submitted":{"type":"integer","format":"int64"},"running":{"type":"integer","format":"int64"},"succeeded":{"type":"integer","format":"int64"},"failed":{"type":"integer","format":"int64"},"cached":{"type":"integer","format":"int64"},"memoryEfficiency":{"type":"number","format":"float"},"cpuEfficiency":{"type":"number","format":"float"},"process":{"type":"string"},"cpus":{"type":"integer","format":"int64","deprecated":true},"cpuTime":{"type":"integer","format":"int64","deprecated":true},"cpuLoad":{"type":"integer","format":"int64","deprecated":true},"memoryRss":{"type":"integer","format":"int64","deprecated":true},"memoryReq":{"type":"integer","format":"int64","deprecated":true},"readBytes":{"type":"integer","format":"int64","deprecated":true},"writeBytes":{"type":"integer","format":"int64","deprecated":true},"volCtxSwitch":{"type":"integer","format":"int64","deprecated":true},"invCtxSwitch":{"type":"integer","format":"int64","deprecated":true},"loadTasks":{"type":"integer","format":"int64","deprecated":true},"loadCpus":{"type":"integer","format":"int64"},"loadMemory":{"type":"integer","format":"int64"},"peakCpus":{"type":"integer","format":"int64"},"peakTasks":{"type":"integer","format":"int64"},"peakMemory":{"type":"integer","format":"int64"},"dateCreated":{"type":"string","format":"date-time"},"lastUpdated":{"type":"string","format":"date-time"}},"title":"ProcessLoad"}},"totalProcesses":{"type":"integer","format":"int32"}},"title":"ProgressData"}},"title":"GetProgressResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

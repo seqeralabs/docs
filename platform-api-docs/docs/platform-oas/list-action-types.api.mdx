@@ -1,0 +1,71 @@
+---
+id: list-action-types
+title: "List action event types"
+description: "Lists the supported event types that trigger a pipeline action. Append `?workspaceId` to list event types in a workspace context."
+sidebar_label: "List action event types"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVE1PGzEQ/SuWzyihgFoplzZItEKt1KpQ9YCQcHYnicFrm/FsaLTKf++MdzdsSATqradde96M35uvRpeQCrSRbPB6or/ZREnRElSqYwxIUCpYgSdF6whiMfyLdrEAVEZFG8FZD8oUEmCkpjGCL9Xdx6eADymaAi7LO0VBOQ68E8l69t+iVBE8wR8a6SMdIqCRcJdlx2iao1+LH9ujQVMBASY9uWm05wPjBg8yxoqYxxpwzYddib+3b/q6ArSFsiXTsnMLyOBULKEyetJo4cl4y8QW2TQPWBlqr96f6c3m9kgjpBh8YmLscXJ8LJ/d975/Zdcsz5NYTYzOFlng+D4JpNl/NMzuoSARi5IOsu0DOYFtHp6xBtGITEtQpbdjpFBjAQNc4nr6hd5womyKjmMdtA1FHbCDNzMH5cA2C8GB8ZynI02WnNxd9AL4dnAtRd6a0s8up4Jh0NmhrJ6bUiFwhRP9S3rFxaLQvNEVpGQWoLmKr2esB+7LHipDDLjH/PRAP/TtrXwgZZwLT8xH4AmKGi2tc1ufg0HAaU1LPt5Kq3HPL4OMxAIyRyMmPW5HL42pG48+ypWIbgUMY201LIli3++5XBnEN+3P577Z758os7N+HrJ7J/gKHlmImv643BuxzsS9RDIzKgGubMFD34KlWsxagtXoOippMh6n7DeygUFcMOvyrM3Dp2cDE1nx5LfvvBudfhgdy10MiSqTi93tA2mpbi0N985Lrs1z7/wXy68rjhzHnD/eY6wuZ6npKn6ju4p36CQNvGT9YmqamUnwC91mI9ftBpR24tHu5nNuXIJXsvDGfjxI8AHWeyt4ZVwtSC29uzJo5f3cy0wXTMnRhFjrOi0KiDTw2hvjnQn4cnHNWLPb0C8aOEfvV6RfD2JzkjLiOjyA50T1/EnO/BDP7l9LBXiu
+sidebar_class_name: "get api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List action event types"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/actions/types"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Lists the supported event types that trigger a pipeline action. Append `?workspaceId` to list event types in a workspace context.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"eventTypes":{"type":"array","items":{"type":"object","properties":{"source":{"type":"string"},"display":{"type":"string"},"description":{"type":"string"},"enabled":{"type":"boolean"}},"title":"EventType"}}},"title":"ListEventTypesResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

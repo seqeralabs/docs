@@ -1,0 +1,71 @@
+---
+id: create-dataset-v-2
+title: "Create dataset"
+description: "Creates a new dataset in the user context. Include the dataset file and details in your request body. Append `?workspaceId` to create the dataset in a workspace context."
+sidebar_label: "Create dataset"
+hide_title: true
+hide_table_of_contents: true
+api: eJzVVm1v2zYQ/isEsQ8r4LekxdoaGDqn64BgA1I0aQfMzVZaPNtMKFIlqTie5v/eO1KyZcvwhm0fti+GdXzu/bkjKy7BZ04VQVnDx/y1AxHAM8EMrJgUQXgITBkWlsBKD45l1gR4DAN2aTJdSognDXCuNDBhJJMQhNKeNNe2dMzB5xJ8YDMr1wM2KQpA0KdXK+vufSEyuJSfWLAsi+73TKIFwba4rXve47YAJyjuS7mN/Puk9eEczwvhRA4BnOfjacUNfiCu5RIxipLG0NwaP/ZL8fPWpylzcCpjSoIJaq7AIdhnS8gFH1c8rAsyrDCwRTyaW5eLkETfPOObzW2P1wW4wPxJZ99VHXWTfo1FSzFbE0hDFIVWWcx3eOdJrerGYGd3kJFi4ag6QYGn05T6FuWDU2bBNwcZd84REFTQcFjdd3V8G0JQsMoBtiC4EqLAF9b45Pl8NOqme/Xjv5daTRP6u4tkmjLGsp9WVpJ+c/H4E5hFWPLx+XmvW6Smei3c2WhE/ApILkro16no/z7p//Lxo7z9+tW49fXHtP8bir5tiZ48qc56L19svuJHfB00ZN/l6IhCDlKJmyjdg784BpagcR5kq6ozazUIw6ltQl4Zvd72ESsLqe2yy40WyQnXDwprdMSIFj68L+Q/MdJiYc2/U8xM3CNqIubZMfZdCPl3JqzNrhy8F4u/QLAGeHK23jhnXSfyp0fmpll4zNjAhNZ2hfFE9MsjS6VM6QDDrueU4380Wzz0kJVOhXVc1BcgHLhJSTSe3tLyxC2+tLTkCxubhpOHZ3xYD7/nOwvXlEIKp21nG9EyhKLZ3nEAIggl6c8PDSHvVolmVJp3u9395lHkhYbdUt1xeb/6u6FTZm5jAHUBruEztpFN3l52lOqjQotAk8Hwvn1QGV7HCUzdE1nsXul0nYwfD4c+6g2URRA2UOl498ztd7sDDOQBb8Lk52zw9PlgRDIqaC5MK580T831exhitaPQ/+qtUHefPodYXrz2MflYxKpm05Rv2YSMWxLRUFZVM5S9d3qzIXF6KRBJpfJipmlA5kJ7OFGmP3lHHI3sHtadp8qD0CUhOU3Eg3CK/McJwXBxZaI1Ciypvk7u+/Fm2Ol2hn7TazQmWQZFOIltT+Lbq+sbmpr6PZNbSTpOrGiB4y/GSS800o7DGGUV3gdmUcYdwZNNmjGxP6IHIxmzqo+EWbcixOZExI29B4MNauoW6BvDReNfANQTw1U=
+sidebar_class_name: "post api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Create dataset"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/datasets"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Creates a new dataset in the user context. Include the dataset file and details in your request body. Append `?workspaceId` to create the dataset in a workspace context.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Dataset create request","content":{"application/json":{"schema":{"type":"object","properties":{"name":{"type":"string"},"description":{"type":"string"}},"title":"CreateDatasetRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"dataset":{"required":["name"],"type":"object","properties":{"id":{"maxLength":22,"type":"string"},"name":{"maxLength":100,"pattern":"^[a-zA-Z\\d](?:[a-zA-Z\\d]|[-_](?=[a-zA-Z\\d])){1,98}$","type":"string"},"description":{"maxLength":1000,"type":"string"},"mediaType":{"maxLength":80,"type":"string"},"deleted":{"type":"boolean","readOnly":true},"dateCreated":{"type":"string","format":"date-time","readOnly":true},"lastUpdated":{"type":"string","format":"date-time","readOnly":true}},"title":"Dataset"}},"title":"CreateDatasetResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"409":{"description":"Duplicate element","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

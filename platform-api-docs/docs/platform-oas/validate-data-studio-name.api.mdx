@@ -1,0 +1,71 @@
+---
+id: validate-data-studio-name
+title: "Validate data studio name"
+description: "Confirms the availability of the given name for a data studio in the given workspace or user context"
+sidebar_label: "Validate data studio name"
+hide_title: true
+hide_table_of_contents: true
+api: eJy9VMFu2zAM/RVB5yzJ1mLDclq7bkMv3YB2uxQ9KDadcFEkV6LTBYb/faQsp0lTdD3tZEt64iMfH9XqEmIRsCb0Ts/0Z+8qDOuoaAnKbAxaM0eLtFW+SnsL3IBTzqxBVT4oo0pDRkVqSvQK3R7mwYdVrE0BinFNhKAK7wj+kB5pX0MwQnlZMukvY5HDwAWHuk6Rrjg+w2oT+IcgRD27bbWwMnwXmC+PNEra9w2ELS8Oi/mefozdSwVLcIQVQmB0LJawNnrWatrWEhk5v0U64trWhvqt96e660Y7etfn9gLvxZ4kSSnyag5qk8ssn6OOFNAtmOhupAPE2rsIUc7fTU/l86SylXqjrnyvqKORwr47iQ1jT6WMK4ceWtDdSJ9Op8exzk2pAnAl8TiO89THGvfXT55JZWhlAhtr/QNXmNAfj9HiL4sFMyWKsql5JZoceic7ZSzC6whFE9iCyQPnYAKEs4aWvLwTtdggSy82WgAlz8iRnvT6x8mgun4MdC3i9+ruh9v1YklUDz2S9TyBeKf/+Tp44/cDpQTRVT5dR7KCv4Z71kSd/bg8skY+qq0hsZjisdhgATGDpW5TkARrgs2pxNlkEtO9MXoGsXHQJmtW/tPjASey4Unped6OTz6Mp7JX+0hr4yRkNvAwbgejm119kG2rs7/+38OQOyCrCYvEQ8YlJCna3NlbnTvL6F1v2QZLrlNO23ZuIvwMtutku59QcU6JUeaAnVIZG+GFWv/1bjyb5Aq2R28T59cIUsvz8Xr+V7wfL6SQO/nIfSeLgOkRkJnZG5lvX24Yag7t/8TuSbx8ZNx2LzRLnRA3fgWO5R4yIFkzb9d1fwE9djKH
+sidebar_class_name: "get api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Validate data studio name"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/studios/validate"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Confirms the availability of the given name for a data studio in the given workspace or user context
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Optional workspace identifier","schema":{"type":"integer","format":"int64"}},{"name":"name","in":"query","description":"Data studio name to be validated","schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"Ok - No content, if the name is valid and available"},"400":{"description":"Bad request, if the name is not valid."},"403":{"description":"Operation not allowed"},"409":{"description":"Conflict, name duplicated in the given context."}}}
+>
+  
+</StatusCodes>
+
+
+      

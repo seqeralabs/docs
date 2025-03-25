@@ -1,0 +1,71 @@
+---
+id: list-workflow-tasks
+title: "List the tasks for the given Workflow ID and filter parameters"
+description: "List the tasks for the given Workflow ID and filter parameters"
+sidebar_label: "List the tasks for the given Workflow ID and filter parameters"
+hide_title: true
+hide_table_of_contents: true
+api: eJylWN9z4jgM/lcyedqd6ZXeduduhqcD2u4x11/T0tuZ6/TBJALcJnFqK1CG438/yQmQFB+Y9okk/qxPkiVZYhGqHLRAqbJ+HLbDS2nwp9Ivo0TNBsK8mPAozIUWKSBoE7YfF2FGL4ScVSjadhTKjL7kAif0HIOJtMxZJH1cCQsMapmNAxlDhnIkQRNUw2shNRAx6gKOQhNNIBVhexHiPGeSclO4XB41eE0uItgQvxag505mCwyyIgUtoyb3FpfMEMZ2aaR0KrD89Nv3Bnsq3naz3oqxzKw/Aw2mSDCgLdWjP+vptwarGo0MoDfxGv4xNqM0due72S4kJHGAKmBwMJy7yByHx+gzqXfLvicQh0pMoRFZg74IE/3LoK++PCB0NNlDYzEBcpSTBYHdukv8EwesyVVmwPD6t5MT/mlKvfmLZESK/Jwhr4o8T2Rkz6X1bBiy2KZQw2eylFNNczqiLAmsajWY0FrYc0FIjd92/t1k2SMZI7DgpOZFyiCyabeQiTAThzOOKk87Fmh/BMY411CMnd9NMUwlbi/V4jQWCL+gJFLGo9AHwCOV5glVMP8dqYqLBDx8vwk+e+pCZpReLhMF0s4cvZKRo5BDyu2riOp15D4ULo6UNs41yoLCfWJRXhhPvVJIFeWST9WkfJNlAHpArd/9oJBNnVbAG0QFKrfxqYgmdDQD+93lgkQV8T8q+7+QlhFcqRgSVwQB3S9VbmWx0HwtUZVAm1sSOYrCHou/3Uix0WLq50syhmQw26G10p2orCdOOyXel2nsd2ZxUV7wnv7VIJIDjoPvnClfxk7HUWhtG1lPOlUME5txOYWWJ1Sb/aaXyk2bQndBcxAvd96CGf23v3C6aIT2xM4OwJo5VYMDsDP/GIi7cwRfd8w01cVDNkxV0sO3/dWwRMtsegCaE8QzNWTsI5OCvEgSwdFnG9Xl+vr09Pz7bN0qHdfnP+nt/qF71R8Mzs/o+e7h+rp//YOeep3en/ZT7+bq9vK8XL7o9C/tQ6d7c8efasWG+/aqQHD207XWo/NEcKSo8/pzmJsIgw95/Bkhy6aCYf3DmW2hhsALd1WLVQIUisTLyzVpPMPY2aUmite/u/q1rogDbpDA4CGNW72nSqnbEWPY30utgM7uYaX9OZf/Lc1PHZ3manALMoWBSGjIIn0YbugipISc23GtS20u6E5Bs1n78Ymb2KYY9laAE6gaYfKrfRtTUc+C9fTWPwvocgtGMqE5MKhNhNwS4ETx7Di2M4edAtthazUfthabSXHZwmqmXKl4zx4tvVNXdO2gCWK+asr5fWhB9KV8uFhFwfMMrekyGym7vfLmPbySl4LObd/R/9ulPBHIwRQY0FO6oE0Ftt1cZEOh0Emlimm3WsbuO5aK8zcVMrFBOFJ/bBa4wJFzSp5fj09/Pz6xlwZd+amwkVTNKZ92fsOktdcQ3rBFhtH0Q7RW/UV1MI/rwZ12txtDfHk2FCAT25o8hovFUBh40MlyyZ/LMYpjiho7zmw69JFIDGypsU6jfUO4U98XIJZ3c/5UJNy8hiEPef70e6bxHfTloP952vUsvoNrjfkgnWMY38G2Hu8/yLZnPN/DXE7/H6V2j+y7KFd/BGwYn/hFy/JqOiiYv9xVVf9rsPNvLac+qzkya7i+Hu1VIi6fCD2hBowHSdKvBHSiCPJ6jGzdT2zYuhb/OB8QVjSL6bviaaU71aLEt4iBeoGMkn+lJfI7K7hc/gdUddvq
+sidebar_class_name: "get api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List the tasks for the given Workflow ID and filter parameters"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/workflow/{workflowId}/tasks"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+List the tasks for the given Workflow ID and filter parameters
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workflowId","in":"path","description":"Workflow string identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"max","in":"query","description":"Pagination result max result","schema":{"type":"integer","format":"int32"}},{"name":"offset","in":"query","description":"Pagination offset","schema":{"type":"integer","format":"int32"}},{"name":"sortBy","in":"query","description":"Field to sort by","schema":{"type":"string"}},{"name":"sortDir","in":"query","description":"Sorting direction (asc|desc)","schema":{"type":"string"}},{"name":"search","in":"query","description":"Search tasks by name","schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"tasks":{"type":"array","items":{"type":"object","properties":{"task":{"required":["status","taskId"],"type":"object","properties":{"hash":{"type":"string"},"name":{"type":"string"},"process":{"type":"string"},"tag":{"type":"string"},"submit":{"type":"string","format":"date-time"},"start":{"type":"string","format":"date-time"},"complete":{"type":"string","format":"date-time"},"module":{"type":"array","items":{"type":"string"}},"container":{"type":"string"},"attempt":{"type":"integer","format":"int32"},"script":{"type":"string"},"scratch":{"type":"string"},"workdir":{"type":"string"},"queue":{"type":"string"},"cpus":{"type":"integer","format":"int32"},"memory":{"type":"integer","format":"int64"},"disk":{"type":"integer","format":"int64"},"time":{"type":"integer","format":"int64"},"env":{"type":"string"},"executor":{"type":"string"},"machineType":{"type":"string"},"cloudZone":{"type":"string"},"priceModel":{"type":"string","enum":["standard","spot"],"title":"CloudPriceModel"},"cost":{"type":"number"},"errorAction":{"type":"string"},"exitStatus":{"type":"integer","format":"int32"},"duration":{"type":"integer","format":"int64"},"realtime":{"type":"integer","format":"int64"},"nativeId":{"type":"string"},"pcpu":{"type":"number","format":"double"},"pmem":{"type":"number","format":"double"},"rss":{"type":"integer","format":"int64"},"vmem":{"type":"integer","format":"int64"},"peakRss":{"type":"integer","format":"int64"},"peakVmem":{"type":"integer","format":"int64"},"rchar":{"type":"integer","format":"int64"},"wchar":{"type":"integer","format":"int64"},"syscr":{"type":"integer","format":"int64"},"syscw":{"type":"integer","format":"int64"},"readBytes":{"type":"integer","format":"int64"},"writeBytes":{"type":"integer","format":"int64"},"volCtxt":{"type":"integer","format":"int64"},"invCtxt":{"type":"integer","format":"int64"},"exit":{"type":"integer","format":"int32"},"id":{"type":"integer","format":"int64","nullable":true},"taskId":{"type":"integer","format":"int64"},"status":{"type":"string","enum":["NEW","SUBMITTED","RUNNING","CACHED","COMPLETED","FAILED","ABORTED"],"title":"TaskStatus"},"dateCreated":{"type":"string","format":"date-time","nullable":true},"lastUpdated":{"type":"string","format":"date-time","nullable":true}},"title":"Task"}},"title":"DescribeTaskResponse"}},"total":{"type":"integer","format":"int64"}},"title":"ListTasksResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

@@ -1,0 +1,71 @@
+---
+id: ga-4-gh-run-describe
+title: "GA4GH: Describe run"
+description: "Uses the GA4GH workflow execution service API to retrieve the details of the run assoiated with the given `run_id`."
+sidebar_label: "GA4GH: Describe run"
+hide_title: true
+hide_table_of_contents: true
+api: eJztFl1v4zbsrwh62oCiaa8FBuRpuZ6XBddLunzgdlcUOcVmHLWO5ZPopEGQ/z5Scj7aOOswHLCXvdgUSVH8JtcyARdbXaA2uWzKkQMncAai3bpu/y6Wxj5NM7MU8AxxyTzCgV3oGETrriPQCAtoNSzAX0oAlc6cMFN/tGUulHNGK4RELDXOPDrVC8jFN6KOdfLtXJ5JU4BVLL2TkA5tdZ3O+mX+wWs2AWIolFVzQLBONu/XMqcDMQYJRNaseqFwRvBLe0iMcKRhngqdQI56qsESl4XvpbZAz6Et4Uy6eAZzJZtriauCZYdLcrN5YGZXmJw8w/R3Fxf8e/lM7yPJjE2O9ARTVVFkOvYmNR4ds6yPnzCTR4iRrbPsANThgcqqY1WC1uDwbRnbuI2941ytsB1PoLzFMV6Q93Uw5YgTVerqtFJJotkJKrt7od9rJx+8BXmqcxgfRvyHyC1tVs+BGjMIqdKv/EtYh5S0xxfOJOTlnJJQjrofu73PXcL8MYpG0QcCOt3OsNO67XztdNt07I+63QDdtUYDz3HT+3R3Gw0jAqM/o5vRsNcfR/1+r0+IwZfBMPq0O960ujfRbbjlQRb1sFd34BXkpKB8yUz6dlKEqqmJXjw/TDdlrVpxUSHUZk5wjsUx6hPyIE9OEx0mpsRTJLC2XuSzxnFskkOZmsot9dU8NXauMKCu3r2I6q2pEtQ9sZfcPzD0f/e9ch+d6c2ixBovvaqgwM/I67o++V4lYtvEfljDnLv0hD8Ulu5fmf0ZXGStsf2q8+9suqrp/dvhJXKDQmXUbGiuMDv1r5nhiZaC15oHVFM2Up5vjSW4xuKyQdXrGuvQ8zfE5GjOWo2rARsf7HsPyoJtlXx7Z8YMsZDV3OLzxDMRJgC/bW17XIYY6Xxq/PVt+4DvpDZP8aOZWZGKTCG7aDvxXcXMUVOxj5rvqV4V12w0nL93rg13yTktAt61U/PrnkCK7MaIvDy/+uX8gnGFcThX+b7KpF8/mmK7AvAq8VrP9T5//qO1pQoFwjM2yFu0hZAt1ZwJwb6XPtjES+Gm7+JS+obNcLMa9NTTZ4aH+r1cryfKwchmmw2jqU7sivAELpTVasKRo/Un0Y5hyqypyhz8jV9+6ld7zs/i1CZUa8S2l+XcyRYqK/lE4BOs9nvX5oE4Z6Co63i1ArEVx1DgwbWj0uaValca7WhI+fkXOpSXrA==
+sidebar_class_name: "get api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"GA4GH: Describe run"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/ga4gh/wes/v1/runs/{run_id}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Uses the GA4GH workflow execution service API to retrieve the details of the run assoiated with the given `run_id`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"run_id","in":"path","description":"Run string identifier","required":true,"schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"run_id":{"type":"string"},"request":{"type":"object","properties":{"workflow_params":{"type":"string"},"workflow_type":{"type":"string"},"workflow_type_version":{"type":"string"},"tags":{"type":"object","additionalProperties":{"type":"string"}},"workflow_engine_parameters":{"type":"object","additionalProperties":{"type":"string"}},"workflow_url":{"type":"string"}},"title":"RunRequest"},"state":{"type":"string","enum":["UNKNOWN","QUEUED","INITIALIZING","RUNNING","PAUSED","COMPLETE","EXECUTOR_ERROR","SYSTEM_ERROR","CANCELED","CANCELING"],"title":"State"},"run_log":{"type":"object","properties":{"name":{"type":"string"},"cmd":{"type":"array","items":{"type":"string"}},"start_time":{"type":"string"},"end_time":{"type":"string"},"stdout":{"type":"string"},"stderr":{"type":"string"},"exit_code":{"type":"integer","format":"int32"}},"title":"Log"},"task_logs":{"type":"array","items":{"type":"object","properties":{"name":{"type":"string"},"cmd":{"type":"array","items":{"type":"string"}},"start_time":{"type":"string"},"end_time":{"type":"string"},"stdout":{"type":"string"},"stderr":{"type":"string"},"exit_code":{"type":"integer","format":"int32"}},"title":"Log"}},"outputs":{"type":"object"}},"title":"RunLog"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"type":"object","properties":{"msg":{"type":"string"},"status_code":{"type":"integer","format":"int32"}},"title":"WesErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

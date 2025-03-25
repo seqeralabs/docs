@@ -1,0 +1,71 @@
+---
+id: list-workspaces-by-team
+title: "List team workspaces"
+description: "Lists all the workspaces of which the given `teamId` is a participant."
+sidebar_label: "List team workspaces"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVl1P2zAU/SuWnzapogzQJvVpRZSt2sRQ27GHqhJuctsYEjvYDqWr8t93r5OmX6FQtEl7gtjH9577dW4XPAQbGJk6qRVv8e/SOstEHDMXAZtpc29TEYBlesJmkQwifz6Vj6DYrQORdMNbJvEFS4VxMpCpUO6IN7hOwQgy2g1Ls78qY+fzAb5EEL4RCTgwlreGC67wA8HaTPFRg0silAoX4f+bLH+YqVDyt7fPVJaAkQGTISgnJxIM4g08ZNIA+nYmgwa3QQSJ4K0Fd/OUnEjlYOqhE20S4Yqjj2c8zxsVkyLAvVQokn9JIRFPS/8PGZj5DoFrMZWqyARimQGbxc7yV/s7PdnwpycTC+41LpX3WeHf5s6CMEG0313fYxieYKdIUefLOiPVFC2PKO821cqCpfuT42P6s9U+39BGoJGfcnQr0jSWgc9h884SZLHrQo/vIKBAU0O97WThYDUia1hhjKA4kHBiX7Yhw1d1RaNM2k7UCM3i+Oq5y43ga+4fpZVjGUs3371ucMDmxunk173uTXvQwZP+13avc8Ex1U66mMA3KwtY3Oq4mviL8YXTeLV2t6kIvbJmhEHQWV3VzkXIejhTYN0h5VuN4ZAnYK2Ygqe+tyJLYE2HrULoGKPNDvPTmn5baiFT2pG46hny8eizXfQVYi51psL/NUq8tBBkxjcMyvY5zieYdobq2BqOaARR0yNNuj/10uCFs8WbKOy2ufDynjdJW/GrkNi8uTZHK/N9iq/guu6kohs5ly7lgL7HHoQnxT+XywG6mzkfk1QT7Z+XsfXhASvD2tfdGtHxV2ksHM0hs2AeJS3CAkyFEYEvTGbikoptNZvWvzuSmkYnETL28zvRn1cXNHK48go/H45OPx0d01mqrUuEr2spjjQjjBLENrKzNc9Vj/y95V2m18GTa2IGUJuRn49zURZzSFuayLSW29rXkw6qpblGGnsiwvDo3WIxFhZ+mjjP6biQfGqjUFoxjqmFJyK2sCfOZ1deLe97mFd79FHEGSE4raBDHW4tvD3OKswb/e1uvD3OqhW6cjaiD3w4pi4/KLXveqWQvGcv/8iqJbVcgWq+TqnKjO+Ww7Kxxun5X1tv4FI2aj5CZAQiRDuUrOKyHQSQrpdwR383hO5LZ4BYsSlPW3LkrddSwpnwiIG+B4VzUTGkbyKY538AWFEADA==
+sidebar_class_name: "get api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List team workspaces"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/orgs/{orgId}/teams/{teamId}/workspaces"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Lists all the workspaces of which the given `teamId` is a participant.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"teamId","in":"path","description":"Team numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"max","in":"query","description":"Pagination max results","schema":{"type":"integer","format":"int32"}},{"name":"offset","in":"query","description":"Paginantion offset","schema":{"type":"integer","format":"int32"}},{"name":"search","in":"query","description":"Search criteria","schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"workspaces":{"type":"array","items":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"},"fullName":{"type":"string"},"description":{"type":"string"},"visibility":{"type":"string","enum":["PRIVATE","SHARED"],"title":"Visibility"}},"title":"WorkspaceDbDto"}}},"title":"ListWorkspacesResponse"}}}},"400":{"description":"Bad Request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"Not Found","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

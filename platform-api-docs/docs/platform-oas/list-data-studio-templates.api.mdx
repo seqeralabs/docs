@@ -1,0 +1,71 @@
+---
+id: list-data-studio-templates
+title: "List data studio available templates"
+description: "Returns the list of configured data studio templates that are available to be used."
+sidebar_label: "List data studio available templates"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVt9v0zAQ/lcsP5d2bBNIfWITA01CgNbBy7QHN7m0XhPbsy/tStX/nTsnadK1lDKExFNi36/Pd9+dvZIphMRrh9oaOZQ3gKU3QeAURK4DCpuJxJpMT0oPqUgVKhGwTLUVCIXLFQIrKxTKg1BzpXM1zkGgFWMQZYC0L3vSOvCKI1ynFOMT+X1PjkbRz23jhvSc8qoABB/k8G4lDS1If2H9LDiVAFn3pGaYjyX4JS22wX+JPyoXGwuhUzCoMw2etEMyhULJ4Uri0rFnbRAmUZRZXyistt6cy/W6twlfqKcjw5KmMGUxBs9p05SgUCfCx7RC2ospERRNODXRJibleGRnp1vIbJYFwCPBVco78WnlIThrQqzAnwC578nWlCxOT0748yz+TLzqxGo41TJlL6UoHLEOqXbsUTmX6yTmavAQ2O2qA9TDY6mJnEQZ2XWAFlU+0j9AEtD6NHb8AAlnzHnmJOoKeWvWHlx5rzidsYyd/V+48OBs0GipBK1uQK/NRK7JS1LB3hEEVFiGXVFPAlGJz+QhsUUBJoU0VtfRBueSVZ4IgSYZnZSWpQmlc9azkM+sMWePba99p86iJI6qmGvOkc33wFrvM24atRJvkntcNx3wF3ge3NREIl3WPt9HpUuV3lCtIeBL6VFACGpyBCEaxYOpufLe+h3gZ3t6oBl/wlgalHluF4Qnap/van+2+MGWhmbFYgomTuKLr9dCB5HqwC1T9S/vb+bc/5oQJjgkpde4jBP9Euia8BclTml5zxOExv3U8q0wiZPMKRbJQTUQwqDb0I2nER+lgtX1t0E2RXTNKOP1OCrRTvXzoSHnwwIjfG0yG83rY4zgkerFSd+ZprWIITHHRQA/1wldgZUy10AlsQalz2soYTgYhGjX15abtqDRF3sjs+9aAQGZV+1Jstf9s7f9E96jqYKFiiWspz63y9bU7Ny6nWxtAV+19PhHV3yde4QnHJAN3UgEPiZhVRf1TtZFZe0NUKLAlI7I4tVqrAJ88/l6zdvVfcasaXgvh5nKAxw42+9eAHtRzmC588qYq7xkTcnX7Qviv/wpcABi9RL5W2jHPQQOwNg8O1ok97zwmqHExqaigkop5Vy+yuoiScB1rXam1NY4+Hh1S7pqu7OfdXL03lzXZtnxTVSKGrd2Bobo1EBHXlMgmkw/Ad2F0zw=
+sidebar_class_name: "get api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List data studio available templates"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/studios/templates"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Returns the list of configured data studio templates that are available to be used.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Optional workspace identifier","schema":{"type":"integer","format":"int64"}},{"name":"max","in":"query","description":"Optional max number of items to be returned, used for pagination","schema":{"type":"integer","format":"int32"}},{"name":"offset","in":"query","description":"Optional offset used for paginated responses","schema":{"type":"integer","format":"int32"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Ok - paginated list of available data studio templates","content":{"application/json":{"schema":{"required":["templates","totalSize"],"type":"object","properties":{"templates":{"type":"array","items":{"type":"object","properties":{"repository":{"type":"string"},"icon":{"type":"string"},"status":{"type":"string","enum":["recommended","deprecated","experimental","unsupported"],"title":"DataStudioVersionStatus"},"tool":{"type":"string"}},"title":"DataStudioTemplate"}},"totalSize":{"type":"integer","format":"int64"}},"title":"DataStudioTemplatesListResponse"}}}},"400":{"description":"BadRequest","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"NotFound, when the API is disabled for the workspace","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

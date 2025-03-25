@@ -1,0 +1,71 @@
+---
+id: update-organization-team
+title: "Update team"
+description: "Updates the details of the team identified by the given `teamId`."
+sidebar_label: "Update team"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVd9v2jAQ/lciP20SA9aiTeNp7dZJ1R5aMfqEKvVIDnCb2K7t0LIo//vu7EAoMCZVfdhLFN8vf9+d764SGbrUSuOlVmIobkwGHl3iF5hk6EHmLtGzcPQIRSIzVF7OJGbJdBXEc7lEldyx9jK764qO0AYtcLzLbBPxys5Byd9BPCZTMjNgoUCP1onhpBKKDmSu7ZzcOkIyGgN+Qf8vIW6HSlRZoJVpi8uSvcXHUlqk270tsSNcusACxLASfmX4Eqk8zoPpTNsCfBR9Goi67myQREZHoTCTt4dwG93R+XOdrdjnwK1lSGvSGFKYVFNE5dkcjMllGhLUu3fsU+0D0NN7TNnRWC6Yl+hYG8lvrJy3Us1FvcP8gB6W4MFyyfeUpPXS57h5Dcxg1CCvWf0yXUHgjFYuYjrp9/ezcPWTbz3pD/ZVh59cQrbJOi77Dg6FPYfsNUltCUxEgc7BHAXV8Xiu14ZHM3ZhrbajDeyQrkH/9EBC1m2XKO0TyHP9RHiC9Zd96+9lpEONjDkWTPI/pUtKh2lppV+FQXGOYNGeldSPw8ktdwtNkYXmWWPKcCu36lD0aJS4XhUGSt3jbqZTbOpatDF/MakIcDvyBuPCeyOaBubzNBiRJP78WHfv/ZMPRDhZo7Z9L56hMDm2rbUmvTtLNuK2kba6S6qZDqCaNP3CR6p2cnZ9uReoUZkcPI+WxKFdypRmejTmGkMaalzavCHohr2eC35dqcmIyizzMJJm+murICBLmtfxno/d08/dPsuMdr4AtcUxdmBYGbv4qvaVvcm2acrk8dn3iDMNa0IUmFXNS5jwUnFkOlwvl/AYWNDMeHpDC+LAplU1BYc3Nq9rFlMdLT87+l2ClTDl7NMjzKTjfyrSDHKHRzi+GzW98j759+Y6SKYRgloJRpGXfKLfB1xtFibvrVdh+vsKewWWJp31LVkuEDKKw8mKym/x+g9jDtE67w0aphI9ztIUjT9qu9391zdjbstmZxY6YxcLT7yO6Rtw6pCN0O1BVokc1LwMY0nEkNzE8HIG7PR8IHUwE/R6gsVYP6Cq6zYxfOa81PUfsE5BTQ==
+sidebar_class_name: "put api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Update team"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"put"}
+  path={"/orgs/{orgId}/teams/{teamId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Updates the details of the team identified by the given `teamId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"teamId","in":"path","description":"Team numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Team update request","content":{"application/json":{"schema":{"type":"object","properties":{"name":{"type":"string"},"description":{"type":"string"},"avatarId":{"type":"string"}},"title":"UpdateTeamRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK"},"204":{"description":"UpdateOrganizationTeam 204 response"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"409":{"description":"Duplicated element","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

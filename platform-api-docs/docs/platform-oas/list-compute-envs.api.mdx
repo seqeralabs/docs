@@ -1,0 +1,71 @@
+---
+id: list-compute-envs
+title: "List compute environments"
+description: "Lists all available compute environments in a user context. Append `?workspaceId` to list compute environments in a workspace context, and `?status` to filter by compute environment status."
+sidebar_label: "List compute environments"
+hide_title: true
+hide_table_of_contents: true
+api: eJzVVUtvGjEQ/iuWzxTSJmolLu0moRUqSiry6CGKVLM7wCRee2t7SRHiv3fGu7zChqTHnsA772++mVnIDHzqsAhojezKAfrghdJaqJlCrUYaRGrzogwgwMzQWZODIRU0QonSgyOxCfAntEVSFGAy8evzk3WPvlAp9LNfIlihyekBL2v1lauWUNGPDyqUProYow4UazRv8iMqxbZsSVuAU1xLP6urOav0e2bmSV4op3IgV1527xbS0IP0KnsSI2PwuwQ3p8cuMmcvxiVVn04hV7K7kGFeVB4dmolcLlvrIFuoHI70c42HKXNwmArMKBqOEVxTLCTQJlE0ti5Xofr08YSi37ekA19Y48GzxYejI/7ZjXf5nUwj9CawVBWFxjSi2HnwrLLYD2pHD5AGRtQx5gGrAOkW2htl5ZziOjFA7l93glkDkq0axwZBoVXg0huFdY/2RIyMyi6NnstucCW0JBDcxAp5Nuwl1/2Lb6SS3Cb9QXI66NH/3nB4Oeyd07/+xW0y6J9LQjdg0LBhB9XdvqoCUugcvFeT5py18uHGQ0OlW23MVIB3AalsrtJhroguG4ORtRqUYeGaXBcvgTRDjyPUGOaNYnZwjq5RljqIBFTa95tb42CCFVH2+L+G6NkwDmtetnsmUFXLN6iyEmmdNJH4VGXCAQ2UD//CZjZBx224W7eL23qQny/3dauGnnPW7WV+3DB+q5UljA28eu0T5cPqHtLSxYbRqjoF5cAlZZjS854nm/bY1PKam0DMUbFIduoRfAfVxls5ueKaq/y3Xa1LmIZQrLZLJFdUoi/Vn68rTj48hZgcmrGN5nW9V/Cb6hDJj/7eQqtFqzEVdDVmmIKvlblZKo3NKp2uU/HdTsdHuzZaUqJ+oY6bbWy/bARMbFrmVZz37eNP7aM4K9aHXMVe19t38NINep7tYkOe//4a1q1lLx1CH+OqiBgvarrcyR26EKumBB1/XyxGysON08slf65OFRMxQ89AEPHGtBDgAHwHT2Zjbo8w3z7HM6VLVpJ8Rt8e95UDeiDy7o3ehL/nh0OOH6ePYKLjQd4YkMo0SVMowpbV3uLZmdlvvWvSVbsz+GzmovfVCTXzLd/UnKhxbR/BUINW+Qd+UyDaNn8Bjkxvjg==
+sidebar_class_name: "get api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List compute environments"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/compute-envs"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Lists all available compute environments in a user context. Append `?workspaceId` to list compute environments in a workspace context, and `?status` to filter by compute environment status.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"status","in":"query","description":"Compute environment status","schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"computeEnvs":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"platform":{"type":"string"},"status":{"type":"string","readOnly":true,"enum":["CREATING","AVAILABLE","ERRORED","INVALID"],"title":"ComputeEnv.Status"},"message":{"type":"string"},"lastUsed":{"type":"string","format":"date-time"},"primary":{"type":"boolean"},"workspaceName":{"type":"string"},"visibility":{"type":"string"},"workDir":{"type":"string"},"credentialsId":{"type":"string"},"region":{"type":"string"}},"title":"ListComputeEnvsResponse.Entry"}}},"title":"ListComputeEnvsResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

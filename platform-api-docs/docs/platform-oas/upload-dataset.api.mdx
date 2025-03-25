@@ -1,0 +1,75 @@
+---
+id: upload-dataset
+title: "Upload new dataset version"
+description: "Uploads the CSV or TSV content to create a new version of the dataset identified by the given `datasetId`."
+sidebar_label: "Upload new dataset version"
+hide_title: true
+hide_table_of_contents: true
+api: eJy9Vk1v2zgQ/SsETy2gROm22AI+bdJsscGiH8hH9xAEKC2NYyayqJAjZw1D/70zJGVJleK0PfRkmfOGM2/mccitzMFlVleoTSln8qoqjMqdwCWIdxdfhLHikn4yUyKUKNCIzIJCEEqU8CjWYB05CrPwHrlC5QCFzgmsFxpyMd94y61eQym+RsBZ/vVQJtJUYBUHPst3oU8DgqyVsmoFSBHk7HorS/pDqEdj712lMiCfRGrOuVK4pO8hkf9anCjrFViddUlZAlt4qLUFiou2hkS6bAkrJWdbiZuK42gifOuhC2NXCsPSn29k0yS7ZHZ09qYSKQmHVpe3P5lHcBpEXYLKvbMP+VCD3YxihmJS/Re6ALFUTuy8RiHmxhSgSopxExIChycm3zBkmonfNCJpx6gOxq/qAjV1DlMu2wEXiJdHMc38DjLfZcsqQA2OrbzxmHyvB3NdKqJL5ZCokcHyA4c8D8m8J/+LEKthzLC8fsFVpnQh2h9HR2OOn/4dMlJVVejMyzS9cwz5cTrxeDwP7IQ07nzSWj/69j9tP+3zmICRCv4JIpjofTKR7NNnIJGFcnhVUWSYyLnnwIgD1JQ5OXF7n2SxglyrS786Ya1tMXkqdjKI2vwSWJzOT9EM7IPxElHnUQ0sFoK+mdLDicqnpb5fGJ3yromZc+oWJB2v/TJogXuJ/m2tsaPMX08ouR2vojQoVFGYR8qH4TlUFrLQuzh3IKutxo0ftSegLNjjmmbZ7PqGpwLN4aXhIV0ZF2Yz22S6m8Yu3fYmc5NGSdLyTtpNWvsWyC6aP6qBej/mjv0SsWonllerB9FK+HjfiuzuET0vXS6Md4+luoAHKoE4/nw2GpDRVBUKWavCgV1r4hHB3GeV+T575flU3CxNnfc71IZA1Gpd+EOxMH91hv5Zkq8OX789POI1Lt1KeZnEQR4k6S/S9uZsHb9Ld9sJ7/de0bERCP9jSrXSZe8sBhFcd1eyI4fZ8IJudcCW/m0ZpUDSWrKiaJftdk7WK1s0DS+Ha43VmGun5gVLdaEKB89WZvLSm+RxD5v+dbpWRc0gyYpfK6s57E+m8OI8nvuX4pkXyGRGcVGVm34+bab90vJ74JfS2vca+YWcuqY2N3zHxAuGihbs70IOB36wd/5T7wSmFJyOswwq7MFHs3YwlD5/urjkoRDfLCuTsw9v7PdNuk8eZ4lUwynz3VTxyU+SJol6xKW5h5Jk2tYA+T/zb5pv+cvr/A==
+sidebar_class_name: "post api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Upload new dataset version"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/workspaces/{workspaceId}/datasets/{datasetId}/upload"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+:::caution deprecated
+
+This endpoint has been deprecated and may be replaced or removed in future versions of the API.
+
+:::
+
+Uploads the CSV or TSV content to create a new version of the dataset identified by the given `datasetId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"path","description":"Workspace numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"datasetId","in":"path","description":"Dataset string identifier","required":true,"schema":{"type":"string"}},{"name":"header","in":"query","description":"Uploaded file has header","schema":{"type":"boolean"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Dataset file request","content":{"multipart/form-data":{"schema":{"type":"object","properties":{"file":{"type":"string","format":"binary"}},"title":"MultiRequestFileSchema"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"version":{"type":"object","properties":{"datasetId":{"type":"string"},"datasetName":{"type":"string"},"datasetDescription":{"type":"string"},"hasHeader":{"type":"boolean"},"version":{"type":"integer","format":"int64"},"lastUpdated":{"type":"string","format":"date-time"},"fileName":{"type":"string"},"mediaType":{"type":"string"},"url":{"type":"string"}},"title":"DatasetVersionDbDto"}},"title":"UploadDatasetVersionResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

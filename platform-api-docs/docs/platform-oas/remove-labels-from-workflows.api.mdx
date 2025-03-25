@@ -1,0 +1,71 @@
+---
+id: remove-labels-from-workflows
+title: "Remove labels from workflows"
+description: "Removes the given list of labels from the given workflows."
+sidebar_label: "Remove labels from workflows"
+hide_title: true
+hide_table_of_contents: true
+api: eJylVMFu2zAM/RVB5zTO1mIDclo7rECxYS3aDjsEOSg2naiVLVWikwZG/n2kZDdOU3QDdgliiaQe33tkKwsIudcOta3lVN5CZdcQBK5ALPUaamF0QGFLYdQCTBClt9XgdmP9Y2nsJozlSFoHXnGhq+Kl1I+YdklZv/tQinTKqwoQfJDTWStr+qAMLhacyoHyR1IznqcG/JY+DlH+7gNF3VTgdS50ATXqUoOn4JCvoFJy2krcOi6sa4RlvCqtrxSmo09ncrebj6QHeiXghS22nHP4VMIvfGxGdKFUKLdUs0ZOUM4ZncfGs4fAWe0xBLt4gJwTnWeaUEPg256/qyIMgpX3irvWCNXwPKDX9ZJQj2SU49+y3umeCqFGw1HnIdhcK4Rep9T5bddxjOX2tQdSF30D8SA4W4fUy8fJ2TF/19/FifhpRc8XJZ1NTt+I670jaotCGQJA7/CjAfLGa9xGp1yA8uDPG1zR55zVIxutLPvN2SiMU3wns57ZLBk3SwrKfb07lighH1Z9oW2F6Hoz8fciBtFJ+nPZc/mwwYiTpb/dW+nbs6ocM/tK5Fmv4nwo4mwy37HlSxsRdJrcwROxIs5vro5GoLtyRiGrKgL4tc5pclMw063yaM/Gm66bMM2yEPPG2lIQOVSb6IbSftlfEJA1TWZ658P49PN4wmfMb6Wiu7t5TRN+sBk2gyE/ANzuJ+b/lkynDsIzZtQ9bQnCFntsO+1nL4TLjmJG0+lPrK/YKBTVtgsV4Jc3ux0fp1XDJit0UAvDNi+VCfBOJ39ZRG9ifYTt0a5bK9NwpGRHr5XX/H50OMEFVVA1BpZSv6bnT+65+j73aA0dTMfN9d09e7dbcpUtOMcr5oh/6W1e4JwdRyKetURfvWzUkmNTTXa6OhyUV4MRkfYrqd4OEBLhMeLePkJNpPdcIH8TXCr+B6iaRqI=
+sidebar_class_name: "post api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Remove labels from workflows"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/workflow/labels/remove"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Removes the given list of labels from the given workflows.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Labels remove request","content":{"application/json":{"schema":{"type":"object","properties":{"workflowIds":{"type":"array","items":{"type":"string"}},"labelIds":{"type":"array","items":{"type":"integer","format":"int64"}}},"title":"AssociateWorkflowLabelsRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

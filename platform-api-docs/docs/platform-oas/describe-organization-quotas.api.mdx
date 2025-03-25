@@ -1,0 +1,71 @@
+---
+id: describe-organization-quotas
+title: "Describe organization quotas"
+description: "Retrieves the details of the organization quotas identified by the given `orgId`."
+sidebar_label: "Describe organization quotas"
+hide_title: true
+hide_table_of_contents: true
+api: eJy1VlFP2zAQ/itWnjYJUQZok/o0EGxD2zQGbHtASFyTa2tw7NS+lHVR/vvunIQW2o2WaU+N7e/O3935vmuVZBhSrwvSzib95AzJa5xiUDRGlSGBNkG5YVw6PwKrf4Fg1aR0BEHpDC3pocZMDWYRNdJTtOqawSfZ9XaylbgCfbQ5yfiGo3jfAL8sOPsafTG0AA85EvqQ9C+rxPKCTaIrPtXCsAAa8/dD2ovOlC1z9DqdU/OM9zgptUdmQL7ErSSkY8wh6VcJzQq5RFvCUYQOnc+Bmq3X+0ldb90z0TY1ZYYdl0mJfrZMJn6AUUYHktzFVClxwWl1au5kiQR4D+JQE+ZhYd8NbjAlplJfSSihcDZgBOzu7MjPIwYf2UfqOCJLcgpFYXQas9O7CQKplu9u7+AieKkY6eaCps5P43L4+cP521BAiuHJvO7tJvWW2HzGfBDLva7BBUK+AfxUF2i0xXCK/p7fBubAAaa6AEvP9HAEnD58rvV3zg1XTaxbR+vbnpV2g0Qx+gO/V8cPem2bTzBA8w95Oacy0y7w1Vbb0Vq2bEyaDD5q+lZBFo//LDRnbQNJP7HB/qoWOoRMiWZgoE16aS4zlwm3e4ARJtyyT7ROC5zHH1iFOSGL4Rx77/wS870Vzd/JrbKOFBjj7piPwAOmpdc0i9p6iODRH5Sspv3LK9EVFt6xE4keYeQoQttPeqy+oVdFDa57k06pO1/nEnoTxqLH+0jGREWndLIeRBDvNB/vuvLe3FHkqO3QRfM27HOccDjq4PRkSWfbo8IAyStRAf1Us/i0YKkZpLFmpTctldDv9UK029aOQVw2beLrGrq38wMmMm06j89ebe+92d6RvcIFyiGWvB0I3SNbNRsfE67mz+i/zNk244Q/qcdJ4QnFlGPoVVvMSxmlwqvfjdSWKVd/zLEJoqoGLDPfvKlr2W5GnDyYTAcYGHnaQzAB/xLc+gNwJeVbnD0YtVMwpaASeaRT8FpobEjpxVnbmC/V0/8VVrLqJrSdLVLq2Db5rK8YOEbI2I3wa84O0hQLWrBakpAH3ff++IKx8LCNHrVN9L6SEZcvIi7cLVouYUeQZC0E6/o3aJdyiw==
+sidebar_class_name: "get api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Describe organization quotas"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/orgs/{orgId}/quotas"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Retrieves the details of the organization quotas identified by the given `orgId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"include","in":"query","description":"Optional list of quota names to include","schema":{"type":"array","items":{"type":"object"}}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"quotas":{"type":"object","properties":{"maxWorkspaces":{"type":"integer","format":"int32"},"maxMembers":{"type":"integer","format":"int32"},"maxTeams":{"type":"integer","format":"int32"},"maxPipelinesPerWorkspace":{"type":"integer","format":"int32"},"maxParticipantsPerWorkspace":{"type":"integer","format":"int32"},"maxDatasetsPerWorkspace":{"type":"integer","format":"int32"},"maxVersionsPerDataset":{"type":"integer","format":"int32"},"maxRuns":{"type":"integer","format":"int32"},"maxRunHistory":{"type":"integer","format":"int32"},"maxLabelsPerWorkspace":{"type":"integer","format":"int32"},"maxDataStudiosRunning":{"type":"integer","format":"int32"}},"title":"OrganizationQuotas"}},"title":"DescribeOrganizationQuotasResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

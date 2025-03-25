@@ -1,0 +1,71 @@
+---
+id: list-dataset-versions-v-2
+title: "List all dataset versions"
+description: "Lists all versions of the given `datasetId`."
+sidebar_label: "List all dataset versions"
+hide_title: true
+hide_table_of_contents: true
+api: eJyVVdtu2zAM/RVBTxuQJV1bbECe1iLdFmzdht72EASoYjOJWttyJTpdEPjfR8rXNG7aPiUWD8VD8pDayBBcYHWK2iRyKH9qh06oKBIrsI7OnDBzgUsQC72CRNyGCpUDHIe3fdmTJgWr2HUcls6jwn5Tet8cEipVVsWAdCSHk41M6IPQj8beu1QFQL49qTn6QwZ2TR/bnP5WQJFkMVgdCB1CgnquwRLYBUuIlRxuJK5TvlgnCAtvmhsbKyyOPh3LPO/V0es8qtipwuVO6DIb4dDqZLEd18JDpi1Q4mgz6OBROG1FjXUMV2zdm/Bv/0dF4nx8fib4NjHXEXZnW0eZMiWXUtHBsf3w4IB/nlz9g+4IDFUoQbaqNI104Fs4uHMM2eyGMLM7CJAbabnhqIsAlUJaSGWt4nw0QuxevqFpwm4+vcr6y5fuefuonWAHbKncd1AhVa+xzoyJQCVsLrN4lX56MlIOr1OKDB2cWw6M+IDUbXai5sGzWcQQauU10WXNbNSpKIkaI2gUWs7baDZCQ/YWoGMoL0qZMJCQx11COVWhYIWDw7cophmKCWXmnFqAJGHul0EF3JvombXG7jA/6pB4tZNEYpBXmXkkPgx3EGRW49pvoVNQFuxJRlM/nEx5emhFLQ3vsQV4jrwQhnJQyswNNrVc80Gt/ebWSy5CkVD77jqnJWJaDbDXoAfRSfHnayWdu0f0bHUyN969LMAlPFBi4uTPeGdhlKY0UsgKFA7sSgfgSjB3TwW+e15PnoobDgbO+/W1IRA1UEde6nPzpTG0J0R+7B997h/wWWocxso3v1xtrDP/cJRVEq0ShdsjWqvprc9NWUmEfzigZHXSGpGiXZNqK3DYYXvJ13So00tiz9jNZkb2axvlOR8X25jFEWqnZhHLeK4iB3syeOFx6mR8D+ud92+looyRkl+L14ff91Tsid16h5rAU/6wmiO/sQjvLsqxfy/2vZidhKqXI1m3yVREmw7mU97l5SIndoX9JAggxZbnznramuxvZ1eEVduD+WQQ/e2drEguHnFl7iEhyVQkkb+ZYJ7/BxeTN7E=
+sidebar_class_name: "get api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List all dataset versions"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/datasets/{datasetId}/versions"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Lists all versions of the given `datasetId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"datasetId","in":"path","description":"Dataset string identifier","required":true,"schema":{"type":"string"}},{"name":"mimeType","in":"query","description":"Optional MIME type filter","schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"versions":{"type":"array","items":{"type":"object","properties":{"datasetId":{"type":"string"},"datasetName":{"type":"string"},"datasetDescription":{"type":"string"},"hasHeader":{"type":"boolean"},"version":{"type":"integer","format":"int64"},"lastUpdated":{"type":"string","format":"date-time"},"fileName":{"type":"string"},"mediaType":{"type":"string"},"url":{"type":"string"}},"title":"DatasetVersionDbDto"}}},"title":"ListDatasetVersionsResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

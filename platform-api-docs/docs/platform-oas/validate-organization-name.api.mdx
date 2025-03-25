@@ -1,0 +1,71 @@
+---
+id: validate-organization-name
+title: "Validate organization name"
+description: "Confirms the validity of the given organization name. Append `?name=<your_org_name>`."
+sidebar_label: "Validate organization name"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVE1v2zAM/SuCzlmSrQWGBftKt24oBrTD2u0SFK1iM7FSW1IpOV1m+L+PlO3GTYLtNGAnm+Ij+Ug+qZIp+AS1C9oaOZEfrFloLLwIGYi1ynWqw0bYRbSXeg1GWFwqo38pjhBGFTAUU+fApOL2HZtvXm9siTcEu2Hz7e1QDqR1gDHiLKUqPzixCnDRS3VOWAI6hfQTAL2czCrJGSjANE7NFO9LwA0ZT4lf7LISwTYNUB1C+ySDQslJJcPGcUofUJulrOvrgUTwzhoPnv0vxsf82Un/RTwT51Yk1gQwQdYDeTwe7+NOVCoQiKIPVLRDE0w5l+sk0hutPGOrHicO0Qg0m5kswHu1BEm8Wqp2voKE8znkOQbdEO2AB3qiUB1yPjpFtPit7Y88dWR+dKDDbkPC2CBUntsH4hPRr/bRH8umHUgF5FBwk/9pu+T0kJRIOo6KOgGFgNMyZGRe8/ZJbpllWS4hVlXskiMSsB/1FdRmueQ2Gkr9XI+sshBcJzi25xFEJ83PJ4uFohnJ1UOI1LVZ2BjetnAJ97QJMf16tify1uVyFRaURnjAtU7At2Cev0ri/EvMWyp+Mhr5GDfUlkC0As0+Lvt+6yAia7p0TZ3nw6OXwzGfOetDoeL62qvY3d39d2CXbrUVxD97V9qZB/gZRjQWeiCIdGy+ahc5k7xIgj6uklaeUVvsqqq58vAd87rm4+ZpYZWk2qt5zgpdqNzDHzr728NzkOEdbLavGoFLhkgW41qh5spRnEQUVEriYUpNzDRJwIVe1N5NeyLpz6dXhFVPFbqjyJi9dSmz6eWm8UTElb0DQyPqiAe2qRDdrt+8Wyoy
+sidebar_class_name: "get api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Validate organization name"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/orgs/validate"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Confirms the validity of the given organization name. Append `?name=<your_org_name>`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"name","in":"query","description":"Organization name to validate","schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"409":{"description":"Duplicated element","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

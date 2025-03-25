@@ -1,0 +1,71 @@
+---
+id: list-organization-teams
+title: "List organization teams"
+description: "Lists all teams in the organization identified by the given `orgId`."
+sidebar_label: "List organization teams"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVm1P20AM/iun+7RJFWWANqmfBgMmtElDwD5VlbgmbnOQ3IU7p9BV+e+zLy99y0pB+9Tk/MR+fH5sdyFj8JHTOWpr5ED+1B69UGkqEFTmhTYCExDWTZXRfxSjhI7BoJ5oiMV4HsxTPQMj7gl1Fd8fyJ60ObgAvoprp79WPNyxa0LlyqkMEJyXg+FCGnohdPBCVs18coUJPa+TXPUlTJGB09GSlSO8g6dCO6Dg6AroSR8lkCk5WEic5xxEG4RpgE6syxRWR59PZFn2WiaZeml4PBXg5ltErtVUm4qGA1+kKOiT+lHuHfX4aC2qnUw84N6BW/j7onlQLkp2R7vUKRVJVFDRVq0rpkenzZQijLgIPrfGg2f70eEh/2wU8gf5iCzxNMhWleepjkJe/QfPkMV2CDt+gIgTzh3LDHUVIOh1BaacU5yKRlg73/E5i3UPhfTqu9tKeuPeOuxqplC53y7ttGaQjakZvtmiuo49tCpRY8og7qnz8Tna6tSiSm/1H3irG25VdnVT146MbD7pqt6ZigU3Gnh8SxmXvTmkjL1XU5Cklt3laYAdSluSv3DOui3mxx26a8aTMBZ52tln4sNwD1HhNM7DQDojwYM7LWgEDYYjljTpPrE80qah5cJ0Gsg+jSzfX4TBVfaxnm6Nq1vOvMpi1WGbSIKYN63E7+MAopPq4bIp1sMzBoraTGz4vM76Fp4oG3F6fbXVuLUpTxVyzamD3UxH4Gswl0xFoWQFSzJQ8YN+34fvDrQlEFVNp0ErE/t1aSAiM9JqFefTwfGXg0M+y63HTIWK1wOGFbW+P5oL2miWVkD/awnV94vwgn26AhpwRLCoeq+q3JCXDVMZNEun4kaVTigRBiwWY+WBOrYs+bgakCyOWHs1TlnGE5V62JHOK1uik+YjzNsFNFNpwQjJY/tdYdsdsSNWi3lnuH8viR1B2+2zDDriF6c56hvv+cNNPVk+itf/IXSSalaHma9Sam8oaKQcETABFZMb5lfZTqMI8tXb25qBa+Pj+8UdYdX6INho/OC9kxFpMiDu7CMY0mVDEPmdCZblX/PbYX0=
+sidebar_class_name: "get api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List organization teams"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/orgs/{orgId}/teams"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Lists all teams in the organization identified by the given `orgId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"max","in":"query","description":"Pagination result max result","schema":{"type":"integer","format":"int32"}},{"name":"offset","in":"query","description":"Pagination offset","schema":{"type":"integer","format":"int32"}},{"name":"search","in":"query","description":"Filter search parameter","schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"teams":{"type":"array","items":{"type":"object","properties":{"teamId":{"type":"integer","format":"int64"},"name":{"type":"string"},"description":{"type":"string"},"avatarUrl":{"type":"string"},"membersCount":{"type":"integer","format":"int64"}},"title":"TeamDbDto"}},"totalSize":{"type":"integer","format":"int64"}},"title":"ListTeamResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

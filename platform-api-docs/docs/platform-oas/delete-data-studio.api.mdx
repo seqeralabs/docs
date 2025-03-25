@@ -1,0 +1,71 @@
+---
+id: delete-data-studio
+title: "Deletes a data studio"
+description: "Deletes a data studio"
+sidebar_label: "Deletes a data studio"
+hide_title: true
+hide_table_of_contents: true
+api: eJyVVE1v2zAM/SuCThuQNd1abIBP69AUKDZ0Q9Odgh4Um67VKpIr0ckCw/99pPyVNt6wnWyTlN7j46Nr6UrwCrWz15lM5CUYQLhUqJZYZdrJmSyVVxsK+iCTVS0tfVBhgBDaQzOpLQVKhQW9ZxBSr0u+kILLtkroTLhcYAEi9Nd6eK60BwJFX8FMhrSAjZJJLXFfRgT02j7IppkNoDvnn0KpUhhhnyvw+yPc7/FFGTGcELbagNcpUQGLOtfg5QSotggPMZU7v1HYhj6eE4175hxKZ6l1PvHh9Jwfr4C/infixonU0UUWZTOT56dnE3W96sI6FMoYtyMpYvXErTcOr1xls5nYFWAPdBQ6xAtyzgrnx/zFj2tOZjqotYGMKnyMD4JQiz1JwlNlaXQaGc0fA4PWB+KMs1rJDY1UPYAkOTrN3PoRUmSneDYT6lafvnBqohI1Gg4tvHf+tpOVMg0nA6SV17iPfvsCyoO/qMhdyeqep/BSm9axQSiRkWtHf5FlC8eWzmJBNDLfIedtSZjXg4cbOYIuueu2g0PooYkCseydw9/rWESR9uWqt83jDmOn2uYuHu86XsIzjZ7nM7EtMVUahew+EcBvdUq9tcU8LpXGcVXedFRCMp+HeO4ktk0T0ya6NnefxwQR2dIGtzjvT84+nZxyrHQBNypOu1uxP8n5gukgBsIvnBNfWkW6LbKqO51XstOZDifj34LmVxAo5+t6rQL89KZpONxuMo+8N61McmUCHIEPvv3nPZ+k+wT7o3/KVpmKKyUbbau8ZiL/SerNbbcub8Vf/n+TlLqgsvtDLj3VUcXmnooLUBl1x+Ta/EWaQokHJ4+2mrsaFuNy8W1xt6By9dLhrxwdASaJ0QBjxZ17Ats0A0/kb+bYNL8BSPUxNw==
+sidebar_class_name: "delete api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Deletes a data studio"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/studios/{sessionId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Deletes a data studio
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"sessionId","in":"path","description":"Session id of the studio","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Optional workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"403":{"description":"Operation not allowed"},"404":{"description":"NotFound, when the studio is not found or when the API is disabled for the workspace","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

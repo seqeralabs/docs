@@ -1,0 +1,71 @@
+---
+id: add-labels-to-pipelines
+title: "Add labels to pipelines"
+description: "Adds the given list of labels to the given pipelines. Existing labels are preserved."
+sidebar_label: "Add labels to pipelines"
+hide_title: true
+hide_table_of_contents: true
+api: eJy1VN9P2zAQ/lcsP5emDLRJfVqZmISGBoJOe6h4uCbX1uDYxnZaqqj/++6chKYUbZOmvUSx/d2v7767WhYYcq9cVNbIsZwURRBxhWKp1miEViEKuxAa5qjpwfbenHKolcEwFJcvhFNm2eHAo3AeA/o1FkM5kNahBw5xVTRBrhNwam87JwRy4KHEiD7I8ayWhg4E3lj/FBzkSKYDqTjJ5wr9lg6Hqf/sgMJUJXqVC1WgiWqh0BM45CssQY5rGbeOHSsTcZmeFtaXEJurj+dyt3sYSI8UJcQLW2zZ5jDUdVtmUYgWR15ySw5NZDQ4p1WeCs4eA5vUx/Ht/BFzNnSe6YmKSKDXjtarIvTA4D1wySpiGf6uiIFM3fhnP+QoqqgZNQnB5goidm1riLhrOUhYJkR5pD5HX2G6CM6a0FT3YXR+TOfNN3EivlvRMUhG56Ozd3CdioSxUYDWdkNxOGjAvPIqbpNwLpD05ydVXNHxgZtJqlpZVp6zqVUO+E1mrxLOGuFm1FG593bPLWvy7vt8JW0Vo+uUxed5AtFN8/O1Y/JxE1OWLIW7va4uX6B0zOubps9GD/3e0XHHwl/YFLptxT0+Exlicnt1NAjtk9MQuZmCx1DlGFowswx50mnldVtGGGdZSHZDZQlEUlU6iWBhP+8fKJE1zWcT53R49mk44jumtYQk83ZqacR7S8P1pvwg13o/Nf9r9bS9ivgSM6KEFgglnAqvWx3MZD+/xg/9sBaoESuWDGHqeg4Bf3i92/F1s4NYboUKMNcs+AXogL+p8A8b6t1Mn3B7tATXoCtGStb2Grzi+EnrlC5CQd44scb0SxP+ZMre97ZHK+pgTm5v7qes43b7lbZgGw8buuQvxealztZpPNJdTdyZZQVLxjY+WfVwODRvhiRl2i0ns+1lSIQnxNQ+oSHSOy4inyldcv4LKKFS9A==
+sidebar_class_name: "post api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Add labels to pipelines"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/pipelines/labels/add"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Adds the given list of labels to the given pipelines. Existing labels are preserved.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Labels add request","content":{"application/json":{"schema":{"type":"object","properties":{"pipelineIds":{"type":"array","items":{"type":"integer","format":"int64"}},"labelIds":{"type":"array","items":{"type":"integer","format":"int64"}}},"title":"AssociatePipelineLabelsRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

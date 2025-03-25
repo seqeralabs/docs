@@ -1,0 +1,71 @@
+---
+id: update-workspace-participant-role
+title: "Update participant role"
+description: "Updates the role of the given participant in the given workspace."
+sidebar_label: "Update participant role"
+hide_title: true
+hide_table_of_contents: true
+api: eJy1VVFP2zAQ/iuRnzapkG6gTerTYGISmjRQB+Kh4sFNro0hsY3ttHRR/vvu7CRNKKNSxV4ix747f9/5u7uKpWATI7QTSrIJu9Upd2Ajl0FkVA6RWvj1UqxARpobJxKhuXSRkL2DtTKPVvMEjtmIKQ2GU7zLtIt41xpcb0NMMT6aY1BegANj2WRWMYk/6KbMEt1HTBAqzV2G6yHUK7PkUvzxN0WyLMCIJBIpSCcWAgzaG3gqhQFE4UwJI2aTDArOJhVzG02XCOlg6U0XyhTcha0vp6yuRx2SjtsePB3F/wmm9wJ74PQS/f6A7oM7WHeu0g35/PtyL6PSqyBqnDBkojC6dOTKtc5F4t8xfrDkX+2CUfMHSMhRG9KXE2DplIL3rKwzQi7RCpAyyomptfQMeFpgqkas4EiB+2XOS5lkAYoMsVcC1gy5OeEoLLuz2osUX6DbC3p+IeNpw6smy2Fi/YbVStqA+PP4dDdfVz+jo+iXitqsoNPpeLxrd87TQ3K4RTRjBVjLl+Bpvpna1nAnu/1sXBijzLThR/Q98pNXGLZNIZLKRTzP1RrxkLmFpDTCbXz1nwM3YM5KFPRkdk86w9aQKWokuvQYSesTFmN/sHHlu0QddyWKW71yreNeueDRoHjq2IT+097/m9IVqPdRdOwz5zRryoT+594Id8LiR1sjD2vnedEzTLdFcvHMCx3EGkTbaLOmIl4of1GT1N/whMmKzq4vd6q6OdI5d1SUkQWzEsi7MSZF8MQrojR5A9pO4th6v2OhqDawCHJfzAv1bXuAQFbYhMM9n45Pvh6PaU8r6wruBdX0oFABg2HQpHKAtdrq813GSvMMDp5djPyxhhGdZ1k1qpjR1LBoOmmnx1YYtDvs5H1t0OnL1uo5oQAzTADFrqo5t3Br8rqmbXxYQ5rF5Yobwef0dKjgVFhao2IXPLfwRlI+TJuy/Bjtn2Wvsm82udxQ8+J5SX+4fIRNN0JpeByEac88OwBQP/8Hw9o71w4ANnz6+h4dMuAphqMXDTbfA5ijG4q0jbHTeIlY8DhLEtDuTdt+f7u+vaFm0szTQqXkYviapIhfD1f53ITJR3sVTjG5LH2bZiEktR4+7FwvOpUn9WpCUOLe4kY9gkSZt/lx9E95qeu/znOJPA==
+sidebar_class_name: "put api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Update participant role"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"put"}
+  path={"/orgs/{orgId}/workspaces/{workspaceId}/participants/{participantId}/role"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Updates the role of the given participant in the given workspace.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"path","description":"Workspace numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"participantId","in":"path","description":"Participant numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Participant role update request","content":{"application/json":{"schema":{"type":"object","properties":{"role":{"type":"string","enum":["owner","admin","maintain","launch","connect","view"],"title":"WspRole"}},"title":"UpdateParticipantRoleRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

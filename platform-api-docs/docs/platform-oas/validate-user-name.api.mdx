@@ -1,0 +1,71 @@
+---
+id: validate-user-name
+title: "Check that the user name is valid"
+description: "Check that the user name is valid"
+sidebar_label: "Check that the user name is valid"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVE1v2zAM/SuCzlmcrQWG5bR064ZiQDesH5egB8ZmYiW2pUp0usDwfx8pO26yZMCOu9iW+ES+Rz650dahBzK2usn0VD9CYTIgfAjob6FEPdIOPH8Q+qCn80ZXsjvtXiNtKv5+rtHveJFhSL1xkox3JYUSmCKrtn1eRoU0xxL0tNG0c5IqkDfVSrft00h7DM5WAYPE300u5XWc9vs39UbdWpXairAi3Y705WRyiruCTHlkaoG46B7NMHCuMGmUnKyDYJsDTnLEeORezHWJIcAKNfPqqdrFGlPJ57z0jUxHdA88o4mPGipk69p763/2+jjSRuYXZxTuJ6IqSwqKwr4wn4j+cIr+XHdyMFNYYCki/1O5HAyY1t7QLjrpCsGjn9WU8/JJpn+s7FOO6UZRDsQPVPXgJxM6PzExNmZuxbgrjDxBkulEsCE5NF1f+E6UdyoOyw9CciK396isFxHEO93HF+tL4Lbq9QtFtaZa2ni8V32Hzzw8Nftxc3If+pArgJacRjHFrUkx9GAZGaRxZLUveiphmiQhnhsbyyCempGYlP34GmAiWxbc1Xk7vng/nsies4FKiBPvb+2/tPSI9dAYwl+UMHe+8Jw5Mmz6ds91bDcfHRrOs8y5uMSaZgEBH3zRtrLd/Stk/JkJsCjEeksoAp4UHjz81z/JWWob3L3+nhhcC0SLu7bgjVSMbmOCCBmPVqh0Z2Zpio4OTp1cHckyOO7r9T1j4dg/f/glZu9DUO0OcnNbIuLebrDi1uyJk6y5EF+X35Oi6+I=
+sidebar_class_name: "get api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Check that the user name is valid"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/users/validate"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Check that the user name is valid
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"name","in":"query","description":"User name to validate","schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"409":{"description":"Duplicated element","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

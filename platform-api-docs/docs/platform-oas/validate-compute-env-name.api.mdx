@@ -1,0 +1,71 @@
+---
+id: validate-compute-env-name
+title: "Validate compute environment name"
+description: "Confirms the validity of the given compute environment name in a user context. Append `?name=<your_ce_name>`."
+sidebar_label: "Validate compute environment name"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVN9PGzEM/leiPJe2G2jTqv0qjE1o0jYNtj0gBOmdrw3cJcHJlVWn/u+zczloaWE8TXu6S/w5/uzPdiNz8BlqF7Q1ciQPrCk0Vl6EGYi5KnWuw0LYIp6neg5GZLZydQABZq7RmgpMEEZVILQRStQekCAmwO/QF2PnwOTi4h0D3rxe2BrPMzjn09uLvuxJ6wAVxz7KKfpPDqgCHLQhDs38CyEJ5hTSTwD0cnTaSPYn+I3FK+9UBuTck5r5X9eACzqsZ/WrAwpTV4A6Ezon2rrQgAT22QwqJUeNDAvHD2uiP42mwmKlQnv1Yk8ul73b6Kal9kjYg4cqFWxbW0p1W3gfUJspBTvrSQTvrPHg2f58uMef9ShfP4sd8cW2RTdBLntybzjcxO2rXCAQUx8oaIcmmHKu1FlUYXDpGduscGIXjUDynMoKvFdTkMQrUbWTS8j4PYcsZdAt0Q64JSdy1aHkq0NEi99TfmRZRua7WzLsmkQYG4QqS3tDfCL61Sb6Q92mQ3UvgWv+v2ZLRg9ZjTRhsav3QSHguA4zOp6x+NTyM8uDMYUYVbFJDtIE7lBf+cFqI6XXjjmdltrqm7fsZiG4ru/4PIkguml/PnY9f3kTYgraFDa6p1SO4ZoEEeNvRxstn0yuVIFHR9A2mOsMfAKzDiqLOtRYJip+NBj46NfXlkAkhS7jyBX2/Z2BiMxpAbRxnvV3X/aHfOesD5WKMqbB7LbIg5vqPuvmrj/++QJMkjB6QFWjbUI5xdo0Se9Tuao3udwqTh0yo+wZ0jQT5eEHlsslX7f7iJsq115NSm7oQpUeHsn8L0tyK9ErWGzsYaJXM1Lyrnx6+Ccuy0doJGnv4p/xATUTiBNF5QKVUzZcmNZnnGXgworXxnpYm8NPhyeEVevjdG984uvJpMxi5W0SKSJO7BUYEqojHvhMgWgl/AFsFaCH
+sidebar_class_name: "get api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Validate compute environment name"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/compute-envs/validate"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Confirms the validity of the given compute environment name in a user context. Append `?name=<your_ce_name>`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"name","in":"query","description":"Compute environment name to validate","schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"409":{"description":"Duplicate element","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

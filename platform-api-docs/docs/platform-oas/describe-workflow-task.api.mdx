@@ -1,0 +1,71 @@
+---
+id: describe-workflow-task
+title: "Describe a task entity with the given ID"
+description: "Describe a task entity with the given ID"
+sidebar_label: "Describe a task entity with the given ID"
+hide_title: true
+hide_table_of_contents: true
+api: eJylV22P2jgQ/itRPl0lbtnrVncSnw4o7aHrvohlr1LRfjDJQLybxFl7AotQ/ntnnAChuEvS+0SwH4+fefXM1lcZaIFSpePQ7/kfwQRazuGr0s+LWK2nwjz7HT8TWiSAoI3fm239lP4QeF2B6GTHlymtZAIj+g6tlIyl0uJOlmdQy3TpyRBSlAsJmqAaXnKpge5GnUPHN0EEifB7Wx83GV9SHvKLorO/F4nUmTuZt5fmCWgZtLxQpghLC10onQgsl/78cESBVTeZCODA4yUHvXEqb4FuNm1uf2TyJlOpAcMn3l9e8s/xfbf/0tFAkZQUeVdkWSwD6+Duk2HI9vRSNX+CANnPmsMBZXkB25l/DyabkTsE5oaglROI1NtCImEihzs7lSUdG3Q+AGOceyiWznWTzxOJp1s1M4YC4XeUdCnjUegW8EAlWUzx3/xEosI8ruOF1oLDQyIkLt2K0m1CpuR9l4oC6WSGZ2Pl6r1V0MaE21YBJXzgdgrHdSjdBCjAc7fHgiw3DXklkChKkyYBT6kkywBsALV2bwaFdOXUAl4hyFG5lU9EEJFrpnbdZYJY5eE3lf4spGUA1yqE2BVBQKWhyq00FJorCqU52tySyFHkD1n83UGKjRZT9y/JmJPCrIfWSveDsiA49ZR4X6ZxM5+FeflCNLSvBhG3cEdKsldcR52Go9A6VbKedCqfxzbjMgqthlBtzqteklsdC30LmoF4njQWzOj/mgvXQSR0Q+y6BdZsqBq0wK6bx0A42CA0NcdaU11sc2Cl4iG+nq+GJVqmqxZoTpCGqSHDJjIpyPM4Fhx9tuso9s9nQ8v/mK0npeNm9JX+3T8MrsfT6egjfU8ebm7GN5/pa9gf/mOXhrfXd19G5fan/viL/egPbie8VCs23DxVBYKzn561IfkTwZGizufPoW4sDD5k4f8RUhwT9OsLu7aVNyZVj0QAhnxwdUkDEXrc1YDBNu1SvRFKqEURSzjfAO2Azid/p8CIa/YJ8ytHf7dr171UoSdi6quJD8MNvV6URRvboQ9AaND9nFrj3uyRW8djMTuDecLjSPS4JcWNt5YYeRiBt6SSnHpjDhDq+yPFs8ESrHLcbvf87q75724PY0DRZWHdbRnchX8gdc82LO1Rp7Y3SYSY7dph/j+3IFopPz7t4uNpjVZZmS6UPV7Z7x5eyC5e/2580oFXW1kskMPMM6BX9I6aCmybrsA6P9dxRcX0ul1jz11IxWmWCBnbjFyovw8bXIdoJirv+ePi6q+LS1vb6WVOhI2dalxoYe4j8nv7ILxil1SgSYMusES3lStm+zmMTveOZjIsp7feoVePbNMw87fbuTDwoOOi4OVyduHAoZaLc478vRCxgRM++1w5N9k4iT/D5mR4WomY20rf5yhdCS3LnG/F5bdJlZnvvDenTSepXYOebups6mQrg/L890ucfj6N/gKhypnFIyEjemZ5XCBjlZv9IIAMa8dOChpbeZ/Sn0dTworjXPwh96x0JyUKIouYqmdIi+LAkP8zwaL4DppwigM=
+sidebar_class_name: "get api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Describe a task entity with the given ID"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/workflow/{workflowId}/task/{taskId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Describe a task entity with the given ID
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workflowId","in":"path","description":"Workflow string identifier","required":true,"schema":{"type":"string"}},{"name":"taskId","in":"path","description":"Task numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"task":{"required":["status","taskId"],"type":"object","properties":{"hash":{"type":"string"},"name":{"type":"string"},"process":{"type":"string"},"tag":{"type":"string"},"submit":{"type":"string","format":"date-time"},"start":{"type":"string","format":"date-time"},"complete":{"type":"string","format":"date-time"},"module":{"type":"array","items":{"type":"string"}},"container":{"type":"string"},"attempt":{"type":"integer","format":"int32"},"script":{"type":"string"},"scratch":{"type":"string"},"workdir":{"type":"string"},"queue":{"type":"string"},"cpus":{"type":"integer","format":"int32"},"memory":{"type":"integer","format":"int64"},"disk":{"type":"integer","format":"int64"},"time":{"type":"integer","format":"int64"},"env":{"type":"string"},"executor":{"type":"string"},"machineType":{"type":"string"},"cloudZone":{"type":"string"},"priceModel":{"type":"string","enum":["standard","spot"],"title":"CloudPriceModel"},"cost":{"type":"number"},"errorAction":{"type":"string"},"exitStatus":{"type":"integer","format":"int32"},"duration":{"type":"integer","format":"int64"},"realtime":{"type":"integer","format":"int64"},"nativeId":{"type":"string"},"pcpu":{"type":"number","format":"double"},"pmem":{"type":"number","format":"double"},"rss":{"type":"integer","format":"int64"},"vmem":{"type":"integer","format":"int64"},"peakRss":{"type":"integer","format":"int64"},"peakVmem":{"type":"integer","format":"int64"},"rchar":{"type":"integer","format":"int64"},"wchar":{"type":"integer","format":"int64"},"syscr":{"type":"integer","format":"int64"},"syscw":{"type":"integer","format":"int64"},"readBytes":{"type":"integer","format":"int64"},"writeBytes":{"type":"integer","format":"int64"},"volCtxt":{"type":"integer","format":"int64"},"invCtxt":{"type":"integer","format":"int64"},"exit":{"type":"integer","format":"int32"},"id":{"type":"integer","format":"int64","nullable":true},"taskId":{"type":"integer","format":"int64"},"status":{"type":"string","enum":["NEW","SUBMITTED","RUNNING","CACHED","COMPLETED","FAILED","ABORTED"],"title":"TaskStatus"},"dateCreated":{"type":"string","format":"date-time","nullable":true},"lastUpdated":{"type":"string","format":"date-time","nullable":true}},"title":"Task"}},"title":"DescribeTaskResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

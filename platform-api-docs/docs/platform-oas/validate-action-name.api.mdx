@@ -1,0 +1,71 @@
+---
+id: validate-action-name
+title: "Validate action name"
+description: "Confirms the validity of the given action name. Append `?name=<your_action_name>`."
+sidebar_label: "Validate action name"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVG1v0zAQ/iuWP5e2sAlExVsHA01IY2IDPkzT5iaX1ltie2eno4r637lznLVdy+ALEp8S3z1399xrI3PwGWoXtDVyJN9bU2isvAgzEHNV6lyHhbBFfE/1HIxQGWOFURX0xdg5MLm4esvP168WtsbLFnDJkjdXfdmT1gEqlh3lFOI7e1UBxhF2TCiCOIX0EwC9HJ03km0JemfxxjuVARn2pGaCtzXggh6btH90QGHqClBnQudggi40IIF9NoNKyVEjw8KxY20CTKOqsFip0Iqe78vlsncf3bTUHgk7XpVCBNvWizLbFdEH1GZK/i96EsE7azx41j8b7vNn0/GXz+KJOLYis0TUBLnsyf3hcBt3oHKBQOR8oKAdmmDKuVJnseiDa8/YZo0Tm2gE6sa5rMB7NQVJvBJVO7mGjP055M4F3RLtgDtyIlMdShYdIlr8mvIjzTIy39uRYTcTwtggVFnaO+IT0S+30R/qNh0QUELFOf6n2ZLSQ1YjbU0c5ANQCDiuw4yeF9x8mvKZ5T2YQoyqWCUH7dL4wfoMJUennEnLat3dPbFZCK4bOX5PIogk7c/HbsKv70Jkr01ho3nK4hRuqRdifHK0NeBJ5UoVeFGEB5zrDHwCcwuIODursUxU/Ggw8NGury2BqAu6jAtW2HcrBRGZ07q3cZ729170hyxz1odKxQ6mNezuxfrheUi0WU3DvzlhqdQBfoYBVYNuAnGNOTephecytZDQ902kfs8oIdY2zUR5+Iblcsni9qDwiOTaq0nJ41mo0sMjmf3hyu3keAOLrUNK9GpGSj52fx/+99fukcipW6uQF/xAzTHjSlCFQOWUANeitRlnGbiwZrW13xuL9OnwjLBqcykeLEH0nlTKLNZ8U18i4szegKHedMQDvykQ7fQvINt2xQ==
+sidebar_class_name: "get api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Validate action name"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/actions/validate"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Confirms the validity of the given action name. Append `?name=<your_action_name>`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"name","in":"query","description":"Action name to validate","schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"409":{"description":"Duplicate element","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

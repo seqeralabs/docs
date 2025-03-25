@@ -1,0 +1,71 @@
+---
+id: update-data-studio-checkpoint
+title: "Updates data studio checkpoint name"
+description: "Updates data studio checkpoint name"
+sidebar_label: "Updates data studio checkpoint name"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVk1v2zgQ/SsET7uAG2e3wS7qU5O0BYoCaZGPU5ADI40jJjKpkCM7hqH/vjOkvmypjhvsoRdbIt9w3rwZjmYjbQFOobbmaypn8qZIFcInheoKy1Tb8wySp8Jqg3IiC+XUAhCcl7PbjTT0QiYevI/mE6kNLRQKM3pOwSdOF3w0LV5FlNCpsHOBGQgfHBDQwXOpHZB7dCVMpE8yWCg520hcF8EDOm0eZFVNWqdJy+sVvxflApxOyC8Y1HMNrvGf9EN7lQPB4AEcQefWLRTGpX9OtlitrHvyhUqgI/VcglsPWH0PDyoXrYUwA6Ly12jcxSjA45lN12yTWEJTePSoiiLXScjz9NEzh83wcHv/CElItOOqQA2ed2NwI9mQqDHnpbF6iZV0GRkRutoVOSz4whof3fx9fMx/O0J9IzoHx9E5uJWqxMyyUEzj3AH9pvXblVqGZ80/ITrSbr8GBD0kCZOfibVNY7DfO4lx71DTKVWf7cEmddy7aiwpRcyYlNJ5E3vpwV38v/G3R45pEJ2P7dT89lZZrLAbcvBq8X1CyyVHqJOxqjpTaVOYb6yuBbUz9XCAcA1wb2SfnbPusr4MLfH3I9ehadbCWBQqz+2K+AT0yRB9YfGLLU06EasMTK/pCut2WqDQPhw5ZzxvtxanP77yZqq9us8hJUS0bTvX7yzhh6Eo59bMiSH2ROnJwNdXJDXEi5XGTCgj4EV7JJfCGmgV8Ixtv2K/pQa06SEpncZ1+GSfgXLgTqlF0OsdfzK2xYlNm7JNd6qplR11iBrNAJnlaaEo41jAx8lpxPvppp0IqmlnTOv9j3YlO2pXrE2Ms0+wDTVDLJqPIb/fBxCtxIcvTRN6XGHQgzW/7D6Fn1/Uosih+5T1+o42cxs8NT0GnumGcdGPTDBhq8gVctsT1IeWOiGxIpjzr5KQ/9LlNWs/m059sDsKRVI3wOD2Y7dBRJY0VUU/fx29//fomNcK63GhTI/4YfnZ4t2qiPCCU2JPYwn3aRcacczdraxzR8az/jzXSx9vbU1dVDwZEWTrzeZeebhxeVXxcpx5uN6ariFnc5V7GFBrL83BE9FoME+wHkxfS5WXjJRc5UvlNBP5RVJ/XNZ39U+xZ34dpVQvKrPuc2modhrz9PgmQgcOtm8gt5Xl6o7wGaiU1GfxIuQ8Mnp3zQd1RwwaH0cXLU6TBArci73rdZYfN9d8v+tBdmFTNnFqxaM6/Qa2NggU2kZY28hcmYcytEkZj6zqgah3DXaaRwhqVA8q6oC4tk9gqqqVB/mddamq/wDVwpca
+sidebar_class_name: "put api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Updates data studio checkpoint name"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"put"}
+  path={"/studios/{sessionId}/checkpoints/{checkpointId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Updates data studio checkpoint name
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"sessionId","in":"path","description":"Session id of the studio","required":true,"schema":{"type":"string"}},{"name":"checkpointId","in":"path","description":"Numeric identifier of the checkpoint","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"query","description":"Optional workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"content":{"application/json":{"schema":{"type":"object","properties":{"name":{"type":"string"}},"title":"DataStudioCheckpointUpdateRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"required":["author","dateCreated","dateSaved","id","name"],"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"},"dateCreated":{"type":"string","format":"date-time"},"dateSaved":{"type":"string","format":"date-time"},"author":{"required":["avatar","email","id","userName"],"type":"object","properties":{"id":{"type":"integer","format":"int64"},"userName":{"type":"string"},"email":{"type":"string"},"avatar":{"type":"string"}},"title":"StudioUser"}},"title":"DataStudioCheckpointDto"}}}},"400":{"description":"BadRequest","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"NotFound, when the studio or the checkpoint is not found or when the API is disabled for the workspace","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"409":{"description":"Conflict, when the checkpoint name conflicts with an existing one for the same studio","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

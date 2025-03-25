@@ -1,0 +1,71 @@
+---
+id: list-workspaces-user
+title: "List user workspaces and organizations"
+description: "Lists the workspaces and organizations to which the user identified by the given `userId` belongs."
+sidebar_label: "List user workspaces and organizations"
+hide_title: true
+hide_table_of_contents: true
+api: eJy9VV1v2jAU/SuWnzYJQbdWm8TTqEo3tGqdKO0eUKWa5JK4TezUdmAsyn/fvU5IoHyIvewFHN/j63vux3HBQ7CBkZmTWvE+v5HWWeZiYEttXmwmArBMqJBpEwkl/wjCIUCzZSyD2CNzC4bJEJSTcwkhm638diQXoNgTWUfhE5tBolVku7zDdQbGOxqF9ZW/msvuEY6QTBiRggNjeX9acIUfCK18oVlSrJlwMa63CdB5pvIUjAzaoMilgddcGsArncmhw20QQyp4v+BulZF3qRxEHjrXJhWu2vp0wcvykY7bDKmDpRMfz87ob/vq2+94NNDoRTmyiixLZOCJ9p4tQYrdS/XsGQJHjA2lxcnqAky3HaiwzcvGEWGMWFESHKT2JFeU5xNodgj7w6e6QVtnpIpq242O9L1JDpknfu+trcMB64Fl5CIQIaQyoK2FSHJMjbdjvPg7E9abKD6jRMIx6U66hFzd1s7xnqYvTybVnDhIrUFc50lyELWQVs5kIt3qGMmf49HDYDLEnbtvg/HwapPGQ+sB/RmdnFTXdQRluZWQzfa4cnrbvj1UCMUD47qDCYnQi309fClCRoMC1v1LM7ezNeUpWCsi8LyPNuYauIdpS2RojDY7kZ/vmb61qDClHRNJopcYD8EtBLnxVUMluQRhwAxylI7+9JEGG2Um1iREEfgYSVX6vEda0ysqxSl7rRry1uEd8a+4bLpt6MTOZbwWGvqeeRC1ul9crzv1eel8oFLNtT9ec7+DV+TEBj9HOzJXm7JEOGp4hmEuJGl1BabCicAXLqd59aHYfq9n/bmupIHD2snED8pcf2kN1Omou9U9H7rnn7tntJdp61Lh616rMfVYJf7H3oq3oRdtV/2f16YuhoPfrof5wqcD2eSVilXFnvqHBaH95oHZqDe2SIzcCVYUKFKACliWtI1jYqircLkQRooZVQ17LJSW1thTc5FYOJKAd+N6cN6zww/XXgJrzVCkGCSm9IXLF1i1D2X5iMgYUHWND6wyDoIAMrdxbGe2t8bi63CCWLHd2m9a2XvfGxKmzCMm+gUUpm0doaNvCrAs/wJJKPEs
+sidebar_class_name: "get api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List user workspaces and organizations"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/user/{userId}/workspaces"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Lists the workspaces and organizations to which the user identified by the given `userId` belongs.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"userId","in":"path","description":"User numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"orgsAndWorkspaces":{"type":"array","items":{"type":"object","properties":{"orgId":{"type":"integer","format":"int64"},"orgName":{"type":"string"},"orgLogoUrl":{"type":"string"},"orgType":{"type":"string","enum":["academic","evaluating","pro","basic","internal"],"title":"OrgType"},"workspaceId":{"type":"integer","format":"int64"},"workspaceName":{"type":"string"},"workspaceFullName":{"type":"string"},"visibility":{"type":"string","enum":["PRIVATE","SHARED"],"title":"Visibility"},"roles":{"type":"array","items":{"type":"string"}}},"title":"OrgAndWorkspaceDto"}}},"title":"ListWorkspacesAndOrgResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

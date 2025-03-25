@@ -1,0 +1,71 @@
+---
+id: list-organization-team-members
+title: "List team members"
+description: "Lists the team members associated with the given `teamId`."
+sidebar_label: "List team members"
+hide_title: true
+hide_table_of_contents: true
+api: eJy1VltP2zAU/iuRnzapahigTerTQLAJ7SpgT1Ul3OS0MSRxsE8Kpcp/3zl2kt5SKJt4am1/Pv7O7TtZiBhsZFSBSudiIL4rizbABAIEmQUZZGMwNpDW6khJhDh4UJg4wFTNIA9uGHcR3/RFT+gCjGRDF3Ft6peZylw9uc1rAv7w9ghbSCMzQF4MhguR04LuaDOluz2hmEshMaH/6wRXLQZ5mYFRUaBiyFFNFBjCG7gvlQGigKaEnrBRApkUg4XAecGPqBxh6qATbTKJfuvjsaiqXsvEu/UsFXboLSlk8rF5/74EMxd7Gzo6pI28TFM5TsGTWDWsJxML+Da2LUgTJS/atmhUPu2wNOLo2ULnFizjDw8O+GejCL7RzUgTvxz5VBZFqiJXE+GtZchi+0k9voWIvS4MFyoq/0Bd4itAaYxk0gohs/sa4JLfI709UdpXgn+6wG5Gjg7JPZV2nkyUsbjzXiqfOZQzidJ0HhmddtwhHtQD1MRCP+TODR8QlyHOrSZN0EZQYlEhW+AevmRbVDftnleGs/EZar+vUaZX6gn27JrWEMtOLTOXdSHROSOOu0rpVMYBtytYfE1NLTt8SP5aK6fgPHyhUjxwO7gr/M+N0WaL+VFHEzRqG+QaA5mm+oH4MNxCVBqFc6esp9SQYE5KErDBcMT9RbKbaFboqRMBp20DEZL22nDhFLgKWf5o5VWwCrNWtxvbVxwK79bqC61nCWLRND6vxw5EO/7PlyaBtw/oOKt8ot31OgxXcE/uBSe/L7Z0tz4qUolcBwH1yExFYGsw51BGLoelSWsqdhCG1t3rKy3a3nHPfl4eEJEZ+enf+dA/+tQ/4L1CW8ykK4Fa5rjK1kbkJsvFspb+b6jW8UR4xJBcJlllXTCu8X3qhjw2mcCgGZ8ue7zRTrGGJaU/IWf40mIxlhb+mLSqeNtLNVdMrCwrMlXIRKaWxtcdzNtxNJNpyXwEa/4OZDtf9gG3A2MJHvHCKD8WugjtjPS7y7ov3wcvfyh0RraZAfl8lVLrmQtwpzf7cNr9xfAPXOrcViNCJiBjssPB8ocnUQTFagq25GxNCb6eXxNWrrfwRss6652UqJIc4lrfQU7V1DLkNROsqr9xg4uV
+sidebar_class_name: "get api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List team members"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/orgs/{orgId}/teams/{teamId}/members"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Lists the team members associated with the given `teamId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"teamId","in":"path","description":"Team numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"max","in":"query","schema":{"type":"integer","format":"int32","nullable":true}},{"name":"offset","in":"query","schema":{"type":"integer","format":"int32","nullable":true}},{"name":"search","in":"query","schema":{"type":"string","nullable":true}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"members":{"type":"array","items":{"type":"object","properties":{"memberId":{"type":"integer","format":"int64"},"userId":{"type":"integer","format":"int64"},"userName":{"type":"string"},"email":{"type":"string"},"firstName":{"type":"string"},"lastName":{"type":"string"},"avatar":{"type":"string"},"role":{"type":"string","enum":["owner","member","collaborator"],"title":"OrgRole"}},"title":"MemberDbDto"}},"totalSize":{"type":"integer","format":"int64"}},"title":"ListMembersResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

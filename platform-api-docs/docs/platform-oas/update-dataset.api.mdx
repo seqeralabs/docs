@@ -1,0 +1,75 @@
+---
+id: update-dataset
+title: "Update dataset"
+description: "Updates the details of the dataset identified by the given `datasetId`."
+sidebar_label: "Update dataset"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVV1r2zAU/StCTxukSbaWjeVp7dZBGWwlbdlDKFSxbxK1tqVKctJg/N93ryTHSRwyVvawFyNL5+qec79U8RRsYqR2UhV8xO90KhxY5hbAUnBCZpapWfgVTlhwTKZQODmTkLLp2p/M5RIK9hABV+lDn/e40mAE3XqVbu79GhB4qoUROTgwlo8mFS/wB1ErZZ6sFgmgTY9LIqSFW+B6l+WvBseKMgcjk5aUQbCB51IaQL/OlNDjNllALvio4m6tyY8sHMw9dKZMLlzY+nDG67q3IbORc5RKlMSsM7KY/yWPYIRe7wMYrLtQ6ZoQh72UPowsYtFFolBK4chCaJ3JxId88GjJrOp6VNNHSHwCDCXISbB0GiR3eO2J7fLucSddBvsJHkd+NSF2o+A3rFaFDZ7fD8+6cn9+Zyfsh2KNOjQ6Gw67uAuRviYWLaMJz8FaMQeOGTgeogZ4NAqXxigzjvpIvmd+ekBh0x2sUI6JLFMr5OPRnw6kvwxygEEGOWn8T9X6itEGiGtb9pCURrq17/QLEAbMeYmtNJrcU+HjGFgomhG6DJOBjvhgMwvsoNqaC/Ug9iVubzq05q2XGxIeRGz72uhYOKd57EX6n3oQ7oTFt2YgPK6cF0sBHbe9efkicp1B2zRNYPYHQ9tDspgpTyCG7QaeMfns/PqqYxSPdCYcTSZmwSwlhiCCKeci8TkvTRbF2NFgYL1dXyoEYdpl5ifaTH1uD5DIEsdt8POuf/qxP6Q9razLRbGlJ3RyM+73KVZt4f3DxyLmxsGLG6B4HLdIzUusYkFM2sfBosFo96loaoJO2rmNxbVAeWRcVVPcvDNZXdM2ptNQPeJyKYwUU0oMVmcqLa2xGmcis3BE+5txbKu37A+v0UFtcVMUa04UspL+cPkE6713kF6kV9E69jK9glMb1voewQsQKV5FQQvnXwKHk1u6pbXvzCbSEyzOkwS0O4rdHg/Xd7fUpfF9zFVKJkas6KHFr6eqfEh88/u9imeimJd+kvFwJfW02B0JeyPAizoYDKwij7hVT1DU9SY2jv4pLnX9Gz5ZO68=
+sidebar_class_name: "put api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Update dataset"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"put"}
+  path={"/workspaces/{workspaceId}/datasets/{datasetId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+:::caution deprecated
+
+This endpoint has been deprecated and may be replaced or removed in future versions of the API.
+
+:::
+
+Updates the details of the dataset identified by the given `datasetId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"path","description":"Workspace numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"datasetId","in":"path","description":"Dataset string identifier","required":true,"schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Dataset update request","content":{"application/json":{"schema":{"type":"object","properties":{"name":{"type":"string"},"description":{"type":"string"}},"title":"UpdateDatasetRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"409":{"description":"Duplicate element","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

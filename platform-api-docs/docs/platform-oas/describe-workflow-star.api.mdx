@@ -1,0 +1,71 @@
+---
+id: describe-workflow-star
+title: "Check workflow star status"
+description: "Confirms whether the given `workflowId` is starred."
+sidebar_label: "Check workflow star status"
+hide_title: true
+hide_table_of_contents: true
+api: eJydVNtu00AQ/ZXVPoFUJYFWIPmJUgqqkAC1IB6qSt3Y43hbe9edHSdEVv6dmbVTxyQKghdfds/MnDlzaXUGIUVbk/VOJ/rCu9xiFdSqACoAFT/Uwi7BqfuVx8e89Kur7F7ZoAIZRMgm+kT7GtCIh6uMfXyIHufws8ffMJBBtUFTAQEGndy22vEPgwenDLFCoTZU8PeY19YXR0XrFspm4MjmFsQzwlNjmYpOCBs40SEtoDI6aTWtawnSGenN5mQUN9QmhSHwUwO4Phg5ApVrKkCbjmPvxbKOYBGvco+Voe7ozRlHvxOqofYuQBCL17OZvMbxvn5m09SzF0dya+q6tGlUd/oQBNLuB/XzB0hJREapBdkuwI64h8TQZKmUowsEQ6N6Xfc8GSbAs9npAabbqivnSZmSTbkGEX22j/7CmNw3LvuX9IbK3uoKQjAL0Kzi8ay3wKMpXyL6cZZ8ye1ZeGnhBUS30omJnm5lnLaDoJtp6No6QNqgpfWNkO4IvAeDgOeNWD9zKIjqbb/I/zyC+KT7+LhtlocVRaLW5T6a94Rv4InlVuffrvZatL+qS0PScyoALm0KoQeL2iaNajdY9lRCMp2GaDexnkEsuC1jr+b+3XDBRJY8sV2cV5PTt5OZnNU+UGVisfp5uiggfVSrYUwNyoOa8Cfddij/f66bXlGCXzTlpHl4mVJMre1rdvvc+gxPRjsmlo17qOAUBNi2cxPgB5abjRx3S0AWVGaDmZfSe7kpAxzJ4i8r4iDdR1jvbaGlKRtBatkUS4NW4v8jlxfX/ci8VEd35kFS/aFx6102u2R7GTd3jC7AZOxL+HWA8zSFmnZM94ZbEnsesk+X37nTfwO2NEPh
+sidebar_class_name: "get api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Check workflow star status"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/workflow/{workflowId}/star"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Confirms whether the given `workflowId` is starred.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workflowId","in":"path","description":"Workflow string identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"workflowId":{"type":"string"}},"title":"CreateWorkflowStarResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"Not found","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

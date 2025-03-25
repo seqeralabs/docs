@@ -1,0 +1,71 @@
+---
+id: download-workflow-log
+title: "Download workflow files"
+description: "Downloads the workflow files for the Nextflow main job associated with the given `workflowId`."
+sidebar_label: "Download workflow files"
+hide_title: true
+hide_table_of_contents: true
+api: eJy1VVFP2zAQ/iuWnzapatlAm9SngQYT2sQmYOKhqoSbXBuX1A72pV0V5b/vznHahhYGD+OF2P5833d3n6+VTMEnTheorZFD+dWuTG5V6gVmIFbWPUxzuxJTnYMXU+vC9hX8wbC9UNqIuZ0I5b1NtEJIxUpjFlAzvQQj7tsYl+l9X/akLcApJrtMd+juIuiHnRGmUE4tAMF5ORxV0tCCsNtABNEstlCY0Xc3gzaU8Oi0mQmdgkE91eAI6uCx1A6IGl0JPemTDBZKDiuJ64JJmkuyrnsbXs79ij8j62MJbr1He0EoviDQijRmJV9HwIn5QiWwzewwx10LFKZcgNNJN7k9Lm0QZuGIOrdQ2Gx9OiH2MdfCF9Z48Hzj49ER/+vy/fxOVxNLUQzyqSqKXCehe4O5Z0j1bII7nBNtFGVT019PnhwiOlOp4NaAx7cwbrs5kgvwXs1AUmJRiJ3MIeF4hWPToW4ybYGHWiJRY85b585Zdx0LtFF+fKBErZ2FsShUTsYjPQz3kJRO4zpY+AyUA3dakl+HozFXn/ydWX4CMwga2cpDOWhNPqi2dq8Hu4aKYW+4Ck1Gu8E3SWWIResJXk8CiHaaj4u2OfMVBrnaTG24HitwA4+UmTj9dblnw3hU5Aq5x8KDW+qE5kMD5vapJLSvdHmU4oeDgQ/3+toSiDqo8+DHqf2yPSAhS3r2Dc+H/vHn/hHvFdbjQoXuxzfTDo4nI+qp1mprpv8/2mLlkUIMqDj0kEl6KEEV+zvaDDGCDzsDbdNi8kZG6TK4qibKw2+X1zVvN0OB7ZRqryY5G3+qcg8vJP3MWDoo9QHW3XG3VHnJMMnD6vWc/xhTL3B3J+GWfswLp5n/jfm/u44z4r148YfhoKi4qcx6V82u2Ni+ekzoDFRKsVhfAzhNEihw5+reNOsMgm/nt4RV3Wf85NmG6AdlkVcC4tY+gCG/tCqR1yywrv8CuTnAPA==
+sidebar_class_name: "get api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Download workflow files"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/workflow/{workflowId}/download"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Downloads the workflow files for the Nextflow main job associated with the given `workflowId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workflowId","in":"path","description":"Workflow string identifier","required":true,"schema":{"type":"string"}},{"name":"fileName","in":"query","description":"Filename to download","schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"string","format":"binary"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

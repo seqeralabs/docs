@@ -1,0 +1,71 @@
+---
+id: delete-workspace-participant
+title: "Delete workspace participant"
+description: "Deletes the given participant from the given workspace."
+sidebar_label: "Delete workspace participant"
+hide_title: true
+hide_table_of_contents: true
+api: eJy1VE1v2zAM/SuCThuQxdlabEBOa9EMKDZsRdthhyAHxWZitbakSnK6zNB/H6k4/miLBci2k2XyUXokH1nzDFxqpfFSKz7lF1CAB8d8DmwtN6CYEdbLVBqhPFtZXfZcj9reOyNSGPMR1wasoFsus/aeH3vAVXcJQvFKUaLbOj6d11zhD4Zou8bQEZfEwwif43lI7ptdCyV/xVeYqkqwMmUyA+XlSoJFvIWHSlpABt5WMOIuzaEUfFpzvzX0iFQe1hG60rYUfmd6f8pDGLVM2rwO8GnT+59kevU/QKdX5H9PaEHhzmjlwFHEu8kpfZ406DN7w75qlmq8CFsdRvx0MnmOOxcZIzLgSA57NMKEMYVMY4OTO0fYusey4z/nJTgn1sCRV0NeL+8gjfKypEUvd0T3wC5L561Uayoy99IXZJpZq+11kx96QmR+8kKGe5UzpT0TRaEfkQ/BHaSVlX4bJX0OwoI9q7BL0/mCiod6zzVNRhYnI04BeXmCundJHdUfklZ6aOrJMCQ9GaBrIIrAu9dvqFi7xPsc2txz7w1vOk//ywhCy+7wad/2u0cfs5JqpWN4U6gbeMACsLOry2fya1ymEJ7UwxzYjcREGjB1WaSxy5UtGipumiQuxo2lRhA2WhZRdSv9sXMgkQ1ui907b8cnH8YTshntfCmiSJph2a2dbjH1t9dTwnUnvL9Ye01dPfz0CaaO04nEYoJ10+E5bTaH0Ol+w3VNJutw2/T7TN7h+KOQckyaLq3rpXDw3RYhkBmHyZL28LgRVooltQuVmElHZ1TeShQO/lCDV9fNeL1mhxfti2k3RqG2nFgUFf3h8R627X6nzXYUpwPL9ghC/cIfTevg0j2C2LDnYYEBOYgMr6OO7jBnaQrG96Kfrc7B1rmYfZndzhAuhvvgyfzHB14kh3KLiFt9DyqElqunf+IYwm8qGuAJ
+sidebar_class_name: "delete api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Delete workspace participant"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/orgs/{orgId}/workspaces/{workspaceId}/participants/{participantId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Deletes the given participant from the given workspace.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"path","description":"Workspace numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"participantId","in":"path","description":"Participant numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

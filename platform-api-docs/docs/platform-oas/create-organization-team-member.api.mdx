@@ -1,0 +1,71 @@
+---
+id: create-organization-team-member
+title: "Create team member"
+description: "Adds a new member to the team identified by the given `teamId`."
+sidebar_label: "Create team member"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVm1v2jAQ/iuRP20SK91abRKfRl8mVdNKRdknhNQjOcBtYqe2A2VR/vvu7EBgUNpV/YKc8935Xp57jlIkaGMjcye1Eh3RTRIbQaRwEWWYjdFETkduhpFDyCKZoHJyIjGJxksvnso5quiOb6+SuyPREjpHA+ztKiF/5wbBYc9MQck/Xjwg1V/eNSnnYCBDh8aKzrAUij7ISJspGbeE5IhycDM6b4e56TBSRYZGxk107NngYyENUgzOFNgSNp5hBqJTCrfM+RGpHE696kSbDFwQfT0VVdVaRxLyOhgK5/P+IYyCOVp3ppMl2+x5NfbFjWpFchNr8qgcq0OepzL2BWrfW7YpdwPQ43uM2TA33DYn0fJtYdFcUwF65jIDmW4YWGekmnKJhJMuxXWHm67262gqVtougRfYXCsb3vlyfLybWe/n+yUSIPxaPQbsK3rT8vX5L+Vrj6adKrYEPlNfciSNdc/apXDgEubgwOy9MjrdY0NxEIBpAoVeKJ9GthrQWKcpjDVNtDZi1HSdBrDPvjaREPp/Mb5wektOnLIJjwAAxgfpnO6DwBkkbwF1A7YhJWAtTNGH/ELrg+JBjF8ao3cjP9kD3hX5RUq7CNJULygeVrcYF0a6pee5MwSDplsQnXSGIx52IsGZZsLMtU/aU01HtIkKbbv0hFi1mY3oK5BS1Q5NsqJxfsu1CHltPrFObeZcLmoi4u+xVyJJOPxYgfd+4XzQXON+Q0OXT5DlAUA7FLEBMqkm2j9aV+8WH6kqUffmaoc866s8BceTE5HXuYzR1srceoh96wuT1gnYTrttvd2R1GI9Q/7Z780FBTKn6oR3Ph+dfDs6ZhnXNwOPnJrjA4GFBbfG/VaYZYPBd1iQdS8cPrk2JU6bhVnCeBoIbR/yBuS+dlab0HeeBeuFtGo+YWfGkCGjshyDxd8mrSoWU9sMw42OczASxtwMAl8iLZ8JbBNILR7I9UO/nqiP0csLd29atRDUUnAUacFfdHzA5XrP87p9U0zPb943xFIXthqR5gwh4bVBxQqX5+H5TwN20Rjv0BGnEiy6cYy5O6i7OfU3vdsBj2G96zOdsI2BBf+NoF8fqPbl8NPtZSWtATUtPHuJ4JOHFrZn/p8Z91ntLQXBx2sM9AMqgtC6MvzNhamqv8digAM=
+sidebar_class_name: "post api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Create team member"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/orgs/{orgId}/teams/{teamId}/members"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Adds a new member to the team identified by the given `teamId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"teamId","in":"path","description":"Team numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Team create request","content":{"application/json":{"schema":{"type":"object","properties":{"userNameOrEmail":{"type":"string"}},"title":"CreateTeamMemberRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"member":{"type":"object","properties":{"memberId":{"type":"integer","format":"int64"},"userId":{"type":"integer","format":"int64"},"userName":{"type":"string"},"email":{"type":"string"},"firstName":{"type":"string"},"lastName":{"type":"string"},"avatar":{"type":"string"},"role":{"type":"string","enum":["owner","member","collaborator"],"title":"OrgRole"}},"title":"MemberDbDto"}},"title":"AddTeamMemberResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

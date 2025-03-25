@@ -1,0 +1,71 @@
+---
+id: update-label
+title: "Update label"
+description: "Updates the label identified by the given `labelId`."
+sidebar_label: "Update label"
+hide_title: true
+hide_table_of_contents: true
+api: eJy9Vd9r2zAQ/leMnjbIkm4tG+Rp7dZB2WClbdhDKFSxL4laWVIlOWkw/t93J9lxUptsLWMvwbn7dPruux8qWQYutcJ4oRUbs4nJuAeX+CUkks9AJiID5cVcQJbMNsG+ECtQyV1wX2R3QzZg2oDlFOIi2wb5QX70GW55Dh6sY+NpyRT+QUx9Gv2C7jXcL/F7n0yIkKgiByvSlohFoIXHQljA27wtYMBcuoScs3HJ/MZQfKE8LAJ0rm3OfTR9PGFVNdiSWGv74AxPoSXyWIDddJj8aoD9bF5y+20kD86f6WxDZ/qSLoKESY3EOKnGkMoTnhsjRRrkHt07OlR2GejZPaR00FgqjhfgyBsT36Kct0ItWDVgKy6Lfo9wX2HOC+l3vDOtJXBFYjIvvIT9ql/VtCvy75cqGJzRykVCH46Ouhr8/P7vMhbZX9Vl8N+kicmTNog46Uv/jGevqXwr9JTl4BxfAMNuOyxPA+ymt8P/3FptO8yPewrX7IFEaZ9wKfUa+RDcQVpY4TdhB5wBt2BPC5z58fSWRgIXxFLT7jBF4EjrYMxGYUu4UVlvi4q1ga4p75jDbrhtGkvvTTOaoS4BhJb48a2p//3aB4Kk51U7mOdPPDcS2plpdNn2Q2vYaYO6xYWa68ClFvAaHlGY5PTyorNaapeR3FNPJg7sSqS4giOYqs/TUP3CyjovNx6NXDg3FBpB2ABChl6e68+tg3oX12685/3w+NPwiGxGO59ztZNa7M+48J8TLNsGfO3rUFfEw5MfYZ64Z5FFyKasKz2N74FD8Lh5GbArlsiUnGU54w4mVlYVmeOOpkbKhOMzSS0/59LBAep/2OC9FB9g03kkmuIz6toVt4LufyGXN1f1pL5NDjxxvZRqI1ebXS4N1Ua66hahS+AZBiJq0fslEnh3QzHa052lQg9kPHGapmD8Qezu7F5Obmi+6mct1xkdsXxN7zX+BqI66BHGNthKJK0WRVhBLIakaeT7w/xseENSvVJgpwTEjX4AVVVbZTz9J12q6jevuxP7
+sidebar_class_name: "put api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Update label"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"put"}
+  path={"/labels/{labelId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Updates the label identified by the given `labelId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"labelId","in":"path","description":"Label numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Label update request","content":{"application/json":{"schema":{"type":"object","properties":{"name":{"type":"string"},"value":{"type":"string"},"isDefault":{"type":"boolean"}},"title":"UpdateLabelRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"},"value":{"type":"string"},"isDefault":{"type":"boolean"}},"title":"UpdateLabelResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

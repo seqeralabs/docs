@@ -1,0 +1,71 @@
+---
+id: list-mounted-data-link-ids
+title: "List mounted data link ids"
+description: "List mounted data link ids"
+sidebar_label: "List mounted data link ids"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVNtOGzEQ/RXLzylJC2qlPJWqF6FStSpUPCAeJruTxMRrL/YskK7y753xXpIQGujladf28ZzjmTNTa19iADLeneR6rE9NpC++coT5eyA4NW5xkkc90CUEKJAwRD2+rLXjBcN9mPG1gTaOFzcVhiUvcoxZMKXE5N2vYQbO/EwUylUFBpMpk6MjMzUYGB+zORagx7WmZSlRDdPP0tHUhwKo2Xp9pFerQU9958MilpDhUwIuOuD/ZI8EVMUnXp5+wKqcM6kiVbnxqr+4wxspGDfbYsH7zFY5PpMmYoySZJMrP1U0x46TvGojKeMUqC7O7yVcDXTAWHrHMeX81WgknwfEnzlG5jldjuQUytKaLBV6eB0FUu9S+Mk1ZiSGCuI8Mg1BvmG2NRhCABFqCIv4mM7VQJMhK3ti17P03ta/Ei5+b18hWAYfjQ4feUfXAcp5UmCtv8Nc6qAjZlUwtEyWf4cQMBxXNOfllaRoO4y0jioa7qbklhVwNaTa3DpzLw02w/R4kCh62BQoDgX+QuDJGS3rmeSuSc8md5+FOVHZVVHWkwTinebnY+fe6ztKrzFu6tP1NmNneMMPV8ffTnY81R6VFkiagK0Vbk2GsQVL0SFLRa+CbaXE8XAY070D4xnEdTc2Nc/Uv10fsJBbniINz8uDwzcHI9krfaQCkmda8+/N55bcPiOE9zRk0dwtHDJJq9tcX+o213J5nW2u4pyZ5byuJxDxR7CrlWw3TSKFz02EiWVLjKdgI+6Q9y3wjFn3qNAFLjdm6S3YSjBaBsHzuZ8Yc3uItyfpX9LvH3Z72HvMvxL/8fjbI2o9eNeqrmQRjMhKA4Cdg5BzcsUjzbXjLMOSNm7tjESJ0s+CTx/OGQvbXf2gi1P0bhy65UZs9mtCnPsFOvZsp51kzUQ88H4BOMy3HQ==
+sidebar_class_name: "get api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List mounted data link ids"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/studios/data-links"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+List mounted data link ids
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"query","description":"Organization numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"status","in":"query","description":"Optional data studio status","schema":{"type":"string"}},{"name":"exclude","in":"query","description":"Optional session id of the studio to exclude in a query","schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"dataLinkIds":{"type":"array","items":{"type":"string"}}},"title":"DataStudioMountedLinksResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

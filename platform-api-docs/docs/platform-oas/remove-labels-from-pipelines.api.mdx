@@ -1,0 +1,71 @@
+---
+id: remove-labels-from-pipelines
+title: "Remove labels from pipelines"
+description: "Removes the given list of labels from the given pipelines."
+sidebar_label: "Remove labels from pipelines"
+hide_title: true
+hide_table_of_contents: true
+api: eJylVN9P2zAQ/lcsP5emG2iT+jSYhlRtGgiY9oB4uCaX1sWJje20VFH/993ZCU0p2ibxEsX2d7++++5aWaDPnbJBmVpO5Q1WZo1ehCWKhVpjLbTyQZhSaJij9qJ0phq8WmVRqxr9WI6kseiAHc2KF1c/otklWV33UEJacFBhQOfl9L6VNR3IYmPco7eQI9mPpOJ8nhp0WzocZvm7B4q6qdCpXKgC66BKhY7APl9iBXLayrC17FjVARfxqTSugpCuPp3J3e5hJB1SFB8uTLFlm8NQKX/hYjGig5Kj3JDPOrABWKtVHgvPVp6t2uMUzHyFORtaxzQFRTzQa8/frPADMDgHXLUKWPn/q2MkY4Pe7YccBRU0o869N7mCgH3nEhc3HQcRy4Qoh9Tv4BqMF96a2qfqPk7Ojhm9+i5OxE8jegbJ6Gxy+gauV5OoTRCgtdlQHA7qMW+cCtuonQsEh+68CUs6PnA/SVhLwwq0JrbKAr/J7EWrWdJylpoq9w5vuWsp9aHbF96WIdheX3yeRxDdpJ/LnszVJsREWQ03e3V9e4bKMrWv+n4/eRi2j447ln9pYuiuG7f4RHyI8+vZ0Th0T1ZD4H4Kj26tcpriBGaiIY9SbZzuyvDTLPPRbqwMgUitSkcdlObL/oESWdOUpjgfxqefxxO+Y2YriErvZjdN+8GWsIOBP0i43U/P+xZO15aAzyGj6mljUG6xxrbr+r0cZpFcSlZp7DzRvmSNEKxt5+Dxl9O7HV+nvcP6KpSHuWaFl6A9/qWUf2ylN5N9xO3R4luDbhgpWcxrcIrjR3FTuggFeePEkunXFP7kjr3vbY920sFgXF/d3rFqu41XmYJtHGyYGvpSbN7mbB2HId61RF+9aGDB2OSTNQ6HI/JqJGKm/Taqt4MMifCIuDOPWBPpPReBz5QuOf8Dv5NJEw==
+sidebar_class_name: "post api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Remove labels from pipelines"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/pipelines/labels/remove"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Removes the given list of labels from the given pipelines.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Labels remove request","content":{"application/json":{"schema":{"type":"object","properties":{"pipelineIds":{"type":"array","items":{"type":"integer","format":"int64"}},"labelIds":{"type":"array","items":{"type":"integer","format":"int64"}}},"title":"AssociatePipelineLabelsRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

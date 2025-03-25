@@ -1,0 +1,71 @@
+---
+id: describe-dataset-v-2
+title: "Describe dataset"
+description: "Retrieves the metadata of the dataset identified by the given `datasetId`."
+sidebar_label: "Describe dataset"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVW1v0zAQ/itRxIdN6ts6BCMSgo4NNIE0tBeQ6Apzk2vrLbEz2+lWQv47d07SJG00mOBLG58f3z334sepG4D2FY8Nl8L13DMwisMStGMW4ERgWMAMc+TMrulbg3F4AMLwGYfAma7szpwvQTjXBeAkuO65HVfGoBg5PgnQ9ZENNIWjHPNliIiYKYZBQGnXG6euwAUi76W61THzAc91XE687hJQK1w02X4tgY5IIlDcr5gpBGt/ARFzvdQ1q5gcc2FgbrdmUkXM5KYXz90s66yjr3MoY8fMLLZCF1k4Gusl5s24Cu4SrgCTNiqBFh75IYw6IbCOpdCgaX84GNBfM9TpR/TpS+QuDO2yOA65bwvbv9EESbdDyOkN+IZKrKgNhucBiuTos2I5zlNHMo8f5gH9RuzhE4g51sQbDjubKXWKMjZwe4MB9dpgoymh72PW/Tnqfru6CiY7b7za6te4+wNNr2um3d10r/PqIHvmtsRqFGoz5KDlQAQBZxfW2oAftIEDCHE2g1pVp1KGwITtMQtORbjKe0xgZuAdWpsHCme1gSNc13CsUYuTkGlzGQf/4gS9GG5CqGbUbdiat/CsmD7EEOp52/wdssChYQFtnjKI9fmKQGs2/4sRK4Etd6XK4VgpqbaY77fcnFKAHCGNw8JQ3iMfgmvwE8XNysrOITAFapTQIIwndClRkxaSRGsOliMpgOf2i9uj++laJLJ+KZJu5fWcipAnVPe9zmlhTFzqkx0rC0JL/vG+bPPNfd48LmbSHi8KcA53mJgz+nyypUvFVhwyQ9PiaFBL7qOe52DqHvNt9xIVFlS01+9re67HJYKwgTy02jiTb6sNJLJEpc7j7PX2X/YGZIulNhGzzS8UtJyx8r3YJJlWQ/R/H5yivAYeTB8rgOqN/GyeadHDcamAGuFeXerXbcT2LzAlwqbpFPcvVZhlZM4fIZqYgGs2DWm2ZyzU8Eh+f3iiWhnfwmrrFVyyMCGkS+O5ZIpT/Cdy2TkrruSu89jz1cqpMDKxqpMpuVaFzCYIXqAkoStil++PfB9iUzu5JR2NW/fh+AKxrHlpNi6J9d7KCrtmERfyFgR2riRpaE0Es+w3tnsUCg==
+sidebar_class_name: "get api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Describe dataset"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/datasets/{datasetId}/metadata"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Retrieves the metadata of the dataset identified by the given `datasetId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"datasetId","in":"path","description":"Dataset string identifier","required":true,"schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"dataset":{"required":["name"],"type":"object","properties":{"id":{"maxLength":22,"type":"string"},"name":{"maxLength":100,"pattern":"^[a-zA-Z\\d](?:[a-zA-Z\\d]|[-_](?=[a-zA-Z\\d])){1,98}$","type":"string"},"description":{"maxLength":1000,"type":"string"},"mediaType":{"maxLength":80,"type":"string"},"deleted":{"type":"boolean","readOnly":true},"dateCreated":{"type":"string","format":"date-time","readOnly":true},"lastUpdated":{"type":"string","format":"date-time","readOnly":true}},"title":"Dataset"}},"title":"DescribeDatasetResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

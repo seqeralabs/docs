@@ -1,0 +1,71 @@
+---
+id: delete-pipeline
+title: "Delete pipeline"
+description: "Deletes the pipeline identified by the given `pipelineId`."
+sidebar_label: "Delete pipeline"
+hide_title: true
+hide_table_of_contents: true
+api: eJyllFFr2zAQx7+K0NMGWZKtZYM8raUZlI2ttB17CIEq9iVW60iqdE4XjL9772Q7dprQUfaUWPrr7ne6/6mUKYTEa4faGjmRF5ADQhCYgXDaQa4NCJ2CQb3UkIrFNm6t9AaMuGsVl+ndUA6kdeAVB7pMd6GuGgltO+XVmpZ8kJNZKQ19kKyLQRLNDE5hRv/3wdo4whRr8DrpoDxpPTwW2gOlRV/AQIYkg7WSk1Li1nEWbRBWUbq0fq2wXvp8KqtqsEN5sv4hOJX0WB4L8NsDmD+t8DjNW7LPGT44awIEPvFpfMo/+/l+fRcfxE8rEkuBDMpqIE/H40PduUoFXwUEpFytmmTKuVwnsTej+8DaskfZ3d5MriEEtQJJXA28XdxDwvGc5wajrkFbYVdlQK/Nim9Uosacl6beW3/d1Ec7VSQ/OVJhax1hLAqV5/aJeFgeICm8xm30zDkoD/6sIINMZnO+PDJUZtluabRbtBnvylFrrDAqO49Vsot4wxdQF9OPu6snQ3RtN/l7EUW0Uv/51rby/gkjqTZLG483xd/AIxUlzq4uDwzUbLlcITtCBPAbndDc1WLunEpi5wqfNyhhMhqFeG6oLYmoeTqPTlrar90GgWxoxOo8H4cnX4ZjXnM24FrFxjdur+dzN+UvGcvOP//3KjS3ifAXR1QwjRXhxLLKplez3SMQSD/pvQjU4IzAWVKWCxXgt8+ripfrwWRPpDqoRc7uXao8wCtl/GNsj4I+wPbgZdiovGClZANulNec/40s766boXsvXn/ajlI1i8ps+zgtbe8CqzmpM1ApxWLAWnCWJOCwd/TgfdgbrYvpj+ntlORqf0BeDERMcJSMehcVt/YBTFXtQJG/mbGqngGvOkBG
+sidebar_class_name: "delete api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Delete pipeline"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/pipelines/{pipelineId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Deletes the pipeline identified by the given `pipelineId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"pipelineId","in":"path","description":"Pipeline numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

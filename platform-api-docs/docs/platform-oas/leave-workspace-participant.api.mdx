@@ -1,0 +1,71 @@
+---
+id: leave-workspace-participant
+title: "Leave workspace"
+description: "Removes the requesting user from the given workspace."
+sidebar_label: "Leave workspace"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVMFu2zAM/RVBpw3I4mwtNiCntVgGFCu2ou2wQ9CDYjOxWttSKTpdZvjfRyp2nLTFChQ7WaaepEe+RzY6g5Ci9WRdpaf6Ekq3hqAoB4VwX0MgW61UHQDVEl0ZN1Z2DZV6cHgXvElhrEfaeUAjd5xlfMs5mDX86vcvDJJNrTcVMdIbNCUQYNDTeaMr/uETDld8cqStkPCGcl4fMvuBK1PZP/ERVdUloE2VzaAiu7SAjBe+FoEJENYw0iHNoTR62mjaeHnEVgSrCF06LA1tQx+PdduOdkx2ab3AZ5fe/ydzI8eDd1WAICc+TI7l86ge39Q79d2p1PFFXNl2pI8nk6e4U5P1SvJbPZphxvvCprGeyW0QbLPHcuA/1yWEYFagmVdH3i1uIY1qoihPdku0Bw5ZBkL2jxRYk6VCQjNEh5ddfrzTRuZHz2TYe0pVjpQpCvfAfAQeIK3R0iY66BQMAp7UrNF0fiPFY3vlTnyYQcFOi6aTXZ2wzULSRLO1yU5pDu2p3iZ+MGzQw2tXUpxtovtv7nLNibzulJb/RQRxZLv42st8+0AxC1stXTzeFeYK7jlhdXJx9sRs3ZYvDIlbFLfj2jLxDiyqmjSqWmPRUQnTJAnx3Ng6BrGwtoguW7rPwwYTWXMzbt95Pz76NJ5IzLtApYmm6BojNvXQ9Y85NoO3Xj1FukIS/KaEc+XmYyYxo6aTcC6TQkSZ9hNjUFGih917ICQbI+ek5I6mWZgAP7FoWwkzQRQv8XJt0JqFyMHOymyQNTtpaYoA/0j4zWXXLm/Vy3Pq2Sy7oKk2WlgUtfzx8g42u/EoU+pVnF6YVa8gtF/n9obhOZiML5OybREnaQqe9s4+mTcHrfpldj67njHcHDbVoyaKDzxLjTWNiGt3BxXr2jMl+ReObfsXxb5lEg==
+sidebar_class_name: "delete api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Leave workspace"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/orgs/{orgId}/workspaces/{workspaceId}/participants"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Removes the requesting user from the given workspace.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"path","description":"Workspace numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

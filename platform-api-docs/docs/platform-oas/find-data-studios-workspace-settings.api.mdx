@@ -1,0 +1,71 @@
+---
+id: find-data-studios-workspace-settings
+title: "Update workspace"
+description: "Updates the details of the workspace identified by the given `workspaceId`."
+sidebar_label: "Update workspace"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVl1v0zAU/SuRn0Aq62ATiD7RsQIVEqB2g4dpEm5y23pzbGM77UqU/869TpqkS/fBxAMvbXJ9fX3u8fGJc5aAi60wXmjFBuzcJNyDi/wSogQ8F9JFeh5e19peO8NjiEQCyou5gCSabcLYQqxART/rlHHy84D1mDZgOVUeJ1j7g1DJKfd86rNEaPdjmzwF74VaOJxguOUpeLCODS5ypvAFJ2q7wAI9Jgih4X6Jz7uwv9oFV+J3WCtSWQpWxA1Mi/kWfmXCAuLwNoMec/ESUs4GOfMbQ4sI5WERUufaptyXodfHrCh6NZJWg/fiqXv792Auy+ng/IlONjTnrqWzsJdRlY21Yo1llac53Bgp4sBX/8rRxLyLQs+uIKaJxtJOegGORksu6iznLe4eKxBrJuWXuwZ3UO4ZXwknZkIKv+kO9xggjygJ9m0y/j48G2Fk+mk4GZ0ypMMLLyn5e1MB96wOl5KuaZlUdBQFJVlwRitXNvbq8LDL59fPf8Ncs7MXTIo5Vufqk84siXsr47Uz+E/A76W5TH+MJrYlH5e7C+uhOUevdshszm/n+E4qKitmj/eRecKTp+ixzWoKzvEFPMzfNrErtlY/I2u17SA/2iODrZVFSvuIS6nXiCdkv+1mn2ZlOxCBhJR6/E+7xUEHcWbDsUPHPQFuwQ4z9LTBxSWZDdrxUpN9LyCsSnY3YH1Up+vnQaNFv7ZFDLUssui7Sht9V3o+a5abUr8l9vaiNfyl94ZV1kjvs5CEkfLhw1ajV2sfeiQeJ40xjm54aiQ0ftV4SWNTTWx3++pw25Rq7ynI+ec6YK2IncIvlEc0/Dbu1KqGjOSezlXkwK4EMlUlkyp4HFSRWVn17QZ9pI7mHQhN7pfihzicx7l+1wyQa+Knslzn5cHRm4NDihntfMpVq/XSApsv+G2QeSPOf3wDqDbTw43vIwX4xUSAodG8ktIFGR0JY1D7Y60miu5+cl1zV9hKCjW6xI6pUp7PuINzK4uCwigGS7LGxxW3gs9or1DkiXD0jKKec+ngHjKeTaqz+Dx6+Iqxt9cqyNWG5MRlRm/4eA2b+mZDF4wnYXrgmvEEQG22i0tMXwJPsBjRVma8L4G8OKM6TYWOpVFT5YxhHIPx9+a2febj6IxOeXW5SXVCUyxf070JfwNYHXgJ5hFiOZNcLbJggKwsSZ7Ady3lloWEpvbSgToKGWf6GhRqacuOp3fipSj+AKH14+A=
+sidebar_class_name: "get api-method"
+info_path: docs/platform-oas/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Update workspace"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/orgs/{orgId}/workspaces/{workspaceId}/settings/studios"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Updates the details of the workspace identified by the given `workspaceId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"path","description":"Workspace numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Workspace update request","content":{"application/json":{"schema":{"type":"object","properties":{"name":{"type":"string"},"fullName":{"type":"string"},"description":{"type":"string"},"visibility":{"type":"string","enum":["PRIVATE","SHARED"],"title":"Visibility"}},"title":"UpdateWorkspaceRequest"}}}}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"required":["lifespanHours","orgId","wspId"],"type":"object","properties":{"orgId":{"type":"integer","format":"int64"},"wspId":{"type":"integer","format":"int64"},"lifespanHours":{"type":"integer","format":"int32"}},"title":"DataStudioWorkspaceSettingsResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"409":{"description":"Duplicate element","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      
