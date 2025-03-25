@@ -1,0 +1,71 @@
+---
+id: create-trace
+title: "Create a new Workflow execution trace"
+description: "Create a new Workflow execution trace"
+sidebar_label: "Create a new Workflow execution trace"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVUtP20AQ/ivWnlMCLarUnAqISqhSQZCKA+KwsSfJgr27zK4TLMv/vTPrdeJg9yHUS5Sd5zePb1wLYwGlV0ZfZWImLhCkhznKFMREWImyAA/oxOyhFpoeZLM1+OwsWZDHRChNopcSsKJHBi5FZTkcSe87w0SXBaBKE5WB9mqpAMnYpWsopJjVwleWAyvtYRVUS4OF9K3o86lomseJQKAszp+brGKfw1QBcZIG9Em0pDipoZDas720NldpqHT65NipHiIwiydI2dEi98UrcMEOnIsd2pk6j0qvREPASv0jdGZER3E44m/1CNY45Q1Wo2pu9TI329HMpPfK59CV387uNhbfNE3bM4VA3h5LCAJnjXZtWR+Pj4edvP7+//pWUN/karzyd5XWgufayOJ0DP65zN4z/32jHnaoaefeW14P/yWiwQHyTyON74iYaOMTmVNvCA+bO0hLVL4KJDwHiYBnpV/T85GJcRimbVUiEw3b5D42OYFXihGC+8ht4vXaMOVpAUNpkiOKadBPWyaJfe47blVbdh/BrvK197bjNL8XwYgk7Z9vHaGftj7UxCO43TP68lUWNoc3ZOv62ePYXnRArZ5lj1F7aX/bekuo9NKEIuKw7uCFhpCc3VwNjllU2Vx6vk6JA9yoFFw05k2Tadi0EvPYEDebTl3wO1KGjGjZVB6u2tJ83SsIyIZubJvn5OjL0XE4HTSXQoY9jYf3X0d7AHw3IQ+vfkrw6WBT9ACyjlN/EJ1rnDtt1ZrXgjR1vZAOfmLeNCxuLz0vYqacXORMmaXMHQzS7rj3t+/AKL5nqAafmo3MS7YUvPUbiYrzBxYQXJAZRWNgretFm/7DnKPvfQdnoJl0HmdpCtb/0faxx5ub67s573f8HhUmYx+UW15C+iWcE/q6snegTZDVIpd6VYarIdqYzAZ5SKY35AlVRZXUVQ8hDSdYzM0zaBpQ1zfPb4JLwX8BMUK7sw==
+sidebar_class_name: "post api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Create a new Workflow execution trace"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/trace/create"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Create a new Workflow execution trace
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Trace create request","content":{"application/json":{"schema":{"type":"object","properties":{"sessionId":{"type":"string"},"runName":{"type":"string"},"projectName":{"type":"string"},"repository":{"type":"string"},"workflowId":{"type":"string"}},"title":"TraceCreateRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"message":{"type":"string"},"workflowId":{"type":"string"}},"title":"TraceCreateResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

@@ -1,0 +1,71 @@
+---
+id: admin-describe-organization-quotas
+title: "Retrieve organization quotas"
+description: "Returns the quotas for the given organization."
+sidebar_label: "Retrieve organization quotas"
+hide_title: true
+hide_table_of_contents: true
+api: eJydVU1v00AQ/SvWnkCK4lIQEj4RVEAVIEpa4FDlMHYm8ab27mZ3HRos//fOrDdp0hba9JT9eG/8ZnbepBVTdIWVxkutRCbG6BurXOJLTJaN9uCSmbZhO5crVIm2c1DyLzB+KAZCG7Rhczol+mhaS3USIub4fQf6I8QivAELNXq0TmSXrVC0IR5FJf5ASNZgwJe03he2GyxRTY1WFomcovJyJtES3uKykRZJhrcNDoQrSqxBZK3wa8MfkcrjPEAppRp8f/T2jei6CdOd0cqhY8bx0RH/3JHwhaiFpijK8y0YU8kiKEoXjiHt/Y/qfIGF58Qtl8rL/gN9bR/H1XD9W9srZ6BA92gur49FN2DON6zzUOKnEi4Q6gPgZ9JgJRW6M7RbfQfQgRIspAHlnxnhBKh8+Fz2L6oNvRqzY6Cnc8eNOqBQXyHH6nCVRPbSV3in8aOLdq//bbZxbGiCd8xwWDRW+nXw3QcEi3bUkNOyywn3P5my1OzhOYY2ZBNmIgV2dEr+dGkbXNqly42XNxHPuen79tyNu82z9N6IaEje5wFEJ/3i0yb5xR8fcpNqpgM95niOSxoyyejs9N5YiFemAs81TBzalSSrRDC7FYrwuo2tohSXpakLvKHUBCLDyirUfqbf316QkFXfJ3T3avhueMRHRjtfQ/B6nF00Mq3EFe6NxmRbpD297e38OHzUxmp6vPYpJUyzkvSEtNr4XJciPBePZXow+sk2gzXKoXcuKQFGtm1Ojf/TVl3Hx8sGLbcGLVdgJeRceWqUqXS8psaYQeXwP/m8GMcB/DJ5fFg/mEs8BLUWrKJqeEfLK1xv/yO6CQFLhCmFYX393ago0Pgd1r3ZvNfinz9eEBb2u/ROV4boDyqiygXEhb5CRdXbCPS8Z4FddwOGR4ob
+sidebar_class_name: "get api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Retrieve organization quotas"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/admin/orgs/{orgId}/quotas"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Returns the quotas for the given organization.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"quotas":{"type":"object","properties":{"maxWorkspaces":{"type":"integer","format":"int32"},"maxMembers":{"type":"integer","format":"int32"},"maxTeams":{"type":"integer","format":"int32"},"maxPipelinesPerWorkspace":{"type":"integer","format":"int32"},"maxParticipantsPerWorkspace":{"type":"integer","format":"int32"},"maxDatasetsPerWorkspace":{"type":"integer","format":"int32"},"maxVersionsPerDataset":{"type":"integer","format":"int32"},"maxRuns":{"type":"integer","format":"int32"},"maxLabelsPerWorkspace":{"type":"integer","format":"int32"}},"title":"OrganizationQuotas"}},"title":"DescribeOrganizationQuotasResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      
