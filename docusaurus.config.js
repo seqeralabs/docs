@@ -57,7 +57,6 @@ export default async function createConfigAsync() {
             copyright: `Copyright © ${new Date().getFullYear()} Seqera`,
             }
           },
-          // docs: false,
           theme: {
             customCss: [
               require.resolve("./src/css/main.css"),
