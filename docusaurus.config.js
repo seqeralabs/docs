@@ -58,6 +58,7 @@ export default async function createConfigAsync() {
             }
           },
           docs: { 
+            routeBasePath: '/docs', // Serve the docs at the site's root
             docItemComponent: "@theme/ApiItem", // Derived from docusaurus-theme-openapi
           },
           theme: {
