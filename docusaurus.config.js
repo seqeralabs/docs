@@ -57,8 +57,9 @@ export default async function createConfigAsync() {
             copyright: `Copyright © ${new Date().getFullYear()} Seqera`,
             }
           },
-          // docs: false,
-          docItemComponent: "@theme/ApiItem", // Derived from docusaurus-theme-openapi
+          docs: { 
+            docItemComponent: "@theme/ApiItem", // Derived from docusaurus-theme-openapi
+          },
           theme: {
             customCss: [
               require.resolve("./src/css/main.css"),
