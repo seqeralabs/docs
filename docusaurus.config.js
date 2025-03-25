@@ -57,7 +57,8 @@ export default async function createConfigAsync() {
             copyright: `Copyright © ${new Date().getFullYear()} Seqera`,
             }
           },
-          docs: false,
+          // docs: false,
+          docItemComponent: "@theme/ApiItem", // Derived from docusaurus-theme-openapi
           theme: {
             customCss: [
               require.resolve("./src/css/main.css"),
@@ -80,6 +81,22 @@ export default async function createConfigAsync() {
       ],
     ],
     plugins: [
+      [
+        'docusaurus-plugin-openapi-docs',
+        {
+          id: "api", // plugin id
+          docsPluginId: "classic", // configured for preset-classic
+          config: {
+            petstore: {
+              specPath: "api_test/test.yaml",
+              outputDir: "api_test/test",
+              sidebarOptions: {
+                groupPathsBy: "tag",
+              },
+            }
+          }
+        },
+      ],
       [
         "@docusaurus/plugin-content-docs",
         {
@@ -187,7 +204,7 @@ export default async function createConfigAsync() {
       path.resolve(__dirname, "plugins_custom/seqera_jobs"),
       path.resolve(__dirname, "plugins_custom/seqera_events"),
     ],
-
+    themes: ["docusaurus-theme-openapi-docs"], 
     themeConfig: {
       image: "img/share.jpg",
       navbar: {
