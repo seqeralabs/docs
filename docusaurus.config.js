@@ -57,7 +57,7 @@ export default async function createConfigAsync() {
             copyright: `Copyright © ${new Date().getFullYear()} Seqera`,
             }
           },
-          docItemComponent: "@theme/ApiItem", 
+          docs: false,
           theme: {
             customCss: [
               require.resolve("./src/css/main.css"),
@@ -80,22 +80,6 @@ export default async function createConfigAsync() {
       ],
     ],
     plugins: [
-      [
-        'docusaurus-plugin-openapi-docs',
-        {
-          id: "new_api", // plugin id
-          docsPluginId: "classic", // configured for preset-classic
-          config: {
-            new_api: {
-              specPath: "new_api/new_api.yaml",
-              outputDir: "new_api/test",
-              sidebarOptions: {
-                groupPathsBy: "tag",
-              },
-            } 
-          }
-        },
-      ],
       [
         "@docusaurus/plugin-content-docs",
         {
@@ -176,7 +160,6 @@ export default async function createConfigAsync() {
           sidebarPath: "./wave_docs/sidebar.json",
         },
       ],
-      
       async function tailwind() {
         return {
           name: "docusaurus-tailwindcss",
@@ -204,7 +187,6 @@ export default async function createConfigAsync() {
       path.resolve(__dirname, "plugins_custom/seqera_jobs"),
       path.resolve(__dirname, "plugins_custom/seqera_events"),
     ],
-    themes: ["docusaurus-theme-openapi-docs"],
 
     themeConfig: {
       image: "img/share.jpg",
