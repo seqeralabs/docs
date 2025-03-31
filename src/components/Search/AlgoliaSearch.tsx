@@ -18,7 +18,7 @@ export function Autosearch(props) {
 
     const search = autocomplete({
       container: containerRef.current,
-      placeholder: 'Search documentation, pipelines, case studies...',
+      placeholder: 'Search documentation or Ask AI...',
       openOnFocus: true,
       renderer: { createElement, Fragment, render: () => {} },
       render({ children }, root) {

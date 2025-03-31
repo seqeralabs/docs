@@ -149,3 +149,8 @@
 .aa-SubmitButton svg {
   color: #0284c7;
 }  */
+
+
+.custom-search-panel {
+  position: fixed;
+}

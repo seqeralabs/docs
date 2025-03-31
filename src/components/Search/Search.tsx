@@ -143,7 +143,7 @@ export default function Search() {
         <div className="fixed inset-0 bg-black bg-opacity-25 z-40 flex items-start justify-center pt-1">
           <div 
             ref={modalRef} 
-            className="w-full max-w-2xl bg-white rounded-tl-md rounded-tr-md left-20 border-blue-500 border p-2"
+            className="w-full max-w-2xl bg-white rounded-tl-md rounded-tr-md top-20 border-blue-500 border p-2"
             style={{ position: 'relative', zIndex: 50, maxHeight: '80vh', overflowY: 'auto' }}
           >
             <div ref={containerRef}>
@@ -164,12 +164,12 @@ export default function Search() {
                       },
                       templates: {
                         header() {
-                          return <div className="text-gray-1000 font-medium typo-small">Start typing to search</div>;
+                          return <div className="text-gray-1000 font-medium typo-small">Documentation</div>;
                         },
                         noResults() {
                           return (
                             <div className="p-3 text-sm text-gray-500">
-                              Type to search documentation
+                              Type to search documentation or Ask AI...
                             </div>
                           );
                         }
@@ -187,7 +187,7 @@ export default function Search() {
                             indexName: envIndexName,
                             params: {
                               query,
-                              hitsPerPage: 4,
+                              hitsPerPage: 3,
                               attributesToHighlight: ['*'],
                             },
                           },
