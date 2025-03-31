@@ -165,7 +165,7 @@
             "enterprise/configuration/ssl_tls",
             "enterprise/configuration/pipeline_optimization",
             "enterprise/configuration/wave",
-            "enterprise/data-studios"
+            "enterprise/studios"
           ]
         },
         {
@@ -187,7 +187,8 @@
             "enterprise/advanced-topics/db-docker-to-RDS",
             "enterprise/advanced-topics/use-iam-role",
             "enterprise/advanced-topics/custom-launch-container",
-            "enterprise/advanced-topics/firewall-configuration"
+            "enterprise/advanced-topics/firewall-configuration",
+            "enterprise/advanced-topics/seqera-container-images"
           ]
         },
         "enterprise/general_troubleshooting"

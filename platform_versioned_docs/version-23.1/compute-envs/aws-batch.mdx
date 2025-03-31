@@ -153,9 +153,9 @@ Once the AWS resources are set up, we can add a new **AWS Batch** environment in
 13. Select a **Provisioning model**. In most cases this will be **Spot**.
 
         :::tip
-        You can choose to create a compute environment that launches either Spot or On-demand instances. Spot instances can cost as little as 20% of on-demand instances, and with Nextflow's ability to automatically relaunch failed tasks, Spot is almost always the recommended provisioning model.
+        You can choose to create a compute environment that launches either Spot or On-Demand instances. Spot instances can cost as little as 20% of On-Demand instances, and with Nextflow's ability to automatically relaunch failed tasks, Spot is almost always the recommended provisioning model.
 
-        Note, however, that when choosing Spot instances, Tower will also create a dedicated queue for running the main Nextflow job using a single on-demand instance in order to prevent any execution interruptions.
+        Note, however, that when choosing Spot instances, Tower will also create a dedicated queue for running the main Nextflow job using a single On-Demand instance in order to prevent any execution interruptions.
         :::
 
 14. Enter the **Max CPUs** e.g. `64`. This is the maximum number of combined CPUs (the sum of all instances CPUs) AWS Batch will provision at any time.
@@ -206,7 +206,7 @@ Jump to the documentation for [launching pipelines](../launch/launchpad.mdx).
 
 ### Advanced options
 
-- Specify the **Allocation strategy** and indicate any preferred **Instance types**. AWS applies quotas for the number of running and requested [Spot](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-limits.html) and [On-demand](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-on-demand-instances.html#ec2-on-demand-instances-limits) instances per account. AWS will [allocate](https://aws.amazon.com/ec2/faqs/#how-many-instances-ec2) instances from up to 20 instance types, based on those requested for the compute environment. AWS excludes the largest instances when you request more than 20 instance types.
+- Specify the **Allocation strategy** and indicate any preferred **Instance types**. AWS applies quotas for the number of running and requested [Spot](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-limits.html) and [On-Demand](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-on-demand-instances.html#ec2-on-demand-instances-limits) instances per account. AWS will [allocate](https://aws.amazon.com/ec2/faqs/#how-many-instances-ec2) instances from up to 20 instance types, based on those requested for the compute environment. AWS excludes the largest instances when you request more than 20 instance types.
 
 - Configure a custom networking setup using the **VPC ID**, **Subnets**, and **Security groups** fields.
 
@@ -225,7 +225,7 @@ Jump to the documentation for [launching pipelines](../launch/launchpad.mdx).
 - You can set **Min CPUs** to be greater than `0`, in which case some EC2 instances will remain active. An advantage of this is that pipeline executions will initialize faster.
 
     :::caution
-    Keeping EC2 instances running may result in additional costs. You will be billed for these running EC2 instances regardless of whether you are executing pipelines or not.
+    Setting Min CPUs to a value greater than 0 will keep the required compute instances active, even when your pipelines are not running. This will result in additional AWS charges.
     :::
 
 - Use **Head Job CPUs** and **Head Job Memory** to specify the hardware resources allocated for the Head Job.
@@ -238,7 +238,7 @@ Jump to the documentation for [launching pipelines](../launch/launchpad.mdx).
 
 - Enter the **Boot disk size** (in GB) to specify the size of the boot disk in the VMs created by this compute environment.
 
-- If you're using **Spot** instances, you can also specify the **Cost percentage**, which is the maximum allowed price of a **Spot** instance as a percentage of the **On-Demand** price for that instance type. Spot instances will not be launched until the current spot price is below the specified cost percentage.
+- If you're using **Spot** instances, you can also specify the **Cost percentage**, which is the maximum allowed price of a **Spot** instance as a percentage of the **On-Demand** price for that instance type. Spot instances will not be launched until the current Spot price is below the specified cost percentage.
 
 - Use **AWS CLI tool path** to specify the location of the `aws` CLI.
 
