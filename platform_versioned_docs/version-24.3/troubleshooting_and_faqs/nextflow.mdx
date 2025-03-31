@@ -197,7 +197,7 @@ The Groovy shell used by Nextflow to execute your workflow has a hard limit on s
 2. Move long script bodies into a separate script file in the pipeline `/bin` directory.
 3. Consider using DSL2 so you can move each function, process, and workflow definition into its own script and include these scripts as [modules](https://www.nextflow.io/docs/latest/dsl2.html#modules).
 
-## Nextflow Launcher
+### Nextflow Launcher
 
 **Seqera Platform / [nf-launcher image](https://quay.io/repository/seqeralabs/nf-launcher?tab=tags) compatibility**
 
@@ -212,7 +212,7 @@ Each Seqera Platform release uses a specific nf-launcher image by default. This 
 - Use a [pre-run script](../launch/advanced.mdx#pre--post-run-scripts) to set the desired Nextflow version. For example: `export NXF_VER=22.08.0-edge`
 - For jobs executing in an AWS Batch compute environment, create a [custom job definition](../../version-24.2/enterprise/advanced-topics/custom-launch-container.mdx) which references a different nf-launcher image.
 
-## Spot instance failures and retries in Nextflow
+### Spot instance failures and retries in Nextflow
 
 Up to version 24.10, Nextflow silently retried Spot instance failures up to five times when using AWS Batch or Google Batch. These retries were controlled by cloud-specific configuration parameters (e.g., `aws.batch.maxSpotAttempts`) and happened in cloud infrastructure without explicit visibility to Nextflow. 
 
