@@ -153,9 +153,9 @@ Once the AWS resources are set up, we can add a new **AWS Batch** environment in
 13. Select a **Provisioning model**. In most cases this will be **Spot**.
 
     :::tip
-    You can choose to create a compute environment that launches either Spot or On-demand instances. Spot instances can cost as little as 20% of on-demand instances, and with Nextflow's ability to automatically relaunch failed tasks, Spot is almost always the recommended provisioning model.
+    You can choose to create a compute environment that launches either Spot or On-Demand instances. Spot instances can cost as little as 20% of On-Demand instances, and with Nextflow's ability to automatically relaunch failed tasks, Spot is almost always the recommended provisioning model.
 
-    Note, however, that when choosing Spot instances, Tower will also create a dedicated queue for running the main Nextflow job using a single on-demand instance in order to prevent any execution interruptions.
+    Note, however, that when choosing Spot instances, Tower will also create a dedicated queue for running the main Nextflow job using a single On-Demand instance in order to prevent any execution interruptions.
     :::
 
 14. Enter the **Max CPUs** e.g. `64`. This is the maximum number of combined CPUs (the sum of all instances CPUs) AWS Batch will provision at any time.
