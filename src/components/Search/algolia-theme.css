@@ -152,5 +152,5 @@
 
 
 .custom-search-panel {
-  position: fixed;
+  position: fixed !important;
 }
