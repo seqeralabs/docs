@@ -168,7 +168,7 @@ export default function Search() {
                           return (
                             <div className="flex flex-col w-full m-0 p-0">
                               <ul className="typo-small flex flex-col w-full p-0 m-0">
-                                <li className=" hover:bg-gray-100 flex flex-row w-full">
+                                {/* <li className=" hover:bg-gray-100 flex flex-row w-full">
                                   <a href={`https://seqera.io/ask-ai`} className="aa-ItemLink flex items-center p-3">
                                     <div className="aa-ItemContent">
                                       <div className="flex items-center font-normal">
@@ -177,7 +177,7 @@ export default function Search() {
                                       </div>
                                     </div>
                                   </a>
-                                </li>
+                                </li> */}
                                 <li className=" hover:bg-gray-100 flex flex-row w-full">
                                   <a href={`https://seqera.io/ask-ai`} className="aa-ItemLink flex items-center p-3">
                                     <div className="aa-ItemContent">
@@ -229,7 +229,7 @@ export default function Search() {
                         return (
                           <div className="flex flex-col w-full m-0 p-0">
                             <ul className="typo-small flex flex-col w-full p-0 m-0">
-                              <li className=" hover:bg-gray-100 flex flex-row w-full">
+                              {/* <li className=" hover:bg-gray-100 flex flex-row w-full">
                                 <a href={`https://seqera.io/ask-ai?prompt=${state?.query || ''}`} className="aa-ItemLink flex items-center p-3">
                                   <div className="aa-ItemContent">
                                     <div className="flex items-center font-normal">
@@ -238,7 +238,7 @@ export default function Search() {
                                     </div>
                                   </div>
                                 </a>
-                              </li>
+                              </li> */}
                               <li className=" hover:bg-gray-100 flex flex-row w-full">
                                 <a href={`https://seqera.io/ask-ai?prompt=${state?.query || ''}`} className="aa-ItemLink flex items-center p-3">
                                   <div className="aa-ItemContent">
