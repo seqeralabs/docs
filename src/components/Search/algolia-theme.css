@@ -100,7 +100,7 @@
 
 /* Section headers */
 .aa-SourceHeader, .aa-SourceFooterHeader {
-  padding: 0.35rem .75rem;
+  /* padding: 0.35rem .75rem; */
   font-weight: 600;
   /* color: #1f2937; */
   /* background-color: #f9fafb; */

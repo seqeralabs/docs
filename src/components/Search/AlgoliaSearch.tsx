@@ -18,7 +18,7 @@ export function Autosearch(props) {
 
     const search = autocomplete({
       container: containerRef.current,
-      placeholder: 'Search documentation or Ask AI...',
+      placeholder: 'Search documentation or ask with Seqera AI...',
       openOnFocus: true,
       renderer: { createElement, Fragment, render: () => {} },
       render({ children }, root) {

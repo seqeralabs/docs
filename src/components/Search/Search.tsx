@@ -6,8 +6,9 @@ import { getAlgoliaResults } from '@algolia/autocomplete-js';
 // Use direct CommonJS import pattern
 import Autosearch from "./AlgoliaSearch";
 import AiIcon from "../../theme/Navbar/Layout/SeqeraHeader/HeaderDesktop/NavItems/images/AiIcon";
+import SearchIcon from "./SearchIcon";
 // Import algoliasearch
-import { algoliasearch } from 'algoliasearch';
+import algoliasearch from 'algoliasearch';
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
@@ -164,12 +165,38 @@ export default function Search() {
                       },
                       templates: {
                         header() {
-                          return <div className="text-gray-1000 font-medium typo-small">Documentation</div>;
+                          return (
+                            <div className="flex flex-col w-full m-0 p-0">
+                              <ul className="typo-small flex flex-col w-full p-0 m-0">
+                                <li className=" hover:bg-gray-100 flex flex-row w-full">
+                                  <a href={`https://seqera.io/ask-ai`} className="aa-ItemLink flex items-center p-3">
+                                    <div className="aa-ItemContent">
+                                      <div className="flex items-center font-normal">
+                                      <SearchIcon className="mr-2 w-5 h-5" />
+                                        Search documentation
+                                      </div>
+                                    </div>
+                                  </a>
+                                </li>
+                                <li className=" hover:bg-gray-100 flex flex-row w-full">
+                                  <a href={`https://seqera.io/ask-ai`} className="aa-ItemLink flex items-center p-3">
+                                    <div className="aa-ItemContent">
+                                      <div className="flex items-center font-normal">
+                                        <AiIcon className="mr-2 w-5 h-5" />
+                                        Start a new thread with Seqera AI
+                                      </div>
+                                    </div>
+                                  </a>
+                                </li>
+                              </ul>
+                              <div className="text-gray-1000 font-medium typo-small px-3 py-2 mt-1">Documentation</div>
+                            </div>
+                          );
                         },
                         noResults() {
                           return (
-                            <div className="p-3 text-sm text-gray-500">
-                              Type to search documentation or Ask AI...
+                            <div className="pt-0 pb-6 text-sm text-gray-500">
+                              Search documentation or ask with Seqera AI...
                             </div>
                           );
                         }
@@ -187,7 +214,7 @@ export default function Search() {
                             indexName: envIndexName,
                             params: {
                               query,
-                              hitsPerPage: 3,
+                              hitsPerPage: 5,
                               attributesToHighlight: ['*'],
                             },
                           },
@@ -198,26 +225,52 @@ export default function Search() {
                       item({ item, components }) {
                         return <ProductItem hit={item} components={components} />;
                       },
-                      header() {
-                        return <div className="text-gray-1000 font-medium typo-small">Documentation</div>;
-                      },
-                      footer({ state }) {
+                      header({state}) {
                         return (
-                          <ul className="typo-small">
-                            <li className="text-gray-1000 font-medium typo-small aa-SourceFooterHeader">Seqera AI</li>
-                            <li className="aa-Item hover:bg-gray-100">
-                              <a href={`https://seqera.io/ask-ai?prompt=${state?.query || ''}`} className="aa-ItemLink flex items-center p-3">
-                                <div className="aa-ItemContent">
-                                  <div className="aa-ItemTitle flex items-center">
-                                    <AiIcon className="mr-2 w-5 h-5" />
-                                    Start a new thread with Seqera AI
+                          <div className="flex flex-col w-full m-0 p-0">
+                            <ul className="typo-small flex flex-col w-full p-0 m-0">
+                              <li className=" hover:bg-gray-100 flex flex-row w-full">
+                                <a href={`https://seqera.io/ask-ai?prompt=${state?.query || ''}`} className="aa-ItemLink flex items-center p-3">
+                                  <div className="aa-ItemContent">
+                                    <div className="flex items-center font-normal">
+                                      <SearchIcon className="mr-2 w-5 h-5" />
+                                      Search documentation
+                                    </div>
                                   </div>
-                                </div>
-                              </a>
-                            </li>
-                          </ul>
+                                </a>
+                              </li>
+                              <li className=" hover:bg-gray-100 flex flex-row w-full">
+                                <a href={`https://seqera.io/ask-ai?prompt=${state?.query || ''}`} className="aa-ItemLink flex items-center p-3">
+                                  <div className="aa-ItemContent">
+                                    <div className="flex items-center font-normal">
+                                      <AiIcon className="mr-2 w-5 h-5" />
+                                      Start a new thread with Seqera AI
+                                    </div>
+                                  </div>
+                                </a>
+                              </li>
+                            </ul>
+                            <div className="text-gray-1000 font-medium typo-small px-3 py-2 mt-1">Documentation</div>
+                          </div>
                         );
                       },
+                      // footer({ state }) {
+                      //   return (
+                      //     // <ul className="typo-small">
+                      //     //   <li className="text-gray-1000 font-medium typo-small aa-SourceFooterHeader">Seqera AI</li>
+                      //     //   <li className="aa-Item hover:bg-gray-100">
+                      //     //     <a href={`https://seqera.io/ask-ai?prompt=${state?.query || ''}`} className="aa-ItemLink flex items-center p-3">
+                      //     //       <div className="aa-ItemContent">
+                      //     //         <div className="aa-ItemTitle flex items-center">
+                      //     //           <AiIcon className="mr-2 w-5 h-5" />
+                      //     //           Start a new thread with Seqera AI
+                      //     //         </div>
+                      //     //       </div>
+                      //     //     </a>
+                      //     //   </li>
+                      //     // </ul>
+                      //   // );
+                      // },
                       noResults({ state }) {
                         return (
                           <div className="typo-small">
