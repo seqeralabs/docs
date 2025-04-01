@@ -6,7 +6,7 @@ import platform_latest_version from "./platform_latest_version.js";
 export default async function createConfigAsync() {
   return {
     title: "Seqera Docs",
-    tagline: "Documentation for Seqera Labs products",
+    tagline: "Documentation for Seqera products",
     favicon: "img/favicon--dynamic.svg",
 
     // Set the production url of your site here
@@ -217,7 +217,12 @@ export default async function createConfigAsync() {
           {
             to: "/platform/",
             position: "left",
-            label: "Platform",
+            label: "Platform Enterprise",
+          },
+          {
+            to: "/platform-cloud/",
+            position: "left",
+            label: "Platform Cloud",
           },
           {
             to: "https://www.nextflow.io/docs/latest/",
@@ -258,8 +263,12 @@ export default async function createConfigAsync() {
             title: "Docs",
             items: [
               {
-                label: "Platform",
+                label: "Platform Enterprise",
                 to: "/platform/",
+              },
+              {
+                label: "Platform Cloud",
+                to: "/platform-cloud/",
               },
             ],
           },
