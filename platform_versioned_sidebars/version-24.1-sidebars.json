@@ -249,23 +249,6 @@
           "label": "Enterprise changelog",
           "href": "/changelog/tags/seqera-enterprise"
         },
-        {
-          "type": "link",
-          "label": "Cloud changelog",
-          "href": "/changelog/tags/seqera-cloud"
-        },
-        {
-          "type": "category",
-          "label": "Legacy versions",
-          "collapsed": true,
-          "items": [
-            "enterprise/release_notes/23.4",
-            "enterprise/release_notes/23.3",
-            "enterprise/release_notes/23.2",
-            "enterprise/release_notes/23.1"
-          ]
-        },
-
         "functionality_matrix/functionality_matrix"
       ]
     },
