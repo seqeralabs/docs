@@ -27,15 +27,23 @@ const ProductSwitcher = ({ product }) => {
     if (location.pathname.startsWith("/multiqc")) {
       product = "MultiQC";
     }
+    if (location.pathname.startsWith("/platform-cloud")) {
+      product = "Platform Cloud";
+    }
     if (location.pathname.startsWith("/platform")) {
-      product = "Platform";
+      product = "Platform Enterprise";
     }
     if (location.pathname.startsWith("/wave")) {
       product = "Wave";
     }
   }
+
   const logos = {
-    Platform: {
+    "Platform Enterprise": {
+      light: Platform,
+      dark: PlatformDark,
+    },
+    "Platform Cloud": {
       light: Platform,
       dark: PlatformDark,
     },
@@ -56,14 +64,14 @@ const ProductSwitcher = ({ product }) => {
       dark: FusionDark,
     },
   };
-  const Logo = logos[product].light;
-  const LogoDark = logos[product].dark;
+
+  const Logo = logos[product]?.light;
+  const LogoDark = logos[product]?.dark;
+
   return (
-    <span
-      className={styles.item}
-    >
-      <Logo className={styles.themeLight} />
-      <LogoDark className={styles.themeDark} />
+    <span className={styles.item}>
+      {Logo && <Logo className={styles.themeLight} />}
+      {LogoDark && <LogoDark className={styles.themeDark} />}
     </span>
   );
 };
