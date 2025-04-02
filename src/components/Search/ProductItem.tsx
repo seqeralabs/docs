@@ -26,7 +26,7 @@ export default function ProductItem({ hit, components }) {
     <a 
       href={hit.url} 
       onClick={handleClick}
-      className="search-item-link px-2 py-2 flex whitespace-pre-wrap"
+      className="search-item-link px-2 py-2 flex whitespace-pre-wrap  text-blue-600"
     >
       <div className="flex flex-row w-full gap-4">
         <div className="flex-1 min-w-0">

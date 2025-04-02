@@ -205,7 +205,7 @@ export default function Search() {
                     sourceId: 'docs',
                     getItems() {
                       return getAlgoliaResults({
-                        searchClient: searchClient,
+                        searchClient,
                         queries: [
                           {
                             indexName: envIndexName,
@@ -254,8 +254,8 @@ export default function Search() {
                             <p className="text-gray-1000 font-medium typo-small">No results for "<b>{`${state?.query}`}</b>"</p>
                           </div>
                         );
-                      },
-                    },
+                      }
+                    }
                   }];
                 }}
                 debug={true}
@@ -268,7 +268,7 @@ export default function Search() {
       {/* Optional: Add a button to open the search */}
       <div 
         onClick={() => setIsOpen(true)}
-        className="md:flex items-center px-3 py-2 rounded-md text-sm text-gray-800 cursor-pointer hover:text-gray-1000 transition-all duration-100"
+        className="md:flex items-center px-3 py-2 rounded-md text-sm text-gray-800 cursor-pointer hover:text-gray-1000 transition-all duration-100 min-w-50"
         style={{ 
           boxShadow: '0 0 0 1px rgba(0, 0, 0, 0.25)',
           height: '44px',
