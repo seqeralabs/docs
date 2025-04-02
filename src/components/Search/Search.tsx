@@ -144,7 +144,7 @@ export default function Search() {
         <div className="fixed inset-0 bg-black bg-opacity-25 z-40 flex items-start justify-center pt-1">
           <div 
             ref={modalRef} 
-            className="w-full max-w-2xl bg-white rounded-tl-md rounded-tr-md top-20 border-blue-500 border p-2"
+            className="w-full max-w-2xl bg-white rounded-tl-md rounded-tr-md top-20 border-blue-500 border p-2 max-lg:rounded-bl-md max-lg:rounded-br-md"
             style={{ position: 'relative', zIndex: 50, maxHeight: '80vh', overflowY: 'auto' }}
           >
             <div ref={containerRef}>
@@ -268,7 +268,7 @@ export default function Search() {
       {/* Optional: Add a button to open the search */}
       <div 
         onClick={() => setIsOpen(true)}
-        className="md:flex items-center px-3 py-2 rounded-md text-sm text-gray-800 cursor-pointer hover:text-gray-1000 transition-all duration-100 min-w-50"
+        className="md:flex items-center px-3 py-2 rounded-md text-sm text-gray-800 cursor-pointer hover:text-gray-1000 transition-all duration-100 min-w-50 content-center"
         style={{ 
           boxShadow: '0 0 0 1px rgba(0, 0, 0, 0.25)',
           height: '44px',
