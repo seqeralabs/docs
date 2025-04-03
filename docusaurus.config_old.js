@@ -35,7 +35,7 @@ export default async function createConfigAsync() {
     future: {
       experimental_faster: false,
     },
-    themes: ['docusaurus-theme-openapi-docs'],
+
     presets: [
       [
         "classic",
@@ -108,16 +108,6 @@ export default async function createConfigAsync() {
       [
         "@docusaurus/plugin-content-docs",
         {
-          id: "platform-api",
-          routeBasePath: "/platform-api",
-          path: "api/docs",
-          sidebarPath: "api/docs/sidebar.js",
-          docItemComponent: '@theme/ApiItem'
-        },
-      ],      
-      [
-        "@docusaurus/plugin-content-docs",
-        {
           id: "multiqc",
           routeBasePath: "/multiqc",
           path: "multiqc_docs/multiqc_repo/docs/markdown",
@@ -168,22 +158,6 @@ export default async function createConfigAsync() {
             return `https://github.com/seqeralabs/wave/blob/master/docs/${docPath.replace('wave_docs/wave_repo/docs', '')}`
           },
           sidebarPath: "./wave_docs/sidebar.json",
-        },
-      ],
-      [
-        "docusaurus-plugin-openapi-docs",
-        {
-          id: "api", // plugin id
-          docsPluginId: "classic", // configured for preset-classic
-          config: {
-            platform: {
-              specPath: "api_docs_test/openapi-spec-test/seqera-api-with-admin.yml",
-              outputDir: "api_docs_test/api",
-              sidebarOptions: {
-                groupPathsBy: "tag",
-              },
-            }
-          },
         },
       ],
       async function tailwind() {

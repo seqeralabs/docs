@@ -1,0 +1,71 @@
+---
+id: download-avatar
+title: "Download the avatar image"
+description: "Download the avatar image"
+sidebar_label: "Download the avatar image"
+hide_title: true
+hide_table_of_contents: true
+api: eJyVVMFu2zAM/RVBpw0w4mzrZT4txbqhGLANbXcKcmBsJlZqS6okJwsM//tI2XGSJSuwkyXxkXwkH91KY9FBUEbfFzKTn81OVwaK2RYCOJlICw5qDOi8zOat1HQhGEQzeSRSabpbCCWdC/S5U5aj0WMfQ/jglF4LVaAOaqWQozp8aZRDyhhcg4n0eYk1yKyVYW85Qe8ku27BYG+N9ujZ/n465c95ph/fKGZudKAUbAVrK5XHqtKNZ0j7zxSJXBlXA/nJpdLg9pS06xJ5cy3RLRSCuaMP/5PxWO5c1ug9rFFSYQMRs9xgzvGs42EE1Vd6AF5pCrmqUPHTnXPGPQwNGpl/uNKiw5iFNkFAVZkd8Ynom0v0d8KsTKMLgRXWXCMH9pg3ToV9VMItgkM3a2jw2XzBczoPcVCSCCWKXi9C1VxQQqWF0rDc1hjrZvVkMu1RPm0P8urkMekjd7PvzGnqsTllCFYOSuL7MoLopT98OQx5s+uLUXplovvQyUd8oQ6J2c/7CyEPJltBYK0Ij26rcvQDmGUAeZRB46qBis/S1Ee/iTIEIiUotnHaT0cDEdnSbvV53k0+Tqb8ZI0PNUQRDQv3WjfPyI79CPg7pESZ9pMiRmLt0On5sL+enLNxlWmCJeVlc9suweMvV3UdP5PeHQ+djltwCpbcMJJAoTyfaZArqDxeMBn3Q755GDbgrXjlr3CV+fAIei85fdXwjY7PuD/9EXULwpYIBUVibr15ludow4njxZ6ycEc5fr17IiycC+svIcXoV0lR1yLiyTyj7rqRY+A7E+y6P2Ki3Q4=
+sidebar_class_name: "get api-method"
+info_path: platform_versioned_docs/api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Download the avatar image"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/avatars/{avatarId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Download the avatar image
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"avatarId","in":"path","description":"Avatar string identifier","required":true,"schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"string","format":"binary"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"Not found element"}}}
+>
+  
+</StatusCodes>
+
+
+      
