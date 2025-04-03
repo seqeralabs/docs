@@ -1,5 +1,6 @@
 import { themes } from "prism-react-renderer";
 const path = require("path");
+import 'dotenv/config';
 
 import platform_latest_version from "./platform_latest_version.js";
 
@@ -23,6 +24,15 @@ export default async function createConfigAsync() {
 
     onBrokenLinks: "warn",
     onBrokenMarkdownLinks: "warn",
+
+    customFields: {
+      // Put your custom environment here
+      algolia: {
+        appId: process.env.PUBLIC_DOCUSAURUS_ALGOLIA_APP_ID,
+        apiKey: process.env.PUBLIC_DOCUSAURUS_ALGOLIA_API_KEY,
+        indexName: process.env.PUBLIC_DOCUSAURUS_ALGOLIA_INDEX_NAME,
+      },
+    },
 
     // Even if you don't use internalization, you can use this field to set useful
     // metadata like html lang. For example, if your site is Chinese, you may want
@@ -184,8 +194,8 @@ export default async function createConfigAsync() {
           },
         };
       },
-      path.resolve(__dirname, "plugins_custom/seqera_jobs"),
-      path.resolve(__dirname, "plugins_custom/seqera_events"),
+      // path.resolve(__dirname, "plugins_custom/seqera_jobs"),
+      // path.resolve(__dirname, "plugins_custom/seqera_events"),
     ],
 
     themeConfig: {
@@ -293,12 +303,6 @@ export default async function createConfigAsync() {
           "typescript",
           "yaml"
         ],
-      },
-      algolia: {
-        appId: "Z0I1G1OVKB",
-        apiKey: "17446a4f6a2477f0a22e1a78da88e4d5", // search-only (safe/public)
-        indexName: "seqera",
-        contextualSearch: false,
       },
     },
     clientModules: [require.resolve("./clientside-scripts.js")],
