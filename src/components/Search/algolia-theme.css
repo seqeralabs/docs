@@ -158,3 +158,6 @@
 .custom-search-panel {
   position: fixed !important;
 }
+.aa-DetachedContainer .aa-Panel {
+  position: relative !important;
+}

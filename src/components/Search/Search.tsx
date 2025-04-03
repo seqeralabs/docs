@@ -231,9 +231,6 @@ export default function Search() {
                                 </li>
                               </ul>
                               <div className="text-gray-1000 font-medium typo-small px-3 py-2 mt-1">Documentation</div>
-                              {/* <div className="pt-0 pb-6 text-sm text-gray-500 font-normal px-3">
-                                Search documentation or ask with Seqera AI...
-                              </div> */}
                             </div>
                           );
                         },
