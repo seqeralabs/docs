@@ -74,6 +74,10 @@
   transition: background-color 0.2s;
 }
 
+.aa-Source[data-autocomplete-source-id="ai-thread"] .aa-Item {
+  padding: .5rem 0;
+}
+
 .aa-Item:hover {
   background-color: #f3f4f6;
 }

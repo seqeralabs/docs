@@ -109,6 +109,41 @@ export default function Search() {
     };
   }, [isOpen]);
 
+  // Trap focus within the modal when it's open
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const modalElement = modalRef.current;
+    if (!modalElement) return;
+
+    const focusableElements = modalElement.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    const firstFocusableElement = focusableElements[0] as HTMLElement;
+    const lastFocusableElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+
+    const handleTabKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return;
+
+      if (e.shiftKey) {
+        if (document.activeElement === firstFocusableElement) {
+          e.preventDefault();
+          lastFocusableElement.focus();
+        }
+      } else {
+        if (document.activeElement === lastFocusableElement) {
+          e.preventDefault();
+          firstFocusableElement.focus();
+        }
+      }
+    };
+
+    modalElement.addEventListener('keydown', handleTabKey);
+    return () => {
+      modalElement.removeEventListener('keydown', handleTabKey);
+    };
+  }, [isOpen]);
+
   // Add custom styling to fix z-index issues
   useEffect(() => {
     if (isOpen) {
@@ -157,6 +192,13 @@ export default function Search() {
                   item: 'custom-search-item',
                 }}
                 getSources={({ query }) => {
+                  const aiThreadItem = {
+                    id: 'ai-thread',
+                    url: query ? `https://seqera.io/ask-ai?prompt=${query}` : 'https://seqera.io/ask-ai',
+                    title: 'Start a new thread with Seqera AI',
+                    type: 'ai-thread'
+                  };
+
                   if (!query) {
                     return [{
                       sourceId: 'empty-state',
@@ -168,31 +210,36 @@ export default function Search() {
                           return (
                             <div className="flex flex-col w-full m-0 p-0">
                               <ul className="typo-small flex flex-col w-full p-0 m-0">
-                                <li className=" hover:bg-gray-100 flex flex-row w-full">
+                                <li className="hover:bg-gray-100 flex flex-row w-full">
                                   <a 
-                                    href={`https://seqera.io/ask-ai`} 
+                                    href={aiThreadItem.url} 
                                     onClick={(e) => {
                                       e.preventDefault();
-                                      window.location.href = 'https://seqera.io/ask-ai';
+                                      window.location.href = aiThreadItem.url;
                                     }}
                                     className="aa-ItemLink flex items-center p-3"
+                                    tabIndex={0}
+                                    aria-label={aiThreadItem.title}
                                   >
                                     <div className="aa-ItemContent">
                                       <div className="flex items-center font-normal">
                                         <AiIcon className="mr-2 w-5 h-5" />
-                                        Start a new thread with Seqera AI
+                                        {aiThreadItem.title}
                                       </div>
                                     </div>
                                   </a>
                                 </li>
                               </ul>
                               <div className="text-gray-1000 font-medium typo-small px-3 py-2 mt-1">Documentation</div>
+                              {/* <div className="pt-0 pb-6 text-sm text-gray-500 font-normal px-3">
+                                Search documentation or ask with Seqera AI...
+                              </div> */}
                             </div>
                           );
                         },
                         noResults() {
                           return (
-                            <div className="pt-0 pb-6 text-sm text-gray-500">
+                            <div className="pt-0 pb-6 text-sm text-gray-500 font-normal">
                               Search documentation or ask with Seqera AI...
                             </div>
                           );
@@ -202,6 +249,41 @@ export default function Search() {
                   }
                   
                   return [{
+                    sourceId: 'ai-thread',
+                    getItems() {
+                      return [aiThreadItem];
+                    },
+                    templates: {
+                      item({ item }) {
+                        return (
+                          <div className="flex flex-col w-full m-0 p-0">
+                            <ul className="typo-small flex flex-col w-full p-0 m-0">
+                              <li className="hover:bg-gray-100 flex flex-row w-full">
+                                <a 
+                                  href={item.url} 
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    window.location.href = item.url;
+                                  }}
+                                  className="aa-ItemLink flex items-center p-3"
+                                  tabIndex={0}
+                                  aria-label={item.title}
+                                >
+                                  <div className="aa-ItemContent">
+                                    <div className="flex items-center font-normal">
+                                      <AiIcon className="mr-2 w-5 h-5" />
+                                      {item.title}
+                                    </div>
+                                  </div>
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
+                        );
+                      }
+                    }
+                  },
+                  {
                     sourceId: 'docs',
                     getItems() {
                       return getAlgoliaResults({
@@ -222,30 +304,9 @@ export default function Search() {
                       item({ item, components }) {
                         return <ProductItem hit={item} components={components} />;
                       },
-                      header({state}) {
+                      header() {
                         return (
-                          <div className="flex flex-col w-full m-0 p-0">
-                            <ul className="typo-small flex flex-col w-full p-0 m-0">
-                              <li className=" hover:bg-gray-100 flex flex-row w-full">
-                                <a 
-                                  href={`https://seqera.io/ask-ai?prompt=${state?.query || ''}`}
-                                  onClick={(e) => {
-                                    e.preventDefault();
-                                    window.location.href = `https://seqera.io/ask-ai?prompt=${state?.query || ''}`;
-                                  }}
-                                  className="aa-ItemLink flex items-center p-3"
-                                >
-                                  <div className="aa-ItemContent">
-                                    <div className="flex items-center font-normal">
-                                      <AiIcon className="mr-2 w-5 h-5" />
-                                      Start a new thread with Seqera AI
-                                    </div>
-                                  </div>
-                                </a>
-                              </li>
-                            </ul>
-                            <div className="text-gray-1000 font-medium typo-small px-3 py-2 mt-1">Documentation</div>
-                          </div>
+                          <div className="text-gray-1000 font-medium typo-small px-3 py-2 mt-1">Documentation</div>
                         );
                       },
                       noResults({ state }) {
