@@ -237,7 +237,7 @@ export default function Search() {
                         noResults() {
                           return (
                             <div className="pt-0 pb-6 text-sm text-gray-500 font-normal">
-                              Search documentation or ask with Seqera AI...
+                              Search docs or ask with Seqera AI...
                             </div>
                           );
                         }
