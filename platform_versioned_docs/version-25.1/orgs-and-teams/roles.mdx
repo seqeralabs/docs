@@ -18,12 +18,30 @@ You can group **members** and **collaborators** into **teams** and apply a role 
 
 ### Workspace participant roles
 
-- **Owner**: The participant has full permissions for all resources within the workspace, including the workspace settings.
-- **Admin**: The participant has full permissions for resources associated with the workspace and access to all the actions associated with all roles, including all data-related roles. They can create, modify, and delete pipelines, compute environments, actions, credentials, and secrets. They can also add/remove users in the workspace and edit the workspace settings. A participant with this role cannot delete a workspace.
-- **Maintain**: The participant can launch pipelines and modify pipeline executions (e.g., change the pipeline launch compute environment, parameters, pre/post-run scripts, Nextflow config), create new pipeline configurations in the Launchpad, and add secrets. They can upload, download, and preview data in Data Explorer, hide/unhide buckets, manage buckets, and manage the metadata associated with buckets.They can also add, update, and delete a Studio session. This includes starting, stopping, and changing the configuration. A participant with this role cannot modify compute environment settings and credentials, but can manage workspace labels and resource labels.
-- **Launch**: The participant can launch pipelines and modify the pipeline input/output parameters in the Launchpad. This includes starting, stopping, and changing the configuration. They cannot modify the launch configuration or other resources. They can list, search and view the status, configuration, and details of Studio sessions and connect to a running session.
-- **Connect**: The participant can list, search, and view the status, configuration, and details of Studio sessions. They cannot add, update (start/stop/change config) or delete Studio sessions. They can also connect to a running sessions and interact with the contents, and access team resources in read-only mode. They cannot launch or maintain pipelines. A participant with this role also cannot manage any data in Data Explorer — uploading, downloading, or previewing data, hiding/unhiding, managing buckets, or managing the metadata associated with buckets.
-- **View**: The participant can only access team resources in read-only mode. This includes the ability to list, search, and view the status, configuration, and details of mounted data in Data Explorer and Studio sessions.
+| Permission / Role                          | Owner | Admin | Maintain | Launch | Connect | View |
+|--------------------------------------------|-------|-------|----------|--------|---------|------|
+| Full permissions for all resources        | ✔     | ✔     | ✖       | ✖     | ✖      | ✖   |
+| Access to workspace settings              | ✔     | ✔     | ✖       | ✖     | ✖      | ✖   |
+| Create, modify, delete pipelines          | ✔     | ✔     | ✖       | ✖     | ✖      | ✖   |
+| Modify compute environments               | ✔     | ✔     | ✖       | ✖     | ✖      | ✖   |
+| Modify actions, credentials, and secrets  | ✔     | ✔     | ✖       | ✖     | ✖      | ✖   |
+| Add/remove users in workspace             | ✔     | ✔     | ✖       | ✖     | ✖      | ✖   |
+| Create, modify, delete Studio sessions    | ✔     | ✔     | ✔        | ✖     | ✖      | ✖   |
+| Launch pipelines                          | ✔     | ✔     | ✔        | ✔      | ✖      | ✖   |
+| Modify pipeline input/output parameters   | ✔     | ✔     | ✔        | ✔      | ✖      | ✖   |
+| Modify pipeline execution configurations  | ✔     | ✔     | ✔        | ✖     | ✖      | ✖   |
+| Manage workspace and resource labels      | ✔     | ✔     | ✔        | ✖     | ✖      | ✖   |
+| Upload, download, and preview data        | ✔     | ✔     | ✔        | ✖     | ✖      | ✖   |
+| Manage buckets                            | ✔     | ✔     | ✔        | ✖     | ✖      | ✖   |
+| Hide/unhide buckets                       | ✔     | ✔     | ✔        | ✖     | ✖      | ✖   |
+| Modify metadata associated with buckets   | ✔     | ✔     | ✔        | ✖     | ✖      | ✖   |
+| List/search/view Studio sessions          | ✔     | ✔     | ✔        | ✔      | ✔       | ✔    |
+| Connect to a running Studio session       | ✔     | ✔     | ✔        | ✔      | ✔       | ✖   |
+| Access team resources in read-only mode   | ✔     | ✔     | ✔        | ✖     | ✔       | ✔    |
+| Launch or maintain pipelines              | ✔     | ✔     | ✖       | ✖     | ✖      | ✖   |
+| Modify Studio session configurations      | ✔     | ✔     | ✖       | ✖     | ✖      | ✖   |
+| Modify launch configuration or resources  | ✔     | ✔     | ✖       | ✖     | ✖      | ✖   |
+| Add, update, or delete Studio sessions    | ✔     | ✔     | ✖       | ✖     | ✖      | ✖   |
 
 ### Role inheritance
 
