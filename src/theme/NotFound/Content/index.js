@@ -24,7 +24,7 @@ export default function NotFoundContent({className, path}) {
             </Translate>
           </p>
           <p>
-          <Button to="/platform" blue medium alt className="mb-8 mt-4">Back to the docs</Button>
+          <Button to="/platform-cloud" blue medium alt className="mb-8 mt-4">Back to the docs</Button>
           </p>
         </div>
       </div>

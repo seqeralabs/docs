@@ -13,7 +13,7 @@ The AWS Batch services quota for the job queue is 50 jobs. For more information 
 
 There are two ways to create a Seqera Platform compute environment for AWS Batch:
 
-- [**Batch Forge**](#tower-forge): This option automatically creates the AWS Batch resources in your AWS account. This eliminates the need to set up your AWS Batch infrastructure manually.
+- [**Batch Forge**](#batch-forge): This option automatically creates the AWS Batch resources in your AWS account. This eliminates the need to set up your AWS Batch infrastructure manually.
 - [**Manual**](#manual): This option allows Seqera to use existing AWS Batch resources.
 
 ## Batch Forge
@@ -195,7 +195,7 @@ Batch Forge automatically creates resources that you may be charged for in your 
 1. Select **Dispose resources** to automatically delete these AWS resources if you delete the compute environment in Seqera Platform.
 1. Apply [**Resource labels**](../resource-labels/overview.mdx) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
 1. Expand **Staging options** to include:
-    - Optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre--post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
+    - Optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
     - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch. 
     :::info
     Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced.mdx#nextflow-config-file) for more information on configuration priority. 

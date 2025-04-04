@@ -7,7 +7,7 @@ import platform_latest_version from "./platform_latest_version.js";
 export default async function createConfigAsync() {
   return {
     title: "Seqera Docs",
-    tagline: "Documentation for Seqera Labs products",
+    tagline: "Documentation for Seqera products",
     favicon: "img/favicon--dynamic.svg",
 
     // Set the production url of your site here
@@ -118,6 +118,23 @@ export default async function createConfigAsync() {
       [
         "@docusaurus/plugin-content-docs",
         {
+          id: "platform-cloud",
+          routeBasePath: "/platform-cloud",
+          path: "platform_cloud/docs",
+          remarkPlugins: [
+            (await import("remark-code-import")).default,
+            (await require("remark-math")).default,
+            (await import("docusaurus-remark-plugin-tab-blocks")).default,
+            (await require("remark-yaml-to-table")).default,
+          ],
+          rehypePlugins: [(await require("rehype-katex")).default],
+          editUrl: "https://github.com/seqeralabs/docs/tree/master/",
+          sidebarPath: "./platform_cloud/cloud-sidebar.json",
+        },
+      ],      
+      [
+        "@docusaurus/plugin-content-docs",
+        {
           id: "multiqc",
           routeBasePath: "/multiqc",
           path: "multiqc_docs/multiqc_repo/docs/markdown",
@@ -210,7 +227,12 @@ export default async function createConfigAsync() {
           {
             to: "/platform/",
             position: "left",
-            label: "Platform",
+            label: "Platform Enterprise",
+          },
+          {
+            to: "/platform-cloud/",
+            position: "left",
+            label: "Platform Cloud",
           },
           {
             to: "https://www.nextflow.io/docs/latest/",
@@ -251,8 +273,12 @@ export default async function createConfigAsync() {
             title: "Docs",
             items: [
               {
-                label: "Platform",
+                label: "Platform Enterprise",
                 to: "/platform/",
+              },
+              {
+                label: "Platform Cloud",
+                to: "/platform-cloud/",
               },
             ],
           },

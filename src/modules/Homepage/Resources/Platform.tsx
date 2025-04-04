@@ -12,7 +12,7 @@ const Platform: React.FC<Props> = () => {
       <ul className="checklist">
         <li>
           The Seqera Platform{" "}
-          <Link to="/platform/" className="text-indig00">
+          <Link to="/platform-cloud/" className="text-indig00">
             User documentation
           </Link>{" "}
           is the reference for managing pipelines with Seqera Platform

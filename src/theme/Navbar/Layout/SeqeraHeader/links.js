@@ -9,7 +9,7 @@ const company = {
 };
 
 const products = {
-  "Seqera platform": "https://seqera.io/platform/",
+  "Seqera Platform": "https://seqera.io/platform/",
   Nextflow: "https://seqera.io/nextflow/",
   MultiQC: "https://seqera.io/multiqc/",
   Wave: "https://seqera.io/wave/",
@@ -29,7 +29,7 @@ const privacy = {
 };
 
 const docs = {
-  "Seqera platform": "/platform/",
+  "Seqera Platform": "/platform-cloud/",
   Nextflow: "https://www.nextflow.io/docs/latest/",
   MultiQC: "https://multiqc.info/docs/",
   Wave: "/wave/",
@@ -39,7 +39,7 @@ const docs = {
 const resources = {
   Support: "https://support.seqera.io/",
   "Contact us": "https://seqera.io/contact-us/",
-  Documentation: docs["Seqera platform"],
+  Documentation: docs["Seqera Platform"],
   Blog: company.Blog,
   Whitepapers: "https://seqera.io/whitepapers/",
   Ebooks: "https://seqera.io/ebooks/",

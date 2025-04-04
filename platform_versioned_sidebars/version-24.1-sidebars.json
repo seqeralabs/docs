@@ -3,10 +3,70 @@
     "index",
     {
       "type": "category",
+      "label": "Installation",
+      "collapsed": true,
+      "link": {
+        "type": "doc",
+        "id": "enterprise/index"
+      },
+      "items": [
+        {
+          "type": "category",
+          "label": "Prerequisites",
+          "collapsed": true,
+          "items": [
+            "enterprise/prerequisites/aws",
+            "enterprise/prerequisites/azure",
+            "enterprise/prerequisites/gcp",
+            "enterprise/prerequisites/on-prem"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Configuration",
+          "collapsed": true,
+          "items": [
+            "enterprise/configuration/overview",
+            "enterprise/configuration/authentication",
+            "enterprise/configuration/aws_parameter_store",
+            "enterprise/configuration/networking",
+            "enterprise/configuration/reverse_proxy",
+            "enterprise/configuration/ssl_tls",
+            "enterprise/configuration/pipeline_optimization",
+            "enterprise/configuration/wave",
+            "enterprise/data-studios"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Installation",
+          "collapsed": true,
+          "items": [
+            "enterprise/docker-compose",
+            "enterprise/kubernetes",
+            "enterprise/testing",
+            "enterprise/upgrade"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Advanced",
+          "collapsed": true,
+          "items": [
+            "enterprise/advanced-topics/db-docker-to-RDS",
+            "enterprise/advanced-topics/use-iam-role",
+            "enterprise/advanced-topics/custom-launch-container",
+            "enterprise/advanced-topics/firewall-configuration"
+          ]
+        },
+        "enterprise/general_troubleshooting"
+      ]
+    },
+    {
+      "type": "category",
       "label": "Tutorials",
       "collapsed": true,
       "items": [
-        "getting-started/quickstart-demo/comm-showcase",
         "getting-started/rnaseq",
         "getting-started/proteinfold"
         ]
@@ -136,64 +196,6 @@
     },
     {
       "type": "category",
-      "label": "Enterprise",
-      "collapsed": true,
-      "items": [
-        "enterprise/index",
-        {
-          "type": "category",
-          "label": "Prerequisites",
-          "collapsed": true,
-          "items": [
-            "enterprise/prerequisites/aws",
-            "enterprise/prerequisites/azure",
-            "enterprise/prerequisites/gcp",
-            "enterprise/prerequisites/on-prem"
-          ]
-        },
-        {
-          "type": "category",
-          "label": "Configuration",
-          "collapsed": true,
-          "items": [
-            "enterprise/configuration/overview",
-            "enterprise/configuration/authentication",
-            "enterprise/configuration/aws_parameter_store",
-            "enterprise/configuration/networking",
-            "enterprise/configuration/reverse_proxy",
-            "enterprise/configuration/ssl_tls",
-            "enterprise/configuration/pipeline_optimization",
-            "enterprise/configuration/wave",
-            "enterprise/data-studios"
-          ]
-        },
-        {
-          "type": "category",
-          "label": "Installation",
-          "collapsed": true,
-          "items": [
-            "enterprise/docker-compose",
-            "enterprise/kubernetes",
-            "enterprise/testing",
-            "enterprise/upgrade"
-          ]
-        },
-        {
-          "type": "category",
-          "label": "Advanced",
-          "collapsed": true,
-          "items": [
-            "enterprise/advanced-topics/db-docker-to-RDS",
-            "enterprise/advanced-topics/use-iam-role",
-            "enterprise/advanced-topics/custom-launch-container",
-            "enterprise/advanced-topics/firewall-configuration"
-          ]
-        },
-        "enterprise/general_troubleshooting"
-      ]
-    },
-    {
-      "type": "category",
       "label": "Developer tools",
       "collapsed": true,
       "items": [         
@@ -227,47 +229,15 @@
       "label": "Reference",
       "collapsed": true,
       "items": [
+        "functionality_matrix/functionality_matrix",
         "data-privacy/overview",
         "limits/limits"
       ]
     },
     {
-      "type": "category",
-      "label": "Releases",
-      "collapsed": true,
-      "items": [
-        {
-          "type": "category",
-          "label": "Enterprise release notes",
-          "collapsed": true,
-          "items": [
-           "enterprise/release_notes/enterprise_latest"
-          ]
-        },
-        {
-          "type": "link",
-          "label": "Enterprise changelog",
-          "href": "/changelog/tags/seqera-enterprise"
-        },
-        {
-          "type": "link",
-          "label": "Cloud changelog",
-          "href": "/changelog/tags/seqera-cloud"
-        },
-        {
-          "type": "category",
-          "label": "Legacy versions",
-          "collapsed": true,
-          "items": [
-            "enterprise/release_notes/23.4",
-            "enterprise/release_notes/23.3",
-            "enterprise/release_notes/23.2",
-            "enterprise/release_notes/23.1"
-          ]
-        },
-
-        "functionality_matrix/functionality_matrix"
-      ]
+      "type": "link",
+      "label": "Enterprise changelog",
+      "href": "/changelog/tags/seqera-enterprise"
     },
     {
       "type": "category",
