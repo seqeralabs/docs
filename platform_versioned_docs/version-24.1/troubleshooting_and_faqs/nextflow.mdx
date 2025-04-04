@@ -19,7 +19,7 @@ To minimize disruption on existing pipelines, version 22.1.x and later are confi
 
 **Invoke Nextflow CLI run arguments during Seqera launch**
 
-From [Nextflow v22.09.1-edge](https://github.com/nextflow-io/nextflow/releases/tag/v22.09.1-edge), you can specify [Nextflow CLI run arguments](https://www.nextflow.io/docs/latest/cli.html?highlight=dump#run) when invoking a pipeline from Seqera. Set the `NXF_CLI_OPTS` environment variable using a [pre-run script](../launch/advanced.mdx#pre--post-run-scripts):
+From [Nextflow v22.09.1-edge](https://github.com/nextflow-io/nextflow/releases/tag/v22.09.1-edge), you can specify [Nextflow CLI run arguments](https://www.nextflow.io/docs/latest/cli.html?highlight=dump#run) when invoking a pipeline from Seqera. Set the `NXF_CLI_OPTS` environment variable using a [pre-run script](../launch/advanced.mdx#pre-and-post-run-scripts):
 
 ```
 export NXF_CLI_OPTS='-dump-hashes'
@@ -69,7 +69,7 @@ The following configuration is suggested to overcome AWS limitations:
 
 - Head Job CPUs: 16
 - Head Job Memory: 60000
-- [Pre-run script](../launch/advanced.mdx#pre--post-run-scripts): `export NXF_OPTS="-Xms20G -Xmx40G"`
+- [Pre-run script](../launch/advanced.mdx#pre-and-post-run-scripts): `export NXF_OPTS="-Xms20G -Xmx40G"`
 - Increase chunk size and slow down the number of transfers using `nextflow.config`:
 
   ```
@@ -209,5 +209,5 @@ If you're restricted from using public container registries, see Seqera Enterpri
 
 Each Seqera Platform release uses a specific nf-launcher image by default. This image is loaded with a specific Nextflow version that any workflow run in the container uses by default. Force your jobs to use a newer/older version of Nextflow with one of the following strategies:
 
-- Use a [pre-run script](../launch/advanced.mdx#pre--post-run-scripts) to set the desired Nextflow version. For example: `export NXF_VER=22.08.0-edge`
+- Use a [pre-run script](../launch/advanced.mdx#pre-and-post-run-scripts) to set the desired Nextflow version. For example: `export NXF_VER=22.08.0-edge`
 - For jobs executing in an AWS Batch compute environment, create a [custom job definition](../enterprise/advanced-topics/custom-launch-container.mdx) which references a different nf-launcher image.

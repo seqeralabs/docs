@@ -92,7 +92,7 @@ You can create multiple credentials in your Seqera workspace. See [Credentials](
 10. Specify the **Head service account** created in the [cluster preparation](#cluster-preparation) instructions, which is _tower-launcher-sa_ by default.
 11. Specify the **Storage claim** created in the [cluster preparation](#cluster-preparation) instructions, which serves as a scratch filesystem for Nextflow pipelines. The storage claim is called _tower-scratch_ in each of the provided examples.
 12. Apply [**Resource labels**](../resource-labels/overview.mdx) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
-13. Expand **Staging options** to include optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre--post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
+13. Expand **Staging options** to include optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
 14. You can use the **Environment variables** option to specify custom environment variables for the Head job and/or Compute jobs.
 15. Configure any advanced options described below, as needed.
 16. Select **Create** to finalize the compute environment setup.
