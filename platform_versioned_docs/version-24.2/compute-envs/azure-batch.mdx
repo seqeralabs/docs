@@ -200,7 +200,7 @@ When you submit a pipeline to this compute environment, Nextflow will authentica
 
 There are two ways to create an Azure Batch compute environment in Seqera Platform:
 
-- [**Batch Forge**](#tower-forge): Automatically creates Azure Batch resources.
+- [**Batch Forge**](#batch-forge): Automatically creates Azure Batch resources.
 - [**Manual**](#manual): For using existing Azure Batch resources.
 
 ### VM size considerations
@@ -289,7 +289,7 @@ Create a Batch Forge Azure Batch compute environment:
 1. Select or create [**Container registry credentials**](../credentials/azure_registry_credentials.mdx) to authenticate a registry (used by the [Wave containers](https://www.nextflow.io/docs/latest/wave.html) service). It is recommended to use an [Azure Container registry](https://azure.microsoft.com/en-gb/products/container-registry) within the same region for maximum performance.
 1. Apply [**Resource labels**](../resource-labels/overview.mdx). This will populate the **Metadata** fields of the Azure Batch pool.
 1. Expand **Staging options** to include:
-    - Optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre--post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
+    - Optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
     - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch. 
     :::info
     Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced.mdx#nextflow-config-file) for more information on configuration priority. 
@@ -432,7 +432,7 @@ The following settings can be modified after creating a pool:
 1. Enter a user-assigned **Managed identity client ID**, if one is attached to your Azure Batch pool. See [Managed Identity](#managed-identity) below.
 1. Apply [**Resource labels**](../resource-labels/overview.mdx). This will populate the **Metadata** fields of the Azure Batch pool.
 1. Expand **Staging options** to include:
-    - Optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre--post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
+    - Optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
     - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch. 
     :::info
     Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced.mdx#nextflow-config-file) for more information on configuration priority. 

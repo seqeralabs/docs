@@ -391,7 +391,7 @@ The following configuration is suggested to overcome AWS limitations:
 
 - Head Job CPUs: 16
 - Head Job Memory: 60000
-- [Pre-run script](./launch/advanced.mdx#pre--post-run-scripts): `export NXF_OPTS="-Xms20G -Xmx40G"`
+- [Pre-run script](./launch/advanced.mdx#pre-and-post-run-scripts): `export NXF_OPTS="-Xms20G -Xmx40G"`
 - Increase chunk size and slow down the number of transfers using `nextflow.config`:
 
   ```
@@ -537,7 +537,7 @@ If you're restricted from using public container registries, see Seqera Enterpri
 
 Each Seqera Platform release uses a specific nf-launcher image by default. This image is loaded with a specific Nextflow version that any workflow run in the container uses by default. Force your jobs to use a newer/older version of Nextflow with one of the following strategies:
 
-- Use a [pre-run script](./launch/advanced.mdx#pre--post-run-scripts) to set the desired Nextflow version. For example: `export NXF_VER=22.08.0-edge`
+- Use a [pre-run script](./launch/advanced.mdx#pre-and-post-run-scripts) to set the desired Nextflow version. For example: `export NXF_VER=22.08.0-edge`
 - For jobs executing in an AWS Batch compute environment, create a [custom job definition](./enterprise/advanced-topics/custom-launch-container.mdx) which references a different nf-launcher image.
 
 ## Optimization
@@ -818,7 +818,7 @@ The default Azure Batch implementation in Seqera Platform uses a single pool for
 
 This problem can occur if your Nextflow pod uses an Azure Files-type (SMB) Persistent Volume as its storage medium. By default, the `jgit` library used by Nextflow attempts a filesystem link operation which [is not supported](https://docs.microsoft.com/en-us/azure/storage/files/files-smb-protocol?tabs=azure-portal#limitations) by Azure Files (SMB).
 
-To avoid this problem, add the following code snippet in your pipeline's [**Pre-run script**](./launch/advanced.mdx#pre--post-run-scripts) field:
+To avoid this problem, add the following code snippet in your pipeline's [**Pre-run script**](./launch/advanced.mdx#pre-and-post-run-scripts) field:
 
 ```bash
 cat <<EOT > ~/.gitconfig

@@ -144,7 +144,7 @@ After Seqera login authentication, an _Unexpected error while processing_ error 
 
 This error means that Seqera is unable to connect to the database and the `JDBC` client must specify the time zone value via `serverTimezone`.
 
-To resolve this issue for `Europe/Amsterdam` time zone, append `serverTimezone` to the value of [`TOWER_DB_URL`](./configuration/overview.mdx#tower-and-redis-databases):
+To resolve this issue for `Europe/Amsterdam` time zone, append `serverTimezone` to the value of [`TOWER_DB_URL`](./configuration/overview.mdx#seqera-and-redis-databases):
 
 ```bash
 export TOWER_DB_URL": "jdbc:mysql://<YOUR_DATABASE_IP>:3306/tower?serverTimezone=Europe/Amsterdam"

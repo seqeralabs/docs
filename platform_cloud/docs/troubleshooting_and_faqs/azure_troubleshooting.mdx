@@ -29,7 +29,7 @@ Both pools must meet the requirements of a pre-existing pool as detailed in the 
 
 This error can occur if your Nextflow pod uses an Azure Files-type (SMB) persistent volume as its storage medium. By default, the `jgit` library used by Nextflow attempts a filesystem link operation which [is not supported](https://docs.microsoft.com/en-us/azure/storage/files/files-smb-protocol?tabs=azure-portal#limitations) by Azure Files (SMB). 
 
-To avoid this problem, add the following code snippet in your pipeline's [**Pre-run script**](../launch/advanced.mdx#pre--post-run-scripts) field:
+To avoid this problem, add the following code snippet in your pipeline's [**Pre-run script**](../launch/advanced.mdx#pre-and-post-run-scripts) field:
 
 ```bash
 cat <<EOT > ~/.gitconfig

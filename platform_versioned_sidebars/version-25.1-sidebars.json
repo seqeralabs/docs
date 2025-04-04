@@ -179,28 +179,16 @@
         "label": "Reference",
         "collapsed": true,
         "items": [
+          "functionality_matrix/functionality_matrix",
           "data-privacy/overview",
           "limits/limits"
         ]
       },
       {
-        "type": "category",
-        "label": "Changelogs",
-        "collapsed": true,
-        "items": [
-          {
-            "type": "link",
-            "label": "Enterprise changelog",
-            "href": "/changelog/tags/seqera-enterprise"
-          },
-          {
-            "type": "link",
-            "label": "Cloud changelog",
-            "href": "/changelog/tags/seqera-cloud"
-          },        
-          "functionality_matrix/functionality_matrix"
-        ]
-      },
+        "type": "link",
+        "label": "Enterprise changelog",
+        "href": "/changelog/tags/seqera-enterprise"
+      },     
       {
         "type": "category",
         "label": "Troubleshooting",
