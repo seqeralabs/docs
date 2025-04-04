@@ -203,14 +203,14 @@ The Groovy shell used by Nextflow to execute your workflow has a hard limit on s
 
 Your Seqera installation knows the nf-launcher image version it needs and specifies this value automatically when launching a pipeline.
 
-If you're restricted from using public container registries, see Seqera Enterprise release [instructions](../../version-24.2/enterprise/release_notes/23.2.mdx#nextflow-launcher-image) for the specific image to set as the default when invoking pipelines.
+If you're restricted from using public container registries, see Seqera Enterprise release [instructions](https://docs.seqera.io/platform/latest/enterprise/release_notes/23.2.mdx#nextflow-launcher-image) for the specific image to set as the default when invoking pipelines.
 
 **Specify Nextflow version**
 
 Each Seqera Platform release uses a specific nf-launcher image by default. This image is loaded with a specific Nextflow version that any workflow run in the container uses by default. Force your jobs to use a newer/older version of Nextflow with one of the following strategies:
 
 - Use a [pre-run script](../launch/advanced.mdx#pre--post-run-scripts) to set the desired Nextflow version. For example: `export NXF_VER=22.08.0-edge`
-- For jobs executing in an AWS Batch compute environment, create a [custom job definition](../../version-24.2/enterprise/advanced-topics/custom-launch-container.mdx) which references a different nf-launcher image.
+- For jobs executing in an AWS Batch compute environment, create a [custom job definition](https://docs.seqera.io/platform/latest/enterprise/advanced-topics/custom-launch-container.mdx) which references a different nf-launcher image.
 
 ### Spot instance failures and retries in Nextflow
 

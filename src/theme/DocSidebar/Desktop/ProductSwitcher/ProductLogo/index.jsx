@@ -6,13 +6,15 @@ import styles from "./styles.module.css";
 import Fusion from "../images/fusion.svg";
 import Nextflow from "../images/nextflow.svg";
 import MultiQC from "../images/multiqc.svg";
-import Platform from "../images/platform.svg";
+import Cloud from "../images/platform-cloud.svg";
+import Enterprise from "../images/platform-enterprise.svg";
 import Wave from "../images/wave.svg";
 
 import FusionDark from "../images/fusion.dark.svg";
 import NextflowDark from "../images/nextflow.dark.svg";
 import MultiQCDark from "../images/multiqc.dark.svg";
-import PlatformDark from "../images/platform.dark.svg";
+import CloudDark from "../images/platform-cloud.dark.svg";
+import EnterpriseDark from "../images/platform-enterprise.dark.svg";
 import WaveDark from "../images/wave.dark.svg";
 
 const ProductSwitcher = ({ product }) => {
@@ -40,12 +42,12 @@ const ProductSwitcher = ({ product }) => {
 
   const logos = {
     "Platform Enterprise": {
-      light: Platform,
-      dark: PlatformDark,
+      light: Enterprise,
+      dark: EnterpriseDark,
     },
     "Platform Cloud": {
-      light: Platform,
-      dark: PlatformDark,
+      light: Cloud,
+      dark: CloudDark,
     },
     Nextflow: {
       light: Nextflow,
