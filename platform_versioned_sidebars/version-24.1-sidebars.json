@@ -229,30 +229,15 @@
       "label": "Reference",
       "collapsed": true,
       "items": [
+        "functionality_matrix/functionality_matrix",
         "data-privacy/overview",
         "limits/limits"
       ]
     },
     {
-      "type": "category",
-      "label": "Releases",
-      "collapsed": true,
-      "items": [
-        {
-          "type": "category",
-          "label": "Enterprise release notes",
-          "collapsed": true,
-          "items": [
-           "enterprise/release_notes/enterprise_latest"
-          ]
-        },
-        {
-          "type": "link",
-          "label": "Enterprise changelog",
-          "href": "/changelog/tags/seqera-enterprise"
-        },
-        "functionality_matrix/functionality_matrix"
-      ]
+      "type": "link",
+      "label": "Enterprise changelog",
+      "href": "/changelog/tags/seqera-enterprise"
     },
     {
       "type": "category",
