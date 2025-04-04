@@ -37,7 +37,7 @@
   Note:                'Log entry includes the participant ID.'
 - 
   Resource:            'Pipelines'
-  Events logged:       'Add, delete, edit'
+  Events logged:       'Add, edit, delete'
   Note:                'Log entry includes the pipeline ID.'
 - 
   Resource:            'Pipeline actions'
