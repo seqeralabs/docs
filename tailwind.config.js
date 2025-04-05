@@ -211,6 +211,7 @@ module.exports = {
       shadow: {
         default: "0px 5px 10px rgba(0, 0, 0, 0.1)",
         xl: "0 2px 21px 11px rgba(0,0,0,0.05)",
+        hover: "0 0 0 1px rgba(0, 0, 0, 0.65)",
       },
       spacing: getSpacing(),
       zIndex: {
