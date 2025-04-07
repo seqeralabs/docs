@@ -1,0 +1,118 @@
+---
+title: Seqera Enterprise v25.1
+date: 2025-04-09
+tags: [seqera enterprise]
+---
+
+Seqera Platform Enterprise version 25.1 introduces Studios GA and a number of bug fixes and performance enhancements.
+
+## New features and improvements
+
+### Studios
+
+- **Dynamic Studio templates**: Labels have been added to indicate the status of support (e.g., `Recommended`, `Deprecated`) for a Studio template version. Users can now also switch the Studio's base template image when starting a session as new.
+- **Private sessions**: When adding a new session, the number of concurrent connections can now be defined in **General Config > Collaboration**.
+- **Studio session lifespan setting**: This feature allows you to set a maximum lifespan for a session after which the session is stopped automatically.
+- **Studios resource labels support**: Workspace admins and owners can edit resource labels inherited from the compute environment and apply them to a Studio session. The edited resource labels associated with each session don’t affect the default resource labels associated with the compute environment.
+
+### Fusion
+
+- AWS Batch compute environments default to Amazon Linux 2023 AMI when Fusion v2 is enabled.
+- Add support for Fusion licensing.
+
+### General
+
+- Updated list of EC2 families with NVMe disk available 
+- Audit log update: Pipeline edit events are now logged.
+- Switch AWS Batch compute environment dependencies to AWS SDK v2.
+- Switch Compute dependencies to AWS SDK v2.
+- Support image upload in the pipeline import and pipeline update forms, to be used as pipeline logos.
+- New dynamic page title for easy bookmarking.
+- Added `totalProcesses` to workflow progress responses.
+- Implement collapsible view for JSON workflow parameters tab and add **View as YAML** option.
+- Update the pipeline name regular expression to allow pipeline names containing dots ('.').
+- Extend zombie jobs detection on all workflows reaching one of the terminal states (`SUCCEEDED`, `FAILED`, `CANCELLED`).
+- Allow Nextflow configuration parameters with embedded references to other parameters to be shown verbatim.
+- Improved error messaging when pipeline info can't be fetched indicates whether the issue is due to a missing resource, or failed authentication due to expired credentials.
+- Azure jobs are now automatically terminated after all tasks are complete.
+- Send only added/updated run parameters when launching a pipeline. This includes all defaults and parameters passed during the launch.
+- Allow users to remove organization logo.
+- New workflow job monitoring collects and publishes Platform metrics.
+- Notify the user when secrets cleanup fails.
+- Dashboard page: Add a date filter. 
+- Bump nextflow to version 24.10.3
+- Upgrade to Angular 18
+
+## Bug fixes
+
+- Studios
+  - Fixed a bug where resource labels were erroneously editable for the maintain role when starting an existing Studio.
+  - Fixed an issue to ensure that the Maintain role is not able to change resource labels inherited from the selected compute environment when adding/starting a Studio.
+  - Fixed an issue with searches for names containing special SQL wildcard characters (_, %).
+- Prohibit duplicate Git credentials and tie-break on `lastUpdated` for existing duplicates. Going forward, preference is given to the credentials updated last in the situation when there are multiple candidates. Additionally a duplicate check is added when creating new credentials, to avoid new duplicate cases.
+- Set `ECS_CONTAINER_START_TIMEOUT` to 10 minutes in the ECS settings used by AWS Batch CEs in order to prevent the error `Task failed to start - DockerTimeoutError: Could not transition to started; timed out after waiting 3m0s`.
+- Compute environment creation form allows pre- and post-run scripts to be longer than the accepted value of 1024 characters.
+- Disable reset selection on data change in workflow list component.
+- Take into account the alternative `mainScript` path.
+- Use `preferred_username` as fallback email field for OIDC login.
+- Drop the last characters in job definition name, if longer than the prescribed limit.
+- Fixed an issue where users were not able to remove the organization logo.
+- Fixed an additional reference to the `mainScript` parameter in the `pipeline-info` API response.
+- Fixes a problem with Entra and `javax.mail` transitive dependency.
+- A change in the nf-core tools template made config profile search in the pipeline launch form inconsistent in Platform as it's prepended by a ternary operator. This release introduces a fix that improves config profile name parsing.
+- Do not fetch info for `INVALID` status pipelines, fetch for all other statuses including `DISABLED`.
+- Fallback to primary compute environment when launching a shared pipeline without an associated compute environment from a private workspace.
+
+## Breaking changes and warnings
+
+### Seqera AWS ECR repository customer access ends June 1, 2025
+
+Customers will no longer be able to pull Seqera Enterprise container images from the legacy Seqera AWS ECR repository after June 1, 2025. All Seqera Enterprise images must be retrieved via the `cr.seqera.io` container registry after this cutoff date. The installation and configuration templates provided for both [Docker Compose](https://docs.seqera.io/platform/24.2/enterprise/docker-compose) and [Kubernetes](https://docs.seqera.io/platform/24.2/enterprise/kubernetes) installations already reference the `cr.seqera.io` container image URLs. If you have not yet transitioned to this registry, [contact Support](https://support.seqera.io) to request credentials and for any further assistance. 
+
+See [Legacy Seqera container image registries](https://docs.seqera.io/platform/25.1/enterprise/advanced-topics/seqera-container-images) for more information on the AWS ECR and other deprecated Seqera container registries. 
+
+### Redis version change
+
+From v24.2 of Seqera Enterprise: 
+
+- Redis version 6.2 or greater is required.
+- Redis version 7 is officially supported.
+
+### Redisson properties deprecated
+
+From v24.2 of Seqera Platform, `redisson.*` configuration properties are deprecated. If you have set `redisson.*` properties directly previously, do the following:
+
+- Replace `/redisson/*` references in AWS Parameter Store entries with `TOWER_REDIS_*`. 
+- Replace `redisson.*` references in `tower.yml` with `TOWER_REDIS_*`. 
+
+:::note
+Set `TOWER_REDIS_*` values directly in the `tower.yml` or AWS Parameter Store entry (for example, `TOWER_REDIS_URL: redis://...`).
+:::
+
+### MariaDB driver: New MySQL connection parameter required
+
+MariaDB driver 3.x requires a special parameter in the connection URL to connect to a MySQL database:
+
+`jdbc:mysql://<domain>:<port>/tower?permitMysqlScheme=true`
+
+All deployments using a MySQL database (regardless of version: 5.6, 5.7, or 8) should be updated accordingly when upgrading to Platform version 24.1 or later.
+
+### MariaDB driver: No truncation support for MySQL 5.6
+
+The MariaDB driver has dropped support for the `jdbcCompliantTruncation` parameter, which was true by default and set the `STRICT_TRANS_TABLES` SQL mode. The `STRICT_TRANS_TABLES` mode produces an error when the value of a VARCHAR column exceeds its limit, instead of truncating it to fit. Most common installations of MySQL 5.7 and 8 already include this mode at the server level, but the Docker container version of MySQL 5.6 does not.
+
+The SQL mode must be set explicitly through the connection URL for deployments still using MySQL 5.6:
+
+`jdbc:mysql://<domain>:<port>/tower?permitMysqlScheme=true&sessionVariables=sql_mode='STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION'`
+
+### Micronaut property key changes
+
+The property that determines the expiration time of the JWT access token (used for authenticating web sessions and Nextflow-Platform interactions) has changed as of Seqera Platform v24.1:
+
+| Previous                                                         | New                                                          |
+| ---------------------------------------------------------------- | ------------------------------------------------------------ |
+| `micronaut.security.token.jwt.generator.access-token.expiration` | `micronaut.security.token.generator.access-token.expiration` |
+	
+Enterprise deployments that have customized this value previously will need to adopt the new format.
+
+## Upgrade steps 
