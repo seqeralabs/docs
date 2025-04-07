@@ -13,7 +13,7 @@ async function sanitizeExisting() {
   const args = process.argv.slice(2);
   const dirArgument = args.find((arg) => arg.startsWith("--dir="));
   let dir = dirArgument?.split("=")?.[1];
-  if (!dir) dir = "platform_versioned_docs";
+  if (!dir) dir = "platform-enterprise_versioned_docs";
 
   const destPath = path.join(__dirname, "..", dir);
   const pathExists = await fs.pathExists(destPath);

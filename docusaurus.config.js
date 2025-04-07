@@ -1,7 +1,7 @@
 import { themes } from "prism-react-renderer";
 const path = require("path");
 
-import platform_latest_version from "./platform_latest_version.js";
+import platform_enterprise_latest_version from "./platform-enterprise_latest_version.js";
 
 export default async function createConfigAsync() {
   return {
@@ -32,10 +32,6 @@ export default async function createConfigAsync() {
       locales: ["en"],
     },
 
-    future: {
-      experimental_faster: false,
-    },
-
     presets: [
       [
         "classic",
@@ -51,10 +47,10 @@ export default async function createConfigAsync() {
             include: ['**/*.{md,mdx}'],
             showReadingTime: false,
             feedOptions: {
-            type: 'all', // 'rss', 'atom', or both
-            title: 'Seqera Changelog',
-            description: 'Stay updated with our blog posts!',
-            copyright: `Copyright © ${new Date().getFullYear()} Seqera`,
+              type: 'all', // 'rss', 'atom', or both
+              title: 'Seqera Changelog',
+              description: 'Stay updated with our blog posts!',
+              copyright: `Copyright © ${new Date().getFullYear()} Seqera`,
             }
           },
           docs: false,
@@ -83,8 +79,8 @@ export default async function createConfigAsync() {
       [
         "@docusaurus/plugin-content-docs",
         {
-          id: "platform",
-          routeBasePath: "/platform",
+          id: "platform-enterprise",
+          routeBasePath: "/platform-enterprise",
           includeCurrentVersion: false,
           remarkPlugins: [
             (await import("remark-code-import")).default,
@@ -98,9 +94,9 @@ export default async function createConfigAsync() {
           versions: {
             // Force path to be /platform/24.1 instead of /platform
             // (Applies to latest version only)
-            [platform_latest_version]: {
-              label: platform_latest_version,
-              path: platform_latest_version,
+            [platform_enterprise_latest_version]: {
+              label: platform_enterprise_latest_version,
+              path: platform_enterprise_latest_version,
             },
           },
         },
@@ -110,7 +106,7 @@ export default async function createConfigAsync() {
         {
           id: "platform-cloud",
           routeBasePath: "/platform-cloud",
-          path: "platform_cloud/docs",
+          path: "platform-cloud/docs",
           remarkPlugins: [
             (await import("remark-code-import")).default,
             (await require("remark-math")).default,
@@ -119,9 +115,9 @@ export default async function createConfigAsync() {
           ],
           rehypePlugins: [(await require("rehype-katex")).default],
           editUrl: "https://github.com/seqeralabs/docs/tree/master/",
-          sidebarPath: "./platform_cloud/cloud-sidebar.json",
+          sidebarPath: "./platform-cloud/cloud-sidebar.json",
         },
-      ],      
+      ],
       [
         "@docusaurus/plugin-content-docs",
         {
@@ -140,7 +136,7 @@ export default async function createConfigAsync() {
           },
           sidebarPath: "./multiqc_docs/sidebar.js",
         },
-      ],      
+      ],
       [
         "@docusaurus/plugin-content-docs",
         {
@@ -193,9 +189,9 @@ export default async function createConfigAsync() {
           async contentLoaded({ actions }) {
             [
               {
-                path: "/platform/latest",
+                path: "/platform-enterprise/latest",
                 exact: false,
-                component: "@site/src/pages/platform/latest.tsx",
+                component: "@site/src/pages/platform-enterprise/latest.tsx",
               },
             ].map((route) => actions.addRoute(route));
           },
@@ -215,7 +211,7 @@ export default async function createConfigAsync() {
         },
         items: [
           {
-            to: "/platform/",
+            to: "/platform-enterprise/",
             position: "left",
             label: "Platform Enterprise",
           },
@@ -252,7 +248,7 @@ export default async function createConfigAsync() {
           {
             type: "docsVersionDropdown",
             position: "right",
-            docsPluginId: "platform",
+            docsPluginId: "platform-enterprise",
           },
         ],
       },
@@ -264,7 +260,7 @@ export default async function createConfigAsync() {
             items: [
               {
                 label: "Platform Enterprise",
-                to: "/platform/",
+                to: "/platform-enterprise/",
               },
               {
                 label: "Platform Cloud",
