@@ -32,7 +32,7 @@ const ProductSwitcher = ({ product }) => {
     if (location.pathname.startsWith("/platform-cloud")) {
       product = "Platform Cloud";
     }
-    if (location.pathname.startsWith("/platform")) {
+    if (location.pathname.startsWith("/platform-enterprise")) {
       product = "Platform Enterprise";
     }
     if (location.pathname.startsWith("/wave")) {

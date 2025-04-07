@@ -9,7 +9,7 @@ const company = {
 };
 
 const products = {
-  "Seqera Platform": "https://seqera.io/platform/",
+  "Seqera Platform": "https://seqera.io-enterprise/",
   Nextflow: "https://seqera.io/nextflow/",
   MultiQC: "https://seqera.io/multiqc/",
   Wave: "https://seqera.io/wave/",
