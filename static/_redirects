@@ -1,9 +1,4 @@
-/platform/latest/*   /platform/24.3/:splat   301
 
-# Temporarily redirect latest Platform docs Enterprise pages to current Enterprise version (cloud.latest - 1)
-# Remove when Enterprise version is released and Cloud and ENT latest major versions are at parity
-/platform/latest/enterprise/* /platform/24.2/enterprise/:splat 301
-/platform/24.3/enterprise/* /platform/24.2/enterprise/:splat 301
 
 /nextflow           https://www.nextflow.io/docs/latest/ 301!
 
@@ -12,23 +7,33 @@
 /wave/guide         /wave/nextflow          301
 
 # Add redirects to account for version renaming
-/platform/24.1.1/*  /platform/24.1/:splat   301
-/platform/23.4.0/*  /platform/23.4/:splat   301
-/platform/23.3.0/*  /platform/23.3/:splat   301
-/platform/23.2.0/*  /platform/23.2/:splat   301
-/platform/23.1.0/*  /platform/23.1/:splat   301
-/platform/22.4.0/*  /platform/22.4/:splat   301
+/platform/24.1.1/enterprise/*  /platform-enterprise/24.1/enterprise/:splat   301
+/platform/23.4.0/enterprise/*  /platform-enterprise/23.4/enterprise/:splat   301
+/platform/23.3.0/enterprise/*  /platform-enterprise/23.3/enterprise/:splat   301
+/platform/23.2.0/enterprise/*  /platform-enterprise/23.2/enterprise/:splat   301
+/platform/23.1.0/enterprise/*  /platform-enterprise/23.1/enterprise/:splat   301
+/platform/22.4.0/enterprise/*  /platform-enterprise/22.4/enterprise/:splat   301
+
+/platform/24.1.1/*  /platform-cloud/:splat   301
+/platform/23.4.0/*  /platform-cloud/:splat   301
+/platform/23.3.0/*  /platform-cloud/:splat   301
+/platform/23.2.0/*  /platform-cloud/:splat   301
+/platform/23.1.0/*  /platform-cloud/:splat   301
+/platform/22.4.0/*  /platform-cloud/:splat   301
 
 # Redirect from old FAQ to new FAQ
-/platform/24.1/faqs/*  /platform/latest/troubleshooting_and_faqs/troubleshooting/:splat   301
-/platform/24.2/faqs/*  /platform/latest/troubleshooting_and_faqs/troubleshooting/:splat   301
+/platform/24.1/faqs/*  /platform-cloud/troubleshooting_and_faqs/troubleshooting/:splat   301
+/platform/24.2/faqs/*  /platform-cloud/troubleshooting_and_faqs/troubleshooting/:splat   301
 
 # Data Studios redirect
-/platform/:version/data_studios/*    /platform/:version/studios/:splat  301
-/platform/24.3/data_studios/* to /platform/24.3/studios/:splat 301
-/platform/24.2/studios/* /platform/24.2/data_studios/:splat 301
-/platform/24.1/studios/* /platform/24.1/data_studios/:splat 301
+/platform/:version/data_studios/*    /platform-cloud/studios/:splat  301
+/platform-cloud/data_studios/*   /platform-cloud/studios/:splat 301
 
 
 # Redirect to fix temporarily broken URL in UI
-/platform/24.2/data/data_studios   /platform/24.2/studios/  301
+/platform/:version/data/data_studios   /platform-cloud/studios/  301
+
+# Redirect old docs URLs to new (Enterprise or Cloud) docs URLs
+/platform/:version/enterprise/*   /platform-enterprise/:version/enterprise/:splat   301
+/platform/:version/*    /platform-cloud/:splat
+/platform/*   /platform-cloud/:splat

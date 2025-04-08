@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "@docusaurus/Link";
 
-import platform_latest_version from "@site/platform_latest_version";
+import platform_enterprise_latest_version from "@site/platform-enterprise_latest_version";
 
 type Props = {};
 
@@ -12,7 +12,7 @@ const Platform: React.FC<Props> = () => {
       <ul className="checklist">
         <li>
           The Seqera Platform{" "}
-          <Link to="/platform/" className="text-indig00">
+          <Link to="/platform-cloud/" className="text-indig00">
             User documentation
           </Link>{" "}
           is the reference for managing pipelines with Seqera Platform
@@ -33,7 +33,9 @@ const Platform: React.FC<Props> = () => {
         </li>
         <li>
           For installation and configuration, the Seqera Platform{" "}
-          <Link to={`/platform/${platform_latest_version}/enterprise/`}>
+          <Link
+            to={`/platform-enterprise/${platform_enterprise_latest_version}/`}
+          >
             deployment guide
           </Link>{" "}
           provides docs, scripts and detailed instructions.

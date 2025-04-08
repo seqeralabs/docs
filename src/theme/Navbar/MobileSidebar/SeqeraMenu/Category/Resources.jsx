@@ -7,7 +7,7 @@ const Resources = ({ toggleMenu }) => {
   return (
     <ul>
       <li>
-        <Link to={links.docs["Seqera platform"]} onClick={toggleMenu}>
+        <Link to={links.docs["Seqera Platform"]} onClick={toggleMenu}>
           Documentation
         </Link>
       </li>
