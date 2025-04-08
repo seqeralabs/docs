@@ -33,6 +33,9 @@
 # Redirect to fix temporarily broken URL in UI
 /platform/:version/data/data_studios   /platform-cloud/studios/  301
 
+# Remove version from /platform-cloud paths
+/platform-cloud/:version/*    /platform-cloud/:splat
+
 # Redirect old docs URLs to new (Enterprise or Cloud) docs URLs
 /platform/:version/enterprise/*   /platform-enterprise/:version/enterprise/:splat   301
 /platform/:version/*    /platform-cloud/:splat
