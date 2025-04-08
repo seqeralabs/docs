@@ -28,7 +28,7 @@ Studios is Seqera's in-platform tool for secure, on-demand, interactive data ana
 - Audit log update: Pipeline edit events are now logged.
 - Switch AWS Batch compute environment dependencies to AWS SDK v2.
 - Switch Compute dependencies to AWS SDK v2.
-- Support image upload in the pipeline import and pipeline update forms, to be used as pipeline logos.
+When a GitHub pipeline is added or updated, if no user-uploaded icon is defined, the icon will default to the one defined the `manifest.icon` Nextflow config; otherwise, it will use the GitHub organization avatar.
 - New dynamic page title for easy bookmarking.
 - Added `totalProcesses` to workflow progress responses.
 - Implement collapsible view for JSON workflow parameters tab and add **View as YAML** option.
