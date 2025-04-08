@@ -19,13 +19,10 @@ spec:
         kubernetes.io/arch: amd64
       containers:
         - name: proxy
-          image: cr.seqera.io/private/nf-tower-enterprise/data-studio/connect-proxy:0.7.2
-          command:
-            - caddy
-            - serve
+          image: cr.seqera.io/private/nf-tower-enterprise/data-studio/connect-proxy:0.8.0
           env:
             - name: CONNECT_HTTP_PORT
-              value: "80"
+              value: "8081"
             - name: CONNECT_REDIS_ADDRESS
               value: <CONNECT_REDIS_ADDRESS>:6379
             - name: CONNECT_REDIS_PREFIX
@@ -45,8 +42,20 @@ spec:
             - name: LOCAL_CACHE_TTL
               value: 2m
           ports:
-            - containerPort: 80
+            - containerPort: 8081
               name: proxy
+          securityContext:
+            capabilities:
+              add:
+                - NET_BIND_SERVICE
+              drop:
+                - ALL
+            readOnlyRootFilesystem: false
+            runAsNonRoot: true
+            runAsUser: 65532
+            runAsGroup: 65532
+      securityContext:
+        fsGroup: 65532
 ---
 apiVersion: v1
 kind: Service
