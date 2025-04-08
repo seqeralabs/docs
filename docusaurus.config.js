@@ -2,12 +2,12 @@ import { themes } from "prism-react-renderer";
 const path = require("path");
 import 'dotenv/config';
 
-import platform_latest_version from "./platform_latest_version.js";
+import platform_enterprise_latest_version from "./platform-enterprise_latest_version.js";
 
 export default async function createConfigAsync() {
   return {
     title: "Seqera Docs",
-    tagline: "Documentation for Seqera Labs products",
+    tagline: "Documentation for Seqera products",
     favicon: "img/favicon--dynamic.svg",
 
     // Set the production url of your site here
@@ -42,10 +42,6 @@ export default async function createConfigAsync() {
       locales: ["en"],
     },
 
-    future: {
-      experimental_faster: false,
-    },
-
     presets: [
       [
         "classic",
@@ -61,10 +57,10 @@ export default async function createConfigAsync() {
             include: ['**/*.{md,mdx}'],
             showReadingTime: false,
             feedOptions: {
-            type: 'all', // 'rss', 'atom', or both
-            title: 'Seqera Changelog',
-            description: 'Stay updated with our blog posts!',
-            copyright: `Copyright © ${new Date().getFullYear()} Seqera`,
+              type: 'all', // 'rss', 'atom', or both
+              title: 'Seqera Changelog',
+              description: 'Stay updated with our blog posts!',
+              copyright: `Copyright © ${new Date().getFullYear()} Seqera`,
             }
           },
           docs: false,
@@ -93,8 +89,8 @@ export default async function createConfigAsync() {
       [
         "@docusaurus/plugin-content-docs",
         {
-          id: "platform",
-          routeBasePath: "/platform",
+          id: "platform-enterprise",
+          routeBasePath: "/platform-enterprise",
           includeCurrentVersion: false,
           remarkPlugins: [
             (await import("remark-code-import")).default,
@@ -106,13 +102,30 @@ export default async function createConfigAsync() {
           editUrl: "https://github.com/seqeralabs/docs/tree/master/",
           sidebarPath: false,
           versions: {
-            // Force path to be /platform/24.1 instead of /platform
+            // Replace /platform-enterprise with /platform-enterprise/24.2, when no version is specified in the URL.
             // (Applies to latest version only)
-            [platform_latest_version]: {
-              label: platform_latest_version,
-              path: platform_latest_version,
+            [platform_enterprise_latest_version]: {
+              label: platform_enterprise_latest_version,
+              path: platform_enterprise_latest_version,
             },
           },
+        },
+      ],
+      [
+        "@docusaurus/plugin-content-docs",
+        {
+          id: "platform-cloud",
+          routeBasePath: "/platform-cloud",
+          path: "platform-cloud/docs",
+          remarkPlugins: [
+            (await import("remark-code-import")).default,
+            (await require("remark-math")).default,
+            (await import("docusaurus-remark-plugin-tab-blocks")).default,
+            (await require("remark-yaml-to-table")).default,
+          ],
+          rehypePlugins: [(await require("rehype-katex")).default],
+          editUrl: "https://github.com/seqeralabs/docs/tree/master/",
+          sidebarPath: "./platform-cloud/cloud-sidebar.json",
         },
       ],
       [
@@ -133,7 +146,7 @@ export default async function createConfigAsync() {
           },
           sidebarPath: "./multiqc_docs/sidebar.js",
         },
-      ],      
+      ],
       [
         "@docusaurus/plugin-content-docs",
         {
@@ -186,9 +199,9 @@ export default async function createConfigAsync() {
           async contentLoaded({ actions }) {
             [
               {
-                path: "/platform/latest",
+                path: "/platform-enterprise/latest",
                 exact: false,
-                component: "@site/src/pages/platform/latest.tsx",
+                component: "@site/src/pages/platform-enterprise/latest.tsx",
               },
             ].map((route) => actions.addRoute(route));
           },
@@ -208,9 +221,14 @@ export default async function createConfigAsync() {
         },
         items: [
           {
-            to: "/platform/",
+            to: "/platform-enterprise/",
             position: "left",
-            label: "Platform",
+            label: "Platform Enterprise",
+          },
+          {
+            to: "/platform-cloud/",
+            position: "left",
+            label: "Platform Cloud",
           },
           {
             to: "https://www.nextflow.io/docs/latest/",
@@ -240,7 +258,7 @@ export default async function createConfigAsync() {
           {
             type: "docsVersionDropdown",
             position: "right",
-            docsPluginId: "platform",
+            docsPluginId: "platform-enterprise",
           },
         ],
       },
@@ -251,8 +269,12 @@ export default async function createConfigAsync() {
             title: "Docs",
             items: [
               {
-                label: "Platform",
-                to: "/platform/",
+                label: "Platform Enterprise",
+                to: "/platform-enterprise/",
+              },
+              {
+                label: "Platform Cloud",
+                to: "/platform-cloud/",
               },
             ],
           },

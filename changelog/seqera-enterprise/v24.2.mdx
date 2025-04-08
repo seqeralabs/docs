@@ -167,9 +167,9 @@ Upgrading to version 24.2 requires backend downtime in order for the database mi
 1. See [Upgrade installation](https://docs.seqera.io/platform/24.2/enterprise/upgrade) for installation upgrade guidance.
 
 :::info
-Docker Compose deployments require downtime while upgrading services. Restarting the application may take several minutes. See [Docker compose deployment](https://docs.seqera.io/platform/latest/enterprise/docker-compose) for more information.
+Docker Compose deployments require downtime while upgrading services. Restarting the application may take several minutes. See [Docker compose deployment](https://docs.seqera.io/platform-enterprise/latest/enterprise/docker-compose) for more information.
 
-For Kubernetes deployments, apply the 24.2 `tower-cron.yml` to your cron pod and wait for the cron pod to be running before applying the `tower-svc.yml` to your backend pod and restarting the service. If the cron pod update is interrupted, you may need to restore the instance from your DB backup and start again. See [Kubernetes deployment](https://docs.seqera.io/platform/latest/enterprise/kubernetes) for more information. 
+For Kubernetes deployments, apply the 24.2 `tower-cron.yml` to your cron pod and wait for the cron pod to be running before applying the `tower-svc.yml` to your backend pod and restarting the service. If the cron pod update is interrupted, you may need to restore the instance from your DB backup and start again. See [Kubernetes deployment](https://docs.seqera.io/platform-enterprise/latest/enterprise/kubernetes) for more information. 
 
 For custom deployments with third-party services such as ArgoCD, [contact support](https://support.seqera.io) for assistance during upgrade. 
 ::: 
