@@ -36,3 +36,4 @@
 # Redirect old docs URLs to new (Enterprise or Cloud) docs URLs
 /platform/:version/enterprise/*   /platform-enterprise/:version/enterprise/:splat   301
 /platform/:version/*    /platform-cloud/:splat
+/platform/*   /platform-cloud/:splat
