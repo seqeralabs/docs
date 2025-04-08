@@ -19,8 +19,8 @@
 /platform/22.4.0/*  /platform/22.4/:splat   301
 
 # Redirect from old FAQ to new FAQ
-/platform/24.1/faqs/*  /platform/latest/troubleshooting_and_faqs/troubleshooting/:splat   301
-/platform/24.2/faqs/*  /platform/latest/troubleshooting_and_faqs/troubleshooting/:splat   301
+/platform/24.1/faqs/*  /platform-cloud/troubleshooting_and_faqs/troubleshooting/:splat   301
+/platform/24.2/faqs/*  /platform-cloud/troubleshooting_and_faqs/troubleshooting/:splat   301
 
 # Data Studios redirect
 /platform/:version/data_studios/*    /platform/:version/studios/:splat  301
