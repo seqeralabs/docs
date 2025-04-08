@@ -31,6 +31,8 @@
 /platform/24.2/studios/* /platform-cloud/data_studios/:splat 301
 /platform/24.1/studios/* /platform-cloud/data_studios/:splat 301
 
+/platform-cloud/data_studios/* to /platform-cloud/studios/:splat 301
+
 
 # Redirect to fix temporarily broken URL in UI
 /platform/24.2/data/data_studios   /platform-cloud/studios/  301
