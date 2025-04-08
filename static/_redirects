@@ -1,9 +1,8 @@
-/platform/latest/*   /platform/24.3/:splat   301
+# Redirect old docs URLs to new (Enterprise or Cloud) docs URLs
+/platform/:version/enterprise/*   /platform-enterprise/:version/enterprise/:splat   301
+/platform/:version/*    /platform-cloud/:splat
 
-# Temporarily redirect latest Platform docs Enterprise pages to current Enterprise version (cloud.latest - 1)
-# Remove when Enterprise version is released and Cloud and ENT latest major versions are at parity
-/platform/latest/enterprise/* /platform/24.2/enterprise/:splat 301
-/platform/24.3/enterprise/* /platform/24.2/enterprise/:splat 301
+/platform/latest/enterprise/* /platform-enterprise/24.2/enterprise/:splat 301
 
 /nextflow           https://www.nextflow.io/docs/latest/ 301!
 
