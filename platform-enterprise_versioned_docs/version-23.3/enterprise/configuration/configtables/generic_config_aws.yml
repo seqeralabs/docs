@@ -2,7 +2,7 @@
 - 
   AWS Parameter Store:  '`{prefix}/tower/serverUrl`'
   Description: >
-    Your Seqera instance hostname, IP address, DNS name, or full [reverse proxy path](https://docs.seqera.io/platform/latest/enterprise/configuration/reverse_proxy) where the application is exposed. The `https://` protocol is required for instances that use an SSL certificate. As of version 22.1, HTTPS is used by default. To use HTTP, set `TOWER_ENABLE_UNSAFE_MODE=true`.
+    Your Seqera instance hostname, IP address, DNS name, or full [reverse proxy path](https://docs.seqera.io/platform-enterprise/latest/enterprise/configuration/reverse_proxy) where the application is exposed. The `https://` protocol is required for instances that use an SSL certificate. As of version 22.1, HTTPS is used by default. To use HTTP, set `TOWER_ENABLE_UNSAFE_MODE=true`.
   Value:                "Default: `http://localhost:8000`"
 -
   AWS Parameter Store:  '`{prefix}/tower/license`'

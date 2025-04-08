@@ -48,7 +48,7 @@ services:
     volumes:
       - $PWD/tower.yml:/tower.yml
     env_file:
-      # Seqera environment variables — see https://docs.seqera.io/platform/latest/enterprise/configuration/overview for details
+      # Seqera environment variables — see https://docs.seqera.io/platform-enterprise/latest/enterprise/configuration/overview for details
       - tower.env
     restart: no
 
@@ -89,7 +89,7 @@ services:
       # Data studios RSA key is required for the data studios functionality. Uncomment the line below to mount the key.
       #- $PWD/data-studios-rsa.pem:/data-studios-rsa.pem
     env_file:
-      # Seqera environment variables — see https://docs.seqera.io/platform/latest/enterprise/configuration/overview for details
+      # Seqera environment variables — see https://docs.seqera.io/platform-enterprise/latest/enterprise/configuration/overview for details
       - tower.env
     environment:
       # Micronaut environments are required. Do not edit these values

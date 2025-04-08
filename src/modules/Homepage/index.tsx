@@ -161,7 +161,7 @@ export default function Home(): JSX.Element {
                         <p className="font-title typo-h4 font-medium">Studios</p>
                         <ul className="list-none p-0 leading-8">
                           <li><Link to="/platform-cloud/studios">Studios overview</Link></li>
-                          <li><Link to="/platform/latest/enterprise/studios">Enterprise deployment</Link></li>
+                          <li><Link to="/platform-enterprise/latest/enterprise/studios">Enterprise deployment</Link></li>
                           <li><Link to="/platform-cloud/data/data-explorer">Data Explorer</Link></li>
                         </ul>
                       </div>
@@ -210,7 +210,7 @@ export default function Home(): JSX.Element {
                         <div className="w-6 h-6 mb-3 bg-[url('/img/cloud.svg')] dark:bg-[url('/img/cloud-white.svg')] bg-contain bg-no-repeat bg-center"></div>
                         <p className="m-0 text-brand dark:text-white text-lg mb-1">Seqera Cloud</p>
                       </Link>
-                      <Link to="/platform/enterprise" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800">
+                      <Link to="/platform-enterprise" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800">
                         <div className="w-6 h-6 mb-3 bg-[url('/img/enterprise.svg')] dark:bg-[url('/img/enterprise-white.svg')] bg-contain bg-no-repeat bg-center"></div>
                         <p className="m-0 text-brand dark:text-white text-lg mb-1">Seqera Enterprise</p>
                       </Link>

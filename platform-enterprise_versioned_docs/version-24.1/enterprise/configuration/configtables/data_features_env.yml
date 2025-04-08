@@ -2,7 +2,7 @@
 - 
   Environment variable:            '`TOWER_DATA_EXPLORER_ENABLED`'
   Description: > 
-    Enable [Data Explorer](https://docs.seqera.io/platform/latest/data/data-explorer) in all workspaces. To mount data inside a data studio, you must enable Data Explorer.
+    Enable [Data Explorer](https://docs.seqera.io/platform-cloud/data/data-explorer) in all workspaces. To mount data inside a data studio, you must enable Data Explorer.
   Value:                'Default: `false`'
 - 
   Environment variable:            '`TOWER_DATA_EXPLORER_CLOUD_DISABLED_WORKSPACES`'

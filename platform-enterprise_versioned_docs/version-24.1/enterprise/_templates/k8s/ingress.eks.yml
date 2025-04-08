@@ -35,7 +35,7 @@ spec:
                 port:
                   number: 80
 
-# Uncomment the host section below to enable Data Studios. Replace <YOUR-TOWER-HOST-NAME> with the base domain of your Platform installation. See [Data Studios configuration](https://docs.seqera.io/platform/latest/enterprise/data-studios) for more information.
+# Uncomment the host section below to enable Data Studios. Replace <YOUR-TOWER-HOST-NAME> with the base domain of your Platform installation. See [Data Studios configuration](https://docs.seqera.io/platform-enterprise/latest/enterprise/data-studios) for more information.
 #    - host: "*.<YOUR-TOWER-HOST-NAME>"
 #      http:
 #        paths:
