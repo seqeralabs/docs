@@ -1,0 +1,41 @@
+---
+- 
+  AWS Parameter Store:            '`{prefix}/tower/scm/provider/github/user`'
+  Description:          'Your GitHub username.'
+- 
+  AWS Parameter Store:            '`{prefix}/tower/scm/provider/github/password`'
+  Description:          'Your GitHub (classic or fine-grained) access token.'
+-
+  AWS Parameter Store:            '`{prefix}/tower/scm/provider/gitlab/user`'
+  Description:          'Your GitLab username.'
+-
+  AWS Parameter Store:            '`{prefix}/tower/scm/provider/gitlab/password`'
+  Description:          'Your GitLab (Personal, Group, or Project) access token.'
+-
+  AWS Parameter Store:            '`{prefix}/tower/scm/provider/gitlab/token`'
+  Description:          'Your GitLab (Personal, Group, or Project) access token.'
+- 
+  AWS Parameter Store:            '`{prefix}/tower/scm/provider/bitbucket/user`'
+  Description:          'Your BitBucket username.'
+- 
+  AWS Parameter Store:            '`{prefix}/tower/scm/provider/bitbucket/password`'
+  Description:          'Your BitBucket App password.'
+- 
+  AWS Parameter Store:            '`{prefix}/tower/scm/provider/gitea/user`'
+  Description:          'Your Gitea username.'
+- 
+  AWS Parameter Store:            '`{prefix}/tower/scm/provider/gitea/password`'
+  Description:          'Your Gitea token.'
+- 
+  AWS Parameter Store:            '`{prefix}/tower/scm/provider/azurerepos/user`'
+  Description:          'Your Azure DevOps repository username.'
+- 
+  AWS Parameter Store:            '`{prefix}/tower/scm/provider/azurerepos/token`'
+  Description:          'Your Azure DevOps repository personal access token.'
+#To be confirmed
+#- 
+#  AWS Parameter Store:            '`/tower/scm/provider/`'
+#  Description:          'AWS CodeCommit user access key.'
+#- 
+#  AWS Parameter Store:            '`/tower/scm/provider/`'
+#  Description:          'AWS CodeCommit user secret key.'
