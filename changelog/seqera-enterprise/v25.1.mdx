@@ -42,16 +42,16 @@ When a GitHub pipeline is added or updated, if no user-uploaded icon is defined,
 - New workflow job monitoring collects and publishes Platform metrics.
 - Notify the user when secrets cleanup fails.
 - Dashboard page: Add a date filter. 
-- Bump nextflow to version 24.10.3
-- Upgrade to Angular 18
+- Bump nextflow to version 24.10.3.
+- Upgrade to Angular 18.
 
 ## Bug fixes
 
 - Studios
-  - Fixed a bug where resource labels were erroneously editable for the maintain role when starting an existing Studio.
+  - Fixed a bug where resource labels were erroneously editable for the Maintain role when starting an existing Studio.
   - Fixed an issue to ensure that the Maintain role is not able to change resource labels inherited from the selected compute environment when adding/starting a Studio.
   - Fixed an issue with searches for names containing special SQL wildcard characters (_, %).
-- Prohibit duplicate Git credentials and tie-break on `lastUpdated` for existing duplicates. Going forward, preference is given to the credentials updated last in the situation when there are multiple candidates. Additionally a duplicate check is added when creating new credentials, to avoid new duplicate cases.
+- Prohibit duplicate Git credentials and tie-break on `lastUpdated` for existing duplicates. Going forward, preference is given to the credentials updated last in the situation when there are multiple candidates. Additionally, a duplicate check is added when creating new credentials to avoid new duplicate cases.
 - Set `ECS_CONTAINER_START_TIMEOUT` to 10 minutes in the ECS settings used by AWS Batch CEs in order to prevent the error `Task failed to start - DockerTimeoutError: Could not transition to started; timed out after waiting 3m0s`.
 - Compute environment creation form allows pre- and post-run scripts to be longer than the accepted value of 1024 characters.
 - Disable reset selection on data change in workflow list component.
@@ -75,14 +75,14 @@ See [Legacy Seqera container image registries](https://docs.seqera.io/platform/2
 
 ### Redis version change
 
-From v24.2 of Seqera Enterprise: 
+From 24.2 of Seqera Enterprise: 
 
 - Redis version 6.2 or greater is required.
 - Redis version 7 is officially supported.
 
 ### Redisson properties deprecated
 
-From v24.2 of Seqera Platform, `redisson.*` configuration properties are deprecated. If you have set `redisson.*` properties directly previously, do the following:
+From 24.2 of Seqera Platform, `redisson.*` configuration properties are deprecated. If you have set `redisson.*` properties directly previously, do the following:
 
 - Replace `/redisson/*` references in AWS Parameter Store entries with `TOWER_REDIS_*`. 
 - Replace `redisson.*` references in `tower.yml` with `TOWER_REDIS_*`. 
@@ -109,7 +109,7 @@ The SQL mode must be set explicitly through the connection URL for deployments s
 
 ### Micronaut property key changes
 
-The property that determines the expiration time of the JWT access token (used for authenticating web sessions and Nextflow-Platform interactions) has changed as of Seqera Platform v24.1:
+The property that determines the expiration time of the JWT access token (used for authenticating web sessions and Nextflow-Platform interactions) has changed as of Seqera Platform 24.1:
 
 | Previous                                                         | New                                                          |
 | ---------------------------------------------------------------- | ------------------------------------------------------------ |
