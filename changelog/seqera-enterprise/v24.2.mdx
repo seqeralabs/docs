@@ -39,12 +39,12 @@ Seqera Enterprise version 24.2 introduces new Data Studios features, global Next
 
 ### Azure Batch: Entra service principal and managed identity authentication support
 
-- Authentication using [Microsoft Entra service principals](https://docs.seqera.io/platform/24.2/compute-envs/azure-batch#credentials) is now supported in manual Azure Batch compute environments. This provides a secure alternative to long-lived access keys, as service principals enable role-based access control with more precise permissions.
-- You can now also use a [managed identity](https://docs.seqera.io/platform/24.2/compute-envs/azure-batch#managed-identity) in conjunction with your credentials (access keys or service principals) to authenticate Nextflow to Azure services. The combination of an Entra service principal and user-assigned managed identity offers enhanced security over access keys. Note that both authentication methods are only supported in manual Azure Batch compute environments. 
+- Authentication using [Microsoft Entra service principals](https://docs.seqera.io/platform-enterprise/24.2/compute-envs/azure-batch#credentials) is now supported in manual Azure Batch compute environments. This provides a secure alternative to long-lived access keys, as service principals enable role-based access control with more precise permissions.
+- You can now also use a [managed identity](https://docs.seqera.io/platform-enterprise/24.2/compute-envs/azure-batch#managed-identity) in conjunction with your credentials (access keys or service principals) to authenticate Nextflow to Azure services. The combination of an Entra service principal and user-assigned managed identity offers enhanced security over access keys. Note that both authentication methods are only supported in manual Azure Batch compute environments. 
 
 ### Launchpad
 
-- The new [Launch Form](https://docs.seqera.io/platform/24.2/launch/launchpad#launch-form) is now enabled by default. See [Core feature configuration](https://docs.seqera.io/platform/24.2/enterprise/configuration/overview#core-features) for options to disable the launch form per workspace or globally.
+- The new [Launch Form](https://docs.seqera.io/platform-enterprise/24.2/launch/launchpad#launch-form) is now enabled by default. See [Core feature configuration](https://docs.seqera.io/platform-enterprise/24.2/enterprise/configuration/overview#core-features) for options to disable the launch form per workspace or globally.
 
 ### Compute environments
 
@@ -103,9 +103,9 @@ Seqera Enterprise version 24.2 introduces new Data Studios features, global Next
 
 ### Seqera AWS ECR repository customer access ends June 1, 2025
 
-Customers will no longer be able to pull Seqera Enterprise container images from the legacy Seqera AWS ECR repository after June 1, 2025. All Seqera Enterprise images must be retrieved via the `cr.seqera.io` container registry after this cutoff date. The installation and configuration templates provided for both [Docker Compose](https://docs.seqera.io/platform/24.2/enterprise/docker-compose) and [Kubernetes](https://docs.seqera.io/platform/24.2/enterprise/kubernetes) installations already reference the `cr.seqera.io` container image URLs. If you have not yet transitioned to this registry, [contact Support](https://support.seqera.io) to request credentials and for any further assistance. 
+Customers will no longer be able to pull Seqera Enterprise container images from the legacy Seqera AWS ECR repository after June 1, 2025. All Seqera Enterprise images must be retrieved via the `cr.seqera.io` container registry after this cutoff date. The installation and configuration templates provided for both [Docker Compose](https://docs.seqera.io/platform-enterprise/24.2/enterprise/docker-compose) and [Kubernetes](https://docs.seqera.io/platform-enterprise/24.2/enterprise/kubernetes) installations already reference the `cr.seqera.io` container image URLs. If you have not yet transitioned to this registry, [contact Support](https://support.seqera.io) to request credentials and for any further assistance. 
 
-See [Legacy Seqera container image registries](https://docs.seqera.io/platform/24.2/enterprise/advanced-topics/seqera-container-images) for more information on the AWS ECR and other deprecated Seqera container registries. 
+See [Legacy Seqera container image registries](https://docs.seqera.io/platform-enterprise/24.2/enterprise/advanced-topics/seqera-container-images) for more information on the AWS ECR and other deprecated Seqera container registries. 
 
 ### Redis version change
 
@@ -164,7 +164,7 @@ Upgrading to version 24.2 requires backend downtime in order for the database mi
     ```bash
     JAVA_OPTS: -Xms1000M -Xmx2000M -XX:MaxDirectMemorySize=800m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144
     ```
-1. See [Upgrade installation](https://docs.seqera.io/platform/24.2/enterprise/upgrade) for installation upgrade guidance.
+1. See [Upgrade installation](https://docs.seqera.io/platform-enterprise/24.2/enterprise/upgrade) for installation upgrade guidance.
 
 :::info
 Docker Compose deployments require downtime while upgrading services. Restarting the application may take several minutes. See [Docker compose deployment](https://docs.seqera.io/platform-enterprise/latest/enterprise/docker-compose) for more information.
