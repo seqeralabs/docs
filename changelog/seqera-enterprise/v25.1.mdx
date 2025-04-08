@@ -42,7 +42,7 @@ When a GitHub pipeline is added or updated, if no user-uploaded icon is defined,
 - New workflow job monitoring collects and publishes Platform metrics.
 - Notify the user when secrets cleanup fails.
 - Dashboard page: Add a date filter. 
-- Bump nextflow to version 24.10.3.
+- Bump nf-launcher default to version 25.10.5.
 - Upgrade to Angular 18.
 
 ## Bug fixes
@@ -60,10 +60,11 @@ When a GitHub pipeline is added or updated, if no user-uploaded icon is defined,
 - Drop the last characters in job definition name, if longer than the prescribed limit.
 - Fixed an issue where users were not able to remove the organization logo.
 - Fixed an additional reference to the `mainScript` parameter in the `pipeline-info` API response.
-- Fixes a problem with Entra and `javax.mail` transitive dependency.
+- Fixed a problem with Entra and `javax.mail` transitive dependency.
 - A change in the nf-core tools template made config profile search in the pipeline launch form inconsistent in Platform as it's prepended by a ternary operator. This release introduces a fix that improves config profile name parsing.
 - Do not fetch info for `INVALID` status pipelines, fetch for all other statuses including `DISABLED`.
 - Fallback to primary compute environment when launching a shared pipeline without an associated compute environment from a private workspace.
+- Fixed an issue where the new Launch Form did not select the primary compute environment by default; now a primary compute environment is selected during quick launch.
 
 ## Breaking changes and warnings
 
