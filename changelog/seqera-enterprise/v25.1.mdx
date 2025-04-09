@@ -67,7 +67,7 @@ Studios is Seqera's in-platform tool for secure, on-demand, interactive data ana
 
 ### OIDC Secrets injection modifications
 
-The `auth-oidc-secrets` Micronaut environment has now been replaced with `oidc-token-import` naming. If you are using this configuration, the change should be applied to the `MICRONAUT_ENV` environment variable in the manifest, during the migration proces. If you activate the feature using the `TOWER_OIDC_TOKEN_IMPORT` environment variable then no changes are needed.
+The `auth-oidc-secrets` Micronaut environment has been replaced with `oidc-token-import`. If you use this configuration, you must change the `MICRONAUT_ENV` environment variable in the manifest during the migration process. If you activate the feature with the `TOWER_OIDC_TOKEN_IMPORT` environment variable, no changes are needed.
 
 ### Seqera AWS ECR repository customer access ends June 1, 2025
 
