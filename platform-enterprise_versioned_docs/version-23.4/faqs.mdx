@@ -127,7 +127,7 @@ k8s.securityContext = [
 
 **Seqera Enterprise 22.2.0: Database connection failure**
 
-Seqera Enterprise 22.2.0 [introduced a breaking change](./enterprise/release_notes/22.2.mdx#database-schema) whereby the `TOWER_DB_DRIVER` is now required to be `org.mariadb.jdbc.Driver`.
+Seqera Enterprise 22.2.0 introduced a breaking change whereby the `TOWER_DB_DRIVER` is now required to be `org.mariadb.jdbc.Driver`.
 
 Clients who use Amazon Aurora as their database solution may encounter a _java.sql.SQLNonTransientConnectionException: ... could not load system variables_ error, likely due to a [known error](https://jira.mariadb.org/browse/CONJ-824) tracked within the MariaDB project.
 
@@ -531,7 +531,7 @@ The Groovy shell used by Nextflow to execute your workflow has a hard limit on s
 
 Your Seqera installation knows the nf-launcher image version it needs and will specify this value automatically when launching a pipeline.
 
-If you're restricted from using public container registries, see Seqera Enterprise release [instructions](./enterprise/release_notes/23.2.mdx#nextflow-launcher-image) for the specific image to set as the default when invoking pipelines.
+If you're restricted from using public container registries, see Seqera Enterprise release instructions for the specific image to set as the default when invoking pipelines.
 
 **Specify Nextflow version**
 

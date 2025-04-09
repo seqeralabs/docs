@@ -170,17 +170,21 @@ When defining a new Studio, you can configure the **Mounted data** by selecting 
 
 ## Migrate a Studio from an earlier container image template
 
-As Studios matures and new versions of JupyterLab, RStudio Server, Visual Studio Code, and Xpra are released, new Seqera-provided image templates will be periodically released including updated versions of Seqera Connect. The most recent container template images will be tagged `latest` and earlier template images will be tagged `deprecated`.
+As Studios matures and new versions of JupyterLab, RStudio Server, Visual Studio Code, and Xpra are released, new Seqera-provided image templates will be periodically released including updated versions of Seqera Connect. The most recent container template images will be tagged `recommended` and earlier template images will be tagged `deprecated`. 
+
+:::info
+Temporary container templates tagged with `experimental` are not supported and should not be used in production environments.
+:::
 
 :::tip
-Always use the `latest` tagged template image for new Studios. Only two earlier minor versions of [Seqera Connect][connect] are supported by Seqera.
+Always use the `recommended` tagged template image for new Studios. Only two earlier minor versions of [Seqera Connect][connect] are supported by Seqera.
 :::
 
 To migrate a Studio to a more recent container version and Seqera Connect:
 
 1. Select the Studio that you wish to migrate from the list of Studios.
 1. Select **Add as new**. By default this selects the latest session checkpoint.
-1. In the **General config** section, change the image template selection in the dropdown list to use the `latest` tagged version of the same interactive environment.
+1. In the **General config** section, change the image template selection in the dropdown list to use the `recommended` tagged version of the same interactive environment.
 1. For the **Summary** section, ensure that the specified configuration is correct.
 1. Immediately start the new, duplicated Studio session by selecting **Add and start**.
 1. **Connect** to the new running Studio session.
