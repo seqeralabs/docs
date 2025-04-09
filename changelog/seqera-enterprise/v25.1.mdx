@@ -49,7 +49,7 @@ Studios is Seqera's in-platform tool for secure, on-demand, interactive data ana
 - **Studios**
   - Fixed resource labels being erroneously non-editable for the Maintain role when adding or starting a Studio session.
   - Fixed searches for names containing special SQL wildcard characters (_, %).
-- Prohibit duplicate Git credentials and tie-break on `lastUpdated` for existing duplicates. Going forward, preference is given to the credentials updated last in the situation when there are multiple candidates. Additionally, a duplicate check is added when creating new credentials to avoid new duplicate cases.
+- Prohibit duplicate Git credentials and tie-break on `lastUpdated` for existing duplicates. Preference is given to the last-updated credentials when there are multiple candidates. A check is also added to avoid duplicates when creating new credentials.
 - Set `ECS_CONTAINER_START_TIMEOUT` to 10 minutes in the ECS settings used by AWS Batch CEs in order to prevent the error `Task failed to start - DockerTimeoutError: Could not transition to started; timed out after waiting 3m0s`.
 - Compute environment creation form allows pre- and post-run scripts to be longer than the accepted value of 1024 characters.
 - Disable reset selection on data change in workflow list component.
