@@ -6,15 +6,15 @@ tags: [seqera enterprise]
 
 Seqera Platform Enterprise version 25.1 introduces Studios GA and a number of bug fixes and performance enhancements.
 
-Studios is Seqera's in-platform tool for secure, on-demand, interactive data analysis using containers created from Seqera-managed container template images or your own organization managed custom environments. You only pay for the compute your Studio sessions consume and the compute is adjacent to your data, significantly reducing data transfer costs and wasted time copying data from storage to analysis. This significantly reduces infrastructure management requirements, removes data silos, adheres to strict in-platform role-based access control, and lowers your operational costs. Learn more about Studios in our [documentation](https://docs.seqera.io/platform-enterprise/25.1/studios)
+Studios is Seqera's in-platform tool for secure, on-demand, interactive data analysis using containers created from Seqera-managed container template images or your own organization managed custom environments. You only pay for the compute your Studio sessions consume and the compute is adjacent to your data, significantly reducing data transfer costs and wasted time copying data from storage to analysis. This significantly reduces infrastructure management requirements, removes data silos, adheres to strict in-platform role-based access control, and lowers your operational costs. Learn more about Studios in our [documentation](https://docs.seqera.io/platform-enterprise/latest/studios)
 
 ## New features and improvements
 
 ### Studios
 
 - **Labeled templates**: Labels indicate the status of support (`recommended` or `deprecated`) for a Seqera-managed Studio container template version. Users can migrate a Studio to a new base container template when **Adding as new**.
-- **[Private Studios](https://docs.seqera.io/platform-enterprise/25.1/studios/managing#general-config)**: When adding a new Studio, the number of concurrent connections (private vs. all workspace members) can now be defined in **General Config > Collaboration**.
-- **[Custom Studio session lifespans](https://docs.seqera.io/platform-enterprise/25.1/studios/managing#modify-session-lifespan-for-all-studios)**: This new feature allows you to set a maximum lifespan for a session, after which time the session is stopped automatically and a checkpoint created, or the session can be extended on-demand.
+- **[Private Studios](https://docs.seqera.io/platform-enterprise/latest/studios/managing#general-config)**: When adding a new Studio, the number of concurrent connections (private vs. all workspace members) can now be defined in **General Config > Collaboration**.
+- **[Custom Studio session lifespans](https://docs.seqera.io/platform-enterprise/latest/studios/managing#modify-session-lifespan-for-all-studios)**: This new feature allows you to set a maximum lifespan for a session, after which time the session is stopped automatically and a checkpoint created, or the session can be extended on-demand.
 - **Studios resource labels support**: Users with at least workspace maintainer role permissions can manage the resource labels inherited from the compute environment and attached to the Studio. Resource labels attached to each Studio don’t affect the default resource labels associated with the compute environment.
 
 ### Fusion
