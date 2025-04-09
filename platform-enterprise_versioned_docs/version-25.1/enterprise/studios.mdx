@@ -159,7 +159,7 @@ This procedure describes how to configure Studios for Seqera Enterprise deployme
     :::note
     This assumes that you have an existing Platform installation Ingress already configured with the following fields:
 
-    - `alb.ingress.kubernetes.io/certificate-arn`: The ARN of a wildcard TLS certificate that secures your Platform URL and connect proxy URL. For example, if `CONNECT_PROXY_URL=https://example.com`, the certificate must secure both `example.com` and `*.example.com`.
+    - `alb.ingress.kubernetes.io/certificate-arn`: The ARN of a wildcard TLS certificate that secures your Platform URL and connect proxy URL. For example, if `TOWER_SERVER_URL=https://example.com` and `CONNECT_PROXY_URL=https://connect.example.com`, the certificate must secure both `example.com` and `*.example.com`.
     - `alb.ingress.kubernetes.io/load-balancer-attributes`: The attributes of the ALB Load Balancer used in your Platform installation.
     :::
 
