@@ -12,7 +12,7 @@ Studios is Seqera's in-platform tool for secure, on-demand, interactive data ana
 
 ### Studios
 
-- **Labeled templates**: Labels indicate the status of support (`Recommended` or `Deprecated`) for a Seqera-managed Studio container template version. Users can migrate a Studio to a new base container template when **Adding as new**.
+- **Labeled templates**: Labels indicate the status of support (`recommended` or `deprecated`) for a Seqera-managed Studio container template version. Users can migrate a Studio to a new base container template when **Adding as new**.
 - **Private Studios**: When adding a new Studio, the number of concurrent connections (private vs. all workspace members) can now be defined in **General Config > Collaboration**.
 - **Custom Studio session lifespans**: This new feature allows you to set a maximum lifespan for a session, after which time the session is stopped automatically and a checkpoint created, or the session can be extended on-demand.
 - **Studios resource labels support**: Workspace maintainer role and above users can manage the resource labels inherited from the compute environment and attached to the Studio. Resource labels attached to each Studio don’t affect the default resource labels associated with the compute environment.
@@ -28,12 +28,11 @@ Studios is Seqera's in-platform tool for secure, on-demand, interactive data ana
 - Audit log update: Pipeline edit events are now logged.
 - Switch AWS Batch compute environment dependencies to AWS SDK v2.
 - Switch Compute dependencies to AWS SDK v2.
-When a GitHub pipeline is added or updated, if no user-uploaded icon is defined, the icon will default to the one defined the `manifest.icon` Nextflow config; otherwise, it will use the GitHub organization avatar.
+- When a GitHub pipeline is added or updated, if no user-uploaded icon is defined, the icon will default to the one defined the `manifest.icon` Nextflow config; otherwise, it will use the GitHub organization avatar.
 - New dynamic page title for easy bookmarking.
 - Added `totalProcesses` to workflow progress responses.
 - Implement collapsible view for JSON workflow parameters tab and add **View as YAML** option.
 - Update the pipeline name regular expression to allow pipeline names containing dots ('.').
-- Extend zombie jobs detection on all workflows reaching one of the terminal states (`SUCCEEDED`, `FAILED`, `CANCELLED`).
 - Allow Nextflow configuration parameters with embedded references to other parameters to be shown verbatim.
 - Improved error messaging when pipeline information can't be fetched indicates whether the issue is due to a missing resource, or failed authentication due to expired credentials.
 - Azure jobs are now automatically terminated after all tasks are complete.
@@ -70,7 +69,7 @@ When a GitHub pipeline is added or updated, if no user-uploaded icon is defined,
 
 ### OIDC Secrets injection modifications
 
-The `auth-oidc-secrets` Micronaut environment has now been replaced with `oidc-token-import` naming. If you were using this configuration, the change should be applied in between migration. If you were activating the feature using the `TOWER_OIDC_TOKEN_IMPORT` environment variable then no changes are needed on your side.
+The `auth-oidc-secrets` Micronaut environment has now been replaced with `oidc-token-import` naming. If you are using this configuration, the change should be applied to the `MICRONAUT_ENV` environment variable in the manifest, during the migration proces. If you activate the feature using the `TOWER_OIDC_TOKEN_IMPORT` environment variable then no changes are needed.
 
 ### Seqera AWS ECR repository customer access ends June 1, 2025
 

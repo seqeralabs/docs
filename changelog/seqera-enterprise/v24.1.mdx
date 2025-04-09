@@ -41,7 +41,7 @@ See [Managed identities](https://docs.seqera.io/platform-cloud/credentials/manag
 
 ## Other feature improvements
 
-- A redesigned [pipeline launch form](https://docs.seqera.io/platform-cloud/getting-started/quickstart-demo/launch-pipelines) provides an improved workflow and an interface to create and edit run parameters as raw JSON/YAML. Enable the new launch form per workspace via [environment variable](https://docs.seqera.io/platform/24.2/enterprise/configuration/overview#core-features).
+- A redesigned [pipeline launch form](https://docs.seqera.io/platform-cloud/getting-started/quickstart-demo/launch-pipelines) provides an improved workflow and an interface to create and edit run parameters as raw JSON/YAML. Enable the new launch form per workspace via [environment variable](https://docs.seqera.io/platform-enterprise/24.2/enterprise/configuration/overview#core-features).
 - Retrieve reports from primary compute environment on Nextflow CLI runs. See [Configure reports for Nextflow CLI runs](https://docs.seqera.io/platform-cloud/reports/overview#configure-reports-for-nextflow-cli-runs) for more information. 
 - The standard email login can be disabled via `tower.yml` or an environment variable, provided an alternative OIDC provider is set up first. See [Basic configuration](https://docs.seqera.io/platform-enterprise/latest/enterprise/configuration/overview#basic-configuration) for more information.
 
@@ -82,7 +82,7 @@ Enterprise deployments that have customized this value previously will need to a
     ```bash 
     JAVA_OPTS: -Xms1000M -Xmx2000M -XX:MaxDirectMemorySize=800m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144
     ```
-1. See [Upgrade installation](https://docs.seqera.io/platform/24.2/enterprise/upgrade) for database backup and installation upgrade guidance.
+1. See [Upgrade installation](https://docs.seqera.io/platform-enterprise/24.2/enterprise/upgrade) for database backup and installation upgrade guidance.
 
 :::info
 Docker Compose deployments require downtime while upgrading services. Restarting the application may take several minutes. See [Docker compose deployment](https://docs.seqera.io/platform-enterprise/latest/enterprise/docker-compose) for more information.
