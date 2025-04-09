@@ -15,7 +15,7 @@ Studios is Seqera's in-platform tool for secure, on-demand, interactive data ana
 - **Labeled templates**: Labels indicate the status of support (`recommended` or `deprecated`) for a Seqera-managed Studio container template version. Users can migrate a Studio to a new base container template when **Adding as new**.
 - **[Private Studios](https://docs.seqera.io/platform-enterprise/latest/studios/managing#general-config)**: When adding a new Studio, the number of concurrent connections (private vs. all workspace members) can now be defined in **General Config > Collaboration**.
 - **[Custom Studio session lifespans](https://docs.seqera.io/platform-enterprise/latest/studios/managing#modify-session-lifespan-for-all-studios)**: This new feature allows you to set a maximum lifespan for a session, after which time the session is stopped automatically and a checkpoint created, or the session can be extended on-demand.
-- **Studios resource labels support**: Users with at least workspace maintainer role permissions can manage the resource labels inherited from the compute environment and attached to the Studio. Resource labels attached to each Studio don’t affect the default resource labels associated with the compute environment.
+- **Resource labels**: Users with at least workspace maintainer role permissions can manage the resource labels inherited from the compute environment and attached to the Studio. Resource labels attached to each Studio don’t affect the default resource labels associated with the compute environment.
 
 ### Fusion
 
@@ -47,9 +47,8 @@ Studios is Seqera's in-platform tool for secure, on-demand, interactive data ana
 ## Bug fixes
 
 - **Studios**
-  - Fixed a bug where resource labels were erroneously editable for the Maintain role when starting an existing Studio.
-  - Fixed an issue to ensure that the Maintain role is not able to change resource labels inherited from the selected compute environment when adding/starting a Studio.
-  - Fixed an issue with searches for names containing special SQL wildcard characters (_, %).
+  - Fixed resource labels being erroneously non-editable for the Maintain role when adding or starting a Studio session.
+  - Fixed searches for names containing special SQL wildcard characters (_, %).
 - Prohibit duplicate Git credentials and tie-break on `lastUpdated` for existing duplicates. Going forward, preference is given to the credentials updated last in the situation when there are multiple candidates. Additionally, a duplicate check is added when creating new credentials to avoid new duplicate cases.
 - Set `ECS_CONTAINER_START_TIMEOUT` to 10 minutes in the ECS settings used by AWS Batch CEs in order to prevent the error `Task failed to start - DockerTimeoutError: Could not transition to started; timed out after waiting 3m0s`.
 - Compute environment creation form allows pre- and post-run scripts to be longer than the accepted value of 1024 characters.
@@ -57,13 +56,13 @@ Studios is Seqera's in-platform tool for secure, on-demand, interactive data ana
 - Take into account the alternative `mainScript` path.
 - Use `preferred_username` as fallback email field for OIDC login.
 - Drop the last characters in job definition name, if longer than the prescribed limit.
-- Fixed an issue where users were not able to remove the organization logo.
+- Fixed users not being able to remove the organization logo.
 - Fixed an additional reference to the `mainScript` parameter in the `pipeline-info` API response.
 - Fixed a problem with Entra and `javax.mail` transitive dependency.
 - A change in the nf-core tools template made config profile search in the pipeline launch form inconsistent in Platform as it's prepended by a ternary operator. This release introduces a fix that improves config profile name parsing.
 - Do not fetch info for `INVALID` status pipelines, fetch for all other statuses including `DISABLED`.
 - Fallback to primary compute environment when launching a shared pipeline without an associated compute environment from a private workspace.
-- Fixed an issue where the new Launch Form did not select the primary compute environment by default; now a primary compute environment is selected during quick launch.
+- Fixed regression of the quick launch form not selecting the primary compute environment by default.
 
 ## Breaking changes and warnings
 
