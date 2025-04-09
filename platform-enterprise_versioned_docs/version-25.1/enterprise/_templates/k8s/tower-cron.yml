@@ -21,7 +21,7 @@ spec:
             name: tower-yml
       initContainers:
         - name: migrate-db
-          image: cr.seqera.io/private/nf-tower-enterprise/migrate-db:v25.1
+          image: cr.seqera.io/private/nf-tower-enterprise/migrate-db:v25.1.0
           command: ["sh", "-c", "/migrate-db.sh"]
           envFrom:
             - configMapRef:
