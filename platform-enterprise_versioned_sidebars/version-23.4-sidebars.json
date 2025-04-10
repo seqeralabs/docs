@@ -38,7 +38,7 @@
         },
         {
           "type": "category",
-          "label": "Installation",
+          "label": "Deployment",
           "collapsed": true,
           "items": [
             "enterprise/docker-compose",
