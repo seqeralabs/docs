@@ -12,9 +12,22 @@
         "guide/azure-batch",
         "guide/aws-eks",
         "guide/gcp-gke",
-        "guide/local"
+        {
+          "type": "category",
+          "label": "Local execution",
+          "collapsed": true,
+          "items": [
+            "guide/local/aws-s3",
+            "guide/local/google-cloud",
+            "guide/local/azure-blob",
+            "guide/local/minio",
+            "guide/local/oracle-object"
+          ]
+        }
       ]
     },
+    "licensing",
+    "reference",
     "troubleshooting",
     "faq",
     {

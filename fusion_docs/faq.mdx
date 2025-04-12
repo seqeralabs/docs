@@ -1,5 +1,5 @@
 ---
-title: FAQ
+title: Frequently asked questions
 ---
 
 ### Which cloud object stores does Fusion support?
@@ -38,11 +38,11 @@ No. Fusion can mount multiple buckets per execution, but all from the same vendo
 
 If you didn’t notice any performance improvement with Fusion, the bottleneck may lie in other factors, such as network latency or memory limitations. Fusion’s caching strategy relies heavily on NVMe SSD or similar storage technology, so ensure your computing nodes are using the recommended storage. Check your Platform compute environment page for optimal instance and storage configurations:
 
-- [AWS Batch](https://docs.seqera.io/platform/latest/compute-envs/aws-batch)
-- [Azure Batch](https://docs.seqera.io/platform/latest/compute-envs/azure-batch)
-- [Google Cloud Batch](https://docs.seqera.io/platform/latest/compute-envs/google-cloud-batch)
-- [Amazon EKS](https://docs.seqera.io/platform/latest/compute-envs/eks)
-- [Google GKE](https://docs.seqera.io/platform/latest/compute-envs/gke)
+- [AWS Batch](https://docs.seqera.io/platform-cloud/compute-envs/aws-batch)
+- [Azure Batch](https://docs.seqera.io/platform-cloud/compute-envs/azure-batch)
+- [Google Cloud Batch](https://docs.seqera.io/platform-cloud/compute-envs/google-cloud-batch)
+- [Amazon Elastic Kubernetes Service](https://docs.seqera.io/platform-cloud/compute-envs/eks)
+- [Google Kubernetes Engine](https://docs.seqera.io/platform-cloud/compute-envs/gke)
 
 ### Can I pin a specific Fusion version to use with Nextflow?
 
@@ -59,10 +59,10 @@ fusion {
 For ARM CPU architectures, use https://fusionfs.seqera.io/releases/v2.4.2-arm64.json. 
 :::
 
-### Can I use Fusion with Minio?
+### Can I use Fusion with MinIO?
 
-Yes. [Minio](https://min.io/) implements an S3-compatible API, therefore it can be used instead of AWS S3. See [Local execution with Minio](https://www.nextflow.io/docs/latest/fusion.html#local-execution-with-minio) for more information.
+Yes. [MinIO](https://min.io/) implements an S3-compatible API, therefore it can be used instead of AWS S3. See [Local execution](https://docs.seqera.io/fusion/guide/local/minio) for more information.
 
 ### Can I download Fusion?
 
-No. Fusion can only be used directly in supported [Seqera Platform compute environments](https://docs.seqera.io/platform/latest/compute-envs/overview), or by enabling [Wave containers](https://docs.seqera.io/wave) in your Nextflow configuration.
+No. Fusion can only be used directly in supported [Seqera Platform compute environments](https://docs.seqera.io/platform-cloud/compute-envs/overview), or by enabling [Wave containers](https://docs.seqera.io/wave) in your Nextflow configuration.

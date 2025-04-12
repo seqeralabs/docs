@@ -7,9 +7,9 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: DavidAnson/markdownlint-cli2-action@v15
-      with:
-        # Only finds files with directory, glob, then *.mdx file glob
-        globs: |
-          platform_versioned_docs/**/*.mdx
+      - uses: actions/checkout@v4
+      - uses: DavidAnson/markdownlint-cli2-action@v15
+        with:
+          # Only finds files with directory, glob, then *.mdx file glob
+          globs: |
+            platform-enterprise_versioned_docs/**/*.mdx

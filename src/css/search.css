@@ -1,0 +1,110 @@
+/* Search Box */
+.ais-SearchBox {
+  margin-bottom: 2rem;
+}
+
+.ais-SearchBox-form {
+  display: flex;
+  align-items: center;
+  background-color: var(--aa-input-background);
+  border: 1px solid var(--aa-input-border-color);
+  border-radius: 0.375rem;
+  padding: 0.5rem;
+}
+
+.ais-SearchBox-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+  padding: 0.5rem;
+  color: var(--aa-text-color);
+  outline: none;
+}
+
+.ais-SearchBox-submit,
+.ais-SearchBox-reset {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  color: var(--aa-text-color);
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.ais-SearchBox-submit:hover,
+.ais-SearchBox-reset:hover {
+  opacity: 1;
+}
+
+/* Hits */
+.ais-Hits-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ais-Hits-item {
+  margin-bottom: 1rem;
+  background: white;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.ais-Hits-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Pagination */
+.ais-Pagination {
+  margin-top: 2rem;
+}
+
+.ais-Pagination-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+}
+
+.ais-Pagination-item {
+  margin: 0 0.25rem;
+}
+
+.ais-Pagination-link {
+  display: block;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  color: var(--aa-text-color);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.ais-Pagination-item--selected .ais-Pagination-link {
+  background-color: var(--aa-primary-color);
+  color: white;
+}
+
+.ais-Pagination-item--disabled .ais-Pagination-link {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Dark mode support */
+[data-theme='dark'] {
+  .ais-SearchBox-form {
+    background-color: var(--aa-searchbox-background);
+    border-color: var(--aa-searchbox-border-color);
+  }
+
+  .ais-Hits-item {
+    background: var(--aa-background-color-dark);
+  }
+
+  .ais-Pagination-link {
+    color: var(--aa-text-color-dark);
+  }
+} 

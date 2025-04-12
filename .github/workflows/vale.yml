@@ -9,4 +9,4 @@ jobs:
       - uses: actions/checkout@v4
       - uses: errata-ai/vale-action@v2.1.1
         with:
-          files: '["platform_versioned_docs/version-24.2"]'
+          files: '["platform-enterprise_versioned_docs/version-24.2"]'

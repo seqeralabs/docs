@@ -1,0 +1,10 @@
+import * as React from "react";
+const SvgSearchIcon = (props) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width={17} height={17} viewBox="0 0 166 166" fill="none" {...props}>
+    <path d="M97.8853 118.213L120.012 159.727L133.257 162.542L138.334 149.995L116.208 108.482" stroke="currentColor" stroke-width="4" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M122.881 121.042L104.559 130.78" stroke="currentColor" stroke-width="4" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M134.875 98.5625L79.5416 127.958L24.2083 98.5625V32.8542L79.5416 3.45837L134.875 32.8542V98.5625Z" stroke="currentColor" stroke-width="4" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M38.0417 90.2496V41.1689L79.5417 19.1255L121.042 41.1689V90.2496L79.5417 112.293L38.0417 90.2496Z" stroke="currentColor" stroke-width="4" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+);
+export default SvgSearchIcon;

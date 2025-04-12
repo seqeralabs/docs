@@ -1,6 +1,20 @@
 async function fetchEvents() {
   try {
     const response = await fetch("https://seqera.io/events.json");
+    
+    // Check if the response is ok (status in the range 200-299)
+    if (!response.ok) {
+      console.warn(`Failed to fetch events: ${response.status} ${response.statusText}`);
+      return [];
+    }
+    
+    // Check content type to ensure we're getting JSON
+    const contentType = response.headers.get("content-type");
+    if (!contentType || !contentType.includes("application/json")) {
+      console.warn(`Expected JSON response but got ${contentType}`);
+      return [];
+    }
+    
     const events = await response.json();
     if (!events?.length) return [];
     return events;

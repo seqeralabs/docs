@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: connect-proxy
+  labels:
+    app.kubernetes.io/component: tower-connect-proxy
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: tower-connect-proxy
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: tower-connect-proxy
+    spec:
+      imagePullSecrets:
+        - name: "cr.seqera.io"
+      nodeSelector:
+        kubernetes.io/arch: amd64
+      containers:
+        - name: proxy
+          image: cr.seqera.io/private/nf-tower-enterprise/data-studio/connect-proxy:0.7.2
+          command:
+            - caddy
+            - serve
+          env:
+            - name: CONNECT_HTTP_PORT
+              value: "80"
+            - name: CONNECT_REDIS_ADDRESS
+              value: <CONNECT_REDIS_ADDRESS>:6379
+            - name: CONNECT_REDIS_PREFIX
+              value: "connect:session"
+            - name: CONNECT_REDIS_TLS_ENABLE
+              value: "false"
+            - name: CONNECT_REDIS_DB
+              value: "1"
+            - name: CONNECT_PROXY_URL
+              value: <CONNECT_PROXY_URL>
+            - name: CONNECT_TUNNEL_URL
+              value: connect-server:7070
+            - name: PLATFORM_URL
+              value: <PLATFORM_URL>
+            - name: CONNECT_OIDC_CLIENT_REGISTRATION_TOKEN
+              value: <YOUR_RANDOMLY_GENERATED_SECRET>
+            - name: LOCAL_CACHE_TTL
+              value: 2m
+          ports:
+            - containerPort: 80
+              name: proxy
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: connect-proxy
+  labels:
+    app.kubernetes.io/component: tower-connect-proxy
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      name: connect-proxy
+      targetPort: proxy
+  selector:
+    app.kubernetes.io/component: tower-connect-proxy
