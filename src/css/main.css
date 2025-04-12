@@ -155,3 +155,61 @@ nav.menu .menu__list-item--collapsed .menu__link--sublist:after,
 .theme-code-block code {
   max-width: 100px;
 }
+
+/* Style tweaks experiment */
+html {
+  -webkit-font-smoothing: auto;
+  line-height: 24px;
+}
+html code {
+  color: #C3514D;
+  font-size: 75%;
+  padding: 2px 5px;
+  border-radius: 0;
+  background: #fff;
+  border: 1px solid #e1e4e5;
+}
+html a, html a:visited {
+    color: #3787E5;
+}
+
+html a:hover {
+    color: #77B5FE;
+    text-decoration: none;
+}
+:root {
+  --ifm-code-border-radius: 0;
+}
+html pre code {
+  background-color: #f8f8f8;
+  font-size: 12px !important;
+}
+html .alert {
+  border-radius: 0;
+  border-left-width: 0;
+  padding: 0;
+}
+html .alert > div {
+  padding: 12px;
+  -webkit-font-smoothing: antialiased;
+}
+html .alert > div:first-child {
+  background-color: var(--ifm-alert-border-color);
+  padding: 6px 12px;
+  margin-bottom: 0;
+  color: #fff;
+  text-transform: capitalize;
+}
+html .alert > div:first-child span {
+  font-size: 75%;
+}
+html .alert > div:first-child span svg{
+  fill: #fff;
+}
+/* Special case for "Note" admonitions */
+html .alert--secondary > div:first-child {
+  background-color: #3787E5;
+}
+html .alert--secondary > div:last-child {
+  background-color: #E8F2FF;
+}
