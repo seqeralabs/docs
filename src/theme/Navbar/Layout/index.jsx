@@ -14,6 +14,8 @@ import SeqeraHeader from "./SeqeraHeader";
 import styles from "./styles.module.css";
 import custom from "./styles.custom.module.css";
 import useMediaQuery from "./SeqeraHeader/hooks/useMediaQuery";
+import Search from "@site/src/components/Search/Search";
+
 
 function NavbarBackdrop(props) {
   return (
@@ -94,6 +96,7 @@ export default function NavbarLayout({ children }) {
         </Link>
         {children}
         <NavbarBackdrop onClick={mobileSidebar.toggle} />
+        <Search />
         <NavbarMobileSidebar />
       </nav>
     </Container>

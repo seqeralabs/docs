@@ -14,8 +14,8 @@ const VersionSwitcher = ({ isOpen, setIsOpen }) => {
   const dropdownRef = useRef(null);
   const location = useLocation();
   const { preferredVersion, savePreferredVersionName } =
-    useDocsPreferredVersion("platform");
-  const versions = useVersions("platform");
+    useDocsPreferredVersion("platform-enterprise");
+  const versions = useVersions("platform-enterprise");
   const currentVersion = useDocsVersion();
 
   useEffect(() => {
@@ -38,14 +38,14 @@ const VersionSwitcher = ({ isOpen, setIsOpen }) => {
 
   if (typeof window === "undefined") return null;
   if (!versions) return null;
-  if (!location.pathname.startsWith("/platform")) return null;
+  if (!location.pathname.startsWith("/platform-enterprise/")) return null;
 
   const items = versions.filter(
     (version) => version.label !== currentVersion.label,
   );
 
   // Extract the part of the URL after the current version
-  const currentVersionPrefix = `/platform/${currentVersion.label}`;
+  const currentVersionPrefix = `/platform-enterprise/${currentVersion.label}`;
   const urlSuffix = location.pathname.replace(currentVersionPrefix, "");
 
   return (
