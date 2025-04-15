@@ -12,7 +12,7 @@ and maintain a shared file system in your cluster.
 
 Seqera Platform supports Fusion in Amazon Elastic Kubernetes Service (Amazon EKS) compute environments. 
 
-See [Amazon EKS](https://docs.seqera.io/platform/latest/compute-envs/eks) for Platform instructions to enable Fusion.
+See [Amazon EKS](https://docs.seqera.io/platform-cloud/compute-envs/eks) for Platform instructions to enable Fusion.
 
 ### Nextflow CLI
 
@@ -148,7 +148,7 @@ Create a namespace and a service account in your Kubernetes cluster to run the j
 1. Run the pipeline with the Nextflow run command:
 
     ```
-    nextflow run <YOUR PIPELINE SCRIPT> -w s3://<S3_BUCKET>/work
+    nextflow run <PIPELINE_SCRIPT> -w s3://<S3_BUCKET>/work
     ```
 
     Replace the following:

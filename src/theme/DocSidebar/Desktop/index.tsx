@@ -1,6 +1,5 @@
 import React from "react";
 import TOC from "@theme-original/DocSidebar/Desktop";
-import SearchBar from "@theme-original/SearchBar";
 import NavbarColorModeToggle from "@theme/Navbar/ColorModeToggle";
 import ProductSwitcher from "./ProductSwitcher";
 
@@ -28,7 +27,6 @@ const DesktopWrapper: React.FC<Props> = (props) => {
   return (
     <div className={styles.sidebar}>
       <div className={styles.sidebarHeader}>
-        <SearchBar />
         <ProductSwitcher isDropdown={!!props.sidebar} />
         <div className={styles.sidebarHeaderFade}></div>
       </div>
