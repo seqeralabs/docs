@@ -52,6 +52,18 @@ Security scans and container inspection reports (including container specificati
 
 This guide assumes that all services will be run in the same container as the rest of your Seqera Platform services.
 
+If you were using Studios prior to GA (v25.1) please review the `tower.env` file and add the `TOWER_DATA_STUDIO_TEMPLATES_<TEMPLATE_NAME>_TOOL` variable. The configuration should be as follows: 
+
+```
+TOWER_DATA_STUDIO_TEMPLATES_<TEMPLATE_NAME>_STATUS: 'recommended'
+TOWER_DATA_STUDIO_TEMPLATES_<TEMPLATE_NAME>_REPOSITORY: 'public.cr.seqera.io/platform/data-studio-<template>:4.2.5-0.8'
+TOWER_DATA_STUDIO_TEMPLATES_<TEMPLATE_NAME>_ICON: '<template_name>'
+TOWER_DATA_STUDIO_TEMPLATES_<TEMPLATE_NAME>_TOOL: '<template_name>' 
+TOWER_DATA_STUDIO_TEMPLATES_<TEMPLATE_NAME>_PORT: '8080'
+```
+
+You can also check the current template configuration using `https://towerurl/api/studios/templates?workspaceId=<anyworkspaceId>`. The response should include the `TOOL` configuration which should be `jupyter`/`vscode`/`rstudio`/`xpra` (not `custom`).
+
 ### Prerequisites
 
 - Allow inbound traffic to port 9090 on the EC2 instance
@@ -122,6 +134,18 @@ This guide assumes that all services will be run in the same container as the re
 ## Kubernetes
 
 This procedure describes how to configure Studios for Seqera Enterprise deployments in Kubernetes.
+
+If you were using Studios prior to GA (v25.1) please review the `configmap.yaml` file and add the `TOWER_DATA_STUDIO_TEMPLATES_<TEMPLATE_NAME>_TOOL` variable. The configuration should be as follows: 
+
+```
+TOWER_DATA_STUDIO_TEMPLATES_<TEMPLATE_NAME>_STATUS: 'recommended'
+TOWER_DATA_STUDIO_TEMPLATES_<TEMPLATE_NAME>_REPOSITORY: 'public.cr.seqera.io/platform/data-studio-<template>:4.2.5-0.8'
+TOWER_DATA_STUDIO_TEMPLATES_<TEMPLATE_NAME>_ICON: '<template_name>'
+TOWER_DATA_STUDIO_TEMPLATES_<TEMPLATE_NAME>_TOOL: '<template_name>' 
+TOWER_DATA_STUDIO_TEMPLATES_<TEMPLATE_NAME>_PORT: '8080'
+```
+
+You can also check the current template configuration using `https://towerurl/api/studios/templates?workspaceId=<anyworkspaceId>`. The response should include the `TOOL` configuration which should be `jupyter`/`vscode`/`rstudio`/`xpra` (not `custom`).
 
 ### Procedure
 
