@@ -206,7 +206,7 @@ export default function Home(): JSX.Element {
                       <p className="font-title typo-h4 font-medium">Platform</p>
                     </div>
                     <div className="flex flex-row flex-wrap w-full gap-4">
-                      <Link to="/platform-cloud/getting-started/quickstart-demo/comm-showcase" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800">
+                      <Link to="/platform-cloud" className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border-1 border-brand-200 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800">
                         <div className="w-6 h-6 mb-3 bg-[url('/img/cloud.svg')] dark:bg-[url('/img/cloud-white.svg')] bg-contain bg-no-repeat bg-center"></div>
                         <p className="m-0 text-brand dark:text-white text-lg mb-1">Seqera Cloud</p>
                       </Link>
