@@ -1,0 +1,27 @@
+
+/* Target all code blocks in the theme using more stable selectors */
+.theme-code-block pre,
+[class*="codeBlockContainer"] pre,
+[class*="codeBlock"] pre {
+    max-height: none !important;
+    overflow-y: visible !important;
+    max-width: 100px !important;
+    overflow-x: auto !important;
+}
+
+/* Target scrollbar class specifically in code blocks context */
+.theme-code-block .thin-scrollbar,
+[class*="codeBlockContainer"] .thin-scrollbar {
+    max-height: none !important;
+    overflow-y: visible !important;
+    max-width: 100px !important;
+    overflow-x: auto !important;
+}
+
+/* Additional fallback using generic attribute selectors */
+pre[class*="prism-code"] {
+    max-height: none !important;
+    overflow-y: visible !important;
+    max-width: 100px !important;
+    overflow-x: auto !important;
+}
