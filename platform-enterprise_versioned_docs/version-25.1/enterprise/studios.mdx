@@ -52,6 +52,14 @@ Security scans and container inspection reports (including container specificati
 
 This guide assumes that all services will be run in the same container as the rest of your Seqera Platform services.
 
+If you were using Studios prior to GA (v25.1) please review the `tower.env` file and make sure you are using the latest version which includes a new variable `TOWER_DATA_STUDIO_TEMPLATES_<TEMPLATE_KEY>_TOOL`. This variable needs to be added to the default/Seqera provided Studio templates:
+
+`TOWER_DATA_STUDIO_TEMPLATES_<TEMPLATE_KEY>_TOOL: '<TOOL_NAME>'`
+
+The `TEMPLATE_KEY` can be any string, but the `TOOL_NAME` has to be the template name (`jupyter`/`vscode`/`rstudio`/`xpra`).
+
+You can also check the current template configuration using `https://towerurl/api/studios/templates?workspaceId=<WORKSPACE_ID>`. The response should include the `TOOL` configuration and template name (`jupyter`/`vscode`/`rstudio`/`xpra`) - not `custom`.
+
 ### Prerequisites
 
 - Allow inbound traffic to port 9090 on the EC2 instance
@@ -122,6 +130,14 @@ This guide assumes that all services will be run in the same container as the re
 ## Kubernetes
 
 This procedure describes how to configure Studios for Seqera Enterprise deployments in Kubernetes.
+
+If you were using Studios prior to GA (v25.1) please review the `configmap.yaml` file and make sure you are using the latest version which includes a new variable `TOWER_DATA_STUDIO_TEMPLATES_<TEMPLATE_NAME>_TOOL` which needs to be added to the default/Seqera provided Studio templates:
+
+`TOWER_DATA_STUDIO_TEMPLATES_<TEMPLATE_KEY>_TOOL: '<TOOL_NAME>'`
+
+The `TEMPLATE_KEY` can be any string, but the `TOOL_NAME` has to be the template name (`jupyter`/`vscode`/`rstudio`/`xpra`).
+
+You can also check the current template configuration using `https://towerurl/api/studios/templates?workspaceId=<WORKSPACE_ID>`. The response should include the `TOOL` configuration and template name (`jupyter`/`vscode`/`rstudio`/`xpra`) - not `custom`.
 
 ### Procedure
 
