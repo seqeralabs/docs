@@ -322,9 +322,9 @@ If not described below, use the default settings:
 1. **Name**: Enter a **Pool ID** and **Display Name**. This ID will be used by Seqera and Nextflow.
 1. **Identity**: Select **User assigned** to use a managed identity for the pool. Select **Add** for the user-assigned managed identity and select the managed identity with the correct permissions to the Azure Storage and Batch accounts.
 1. **Operating System**: You can use any Linux-based image here, but it is recommended to use it with a Microsoft Azure Batch-provided image. Note that there are two generations of Azure Virtual Machine images, and certain VM series are only available in one generation. See [Azure Virtual Machine series][az-vm-gen] for more information. For default settings, select the following:
-    - **Publisher**: `microsoft-azure-batch`
+    - **Publisher**: `microsoft-dsvm`
     - **Offer**: `ubuntu-server-container`
-    - **Sku**: `20.04 LTS`
+    - **Sku**: `2204`
     - **Security type**: `standard`
 1. **OS disk storage account type**: Certain VM series only support a specific Storage account type. See [Azure managed disk types][az-disk-type] and [Azure Virtual Machine series][az-vm-gen] for more information. In general, a VM series with the suffix *s* supports a *Premium LRS* Storage account type. For example, a `standard_e16ds_v5` supports `Premium_LRS` but a `standard_e16d_v5` does not. Premium LRS offers the best performance.
 1. **OS disk size**: The size of the OS disk in GB. This must be sufficient to hold every Docker container the VM will run, plus any logging or further files. If you are not using a machine with attached storage, you must increase this disk size to accommodate task files (see VM type below). If you are using a machine with attached storage, this setting can be left at the OS default size.
