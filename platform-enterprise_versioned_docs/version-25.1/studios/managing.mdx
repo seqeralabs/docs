@@ -172,11 +172,15 @@ When defining a new Studio, you can configure the **Mounted data** by selecting 
 
 As Studios matures and new versions of JupyterLab, RStudio Server, Visual Studio Code, and Xpra are released, new Seqera-provided image templates will be periodically released including updated versions of Seqera Connect. The most recent container template images will be tagged `latest` and earlier template images will be tagged `deprecated`.
 
-:::tip
-Always use the `latest` tagged template image for new Studios. Only two earlier minor versions of [Seqera Connect][connect] are supported by Seqera.
+:::info
+Temporary container templates tagged with `experimental` are not supported and should not be used in production environments.
 :::
 
 To migrate a Studio to a more recent container version and Seqera Connect:
+
+:::tip
+Always use the `latest` tagged template image for new Studios. Only two earlier minor versions of [Seqera Connect][connect] are supported by Seqera.
+:::
 
 1. Select the Studio that you wish to migrate from the list of Studios.
 1. Select **Add as new**. By default this selects the latest session checkpoint.
