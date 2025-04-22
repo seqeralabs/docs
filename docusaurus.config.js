@@ -41,7 +41,7 @@ export default async function createConfigAsync() {
       defaultLocale: "en",
       locales: ["en"],
     },
-
+    themes: ['docusaurus-theme-openapi-docs'],
     presets: [
       [
         "classic",
@@ -128,6 +128,16 @@ export default async function createConfigAsync() {
           sidebarPath: "./platform-cloud/cloud-sidebar.json",
         },
       ],
+      [
+        "@docusaurus/plugin-content-docs",
+        {
+          id: "platform-api",
+          routeBasePath: "/platform-api",
+          path: "platform-api-docs/docs",
+          sidebarPath: "platform-api-docs/docs/sidebar.js",
+          docItemComponent: '@theme/ApiItem'
+        },
+      ],      
       [
         "@docusaurus/plugin-content-docs",
         {
