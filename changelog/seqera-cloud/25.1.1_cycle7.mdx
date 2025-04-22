@@ -1,0 +1,36 @@
+---
+title: Seqera Cloud v25.1.0_cycle7
+date: 2025-04-23
+tags: [seqera cloud]
+---
+
+### Feature updates and improvements
+
+2e652bb4b6 Allow dropping multiple files and folders for upload  (#8205)
+5d2265b024 (Zombie Jobs) Introduce a new warning type for compute environment permissions issue (#8339)
+100afe3262 [PLAT-2032] Add support for "array" type parameters in the launch form f301128755 [PLAT-2131] Implement support for multiple extension dataset parameters in the input form (#8361)
+0e86d3d7c8 Add Containers and Wave details in workflow details view  (#8233)
+28bf3a7933 Delete pipeline secrets in the user context from the provider (#8330)
+71d2bb481c [PLAT-1398] Switch to AWS SDK v2 - logs, secrets-manager, marketplace-meter, simple-email (#8268)
+00bb1a955b Show NF config parameters that are binary expressions in launch form (#8302)
+aa09593541 Enabling "revision" control during fresh pipeline launch (#8208)
+FSN-409: Default to use Seqera's optimsed image (#8270)
+Add azure_entra to the provider list of credentials in the openapi spec (#8283)
+Switch AWS S3 to SDK v2 (#8238)
+use env and secrets for scm config (#8288)
+[PLAT-1966] Update tasks table to include task status badges with icons (#8255)
+feat: implement credits management admin pages (#8193)
+
+### Bug fixes
+
+
+3e66655227 fix: rename building data studio in interstial with only studio (#8384)
+257f00c452 fix: Modify client-factory cache expiration policy (#8358)
+7681da4866 fix: missing override for public blob storage client (#8342)
+Now also downloads non-relative manifest icon urls, to ensure we… (#8249)
+The Workflow Details page displays the Edit Labels button even when there are no labels, but resource labels are attached to the workflow (#8277)
+c43ef0f51e tweak: add loading spinner to configProfiles field when suggestions are loading (#8280)
+f3b215590e fix: fallback to primary CE when stepped launch form opened in quick launch mode (#8278)
+tweak: implement CanDeactivate guard to prevent users inadvertently stopping uploads/downloads by changing context
+fix: consider transaction returning null as failed (#8261)
+bugfix(PLAT-1964): Return the status of seqera compute feature flag when requesting at org level only (#8262)
