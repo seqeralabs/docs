@@ -193,6 +193,22 @@ export default async function createConfigAsync() {
           sidebarPath: "./wave_docs/sidebar.json",
         },
       ],
+      [
+        "docusaurus-plugin-openapi-docs",
+        {
+          id: "api", // plugin id
+          docsPluginId: "classic", // configured for preset-classic
+          config: {
+            platform: {
+              specPath: "platform-api-docs/seqera-api-latest.yml",
+              outputDir: "platform-api-docs/docs",
+              sidebarOptions: {
+                groupPathsBy: "tag",
+              },
+            }
+          },
+        },
+      ],
       async function tailwind() {
         return {
           name: "docusaurus-tailwindcss",
