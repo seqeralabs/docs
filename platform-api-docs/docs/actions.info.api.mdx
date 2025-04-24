@@ -1,0 +1,28 @@
+---
+id: actions-info
+title: "Pipeline actions"
+description: "API operations for pipeline actions in Seqera Platform"
+sidebar_label: Actions
+hide_title: false
+custom_edit_url: null
+---
+
+import ApiLogo from "@theme/ApiLogo";
+import Heading from "@theme/Heading";
+import SchemaTabs from "@theme/SchemaTabs";
+import TabItem from "@theme/TabItem";
+import Export from "@theme/ApiExplorer/Export";
+import MDXComponents from "@theme-original/MDXComponents";
+import Button from "@site/src/components/Button";
+
+Actions enable event-based pipeline execution, such as triggering a pipeline launch with a GitHub webhook whenever the pipeline repository is updated. Seqera Platform currently offers support for native GitHub webhooks and a general Tower webhook that can be invoked programmatically.
+
+### Path and query parameters 
+
+::table{file=parameter-tables/actions-query.yml}
+
+### Request body parameters 
+
+::table{file=parameter-tables/actions-req-body.yml}
+
+### Response parameters 

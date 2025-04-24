@@ -1,0 +1,25 @@
+---
+-
+  Name:            '`actionId`'
+  Type:            'String'
+  Req/Opt:         'Required (Path)'
+  Description: >
+    Action string identifier. Required to retrieve, update, or delete a specific pipeline action. Retrieve with a GET request to `/actions`.
+-
+  Name:            '`attributes`'
+  Type:            'Array[String]'
+  Req/Opt:         'Optional'
+  Description: >
+    Additional attribute values to include in the response (`labels`). Returns an empty value (`labels: null`) if omitted.
+- 
+  Name:            '`workspaceId`'
+  Type:            'Int64'
+  Req/Opt:         'Optional'          
+  Description: >
+    Workspace numeric identifier. Retrieve with a GET request to `/workspaces`.
+-
+  Name:            '`name`'
+  Type:            'String'
+  Req/Opt:         'Optional'
+  Description: >
+    Action name to validate for uniqueness when calling GET `/actions/validate`.

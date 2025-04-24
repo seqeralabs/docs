@@ -10,7 +10,8 @@ module.exports = {
     },
     {
       type: "category",
-      label: "actions",
+      label: "Actions",
+      link: {type: 'doc', id: 'actions-info'},
       items: [
         { type: "doc", id: "list-actions", label: "List actions", className: "api-method get" },
         { type: "doc", id: "create-action", label: "Create action", className: "api-method post" },
