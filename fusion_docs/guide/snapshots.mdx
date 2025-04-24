@@ -39,6 +39,7 @@ To use Fusion Snapshots in a Seqera AWS Batch compute environment, set the follo
 ```java
 aws.batch.maxSpotAttempts= 5
 fusion.containerConfigUrl = '<CUSTOM_CONTAINER_URL>'
+process.resourceLimits = [cpus: 32, memory: '60.GB']
 ```
 
 `maxSpotAttempts` must be a value higher than `0`.
