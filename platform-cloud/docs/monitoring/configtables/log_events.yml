@@ -6,7 +6,7 @@
 - 
   Resource:            'Compute environments'
   Events logged:       'Add, edit, edit primary, delete'
-  Note:                'Edit event entries do not include the edited parameters. An entry is also recorded when workspace compute environments are made primary or removed from primary.'
+  Note:                'Log entry includes the compute environment ID. Edit event entries do not include the edited parameters. An entry is also recorded when workspace compute environments are made primary or removed from primary.'
 - 
   Resource:            'Credentials'
   Events logged:       'Add, edit, delete, access'
