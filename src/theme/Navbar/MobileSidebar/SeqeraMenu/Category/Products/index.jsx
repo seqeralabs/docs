@@ -13,7 +13,7 @@ const Products = ({ toggleMenu }) => {
   return (
     <ul className={styles.products}>
       <li>
-        <Link to="/platform" onClick={toggleMenu}>
+        <Link to="/platform-cloud" onClick={toggleMenu}>
           <LogoPlatform />
           <span>Seqera Platform</span>
         </Link>

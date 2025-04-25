@@ -24,23 +24,23 @@ Contentful/relevant files include:
 ```
 ├── README.md
 ├── docusaurus.config.js // website config
-├── platform_versioned_docs // versioned Platform docs
+├── platform-enterprise_versioned_docs // versioned Platform docs
 │   ├── version-22.4.0
 │   ├── version-23.1.0
 │   ├── version-23.2.0
 │   └── version-23.3.0
-├── platform_versioned_sidebars // versioned Platform sidebars
+├── platform-enterprise_versioned_sidebars // versioned Platform sidebars
 │   ├── version-22.4.0-sidebars.json
 │   ├── version-23.1.0-sidebars.json
 │   ├── version-23.2.0-sidebars.json
 │   └── version-23.3.0-sidebars.json
-├── platform_versions.json
+├── platform-enterprise_versions.json
 └── wave_docs // Git submodule
 ```
 
 ### Seqera Platform
 
-The Platform documentation is versioned and lives in the `platform_versioned_docs` directory. Each version in this directory also requires a sidebar config, which lives in the `platform_versioned_sidebars` directory. Versions also need to be specified in `platform_versions.json`. When adding a new latest version, the `docusaurus.config.js` needs to be updated as well.
+The Platform documentation is versioned and lives in the `platform-enterprise_versioned_docs` directory. Each version in this directory also requires a sidebar config, which lives in the `platform-enterprise_versioned_sidebars` directory. Versions also need to be specified in `platform-enterprise_versions.json`. When adding a new latest version, the `docusaurus.config.js` needs to be updated as well.
 
 We have a script which can select a commit (or ideally release tag) to be used for publishing a new version on the docs website.
 
@@ -58,12 +58,12 @@ To publish new content:
 
 1. Create a new branch in the docs repo, such as `gh-issue-number`.
 2. Complete the necessary work.
-4. Raise a PR to merge your updates to master
-5. Add relevant labels to your PR and request reviews from:
+3. Raise a PR to merge your updates to master
+4. Add relevant labels to your PR and request reviews from:
    - Language review from a docs-codeowners member
    - Technical review from the backend engineer or other SME closest to the feature
-6. Check and review the changes using the Netlify preview.
-7. Merge the PR once approved, if you created a new branch in the first step.
+5. Check and review the changes using the Netlify preview.
+6. Merge the PR once approved, if you created a new branch in the first step.
 
 Once merged to the master branch, the changes will be live immediately.
 
@@ -89,7 +89,7 @@ To run Vale, enter the following command:
 vale --glob='**/*.md' .
 ```
 
-You can also specify a limited subset of files, such as `platform_versioned_docs/version-23.4.0` instead of `.`.
+You can also specify a limited subset of files, such as `platform-enterprise_versioned_docs/version-23.4.0` instead of `.`.
 
 ## Creating internal links
 

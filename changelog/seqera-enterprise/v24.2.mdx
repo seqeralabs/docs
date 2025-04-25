@@ -10,19 +10,19 @@ Seqera Enterprise version 24.2 introduces new Data Studios features, global Next
 
 ### Data Studios
  
- - Data Studios now supports [custom environments](https://docs.seqera.io/platform/24.2/data_studios/custom-envs):
+ - Data Studios now supports [custom environments](https://docs.seqera.io/platform-cloud/24.2/data_studios/custom-envs):
     - Create custom analysis environments, or link to public or private ECR containers. 
     - Custom environment build events are now added to the audit log. The events `data_studio_session_build_started` and `data_studio_session_build_failed` are added to the audit log events table.
 - Data Studios dashboard:
-    -  A new [dashboard](https://docs.seqera.io/platform/24.2/monitoring/dashboard#data-studios) provides information about Data Studios usage to help you manage your resources.
-- In a GPU instance type [compute environment](https://docs.seqera.io/platform/24.2/compute-envs/overview), both CPU and GPU resources are supported and can be added to your Data Studio sessions.
+    -  A new [dashboard](https://docs.seqera.io/platform-cloud/24.2/monitoring/dashboard#data-studios) provides information about Data Studios usage to help you manage your resources.
+- In a GPU instance type [compute environment](https://docs.seqera.io/platform-cloud/24.2/compute-envs/overview), both CPU and GPU resources are supported and can be added to your Data Studio sessions.
 - NVMe support added.
-- EFS volume mounting [is now supported](https://docs.seqera.io/platform/24.2/data_studios#limitations).
+- EFS volume mounting [is now supported](https://docs.seqera.io/platform-cloud/24.2/data_studios#limitations).
 - Browse a studio session's mounted data directly from the studio details page using Data Explorer.
 
 ### Nextflow configuration updates
 
-- Added a [Global Nextflow config](https://docs.seqera.io/platform/24.2/launch/advanced#nextflow-config-file) field to all compute environments. This field allows you to define Nextflow configuration values in the compute environment that are then pre-filled in the pipeline Nextflow config file field during launch. 
+- Added a [Global Nextflow config](https://docs.seqera.io/platform-cloud/24.2/launch/advanced#nextflow-config-file) field to all compute environments. This field allows you to define Nextflow configuration values in the compute environment that are then pre-filled in the pipeline Nextflow config file field during launch. 
 - Implemented custom launch container logic in the `workflow/launch` API endpoint. This allows you to specify a custom container using the `launchContainer` key in your request body when submitting a workflow execution. For example:
     ```json 
     {
@@ -39,16 +39,16 @@ Seqera Enterprise version 24.2 introduces new Data Studios features, global Next
 
 ### Azure Batch: Entra service principal and managed identity authentication support
 
-- Authentication using [Microsoft Entra service principals](https://docs.seqera.io/platform/24.2/compute-envs/azure-batch#credentials) is now supported in manual Azure Batch compute environments. This provides a secure alternative to long-lived access keys, as service principals enable role-based access control with more precise permissions.
-- You can now also use a [managed identity](https://docs.seqera.io/platform/24.2/compute-envs/azure-batch#managed-identity) in conjunction with your credentials (access keys or service principals) to authenticate Nextflow to Azure services. The combination of an Entra service principal and user-assigned managed identity offers enhanced security over access keys. Note that both authentication methods are only supported in manual Azure Batch compute environments. 
+- Authentication using [Microsoft Entra service principals](https://docs.seqera.io/platform-enterprise/24.2/compute-envs/azure-batch#credentials) is now supported in manual Azure Batch compute environments. This provides a secure alternative to long-lived access keys, as service principals enable role-based access control with more precise permissions.
+- You can now also use a [managed identity](https://docs.seqera.io/platform-enterprise/24.2/compute-envs/azure-batch#managed-identity) in conjunction with your credentials (access keys or service principals) to authenticate Nextflow to Azure services. The combination of an Entra service principal and user-assigned managed identity offers enhanced security over access keys. Note that both authentication methods are only supported in manual Azure Batch compute environments. 
 
 ### Launchpad
 
-- The new [Launch Form](https://docs.seqera.io/platform/24.2/launch/launchpad#launch-form) is now enabled by default. See [Core feature configuration](https://docs.seqera.io/platform/24.2/enterprise/configuration/overview#core-features) for options to disable the launch form per workspace or globally.
+- The new [Launch Form](https://docs.seqera.io/platform-enterprise/24.2/launch/launchpad#launch-form) is now enabled by default. See [Core feature configuration](https://docs.seqera.io/platform-enterprise/24.2/enterprise/configuration/overview#core-features) for options to disable the launch form per workspace or globally.
 
 ### Compute environments
 
-- AWS Batch Forge compute environments now support Amazon Linux 2023. Previously, Batch Forge only created compute environments with Amazon Linux2. Seqera now supports [specifying Amazon Linux 2023 ECS-optimized AMIs](https://docs.seqera.io/platform/24.2/compute-envs/aws-batch#advanced-options) when you create AWS Batch compute environments. AWS-recommended Amazon Linux 2023 AMI names start with `al2023-`.
+- AWS Batch Forge compute environments now support Amazon Linux 2023. Previously, Batch Forge only created compute environments with Amazon Linux2. Seqera now supports [specifying Amazon Linux 2023 ECS-optimized AMIs](https://docs.seqera.io/platform-cloud/24.2/compute-envs/aws-batch#advanced-options) when you create AWS Batch compute environments. AWS-recommended Amazon Linux 2023 AMI names start with `al2023-`.
 - The Google Life Sciences API will be deprecated in June 2025. A Google Life Sciences API deprecation notice has been added to the Seqera Platform UI. 
 - Tag propagation has been added to the AWS Batch launch templates created by Batch Forge, which propagates resource labels to storage volumes (as well as instances which are the default).
 
@@ -103,9 +103,9 @@ Seqera Enterprise version 24.2 introduces new Data Studios features, global Next
 
 ### Seqera AWS ECR repository customer access ends June 1, 2025
 
-Customers will no longer be able to pull Seqera Enterprise container images from the legacy Seqera AWS ECR repository after June 1, 2025. All Seqera Enterprise images must be retrieved via the `cr.seqera.io` container registry after this cutoff date. The installation and configuration templates provided for both [Docker Compose](https://docs.seqera.io/platform/24.2/enterprise/docker-compose) and [Kubernetes](https://docs.seqera.io/platform/24.2/enterprise/kubernetes) installations already reference the `cr.seqera.io` container image URLs. If you have not yet transitioned to this registry, [contact Support](https://support.seqera.io) to request credentials and for any further assistance. 
+Customers will no longer be able to pull Seqera Enterprise container images from the legacy Seqera AWS ECR repository after June 1, 2025. All Seqera Enterprise images must be retrieved via the `cr.seqera.io` container registry after this cutoff date. The installation and configuration templates provided for both [Docker Compose](https://docs.seqera.io/platform-enterprise/24.2/enterprise/docker-compose) and [Kubernetes](https://docs.seqera.io/platform-enterprise/24.2/enterprise/kubernetes) installations already reference the `cr.seqera.io` container image URLs. If you have not yet transitioned to this registry, [contact Support](https://support.seqera.io) to request credentials and for any further assistance. 
 
-See [Legacy Seqera container image registries](https://docs.seqera.io/platform/24.2/enterprise/advanced-topics/seqera-container-images) for more information on the AWS ECR and other deprecated Seqera container registries. 
+See [Legacy Seqera container image registries](https://docs.seqera.io/platform-enterprise/24.2/enterprise/advanced-topics/seqera-container-images) for more information on the AWS ECR and other deprecated Seqera container registries. 
 
 ### Redis version change
 
@@ -164,12 +164,12 @@ Upgrading to version 24.2 requires backend downtime in order for the database mi
     ```bash
     JAVA_OPTS: -Xms1000M -Xmx2000M -XX:MaxDirectMemorySize=800m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144
     ```
-1. See [Upgrade installation](https://docs.seqera.io/platform/24.2/enterprise/upgrade) for installation upgrade guidance.
+1. See [Upgrade installation](https://docs.seqera.io/platform-enterprise/24.2/enterprise/upgrade) for installation upgrade guidance.
 
 :::info
-Docker Compose deployments require downtime while upgrading services. Restarting the application may take several minutes. See [Docker compose deployment](https://docs.seqera.io/platform/latest/enterprise/docker-compose) for more information.
+Docker Compose deployments require downtime while upgrading services. Restarting the application may take several minutes. See [Docker compose deployment](https://docs.seqera.io/platform-enterprise/latest/enterprise/docker-compose) for more information.
 
-For Kubernetes deployments, apply the 24.2 `tower-cron.yml` to your cron pod and wait for the cron pod to be running before applying the `tower-svc.yml` to your backend pod and restarting the service. If the cron pod update is interrupted, you may need to restore the instance from your DB backup and start again. See [Kubernetes deployment](https://docs.seqera.io/platform/latest/enterprise/kubernetes) for more information. 
+For Kubernetes deployments, apply the 24.2 `tower-cron.yml` to your cron pod and wait for the cron pod to be running before applying the `tower-svc.yml` to your backend pod and restarting the service. If the cron pod update is interrupted, you may need to restore the instance from your DB backup and start again. See [Kubernetes deployment](https://docs.seqera.io/platform-enterprise/latest/enterprise/kubernetes) for more information. 
 
 For custom deployments with third-party services such as ArgoCD, [contact support](https://support.seqera.io) for assistance during upgrade. 
 ::: 
