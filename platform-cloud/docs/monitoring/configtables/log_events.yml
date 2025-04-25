@@ -74,7 +74,7 @@
 - 
   Resource:            'Team members'
   Events logged:       'Add, delete'
-  Note:                'Log entry includes the team member ID. The associated team ID is recorded in the `status` field.'
+  Note:                'Log entry includes the user ID of the team member. The associated team ID is recorded in the `status` field.'
 - 
   Resource:            'Team workspaces'
   Events logged:       'Add, edit, delete'
