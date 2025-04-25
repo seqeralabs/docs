@@ -34,7 +34,7 @@
 - 
   Resource:            'Organization members'
   Events logged:       'Add, update role, delete'
-  Note:                'Log entry includes the organization member ID. The associated organization ID is recorded in the `status` field.'
+  Note:                'Log entry includes the organization member user ID. The associated organization ID is recorded in the `status` field.'
 -   
   Resource:            'Organization settings'
   Events logged:       'Edit'
