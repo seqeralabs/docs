@@ -32,8 +32,6 @@ function BlogSidebarDesktop({sidebar}) {
   const location = useLocation();
   const pathMatch = location.pathname.match(/\/changelog\/(?:tags\/)?([^\/]+)(?:\/v[\d.]+.*)?/);
   const product = pathMatch ? pathMatch[1] : null;
-  const product_platform = product?.includes('seqera') ? 'platform' : product;
-  const returnToDocs = ['multiqc', 'fusion', 'platform', 'wave', 'nextflow'].includes(product_platform) ? product_platform : '';
 
   // Filter the sidebar for just this product
   const filteredItems = product ? items.filter(item => item.permalink.includes(`/changelog/${product}/`)) : items;
@@ -54,7 +52,7 @@ function BlogSidebarDesktop({sidebar}) {
             <RssIcon />
           </Link>
         </div>
-        <Link href={`/${returnToDocs}`} className={styles.backToDocs}>
+        <Link href={`/${product?.replace('seqera', 'platform')}`} className={styles.backToDocs}>
           &larr; back to docs
         </Link>
         <BlogSidebarContent
