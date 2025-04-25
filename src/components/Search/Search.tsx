@@ -258,10 +258,6 @@ export default function Search() {
                               <li className="hover:bg-gray-100 flex flex-row w-full">
                                 <a 
                                   href={item.url} 
-                                  onClick={(e) => {
-                                    e.preventDefault();
-                                    window.location.href = item.url;
-                                  }}
                                   className="aa-ItemLink flex items-center p-3"
                                   tabIndex={0}
                                   aria-label={item.title}

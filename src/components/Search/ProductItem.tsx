@@ -17,15 +17,9 @@ export const closeSearchModal = () => {
 };
 
 export default function ProductItem({ hit, components }) {
-  const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    window.location.href = hit.url;
-  };
-  
   return (
     <a 
       href={hit.url} 
-      onClick={handleClick}
       className="search-item-link px-2 py-2 flex whitespace-pre-wrap  text-blue-600"
     >
       <div className="flex flex-row w-full gap-4">
