@@ -57,8 +57,3 @@ process {
   }
 }
 ```
-:::caution
-Our platform makes every effort to terminate compute resources when a Nextflow pipeline completes or is canceled. However, due to factors outside of our control — including user-defined workflow logic, transient cloud faults, or abnormal pipeline exits — residual resources may persist. We provide visibility and APIs to detect and resolve these states, but the customer retains responsibility for final cleanup and ensuring compute environments behave according to platform expectations.
-
-From Nextflow v24.10+, compute jobs are identifiable by Seqera workflow ID. If you search your AWS console/CLI/API for jobs prefixed by a given workflow ID, you can check the status and perform additional cleanup in edge case scenarios.
-:::
