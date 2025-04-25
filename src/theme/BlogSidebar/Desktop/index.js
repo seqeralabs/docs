@@ -39,7 +39,7 @@ function BlogSidebarDesktop({sidebar}) {
   return (
     <aside className={styles.blogAside}>
       <nav
-        className={clsx(styles.sidebar, 'thin-scrollbar')}
+      //  className={clsx(styles.sidebar, 'thin-scrollbar')}
         aria-label={translate({
           id: 'theme.blog.sidebar.navAriaLabel',
           message: 'Blog recent posts navigation',
