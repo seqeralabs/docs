@@ -5,10 +5,10 @@ date: "17 Mar 2025"
 tags: [docker, compose, kubernetes, studios, deployment]
 ---
 
-Enable Studios as part of your Seqera Platform instance. You must have Data Explorer enabled to use Studios. Only the Amazon AWS public cloud is currently supported.
+Enable Studios as part of your Seqera Platform Enterprise instance. You must have Data Explorer enabled to use Studios. Only the AWS public cloud is currently supported.
 
 :::caution 
-You must complete the upgrade of your Platform Enterprise installation to version 25.1 before enabling and configuring Studios.
+You must upgrade your Seqera Enterprise installation to version 25.1 before you enable and configure Studios.
 :::
 
 ## DNS configuration
@@ -35,7 +35,7 @@ You can configure which organizational workspaces have access to Studios. This c
 
 Each of the provided environments includes a particular version of the underlying software package and the version of Seqera Connect, an integrated web- and file-server.
 
-To quickly identify which version of the software an image includes, the version string for each container is in the form of `<software_version>-<seqera_connect_version>`. For example, if the version string for the RStudio Server is `4.4.1-0.8`, version `4.4.1` is the RStudio version and `0.8` is the Connect version of this Seqera-built container image. Learn more about Studios [environment versioning](../../studios/index.mdx#container-image-templates).
+To quickly identify which version of the software an image includes, the version string for each container is in the form of `<software_version>-<seqera_connect_version>`. For example, if the version string for the RStudio Server is `4.4.1-0.8`, version `4.4.1` is the RStudio version and `0.8` is the Connect version of this Seqera-built container image. Learn more about Studios [environment versioning](../studios/index.mdx#container-image-templates).
 
 The latest environment versions are listed below:
 
@@ -51,6 +51,14 @@ Security scans and container inspection reports (including container specificati
 ## Docker Compose
 
 This guide assumes that all services will be run in the same container as the rest of your Seqera Platform services.
+
+If you were using Studios prior to GA (v25.1) please review the `tower.env` file and make sure you are using the latest version which includes a new variable `TOWER_DATA_STUDIO_TEMPLATES_<TEMPLATE_KEY>_TOOL`. This variable needs to be added to the default/Seqera provided Studio templates:
+
+`TOWER_DATA_STUDIO_TEMPLATES_<TEMPLATE_KEY>_TOOL: '<TOOL_NAME>'`
+
+The `TEMPLATE_KEY` can be any string, but the `TOOL_NAME` has to be the template name (`jupyter`/`vscode`/`rstudio`/`xpra`).
+
+You can also check the current template configuration using `https://towerurl/api/studios/templates?workspaceId=<WORKSPACE_ID>`. The response should include the `TOOL` configuration and template name (`jupyter`/`vscode`/`rstudio`/`xpra`) - not `custom`.
 
 ### Prerequisites
 
@@ -122,6 +130,14 @@ This guide assumes that all services will be run in the same container as the re
 ## Kubernetes
 
 This procedure describes how to configure Studios for Seqera Enterprise deployments in Kubernetes.
+
+If you were using Studios prior to GA (v25.1) please review the `configmap.yaml` file and make sure you are using the latest version which includes a new variable `TOWER_DATA_STUDIO_TEMPLATES_<TEMPLATE_NAME>_TOOL` which needs to be added to the default/Seqera provided Studio templates:
+
+`TOWER_DATA_STUDIO_TEMPLATES_<TEMPLATE_KEY>_TOOL: '<TOOL_NAME>'`
+
+The `TEMPLATE_KEY` can be any string, but the `TOOL_NAME` has to be the template name (`jupyter`/`vscode`/`rstudio`/`xpra`).
+
+You can also check the current template configuration using `https://towerurl/api/studios/templates?workspaceId=<WORKSPACE_ID>`. The response should include the `TOOL` configuration and template name (`jupyter`/`vscode`/`rstudio`/`xpra`) - not `custom`.
 
 ### Procedure
 
