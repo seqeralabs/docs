@@ -21,23 +21,23 @@ To expose your Seqera instance behind a reverse proxy, complete the following st
 
 - If your frontend container listens on `http://tower-frontend:8080` and you're using Apache HTTP as your reverse proxy, add the following lines at the end of your configuration file (replace `/myseqera/` with the URL you defined in `TOWER_BASE_PATH`):
 
-   ```
-   LoadModule proxy_module modules/mod_proxy.so
-   LoadModule proxy_http_module modules/mod_proxy_http.so
-   LoadModule rewrite_module modules/mod_rewrite.so
+  ```sh
+  LoadModule proxy_module modules/mod_proxy.so
+  LoadModule proxy_http_module modules/mod_proxy_http.so
+  LoadModule rewrite_module modules/mod_rewrite.so
 
-   RewriteEngine  on
-   RewriteRule       "^/myseqera/(.*)$"   http://tower-frontend:8080/$1 [P]
-   ProxyPassReverse  "/myseqera/"         http://tower-frontend:8080/
-   RewriteRule       "^/api/(.*)$"       http://tower-frontend:8080/api/$1 [P]
-   ProxyPassReverse  "/api/"             http://tower-frontend:8080/api/
-   RewriteRule       "^/oauth/(.*)$"     http://tower-frontend:8080/oauth/$1 [P]
-   ProxyPassReverse  "/oauth/"           http://tower-frontend:8080/oauth/
-   RewriteRule       "^/openapi/(.*)$"   http://tower-frontend:8080/openapi/$1 [P]
-   ProxyPassReverse  "/openapi/"         http://tower-frontend:8080/openapi/
-   RewriteRule       "^/content/(.*)$"   http://tower-frontend:8080/content/$1 [P]
-   ProxyPassReverse  "/content/"         http://tower-frontend:8080/content/
-   ```
+  RewriteEngine  on
+  RewriteRule       "^/myseqera/(.*)$"   http://tower-frontend:8080/$1 [P]
+  ProxyPassReverse  "/myseqera/"         http://tower-frontend:8080/
+  RewriteRule       "^/api/(.*)$"       http://tower-frontend:8080/api/$1 [P]
+  ProxyPassReverse  "/api/"             http://tower-frontend:8080/api/
+  RewriteRule       "^/oauth/(.*)$"     http://tower-frontend:8080/oauth/$1 [P]
+  ProxyPassReverse  "/oauth/"           http://tower-frontend:8080/oauth/
+  RewriteRule       "^/openapi/(.*)$"   http://tower-frontend:8080/openapi/$1 [P]
+  ProxyPassReverse  "/openapi/"         http://tower-frontend:8080/openapi/
+  RewriteRule       "^/content/(.*)$"   http://tower-frontend:8080/content/$1 [P]
+  ProxyPassReverse  "/content/"         http://tower-frontend:8080/content/
+  ```
 
 - A similar configuration should be applied for NGINX or other reverse proxies. Redirect visits to `/api/`, `/oauth/`, `/openapi/`, and `/content/`.
 

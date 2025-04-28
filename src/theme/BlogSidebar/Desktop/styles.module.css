@@ -1,5 +1,5 @@
 .blogAside {
-  width: var(--doc-sidebar-width) !important;
+  width: var(--doc-sidebar-width) ;
   padding: 30px;
 }
 [data-theme="light"] .blogAside {

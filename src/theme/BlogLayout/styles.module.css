@@ -27,6 +27,6 @@
     flex-wrap: nowrap;
   }
   .blogContent {
-    max-width: 75% !important;
+    max-width: 75% ;
   }
 }

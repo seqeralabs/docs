@@ -1,26 +1,28 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 @layer components {
   .container-xl {
-    @apply mx-auto;
-    max-width: 1440px;
-  }
-
-  .container-lg {
-    @apply mx-auto;
-    max-width: 1248px;
-  }
-
-  .container-md {
-    @apply mx-auto;
-    max-width: 1008px;
-  }
-
-  .container-sm {
-    @apply mx-auto;
-    max-width: 900px;
-  }
+      @apply mx-auto;
+      max-width: 1440px;
+    }
+  
+    .container-lg {
+      @apply mx-auto;
+      max-width: 1248px;
+    }
+  
+    .container-md {
+      @apply mx-auto;
+      max-width: 1008px;
+    }
+  
+    .container-sm {
+      @apply mx-auto;
+      max-width: 900px;
+    }
 
   .typo-display,
   .typo-display span {
@@ -90,7 +92,7 @@ svg.excalidraw path[fill="#fff"] {
   .navbar {
     height: 0;
     width: 0;
-    display: none !important;
+    display: none ;
   }
 }
 
@@ -150,4 +152,17 @@ nav.menu .menu__list-item--collapsed .menu__link--sublist:after,
     background: rgba(0, 0, 0, 0.2);
     color: #98a3ff;
   }
+}
+
+/* Allow Code Block Expansion */
+.theme-code-block pre {
+  max-height: none ;
+  height: auto ;
+  overflow-y: visible ;
+}
+
+.theme-code-block code {
+  max-height: none ;
+  height: auto ;
+  overflow-y: visible ;
 }
