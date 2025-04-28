@@ -22,6 +22,7 @@ This section contains details about the Nextflow execution:
 - The **Configuration** files and the final resolved configuration.
 - The **Execution log** from the main Nextflow process, updated in real-time.
 - Available **Reports**, if any are [configured](../reports/overview.mdx).
+- The **containers** used in the pipeline run.
 
 ### General summary
 
@@ -157,6 +158,22 @@ Select a task in the task table to open the **Task details** dialog. The dialog 
 - **Data Explorer**
 
   If the pipeline work directory is in cloud storage, this tab shows a [Data Explorer](../data/data-explorer.mdx) view of the task's work directory location with the files associated with the task.
+
+- **Container**
+
+  The **Container** tab shows the container details used to run the task, including links to Wave reports, if wave is used.
+
+### Container Details
+The **Container** panel displays the container details used to run the pipeline. The container details include:
+  - **Target image**: The container image used to execute the workflow task.
+  - **Source image**: The container image specified in the workflow configuration, if available.
+  - **Request ID**: The unique request ID associated with the container.
+  - **Request time**: The timestamp when the container request was made.
+  - **Build ID**: The unique build ID assigned when the container was provisioned, and link to the container build report in Wave.
+  - **Mirror ID**: The unique mirror ID assigned when the container was copied between repositories, and link to the container mirror report in Wave.
+  - **Scan ID**: The unique scan ID from the vulnerability security scan of the container, and link to the scan report in Wave.
+  - **Cached**: Indicates whether the container was previously built in an earlier request.
+  - **Freeze**: Indicates whether the container was provisioned for persistent storage using Wave freeze mode.
 
 ### Metrics 
 
