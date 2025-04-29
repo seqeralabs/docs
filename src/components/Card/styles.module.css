@@ -5,7 +5,7 @@
   background: white;
   border-color: var(--ifm-toc-border-color);
   font-size: 14px;
-  color: #160f26 ;
+  color: #160f26;
   transition: all 0.3s;
 }
 .card:hover {
@@ -26,7 +26,7 @@
   box-shadow: 0 0 15px rgba(226, 134, 80);
 }
 .card.platform:hover {
-  box-shadow: 0 0 15px #110C1C;
+  box-shadow: 0 0 15px #110c1c;
 }
 .card.platform svg {
   height: 25px;
@@ -36,9 +36,9 @@
 html[data-theme="dark"] {
   & .card {
     background: rgba(0, 0, 0, 0.5);
-    color: var(--color-brand-300) ;
+    color: var(--color-brand-300);
     & svg path[fill="#160F26"] {
-      fill: var(--color-brand-200) ;
+      fill: var(--color-brand-200);
     }
   }
   & .card.platform:hover {

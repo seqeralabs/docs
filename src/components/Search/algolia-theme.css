@@ -5,13 +5,15 @@
   --aa-input-background: #f9fafb;
   --aa-input-border-color: #e5e7eb;
   --aa-item-hover-color: #f3f4f6;
-  --aa-spacing-half: calc(calc(16*1*1px)/2);
+  --aa-spacing-half: calc(calc(16 * 1 * 1px) / 2);
   /* Add more variables as needed */
 }
 
 .aa-Form {
   background-color: var(--aa-input-background);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.12);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.08),
+    0 1px 2px rgba(0, 0, 0, 0.12);
 }
 
 /* Continue styling using variables */
@@ -42,7 +44,7 @@
   outline: none;
   background-color: transparent;
   @media (min-width: 768px) {
-    font-size: .875rem;
+    font-size: 0.875rem;
   }
 }
 
@@ -78,7 +80,7 @@
 }
 
 .aa-Source[data-autocomplete-source-id="ai-thread"] .aa-Item {
-  padding: .5rem 0;
+  padding: 0.5rem 0;
 }
 
 .aa-Item:hover {
@@ -106,7 +108,8 @@
 }
 
 /* Section headers */
-.aa-SourceHeader, .aa-SourceFooterHeader {
+.aa-SourceHeader,
+.aa-SourceFooterHeader {
   /* padding: 0.35rem .75rem; */
   font-weight: 600;
   /* color: #1f2937; */
@@ -116,7 +119,7 @@
 }
 
 .aa-SourceNoResults {
-  padding: 0.35rem .75rem 0;
+  padding: 0.35rem 0.75rem 0;
 }
 
 .aa-SourceFooter ul {
@@ -145,7 +148,6 @@
   /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.12); */
 }
 
-
 /* .aa-SubmitButton {
   background-color: #0284c7; 
   color: white;
@@ -157,10 +159,9 @@
   color: #0284c7;
 }  */
 
-
 .custom-search-panel {
-  position: fixed ;
+  position: fixed;
 }
 .aa-DetachedContainer .aa-Panel {
-  position: relative ;
+  position: relative;
 }

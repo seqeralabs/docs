@@ -14,10 +14,10 @@ html:not(.plugin-id-platform) .navbar .dropdown {
 }
 
 ol li > p:first-child {
-  margin-top: 0 ;
+  margin-top: 0;
 }
 ol li > p:last-child {
-  margin-bottom: 0 ;
+  margin-bottom: 0;
 }
 
 /**
@@ -29,26 +29,26 @@ Material Design Icons (SVG)
 }
 
 /* Inject theme-specific styling for <details> elements */
-[data-theme='light'] {
+[data-theme="light"] {
   --details-bg: #fff;
   --details-code-bg: rgb(246, 247, 248);
 }
 
-[data-theme='dark'] {
+[data-theme="dark"] {
   --details-bg: rgb(25, 60, 71);
   --details-code-bg: var(--ifm-code-background);
 }
 
 details {
-  background-color: var(--details-bg) ;
-  border-top-width: 0 ;
-  border-bottom-width: 0 ;
-  border-right-width: 0 ;
-  border-left-width: 5px ;
+  background-color: var(--details-bg);
+  border-top-width: 0;
+  border-bottom-width: 0;
+  border-right-width: 0;
+  border-left-width: 5px;
 }
 
 details.alert > div > div {
-  border-top: 1px solid #000 ;
+  border-top: 1px solid #000;
 }
 
 details.alert code {

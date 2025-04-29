@@ -1,7 +1,7 @@
 .products {
   & li {
     & a {
-      display: flex ;
+      display: flex;
       align-items: center;
       & svg {
         width: 16px;
@@ -16,6 +16,6 @@
 }
 html[data-theme="dark"] {
   & .products li a svg path[fill="#160F26"] {
-    fill: white ;
+    fill: white;
   }
 }

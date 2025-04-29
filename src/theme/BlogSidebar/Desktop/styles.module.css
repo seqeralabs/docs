@@ -1,5 +1,5 @@
 .blogAside {
-  width: var(--doc-sidebar-width) ;
+  width: var(--doc-sidebar-width);
   padding: 30px;
 }
 [data-theme="light"] .blogAside {
@@ -60,7 +60,6 @@
   }
 }
 
-
 .backToDocs {
   font-size: 0.9rem;
   color: var(--color-brand-600);
@@ -70,25 +69,25 @@
   color: var(--color-brand-400);
 }
 
-
 .sidebarItemLink {
   border-radius: 5px;
   font-weight: 400;
   font-size: 0.9rem;
   display: block;
   line-height: 1.25;
-  padding: var(--ifm-menu-link-padding-vertical) var(--ifm-menu-link-padding-horizontal);
+  padding: var(--ifm-menu-link-padding-vertical)
+    var(--ifm-menu-link-padding-horizontal);
 }
-[data-theme='light'] .blogAside {
+[data-theme="light"] .blogAside {
   .sidebarItemLink {
     color: #000;
   }
   .sidebarItemLinkActive {
-    background: #E8EBFC;
-    color: #4256E7;
+    background: #e8ebfc;
+    color: #4256e7;
   }
 }
-[data-theme='dark'] .blogAside {
+[data-theme="dark"] .blogAside {
   .sidebarItemLink {
     color: rgba(255, 255, 255, 0.9);
   }
@@ -100,7 +99,6 @@
 
 .sidebarItem {
   margin-top: 0.25rem;
-
 }
 
 .sidebarItemLink:hover {
