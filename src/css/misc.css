@@ -14,10 +14,10 @@ html:not(.plugin-id-platform) .navbar .dropdown {
 }
 
 ol li > p:first-child {
-  margin-top: 0 !important;
+  margin-top: 0 ;
 }
 ol li > p:last-child {
-  margin-bottom: 0 !important;
+  margin-bottom: 0 ;
 }
 
 /**
@@ -40,15 +40,15 @@ Material Design Icons (SVG)
 }
 
 details {
-  background-color: var(--details-bg) !important;
-  border-top-width: 0 !important;
-  border-bottom-width: 0 !important;
-  border-right-width: 0 !important;
-  border-left-width: 5px !important;
+  background-color: var(--details-bg) ;
+  border-top-width: 0 ;
+  border-bottom-width: 0 ;
+  border-right-width: 0 ;
+  border-left-width: 5px ;
 }
 
 details.alert > div > div {
-  border-top: 1px solid #000 !important;
+  border-top: 1px solid #000 ;
 }
 
 details.alert code {
