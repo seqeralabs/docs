@@ -1,7 +1,8 @@
 :global(.theme-doc-sidebar-container) {
-  border-right: 0 !important;
+  border-right: 0;
   margin-top: unset !important;
 }
+
 [data-theme="light"] :global(.theme-doc-sidebar-container) {
   background: rgb(249, 249, 249);
 }
@@ -19,8 +20,8 @@
   }
   /* Remove strange padding around docs sidebar nav */
   & div[class^="sidebar"] {
-    padding-top: 0 !important;
-    width: auto !important;
+    padding-top: 0;
+    width: auto;
   }
 }
 .sidebarHeader {
@@ -30,10 +31,18 @@
 }
 .sidebarHeaderFade {
   height: 15px;
-  background: linear-gradient(180deg, rgba(249,249,249,1) 0%, rgba(249,249,249,0) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(249, 249, 249, 1) 0%,
+    rgba(249, 249, 249, 0) 100%
+  );
 }
 [data-theme="dark"] .sidebarHeaderFade {
-  background: linear-gradient(180deg, rgba(27, 24, 35,0.5) 0%, rgba(27, 24, 35,0) 100%) ;
+  background: linear-gradient(
+    180deg,
+    rgba(27, 24, 35, 0.5) 0%,
+    rgba(27, 24, 35, 0) 100%
+  );
 }
 .sidebarNav {
   margin-top: -15px;
