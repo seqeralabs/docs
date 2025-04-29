@@ -374,3 +374,9 @@ Seqera Platform compute environments for AWS Batch include advanced options to c
 - Add an execution role ARN to the **Batch execution role** field to grant permissions to make API calls on your behalf to the ECS container used by Batch. This is required if the pipeline launched with this compute environment needs access to the secrets stored in this workspace. This field can be ignored if you are not using secrets.
 - Use **AWS CLI tool path** to specify the location of the `aws` CLI.
 - Specify a **CloudWatch Log group** for the `awslogs` driver to stream the logs entry to an existing Log group in Cloudwatch.
+
+:::caution
+Our platform makes every effort to terminate compute resources when a Nextflow pipeline completes or is canceled. However, due to factors outside of our control — including user-defined workflow logic, transient cloud faults, or abnormal pipeline exits — residual resources may persist. We provide visibility and APIs to detect and resolve these states, but the customer retains responsibility for final cleanup and ensuring compute environments behave according to platform expectations.
+
+From Nextflow v24.10+, compute jobs are identifiable by Seqera workflow ID. If you search your AWS console/CLI/API for jobs prefixed by a given workflow ID, you can check the status and perform additional cleanup in edge case scenarios.
+:::
