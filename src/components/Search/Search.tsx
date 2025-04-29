@@ -253,6 +253,9 @@ export default function Search() {
                     getItems() {
                       return [aiThreadItem];
                     },
+                    getItemUrl({ item }) {
+                      return item.url;
+                    },
                     templates: {
                       item({ item }) {
                         return (

@@ -67,9 +67,29 @@ export function Autosearch(props) {
         },
       },
       onSubmit: ({ state, event }) => {
-        event.preventDefault(); // Prevents panel from closing and input from blurring
-        // You can add custom logic here, for example:
-        // window.location.href = `https://seqera.io/ask-ai?prompt=${encodeURIComponent(state.query)}`;
+        event.preventDefault();
+        const query = state.query?.trim();
+        if (!query) {
+          // If the input is empty, do nothing
+          return;
+        }
+        // If there is text but no item is selected
+        if (typeof state.activeItemId !== 'number') {
+          // Find the first non-ai item (docs result) in the collections
+          const collections = state.collections || [];
+          for (const collection of collections) {
+            if (collection.source && collection.source.sourceId === 'docs') {
+              const firstDoc = collection.items && collection.items[0];
+              if (firstDoc && firstDoc.url) {
+                window.location.assign(String(firstDoc.url));
+                return;
+              }
+            }
+          }
+          // If no docs result, do nothing
+          return;
+        }
+        // Otherwise, let Algolia handle navigation (should be handled by navigator)
       },
       ...props,
     });
