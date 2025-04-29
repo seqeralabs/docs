@@ -208,30 +208,33 @@ export default function Search() {
                       templates: {
                         header() {
                           return (
-                            <div className="flex flex-col w-full m-0 p-0">
-                              <ul className="typo-small flex flex-col w-full p-0 m-0">
-                                <li className="hover:bg-gray-100 flex flex-row w-full">
-                                  <a 
-                                    href={aiThreadItem.url} 
-                                    onClick={(e) => {
-                                      e.preventDefault();
-                                      window.location.href = aiThreadItem.url;
-                                    }}
-                                    className="aa-ItemLink flex items-center p-3"
-                                    tabIndex={0}
-                                    aria-label={aiThreadItem.title}
-                                  >
-                                    <div className="aa-ItemContent">
-                                      <div className="flex items-center font-normal">
-                                        <AiIcon className="mr-2 w-5 h-5" />
-                                        {aiThreadItem.title}
+                            // <div className="aa-Item flex flex-col w-full m-0 p-0">
+                            <a 
+                                      href={aiThreadItem.url} 
+                                      className="aa-Item aa-ItemLink hover:bg-gray-100 typo-small flex flex-col w-full m-0 p-3"
+                                      tabIndex={0}
+                                      aria-label={aiThreadItem.title}
+                                    >
+                              <div className="typo-small flex flex-col w-full px-3 py-3 m-0">
+                                <div className="flex flex-row w-full items-center">
+                                  {/* <div className=""> */}
+                                    {/* <a 
+                                      href={aiThreadItem.url} 
+                                      className="aa-ItemLink flex items-center p-3"
+                                      tabIndex={0}
+                                      aria-label={aiThreadItem.title}
+                                    > */}
+                                      <div className="aa-ItemContent">
+                                        <div className="flex items-center font-normal">
+                                          <AiIcon className="mr-2 w-5 h-5" />
+                                          {aiThreadItem.title}
+                                        </div>
                                       </div>
-                                    </div>
-                                  </a>
-                                </li>
-                              </ul>
-                              <div className="text-gray-1000 font-medium typo-small px-3 py-2 mt-1">Documentation</div>
-                            </div>
+                                    {/* </a> */}
+                                  {/* </div> */}
+                                </div>
+                              </div>
+                            </a>
                           );
                         },
                         noResults() {
@@ -253,25 +256,34 @@ export default function Search() {
                     templates: {
                       item({ item }) {
                         return (
-                          <div className="flex flex-col w-full m-0 p-0">
-                            <ul className="typo-small flex flex-col w-full p-0 m-0">
-                              <li className="hover:bg-gray-100 flex flex-row w-full">
-                                <a 
-                                  href={item.url} 
-                                  className="aa-ItemLink flex items-center p-3"
-                                  tabIndex={0}
-                                  aria-label={item.title}
-                                >
-                                  <div className="aa-ItemContent">
-                                    <div className="flex items-center font-normal">
-                                      <AiIcon className="mr-2 w-5 h-5" />
-                                      {item.title}
+                          <a 
+                                    href={item.url} 
+                                    className="aa-Item aa-ItemLink hover:bg-gray-100 typo-small flex flex-col w-full m-0 items-center p-3"
+                                    tabIndex={0}
+                                    aria-label={item.title}
+                                  >
+                          {/* <div className="aa-Item hover:bg-gray-100 typo-small flex flex-col w-full m-0 items-center p-3"> */}
+                            <div className="typo-small flex flex-col w-full py-2 px-4 m-0">
+                              <div className=" flex flex-row w-full">
+                                {/* <div className=""> */}
+                                  {/* <a 
+                                    href={item.url} 
+                                    className="aa-ItemLink flex items-center p-3"
+                                    tabIndex={0}
+                                    aria-label={item.title}
+                                  > */}
+                                    <div className="aa-ItemContent">
+                                      <div className="flex items-center font-normal">
+                                        <AiIcon className="mr-2 w-5 h-5" />
+                                        {item.title}
+                                      </div>
                                     </div>
-                                  </div>
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
+                                  {/* </a> */}
+                                {/* </div> */}
+                              </div>
+                            </div>
+                          {/* </div> */}
+                          </a>
                         );
                       }
                     }
@@ -292,6 +304,9 @@ export default function Search() {
                           },
                         ],
                       });
+                    },
+                    getItemUrl({ item }) {
+                      return item.url;
                     },
                     templates: {
                       item({ item, components }) {
