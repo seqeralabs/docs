@@ -349,10 +349,10 @@ export default function Search() {
       {/* Optional: Add a button to open the search */}
       <div
         onClick={() => setIsOpen(true)}
-        className="md:flex items-center px-3 py-2 rounded-md text-sm text-gray-800 cursor-pointer hover:text-gray-1000 transition-all duration-100 min-w-50 content-center"
+        className="md:flex items-center px-3 py-2 rounded-md text-sm text-gray-800 cursor-pointer hover:text-gray-1000 transition-all duration-100 min-w-[200px] lg:min-w-[25rem] content-center"
         style={{
           boxShadow: "0 0 0 1px rgba(0, 0, 0, 0.25)",
-          height: "44px",
+          height: "40px",
         }}
       >
         <svg

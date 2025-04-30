@@ -65,10 +65,14 @@
   }
 }
 
-@media (max-width: 1023px) {
-  & .logo {
-    width: 114px;
-    height: 24px;
-    margin-left: 4px;
+.navList {
+  list-style-type: none;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  padding-inline-start: 0;
+
+  a {
+    color: var(--color-brand);
+    font-size: .9rem;
   }
 }

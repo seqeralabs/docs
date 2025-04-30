@@ -1,60 +1,55 @@
 import React from "react";
 import clsx from "clsx";
 import Link from "../../_shared/Link";
-
 import NavItem from "./NavItem";
-import AiIcon from "./images/AiIcon.svg";
 import Logo from "./images/Logo.svg";
-import LogoDark from "./images/LogoDark.svg";
-import ContainersIcon from "./images/ContainersIcon.svg";
-import DocsIcon from "./images/DocsIcon.svg";
+import LogoWhite from "./images/LogoWhite.svg";
 import HamburgerIcon from "./images/HamburgerIcon.svg";
-import ForumIcon from "./images/ForumIcon.svg";
-import PipelinesIcon from "./images/PipelinesIcon.svg";
 import LoginButton from "./LoginButton";
-
 import Search from "@site/src/components/Search/Search";
-
 import styles from "./styles.module.css";
 
 const NavItems = ({ isDark = false, hideMenu }) => {
   return (
-    <div className="container-lg w-full px-4 flex items-center justify-between">
-      <div className="flex items-center">
-        <Link to="/" noBorder className="leading-[0]" sameTab>
-          {isDark ? (
-            <LogoDark height={22} width={112} className={styles.logo} />
-          ) : (
-            <Logo height={22} width={112} className={styles.logo} />
-          )}
-        </Link>
+    <div className="container-lg w-full flex flex-col">
+      <div className="h-[72px] w-full flex items-center justify-between">
+        <div className="flex items-center">
+          <Link to="/" noBorder className="leading-[0]" sameTab>
+            {isDark ? (
+              <LogoWhite className={`${styles.logo} ml-[3px]`} />
+            ) : (
+              <Logo className={`${styles.logo} ml-[3px]`}  />
+            )}
+          </Link>
+        </div>
+        <div className="flex items-center">
+          <Search />
+        </div>
+
         {!hideMenu && (
-          <nav className={clsx(styles.nav, { [styles.dark]: isDark })}>
-            <NavItem id="/ask-ai/" simple>
-              Seqera AI
-            </NavItem>
-            <NavItem id="/pipelines/" simple>
-              Pipelines
-            </NavItem>
-            <NavItem id="/containers/" simple>
-              Containers
-            </NavItem>
-            <NavItem id="products">Products</NavItem>
-            <NavItem id="https://community.seqera.io" simple>
-              Forum
-            </NavItem>
-            <NavItem id="https://docs.seqera.io" simple isActive>
-              Docs
-            </NavItem>
-            <NavItem id="resources">
-              <HamburgerIcon />
-            </NavItem>
-          </nav>
-        )}
+            <nav className={clsx(styles.nav, { [styles.dark]: isDark })}>
+              <div className="mr-3">
+                {!hideMenu && <LoginButton isDark={isDark} />}
+              </div>
+              <NavItem id="resources">
+                <HamburgerIcon />
+              </NavItem>
+            </nav>
+          )}
       </div>
-      <div className="flex items-center">
-        <Search />
-        {!hideMenu && <LoginButton isDark={isDark} />}
+      <div className="w-full flex items-center justify-between pb-1">
+        <ul className={`${styles.navList} flex flex-row`}>
+          <li><a className="mr-8" href="">Cloud</a></li>
+          <li><a className="mr-8" href="">Enterprise</a></li>
+          <li><a className="mr-8" href="">Nextflow</a></li>
+          <li><a className="mr-8" href="">Wave</a></li>
+          <li><a className="mr-8" href="">MultiQC</a></li>
+          <li><a className="mr-8" href="">Fusion</a></li>
+        </ul>
+        <ul className={`${styles.navList} flex flex-row`}>
+          <li><a className="ml-8" href="">Training</a></li>
+          <li><a className="ml-8" href="">Platform API</a></li>
+        </ul>
       </div>
     </div>
   );
