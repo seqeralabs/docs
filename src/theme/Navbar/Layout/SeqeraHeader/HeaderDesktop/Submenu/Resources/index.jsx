@@ -1,8 +1,6 @@
 import React from "react";
 import clsx from "clsx";
-
 import Link from "../shared/Link";
-import EventPanel from "../shared/EventPanel";
 
 import {
   About,
@@ -23,28 +21,20 @@ import {
 } from "../shared/icons";
 
 const links = {
-  Education: [
-    ["Documentation", "https://docs.seqera.io/", Docs],
+  Help: [
+    ["Forum", "https://community.seqera.io", Forum],
+    ["Support Portal", "https://support.seqera.io", Support],
+    ["Nextflow Slack", "https://community.seqera.io", Forum],
+    ["Seqera AI", "/ask-ai", Forum],
+  ],
+  Resources: [
     ["Podcast", "/podcasts/", Podcast],
     ["Blog", "/blog/", Blog],
   ],
-  Community: [
-    ["Forum", "https://community.seqera.io", Forum],
-    ["nf-core", "https://nf-co.re/", Core],
-    ["Events", "/events/", Events],
-    ["Feedback", "/feedback/", Feedback],
-  ],
-  Resources: [
-    ["Partners", "/partners-and-platforms/", Partners],
-    ["Case studies", "/case-studies/", CaseStudies],
-    ["Support", "https://support.seqera.io", Support],
-    ["Whitepapers", "/whitepapers/", Whitepapers],
-  ],
   Company: [
-    ["About us", "/about/", About],
-    ["Careers", "/careers/", Careers],
-    ["Press", "/news/", Press],
+    ["Seqera.io", "/about/", About],
     ["Contact us", "/contact-us/", Contact],
+    ["Submit Feedback", "/feedback/", Feedback],
   ],
 };
 
@@ -78,8 +68,8 @@ const LinkItem = ({ to, children }) => {
 
 const Column = ({ title, links }) => {
   return (
-    <div className="flex flex-col items-start w-[25%]">
-      <h3 className="text-[12px] font-display text-brand-700 font-semibold font-title mt-[2px] mb-[2px]">
+    <div className="flex flex-col items-start min-w-[200px]">
+      <h3 className="text-[.8rem] font-display text-brand-700 font-semibold mt-[2px] mb-[2px]">
         {title}
       </h3>
       <ul className="mt-2 -mx-2 p-0 list-none">
@@ -103,9 +93,6 @@ const Resources = () => {
         {Object.entries(links).map(([title, links]) => (
           <Column key={title} title={title} links={links} />
         ))}
-      </div>
-      <div className="w-[32%]">
-        <EventPanel />
       </div>
     </div>
   );

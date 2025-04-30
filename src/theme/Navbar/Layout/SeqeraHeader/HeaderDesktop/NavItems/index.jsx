@@ -8,8 +8,13 @@ import HamburgerIcon from "./images/HamburgerIcon.svg";
 import LoginButton from "./LoginButton";
 import Search from "@site/src/components/Search/Search";
 import styles from "./styles.module.css";
+import Hamburger from "./Hamburger"
+import { useHeaderContext } from "../../context";
 
 const NavItems = ({ isDark = false, hideMenu }) => {
+  const { hasScrolled, isMenuOpen, toggleMobileMenu, headerType, isHeaderVisible } =
+  useHeaderContext();
+  
   return (
     <div className="container-lg w-full flex flex-col">
       <div className="h-[72px] w-full flex items-center justify-between">
@@ -32,7 +37,7 @@ const NavItems = ({ isDark = false, hideMenu }) => {
                 {!hideMenu && <LoginButton isDark={isDark} />}
               </div>
               <NavItem id="resources">
-                <HamburgerIcon />
+                <Hamburger isOpen={isMenuOpen} toggleMenu={toggleMobileMenu} />
               </NavItem>
             </nav>
           )}
@@ -46,7 +51,7 @@ const NavItems = ({ isDark = false, hideMenu }) => {
           <li><a className="mr-8" href="">MultiQC</a></li>
           <li><a className="mr-8" href="">Fusion</a></li>
         </ul>
-        <ul className={`${styles.navList} flex flex-row`}>
+        <ul className={`${styles.navList} flex flex-row mr-2`}>
           <li><a className="ml-8" href="">Training</a></li>
           <li><a className="ml-8" href="">Platform API</a></li>
         </ul>

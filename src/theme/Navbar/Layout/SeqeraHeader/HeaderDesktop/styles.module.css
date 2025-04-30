@@ -2,7 +2,7 @@
   --headerHeight: 114px;
 }
 .header {
-  z-index: 20;
+  z-index: 999;
   position: fixed;
   /* height: var(--headerHeight); */
   display: flex;
