@@ -152,6 +152,7 @@ Batch Forge automatically creates resources that you may be charged for in your 
 
     </details>
 
+1. Select **Enable Fusion Snapshots (beta)** to enable Fusion to automatically restore jobs that are interrupted when an AWS Spot instance reclamation occurs. Requires Fusion v2. See [Fusion Snapshots](https://docs.seqera.io/fusion/guide/snapshots) for more information.
 1. Set the **Config mode** to **Batch Forge**.
 1. Select a **Provisioning model**. In most cases, this will be **Spot**. You can specify an allocation strategy and instance types under [**Advanced options**](#advanced-options). If advanced options are omitted, Seqera Platform 23.2 and later versions default to `BEST_FIT_PROGRESSIVE` for On-Demand and `SPOT_CAPACITY_OPTIMIZED` for Spot compute environments.
     :::note
@@ -343,6 +344,7 @@ Your Seqera compute environment uses resources that you may be charged for in yo
 
     </details>
 
+1. Select **Enable Fusion Snapshots (beta)** to enable Fusion to automatically restore jobs that are interrupted when an AWS Spot instance reclamation occurs. Requires Fusion v2. See [Fusion Snapshots](https://docs.seqera.io/fusion/guide/snapshots) for more information.
 1. Set the **Config mode** to **Manual**.
 1. Enter the **Head queue**, which is the name of the AWS Batch queue that the Nextflow main job will run.
 1. Enter the **Compute queue**, which is the name of the AWS Batch queue where tasks will be submitted.
