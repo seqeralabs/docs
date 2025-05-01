@@ -5,10 +5,6 @@ date: "23 Aug 2024"
 tags: [fusion, storage, compute, file system, snapshot]
 ---
 
-:::info
-Fusion Snapshots is in private preview. [Contact Seqera](https://support.seqera.io) to request access to this feature. 
-:::
-
 Fusion Snapshots enable you to create a checkpoint of a running Nextflow process and restore it on a different machine. Leveraging the Fusion file system, you can move the task between different instances connected to the same S3 bucket.
 
 More specifically, the first use case for this feature is for Seqera Platform users to leverage AWS Spot instances without restarting an entire task from scratch if an instance is terminated. When a Spot instance interruption occurs, the task is restored from the last checkpoint on a new AWS instance, saving time and computational resources.
@@ -28,20 +24,9 @@ Fusion Snapshots v1.0.0 requires the following [Seqera compute environment](http
 - **Instance types**: See recommended instance sizes below
 - **AMI ID**: Amazon Linux 2023 ECS Optimized
 
-### Enable Snapshots via Nextflow config 
+### Enable Snapshots 
 
-:::note
-Fusion Snapshots is a private preview feature that requires setting a custom `fusion.containerConfigUrl`. [Contact Seqera](https://support.seqera.io) to request access to this feature. 
-:::
-
-To use Fusion Snapshots in a Seqera AWS Batch compute environment, set the following Nextflow config values in the **Nextflow config** field under **Staging options**: 
-
-```java
-aws.batch.maxSpotAttempts= 5
-fusion.containerConfigUrl = '<CUSTOM_CONTAINER_URL>'
-```
-
-`maxSpotAttempts` must be a value higher than `0`.
+To use Fusion Snapshots in a Seqera AWS Batch compute environment, select **Enable Fusion Snapshots (beta)** during compute environment creation. When Fusion Snapshots are enabled, the Nextflow Spot reclamation retry setting automatically defaults to `maxSpotAttempts = 5`. 
 
 ### EC2 instance selection guidelines
 
@@ -58,15 +43,23 @@ Instances with memory:bandwitdth ratios over 5:1 may not complete transfers befo
 
 #### Recommended instance types
 
-| Instance type  | Memory (GiB) | Network bandwidth (Gbps) | Memory:bandwidth ratio | Est. Snapshot time|
-|----------------|--------------|--------------------------|------------------------|-------------------|
-| c6id.4xlarge   | 32           | 12.5                     | 2.56:1                 | ~45 seconds       |
-| c6id.8xlarge   | 64           | 12.5                     | 5.12:1                 | ~70 seconds       |
-| r6id.2xlarge   | 64           | 12.5                     | 5.12:1                 | ~70 seconds       |
-| m6id.4xlarge   | 64           | 12.5                     | 5.12:1                 | ~70 seconds       |
-| c6id.12xlarge  | 96           | 18.75                    | 5.12:1                 | ~70 seconds       |
-| r6id.4xlarge   | 128          | 12.5                     | 10.24:1                | ~105 seconds      |
-| m6id.8xlarge   | 128          | 25                       | 5.12:1                 | ~70 seconds       |
+| Instance type  | Cores | Memory (GiB) | Network bandwidth (Gbps) | Memory:bandwidth ratio | Est. Snapshot time|
+|----------------|-------|--------------|--------------------------|------------------------|-------------------|
+| c6id.4xlarge   | 16    | 32           | 12.5                     | 2.56:1                 | ~45 seconds       |
+| c6id.8xlarge   | 32    | 64           | 12.5                     | 5.12:1                 | ~70 seconds       |
+| r6id.2xlarge   | 8     | 16           | 12.5                     | 1.28:1                 | ~20 seconds       |
+| m6id.4xlarge   | 16    | 64           | 12.5                     | 5.12:1                 | ~70 seconds       |
+| c6id.12xlarge  | 48    | 96           | 18.75                    | 5.12:1                 | ~70 seconds       |
+| r6id.4xlarge   | 16    | 128          | 12.5                     | 10.24:1                | ~105 seconds      |
+| m6id.8xlarge   | 32    | 128          | 25                       | 5.12:1                 | ~70 seconds       |
+
+It's possible for a single job to request more resources than are available on a single instance. In this case, the job will wait indefinitely and never progress to running. To prevent this from occurring, you should set the maximum resources requested to below the size of a single instance listed above. This can be configured using the `process.resourceLimits` directive in your Nextflow configuration. For example, to limit a single process to fit within a c6id.8xlarge machine, you could set the following:
+
+```groovy
+process.resourceLimits = [cpus: 32, memory: '60.GB']
+```
+
+Note that if a process requests the maximum CPUs and memory in the table above, it will not be satisfiable by a single instance and therefore fail to be assigned to a machine.
 
 ### (Seqera Enterprise only) Select an Amazon Linux 2023 ECS-optimized AMI 
 

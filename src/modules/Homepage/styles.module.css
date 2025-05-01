@@ -19,7 +19,7 @@ a {
 
 pre,
 code {
-  max-height: 300px !important;
+  max-height: 300px;
 }
 
 .page {
