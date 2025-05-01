@@ -191,7 +191,8 @@ export default function Search() {
                   panel: 'custom-search-panel',
                   item: 'custom-search-item',
                 }}
-                getSources={({ query }) => {
+                getSources={({ query, state }) => {
+                  
                   const aiThreadItem = {
                     id: 'ai-thread',
                     url: query ? `https://seqera.io/ask-ai?prompt=${query}` : 'https://seqera.io/ask-ai',
@@ -208,30 +209,20 @@ export default function Search() {
                       templates: {
                         header() {
                           return (
-                            // <div className="aa-Item flex flex-col w-full m-0 p-0">
                             <a 
-                                      href={aiThreadItem.url} 
-                                      className="aa-Item aa-ItemLink hover:bg-gray-100 typo-small flex flex-col w-full m-0 p-3"
-                                      tabIndex={0}
-                                      aria-label={aiThreadItem.title}
-                                    >
+                              href={aiThreadItem.url} 
+                              className="aa-Item aa-ItemLink hover:bg-gray-100 typo-small flex flex-col w-full m-0 p-3"
+                              tabIndex={0}
+                              aria-label={aiThreadItem.title}
+                            >
                               <div className="typo-small flex flex-col w-full px-3 py-3 m-0">
                                 <div className="flex flex-row w-full items-center">
-                                  {/* <div className=""> */}
-                                    {/* <a 
-                                      href={aiThreadItem.url} 
-                                      className="aa-ItemLink flex items-center p-3"
-                                      tabIndex={0}
-                                      aria-label={aiThreadItem.title}
-                                    > */}
-                                      <div className="aa-ItemContent">
-                                        <div className="flex items-center font-normal">
-                                          <AiIcon className="mr-2 w-5 h-5" />
-                                          {aiThreadItem.title}
-                                        </div>
-                                      </div>
-                                    {/* </a> */}
-                                  {/* </div> */}
+                                  <div className="aa-ItemContent">
+                                    <div className="flex items-center font-normal">
+                                      <AiIcon className="mr-2 w-5 h-5" />
+                                      {aiThreadItem.title}
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                             </a>
@@ -247,90 +238,81 @@ export default function Search() {
                       }
                     }];
                   }
-                  
-                  return [{
-                    sourceId: 'ai-thread',
-                    getItems() {
-                      return [aiThreadItem];
-                    },
-                    getItemUrl({ item }) {
-                      return item.url;
-                    },
-                    templates: {
-                      item({ item }) {
-                        return (
-                          <a 
-                                    href={item.url} 
-                                    className="aa-Item aa-ItemLink hover:bg-gray-100 typo-small flex flex-col w-full m-0 items-center p-3"
-                                    tabIndex={0}
-                                    aria-label={item.title}
-                                  >
-                          {/* <div className="aa-Item hover:bg-gray-100 typo-small flex flex-col w-full m-0 items-center p-3"> */}
-                            <div className="typo-small flex flex-col w-full py-2 px-4 m-0">
-                              <div className=" flex flex-row w-full">
-                                {/* <div className=""> */}
-                                  {/* <a 
-                                    href={item.url} 
-                                    className="aa-ItemLink flex items-center p-3"
-                                    tabIndex={0}
-                                    aria-label={item.title}
-                                  > */}
-                                    <div className="aa-ItemContent">
-                                      <div className="flex items-center font-normal">
-                                        <AiIcon className="mr-2 w-5 h-5" />
-                                        {item.title}
-                                      </div>
+                  return [
+                    {
+                      sourceId: 'ai-thread',
+                      getItems() {
+                        return [aiThreadItem];
+                      },
+                      getItemUrl({ item }) {
+                        return item.url;
+                      },
+                      templates: {
+                        item({ item }) {
+                          return (
+                            <a 
+                              href={item.url} 
+                              className="aa-Item aa-ItemLink hover:bg-gray-100 typo-small flex flex-col w-full m-0 items-center p-3"
+                              tabIndex={0}
+                              aria-label={item.title}
+                            >
+                              <div className="typo-small flex flex-col w-full py-2 px-4 m-0">
+                                <div className=" flex flex-row w-full">
+                                  <div className="aa-ItemContent">
+                                    <div className="flex items-center font-normal">
+                                      <AiIcon className="mr-2 w-5 h-5" />
+                                      {item.title}
                                     </div>
-                                  {/* </a> */}
-                                {/* </div> */}
+                                  </div>
+                                </div>
                               </div>
-                            </div>
-                          {/* </div> */}
-                          </a>
-                        );
+                            </a>
+                          );
+                        }
                       }
-                    }
-                  },
-                  {
-                    sourceId: 'docs',
-                    getItems() {
-                      return getAlgoliaResults({
-                        searchClient,
-                        queries: [
-                          {
-                            indexName: envIndexName,
-                            params: {
-                              query,
-                              hitsPerPage: 5,
-                              attributesToHighlight: ['*'],
+                    },
+                    {
+                      sourceId: 'docs',
+                      getItems() {
+                        return getAlgoliaResults({
+                          searchClient,
+                          queries: [
+                            {
+                              indexName: envIndexName,
+                              params: {
+                                query,
+                                hitsPerPage: 5,
+                                attributesToHighlight: ['*'],
+                              },
                             },
-                          },
-                        ],
-                      });
-                    },
-                    getItemUrl({ item }) {
-                      return item.url;
-                    },
-                    templates: {
-                      item({ item, components }) {
-                        return <ProductItem hit={item} components={components} />;
+                          ],
+                        });
                       },
-                      header() {
-                        return (
-                          <div className="text-gray-1000 font-medium typo-small px-3 py-2 mt-1">Documentation</div>
-                        );
+                      getItemUrl({ item }) {
+                        return item.url;
                       },
-                      noResults({ state }) {
-                        return (
-                          <div className="typo-small">
-                            <p className="text-gray-1000 font-medium typo-small">No results for "<b>{`${state?.query}`}</b>"</p>
-                          </div>
-                        );
+                      templates: {
+                        item({ item, components }) {
+                          return <ProductItem hit={item} components={components} />;
+                        },
+                        header() {
+                          return (
+                            <div className="text-gray-1000 font-medium typo-small px-3 py-2 mt-1">Documentation</div>
+                          );
+                        },
+                        noResults({ state }) {
+                          return (
+                            <div className="typo-small">
+                              <p className="text-gray-1000 font-medium typo-small">No results for "<b>{`${state?.query}`}</b>"</p>
+                            </div>
+                          );
+                        }
                       }
                     }
-                  }];
+                  ];
                 }}
-                debug={true}
+                // this should only be used for debugging on dev/staging
+                // debug={true}
               />
             </div>
           </div>
