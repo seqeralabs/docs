@@ -21,29 +21,31 @@ However, default values for components (such as Nextflow) may change between ver
 Please refer to the [functionality matrix](../functionality_matrix) for detailed information regarding default component versions.
 :::
 
-# Pre-upgrade Planning
+## Pre-upgrade Planning
 
 The following external services are required for a deployment of Seqera Platform Enterprise:
 
 - **Redis**: Version 7 is officially supported (minimum required version is 6.2).
 - **MySQL**: Version 8 is officially supported (minimum required version is 5.7).
 
-# Seqera container images
+## Container Images
 
 Seqera is distributed as a collection of containers available through the [Seqera container registry](https://cr.seqera.io).
 To obtain access credentials, please contact [Seqera Support](https://support.seqera.io).
 
 For production deployments, we recommend mirroring these containers to your own registry to enhance stability and reliability.
 
-Seqera images publised as part of this release are available at 
+Seqera images published as part of this release are available at:
 
 - cr.seqera.io/private/nf-tower-enterprise/frontend:v25.1.1
 - cr.seqera.io/private/nf-tower-enterprise/backend:v25.1.1
 - cr.seqera.io/private/nf-tower-enterprise/migrate-db:v25.1.1
 
-# Back up Seqera
+## Database Backup
 
-MySQL
+Seqera version upgrades may include database schema and data modifications. Before proceeding with any upgrade, create a complete backup of your Seqera Platform database and any associated database instances.
+
+To create a backup of your MySQL database:
 
 ```shell
 backup:
@@ -53,25 +55,62 @@ restore:
 > mysql -u root -p [seqera_db_identifier] < seqera_backup.sql
 ```
 
-# Breaking changes and migration requirements
+:::tip
+- Store your backup in a secure location separate from your production environment
+- Verify the backup file size and contents before proceeding with the upgrade
+:::
+
+If you're using a managed database service (such as Amazon RDS), follow your provider's recommended backup procedures. For containerized databases, ensure your volume mounts are properly configured to persist data.
+
+## Docker Compose Configuration
+
+For Docker Compose deployments, the upgrade process requires updating configuration files and container versions. Refer to the [Docker Compose deployment guide](../enterprise/docker-compose) for detailed instructions.
+
+### Configuration Files
+
+Key configuration files to review and update:
+
+- `docker-compose.yml`: Update container image versions to 25.1.1
+- `tower.env`: Verify environment variables and configuration values
+- `configmap.yml`: Review and update any custom configurations
+
+### Documentation
+
+For detailed configuration options and deployment instructions, refer to:
+- [Docker Compose deployment](../enterprise/docker-compose)
+- [Configuration overview](../enterprise/configuration/overview)
+- [Environment variables](../enterprise/configuration/overview#environment-variables)
+
+## Kubernetes Configuration
+
+For Kubernetes deployments, the upgrade process requires updating manifests and container versions. Refer to the [Kubernetes deployment guide](../enterprise/kubernetes) for detailed instructions.
+
+### Configuration Files
+
+Key configuration files to review and update:
+
+- `tower-cron.yml`: Update container image versions to 25.1.1
+- `tower-svc.yml`: Update container image versions to 25.1.1
+- `configmap.yml`: Review and update any custom configurations
+- `tower.env`: Verify environment variables and configuration values
+
+### Documentation
+
+For detailed configuration options and deployment instructions, refer to:
+- [Kubernetes deployment](../enterprise/kubernetes)
+- [Configuration overview](../enterprise/configuration/overview)
+- [Environment variables](../enterprise/configuration/overview#environment-variables)
+
+## Breaking Changes
 
 Seqera Platform contains no breaking changes for the 25.1 release.
 
-# Upgrade Seqera
-
-## Upgrade Steps.
-
-1. Stop all running services and pipelines.
-1. Perform database migrations.
-1. Start the backend
-1. Start the frontend
-
-# Support
+## Support
 
 For assistance with your upgrade, please contact [Seqera Support](https://support.seqera.io) with the following information:
 
 - Your current Seqera version
 - Your current MySQL version
-- You current Redis version
+- Your current Redis version
 - Details of your deployment environment
 - Any error messages or logs from the upgrade process
