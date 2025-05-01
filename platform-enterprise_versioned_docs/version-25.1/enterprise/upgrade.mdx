@@ -40,3 +40,71 @@ If you must host your nf-launcher container image on a private image registry, c
 :::caution
 If you're using AWS Batch, you will need to [configure a custom job definition](./advanced-topics/custom-launch-container.mdx) and populate the `TOWER_LAUNCH_CONTAINER` with the job definition name instead.
 :::
+
+
+
+## Upgrading to v25.1
+
+Seqera Enterprise 25.1 is a major version release as such this requires downtime for reasons...
+
+:::warning
+Upgrading to version 25.1 requires backend downtime in order for the database migration to complete successfully. Do not start the upgrade while any pipelines are in a `running` state as active run data may be lost.
+:::
+
+### Prerequisites
+- Redis version 6.2 or greater is required.
+- Redis version 7 is officially supported.
+- MySQL 5.7 or greater is required.
+- MySQL 8.0 or greater is officially supported.
+
+### Breaking changes
+
+#### Seqera AWS ECR repository customer access ends June 1, 2025
+
+Customers will no longer be able to pull Seqera Enterprise container images from the legacy Seqera AWS ECR repository after June 1, 2025. All Seqera Enterprise images must be retrieved via the `cr.seqera.io` container registry after this cutoff date.
+
+**Action required:**
+
+- The installation and configuration templates provided for both [Docker Compose](https://docs.seqera.io/platform-enterprise/25.1/enterprise/docker-compose) and [Kubernetes](https://docs.seqera.io/platform-enterprise/25.1/enterprise/kubernetes) installations already reference the `cr.seqera.io` container image URLs.
+- If you have not yet transitioned to this registry, [contact Support](https://support.seqera.io) to request credentials and for any further assistance.
+- See [Legacy Seqera container image registries](https://docs.seqera.io/platform/25.1/platform-enterprise/advanced-topics/seqera-container-images) for more information.
+
+#### OIDC Secrets injection modifications
+
+The `auth-oidc-secrets` Micronaut environment has been replaced with `oidc-token-import`.
+
+**Action required:**
+
+- If you use this configuration, you must change the `MICRONAUT_ENV` environment variable in the manifest during the migration process.
+- If you activate the feature with the `TOWER_OIDC_TOKEN_IMPORT` environment variable, no changes are needed.
+
+:::note
+Set `TOWER_REDIS_*` values directly in the `tower.yml` or AWS Parameter Store entry (for example, `TOWER_REDIS_URL: redis://...`).
+:::
+
+#### MariaDB driver: New MySQL connection parameter required
+
+MariaDB driver 3.x requires a special parameter in the connection URL to connect to a MySQL database.
+
+**Action required:**
+
+# TODO - Remove version numbers. 
+- All deployments using a MySQL database (regardless of version: 5.6, 5.7, or 8) must update their connection string to:  
+  `jdbc:mysql://<domain>:<port>/tower?permitMysqlScheme=true`
+
+
+**Action required:**
+
+  `jdbc:mysql://<domain>:<port>/tower?permitMysqlScheme=true&sessionVariables=sql_mode='STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION'`
+
+#### Micronaut property key changes
+
+The property that determines the expiration time of the JWT access token has changed as of Seqera Enterprise version 24.1.
+
+**Action required:**
+
+- If you have customized this value previously, update to the new format:
+
+| Previous                                                         | New                                                          |
+| ---------------------------------------------------------------- | ------------------------------------------------------------ |
+| `micronaut.security.token.jwt.generator.access-token.expiration` | `micronaut.security.token.generator.access-token.expiration` |
