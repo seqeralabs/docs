@@ -20,6 +20,12 @@ const repositories = [
     path: path.join(__dirname, "..", "wave_docs", "wave_repo"),
     branch: "master",
   },
+  {
+    name: "nextflow",
+    url: "https://github.com/nextflow-io/nextflow.git",
+    path: path.join(__dirname, "..", "nextflow_docs", "nextflow_repo"),
+    branch: "master",
+  },
 ];
 
 // Function to clone or update a repository

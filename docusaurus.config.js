@@ -150,6 +150,25 @@ export default async function createConfigAsync() {
       [
         "@docusaurus/plugin-content-docs",
         {
+          id: "nextflow",
+          routeBasePath: "/nextflow",
+          path: "nextflow_docs/nextflow_repo/docs",
+          remarkPlugins: [
+            (await import("remark-code-import")).default,
+            (await require("remark-math")).default,
+            (await import("docusaurus-remark-plugin-tab-blocks")).default,
+            (await require("remark-yaml-to-table")).default,
+          ],
+          rehypePlugins: [(await require("rehype-katex")).default],
+          editUrl: ({ docPath }) => {
+            return `https://github.com/nextflow-io/nextflow/blob/master/docs${docPath.replace('nextflow_docs/nextflow_repo/docs', '')}`
+          },
+          sidebarPath: "./nextflow_docs/sidebar.js",
+        },
+      ],
+      [
+        "@docusaurus/plugin-content-docs",
+        {
           id: "fusion",
           routeBasePath: "/fusion",
           path: "fusion_docs",
@@ -239,6 +258,11 @@ export default async function createConfigAsync() {
           {
             to: "/multiqc/",
             label: "MultiQC",
+            position: "left",
+          },
+          {
+            to: "/nextflow/",
+            label: "Nextflow",
             position: "left",
           },
           {
