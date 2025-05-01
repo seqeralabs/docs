@@ -96,7 +96,7 @@ aws {
 ];
 
 export default function Home(): JSX.Element {
-  const isMobile = useMediaQuery("(max-width: 996px)");
+  const isMobile = useMediaQuery("(max-width: 995px)");
   const disabled = true;
   const [selectedUseCase, setSelectedUseCase] = useState(0);
 

@@ -24,13 +24,13 @@ const links = {
   Help: [
     ["Forum", "https://community.seqera.io", Forum],
     ["Support Portal", "https://support.seqera.io", Support],
-    ["Nextflow Slack", "https://community.seqera.io", Forum],
+    ["Nextflow Slack", "https://seqera.io/blog/nextflow-is-moving-to-slack/", Forum],
     ["Seqera AI", "/ask-ai", Forum],
   ],
-  Resources: [
-    ["Podcast", "/podcasts/", Podcast],
-    ["Blog", "/blog/", Blog],
-  ],
+  // Resources: [
+  //   ["Podcast", "/podcasts/", Podcast],
+  //   ["Blog", "/blog/", Blog],
+  // ],
   Company: [
     ["Seqera.io", "/about/", About],
     ["Contact us", "/contact-us/", Contact],

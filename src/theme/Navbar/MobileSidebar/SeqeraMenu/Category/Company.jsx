@@ -5,35 +5,23 @@ import { links } from "../../../Layout/SeqeraHeader/links";
 
 const Company = ({ toggleMenu }) => {
   return (
-    <ul>
+    <ul className="mb-8">
+      <h6 className="mb-3 text-[.9rem] font-display">Company</h6>
       <li>
-        <Link to={links.company["About us"]} onClick={toggleMenu}>
-          About us
+        <Link to={links.company["Seqera.io"]} onClick={toggleMenu}>
+          Seqera.io
         </Link>
       </li>
+
       <li>
-        <Link to={links.company["Press Center"]} onClick={toggleMenu}>
-          Press Center
+        <Link to={links.company["Contact Us"]} onClick={toggleMenu}>
+          Contact Us
         </Link>
       </li>
+
       <li>
-        <Link to={links.company.Careers} onClick={toggleMenu}>
-          Careers
-        </Link>
-      </li>
-      <li>
-        <Link to={links.company.Blog} onClick={toggleMenu}>
-          Blog
-        </Link>
-      </li>
-      <li>
-        <Link to={links.community.Podcasts} onClick={toggleMenu}>
-          Podcast
-        </Link>
-      </li>
-      <li>
-        <Link to={links.resources.Whitepapers} onClick={toggleMenu}>
-          Whitepapers
+        <Link to={links.company["Submit Feedback"]} onClick={toggleMenu}>
+          Submit Feedback
         </Link>
       </li>
     </ul>

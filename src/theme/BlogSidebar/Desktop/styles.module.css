@@ -106,7 +106,7 @@
   background: var(--ifm-menu-color-background-hover);
 }
 
-@media (max-width: 996px) {
+@media (max-width: 995px) {
   .sidebar {
     display: none;
   }

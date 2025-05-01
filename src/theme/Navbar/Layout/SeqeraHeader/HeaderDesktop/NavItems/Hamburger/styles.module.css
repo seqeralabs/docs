@@ -36,7 +36,7 @@
     background: none;
   }
   &.open {
-    @media (max-width: 1024px) {
+    @media (max-width: 996px) {
       transform: rotate(45deg) translate(0, 0);
       & span {
         width: 21px;

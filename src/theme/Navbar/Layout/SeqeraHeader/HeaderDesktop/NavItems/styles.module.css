@@ -1,5 +1,5 @@
 .nav {
-  @media (min-width: 1024px) {
+  @media (min-width: 996px) {
     display: flex;
   }
   display: none;

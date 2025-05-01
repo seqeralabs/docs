@@ -59,7 +59,7 @@ export default function NavbarLayout({ children }) {
   } = useThemeConfig();
   const mobileSidebar = useNavbarMobileSidebar();
   const { navbarRef, isNavbarVisible } = useHideableNavbar(hideOnScroll);
-  const isMobile = useMediaQuery("(max-width: 996px)");
+  const isMobile = useMediaQuery("(max-width: 995px)");
   const location = useLocation();
   const isHome = location.pathname === "/";
 
@@ -95,7 +95,7 @@ export default function NavbarLayout({ children }) {
           Home
         </Link>
         {children}
-        <NavbarBackdrop onClick={mobileSidebar.toggle} />
+        {/* <NavbarBackdrop onClick={mobileSidebar.toggle} /> */}
         <Search />
         <NavbarMobileSidebar />
       </nav>

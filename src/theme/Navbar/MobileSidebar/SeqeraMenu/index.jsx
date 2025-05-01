@@ -2,8 +2,7 @@ import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import Products from "./Category/Products";
-import Resources from "./Category/Resources";
-import Community from "./Category/Community";
+import Help from "./Category/Help";
 import Company from "./Category/Company";
 import Category from "./Category";
 
@@ -35,67 +34,18 @@ const Menu = () => {
           exit="exit"
           variants={navVariants}
           transition={transition}
-          className={styles.categories}
+          className={`${styles.mobileMenu}`}
         >
-          <Category
-            label="Products"
-            selectedCategory={selectedCategory}
-            setSelectedCategory={setSelectedCategory}
-          >
+          <div className="px-4 pb-6 mb-8 border-b border-b-gray-600">
             <Products />
-          </Category>
-          <Category
-            label="Resources"
-            selectedCategory={selectedCategory}
-            setSelectedCategory={setSelectedCategory}
-          >
-            <Resources />
-          </Category>
-          <Category
-            label="Community"
-            selectedCategory={selectedCategory}
-            setSelectedCategory={setSelectedCategory}
-          >
-            <Community />
-          </Category>
-          <Category
-            label="Company"
-            selectedCategory={selectedCategory}
-            setSelectedCategory={setSelectedCategory}
-          >
+          </div>
+
+          <div className="px-4">
+            <Help />
             <Company />
-          </Category>
-        </motion.div>
-      </AnimatePresence>
-      {/* <AnimatePresence>
-        <motion.div
-          className={styles.footer}
-          initial="enter2"
-          animate="idle"
-          exit="exit2"
-          variants={navVariants}
-          transition={transition}
-        >
-          <div className={styles.ctas}>
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://tower.nf/login"
-              className={clsx(styles.button, styles.cta)}
-            >
-              Login
-            </a>
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://tower.nf/login"
-              className={styles.button}
-            >
-              Sign up for free
-            </a>
           </div>
         </motion.div>
-      </AnimatePresence> */}
+      </AnimatePresence>
     </>
   );
 };

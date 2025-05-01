@@ -165,3 +165,37 @@ nav.menu .menu__list-item--collapsed .menu__link--sublist:after,
   height: auto;
   overflow-y: visible;
 }
+
+/* mobile nav updates */
+.navbar__toggle {
+  position: absolute;
+  right: 0rem;
+}
+
+.navbar-sidebar {
+  width: 100vw;
+}
+
+
+.navbar-sidebar {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--ifm-navbar-background-color); /* Use your site's navbar color */
+  position: fixed;
+  z-index: 100;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* When sidebar is open (controlled by Docusaurus via class on <html>) */
+.navbar-sidebar--show > .navbar-sidebar {
+  width: 100%;
+  height: 100vh; /* Expand height */
+  visibility: visible;
+  opacity: 1;
+}

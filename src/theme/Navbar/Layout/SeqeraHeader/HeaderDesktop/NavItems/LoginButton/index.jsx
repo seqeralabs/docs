@@ -9,8 +9,8 @@ const NavMeta = ({ isDark }) => {
     if (window.location.pathname === "/") altStyle = true;
 
   return (
-    <div className="items-center hidden sm:flex">
-      <div className="hidden sm:flex">
+    <div className="items-center hidden md:flex">
+      <div className="hidden md:flex">
         <Link
           sameTab
           className={clsx(styles.button, { [styles.darkMode]: isDark })}
@@ -31,7 +31,7 @@ const NavMeta = ({ isDark }) => {
         target="_self"
         to="https://cloud.seqera.io/login"
       >
-        <span className="hidden sm:inline">Sign Up</span>
+        <span className="hidden md:inline">Sign Up</span>
       </Link>
     </div>
   );

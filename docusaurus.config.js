@@ -216,8 +216,10 @@ export default async function createConfigAsync() {
       navbar: {
         logo: {
           alt: "Seqera",
-          src: "img/logo2.png",
-          srcDark: "img/logo2-dark.png",
+          src: "img/Logo.svg",
+          srcDark: "img/LogoWhite.svg",
+          width: "180px",
+          className: 'w-[100px]'
         },
         items: [
           {
