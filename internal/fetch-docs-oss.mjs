@@ -18,7 +18,7 @@ const repositories = [
     name: "wave",
     url: "https://github.com/seqeralabs/wave.git",
     path: path.join(__dirname, "..", "wave_docs", "wave_repo"),
-    branch: "master",
+    branch: "docs-features",
   },
 ];
 
