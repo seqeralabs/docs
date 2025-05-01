@@ -15,7 +15,7 @@ Seqera Platform Enterprise is tested and validated against MySQL 8 and Redis ver
 
 :::note
 - MySQL version 5.6 reached EOL in **February 2021**
-- MySQL version 5.7 reached EOL in **October 2023**
+- MySQL version 5.7 reached EOL in **October 2023** 
 :::
 
 ## v25.1
@@ -45,11 +45,6 @@ Seqera Platform Enterprise is tested and validated against MySQL 8 and Redis ver
   - Changed from `micronaut.security.token.jwt.generator.access-token.expiration` to `micronaut.security.token.generator.access-token.expiration`
 
 ## v23.4
-- **Docker Compose V2 supersedes standalone docker-compose**: The Docker Compose CLI plugin replaces the standalone `docker-compose` binary, which was deprecated by DockerHub in July 2023 by Compose V2. The installation documentation now uses the `docker compose` subcommand for the Docker CLI when using compose files.
-
-- **Login redirection logic update**: Seqera now prepends the `TOWER_SERVER_URL` to the authentication redirect URL during the login flow. This is useful when your server URL contains a contextual path.
-
-- **Revert default Tower name changes in documentation**: Legacy `tower` values and naming conventions used by the Seqera backend will remain in place until a future release.
 
 - **ARM64 CPU architecture support enabled by default**: The `TOWER_ENABLE_ARM64` configuration environment variable is no longer needed to enable ARM64 CPU architecture support.
 
