@@ -28,7 +28,7 @@ const Submenu = ({ hideMenu }) => {
           exit="exit"
           variants={navVariants}
           transition={transition}
-          className="absolute top-16 right-0 bg-white rounded-md shadow-lg border border-gray-300 z-[999]"
+          className="absolute top-16 right-4 bg-white rounded-md shadow-lg border border-gray-300 z-[999]"
         >
         
             <div className="w-full h-full p-2 ">

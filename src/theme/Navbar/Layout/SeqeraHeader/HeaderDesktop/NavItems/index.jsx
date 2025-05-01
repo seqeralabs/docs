@@ -20,9 +20,9 @@ const NavItems = ({ isDark = false, hideMenu }) => {
   } = useHeaderContext();
 
   return (
-    <div className="container-lg w-full flex flex-col">
+    <div className="px-4 w-full flex flex-col">
       <div className="h-[72px] w-full flex items-center justify-between">
-        <div className="flex items-center">
+        <div className="flex items-center w-[16rem]">
           <a href="/">
             {isDark ? (
               <LogoWhite className={`${styles.logo} ml-[3px]`} />
@@ -36,7 +36,7 @@ const NavItems = ({ isDark = false, hideMenu }) => {
         </div>
 
         {!hideMenu && (
-          <nav className={clsx(styles.nav, { [styles.dark]: isDark })}>
+          <nav className={clsx(styles.nav, { [styles.dark]: isDark }, 'flex justify-end w-[16rem]')}>
             <div className="mr-3">
               {!hideMenu && <LoginButton isDark={isDark} />}
             </div>

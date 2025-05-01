@@ -19,7 +19,7 @@ const Layout = ({ headerRef }) => {
       onMouseEnter={() => clearTimeout(timeoutRef.current)}
       onMouseLeave={() => (timeoutRef.current = setTimeout(closeMenu, 200))}
     >
-      <div className="container-lg flex flex-row justify-center w-full relative">
+      <div className="flex flex-row justify-center w-full relative">
         <NavItems hideMenu={hideMenu} />
         <Submenu hideMenu={hideMenu} />
       </div>

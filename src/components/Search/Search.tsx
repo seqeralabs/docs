@@ -349,14 +349,14 @@ export default function Search() {
       {/* Optional: Add a button to open the search */}
       <div
         onClick={() => setIsOpen(true)}
-        className="md:flex items-center px-3 py-2 rounded-md text-sm text-gray-800 cursor-pointer hover:text-gray-1000 transition-all duration-100 min-w-[200px] lg:min-w-[25rem] content-center"
+        className="sm:flex items-center px-3 py-2 rounded-md text-sm text-gray-800 cursor-pointer hover:text-gray-1000 transition-all duration-100 sm:min-w-[200px] lg:min-w-[25rem] content-center"
         style={{
           boxShadow: "0 0 0 1px rgba(0, 0, 0, 0.25)",
           height: "40px",
         }}
       >
         <svg
-          className="w-4 h-4 mr-2"
+          className="w-4 h-4 sm:mr-2"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -369,9 +369,9 @@ export default function Search() {
             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
           />
         </svg>
-        Search docs...
+        <span className="hidden sm:block"> Search docs...</span>
         <span
-          className="ml-2 text-xs px-1.5 py-0.5 rounded"
+          className="hidden sm:flex ml-2 text-xs px-1.5 py-0.5 rounded"
           style={{ border: "1px solid #d1d5db" }}
         >
           ⌘K
