@@ -66,12 +66,13 @@
       "type": "category",
       "label": "Upgrade Seqera",
       "collapsed": true,
+      "link": {
+        "type": "doc",
+        "id": "upgrade/index"
+      },
       "items": [
-        "upgrade/strats",
-        "upgrade/25.1",
-        "upgrade/24.3",
-        "upgrade/24.2",
-        "upgrade/24.1"
+        "upgrade/breaking-changes",
+        "upgrade/25.1"
       ]
     },
     {

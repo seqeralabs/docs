@@ -1,0 +1,66 @@
+---
+title: "Breaking Changes"
+description: "Upgrading Seqera Enterprise"
+date: "21 Aug 2024"
+tags: [enterprise, update, install]
+---
+
+# Breaking changes in Seqera Platform
+
+Seqera attempts to limit the number of breaking changes we introduce between releases however changes to underlying libraries used as part of our application development may lead to changes being required between upgrades.
+
+While we prioritize backward compatibility with MySQL and Redis, **compatibility with end-of-life (EOL) versions is not guaranteed**. Any guidance for EOL components is offered on a best-effort basis, and we strongly recommend upgrading to officially supported versions for long-term stability.
+
+Seqera Platform Enterprise is tested and validated against MySQL 8 and Redis versions 6.2 and greater.
+
+:::note
+- MySQL version 5.6 reached EOL in **February 2021**
+- MySQL version 5.7 reached EOL in **October 2023**
+:::
+
+## v25.1
+- No breaking changes reported
+
+## v24.2
+- **Seqera AWS ECR repository customer access ends June 1, 2025**: Customers will no longer be able to pull Seqera Enterprise container images from the legacy Seqera AWS ECR repository after June 1, 2025. All Seqera Enterprise images must be retrieved via the `cr.seqera.io` container registry after this cutoff date.
+
+- **Redis version change**: 
+  - Redis version 6.2 or greater is required
+  - Redis version 7 is officially supported
+
+- **Redisson properties deprecated**: 
+  - `/redisson/*` references in AWS Parameter Store entries should be replaced with `TOWER_REDIS_*`
+  - `redisson.*` references in `tower.yml` should be replaced with `TOWER_REDIS_*`
+
+## v24.1
+- **MariaDB driver: New MySQL connection parameter required**:
+  - MariaDB driver 3.x requires a special parameter in the connection URL: `jdbc:mysql://<domain>:<port>/tower?permitMysqlScheme=true`
+  - All deployments using MySQL database (regardless of version) should be updated when upgrading to Platform version 24.1 or later
+
+- **MariaDB driver: No truncation support for MySQL 5.6**:
+  - The MariaDB driver has dropped support for the `jdbcCompliantTruncation` parameter
+  - For MySQL 5.6 deployments, SQL mode must be set explicitly: `jdbc:mysql://<domain>:<port>/tower?permitMysqlScheme=true&sessionVariables=sql_mode='STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION'`
+
+- **Micronaut property key changes**:
+  - Changed from `micronaut.security.token.jwt.generator.access-token.expiration` to `micronaut.security.token.generator.access-token.expiration`
+
+## v23.4
+- **Docker Compose V2 supersedes standalone docker-compose**: The Docker Compose CLI plugin replaces the standalone `docker-compose` binary, which was deprecated by DockerHub in July 2023 by Compose V2. The installation documentation now uses the `docker compose` subcommand for the Docker CLI when using compose files.
+
+- **Login redirection logic update**: Seqera now prepends the `TOWER_SERVER_URL` to the authentication redirect URL during the login flow. This is useful when your server URL contains a contextual path.
+
+- **Revert default Tower name changes in documentation**: Legacy `tower` values and naming conventions used by the Seqera backend will remain in place until a future release.
+
+- **ARM64 CPU architecture support enabled by default**: The `TOWER_ENABLE_ARM64` configuration environment variable is no longer needed to enable ARM64 CPU architecture support.
+
+- **Data Explorer default set to `false`**: From version 2.4.3, the default is `TOWER_DATA_EXPLORER_ENABLED=false`.
+
+## v23.3
+- **Login redirection logic update**: Seqera now prepends the `TOWER_SERVER_URL` to the authentication redirect URL during the login flow.
+
+- **Revert default Tower name changes in documentation**: Legacy `tower` values and naming conventions used by the Seqera backend will remain in place until a future release.
+
+## v23.2
+- **Updated AWS permissions policies**: Several new Tower features require updated AWS IAM permissions policies.
+
+- **Wave requires container registry credentials**: The Wave containers service uses container registry credentials in Tower to authenticate to container registries, separate from existing cloud provider credentials.
