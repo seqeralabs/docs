@@ -9,6 +9,8 @@ import AiIcon from "../../theme/Navbar/Layout/SeqeraHeader/HeaderDesktop/NavItem
 import SearchIcon from "./SearchIcon";
 // Import algoliasearch
 import algoliasearch from "algoliasearch";
+import styles from "./AlgoliaSearch.module.css";
+
 
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 
@@ -180,10 +182,10 @@ export default function Search() {
   return (
     <>
       {isOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-25 z-40 flex items-start justify-center pt-1">
+        <div className={`${styles.searchWrapper} fixed inset-0 z-40 flex items-start justify-center pt-1`}>
           <div
             ref={modalRef}
-            className="w-full max-w-2xl bg-white rounded-tl-md rounded-tr-md top-20 border-blue-500 border p-2 max-lg:rounded-bl-md max-lg:rounded-br-md"
+            className={`${styles.searchModal} w-full max-w-2xl rounded-tl-md rounded-tr-md top-20 p-2 max-lg:rounded-bl-md max-lg:rounded-br-md`}
             style={{
               position: "relative",
               zIndex: 50,
@@ -242,9 +244,9 @@ export default function Search() {
                                     </a>
                                   </li>
                                 </ul>
-                                <div className="text-gray-1000 font-medium typo-small px-3 py-2 mt-1">
+                                <h5 className="font-medium typo-small px-3 py-2 mt-1">
                                   Documentation
-                                </div>
+                                </h5>
                               </div>
                             );
                           },
@@ -321,9 +323,9 @@ export default function Search() {
                         },
                         header() {
                           return (
-                            <div className="text-gray-1000 font-medium typo-small px-3 py-2 mt-1">
+                            <h5 className="font-medium typo-small px-3 py-2 mt-1">
                               Documentation
-                            </div>
+                            </h5>
                           );
                         },
                         noResults({ state }) {
@@ -349,11 +351,7 @@ export default function Search() {
       {/* Optional: Add a button to open the search */}
       <div
         onClick={() => setIsOpen(true)}
-        className="md:flex items-center px-3 py-2 rounded-md text-sm text-gray-800 cursor-pointer hover:text-gray-1000 transition-all duration-100 md:[200px] md:min-w-[25rem] content-center mr-8 md:mr-0"
-        style={{
-          boxShadow: "0 0 0 1px rgba(0, 0, 0, 0.25)",
-          height: "40px",
-        }}
+        className={`${styles.searchBar} md:flex items-center px-3 py-2 rounded-md text-sm cursor-pointer transition-all duration-100 md:[200px] md:min-w-[25rem] content-center mr-8 md:mr-0`}
       >
         <svg
           className="w-4 h-4 md:mr-2"

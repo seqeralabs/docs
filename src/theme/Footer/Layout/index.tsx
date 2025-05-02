@@ -13,54 +13,13 @@ export default function FooterLayout({
 }: Props): ReactNode {
   const currentYear = new Date().getFullYear();
   return (
-    // <footer
-    //   className={clsx('footer', {
-    //     'footer--dark': style === 'light',
-    //   })}>
-    //   {/* <div className="container container-fluid">
-    //     {links}
-    //     {(logo || copyright) && (
-    //       <div className="footer__bottom text--center">
-    //         {logo && <div className="margin-bottom--sm">{logo}</div>}
-    //         {copyright}
-    //       </div>
-    //     )}
-    //   </div> */}
-    // </footer>
 
-    <footer
-      className={clsx(
-        "footer",
-        { "footer--dark": style === "light" },
-        styles.footer,
-      )}
-    >
-      <div className=" px-4">
-        <div className={clsx("flex flex-row md:justify-end", styles.topBar)}>
-          {/* <Logo /> */}
-          {/* {logo && <div className="">{logo}</div>} */}
-          {/* <div className="flex flex-row space-x-8">
-            <>
-              <a
-                className={clsx(styles.button, {})}
-                href="https://cloud.seqera.io/login"
-              >
-                Log In
-              </a>
-
-              <a
-                className={clsx(styles.button, styles.secondary, {}, "ml-3")}
-                href="https://cloud.seqera.io/login"
-              >
-                <span className="hidden md:inline">Sign Up</span>
-              </a>
-            </>
-          </div> */}
-        </div>
-        <div className="flex flex-wrap mt-8 mb-8 w-full">
+    <footer className={clsx( styles.footer )}>
+      <div className="px-4">
+        <div className="flex flex-wrap w-full">
           <div className="w-full flex flex-col-reverse md:flex-row md:justify-between md:items-center">
             <ul
-              className={`${styles.footerLinks} flex flex-col md:flex-row flex-wrap mt-6 md:mt-0`}
+              className={`${styles.footerLinks} flex flex-col md:flex-row flex-wrap mt-6 md:mt-0 md:items-center`}
             >
               <li>
                 <a href="https://github.com/seqeralabs/docs">Contribute</a>
@@ -84,7 +43,7 @@ export default function FooterLayout({
                 <a href="https://seqera.io">Seqera.io</a>
               </li>
             </ul>
-            <div>
+            <div className="mb-2 md:mb-0">
             {logo && <div className="">{logo}</div>}
             </div>
           </div>
@@ -92,7 +51,7 @@ export default function FooterLayout({
         <div className={styles.copyright}>
           <ul className="flex flex-col-reverse md:flex-row md:w-full justify-start md:justify-between">
             <li>© {currentYear} Seqera. All Rights Reserved.</li>
-            <div className="mb-4">
+            <div className="mb-4 sm:mb-0">
               <li>
                 <a href="https://seqera.io/legal/">User agreement</a>
               </li>

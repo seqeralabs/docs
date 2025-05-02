@@ -42,3 +42,45 @@
   font-size: 14px;
   color: var(--color-brand-600);
 }
+
+.searchWrapper {
+  background: rgba(0,0,0,.4);
+
+  h5 {
+    color: var(--color-gray-1000);
+  }
+}
+html[data-theme="dark"] .searchWrapper { 
+  background: rgba(0,0,0,.5);
+  h5 {
+    color: white;
+  }
+  /* border-color: #DDDEDE; */
+}
+.searchModal {
+  background: white;
+  /* border-color: var(--color-blu-500); */
+}
+html[data-theme="dark"] .searchModal { 
+  background: #464646;
+  border-color: #DDDEDE;
+}
+.searchBar {
+  background: white;
+  color: var(--text-gray-800);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
+  height: 40px;
+  &:hover {
+    color: var(--text-gray-1000);
+  }
+}
+
+html[data-theme="dark"] .searchBar  {
+  /* background: #464646; */
+  background: #1C1C1E;
+  box-shadow: 0 0 0 1px #DDDEDE;
+  color: var(--text-gray-800);
+  &:hover {
+    color: var(--text-gray-1000);
+  }
+}

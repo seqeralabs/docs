@@ -15,7 +15,9 @@
     0 2px 4px rgba(0, 0, 0, 0.08),
     0 1px 2px rgba(0, 0, 0, 0.12);
 }
-
+html[data-theme="dark"] .aa-Form { 
+  border-color: white;
+}
 /* Continue styling using variables */
 
 /* Base container styles */
@@ -47,7 +49,18 @@
     font-size: 0.875rem;
   }
 }
+html[data-theme="dark"] .aa-Input { 
+  color: white;
+  &::placeholder {
+    color: white;
+  }
+}
+html[data-theme="dark"] .aa-Label { 
+  svg {
+    fill: white;
+  }
 
+}
 /* Panel (dropdown) */
 .aa-Panel {
   background-color: white;
@@ -61,8 +74,26 @@
   width: 100%;
   /* margin: 18px -8px 0; */
   margin: 5px -8px 0;
+
+  h5 {
+    color: var(--color-gray-1000);
+  }
+}
+html[data-theme="dark"] .aa-Panel {
+  background-color: #464646;
+
+  h5 {
+    color: white;
+  }
 }
 
+.html[data-theme="dark"] .aa-GradientBottom {
+  background-image: none;
+}
+
+.aa-GradientBottom {
+  display: none;
+}
 .aa-Panel a:hover {
   text-decoration: none;
 }
@@ -141,6 +172,10 @@
   /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.12); */
   box-shadow: none;
   transition: box-shadow 0.2s;
+  background: none;
+}
+html[data-theme="dark"] .aa-Form { 
+  background: #464646;
 }
 
 .aa-Form:focus-within {

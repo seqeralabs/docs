@@ -4,6 +4,7 @@
 
 :root {
   --ifm-navbar-height: 5rem;
+  --ifm-color-secondary-contrast-background: #F7F7F7;
 }
 
 @layer components {
@@ -90,6 +91,9 @@ svg.excalidraw path[fill="#fff"] {
   @apply fill-transparent;
 }
 
+.navbar {
+  align-items: center;
+}
 /* Hide the top navbar on desktop */
 @media (min-width: 996px) {
   .navbar {
@@ -283,4 +287,12 @@ ol li {
 
 .table-of-contents__link--active {
   font-weight: 500;
+}
+
+.admonition-icon{
+
+  svg {
+    width: 10px;
+  }
+
 }

@@ -9,6 +9,7 @@ import styles from "./styles.module.css";
 import Hamburger from "./Hamburger";
 import { useHeaderContext } from "../../context";
 import ActiveLink from "./ActiveLink";
+import NavbarLogo from '@theme/Navbar/Logo';
 
 const NavItems = ({ isDark = false, hideMenu }) => {
   const {
@@ -24,11 +25,7 @@ const NavItems = ({ isDark = false, hideMenu }) => {
       <div className="h-[72px] w-full flex items-center justify-between">
         <div className="flex items-center w-[16rem]">
           <a href="/">
-            {isDark ? (
-              <LogoWhite className={`${styles.logo} ml-[3px]`} />
-            ) : (
-              <Logo className={`${styles.logo} ml-[3px]`} />
-            )}
+            <NavbarLogo/>
           </a>
         </div>
         <div className="flex items-center">

@@ -2,6 +2,8 @@ import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Resources from "./Resources";
 import { useHeaderContext } from "../../context";
+import clsx from "clsx";
+import styles from "./submenu.module.css";
 
 const navVariants = {
   enter: { y: -20, opacity: 0 },
@@ -28,10 +30,10 @@ const Submenu = ({ hideMenu }) => {
           exit="exit"
           variants={navVariants}
           transition={transition}
-          className="absolute top-16 right-4 bg-white rounded-md shadow-lg border border-gray-300 z-[999]"
+          className= {clsx(styles.submenu, 'absolute top-16 right-4 border-gray-300 rounded-md shadow-lg border z-[999]')}
         >
         
-            <div className="w-full h-full p-2 ">
+            <div className="w-full h-full pt-2">
               {activeMenu === "resources" && <Resources />}
             </div>
        

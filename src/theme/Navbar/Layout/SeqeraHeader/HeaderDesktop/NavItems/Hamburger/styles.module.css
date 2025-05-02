@@ -41,18 +41,27 @@
       & span {
         width: 21px;
       }
-  
+
       & span:nth-child(2) {
         opacity: 0;
       }
-  
+
       & span:nth-child(1) {
         transform: translateY(7px);
       }
-  
+
       & span:nth-child(3) {
         transform: translateY(-6.5px) rotate(90deg);
       }
     }
+  }
+}
+
+html[data-theme="dark"] .hamburger {
+  &:focus {
+    border: 2px solid white;
+  }
+  & span {
+    background-color: white;
   }
 }

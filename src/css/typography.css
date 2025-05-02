@@ -41,3 +41,8 @@ h6 {
 body {
   font-family: 'Inter', 'Helvetica', sans-serif;
 }
+
+
+strong {
+  font-weight: 600;
+}
