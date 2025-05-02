@@ -74,13 +74,13 @@ const ProductSwitcher = ({ isDropdown }) => {
             [styles.active]: isOpen || isSecondaryOpen,
           })}
         >
-          <button
+          {/* <button
             onClick={toggleDropdown}
             className={clsx(styles.item, styles.button)}
             ref={dropdownRef}
           >
             <ProductLogo />
-          </button>
+          </button> */}
           <VersionSwitcher
             isOpen={isSecondaryOpen}
             setIsOpen={setIsSecondaryOpen}

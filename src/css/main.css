@@ -93,6 +93,11 @@ svg.excalidraw path[fill="#fff"] {
 
 .navbar {
   align-items: center;
+  ul, li {
+    list-style-type: none;
+    margin-inline-start: 0;
+    padding: 0;
+  }
 }
 /* Hide the top navbar on desktop */
 @media (min-width: 996px) {
@@ -221,7 +226,6 @@ nav.menu .menu__list-item--collapsed .menu__link--sublist:after,
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-top: 1.5rem;
 }
 .breadcrumbs__link {
   padding: 0;
@@ -239,6 +243,9 @@ nav.menu .menu__list-item--collapsed .menu__link--sublist:after,
   padding-top: 4px;
 }
 
+.table-of-contents {
+  margin-top: 0;
+}
 .table-of-contents__link:hover, .table-of-contents__link:hover code, .table-of-contents__link--active, .table-of-contents__link--active code {
   color: var(--color-blu);
 }
@@ -291,4 +298,13 @@ ol li {
     width: 10px;
   }
 
+}
+
+
+.padding-top--md {
+  margin-top: 2rem;
+}
+
+.padding-bottom--lg  {
+  margin-bottom: 3rem;
 }

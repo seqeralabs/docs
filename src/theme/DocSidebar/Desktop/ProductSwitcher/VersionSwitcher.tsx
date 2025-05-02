@@ -33,6 +33,7 @@ const VersionSwitcher = ({ isOpen, setIsOpen }) => {
   const toggleDropdown = () => setIsOpen((prev) => !prev);
 
   function handleSelectVersion(version) {
+    console.log(version)
     savePreferredVersionName(version);
   }
 
