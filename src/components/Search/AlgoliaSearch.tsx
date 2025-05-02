@@ -21,18 +21,6 @@ export function Autosearch(props) {
       return undefined;
     }
 
-    // Add form submission prevention
-    const preventFormSubmission = (e: Event) => {
-      e.preventDefault();
-      return false;
-    };
-
-    // Find and handle the form element
-    const formElement = containerRef.current.querySelector('form');
-    if (formElement) {
-      formElement.addEventListener('submit', preventFormSubmission);
-    }
-
     const search = autocomplete({
       container: containerRef.current,
       placeholder: 'Search docs or ask with Seqera AI...',
@@ -54,27 +42,60 @@ export function Autosearch(props) {
         }
         return true;
       },
-      onSubmit: ({ state }) => {
-        // Try to get the first result
-        const firstResult = state.collections.find(c => c.items.length > 0)?.items[0] as SearchHit | undefined;
-        
-        if (firstResult?.url) {
-          // If we have a result, navigate to it
-          window.location.href = firstResult.url;
-        } else {
-          // If no results, redirect to Seqera AI with the query as prompt
-          window.location.href = `https://seqera.io/ask-ai?prompt=${encodeURIComponent(state.query)}`;
+      getSources: (params) => {
+        // Call the user's getSources, but inject getItemUrl into each source
+        const userSources = props.getSources ? props.getSources(params) : [];
+        return userSources.map(source => ({
+          ...source,
+          getItemUrl: ({ item }) => {
+            return item.url;
+          },
+        }));
+      },
+      navigator: {
+        navigate({ itemUrl }) {
+          window.location.assign(itemUrl);
+        },
+        navigateNewTab({ itemUrl }) {
+          const windowReference = window.open(itemUrl, '_blank', 'noopener');
+          if (windowReference) {
+            windowReference.focus();
+          }
+        },
+        navigateNewWindow({ itemUrl }) {
+          window.open(itemUrl, '_blank', 'noopener');
+        },
+      },
+      onSubmit: ({ state, event }) => {
+        event.preventDefault();
+        const query = state.query?.trim();
+        if (!query) {
+          // If the input is empty, do nothing
+          return;
         }
-        return false;
+        // If there is text but no item is selected
+        if (typeof state.activeItemId !== 'number') {
+          // Find the first non-ai item (docs result) in the collections
+          const collections = state.collections || [];
+          for (const collection of collections) {
+            if (collection.source && collection.source.sourceId === 'docs') {
+              const firstDoc = collection.items && collection.items[0];
+              if (firstDoc && firstDoc.url) {
+                window.location.assign(String(firstDoc.url));
+                return;
+              }
+            }
+          }
+          // If no docs result, do nothing
+          return;
+        }
+        // Otherwise, let Algolia handle navigation (should be handled by navigator)
       },
       ...props,
     });
 
     return () => {
       // Clean up event listeners
-      if (formElement) {
-        formElement.removeEventListener('submit', preventFormSubmission);
-      }
       search.destroy();
     };
   }, [props]);
