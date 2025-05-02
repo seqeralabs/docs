@@ -21,10 +21,10 @@ function NavButtons({ currentPanel, setPanel }) {
   return (
     <>
       {currentPanel === 1 && (
-        <Button onClick={setPanel(2)}>Docs navigation ➔</Button>
+        <Button onClick={setPanel(2)}>Docs Menu ➔</Button>
       )}
       {currentPanel === 2 && (
-        <Button onClick={setPanel(1)}>← Home navigation</Button>
+        <Button onClick={setPanel(1)}>← Main Menu</Button>
       )}
       {currentPanel === 3 && (
         <Button onClick={setPanel(2)}>← Top level docs</Button>

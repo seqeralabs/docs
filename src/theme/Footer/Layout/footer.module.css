@@ -2,6 +2,10 @@
     padding: 0px 0 30px 0;
     background: white;
     border-top: 1px solid var(--color-gray-300);
+    ul, li {
+      list-style-type: none;
+      padding-inline-start: 0;
+    }
   }
   .footer h5 {
     font-family: Degular, sans-serif;

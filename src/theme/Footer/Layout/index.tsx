@@ -63,7 +63,7 @@ export default function FooterLayout({
               className={`${styles.footerLinks} flex flex-col md:flex-row flex-wrap mt-6 md:mt-0`}
             >
               <li>
-                <a href="">Contribute</a>
+                <a href="https://github.com/seqeralabs/docs">Contribute</a>
               </li>
               <li>
                 <a href="https://support.seqera.io">Support Portal</a>

@@ -67,6 +67,7 @@ export default async function createConfigAsync() {
           theme: {
             customCss: [
               require.resolve("./src/css/main.css"),
+              require.resolve("./src/css/typography.css"),
               require.resolve("./src/css/misc.css"),
               require.resolve("./src/css/components/checklist.css"),
               require.resolve("./src/css/components/box.css"),

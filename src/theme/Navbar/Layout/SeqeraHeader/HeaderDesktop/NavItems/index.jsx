@@ -46,7 +46,7 @@ const NavItems = ({ isDark = false, hideMenu }) => {
           </nav>
         )}
       </div>
-      <div className="w-full flex items-center justify-between pb-1">
+      <div className="w-full flex items-center justify-between">
         <ul className={`${styles.navList} flex flex-row`}>
           <li>
             <ActiveLink to="/platform-cloud" customClasses={`mr-8`}>

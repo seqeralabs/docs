@@ -27,20 +27,20 @@
 html[data-theme="light"] {
   /* General */
   --ifm-background-color: white;
-  --ifm-breadcrumb-color-active: var(--color-wave);
-  --ifm-link-color: var(--color-wave);
+  --ifm-breadcrumb-color-active: var(--color-blu);
+  --ifm-link-color: var(--color-blu);
   --ifm-font-color-base: var(--color-brand-1100);
 
   /* Navbar */
   --ifm-background-surface-color: white;
   --ifm-navbar-link-color: var(--color-brand);
-  --ifm-navbar-link-hover-color: var(--color-wave2);
+  --ifm-navbar-link-hover-color: var(--color-blu);
   --ifm-dropdown-link-color: var(--color-brand);
   --docsearch-searchbox-shadow: inset 0 0 0 2px var(--ifm-link-color);
 
   /* Sidebar */
   --ifm-menu-color-active: white;
-  --ifm-menu-color-background-active: var(--color-wave);
+  --ifm-menu-color-background-active: var(--color-blu);
   --ifm-menu-color-background-hover: var(--color-brand-200);
 }
 
