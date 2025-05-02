@@ -45,6 +45,11 @@ html[data-theme="light"] {
 }
 
 /* Mobile nav */
+html[data-theme="dark"] .navbar {
+  box-shadow: none;
+  border-bottom: 1px solid rgba(255,255,255,.5);
+}
+
 html[data-theme="light"] .navbar-sidebar {
   color: var(--igm-font-color-base);
 }

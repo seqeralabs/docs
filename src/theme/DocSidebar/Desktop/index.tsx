@@ -33,7 +33,7 @@ const DesktopWrapper: React.FC<Props> = (props) => {
       <div className={styles.sidebarNav}>
         {!!props.sidebar && <TOC {...props} />}
         <hr />
-        <NavbarColorModeToggle className={styles.colorModeToggle} />
+        {/* <NavbarColorModeToggle className={styles.colorModeToggle} /> */}
       </div>
     </div>
   );
