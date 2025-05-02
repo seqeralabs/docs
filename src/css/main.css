@@ -176,7 +176,6 @@ nav.menu .menu__list-item--collapsed .menu__link--sublist:after,
   width: 100vw;
 }
 
-
 .navbar-sidebar {
   top: 0;
   left: 0;
@@ -184,7 +183,9 @@ nav.menu .menu__list-item--collapsed .menu__link--sublist:after,
   height: 100vh;
   width: 100%;
   overflow: hidden;
-  background-color: var(--ifm-navbar-background-color); /* Use your site's navbar color */
+  background-color: var(
+    --ifm-navbar-background-color
+  ); /* Use your site's navbar color */
   position: fixed;
   z-index: 100;
   visibility: hidden;
@@ -198,4 +199,13 @@ nav.menu .menu__list-item--collapsed .menu__link--sublist:after,
   height: 100vh; /* Expand height */
   visibility: visible;
   opacity: 1;
+}
+
+.footer--light {
+  background-color: #fff; /* your custom light background color */
+  color: #160f26;
+}
+
+.footer__logo {
+  margin-top: 0;
 }

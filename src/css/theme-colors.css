@@ -99,7 +99,7 @@ html[data-theme="light"] .DocSearch-Logo svg * {
 /* Footer */
 html[data-theme="light"] .footer--dark {
   border-top: 1px solid 1px solid var(--ifm-toc-border-color);
-  --ifm-footer-background-color: var(--color-brand-1100);
+  --ifm-footer-background-color: white;
 }
 
 /*********************/

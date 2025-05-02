@@ -266,6 +266,14 @@ export default async function createConfigAsync() {
       },
       footer: {
         style: "dark",
+        logo: {
+          alt: 'Seqera Docs logo',
+          src: 'img/icon.svg', 
+          srcDark: "img/iconLight.svg",
+          href: '/', 
+          width: 25,  
+          height: 25, 
+        },
         links: [
           {
             title: "Docs",
