@@ -45,14 +45,14 @@
 
   a {
     color: var(--color-brand);
-    font-size: .9rem;
+    font-size: 0.9rem;
     position: relative;
     display: inline-block;
     &:after {
       content: "";
       position: absolute;
       left: 0;
-      bottom:-5px;
+      bottom: -5px;
       width: 100%;
       height: 3px;
       background-color: var(--color-blu);
@@ -61,15 +61,7 @@
     }
     &:hover {
       text-decoration: none;
-    }
-
-    &:hover::after {
-      opacity: 1;
+      color: #000;
     }
   }
 }
-
-
-
-
-

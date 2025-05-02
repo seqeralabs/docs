@@ -8,6 +8,7 @@ a {
   color: var(--color-blu);
   &:hover {
     color: var(--color-blu-700);
+    /* text-decoration: none; */
   }
   &:active {
     color: var(--color-blu-800);

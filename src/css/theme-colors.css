@@ -53,6 +53,7 @@ html[data-theme="light"] .navbar-sidebar .menu__link {
 }
 html[data-theme="light"] .navbar-sidebar .menu__link--active,
 html[data-theme="light"] .navbar-sidebar .navbar-sidebar__back {
+  background: var(--color-blu);
   color: white;
 }
 html[data-theme="light"] .navbar__toggle.clean-btn {
