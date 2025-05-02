@@ -15,7 +15,7 @@
     0 2px 4px rgba(0, 0, 0, 0.08),
     0 1px 2px rgba(0, 0, 0, 0.12);
 }
-html[data-theme="dark"] .aa-Form { 
+html[data-theme="dark"] .aa-Form {
   border-color: white;
 }
 /* Continue styling using variables */
@@ -49,17 +49,16 @@ html[data-theme="dark"] .aa-Form {
     font-size: 0.875rem;
   }
 }
-html[data-theme="dark"] .aa-Input { 
+html[data-theme="dark"] .aa-Input {
   color: white;
   &::placeholder {
     color: white;
   }
 }
-html[data-theme="dark"] .aa-Label { 
+html[data-theme="dark"] .aa-Label {
   svg {
     fill: white;
   }
-
 }
 /* Panel (dropdown) */
 .aa-Panel {
@@ -108,14 +107,25 @@ html[data-theme="dark"] .aa-Panel {
   /* padding: 0.5rem 1rem; */
   cursor: pointer;
   transition: background-color 0.2s;
+  &:hover {
+    background-color: #f3f4f6;
+  }
+}
+html[data-theme="dark"] .aa-Item {
+  color: white;
+  span {
+    color: white;
+  }
+  a {
+    color: white;
+  }
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
 }
 
 .aa-Source[data-autocomplete-source-id="ai-thread"] .aa-Item {
   padding: 0.5rem 0;
-}
-
-.aa-Item:hover {
-  background-color: #f3f4f6;
 }
 
 .aa-ItemLink {
@@ -151,6 +161,7 @@ html[data-theme="dark"] .aa-Panel {
 
 .aa-SourceNoResults {
   padding: 0.35rem 0.75rem 0;
+  margin-bottom: 1rem;
 }
 
 .aa-SourceFooter ul {
@@ -174,7 +185,7 @@ html[data-theme="dark"] .aa-Panel {
   transition: box-shadow 0.2s;
   background: none;
 }
-html[data-theme="dark"] .aa-Form { 
+html[data-theme="dark"] .aa-Form {
   background: #464646;
 }
 

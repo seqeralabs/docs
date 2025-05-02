@@ -49,8 +49,8 @@
 
 
 html[data-theme="dark"] .button {
-    background: white;
-    color: var(--color-brand);
+    background: var(--color-gray-300);
+    color: var(--color-brand-1000);
     border: 1px solid white;
     &:hover {
       background-color: var(--color-blu-900);

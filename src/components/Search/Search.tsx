@@ -224,7 +224,7 @@ export default function Search() {
                           return (
                             <a 
                               href={aiThreadItem.url} 
-                              className="aa-Item aa-ItemLink hover:bg-gray-100 typo-small flex flex-col w-full m-0 p-3"
+                              className={`aa-Item aa-ItemLink typo-small flex flex-col w-full m-0 p-3`}
                               tabIndex={0}
                               aria-label={aiThreadItem.title}
                             >
@@ -243,7 +243,7 @@ export default function Search() {
                         },
                         noResults() {
                           return (
-                            <div className="pt-0 pb-6 text-sm text-gray-500 font-normal">
+                            <div className="pt-0 pb-6 text-sm text-gray-500 font-normal hidden">
                               Search docs or ask with Seqera AI...
                             </div>
                           );

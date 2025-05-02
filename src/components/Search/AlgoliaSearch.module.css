@@ -84,3 +84,62 @@ html[data-theme="dark"] .searchBar  {
     color: var(--text-gray-1000);
   }
 }
+
+.productItemCta {
+  background: var(--color-product-100);
+  color: var(--color-product-1000);
+}
+
+.productItemVersion {
+  background: var(--color-gray-100);
+  color: var(--color-slate-1000);
+}
+
+.productWave {
+  background: var(--color-wave-100);
+  color: var(--color-wave-1000);
+}
+
+.productMultiQC {
+  background: var(--color-multiqc-100);
+  color: var(--color-multiqc-1000);
+}
+
+.productFusion {
+  background: var(--color-multiqc-100);
+  color: var(--color-multiqc-10000);
+}
+
+.productNextflow {
+  background: var(--color-nextflow-100);
+  color: var(--color-nextflow-10000);
+}
+
+html[data-theme="dark"] {
+  .productItemCta {
+    background: var(--color-blu-900);
+    color: var(--color-brand-100);
+  }
+  
+  .productItemVersion {
+    background: var(--color-gray-900);
+    color: var(--color-slate-100);
+  }
+  
+  .productWave {
+    background: var(--color-wave-900);
+    color: var(--color-wave-100);
+  }
+  .productMultiQC {
+    background: var(--color-multiqc-900);
+    color: var(--color-multiqc-1000);
+  }
+  .productFusion {
+    background: var(--color-multiqc-900);
+    color: var(--color-multiqc-100);
+  }
+  .productNextflow {
+    background: var(--color-nextflow-900);
+    color: var(--color-nextflow-100);
+  }
+}
