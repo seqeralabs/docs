@@ -29,6 +29,7 @@ const products = [
 
 const ProductSwitcher = ({ isDropdown }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isEnterprisePage, setEnterprisePage] = useState(false);
   const [isSecondaryOpen, setIsSecondaryOpen] = useState(false);
   const dropdownRef = useRef(null);
   const location = useLocation();
@@ -61,6 +62,14 @@ const ProductSwitcher = ({ isDropdown }) => {
     return null;
   };
 
+  useEffect(() => {
+    if (location.pathname.startsWith('/platform-enterprise')) {
+      setEnterprisePage(true);
+    } else {
+      setEnterprisePage(false);
+    }
+  }, [location.pathname]);
+
   const currentProduct = getCurrentProduct();
 
   let items = products.filter((product) => product.name !== currentProduct);
@@ -69,9 +78,10 @@ const ProductSwitcher = ({ isDropdown }) => {
   return (
     <div className={clsx(styles.switcher)}>
       {isDropdown && (
+        <div className={`${isEnterprisePage ? ' ' : 'hidden'}`}>
         <div
           className={clsx(styles.items, {
-            [styles.active]: isOpen || isSecondaryOpen,
+            [styles.active]: isOpen || isSecondaryOpen
           })}
         >
           {/* <button
@@ -85,6 +95,7 @@ const ProductSwitcher = ({ isDropdown }) => {
             isOpen={isSecondaryOpen}
             setIsOpen={setIsSecondaryOpen}
           />
+          </div>
         </div>
       )}
       <div

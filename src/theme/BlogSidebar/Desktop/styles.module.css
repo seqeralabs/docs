@@ -14,6 +14,7 @@
   overflow-y: auto;
   position: sticky;
   top: calc(var(--ifm-navbar-height) + 2rem);
+  margin-top: 0;
 }
 
 .sidebarItemTitle {

@@ -37,21 +37,23 @@ const Menu = () => {
           className={`${styles.mobileMenu}`}
         >
           <div className="flex flex-row space-x-2 px-4 mb-6 mt-4">
-         
-              <a
-                className={clsx(styles.button, {}, 'w-full text-center')}
-                href="https://cloud.seqera.io/login"
-              >
-                Log In
-              </a>
-
-              <a
-                className={clsx(styles.button, styles.secondary, {}, "w-full text-center")}
-                href="https://cloud.seqera.io/login"
-              >
-                Sign Up
-              </a>
-          
+            <a
+              className={clsx(styles.button, {}, "w-full text-center")}
+              href="https://cloud.seqera.io/login"
+            >
+              Log In
+            </a>
+            <a
+              className={clsx(
+                styles.button,
+                styles.secondary,
+                {},
+                "w-full text-center",
+              )}
+              href="https://cloud.seqera.io/login"
+            >
+              Sign Up
+            </a>
           </div>
 
           <div className="px-4 pb-6 mb-8 border-b border-b-gray-600">

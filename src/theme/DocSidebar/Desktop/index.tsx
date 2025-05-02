@@ -1,6 +1,5 @@
 import React from "react";
 import TOC from "@theme-original/DocSidebar/Desktop";
-import NavbarColorModeToggle from "@theme/Navbar/ColorModeToggle";
 import ProductSwitcher from "./ProductSwitcher";
 
 import styles from "./styles.module.css";
