@@ -1,0 +1,28 @@
+- Name: "**CreateComputeEnv**"
+  Type: ""
+  Req/Opt: ""
+  Description: Create compute environment
+- Name: "  computeEnv"
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "  labelIds"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "**UpdateComputeEnv**"
+  Type: ""
+  Req/Opt: ""
+  Description: Update compute environment
+- Name: "  name"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "  credentialsId"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "**UpdateComputeEnvPrimary**"
+  Type: ""
+  Req/Opt: ""
+  Description: Define primary compute environment

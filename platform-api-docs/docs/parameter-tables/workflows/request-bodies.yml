@@ -1,0 +1,20 @@
+- Name: "**DeleteWorkflowMany**"
+  Type: ""
+  Req/Opt: ""
+  Description: Delete workflows
+- Name: "  workflowIds"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "**CreateWorkflowLaunch**"
+  Type: ""
+  Req/Opt: ""
+  Description: Launch workflow
+- Name: "  launch"
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "**CancelWorkflow**"
+  Type: ""
+  Req/Opt: ""
+  Description: Cancel workflow

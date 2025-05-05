@@ -1,0 +1,144 @@
+- Name: "**AddLabelsToActions**"
+  Type: ""
+  Req/Opt: ""
+  Description: Add labels to actions
+- Name: "  actionIds"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "  labelIds"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "**ApplyLabelsToActions**"
+  Type: ""
+  Req/Opt: ""
+  Description: Replace action labels
+- Name: "  actionIds"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "  labelIds"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "**RemoveLabelsFromActions**"
+  Type: ""
+  Req/Opt: ""
+  Description: Remove labels from actions
+- Name: "  actionIds"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "  labelIds"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "**CreateLabel**"
+  Type: ""
+  Req/Opt: ""
+  Description: Create label
+- Name: "  name"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "  value"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "  resource"
+  Type: boolean
+  Req/Opt: Optional
+  Description: ""
+- Name: "  isDefault"
+  Type: boolean
+  Req/Opt: Optional
+  Description: ""
+- Name: "**UpdateLabel**"
+  Type: ""
+  Req/Opt: ""
+  Description: Update label
+- Name: "  name"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "  value"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "  isDefault"
+  Type: boolean
+  Req/Opt: Optional
+  Description: ""
+- Name: "**AddLabelsToPipelines**"
+  Type: ""
+  Req/Opt: ""
+  Description: Add labels to pipelines
+- Name: "  pipelineIds"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "  labelIds"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "**ApplyLabelsToPipelines**"
+  Type: ""
+  Req/Opt: ""
+  Description: Replace pipeline labels
+- Name: "  pipelineIds"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "  labelIds"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "**RemoveLabelsFromPipelines**"
+  Type: ""
+  Req/Opt: ""
+  Description: Remove labels from pipelines
+- Name: "  pipelineIds"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "  labelIds"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "**AddLabelsToWorkflows**"
+  Type: ""
+  Req/Opt: ""
+  Description: Add labels to workflows
+- Name: "  workflowIds"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "  labelIds"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "**ApplyLabelsToWorkflows**"
+  Type: ""
+  Req/Opt: ""
+  Description: Replace workflow labels
+- Name: "  workflowIds"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "  labelIds"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "**RemoveLabelsFromWorkflows**"
+  Type: ""
+  Req/Opt: ""
+  Description: Remove labels from workflows
+- Name: "  workflowIds"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "  labelIds"
+  Type: array
+  Req/Opt: Optional
+  Description: ""

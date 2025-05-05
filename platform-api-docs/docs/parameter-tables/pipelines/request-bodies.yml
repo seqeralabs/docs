@@ -1,0 +1,48 @@
+- Name: "**CreatePipeline**"
+  Type: ""
+  Req/Opt: ""
+  Description: Create pipeline
+- Name: "  name"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "  description"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "  icon"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "  launch"
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "  labelIds"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "**UpdatePipeline**"
+  Type: ""
+  Req/Opt: ""
+  Description: Update pipeline
+- Name: "  name"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "  description"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "  icon"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "  launch"
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "  labelIds"
+  Type: array
+  Req/Opt: Optional
+  Description: ""

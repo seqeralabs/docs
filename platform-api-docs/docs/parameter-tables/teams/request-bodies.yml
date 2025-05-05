@@ -1,0 +1,36 @@
+- Name: "**CreateOrganizationTeam**"
+  Type: ""
+  Req/Opt: ""
+  Description: Create team
+- Name: "  team"
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "  avatarId"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "**UpdateOrganizationTeam**"
+  Type: ""
+  Req/Opt: ""
+  Description: Update team
+- Name: "  name"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "  description"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "  avatarId"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "**CreateOrganizationTeamMember**"
+  Type: ""
+  Req/Opt: ""
+  Description: Create team member
+- Name: "  userNameOrEmail"
+  Type: string
+  Req/Opt: Optional
+  Description: ""

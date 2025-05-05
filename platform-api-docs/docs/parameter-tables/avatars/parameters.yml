@@ -1,0 +1,5 @@
+- Name: "`avatarId`"
+  Type: string
+  Location: path
+  Req/Opt: Required
+  Description: Avatar string identifier

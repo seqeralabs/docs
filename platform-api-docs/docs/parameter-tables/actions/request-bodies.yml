@@ -1,0 +1,40 @@
+- Name: "**CreateAction**"
+  Type: ""
+  Req/Opt: ""
+  Description: Create action
+- Name: "  name"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "  source"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "  launch"
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "**UpdateAction**"
+  Type: ""
+  Req/Opt: ""
+  Description: Update action
+- Name: "  name"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "  launch"
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "**LaunchAction**"
+  Type: ""
+  Req/Opt: ""
+  Description: Trigger Tower Launch action
+- Name: "  params"
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "**PauseAction**"
+  Type: ""
+  Req/Opt: ""
+  Description: Pause or resume action

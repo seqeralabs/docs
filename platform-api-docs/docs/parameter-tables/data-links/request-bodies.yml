@@ -1,0 +1,48 @@
+- Name: "**CreateCustomDataLink**"
+  Type: ""
+  Req/Opt: ""
+  Description: Create data link in a user or workspace context
+- Name: "  name"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "  description"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "  type"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "  provider"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "  resourceRef"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "  publicAccessible"
+  Type: boolean
+  Req/Opt: Optional
+  Description: ""
+- Name: "  credentialsId"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "**UpdateCustomDataLink**"
+  Type: ""
+  Req/Opt: ""
+  Description: Update data link in a user or workspace context
+- Name: "  name"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "  description"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "  credentialsId"
+  Type: string
+  Req/Opt: Optional
+  Description: ""

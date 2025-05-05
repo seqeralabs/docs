@@ -1,0 +1,88 @@
+- Name: "**CreateTrace**"
+  Type: ""
+  Req/Opt: ""
+  Description: Create workflow execution trace
+- Name: "  launchId"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "  sessionId"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "  runName"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "  projectName"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "  repository"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "  workflowId"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "**UpdateTraceBegin**"
+  Type: ""
+  Req/Opt: ""
+  Description: Signal workflow execution start
+- Name: "  launchId"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "  workflow"
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "  processNames"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "  towerLaunch"
+  Type: boolean
+  Req/Opt: Optional
+  Description: ""
+- Name: "**UpdateTraceComplete**"
+  Type: ""
+  Req/Opt: ""
+  Description: Signal workflow execution completion
+- Name: "  workflow"
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "  metrics"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "  progress"
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "**UpdateTraceHeartbeat**"
+  Type: ""
+  Req/Opt: ""
+  Description: Signal workflow execution heartbeat
+- Name: "  progress"
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "**UpdateTraceProgress**"
+  Type: ""
+  Req/Opt: ""
+  Description: Store workflow task execution metadata
+- Name: "  tasks"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "  progress"
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "  containers"
+  Type: array
+  Req/Opt: Optional
+  Description: ""

@@ -1,0 +1,32 @@
+- Name: "**Ga4ghRunCreate**"
+  Type: ""
+  Req/Opt: ""
+  Description: "GA4GH: Launch run"
+- Name: "  workflow_params"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "  workflow_type"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "  workflow_type_version"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "  tags"
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "  workflow_engine_parameters"
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "  workflow_url"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "**Ga4ghRunCancel**"
+  Type: ""
+  Req/Opt: ""
+  Description: "GA4GH: Cancel run"

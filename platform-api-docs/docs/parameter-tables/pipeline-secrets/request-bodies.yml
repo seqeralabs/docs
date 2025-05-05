@@ -1,0 +1,20 @@
+- Name: "**CreatePipelineSecret**"
+  Type: ""
+  Req/Opt: ""
+  Description: Create pipeline secret
+- Name: "  name"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "  value"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "**UpdatePipelineSecret**"
+  Type: ""
+  Req/Opt: ""
+  Description: Update secret
+- Name: "  value"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
