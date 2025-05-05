@@ -41,3 +41,8 @@ html[data-theme="light"] {
   flex: none;
   background: rgba(0, 0, 0, 0.02);
 }
+
+html[data-theme="dark"] a {
+    color: white;
+}
+

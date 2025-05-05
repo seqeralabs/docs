@@ -101,7 +101,7 @@ export default function Home(): JSX.Element {
 
   return (
     <Layout>
-      <div className="flex w-full pt-10">
+      <div className="homepage flex w-full pt-10">
         {!isMobile && !disabled && (
           <div className={styles.sidebarContainer}>
             <Sidebar path="/" />
@@ -126,7 +126,7 @@ export default function Home(): JSX.Element {
                
                 className="mb-8 mt-4"
               >
-                Get started with Seqera Cloud
+                Get started with Platform Cloud
               </Button>
               <p className="font-title typo-h3 font-medium w-full text-left mb-8 mt-8">
                 Recommended articles
