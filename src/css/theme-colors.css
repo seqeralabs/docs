@@ -183,3 +183,8 @@ html[data-theme="dark"]
   border-left: .5px solid rgba(255,255,255,.5);
 }
 
+html[data-theme="dark"]  
+.menu__list-item-collapsible--active {
+  background: var(--color-blu-500);
+}
+
