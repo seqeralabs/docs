@@ -31,30 +31,16 @@
       background-color: rgba(16, 23, 59, 0.8);
     }
   }
-  /* &.darkMode {
-    border: 1px solid white;
-    &:hover {
-      background: var(--color-blu);
-      border: 1px solid var(--color-blu);
-    }
-    &.secondary {
-      &:hover {
-        border-color: white;
-        background: white;
-        color: black;
-      }
-    }
-  } */
 }
 
 
 html[data-theme="dark"] .button {
-    background: var(--color-gray-300);
+    background: var(--color-gray-400);
+    border-color: var(--color-gray-400);
     color: var(--color-brand-1000);
-    border: 1px solid white;
     &:hover {
-      background-color: var(--color-blu-900);
-      border-color: var(--color-blu-900);
+      background-color: var(--color-blu-800);
+      border-color: var(--color-blu-800);
       color: white;
     }
     &.secondary {
@@ -62,8 +48,8 @@ html[data-theme="dark"] .button {
       background: var(--color-blu);
       color: white;
       &:hover {
-        background-color: var(--color-blu-900);
-        border-color: var(--color-blu-900);
+        background-color: var(--color-blu-800);
+        border-color: var(--color-blu-800);
         color: white;
       }
       &.altStyle {
