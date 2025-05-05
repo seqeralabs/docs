@@ -64,7 +64,7 @@ services:
       - backend
     volumes:
       # Studios RSA key is required for the Studios functionality. Uncomment the line below to mount the key.
-      #- $PWD/data-studios-rsa.pem:/data-studios-rsa.pem
+      #- $PWD/studios-rsa.pem:/studios-rsa.pem
       - $PWD/tower.yml:/tower.yml
     env_file:
       - tower.env
