@@ -200,7 +200,8 @@ export default function Search() {
                   panel: "custom-search-panel",
                   item: "custom-search-item",
                 }}
-                getSources={({ query }) => {
+                getSources={({ query, state }) => {
+                  
                   const aiThreadItem = {
                     id: "ai-thread",
                     url: query
@@ -211,93 +212,78 @@ export default function Search() {
                   };
 
                   if (!query) {
-                    return [
-                      {
-                        sourceId: "empty-state",
-                        getItems() {
-                          return [];
-                        },
-                        templates: {
-                          header() {
-                            return (
-                              <div className="flex flex-col w-full m-0 p-0">
-                                <ul className="typo-small flex flex-col w-full p-0 m-0">
-                                  <li className="hover:bg-gray-100 flex flex-row w-full">
-                                    <a
-                                      href={aiThreadItem.url}
-                                      onClick={(e) => {
-                                        e.preventDefault();
-                                        window.location.href = aiThreadItem.url;
-                                      }}
-                                      className="aa-ItemLink flex items-center p-3"
-                                      tabIndex={0}
-                                      aria-label={aiThreadItem.title}
-                                    >
-                                      <div className="aa-ItemContent">
-                                        <div className="flex items-center font-normal">
-                                          <AiIcon className="mr-2 w-5 h-5" />
-                                          {aiThreadItem.title}
-                                        </div>
-                                      </div>
-                                    </a>
-                                  </li>
-                                </ul>
-                                <div className="text-gray-1000 font-medium typo-small px-3 py-2 mt-1">
-                                  Documentation
+                    return [{
+                      sourceId: 'empty-state',
+                      getItems() {
+                        return [];
+                      },
+                      templates: {
+                        header() {
+                          return (
+                            <a 
+                              href={aiThreadItem.url} 
+                              className="aa-Item aa-ItemLink hover:bg-gray-100 typo-small flex flex-col w-full m-0 p-3"
+                              tabIndex={0}
+                              aria-label={aiThreadItem.title}
+                            >
+                              <div className="typo-small flex flex-col w-full px-3 py-3 m-0">
+                                <div className="flex flex-row w-full items-center">
+                                  <div className="aa-ItemContent">
+                                    <div className="flex items-center font-normal">
+                                      <AiIcon className="mr-2 w-5 h-5" />
+                                      {aiThreadItem.title}
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
-                            );
-                          },
-                          noResults() {
-                            return (
-                              <div className="pt-0 pb-6 text-sm text-gray-500 font-normal">
-                                Search docs or ask with Seqera AI...
-                              </div>
-                            );
-                          },
+                            </a>
+                          );
                         },
-                      },
-                    ];
+                        noResults() {
+                          return (
+                            <div className="pt-0 pb-6 text-sm text-gray-500 font-normal">
+                              Search docs or ask with Seqera AI...
+                            </div>
+                          );
+                        }
+                      }
+                    }];
                   }
-
                   return [
                     {
-                      sourceId: "ai-thread",
+                      sourceId: 'ai-thread',
                       getItems() {
                         return [aiThreadItem];
+                      },
+                      getItemUrl({ item }) {
+                        return item.url;
                       },
                       templates: {
                         item({ item }) {
                           return (
-                            <div className="flex flex-col w-full m-0 p-0">
-                              <ul className="typo-small flex flex-col w-full p-0 m-0">
-                                <li className="hover:bg-gray-100 flex flex-row w-full">
-                                  <a
-                                    href={item.url}
-                                    onClick={(e) => {
-                                      e.preventDefault();
-                                      window.location.href = item.url;
-                                    }}
-                                    className="aa-ItemLink flex items-center p-3"
-                                    tabIndex={0}
-                                    aria-label={item.title}
-                                  >
-                                    <div className="aa-ItemContent">
-                                      <div className="flex items-center font-normal">
-                                        <AiIcon className="mr-2 w-5 h-5" />
-                                        {item.title}
-                                      </div>
+                            <a 
+                              href={item.url} 
+                              className="aa-Item aa-ItemLink hover:bg-gray-100 typo-small flex flex-col w-full m-0 items-center p-3"
+                              tabIndex={0}
+                              aria-label={item.title}
+                            >
+                              <div className="typo-small flex flex-col w-full py-2 px-4 m-0">
+                                <div className=" flex flex-row w-full">
+                                  <div className="aa-ItemContent">
+                                    <div className="flex items-center font-normal">
+                                      <AiIcon className="mr-2 w-5 h-5" />
+                                      {item.title}
                                     </div>
-                                  </a>
-                                </li>
-                              </ul>
-                            </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </a>
                           );
-                        },
-                      },
+                        }
+                      }
                     },
                     {
-                      sourceId: "docs",
+                      sourceId: 'docs',
                       getItems() {
                         return getAlgoliaResults({
                           searchClient,
@@ -307,39 +293,37 @@ export default function Search() {
                               params: {
                                 query,
                                 hitsPerPage: 5,
-                                attributesToHighlight: ["*"],
+                                attributesToHighlight: ['*'],
                               },
                             },
                           ],
                         });
                       },
+                      getItemUrl({ item }) {
+                        return item.url;
+                      },
                       templates: {
                         item({ item, components }) {
-                          return (
-                            <ProductItem hit={item} components={components} />
-                          );
+                          return <ProductItem hit={item} components={components} />;
                         },
                         header() {
                           return (
-                            <div className="text-gray-1000 font-medium typo-small px-3 py-2 mt-1">
-                              Documentation
-                            </div>
+                            <div className="text-gray-1000 font-medium typo-small px-3 py-2 mt-1">Documentation</div>
                           );
                         },
                         noResults({ state }) {
                           return (
                             <div className="typo-small">
-                              <p className="text-gray-1000 font-medium typo-small">
-                                No results for "<b>{`${state?.query}`}</b>"
-                              </p>
+                              <p className="text-gray-1000 font-medium typo-small">No results for "<b>{`${state?.query}`}</b>"</p>
                             </div>
                           );
-                        },
-                      },
-                    },
+                        }
+                      }
+                    }
                   ];
                 }}
-                debug={true}
+                // this should only be used for debugging on dev/staging
+                // debug={true}
               />
             </div>
           </div>
