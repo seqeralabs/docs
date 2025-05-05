@@ -47,19 +47,32 @@
       background-color: rgba(16, 23, 59, 0.8);
     }
   }
+}
 
-  &.darkMode {
-    border: 1px solid white;
+html[data-theme="dark"] .button  {
+  background: var(--color-gray-400);
+  border-color: var(--color-gray-400);
+  color: var(--color-brand-1000);
+
+  a {
+    color: var(--color-brand-1000);
+  }
+  &:hover {
+    background-color: var(--color-blu-800);
+    border-color: var(--color-blu-800);
+    color: white;
+  }
+  &.secondary {
+    border-color: var(--color-blu);
+    background: var(--color-blu);
+    color: white;
     &:hover {
-      background: var(--color-blu);
-      border: 1px solid var(--color-blu);
+      background-color: var(--color-blu-800);
+      border-color: var(--color-blu-800);
+      color: white;
     }
-    &.secondary {
-      &:hover {
-        border-color: white;
-        background: white;
-        color: black;
-      }
+    &.altStyle {
+      background-color: rgba(16, 23, 59, 0.8);
     }
   }
 }

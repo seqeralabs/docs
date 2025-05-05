@@ -211,3 +211,12 @@ html[data-theme="dark"] .aa-Form {
 .aa-DetachedContainer .aa-Panel {
   position: relative;
 }
+
+html[data-theme="dark"] {
+  .aa-DetachedContainer {
+    background: #464646;
+  }
+  .aa-DetachedCancelButton {
+    color: white;
+  }
+}
