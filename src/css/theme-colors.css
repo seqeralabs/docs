@@ -175,7 +175,6 @@ html[data-theme="dark"] .container a {
   color: var(--color-blu-300);
 }
 
-
 /* tabs  */
 .tabs__item--active {
    border-color: var(--color-blu);
@@ -188,11 +187,11 @@ html[data-theme="dark"] {
   }
 }
 
+/* navbar  */
 html[data-theme="dark"] {
   .navbar ul a, .navbar li a{
     color: #F1F1F1;
   }
-
   .navbar-sidebar__back {
     background: var(--color-blu-700);
   }
@@ -201,6 +200,7 @@ html[data-theme="dark"] {
   }
 }
 
+/* table of contents, breadcrumbs */
 html[data-theme="dark"] .table-of-contents a {
   color: #F1F1F1;
 }
@@ -210,12 +210,12 @@ html[data-theme="dark"]
   color: var(--color-blu-300);
 }
 
-html[data-theme="dark"] .breadcrumbs__item--active .breadcrumbs__link {
-  color: #F1F1F1;
-}
-
 html[data-theme="dark"] .table-of-contents__left-border {
   border-left: none;
+}
+
+html[data-theme="dark"] .breadcrumbs__item--active .breadcrumbs__link {
+  color: #F1F1F1;
 }
 
 html[data-theme="dark"] .menu__list-item-collapsible--active {
@@ -238,26 +238,23 @@ html[data-theme="dark"] {
   --ifm-table-border-color: var(--color-gray-800);
 }
 
-/* admonitions */
+/**********************/
+/**** admonitions ****/
+/********************/
 .theme-admonition {
-
   table {
-   
     thead {
       background:#F1F1F1;
       tr {
         border-bottom: none;
       }
     }
-
     tr {
-      
       &:nth-child(even) {
         background: #F1F1F1;
       }
     }
   }
-  
   a { 
     text-decoration-thickness: 1px;
     text-underline-offset: none;
@@ -302,15 +299,6 @@ html[data-theme="dark"] {
 
 
 html[data-theme="dark"]  {
-  /* --docusaurus-tag-list-border: #fff; */
-
-  /* pre {
-
-    code {
-      background: var(--color-gray-1000);
-    }
-  } */
-
   pre, code {
     background: #403F43;
   }

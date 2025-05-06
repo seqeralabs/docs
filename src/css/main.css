@@ -79,16 +79,10 @@
     font-weight: 400;
   }
 }
-
-svg.excalidraw {
-  @apply h-full max-w-full;
-}
-[data-theme="dark"] svg.excalidraw {
-  /* Not sure why dark:hue-rotate-180 dark:invert doesn't work */
-  filter: invert(1) hue-rotate(180deg);
-}
-svg.excalidraw path[fill="#fff"] {
-  @apply fill-transparent;
+@media (min-width: 996px) { 
+  :root {
+    --ifm-navbar-height: 7rem;
+  }
 }
 
 .navbar {
@@ -99,10 +93,6 @@ svg.excalidraw path[fill="#fff"] {
     margin-inline-start: 0;
     padding: 0;
   }
-}
-.navbar-sidebar__items {
-  /* overflow-y: scroll; */
-  /* height: 100%; */
 }
 /* Hide the top navbar on desktop */
 @media (min-width: 996px) {
@@ -242,9 +232,6 @@ nav.menu .menu__list-item--collapsed .menu__link--sublist:after,
 }
 .breadcrumbs__link {
   padding: 0;
-}
-
-.breadcrumbs__link a {
 }
 
 .breadcrumbs__item--active .breadcrumbs__link {

@@ -17,6 +17,10 @@
   margin-top: 0;
 }
 
+.theme-doc-desktop {
+  --ifm-navbar-height: 8rem;
+}
+
 .sidebarItemTitle {
   font-size: 1em;
   font-weight: 600;
