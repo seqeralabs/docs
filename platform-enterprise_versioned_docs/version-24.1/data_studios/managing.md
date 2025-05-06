@@ -145,5 +145,5 @@ This functionality is available to users with the **Maintain** role and above.
 You can only delete a data studio when it's **stopped**. Select the three dots next to the status message and then select **Delete**. The data studio is deleted immediately and can't be recovered.
 
 [aws-gpu]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-gpu.html
-[conda-syntax]: ./custom-envs.mdx#conda-package-syntax
-[custom-image]: ./custom-envs.mdx#custom-containers
+[conda-syntax]: ./custom-envs#conda-package-syntax
+[custom-image]: ./custom-envs#custom-containers

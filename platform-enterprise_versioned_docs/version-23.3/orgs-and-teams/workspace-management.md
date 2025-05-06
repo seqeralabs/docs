@@ -7,12 +7,12 @@ tags: [workspaces, teams, users, administration]
 
 Each user has a unique **user workspaces** to manage resources such as pipelines, compute environments, and credentials. You can also create multiple workspaces within an organization context and associate each of these workspaces with dedicated teams of users, while providing fine-grained access control for each of the teams.
 
-**Organization workspaces** extend the functionality of [user workspaces](../orgs-and-teams/shared-workspaces.mdx) by adding the ability to fine-tune access levels for specific members, collaborators, or teams. This is achieved by managing **participants** in the organization workspaces.
+**Organization workspaces** extend the functionality of [user workspaces](../orgs-and-teams/shared-workspaces) by adding the ability to fine-tune access levels for specific members, collaborators, or teams. This is achieved by managing **participants** in the organization workspaces.
 
 Organizations consist of members, while workspaces consist of participants.
 
 :::note
-A workspace participant may be a member of the workspace organization or a collaborator within that workspace only. Collaborators count toward the total number of workspace participants. See [Usage limits](../limits/limits.mdx).
+A workspace participant may be a member of the workspace organization or a collaborator within that workspace only. Collaborators count toward the total number of workspace participants. See [Usage limits](../limits/limits).
 :::
 
 ## Create a new workspace
@@ -30,12 +30,12 @@ Organization owners and admins can create a new workspace within an organization
 Optional workspace fields can be modified after workspace creation, either with the **Edit** option on an organization's workspaces list or the **Settings** tab within the workspace page, provided that you are the workspace **owner**.
 :::
 
-Apart from the **Participants** tab, the _organization_ workspace is similar to the _user_ workspace. As such, the relation to [runs](../launch/launchpad.mdx), [actions](../pipeline-actions/overview.mdx), [compute environments](../compute-envs/overview.mdx) and [credentials](../credentials/overview.mdx) is the same.
+Apart from the **Participants** tab, the _organization_ workspace is similar to the _user_ workspace. As such, the relation to [runs](../launch/launchpad), [actions](../pipeline-actions/overview), [compute environments](../compute-envs/overview) and [credentials](../credentials/overview) is the same.
 
 ## Edit a workspace
 
 :::note
-From version 23.2, **workspace owners** can edit their workspace name, either from the workspace settings tab or the [Admin panel](../administration/overview.mdx).
+From version 23.2, **workspace owners** can edit their workspace name, either from the workspace settings tab or the [Admin panel](../administration/overview).
 :::
 
 Open the **Settings** tab on the workspace page and select **Edit Workspace**. Make your updates and select **Update** to save changes.
@@ -67,4 +67,4 @@ There are five roles available for every workspace participant:
 
 ## Workspace run monitoring
 
-To allow users executing pipelines from the command line to share their runs with a given workspace, see [deployment options](../getting-started/deployment-options.mdx#nextflow--with-tower).
+To allow users executing pipelines from the command line to share their runs with a given workspace, see [deployment options](../getting-started/deployment-options#nextflow--with-tower).

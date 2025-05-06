@@ -27,7 +27,7 @@ Seqerakit supports input through paths to YAML configuration files or directly f
     cat file.yaml | seqerakit -
     ```
 
-See [Define your YAML file using CLI options](./yaml-configuration.mdx#yaml-configuration-options) for guidance on formatting your input YAML files.
+See [Define your YAML file using CLI options](./yaml-configuration#yaml-configuration-options) for guidance on formatting your input YAML files.
 
 ### Dryrun
 
@@ -109,7 +109,7 @@ Specify `tw`-specific CLI options with the `--cli=` option:
 seqerakit file.yaml --cli="--arg1 --arg2"
 ```
 
-See [CLI commands](../cli/commands.mdx) or run `tw -h` for the full list of options.
+See [CLI commands](../cli/commands) or run `tw -h` for the full list of options.
 
 :::note
 The `--verbose` option for `tw` CLI is currently not supported in `seqerakit` commands.

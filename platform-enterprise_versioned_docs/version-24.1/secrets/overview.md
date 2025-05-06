@@ -13,7 +13,7 @@ AWS, Google Cloud, and HPC compute environments are currently supported. See [AW
 
 ## Pipeline secrets
 
-To create a pipeline secret, go to a workspace (private or shared) and select the **Secrets** tab in the navigation bar. Available secrets are listed here and users with appropriate [permissions](../orgs-and-teams/roles.mdx) (maintainer, admin, or owner) can create or update secret values.
+To create a pipeline secret, go to a workspace (private or shared) and select the **Secrets** tab in the navigation bar. Available secrets are listed here and users with appropriate [permissions](../orgs-and-teams/roles) (maintainer, admin, or owner) can create or update secret values.
 
 :::note
 Multi-line secrets must be base64-encoded.
@@ -119,7 +119,7 @@ Including `tower-*` in the Resource ARN above limits access to Platform secrets 
 
 ### Compute permissions
 
-The Nextflow head job must communicate with AWS Secrets Manager. Its permissions are inherited either from a custom role assigned during the [AWS Batch CE creation process](../compute-envs/aws-batch.mdx#advanced-options), or from its host [EC2 instance](https://docs.aws.amazon.com/batch/latest/userguide/instance_IAM_role.html).
+The Nextflow head job must communicate with AWS Secrets Manager. Its permissions are inherited either from a custom role assigned during the [AWS Batch CE creation process](../compute-envs/aws-batch#advanced-options), or from its host [EC2 instance](https://docs.aws.amazon.com/batch/latest/userguide/instance_IAM_role.html).
 
 Augment your Nextflow head job permissions source with one of the following policies:
 

@@ -125,7 +125,7 @@ You've created a project, enabled the necessary Google APIs, created a bucket, a
 ### Seqera compute environment
 
 :::caution
-Your Seqera compute environment uses resources that you may be charged for in your Google Cloud account. See [Cloud costs](../monitoring/cloud-costs.mdx) for guidelines to manage cloud resources effectively and prevent unexpected costs.
+Your Seqera compute environment uses resources that you may be charged for in your Google Cloud account. See [Cloud costs](../monitoring/cloud-costs) for guidelines to manage cloud resources effectively and prevent unexpected costs.
 :::
 
 After your Google Cloud resources have been created, create a new Seqera compute environment:
@@ -147,7 +147,7 @@ Select the **Location** where you will execute your pipelines. See [Location][lo
 In the **Pipeline work directory** field, enter your storage bucket URL, e.g., `gs://my-bucket`. This bucket must be accessible in the location selected in the previous step.
 
 :::note
-When you specify a Cloud Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad.mdx#launch-form) form.
+When you specify a Cloud Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
 :::
 
 #### Seqera features
@@ -201,10 +201,10 @@ Apply [**Resource labels**][resource-labels] to the cloud resources consumed by 
 #### Scripting and environment variables
 
 - Expand **Staging options** to include:
-    - Optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
+    - Optional [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
     - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch. 
     :::info
-    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced.mdx#nextflow-config-file) for more information on configuration priority. 
+    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority. 
     :::
 
 
@@ -237,7 +237,7 @@ If you use VM instance templates for the head or compute jobs (see step 6 below)
 Select **Create** to finalize the compute environment setup.
 
 :::info
-See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in your Google Cloud Batch compute environment.
+See [Launch pipelines](../launch/launchpad) to start executing workflows in your Google Cloud Batch compute environment.
 :::
 
 [batch-locations]: https://cloud.google.com/batch/docs/locations
@@ -246,7 +246,7 @@ See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in 
 [location]: https://cloud.google.com/compute/docs/regions-zones#available
 [wave-docs]: https://www.nextflow.io/docs/latest/wave.html
 [fusion-docs]: https://docs.seqera.io/fusion
-[platform-fusion-docs]: ../supported_software/fusion/fusion.mdx
-[pre-post-run-scripts]: ../launch/advanced.mdx#pre-and-post-run-scripts
-[resource-labels]: ../resource-labels/overview.mdx
+[platform-fusion-docs]: ../supported_software/fusion/fusion
+[pre-post-run-scripts]: ../launch/advanced#pre-and-post-run-scripts
+[resource-labels]: ../resource-labels/overview
 [gcp-vm-instance-template]: https://cloud.google.com/compute/docs/instance-templates

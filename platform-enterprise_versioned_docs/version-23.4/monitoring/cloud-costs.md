@@ -9,7 +9,7 @@ Monitor cloud costs to manage resources effectively and prevent unexpected expen
 
 ## Resource labels 
 
-Use [Resource labels](../resource-labels/overview.mdx) in your compute environments to annotate and track the actual cloud resources consumed by a pipeline run. Resource labels are applied to the resources spawned during a run and sent to your cloud provider in `key=value` format.
+Use [Resource labels](../resource-labels/overview) in your compute environments to annotate and track the actual cloud resources consumed by a pipeline run. Resource labels are applied to the resources spawned during a run and sent to your cloud provider in `key=value` format.
 
 ## Seqera cost estimate
 

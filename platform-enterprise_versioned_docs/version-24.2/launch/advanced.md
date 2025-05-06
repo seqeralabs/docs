@@ -72,7 +72,7 @@ The resolved configuration will contain the **Nextflow config file** field's man
 
 ### Seqera Cloud config file
 
-Configure per-pipeline Seqera reporting behavior. Settings specified here override the same settings in the `tower.yml` [configuration file](../enterprise/configuration/overview.mdx) for this execution. Use the `reports` key to specify report paths, titles, and MIME types:
+Configure per-pipeline Seqera reporting behavior. Settings specified here override the same settings in the `tower.yml` [configuration file](../enterprise/configuration/overview) for this execution. Use the `reports` key to specify report paths, titles, and MIME types:
 
 ```yml
 reports:
@@ -113,7 +113,7 @@ Replace Nextflow process commands with command [stubs](https://www.nextflow.io/d
 Nextflow will attempt to run the script named `main.nf` in the project repository by default. You can configure a custom script filename in `manifest.mainScript` or you can provide the script filename in this field.
 
 :::note
-If you specify a custom script filename, the root of the default branch in your pipeline repository must still contain blank `main.nf` and `nextflow.config` files. See [Nextflow configuration](../troubleshooting_and_faqs/nextflow.mdx) for more information on this known Nextflow behavior.
+If you specify a custom script filename, the root of the default branch in your pipeline repository must still contain blank `main.nf` and `nextflow.config` files. See [Nextflow configuration](../troubleshooting_and_faqs/nextflow) for more information on this known Nextflow behavior.
 :::
 
 ### Workflow entry name
@@ -126,5 +126,5 @@ Specify the name of a pipeline schema file in the workflow repository root folde
 
 ### Head job CPUs and memory
 
-Specify the compute resources allocated to the Nextflow head job. These fields are only displayed for runs executing on [AWS Batch](../compute-envs/aws-batch.mdx) and [Azure Batch](../compute-envs/azure-batch.mdx) compute environments. 
+Specify the compute resources allocated to the Nextflow head job. These fields are only displayed for runs executing on [AWS Batch](../compute-envs/aws-batch) and [Azure Batch](../compute-envs/azure-batch) compute environments. 
 

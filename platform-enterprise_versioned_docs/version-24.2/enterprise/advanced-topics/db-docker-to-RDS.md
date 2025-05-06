@@ -5,11 +5,11 @@ date: "12 Apr 2023"
 tags: [rds, docker, database]
 ---
 
-While [Docker Compose](../docker-compose.mdx) is a fast and convenient way to deploy your Seqera instance, production deployments require a robust database solution to minimize the risk of data loss.
+While [Docker Compose](../docker-compose) is a fast and convenient way to deploy your Seqera instance, production deployments require a robust database solution to minimize the risk of data loss.
 
 ## Points to consider before database migration
 
-- **Target database:** You have options when selecting your new MySQL-compliant database. While the process is mostly the same, some of the commands will differ (example: [MariaDB on RDS](../configuration/overview.mdx#seqera-and-redis-databases)).
+- **Target database:** You have options when selecting your new MySQL-compliant database. While the process is mostly the same, some of the commands will differ (example: [MariaDB on RDS](../configuration/overview#seqera-and-redis-databases)).
 
 - **Database size:** The data in your database must be exported from the MySQL container and imported to the new instance. Depending on the amount of data in your database and the remaining EC2 EBS capacity, you can save your data directly to the instance, or use a service with more capacity (such as AWS S3).
 
@@ -23,7 +23,7 @@ While [Docker Compose](../docker-compose.mdx) is a fast and convenient way to de
 
 Before starting your migration:
 
-1. Create an RDS MySQL-compliant instance and populate it with a [Seqera user and database](../configuration/overview.mdx#seqera-and-redis-databases).
+1. Create an RDS MySQL-compliant instance and populate it with a [Seqera user and database](../configuration/overview#seqera-and-redis-databases).
 
 2. Ensure both your database and EC2 instances' Security Group(s) have been configured to allow MySQL traffic (default: Port 3306).
 
@@ -120,7 +120,7 @@ These migration instructions assume:
 11. Modify the `tower.env` config file in the Seqera Docker folder:
 
     1. Comment out the existing `TOWER_DB-*` variables.
-    2. Add new entries [relevant to your database](../configuration/overview.mdx#seqera-and-redis-databases).
+    2. Add new entries [relevant to your database](../configuration/overview#seqera-and-redis-databases).
     3. Save and exit.
 
 12. Restart the application:

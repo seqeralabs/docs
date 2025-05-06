@@ -10,7 +10,7 @@ This deployment option is deprecated, and will be removed in the future. We stro
 
 Tower can be deployed via AWS CloudFormation, using the included configuration.
 
-This guide assumes that all [prerequisites](../prerequisites/aws.mdx) have been met.
+This guide assumes that all [prerequisites](../prerequisites/aws) have been met.
 
 ## Set up an ECS cluster
 
@@ -51,7 +51,7 @@ This guide assumes that all [prerequisites](../prerequisites/aws.mdx) have been 
 
 2. Rename `params.template.json` to `params.json` and configure for your environment.
 
-   For more information on configuration, visit the [Configuration](../configuration/overview.mdx) section.
+   For more information on configuration, visit the [Configuration](../configuration/overview) section.
 
 3. Deploy the Tower stack to your ECS cluster:
 

@@ -110,7 +110,7 @@ After you have created a resource group and storage account, create a [Batch acc
     - **Pools**: Each platform compute environment requires one Azure Batch pool. Each pool is composed of multiple machines of one virtual machine size.
 
     :::note
-    To use separate pools for head and compute nodes, see [this FAQ entry](../faqs.mdx#azure).
+    To use separate pools for head and compute nodes, see [this FAQ entry](../faqs#azure).
     :::
 
     - **Batch accounts per region per subscription**: Set this to the number of Azure Batch accounts per region per subscription. Only one is required.
@@ -127,7 +127,7 @@ There are two ways to create an Azure Batch compute environment in Seqera Platfo
 ### Batch Forge
 
 :::caution
-Batch Forge automatically creates resources that you may be charged for in your Azure account. See [Cloud costs](../monitoring/cloud-costs.mdx) for guidelines to manage cloud resources effectively and prevent unexpected costs.
+Batch Forge automatically creates resources that you may be charged for in your Azure account. See [Cloud costs](../monitoring/cloud-costs) for guidelines to manage cloud resources effectively and prevent unexpected costs.
 :::
 
 Create a Batch Forge Azure Batch compute environment:
@@ -147,19 +147,19 @@ Create a Batch Forge Azure Batch compute environment:
 8. In the **Pipeline work directory** field, enter the Azure blob container created previously, e.g., `az://towerrgstorage-container/work`.
 
     :::note
-    When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad.mdx#launch-form) form.
+    When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
     :::
 
 9. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers][wave-docs] for more information.
-10. Select **Enable Fusion v2** to allow access to your Azure Blob Storage data via the [Fusion v2](https://docs.seqera.io/fusion) virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled. See [Fusion file system](../supported_software/fusion/fusion.mdx) for configuration details.
+10. Select **Enable Fusion v2** to allow access to your Azure Blob Storage data via the [Fusion v2](https://docs.seqera.io/fusion) virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled. See [Fusion file system](../supported_software/fusion/fusion) for configuration details.
 11. Set the **Config mode** to **Batch Forge**.
 12. Enter the default **VMs type**, depending on your quota limits set previously. The default is _Standard_D4_v3_.
 13. Enter the **VMs count**. If autoscaling is enabled (default), this is the maximum number of VMs you wish the pool to scale up to. If autoscaling is disabled, this is the fixed number of virtual machines in the pool.
 14. Enable **Autoscale** to scale up and down automatically, based on the number of pipeline tasks. The number of VMs will vary from **0** to **VMs count**.
 15. Enable **Dispose resources** for Seqera to automatically delete the Batch pool if the compute environment is deleted on the platform.
-16. Select or create [**Container registry credentials**](../credentials/azure_registry_credentials.mdx) to authenticate a registry (used by the [Wave containers](https://www.nextflow.io/docs/latest/wave.html) service). It is recommended to use an [Azure Container registry](https://azure.microsoft.com/en-gb/products/container-registry) within the same region for maximum performance.
-17. Apply [**Resource labels**](../resource-labels/overview.mdx). This will populate the **Metadata** fields of the Azure Batch pool.
-18. Expand **Staging options** to include optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
+16. Select or create [**Container registry credentials**](../credentials/azure_registry_credentials) to authenticate a registry (used by the [Wave containers](https://www.nextflow.io/docs/latest/wave.html) service). It is recommended to use an [Azure Container registry](https://azure.microsoft.com/en-gb/products/container-registry) within the same region for maximum performance.
+17. Apply [**Resource labels**](../resource-labels/overview). This will populate the **Metadata** fields of the Azure Batch pool.
+18. Expand **Staging options** to include optional [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
 19. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
 20. Configure any advanced options you need:
 
@@ -168,14 +168,14 @@ Create a Batch Forge Azure Batch compute environment:
 
 21. Select **Add** to finalize the compute environment setup. It will take a few seconds for all the resources to be created before the compute environment is ready to launch pipelines.
 
-**See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in your Azure Batch compute environment.**
+**See [Launch pipelines](../launch/launchpad) to start executing workflows in your Azure Batch compute environment.**
 
 ## Manual
 
 This section is for users with a pre-configured Azure Batch pool. This requires an existing Azure Batch account with an existing pool.
 
 :::caution
-Your Seqera compute environment uses resources that you may be charged for in your Azure account. See [Cloud costs](../monitoring/cloud-costs.mdx) for guidelines to manage cloud resources effectively and prevent unexpected costs.
+Your Seqera compute environment uses resources that you may be charged for in your Azure account. See [Cloud costs](../monitoring/cloud-costs) for guidelines to manage cloud resources effectively and prevent unexpected costs.
 :::
 
 **Create a manual Seqera Azure Batch compute environment**
@@ -195,14 +195,14 @@ Your Seqera compute environment uses resources that you may be charged for in yo
 8. In the **Pipeline work directory** field, add the Azure blob container created previously, e.g., `az://towerrgstorage-container/work`.
 
     :::note
-    When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad.mdx#launch-form) form.
+    When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
     :::
 
 9. Set the **Config mode** to **Manual**.
 10. Enter the **Compute Pool name**. This is the name of the Azure Batch pool you created previously in the Azure Batch account.
 
     :::note
-    The default Azure Batch implementation uses a single pool for head and compute nodes. To use separate pools for head and compute nodes (e.g., to use low-priority VMs for compute jobs), see [this FAQ entry](../faqs.mdx#azure).
+    The default Azure Batch implementation uses a single pool for head and compute nodes. To use separate pools for head and compute nodes (e.g., to use low-priority VMs for compute jobs), see [this FAQ entry](../faqs#azure).
     :::
 
 11. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
@@ -213,7 +213,7 @@ Your Seqera compute environment uses resources that you may be charged for in yo
 
 13. Select **Add** to finalize the compute environment setup. It will take a few seconds for all the resources to be created before you are ready to launch pipelines.
 
-**See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in your Azure Batch compute environment.**
+**See [Launch pipelines](../launch/launchpad) to start executing workflows in your Azure Batch compute environment.**
 
 [az-data-residency]: https://azure.microsoft.com/en-gb/explore/global-infrastructure/data-residency/#select-geography
 [az-batch-quotas]: https://docs.microsoft.com/en-us/azure/batch/batch-quota-limit#view-batch-quotas

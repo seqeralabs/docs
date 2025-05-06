@@ -140,7 +140,7 @@ If you secure infrastructure such as private Git repositories or your Seqera Ent
 2. Replace `TARGET_HOSTNAME`, `TARGET_ALIAS`, and `PRIVATE_CERT.pem` with your unique values.
 3. Previous instructions advised using `openssl`. The native `keytool` utility is preferred as it simplifies steps and better accommodates private CA certificates.
 
-Add the following to your compute environment [pre-run script](../../launch/advanced.mdx#pre-and-post-run-scripts):
+Add the following to your compute environment [pre-run script](../../launch/advanced#pre-and-post-run-scripts):
 
 ```bash
 keytool -printcert -rfc -sslserver TARGET_HOSTNAME:443  >  /PRIVATE_CERT.pem

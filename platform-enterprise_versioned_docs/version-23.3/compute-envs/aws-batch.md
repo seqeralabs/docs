@@ -21,7 +21,7 @@ There are two ways to create a Seqera Platform compute environment for AWS Batch
 Batch Forge automates the configuration of an [AWS Batch](https://aws.amazon.com/batch/) compute environment and the queues required for deploying Nextflow pipelines.
 
 :::caution
-Batch Forge automatically creates resources that you may be charged for in your AWS account. See [Cloud costs](../monitoring/cloud-costs.mdx) for guidelines to manage cloud resources effectively and prevent unexpected costs.
+Batch Forge automatically creates resources that you may be charged for in your AWS account. See [Cloud costs](../monitoring/cloud-costs) for guidelines to manage cloud resources effectively and prevent unexpected costs.
 :::
 
 ### IAM
@@ -86,7 +86,7 @@ S3 is used by Nextflow for the storage of intermediate files. In production pipe
 Batch Forge automates the configuration of an [AWS Batch](https://aws.amazon.com/batch/) compute environment and the queues required to deploy Nextflow pipelines. After your IAM user and S3 bucket have been set up, create a new **AWS Batch** compute environment in Seqera.
 
 :::caution
-Batch Forge automatically creates resources that you may be charged for in your AWS account. See [Cloud costs](../monitoring/cloud-costs.mdx) for guidelines to manage cloud resources effectively and prevent unexpected costs.
+Batch Forge automatically creates resources that you may be charged for in your AWS account. See [Cloud costs](../monitoring/cloud-costs) for guidelines to manage cloud resources effectively and prevent unexpected costs.
 :::
 
 **Create a Batch Forge AWS Batch compute environment**
@@ -97,7 +97,7 @@ Batch Forge automatically creates resources that you may be charged for in your 
 4. From the **Credentials** drop-down, select existing AWS credentials, or select **+** to add new credentials. If you're using existing credentials, skip to step 8.
 
     :::note
-    You can create multiple credentials in your Seqera environment. See [Credentials](../credentials/overview.mdx).
+    You can create multiple credentials in your Seqera environment. See [Credentials](../credentials/overview).
     :::
 
 5. Enter a name, e.g., _AWS Credentials_.
@@ -112,11 +112,11 @@ Batch Forge automatically creates resources that you may be charged for in your 
 9. Enter your S3 bucket path in the **Pipeline work directory** field, e.g., `s3://seqera-bucket`. This bucket must be in the same region chosen in the previous step.
 
     :::note
-    When you specify an S3 bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. Seqera adds a `cloudcache` block to the Nextflow configuration file for all runs executed with this compute environment. This block includes the path to a `cloudcache` folder in your work directory, e.g., `s3://seqera-bucket/cloudcache/.cache`. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad.mdx#launch-form) form.
+    When you specify an S3 bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. Seqera adds a `cloudcache` block to the Nextflow configuration file for all runs executed with this compute environment. This block includes the path to a `cloudcache` folder in your work directory, e.g., `s3://seqera-bucket/cloudcache/.cache`. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
     :::
 
 10. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers](https://www.nextflow.io/docs/latest/wave.html) for more information.
-11. Select **Enable Fusion v2** to allow access to your S3-hosted data via the [Fusion v2](https://docs.seqera.io/fusion) virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled. See [Fusion file system](../supported_software/fusion/fusion.mdx) for configuration details.
+11. Select **Enable Fusion v2** to allow access to your S3-hosted data via the [Fusion v2](https://docs.seqera.io/fusion) virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled. See [Fusion file system](../supported_software/fusion/fusion) for configuration details.
 
 When using Fusion v2 without fast instance storage (see below), the following EBS settings are applied to optimize file system performance:
 
@@ -159,7 +159,7 @@ Extensive benchmarking of Fusion v2 has demonstrated that the increased cost ass
     Fargate requires the Fusion v2 file system and a **spot** provisioning model. Fargate is not compatible with EFS and FSx file systems.
     :::
 
-19. Select **Enable GPUs** if you intend to run GPU-dependent workflows in the compute environment. See [GPU usage](./overview.mdx#aws-batch) for more information.
+19. Select **Enable GPUs** if you intend to run GPU-dependent workflows in the compute environment. See [GPU usage](./overview#aws-batch) for more information.
 
     :::note 
     Seqera only supports NVIDIA GPUs. Select instances with NVIDIA GPUs for your GPU-dependent processes. 
@@ -187,11 +187,11 @@ Extensive benchmarking of Fusion v2 has demonstrated that the increased cost ass
 - FSx file systems created by Batch Forge are automatically tagged in AWS with `Name=TowerForge-<id>`, with `<id>` being the compute environment ID. Any manually-added resource label with the key `Name` (capital N) will override the automatically-assigned `TowerForge-<id>` label.
 
 24. Select **Dispose resources** to automatically delete these AWS resources if you delete the compute environment in Seqera Platform.
-25. Apply [**Resource labels**](../resource-labels/overview.mdx) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
-26. Expand **Staging options** to include optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
+25. Apply [**Resource labels**](../resource-labels/overview) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
+26. Expand **Staging options** to include optional [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
 27. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
 28. Configure any advanced options described in the next section, as needed.
-29. Select **Create** to finalize the compute environment setup. It will take a few seconds for all the resources to be created before you are ready to [launch pipelines](../launch/launchpad.mdx).
+29. Select **Create** to finalize the compute environment setup. It will take a few seconds for all the resources to be created before you are ready to [launch pipelines](../launch/launchpad).
 
 ### Advanced options
 
@@ -239,7 +239,7 @@ tw CLI v0.8 and earlier does not support the `SPOT_PRICE_CAPACITY_OPTIMIZED` all
     Altering this file may result in a malfunctioning Batch Forge compute environment. See [Amazon ECS container agent configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) to learn more about the available parameters.
     :::
 
-See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in your AWS Batch compute environment.
+See [Launch pipelines](../launch/launchpad) to start executing workflows in your AWS Batch compute environment.
 
 ## Manual
 
@@ -270,7 +270,7 @@ Seqera can use S3 to store the intermediate files and output data generated by p
 With your AWS environment and resources set up and your user permissions configured, create an AWS Batch compute environment in Seqera manually.
 
 :::caution
-Your Seqera compute environment uses resources that you may be charged for in your AWS account. See [Cloud costs](../monitoring/cloud-costs.mdx) for guidelines to manage cloud resources effectively and prevent unexpected costs.
+Your Seqera compute environment uses resources that you may be charged for in your AWS account. See [Cloud costs](../monitoring/cloud-costs) for guidelines to manage cloud resources effectively and prevent unexpected costs.
 :::
 
 **Create a manual Seqera compute environment**
@@ -283,14 +283,14 @@ Your Seqera compute environment uses resources that you may be charged for in yo
 6. Enter the **Access key** and **Secret key** for your IAM user.
 
     :::note
-    You can create multiple credentials in your Seqera environment. See [Credentials](../credentials/overview.mdx).
+    You can create multiple credentials in your Seqera environment. See [Credentials](../credentials/overview).
     :::
 
 7. Select a **Region**, e.g., _eu-west-1 - Europe (Ireland)_.
 8. Enter an S3 bucket path for the **Pipeline work directory**, e.g., `s3://seqera-bucket`. This bucket must be in the same region chosen in the previous step.
 
     :::note
-    When you specify an S3 bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. Seqera adds a `cloudcache` block to the Nextflow configuration file for all runs executed with this compute environment. This block includes the path to a `cloudcache` folder in your work directory, e.g., `s3://seqera-bucket/cloudcache/.cache`. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad.mdx#launch-form) form.
+    When you specify an S3 bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. Seqera adds a `cloudcache` block to the Nextflow configuration file for all runs executed with this compute environment. This block includes the path to a `cloudcache` folder in your work directory, e.g., `s3://seqera-bucket/cloudcache/.cache`. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
     :::
 
 9. Set the **Config mode** to **Manual**.
@@ -312,7 +312,7 @@ Seqera Platform compute environments for AWS Batch include advanced options to c
 - Use **AWS CLI tool path** to specify the location of the `aws` CLI.
 - Specify a **CloudWatch Log group** for the `awslogs` driver to stream the logs entry to an existing Log group in Cloudwatch.
 
-See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in your AWS Batch compute environment.
+See [Launch pipelines](../launch/launchpad) to start executing workflows in your AWS Batch compute environment.
 
 
 [quota]: https://docs.aws.amazon.com/batch/latest/userguide/service_limits.html

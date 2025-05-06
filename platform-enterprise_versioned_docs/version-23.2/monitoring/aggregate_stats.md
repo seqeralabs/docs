@@ -71,7 +71,7 @@ The estimated cost is subject to several limitations:
 
 - On a resumed pipeline run, the cost of cached tasks is included in the estimated cost. As a result, the total cost of multiple attempts of a pipeline run tends to overestimate the actual cost, because the cost of cached tasks may be counted multiple times.
 
-For accurate cost accounting, you should use the cost reporting tools for your cloud provider (such as AWS Cost Explorer). You can use [Resource labels](../resource-labels/overview.mdx) in your compute environments to annotate and track the actual cloud resources consumed by a pipeline run.
+For accurate cost accounting, you should use the cost reporting tools for your cloud provider (such as AWS Cost Explorer). You can use [Resource labels](../resource-labels/overview) in your compute environments to annotate and track the actual cloud resources consumed by a pipeline run.
 
 ![](./_images/monitoring_aggregate_stats.png)
 

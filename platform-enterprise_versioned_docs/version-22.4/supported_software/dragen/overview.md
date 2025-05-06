@@ -12,7 +12,7 @@ The improved performance offered by DRAGEN is possible due to the use of Illumin
 
 ### Running DRAGEN on Nextflow Tower
 
-We have extended the [Batch Forge](../../compute-envs/aws-batch.mdx?h=forge#tower-forge) feature for AWS Batch to support DRAGEN. Batch Forge ensures that all of the appropriate components and settings are automatically provisioned when creating a Compute Environment for executing pipelines.
+We have extended the [Batch Forge](../../compute-envs/aws-batch?h=forge#tower-forge) feature for AWS Batch to support DRAGEN. Batch Forge ensures that all of the appropriate components and settings are automatically provisioned when creating a Compute Environment for executing pipelines.
 
 When deploying data analysis workflows, some tasks will need to use normal instance types (e.g. for non-DRAGEN processing of samples) and others will need to be executed on F1 instances. If the DRAGEN feature is enabled, Batch Forge will create an additional AWS Batch compute queue which only uses F1 instances, to which DRAGEN tasks will be dispatched.
 
@@ -32,7 +32,7 @@ DRAGEN is a commercial technology provided by Illumina, so you will need to purc
 2. DRAGEN license username
 3. DRAGEN license password
 
-Batch Forge automates most of the tasks required to set up an AWS Batch Compute Environment. Please follow [our guide](../../compute-envs/aws-batch.mdx) for more details.
+Batch Forge automates most of the tasks required to set up an AWS Batch Compute Environment. Please follow [our guide](../../compute-envs/aws-batch) for more details.
 
 In order to enable support for DRAGEN acceleration, simply toggle the "Enable DRAGEN" option when setting up the Compute Environment via Batch Forge.
 
@@ -72,7 +72,7 @@ Please see the [dragen.nf](https://github.com/seqeralabs/nf-dragen/blob/master/m
 
    ![](./_images/dragen_secrets_password.png)
 
-   Please refer to the [Secrets documentation](../../secrets/overview.mdx) for more information about this feature.
+   Please refer to the [Secrets documentation](../../secrets/overview) for more information about this feature.
 
 ### Limitations
 

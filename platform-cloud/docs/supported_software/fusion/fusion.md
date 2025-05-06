@@ -26,8 +26,8 @@ Fusion v2 improves pipeline throughput for containerized tasks by simplifying di
 
 See the compute environment page for your cloud provider for Fusion configuration instructions:
 
-- [AWS Batch](../../compute-envs/aws-batch.mdx)
-- [Amazon EKS](../../compute-envs/eks.mdx)
-- [Azure Batch](../../compute-envs/azure-batch.mdx)
-- [Google Cloud Batch](../../compute-envs/google-cloud-batch.mdx)
-- [Google Kubernetes Engine](../../compute-envs/gke.mdx)
+- [AWS Batch](../../compute-envs/aws-batch)
+- [Amazon EKS](../../compute-envs/eks)
+- [Azure Batch](../../compute-envs/azure-batch)
+- [Google Cloud Batch](../../compute-envs/google-cloud-batch)
+- [Google Kubernetes Engine](../../compute-envs/gke)

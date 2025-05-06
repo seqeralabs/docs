@@ -11,4 +11,4 @@ In the example below, there are four tasks of the fastqc process.
 
 <img src="../_images/monitoring_fastqc_processes.png" width="50%"/>
 
-By selecting a process, the [**Tasks table**](./tasks.mdx) is filtered below.
+By selecting a process, the [**Tasks table**](./tasks) is filtered below.

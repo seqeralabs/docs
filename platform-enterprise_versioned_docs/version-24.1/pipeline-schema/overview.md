@@ -30,5 +30,5 @@ When the skeleton pipeline schema file has been built with `nf-core schema build
 Leave the command line tool running in the background as it checks the status of your schema on the website. When you select **Finished** on the schema editor page, your changes are saved to the schema file locally.
 
 :::note
-Your pipeline schema contains a `mimetype` field that specifies the accepted file type for input [datasets](../data/datasets.mdx). When you launch a pipeline from the [Launchpad](../launch/launchpad.mdx), the input field drop-down will only show datasets that match the required file type (either `text/csv` or `text/tsv`).
+Your pipeline schema contains a `mimetype` field that specifies the accepted file type for input [datasets](../data/datasets). When you launch a pipeline from the [Launchpad](../launch/launchpad), the input field drop-down will only show datasets that match the required file type (either `text/csv` or `text/tsv`).
 :::

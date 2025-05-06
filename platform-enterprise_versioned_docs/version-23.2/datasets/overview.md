@@ -24,7 +24,7 @@ The most commonly used datasets for Nextflow pipelines are samplesheets, where e
 |RAP1_UNINDUCED_REP2|s3://nf-core-awsmegatests/rnaseq/...| |reverse |
 |RAP1_IAA_30M_REP1 |s3://nf-core-awsmegatests/rnaseq/...|s3://nf-core-awsmegatests/rnaseq/... |reverse |
 
-The combination of datasets, [pipeline secrets](../secrets/overview.mdx), and [pipeline actions](../pipeline-actions/overview.mdx) in Tower allows you to automate workflows to curate your data and maintain and launch pipelines based on specific events. See [here](https://seqera.io/blog/workflow-automation/) for an example of pipeline workflow automation using Tower.
+The combination of datasets, [pipeline secrets](../secrets/overview), and [pipeline actions](../pipeline-actions/overview) in Tower allows you to automate workflows to curate your data and maintain and launch pipelines based on specific events. See [here](https://seqera.io/blog/workflow-automation/) for an example of pipeline workflow automation using Tower.
 
 - Using datasets reduces errors that occur due to manual data entry when launching pipelines.
 
@@ -32,13 +32,13 @@ The combination of datasets, [pipeline secrets](../secrets/overview.mdx), and [p
 
 - Datasets can streamline differential data analysis when using the same pipeline to launch a run for each dataset as it becomes available.
 
-For your pipeline to use your dataset as input during runtime, information about the dataset and file format must be included in the relevant parameters of your [pipeline schema](../pipeline-schema/overview.mdx). The pipeline schema specifies the accepted dataset file type in the `mimetype` attribute (either `text/csv` or `text/tsv`).
+For your pipeline to use your dataset as input during runtime, information about the dataset and file format must be included in the relevant parameters of your [pipeline schema](../pipeline-schema/overview). The pipeline schema specifies the accepted dataset file type in the `mimetype` attribute (either `text/csv` or `text/tsv`).
 
 ### Dataset validation and file content requirements
 
 Tower does not validate your dataset file contents. While datasets can contain static file links, you are responsible for maintaining the access to that data.
 
-Datasets can point to files stored in various locations, such as Amazon S3 or GitHub. To stage the file paths defined in the dataset, Nextflow requires access to the infrastructure where the files reside, whether on Cloud or HPC systems. Add the access keys for data sources that require authentication to your [pipeline secrets](../secrets/overview.mdx).
+Datasets can point to files stored in various locations, such as Amazon S3 or GitHub. To stage the file paths defined in the dataset, Nextflow requires access to the infrastructure where the files reside, whether on Cloud or HPC systems. Add the access keys for data sources that require authentication to your [pipeline secrets](../secrets/overview).
 
 ### Dataset permissions
 

@@ -11,7 +11,7 @@ As of February 2024, this configuration guide is not currently recommended for p
 
 To expose your Seqera instance behind a reverse proxy, complete the following steps:
 
-1. Use the [Seqera frontend unprivileged](../kubernetes.mdx#seqera-frontend-unprivileged) image.
+1. Use the [Seqera frontend unprivileged](../kubernetes#seqera-frontend-unprivileged) image.
 2. Add `TOWER_BASE_PATH` to the environment variables of the frontend container:
    - `TOWER_BASE_PATH: "/myseqera/"` exposes your instance at `https://example.com/myseqera/` (this must match your proxy configuration)
 3. In the backend/cron environment variables or in the Seqera config file, edit the following environment variables:

@@ -6,7 +6,7 @@ tags: [seqerakit, cli, automation, installation]
 ---
 
 
-Seqerakit is a Python wrapper that sets [Platform CLI](../cli/overview.mdx) command options using YAML configuration files. Individual commands and configuration parameters can be chained together to automate the end-to-end creation of all Seqera Platform entities.
+Seqerakit is a Python wrapper that sets [Platform CLI](../cli/overview) command options using YAML configuration files. Individual commands and configuration parameters can be chained together to automate the end-to-end creation of all Seqera Platform entities.
 
 As an extension of the Platform CLI, Seqerakit enables:
 
@@ -24,7 +24,7 @@ Seqerakit has three dependencies:
 
 #### Pip
 
-If you already have [Platform CLI](../cli/installation.mdx) and Python installed on your system, install Seqerakit directly from [PyPI](https://pypi.org/project/seqerakit/):
+If you already have [Platform CLI](../cli/installation) and Python installed on your system, install Seqerakit directly from [PyPI](https://pypi.org/project/seqerakit/):
 
 ```bash
 pip install seqerakit
@@ -114,4 +114,4 @@ Use the `--help` or `-h` option to list the available commands and their associa
 seqerakit --help
 ```
 
-See [Commands](./commands.mdx) for detailed instructions to use Seqerakit.
+See [Commands](./commands) for detailed instructions to use Seqerakit.

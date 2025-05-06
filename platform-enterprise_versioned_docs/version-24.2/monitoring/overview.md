@@ -16,7 +16,7 @@ The **Runs** tab contains all previous runs in the workspace. Each new or resume
 - `cancelled`: Stopped manually during execution
 - `unknown`: Indeterminate status
 
-Select the name of a run from the list to display that run's [execution details](./run-details.mdx).
+Select the name of a run from the list to display that run's [execution details](./run-details).
 
 ## Save run as pipeline
 

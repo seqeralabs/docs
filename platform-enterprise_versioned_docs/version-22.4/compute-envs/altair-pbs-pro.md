@@ -51,7 +51,7 @@ To create a new compute environment for **PBS Pro** in Tower:
 
 13. Select **Create** to finalize the creation of the compute environment.
 
-Jump to the documentation for [Launching Pipelines](../launch/launchpad.mdx).
+Jump to the documentation for [Launching Pipelines](../launch/launchpad).
 
 ### Advanced options
 

@@ -34,9 +34,9 @@ Tower Agent is distributed as a single executable file to simply download and ex
 
 Before running the Agent:
 
-1. Create a [**personal access token**](api/overview.mdx#authentication) in Tower.
+1. Create a [**personal access token**](api/overview#authentication) in Tower.
 
-2. Create **Tower Agent** credentials in a Tower workspace. See [here](credentials/overview.mdx) for more instructions.
+2. Create **Tower Agent** credentials in a Tower workspace. See [here](credentials/overview) for more instructions.
 
 :::note
 To share a single Tower Agent instance with all members of a workspace, create a Tower Agent credential with **Shared agent** enabled.

@@ -59,7 +59,7 @@ In order for your DB or Redis volume to persist after a `docker restart`, uncomm
    ```
 
 :::note
-For more information on configuration, see [Configuration options](./configuration/overview.mdx).
+For more information on configuration, see [Configuration options](./configuration/overview).
 :::
 
 ## Test the application

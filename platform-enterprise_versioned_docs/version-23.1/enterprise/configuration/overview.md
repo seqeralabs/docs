@@ -62,7 +62,7 @@ tower:
 
 ## Tower and Redis Databases
 
-For further information, see [Tower and Redis Databases](./database_and_redis.mdx).
+For further information, see [Tower and Redis Databases](./database_and_redis).
 
 :::note
 As of Tower version 22.3, we officially support Redis version 6. Follow your cloud provider specifications to upgrade your instance.
@@ -97,7 +97,7 @@ As of Tower version 22.3, we officially support Redis version 6. Follow your clo
 
 ## Mail Server
 
-For further information, see [Mail server](./mail_server.mdx).
+For further information, see [Mail server](./mail_server).
 
 <details>
   <summary>Environment variables</summary>
@@ -137,7 +137,7 @@ The `TOWER_CRYPTO_SECRETKEY` should not be modified or altered across Tower star
 
 ## Compute environments
 
-For further information,see [Compute environments](./compute_environments.mdx).
+For further information,see [Compute environments](./compute_environments).
 
 - `TOWER_ENABLE_PLATFORMS`: Comma separate list of execution backends to be enabled (**required**).
 - `MICRONAUT_ENVIRONMENTS`: Enable specific configuration profile for the Micronaut backend service (**required**).
@@ -146,7 +146,7 @@ For further information,see [Compute environments](./compute_environments.mdx).
 <!--- Llewellyn 19-4-2023: I propose leaving out this entire platform-specific section as it has a dedicated advanced topics page, and IAM stuff is covered extensively both here and in help docs by now. @Graham, thoughts?  >
 ## Platform-specific options
 
-For further information, please refer to the [advanced topics](../advanced-topics/use-iam-role.mdx) page.
+For further information, please refer to the [advanced topics](../advanced-topics/use-iam-role) page.
 
 Configure Tower to use an IAM Role, instead of providing IAM User credentials (AWS only):
 
@@ -179,7 +179,7 @@ tower:
 
 ## Tower API
 
-For further information, please refer [Tower API](./tower_api.mdx) page.
+For further information, please refer [Tower API](./tower_api) page.
 
 - `TOWER_ENABLE_OPENAPI`: Set `true` to enable OpenAPI documentation endpoint.
 

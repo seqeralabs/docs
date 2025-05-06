@@ -13,7 +13,7 @@ Tower is available in three versions:
 
 ### Tower Cloud
 
-To try Tower Cloud, visit [tower.nf](https://tower.nf/login) and log in with your GitHub or Google credentials. The [Launching pipelines](../launch/launch.mdx) page provides step-by-step instructions to launch your first pipeline. Tower Cloud has a limit of five concurrent workflow runs per user.
+To try Tower Cloud, visit [tower.nf](https://tower.nf/login) and log in with your GitHub or Google credentials. The [Launching pipelines](../launch/launch) page provides step-by-step instructions to launch your first pipeline. Tower Cloud has a limit of five concurrent workflow runs per user.
 
 ![](./_images/starting_tower_nf.png)
 

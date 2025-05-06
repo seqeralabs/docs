@@ -389,7 +389,7 @@ You can also use User Subscription mode instead of Batch Managed here, but this 
 
 It is common to attach Azure Batch pools to a virtual network. This is useful to connect to other resources in the same VNet or place things behind enhanced security. Seqera Platform does not support this feature directly, so you must manually create an Azure Batch pool.
 
-See [Create a Nextflow-compatible Azure Batch pool](../../compute-envs/azure-batch.mdx#create-a-nextflow-compatible-azure-batch-pool) to create an Azure Batch pool manually that is compatible with Seqera and Nextflow. Use the following settings:
+See [Create a Nextflow-compatible Azure Batch pool](../../compute-envs/azure-batch#create-a-nextflow-compatible-azure-batch-pool) to create an Azure Batch pool manually that is compatible with Seqera and Nextflow. Use the following settings:
 
 - Name & ID: `3-azure-batch-vnet`
 - Add the managed identity created earlier as a user-assigned managed identity.
@@ -481,7 +481,7 @@ In Azure, you can delete the Batch account, which will delete all pools, jobs, a
 If you wish to keep the Azure resources, you can remove each pool within a Batch account and mark any active jobs as terminated to free up any quotas on your Azure Batch account.
 
 [install-azure-cli]: https://learn.microsoft.com/en-us/cli/azure/install-azure-cli
-[install-seqera-cli]: ../../cli/installation.mdx
+[install-seqera-cli]: ../../cli/installation
 [nextflow-working-directory]: https://www.nextflow.io/docs/latest/cache-and-resume.html#work-directory
-[create-org-workspace]: ../../getting-started/workspace-setup.mdx
-[add-pipeline]: ../../getting-started/quickstart-demo/add-pipelines.mdx#add-from-the-launchpad
+[create-org-workspace]: ../../getting-started/workspace-setup
+[add-pipeline]: ../../getting-started/quickstart-demo/add-pipelines#add-from-the-launchpad

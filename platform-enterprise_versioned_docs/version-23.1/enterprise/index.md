@@ -88,7 +88,7 @@ container registry [`cr.seqera.io`](https://cr.seqera.io). Contact [support](htt
    ```
 
 :::caution
-The Seqera Labs container registry `cr.seqera.io` is the default Tower container image registry from version 22.4. Use of the AWS, Azure, and Google Cloud Tower image registries in existing installations is still [supported](./advanced-topics/seqera-container-images.mdx), but will be deprecated for **new installations** starting June 2023.
+The Seqera Labs container registry `cr.seqera.io` is the default Tower container image registry from version 22.4. Use of the AWS, Azure, and Google Cloud Tower image registries in existing installations is still [supported](./advanced-topics/seqera-container-images), but will be deprecated for **new installations** starting June 2023.
 :::
 
 ## Support

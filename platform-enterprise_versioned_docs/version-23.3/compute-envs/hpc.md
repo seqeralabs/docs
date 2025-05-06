@@ -35,7 +35,7 @@ To create a new **HPC** compute environment:
 8.  Enter the **Login hostname**. This is usually the hostname or public IP address of the cluster's login node.
 9.  Enter the **Head queue name**. This is the [default](https://www.nextflow.io/docs/latest/process.html#queue) cluster queue to which the Nextflow job will be submitted.
 10. Enter the **Compute queue name**. This is the [default](https://www.nextflow.io/docs/latest/process.html#queue) cluster queue to which the Nextflow job will submit tasks.
-11. Expand **Staging options** to include optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
+11. Expand **Staging options** to include optional [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
 12. Specify custom **Environment variables** for the head job and/or compute jobs.
 13. Configure any advanced options needed:
 
@@ -54,4 +54,4 @@ In IBM LSF compute environments, use **Unit for memory limits**, **Per job memor
 
 14. Select **Create** to finalize the creation of the compute environment.
 
-See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in your HPC compute environment.
+See [Launch pipelines](../launch/launchpad) to start executing workflows in your HPC compute environment.

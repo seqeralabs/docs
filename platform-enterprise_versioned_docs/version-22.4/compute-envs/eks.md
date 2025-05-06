@@ -11,7 +11,7 @@ Tower offers native support for AWS EKS clusters and streamlines the deployment 
 
 ## Requirements
 
-You need to have an EKS cluster up and running. Make sure you have followed the [cluster preparation](../compute-envs/k8s.mdx#cluster-preparation) instructions to create the cluster resources required by Tower. In addition to the generic Kubernetes instructions, you will need to make a few modifications specific to EKS.
+You need to have an EKS cluster up and running. Make sure you have followed the [cluster preparation](../compute-envs/k8s#cluster-preparation) instructions to create the cluster resources required by Tower. In addition to the generic Kubernetes instructions, you will need to make a few modifications specific to EKS.
 
 **Assign service account role to IAM user.** You will need to assign the service role with an AWS user that will be used by Tower to access the EKS cluster.
 
@@ -67,7 +67,7 @@ For more details, refer to the [AWS documentation](https://docs.aws.amazon.com/e
    :::
 
    :::note
-   From version 22.3, Tower supports the use of credentials for container registry services. These credentials can be created from the [Credentials](../credentials/overview.mdx) tab.
+   From version 22.3, Tower supports the use of credentials for container registry services. These credentials can be created from the [Credentials](../credentials/overview) tab.
    :::
 
 5. Select a **Region**, for example "eu-west-1 - Europe (Ireland)".
@@ -86,7 +86,7 @@ For more details, refer to the [AWS documentation](https://docs.aws.amazon.com/e
 
 12. Select **Create** to finalize the compute environment setup.
 
-Jump to the documentation for [Launching Pipelines](../launch/launchpad.mdx).
+Jump to the documentation for [Launching Pipelines](../launch/launchpad).
 
 ### Advanced options
 

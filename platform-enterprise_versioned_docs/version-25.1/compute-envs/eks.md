@@ -11,7 +11,7 @@ Seqera Platform offers native support for Amazon EKS clusters to streamline the 
 
 ## Requirements
 
-You must have an EKS cluster up and running. Follow the [cluster preparation](../compute-envs/k8s.mdx#cluster-preparation) instructions to create the resources required by your Seqera instance. In addition to the generic Kubernetes instructions, you must make a number of EKS-specific modifications.
+You must have an EKS cluster up and running. Follow the [cluster preparation](../compute-envs/k8s#cluster-preparation) instructions to create the resources required by your Seqera instance. In addition to the generic Kubernetes instructions, you must make a number of EKS-specific modifications.
 
 ### Service account role
 
@@ -52,7 +52,7 @@ See the [AWS documentation](https://docs.aws.amazon.com/eks/latest/userguide/add
 ## Seqera compute environment
 
 :::caution
-Your Seqera compute environment uses resources that you may be charged for in your AWS account. See [Cloud costs](../monitoring/cloud-costs.mdx) for guidelines to manage cloud resources effectively and prevent unexpected costs.
+Your Seqera compute environment uses resources that you may be charged for in your AWS account. See [Cloud costs](../monitoring/cloud-costs) for guidelines to manage cloud resources effectively and prevent unexpected costs.
 :::
 
 After you have prepared your Kubernetes cluster and assigned a service account role to your Seqera IAM user, create a Seqera EKS compute environment:
@@ -73,21 +73,21 @@ After you have prepared your Kubernetes cluster and assigned a service account r
     :::
 1. Select a **Region**, e.g., _eu-west-1 - Europe (Ireland)_.
 1. Select a **Cluster name** from the list of available EKS clusters in the selected region.
-1. Specify the **Namespace** created in the [cluster preparation](../compute-envs/k8s.mdx#cluster-preparation) instructions, which is _tower-nf_ by default.
-1. Specify the **Head service account** created in the [cluster preparation](../compute-envs/k8s.mdx#cluster-preparation) instructions, which is _tower-launcher-sa_ by default.
+1. Specify the **Namespace** created in the [cluster preparation](../compute-envs/k8s#cluster-preparation) instructions, which is _tower-nf_ by default.
+1. Specify the **Head service account** created in the [cluster preparation](../compute-envs/k8s#cluster-preparation) instructions, which is _tower-launcher-sa_ by default.
     :::note
     If you enable Fusion v2 (**Fusion storage** in step 4 above), the head service account must have access to the S3 storage bucket specified as your work directory.
     :::
-1. Specify the **Storage claim** created in the [cluster preparation](../compute-envs/k8s.mdx#cluster-preparation) instructions, which serves as a scratch filesystem for Nextflow pipelines. The storage claim is called _tower-scratch_ in the provided examples.
+1. Specify the **Storage claim** created in the [cluster preparation](../compute-envs/k8s#cluster-preparation) instructions, which serves as a scratch filesystem for Nextflow pipelines. The storage claim is called _tower-scratch_ in the provided examples.
     :::note
     The **Storage claim** isn't needed when Fusion v2 is enabled.
     :::
-1. Apply [**Resource labels**](../resource-labels/overview.mdx) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
+1. Apply [**Resource labels**](../resource-labels/overview) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
 1. Expand **Staging options** to include:
-    - Optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
+    - Optional [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
     - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch. 
     :::info
-    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced.mdx#nextflow-config-file) for more information on configuration priority. 
+    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority. 
     :::
 1. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
 1. Configure any advanced options described in the next section, as needed.
@@ -115,7 +115,7 @@ spec:
 - Use **Head Job CPUs** and **Head Job memory** to specify the hardware resources allocated for the Nextflow workflow pod.
 
 :::info
-See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in your EKS compute environment.
+See [Launch pipelines](../launch/launchpad) to start executing workflows in your EKS compute environment.
 :::
 
 ### Fusion v2

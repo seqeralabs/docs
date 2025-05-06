@@ -47,7 +47,7 @@ Seqera supports enterprise authentication mechanisms such as OAuth and OpenID. T
 
 ## Deployment options
 
-Seqera can be deployed to a single node, either with [Docker Compose](./docker-compose.mdx) or natively, or to a [Kubernetes](./kubernetes.mdx) cluster. This documentation includes instructions for both options across multiple platforms, including Amazon AWS, Microsoft Azure, Google Cloud, and on-prem infrastructure.
+Seqera can be deployed to a single node, either with [Docker Compose](./docker-compose) or natively, or to a [Kubernetes](./kubernetes) cluster. This documentation includes instructions for both options across multiple platforms, including Amazon AWS, Microsoft Azure, Google Cloud, and on-prem infrastructure.
 
 ### Single-node
 

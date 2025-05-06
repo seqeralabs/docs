@@ -128,11 +128,11 @@ To create a new compute environment for Google Cloud in Tower:
 
 9. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers](https://www.nextflow.io/docs/latest/wave.html) for more information.
 
-10. Select **Enable Fusion v2** to allow access to your GCS-hosted data via the [Fusion v2](https://docs.seqera.io/fusion) virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled (see above). <!--(re-added once we have GCP Fusion instructions) See [Fusion file system](../supported_software/fusion/fusion.mdx) for configuration details.-->
+10. Select **Enable Fusion v2** to allow access to your GCS-hosted data via the [Fusion v2](https://docs.seqera.io/fusion) virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled (see above). <!--(re-added once we have GCP Fusion instructions) See [Fusion file system](../supported_software/fusion/fusion) for configuration details.-->
 
 11. Enable **Spot** to use Spot instances, which have significantly reduced cost compared to On-Demand instances.
 
-12. Apply [**Resource labels**](../resource-labels/overview.mdx) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
+12. Apply [**Resource labels**](../resource-labels/overview) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
 
 13. Expand **Staging options** to include optional pre- or post-run Bash scripts that execute before or after the Nextflow pipeline execution in your environment.
 
@@ -142,7 +142,7 @@ To create a new compute environment for Google Cloud in Tower:
 
 16. Select **Create** to finalize the compute environment setup.
 
-Jump to the documentation for [launching pipelines](../launch/launchpad.mdx).
+Jump to the documentation for [launching pipelines](../launch/launchpad).
 
 ### Advanced options
 

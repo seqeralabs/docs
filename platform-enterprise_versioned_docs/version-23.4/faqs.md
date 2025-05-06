@@ -76,7 +76,7 @@ Try the following:
 
 **_Row was updated or deleted by another transaction (or unsaved-value mapping was incorrect)_ error**
 
-This error can occur if incorrect configuration values are assigned to the `backend` and `cron` containers' [`MICRONAUT_ENVIRONMENTS`](./enterprise/configuration/overview.mdx#compute-environments) environment variable. You may see other unexpected system behavior, like two exact copies of the same Nextflow job submitted to the executor for scheduling.
+This error can occur if incorrect configuration values are assigned to the `backend` and `cron` containers' [`MICRONAUT_ENVIRONMENTS`](./enterprise/configuration/overview#compute-environments) environment variable. You may see other unexpected system behavior, like two exact copies of the same Nextflow job submitted to the executor for scheduling.
 
 Please verify the following:
 
@@ -110,7 +110,7 @@ Most containers use the root user by default. However, some users prefer to defi
 touch: cannot touch '/fsx/work/ab/27d78d2b9b17ee895b88fcee794226/.command.begin': Permission denied
 ```
 
-This should not occur when using AWS Batch from Seqera version 22.1.0. In other situations, you can avoid this issue by forcing all task containers to run as root. Add one of the following snippets to your [Nextflow configuration](./launch/advanced.mdx#nextflow-config-file):
+This should not occur when using AWS Batch from Seqera version 22.1.0. In other situations, you can avoid this issue by forcing all task containers to run as root. Add one of the following snippets to your [Nextflow configuration](./launch/advanced#nextflow-config-file):
 
 ```
 // cloud executors
@@ -199,7 +199,7 @@ To fix the problem, try the following:
     export JAVA_OPTIONS="-Dmail.smtp.ssl.protocols=TLSv1.2"
     ```
 
-2. Add this parameter to your [nextflow.config file](./launch/advanced.mdx#nextflow-config-file):
+2. Add this parameter to your [nextflow.config file](./launch/advanced#nextflow-config-file):
 
     ```
     mail {
@@ -260,7 +260,7 @@ Users with email addresses other than the `trustedEmails` list will undergo an a
 
 :::note
 
-1. You must rebuild your containers (`docker compose down`) to force Seqera to implement this change. Ensure your database is persistent before issuing the teardown command. See [here](./enterprise/docker-compose.mdx) for more information.
+1. You must rebuild your containers (`docker compose down`) to force Seqera to implement this change. Ensure your database is persistent before issuing the teardown command. See [here](./enterprise/docker-compose) for more information.
 2. All login attempts are visible to the root user at **Profile > Admin panel > Users**.
 3. Any user logged in prior to the restriction will not be subject to the new restriction. An admin of the organization should remove users that have previously logged in via (untrusted) email from the Admin panel users list. This will restart the approval process before they can log in via email.
 
@@ -298,7 +298,7 @@ Mount the APM solution's JAR file in Seqera's `backend` container and set the ag
 
 Although it's not possible to directly download the trace logs via Seqera, you can configure your workflow to export the file to persistent storage:
 
-1. Set this block in your [`nextflow.config`](./launch/advanced.mdx#nextflow-config-file):
+1. Set this block in your [`nextflow.config`](./launch/advanced#nextflow-config-file):
 
    ```nextflow
    trace {
@@ -338,7 +338,7 @@ You can force your Nextflow head job to use DSL2 syntax via any of the following
 
 **Invoke Nextflow CLI run arguments during Seqera launch**
 
-From Nextflow v22.09.1-edge, you can specify [Nextflow CLI run arguments](https://www.nextflow.io/docs/latest/cli.html?highlight=dump#run) when invoking a pipeline from Seqera. Set the `NXF_CLI_OPTS` environment variable via [pre-run script](./launch/advanced.mdx#pre-and-post-run-scripts):
+From Nextflow v22.09.1-edge, you can specify [Nextflow CLI run arguments](https://www.nextflow.io/docs/latest/cli.html?highlight=dump#run) when invoking a pipeline from Seqera. Set the `NXF_CLI_OPTS` environment variable via [pre-run script](./launch/advanced#pre-and-post-run-scripts):
 
 ```
 # Example:
@@ -349,7 +349,7 @@ export NXF_CLI_OPTS='-dump-hashes'
 
 Nextflow resolves relative paths against the current working directory. In a classic grid HPC, this normally corresponds to a subdirectory of the `$HOME` directory. In a cloud execution environment, however, the path will be resolved relative to the **container file system**, meaning files will be lost when the container is terminated. See [here](https://github.com/nextflow-io/nextflow/issues/2661#issuecomment-1047259845) for more details.
 
-Specify the absolute path to your persistent storage using the `NXF_FILE_ROOT` environment variable in your [`nextflow.config`](./launch/advanced.mdx#nextflow-config-file) file. This resolves the relative paths defined in your Netflow script so that output files are written to your stateful storage, rather than ephemeral container storage.
+Specify the absolute path to your persistent storage using the `NXF_FILE_ROOT` environment variable in your [`nextflow.config`](./launch/advanced#nextflow-config-file) file. This resolves the relative paths defined in your Netflow script so that output files are written to your stateful storage, rather than ephemeral container storage.
 
 **Nextflow: Ignore Singularity cache**
 
@@ -391,7 +391,7 @@ The following configuration is suggested to overcome AWS limitations:
 
 - Head Job CPUs: 16
 - Head Job Memory: 60000
-- [Pre-run script](./launch/advanced.mdx#pre-and-post-run-scripts): `export NXF_OPTS="-Xms20G -Xmx40G"`
+- [Pre-run script](./launch/advanced#pre-and-post-run-scripts): `export NXF_OPTS="-Xms20G -Xmx40G"`
 - Increase chunk size and slow down the number of transfers using `nextflow.config`:
 
   ```
@@ -455,7 +455,7 @@ aws {
 
 This change occurs because Seqera superimposes its 10 MB default value rather than the value specified in your `nextflow.config`.
 
-To force the Seqera-invoked job to use your `nextflow.config` value, add the configuration setting in the workspace Launch screen's [**Nextflow config file** field](./launch/launchpad.mdx). For our example above, you would add `aws.client.uploadChunkSize = 209715200 // 200 MB`.
+To force the Seqera-invoked job to use your `nextflow.config` value, add the configuration setting in the workspace Launch screen's [**Nextflow config file** field](./launch/launchpad). For our example above, you would add `aws.client.uploadChunkSize = 209715200 // 200 MB`.
 
 Nextflow configuration values affected by this behaviour include:
 
@@ -464,7 +464,7 @@ Nextflow configuration values affected by this behaviour include:
 
 **Fusion v1 execution: _Missing output file(s) [X] expected by process [Y]_ error**
 
-Fusion v1 has a limitation which causes tasks that run for less than 60 seconds to fail as the output file generated by the task is not yet detected by Nextflow. This is a limitation inherited from a Goofys driver used by the Fusion v1 implementation. [Fusion v2](./supported_software/fusion/fusion.mdx) resolves this issue.
+Fusion v1 has a limitation which causes tasks that run for less than 60 seconds to fail as the output file generated by the task is not yet detected by Nextflow. This is a limitation inherited from a Goofys driver used by the Fusion v1 implementation. [Fusion v2](./supported_software/fusion/fusion) resolves this issue.
 
 If you can't update to Fusion v2, this issue can be addressed by instructing Nextflow to wait for 60 seconds after the task completes.
 
@@ -537,8 +537,8 @@ If you're restricted from using public container registries, see Seqera Enterpri
 
 Each Seqera Platform release uses a specific nf-launcher image by default. This image is loaded with a specific Nextflow version that any workflow run in the container uses by default. Force your jobs to use a newer/older version of Nextflow with one of the following strategies:
 
-- Use a [pre-run script](./launch/advanced.mdx#pre-and-post-run-scripts) to set the desired Nextflow version. For example: `export NXF_VER=22.08.0-edge`
-- For jobs executing in an AWS Batch compute environment, create a [custom job definition](./enterprise/advanced-topics/custom-launch-container.mdx) which references a different nf-launcher image.
+- Use a [pre-run script](./launch/advanced#pre-and-post-run-scripts) to set the desired Nextflow version. For example: `export NXF_VER=22.08.0-edge`
+- For jobs executing in an AWS Batch compute environment, create a [custom job definition](./enterprise/advanced-topics/custom-launch-container) which references a different nf-launcher image.
 
 ## Optimization
 
@@ -616,7 +616,7 @@ This error can occur if the Nextflow head job fails to retrieve the necessary re
 
 **_Missing AWS execution role arn_ error during Seqera launch**
 
-The [ECS Agent must have access](https://docs.aws.amazon.com/batch/latest/userguide/execution-IAM-role.html) to retrieve secrets from the AWS Secrets Manager. Secrets-using pipelines launched from your instance in an AWS Batch compute environment will encounter this error if an IAM Execution Role is not provided. See [Secrets](./secrets/overview.mdx) for more information.
+The [ECS Agent must have access](https://docs.aws.amazon.com/batch/latest/userguide/execution-IAM-role.html) to retrieve secrets from the AWS Secrets Manager. Secrets-using pipelines launched from your instance in an AWS Batch compute environment will encounter this error if an IAM Execution Role is not provided. See [Secrets](./secrets/overview) for more information.
 
 **AWS Batch task failures with secrets**
 
@@ -649,7 +649,7 @@ We have improved Tower Agent reconnection logic with the release of version 0.5.
 
 **Connection errors when creating or viewing AWS Batch compute environments with `tw compute-envs` commands**
 
-tw CLI v0.8 and earlier does not support the `SPOT_PRICE_CAPACITY_OPTIMIZED` [allocation strategy](./compute-envs/aws-batch.mdx#advanced-options) in AWS Batch. Creating or viewing AWS Batch compute environments with this allocation strategy will lead to errors. This issue will be [addressed in CLI v0.9](https://github.com/seqeralabs/tower-cli/issues/332).
+tw CLI v0.8 and earlier does not support the `SPOT_PRICE_CAPACITY_OPTIMIZED` [allocation strategy](./compute-envs/aws-batch#advanced-options) in AWS Batch. Creating or viewing AWS Batch compute environments with this allocation strategy will lead to errors. This issue will be [addressed in CLI v0.9](https://github.com/seqeralabs/tower-cli/issues/332).
 
 **Segfault errors**
 
@@ -673,7 +673,7 @@ HTTP must not be used in production environments.
 
 **Resume/relaunch runs with tw CLI**
 
-Runs can be [relaunched](./launch/cache-resume.mdx#relaunch-a-workflow--run) with `tw runs relaunch` .
+Runs can be [relaunched](./launch/cache-resume#relaunch-a-workflow--run) with `tw runs relaunch` .
 
 ```
 $ tw runs relaunch -i 3adMwRdD75ah6P -w 161372824019700
@@ -808,7 +808,7 @@ The default Azure Batch implementation in Seqera Platform uses a single pool for
     - One Dedicated
     - One [Low priority](https://learn.microsoft.com/en-us/azure/batch/batch-spot-vms#differences-between-spot-and-low-priority-vms).
     - **Note**: Both pools must meet the requirements of a pre-existing pool as detailed in the [Nextflow documentation](https://www.nextflow.io/docs/latest/azure.html#requirements-on-pre-existing-named-pools).
-2. Create a manual [Azure Batch](./compute-envs/azure-batch.mdx#manual) compute environment in Seqera Platform.
+2. Create a manual [Azure Batch](./compute-envs/azure-batch#manual) compute environment in Seqera Platform.
 3. In **Compute pool name** (step 10 in the guide linked above), specify your dedicated Batch pool.
 4. Specify the Low priority pool using the `process.queue` [directive](https://www.nextflow.io/docs/latest/process.html#queue) in your `nextflow.config` file (either via the launch form, or your pipeline repository's `nextflow.config` file).
 
@@ -818,7 +818,7 @@ The default Azure Batch implementation in Seqera Platform uses a single pool for
 
 This problem can occur if your Nextflow pod uses an Azure Files-type (SMB) Persistent Volume as its storage medium. By default, the `jgit` library used by Nextflow attempts a filesystem link operation which [is not supported](https://docs.microsoft.com/en-us/azure/storage/files/files-smb-protocol?tabs=azure-portal#limitations) by Azure Files (SMB).
 
-To avoid this problem, add the following code snippet in your pipeline's [**Pre-run script**](./launch/advanced.mdx#pre-and-post-run-scripts) field:
+To avoid this problem, add the following code snippet in your pipeline's [**Pre-run script**](./launch/advanced#pre-and-post-run-scripts) field:
 
 ```bash
 cat <<EOT > ~/.gitconfig
@@ -833,7 +833,7 @@ EOT
 
 This can occur if a tool/library in your task container requires SSL certificates to validate the identity of an external data source.
 
-Mount SSL certificates into the container to resolve this issue. See [SSL/TLS](./enterprise/configuration/ssl_tls.mdx#configure-seqera-to-trust-your-private-certificate) for more information.
+Mount SSL certificates into the container to resolve this issue. See [SSL/TLS](./enterprise/configuration/ssl_tls#configure-seqera-to-trust-your-private-certificate) for more information.
 
 **Azure SQL database error: _Connections using insecure transport are prohibited while --require_secure_transport=ON_**
 

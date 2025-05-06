@@ -9,7 +9,7 @@ tags: [k8s, kubernetes, compute environment]
 
 Tower streamlines the deployment of Nextflow pipelines into Kubernetes, both for cloud-based and on-prem clusters.
 
-The following instructions create a Tower compute environment for a **generic Kubernetes** distribution. See [Amazon EKS](./eks.mdx) or [Google Kubernetes Engine (GKE)](./gke.mdx) for EKS and GKE compute environment instructions.
+The following instructions create a Tower compute environment for a **generic Kubernetes** distribution. See [Amazon EKS](./eks) or [Google Kubernetes Engine (GKE)](./gke) for EKS and GKE compute environment instructions.
 
 ## Cluster preparation
 
@@ -86,7 +86,7 @@ To prepare your Kubernetes cluster for the deployment of Nextflow pipelines usin
 
 11. Specify the **Storage claim** created in the [cluster preparation](#cluster-preparation) instructions, which serves as a scratch filesystem for Nextflow pipelines. The storage claim is called `tower-scratch` in each of the provided examples.
 
-12. Apply [**Resource labels**](../resource-labels/overview.mdx) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
+12. Apply [**Resource labels**](../resource-labels/overview) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
 
 13. Expand **Staging options** to include optional pre- or post-run Bash scripts that execute before or after the Nextflow pipeline execution in your environment.
 
@@ -96,7 +96,7 @@ To prepare your Kubernetes cluster for the deployment of Nextflow pipelines usin
 
 16. Select **Create** to finalize the compute environment setup.
 
-Jump to the documentation for [launching pipelines](../launch/launchpad.mdx).
+Jump to the documentation for [launching pipelines](../launch/launchpad).
 
 ### Advanced options
 

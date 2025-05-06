@@ -184,5 +184,5 @@ For users with the **Admin** role, the lifespan for all newly launched studio se
 <!-- links -->
 [aws-gpu]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-gpu.html
 
-[conda-syntax]: ./custom-envs.mdx#conda-package-syntax
-[custom-image]: ./custom-envs.mdx#custom-containers
+[conda-syntax]: ./custom-envs#conda-package-syntax
+[custom-image]: ./custom-envs#custom-containers

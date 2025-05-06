@@ -5,13 +5,13 @@ date: "12 Apr 2023"
 tags: [rds, docker, database]
 ---
 
-While [Docker Compose](../docker-compose.mdx) is a fast and convenient way to deploy your Tower instance, production deployments should have a robust database solution to minimize the risk of data loss.
+While [Docker Compose](../docker-compose) is a fast and convenient way to deploy your Tower instance, production deployments should have a robust database solution to minimize the risk of data loss.
 
 ## Points to consider before migration
 
 1. **Target Database**
 
-   You have options when choosing your new MySQL-compliant database. While the process is mostly the same, some of the commands will be different (example: [MariaDB on RDS](../configuration/database_and_redis.mdx#generate-user-and-schema)).
+   You have options when choosing your new MySQL-compliant database. While the process is mostly the same, some of the commands will be different (example: [MariaDB on RDS](../configuration/database_and_redis#generate-user-and-schema)).
 
 2. **How much data must be moved?**
 
@@ -33,7 +33,7 @@ While [Docker Compose](../docker-compose.mdx) is a fast and convenient way to de
 
 Before starting your migration, do the following:
 
-1. Create an RDS MySQL-compliant instance and populate it with a [**tower user** and **tower database**](../configuration/database_and_redis.mdx#generate-user-and-schema).
+1. Create an RDS MySQL-compliant instance and populate it with a [**tower user** and **tower database**](../configuration/database_and_redis#generate-user-and-schema).
 
 2. Ensure your EC2 instance and database instance's Security Group(s) have been configured to allow MySQL traffic (default: Port 3306).
 
@@ -120,7 +120,7 @@ These steps assume the following:
 11. Modify the **tower.env** in the Tower docker folder:
 
     1. Comment out the existing TOWER_DB-\* variables.
-    2. Add new entries [relevant to your database choice](../configuration/database_and_redis.mdx#configure-towerenv_1).
+    2. Add new entries [relevant to your database choice](../configuration/database_and_redis#configure-towerenv_1).
     3. Save and exit.
 
 12. Restart Tower.

@@ -11,9 +11,9 @@ Tower offers native support for GKE clusters and streamlines the deployment of N
 
 ### Requirements
 
-Refer to the [Google Cloud](./google-cloud-batch.mdx#configure-google-cloud) section for instructions on how to set up your Google Cloud account and any other services (e.g. Cloud Storage) that you intend to use.
+Refer to the [Google Cloud](./google-cloud-batch#configure-google-cloud) section for instructions on how to set up your Google Cloud account and any other services (e.g. Cloud Storage) that you intend to use.
 
-You need to have a GKE cluster up and running. Make sure you have followed the [cluster preparation](../compute-envs/k8s.mdx#cluster-preparation) instructions to create the cluster resources required by Tower. In addition to the generic Kubernetes instructions, you will need to make a few modifications specific to GKE.
+You need to have a GKE cluster up and running. Make sure you have followed the [cluster preparation](../compute-envs/k8s#cluster-preparation) instructions to create the cluster resources required by Tower. In addition to the generic Kubernetes instructions, you will need to make a few modifications specific to GKE.
 
 **Assign service account role to IAM user.** You will need to grant the cluster access to the service account used to authenticate the Tower compute environment. This can be done by updating the _role binding_ as shown below:
 
@@ -59,7 +59,7 @@ For more details, refer to the [Google documentation](https://cloud.google.com/k
    :::
 
    :::note
-   From version 22.3, Tower supports the use of credentials for container registry services. These credentials can be created from the [Credentials](../credentials/overview.mdx) tab.
+   From version 22.3, Tower supports the use of credentials for container registry services. These credentials can be created from the [Credentials](../credentials/overview) tab.
    :::
 
 7. Select the **Location** of your GKE cluster.
@@ -85,7 +85,7 @@ For more details, refer to the [Google documentation](https://cloud.google.com/k
 
 14. Select **Create** to finalize the compute environment setup.
 
-Jump to the documentation for [Launching Pipelines](../launch/launchpad.mdx).
+Jump to the documentation for [Launching Pipelines](../launch/launchpad).
 
 ### Advanced options
 

@@ -121,7 +121,7 @@ You've created a project, enabled the necessary Google APIs, created a bucket, a
 ### Seqera compute environment
 
 :::caution
-Your Seqera compute environment uses resources that you may be charged for in your Google Cloud account. See [Cloud costs](../monitoring/cloud-costs.mdx) for guidelines to manage cloud resources effectively and prevent unexpected costs.
+Your Seqera compute environment uses resources that you may be charged for in your Google Cloud account. See [Cloud costs](../monitoring/cloud-costs) for guidelines to manage cloud resources effectively and prevent unexpected costs.
 :::
 
 After your Google Cloud resources have been created, create a new Seqera compute environment:
@@ -136,7 +136,7 @@ After your Google Cloud resources have been created, create a new Seqera compute
 8. In the **Pipeline work directory** field, enter your storage bucket URL, e.g., `gs://my-bucket`. This bucket must be accessible in the location selected in the previous step.
 
     :::note
-    When you specify a Cloud Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad.mdx#launch-form) form.
+    When you specify a Cloud Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
     :::
 
 9. (_Optional_) Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers][wave-docs] for more information.
@@ -167,13 +167,13 @@ After your Google Cloud resources have been created, create a new Seqera compute
 
 Your new compute environment may take a few minutes to become available for pipeline execution after it is added to your workspace.
 
-See [Launch pipelines](../launch/launchpad.mdx) to start running pipelines in your Google Cloud Batch compute environment.
+See [Launch pipelines](../launch/launchpad) to start running pipelines in your Google Cloud Batch compute environment.
 
 [batch-locations]: https://cloud.google.com/batch/docs/locations
 [create-sa]: https://cloud.google.com/iam/docs/service-accounts-create#creating
 [get-json]: https://cloud.google.com/iam/docs/keys-list-get#get-key
 [location]: https://cloud.google.com/compute/docs/regions-zones#available
 [wave-docs]: https://www.nextflow.io/docs/latest/wave.html
-[platform-fusion-docs]: ../supported_software/fusion/fusion.mdx
-[pre-post-run-scripts]: ../launch/advanced.mdx#pre-and-post-run-scripts
-[resource-labels]: ../resource-labels/overview.mdx
+[platform-fusion-docs]: ../supported_software/fusion/fusion
+[pre-post-run-scripts]: ../launch/advanced#pre-and-post-run-scripts
+[resource-labels]: ../resource-labels/overview

@@ -116,7 +116,7 @@ To inspect the status of an ongoing build, or a successful or failed build, comp
 
 
 {/* links */}
-[add-s]: ./managing.mdx#add-a-studio
+[add-s]: ./managing#add-a-studio
 [wave]: https://docs.seqera.io/platform-enterprise/latest/enterprise/configuration/wave
 
 [wave-home]: https://seqera.io/wave/

@@ -30,7 +30,7 @@ For example, modify the **manifest** section to give the pipeline a name and des
 
 ## Seqera Cloud config file
 
-The **Seqera Cloud config file** field allows you to configure per-pipeline Seqera reporting behavior. Settings specified here override the same settings in the [`tower.yml`](../enterprise/configuration/overview.mdx) file for this execution. Use the `reports` key to specify report paths, titles, and MIME types:
+The **Seqera Cloud config file** field allows you to configure per-pipeline Seqera reporting behavior. Settings specified here override the same settings in the [`tower.yml`](../enterprise/configuration/overview) file for this execution. Use the `reports` key to specify report paths, titles, and MIME types:
 
 ```yml
 reports:
@@ -59,7 +59,7 @@ Enable this option to ensure that Nextflow pulls the latest version from the Git
 Nextflow will attempt to run the script named `main.nf` in the project repository by default. You can configure a custom script filename in `manifest.mainScript` or you can provide the script filename in this field.
 
 :::note
-If you specify a custom script filename, the root of the default branch in your pipeline repository must still contain blank `main.nf` and `nextflow.config` files. See [Nextflow configuration](../faqs.mdx#nextflow-configuration) for more information on this known Nextflow behavior.
+If you specify a custom script filename, the root of the default branch in your pipeline repository must still contain blank `main.nf` and `nextflow.config` files. See [Nextflow configuration](../faqs#nextflow-configuration) for more information on this known Nextflow behavior.
 :::
 
 ## Workflow entry name

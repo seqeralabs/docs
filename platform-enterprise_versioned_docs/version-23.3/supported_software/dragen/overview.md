@@ -11,7 +11,7 @@ The improved performance offered by DRAGEN is possible due to the use of Illumin
 
 ## Run DRAGEN on Seqera Platform
 
-We have extended the [Batch Forge](../../compute-envs/aws-batch.mdx#batch-forge) feature for AWS Batch to support DRAGEN. Batch Forge ensures that all of the appropriate components and settings are automatically provisioned when creating an AWS Batch compute environment.
+We have extended the [Batch Forge](../../compute-envs/aws-batch#batch-forge) feature for AWS Batch to support DRAGEN. Batch Forge ensures that all of the appropriate components and settings are automatically provisioned when creating an AWS Batch compute environment.
 
 When deploying data analysis workflows, some tasks will need to use normal instance types (e.g., for non-DRAGEN processing of samples) and others will need to be executed on F1 instances. If the DRAGEN feature is enabled, Batch Forge will create an additional AWS Batch compute queue which only uses F1 instances, to which DRAGEN tasks will be dispatched.
 
@@ -31,7 +31,7 @@ DRAGEN is a commercial technology provided by Illumina, so you will need to purc
 2. DRAGEN license username
 3. DRAGEN license password
 
-Batch Forge automates most of the tasks required to set up an AWS Batch compute environment. See [AWS Batch](../../compute-envs/aws-batch.mdx) for more details.
+Batch Forge automates most of the tasks required to set up an AWS Batch compute environment. See [AWS Batch](../../compute-envs/aws-batch) for more details.
 
 In order to enable support for DRAGEN acceleration, simply toggle the **Enable DRAGEN (beta)** option when setting up the compute environment via Batch Forge.
 
@@ -63,7 +63,7 @@ See the [dragen.nf](https://github.com/seqeralabs/nf-dragen/blob/master/modules/
 
    At Seqera, we use secrets to safely encrypt sensitive information when running licensed software via Nextflow. This enables our team to use the DRAGEN software safely via the `nf-dragen` pipeline without the need to configure the license key. These secrets will be provided securely to the `--lic-server` option when running DRAGEN on the CLI to validate the license.
 
-   In the nf-dragen pipeline, we have defined two secrets called `DRAGEN_USERNAME` and `DRAGEN_PASSWORD`, which you can add to Seqera from the [Secrets](../../secrets/overview.mdx) tab.
+   In the nf-dragen pipeline, we have defined two secrets called `DRAGEN_USERNAME` and `DRAGEN_PASSWORD`, which you can add to Seqera from the [Secrets](../../secrets/overview) tab.
 
 ## Limitations
 

@@ -7,12 +7,12 @@ tags: [workspaces, teams, users, administration]
 
 ## Overview
 
-**Organization workspaces** extend the functionality of [user workspaces](../getting-started/workspace.mdx) by adding the ability to fine-tune access levels for specific members, collaborators, or teams. This is achieved by managing **participants** in the organization workspaces.
+**Organization workspaces** extend the functionality of [user workspaces](../getting-started/workspace) by adding the ability to fine-tune access levels for specific members, collaborators, or teams. This is achieved by managing **participants** in the organization workspaces.
 
 Organizations consist of members, while workspaces consist of participants.
 
 :::note
-A workspace participant may be a member of the workspace organization or a collaborator within that workspace only. Collaborators count toward the total number of workspace participants. See [Usage limits](../limits/limits.mdx).
+A workspace participant may be a member of the workspace organization or a collaborator within that workspace only. Collaborators count toward the total number of workspace participants. See [Usage limits](../limits/limits).
 :::
 
 ### Create a new workspace
@@ -30,7 +30,7 @@ Organization owners and admins can create a new workspace within an organization
 Optional workspace fields can be modified after workspace creation, either by using the **Edit** option on the workspace listing for an organization or by accessing the **Settings** tab within the workspace page, provided that you are the **Owner** of the workspace.
 :::
 
-Apart from the **Participants** tab, the organization workspace is similar to the **user workspace**. As such, the relation to [runs](../launch/launch.mdx), [pipeline actions](../pipeline-actions/overview.mdx), [compute environments](../compute-envs/overview.mdx) and [credentials](../credentials/overview.mdx) is the same.
+Apart from the **Participants** tab, the organization workspace is similar to the **user workspace**. As such, the relation to [runs](../launch/launch), [pipeline actions](../pipeline-actions/overview), [compute environments](../compute-envs/overview) and [credentials](../credentials/overview) is the same.
 
 ### Add a new participant
 
@@ -67,4 +67,4 @@ There are five roles available for every workspace participant.
 
 ### Workspace run monitoring
 
-To allow users executing pipelines from the command-line to share their runs with a given workspace, see [Getting started](../getting-started/usage.mdx).
+To allow users executing pipelines from the command-line to share their runs with a given workspace, see [Getting started](../getting-started/usage).

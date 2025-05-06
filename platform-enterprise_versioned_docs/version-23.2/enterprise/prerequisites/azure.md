@@ -29,7 +29,7 @@ docker pull {{ images.tower_fe_image }}
 ```
 
 :::caution
-The Seqera Labs container registry `cr.seqera.io` is the default Tower container image registry from version 22.4. Use of the AWS, Azure, and Google Cloud Tower image registries in existing installations is still supported but will be deprecated for **new installations** starting June 2023. See [here](../advanced-topics/seqera-container-images.mdx) for steps to use the Seqera Labs private Azure registry.
+The Seqera Labs container registry `cr.seqera.io` is the default Tower container image registry from version 22.4. Use of the AWS, Azure, and Google Cloud Tower image registries in existing installations is still supported but will be deprecated for **new installations** starting June 2023. See [here](../advanced-topics/seqera-container-images) for steps to use the Seqera Labs private Azure registry.
 :::
 
 ## Mandatory prerequisites
@@ -46,7 +46,7 @@ If you do not have an email server, you can use [Microsoft 365](https://docs.mic
 
 An external database (i.e. external to your Docker Compose or Kubernetes deployment) is _highly_ recommended for production deployments. If you don't have your own database service, you can use [Azure Database for MySQL](https://docs.microsoft.com/en-us/azure/mysql/quickstart-create-mysql-server-database-using-azure-portal).
 
-If you decide to use an external database, you must create a MySQL user and database manually. See [Configuration](../configuration/database_and_redis.mdx) for more details.
+If you decide to use an external database, you must create a MySQL user and database manually. See [Configuration](../configuration/database_and_redis) for more details.
 
 :::note
 When creating a MySQL user, use the `USER@HOSTNAME` format for the `TOWER_DB_USER` environment variable.

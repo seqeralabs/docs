@@ -29,7 +29,7 @@ docker pull {{ images.tower_fe_image }}
 ```
 
 :::caution
-The Seqera Labs container registry `cr.seqera.io` is the default Tower container image registry from version 22.4. Use of the AWS, Azure, and Google Cloud Tower image registries in existing installations is still supported but will be deprecated for **new installations** starting June 2023. See [here](../advanced-topics/seqera-container-images.mdx) for steps to use the Seqera Labs private GCP Artifact Registry.
+The Seqera Labs container registry `cr.seqera.io` is the default Tower container image registry from version 22.4. Use of the AWS, Azure, and Google Cloud Tower image registries in existing installations is still supported but will be deprecated for **new installations** starting June 2023. See [here](../advanced-topics/seqera-container-images) for steps to use the Seqera Labs private GCP Artifact Registry.
 :::
 
 ## Mandatory prerequisites
@@ -54,7 +54,7 @@ Work with your IT team to select the best solution for your organization.
 
 An external database (i.e. external to your Docker Compose or Kubernetes deployment) is _highly_ recommended for production deployments. If you don't have your own database service, you can use [Google CloudSQL](https://cloud.google.com/sql/docs/mysql/quickstart).
 
-If you decide to use an external database, you must create a MySQL user and database manually. See [Configuration](../configuration/database_and_redis.mdx) for more details.
+If you decide to use an external database, you must create a MySQL user and database manually. See [Configuration](../configuration/database_and_redis) for more details.
 
 ### VM instance (Docker Compose)
 

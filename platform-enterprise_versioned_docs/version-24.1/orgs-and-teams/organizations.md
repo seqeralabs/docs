@@ -21,16 +21,16 @@ You can also add external collaborators to an organization.
 ### Edit an organization
 
 :::note
-From version 23.2, **organization owners** can edit their organization name, either from the organizations page or the [Admin panel](../administration/overview.mdx).
+From version 23.2, **organization owners** can edit their organization name, either from the organizations page or the [Admin panel](../administration/overview).
 :::
 
-As an **organization owner**, access the organization page from the organizations and workspaces dropdown, or open the user menu and select **Your organizations** to view and edit your organizations. As a root user, you can also edit organizations from the [Admin panel](../administration/overview.mdx).
+As an **organization owner**, access the organization page from the organizations and workspaces dropdown, or open the user menu and select **Your organizations** to view and edit your organizations. As a root user, you can also edit organizations from the [Admin panel](../administration/overview).
 
 Open the **Settings** tab on the organization page, and select **Edit** in the **Edit Organization** row. Update the settings and select **Update** to save.
 
 ## Members
 
-You can view the list of all organization **Members** from the organization's page. Once an organization is created, the user who created the organization is the default owner of that organization. You can invite or add additional members to the workspace from the workspace page or the [Admin panel](../administration/overview.mdx).
+You can view the list of all organization **Members** from the organization's page. Once an organization is created, the user who created the organization is the default owner of that organization. You can invite or add additional members to the workspace from the workspace page or the [Admin panel](../administration/overview).
 
 Seqera provides access control for members of an organization by classifying them either as an **Owner** or a **Member**. Each organization can have multiple owners and members.
 
@@ -68,8 +68,8 @@ To start adding members to your team, select **Edit > Members of team > Add memb
 
 **Collaborators** are users who are invited to an organization's workspace, but are not members of that organization. As a result, their access is limited to that organization workspace. You can view the list of all organization **Collaborators** from the organization's page.
 
-New collaborators to an organization's workspace can be added as **Participants** from the workspace page. See [User roles](./roles.mdx) to learn more about participant access levels.
+New collaborators to an organization's workspace can be added as **Participants** from the workspace page. See [User roles](./roles) to learn more about participant access levels.
 
 :::note
-**Collaborators** can only be added from a workspace. For more information, see [workspace management](./workspace-management.mdx#create-a-new-workspace).
+**Collaborators** can only be added from a workspace. For more information, see [workspace management](./workspace-management#create-a-new-workspace).
 :::

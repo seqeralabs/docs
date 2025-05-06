@@ -114,7 +114,7 @@ To inspect the status of an ongoing build, or a successful or failed build, comp
 1. In the **Details** tab, scroll to **Build reports** and select **Summary** to open the Wave service container build report for your build.
 1. Optional: If the build failed, select the **Error report** tab to view the errors associated with the build failure.
 
-[add-ds]: ./managing.mdx#add-a-data-studio
-[wave]: ../enterprise/configuration/wave.mdx
+[add-ds]: ./managing#add-a-data-studio
+[wave]: ../enterprise/configuration/wave
 [wave-home]: https://seqera.io/wave/
 [env-manually]: https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-file-manually

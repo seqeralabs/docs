@@ -26,9 +26,9 @@ Tower Agent is distributed as a single executable file to simply download and ex
 
 Before running the Agent:
 
-1. Create a [**personal access token**](../../api/overview.mdx#authentication).
+1. Create a [**personal access token**](../../api/overview#authentication).
 
-2. Create [Tower Agent credentials](../../credentials/agent_credentials.mdx) in a Seqera Platform workspace.
+2. Create [Tower Agent credentials](../../credentials/agent_credentials) in a Seqera Platform workspace.
 
 :::note
 To share a single Tower Agent instance with all members of a workspace, create a Tower Agent credential with **Shared agent** enabled.

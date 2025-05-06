@@ -23,11 +23,11 @@ To launch pipelines into an **HPC** cluster from Seqera, the following requireme
 
 ## Credentials
 
-Seqera requires SSH access to your HPC cluster to run pipelines. Use [managed identities](../credentials/managed_identities.mdx) to enable granular access control and preserve individual cluster user identities. 
+Seqera requires SSH access to your HPC cluster to run pipelines. Use [managed identities](../credentials/managed_identities) to enable granular access control and preserve individual cluster user identities. 
 
-You can also use workspace [SSH credentials](../credentials/ssh_credentials.mdx) for cluster login, but this provides service account access to your HPC to all Platform users. This means that all users will be granted the same file system access, and all activity is logged under the same user account on your HPC cluster. 
+You can also use workspace [SSH credentials](../credentials/ssh_credentials) for cluster login, but this provides service account access to your HPC to all Platform users. This means that all users will be granted the same file system access, and all activity is logged under the same user account on your HPC cluster. 
 
-For HPC clusters that do not allow direct access through an SSH client, a secure connection can be authenticated with [Tower Agent](../supported_software/agent/agent.mdx).
+For HPC clusters that do not allow direct access through an SSH client, a secure connection can be authenticated with [Tower Agent](../supported_software/agent/agent).
 
 ## Work and launch directories
 
@@ -67,10 +67,10 @@ To create a new **HPC** compute environment:
 1.  Enter the **Head queue name**. This is the [default](https://www.nextflow.io/docs/latest/process.html#queue) cluster queue to which the Nextflow job will be submitted.
 1. Enter the **Compute queue name**. This is the [default](https://www.nextflow.io/docs/latest/process.html#queue) cluster queue to which the Nextflow job will submit tasks.
 1. Expand **Staging options** to include:
-    - Optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
+    - Optional [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
     - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch. 
     :::info
-    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced.mdx#nextflow-config-file) for more information on configuration priority. 
+    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority. 
     :::
 1. Specify custom **Environment variables** for the head job and/or compute jobs.
 1. Configure any advanced options needed:
@@ -87,8 +87,8 @@ To create a new **HPC** compute environment:
 
 1. Select **Create** to finalize the creation of the compute environment.
 
-See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in your HPC compute environment.
+See [Launch pipelines](../launch/launchpad) to start executing workflows in your HPC compute environment.
 
 
 <!-- links -->
-[agent]: ../supported_software/agent/agent.mdx
+[agent]: ../supported_software/agent/agent

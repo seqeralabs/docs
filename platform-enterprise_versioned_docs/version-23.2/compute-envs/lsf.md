@@ -53,7 +53,7 @@ The compute queue can be overridden by the Nextflow pipeline configuration. See 
 
 14. Select **Create** to finalize the creation of the compute environment.
 
-Jump to the documentation for [launching pipelines](../launch/launchpad.mdx).
+Jump to the documentation for [launching pipelines](../launch/launchpad).
 
 ### Advanced options
 

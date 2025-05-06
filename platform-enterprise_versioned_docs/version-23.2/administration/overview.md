@@ -5,7 +5,7 @@ date: "21 Apr 2023"
 tags: [administration, user, workspace, organization]
 ---
 
-As a **Root user**, you can access a comprehensive overview of the users, workspaces, and organizations in the system from the **Admin panel**. See [Admin panel](../enterprise/configuration/overview.mdx#admin-panel) to learn how to add root users to your account.
+As a **Root user**, you can access a comprehensive overview of the users, workspaces, and organizations in the system from the **Admin panel**. See [Admin panel](../enterprise/configuration/overview#admin-panel) to learn how to add root users to your account.
 
 The Admin panel menu entry will only be accessible in the user top-right menu if you are logged in as a Root user. This role should only be assigned to a system administrator, since it enables several high level and potentially risky operations.
 

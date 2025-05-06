@@ -67,7 +67,7 @@ We recommend creating separate IAM policies for Batch Forge and Tower launch per
 
 7. Back in the users table, select the newly created user,then select **Add permissions** under the Permissions tab.
 
-8. Select **Attach existing policies**, search for the policies created [previously](./aws-batch.mdx#create-tower-iam-policies), and select each one.
+8. Select **Attach existing policies**, search for the policies created [previously](./aws-batch#create-tower-iam-policies), and select each one.
 
 9. Select **Next: Review**.
 
@@ -129,7 +129,7 @@ Once the AWS resources are set up, we can add a new **AWS Batch** environment in
 
 9. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers](https://www.nextflow.io/docs/latest/wave.html) for more information.
 
-10. Select **Enable Fusion v2** to allow access to your S3-hosted data via the [Fusion v2](https://docs.seqera.io/fusion) virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled (see above). See [Fusion file system](../supported_software/fusion/fusion.mdx) for configuration details.
+10. Select **Enable Fusion v2** to allow access to your S3-hosted data via the [Fusion v2](https://docs.seqera.io/fusion) virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled (see above). See [Fusion file system](../supported_software/fusion/fusion) for configuration details.
 
     :::note
     When using Fusion v2 without fast instance storage (see below), the following EBS settings are applied to optimize file system performance:
@@ -172,7 +172,7 @@ Once the AWS resources are set up, we can add a new **AWS Batch** environment in
     You do not need to modify your pipeline or files to take advantage of this feature. Nextflow will automatically recognize and replace any reference to files prefixed with `s3://` with the corresponding Fusion mount paths.
     :::
 
-17. Select **Enable GPUs** if you intend to run GPU-dependent workflows in the compute environment. See [GPU usage](./overview.mdx#aws-batch) for more information.
+17. Select **Enable GPUs** if you intend to run GPU-dependent workflows in the compute environment. See [GPU usage](./overview#aws-batch) for more information.
 
 18. Select **Use Graviton CPU architecture** to execute the pipeline on Graviton-based EC2 instances (ARM64 CPU architecture). When enabled, Tower automatically selects `m6g`, `r6g` and `c6g` instance types for compute jobs. You can override this selection in the **Instance types** field under **Advanced settings**.
 
@@ -198,7 +198,7 @@ Once the AWS resources are set up, we can add a new **AWS Batch** environment in
 
 22. Select **Dispose resources** if you want Tower to automatically delete these AWS resources if you delete the compute environment in Tower.
 
-23. Apply [**Resource labels**](../resource-labels/overview.mdx) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
+23. Apply [**Resource labels**](../resource-labels/overview) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
 
 24. Expand **Staging options** to include optional pre- or post-run Bash scripts that execute before or after the Nextflow pipeline execution in your environment.
 
@@ -208,7 +208,7 @@ Once the AWS resources are set up, we can add a new **AWS Batch** environment in
 
 27. Select **Create** to finalize the compute environment setup. It will take a few seconds for all the resources to be created, and then you will be ready to launch pipelines.
 
-Jump to the documentation for [launching pipelines](../launch/launchpad.mdx).
+Jump to the documentation for [launching pipelines](../launch/launchpad).
 
 ### Advanced options
 
@@ -301,7 +301,7 @@ To create a new compute environment for AWS Batch (without Forge):
 6. Enter the **Access key** and **Secret key** for your IAM user.
 
     :::tip
-    You can create multiple credentials in your Tower environment. See the [Credentials](../credentials/overview.mdx) section.
+    You can create multiple credentials in your Tower environment. See the [Credentials](../credentials/overview) section.
     :::
 
 7. Select a **Region**, e.g., "eu-west-1 - Europe (Ireland)".
@@ -320,7 +320,7 @@ To create a new compute environment for AWS Batch (without Forge):
 
 14. Select **Create** to finalize the compute environment setup.
 
-Jump to the documentation for [launching pipelines](../launch/launchpad.mdx).
+Jump to the documentation for [launching pipelines](../launch/launchpad).
 
 ### Advanced options
 

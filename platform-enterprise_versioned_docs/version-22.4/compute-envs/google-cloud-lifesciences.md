@@ -123,7 +123,7 @@ To create a new compute environment for Google Cloud in Tower:
    :::
 
    :::note
-   From version 22.3, Tower supports the use of credentials for container registry services. These credentials can be created from the [Credentials](../credentials/overview.mdx) tab.
+   From version 22.3, Tower supports the use of credentials for container registry services. These credentials can be created from the [Credentials](../credentials/overview) tab.
    :::
 
 7. Select the [**Region** and **Zones**](https://cloud.google.com/compute/docs/regions-zones#available) where you'd like to execute pipelines. You can leave the **Location** empty and the Cloud Life Sciences API will use the closest available location.
@@ -140,7 +140,7 @@ To create a new compute environment for Google Cloud in Tower:
 
 13. Select **Create** to finalize the compute environment setup.
 
-Jump to the documentation for [Launching Pipelines](../launch/launchpad.mdx).
+Jump to the documentation for [Launching Pipelines](../launch/launchpad).
 
 ### Advanced options
 

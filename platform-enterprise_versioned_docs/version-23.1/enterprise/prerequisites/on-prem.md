@@ -32,9 +32,9 @@ container registry [`cr.seqera.io`](https://cr.seqera.io). Contact [support](htt
 The Seqera Labs container registry `cr.seqera.io` is the default Tower container image registry from version 22.4. Use of the AWS, Azure, and Google Cloud Tower image registries in existing installations is still supported but will be deprecated for **new installations** starting June 2023.
 :::
 
-See [Docker Compose](../docker-compose.mdx) for instructions to deploy Tower via Docker Compose.
+See [Docker Compose](../docker-compose) for instructions to deploy Tower via Docker Compose.
 
-See [Kubernetes](../kubernetes.mdx) for instructions to deploy Tower via Kubernetes.
+See [Kubernetes](../kubernetes) for instructions to deploy Tower via Kubernetes.
 
 ## Mandatory prerequisites
 
@@ -48,7 +48,7 @@ If you don't have your own mail server, you can use an external service from a c
 
 An external database (i.e. external to your Docker Compose or Kubernetes deployment) is _highly_ recommended for production deployments. If you don't have your own database service, you can use an external service from a cloud providers. Visit the corresponding **Prerequisites** page for more information and consult your IT team to select the most suitable solution for your organization.
 
-If you decide to use an external database, you must create a MySQL user and database manually. See [Configuration](../configuration/database_and_redis.mdx) for more details.
+If you decide to use an external database, you must create a MySQL user and database manually. See [Configuration](../configuration/database_and_redis) for more details.
 
 ## Optional prerequisites
 

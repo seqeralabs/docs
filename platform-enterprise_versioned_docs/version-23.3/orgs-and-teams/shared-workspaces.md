@@ -22,7 +22,7 @@ Creating a shared workspace is similar to the creation of a private workspace, w
 
 ### Create a shared pipeline
 
-When you create a pipeline within a shared workspace, associating it with a [compute environment](../compute-envs/overview.mdx) is optional.
+When you create a pipeline within a shared workspace, associating it with a [compute environment](../compute-envs/overview) is optional.
 
 If a compute environment from the shared workspace is associated with the pipeline, it will be available to users in other workspaces who can launch the shared pipeline using the provided environment by default.
 
@@ -38,7 +38,7 @@ If a pipeline from a shared workspace is shared **without** an associated comput
 
 ### Make shared pipelines visible in a private workspace
 
-To view pipelines from shared workspaces, go to the [Launchpad](../launch/launchpad.mdx) and set the **Filter > Pipelines from** option to **This and shared workspaces**.
+To view pipelines from shared workspaces, go to the [Launchpad](../launch/launchpad) and set the **Filter > Pipelines from** option to **This and shared workspaces**.
 
 :::note
 Currently, the pipelines from _all_ shared workspaces are visible when the visibility is set to **Shared workspaces**.

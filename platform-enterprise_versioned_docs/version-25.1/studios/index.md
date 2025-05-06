@@ -10,7 +10,7 @@ Studios is a unified platform where you can host a combination of container imag
 On Seqera Cloud, the free tier permits only one running Studio session at a time. To run simultaneous sessions, [contact Seqera][contact] for a Seqera Cloud Pro license.
 
 :::note
-Studios in Enterprise is not enabled by default. You can enable Studios in the [environment variables configuration](../../version-25.1/enterprise/studios.mdx).
+Studios in Enterprise is not enabled by default. You can enable Studios in the [environment variables configuration](../../version-25.1/enterprise/studios).
 :::
 
 ## Requirements
@@ -19,8 +19,8 @@ Before you get started, you need the following:
 
 - Valid credentials to access your cloud storage data resources.
 - At least the **Maintain** role set of permissions.
-- A compute environment with sufficient resources. This is highly dependent on the volume of data you wish to process, but we recommended at least 2 CPUs allocated with 8192 MB of memory. See [AWS Batch](../compute-envs/aws-batch.mdx) for more information about compute environment configuration.
-- [Data Explorer](../data/data-explorer.mdx) is enabled.
+- A compute environment with sufficient resources. This is highly dependent on the volume of data you wish to process, but we recommended at least 2 CPUs allocated with 8192 MB of memory. See [AWS Batch](../compute-envs/aws-batch) for more information about compute environment configuration.
+- [Data Explorer](../data/data-explorer) is enabled.
 
 :::note
 Currently, Studios only supports AWS Batch compute environments that **do not** have Fargate enabled.
@@ -174,10 +174,10 @@ Stop the active session to trigger a snapshot from the active volume. The snapsh
 
 {/* links */}
 [contact]: https://support.seqera.io/
-[aws-batch]: ../compute-envs/aws-batch.mdx
-[custom-envs]: ./custom-envs.mdx
-[build-status]: ./custom-envs.mdx#build-status
-[cloud-bucket-subdirectory]: ./managing.mdx#cloud-bucket-subdirectory
+[aws-batch]: ../compute-envs/aws-batch
+[custom-envs]: ./custom-envs
+[build-status]: ./custom-envs#build-status
+[cloud-bucket-subdirectory]: ./managing#cloud-bucket-subdirectory
 [ds-jupyter]: https://public.cr.seqera.io/repo/platform/data-studio-jupyter
 [ds-rstudio]: https://public.cr.seqera.io/repo/platform/data-studio-rstudio
 [def-vsc]: https://code.visualstudio.com/
@@ -187,4 +187,4 @@ Stop the active session to trigger a snapshot from the active volume. The snapsh
 [def-xpra]: https://github.com/Xpra-org/xpra
 [ds-xpra]: https://public.cr.seqera.io/repo/platform/data-studio-xpra
 [Wave]: https://seqera.io/wave/
-[build-status]: ./custom-envs.mdx#build-status
+[build-status]: ./custom-envs#build-status

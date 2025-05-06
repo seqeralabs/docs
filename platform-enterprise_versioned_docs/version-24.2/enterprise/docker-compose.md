@@ -15,17 +15,17 @@ The DB or Redis volume is persistent after a Docker restart by default. Use the 
 
 ## Deploy Seqera Enterprise
 
-1. Download and configure [tower.env](_templates/docker/tower.env). See [Configuration](../enterprise/configuration/overview.mdx#basic-configuration) for detailed instructions.
+1. Download and configure [tower.env](_templates/docker/tower.env). See [Configuration](../enterprise/configuration/overview#basic-configuration) for detailed instructions.
 
-2. Download and configure [tower.yml](_templates/docker/tower.yml). See [Configuration](../enterprise/configuration/overview.mdx#basic-configuration) for detailed instructions.
+2. Download and configure [tower.yml](_templates/docker/tower.yml). See [Configuration](../enterprise/configuration/overview#basic-configuration) for detailed instructions.
 
 3. Download and configure the [docker-compose.yml](_templates/docker/docker-compose.yml) file:
 
       - The `db` container should be used only for local testing. If you have configured this service elsewhere, you can remove this container.
 
-      - To configure the Seqera pipeline resource optimization service (`groundswell`), see [Pipeline resource optimization](./configuration/pipeline_optimization.mdx).
+      - To configure the Seqera pipeline resource optimization service (`groundswell`), see [Pipeline resource optimization](./configuration/pipeline_optimization).
 
-      - To deploy with Studios, see [Studios deployment](../enterprise/studios.mdx).
+      - To deploy with Studios, see [Studios deployment](../enterprise/studios).
 
 4. Deploy the application and wait for it to initialize (this process takes a few minutes):
 
@@ -33,19 +33,19 @@ The DB or Redis volume is persistent after a Docker restart by default. Use the 
       docker compose up
       ```
 
-5. [Test](./testing.mdx) the application by running an nf-core pipeline with a test profile.
+5. [Test](./testing) the application by running an nf-core pipeline with a test profile.
 
 6. After you've confirmed that Seqera Enterprise is correctly configured and you can launch workflows, run `docker compose up -d` to deploy the application as a background process. You can then disconnect from the VM instance.
 
 :::note
-For more information on configuration, see [Configuration options](./configuration/overview.mdx).
+For more information on configuration, see [Configuration options](./configuration/overview).
 :::
 
 ## Optional features
 
 ### Studios
 
-[Studios](../data_studios/index.mdx) is an interactive analysis environment available in organizational workspaces. To enable Studios, see [Studios deployment](../enterprise/studios.mdx).
+[Studios](../data_studios/index) is an interactive analysis environment available in organizational workspaces. To enable Studios, see [Studios deployment](../enterprise/studios).
 
 :::note
 Studios is currently in **public preview** and is available from Seqera Platform v24.1. If you experience any problems during the deployment process please contact your account executive. Data Studios in Enterprise is not installed by default.

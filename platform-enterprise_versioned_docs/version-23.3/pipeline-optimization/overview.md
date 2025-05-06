@@ -51,7 +51,7 @@ While the optimized configuration is applied after the base configuration of the
 
 **Handle large variations in resource usage**
 
-Each optimized profile is calibrated to a specific run, so it can only be used safely for "similar" runs. Whether a new run is "similar" is subjective, but in general, an optimized profile should only be used for runs that use the same [**compute environment**](../compute-envs/overview.mdx) and have similar task-level resource requirements.
+Each optimized profile is calibrated to a specific run, so it can only be used safely for "similar" runs. Whether a new run is "similar" is subjective, but in general, an optimized profile should only be used for runs that use the same [**compute environment**](../compute-envs/overview) and have similar task-level resource requirements.
 
 However, it's common for a pipeline to process input files that vary widely in size. In this case, the task-level resource requirements may vary widely for a given process, and the optimized profile may not be accurate or efficient.
 

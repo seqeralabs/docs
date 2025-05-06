@@ -5,7 +5,7 @@ date: "21 Apr 2023"
 tags: [deployment]
 ---
 
-Tower is available in two deployment editions and can be accessed via web UI, [API](../api/overview.mdx), [CLI](../cli/cli.mdx), or directly in your Nextflow command using a flag.
+Tower is available in two deployment editions and can be accessed via web UI, [API](../api/overview), [CLI](../cli/cli), or directly in your Nextflow command using a flag.
 
 ## Tower editions
 
@@ -13,13 +13,13 @@ Tower is available in two deployment editions and can be accessed via web UI, [A
 
 The hosted Cloud edition of Tower is available free of charge at [cloud.tower.nf](https://tower.nf/login) — log in with your GitHub or Google credentials.
 
-Cloud is recommended for users who are new to Tower. It's an ideal choice for individuals and organizations looking to set up quickly. The service is hosted by Seqera. See [Community showcase](../getting-started/community-showcase.mdx) for instructions to launch your first pipeline. Tower Cloud has a limit of five concurrent workflow runs per user.
+Cloud is recommended for users who are new to Tower. It's an ideal choice for individuals and organizations looking to set up quickly. The service is hosted by Seqera. See [Community showcase](../getting-started/community-showcase) for instructions to launch your first pipeline. Tower Cloud has a limit of five concurrent workflow runs per user.
 
 ![](./_images/starting_tower_nf.png)
 
 ### Enterprise
 
-[Tower Enterprise](../enterprise/index.mdx) is installed in an organization's own cloud or on-premises infrastructure. It includes:
+[Tower Enterprise](../enterprise/index) is installed in an organization's own cloud or on-premises infrastructure. It includes:
 
 - Monitoring, logging, and observability
 - Pipeline execution Launchpad
@@ -36,7 +36,7 @@ To install Tower in your organization's infrastructure, [contact us](https://clo
 
 ## Tower usage methods
 
-You can access Tower through the web user interface, the [API](../api/overview.mdx), the [CLI](../cli/cli.mdx), or in Nextflow directly using the `-with-tower` option.
+You can access Tower through the web user interface, the [API](../api/overview), the [CLI](../cli/cli), or in Nextflow directly using the `-with-tower` option.
 
 ### Tower UI
 
@@ -46,17 +46,17 @@ You can access Tower through the web user interface, the [API](../api/overview.m
    Tower login sessions remain active as long as the application browser window remains open and active. When the browser window is terminated, automatic logout occurs within 6 hours by default.
    :::
 
-2. Create and configure a new [compute environment](../compute-envs/overview.mdx).
+2. Create and configure a new [compute environment](../compute-envs/overview).
 
-3. Start [launching pipelines](../launch/launchpad.mdx).
+3. Start [launching pipelines](../launch/launchpad).
 
 ### Tower API
 
-See [API](../api/overview.mdx).
+See [API](../api/overview).
 
 ### Tower CLI
 
-See [CLI](../cli/cli.mdx).
+See [CLI](../cli/cli).
 
 ### Nextflow `-with-tower`
 
@@ -85,7 +85,7 @@ The access token will be displayed only once. Save the token value before closin
 Bearer token support requires Nextflow version 20.10.0 or later. Set with the `NXF_VER` environment variable.
 :::
 
-8. To submit a pipeline to a [workspace](./workspace.mdx) using Nextflow, add the workspace ID to your environment:
+8. To submit a pipeline to a [workspace](./workspace) using Nextflow, add the workspace ID to your environment:
 
    ```bash
    export TOWER_WORKSPACE_ID=000000000000000
@@ -103,7 +103,7 @@ Bearer token support requires Nextflow version 20.10.0 or later. Set with the `N
 
    You can now monitor your workflow runs in Tower.
 
-To configure and execute Nextflow pipelines in cloud environments, see [compute environments](../compute-envs/overview.mdx).
+To configure and execute Nextflow pipelines in cloud environments, see [compute environments](../compute-envs/overview).
 
 :::tip
 See the [Nextflow documentation](https://www.nextflow.io/docs/latest/config.html?highlight=tower#scope-tower) for further run configuration options using Nextflow configuration files.

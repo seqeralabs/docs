@@ -9,7 +9,7 @@ tags: [k8s, kubernetes, compute environment]
 
 Seqera Platform streamlines the deployment of Nextflow pipelines into Kubernetes, both for cloud-based and on-prem clusters.
 
-The following instructions create a Seqera compute environment for a **generic Kubernetes** distribution. See [Amazon EKS](./eks.mdx) or [Google Kubernetes Engine (GKE)](./gke.mdx) for EKS and GKE compute environment instructions.
+The following instructions create a Seqera compute environment for a **generic Kubernetes** distribution. See [Amazon EKS](./eks) or [Google Kubernetes Engine (GKE)](./gke) for EKS and GKE compute environment instructions.
 
 ## Cluster preparation
 
@@ -82,7 +82,7 @@ After you've prepared your Kubernetes cluster for Seqera integration, create a c
 1. From the **Credentials** drop-down, select existing Kubernetes credentials, or select **+** to add new credentials. If you choose to use existing credentials, skip to step 7.
 
     :::tip
-    You can create multiple credentials in your Seqera workspace. See [Credentials](../credentials/overview.mdx).
+    You can create multiple credentials in your Seqera workspace. See [Credentials](../credentials/overview).
     :::
 
 1. Enter a name, such as _K8s Credentials_.
@@ -113,18 +113,18 @@ After you've prepared your Kubernetes cluster for Seqera integration, create a c
 1. Specify the **Namespace** created in the [cluster preparation](#cluster-preparation) instructions, which is _tower-nf_ by default.
 1. Specify the **Head service account** created in the [cluster preparation](#cluster-preparation) instructions, which is _tower-launcher-sa_ by default.
 1. Specify the **Storage claim** created in the [cluster preparation](#cluster-preparation) instructions, which serves as a scratch filesystem for Nextflow pipelines. The storage claim is called _tower-scratch_ in each of the provided examples.
-1. Apply [**Resource labels**](../resource-labels/overview.mdx) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
+1. Apply [**Resource labels**](../resource-labels/overview) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
 1. Expand **Staging options** to include:
-    - Optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
+    - Optional [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
     - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch. 
     :::info
-    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced.mdx#nextflow-config-file) for more information on configuration priority. 
+    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority. 
     :::
 1. You can use the **Environment variables** option to specify custom environment variables for the Head job and/or Compute jobs.
 1. Configure any advanced options described below, as needed.
 1. Select **Create** to finalize the compute environment setup.
 
-See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in your Kubernetes compute environment.
+See [Launch pipelines](../launch/launchpad) to start executing workflows in your Kubernetes compute environment.
 
 ### Advanced options
 

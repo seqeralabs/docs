@@ -12,7 +12,7 @@ Each user has a unique **user workspace** to manage resources such as pipelines,
 Organizations consist of members, while workspaces consist of participants.
 
 :::note
-A workspace participant may be a member of the workspace organization or a collaborator within that workspace only. Collaborators count toward the total number of workspace participants. See [Usage limits](../limits/limits.mdx).
+A workspace participant may be a member of the workspace organization or a collaborator within that workspace only. Collaborators count toward the total number of workspace participants. See [Usage limits](../limits/limits).
 :::
 
 ## Create a new workspace
@@ -30,12 +30,12 @@ Organization owners and admins can create a new workspace within an organization
 As a workspace owner, you can modify optional workspace fields after workspace creation. You can either select **Edit** on an organization's workspaces list or the **Settings** tab within the workspace page.
 :::
 
-Apart from the **Participants** tab, the _organization_ workspace is similar to the _user_ workspace. As such, the relation to [runs](../launch/launchpad.mdx), [actions](../pipeline-actions/overview.mdx), [compute environments](../compute-envs/overview.mdx), and [credentials](../credentials/overview.mdx) is the same.
+Apart from the **Participants** tab, the _organization_ workspace is similar to the _user_ workspace. As such, the relation to [runs](../launch/launchpad), [actions](../pipeline-actions/overview), [compute environments](../compute-envs/overview), and [credentials](../credentials/overview) is the same.
 
 ## Edit a workspace
 
 :::note
-From version 23.2, **workspace owners** can edit their workspace name, either from the workspace settings tab or the [Admin panel](../administration/overview.mdx).
+From version 23.2, **workspace owners** can edit their workspace name, either from the workspace settings tab or the [Admin panel](../administration/overview).
 :::
 
 Open the **Settings** tab on the workspace page and select **Edit Workspace**. Make your updates and select **Update** to save changes.
@@ -53,7 +53,7 @@ A new workspace participant can be an existing organization member, team, or col
 
 ## Workspace run monitoring
 
-To allow users executing pipelines from the command line to share their runs with a given workspace, see [deployment options](../getting-started/deployment-options.mdx#nextflow--with-tower).
+To allow users executing pipelines from the command line to share their runs with a given workspace, see [deployment options](../getting-started/deployment-options#nextflow--with-tower).
 
 Seqera Platform introduces the concept of shared workspaces as a solution for synchronization and resource sharing within an organization. A shared workspace enables the creation of pipelines in a centralized location, making them accessible to all members of an organization.
 
@@ -70,7 +70,7 @@ Creating a shared workspace is similar to the creation of a private workspace, w
 
 ### Create a shared pipeline
 
-When you create a pipeline in a shared workspace, associating it with a [compute environment](../compute-envs/overview.mdx) is optional.
+When you create a pipeline in a shared workspace, associating it with a [compute environment](../compute-envs/overview) is optional.
 
 If a compute environment from the shared workspace is associated with the pipeline, it will be available to users in other organization workspaces to launch the shared pipeline with the associated compute environment by default.
 
@@ -90,4 +90,4 @@ If a pipeline from a shared workspace is shared **without** an associated comput
 Pipelines from _all_ shared workspaces are visible when the visibility is set to **Shared workspaces**.
 :::
 
-To view pipelines from shared workspaces, go to the [Launchpad](../launch/launchpad.mdx) and set the **Filter > Pipelines from** option to **This and shared workspaces**.
+To view pipelines from shared workspaces, go to the [Launchpad](../launch/launchpad) and set the **Filter > Pipelines from** option to **This and shared workspaces**.

@@ -13,7 +13,7 @@ To learn more about Wave, see [Wave containers](https://wave.seqera.io). To lear
 
 To pair Seqera Enterprise with Wave, you need the following:
 
-- Credentials to authenticate to your (private or public) container registry configured in the Seqera UI. See the [container registry credentials](../../credentials/overview.mdx) instructions for your provider.
+- Credentials to authenticate to your (private or public) container registry configured in the Seqera UI. See the [container registry credentials](../../credentials/overview) instructions for your provider.
 
 - Your container registry must allow ingress from the Wave service (`https://wave.seqera.io`).
 

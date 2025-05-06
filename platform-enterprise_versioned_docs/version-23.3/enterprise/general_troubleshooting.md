@@ -9,7 +9,7 @@ tags: [troubleshooting]
 
 **503 errors during pipeline execution**
 
-Error 503 suggests that one or more of the services being contacted by Seqera Enterprise as part of workflow execution are unavailable. Ensure all required services are running and available. [Database](./configuration/overview.mdx#tower-and-redis-databases) connectivity is often the culprit for `503` errors.
+Error 503 suggests that one or more of the services being contacted by Seqera Enterprise as part of workflow execution are unavailable. Ensure all required services are running and available. [Database](./configuration/overview#tower-and-redis-databases) connectivity is often the culprit for `503` errors.
 
 **_SocketTimeoutException: connect timed out_ errors with self-hosted Git servers**
 
@@ -144,7 +144,7 @@ java.sql.SQLException: The server time zone value 'CEST' is unrecognized or repr
 
 This error means that Seqera is unable to connect to the database and the `JDBC` client must specify the time zone value via `serverTimezone`.
 
-To resolve this issue for `Europe/Amsterdam` time zone, append `serverTimezone` to the value of [`TOWER_DB_URL`](./configuration/overview.mdx#tower-and-redis-databases):
+To resolve this issue for `Europe/Amsterdam` time zone, append `serverTimezone` to the value of [`TOWER_DB_URL`](./configuration/overview#tower-and-redis-databases):
 
 ```bash
 export TOWER_DB_URL": "jdbc:mysql://<YOUR_DATABASE_IP>:3306/tower?serverTimezone=Europe/Amsterdam"
@@ -211,7 +211,7 @@ This can occur for several reasons. Verify the following:
 
 This error points to an issue with the SSH credentials used to authenticate Seqera to your HPC cluster (LSF, Slurm, etc.), such as an invalid SSH key or inappropriate permissions on the user directory. Check the following:
 
-- Ensure the SSH key is still valid. If not, create new SSH keys and [re-create the compute environment](../compute-envs/hpc.mdx) in Seqera with the updated credentials.
+- Ensure the SSH key is still valid. If not, create new SSH keys and [re-create the compute environment](../compute-envs/hpc) in Seqera with the updated credentials.
 
 - Check the backend logs for a stack trace similar to the following:
 

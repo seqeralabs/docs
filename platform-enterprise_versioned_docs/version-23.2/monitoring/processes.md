@@ -13,4 +13,4 @@ In the example below, the fastqc process has executed four tasks, all of which c
 <img src="../_images/monitoring_fastqc_processes.png" width="75%"/>
 </center>
 
-Selecting a process navigates to the [**Tasks table**](./tasks.mdx#tasks) and filters it by the selected process.
+Selecting a process navigates to the [**Tasks table**](./tasks#tasks) and filters it by the selected process.

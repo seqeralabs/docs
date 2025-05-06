@@ -7,7 +7,7 @@ tags: [ssh, credentials]
 
 SSH public key authentication relies on asymmetric cryptography to generate a public and private key pair. The public key remains on the target (remote) machine, while the private key (and passphrase) is stored in Seqera Platform as a credential. The key pair is used to authenticate a connection with your SSH-enabled environment.
 
-To preserve individual user identities by using multiple user SSH credentials to access your HPC compute environments, see [Managed identities](./managed_identities.mdx).
+To preserve individual user identities by using multiple user SSH credentials to access your HPC compute environments, see [Managed identities](./managed_identities).
 
 :::note
 All credentials are (AES-256) encrypted before secure storage and not exposed in an unencrypted way by any Seqera API.

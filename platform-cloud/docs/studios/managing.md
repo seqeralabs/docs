@@ -207,6 +207,6 @@ Due to the nature of fully customizable, containerized applications, users can m
 
 {/* links */}
 [aws-gpu]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-gpu.html
-[conda-syntax]: ./custom-envs.mdx#conda-package-syntax
-[custom-image]: ./custom-envs.mdx#custom-containers
-[connect]: ./index.mdx#container-image-templates
+[conda-syntax]: ./custom-envs#conda-package-syntax
+[custom-image]: ./custom-envs#custom-containers
+[connect]: ./index#container-image-templates

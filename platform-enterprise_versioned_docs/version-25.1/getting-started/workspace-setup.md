@@ -11,7 +11,7 @@ To create an organization workspace and begin adding participants, first create 
 
 ### Create an organization 
 
-Organizations are the top-level structure and contain workspaces, members, and teams. You can also add external collaborators to an organization. See [Organization management](../orgs-and-teams/organizations.mdx) for more information. 
+Organizations are the top-level structure and contain workspaces, members, and teams. You can also add external collaborators to an organization. See [Organization management](../orgs-and-teams/organizations) for more information. 
 
 1. Expand the **Organization | Workspace** dropdown and select **Add organization**.
 1. Complete the organization details fields:

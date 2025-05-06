@@ -113,8 +113,8 @@ To inspect the status of an ongoing build, or a successful or failed build, comp
 1. Optional: If the build failed, select the **Error report** tab to view the errors associated with the build failure.
 
 {/* links */}
-[add-s]: ./managing.mdx#add-a-data-studio
-[wave]: ../enterprise/configuration/wave.mdx
+[add-s]: ./managing#add-a-data-studio
+[wave]: ../enterprise/configuration/wave
 
 [wave-home]: https://seqera.io/wave/
 [env-manually]: https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-file-manually

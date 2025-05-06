@@ -20,9 +20,9 @@ The list layout is the default **Launchpad** view. Use the toggle next to the **
 ## Launch form
 
 :::note
-In Platform Enterprise version 24.1, the stepped launch form described below must be enabled with the `TOWER_STEPPED_LAUNCH_FORM_ALLOWED_WORKSPACES` [environment variable](../enterprise/configuration/overview.mdx#core-features). Without this configuration, version 24.1 defaults to the [classic launch form](../../version-23.4/launch/launchpad.mdx#launch-form).
+In Platform Enterprise version 24.1, the stepped launch form described below must be enabled with the `TOWER_STEPPED_LAUNCH_FORM_ALLOWED_WORKSPACES` [environment variable](../enterprise/configuration/overview#core-features). Without this configuration, version 24.1 defaults to the [classic launch form](../../version-23.4/launch/launchpad#launch-form).
 
-Platform Cloud accounts use the [classic launch form](../../version-23.4/launch/launchpad.mdx#launch-form) by default — [contact us](https://seqera.io/contact-us/) to enable the new stepped launch form. 
+Platform Cloud accounts use the [classic launch form](../../version-23.4/launch/launchpad#launch-form) by default — [contact us](https://seqera.io/contact-us/) to enable the new stepped launch form. 
 :::
 
 The launch form is used to launch pipelines and to add pipelines to the **Launchpad**. Select **Launch** next to a saved pipeline in the list, or select **launch a run without configuration** to perform a quick launch of an unsaved pipeline.
@@ -33,15 +33,15 @@ For saved pipelines, **General config** and **Run parameters** fields are prefil
 
 ### General config 
 
-- **Pipeline to launch**: A Git repository name or URL. For saved pipelines, this is prefilled and cannot be edited. Private repositories require [access credentials](../credentials/overview.mdx).
+- **Pipeline to launch**: A Git repository name or URL. For saved pipelines, this is prefilled and cannot be edited. Private repositories require [access credentials](../credentials/overview).
   :::note
-  Nextflow pipelines are Git repositories that can reside on any public or private Git-hosting platform. See [Git integration](../git/overview.mdx) in the Seqera docs and [Pipeline sharing](https://www.nextflow.io/docs/latest/sharing.html) in the Nextflow docs for more details.
+  Nextflow pipelines are Git repositories that can reside on any public or private Git-hosting platform. See [Git integration](../git/overview) in the Seqera docs and [Pipeline sharing](https://www.nextflow.io/docs/latest/sharing.html) in the Nextflow docs for more details.
   :::
 - **Revision number**: A valid repository commit ID, tag, or branch name. For saved pipelines, this is prefilled and cannot be edited.
 - **Config profiles**: One or more [configuration profile](https://www.nextflow.io/docs/latest/config.html#config-profiles) names to use for the execution. Config profiles must be defined in the `nextflow.config` file in the pipeline repository.
 - **Workflow run name**: A unique identifier for the run, pre-filled with a random name. This can be customized.
-- **Labels**: Assign new or existing [labels](../labels/overview.mdx) to the run.
-- **Compute environment**: The [compute environment](../compute-envs/overview.mdx) where the run will be launched.
+- **Labels**: Assign new or existing [labels](../labels/overview) to the run.
+- **Compute environment**: The [compute environment](../compute-envs/overview) where the run will be launched.
 - **Work directory**: The cloud storage or file system path where pipeline scratch data is stored. Seqera will create a scratch sub-folder if only a cloud bucket location is specified. Use file system paths for local or HPC compute environments.
   :::note
   The credentials associated with the compute environment must have access to the work directory.
@@ -51,23 +51,23 @@ For saved pipelines, **General config** and **Run parameters** fields are prefil
 
 There are three ways to enter **Run parameters** prior to launch:
 
-- The **Input form view** displays form fields to enter text, select attributes from dropdowns, and browse input and output locations with [Data Explorer](../data/data-explorer.mdx).
+- The **Input form view** displays form fields to enter text, select attributes from dropdowns, and browse input and output locations with [Data Explorer](../data/data-explorer).
 - The **Config view** displays a raw schema that you can edit directly. Select JSON or YAML format from the **View as** dropdown.
 - **Upload params file** allows you to upload a JSON or YAML file with run parameters.
 
 Seqera uses a `nextflow_schema.json` file in the root of the pipeline repository to dynamically create a form with the necessary pipeline parameters. Most pipelines contain at least input and output parameters:
 
 - **input**
-Specify compatible input [datasets](../data/datasets.mdx)  manually or from the dropdown menu. Select **Browse** to view the available datasets or browse for files in [Data Explorer](../data/data-explorer.mdx). The Data Explorer tab allows you to select input datasets that match your [pipeline schema](../pipeline-schema/overview.mdx) `mimetype` criteria (`text/csv` for CSV files, or `text/tsv` for TSV files).
+Specify compatible input [datasets](../data/datasets)  manually or from the dropdown menu. Select **Browse** to view the available datasets or browse for files in [Data Explorer](../data/data-explorer). The Data Explorer tab allows you to select input datasets that match your [pipeline schema](../pipeline-schema/overview) `mimetype` criteria (`text/csv` for CSV files, or `text/tsv` for TSV files).
 
 - **outdir**
-Specify the output directory where run results will be saved manually, or select **Browse** to choose a cloud storage directory using [Data Explorer](../data/data-explorer.mdx).
+Specify the output directory where run results will be saved manually, or select **Browse** to choose a cloud storage directory using [Data Explorer](../data/data-explorer).
 
 The remaining fields will vary for each pipeline, dependent on the parameters specified in the pipeline schema. 
 
 ### Advanced settings 
 
-Enter [resource labels](../resource-labels/overview.mdx), [pipeline secrets](../secrets/overview.mdx), and [advanced options](../launch/advanced.mdx) before launch. 
+Enter [resource labels](../resource-labels/overview), [pipeline secrets](../secrets/overview), and [advanced options](../launch/advanced) before launch. 
 
 #### Resource labels
 
@@ -83,25 +83,25 @@ In AWS Batch compute environments, Seqera passes stored secrets to jobs as part 
 
 #### Advanced options
 
-See [Advanced options](../launch/advanced.mdx).
+See [Advanced options](../launch/advanced).
 
-After you have filled the necessary launch details, select **Launch**. The **Runs** tab shows your new run in a **submitted** status at the top of the list. Select the run name to navigate to the [**View Workflow Run**](../monitoring/overview.mdx) page and view the configuration, parameters, status of individual tasks, and run report.
+After you have filled the necessary launch details, select **Launch**. The **Runs** tab shows your new run in a **submitted** status at the top of the list. Select the run name to navigate to the [**View Workflow Run**](../monitoring/overview) page and view the configuration, parameters, status of individual tasks, and run report.
 
 :::note
-For more information on relaunch and resume, see [Nextflow cache and resume](./cache-resume.mdx).
+For more information on relaunch and resume, see [Nextflow cache and resume](./cache-resume).
 :::
 
 ## Add new pipeline
 
 From the **Launchpad**, select **Add pipeline** to add a new pipeline with pre-saved parameters to your workspace. The fields on the new pipeline form are similar to the pipeline launch form.
 
-See [Add pipelines](../getting-started/quickstart-demo/add-pipelines.mdx) for instructions to add pipelines to your workspace via [Seqera Pipelines](https://seqera.io/pipelines) or the Launchpad.
+See [Add pipelines](../getting-started/quickstart-demo/add-pipelines) for instructions to add pipelines to your workspace via [Seqera Pipelines](https://seqera.io/pipelines) or the Launchpad.
 
 :::note
 Pipeline names must be unique per workspace.
 :::
 :::tip
-To create your own customized Nextflow schema for your pipeline, see [Pipeline schema](../pipeline-schema/overview.mdx) and the `nf-core` workflows that have adopted this. [nf-core/eager](https://github.com/nf-core/eager/blob/master/nextflow_schema.json) and [nf-core/rnaseq](https://github.com/nf-core/rnaseq/blob/master/nextflow_schema.json) are good examples.
+To create your own customized Nextflow schema for your pipeline, see [Pipeline schema](../pipeline-schema/overview) and the `nf-core` workflows that have adopted this. [nf-core/eager](https://github.com/nf-core/eager/blob/master/nextflow_schema.json) and [nf-core/rnaseq](https://github.com/nf-core/rnaseq/blob/master/nextflow_schema.json) are good examples.
 :::
 
 ## Email notifications

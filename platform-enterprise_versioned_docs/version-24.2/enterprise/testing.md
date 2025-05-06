@@ -5,17 +5,17 @@ date: "12 Feb 2024"
 tags: [testing, deployment]
 ---
 
-After your [Docker Compose](./docker-compose.mdx) or [Kubernetes](./kubernetes.mdx) installation is complete, follow these steps to test whether the application is running as expected:
+After your [Docker Compose](./docker-compose) or [Kubernetes](./kubernetes) installation is complete, follow these steps to test whether the application is running as expected:
 
 1. Log in to the application.
 
-2. Create an [organization](../orgs-and-teams/organizations.mdx).
+2. Create an [organization](../orgs-and-teams/organizations).
 
-3. Create a [workspace](../orgs-and-teams/workspace-management.mdx) within the organization.
+3. Create a [workspace](../orgs-and-teams/workspace-management) within the organization.
 
-4. Create a new [compute environment](../compute-envs/overview.mdx).
+4. Create a new [compute environment](../compute-envs/overview).
 
-5. Add your [GitHub credentials](../git/overview.mdx).
+5. Add your [GitHub credentials](../git/overview).
 
 6. Select **Quick Launch** from the **Launchpad** tab in your workspace.
 

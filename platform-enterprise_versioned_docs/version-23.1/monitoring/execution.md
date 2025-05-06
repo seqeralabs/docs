@@ -10,10 +10,10 @@ tags: [logging, monitoring]
 Selecting a workflow run from the **Runs** tab will display the workflow details. This view contains:
 
 - [Run information](#run-information) with command-line, parameters, configuration, and execution logs in real-time.
-- [Summary and status](./summary.mdx) section.
-- List of pipeline [processes](./processes.mdx).
-- [Aggregated stats](./aggregate_stats.mdx) and [load](./aggregate_stats.mdx#load-and-utilization).
-- Detailed list of [individual tasks](./tasks.mdx#task-table) and [metrics](./tasks.mdx#resource-metrics).
+- [Summary and status](./summary) section.
+- List of pipeline [processes](./processes).
+- [Aggregated stats](./aggregate_stats) and [load](./aggregate_stats#load-and-utilization).
+- Detailed list of [individual tasks](./tasks#task-table) and [metrics](./tasks#resource-metrics).
 
 ### Run information
 

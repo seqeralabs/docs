@@ -25,7 +25,7 @@ Try the following:
 
 **_Row was updated or deleted by another transaction (or unsaved-value mapping was incorrect)_ error**
 
-This error can occur if incorrect configuration values are assigned to the `backend` and `cron` containers' [`MICRONAUT_ENVIRONMENTS`](../../version-24.2/enterprise/configuration/overview.mdx#compute-environments) environment variable. You may see other unexpected system behavior, like two exact copies of the same Nextflow job submitted to the executor for scheduling.
+This error can occur if incorrect configuration values are assigned to the `backend` and `cron` containers' [`MICRONAUT_ENVIRONMENTS`](../../version-24.2/enterprise/configuration/overview#compute-environments) environment variable. You may see other unexpected system behavior, like two exact copies of the same Nextflow job submitted to the executor for scheduling.
 
 Verify the following:
 
@@ -74,7 +74,7 @@ Most containers use the root user by default. However, some users prefer to defi
 touch: cannot touch '/fsx/work/ab/27d78d2b9b17ee895b88fcee794226/.command.begin': Permission denied
 ```
 
-This should not occur when using AWS Batch from Seqera version 22.1.0. In other situations, you can avoid this issue by forcing all task containers to run as root. Add one of the following snippets to your [Nextflow configuration](../launch/advanced.mdx#nextflow-config-file):
+This should not occur when using AWS Batch from Seqera version 22.1.0. In other situations, you can avoid this issue by forcing all task containers to run as root. Add one of the following snippets to your [Nextflow configuration](../launch/advanced#nextflow-config-file):
 
 ```
 // cloud executors
@@ -119,7 +119,7 @@ To fix the problem, try the following:
     export JAVA_OPTIONS="-Dmail.smtp.ssl.protocols=TLSv1.2"
     ```
 
-2. Add this parameter to your [nextflow.config file](../launch/advanced.mdx#nextflow-config-file):
+2. Add this parameter to your [nextflow.config file](../launch/advanced#nextflow-config-file):
 
     ```
     mail {
@@ -177,7 +177,7 @@ Users with email addresses other than the `trustedEmails` list will undergo an a
 
 :::note
 
-1. You must rebuild your containers (`docker compose down`) to force Seqera to implement this change. Ensure your database is persistent before issuing the teardown command. See [here](../../version-24.2/enterprise/docker-compose.mdx) for more information.
+1. You must rebuild your containers (`docker compose down`) to force Seqera to implement this change. Ensure your database is persistent before issuing the teardown command. See [here](../../version-24.2/enterprise/docker-compose) for more information.
 2. All login attempts are visible to the root user at **Profile > Admin panel > Users**.
 3. Any user logged in prior to the restriction will not be subject to the new restriction. An admin of the organization should remove users that have previously logged in via (untrusted) email from the Admin panel users list. This will restart the approval process before they can log in via email.
 
@@ -215,7 +215,7 @@ Mount the APM solution's JAR file in Seqera's `backend` container and set the ag
 
 Although it's not possible to directly download the trace logs via Seqera, you can configure your workflow to export the file to persistent storage:
 
-1. Set this block in your [`nextflow.config`](../launch/advanced.mdx#nextflow-config-file):
+1. Set this block in your [`nextflow.config`](../launch/advanced#nextflow-config-file):
 
    ```nextflow
    trace {
@@ -310,7 +310,7 @@ This error can occur if the Nextflow head job fails to retrieve the necessary re
 
 **_Missing AWS execution role arn_ error during Seqera launch**
 
-The [ECS Agent must have access](https://docs.aws.amazon.com/batch/latest/userguide/execution-IAM-role.html) to retrieve secrets from the AWS Secrets Manager. Secrets-using pipelines launched from your instance in an AWS Batch compute environment will encounter this error if an IAM Execution Role is not provided. See [Secrets](../secrets/overview.mdx) for more information.
+The [ECS Agent must have access](https://docs.aws.amazon.com/batch/latest/userguide/execution-IAM-role.html) to retrieve secrets from the AWS Secrets Manager. Secrets-using pipelines launched from your instance in an AWS Batch compute environment will encounter this error if an IAM Execution Role is not provided. See [Secrets](../secrets/overview) for more information.
 
 **AWS Batch task failures with secrets**
 

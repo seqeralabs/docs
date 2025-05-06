@@ -21,7 +21,7 @@ This section contains details about the Nextflow execution:
 - The pipeline **Parameters** (taken from the configuration `params` scope).
 - The **Configuration** files and the final resolved configuration.
 - The **Execution log** from the main Nextflow process, updated in real-time.
-- Available **Reports**, if any are [configured](../reports/overview.mdx).
+- Available **Reports**, if any are [configured](../reports/overview).
 
 ### General summary
 
@@ -36,7 +36,7 @@ The **General** panel displays top-level information about a pipeline run:
 - Work directory path
 
   :::tip
-  If your work directory resides in cloud storage, select the work directory path in the **General** panel to browse its contents in [Data Explorer](../data/data-explorer.mdx).
+  If your work directory resides in cloud storage, select the work directory path in the **General** panel to browse its contents in [Data Explorer](../data/data-explorer).
   :::
 
 - Container image
@@ -54,7 +54,7 @@ The **Status** panel provides a real-time status of all tasks in the pipeline ru
 - **pending**: The task has been created, but not yet submitted to an executor
 - **submitted**: The task has been submitted to an executor, but is not yet running
 - **running**: The task has been launched by an executor (the precise definition of "running" may vary for each executor)
-- **cached**: A previous (and valid) execution of the task was found and used instead of executing the task again (See [Cache and resume](../launch/cache-resume.mdx))
+- **cached**: A previous (and valid) execution of the task was found and used instead of executing the task again (See [Cache and resume](../launch/cache-resume))
 - **completed**: The task completed successfully
 - **failed**: The task failed
 
@@ -104,7 +104,7 @@ See also: **readBytes** and **writeBytes** in the task table.
 
 #### Estimated cost
 
-See [Cloud costs](../monitoring/cloud-costs.mdx#seqera-cost-estimate). 
+See [Cloud costs](../monitoring/cloud-costs#seqera-cost-estimate). 
 
 ### Load
 
@@ -156,7 +156,7 @@ Select a task in the task table to open the **Task details** dialog. The dialog 
 
 - **Data Explorer**
 
-  If the pipeline work directory is in cloud storage, this tab shows a [Data Explorer](../data/data-explorer.mdx) view of the task's work directory location with the files associated with the task.
+  If the pipeline work directory is in cloud storage, this tab shows a [Data Explorer](../data/data-explorer) view of the task's work directory location with the files associated with the task.
 
 ### Metrics 
 

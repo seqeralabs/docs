@@ -35,7 +35,7 @@ You can configure which organizational workspaces have access to Studios. This c
 
 Each of the provided environments includes a particular version of the underlying software package and the version of Seqera Connect, an integrated web- and file-server.
 
-To quickly identify which version of the software an image includes, the version string for each container is in the form of `<software_version>-<seqera_connect_version>`. For example, if the version string for the RStudio Server is `4.4.1-0.8`, version `4.4.1` is the RStudio version and `0.8` is the Connect version of this Seqera-built container image. Learn more about Studios [environment versioning](../studios/index.mdx#container-image-templates).
+To quickly identify which version of the software an image includes, the version string for each container is in the form of `<software_version>-<seqera_connect_version>`. For example, if the version string for the RStudio Server is `4.4.1-0.8`, version `4.4.1` is the RStudio version and `0.8` is the Connect version of this Seqera-built container image. Learn more about Studios [environment versioning](../studios/index#container-image-templates).
 
 The latest environment versions are listed below:
 

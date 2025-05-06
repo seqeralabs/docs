@@ -117,7 +117,7 @@ Once the Azure resources are set up, we can add a new **Azure Batch** environmen
    :::
 
    :::note
-   From version 22.3, Tower supports the use of credentials for container registry services. These credentials can be created from the [Credentials](../credentials/overview.mdx) tab.
+   From version 22.3, Tower supports the use of credentials for container registry services. These credentials can be created from the [Credentials](../credentials/overview) tab.
    :::
 
 7. Select a **Region**, for example "eastus (East US)".
@@ -146,7 +146,7 @@ Once the Azure resources are set up, we can add a new **Azure Batch** environmen
 
     ![](./_images/azure_newly_created_env.png)
 
-Jump to the documentation for [Launching Pipelines](../launch/launchpad.mdx).
+Jump to the documentation for [Launching Pipelines](../launch/launchpad).
 
 ### Advanced options
 
@@ -202,7 +202,7 @@ To create a new compute environment for AWS Batch (without Forge):
 
     ![](./_images/azure_newly_created_env.png)
 
-Jump to the documentation for [Launching Pipelines](../launch/launchpad.mdx).
+Jump to the documentation for [Launching Pipelines](../launch/launchpad).
 
 ### Advanced options
 

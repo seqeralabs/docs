@@ -15,7 +15,7 @@ Seqera helps organizations:
 - Easily provision and leverage cloud-based and HPC compute environments
 - Share pipelines and data and collaborate securely between local and remote teams
 - Access a [curated library](https://seqera.io/pipelines/) of production-proven Nextflow community pipelines from [nf-core](https://nf-co.re/) and others 
-- [Automate](./getting-started/quickstart-demo/automation.mdx) complex tasks as part of broader enterprise processes
+- [Automate](./getting-started/quickstart-demo/automation) complex tasks as part of broader enterprise processes
 
 :::tip
 Request a [**demo**](https://seqera.io/demo "Seqera Enterprise Demo") to explore using Seqera Enterprise in your own on-premises or cloud environment.

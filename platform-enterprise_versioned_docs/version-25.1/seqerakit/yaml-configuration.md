@@ -80,11 +80,11 @@ To determine the options to provide as definitions in your YAML file, run the Pl
 - The indentation and structure of the YAML file must be correct — YAML is sensitive to formatting.
 - Use quotes around strings that contain special characters or spaces.
 - To list multiple values (such as multiple `labels`, `instance-types`, or `allow-buckets`), separate values with commas. This is shown with `labels` in the preceding example.
-- For complex configurations, see [Templates](./templates.mdx).
+- For complex configurations, see [Templates](./templates).
 
 ### Templates
 
-See [Templates](./templates.mdx) for YAML file templates for each of the entities that can be created in Seqera.
+See [Templates](./templates) for YAML file templates for each of the entities that can be created in Seqera.
 
 ### YAML Configuration Options
 

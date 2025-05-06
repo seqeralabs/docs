@@ -99,7 +99,7 @@ The Cloud Life Sciences API is available in a limited number of [locations](http
 ## Seqera compute environment
 
 :::caution
-Your Seqera compute environment uses resources that you may be charged for in your Google Cloud account. See [Cloud costs](../monitoring/cloud-costs.mdx) for guidelines to manage cloud resources effectively and prevent unexpected costs.
+Your Seqera compute environment uses resources that you may be charged for in your Google Cloud account. See [Cloud costs](../monitoring/cloud-costs) for guidelines to manage cloud resources effectively and prevent unexpected costs.
 :::
 
 After your Google Cloud resources have been created, create a new Seqera compute environment.
@@ -112,7 +112,7 @@ After your Google Cloud resources have been created, create a new Seqera compute
 4. From the **Credentials** drop-down, select existing Google Cloud credentials, or add new credentials by selecting the **+** button. If you choose to use existing credentials, skip to step 7.
 
 :::tip
-You can create multiple credentials in your Seqera workspace. See [Credentials](../credentials/overview.mdx).
+You can create multiple credentials in your Seqera workspace. See [Credentials](../credentials/overview).
 :::
 
 5. Enter a name for the credentials, e.g., _Google Cloud Credentials_.
@@ -121,17 +121,17 @@ You can create multiple credentials in your Seqera workspace. See [Credentials](
 8. In the **Pipeline work directory** field, enter your storage bucket URL, e.g., `gs://my-bucket`. This bucket must be accessible in the region selected in the previous step.
 
     :::note
-    When you specify a Cloud Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad.mdx#launch-form) form.
+    When you specify a Cloud Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
     :::
 
 9. You can enable **Preemptible** to use preemptible instances, which have significantly reduced cost compared to on-demand instances.
 10. You can use a **Filestore file system** to automatically mount a Google Filestore volume in your pipelines.
-11. Apply [**Resource labels**](../resource-labels/overview.mdx) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
+11. Apply [**Resource labels**](../resource-labels/overview) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
 12. Expand **Staging options** to include:
-    - Optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
+    - Optional [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
     - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch. 
     :::info
-    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced.mdx#nextflow-config-file) for more information on configuration priority. 
+    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority. 
     :::
 13. Use the **Environment variables** option to specify custom environment variables for the Head job and/or Compute jobs.
 14. Configure any advanced options you need:
@@ -140,4 +140,4 @@ You can create multiple credentials in your Seqera workspace. See [Credentials](
     - Use **Head Job CPUs** and **Head Job Memory** to specify the CPUs and memory allocated for head jobs.
 15. Select **Create** to finalize the compute environment setup.
 
-See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in your Google Cloud Life Sciences compute environment.
+See [Launch pipelines](../launch/launchpad) to start executing workflows in your Google Cloud Life Sciences compute environment.

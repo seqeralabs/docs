@@ -11,18 +11,18 @@ Each compute environment must be configured to enable Seqera to submit tasks. Se
 
 ## Platforms
 
-- [AWS Batch](./aws-batch.mdx)
-- [Azure Batch](./azure-batch.mdx)
-- [Google Cloud Batch](./google-cloud-batch.mdx)
-- [Google Life Sciences](./google-cloud-lifesciences.mdx)
-- [Grid Engine](./hpc.mdx)
-- [Altair PBS Pro](./hpc.mdx)
-- [IBM LSF](./hpc.mdx)
-- [Moab](./hpc.mdx)
-- [Slurm](./hpc.mdx)
-- [Kubernetes](./k8s.mdx)
-- [Amazon EKS](./eks.mdx)
-- [Google Kubernetes Engine](./gke.mdx)
+- [AWS Batch](./aws-batch)
+- [Azure Batch](./azure-batch)
+- [Google Cloud Batch](./google-cloud-batch)
+- [Google Life Sciences](./google-cloud-lifesciences)
+- [Grid Engine](./hpc)
+- [Altair PBS Pro](./hpc)
+- [IBM LSF](./hpc)
+- [Moab](./hpc)
+- [Slurm](./hpc)
+- [Kubernetes](./k8s)
+- [Amazon EKS](./eks)
+- [Google Kubernetes Engine](./gke)
 
 ## Select default compute environment
 

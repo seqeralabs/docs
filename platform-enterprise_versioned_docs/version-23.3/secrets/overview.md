@@ -115,7 +115,7 @@ The ECS Agent uses the [Batch Execution role](https://docs.aws.amazon.com/batch/
 
 ### Compute permissions
 
-The Nextflow head job must communicate with AWS Secrets Manager. Its permissions are inherited either from a custom role assigned during the [AWS Batch CE creation process](../compute-envs/aws-batch.mdx#advanced-options), or from its host [EC2 instance](https://docs.aws.amazon.com/batch/latest/userguide/instance_IAM_role.html).
+The Nextflow head job must communicate with AWS Secrets Manager. Its permissions are inherited either from a custom role assigned during the [AWS Batch CE creation process](../compute-envs/aws-batch#advanced-options), or from its host [EC2 instance](https://docs.aws.amazon.com/batch/latest/userguide/instance_IAM_role.html).
 
 Augment your Nextflow head job permissions source with one of the following policies:
 

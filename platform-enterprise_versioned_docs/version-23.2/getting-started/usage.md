@@ -11,17 +11,17 @@ You can use Tower through the web interface, the API, the CLI, or in Nextflow di
 
 1. Create an account and log in to Tower, available free of charge at [tower.nf](https://cloud.tower.nf).
 
-2. Create and configure a new [compute environment](../compute-envs/overview.mdx).
+2. Create and configure a new [compute environment](../compute-envs/overview).
 
-3. Start [launching pipelines](../launch/launchpad.mdx).
+3. Start [launching pipelines](../launch/launchpad).
 
 ### Tower API
 
-See [API](../api/overview.mdx).
+See [API](../api/overview).
 
 ### Tower CLI
 
-See [CLI](../cli/cli.mdx).
+See [CLI](../cli/cli).
 
 ### Nextflow `-with-tower`
 
@@ -55,7 +55,7 @@ The token will only be displayed once. You must copy and save the token before c
 :::note
 Bearer token support requires Nextflow version 20.10.0 or later, set with the second command above.
 
-To submit a pipeline to a [workspace](./workspace.mdx) using Nextflow, add the workspace ID to your environment:
+To submit a pipeline to a [workspace](./workspace) using Nextflow, add the workspace ID to your environment:
 
 ```bash
 export TOWER_WORKSPACE_ID=000000000000000
@@ -72,7 +72,7 @@ The workspace ID can be found on the organization workspaces overview page.
 
    You can now monitor your workflow runs in Tower.
 
-   To configure and execute Nextflow pipelines in cloud environments, see [Compute Environments](../compute-envs/overview.mdx).
+   To configure and execute Nextflow pipelines in cloud environments, see [Compute Environments](../compute-envs/overview).
 
 :::tip
 See the [Nextflow documentation](https://www.nextflow.io/docs/latest/config.html?highlight=tower#scope-tower) for further run configuration options using Nextflow configuration files.

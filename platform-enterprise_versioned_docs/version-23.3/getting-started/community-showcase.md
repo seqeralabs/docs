@@ -9,11 +9,11 @@ The Community Showcase is an example workspace provided by Seqera. The showcase 
 
 ## Run a pipeline with sample data
 
-The Community Showcase [Launchpad](../launch/launchpad.mdx) contains a list of pre-built community pipelines. A pipeline consists of a pre-configured workflow repository, compute environment, and launch parameters.
+The Community Showcase [Launchpad](../launch/launchpad) contains a list of pre-built community pipelines. A pipeline consists of a pre-configured workflow repository, compute environment, and launch parameters.
 
 ## Datasets
 
-The community showcase contains a list of sample [datasets](../data/datasets.mdx) under the **Datasets** tab. A dataset is a collection of versioned, structured data (usually in the form of a samplesheet) in CSV or TSV format. A dataset is used as the input for a pipeline run. Sample datasets are used in pipelines with the same name, e.g., the _nf-core-rnaseq-test_ dataset is used as input when you run the _nf-core-rnaseq_ pipeline.
+The community showcase contains a list of sample [datasets](../data/datasets) under the **Datasets** tab. A dataset is a collection of versioned, structured data (usually in the form of a samplesheet) in CSV or TSV format. A dataset is used as the input for a pipeline run. Sample datasets are used in pipelines with the same name, e.g., the _nf-core-rnaseq-test_ dataset is used as input when you run the _nf-core-rnaseq_ pipeline.
 
 ## Compute environments
 
@@ -21,15 +21,15 @@ From version 23.1.3, the Community Showcase comes pre-loaded with two AWS Batch 
 
 ## Credentials
 
-The Community Showcase includes all the [credentials](../credentials/overview.mdx) you need to run pipelines in showcase compute environments. Credentials are the authentication keys you need to access compute environments, private code repositories, and external services. Credentials are SHA-256 encrypted before secure storage.
+The Community Showcase includes all the [credentials](../credentials/overview) you need to run pipelines in showcase compute environments. Credentials are the authentication keys you need to access compute environments, private code repositories, and external services. Credentials are SHA-256 encrypted before secure storage.
 
 ## Secrets
 
-The Community Showcase includes [pipeline secrets](../secrets/overview.mdx) that are retrieved and used during pipeline execution. In your own private or organization workspace, you can store the access keys, licenses, or passwords required for your pipeline execution to interact with third-party services.
+The Community Showcase includes [pipeline secrets](../secrets/overview) that are retrieved and used during pipeline execution. In your own private or organization workspace, you can store the access keys, licenses, or passwords required for your pipeline execution to interact with third-party services.
 
 ## Run pipeline with sample data
 
-1. From the [Launchpad](../launch/launchpad.mdx), select a pipeline to view the pipeline detail page. _nf-core-rnaseq_ is a good first pipeline example.
+1. From the [Launchpad](../launch/launchpad), select a pipeline to view the pipeline detail page. _nf-core-rnaseq_ is a good first pipeline example.
 2. (Optional) Select the URL under **Workflow repository** to view the pipeline code repository in another tab.
 3. Select **Launch** from the pipeline detail page.
 4. On the **Launch pipeline** page, enter a unique **Workflow run name** or use the pre-filled random name.
@@ -45,4 +45,4 @@ Once you've filled the necessary launch form details, select **Launch**. The **R
 
 ## Next steps
 
-To run workflows on your own infrastructure, or use workflows not included in the Community Showcase, create an [organization](../orgs-and-teams/organizations.mdx) and [workspaces](../orgs-and-teams/workspace-management.mdx).
+To run workflows on your own infrastructure, or use workflows not included in the Community Showcase, create an [organization](../orgs-and-teams/organizations) and [workspaces](../orgs-and-teams/workspace-management).

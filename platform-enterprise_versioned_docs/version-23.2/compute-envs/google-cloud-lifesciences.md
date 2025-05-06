@@ -134,7 +134,7 @@ You can create multiple credentials in your Tower workspace.
 
 10. You can use a **Filestore file system** to automatically mount a Google Filestore volume in your pipelines.
 
-11. Apply [**Resource labels**](../resource-labels/overview.mdx) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
+11. Apply [**Resource labels**](../resource-labels/overview) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
 
 12. Expand **Staging options** to include optional pre- or post-run Bash scripts that execute before or after the Nextflow pipeline execution in your environment.
 
@@ -144,7 +144,7 @@ You can create multiple credentials in your Tower workspace.
 
 15. Select **Create** to finalize the compute environment setup.
 
-Jump to the documentation for [launching pipelines](../launch/launchpad.mdx).
+Jump to the documentation for [launching pipelines](../launch/launchpad).
 
 ### Advanced options
 

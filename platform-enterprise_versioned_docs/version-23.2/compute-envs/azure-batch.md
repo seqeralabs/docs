@@ -122,9 +122,9 @@ The blob container must be in the same **Region** from step 7.
 
 13. Enable **Dispose resources** if you'd like Tower to automatically delete the Batch pool once the workflow is complete.
 
-14. Select or create a [**Container registry credential**](../credentials/azure_registry_credentials.mdx) to authenticate to an Azure registry (used by the [Wave containers](https://www.nextflow.io/docs/latest/wave.html) service).
+14. Select or create a [**Container registry credential**](../credentials/azure_registry_credentials) to authenticate to an Azure registry (used by the [Wave containers](https://www.nextflow.io/docs/latest/wave.html) service).
 
-15. Apply [**Resource labels**](../resource-labels/overview.mdx) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
+15. Apply [**Resource labels**](../resource-labels/overview) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
 
 16. Expand **Staging options** to include optional pre- or post-run Bash scripts that execute before or after the Nextflow pipeline execution in your environment.
 
@@ -134,7 +134,7 @@ The blob container must be in the same **Region** from step 7.
 
 19. Select **Create** to finalize the compute environment setup. It will take a few seconds for all the resources to be created before the compute environment is ready to launch pipelines.
 
-Jump to the documentation for [launching pipelines](../launch/launchpad.mdx).
+Jump to the documentation for [launching pipelines](../launch/launchpad).
 
 ### Advanced options
 
@@ -182,7 +182,7 @@ The Blob container must be in the same **Region** specified in step 7 above.
 
 13. Select **Create** to finalize the compute environment setup. It will take a few seconds for all the resources to be created, and then you will be ready to launch pipelines.
 
-Jump to the documentation for [launching pipelines](../launch/launchpad.mdx).
+Jump to the documentation for [launching pipelines](../launch/launchpad).
 
 ### Advanced options
 

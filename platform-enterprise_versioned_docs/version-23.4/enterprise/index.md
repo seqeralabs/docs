@@ -51,7 +51,7 @@ Seqera supports enterprise authentication mechanisms such as OAuth and OpenID. T
 
 ## Deployment options
 
-Seqera can be deployed to a single node, either with [Docker Compose](./docker-compose.mdx) or natively, or to a [Kubernetes](./kubernetes.mdx) cluster. This documentation includes instructions for both options across multiple platforms, including Amazon AWS, Microsoft Azure, Google Cloud, and on-prem infrastructure.
+Seqera can be deployed to a single node, either with [Docker Compose](./docker-compose) or natively, or to a [Kubernetes](./kubernetes) cluster. This documentation includes instructions for both options across multiple platforms, including Amazon AWS, Microsoft Azure, Google Cloud, and on-prem infrastructure.
 
 ### Single-node
 
@@ -86,7 +86,7 @@ container registry [`cr.seqera.io`](https://cr.seqera.io). Contact [support](htt
    ```
 
 :::caution
-The Seqera container registry `cr.seqera.io` is the default application container image registry from version 22.4. AWS, Azure, and Google Cloud image registries in existing installations are still [supported](./advanced-topics/seqera-container-images.mdx), but are deprecated for **new installations** from June 2023.
+The Seqera container registry `cr.seqera.io` is the default application container image registry from version 22.4. AWS, Azure, and Google Cloud image registries in existing installations are still [supported](./advanced-topics/seqera-container-images), but are deprecated for **new installations** from June 2023.
 :::
 
 ## Support

@@ -13,18 +13,18 @@ Each compute environment must be configured to enable Tower to submit tasks. See
 
 ### Platforms
 
-- [AWS Batch](./aws-batch.mdx)
-- [Azure Batch](./azure-batch.mdx)
-- [Google Cloud Batch](./google-cloud-batch.mdx)
-- [Google Life Sciences](./google-cloud-lifesciences.mdx)
-- [Altair Grid Engine](./hpc.mdx)
-- [Altair PBS Pro](./hpc.mdx)
-- [IBM LSF](./hpc.mdx)
-- [Moab](./hpc.mdx)
-- [Slurm](./hpc.mdx)
-- [Kubernetes](./k8s.mdx)
-- [Amazon EKS](./eks.mdx)
-- [Google Kubernetes Engine](./gke.mdx)
+- [AWS Batch](./aws-batch)
+- [Azure Batch](./azure-batch)
+- [Google Cloud Batch](./google-cloud-batch)
+- [Google Life Sciences](./google-cloud-lifesciences)
+- [Altair Grid Engine](./hpc)
+- [Altair PBS Pro](./hpc)
+- [IBM LSF](./hpc)
+- [Moab](./hpc)
+- [Slurm](./hpc)
+- [Kubernetes](./k8s)
+- [Amazon EKS](./eks)
+- [Google Kubernetes Engine](./gke)
 
 ### Select a default compute environment
 

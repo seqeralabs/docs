@@ -14,12 +14,12 @@ To launch a pipeline:
 
 2. Select a **Compute Environment** from the available options.
 
-   Visit the [Compute Environment](../compute-envs/overview.mdx) documentation to learn how to create an environment for your preferred execution platform.
+   Visit the [Compute Environment](../compute-envs/overview) documentation to learn how to create an environment for your preferred execution platform.
 
 3. Enter a repository URL for the **Pipeline to launch** (e.g. `https://github.com/nf-core/rnaseq.git`).
 
 :::tip
-Nextflow pipelines are just Git repositories and they can reside on any public or private Git-hosting platform. See [Git Integration](../git/overview.mdx) in the Tower docs and [Pipeline Sharing](https://www.nextflow.io/docs/latest/sharing.html) in the Nextflow docs for more details.
+Nextflow pipelines are just Git repositories and they can reside on any public or private Git-hosting platform. See [Git Integration](../git/overview) in the Tower docs and [Pipeline Sharing](https://www.nextflow.io/docs/latest/sharing.html) in the Nextflow docs for more details.
 :::
 
 4. You can select a **Revision number** to use a specific version of the pipeline.

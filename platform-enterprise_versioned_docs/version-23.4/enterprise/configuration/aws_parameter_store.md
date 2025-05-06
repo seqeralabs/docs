@@ -60,7 +60,7 @@ To create Seqera configuration parameters in AWS Parameter Store, do the followi
 
 | Field | Description |
 | ----- | ----------- |
-| **Name** | Use the format `/config/<application_name>/<cfg_path>`. `<cfg_path>` follows the `tower.yml` nesting hierarchy. See the [configuration overview](./overview.mdx) for specific paths.<br/>**Example: `/config/tower-app/mail.smtp.password : <your_smtp_password>`** |
+| **Name** | Use the format `/config/<application_name>/<cfg_path>`. `<cfg_path>` follows the `tower.yml` nesting hierarchy. See the [configuration overview](./overview) for specific paths.<br/>**Example: `/config/tower-app/mail.smtp.password : <your_smtp_password>`** |
 | **Description** | (Optional) Description for the parameter. |
 | **Tier** | Select **Standard**. |
 | **Type** | Use **SecureString** for sensitive values like passwords and tokens. Use **String** for everything else. |

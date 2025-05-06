@@ -6,17 +6,17 @@ tags: [platform, studios, jupyter, rstudio, xpra, vscode, conda]
 toc_max_heading_level: 3
 ---
 
-[Studios](../studios/index.mdx) allows users to host a variety of container images directly in Seqera Platform compute environments for analysis using popular environments including [Jupyter](https://jupyter.org/) (Python) and [RStudio](https://posit.co/products/open-source/rstudio/) notebooks (R), [Visual Studio Code](https://code.visualstudio.com/) IDEs, and [Xpra](https://xpra.org/index.html) remote desktops. Each Studio session provides a dedicated interactive environment that encapsulates the live environment.
+[Studios](../studios/index) allows users to host a variety of container images directly in Seqera Platform compute environments for analysis using popular environments including [Jupyter](https://jupyter.org/) (Python) and [RStudio](https://posit.co/products/open-source/rstudio/) notebooks (R), [Visual Studio Code](https://code.visualstudio.com/) IDEs, and [Xpra](https://xpra.org/index.html) remote desktops. Each Studio session provides a dedicated interactive environment that encapsulates the live environment.
 
 This guide explores how Studios integrates with your existing workflows, bridging the gap between pipeline execution and interactive analysis. It details how to set up and use each type of Studio, demonstrating a practical use case for each.
 
 :::info[**Prerequisites**]
 You will need the following to get started:
 
-- At least the **Maintain** workspace [user role](../orgs-and-teams/roles.mdx) to create and configure Studios.
-- An [AWS Batch compute environment](../compute-envs/aws-batch.mdx#batch-forge-compute-environment) (**without Fargate**) with sufficient resources (minimum: 2 CPUs, 8192 MB RAM).
-- Valid [credentials](../credentials/overview.mdx) for your cloud storage account and compute environment.
-- [Data Explorer](../data/data-explorer.mdx) enabled in your workspace.
+- At least the **Maintain** workspace [user role](../orgs-and-teams/roles) to create and configure Studios.
+- An [AWS Batch compute environment](../compute-envs/aws-batch#batch-forge-compute-environment) (**without Fargate**) with sufficient resources (minimum: 2 CPUs, 8192 MB RAM).
+- Valid [credentials](../credentials/overview) for your cloud storage account and compute environment.
+- [Data Explorer](../data/data-explorer) enabled in your workspace.
 :::
 
 :::note
@@ -33,7 +33,7 @@ This script and instructions can also be used to visualize the structures from *
 
 #### Create an AWS Batch compute environment
 
-Studios require an AWS Batch compute environment. If you do not have an existing compute environment available, [create one](../compute-envs/aws-batch.mdx#batch-forge-compute-environment) with the following attributes:
+Studios require an AWS Batch compute environment. If you do not have an existing compute environment available, [create one](../compute-envs/aws-batch#batch-forge-compute-environment) with the following attributes:
 
 - **Region**: To minimize costs, your compute environment should be in the same region as your data. To browse the nf-core AWS megatests public data optimally, select **eu-west-1**.
 - **Provisioning model**: Use **On-demand** EC2 instances. 
@@ -54,7 +54,7 @@ For the purposes of this guide, add the proteinfold results (H1065 sequence) fro
 1. Select **Add**.
 
 :::info 
-To use your own pipeline data for interactive visualization, add the cloud bucket that contains the results of your *nf-core/proteinfold* pipeline run. See [Add a cloud bucket](./quickstart-demo/add-data.mdx#add-a-cloud-bucket) for more information. 
+To use your own pipeline data for interactive visualization, add the cloud bucket that contains the results of your *nf-core/proteinfold* pipeline run. See [Add a cloud bucket](./quickstart-demo/add-data#add-a-cloud-bucket) for more information. 
 :::
 
 ### Create a Jupyter Studio
@@ -367,7 +367,7 @@ RStudio notebooks enable interactive analysis using R libraries and tools. For e
 
 #### Create an AWS Batch compute environment 
 
-Studios require an AWS Batch compute environment. If you do not have an existing compute environment available, [create one](../compute-envs/aws-batch.mdx#batch-forge-compute-environment) with the following attributes:
+Studios require an AWS Batch compute environment. If you do not have an existing compute environment available, [create one](../compute-envs/aws-batch#batch-forge-compute-environment) with the following attributes:
 
 - **Region**: To minimize costs, your compute environment should be in the same region as your data. To browse the nf-core AWS megatests public data optimally, select **eu-west-1**.
 - **Provisioning model**: Use **On-demand** EC2 instances. 
@@ -388,7 +388,7 @@ For the purposes of this guide, add the nf-core AWS megatests S3 bucket to your 
 1. Select **Add**.
 
 :::info 
-To use your own pipeline data for interactive analysis, add the cloud bucket that contains the results of your *nf-core/differentialabundance* pipeline run. See [Add a cloud bucket](./quickstart-demo/add-data.mdx#add-a-cloud-bucket) for more information. 
+To use your own pipeline data for interactive analysis, add the cloud bucket that contains the results of your *nf-core/differentialabundance* pipeline run. See [Add a cloud bucket](./quickstart-demo/add-data#add-a-cloud-bucket) for more information. 
 :::
 
 ### Create an RStudio notebook Studio 
@@ -464,7 +464,7 @@ Xpra provides remote desktop functionality that enables many interactive analysi
 
 #### Create an AWS Batch compute environment 
 
-Studios require an AWS Batch compute environment. If you do not have an existing compute environment available, [create one](../compute-envs/aws-batch.mdx#batch-forge-compute-environment) with the following attributes:
+Studios require an AWS Batch compute environment. If you do not have an existing compute environment available, [create one](../compute-envs/aws-batch#batch-forge-compute-environment) with the following attributes:
 
 - **Region**: To minimize costs, your compute environment should be in the same region as your data. To browse the 1000 Genomes public data optimally, select **us-east-1**.
 - **Provisioning model**: Use **On-demand** EC2 instances. 
@@ -485,7 +485,7 @@ Add the 1000 Genomes S3 bucket to your workspace using Data Explorer:
 1. Select **Add**.
 
 :::info 
-To use your own data for interactive analysis, see [Add a cloud bucket](./quickstart-demo/add-data.mdx#add-a-cloud-bucket) for instructions to add your own public or private cloud bucket. 
+To use your own data for interactive analysis, see [Add a cloud bucket](./quickstart-demo/add-data#add-a-cloud-bucket) for instructions to add your own public or private cloud bucket. 
 :::
 
 ### Create an Xpra Studio 
@@ -532,7 +532,7 @@ Using Studios and Visual Studio Code allows you to create a portable and interac
 
 #### Create an AWS Batch compute environment 
 
-Studios require an AWS Batch compute environment. If you do not have an existing compute environment available, [create one](../compute-envs/aws-batch.mdx#batch-forge-compute-environment) with the following attributes:
+Studios require an AWS Batch compute environment. If you do not have an existing compute environment available, [create one](../compute-envs/aws-batch#batch-forge-compute-environment) with the following attributes:
 
 - **Region**: To minimize costs, your compute environment should be in the same region as your data. To use the iGenomes public data bucket that contains the *nf-core/fetchngs* `test` profile data, select **eu-west-1**.
 - **Provisioning model**: Use **On-demand** EC2 instances. 

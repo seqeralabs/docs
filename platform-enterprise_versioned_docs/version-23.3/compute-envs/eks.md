@@ -11,7 +11,7 @@ Seqera Platform offers native support for Amazon EKS clusters to streamline the 
 
 ## Requirements
 
-You must have an EKS cluster up and running. Follow the [cluster preparation](../compute-envs/k8s.mdx#cluster-preparation) instructions to create the resources required by your Seqera instance. In addition to the generic Kubernetes instructions, you must make a number of EKS-specific modifications.
+You must have an EKS cluster up and running. Follow the [cluster preparation](../compute-envs/k8s#cluster-preparation) instructions to create the resources required by your Seqera instance. In addition to the generic Kubernetes instructions, you must make a number of EKS-specific modifications.
 
 ### Service account role
 
@@ -52,7 +52,7 @@ See the [AWS documentation](https://docs.aws.amazon.com/eks/latest/userguide/add
 ## Seqera compute environment
 
 :::caution
-Your Seqera compute environment uses resources that you may be charged for in your AWS account. See [Cloud costs](../monitoring/cloud-costs.mdx) for guidelines to manage cloud resources effectively and prevent unexpected costs.
+Your Seqera compute environment uses resources that you may be charged for in your AWS account. See [Cloud costs](../monitoring/cloud-costs) for guidelines to manage cloud resources effectively and prevent unexpected costs.
 :::
 
 After you have prepared your Kubernetes cluster and assigned a service account role to your Seqera IAM user, create a Seqera EKS compute environment:
@@ -60,7 +60,7 @@ After you have prepared your Kubernetes cluster and assigned a service account r
 1. In a workspace, select **Compute environments > New environment**.
 2. Enter a descriptive name for this environment, e.g., _Amazon EKS (eu-west-1)_.
 3. From the **Provider** drop-down menu, select **Amazon EKS**.
-4. Under **Storage**, select either **Fusion storage** (recommended) or **Legacy storage**. The [Fusion v2](../supported_software/fusion/fusion.mdx) virtual distributed file system allows access to your AWS S3-hosted data (`s3://` URLs). This eliminates the need to configure a shared file system in your Kubernetes cluster. See [Fusion v2](#fusion-v2) below.
+4. Under **Storage**, select either **Fusion storage** (recommended) or **Legacy storage**. The [Fusion v2](../supported_software/fusion/fusion) virtual distributed file system allows access to your AWS S3-hosted data (`s3://` URLs). This eliminates the need to configure a shared file system in your Kubernetes cluster. See [Fusion v2](#fusion-v2) below.
 5. From the **Credentials** drop-down menu, select existing AWS credentials, or select **+** to add new credentials. If you choose to use existing credentials, skip to step 9.
 
 :::note
@@ -77,21 +77,21 @@ When using AWS keys without an assumed role, the associated AWS user account mus
 
 9. Select a **Region**, e.g., _eu-west-1 - Europe (Ireland)_.
 10. Select a **Cluster name** from the list of available EKS clusters in the selected region.
-11. Specify the **Namespace** created in the [cluster preparation](../compute-envs/k8s.mdx#cluster-preparation) instructions, which is _tower-nf_ by default.
-12. Specify the **Head service account** created in the [cluster preparation](../compute-envs/k8s.mdx#cluster-preparation) instructions, which is _tower-launcher-sa_ by default.
+11. Specify the **Namespace** created in the [cluster preparation](../compute-envs/k8s#cluster-preparation) instructions, which is _tower-nf_ by default.
+12. Specify the **Head service account** created in the [cluster preparation](../compute-envs/k8s#cluster-preparation) instructions, which is _tower-launcher-sa_ by default.
 
 :::note
 If you enable Fusion v2 (**Fusion storage** in step 4 above), the head service account must have access to the S3 storage bucket specified as your work directory.
 :::
 
-13. Specify the **Storage claim** created in the [cluster preparation](../compute-envs/k8s.mdx#cluster-preparation) instructions, which serves as a scratch filesystem for Nextflow pipelines. The storage claim is called _tower-scratch_ in the provided examples.
+13. Specify the **Storage claim** created in the [cluster preparation](../compute-envs/k8s#cluster-preparation) instructions, which serves as a scratch filesystem for Nextflow pipelines. The storage claim is called _tower-scratch_ in the provided examples.
 
 :::note
 The **Storage claim** isn't needed when Fusion v2 is enabled.
 :::
 
-14. Apply [**Resource labels**](../resource-labels/overview.mdx) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
-15. Expand **Staging options** to include optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
+14. Apply [**Resource labels**](../resource-labels/overview) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
+15. Expand **Staging options** to include optional [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
 16. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
 17. Configure any advanced options described in the next section, as needed.
 18. Select **Create** to finalize the compute environment setup.
@@ -129,7 +129,7 @@ We should probably verify nothing changes depending on EKS version (e.g. 1.25). 
 
 ### Fusion v2
 
-To use [Fusion v2](../supported_software/fusion/fusion.mdx) in your Seqera EKS compute environment, both the head service and compute service accounts must have access to the S3 bucket specified as the work directory.
+To use [Fusion v2](../supported_software/fusion/fusion) in your Seqera EKS compute environment, both the head service and compute service accounts must have access to the S3 bucket specified as the work directory.
 
 **Configure IAM to use Fusion v2**
 

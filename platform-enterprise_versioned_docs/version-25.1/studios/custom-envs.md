@@ -116,8 +116,8 @@ To inspect the status of an ongoing build, or a successful or failed build, comp
 
 
 {/* links */}
-[add-s]: ./managing.mdx#add-a-studio
-[wave]: ../../version-24.2/enterprise/configuration/wave.mdx
+[add-s]: ./managing#add-a-studio
+[wave]: ../../version-24.2/enterprise/configuration/wave
 
 [wave-home]: https://seqera.io/wave/
 [env-manually]: https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-file-manually

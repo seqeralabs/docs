@@ -5,7 +5,7 @@ date: "12 Feb 2024"
 tags: [compute, resource, optimization, configuration]
 ---
 
-[Pipeline resource optimization](../../pipeline-optimization/overview.mdx) takes the resource usage information from previous workflow runs to optimize subsequent runs.
+[Pipeline resource optimization](../../pipeline-optimization/overview) takes the resource usage information from previous workflow runs to optimize subsequent runs.
 
 The pipeline resource optimization service requires a separate database schema to store its internal data, but also requires access to the Seqera schema. The Seqera and optimization service schemas can coexist on the same database instance.
 
@@ -109,4 +109,4 @@ The initContainers process will wait until both the Seqera and pipeline resource
 When the pipeline resource optimization service is active, pipelines that can be optimized display a lightbulb icon in your Launchpad. Any pipeline with at least one successful run can be optimized.
 
 
-[platform-k8s]: ../kubernetes.mdx
+[platform-k8s]: ../kubernetes

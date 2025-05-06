@@ -5,7 +5,7 @@ date: "21 Apr 2023"
 tags: [agent, credentials]
 ---
 
-[Tower Agent](../supported_software/agent/agent.mdx) enables Tower to launch pipelines on HPC clusters that do not allow direct access through an SSH client. Tower Agent authenticates a secure connection with Tower using a Tower Agent credential.
+[Tower Agent](../supported_software/agent/agent) enables Tower to launch pipelines on HPC clusters that do not allow direct access through an SSH client. Tower Agent authenticates a secure connection with Tower using a Tower Agent credential.
 
 ### Tower Agent sharing
 
@@ -25,6 +25,6 @@ You can share a single Tower Agent instance with all members of a workspace. Cre
 | Provider            | Credential type                                                                                                                                                      | Tower Agent                            |
 | Agent connection ID | The connection ID used to run your Tower Agent instance. Must match the connection ID used when running the Agent (see **Usage** below)                              | `5429d66d-7712-xxxx-xxxx-xxxxxxxxxxxx` |
 | Shared agent        | Enables Tower Agent sharing for all workspace members.                                                                                                               |                                        |
-| Usage               | Populates a code snippet for Tower Agent download with your connection ID. Replace `<YOUR TOKEN>` with your [Tower access token](../api/overview.mdx#authentication). |                                        |
+| Usage               | Populates a code snippet for Tower Agent download with your connection ID. Replace `<YOUR TOKEN>` with your [Tower access token](../api/overview#authentication). |                                        |
 
 Once the form is complete, select **Add**. The new credential is now listed under the **Credentials** tab.

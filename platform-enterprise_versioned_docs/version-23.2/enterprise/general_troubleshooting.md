@@ -267,7 +267,7 @@ The solution consists of rebuilding the frontend container adding the following 
 
 ### Using `TOWER_JWT_SECRET` to generate user login tokens, user sign in fails, with `java.lang.IllegalArgumentException: JWT token generator secret should be 35 characters or longer` in the Tower backend log.
 
-The secret used to generate the login JWT token that is appended to user sign-in email URLs needs to be at least 35 characters long. See [here](./configuration/authentication.mdx).
+The secret used to generate the login JWT token that is appended to user sign-in email URLs needs to be at least 35 characters long. See [here](./configuration/authentication).
 
 ### On-prem HPC compute environment: `Exhausted available authentication method` error in Tower
 

@@ -138,7 +138,7 @@ To create a new compute environment for Google Cloud in Tower:
 
 12. Select **Create** to finalize the compute environment setup.
 
-Jump to the documentation for [Launching Pipelines](../launch/launchpad.mdx).
+Jump to the documentation for [Launching Pipelines](../launch/launchpad).
 
 ### Advanced options
 

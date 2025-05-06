@@ -18,8 +18,8 @@ A pipeline is a repository containing a Nextflow workflow, a compute environment
 Launchpad detects the presence of a `nextflow_schema.json` in the root of the repository and dynamically creates a form where users can update the pipeline parameters. All pipelines contain at least these pipeline parameters:
 
 - **Workflow run name**: A unique name to identify the run. Pre-filled with a random run name, this can be customized.
-- **Labels**: Assign new or existing [labels](../labels/overview.mdx) to the workflow run.
-- **Input/output options**: Specify paths to pipeline input datasets and output directories. Note that the input field drop-down menu only displays [datasets](../datasets/overview.mdx) of the file type specified in the `mimetype` field of your [pipeline schema](../pipeline-schema/overview.mdx) (either `text/csv` for CSV files, or `text/tsv` for TSV files).
+- **Labels**: Assign new or existing [labels](../labels/overview) to the workflow run.
+- **Input/output options**: Specify paths to pipeline input datasets and output directories. Note that the input field drop-down menu only displays [datasets](../datasets/overview) of the file type specified in the `mimetype` field of your [pipeline schema](../pipeline-schema/overview) (either `text/csv` for CSV files, or `text/tsv` for TSV files).
 
 The remaining fields of the pipeline parameters form will vary for each pipeline, dependent on the parameters specified in the pipeline schema.
 
@@ -29,7 +29,7 @@ This makes it trivial for users without Nextflow expertise to enter their pipeli
 
 ### Add new pipeline
 
-Select **Add pipeline** to add a new pipeline with pre-saved parameters to your workspace. The fields on the new pipeline form are similar to the [pipeline launch form](../launch/launch.mdx).
+Select **Add pipeline** to add a new pipeline with pre-saved parameters to your workspace. The fields on the new pipeline form are similar to the [pipeline launch form](../launch/launch).
 
 :::tip
 To create your own customized Nextflow schema for your pipeline, see the `nf-core` workflows that have adopted this. [nf-core/eager](https://github.com/nf-core/eager/blob/2.3.3/nextflow_schema.json) and [nf-core/rnaseq](https://github.com/nf-core/rnaseq/blob/3.0/nextflow_schema.json) are excellent examples.

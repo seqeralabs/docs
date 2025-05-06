@@ -9,7 +9,7 @@ description: "Step-by-step instructions to set up a Nextflow Tower compute envir
 
 Tower streamlines the deployment of Nextflow pipelines into Kubernetes both for cloud-based and on-prem clusters.
 
-The following instructions are for a **generic Kubernetes** distribution. If you are using [Amazon EKS](eks.mdx) or [Google Kubernetes Engine](gke.mdx), see the corresponding documentation pages.
+The following instructions are for a **generic Kubernetes** distribution. If you are using [Amazon EKS](eks) or [Google Kubernetes Engine](gke), see the corresponding documentation pages.
 
 ### Cluster Preparation
 
@@ -86,7 +86,7 @@ This section describes the steps required to prepare your Kubernetes cluster for
 
 14. Select **Create** to finalize the compute environment setup.
 
-Jump to the documentation for [Launching Pipelines](../launch/launchpad.mdx).
+Jump to the documentation for [Launching Pipelines](../launch/launchpad).
 
 ### Advanced options
 

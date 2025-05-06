@@ -26,22 +26,22 @@ The most commonly used datasets for Nextflow pipelines are samplesheets, where e
 |RAP1_IAA_30M_REP1  |s3://nf-core-awsmegatests/rnaseq/...|s3://nf-core-awsmegatests/rnaseq/...         |reverse     |
 
 :::note
-Use [Data Explorer](../data/data-explorer.mdx) to browse for cloud storage objects directly and copy the object paths to be used in your datasets.
+Use [Data Explorer](../data/data-explorer) to browse for cloud storage objects directly and copy the object paths to be used in your datasets.
 :::
 
-The combination of datasets, [secrets](../secrets/overview.mdx), and [actions](../pipeline-actions/overview.mdx) in the application allows you to automate workflows to curate your data and maintain and launch pipelines based on specific events. See [here](https://seqera.io/blog/workflow-automation/) for an example of pipeline workflow automation using Seqera.
+The combination of datasets, [secrets](../secrets/overview), and [actions](../pipeline-actions/overview) in the application allows you to automate workflows to curate your data and maintain and launch pipelines based on specific events. See [here](https://seqera.io/blog/workflow-automation/) for an example of pipeline workflow automation using Seqera.
 
 - Datasets reduce errors that occur due to manual data entry when you launch pipelines.
 - Datasets can be generated automatically in response to events (such as S3 storage new file notifications).
 - Datasets can streamline differential data analysis when using the same pipeline to launch a run for each dataset as it becomes available.
 
-For your pipeline to use your dataset as input during runtime, information about the dataset and file format must be included in the relevant parameters of your [pipeline schema](../pipeline-schema/overview.mdx). The pipeline schema specifies the accepted dataset file type in the `mimetype` attribute (either `text/csv` or `text/tsv`).
+For your pipeline to use your dataset as input during runtime, information about the dataset and file format must be included in the relevant parameters of your [pipeline schema](../pipeline-schema/overview). The pipeline schema specifies the accepted dataset file type in the `mimetype` attribute (either `text/csv` or `text/tsv`).
 
 ## Dataset validation and file content requirements
 
 Seqera doesn't validate your dataset file contents. While datasets can contain static file links, you're responsible for maintaining the access to that data.
 
-Datasets can point to files stored in various locations, such as Amazon S3 or GitHub. To stage the file paths defined in the dataset, Nextflow requires access to the infrastructure where the files reside, whether on cloud or HPC systems. Add the access keys for data sources that require authentication to your [secrets](../secrets/overview.mdx).
+Datasets can point to files stored in various locations, such as Amazon S3 or GitHub. To stage the file paths defined in the dataset, Nextflow requires access to the infrastructure where the files reside, whether on cloud or HPC systems. Add the access keys for data sources that require authentication to your [secrets](../secrets/overview).
 
 ### Create a dataset
 
@@ -73,7 +73,7 @@ All subsequent versions of a dataset must be the same format (CSV or TSV) as the
 
 To use a dataset with the saved pipelines in your workspace:
 
-1. Open any pipeline that contains a pipeline schema from the [Launchpad](../launch/launchpad.mdx).
+1. Open any pipeline that contains a pipeline schema from the [Launchpad](../launch/launchpad).
 2. Select the input field for the pipeline, removing any default values.
 3. Pick the dataset to use as input to your pipeline.
 

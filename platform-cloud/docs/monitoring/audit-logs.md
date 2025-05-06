@@ -5,10 +5,10 @@ date: "08 Apr 2024"
 tags: [logging, audit logs, admin panel]
 ---
 
-Root users can view application event audit logs from the [Admin panel](../administration/overview.mdx) **Audit logs** tab.
+Root users can view application event audit logs from the [Admin panel](../administration/overview) **Audit logs** tab.
 
 :::info
-Application event audit logs are retained for 365 days by default. In Platform Enterprise, this retention period can be [customized](https://docs.seqera.io/platform-enterprise/latest/enterprise/configuration/overview.mdx#logging).
+Application event audit logs are retained for 365 days by default. In Platform Enterprise, this retention period can be [customized](https://docs.seqera.io/platform-enterprise/latest/enterprise/configuration/overview#logging).
 :::
 
 ### Audit log event format

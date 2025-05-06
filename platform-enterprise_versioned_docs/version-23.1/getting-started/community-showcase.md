@@ -5,15 +5,15 @@ date: "21 Apr 2023"
 tags: [pipeline, tutorial]
 ---
 
-The Tower community showcase is an example workspace provided by Seqera. The showcase is pre-configured with credentials, compute environments, and pipelines to get you running Nextflow pipelines immediately. The pre-built community AWS Batch environments include 100 free hours of compute. Upon your first login to Tower Cloud, you are directed to the community showcase Launchpad. To run pipelines on your own infrastructure, create your own [organization](../orgs-and-teams/organizations.mdx) and [workspaces](../orgs-and-teams/workspace-management.mdx).
+The Tower community showcase is an example workspace provided by Seqera. The showcase is pre-configured with credentials, compute environments, and pipelines to get you running Nextflow pipelines immediately. The pre-built community AWS Batch environments include 100 free hours of compute. Upon your first login to Tower Cloud, you are directed to the community showcase Launchpad. To run pipelines on your own infrastructure, create your own [organization](../orgs-and-teams/organizations) and [workspaces](../orgs-and-teams/workspace-management).
 
 ## Launchpad
 
-The community showcase [Launchpad](../launch/launchpad.mdx) contains a list of pre-built community pipelines. A pipeline consists of a pre-configured workflow repository, compute environment, and launch parameters.
+The community showcase [Launchpad](../launch/launchpad) contains a list of pre-built community pipelines. A pipeline consists of a pre-configured workflow repository, compute environment, and launch parameters.
 
 ## Datasets
 
-The community showcase contains a list of sample [datasets](../datasets/overview.mdx) under the **Datasets** tab. A dataset is a collection of versioned, structured data (usually in the form of a samplesheet) in CSV or TSV format. A dataset is used as the input for a pipeline run. Sample datasets are used in pipelines with the same name, e.g., the nf-core-rnaseq-test dataset is used as input when you run the nf-core-rnaseq pipeline.
+The community showcase contains a list of sample [datasets](../datasets/overview) under the **Datasets** tab. A dataset is a collection of versioned, structured data (usually in the form of a samplesheet) in CSV or TSV format. A dataset is used as the input for a pipeline run. Sample datasets are used in pipelines with the same name, e.g., the nf-core-rnaseq-test dataset is used as input when you run the nf-core-rnaseq pipeline.
 
 ## Compute environments
 
@@ -21,15 +21,15 @@ As of Tower version 23.1.3, the community showcase comes pre-loaded with two AWS
 
 ## Credentials
 
-The community showcase includes all the [credentials](../credentials/overview.mdx) you need to run pipelines in showcase compute environments. Credentials in Tower are the authentication keys needed to access compute environments, private code repositories, and external services. Credentials in Tower are SHA-256 encrypted before secure storage.
+The community showcase includes all the [credentials](../credentials/overview) you need to run pipelines in showcase compute environments. Credentials in Tower are the authentication keys needed to access compute environments, private code repositories, and external services. Credentials in Tower are SHA-256 encrypted before secure storage.
 
 ## Secrets
 
-The community showcase includes [pipeline secrets](../secrets/overview.mdx) that are retrieved and used during pipeline execution. In your own private or organization workspace, you can store the access keys, licenses, or passwords required for your pipeline execution to interact with third-party services.
+The community showcase includes [pipeline secrets](../secrets/overview) that are retrieved and used during pipeline execution. In your own private or organization workspace, you can store the access keys, licenses, or passwords required for your pipeline execution to interact with third-party services.
 
 ## Run pipeline with sample data
 
-1. From the [Launchpad](../launch/launchpad.mdx), select the pipeline of your choice to view the pipeline detail page. nf-core-rnaseq is a good first pipeline example.
+1. From the [Launchpad](../launch/launchpad), select the pipeline of your choice to view the pipeline detail page. nf-core-rnaseq is a good first pipeline example.
 2. (Optional) Select the URL under **Workflow repository** to view the pipeline code repository in another tab.
 3. In Tower Cloud, select **Launch** from the pipeline detail page.
 4. On the **Launch pipeline** page, enter a unique **Workflow run name** or accept the pre-filled random name.
@@ -45,4 +45,4 @@ Once you have filled the necessary launch form details, select **Launch** from t
 
 ## Next steps
 
-To run workflows on your own infrastructure, or use workflows not included in the community showcase, create an [organization](../orgs-and-teams/organizations.mdx) and [workspaces](../orgs-and-teams/workspace-management.mdx).
+To run workflows on your own infrastructure, or use workflows not included in the community showcase, create an [organization](../orgs-and-teams/organizations) and [workspaces](../orgs-and-teams/workspace-management).

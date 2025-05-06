@@ -65,7 +65,7 @@ This parameter is already included in the templates linked above — if you use 
   ```
 </details>
 
-1. Download and configure [configmap.yml](_templates/k8s/configmap.yml) as per the [configuration](configuration/overview.mdx) page.
+1. Download and configure [configmap.yml](_templates/k8s/configmap.yml) as per the [configuration](configuration/overview) page.
 
 2. Deploy the configmap to your cluster:
 
