@@ -54,7 +54,6 @@ export default function NavbarMobileSidebarLayout({ header, primaryMenu }) {
       <div
         className={clsx("navbar-sidebar__items", styles.panels, {
           [styles.panel1Active]: currentPanel === 1,
-          // [styles.panel2Active]: currentPanel === 2,
           [styles.panel2Active]: currentPanel === 2,
         })}
       >

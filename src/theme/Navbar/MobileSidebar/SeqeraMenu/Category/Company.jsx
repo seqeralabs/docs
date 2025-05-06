@@ -24,7 +24,7 @@ const Company = ({ toggleMenu }) => {
         <li key={label}>
           <a
             href={href}
-            className={`
+            className={`whitespace-nowrap
               flex items-center text-[14px] pr-2 rounded-md
               transition-all duration-500 ease-in-out hover:no-underline
               h-[25px]`}
