@@ -27,7 +27,7 @@ function NavButtons({ currentPanel, setPanel }) {
         <Button onClick={setPanel(1)}><div className={`${styles.caretRotate} mr-2`}><Caret/></div>Main Menu </Button>
       )}
       {currentPanel === 3 && (
-        <Button onClick={setPanel(2)}><div className={`${styles.caretRotate} mr-2`}><Caret/></div> Top level docs</Button>
+        <Button onClick={setPanel(2)}><div className={`${styles.caretRotate} mr-2`}><Caret/></div> Top-Level Docs</Button>
       )}
     </>
   );

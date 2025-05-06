@@ -266,6 +266,10 @@ nav.menu .menu__list-item--collapsed .menu__link--sublist:after,
   display: flex;
   flex-direction: row;
   align-items: center;
+
+  svg {
+    width: 15px;
+  }
 }
 
 ul {
@@ -299,8 +303,23 @@ ol li {
 }
 
 .admonition-icon {
+  width: 10px;
   svg {
     width: 10px;
+  }
+}
+.theme-admonition {
+  div {
+    &:first-child {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+  svg {
+    &:first-child {
+      width: 13px;
+    }
   }
 }
 

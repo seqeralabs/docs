@@ -14,12 +14,12 @@ const Products = ({ toggleMenu }) => {
     <ul className={styles.products}>
       <li>
         <a href="/platform-cloud" onClick={toggleMenu}>
-          Cloud
+          Platform Cloud
         </a>
       </li>
       <li>
         <a href="/platform-enterprise" onClick={toggleMenu}>
-          Enterprise
+          Platform Enterprise
         </a>
       </li>
       <li>

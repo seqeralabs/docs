@@ -64,13 +64,13 @@ const NavItems = ({ isDark = false, hideMenu }) => {
             </a>
           </li>
           <li>
-            <ActiveLink url="/wave" customClasses={`mr-8`}>
-              Wave
+            <ActiveLink url="/multiqc" customClasses={`mr-8`}>
+              MultiQC
             </ActiveLink>
           </li>
           <li>
-            <ActiveLink url="/multiqc" customClasses={`mr-8`}>
-              MultiQC
+            <ActiveLink url="/wave" customClasses={`mr-8`}>
+              Wave
             </ActiveLink>
           </li>
           <li>
