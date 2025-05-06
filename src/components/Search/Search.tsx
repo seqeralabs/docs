@@ -337,7 +337,7 @@ export default function Search() {
       {/* Optional: Add a button to open the search */}
       <div
         onClick={() => setIsOpen(true)}
-        className={`${styles.searchBar} md:flex items-center px-3 py-2 rounded-md text-sm cursor-pointer transition-all duration-100 md:[200px] md:min-w-[25rem] content-center mr-8 md:mr-0`}
+        className={`${styles.searchBar} md:flex items-center px-2 md:px-3 py-2 rounded-md text-sm cursor-pointer transition-all duration-100 md:[200px] md:min-w-[25rem] content-center mr-8 md:mr-0`}
       >
         <svg
           className="w-4 h-4 md:mr-2"
