@@ -60,7 +60,7 @@ const Menu = () => {
             <Products />
           </div>
 
-          <div className="px-4">
+          <div className="px-4 flex flex-row">
             <Help />
             <Company />
           </div>

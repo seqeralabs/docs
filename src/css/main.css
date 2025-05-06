@@ -139,6 +139,9 @@ nav.menu .menu__list .menu__link {
   font-weight: 400;
   font-size: 0.9rem;
 }
+.theme-doc-sidebar-menu .menu__link {
+  font-weight: 400;
+}
 nav.menu .menu__list .menu__link--active:not(.menu__link--sublist) {
   font-weight: 700;
 }

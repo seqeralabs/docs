@@ -58,11 +58,11 @@ export default function NavbarMobileSidebarLayout({ header, primaryMenu }) {
           [styles.panel2Active]: currentPanel === 2,
         })}
       >
-        <div className="navbar-sidebar__item menu">
+        <div className="navbar-sidebar__item menu mb-2">
           <NavButtons currentPanel={currentPanel} setPanel={setPanel} />
           <SeqeraMenu />
         </div>
-        <div className="navbar-sidebar__item menu">
+        <div className="navbar-sidebar__item menu mb-4">
           <NavButtons currentPanel={currentPanel} setPanel={setPanel} />
           {level2.content}
         </div>

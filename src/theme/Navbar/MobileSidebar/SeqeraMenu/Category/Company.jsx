@@ -18,8 +18,8 @@ const links = {
 };
 const Company = ({ toggleMenu }) => {
   return (
-    <ul className="mb-12">
-      <h6 className="mb-3 text-[.9rem] font-display">Company</h6>
+    <ul className={`${styles.menuList}`}>
+      <h6 className="mb-3 text-[.7rem] font-display">Company</h6>
       {links.company.map(([label, href, Icon]) => (
         <li key={label}>
           <a
@@ -27,7 +27,7 @@ const Company = ({ toggleMenu }) => {
             className={`
               flex items-center text-[14px] pr-2 rounded-md
               transition-all duration-500 ease-in-out hover:no-underline
-              h-[32px]`}
+              h-[25px]`}
           >
             <div className={`${styles.iconItem}`}>
               <Icon />
