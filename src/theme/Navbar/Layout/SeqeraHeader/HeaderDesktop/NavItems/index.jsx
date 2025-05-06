@@ -24,9 +24,7 @@ const NavItems = ({ isDark = false, hideMenu }) => {
     <div className="px-4 w-full flex flex-col">
       <div className="h-[72px] w-full flex items-center justify-between">
         <div className="flex items-center w-[16rem]">
-          <a href="/">
             <NavbarLogo/>
-          </a>
         </div>
         <div className="flex items-center">
           <Search />

@@ -232,7 +232,8 @@ html[data-theme="dark"] code {
   }
 
 }
-/* info  */
+/* info and note  */
+.theme-admonition.theme-admonition-note,
 .theme-admonition.alert--info {
   background-color: var(--color-wave-100);
   border-color: var(--color-wave-400);
@@ -242,20 +243,6 @@ html[data-theme="dark"] code {
     &:hover {
       color: var(--color-blu-900);
       text-decoration-color: var(--color-blu-900);
-    }
-  }
-}
-
-/* note */
-.theme-admonition.theme-admonition-note {
-  background-color: var(--color-gray-100);
-  border-color: var(--color-gray-400);
-  a  {
-    text-decoration-color: black;
-    color: black;
-    &:hover {
-      color: var(--color-brand-1000);
-      text-decoration-color: var(--color-brand-1000);
     }
   }
 }
@@ -288,7 +275,8 @@ html[data-theme="dark"]  {
     border-color: white;
   }
 
-  .theme-admonition.alert--info {
+  .theme-admonition.theme-admonition-note,
+  .theme-admonition.alert--info  {
     background-color: var(--color-wave-1000);
     a  {
       text-decoration-color: var(--color-gray-200);
@@ -312,19 +300,4 @@ html[data-theme="dark"]  {
       }
     }
   }
-
-  /* note */
-.theme-admonition.theme-admonition-note {
-  background-color: var(--color-gray-1000);
-  border-color: var(--color-gray-200);
-  a  {
-    text-decoration-color: var(--color-brand-100);
-    color: var(--color-brand-100);
-    &:hover {
-      color: var(--color-brand-300);
-      text-decoration-color: var(--color-brand-300);
-    }
-  }
-}
- 
 }
