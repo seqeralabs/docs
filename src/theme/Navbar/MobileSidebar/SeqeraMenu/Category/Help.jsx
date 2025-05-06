@@ -1,32 +1,42 @@
 import React from "react";
 import Link from "../../../Layout/SeqeraHeader/_shared/Link";
+import styles from "./styles.module.css";
+import {
+  AiIcon,
+  Forum,
+  Nextflow,
+  Support,
+} from "../../../Layout/SeqeraHeader/HeaderDesktop/Submenu/shared/icons";
 
-import { links } from "../../../Layout/SeqeraHeader/links";
+const links = {
+  help: [
+    ["Forum", "https://community.seqera.io", Forum],
+    ["Support Portal", "https://support.seqera.io", Support],
+    ["Nextflow Slack", "https://www.nextflow.io/slack-invite.html", Nextflow],
+    ["Seqera AI", "/ask-ai", AiIcon],
+  ],
+};
 
 const Help = ({ toggleMenu }) => {
   return (
     <ul className="mb-8">
       <h6 className="mb-3 text-[.9rem] font-display">Help</h6>
-      <li>
-        <Link to={links.help["Support Portal"]} onClick={toggleMenu}>
-          Support Portal
-        </Link>
-      </li>
-      <li>
-        <Link to={links.help.Forum} onClick={toggleMenu}>
-          Forum
-        </Link>
-      </li>
-      <li>
-        <Link to={links.help["Nextflow Slack"]} onClick={toggleMenu}>
-          Nextflow Slack
-        </Link>
-      </li>
-      <li>
-        <Link to={links.help["Seqera AI"]} onClick={toggleMenu}>
-          Seqera AI
-        </Link>
-      </li>
+      {links.help.map(([label, href, Icon]) => (
+        <li key={label}>
+          <a
+            href={href}
+            className={`
+              flex items-center text-[14px] pr-2 rounded-md
+              transition-all duration-500 ease-in-out hover:no-underline
+              h-[28px]`}
+          >
+            <div className={`${styles.iconItem}`}>
+              <Icon className="" />
+            </div>
+            {label}
+          </a>
+        </li>
+      ))}
     </ul>
   );
 };

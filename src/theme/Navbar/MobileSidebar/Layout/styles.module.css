@@ -1,7 +1,13 @@
 .button {
-  padding: 0.6rem 14px;
+  padding: 0.6rem 1.5rem;
   font-weight: 400;
   background-color: none;
+}
+html[data-theme="dark"] .button {
+  background: none;
+  svg {
+    filter: invert(100%);
+  }
 }
 .caretRotate {
     transform: rotate(180deg);

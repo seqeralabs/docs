@@ -332,3 +332,11 @@ html[data-theme="dark"] {
     opacity: 1;
   }
 }
+
+details.details {
+  border-color: var(--color-blu);
+}
+
+.details {
+  border-color: var(--color-blu);
+}

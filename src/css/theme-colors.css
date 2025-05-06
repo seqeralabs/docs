@@ -56,9 +56,6 @@ html[data-theme="light"] .navbar-sidebar {
 html[data-theme="light"] .navbar-sidebar .menu__link {
   color: var(--igm-font-color-base);
 }
-html[data-theme="light"] .navbar-sidebar .menu__link--active {
-
-}
 html[data-theme="light"] .navbar-sidebar .navbar-sidebar__back {
   padding: 1rem 1.5rem 0 1.5rem;
   margin-top: 10px;
