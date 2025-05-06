@@ -3,11 +3,7 @@
     & a {
       display: flex;
       align-items: center;
-      & svg {
-        width: 16px;
-        height: 16px;
-        margin-right: 12px;
-      }
+    
       & span {
         line-height: 1;
       }

@@ -38,9 +38,9 @@
 .category.active > button svg {
   transform: rotate(180deg);
 }
-.categoryBody {
+/* .categoryBody {
   overflow: hidden;
-}
+} */
 
 .iconItem {
   border: 1px solid var(--color-gray-400);

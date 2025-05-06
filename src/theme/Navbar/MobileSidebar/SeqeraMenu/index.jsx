@@ -56,9 +56,9 @@ const Menu = () => {
             </a>
           </div>
 
-          {/* <div className="px-4 pb-2 border-b border-b-gray-600">
+          <div className="px-4 pb-2 border-b border-b-gray-600">
             <Products />
-          </div> */}
+          </div>
 
           <div className="px-4">
             <Help />

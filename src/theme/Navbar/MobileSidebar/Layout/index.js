@@ -23,27 +23,27 @@ function NavButtons({ currentPanel, setPanel }) {
       {currentPanel === 1 && (
         <Button onClick={setPanel(2)}>Docs Menu <div className="caret ml-2"><Caret/></div></Button>
       )}
-      {currentPanel === 2 && (
+      {/* {currentPanel === 2 && (
         <Button onClick={setPanel(1)}><div className={`${styles.caretRotate} mr-2`}><Caret/></div>Main Menu </Button>
-      )}
-      {currentPanel === 3 && (
-        <Button onClick={setPanel(2)}><div className={`${styles.caretRotate} mr-2`}><Caret/></div> Top-Level Docs</Button>
+      )} */}
+      {currentPanel === 2 && (
+        <Button onClick={setPanel(1)}><div className={`${styles.caretRotate} mr-2`}><Caret/></div> Main Menu</Button>
       )}
     </>
   );
 }
 
 export default function NavbarMobileSidebarLayout({ header, primaryMenu }) {
-  const level3 = useNavbarSecondaryMenu();
-  const [currentPanel, setCurrentPanel] = React.useState(level3.shown ? 3 : 2);
+  const level2 = useNavbarSecondaryMenu();
+  const [currentPanel, setCurrentPanel] = React.useState(level2.shown ? 2 : 2);
 
   useEffect(() => {
-    setCurrentPanel(level3.shown ? 3 : 2);
-  }, [level3.shown]);
+    setCurrentPanel(level2.shown ? 2 : 1);
+  }, [level2.shown]);
 
   function setPanel(index) {
     return () => {
-      if (index !== 3) level3.hide();
+      if (index !== 2) level2.hide();
       setCurrentPanel(index);
     };
   }
@@ -54,8 +54,8 @@ export default function NavbarMobileSidebarLayout({ header, primaryMenu }) {
       <div
         className={clsx("navbar-sidebar__items", styles.panels, {
           [styles.panel1Active]: currentPanel === 1,
+          // [styles.panel2Active]: currentPanel === 2,
           [styles.panel2Active]: currentPanel === 2,
-          [styles.panel3Active]: currentPanel === 3,
         })}
       >
         <div className="navbar-sidebar__item menu">
@@ -64,11 +64,7 @@ export default function NavbarMobileSidebarLayout({ header, primaryMenu }) {
         </div>
         <div className="navbar-sidebar__item menu">
           <NavButtons currentPanel={currentPanel} setPanel={setPanel} />
-          {primaryMenu}
-        </div>
-        <div className="navbar-sidebar__item menu">
-          <NavButtons currentPanel={currentPanel} setPanel={setPanel} />
-          {level3.content}
+          {level2.content}
         </div>
       </div>
     </div>
