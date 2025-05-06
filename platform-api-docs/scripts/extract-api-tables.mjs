@@ -26,37 +26,37 @@ function formatParameter(param) {
   };
 }
 
-function formatRequestBody(schema, spec, required = [], depth = 1, parentName = '') {
+function formatRequestBody(schema, spec, required = [], parentPath = '') {
   const properties = schema?.properties || {};
   const rows = [];
 
   for (const [key, prop] of Object.entries(properties)) {
     const resolved = prop.$ref ? resolveRef(prop.$ref, spec) : prop;
-    const fullKey = parentName ? `${parentName}.${key}` : key;
-    const indent = '  '.repeat(depth); // for visual nesting
+    const fullKey = parentPath ? `${parentPath}.${key}` : key;
 
-    const row = {
-      Name: `${indent}${key}`,
+    // Add row for this field
+    rows.push({
+      Name: fullKey,
       Type: resolved.type || 'object',
       'Req/Opt': required.includes(key) ? 'Required' : 'Optional',
       Description: (resolved.description || '').replace(/\n/g, ' '),
-    };
-    rows.push(row);
+    });
 
-    // Recursively expand if nested object
+    // Recurse into nested object
     if (resolved.type === 'object' && resolved.properties) {
       const childRequired = resolved.required || [];
-      rows.push(...formatRequestBody(resolved, spec, childRequired, depth + 1, fullKey));
+      rows.push(...formatRequestBody(resolved, spec, childRequired, fullKey));
     }
 
-    // Also handle arrays of objects with properties
+    // Handle arrays of objects
     if (resolved.type === 'array' && resolved.items) {
       const items = resolved.items.$ref
         ? resolveRef(resolved.items.$ref, spec)
         : resolved.items;
+
       if (items.type === 'object' && items.properties) {
         const childRequired = items.required || [];
-        rows.push(...formatRequestBody(items, spec, childRequired, depth + 1, `${fullKey}[]`));
+        rows.push(...formatRequestBody(items, spec, childRequired, `${fullKey}[]`));
       }
     }
   }

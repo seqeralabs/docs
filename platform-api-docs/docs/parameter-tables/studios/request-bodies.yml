@@ -2,59 +2,59 @@
   Type: ""
   Req/Opt: ""
   Description: Create Studio
-- Name: "  name"
+- Name: name
   Type: string
   Req/Opt: Required
   Description: ""
-- Name: "  description"
+- Name: description
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  dataStudioToolUrl"
+- Name: dataStudioToolUrl
   Type: string
   Req/Opt: Required
   Description: ""
-- Name: "  computeEnvId"
+- Name: computeEnvId
   Type: string
   Req/Opt: Required
   Description: ""
-- Name: "  initialCheckpointId"
+- Name: initialCheckpointId
   Type: integer
   Req/Opt: Optional
   Description: ""
-- Name: "  configuration"
+- Name: configuration
   Type: object
   Req/Opt: Optional
   Description: ""
-- Name: "    gpu"
+- Name: configuration.gpu
   Type: integer
   Req/Opt: Optional
   Description: ""
-- Name: "    cpu"
+- Name: configuration.cpu
   Type: integer
   Req/Opt: Optional
   Description: ""
-- Name: "    memory"
+- Name: configuration.memory
   Type: integer
   Req/Opt: Optional
   Description: ""
-- Name: "    mountData"
+- Name: configuration.mountData
   Type: array
   Req/Opt: Optional
   Description: ""
-- Name: "    condaEnvironment"
+- Name: configuration.condaEnvironment
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    lifespanHours"
+- Name: configuration.lifespanHours
   Type: integer
   Req/Opt: Optional
   Description: ""
-- Name: "  isPrivate"
+- Name: isPrivate
   Type: boolean
   Req/Opt: Optional
   Description: ""
-- Name: "  labelIds"
+- Name: labelIds
   Type: array
   Req/Opt: Optional
   Description: ""
@@ -62,7 +62,7 @@
   Type: ""
   Req/Opt: ""
   Description: Update Studio checkpoint name
-- Name: "  name"
+- Name: name
   Type: string
   Req/Opt: Optional
   Description: ""
@@ -70,15 +70,15 @@
   Type: ""
   Req/Opt: ""
   Description: Start Studio
-- Name: "  configuration"
+- Name: configuration
   Type: object
   Req/Opt: Optional
   Description: ""
-- Name: "  description"
+- Name: description
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  labelIds"
+- Name: labelIds
   Type: array
   Req/Opt: Optional
   Description: ""

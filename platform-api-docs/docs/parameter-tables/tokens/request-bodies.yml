@@ -2,7 +2,7 @@
   Type: ""
   Req/Opt: ""
   Description: Create token
-- Name: "  name"
+- Name: name
   Type: string
   Req/Opt: Optional
   Description: ""

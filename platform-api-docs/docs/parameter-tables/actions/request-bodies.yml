@@ -2,127 +2,127 @@
   Type: ""
   Req/Opt: ""
   Description: Create action
-- Name: "  name"
+- Name: name
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  source"
+- Name: source
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  launch"
+- Name: launch
   Type: object
   Req/Opt: Optional
   Description: ""
-- Name: "    id"
+- Name: launch.id
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    computeEnvId"
+- Name: launch.computeEnvId
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    runName"
+- Name: launch.runName
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    pipeline"
+- Name: launch.pipeline
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    workDir"
+- Name: launch.workDir
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    revision"
+- Name: launch.revision
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    sessionId"
+- Name: launch.sessionId
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    configProfiles"
+- Name: launch.configProfiles
   Type: array
   Req/Opt: Optional
   Description: ""
-- Name: "    userSecrets"
+- Name: launch.userSecrets
   Type: array
   Req/Opt: Optional
   Description: ""
-- Name: "    workspaceSecrets"
+- Name: launch.workspaceSecrets
   Type: array
   Req/Opt: Optional
   Description: ""
-- Name: "    configText"
+- Name: launch.configText
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    towerConfig"
+- Name: launch.towerConfig
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    paramsText"
+- Name: launch.paramsText
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    preRunScript"
+- Name: launch.preRunScript
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    postRunScript"
+- Name: launch.postRunScript
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    mainScript"
+- Name: launch.mainScript
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    entryName"
+- Name: launch.entryName
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    schemaName"
+- Name: launch.schemaName
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    resume"
+- Name: launch.resume
   Type: boolean
   Req/Opt: Optional
   Description: ""
-- Name: "    pullLatest"
+- Name: launch.pullLatest
   Type: boolean
   Req/Opt: Optional
   Description: ""
-- Name: "    stubRun"
+- Name: launch.stubRun
   Type: boolean
   Req/Opt: Optional
   Description: ""
-- Name: "    optimizationId"
+- Name: launch.optimizationId
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    optimizationTargets"
+- Name: launch.optimizationTargets
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    labelIds"
+- Name: launch.labelIds
   Type: array
   Req/Opt: Optional
   Description: ""
-- Name: "    headJobCpus"
+- Name: launch.headJobCpus
   Type: integer
   Req/Opt: Optional
   Description: ""
-- Name: "    headJobMemoryMb"
+- Name: launch.headJobMemoryMb
   Type: integer
   Req/Opt: Optional
   Description: ""
-- Name: "    launchContainer"
+- Name: launch.launchContainer
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    dateCreated"
+- Name: launch.dateCreated
   Type: string
   Req/Opt: Optional
   Description: ""
@@ -130,123 +130,123 @@
   Type: ""
   Req/Opt: ""
   Description: Update action
-- Name: "  name"
+- Name: name
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  launch"
+- Name: launch
   Type: object
   Req/Opt: Optional
   Description: ""
-- Name: "    id"
+- Name: launch.id
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    computeEnvId"
+- Name: launch.computeEnvId
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    runName"
+- Name: launch.runName
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    pipeline"
+- Name: launch.pipeline
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    workDir"
+- Name: launch.workDir
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    revision"
+- Name: launch.revision
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    sessionId"
+- Name: launch.sessionId
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    configProfiles"
+- Name: launch.configProfiles
   Type: array
   Req/Opt: Optional
   Description: ""
-- Name: "    userSecrets"
+- Name: launch.userSecrets
   Type: array
   Req/Opt: Optional
   Description: ""
-- Name: "    workspaceSecrets"
+- Name: launch.workspaceSecrets
   Type: array
   Req/Opt: Optional
   Description: ""
-- Name: "    configText"
+- Name: launch.configText
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    towerConfig"
+- Name: launch.towerConfig
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    paramsText"
+- Name: launch.paramsText
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    preRunScript"
+- Name: launch.preRunScript
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    postRunScript"
+- Name: launch.postRunScript
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    mainScript"
+- Name: launch.mainScript
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    entryName"
+- Name: launch.entryName
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    schemaName"
+- Name: launch.schemaName
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    resume"
+- Name: launch.resume
   Type: boolean
   Req/Opt: Optional
   Description: ""
-- Name: "    pullLatest"
+- Name: launch.pullLatest
   Type: boolean
   Req/Opt: Optional
   Description: ""
-- Name: "    stubRun"
+- Name: launch.stubRun
   Type: boolean
   Req/Opt: Optional
   Description: ""
-- Name: "    optimizationId"
+- Name: launch.optimizationId
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    optimizationTargets"
+- Name: launch.optimizationTargets
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    labelIds"
+- Name: launch.labelIds
   Type: array
   Req/Opt: Optional
   Description: ""
-- Name: "    headJobCpus"
+- Name: launch.headJobCpus
   Type: integer
   Req/Opt: Optional
   Description: ""
-- Name: "    headJobMemoryMb"
+- Name: launch.headJobMemoryMb
   Type: integer
   Req/Opt: Optional
   Description: ""
-- Name: "    launchContainer"
+- Name: launch.launchContainer
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    dateCreated"
+- Name: launch.dateCreated
   Type: string
   Req/Opt: Optional
   Description: ""
@@ -254,7 +254,7 @@
   Type: ""
   Req/Opt: ""
   Description: Trigger Tower Launch action
-- Name: "  params"
+- Name: params
   Type: object
   Req/Opt: Optional
   Description: ""

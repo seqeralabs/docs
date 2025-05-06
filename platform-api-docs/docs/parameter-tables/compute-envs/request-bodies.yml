@@ -2,111 +2,111 @@
   Type: ""
   Req/Opt: ""
   Description: Create compute environment
-- Name: "  computeEnv"
+- Name: computeEnv
   Type: object
   Req/Opt: Optional
   Description: ""
-- Name: "    credentialsId"
+- Name: computeEnv.credentialsId
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    orgId"
+- Name: computeEnv.orgId
   Type: integer
   Req/Opt: Optional
   Description: ""
-- Name: "    workspaceId"
+- Name: computeEnv.workspaceId
   Type: integer
   Req/Opt: Optional
   Description: ""
-- Name: "    id"
+- Name: computeEnv.id
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    name"
+- Name: computeEnv.name
   Type: string
   Req/Opt: Required
   Description: ""
-- Name: "    description"
+- Name: computeEnv.description
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    platform"
+- Name: computeEnv.platform
   Type: string
   Req/Opt: Required
   Description: ""
-- Name: "    config"
+- Name: computeEnv.config
   Type: object
   Req/Opt: Required
   Description: ""
-- Name: "      workDir"
+- Name: computeEnv.config.workDir
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "      preRunScript"
+- Name: computeEnv.config.preRunScript
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "      postRunScript"
+- Name: computeEnv.config.postRunScript
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "      environment"
+- Name: computeEnv.config.environment
   Type: array
   Req/Opt: Optional
   Description: ""
-- Name: "        name"
+- Name: computeEnv.config.environment[].name
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "        value"
+- Name: computeEnv.config.environment[].value
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "        head"
+- Name: computeEnv.config.environment[].head
   Type: boolean
   Req/Opt: Optional
   Description: ""
-- Name: "        compute"
+- Name: computeEnv.config.environment[].compute
   Type: boolean
   Req/Opt: Optional
   Description: ""
-- Name: "      nextflowConfig"
+- Name: computeEnv.config.nextflowConfig
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "      discriminator"
+- Name: computeEnv.config.discriminator
   Type: string
   Req/Opt: Optional
   Description: property to select the compute config platform
-- Name: "    dateCreated"
+- Name: computeEnv.dateCreated
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    lastUpdated"
+- Name: computeEnv.lastUpdated
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    lastUsed"
+- Name: computeEnv.lastUsed
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    deleted"
+- Name: computeEnv.deleted
   Type: boolean
   Req/Opt: Optional
   Description: ""
-- Name: "    status"
+- Name: computeEnv.status
   Type: object
   Req/Opt: Optional
   Description: ""
-- Name: "    message"
+- Name: computeEnv.message
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    primary"
+- Name: computeEnv.primary
   Type: boolean
   Req/Opt: Optional
   Description: ""
-- Name: "  labelIds"
+- Name: labelIds
   Type: array
   Req/Opt: Optional
   Description: ""
@@ -114,11 +114,11 @@
   Type: ""
   Req/Opt: ""
   Description: Update compute environment
-- Name: "  name"
+- Name: name
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  credentialsId"
+- Name: credentialsId
   Type: string
   Req/Opt: Optional
   Description: ""

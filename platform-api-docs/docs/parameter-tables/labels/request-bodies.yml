@@ -2,11 +2,11 @@
   Type: ""
   Req/Opt: ""
   Description: Add labels to actions
-- Name: "  actionIds"
+- Name: actionIds
   Type: array
   Req/Opt: Optional
   Description: ""
-- Name: "  labelIds"
+- Name: labelIds
   Type: array
   Req/Opt: Optional
   Description: ""
@@ -14,11 +14,11 @@
   Type: ""
   Req/Opt: ""
   Description: Replace action labels
-- Name: "  actionIds"
+- Name: actionIds
   Type: array
   Req/Opt: Optional
   Description: ""
-- Name: "  labelIds"
+- Name: labelIds
   Type: array
   Req/Opt: Optional
   Description: ""
@@ -26,11 +26,11 @@
   Type: ""
   Req/Opt: ""
   Description: Remove labels from actions
-- Name: "  actionIds"
+- Name: actionIds
   Type: array
   Req/Opt: Optional
   Description: ""
-- Name: "  labelIds"
+- Name: labelIds
   Type: array
   Req/Opt: Optional
   Description: ""
@@ -38,19 +38,19 @@
   Type: ""
   Req/Opt: ""
   Description: Create label
-- Name: "  name"
+- Name: name
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  value"
+- Name: value
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  resource"
+- Name: resource
   Type: boolean
   Req/Opt: Optional
   Description: ""
-- Name: "  isDefault"
+- Name: isDefault
   Type: boolean
   Req/Opt: Optional
   Description: ""
@@ -58,15 +58,15 @@
   Type: ""
   Req/Opt: ""
   Description: Update label
-- Name: "  name"
+- Name: name
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  value"
+- Name: value
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  isDefault"
+- Name: isDefault
   Type: boolean
   Req/Opt: Optional
   Description: ""
@@ -74,11 +74,11 @@
   Type: ""
   Req/Opt: ""
   Description: Add labels to pipelines
-- Name: "  pipelineIds"
+- Name: pipelineIds
   Type: array
   Req/Opt: Optional
   Description: ""
-- Name: "  labelIds"
+- Name: labelIds
   Type: array
   Req/Opt: Optional
   Description: ""
@@ -86,11 +86,11 @@
   Type: ""
   Req/Opt: ""
   Description: Replace pipeline labels
-- Name: "  pipelineIds"
+- Name: pipelineIds
   Type: array
   Req/Opt: Optional
   Description: ""
-- Name: "  labelIds"
+- Name: labelIds
   Type: array
   Req/Opt: Optional
   Description: ""
@@ -98,11 +98,11 @@
   Type: ""
   Req/Opt: ""
   Description: Remove labels from pipelines
-- Name: "  pipelineIds"
+- Name: pipelineIds
   Type: array
   Req/Opt: Optional
   Description: ""
-- Name: "  labelIds"
+- Name: labelIds
   Type: array
   Req/Opt: Optional
   Description: ""
@@ -110,11 +110,11 @@
   Type: ""
   Req/Opt: ""
   Description: Add labels to workflows
-- Name: "  workflowIds"
+- Name: workflowIds
   Type: array
   Req/Opt: Optional
   Description: ""
-- Name: "  labelIds"
+- Name: labelIds
   Type: array
   Req/Opt: Optional
   Description: ""
@@ -122,11 +122,11 @@
   Type: ""
   Req/Opt: ""
   Description: Replace workflow labels
-- Name: "  workflowIds"
+- Name: workflowIds
   Type: array
   Req/Opt: Optional
   Description: ""
-- Name: "  labelIds"
+- Name: labelIds
   Type: array
   Req/Opt: Optional
   Description: ""
@@ -134,11 +134,11 @@
   Type: ""
   Req/Opt: ""
   Description: Remove labels from workflows
-- Name: "  workflowIds"
+- Name: workflowIds
   Type: array
   Req/Opt: Optional
   Description: ""
-- Name: "  labelIds"
+- Name: labelIds
   Type: array
   Req/Opt: Optional
   Description: ""

@@ -2,43 +2,43 @@
   Type: ""
   Req/Opt: ""
   Description: Create organization
-- Name: "  organization"
+- Name: organization
   Type: object
   Req/Opt: Optional
   Description: ""
-- Name: "    id"
+- Name: organization.id
   Type: integer
   Req/Opt: Optional
   Description: ""
-- Name: "    name"
+- Name: organization.name
   Type: string
   Req/Opt: Required
   Description: ""
-- Name: "    fullName"
+- Name: organization.fullName
   Type: string
   Req/Opt: Required
   Description: ""
-- Name: "    description"
+- Name: organization.description
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    location"
+- Name: organization.location
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    website"
+- Name: organization.website
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    dateCreated"
+- Name: organization.dateCreated
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "    lastUpdated"
+- Name: organization.lastUpdated
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  logoId"
+- Name: logoId
   Type: string
   Req/Opt: Optional
   Description: ""
@@ -46,35 +46,35 @@
   Type: ""
   Req/Opt: ""
   Description: Update organization
-- Name: "  fullName"
+- Name: fullName
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  name"
+- Name: name
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  description"
+- Name: description
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  location"
+- Name: location
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  website"
+- Name: website
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  logoId"
+- Name: logoId
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  paying"
+- Name: paying
   Type: boolean
   Req/Opt: Optional
   Description: ""
-- Name: "  type"
+- Name: type
   Type: object
   Req/Opt: Optional
   Description: ""
@@ -82,7 +82,7 @@
   Type: ""
   Req/Opt: ""
   Description: Add organization member
-- Name: "  user"
+- Name: user
   Type: string
   Req/Opt: Optional
   Description: ""
@@ -90,7 +90,7 @@
   Type: ""
   Req/Opt: ""
   Description: Update member role
-- Name: "  role"
+- Name: role
   Type: string
   Req/Opt: Optional
   Description: ""

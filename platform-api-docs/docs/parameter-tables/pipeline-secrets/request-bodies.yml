@@ -2,11 +2,11 @@
   Type: ""
   Req/Opt: ""
   Description: Create pipeline secret
-- Name: "  name"
+- Name: name
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  value"
+- Name: value
   Type: string
   Req/Opt: Optional
   Description: ""
@@ -14,7 +14,7 @@
   Type: ""
   Req/Opt: ""
   Description: Update secret
-- Name: "  value"
+- Name: value
   Type: string
   Req/Opt: Optional
   Description: ""

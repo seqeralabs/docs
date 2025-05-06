@@ -35,6 +35,7 @@ module.exports = {
     {
       type: "category",
       label: "compute-envs",
+      link: {type: 'doc', id: 'compute-envs-info'},      
       items: [
         { type: "doc", id: "list-compute-envs", label: "List compute environments", className: "api-method get" },
         { type: "doc", id: "create-compute-env", label: "Create compute environment", className: "api-method post" },
@@ -48,6 +49,7 @@ module.exports = {
     {
       type: "category",
       label: "credentials",
+      link: {type: 'doc', id: 'credentials-info'},      
       items: [
         { type: "doc", id: "list-credentials", label: "List credentials", className: "api-method get" },
         { type: "doc", id: "create-credentials", label: "Create credentials", className: "api-method post" },
