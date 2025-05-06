@@ -71,6 +71,14 @@
 
 html[data-theme="dark"] .navList {
   a {
+    &:hover {
+      background: var(--color-gray-1000);
+    }
+  }
+}
+
+html[data-theme="dark"] .navList {
+  a {
     color: white;
     &:after {
       background-color: var(--color-blu-300);

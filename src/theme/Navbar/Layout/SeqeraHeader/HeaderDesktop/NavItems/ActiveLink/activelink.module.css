@@ -22,7 +22,7 @@
   color: var(--color-blu);
   &::after {
     animation: underlineFadeIn 0.3s ease forwards;
-    animation-delay: 0.2s;
+    animation-delay: 0.1s;
   }
 }
 @keyframes underlineFadeIn {

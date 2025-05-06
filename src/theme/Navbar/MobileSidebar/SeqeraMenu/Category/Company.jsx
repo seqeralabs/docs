@@ -5,14 +5,8 @@ import styles from "./styles.module.css";
 import {
   AiIcon,
   About,
-  Blog,
-  Careers,
-  CaseStudies,
   Contact,
   Feedback,
-  Forum,
-  Nextflow,
-  Support,
 } from "../../../Layout/SeqeraHeader/HeaderDesktop/Submenu/shared/icons";
 
 const links = {
@@ -33,7 +27,7 @@ const Company = ({ toggleMenu }) => {
             className={`
               flex items-center text-[14px] pr-2 rounded-md
               transition-all duration-500 ease-in-out hover:no-underline
-              h-[28px]`}
+              h-[32px]`}
           >
             <div className={`${styles.iconItem}`}>
               <Icon className="" />

@@ -100,6 +100,10 @@ svg.excalidraw path[fill="#fff"] {
     padding: 0;
   }
 }
+.navbar-sidebar__items {
+  overflow-y: scroll;
+  height: auto;
+}
 /* Hide the top navbar on desktop */
 @media (min-width: 996px) {
   .navbar {
@@ -225,9 +229,7 @@ nav.menu .menu__list-item--collapsed .menu__link--sublist:after,
   margin-top: 0;
 }
 .breadcrumbs {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  display: inline-block;
 }
 .breadcrumbs__link {
   padding: 0;

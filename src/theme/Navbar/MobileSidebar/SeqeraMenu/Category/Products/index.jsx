@@ -13,34 +13,34 @@ const Products = ({ toggleMenu }) => {
   return (
     <ul className={styles.products}>
       <li>
-        <Link to="/platform-cloud" onClick={toggleMenu}>
+        <a href="/platform-cloud" onClick={toggleMenu}>
           Cloud
-        </Link>
+        </a>
       </li>
       <li>
-        <Link to="/platform-enterprise" onClick={toggleMenu}>
+        <a href="/platform-enterprise" onClick={toggleMenu}>
           Enterprise
-        </Link>
+        </a>
       </li>
       <li>
-        <Link to="/nextflow" onClick={toggleMenu}>
+        <a href="/nextflow" onClick={toggleMenu}>
           Nextflow
-        </Link>
+        </a>
       </li>
       <li>
-        <Link to="/wave" onClick={toggleMenu}>
+        <a href="/wave" onClick={toggleMenu}>
           Wave
-        </Link>
+        </a>
       </li>
       <li>
-        <Link to="/multiqc/" onClick={toggleMenu}>
+        <a href="/multiqc/" onClick={toggleMenu}>
           MultiQC
-        </Link>
+        </a>
       </li>
       <li>
-        <Link to="/fusion" onClick={toggleMenu}>
+        <a href="/fusion" onClick={toggleMenu}>
           Fusion
-        </Link>
+        </a>
       </li>
     </ul>
   );

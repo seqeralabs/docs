@@ -118,7 +118,7 @@ html[data-theme="dark"] {
   /* General */
   --ifm-background-color: #1c1c1e;
   --ifm-breadcrumb-color-active: var(--color-blu-300);
-  --ifm-link-color: var(--color-wave);
+  --ifm-link-color: var(--color-blu-300);
   --ifm-font-color-base: white;
 
   /* Tables */
@@ -135,14 +135,14 @@ html[data-theme="dark"] {
 
   /* Sidebar */
   --ifm-toc-border-color: var(--color-brand-1000);
-  --ifm-menu-color-background-active: var(--color-gray-800);
+  --ifm-menu-color-background-active: var(--color-gray-900);
   --ifm-menu-color-active: white;
   --ifm-menu-color-background-hover: var(--color-blu-100);
 }
 
 /* Pagination */
 html[data-theme="dark"] .pagination-nav__link {
-  border-color: var(--color-brand-1000);
+  border-color: var(--color-brand-100);
   background: #1c1c1e;
 }
 html[data-theme="dark"] .pagination-nav__link:hover {
