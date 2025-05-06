@@ -48,6 +48,7 @@
     font-size: 0.9rem;
     position: relative;
     display: inline-block;
+    padding: 0 .25rem;
     &:after {
       content: "";
       position: absolute;
@@ -61,7 +62,9 @@
     }
     &:hover {
       text-decoration: none;
-      color: #000;
+      background: var(--color-gray-100);
+      border-radius: 4px;
+      color: var(--color-brand);
     }
   }
 }

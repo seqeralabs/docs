@@ -15,11 +15,11 @@
   }
   &:hover {
     text-decoration: none;
-    color: #000;
   }
 }
 .isActive {
-  color: #000;
+  /* color: #000; */
+  color: var(--color-blu);
   &::after {
     animation: underlineFadeIn 0.3s ease forwards;
     animation-delay: 0.2s;

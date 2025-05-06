@@ -2,14 +2,14 @@ import React, { useEffect } from "react";
 import clsx from "clsx";
 import { useNavbarSecondaryMenu } from "@docusaurus/theme-common/internal";
 import SeqeraMenu from "../SeqeraMenu";
-
+import Caret from "./Caret.svg"
 import styles from "./styles.module.css";
 
 function Button({ onClick, children }) {
   return (
     <button
       type="button"
-      className={clsx("clean-btn navbar-sidebar__back", styles.button)}
+      className={clsx("flex flex-row items-center clean-btn navbar-sidebar__back", styles.button)}
       onClick={onClick}
     >
       {children}
@@ -21,13 +21,13 @@ function NavButtons({ currentPanel, setPanel }) {
   return (
     <>
       {currentPanel === 1 && (
-        <Button onClick={setPanel(2)}>Docs Menu ➔</Button>
+        <Button onClick={setPanel(2)}>Docs Menu <div className="caret ml-2"><Caret/></div></Button>
       )}
       {currentPanel === 2 && (
-        <Button onClick={setPanel(1)}>← Main Menu</Button>
+        <Button onClick={setPanel(1)}><div className={`${styles.caretRotate} mr-2`}><Caret/></div>Main Menu </Button>
       )}
       {currentPanel === 3 && (
-        <Button onClick={setPanel(2)}>← Top level docs</Button>
+        <Button onClick={setPanel(2)}><div className={`${styles.caretRotate} mr-2`}><Caret/></div> Top level docs</Button>
       )}
     </>
   );

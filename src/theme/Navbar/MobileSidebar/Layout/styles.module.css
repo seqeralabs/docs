@@ -1,5 +1,10 @@
 .button {
   padding: 0.6rem 14px;
+  font-weight: 400;
+  background-color: none;
+}
+.caretRotate {
+    transform: rotate(180deg);
 }
 .panels {
   & > div {

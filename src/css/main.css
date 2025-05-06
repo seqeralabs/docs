@@ -325,3 +325,10 @@ html[data-theme="dark"] {
     color: var(--color-blu-100);
   }
 }
+
+.table-of-contents__link {
+  &:hover {
+    color: var(--color-brand-1000);
+    opacity: 1;
+  }
+}
