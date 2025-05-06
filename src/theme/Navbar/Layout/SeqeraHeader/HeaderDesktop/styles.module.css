@@ -12,7 +12,7 @@ html[data-theme="dark"] {
 html[data-theme="dark"] {
   .header {
     background: #1C1C1E;
-    border-bottom: 1px solid var(--color-gray-600);
+    border-bottom: 1px solid var(--color-gray-800);
   }
   .footer a {
     color: white;

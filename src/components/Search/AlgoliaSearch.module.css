@@ -78,7 +78,7 @@ html[data-theme="dark"] .searchModal {
 html[data-theme="dark"] .searchBar  {
   /* background: #464646; */
   background: #1C1C1E;
-  box-shadow: 0 0 0 1px var(--color-gray-600);
+  box-shadow: 0 0 0 1px var(--color-gray-800);
   color: var(--text-gray-800);
   &:hover {
     color: var(--text-gray-1000);
