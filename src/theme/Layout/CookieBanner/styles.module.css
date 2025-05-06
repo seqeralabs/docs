@@ -3,5 +3,13 @@
     left: 50%;
     transform: translateX(-50%);
     width: 70%;
+    background: var(--color-brand);
+  }
+}
+
+html[data-theme="dark"]  {
+  .banner {
+    background: var(--color-brand-900);
+    border: 1px solid var(--brand-700);
   }
 }
