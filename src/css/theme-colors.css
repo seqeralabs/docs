@@ -79,20 +79,20 @@ html[data-theme="light"] .menu__link--sublist-caret:after {
   background-image: url("data:image/svg+xml,%3Csvg width='25' height='24' viewBox='0 0 25 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.4943 10.4038L7.7174 15.1615L7.16162 14.6057L12.4943 9.29225L17.8078 14.6057L17.252 15.1615L12.4943 10.4038Z' fill='%23160F26'/%3E%3C/svg%3E%0A");
 }
 html[data-theme="light"] .menu__list-item-collapsible--active {
-  background-color: var(--color-wave) !important;
+  background-color: var(--color-wave);
 }
 html[data-theme="light"] .menu__list-item-collapsible > a.menu__link--active {
-  color: var(--color-brand-1400) !important;
+  color: var(--color-brand-1400);
 }
 html[data-theme="light"]
   .menu__list-item-collapsible--active
   > a.menu__link--active {
-  color: white !important;
+  color: white;
 }
 
 /* Search modal */
 html[data-theme="light"] .DocSearch-Logo svg * {
-  fill: var(--ifm-font-color-base) !important;
+  fill: var(--ifm-font-color-base);
   opacity: 0.6;
 }
 

@@ -8,7 +8,7 @@
   border-radius: 8px;
   font-weight: 600;
   transition: all 0.2s;
-  text-decoration: none !important;
+  text-decoration: none;
   cursor: pointer;
   &:hover .arrow {
     transform: translateX(3px);
@@ -109,8 +109,8 @@
 }
 .alt {
   &:hover {
-    background-color: var(--color-blu-700) !important;
-    border-color: var(--color-blu-700) !important;
-    color: #fff !important;
+    background-color: var(--color-blu-700);
+    border-color: var(--color-blu-700);
+    color: #fff;
   }
 }
