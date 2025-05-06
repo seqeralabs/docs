@@ -1,16 +1,12 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import clsx from "clsx";
-import Products from "./Category/Products";
 import Help from "./Category/Help";
 import Company from "./Category/Company";
-import Category from "./Category";
-
+import NavbarMobilePrimaryMenu from "../PrimaryMenu";
 import styles from "./styles.module.css";
 
 const Menu = () => {
-  const [selectedCategory, setSelectedCategory] = React.useState("Products");
-
   const navVariants = {
     enter: { y: -20, opacity: 0 },
     enter2: { y: 60, opacity: 0 },
@@ -56,8 +52,8 @@ const Menu = () => {
             </a>
           </div>
 
-          <div className="px-4 pb-2 border-b border-b-gray-600">
-            <Products />
+          <div className="px-1 pb-2 border-b border-b-gray-600">
+            <NavbarMobilePrimaryMenu />
           </div>
 
           <div className="px-4 flex flex-row">

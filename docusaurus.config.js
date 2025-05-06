@@ -224,14 +224,19 @@ export default async function createConfigAsync() {
         },
         items: [
           {
+            to: "/platform-cloud/",
+            position: "left",
+            label: "Platform Cloud",
+          },
+          {
             to: "/platform-enterprise/",
             position: "left",
             label: "Platform Enterprise",
           },
           {
-            to: "/platform-cloud/",
-            position: "left",
-            label: "Platform Cloud",
+            type: "docsVersionDropdown",
+            position: "right",
+            docsPluginId: "platform-enterprise",
           },
           {
             to: "https://www.nextflow.io/docs/latest/",
@@ -268,11 +273,6 @@ export default async function createConfigAsync() {
             to: "/platform-api/",
             label: "Platform API",
             position: "left",
-          },
-          {
-            type: "docsVersionDropdown",
-            position: "right",
-            docsPluginId: "platform-enterprise",
           },
         ],
       },
