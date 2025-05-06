@@ -42,6 +42,10 @@ html[data-theme="light"] {
   --ifm-menu-color-active: white;
   --ifm-menu-color-background-active: var(--color-gray-100);
   --ifm-menu-color-background-hover: var(--color-brand-200);
+
+
+/* tabs */
+--ifm-tabs-color-active: var(--color-brand);
 }
 
 /* Mobile nav */
@@ -168,6 +172,19 @@ html[data-theme="dark"] .footer--dark {
 
 html[data-theme="dark"] .container a {
   color: var(--color-blu-300);
+}
+
+
+/* tabs  */
+.tabs__item--active {
+   border-color: var(--color-blu);
+   color: var(--color-blu);
+}
+html[data-theme="dark"] {
+  .tabs__item--active {
+    border-color: var(--color-blu-300);
+    color: var(--color-blu-300);
+  }
 }
 
 html[data-theme="dark"] {

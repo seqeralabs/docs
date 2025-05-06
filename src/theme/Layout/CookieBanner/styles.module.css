@@ -1,3 +1,7 @@
+.banner {
+  background: var(--color-brand);
+}
+
 @media (min-width: 1024px) {
   .banner {
     left: 50%;

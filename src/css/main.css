@@ -148,6 +148,9 @@ nav.menu .menu__list .menu__link--sublist-caret:after,
     50% / 24px 24px;
   transform: rotate(0deg);
 }
+.menu__caret:hover {
+  background: rgba(0,0,0,.1);
+}
 nav.menu .menu__list-item--collapsed .menu__link--sublist:after,
 .menu__list-item--collapsed .menu__caret:before {
   transform: rotate(-90deg);
@@ -357,7 +360,10 @@ details.details {
 
 .main-wrapper {
   .container {
-    margin-top: 2rem;
+    margin-top: 0rem;
+    @media (min-width: 996px) {
+      margin-top: 2rem;
+    }
   }
 }
 
