@@ -1,4 +1,0 @@
-type: object
-properties:
-  participant:
-    $ref: ./ParticipantDbDto.yaml

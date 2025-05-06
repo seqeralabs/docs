@@ -1,8 +1,0 @@
-type: object
-properties:
-  saveName:
-    type: string
-  fileName:
-    type: string
-  displayText:
-    type: string

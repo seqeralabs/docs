@@ -1,6 +1,0 @@
-type: object
-properties:
-  avatar:
-    $ref: ./Avatar.yaml
-  url:
-    type: string

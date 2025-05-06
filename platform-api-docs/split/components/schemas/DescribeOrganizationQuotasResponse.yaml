@@ -1,4 +1,0 @@
-type: object
-properties:
-  quotas:
-    $ref: ./OrganizationQuotas.yaml

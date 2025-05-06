@@ -1,9 +1,0 @@
-type: object
-properties:
-  tasks:
-    type: array
-    items:
-      $ref: ./DescribeTaskResponse.yaml
-  total:
-    type: integer
-    format: int64

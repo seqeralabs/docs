@@ -1,9 +1,0 @@
-type: object
-properties:
-  pipelines:
-    type: array
-    items:
-      $ref: ./PipelineDbDto.yaml
-  totalSize:
-    type: integer
-    format: int64

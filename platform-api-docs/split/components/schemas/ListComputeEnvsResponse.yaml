@@ -1,6 +1,0 @@
-type: object
-properties:
-  computeEnvs:
-    type: array
-    items:
-      $ref: ./ListComputeEnvsResponse.Entry.yaml

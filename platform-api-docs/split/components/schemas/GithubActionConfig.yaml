@@ -1,9 +1,0 @@
-type: object
-properties:
-  discriminator:
-    type: string
-    readOnly: true
-  events:
-    type: array
-    items:
-      type: string

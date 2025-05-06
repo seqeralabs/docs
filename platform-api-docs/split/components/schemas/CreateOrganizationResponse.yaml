@@ -1,4 +1,0 @@
-type: object
-properties:
-  organization:
-    $ref: ./OrganizationDbDto.yaml

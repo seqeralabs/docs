@@ -1,8 +1,0 @@
-type: object
-properties:
-  hubspotId:
-    type: string
-  posthogApiKey:
-    type: string
-  posthogApiHost:
-    type: string

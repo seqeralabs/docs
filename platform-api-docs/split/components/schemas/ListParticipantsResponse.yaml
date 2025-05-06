@@ -1,9 +1,0 @@
-type: object
-properties:
-  participants:
-    type: array
-    items:
-      $ref: ./ParticipantDbDto.yaml
-  totalSize:
-    type: integer
-    format: int64

@@ -1,9 +1,0 @@
-required:
-  - name
-  - state
-type: object
-properties:
-  name:
-    type: string
-  state:
-    type: string

@@ -1,8 +1,0 @@
-required:
-  - arch
-type: object
-properties:
-  id:
-    type: string
-  arch:
-    type: string

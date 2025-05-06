@@ -1,4 +1,0 @@
-type: object
-properties:
-  workspace:
-    $ref: ./Workspace.yaml

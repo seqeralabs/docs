@@ -1,4 +1,0 @@
-type: object
-properties:
-  dataLink:
-    $ref: ./DataLinkDto.yaml

@@ -1,6 +1,0 @@
-required:
-  - message
-type: object
-properties:
-  message:
-    type: string

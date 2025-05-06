@@ -1,6 +1,0 @@
-type: string
-enum:
-  - CREATING
-  - ACTIVE
-  - ERROR
-  - PAUSED

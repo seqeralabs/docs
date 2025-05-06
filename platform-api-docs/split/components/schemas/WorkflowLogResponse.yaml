@@ -1,4 +1,0 @@
-type: object
-properties:
-  log:
-    $ref: ./LogPage.yaml

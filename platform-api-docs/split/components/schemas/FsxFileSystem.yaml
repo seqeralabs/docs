@@ -1,8 +1,0 @@
-type: object
-properties:
-  id:
-    type: string
-  dns:
-    type: string
-  mount:
-    type: string

@@ -1,6 +1,0 @@
-type: object
-properties:
-  organization:
-    $ref: ./Organization.yaml
-  logoId:
-    type: string

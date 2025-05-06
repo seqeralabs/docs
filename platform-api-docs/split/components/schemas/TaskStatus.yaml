@@ -1,9 +1,0 @@
-type: string
-enum:
-  - NEW
-  - SUBMITTED
-  - RUNNING
-  - CACHED
-  - COMPLETED
-  - FAILED
-  - ABORTED

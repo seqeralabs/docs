@@ -1,6 +1,0 @@
-type: object
-properties:
-  run_id:
-    type: string
-  state:
-    $ref: ./State.yaml

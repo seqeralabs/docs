@@ -1,4 +1,0 @@
-type: object
-properties:
-  version:
-    $ref: ./DatasetVersionDbDto.yaml

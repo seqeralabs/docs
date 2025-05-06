@@ -1,9 +1,0 @@
-type: object
-properties:
-  labels:
-    type: array
-    items:
-      $ref: ./LabelDbDto.yaml
-  totalSize:
-    type: integer
-    format: int64

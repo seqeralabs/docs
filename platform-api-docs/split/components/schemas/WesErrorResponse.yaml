@@ -1,7 +1,0 @@
-type: object
-properties:
-  msg:
-    type: string
-  status_code:
-    type: integer
-    format: int32

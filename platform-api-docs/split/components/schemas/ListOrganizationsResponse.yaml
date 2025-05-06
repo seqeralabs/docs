@@ -1,9 +1,0 @@
-type: object
-properties:
-  organizations:
-    type: array
-    items:
-      $ref: ./OrganizationDbDto.yaml
-  totalSize:
-    type: integer
-    format: int32

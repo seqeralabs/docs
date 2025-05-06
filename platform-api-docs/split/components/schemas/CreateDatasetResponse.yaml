@@ -1,4 +1,0 @@
-type: object
-properties:
-  dataset:
-    $ref: ./Dataset.yaml

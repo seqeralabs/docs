@@ -1,4 +1,0 @@
-type: object
-properties:
-  pipelineInfo:
-    $ref: ./PipelineInfo.yaml

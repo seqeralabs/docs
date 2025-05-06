@@ -1,7 +1,0 @@
-type: object
-allOf:
-  - $ref: ./AwsSecurityKeys.yaml
-  - properties:
-      discriminator:
-        type: string
-        readOnly: true

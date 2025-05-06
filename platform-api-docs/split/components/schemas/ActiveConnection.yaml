@@ -1,9 +1,0 @@
-type: object
-allOf:
-  - $ref: ./StudioUser.yaml
-  - required:
-      - lastActive
-    properties:
-      lastActive:
-        type: string
-        format: date-time

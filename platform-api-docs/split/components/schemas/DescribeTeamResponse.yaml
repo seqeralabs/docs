@@ -1,4 +1,0 @@
-type: object
-properties:
-  team:
-    $ref: ./TeamDbDto.yaml

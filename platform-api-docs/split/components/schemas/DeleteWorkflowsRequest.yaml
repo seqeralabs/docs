@@ -1,6 +1,0 @@
-type: object
-properties:
-  workflowIds:
-    type: array
-    items:
-      type: string

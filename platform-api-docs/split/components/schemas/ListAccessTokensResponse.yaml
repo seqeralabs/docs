@@ -1,6 +1,0 @@
-type: object
-properties:
-  tokens:
-    type: array
-    items:
-      $ref: ./AccessToken.yaml

@@ -1,6 +1,0 @@
-type: object
-allOf:
-  - $ref: ./ComputeEnvDbDto.yaml
-  - properties:
-      credentialsId:
-        type: string

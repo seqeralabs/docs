@@ -1,8 +1,0 @@
-type: object
-properties:
-  status:
-    $ref: ./TraceProcessingStatus.yaml
-  workflowId:
-    type: string
-  watchUrl:
-    type: string

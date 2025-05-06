@@ -1,9 +1,0 @@
-type: object
-properties:
-  computeEnv:
-    $ref: ./ComputeEnv_ComputeConfig_.yaml
-  labelIds:
-    type: array
-    items:
-      type: integer
-      format: int64
