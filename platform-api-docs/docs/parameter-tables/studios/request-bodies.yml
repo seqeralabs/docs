@@ -26,6 +26,30 @@
   Type: object
   Req/Opt: Optional
   Description: ""
+- Name: "    gpu"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    cpu"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    memory"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    mountData"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "    condaEnvironment"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    lifespanHours"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
 - Name: "  isPrivate"
   Type: boolean
   Req/Opt: Optional

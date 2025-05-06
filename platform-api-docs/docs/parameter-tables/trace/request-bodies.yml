@@ -38,6 +38,298 @@
   Type: object
   Req/Opt: Optional
   Description: ""
+- Name: "    requiresAttention"
+  Type: boolean
+  Req/Opt: Optional
+  Description: ""
+- Name: "    status"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    ownerId"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    repository"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    id"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    submit"
+  Type: string
+  Req/Opt: Required
+  Description: ""
+- Name: "    start"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    complete"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    dateCreated"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    lastUpdated"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    runName"
+  Type: string
+  Req/Opt: Required
+  Description: ""
+- Name: "    sessionId"
+  Type: string
+  Req/Opt: Required
+  Description: ""
+- Name: "    profile"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    workDir"
+  Type: string
+  Req/Opt: Required
+  Description: ""
+- Name: "    commitId"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    userName"
+  Type: string
+  Req/Opt: Required
+  Description: ""
+- Name: "    scriptId"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    revision"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    commandLine"
+  Type: string
+  Req/Opt: Required
+  Description: ""
+- Name: "    projectName"
+  Type: string
+  Req/Opt: Required
+  Description: ""
+- Name: "    scriptName"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    launchId"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    configFiles"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "    params"
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "    configText"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    manifest"
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "      nextflowVersion"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      defaultBranch"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      version"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      homePage"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      gitmodules"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      description"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      name"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      mainScript"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      author"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      icon"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    nextflow"
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "      version"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      build"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      timestamp"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    stats"
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "      computeTimeFmt"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      cachedCount"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      failedCount"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      ignoredCount"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      succeedCount"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      cachedCountFmt"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      succeedCountFmt"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      failedCountFmt"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      ignoredCountFmt"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      cachedPct"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      failedPct"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      succeedPct"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      ignoredPct"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      cachedDuration"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      failedDuration"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      succeedDuration"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    errorMessage"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    errorReport"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    deleted"
+  Type: boolean
+  Req/Opt: Optional
+  Description: ""
+- Name: "    projectDir"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    homeDir"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    container"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    containerEngine"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    scriptFile"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    launchDir"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    duration"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    exitStatus"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    resume"
+  Type: boolean
+  Req/Opt: Optional
+  Description: ""
+- Name: "    success"
+  Type: boolean
+  Req/Opt: Optional
+  Description: ""
+- Name: "    logFile"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    outFile"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    operationId"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
 - Name: "  processNames"
   Type: array
   Req/Opt: Optional
@@ -54,12 +346,916 @@
   Type: object
   Req/Opt: Optional
   Description: ""
+- Name: "    requiresAttention"
+  Type: boolean
+  Req/Opt: Optional
+  Description: ""
+- Name: "    status"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    ownerId"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    repository"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    id"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    submit"
+  Type: string
+  Req/Opt: Required
+  Description: ""
+- Name: "    start"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    complete"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    dateCreated"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    lastUpdated"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    runName"
+  Type: string
+  Req/Opt: Required
+  Description: ""
+- Name: "    sessionId"
+  Type: string
+  Req/Opt: Required
+  Description: ""
+- Name: "    profile"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    workDir"
+  Type: string
+  Req/Opt: Required
+  Description: ""
+- Name: "    commitId"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    userName"
+  Type: string
+  Req/Opt: Required
+  Description: ""
+- Name: "    scriptId"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    revision"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    commandLine"
+  Type: string
+  Req/Opt: Required
+  Description: ""
+- Name: "    projectName"
+  Type: string
+  Req/Opt: Required
+  Description: ""
+- Name: "    scriptName"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    launchId"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    configFiles"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "    params"
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "    configText"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    manifest"
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "      nextflowVersion"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      defaultBranch"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      version"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      homePage"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      gitmodules"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      description"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      name"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      mainScript"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      author"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      icon"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    nextflow"
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "      version"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      build"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      timestamp"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    stats"
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "      computeTimeFmt"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      cachedCount"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      failedCount"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      ignoredCount"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      succeedCount"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      cachedCountFmt"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      succeedCountFmt"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      failedCountFmt"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      ignoredCountFmt"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      cachedPct"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      failedPct"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      succeedPct"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      ignoredPct"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      cachedDuration"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      failedDuration"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      succeedDuration"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    errorMessage"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    errorReport"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    deleted"
+  Type: boolean
+  Req/Opt: Optional
+  Description: ""
+- Name: "    projectDir"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    homeDir"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    container"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    containerEngine"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    scriptFile"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    launchDir"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    duration"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    exitStatus"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    resume"
+  Type: boolean
+  Req/Opt: Optional
+  Description: ""
+- Name: "    success"
+  Type: boolean
+  Req/Opt: Optional
+  Description: ""
+- Name: "    logFile"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    outFile"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    operationId"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
 - Name: "  metrics"
   Type: array
   Req/Opt: Optional
   Description: ""
+- Name: "    id"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    process"
+  Type: string
+  Req/Opt: Required
+  Description: ""
+- Name: "    cpu"
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "      warnings"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "      mean"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      min"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q1"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q2"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q3"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      max"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      minLabel"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      maxLabel"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q1Label"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q2Label"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q3Label"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    mem"
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "      warnings"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "      mean"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      min"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q1"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q2"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q3"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      max"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      minLabel"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      maxLabel"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q1Label"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q2Label"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q3Label"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    vmem"
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "      warnings"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "      mean"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      min"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q1"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q2"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q3"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      max"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      minLabel"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      maxLabel"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q1Label"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q2Label"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q3Label"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    time"
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "      warnings"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "      mean"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      min"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q1"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q2"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q3"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      max"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      minLabel"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      maxLabel"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q1Label"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q2Label"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q3Label"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    reads"
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "      warnings"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "      mean"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      min"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q1"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q2"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q3"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      max"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      minLabel"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      maxLabel"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q1Label"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q2Label"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q3Label"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    writes"
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "      warnings"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "      mean"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      min"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q1"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q2"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q3"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      max"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      minLabel"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      maxLabel"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q1Label"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q2Label"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q3Label"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    cpuUsage"
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "      warnings"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "      mean"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      min"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q1"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q2"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q3"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      max"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      minLabel"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      maxLabel"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q1Label"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q2Label"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q3Label"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    memUsage"
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "      warnings"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "      mean"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      min"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q1"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q2"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q3"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      max"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      minLabel"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      maxLabel"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q1Label"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q2Label"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q3Label"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    timeUsage"
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "      warnings"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "      mean"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      min"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q1"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q2"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q3"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      max"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "      minLabel"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      maxLabel"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q1Label"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q2Label"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      q3Label"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
 - Name: "  progress"
   Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "    pending"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    submitted"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    running"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    succeeded"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    cached"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    failed"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    aborted"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    stored"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    ignored"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    retries"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    loadCpus"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    loadMemory"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    peakRunning"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    peakCpus"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    peakMemory"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    processes"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "      index"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      name"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      pending"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      submitted"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      running"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      succeeded"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      cached"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      failed"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      aborted"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      stored"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      ignored"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      retries"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      terminated"
+  Type: boolean
+  Req/Opt: Optional
+  Description: ""
+- Name: "      loadCpus"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      loadMemory"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      peakRunning"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      peakCpus"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      peakMemory"
+  Type: integer
   Req/Opt: Optional
   Description: ""
 - Name: "**UpdateTraceHeartbeat**"
@@ -70,6 +1266,142 @@
   Type: object
   Req/Opt: Optional
   Description: ""
+- Name: "    pending"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    submitted"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    running"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    succeeded"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    cached"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    failed"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    aborted"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    stored"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    ignored"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    retries"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    loadCpus"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    loadMemory"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    peakRunning"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    peakCpus"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    peakMemory"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    processes"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "      index"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      name"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      pending"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      submitted"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      running"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      succeeded"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      cached"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      failed"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      aborted"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      stored"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      ignored"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      retries"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      terminated"
+  Type: boolean
+  Req/Opt: Optional
+  Description: ""
+- Name: "      loadCpus"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      loadMemory"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      peakRunning"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      peakCpus"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      peakMemory"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
 - Name: "**UpdateTraceProgress**"
   Type: ""
   Req/Opt: ""
@@ -78,11 +1410,379 @@
   Type: array
   Req/Opt: Optional
   Description: ""
+- Name: "    hash"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    name"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    process"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    tag"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    submit"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    start"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    complete"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    module"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "    container"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    attempt"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    script"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    scratch"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    workdir"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    queue"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    cpus"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    memory"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    disk"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    time"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    env"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    executor"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    machineType"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    cloudZone"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    priceModel"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    cost"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "    errorAction"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    exitStatus"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    duration"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    realtime"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    nativeId"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    pcpu"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "    pmem"
+  Type: number
+  Req/Opt: Optional
+  Description: ""
+- Name: "    rss"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    vmem"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    peakRss"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    peakVmem"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    rchar"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    wchar"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    syscr"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    syscw"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    readBytes"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    writeBytes"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    volCtxt"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    invCtxt"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    exit"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    id"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    taskId"
+  Type: integer
+  Req/Opt: Required
+  Description: ""
+- Name: "    status"
+  Type: string
+  Req/Opt: Required
+  Description: ""
+- Name: "    dateCreated"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    lastUpdated"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
 - Name: "  progress"
   Type: object
   Req/Opt: Optional
   Description: ""
+- Name: "    pending"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    submitted"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    running"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    succeeded"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    cached"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    failed"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    aborted"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    stored"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    ignored"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    retries"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    loadCpus"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    loadMemory"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    peakRunning"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    peakCpus"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    peakMemory"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    processes"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "      index"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      name"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      pending"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      submitted"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      running"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      succeeded"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      cached"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      failed"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      aborted"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      stored"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      ignored"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      retries"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      terminated"
+  Type: boolean
+  Req/Opt: Optional
+  Description: ""
+- Name: "      loadCpus"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      loadMemory"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      peakRunning"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      peakCpus"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "      peakMemory"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
 - Name: "  containers"
   Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "    requestId"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    sourceImage"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    targetImage"
+  Type: string
+  Req/Opt: Required
+  Description: ""
+- Name: "    buildId"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    scanId"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    mirrorId"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    cached"
+  Type: boolean
+  Req/Opt: Optional
+  Description: ""
+- Name: "    freeze"
+  Type: boolean
+  Req/Opt: Optional
+  Description: ""
+- Name: "    requestTime"
+  Type: string
   Req/Opt: Optional
   Description: ""

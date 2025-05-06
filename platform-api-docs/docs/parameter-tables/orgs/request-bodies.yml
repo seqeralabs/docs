@@ -6,6 +6,38 @@
   Type: object
   Req/Opt: Optional
   Description: ""
+- Name: "    id"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    name"
+  Type: string
+  Req/Opt: Required
+  Description: ""
+- Name: "    fullName"
+  Type: string
+  Req/Opt: Required
+  Description: ""
+- Name: "    description"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    location"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    website"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    dateCreated"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    lastUpdated"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
 - Name: "  logoId"
   Type: string
   Req/Opt: Optional

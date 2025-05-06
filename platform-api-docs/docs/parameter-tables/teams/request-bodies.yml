@@ -6,6 +6,26 @@
   Type: object
   Req/Opt: Optional
   Description: ""
+- Name: "    id"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    name"
+  Type: string
+  Req/Opt: Required
+  Description: ""
+- Name: "    description"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    dateCreated"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    lastUpdated"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
 - Name: "  avatarId"
   Type: string
   Req/Opt: Optional

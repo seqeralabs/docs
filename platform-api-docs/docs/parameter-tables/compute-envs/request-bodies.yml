@@ -6,6 +6,106 @@
   Type: object
   Req/Opt: Optional
   Description: ""
+- Name: "    credentialsId"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    orgId"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    workspaceId"
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: "    id"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    name"
+  Type: string
+  Req/Opt: Required
+  Description: ""
+- Name: "    description"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    platform"
+  Type: string
+  Req/Opt: Required
+  Description: ""
+- Name: "    config"
+  Type: object
+  Req/Opt: Required
+  Description: ""
+- Name: "      workDir"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      preRunScript"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      postRunScript"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      environment"
+  Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: "        name"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "        value"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "        head"
+  Type: boolean
+  Req/Opt: Optional
+  Description: ""
+- Name: "        compute"
+  Type: boolean
+  Req/Opt: Optional
+  Description: ""
+- Name: "      nextflowConfig"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "      discriminator"
+  Type: string
+  Req/Opt: Optional
+  Description: property to select the compute config platform
+- Name: "    dateCreated"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    lastUpdated"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    lastUsed"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    deleted"
+  Type: boolean
+  Req/Opt: Optional
+  Description: ""
+- Name: "    status"
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "    message"
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "    primary"
+  Type: boolean
+  Req/Opt: Optional
+  Description: ""
 - Name: "  labelIds"
   Type: array
   Req/Opt: Optional
