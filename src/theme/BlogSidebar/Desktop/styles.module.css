@@ -14,6 +14,7 @@
   overflow-y: auto;
   position: sticky;
   top: calc(var(--ifm-navbar-height) + 2rem);
+  margin-top: 0;
 }
 
 .sidebarItemTitle {
@@ -106,7 +107,7 @@
   background: var(--ifm-menu-color-background-hover);
 }
 
-@media (max-width: 996px) {
+@media (max-width: 995px) {
   .sidebar {
     display: none;
   }

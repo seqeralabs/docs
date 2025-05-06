@@ -9,6 +9,8 @@ import AiIcon from "../../theme/Navbar/Layout/SeqeraHeader/HeaderDesktop/NavItem
 import SearchIcon from "./SearchIcon";
 // Import algoliasearch
 import algoliasearch from "algoliasearch";
+import styles from "./AlgoliaSearch.module.css";
+
 
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 
@@ -180,10 +182,10 @@ export default function Search() {
   return (
     <>
       {isOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-25 z-40 flex items-start justify-center pt-1">
+        <div className={`${styles.searchWrapper} fixed inset-0 z-40 flex items-start justify-center pt-1`}>
           <div
             ref={modalRef}
-            className="w-full max-w-2xl bg-white rounded-tl-md rounded-tr-md top-20 border-blue-500 border p-2 max-lg:rounded-bl-md max-lg:rounded-br-md"
+            className={`${styles.searchModal} w-full max-w-2xl rounded-tl-md rounded-tr-md top-20 p-2 max-lg:rounded-bl-md max-lg:rounded-br-md`}
             style={{
               position: "relative",
               zIndex: 50,
@@ -222,7 +224,7 @@ export default function Search() {
                           return (
                             <a 
                               href={aiThreadItem.url} 
-                              className="aa-Item aa-ItemLink hover:bg-gray-100 typo-small flex flex-col w-full m-0 p-3"
+                              className={`aa-Item aa-ItemLink typo-small flex flex-col w-full m-0 p-3`}
                               tabIndex={0}
                               aria-label={aiThreadItem.title}
                             >
@@ -241,7 +243,7 @@ export default function Search() {
                         },
                         noResults() {
                           return (
-                            <div className="pt-0 pb-6 text-sm text-gray-500 font-normal">
+                            <div className="pt-0 pb-6 text-sm text-gray-500 font-normal hidden">
                               Search docs or ask with Seqera AI...
                             </div>
                           );
@@ -308,7 +310,9 @@ export default function Search() {
                         },
                         header() {
                           return (
-                            <div className="text-gray-1000 font-medium typo-small px-3 py-2 mt-1">Documentation</div>
+                            <h5 className="font-medium typo-small px-3 py-2 mt-1">
+                              Documentation
+                            </h5>
                           );
                         },
                         noResults({ state }) {
@@ -333,14 +337,10 @@ export default function Search() {
       {/* Optional: Add a button to open the search */}
       <div
         onClick={() => setIsOpen(true)}
-        className="md:flex items-center px-3 py-2 rounded-md text-sm text-gray-800 cursor-pointer hover:text-gray-1000 transition-all duration-100 min-w-50 content-center"
-        style={{
-          boxShadow: "0 0 0 1px rgba(0, 0, 0, 0.25)",
-          height: "44px",
-        }}
+        className={`${styles.searchBar} md:flex items-center px-3 py-2 rounded-md text-sm cursor-pointer transition-all duration-100 md:[200px] md:min-w-[25rem] content-center mr-8 md:mr-0`}
       >
         <svg
-          className="w-4 h-4 mr-2"
+          className="w-4 h-4 md:mr-2"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -353,9 +353,9 @@ export default function Search() {
             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
           />
         </svg>
-        Search docs...
+        <span className="hidden md:block"> Search docs...</span>
         <span
-          className="ml-2 text-xs px-1.5 py-0.5 rounded"
+          className="hidden md:flex ml-2 text-xs px-1.5 py-0.5 rounded"
           style={{ border: "1px solid #d1d5db" }}
         >
           ⌘K

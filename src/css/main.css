@@ -1,5 +1,11 @@
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --ifm-navbar-height: 5rem;
+  --ifm-color-secondary-contrast-background: #f7f7f7;
+}
 
 @layer components {
   .container-xl {
@@ -85,6 +91,19 @@ svg.excalidraw path[fill="#fff"] {
   @apply fill-transparent;
 }
 
+.navbar {
+  align-items: center;
+  ul,
+  li {
+    list-style-type: none;
+    margin-inline-start: 0;
+    padding: 0;
+  }
+}
+.navbar-sidebar__items {
+  overflow-y: scroll;
+  height: auto;
+}
 /* Hide the top navbar on desktop */
 @media (min-width: 996px) {
   .navbar {
@@ -163,4 +182,163 @@ nav.menu .menu__list-item--collapsed .menu__link--sublist:after,
   max-height: none;
   height: auto;
   overflow-y: visible;
+}
+
+/* mobile nav updates */
+.navbar__toggle {
+  position: absolute;
+  right: 0rem;
+}
+
+.navbar-sidebar {
+  width: 100vw;
+}
+
+.navbar-sidebar {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(
+    --ifm-navbar-background-color
+  ); /* Use your site's navbar color */
+  position: fixed;
+  z-index: 100;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* When sidebar is open (controlled by Docusaurus via class on <html>) */
+.navbar-sidebar--show > .navbar-sidebar {
+  width: 100%;
+  height: 100vh; /* Expand height */
+  visibility: visible;
+  opacity: 1;
+  overflow-y: scroll;
+}
+
+.footer--light {
+  background-color: #fff; /* your custom light background color */
+  color: #160f26;
+}
+
+.footer__logo {
+  margin-top: 0;
+}
+.breadcrumbs {
+  display: inline-block;
+}
+.breadcrumbs__link {
+  padding: 0;
+}
+
+.breadcrumbs__link a {
+}
+
+.breadcrumbs__item--active .breadcrumbs__link {
+  color: var(--color-brand);
+  background: none;
+}
+.breadcrumbs__link svg {
+  padding-top: 4px;
+}
+
+.table-of-contents {
+  margin-top: 0;
+}
+.table-of-contents__link:hover,
+.table-of-contents__link:hover code,
+.table-of-contents__link--active,
+.table-of-contents__link--active code {
+  color: var(--color-blu);
+}
+
+.tags {
+  &:hover {
+    border: 1px solid var(--color-blu);
+  }
+}
+
+.theme-edit-this-page {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+ul {
+  padding-left: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  list-style-type: disc;
+  list-style-position: outside;
+}
+
+li {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+ol {
+  padding-left: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  list-style-type: decimal;
+  list-style-position: outside;
+}
+
+ol li {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.table-of-contents__link--active {
+  font-weight: 500;
+}
+
+.admonition-icon {
+  svg {
+    width: 10px;
+  }
+}
+
+.padding-top--md {
+  margin-top: 2rem;
+}
+
+.padding-bottom--lg {
+  margin-bottom: 3rem;
+}
+
+/* Mobile nav */
+html[data-theme="dark"] {
+  .menu__list-item-collapsible:hover {
+    background: var(--color-gray-900);
+  }
+
+  .menu__link:hover {
+    background: var(--color-gray-900);
+  }
+
+  nav.menu .menu__list .menu__link--active:not(.menu__link--sublist) {
+    background: var(--color-blu-700);
+    color: var(--color-blu-100);
+  }
+}
+
+.table-of-contents__link {
+  &:hover {
+    color: var(--color-brand-1000);
+    opacity: 1;
+  }
+}
+
+details.details {
+  border-color: var(--color-blu);
+}
+
+.details {
+  border-color: var(--color-blu);
 }

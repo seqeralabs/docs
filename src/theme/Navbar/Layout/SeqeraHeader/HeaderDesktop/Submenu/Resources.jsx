@@ -1,10 +1,11 @@
 import React from "react";
 import clsx from "clsx";
+import Link from "./shared/Link";
+import styles from "./submenu.module.css";
 
-import Link from "../shared/Link";
-import EventPanel from "../shared/EventPanel";
 
 import {
+  AiIcon,
   About,
   Blog,
   Careers,
@@ -15,36 +16,26 @@ import {
   Events,
   Feedback,
   Forum,
+  Nextflow,
   Partners,
+  PlatformIcon,
   Podcast,
   Press,
   Support,
   Whitepapers,
-} from "../shared/icons";
+} from "./shared/icons";
 
 const links = {
-  Education: [
-    ["Documentation", "https://docs.seqera.io/", Docs],
-    ["Podcast", "/podcasts/", Podcast],
-    ["Blog", "/blog/", Blog],
-  ],
-  Community: [
+  Help: [
     ["Forum", "https://community.seqera.io", Forum],
-    ["nf-core", "https://nf-co.re/", Core],
-    ["Events", "/events/", Events],
-    ["Feedback", "/feedback/", Feedback],
-  ],
-  Resources: [
-    ["Partners", "/partners-and-platforms/", Partners],
-    ["Case studies", "/case-studies/", CaseStudies],
-    ["Support", "https://support.seqera.io", Support],
-    ["Whitepapers", "/whitepapers/", Whitepapers],
+    ["Support Portal", "https://support.seqera.io", Support],
+    ["Nextflow Slack", "https://www.nextflow.io/slack-invite.html", Nextflow],
+    ["Seqera AI", "/ask-ai", AiIcon],
   ],
   Company: [
-    ["About us", "/about/", About],
-    ["Careers", "/careers/", Careers],
-    ["Press", "/news/", Press],
+    ["Seqera.io", "/about/", About],
     ["Contact us", "/contact-us/", Contact],
+    ["Submit Feedback", "/feedback/", Feedback],
   ],
 };
 
@@ -64,9 +55,9 @@ const LinkItem = ({ to, children }) => {
     <Link
       sameTab={sameTab}
       to={href}
-      className={clsx(
-        "flex items-center text-[14px] px-3 rounded-lg text-brand hover:text-brand",
-        "transition-all duration-500 ease-in-out hover:bg-brand-200 hover:no-underline",
+     className={clsx(styles.submenuLink,
+        "flex items-center text-[14px] px-2 rounded-md",
+        "transition-all duration-500 ease-in-out hover:no-underline",
         "h-[37px]",
         { "bg-brand-200": isActive(href) },
       )}
@@ -78,15 +69,15 @@ const LinkItem = ({ to, children }) => {
 
 const Column = ({ title, links }) => {
   return (
-    <div className="flex flex-col items-start w-[25%]">
-      <h3 className="text-[12px] font-display text-brand-700 font-semibold font-title mt-[2px] mb-[2px]">
+    <div className="flex flex-col items-start min-w-[200px]">
+      <h3 className="text-[.8rem] font-display font-semibold mt-[2px] mb-[2px]">
         {title}
       </h3>
-      <ul className="mt-2 -mx-2 p-0 list-none">
+      <ul className="mt-2 -mx-2 p-0 list-none mb-0">
         {links.map(([label, href, Icon]) => (
           <li key={label}>
             <LinkItem to={href}>
-              <Icon className="w-4 h-4 mr-2" />
+              <div className={clsx(styles.iconItem)}><Icon className="" /></div>
               {label}
             </LinkItem>
           </li>
@@ -103,9 +94,6 @@ const Resources = () => {
         {Object.entries(links).map(([title, links]) => (
           <Column key={title} title={title} links={links} />
         ))}
-      </div>
-      <div className="w-[32%]">
-        <EventPanel />
       </div>
     </div>
   );

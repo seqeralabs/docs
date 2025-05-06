@@ -67,6 +67,7 @@ export default async function createConfigAsync() {
           theme: {
             customCss: [
               require.resolve("./src/css/main.css"),
+              require.resolve("./src/css/typography.css"),
               require.resolve("./src/css/misc.css"),
               require.resolve("./src/css/components/checklist.css"),
               require.resolve("./src/css/components/box.css"),
@@ -245,8 +246,10 @@ export default async function createConfigAsync() {
       navbar: {
         logo: {
           alt: "Seqera",
-          src: "img/logo2.png",
-          srcDark: "img/logo2-dark.png",
+          src: "img/Logo.svg",
+          srcDark: "img/LogoWhite.svg",
+          width: "180px",
+          className: 'w-[100px]'
         },
         items: [
           {
@@ -293,6 +296,14 @@ export default async function createConfigAsync() {
       },
       footer: {
         style: "dark",
+        logo: {
+          alt: 'Seqera Docs logo',
+          src: 'img/icon.svg', 
+          srcDark: "img/iconLight.svg",
+          href: '/', 
+          width: 25,  
+          height: 25, 
+        },
         links: [
           {
             title: "Docs",
