@@ -30,7 +30,7 @@ const Company = ({ toggleMenu }) => {
               h-[32px]`}
           >
             <div className={`${styles.iconItem}`}>
-              <Icon className="" />
+              <Icon />
             </div>
             {label}
           </a>

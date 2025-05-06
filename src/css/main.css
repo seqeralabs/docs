@@ -101,7 +101,7 @@ svg.excalidraw path[fill="#fff"] {
   }
 }
 .navbar-sidebar__items {
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   height: auto;
 }
 /* Hide the top navbar on desktop */
