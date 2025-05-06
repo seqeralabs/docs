@@ -1,0 +1,22 @@
+type: object
+discriminator:
+  propertyName: discriminator
+  mapping:
+    gke-platform: ./GkePlatformMetaInfo.yaml
+    aws-cloud: ./AwsCloudPlatformMetainfo.yaml
+    k8s-platform: ./K8sPlatformMetaInfo.yaml
+    grid: ./GridPlatformMetainfo.yaml
+    aws-batch: ./AwsBatchPlatformMetainfo.yaml
+    local-platform: ./LocalPlatformMetainfo.yaml
+    azure-batch: ./AzBatchPlatformMetainfo.yaml
+    eks-platform: ./EksPlatformMetaInfo.yaml
+oneOf:
+  - $ref: ./AwsBatchPlatformMetainfo.yaml
+  - $ref: ./AwsCloudPlatformMetainfo.yaml
+  - $ref: ./GooglePlatformMetainfo.yaml
+  - $ref: ./AzBatchPlatformMetainfo.yaml
+  - $ref: ./EksPlatformMetaInfo.yaml
+  - $ref: ./GkePlatformMetaInfo.yaml
+  - $ref: ./K8sPlatformMetaInfo.yaml
+  - $ref: ./GridPlatformMetainfo.yaml
+  - $ref: ./LocalPlatformMetainfo.yaml

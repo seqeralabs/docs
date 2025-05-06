@@ -1,0 +1,9 @@
+type: object
+properties:
+  status:
+    $ref: ./DataStudioStatus.yaml
+  message:
+    type: string
+  lastUpdate:
+    type: string
+    format: date-time

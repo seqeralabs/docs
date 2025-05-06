@@ -1,0 +1,31 @@
+type: object
+properties:
+  participantId:
+    type: integer
+    format: int64
+  memberId:
+    type: integer
+    format: int64
+  userName:
+    type: string
+  firstName:
+    type: string
+  lastName:
+    type: string
+  email:
+    type: string
+  orgRole:
+    $ref: ./OrgRole.yaml
+  teamId:
+    type: integer
+    format: int64
+  teamName:
+    type: string
+  wspRole:
+    $ref: ./WspRole.yaml
+  type:
+    $ref: ./ParticipantType.yaml
+  teamAvatarUrl:
+    type: string
+  userAvatarUrl:
+    type: string

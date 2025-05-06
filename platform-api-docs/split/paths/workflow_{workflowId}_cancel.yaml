@@ -1,0 +1,37 @@
+post:
+  summary: Cancel workflow
+  description: Cancels the workflow execution identified by the given `workflowId`.
+  tags:
+    - workflows
+  operationId: CancelWorkflow
+  parameters:
+    - name: workflowId
+      in: path
+      description: Workflow string identifier
+      required: true
+      schema:
+        type: string
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/EmptyBodyRequest.yaml
+  responses:
+    '204':
+      description: OK - No content
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []

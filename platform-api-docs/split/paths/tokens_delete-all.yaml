@@ -1,0 +1,19 @@
+delete:
+  summary: Delete all user tokens
+  description: Deletes all API access tokens in the user context.
+  tags:
+    - tokens
+  operationId: DeleteAllTokens
+  responses:
+    '204':
+      description: OK - No content
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []

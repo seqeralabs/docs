@@ -1,0 +1,9 @@
+type: object
+properties:
+  workflows:
+    type: array
+    items:
+      $ref: ./ListWorkflowsResponse.ListWorkflowsElement.yaml
+  totalSize:
+    type: integer
+    format: int64

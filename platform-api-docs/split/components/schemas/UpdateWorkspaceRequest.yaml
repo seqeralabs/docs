@@ -1,0 +1,10 @@
+type: object
+properties:
+  name:
+    type: string
+  fullName:
+    type: string
+  description:
+    type: string
+  visibility:
+    $ref: ./Visibility.yaml

@@ -1,0 +1,18 @@
+type: object
+properties:
+  discriminator:
+    type: string
+    readOnly: true
+  ref:
+    type: string
+  commitId:
+    type: string
+  commitMessage:
+    type: string
+  pusherName:
+    type: string
+  pusherEmail:
+    type: string
+  timestamp:
+    type: string
+    format: date-time

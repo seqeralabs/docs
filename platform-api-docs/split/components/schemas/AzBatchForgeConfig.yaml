@@ -1,0 +1,15 @@
+type: object
+properties:
+  vmType:
+    type: string
+  vmCount:
+    type: integer
+    format: int32
+  autoScale:
+    type: boolean
+  disposeOnDeletion:
+    type: boolean
+  containerRegIds:
+    type: array
+    items:
+      type: string

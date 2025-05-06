@@ -1,0 +1,8 @@
+type: object
+properties:
+  discriminator:
+    type: string
+    readOnly: true
+  data:
+    type: string
+    writeOnly: true

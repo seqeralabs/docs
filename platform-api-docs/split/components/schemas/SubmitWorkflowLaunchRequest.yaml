@@ -1,0 +1,4 @@
+type: object
+properties:
+  launch:
+    $ref: ./WorkflowLaunchRequest.yaml

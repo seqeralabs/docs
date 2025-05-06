@@ -1,0 +1,84 @@
+get:
+  summary: Describe workflow
+  description: >-
+    Retrieves the details of the workflow record associated with the given
+    `workflowId`.
+  tags:
+    - workflows
+  operationId: DescribeWorkflow
+  parameters:
+    - name: workflowId
+      in: path
+      description: Workflow string identifier
+      required: true
+      schema:
+        type: string
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+    - name: attributes
+      in: query
+      description: >-
+        Comma-separated list of attributes to retrieve. Returns an empty value
+        for each attribute not specified.
+      explode: false
+      schema:
+        type: array
+        items:
+          $ref: ../components/schemas/WorkflowQueryAttribute.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/DescribeWorkflowResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []
+delete:
+  summary: Delete the Workflow entity with the given ID
+  tags:
+    - workflows
+  operationId: DeleteWorkflow
+  parameters:
+    - name: workflowId
+      in: path
+      description: Workflow string identifier
+      required: true
+      schema:
+        type: string
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+    - name: force
+      in: query
+      description: Force the deletion even if the workflow is active
+      schema:
+        type: boolean
+  responses:
+    '204':
+      description: OK - Not content
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []

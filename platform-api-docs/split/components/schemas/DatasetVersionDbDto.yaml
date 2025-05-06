@@ -1,0 +1,22 @@
+type: object
+properties:
+  datasetId:
+    type: string
+  datasetName:
+    type: string
+  datasetDescription:
+    type: string
+  hasHeader:
+    type: boolean
+  version:
+    type: integer
+    format: int64
+  lastUpdated:
+    type: string
+    format: date-time
+  fileName:
+    type: string
+  mediaType:
+    type: string
+  url:
+    type: string

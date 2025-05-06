@@ -1,0 +1,18 @@
+type: object
+properties:
+  truncated:
+    type: boolean
+  entries:
+    $ref: ./Iterator_String_.yaml
+  rewindToken:
+    type: string
+  forwardToken:
+    type: string
+  pending:
+    type: boolean
+  message:
+    type: string
+  downloads:
+    type: array
+    items:
+      $ref: ./LogPage.Download.yaml

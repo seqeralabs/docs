@@ -1,0 +1,11 @@
+type: object
+properties:
+  discriminator:
+    type: string
+    readOnly: true
+  privateKey:
+    type: string
+    writeOnly: true
+  passphrase:
+    type: string
+    writeOnly: true

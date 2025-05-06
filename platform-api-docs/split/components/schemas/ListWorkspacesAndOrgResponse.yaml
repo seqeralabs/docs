@@ -1,0 +1,6 @@
+type: object
+properties:
+  orgsAndWorkspaces:
+    type: array
+    items:
+      $ref: ./OrgAndWorkspaceDto.yaml

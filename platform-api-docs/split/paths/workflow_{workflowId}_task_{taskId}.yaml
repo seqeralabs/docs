@@ -1,0 +1,42 @@
+get:
+  summary: Describe a task entity with the given ID
+  tags:
+    - workflows
+  operationId: DescribeWorkflowTask
+  parameters:
+    - name: workflowId
+      in: path
+      description: Workflow string identifier
+      required: true
+      schema:
+        type: string
+    - name: taskId
+      in: path
+      description: Task numeric identifier
+      required: true
+      schema:
+        type: integer
+        format: int64
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/DescribeTaskResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []

@@ -1,0 +1,6 @@
+type: object
+properties:
+  platforms:
+    type: array
+    items:
+      $ref: ./ComputePlatform.yaml

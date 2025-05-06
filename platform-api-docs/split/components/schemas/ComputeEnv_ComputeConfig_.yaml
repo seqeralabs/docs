@@ -1,0 +1,73 @@
+required:
+  - config
+  - name
+  - platform
+type: object
+properties:
+  credentialsId:
+    type: string
+  orgId:
+    type: integer
+    format: int64
+    readOnly: true
+  workspaceId:
+    type: integer
+    format: int64
+    readOnly: true
+  id:
+    maxLength: 22
+    type: string
+    readOnly: true
+  name:
+    maxLength: 100
+    type: string
+  description:
+    maxLength: 2000
+    type: string
+  platform:
+    maxLength: 25
+    type: string
+    enum:
+      - aws-batch
+      - aws-cloud
+      - google-lifesciences
+      - google-batch
+      - azure-batch
+      - k8s-platform
+      - eks-platform
+      - gke-platform
+      - uge-platform
+      - slurm-platform
+      - lsf-platform
+      - altair-platform
+      - moab-platform
+      - local-platform
+      - seqeracompute-platform
+  config:
+    $ref: ./ComputeConfig.yaml
+  dateCreated:
+    type: string
+    format: date-time
+    readOnly: true
+  lastUpdated:
+    type: string
+    format: date-time
+    readOnly: true
+  lastUsed:
+    type: string
+    format: date-time
+    readOnly: true
+  deleted:
+    type: boolean
+    readOnly: true
+  status:
+    allOf:
+      - $ref: ./ComputeEnv.Status.yaml
+      - type: string
+        readOnly: true
+  message:
+    maxLength: 4096
+    type: string
+  primary:
+    type: boolean
+    readOnly: true

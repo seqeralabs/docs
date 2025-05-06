@@ -1,0 +1,77 @@
+put:
+  summary: Update label
+  description: Updates the label identified by the given `labelId`.
+  tags:
+    - labels
+  operationId: UpdateLabel
+  parameters:
+    - name: labelId
+      in: path
+      description: Label numeric identifier
+      required: true
+      schema:
+        type: integer
+        format: int64
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+  requestBody:
+    description: Label update request
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/UpdateLabelRequest.yaml
+    required: true
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/UpdateLabelResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []
+delete:
+  summary: Delete label
+  description: Deletes the label identified by the given `labelId`.
+  tags:
+    - labels
+  operationId: DeleteLabel
+  parameters:
+    - name: labelId
+      in: path
+      description: Label numeric identifier
+      required: true
+      schema:
+        type: integer
+        format: int64
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+  responses:
+    '204':
+      description: OK - No content
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []

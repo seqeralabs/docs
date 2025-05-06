@@ -1,0 +1,7 @@
+type: string
+enum:
+  - academic
+  - evaluating
+  - pro
+  - basic
+  - internal

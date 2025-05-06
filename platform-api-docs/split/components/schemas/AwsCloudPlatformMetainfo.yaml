@@ -1,0 +1,36 @@
+type: object
+properties:
+  discriminator:
+    type: string
+  warnings:
+    type: array
+    items:
+      type: string
+  buckets:
+    type: array
+    items:
+      $ref: ./Bucket.yaml
+  keyPairs:
+    type: array
+    items:
+      type: string
+  vpcs:
+    type: array
+    items:
+      $ref: ./Vpc.yaml
+  images:
+    type: array
+    items:
+      $ref: ./Image.yaml
+  securityGroups:
+    type: array
+    items:
+      $ref: ./SecurityGroup.yaml
+  subnets:
+    type: array
+    items:
+      $ref: ./Subnet.yaml
+  instanceTypes:
+    type: array
+    items:
+      $ref: ./InstanceType.yaml

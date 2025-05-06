@@ -1,0 +1,9 @@
+type: object
+properties:
+  teams:
+    type: array
+    items:
+      $ref: ./TeamDbDto.yaml
+  totalSize:
+    type: integer
+    format: int64

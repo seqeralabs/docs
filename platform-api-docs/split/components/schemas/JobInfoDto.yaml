@@ -1,0 +1,14 @@
+type: object
+properties:
+  id:
+    type: integer
+    format: int64
+  operationId:
+    type: string
+  message:
+    type: string
+  status:
+    type: string
+  exitCode:
+    type: integer
+    format: int32

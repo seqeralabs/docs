@@ -1,0 +1,12 @@
+required:
+  - templates
+  - totalSize
+type: object
+properties:
+  templates:
+    type: array
+    items:
+      $ref: ./DataStudioTemplate.yaml
+  totalSize:
+    type: integer
+    format: int64

@@ -1,0 +1,39 @@
+get:
+  summary: Validate action name
+  description: >-
+    Confirms the validity of the given action name. Append
+    `?name=<your_action_name>`.
+  tags:
+    - actions
+  operationId: ValidateActionName
+  parameters:
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+    - name: name
+      in: query
+      description: Action name to validate
+      schema:
+        type: string
+  responses:
+    '204':
+      description: OK - No content
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+    '409':
+      description: Duplicate element
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+  security:
+    - BearerAuth: []

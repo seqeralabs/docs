@@ -1,0 +1,18 @@
+get:
+  summary: General Seqera service features and version.
+  tags:
+    - service-info
+  operationId: Info
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ServiceInfoResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml

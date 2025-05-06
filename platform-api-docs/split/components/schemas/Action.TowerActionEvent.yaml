@@ -1,0 +1,10 @@
+type: object
+properties:
+  discriminator:
+    type: string
+    readOnly: true
+  timestamp:
+    type: string
+    format: date-time
+  workflowId:
+    type: string

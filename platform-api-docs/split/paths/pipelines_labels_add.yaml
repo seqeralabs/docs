@@ -1,0 +1,29 @@
+post:
+  summary: Add labels to pipelines
+  description: >-
+    Adds the given list of labels to the given pipelines. Existing labels are
+    preserved.
+  tags:
+    - labels
+  operationId: AddLabelsToPipelines
+  parameters:
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+  requestBody:
+    description: Labels add request
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/AssociatePipelineLabelsRequest.yaml
+    required: true
+  responses:
+    '204':
+      description: OK - No content
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []

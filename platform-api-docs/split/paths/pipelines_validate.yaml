@@ -1,0 +1,46 @@
+get:
+  summary: Validate pipeline name
+  description: >-
+    Confirms the validity of the given pipeline `name` in a user context. Append
+    `?name=<your_pipeline_name>`. Append `?workspaceId` to validate the name in
+    a workspace context.
+  tags:
+    - pipelines
+  operationId: ValidatePipelineName
+  parameters:
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+    - name: orgId
+      in: query
+      description: Organization numeric identifier
+      schema:
+        type: integer
+        format: int64
+    - name: name
+      in: query
+      description: Pipeline name to validate
+      schema:
+        type: string
+  responses:
+    '204':
+      description: OK - No content
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+    '409':
+      description: Duplicate element
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+  security:
+    - BearerAuth: []

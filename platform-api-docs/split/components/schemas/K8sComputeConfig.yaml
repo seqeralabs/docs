@@ -1,0 +1,45 @@
+title: Kubernetes compute configuration
+type: object
+properties:
+  discriminator:
+    type: string
+    description: property to select the compute config platform
+    readOnly: true
+  workDir:
+    type: string
+  preRunScript:
+    type: string
+  postRunScript:
+    type: string
+  server:
+    type: string
+  sslCert:
+    type: string
+  namespace:
+    type: string
+  computeServiceAccount:
+    type: string
+  headServiceAccount:
+    type: string
+  storageClaimName:
+    type: string
+  storageMountPath:
+    type: string
+  podCleanup:
+    $ref: ./PodCleanupPolicy.yaml
+  headPodSpec:
+    type: string
+  servicePodSpec:
+    type: string
+  environment:
+    type: array
+    items:
+      $ref: ./ConfigEnvVariable.yaml
+  headJobCpus:
+    type: integer
+    format: int32
+  headJobMemoryMb:
+    type: integer
+    format: int32
+  nextflowConfig:
+    type: string

@@ -1,0 +1,10 @@
+type: object
+properties:
+  source:
+    type: string
+  display:
+    type: string
+  description:
+    type: string
+  enabled:
+    type: boolean

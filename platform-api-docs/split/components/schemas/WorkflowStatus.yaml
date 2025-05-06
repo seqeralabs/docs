@@ -1,0 +1,8 @@
+type: string
+enum:
+  - SUBMITTED
+  - RUNNING
+  - SUCCEEDED
+  - FAILED
+  - CANCELLED
+  - UNKNOWN

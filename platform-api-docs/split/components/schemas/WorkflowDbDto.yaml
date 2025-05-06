@@ -1,0 +1,99 @@
+type: object
+properties:
+  messages:
+    type: array
+    items:
+      type: string
+  id:
+    type: string
+  ownerId:
+    type: integer
+    format: int64
+  submit:
+    type: string
+    format: date-time
+  start:
+    type: string
+    format: date-time
+  complete:
+    type: string
+    format: date-time
+  dateCreated:
+    type: string
+    format: date-time
+  lastUpdated:
+    type: string
+    format: date-time
+  runName:
+    type: string
+  sessionId:
+    type: string
+  profile:
+    type: string
+  workDir:
+    type: string
+  commitId:
+    type: string
+  userName:
+    type: string
+  scriptId:
+    type: string
+  revision:
+    type: string
+  commandLine:
+    type: string
+  projectName:
+    type: string
+  scriptName:
+    type: string
+  launchId:
+    type: string
+  status:
+    $ref: ./WorkflowStatus.yaml
+  requiresAttention:
+    type: boolean
+  configFiles:
+    type: array
+    items:
+      type: string
+  params:
+    type: object
+    additionalProperties: true
+  configText:
+    type: string
+  manifest:
+    $ref: ./WfManifest.yaml
+  nextflow:
+    $ref: ./WfNextflow.yaml
+  stats:
+    $ref: ./WfStats.yaml
+  errorMessage:
+    type: string
+  errorReport:
+    type: string
+  deleted:
+    type: boolean
+  projectDir:
+    type: string
+  homeDir:
+    type: string
+  container:
+    type: string
+  repository:
+    type: string
+  containerEngine:
+    type: string
+  scriptFile:
+    type: string
+  launchDir:
+    type: string
+  duration:
+    type: integer
+    format: int64
+  exitStatus:
+    type: integer
+    format: int32
+  resume:
+    type: boolean
+  success:
+    type: boolean

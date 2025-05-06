@@ -1,0 +1,31 @@
+title: Google GKE cluster configuration
+type: object
+allOf:
+  - $ref: ./K8sComputeConfig.yaml
+  - properties:
+      discriminator:
+        type: string
+        description: property to select the compute config platform
+        readOnly: true
+      workDir:
+        type: string
+      preRunScript:
+        type: string
+      postRunScript:
+        type: string
+      environment:
+        type: array
+        items:
+          $ref: ./ConfigEnvVariable.yaml
+      nextflowConfig:
+        type: string
+      region:
+        type: string
+        description: The GKE cluster region - or - zone
+      clusterName:
+        type: string
+        description: The GKE cluster name
+      fusion2Enabled:
+        type: boolean
+      waveEnabled:
+        type: boolean

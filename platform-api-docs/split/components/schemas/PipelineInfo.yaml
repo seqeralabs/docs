@@ -1,0 +1,34 @@
+type: object
+properties:
+  projectName:
+    type: string
+  simpleName:
+    type: string
+  repositoryUrl:
+    type: string
+  cloneUrl:
+    type: string
+  provider:
+    type: string
+  configFiles:
+    type: array
+    items:
+      type: string
+  workDirs:
+    type: array
+    items:
+      type: string
+  revisions:
+    type: array
+    items:
+      type: string
+  profiles:
+    type: array
+    items:
+      type: string
+  manifest:
+    $ref: ./WfManifest.yaml
+  warnings:
+    type: array
+    items:
+      type: string

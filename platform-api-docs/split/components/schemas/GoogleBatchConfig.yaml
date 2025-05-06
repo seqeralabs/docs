@@ -1,0 +1,71 @@
+title: Google Batch service configuration
+type: object
+properties:
+  discriminator:
+    type: string
+    description: property to select the compute config platform
+    readOnly: true
+  location:
+    type: string
+  workDir:
+    type: string
+  spot:
+    type: boolean
+  bootDiskSizeGb:
+    type: integer
+    format: int32
+  cpuPlatform:
+    type: string
+  machineType:
+    type: string
+  projectId:
+    type: string
+  sshDaemon:
+    type: boolean
+  sshImage:
+    type: string
+  debugMode:
+    type: integer
+    format: int32
+  copyImage:
+    type: string
+  usePrivateAddress:
+    type: boolean
+  labels:
+    type: object
+    additionalProperties:
+      type: string
+  preRunScript:
+    type: string
+  postRunScript:
+    type: string
+  headJobCpus:
+    type: integer
+    format: int32
+  headJobMemoryMb:
+    type: integer
+    format: int32
+  nextflowConfig:
+    type: string
+  nfsTarget:
+    type: string
+  nfsMount:
+    type: string
+  environment:
+    type: array
+    items:
+      $ref: ./ConfigEnvVariable.yaml
+  waveEnabled:
+    type: boolean
+  fusion2Enabled:
+    type: boolean
+  serviceAccount:
+    type: string
+  network:
+    type: string
+  subnetwork:
+    type: string
+  headJobInstanceTemplate:
+    type: string
+  computeJobsInstanceTemplate:
+    type: string

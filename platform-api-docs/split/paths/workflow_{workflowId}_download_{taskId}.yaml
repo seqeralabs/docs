@@ -1,0 +1,49 @@
+get:
+  summary: Download workflow task files
+  description: Downloads the workflow files of the task identified by the given `taskId`.
+  tags:
+    - workflows
+  operationId: DownloadWorkflowTaskLog
+  parameters:
+    - name: workflowId
+      in: path
+      description: Workflow string identifier
+      required: true
+      schema:
+        type: string
+    - name: taskId
+      in: path
+      description: Task numeric identifier
+      required: true
+      schema:
+        type: integer
+        format: int64
+    - name: fileName
+      in: query
+      description: Filename to download
+      schema:
+        type: string
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: string
+            format: binary
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []

@@ -1,0 +1,24 @@
+type: object
+properties:
+  workflow:
+    $ref: ./WorkflowDbDto.yaml
+  progress:
+    $ref: ./ProgressData.yaml
+  orgId:
+    type: integer
+    format: int64
+  orgName:
+    type: string
+  workspaceId:
+    type: integer
+    format: int64
+  workspaceName:
+    type: string
+  labels:
+    type: array
+    items:
+      $ref: ./LabelDbDto.yaml
+  starred:
+    type: boolean
+  optimized:
+    type: boolean

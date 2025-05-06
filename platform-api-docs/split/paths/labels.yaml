@@ -1,0 +1,103 @@
+get:
+  summary: List labels
+  description: >-
+    Lists all available labels in a user context. Append `?workspaceId` to list
+    labels in a workspace context.
+  tags:
+    - labels
+  operationId: ListLabels
+  parameters:
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+    - name: max
+      in: query
+      description: Pagination max results
+      schema:
+        type: integer
+        format: int32
+    - name: offset
+      in: query
+      description: Pagination offset
+      schema:
+        type: integer
+        format: int32
+    - name: search
+      in: query
+      description: Filter search parameter
+      schema:
+        type: string
+    - name: type
+      in: query
+      description: Label type
+      schema:
+        $ref: ../components/schemas/LabelType.yaml
+    - name: isDefault
+      in: query
+      description: Label default flag
+      schema:
+        type: boolean
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ListLabelsResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []
+post:
+  summary: Create label
+  description: >-
+    Creates a new label or returns an existing label based on name/value. By
+    default the operation works in a user context, append `?workspaceId` to
+    create/retrieve a label in a workspace context. Resource labels include
+    `resource: true` and a `value`.
+  tags:
+    - labels
+  operationId: CreateLabel
+  parameters:
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+  requestBody:
+    description: >-
+      Provide a label `name`. Set `resource: true` for resource labels. Only
+      resource labels have a `value` — if `resource: true`, include a `value`.
+      Else, omit `value` from your request body.
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/CreateLabelRequest.yaml
+    required: true
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/CreateLabelResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []

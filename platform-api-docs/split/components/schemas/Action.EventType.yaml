@@ -1,0 +1,16 @@
+type: object
+properties:
+  discriminator:
+    type: string
+    readOnly: true
+  timestamp:
+    type: string
+    format: date-time
+discriminator:
+  propertyName: discriminator
+  mapping:
+    github: ./GithubActionEvent.yaml
+    tower: ./Action.TowerActionEvent.yaml
+oneOf:
+  - $ref: ./GithubActionEvent.yaml
+  - $ref: ./Action.TowerActionEvent.yaml

@@ -1,0 +1,35 @@
+type: object
+properties:
+  id:
+    type: string
+  launch:
+    $ref: ./Launch.yaml
+  name:
+    type: string
+  hookId:
+    type: string
+  hookUrl:
+    type: string
+  message:
+    type: string
+  source:
+    $ref: ./Action.Source.yaml
+  status:
+    $ref: ./Action.Status.yaml
+  config:
+    $ref: ./Action.ConfigType.yaml
+  event:
+    $ref: ./Action.EventType.yaml
+  lastSeen:
+    type: string
+    format: date-time
+  dateCreated:
+    type: string
+    format: date-time
+  lastUpdated:
+    type: string
+    format: date-time
+  labels:
+    type: array
+    items:
+      $ref: ./LabelDbDto.yaml

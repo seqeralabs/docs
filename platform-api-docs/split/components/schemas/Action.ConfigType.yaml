@@ -1,0 +1,13 @@
+type: object
+properties:
+  discriminator:
+    type: string
+    readOnly: true
+discriminator:
+  propertyName: discriminator
+  mapping:
+    github: ./GithubActionConfig.yaml
+    tower: ./Action.TowerActionConfig.yaml
+oneOf:
+  - $ref: ./Action.TowerActionConfig.yaml
+  - $ref: ./GithubActionConfig.yaml

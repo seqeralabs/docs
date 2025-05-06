@@ -1,0 +1,48 @@
+get:
+  summary: List organization members
+  description: Lists the members of the organization identified by the given `orgId`.
+  tags:
+    - orgs
+  operationId: ListOrganizationMembers
+  parameters:
+    - name: orgId
+      in: path
+      description: Organization numeric identifier
+      required: true
+      schema:
+        type: integer
+        format: int64
+    - name: max
+      in: query
+      description: Pagination result max result
+      schema:
+        type: integer
+        format: int32
+    - name: offset
+      in: query
+      description: Pagination offset
+      schema:
+        type: integer
+        format: int32
+    - name: search
+      in: query
+      description: Filter search parameter
+      schema:
+        type: string
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ListMembersResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []

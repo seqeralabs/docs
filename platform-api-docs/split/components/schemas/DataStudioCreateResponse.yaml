@@ -1,0 +1,4 @@
+type: object
+properties:
+  studio:
+    $ref: ./DataStudioDto.yaml

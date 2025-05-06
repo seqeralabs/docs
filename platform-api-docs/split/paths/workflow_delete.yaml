@@ -1,0 +1,42 @@
+post:
+  summary: Delete workflows
+  description: Deletes the workflow records identified by the given list of `workflowIds`.
+  tags:
+    - workflows
+  operationId: DeleteWorkflowMany
+  parameters:
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+    - name: force
+      in: query
+      description: Force the deletion even if any workflows are active
+      schema:
+        type: boolean
+  requestBody:
+    description: Delete workflows request
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/DeleteWorkflowsRequest.yaml
+    required: true
+  responses:
+    '200':
+      description: OK - Return the IDs of workflows that could not be deleted, if any
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/DeleteWorkflowsResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []

@@ -1,0 +1,7 @@
+type: string
+readOnly: true
+enum:
+  - CREATING
+  - AVAILABLE
+  - ERRORED
+  - INVALID

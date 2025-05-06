@@ -1,0 +1,58 @@
+get:
+  summary: Download dataset content
+  description: >-
+    Downloads the content of the dataset identified by the given `datasetId` and
+    `version`.
+  tags:
+    - datasets
+  operationId: DownloadDataset
+  parameters:
+    - name: workspaceId
+      in: path
+      description: Workspace numeric identifier
+      required: true
+      schema:
+        type: integer
+        format: int64
+    - name: datasetId
+      in: path
+      description: Dataset string identifier
+      required: true
+      schema:
+        type: string
+    - name: version
+      in: path
+      description: Version number to download
+      required: true
+      schema:
+        type: string
+    - name: fileName
+      in: path
+      description: File name for the downloaded dataset content
+      required: true
+      schema:
+        type: string
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: string
+            format: binary
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+    '404':
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+  security:
+    - BearerAuth: []

@@ -1,0 +1,29 @@
+post:
+  summary: Add labels to actions
+  description: >-
+    Adds the given list of labels to the given pipeline actions. Existing labels
+    are preserved.
+  tags:
+    - labels
+  operationId: AddLabelsToActions
+  parameters:
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+  requestBody:
+    description: Labels add request
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/AssociateActionLabelsRequest.yaml
+    required: true
+  responses:
+    '204':
+      description: OK - No content
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []

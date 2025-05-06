@@ -1,0 +1,7 @@
+type: string
+enum:
+  - aws
+  - google
+  - azure
+  - azure_entra
+  - seqeracompute

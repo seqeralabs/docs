@@ -1,0 +1,56 @@
+type: object
+properties:
+  id:
+    type: string
+  name:
+    type: string
+  description:
+    type: string
+  platform:
+    type: string
+    enum:
+      - aws-batch
+      - seqeracompute-platform
+      - google-lifesciences
+      - google-batch
+      - azure-batch
+      - k8s-platform
+      - eks-platform
+      - gke-platform
+      - uge-platform
+      - slurm-platform
+      - lsf-platform
+      - altair-platform
+  config:
+    $ref: ./ComputeConfig.yaml
+  dateCreated:
+    type: string
+    format: date-time
+  lastUpdated:
+    type: string
+    format: date-time
+  lastUsed:
+    type: string
+    format: date-time
+  deleted:
+    type: boolean
+  status:
+    $ref: ./ComputeEnv.Status.yaml
+  message:
+    type: string
+  primary:
+    type: boolean
+  credentialsId:
+    type: string
+  managedIdentityId:
+    type: string
+  orgId:
+    type: integer
+    format: int64
+  workspaceId:
+    type: integer
+    format: int64
+  labels:
+    type: array
+    items:
+      $ref: ./LabelDbDto.yaml

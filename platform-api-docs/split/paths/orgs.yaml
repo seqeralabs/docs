@@ -1,0 +1,65 @@
+get:
+  summary: List organizations
+  description: Lists all available organizations in a user context.
+  tags:
+    - orgs
+  operationId: ListOrganizations
+  parameters:
+    - name: role
+      in: query
+      description: Organization user role identifier
+      schema:
+        type: string
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ListOrganizationsResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []
+post:
+  summary: Create organization
+  description: Creates a new organization.
+  tags:
+    - orgs
+  operationId: CreateOrganization
+  requestBody:
+    description: Organization create request
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/CreateOrganizationRequest.yaml
+    required: true
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/CreateOrganizationResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+    '409':
+      description: Duplicate element
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+  security:
+    - BearerAuth: []

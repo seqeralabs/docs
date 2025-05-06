@@ -1,0 +1,51 @@
+type: object
+properties:
+  pending:
+    type: integer
+    format: int32
+  submitted:
+    type: integer
+    format: int32
+  running:
+    type: integer
+    format: int32
+  succeeded:
+    type: integer
+    format: int32
+  cached:
+    type: integer
+    format: int32
+  failed:
+    type: integer
+    format: int32
+  aborted:
+    type: integer
+    format: int32
+  stored:
+    type: integer
+    format: int32
+  ignored:
+    type: integer
+    format: int32
+  retries:
+    type: integer
+    format: int32
+  loadCpus:
+    type: integer
+    format: int64
+  loadMemory:
+    type: integer
+    format: int64
+  peakRunning:
+    type: integer
+    format: int32
+  peakCpus:
+    type: integer
+    format: int64
+  peakMemory:
+    type: integer
+    format: int64
+  processes:
+    type: array
+    items:
+      $ref: ./TraceProgressDetail.yaml

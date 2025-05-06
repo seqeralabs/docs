@@ -1,0 +1,38 @@
+get:
+  summary: List platform regions
+  description: >-
+    Lists the available regions for the computing platform identified by the
+    given `platformId`.
+  tags:
+    - platforms
+  operationId: ListPlatformRegions
+  parameters:
+    - name: platformId
+      in: path
+      description: Platform string identifier
+      required: true
+      schema:
+        type: string
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ListRegionsResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []

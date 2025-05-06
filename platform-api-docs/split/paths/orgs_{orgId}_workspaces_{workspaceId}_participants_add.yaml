@@ -1,0 +1,53 @@
+put:
+  summary: Create workspace participant
+  description: >-
+    Adds a new participant to the workspace identified by the given
+    `workspaceId`.
+  tags:
+    - workspaces
+  operationId: CreateWorkspaceParticipant
+  parameters:
+    - name: orgId
+      in: path
+      description: Organization numeric identifier
+      required: true
+      schema:
+        type: integer
+        format: int64
+    - name: workspaceId
+      in: path
+      description: Workspace numeric identifier
+      required: true
+      schema:
+        type: integer
+        format: int64
+  requestBody:
+    description: Participant addition request
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/AddParticipantRequest.yaml
+    required: true
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/AddParticipantResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+    '409':
+      description: Duplicate element
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+  security:
+    - BearerAuth: []

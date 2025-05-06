@@ -1,0 +1,62 @@
+type: object
+properties:
+  sessionId:
+    type: string
+  workspaceId:
+    type: integer
+    format: int64
+  parentCheckpoint:
+    $ref: ./DataStudioDto.ParentCheckpoint.yaml
+  user:
+    $ref: ./StudioUser.yaml
+  name:
+    type: string
+  description:
+    type: string
+  studioUrl:
+    type: string
+  computeEnv:
+    $ref: ./DataStudioComputeEnvDto.yaml
+  template:
+    $ref: ./DataStudioTemplate.yaml
+  configuration:
+    $ref: ./DataStudioConfiguration.yaml
+  dateCreated:
+    type: string
+    format: date-time
+  lastUpdated:
+    type: string
+    format: date-time
+  lastStarted:
+    type: string
+    format: date-time
+  effectiveLifespanHours:
+    type: integer
+    format: int32
+  activeConnections:
+    type: array
+    items:
+      $ref: ./ActiveConnection.yaml
+  statusInfo:
+    $ref: ./DataStudioStatusInfo.yaml
+  waveBuildUrl:
+    type: string
+  baseImage:
+    type: string
+  customImage:
+    type: boolean
+  isPrivate:
+    type: boolean
+  mountedDataLinks:
+    type: array
+    items:
+      $ref: ./DataLinkDto.yaml
+  progress:
+    type: array
+    items:
+      $ref: ./DataStudioProgressStep.yaml
+  labels:
+    type: array
+    nullable: true
+    items:
+      $ref: ./LabelDbDto.yaml

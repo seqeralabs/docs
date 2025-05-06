@@ -1,0 +1,41 @@
+title: Azure batch configuration
+type: object
+properties:
+  discriminator:
+    type: string
+    description: property to select the compute config platform
+    readOnly: true
+  workDir:
+    type: string
+  preRunScript:
+    type: string
+  postRunScript:
+    type: string
+  region:
+    type: string
+  headPool:
+    type: string
+  autoPoolMode:
+    type: boolean
+    deprecated: true
+  forge:
+    $ref: ./AzBatchForgeConfig.yaml
+  tokenDuration:
+    type: string
+  deleteJobsOnCompletion:
+    $ref: ./JobCleanupPolicy.yaml
+  deletePoolsOnCompletion:
+    type: boolean
+  environment:
+    type: array
+    items:
+      $ref: ./ConfigEnvVariable.yaml
+  waveEnabled:
+    type: boolean
+  fusion2Enabled:
+    type: boolean
+  nextflowConfig:
+    type: string
+  managedIdentityClientId:
+    type: string
+    nullable: true

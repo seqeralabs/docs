@@ -1,0 +1,120 @@
+get:
+  summary: Describe action
+  description: >-
+    Retrieves the details of the pipeline action identified by the given
+    `actionId`.
+  tags:
+    - actions
+  operationId: DescribeAction
+  parameters:
+    - name: actionId
+      in: path
+      description: Action string identifier
+      required: true
+      schema:
+        type: string
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+    - name: attributes
+      in: query
+      description: >-
+        Additional attribute values to include in the response (`labels`).
+        Returns an empty value (`labels: null`) if omitted.
+      schema:
+        type: array
+        items:
+          $ref: ../components/schemas/ActionQueryAttribute.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/DescribeActionResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []
+put:
+  summary: Update action
+  description: >-
+    Updates the details of the action identified by the given `actionId`. The
+    `source` of an existing action cannot be changed.
+  tags:
+    - actions
+  operationId: UpdateAction
+  parameters:
+    - name: actionId
+      in: path
+      description: Action string identifier
+      required: true
+      schema:
+        type: string
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+  requestBody:
+    description: Action update request
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/UpdateActionRequest.yaml
+    required: true
+  responses:
+    '204':
+      description: OK - No content
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []
+delete:
+  summary: Delete action
+  description: Deletes the pipeline action identified by the given `actionId`.
+  tags:
+    - actions
+  operationId: DeleteAction
+  parameters:
+    - name: actionId
+      in: path
+      description: Action string identifier
+      required: true
+      schema:
+        type: string
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+  responses:
+    '204':
+      description: OK - No content
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []

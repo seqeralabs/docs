@@ -1,0 +1,37 @@
+post:
+  summary: Create workflow execution trace
+  description: Creates a new workflow execution trace.
+  tags:
+    - trace
+  operationId: CreateTrace
+  parameters:
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier.
+      schema:
+        type: integer
+        format: int64
+  requestBody:
+    description: Trace create request.
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/TraceCreateRequest.yaml
+    required: true
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/TraceCreateResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []

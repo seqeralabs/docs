@@ -1,0 +1,31 @@
+type: object
+properties:
+  id:
+    type: string
+  name:
+    type: string
+  description:
+    type: string
+  resourceRef:
+    type: string
+  type:
+    $ref: ./DataLinkType.yaml
+  provider:
+    $ref: ./DataLinkProvider.yaml
+  region:
+    type: string
+  credentials:
+    type: array
+    items:
+      $ref: ./DataLinkCredentials.yaml
+  publicAccessible:
+    type: boolean
+  hidden:
+    type: boolean
+  status:
+    allOf:
+      - $ref: ./DataLink.Status.yaml
+      - type: string
+        readOnly: true
+  message:
+    type: string

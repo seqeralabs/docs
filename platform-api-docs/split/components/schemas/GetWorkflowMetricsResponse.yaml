@@ -1,0 +1,6 @@
+type: object
+properties:
+  metrics:
+    type: array
+    items:
+      $ref: ./WorkflowMetrics.yaml

@@ -1,0 +1,30 @@
+get:
+  summary: Check that the user name is valid
+  tags:
+    - users
+  operationId: ValidateUserName
+  parameters:
+    - name: name
+      in: query
+      description: User name to validate
+      schema:
+        type: string
+  responses:
+    '204':
+      description: OK - No content
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+    '409':
+      description: Duplicated element
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+  security:
+    - BearerAuth: []

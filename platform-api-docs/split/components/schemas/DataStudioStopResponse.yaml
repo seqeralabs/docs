@@ -1,0 +1,12 @@
+required:
+  - jobSubmitted
+  - sessionId
+  - statusInfo
+type: object
+properties:
+  jobSubmitted:
+    type: boolean
+  sessionId:
+    type: string
+  statusInfo:
+    $ref: ./DataStudioStatusInfo.yaml

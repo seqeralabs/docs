@@ -1,0 +1,70 @@
+type: object
+properties:
+  id:
+    type: string
+  computeEnvId:
+    type: string
+  runName:
+    type: string
+  pipeline:
+    type: string
+  workDir:
+    type: string
+  revision:
+    type: string
+  sessionId:
+    type: string
+  configProfiles:
+    type: array
+    items:
+      type: string
+  userSecrets:
+    type: array
+    items:
+      type: string
+  workspaceSecrets:
+    type: array
+    items:
+      type: string
+  configText:
+    type: string
+  towerConfig:
+    type: string
+  paramsText:
+    type: string
+  preRunScript:
+    type: string
+  postRunScript:
+    type: string
+  mainScript:
+    type: string
+  entryName:
+    type: string
+  schemaName:
+    type: string
+  resume:
+    type: boolean
+  pullLatest:
+    type: boolean
+  stubRun:
+    type: boolean
+  optimizationId:
+    type: string
+  optimizationTargets:
+    type: string
+  labelIds:
+    type: array
+    items:
+      type: integer
+      format: int64
+  headJobCpus:
+    type: integer
+    format: int32
+  headJobMemoryMb:
+    type: integer
+    format: int32
+  launchContainer:
+    type: string
+  dateCreated:
+    type: string
+    format: date-time

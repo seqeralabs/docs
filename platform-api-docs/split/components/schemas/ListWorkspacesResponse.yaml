@@ -1,0 +1,6 @@
+type: object
+properties:
+  workspaces:
+    type: array
+    items:
+      $ref: ./WorkspaceDbDto.yaml

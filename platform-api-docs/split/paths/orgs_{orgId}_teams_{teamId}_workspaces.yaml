@@ -1,0 +1,61 @@
+get:
+  summary: List team workspaces
+  description: Lists all the workspaces of which the given `teamId` is a participant.
+  tags:
+    - teams
+  operationId: ListWorkspacesByTeam
+  parameters:
+    - name: orgId
+      in: path
+      description: Organization numeric identifier
+      required: true
+      schema:
+        type: integer
+        format: int64
+    - name: teamId
+      in: path
+      description: Team numeric identifier
+      required: true
+      schema:
+        type: integer
+        format: int64
+    - name: max
+      in: query
+      description: Pagination max results
+      schema:
+        type: integer
+        format: int32
+    - name: offset
+      in: query
+      description: Paginantion offset
+      schema:
+        type: integer
+        format: int32
+    - name: search
+      in: query
+      description: Search criteria
+      schema:
+        type: string
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ListWorkspacesResponse.yaml
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+  security:
+    - BearerAuth: []

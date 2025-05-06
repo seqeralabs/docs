@@ -1,0 +1,39 @@
+type: object
+properties:
+  discriminator:
+    type: string
+    readOnly: true
+discriminator:
+  propertyName: discriminator
+  mapping:
+    github: ./GitHubSecurityKeys.yaml
+    azurerepos: ./AzureReposSecurityKeys.yaml
+    azure_entra: ./AzureEntraKeys.yaml
+    container-reg: ./ContainerRegistryKeys.yaml
+    tw-agent: ./AgentSecurityKeys.yaml
+    k8s: ./K8sSecurityKeys.yaml
+    ssh: ./SSHSecurityKeys.yaml
+    google: ./GoogleSecurityKeys.yaml
+    bitbucket: ./BitBucketSecurityKeys.yaml
+    gitea: ./GiteaSecurityKeys.yaml
+    seqeracompute: ./SeqeraComputeSecurityKeys.yaml
+    codecommit: ./CodeCommitSecurityKeys.yaml
+    gitlab: ./GitLabSecurityKeys.yaml
+    aws: ./AwsSecurityKeys.yaml
+    azure: ./AzureSecurityKeys.yaml
+oneOf:
+  - $ref: ./AwsSecurityKeys.yaml
+  - $ref: ./GoogleSecurityKeys.yaml
+  - $ref: ./GitHubSecurityKeys.yaml
+  - $ref: ./GitLabSecurityKeys.yaml
+  - $ref: ./BitBucketSecurityKeys.yaml
+  - $ref: ./GiteaSecurityKeys.yaml
+  - $ref: ./SSHSecurityKeys.yaml
+  - $ref: ./K8sSecurityKeys.yaml
+  - $ref: ./AzureSecurityKeys.yaml
+  - $ref: ./AzureReposSecurityKeys.yaml
+  - $ref: ./ContainerRegistryKeys.yaml
+  - $ref: ./AgentSecurityKeys.yaml
+  - $ref: ./CodeCommitSecurityKeys.yaml
+  - $ref: ./AzureEntraKeys.yaml
+  - $ref: ./SeqeraComputeSecurityKeys.yaml

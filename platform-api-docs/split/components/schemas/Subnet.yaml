@@ -1,0 +1,8 @@
+type: object
+properties:
+  id:
+    type: string
+  zone:
+    type: string
+  vpcId:
+    type: string

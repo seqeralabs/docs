@@ -1,0 +1,138 @@
+required:
+  - status
+  - taskId
+type: object
+properties:
+  hash:
+    type: string
+  name:
+    type: string
+  process:
+    type: string
+  tag:
+    type: string
+  submit:
+    type: string
+    format: date-time
+  start:
+    type: string
+    format: date-time
+  complete:
+    type: string
+    format: date-time
+  module:
+    type: array
+    items:
+      type: string
+  container:
+    type: string
+  attempt:
+    type: integer
+    format: int32
+  script:
+    type: string
+  scratch:
+    type: string
+  workdir:
+    type: string
+  queue:
+    type: string
+  cpus:
+    type: integer
+    format: int32
+  memory:
+    type: integer
+    format: int64
+  disk:
+    type: integer
+    format: int64
+  time:
+    type: integer
+    format: int64
+  env:
+    type: string
+  executor:
+    type: string
+  machineType:
+    type: string
+  cloudZone:
+    type: string
+  priceModel:
+    $ref: ./CloudPriceModel.yaml
+  cost:
+    type: number
+  errorAction:
+    type: string
+  exitStatus:
+    type: integer
+    format: int32
+  duration:
+    type: integer
+    format: int64
+  realtime:
+    type: integer
+    format: int64
+  nativeId:
+    type: string
+  pcpu:
+    type: number
+    format: double
+  pmem:
+    type: number
+    format: double
+  rss:
+    type: integer
+    format: int64
+  vmem:
+    type: integer
+    format: int64
+  peakRss:
+    type: integer
+    format: int64
+  peakVmem:
+    type: integer
+    format: int64
+  rchar:
+    type: integer
+    format: int64
+  wchar:
+    type: integer
+    format: int64
+  syscr:
+    type: integer
+    format: int64
+  syscw:
+    type: integer
+    format: int64
+  readBytes:
+    type: integer
+    format: int64
+  writeBytes:
+    type: integer
+    format: int64
+  volCtxt:
+    type: integer
+    format: int64
+  invCtxt:
+    type: integer
+    format: int64
+  exit:
+    type: integer
+    format: int32
+  id:
+    type: integer
+    format: int64
+    nullable: true
+  taskId:
+    type: integer
+    format: int64
+  status:
+    $ref: ./TaskStatus.yaml
+  dateCreated:
+    type: string
+    format: date-time
+    nullable: true
+  lastUpdated:
+    type: string
+    format: date-time
+    nullable: true

@@ -1,0 +1,34 @@
+get:
+  summary: Validate team name
+  description: >-
+    Confirms the validity of the given team name. Append
+    `?name=<your_team_name>`.
+  tags:
+    - teams
+  operationId: ValidateTeamName
+  parameters:
+    - name: orgId
+      in: path
+      description: Organization numeric identifier
+      required: true
+      schema:
+        type: integer
+        format: int64
+    - name: name
+      in: query
+      description: Organization name to validate
+      schema:
+        type: string
+  responses:
+    '204':
+      description: OK - No content
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []

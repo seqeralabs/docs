@@ -1,0 +1,6 @@
+type: object
+properties:
+  menus:
+    type: array
+    items:
+      $ref: ./NavbarConfig.NavbarMenu.yaml

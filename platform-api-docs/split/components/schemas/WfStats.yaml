@@ -1,0 +1,46 @@
+type: object
+properties:
+  computeTimeFmt:
+    maxLength: 50
+    type: string
+  cachedCount:
+    type: integer
+    format: int32
+  failedCount:
+    type: integer
+    format: int32
+  ignoredCount:
+    type: integer
+    format: int32
+  succeedCount:
+    type: integer
+    format: int32
+  cachedCountFmt:
+    type: string
+  succeedCountFmt:
+    type: string
+  failedCountFmt:
+    type: string
+  ignoredCountFmt:
+    type: string
+  cachedPct:
+    type: number
+    format: float
+  failedPct:
+    type: number
+    format: float
+  succeedPct:
+    type: number
+    format: float
+  ignoredPct:
+    type: number
+    format: float
+  cachedDuration:
+    type: integer
+    format: int64
+  failedDuration:
+    type: integer
+    format: int64
+  succeedDuration:
+    type: integer
+    format: int64

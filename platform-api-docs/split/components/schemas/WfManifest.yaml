@@ -1,0 +1,32 @@
+type: object
+properties:
+  nextflowVersion:
+    maxLength: 20
+    type: string
+  defaultBranch:
+    maxLength: 20
+    type: string
+  version:
+    maxLength: 20
+    type: string
+  homePage:
+    maxLength: 200
+    type: string
+  gitmodules:
+    maxLength: 150
+    type: string
+  description:
+    maxLength: 1024
+    type: string
+  name:
+    maxLength: 150
+    type: string
+  mainScript:
+    maxLength: 100
+    type: string
+  author:
+    maxLength: 150
+    type: string
+  icon:
+    maxLength: 255
+    type: string

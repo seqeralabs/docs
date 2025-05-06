@@ -1,0 +1,12 @@
+required:
+  - checkpoints
+  - totalSize
+type: object
+properties:
+  checkpoints:
+    type: array
+    items:
+      $ref: ./DataStudioCheckpointDto.yaml
+  totalSize:
+    type: integer
+    format: int64

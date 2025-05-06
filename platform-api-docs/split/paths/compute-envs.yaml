@@ -1,0 +1,77 @@
+get:
+  summary: List compute environments
+  description: >-
+    Lists all available compute environments in a user context. Append
+    `?workspaceId` to list compute environments in a workspace context, and
+    `?status` to filter by compute environment status.
+  tags:
+    - compute-envs
+  operationId: ListComputeEnvs
+  parameters:
+    - name: status
+      in: query
+      description: Compute environment status
+      schema:
+        type: string
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ListComputeEnvsResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []
+post:
+  summary: Create compute environment
+  description: >-
+    Creates a new compute environment. Append `?workspaceId` to create the
+    environment in a workspace context.
+  tags:
+    - compute-envs
+  operationId: CreateComputeEnv
+  parameters:
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+  requestBody:
+    description: Compute environment create request
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/CreateComputeEnvRequest.yaml
+    required: true
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/CreateComputeEnvResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []

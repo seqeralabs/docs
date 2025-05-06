@@ -1,0 +1,62 @@
+get:
+  summary: List the tasks for the given Workflow ID and filter parameters
+  tags:
+    - workflows
+  operationId: ListWorkflowTasks
+  parameters:
+    - name: workflowId
+      in: path
+      description: Workflow string identifier
+      required: true
+      schema:
+        type: string
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+    - name: max
+      in: query
+      description: Pagination result max result
+      schema:
+        type: integer
+        format: int32
+    - name: offset
+      in: query
+      description: Pagination offset
+      schema:
+        type: integer
+        format: int32
+    - name: sortBy
+      in: query
+      description: Field to sort by
+      schema:
+        type: string
+    - name: sortDir
+      in: query
+      description: Sorting direction (asc|desc)
+      schema:
+        type: string
+    - name: search
+      in: query
+      description: Search tasks by name
+      schema:
+        type: string
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ListTasksResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []

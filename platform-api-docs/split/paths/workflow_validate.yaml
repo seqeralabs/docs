@@ -1,0 +1,39 @@
+get:
+  summary: Validate run name
+  description: >-
+    Check that the given run name of a workflow has a valid format. When the
+    session ID is given: check that no other workflow in the system exists with
+    the combination of both elements.
+  tags:
+    - workflows
+  operationId: ValidateWorkflowConstraints
+  parameters:
+    - name: runName
+      in: query
+      description: Workflow run name to validate
+      schema:
+        type: string
+    - name: sessionId
+      in: query
+      description: Workflow session ID to validate
+      schema:
+        type: string
+  responses:
+    '204':
+      description: OK - No content
+    '400':
+      description: Bad request. Invalid run name format
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+    '409':
+      description: Duplicated element. Existing run name and session ID combination
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+  security:
+    - BearerAuth: []

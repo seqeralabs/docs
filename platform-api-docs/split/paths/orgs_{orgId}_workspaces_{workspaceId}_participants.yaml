@@ -1,0 +1,91 @@
+get:
+  summary: List workspace participants
+  description: >-
+    Lists the participants of the workspace identified by the given
+    `workspaceId`.
+  tags:
+    - workspaces
+  operationId: ListWorkspaceParticipants
+  parameters:
+    - name: orgId
+      in: path
+      description: Organization numeric identifier
+      required: true
+      schema:
+        type: integer
+        format: int64
+    - name: workspaceId
+      in: path
+      description: Workspace numeric identifier
+      required: true
+      schema:
+        type: integer
+        format: int64
+    - name: max
+      in: query
+      description: Pagination result max result
+      schema:
+        type: integer
+        format: int32
+    - name: offset
+      in: query
+      description: Pagination offset
+      schema:
+        type: integer
+        format: int32
+    - name: search
+      in: query
+      description: Filter search parameter
+      schema:
+        type: string
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ListParticipantsResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []
+delete:
+  summary: Leave workspace
+  description: Removes the requesting user from the given workspace.
+  tags:
+    - workspaces
+  operationId: LeaveWorkspaceParticipant
+  parameters:
+    - name: orgId
+      in: path
+      description: Organization numeric identifier
+      required: true
+      schema:
+        type: integer
+        format: int64
+    - name: workspaceId
+      in: path
+      description: Workspace numeric identifier
+      required: true
+      schema:
+        type: integer
+        format: int64
+  responses:
+    '204':
+      description: OK - No content
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []

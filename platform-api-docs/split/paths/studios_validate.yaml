@@ -1,0 +1,31 @@
+get:
+  summary: Validate Studio name
+  description: >-
+    Confirms the availability of the given name for a Studio in the given
+    workspace or user context.
+  tags:
+    - studios
+  operationId: ValidateDataStudioName
+  parameters:
+    - name: workspaceId
+      in: query
+      description: Optional workspace identifier
+      schema:
+        type: integer
+        format: int64
+    - name: name
+      in: query
+      description: Studio name to be validated
+      schema:
+        type: string
+  responses:
+    '204':
+      description: Ok - No content, if the name is valid and available.
+    '400':
+      description: Bad request, if the name is not valid.
+    '403':
+      description: Operation not allowed
+    '409':
+      description: Conflict, name duplicated in the given context.
+  security:
+    - BearerAuth: []

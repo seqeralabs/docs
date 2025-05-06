@@ -1,0 +1,29 @@
+type: object
+properties:
+  paying:
+    type: boolean
+    deprecated: true
+  orgId:
+    type: integer
+    format: int64
+  name:
+    type: string
+  fullName:
+    type: string
+  description:
+    type: string
+  location:
+    type: string
+  website:
+    type: string
+  logoId:
+    type: string
+  logoUrl:
+    type: string
+  memberId:
+    type: integer
+    format: int64
+  memberRole:
+    $ref: ./OrgRole.yaml
+  type:
+    $ref: ./OrgType.yaml

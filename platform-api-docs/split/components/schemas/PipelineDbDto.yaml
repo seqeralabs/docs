@@ -1,0 +1,51 @@
+type: object
+properties:
+  pipelineId:
+    type: integer
+    format: int64
+  name:
+    type: string
+  description:
+    type: string
+  icon:
+    type: string
+  repository:
+    type: string
+  userId:
+    type: integer
+    format: int64
+  userName:
+    type: string
+  userFirstName:
+    type: string
+  userLastName:
+    type: string
+  orgId:
+    type: integer
+    format: int64
+  orgName:
+    type: string
+  workspaceId:
+    type: integer
+    format: int64
+  workspaceName:
+    type: string
+  visibility:
+    type: string
+  deleted:
+    type: boolean
+  lastUpdated:
+    type: string
+    format: date-time
+  optimizationId:
+    type: string
+  optimizationTargets:
+    type: string
+  optimizationStatus:
+    $ref: ./PipelineOptimizationStatus.yaml
+  labels:
+    type: array
+    items:
+      $ref: ./LabelDbDto.yaml
+  computeEnv:
+    $ref: ./ComputeEnvDbDto.yaml

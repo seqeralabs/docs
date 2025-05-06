@@ -1,0 +1,80 @@
+get:
+  summary: List actions
+  description: >-
+    Lists all available actions in a user context, enriched by `attributes`.
+    Append `?workspaceId` to list actions in a workspace context.
+  tags:
+    - actions
+  operationId: ListActions
+  parameters:
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+    - name: attributes
+      in: query
+      description: >-
+        Additional attribute values to include in the response (`labels`).
+        Returns an empty value (`labels: null`) if omitted.
+      schema:
+        type: array
+        items:
+          $ref: ../components/schemas/ActionQueryAttribute.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ListActionsResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []
+post:
+  summary: Create action
+  description: >-
+    Creates a new pipeline action. Append `?workspaceId` to associate the action
+    with the given workspace.
+  tags:
+    - actions
+  operationId: CreateAction
+  parameters:
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+  requestBody:
+    description: Action create request
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/CreateActionRequest.yaml
+    required: true
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/CreateActionResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []

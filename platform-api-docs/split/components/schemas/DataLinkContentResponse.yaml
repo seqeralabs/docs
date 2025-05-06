@@ -1,0 +1,10 @@
+type: object
+properties:
+  originalPath:
+    type: string
+  objects:
+    type: array
+    items:
+      $ref: ./DataLinkItem.yaml
+  nextPageToken:
+    type: string

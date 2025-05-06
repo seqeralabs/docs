@@ -1,0 +1,9 @@
+title: Seqera Compute configuration
+type: object
+properties:
+  discriminator:
+    type: string
+    description: property to select the compute config platform
+    readOnly: true
+allOf:
+  - $ref: ./AwsBatchConfig.yaml

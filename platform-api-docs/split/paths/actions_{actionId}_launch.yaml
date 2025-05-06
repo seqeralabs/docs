@@ -1,0 +1,45 @@
+post:
+  summary: Trigger Tower Launch action
+  description: >-
+    Triggers the execution of the Tower Launch action identified by the given
+    `actionId`.
+  tags:
+    - actions
+  operationId: LaunchAction
+  parameters:
+    - name: actionId
+      in: path
+      description: Action string identifier
+      required: true
+      schema:
+        type: string
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+  requestBody:
+    description: Action launch request
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/LaunchActionRequest.yaml
+    required: true
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/LaunchActionResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []

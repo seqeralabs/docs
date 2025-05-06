@@ -1,0 +1,32 @@
+required:
+  - computeEnvId
+  - dataStudioToolUrl
+  - name
+type: object
+properties:
+  name:
+    maxLength: 80
+    minLength: 1
+    type: string
+  description:
+    maxLength: 2048
+    type: string
+  dataStudioToolUrl:
+    minLength: 1
+    type: string
+  computeEnvId:
+    minLength: 1
+    type: string
+  initialCheckpointId:
+    type: integer
+    format: int64
+  configuration:
+    $ref: ./DataStudioConfiguration.yaml
+  isPrivate:
+    type: boolean
+  labelIds:
+    type: array
+    nullable: true
+    items:
+      type: integer
+      format: int64

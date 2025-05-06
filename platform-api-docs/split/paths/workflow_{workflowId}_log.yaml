@@ -1,0 +1,43 @@
+get:
+  summary: Get workflow logs
+  description: >-
+    Retrieves the output logs for the Nextflow main job of the workflow
+    identified by the given `workflowId`.
+  tags:
+    - workflows
+  operationId: WorkflowLogs
+  parameters:
+    - name: workflowId
+      in: path
+      description: Workflow string identifier
+      required: true
+      schema:
+        type: string
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+    - name: next
+      in: query
+      description: Workflow log cursor
+      schema:
+        type: string
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/WorkflowLogResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []

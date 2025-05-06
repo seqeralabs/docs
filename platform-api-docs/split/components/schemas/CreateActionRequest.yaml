@@ -1,0 +1,8 @@
+type: object
+properties:
+  name:
+    type: string
+  source:
+    $ref: ./Action.Source.yaml
+  launch:
+    $ref: ./WorkflowLaunchRequest.yaml

@@ -1,0 +1,38 @@
+get:
+  summary: Describe dataset
+  description: Retrieves the metadata of the dataset identified by the given `datasetId`.
+  tags:
+    - datasets
+  operationId: DescribeDataset
+  parameters:
+    - name: workspaceId
+      in: path
+      description: Workspace numeric identifier
+      required: true
+      schema:
+        type: integer
+        format: int64
+    - name: datasetId
+      in: path
+      description: Dataset string identifier
+      required: true
+      schema:
+        type: string
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/DescribeDatasetResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  deprecated: true
+  security:
+    - BearerAuth: []

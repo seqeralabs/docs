@@ -1,0 +1,40 @@
+get:
+  summary: List mounted data links
+  description: Lists the IDs of all data links mounted in the available Studios.
+  tags:
+    - studios
+  operationId: ListMountedDataLinkIds
+  parameters:
+    - name: orgId
+      in: query
+      description: Organization numeric identifier.
+      schema:
+        type: integer
+        format: int64
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier.
+      schema:
+        type: integer
+        format: int64
+    - name: status
+      in: query
+      description: Optional Studio status.
+      schema:
+        type: string
+    - name: exclude
+      in: query
+      description: Optional session ID of the Studio to exclude in a query.
+      schema:
+        type: string
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/DataStudioMountedLinksResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []

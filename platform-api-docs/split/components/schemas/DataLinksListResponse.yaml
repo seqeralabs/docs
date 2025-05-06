@@ -1,0 +1,9 @@
+type: object
+properties:
+  dataLinks:
+    type: array
+    items:
+      $ref: ./DataLinkDto.yaml
+  totalSize:
+    type: integer
+    format: int64

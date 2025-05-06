@@ -1,0 +1,24 @@
+type: object
+properties:
+  orgId:
+    type: integer
+    format: int64
+  orgName:
+    type: string
+  orgLogoUrl:
+    type: string
+  orgType:
+    $ref: ./OrgType.yaml
+  workspaceId:
+    type: integer
+    format: int64
+  workspaceName:
+    type: string
+  workspaceFullName:
+    type: string
+  visibility:
+    $ref: ./Visibility.yaml
+  roles:
+    type: array
+    items:
+      type: string

@@ -1,0 +1,132 @@
+get:
+  summary: Describe compute environment
+  description: >-
+    Retrieves the details of the compute environment identified by the given
+    `computeEnvId`.
+  tags:
+    - compute-envs
+  operationId: DescribeComputeEnv
+  parameters:
+    - name: computeEnvId
+      in: path
+      description: Compute environment string identifier
+      required: true
+      schema:
+        type: string
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+    - name: attributes
+      in: query
+      description: >-
+        Additional attribute values to include in the response (`labels`).
+        Returns an empty value (`labels: null`) if omitted.
+      schema:
+        type: array
+        items:
+          $ref: ../components/schemas/ComputeEnvQueryAttribute.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/DescribeComputeEnvResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []
+put:
+  summary: Update compute environment
+  description: >-
+    Updates the details of the compute environment identified by the given
+    `computeEnvId`.
+  tags:
+    - compute-envs
+  operationId: UpdateComputeEnv
+  parameters:
+    - name: computeEnvId
+      in: path
+      description: Compute environment string identifier
+      required: true
+      schema:
+        type: string
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+  requestBody:
+    description: Compute environment update request
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/UpdateComputeEnvRequest.yaml
+    required: true
+  responses:
+    '204':
+      description: OK - No content
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+    '409':
+      description: Duplicate element
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+  security:
+    - BearerAuth: []
+delete:
+  summary: Delete compute environment
+  description: Deletes the compute environment identified by the given `computeEnvId`.
+  tags:
+    - compute-envs
+  operationId: DeleteComputeEnv
+  parameters:
+    - name: computeEnvId
+      in: path
+      description: Compute environment string identifier
+      required: true
+      schema:
+        type: string
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+  responses:
+    '204':
+      description: OK - No content
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+    '409':
+      description: Conflicting deletion
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+  security:
+    - BearerAuth: []

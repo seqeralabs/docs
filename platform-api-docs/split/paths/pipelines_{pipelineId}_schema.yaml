@@ -1,0 +1,63 @@
+get:
+  summary: Describe pipeline schema
+  description: >-
+    Retrieves the pipeline schema of the pipeline identified by the given
+    `pipelineId`, enriched by `attributes`.
+                `200 - OK` responses include the pipeline schema.
+                `204 - OK` responses indicate a successful request, with no saved schema found for the given pipeline ID.
+                
+  tags:
+    - pipelines
+  operationId: DescribePipelineSchema
+  parameters:
+    - name: pipelineId
+      in: path
+      description: Pipeline numeric identifier
+      required: true
+      schema:
+        type: integer
+        format: int64
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+    - name: sourceWorkspaceId
+      in: query
+      description: Source workspace numeric identifier
+      required: false
+      schema:
+        type: integer
+        format: int64
+        nullable: true
+    - name: attributes
+      in: query
+      description: >-
+        Attribute values to include in the response: `schema` returns the
+        pipeline schema, `params` returns the pipeline config. Returns all if
+        `attributes` is omitted.
+      explode: false
+      schema:
+        type: array
+        items:
+          $ref: ../components/schemas/PipelineSchemaAttributes.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/PipelineSchemaResponse.yaml
+    '204':
+      description: Request OK - No schema found for given pipeline ID
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []

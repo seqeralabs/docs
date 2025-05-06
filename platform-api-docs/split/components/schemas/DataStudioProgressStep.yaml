@@ -1,0 +1,10 @@
+type: object
+properties:
+  status:
+    $ref: ./DataStudioProgressStep.Status.yaml
+  message:
+    type: string
+  warnings:
+    type: array
+    items:
+      type: string

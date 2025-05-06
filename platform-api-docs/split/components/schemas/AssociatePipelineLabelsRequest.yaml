@@ -1,0 +1,12 @@
+type: object
+properties:
+  pipelineIds:
+    type: array
+    items:
+      type: integer
+      format: int64
+  labelIds:
+    type: array
+    items:
+      type: integer
+      format: int64

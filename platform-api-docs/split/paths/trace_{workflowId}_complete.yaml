@@ -1,0 +1,43 @@
+put:
+  summary: Signal workflow execution completion
+  description: Updates the workflow execution trace for the given `workflowId`.
+  tags:
+    - trace
+  operationId: UpdateTraceComplete
+  parameters:
+    - name: workflowId
+      in: path
+      description: Workflow string identifier
+      required: true
+      schema:
+        type: string
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+  requestBody:
+    description: Trace complete request
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/TraceCompleteRequest.yaml
+    required: true
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/TraceCompleteResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []

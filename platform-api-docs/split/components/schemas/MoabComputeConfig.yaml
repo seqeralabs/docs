@@ -1,0 +1,13 @@
+title: Moab configuration
+type: object
+allOf:
+  - $ref: ./AbstractGridConfig.yaml
+  - properties:
+      discriminator:
+        type: string
+        description: property to select the compute config platform
+        readOnly: true
+      environment:
+        type: array
+        items:
+          $ref: ./ConfigEnvVariable.yaml

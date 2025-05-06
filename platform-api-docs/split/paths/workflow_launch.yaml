@@ -1,0 +1,45 @@
+post:
+  summary: Launch workflow
+  description: Submits a workflow execution.
+  tags:
+    - workflows
+  operationId: CreateWorkflowLaunch
+  parameters:
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+    - name: sourceWorkspaceId
+      in: query
+      description: Source workspace numeric identifier
+      required: false
+      schema:
+        type: integer
+        format: int64
+        nullable: true
+  requestBody:
+    description: Workflow launch request
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/SubmitWorkflowLaunchRequest.yaml
+    required: true
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/SubmitWorkflowLaunchResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []

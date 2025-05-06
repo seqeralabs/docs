@@ -1,0 +1,10 @@
+type: object
+properties:
+  memberId:
+    type: integer
+    format: int64
+  teamId:
+    type: integer
+    format: int64
+  userNameOrEmail:
+    type: string

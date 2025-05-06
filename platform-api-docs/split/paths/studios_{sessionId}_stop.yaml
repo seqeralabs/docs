@@ -1,0 +1,38 @@
+put:
+  summary: Stop Studio
+  description: Stops the given Studio session ID.
+  tags:
+    - studios
+  operationId: StopDataStudio
+  parameters:
+    - name: sessionId
+      in: path
+      description: Session ID of the Studio.
+      required: true
+      schema:
+        type: string
+    - name: workspaceId
+      in: query
+      description: Optional workspace numeric identifier.
+      schema:
+        type: integer
+        format: int64
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/DataStudioStopResponse.yaml
+    '403':
+      description: Operation not allowed
+    '404':
+      description: >-
+        NotFound, when the studio is not found or when the API is disabled for
+        the workspace
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+  security:
+    - BearerAuth: []

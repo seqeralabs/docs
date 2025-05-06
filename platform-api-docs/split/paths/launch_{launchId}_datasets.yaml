@@ -1,0 +1,32 @@
+get:
+  summary: Describe launch datasets
+  description: >-
+    Retrieves the details of the datasets used in the launch identified by the
+    given `launchId`.
+  tags:
+    - datasets
+  operationId: ListLaunchDatasetVersions
+  parameters:
+    - name: launchId
+      in: path
+      description: Launch string identifier
+      required: true
+      schema:
+        type: string
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/DescribeLaunchResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []

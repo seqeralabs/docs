@@ -1,0 +1,86 @@
+required:
+  - dateCreated
+  - pipeline
+type: object
+properties:
+  id:
+    maxLength: 22
+    type: string
+  computeEnv:
+    nullable: true
+    allOf:
+      - $ref: ./ComputeEnv_ComputeConfig_.yaml
+  pipeline:
+    maxLength: 200
+    type: string
+  workDir:
+    type: string
+  revision:
+    maxLength: 100
+    type: string
+  configText:
+    type: string
+  towerConfig:
+    type: string
+  paramsText:
+    type: string
+  preRunScript:
+    type: string
+  postRunScript:
+    type: string
+  mainScript:
+    maxLength: 200
+    type: string
+  entryName:
+    maxLength: 80
+    type: string
+  schemaName:
+    maxLength: 100
+    pattern: '[\p{Graph}&&[^/]]\p{Graph}+'
+    type: string
+  resume:
+    type: boolean
+  resumeLaunchId:
+    maxLength: 22
+    type: string
+  pullLatest:
+    type: boolean
+  stubRun:
+    type: boolean
+  sessionId:
+    maxLength: 36
+    type: string
+  runName:
+    maxLength: 80
+    type: string
+  configProfiles:
+    type: array
+    items:
+      type: string
+  userSecrets:
+    type: array
+    items:
+      type: string
+  workspaceSecrets:
+    type: array
+    items:
+      type: string
+  optimizationId:
+    maxLength: 32
+    type: string
+  optimizationTargets:
+    type: string
+  headJobCpus:
+    type: integer
+    format: int32
+  headJobMemoryMb:
+    type: integer
+    format: int32
+  launchContainer:
+    type: string
+  dateCreated:
+    type: string
+    format: date-time
+  lastUpdated:
+    type: string
+    format: date-time

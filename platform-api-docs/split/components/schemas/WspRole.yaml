@@ -1,0 +1,8 @@
+type: string
+enum:
+  - owner
+  - admin
+  - maintain
+  - launch
+  - connect
+  - view

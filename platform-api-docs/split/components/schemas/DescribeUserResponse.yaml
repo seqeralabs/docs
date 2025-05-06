@@ -1,0 +1,9 @@
+type: object
+properties:
+  user:
+    $ref: ./UserDbDto.yaml
+  needConsent:
+    type: boolean
+  defaultWorkspaceId:
+    type: integer
+    format: int64

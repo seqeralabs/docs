@@ -1,0 +1,107 @@
+get:
+  summary: List workspace Studios settings
+  description: >-
+    Retrieves the Studios settings of the workspace identified by the given
+    `workspaceId`.
+  tags:
+    - workspaces
+  operationId: FindDataStudiosWorkspaceSettings
+  parameters:
+    - name: orgId
+      in: path
+      description: Organization numeric identifier
+      required: true
+      schema:
+        type: integer
+        format: int64
+    - name: workspaceId
+      in: path
+      description: Workspace numeric identifier
+      required: true
+      schema:
+        type: integer
+        format: int64
+  requestBody:
+    description: Workspace update request
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/UpdateWorkspaceRequest.yaml
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/DataStudioWorkspaceSettingsResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+    '409':
+      description: Duplicate element
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+  security:
+    - BearerAuth: []
+put:
+  summary: Update workspace Studios settings
+  description: >-
+    Updates the Studios settings of the workspace identified by the given
+    `workspaceId`.
+  tags:
+    - workspaces
+  operationId: UpdateDataStudiosWorkspaceSettings
+  parameters:
+    - name: orgId
+      in: path
+      description: Organization numeric identifier
+      required: true
+      schema:
+        type: integer
+        format: int64
+    - name: workspaceId
+      in: path
+      description: Workspace numeric identifier
+      required: true
+      schema:
+        type: integer
+        format: int64
+  requestBody:
+    description: Workspace update request
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/UpdateWorkspaceRequest.yaml
+    required: true
+  responses:
+    '200':
+      description: UpdateDataStudiosWorkspaceSettings 200 response
+      content:
+        application/json:
+          schema:
+            type: object
+    '204':
+      description: OK - No content
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+    '409':
+      description: Duplicate element
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+  security:
+    - BearerAuth: []

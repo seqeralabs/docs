@@ -1,0 +1,11 @@
+type: object
+properties:
+  workflowIds:
+    type: array
+    items:
+      type: string
+  labelIds:
+    type: array
+    items:
+      type: integer
+      format: int64

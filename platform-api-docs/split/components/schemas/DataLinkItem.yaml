@@ -1,0 +1,11 @@
+type: object
+properties:
+  type:
+    $ref: ./DataLinkItemType.yaml
+  name:
+    type: string
+  size:
+    type: integer
+    format: int64
+  mimeType:
+    type: string

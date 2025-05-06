@@ -1,0 +1,25 @@
+type: object
+properties:
+  gpu:
+    minimum: 0
+    type: integer
+    format: int32
+  cpu:
+    minimum: 0
+    type: integer
+    format: int32
+  memory:
+    minimum: 0
+    type: integer
+    format: int32
+  mountData:
+    type: array
+    items:
+      type: string
+  condaEnvironment:
+    maxLength: 2048
+    type: string
+  lifespanHours:
+    minimum: 0
+    type: integer
+    format: int32

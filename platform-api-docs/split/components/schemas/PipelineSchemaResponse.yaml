@@ -1,0 +1,8 @@
+required:
+  - schema
+type: object
+properties:
+  schema:
+    type: string
+  params:
+    type: string

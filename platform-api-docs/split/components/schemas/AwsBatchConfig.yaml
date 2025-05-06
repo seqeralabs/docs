@@ -1,0 +1,68 @@
+title: AWS Batch configuration
+type: object
+properties:
+  storageType:
+    type: string
+    deprecated: true
+  lustreId:
+    type: string
+    deprecated: true
+  volumes:
+    type: array
+    items:
+      type: string
+  discriminator:
+    type: string
+    description: property to select the compute config platform
+    readOnly: true
+  region:
+    type: string
+  computeQueue:
+    type: string
+  dragenQueue:
+    type: string
+  dragenInstanceType:
+    type: string
+  computeJobRole:
+    type: string
+  executionRole:
+    type: string
+  headQueue:
+    type: string
+  headJobRole:
+    type: string
+  cliPath:
+    type: string
+  workDir:
+    type: string
+  preRunScript:
+    type: string
+  postRunScript:
+    type: string
+  headJobCpus:
+    type: integer
+    format: int32
+  headJobMemoryMb:
+    type: integer
+    format: int32
+  environment:
+    type: array
+    items:
+      $ref: ./ConfigEnvVariable.yaml
+  waveEnabled:
+    type: boolean
+  fusion2Enabled:
+    type: boolean
+  nvnmeStorageEnabled:
+    type: boolean
+  logGroup:
+    type: string
+  nextflowConfig:
+    type: string
+  forge:
+    $ref: ./ForgeConfig.yaml
+  forgedResources:
+    type: array
+    items:
+      type: object
+      additionalProperties: true

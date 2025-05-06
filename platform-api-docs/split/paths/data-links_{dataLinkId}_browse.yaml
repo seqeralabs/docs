@@ -1,0 +1,66 @@
+get:
+  summary: Explore content of data link
+  tags:
+    - data-links
+  operationId: ExploreDataLink
+  parameters:
+    - name: dataLinkId
+      in: path
+      description: Datalink identifier
+      required: true
+      schema:
+        type: string
+    - name: workspaceId
+      in: query
+      description: Optional workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+    - name: credentialsId
+      in: query
+      description: Optional credentials identifier
+      schema:
+        type: string
+    - name: search
+      in: query
+      description: Optional search criteria, allowing prefix search on datalink content
+      schema:
+        type: string
+    - name: nextPageToken
+      in: query
+      description: Optional token used to fetch the next page of items
+      schema:
+        type: string
+    - name: pageSize
+      in: query
+      description: >-
+        Optional number of items to return per page, if missing a max-allowed
+        default value is used
+      schema:
+        type: integer
+        format: int32
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/DataLinkContentResponse.yaml
+    '400':
+      description: BadRequest
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+    '404':
+      description: >-
+        NotFound, when the workspace or credentials are not found or when the
+        API is disabled for the workspace or if data link or path not found
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+  security:
+    - BearerAuth: []

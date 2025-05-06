@@ -1,0 +1,81 @@
+get:
+  summary: List available datasets
+  description: >-
+    Lists all available datasets in the workspace context identified by the
+    given `workspaceId`.
+  tags:
+    - datasets
+  operationId: ListDatasets
+  parameters:
+    - name: workspaceId
+      in: path
+      description: Workspace numeric identifier
+      required: true
+      schema:
+        type: integer
+        format: int64
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ListDatasetsResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  deprecated: true
+  security:
+    - BearerAuth: []
+post:
+  summary: Create dataset
+  description: >-
+    Creates a new dataset in the given workspace context. Include the dataset
+    file and details in your request body.
+  tags:
+    - datasets
+  operationId: CreateDataset
+  parameters:
+    - name: workspaceId
+      in: path
+      description: Workspace numeric identifier
+      required: true
+      schema:
+        type: integer
+        format: int64
+  requestBody:
+    description: Dataset create request
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/CreateDatasetRequest.yaml
+    required: true
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/CreateDatasetResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+    '409':
+      description: Duplicate element
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+  deprecated: true
+  security:
+    - BearerAuth: []

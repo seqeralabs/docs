@@ -1,0 +1,6 @@
+type: string
+enum:
+  - recommended
+  - deprecated
+  - experimental
+  - unsupported

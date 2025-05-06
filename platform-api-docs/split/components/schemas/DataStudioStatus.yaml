@@ -1,0 +1,9 @@
+type: string
+enum:
+  - starting
+  - running
+  - stopping
+  - stopped
+  - errored
+  - building
+  - buildFailed

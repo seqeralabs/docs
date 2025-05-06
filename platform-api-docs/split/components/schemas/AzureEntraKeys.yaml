@@ -1,0 +1,14 @@
+type: object
+allOf:
+  - $ref: ./AzureSecurityKeys.yaml
+  - properties:
+      discriminator:
+        type: string
+        readOnly: true
+      tenantId:
+        type: string
+      clientId:
+        type: string
+      clientSecret:
+        type: string
+        writeOnly: true

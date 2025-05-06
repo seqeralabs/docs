@@ -1,0 +1,30 @@
+type: object
+properties:
+  workflow:
+    $ref: ./Workflow.yaml
+  progress:
+    $ref: ./ProgressData.yaml
+  platform:
+    $ref: ./ComputePlatformDto.yaml
+  jobInfo:
+    $ref: ./JobInfoDto.yaml
+  orgId:
+    type: integer
+    format: int64
+  orgName:
+    type: string
+  workspaceId:
+    type: integer
+    format: int64
+  workspaceName:
+    type: string
+  labels:
+    type: array
+    items:
+      $ref: ./LabelDbDto.yaml
+  optimized:
+    type: boolean
+  messages:
+    type: array
+    items:
+      type: string

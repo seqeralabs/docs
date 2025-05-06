@@ -1,0 +1,12 @@
+type: object
+properties:
+  tasks:
+    type: array
+    items:
+      $ref: ./Task.yaml
+  progress:
+    $ref: ./TraceProgressData.yaml
+  containers:
+    type: array
+    items:
+      $ref: ./ContainerData.yaml

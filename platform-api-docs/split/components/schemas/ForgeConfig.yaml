@@ -1,0 +1,84 @@
+type: object
+properties:
+  type:
+    type: string
+    enum:
+      - SPOT
+      - EC2
+  minCpus:
+    type: integer
+    format: int32
+  maxCpus:
+    type: integer
+    format: int32
+  gpuEnabled:
+    type: boolean
+  ebsAutoScale:
+    type: boolean
+  instanceTypes:
+    type: array
+    items:
+      type: string
+  allocStrategy:
+    type: string
+    enum:
+      - BEST_FIT
+      - BEST_FIT_PROGRESSIVE
+      - SPOT_CAPACITY_OPTIMIZED
+      - SPOT_PRICE_CAPACITY_OPTIMIZED
+  imageId:
+    type: string
+  vpcId:
+    type: string
+  subnets:
+    type: array
+    items:
+      type: string
+  securityGroups:
+    type: array
+    items:
+      type: string
+  fsxMount:
+    type: string
+  fsxName:
+    type: string
+  fsxSize:
+    type: integer
+    format: int32
+  disposeOnDeletion:
+    type: boolean
+  ec2KeyPair:
+    type: string
+  allowBuckets:
+    type: array
+    items:
+      type: string
+  ebsBlockSize:
+    type: integer
+    format: int32
+  fusionEnabled:
+    type: boolean
+  bidPercentage:
+    type: integer
+    format: int32
+  efsCreate:
+    type: boolean
+  efsId:
+    type: string
+  efsMount:
+    type: string
+  dragenEnabled:
+    type: boolean
+  dragenAmiId:
+    type: string
+  ebsBootSize:
+    type: integer
+    format: int32
+  ecsConfig:
+    type: string
+  fargateHeadEnabled:
+    type: boolean
+  arm64Enabled:
+    type: boolean
+  dragenInstanceType:
+    type: string

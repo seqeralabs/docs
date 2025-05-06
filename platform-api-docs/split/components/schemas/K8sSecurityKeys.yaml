@@ -1,0 +1,13 @@
+type: object
+properties:
+  discriminator:
+    type: string
+    readOnly: true
+  certificate:
+    type: string
+  privateKey:
+    type: string
+    writeOnly: true
+  token:
+    type: string
+    writeOnly: true

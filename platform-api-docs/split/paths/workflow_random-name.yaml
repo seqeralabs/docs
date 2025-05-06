@@ -1,0 +1,16 @@
+get:
+  summary: Generates a random name
+  tags:
+    - workflows
+  operationId: GenerateRandomWorkflowName
+  responses:
+    '200':
+      description: Generated name
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/RandomWorkflowNameResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []

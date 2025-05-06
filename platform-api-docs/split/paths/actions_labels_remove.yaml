@@ -1,0 +1,27 @@
+post:
+  summary: Remove labels from actions
+  description: Removes the given list of labels from the given pipeline actions.
+  tags:
+    - labels
+  operationId: RemoveLabelsFromActions
+  parameters:
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+  requestBody:
+    description: Labels remove request
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/AssociateActionLabelsRequest.yaml
+    required: true
+  responses:
+    '204':
+      description: OK - No content
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []

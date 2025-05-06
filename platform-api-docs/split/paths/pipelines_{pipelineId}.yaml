@@ -1,0 +1,145 @@
+get:
+  summary: Describe pipeline
+  description: >-
+    Retrieves the details of the pipeline identified by the given `pipelineId`,
+    enriched by `attributes`.
+  tags:
+    - pipelines
+  operationId: DescribePipeline
+  parameters:
+    - name: pipelineId
+      in: path
+      description: Pipeline numeric identifier
+      required: true
+      schema:
+        type: integer
+        format: int64
+    - name: attributes
+      in: query
+      description: >-
+        Additional attribute values to include in the response (`labels`,
+        `optimized` status, `computeEnv`). Returns an empty value (`labels:
+        null`, etc.) if omitted.
+      explode: false
+      schema:
+        type: array
+        items:
+          $ref: ../components/schemas/PipelineQueryAttribute.yaml
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+    - name: sourceWorkspaceId
+      in: query
+      description: Source workspace numeric identifier
+      required: false
+      schema:
+        type: integer
+        format: int64
+        nullable: true
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/DescribePipelineResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []
+put:
+  summary: Update pipeline
+  description: |-
+    Updates the details of the pipeline identified by the given `pipelineId`. 
+                **Note**: If `labelIds` is `null`, empty, or ommitted, existing pipeline labels are removed.
+                Include `labelIds: [<label-id-1>,<label-id-2>]` to override existing labels. Labels to be preserved must be included.
+                To append a list of labels to multiple pipelines, use `/pipelines/labels/add`.
+  tags:
+    - pipelines
+  operationId: UpdatePipeline
+  parameters:
+    - name: pipelineId
+      in: path
+      description: Pipeline numeric identifier
+      required: true
+      schema:
+        type: integer
+        format: int64
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+  requestBody:
+    description: Pipeline update request
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/UpdatePipelineRequest.yaml
+    required: true
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/UpdatePipelineResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+    '409':
+      description: Duplicate element
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+  security:
+    - BearerAuth: []
+delete:
+  summary: Delete pipeline
+  description: Deletes the pipeline identified by the given `pipelineId`.
+  tags:
+    - pipelines
+  operationId: DeletePipeline
+  parameters:
+    - name: pipelineId
+      in: path
+      description: Pipeline numeric identifier
+      required: true
+      schema:
+        type: integer
+        format: int64
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+  responses:
+    '204':
+      description: OK - No content
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []

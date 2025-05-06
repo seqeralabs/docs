@@ -1,0 +1,60 @@
+get:
+  summary: List workflows
+  description: >-
+    Lists all workflow records, enriched with `attributes`. Append
+    `?workspaceId` to list workflow records in a workspace context.
+  tags:
+    - workflows
+  operationId: ListWorkflows
+  parameters:
+    - name: attributes
+      in: query
+      description: >-
+        Additional attribute values to include in the response (`labels`,
+        `optimized` status). Returns an empty value (`labels: null`) if omitted.
+        Specify `minimal` to remove non-essential fields (for use in UI only).
+      explode: false
+      schema:
+        type: array
+        items:
+          $ref: ../components/schemas/WorkflowQueryAttribute.yaml
+    - name: workspaceId
+      in: query
+      description: Workspace numeric identifier
+      schema:
+        type: integer
+        format: int64
+    - name: max
+      in: query
+      description: Pagination result max result
+      schema:
+        type: integer
+        format: int32
+    - name: offset
+      in: query
+      description: Pagination offset
+      schema:
+        type: integer
+        format: int32
+    - name: search
+      in: query
+      description: Filter search parameter
+      schema:
+        type: string
+  responses:
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ListWorkflowsResponse.yaml
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/ErrorResponse.yaml
+    '403':
+      description: Operation not allowed
+  security:
+    - BearerAuth: []

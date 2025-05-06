@@ -1,0 +1,9 @@
+type: object
+properties:
+  members:
+    type: array
+    items:
+      $ref: ./MemberDbDto.yaml
+  totalSize:
+    type: integer
+    format: int64

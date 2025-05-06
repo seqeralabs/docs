@@ -1,0 +1,14 @@
+type: object
+properties:
+  teamId:
+    type: integer
+    format: int64
+  name:
+    type: string
+  description:
+    type: string
+  avatarUrl:
+    type: string
+  membersCount:
+    type: integer
+    format: int64
