@@ -22,11 +22,11 @@ container registry ([cr.seqera.io](https://cr.seqera.io)). Contact [support](htt
 
 3. Pull the Nextflow Tower container images with the following commands:
 
-```bash
-docker pull {{ images.tower_be_image }}
-
-docker pull {{ images.tower_fe_image }}
-```
+    ```bash
+    docker pull {{ images.tower_be_image }}
+    
+    docker pull {{ images.tower_fe_image }}
+    ```
 
 :::caution
 The Seqera Labs container registry `cr.seqera.io` is the default Tower container image registry from version 22.4. Use of the AWS, Azure, and Google Cloud Tower image registries in existing installations is still supported but will be deprecated for **new installations** starting June 2023. See [here](../advanced-topics/seqera-container-images.mdx) for steps to use the Seqera Labs private AWS Elastic Container Registry.
@@ -260,17 +260,17 @@ If you have never set up an Amazon EC2 instance for Linux, refer to [this guide]
 
 22. Enter the following commands to set up `docker` and `docker-compose`.
 
-```bash
-# Install and start the docker engine
-sudo yum install docker git -y
-sudo service docker start
-sudo usermod -a -G docker ec2-user
-sudo chkconfig docker on
-
-# Setup docker-compose
-sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-sudo mv /usr/local/bin/docker-compose /bin/docker-compose
-```
+    ```bash
+    # Install and start the docker engine
+    sudo yum install docker git -y
+    sudo service docker start
+    sudo usermod -a -G docker ec2-user
+    sudo chkconfig docker on
+    
+    # Setup docker-compose
+    sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
+    sudo mv /usr/local/bin/docker-compose /bin/docker-compose
+    ```
 
 Then, configure the AWS CLI and Docker as described in [Tower container images](#tower-container-images). The AWS CLI (v1) is pre-installed in Amazon Linux.
