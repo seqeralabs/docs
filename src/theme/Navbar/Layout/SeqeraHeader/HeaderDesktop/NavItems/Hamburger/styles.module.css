@@ -60,9 +60,9 @@
 
 html[data-theme="dark"] .hamburger {
   &:focus {
-    border: 2px solid white;
+    border: 2px solid #F1F1F1;;
   }
   & span {
-    background-color: white;
+    background-color: #F1F1F1;;
   }
 }

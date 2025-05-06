@@ -79,13 +79,13 @@ html[data-theme="dark"] .navList {
 
 html[data-theme="dark"] .navList {
   a {
-    color: white;
+    color: #F1F1F1;;
     &:after {
       background-color: var(--color-blu-300);
     }
     &:hover {
       text-decoration: none;
-      color:  white;
+      color:  #F1F1F1;;
     }
   }
 }

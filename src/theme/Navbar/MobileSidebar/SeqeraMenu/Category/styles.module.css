@@ -60,7 +60,7 @@
 }
 
 [data-theme="light"] .submenu {
-  background: white;
+  background: #F1F1F1;
 
   h3 {
     color: var(--color-brand-700);
@@ -69,12 +69,12 @@
 
 [data-theme="dark"] .submenu {
   background: #1c1c1e;
-  color: white;
+  color: #F1F1F1;
   a {
-    color: white;
+    color: #F1F1F1;
   }
   h3 {
-    color: white;
+    color: #F1F1F1;
   }
   svg {
     filter: invert(100%);

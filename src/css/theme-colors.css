@@ -119,7 +119,7 @@ html[data-theme="dark"] {
   --ifm-background-color: #1c1c1e;
   --ifm-breadcrumb-color-active: var(--color-blu-300);
   --ifm-link-color: var(--color-blu-300);
-  --ifm-font-color-base: white;
+  --ifm-font-color-base: #F1F1F1;
 
   /* Tables */
   --ifm-table-border-color: var(--color-brand-1000);
@@ -127,7 +127,7 @@ html[data-theme="dark"] {
 
   /* Navbar */
   --ifm-background-surface-color: #1c1c1e;
-  --ifm-navbar-link-color: white;
+  --ifm-navbar-link-color: #F1F1F1;
   --ifm-navbar-link-hover-color: var(--color-blu-100);
 
   /* Breadcrumbs */
@@ -136,7 +136,7 @@ html[data-theme="dark"] {
   /* Sidebar */
   --ifm-toc-border-color: var(--color-brand-1000);
   --ifm-menu-color-background-active: var(--color-gray-900);
-  --ifm-menu-color-active: white;
+  --ifm-menu-color-active:#F1F1F1;
   --ifm-menu-color-background-hover: var(--color-blu-100);
 }
 
@@ -154,7 +154,7 @@ html[data-theme="dark"] .pagination-nav__link:hover {
 
 /* Header nav */
 html[data-theme="dark"] .navbar__items--right {
-  color: white;
+  color: #F1F1F1;
 }
 html[data-theme="dark"] .navbar__items--right button:not(.DocSearch):hover {
   background-color: var(--color-wave);
@@ -171,11 +171,8 @@ html[data-theme="dark"] .container a {
 }
 
 html[data-theme="dark"] {
-  /* .navbar-sidebar a {
-    color: white;
-  } */
   .navbar ul a, .navbar li a{
-    color: white;
+    color: #F1F1F1;
   }
 
   .navbar-sidebar__back {
@@ -187,7 +184,7 @@ html[data-theme="dark"] {
 }
 
 html[data-theme="dark"] .table-of-contents a {
-  color: white;
+  color: #F1F1F1;
 }
 
 html[data-theme="dark"]
@@ -196,7 +193,7 @@ html[data-theme="dark"]
 }
 
 html[data-theme="dark"] .breadcrumbs__item--active .breadcrumbs__link {
-  color: white;
+  color: #F1F1F1;
 }
 
 html[data-theme="dark"] .table-of-contents__left-border {
@@ -229,7 +226,7 @@ html[data-theme="dark"] {
   table {
    
     thead {
-      background:white;
+      background:#F1F1F1;
       tr {
         border-bottom: none;
       }
@@ -238,7 +235,7 @@ html[data-theme="dark"] {
     tr {
       
       &:nth-child(even) {
-        background: rgba(255,255,255, 1);
+        background: #F1F1F1;
       }
     }
   }
@@ -309,7 +306,7 @@ html[data-theme="dark"]  {
     }
   }
   .details.alert--info {
-    border-color: white;
+    border-color: #F1F1F1;
   }
 
   .theme-admonition.theme-admonition-note,

@@ -4,7 +4,7 @@
 
 html[data-theme="dark"] {
   .header {
-    background: white;
+    background: #F1F1F1;
   }
 }
 
@@ -15,7 +15,7 @@ html[data-theme="dark"] {
     border-bottom: 1px solid var(--color-gray-800);
   }
   .footer a {
-    color: white;
+    color: #F1F1F1;
   }
 }
 

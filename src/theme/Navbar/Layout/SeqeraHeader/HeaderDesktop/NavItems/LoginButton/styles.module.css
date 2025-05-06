@@ -42,16 +42,16 @@ html[data-theme="dark"] .button {
     &:hover {
       background-color: var(--color-blu-800);
       border-color: var(--color-blu-800);
-      color: white;
+      color: #F1F1F1;;
     }
     &.secondary {
       border-color: var(--color-blu);
       background: var(--color-blu);
-      color: white;
+      color: #F1F1F1;;
       &:hover {
         background-color: var(--color-blu-800);
         border-color: var(--color-blu-800);
-        color: white;
+        color: #F1F1F1;;
       }
       &.altStyle {
         background-color: rgba(16, 23, 59, 0.8);

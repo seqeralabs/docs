@@ -128,7 +128,7 @@
         filter: invert(100%);
       }
       & .caret {
-        fill: #fff;
+        fill: #F1F1F1;
       }
     }
     & .items {
@@ -141,7 +141,7 @@
         &:first-child {
           &:hover {
             background: var(--color-gray-800);
-            color: white;
+            color: #F1F1F1;
           }
         }
         &:hover {
