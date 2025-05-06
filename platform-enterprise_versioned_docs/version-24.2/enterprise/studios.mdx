@@ -41,8 +41,8 @@ The latest environment versions are listed below:
 
 - JupyterLab: `public.cr.seqera.io/platform/data-studio-jupyter:4.2.5-0.8`
 - RStudio Server: `public.cr.seqera.io/platform/data-studio-rstudio:4.4.1-0.8`
-- Visual Studio Code: `public.cr.seqera.io/platform/data-studio-vscode:1.93.0-0.8`
-- Xpra: `public.cr.seqera.io/platform/data-studio-xpra:6.2-r2-1-0.8`
+- Visual Studio Code: `public.cr.seqera.io/platform/data-studio-vscode:1.93.1-0.8`
+- Xpra: `public.cr.seqera.io/platform/data-studio-xpra:6.2.0-r2-1-0.8`
 
 When adding a new Studio, the latest environment versions are tagged `recommended`, and earlier compatible versions are tagged `deprecated`.
 
