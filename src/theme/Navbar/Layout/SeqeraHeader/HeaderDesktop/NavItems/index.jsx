@@ -46,35 +46,38 @@ const NavItems = ({ isDark = false, hideMenu }) => {
       <div className="w-full flex items-center justify-between">
         <ul className={`${styles.navList} flex flex-row`}>
           <li>
-            <ActiveLink to="/platform-cloud" customClasses={`mr-8`}>
+            <ActiveLink to="/platform-cloud" customClasses={`mr-6`}>
               Cloud
             </ActiveLink>
           </li>
           <li>
-            <ActiveLink url="/platform-enterprise" customClasses={`mr-8`}>
+            <ActiveLink url="/platform-enterprise" customClasses={`mr-6`}>
               Enterprise
             </ActiveLink>
           </li>
           <li>
             <a
-              className="mr-8"
+              className="mr-6"
               href="https://nextflow.io/docs/latest/index.html"
             >
-              Nextflow
+              <div className="flex flex-row items-center">
+               Nextflow 
+              <svg width="10" height="10" aria-hidden="true" viewBox="0 0 24 24" className="opacity-50 ml-1"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg>
+              </div>
             </a>
           </li>
           <li>
-            <ActiveLink url="/multiqc" customClasses={`mr-8`}>
+            <ActiveLink url="/multiqc" customClasses={`mr-6`}>
               MultiQC
             </ActiveLink>
           </li>
           <li>
-            <ActiveLink url="/wave" customClasses={`mr-8`}>
+            <ActiveLink url="/wave" customClasses={`mr-6`}>
               Wave
             </ActiveLink>
           </li>
           <li>
-            <ActiveLink url="/fusion" customClasses={`mr-8`}>
+            <ActiveLink url="/fusion" customClasses={`mr-6`}>
               Fusion
             </ActiveLink>
           </li>
@@ -82,7 +85,10 @@ const NavItems = ({ isDark = false, hideMenu }) => {
         <ul className={`${styles.navList} flex flex-row mr-2`}>
           <li>
             <a className="ml-8" href="https://training.nextflow.io/latest/">
-              Training
+            <div className="flex flex-row items-center">
+               Nextflow Training
+              <svg width="10" height="10" aria-hidden="true" viewBox="0 0 24 24" className="opacity-50 ml-1"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg>
+              </div>
             </a>
           </li>
           <li>

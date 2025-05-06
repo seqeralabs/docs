@@ -42,6 +42,16 @@ const Products = ({ toggleMenu }) => {
           Fusion
         </a>
       </li>
+      <li>
+        <a href="/https://training.nextflow.io/latest/" onClick={toggleMenu}>
+          Nextflow Training
+        </a>
+      </li>
+      <li>
+        <a href="/platform-api" onClick={toggleMenu}>
+          Platform API
+        </a>
+      </li>
     </ul>
   );
 };
