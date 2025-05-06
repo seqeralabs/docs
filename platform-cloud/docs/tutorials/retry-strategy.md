@@ -2,7 +2,7 @@
 title: "Manage AWS Spot interruptions in Seqera Platform"
 description: "Managing AWS Spot Interruptions in Seqera Platform."
 date: "16 Jul 2024"
-tags: [cli, platform, installation, configuration]
+tags: [aws, spot, platform, fusion, retry]
 ---
 
 In AWS Batch environments that use Spot instances, tasks can be interrupted when instances are reclaimed, and this is a normal part of how Spot instances operate. The frequency of interruptions can be highly variable, based on factors including the wider demand on AWS services. AWS offers an insight into the frequency of Spot reclamations with their **instance-advisor** service which you can find [here](https://aws.amazon.com/ec2/spot/instance-advisor/).
