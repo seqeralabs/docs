@@ -318,9 +318,10 @@ html[data-theme="dark"]  {
   .theme-admonition.theme-admonition-note,
   .theme-admonition.alert--info  {
     background-color: var(--color-wave-1000);
-    a  {
-      text-decoration-color: var(--color-gray-200);
-      color: var(--color-gray-200);
+    a {
+      /* text-decoration-color: var(--color-gray-200);
+      color: var(--color-gray-200); */
+      color: inherit;
       &:hover {
         color: var(--color-gray-400);
         text-decoration-color: var(--color-gray-400);
