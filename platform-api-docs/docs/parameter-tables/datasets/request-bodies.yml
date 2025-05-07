@@ -2,11 +2,11 @@
   Type: ""
   Req/Opt: ""
   Description: Create dataset
-- Name: "  name"
+- Name: name
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  description"
+- Name: description
   Type: string
   Req/Opt: Optional
   Description: ""
@@ -14,11 +14,11 @@
   Type: ""
   Req/Opt: ""
   Description: Update dataset
-- Name: "  name"
+- Name: name
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  description"
+- Name: description
   Type: string
   Req/Opt: Optional
   Description: ""
@@ -26,11 +26,11 @@
   Type: ""
   Req/Opt: ""
   Description: Create dataset
-- Name: "  name"
+- Name: name
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  description"
+- Name: description
   Type: string
   Req/Opt: Optional
   Description: ""
@@ -38,11 +38,11 @@
   Type: ""
   Req/Opt: ""
   Description: Update dataset
-- Name: "  name"
+- Name: name
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  description"
+- Name: description
   Type: string
   Req/Opt: Optional
   Description: ""

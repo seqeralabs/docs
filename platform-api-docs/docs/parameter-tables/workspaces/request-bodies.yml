@@ -2,27 +2,55 @@
   Type: ""
   Req/Opt: ""
   Description: Create workspace
-- Name: "  workspace"
+- Name: workspace
   Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: workspace.id
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: workspace.name
+  Type: string
+  Req/Opt: Required
+  Description: ""
+- Name: workspace.fullName
+  Type: string
+  Req/Opt: Required
+  Description: ""
+- Name: workspace.description
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: workspace.visibility
+  Type: string
+  Req/Opt: Required
+  Description: ""
+- Name: workspace.dateCreated
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: workspace.lastUpdated
+  Type: string
   Req/Opt: Optional
   Description: ""
 - Name: "**UpdateWorkspace**"
   Type: ""
   Req/Opt: ""
   Description: Update workspace
-- Name: "  name"
+- Name: name
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  fullName"
+- Name: fullName
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  description"
+- Name: description
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  visibility"
+- Name: visibility
   Type: string
   Req/Opt: Optional
   Description: ""
@@ -30,15 +58,15 @@
   Type: ""
   Req/Opt: ""
   Description: Create workspace participant
-- Name: "  memberId"
+- Name: memberId
   Type: integer
   Req/Opt: Optional
   Description: ""
-- Name: "  teamId"
+- Name: teamId
   Type: integer
   Req/Opt: Optional
   Description: ""
-- Name: "  userNameOrEmail"
+- Name: userNameOrEmail
   Type: string
   Req/Opt: Optional
   Description: ""
@@ -46,7 +74,7 @@
   Type: ""
   Req/Opt: ""
   Description: Update participant role
-- Name: "  role"
+- Name: role
   Type: string
   Req/Opt: Optional
   Description: ""
@@ -54,19 +82,19 @@
   Type: ""
   Req/Opt: ""
   Description: List workspace Studios settings
-- Name: "  name"
+- Name: name
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  fullName"
+- Name: fullName
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  description"
+- Name: description
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  visibility"
+- Name: visibility
   Type: string
   Req/Opt: Optional
   Description: ""
@@ -74,19 +102,19 @@
   Type: ""
   Req/Opt: ""
   Description: Update workspace Studios settings
-- Name: "  name"
+- Name: name
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  fullName"
+- Name: fullName
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  description"
+- Name: description
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  visibility"
+- Name: visibility
   Type: string
   Req/Opt: Optional
   Description: ""

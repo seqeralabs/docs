@@ -2,11 +2,31 @@
   Type: ""
   Req/Opt: ""
   Description: Create team
-- Name: "  team"
+- Name: team
   Type: object
   Req/Opt: Optional
   Description: ""
-- Name: "  avatarId"
+- Name: team.id
+  Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: team.name
+  Type: string
+  Req/Opt: Required
+  Description: ""
+- Name: team.description
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: team.dateCreated
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: team.lastUpdated
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: avatarId
   Type: string
   Req/Opt: Optional
   Description: ""
@@ -14,15 +34,15 @@
   Type: ""
   Req/Opt: ""
   Description: Update team
-- Name: "  name"
+- Name: name
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  description"
+- Name: description
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  avatarId"
+- Name: avatarId
   Type: string
   Req/Opt: Optional
   Description: ""
@@ -30,7 +50,7 @@
   Type: ""
   Req/Opt: ""
   Description: Create team member
-- Name: "  userNameOrEmail"
+- Name: userNameOrEmail
   Type: string
   Req/Opt: Optional
   Description: ""

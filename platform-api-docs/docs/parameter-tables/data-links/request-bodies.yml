@@ -2,31 +2,31 @@
   Type: ""
   Req/Opt: ""
   Description: Create data link in a user or workspace context
-- Name: "  name"
+- Name: name
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  description"
+- Name: description
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  type"
+- Name: type
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  provider"
+- Name: provider
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  resourceRef"
+- Name: resourceRef
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  publicAccessible"
+- Name: publicAccessible
   Type: boolean
   Req/Opt: Optional
   Description: ""
-- Name: "  credentialsId"
+- Name: credentialsId
   Type: string
   Req/Opt: Optional
   Description: ""
@@ -34,15 +34,15 @@
   Type: ""
   Req/Opt: ""
   Description: Update data link in a user or workspace context
-- Name: "  name"
+- Name: name
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  description"
+- Name: description
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  credentialsId"
+- Name: credentialsId
   Type: string
   Req/Opt: Optional
   Description: ""

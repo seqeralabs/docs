@@ -26,18 +26,44 @@ function formatParameter(param) {
   };
 }
 
-function formatRequestBody(schema, spec, required = []) {
+function formatRequestBody(schema, spec, required = [], parentPath = '') {
   const properties = schema?.properties || {};
-  return Object.entries(properties).map(([key, prop]) => {
+  const rows = [];
+
+  for (const [key, prop] of Object.entries(properties)) {
     const resolved = prop.$ref ? resolveRef(prop.$ref, spec) : prop;
-    return {
-      Name: `  ${key}`,
+    const fullKey = parentPath ? `${parentPath}.${key}` : key;
+
+    // Add row for this field
+    rows.push({
+      Name: fullKey,
       Type: resolved.type || 'object',
       'Req/Opt': required.includes(key) ? 'Required' : 'Optional',
       Description: (resolved.description || '').replace(/\n/g, ' '),
-    };
-  });
+    });
+
+    // Recurse into nested object
+    if (resolved.type === 'object' && resolved.properties) {
+      const childRequired = resolved.required || [];
+      rows.push(...formatRequestBody(resolved, spec, childRequired, fullKey));
+    }
+
+    // Handle arrays of objects
+    if (resolved.type === 'array' && resolved.items) {
+      const items = resolved.items.$ref
+        ? resolveRef(resolved.items.$ref, spec)
+        : resolved.items;
+
+      if (items.type === 'object' && items.properties) {
+        const childRequired = items.required || [];
+        rows.push(...formatRequestBody(items, spec, childRequired, `${fullKey}[]`));
+      }
+    }
+  }
+
+  return rows;
 }
+
 
 function formatResponseBody(schema, spec, required = []) {
   const properties = schema?.properties || {};

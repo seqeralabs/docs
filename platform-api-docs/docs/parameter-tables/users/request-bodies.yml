@@ -2,67 +2,67 @@
   Type: ""
   Req/Opt: ""
   Description: Update an user entity
-- Name: "  id"
+- Name: id
   Type: integer
   Req/Opt: Optional
   Description: ""
-- Name: "  userName"
+- Name: userName
   Type: string
   Req/Opt: Required
   Description: ""
-- Name: "  email"
+- Name: email
   Type: string
   Req/Opt: Required
   Description: ""
-- Name: "  firstName"
+- Name: firstName
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  lastName"
+- Name: lastName
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  organization"
+- Name: organization
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  description"
+- Name: description
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  avatar"
+- Name: avatar
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  avatarId"
+- Name: avatarId
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  notification"
+- Name: notification
   Type: boolean
   Req/Opt: Optional
   Description: ""
-- Name: "  termsOfUseConsent"
+- Name: termsOfUseConsent
   Type: boolean
   Req/Opt: Optional
   Description: ""
-- Name: "  marketingConsent"
+- Name: marketingConsent
   Type: boolean
   Req/Opt: Optional
   Description: ""
-- Name: "  lastAccess"
+- Name: lastAccess
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  dateCreated"
+- Name: dateCreated
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  lastUpdated"
+- Name: lastUpdated
   Type: string
   Req/Opt: Optional
   Description: ""
-- Name: "  deleted"
+- Name: deleted
   Type: boolean
   Req/Opt: Optional
   Description: ""
