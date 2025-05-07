@@ -1,7 +1,6 @@
 .switcher {
   position: relative;
-  margin: 8px 0 0 0;
-  padding-top: 1.5rem;
+  /* margin: 8px 0 0 0; */
   .button {
     /* border-bottom-color: var(--color-brand-200); */
     z-index: 10;
@@ -99,8 +98,8 @@
     visibility 100ms ease-in-out;
   position: absolute;
   top: 34px;
-  left: 0;
-  right: 0;
+  left: 1rem;
+  right: 1rem;
   opacity: 0;
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
@@ -129,11 +128,12 @@
         filter: invert(100%);
       }
       & .caret {
-        fill: #fff;
+        fill: #F1F1F1;
       }
     }
     & .items {
       border-color: var(--color-gray-800);
+      border-bottom: none;
       & .item {
         background-color: var(--color-gray-1000);
         border-color: var(--color-gray-800);
@@ -141,7 +141,7 @@
         &:first-child {
           &:hover {
             background: var(--color-gray-800);
-            color: white;
+            color: #F1F1F1;
           }
         }
         &:hover {

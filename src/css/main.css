@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --ifm-navbar-height: 5rem;
+  --ifm-navbar-height: 4rem;
   --ifm-color-secondary-contrast-background: #f7f7f7;
 }
 
@@ -79,16 +79,10 @@
     font-weight: 400;
   }
 }
-
-svg.excalidraw {
-  @apply h-full max-w-full;
-}
-[data-theme="dark"] svg.excalidraw {
-  /* Not sure why dark:hue-rotate-180 dark:invert doesn't work */
-  filter: invert(1) hue-rotate(180deg);
-}
-svg.excalidraw path[fill="#fff"] {
-  @apply fill-transparent;
+@media (min-width: 996px) { 
+  :root {
+    --ifm-navbar-height: 7rem;
+  }
 }
 
 .navbar {
@@ -99,10 +93,6 @@ svg.excalidraw path[fill="#fff"] {
     margin-inline-start: 0;
     padding: 0;
   }
-}
-.navbar-sidebar__items {
-  overflow-y: scroll;
-  height: auto;
 }
 /* Hide the top navbar on desktop */
 @media (min-width: 996px) {
@@ -139,18 +129,26 @@ nav.menu .menu__list .menu__link {
   font-weight: 400;
   font-size: 0.9rem;
 }
+.theme-doc-sidebar-menu .menu__link {
+  font-weight: 400;
+}
 nav.menu .menu__list .menu__link--active:not(.menu__link--sublist) {
   font-weight: 700;
 }
 nav.menu .menu__list .menu__link--sublist-caret:after,
 .menu__caret:before {
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="4 4 16 16"><path d="M11.8152 13.1989L10.0167 11.1432C9.80447 10.9013 9.97697 10.5214 10.2991 10.5214H13.8961C13.9682 10.5214 14.0388 10.5421 14.0994 10.5811C14.16 10.6201 14.2081 10.6758 14.2379 10.7414C14.2677 10.8071 14.2779 10.8799 14.2674 10.9512C14.2569 11.0226 14.226 11.0893 14.1785 11.1435L12.38 13.1985C12.3448 13.2388 12.3014 13.2711 12.2527 13.2932C12.204 13.3153 12.1511 13.3268 12.0976 13.3268C12.0441 13.3268 11.9912 13.3153 11.9425 13.2932C11.8938 13.2711 11.8504 13.2388 11.8152 13.1985V13.1989Z" /></svg>')
-    50% / 24px 24px;
+  background-image: url("data:image/svg+xml,%3Csvg width='25' height='24' viewBox='0 0 25 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.4943 10.4038L7.7174 15.1615L7.16162 14.6057L12.4943 9.29225L17.8078 14.6057L17.252 15.1615L12.4943 10.4038Z' fill='%23160F26'/%3E%3C/svg%3E%0A");
   transform: rotate(0deg);
+  width: 25px;
+  background-size:100%;
+
+}
+.menu__caret:hover {
+  background: rgba(0,0,0,.1);
 }
 nav.menu .menu__list-item--collapsed .menu__link--sublist:after,
 .menu__list-item--collapsed .menu__caret:before {
-  transform: rotate(-90deg);
+  transform: rotate(90deg);
 }
 [data-theme="light"] nav.menu .menu__list {
   & .menu__link {
@@ -230,12 +228,10 @@ nav.menu .menu__list-item--collapsed .menu__link--sublist:after,
 }
 .breadcrumbs {
   display: inline-block;
+  margin-top: 0;
 }
 .breadcrumbs__link {
   padding: 0;
-}
-
-.breadcrumbs__link a {
 }
 
 .breadcrumbs__item--active .breadcrumbs__link {
@@ -244,6 +240,7 @@ nav.menu .menu__list-item--collapsed .menu__link--sublist:after,
 }
 .breadcrumbs__link svg {
   padding-top: 4px;
+  margin-bottom: -1px;
 }
 
 .table-of-contents {
@@ -266,6 +263,10 @@ nav.menu .menu__list-item--collapsed .menu__link--sublist:after,
   display: flex;
   flex-direction: row;
   align-items: center;
+
+  svg {
+    width: 15px;
+  }
 }
 
 ul {
@@ -299,17 +300,24 @@ ol li {
 }
 
 .admonition-icon {
+  width: 10px;
   svg {
     width: 10px;
   }
 }
-
-.padding-top--md {
-  margin-top: 2rem;
-}
-
-.padding-bottom--lg {
-  margin-bottom: 3rem;
+.theme-admonition {
+  div {
+    &:first-child {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+  svg {
+    &:first-child {
+      width: 13px;
+    }
+  }
 }
 
 /* Mobile nav */
@@ -341,4 +349,38 @@ details.details {
 
 .details {
   border-color: var(--color-blu);
+}
+
+.main-wrapper {
+  .container {
+    margin-top: 0rem;
+    @media (min-width: 996px) {
+      margin-top: 2rem;
+    }
+  }
+}
+
+table {
+  --ifm-table-background: rgba(255,255,255,.1);
+  thead {
+    background: var(--color-gray-200);
+    tr {
+      border-bottom: none;
+    }
+  }
+}
+
+html[data-theme="dark"]{
+  --ifm-table-background: rgba(0,0,0,.7);
+  table {
+    thead {
+      background: rgba(0,0,0,.3);
+    }
+    tr:nth-child(1n) {
+      background: transparent;
+    }
+    tr:nth-child(2n) {
+      background: rgba(0,0,0,.2);
+    }
+  }
 }

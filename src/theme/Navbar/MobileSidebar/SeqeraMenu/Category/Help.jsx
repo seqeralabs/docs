@@ -19,16 +19,16 @@ const links = {
 
 const Help = ({ toggleMenu }) => {
   return (
-    <ul className="mb-8">
-      <h6 className="mb-3 text-[.9rem] font-display">Help</h6>
+    <ul className={`${styles.menuList}`}>
+      <h6 className="mb-3 text-[.7rem] font-display">Help</h6>
       {links.help.map(([label, href, Icon]) => (
         <li key={label}>
           <a
             href={href}
-            className={`
+            className={`whitespace-nowrap
               flex items-center text-[14px] pr-2 rounded-md
               transition-all duration-500 ease-in-out hover:no-underline
-              h-[28px]`}
+              h-[25px]`}
           >
             <div className={`${styles.iconItem}`}>
               <Icon className="" />

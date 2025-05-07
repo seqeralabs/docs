@@ -7,10 +7,26 @@
     color: var(--color-brand);
     font-size: 1rem;
     font-weight: 400;
+    margin-bottom: .25rem;
+    &:hover {
+      background: var(--color-blu-100);
+      border-radius: 6px;
+      text-decoration: none;
+      color: var(--color-brand);
+    }
   }
-  li {
-    margin-bottom: .5rem;
+}
+html[data-theme="dark"]  {
+  .mobileMenu {
+    a {
+      color: var(--color-brand);
+      &:hover {
+        background: var(--color-gray-900);
+        color: var(--gray-200);
+      }
+    }
   }
+
 }
 
 .button {

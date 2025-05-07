@@ -76,9 +76,9 @@ const ProductSwitcher = ({ isDropdown }) => {
   if (!isDropdown) items = products;
 
   return (
-    <div className={clsx(styles.switcher)}>
+    <div className={clsx(`${styles.switcher} ${isEnterprisePage ? 'pt-2 px-4 mb-3' : 'hidden'}`)}>
       {isDropdown && (
-        <div className={`${isEnterprisePage ? ' ' : 'hidden'}`}>
+        <div className={`${isEnterprisePage ? '' : 'hidden'}`}>
         <div
           className={clsx(styles.items, {
             [styles.active]: isOpen || isSecondaryOpen

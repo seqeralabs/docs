@@ -253,18 +253,23 @@ export default async function createConfigAsync() {
         },
         items: [
           {
-            to: "/platform-enterprise/",
-            position: "left",
-            label: "Platform Enterprise",
-          },
-          {
             to: "/platform-cloud/",
             position: "left",
             label: "Platform Cloud",
           },
           {
+            to: "/platform-enterprise/",
+            position: "left",
+            label: "Platform Enterprise",
+          },
+          {
+            type: "docsVersionDropdown",
+            position: "right",
+            docsPluginId: "platform-enterprise",
+          },
+          {
             to: "https://www.nextflow.io/docs/latest/",
-            html: 'Nextflow <svg width="12" height="12" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU" style="margin-left:4px;opacity:0.6;"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg>',
+            html: 'Nextflow <svg width="12" height="12" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU" style="margin-left:6px;opacity:0.6;"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg>',
             position: "left",
             target: "_blank",
           },
@@ -283,15 +288,21 @@ export default async function createConfigAsync() {
             label: "Fusion",
             position: "left",
           },
+          // {
+          //   type: "search",
+          //   position: "right",
+          // },
           {
-            type: "search",
-            position: "right",
+            to: "https://training.nextflow.io/latest/",
+            html: 'Nextflow Training <svg width="12" height="12" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU" style="margin-left:6px;opacity:0.6;"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg>',
+            position: "left",
+            target: "_blank",
           },
-          {
-            type: "docsVersionDropdown",
-            position: "right",
-            docsPluginId: "platform-enterprise",
-          },
+          // {
+          //   to: "/platform-api/",
+          //   label: "Platform API",
+          //   position: "left",
+          // },
         ],
       },
       footer: {

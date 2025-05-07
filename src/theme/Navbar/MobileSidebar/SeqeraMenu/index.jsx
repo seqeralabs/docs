@@ -1,16 +1,12 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import clsx from "clsx";
-import Products from "./Category/Products";
 import Help from "./Category/Help";
 import Company from "./Category/Company";
-import Category from "./Category";
-
+import NavbarMobilePrimaryMenu from "../PrimaryMenu";
 import styles from "./styles.module.css";
 
 const Menu = () => {
-  const [selectedCategory, setSelectedCategory] = React.useState("Products");
-
   const navVariants = {
     enter: { y: -20, opacity: 0 },
     enter2: { y: 60, opacity: 0 },
@@ -36,7 +32,7 @@ const Menu = () => {
           transition={transition}
           className={`${styles.mobileMenu}`}
         >
-          <div className="flex flex-row space-x-2 px-4 mb-6 mt-4">
+          <div className="flex flex-row space-x-2 px-4 mb-4 mt-2">
             <a
               className={clsx(styles.button, {}, "w-full text-center")}
               href="https://cloud.seqera.io/login"
@@ -56,11 +52,11 @@ const Menu = () => {
             </a>
           </div>
 
-          <div className="px-4 pb-2 border-b border-b-gray-600">
-            <Products />
+          <div className="px-1 pb-2 border-b border-b-gray-600">
+            <NavbarMobilePrimaryMenu />
           </div>
 
-          <div className="px-4">
+          <div className="px-4 flex flex-row">
             <Help />
             <Company />
           </div>
