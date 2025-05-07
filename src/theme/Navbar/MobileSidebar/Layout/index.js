@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import clsx from "clsx";
+import { useLocation } from "@docusaurus/router";
 import { useNavbarSecondaryMenu } from "@docusaurus/theme-common/internal";
 import SeqeraMenu from "../SeqeraMenu";
 import Caret from "./Caret.svg"
@@ -23,9 +24,6 @@ function NavButtons({ currentPanel, setPanel }) {
       {currentPanel === 1 && (
         <Button onClick={setPanel(2)}>Docs Menu <div className="caret ml-2"><Caret/></div></Button>
       )}
-      {/* {currentPanel === 2 && (
-        <Button onClick={setPanel(1)}><div className={`${styles.caretRotate} mr-2`}><Caret/></div>Main Menu </Button>
-      )} */}
       {currentPanel === 2 && (
         <Button onClick={setPanel(1)}><div className={`${styles.caretRotate} mr-2`}><Caret/></div> Main Menu</Button>
       )}
@@ -36,6 +34,7 @@ function NavButtons({ currentPanel, setPanel }) {
 export default function NavbarMobileSidebarLayout({ header, primaryMenu }) {
   const level2 = useNavbarSecondaryMenu();
   const [currentPanel, setCurrentPanel] = React.useState(level2.shown ? 2 : 2);
+  const [mainMenu, setMainMenu] = useState(false);
 
   useEffect(() => {
     setCurrentPanel(level2.shown ? 2 : 1);
@@ -48,6 +47,15 @@ export default function NavbarMobileSidebarLayout({ header, primaryMenu }) {
     };
   }
 
+    useEffect(() => {
+      if (location.pathname =='/') {
+        setMainMenu(false);
+      } else {
+        setMainMenu(true);
+      }
+    }, [location.pathname]);
+
+
   return (
     <div className="navbar-sidebar">
       {header}
@@ -58,7 +66,9 @@ export default function NavbarMobileSidebarLayout({ header, primaryMenu }) {
         })}
       >
         <div className="navbar-sidebar__item menu mb-2">
-          <NavButtons currentPanel={currentPanel} setPanel={setPanel} />
+          <div className={`${!mainMenu && "hidden"}`}>
+            <NavButtons currentPanel={currentPanel} setPanel={setPanel} />
+          </div>
           <SeqeraMenu />
         </div>
         <div className="navbar-sidebar__item menu mb-4">
