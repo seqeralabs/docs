@@ -348,9 +348,6 @@ export default async function createConfigAsync() {
           "yaml"
         ],
       },
-      colorMode: {
-        respectPrefersColorScheme: true,
-      },
     },
     clientModules: [require.resolve("./clientside-scripts.js")],
     stylesheets: [
