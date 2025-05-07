@@ -34,6 +34,32 @@
   }
 }
 
+.lightDarkMode {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  &:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    content: '';
+    background-image: url('SunIcon.svg');
+    background-repeat: no-repeat;
+    background-size: 80%;
+    background-position: center;
+  }
+}
+
+html[data-theme="dark"] {
+  .lightDarkMode {
+    &:after {
+      background-size: 70%;
+      background-image: url('MoonIcon.svg');
+    }
+  }
+}
 
 html[data-theme="dark"] .button {
     background: var(--color-gray-400);
