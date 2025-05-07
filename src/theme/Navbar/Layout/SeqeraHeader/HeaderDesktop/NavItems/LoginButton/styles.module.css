@@ -40,9 +40,9 @@ html[data-theme="dark"] .button {
     border-color: var(--color-gray-400);
     color: var(--color-brand-1000);
     &:hover {
-      background-color: var(--color-blu-800);
-      border-color: var(--color-blu-800);
-      color: #F1F1F1;;
+      background-color: var(--color-gray-900);
+      border-color: var(--color-gray-900);
+      color: #F1F1F1;
     }
     &.secondary {
       border-color: var(--color-blu);

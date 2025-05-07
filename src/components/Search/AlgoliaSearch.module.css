@@ -70,11 +70,13 @@ html[data-theme="dark"] .searchModal {
   color: var(--text-gray-800);
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
   height: 30px;
+  transition: all .3s;
   @media (min-width: 996px) {
     height: 40px;
   }
   &:hover {
     color: var(--text-gray-1000);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .4);
   }
 }
 
@@ -85,6 +87,7 @@ html[data-theme="dark"] .searchBar  {
   color: var(--text-gray-800);
   &:hover {
     color: var(--text-gray-1000);
+    box-shadow: 0 0 0 1px var(--color-gray-600);
   }
 }
 
