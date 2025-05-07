@@ -269,11 +269,11 @@ export default async function createConfigAsync() {
             position: "left",
             target: "_blank",
           },
-          {
-            to: "/platform-api/",
-            label: "Platform API",
-            position: "left",
-          },
+          // {
+          //   to: "/platform-api/",
+          //   label: "Platform API",
+          //   position: "left",
+          // },
         ],
       },
       footer: {
