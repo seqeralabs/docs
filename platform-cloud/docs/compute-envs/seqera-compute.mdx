@@ -22,6 +22,20 @@ View your Seqera Compute credit balance and spend under both the organization an
 
 Select **Contact us to upgrade** to request additional credits for your organization. 
 
+### Default limits
+
+Seqera Compute has default workspace limits on compute environments, and organization limits on data storage and CPU cores. 
+
+|                                    | **Basic**                        | **Pro**                            |
+|------------------------------------|----------------------------------|------------------------------------|
+| Cloud storage                      | 25 GB                            | Unlimited                          |
+| Compute environments per workspace | 5                                | 20                                 |
+| Total CPU cores                    | 100                              | 1000                               |
+
+:::info
+[Contact us](https://seqera.io/contact-us/) to discuss custom limits for Pro, academic, or evaluation licenses. 
+:::
+
 ### Create a Seqera Compute environment 
 
 1. In a workspace with Seqera Compute enabled, select **Compute environments > New environment**.
@@ -29,7 +43,14 @@ Select **Contact us to upgrade** to request additional credits for your organiza
 1. Under **Platform**, select **Seqera Compute**. 
 1. Select a target execution **Region**. 
     :::info
-    If your data resides in existing S3 object storage, select the same, or nearest, region to your data to minimize cross-region ingress/egress costs. 
+    Seqera Compute is available in the following AWS regions: 
+    - us-east1, us-east-2, us-west-1, us-west-2 
+    - ap-east-1, ap-south-1, ap-south-2, ap-southeast-1, ap-southeast-2, ap-southeast-3, ap-northeast-1, ap-northeast-2, ap-northeast-3 
+    - ca-central-1 
+    - eu-central-1, eu-central-2, eu-west-1, eu-west-2, eu-west-3, eu-north-1, eu-south-1, eu-south-2 
+    - me-south-1, me-central-1
+    - sa-east-1 
+    - af-south-1 
     :::
 1. Configure any advanced options described in the next section, as needed.
 1. Select **Add** to complete the Seqera Compute environment configuration and return to the compute environments list. It will take a few seconds for the compute environment resources to be created before you are ready to launch pipelines or add studios. 
