@@ -5,47 +5,23 @@ import "dotenv/config";
 import platform_enterprise_latest_version from "./platform-enterprise_latest_version.js";
 
 export default async function createConfigAsync() {
-  const changelog = [
-    "classic",
-    {
-      blog: {
-        blogTitle: "Seqera Changelog",
-        blogDescription: "Blog",
-        blogSidebarCount: 5000,
-        blogSidebarTitle: "Changelog",
-        path: "changelog",
-        routeBasePath: "/changelog",
-        //processBlogPosts: () => ({}),
-        include: ["**/*.{md,mdx}"],
-        showReadingTime: false,
-        feedOptions: {
-          type: "all", // 'rss', 'atom', or both
-          title: "Seqera Changelog",
-          description: "Stay updated with our blog posts!",
-          copyright: `Copyright © ${new Date().getFullYear()} Seqera`,
-        },
-      },
-      docs: false,
-      theme: {
-        customCss: [
-          require.resolve("./src/css/main.css"),
-          require.resolve("./src/css/misc.css"),
-          require.resolve("./src/css/components/checklist.css"),
-          require.resolve("./src/css/components/box.css"),
-          require.resolve("./src/css/theme-colors.css"),
-          require.resolve("./src/css/fonts/inter.css"),
-          require.resolve("./src/css/fonts/degular.css"),
-        ],
-      },
-      gtag: {
-        trackingID: "G-NR1CNM213G",
-        anonymizeIP: true,
-      },
-      googleTagManager: {
-        containerId: "GTM-MBCJKK4",
-      },
+  const changelog = {
+    blogTitle: "Seqera Changelog",
+    blogDescription: "Blog",
+    blogSidebarCount: 5000,
+    blogSidebarTitle: "Changelog",
+    path: "changelog",
+    routeBasePath: "/changelog",
+    //processBlogPosts: () => ({}),
+    include: ["**/*.{md,mdx}"],
+    showReadingTime: false,
+    feedOptions: {
+      type: "all", // 'rss', 'atom', or both
+      title: "Seqera Changelog",
+      description: "Stay updated with our blog posts!",
+      copyright: `Copyright © ${new Date().getFullYear()} Seqera`,
     },
-  ];
+  };
 
   const docs_platform_enterprise = [
     "@docusaurus/plugin-content-docs",
@@ -196,7 +172,33 @@ export default async function createConfigAsync() {
       locales: ["en"],
     },
 
-    presets: [process.env.EXCLUDE_CHANGELOG ? null : changelog],
+    presets: [
+      [
+        "classic",
+        {
+          blog: process.env.EXCLUDE_CHANGELOG ? false : changelog,
+          docs: false,
+          theme: {
+            customCss: [
+              require.resolve("./src/css/main.css"),
+              require.resolve("./src/css/misc.css"),
+              require.resolve("./src/css/components/checklist.css"),
+              require.resolve("./src/css/components/box.css"),
+              require.resolve("./src/css/theme-colors.css"),
+              require.resolve("./src/css/fonts/inter.css"),
+              require.resolve("./src/css/fonts/degular.css"),
+            ],
+          },
+          gtag: {
+            trackingID: "G-NR1CNM213G",
+            anonymizeIP: true,
+          },
+          googleTagManager: {
+            containerId: "GTM-MBCJKK4",
+          },
+        },
+      ],
+    ],
     plugins: [
       process.env.EXCLUDE_PLATFORM_ENTERPRISE ? null : docs_platform_enterprise,
       process.env.EXCLUDE_PLATFORM_CLOUD ? null : docs_platform_cloud,
