@@ -2,5 +2,11 @@
   function = "og-generate.png"
   path = "/og-generate.png"
 
-[build]
-  command = "NODE_OPTIONS=--max_old_space_size=8000 npm run build"
+# Specific branch deployment contexts
+#   Defining these ENV vars excludes certain docsets
+#   Use to have multiple separate netlify builds that don't time out
+[context.deploy-apidocs.environment]
+  EXCLUDE_CHANGELOG="1"
+  EXCLUDE_MULTIQC="1"
+  EXCLUDE_FUSION="1"
+  EXCLUDE_WAVE="1"
