@@ -1,0 +1,75 @@
+---
+id: describe-user
+title: "Describe a user entity"
+description: "Describe a user entity"
+sidebar_label: "Describe a user entity"
+hide_title: true
+hide_table_of_contents: true
+api: eJyVVdtu2zAM/RVDTxuQNeltwPy03jYEG9aiF+whyANjM4ka23IlOm0X+N9Hyk7iJG6RviSWdCiSh4fUQhFMnAoHqnBonRp2lMnRAmmT9WMVqkt0kdUjfOBj1VE5WEiRBBoOFirjBYPEltEdpTNe5UBT/o69ZS438abYB1mRotVRoGPMSI+1v9LiU6EtsjOyBXaUi6aYggoXil5zuV1nhBMPHRubAlVbX09UWQ7F3OUmc+jE4qjXk79N19e/2DQyfEtGcgp5nujIp9h9dAJZ7Do1o0eMSDK2QgjpyoFkKv/roAeKDXXCSDn7I4RwVO/fouO90mtcyfAUXn5jNmFuw5PeyoMjq7OJYKswNoFHp6fbyIabyoJNx9o6avFz2GtzlMAHwMZOINP/oKrFHgYbtdvGtxnAHAhsg9Dto37cepgZkWC0iqwGjIxJEDJBsMxTdz1m6V6Iwir17MJSsDMkvvVdlLB2FkXo3G40jZrEQPiFNLMrXPDiwiL/tqTwlpE4esjjjxnFmOCmwSp0IUJTgnUTX44uyXj+EON3M45xDEVCf42duRwi7O+n+oa/5vC5rfucAQI5aev0c4gD6Ux09JGWbzZzygWCyR49vATuSquRwJW1Zjfy45YZtRy6AcsygCQxzxxP6VnMLUZVNesBiVFhNb36CXyOYNGeFdIgg6EMxM2LlxQGEMgwCWTwsimrFmlqZMJP0CcnQztUXf8MdBfVRC/V2tud0FWl3vS5yn5KlKt6ensheBDvVB8/llV+fCafl87GxpvXVN3hE1MQnN30d96O+ugmARKxBBzbXHMn1WCpM0S+zoVN6lBc2O06b3egjVpNR+/2+/qAA5lzwpWfw4Pjbwc92cuNoxS8TOon7k0et+ZVzQbhC3XzBLTvBB/WouZ4+dR2VFi/m1y0KTuUo8ViBA4fbFKWss1StlJn/pyD1TASqrjqsXbyzeUbQ+JwJ4qV9NWn21rcn4O3n+DWoOtNyCTLOSSFrPhzhq/rJ78cMnKKEMuzyIFVhzLncmqY7fSfCHWlwJ9X94yFTT1t6cff3hoSU+YR92aGWVmuIiRZS4Bl+R+rpgop
+sidebar_class_name: "get api-method"
+info_path: docs/platform-api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Describe a user entity"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/users/{userId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+:::caution deprecated
+
+This endpoint has been deprecated and may be replaced or removed in future versions of the API.
+
+:::
+
+Describe a user entity
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"userId","in":"path","description":"User numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"user":{"required":["email","userName"],"type":"object","properties":{"id":{"type":"integer","format":"int64"},"userName":{"maxLength":40,"type":"string"},"email":{"maxLength":255,"type":"string","format":"email"},"firstName":{"maxLength":100,"type":"string"},"lastName":{"maxLength":100,"type":"string"},"organization":{"maxLength":100,"type":"string"},"description":{"maxLength":1000,"type":"string"},"avatar":{"type":"string"},"avatarId":{"type":"string"},"notification":{"type":"boolean"},"termsOfUseConsent":{"type":"boolean"},"marketingConsent":{"type":"boolean"},"lastAccess":{"type":"string","format":"date-time"},"dateCreated":{"type":"string","format":"date-time"},"lastUpdated":{"type":"string","format":"date-time"},"deleted":{"type":"boolean"}},"title":"UserDbDto"},"needConsent":{"type":"boolean"},"defaultWorkspaceId":{"type":"integer","format":"int64"}},"title":"DescribeUserResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

@@ -1,0 +1,71 @@
+---
+id: list-mounted-data-link-ids
+title: "List mounted data links"
+description: "Lists the IDs of all data links mounted in the available Studios."
+sidebar_label: "List mounted data links"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVMFuEzEQ/RXL55AEWiGRE0UFFFFERYt6QD1MdieJG8fe2rNpwyr/zox3k03akBboadf2eN4bz5tX6RxjFkxBxjs90GcmUlQ0RTU8jcqPFVirciBQ1rhZVHNfOsJcGZeCYAHGwsiiuqAyNz52dUcTTKIe/NSx3tLXHe0LDCAQw7wB+VonOuXUZ5x5mEe+WUCAORIGuV9pxwsO92HC1zraCMHbEsOSF7u0v4UJOPMrQShXzjGYTJkcHZmxwSCsYjbFOehBpWlZSFrD+BMMfDT2YQ5Ub7091qtVZ4N958MsFpDhUwyu1oEvCh8JqIxP1J5+wDYtUPWdvZiRgnGTHQS8z2yZ4zMhIsYoTzw8FW2IAhpQ8qrJJNIAlfIc5sCyCBgL7zipnL/p9+XzAPkL58g8v5UjOYWisCZLfe7dRAmpHkP40Q1mJHoKIjwyNUC+pbU2GEIAqdgQzuM+nitWtCEre6LWuuBGvpIufm+qkFgOPu4f7aljPQDKeZKh8neYSyN0xKwMhpZJ8R8QAoaTkqa8vJYn4nGYehmaCaaKQI50r5mtntT0Ko2mblNdyIPUNW8n3JQ2JSrWrZH1KAXxTv3zaa3HmztKFI0b+3S9eYYLvOVq1Mn58JFSmqNzCySyZsGEhckwNsHSSchSJ8tgGypx0OvFdK9rPAdxM41N4zD279sDJrJgZ6hxXneP3nX7slf4SHNIQmgkLfayMarWux5yrVpdvYzt1Y9LeE+9wgKPE7NLVVZN21pL7OitxnGXp1yEnFfVCCL+CHa1ku16GkUYuYmCx0IYg414oJRnWOFepjNcbnntAmwpMVqs4vngT7ngAeRdp/1H/D974QHkjcn+L+jfu+MBVq0xt7SuZRGM8Er+wMJByHl0RSL1tZMsw4K2bj1yzB1X+fzxkmNh1x8e+EHKvnZLt9zKzXJNEZd+ho4lu+ZOsmYg9sPfLHLiRQ==
+sidebar_class_name: "get api-method"
+info_path: docs/platform-api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List mounted data links"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/studios/data-links"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Lists the IDs of all data links mounted in the available Studios.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"query","description":"Organization numeric identifier.","schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier.","schema":{"type":"integer","format":"int64"}},{"name":"status","in":"query","description":"Optional Studio status.","schema":{"type":"string"}},{"name":"exclude","in":"query","description":"Optional session ID of the Studio to exclude in a query.","schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"dataLinkIds":{"type":"array","items":{"type":"string"}}},"title":"DataStudioMountedLinksResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

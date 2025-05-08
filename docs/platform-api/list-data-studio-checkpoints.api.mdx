@@ -1,0 +1,71 @@
+---
+id: list-data-studio-checkpoints
+title: "List Studio checkpoints"
+description: "Retrieves the list of checkpoints for the given Studio session ID."
+sidebar_label: "List Studio checkpoints"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNV0tv2zgQ/isET7uAG6dNUGB92rRpF8Eu2iJuT4WB0NLIYiKLCjly6hr+7ztD6hkJXqdpgb0kIuf1zXBe3skYXGR1gdrkciavAa2GDTiBKYhMOxQmEVEK0V1hdI5OJMZ62kpvIBdzLGNthAPnSIG4ujyRE4lq5eTsq3Se6ORiIk0BVrGNq5is/EN6LxWqIP221U7ChbJqDQiWVexkTgeSqAyQ9ERqBlooTOm7j37ewGDUjDJYYFAW7kttgcyjLWEiHTm1VnK2k7gtvAnyPF/J/X7SWH0w9s4VKoLW7n0Jdjsw/NF/qEw0EiIv12B1JHQMOepEg2UUA6vkNazAEokCu1YYrl6f93A4UDZKj4QQmAWRKIhaTYTKMvNAronEAgiEb1jzUKjYglB5LO5gS+BjNxM3SyAscOOvb1RCam5GsY9EbK2+HQmTODlGS7D8VoR1TTlnxBKEBSxtDvFElA5in3CFWunc588Tgnj2qgfNJIkDPBJdYB4AoJMFV5ic8vGJQBacgrUoSbw6PeV/j+z/TaKRIS05MlUVRaYj7/j01jHLrmO0TemvMuoVERpU2Vx/B669CptZ3kLE/heWqxF1wNEVbB1R1ioOj3+Xx7ZUialhJ2OKyFsLHJfqNFcb/635jw/8fwIg1mPKoVI3zL4+jAG9o4n5XqAmLfsu2qNFKr8fR2NDnYwR06vorPadMsd++Ln+NyrHYhCMj1EqfGNlK1FjxlehTX4hA73rsR59iSbwNCl2XDMbUcpjoNP8r6vyIG7mPx8rkDcqvqbYg8MfLZQ1zQi1OuJdasaDgXtnrbED4GcjlV0PQJEbDC2Z8Hju8yH3B4PvTZlTC3xIacryJAvDVGjnFSRMFdSYGvrFpysmxtqpZVZ1Lb5vJtL/NWBEdBCVNK62fuK/odkE9oJqjY4L7pu0DqSG94aV799+9M/ktFovprtmOdhP+22w1jtnxwLIrvYGZ4pY1O2cz0vPRDfh432dzLcP6J3ReWK8eF0+cE+vy08wspJ40qdMIdcETV670RHtV4GZX0RF/kVKm1VQ3Gw6dV7uRJumscy82T9bAgHZ0JoU7Lw8Ofvj5JTvCuNwrfyDVpOP66ze1PoB6mHdtfnxk/bAEF3eOKZFpmjuchezvk2FR2x3xImcdXe8LkzKgJR8Yu7dbqkcfLHZfs/XYYhz0tRpL2eJyhwc8OzoVW0UPW1Jg71wo7KSOSUvGz8A5JctbAc8aDbK54J/xhp3AF5YI5+L7bgl7gCMZmVskSz4QK+05MJ/UuL9dl011d/Fod8po3DqrSzfdsG0j1kXzn5BzCmomLoXowv0iyiCouvGoPn3uuxf7z7LsOx0WuSjlui1j6KiEvUcn80d5FSmNUjkMwPc7/8FsOn/KA==
+sidebar_class_name: "get api-method"
+info_path: docs/platform-api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List Studio checkpoints"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/studios/{sessionId}/checkpoints"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Retrieves the list of checkpoints for the given Studio session ID.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"sessionId","in":"path","description":"Session ID of the Studio.","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Optional workspace numeric identifier.","schema":{"type":"integer","format":"int64"}},{"name":"search","in":"query","description":"Optional search criteria, allowing free text search on name and keywords: `before` and `after`.","schema":{"type":"string"}},{"name":"max","in":"query","description":"Optional max number of items to be returned, used for pagination.","schema":{"type":"integer","format":"int32"}},{"name":"offset","in":"query","description":"Optional offset used for paginated responses","schema":{"type":"integer","format":"int32"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"required":["checkpoints","totalSize"],"type":"object","properties":{"checkpoints":{"type":"array","items":{"required":["author","dateCreated","dateSaved","id","name"],"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"},"dateCreated":{"type":"string","format":"date-time"},"dateSaved":{"type":"string","format":"date-time"},"author":{"required":["avatar","email","id","userName"],"type":"object","properties":{"id":{"type":"integer","format":"int64"},"userName":{"type":"string"},"email":{"type":"string"},"avatar":{"type":"string"}},"title":"StudioUser"}},"title":"DataStudioCheckpointDto"}},"totalSize":{"type":"integer","format":"int64"}},"title":"DataStudioListCheckpointsResponse"}}}},"400":{"description":"BadRequest","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"NotFound, when the studio is not found or when the API is disabled for the workspace","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

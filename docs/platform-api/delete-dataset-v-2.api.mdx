@@ -1,0 +1,71 @@
+---
+id: delete-dataset-v-2
+title: "Delete dataset"
+description: "Deletes the dataset identified by the given `datasetId`."
+sidebar_label: "Delete dataset"
+hide_title: true
+hide_table_of_contents: true
+api: eJylVFFv2kAM/iune9okBqytJo2ntSqT0KatarvtASH1SAw5euSudw4divLfZ18SAgV1mvYEZ3+2P8efXcoUQuK1Q21zOZLXYAAhCMxApApVABQ6hRz1QkMq5tvoWeoN5OKhAUzSh77sSVTLIEdT2ViDnPWkdeAVp56ku+TXtf/nGcU45dWabJ4jS5nTg3DP1j8GpxKgqJ7UzOupAL+lxyHbXy1Q5MUavE46rp7AIclgreSolLh1nFjnCMvoWli/VlibPlzIqurtqu+6ams7hdlR6aYLEdDrfHlY18NToT1Qy+gLOMGjDqKqMwYHZ/MAgf1nwwv+OSz1/Yt4J75ZkViin6OsevJiODzGXalUcGkISCRaNMGUc0YncQ6DVWBsucepYzuVawhBLYFH11C18xUknM95HibqmmgLPNEThWo0bBp7b/1t0x95qsj8/ESHrUxEblEoY+wz8WF4gKTwGrdRHlegPPjLgsYxms7445F2MsvSSqO0oqLYKwetCgflbp6V7PLdcft1K/tZd91kiK5VEL/nEUSW+s/nVj6rZ4w8db6wMbxp/Q6eqCVxeTM5Uk7jujEKWYUigN/ohHauBvPcVBLnVnjTUAmjwSDEuL62BKLRaRPVu7CfOgcR2dAu1XXe988/9odsczbgWsWxNxqvN7Hd8JcUy048/3UQ6k+J8BsHzijaJeISeyqbMe0di54cdYtHk82IMwPKck7GH95UFZvrO8BiSHVQc8OyXSgT4JUW/nIlTtJ8hO3RIdooUzBSsvI2ymuu/49c3tw22/ZWvHZBTnJqjCrf7pNpuXZfr5oROAOVUipmV/svkwQc7kUeXYWDhboefx3fjwmuDhfjxSLEAieJ0eAi4t4+Ql5VO57Ib+ZYVX8A6xw7Aw==
+sidebar_class_name: "delete api-method"
+info_path: docs/platform-api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Delete dataset"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/datasets/{datasetId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Deletes the dataset identified by the given `datasetId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"datasetId","in":"path","description":"Dataset string identifier","required":true,"schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

@@ -1,0 +1,71 @@
+---
+id: delete-workflow
+title: "Delete the Workflow entity with the given ID"
+description: "Delete the Workflow entity with the given ID"
+sidebar_label: "Delete the Workflow entity with the given ID"
+hide_title: true
+hide_table_of_contents: true
+api: eJydVMFu2zAM/RVBpw3ImmwtBiyntWgKFBu2ou2wQ5GD4tCxWkVyJTpZYPjfR8p2HC9Gt+6UmHrieyIfWUpUqyCnD3Lr/FNq3DbI+Ui6HLxC7ez1Uk7lJRhA+NkA5Ejmyqs1hTzfLKWlD4K1GejOSGpLkVxhRv+XEBKvc85HwTaPCOi1XQm9BIs61eAJ6uG50B6IFX0BIxmSDNZKTkuJu5xJ6kuyqkY93pCrBDri5wL8bpA5AoUt1uB10uc+4tIWYRWPUufXCuvQx7MeOx0l8DLvFUMEZiCWXEkKCtiAFTqNwbZuQgehEtQbGBKzcM6AssQ95zKF3NkAgQEfJmf80+f8/kW8E98cisTRKyzKaiTPJpNj4IVaCq46BCTaFk0wledGJ9EF48fA2PJAVdeoB7mGENQK2DiNWLd4hITz5Z6thLpW2gKH2ilRo+HQzHvnb5sH0kkVlZ8OPLE1qbD0TmWohKSH4QGSwmvcRXdegPLgzwuy4vRhztXrp6ndHTuxtya7AndiqzGLByvN/bq+pBeR7zPHUxF7CXEaOLUct30cl90kVLJTc8fFqwtxqGlfiwwxbzsfOx5BFKn/XLUefNxifKW2qYvXm8LdwTMVRJzfXB85sDm6MQrZyiKA3+gEQgPmrpPzOFnhTSMlTMfjEO+daEcgarw2cQRS97k7ICEbWgQ1z/uT008nE47lLuBaRdM0g/LKOvcesK8Rwi8c50bRtBFJFFs2DehWGN2eHiwj6nhGahhRlgsV4Ic3VcXhelzZJEsd1MKwnVNlAhzR7+fib0tkUOcT7I721EaZgpGSd8m/0//PLnlBU7u9OjVz/vCa5byyMm9um53wVry44wflNEFld4dqDkvXdLOaEzoDtaRcrK8GnCcJ5Hhw9Wh78cP2s3s5+zq7nxFc9Ufwj5GLBIPKyEgRce+ewFbVXijyN2usqt+RL4k8
+sidebar_class_name: "delete api-method"
+info_path: docs/platform-api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Delete the Workflow entity with the given ID"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/workflow/{workflowId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Delete the Workflow entity with the given ID
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workflowId","in":"path","description":"Workflow string identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"force","in":"query","description":"Force the deletion even if the workflow is active","schema":{"type":"boolean"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - Not content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

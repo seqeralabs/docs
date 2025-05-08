@@ -1,0 +1,71 @@
+---
+id: list-data-studio-templates
+title: "List Studio templates"
+description: "Retrieves the list of available configured Studio templates."
+sidebar_label: "List Studio templates"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVltv2zoM/iuCnrOmW4sDLE+nwy4YMOwMTXdehj4wNp2otSVVotNmQf77SDmO3TrLsu5lT4nE2yfyI+m1zjFmwXgyzuqJvkQKBpcYFS1QlSaScoWCJZgSZiWqzNnCzOuAuZpSnRunCCtfAmE80SNNMI968k3HJIv6eqSdxwDi/WPO/j+xx7dA0BhftbZs6iFAhYRBHKy15QPr37twGz1kyNYjbQTiXY1hxYfHwP9Lf6BUOwtlcrRkCoOBtWO2wAr0ZK1p5cWzsYTzJCpcqICaq3/O9WYz2oWv4OHIsKypbF3NMEjCDGeFU+jUDFVAqoPFfKTqyGnjaMrD3NiUlOORnb16hMwVRUQ6ElyjPIjPp4DROxtTBX4HCBe2M2WLV6en8vMk/q160Ys1ZFPOTFDxCY84HLOMuHbiEbwvTZZyNb6J4nbdAxrwrjZMRuFc3wE5gnJqvqMwcPsaN7vBTDLmg3CSTIO8M+seDiGApDOVsXf/ExcBvYuGHJeg043cSHauN+wla2APBJGA6jgUjTQyleRNATNXVWhzzFN1PV9ILkXlgREYlvFL+VjbWHvvggjlzYZK8dj12v/cWZzEaRNzIzly5R5Ym33GbaM24l1yj+umA/6izIPLLZFYV7TP91HpDeSXXGuM9Fx6VBgjzI8gRKt4MDXvQnBhAPxsTw+0409ZRwrK0t0znqR9PtT+7Oi9qy3PivsF2jSDL758VCaq3ERpmaZ/5X435/7WhAjBMauDoVWa6G8QAoaLmhZ8vJYJwuN+4WQrzNMk8yAiPd4uj3G/oVtPU3lKA6vvb4dsQeTbUSbnWVLim+bP+5acN/eU4BtbuGS+fcYU77hekvTBNN2KvjAk4biKGJYm403ZKEsNIEs1qEO5hRIn43FMdifGSdNWPPpSbxTu307AQJZNe7Ls5cnZ65NTueOpQhWkEm6nvrTLYPE+Rbru+PDH+7zJKuEDjfmWdw3DSs9bb8vV7fpRb5RycRcMXsTr9Qwifg3lZiPXzaYSPrSM1pMCyogHHvGr3b4X5S2uBt8PSyhr0dSySJ8R//lL/gDE5hvjT6Edt+IPwNh9UHRIruUQjEBJLctFRcg55VK+xuoiy9D3rQbz51Gjf3h3xbrwuGef9Gjy3i5iu+r5ZioljSt3i5bp1EInOXMgnjk/AH77w/M=
+sidebar_class_name: "get api-method"
+info_path: docs/platform-api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List Studio templates"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/studios/templates"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Retrieves the list of available configured Studio templates.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Optional workspace identifier","schema":{"type":"integer","format":"int64"}},{"name":"max","in":"query","description":"Optional max number of items to be returned, used for pagination","schema":{"type":"integer","format":"int32"}},{"name":"offset","in":"query","description":"Optional offset used for paginated responses","schema":{"type":"integer","format":"int32"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Ok - paginated list of available data studio templates","content":{"application/json":{"schema":{"required":["templates","totalSize"],"type":"object","properties":{"templates":{"type":"array","items":{"type":"object","properties":{"repository":{"type":"string"},"icon":{"type":"string"},"status":{"type":"string","enum":["recommended","deprecated","experimental","unsupported"],"title":"DataStudioVersionStatus"},"tool":{"type":"string"}},"title":"DataStudioTemplate"}},"totalSize":{"type":"integer","format":"int64"}},"title":"DataStudioTemplatesListResponse"}}}},"400":{"description":"BadRequest","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"NotFound, when the API is disabled for the workspace","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

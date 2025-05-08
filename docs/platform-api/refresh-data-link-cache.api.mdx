@@ -1,0 +1,71 @@
+---
+id: refresh-data-link-cache
+title: "Refresh data link cache for workspace or specific credentials"
+description: "Refresh data link cache for workspace or specific credentials"
+sidebar_label: "Refresh data link cache for workspace or specific credentials"
+hide_title: true
+hide_table_of_contents: true
+api: eJylVNtu2zAM/RVDz1mcrcWA5WndFcUGrFi7pyEPjMzEWhTJleh0geF/Hyk7iZN096eEF5GH55BuFMEyqulXVQDBE2vcKqrZSPkKA5Dx7rpQU/UZFwFj+YZTPnLGa9AlqpGqIMAaCYMUaJRjg5MffFjFCjTy05Eyjl33NYYtGwVGHUwlddn7Kf0Bm+1fZK5eYzA6MwU6MguDgV9F7rYGNW0UbSvpYBzhMoUWPqyBOtfzS9W2oz0MHTAVARv/GMjgzW8gRArGLbkhc8XUVN5FjBJ/NpnIz0mDD6odqcvJxSOhHdGZ85SBtf4BCxlERdR1MLRN3L5CCBiuairZnEnX4zK9QpmomImKmRaRMiZoQC8bsULNU+nhrDwgy1h6kXqJlJSVRio/LEWe6uWh66MO8G6Fmm72Icg9UyVRtWNQ7HlKYk/3591OwW8PlMY2buHTc0NW8m/xnhnKrm6uz3TrQzcWSBYhixg2RmPsk7V3BJqkWB1sDyVO8zymd2PjOYllNTYt0MK/PAQYyIb3uuvzdHzxYjwRX+UjrcFJyX7N/pf4o4n2pBF+p7yywEvLXRP6phfl6FJ5yP4Wd8LwZpQMUvKaZg4RvwTbtuLudl+WqTAR5pbXbLpgEHgGQohjhH9xoo/CXuH27HOwAVtLppJL/QccP73QXyA4/RIcMMzECEZApLMa3MH7t3ecCse7fLK7icw+BG47KM3Up4w7v0LH9O+gkNjct23bH10y5I8=
+sidebar_class_name: "get api-method"
+info_path: docs/platform-api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Refresh data link cache for workspace or specific credentials"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/data-links/cache/refresh"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Refresh data link cache for workspace or specific credentials
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Optional workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"credentialsId","in":"query","description":"Optional credentials identifier","schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK"},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

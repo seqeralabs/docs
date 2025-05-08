@@ -1,0 +1,71 @@
+---
+id: explore-data-link-1
+title: "Explore content of data link"
+description: "Explore content of data link"
+sidebar_label: "Explore content of data link"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNV1tP5DYU/iuWn1opy7ALqtR5Krs7VKioi4A+oVHlSU4mhiQOtsMwjfLf9xznNplkhwBaqU9k7HP5fC7fORTcirXh8zseCCs+xDJ9MHzpcZWBFlaq9CLgc754zmKl4SuKXKLEvx+5xzOhRQIWNGkXPMUfKBnUIqjmcZniSSZshN8BGF/LjEziIVkiX0wGkFoZStAoo+ExlxrQo9U5eNz4ESSCzwtutxlZN1bLdM3L0msd1uZ/7OqLSi36YPXlW3xslH4wmfChe9VjDno78PXNfYiYtRoszRPQ0u8/dOBUIsa1uwqVToStjn477cHwETYZEbGZDGRH5wUII+82ILQfTfRUCaNDiTUhhcdEHKsNmmSZhlA+NwIqZUGTfb/KzUQ4KTzbK7GGW/UA6URUlmRZbiDATxaCRQQ2wrSgLSyJNTAVMkScmIkgSOdG/gcT/WP6V6BbJwRCg811yrDBHACPyZAl0hgKlWCJeP7gIoeIAwhFHlv2JOIcmDTuHdPL5+QTIl9SyZtMpQYMaXw6PqY/e3D/QtUmGXgrsiyWvuv/2b0hkWLoVK3uwafcZZrYwsrKgdJyLfHpV9Rvw1B6tZ7ZuRNaC4phlYcXPVS3+5Y9DhhsYrLzb5dfF9d4cH5xuSAys9LGULOOIyf0c0vKiKZK6whMQ0me0qEeT2QCt6OgsHJGvbuLfj1P0q3J7LrOKMqQ1OlYTj+L4Bq5Dox9TW47erzjCRiD8FwEDyakETz4hIXWSg+An4wUYzN6WKosq3uBO+nTofTfyp6rPA08tomw06m3O/JVukeAQoOzGZICXbYqZ1cX1F+BNGIVY+dhjoemsE+JuZijLqXdROns/V+jTKUMfo60vHWD+jPSMOiznLrzbkn80A9oPesbbibqal+NmHDkR4p2gjU4iK7L+azbHmZFtwOUs5VWGwOzguRK3kG5oVhU79oF1D4tsjZrmI5+r5wQnlQf500P3m+se79MQ+XU6zjcwCNWEeV1wM311VUsLLUyziX9JH0wtTC9W/guibmOayhmPpsZp3ckFVFNImTsKCBUf3QXCOQJF6LKz8ejk9+PjuksU8YmwtVAPUVeCHIPcBsTi3wxy2KBcweNOnBFnYDe+ubxeW8Nq3JAx04YMx4hIFIqipUw8I+Oy5KOq1lGRdI0Ap+H2DgwQNRW+uSVZ/QND7AdrFdu2OEpp6H7Bhw/3HgOINjfrN6L4X270AGg7Ub2XoSv2osOANrfyd6L66fsSwfw76xzHfQl/cC8rYhKXtUNv1zXzP4rG/8XZxRKswal210YDcSdXn5dUHfA7P0T9AYUTrNcolwEIsC3UGCqqzPfh8zuKA2GH0W0HRx/Lm5RVvT5fo/fnfVRQEhZTsIVXFm2+FxBE8Cy/A5f8yBc
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Explore content of data link"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/data-links/{dataLinkId}/browse/{path}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Explore content of data link
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"dataLinkId","in":"path","description":"Datalink identifier","required":true,"schema":{"type":"string"}},{"name":"path","in":"path","description":"Content path","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Optional workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"credentialsId","in":"query","description":"Optional credentials identifier","schema":{"type":"string"}},{"name":"search","in":"query","description":"Optional search criteria, allowing prefix search on datalink content","schema":{"type":"string"}},{"name":"nextPageToken","in":"query","description":"Optional token used to fetch the next page of items","schema":{"type":"string"}},{"name":"pageSize","in":"query","description":"Optional number of items to return per page, if missing a max-allowed default value is used","schema":{"type":"integer","format":"int32"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"originalPath":{"type":"string"},"objects":{"type":"array","items":{"type":"object","properties":{"type":{"type":"string","enum":["FOLDER","FILE"],"title":"DataLinkItemType"},"name":{"type":"string"},"size":{"type":"integer","format":"int64"},"mimeType":{"type":"string"}},"title":"DataLinkItem"}},"nextPageToken":{"type":"string"}},"title":"DataLinkContentResponse"}}}},"400":{"description":"BadRequest","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"NotFound, when the workspace or credentials are not found or when the API is disabled for the workspace or if data link or path not found","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

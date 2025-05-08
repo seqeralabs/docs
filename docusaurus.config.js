@@ -63,7 +63,11 @@ export default async function createConfigAsync() {
               copyright: `Copyright © ${new Date().getFullYear()} Seqera`,
             }
           },
-          docs: false,
+          // docs:false,
+          docs: {
+            // sidebarPath: "./sidebars.ts",
+            docItemComponent: "@theme/ApiItem", // Derived from docusaurus-theme-openapi
+          },
           theme: {
             customCss: [
               require.resolve("./src/css/main.css"),
@@ -87,6 +91,24 @@ export default async function createConfigAsync() {
       ],
     ],
     plugins: [
+      [
+        "docusaurus-plugin-openapi-docs",
+        {
+          id: "api", // plugin id
+          docsPluginId: "classic", // configured for preset-classic
+          config: {
+            platform: {
+              // specPath: "platform-api-docs/seqera-api-latest.yml",
+              // outputDir: "platform-api-docs/docs",
+              specPath: "docs/seqera-api-latest.yml",
+              outputDir: "docs/platform-api",
+              sidebarOptions: {
+                groupPathsBy: "tag",
+              },
+            }
+          },
+        },
+      ],
       [
         "@docusaurus/plugin-content-docs",
         {
@@ -211,6 +233,7 @@ export default async function createConfigAsync() {
       // path.resolve(__dirname, "plugins_custom/seqera_jobs"),
       // path.resolve(__dirname, "plugins_custom/seqera_events"),
     ],
+    themes: ["docusaurus-theme-openapi-docs"],
 
     themeConfig: {
       image: "img/share.jpg",
@@ -286,47 +309,6 @@ export default async function createConfigAsync() {
           width: 25,  
           height: 25, 
         },
-        links: [
-          {
-            title: "Docs",
-            items: [
-              {
-                label: "Platform Enterprise",
-                to: "/platform-enterprise/",
-              },
-              {
-                label: "Platform Cloud",
-                to: "/platform-cloud/",
-              },
-            ],
-          },
-          {
-            title: "Community",
-            items: [
-              {
-                label: "Github",
-                href: "https://github.com/seqeralabs",
-              },
-              {
-                label: "LinkedIn",
-                href: "https://www.linkedin.com/company/14065390/",
-              },
-              {
-                label: "Twitter",
-                href: "https://twitter.com/seqeralabs",
-              },
-            ],
-          },
-          {
-            title: "More",
-            items: [
-              {
-                label: "About Seqera",
-                href: "https://seqera.io/",
-              },
-            ],
-          },
-        ],
         copyright: `© ${new Date().getFullYear()} Seqera`,
       },
       prism: {

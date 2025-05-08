@@ -1,0 +1,63 @@
+---
+id: ga-4-gh-service-info
+title: "GA4GH workflow execution service API info"
+description: "GA4GH workflow execution service API info"
+sidebar_label: "GA4GH workflow execution service API info"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVm1P2zAQ/iuVPzPKmyaNTysIWMWrBowPFZquzjUxc+xgX1q6qv99ZyctASXAtH2q63vx3T3P3WUhCFIv9kcihb00E/cbwhbogJQ1w0Tsi5NwfY1uqiQOzcSKDeHQF9Z4ZLOF2NnaCj8JeulUEczY6PKU1aQ1hIaCFIpCKxmd9h98UFkILzPMIZxoXiAb2fEDSmLDwoUQSFUPTNF5VZnUip6cMqlYbrBf9eMNsbR5riik0WZbUnbDl74hBedgzhEowty3WLGZtqkyV0BZq1MD0zG495PK0ZQfebjDXMMYdWsApWu7ZwEp0uHqIkZ4aM1EpZvVn3MOhnU6lILXDMHRGIGGDKmbQvMNxVcpOo5xYl0OVF3t7sRoPLo76375AiQeGRhrbIIxtlYjmIiG1nY2NJ7ASDx0mDBzFGjfrq3BJJzYbWuynAa63F9Obj12adTc7BKDAT0nJT8ARVaOuRu6SFZYT5lNB4U6xfk7Gt/49DZ2g3VYq4qdWQn6O7KTlkJtcFcWDrnvQtXJlfic+Tk8HSuN1+o3vovl573w3gymb0OYOluaxM9Q64/qDUIOmKwp8pGW6I6RfXuZ+zCs0HVBy0YpXjmcqKdWucdHHn+H2pYd4SPTfx3wMPnnkAMgIOkoB9VBxlCkC3yiCf8eanVm0662sKkt20nNo6nUOqBSM6FBq+Z0X8Y5sNc21A8g6Tl8LNHT/5vuuU/bYSCg0v+UNnmfn2HWNNK5Q3/knHXf6zW1zmm3ZVGtdl3PWOpBRcfo7aXeyWDv5FtvxrAHEHr4hLKMZr6qXW9wNeypaj3myA0dVmeKMd+4K0Q/7tf+DH1/ut2vzT7VJp7dOUXz61C1qjAHPHLRDcoXiyYjKoJ6VAvYRyW+qQ7Hq6I8zCgmEd0H8zXSgdwhWPE6w1p0pYFCbVeJ+Vq5ZmlwFldMDMXv9/tVv2yqkAZWHI7Pfn0WcCDrJS62N3e/bG6tJl8OkS0GYjp/U+UX0a8LRNwm/UKDMo1lWCGw+sLhScYV5pC2Y+EbOPC3TxZn8EgsFmOI22O5DNdMesfje8THKThVtdHovtqMCSOwP1qIX2HCi4GUWATceUyUcSi87o7lfYMjJ0c3jNQfpRtKtw==
+sidebar_class_name: "get api-method"
+info_path: docs/platform-api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"GA4GH workflow execution service API info"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/ga4gh/wes/v1/service-info"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+GA4GH workflow execution service API info
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"version":{"type":"string"},"apiVersion":{"type":"string"},"commitId":{"type":"string"},"authTypes":{"type":"array","items":{"type":"string"}},"loginPath":{"type":"string"},"navbar":{"type":"object","properties":{"menus":{"type":"array","items":{"type":"object","properties":{"label":{"type":"string"},"url":{"type":"string"}},"title":"NavbarConfig.NavbarMenu"}}},"title":"NavbarConfig"},"heartbeatInterval":{"type":"integer","format":"int32"},"userWorkspaceEnabled":{"type":"boolean"},"allowInstanceCredentials":{"type":"boolean"},"landingUrl":{"type":"string"},"termsOfUseUrl":{"type":"string"},"contentUrl":{"type":"string"},"analytics":{"type":"object","properties":{"hubspotId":{"type":"string"},"posthogApiKey":{"type":"string"},"posthogApiHost":{"type":"string"}},"title":"Analytics"},"allowLocalRepos":{"type":"boolean","deprecated":true},"contentMaxFileSize":{"type":"integer","format":"int64"},"waveEnabled":{"type":"boolean"},"groundswellEnabled":{"type":"boolean"},"groundswellAllowedWorkspaces":{"type":"array","items":{"type":"integer","format":"int64"}},"scmsServerUrl":{"type":"string"},"forgePrefix":{"type":"string"},"seqeraCloud":{"type":"boolean"},"evalWorkspaceIds":{"type":"array","items":{"type":"integer","format":"int64"}},"contactEmail":{"type":"string"},"allowNextflowCliLogs":{"type":"boolean"},"logoutUrl":{"type":"string","nullable":true}},"title":"ServiceInfo"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"type":"object","properties":{"msg":{"type":"string"},"status_code":{"type":"integer","format":"int32"}},"title":"WesErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

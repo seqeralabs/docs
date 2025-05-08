@@ -1,0 +1,71 @@
+---
+id: pause-action
+title: "Pause or resume action"
+description: "Pauses or resumes the pipeline action identified by the given `actionId`."
+sidebar_label: "Pause or resume action"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVVFr2zAQ/itCTxukcbaGwfy0dHRQBmtIO/ZQAlXsS6LWtlRJTmqM//vuJLtO6tBtsJdWlr67++7uu0vNU7CJkdpJVfCYz0VpwTJlmAFb5nh0W2BaashkAUwkhGMyhcLJtYSUrSqP2MgdFOw+vF+l92M+4k5sLI/veLi0fDniSoMRAdIFm/lXhGthRA4ODBnVvMAPxHQeESCJoBZui+dj1sEHs87IYtOzMwg08FRKAxjOmRJG3CZbyAWPa+4qTQGCEW+a0UvMvTKPVosE+rBPJZhqEPdXB2QF1srI5Dj2IJYsHGz801qZXLhw9WmK0ZeBKlh3odKKbBKF6MLRUWidycQXLnqwFLoeOlerB0gc1V26jC4uc+0q8rYIjjEKZolhrMZ2gCXbj5Mp/TtO6/o7O2M/FOsYoNF0MhniLkTKWtIY9q/59i2546gwKzZA2nidhjakFicD0Q54qnF9xsYos2jza9OdTs5PZNjpkBXKMZFlao98CG4hKY10ldfgBQgDZlai5OK7JfUIBbpVpF2tfNJejjGPWo1HdafXJtKkbt57vKEChGQO/b7ks3VOd6Kh75UH4U04fOsU87B3nikVdtFL5vJZ5JqqUDek2bXyrtvC3MATJsxm86uBhtuneSYciZJZMDuZ4OAHMHUVcyJnpclamjaOIuvtxlIhCBsrMy/mtfrSPyCRHY5ziPNhfP55PKE7Kl0uvCjagfOLoF867Zp5TfVgJP7vngr1d/DsIp0JnHck6ZOt2/72O2zE44ONFFqMstiSGhBW1yth4afJmoauw9YgJaXSilVGml+LzMIbmf1hp5wk+wjVYG3tRFYSkpNsd8JIiv+PXN4t2lF9z95YsScptZeiqA65dFRfatgsEbsFkaIn4haevwYGZ7fkpDcfrBXa2cFiliSg3ZvYw+mdX9/c0mS1qzZXKdkYsadfDPzrqSodek4ri+5qnoliU/otxINPmkNxPMavxtZndbIYqBWPuFWPUKBeuto4+qbCNM1vj++hNA==
+sidebar_class_name: "post api-method"
+info_path: docs/platform-api/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Pause or resume action"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/actions/{actionId}/pause"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Pauses or resumes the pipeline action identified by the given `actionId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"actionId","in":"path","description":"Action string identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"content":{"application/json":{"schema":{"type":"object","title":"EmptyBodyRequest"}}}}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      
