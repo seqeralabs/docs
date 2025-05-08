@@ -7,7 +7,6 @@
 #   Use to have multiple separate netlify builds that don't time out
 [context.deploy-apidocs.environment]
   EXCLUDE_CHANGELOG="1"
-  EXCLUDE_PLATFORM_CLOUD="1"
   EXCLUDE_MULTIQC="1"
   EXCLUDE_FUSION="1"
   EXCLUDE_WAVE="1"
