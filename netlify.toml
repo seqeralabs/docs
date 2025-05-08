@@ -6,4 +6,4 @@
 #   Defining these ENV vars excludes certain docsets
 #   Use to have multiple separate netlify builds that don't time out
 [context.deploy-apidocs]
-  EXCLUDE_GLOBS = "['**/multiqc_docs/**', '**/fusion_docs/**', '**/wave_docs/**', '**/wave_docs/**']"
+  environment = { EXCLUDE_GLOBS = "['**/multiqc_docs/**', '**/fusion_docs/**', '**/wave_docs/**', '**/wave_docs/**']" }
