@@ -4,3 +4,25 @@
 
 [build]
   command = "NODE_OPTIONS=--max_old_space_size=8000 npm run build"
+
+
+# Default build settings
+[build]
+  command = "npm run build:default"
+  publish = "build"
+  environment = { NODE_VERSION = "18", DOCS_TARGET = "default" }
+
+[context.production]
+  command = "npm run build:api"
+  environment = { DOCS_TARGET = "api" }
+
+# Deploy previews and feature branches (api version)
+[context.branch-deploy]
+  command = "npm run build:api"
+  environment = { DOCS_TARGET = "api" }
+
+# Deploy previews for pull requests (also api)
+[context.deploy-preview]
+  command = "npm run build:api"
+  environment = { DOCS_TARGET = "api" }
+

@@ -9,6 +9,8 @@
     "dev": "npm run start",
     "prebuild": "npm run fetch-docs-oss",
     "build": "docusaurus build",
+    "build:default": "DOCS_TARGET=public docusaurus build",
+    "build:api": "DOCS_TARGET=api docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
