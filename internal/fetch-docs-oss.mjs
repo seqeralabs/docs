@@ -48,7 +48,9 @@ async function cloneOrUpdateRepo({ name, url, path: repoPath, branch }) {
     // Exit with error code 1 to stop any subsequent npm scripts
     process.exit(1);
   }
-
+  // Check out the specified path
+  await git().checkoutLocalBranch(branch)
+  // Return the local path
   return git(repoPath);
 }
 
