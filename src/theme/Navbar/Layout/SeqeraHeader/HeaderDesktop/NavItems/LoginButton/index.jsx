@@ -18,9 +18,9 @@ const NavMeta = ({ isDark }) => {
         aria-label="Toggle Light or Dark Mode"
         className="flex flex-row mr-3"
       >
-        <span className="">
+        <span className={`${styles.lightDarkMode}`}>
           {" "}
-          {colorMode === "light" ? <Sun size={50} /> : <Moon size={24} />}
+          {/* {colorMode === "light" ? <Sun size={50} /> : <Moon size={24} />} */}
         </span>
       </button>
       <div className="hidden md:flex">

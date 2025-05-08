@@ -60,3 +60,9 @@ details.alert code {
 .theme-admonition {
   margin: 1rem 0;
 }
+
+/* image on multiqc overview */
+svg.excalidraw {
+  height: 100%;
+  max-width: 100%;
+}
