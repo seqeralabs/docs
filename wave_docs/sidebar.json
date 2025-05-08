@@ -3,9 +3,9 @@
     {
       "type": "category",
       "label": "Wave",
-      "collapsed": false,
+      "collapsed": true,
+      "link": {"type": "doc", "id": "index"},
       "items": [
-        "index",
         "how-it-works",
         "build-custom-images",
         "docker-singularity",

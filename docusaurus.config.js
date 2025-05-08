@@ -42,6 +42,12 @@ export default async function createConfigAsync() {
       locales: ["en"],
     },
 
+    markdown: {
+      mermaid: true,
+    },
+
+    themes: ['@docusaurus/theme-mermaid'],
+
     presets: [
       [
         "classic",
