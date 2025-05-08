@@ -12,13 +12,13 @@ import TabItem from '@theme/TabItem';
 This tutorial provides an introduction to launching pipelines in Seqera Platform.
 
 **Prerequisites:**
-1. [Set up an organization and workspace](../workspace-setup.mdx).
-1. Create a workspace [compute environment](../../compute-envs/overview.mdx) for your cloud or HPC compute infrastructure.
-1. [Add a pipeline](./add-pipelines.mdx) to your workspace.
-1. [Add your pipeline input data](./add-data.mdx).
+1. [Set up an organization and workspace](../workspace-setup).
+1. Create a workspace [compute environment](../../compute-envs/overview) for your cloud or HPC compute infrastructure.
+1. [Add a pipeline](./add-pipelines) to your workspace.
+1. [Add your pipeline input data](./add-data).
 :::
 
-The Launchpad in every Platform workspace allows users to easily create and share Nextflow pipelines that can be executed on any supported infrastructure, including all public clouds and most HPC schedulers. A Launchpad pipeline consists of a pre-configured workflow Git repository, [compute environment](../../compute-envs/overview.mdx), and launch parameters.
+The Launchpad in every Platform workspace allows users to easily create and share Nextflow pipelines that can be executed on any supported infrastructure, including all public clouds and most HPC schedulers. A Launchpad pipeline consists of a pre-configured workflow Git repository, [compute environment](../../compute-envs/overview), and launch parameters.
 
 ## Launch a pipeline
 
@@ -33,7 +33,7 @@ The launch form consists of **General config**, **Run parameters**, and **Advanc
 <details>
   <summary>Nextflow parameter schema</summary>
 
-  The launch form lets you configure the pipeline execution. The pipeline parameters in this form are rendered from a [pipeline schema](../../pipeline-schema/overview.mdx) file in the root of the pipeline Git repository. `nextflow_schema.json` is a simple JSON-based schema describing pipeline parameters for pipeline developers to easily adapt their in-house Nextflow pipelines to be executed in Platform.
+  The launch form lets you configure the pipeline execution. The pipeline parameters in this form are rendered from a [pipeline schema](../../pipeline-schema/overview) file in the root of the pipeline Git repository. `nextflow_schema.json` is a simple JSON-based schema describing pipeline parameters for pipeline developers to easily adapt their in-house Nextflow pipelines to be executed in Platform.
 
   :::tip
   See [Best Practices for Deploying Pipelines with the Seqera Platform](https://seqera.io/blog/best-practices-for-deploying-pipelines-with-seqera-platform/) to learn how to build the parameter schema for any Nextflow pipeline automatically with tooling maintained by the nf-core community. 
@@ -49,8 +49,8 @@ The launch form consists of **General config**, **Run parameters**, and **Advanc
 - **Revision number**: A valid repository commit ID, tag, or branch name. For saved pipelines, this is prefilled and cannot be edited.
 - (*Optional*) **Config profiles**: One or more [configuration profile](https://www.nextflow.io/docs/latest/config.html#config-profiles) names to use for the execution. 
 - **Workflow run name**: An identifier for the run, pre-filled with a random name. This can be customized.
-- (*Optional*) **Labels**: Assign new or existing [labels](../../labels/overview.mdx) to the run.
-- **Compute environment**: Select an existing workspace [compute environment](../../compute-envs/overview.mdx). 
+- (*Optional*) **Labels**: Assign new or existing [labels](../../labels/overview) to the run.
+- **Compute environment**: Select an existing workspace [compute environment](../../compute-envs/overview). 
 - **Work directory**: The (cloud or local) file storage path where pipeline scratch data is stored. Platform will create a scratch sub-folder if only a cloud bucket location is specified.
   :::note
   The credentials associated with the compute environment must have access to the work directory.
@@ -62,7 +62,7 @@ The launch form consists of **General config**, **Run parameters**, and **Advanc
 
 There are three ways to enter **Run parameters** prior to launch:
 
-- The **Input form view** displays form fields to enter text or select attributes from lists, and browse input and output locations with [Data Explorer](../../data/data-explorer.mdx).
+- The **Input form view** displays form fields to enter text or select attributes from lists, and browse input and output locations with [Data Explorer](../../data/data-explorer).
 - The **Config view** displays raw configuration text that you can edit directly. Select JSON or YAML format from the **View as** list.
 - **Upload params file** allows you to upload a JSON or YAML file with run parameters.
 
@@ -89,8 +89,8 @@ Modify other parameters to customize the pipeline execution through the paramete
 
 ### Advanced settings 
 
-- Use [resource labels](../../resource-labels/overview.mdx) to tag the computing resources created during the workflow execution. While resource labels for the run are inherited from the compute environment and pipeline, workspace admins can override them from the launch form. Applied resource label names must be unique. 
-- [Pipeline secrets](../../secrets/overview.mdx) store keys and tokens used by workflow tasks to interact with external systems. Enter the names of any stored user or workspace secrets required for the workflow execution.
-- See [Advanced options](../../launch/advanced.mdx) for more details.
+- Use [resource labels](../../resource-labels/overview) to tag the computing resources created during the workflow execution. While resource labels for the run are inherited from the compute environment and pipeline, workspace admins can override them from the launch form. Applied resource label names must be unique. 
+- [Pipeline secrets](../../secrets/overview) store keys and tokens used by workflow tasks to interact with external systems. Enter the names of any stored user or workspace secrets required for the workflow execution.
+- See [Advanced options](../../launch/advanced) for more details.
 
-After you have filled the necessary launch details, select **Launch**. The **Runs** tab shows your new run in a **submitted** status at the top of the list. Select the run name to navigate to the [**View Workflow Run**](../../monitoring/overview.mdx) page and view the configuration, parameters, status of individual tasks, and run report.
+After you have filled the necessary launch details, select **Launch**. The **Runs** tab shows your new run in a **submitted** status at the top of the list. Select the run name to navigate to the [**View Workflow Run**](../../monitoring/overview) page and view the configuration, parameters, status of individual tasks, and run report.

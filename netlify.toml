@@ -1,3 +1,6 @@
 [[edge_functions]]
   function = "og-generate.png"
   path = "/og-generate.png"
+
+[build]
+  command = "NODE_OPTIONS=--max_old_space_size=8000 npm run build"
