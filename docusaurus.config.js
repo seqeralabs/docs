@@ -112,23 +112,23 @@ export default async function createConfigAsync() {
           },
         },
       ],
-      [
-        "@docusaurus/plugin-content-docs",
-        {
-          id: "platform-cloud",
-          routeBasePath: "/platform-cloud",
-          path: "platform-cloud/docs",
-          remarkPlugins: [
-            (await import("remark-code-import")).default,
-            (await require("remark-math")).default,
-            (await import("docusaurus-remark-plugin-tab-blocks")).default,
-            (await require("remark-yaml-to-table")).default,
-          ],
-          rehypePlugins: [(await require("rehype-katex")).default],
-          editUrl: "https://github.com/seqeralabs/docs/tree/master/",
-          sidebarPath: "./platform-cloud/cloud-sidebar.json",
-        },
-      ],
+      // [
+      //   "@docusaurus/plugin-content-docs",
+      //   {
+      //     id: "platform-cloud",
+      //     routeBasePath: "/platform-cloud",
+      //     path: "platform-cloud/docs",
+      //     remarkPlugins: [
+      //       (await import("remark-code-import")).default,
+      //       (await require("remark-math")).default,
+      //       (await import("docusaurus-remark-plugin-tab-blocks")).default,
+      //       (await require("remark-yaml-to-table")).default,
+      //     ],
+      //     rehypePlugins: [(await require("rehype-katex")).default],
+      //     editUrl: "https://github.com/seqeralabs/docs/tree/master/",
+      //     sidebarPath: "./platform-cloud/cloud-sidebar.json",
+      //   },
+      // ],
       [
         "@docusaurus/plugin-content-docs",
         {
@@ -142,61 +142,61 @@ export default async function createConfigAsync() {
           docItemComponent: '@theme/ApiItem'
         },
       ],      
-      [
-        "@docusaurus/plugin-content-docs",
-        {
-          id: "multiqc",
-          routeBasePath: "/multiqc",
-          path: "multiqc_docs/multiqc_repo/docs/markdown",
-          remarkPlugins: [
-            (await import("remark-code-import")).default,
-            (await require("remark-math")).default,
-            (await import("docusaurus-remark-plugin-tab-blocks")).default,
-            (await require("remark-yaml-to-table")).default,
-          ],
-          rehypePlugins: [(await require("rehype-katex")).default],
-          editUrl: ({ docPath }) => {
-            return `https://github.com/MultiQC/MultiQC/blob/main/docs/markdown/${docPath.replace('multiqc_docs/multiqc_repo/docs', '')}`
-          },
-          sidebarPath: "./multiqc_docs/sidebar.js",
-        },
-      ],
-      [
-        "@docusaurus/plugin-content-docs",
-        {
-          id: "fusion",
-          routeBasePath: "/fusion",
-          path: "fusion_docs",
-          remarkPlugins: [
-            (await import("remark-code-import")).default,
-            (await require("remark-math")).default,
-            (await import("docusaurus-remark-plugin-tab-blocks")).default,
-            (await require("remark-yaml-to-table")).default,
-          ],
-          rehypePlugins: [(await require("rehype-katex")).default],
-          editUrl: "https://github.com/seqeralabs/docs/tree/master/",
-          sidebarPath: "./fusion_docs/sidebar.json",
-        },
-      ],
-      [
-        "@docusaurus/plugin-content-docs",
-        {
-          id: "wave",
-          routeBasePath: "/wave",
-          path: "wave_docs/wave_repo/docs",
-          remarkPlugins: [
-            (await import("remark-code-import")).default,
-            (await require("remark-math")).default,
-            (await import("docusaurus-remark-plugin-tab-blocks")).default,
-            (await require("remark-yaml-to-table")).default,
-          ],
-          rehypePlugins: [(await require("rehype-katex")).default],
-          editUrl: ({ docPath }) => {
-            return `https://github.com/seqeralabs/wave/blob/master/docs/${docPath.replace('wave_docs/wave_repo/docs', '')}`
-          },
-          sidebarPath: "./wave_docs/sidebar.json",
-        },
-      ],
+      // [
+      //   "@docusaurus/plugin-content-docs",
+      //   {
+      //     id: "multiqc",
+      //     routeBasePath: "/multiqc",
+      //     path: "multiqc_docs/multiqc_repo/docs/markdown",
+      //     remarkPlugins: [
+      //       (await import("remark-code-import")).default,
+      //       (await require("remark-math")).default,
+      //       (await import("docusaurus-remark-plugin-tab-blocks")).default,
+      //       (await require("remark-yaml-to-table")).default,
+      //     ],
+      //     rehypePlugins: [(await require("rehype-katex")).default],
+      //     editUrl: ({ docPath }) => {
+      //       return `https://github.com/MultiQC/MultiQC/blob/main/docs/markdown/${docPath.replace('multiqc_docs/multiqc_repo/docs', '')}`
+      //     },
+      //     sidebarPath: "./multiqc_docs/sidebar.js",
+      //   },
+      // ],
+      // [
+      //   "@docusaurus/plugin-content-docs",
+      //   {
+      //     id: "fusion",
+      //     routeBasePath: "/fusion",
+      //     path: "fusion_docs",
+      //     remarkPlugins: [
+      //       (await import("remark-code-import")).default,
+      //       (await require("remark-math")).default,
+      //       (await import("docusaurus-remark-plugin-tab-blocks")).default,
+      //       (await require("remark-yaml-to-table")).default,
+      //     ],
+      //     rehypePlugins: [(await require("rehype-katex")).default],
+      //     editUrl: "https://github.com/seqeralabs/docs/tree/master/",
+      //     sidebarPath: "./fusion_docs/sidebar.json",
+      //   },
+      // ],
+      // [
+      //   "@docusaurus/plugin-content-docs",
+      //   {
+      //     id: "wave",
+      //     routeBasePath: "/wave",
+      //     path: "wave_docs/wave_repo/docs",
+      //     remarkPlugins: [
+      //       (await import("remark-code-import")).default,
+      //       (await require("remark-math")).default,
+      //       (await import("docusaurus-remark-plugin-tab-blocks")).default,
+      //       (await require("remark-yaml-to-table")).default,
+      //     ],
+      //     rehypePlugins: [(await require("rehype-katex")).default],
+      //     editUrl: ({ docPath }) => {
+      //       return `https://github.com/seqeralabs/wave/blob/master/docs/${docPath.replace('wave_docs/wave_repo/docs', '')}`
+      //     },
+      //     sidebarPath: "./wave_docs/sidebar.json",
+      //   },
+      // ],
       [
         "docusaurus-plugin-openapi-docs",
         {
@@ -223,20 +223,20 @@ export default async function createConfigAsync() {
           },
         };
       },
-      function routing() {
-        return {
-          name: "latest-routing",
-          async contentLoaded({ actions }) {
-            [
-              {
-                path: "/platform-enterprise/latest",
-                exact: false,
-                component: "@site/src/pages/platform-enterprise/latest.tsx",
-              },
-            ].map((route) => actions.addRoute(route));
-          },
-        };
-      },
+      // function routing() {
+      //   return {
+      //     name: "latest-routing",
+      //     async contentLoaded({ actions }) {
+      //       [
+      //         {
+      //           path: "/platform-enterprise/latest",
+      //           exact: false,
+      //           component: "@site/src/pages/platform-enterprise/latest.tsx",
+      //         },
+      //       ].map((route) => actions.addRoute(route));
+      //     },
+      //   };
+      // },
       // path.resolve(__dirname, "plugins_custom/seqera_jobs"),
       // path.resolve(__dirname, "plugins_custom/seqera_events"),
     ],
