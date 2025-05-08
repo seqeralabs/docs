@@ -1,15 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import clsx from "clsx";
+import { useLocation } from "@docusaurus/router";
 import { useNavbarSecondaryMenu } from "@docusaurus/theme-common/internal";
 import SeqeraMenu from "../SeqeraMenu";
-
+import Caret from "./Caret.svg"
 import styles from "./styles.module.css";
 
 function Button({ onClick, children }) {
   return (
     <button
       type="button"
-      className={clsx("clean-btn navbar-sidebar__back", styles.button)}
+      className={clsx("flex flex-row items-center clean-btn navbar-sidebar__back", styles.button)}
       onClick={onClick}
     >
       {children}
@@ -21,32 +22,39 @@ function NavButtons({ currentPanel, setPanel }) {
   return (
     <>
       {currentPanel === 1 && (
-        <Button onClick={setPanel(2)}>Docs navigation ➔</Button>
+        <Button onClick={setPanel(2)}>Docs Menu <div className="caret ml-2"><Caret/></div></Button>
       )}
       {currentPanel === 2 && (
-        <Button onClick={setPanel(1)}>← Home navigation</Button>
-      )}
-      {currentPanel === 3 && (
-        <Button onClick={setPanel(2)}>← Top level docs</Button>
+        <Button onClick={setPanel(1)}><div className={`${styles.caretRotate} mr-2`}><Caret/></div> Main Menu</Button>
       )}
     </>
   );
 }
 
 export default function NavbarMobileSidebarLayout({ header, primaryMenu }) {
-  const level3 = useNavbarSecondaryMenu();
-  const [currentPanel, setCurrentPanel] = React.useState(level3.shown ? 3 : 2);
+  const level2 = useNavbarSecondaryMenu();
+  const [currentPanel, setCurrentPanel] = React.useState(level2.shown ? 2 : 2);
+  const [mainMenu, setMainMenu] = useState(false);
 
   useEffect(() => {
-    setCurrentPanel(level3.shown ? 3 : 2);
-  }, [level3.shown]);
+    setCurrentPanel(level2.shown ? 2 : 1);
+  }, [level2.shown]);
 
   function setPanel(index) {
     return () => {
-      if (index !== 3) level3.hide();
+      if (index !== 2) level2.hide();
       setCurrentPanel(index);
     };
   }
+
+    useEffect(() => {
+      if (location.pathname =='/') {
+        setMainMenu(false);
+      } else {
+        setMainMenu(true);
+      }
+    }, [location.pathname]);
+
 
   return (
     <div className="navbar-sidebar">
@@ -55,20 +63,17 @@ export default function NavbarMobileSidebarLayout({ header, primaryMenu }) {
         className={clsx("navbar-sidebar__items", styles.panels, {
           [styles.panel1Active]: currentPanel === 1,
           [styles.panel2Active]: currentPanel === 2,
-          [styles.panel3Active]: currentPanel === 3,
         })}
       >
-        <div className="navbar-sidebar__item menu">
-          <NavButtons currentPanel={currentPanel} setPanel={setPanel} />
+        <div className="navbar-sidebar__item menu mb-2">
+          <div className={`${!mainMenu && "hidden"}`}>
+            <NavButtons currentPanel={currentPanel} setPanel={setPanel} />
+          </div>
           <SeqeraMenu />
         </div>
-        <div className="navbar-sidebar__item menu">
+        <div className="navbar-sidebar__item menu mb-4">
           <NavButtons currentPanel={currentPanel} setPanel={setPanel} />
-          {primaryMenu}
-        </div>
-        <div className="navbar-sidebar__item menu">
-          <NavButtons currentPanel={currentPanel} setPanel={setPanel} />
-          {level3.content}
+          {level2.content}
         </div>
       </div>
     </div>

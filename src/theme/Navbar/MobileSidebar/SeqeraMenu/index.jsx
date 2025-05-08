@@ -1,17 +1,12 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
-import Products from "./Category/Products";
-import Resources from "./Category/Resources";
-import Community from "./Category/Community";
+import clsx from "clsx";
+import Help from "./Category/Help";
 import Company from "./Category/Company";
-import Category from "./Category";
-
+import NavbarMobilePrimaryMenu from "../PrimaryMenu";
 import styles from "./styles.module.css";
 
 const Menu = () => {
-  const [selectedCategory, setSelectedCategory] = React.useState("Products");
-
   const navVariants = {
     enter: { y: -20, opacity: 0 },
     enter2: { y: 60, opacity: 0 },
@@ -35,67 +30,38 @@ const Menu = () => {
           exit="exit"
           variants={navVariants}
           transition={transition}
-          className={styles.categories}
+          className={`${styles.mobileMenu}`}
         >
-          <Category
-            label="Products"
-            selectedCategory={selectedCategory}
-            setSelectedCategory={setSelectedCategory}
-          >
-            <Products />
-          </Category>
-          <Category
-            label="Resources"
-            selectedCategory={selectedCategory}
-            setSelectedCategory={setSelectedCategory}
-          >
-            <Resources />
-          </Category>
-          <Category
-            label="Community"
-            selectedCategory={selectedCategory}
-            setSelectedCategory={setSelectedCategory}
-          >
-            <Community />
-          </Category>
-          <Category
-            label="Company"
-            selectedCategory={selectedCategory}
-            setSelectedCategory={setSelectedCategory}
-          >
-            <Company />
-          </Category>
-        </motion.div>
-      </AnimatePresence>
-      {/* <AnimatePresence>
-        <motion.div
-          className={styles.footer}
-          initial="enter2"
-          animate="idle"
-          exit="exit2"
-          variants={navVariants}
-          transition={transition}
-        >
-          <div className={styles.ctas}>
+          <div className="flex flex-row space-x-2 px-4 mb-4 mt-2">
             <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://tower.nf/login"
-              className={clsx(styles.button, styles.cta)}
+              className={clsx(styles.button, {}, "w-full text-center")}
+              href="https://cloud.seqera.io/login"
             >
-              Login
+              Log In
             </a>
             <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://tower.nf/login"
-              className={styles.button}
+              className={clsx(
+                styles.button,
+                styles.secondary,
+                {},
+                "w-full text-center",
+              )}
+              href="https://cloud.seqera.io/login"
             >
-              Sign up for free
+              Sign Up
             </a>
           </div>
+
+          <div className="px-1 pb-2 border-b border-b-gray-600">
+            <NavbarMobilePrimaryMenu />
+          </div>
+
+          <div className="px-4 flex flex-row">
+            <Help />
+            <Company />
+          </div>
         </motion.div>
-      </AnimatePresence> */}
+      </AnimatePresence>
     </>
   );
 };
