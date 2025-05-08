@@ -1,3 +1,9 @@
 [[edge_functions]]
   function = "og-generate.png"
   path = "/og-generate.png"
+
+# Specific branch deployment contexts
+#   Defining these ENV vars excludes certain docsets
+#   Use to have multiple separate netlify builds that don't time out
+[context.deploy-apidocs]
+  EXCLUDE_GLOBS = "['**/multiqc_docs/**', '**/fusion_docs/**', '**/wave_docs/**', '**/wave_docs/**']"

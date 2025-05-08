@@ -91,6 +91,7 @@ export default async function createConfigAsync() {
         {
           id: "platform-enterprise",
           routeBasePath: "/platform-enterprise",
+          exclude: JSON.parse(process.env.EXCLUDE_GLOBS),
           includeCurrentVersion: false,
           remarkPlugins: [
             (await import("remark-code-import")).default,
@@ -116,6 +117,7 @@ export default async function createConfigAsync() {
         {
           id: "platform-cloud",
           routeBasePath: "/platform-cloud",
+          exclude: JSON.parse(process.env.EXCLUDE_GLOBS),
           path: "platform-cloud/docs",
           remarkPlugins: [
             (await import("remark-code-import")).default,
@@ -133,6 +135,7 @@ export default async function createConfigAsync() {
         {
           id: "multiqc",
           routeBasePath: "/multiqc",
+          exclude: JSON.parse(process.env.EXCLUDE_GLOBS),
           path: "multiqc_docs/multiqc_repo/docs/markdown",
           remarkPlugins: [
             (await import("remark-code-import")).default,
@@ -152,6 +155,7 @@ export default async function createConfigAsync() {
         {
           id: "fusion",
           routeBasePath: "/fusion",
+          exclude: JSON.parse(process.env.EXCLUDE_GLOBS),
           path: "fusion_docs",
           remarkPlugins: [
             (await import("remark-code-import")).default,
@@ -169,6 +173,7 @@ export default async function createConfigAsync() {
         {
           id: "wave",
           routeBasePath: "/wave",
+          exclude: JSON.parse(process.env.EXCLUDE_GLOBS),
           path: "wave_docs/wave_repo/docs",
           remarkPlugins: [
             (await import("remark-code-import")).default,
