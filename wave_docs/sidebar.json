@@ -18,7 +18,7 @@
       ]
     },
     "get-started",
-    "seqera-containers.mdx",
+    "seqera-containers",
     "nextflow",
     {
       "type": "category",
