@@ -2,13 +2,9 @@
   function = "og-generate.png"
   path = "/og-generate.png"
 
-[build]
-  command = "NODE_OPTIONS=--max_old_space_size=8000 npm run build"
-
-
 # Default build settings
 [build]
-  command = "npm run build:default"
+  command = "npm run build:api"
   publish = "build"
   environment = { NODE_VERSION = "18", DOCS_TARGET = "default" }
 
