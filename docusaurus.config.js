@@ -41,7 +41,7 @@ export default async function createConfigAsync() {
       defaultLocale: "en",
       locales: ["en"],
     },
-
+    themes: ['docusaurus-theme-openapi-docs'],
     presets: [
       [
         "classic",
@@ -131,6 +131,19 @@ export default async function createConfigAsync() {
       [
         "@docusaurus/plugin-content-docs",
         {
+          id: "platform-api",
+          routeBasePath: "/platform-api",
+          path: "platform-api-docs/docs",
+          remarkPlugins: [
+            (await require("remark-yaml-to-table")).default,
+          ],
+          sidebarPath: "platform-api-docs/docs/sidebar.js",
+          docItemComponent: '@theme/ApiItem'
+        },
+      ],      
+      [
+        "@docusaurus/plugin-content-docs",
+        {
           id: "multiqc",
           routeBasePath: "/multiqc",
           path: "multiqc_docs/multiqc_repo/docs/markdown",
@@ -181,6 +194,22 @@ export default async function createConfigAsync() {
             return `https://github.com/seqeralabs/wave/blob/master/docs/${docPath.replace('wave_docs/wave_repo/docs', '')}`
           },
           sidebarPath: "./wave_docs/sidebar.json",
+        },
+      ],
+      [
+        "docusaurus-plugin-openapi-docs",
+        {
+          id: "api", // plugin id
+          docsPluginId: "classic", // configured for preset-classic
+          config: {
+            platform: {
+              specPath: "platform-api-docs/seqera-api-latest.yml",
+              outputDir: "platform-api-docs/docs",
+              sidebarOptions: {
+                groupPathsBy: "tag",
+              },
+            }
+          },
         },
       ],
       async function tailwind() {
@@ -338,4 +367,11 @@ export default async function createConfigAsync() {
       },
     ],
   };
+}
+
+if (process.env.NODE_ENV === 'production') {
+  setInterval(() => {
+    const used = process.memoryUsage().heapUsed / 1024 / 1024;
+    console.log(`🔍 Memory used: ${Math.round(used * 100) / 100} MB`);
+  }, 5000);
 }

@@ -1,0 +1,77 @@
+- Name: "`attributes`"
+  Type: array
+  Location: query
+  Req/Opt: Optional
+  Description: "Additional attribute values to include in the response (`labels`,
+    `optimized` status). Returns an empty value (`labels: null`) if omitted.
+    Specify `minimal` to remove non-essential fields (for use in UI only)."
+- Name: "`workspaceId`"
+  Type: integer
+  Location: query
+  Req/Opt: Optional
+  Description: Workspace numeric identifier
+- Name: "`max`"
+  Type: integer
+  Location: query
+  Req/Opt: Optional
+  Description: Pagination result max result
+- Name: "`offset`"
+  Type: integer
+  Location: query
+  Req/Opt: Optional
+  Description: Pagination offset
+- Name: "`search`"
+  Type: string
+  Location: query
+  Req/Opt: Optional
+  Description: Filter search parameter
+- Name: "`force`"
+  Type: boolean
+  Location: query
+  Req/Opt: Optional
+  Description: Force the deletion even if any workflows are active
+- Name: "`sourceWorkspaceId`"
+  Type: integer
+  Location: query
+  Req/Opt: Optional
+  Description: Source workspace numeric identifier
+- Name: "`runName`"
+  Type: string
+  Location: query
+  Req/Opt: Optional
+  Description: Workflow run name to validate
+- Name: "`sessionId`"
+  Type: string
+  Location: query
+  Req/Opt: Optional
+  Description: Workflow session ID to validate
+- Name: "`workflowId`"
+  Type: string
+  Location: path
+  Req/Opt: Required
+  Description: Workflow string identifier
+- Name: "`fileName`"
+  Type: string
+  Location: query
+  Req/Opt: Optional
+  Description: Filename to download
+- Name: "`taskId`"
+  Type: integer
+  Location: path
+  Req/Opt: Required
+  Description: Task numeric identifier
+- Name: "`next`"
+  Type: string
+  Location: query
+  Req/Opt: Optional
+  Description: Workflow log cursor
+- Name: "`sortBy`"
+  Type: string
+  Location: query
+  Req/Opt: Optional
+  Description: Field to sort by
+- Name: "`sortDir`"
+  Type: string
+  Location: query
+  Req/Opt: Optional
+  Description: Sorting direction (asc|desc)
