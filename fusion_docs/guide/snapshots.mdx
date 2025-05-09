@@ -26,7 +26,7 @@ Fusion Snapshots v1.0.0 requires the following [Seqera compute environment](http
 
 ### Enable Snapshots 
 
-To use Fusion Snapshots in a Seqera AWS Batch compute environment, select **Enable Fusion Snapshots (beta)** during compute environment creation. When Fusion Snapshots are enabled, the Nextflow Spot reclamation retry setting automatically defaults to `maxSpotAttempts = 5`. 
+To use Fusion Snapshots in a Seqera AWS Batch compute environment, select **Enable Fusion Snapshots (beta)** during compute environment creation. When Fusion Snapshots are enabled, the Nextflow Spot reclamation retry setting automatically defaults to `aws.batch.maxSpotAttempts = 5`. 
 
 ### EC2 instance selection guidelines
 
