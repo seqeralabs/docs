@@ -316,6 +316,10 @@ html[data-theme="dark"]  {
     border-color: #F1F1F1;
   }
 
+  .theme-doc-version-banner {
+    background: var(--color-multiqc-1000);
+  }
+
   .theme-admonition.theme-admonition-note,
   .theme-admonition.alert--info  {
     background-color: var(--color-wave-1000);
