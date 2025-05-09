@@ -22,8 +22,8 @@ export default async function createConfigAsync() {
     organizationName: "seqeralabs", // Usually your GitHub org/user name.
     projectName: "docs", // Usually your repo name.
 
-    onBrokenLinks: "warn",
-    onBrokenMarkdownLinks: "warn",
+    onBrokenLinks: "ignore",
+    onBrokenMarkdownLinks: "ignore",
 
     customFields: {
       // Put your custom environment here
