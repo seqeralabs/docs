@@ -19,13 +19,41 @@ function Button({ onClick, children }) {
 }
 
 function NavButtons({ currentPanel, setPanel }) {
+
+  // manually add docs title to top of mobile menu
+  function formatPathname(pathname) {
+    const segments = pathname.split('/').filter(Boolean);
+    const first = segments[0];
+    if (!first) return 'Home';
+    let label = first.replace(/-/g, ' ');
+    // If the segment contains 'multiqc', capitalize 'QC'
+    if (/multiqc/i.test(label)) {
+      label = label.replace(/multiqc/i, 'MultiQC');
+    }
+    // Capitalize the first letter of each word (excluding the already fixed "QC")
+    label = label
+      .split(' ')
+      .map(word => {
+        if (word === 'QC') return word;
+        return word.charAt(0).toUpperCase() + word.slice(1);
+      })
+      .join(' ');
+    return label;
+  }
+  const pageTitle = formatPathname(location.pathname);
+
   return (
     <>
       {currentPanel === 1 && (
         <Button onClick={setPanel(2)}>Docs Menu <div className="caret ml-2"><Caret/></div></Button>
       )}
       {currentPanel === 2 && (
+        <>
         <Button onClick={setPanel(1)}><div className={`${styles.caretRotate} mr-2`}><Caret/></div> Main Menu</Button>
+        <div className="px-3 mb-4 text-blu font-semibold">
+        {pageTitle} Docs
+        </div>
+      </>
       )}
     </>
   );
