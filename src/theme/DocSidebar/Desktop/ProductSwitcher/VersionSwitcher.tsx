@@ -49,13 +49,12 @@ const VersionSwitcher = ({ isOpen, setIsOpen }) => {
   const urlSuffix = location.pathname.replace(currentVersionPrefix, "");
 
   return (
-    <>
+    <div ref={dropdownRef}>
       <button
         onClick={toggleDropdown}
         className={clsx(styles.item, styles.button, {
           [styles.active]: isOpen,
         })}
-        ref={dropdownRef}
       >
         <span>
           v{currentVersion.label}{" "}
@@ -71,11 +70,12 @@ const VersionSwitcher = ({ isOpen, setIsOpen }) => {
           {items?.map((version) => (
             <div
               key={version.name}
+              className="w-full"
               onClick={() => handleSelectVersion(version.name)}
             >
               <Link
                 to={`${version.path}${urlSuffix}`} // Append the suffix to the version path
-                className={styles.item}
+                className={`${styles.item} `}
               >
                 v{version.label}{" "}
                 {version.label === versions[0].label ? " (current)" : ""}
@@ -84,7 +84,7 @@ const VersionSwitcher = ({ isOpen, setIsOpen }) => {
           ))}
         </div>
       )}
-    </>
+    </div>
   );
 };
 
