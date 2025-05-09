@@ -28,7 +28,7 @@ const Help = ({ toggleMenu }) => {
             className={`whitespace-nowrap
               flex items-center text-[14px] pr-2 rounded-md
               transition-all duration-500 ease-in-out hover:no-underline
-              h-[25px]`}
+              h-[25px] font-normal text-brand`}
           >
             <div className={`${styles.iconItem}`}>
               <Icon className="" />

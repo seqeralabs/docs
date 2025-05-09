@@ -2,33 +2,6 @@
   margin: -20px -10px 0 -10px;
 }
 
-.mobileMenu {
-  a {
-    color: var(--color-brand);
-    font-size: 1rem;
-    font-weight: 400;
-    margin-bottom: .25rem;
-    &:hover {
-      background: var(--color-blu-100);
-      border-radius: 6px;
-      text-decoration: none;
-      color: var(--color-brand);
-    }
-  }
-}
-html[data-theme="dark"]  {
-  .mobileMenu {
-    a {
-      color: var(--color-brand);
-      &:hover {
-        background: var(--color-gray-900);
-        color: var(--gray-200);
-      }
-    }
-  }
-
-}
-
 .button {
   justify-content: center;
   display: flex;
@@ -74,8 +47,8 @@ html[data-theme="dark"] .button  {
     color: var(--color-brand-1000);
   }
   &:hover {
-    background-color: var(--color-blu-800);
-    border-color: var(--color-blu-800);
+    background-color: var(--color-gray-900);
+    border-color: var(--color-gray-900);
     color: white;
   }
   &.secondary {
