@@ -29,7 +29,7 @@ process {
 }
 ```
 
-If you don’t already have one, you may need to create an On-Demand compute environment in the Seqera Platform. Once it’s available, you can find the corresponding On-Demand queue name by navigating to **Compute Environments** in the Platform UI. Locate the configuration for your specific On-Demand environment, then scroll down to the **Manual Config Attributes** section. This section lists key configuration details, including queue names. Look for the queue name prefixed with `TowerForge-` if it was created by Forge.
+If you don’t already have one, you may need to create an On-Demand compute environment in Seqera Platform. Once it’s available, open the **Compute Environments** tab in Seqera Platform, and open the relevant compute environment. Scroll down to the **Manual Config Attributes** section to view key configuration details, including queue names. Look for the queue name prefixed with `TowerForge-` if it was created by Forge.
 
 ### Use retry strategies for Spot Interruptions
 
