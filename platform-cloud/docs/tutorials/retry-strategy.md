@@ -21,7 +21,7 @@ For workflows with a significant proportion of long-running processes, the costs
 
 Tasks with long runtimes are particularly vulnerable to Spot termination. In Platform, you can explicitly assign critical or long-duration tasks to On-Demand queues and leave other tasks to run in a Spot queue by default:
 
-```bash
+```
 process {
 	withName: 'run_bcl2fastq' {
 	     queue = 'TowerForge-MyOnDemandQueue'
