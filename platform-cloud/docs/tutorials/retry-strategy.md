@@ -5,7 +5,7 @@ date: "16 Jul 2024"
 tags: [aws, spot, platform, fusion, retry]
 ---
 
-In AWS Batch environments that use Spot instances, tasks can be interrupted when instances are reclaimed, and this is a normal part of how Spot instances operate. The frequency of interruptions can be highly variable, based on factors including the wider demand on AWS services. AWS offers an insight into the frequency of Spot reclamations with their **instance-advisor** service which you can find [here](https://aws.amazon.com/ec2/spot/instance-advisor/).
+In AWS Batch environments that use Spot instances, tasks can be interrupted when instances are reclaimed. This is a normal part of how Spot instances operate. The frequency of interruptions can be highly variable, based on factors including the wider demand for AWS services. AWS offers insight into the frequency of Spot reclamations with their **instance-advisor** service, which you can find [here](https://aws.amazon.com/ec2/spot/instance-advisor/).
 
 In Seqera Platform, Spot reclamations may appear through log messages like `Host EC2 (instance i-0282b396e52b4c95d) terminated`. These events often result in non-specific exit codes, such as `143` (indicating `SIGTERM`), or sometimes no exit code at all (`-`), depending on the sequence in which the underlying AWS components are shut down. If you're seeing unexpected task failures with one or more of these features, especially with no obvious application error, it's worth reviewing your Spot configuration and retry strategy.
 
