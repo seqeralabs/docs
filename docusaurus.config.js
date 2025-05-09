@@ -49,6 +49,34 @@ export default async function createConfigAsync() {
     },
   ];
 
+  const docs_platform_api = [
+    "@docusaurus/plugin-content-docs",
+    {
+      id: "platform-api",
+      routeBasePath: "/platform-api",
+      path: "platform-api-docs/docs",
+      remarkPlugins: [(await require("remark-yaml-to-table")).default],
+      sidebarPath: "platform-api-docs/docs/sidebar.js",
+      docItemComponent: "@theme/ApiItem",
+    },
+  ];
+  const docs_platform_openapi = [
+    "docusaurus-plugin-openapi-docs",
+    {
+      id: "api", // plugin id
+      docsPluginId: "classic", // configured for preset-classic
+      config: {
+        platform: {
+          specPath: "platform-api-docs/seqera-api-latest.yml",
+          outputDir: "platform-api-docs/docs",
+          sidebarOptions: {
+            groupPathsBy: "tag",
+          },
+        },
+      },
+    },
+  ];
+
   const docs_platform_cloud = [
     "@docusaurus/plugin-content-docs",
     {
@@ -124,43 +152,16 @@ export default async function createConfigAsync() {
     },
   ];
 
-  const docs_api = [
-    "docusaurus-plugin-openapi-docs",
-    {
-      id: "api", // plugin id
-      docsPluginId: "classic", // configured for preset-classic
-      config: {
-        platform: {
-          specPath: "platform-api-docs/seqera-api-latest.yml",
-          outputDir: "platform-api-docs/docs",
-          sidebarOptions: {
-            groupPathsBy: "tag",
-          },
-        }
-      },
-    },
-  ];
-
-  const docs_api_plugin = [
-    "@docusaurus/plugin-content-docs",
-    {
-      id: "platform-api",
-      routeBasePath: "/platform-api",
-      path: "platform-api-docs/docs",
-      remarkPlugins: [
-        (await require("remark-yaml-to-table")).default,
-      ],
-      sidebarPath: "platform-api-docs/docs/sidebar.js",
-      docItemComponent: '@theme/ApiItem'
-    },
-  ]
-
   console.log(
     "\n  EXCLUDE_CHANGELOG: " + (process.env.EXCLUDE_CHANGELOG ? true : false),
     "\n  EXCLUDE_PLATFORM_ENTERPRISE: " +
       (process.env.EXCLUDE_PLATFORM_ENTERPRISE ? true : false),
     "\n  EXCLUDE_PLATFORM_CLOUD: " +
       (process.env.EXCLUDE_PLATFORM_CLOUD ? true : false),
+    "\n  EXCLUDE_PLATFORM_API: " +
+      (process.env.EXCLUDE_PLATFORM_API ? true : false),
+    "\n  EXCLUDE_PLATFORM_OPENAPI: " +
+      (process.env.EXCLUDE_PLATFORM_OPENAPI ? true : false),
     "\n  EXCLUDE_MULTIQC: " + (process.env.EXCLUDE_MULTIQC ? true : false),
     "\n  EXCLUDE_FUSION: " + (process.env.EXCLUDE_FUSION ? true : false),
     "\n  EXCLUDE_WAVE: " + (process.env.EXCLUDE_WAVE ? true : false),
@@ -202,7 +203,7 @@ export default async function createConfigAsync() {
       defaultLocale: "en",
       locales: ["en"],
     },
-    themes: ['docusaurus-theme-openapi-docs'],
+    themes: ["docusaurus-theme-openapi-docs"],
     presets: [
       [
         "classic",
@@ -234,39 +235,12 @@ export default async function createConfigAsync() {
     plugins: [
       process.env.EXCLUDE_PLATFORM_ENTERPRISE ? null : docs_platform_enterprise,
       process.env.EXCLUDE_PLATFORM_CLOUD ? null : docs_platform_cloud,
+      process.env.EXCLUDE_PLATFORM_API ? null : docs_platform_api,
+      process.env.EXCLUDE_PLATFORM_OPENAPI ? null : docs_platform_openapi,
       process.env.EXCLUDE_MULTIQC ? null : docs_multiqc,
       process.env.EXCLUDE_FUSION ? null : docs_fusion,
       process.env.EXCLUDE_WAVE ? null : docs_wave,
 
-      [
-        "@docusaurus/plugin-content-docs",
-        {
-          id: "platform-api",
-          routeBasePath: "/platform-api",
-          path: "platform-api-docs/docs",
-          remarkPlugins: [
-            (await require("remark-yaml-to-table")).default,
-          ],
-          sidebarPath: "platform-api-docs/docs/sidebar.js",
-          docItemComponent: '@theme/ApiItem'
-        },
-      ],    
-      [
-        "docusaurus-plugin-openapi-docs",
-        {
-          id: "api", // plugin id
-          docsPluginId: "classic", // configured for preset-classic
-          config: {
-            platform: {
-              specPath: "platform-api-docs/seqera-api-latest.yml",
-              outputDir: "platform-api-docs/docs",
-              sidebarOptions: {
-                groupPathsBy: "tag",
-              },
-            }
-          },
-        },
-      ],
       async function tailwind() {
         return {
           name: "docusaurus-tailwindcss",
@@ -303,7 +277,7 @@ export default async function createConfigAsync() {
           src: "img/Logo.svg",
           srcDark: "img/LogoWhite.svg",
           width: "180px",
-          className: 'w-[100px]'
+          className: "w-[100px]",
         },
         items: [
           {
@@ -362,12 +336,12 @@ export default async function createConfigAsync() {
       footer: {
         style: "dark",
         logo: {
-          alt: 'Seqera Docs logo',
-          src: 'img/icon.svg', 
+          alt: "Seqera Docs logo",
+          src: "img/icon.svg",
           srcDark: "img/iconLight.svg",
-          href: '/', 
-          width: 25,  
-          height: 25, 
+          href: "/",
+          width: 25,
+          height: 25,
         },
         links: [
           {

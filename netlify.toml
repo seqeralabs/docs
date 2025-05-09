@@ -5,6 +5,20 @@
 # Specific branch deployment contexts
 #   Defining these ENV vars excludes certain docsets
 #   Use to have multiple separate netlify builds that don't time out
+
+# Default production branch - exclude enterprise docs (includes API docs)
+[context.production.environment]
+  EXCLUDE_PLATFORM_ENTERPRISE="1"
+  EXCLUDE_PLATFORM_API="1"
+  EXCLUDE_PLATFORM_OPENAPI="1"
+
+# Testing only - dev branch excluding enterprise docs (can be removed after #594 is live)
+[context.exclude-apidocs.environment]
+  EXCLUDE_PLATFORM_ENTERPRISE="1"
+  EXCLUDE_PLATFORM_API="1"
+  EXCLUDE_PLATFORM_OPENAPI="1"
+
+# API Docs branch
 [context.apidocs-deploy-switch.environment]
   EXCLUDE_CHANGELOG="1"
   EXCLUDE_PLATFORM_CLOUD="1"
