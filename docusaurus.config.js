@@ -238,10 +238,8 @@ export default async function createConfigAsync() {
       process.env.EXCLUDE_FUSION ? null : docs_fusion,
       process.env.EXCLUDE_WAVE ? null : docs_wave,
 
-      process.env.EXCLUDE_DOCS_API ? null : docs_api,
-      process.env.EXCLUDE_DOCS_API_PLUGIN ? null : docs_api_plugin,
-
-
+      docs_api,
+      docs_api_plugin,
       async function tailwind() {
         return {
           name: "docusaurus-tailwindcss",
