@@ -2,16 +2,29 @@ import React from "react";
 import { NavLink } from 'react-router-dom';
 import styles from "./activelink.module.css";
 
-const ActiveLink = ({ url, exact, children, customClasses, ...rest }) => {
+const ActiveLink = ({ url, externalLink, exact, children, customClasses, ...rest }) => {
+  
+  if (externalLink) {
     return (
       <a
         href={url}
-        // exact={exact}
         className={`${styles.navLink} ${customClasses}`}
-        {...rest}
       >
         {children}
       </a>
+    );
+  }
+
+    return (
+      <NavLink
+        to={url}
+        // exact={exact}
+        className={`${styles.navLink} ${customClasses}`}
+        activeClassName={styles.isActive}
+        {...rest}
+      >
+        {children}
+      </NavLink>
     );
   };
   
