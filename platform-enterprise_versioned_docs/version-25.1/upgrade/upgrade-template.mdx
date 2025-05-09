@@ -1,0 +1,47 @@
+---
+title: "25.1"
+description: "Platform Enterprise update guidance"
+date: "21 Aug 2024"
+tags: [enterprise, update, install]
+---
+
+
+We recommend that you upgrade Seqera often to stay current with the latest fixes and enhancements.
+
+In addition to common tasks you should complete for all versions of Seqera, there might be additional upgrade tasks to complete for a version.
+
+!!!note
+There might be breaking changes in some releases we document these in the following section. 
+
+# External Services
+
+The following external services are required for a deployment of Seqera Platform Enterprise:
+
+- **Redis**: Version 7 is officially supported (minimum required version is 6.2).
+- **MySQL**: Version 8 is officially supported (minimum required version is 5.7).
+
+# Back up Seqera
+
+MySQL
+
+```shell
+backup:
+> mysqldump -u root -p[root_password] [seqera_db_identifier] > seqera_backup.sql
+
+restore:
+> mysql -u root -p [seqera_db_identifier] < seqera_backup.sql
+
+# Upgrade Seqera
+
+## Upgrade Steps. 
+
+1 - Stop all running services and pipelines.
+
+2 - Perform database migrations. 
+3 - Start the backend
+4 - Start the frontend
+
+## Docker Compose
+
+
+## Kubernetes

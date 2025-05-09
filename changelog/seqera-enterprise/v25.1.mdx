@@ -4,6 +4,8 @@ date: 2025-04-09
 tags: [seqera enterprise]
 ---
 
+# Seqera Enterprise v25.1 Release Notes
+
 Seqera Platform Enterprise version 25.1 introduces Studios GA and a number of bug fixes and performance enhancements.
 
 Studios is Seqera's in-platform tool for secure, on-demand, interactive data analysis using containers created from Seqera-managed container template images or your own organization-managed custom environments. You only pay for the compute your Studio sessions consume, and the compute is adjacent to your data, significantly reducing data transfer costs and wasted time copying data from storage to analysis. This significantly reduces infrastructure management requirements, removes data silos, adheres to strict in-platform role-based access control, and lowers your operational costs. [Learn more about Studios](https://docs.seqera.io/platform-enterprise/latest/studios).
@@ -15,7 +17,7 @@ Studios is Seqera's in-platform tool for secure, on-demand, interactive data ana
 - **Labeled templates**: Labels indicate the status of support (`recommended` or `deprecated`) for a Seqera-managed Studio container template version. Users can migrate a Studio to a new base container template when **Adding as new**.
 - **[Private sessions](https://docs.seqera.io/platform-enterprise/latest/studios/managing#general-config)**: When adding a new Studio, the number of concurrent connections (private vs. all workspace members) can now be defined in **General Config > Collaboration**.
 - **[Custom session lifespans](https://docs.seqera.io/platform-enterprise/latest/studios/managing#modify-session-lifespan-for-all-studios)**: This new feature allows you to set a maximum lifespan for a session, after which time the session is stopped automatically and a checkpoint created, or the session can be extended on-demand.
-- **Resource labels**: Users with at least workspace maintainer role permissions can manage the resource labels inherited from the compute environment and attached to the Studio. Resource labels attached to each Studio don’t affect the default resource labels associated with the compute environment.
+- **Resource labels**: Users with at least workspace maintainer role permissions can manage the resource labels inherited from the compute environment and attached to the Studio. Resource labels attached to each Studio don't affect the default resource labels associated with the compute environment.
 
 ### Fusion
 
@@ -40,15 +42,19 @@ Studios is Seqera's in-platform tool for secure, on-demand, interactive data ana
 - Allow users to remove organization logos.
 - New workflow job monitoring collects and publishes Platform metrics.
 - Notify the user when secrets cleanup fails.
-- Dashboard page: Add a date filter. 
+- Dashboard page: Add a date filter.
 - Bump nf-launcher default to version 25.10.5.
 - Upgrade to Angular 18.
 
 ## Bug fixes
 
-- **Studios**
-  - Fixed resource labels being erroneously non-editable for the Maintain role when adding or starting a Studio session.
-  - Fixed searches for names containing special SQL wildcard characters (_, %).
+### Studios
+
+- Fixed resource labels being erroneously non-editable for the Maintain role when adding or starting a Studio session.
+- Fixed searches for names containing special SQL wildcard characters (\_, %).
+
+### General
+
 - Prohibit duplicate Git credentials and tie-break on `lastUpdated` for existing duplicates. Preference is given to the last-updated credentials when there are multiple candidates. A check is also added to avoid duplicates when creating new credentials.
 - Set `ECS_CONTAINER_START_TIMEOUT` to 10 minutes in the ECS settings used by AWS Batch CEs, to prevent `Task failed to start - DockerTimeoutError: Could not transition to started; timed out after waiting 3m0s` errors.
 - Compute environment creation form allows pre- and post-run scripts to be longer than the accepted value of 1024 characters.
@@ -63,81 +69,8 @@ Studios is Seqera's in-platform tool for secure, on-demand, interactive data ana
 - Fallback to primary compute environment when launching a shared pipeline without an associated compute environment from a private workspace.
 - Fixed regression of the quick launch form not selecting the primary compute environment by default.
 
-## Breaking changes and warnings
 
-### OIDC Secrets injection modifications
+:::note[UPGRADING]
 
-The `auth-oidc-secrets` Micronaut environment has been replaced with `oidc-token-import`. If you use this configuration, you must change the `MICRONAUT_ENV` environment variable in the manifest during the migration process. If you activate the feature with the `TOWER_OIDC_TOKEN_IMPORT` environment variable, no changes are needed.
+See [Upgrade installation](https://docs.seqera.io/platform-enterprise/25.1/enterprise/upgrade) for installation upgrade guidance.
 
-### Seqera AWS ECR repository customer access ends June 1, 2025
-
-Customers will no longer be able to pull Seqera Enterprise container images from the legacy Seqera AWS ECR repository after June 1, 2025. All Seqera Enterprise images must be retrieved via the `cr.seqera.io` container registry after this cutoff date. The installation and configuration templates provided for both [Docker Compose](https://docs.seqera.io/platform-enterprise/25.1/enterprise/docker-compose) and [Kubernetes](https://docs.seqera.io/platform-enterprise/25.1/enterprise/kubernetes) installations already reference the `cr.seqera.io` container image URLs. If you have not yet transitioned to this registry, [contact Support](https://support.seqera.io) to request credentials and for any further assistance. 
-
-See [Legacy Seqera container image registries](https://docs.seqera.io/platform/25.1/platform-enterprise/advanced-topics/seqera-container-images) for more information on the AWS ECR and other deprecated Seqera container registries. 
-
-### Redis version change
-
-From Seqera Enterprise version 24.2: 
-
-- Redis version 6.2 or greater is required.
-- Redis version 7 is officially supported.
-
-### Redisson properties deprecated
-
-From Seqera Enterprise version 24.2, `redisson.*` configuration properties are deprecated. If you have set `redisson.*` properties directly previously, do the following:
-
-- Replace `/redisson/*` references in AWS Parameter Store entries with `TOWER_REDIS_*`. 
-- Replace `redisson.*` references in `tower.yml` with `TOWER_REDIS_*`. 
-
-:::note
-Set `TOWER_REDIS_*` values directly in the `tower.yml` or AWS Parameter Store entry (for example, `TOWER_REDIS_URL: redis://...`).
-:::
-
-### MariaDB driver: New MySQL connection parameter required
-
-MariaDB driver 3.x requires a special parameter in the connection URL to connect to a MySQL database:
-
-`jdbc:mysql://<domain>:<port>/tower?permitMysqlScheme=true`
-
-All deployments using a MySQL database (regardless of version: 5.6, 5.7, or 8) must be updated when upgrading to Seqera Enterprise version 24.1 or later.
-
-### MariaDB driver: No truncation support for MySQL 5.6
-
-The MariaDB driver has dropped support for the `jdbcCompliantTruncation` parameter, which was true by default and set the `STRICT_TRANS_TABLES` SQL mode. The `STRICT_TRANS_TABLES` mode produces an error when the value of a VARCHAR column exceeds its limit, instead of truncating it to fit. Most common installations of MySQL 5.7 and 8 already include this mode at the server level, but the Docker container version of MySQL 5.6 does not.
-
-The SQL mode must be set explicitly through the connection URL for deployments still using MySQL 5.6:
-
-`jdbc:mysql://<domain>:<port>/tower?permitMysqlScheme=true&sessionVariables=sql_mode='STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION'`
-
-### Micronaut property key changes
-
-The property that determines the expiration time of the JWT access token (used for authenticating web sessions and Nextflow-Platform interactions) has changed as of Seqera Enterprise version 24.1:
-
-| Previous                                                         | New                                                          |
-| ---------------------------------------------------------------- | ------------------------------------------------------------ |
-| `micronaut.security.token.jwt.generator.access-token.expiration` | `micronaut.security.token.generator.access-token.expiration` |
-	
-Enterprise deployments that have customized this value previously will need to adopt the new format.
-
-## Upgrade steps 
-
-:::warning
-Upgrading to version 25.1 requires backend downtime in order for the database migration to complete successfully.
-:::
-
-1. This version includes an update to the Platform Enterprise H8 cache. **Do not start the upgrade while any pipelines are in a `running` state as active run data may be lost.**
-1. This version requires a database schema update. Make a backup of your Platform database prior to upgrade.
-1. If you are upgrading from a version older than 23.4.1, update your installation to version [23.4.4](https://docs.seqera.io/changelog/seqera-enterprise/v23.4) first, before updating to 25.1 with the steps below.
-1. For recommended Platform memory settings, add the following environment variable to your Platform configuration values (`tower.env`, `configmap.yml`, etc.):
-    ```bash
-    JAVA_OPTS: -Xms1000M -Xmx2000M -XX:MaxDirectMemorySize=800m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144
-    ```
-1. See [Upgrade installation](https://docs.seqera.io/platform-enterprise/24.2/enterprise/upgrade) for installation upgrade guidance.
-
-:::info
-Docker Compose deployments require downtime while upgrading services. Restarting the application may take several minutes. See [Docker compose deployment](https://docs.seqera.io/platform-enterprise/latest/enterprise/docker-compose) for more information.
-
-For Kubernetes deployments, apply the 25.1 `tower-cron.yml` to your cron pod and wait for the cron pod to be running before applying the `tower-svc.yml` to your backend pod and restarting the service. If the cron pod update is interrupted, you may need to restore the instance from your DB backup and start again. See [Kubernetes deployment](https://docs.seqera.io/platform-enterprise/latest/enterprise/kubernetes) for more information. 
-
-For custom deployments with third-party services such as ArgoCD, [contact support](https://support.seqera.io) for assistance during upgrade. 
-::: 
