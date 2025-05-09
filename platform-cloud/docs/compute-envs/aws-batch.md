@@ -376,7 +376,7 @@ Seqera Platform compute environments for AWS Batch include advanced options to c
 - Specify a **CloudWatch Log group** for the `awslogs` driver to stream the logs entry to an existing Log group in Cloudwatch.
 
 :::caution
-Seqera platform is designed to terminate compute resources when a Nextflow pipeline completes or is canceled. However, due to external factors — including user-defined workflow logic, transient cloud faults, or abnormal pipeline exits — residual resources may persist. While Platform provides visibility and APIs to detect and resolve these states, customers are responsible for final resource cleanup and ensuring compute environments operate according to Platform expectations.
+Seqera platform is designed to terminate compute resources when a Nextflow pipeline completes or is canceled. However, due to external factors — including user-defined workflow logic, transient cloud faults, or abnormal pipeline exits — residual resources may persist. While Platform provides visibility to detect and resolve these states, customers are responsible for final resource cleanup and ensuring compute environments operate according to Platform expectations.
 
 From Nextflow v24.10+, compute jobs are identifiable by Seqera workflow ID. If you search your AWS console/CLI/API for jobs prefixed by a given workflow ID, you can check the status and perform additional cleanup in edge case scenarios.
 :::
