@@ -74,7 +74,7 @@ const VersionSwitcher = ({ isOpen, setIsOpen }) => {
               onClick={() => handleSelectVersion(version.name)}
             >
               <Link
-                to={`${version.path}${urlSuffix}`} // Append the suffix to the version path
+                to={`https://docs.seqera.io/platform-enterprise/${version.path}${urlSuffix}`} // Append the suffix to the version path
                 className={`${styles.item} `}
               >
                 v{version.label}{" "}
