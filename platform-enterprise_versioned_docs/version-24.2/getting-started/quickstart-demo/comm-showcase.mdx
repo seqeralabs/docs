@@ -12,13 +12,13 @@ import TabItem from '@theme/TabItem';
 :::info
 This demo tutorial provides an introduction to Seqera Platform, including instructions to:
 - Launch, monitor, and optimize the [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline
-- Select pipeline input data with [Data Explorer](../../data/data-explorer.mdx) and Platform [datasets](../../data/datasets.mdx)
-- Perform interactive analysis of pipeline results with [Data Studios](../../data_studios/index.mdx)
+- Select pipeline input data with [Data Explorer](../../data/data-explorer) and Platform [datasets](../../data/datasets)
+- Perform interactive analysis of pipeline results with [Data Studios](../../data_studios/index)
 
 The Platform Community Showcase is a Seqera-managed demonstration workspace with all the resources needed to follow along with this tutorial. All [Seqera Cloud](https://cloud.seqera.io) users have access to this example workspace by default. 
 :::
 
-The Launchpad in every Platform workspace allows users to easily create and share Nextflow pipelines that can be executed on any supported infrastructure, including all public clouds and most HPC schedulers. A Launchpad pipeline consists of a pre-configured workflow repository, [compute environment](../../compute-envs/overview.mdx), and launch parameters.
+The Launchpad in every Platform workspace allows users to easily create and share Nextflow pipelines that can be executed on any supported infrastructure, including all public clouds and most HPC schedulers. A Launchpad pipeline consists of a pre-configured workflow repository, [compute environment](../../compute-envs/overview), and launch parameters.
 
 The Community Showcase contains 15 preconfigured pipelines, including [nf-core/rnaseq](https://github.com/nf-core/rnaseq), a bioinformatics pipeline used to analyze RNA sequencing data. 
 
@@ -26,9 +26,9 @@ The workspace also includes three preconfigured AWS Batch compute environments t
 
 :::note
 To skip this Community Showcase demo and start running pipelines on your own infrastructure:
-1. Set up an [organization workspace](../workspace-setup.mdx).
-1. Create a workspace [compute environment](../../compute-envs/overview.mdx) for your cloud or HPC compute infrastructure.
-1. [Add pipelines](./add-pipelines.mdx) to your workspace.
+1. Set up an [organization workspace](../workspace-setup).
+1. Create a workspace [compute environment](../../compute-envs/overview) for your cloud or HPC compute infrastructure.
+1. [Add pipelines](./add-pipelines) to your workspace.
 :::
 
 ## Launch the nf-core/rnaseq pipeline
@@ -46,7 +46,7 @@ The launch form consists of **General config**, **Run parameters**, and **Advanc
 <details>
   <summary>Nextflow parameter schema</summary>
 
-  The launch form lets you configure the pipeline execution. The pipeline parameters in this form are rendered from a [pipeline schema](../../pipeline-schema/overview.mdx) file in the root of the pipeline Git repository. `nextflow_schema.json` is a simple JSON-based schema describing pipeline parameters for pipeline developers to easily adapt their in-house Nextflow pipelines to be executed in Platform.
+  The launch form lets you configure the pipeline execution. The pipeline parameters in this form are rendered from a [pipeline schema](../../pipeline-schema/overview) file in the root of the pipeline Git repository. `nextflow_schema.json` is a simple JSON-based schema describing pipeline parameters for pipeline developers to easily adapt their in-house Nextflow pipelines to be executed in Platform.
 
   :::tip
   See [Best Practices for Deploying Pipelines with the Seqera Platform](https://seqera.io/blog/best-practices-for-deploying-pipelines-with-seqera-platform/) to learn how to build the parameter schema for any Nextflow pipeline automatically with tooling maintained by the nf-core community. 
@@ -65,7 +65,7 @@ Most Showcase pipeline parameters are prefilled. Specify the following fields to
 
 There are three ways to enter **Run parameters** prior to launch:
 
-- The **Input form view** displays form fields to enter text, select attributes from dropdowns, and browse input and output locations with [Data Explorer](../../data/data-explorer.mdx).
+- The **Input form view** displays form fields to enter text, select attributes from dropdowns, and browse input and output locations with [Data Explorer](../../data/data-explorer).
 - The **Config view** displays a raw schema that you can edit directly. Select JSON or YAML format from the **View as** dropdown.
 - **Upload params file** allows you to upload a JSON or YAML file with run parameters.
 
@@ -79,7 +79,7 @@ Most nf-core pipelines use the `input` parameter in a standardized way to specif
 ![Input parameters](../_images/cs-launch-input.gif)
 
 :::tip
-See [Add data](./add-data.mdx) to learn how to add datasets and Data Explorer cloud buckets to your own workspaces.
+See [Add data](./add-data) to learn how to add datasets and Data Explorer cloud buckets to your own workspaces.
 :::
 
 #### output
@@ -151,7 +151,7 @@ Most Nextflow pipelines generate reports or output files which are useful to ins
 </details>
 
 :::note
-See [Reports](../../reports/overview.mdx) to configure reports for pipeline runs in your own workspace. 
+See [Reports](../../reports/overview) to configure reports for pipeline runs in your own workspace. 
 :::
 
 ### View general information
@@ -252,7 +252,7 @@ Deploy the RShiny app in the data studio by selecting the green play button on t
 ![Run RShiny app](./assets/rnaseq-diffab-run-rshiny-app.png)
 
 :::note
-Data Studios allows you to specify the resources each studio will use. When [creating your own data studios](../../data_studios/index.mdx) with shared compute environment resources, you must allocate sufficient resources to the compute environment to prevent data studio or pipeline run interruptions. 
+Data Studios allows you to specify the resources each studio will use. When [creating your own data studios](../../data_studios/index) with shared compute environment resources, you must allocate sufficient resources to the compute environment to prevent data studio or pipeline run interruptions. 
 :::
 
 ### Explore results
@@ -307,10 +307,10 @@ The RShiny app will deploy in a separate browser window, providing a data interf
 
 ### Collaborate in the data studio
 
-To share the results of your RNAseq analysis or allow colleagues to perform exploratory analysis, share a link to the data studio by selecting the options menu for the data studio you want to share, then select **Copy data studio URL**. With this link, other authenticated users with the **Connect** [role](../../orgs-and-teams/roles.mdx) (or greater) can access the session directly.
+To share the results of your RNAseq analysis or allow colleagues to perform exploratory analysis, share a link to the data studio by selecting the options menu for the data studio you want to share, then select **Copy data studio URL**. With this link, other authenticated users with the **Connect** [role](../../orgs-and-teams/roles) (or greater) can access the session directly.
 
 :::note
-See [Data Studios](../../data_studios/index.mdx) to learn how to create data studios in your own workspace. 
+See [Data Studios](../../data_studios/index) to learn how to create data studios in your own workspace. 
 :::
 
 ## Pipeline optimization 
