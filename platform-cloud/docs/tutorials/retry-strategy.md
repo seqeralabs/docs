@@ -19,7 +19,7 @@ For workflows with a significant proportion of long-running processes, the costs
 
 ### Move long-running tasks to On-Demand 
 
-Tasks with long runtimes are particularly vulnerable to Spot termination. In Platform, you can explicitly assign critical or long-duration tasks to On-Demand queues and leave other tasks to run in a Spot queue by default:
+Tasks with long runtimes are particularly vulnerable to Spot termination. If you don’t already have one, first create an On-Demand compute environment in Seqera Platform. Then, in Platform, you can explicitly assign critical or long-duration tasks to On-Demand queues and leave other tasks to run in a Spot queue by default: 
 
 ```
 process {
@@ -29,7 +29,7 @@ process {
 }
 ```
 
-If you don’t already have one, you may need to create an On-Demand compute environment in Seqera Platform. Once it’s available, open the **Compute Environments** tab in Seqera Platform, and open the relevant compute environment. Scroll down to the **Manual Config Attributes** section to view key configuration details, including queue names. Look for the queue name prefixed with `TowerForge-` if it was created by Forge.
+To find the queue name, open the **Compute Environments** tab in Seqera Platform, and open the relevant compute environment. Scroll down to the **Manual Config Attributes** section to view key configuration details, including queue names. Look for the queue name prefixed with `TowerForge-` if it was created by Forge. 
 
 ### Use retry strategies for Spot Interruptions
 
