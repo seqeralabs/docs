@@ -124,6 +124,37 @@ export default async function createConfigAsync() {
     },
   ];
 
+  const docs_api = [
+    "docusaurus-plugin-openapi-docs",
+    {
+      id: "api", // plugin id
+      docsPluginId: "classic", // configured for preset-classic
+      config: {
+        platform: {
+          specPath: "platform-api-docs/seqera-api-latest.yml",
+          outputDir: "platform-api-docs/docs",
+          sidebarOptions: {
+            groupPathsBy: "tag",
+          },
+        }
+      },
+    },
+  ];
+
+  const docs_api_plugin = [
+    "@docusaurus/plugin-content-docs",
+    {
+      id: "platform-api",
+      routeBasePath: "/platform-api",
+      path: "platform-api-docs/docs",
+      remarkPlugins: [
+        (await require("remark-yaml-to-table")).default,
+      ],
+      sidebarPath: "platform-api-docs/docs/sidebar.js",
+      docItemComponent: '@theme/ApiItem'
+    },
+  ]
+
   console.log(
     "\n  EXCLUDE_CHANGELOG: " + (process.env.EXCLUDE_CHANGELOG ? true : false),
     "\n  EXCLUDE_PLATFORM_ENTERPRISE: " +
@@ -207,35 +238,9 @@ export default async function createConfigAsync() {
       process.env.EXCLUDE_FUSION ? null : docs_fusion,
       process.env.EXCLUDE_WAVE ? null : docs_wave,
 
-      [
-        "@docusaurus/plugin-content-docs",
-        {
-          id: "platform-api",
-          routeBasePath: "/platform-api",
-          path: "platform-api-docs/docs",
-          remarkPlugins: [
-            (await require("remark-yaml-to-table")).default,
-          ],
-          sidebarPath: "platform-api-docs/docs/sidebar.js",
-          docItemComponent: '@theme/ApiItem'
-        },
-      ],      
-      [
-        "docusaurus-plugin-openapi-docs",
-        {
-          id: "api", // plugin id
-          docsPluginId: "classic", // configured for preset-classic
-          config: {
-            platform: {
-              specPath: "platform-api-docs/seqera-api-latest.yml",
-              outputDir: "platform-api-docs/docs",
-              sidebarOptions: {
-                groupPathsBy: "tag",
-              },
-            }
-          },
-        },
-      ],
+      process.env.EXCLUDE_DOCS_API ? null : docs_api,
+      process.env.EXCLUDE_DOCS_API_PLUGIN ? null : docs_api_plugin,
+
 
       async function tailwind() {
         return {
