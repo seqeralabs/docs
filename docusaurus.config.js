@@ -269,11 +269,11 @@ export default async function createConfigAsync() {
             position: "left",
             target: "_blank",
           },
-          // {
-          //   to: "/platform-api/",
-          //   label: "Platform API",
-          //   position: "left",
-          // },
+          {
+            type: 'html',
+            position: 'left',
+            value: '<a href="https://deploy-preview-598--seqera-docs.netlify.app/platform-api/seqera-api" class="menu__link">Platform API</a>'
+          },
         ],
       },
       footer: {
