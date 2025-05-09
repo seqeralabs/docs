@@ -15,7 +15,7 @@ This guide outlines best practices for mitigating the impact of Spot interruptio
 
 ### Use an On-Demand compute environment
 
-For workflows with a significant proportion of long-running processes, the costs of, and mitigations necessary for working with Spot may outweigh the benefits. You may find it simpler and even, possibly, cheaper to simply run those workloads in On-Demand compute environments.
+For workflows with a significant proportion of long-running processes, the costs of, and mitigations necessary for working with Spot may outweigh the benefits. You may find it simpler and cheaper to run those workloads in On-Demand compute environments.
 
 ### Move long-running tasks to On-Demand 
 
