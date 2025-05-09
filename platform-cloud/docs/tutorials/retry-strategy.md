@@ -19,7 +19,7 @@ For workflows with a significant proportion of long-running processes, the costs
 
 ### Move long-running tasks to On-Demand 
 
-Tasks with long runtimes are particularly vulnerable to Spot termination. In Platform, you can explicitly assign critical or long-duration tasks to On-Demand queues and leave other tasks to run in a default Spot queue by default:
+Tasks with long runtimes are particularly vulnerable to Spot termination. In Platform, you can explicitly assign critical or long-duration tasks to On-Demand queues and leave other tasks to run in a Spot queue by default:
 
 ```bash
 process {
@@ -35,7 +35,7 @@ If you don’t already have one, you may need to create an On-Demand compute env
 
 #### Handle retries in Nextflow by setting `errorStrategy` and `maxRetries`
 
-A simple generic retry strategy at the Nextflow level can be more appropriate where run times are sufficiently low that retries are likely to succeed. This can be configured as follows:
+A retry strategy at the Nextflow level is more appropriate when run times are low and retries are likely to succeed. This can be configured as follows:
 
 ```bash
 process {
@@ -44,15 +44,17 @@ process {
 }
 ```
 
-This example configuration will apply to all types of job failure. Because Spot reclamations do not produce diagnostic exit codes, it is currently not possible to configure retries at the Nextflow level specifically for reclamations. Note that, given the escalating costs of repeated retries, an On-Demand queue is likely a more cost-effective option than very large numbers of retries. If you still see failures after applying configuration like this, solutions involving On-Demand queues are likely to be more effective at limiting costs and runtimes.
+This retry strategy in the above example configuration will all types of job failures. Currently, it is not possible to configure retries at the Nextflow level specifically for reclamations because Spot reclamations do not produce diagnostic exit codes. Note that, given the escalating costs of repeated retries, an On-Demand queue is likely a more cost-effective option than very large numbers of retries. If you still see failures after applying a configuration like this, solutions involving On-Demand queues are likely to be more effective at limiting costs and runtimes.
 
 #### Handle retries in AWS by setting `aws.batch.maxSpotAttempts`
 
-If you do not have processes with long runtimes in your workflow (i.e., all processes are under 1 hour runtime), you can consider configuring automatic retries in case of interruption:
+If you do not have processes with long runtimes in your workflow (i.e., all processes are under one hour runtime), you can consider configuring automatic retries in case of interruption:
 
-`aws.batch.maxSpotAttempts = 3`
+```
+aws.batch.maxSpotAttempts = 3
+```
 
-This is a global setting (not configurable per process) that in this example allows a job to retry up to three times on a new Spot instance if the original instance is reclaimed. Retries happen automatically within AWS and restart the task from the beginning. Because this occurs behind the scenes, you won't see any evidence of the retries within the Platform. In fact, as far as Nextflow (and Platform) is concerned, only one attempt has occurred, and it will submit the task again to AWS, up to any `maxRetries` configuration you have in place (see above). The total number of retries in that case will be `maxRetries` * `aws.batch.maxSpotAttempts`. For a long running process being pre-empted repeatedly, this can represent very significant costs in time and compute.
+This is a global setting (not configurable per process) that, in this example, allows a job to retry up to three times on a new Spot instance if the original instance is reclaimed. Retries happen automatically within AWS and restart the task from the beginning. You won't see any evidence of the retries within Platform. From the perspective of both Nextflow and the Platform, only a single attempt is considered to have occurred. The task will be resubmitted to AWS as necessary, subject to the `maxRetries` configuration defined for the workflow. The total number of retries will be `maxRetries` * `aws.batch.maxSpotAttempts`. For a long-running process being pre-empted repeatedly, this can represent very significant costs in time and compute.
 
 :::note
 Starting with Nextflow version 24.08.0-edge, the default value for this setting has been changed to `0` to help avoid unexpected expenses, and you should be careful when activating this setting.
@@ -72,8 +74,8 @@ process {
 }
 ```
 
-With this setup, the first attempt of a task is sent to the Spot queue, while any retries are directed to the On-Demand queue, where they won't be preempted. This helps avoid repeated preemption of longer-running tasks and can serve as a useful default strategy. However, longer-running jobs should still be submitted directly to an On-Demand queue whenever possible, to avoid the unnecessary cost of the initial preemption.
+With the hybrid setup, the first attempt of a task is sent to the Spot queue, while any retries are directed to the On-Demand queue, where they won't be preempted. This helps avoid repeated preemption of longer-running tasks and can serve as a useful default strategy. However, longer-running jobs should still be submitted directly to an On-Demand queue whenever possible, to avoid the unnecessary cost of the initial preemption.
 
 ### Consider enabling Fusion Snapshots (preview feature)
 
-Fusion Snapshots can help mitigate interruption risk by checkpointing task state before termination. This is currently in preview and best suited for compute-intensive or long-running tasks. If you're interested in testing this feature, reach out to our support team at https://support.seqera.io and we will be happy to assist you.
+Fusion Snapshots can help mitigate interruption risk by checkpointing the task state before termination. This is currently in preview and best suited for compute-intensive or long-running tasks. If you're interested in testing this feature, reach out to our support team at https://support.seqera.io and we will be happy to assist you.
