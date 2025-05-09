@@ -73,7 +73,7 @@ This guide assumes that all services will be run in the same container as the re
 
 1. Download the [data-studios-rsa.pem](./_templates/docker/data-studios-rsa.pem) file and replace its contents with the content of your private and public key files, in the same order (private key on top, public key directly beneath it). Save the file as `data-studios-rsa.pem`, in the same directory as your `docker-compose.yml` file. 
 
-1. Open the `docker-compose.yml` and uncomment the volume mount for the PEM key file for the `backend` service in the `volumes` list. Your PEM file must be named `data-studios-rsa.pem`.
+1. Open the `docker-compose.yml` and uncomment the volume mount for the PEM key file for the `backend` and `cron` services in the `volumes` list. Your PEM file must be named `data-studios-rsa.pem`.
 
     ```yaml
     volumes:
