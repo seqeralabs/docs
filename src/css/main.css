@@ -389,7 +389,7 @@ html[data-theme="dark"]{
   }
 }
 
-.navbar-sidebar {
+/* .navbar-sidebar {
   .menu__list {
     .menu__list-item:nth-child(3) {
       border-left: 1px solid var(--color-gray-600);
@@ -399,7 +399,7 @@ html[data-theme="dark"]{
       margin-left: 20px;
     }
   }
-}
+} */
 
 .theme-doc-toc-mobile {
   .clean-btn {
