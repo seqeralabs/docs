@@ -384,3 +384,15 @@ html[data-theme="dark"]{
     }
   }
 }
+
+.navbar-sidebar {
+  .menu__list {
+    .menu__list-item:nth-child(3) {
+      border-left: 1px solid var(--color-gray-600);
+      padding-left: 5px;
+    }
+    li:nth-child(3){
+      margin-left: 20px;
+    }
+  }
+}
