@@ -46,23 +46,6 @@ export default async function createConfigAsync() {
       [
         "classic",
         {
-          blog: {
-            blogTitle: 'Seqera Changelog',
-            blogDescription: 'Blog',
-            blogSidebarCount: 5000,
-            blogSidebarTitle: 'Changelog',
-            path: 'changelog',
-            routeBasePath: '/changelog',
-            //processBlogPosts: () => ({}),
-            include: ['**/*.{md,mdx}'],
-            showReadingTime: false,
-            feedOptions: {
-              type: 'all', // 'rss', 'atom', or both
-              title: 'Seqera Changelog',
-              description: 'Stay updated with our blog posts!',
-              copyright: `Copyright © ${new Date().getFullYear()} Seqera`,
-            }
-          },
           docs: false,
           theme: {
             customCss: [
@@ -115,23 +98,6 @@ export default async function createConfigAsync() {
       [
         "@docusaurus/plugin-content-docs",
         {
-          id: "platform-cloud",
-          routeBasePath: "/platform-cloud",
-          path: "platform-cloud/docs",
-          remarkPlugins: [
-            (await import("remark-code-import")).default,
-            (await require("remark-math")).default,
-            (await import("docusaurus-remark-plugin-tab-blocks")).default,
-            (await require("remark-yaml-to-table")).default,
-          ],
-          rehypePlugins: [(await require("rehype-katex")).default],
-          editUrl: "https://github.com/seqeralabs/docs/tree/master/",
-          sidebarPath: "./platform-cloud/cloud-sidebar.json",
-        },
-      ],
-      [
-        "@docusaurus/plugin-content-docs",
-        {
           id: "platform-api",
           routeBasePath: "/platform-api",
           path: "platform-api-docs/docs",
@@ -142,61 +108,6 @@ export default async function createConfigAsync() {
           docItemComponent: '@theme/ApiItem'
         },
       ],      
-      [
-        "@docusaurus/plugin-content-docs",
-        {
-          id: "multiqc",
-          routeBasePath: "/multiqc",
-          path: "multiqc_docs/multiqc_repo/docs/markdown",
-          remarkPlugins: [
-            (await import("remark-code-import")).default,
-            (await require("remark-math")).default,
-            (await import("docusaurus-remark-plugin-tab-blocks")).default,
-            (await require("remark-yaml-to-table")).default,
-          ],
-          rehypePlugins: [(await require("rehype-katex")).default],
-          editUrl: ({ docPath }) => {
-            return `https://github.com/MultiQC/MultiQC/blob/main/docs/markdown/${docPath.replace('multiqc_docs/multiqc_repo/docs', '')}`
-          },
-          sidebarPath: "./multiqc_docs/sidebar.js",
-        },
-      ],
-      [
-        "@docusaurus/plugin-content-docs",
-        {
-          id: "fusion",
-          routeBasePath: "/fusion",
-          path: "fusion_docs",
-          remarkPlugins: [
-            (await import("remark-code-import")).default,
-            (await require("remark-math")).default,
-            (await import("docusaurus-remark-plugin-tab-blocks")).default,
-            (await require("remark-yaml-to-table")).default,
-          ],
-          rehypePlugins: [(await require("rehype-katex")).default],
-          editUrl: "https://github.com/seqeralabs/docs/tree/master/",
-          sidebarPath: "./fusion_docs/sidebar.json",
-        },
-      ],
-      [
-        "@docusaurus/plugin-content-docs",
-        {
-          id: "wave",
-          routeBasePath: "/wave",
-          path: "wave_docs/wave_repo/docs",
-          remarkPlugins: [
-            (await import("remark-code-import")).default,
-            (await require("remark-math")).default,
-            (await import("docusaurus-remark-plugin-tab-blocks")).default,
-            (await require("remark-yaml-to-table")).default,
-          ],
-          rehypePlugins: [(await require("rehype-katex")).default],
-          editUrl: ({ docPath }) => {
-            return `https://github.com/seqeralabs/wave/blob/master/docs/${docPath.replace('wave_docs/wave_repo/docs', '')}`
-          },
-          sidebarPath: "./wave_docs/sidebar.json",
-        },
-      ],
       [
         "docusaurus-plugin-openapi-docs",
         {
@@ -237,8 +148,6 @@ export default async function createConfigAsync() {
           },
         };
       },
-      // path.resolve(__dirname, "plugins_custom/seqera_jobs"),
-      // path.resolve(__dirname, "plugins_custom/seqera_events"),
     ],
 
     themeConfig: {
@@ -288,21 +197,17 @@ export default async function createConfigAsync() {
             label: "Fusion",
             position: "left",
           },
-          // {
-          //   type: "search",
-          //   position: "right",
-          // },
           {
             to: "https://training.nextflow.io/latest/",
             html: 'Nextflow Training <svg width="12" height="12" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU" style="margin-left:6px;opacity:0.6;"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg>',
             position: "left",
             target: "_blank",
           },
-          // {
-          //   to: "/platform-api/",
-          //   label: "Platform API",
-          //   position: "left",
-          // },
+          {
+            to: "/platform-api/",
+            label: "Platform API",
+            position: "left",
+          },
         ],
       },
       footer: {
@@ -316,45 +221,6 @@ export default async function createConfigAsync() {
           height: 25, 
         },
         links: [
-          {
-            title: "Docs",
-            items: [
-              {
-                label: "Platform Enterprise",
-                to: "/platform-enterprise/",
-              },
-              {
-                label: "Platform Cloud",
-                to: "/platform-cloud/",
-              },
-            ],
-          },
-          {
-            title: "Community",
-            items: [
-              {
-                label: "Github",
-                href: "https://github.com/seqeralabs",
-              },
-              {
-                label: "LinkedIn",
-                href: "https://www.linkedin.com/company/14065390/",
-              },
-              {
-                label: "Twitter",
-                href: "https://twitter.com/seqeralabs",
-              },
-            ],
-          },
-          {
-            title: "More",
-            items: [
-              {
-                label: "About Seqera",
-                href: "https://seqera.io/",
-              },
-            ],
-          },
         ],
         copyright: `© ${new Date().getFullYear()} Seqera`,
       },

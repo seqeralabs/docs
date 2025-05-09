@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "prestart": "npm run fetch-docs-oss",
+    "prestart": "npm run",
     "start": "docusaurus start",
     "dev": "npm run start",
-    "prebuild": "npm run fetch-docs-oss",
+    "prebuild": "npm run",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
