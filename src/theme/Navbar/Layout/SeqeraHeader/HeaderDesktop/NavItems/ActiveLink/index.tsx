@@ -4,15 +4,14 @@ import styles from "./activelink.module.css";
 
 const ActiveLink = ({ url, exact, children, customClasses, ...rest }) => {
     return (
-      <NavLink
-        to={url}
+      <a
+        href={url}
         // exact={exact}
         className={`${styles.navLink} ${customClasses}`}
-        activeClassName={styles.isActive}
         {...rest}
       >
         {children}
-      </NavLink>
+      </a>
     );
   };
   

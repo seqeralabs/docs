@@ -162,12 +162,12 @@ export default async function createConfigAsync() {
         },
         items: [
           {
-            to: "/platform-cloud/",
+            to: "https://docs.seqera.io/platform-cloud/",
             position: "left",
             label: "Platform Cloud",
           },
           {
-            to: "/platform-enterprise/",
+            to: "https://docs.seqera.io/platform-enterprise/",
             position: "left",
             label: "Platform Enterprise",
           },
@@ -183,17 +183,17 @@ export default async function createConfigAsync() {
             target: "_blank",
           },
           {
-            to: "/multiqc/",
+            to: "https://docs.seqera.io/multiqc/",
             label: "MultiQC",
             position: "left",
           },
           {
-            to: "/wave/",
+            to: "https://docs.seqera.io/wave/",
             label: "Wave",
             position: "left",
           },
           {
-            to: "/fusion/",
+            to: "https://docs.seqera.io/fusion/",
             label: "Fusion",
             position: "left",
           },
@@ -204,7 +204,7 @@ export default async function createConfigAsync() {
             target: "_blank",
           },
           {
-            to: "/platform-api/",
+            to: "/platform-api/seqera-api",
             label: "Platform API",
             position: "left",
           },

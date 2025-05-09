@@ -44,12 +44,12 @@ const NavItems = ({ isDark = false, hideMenu }) => {
       <div className="w-full flex items-center justify-between">
         <ul className={`${styles.navList} flex flex-row`}>
           <li>
-            <ActiveLink to="/platform-cloud" customClasses={`mr-6`}>
+            <ActiveLink url="https://docs.seqera.io/platform-cloud" customClasses={`mr-6`}>
               Cloud
             </ActiveLink>
           </li>
           <li>
-            <ActiveLink url="/platform-enterprise" customClasses={`mr-6`}>
+            <ActiveLink url="https://docs.seqera.io/platform-enterprise" customClasses={`mr-6`}>
               Enterprise
             </ActiveLink>
           </li>
@@ -65,17 +65,17 @@ const NavItems = ({ isDark = false, hideMenu }) => {
             </a>
           </li>
           <li>
-            <ActiveLink url="/multiqc" customClasses={`mr-6`}>
+            <ActiveLink url="https://docs.seqera.io/multiqc" customClasses={`mr-6`}>
               MultiQC
             </ActiveLink>
           </li>
           <li>
-            <ActiveLink url="/wave" customClasses={`mr-6`}>
+            <ActiveLink url="https://docs.seqera.io/wave" customClasses={`mr-6`}>
               Wave
             </ActiveLink>
           </li>
           <li>
-            <ActiveLink url="/fusion" customClasses={`mr-6`}>
+            <ActiveLink url="https://docs.seqera.io/fusion" customClasses={`mr-6`}>
               Fusion
             </ActiveLink>
           </li>
@@ -89,11 +89,11 @@ const NavItems = ({ isDark = false, hideMenu }) => {
               </div>
             </a>
           </li>
-          {/* <li>
-            <ActiveLink url="/platform-api" customClasses={`ml-8`}>
+          <li>
+            <ActiveLink url="/platform-api/seqera-api" customClasses={`ml-8`}>
               Platform API
             </ActiveLink>
-          </li> */}
+          </li>
         </ul>
       </div>
     </div>
