@@ -19,7 +19,7 @@ const links = {
 const Company = ({ toggleMenu }) => {
   return (
     <ul className={`${styles.menuList}`}>
-      <h6 className="mb-3 text-[.7rem] font-display">Company</h6>
+      <h6 className="mb-4 text-[.7rem] font-display">Company</h6>
       {links.company.map(([label, href, Icon]) => (
         <li key={label}>
           <a

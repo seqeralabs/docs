@@ -20,7 +20,7 @@ const links = {
 const Help = ({ toggleMenu }) => {
   return (
     <ul className={`${styles.menuList}`}>
-      <h6 className="mb-3 text-[.7rem] font-display">Help</h6>
+      <h6 className="mb-4 text-[.7rem] font-display">Help</h6>
       {links.help.map(([label, href, Icon]) => (
         <li key={label}>
           <a
