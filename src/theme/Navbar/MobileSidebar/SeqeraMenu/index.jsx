@@ -52,11 +52,11 @@ const Menu = () => {
             </a>
           </div>
 
-          <div className="px-1 pb-2 border-b border-b-gray-600">
+          <div className="px-1 pb-7 border-b border-b-gray-600">
             <NavbarMobilePrimaryMenu />
           </div>
 
-          <div className="px-4 flex flex-row">
+          <div className="px-4 flex flex-row mb-6 mt-7">
             <Help />
             <Company />
           </div>
