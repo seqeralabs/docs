@@ -26,11 +26,12 @@
 
 # Redirects from the missing docs -> API docs branch
 [[redirects]]
-  from = "/platform-enterprise/*"
-  to = "https://apidocs-deploy-switch--seqera-docs.netlify.app/platform-enterprise/:splat"
-  status = 200
-
-[[redirects]]
   from = "/platform-api/*"
   to = "https://apidocs-deploy-switch--seqera-docs.netlify.app/platform-api/:splat"
+  status = 200
+
+# Redirect assets to main site (so that we don't lose CSS on the API docs)
+[[redirects]]
+  from = "/assets/*"
+  to = "https://exclude-apidocs--seqera-docs.netlify.app/platform-api/:splat"
   status = 200
