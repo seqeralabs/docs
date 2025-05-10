@@ -31,7 +31,8 @@
   status = 200
 
 # Redirect assets to main site (so that we don't lose CSS on the API docs)
+# NB: Force is not true, so will use local if available
 [[redirects]]
   from = "/assets/*"
-  to = "https://exclude-apidocs--seqera-docs.netlify.app/platform-api/:splat"
+  to = "https://exclude-apidocs--seqera-docs.netlify.app/assets/:splat"
   status = 200

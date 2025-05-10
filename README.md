@@ -124,7 +124,11 @@ This seems to work ok. Next is deployment:
 
 Usage:
 
-1. Edit code on `master` as usual
-2. Periodically update the `apidocs-deploy-switch` branch to match `master` - always keep the two in sync.
+1. Edit code on `master` as usual (for all docs)
+  - `git commit` and `git push` as usual
+2. Now sync the `apidocs-deploy-switch` branch to keep it in sync:
+  - `git checkout apidocs-deploy-switch`
+  - `git rebase master`
+  - `git push`
 
 That should be it!
