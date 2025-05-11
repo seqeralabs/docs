@@ -153,7 +153,11 @@ function DropdownNavbarItemMobile({
       </NavbarNavLink>
       <Collapsible lazy as="ul" className="menu__list" collapsed={collapsed}>
         {items.map((childItemProps, i) => (
-          <NavbarItem
+          i == 0 ? (
+          <a className="menu__link" href="https://docs.seqera.io/platform-enterprise">{childItemProps.label } (Latest)</a>
+          
+          ) : (
+            <NavbarItem
             mobile
             isDropdownItem
             onClick={onClick}
@@ -161,6 +165,8 @@ function DropdownNavbarItemMobile({
             {...childItemProps}
             key={i}
           />
+          )
+  
         ))}
       </Collapsible>
     </li>
