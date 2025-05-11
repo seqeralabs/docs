@@ -253,14 +253,14 @@ export default async function createConfigAsync() {
         },
         items: [
           {
-            to: "/platform-cloud/",
-            position: "left",
-            label: "Platform Cloud",
+            type: 'html',
+            position: 'left',
+            value: '<a href="https://docs.seqera.io/platform-cloud/" class="menu__link">Platform Cloud</a>'
           },
           {
-            to: "/platform-enterprise/",
-            position: "left",
-            label: "Platform Enterprise",
+            type: 'html',
+            position: 'left',
+            value: '<a href="https://docs.seqera.io/platform-enterprise" class="menu__link">Platform Enterprise</a>'
           },
           {
             type: "docsVersionDropdown",
@@ -274,19 +274,19 @@ export default async function createConfigAsync() {
             target: "_blank",
           },
           {
-            to: "/multiqc/",
-            label: "MultiQC",
-            position: "left",
+            type: 'html',
+            position: 'left',
+            value: '<a href="https://docs.seqera.io/multiqc/" class="menu__link">MultiQC</a>'
           },
           {
-            to: "/wave/",
-            label: "Wave",
-            position: "left",
+            type: 'html',
+            position: 'left',
+            value: '<a href="https://docs.seqera.io/wave/" class="menu__link">Wave</a>'
           },
           {
-            to: "/fusion/",
-            label: "Fusion",
-            position: "left",
+            type: 'html',
+            position: 'left',
+            value: '<a href="https://docs.seqera.io/fusion/" class="menu__link">Fusion</a>'
           },
           // {
           //   type: "search",
