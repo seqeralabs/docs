@@ -35,7 +35,7 @@ You can configure which organizational workspaces have access to Studios. This c
 
 Each of the provided environments includes a particular version of the underlying software package and the version of Seqera Connect, an integrated web- and file-server.
 
-To quickly identify which version of the software an image includes, the version string for each container is in the form of `<software_version>-<seqera_connect_version>`. For example, if the version string for the RStudio Server is `4.4.1-0.8`, version `4.4.1` is the RStudio version and `0.8` is the Connect version of this Seqera-built container image. Learn more about Studios [environment versioning](../data_studios/index.mdx#container-image-templates).
+To quickly identify which version of the software an image includes, the version string for each container is in the form of `<software_version>-<seqera_connect_version>`. For example, if the version string for the RStudio Server is `4.4.1-0.8`, version `4.4.1` is the RStudio version and `0.8` is the Connect version of this Seqera-built container image. Learn more about Studios [environment versioning](../data_studios/index#container-image-templates).
 
 The latest environment versions are listed below:
 
@@ -77,7 +77,7 @@ This guide assumes that all services will be run in the same container as the re
 
 1. Download the [data-studios-rsa.pem](./_templates/docker/data-studios-rsa.pem) file and replace its contents with the content of your private and public key files, in the same order (private key on top, public key directly beneath it). Save the file as `data-studios-rsa.pem`, in the same directory as your `docker-compose.yml` file. 
 
-1. Open the `docker-compose.yml` and uncomment the volume mount for the PEM key file for the `backend` service in the `volumes` list. Your PEM file must be named `data-studios-rsa.pem`.
+1. Open the `docker-compose.yml` and uncomment the volume mount for the PEM key file for the `backend` and `cron` services in the `volumes` list. Your PEM file must be named `data-studios-rsa.pem`.
 
     ```yaml
     volumes:
