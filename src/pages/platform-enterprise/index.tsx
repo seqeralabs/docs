@@ -1,12 +1,9 @@
-import React from "react";
-import { Redirect } from "react-router-dom";
+import { useEffect } from 'react';
 
-import platform_enterprise_latest_version from "@site/platform-enterprise_latest_version";
+export default function RedirectPlatformEnterprise() {
+  useEffect(() => {
+    window.location.href = 'https://docs.seqera.io/platform-enterprise';
+  }, []);
 
-export default function Platform(): JSX.Element {
-  return (
-    <Redirect
-      to={`https://docs.seqera.io/platform-enterprise/`}
-    />
-  );
+  return null;
 }
