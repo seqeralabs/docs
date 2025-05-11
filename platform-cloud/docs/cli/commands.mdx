@@ -167,7 +167,7 @@ tw compute-envs import --name=my_aws_ce_v1 ./my_aws_ce_v1.json
 
 Run `tw datasets -h` to view the list of supported operations.
 
-[Datasets](../data/datasets.mdx) are CSV (comma-separated values) and TSV (tab-separated values) files stored in a workspace, used as inputs during pipeline execution. The most commonly used datasets for Nextflow pipelines are samplesheets, where each row consists of a sample, the location of files for that sample (such as FASTQ files), and other sample details.
+[Datasets](../data/datasets) are CSV (comma-separated values) and TSV (tab-separated values) files stored in a workspace, used as inputs during pipeline execution. The most commonly used datasets for Nextflow pipelines are samplesheets, where each row consists of a sample, the location of files for that sample (such as FASTQ files), and other sample details.
 
 ### Add a dataset 
 
@@ -272,7 +272,7 @@ https://api.cloud.seqera.io/workspaces/97652229034xxx/datasets/6vBGj6aWWpBuLpGKj
 
 Run `tw studios -h` to view the list of supported operations.
 
-Manage [Studio sessions](../studios/index.mdx) hosted in Seqera Platform. Studio sessions allow interactive analysis using Jupyter, RStudio, VS Code, and Xpra. Additional custom analysis environments can be defined as needed.
+Manage [Studio sessions](../studios/index) hosted in Seqera Platform. Studio sessions allow interactive analysis using Jupyter, RStudio, VS Code, and Xpra. Additional custom analysis environments can be defined as needed.
 
 :::note
 Most Studio operations require workspace `MAINTAIN` permissions. 
@@ -329,7 +329,7 @@ Build reports       | NA
 
 Run `tw studios templates -h` to view the required and optional fields for session templates.
 
-Templates are the container image templates used as the foundation for Studio sessions. See [Container image templates](../studios/index.mdx#container-image-templates) for more information.
+Templates are the container image templates used as the foundation for Studio sessions. See [Container image templates](../studios/index#container-image-templates) for more information.
 
 ```bash
 tw studios templates -w community/showcase
@@ -391,7 +391,7 @@ tw studios stop -i 13083356 -w community/showcase
 
 Run `tw studios checkpoints -h` to view the required and optional fields for viewing checkpoints for a session.
 
-List all checkpoints for an existing Studio session in a workspace. See [Session checkpoints](../studios/index.mdx#session-checkpoints) for more information.
+List all checkpoints for an existing Studio session in a workspace. See [Session checkpoints](../studios/index#session-checkpoints) for more information.
 
 ```bash
 tw studios checkpoints -i 19a3abbd -w community/showcase
@@ -566,7 +566,7 @@ CLI users are bound to the same user permissions that apply in the Platform UI. 
 
 Run `tw runs -h` to view supported runs operations.  
 
-Runs display all the current and previous pipeline runs in the specified workspace. Each new or resumed run is given a random name such as _grave_williams_ by default, which can be overridden with a custom value at launch. See [Run details](../monitoring/run-details.mdx) for more information. As a run executes, it can transition through the following states:
+Runs display all the current and previous pipeline runs in the specified workspace. Each new or resumed run is given a random name such as _grave_williams_ by default, which can be overridden with a custom value at launch. See [Run details](../monitoring/run-details) for more information. As a run executes, it can transition through the following states:
 
 - `submitted`: Pending execution
 - `running`: Running
@@ -738,8 +738,8 @@ Manage labels and resource labels.
 Run `tw labels add -h` to view the required and optional fields for adding a label. 
 
 :::note
-[Resource labels](../resource-labels/overview.mdx) consist of a `name=value` pair.
-[Labels](../labels/overview.mdx) require only a name. 
+[Resource labels](../resource-labels/overview) consist of a `name=value` pair.
+[Labels](../labels/overview) require only a name. 
 ::: 
 
 ```bash
@@ -785,7 +785,7 @@ Label '203879852150462' deleted at '97652229034604' workspace
 
 Run `tw data-links -h` to view supported data link operations.
 
-Data links allow you to work with public and private cloud storage buckets in [Data Explorer](../data/data-explorer.mdx) in the specified workspace. AWS S3, Azure Blob Storage, and Google Cloud Storage are supported. The full list of operations are:
+Data links allow you to work with public and private cloud storage buckets in [Data Explorer](../data/data-explorer) in the specified workspace. AWS S3, Azure Blob Storage, and Google Cloud Storage are supported. The full list of operations are:
 
 - `list`: List data links in a workspace
 - `add`: Add a custom data link to a workspace
@@ -926,7 +926,7 @@ FOLDER | technical/                                 | 0
 
 Run `tw organizations -h` to view supported workspace operations.
 
-Organizations are the top-level structure and contain workspaces, members, and teams. You can also add external collaborators to an organization. See [Organization management](../orgs-and-teams/organizations.mdx) for more information. 
+Organizations are the top-level structure and contain workspaces, members, and teams. You can also add external collaborators to an organization. See [Organization management](../orgs-and-teams/organizations) for more information. 
 
 ### Add an organization
 
@@ -1172,7 +1172,7 @@ Collaborators for 88848180287xxx organization:
 
 Run `tw actions -h` to view supported pipeline action operations.
 
-[Actions](../pipeline-actions/overview.mdx) enable event-based pipeline execution, such as triggering a pipeline launch with a GitHub webhook whenever the pipeline repository is updated.
+[Actions](../pipeline-actions/overview) enable event-based pipeline execution, such as triggering a pipeline launch with a GitHub webhook whenever the pipeline repository is updated.
 
 ### Add a pipeline action
 
@@ -1182,19 +1182,19 @@ Run `tw actions add -h` to view the required and optional fields for adding an a
 
 Run `tw secrets -h` to view supported workspace secret operations.
 
-[Secrets](../secrets/overview.mdx) are used to store the keys and tokens used by workflow tasks to interact with external systems, such as a password to connect to an external database or an API token.
+[Secrets](../secrets/overview) are used to store the keys and tokens used by workflow tasks to interact with external systems, such as a password to connect to an external database or an API token.
 
 ### Add a workspace secret
 
 Run `tw secrets add -h` to view the required and optional fields for adding a secret.
 
 
-[compute-envs]: ../compute-envs/overview.mdx
-[credentials]: ../credentials/overview.mdx
-[git-integration]: ../git/overview.mdx
+[compute-envs]: ../compute-envs/overview
+[credentials]: ../credentials/overview
+[git-integration]: ../git/overview
 [nextflow-config]: https://www.nextflow.io/docs/latest/config.html#config-syntax
-[participant-roles]: ../orgs-and-teams/roles.mdx
-[shared-workspaces]: ../orgs-and-teams/workspace-management.mdx
-[tower-agent]: ../supported_software/agent/agent.mdx
-[user-workspaces]: ../orgs-and-teams/workspace-management.mdx
+[participant-roles]: ../orgs-and-teams/roles
+[shared-workspaces]: ../orgs-and-teams/workspace-management
+[tower-agent]: ../supported_software/agent/agent
+[user-workspaces]: ../orgs-and-teams/workspace-management
 [wave-docs]: https://docs.seqera.io/wave

@@ -1,0 +1,71 @@
+---
+id: create-action
+title: "Create action"
+description: "Creates a new pipeline action. Append `?workspaceId` to associate the action with the given workspace."
+sidebar_label: "Create action"
+hide_title: true
+hide_table_of_contents: true
+api: eJy9V21v2zYQ/iuCPieO89J19ZfNyTIgW7sGsYcBCwKUls42E4lUScqua/i/7460RMqmna4Y9sWweHfkc8e755HWaQ46U7wyXIp0kN4oYAZ0whIBy6TiFRRcQMIysveSYVWByJNPPy2letEVy+Au/5QYmTCtZcYxNDHzxj1ZcjO3zzO+AHxsYnrpSWrYTKeDx9S56vTpJJUVKEZPd3mLZGjN6F8xxUowoChqnQp8QKcABvpwyuBzDWqFD928/mocE1GXoHiW8ByE4VMOCp11NoeSpYN1alYVbcyFgZk1TaUqmXFLP1ylmw0iVYCnaHMt8xXFdI9ykJPM4k+2rrhRJnFPYSiAVVXBM5vr2bOmqPU+BDl5howCK0WVMRw0WV3mrZc2iotZusEcZK2yiOkkBcyZaj3D+6gnVHy5xNwwEcNNAS3m3shtgZsVrBbZ/HU0PI9iyWRZ1QZuxeIu7qBq8cehRJquixrpxn/hKr4pLLjmrpz75QGtt70VBSymfHav5JQXLrOtC1OKUTtxA6WOhGJsrUGNAO/b/MvAtnu/K9pBHsMXE83I3vGN9YlXmQZKHwyvFDzUYmT7Ou4gtTnuUTJ+zIyzoFYHm8CNw0GzAl13TBMpC2DCIquL4j2xmInbtakniDxulDjGJf/a8lDk7NBlzNSse3Per2ATKO7yb7nWI3Rzks6B5b/JyU1Vvx5yeZH6iA9QSrX6MPnGKDfz2DIGLw7iI5ZjXR0zR2oTbEp+p1gmsBk0NEMsPC3k8r096WFLjaFHyPrevnGUyxWdalQNrgMqFA43rBf9/j4Rf/z9v2NdJ1PRhjiI3uEj+OhyFUN4zfLvEQhfi8e0RFpjM7BkfjSDxvFoArdKSbWH/DJS20arEyFNwgq8VMSzsTyb1YqblZXpa2AK1LA2KCWPTySdqOFzSfpO/GF1nWzpWfMe4DcYUb4Oe7hNC39uTNVItx1i64Qr7s+vTSs+L12LUR0fvHDffmFlVYCXVN/FjZJ6wfRySILnPbs659dbefNLXtX8WitmQWSrYQEeL13h0V3FemxMTzuKFBr2FSe0horiD+oISZBPoB/Bakc2gvWuWnhDKBLhG0urDUEZAkkIC+aUgGihy/1upWV797jL736jKK17s2fzx/7TDin3I5TbjxCq363Do0hfF1en/benF+/G528Gb84HFz/2+m/P/7Z9y8VU2rbfzugIPuPsJcP7u7233K3pvmCGmDjBNljwDF/nnTMRDM4ZbVarYjtCenB2pm1cj0sqPd5IYWVhKn/2BgSywJdvd8557/Jdr9+8BZRMBFPkstp+AuwiXHuS+x8/NRxfGGzVs6rAqyDgtgDrLf10PkPmREy4tF5PmIY/VbHZ0LL7riBSy7lmk4IubsoKDUdSfOWrIwrsBVZ7HzYLVtTkmRKDLpjidL5lVNd41FsIzIXeuONPx7S7j92TlM1JEzHMMqjMUd+Que8/jsZEs9uvn1LmFKPYkqYRfxGnmyYqKMkVra1xGsSstgqUuj2puVmX03c43GbVvDqJVYAQL8d6jOULCLygpm6GnhEubv4PO/MkHQ==
+sidebar_class_name: "post api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Create action"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/actions"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Creates a new pipeline action. Append `?workspaceId` to associate the action with the given workspace.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Action create request","content":{"application/json":{"schema":{"type":"object","properties":{"name":{"type":"string"},"source":{"type":"string","enum":["github","tower"],"title":"Action.Source"},"launch":{"type":"object","properties":{"id":{"type":"string"},"computeEnvId":{"type":"string"},"runName":{"type":"string"},"pipeline":{"type":"string"},"workDir":{"type":"string"},"revision":{"type":"string"},"sessionId":{"type":"string"},"configProfiles":{"type":"array","items":{"type":"string"}},"userSecrets":{"type":"array","items":{"type":"string"}},"workspaceSecrets":{"type":"array","items":{"type":"string"}},"configText":{"type":"string"},"towerConfig":{"type":"string"},"paramsText":{"type":"string"},"preRunScript":{"type":"string"},"postRunScript":{"type":"string"},"mainScript":{"type":"string"},"entryName":{"type":"string"},"schemaName":{"type":"string"},"resume":{"type":"boolean"},"pullLatest":{"type":"boolean"},"stubRun":{"type":"boolean"},"optimizationId":{"type":"string"},"optimizationTargets":{"type":"string"},"labelIds":{"type":"array","items":{"type":"integer","format":"int64"}},"headJobCpus":{"type":"integer","format":"int32"},"headJobMemoryMb":{"type":"integer","format":"int32"},"launchContainer":{"type":"string"},"dateCreated":{"type":"string","format":"date-time"}},"title":"WorkflowLaunchRequest"}},"title":"CreateActionRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"actionId":{"type":"string"}},"title":"CreateActionResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

@@ -72,7 +72,7 @@ Create parameters in the AWS Parameter Store individually, using the format
 The default application name is `tower-app`. To deploy multiple instances from the same Seqera Enterprise account, set a custom application name for each instance with the `micronaut.application.name` value in your `tower.yml` configuration file.
 :::
 
-Sensitive values (such as database passwords) should be SecureString type parameters. See [AWS Parameter Store](./aws_parameter_store.mdx) for detailed instructions.
+Sensitive values (such as database passwords) should be SecureString type parameters. See [AWS Parameter Store](./aws_parameter_store) for detailed instructions.
 
 </TabItem>
 </Tabs>
@@ -120,7 +120,7 @@ is represented as `mail.smtp.host`.
 
 AWS Parameter Store configuration is only supported for AWS deployments.
 
-Replace `{prefix}` in each configuration path with `/config/<application_name>`, where `application_name` is `tower` or your custom application name. See [AWS Parameter Store](./aws_parameter_store.mdx).
+Replace `{prefix}` in each configuration path with `/config/<application_name>`, where `application_name` is `tower` or your custom application name. See [AWS Parameter Store](./aws_parameter_store).
 
 ::table{file=configtables/generic_config_aws.yml}
 
@@ -129,7 +129,7 @@ Replace `{prefix}` in each configuration path with `/config/<application_name>`,
 
 ## Seqera and Redis databases
 
-Configuration values that control Seqera's interaction with databases and Redis instances. `TOWER_DB_USER`, `TOWER_DB_PASSWORD`, and `TOWER_DB_URL` must be specified using environment variables during initial Seqera Enterprise deployment in a new environment. A new installation will fail if DB values are only defined in `tower.yml` or the AWS Parameter Store. Once the database has been created, these values can be added to `tower.yml` or [AWS Parameter Store](./aws_parameter_store.mdx) entries and removed from your environment variables.
+Configuration values that control Seqera's interaction with databases and Redis instances. `TOWER_DB_USER`, `TOWER_DB_PASSWORD`, and `TOWER_DB_URL` must be specified using environment variables during initial Seqera Enterprise deployment in a new environment. A new installation will fail if DB values are only defined in `tower.yml` or the AWS Parameter Store. Once the database has been created, these values can be added to `tower.yml` or [AWS Parameter Store](./aws_parameter_store) entries and removed from your environment variables.
 
 :::note
 From Seqera Enterprise version 23.3, Redis version 7 is officially supported. Follow your cloud provider specifications to upgrade your instance.
@@ -211,7 +211,7 @@ If you run the Redis service as a container in your Docker or Kubernetes install
 
 ### Database and Redis manual configuration
 
-If the DB username and password variables are left empty when using [Docker Compose](../docker-compose.mdx), default `tower` database values are applied automatically. With [Kubernetes](../kubernetes.mdx) and custom DB deployments, `tower` values are not pre-filled.
+If the DB username and password variables are left empty when using [Docker Compose](../docker-compose), default `tower` database values are applied automatically. With [Kubernetes](../kubernetes) and custom DB deployments, `tower` values are not pre-filled.
 
 :::note
 We recommend using managed cloud database services for production deployments.
@@ -248,7 +248,7 @@ AWS Parameter Store configuration is only supported for AWS deployments.
 
 `TOWER_DB_USER`, `TOWER_DB_PASSWORD`, and `TOWER_DB_URL` must be specified using **environment variables** during initial Seqera Enterprise deployment in a new environment.
 
-Replace `{prefix}` in each configuration path with `/config/<application_name>`, where `application_name` is `tower` or your custom application name. See [AWS Parameter Store](./aws_parameter_store.mdx).
+Replace `{prefix}` in each configuration path with `/config/<application_name>`, where `application_name` is `tower` or your custom application name. See [AWS Parameter Store](./aws_parameter_store).
 
 ::table{file=configtables/db_aws.yml}
 
@@ -327,7 +327,7 @@ is represented as `mail.smtp.host`.
 
 AWS Parameter Store configuration is only supported for AWS deployments.
 
-Replace `{prefix}` in each configuration path with `/config/<application_name>`, where `application_name` is `tower` or your custom application name. See [AWS Parameter Store](./aws_parameter_store.mdx).
+Replace `{prefix}` in each configuration path with `/config/<application_name>`, where `application_name` is `tower` or your custom application name. See [AWS Parameter Store](./aws_parameter_store).
 
 ::table{file=configtables/crypto_aws.yml}
 
@@ -348,7 +348,7 @@ Configuration values to enable computing platforms and customize Batch Forge res
 
 ## Git integration
 
-Seqera Platform has built-in support for public and private Git repositories. Create [Git provider credentials](../../git/overview.mdx) to allow Seqera to interact with the following services:
+Seqera Platform has built-in support for public and private Git repositories. Create [Git provider credentials](../../git/overview) to allow Seqera to interact with the following services:
 
 - [GitHub](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
 - [BitBucket](https://confluence.atlassian.com/bitbucketserver/personal-access-tokens-939515499.html)
@@ -393,7 +393,7 @@ is represented as `mail.smtp.host`.
 
 AWS Parameter Store configuration is only supported for AWS deployments.
 
-Replace `{prefix}` in each configuration path with `/config/<application_name>`, where `application_name` is `tower` or your custom application name. See [AWS Parameter Store](./aws_parameter_store.mdx).
+Replace `{prefix}` in each configuration path with `/config/<application_name>`, where `application_name` is `tower` or your custom application name. See [AWS Parameter Store](./aws_parameter_store).
 
 ::table{file=configtables/git_aws.yml}
 
@@ -413,7 +413,7 @@ tower:
 
 ## Mail server
 
-Configure values for SMTP email service integration. Production SMTP hosts must use a TLS-protected connection. See [SSL/TLS](../configuration/ssl_tls.mdx).
+Configure values for SMTP email service integration. Production SMTP hosts must use a TLS-protected connection. See [SSL/TLS](../configuration/ssl_tls).
 
 AWS deployments also support [Amazon Simple Email Service (SES)](https://aws.amazon.com/ses/).
 
@@ -452,7 +452,7 @@ is represented as `mail.smtp.host`.
 
 AWS Parameter Store configuration is only supported for AWS deployments.
 
-Replace `{prefix}` in each configuration path with `/config/<application_name>`, where `application_name` is `tower` or your custom application name. See [AWS Parameter Store](./aws_parameter_store.mdx).
+Replace `{prefix}` in each configuration path with `/config/<application_name>`, where `application_name` is `tower` or your custom application name. See [AWS Parameter Store](./aws_parameter_store).
 
 ::table{file=configtables/mail_server_aws.yml}
 
@@ -475,12 +475,12 @@ To configure AWS SES as your Seqera email service:
     - a `mail.from` entry in `tower.yml`
     - a `/config/<application_name>/mail/from` AWS Parameter Store entry
 3. The [AWS SES service](https://docs.aws.amazon.com/ses/index.html) must run in the same region as your Seqera instance.
-4. The [Seqera IAM role](../../compute-envs/aws-batch.mdx#iam) must include the `ses:SendRawEmail` permission.
+4. The [Seqera IAM role](../../compute-envs/aws-batch#iam) must include the `ses:SendRawEmail` permission.
 
 ## Nextflow launch container
 
 :::caution
-Do not replace the [Seqera-provided default image](../../functionality_matrix/functionality_matrix.mdx) unless absolutely necessary.
+Do not replace the [Seqera-provided default image](../../functionality_matrix/functionality_matrix) unless absolutely necessary.
 :::
 
 <Tabs>
@@ -536,7 +536,7 @@ tower:
 
 ## Logging
 
-Logging-related configuration values to aid troubleshooting. See [Audit logs](../../monitoring/audit-logs.mdx) for more information on application event logging.
+Logging-related configuration values to aid troubleshooting. See [Audit logs](../../monitoring/audit-logs) for more information on application event logging.
 
 <Tabs>
 <TabItem value="Environment variables" label="Environment variables" default>
