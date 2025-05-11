@@ -88,10 +88,20 @@ export default async function createConfigAsync() {
           versions: {
             // Replace /platform-enterprise with /platform-enterprise/24.2, when no version is specified in the URL.
             // (Applies to latest version only)
-            [platform_enterprise_latest_version]: {
-              label: platform_enterprise_latest_version,
-              path: platform_enterprise_latest_version,
-            },
+            
+              // '25.1': {
+              //   label: '25.1',
+              //   path: '<a>/platform-enterprise</a>',
+              // },
+              // '24.2': {
+              //   label: '24.2',
+              //   path: '/platform-enterprise/24.2',
+              // },
+            
+            // [platform_enterprise_latest_version]: {
+            //   label: platform_enterprise_latest_version,
+            //   path: platform_enterprise_latest_version,
+            // },
           },
         },
       ],
@@ -124,20 +134,20 @@ export default async function createConfigAsync() {
           },
         };
       },
-      function routing() {
-        return {
-          name: "latest-routing",
-          async contentLoaded({ actions }) {
-            [
-              {
-                path: "/platform-enterprise/latest",
-                exact: false,
-                component: "@site/src/pages/platform-enterprise/latest.tsx",
-              },
-            ].map((route) => actions.addRoute(route));
-          },
-        };
-      },
+      // function routing() {
+      //   return {
+      //     name: "latest-routing",
+      //     async contentLoaded({ actions }) {
+      //       [
+      //         {
+      //           path: "/platform-enterprise/latest",
+      //           exact: false,
+      //           component: "@site/src/pages/platform-enterprise/latest.tsx",
+      //         },
+      //       ].map((route) => actions.addRoute(route));
+      //     },
+      //   };
+      // },
     ],
 
     themeConfig: {
@@ -217,45 +227,6 @@ export default async function createConfigAsync() {
           href: 'https://docs.seqera.io'
         },
         links: [
-          {
-            title: "Docs",
-            items: [
-              {
-                label: "Platform Enterprise",
-                to: "/platform-enterprise/",
-              },
-              {
-                label: "Platform Cloud",
-                to: "/platform-cloud/",
-              },
-            ],
-          },
-          {
-            title: "Community",
-            items: [
-              {
-                label: "Github",
-                href: "https://github.com/seqeralabs",
-              },
-              {
-                label: "LinkedIn",
-                href: "https://www.linkedin.com/company/14065390/",
-              },
-              {
-                label: "Twitter",
-                href: "https://twitter.com/seqeralabs",
-              },
-            ],
-          },
-          {
-            title: "More",
-            items: [
-              {
-                label: "About Seqera",
-                href: "https://seqera.io/",
-              },
-            ],
-          },
         ],
         copyright: `© ${new Date().getFullYear()} Seqera`,
       },

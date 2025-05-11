@@ -67,19 +67,31 @@ const VersionSwitcher = ({ isOpen, setIsOpen }) => {
             [styles.open]: true,
           })}
         >
-          {items?.map((version) => (
+          {items?.map((version, index) => (
             <div
               key={version.name}
               className="w-full"
               onClick={() => handleSelectVersion(version.name)}
             >
-              <Link
-                to={`${version.path}${urlSuffix}`} // Append the suffix to the version path
+              {index == 0 ?
+              (
+                <a
+                href={`https://docs.seqera.io/platform-enterprise`} // Append the suffix to the version path
                 className={`${styles.item} `}
               >
                 v{version.label}{" "}
                 {version.label === versions[0].label ? " (current)" : ""}
-              </Link>
+              </a>
+              ) :( 
+                <a
+                href={`${version.path}${urlSuffix}`} // Append the suffix to the version path
+                className={`${styles.item} `}
+              >
+                v{version.label}{" "}
+                {version.label === versions[0].label ? " (current)" : ""}
+              </a>
+              )
+              }
             </div>
           ))}
         </div>
