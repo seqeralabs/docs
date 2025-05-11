@@ -1,8 +1,0 @@
-- Name: "**CreateToken**"
-  Type: ""
-  Req/Opt: ""
-  Description: Create token
-- Name: name
-  Type: string
-  Req/Opt: Optional
-  Description: ""

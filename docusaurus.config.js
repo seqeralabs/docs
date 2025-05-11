@@ -46,23 +46,6 @@ export default async function createConfigAsync() {
       [
         "classic",
         {
-          // blog: {
-          //   blogTitle: 'Seqera Changelog',
-          //   blogDescription: 'Blog',
-          //   blogSidebarCount: 5000,
-          //   blogSidebarTitle: 'Changelog',
-          //   path: 'changelog',
-          //   routeBasePath: '/changelog',
-          //   //processBlogPosts: () => ({}),
-          //   include: ['**/*.{md,mdx}'],
-          //   showReadingTime: false,
-          //   feedOptions: {
-          //     type: 'all', // 'rss', 'atom', or both
-          //     title: 'Seqera Changelog',
-          //     description: 'Stay updated with our blog posts!',
-          //     copyright: `Copyright © ${new Date().getFullYear()} Seqera`,
-          //   }
-          // },
           docs: false,
           theme: {
             customCss: [
@@ -129,90 +112,8 @@ export default async function createConfigAsync() {
       //     sidebarPath: "./platform-cloud/cloud-sidebar.json",
       //   },
       // ],
-      // [
-      //   "@docusaurus/plugin-content-docs",
-      //   {
-      //     id: "platform-api",
-      //     routeBasePath: "/platform-api",
-      //     path: "platform-api-docs/docs",
-      //     remarkPlugins: [
-      //       (await require("remark-yaml-to-table")).default,
-      //     ],
-      //     sidebarPath: "platform-api-docs/docs/sidebar.js",
-      //     docItemComponent: '@theme/ApiItem'
-      //   },
-      // ],      
-      // [
-      //   "@docusaurus/plugin-content-docs",
-      //   {
-      //     id: "multiqc",
-      //     routeBasePath: "/multiqc",
-      //     path: "multiqc_docs/multiqc_repo/docs/markdown",
-      //     remarkPlugins: [
-      //       (await import("remark-code-import")).default,
-      //       (await require("remark-math")).default,
-      //       (await import("docusaurus-remark-plugin-tab-blocks")).default,
-      //       (await require("remark-yaml-to-table")).default,
-      //     ],
-      //     rehypePlugins: [(await require("rehype-katex")).default],
-      //     editUrl: ({ docPath }) => {
-      //       return `https://github.com/MultiQC/MultiQC/blob/main/docs/markdown/${docPath.replace('multiqc_docs/multiqc_repo/docs', '')}`
-      //     },
-      //     sidebarPath: "./multiqc_docs/sidebar.js",
-      //   },
-      // ],
-      // [
-      //   "@docusaurus/plugin-content-docs",
-      //   {
-      //     id: "fusion",
-      //     routeBasePath: "/fusion",
-      //     path: "fusion_docs",
-      //     remarkPlugins: [
-      //       (await import("remark-code-import")).default,
-      //       (await require("remark-math")).default,
-      //       (await import("docusaurus-remark-plugin-tab-blocks")).default,
-      //       (await require("remark-yaml-to-table")).default,
-      //     ],
-      //     rehypePlugins: [(await require("rehype-katex")).default],
-      //     editUrl: "https://github.com/seqeralabs/docs/tree/master/",
-      //     sidebarPath: "./fusion_docs/sidebar.json",
-      //   },
-      // ],
-      // [
-      //   "@docusaurus/plugin-content-docs",
-      //   {
-      //     id: "wave",
-      //     routeBasePath: "/wave",
-      //     path: "wave_docs/wave_repo/docs",
-      //     remarkPlugins: [
-      //       (await import("remark-code-import")).default,
-      //       (await require("remark-math")).default,
-      //       (await import("docusaurus-remark-plugin-tab-blocks")).default,
-      //       (await require("remark-yaml-to-table")).default,
-      //     ],
-      //     rehypePlugins: [(await require("rehype-katex")).default],
-      //     editUrl: ({ docPath }) => {
-      //       return `https://github.com/seqeralabs/wave/blob/master/docs/${docPath.replace('wave_docs/wave_repo/docs', '')}`
-      //     },
-      //     sidebarPath: "./wave_docs/sidebar.json",
-      //   },
-      // ],
-      // [
-      //   "docusaurus-plugin-openapi-docs",
-      //   {
-      //     id: "api", // plugin id
-      //     docsPluginId: "classic", // configured for preset-classic
-      //     config: {
-      //       platform: {
-      //         specPath: "platform-api-docs/seqera-api-latest.yml",
-      //         outputDir: "platform-api-docs/docs",
-      //         sidebarOptions: {
-      //           groupPathsBy: "tag",
-      //         },
-      //       }
-      //     },
-      //   },
-      // ],
+
+
       async function tailwind() {
         return {
           name: "docusaurus-tailwindcss",
@@ -237,8 +138,6 @@ export default async function createConfigAsync() {
           },
         };
       },
-      // path.resolve(__dirname, "plugins_custom/seqera_jobs"),
-      // path.resolve(__dirname, "plugins_custom/seqera_events"),
     ],
 
     themeConfig: {
