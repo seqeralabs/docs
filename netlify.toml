@@ -1,16 +1,3 @@
 [[edge_functions]]
   function = "og-generate.png"
   path = "/og-generate.png"
-
-# Redirects for the missing API docs
-[[redirects]]
-  from = "/platform-api/*"
-  to = "https://seqera-docs-api.netlify.app/platform-api/:splat"
-  status = 200
-
-# Redirect missing assets (so that we don't lose CSS on the API docs)
-# NB: Force is not true, so will use local if available
-[[redirects]]
-  from = "/assets/*"
-  to = "https://seqera-docs-api.netlify.app/assets/:splat"
-  status = 200
