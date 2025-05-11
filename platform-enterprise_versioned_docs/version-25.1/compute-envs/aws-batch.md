@@ -21,7 +21,7 @@ There are two ways to create a Seqera Platform compute environment for AWS Batch
 Batch Forge automates the configuration of an [AWS Batch](https://aws.amazon.com/batch/) compute environment and the queues required for deploying Nextflow pipelines.
 
 :::caution
-Batch Forge automatically creates resources that you may be charged for in your AWS account. See [Cloud costs](../monitoring/cloud-costs.mdx) for guidelines to manage cloud resources effectively and prevent unexpected costs.
+Batch Forge automatically creates resources that you may be charged for in your AWS account. See [Cloud costs](../monitoring/cloud-costs.mdx) for guidelines to manage cloud resources effectively, and prevent unexpected costs.
 :::
 
 ### IAM
