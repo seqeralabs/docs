@@ -113,25 +113,10 @@ This works using the following principles:
 - Based on the presence or absence of named environment variables, they are included in the Docuaurus config or not
 - By defining these ENV vars in your build environment, you can selectively skip chunks in the build
 
-This seems to work ok. Next is deployment:
+Deployment works because we have two Netlify sites: `seqera-docs` and `seqera-docs-api`.
+They're the same except that they have different environment variable set in their configuration.
+This means that whenever you push to `master`, both deploy and both sites update.
 
-- We keep two branches up to date with latest content at each time
-- The `netlify.toml` config file has config sections that are specific to the _branch deploys_ for those branches
-- Within these sections, we can define custom ENV vars
-- We use 2x branch deployments, with different sets of ENV vars
-- We have 2x deployments that succeed and host different parts of the docs
-- We use Netlify redirects with `200` statuses that take links to missing content on the primary deployment to fetch data from the secondary deployment, without affecting the browser bar URL.
-
-Usage:
-
-1. Edit code on a dev branch as usual, merge dev branch to master through the usual PR process. 
-1. Now sync the `apidocs-deploy-switch` branch to keep it in sync:
-  - `git checkout apidocs-deploy-switch`
-  - `git rebase master`
-  - `git push`
-1. Next, sync the `exclude-apidocs` branch to keep it in sync:
-  - `git checkout exclude-apidocs`
-  - `git rebase master`
-  - `git push`
+The site's `netlify.toml` includes some redirects with `200` statuses that take links to missing content on the primary deployment to fetch data from the secondary deployment, without affecting the browser bar URL.
 
 That should be it!
