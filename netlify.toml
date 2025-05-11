@@ -8,8 +8,8 @@
 
 # Default production branch - exclude enterprise docs (includes API docs)
 [context.master.environment]
-  EXCLUDE_PLATFORM_API="0"
-  EXCLUDE_PLATFORM_OPENAPI="0"
+  EXCLUDE_PLATFORM_API="1"
+  EXCLUDE_PLATFORM_OPENAPI="1"
 
 # Testing only - dev branch excluding enterprise docs (can be removed after #594 is live)
 [context.exclude-apidocs.environment]
