@@ -30,7 +30,7 @@ If you have more than one compute environment, you can select a workspace primar
 
 ## Rename compute environment
 
-From version 23.2, you can edit the names of compute environments in private and organization workspaces. Select **Rename** from the options menu next to the compute environment you wish to edit.
+You can edit the names of compute environments in private and organization workspaces. Select **Rename** from the options menu next to the compute environment you wish to edit.
 
 Select **Update** on the edit page to save your changes after you have updated the compute environment name.
 
