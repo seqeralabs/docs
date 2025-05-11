@@ -125,12 +125,8 @@ This seems to work ok. Next is deployment:
 Usage:
 
 1. Edit code on a dev branch as usual, merge dev branch to master through the usual PR process. 
-1. Now sync the `apidocs-deploy-switch` branch to keep it in sync:
+2. Now sync the `apidocs-deploy-switch` branch to keep it in sync:
   - `git checkout apidocs-deploy-switch`
-  - `git rebase master`
-  - `git push`
-1. Next, sync the `exclude-apidocs` branch to keep it in sync:
-  - `git checkout exclude-apidocs`
   - `git rebase master`
   - `git push`
 
