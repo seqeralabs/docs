@@ -11,11 +11,6 @@
   EXCLUDE_PLATFORM_API="1"
   EXCLUDE_PLATFORM_OPENAPI="1"
 
-# Testing only - dev branch excluding enterprise docs (can be removed after #594 is live)
-[context.exclude-apidocs.environment]
-  EXCLUDE_PLATFORM_API="1"
-  EXCLUDE_PLATFORM_OPENAPI="1"
-
 # API Docs branch
 [context.apidocs-deploy-switch.environment]
   EXCLUDE_CHANGELOG="1"
