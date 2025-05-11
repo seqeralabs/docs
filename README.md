@@ -102,7 +102,7 @@ For more information, see [Fusion](https://docs.seqera.io/fusion).
 ## Workaround for Netlify memory problems (May 2025)
 
 In May 2025 we added new API docs. This increased the size of the Docusaurus build,
-and let to Netlify deployment builds running out of memory and time.
+and led to Netlify deployment builds running out of memory and time.
 
 To fix this, we added logic to `docusaurus.config.js` and `netlify.toml` to split the
 site builds into multiple separate Netlify deployments, stitched back together with redirects.
@@ -116,7 +116,7 @@ This works using the following principles:
 This seems to work ok. Next is deployment:
 
 - We keep two branches up to date with latest content at each time
-- The `netlify.toml` config file has config sections that are specific to the _branch deploys_ for thos branches
+- The `netlify.toml` config file has config sections that are specific to the _branch deploys_ for those branches
 - Within these sections, we can define custom ENV vars
 - We use 2x branch deployments, with different sets of ENV vars
 - We have 2x deployments that succeed and host different parts of the docs
@@ -124,8 +124,7 @@ This seems to work ok. Next is deployment:
 
 Usage:
 
-1. Edit code on `master` as usual (for all docs)
-  - `git commit` and `git push` as usual
+1. Edit code on a dev branch as usual, merge dev branch to master through the usual PR process. 
 2. Now sync the `apidocs-deploy-switch` branch to keep it in sync:
   - `git checkout apidocs-deploy-switch`
   - `git rebase master`
