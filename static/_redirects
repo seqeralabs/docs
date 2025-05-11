@@ -38,3 +38,6 @@
 /platform/:version/enterprise/*   /platform-enterprise/:version/enterprise/:splat   301
 /platform/:version/*    /platform-cloud/:splat
 /platform/*   /platform-cloud/:splat
+
+# Redirect latest to main doc
+/platform-enterprise/25.1/*   https://docs.seqera.io/platform-enterprise   301!
