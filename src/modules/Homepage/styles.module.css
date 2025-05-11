@@ -8,6 +8,7 @@ a {
   color: var(--color-blu);
   &:hover {
     color: var(--color-blu-700);
+    /* text-decoration: none; */
   }
   &:active {
     color: var(--color-blu-800);
@@ -20,6 +21,7 @@ a {
 pre,
 code {
   max-height: 300px;
+  font-size: 90%;
 }
 
 .page {
@@ -39,3 +41,8 @@ html[data-theme="light"] {
   flex: none;
   background: rgba(0, 0, 0, 0.02);
 }
+
+html[data-theme="dark"] a {
+    color: white;
+}
+

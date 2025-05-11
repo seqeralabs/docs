@@ -2,7 +2,6 @@ import React from "react";
 import clsx from "clsx";
 
 import Link from "@docusaurus/Link";
-import AngleDown from "../../_shared/angle-down.inline.svg";
 import { useHeaderContext } from "../../context";
 
 import styles from "./styles.module.css";
@@ -73,10 +72,6 @@ const NavItem = ({ id, children, simple, isActive }) => {
       }}
     >
       {children}
-      <AngleDown
-        className={styles.chevron}
-        style={{ width: "12px", height: "12px" }}
-      />
     </button>
   );
 };

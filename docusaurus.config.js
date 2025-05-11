@@ -1,10 +1,172 @@
 import { themes } from "prism-react-renderer";
 const path = require("path");
-import 'dotenv/config';
+import "dotenv/config";
 
 import platform_enterprise_latest_version from "./platform-enterprise_latest_version.js";
 
 export default async function createConfigAsync() {
+  const changelog = {
+    blogTitle: "Seqera Changelog",
+    blogDescription: "Blog",
+    blogSidebarCount: 5000,
+    blogSidebarTitle: "Changelog",
+    path: "changelog",
+    routeBasePath: "/changelog",
+    //processBlogPosts: () => ({}),
+    include: ["**/*.{md,mdx}"],
+    showReadingTime: false,
+    feedOptions: {
+      type: "all", // 'rss', 'atom', or both
+      title: "Seqera Changelog",
+      description: "Stay updated with our blog posts!",
+      copyright: `Copyright © ${new Date().getFullYear()} Seqera`,
+    },
+  };
+
+  const docs_platform_enterprise = [
+    "@docusaurus/plugin-content-docs",
+    {
+      id: "platform-enterprise",
+      routeBasePath: "/platform-enterprise",
+      includeCurrentVersion: false,
+      remarkPlugins: [
+        (await import("remark-code-import")).default,
+        (await require("remark-math")).default,
+        (await import("docusaurus-remark-plugin-tab-blocks")).default,
+        (await require("remark-yaml-to-table")).default,
+      ],
+      rehypePlugins: [(await require("rehype-katex")).default],
+      editUrl: "https://github.com/seqeralabs/docs/tree/master/",
+      sidebarPath: false,
+      versions: {
+        // Replace /platform-enterprise with /platform-enterprise/24.2, when no version is specified in the URL.
+        // (Applies to latest version only)
+        [platform_enterprise_latest_version]: {
+          label: platform_enterprise_latest_version,
+          path: platform_enterprise_latest_version,
+        },
+      },
+    },
+  ];
+
+  const docs_platform_api = [
+    "@docusaurus/plugin-content-docs",
+    {
+      id: "platform-api",
+      routeBasePath: "/platform-api",
+      path: "platform-api-docs/docs",
+      remarkPlugins: [(await require("remark-yaml-to-table")).default],
+      sidebarPath: "platform-api-docs/docs/sidebar.js",
+      docItemComponent: "@theme/ApiItem",
+    },
+  ];
+  const docs_platform_openapi = [
+    "docusaurus-plugin-openapi-docs",
+    {
+      id: "api", // plugin id
+      docsPluginId: "classic", // configured for preset-classic
+      config: {
+        platform: {
+          specPath: "platform-api-docs/seqera-api-latest.yml",
+          outputDir: "platform-api-docs/docs",
+          sidebarOptions: {
+            groupPathsBy: "tag",
+          },
+        },
+      },
+    },
+  ];
+
+  const docs_platform_cloud = [
+    "@docusaurus/plugin-content-docs",
+    {
+      id: "platform-cloud",
+      routeBasePath: "/platform-cloud",
+      path: "platform-cloud/docs",
+      remarkPlugins: [
+        (await import("remark-code-import")).default,
+        (await require("remark-math")).default,
+        (await import("docusaurus-remark-plugin-tab-blocks")).default,
+        (await require("remark-yaml-to-table")).default,
+      ],
+      rehypePlugins: [(await require("rehype-katex")).default],
+      editUrl: "https://github.com/seqeralabs/docs/tree/master/",
+      sidebarPath: "./platform-cloud/cloud-sidebar.json",
+    },
+  ];
+
+  const docs_multiqc = [
+    "@docusaurus/plugin-content-docs",
+    {
+      id: "multiqc",
+      routeBasePath: "/multiqc",
+      path: "multiqc_docs/multiqc_repo/docs/markdown",
+      remarkPlugins: [
+        (await import("remark-code-import")).default,
+        (await require("remark-math")).default,
+        (await import("docusaurus-remark-plugin-tab-blocks")).default,
+        (await require("remark-yaml-to-table")).default,
+      ],
+      rehypePlugins: [(await require("rehype-katex")).default],
+      editUrl: ({ docPath }) => {
+        return `https://github.com/MultiQC/MultiQC/blob/main/docs/markdown/${docPath.replace("multiqc_docs/multiqc_repo/docs", "")}`;
+      },
+      sidebarPath: "./multiqc_docs/sidebar.js",
+    },
+  ];
+  const docs_fusion = [
+    "@docusaurus/plugin-content-docs",
+    {
+      id: "fusion",
+      routeBasePath: "/fusion",
+      path: "fusion_docs",
+      remarkPlugins: [
+        (await import("remark-code-import")).default,
+        (await require("remark-math")).default,
+        (await import("docusaurus-remark-plugin-tab-blocks")).default,
+        (await require("remark-yaml-to-table")).default,
+      ],
+      rehypePlugins: [(await require("rehype-katex")).default],
+      editUrl: "https://github.com/seqeralabs/docs/tree/master/",
+      sidebarPath: "./fusion_docs/sidebar.json",
+    },
+  ];
+
+  const docs_wave = [
+    "@docusaurus/plugin-content-docs",
+    {
+      id: "wave",
+      routeBasePath: "/wave",
+      path: "wave_docs/wave_repo/docs",
+      remarkPlugins: [
+        (await import("remark-code-import")).default,
+        (await require("remark-math")).default,
+        (await import("docusaurus-remark-plugin-tab-blocks")).default,
+        (await require("remark-yaml-to-table")).default,
+      ],
+      rehypePlugins: [(await require("rehype-katex")).default],
+      editUrl: ({ docPath }) => {
+        return `https://github.com/seqeralabs/wave/blob/master/docs/${docPath.replace("wave_docs/wave_repo/docs", "")}`;
+      },
+      sidebarPath: "./wave_docs/sidebar.json",
+    },
+  ];
+
+  console.log(
+    "\n  EXCLUDE_CHANGELOG: " + (process.env.EXCLUDE_CHANGELOG ? true : false),
+    "\n  EXCLUDE_PLATFORM_ENTERPRISE: " +
+      (process.env.EXCLUDE_PLATFORM_ENTERPRISE ? true : false),
+    "\n  EXCLUDE_PLATFORM_CLOUD: " +
+      (process.env.EXCLUDE_PLATFORM_CLOUD ? true : false),
+    "\n  EXCLUDE_PLATFORM_API: " +
+      (process.env.EXCLUDE_PLATFORM_API ? true : false),
+    "\n  EXCLUDE_PLATFORM_OPENAPI: " +
+      (process.env.EXCLUDE_PLATFORM_OPENAPI ? true : false),
+    "\n  EXCLUDE_MULTIQC: " + (process.env.EXCLUDE_MULTIQC ? true : false),
+    "\n  EXCLUDE_FUSION: " + (process.env.EXCLUDE_FUSION ? true : false),
+    "\n  EXCLUDE_WAVE: " + (process.env.EXCLUDE_WAVE ? true : false),
+  );
+
   return {
     title: "Seqera Docs",
     tagline: "Documentation for Seqera products",
@@ -41,32 +203,17 @@ export default async function createConfigAsync() {
       defaultLocale: "en",
       locales: ["en"],
     },
-
+    themes: ["docusaurus-theme-openapi-docs"],
     presets: [
       [
         "classic",
         {
-          blog: {
-            blogTitle: 'Seqera Changelog',
-            blogDescription: 'Blog',
-            blogSidebarCount: 5000,
-            blogSidebarTitle: 'Changelog',
-            path: 'changelog',
-            routeBasePath: '/changelog',
-            //processBlogPosts: () => ({}),
-            include: ['**/*.{md,mdx}'],
-            showReadingTime: false,
-            feedOptions: {
-              type: 'all', // 'rss', 'atom', or both
-              title: 'Seqera Changelog',
-              description: 'Stay updated with our blog posts!',
-              copyright: `Copyright © ${new Date().getFullYear()} Seqera`,
-            }
-          },
+          blog: process.env.EXCLUDE_CHANGELOG ? false : changelog,
           docs: false,
           theme: {
             customCss: [
               require.resolve("./src/css/main.css"),
+              require.resolve("./src/css/typography.css"),
               require.resolve("./src/css/misc.css"),
               require.resolve("./src/css/components/checklist.css"),
               require.resolve("./src/css/components/box.css"),
@@ -86,103 +233,14 @@ export default async function createConfigAsync() {
       ],
     ],
     plugins: [
-      [
-        "@docusaurus/plugin-content-docs",
-        {
-          id: "platform-enterprise",
-          routeBasePath: "/platform-enterprise",
-          includeCurrentVersion: false,
-          remarkPlugins: [
-            (await import("remark-code-import")).default,
-            (await require("remark-math")).default,
-            (await import("docusaurus-remark-plugin-tab-blocks")).default,
-            (await require("remark-yaml-to-table")).default,
-          ],
-          rehypePlugins: [(await require("rehype-katex")).default],
-          editUrl: "https://github.com/seqeralabs/docs/tree/master/",
-          sidebarPath: false,
-          versions: {
-            // Replace /platform-enterprise with /platform-enterprise/24.2, when no version is specified in the URL.
-            // (Applies to latest version only)
-            [platform_enterprise_latest_version]: {
-              label: platform_enterprise_latest_version,
-              path: platform_enterprise_latest_version,
-            },
-          },
-        },
-      ],
-      [
-        "@docusaurus/plugin-content-docs",
-        {
-          id: "platform-cloud",
-          routeBasePath: "/platform-cloud",
-          path: "platform-cloud/docs",
-          remarkPlugins: [
-            (await import("remark-code-import")).default,
-            (await require("remark-math")).default,
-            (await import("docusaurus-remark-plugin-tab-blocks")).default,
-            (await require("remark-yaml-to-table")).default,
-          ],
-          rehypePlugins: [(await require("rehype-katex")).default],
-          editUrl: "https://github.com/seqeralabs/docs/tree/master/",
-          sidebarPath: "./platform-cloud/cloud-sidebar.json",
-        },
-      ],
-      [
-        "@docusaurus/plugin-content-docs",
-        {
-          id: "multiqc",
-          routeBasePath: "/multiqc",
-          path: "multiqc_docs/multiqc_repo/docs/markdown",
-          remarkPlugins: [
-            (await import("remark-code-import")).default,
-            (await require("remark-math")).default,
-            (await import("docusaurus-remark-plugin-tab-blocks")).default,
-            (await require("remark-yaml-to-table")).default,
-          ],
-          rehypePlugins: [(await require("rehype-katex")).default],
-          editUrl: ({ docPath }) => {
-            return `https://github.com/MultiQC/MultiQC/blob/main/docs/markdown/${docPath.replace('multiqc_docs/multiqc_repo/docs', '')}`
-          },
-          sidebarPath: "./multiqc_docs/sidebar.js",
-        },
-      ],
-      [
-        "@docusaurus/plugin-content-docs",
-        {
-          id: "fusion",
-          routeBasePath: "/fusion",
-          path: "fusion_docs",
-          remarkPlugins: [
-            (await import("remark-code-import")).default,
-            (await require("remark-math")).default,
-            (await import("docusaurus-remark-plugin-tab-blocks")).default,
-            (await require("remark-yaml-to-table")).default,
-          ],
-          rehypePlugins: [(await require("rehype-katex")).default],
-          editUrl: "https://github.com/seqeralabs/docs/tree/master/",
-          sidebarPath: "./fusion_docs/sidebar.json",
-        },
-      ],
-      [
-        "@docusaurus/plugin-content-docs",
-        {
-          id: "wave",
-          routeBasePath: "/wave",
-          path: "wave_docs/wave_repo/docs",
-          remarkPlugins: [
-            (await import("remark-code-import")).default,
-            (await require("remark-math")).default,
-            (await import("docusaurus-remark-plugin-tab-blocks")).default,
-            (await require("remark-yaml-to-table")).default,
-          ],
-          rehypePlugins: [(await require("rehype-katex")).default],
-          editUrl: ({ docPath }) => {
-            return `https://github.com/seqeralabs/wave/blob/master/docs/${docPath.replace('wave_docs/wave_repo/docs', '')}`
-          },
-          sidebarPath: "./wave_docs/sidebar.json",
-        },
-      ],
+      process.env.EXCLUDE_PLATFORM_ENTERPRISE ? null : docs_platform_enterprise,
+      process.env.EXCLUDE_PLATFORM_CLOUD ? null : docs_platform_cloud,
+      process.env.EXCLUDE_PLATFORM_API ? null : docs_platform_api,
+      process.env.EXCLUDE_PLATFORM_OPENAPI ? null : docs_platform_openapi,
+      process.env.EXCLUDE_MULTIQC ? null : docs_multiqc,
+      process.env.EXCLUDE_FUSION ? null : docs_fusion,
+      process.env.EXCLUDE_WAVE ? null : docs_wave,
+
       async function tailwind() {
         return {
           name: "docusaurus-tailwindcss",
@@ -216,23 +274,30 @@ export default async function createConfigAsync() {
       navbar: {
         logo: {
           alt: "Seqera",
-          src: "img/logo2.png",
-          srcDark: "img/logo2-dark.png",
+          src: "img/Logo.svg",
+          srcDark: "img/LogoWhite.svg",
+          width: "180px",
+          className: 'w-[100px]'
         },
         items: [
-          {
-            to: "/platform-enterprise/",
-            position: "left",
-            label: "Platform Enterprise",
-          },
           {
             to: "/platform-cloud/",
             position: "left",
             label: "Platform Cloud",
           },
           {
+            to: "/platform-enterprise/",
+            position: "left",
+            label: "Platform Enterprise",
+          },
+          {
+            type: "docsVersionDropdown",
+            position: "right",
+            docsPluginId: "platform-enterprise",
+          },
+          {
             to: "https://www.nextflow.io/docs/latest/",
-            html: 'Nextflow <svg width="12" height="12" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU" style="margin-left:4px;opacity:0.6;"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg>',
+            html: 'Nextflow <svg width="12" height="12" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU" style="margin-left:6px;opacity:0.6;"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg>',
             position: "left",
             target: "_blank",
           },
@@ -251,19 +316,33 @@ export default async function createConfigAsync() {
             label: "Fusion",
             position: "left",
           },
+          // {
+          //   type: "search",
+          //   position: "right",
+          // },
           {
-            type: "search",
-            position: "right",
+            to: "https://training.nextflow.io/latest/",
+            html: 'Nextflow Training <svg width="12" height="12" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU" style="margin-left:6px;opacity:0.6;"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg>',
+            position: "left",
+            target: "_blank",
           },
-          {
-            type: "docsVersionDropdown",
-            position: "right",
-            docsPluginId: "platform-enterprise",
-          },
+          // {
+          //   to: "/platform-api/",
+          //   label: "Platform API",
+          //   position: "left",
+          // },
         ],
       },
       footer: {
         style: "dark",
+        logo: {
+          alt: 'Seqera Docs logo',
+          src: 'img/icon.svg', 
+          srcDark: "img/iconLight.svg",
+          href: '/', 
+          width: 25,  
+          height: 25, 
+        },
         links: [
           {
             title: "Docs",
@@ -316,6 +395,7 @@ export default async function createConfigAsync() {
           "groovy",
           "ini",
           "java",
+          "javascript",
           "json",
           "nginx",
           "python",
@@ -323,7 +403,7 @@ export default async function createConfigAsync() {
           "shell-session",
           "sql",
           "typescript",
-          "yaml"
+          "yaml",
         ],
       },
     },

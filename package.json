@@ -35,7 +35,9 @@
     "@types/react-instantsearch-dom": "^6.12.3",
     "algoliasearch": "^4.22.1",
     "clsx": "^1.2.1",
+    "docusaurus-plugin-openapi-docs": "^4.3.7",
     "docusaurus-remark-plugin-tab-blocks": "^3.1.0",
+    "docusaurus-theme-openapi-docs": "^4.3.7",
     "framer-motion": "^11.0.0",
     "mdi-react": "^9.4.0",
     "postcss-import": "^15.1.0",
@@ -83,6 +85,6 @@
     ]
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=18.17.0"
   }
 }
