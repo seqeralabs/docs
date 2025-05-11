@@ -1,6 +1,0 @@
----
-- 
-  Environment variable:            '`TOWER_ENABLE_OPENAPI`'
-  Description: > 
-    Enable the OpenAPI documentation endpoint, e.g., [tower.nf/openapi/index.html](https://api.cloud.seqera.io/openapi/index.html).  
-  Value:                'Default: `true`'
