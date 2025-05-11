@@ -1,0 +1,71 @@
+---
+id: create-dataset-v-2
+title: "Create dataset"
+description: "Creates a new dataset in the user context. Include the dataset file and details in your request body. Append `?workspaceId` to create the dataset in a workspace context."
+sidebar_label: "Create dataset"
+hide_title: true
+hide_table_of_contents: true
+api: eJzVVm1vIzUQ/iuWxQdOylt7J3SNhI70OKQKpFbXHkjkCuesJ4lbr71ne5uGJf+dGXs32WSjgIAP8CXKzjwzfubVrrgEnzlVBGUNH/O3DkQAzwQzsGJSBOEhMGVYWAIrPTiWWRPgOQzYlcl0KSFqGuBcaWDCSCYhCKU9Wa5t6ZiDzyX4wGZWrgdsUhSAoE9vVtY9+kJkcCU/sWBZFo/fc4keBNvitsfzHg9i4fl4ymuk5/c9bgtwgmK5kttovk36H8/RphBO5BDAkWXFDX4grkUDMYoSgXTdGj/20/PTlocpc3AqY0qCCWquwCHYZ0vIBR9XPKwLcqyQ7CKq5tblIiTRV6/4ZoNk66RcYk7IZv+omnWTkhqLnmIGTCALURRaZTHe4YMns6rLwc4eICPDwlF2ggJP2hT6FuWDU2bBNwcRd/QICCpoOMzu+5rfhhBEVjnAEgRXQhT4whqfTj4fjbrhXn//74VWNwT93TGZpogx7aeNlaTfXDz/AGYRlnx8ft7rJqnJXgt3NhpRfwVsLgrol6no/zbp//zxo7z/8s249fX7tP8rir5uiV68qM56F683X/AjZx0UZP/I0RGDHKQSd1G6B399DCxB4zzIVlZn1moQhlPZhLw2er2tI2YWUtlltzdaTU64flCYoyNOtPDhQyH/iZNWF9b9d6ozU+9RayLm1bHuuxTy70xYu7ty8F4s/kKDNcCTs/XOOes6zF8emZtm4TFjAxNa2xXyieiLI0ulTOEAw6rnFON/NFpUeshKp8I6LupLEA7cpKQ2nt7T8sQtvrS05Asbi4aThzo+3N4GOw+3FEKi0/azZbQMoWi2dxyACEJJ+vNd05APq9RmlJr3u9397lnkhYbdUt318n72d0OnzNxGAnUCbuEzlpFNbq46RrXqRotAk8HwDn5SGV7RCUzVE1msXul0HYwfD4c+2g2URRAWUOl498ztNzsFEnnCmzCdczZ4eTEYkYwSmgvTiifNU3MlH1Ksdi30/3o/pOrT57DQAq99DD4msaq7af9tsaRGQ1lVzVD2wenNhsTppUBNKpUXM00DMhfaw4k0/ck74iizR1h3nipPQpeE5DQRT8IpOj9OCNLFlYneiFgyfZuO78ebYWfbGfpNr7GYZBkU4SS2PYk317d3NDX1eya3kmycWNECx1/kSS80so7DGGUV3gdmUcYdwZNPmjGxP6IHIxmjqlXCrFsMsTgRcWcfwWCBmrwF+ka66PwPxEXJ5Q==
+sidebar_class_name: "post api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Create dataset"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/datasets"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Creates a new dataset in the user context. Include the dataset file and details in your request body. Append `?workspaceId` to create the dataset in a workspace context.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Dataset create request","content":{"application/json":{"schema":{"type":"object","properties":{"name":{"type":"string"},"description":{"type":"string"}},"title":"CreateDatasetRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"dataset":{"required":["name"],"type":"object","properties":{"id":{"maxLength":22,"type":"string"},"name":{"maxLength":100,"pattern":"^[a-zA-Z\\d](?:[a-zA-Z\\d]|[-_](?=[a-zA-Z\\d])){1,98}$","type":"string"},"description":{"maxLength":1000,"type":"string"},"mediaType":{"maxLength":80,"type":"string"},"deleted":{"type":"boolean","readOnly":true},"dateCreated":{"type":"string","format":"date-time","readOnly":true},"lastUpdated":{"type":"string","format":"date-time","readOnly":true}},"title":"Dataset"}},"title":"CreateDatasetResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"409":{"description":"Duplicate element","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

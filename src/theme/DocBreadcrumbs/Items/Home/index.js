@@ -21,8 +21,8 @@ export default function HomeWrapper(props) {
   return (
     <>
       <Home {...props} />
-      <li className="breadcrumbs__item">
-        <span className="breadcrumbs__link">
+      <li className="breadcrumbs__item break-all">
+        <span className="breadcrumbs__link break-all">
           {currentProduct}
         </span>
       </li>
