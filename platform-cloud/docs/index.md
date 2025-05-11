@@ -28,7 +28,7 @@ Log in to [Seqera Cloud](https://cloud.seqera.io/login) with your GitHub or Goog
 Upon your first login, you arrive in `community/showcase`, a workspace pre-filled with resources to launch your first pipeline with public data.
 
 - To begin launching Showcase pipelines, see [Launch pipelines](./getting-started/quickstart-demo/launch-pipelines.mdx).
-- To skip the Showcase and begin adding your own pipelines and resources, see [Set up your workspace](./getting-started/workspace-setup.mdx) to first create your own organizations and workspaces. 
+- To skip the Showcase and begin adding your own pipelines and resources, see [Set up your workspace](./getting-started/workspace-setup) to first create your own organizations and workspaces. 
 
 ### What is Nextflow?
 
