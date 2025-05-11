@@ -391,7 +391,6 @@ export default async function createConfigAsync() {
         darkTheme: themes.oneDark,
         additionalLanguages: [
           "bash",
-          "curl",
           "docker",
           "groovy",
           "ini",
