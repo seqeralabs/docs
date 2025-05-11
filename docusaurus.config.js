@@ -148,7 +148,8 @@ export default async function createConfigAsync() {
           src: "img/Logo.svg",
           srcDark: "img/LogoWhite.svg",
           width: "180px",
-          className: 'w-[100px]'
+          className: 'w-[100px]',
+          href: 'https://docs.seqera.io'
         },
         items: [
           {
@@ -213,6 +214,7 @@ export default async function createConfigAsync() {
           href: '/', 
           width: 25,  
           height: 25, 
+          href: 'https://docs.seqera.io'
         },
         links: [
           {

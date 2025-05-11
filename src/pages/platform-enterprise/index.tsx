@@ -6,7 +6,7 @@ import platform_enterprise_latest_version from "@site/platform-enterprise_latest
 export default function Platform(): JSX.Element {
   return (
     <Redirect
-      to={`/platform-enterprise/${platform_enterprise_latest_version}/`}
+      to={`https://docs.seqera.io/platform-enterprise/`}
     />
   );
 }

@@ -1,2 +1,8 @@
-import Homepage from "../modules/Homepage";
-export default Homepage;
+import React from 'react';
+
+export default function RedirectPage() {
+  React.useEffect(() => {
+    window.location.href = "https://docs.seqera.io";
+  }, []);
+  return null;
+}
