@@ -25,7 +25,7 @@ To disable automatic cloud bucket retrieval per workspace, specify comma-separat
 
 - **Retrieve cloud buckets with workspace credentials**
 
-  To list private cloud storage buckets in Data Explorer automatically, add the repository [credentials](../credentials/overview.mdx) to your workspace.
+  To list private cloud storage buckets in Data Explorer automatically, add the repository [credentials](../credentials/overview) to your workspace.
 
 - **Configure individual buckets manually**
 
@@ -74,7 +74,7 @@ To disable automatic cloud bucket retrieval per workspace, specify comma-separat
 
 - **Copy bucket/object paths**
 
-  Select the **Path** of an object on the **View cloud bucket** page to copy its absolute path to the clipboard. Use these object paths to specify input data locations during [pipeline launch](../launch/launchpad.mdx), or add them to a [dataset](../data/datasets.mdx) for pipeline input.
+  Select the **Path** of an object on the **View cloud bucket** page to copy its absolute path to the clipboard. Use these object paths to specify input data locations during [pipeline launch](../launch/launchpad), or add them to a [dataset](../data/datasets) for pipeline input.
 
 ## Isolate view, read, and write permissions to specific cloud storage bucket paths
 
@@ -87,6 +87,7 @@ To isolate pipeline or Studios view, read, and write permissions to a specific *
 :::note
 This customized Data Explorer view will be displayed by default to all workspace users, until the filter is updated or removed by a workspace maintainer.
 :::
+
 
 ## Upload files to private buckets
 

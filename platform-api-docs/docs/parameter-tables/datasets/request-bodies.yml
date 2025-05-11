@@ -1,0 +1,48 @@
+- Name: "**CreateDatasetV2**"
+  Type: ""
+  Req/Opt: ""
+  Description: Create dataset
+- Name: name
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: description
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "**UpdateDatasetV2**"
+  Type: ""
+  Req/Opt: ""
+  Description: Update dataset
+- Name: name
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: description
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "**CreateDataset**"
+  Type: ""
+  Req/Opt: ""
+  Description: Create dataset
+- Name: name
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: description
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "**UpdateDataset**"
+  Type: ""
+  Req/Opt: ""
+  Description: Update dataset
+- Name: name
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: description
+  Type: string
+  Req/Opt: Optional
+  Description: ""

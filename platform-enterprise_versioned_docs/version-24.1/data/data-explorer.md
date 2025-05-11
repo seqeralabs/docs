@@ -36,7 +36,7 @@ Data Explorer lists public and private cloud storage buckets. Buckets accessible
 
 - **Retrieve cloud buckets with workspace credentials**
 
-  Private cloud storage buckets accessible to the credentials defined in your workspace are listed in Data Explorer automatically. The cloud storage permissions required for your [AWS](../compute-envs/aws-batch.mdx#iam), [Google Cloud](../compute-envs/google-cloud-batch.mdx#iam), and [Azure Batch](../compute-envs/azure-batch.mdx#create-a-storage-account) compute environment credentials allow full Data Explorer functionality.
+  Private cloud storage buckets accessible to the credentials defined in your workspace are listed in Data Explorer automatically. The cloud storage permissions required for your [AWS](../compute-envs/aws-batch#iam), [Google Cloud](../compute-envs/google-cloud-batch#iam), and [Azure Batch](../compute-envs/azure-batch#create-a-storage-account) compute environment credentials allow full Data Explorer functionality.
 
 - **Configure individual buckets manually**
 
@@ -81,12 +81,12 @@ Data Explorer lists public and private cloud storage buckets. Buckets accessible
   :::note
   The file size limit for preview is 10 MB. 10-25 MB files can still be downloaded directly.
 
-  Seqera Enterprise users can increase the default 25 MB file size download limit with `tower.content.max-file-size` in the `tower.yml` [configuration](../enterprise/configuration/overview.mdx#data-features) file. Note that increasing this value may degrade Platform performance.
+  Seqera Enterprise users can increase the default 25 MB file size download limit with `tower.content.max-file-size` in the `tower.yml` [configuration](../enterprise/configuration/overview#data-features) file. Note that increasing this value may degrade Platform performance.
   :::
 
 - **Copy bucket/object paths**
 
-  Select the **Path** of an object on the **View cloud bucket** page to copy its absolute path to the clipboard. Use these object paths to specify input data locations during [pipeline launch](../launch/launchpad.mdx), or add them to a [dataset](../data/datasets.mdx) for pipeline input.
+  Select the **Path** of an object on the **View cloud bucket** page to copy its absolute path to the clipboard. Use these object paths to specify input data locations during [pipeline launch](../launch/launchpad), or add them to a [dataset](../data/datasets) for pipeline input.
 
 ## Isolate view, read, and write permissions to specific cloud storage bucket paths
 
@@ -224,4 +224,4 @@ Google Cloud Storage only supports CORS configuration via gcloud CLI.
 }
 ```
 
-[roles]: ../orgs-and-teams/roles.mdx
+[roles]: ../orgs-and-teams/roles

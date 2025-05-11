@@ -15,7 +15,9 @@
     0 2px 4px rgba(0, 0, 0, 0.08),
     0 1px 2px rgba(0, 0, 0, 0.12);
 }
-
+html[data-theme="dark"] .aa-Form {
+  border-color: var(--color-gray-600);
+}
 /* Continue styling using variables */
 
 /* Base container styles */
@@ -47,7 +49,17 @@
     font-size: 0.875rem;
   }
 }
-
+html[data-theme="dark"] .aa-Input {
+  color: #F1F1F1;
+  &::placeholder {
+    color: #F1F1F1;;
+  }
+}
+html[data-theme="dark"] .aa-Label {
+  svg {
+    fill: #F1F1F1;
+  }
+}
 /* Panel (dropdown) */
 .aa-Panel {
   background-color: white;
@@ -61,8 +73,26 @@
   width: 100%;
   /* margin: 18px -8px 0; */
   margin: 5px -8px 0;
+
+  h5 {
+    color: var(--color-gray-1000);
+  }
+}
+html[data-theme="dark"] .aa-Panel {
+  background-color: #464646;
+
+  h5 {
+    color: #F1F1F1;
+  }
 }
 
+.html[data-theme="dark"] .aa-GradientBottom {
+  background-image: none;
+}
+
+.aa-GradientBottom {
+  display: none;
+}
 .aa-Panel a:hover {
   text-decoration: none;
 }
@@ -77,14 +107,25 @@
   /* padding: 0.5rem 1rem; */
   cursor: pointer;
   transition: background-color 0.2s;
+  &:hover {
+    background-color: #f3f4f6;
+  }
+}
+html[data-theme="dark"] .aa-Item {
+  color: #F1F1F1;;
+  span {
+    color: #F1F1F1;;
+  }
+  a {
+    color: #F1F1F1;;
+  }
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
 }
 
 .aa-Source[data-autocomplete-source-id="ai-thread"] .aa-Item {
   padding: 0.5rem 0;
-}
-
-.aa-Item:hover {
-  background-color: #f3f4f6;
 }
 
 .aa-ItemLink {
@@ -120,6 +161,7 @@
 
 .aa-SourceNoResults {
   padding: 0.35rem 0.75rem 0;
+  margin-bottom: 1rem;
 }
 
 .aa-SourceFooter ul {
@@ -141,6 +183,10 @@
   /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.12); */
   box-shadow: none;
   transition: box-shadow 0.2s;
+  background: none;
+}
+html[data-theme="dark"] .aa-Form {
+  background: #464646;
 }
 
 .aa-Form:focus-within {
@@ -164,4 +210,13 @@
 }
 .aa-DetachedContainer .aa-Panel {
   position: relative;
+}
+
+html[data-theme="dark"] {
+  .aa-DetachedContainer {
+    background: #464646;
+  }
+  .aa-DetachedCancelButton {
+    color: white;
+  }
 }
