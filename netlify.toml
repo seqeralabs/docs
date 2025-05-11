@@ -2,32 +2,15 @@
   function = "og-generate.png"
   path = "/og-generate.png"
 
-# Specific branch deployment contexts
-#   Defining these ENV vars excludes certain docsets
-#   Use to have multiple separate netlify builds that don't time out
-
-# Default production branch - exclude enterprise docs (includes API docs)
-[context.production.environment]
-  EXCLUDE_PLATFORM_API="1"
-  EXCLUDE_PLATFORM_OPENAPI="1"
-
-# API Docs branch
-[context.apidocs-deploy-switch.environment]
-  EXCLUDE_CHANGELOG="1"
-  EXCLUDE_PLATFORM_CLOUD="1"
-  EXCLUDE_MULTIQC="1"
-  EXCLUDE_FUSION="1"
-  EXCLUDE_WAVE="1"
-
-# Redirects from the missing docs -> API docs branch
+# Redirects for the missing API docs
 [[redirects]]
   from = "/platform-api/*"
-  to = "https://apidocs-deploy-switch--seqera-docs.netlify.app/platform-api/:splat"
+  to = "https://seqera-docs-api.netlify.app/platform-api/:splat"
   status = 200
 
 # Redirect missing assets (so that we don't lose CSS on the API docs)
 # NB: Force is not true, so will use local if available
 [[redirects]]
   from = "/assets/*"
-  to = "https://apidocs-deploy-switch--seqera-docs.netlify.app/assets/:splat"
+  to = "https://seqera-docs-api.netlify.app/assets/:splat"
   status = 200
