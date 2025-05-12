@@ -19,13 +19,13 @@ The top of the page contains basic run details and a progress overview for an at
 
 Select the tabs below the workflow run progress bar to view further run details:
 - **Tasks**: View the status and progress of pipeline tasks and [processes](#processes), including extensive [task details](#tasks)
-- **Logs**: View and download the pipeline run's execution log
-- **Metrics**: View resource [metrics](#metrics) for the run 
-- 
-- [Run information](#run-information) with real-time Nextflow execution details
-- [General summary](#general-summary) and [task status](#task-status)
-- List of pipeline 
-- [Aggregated stats](#aggregate-stats), [load](#load), and [utilization](#utilization)
+- **Logs**: View and download the pipeline run's execution logs
+- **Metrics**: View resource [metrics](#wall-time) for the run 
+- **Configuration**: View Nextflow configuration files and the resolved [configuration](#configuration) used for the run
+- **Datasets**: View [datasets](../data/datasets) used as input for the run, if any
+- **Reports**: View [reports](../reports/overview) for the run, if any were configured
+- **Containers**: View the details of containers used in the run, if any
+- **Run Info**: View details about the [run](#run-details), [infrastructure](#infrastructure-details), and [executor](#executors-details)
 
 <Tabs>
 <TabItem value="Tasks" label="Tasks" default>
@@ -102,7 +102,7 @@ Wall time is the duration of the entire workflow run, from submission to complet
 #### CPU time
 
 CPU time is the total CPU time used by all tasks, measured in CPU hours. It is based on the CPUs _requested_, not the actual CPU usage. The CPU time of an individual task is computed as follows:
-=======
+
 Select a workflow run from the **Runs** list to view execution details. This view contains:
 
 - [Run information](#run-information) with real-time Nextflow execution details
