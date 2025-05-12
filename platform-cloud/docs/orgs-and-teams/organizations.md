@@ -35,13 +35,13 @@ Storage and network costs vary per region, charged at standard AWS rates. Data i
 
 Your available credit balance depends on the credits purchased and limits applied to your Seqera license. The **Credits** view contains the current credit balance available to the organization, and the total credits spent in the organization's workspaces. Select **Contact us to upgrade** to request additional credits for your organization. 
 
-#### Rename or delete organization 
+#### Edit or delete organization 
 
 :::note
 Organization **owners** can rename the organization from the organization **Settings** tab.
 :::
 
-As an **organization owner**, access the organization page from the organizations and workspaces dropdown, or open the user menu and select **Your organizations** to view and edit your organizations.
+As an organization **owner**, access the organization page from the organizations and workspaces dropdown, or open the user menu and select **Your organizations** to view and edit your organizations.
 
 Select **Edit** in the **Edit organization** row to update the organization name, full name, description, location, website URL, and logo. Update the settings and select **Update** to save.
 
