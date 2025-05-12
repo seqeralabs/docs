@@ -1,4 +1,4 @@
-@media (min-width: 997px) {
+@media (min-width: 996px) {
   .blogWrapper {
     display: flex;
     width: 100%;
@@ -9,24 +9,24 @@
   flex-grow: 1;
   flex-wrap: nowrap;
   max-width: 100%;
-  @media (min-width: 997px) {
+  @media (min-width: 996px) {
     max-width: calc(100% - var(--doc-sidebar-width));
   }
 }
 
 .toc {
   display: none;
-  @media (min-width: 997px) {
+  @media (min-width: 996px) {
     display: flex;
   }
 }
 
-@media (min-width: 997px) {
+@media (min-width: 996px) {
   .blogBody {
     display: flex;
     flex-wrap: nowrap;
   }
   .blogContent {
-    max-width: 75% !important;
+    max-width: 75%;
   }
 }
