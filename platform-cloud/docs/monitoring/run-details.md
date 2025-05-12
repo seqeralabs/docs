@@ -34,13 +34,13 @@ Select the tabs below the workflow run progress bar to view further run details:
 
 The cards at the top of the **Tasks** tab provide a real-time status of all tasks in the pipeline run:
 
-- **Pending**: The task has been created, but not yet submitted to an executor.
-- **Submitted**: The task has been submitted to an executor, but is not yet running.
-- **Running**: The task has been launched by an executor (the precise definition of "running" may vary for each executor).
-- **Cached**: A previous (and valid) execution of the task was found and used instead of executing the task again. See [Cache and resume](../launch/cache-resume.mdx).
-- **Succeeded**: The task completed successfully.
-- **Failed**: The task failed.
-- **Aborted**: The task was submitted, but the run was cancelled or failed before the task could begin.
+- **Pending**: The task has been created, but not yet submitted to an executor
+- **Submitted**: The task has been submitted to an executor, but is not yet running
+- **Running**: The task has been launched by an executor (the precise definition of "running" may vary for each executor)
+- **Cached**: A previous (and valid) execution of the task was found and used instead of executing the task again. See [Cache and resume](../launch/cache-resume.mdx)
+- **Succeeded**: The task completed successfully
+- **Failed**: The task failed
+- **Aborted**: The task was submitted, but the run was cancelled or failed before the task could begin
 
 ### Processes 
 
@@ -74,7 +74,7 @@ Select a task in the task table to open the **Task details** dialog. The dialog 
 
 - **Execution log**
 
-  The **Execution log** tab provides a real-time log of the selected task's execution. Task execution and other logs (such as `stdout` and `stderr`) are available for download from here, if still available in your compute environment.
+  The **Execution log** tab provides a real-time log of the selected task's execution. Task execution and other logs (such as `stdout` and `stderr`) are available for download if they are still available in your compute environment.
 
 - **Data Explorer**
 
