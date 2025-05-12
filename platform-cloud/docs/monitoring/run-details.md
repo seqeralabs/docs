@@ -74,7 +74,7 @@ Select a task in the task table to open the **Task details** dialog. The dialog 
 
 - **Execution log**
 
-  The **Execution log** tab provides a real-time log of the selected task's execution. Task execution and other logs (such as `stdout` and `stderr`) are available for download from here, if still available in your compute environment.
+  The **Execution log** tab provides a real-time log of the selected task's execution. Task execution and other logs (such as `stdout` and `stderr`) are available for download if they are still available in your compute environment.
 
 - **Data Explorer**
 
