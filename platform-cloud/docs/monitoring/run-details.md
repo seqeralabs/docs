@@ -264,7 +264,7 @@ The **Configuration** window displays the locations of the Nextflow configuratio
 The **Command** window displays the Nextflow command used for the run. 
 
 </TabItem>
-<TabItem value="Datasets" label="Datasets" default>\
+<TabItem value="Datasets" label="Datasets" default>
 
 ![Datasets](./_images/datasets.png)
 
