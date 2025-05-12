@@ -37,7 +37,7 @@ The cards at the top of the **Tasks** tab provide a real-time status of all task
 - **Pending**: The task has been created, but not yet submitted to an executor
 - **Submitted**: The task has been submitted to an executor, but is not yet running
 - **Running**: The task has been launched by an executor (the precise definition of "running" may vary for each executor)
-- **Cached**: A previous (and valid) execution of the task was found and used instead of executing the task again. See [Cache and resume](../launch/cache-resume.mdx)
+- **Cached**: A previous (and valid) execution of the task was found and used instead of executing the task again. See [Cache and resume](../launch/cache-resume)
 - **Succeeded**: The task completed successfully
 - **Failed**: The task failed
 - **Aborted**: The task was submitted, but the run was cancelled or failed before the task could begin
@@ -109,7 +109,7 @@ Select a workflow run from the **Runs** list to view execution details. This vie
 - [General summary](#general-summary) and [task status](#task-status)
 - List of pipeline [processes](#processes)
 - [Aggregated stats](#aggregate-stats), [load](#load), and [utilization](#utilization)
-- [Tasks](#tasks) and [metrics](#metrics)
+- [Tasks](#tasks) and [metrics](#wall-time)
 
 ### Run information
 
