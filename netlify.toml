@@ -5,7 +5,7 @@
 # Redirects for the missing API docs
 [[redirects]]
   from = "/platform-api/*"
-  to = "https://seqera-docs-api.netlify.app/platform-api/:splat"
+  to = "https://api-docs-staging.netlify.app/platform-api/:splat"
   status = 200
 
 # Redirects to pages (to resolve 404 bug from platform API pages)
@@ -29,6 +29,13 @@
   to = "https://docs.seqera.io/platform-cloud/:splat"
   status = 301
 
+# API Docs branch
+[context.redirects-update.environment]
+  EXCLUDE_CHANGELOG="1"
+  EXCLUDE_PLATFORM_CLOUD="1"
+  EXCLUDE_MULTIQC="1"
+  EXCLUDE_FUSION="1"
+  EXCLUDE_WAVE="1"
 
 # Redirect missing assets (so that we don't lose CSS on the API docs)
 # NB: Force is not true, so will use local if available
