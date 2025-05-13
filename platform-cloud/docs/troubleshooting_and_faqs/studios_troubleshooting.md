@@ -11,6 +11,14 @@ In your interactive analysis environment, open a new terminal and type `ls -la /
 
 ![](./_images/studios_notebook_fusion.png)
 
+## Enabling AI coding assistants in Studios
+
+VS Code, RStudio, and Jupyter environments natively integrate with [GitHub Copilot][gh-copilot]. Enabling it requires a GitHub Account and an active subscription to Copilot.
+
+- **VS Code:** To enable GitHub Copilot in your VS Code session, install the extension and then sign in with your GitHub account. [Learn more][vscode-blog].
+- **RStudio:** To enable GitHub Copilot in your RStudio session, you will need to modify the RStudio configuration. By default, the Studio session user has root permissions, so configuration changes are possible. Restarting the RStudio is required once the required changes have been made. [Learn more][posit-ghcopilot-guide].
+- **Jupyter:** [Notebook Intelligence (NBI)][nbi] is an AI coding assistant and extensible AI framework for Jupyter. It can use GitHub Copilot or AI models from any other LLM Provider. [Learn more][nbi-blog].
+
 ## Session size limited by compute environment advanced options: Head job CPUs and Head job memory
 
 When adding a compute environment, setting the Advanced options **Head job CPUs** and **Head job memory** for Nextflow **also applies** to any Studio session created in the compute environment. This is because Studio sessions are managed by the Nextflow runner job. To avoid artifically constraining the resources of your Studio sessions, **do not define these optional compute environment settings**.
@@ -105,4 +113,11 @@ These are the false positive confirmed findings:
 | ini:1.0.0        | CVE-2020-7788⁠       |
 | diff:1.0.0       | GHSA-h6ch-v84p-w6p9⁠ |
 
+{/* links */}
+
+[gh-copilot]: https://github.com/features/copilot
+[vscode-blog]: https://code.visualstudio.com/docs/copilot/setup-simplified
+[posit-ghcopilot-guide]: https://docs.posit.co/ide/user/ide/guide/tools/copilot.html
+[nbi]: https://github.com/notebook-intelligence/notebook-intelligence
+[nbi-blog]: https://blog.jupyter.org/introducing-notebook-intelligence-3648c306b91a
 [contact]: https://seqera.io/contact-us/
