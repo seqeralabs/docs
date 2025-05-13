@@ -390,6 +390,8 @@ html[data-theme="dark"]{
 }
 
 .navbar-sidebar {
+  height: 100%;
+  min-height: 100vh;
   .menu__list {
     .menu__list-item:nth-child(3) {
       border-left: 1px solid var(--color-gray-600);
