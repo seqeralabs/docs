@@ -210,7 +210,7 @@ If you're restricted from using public container registries, see Seqera Enterpri
 Each Seqera Platform release uses a specific nf-launcher image by default. This image is loaded with a specific Nextflow version that any workflow run in the container uses by default. Force your jobs to use a newer/older version of Nextflow with one of the following strategies:
 
 - Use a [pre-run script](../launch/advanced#pre-and-post-run-scripts) to set the desired Nextflow version. For example: `export NXF_VER=22.08.0-edge`
-- For jobs executing in an AWS Batch compute environment, create a [custom job definition](../../version-24.2/enterprise/advanced-topics/custom-launch-container) which references a different nf-launcher image.
+- For jobs executing in an AWS Batch compute environment, create a [custom job definition](../enterprise/advanced-topics/custom-launch-container) which references a different nf-launcher image.
 
 ### Spot instance failures and retries in Nextflow
 
