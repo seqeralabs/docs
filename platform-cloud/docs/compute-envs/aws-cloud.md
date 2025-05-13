@@ -27,7 +27,7 @@ This compute environment is best suited to run Studios and small to medium sized
 ## Limitations
 
 - The Nextflow pipeline will run entirely on a single EC2 instance and if the instance type does not have enough resources, the pipeline execution will fail. For this same reason, the amount of parallelism Nextflow can leverage to execute tasks in parallel is bounded by the number of cores of the instance type selected. If you need more computing resources, you’ll need to create a new compute environment with a different instance type. This could mean that the compute environment is not a viable choice for larger pipelines.
-- Currentely only the `eu-west-2` Region is supported.
+- Currently only the `eu-west-2` Region is supported.
 
 ## Requirements
 
