@@ -12,22 +12,22 @@
 [[redirects]]
   from = "/wave/*"
   to = "https://docs.seqera.io/wave/:splat"
-  status = 200
+  status = 301
 
 [[redirects]]
   from = "/multiqc/*"
   to = "https://docs.seqera.io/multiqc/:splat"
-  status = 200
+  status = 301
 
 [[redirects]]
   from = "/fusion/*"
   to = "https://docs.seqera.io/fusion/:splat"
-  status = 200
+  status = 301
 
 [[redirects]]
   from = "/platform-cloud/*"
   to = "https://docs.seqera.io/platform-cloud/:splat"
-  status = 200
+  status = 301
 
 
 # Redirect missing assets (so that we don't lose CSS on the API docs)
