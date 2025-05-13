@@ -272,7 +272,7 @@ https://api.cloud.seqera.io/workspaces/97652229034xxx/datasets/6vBGj6aWWpBuLpGKj
 
 Run `tw studios -h` to view the list of supported operations.
 
-Manage [Studio sessions](../studios/index) hosted in Seqera Platform. Studio sessions allow interactive analysis using Jupyter, RStudio, VS Code, and Xpra. Additional custom analysis environments can be defined as needed.
+Manage [Studio sessions](../studios/index.md) hosted in Seqera Platform. Studio sessions allow interactive analysis using Jupyter, RStudio, VS Code, and Xpra. Additional custom analysis environments can be defined as needed.
 
 :::note
 Most Studio operations require workspace `MAINTAIN` permissions. 
@@ -329,7 +329,7 @@ Build reports       | NA
 
 Run `tw studios templates -h` to view the required and optional fields for session templates.
 
-Templates are the container image templates used as the foundation for Studio sessions. See [Container image templates](../studios/index#container-image-templates) for more information.
+Templates are the container image templates used as the foundation for Studio sessions. See [Container image templates](../studios/index.md#container-image-templates) for more information.
 
 ```bash
 tw studios templates -w community/showcase
@@ -391,7 +391,7 @@ tw studios stop -i 13083356 -w community/showcase
 
 Run `tw studios checkpoints -h` to view the required and optional fields for viewing checkpoints for a session.
 
-List all checkpoints for an existing Studio session in a workspace. See [Session checkpoints](../studios/index#session-checkpoints) for more information.
+List all checkpoints for an existing Studio session in a workspace. See [Session checkpoints](../studios/index.md#session-checkpoints) for more information.
 
 ```bash
 tw studios checkpoints -i 19a3abbd -w community/showcase
@@ -1195,6 +1195,6 @@ Run `tw secrets add -h` to view the required and optional fields for adding a se
 [nextflow-config]: https://www.nextflow.io/docs/latest/config.html#config-syntax
 [participant-roles]: ../orgs-and-teams/roles
 [shared-workspaces]: ../orgs-and-teams/workspace-management
-[tower-agent]: ../../supported_software/agent
+[tower-agent]: ../../supported_software/agent/agent.md
 [user-workspaces]: ../orgs-and-teams/workspace-management
 [wave-docs]: https://docs.seqera.io/wave
