@@ -48,7 +48,7 @@ This retry strategy in the above example configuration will all types of job fai
 
 #### Handle retries in AWS by setting `aws.batch.maxSpotAttempts`
 
-If you do not have processes with long runtimes in your workflow (i.e., all processes are under one hour runtime), you can consider configuring automatic retries in case of interruption:
+If all processes in your workflow have runtimes short enough to feasibly complete before reclamation, you can consider configuring automatic retries in case of interruption:
 
 ```
 aws.batch.maxSpotAttempts = 3
