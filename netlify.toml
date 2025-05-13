@@ -11,22 +11,22 @@
 # Redirects to pages (to resolve 404 bug from platform API pages)
 [[redirects]]
   from = "/wave"
-  to = "https://docs.seqera.io/wave/:splat"
+  to = "https://docs.seqera.io/wave"
   status = 301
 
 [[redirects]]
   from = "/multiqc"
-  to = "https://docs.seqera.io/multiqc/:splat"
+  to = "https://docs.seqera.io/multiqc"
   status = 301
 
 [[redirects]]
   from = "/fusion"
-  to = "https://docs.seqera.io/fusion/:splat"
+  to = "https://docs.seqera.io/fusion"
   status = 301
 
 [[redirects]]
   from = "/platform-cloud"
-  to = "https://docs.seqera.io/platform-cloud/:splat"
+  to = "https://docs.seqera.io/platform-cloud"
   status = 301
 
 # API Docs branch
