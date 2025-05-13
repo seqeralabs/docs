@@ -71,7 +71,8 @@
           "getting-started/quickstart-demo/comm-showcase",
           "getting-started/rnaseq",
           "getting-started/proteinfold",
-          "getting-started/studios"
+          "getting-started/studios",
+          "tutorials/retry-strategy"
           ]
       },
       {
