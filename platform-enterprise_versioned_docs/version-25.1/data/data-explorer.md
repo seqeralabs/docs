@@ -88,7 +88,7 @@ If you remove a data link associated with a cloud storage bucket, the data link 
   :::note
   The file size limit for preview is 10 MB. 10-25 MB files can still be downloaded directly.
 
-  Seqera Enterprise users can increase the default 25 MB file size download limit with `tower.content.max-file-size` in the `tower.yml` [configuration](../../version-25.1/enterprise/configuration/overview#data-features) file. Note that increasing this value may degrade Platform performance.
+  Seqera Enterprise users can increase the default 25 MB file size download limit with `tower.content.max-file-size` in the `tower.yml` [configuration](../enterprise/configuration/overview#data-features) file. Note that increasing this value may degrade Platform performance.
   :::
 
 - **Copy bucket/object paths**
