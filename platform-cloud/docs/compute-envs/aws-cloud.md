@@ -5,7 +5,7 @@ date: "12 May 2025"
 tags: [cloud, vm, amazon, compute environment]
 ---
 
-::: note
+:::note
 This guide assumes you already have an AWS account with a valid AWS subscription.
 ::: 
 
