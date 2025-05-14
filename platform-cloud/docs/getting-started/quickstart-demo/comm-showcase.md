@@ -6,9 +6,6 @@ tags: [platform, launch, pipelines, launchpad, showcase tutorial]
 toc_max_heading_level: 3
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 :::info
 This demo tutorial provides an introduction to Seqera Platform, including instructions to:
 - Launch, monitor, and optimize the [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline

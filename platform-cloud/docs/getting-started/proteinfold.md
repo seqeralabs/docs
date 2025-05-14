@@ -6,9 +6,6 @@ tags: [platform, seqera pipelines, studios, proteinfold, alphafold, colabfold, c
 toc_max_heading_level: 2
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 This guide details how to perform best-practice analysis for protein 3D structure prediction on an AWS Batch compute environment in Platform. It includes: 
 
 - Creating AWS Batch compute environments to run your pipeline and downstream analysis

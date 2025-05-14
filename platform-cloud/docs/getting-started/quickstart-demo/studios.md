@@ -5,9 +5,6 @@ date: "8 Jul 2024"
 tags: [platform, data,  studios]
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 :::info
 This guide provides an introduction to Studios using a demo Studio in the Community Showcase workspace. See [Studios](../../studios/index) to learn how to create Studios in your own workspace. 
 :::
