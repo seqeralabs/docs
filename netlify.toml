@@ -5,7 +5,7 @@
 # Redirects for the missing API docs
 [[redirects]]
   from = "/platform-api/*"
-  to = "https://seqera-docs-api.netlify.app/platform-api/seqera-api:splat"
+  to = "https://seqera-docs-api.netlify.app/platform-api/:splat"
   status = 200
 
 # Redirect missing assets (so that we don't lose CSS on the API docs)
