@@ -73,8 +73,8 @@
           "compute-envs/k8s",
           "compute-envs/hpc",
           "resource-labels/overview",
-          "supported_software/fusion/fusion",
-          "supported_software/agent/agent",
+          "supported_software/fusion/overview",
+          "supported_software/agent/overview",
           "supported_software/dragen/overview",
           {
             "type": "category",
@@ -121,7 +121,7 @@
         "type": "category",
         "label": "Studios",
         "items": [
-          "studios/index",
+          "studios/overview",
           "studios/custom-envs",
           "studios/managing"
         ]
