@@ -8,6 +8,28 @@
   to = "https://seqera-docs-api.netlify.app/platform-api/:splat"
   status = 200
 
+# Redirects to pages (to resolve 404 bug from platform API pages)
+[[redirects]]
+  from = "/wave/*"
+  to = "https://docs.seqera.io/wave/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/multiqc/*"
+  to = "https://docs.seqera.io/multiqc/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/fusion/*"
+  to = "https://docs.seqera.io/fusion/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/platform-cloud/*"
+  to = "https://docs.seqera.io/platform-cloud/:splat"
+  status = 200
+
+
 # Redirect missing assets (so that we don't lose CSS on the API docs)
 # NB: Force is not true, so will use local if available
 [[redirects]]

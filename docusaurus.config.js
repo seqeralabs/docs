@@ -218,6 +218,7 @@ export default async function createConfigAsync() {
               require.resolve("./src/css/components/checklist.css"),
               require.resolve("./src/css/components/box.css"),
               require.resolve("./src/css/theme-colors.css"),
+              require.resolve("./src/css/api.css"),
               require.resolve("./src/css/fonts/inter.css"),
               require.resolve("./src/css/fonts/degular.css"),
             ],
@@ -265,8 +266,6 @@ export default async function createConfigAsync() {
           },
         };
       },
-      // path.resolve(__dirname, "plugins_custom/seqera_jobs"),
-      // path.resolve(__dirname, "plugins_custom/seqera_events"),
     ],
 
     themeConfig: {
