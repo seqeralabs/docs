@@ -1,18 +1,18 @@
 ---
 title: "AWS Cloud"
 description: "Instructions to set up an AWS Cloud CE in Seqera Platform"
-date: "12 May 2025"
+date: "15 May 2025"
 tags: [cloud, vm, amazon, compute environment]
 ---
 
 :::note
-This is feature is currently in public preview and under active development. Implementation details may change. Please consult this document regularly for the latest information on recommended configuration and limitations. This guide assumes you already have an AWS account with a valid AWS subscription.
+This compute environment type is currently in public preview. Please consult this guide for the latest information on recommended configuration and limitations. This guide assumes you already have an AWS account with a valid AWS subscription.
 ::: 
 
-The current implementation of compute environments for cloud providers all rely on the use of batch services such as AWS Batch, Azure Batch, and Google Batch for the execution of submitted jobs, including the Nextflow application running Studio environments. Batch services work well for large-scale workloads, but add complexity and overhead to run workflows with only a few compute jobs. The current use of batch services results in some limitations:
+The current implementation of compute environments for cloud providers all rely on the use of batch services such as AWS Batch, Azure Batch, and Google Batch for the execution and management of submitted jobs, including pipelines and Studio session environments. Batch services are suitable for large-scale workloads, but they add management complexity. In practical terms, the currently used batch services result in some limitations:
 
-- **Long launch delay**: When you launch a pipeline or Studio in a batch compute environment, it takes several minutes before the pipeline starts running or the Studio environment is started. This is caused by the batch services that need to provision the associated compute service to run even a single job.
-- **Complex setup**: Services such as AWS Batch require the configuration of complex IAM policies and services, including Batch Compute Environments, job definitions, job queues, etc.
+- **Long launch delay**: When you launch a pipeline or Studio in a batch compute environment, there's a delay of several minutes before the pipeline or Studio session environment is in a running state. This is caused by the batch services that need to provision the associated compute service to run a single job.
+- **Complex setup**: Standard batch services require complex identity management policies and configuration of multiple services including compute environments,  job queues, job definitions, etc.
 - **Allocation constraints**: AWS Batch and other cloud batch services have strict resource quotas. For example, a hard limit of 50 job queues per account per region. This means that no compute environment can be created when this limit is reached.
 
 The AWS Cloud compute environment addresses these pain points with:
@@ -125,7 +125,7 @@ The following permissions are required to launch pipelines, run Studio sessions,
 }
 ```
 
-#### Compute environment disposal
+#### Compute environment termination and resource disposal
 
 The following permissions are required to remove resources created by Seqera when the compute environment is deleted:
 
@@ -178,7 +178,7 @@ The following permissions enable Seqera to populate values for dropdown fields. 
 }
 ```
 
-## AMI
+## Managed Amazon Machine Image (AMI) 
 
 The AWS Cloud compute environment uses an AMI maintained by Seqera, and the pipeline launch procedure assumes that some basic tooling is already present in the image itself. If you want to provide your own AMI, it must include at least the following:
 
@@ -188,7 +188,7 @@ The AWS Cloud compute environment uses an AMI maintained by Seqera, and the pipe
 
 ## Advanced options
 
-- **Instance Type**: The EC2 instance type that will be spun up by the compute environment. Choosing the instance type will directly address the amount of CPU and memory available for computation. See [EC2 instance types](https://aws.amazon.com/ec2/instance-types/) for a comprehensive list of instance types and their resource limitations.
+- **Instance Type**: The EC2 instance type used by the compute environment. Choosing the instance type will directly allocate the CPU and memory available for computation. See [EC2 instance types](https://aws.amazon.com/ec2/instance-types/) for a comprehensive list of instance types and their resource limitations.
 - **Graviton architecture**: Enable the use of Graviton instances. AWS Graviton processors, based on the ARM64 architecture, tend to offer a better performance-to-price ratio, however, the tooling used by your pipelines must be compatible with ARM architecture.
 - **AMI ID**: The ID of the AMI that will be used to launch the EC2 instance. Use Seqera-maintained AMIs for best performance.
 - **Key pair**: The EC2 [key pair https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html) to enable SSH connectivity to the running instance. If unspecified, no SSH key will be present in the running EC2 instance.
@@ -196,5 +196,5 @@ The AWS Cloud compute environment uses an AMI maintained by Seqera, and the pipe
 - **Subnets**: The list of VPC subnets where the EC2 instance will run. If unspecified, all the subnets of the VPC will be used.
 - **Security groups**: The security groups the EC2 instance will be a part of. If unspecified, no security groups will be used.
 - **Instance Profile**: The ARN of the `InstanceProfile` used by the EC2 instance to assume a role while running. If unspecified, Seqera will provision one with enough permissions to run.
-- **Boot disk size**: The size of the EBS boot disk for the EC2 instance. If unspecified, a 50GB gp3 volume will be used.
+- **Boot disk size**: The size of the EBS boot disk for the EC2 instance. If undefined, a default 50 GB gp3 volume will be used.
 
