@@ -9,8 +9,7 @@ This page describes the infrastructure and other prerequisites for deploying Tow
 
 ## Tower container images
 
-Nextflow Tower is distributed as a collection of Docker containers available through the Seqera Labs
-container registry ([cr.seqera.io](https://cr.seqera.io)). Contact [support](https://support.seqera.io) to get your container access credentials. Once you have received your credentials, log in to the registry using these steps:
+Nextflow Tower is distributed as a collection of Docker containers available through the Seqera Labs container registry ([cr.seqera.io](https://cr.seqera.io)). Contact [support](https://support.seqera.io) to get your container access credentials. Once you have received your credentials, log in to the registry using these steps:
 
 1. Retrieve the **username** and **password** you received from Seqera Labs support.
 
@@ -83,7 +82,6 @@ The ingress that we provide for EKS assumes that your cluster supports:
     Additionally, the ingress assumes the presence of SSL certificates, DNS resolution, and ALB logging.
 
     If you have chosen not to use some or all of these features, you will need to modify the manifest accordingly before applying it to the cluster.
-
 :::
 
 ## Optional prerequisites
@@ -106,9 +104,7 @@ If you do not have access to a pre-existing DNS service, you can use [Amazon Rou
 
 ### S3 bucket for Application Load Balancer (ALB) logs
 
-ALB logs can be stored in an S3 Bucket.
-
-If you do not have a pre-configured S3 Bucket for ALB access log storage, you will need to [specify and configure](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html) a target Bucket.
+ALB logs can be stored in an S3 Bucket. If you do not have a pre-configured S3 Bucket for ALB access log storage, you will need to [specify and configure](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html) a target Bucket.
 
 ## Detailed instructions
 
@@ -116,7 +112,7 @@ This section provides step-by-step instructions for some commonly used AWS servi
 
 ### Fetch Tower config values from AWS Parameter Store
 
-From Tower version 23.1, you can retrieve Tower configuration values remotely from the AWS Parameter Store.
+You can retrieve Tower configuration values remotely from the AWS Parameter Store.
 
 1. Configure [AWS authentication](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-authentication.html) to grant AWS Parameter Store access on your local host.
 2. Retrieve the Tower container images and install Tower per the instructions at the top of this page.
