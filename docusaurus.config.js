@@ -339,9 +339,12 @@ export default async function createConfigAsync() {
             target: "_blank",
           },
           {
-            to: "/platform-api/seqera-api",
-            label: "Platform API",
-            position: "left",
+            // to: "/platform-api/seqera-api",
+            // label: "Platform API",
+            // position: "left",
+            type: 'html',
+            position: 'left',
+            value: '<a href="https://docs.seqera.io/platform-api/seqera-api" class="menu__link">Platform API</a>'
           },
         ],
       },
