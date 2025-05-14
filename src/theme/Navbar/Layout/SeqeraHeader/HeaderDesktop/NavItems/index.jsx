@@ -22,6 +22,9 @@ const NavItems = ({ isDark = false, hideMenu }) => {
     isHeaderVisible,
   } = useHeaderContext();
 
+
+  // Note: This workaround was added to resolve pages from 404ing when navigating away from platform-api paths, due to separate build implementation. 
+  // TODO: Revert this workaround once we have docs in a single build
   const location = useLocation();
   const isOnPlatformAPI = location.pathname.includes('/platform-api');
 
@@ -47,7 +50,8 @@ const NavItems = ({ isDark = false, hideMenu }) => {
         )}
       </div>
       <div className="w-full flex items-center justify-between">
-      
+         
+         {/* TODO: links from platform-api paths direct to an absolute url, otherwise they direct from relative paths. Revert this workaround once we have docs in a single build*/}
         {isOnPlatformAPI ? (
             <ul className={`${styles.navList} flex flex-row`}>
             <li>

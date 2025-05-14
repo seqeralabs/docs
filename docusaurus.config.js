@@ -279,6 +279,8 @@ export default async function createConfigAsync() {
           className: 'w-[100px]'
         },
         items: [
+           // Note: This workaround was added to resolve pages from 404ing when navigating away from platform-api paths, due to separate build implementation. 
+           // TODO: Revert urls once we have docs in a single build
           {
             // to: "/platform-cloud/",
             // position: "left",
