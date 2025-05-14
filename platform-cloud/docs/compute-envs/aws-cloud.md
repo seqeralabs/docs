@@ -22,7 +22,7 @@ The AWS Cloud compute environment addresses these pain points with:
 - **Fewer AWS dependencies**: Only one IAM role in AWS is needed, which is subject to a 1000 soft quota limit per Region.
 - **Spot instances**: Studios can be launched on a Spot instance.
 
-This compute environment is best suited to run Studios and small to medium sized pipelines and offers more predictable compute pricing given the fixed instance type. It spins up a standalone, On-Demand EC2 instance, and executes a Nextflow pipeline with a local executor on the EC2 machine. At the end of the execution, the instance is terminated.
+This compute environment is best suited to run Studios and small to medium-sized pipelines and offers more predictable compute pricing, given the fixed instance type. It spins up a standalone EC2 instance and executes a Nextflow pipeline with a local executor on the EC2 machine. At the end of the execution, the instance is terminated.
 
 ## Limitations
 
