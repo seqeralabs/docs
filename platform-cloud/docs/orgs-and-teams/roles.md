@@ -19,7 +19,7 @@ You can group **members** and **collaborators** into **teams** and apply a role 
 ### Workspace participant roles
 
 | Permission / Role                          | Owner | Admin | Maintain | Launch | Connect | View |
-|--------------------------------------------|-------|-------|----------|--------|---------|------|
+|--------------------------------------------|:-------:|:-------:|:----------:|:--------:|:---------:|:------:|
 | **Organization: Settings:** Add, edit, delete        | ✅     | ❌     | ❌       | ❌     | ❌      | ❌   |
 | **Organization: Workspaces:** Add, delete        | ✅     | ❌     | ❌       | ❌     | ❌      | ❌   |
 | **Organization: Workspaces:** Edit, change visibility        | ✅     | ✅     | ❌       | ❌     | ❌      | ❌   |
