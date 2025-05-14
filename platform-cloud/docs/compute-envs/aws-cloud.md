@@ -101,7 +101,7 @@ The following permissions are required to validate the compute environment at cr
     ]
 }
 ```
-#### Pipeline launch and monitor
+#### Pipeline and Studio session management
 
 The following permissions are required to launch pipelines, run Studio sessions, fetch live execution logs from CloudWatch, download logs from S3, and stop the execution:
 
