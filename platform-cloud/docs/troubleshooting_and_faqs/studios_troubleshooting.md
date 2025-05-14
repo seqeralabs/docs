@@ -13,7 +13,7 @@ In your interactive analysis environment, open a new terminal and type `ls -la /
 
 ## Enabling AI coding assistants in Studios
 
-VS Code, RStudio, and Jupyter environments natively integrate with [GitHub Copilot][gh-copilot]. Enabling it requires a GitHub Account and an active subscription to Copilot.
+VS Code, RStudio, and Jupyter environments natively integrate with [GitHub Copilot][gh-copilot]. Enabling it requires a GitHub Account and an active Copilot subscription.
 
 - **VS Code:** To enable GitHub Copilot in your VS Code session, install the extension and then sign in with your GitHub account. [Learn more][vscode-blog].
 - **RStudio:** To enable GitHub Copilot in your RStudio session, you will need to modify the RStudio configuration. By default, the Studio session user has root permissions, so configuration changes are possible. Restarting the RStudio is required once the required changes have been made. [Learn more][posit-ghcopilot-guide].
