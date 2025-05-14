@@ -79,7 +79,7 @@
     font-weight: 400;
   }
 }
-@media (min-width: 996px) { 
+@media (min-width: 996px) {
   :root {
     --ifm-navbar-height: 7rem;
   }
@@ -372,6 +372,9 @@ table {
       border-bottom: none;
     }
   }
+  tr:hover {
+    background: var(--color-gray-200);
+  }
 }
 
 html[data-theme="dark"]{
@@ -385,6 +388,9 @@ html[data-theme="dark"]{
     }
     tr:nth-child(2n) {
       background: rgba(0,0,0,.2);
+    }
+    tr:hover {
+      background: rgba(255,255,255,.05);
     }
   }
 }
