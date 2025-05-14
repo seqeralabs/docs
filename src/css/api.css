@@ -2,3 +2,23 @@
 .openapi__method-endpoint-path {
     margin-top: 0;
 }
+
+.menu__list-item--deprecated  {
+    display: flex;
+    flex-direction: row;
+    white-space: nowrap;
+    .menu__link {
+       position: relative;
+       &:after {
+        content: 'DEPRECATED';
+        color: #DC3545;
+        font-size: .6rem;
+        font-weight: 600;
+        padding-left: .25rem;
+       }
+    }
+}
+
+[data-theme="light"] nav.menu .menu__list  .menu__list-item--deprecated .menu__link {
+    color: var(--color-gray-800); 
+}
