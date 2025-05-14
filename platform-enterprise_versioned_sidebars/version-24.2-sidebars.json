@@ -1,13 +1,13 @@
 {
   "platformSidebar": [
-    "index",
+    "platform-enterprise",
     {
       "type": "category",
       "label": "Installation",
       "collapsed": true,
       "link": {
         "type": "doc",
-        "id": "enterprise/index"
+        "id": "enterprise/overview"
       },      
       "items": [
         {
