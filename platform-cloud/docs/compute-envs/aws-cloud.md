@@ -1,6 +1,6 @@
 ---
 title: "AWS Cloud"
-description: "Instructions to set up an AWS Cloud VM in Seqera Platform"
+description: "Instructions to set up an AWS Cloud CE in Seqera Platform"
 date: "12 May 2025"
 tags: [cloud, vm, amazon, compute environment]
 ---
