@@ -130,11 +130,9 @@
         "type": "category",
         "label": "Administration",
         "items": [
-          "administration/overview",
           "orgs-and-teams/organizations",
           "orgs-and-teams/workspace-management",
-          "orgs-and-teams/roles",
-          "monitoring/audit-logs"
+          "orgs-and-teams/roles"         
           ]
       },
       {
