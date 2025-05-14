@@ -19,7 +19,7 @@ The AWS Cloud compute environment addresses these pain points with:
 
 - **Faster startup time**: Nextflow pipelines reach a `Running` status and Studio sessions connect in under a minute (a 4x improvement compared to classic AWS Batch compute environments).
 - **Simplified configuration**: Leaner configurable options, with opinionated defaults to provide the best Nextflow pipeline execution environment, with Wave and Fusion enabled.
-- **Fewer AWS dependencies**: Only one IAM role in AWS is needed, which is subject to a 1000 soft quota limit per Region.
+- **Fewer AWS dependencies**: Only one IAM role in AWS is required. IAM roles are subject to a 1000 soft limit per account.
 - **Spot instances**: Studios can be launched on a Spot instance.
 
 This compute environment is best suited to run Studios and small to medium-sized pipelines and offers more predictable compute pricing, given the fixed instance type. It spins up a standalone EC2 instance and executes a Nextflow pipeline with a local executor on the EC2 machine. At the end of the execution, the instance is terminated.
