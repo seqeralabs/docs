@@ -5,6 +5,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import {useThemeConfig, type NavbarLogo} from '@docusaurus/theme-common';
 import ThemedImage from '@theme/ThemedImage';
 import type {Props} from '@theme/Logo';
+import { useLocation } from 'react-router-dom';
 
 function LogoThemedImage({
   logo,
@@ -58,11 +59,16 @@ export default function Logo(props: Props): ReactNode {
   // and provide a sensible fallback otherwise.
   const alt = logo?.alt ?? fallbackAlt;
 
+    // Note: This workaround was added to resolve pages from 404ing when navigating away from platform-api paths, due to separate build implementation. 
+    // TODO: Revert this workaround once we have docs in a single build
+    const location = useLocation();
+    const isOnPlatformAPI = location.pathname.includes('/platform-api');
+
   return (
-    <Link
-      to={logoLink}
-      {...propsRest}
-      {...(logo?.target && {target: logo.target})}>
+    <>
+      {/* TODO: Revert this workaround once we have docs in a single build*/}
+    {isOnPlatformAPI ? (
+    <a href="https://docs.seqera.io">
       {logo && (
         <LogoThemedImage
           logo={logo}
@@ -71,6 +77,22 @@ export default function Logo(props: Props): ReactNode {
         />
       )}
       {navbarTitle != null && <b className={titleClassName}>{navbarTitle}</b>}
-    </Link>
+    </a>
+      ) : (
+        <Link
+        to={logoLink}
+        {...propsRest}
+        {...(logo?.target && {target: logo.target})}>
+        {logo && (
+          <LogoThemedImage
+            logo={logo}
+            alt={alt}
+            imageClassName={imageClassName}
+          />
+        )}
+        {navbarTitle != null && <b className={titleClassName}>{navbarTitle}</b>}
+      </Link>
+      )}
+    </>
   );
 }

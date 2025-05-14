@@ -354,7 +354,7 @@ export default async function createConfigAsync() {
           alt: 'Seqera Docs logo',
           src: 'img/icon.svg', 
           srcDark: "img/iconLight.svg",
-          href: '/', 
+          href: 'https://docs.seqera.io', 
           width: 25,  
           height: 25, 
         },
