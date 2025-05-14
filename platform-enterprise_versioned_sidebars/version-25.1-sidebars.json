@@ -62,6 +62,18 @@
           },
           "enterprise/general_troubleshooting"
         ]
+      },      
+      {
+        "type": "category",
+        "label": "Tutorials",
+        "collapsed": true,
+        "items": [
+          "getting-started/quickstart-demo/comm-showcase",
+          "getting-started/rnaseq",
+          "getting-started/proteinfold",
+          "getting-started/studios",
+          "tutorials/retry-strategy"
+          ]
       },
       {
         "type": "category",

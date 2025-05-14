@@ -1,0 +1,40 @@
+- Name: "`workspaceId`"
+  Type: integer
+  Location: query
+  Req/Opt: Optional
+  Description: Workspace numeric identifier
+- Name: "`mimeType`"
+  Type: string
+  Location: query
+  Req/Opt: Optional
+  Description: ""
+- Name: "`datasetId`"
+  Type: string
+  Location: path
+  Req/Opt: Required
+  Description: Dataset string identifier
+- Name: "`header`"
+  Type: boolean
+  Location: query
+  Req/Opt: Optional
+  Description: Uploaded file has header
+- Name: "`version`"
+  Type: string
+  Location: path
+  Req/Opt: Required
+  Description: Version number to download
+- Name: "`fileName`"
+  Type: string
+  Location: path
+  Req/Opt: Required
+  Description: File name for the downloaded dataset content
+- Name: "`launchId`"
+  Type: string
+  Location: path
+  Req/Opt: Required
+  Description: Launch string identifier
+- Name: "`workspaceId`"
+  Type: integer
+  Location: path
+  Req/Opt: Required
+  Description: Workspace numeric identifier
