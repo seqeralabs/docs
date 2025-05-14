@@ -41,60 +41,131 @@ In order to create and launch pipelines on this compute environment, you need to
 
 The following are the permissions needed to provision resources in the AWS account. Only IAM roles that will be assumed by the EC2 instance need to be provisioned:
 
-- `iam:CreateRole`
-- `iam:AddRoleToInstanceProfile`
-- `iam:CreateInstanceProfile`
-- `iam:AttachRolePolicy`
-- `iam:PutRolePolicy`
-- `iam:PassRole`
-- `iam:TagRole`
-- `iam:TagInstanceProfile`
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AwsCloudCreate",
+            "Effect": "Allow",
+            "Action": [
+                "iam:CreateRole",
+                "iam:AddRoleToInstanceProfile",
+                "iam:CreateInstanceProfile",
+                "iam:AttachRolePolicy",
+                "iam:PutRolePolicy",
+                "iam:PassRole",
+                "iam:TagRole",
+                "iam:TagInstanceProfile"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+```
 
 ### Compute Environment validation
 
 The following are the permissions needed to validate the compute environment at creation time. Platform makes sure that the input provided is actually valid and the resource ARNs exist in the target AWS account:
 
-- `ec2:DescribeInstanceTypes`
-- `ec2:DescribeImages`
-- `ec2:DescribeSubnets`
-- `ec2:DescribeSecurityGroups`
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AwsCloudValidate",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeInstanceTypes",
+                "ec2:DescribeImages",
+                "ec2:DescribeSubnets",
+                "ec2:DescribeSecurityGroups"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+```
 
 #### Pipeline launch and monitor
 
 These are the permissions required to launch pipeline executions, studio sessions, fetch live execution logs from CloudWatch, download logs from S3, and stop the execution:
 
-- `ec2:RunInstances`
-- `ec2:DescribeInstances`
-- `ec2:CreateTags`
-- `ec2:TerminateInstances`
-- `ec2:DeleteTags`
-- `logs:GetLogEvents`
-- `s3:GetObject`
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AwsCloudLaunch",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:RunInstances",
+                "ec2:DescribeInstances",
+                "ec2:CreateTags",
+                "ec2:TerminateInstances",
+                "ec2:DeleteTags",
+                "logs:GetLogEvents",
+                "s3:GetObject"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+```
 
 #### Compute Environment disposal
 
 These permissions are needed to remove resources created by Platform when the compute environment is deleted:
 
-- `iam:GetRole`
-- `iam:ListAttachedRolePolicies`
-- `iam:ListRolePolicies`
-- `iam:DeleteRole`
-- `iam:DeleteInstanceProfile`
-- `iam:RemoveRoleFromInstanceProfile`
-- `iam:DetachRolePolicy`
-- `iam:DeleteRolePolicy`
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AwsCloudDelete",
+            "Effect": "Allow",
+            "Action": [
+                "iam:GetRole",
+                "iam:ListAttachedRolePolicies",
+                "iam:ListRolePolicies",
+                "iam:DeleteRole",
+                "iam:DeleteInstanceProfile",
+                "iam:RemoveRoleFromInstanceProfile",
+                "iam:DetachRolePolicy",
+                "iam:DeleteRolePolicy"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+```
 
 #### Optional permissions
 
 These are the permissions needed for Platform to populate values for dropdown fields. If missing, the input fields will not be auto-populated but can be manually entered. We recommend granting these permissions nevertheless for a smoother and less error-prone experience:
 
-- `ec2:DescribeInstanceTypes`
-- `ec2:DescribeKeyPairs`
-- `ec2:DescribeVpcs`
-- `ec2:DescribeImages`
-- `ec2:DescribeSubnets`
-- `ec2:DescribeSecurityGroups`
-- `s3:ListAllMyBuckets`
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AwsCloudRead",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeInstanceTypes",
+                "ec2:DescribeKeyPairs",
+                "ec2:DescribeVpcs",
+                "ec2:DescribeImages",
+                "ec2:DescribeSubnets",
+                "ec2:DescribeSecurityGroups",
+                "s3:ListAllMyBuckets"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+```
 
 ## AMI
 
@@ -102,7 +173,7 @@ This compute environment uses an AMI maintained by Seqera, and the pipeline laun
 
 - Docker engine, configured to be running at startup.
 - CloudWatch agent.
-- Be able to shut themselves down with the shutdown command. If this is missing, EC2 instances will keep running and accumulate additional costs.
+- Be able to shut themselves down with the `shutdown` command. If this is missing, EC2 instances will keep running and accumulate additional costs.
 
 ## Advanced options
 
