@@ -15,7 +15,7 @@ The current implementation of compute environments for cloud providers all rely 
 
 - **Long launch delay**: When you launch a pipeline or Studio in a batch compute environment, there's a delay of several minutes before the pipeline or Studio session environment is in a running state. This is caused by the batch services that need to provision the associated compute service to run a single job.
 - **Complex setup**: Standard batch services require complex identity management policies and configuration of multiple services including compute environments, job queues, job definitions, etc.
-- **Allocation constraints**: AWS Batch and other cloud batch services have strict resource quotas. For example, a hard limit of 50 job queues per account per region. This means that no compute environment can be created when this limit is reached.
+- **Allocation constraints**: AWS Batch and other cloud batch services have strict resource quotas. For example, a hard limit of 50 job queues per account per region. This means that no new compute environment can be created when this quota limit is reached.
 
 The AWS Cloud compute environment addresses these pain points with:
 
