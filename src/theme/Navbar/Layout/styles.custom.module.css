@@ -30,6 +30,9 @@ html {
     top: 0;
     background: white;
   }
+  @media (max-width: 995px) {
+    display: none;
+  }
 }
 .siteNav {
   background: var(--ifm-background-surface-color);

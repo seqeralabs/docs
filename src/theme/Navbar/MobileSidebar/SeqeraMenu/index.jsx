@@ -57,7 +57,7 @@ const Menu = () => {
             <NavbarMobilePrimaryMenu />
           </div>
 
-          <div className="px-4 flex flex-row mb-6 mt-3">
+          <div className="px-4 flex flex-row mb-16 mt-3">
             <Help />
             <Company />
           </div>
