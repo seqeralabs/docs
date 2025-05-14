@@ -1,11 +1,11 @@
 ---
-title: "AWS Cloud VM"
+title: "AWS Cloud"
 description: "Instructions to set up an AWS Cloud VM in Seqera Platform"
 date: "12 May 2025"
 tags: [cloud, vm, amazon, compute environment]
 ---
 
-::: note
+:::note
 This guide assumes you already have an AWS account with a valid AWS subscription.
 ::: 
 
@@ -27,7 +27,20 @@ This compute environment is best suited to run Studios and small to medium sized
 ## Limitations
 
 - The Nextflow pipeline will run entirely on a single EC2 instance and if the instance type does not have enough resources, the pipeline execution will fail. For this same reason, the amount of parallelism Nextflow can leverage to execute tasks in parallel is bounded by the number of cores of the instance type selected. If you need more computing resources, you’ll need to create a new compute environment with a different instance type. This could mean that the compute environment is not a viable choice for larger pipelines.
-- Currentely only the `eu-west-2` Region is supported.
+
+## Supported Regions
+
+The following Regions are currently supported:
+
+- eu-west-1
+- us-east-1
+- us-west-2
+- eu-west-2
+- us-east-2
+- eu-central-1
+- us-west-1
+- eu-west-3
+- ap-southeast-1
 
 ## Requirements
 
@@ -37,7 +50,7 @@ In order to create and launch pipelines on this compute environment, you need to
 
 ### Mandatory permissions
 
-#### Compute Environment Creation
+#### Compute environment Creation
 
 The following are the permissions needed to provision resources in the AWS account. Only IAM roles that will be assumed by the EC2 instance need to be provisioned:
 
@@ -64,7 +77,7 @@ The following are the permissions needed to provision resources in the AWS accou
 }
 ```
 
-### Compute Environment validation
+### Compute environment validation
 
 The following are the permissions needed to validate the compute environment at creation time. Platform makes sure that the input provided is actually valid and the resource ARNs exist in the target AWS account:
 
