@@ -114,9 +114,9 @@ These are the permissions required to launch pipeline executions, studio session
 }
 ```
 
-#### Compute Environment disposal
+#### Compute environment disposal
 
-These permissions are needed to remove resources created by Platform when the compute environment is deleted:
+The following are the permissions needed to remove resources created by Platform when the compute environment is deleted:
 
 ```json
 {
@@ -143,7 +143,7 @@ These permissions are needed to remove resources created by Platform when the co
 
 #### Optional permissions
 
-These are the permissions needed for Platform to populate values for dropdown fields. If missing, the input fields will not be auto-populated but can be manually entered. We recommend granting these permissions nevertheless for a smoother and less error-prone experience:
+The following are the permissions needed for Platform to populate values for dropdown fields. If missing, the input fields will not be auto-populated but can be manually entered. We recommend granting these permissions nevertheless for a smoother and less error-prone experience:
 
 ```json
 {
