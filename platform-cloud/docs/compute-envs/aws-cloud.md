@@ -48,7 +48,7 @@ The following regions are currently supported:
 
 ### Platform credentials
 
-To create and launch pipelines with this compute environment, you must create Seqera credentials for the AWS cloud provider. Some permissions are mandatory for the compute environment to be created and function correctly; others are optional and used to pre-fill options in Platform.
+To create and launch pipelines or Studio sessions with this compute environment type, you must attach Seqera credentials for the cloud provider. Some permissions are mandatory for the compute environment to be created and function correctly; others are optional and used to pre-fill options in Platform.
 
 ### Required permissions
 
