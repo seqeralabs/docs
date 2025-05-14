@@ -6,7 +6,7 @@ tags: [cloud, vm, amazon, compute environment]
 ---
 
 :::note
-This guide assumes you already have an AWS account with a valid AWS subscription.
+This is feature is currently in public preview and under active development. Implementation details may change. Please consult this document regularly for the latest information on recommended configuration and limitations. This guide assumes you already have an AWS account with a valid AWS subscription.
 ::: 
 
 The current implementation of compute environments for cloud providers all rely on the use of batch services such as AWS Batch, Azure Batch, and Google Batch for the execution of submitted jobs, including the Nextflow application running Studio environments. Batch services work well for large-scale workloads, but add complexity and overhead to run workflows with only a few compute jobs. The current use of batch services results in some limitations:
