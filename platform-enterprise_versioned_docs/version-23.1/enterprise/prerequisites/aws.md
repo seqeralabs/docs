@@ -29,7 +29,7 @@ container registry ([cr.seqera.io](https://cr.seqera.io)). Contact [support](htt
     ```
 
 :::caution
-The Seqera Labs container registry `cr.seqera.io` is the default Tower container image registry from version 22.4. Use of the AWS, Azure, and Google Cloud Tower image registries in existing installations is still supported but will be deprecated for **new installations** starting June 2023. See [here](../advanced-topics/seqera-container-images.mdx) for steps to use the Seqera Labs private AWS Elastic Container Registry.
+The Seqera Labs container registry `cr.seqera.io` is the default Tower container image registry from version 22.4. Use of the AWS, Azure, and Google Cloud Tower image registries in existing installations is still supported but will be deprecated for **new installations** starting June 2023. See [here](../advanced-topics/seqera-container-images) for steps to use the Seqera Labs private AWS Elastic Container Registry.
 :::
 
 ## Mandatory prerequisites
@@ -46,7 +46,7 @@ Amazon [blocks EC2 traffic over port 25 by default](https://aws.amazon.com/premi
 
 An external database (i.e. external to your Docker Compose or Kubernetes deployment) is _highly_ recommended for production deployments. If you don't have your own database service, you can use [Amazon Relational Database Service](https://aws.amazon.com/rds/).
 
-If you decide to use an external database, you must create a MySQL user and database manually. See [Configuration](../configuration/database_and_redis.mdx) for more details.
+If you decide to use an external database, you must create a MySQL user and database manually. See [Configuration](../configuration/database_and_redis) for more details.
 
 ### EC2 instance (Docker Compose)
 
