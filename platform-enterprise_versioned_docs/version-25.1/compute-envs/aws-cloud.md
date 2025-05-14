@@ -90,7 +90,7 @@ The following are the permissions needed to validate the compute environment at 
 
 #### Pipeline launch and monitor
 
-These are the permissions required to launch pipeline executions, studio sessions, fetch live execution logs from CloudWatch, download logs from S3, and stop the execution:
+The following are the permissions required to launch pipeline executions, Studio sessions, fetch live execution logs from CloudWatch, download logs from S3, and stop the execution:
 
 ```json
 {
