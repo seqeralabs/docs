@@ -1,6 +1,6 @@
 {
     "platformSidebar": [
-      "index",
+      "platform-enterprise",
       {
         "type": "category",
         "label": "Installation",
@@ -68,7 +68,6 @@
         "label": "Tutorials",
         "collapsed": true,
         "items": [
-          "getting-started/quickstart-demo/comm-showcase",
           "getting-started/rnaseq",
           "getting-started/proteinfold",
           "getting-started/studios",
@@ -183,7 +182,7 @@
         "type": "category",
         "label": "Studios",
         "items": [
-          "studios/index",
+          "studios/overview",
           "studios/custom-envs",
           "studios/managing"
         ]

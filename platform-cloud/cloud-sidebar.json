@@ -1,6 +1,6 @@
 {
     "platformCloudSidebar": [
-      "index",
+      "platform-cloud",
       {
         "type": "category",
         "label": "Tutorials",
@@ -9,8 +9,7 @@
           "getting-started/quickstart-demo/comm-showcase",
           "getting-started/rnaseq",
           "getting-started/proteinfold",
-          "getting-started/studios",
-          "tutorials/retry-strategy"
+          "getting-started/studios"
           ]
       },
       {
@@ -61,7 +60,9 @@
             "type": "category",
             "label": "Cloud",
             "items": [
+              "compute-envs/seqera-compute",
               "compute-envs/aws-batch",
+              "compute-envs/aws-cloud",
               "compute-envs/azure-batch",
               "compute-envs/google-cloud-batch",
               "compute-envs/google-cloud-lifesciences",
@@ -121,7 +122,7 @@
         "type": "category",
         "label": "Studios",
         "items": [
-          "studios/index",
+          "studios/overview",
           "studios/custom-envs",
           "studios/managing"
         ]
@@ -132,7 +133,7 @@
         "items": [
           "orgs-and-teams/organizations",
           "orgs-and-teams/workspace-management",
-          "orgs-and-teams/roles"         
+          "orgs-and-teams/roles"
           ]
       },
       {
