@@ -8,7 +8,7 @@ tags: [aws, batch, compute environment]
 :::tip
 This guide assumes you have an existing [Amazon Web Service (AWS)](https://aws.amazon.com/) account.
 
-The AWS Batch services quota for the job queue is 50 jobs. For more information on AWS Batch service quotas, see [AWS Batch service quotas][quota].
+The AWS Batch service quota for job queues is 50 per account. For more information on AWS Batch service quotas, see [AWS Batch service quotas][quota].
 :::
 
 There are two ways to create a **compute environment** for **AWS Batch** with Tower:
