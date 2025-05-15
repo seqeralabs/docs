@@ -170,9 +170,9 @@
         "label": "Reference",
         "collapsed": true,
         "items": [
-          "functionality_matrix/functionality_matrix",
+          "functionality_matrix/overview",
           "data-privacy/overview",
-          "limits/limits"
+          "limits/overview"
         ]
       },
       {
