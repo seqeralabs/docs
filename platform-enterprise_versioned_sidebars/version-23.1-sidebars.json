@@ -119,7 +119,7 @@
       "label": "Installation guide",
       "collapsed": true,
       "items": [
-        "enterprise/index",
+        "enterprise/overview",
         {
           "type": "category",
           "label": "Prerequisites",
@@ -172,7 +172,7 @@
       "collapsed": true,
       "items": [
         "api/overview",
-        "cli/cli"
+        "cli/overview"
       ]
     },
     {
