@@ -72,7 +72,7 @@ The resolved configuration will contain the **Nextflow config file** field's man
 
 ### Seqera Cloud config file
 
-Configure per-pipeline Seqera reporting behavior. Settings specified here override the same settings in the `tower.yml` [configuration file](../enterprise/configuration/overview) for this execution. Use the `reports` key to specify report paths, titles, and MIME types:
+Configure per-pipeline Seqera reporting behavior. Settings specified here override the same settings in the `tower.yml` [configuration file](../enterprise/configuration/overview.mdx) for this execution. Use the `reports` key to specify report paths, titles, and MIME types:
 
 ```yml
 reports:

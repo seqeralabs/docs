@@ -305,7 +305,7 @@ After you have filled the necessary launch details, select **Launch**. The **Run
 
 ## Interactive analysis with Studios
 
-[Studios](../studios/index) streamlines the process of creating interactive analysis environments for Platform users. With built-in templates for platforms like Jupyter Notebook, RStudio, and VS Code, creating a data studio is as simple as adding and sharing pipelines or datasets. The Studio URL can also be shared with any user with the [Connect role](../orgs-and-teams/roles) for real-time access and collaboration.
+[Studios](../studios/overview) streamlines the process of creating interactive analysis environments for Platform users. With built-in templates for platforms like Jupyter Notebook, RStudio, and VS Code, creating a data studio is as simple as adding and sharing pipelines or datasets. The Studio URL can also be shared with any user with the [Connect role](../orgs-and-teams/roles) for real-time access and collaboration.
 
 For the purposes of this guide, a Jupyter notebook environment will be used for interactive visualization of the predicted protein structures, optionally comparing AlphaFold2 and Colabfold structures for the same sequence data. 
 
