@@ -5,11 +5,11 @@ date: "15 May 2025"
 tags: [cloud, vm, amazon, compute environment]
 ---
 
+# AWS Cloud
+
 :::note
 This compute environment type is currently in public preview. Please consult this guide for the latest information on recommended configuration and limitations. This guide assumes you already have an AWS account with a valid AWS subscription.
 ::: 
-# Overview
-
 
 The current implementation of compute environments for cloud providers all rely on the use of batch services such as AWS Batch, Azure Batch, and Google Batch for the execution and management of submitted jobs, including pipelines and Studio session environments. Batch services are suitable for large-scale workloads, but they add management complexity. In practical terms, the currently used batch services result in some limitations:
 
