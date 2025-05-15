@@ -29,7 +29,7 @@ This makes it trivial for users without Nextflow expertise to enter their pipeli
 
 ### Add new pipeline
 
-Select **Add pipeline** to add a new pipeline with pre-saved parameters to your workspace. The fields on the new pipeline form are similar to the [pipeline launch form](../launch/launch).
+Select **Add pipeline** to add a new pipeline with pre-saved parameters to your workspace. The fields on the new pipeline form are similar to the [pipeline launch form](../launch/launch-form).
 
 :::tip
 To create your own customized Nextflow schema for your pipeline, see the `nf-core` workflows that have adopted this. [nf-core/eager](https://github.com/nf-core/eager/blob/2.3.3/nextflow_schema.json) and [nf-core/rnaseq](https://github.com/nf-core/rnaseq/blob/3.0/nextflow_schema.json) are excellent examples.
