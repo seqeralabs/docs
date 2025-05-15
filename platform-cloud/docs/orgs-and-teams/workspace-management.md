@@ -15,7 +15,7 @@ Organizations consist of members, while workspaces consist of participants.
 A workspace participant may be a member of the workspace organization or a collaborator within that workspace only. Collaborators count toward the total number of workspace participants. See [Usage limits](../limits/limits).
 :::
 
-## Create a new workspace
+### Create a new workspace
 
 Organization owners and admins can create a new workspace within an organization:
 
@@ -32,15 +32,41 @@ As a workspace owner, you can modify optional workspace fields after workspace c
 
 Apart from the **Participants** tab, the _organization_ workspace is similar to the _user_ workspace. As such, the relation to [runs](../launch/launchpad), [actions](../pipeline-actions/overview), [compute environments](../compute-envs/overview), and [credentials](../credentials/overview) is the same.
 
-## Edit a workspace
+### Workspace settings 
 
-:::note
-From version 23.2, **workspace owners** can edit their workspace name, either from the workspace settings tab or the [Admin panel](../administration/overview).
+Select the **Settings** tab within a workspace to manage credits, Studios settings, workspace labels, and edit or delete the workspace. 
+
+#### Credits 
+
+[Seqera Compute](../compute-envs/seqera-compute) environments consume credits when running pipelines or Studio sessions. Credits are consumed for CPU time, memory and storage usage, and network costs. One Seqera Compute credit is equivalent to $1 (USD), and resources are charged at the following rates:
+- CPU time: 1 CPU/Hr = 0.1 credits
+- Memory: 1 GiB/Hr = 0.025 credits 
+- Storage: 1 GB = 0.025 credits per month 
+
+:::note 
+Storage and network costs vary per region, charged at standard AWS rates. Data ingress and egress across regions incur additional costs. 
 :::
 
-Open the **Settings** tab on the workspace page and select **Edit Workspace**. Make your updates and select **Update** to save changes.
+Your available credit balance depends on the credits purchased and limits applied to your Seqera license. The **Credits** view contains the current credit balance available to the organization, and the credits spent in the workspace. Select **Contact us to upgrade** to purchase additional credits for your organization. 
 
-## Add a new participant
+#### Studios settings 
+
+Edit the workspace's Studio settings to set a predefined lifespan (between 1 and 120 hours), after which all Studio sessions in the workspace are automatically stopped. To keep all workspace Studios running indefinitely, select **Always keep the session running**. 
+
+#### Edit labels
+
+Select **Edit labels** to manage the workspace [labels and resource labels](../labels/overview).
+
+#### Edit or delete workspace 
+
+:::note
+Workspace **owners** can edit their workspace name from the workspace **Settings** tab.
+:::
+
+- Select **Edit workspace** to update the workspace name, full name, description, and sharing. Select **Update** to save changes.
+- Select **Delete workspace** to delete the workspace and its associated resources. This action cannot be reveresed. 
+
+### Add a new participant
 
 A new workspace participant can be an existing organization member, team, or collaborator. To add a new participant to a workspace:
 
@@ -49,7 +75,7 @@ A new workspace participant can be an existing organization member, team, or col
 3. Enter the **Name** of the new participant.
 4. Optionally, update the participant **role**.
 
-## Workspace run monitoring
+### Workspace run monitoring
 
 To allow users executing pipelines from the command line to share their runs with a given workspace, see [deployment options](../getting-started/deployment-options#nextflow--with-tower).
 

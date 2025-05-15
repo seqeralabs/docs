@@ -9,22 +9,23 @@ This page describes the infrastructure and other prerequisites for deploying Tow
 
 ## Tower container images
 
-Nextflow Tower is distributed as a collection of Docker containers available through the Seqera Labs
-container registry ([cr.seqera.io](https://cr.seqera.io)). Contact [support](https://support.seqera.io) to get your container access credentials. Once you have received your credentials, log in to the registry using these steps:
+Nextflow Tower is distributed as a collection of Docker containers available through the Seqera Labs container registry ([cr.seqera.io](https://cr.seqera.io)). Contact [support](https://support.seqera.io) to get your container access credentials. Once you have received your credentials, log in to the registry using these steps:
 
 1. Retrieve the **username** and **password** you received from Seqera Labs support.
 
 2. Run the following Docker command to authenticate to the registry (using the `username` and `password` values copied in step 1):
 
-   docker login -u '/\<USERNAME\>/' -p '/\PASSWORD\>/' cr.seqera.io
+    ```bash
+    docker login -u '/\<USERNAME\>/' -p '/\PASSWORD\>/' cr.seqera.io
+    ```
 
 3. Pull the Nextflow Tower container images with the following commands:
 
-```bash
-docker pull {{ images.tower_be_image }}
-
-docker pull {{ images.tower_fe_image }}
-```
+    ```bash
+    docker pull {{ images.tower_be_image }}
+    
+    docker pull {{ images.tower_fe_image }}
+    ```
 
 :::caution
 The Seqera Labs container registry `cr.seqera.io` is the default Tower container image registry from version 22.4. Use of the AWS, Azure, and Google Cloud Tower image registries in existing installations is still supported but will be deprecated for **new installations** starting June 2023. See [here](../advanced-topics/seqera-container-images) for steps to use the Seqera Labs private AWS Elastic Container Registry.
@@ -81,7 +82,6 @@ The ingress that we provide for EKS assumes that your cluster supports:
     Additionally, the ingress assumes the presence of SSL certificates, DNS resolution, and ALB logging.
 
     If you have chosen not to use some or all of these features, you will need to modify the manifest accordingly before applying it to the cluster.
-
 :::
 
 ## Optional prerequisites
@@ -104,9 +104,7 @@ If you do not have access to a pre-existing DNS service, you can use [Amazon Rou
 
 ### S3 bucket for Application Load Balancer (ALB) logs
 
-ALB logs can be stored in an S3 Bucket.
-
-If you do not have a pre-configured S3 Bucket for ALB access log storage, you will need to [specify and configure](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html) a target Bucket.
+ALB logs can be stored in an S3 Bucket. If you do not have a pre-configured S3 Bucket for ALB access log storage, you will need to [specify and configure](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html) a target Bucket.
 
 ## Detailed instructions
 
@@ -114,7 +112,7 @@ This section provides step-by-step instructions for some commonly used AWS servi
 
 ### Fetch Tower config values from AWS Parameter Store
 
-From Tower version 23.1, you can retrieve Tower configuration values remotely from the AWS Parameter Store.
+You can retrieve Tower configuration values remotely from the AWS Parameter Store.
 
 1. Configure [AWS authentication](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-authentication.html) to grant AWS Parameter Store access on your local host.
 2. Retrieve the Tower container images and install Tower per the instructions at the top of this page.
@@ -258,17 +256,17 @@ If you have never set up an Amazon EC2 instance for Linux, refer to [this guide]
 
 22. Enter the following commands to set up `docker` and `docker-compose`.
 
-```bash
-# Install and start the docker engine
-sudo yum install docker git -y
-sudo service docker start
-sudo usermod -a -G docker ec2-user
-sudo chkconfig docker on
-
-# Setup docker-compose
-sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-sudo mv /usr/local/bin/docker-compose /bin/docker-compose
-```
+    ```bash
+    # Install and start the docker engine
+    sudo yum install docker git -y
+    sudo service docker start
+    sudo usermod -a -G docker ec2-user
+    sudo chkconfig docker on
+    
+    # Setup docker-compose
+    sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
+    sudo mv /usr/local/bin/docker-compose /bin/docker-compose
+    ```
 
 Then, configure the AWS CLI and Docker as described in [Tower container images](#tower-container-images). The AWS CLI (v1) is pre-installed in Amazon Linux.
