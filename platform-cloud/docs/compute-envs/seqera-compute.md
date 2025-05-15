@@ -44,32 +44,35 @@ Seqera Compute has default workspace limits on compute environments, and organiz
 1. Select a target execution **Region**. 
     :::info
     Seqera Compute is available in the following AWS regions: 
-    **United States**:
+
+      **United States**:
       - us-east-1 (Northern Virginia, USA)
       - us-west-2 (Oregon, USA)
       - us-east-2 (Ohio, USA)
       - us-west-1 (Northern California, USA)
-    **Europe**:
+      
+      **Europe**:
       - eu-west-1 (Ireland)
       - eu-west-2 (London, UK)
       - eu-central-1 (Frankfurt, Germany)
       - eu-west-3 (Paris, France)
-    **APAC**:
+      
+      **APAC**:
       - ap-southeast-1 (Singapore)
     :::
 1. Configure any advanced options described in the next section, as needed.
 1. Select **Add** to complete the Seqera Compute environment configuration and return to the compute environments list. It will take a few seconds for the compute environment resources to be created before you are ready to launch pipelines or add studios. 
 
 :::info 
-See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in your Seqera Compute environment.
+See [Launch pipelines](../launch/launchpad) to start executing workflows in your Seqera Compute environment.
 :::
 
 #### Advanced options (optional)
 
 1. Enter a relative **Pipeline work directory** path to be appended to the S3 storage bucket Seqera creates for this compute environment. 
-1. Enter [pre- or post-run Bash scripts](../launch/advanced.mdx#pre--post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
+1. Enter [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
 1. Enter Global Nextflow configuration settings for all pipeline runs launched with this environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden at pipeline launch. 
     :::info
-    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced.mdx#nextflow-config-file) for more information on configuration priority. 
+    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority. 
     :::
 1. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
