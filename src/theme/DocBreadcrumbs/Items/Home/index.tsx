@@ -11,16 +11,17 @@ export default function HomeBreadcrumbItem(): ReactNode {
 
   return (
     <li className="breadcrumbs__item">
-      <Link
+       {/* todo: change to relative path once single build with API */}
+      <a
         aria-label={translate({
           id: 'theme.docs.breadcrumbs.home',
           message: 'Home page',
           description: 'The ARIA label for the home page in the breadcrumbs',
         })}
         className="breadcrumbs__link"
-        href={homeHref}>
+        href="https://docs.seqera.io">
         <IconHome className={styles.breadcrumbHomeIcon} />
-      </Link>
+      </a>
     </li>
   );
 }
