@@ -55,12 +55,12 @@ const NavItems = ({ isDark = false, hideMenu }) => {
         {isOnPlatformAPI ? (
             <ul className={`${styles.navList} flex flex-row`}>
             <li>
-            <ActiveLink externalLink url="https://docs.seqera.io/platform-cloud" customClasses={`mr-6`}>
+            <ActiveLink externalLink url="https://docs.seqera.io/platform-cloud/platform-cloud" customClasses={`mr-6`}>
                 Cloud
               </ActiveLink>
             </li>
             <li>
-            <ActiveLink externalLink url="https://docs.seqera.io/platform-enterprise" customClasses={`mr-6`}>
+            <ActiveLink externalLink url="https://docs.seqera.io/platform-enterprise/latest/platform-enterprise" customClasses={`mr-6`}>
                 Enterprise
               </ActiveLink>
             </li>
@@ -94,12 +94,12 @@ const NavItems = ({ isDark = false, hideMenu }) => {
         ) : (
           <ul className={`${styles.navList} flex flex-row`}>
             <li>
-            <ActiveLink url="/platform-cloud" customClasses={`mr-6`}>
+            <ActiveLink url="/platform-cloud/platform-cloud" customClasses={`mr-6`}>
                 Cloud
               </ActiveLink>
             </li>
             <li>
-            <ActiveLink url="/platform-enterprise" customClasses={`mr-6`}>
+            <ActiveLink url="/platform-enterprise/latest/platform-enterprise" customClasses={`mr-6`}>
                 Enterprise
               </ActiveLink>
             </li>
