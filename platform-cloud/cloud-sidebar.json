@@ -1,6 +1,6 @@
 {
     "platformCloudSidebar": [
-      "platform-cloud",
+      "index",
       {
         "type": "category",
         "label": "Tutorials",
@@ -9,7 +9,8 @@
           "getting-started/quickstart-demo/comm-showcase",
           "getting-started/rnaseq",
           "getting-started/proteinfold",
-          "getting-started/studios"
+          "getting-started/studios",
+          "tutorials/retry-strategy"
           ]
       },
       {
@@ -74,8 +75,8 @@
           "compute-envs/k8s",
           "compute-envs/hpc",
           "resource-labels/overview",
-          "supported_software/fusion/overview",
-          "supported_software/agent/overview",
+          "supported_software/fusion/fusion",
+          "supported_software/agent/agent",
           "supported_software/dragen/overview",
           {
             "type": "category",
@@ -122,7 +123,7 @@
         "type": "category",
         "label": "Studios",
         "items": [
-          "studios/overview",
+          "studios/index",
           "studios/custom-envs",
           "studios/managing"
         ]
@@ -133,7 +134,7 @@
         "items": [
           "orgs-and-teams/organizations",
           "orgs-and-teams/workspace-management",
-          "orgs-and-teams/roles"
+          "orgs-and-teams/roles"         
           ]
       },
       {
@@ -171,9 +172,9 @@
         "label": "Reference",
         "collapsed": true,
         "items": [
-          "functionality_matrix/overview",
+          "functionality_matrix/functionality_matrix",
           "data-privacy/overview",
-          "limits/overview"
+          "limits/limits"
         ]
       },
       {

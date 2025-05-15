@@ -15,7 +15,7 @@ The hosted Seqera Cloud edition is recommended for users who are new to Platform
 
 ### Seqera Enterprise
 
-[Seqera Enterprise](../../version-25.1/enterprise/overview) is installed in an organization's own cloud or on-premises infrastructure. It includes:
+[Seqera Enterprise](../../version-24.2/enterprise/index) is installed in an organization's own cloud or on-premises infrastructure. It includes:
 
 - Monitoring, logging, and observability
 - Pipeline execution Launchpad

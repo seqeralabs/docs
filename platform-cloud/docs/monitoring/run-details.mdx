@@ -37,7 +37,7 @@ The cards at the top of the **Tasks** tab provide a real-time status of all task
 - **Pending**: The task has been created, but not yet submitted to an executor
 - **Submitted**: The task has been submitted to an executor, but is not yet running
 - **Running**: The task has been launched by an executor (the precise definition of "running" may vary for each executor)
-- **Cached**: A previous (and valid) execution of the task was found and used instead of executing the task again. See [Cache and resume](../launch/cache-resume)
+- **Cached**: A previous (and valid) execution of the task was found and used instead of executing the task again. See [Cache and resume](../launch/cache-resume.mdx)
 - **Succeeded**: The task completed successfully
 - **Failed**: The task failed
 - **Aborted**: The task was submitted, but the run was cancelled or failed before the task could begin
@@ -94,7 +94,7 @@ The **Logs** tab contains a window with the Nextflow execution log console outpu
 The cards at the top of the **Metrics** tab display a real-time summary of the resources used by the run.
 
 ![Metrics overview](./_images/metrics-tiles.png)
-                        
+
 #### Wall time
 
 Wall time is the duration of the entire workflow run, from submission to completion. While the run is in progress, wall time is a measure of the time elapsed since run start. 
@@ -134,7 +134,7 @@ An estimated cost for the run. See [Seqera cost estimate](../monitoring/cloud-co
 #### Load
 
 ![Load](./_images/load.png)
-                        
+
 The **Load** panel displays the current number of running tasks and CPU cores vs the maximum number of tasks and CPU cores for the entire pipeline run.
 
 These metrics measure the level of parallelism achieved by the pipeline. Use these metrics to determine whether your pipeline runs are fully utilizing the capacity of your compute environment.
@@ -142,7 +142,7 @@ These metrics measure the level of parallelism achieved by the pipeline. Use the
 #### Utilization
 
 ![Utilization](./_images/utilization.png)
-                        
+
 The **Utilization** panel displays the average resource utilization of all tasks that have completed successfully in a pipeline run. The CPU and memory efficiency of a task are computed as follows:
 
 $$
@@ -175,7 +175,7 @@ The **Configuration** tab contains information about the pipeline parameters, Ne
 #### Parameters 
 
 ![Parameters](./_images/parameters.png)
-                        
+
 The **Parameters** window displays the pipeline parameters configured for the run, with options to view, copy, or download the parameters in Groovy, JSON, or YAML format.
 
 #### Configuration 
