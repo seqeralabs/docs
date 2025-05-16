@@ -27,7 +27,7 @@ Seqera requires SSH access to your HPC cluster to run pipelines. Use [managed id
 
 You can also use workspace [SSH credentials](../credentials/ssh_credentials) for cluster login, but this provides service account access to your HPC to all Platform users. This means that all users will be granted the same file system access, and all activity is logged under the same user account on your HPC cluster. 
 
-For HPC clusters that do not allow direct access through an SSH client, a secure connection can be authenticated with [Tower Agent](../supported_software/agent/agent).
+For HPC clusters that do not allow direct access through an SSH client, a secure connection can be authenticated with [Tower Agent](../supported_software/agent/overview).
 
 ## Work and launch directories
 
@@ -91,4 +91,4 @@ See [Launch pipelines](../launch/launchpad) to start executing workflows in your
 
 
 <!-- links -->
-[agent]: ../supported_software/agent/agent
+[agent]: ../supported_software/agent/overview

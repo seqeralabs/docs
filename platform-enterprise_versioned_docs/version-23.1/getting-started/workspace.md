@@ -17,7 +17,7 @@ The **Launchpad** offers a streamlined UI to launch and manage pipelines and ass
 
 The **Runs** section monitors a launched workflow with real-time execution metrics, such as the number of pending or completed processes.
 
-See [Launch](../launch/launch).
+See [Launch](../launch/launch-form).
 
 ## Actions
 

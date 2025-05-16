@@ -8,7 +8,7 @@ tags: [overview]
 On this page, learn how to run a pipeline with sample data and get started running your own pipelines.
 
 :::tip
-[**Sign up**](https://tower.nf "Seqera Platform") to try Seqera for free, or request a [**demo**](https://cloud.tower.nf/demo/ "Seqera Platform Demo") for deployments in your own on-premises or cloud environment.
+[**Sign up**](https://cloud.seqera.io/login "Seqera Platform") to try Seqera for free, or request a [**demo**](https://seqera.io/demo/ "Seqera Platform Demo") for deployments in your own on-premises or cloud environment.
 :::
 
 The Community Showcase [Launchpad](../launch/launchpad) is an example workspace provided by Seqera. The showcase is pre-configured with compute environments, credentials, and pipelines to start running Nextflow workflows immediately. A pipeline consists of a pre-configured workflow repository, compute environment (with 100 free CPU hours), and launch parameters. From version 23.1.3, the Community Showcase comes pre-loaded with two AWS Batch compute environments to run showcase pipelines.
@@ -43,6 +43,6 @@ To run pipelines on your own infrastructure, you first need to create your own o
 * [Organizations](../orgs-and-teams/organizations) are the top-level structure in Seqera. They contain the building blocks of your organizational infrastructure.
 * [Workspaces](../orgs-and-teams/workspace-management) are where resources are managed. All team members can access the organization workspace. In addition to this, each user has a unique personal workspace to manage resources such as pipelines, compute environments, and credentials.
 * [Teams](../orgs-and-teams/organizations) are collections of members.
-* [Members](../administration/overview#manage-members) belong to an organization and can have different levels of access across workspaces.
+* [Members](../orgs-and-teams/organizations#members) belong to an organization and can have different levels of access across workspaces.
 
-You can create multiple workspaces within an organization context and associate each of these workspaces with dedicated teams of users, while providing fine-grained access control for each of the teams. See [Administration](../orgs-and-teams/organizations).
+You can create multiple workspaces within an organization context and associate each of these workspaces with dedicated teams of users, while providing fine-grained access control for each of the teams. See [Workspaces](../orgs-and-teams/workspace-management) for more information.

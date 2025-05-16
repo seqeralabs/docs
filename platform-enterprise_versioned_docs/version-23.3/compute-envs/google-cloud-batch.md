@@ -174,6 +174,6 @@ See [Launch pipelines](../launch/launchpad) to start running pipelines in your G
 [get-json]: https://cloud.google.com/iam/docs/keys-list-get#get-key
 [location]: https://cloud.google.com/compute/docs/regions-zones#available
 [wave-docs]: https://www.nextflow.io/docs/latest/wave.html
-[platform-fusion-docs]: ../supported_software/fusion/fusion
+[platform-fusion-docs]: ../supported_software/fusion/overview
 [pre-post-run-scripts]: ../launch/advanced#pre-and-post-run-scripts
 [resource-labels]: ../resource-labels/overview
