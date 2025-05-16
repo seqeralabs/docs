@@ -94,7 +94,7 @@
           "type": "category",
           "label": "Software integration",
           "items": [
-            "supported_software/fusion/fusion",
+            "supported_software/fusion/overview",
             "supported_software/dragen/overview"
           ]
         },
@@ -125,7 +125,7 @@
       "collapsed": true,
       "items": [
         "data-privacy/overview",
-        "limits/limits"
+        "limits/overview"
       ]
     },
     "faqs"

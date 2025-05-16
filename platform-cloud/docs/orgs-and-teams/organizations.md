@@ -18,15 +18,32 @@ You can also add external collaborators to an organization.
 3. Enter any other optional fields as needed: **Description**, **Location**, **Website URL**, and **Logo**.
 4. Select **Add**.
 
-### Edit an organization
+### Organization settings 
 
-:::note
-From version 23.2, **organization owners** can edit their organization name, either from the organizations page or the [Admin panel](../administration/overview).
+Owners can view and manage organizations from the **Settings** tab. The card at the top of the page displays organization metadata (Name and Full name, Website URL, Location, and Description).
+
+#### Credits 
+
+[Seqera Compute](../compute-envs/seqera-compute) environments consume credits when running pipelines or Studio sessions. Credits are consumed for CPU time, memory and storage usage, and network costs. One Seqera Compute credit is equivalent to $1 (USD), and resources are charged at the following rates:
+- CPU time: 1 CPU/Hr = 0.1 credits
+- Memory: 1 GiB/Hr = 0.025 credits 
+- Storage: 1 GB = 0.025 credits per month 
+
+:::note 
+Storage and network costs vary per region, charged at standard AWS rates. Data ingress and egress across regions incur additional costs. 
 :::
 
-As an **organization owner**, access the organization page from the organizations and workspaces dropdown, or open the user menu and select **Your organizations** to view and edit your organizations. As a root user, you can also edit organizations from the [Admin panel](../administration/overview).
+Your available credit balance depends on the credits purchased and limits applied to your Seqera license. The **Credits** view contains the current credit balance available to the organization, and the total credits spent in the organization's workspaces. Select **Contact us to upgrade** to request additional credits for your organization. 
 
-Open the **Settings** tab on the organization page, and select **Edit** in the **Edit Organization** row. Update the settings and select **Update** to save.
+#### Edit or delete organization 
+
+:::note
+Organization **owners** can rename the organization from the organization **Settings** tab.
+:::
+
+As an organization **owner**, access the organization page from the organizations and workspaces dropdown, or open the user menu and select **Your organizations** to view and edit your organizations.
+
+Select **Edit** in the **Edit organization** row to update the organization name, full name, description, location, website URL, and logo. Update the settings and select **Update** to save.
 
 ### Organization resource usage tracking 
 
@@ -47,7 +64,7 @@ Usage limits differ per organization and [subscription type](https://seqera.io/p
 
 ## Members
 
-You can view the list of all organization **Members** from the organization's page. Once an organization is created, the user who created the organization is the default owner of that organization. You can invite or add additional members to the workspace from the workspace page or the [Admin panel](../administration/overview).
+You can view the list of all organization **Members** from the organization's page. Once an organization is created, the user who created the organization is the default owner of that organization. You can invite or add additional members to the workspace from the workspace **Settings** page. 
 
 Seqera provides access control for members of an organization by classifying them either as an **Owner** or a **Member**. Each organization can have multiple owners and members.
 

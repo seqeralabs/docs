@@ -12,11 +12,11 @@ import VersionSwitcher from "./VersionSwitcher";
 const products = [
   {
     name: "Platform Cloud",
-    url: "/platform-cloud/",
+    url: "/platform-cloud/platform-cloud",
   },
   {
     name: "Platform Enterprise",
-    url: "/platform-enterprise/",
+    url: "/platform-enterprise/latest/platform-enterprise",
   },
   {
     name: "Nextflow",
