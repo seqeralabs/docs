@@ -186,7 +186,7 @@ export default function Home(): JSX.Element {
                       <p className="font-title typo-h4 font-medium mb-2">Studios</p>
                       <ul className="list-none p-0 leading-8">
                         <li>
-                          <Link to="/platform-cloud/studios">
+                          <Link to="/platform-cloud/studios/overview">
                             Studios overview
                           </Link>
                         </li>
