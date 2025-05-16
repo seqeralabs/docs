@@ -5,9 +5,6 @@ date: "21 Jul 2024"
 tags: [platform, automation, api, cli, seqerakit]
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 Seqera Platform provides multiple methods of programmatic interaction to automate the execution of pipelines, chain pipelines together, and integrate Platform with third-party services.
 
 ### Platform API

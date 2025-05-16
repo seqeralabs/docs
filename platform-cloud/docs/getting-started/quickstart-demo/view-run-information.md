@@ -5,9 +5,6 @@ date: "8 Jul 2024"
 tags: [platform, runs, pipelines, monitoring, showcase tutorial]
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 When you launch a pipeline, you are directed to the **Runs** tab which contains all executed workflows, with your submitted run at the top of the list. 
 
 Each new or resumed run is given a random name, which can be customized prior to launch. Each row corresponds to a specific run. As a job executes, it can transition through the following states:
