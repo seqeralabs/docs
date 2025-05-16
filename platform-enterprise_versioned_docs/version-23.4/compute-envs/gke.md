@@ -56,7 +56,7 @@ After you've prepared your Kubernetes cluster and granted cluster access to your
 
 3. From the **Provider** drop-down, select **Google Kubernetes Engine**.
 
-4. Under **Storage**, select either **Fusion storage** (recommended) or **Legacy storage**. The [Fusion v2](../supported_software/fusion/fusion) virtual distributed file system allows access to your Google Cloud-hosted data (`gs://` URLs). This eliminates the need to configure a shared file system in your Kubernetes cluster. See [Fusion v2](#fusion-v2) below.
+4. Under **Storage**, select either **Fusion storage** (recommended) or **Legacy storage**. The [Fusion v2](../supported_software/fusion/overview) virtual distributed file system allows access to your Google Cloud-hosted data (`gs://` URLs). This eliminates the need to configure a shared file system in your Kubernetes cluster. See [Fusion v2](#fusion-v2) below.
 
 5. From the **Credentials** drop-down menu, select existing GKE credentials, or select **+** to add new credentials. If you choose to use existing credentials, skip to step 8.
 
@@ -134,7 +134,7 @@ We should probably verify nothing changes depending on EKS version (e.g. 1.25). 
 
 ### Fusion v2
 
-To use [Fusion v2](../supported_software/fusion/fusion) in your Seqera GKE compute environment, both the head service and compute service accounts must have access to the Google Cloud storage bucket specified as the work directory.
+To use [Fusion v2](../supported_software/fusion/overview) in your Seqera GKE compute environment, both the head service and compute service accounts must have access to the Google Cloud storage bucket specified as the work directory.
 
 **Configure IAM to use Fusion v2**
 

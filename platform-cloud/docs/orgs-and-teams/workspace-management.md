@@ -12,7 +12,7 @@ Each user has a unique **user workspace** to manage resources such as pipelines,
 Organizations consist of members, while workspaces consist of participants.
 
 :::note
-A workspace participant may be a member of the workspace organization or a collaborator within that workspace only. Collaborators count toward the total number of workspace participants. See [Usage limits](../limits/limits).
+A workspace participant may be a member of the workspace organization or a collaborator within that workspace only. Collaborators count toward the total number of workspace participants. See [Usage limits](../limits/overview).
 :::
 
 ### Create a new workspace
@@ -41,7 +41,7 @@ Select the **Settings** tab within a workspace to manage credits, Studios settin
 [Seqera Compute](../compute-envs/seqera-compute) environments consume credits when running pipelines or Studio sessions. Credits are consumed for CPU time, memory and storage usage, and network costs. One Seqera Compute credit is equivalent to $1 (USD), and resources are charged at the following rates:
 - CPU time: 1 CPU/Hr = 0.1 credits
 - Memory: 1 GiB/Hr = 0.025 credits 
-- Storage: 1 GB = 0.25 credits per month 
+- Storage: 1 GB = 0.025 credits per month 
 
 :::note 
 Storage and network costs vary per region, charged at standard AWS rates. Data ingress and egress across regions incur additional costs. 
