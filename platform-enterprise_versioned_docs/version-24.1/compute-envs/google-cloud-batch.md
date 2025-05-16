@@ -242,7 +242,7 @@ See [Launch pipelines](../launch/launchpad) to start executing workflows in your
 [location]: https://cloud.google.com/compute/docs/regions-zones#available
 [wave-docs]: https://www.nextflow.io/docs/latest/wave.html
 [fusion-docs]: https://docs.seqera.io/fusion
-[platform-fusion-docs]: ../supported_software/fusion/fusion
+[platform-fusion-docs]: ../supported_software/fusion/overview
 [pre-post-run-scripts]: ../launch/advanced#pre-and-post-run-scripts
 [resource-labels]: ../resource-labels/overview
 [gcp-vm-instance-template]: https://cloud.google.com/compute/docs/instance-templates

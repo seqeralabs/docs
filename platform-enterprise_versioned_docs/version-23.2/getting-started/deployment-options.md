@@ -5,7 +5,7 @@ date: "21 Apr 2023"
 tags: [deployment]
 ---
 
-Tower is available in two deployment editions and can be accessed via web UI, [API](../api/overview), [CLI](../cli/cli), or directly in your Nextflow command using a flag.
+Tower is available in two deployment editions and can be accessed via web UI, [API](../api/overview), [CLI](../cli/overview), or directly in your Nextflow command using a flag.
 
 ## Tower editions
 
@@ -19,7 +19,7 @@ Cloud is recommended for users who are new to Tower. It's an ideal choice for in
 
 ### Enterprise
 
-[Tower Enterprise](../enterprise/index) is installed in an organization's own cloud or on-premises infrastructure. It includes:
+[Tower Enterprise](../enterprise/overview) is installed in an organization's own cloud or on-premises infrastructure. It includes:
 
 - Monitoring, logging, and observability
 - Pipeline execution Launchpad
@@ -36,7 +36,7 @@ To install Tower in your organization's infrastructure, [contact us](https://clo
 
 ## Tower usage methods
 
-You can access Tower through the web user interface, the [API](../api/overview), the [CLI](../cli/cli), or in Nextflow directly using the `-with-tower` option.
+You can access Tower through the web user interface, the [API](../api/overview), the [CLI](../cli/overview), or in Nextflow directly using the `-with-tower` option.
 
 ### Tower UI
 
@@ -56,7 +56,7 @@ See [API](../api/overview).
 
 ### Tower CLI
 
-See [CLI](../cli/cli).
+See [CLI](../cli/overview).
 
 ### Nextflow `-with-tower`
 
