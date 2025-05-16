@@ -60,7 +60,7 @@ After you have prepared your Kubernetes cluster and assigned a service account r
 1. In a workspace, select **Compute environments > New environment**.
 2. Enter a descriptive name for this environment, e.g., _Amazon EKS (eu-west-1)_.
 3. From the **Provider** drop-down menu, select **Amazon EKS**.
-4. Under **Storage**, select either **Fusion storage** (recommended) or **Legacy storage**. The [Fusion v2](../supported_software/fusion/fusion) virtual distributed file system allows access to your AWS S3-hosted data (`s3://` URLs). This eliminates the need to configure a shared file system in your Kubernetes cluster. See [Fusion v2](#fusion-v2) below.
+4. Under **Storage**, select either **Fusion storage** (recommended) or **Legacy storage**. The [Fusion v2](../supported_software/fusion/overview) virtual distributed file system allows access to your AWS S3-hosted data (`s3://` URLs). This eliminates the need to configure a shared file system in your Kubernetes cluster. See [Fusion v2](#fusion-v2) below.
 5. From the **Credentials** drop-down menu, select existing AWS credentials, or select **+** to add new credentials. If you choose to use existing credentials, skip to step 9.
 
 :::note
@@ -129,7 +129,7 @@ We should probably verify nothing changes depending on EKS version (e.g. 1.25). 
 
 ### Fusion v2
 
-To use [Fusion v2](../supported_software/fusion/fusion) in your Seqera EKS compute environment, both the head service and compute service accounts must have access to the S3 bucket specified as the work directory.
+To use [Fusion v2](../supported_software/fusion/overview) in your Seqera EKS compute environment, both the head service and compute service accounts must have access to the S3 bucket specified as the work directory.
 
 **Configure IAM to use Fusion v2**
 

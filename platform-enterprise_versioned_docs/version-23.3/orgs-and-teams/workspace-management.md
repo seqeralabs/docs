@@ -12,7 +12,7 @@ Each user has a unique **user workspaces** to manage resources such as pipelines
 Organizations consist of members, while workspaces consist of participants.
 
 :::note
-A workspace participant may be a member of the workspace organization or a collaborator within that workspace only. Collaborators count toward the total number of workspace participants. See [Usage limits](../limits/limits).
+A workspace participant may be a member of the workspace organization or a collaborator within that workspace only. Collaborators count toward the total number of workspace participants. See [Usage limits](../limits/overview).
 :::
 
 ## Create a new workspace
