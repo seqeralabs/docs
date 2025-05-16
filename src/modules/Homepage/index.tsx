@@ -208,7 +208,7 @@ export default function Home(): JSX.Element {
                       </p>
                       <ul className="list-none p-0 leading-8">
                         <li>
-                          <Link to="/platform-cloud/api/overview">
+                          <Link to="/platform-api/seqera-api">
                             Platform API
                           </Link>
                         </li>
@@ -297,7 +297,7 @@ export default function Home(): JSX.Element {
                     </div>
                     <div className="flex flex-row flex-wrap w-full gap-4">
                       <Link
-                        to="/platform-cloud"
+                        to="/platform-cloud/platform-cloud"
                         className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border border-gray-300 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800"
                       >
                         <div className="w-6 h-6 mb-3 bg-[url('/img/cloud.svg')] dark:bg-[url('/img/cloud-white.svg')] bg-contain bg-no-repeat bg-center"></div>
@@ -306,7 +306,7 @@ export default function Home(): JSX.Element {
                         </p>
                       </Link>
                       <Link
-                        to="/platform-enterprise"
+                        to="/platform-enterprise/latest/platform-enterprise"
                         className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border border-gray-300 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800"
                       >
                         <div className="w-6 h-6 mb-3 bg-[url('/img/enterprise.svg')] dark:bg-[url('/img/enterprise-white.svg')] bg-contain bg-no-repeat bg-center"></div>
