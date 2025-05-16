@@ -51,10 +51,7 @@ export default function ProductItem({ hit, components }) {
           )}
           {(hit.url.includes('https://docs.seqera.io/platform-api') || hit.url.includes('https://docs.seqera.io/changelog/seqera-api/')) && (
             <div className="flex items-start pb-2 last:pb-0">
-              <span className="text-xs mr-2 px-2 py-1 bg-product-100 rounded-md text-product-1000">Seqera Platform API</span>
-              {/* {hit._highlightResult?.version?.[0]?.value && (
-                <span className="text-xs px-2 py-1 bg-slate-100 rounded-md text-slate-1000 whitespace-pre-wrap">Latest</span>
-              )} */}
+              <span className={`${styles.productApi} text-xs mr-2 px-2 py-1 rounded-md `}>Seqera Platform API</span>
             </div>
           )}
           {(hit.url.includes('https://docs.seqera.io/wave') || hit.url.match(/https:\/\/docs\.seqera\.io\/([^\/]+)/)?.[1] === 'wave' || hit.url.includes('https://docs.seqera.io/changelog/tags/wave') || hit.url.includes('https://docs.seqera.io/changelog/wave')) && (
