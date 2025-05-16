@@ -287,7 +287,7 @@ export default async function createConfigAsync() {
             // label: "Platform Cloud",
             type: 'html',
             position: 'left',
-            value: '<a href="https://docs.seqera.io/platform-cloud/" class="menu__link">Platform Cloud</a>'
+            value: '<a href="https://docs.seqera.io/platform-cloud/platform-cloud" class="menu__link">Platform Cloud</a>'
           },
           {
             // to: "/platform-enterprise/",
@@ -295,7 +295,7 @@ export default async function createConfigAsync() {
             // label: "Platform Enterprise",
             type: 'html',
             position: 'left',
-            value: '<a href="https://docs.seqera.io/platform-enterprise" class="menu__link">Platform Enterprise</a>'
+            value: '<a href="https://docs.seqera.io/platform-enterprise/latest/platform-enterprise" class="menu__link">Platform Enterprise</a>'
           },
           {
             type: "docsVersionDropdown",
@@ -364,11 +364,11 @@ export default async function createConfigAsync() {
             items: [
               {
                 label: "Platform Enterprise",
-                to: "/platform-enterprise/",
+                to: "/platform-enterprise//latest/platform-enterprise",
               },
               {
                 label: "Platform Cloud",
-                to: "/platform-cloud/",
+                to: "/platform-cloud/platform-cloud",
               },
             ],
           },

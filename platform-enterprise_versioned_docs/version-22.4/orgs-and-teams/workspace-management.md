@@ -11,7 +11,7 @@ description: "Manage users and teams for an organization."
 Organizations consist of members, while workspaces consist of participants.
 
 :::note
-A workspace participant may be a member of the workspace organization or a collaborator within that workspace only. Collaborators count toward the total number of workspace participants. See [Usage limits](../limits/limits).
+A workspace participant may be a member of the workspace organization or a collaborator within that workspace only. Collaborators count toward the total number of workspace participants. See [Usage limits](../limits/overview).
 :::
 
 ### Create a new workspace
@@ -29,7 +29,7 @@ Organization owners and admins can create a new workspace within an organization
 Optional workspace fields can be modified after workspace creation, either by using the **Edit** option on the workspace listing for an organization or by accessing the **Settings** tab within the workspace page, provided that you are the **Owner** of the workspace.
 :::
 
-Apart from the **Participants** tab, the organization workspace is similar to the **user workspace**. As such, the relation to [runs](../launch/launch), [pipeline actions](../pipeline-actions/overview), [compute environments](../compute-envs/overview) and [credentials](../credentials/overview) is the same.
+Apart from the **Participants** tab, the organization workspace is similar to the **user workspace**. As such, the relation to [runs](../launch/launch-form), [pipeline actions](../pipeline-actions/overview), [compute environments](../compute-envs/overview) and [credentials](../credentials/overview) is the same.
 
 ### Add a new participant
 
