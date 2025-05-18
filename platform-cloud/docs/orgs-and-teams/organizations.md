@@ -64,7 +64,7 @@ Usage limits differ per organization and [subscription type](https://seqera.io/p
 
 ## Members
 
-You can view the list of all organization **Members** from the organization's page. Once an organization is created, the user who created the organization is the default owner of that organization. You can invite or add additional members to the workspace from the workspace page or the [Admin panel](../administration/overview).
+You can view the list of all organization **Members** from the organization's page. Once an organization is created, the user who created the organization is the default owner of that organization. You can invite or add additional members to the workspace from the workspace **Settings** page. 
 
 Seqera provides access control for members of an organization by classifying them either as an **Owner** or a **Member**. Each organization can have multiple owners and members.
 

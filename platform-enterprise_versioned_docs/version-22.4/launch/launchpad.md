@@ -26,7 +26,7 @@ This makes it trivial for users without any expertise in Nextflow to enter their
 
 ### Adding a New Pipeline
 
-Adding a pipeline to the workspace launchpad is similar to the [Launch](../launch/launch) except, instead of launching the pipeline, it gets added to the list of pipelines with the pre-saved values of fields, such as the pipeline parameters and the revision number.
+Adding a pipeline to the workspace launchpad is similar to the [Launch](../launch/launch-form) except, instead of launching the pipeline, it gets added to the list of pipelines with the pre-saved values of fields, such as the pipeline parameters and the revision number.
 
 :::tip
 To create your own customized Nextflow Schema for your pipeline, see the `nf-core` workflows that have adopted this. [nf-core/eager](https://github.com/nf-core/eager/blob/2.3.3/nextflow_schema.json) and [nf-core/rnaseq](https://github.com/nf-core/rnaseq/blob/3.0/nextflow_schema.json) are excellent examples.

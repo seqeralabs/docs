@@ -5,7 +5,7 @@ date: "21 Apr 2023"
 tags: [agent, credentials]
 ---
 
-[Tower Agent](../supported_software/agent/agent) enables Tower to launch pipelines on HPC clusters that do not allow direct access through an SSH client. Tower Agent authenticates a secure connection with Tower using a Tower Agent credential.
+[Tower Agent](../supported_software/agent/overview) enables Tower to launch pipelines on HPC clusters that do not allow direct access through an SSH client. Tower Agent authenticates a secure connection with Tower using a Tower Agent credential.
 
 ### Tower Agent sharing
 

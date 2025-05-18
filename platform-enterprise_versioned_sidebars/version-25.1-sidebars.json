@@ -90,6 +90,16 @@
       },
       {
         "type": "category",
+        "label": "Tutorials",
+        "collapsed": true,
+        "items": [          
+          "getting-started/rnaseq",
+          "getting-started/proteinfold",
+          "getting-started/studios"
+          ]
+      },      
+      {
+        "type": "category",
         "label": "Credentials",
         "items": [
           "credentials/overview",

@@ -236,7 +236,7 @@ html[data-theme="dark"] .homepage {
     border-color: var(--color-blu-500);
   }
 }
-html[data-theme="dark"] { 
+html[data-theme="dark"] {
   --ifm-table-border-color: var(--color-gray-800);
 }
 
@@ -257,7 +257,7 @@ html[data-theme="dark"] {
       }
     }
   }
-  a { 
+  a {
     text-decoration-thickness: 1px;
     text-underline-offset: none;
     text-decoration: underline;
