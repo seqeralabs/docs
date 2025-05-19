@@ -11,7 +11,7 @@ Each compute environment must be configured to enable Seqera to submit tasks. Se
 
 ## Platforms
 
-- [Seqera Compute]./seqera-compute]
+- [Seqera Compute](./seqera-compute)
 - [AWS Batch](./aws-batch)
 - [AWS Cloud](./aws-cloud)
 - [Azure Batch](./azure-batch)
