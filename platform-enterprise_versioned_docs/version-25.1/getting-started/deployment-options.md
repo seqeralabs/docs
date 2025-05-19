@@ -5,17 +5,7 @@ date: "21 Apr 2023"
 tags: [deployment]
 ---
 
-Seqera Platform is available in two deployment editions and can be accessed via the web-based user interface (UI), [API](../api/overview), [CLI](../cli/overview), or in Nextflow directly using a flag.
-
-## Platform editions
-
-### Seqera Cloud
-
-The hosted Seqera Cloud edition is recommended for users who are new to Platform. It's an ideal choice for individuals and organizations looking to set up quickly. [Seqera Cloud](https://cloud.seqera.io) has a free tier with a limit of five concurrent workflow runs per user. Seqera Cloud Pro offers unlimited runs, dedicated support, and more — [contact us](https://cloud.seqera.io/demo/) for a demo to discuss your requirements.
-
-### Seqera Enterprise
-
-[Seqera Enterprise](../../version-25.1/enterprise/overview) is installed in an organization's own cloud or on-premises infrastructure. It includes:
+[Seqera Platform Enterprise](../../version-25.1/enterprise/overview) is installed in an organization's own cloud or on-premises infrastructure. It includes:
 
 - Monitoring, logging, and observability
 - Pipeline execution Launchpad
