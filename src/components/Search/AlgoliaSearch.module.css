@@ -121,6 +121,11 @@ html[data-theme="dark"] .searchBar  {
   color: var(--color-nextflow-10000);
 }
 
+.productApi {
+  background: var(--color-product-100);
+  color: var(--color-product-1000);
+}
+
 html[data-theme="dark"] {
   .productItemCta {
     background: var(--color-blu-900);
@@ -147,5 +152,9 @@ html[data-theme="dark"] {
   .productNextflow {
     background: var(--color-nextflow-900);
     color: var(--color-nextflow-100);
+  }
+  .productApi {
+    background: var(--color-product-900);
+    color: var(--color-product-100);
   }
 }
