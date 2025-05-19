@@ -49,6 +49,11 @@ export default function ProductItem({ hit, components }) {
               )}
             </div>
           )}
+          {(hit.url.includes('https://docs.seqera.io/platform-api') || hit.url.includes('https://docs.seqera.io/changelog/seqera-api/')) && (
+            <div className="flex items-start pb-2 last:pb-0">
+              <span className={`${styles.productApi} text-xs mr-2 px-2 py-1 rounded-md `}>Seqera Platform API</span>
+            </div>
+          )}
           {(hit.url.includes('https://docs.seqera.io/wave') || hit.url.match(/https:\/\/docs\.seqera\.io\/([^\/]+)/)?.[1] === 'wave' || hit.url.includes('https://docs.seqera.io/changelog/tags/wave') || hit.url.includes('https://docs.seqera.io/changelog/wave')) && (
             <div className="flex items-start pb-2 last:pb-0">
               <span className={`${styles.productWave} text-xs mr-2 px-2 py-1 rounded-md`}>Wave</span>
