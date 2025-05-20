@@ -5,7 +5,7 @@ date: "15 May 2025"
 tags: [cloud, vm, amazon, compute environment]
 ---
 
-# AWS Cloud
+# Overview
 
 :::note
 This compute environment type is currently in public preview. Please consult this guide for the latest information on recommended configuration and limitations. This guide assumes you already have an AWS account with a valid AWS subscription.
@@ -14,21 +14,25 @@ This compute environment type is currently in public preview. Please consult thi
 The current implementation of compute environments for cloud providers all rely on the use of batch services such as AWS Batch, Azure Batch, and Google Batch for the execution and management of submitted jobs, including pipelines and Studio session environments. Batch services are suitable for large-scale workloads, but they add management complexity. In practical terms, the currently used batch services result in some limitations:
 
 - **Long launch delay**: When you launch a pipeline or Studio in a batch compute environment, there's a delay of several minutes before the pipeline or Studio session environment is in a running state. This is caused by the batch services that need to provision the associated compute service to run a single job.
-- **Complex setup**: Standard batch services require complex identity management policies and configuration of multiple services including compute environments, job queues, job definitions, etc.
-- **Allocation constraints**: AWS Batch and other cloud batch services have strict resource quotas. For example, a hard limit of 50 job queues per account per region. This means that no new compute environment can be created when this quota limit is reached.
+- **Complex setup**: Standard batch services require complex identity management policies and configuration of multiple services including compute environments,  job queues, job definitions, etc.
+- **Allocation constraints**: Cloud batch services have strict per-region resource quotas. For example, AWS Batch has a hard limit of 50 job queues per account per region. When the threshold is reached, no additional compute environment can be created.
 
 The AWS Cloud compute environment addresses these pain points with:
 
-- **Faster startup time**: Nextflow pipelines reach a `Running` status and Studio sessions connect in under a minute (a 4x improvement compared to classic AWS Batch compute environments).
-- **Simplified configuration**: Fewer configurable options, with opinionated defaults, provide the best Nextflow pipeline and Studio session execution environment, with both Wave and Fusion enabled.
+- **Faster startup time**:Nextflow pipelines and Studio sessions typically reach a `Running` status in less than a minute (a 4x improvement compared to cloud-managed batch compute environments).
+- **Simplified configuration**: Leaner configurable options, with opinionated defaults to provide the best Nextflow pipeline execution environment, with Wave and Fusion enabled.
 - **Fewer AWS dependencies**: Only one IAM role in AWS is required. IAM roles are subject to a 1000 soft limit per account.
-- **Spot instances**: Studios can be launched on a Spot instance.
+- **Spot instances**: Studio sessions can be launched in a Spot instance for significant cost savings.
 
-This type of compute environment is best suited to run Studios and small to medium-sized pipelines. It offers more predictable compute pricing, given the fixed instance type. It spins up a standalone EC2 instance and executes a Nextflow pipeline or Studio session with a local executor on the EC2 machine. At the end of the execution, the instance is terminated.
+## How this compute environment works
+
+This compute environment is best suited to run Studios and small to medium-sized pipelines and offers more predictable compute pricing, given the fixed instance type. It spins up a standalone EC2 instance and executes a Nextflow pipeline with a local executor on the EC2 machine. At the end of the execution, the instance is terminated.
 
 ## Limitations
 
-- The Nextflow pipeline will run entirely on a single EC2 instance. If the instance does not have sufficient resources, the pipeline execution will fail. For this reason, the number of tasks Nextflow can execute in parallel is limited by the number of cores of the instance type selected. If you need more computing resources, you must create a new compute environment with a larger instance type. This makes the compute environment less suited for larger, more complex pipelines.
+The Nextflow pipeline or Studio session will run entirely on a single EC2 instance and if the instance type does not have enough resources, the pipeline execution or Studio session will fail. For this same reason, the amount of parallelism Nextflow or Studios can leverage to execute tasks in parallel is bounded by the number of cores of the instance type selected. 
+
+If you need more computing resources, you’ll need to create a new compute environment with a different instance type. This could mean that the compute environment is not a viable choice for larger pipelines or more complex Studio sessions (such as machine learning model training).
 
 ## Supported regions
 
@@ -48,7 +52,7 @@ The following regions are currently supported:
 
 ### Platform credentials
 
-To create and launch pipelines or Studio sessions with this compute environment type, you must attach Seqera credentials for the cloud provider. Some permissions are mandatory for the compute environment to be created and function correctly; others are optional and used to pre-fill options in Platform.
+To use this compute environment type, you need to provision Platform credentials for the AWS cloud provider. Some permissions are mandatory for the compute environment to be created and function correctly; others are optional and used to pre-fill options in Platform.
 
 ### Required permissions
 
@@ -101,7 +105,7 @@ The following permissions are required to validate the compute environment at cr
     ]
 }
 ```
-#### Pipeline and Studio session management
+#### Pipeline launch and monitor
 
 The following permissions are required to launch pipelines, run Studio sessions, fetch live execution logs from CloudWatch, download logs from S3, and stop the execution:
 
@@ -156,7 +160,7 @@ The following permissions are required to remove resources created by Seqera whe
 
 #### Optional permissions
 
-The following permissions enable Seqera to populate values for dropdown fields. If missing, the input fields will not be auto-populated but can still be manually entered. Though optional, these permissions are recommended for a smoother and less error-prone user experience:
+The following permissions enable Seqera to populate values for dropdown fields. If missing, the input fields will not be auto-populated but can be manually entered. Though optional, these permissions are recommended for a smoother and less error-prone experience:
 
 ```json
 {
