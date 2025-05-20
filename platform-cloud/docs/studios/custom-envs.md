@@ -79,8 +79,11 @@ The minimal Dockerfile includes directives to accomplish the following:
 Customize the following Dockerfile to include any additional software that you require:
 
 ```docker title="Minimal Dockerfile"
+# Add a default Connect client version. Can be overridden by build arg
+ARG CONNECT_CLIENT_VERSION="0.8"
+
 # Seqera base image
-FROM public.cr.seqera.io/platform/connect-client:0.8 AS connect
+FROM public.cr.seqera.io/platform/connect-client:${CONNECT_CLIENT_VERSION} AS connect
 
 # 1. Add connect binary
 COPY --from=connect /usr/bin/connect-client /usr/bin/connect-client
@@ -95,7 +98,11 @@ ENTRYPOINT ["/usr/bin/connect-client", "--entrypoint"]
 For example, to run a basic Python-based HTTP server, build a container from the following Dockerfile. When a Studio runs the custom template environment, the value for the `CONNECT_TOOL_PORT` environment variable is provided dynamically.
 
 ```docker title="Example Dockerfile with Python HTTP server"
-FROM public.cr.seqera.io/platform/connect-client:0.8 AS connect
+# Add a default Connect client version. Can be overridden by build arg
+ARG CONNECT_CLIENT_VERSION="0.8"
+
+# Seqera base image
+FROM public.cr.seqera.io/platform/connect-client:${CONNECT_CLIENT_VERSION} AS connect
 
 FROM ubuntu:20.04
 RUN apt-get update --yes && apt-get install --yes --no-install-recommends python3
@@ -106,6 +113,10 @@ ENTRYPOINT ["/usr/bin/connect-client", "--entrypoint"]
 
 CMD ["/usr/bin/bash", "-c", "python3 -m http.server $CONNECT_TOOL_PORT"]
 ```
+
+### Getting started with custom containers template images
+
+You can review a series of example custom studio environment container template images [here](custom-studios-examples).
 
 ### Inspect container augmentation build status {#build-status}
 
@@ -129,3 +140,4 @@ To inspect the status of an ongoing build, or a successful or failed build, comp
 [conda-schema]: https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/pkg-search.html
 [env-manually]: https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-file-manually
 [add-s]: ./managing#add-a-studio
+[custom-studios-examples]: https://github.com/seqeralabs/custom-studios-examples
