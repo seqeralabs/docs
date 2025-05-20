@@ -163,7 +163,7 @@ export default async function createConfigAsync() {
           editUrl: ({ docPath }) => {
             return `https://github.com/nextflow-io/nextflow/blob/master/docs${docPath.replace('nextflow_docs/nextflow_repo/docs', '')}`
           },
-          sidebarPath: "./nextflow_docs/sidebar.js",
+          sidebarPath: "./nextflow_docs/sidebar.json",
         },
       ],
       [

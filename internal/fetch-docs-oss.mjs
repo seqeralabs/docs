@@ -24,7 +24,7 @@ const repositories = [
     name: "nextflow",
     url: "https://github.com/nextflow-io/nextflow.git",
     path: path.join(__dirname, "..", "nextflow_docs", "nextflow_repo"),
-    branch: "master",
+    branch: "docs-poc-relative",
   },
 ];
 
@@ -42,7 +42,7 @@ async function cloneOrUpdateRepo({ name, url, path: repoPath, branch }) {
       console.log(`✅ ${name}: Pulled latest changes`);
     } else {
       console.log(`${name}: Cloning into ${repoPath}`);
-      await git().clone(url, repoPath);
+      await git().clone(url, repoPath, ['--branch', branch]);
       console.log(`✅ ${name}: Cloned`);
     }
   } catch (error) {

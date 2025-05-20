@@ -2,10 +2,11 @@
     "sidebar": [
         {
         "type": "category",
-        "label": "Nextflow",
+        "label": "Getting started",
         "collapsed": false,
         "items": [
-            "index"
+            "install",
+            "testformat"
         ]
         }
     ]
