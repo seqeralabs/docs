@@ -21,8 +21,7 @@ To augment Seqera-provided images, Enterprise deployments must either allow acce
 
 ### Conda package syntax {#conda-package-syntax}
 
-When adding a new Studio, you can optionally customize the environment configuration to install a list of additional Conda packages to the selected template image. The [supported schema][conda-schema] is identical to that
-used by a Conda environment.yml file, including pinning specific package versions, wildcards, version range, or build name. Not pinning a specific package version will install the latest stable release.
+When adding a new Studio, you can optionally customize the environment configuration to install a list of additional Conda packages to the selected template image. The [supported schema][conda-schema] is identical to that used by a Conda `environment.yml` file, including pinning specific package versions, wildcards, version range, or build name. Not pinning a specific package version will install the latest stable release.
 
 For more information on the Conda environment file, see [Creating an environment file manually][env-manually].
 
