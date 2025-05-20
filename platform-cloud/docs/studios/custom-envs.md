@@ -5,10 +5,7 @@ date: "1 Oct 2024"
 tags: [environments, custom, studio, studio]
 ---
 
-In addition to the Seqera-provided container template images, you
-can provide your own custom container environments by augmenting
-the Seqera-provided images with a list of Conda packages or by
-providing your own base container template image.
+In addition to the Seqera-provided container template images, you can provide your own custom container environments by augmenting the Seqera-provided images with a list of Conda packages or by providing your own base container template image.
 
 Studios uses the [Wave][wave-home] service to build custom container template images.
 
@@ -19,20 +16,13 @@ Studios uses the [Wave][wave-home] service to build custom container template im
 - Wave must be configured. For more information, see [Wave containers][wave-config].
  
 :::note
-To augment Seqera-provided images, Enterprise deployments must
-either allow access to the public Wave server, or self-host their
-own [Wave server][wave-server].
+To augment Seqera-provided images, Enterprise deployments must either allow access to the public Wave server, or self-host their own [Wave server][wave-server].
 :::
 
 ### Conda package syntax {#conda-package-syntax}
 
-When adding a new Studio, you can optionally customize the environment
-configuration to install a list of additional Conda packages to the
-selected template image. The [supported schema][conda-schema] is identical to that
-used by a Conda environment.yml file, including pinning specific
-package versions, wildcards, version range, or build name. Not
-pinning a specific package version will install the latest stable
-release.
+When adding a new Studio, you can optionally customize the environment configuration to install a list of additional Conda packages to the selected template image. The [supported schema][conda-schema] is identical to that
+used by a Conda environment.yml file, including pinning specific package versions, wildcards, version range, or build name. Not pinning a specific package version will install the latest stable release.
 
 For more information on the Conda environment file, see [Creating an environment file manually][env-manually].
 
@@ -48,7 +38,7 @@ dependencies:
     - seaborn=0.13.2
 ```
 
-Either directly copy and paste your valid YAML code or use the Import from file to attach an environment.yml file.
+Either directly copy and paste your valid YAML code or use the Import from file to attach an `environment.yml` file.
 
 To create a Studio with custom Conda packages, see [Add a Studio][add-s].
 
