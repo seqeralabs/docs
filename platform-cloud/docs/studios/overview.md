@@ -19,16 +19,16 @@ Before you get started, you need the following:
 
 - Valid credentials to access your cloud storage data resources.
 - At least the **Maintain** role set of permissions.
-- A compute environment with sufficient resources. This is highly dependent on the volume of data you wish to process, but we recommended at least 2 CPUs allocated with 8192 MB of memory. See [AWS Batch](../compute-envs/aws-batch) for more information about compute environment configuration.
+- A compute environment with sufficient resources. This is highly dependent on the volume of data you wish to process, but at least 2 CPUs allocated with 8192 MB of memory is recommended.
 - [Data Explorer](../data/data-explorer) is enabled.
 
 :::note
-Currently, Studios only supports AWS Batch compute environments that **do not** have Fargate enabled.
+Currently, Studios supports [AWS Cloud][aws-cloud] and [AWS Batch][aws-batch] compute environments that **do not** have Fargate enabled.
 :::
 
 ## Limitations
 
-If you configured your AWS Batch compute environment to include an EFS file system with **EFS file system > EFS mount path**, the mount path must be explicitly specified. The mount path cannot be the same as your compute environment work directory. If the EFS file system is mounted as your compute environment work directory, snapshots cannot be saved and sessions fail. To mount an EFS volume in a Studio session (for example, if your organization has a custom, managed, and standardized software stack in an EFS volume), add the EFS volume to the compute environment (system ID and mount path). The volume will be available at the specified mount path in the session.
+If you configured your compute environment to include an EFS file system with **EFS file system > EFS mount path**, the mount path must be explicitly specified. The mount path cannot be the same as your compute environment work directory. If the EFS file system is mounted as your compute environment work directory, snapshots cannot be saved and sessions fail. To mount an EFS volume in a Studio session (for example, if your organization has a custom, managed, and standardized software stack in an EFS volume), add the EFS volume to the compute environment (system ID and mount path). The volume will be available at the specified mount path in the session.
 
 For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
 
@@ -174,6 +174,7 @@ Stop the active session to trigger a snapshot from the active volume. The snapsh
 
 {/* links */}
 [contact]: https://support.seqera.io/
+[aws-cloud]: ../compute-envs/aws-cloud
 [aws-batch]: ../compute-envs/aws-batch
 [custom-envs]: ./custom-envs
 [build-status]: ./custom-envs#build-status
