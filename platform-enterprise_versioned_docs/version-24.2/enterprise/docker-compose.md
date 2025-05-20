@@ -45,7 +45,7 @@ For more information on configuration, see [Configuration options](./configurati
 
 ### Studios
 
-[Studios](../data_studios/index) is an interactive analysis environment available in organizational workspaces. To enable Studios, see [Studios deployment](../enterprise/studios).
+[Studios](../data_studios/overview) is an interactive analysis environment available in organizational workspaces. To enable Studios, see [Studios deployment](../enterprise/studios).
 
 :::note
 Studios is currently in **public preview** and is available from Seqera Platform v24.1. If you experience any problems during the deployment process please contact your account executive. Data Studios in Enterprise is not installed by default.

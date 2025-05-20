@@ -6,9 +6,6 @@ tags: [platform, seqera pipelines, studios, proteinfold, alphafold, colabfold, c
 toc_max_heading_level: 2
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 This guide details how to perform best-practice analysis for protein 3D structure prediction on an AWS Batch compute environment in Platform. It includes: 
 
 - Creating AWS Batch compute environments to run your pipeline and downstream analysis
@@ -41,7 +38,7 @@ When you launch nf-core/proteinfold in Platform, enable **use_gpu** to instruct 
 
 ### Fusion file system
 
-The [Fusion](../supported_software/fusion/fusion) file system enables seamless read and write operations to cloud object stores, leading to
+The [Fusion](../supported_software/fusion/overview) file system enables seamless read and write operations to cloud object stores, leading to
 simpler pipeline logic and faster, more efficient execution. While Fusion is not required to run nf-core/proteinfold, it significantly enhances I/O-intensive tasks and eliminates the need for intermediate data copies, which is particularly beneficial when working with the large databases used by deep learning models for prediction. 
 
 Fusion works best with AWS NVMe instances (fast instance storage) as this delivers the fastest performance when compared to environments using only AWS EBS (Elastic Block Store). Batch Forge selects instances automatically based on your compute environment configuration, but you can optionally specify instance types. To enable fast instance storage, you must select EC2 instances with NVMe SSD storage (`g4dn`, `g5`, or `P3` families or greater). 
@@ -308,7 +305,7 @@ After you have filled the necessary launch details, select **Launch**. The **Run
 
 ## Interactive analysis with Studios
 
-[Studios](../studios/index) streamlines the process of creating interactive analysis environments for Platform users. With built-in templates for platforms like Jupyter Notebook, RStudio, and VS Code, creating a data studio is as simple as adding and sharing pipelines or datasets. The Studio URL can also be shared with any user with the [Connect role](../orgs-and-teams/roles) for real-time access and collaboration.
+[Studios](../studios/overview) streamlines the process of creating interactive analysis environments for Platform users. With built-in templates for platforms like Jupyter Notebook, RStudio, and VS Code, creating a data studio is as simple as adding and sharing pipelines or datasets. The Studio URL can also be shared with any user with the [Connect role](../orgs-and-teams/roles) for real-time access and collaboration.
 
 For the purposes of this guide, a Jupyter notebook environment will be used for interactive visualization of the predicted protein structures, optionally comparing AlphaFold2 and Colabfold structures for the same sequence data. 
 

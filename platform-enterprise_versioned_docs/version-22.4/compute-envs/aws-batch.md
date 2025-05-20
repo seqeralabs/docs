@@ -139,7 +139,7 @@ Once the AWS resources are set up, we can add a new **AWS Batch** environment in
 
 9.  Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers](https://seqera.io/wave/) for more information.
 
-10. Select **Enable Fusion v2** to allow access to your S3-hosted data via the [Fusion v2](https://seqera.io/fusion/) virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled (see above). See [Fusion file system](../supported_software/fusion/fusion) for configuration details.
+10. Select **Enable Fusion v2** to allow access to your S3-hosted data via the [Fusion v2](https://seqera.io/fusion/) virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled (see above). See [Fusion file system](../supported_software/fusion/overview) for configuration details.
 
 11. Select **Enable fast instance storage** to allow the use of NVMe instance storage to speed up I/O and disk access operations. NVMe instance storage requires Fusion v2 to be enabled (see above).
 

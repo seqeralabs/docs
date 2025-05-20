@@ -21,7 +21,7 @@ See [API](../api/overview).
 
 ### Tower CLI
 
-See [CLI](../cli/cli).
+See [CLI](../cli/overview).
 
 ### Nextflow `-with-tower`
 
