@@ -13,25 +13,31 @@ Studios uses the [Wave][wave-home] service to build custom container template im
 
 ### Prerequisites
 
-- Wave must be configured. For more information, see [Wave containers][wave].
+- Wave must be configured. For more information, see [Wave containers][wave-config].
  
- :::note
- To augment Seqera-provided images, Enterprise deployments must either allow access to the public Wave server, or self-host their own Wave server.
- :::
+:::note
+To augment Seqera-provided images, Enterprise deployments must either allow access to the public Wave server, or self-host their own [Wave server][wave-server].
+:::
 
 ### Conda package syntax {#conda-package-syntax}
 
-When adding a new Studio, you can customize its configuration to install a list of Conda packages to the template image. The supported schema is identical to that used by the Conda `environment.yml` file. For more information on the Conda environment file, see [Creating an environment file manually][env-manually].
+When adding a new Studio, you can optionally customize the environment configuration to install a list of additional Conda packages to the selected template image. The [supported schema][conda-schema] is identical to that used by a Conda `environment.yml` file, including pinning specific package versions, wildcards, version range, or build name. Not pinning a specific package version will install the latest stable release.
+
+For more information on the Conda environment file, see [Creating an environment file manually][env-manually].
 
 ```yaml title="Example environment.yml file"
 channels:
   - conda-forge
+  - bioconda
 dependencies:
-  - numpy
+  - numpy>1.7,<1.19.2
+  - scipy
   - pip:
-    - matplotlib
-    - seaborn
+    - matplotlib=3.10.*
+    - seaborn=0.13.2
 ```
+
+Either directly copy and paste your valid YAML code or use the Import from file to attach an `environment.yml` file.
 
 To create a Studio with custom Conda packages, see [Add a Studio][add-s].
 
@@ -127,8 +133,11 @@ To inspect the status of an ongoing build, or a successful or failed build, comp
 
 
 {/* links */}
-[add-s]: ./managing#add-a-studio
-[wave]: https://docs.seqera.io/platform-enterprise/latest/enterprise/configuration/wave
-[custom-studios-examples]: https://github.com/seqeralabs/custom-studios-examples
+
 [wave-home]: https://seqera.io/wave/
+[wave-config]: https://docs.seqera.io/wave
+[wave-server]: https://docs.seqera.io/platform-enterprise/latest/enterprise/configuration/wave
+[conda-schema]: https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/pkg-search.html
 [env-manually]: https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-file-manually
+[add-s]: ./managing#add-a-studio
+[custom-studios-examples]: https://github.com/seqeralabs/custom-studios-examples
