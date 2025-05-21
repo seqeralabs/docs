@@ -1,0 +1,71 @@
+---
+id: workflow-logs
+title: "Get workflow logs"
+description: "Retrieves the output logs for the Nextflow main job of the workflow identified by the given `workflowId`."
+sidebar_label: "Get workflow logs"
+hide_title: true
+hide_table_of_contents: true
+api: eJy9Vd9P2zAQ/lcsP21S1bKBJq1PA42hahNDwLQHVIGbXFsXxw62066K8r9z5yRNQ0IRL3tq6vvu7rvfOY/BRVamXhrNx/wavJWwBsf8EpjJfJp5pszCsbmx4e0S/vm5MhuWCKnZysyYmQfBxtjHIJAxaC/nEmI22wbRQq5Bs4caMYkfhnzAvVg4Pr7j9bPj0wE3KVhBZCYx0vlbiX4hA9RIhRUJeLCkl3ONfxDUmEWIpChS4Zf43Q6ttsUchqgXDU2LUAtPmbSAPr3NYMBdtIRE8HHO/TYlJ6USL4pBy69LRQSN46cM7LbXcwAynSVgZdT23fEltYdFEGHSE+HLpy8nLe8a6/C22xAw1o9FmXWm19susimlwaVGO3Ak/3x0RD9to79/oo3IIEPtSSrSVMkoVGy0cgTJuy7MbAURsU0t1dfL0gHyehuE9dBon0qzg86MUSA0LwYcadga+cKOl17Rw8RTSxl7fxMivSc1Cxup41vzCLonFSHxG2EPAFLQMX32kkrAObGAXsXYbLQyIt6nLKwVVD/pIekNpZ0SJ9ZwGbqgj7lUrwtj6VIltrfUO329vcsZDtwVRjD8XrFFYVfa0tgb1euqi0gJESd9fXQmYkZDB86/p6GaOb3bZRn79nC+Xi/HHv9za43tMD/umYB6QzFtPBMKY4Y4mHKAUyb9NiynMxAW7GmGm2h8N6Xhws21NLTVFhA40pIa81G9vkZ5s8iKEc1GY/GGElAGs293F8/S+7Se7dCLAYQv5cePeo2sNj4wlXpugnoV/A08YVDs9GrS2SKV6EoJT9uIObBrGeGBKMFUORGFymVWVVTceDRyQW8oDYKweFKFLTY33xoBElnjLi/9fBoefx0ehdEyziciFL7adRfgm/OiylvQYpk3HfR/T1iZfo8GRzhYMkx/yENe1bc5bwgft04VlRjbYonhEi7PZ8LBH6uKgp7LnU6dhEMrZop6fi6UgwOhv3Foetk+wrZzy9ZCZYTkdG/e5757cA54rW5Y425Kf6wkf+8M/cN1tRk+soOHvpdNvYb1dp/Nfm6qohVTRC9BxGiL+JWA0yiCdD+Qzg5rjf/F+S1iRXuCX0xssN5LC9skIMJpwlapWfpwqpBgUTwDJ1Fp9A==
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get workflow logs"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/workflow/{workflowId}/log"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Retrieves the output logs for the Nextflow main job of the workflow identified by the given `workflowId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workflowId","in":"path","description":"Workflow string identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"next","in":"query","description":"Workflow log cursor","schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"log":{"type":"object","properties":{"truncated":{"type":"boolean"},"entries":{"type":"object","title":"Iterator_String_"},"rewindToken":{"type":"string"},"forwardToken":{"type":"string"},"pending":{"type":"boolean"},"message":{"type":"string"},"downloads":{"type":"array","items":{"type":"object","properties":{"saveName":{"type":"string"},"fileName":{"type":"string"},"displayText":{"type":"string"}},"title":"LogPage.Download"}}},"title":"LogPage"}},"title":"WorkflowLogResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

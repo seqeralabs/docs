@@ -1,0 +1,71 @@
+---
+id: list-labels
+title: "List labels"
+description: "Lists all available labels in a user context. Append `?workspaceId` to list labels in a workspace context."
+sidebar_label: "List labels"
+hide_title: true
+hide_table_of_contents: true
+api: eJy9VttOGzEQ/RXLz1FCAVVqXloQUKEiFRWqPlRITHZnE4N3bWwvkEb59854N5vbsqQg9SWJ7TNzxj5zyUym6BOnbFCmkEN5oXzwArQW8AhKw0ijoE/UXqhCgCg9OpGYIuBz6Isja7FIxe3nJ+PuvYUEz9NbEYzQ5GbNrgE0xrInA4y9HP6WFVDe9KSx6IBDOU/rYC6qs5604CDHgI5NZrKgBUFWiAmj+AoPJbopLdYv9qsJoChzdCoRKsUiqEyhI7BPJpiDHM5kmFp2rCjKcTzKjMshVFsfD+V83mvYc3juZr2EsSrihQRhhUNf6uB35zvYX+MzWeYx7EzZwN/G5hFcMulmO1OaJBEVVDQatXH64FQxXmOIJ53+o/yixr3ksieRROVM8iq3mqH00qZ0Cf+kZObUCipoXHi8ZvvVSJQ/wQxInF3CSSuoyDSM28IaGaMRCiK4iZFYU3j0DNjf2+Ovdaffv5GTWBZF4FOwVqskSji48wyZbXOY0R0mHK11XDRBVQR1KS1x4BzwPVTA3L9ur9KdaqBXv9uWuD35CLpsP2k0aXmp3ooCbQ+5od/J6CSYatsE0FfqD+5Yu0s/TXP5UStExww4bNPoGFKqXkoKH/5FLDZRDlPOzRy9hzHGXOzUYAFsK50m/FPnjNuK/KAluxYtVRQmcGc3TxQPwz0mpVNhGvvpMVUwuqMyTGh5w4lLhTwx3IbHsYdY4CM50IuGvDC/4ttWka86aYKfhGAXVRJFjSDaqX6cLSS6ewoxLFVkJprXN73CB7qBOLo83yrH+uhSQ2ClqQ25R5Wgr8EsEyRRptLpOhQ/HAx8tOsrw60jpzkXMyQzX5YHnMk0ayqeD/2DT/093rPGhxyiynXnuFiOus34ZstE+c+DtXp5Xg6sBhULLD7BrNZxdehO6E68M5uNwONPp+dz3q46IOdGqjzHS7mQgfbYcctXpmxrXPc43RrkdRORklv07vQvjtsO4mqGv5+wGbYdXA3mjXQvT9sO0maMv5F0bQR38NSId7FsTNYOttWBvaS84YVTzBnbGCU3QkovxGlcGR4lCdpVq60Ovtb8vp5e83+I9Za20cKi98W8LaYrvqmkIuLa3GNBZdW8Fa+JiNr2X9W48AA=
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List labels"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/labels"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Lists all available labels in a user context. Append `?workspaceId` to list labels in a workspace context.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"max","in":"query","description":"Pagination max results","schema":{"type":"integer","format":"int32"}},{"name":"offset","in":"query","description":"Pagination offset","schema":{"type":"integer","format":"int32"}},{"name":"search","in":"query","description":"Filter search parameter","schema":{"type":"string"}},{"name":"type","in":"query","description":"Label type","schema":{"type":"string","enum":["simple","resource","all"],"title":"LabelType"}},{"name":"isDefault","in":"query","description":"Label default flag","schema":{"type":"boolean"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"labels":{"type":"array","items":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"},"value":{"type":"string"},"resource":{"type":"boolean"},"isDefault":{"type":"boolean"}},"title":"LabelDbDto"}},"totalSize":{"type":"integer","format":"int64"}},"title":"ListLabelsResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

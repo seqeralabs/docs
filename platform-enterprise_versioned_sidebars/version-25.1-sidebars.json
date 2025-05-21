@@ -1,13 +1,13 @@
 {
     "platformSidebar": [
-      "index",
+      "platform-enterprise",
       {
         "type": "category",
         "label": "Installation",
         "collapsed": true,
         "link": {
           "type": "doc",
-          "id": "enterprise/index"
+          "id": "enterprise/overview"
         },      
         "items": [
           {
@@ -68,10 +68,10 @@
         "label": "Tutorials",
         "collapsed": true,
         "items": [
-          "getting-started/quickstart-demo/comm-showcase",
           "getting-started/rnaseq",
           "getting-started/proteinfold",
-          "getting-started/studios"
+          "getting-started/studios",
+          "tutorials/retry-strategy"
           ]
       },
       {
@@ -88,6 +88,16 @@
           "getting-started/quickstart-demo/automation"
         ]
       },
+      {
+        "type": "category",
+        "label": "Tutorials",
+        "collapsed": true,
+        "items": [          
+          "getting-started/rnaseq",
+          "getting-started/proteinfold",
+          "getting-started/studios"
+          ]
+      },      
       {
         "type": "category",
         "label": "Credentials",
@@ -134,8 +144,8 @@
           "compute-envs/k8s",
           "compute-envs/hpc",
           "resource-labels/overview",
-          "supported_software/fusion/fusion",
-          "supported_software/agent/agent",
+          "supported_software/fusion/overview",
+          "supported_software/agent/overview",
           "supported_software/dragen/overview",
           {
             "type": "category",
@@ -182,7 +192,7 @@
         "type": "category",
         "label": "Studios",
         "items": [
-          "studios/index",
+          "studios/overview",
           "studios/custom-envs",
           "studios/managing"
         ]
@@ -233,9 +243,9 @@
         "label": "Reference",
         "collapsed": true,
         "items": [
-          "functionality_matrix/functionality_matrix",
+          "functionality_matrix/overview",
           "data-privacy/overview",
-          "limits/limits"
+          "limits/overview"
         ]
       },
       {

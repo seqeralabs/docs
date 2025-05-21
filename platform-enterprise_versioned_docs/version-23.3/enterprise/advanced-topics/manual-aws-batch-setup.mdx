@@ -277,7 +277,7 @@ Create a launch template to configure the EC2 instances deployed by Batch jobs:
 ### Create the Batch compute environments
 
 :::caution 
-AWS Graviton instances (ARM64 CPU architecture) are not supported in manual compute environments. To use Graviton instances, create your AWS Batch compute environment with [Batch Forge](../../compute-envs/aws-batch.mdx#batch-forge-compute-environment).
+AWS Graviton instances (ARM64 CPU architecture) are not supported in manual compute environments. To use Graviton instances, create your AWS Batch compute environment with [Batch Forge](../../compute-envs/aws-batch#batch-forge-compute-environment).
 :::
 
 Nextflow makes use of two job queues during workflow execution:
@@ -301,7 +301,7 @@ The head queue requires an on-demand compute environment. Do not select **Use Sp
 1. In the [Batch Console](https://eu-west-1.console.aws.amazon.com/batch/home), select **Create** on the Compute environments page.
 1. Select **Amazon EC2** as the compute environment configuration.
     :::note
-    Seqera AWS Batch compute environments created with [Batch Forge](../../compute-envs/aws-batch.mdx#batch-forge-compute-environment) support using Fargate for the head job, but manual compute environments must use EC2.
+    Seqera AWS Batch compute environments created with [Batch Forge](../../compute-envs/aws-batch#batch-forge-compute-environment) support using Fargate for the head job, but manual compute environments must use EC2.
     :::
 1. Enter a name of your choice, and apply the `seqera-servicerole` and `seqera-instancerole`.
 1. Enter vCPU limits and instance types, if needed.
@@ -356,4 +356,4 @@ You only need to create one queue if you intend to use on-demand instances for y
 </TabItem>
 </Tabs>
 
-Use the AWS resources created on this page to create your [manual AWS Batch compute environment](../../compute-envs/aws-batch.mdx#manual).
+Use the AWS resources created on this page to create your [manual AWS Batch compute environment](../../compute-envs/aws-batch#manual).

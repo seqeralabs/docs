@@ -2,64 +2,85 @@
   display: flex;
   align-items: center;
   height: 40px;
-  flex: 1 1 auto;
-  border-radius: 99px;
+  font-weight: 500;
+  border-radius: 8px;
   color: var(--color-brand);
-  font-size: 16px;
+  font-size: .9375rem;
+  background: white;
   line-height: 1;
-  padding: 0 20px;
+  padding: 0 13px;
   text-align: center;
   white-space: nowrap;
-  border: 1px solid transparent;
+  border: 1px solid var(--color-brand-400);
   position: relative;
-  &:not(.cta)::after {
-    transition: all 0.3s;
-    content: " ";
-    display: block;
-    position: absolute;
-    bottom: -2px;
-    left: 20px;
-    right: 20px;
-    height: 2px;
-  }
   &:hover {
     text-decoration: none;
-    color: var(--color-brand);
-    &::after {
-      background-color: var(--color-brand);
-    }
+    color: white;
+    background: var(--color-brand);
+    border: 1px solid var(--color-brand);
   }
-  &.cta {
-    border-color: var(--color-brand);
-    font-weight: 600;
+  &.secondary {
+    border-color: var(--color-blu);
+    background: var(--color-blu);
+    color: white;
     transition: all 0.2s;
     &:hover {
       background-color: var(--color-brand);
-      color: white;
+      border-color: var(--color-brand);
     }
     &.altStyle {
       background-color: rgba(16, 23, 59, 0.8);
     }
   }
-  &:not(.dark).cta {
-    background-color: transparent;
-    &:hover {
-      background-color: var(--color-brand);
+}
+
+.lightDarkMode {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  &:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    content: '';
+    background-image: url('SunIcon.svg');
+    background-repeat: no-repeat;
+    background-size: 80%;
+    background-position: center;
+  }
+}
+
+html[data-theme="dark"] {
+  .lightDarkMode {
+    &:after {
+      background-size: 70%;
+      background-image: url('MoonIcon.svg');
     }
   }
-  &.dark {
-    color: white;
+}
+
+html[data-theme="dark"] .button {
+    background: var(--color-gray-400);
+    border-color: var(--color-gray-400);
+    color: var(--color-brand-1000);
     &:hover {
-      &::after {
-        background-color: white;
-      }
+      background-color: var(--color-gray-900);
+      border-color: var(--color-gray-900);
+      color: #F1F1F1;
     }
-    &.cta {
-      border-color: white;
+    &.secondary {
+      border-color: var(--color-blu);
+      background: var(--color-blu);
+      color: #F1F1F1;;
       &:hover {
-        background: white;
-        color: var(--color-brand);
+        background-color: var(--color-blu-800);
+        border-color: var(--color-blu-800);
+        color: #F1F1F1;;
+      }
+      &.altStyle {
+        background-color: rgba(16, 23, 59, 0.8);
       }
     }
-  }
 }

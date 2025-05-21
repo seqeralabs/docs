@@ -100,7 +100,7 @@ export function Autosearch(props) {
     };
   }, [props]);
 
-  return <div className="w-full rounded-md text-sm bg-white " ref={containerRef} />;
+  return <div className="w-full rounded-md text-sm" ref={containerRef} />;
 }
 
 export default Autosearch;

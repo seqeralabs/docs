@@ -1,0 +1,52 @@
+- Name: "`workspaceId`"
+  Type: integer
+  Location: query
+  Req/Opt: Optional
+  Description: Optional workspace numeric identifier
+- Name: "`credentialsId`"
+  Type: string
+  Location: query
+  Req/Opt: Optional
+  Description: Optional credentials identifier
+- Name: "`search`"
+  Type: string
+  Location: query
+  Req/Opt: Optional
+  Description: "Optional search criteria, allowing free text search on datalink
+    name and keywords: `region`, or `provider`"
+- Name: "`max`"
+  Type: integer
+  Location: query
+  Req/Opt: Optional
+  Description: Optional max number of items to be returned, used for pagination
+- Name: "`offset`"
+  Type: integer
+  Location: query
+  Req/Opt: Optional
+  Description: Optional offset used for paginated responses
+- Name: "`visibility`"
+  Type: string
+  Location: query
+  Req/Opt: Optional
+  Description: Optional parameter to filter results by visibility
+- Name: "`dataLinkId`"
+  Type: string
+  Location: path
+  Req/Opt: Required
+  Description: Datalink identifier
+- Name: "`nextPageToken`"
+  Type: string
+  Location: query
+  Req/Opt: Optional
+  Description: Optional token used to fetch the next page of items
+- Name: "`pageSize`"
+  Type: integer
+  Location: query
+  Req/Opt: Optional
+  Description: Optional number of items to return per page, if missing a
+    max-allowed default value is used
+- Name: "`path`"
+  Type: string
+  Location: path
+  Req/Opt: Required
+  Description: Content path

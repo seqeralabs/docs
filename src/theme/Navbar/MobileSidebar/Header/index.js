@@ -1,7 +1,7 @@
 import React from 'react';
 import {useNavbarMobileSidebar} from '@docusaurus/theme-common/internal';
 import {translate} from '@docusaurus/Translate';
-import NavbarColorModeToggle from '@theme/Navbar/ColorModeToggle';
+// import NavbarColorModeToggle from '@theme/Navbar/ColorModeToggle';
 import IconClose from '@theme/Icon/Close';
 import NavbarLogo from '@theme/Navbar/Logo';
 function CloseButton() {
@@ -24,7 +24,7 @@ export default function NavbarMobileSidebarHeader() {
   return (
     <div className="navbar-sidebar__brand">
       <NavbarLogo />
-      <NavbarColorModeToggle className="margin-right--md" />
+      {/* <NavbarColorModeToggle className="margin-right--md" /> */}
       <CloseButton />
     </div>
   );

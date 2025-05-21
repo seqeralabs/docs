@@ -109,4 +109,20 @@
   .ais-Pagination-link {
     color: var(--aa-text-color-dark);
   }
+  
+  .aa-DetachedSearchButton {
+    background: #464646;
+    border-color: var(--color-gray-800);
+    box-shadow: none;
+    &:focus {
+      border-color: var(--color-gray-800);
+      box-shadow: none;
+    }
+    .aa-SubmitIcon {
+      color: #f1f1f1;
+    }
+    .aa-DetachedSearchButtonPlaceholder {
+      color: #f1f1f1;
+    }
+  }
 }

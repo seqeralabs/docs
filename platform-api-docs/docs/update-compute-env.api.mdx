@@ -1,0 +1,71 @@
+---
+id: update-compute-env
+title: "Update compute environment"
+description: "Updates the details of the compute environment identified by the given `computeEnvId`."
+sidebar_label: "Update compute environment"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVd9r2zAQ/leEnjZIk2wtg+ZpbddBGWwlbdlDCVSxL4laW1IlOWkw/t93JzmxU4d0Gwz2EmLpu7vvu18qeQousdJ4qRUf8TuTCg+O+QWwFLyQmWN6Fj4TnZvCAwO1lFarHJRnMsVfOZOQsuk6oOZyCYo91OBLtbxKH/q8x72YOz665/XFEXpxfNLj2oAVFPwq3Ya/2BqjoRFW5ODBknnJFX4gsO0fQZK4G+EX+H9X0MUe1s5bqeYNeYtWFp4LaQFJeFtAj7tkAbngo5L7taGI0YhXVW9LYqXtkzMigYbDcwF23SHxcwNkqsjBymQ3dieWVB7m4WqmbS58PPp0gtEnkSo4f67TNdm8rbcIWWW1HXpNNAZQnqyFMZlMQgUGj45clF0+evoICRkaS/XyEhzdxjR0MoT+MZGkT2SOyronh9xLn8Geio9rkhWBdosSDpzRysXwH4cnXf0/vrEj9l2zjUQ0OhkOu7hzkf5NQhpG9zwH58QcqIsP52kDPJiIS2u1Hdf6SH5gfrxH4WZimNKeiSzTK+QT0Kdd9JciysGOyIC64X9Vi5cOksJKvw6Dfg7Cgj0rcKZH9xPqe9wCC01bAlslLAa64oP2RhmU7cVQ8cbnDYmKBNuetxwX3pvNKNL3NIDwJP75upnDx5UPQihZ42YQL19EbjJopmIjujMMrTGRaqYDhTopN/CMpWVn11edDVJfXWfC00pgDuxSJrioI5gqKpJQ0cJmtRw3GgxcsOtLjSAsqszCKpnpz80FElnido1xPvSPT/tDOjPa+VyolqI4qvvegdd0y6bF/uGLEgvn4cUPTCZw/SLroL6se+PVa9Pjo51nA1tqgSIJV5ZT4eDOZlVFx3GLUxem0olpRhMww/rBAZ1v7Pi9bJ9g3XlGliIrCMmp5ZfCSor/h1zejevBfc9+9/3by68+FGrdJrbhvZPMaoL4BYgUvRHZCLmIlI5uyVHjorN16FGNFmdJAsYfxLZXwfXdLc1o/RTmOiUTK1b0ouNvYKtDhsLoh7OSZ0LNi7CjeHRJEy12F8KrBRBE7c0H9k5A3OonUFW1TY+nb8pLVf0CTEFIHQ==
+sidebar_class_name: "put api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Update compute environment"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"put"}
+  path={"/compute-envs/{computeEnvId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Updates the details of the compute environment identified by the given `computeEnvId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"computeEnvId","in":"path","description":"Compute environment string identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Compute environment update request","content":{"application/json":{"schema":{"type":"object","properties":{"name":{"type":"string"},"credentialsId":{"type":"string"}},"title":"UpdateComputeEnvRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"409":{"description":"Duplicate element","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

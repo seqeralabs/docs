@@ -55,3 +55,14 @@ details.alert code {
   /* var(--ifm-code-background) */
   background-color: var(--details-code-bg);
 }
+
+
+.theme-admonition {
+  margin: 1rem 0;
+}
+
+/* image on multiqc overview */
+svg.excalidraw {
+  height: 100%;
+  max-width: 100%;
+}

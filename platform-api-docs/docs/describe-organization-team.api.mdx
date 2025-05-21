@@ -1,0 +1,71 @@
+---
+id: describe-organization-team
+title: "Describe team"
+description: "Retrieves the details of the team identified by the given `teamId`."
+sidebar_label: "Describe team"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVU1P20AQ/SvWnlopimlBleoTUGiFeigCeooiMbYn9oLtNbvj0NTyf+/M2vkiKaWIU9bzsftm5r1Jq1J0idU1aVOpSF0hWY1zdAHlGKRIoAsXmJn/JIQy0ClWpGca0yBeeHOm51gFt+K9SG/HaqQIMqeiiRKTU9ORMjVakCcuUn7kzD8Z4w+bQaV/e8cNh3JmDRZKJLSS36qKPzjB2IwTR0oLxBoo5/M27s2rgqop0epkDdVyvMWHRlvk98k2OFIuybEEFbWKFrU8oivCzIfOjC2BetOnI9V1oxWSvshnoUglbw9hKumuNpVDJxkfDw7k50kXvnNqYviWisQLdV3oxDclvHMS0u4+auI7TEh6b2VMpPsHpNKXRclMX1DCaOjhKtQx1apMHFtV7PHDHAjsT1vs9ZZYxkyYL6bpq37BPBVpKnAY1ll8RmbLuiSoeK+GrnOAhBzt6/sppIEMFx39zwDWfJhwEc5BhiKW5zu+DNztxEYB59Yau4P8cA9jlsIMKkMBFIV5ZDwS7jBprKaF1+EpgkV70jDdo8lUyMgizY2IOUOPUZQQqZCV6sLW67ULvfzDtudIp9Z3XksL+nI2b15VlBPVatCHfMc+iC394etynneP5LHqamZ8+lD+NT5wWcHJ5cWOOgfXZQEktAgc2rlOeN/1wTI7SPzsGqGbh+KiMHQ+b6wNB/H4dOHpNDPHawcDmTMP+3c+jA8/jw/EVhtHJfjRD0tkSS+/UJ8ibNf8eatt3DeV8BeFdQG8uRhV04upn9tENqzj0Gi5afvNzYZB4DzxnOuQ0LaNwSGLsevEzKy3QhI+zsFqiGUCTJlUOzkzRWZQOHymyndXgw7eB/9e43uLGYxQLZSgKBr54uM9Llb/HrLEX4Xp7/v8FViGdnZTjswRUr5HmtU7T5IEa9pI21kfW8r7dn7DsbAtnSdS8bfvhcRj9BE35h6rrlsjlG8B2HV/AFFzx+g=
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Describe team"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/orgs/{orgId}/teams/{teamId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Retrieves the details of the team identified by the given `teamId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"teamId","in":"path","description":"Team numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"team":{"type":"object","properties":{"teamId":{"type":"integer","format":"int64"},"name":{"type":"string"},"description":{"type":"string"},"avatarUrl":{"type":"string"},"membersCount":{"type":"integer","format":"int64"}},"title":"TeamDbDto"}},"title":"DescribeTeamResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

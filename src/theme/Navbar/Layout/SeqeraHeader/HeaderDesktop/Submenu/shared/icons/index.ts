@@ -1,5 +1,6 @@
 import About from "./About.svg";
 import AboutWhite from "./AboutWhite.svg";
+import AiIcon from "./AiIcon.svg";
 import Blog from "./Blog.svg";
 import Careers from "./Careers.svg";
 import CaseStudies from "./CaseStudies.svg";
@@ -12,6 +13,7 @@ import Feedback from "./Feedback.svg";
 import Forum from "./Forum.svg";
 import Github from "./Github.svg";
 import Partners from "./Partners.svg";
+import PlatformIcon from "./PlatformIcon.svg";
 import Podcast from "./Podcast.svg";
 import Press from "./Press.svg";
 import Support from "./Support.svg";
@@ -24,6 +26,7 @@ import Wave from "./Wave.svg";
 import Modules from "./Modules.svg";
 
 export {
+  AiIcon,
   About,
   AboutWhite,
   Blog,
@@ -38,6 +41,7 @@ export {
   Forum,
   Github,
   Partners,
+  PlatformIcon,
   Podcast,
   Press,
   Support,

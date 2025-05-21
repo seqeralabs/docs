@@ -42,3 +42,119 @@
   font-size: 14px;
   color: var(--color-brand-600);
 }
+
+.searchWrapper {
+  background: rgba(0,0,0,.4);
+
+  h5 {
+    color: var(--color-gray-1000);
+  }
+}
+html[data-theme="dark"] .searchWrapper { 
+  background: rgba(0,0,0,.5);
+  h5 {
+    color: white;
+  }
+  /* border-color: #DDDEDE; */
+}
+.searchModal {
+  background: white;
+  /* border-color: var(--color-blu-500); */
+}
+html[data-theme="dark"] .searchModal { 
+  background: #464646;
+  border-color: #DDDEDE;
+}
+.searchBar {
+  background: white;
+  color: var(--text-gray-800);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
+  height: 30px;
+  transition: all .3s;
+  @media (min-width: 996px) {
+    height: 40px;
+  }
+  &:hover {
+    color: var(--text-gray-1000);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .4);
+  }
+}
+
+html[data-theme="dark"] .searchBar  {
+  /* background: #464646; */
+  background: #1C1C1E;
+  box-shadow: 0 0 0 1px var(--color-gray-800);
+  color: var(--text-gray-800);
+  &:hover {
+    color: var(--text-gray-1000);
+    box-shadow: 0 0 0 1px var(--color-gray-600);
+  }
+}
+
+.productItemCta {
+  background: var(--color-product-100);
+  color: var(--color-product-1000);
+}
+
+.productItemVersion {
+  background: var(--color-gray-100);
+  color: var(--color-slate-1000);
+}
+
+.productWave {
+  background: var(--color-wave-100);
+  color: var(--color-wave-1000);
+}
+
+.productMultiQC {
+  background: var(--color-multiqc-100);
+  color: var(--color-multiqc-1000);
+}
+
+.productFusion {
+  background: var(--color-multiqc-100);
+  color: var(--color-multiqc-10000);
+}
+
+.productNextflow {
+  background: var(--color-nextflow-100);
+  color: var(--color-nextflow-10000);
+}
+
+.productApi {
+  background: var(--color-product-100);
+  color: var(--color-product-1000);
+}
+
+html[data-theme="dark"] {
+  .productItemCta {
+    background: var(--color-blu-900);
+    color: var(--color-brand-100);
+  }
+  
+  .productItemVersion {
+    background: var(--color-gray-900);
+    color: var(--color-slate-100);
+  }
+  
+  .productWave {
+    background: var(--color-wave-900);
+    color: var(--color-wave-100);
+  }
+  .productMultiQC {
+    background: var(--color-multiqc-900);
+    color: var(--color-multiqc-1000);
+  }
+  .productFusion {
+    background: var(--color-multiqc-900);
+    color: var(--color-multiqc-100);
+  }
+  .productNextflow {
+    background: var(--color-nextflow-900);
+    color: var(--color-nextflow-100);
+  }
+  .productApi {
+    background: var(--color-product-900);
+    color: var(--color-product-100);
+  }
+}

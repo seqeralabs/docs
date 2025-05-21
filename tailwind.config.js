@@ -14,7 +14,7 @@ module.exports = {
   theme: {
     screens: {
       sm: "640px",
-      md: "768px",
+      md: "996px", // set to match docusaurus default breakpoint
       lg: "1024px",
       xl: "1280px",
     },

@@ -8,7 +8,7 @@ tags: [platform, launch, pipelines, launchpad]
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-The Launchpad lists the preconfigured Nextflow pipelines that can be executed on the [compute environments](../../compute-envs/overview.mdx) in your workspace. 
+The Launchpad lists the preconfigured Nextflow pipelines that can be executed on the [compute environments](../../compute-envs/overview) in your workspace. 
 
 Platform offers two methods to import pipelines to your workspace Launchpad — directly from Seqera Pipelines or manually via **Add pipeline** in Platform.
 
@@ -33,7 +33,7 @@ To import a pipeline:
 1. Select **Add Pipeline**. 
 
 :::tip
-To launch pipelines directly with CLI tools, select the **Launch Pipeline** tab to grab commands for [Seqera Platform CLI](./automation.mdx#platform-cli), Nextflow, and [nf-core/tools](https://nf-co.re/docs/nf-core-tools):
+To launch pipelines directly with CLI tools, select the **Launch Pipeline** tab to grab commands for [Seqera Platform CLI](./automation#platform-cli), Nextflow, and [nf-core/tools](https://nf-co.re/docs/nf-core-tools):
 
 ![Launch Seqera Pipeline](assets/seqera-pipelines-launch-cli.png)
 :::
@@ -48,7 +48,7 @@ From your workspace Launchpad, select **Add Pipeline** and specify the following
 - **Name**: A custom name of your choice. Pipeline names must be unique per workspace. 
 - (*Optional*) **Description**: A summary of the pipeline or any information that may be useful to workspace participants when selecting a pipeline to launch. 
 - (*Optional*) **Labels**: Categorize the pipeline according to arbitrary criteria (such research group or reference genome version) that may help workspace participants to select the appropriate pipeline for their analysis.
-- **Compute environment**: Select an existing workspace [compute environment](../../compute-envs/overview.mdx).
+- **Compute environment**: Select an existing workspace [compute environment](../../compute-envs/overview).
 - **Pipeline to launch**: The URL of any public or private Git repository that contains Nextflow source code.
 - **Revision number**: Platform will search all of the available tags and branches in the provided pipeline repository and render a dropdown to select the appropriate version. 
     :::tip
@@ -68,7 +68,7 @@ From your workspace Launchpad, select **Add Pipeline** and specify the following
     :::
 
 :::note
-Pre-filled pipeline settings (such as compute environment, config profiles, and pipeline parameters) can be overridden during pipeline launch by workspace participants with the necessary [permissions](../../orgs-and-teams/roles.mdx).
+Pre-filled pipeline settings (such as compute environment, config profiles, and pipeline parameters) can be overridden during pipeline launch by workspace participants with the necessary [permissions](../../orgs-and-teams/roles).
 ::: 
 
 After you have populated the appropriate fields, select **Add**. Your pipeline is now available for workspace participants to launch in the preconfigured compute environment.

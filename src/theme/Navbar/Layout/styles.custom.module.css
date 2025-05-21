@@ -1,5 +1,5 @@
 html {
-  @media (min-width: 997px) {
+  @media (min-width: 996px) {
     scroll-padding-top: 110px;
   }
 }
@@ -29,6 +29,9 @@ html {
     right: 0;
     top: 0;
     background: white;
+  }
+  @media (max-width: 995px) {
+    display: none;
   }
 }
 .siteNav {

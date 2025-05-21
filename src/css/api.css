@@ -1,0 +1,103 @@
+
+.openapi__method-endpoint-path {
+    margin-top: 0;
+}
+
+.menu__list-item--deprecated  {
+    display: flex;
+    flex-direction: row;
+    /* .menu__link {
+       position: relative;
+       &:after {
+        text-transform: uppercase;
+        content: 'Deprecated';
+        color: #DC3545;
+        font-size: 8px;
+        padding-left: .25rem;
+        font-weight: 600;
+       }
+    } */
+   &:before {
+    opacity: .4;
+   }
+}
+
+[data-theme="light"] nav.menu .menu__list  .menu__list-item--deprecated .menu__link {
+    color: var(--color-gray-800); 
+}
+html[data-theme="light"] .navbar-sidebar .menu__link:before {
+
+}
+
+[data-theme="light"] .navbar-sidebar .menu__link:before,
+[data-theme="dark"] .navbar-sidebar .menu__link:before,
+[data-theme="light"] nav.menu .menu__list  .menu__link:before,
+[data-theme="dark"] nav.menu .menu__list  .menu__link:before {
+   margin-right: 5px;
+}
+
+.api-method {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex: none;
+    .menu__link {
+        &:before {
+            text-transform: uppercase;
+            font-size: 7px;
+            font-weight: 600;
+            display: flex;
+            justify-content: center;
+            flex: none;
+            align-items: center;
+            height: 20px;
+            width: 35px;
+            padding: 3px;
+            text-align: center;
+        }
+    }
+    .menu__link--active {
+        &:before {
+            background: white;
+        }
+    }
+    &:hover {
+        background: var(--color-blu-100);
+        border-radius: 4px;
+    }
+    &.post {  
+        .menu__link:before {
+            content: 'Post';
+            border: 1px solid var(--color-nextflow-600);
+        }
+    }
+    &.get {
+        .menu__link:before  {
+            content: 'Get';
+            border: 1px solid var(--color-wave-600);
+        }
+    }
+    &.put {
+        .menu__link:before  {
+            content: 'Put';
+            border: 1px solid var(--color-multiqc-400);
+        }
+    }
+    &.delete {
+        .menu__link:before  {
+            content: 'Delete';
+            border: 1px solid #DC3545;
+        }
+    }
+}
+
+[data-theme="dark"]  {
+    .api-method {
+        .menu__link--active {
+            &:before {
+                background: transparent;
+            }
+        }
+    }
+ }

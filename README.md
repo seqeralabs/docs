@@ -98,3 +98,25 @@ You can link between Markdown files with relative links within the same document
 ```
 For more information, see [Fusion](https://docs.seqera.io/fusion).
 ```
+
+## Workaround for Netlify memory problems (May 2025)
+
+In May 2025 we added new API docs. This increased the size of the Docusaurus build,
+and led to Netlify deployment builds running out of memory and time.
+
+To fix this, we added logic to `docusaurus.config.js` and `netlify.toml` to split the
+site builds into multiple separate Netlify deployments, stitched back together with redirects.
+
+This works using the following principles:
+
+- Sections of the docs are defined in variables in `docusaurus.config.mjs`
+- Based on the presence or absence of named environment variables, they are included in the Docuaurus config or not
+- By defining these ENV vars in your build environment, you can selectively skip chunks in the build
+
+Deployment works because we have two Netlify sites: `seqera-docs` and `seqera-docs-api`.
+They're the same except that they have different environment variable set in their configuration.
+This means that whenever you push to `master`, both deploy and both sites update.
+
+The site's `netlify.toml` includes some redirects with `200` statuses that take links to missing content on the primary deployment to fetch data from the secondary deployment, without affecting the browser bar URL.
+
+That should be it!

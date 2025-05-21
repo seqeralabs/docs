@@ -1,0 +1,62 @@
+- Name: "`workspaceId`"
+  Type: integer
+  Location: query
+  Req/Opt: Optional
+  Description: Optional workspace numeric identifier
+- Name: "`search`"
+  Type: string
+  Location: query
+  Req/Opt: Optional
+  Description: "Optional search criteria, allowing free text search on name and
+    templateUrl and keywords: `userId`, `computeEnvId` and `status`"
+- Name: "`max`"
+  Type: integer
+  Location: query
+  Req/Opt: Optional
+  Description: Optional max number of items to be returned, used for pagination
+- Name: "`offset`"
+  Type: integer
+  Location: query
+  Req/Opt: Optional
+  Description: Optional offset used for paginated responses
+- Name: "`attributes`"
+  Type: array
+  Location: query
+  Req/Opt: Optional
+  Description: "Optional additional attribute values to be included in the
+    response (`labels`). Returns an empty (`labels: null`) if omitted"
+- Name: "`autoStart`"
+  Type: boolean
+  Location: query
+  Req/Opt: Optional
+  Description: Optionally disable automatic launch of DataStudio upon successful creation.
+- Name: "`orgId`"
+  Type: integer
+  Location: query
+  Req/Opt: Optional
+  Description: Organization numeric identifier.
+- Name: "`status`"
+  Type: string
+  Location: query
+  Req/Opt: Optional
+  Description: Optional Studio status.
+- Name: "`exclude`"
+  Type: string
+  Location: query
+  Req/Opt: Optional
+  Description: Optional session ID of the Studio to exclude in a query.
+- Name: "`name`"
+  Type: string
+  Location: query
+  Req/Opt: Optional
+  Description: Studio name to be validated
+- Name: "`sessionId`"
+  Type: string
+  Location: path
+  Req/Opt: Required
+  Description: Session ID of the Studio.
+- Name: "`checkpointId`"
+  Type: integer
+  Location: path
+  Req/Opt: Required
+  Description: Numeric identifier of the checkpoint.

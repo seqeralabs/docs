@@ -64,6 +64,8 @@ services:
       - backend
     volumes:
       - $PWD/tower.yml:/tower.yml
+      # Data studios RSA key is required for the data studios functionality. Uncomment the line below to mount the key.
+      #- $PWD/data-studios-rsa.pem:/data-studios-rsa.pem
     env_file:
       - tower.env
     environment:

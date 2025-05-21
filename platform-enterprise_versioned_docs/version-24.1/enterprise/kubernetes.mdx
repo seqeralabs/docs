@@ -60,7 +60,7 @@ Seqera Enterprise is distributed as a collection of Docker containers available 
 
 ### Seqera ConfigMap
 
-Download and configure a [ConfigMap](_templates/k8s/configmap.yml). See [Configuration](configuration/overview.mdx) for more information.
+Download and configure a [ConfigMap](_templates/k8s/configmap.yml). See [Configuration](configuration/overview) for more information.
 
 Deploy the ConfigMap to your cluster after it is configured:
 
@@ -105,7 +105,7 @@ Seqera supports managed Redis services such as [Amazon ElastiCache][aws-elastica
 
 - Use a single-node cluster, as multi-node clusters are not supported
 - Use an instance with at least 6GB capacity ([cache.m4.large][aws-cache-instances] or greater)
-- Specify your private ElastiCache instance in the Seqera [environment variables](./configuration/overview.mdx#database-and-redis-manual-configuration):
+- Specify your private ElastiCache instance in the Seqera [environment variables](./configuration/overview#database-and-redis-manual-configuration):
 
   ```bash
   TOWER_REDIS_URL=redis://<redis private IP>:6379
@@ -116,7 +116,7 @@ Seqera supports managed Redis services such as [Amazon ElastiCache][aws-elastica
 
 - Use a single-node cluster, as multi-node clusters are not supported
 - Use an instance with at least 6GB capacity ([C3][azure-cache-instances] or greater)
-- Specify your private Azure Cache for Redis instance in the Seqera [environment variables](./configuration/overview.mdx#database-and-redis-manual-configuration):
+- Specify your private Azure Cache for Redis instance in the Seqera [environment variables](./configuration/overview#database-and-redis-manual-configuration):
 
   ```bash
   TOWER_REDIS_URL=redis://<redis private IP>:6379
@@ -127,7 +127,7 @@ Seqera supports managed Redis services such as [Amazon ElastiCache][aws-elastica
 
 - Use a single-node cluster, as multi-node clusters are not supported
 - Use an instance with at least 6GB capacity ([M2][google-cache-instances] or greater)
-- Specify your private Memorystore instance in the Seqera [environment variables](./configuration/overview.mdx#database-and-redis-manual-configuration):
+- Specify your private Memorystore instance in the Seqera [environment variables](./configuration/overview#database-and-redis-manual-configuration):
 
   ```bash
   TOWER_REDIS_URL=redis://<redis private IP>:6379
@@ -202,7 +202,7 @@ The unprivileged Seqera image will soon deprecate the current image that require
 - `NGINX_UPSTREAM_HOST` (default `backend`): The hostname of the backend service to which the NGINX process will route requests.
 - `NGINX_UPSTREAM_PORT` (default `8080`): The port where the backend service is exposed.
 
-If further customization of the config file is needed, mount a config map/secret over the templated NGINX configuration file at `/etc/nginx/templates/tower.conf.template`. See [SSL/TLS](./configuration/ssl_tls.mdx#configure-seqera-to-present-a-ssltls-certificate) for an example.
+If further customization of the config file is needed, mount a config map/secret over the templated NGINX configuration file at `/etc/nginx/templates/tower.conf.template`. See [SSL/TLS](./configuration/ssl_tls#configure-seqera-to-present-a-ssltls-certificate) for an example.
 
 ### Seqera ingress
 
@@ -238,7 +238,7 @@ kubectl get pods
 
 ### Test the application
 
-See [Test deployment](./testing.mdx).
+See [Test deployment](./testing).
 
 ## Optional features
 
@@ -252,7 +252,7 @@ The initContainers will wait until both the Seqera and pipeline optimization ser
 
 ### Data Studios
 
-[Data Studios](../data_studios/index.mdx) is an interactive analysis environment available in organizational workspaces. To enable Data Studios, see [Data Studios deployment](./data-studios.mdx).
+[Data Studios](../data_studios/index) is an interactive analysis environment available in organizational workspaces. To enable Data Studios, see [Data Studios deployment](./data-studios).
 
 :::note
 Data Studios is currently in **public preview** and is available from Seqera Platform v24.1. If you experience any problems during the deployment process [contact Seqera support](https://support.seqera.io). Data Studios in Enterprise is not installed by default.

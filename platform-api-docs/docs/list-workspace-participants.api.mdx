@@ -1,0 +1,71 @@
+---
+id: list-workspace-participants
+title: "List workspace participants"
+description: "Lists the participants of the workspace identified by the given `workspaceId`."
+sidebar_label: "List workspace participants"
+hide_title: true
+hide_table_of_contents: true
+api: eJy1Vltv2koQ/ivWPrUSCmlTHak8lZzSo+gkJxHhqA8RUgd7MJvYu87uGkqR/3tn1hdMcAiJ1CfM7ux839xnIyK0oZGZk1qJgbiU1tnALTDIwDgZygwUHei5P1tp82AzCDGQESon5xKjYLb2d7Fcogp+NCIX0Y8T0RMOYisGd6I5t2LaEzpDAwx5EVWg3+v7mxYuvScakKJDw1o2QtEfeqFNTC97QjLnDNyCvncNuTYxKPnLgwQqT9HIcMvakLzBx1waJALO5NgTNlxgCmKwEW6dMYhUDmMvOtcmBVce/fVJFEWvYdKy9yCfxr4/SSaFnzWJxxzNeo/FDcRSlT4xaPPEBfSk+hRHo5593EHV87lFdzRwI/42NItgwsVhtG8yoYwJStGgSaEuTOuMVDEhTDkINtPKUorS/cfTU/55klX/ko5QE0/l+BayLJGht6t/b1lksw+hZ/cYssGZ4bx3sgRoF1hLGowBtkg6TO2rtHAtHZEvPZFiOkNztHhu0fznnb/nNRKXxrpnbxM4cElekknnDZX3WCcdr+gRlQ/3E71Snm5pi49KksBMU1vRhluMk441cCPwukitQ0iPtpqFn6W+stmxBCFKKVOJKJBq8J8J5MqnMGWSKoO6lLhqs/5eATARD/A80NXo6nw0poPJaHhFP39fX14Oz6/Hw8n1uK2y1VgnrKqycbgEB+Z/0x0Jjv0hiaJT/9fZV6fLS+0guZW/8MhW1mjjmdAeBeOqNkmIxT51Vec5RAE3UrTuNWW67b13lE7WQozebwfrrhY86JKRMdrsMT/r6Cv1PAyUdgEkiV4RHxa3GOZGurWffufU0CgeOc2Xwd2UWxb1tYXmGRr7lupHz0D0qYBsf+OnZNHfjt7+pjWuin62O2prqFv2TGllG7AxdOFcVrdS/j/zQnRSfnyrg3q/ct4EqebaP6+8couPZG0wvLnYa9zV1U0CjnODOrhZSiJeCXNIIfQhzTkdPRU76Petf3citWjaiof9sr0gIkvaIkqcDydnn09O+SzT1qXgM6IaMJx5rU3niZN2+G62SfYHNqfS2w5/un6WcOfgeiyrsIzzHTdKJjWo96HWlkWnu7vJjiGUOguynHVsNjOwSOVdFHxcTlTOtkhamCVcF3NILB6w/YW1otOSB1w3G8sSkpwlBM/5N8E2S8UBrEbmjXDPbxUHQJt1ZQs65T9GMuor/fxuXLWq98HL+20nqXrJUOs2pcZDPo1e55UWpxd23DcQamdwMSXxBUJEythtpcQwDDFrB3Wv1++0yX9GE57Juw3tSQPz2jt5Ual4iYl+QEXlUtN0/J8JFsVv/ACUiw==
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List workspace participants"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/orgs/{orgId}/workspaces/{workspaceId}/participants"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Lists the participants of the workspace identified by the given `workspaceId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"path","description":"Workspace numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"max","in":"query","description":"Pagination result max result","schema":{"type":"integer","format":"int32"}},{"name":"offset","in":"query","description":"Pagination offset","schema":{"type":"integer","format":"int32"}},{"name":"search","in":"query","description":"Filter search parameter","schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"participants":{"type":"array","items":{"type":"object","properties":{"participantId":{"type":"integer","format":"int64"},"memberId":{"type":"integer","format":"int64"},"userName":{"type":"string"},"firstName":{"type":"string"},"lastName":{"type":"string"},"email":{"type":"string"},"orgRole":{"type":"string","enum":["owner","member","collaborator"],"title":"OrgRole"},"teamId":{"type":"integer","format":"int64"},"teamName":{"type":"string"},"wspRole":{"type":"string","enum":["owner","admin","maintain","launch","connect","view"],"title":"WspRole"},"type":{"type":"string","enum":["MEMBER","TEAM","COLLABORATOR"],"title":"ParticipantType"},"teamAvatarUrl":{"type":"string"},"userAvatarUrl":{"type":"string"}},"title":"ParticipantDbDto"}},"totalSize":{"type":"integer","format":"int64"}},"title":"ListParticipantsResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

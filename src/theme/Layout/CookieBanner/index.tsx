@@ -62,7 +62,7 @@ const CookieBanner = () => {
     <div
       className={clsx(
         styles.banner,
-        "bg-brand fixed bottom-0 w-full lg:left-1/2 lg:transform lg:-translate-x-[50%] lg:w-[70%] z-[2147483648] p-4 lg:rounded-md lg:mb-6",
+        "fixed bottom-0 w-full lg:left-1/2 lg:transform lg:-translate-x-[50%] lg:w-[70%] z-[2147483648] p-4 lg:rounded-md lg:mb-6",
         {
           hidden: cookies.preferencesSet !== undefined,
         },
