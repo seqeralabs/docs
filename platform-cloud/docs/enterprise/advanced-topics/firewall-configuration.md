@@ -63,7 +63,7 @@ In order for you to access resources such as Fusion tarballs, `nf-xpack` files, 
 - `public-cr-prod.seqera.io.cdn.cloudflare.net`
 - `wave-cache-prod-cloudflare.seqera.io.cdn.cloudflare.net`
 
-If you chose to filter by specific DNS records, please note that new services may be added in the future.
+If you choose to filter by specific DNS records, please note that new services may be added in the future.
 
 :::note
 If your allowlist is based on IP addresses, allow all of the following IP addresses: https://www.cloudflare.com/ips/.
