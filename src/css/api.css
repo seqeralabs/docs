@@ -101,3 +101,7 @@
         }
     }
  }
+
+ .openapi-security__summary-header {
+    margin-top: 0;
+ }
