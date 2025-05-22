@@ -111,7 +111,7 @@ This customized Data Explorer view will be displayed by default to all workspace
 
 Data Explorer supports file uploads to your private cloud storage buckets. From the **View cloud bucket** page, select **Upload file** to select the files you wish to upload. You can upload up to 300 files at a time via the Platform interface. 
 
-To cancel the upload, select **X** in the upload window. 
+To cancel the upload, select **X** in the upload window. Any files that were not uploaded will display as **Failed**. Files that were successfully uploaded will not be removed. 
 
 :::note
 You must configure cross-origin resource sharing (CORS) for your cloud storage provider to allow file uploads from Seqera. CORS configuration differs for each provider.
