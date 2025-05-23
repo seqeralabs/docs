@@ -42,3 +42,7 @@
 /platform/:version/enterprise/*   /platform-enterprise/:version/enterprise/:splat   301
 /platform/:version/*    /platform-cloud/:splat
 /platform/*   /platform-cloud/:splat
+
+
+#Redirect platform-api to intro page (needs to be direct link due to router issue)
+/platform-api   https://docs.seqera.io/platform-api/seqera-api   301
