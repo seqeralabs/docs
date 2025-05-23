@@ -128,7 +128,7 @@ Currently, these limits are:
 To cancel the upload, select **X** in the upload window. Any files that were not uploaded will display as **Failed**. Files that were successfully uploaded will not be removed. 
 
 :::note
-You must configure cross-origin resource sharing (CORS) for your cloud storage provider to allow file uploads from Seqera. CORS configuration differs for each provider.
+You must configure cross-origin resource sharing (CORS) for your cloud storage provider to allow file uploads from Platform. CORS configuration differs for each provider.
 :::
 
 ## Download multiple files
