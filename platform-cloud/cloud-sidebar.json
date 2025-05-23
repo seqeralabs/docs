@@ -82,7 +82,8 @@
             "label": "Advanced options",
             "items":[
               "enterprise/advanced-topics/manual-aws-batch-setup",
-              "enterprise/advanced-topics/manual-azure-batch-setup"
+              "enterprise/advanced-topics/manual-azure-batch-setup",
+              "enterprise/advanced-topics/firewall-configuration"
             ]
           }
           ]
