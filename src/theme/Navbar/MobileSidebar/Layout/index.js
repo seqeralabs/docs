@@ -29,12 +29,15 @@ function NavButtons({ currentPanel, setPanel }) {
     // If the segment contains 'multiqc', capitalize 'QC'
     if (/multiqc/i.test(label)) {
       label = label.replace(/multiqc/i, 'MultiQC');
+    } 
+    if (/platform[-_\s]?api/i.test(pathname)) {
+      return "Platform API";
     }
     // Capitalize the first letter of each word (excluding the already fixed "QC")
     label = label
       .split(' ')
       .map(word => {
-        if (word === 'QC') return word;
+        if (word === 'QC') return word
         return word.charAt(0).toUpperCase() + word.slice(1);
       })
       .join(' ');
