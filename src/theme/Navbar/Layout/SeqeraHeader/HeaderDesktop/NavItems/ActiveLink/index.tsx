@@ -1,24 +1,22 @@
 import React from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
 import styles from "./activelink.module.css";
-
 
 const ActiveLink = ({ url, externalLink, exact, children, customClasses, ...rest }) => {
   
-  const location = useLocation();
-  const currentPath = location.pathname;
-
+  const currentPath = window.location.pathname;
   const getFirstSegment = (path) => path.split("/").filter(Boolean)[0] || "";
+
   const currentFirst = getFirstSegment(currentPath);
   const urlFirst = getFirstSegment(new URL(url, window.location.origin).pathname);
 
-  const isMatch = currentFirst === urlFirst;
+  const isActive = currentFirst === urlFirst;
 
   if (externalLink) {
     return (
       <a
         href={url}
-        className={`${styles.navLink} ${customClasses} ${isMatch ? styles.isActive : ""}`}
+        className={`${styles.navLink} ${customClasses} ${isActive ? styles.isActive : ''}`}
         {...rest}
       >
         {children}
