@@ -236,6 +236,7 @@ html .alert--secondary > div:first-child {
 }
 html .alert--secondary > div:last-child {
   background-color: #E8F2FF;
+}
 
 /* Allow Code Block Expansion */
 .theme-code-block pre {
