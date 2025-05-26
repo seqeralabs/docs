@@ -419,3 +419,8 @@ html[data-theme="dark"]{
     }
   }
 }
+
+/* removes jumping effect when sidebar accordion open or closes */
+.menu__list .menu__list {
+  margin-top: 0;
+}
