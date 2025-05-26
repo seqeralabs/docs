@@ -116,7 +116,7 @@ CMD ["/usr/bin/bash", "-c", "python3 -m http.server $CONNECT_TOOL_PORT"]
 
 ### Getting started with custom containers template images
 
-You can review a series of example custom studio environment container template images [here](custom-studios-examples).
+You can review a series of example custom studio environment container template images [here][custom-studios-examples].
 
 ### Inspect container augmentation build status {#build-status}
 

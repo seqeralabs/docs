@@ -22,11 +22,11 @@
    }
 }
 
-[data-theme="light"] nav.menu .menu__list  .menu__list-item--deprecated .menu__link {
-    color: var(--color-gray-800); 
-}
-html[data-theme="light"] .navbar-sidebar .menu__link:before {
-
+[data-theme="light"] {
+    .navbar-sidebar .menu__list-item--deprecated .menu__link,
+    nav.menu .menu__list  .menu__list-item--deprecated .menu__link {
+        color: var(--color-gray-800); 
+    }
 }
 
 [data-theme="light"] .navbar-sidebar .menu__link:before,
@@ -100,4 +100,8 @@ html[data-theme="light"] .navbar-sidebar .menu__link:before {
             }
         }
     }
+ }
+
+ .openapi-security__summary-header {
+    margin-top: 0;
  }
