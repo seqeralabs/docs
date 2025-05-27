@@ -426,14 +426,14 @@ html[data-theme="dark"]{
 }
 
 /* Font rendering + code block tweaks */
-html {
+article .markdown {
   -webkit-font-smoothing: auto;
   line-height: 24px;
 }
 :root {
   --ifm-code-border-radius: 0;
 }
-html code {
+article .markdown code {
   color: #C3514D;
   font-size: 75%;
   padding: 2px 5px;
@@ -441,7 +441,7 @@ html code {
   background: #fff;
   border: 1px solid #e1e4e5;
 }
-html pre code {
+article .markdown pre code {
   background-color: #f8f8f8;
   font-size: 12px !important;
 }
