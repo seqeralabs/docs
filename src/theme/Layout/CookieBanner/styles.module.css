@@ -1,7 +1,19 @@
+.banner {
+  background: var(--color-brand);
+}
+
 @media (min-width: 1024px) {
   .banner {
     left: 50%;
     transform: translateX(-50%);
     width: 70%;
+    background: var(--color-brand);
+  }
+}
+
+html[data-theme="dark"]  {
+  .banner {
+    background: #3F3F3F;
+    border: 1px solid var(--brand-900);
   }
 }
