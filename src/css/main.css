@@ -445,7 +445,7 @@ article .markdown :not(pre) > code {
 }
 article .markdown pre code {
   background-color: #f8f8f8;
-  font-size: 12px !important;
+  font-size: .75rem !important;
 }
 html[data-theme="dark"]{ 
   article .markdown code {
