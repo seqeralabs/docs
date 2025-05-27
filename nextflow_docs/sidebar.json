@@ -5,9 +5,19 @@
         "label": "Getting started",
         "collapsed": false,
         "items": [
+            "overview",
             "install",
-            "testformat"
+            "developer-env",
+            "your-first-script"
         ]
-        }
+        },
+        {
+            "type": "category",
+            "label": "Running pipelines",
+            "collapsed": false,
+            "items": [
+                "cli"
+            ]
+            }
     ]
 }
