@@ -21,12 +21,4 @@
     }
   });
 
-  // Add support for Nextflow-specific operators
-  Prism.languages.insertBefore('nextflow', 'operator', {
-    'nextflow-operator': {
-      pattern: /(?:->|>>|<<|:|::)/,
-      alias: 'operator'
-    }
-  });
-
 }(Prism));
