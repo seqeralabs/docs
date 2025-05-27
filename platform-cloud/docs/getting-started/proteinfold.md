@@ -9,7 +9,7 @@ toc_max_heading_level: 2
 This guide details how to perform best-practice analysis for protein 3D structure prediction on an AWS Batch compute environment in Platform. It includes: 
 
 - Creating AWS Batch compute environments to run your pipeline and downstream analysis
-- Adding the nf-core/proteinfold pipeline to your workspace 
+- Adding the `nf-core/proteinfold` pipeline to your workspace 
 - Importing your pipeline input data
 - Launching the pipeline and monitoring execution from your workspace
 - Setting up a custom analysis environment with Studios
@@ -30,16 +30,15 @@ Given the data sizes and computational intensity, production pipelines perform b
 
 ### GPUs
 
-The nf-core/proteinfold pipeline performs protein folding prediction using one of three deep learning models: AlphaFold2, ColabFold, or ESMFold. The computationally intensive tasks for protein structure prediction perform better on GPUs due to their ability to handle large matrix operations efficiently and perform parallel computations. GPUs can dramatically reduce the time required for protein structure predictions, making it feasible to analyze larger datasets or perform more complex simulations.
+The `nf-core/proteinfold` pipeline performs protein folding prediction using one of three deep learning models: AlphaFold2, ColabFold, or ESMFold. The computationally intensive tasks for protein structure prediction perform better on GPUs due to their ability to handle large matrix operations efficiently and perform parallel computations. GPUs can dramatically reduce the time required for protein structure predictions, making it feasible to analyze larger datasets or perform more complex simulations.
 
 Platform supports the allocation of both CPUs and GPUs in the same compute environment. For example, specify `m6id`, `c6id`, `r6id`, `g5`, `p3` instance families in the **Instance types** field when creating your AWS Batch compute environment. See [Create compute environment](#create-compute-environment) below. 
 
-When you launch nf-core/proteinfold in Platform, enable **use_gpu** to instruct Nextflow to run GPU-compatible pipeline processes on GPU instances. See [Launch pipeline](#launch-pipeline) below. 
+When you launch `nf-core/proteinfold` in Platform, enable **use_gpu** to instruct Nextflow to run GPU-compatible pipeline processes on GPU instances. See [Launch pipeline](#launch-pipeline) below. 
 
 ### Fusion file system
 
-The [Fusion](../supported_software/fusion/overview) file system enables seamless read and write operations to cloud object stores, leading to
-simpler pipeline logic and faster, more efficient execution. While Fusion is not required to run nf-core/proteinfold, it significantly enhances I/O-intensive tasks and eliminates the need for intermediate data copies, which is particularly beneficial when working with the large databases used by deep learning models for prediction. 
+The [Fusion](../supported_software/fusion/overview) file system enables seamless read and write operations to cloud object stores, leading to simpler pipeline logic and faster, more efficient execution. While Fusion is not required to run `nf-core/proteinfold`, it significantly enhances I/O-intensive tasks and eliminates the need for intermediate data copies, which is particularly beneficial when working with the large databases used by deep learning models for prediction. 
 
 Fusion works best with AWS NVMe instances (fast instance storage) as this delivers the fastest performance when compared to environments using only AWS EBS (Elastic Block Store). Batch Forge selects instances automatically based on your compute environment configuration, but you can optionally specify instance types. To enable fast instance storage, you must select EC2 instances with NVMe SSD storage (`g4dn`, `g5`, or `P3` families or greater). 
 
