@@ -5,9 +5,6 @@ date: "12 Jul 2024"
 tags: [platform, launch, pipelines, launchpad]
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 The Launchpad lists the preconfigured Nextflow pipelines that can be executed on the [compute environments](../../compute-envs/overview) in your workspace. 
 
 Platform offers two methods to import pipelines to your workspace Launchpad — directly from Seqera Pipelines or manually via **Add pipeline** in Platform.
@@ -44,6 +41,13 @@ To launch pipelines directly with CLI tools, select the **Launch Pipeline** tab 
 
 From your workspace Launchpad, select **Add Pipeline** and specify the following pipeline details:
 
+- (*Optional*) **Image**: Select the **Edit** icon on the pipeline image to open the **Edit image** window. From here, select **Upload file** to browse for an image file, or drag and drop the image file directly. Images must be in JPG or PNG format, with a maximum file size of 200 KB. 
+    :::note
+    You can upload custom icons when adding or updating a pipeline. If no user-uploaded icon is defined, Platform will retrieve and attach a pipeline icon in the following order of precedence:
+      1. A valid icon key:value pair defined in the "manifest" object of the nextflow.config file
+      2. The Github organization avatar (if the repository is hosted on Github)
+    If none of the above are defined, Platform auto-generates and attaches a pipeline icon.
+    :::
 - **Name**: A custom name of your choice. Pipeline names must be unique per workspace. 
 - (*Optional*) **Description**: A summary of the pipeline or any information that may be useful to workspace participants when selecting a pipeline to launch. 
 - (*Optional*) **Labels**: Categorize the pipeline according to arbitrary criteria (such research group or reference genome version) that may help workspace participants to select the appropriate pipeline for their analysis.
