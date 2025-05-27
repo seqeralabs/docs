@@ -424,3 +424,24 @@ html[data-theme="dark"]{
 .menu__list .menu__list {
   margin-top: 0;
 }
+
+/* Font rendering + code block tweaks */
+html {
+  -webkit-font-smoothing: auto;
+  line-height: 24px;
+}
+:root {
+  --ifm-code-border-radius: 0;
+}
+html code {
+  color: #C3514D;
+  font-size: 75%;
+  padding: 2px 5px;
+  border-radius: 0;
+  background: #fff;
+  border: 1px solid #e1e4e5;
+}
+html pre code {
+  background-color: #f8f8f8;
+  font-size: 12px !important;
+}
