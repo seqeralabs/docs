@@ -434,12 +434,14 @@ article .markdown {
   --ifm-code-border-radius: 0;
 }
 article .markdown code {
-  color: #C3514D;
   font-size: 75%;
-  padding: 2px 5px;
   border-radius: 0;
-  background: #fff;
   border: 1px solid #e1e4e5;
+}
+article .markdown :not(pre) > code {
+  color: #C3514D;
+  padding: 2px 5px;
+  background: #fff;
 }
 article .markdown pre code {
   background-color: #f8f8f8;
