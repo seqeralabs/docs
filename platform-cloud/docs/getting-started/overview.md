@@ -15,10 +15,10 @@ The Community Showcase [Launchpad](../launch/launchpad) is an example workspace 
 
 ### Components
 
-- [Datasets](../data/datasets) are collections of versioned, structured data (usually in the form of a samplesheet) in CSV or TSV format. A dataset is used as the input for a pipeline run. Sample datasets are used in pipelines with the same name, e.g., the `nf-core-rnaseq-test` dataset is used as input when you run the `nf-core-rnaseq` pipeline.
+- [Datasets](../data/datasets) are collections of versioned, structured data (usually in the form of a samplesheet) in CSV or TSV format. A dataset is used as the input for a pipeline run. Sample datasets are used in pipelines with the same name, e.g., the *nf-core-rnaseq-test* dataset is used as input when you run the *nf-core-rnaseq* pipeline.
 - [Compute environments](../compute-envs/overview) are the platforms where workflows are executed. A compute environment consists of access credentials, configuration settings, and storage options for the environment.
 - [Credentials](../credentials/overview) are the authentication keys Seqera uses to access compute environments, private code repositories, and external services. Credentials are SHA-256 encrypted before secure storage. The Community Showcase includes all the credentials you need to run pipelines in the included AWS Batch compute environments.
-- [Secrets](../secrets/overview) are retrieved and used during pipeline execution. In your private or organization workspace, you can store the access keys, licenses, or passwords required for your pipeline execution to interact with third-party services. The secrets included in the Community Showcase contain license keys to run `nf-dragen` and `nf-sentieon` pipelines in the showcase compute environments.
+- [Secrets](../secrets/overview) are retrieved and used during pipeline execution. In your private or organization workspace, you can store the access keys, licenses, or passwords required for your pipeline execution to interact with third-party services. The secrets included in the Community Showcase contain license keys to run *nf-dragen* and *nf-sentieon* pipelines in the showcase compute environments.
 
 ## Run a pipeline with sample data
 
