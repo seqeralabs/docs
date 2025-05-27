@@ -43,15 +43,15 @@ The [Fusion](../supported_software/fusion/overview) file system enables seamless
 Fusion works best with AWS NVMe instances (fast instance storage) as this delivers the fastest performance when compared to environments using only AWS EBS (Elastic Block Store). Batch Forge selects instances automatically based on your compute environment configuration, but you can optionally specify instance types. To enable fast instance storage, you must select EC2 instances with NVMe SSD storage (`g4dn`, `g5`, or `P3` families or greater). 
 
 :::note 
-Fusion requires a license for use in Seqera Platform compute environments or directly in Nextflow. Fusion can be trialed at no cost. [Contact Seqera](https://seqera.io/contact-us/) for more details.
+Fusion requires a license for use in Seqera Platform compute environments or directly in Nextflow. See [Fusion licensing](https://docs.seqera.io/fusion/licensing) for more information.
 :::
 
 ### Create compute environment
 
 :::info
-The same compute environment can be used for pipeline execution and running your Studios notebook environment, but Studios does not support AWS Fargate. To use this compute environment for both nf-core/proteinfold execution and your data studio, leave **Enable Fargate for head job** disabled and include a CPU-based EC2 instance family (`c6id`, `r6id`, etc.) in your **Instance types**. 
+The same compute environment can be used for pipeline execution and running your Studios notebook environment, but Studios does not support AWS Fargate. To use this compute environment for both *nf-core/proteinfold* execution and your Studio, leave **Enable Fargate for head job** disabled and include a CPU-based EC2 instance family (`c6id`, `r6id`, etc.) in your **Instance types**. 
 
-Alternatively, create a second basic AWS Batch compute environment and a data studio with at least 2 CPUs and 8192 MB of RAM.
+Alternatively, create a second basic AWS Batch compute environment and a Studio with at least 2 CPUs and 8192 MB of RAM.
 :::
 
 From the **Compute Environments** tab in your organization workspace, select **Add compute environment** and complete the following fields:
