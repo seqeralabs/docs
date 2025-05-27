@@ -1,6 +1,6 @@
 (function (Prism) {
   Prism.languages.nextflow = Prism.languages.extend('groovy', {
-    'keyword': /\b(?:abstract|as|assert|boolean|break|byte|case|catch|char|class|const|continue|def|default|do|double|else|enum|extends|final|finally|float|for|goto|if|implements|import|in|instanceof|int|interface|long|native|new|package|private|protected|public|return|short|static|strictfp|super|switch|synchronized|this|throw|throws|trait|transient|try|void|volatile|while|process|workflow|input|output|publishDir|exec|shell|script|stub|container|conda|module|include|from)\b/,
+    'keyword': /\b(?:as|assert|boolean|byte|catch|char|def|double|else|enum|float|if|in|instanceof|int|long|new|return|short|throw|try|void|process|workflow|input|output|exec|shell|script|stub|include|from)\b/,
     'string': {
       pattern: /"""(?:[^\\]|\\[\s\S])*?"""|'''(?:[^\\]|\\[\s\S])*?'''|'(?:\\.|[^\\'\r\n])*'|"(?:\\.|[^\\"\r\n])*"/,
       greedy: true
