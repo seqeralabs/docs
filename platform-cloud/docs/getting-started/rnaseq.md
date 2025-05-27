@@ -91,11 +91,11 @@ The [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline is a highly con
 
 [Seqera Pipelines](https://seqera.io/pipelines) is a curated collection of quality open-source pipelines that can be imported directly to your workspace Launchpad in Platform. Each pipeline includes a dataset to use in a test run to confirm compute environment compatibility in just a few steps.
 
-To use Seqera Pipelines to import the `nf-core/rnaseq` pipeline to your workspace:
+To use Seqera Pipelines to import the *nf-core/rnaseq* pipeline to your workspace:
 
 ![Seqera Pipelines add to Launchpad](./_images/pipelines-add.gif)
 
-1. Search for `nf-core/rnaseq` and select **Launch** next to the pipeline name in the list. In the **Add pipeline** tab, select **Cloud** or **Enterprise** depending on your Platform account type, then provide the information needed for Seqera Pipelines to access your Platform instance:
+1. Search for *nf-core/rnaseq* and select **Launch** next to the pipeline name in the list. In the **Add pipeline** tab, select **Cloud** or **Enterprise** depending on your Platform account type, then provide the information needed for Seqera Pipelines to access your Platform instance:
     - **Seqera Cloud**: Paste your Platform **Access token** and select **Next**.  
     - **Seqera Enterprise**: Specify the **Seqera Platform URL** (hostname) and **Base API URL** for your Enterprise instance, then paste your Platform **Access token** and select **Next**.
     :::tip
@@ -182,10 +182,10 @@ In Platform, samplesheets and other data can be made easily accessible in one of
 ## Launch pipeline
 
 :::note
-This guide is based on version 3.15.1 of the `nf-core/rnaseq` pipeline. Launch form parameters and tools may differ in other versions. 
+This guide is based on version 3.15.1 of the *nf-core/rnaseq* pipeline. Launch form parameters and tools may differ in other versions. 
 :::
 
-With your compute environment created, `nf-core/rnaseq` added to your workspace Launchpad, and your samplesheet accessible in Platform, you are ready to launch your pipeline. Navigate to the Launchpad and select **Launch** next to **nf-core-rnaseq** to open the launch form.
+With your compute environment created, *nf-core/rnaseq* added to your workspace Launchpad, and your samplesheet accessible in Platform, you are ready to launch your pipeline. Navigate to the Launchpad and select **Launch** next to **nf-core-rnaseq** to open the launch form.
 
 The launch form consists of **General config**, **Run parameters**, and **Advanced options** sections to specify your run parameters before execution, and an execution summary. Use section headings or select the **Previous** and **Next** buttons at the bottom of the page to navigate between sections. 
 
@@ -272,7 +272,7 @@ After you have filled the necessary launch details, select **Launch**. The **Run
 
   ![Reports tab](./quickstart-demo/assets/reports-tab.png)
 
-  For example, for the `nf-core/rnaseq` pipeline, view the [MultiQC](https://docs.seqera.io/multiqc) report generated. MultiQC is a helpful reporting tool to generate aggregate statistics and summaries from bioinformatics tools.
+  For example, for the *nf-core/rnaseq* pipeline, view the [MultiQC](https://docs.seqera.io/multiqc) report generated. MultiQC is a helpful reporting tool to generate aggregate statistics and summaries from bioinformatics tools.
 
   ![Reports MultiQC preview](./quickstart-demo/assets/reports-preview.png)
 
@@ -325,7 +325,7 @@ For the purposes of this guide, an RStudio environment will be used to normalize
 
 #### Gene counts 
 
-Salmon is the default tool used during the `pseudo-aligner` step of the `nf-core/rnaseq` pipeline. In the pipeline output data, the `/salmon` directory contains the tool's output, including a `salmon.merged.gene_counts_length_scaled.tsv` file. 
+Salmon is the default tool used during the `pseudo-aligner` step of the *nf-core/rnaseq* pipeline. In the pipeline output data, the `/salmon` directory contains the tool's output, including a `salmon.merged.gene_counts_length_scaled.tsv` file. 
 
 #### Sample info
 
@@ -520,7 +520,7 @@ The RStudio environment can be configured with the packages you wish to install 
     ```
 
     :::info 
-    This script is written for the analysis of human data, based on `nf-core/rnaseq`'s `test_full` dataset. To adapt the script for your data, modify the contrasts based on the comparisons you want to make between your sample groups:
+    This script is written for the analysis of human data, based on *nf-core/rnaseq*'s `test_full` dataset. To adapt the script for your data, modify the contrasts based on the comparisons you want to make between your sample groups:
 
     ```r
     my.contrasts <- makeContrasts(
@@ -652,11 +652,11 @@ RNA-Seq data typically consists of raw sequencing reads from high-throughput seq
 
 The compute recommendations in this guide are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files (8 paired-end samples) and a total size of approximately 123.5 GB.
 
-This benchmark compares pipeline run metrics between single `nf-core/rnaseq` runs in an AWS Batch compute environment with Fusion file system and fast instance storage enabled (**Fusion** group) and an identical AWS Batch compute environment using S3 storage without Fusion (**AWS S3** group).
+This benchmark compares pipeline run metrics between single *nf-core/rnaseq* runs in an AWS Batch compute environment with Fusion file system and fast instance storage enabled (**Fusion** group) and an identical AWS Batch compute environment using S3 storage without Fusion (**AWS S3** group).
 
 ### Pipeline steps and computing resource requirements
 
-The `nf-core/rnaseq` pipeline involves several key steps, each with distinct computational requirements. Resource needs in this table are based on the `test_full` runs detailed previously:
+The *nf-core/rnaseq* pipeline involves several key steps, each with distinct computational requirements. Resource needs in this table are based on the `test_full` runs detailed previously:
 
 | **Pipeline step**                   | **Tools**                 | **Resource needs**           | **Description**                                                                                   |
 |-------------------------------------|---------------------------|------------------------------|---------------------------------------------------------------------------------------------------|
@@ -682,7 +682,7 @@ The Fusion file system used with NVMe instance storage contributed to a 34% impr
 
 #### Process run time
 
-The Fusion file system demonstrates significant performance improvements for most processes in the `nf-core/rnaseq` pipeline, particularly for I/O-intensive tasks: 
+The Fusion file system demonstrates significant performance improvements for most processes in the *nf-core/rnaseq* pipeline, particularly for I/O-intensive tasks: 
 
 - The most time-consuming processes see improvements of 36.07% to 70.15%, saving hours of runtime in a full pipeline execution.
 - Most processes show significant performance improvements with Fusion, with time savings ranging from 35.57% to 99.14%.
@@ -719,9 +719,9 @@ The Fusion file system demonstrates significant performance improvements for mos
 
   Pipeline optimization analyzes resource usage data from previous runs to optimize the resource allocation for future runs. After a successful run, optimization becomes available, indicated by the lightbulb icon next to the pipeline turning black.
 
-  #### Optimize `nf-core/rnaseq`
+  #### Optimize *nf-core/rnaseq*
 
-  Select the lightbulb icon next to `nf-core/rnaseq` in your workspace Launchpad to view the optimized profile. You have the flexibility to tailor the optimization's target settings and incorporate a retry strategy as needed.
+  Select the lightbulb icon next to *nf-core/rnaseq* in your workspace Launchpad to view the optimized profile. You have the flexibility to tailor the optimization's target settings and incorporate a retry strategy as needed.
 
   #### View optimized configuration
 
