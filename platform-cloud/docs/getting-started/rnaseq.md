@@ -399,12 +399,12 @@ The RStudio environment can be configured with the packages you wish to install 
 1. Read and convert the count data and sample information:
 
     :::info
-    Replace `<PATH_TO_YOUR_COUNTS_FILE>` and `<PATH_TO_YOUR_SAMPLE_INFO_FILE>` with the paths to your `salmon.merged.gene_counts_length_scaled.tsv` and `sampleinfo.txt` files.
+    Replace `<PATH_TO_COUNTS_FILE>` and `<PATH_TO_SAMPLE_INFO_FILE>` with the paths to your `salmon.merged.gene_counts_length_scaled.tsv` and `sampleinfo.txt` files.
     :::
 
     ```r
     # Read in the count data
-    counts <- read.delim(file = "/workspace/data/<PATH_TO_YOUR_COUNTS_FILE>", row.names =
+    counts <- read.delim(file = "/workspace/data/<PATH_TO_COUNTS_FILE>", row.names =
                           1)
 
     # Remove the gene_name column if it exists
@@ -417,7 +417,7 @@ The RStudio environment can be configured with the packages you wish to install 
 
     # Read in the sample information
     targets <- read.table(
-      file = "/workspace/data/<PATH_TO_YOUR_SAMPLE_INFO_FILE>",
+      file = "/workspace/data/<PATH_TO_SAMPLE_INFO_FILE>",
       header = TRUE,
       stringsAsFactors = FALSE,
       sep = "",
