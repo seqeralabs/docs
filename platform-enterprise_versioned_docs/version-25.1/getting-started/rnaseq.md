@@ -55,8 +55,8 @@ simpler pipeline logic and faster, more efficient execution. While Fusion is not
 
 Fusion works best with AWS NVMe instances (fast instance storage) as this delivers the fastest performance when compared to environments using only AWS EBS (Elastic Block Store). Batch Forge selects instances automatically based on your compute environment configuration, but you can optionally specify instance types. To enable fast instance storage (see Create compute environment below), you must select EC2 instances with NVMe SSD storage (`m5d` or `r5d` families). 
 
-:::note 
-Fusion requires a license for use in Seqera Platform compute environments or directly in Nextflow. Fusion can be trialed at no cost. [Contact Seqera](https://seqera.io/contact-us/) for more details.
+:::note
+Fusion requires a license for use in Seqera Platform compute environments or directly in Nextflow. See [Fusion licensing](https://docs.seqera.io/fusion/licensing) for more information.
 :::
 
 ### Create compute environment
@@ -99,7 +99,7 @@ To use Seqera Pipelines to import the *nf-core/rnaseq* pipeline to your workspac
 
 ![Seqera Pipelines add to Launchpad](./_images/pipelines-add.gif)
 
-1. Search for `nf-core/rnaseq` and select **Launch** next to the pipeline name in the list. In the **Add pipeline** tab, select **Cloud** or **Enterprise** depending on your Platform account type, then provide the information needed for Seqera Pipelines to access your Platform instance:
+1. Search for *nf-core/rnaseq* and select **Launch** next to the pipeline name in the list. In the **Add pipeline** tab, select **Cloud** or **Enterprise** depending on your Platform account type, then provide the information needed for Seqera Pipelines to access your Platform instance:
     - **Seqera Cloud**: Paste your Platform **Access token** and select **Next**.  
     - **Seqera Enterprise**: Specify the **Seqera Platform URL** (hostname) and **Base API URL** for your Enterprise instance, then paste your Platform **Access token** and select **Next**.
     :::tip
@@ -321,7 +321,7 @@ After you have filled the necessary launch details, select **Launch**. The **Run
 
 ## Interactive analysis with Studios
 
-**Studios** streamline the process of creating interactive analysis environments for Platform users. With built-in templates for platforms like Jupyter Notebook, RStudio, and VSCode, creating a data studio is as simple as adding and sharing pipelines or datasets. The data studio URL can also be shared with any user with the [Connect role](../orgs-and-teams/roles) for real-time access and collaboration.
+**Studios** streamline the process of creating interactive analysis environments for Platform users. With built-in templates for platforms like Jupyter Notebook, RStudio, and VSCode, creating a Studio is as simple as adding and sharing pipelines or datasets. The Studio URL can also be shared with any user with the [Connect role](../orgs-and-teams/roles) for real-time access and collaboration.
 
 For the purposes of this guide, an RStudio environment will be used to normalize the pipeline output data, perform differential expression analysis, and visualize the data with exploratory plots.
 
@@ -403,12 +403,12 @@ The RStudio environment can be configured with the packages you wish to install 
 1. Read and convert the count data and sample information:
 
     :::info
-    Replace `<PATH_TO_YOUR_COUNTS_FILE>` and `<PATH_TO_YOUR_SAMPLE_INFO_FILE>` with the paths to your `salmon.merged.gene_counts_length_scaled.tsv` and `sampleinfo.txt` files.
+    Replace `<PATH_TO_COUNTS_FILE>` and `<PATH_TO_SAMPLE_INFO_FILE>` with the paths to your `salmon.merged.gene_counts_length_scaled.tsv` and `sampleinfo.txt` files.
     :::
 
     ```r
     # Read in the count data
-    counts <- read.delim(file = "/workspace/data/<PATH_TO_YOUR_COUNTS_FILE>", row.names =
+    counts <- read.delim(file = "/workspace/data/<PATH_TO_COUNTS_FILE>", row.names =
                           1)
 
     # Remove the gene_name column if it exists
@@ -421,7 +421,7 @@ The RStudio environment can be configured with the packages you wish to install 
 
     # Read in the sample information
     targets <- read.table(
-      file = "/workspace/data/<PATH_TO_YOUR_SAMPLE_INFO_FILE>",
+      file = "/workspace/data/<PATH_TO_SAMPLE_INFO_FILE>",
       header = TRUE,
       stringsAsFactors = FALSE,
       sep = "",
@@ -644,17 +644,17 @@ The RStudio environment can be configured with the packages you wish to install 
 
 ![RStudio plots](./_images/rstudio.gif)
 
-### Collaborate in the data studio
+### Collaborate in the Studio
 
-To share your results or allow colleagues to perform exploratory analysis, share a link to the data studio by selecting the options menu for the data studio you want to share, then select **Copy data studio URL**. With this link, other authenticated users with the **Connect** [role](../orgs-and-teams/roles) (or greater) can access the session directly.
+To share your results or allow colleagues to perform exploratory analysis, share a link to the Studio by selecting the options menu for the Studio you want to share, then select **Copy data studio URL**. With this link, other authenticated users with the **Connect** [role](../orgs-and-teams/roles) (or greater) can access the session directly.
 
 ## RNA-Seq data and requirements
 
 RNA-Seq data typically consists of raw sequencing reads from high-throughput sequencing technologies. These reads are used to quantify gene expression levels and discover novel transcripts. A typical RNA-Seq dataset can range from a few GB to several hundred GB, depending on the number of samples and the sequencing depth.
 
-### nf-core/rnaseq performance in Platform
+### *nf-core/rnaseq* performance in Platform
 
-The compute recommendations in this guide are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files (8 paired-end samples) and a total size of approximately 123.5 GB.
+The compute recommendations in this guide are based on internal benchmarking performed by Seqera. Benchmark runs of [*nf-core/rnaseq*](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files (8 paired-end samples) and a total size of approximately 123.5 GB.
 
 This benchmark compares pipeline run metrics between single *nf-core/rnaseq* runs in an AWS Batch compute environment with Fusion file system and fast instance storage enabled (**Fusion** group) and an identical AWS Batch compute environment using S3 storage without Fusion (**AWS S3** group).
 
@@ -690,9 +690,9 @@ The Fusion file system demonstrates significant performance improvements for mos
 
 - The most time-consuming processes see improvements of 36.07% to 70.15%, saving hours of runtime in a full pipeline execution.
 - Most processes show significant performance improvements with Fusion, with time savings ranging from 35.57% to 99.14%.
-- The most substantial improvements are seen in I/O-intensive tasks like SAMTOOLS_FLAGSTAT (95.20% faster) and SAMTOOLS_IDXSTATS (99.14% faster).
-- SALMON_INDEX shows a notable 70.15% improvement, reducing runtime from 102.18 minutes to 30.50 minutes.
-- STAR_ALIGN_IGENOMES, one of the most time-consuming processes, is 53.82% faster with Fusion, saving nearly an hour of runtime.
+- The most substantial improvements are seen in I/O-intensive tasks like `SAMTOOLS_FLAGSTAT` (95.20% faster) and `SAMTOOLS_IDXSTATS` (99.14% faster).
+- `SALMON_INDEX` shows a notable 70.15% improvement, reducing runtime from 102.18 minutes to 30.50 minutes.
+- `STAR_ALIGN_IGENOMES`, one of the most time-consuming processes, is 53.82% faster with Fusion, saving nearly an hour of runtime.
 
 ![Average runtime of *nf-core/rnaseq* processes for eight samples using the Fusion file system and plain S3 storage. Error bars = standard deviation of the mean.](./_images/process-runtime-2.png) 
 

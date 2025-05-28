@@ -55,10 +55,10 @@ If you have an existing environment where you run Nextflow directly, you can sti
     The access token is displayed only once. Save the token value before closing the **Personal Access Token** window.
     :::
 
-6. Open a terminal window and create environment variables to store the Seqera access token and Nextflow version. Replace `<your access token>` with your newly-created token.
+6. Open a terminal window and create environment variables to store the Seqera access token and Nextflow version. Replace `<ACCESS_TOKEN>` with your newly-created token.
 
     ```bash
-    export TOWER_ACCESS_TOKEN=<your access token>
+    export TOWER_ACCESS_TOKEN=<ACCESS_TOKEN>
     export NXF_VER=23.10.1
     ```
 

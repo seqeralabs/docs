@@ -38,6 +38,6 @@ rnaseq username:johndoe status:succeeded after:2024-01-01
 
 ### Dashboard view
 
-Access the **Dashboard** from the user menu. This page provides an overview of the total runs across the Platform instance, grouped by run status. The default view includes all organizations and workspaces accessible to the user. Select visible workspaces from the dropdown next to **View** and filter by time, including a custom date range up to 12 months. Select **Export data** to download a CSV file with the available export data.
+Access the **Dashboard** from the user menu. This page provides an overview of the total runs across the Platform instance, grouped by run status. The default view includes all organizations and workspaces accessible to the user. Select visible workspaces from the dropdown next to **View** and filter by time, including a custom date range up to 12 months. The time displayed is based on your local timezone defined in your device's system settings. Select **Export data** to download a CSV file with the available export data.
 
 ![Dashboard view](./assets/dashboard_view.gif)

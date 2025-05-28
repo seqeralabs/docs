@@ -37,7 +37,7 @@ To skip this Community Showcase demo and start running pipelines on your own inf
 This guide is based on version 3.14.0 of the nf-core/rnaseq pipeline. Launch form parameters may differ in other versions. 
 :::
 
-Navigate to the Launchpad in the `community/showcase` workspace and select **Launch** next to the `nf-core-rnaseq` pipeline to open the launch form.
+Navigate to the Launchpad in the `community/showcase` workspace and select **Launch** next to the *nf-core-rnaseq* pipeline to open the launch form.
 
  ![Launch a pipeline](../_images/cs-launch-form-1.gif)
 
@@ -167,7 +167,7 @@ The run details page includes general information about who executed the run and
 
   - Unique workflow run ID
   - Workflow run name
-  - Timestamp of pipeline start
+  - Timestamp of pipeline start (the time displayed is based on your local timezone defined in your device's system settings)
   - Pipeline version and Git commit ID
   - Nextflow session ID
   - Username of the launcher
@@ -200,7 +200,7 @@ The task details table provides further information on every step in the pipelin
   3. **Status**: Exit code, task status, and number of attempts
   4. **Work directory**: Directory where the task was executed
   5. **Environment**: Environment variables that were supplied to the task
-  6. **Execution time**: Metrics for task submission, start, and completion time
+  6. **Execution time**: Metrics for task submission, start, and completion time (the time displayed is based on your local timezone defined in your device's system settings)
   7. **Resources requested**: Metrics for the resources requested by the task
   8. **Resources used**: Metrics for the resources used by the task
 
@@ -237,15 +237,15 @@ Interactive analysis of pipeline results is often performed in platforms like Ju
 
 In the **Studios** tab, you can monitor and see the details of the Studios in the Community Showcase workspace.
 
-Studios is used to perform bespoke analysis on the results of upstream workflows. For example, in the Community Showcase workspace we have run the **nf-core/rnaseq** pipeline to quantify gene expression, followed by **nf-core/differentialabundance** to derive differential expression statistics. The workspace contains a Studio with these results from cloud storage mounted into the Studio to perform further analysis. One of these outputs is an RShiny application, which can be deployed for interactive analysis.
+Studios is used to perform bespoke analysis on the results of upstream workflows. For example, in the Community Showcase workspace we have run the *nf-core/rnaseq* pipeline to quantify gene expression, followed by *nf-core/differentialabundance* to derive differential expression statistics. The workspace contains a Studio with these results from cloud storage mounted into the Studio to perform further analysis. One of these outputs is an RShiny application, which can be deployed for interactive analysis.
 
 #### Connect to the RNAseq analysis Studio 
 
-Select the `rnaseq_to_differentialabundance` Studio. This Studio consists of an RStudio environment that uses an existing compute environment available in the showcase workspace. The Studio also contains mounted data generated from the nf-core/rnaseq and subsequent nf-core/differentialabundance pipeline runs, directly from AWS S3. 
+Select the *rnaseq_to_differentialabundance* Studio. This Studio consists of an RStudio environment that uses an existing compute environment available in the showcase workspace. The Studio also contains mounted data generated from the *nf-core/rnaseq* and subsequent *nf-core/differentialabundance* pipeline runs, directly from AWS S3. 
 
 ![RNAseq Studio details](assets/rnaseq-diffab-studio-details.gif)
 
-Select **Connect** to view the running RStudio environment. The `rnaseq_to_differentialabundance` Studio includes the necessary R packages for deploying an RShiny application to visualize the RNAseq data.
+Select **Connect** to view the running RStudio environment. The *rnaseq_to_differentialabundance* Studio includes the necessary R packages for deploying an RShiny application to visualize the RNAseq data.
 
 Deploy the RShiny app in the Studio by selecting the green play button on the last chunk of the R script:
 
@@ -324,7 +324,7 @@ Pipeline optimization analyzes resource usage data from previous runs to optimiz
 <details>
   <summary>Optimize nf-core/rnaseq</summary>
 
-  Navigate back to the Launchpad and select the lightbulb icon next to the nf-core/rnaseq pipeline to view the optimized profile. You have the flexibility to tailor the optimization's target settings and incorporate a retry strategy as needed.
+  Navigate back to the Launchpad and select the lightbulb icon next to the *nf-core/rnaseq* pipeline to view the optimized profile. You have the flexibility to tailor the optimization's target settings and incorporate a retry strategy as needed.
 
   #### View optimized configuration
 
