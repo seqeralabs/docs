@@ -22,7 +22,7 @@ The Community Showcase [Launchpad](../launch/launchpad) is an example workspace 
 
 ## Run a pipeline with sample data
 
-1. From the [Launchpad](../launch/launchpad), select a pipeline to view the pipeline detail page. `nf-core-rnaseq` is a good first pipeline example.
+1. From the [Launchpad](../launch/launchpad), select a pipeline to view the pipeline detail page. *nf-core-rnaseq* is a good first pipeline example.
 2. Optional: Select the URL under **Workflow repository** to view the pipeline code repository in another tab.
 3. Select **Launch** from the pipeline detail page.
 4. On the **Launch pipeline** page, enter a unique **Workflow run name** or use the pre-filled random name.

@@ -8,7 +8,7 @@ toc_max_heading_level: 3
 
 :::info
 This demo tutorial provides an introduction to Seqera Platform, including instructions to:
-- Launch, monitor, and optimize the [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline.
+- Launch, monitor, and optimize the [*nf-core/rnaseq*](https://github.com/nf-core/rnaseq) pipeline.
 - Select pipeline input data with [Data Explorer](../../data/data-explorer) and Platform [datasets](../../data/datasets).
 - Perform interactive analysis of pipeline results with [Studios](../../studios/overview).
 
@@ -17,7 +17,7 @@ The Platform Community Showcase is a Seqera-managed demonstration workspace with
 
 The Launchpad in every Platform workspace allows users to easily create and share Nextflow pipelines that can be executed on any supported infrastructure, including all public clouds and most HPC schedulers. A Launchpad pipeline consists of a pre-configured workflow repository, [compute environment](../../compute-envs/overview), and launch parameters.
 
-The Community Showcase contains 15 preconfigured pipelines, including [nf-core/rnaseq](https://github.com/nf-core/rnaseq), a bioinformatics pipeline used to analyze RNA sequencing data. 
+The Community Showcase contains 15 preconfigured pipelines, including [*nf-core/rnaseq*](https://github.com/nf-core/rnaseq), a bioinformatics pipeline used to analyze RNA sequencing data. 
 
 The workspace also includes three preconfigured AWS Batch compute environments to run Community Showcase pipelines, and various Platform datasets and public data sources (accessed via Data Explorer) to use as pipeline input. 
 

@@ -654,7 +654,7 @@ RNA-Seq data typically consists of raw sequencing reads from high-throughput seq
 
 ### *nf-core/rnaseq* performance in Platform
 
-The compute recommendations in this guide are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files (8 paired-end samples) and a total size of approximately 123.5 GB.
+The compute recommendations in this guide are based on internal benchmarking performed by Seqera. Benchmark runs of [*nf-core/rnaseq*](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files (8 paired-end samples) and a total size of approximately 123.5 GB.
 
 This benchmark compares pipeline run metrics between single *nf-core/rnaseq* runs in an AWS Batch compute environment with Fusion file system and fast instance storage enabled (**Fusion** group) and an identical AWS Batch compute environment using S3 storage without Fusion (**AWS S3** group).
 
