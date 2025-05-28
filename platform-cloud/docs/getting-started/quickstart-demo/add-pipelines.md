@@ -53,7 +53,7 @@ From your workspace Launchpad, select **Add Pipeline** and specify the following
     :::
 - **Name**: A custom name of your choice. Pipeline names must be unique per workspace. 
 - Optional: **Description**: A summary of the pipeline or any information that may be useful to workspace participants when selecting a pipeline to launch. 
-- (*Optional*) **Labels**: Categorize the pipeline according to arbitrary criteria (such research group or reference genome version) that may help workspace participants to select the appropriate pipeline for their analysis.
+- Optional: **Labels**: Categorize the pipeline according to arbitrary criteria (such research group or reference genome version) that may help workspace participants to select the appropriate pipeline for their analysis.
 - **Compute environment**: Select an existing workspace [compute environment](../../compute-envs/overview).
 - **Pipeline to launch**: The URL of any public or private Git repository that contains Nextflow source code.
 - **Revision number**: Platform will search all of the available tags and branches in the provided pipeline repository and render a dropdown to select the appropriate version. 
