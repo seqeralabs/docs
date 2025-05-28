@@ -88,7 +88,6 @@ To isolate pipeline or Studios view, read, and write permissions to a specific *
 This customized Data Explorer view will be displayed by default to all workspace users, until the filter is updated or removed by a workspace maintainer.
 :::
 
-
 ## Upload files to private buckets
 
 Data Explorer supports file uploads to your private cloud storage buckets. From the **View cloud bucket** page, select **Upload file** to select the files you wish to upload.

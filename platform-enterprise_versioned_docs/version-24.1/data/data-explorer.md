@@ -42,7 +42,6 @@ Data Explorer lists public and private cloud storage buckets. Buckets accessible
 
   Select **Add cloud bucket** from the Data Explorer tab to add individual buckets (or directory paths within buckets). Specify the **Provider**, **Bucket path**, **Name**, **Credentials**, and **Description**, then select **Add**. For public cloud buckets, select **Public** from the **Credentials** drop-down menu.
 
-
 ## Browse cloud storage buckets
 
 ![](./_images/data_explorer.png)
@@ -108,7 +107,7 @@ Data Explorer supports file uploads to your private cloud storage buckets. From 
 You must configure cross-origin resource sharing (CORS) for your cloud storage provider to allow file uploads from Seqera. CORS configuration differs for each provider.
 :::
 
-## Download multiple files 
+## Download multiple files
 
 You can download up to a maximum of 1,000 files using the browser interface, or an unlimited number of files with the auto-generated download script that uses your cloud provider's CLI and credentials.
 

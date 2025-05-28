@@ -19,25 +19,26 @@ This configuration requires Docker or a similar container engine to run pipeline
 
 1. Add the following to your `nextflow.config` file:
 
-    ```groovy
-    wave.enabled = true
-    docker.enabled = true
-    tower.accessToken = '<PLATFORM_ACCESS_TOKEN>'
-    fusion.enabled = true
-    fusion.exportStorageCredentials = true
-    ```
+   ```groovy
+   wave.enabled = true
+   docker.enabled = true
+   tower.accessToken = '<PLATFORM_ACCESS_TOKEN>'
+   fusion.enabled = true
+   fusion.exportStorageCredentials = true
+   ```
 
-    Replace `<PLATFORM_ACCESS_TOKEN>` with your Platform access token.
+   Replace `<PLATFORM_ACCESS_TOKEN>` with your Platform access token.
 
 1. Run the pipeline with the Nextflow run command:
 
-    ```
-    nextflow run <PIPELINE_SCRIPT> -w az://<BLOB_STORAGE>/scratch
-    ```
+   ```
+   nextflow run <PIPELINE_SCRIPT> -w az://<BLOB_STORAGE>/scratch
+   ```
 
-    Replace the following:
-    - `<PIPELINE_SCRIPT>`: your pipeline Git repository URI.
-    - `<BLOB_STORAGE>`: your Azure Blob Storage.
+   Replace the following:
+
+   - `<PIPELINE_SCRIPT>`: your pipeline Git repository URI.
+   - `<BLOB_STORAGE>`: your Azure Blob Storage.
 
 :::tip
 To achieve optimal performance, set up an SSD volume as the temporary directory.

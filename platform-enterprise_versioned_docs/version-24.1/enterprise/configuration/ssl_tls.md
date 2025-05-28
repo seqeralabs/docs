@@ -41,14 +41,15 @@ CONTAINER_NAME:
 
   # Add a new mount for the downloaded certificate
   volumes:
-      - $HOME/tower.yml:/tower.yml
-      - $HOME/PRIVATE_CERT.pem:/etc/pki/ca-trust/source/anchors/PRIVATE_CERT.pem
+    - $HOME/tower.yml:/tower.yml
+    - $HOME/PRIVATE_CERT.pem:/etc/pki/ca-trust/source/anchors/PRIVATE_CERT.pem
 
   # Add a new keytool import line PRIOR to 'update-ca-trust' for the certificate
-  command: -c "keytool -import -trustcacerts -storepass changeit -noprompt -alias TARGET_ALIAS -file /etc/pki/ca-trust/source/anchors/PRIVATE_CERT.pem &&
-          update-ca-trust &&
-          /wait-for-it.sh db:3306 -t 60 &&
-          /tower.sh"
+  command:
+    -c "keytool -import -trustcacerts -storepass changeit -noprompt -alias TARGET_ALIAS -file /etc/pki/ca-trust/source/anchors/PRIVATE_CERT.pem &&
+    update-ca-trust &&
+    /wait-for-it.sh db:3306 -t 60 &&
+    /tower.sh"
 ```
 
 **Use K8s ConfigMap**
@@ -169,54 +170,54 @@ Due to complications that can be encountered during upgrades, this approach is n
 <details>
   <summary>Show me anyway</summary>
 
-  This example assumes deployment on an Amazon Linux 2 AMI.
+This example assumes deployment on an Amazon Linux 2 AMI.
 
-  1. Install NGINX and other required packages:
+1. Install NGINX and other required packages:
 
-      ```bash
-      sudo amazon-linux-extras install nginx1.12
-      sudo wget -r --no-parent -A 'epel-release-*.rpm' https://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/
-      sudo rpm -Uvh dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-release-*.rpm
-      sudo yum-config-manager --enable epel*
-      sudo yum repolist all
-      sudo amazon-linux-extras install epel -y
-      ```
+   ```bash
+   sudo amazon-linux-extras install nginx1.12
+   sudo wget -r --no-parent -A 'epel-release-*.rpm' https://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/
+   sudo rpm -Uvh dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-release-*.rpm
+   sudo yum-config-manager --enable epel*
+   sudo yum repolist all
+   sudo amazon-linux-extras install epel -y
+   ```
 
-  2. Generate a [private certificate and key](https://www.digitalocean.com/community/tutorials/openssl-essentials-working-with-ssl-certificates-private-keys-and-csrs).
+2. Generate a [private certificate and key](https://www.digitalocean.com/community/tutorials/openssl-essentials-working-with-ssl-certificates-private-keys-and-csrs).
 
-  3. Make a local copy of the `/etc/nginx/templates/tower.conf.template` file from the `frontend` container, or create a ConfigMap to store it if you're using Kubernetes.
+3. Make a local copy of the `/etc/nginx/templates/tower.conf.template` file from the `frontend` container, or create a ConfigMap to store it if you're using Kubernetes.
 
-  4. Replace the `listen` directives in the `server` block with the following:
+4. Replace the `listen` directives in the `server` block with the following:
 
-      ```nginx
-      listen ${NGINX_LISTEN_PORT} ssl default_server;
-      listen [::]:${NGINX_LISTEN_PORT_IPV6} ssl default_server;
+   ```nginx
+   listen ${NGINX_LISTEN_PORT} ssl default_server;
+   listen [::]:${NGINX_LISTEN_PORT_IPV6} ssl default_server;
 
-      ssl_certificate /etc/ssl/testcrt.crt;
-      ssl_certificate_key /etc/ssl/testkey.key;
-      ```
+   ssl_certificate /etc/ssl/testcrt.crt;
+   ssl_certificate_key /etc/ssl/testkey.key;
+   ```
 
-  5. Modify the `frontend` container definition in your `docker-compose.yml` file or Kubernetes manifest:
+5. Modify the `frontend` container definition in your `docker-compose.yml` file or Kubernetes manifest:
 
-      ```yml
-      frontend:
-      image: cr.seqera.io/frontend:${TAG}
-      networks:
-          - frontend
-      environment:
-        NGINX_LISTEN_PORT: 8081
-        NGINX_LISTEN_PORT_IPV6: 8443
-      ports:
-          - 8000:8081
-          - 443:8443
-      volumes:
-          - $PWD/tower.conf.template:/etc/nginx/templates/tower.conf.template
-          - $PWD/cert/testcrt.crt:/etc/ssl/testcrt.crt
-          - $PWD/cert/testkey.key:/etc/ssl/testkey.key
-      restart: always
-      depends_on:
-          - backend
-      ```
+   ```yml
+   frontend:
+   image: cr.seqera.io/frontend:${TAG}
+   networks:
+     - frontend
+   environment:
+     NGINX_LISTEN_PORT: 8081
+     NGINX_LISTEN_PORT_IPV6: 8443
+   ports:
+     - 8000:8081
+     - 443:8443
+   volumes:
+     - $PWD/tower.conf.template:/etc/nginx/templates/tower.conf.template
+     - $PWD/cert/testcrt.crt:/etc/ssl/testcrt.crt
+     - $PWD/cert/testkey.key:/etc/ssl/testkey.key
+   restart: always
+   depends_on:
+     - backend
+   ```
 
 </details>
 

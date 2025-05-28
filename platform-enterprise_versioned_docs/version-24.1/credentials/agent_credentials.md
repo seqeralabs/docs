@@ -14,14 +14,16 @@ You can share a single Tower Agent instance with all members of a workspace. Cre
 ## Create a Tower Agent credential
 
 1.  Add your credentials to your organization or personal workspace:
+
     - From an organization workspace: Go to the **Credentials > Add Credentials**.
     - From your personal workspace: From the user menu, go to **Your credentials > Add credentials**.
 
 2.  Complete the following fields:
+
     - **Name**: Specify a unique name for the credentials using alphanumeric characters, dashes, or underscores. For example, `my-agent-creds`.
     - **Provider**: Select **Tower Agent**.
     - **Agent connection ID**: The connection ID used to run your Tower Agent instance. Must match the connection ID used when running the Agent (see **Usage** below).
     - **Shared agent**: Enables Tower Agent sharing for all workspace members.
     - **Usage**: Populates a code snippet for Tower Agent download with your connection ID. Replace `<YOUR TOKEN>` with your [Seqera access token](../api/overview#authentication).
 
-3. After you've completed all the form fields, select **Add**. The new credential is now listed under the **Credentials** tab.
+3.  After you've completed all the form fields, select **Add**. The new credential is now listed under the **Credentials** tab.

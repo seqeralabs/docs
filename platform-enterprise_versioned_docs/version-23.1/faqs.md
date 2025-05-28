@@ -14,6 +14,7 @@ The Administration Console allows Tower instance administrators to interact with
 1. Create a `TOWER_ROOT_USERS` environment variable (e.g. via _tower.env_ or Kubernetes ConfigMap).
 2. Populate the variable with a sequence of comma-delimited email addresses (no spaces).<br/>Example: `TOWER_ROOT_USERS=foo@foo.com,bar@bar.com`
 3. If using a Tower version earlier than 21.12:
+
    1. Add the following configuration to _tower.yml_:
 
    ```yml

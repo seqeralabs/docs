@@ -64,13 +64,13 @@ tags: [changelog]
 ### 24.1.0 - May 2024
 
 - Managed identities:
-  * Allow organization members and collaborators to list managed identities
-- Data Studios: 
-  * Data studio user activity auditlog
-  * Delete checkpoints
-  * Rename checkpoints
+  - Allow organization members and collaborators to list managed identities
+- Data Studios:
+  - Data studio user activity auditlog
+  - Delete checkpoints
+  - Rename checkpoints
 - Data Explorer:
-  * Multi-download functionality
+  - Multi-download functionality
 
 ### 23.3.0 - 16 October 2023
 
@@ -83,10 +83,10 @@ tags: [changelog]
 - Improved: Audit logs count query by
 - Improve error message when creating private data link as public
 - Updated: Git integration page - admonition fix
-- Fixed: Do not leave search box disabled when there are no  results in r…
+- Fixed: Do not leave search box disabled when there are no results in r…
 - Fixed: Dataset limit provides misleading result
-- Fixed: add missing https://*.$host to connect-src CSP headers
-- Fixed: Missing double quote for _JAVA_OPTIONS value
+- Fixed: add missing https://\*.$host to connect-src CSP headers
+- Fixed: Missing double quote for \_JAVA_OPTIONS value
 - Fixed: Data explorer previewing Google files instead of downloading
 - Fixed: Optimization service response proxied by Tower
 - Fixed: Redisson Hibernate 2nd-level cache config
@@ -176,7 +176,7 @@ tags: [changelog]
 - Deprecate Fusion v1 (#4694) [74fb5bd6]
 - Fixed: Partial failure workflow status icon shows green check (#4371) [981aeb26]
 - Fixed: Missing AWS Cloudstream logs (#4476) [3d88a618]
-- Fixed: NPE when retrieving progress usage data  (#4621) [85c4836c]
+- Fixed: NPE when retrieving progress usage data (#4621) [85c4836c]
 - Fixed: Bug that throws ConcurrentModificationException while cancelling tasks (#4656) [9d0eda97]
 - Fixed: Cancellation of a workflow already terminated (#4622) [d665beeb]
 - Fixed: "Row size too large" MySQL problem (#4688) [793471da]
@@ -250,7 +250,7 @@ tags: [changelog]
 - Chore: Improve task duration stats (#4106) [4a51d956]
 - Chore: Update workflow status timing messages (#4075) [9939145b]
 - Chore: [BREAKING] remove autoinjection of roles when `allowInstanceCredentials` property is true (#4093) [5de61137]
-- Chore: Limit the time range selection when querying stats  (#3993) [e273130d]
+- Chore: Limit the time range selection when querying stats (#3993) [e273130d]
 - Chore: Cache restore and backup via Tower plugin (#3599) [719442fb]
 - Chore: Set `BEST_FIT_PROGRESSIVE` as default AWS Batch allocation strategy (#3956) [6442dcd8]
 - Test: Create Playwright e2e tests for Google Life Sciences CEs (#3899) [ba1c1254]
@@ -483,7 +483,7 @@ tags: [changelog]
 - Fixed: Issue downloading a report with containing a blank character [70ab2033]
 - Fixed: Nginx proxy pass decoding break query parameters with blank character [48a2ef6b]
 - Fixed: Kubernetes control plan URL only allow host name [1b4b1240][da552afc]
-- Bump:  ebs-autoscale to version 2.4.6-6ce65d32 [d52de172]
+- Bump: ebs-autoscale to version 2.4.6-6ce65d32 [d52de172]
 
 #### 22.1.1 - 25 Apr 2022
 
@@ -700,10 +700,10 @@ The `21.10.x` release series starts with `v21.10.1`
 
 #### 21.04.6 - 21 Jun
 
-- Fixed: GitHub action creation 
-- Fixed: The case when the dropdown was over-shadowing other fields 
-- Change schema and default params usage 
-- K8s use deployment for service pod 
+- Fixed: GitHub action creation
+- Fixed: The case when the dropdown was over-shadowing other fields
+- Change schema and default params usage
+- K8s use deployment for service pod
 
 #### 21.04.5 - 8 Jun
 
@@ -717,7 +717,7 @@ The `21.10.x` release series starts with `v21.10.1`
 
 #### 21.04.3 - 2 Jun
 
-- Fixed: Pattern test validator when the value is empty 
+- Fixed: Pattern test validator when the value is empty
 - Fixed: Navigation dropdown display when user has no `CreateOrganization` permission
 
 #### 21.04.2 - 1 Jun

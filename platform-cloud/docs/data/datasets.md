@@ -15,15 +15,15 @@ The most commonly used datasets for Nextflow pipelines are samplesheets, where e
 
 **Example rnaseq dataset**
 
-|sample |fastq_1 |fastq_2 |strandedness|
-|-------------------|------------------------------------|---------------------------------------------|------------|
-|WT_REP1            |s3://nf-core-awsmegatests/rnaseq/...|s3://nf-core-awsmegatests/rnaseq/...         |reverse     |
-|WT_REP1            |s3://nf-core-awsmegatests/rnaseq/...|s3://nf-core-awsmegatests/rnaseq/...         |reverse     |
-|WT_REP2            |s3://nf-core-awsmegatests/rnaseq/...|s3://nf-core-awsmegatests/rnaseq/...         |reverse     |
-|RAP1_UNINDUCED_REP1|s3://nf-core-awsmegatests/rnaseq/...|                                             |reverse     |
-|RAP1_UNINDUCED_REP2|s3://nf-core-awsmegatests/rnaseq/...|                                             |reverse     |
-|RAP1_UNINDUCED_REP2|s3://nf-core-awsmegatests/rnaseq/...|                                             |reverse     |
-|RAP1_IAA_30M_REP1  |s3://nf-core-awsmegatests/rnaseq/...|s3://nf-core-awsmegatests/rnaseq/...         |reverse     |
+| sample              | fastq_1                              | fastq_2                              | strandedness |
+| ------------------- | ------------------------------------ | ------------------------------------ | ------------ |
+| WT_REP1             | s3://nf-core-awsmegatests/rnaseq/... | s3://nf-core-awsmegatests/rnaseq/... | reverse      |
+| WT_REP1             | s3://nf-core-awsmegatests/rnaseq/... | s3://nf-core-awsmegatests/rnaseq/... | reverse      |
+| WT_REP2             | s3://nf-core-awsmegatests/rnaseq/... | s3://nf-core-awsmegatests/rnaseq/... | reverse      |
+| RAP1_UNINDUCED_REP1 | s3://nf-core-awsmegatests/rnaseq/... |                                      | reverse      |
+| RAP1_UNINDUCED_REP2 | s3://nf-core-awsmegatests/rnaseq/... |                                      | reverse      |
+| RAP1_UNINDUCED_REP2 | s3://nf-core-awsmegatests/rnaseq/... |                                      | reverse      |
+| RAP1_IAA_30M_REP1   | s3://nf-core-awsmegatests/rnaseq/... | s3://nf-core-awsmegatests/rnaseq/... | reverse      |
 
 :::note
 Use [Data Explorer](../data/data-explorer) to browse for cloud storage objects directly and copy the object paths to be used in your datasets.

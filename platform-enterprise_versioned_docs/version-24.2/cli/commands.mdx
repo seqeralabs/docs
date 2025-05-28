@@ -5,8 +5,8 @@ date: "16 Jul 2024"
 tags: [cli, commands]
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 :::note
 The CLI performs operations in the user workspace context by default. Use the `TOWER_WORKSPACE_ID` environment variable or the `--workspace` parameter to specify an organization workspace ID.
@@ -21,7 +21,7 @@ For help with a specific subcommand, run the command with `-h` or `--help` appen
 :::tip
 Use `tw --output=json <command>` to dump and store Seqera Platform entities in JSON format.
 
-Use `tw --output=json <command> | jq -r '.[].<key>'`  to pipe the command to use jq to retrieve specific values in the JSON output. For example, `tw --output=json workspaces list | jq -r '.workspaces[].orgId'` returns the organization ID for each workspace listed.
+Use `tw --output=json <command> | jq -r '.[].<key>'` to pipe the command to use jq to retrieve specific values in the JSON output. For example, `tw --output=json workspaces list | jq -r '.workspaces[].orgId'` returns the organization ID for each workspace listed.
 :::
 
 ## Credentials
@@ -78,12 +78,12 @@ tw credentials list
 
   Credentials at user workspace:
 
-    ID                     | Provider  | Name                               | Last activity                 
+    ID                     | Provider  | Name                               | Last activity
     ------------------------+-----------+------------------------------------+-------------------------------
-    1x1HxFxzxNxptxlx4xO7Gx | aws       | my_aws_creds_1                     | Wed, 6 Apr 2022 08:40:49 GMT  
-    1sxCxvxfx8xnxdxGxQxqxH | aws       | my_aws_creds_2                     | Wed, 9 Apr 2022 08:40:49 GMT  
-    2x7xNsf2xkxxUIxXKxsTCx | ssh       | my_ssh_key                         | Thu, 8 Jul 2021 07:09:46 GMT  
-    4xxxIeUx7xex1xqx1xxesk | github    | my_github_cred                     | Wed, 22 Jun 2022 09:18:05 GMT 
+    1x1HxFxzxNxptxlx4xO7Gx | aws       | my_aws_creds_1                     | Wed, 6 Apr 2022 08:40:49 GMT
+    1sxCxvxfx8xnxdxGxQxqxH | aws       | my_aws_creds_2                     | Wed, 9 Apr 2022 08:40:49 GMT
+    2x7xNsf2xkxxUIxXKxsTCx | ssh       | my_ssh_key                         | Thu, 8 Jul 2021 07:09:46 GMT
+    4xxxIeUx7xex1xqx1xxesk | github    | my_github_cred                     | Wed, 22 Jun 2022 09:18:05 GMT
 ```
 
 ### Delete credentials
@@ -96,7 +96,7 @@ tw credentials delete --name=my_aws_creds
 
 ## Compute environments
 
-Compute environments define the execution platform where a pipeline runs. A compute environment is composed of the credentials, configuration, and storage options related to a particular computing platform.  See [Compute environments][compute-envs] for more information on supported providers.
+Compute environments define the execution platform where a pipeline runs. A compute environment is composed of the credentials, configuration, and storage options related to a particular computing platform. See [Compute environments][compute-envs] for more information on supported providers.
 
 Run `tw compute-envs -h` to view the list of supported compute environment operations.
 
@@ -142,7 +142,7 @@ Select a **primary** compute environment to be used by default in a workspace. Y
 ```bash
 tw compute-envs primary set --name=my_aws_ce
 
-  Primary compute environment for workspace 'user' was set to 'my_aws_ce (1sxCxvxfx8xnxdxGxQxqxH)'  
+  Primary compute environment for workspace 'user' was set to 'my_aws_ce (1sxCxvxfx8xnxdxGxQxqxH)'
 ```
 
 ### Import and export a compute environment
@@ -152,7 +152,7 @@ Export the configuration details of a compute environment in JSON format for scr
 ```bash
 tw compute-envs export --name=my_aws_ce my_aws_ce_v1.json
 
-  Compute environment exported into 'my_aws_ce_v1.json' 
+  Compute environment exported into 'my_aws_ce_v1.json'
 ```
 
 Similarly, a compute environment can be imported to a workspace from a previously exported JSON file.
@@ -169,7 +169,7 @@ Run `tw datasets -h` to view the list of supported operations.
 
 [Datasets](../data/datasets) are CSV (comma-separated values) and TSV (tab-separated values) files stored in a workspace, used as inputs during pipeline execution. The most commonly used datasets for Nextflow pipelines are samplesheets, where each row consists of a sample, the location of files for that sample (such as FASTQ files), and other sample details.
 
-### Add a dataset 
+### Add a dataset
 
 Run `tw datasets add -h` to view the required and optional fields for adding a dataset.
 
@@ -181,25 +181,25 @@ tw datasets add --name=samplesheet1 --header samplesheet_test.csv
 Dataset 'samplesheet1' added at user workspace with id '60gGrD4I2Gk0TUpEGOj5Td'
 ```
 
-:::note 
+:::note
 The maximum supported dataset file size is 10 MB.
 :::
 
-### Delete a dataset 
+### Delete a dataset
 
 To delete a workspace dataset, specify either the dataset name (`-n` flag) or ID (`-i` flag):
 
-```bash 
+```bash
 tw datasets delete -i 6tYMjGqCUJy6dEXNK9y8kh
 
 Dataset '6tYMjGqCUJy6dEXNK9y8kh' deleted at 97652229034604 workspace
 ```
 
-### Download a dataset 
+### Download a dataset
 
-View a stored dataset's contents: 
+View a stored dataset's contents:
 
-```bash 
+```bash
 tw datasets download -n samplesheet1
 
 sample,fastq_1,fastq_2,strandedness
@@ -212,11 +212,11 @@ RAP1_UNINDUCED_REP2,https://raw.githubusercontent.com/nf-core/test-datasets/rnas
 RAP1_IAA_30M_REP1,https://raw.githubusercontent.com/nf-core/test-datasets/rnaseq/testdata/GSE110004/SRR6357076_1.fastq.gz,https://raw.githubusercontent.com/nf-core/test-datasets/rnaseq/testdata/GSE110004/SRR6357076_2.fastq.gz,reverse
 ```
 
-### List datasets 
+### List datasets
 
 Run `tw datasets list -h` to view the optional fields for listing and filtering datasets.
 
-```bash 
+```bash
 tw datasets list -f data
 
 Datasets at 97652229034604 workspace:
@@ -226,7 +226,7 @@ Datasets at 97652229034604 workspace:
     6vBGj6aWWpBuLpGKjJDpZy | dataset2 | Tue, 27 Aug 2024 14:49:32 GMT
 ```
 
-### View a dataset 
+### View a dataset
 
 Run `tw datasets view -h` to view the required and optional fields for viewing a stored dataset's details.
 
@@ -244,21 +244,21 @@ Dataset at 97652229034604 workspace:
     Updated     | Mon, 19 Aug 2024 07:59:17 GMT
 ```
 
-### Update a dataset 
+### Update a dataset
 
 Run `tw datasets update -h` to view the required and optional fields for updating a dataset.
 
-```bash 
+```bash
 tw datasets update -n dataset1 --new-name=dataset2 -f samplesheet_test.csv
 
 Dataset 'dataset1' updated at 97652229034604 workspace with id '6vBGj6aWWpBuLpGKjJDpZy'
 ```
 
-### Obtain a dataset URL 
+### Obtain a dataset URL
 
 Run `tw datasets url -h` to view the required and optional fields for obtaining dataset URLs.
 
-```bash 
+```bash
 tw datasets url -n dataset2
 
 Dataset URL
@@ -275,7 +275,7 @@ Run `tw studios -h` to view the list of supported operations.
 Manage [Studio sessions](../data_studios/index) hosted in Seqera Platform. Studio sessions allow interactive analysis using Jupyter, RStudio, VSCode, and Xpra. Additional custom analysis environments can be defined as needed.
 
 :::note
-Most Studio operations require workspace `MAINTAIN` permissions. 
+Most Studio operations require workspace `MAINTAIN` permissions.
 :::
 
 ### List Studio sessions
@@ -285,15 +285,15 @@ Run `tw studios list -h` to view the required and optional fields for listing St
 If a workspace is not defined, the `TOWER_WORKSPACE_ID` workspace is used by default.
 
 ```bash
-tw studios list -w community/showcase 
+tw studios list -w community/showcase
 
 Studios at [community / showcase] workspace:
 
-    ID       | Name                            | Description                                        | User       | Status   
+    ID       | Name                            | Description                                        | User       | Status
   ----------+---------------------------------+----------------------------------------------------+------------+----------
-    13083356 | studio-jupyter-demo             | Demo Studio session for Jupyter                    | user1      | RUNNING  
-    419e602a | studio-rstudio-demo             | Demo Studio session for RStudio v4.4.1             | user2      | RUNNING  
-    722cb780 | studio-vscode-demo              | Demo Studio session for VSCode v1.83.0             | user3      | RUNNING  
+    13083356 | studio-jupyter-demo             | Demo Studio session for Jupyter                    | user1      | RUNNING
+    419e602a | studio-rstudio-demo             | Demo Studio session for RStudio v4.4.1             | user2      | RUNNING
+    722cb780 | studio-vscode-demo              | Demo Studio session for VSCode v1.83.0             | user3      | RUNNING
     950e56f5 | studio-multiqc-demo             | Demo MultiQC Studio session                        | user1      | RUNNING
 ```
 
@@ -307,22 +307,22 @@ tw studios view -i 23ce7967 -w community/showcase
   Studio at workspace '[community / showcase]'
 
 ---------------------+------------------------------------------------------------
-SessionID           | 23ce7967                                                   
-Name                | experiment-analysis-session                                                     
-Status              | STARTING                                                   
-Status Last Update  | Fri, 31 Jan 2025 19:35:07 GMT                              
-Studio URL          | https://a23ce7967.connect.cloud.seqera.io                  
-Description         |                                                            
-Created on          | Fri, 31 Jan 2025 18:12:27 GMT                              
-Created by          | rob-newman | rob.newman@seqera.io                          
-Template            | public.cr.seqera.io/platform/data-studio-jupyter:4.1.5-0.7 
-Mounted Data        |                                                            
-Compute environment | aws-datastudios-sandbox-ireland-16cpus                     
-Region              | eu-west-1                                                  
-GPU allocated       | 0                                                          
-CPU allocated       | 2                                                          
-Memory allocated    | 8192                                                       
-Build reports       | NA 
+SessionID           | 23ce7967
+Name                | experiment-analysis-session
+Status              | STARTING
+Status Last Update  | Fri, 31 Jan 2025 19:35:07 GMT
+Studio URL          | https://a23ce7967.connect.cloud.seqera.io
+Description         |
+Created on          | Fri, 31 Jan 2025 18:12:27 GMT
+Created by          | rob-newman | rob.newman@seqera.io
+Template            | public.cr.seqera.io/platform/data-studio-jupyter:4.1.5-0.7
+Mounted Data        |
+Compute environment | aws-datastudios-sandbox-ireland-16cpus
+Region              | eu-west-1
+GPU allocated       | 0
+CPU allocated       | 2
+Memory allocated    | 8192
+Build reports       | NA
 ```
 
 ### List available templates for Studio sessions
@@ -336,11 +336,11 @@ tw studios templates -w community/showcase
 
   Available templates for Studios:
 
-    Templates                                                     
+    Templates
   ---------------------------------------------------------------
-    public.cr.seqera.io/platform/data-studio-jupyter:4.2.5-0.7    
-    public.cr.seqera.io/platform/data-studio-rstudio:4.4.1-u1-0.7 
-    public.cr.seqera.io/platform/data-studio-vscode:1.93.1-0.7    
+    public.cr.seqera.io/platform/data-studio-jupyter:4.2.5-0.7
+    public.cr.seqera.io/platform/data-studio-rstudio:4.4.1-u1-0.7
+    public.cr.seqera.io/platform/data-studio-vscode:1.93.1-0.7
     public.cr.seqera.io/platform/data-studio-xpra:6.2.0-r2-1-0.7
 ```
 
@@ -398,10 +398,10 @@ tw studios checkpoints -i 19a3abbd -w community/showcase
 
 Checkpoints at studio 19a3abbd at [community / showcase] workspace:
 
-    ID   | Name                 | Author     | Date Created                  | Date Saved                    
+    ID   | Name                 | Author     | Date Created                  | Date Saved
   ------+----------------------+------------+-------------------------------+-------------------------------
-    2010 | my_custom_named_ckpt | rob-newman | Fri, 31 Jan 2025 20:22:15 GMT | Fri, 31 Jan 2025 20:33:00 GMT 
-    2011 | foo_1738355617       | rob-newman | Fri, 31 Jan 2025 20:33:37 GMT | Fri, 31 Jan 2025 20:35:22 GMT 
+    2010 | my_custom_named_ckpt | rob-newman | Fri, 31 Jan 2025 20:22:15 GMT | Fri, 31 Jan 2025 20:33:00 GMT
+    2011 | foo_1738355617       | rob-newman | Fri, 31 Jan 2025 20:33:37 GMT | Fri, 31 Jan 2025 20:35:22 GMT
 ```
 
 ### Start a new Studio session from an existing session checkpoint
@@ -416,7 +416,7 @@ tw studios start-as-new -pid=657ddbca \
 -w community/showcase \
 --description="New sandbox for temporary analysis"  \
 --cpu=2 \
---memory=8192 \ 
+--memory=8192 \
 -a
 
   Studio 19a3abbd CREATED at [community / showcase] workspace and auto-started.
@@ -429,7 +429,7 @@ Run `tw studios delete -h` to view the required and optional fields for listing 
 Delete an existing Studio session from a workspace.
 
 ```bash
-tw studios delete -i 2aa60bb7                                                                              
+tw studios delete -i 2aa60bb7
 
 Studio 2aa60bb7 deleted at [community / showcase] workspace.
 ```
@@ -470,7 +470,7 @@ Export the configuration details of a pipeline in JSON format for scripting and 
 ```bash
 tw pipelines export --name=my_rnaseq_nf_pipeline my_rnaseq_nf_pipeline_v1.json
 
-  Pipeline exported into 'my_rnaseq_nf_pipeline_v1.json' 
+  Pipeline exported into 'my_rnaseq_nf_pipeline_v1.json'
 ```
 
 Similarly, a pipeline can be imported to a workspace from a previously exported JSON file.
@@ -546,7 +546,7 @@ tw launch https://github.com/nf-core/rnaseq \
 --params-file=./custom_rnaseq_params.yaml \
 --config=<path/to/nextflow/conf/file> \
 --compute-env=my_aws_ce --revision 3.8.1 \
---profile=test,docker  
+--profile=test,docker
 
   Workflow 2XDXxX0vCX8xhx submitted at user workspace.
 
@@ -564,7 +564,7 @@ CLI users are bound to the same user permissions that apply in the Platform UI. 
 
 ## Runs
 
-Run `tw runs -h` to view supported runs operations.  
+Run `tw runs -h` to view supported runs operations.
 
 Runs display all the current and previous pipeline runs in the specified workspace. Each new or resumed run is given a random name such as _grave_williams_ by default, which can be overridden with a custom value at launch. See [Run details](../monitoring/run-details) for more information. As a run executes, it can transition through the following states:
 
@@ -587,20 +587,20 @@ tw runs view -i 2vFUbBx63cfsBY -w seqeralabs/showcase
 
     General
     ---------------------+-------------------------------------------------
-    ID                  | 2vFUbBx63cfsBY                                  
-    Operation ID        | b5d55384-734e-4af0-8e47-0d3abec71264            
-    Run name            | adoring_brown                                   
-    Status              | SUCCEEDED                                       
-    Starting date       | Fri, 31 May 2024 10:38:30 GMT                   
-    Commit ID           | b89fac32650aacc86fcda9ee77e00612a1d77066        
-    Session ID          | 9365c6f4-6d79-4ca9-b6e1-2425f4d957fe            
-    Username            | user1                                       
-    Workdir             | s3://seqeralabs-showcase/scratch/2vFUbBx63cfsBY 
-    Container           | No container was reported                       
-    Executors           | awsbatch                                        
-    Compute Environment | seqera_aws_ireland_fusionv2_nvme                
-    Nextflow Version    | 23.10.1                                         
-    Labels              | star_salmon,yeast  
+    ID                  | 2vFUbBx63cfsBY
+    Operation ID        | b5d55384-734e-4af0-8e47-0d3abec71264
+    Run name            | adoring_brown
+    Status              | SUCCEEDED
+    Starting date       | Fri, 31 May 2024 10:38:30 GMT
+    Commit ID           | b89fac32650aacc86fcda9ee77e00612a1d77066
+    Session ID          | 9365c6f4-6d79-4ca9-b6e1-2425f4d957fe
+    Username            | user1
+    Workdir             | s3://seqeralabs-showcase/scratch/2vFUbBx63cfsBY
+    Container           | No container was reported
+    Executors           | awsbatch
+    Compute Environment | seqera_aws_ireland_fusionv2_nvme
+    Nextflow Version    | 23.10.1
+    Labels              | star_salmon,yeast
 ```
 
 ### List runs
@@ -612,15 +612,15 @@ tw runs list
 
   Pipeline runs at [seqeralabs / testing] workspace:
 
-    ID             | Status    | Project Name               | Run Name                        | Username              | Submit Date                   
+    ID             | Status    | Project Name               | Run Name                        | Username              | Submit Date
     ----------------+-----------+----------------------------+---------------------------------+-----------------------+-------------------------------
-    49Gb5XVMud2e7H | FAILED    | seqeralabs/nf-aggregate    | distraught_archimedes           | user1 | Fri, 31 May 2024 16:22:10 GMT 
-    4anNFvTUwRFDp  | SUCCEEDED | nextflow-io/rnaseq-nf      | nasty_kilby                     | user1   | Fri, 31 May 2024 15:23:12 GMT 
-    3wo3Kfni6Kl3hO | SUCCEEDED | nf-core/proteinfold        | reverent_linnaeus               | user2   | Fri, 31 May 2024 15:22:38 GMT 
+    49Gb5XVMud2e7H | FAILED    | seqeralabs/nf-aggregate    | distraught_archimedes           | user1 | Fri, 31 May 2024 16:22:10 GMT
+    4anNFvTUwRFDp  | SUCCEEDED | nextflow-io/rnaseq-nf      | nasty_kilby                     | user1   | Fri, 31 May 2024 15:23:12 GMT
+    3wo3Kfni6Kl3hO | SUCCEEDED | nf-core/proteinfold        | reverent_linnaeus               | user2   | Fri, 31 May 2024 15:22:38 GMT
 
 <snip>
 
-    4fIRrFgZV3eDb1 | FAILED    | nextflow-io/hello          | gigantic_lichterman             | user1          | Mon, 29 Apr 2024 08:44:47 GMT 
+    4fIRrFgZV3eDb1 | FAILED    | nextflow-io/hello          | gigantic_lichterman             | user1          | Mon, 29 Apr 2024 08:44:47 GMT
     cHEdKBXmdoQQM  | FAILED    | mathysgrapotte/stimulus    | mighty_poitras                  | user3            | Mon, 29 Apr 2024 08:08:52 GMT
 ```
 
@@ -648,7 +648,7 @@ tw runs list --filter hello_slurm_20240530
 
   Pipeline runs at [seqeralabs / showcase] workspace:
 
-    ID            | Status    | Project Name      | Run Name                             | Username   | Submit Date                   
+    ID            | Status    | Project Name      | Run Name                             | Username   | Submit Date
     ---------------+-----------+-------------------+--------------------------------------+------------+-------------------------------
     pZeJBOLtIvP7R | SUCCEEDED | nextflow-io/hello | hello_slurm_20240530_e75584566f774e7 | user1 | Thu, 30 May 2024 09:12:51 GMT
 ```
@@ -660,34 +660,34 @@ tw runs list --filter="after:2024-05-29T00:00:00.000Z before:2024-05-30T00:00:00
 
   Pipeline runs at [seqeralabs / testing] workspace:
 
-    ID             | Status    | Project Name          | Run Name           | Username    | Submit Date                   
+    ID             | Status    | Project Name          | Run Name           | Username    | Submit Date
     ----------------+-----------+-----------------------+--------------------+-------------+-------------------------------
-    xJvK95W6YUmEz  | SUCCEEDED | nextflow-io/rnaseq-nf | ondemand2          | user1       | Wed, 29 May 2024 20:35:28 GMT 
-    1c1ckn9a3j0xF0 | SUCCEEDED | nextflow-io/rnaseq-nf | fargate            | user1       | Wed, 29 May 2024 20:28:02 GMT 
-    3sYX1acJ01T7rL | SUCCEEDED | nextflow-io/rnaseq-nf | min1vpcu-spot      | user1       | Wed, 29 May 2024 20:27:47 GMT 
-    4ZYJGWJCttXqXq | SUCCEEDED | nextflow-io/rnaseq-nf | min1cpu-ondemand   | user1       | Wed, 29 May 2024 20:25:21 GMT 
-    4LCxsffTqf3ysT | SUCCEEDED | nextflow-io/rnaseq-nf | lonely_northcutt   | user1       | Wed, 29 May 2024 20:09:51 GMT 
-    4Y8EcyopNiYBlJ | SUCCEEDED | nextflow-io/rnaseq-nf | fargate            | user1       | Wed, 29 May 2024 18:53:47 GMT 
-    dyKevNwxK50XX  | SUCCEEDED | mark814/nr-test       | cheeky_cuvier      | user1       | Wed, 29 May 2024 12:21:10 GMT 
-    eS6sVB5A387aR  | SUCCEEDED | mark814/nr-test       | evil_murdock       | user1       | Wed, 29 May 2024 12:11:08 GMT 
+    xJvK95W6YUmEz  | SUCCEEDED | nextflow-io/rnaseq-nf | ondemand2          | user1       | Wed, 29 May 2024 20:35:28 GMT
+    1c1ckn9a3j0xF0 | SUCCEEDED | nextflow-io/rnaseq-nf | fargate            | user1       | Wed, 29 May 2024 20:28:02 GMT
+    3sYX1acJ01T7rL | SUCCEEDED | nextflow-io/rnaseq-nf | min1vpcu-spot      | user1       | Wed, 29 May 2024 20:27:47 GMT
+    4ZYJGWJCttXqXq | SUCCEEDED | nextflow-io/rnaseq-nf | min1cpu-ondemand   | user1       | Wed, 29 May 2024 20:25:21 GMT
+    4LCxsffTqf3ysT | SUCCEEDED | nextflow-io/rnaseq-nf | lonely_northcutt   | user1       | Wed, 29 May 2024 20:09:51 GMT
+    4Y8EcyopNiYBlJ | SUCCEEDED | nextflow-io/rnaseq-nf | fargate            | user1       | Wed, 29 May 2024 18:53:47 GMT
+    dyKevNwxK50XX  | SUCCEEDED | mark814/nr-test       | cheeky_cuvier      | user1       | Wed, 29 May 2024 12:21:10 GMT
+    eS6sVB5A387aR  | SUCCEEDED | mark814/nr-test       | evil_murdock       | user1       | Wed, 29 May 2024 12:11:08 GMT
 ```
 
 A leading and trailing `*` wildcard character is supported:
 
 ```bash
-tw runs list --filter="*man/rnaseq-*"    
+tw runs list --filter="*man/rnaseq-*"
 
   Pipeline runs at [seqeralabs / testing] workspace:
 
-    ID             | Status    | Project Name        | Run Name            | Username       | Submit Date                   
+    ID             | Status    | Project Name        | Run Name            | Username       | Submit Date
     ----------------+-----------+---------------------+---------------------+----------------+-------------------------------
-    5z4AMshti4g0GK | SUCCEEDED | robnewman/rnaseq-nf | admiring_darwin     | user1     | Tue, 16 Jan 2024 19:56:29 GMT 
-    62LqiS4O4FatSy | SUCCEEDED | robnewman/rnaseq-nf | cheeky_yonath       | user1 | Wed, 3 Jan 2024 12:36:09 GMT  
-    3k2nu8ZmcBFSGv | SUCCEEDED | robnewman/rnaseq-nf | compassionate_jones | user3   | Tue, 2 Jan 2024 16:22:26 GMT  
-    3zG2ggf5JsniNW | SUCCEEDED | robnewman/rnaseq-nf | fervent_payne       | user1     | Wed, 20 Dec 2023 23:55:17 GMT 
-    1SNIcSXRuJMSNZ | SUCCEEDED | robnewman/rnaseq-nf | curious_babbage     | user3     | Thu, 28 Sep 2023 17:48:04 GMT 
-    5lI2fZUZfiokBI | SUCCEEDED | robnewman/rnaseq-nf | boring_heisenberg   | user2     | Thu, 28 Sep 2023 12:29:27 GMT 
-    5I4lsRXIHVEjNB | SUCCEEDED | robnewman/rnaseq-nf | ecstatic_ptolemy    | user2     | Wed, 27 Sep 2023 22:06:19 GMT 
+    5z4AMshti4g0GK | SUCCEEDED | robnewman/rnaseq-nf | admiring_darwin     | user1     | Tue, 16 Jan 2024 19:56:29 GMT
+    62LqiS4O4FatSy | SUCCEEDED | robnewman/rnaseq-nf | cheeky_yonath       | user1 | Wed, 3 Jan 2024 12:36:09 GMT
+    3k2nu8ZmcBFSGv | SUCCEEDED | robnewman/rnaseq-nf | compassionate_jones | user3   | Tue, 2 Jan 2024 16:22:26 GMT
+    3zG2ggf5JsniNW | SUCCEEDED | robnewman/rnaseq-nf | fervent_payne       | user1     | Wed, 20 Dec 2023 23:55:17 GMT
+    1SNIcSXRuJMSNZ | SUCCEEDED | robnewman/rnaseq-nf | curious_babbage     | user3     | Thu, 28 Sep 2023 17:48:04 GMT
+    5lI2fZUZfiokBI | SUCCEEDED | robnewman/rnaseq-nf | boring_heisenberg   | user2     | Thu, 28 Sep 2023 12:29:27 GMT
+    5I4lsRXIHVEjNB | SUCCEEDED | robnewman/rnaseq-nf | ecstatic_ptolemy    | user2     | Wed, 27 Sep 2023 22:06:19 GMT
 ```
 
 ### Relaunch run
@@ -705,7 +705,7 @@ Run `tw runs labels -h` to view all the required and optional fields for managin
 In the example below, we add the labels `test` and `rnaseq-demo` to the run with ID `5z4AMshti4g0GK`:
 
 ```bash
-tw runs labels -i 5z4AMshti4g0GK test,rnaseq-demo 
+tw runs labels -i 5z4AMshti4g0GK test,rnaseq-demo
 
 'set' labels on 'run' with id '5z4AMshti4g0GK' at 34830707738561 workspace
 ```
@@ -724,23 +724,23 @@ tw runs dump -i 5z4AMshti4g0GK -o file.tar.gz
 - Workflow details
 - Task details
 
-  Pipeline run '5z4AMshti4g0GK' at [seqeralabs / testing] workspace details dump at 'file.tar.gz' 
+  Pipeline run '5z4AMshti4g0GK' at [seqeralabs / testing] workspace details dump at 'file.tar.gz'
 ```
 
 ## Labels
 
-Run `tw labels -h` to view supported label operations.  
+Run `tw labels -h` to view supported label operations.
 
-Manage labels and resource labels. 
+Manage labels and resource labels.
 
 ### Add a label
 
-Run `tw labels add -h` to view the required and optional fields for adding a label. 
+Run `tw labels add -h` to view the required and optional fields for adding a label.
 
 :::note
 [Resource labels](../resource-labels/overview) consist of a `name=value` pair.
-[Labels](../labels/overview) require only a name. 
-::: 
+[Labels](../labels/overview) require only a name.
+:::
 
 ```bash
 tw labels add -n Label1 -w DocTestOrg2/Testing -v Value1
@@ -748,9 +748,9 @@ tw labels add -n Label1 -w DocTestOrg2/Testing -v Value1
 Label 'Label1=Value1' added at 'DocTestOrg2/Testing' workspace with id '268741348267491'
 ```
 
-### List labels 
+### List labels
 
-Run `tw labels list -h` to view the optional fields for filtering labels. 
+Run `tw labels list -h` to view the optional fields for filtering labels.
 
 ```bash
 tw labels list
@@ -769,11 +769,11 @@ Labels at 97652229034604 workspace:
 
 ### Update a label
 
-Run `tw labels update -h` to view the required and optional fields for updating labels. 
+Run `tw labels update -h` to view the required and optional fields for updating labels.
 
-### Delete a label 
+### Delete a label
 
-Run `tw labels delete -h` to view the required and optional fields for deleting labels. 
+Run `tw labels delete -h` to view the required and optional fields for deleting labels.
 
 ```bash
 tw labels delete -i 203879852150462
@@ -795,7 +795,7 @@ Data links allow you to work with public and private cloud storage buckets in [D
 
 ### List data links
 
-Run `tw data-links list -h` to view all the optional fields for listing data links in a workspace. 
+Run `tw data-links list -h` to view all the optional fields for listing data links in a workspace.
 
 If a workspace is not defined, the `TOWER_WORKSPACE_ID` workspace is used by default. Data links can be one of two types:
 
@@ -807,25 +807,25 @@ tw data-links list -w seqeralabs/showcase
 
 Data links at [seqeralabs / showcase] workspace:
 
-ID                                        | Provider | Name                           | Resource ref                                                    | Region    
+ID                                        | Provider | Name                           | Resource ref                                                    | Region
 -------------------------------------------+----------+--------------------------------+-----------------------------------------------------------------+-----------
-v1-cloud-833bb845bd9ec1970c4a7b0bb7b8c4ad | aws      | e2e-data-explorer-tests-aws    | s3://e2e-data-explorer-tests-aws                                | eu-west-2 
-v1-cloud-60700a33ec3fae68d424cf948fa8d10c | aws      | nf-tower-bucket                | s3://nf-tower-bucket                                            | eu-west-1 
-v1-user-09705781697816b62f9454bc4b9434b4  | aws      | vscode-analysis-demo           | s3://seqera-development-permanent-bucket/studios-demo/vscode/   | eu-west-2 
-v1-user-0dede00fabbc4b9e2610261822a2d6ae  | aws      | seqeralabs-showcase            | s3://seqeralabs-showcase                                        | eu-west-1 
-v1-user-171aa8801cabe4af71500335f193d649  | aws      | projectA-rnaseq-analysis       | s3://seqeralabs-showcase/demo/nf-core-rnaseq/                   | eu-west-1 
+v1-cloud-833bb845bd9ec1970c4a7b0bb7b8c4ad | aws      | e2e-data-explorer-tests-aws    | s3://e2e-data-explorer-tests-aws                                | eu-west-2
+v1-cloud-60700a33ec3fae68d424cf948fa8d10c | aws      | nf-tower-bucket                | s3://nf-tower-bucket                                            | eu-west-1
+v1-user-09705781697816b62f9454bc4b9434b4  | aws      | vscode-analysis-demo           | s3://seqera-development-permanent-bucket/studios-demo/vscode/   | eu-west-2
+v1-user-0dede00fabbc4b9e2610261822a2d6ae  | aws      | seqeralabs-showcase            | s3://seqeralabs-showcase                                        | eu-west-1
+v1-user-171aa8801cabe4af71500335f193d649  | aws      | projectA-rnaseq-analysis       | s3://seqeralabs-showcase/demo/nf-core-rnaseq/                   | eu-west-1
 
 <snip>
 
-v1-user-bb4fa9625a44721510c47ac1cb97905b  | aws      | genome-in-a-bottle             | s3://giab                                                       | us-east-1 
-v1-user-e7bf26921ba74032bd6ae1870df381fc  | aws      | NCBI_Sequence_Read_Archive_SRA | s3://sra-pub-src-1/                                             | us-east-1 
+v1-user-bb4fa9625a44721510c47ac1cb97905b  | aws      | genome-in-a-bottle             | s3://giab                                                       | us-east-1
+v1-user-e7bf26921ba74032bd6ae1870df381fc  | aws      | NCBI_Sequence_Read_Archive_SRA | s3://sra-pub-src-1/                                             | us-east-1
 
-Showing from 0 to 99 from a total of 16 entries. 
+Showing from 0 to 99 from a total of 16 entries.
 ```
 
 ### Add a custom data link
 
-Run `tw data-links add -h` to view all the required and optional fields for adding a custom data link to a workspace. 
+Run `tw data-links add -h` to view all the required and optional fields for adding a custom data link to a workspace.
 
 Users with the workspace `MAINTAIN` role and above can add custom data links. The data link `name`, `uri`, and `provider` (`aws`, `azure`, or `google`) fields are required. If adding a custom data link for a private bucket, the credentials identifier field is also required. Adding a custom data link for a public bucket doesn't require credentials.
 
@@ -835,9 +835,9 @@ tw data-links add -w seqeralabs/showcase -n FOO -u az://seqeralabs.azure-benchma
 
 Data link created:
 
-ID                                       | Provider | Name | Resource ref                       | Region 
+ID                                       | Provider | Name | Resource ref                       | Region
 ------------------------------------------+----------+------+------------------------------------+--------
-v1-user-152116183ee325463901430bb9efb8c9 | azure    | FOO  | az://seqeralabs.azure-benchmarking |        
+v1-user-152116183ee325463901430bb9efb8c9 | azure    | FOO  | az://seqeralabs.azure-benchmarking |
 ```
 
 ### Update a custom data link
@@ -849,18 +849,18 @@ tw data-links update -w seqeralabs/showcase -i v1-user-152116183ee325463901430bb
 
 Data link updated:
 
-ID                                       | Provider | Name | Resource ref                       | Region 
+ID                                       | Provider | Name | Resource ref                       | Region
 ------------------------------------------+----------+------+------------------------------------+--------
-v1-user-152116183ee325463901430bb9efb8c9 | azure    | BAR  | az://seqeralabs.azure-benchmarking | 
-```       
+v1-user-152116183ee325463901430bb9efb8c9 | azure    | BAR  | az://seqeralabs.azure-benchmarking |
+```
 
 ### Delete a custom data link
 
-Run `tw data-links delete -h` to view all the required and optional fields for deleting a custom data link from a workspace. 
+Run `tw data-links delete -h` to view all the required and optional fields for deleting a custom data link from a workspace.
 
 Users with the `MAINTAIN` role and above for a workspace can delete custom data links.
 
-```bash 
+```bash
 tw data-links delete -w seqeralabs/showcase -i v1-user-152116183ee325463901430bb9efb8c9
 
 Data link 'v1-user-152116183ee325463901430bb9efb8c9' deleted at '138659136604200' workspace.
@@ -868,71 +868,71 @@ Data link 'v1-user-152116183ee325463901430bb9efb8c9' deleted at '138659136604200
 
 ### Browse data link contents
 
-Run `tw data-links browse -h` to view all the required and optional fields for browsing a data link in a workspace. 
+Run `tw data-links browse -h` to view all the required and optional fields for browsing a data link in a workspace.
 
 Define the data link ID using the required `-i` or `--id` argument, which can be found by first using the list operation for a workspace. In the example below, a name is defined to only retrieve data links with names that start with the given word:
 
-```bash 
+```bash
 tw data-links list -w seqeralabs/showcase -n 1000genomes
 
 Data links at [seqeralabs / showcase] workspace:
 
-ID                                       | Provider | Name        | Resource ref     | Region    
+ID                                       | Provider | Name        | Resource ref     | Region
 ------------------------------------------+----------+-------------+------------------+-----------
-v1-user-6d8f44c239e2a098b3e02e918612452a | aws      | 1000genomes | s3://1000genomes | us-east-1 
+v1-user-6d8f44c239e2a098b3e02e918612452a | aws      | 1000genomes | s3://1000genomes | us-east-1
 
   Showing from 0 to 99 from a total of 1 entries.
 
-tw data-links browse -w seqeralabs/showcase -i v1-user-6d8f44c239e2a098b3e02e918612452a         
+tw data-links browse -w seqeralabs/showcase -i v1-user-6d8f44c239e2a098b3e02e918612452a
 
   Content of 's3://1000genomes' and path 'null':
 
-Type   | Name                                       | Size     
+Type   | Name                                       | Size
 --------+--------------------------------------------+----------
-FILE   | 20131219.populations.tsv                   | 1663     
-FILE   | 20131219.superpopulations.tsv              | 97       
-FILE   | CHANGELOG                                  | 257098   
-FILE   | README.alignment_data                      | 15977    
-FILE   | README.analysis_history                    | 5289     
-FILE   | README.complete_genomics_data              | 5967     
-FILE   | README.crams                               | 563      
-FILE   | README.ebi_aspera_info                     | 935      
-FILE   | README.ftp_structure                       | 8408     
-FILE   | README.pilot_data                          | 2082     
-FILE   | README.populations                         | 1938     
-FILE   | README.sequence_data                       | 7857     
-FILE   | README_missing_files_20150612              | 672      
-FILE   | README_phase3_alignments_sequence_20150526 | 136      
-FILE   | README_phase3_data_move_20150612           | 273      
-FILE   | alignment.index                            | 3579471  
-FILE   | analysis.sequence.index                    | 54743580 
-FILE   | exome.alignment.index                      | 3549051  
-FILE   | sequence.index                             | 67069489 
-FOLDER | 1000G_2504_high_coverage/                  | 0        
-FOLDER | alignment_indices/                         | 0        
-FOLDER | changelog_details/                         | 0        
-FOLDER | complete_genomics_indices/                 | 0        
-FOLDER | data/                                      | 0        
-FOLDER | hgsv_sv_discovery/                         | 0        
-FOLDER | phase1/                                    | 0        
-FOLDER | phase3/                                    | 0        
-FOLDER | pilot_data/                                | 0        
-FOLDER | release/                                   | 0        
-FOLDER | sequence_indices/                          | 0        
-FOLDER | technical/                                 | 0        
+FILE   | 20131219.populations.tsv                   | 1663
+FILE   | 20131219.superpopulations.tsv              | 97
+FILE   | CHANGELOG                                  | 257098
+FILE   | README.alignment_data                      | 15977
+FILE   | README.analysis_history                    | 5289
+FILE   | README.complete_genomics_data              | 5967
+FILE   | README.crams                               | 563
+FILE   | README.ebi_aspera_info                     | 935
+FILE   | README.ftp_structure                       | 8408
+FILE   | README.pilot_data                          | 2082
+FILE   | README.populations                         | 1938
+FILE   | README.sequence_data                       | 7857
+FILE   | README_missing_files_20150612              | 672
+FILE   | README_phase3_alignments_sequence_20150526 | 136
+FILE   | README_phase3_data_move_20150612           | 273
+FILE   | alignment.index                            | 3579471
+FILE   | analysis.sequence.index                    | 54743580
+FILE   | exome.alignment.index                      | 3549051
+FILE   | sequence.index                             | 67069489
+FOLDER | 1000G_2504_high_coverage/                  | 0
+FOLDER | alignment_indices/                         | 0
+FOLDER | changelog_details/                         | 0
+FOLDER | complete_genomics_indices/                 | 0
+FOLDER | data/                                      | 0
+FOLDER | hgsv_sv_discovery/                         | 0
+FOLDER | phase1/                                    | 0
+FOLDER | phase3/                                    | 0
+FOLDER | pilot_data/                                | 0
+FOLDER | release/                                   | 0
+FOLDER | sequence_indices/                          | 0
+FOLDER | technical/                                 | 0
 ```
 
 ## Organizations
 
 Run `tw organizations -h` to view supported workspace operations.
 
-Organizations are the top-level structure and contain workspaces, members, and teams. You can also add external collaborators to an organization. See [Organization management](../orgs-and-teams/organizations) for more information. 
+Organizations are the top-level structure and contain workspaces, members, and teams. You can also add external collaborators to an organization. See [Organization management](../orgs-and-teams/organizations) for more information.
 
 ### Add an organization
 
 Run `tw organizations add -h` to view the required and optional fields for adding your workspace.
 
-```bash 
+```bash
 tw organizations add -n TestOrg2 -f 2nd\ Test\ Organization\ LLC -l RSA
 
 Organization 'TestOrg2' with ID '204336622618177' was added
@@ -942,9 +942,9 @@ Organization 'TestOrg2' with ID '204336622618177' was added
 
 Run `tw members -h` to view supported member operations.
 
-Manage organization members. Organization membership management requires organization `OWNER` permissions. 
+Manage organization members. Organization membership management requires organization `OWNER` permissions.
 
-### List members 
+### List members
 
 Run `tw members list -h` view all the optional fields for listing organization members.
 
@@ -959,9 +959,9 @@ Members for TestOrg2 organization:
     277776534946151 | user2                | user2@domain.com                | MEMBER
     243277166855716 | user3                | user3@domain.com                | OWNER
 
-``` 
+```
 
-### Add a member 
+### Add a member
 
 Run `tw members add -h` view all the required and optional fields for adding organization members.
 
@@ -981,11 +981,11 @@ tw members delete -u user1 -o TestOrg2
 Member 'user1' deleted from organization 'TestOrg2'
 ```
 
-### Update member role 
+### Update member role
 
 Run `tw members update -h` view all the required and optional fields for updating organization members.
 
-```bash 
+```bash
 tw members update -u user1 -r OWNER -o TestOrg2
 
 Member 'user1' updated to role 'owner' in organization 'TestOrg2'
@@ -994,7 +994,6 @@ Member 'user1' updated to role 'owner' in organization 'TestOrg2'
 ### Leave an organization
 
 Run `tw members leave -o <organization_name>` to be removed from the given organization's members.
-
 
 ## Workspaces
 
@@ -1029,20 +1028,20 @@ By default, a workspace is set to private when created.
 List all the workspaces in which you are a participant:
 
 ```bash
-tw workspaces list                      
+tw workspaces list
 
   Workspaces for default user:
 
-    Workspace ID    | Workspace Name   | Organization Name | Organization ID 
+    Workspace ID    | Workspace Name   | Organization Name | Organization ID
     -----------------+------------------+-------------------+-----------------
-    26002603030407  | shared-workspace | my-tower-org      | 04303000612070  
+    26002603030407  | shared-workspace | my-tower-org      | 04303000612070
 ```
 
 ## Participants
 
 Run `tw participants -h` to view supported participant operations.
 
-Manage workspace participants. 
+Manage workspace participants.
 
 :::note
 The operations listed below require workspace `OWNER` or `ADMIN` permissions.
@@ -1055,9 +1054,9 @@ tw participants list
 
   Participants for 'my-tower-org/shared-workspace' workspace:
 
-    ID             | Participant Type | Name                        | Workspace Role 
+    ID             | Participant Type | Name                        | Workspace Role
     ----------------+------------------+-----------------------------+----------------
-    45678460861822 | MEMBER           | user (user@mydomain.com) | owner          
+    45678460861822 | MEMBER           | user (user@mydomain.com) | owner
 ```
 
 ### Add participants
@@ -1069,7 +1068,7 @@ To add a new _collaborator_ to the workspace, use the `add` subcommand. The defa
 See [Participant roles][participant-roles] for more information.
 
 ```bash
-tw participants add --name=collaborator@mydomain.com --type=MEMBER                           
+tw participants add --name=collaborator@mydomain.com --type=MEMBER
 
   User 'collaborator' was added as participant to 'shared-workspace' workspace with role 'launch'
 ```
@@ -1091,12 +1090,12 @@ Run `tw teams -h` to view supported team operations.
 Manage organization teams.
 
 :::note
-Team management operations require organization `OWNER` permissions. 
+Team management operations require organization `OWNER` permissions.
 :::
 
 ### List teams
 
-Run `tw teams list -h` to view the required and optional fields for listing teams. 
+Run `tw teams list -h` to view the required and optional fields for listing teams.
 
 ```bash
 tw teams list -o TestOrg2
@@ -1108,31 +1107,31 @@ Teams for TestOrg2 organization:
     84866234211969 | Testing   | 1
 ```
 
-### Add a team 
+### Add a team
 
-Run `tw teams add -h` to view the required and optional fields for creating a team. 
+Run `tw teams add -h` to view the required and optional fields for creating a team.
 
-```bash 
+```bash
 tw teams add -n team1 -o TestOrg2 -d testing
 
 A 'team1' team added for 'TestOrg2' organization
 ```
 
-### Delete a team 
+### Delete a team
 
-```bash 
+```bash
 tw teams delete -i 169283393825479 -o TestOrg2
 
 Team '169283393825479' deleted for TestOrg2 organization
 ```
 
-### Manage team members 
+### Manage team members
 
-Run `tw teams members -h` to view the fields and additional commands for managing team members. 
+Run `tw teams members -h` to view the fields and additional commands for managing team members.
 
 To add a new team member, include an existing username or new user email:
 
-```bash 
+```bash
 tw teams members -t Testing -o TestOrg2 add -m user1@domain.com
 
 Member 'user1' added to team 'Testing' with id '243206491381406'
@@ -1140,7 +1139,7 @@ Member 'user1' added to team 'Testing' with id '243206491381406'
 
 To delete a team member, include the member's username:
 
-```bash 
+```bash
 tw teams members -t Testing -o TestOrg2 delete -m user1
 
 Team member 'user1' deleted at 'Testing' team
@@ -1150,7 +1149,7 @@ Team member 'user1' deleted at 'Testing' team
 
 Run `tw collaborators -h` view all the required and optional fields for managing organization collaborators.
 
-Manage organization collaborators. 
+Manage organization collaborators.
 
 ### List collaborators
 
@@ -1187,7 +1186,6 @@ Run `tw secrets -h` to view supported workspace secret operations.
 ### Add a workspace secret
 
 Run `tw secrets add -h` to view the required and optional fields for adding a secret.
-
 
 [compute-envs]: ../compute-envs/overview
 [credentials]: ../credentials/overview

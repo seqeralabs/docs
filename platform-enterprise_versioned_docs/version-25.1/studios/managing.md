@@ -15,56 +15,58 @@ To add a new Studio, select the **Studios** tab in your workspace then select **
 
 ### Compute and Data
 
-   1. Customize the following fields:
-      - **Select compute environment**: Only AWS Batch (without Fargate enabled) is supported.
-      - **Define resource labels**: Any [resource label](../labels/overview) already defined for the compute environment is added by default. Additional custom resource labels can be added or removed as needed.
-      - **CPUs allocated**: The default allocation is 2 CPUs.
-      - **GPUs allocated**: Available only if the selected compute environment has GPU support enabled. For more information about GPUs on AWS, see [Amazon ECS task definitions for GPU workloads][aws-gpu]. The default allocation is 0 GPUs.
-      - **Maximum memory allocated**: The default allocation is 8192 MiB of memory.
-   1. Select **Mount data**, and then from the **Mount data** modal, select data to mount. Select **Mount data** to confirm your selection.
+1.  Customize the following fields:
+    - **Select compute environment**: Only AWS Batch (without Fargate enabled) is supported.
+    - **Define resource labels**: Any [resource label](../labels/overview) already defined for the compute environment is added by default. Additional custom resource labels can be added or removed as needed.
+    - **CPUs allocated**: The default allocation is 2 CPUs.
+    - **GPUs allocated**: Available only if the selected compute environment has GPU support enabled. For more information about GPUs on AWS, see [Amazon ECS task definitions for GPU workloads][aws-gpu]. The default allocation is 0 GPUs.
+    - **Maximum memory allocated**: The default allocation is 8192 MiB of memory.
+1.  Select **Mount data**, and then from the **Mount data** modal, select data to mount. Select **Mount data** to confirm your selection.
 
-        :::tip
-        Datasets are mounted using the [Fusion file system](https://docs.seqera.io/fusion) and are available at `/workspace/data/<dataset>`. Mounted data doesn't need to match the compute environment or region of the cloud provider of the Studio. However, this might cause increased costs or errors.
-        :::
+    :::tip
+    Datasets are mounted using the [Fusion file system](https://docs.seqera.io/fusion) and are available at `/workspace/data/<dataset>`. Mounted data doesn't need to match the compute environment or region of the cloud provider of the Studio. However, this might cause increased costs or errors.
+    :::
 
-   1. Select **Next**.
+1.  Select **Next**.
 
 ### General config
 
-   - To use one of the Seqera-provided container templates, complete the following steps:
+- To use one of the Seqera-provided container templates, complete the following steps:
 
-     1. Customize the following fields:
-        - **Container template**: Select a template from the dropdown list.
-        - **Studio name**
-        - Optional: **Description**
-     1. Optional: Select **Install Conda packages** to enter or upload a list of Conda packages to include with the Studio. For more information on the syntax for specifying Conda packages, see [Conda package syntax][conda-syntax].
-     1. **Collaboration**: By default, all Studios are collaborative. This means all workspace users with the launch role and above can connect to the session. You can toggle **Private** on which means that only the workspace user who created the Studio can connect to it. When **Private** is on, workspace administrators can still start, stop, and delete sessions but cannot connect to them.
-     1. **Session lifespan**: Depending on your workspace settings, you may be able to choose between the following options.
-          -  **Stop the session automatically after a predefined period of time.**
-               - If there is an existing defined session lifespan workspace setting, you won't be able to edit this. If no workspace setting is defined, you can edit this field. The minimum value is 1 hour and the maximum is 120 hours. The default value is 8 hours. 
-               - If you change the default value, the change applies only to that session. Once you've stopped the session, the value returns to default.
-          -  **Keep the session running until it's manually stopped or encounters an error which ends the session.**
-     1. Select **Next**.
+  1.  Customize the following fields:
+      - **Container template**: Select a template from the dropdown list.
+      - **Studio name**
+      - Optional: **Description**
+  1.  Optional: Select **Install Conda packages** to enter or upload a list of Conda packages to include with the Studio. For more information on the syntax for specifying Conda packages, see [Conda package syntax][conda-syntax].
+  1.  **Collaboration**: By default, all Studios are collaborative. This means all workspace users with the launch role and above can connect to the session. You can toggle **Private** on which means that only the workspace user who created the Studio can connect to it. When **Private** is on, workspace administrators can still start, stop, and delete sessions but cannot connect to them.
+  1.  **Session lifespan**: Depending on your workspace settings, you may be able to choose between the following options.
+      - **Stop the session automatically after a predefined period of time.**
+        - If there is an existing defined session lifespan workspace setting, you won't be able to edit this. If no workspace setting is defined, you can edit this field. The minimum value is 1 hour and the maximum is 120 hours. The default value is 8 hours.
+        - If you change the default value, the change applies only to that session. Once you've stopped the session, the value returns to default.
+      - **Keep the session running until it's manually stopped or encounters an error which ends the session.**
+  1.  Select **Next**.
 
-   - To use a custom container template image that you supply, complete the following steps:
+- To use a custom container template image that you supply, complete the following steps:
 
-     1. Customize the following fields:
-        - **Container template**: Select **Prebuilt container image** from the list. For information about providing your own template, see [Custom container template image][custom-image].
+  1.  Customize the following fields:
 
-          :::tip
-          If you select the **Prebuilt container image** template, you cannot select **Install Conda packages** as these options are mutually exclusive.
-          :::
+      - **Container template**: Select **Prebuilt container image** from the list. For information about providing your own template, see [Custom container template image][custom-image].
 
-        - **Studio name**
-        - Optional: **Description**
-     1. Select **Next**.
+        :::tip
+        If you select the **Prebuilt container image** template, you cannot select **Install Conda packages** as these options are mutually exclusive.
+        :::
+
+      - **Studio name**
+      - Optional: **Description**
+
+  1.  Select **Next**.
 
 ### Summary
 
-   1. Ensure that the specified configuration is correct.
-   1. Save your configuration:
-      - To not immediately start the session, select **Add only**.
-      - If you want to save and immediately start the Studio, select **Add and start**.
+1.  Ensure that the specified configuration is correct.
+1.  Save your configuration:
+    - To not immediately start the session, select **Add only**.
+    - If you want to save and immediately start the Studio, select **Add and start**.
 
 You'll be returned to the Studios landing page that displays the list of Studio sessions in your workspace. Select a Studio to inspect its configuration details. The Studio you created will be listed with a status of either **stopped** or **starting**, based on whether you elected to **Add** it or to **Add and start** a session as well.
 
@@ -161,7 +163,7 @@ To limit read-write access to a specific subdirectory, complete the following st
 1. Complete the following fields:
    - **Provider**: Select your cloud provider.
    - **Bucket path**: Enter the full path to the subdirectory of the bucket that you want to use with your Studio, such as `s3://1000genomes/data`.
-   - **Name**: Enter a name for this cloud bucket, such as *1000-genomes-data-dir*, to indicate the bucket name and subdirectory path.
+   - **Name**: Enter a name for this cloud bucket, such as _1000-genomes-data-dir_, to indicate the bucket name and subdirectory path.
    - **Credentials**: Select your provider credentials.
    - Optional: **Description**: Enter a description for this cloud bucket.
 1. Select **Add** to create a custom data-link to a subdirectory in the cloud bucket.
@@ -205,7 +207,7 @@ Always use the `latest` tagged template image for new Studios. Only two earlier 
 Due to the nature of fully customizable, containerized applications, users can modify environments leading to a variety of configurations and outcomes. This is therefore a best effort to support Studio migrations and a successful outcome is not guaranteed.
 :::
 
-{/* links */}
+{/_ links _/}
 [aws-gpu]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-gpu.html
 [conda-syntax]: ./custom-envs#conda-package-syntax
 [custom-image]: ./custom-envs#custom-containers

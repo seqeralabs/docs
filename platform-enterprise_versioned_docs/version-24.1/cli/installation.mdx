@@ -5,22 +5,22 @@ date: "16 Jul 2024"
 tags: [cli, platform, installation, configuration]
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 1. Download the latest [version][releases] for your OS from the CLI GitHub repository.
 1. Rename the file and and make it executable:
 
-    ```bash
-    mv tw-* tw
-    chmod +x ./tw
-    ```
+   ```bash
+   mv tw-* tw
+   chmod +x ./tw
+   ```
 
 1. Move the file to a directory accessible to your `$PATH` variable:
 
-    ```bash
-    sudo mv tw /usr/local/bin/
-    ```
+   ```bash
+   sudo mv tw /usr/local/bin/
+   ```
 
 ### Configuration
 
@@ -32,9 +32,9 @@ Copy the access token value and use it with the CLI in one of two ways:
 
   1. Export the token as a shell variable directly into your terminal:
 
-    ```bash
-    export TOWER_ACCESS_TOKEN=<your access token>
-    ```
+  ```bash
+  export TOWER_ACCESS_TOKEN=<your access token>
+  ```
 
   2. Add the `export` command to your `.bashrc`, `.zshrc`, or `.bash_profile` file for it to be permanently added to your environment.
 
@@ -67,10 +67,10 @@ tw info
      Tower API endpoint      | <TOWER_API_ENDPOINT>
      Tower API version       | 1.25.0
      Tower version           | 24.2.0_cycle27
-     CLI version             | 0.10.3 (a86eeed)    
-     CLI minimum API version | 1.15                 
-     Authenticated user      | <username>  
-     
+     CLI version             | 0.10.3 (a86eeed)
+     CLI minimum API version | 1.15
+     Authenticated user      | <username>
+
     System health status
     ---------------------------------------+------------------
      Remote API server connection check    | OK
@@ -98,7 +98,7 @@ If you are using a Private CA SSL certificate not recognized by the default Java
 tw -Djavax.net.ssl.trustStore=/absolute/path/to/cacerts -Djavax.net.ssl.trustStorePassword=<your-password> info
 ```
 
-Replace `<your-password>` with your keystore password. If you did not set a password when creating the keystore, include the default keystore password `changeit` in the command above. 
+Replace `<your-password>` with your keystore password. If you did not set a password when creating the keystore, include the default keystore password `changeit` in the command above.
 
 You can also rename the binary to `tw-binary` and create a `tw` script to automatically include the custom `cacerts` store in every session:
 
@@ -114,49 +114,49 @@ tw CLI is a platform binary executable created by a native compilation from Java
 1. If necessary, install [SDKMan!](https://sdkman.io/)
 1. From the root of the tower-cli project, install GraalVM:
 
-    ```bash
-    sdk env install
-    ```
+   ```bash
+   sdk env install
+   ```
 
-    This ensures that SDKMan uses the tower-cli project-specific `.sdkmanrc` configuration.
+   This ensures that SDKMan uses the tower-cli project-specific `.sdkmanrc` configuration.
 
 1. Install `native-image`:
 
-    ```bash
-    gu install native-image
-    ```
+   ```bash
+   gu install native-image
+   ```
 
 1. Export your Github credentials. Github requires authentication for public packages (the token only requires the `read:packages` scope):
 
-    ```bash
-    export GITHUB_USERNAME=...
-    export GITHUB_TOKEN=...
-    ```
+   ```bash
+   export GITHUB_USERNAME=...
+   export GITHUB_TOKEN=...
+   ```
 
 1. Create the native client:
 
-    ```bash
-    ./gradlew nativeCompile
-    ```
+   ```bash
+   ./gradlew nativeCompile
+   ```
 
-    This will install a locally compiled version of `tw` in the nativeCompile directory:
+   This will install a locally compiled version of `tw` in the nativeCompile directory:
 
-    ```bash
-    Produced artifacts:
-     <tower-cli-repository-root>/build/native/nativeCompile/tw (executable)
-    ========================================================================================================================
-    Finished generating 'tw' in 1m 6s.
-    [native-image-plugin] Native Image written to: <tower-cli-repository-root>/build/native/nativeCompile
-    
-    BUILD SUCCESSFUL in 1m 8s
-    6 actionable tasks: 2 executed, 4 up-to-date
-    ```
+   ```bash
+   Produced artifacts:
+    <tower-cli-repository-root>/build/native/nativeCompile/tw (executable)
+   ========================================================================================================================
+   Finished generating 'tw' in 1m 6s.
+   [native-image-plugin] Native Image written to: <tower-cli-repository-root>/build/native/nativeCompile
+
+   BUILD SUCCESSFUL in 1m 8s
+   6 actionable tasks: 2 executed, 4 up-to-date
+   ```
 
 1. Run `tw`:
 
-    ```bash
-    ./build/native/nativeCompile/tw
-    ```
+   ```bash
+   ./build/native/nativeCompile/tw
+   ```
 
 ### Non-binary development versions
 

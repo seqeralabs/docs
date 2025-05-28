@@ -19,11 +19,11 @@ Navigate back to the Launchpad and select the lightbulb icon next to the nf-core
 
 When you select the lightbulb, you can access an optimized configuration profile in the second tab of the **Customize optimization profile** window.
 
-This profile consists of Nextflow configuration settings for each process and each resource directive (where applicable):  **cpus**, **memory**, and **time**. The optimized setting for a given process and resource directive is based on the maximum use of that resource across all tasks in that process.
+This profile consists of Nextflow configuration settings for each process and each resource directive (where applicable): **cpus**, **memory**, and **time**. The optimized setting for a given process and resource directive is based on the maximum use of that resource across all tasks in that process.
 
-Once optimization is selected, subsequent runs of that pipeline will inherit the optimized configuration profile, indicated by the black lightbulb icon with a checkmark. 
+Once optimization is selected, subsequent runs of that pipeline will inherit the optimized configuration profile, indicated by the black lightbulb icon with a checkmark.
 
-:::note 
+:::note
 Optimization profiles are generated from one run at a time, defaulting to the most recent run, and _not_ an aggregation of previous runs.
 :::
 

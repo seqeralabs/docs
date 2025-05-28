@@ -12,9 +12,9 @@ Fusion simplifies and improves the efficiency of Nextflow pipelines in [Azure Ba
 - By replacing the Azure CLI with a native API client, the transfer is much more robust at scale.
 - By streaming relevant data and monitoring the virtual machine storage, Fusion can use more data than the capacity of the attached storage drive
 
-### Platform Azure Batch compute environments 
+### Platform Azure Batch compute environments
 
-Seqera Platform supports Fusion in Batch Forge and manual Azure Batch compute environments. 
+Seqera Platform supports Fusion in Batch Forge and manual Azure Batch compute environments.
 
 See [Azure Batch](https://docs.seqera.io/platform-cloud/compute-envs/azure-batch) for compute and storage recommendations and instructions to enable Fusion.
 
@@ -26,21 +26,22 @@ We recommend selecting machine types with a local temp storage disk of at least 
 
 1. Add the following to your `nextflow.config` file:
 
-    ```groovy
-    process.executor = 'azure-batch'
-    wave.enabled = true
-    fusion.enabled = true
-    tower.accessToken = '<PLATFORM_ACCESS_TOKEN>'    
-    ```
+   ```groovy
+   process.executor = 'azure-batch'
+   wave.enabled = true
+   fusion.enabled = true
+   tower.accessToken = '<PLATFORM_ACCESS_TOKEN>'
+   ```
 
-    Replace `<PLATFORM_ACCESS_TOKEN>` with your Platform access token.
+   Replace `<PLATFORM_ACCESS_TOKEN>` with your Platform access token.
 
 1. Run the pipeline with the Nextflow run command:
 
-    ```
-    nextflow run <PIPELINE_SCRIPT> -w az://<BLOB_STORAGE>/scratch
-    ```
+   ```
+   nextflow run <PIPELINE_SCRIPT> -w az://<BLOB_STORAGE>/scratch
+   ```
 
-    Replace the following:
-    - `<PIPELINE_SCRIPT>`: your pipeline Git repository URI.
-    - `<BLOB_STORAGE>`: your Azure Blob Storage.
+   Replace the following:
+
+   - `<PIPELINE_SCRIPT>`: your pipeline Git repository URI.
+   - `<BLOB_STORAGE>`: your Azure Blob Storage.

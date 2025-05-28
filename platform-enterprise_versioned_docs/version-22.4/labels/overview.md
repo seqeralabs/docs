@@ -48,6 +48,7 @@ Apply a label to workflow run at any moment, when launching a workflow run, as w
 ![](./_images/launch_labels.png)
 
 ### Search and filter with labels
+
 Search and filter pipelines and workflow runs using one or more labels.
 Filter and search are complementary.
 

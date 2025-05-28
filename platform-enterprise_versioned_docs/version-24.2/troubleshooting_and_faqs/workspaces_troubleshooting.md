@@ -9,7 +9,7 @@ tags: [faq, help, workspaces help, workspaces troubleshooting]
 
 You may encounter this entry in your Nextflow log:
 
-*Unexpected response for request `http://TOWER_SERVER_URL/api/trace/TRACE_ID/begin?workspaceId=WORKSPACE_ID`* 
+_Unexpected response for request `http://TOWER_SERVER_URL/api/trace/TRACE_ID/begin?workspaceId=WORKSPACE_ID`_
 
 If the workspace ID in this message differs from your launch workspace, Seqera retrieved an incorrect Seqera access token from a Nextflow configuration file:
 

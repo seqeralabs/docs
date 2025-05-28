@@ -19,26 +19,26 @@ This configuration requires Docker or a similar container engine to run pipeline
 
 1. Add the following to your `nextflow.config` file:
 
-    ```groovy
-    wave.enabled = true
-    docker.enabled = true
-    tower.accessToken = '<PLATFORM_ACCESS_TOKEN>'
-    fusion.enabled = true
-    fusion.exportStorageCredentials = true
-    ```
+   ```groovy
+   wave.enabled = true
+   docker.enabled = true
+   tower.accessToken = '<PLATFORM_ACCESS_TOKEN>'
+   fusion.enabled = true
+   fusion.exportStorageCredentials = true
+   ```
 
-    Replace `<PLATFORM_ACCESS_TOKEN>` with your Platform access token.
+   Replace `<PLATFORM_ACCESS_TOKEN>` with your Platform access token.
 
 1. Run the pipeline with the Nextflow run command:
 
-    ```
-    nextflow run <PIPELINE_SCRIPT> -w gs://<GCS_BUCKET>/work
-    ```
+   ```
+   nextflow run <PIPELINE_SCRIPT> -w gs://<GCS_BUCKET>/work
+   ```
 
-    Replace the following:
-    - `<PIPELINE_SCRIPT>`: your pipeline Git repository URI.
-    - `<GCS_BUCKET>`: your Google Cloud Storage bucket to which you have read-write access.
+   Replace the following:
 
+   - `<PIPELINE_SCRIPT>`: your pipeline Git repository URI.
+   - `<GCS_BUCKET>`: your Google Cloud Storage bucket to which you have read-write access.
 
 :::tip
 To achieve optimal performance, set up an SSD volume as the temporary directory.

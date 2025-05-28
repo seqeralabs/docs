@@ -78,9 +78,9 @@ To configure a credential in Seqera, you must first create a [service account JS
 1. In the Google Cloud navigation menu, select **IAM & Admin > Service Accounts**.
 2. Select the email address of the service account.
 
-    :::note
-    The Compute Engine default service account is not recommended for production environments due to its powerful permissions. To use a service account other than the Compute Engine default, specify the service account email address under **Advanced options** on the Seqera compute environment creation form.
-    :::
+   :::note
+   The Compute Engine default service account is not recommended for production environments due to its powerful permissions. To use a service account other than the Compute Engine default, specify the service account email address under **Advanced options** on the Seqera compute environment creation form.
+   :::
 
 3. Select **Keys > Add key > Create new key**.
 4. Select **JSON** as the key type.
@@ -101,9 +101,9 @@ Google Cloud Storage is a type of **object storage**. To access files and store 
 3. Enter a name for your bucket. You will reference this name when you create the compute environment in Seqera.
 4. Select **Region** for the **Location type** and select the **Location** for your bucket. You'll reference this location when you create the compute environment in Seqera.
 
-    :::note
-    The Batch API is available in a limited number of [locations][batch-locations]. These locations are only used to store metadata about the pipeline operations. The storage bucket and compute resources can be in any region.
-    :::
+   :::note
+   The Batch API is available in a limited number of [locations][batch-locations]. These locations are only used to store metadata about the pipeline operations. The storage bucket and compute resources can be in any region.
+   :::
 
 5. Select **Standard** for the default storage class.
 6. To restrict public access to your bucket data, select the **Enforce public access prevention on this bucket** checkbox.
@@ -184,19 +184,19 @@ If you use VM instance templates for the head or compute jobs (see step 6 below)
 4. Use **Service Account email** to specify a service account email address other than the Compute Engine default to execute workflows with this compute environment (recommended for productions environments).
 5. Use **VPC** and **Subnet** to specify the name of a VPC network and subnet to be used by this compute environment. If your organization's VPC architecture relies on network tags, you can apply network tags to VM instance templates used for the Nextflow head and compute jobs (see below).
 
-    :::note
-    You must specify both a **VPC** and **Subnet** for your compute environment to use either.
-    :::
+   :::note
+   You must specify both a **VPC** and **Subnet** for your compute environment to use either.
+   :::
 
 6. Use **Head job instance template** and **Compute jobs instance template** to specify the name or fully-qualified reference of a VM instance template, without the `template://` prefix, to use for the head and compute jobs. [VM instance templates][gcp-vm-instance-template] allow you to define the resources allocated to Batch jobs. Configuration values defined in a VM instance template override any conflicting values you specify while creating your Seqera compute environment.
 
-    You can use network tags in VM instance templates to enable cross-network and cross-project distribution of compute resources. This is useful if your head and compute instances must reside in different GCP projects or across isolated networking infrastructures. Note that the use of network tags does not affect the resource labels applied to your compute environment.
+   You can use network tags in VM instance templates to enable cross-network and cross-project distribution of compute resources. This is useful if your head and compute instances must reside in different GCP projects or across isolated networking infrastructures. Note that the use of network tags does not affect the resource labels applied to your compute environment.
 
-    :::caution
-    Seqera does not validate the VM instance template you specify in these fields. Generally, use templates that define only the machine type, network, disk, and configuration values that will not change across multiple VM instances and Seqera compute environments. See [Create instance templates](https://cloud.google.com/compute/docs/instance-templates/create-instance-templates) for instructions to create your instance templates.
+   :::caution
+   Seqera does not validate the VM instance template you specify in these fields. Generally, use templates that define only the machine type, network, disk, and configuration values that will not change across multiple VM instances and Seqera compute environments. See [Create instance templates](https://cloud.google.com/compute/docs/instance-templates/create-instance-templates) for instructions to create your instance templates.
 
-    To prevent errors during workflow execution, ensure that the instance templates you use are suitably configured for your needs with an appropriate machine type. You can define multiple instance templates with varying machine type sizes in your Nextflow configuration using the `machineType` [process directive](https://www.nextflow.io/docs/latest/google.html#process-definition) (e.g., `process.machineType = 'template://my-template-name'`). You can use [process selectors](https://www.nextflow.io/docs/latest/config.html#config-process-selectors) to assign separate templates to each of your processes.
-    :::
+   To prevent errors during workflow execution, ensure that the instance templates you use are suitably configured for your needs with an appropriate machine type. You can define multiple instance templates with varying machine type sizes in your Nextflow configuration using the `machineType` [process directive](https://www.nextflow.io/docs/latest/google.html#process-definition) (e.g., `process.machineType = 'template://my-template-name'`). You can use [process selectors](https://www.nextflow.io/docs/latest/config.html#config-process-selectors) to assign separate templates to each of your processes.
+   :::
 
 Select **Create** to finalize the compute environment setup.
 

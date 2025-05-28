@@ -57,32 +57,33 @@ After you've prepared your Kubernetes cluster and granted cluster access to your
 1. From the **Credentials** drop-down menu, select existing GKE credentials, or select **+** to add new credentials. If you choose to use existing credentials, skip to step 8.
 1. Enter a name for the credentials, e.g., _GKE Credentials_.
 1. Enter the **Service account key** for your Google service account.
-    :::tip
-    You can create multiple credentials in your Seqera environment. See [Credentials](../credentials/overview).
-    :::
+   :::tip
+   You can create multiple credentials in your Seqera environment. See [Credentials](../credentials/overview).
+   :::
 1. Select the **Location** of your GKE cluster.
-    :::caution
-    GKE clusters can be either regional or zonal. For example, `us-west1` identifies the United States West-Coast _region_, which has three _zones_: `us-west1-a`, `us-west1-b`, and `us-west1-c`.
+   :::caution
+   GKE clusters can be either regional or zonal. For example, `us-west1` identifies the United States West-Coast _region_, which has three _zones_: `us-west1-a`, `us-west1-b`, and `us-west1-c`.
 
-    Seqera Platform's auto-completion only shows regions. You should manually edit this field if you're using a zonal GKE cluster.
-    :::
+   Seqera Platform's auto-completion only shows regions. You should manually edit this field if you're using a zonal GKE cluster.
+   :::
+
 1. Select or enter the **Cluster name** of your GKE cluster.
 1. Specify the **Namespace** created in the [cluster preparation](../compute-envs/k8s#cluster-preparation) instructions. This is _tower-nf_ by default.
 1. Specify the **Head service account** created in the [cluster preparation](../compute-envs/k8s#cluster-preparation) instructions. This is _tower-launcher-sa_ by default.
-    :::note
-    If you enable Fusion v2 (**Fusion storage** in step 4 above), the head service account must have access to the Google Cloud storage bucket specified as your work directory.
-    :::
+   :::note
+   If you enable Fusion v2 (**Fusion storage** in step 4 above), the head service account must have access to the Google Cloud storage bucket specified as your work directory.
+   :::
 1. Specify the **Storage claim** created in the [cluster preparation](../compute-envs/k8s#cluster-preparation) instructions. This serves as a scratch filesystem for Nextflow pipelines. The storage claim is called _tower-scratch_ in the provided examples.
-    :::note
-    The **Storage claim** isn't needed when Fusion v2 is enabled.
-    :::
+   :::note
+   The **Storage claim** isn't needed when Fusion v2 is enabled.
+   :::
 1. Apply [**Resource labels**](../resource-labels/overview) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
 1. Expand **Staging options** to include:
-    - Optional [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
-    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch. 
-    :::info
-    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority. 
-    :::
+   - Optional [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
+   - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch.
+     :::info
+     Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
+     :::
 1. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
 1. Configure any advanced options described in the next section, as needed.
 1. Select **Create** to finalize the compute environment setup.
@@ -99,43 +100,44 @@ Seqera Platform compute environments for GKE include advanced options for storag
 
 ```yaml
 spec:
-    nodeSelector:
-    disktype: ssd
+  nodeSelector:
+  disktype: ssd
 ```
 
 - Use **Custom service pod specs** to provide custom options for the compute environment pod. See above for an example.
 - Use **Head Job CPUs** and **Head Job Memory** to specify the hardware resources allocated for the Nextflow workflow pod.
 
-:::info 
+:::info
 See [Launch pipelines](../launch/launchpad) to start executing workflows in your GKE compute environment.
 :::
 
 ### Fusion v2
 
 To use [Fusion v2](https://docs.seqera.io/fusion) in your Seqera GKE compute environment:
+
 1. Use Seqera Platform version 23.1 or later.
-1. Use an S3 bucket as the pipeline work directory. 
+1. Use an S3 bucket as the pipeline work directory.
 1. Both the head service and compute service accounts must have access to the Google Cloud storage bucket specified as the work directory.
 
 <details>
 <summary>Configure IAM to use Fusion v2</summary>
 
 1. Ensure the **Workload Identity** feature is enabled for the cluster:
-    - **Enable Workload Identity** in the cluster **Security** settings.
-    - **Enable GKE Metadata Server** in the node group **Security** settings.
+   - **Enable Workload Identity** in the cluster **Security** settings.
+   - **Enable GKE Metadata Server** in the node group **Security** settings.
 1. Allow the IAM service account access to your Google storage bucket:
-    ```shell
-    gcloud storage buckets add-iam-policy-binding gs://<YOUR-BUCKET> --role roles/storage.objectAdmin --member serviceAccount:<IAM-SERVICE-ACCOUNT>@<GOOGLE-CLOUD-PROJECT>.iam.gserviceaccount.com
-    ```
-    The role must have at least `storage.objects.create`, `storage.objects.get`, and `storage.objects.list` permissions.
+   ```shell
+   gcloud storage buckets add-iam-policy-binding gs://<YOUR-BUCKET> --role roles/storage.objectAdmin --member serviceAccount:<IAM-SERVICE-ACCOUNT>@<GOOGLE-CLOUD-PROJECT>.iam.gserviceaccount.com
+   ```
+   The role must have at least `storage.objects.create`, `storage.objects.get`, and `storage.objects.list` permissions.
 1. Allow the Kubernetes service account to impersonate the IAM service account:
-    ```shell
-    gcloud iam service-accounts add-iam-policy-binding <IAM-SERVICE-ACCOUNT>@<GOOGLE-CLOUD-PROJECT>.iam.gserviceaccount.com --role roles/iam.workloadIdentityUser --member "serviceAccount:<GOOGLE-CLOUD-PROJECT>.svc.id.goog[<GKE-NAMESPACE>/<GKE-SERVICE-ACCOUNT>]"
-    ```
+   ```shell
+   gcloud iam service-accounts add-iam-policy-binding <IAM-SERVICE-ACCOUNT>@<GOOGLE-CLOUD-PROJECT>.iam.gserviceaccount.com --role roles/iam.workloadIdentityUser --member "serviceAccount:<GOOGLE-CLOUD-PROJECT>.svc.id.goog[<GKE-NAMESPACE>/<GKE-SERVICE-ACCOUNT>]"
+   ```
 1. Annotate the Kubernetes service account with the email address of the IAM service account:
-    ```shell
-    kubectl annotate serviceaccount <GKE-SERVICE-ACCOUNT> --namespace <GKE-NAMESPACE> iam.gke.io/gcp-service-account=<IAM-SERVICE-ACCOUNT>@<GOOGLE-CLOUD-PROJECT>.iam.gserviceaccount.com
-    ```
+   ```shell
+   kubectl annotate serviceaccount <GKE-SERVICE-ACCOUNT> --namespace <GKE-NAMESPACE> iam.gke.io/gcp-service-account=<IAM-SERVICE-ACCOUNT>@<GOOGLE-CLOUD-PROJECT>.iam.gserviceaccount.com
+   ```
 
 See the [GKE documentation](https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity#authenticating_to) for further details.
 

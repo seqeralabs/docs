@@ -11,7 +11,7 @@ Fusion is a virtual, lightweight, distributed file system that bridges the gap b
 storage. Fusion enables seamless filesystem I/O to cloud object stores via a standard POSIX interface, resulting in
 simpler pipeline logic and faster, more efficient pipeline execution.
 
-:::note 
+:::note
 Fusion requires a license for use in Seqera Platform compute environments or directly in Nextflow. See [Fusion licensing](https://seqera.io/contact-us) for more information.
 :::
 

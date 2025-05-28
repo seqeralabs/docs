@@ -24,12 +24,13 @@ To generate an SSH key pair:
 2.  Follow the prompts to:
     - Specify a file path and name (or keep the default).
     - Specify a passphrase (recommended).
-3. Navigate to the target folder (default `/home/user/.ssh/id_rsa`) and open the private key file with a plain text editor.
-4. Copy the private key file contents before navigating to Seqera.
+3.  Navigate to the target folder (default `/home/user/.ssh/id_rsa`) and open the private key file with a plain text editor.
+4.  Copy the private key file contents before navigating to Seqera.
 
 ## Create an SSH credential in Seqera
 
 1.  Add your credentials to your organization or personal workspace:
+
     - From an organization workspace: Go to **Credentials > Add Credentials**.
     - From your personal workspace: From the user menu, go to **Your credentials > Add credentials**.
 

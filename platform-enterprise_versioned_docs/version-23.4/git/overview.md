@@ -91,13 +91,13 @@ Once you have created and copied your access token, create a new credential in S
 
 1. From an organization workspace: Select **Credentials > Add Credentials**. From your personal workspace: Go to the user menu and select **Your credentials > Add credentials**.
 
-3. Enter a **Name** for the new credentials.
+2. Enter a **Name** for the new credentials.
 
-4. Select _Azure DevOps_ as the **Provider**.
+3. Select _Azure DevOps_ as the **Provider**.
 
-5. Enter your **Username** and **Access token**.
+4. Enter your **Username** and **Access token**.
 
-6. (Recommended) Enter the **Repository base URL** for which the credentials should be applied. This option is used to apply the provided credentials to a specific repository, e.g., `https://dev.azure.com/<your organization>/<your project>`.
+5. (Recommended) Enter the **Repository base URL** for which the credentials should be applied. This option is used to apply the provided credentials to a specific repository, e.g., `https://dev.azure.com/<your organization>/<your project>`.
 
 ### GitHub
 

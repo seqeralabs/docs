@@ -19,13 +19,13 @@ This configuration requires Docker or a similar container engine to run pipeline
 
 1. Run a local instance of MinIO using Docker:
 
-    ```
-    docker run -p 9000:9000 \
-    --rm -d -p 9001:9001 \
-    -e "MINIO_ROOT_USER=admin" \
-    -e "MINIO_ROOT_PASSWORD=secret" \
-    quay.io/minio/minio server /data --console-address ":9001"
-    ```
+   ```
+   docker run -p 9000:9000 \
+   --rm -d -p 9001:9001 \
+   -e "MINIO_ROOT_USER=admin" \
+   -e "MINIO_ROOT_PASSWORD=secret" \
+   quay.io/minio/minio server /data --console-address ":9001"
+   ```
 
 1. Open the MinIO console `http://localhost:9001`
 
@@ -35,27 +35,28 @@ This configuration requires Docker or a similar container engine to run pipeline
 
 1. Add the following to your `nextflow.config` file:
 
-    ```groovy
-    wave.enabled = true
-    docker.enabled = true
-    tower.accessToken = '<PLATFORM_ACCESS_TOKEN>'
-    fusion.enabled = true
-    fusion.exportStorageCredentials = true
-    aws.client.endpoint = 'http://localhost:9000'
-    aws.client.s3PathStyleAccess = true
-    ```
+   ```groovy
+   wave.enabled = true
+   docker.enabled = true
+   tower.accessToken = '<PLATFORM_ACCESS_TOKEN>'
+   fusion.enabled = true
+   fusion.exportStorageCredentials = true
+   aws.client.endpoint = 'http://localhost:9000'
+   aws.client.s3PathStyleAccess = true
+   ```
 
-    Replace `<PLATFORM_ACCESS_TOKEN>` with your Platform access token.
+   Replace `<PLATFORM_ACCESS_TOKEN>` with your Platform access token.
 
 1. Run the pipeline with the Nextflow run command:
 
-    ```
-    nextflow run <PIPELINE_SCRIPT> -w s3://<S3_BUCKET>/work
-    ```
+   ```
+   nextflow run <PIPELINE_SCRIPT> -w s3://<S3_BUCKET>/work
+   ```
 
-    Replace the following:
-    - `PIPELINE_SCRIPT`: your pipeline Git repository URI.
-    - `S3_BUCKET`: your S3 bucket name.
+   Replace the following:
+
+   - `PIPELINE_SCRIPT`: your pipeline Git repository URI.
+   - `S3_BUCKET`: your S3 bucket name.
 
 :::tip
 To achieve optimal performance, set up an SSD volume as the temporary directory.

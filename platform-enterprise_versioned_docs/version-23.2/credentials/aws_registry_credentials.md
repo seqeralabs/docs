@@ -39,12 +39,12 @@ Your credential must be stored in Tower as a **container registry** credential, 
 
 ![](./_images/container_registry_credentials_blank.png)
 
-| Property        | Description                                                                             | Example                                                   |
-| --------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------- |
-| Name            | A unique name for the credentials using alphanumeric characters, dashes, or underscores | `my-registry-creds`                                       |
-| Provider        | Credential type                                                                         | Container registry                                        |
-| User name       | IAM user access key ID                                                                  | `AKIAIOSFODNN7EXAMPLE`                                    |
-| Password        | IAM user secret access key                                                              | `wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`                |
+| Property        | Description                                                                             | Example                                                                                                                                                           |
+| --------------- | --------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Name            | A unique name for the credentials using alphanumeric characters, dashes, or underscores | `my-registry-creds`                                                                                                                                               |
+| Provider        | Credential type                                                                         | Container registry                                                                                                                                                |
+| User name       | IAM user access key ID                                                                  | `AKIAIOSFODNN7EXAMPLE`                                                                                                                                            |
+| Password        | IAM user secret access key                                                              | `wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`                                                                                                                        |
 | Registry server | The container registry server name                                                      | `https://<AWS_ACCOUNT_ID>.dkr.ecr.<REGION>.amazonaws.com`. You can also access images from a public ECR. For example, `public.ecr.aws/amazonlinux/amazonlinux:2`. |
 
 Once the form is complete, select **Add**. The new credential is now listed under the **Credentials** tab.

@@ -17,15 +17,15 @@ Seqerakit supports input through paths to YAML configuration files or directly f
 
 - Using file path:
 
-    ```shell-session
-    seqerakit file.yaml
-    ```
+  ```shell-session
+  seqerakit file.yaml
+  ```
 
 - Using `stdin`:
 
-    ```shell-session
-    cat file.yaml | seqerakit -
-    ```
+  ```shell-session
+  cat file.yaml | seqerakit -
+  ```
 
 See [YAML configuration options](./yaml-configuration#yaml-configuration-options) for guidance on formatting your input YAML files.
 
@@ -39,7 +39,7 @@ seqerakit file.yaml --dryrun
 
 ### Specify targets
 
-When using a YAML file as an input that defines multiple resources, use the `--targets` option to specify which resources to create. This option accepts a comma-separated list of resource names. 
+When using a YAML file as an input that defines multiple resources, use the `--targets` option to specify which resources to create. This option accepts a comma-separated list of resource names.
 
 Supported resource names include:
 
@@ -61,20 +61,19 @@ For example, given a `test.yaml` file that defines the following resources:
 
 ```yaml
 workspaces:
-  - name: 'workspace-1'
-    organization: 'seqerakit'
-...
+  - name: "workspace-1"
+    organization: "seqerakit"
+---
 compute-envs:
-  - name: 'compute-env'
-    type: 'aws-batch forge'
-    workspace: 'seqerakit/workspace-1'
-...
+  - name: "compute-env"
+    type: "aws-batch forge"
+    workspace: "seqerakit/workspace-1"
+---
 pipelines:
-  - name: 'hello-world'
-    url: 'https://github.com/nextflow-io/hello'
-    workspace: 'seqerakit/workspace-1'
-    compute-env: 'compute-env'
-...
+  - name: "hello-world"
+    url: "https://github.com/nextflow-io/hello"
+    workspace: "seqerakit/workspace-1"
+    compute-env: "compute-env"
 ```
 
 You can target the creation of `pipelines` only by running:

@@ -18,12 +18,12 @@ You can share a single Tower Agent instance with all members of a workspace. Cre
 
 ![](./_images/agent_credential.png)
 
-| Property            | Description                                                                                                                                                           | Example                                |
-| ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
-| Name                | A unique name for the credentials using alphanumeric characters, dashes, or underscores.                                                                              | `my-agent-creds`                       |
-| Provider            | Credential type                                                                                                                                                       | Tower Agent                            |
-| Agent connection ID | The connection ID used to run your Tower Agent instance. Must match the connection ID used when running the Agent (see **Usage** below).                              | `5429d66d-7712-xxxx-xxxx-xxxxxxxxxxxx` |
-| Shared agent        | Enables Tower Agent sharing for all workspace members.                                                                                                                |                                        |
+| Property            | Description                                                                                                                                                        | Example                                |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------- |
+| Name                | A unique name for the credentials using alphanumeric characters, dashes, or underscores.                                                                           | `my-agent-creds`                       |
+| Provider            | Credential type                                                                                                                                                    | Tower Agent                            |
+| Agent connection ID | The connection ID used to run your Tower Agent instance. Must match the connection ID used when running the Agent (see **Usage** below).                           | `5429d66d-7712-xxxx-xxxx-xxxxxxxxxxxx` |
+| Shared agent        | Enables Tower Agent sharing for all workspace members.                                                                                                             |                                        |
 | Usage               | Populates a code snippet for Tower Agent download with your connection ID. Replace `<YOUR TOKEN>` with your [Seqera access token](../api/overview#authentication). |                                        |
 
 When you've completed all the form fields, select **Add**. The new credential is now listed under the **Credentials** tab.

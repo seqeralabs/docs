@@ -4,7 +4,7 @@ title: Frequently asked questions
 
 ### Which cloud object stores does Fusion support?
 
-Fusion supports AWS S3, Azure Blob, and Google Cloud Storage. Fusion can also be used with local storage solutions that support the AWS S3 API. 
+Fusion supports AWS S3, Azure Blob, and Google Cloud Storage. Fusion can also be used with local storage solutions that support the AWS S3 API.
 
 ### How does Fusion work?
 
@@ -51,12 +51,12 @@ Yes. Add the Fusion version's config URL using the `containerConfigUrl` option i
 ```groovy
 fusion {
   enabled = true
-  containerConfigUrl = 'https://fusionfs.seqera.io/releases/v2.4.2-amd64.json' 
+  containerConfigUrl = 'https://fusionfs.seqera.io/releases/v2.4.2-amd64.json'
 }
 ```
 
 :::note
-For ARM CPU architectures, use https://fusionfs.seqera.io/releases/v2.4.2-arm64.json. 
+For ARM CPU architectures, use https://fusionfs.seqera.io/releases/v2.4.2-arm64.json.
 :::
 
 ### Can I use Fusion with MinIO?

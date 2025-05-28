@@ -57,9 +57,9 @@ We recommend creating separate IAM policies for Batch Forge and Tower launch per
 
 4. Select **Next: Tags**, then **Next: Review** and **Create User**.
 
-    :::caution
-    For the time being, you can ignore the "user has no permissions" warning. Permissions will be applied using the **IAM Policy**.
-    :::
+   :::caution
+   For the time being, you can ignore the "user has no permissions" warning. Permissions will be applied using the **IAM Policy**.
+   :::
 
 5. Save the **Access key ID** and **Secret access key** in a secure location as we will use these in the next section.
 
@@ -83,9 +83,9 @@ S3 (Simple Storage Service) is a type of **object storage**. To access files and
 
 3. Enter a unique name for your bucket and select a region.
 
-    :::caution
-    To maximize data transfer resilience and minimize cost, storage should be in the same region as compute.
-    :::
+   :::caution
+   To maximize data transfer resilience and minimize cost, storage should be in the same region as compute.
+   :::
 
 4. Select the default options for **Configure options**.
 
@@ -115,17 +115,17 @@ Once the AWS resources are set up, we can add a new **AWS Batch** environment in
 
 6. Add the **Access key** and **Secret key**. These are the keys you saved previously when you created the AWS [IAM user](#iam).
 
-    :::tip
-    You can create multiple credentials in your Tower environment.
-    :::
+   :::tip
+   You can create multiple credentials in your Tower environment.
+   :::
 
 7. Select a **Region**, e.g., "eu-west-1 - Europe (Ireland)".
 
 8. Enter the S3 bucket path created in the previous section to the **Pipeline work directory** field, e.g. `s3://unique-tower-bucket`.
 
-    :::caution
-    The bucket should be in the same region selected in the previous step.
-    :::
+   :::caution
+   The bucket should be in the same region selected in the previous step.
+   :::
 
 9. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers](https://www.nextflow.io/docs/latest/wave.html) for more information.
 
@@ -179,7 +179,7 @@ Once the AWS resources are set up, we can add a new **AWS Batch** environment in
     :::note
     Requires Fargate, Wave containers, and Fusion v2 file system to be enabled. This feature is not compatible with GPU-based architecture.
 
-    This is a preview feature that requires the use of Nextflow `23.06.0-edge`. In Tower Enterprise deployments, set `TOWER_ENABLE_ARM64=true` to enable Graviton instance support. 
+    This is a preview feature that requires the use of Nextflow `23.06.0-edge`. In Tower Enterprise deployments, set `TOWER_ENABLE_ARM64=true` to enable Graviton instance support.
     :::
 
 19. Enter any additional **Allowed S3 buckets** that your workflows require to read input data or write output data. The **Pipeline work directory** bucket above is added by default to the list of **Allowed S3 buckets**.
@@ -218,21 +218,21 @@ Jump to the documentation for [launching pipelines](../launch/launchpad).
 
 - You can specify a custom **AMI ID**.
 
-    :::caution
-    To use a custom AMI, make sure the AMI is based on an Amazon Linux-2 ECS optimized image that meets the Batch requirements. To learn more about approved versions of the Amazon ECS optimized AMI, see [this AWS guide](https://docs.aws.amazon.com/batch/latest/userguide/compute_resource_AMIs.html#batch-ami-spec)
-    :::
+  :::caution
+  To use a custom AMI, make sure the AMI is based on an Amazon Linux-2 ECS optimized image that meets the Batch requirements. To learn more about approved versions of the Amazon ECS optimized AMI, see [this AWS guide](https://docs.aws.amazon.com/batch/latest/userguide/compute_resource_AMIs.html#batch-ami-spec)
+  :::
 
-    :::caution
-    If a custom AMI is specified and the **Enable GPU** option is also selected, the custom AMI will be used instead of the AWS-recommended GPU-optimized AMI.
-    :::
+  :::caution
+  If a custom AMI is specified and the **Enable GPU** option is also selected, the custom AMI will be used instead of the AWS-recommended GPU-optimized AMI.
+  :::
 
 - If you need to debug the EC2 instance provisioned by AWS Batch, specify a **Key pair** to log in to the instance via SSH.
 
 - You can set **Min CPUs** to be greater than `0`, in which case some EC2 instances will remain active. An advantage of this is that pipeline executions will initialize faster.
 
-    :::caution
-    Setting Min CPUs to a value greater than 0 will keep the required compute instances active, even when your pipelines are not running. This will result in additional AWS charges.
-    :::
+  :::caution
+  Setting Min CPUs to a value greater than 0 will keep the required compute instances active, even when your pipelines are not running. This will result in additional AWS charges.
+  :::
 
 - Use **Head Job CPUs** and **Head Job Memory** to specify the hardware resources allocated for the Head Job.
 
@@ -252,9 +252,9 @@ Jump to the documentation for [launching pipelines](../launch/launchpad).
 
 - Specify a custom **ECS agent configuration** for the ECS agent parameters used by AWS Batch. This is appended to the `/etc/ecs/ecs.config` file in each cluster node.
 
-    :::note
-    Altering this file may result in a malfunctioning Batch Forge compute environment. See [Amazon ECS container agent configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) to learn more about the available parameters.
-    :::
+  :::note
+  Altering this file may result in a malfunctioning Batch Forge compute environment. See [Amazon ECS container agent configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) to learn more about the available parameters.
+  :::
 
 ## Manual
 
@@ -300,9 +300,9 @@ To create a new compute environment for AWS Batch (without Forge):
 
 6. Enter the **Access key** and **Secret key** for your IAM user.
 
-    :::tip
-    You can create multiple credentials in your Tower environment. See the [Credentials](../credentials/overview) section.
-    :::
+   :::tip
+   You can create multiple credentials in your Tower environment. See the [Credentials](../credentials/overview) section.
+   :::
 
 7. Select a **Region**, e.g., "eu-west-1 - Europe (Ireland)".
 
@@ -333,6 +333,5 @@ Jump to the documentation for [launching pipelines](../launch/launchpad).
 - Use **AWS CLI tool path** to specify the location of the `aws` CLI.
 
 - Specify a **CloudWatch Log group** for the `awslogs` driver to stream the logs entry to an existing Log group in Cloudwatch.
-
 
 [quota]: https://docs.aws.amazon.com/batch/latest/userguide/service_limits.html

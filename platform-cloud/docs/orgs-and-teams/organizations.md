@@ -18,24 +18,25 @@ You can also add external collaborators to an organization.
 3. Enter any other optional fields as needed: **Description**, **Location**, **Website URL**, and **Logo**.
 4. Select **Add**.
 
-### Organization settings 
+### Organization settings
 
 Owners can view and manage organizations from the **Settings** tab. The card at the top of the page displays organization metadata (Name and Full name, Website URL, Location, and Description).
 
-#### Credits 
+#### Credits
 
 [Seqera Compute](../compute-envs/seqera-compute) environments consume credits when running pipelines or Studio sessions. Credits are consumed for CPU time, memory and storage usage, and network costs. One Seqera Compute credit is equivalent to $1 (USD), and resources are charged at the following rates:
-- CPU time: 1 CPU/Hr = 0.1 credits
-- Memory: 1 GiB/Hr = 0.025 credits 
-- Storage: 1 GB = 0.025 credits per month 
 
-:::note 
-Storage and network costs vary per region, charged at standard AWS rates. Data ingress and egress across regions incur additional costs. 
+- CPU time: 1 CPU/Hr = 0.1 credits
+- Memory: 1 GiB/Hr = 0.025 credits
+- Storage: 1 GB = 0.025 credits per month
+
+:::note
+Storage and network costs vary per region, charged at standard AWS rates. Data ingress and egress across regions incur additional costs.
 :::
 
-Your available credit balance depends on the credits purchased and limits applied to your Seqera license. The **Credits** view contains the current credit balance available to the organization, and the total credits spent in the organization's workspaces. Select **Contact us to upgrade** to request additional credits for your organization. 
+Your available credit balance depends on the credits purchased and limits applied to your Seqera license. The **Credits** view contains the current credit balance available to the organization, and the total credits spent in the organization's workspaces. Select **Contact us to upgrade** to request additional credits for your organization.
 
-#### Edit or delete organization 
+#### Edit or delete organization
 
 :::note
 Organization **owners** can rename the organization from the organization **Settings** tab.
@@ -45,26 +46,26 @@ As an organization **owner**, access the organization page from the organization
 
 Select **Edit** in the **Edit organization** row to update the organization name, full name, description, location, website URL, and logo. Update the settings and select **Update** to save.
 
-### Organization resource usage tracking 
+### Organization resource usage tracking
 
 Select **Usage overview** next to the organization and workspace selector dropdown to view a window with the following usage details:
 
-- **Run history**: The total number of pipeline runs. 
+- **Run history**: The total number of pipeline runs.
 - **Concurrent runs**: Total simultaneous pipeline runs.
 - **Running Studio sessions**: Number of concurrent running Studio sessions.
-- **Users**: Total users per organization. 
+- **Users**: Total users per organization.
 
-Organization resource usage information is also displayed on the organization's **Settings** tab, under **Usage**. 
+Organization resource usage information is also displayed on the organization's **Settings** tab, under **Usage**.
 
-Select **Contact us to upgrade** if you need to increase your Platform usage limits for your organization. 
+Select **Contact us to upgrade** if you need to increase your Platform usage limits for your organization.
 
 :::info
-Usage limits differ per organization and [subscription type](https://seqera.io/pricing/). [Contact us](https://seqera.io/contact-us/) to discuss your needs. 
+Usage limits differ per organization and [subscription type](https://seqera.io/pricing/). [Contact us](https://seqera.io/contact-us/) to discuss your needs.
 :::
 
 ## Members
 
-You can view the list of all organization **Members** from the organization's page. Once an organization is created, the user who created the organization is the default owner of that organization. You can invite or add additional members to the workspace from the workspace **Settings** page. 
+You can view the list of all organization **Members** from the organization's page. Once an organization is created, the user who created the organization is the default owner of that organization. You can invite or add additional members to the workspace from the workspace **Settings** page.
 
 Seqera provides access control for members of an organization by classifying them either as an **Owner** or a **Member**. Each organization can have multiple owners and members.
 

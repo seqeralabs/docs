@@ -19,14 +19,14 @@ Fusion Snapshots v1.0.0 requires the following [Seqera compute environment](http
 - **Enable Fusion v2**
 - **Enable fast instance storage**
 - **Config mode**: Batch Forge
-- **Provisioning model**: Spot 
+- **Provisioning model**: Spot
 - **Nextflow config**: Set AWS Batch max spot attempts and the custom Fusion container URL received from Seqera [shown below](#enable-snapshots-via-nextflow-config)
 - **Instance types**: See recommended instance sizes below
 - **AMI ID**: Amazon Linux 2023 ECS Optimized
 
-### Enable Snapshots 
+### Enable Snapshots
 
-To use Fusion Snapshots in a Seqera AWS Batch compute environment, select **Enable Fusion Snapshots (beta)** during compute environment creation. When Fusion Snapshots are enabled, the Nextflow Spot reclamation retry setting automatically defaults to `aws.batch.maxSpotAttempts = 5`. 
+To use Fusion Snapshots in a Seqera AWS Batch compute environment, select **Enable Fusion Snapshots (beta)** during compute environment creation. When Fusion Snapshots are enabled, the Nextflow Spot reclamation retry setting automatically defaults to `aws.batch.maxSpotAttempts = 5`.
 
 ### EC2 instance selection guidelines
 
@@ -43,15 +43,15 @@ Instances with memory:bandwitdth ratios over 5:1 may not complete transfers befo
 
 #### Recommended instance types
 
-| Instance type  | Cores | Memory (GiB) | Network bandwidth (Gbps) | Memory:bandwidth ratio | Est. Snapshot time|
-|----------------|-------|--------------|--------------------------|------------------------|-------------------|
-| c6id.4xlarge   | 16    | 32           | 12.5                     | 2.56:1                 | ~45 seconds       |
-| c6id.8xlarge   | 32    | 64           | 12.5                     | 5.12:1                 | ~70 seconds       |
-| r6id.2xlarge   | 8     | 16           | 12.5                     | 1.28:1                 | ~20 seconds       |
-| m6id.4xlarge   | 16    | 64           | 12.5                     | 5.12:1                 | ~70 seconds       |
-| c6id.12xlarge  | 48    | 96           | 18.75                    | 5.12:1                 | ~70 seconds       |
-| r6id.4xlarge   | 16    | 128          | 12.5                     | 10.24:1                | ~105 seconds      |
-| m6id.8xlarge   | 32    | 128          | 25                       | 5.12:1                 | ~70 seconds       |
+| Instance type | Cores | Memory (GiB) | Network bandwidth (Gbps) | Memory:bandwidth ratio | Est. Snapshot time |
+| ------------- | ----- | ------------ | ------------------------ | ---------------------- | ------------------ |
+| c6id.4xlarge  | 16    | 32           | 12.5                     | 2.56:1                 | ~45 seconds        |
+| c6id.8xlarge  | 32    | 64           | 12.5                     | 5.12:1                 | ~70 seconds        |
+| r6id.2xlarge  | 8     | 16           | 12.5                     | 1.28:1                 | ~20 seconds        |
+| m6id.4xlarge  | 16    | 64           | 12.5                     | 5.12:1                 | ~70 seconds        |
+| c6id.12xlarge | 48    | 96           | 18.75                    | 5.12:1                 | ~70 seconds        |
+| r6id.4xlarge  | 16    | 128          | 12.5                     | 10.24:1                | ~105 seconds       |
+| m6id.8xlarge  | 32    | 128          | 25                       | 5.12:1                 | ~70 seconds        |
 
 It's possible for a single job to request more resources than are available on a single instance. In this case, the job will wait indefinitely and never progress to running. To prevent this from occurring, you should set the maximum resources requested to below the size of a single instance listed above. This can be configured using the `process.resourceLimits` directive in your Nextflow configuration. For example, to limit a single process to fit within a c6id.8xlarge machine, you could set the following:
 
@@ -61,24 +61,24 @@ process.resourceLimits = [cpus: 32, memory: '60.GB']
 
 Note that if a process requests the maximum CPUs and memory in the table above, it will not be satisfiable by a single instance and therefore fail to be assigned to a machine.
 
-### (Seqera Enterprise only) Select an Amazon Linux 2023 ECS-optimized AMI 
+### (Seqera Enterprise only) Select an Amazon Linux 2023 ECS-optimized AMI
 
-To obtain sufficient performance, Fusion Snapshots require instances with Amazon Linux 2023 (which ships with Linux Kernel 6.1), with an ECS Container-optimized AMI. 
+To obtain sufficient performance, Fusion Snapshots require instances with Amazon Linux 2023 (which ships with Linux Kernel 6.1), with an ECS Container-optimized AMI.
 
 :::note
-Selecting a custom Amazon Linux 2023 ECS-optimized AMI is only required for compute environments in Seqera Enterprise deployments. Seqera Cloud AWS Batch compute environments use Amazon Linux 2023 AMIs by default. 
+Selecting a custom Amazon Linux 2023 ECS-optimized AMI is only required for compute environments in Seqera Enterprise deployments. Seqera Cloud AWS Batch compute environments use Amazon Linux 2023 AMIs by default.
 :::
 
 To find the recommended AL2023 ECS-optimized AMI for your region, run the following (replace `eu-central-1` with your AWS region):
 
-```bash 
+```bash
 export REGION=eu-central-1
 aws ssm get-parameter --name "/aws/service/ecs/optimized-ami/amazon-linux-2023/recommended" --region $REGION
 ```
 
 The result for the `eu-central-1` region is similar to the following:
 
-```bash 
+```bash
 {
     "Parameter": {
         "Name": "/aws/service/ecs/optimized-ami/amazon-linux-2023/recommended",
@@ -91,4 +91,4 @@ The result for the `eu-central-1` region is similar to the following:
     }
 ```
 
-Note the `image_id` in your result (in this example, `ami-0281c9a5cd9de63bd`). Specify this ID in the **AMI ID** field under **Advanced options** when you create your Seqera compute environment. 
+Note the `image_id` in your result (in this example, `ami-0281c9a5cd9de63bd`). Specify this ID in the **AMI ID** field under **Advanced options** when you create your Seqera compute environment.

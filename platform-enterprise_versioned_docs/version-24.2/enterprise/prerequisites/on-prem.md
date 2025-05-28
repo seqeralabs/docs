@@ -19,7 +19,7 @@ You must satisfy the requirements for your installation:
 
   If you don't have your own mail server, you can use an external service from a cloud provider. Visit the provider's corresponding **Prerequisites** page for more information and consult your IT team to select the most suitable solution for your organization.
 
-- **MySQL database**: A database external to your Docker Compose or Kubernetes environment is highly recommended for production deployments. 
+- **MySQL database**: A database external to your Docker Compose or Kubernetes environment is highly recommended for production deployments.
 
   If you don't have your own database service, use an external service from a cloud provider. Visit the provider's corresponding **Prerequisites** page for more information and consult your IT team to select the most suitable solution for your organization.
 

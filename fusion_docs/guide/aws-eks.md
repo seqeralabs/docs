@@ -8,9 +8,9 @@ tags: [fusion, storage, compute, aws eks, s3]
 Fusion streamlines the deployment of Nextflow pipelines in Kubernetes because it replaces the need to configure
 and maintain a shared file system in your cluster.
 
-### Platform Amazon EKS compute environments 
+### Platform Amazon EKS compute environments
 
-Seqera Platform supports Fusion in Amazon Elastic Kubernetes Service (Amazon EKS) compute environments. 
+Seqera Platform supports Fusion in Amazon Elastic Kubernetes Service (Amazon EKS) compute environments.
 
 See [Amazon EKS](https://docs.seqera.io/platform-cloud/compute-envs/eks) for Platform instructions to enable Fusion.
 
@@ -23,7 +23,7 @@ parallel to and from the object storage into the container-local temporary direc
 Several AWS EC2 instance types include one or more NVMe SSD volumes. These volumes must be formatted to be used. See [SSD instance storage](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ssd-instance-store.html) for details.
 :::
 
-To use Fusion directly in Nextflow with an Amazon EKS cluster, you must configure a namespace and service account and update your Nextflow configuration. 
+To use Fusion directly in Nextflow with an Amazon EKS cluster, you must configure a namespace and service account and update your Nextflow configuration.
 
 #### Kubernetes configuration
 
@@ -31,129 +31,132 @@ Create a namespace and a service account in your Kubernetes cluster to run the j
 
 1. Create a manifest that includes the following configuration. For example:
 
-    ```yaml
-    ---
-    apiVersion: v1
-    kind: Namespace
-    metadata:
-        name: fusion-demo
-    ---
-    apiVersion: v1
-    kind: ServiceAccount
-    metadata:
-        namespace: fusion-demo
-        name: fusion-sa
-        annotations:
-            eks.amazonaws.com/role-arn: "arn:aws:iam::<ACCOUNT_ID>:role/fusion-demo-role"
-    ---
-    apiVersion: rbac.authorization.k8s.io/v1
-    kind: Role
-    metadata:
-        namespace: fusion-demo
-        name: fusion-role
-    rules:
-        - apiGroups: [""]
-          resources: ["pods", "pods/status", "pods/log", "pods/exec"]
-          verbs: ["get", "list", "watch", "create", "delete"]
-    ---
-    apiVersion: rbac.authorization.k8s.io/v1
-    kind: RoleBinding
-    metadata:
-        namespace: fusion-demo
-        name: fusion-rolebind
-    roleRef:
-        apiGroup: rbac.authorization.k8s.io
-        kind: Role
-        name: fusion-role
-    subjects:
-        - kind: ServiceAccount
-          name: fusion-sa
-    ```
+   ```yaml
+   ---
+   apiVersion: v1
+   kind: Namespace
+   metadata:
+     name: fusion-demo
+   ---
+   apiVersion: v1
+   kind: ServiceAccount
+   metadata:
+     namespace: fusion-demo
+     name: fusion-sa
+     annotations:
+       eks.amazonaws.com/role-arn: "arn:aws:iam::<ACCOUNT_ID>:role/fusion-demo-role"
+   ---
+   apiVersion: rbac.authorization.k8s.io/v1
+   kind: Role
+   metadata:
+     namespace: fusion-demo
+     name: fusion-role
+   rules:
+     - apiGroups: [""]
+       resources: ["pods", "pods/status", "pods/log", "pods/exec"]
+       verbs: ["get", "list", "watch", "create", "delete"]
+   ---
+   apiVersion: rbac.authorization.k8s.io/v1
+   kind: RoleBinding
+   metadata:
+     namespace: fusion-demo
+     name: fusion-rolebind
+   roleRef:
+     apiGroup: rbac.authorization.k8s.io
+     kind: Role
+     name: fusion-role
+   subjects:
+     - kind: ServiceAccount
+       name: fusion-sa
+   ```
 
-    Replace `<ACCOUNT_ID>` with your account ID.
+   Replace `<ACCOUNT_ID>` with your account ID.
 
 1. Configure your AWS IAM role to provide read-write permission to the S3 bucket used as the pipeline work directory. For example:
 
-    ```json
-    {
-        "Version": "2012-10-17",
-        "Statement": [
-            {
-                "Effect": "Allow",
-                "Action": ["s3:ListBucket"],
-                "Resource": ["arn:aws:s3:::<S3_BUCKET>"]
-            },
-            {
-                "Action": [
-                    "s3:GetObject",
-                    "s3:PutObject",
-                    "s3:PutObjectTagging",
-                    "s3:DeleteObject"
-                ],
-                "Resource": ["arn:aws:s3:::<S3_BUCKET>/*"],
-                "Effect": "Allow"
-            }
-        ]
-    }
-    ```
+   ```json
+   {
+     "Version": "2012-10-17",
+     "Statement": [
+       {
+         "Effect": "Allow",
+         "Action": ["s3:ListBucket"],
+         "Resource": ["arn:aws:s3:::<S3_BUCKET>"]
+       },
+       {
+         "Action": [
+           "s3:GetObject",
+           "s3:PutObject",
+           "s3:PutObjectTagging",
+           "s3:DeleteObject"
+         ],
+         "Resource": ["arn:aws:s3:::<S3_BUCKET>/*"],
+         "Effect": "Allow"
+       }
+     ]
+   }
+   ```
 
-    Replace `<S3_BUCKET>` with your bucket name.
+   Replace `<S3_BUCKET>` with your bucket name.
 
 1. Define a role trust relationship. For example:
 
-    ```json
-    {
-        "Version": "2012-10-17",
-        "Statement": [
-            {
-                "Effect": "Allow",
-                "Principal": {
-                    "Federated": "arn:aws:iam::<ACCOUNT_ID>:oidc-provider/oidc.eks.<REGION>.amazonaws.com/id/<CLUSTER_ID>"
-                },
-                "Action": "sts:AssumeRoleWithWebIdentity",
-                "Condition": {
-                    "StringEquals": {
-                        "oidc.eks.eu-west-2.amazonaws.com/id/<CLUSTER_ID>:aud": "sts.amazonaws.com",
-                        "oidc.eks.eu-west-2.amazonaws.com/id/<CLUSTER_ID>:sub": "system:serviceaccount:fusion-demo:fusion-sa"
-                    }
-                }
-            }
-        ]
-    }
-    ```
+   ```json
+   {
+     "Version": "2012-10-17",
+     "Statement": [
+       {
+         "Effect": "Allow",
+         "Principal": {
+           "Federated": "arn:aws:iam::<ACCOUNT_ID>:oidc-provider/oidc.eks.<REGION>.amazonaws.com/id/<CLUSTER_ID>"
+         },
+         "Action": "sts:AssumeRoleWithWebIdentity",
+         "Condition": {
+           "StringEquals": {
+             "oidc.eks.eu-west-2.amazonaws.com/id/<CLUSTER_ID>:aud": "sts.amazonaws.com",
+             "oidc.eks.eu-west-2.amazonaws.com/id/<CLUSTER_ID>:sub": "system:serviceaccount:fusion-demo:fusion-sa"
+           }
+         }
+       }
+     ]
+   }
+   ```
 
-    Replace the following:
-    - `<ACCOUNT_ID>`: AWS account ID
-    - `<REGION>`: AWS region
-    - `<CLUSTER_ID>`: cluster ID
+   Replace the following:
+
+   - `<ACCOUNT_ID>`: AWS account ID
+   - `<REGION>`: AWS region
+   - `<CLUSTER_ID>`: cluster ID
 
 #### Nextflow configuration
 
 1. Add the following to your `nextflow.config` file:
 
-    ```groovy
-    process.executor = 'k8s'
-    wave.enabled = true
-    fusion.enabled = true
-    tower.accessToken = '<PLATFORM_ACCESS_TOKEN>'
-    k8s.context = '<K8S_CLUSTER_CONTEXT>'
-    k8s.namespace = 'fusion-demo'
-    k8s.serviceAccount = 'fusion-sa'
-    ```
+   ```groovy
+   process.executor = 'k8s'
+   wave.enabled = true
+   fusion.enabled = true
+   tower.accessToken = '<PLATFORM_ACCESS_TOKEN>'
+   k8s.context = '<K8S_CLUSTER_CONTEXT>'
+   k8s.namespace = 'fusion-demo'
+   k8s.serviceAccount = 'fusion-sa'
+   ```
 
-    Replace the following:
-    - `<PLATFORM_ACCESS_TOKEN>`: your Platform access token.
-    - `<K8S_CLUSTER_CONTEXT>`: your Kubernetes context.
+   Replace the following:
+
+   - `<PLATFORM_ACCESS_TOKEN>`: your Platform access token.
+   - `<K8S_CLUSTER_CONTEXT>`: your Kubernetes context.
 
 1. Run the pipeline with the Nextflow run command:
 
-    ```
-    nextflow run <PIPELINE_SCRIPT> -w s3://<S3_BUCKET>/work
-    ```
+   ```
+   nextflow run <PIPELINE_SCRIPT> -w s3://<S3_BUCKET>/work
+   ```
 
-    Replace the following:
-    - `<PIPELINE_SCRIPT>`: your pipeline Git repository URI.
-    - `<S3_BUCKET>`: your S3 bucket.
+   Replace the following:
+
+   - `<PIPELINE_SCRIPT>`: your pipeline Git repository URI.
+   - `<S3_BUCKET>`: your S3 bucket.
 
 :::note
 When using Fusion, pods will run as privileged by default.

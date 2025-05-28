@@ -68,6 +68,7 @@ Administrators can create a service account from the Google Cloud console:
 ## Add credentials to Seqera
 
 1.  Add your credentials to your organization or personal workspace:
+
     - From an organization workspace: Go to **Credentials > Add Credentials**.
     - From your personal workspace: From the user menu, go to **Your credentials > Add credentials**.
 

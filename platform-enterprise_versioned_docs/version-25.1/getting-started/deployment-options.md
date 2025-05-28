@@ -51,36 +51,36 @@ If you have an existing environment where you run Nextflow directly, you can sti
 4. Enter a unique name for your token, then select **Add**.
 5. Copy and store your token securely.
 
-    :::caution
-    The access token is displayed only once. Save the token value before closing the **Personal Access Token** window.
-    :::
+   :::caution
+   The access token is displayed only once. Save the token value before closing the **Personal Access Token** window.
+   :::
 
 6. Open a terminal window and create environment variables to store the Seqera access token and Nextflow version. Replace `<your access token>` with your newly-created token.
 
-    ```bash
-    export TOWER_ACCESS_TOKEN=<your access token>
-    export NXF_VER=23.10.1
-    ```
+   ```bash
+   export TOWER_ACCESS_TOKEN=<your access token>
+   export NXF_VER=23.10.1
+   ```
 
-    :::note
-    Bearer token support requires Nextflow version 20.10.0 or later. Set with the `NXF_VER` environment variable.
-    :::
+   :::note
+   Bearer token support requires Nextflow version 20.10.0 or later. Set with the `NXF_VER` environment variable.
+   :::
 
 7. To submit a pipeline to a [workspace](../orgs-and-teams/workspace-management) using Nextflow, add the workspace ID to your environment:
 
-    ```bash
-    export TOWER_WORKSPACE_ID=000000000000000
-    ```
+   ```bash
+   export TOWER_WORKSPACE_ID=000000000000000
+   ```
 
-    To find your workspace ID, select your organization in Seqera and navigate to the **Workspaces** tab.
+   To find your workspace ID, select your organization in Seqera and navigate to the **Workspaces** tab.
 
 8. Run your Nextflow pipeline with the `-with-tower` flag:
 
-    ```bash
-    nextflow run main.nf -with-tower
-    ```
+   ```bash
+   nextflow run main.nf -with-tower
+   ```
 
-    Replace `main.nf` with the filename of your Nextflow script.
+   Replace `main.nf` with the filename of your Nextflow script.
 
 You can now monitor your workflow runs in the Seqera interface. To configure and execute Nextflow pipelines in cloud environments, see [compute environments](../compute-envs/overview).
 

@@ -116,12 +116,12 @@ To see the list of all Xpra image templates available, including security scan r
 Sessions have the following possible statuses:
 
 - **building**: When a custom environment is building the template image for a new session. The [Wave] service performs the build action. For more information on this status, see [Inspect custom container template build status][build-status].
-- **build-failed**:  When a custom environment build has failed. This is a non-recoverable error. Logs are provided to assist with troubleshooting. For more information on this status, see [Inspect custom container template build status][build-status].
+- **build-failed**: When a custom environment build has failed. This is a non-recoverable error. Logs are provided to assist with troubleshooting. For more information on this status, see [Inspect custom container template build status][build-status].
 - **starting**: The Studio is initializing.
 - **running**: When a session is **running**, you can connect to it, copy the URL, or stop it. In addition, the session can continue to process requests/run computations in the absence of an ongoing connection.
 - **stopping**: The recently-running session is in the process of being stopped.
 - **stopped**: When a session is stopped, the associated compute resources are deallocated. You can start or delete the session when it's in this state.
-- **errored**: This state most often indicates that there has been an error starting the session but it is in a **stopped** state. 
+- **errored**: This state most often indicates that there has been an error starting the session but it is in a **stopped** state.
 
 :::note
 There might be errors reported by the session itself but these will be overwritten with a **running** status if the session is still running.
@@ -144,7 +144,7 @@ For more information, see [Limit Studio access to a specific cloud bucket subdir
 
 ## Studio session checkpoints
 
-When starting a Studio session, a *checkpoint* is automatically created. A checkpoint saves all changes made to the root filesystem and stores it in the attached compute environment's pipeline work directory in the `.studios/checkpoints` folder with a unique name. The current checkpoint is updated every five minutes during a session.
+When starting a Studio session, a _checkpoint_ is automatically created. A checkpoint saves all changes made to the root filesystem and stores it in the attached compute environment's pipeline work directory in the `.studios/checkpoints` folder with a unique name. The current checkpoint is updated every five minutes during a session.
 
 :::warning
 Checkpoints vary in size depending on libraries installed in your session environment. This can potentially result in many large files stored in the compute environment's pipeline work directory and saved to cloud storage. This storage will incur costs based on the cloud provider. Due to the architecture of Studios, you cannot delete any checkpoint files to save on storage costs. Deleting a Studio session's checkpoints will result in a corrupted Studio session that cannot be started nor recovered.
@@ -168,11 +168,11 @@ This approach ensures that a session doesn't initially include unnecessary free 
 
 The maximum storage allocation for a session is limited by the compute environment disk boot size. By default, this is 30 GB. This limit is shared by all sessions running in the same compute environment.
 
-If the maximum allocation size is reached, it is possible to reclaim storage space using a snapshot. 
+If the maximum allocation size is reached, it is possible to reclaim storage space using a snapshot.
 
 Stop the active session to trigger a snapshot from the active volume. The snapshot is uploaded to cloud storage with Fusion. When you start from the newly saved snapshot, all previous data is loaded, and the newly started session will have 2 GB of available space.
 
-{/* links */}
+{/_ links _/}
 [contact]: https://support.seqera.io/
 [aws-cloud]: ../compute-envs/aws-cloud
 [aws-batch]: ../compute-envs/aws-batch

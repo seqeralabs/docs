@@ -10,7 +10,7 @@ There are several ways to monitor pipeline runs in Seqera Platform:
 ### Workspace view
 
 Access a full history of all runs in a given workspace via the **Runs** tab.
-    
+
 ![View runs](assets/sp-cloud-view-all-runs.gif)
 
 ### All runs view

@@ -23,7 +23,7 @@ To use the pipeline resource optimization service in a new Docker Compose instal
 
 3. In your [docker-compose.yml](../_templates/docker/docker-compose.yml) file, uncomment the `groundswell` section at the bottom.
 
-    - To create a schema for the optimization service on the same local MySQL container, uncomment the `init.sql` script in the `volumes` section.
+   - To create a schema for the optimization service on the same local MySQL container, uncomment the `init.sql` script in the `volumes` section.
 
 4. Download the [init.sql](../_templates/docker/init.sql) file. Store this file in the mount path of your `docker-compose.yml` file, else update the `source: ./init.sql` line in your `docker-compose.yml` with the file path.
 
@@ -41,33 +41,33 @@ To use the pipeline resource optimization service in an existing Docker Compose 
 
 4. Log in to your database server and run the following commands:
 
-    ```sql
-    CREATE DATABASE IF NOT EXISTS `swell`;
-    CREATE USER 'swell'@'%' IDENTIFIED BY 'swell';
-    GRANT ALL PRIVILEGES ON *.* TO 'swell'@'%';
-    FLUSH PRIVILEGES;
-    ```
+   ```sql
+   CREATE DATABASE IF NOT EXISTS `swell`;
+   CREATE USER 'swell'@'%' IDENTIFIED BY 'swell';
+   GRANT ALL PRIVILEGES ON *.* TO 'swell'@'%';
+   FLUSH PRIVILEGES;
+   ```
 
 5. If you use Amazon RDS or other managed database services, run the following commands in your database instance:
 
-    ```sql
-    CREATE DATABASE IF NOT EXISTS `swell`;
-    CREATE USER 'swell'@'%' IDENTIFIED BY 'swell';
-    GRANT ALL PRIVILEGES ON `%`.* TO 'swell'@'%';
-    FLUSH PRIVILEGES;
-    ```
+   ```sql
+   CREATE DATABASE IF NOT EXISTS `swell`;
+   CREATE USER 'swell'@'%' IDENTIFIED BY 'swell';
+   GRANT ALL PRIVILEGES ON `%`.* TO 'swell'@'%';
+   FLUSH PRIVILEGES;
+   ```
 
 6. Download the [groundswell.env](../_templates/docker/groundswell.env) file. Store this file in the mount path of your `docker-compose.yml` file. Update the `TOWER_DB_URL` and `SWELL_DB_URL` values:
 
-    ```env
-    # Uncomment for container DB instances
-    # TOWER_DB_URL=mysql://db:3306/tower
-    # SWELL_DB_URL=mysql://db:3306/swell
+   ```env
+   # Uncomment for container DB instances
+   # TOWER_DB_URL=mysql://db:3306/tower
+   # SWELL_DB_URL=mysql://db:3306/swell
 
-    # Uncomment for managed DB instances (Example URL shows an Amazon RDS instance URL)
-    # TOWER_DB_URL=mysql://db1.abcdefghijkl.us-east-1.rds.amazonaws.com:3306/tower
-    # SWELL_DB_URL=mysql://db1.abcdefghijkl.us-east-1.rds.amazonaws.com:3306/swell
-    ```
+   # Uncomment for managed DB instances (Example URL shows an Amazon RDS instance URL)
+   # TOWER_DB_URL=mysql://db1.abcdefghijkl.us-east-1.rds.amazonaws.com:3306/tower
+   # SWELL_DB_URL=mysql://db1.abcdefghijkl.us-east-1.rds.amazonaws.com:3306/swell
+   ```
 
 7. When the pipeline resource optimization service is active, pipelines that can be optimized display a lightbulb icon in your Launchpad. Any pipeline with at least one successful run can be optimized.
 
@@ -77,8 +77,9 @@ Kubernetes deployments use an [initContainer](https://kubernetes.io/docs/concept
 
 1. Download the [groundswell manifest](../_templates/k8s/groundswell.yml):
 
-    ```yaml file=../_templates/k8s/groundswell.yml
-    ```
+   ```yaml file=../_templates/k8s/groundswell.yml
+
+   ```
 
 1. To run the service from a custom URL, declare the URL with the `GROUNDSWELL_SERVER_URL` environment variable in the `configmap.yml` file that you downloaded for your [Platform installation][platform-k8s]. A non-zero value for this environment variable activates the optimization service automatically, so `TOWER_ENABLE_GROUNDSWELL` does not need to be set when you declare a custom URL.
 
@@ -88,25 +89,24 @@ Kubernetes deployments use an [initContainer](https://kubernetes.io/docs/concept
 
    - If you use Amazon RDS or other managed database services, run the following commands in your database instance:
 
-      ```sql
-      CREATE DATABASE IF NOT EXISTS `swell`;
-      CREATE USER 'swell'@'%' IDENTIFIED BY 'swell';
-      GRANT ALL PRIVILEGES ON `%`.* TO 'swell'@'%';
-      FLUSH PRIVILEGES;
-      ```
+     ```sql
+     CREATE DATABASE IF NOT EXISTS `swell`;
+     CREATE USER 'swell'@'%' IDENTIFIED BY 'swell';
+     GRANT ALL PRIVILEGES ON `%`.* TO 'swell'@'%';
+     FLUSH PRIVILEGES;
+     ```
 
-    - If you do not use a managed database service, run the following commands in your database instance:
+   - If you do not use a managed database service, run the following commands in your database instance:
 
-      ```sql
-      CREATE DATABASE IF NOT EXISTS `swell`;
-      CREATE USER 'swell'@'%' IDENTIFIED BY 'swell';
-      GRANT ALL PRIVILEGES ON *.* TO 'swell'@'%';
-      FLUSH PRIVILEGES;
-      ```
+     ```sql
+     CREATE DATABASE IF NOT EXISTS `swell`;
+     CREATE USER 'swell'@'%' IDENTIFIED BY 'swell';
+     GRANT ALL PRIVILEGES ON *.* TO 'swell'@'%';
+     FLUSH PRIVILEGES;
+     ```
 
 The initContainers process will wait until both the Seqera and pipeline resource optimization service databases are ready before starting the migration in the Seqera database and finally starting the optimization container.
 
 When the pipeline resource optimization service is active, pipelines that can be optimized display a lightbulb icon in your Launchpad. Any pipeline with at least one successful run can be optimized.
-
 
 [platform-k8s]: ../kubernetes

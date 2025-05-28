@@ -83,7 +83,7 @@ The default user is the `root` account. The image is based on `ubuntu:jammy`. Ad
 Data studios have the following possible statuses:
 
 - **building**: When a custom environment is building the template image for a new data studio session. The [Wave] service performs the build action. For more information on this status, see [Inspect custom container template build status][build-status].
-- **build-failed**:  When a custom environment build has failed. This is a non-recoverable error. Logs are provided to assist with troubleshooting. For more information on this status, see [Inspect custom container template build status][build-status].
+- **build-failed**: When a custom environment build has failed. This is a non-recoverable error. Logs are provided to assist with troubleshooting. For more information on this status, see [Inspect custom container template build status][build-status].
 - **starting**: The data studio is initializing.
 - **running**: When a data studio session is **running**, you can connect to it, copy the data studio URL, or stop it. In addition, the session can continue to process requests/run computations in the absence of an ongoing connection.
 - **stopping**: The recently-running session is in the process of being stopped.
@@ -96,7 +96,7 @@ Data studios have the following possible statuses:
 
 ## Session checkpoints
 
-When you start a session, it automatically creates a *checkpoint*. A checkpoint saves changes that you make to the root filesystem and stores it in the compute environment's pipeline work directory in the `.studios/checkpoints` folder with a unique name. The checkpoint is updated every five minutes.
+When you start a session, it automatically creates a _checkpoint_. A checkpoint saves changes that you make to the root filesystem and stores it in the compute environment's pipeline work directory in the `.studios/checkpoints` folder with a unique name. The checkpoint is updated every five minutes.
 
 :::warning
 Checkpoints vary in size depending on libraries installed in your session environment. This can potentially result in many large files stored in the compute environment's pipeline work directory and saved to cloud storage. This storage will incur costs based on the cloud provider. Due to the architecture of Studios, you cannot delete any checkpoint files to save on storage costs. Deleting a Studio session's checkpoints will result in a corrupted Studio session that cannot be started nor recovered.
@@ -112,8 +112,7 @@ Checkpoint files in the compute environment work directory may be shared by mult
 The cleanup process is a best effort and not guaranteed. Seqera attempts to remove the checkpoint, but it can fail if, for example, the compute environment credentials used do not have sufficient permissions to delete objects from storage buckets.
 :::
 
-
-{/* links */}
+{/_ links _/}
 [contact]: https://support.seqera.io/
 [vsc]: https://code.visualstudio.com/
 [Wave]: https://seqera.io/wave/

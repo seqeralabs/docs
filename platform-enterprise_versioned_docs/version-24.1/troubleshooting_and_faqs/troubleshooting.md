@@ -45,7 +45,6 @@ The `sleep` commands in your Nextflow workflows may differ in behavior depending
 - If used within an `errorStrategy` block, the Groovy sleep function will be used (which takes its value in milliseconds).
 - If used within a process script block, that language's sleep binary/method will be used. For example, [this bash script](https://www.nextflow.io/docs/latest/metrics.html?highlight=sleep) uses the bash sleep binary, which takes its value in seconds.
 
-
 **Large number of batch job definitions**
 
 Platform normally looks for an existing job definition that matches your workflow requirement. If nothing matches, it recreates the job definition. You can use a simple bash script to clear job definitions. You can tailor this according to your needs, e.g., deregister only job definitions older than x days.
@@ -53,10 +52,10 @@ Platform normally looks for an existing job definition that matches your workflo
 ```bash
 jobs=$(aws --region eu-west-1 batch describe-job-definitions | jq -r .jobDefinitions[].jobDefinitionArn)
 
-for x in $jobs; do 
-  echo "Deregister $x"; 
-  sleep 0.01;  
-  aws --region eu-west-1 batch deregister-job-definition --job-definition $x; 
+for x in $jobs; do
+  echo "Deregister $x";
+  sleep 0.01;
+  aws --region eu-west-1 batch deregister-job-definition --job-definition $x;
 done
 ```
 
@@ -111,22 +110,22 @@ To fix the problem, try the following:
 
 1. Set a JDK environment variable to force Nextflow and Seqera containers to use TLSv1.2 by default:
 
-    ```
-    export JAVA_OPTIONS="-Dmail.smtp.ssl.protocols=TLSv1.2"
-    ```
+   ```
+   export JAVA_OPTIONS="-Dmail.smtp.ssl.protocols=TLSv1.2"
+   ```
 
 2. Add this parameter to your [nextflow.config file](../launch/advanced#nextflow-config-file):
 
-    ```
-    mail {
-        smtp.ssl.protocols = 'TLSv1.2'
-    }
-    ```
+   ```
+   mail {
+       smtp.ssl.protocols = 'TLSv1.2'
+   }
+   ```
 
 3. Ensure these values are also set for Nextflow and/or Seqera:
 
-    -   `mail.smtp.starttls.enable=true`
-    -   `mail.smtp.starttls.required=true`
+   - `mail.smtp.starttls.enable=true`
+   - `mail.smtp.starttls.required=true`
 
 ## Git integration
 
@@ -231,7 +230,6 @@ Seqera Platform uses [server-sent events](https://developer.mozilla.org/en-US/do
 
 To resolve the issue, try reloading the Platform browser tab to reinitiate the client's connection to the server. If reloading fails to resolve the problem, contact [Seqera support](https://support.seqera.io) for assistance with webserver timeout settings adjustments.
 
-
 ## Optimization
 
 **Optimized task failures: _OutOfMemoryError: Container killed due to memory usage_ error**
@@ -292,6 +290,7 @@ This solution requires Docker Engine [17.07 or greater](https://docs.docker.com/
 
     You may need to add additional commands to your Launch template, depending on your security posture:<br/>
     `cp /root/.docker/config.json /home/ec2-user/.docker/config.json && chmod 777 /home/ec2-user/.docker/config.json`
+
 :::
 
 For **Azure Batch**, create a **Container registry**-type credential in your Seqera workspace and associate it with the Azure Batch compute environment defined in the same workspace.

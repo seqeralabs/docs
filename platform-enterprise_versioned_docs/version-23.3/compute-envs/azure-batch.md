@@ -51,9 +51,9 @@ After creating a resource group, set up an [Azure storage account][az-learn-stor
 
 1. Log in to your Azure account, go to the [Create storage account][az-create-storage] page, and select **Create a storage account**.
 
-    :::note
-    If you haven't created a resource group, you can do so now.
-    :::
+   :::note
+   If you haven't created a resource group, you can do so now.
+   :::
 
 2. Enter a name for the storage account (e.g., _towerrgstorage_).
 3. Choose the preferred region (same as the Batch account).
@@ -63,9 +63,9 @@ After creating a resource group, set up an [Azure storage account][az-learn-stor
 7. Select **Next: Networking**.
    - Enable public access from all networks. You can enable public access from selected virtual networks and IP addresses, but you will be unable to use Forge to create compute resources. Disabling public access is not supported.
 8. Select **Data protection**.
-    - Configure appropriate settings. All settings are supported by the platform.
+   - Configure appropriate settings. All settings are supported by the platform.
 9. Select **Encryption**.
-    - Only Microsoft-managed keys (MMK) are supported.
+   - Only Microsoft-managed keys (MMK) are supported.
 10. In **tags**, add any required tags for the storage account.
 11. Select **Review and Create**.
 12. Select **Create** to create the Azure Storage account.
@@ -146,9 +146,9 @@ You can create multiple credentials in your Seqera environment.
 7. Select a **Region**, e.g., _eastus_.
 8. In the **Pipeline work directory** field, enter the Azure blob container created previously, e.g., `az://towerrgstorage-container/work`.
 
-    :::note
-    When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
-    :::
+   :::note
+   When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
+   :::
 
 9. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers][wave-docs] for more information.
 10. Select **Enable Fusion v2** to allow access to your Azure Blob Storage data via the [Fusion v2](https://docs.seqera.io/fusion) virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled. See [Fusion file system](../supported_software/fusion/overview) for configuration details.
@@ -194,9 +194,9 @@ You can create multiple credentials in your Seqera environment.
 7. Select a **Region**, e.g., _eastus (East US)_.
 8. In the **Pipeline work directory** field, add the Azure blob container created previously, e.g., `az://towerrgstorage-container/work`.
 
-    :::note
-    When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
-    :::
+   :::note
+   When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
+   :::
 
 9. Set the **Config mode** to **Manual**.
 10. Enter the **Compute Pool name**. This is the name of the Azure Batch pool you created previously in the Azure Batch account.
@@ -226,5 +226,4 @@ You can create multiple credentials in your Seqera environment.
 [az-learn-jobs]: https://learn.microsoft.com/en-us/azure/batch/jobs-and-tasks
 [az-create-rg]: https://portal.azure.com/#create/Microsoft.ResourceGroup
 [az-create-storage]: https://portal.azure.com/#create/Microsoft.StorageAccount-ARM
-
 [wave-docs]: https://docs.seqera.io/wave

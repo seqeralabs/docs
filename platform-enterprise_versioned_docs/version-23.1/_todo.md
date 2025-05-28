@@ -62,7 +62,6 @@ https://github.com/nf-core/configs/blob/master/conf/google.config as per this ti
 
 TO DO: As per Ben, document profile injection behaviour into Tower docs (e.g. nf-core automagically injecting google profile if executing on GLS)
 
-
 <!--- 13-4-2023: Keeping old intermediate CA solution for a lookback if needed.
 ```
 javax.net.ssl.SSLHandshakeException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
@@ -84,7 +83,6 @@ To allow Java to automatically download missing intermediate certificates, activ
 export JAVA_OPTS="-Dcom.sun.security.enableAIAcaIssuers=true"
 ```
 -->
-
 
 <!-- To do: Write section on this. Use Application Gateway. Blurb about why  -->
 

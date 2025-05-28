@@ -11,7 +11,7 @@ Fusion licensing requirements and free tier quotas will be enforced starting Jun
 
 A Fusion license sets a specific quota for Fusion use, measured by total throughput per month (defined by [Nextflow’s I/O metrics](https://www.nextflow.io/docs/latest/metrics.html#i-o-usage)).
 
-### For Seqera Cloud 
+### For Seqera Cloud
 
 - Seqera Platform will automatically add and manage a Fusion license on your behalf, up to the allowed usage quota. Seqera will track Fusion use for all pipelines run in Platform.
 - The default quota for free use within Seqera Cloud is 100TB.
@@ -22,6 +22,6 @@ A Fusion license sets a specific quota for Fusion use, measured by total through
 - Seqera Platform will automatically add and manage a Fusion license on your behalf, up to the allowed usage quota. Seqera will track Fusion use for all pipelines run in Platform.
 - Once your quota is met or exceeded, you will be prevented from running additional Nextflow pipelines with Fusion.
 
-### For Seqera Enterprise instances without network connectivity, and direct Fusion use with Nextflow  
+### For Seqera Enterprise instances without network connectivity, and direct Fusion use with Nextflow
 
 [Contact Seqera](https://seqera.io/contact-us) for a license that can be integrated into your workflow, or to set up an evaluation.

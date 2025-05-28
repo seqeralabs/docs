@@ -23,9 +23,9 @@ To add a new data studio, complete the following steps:
       - **Maximum memory allocated**: The default allocation is 8192 MiB of memory.
    1. Select **Mount data**, and then from the **Mount data** modal, select data to mount. Select **Mount data** to confirm your selection.
 
-        :::tip
-        Datasets are mounted using the [Fusion file system](https://docs.seqera.io/fusion) and are available at `/workspace/data/<dataset>`. Mounted data doesn't need to match the compute environment or region of the cloud provider of the data studio. However, this might cause increased costs or errors.
-        :::
+      :::tip
+      Datasets are mounted using the [Fusion file system](https://docs.seqera.io/fusion) and are available at `/workspace/data/<dataset>`. Mounted data doesn't need to match the compute environment or region of the cloud provider of the data studio. However, this might cause increased costs or errors.
+      :::
 
    1. Select **Next**.
 
@@ -43,6 +43,7 @@ To add a new data studio, complete the following steps:
    - To use a custom container template image that you supply, complete the following steps:
 
      1. Customize the following fields:
+
         - **Container template**: Select **Prebuilt container image** from the list. For information about providing your own template, see [Custom container template image][custom-image].
 
           :::tip
@@ -51,6 +52,7 @@ To add a new data studio, complete the following steps:
 
         - **Data studio name**
         - Optional: **Description**
+
      1. Select **Next**.
 
 1. For the **Summary** section, complete the following steps:

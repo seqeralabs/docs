@@ -212,21 +212,21 @@ Jump to the documentation for [launching pipelines](../launch/launchpad).
 
 - You can specify a custom **AMI ID**.
 
-    :::caution
-    To use a custom AMI, make sure the AMI is based on an Amazon Linux-2 ECS optimized image that meets the Batch requirements. To learn more about approved versions of the Amazon ECS optimized AMI, see [this AWS guide](https://docs.aws.amazon.com/batch/latest/userguide/compute_resource_AMIs.html#batch-ami-spec)
-    :::
+  :::caution
+  To use a custom AMI, make sure the AMI is based on an Amazon Linux-2 ECS optimized image that meets the Batch requirements. To learn more about approved versions of the Amazon ECS optimized AMI, see [this AWS guide](https://docs.aws.amazon.com/batch/latest/userguide/compute_resource_AMIs.html#batch-ami-spec)
+  :::
 
-    :::caution
-    If a custom AMI is specified and the **Enable GPU** option is also selected, the custom AMI will be used instead of the AWS-recommended GPU-optimized AMI.
-    :::
+  :::caution
+  If a custom AMI is specified and the **Enable GPU** option is also selected, the custom AMI will be used instead of the AWS-recommended GPU-optimized AMI.
+  :::
 
 - If you need to debug the EC2 instance provisioned by AWS Batch, specify a **Key pair** to log in to the instance via SSH.
 
 - You can set **Min CPUs** to be greater than `0`, in which case some EC2 instances will remain active. An advantage of this is that pipeline executions will initialize faster.
 
-    :::caution
-    Setting Min CPUs to a value greater than 0 will keep the required compute instances active, even when your pipelines are not running. This will result in additional AWS charges.
-    :::
+  :::caution
+  Setting Min CPUs to a value greater than 0 will keep the required compute instances active, even when your pipelines are not running. This will result in additional AWS charges.
+  :::
 
 - Use **Head Job CPUs** and **Head Job Memory** to specify the hardware resources allocated for the Head Job.
 
@@ -246,9 +246,9 @@ Jump to the documentation for [launching pipelines](../launch/launchpad).
 
 - Specify a custom **ECS agent configuration** for the ECS agent parameters used by AWS Batch. This is appended to the `/etc/ecs/ecs.config` file in each cluster node.
 
-    :::note
-    Altering this file may result in a malfunctioning Batch Forge compute environment. See [Amazon ECS container agent configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) to learn more about the available parameters.
-    :::
+  :::note
+  Altering this file may result in a malfunctioning Batch Forge compute environment. See [Amazon ECS container agent configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) to learn more about the available parameters.
+  :::
 
 ## Manual
 
@@ -294,9 +294,9 @@ To create a new compute environment for AWS Batch (without Forge):
 
 6. Enter the **Access key** and **Secret key** for your IAM user.
 
-    :::tip
-    You can create multiple credentials in your Tower environment. See the [Credentials](../credentials/overview) section.
-    :::
+   :::tip
+   You can create multiple credentials in your Tower environment. See the [Credentials](../credentials/overview) section.
+   :::
 
 7. Select a **Region**, e.g., "eu-west-1 - Europe (Ireland)".
 
@@ -327,6 +327,5 @@ Jump to the documentation for [launching pipelines](../launch/launchpad).
 - Use **AWS CLI tool path** to specify the location of the `aws` CLI.
 
 - Specify a **CloudWatch Log group** for the `awslogs` driver to stream the logs entry to an existing Log group in Cloudwatch.
-
 
 [quota]: https://docs.aws.amazon.com/batch/latest/userguide/service_limits.html

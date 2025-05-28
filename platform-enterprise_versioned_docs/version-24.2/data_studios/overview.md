@@ -10,7 +10,7 @@ Studios is a unified platform where you can host a combination of container imag
 On Seqera Cloud, the free tier permits only one running session at a time. To run simultaneous sessions, [contact Seqera][contact] for a Seqera Cloud Pro license.
 
 :::note
-Studios is currently in **public preview** and is available from Seqera Platform v24.1. [Contact Seqera support](https://support.seqera.io) if you experience any problems during the deployment process. Studios in Enterprise is not enabled by default. You can enable it  in the [environment variables configuration](../enterprise/studios).
+Studios is currently in **public preview** and is available from Seqera Platform v24.1. [Contact Seqera support](https://support.seqera.io) if you experience any problems during the deployment process. Studios in Enterprise is not enabled by default. You can enable it in the [environment variables configuration](../enterprise/studios).
 :::
 
 ## Requirements
@@ -123,7 +123,6 @@ Studios can have the following possible statuses:
 - **stopped**: When a Studio session is stopped, the associated compute resources are deallocated. You can start or delete the session when it's in this state.
 - **errored**: This state most often indicates that there has been an error starting the Studio session but it is in a **stopped** state. There might be errors reported by the session itself but these will be overwritten with a **running** status if the session is still running.
 
-
 ## Collaboration
 
 By default a Studios session is collaborative. All workspace members can connect to a running session with the exception of those with only the **View** role. If a session is configured to run in private mode, only the user who created the session can connect to it.
@@ -155,7 +154,7 @@ For more information, see [Limit Studio access to a specific cloud bucket subdir
 
 ## Session checkpoints
 
-When starting a Studio session, a *checkpoint* is automatically created. A checkpoint saves all changes made to the root filesystem and stores it in the attached compute environment's pipeline work directory in the `.studios/checkpoints` folder with a unique name. The current checkpoint is updated every five minutes during a session.
+When starting a Studio session, a _checkpoint_ is automatically created. A checkpoint saves all changes made to the root filesystem and stores it in the attached compute environment's pipeline work directory in the `.studios/checkpoints` folder with a unique name. The current checkpoint is updated every five minutes during a session.
 
 :::warning
 Checkpoints vary in size depending on libraries installed in your session environment. This can potentially result in many large files stored in the compute environment's pipeline work directory and saved to cloud storage. This storage will incur costs based on the cloud provider. Due to the architecture of Studios, you cannot delete any checkpoint files to save on storage costs. Deleting a Studio session's checkpoints will result in a corrupted Studio session that cannot be started nor recovered.
@@ -179,11 +178,11 @@ This approach ensures that a session doesn't initially include unnecessary free 
 
 The maximum storage allocation for a session is limited by the compute environment disk boot size. By default, this is 30 GB. This limit is shared by all sessions running in the same compute environment.
 
-If the maximum allocation size is reached, it is possible to reclaim storage space using a snapshot. 
+If the maximum allocation size is reached, it is possible to reclaim storage space using a snapshot.
 
 Stop the active Studios session to trigger a snapshot from the active volume. The snapshot is uploaded to cloud storage with Fusion. When you start from the newly-saved snapshot, all previous data is loaded and the newly-started Studios session will have 2 GB of available space.
 
-{/* links */}
+{/_ links _/}
 [contact]: https://support.seqera.io/
 [aws-batch]: ../compute-envs/aws-batch
 [custom-envs]: ./custom-envs

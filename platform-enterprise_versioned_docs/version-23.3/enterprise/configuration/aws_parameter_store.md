@@ -50,11 +50,11 @@ To create Seqera configuration parameters in AWS Parameter Store, do the followi
 1. Navigate to the **Parameter Store** from the **AWS Systems Manager Service** console.
 2. From the **My parameters** tab, select **Create parameter** and populate as follows:
 
-| Field | Description |
-| ----- | ----------- |
-| **Name** | Use the format `/config/<application_name>/<cfg_path>`. `<cfg_path>` follows the `tower.yml` nesting hierarchy. See the [configuration overview](./overview) for specific paths.<br/>**Example: `/config/tower-app/mail.smtp.password : <your_smtp_password>`** |
-| **Description** | (Optional) Description for the parameter. |
-| **Tier** | Select **Standard**. |
-| **Type** | Use **SecureString** for sensitive values like passwords and tokens. Use **String** for everything else. |
-| **Data type** | Select **text**. |
-| **Value** | Enter a plain text value (this is the configuration value used in Seqera). |
+| Field           | Description                                                                                                                                                                                                                                                     |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Name**        | Use the format `/config/<application_name>/<cfg_path>`. `<cfg_path>` follows the `tower.yml` nesting hierarchy. See the [configuration overview](./overview) for specific paths.<br/>**Example: `/config/tower-app/mail.smtp.password : <your_smtp_password>`** |
+| **Description** | (Optional) Description for the parameter.                                                                                                                                                                                                                       |
+| **Tier**        | Select **Standard**.                                                                                                                                                                                                                                            |
+| **Type**        | Use **SecureString** for sensitive values like passwords and tokens. Use **String** for everything else.                                                                                                                                                        |
+| **Data type**   | Select **text**.                                                                                                                                                                                                                                                |
+| **Value**       | Enter a plain text value (this is the configuration value used in Seqera).                                                                                                                                                                                      |

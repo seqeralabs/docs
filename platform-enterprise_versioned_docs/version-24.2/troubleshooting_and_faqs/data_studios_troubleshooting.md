@@ -13,7 +13,7 @@ In your interactive analysis environment, open a new terminal and type `ls -la /
 
 ## Session size limited by compute environment advanced options: Head job CPUs and Head job memory
 
- When adding a compute environment, setting the Advanced options **Head job CPUs** and **Head job memory** for Nextflow **also applies** to any studio session created in the compute environment. This is because studio sessions are managed by the Nextflow runner job. To avoid artifically constraining the resources of your studio sessions, **do not define these optional compute environment settings**.
+When adding a compute environment, setting the Advanced options **Head job CPUs** and **Head job memory** for Nextflow **also applies** to any studio session created in the compute environment. This is because studio sessions are managed by the Nextflow runner job. To avoid artifically constraining the resources of your studio sessions, **do not define these optional compute environment settings**.
 
 ## Studio session is stuck in **starting**
 
@@ -43,7 +43,7 @@ The running container in the AWS Batch compute environment inherits the memory l
 
 By default, AWS Batch compute environments that are created with Batch Forge restrict access to S3 to the working directory only, unless additional **Allowed S3 Buckets** are specified. If the compute environment does not have write access to the mounted dataset, it will be mounted as read-only.
 
-## My Studio session with GPU isn't starting 
+## My Studio session with GPU isn't starting
 
 Check whether the instance type you selected [supports GPU](https://aws.amazon.com/ec2/instance-types/). If you specify multiple GPUs make sure that multi-GPU instances can be launched by your compute environment and are not limited by the maximum CPU config that you've set.
 

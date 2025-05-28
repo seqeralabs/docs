@@ -40,9 +40,9 @@ Once you've filled the necessary launch form details, select **Launch**. Your ne
 
 To run pipelines on your own infrastructure, you first need to create your own organization.
 
-* [Organizations](../orgs-and-teams/organizations) are the top-level structure in Seqera. They contain the building blocks of your organizational infrastructure.
-* [Workspaces](../orgs-and-teams/workspace-management) are where resources are managed. All team members can access the organization workspace. In addition to this, each user has a unique personal workspace to manage resources such as pipelines, compute environments, and credentials.
-* [Teams](../orgs-and-teams/organizations) are collections of members.
-* [Members](../orgs-and-teams/organizations#members) belong to an organization and can have different levels of access across workspaces.
+- [Organizations](../orgs-and-teams/organizations) are the top-level structure in Seqera. They contain the building blocks of your organizational infrastructure.
+- [Workspaces](../orgs-and-teams/workspace-management) are where resources are managed. All team members can access the organization workspace. In addition to this, each user has a unique personal workspace to manage resources such as pipelines, compute environments, and credentials.
+- [Teams](../orgs-and-teams/organizations) are collections of members.
+- [Members](../orgs-and-teams/organizations#members) belong to an organization and can have different levels of access across workspaces.
 
 You can create multiple workspaces within an organization context and associate each of these workspaces with dedicated teams of users, while providing fine-grained access control for each of the teams. See [Workspaces](../orgs-and-teams/workspace-management) for more information.

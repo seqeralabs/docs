@@ -25,12 +25,12 @@ After your [Docker Compose](./docker-compose) or [Kubernetes](./kubernetes) inst
 
 9. In **Pipeline parameters**, change the output directory to a location based on your compute environment:
 
-    ```yaml
-    # Uncomment to save to an S3 bucket
-    # outdir: s3://<your-bucket>/results
+   ```yaml
+   # Uncomment to save to an S3 bucket
+   # outdir: s3://<your-bucket>/results
 
-    # Uncomment to save to a scratch directory (Kubernetes)
-    # outdir: /scratch/results
-    ```
+   # Uncomment to save to a scratch directory (Kubernetes)
+   # outdir: /scratch/results
+   ```
 
 10. Select **Launch**. You'll be redirected to the **Runs** tab for the workflow. After a few minutes, progress logs will be listed in that workflow's **Execution log** tab.

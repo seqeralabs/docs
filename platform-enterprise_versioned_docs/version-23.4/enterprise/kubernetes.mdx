@@ -5,8 +5,8 @@ date: "21 Apr 2023"
 tags: [kubernetes, deployment]
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 This guide assumes that all prerequisites have been met. Visit the corresponding **Prerequisites** page for your infrastructure provider.
 
@@ -34,23 +34,23 @@ Seqera Enterprise is distributed as a collection of Docker containers available 
 
 1. Create a [secret][kubectl-secret]:
 
-    ```bash
-    kubectl create secret docker-registry cr.seqera.io \
-      --docker-server=cr.seqera.io \
-      --docker-username='<YOUR NAME>' \
-      --docker-password='<YOUR SECRET>'
-    ```
+   ```bash
+   kubectl create secret docker-registry cr.seqera.io \
+     --docker-server=cr.seqera.io \
+     --docker-username='<YOUR NAME>' \
+     --docker-password='<YOUR SECRET>'
+   ```
 
-    The credential `name` contains a dollar `$` character. Wrap the name in single quotes to prevent the Linux shell from interpreting this value as an environment variable.
+   The credential `name` contains a dollar `$` character. Wrap the name in single quotes to prevent the Linux shell from interpreting this value as an environment variable.
 
 1. Configure the Seqera cron service and the application frontend and backend to use the secret created in the previous step (see [tower-cron.yml](./_templates/k8s/tower-cron.yml) and [tower-svc.yml](./_templates/k8s/tower-svc.yml)):
 
-    ```yaml
-    imagePullSecrets:
-    - name: "cr.seqera.io"
-    ```
+   ```yaml
+   imagePullSecrets:
+     - name: "cr.seqera.io"
+   ```
 
-    This parameter is already included in the templates linked above. If you use a name other than `cr.seqera.io` for the secret, update this value accordingly in the configuration files.
+   This parameter is already included in the templates linked above. If you use a name other than `cr.seqera.io` for the secret, update this value accordingly in the configuration files.
 
 ### Seqera ConfigMap
 
@@ -74,21 +74,21 @@ Seqera Enterprise requires a Redis database for caching purposes. Configure Redi
 
 1. Download the appropriate manifest for your infrastructure:
 
-    - [Amazon EKS](_templates/k8s/redis.eks.yml)
-    - [Azure AKS](_templates/k8s/redis.aks.yml)
-    - [Google Kubernetes Engine](_templates/k8s/redis.gke.yml)
+   - [Amazon EKS](_templates/k8s/redis.eks.yml)
+   - [Azure AKS](_templates/k8s/redis.aks.yml)
+   - [Google Kubernetes Engine](_templates/k8s/redis.gke.yml)
 
 1. Deploy to your cluster:
 
-    ```bash
-    kubectl apply -f redis.*.yml
-    ```
+   ```bash
+   kubectl apply -f redis.*.yml
+   ```
 
 1. To run the Redis service as a container as part of your Docker or Kubernetes installation, specify the service name as part of the `TOWER_REDIS_URL`:
 
-    ```bash
-    TOWER_REDIS_URL=redis://redis:6379
-    ```
+   ```bash
+   TOWER_REDIS_URL=redis://redis:6379
+   ```
 
 #### Managed Redis services
 
@@ -150,9 +150,9 @@ Download the [manifest](_templates/k8s/tower-svc.yml).
 
 To deploy the manifest to your cluster, run the following:
 
-  ```bash
-  kubectl apply -f tower-svc.yml
-  ```
+```bash
+kubectl apply -f tower-svc.yml
+```
 
 #### Seqera frontend unprivileged
 
@@ -250,15 +250,15 @@ Use the [dbconsole.yml](_templates/k8s/dbconsole.yml) manifest to deploy a simpl
 
 1. Deploy the database console:
 
-    ```bash
-    kubectl apply -f dbconsole.yml
-    ```
+   ```bash
+   kubectl apply -f dbconsole.yml
+   ```
 
 1. Enable a port-forward for the database console to your local machine:
 
-    ```bash
-    kubectl port-forward deployment/dbconsole 8080:8080
-    ```
+   ```bash
+   kubectl port-forward deployment/dbconsole 8080:8080
+   ```
 
 1. Access the database console in a web browser at `http://localhost:8080`.
 

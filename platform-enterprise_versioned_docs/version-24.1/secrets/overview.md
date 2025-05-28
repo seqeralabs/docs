@@ -35,8 +35,8 @@ When you launch a new workflow, all secrets are sent to the corresponding secret
 
 Secrets are automatically deleted from the secret manager when the pipeline completes, successfully or unsuccessfully.
 
-:::note 
-In AWS Batch compute environments, Seqera passes stored secrets to jobs as part of the Seqera-created job definition. Seqera secrets cannot be used in Nextflow processes that use a [custom job definition](https://www.nextflow.io/docs/latest/aws.html#custom-job-definition). 
+:::note
+In AWS Batch compute environments, Seqera passes stored secrets to jobs as part of the Seqera-created job definition. Seqera secrets cannot be used in Nextflow processes that use a [custom job definition](https://www.nextflow.io/docs/latest/aws.html#custom-job-definition).
 :::
 
 ## AWS Secrets Manager integration
@@ -52,21 +52,21 @@ Augment the existing instance [permissions](https://github.com/seqeralabs/nf-tow
 Augment the permissions given to Seqera with the following Sid:
 
 ```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
     {
-        "Version": "2012-10-17",
-        "Statement": [
-            {
-                "Sid": "AllowTowerEnterpriseSecrets",
-                "Effect": "Allow",
-                "Action": [
-                    "secretsmanager:DeleteSecret",
-                    "secretsmanager:ListSecrets",
-                    "secretsmanager:CreateSecret"
-                ],
-                "Resource": "*"
-            }
-        ]
+      "Sid": "AllowTowerEnterpriseSecrets",
+      "Effect": "Allow",
+      "Action": [
+        "secretsmanager:DeleteSecret",
+        "secretsmanager:ListSecrets",
+        "secretsmanager:CreateSecret"
+      ],
+      "Resource": "*"
     }
+  ]
+}
 ```
 
 ### ECS Agent permissions
@@ -82,17 +82,17 @@ The ECS Agent uses the [Batch Execution role](https://docs.aws.amazon.com/batch/
 1. Add this inline policy (specifying `<YOUR_COMPUTE_REGION>`):
 
 ```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
     {
-        "Version": "2012-10-17",
-        "Statement": [
-            {
-                "Sid": "AllowECSAgentToRetrieveSecrets",
-                "Effect": "Allow",
-                "Action": "secretsmanager:GetSecretValue",
-                "Resource": "arn:aws:secretsmanager:<YOUR_COMPUTE_REGION>:*:secret:tower-*"
-        }
-      ]
+      "Sid": "AllowECSAgentToRetrieveSecrets",
+      "Effect": "Allow",
+      "Action": "secretsmanager:GetSecretValue",
+      "Resource": "arn:aws:secretsmanager:<YOUR_COMPUTE_REGION>:*:secret:tower-*"
     }
+  ]
+}
 ```
 
 :::note
@@ -102,19 +102,19 @@ Including `tower-*` in the Resource ARN above limits access to Platform secrets 
 **IAM trust relationship**
 
 ```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
     {
-        "Version": "2012-10-17",
-        "Statement": [
-            {
-                "Sid": "AllowECSTaskAssumption",
-                "Effect": "Allow",
-                "Principal": {
-                    "Service": "ecs-tasks.amazonaws.com"
-                },
-                "Action": "sts:AssumeRole"
-            }
-        ]
+      "Sid": "AllowECSTaskAssumption",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
     }
+  ]
+}
 ```
 
 ### Compute permissions
@@ -128,17 +128,17 @@ Augment your Nextflow head job permissions source with one of the following poli
 Add this policy to your EC2 Instance role:
 
 ```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
     {
-        "Version": "2012-10-17",
-        "Statement": [
-            {
-                "Sid": "AllowNextflowHeadJobToAccessSecrets",
-                "Effect": "Allow",
-                "Action": "secretsmanager:ListSecrets",
-                "Resource": "*"
-            }
-        ]
+      "Sid": "AllowNextflowHeadJobToAccessSecrets",
+      "Effect": "Allow",
+      "Action": "secretsmanager:ListSecrets",
+      "Resource": "*"
     }
+  ]
+}
 ```
 
 **Custom IAM role**
@@ -146,44 +146,41 @@ Add this policy to your EC2 Instance role:
 Add this policy to your custom IAM role (specifying `YOUR_ACCOUNT` and `YOUR_BATCH_CLUSTER`):
 
 ```json
-        {
-            "Version": "2012-10-17",
-            "Statement": [
-                {
-                    "Sid": "AllowNextflowHeadJobToAccessSecrets",
-                    "Effect": "Allow",
-                    "Action": "secretsmanager:ListSecrets",
-                    "Resource": "*"
-                },
-                {
-                    "Sid": "AllowNextflowHeadJobToPassRoles",
-                    "Effect": "Allow",
-                    "Action": [
-                        "iam:GetRole",
-                        "iam:PassRole"
-                    ],
-                    "Resource": "arn:aws:iam::YOUR_ACCOUNT:role/YOUR_BATCH_CLUSTER-ExecutionRole"
-                }
-            ]
-        }
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowNextflowHeadJobToAccessSecrets",
+      "Effect": "Allow",
+      "Action": "secretsmanager:ListSecrets",
+      "Resource": "*"
+    },
+    {
+      "Sid": "AllowNextflowHeadJobToPassRoles",
+      "Effect": "Allow",
+      "Action": ["iam:GetRole", "iam:PassRole"],
+      "Resource": "arn:aws:iam::YOUR_ACCOUNT:role/YOUR_BATCH_CLUSTER-ExecutionRole"
+    }
+  ]
+}
 ```
 
 Add this trust policy to your custom IAM role:
 
 ```json
-        {
-            "Version": "2012-10-17",
-            "Statement": [
-                {
-                    "Sid": "AllowECSTaskAssumption",
-                    "Effect": "Allow",
-                    "Principal": {
-                        "Service": "ecs-tasks.amazonaws.com"
-                    },
-                    "Action": "sts:AssumeRole"
-                }
-            ]
-        }
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowECSTaskAssumption",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
 ```
 
 ## Google Secret Manager integration

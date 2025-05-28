@@ -23,18 +23,13 @@ import Heading from "@theme/Heading";
   as={"h1"}
   className={"openapi__heading"}
   children={"GA4GH: Launch run"}
->
-</Heading>
+></Heading>
 
 <MethodEndpoint
   method={"post"}
   path={"/ga4gh/wes/v1/runs"}
   context={"endpoint"}
->
-  
-</MethodEndpoint>
-
-
+></MethodEndpoint>
 
 Uses the GA4GH workflow execution service API to launch a new run. Runs are launched in the user workspace context by default. To launch in an organization workspace context, include the `workspaceId` in `workflow_engine_parameters`. Runs are launched with the workspace primary compute environment by default. To launch with a different compute environment, include the `computeEnvId` in `workflow_engine_parameters`.
 
@@ -43,29 +38,85 @@ Uses the GA4GH workflow execution service API to launch a new run. Runs are laun
   as={"h2"}
   className={"openapi-tabs__heading"}
   children={"Request"}
->
-</Heading>
+></Heading>
 
-<ParamsDetails
-  parameters={undefined}
->
-  
-</ParamsDetails>
+<ParamsDetails parameters={undefined}></ParamsDetails>
 
 <RequestSchema
   title={"Body"}
-  body={{"description":"Run request","content":{"application/json":{"schema":{"type":"object","properties":{"workflow_params":{"type":"string"},"workflow_type":{"type":"string"},"workflow_type_version":{"type":"string"},"tags":{"type":"object","additionalProperties":{"type":"string"}},"workflow_engine_parameters":{"type":"object","additionalProperties":{"type":"string"}},"workflow_url":{"type":"string"}},"title":"RunRequest"}},"multipart/form-data":{"schema":{"type":"object","properties":{"workflow_params":{"type":"string"},"workflow_type":{"type":"string"},"workflow_type_version":{"type":"string"},"tags":{"type":"object","additionalProperties":{"type":"string"}},"workflow_engine_parameters":{"type":"object","additionalProperties":{"type":"string"}},"workflow_url":{"type":"string"}},"title":"RunRequest"}}},"required":true}}
->
-  
-</RequestSchema>
+  body={{
+    description: "Run request",
+    content: {
+      "application/json": {
+        schema: {
+          type: "object",
+          properties: {
+            workflow_params: { type: "string" },
+            workflow_type: { type: "string" },
+            workflow_type_version: { type: "string" },
+            tags: { type: "object", additionalProperties: { type: "string" } },
+            workflow_engine_parameters: {
+              type: "object",
+              additionalProperties: { type: "string" },
+            },
+            workflow_url: { type: "string" },
+          },
+          title: "RunRequest",
+        },
+      },
+      "multipart/form-data": {
+        schema: {
+          type: "object",
+          properties: {
+            workflow_params: { type: "string" },
+            workflow_type: { type: "string" },
+            workflow_type_version: { type: "string" },
+            tags: { type: "object", additionalProperties: { type: "string" } },
+            workflow_engine_parameters: {
+              type: "object",
+              additionalProperties: { type: "string" },
+            },
+            workflow_url: { type: "string" },
+          },
+          title: "RunRequest",
+        },
+      },
+    },
+    required: true,
+  }}
+></RequestSchema>
 
 <StatusCodes
   id={undefined}
   label={undefined}
-  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"run_id":{"type":"string"}},"title":"RunId"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"type":"object","properties":{"msg":{"type":"string"},"status_code":{"type":"integer","format":"int32"}},"title":"WesErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
->
-  
-</StatusCodes>
-
-
-      
+  responses={{
+    "200": {
+      description: "OK",
+      content: {
+        "application/json": {
+          schema: {
+            type: "object",
+            properties: { run_id: { type: "string" } },
+            title: "RunId",
+          },
+        },
+      },
+    },
+    "400": {
+      description: "Bad request",
+      content: {
+        "application/json": {
+          schema: {
+            type: "object",
+            properties: {
+              msg: { type: "string" },
+              status_code: { type: "integer", format: "int32" },
+            },
+            title: "WesErrorResponse",
+          },
+        },
+      },
+    },
+    "403": { description: "Operation not allowed" },
+  }}
+></StatusCodes>

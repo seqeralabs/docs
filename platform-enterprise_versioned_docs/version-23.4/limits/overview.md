@@ -9,13 +9,13 @@ Seqera Platform elements and features have default limits per organization and w
 
 ### Organizations
 
-| Description             | Basic | Cloud Pro + Enterprise | 
-| ----------------------- | ----- | ---------------------- |
-| Members                 | 3     | 50, or per license     |
-| Workspaces              | 50    | 50, or per license     |
-| Teams                   | 20    | 20, or per license     |
-| Run history             | 250   | 250, or per license    |
-| Active runs             | 3     | 100, or per license    |
+| Description | Basic | Cloud Pro + Enterprise |
+| ----------- | ----- | ---------------------- |
+| Members     | 3     | 50, or per license     |
+| Workspaces  | 50    | 50, or per license     |
+| Teams       | 20    | 20, or per license     |
+| Run history | 250   | 250, or per license    |
+| Active runs | 3     | 100, or per license    |
 
 ### Workspaces
 
@@ -26,7 +26,7 @@ Seqera Platform elements and features have default limits per organization and w
 | Datasets     | 100   | 1000, or per license   |
 | Labels       | 1000  | 1000, or per license   |
 
-:::note 
+:::note
 Some Enterprise instances on older licenses are limited to 100 labels per workspace. [Contact support](mailto:support@seqera.io) to upgrade your license.
 :::
 

@@ -131,6 +131,7 @@ This must be an `https://` URI, per Microsoft's requirements.
     TOWER_OIDC_SECRET=<YOUR_CLIENT_CREDENTIALS_SECRET>
     TOWER_OIDC_ISSUER=<YOUR_OIDC_METADATA_URL_UP_TO_"v2.0">   (e.g. https://login.microsoftonline.com/000000-0000-0000-00-0000000000000/v2.0)
     ```
+
 12. Add `auth-oidc` to the `MICRONAUT_ENVIRONMENTS` environment variable for both the `cron` and `backend` services.
 
 ### Okta identity provider
@@ -173,12 +174,10 @@ TOWER_AUTH_<PROVIDER>_ALLOW_LIST=*@foo.com,user1@bar.com
 **tower.yml**
 
 ```yaml
-
 tower:
 auth:
-   <PROVIDER>:
-      allow-list:
+  <PROVIDER>:
+    allow-list:
       - "*@foo.com"
       - "me@bar.com"
-
 ```

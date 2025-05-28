@@ -34,10 +34,10 @@ All pipelines contain at least these parameters:
 **Input/output options**: Specify paths to pipeline input [datasets](../data/datasets), output directories, and other pipeline-specific I/O options. _input_ and _outdir_ are required fields common to most pipelines:
 
 - **input**
-Specify compatible input datasets manually or from the drop-down menu. Select **Browse** to view the available datasets or browse for [Data Explorer](../data/data-explorer) files in a popup window. The Data Explorer tab allows you to select input datasets that match your [pipeline schema](../pipeline-schema/overview) `mimetype` criteria (`text/csv` for CSV files, or `text/tsv` for TSV files).
+  Specify compatible input datasets manually or from the drop-down menu. Select **Browse** to view the available datasets or browse for [Data Explorer](../data/data-explorer) files in a popup window. The Data Explorer tab allows you to select input datasets that match your [pipeline schema](../pipeline-schema/overview) `mimetype` criteria (`text/csv` for CSV files, or `text/tsv` for TSV files).
 
 - **outdir**
-Specify the output directory where run results will be saved. Specify the directory path manually, or select **Browse** to specify a cloud storage directory using [Data Explorer](../data/data-explorer).
+  Specify the output directory where run results will be saved. Specify the directory path manually, or select **Browse** to specify a cloud storage directory using [Data Explorer](../data/data-explorer).
 
 The remaining fields of the pipeline parameters form will vary for each pipeline, dependent on the parameters specified in the pipeline schema. When you have filled the necessary launch form details, select **Launch**. The **Runs** tab shows your new run in a **submitted** status at the top of the list. Select the run name to navigate to the [**View Workflow Run**](../monitoring/run-details) page and view the configuration, parameters, status of individual tasks, and run report.
 
@@ -51,29 +51,31 @@ For more information on relaunch and resume, see [Cache and resume](./cache-resu
 1. On the **Launch** form, enter an optional **Workflow run name** (or keep the randomly assigned default) and assign optional labels to the run.
 1. Select a **Compute environment** from the available options. See [Compute environments](../compute-envs/overview) to learn how to create an environment for your preferred execution platform.
 1. Enter a repository URL for the **Pipeline to launch** (e.g., `https://github.com/nf-core/rnaseq.git`).
-    :::note
-    Nextflow pipelines are Git repositories that can reside on any public or private Git-hosting platform. See [Git integration](../git/overview) in the Seqera docs and [Pipeline sharing](https://www.nextflow.io/docs/latest/sharing.html) in the Nextflow docs for more details.
-    :::
+   :::note
+   Nextflow pipelines are Git repositories that can reside on any public or private Git-hosting platform. See [Git integration](../git/overview) in the Seqera docs and [Pipeline sharing](https://www.nextflow.io/docs/latest/sharing.html) in the Nextflow docs for more details.
+   :::
 1. Select a **Revision number** to use a specific version of the pipeline (optional). The Git default branch (e.g. main or master) or `manifest.defaultBranch` in the Nextflow configuration will be used by default.
 1. Enter the **Work directory**, which corresponds to the Nextflow work directory. You can also **Browse** for a cloud storage directory with Data Explorer. The default work directory of the compute environment will be used by default.
-    :::note
-    The credentials associated with the compute environment must have access to the work directory (e.g., an S3 bucket).
-    :::
+   :::note
+   The credentials associated with the compute environment must have access to the work directory (e.g., an S3 bucket).
+   :::
 1. Select any **Config profiles** you wish to use. See [Nextflow Config profiles](https://www.nextflow.io/docs/latest/config.html#config-profiles) for more details.
 1. Enter any **Pipeline parameters** in YAML or JSON format:
-    ```
-    reads: 's3://nf-bucket/exome-data/ERR013140_{1,2}.fastq.bz2'
-    paired_end: true
-    ```
 
-    :::note
-    In YAML, quotes should be used for paths but not for numbers or Boolean values.
-    :::
+   ```
+   reads: 's3://nf-bucket/exome-data/ERR013140_{1,2}.fastq.bz2'
+   paired_end: true
+   ```
+
+   :::note
+   In YAML, quotes should be used for paths but not for numbers or Boolean values.
+   :::
+
 1. Select or create [resource labels](../resource-labels/overview) to apply to the resources consumed by the run, if needed.
 1. Expand the [Pipeline secrets](../secrets/overview) dropdown to select user or workspace secrets to be used during the run, if needed.
-    :::note 
-    In AWS Batch compute environments, Seqera passes stored secrets to jobs as part of the Seqera-created job definition. Seqera secrets cannot be used in Nextflow processes that use a [custom job definition](https://www.nextflow.io/docs/latest/aws.html#custom-job-definition). 
-    :::
+   :::note
+   In AWS Batch compute environments, Seqera passes stored secrets to jobs as part of the Seqera-created job definition. Seqera secrets cannot be used in Nextflow processes that use a [custom job definition](https://www.nextflow.io/docs/latest/aws.html#custom-job-definition).
+   :::
 1. Apply any [Advanced options](./advanced), if needed.
 1. When you have filled the necessary launch form details, select **Launch**. The **Runs** tab shows your new run in a **submitted** status on the top of the list. Select the run name to navigate to the run detail page and view the configuration, parameters, status of individual tasks, and run report.
 

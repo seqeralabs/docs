@@ -20,7 +20,7 @@ You may wish to limit S3 access to specific prefixes, and/or Role assumption to 
 
 1. Download the [custom IAM Policy](https://github.com/seqeralabs/nf-tower-aws/blob/master/forge/forge-policy.json).
 1. Download the [S3 bucket write policy](https://github.com/seqeralabs/nf-tower-aws/blob/master/launch/s3-bucket-write.json).
-1. Modify the S3 bucket write policy by adding `"arn:aws:s3:::YOUR-BUCKET-NAME"` for each bucket that will be used as a pipeline work directory. 
+1. Modify the S3 bucket write policy by adding `"arn:aws:s3:::YOUR-BUCKET-NAME"` for each bucket that will be used as a pipeline work directory.
 1. Revise the scope of access to a specific prefix in the S3 buckets, if needed (modify `"arn:aws:s3:::YOUR-BUCKET-NAME/*"`).
 
 ## Modify the Seqera IAM role trust policy (optional)
@@ -29,7 +29,7 @@ You can optionally create a Seqera role trust policy to allow EC2 instances or E
 
 1. Download the [Seqera IAM role trust policy](https://github.com/seqeralabs/nf-tower-aws/blob/master/launch/seqera-role-trust-policy.json).
 1. Replace `YOUR-AWS-ACCOUNT` with your AWS Account ID.
-1. Replace `USER-OR-ROLE/USER-OR-ROLE-ID` with the users and or roles that must be able to assume the Seqera IAM role. 
+1. Replace `USER-OR-ROLE/USER-OR-ROLE-ID` with the users and or roles that must be able to assume the Seqera IAM role.
 
 ## Create the IAM artifacts
 
@@ -84,4 +84,3 @@ With the IAM artifacts created, update your application configuration:
    ```
 
 4. Log in to Seqera and create a new AWS credential. You are now prompted for an AWS `arn` instead of access keys.
-

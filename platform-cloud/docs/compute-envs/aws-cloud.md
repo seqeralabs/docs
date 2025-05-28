@@ -9,7 +9,7 @@ tags: [cloud, vm, amazon, compute environment]
 
 :::note
 This compute environment type is currently in public preview. Please consult this guide for the latest information on recommended configuration and limitations. This guide assumes you already have an AWS account with a valid AWS subscription.
-::: 
+:::
 
 The current implementation of compute environments for cloud providers all rely on the use of batch services such as AWS Batch, Azure Batch, and Google Batch for the execution and management of submitted jobs, including pipelines and Studio session environments. Batch services are suitable for large-scale workloads, but they add management complexity. In practical terms, the currently used batch services result in some limitations:
 
@@ -32,7 +32,7 @@ This type of compute environment is best suited to run Studios and small to medi
 
 ## Supported regions
 
-The following regions are currently supported: 
+The following regions are currently supported:
 
 - `eu-west-1`
 - `us-east-1`
@@ -58,24 +58,24 @@ The following permissions are required to provision resources in the AWS account
 
 ```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "AwsCloudCreate",
-            "Effect": "Allow",
-            "Action": [
-                "iam:CreateRole",
-                "iam:AddRoleToInstanceProfile",
-                "iam:CreateInstanceProfile",
-                "iam:AttachRolePolicy",
-                "iam:PutRolePolicy",
-                "iam:PassRole",
-                "iam:TagRole",
-                "iam:TagInstanceProfile"
-            ],
-            "Resource": "*"
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AwsCloudCreate",
+      "Effect": "Allow",
+      "Action": [
+        "iam:CreateRole",
+        "iam:AddRoleToInstanceProfile",
+        "iam:CreateInstanceProfile",
+        "iam:AttachRolePolicy",
+        "iam:PutRolePolicy",
+        "iam:PassRole",
+        "iam:TagRole",
+        "iam:TagInstanceProfile"
+      ],
+      "Resource": "*"
+    }
+  ]
 }
 ```
 
@@ -85,45 +85,46 @@ The following permissions are required to validate the compute environment at cr
 
 ```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "AwsCloudValidate",
-            "Effect": "Allow",
-            "Action": [
-                "ec2:DescribeInstanceTypes",
-                "ec2:DescribeImages",
-                "ec2:DescribeSubnets",
-                "ec2:DescribeSecurityGroups"
-            ],
-            "Resource": "*"
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AwsCloudValidate",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeInstanceTypes",
+        "ec2:DescribeImages",
+        "ec2:DescribeSubnets",
+        "ec2:DescribeSecurityGroups"
+      ],
+      "Resource": "*"
+    }
+  ]
 }
 ```
+
 #### Pipeline and Studio session management
 
 The following permissions are required to launch pipelines, run Studio sessions, fetch live execution logs from CloudWatch, download logs from S3, and stop the execution:
 
 ```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "AwsCloudLaunch",
-            "Effect": "Allow",
-            "Action": [
-                "ec2:RunInstances",
-                "ec2:DescribeInstances",
-                "ec2:CreateTags",
-                "ec2:TerminateInstances",
-                "ec2:DeleteTags",
-                "logs:GetLogEvents",
-                "s3:GetObject"
-            ],
-            "Resource": "*"
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AwsCloudLaunch",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:RunInstances",
+        "ec2:DescribeInstances",
+        "ec2:CreateTags",
+        "ec2:TerminateInstances",
+        "ec2:DeleteTags",
+        "logs:GetLogEvents",
+        "s3:GetObject"
+      ],
+      "Resource": "*"
+    }
+  ]
 }
 ```
 
@@ -133,24 +134,24 @@ The following permissions are required to remove resources created by Seqera whe
 
 ```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "AwsCloudDelete",
-            "Effect": "Allow",
-            "Action": [
-                "iam:GetRole",
-                "iam:ListAttachedRolePolicies",
-                "iam:ListRolePolicies",
-                "iam:DeleteRole",
-                "iam:DeleteInstanceProfile",
-                "iam:RemoveRoleFromInstanceProfile",
-                "iam:DetachRolePolicy",
-                "iam:DeleteRolePolicy"
-            ],
-            "Resource": "*"
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AwsCloudDelete",
+      "Effect": "Allow",
+      "Action": [
+        "iam:GetRole",
+        "iam:ListAttachedRolePolicies",
+        "iam:ListRolePolicies",
+        "iam:DeleteRole",
+        "iam:DeleteInstanceProfile",
+        "iam:RemoveRoleFromInstanceProfile",
+        "iam:DetachRolePolicy",
+        "iam:DeleteRolePolicy"
+      ],
+      "Resource": "*"
+    }
+  ]
 }
 ```
 
@@ -160,27 +161,27 @@ The following permissions enable Seqera to populate values for dropdown fields. 
 
 ```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "AwsCloudRead",
-            "Effect": "Allow",
-            "Action": [
-                "ec2:DescribeInstanceTypes",
-                "ec2:DescribeKeyPairs",
-                "ec2:DescribeVpcs",
-                "ec2:DescribeImages",
-                "ec2:DescribeSubnets",
-                "ec2:DescribeSecurityGroups",
-                "s3:ListAllMyBuckets"
-            ],
-            "Resource": "*"
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AwsCloudRead",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeInstanceTypes",
+        "ec2:DescribeKeyPairs",
+        "ec2:DescribeVpcs",
+        "ec2:DescribeImages",
+        "ec2:DescribeSubnets",
+        "ec2:DescribeSecurityGroups",
+        "s3:ListAllMyBuckets"
+      ],
+      "Resource": "*"
+    }
+  ]
 }
 ```
 
-## Managed Amazon Machine Image (AMI) 
+## Managed Amazon Machine Image (AMI)
 
 The AWS Cloud compute environment uses an AMI maintained by Seqera, and the pipeline launch procedure assumes that some basic tooling is already present in the image itself. If you want to provide your own AMI, it must include at least the following:
 
@@ -199,4 +200,3 @@ The AWS Cloud compute environment uses an AMI maintained by Seqera, and the pipe
 - **Security groups**: The security groups the EC2 instance will be a part of. If unspecified, no security groups will be used.
 - **Instance Profile**: The ARN of the `InstanceProfile` used by the EC2 instance to assume a role while running. If unspecified, Seqera will provision one with enough permissions to run.
 - **Boot disk size**: The size of the EBS boot disk for the EC2 instance. If undefined, a default 50 GB gp3 volume will be used.
-

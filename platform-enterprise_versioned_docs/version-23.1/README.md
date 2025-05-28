@@ -94,6 +94,7 @@ To update the Tower docs navigation menu, edit the `navigation` section of the `
 
   - Insert tables (CSV, YML, etc.) directly into markdown pages using a tag.
   - How it's implemented:
+
     1. Activate as a `plugins` entry in `mkdocs.yml` (below `social` and `search`, but above other mkdocs plugins)
     2. Create an external yaml file in a `tables` folder within the content subfolder (e.g., `docs/enterprise/configuration/tables/compute_env.yml`)
     3. Add key-value pairs in groups, where each key represents a column name, and each value represents an entry in a row, e.g.:
@@ -121,6 +122,7 @@ To update the Tower docs navigation menu, edit the `navigation` section of the `
 
   - Implement DRY-like variables for content which appears throughout the site. ( _Example: The latest Tower Enterprise container names._ )
   - How it's implemented:
+
     1. Activate as a `plugins` entry in `mkdocs.yml`
     2. Create an external yaml file in `/docs/_data/` ( _e.g. `my_dry_vars`_ )
     3. Add key-value pairs to the external file ( _e.g. `tower_fe_image: "cr.seqera.io/private/nf-tower-enterprise/frontend:v23.1.3"`_ ).

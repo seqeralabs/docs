@@ -14,10 +14,10 @@ Data Studios uses the [Wave][wave-home] service to build custom container templa
 ### Prerequisites
 
 - Wave must be configured. For more information, see [Wave containers][wave].
- 
- :::note
- To augment Seqera-provided images, Enterprise deployments must either allow access to the public Wave server, or self-host their own Wave server.
- :::
+
+:::note
+To augment Seqera-provided images, Enterprise deployments must either allow access to the public Wave server, or self-host their own Wave server.
+:::
 
 ### Conda package syntax {#conda-package-syntax}
 
@@ -29,8 +29,8 @@ channels:
 dependencies:
   - numpy
   - pip:
-    - matplotlib
-    - seaborn
+      - matplotlib
+      - seaborn
 ```
 
 To create a data studio with custom Conda packages, see [Add a data studio][add-ds].

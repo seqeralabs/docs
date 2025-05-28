@@ -25,58 +25,58 @@ To determine the options to provide as definitions in your YAML file, run the Pl
 
 1. Retrieve CLI options:
 
-    Obtain a list of available CLI options for defining your YAML file with the Platform CLI `help` command. For example, to add a pipeline to your workspace, view the options for adding a pipeline:
+   Obtain a list of available CLI options for defining your YAML file with the Platform CLI `help` command. For example, to add a pipeline to your workspace, view the options for adding a pipeline:
 
-    ```shell-session
-    tw pipelines add -h
-    ```
+   ```shell-session
+   tw pipelines add -h
+   ```
 
-    ```shell-session
-    Usage: tw pipelines add [OPTIONS] PIPELINE_URL
+   ```shell-session
+   Usage: tw pipelines add [OPTIONS] PIPELINE_URL
 
-    Add a workspace pipeline.
+   Add a workspace pipeline.
 
-    Parameters:
-    *     PIPELINE_URL                         Nextflow pipeline URL.
+   Parameters:
+   *     PIPELINE_URL                         Nextflow pipeline URL.
 
-    Options:
-    * -n, --name=<name>                        Pipeline name.
-      -w, --workspace=<workspace>              Workspace numeric identifier (TOWER_WORKSPACE_ID as default) or workspace reference as OrganizationName/WorkspaceName
-      -d, --description=<description>          Pipeline description.
-          --labels=<labels>[,<labels>...]      List of labels seperated by coma.
-      -c, --compute-env=<computeEnv>           Compute environment name.
-          --work-dir=<workDir>                 Path where the pipeline scratch data is stored.
-      -p, --profile=<profile>[,<profile>...]   Comma-separated list of one or more configuration profile names you want to use for this pipeline execution.
-          --params-file=<paramsFile>           Pipeline parameters in either JSON or YML format.
-          --revision=<revision>                A valid repository commit Id, tag or branch name.
-      ...
-    ```
+   Options:
+   * -n, --name=<name>                        Pipeline name.
+     -w, --workspace=<workspace>              Workspace numeric identifier (TOWER_WORKSPACE_ID as default) or workspace reference as OrganizationName/WorkspaceName
+     -d, --description=<description>          Pipeline description.
+         --labels=<labels>[,<labels>...]      List of labels seperated by coma.
+     -c, --compute-env=<computeEnv>           Compute environment name.
+         --work-dir=<workDir>                 Path where the pipeline scratch data is stored.
+     -p, --profile=<profile>[,<profile>...]   Comma-separated list of one or more configuration profile names you want to use for this pipeline execution.
+         --params-file=<paramsFile>           Pipeline parameters in either JSON or YML format.
+         --revision=<revision>                A valid repository commit Id, tag or branch name.
+     ...
+   ```
 
 1. Define key-value pairs in YAML:
 
-    Translate each CLI option into a key-value pair in the YAML file. The structure of your YAML file should reflect the hierarchy and format of the CLI options. For example:
+   Translate each CLI option into a key-value pair in the YAML file. The structure of your YAML file should reflect the hierarchy and format of the CLI options. For example:
 
-    ```yaml
-    pipelines:
-      - name: 'my_first_pipeline'
-        url: 'https://github.com/username/my_pipeline'
-        workspace: 'my_organization/my_workspace'
-        description: 'My test pipeline'
-        labels: 'yeast,test_data'
-        compute-env: 'my_compute_environment'
-        work-dir: 's3://my_bucket'
-        profile: 'test'
-        params-file: '/path/to/params.yaml'
-        revision: '1.0'
-    ```
+   ```yaml
+   pipelines:
+     - name: "my_first_pipeline"
+       url: "https://github.com/username/my_pipeline"
+       workspace: "my_organization/my_workspace"
+       description: "My test pipeline"
+       labels: "yeast,test_data"
+       compute-env: "my_compute_environment"
+       work-dir: "s3://my_bucket"
+       profile: "test"
+       params-file: "/path/to/params.yaml"
+       revision: "1.0"
+   ```
 
-    In this example:
+   In this example:
 
-    - The keys (`name`, `url`, `workspace`, and so forth) are the keys derived from the CLI options.
-    - The corresponding values are user-defined.
+   - The keys (`name`, `url`, `workspace`, and so forth) are the keys derived from the CLI options.
+   - The corresponding values are user-defined.
 
 #### Best practices
- 
+
 - The indentation and structure of the YAML file must be correct — YAML is sensitive to formatting.
 - Use quotes around strings that contain special characters or spaces.
 - To list multiple values (such as multiple `labels`, `instance-types`, or `allow-buckets`), separate values with commas. This is shown with `labels` in the preceding example.
@@ -98,26 +98,26 @@ For example, to specify pipeline parameters within your YAML:
 
 ```yaml
 params:
-  outdir: 's3://path/to/outdir'
-  fasta: 's3://path/to/reference.fasta'
+  outdir: "s3://path/to/outdir"
+  fasta: "s3://path/to/reference.fasta"
 ```
 
 To specify a file containing pipeline parameters:
 
 ```yaml
-params-file: '/path/to/my/parameters.yaml'
+params-file: "/path/to/my/parameters.yaml"
 ```
 
 Or provide both:
 
 ```yaml
-params-file: '/path/to/my/parameters.yaml'
+params-file: "/path/to/my/parameters.yaml"
 params:
-  outdir: 's3://path/to/outdir'
-  fasta: 's3://path/to/reference.fasta'
+  outdir: "s3://path/to/outdir"
+  fasta: "s3://path/to/reference.fasta"
 ```
 
-:::note 
+:::note
 If duplicate parameters are provided, the parameters provided as key-value pairs inside the `params` nested dictionary of the YAML file will take precedence **over** values in the `params-file`.
 :::
 
@@ -145,10 +145,10 @@ An example of the `file-path` option is provided in the [compute-envs.yaml](./te
 
 ```yaml
 compute-envs:
-  - name: 'my_aws_compute_environment'                              # required
-    workspace: 'my_organization/my_workspace'                       # required
-    credentials: 'my_aws_credentials'                               # required
-    wait: 'AVAILABLE'                                               # optional
-    file-path: './compute-envs/my_aws_compute_environment.json'     # required
+  - name: "my_aws_compute_environment" # required
+    workspace: "my_organization/my_workspace" # required
+    credentials: "my_aws_credentials" # required
+    wait: "AVAILABLE" # optional
+    file-path: "./compute-envs/my_aws_compute_environment.json" # required
     overwrite: True
 ```

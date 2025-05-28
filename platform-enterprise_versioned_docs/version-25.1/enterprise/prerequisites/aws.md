@@ -14,19 +14,19 @@ Run the Seqera container with [Docker](../docker-compose) on an AWS EC2 instance
 
 - **SMTP server**: If you don't have an email server, use [Amazon Simple Email Service](https://aws.amazon.com/ses/).
 
-   :::note
-   Amazon [blocks EC2 traffic over port 25 by default](https://aws.amazon.com/premiumsupport/knowledge-center/ec2-port-25-throttle/). Your integration must use a port that can successfully reach your SMTP server.
-   :::
+  :::note
+  Amazon [blocks EC2 traffic over port 25 by default](https://aws.amazon.com/premiumsupport/knowledge-center/ec2-port-25-throttle/). Your integration must use a port that can successfully reach your SMTP server.
+  :::
 
 - **MySQL database**: An external database, such as one provided by [Amazon Relational Database Service](https://aws.amazon.com/rds/), is highly recommended for production deployments.
 
 - **(Optional) SSL certificate**: HTTP must not be used in production environments. An SSL certificate is required for your Seqera instance to handle HTTPS traffic. See [SSL/TLS configuration](../configuration/ssl_tls#aws-deployments-manage-ssl-certificates-with-amazon-certificate-manager-acm) for more information.
 
-   :::note
-   HTTP-only implementations **must** set the `TOWER_ENABLE_UNSAFE_MODE=true` environment variable in the Seqera hosting infrastructure to enable user login. HTTP must not be used in production environments.
-   :::
+  :::note
+  HTTP-only implementations **must** set the `TOWER_ENABLE_UNSAFE_MODE=true` environment variable in the Seqera hosting infrastructure to enable user login. HTTP must not be used in production environments.
+  :::
 
-- **(Optional) AWS Parameter Store**: Store sensitive Seqera configuration values as SecureString [AWS Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) parameters. See [AWS Parameter Store configuration](../configuration/aws_parameter_store) for instructions. This is recommended for production environments. 
+- **(Optional) AWS Parameter Store**: Store sensitive Seqera configuration values as SecureString [AWS Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) parameters. See [AWS Parameter Store configuration](../configuration/aws_parameter_store) for instructions. This is recommended for production environments.
 
 - **(Optional) DNS**: DNS is required to support human-readable domain names and load-balanced traffic. If you don't have access to a pre-existing DNS service, use [Amazon Route 53](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html).
 
@@ -75,23 +75,22 @@ Set up commonly-used AWS services for Seqera deployment.
 
 ### Fetch Seqera config values from AWS Parameter Store
 
-From version 23.1, you can retrieve Seqera Enterprise configuration values remotely from the AWS Parameter Store. See [AWS Parameter Store configuration](../configuration/aws_parameter_store) for instructions. 
+From version 23.1, you can retrieve Seqera Enterprise configuration values remotely from the AWS Parameter Store. See [AWS Parameter Store configuration](../configuration/aws_parameter_store) for instructions.
 
 ### Amazon SES
 
-Seqera Enterprise supports AWS Simple Email Service (SES) as an alternative to traditional SMTP servers for sending application emails. 
+Seqera Enterprise supports AWS Simple Email Service (SES) as an alternative to traditional SMTP servers for sending application emails.
 
 :::caution
 If you use AWS SES in sandbox mode, both the _sender_ and the _receiver_ email addresses must be verified via AWS SES. Sandbox is not recommended for production use. See the [AWS docs](https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html) for instructions to move out of the sandbox.
 :::
 
-- See [Obtaining SES SMTP credentials using the SES console](https://docs.aws.amazon.com/ses/latest/dg/smtp-credentials.html#smtp-credentials-console) for instructions to set up SES to send emails from your preferred address. 
+- See [Obtaining SES SMTP credentials using the SES console](https://docs.aws.amazon.com/ses/latest/dg/smtp-credentials.html#smtp-credentials-console) for instructions to set up SES to send emails from your preferred address.
 
 - To prevent emails from SES being flagged as spam, see these AWS instructions for setting up an email authentication method:
 
-   - [DKIM for a domain](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-authentication-dkim-easy-setup-domain.html) 
-   
-   - [SPF authentication](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-authentication-spf.html)
+  - [DKIM for a domain](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-authentication-dkim-easy-setup-domain.html)
+  - [SPF authentication](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-authentication-spf.html)
 
 ### Amazon RDS
 
@@ -101,14 +100,14 @@ External databases for Seqera Enterprise deployments require:
 - At least 2 vCPUs, 8 GB memory, and 30 GB SSD storage
 - Manual MySQL user and database schema creation. See [Database configuration](../configuration/overview#seqera-and-redis-databases) for more details.
 
-:::caution 
-Recommended instance class and storage requirements depend on the number of parallel pipelines you expect to run. 
+:::caution
+Recommended instance class and storage requirements depend on the number of parallel pipelines you expect to run.
 :::
 
 <Tabs>
 <TabItem value="AWS console" label="AWS console" default>
 
-See [Creating an Amazon RDS DB instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_CreateDBInstance.html) to guide you through the external database setup for your production deployment. 
+See [Creating an Amazon RDS DB instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_CreateDBInstance.html) to guide you through the external database setup for your production deployment.
 
 </TabItem>
 <TabItem value="AWS CLI" label="AWS CLI" default>
@@ -117,7 +116,7 @@ To create a DB instance with the AWS CLI, call the [create-db-instance](https://
 
 ```bash
 aws rds create-db-instance \
-    --engine mysql \ 
+    --engine mysql \
     --db-instance-identifier INSTANCE_NAME \
     --allocated-storage 30 \
     --db-instance-class db.m5d.large \
@@ -137,7 +136,7 @@ After your database is created:
 
 ### Amazon EC2
 
-See [Getting started with Amazon EC2](https://aws.amazon.com/ec2/getting-started/) for instructions to create your EC2 instance. 
+See [Getting started with Amazon EC2](https://aws.amazon.com/ec2/getting-started/) for instructions to create your EC2 instance.
 
 Create an instance with these attributes:
 
@@ -145,7 +144,7 @@ Create an instance with these attributes:
 - **Instance type**: c5a.xlarge or c5.large with 4 CPUs and 8 GB RAM
 - **Root storage**: 30 GB
 - **Tags**: It is helpful to use a descriptive `Name` value for your instance, such as `seqera-app-server`.
-- **Security Group name**: Seqera deployment manifests provided in this installation guide use `tower-sg` by default. If you choose to use a custom name, this must be updated consistently across your deployment files. 
+- **Security Group name**: Seqera deployment manifests provided in this installation guide use `tower-sg` by default. If you choose to use a custom name, this must be updated consistently across your deployment files.
 - **Keypair**: It is security best practice to use a **new** keypair for your production deployment instance.
 
 After your instance is launched:
@@ -158,9 +157,9 @@ After your instance is launched:
 
 1. Confirm that Docker Compose is installed:
 
-    ```bash
-    docker compose version
-    ```
+   ```bash
+   docker compose version
+   ```
 
 ### Seqera container images
 
@@ -183,7 +182,7 @@ container registry ([cr.seqera.io](https://cr.seqera.io)). Contact [support](htt
    docker pull cr.seqera.io/private/nf-tower-enterprise/frontend:v25.1.1
    ```
 
-## Next steps 
+## Next steps
 
 See [Configuration](../configuration/overview).
 

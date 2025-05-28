@@ -12,12 +12,12 @@ tags: [faq, help, azure help, azure troubleshooting]
 The default Azure Batch implementation in Seqera Platform uses a single pool for head and compute nodes. This means that all jobs spawn dedicated/on-demand VMs by default. To save cloud costs by using low priority VMs for compute jobs, specify separate pools for head and compute jobs:
 
 1. Create two Batch pools in Azure:
-    - One Dedicated
-    - One [Low priority](https://learn.microsoft.com/en-us/azure/batch/batch-spot-vms#differences-between-spot-and-low-priority-vms)
+   - One Dedicated
+   - One [Low priority](https://learn.microsoft.com/en-us/azure/batch/batch-spot-vms#differences-between-spot-and-low-priority-vms)
 
 :::note
 Both pools must meet the requirements of a pre-existing pool as detailed in the [Nextflow documentation](https://www.nextflow.io/docs/latest/azure.html#requirements-on-pre-existing-named-pools).
-::: 
+:::
 
 2. Create a manual [Azure Batch](../compute-envs/azure-batch#manual) compute environment in Seqera Platform.
 3. In **Compute pool name**, specify your dedicated Batch pool.
@@ -27,7 +27,7 @@ Both pools must meet the requirements of a pre-existing pool as detailed in the 
 
 **... /.git/HEAD.lock: Operation not supported**
 
-This error can occur if your Nextflow pod uses an Azure Files-type (SMB) persistent volume as its storage medium. By default, the `jgit` library used by Nextflow attempts a filesystem link operation which [is not supported](https://docs.microsoft.com/en-us/azure/storage/files/files-smb-protocol?tabs=azure-portal#limitations) by Azure Files (SMB). 
+This error can occur if your Nextflow pod uses an Azure Files-type (SMB) persistent volume as its storage medium. By default, the `jgit` library used by Nextflow attempts a filesystem link operation which [is not supported](https://docs.microsoft.com/en-us/azure/storage/files/files-smb-protocol?tabs=azure-portal#limitations) by Azure Files (SMB).
 
 To avoid this problem, add the following code snippet in your pipeline's [**Pre-run script**](../launch/advanced#pre-and-post-run-scripts) field:
 

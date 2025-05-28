@@ -49,9 +49,9 @@ We recommend that you create separate IAM policies for Batch Forge and launch pe
 3. Select **Next: Permissions**.
 4. Select **Next: Tags > Next: Review > Create User**.
 
-    :::note
-    For the time being, you can ignore the "user has no permissions" warning. Permissions will be applied using the **IAM Policy**.
-    :::
+   :::note
+   For the time being, you can ignore the "user has no permissions" warning. Permissions will be applied using the **IAM Policy**.
+   :::
 
 5. Save the **Access key ID** and **Secret access key** in a secure location as you will use these when creating credentials in Seqera.
 6. After you have saved the keys, select **Close**.
@@ -69,9 +69,9 @@ S3 (Simple Storage Service) is a type of **object storage**. To access files and
 2. Select **Create New Bucket**.
 3. Enter a unique name for your bucket and select a region.
 
-    :::note
-    To maximize data transfer resilience and minimize cost, storage should be in the same region as compute.
-    :::
+   :::note
+   To maximize data transfer resilience and minimize cost, storage should be in the same region as compute.
+   :::
 
 4. Select the default options in **Configure options**.
 5. Select the default options in **Set permissions**.
@@ -96,24 +96,24 @@ Batch Forge automatically creates resources that you may be charged for in your 
 3. Select **AWS Batch** as the target platform.
 4. From the **Credentials** drop-down, select existing AWS credentials, or select **+** to add new credentials. If you're using existing credentials, skip to step 8.
 
-    :::note
-    You can create multiple credentials in your Seqera environment. See [Credentials](../credentials/overview).
-    :::
+   :::note
+   You can create multiple credentials in your Seqera environment. See [Credentials](../credentials/overview).
+   :::
 
 5. Enter a name, e.g., _AWS Credentials_.
 6. Add the **Access key** and **Secret key**. These are the keys you saved previously when you created the Seqera IAM user.
 7. (Optional) Under **Assume role**, specify the IAM role to be assumed by the Seqera IAM user to access the compute environment's AWS resources.
 
-    :::note
-    When using AWS keys without an assumed role, the associated AWS user account must have [Launch](https://github.com/seqeralabs/nf-tower-aws/tree/master/launch) and [Forge](https://github.com/seqeralabs/nf-tower-aws/tree/master/forge) permissions. When an assumed role is provided, the keys are only used to retrieve temporary credentials impersonating the role specified. In this case, [Launch](https://github.com/seqeralabs/nf-tower-aws/tree/master/launch) and [Forge](https://github.com/seqeralabs/nf-tower-aws/tree/master/forge) permissions must be granted to the role instead of the user account.
-    :::
+   :::note
+   When using AWS keys without an assumed role, the associated AWS user account must have [Launch](https://github.com/seqeralabs/nf-tower-aws/tree/master/launch) and [Forge](https://github.com/seqeralabs/nf-tower-aws/tree/master/forge) permissions. When an assumed role is provided, the keys are only used to retrieve temporary credentials impersonating the role specified. In this case, [Launch](https://github.com/seqeralabs/nf-tower-aws/tree/master/launch) and [Forge](https://github.com/seqeralabs/nf-tower-aws/tree/master/forge) permissions must be granted to the role instead of the user account.
+   :::
 
 8. Select a **Region**, e.g., _eu-west-1 - Europe (Ireland)_.
 9. Enter your S3 bucket path in the **Pipeline work directory** field, e.g., `s3://seqera-bucket`. This bucket must be in the same region chosen in the previous step.
 
-    :::note
-    When you specify an S3 bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. Seqera adds a `cloudcache` block to the Nextflow configuration file for all runs executed with this compute environment. This block includes the path to a `cloudcache` folder in your work directory, e.g., `s3://seqera-bucket/cloudcache/.cache`. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
-    :::
+   :::note
+   When you specify an S3 bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. Seqera adds a `cloudcache` block to the Nextflow configuration file for all runs executed with this compute environment. This block includes the path to a `cloudcache` folder in your work directory, e.g., `s3://seqera-bucket/cloudcache/.cache`. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
+   :::
 
 10. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers](https://www.nextflow.io/docs/latest/wave.html) for more information.
 11. Select **Enable Fusion v2** to allow access to your S3-hosted data via the [Fusion v2](https://docs.seqera.io/fusion) virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled. See [Fusion file system](../supported_software/fusion/overview) for configuration details.
@@ -161,10 +161,10 @@ Extensive benchmarking of Fusion v2 has demonstrated that the increased cost ass
 
 19. Select **Enable GPUs** if you intend to run GPU-dependent workflows in the compute environment. See [GPU usage](./overview#aws-batch) for more information.
 
-    :::note 
-    Seqera only supports NVIDIA GPUs. Select instances with NVIDIA GPUs for your GPU-dependent processes. 
+    :::note
+    Seqera only supports NVIDIA GPUs. Select instances with NVIDIA GPUs for your GPU-dependent processes.
     :::
-    
+
 20. Select **Use Graviton CPU architecture** to execute on Graviton-based EC2 instances (i.e., ARM64 CPU architecture). When enabled, `m6g`, `r6g`, and `c6g` instance types are used by default for compute jobs, but 3rd-generation Graviton [instances](https://www.amazonaws.cn/en/ec2/graviton/) are also supported. You can specify your own **Instance types** under [**Advanced options**](#advanced-options).
 
     :::note
@@ -178,7 +178,7 @@ Extensive benchmarking of Fusion v2 has demonstrated that the increased cost ass
 - To create a new EFS file system, enter the **EFS mount path**. We advise that you specify `/mnt/efs` as the EFS mount path.
 - EFS file systems created by Batch Forge are automatically tagged in AWS with `Name=TowerForge-<id>`, with `<id>` being the compute environment ID. Any manually-added resource label with the key `Name` (capital N) will override the automatically-assigned `TowerForge-<id>` label.
 
- 23. To use **FSx for Lustre**, you can either select **Use existing FSx file system** and specify an existing FSx instance, or select **Create new FSx file system** to create one. To use the FSx file system as your work directory, specify `<your_FSx_mount_path>/work` in the **Pipeline work directory** field (step 8 of this guide).
+23. To use **FSx for Lustre**, you can either select **Use existing FSx file system** and specify an existing FSx instance, or select **Create new FSx file system** to create one. To use the FSx file system as your work directory, specify `<your_FSx_mount_path>/work` in the **Pipeline work directory** field (step 8 of this guide).
 
 - To use an existing FSx file system, enter the **FSx DNS name** and **FSx mount path**. The FSx mount path is the path where the FSx volume is accessible to the compute environment. For simplicity, we recommend that you use `/mnt/fsx` as the FSx mount path.
 - To create a new FSx file system, enter the **FSx size** (in GB) and the **FSx mount path**. We advise that you specify `/mnt/fsx` as the FSx mount path.
@@ -210,18 +210,18 @@ tw CLI v0.8 and earlier does not support the `SPOT_PRICE_CAPACITY_OPTIMIZED` all
 - Configure a custom networking setup using the **VPC ID**, **Subnets**, and **Security groups** fields.
 - You can specify a custom **AMI ID**.
 
-    :::note
-    To use a custom AMI, make sure the AMI is based on an Amazon Linux-2 ECS-optimized image that meets the Batch requirements. To learn more about approved versions of the Amazon ECS-optimized AMI, see [this AWS guide](https://docs.aws.amazon.com/batch/latest/userguide/compute_resource_AMIs.html#batch-ami-spec).
+  :::note
+  To use a custom AMI, make sure the AMI is based on an Amazon Linux-2 ECS-optimized image that meets the Batch requirements. To learn more about approved versions of the Amazon ECS-optimized AMI, see [this AWS guide](https://docs.aws.amazon.com/batch/latest/userguide/compute_resource_AMIs.html#batch-ami-spec).
 
-    If a custom AMI is specified and the **Enable GPU** option is also selected, the custom AMI will be used instead of the AWS-recommended GPU-optimized AMI.
-    :::
+  If a custom AMI is specified and the **Enable GPU** option is also selected, the custom AMI will be used instead of the AWS-recommended GPU-optimized AMI.
+  :::
 
 - If you need to debug the EC2 instance provisioned by AWS Batch, specify a **Key pair** to log in to the instance via SSH.
 - You can set **Min CPUs** to be greater than `0`, in which case some EC2 instances will remain active. An advantage of this is that pipeline executions will initialize faster.
 
-    :::note
-    Setting Min CPUs to a value greater than 0 will keep the required compute instances active, even when your pipelines are not running. This will result in additional AWS charges.
-    :::
+  :::note
+  Setting Min CPUs to a value greater than 0 will keep the required compute instances active, even when your pipelines are not running. This will result in additional AWS charges.
+  :::
 
 - Use **Head Job CPUs** and **Head Job Memory** to specify the hardware resources allocated for the Nextflow head job. The default head job memory allocation is 4096 MiB.
 - Use **Head Job role** and **Compute Job role** to grant fine-grained IAM permissions to the **Head Job** and **Compute Jobs**.
@@ -233,9 +233,9 @@ tw CLI v0.8 and earlier does not support the `SPOT_PRICE_CAPACITY_OPTIMIZED` all
 - Specify a **CloudWatch Log group** for the `awslogs` driver to stream the logs entry to an existing Log group in Cloudwatch.
 - Specify a custom **ECS agent configuration** for the ECS agent parameters used by AWS Batch. This is appended to the `/etc/ecs/ecs.config` file in each cluster node.
 
-    :::note
-    Altering this file may result in a malfunctioning Batch Forge compute environment. See [Amazon ECS container agent configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) to learn more about the available parameters.
-    :::
+  :::note
+  Altering this file may result in a malfunctioning Batch Forge compute environment. See [Amazon ECS container agent configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) to learn more about the available parameters.
+  :::
 
 See [Launch pipelines](../launch/launchpad) to start executing workflows in your AWS Batch compute environment.
 
@@ -280,16 +280,16 @@ Your Seqera compute environment uses resources that you may be charged for in yo
 5. Enter a name for the credentials, e.g., _AWS Credentials_.
 6. Enter the **Access key** and **Secret key** for your IAM user.
 
-    :::note
-    You can create multiple credentials in your Seqera environment. See [Credentials](../credentials/overview).
-    :::
+   :::note
+   You can create multiple credentials in your Seqera environment. See [Credentials](../credentials/overview).
+   :::
 
 7. Select a **Region**, e.g., _eu-west-1 - Europe (Ireland)_.
 8. Enter an S3 bucket path for the **Pipeline work directory**, e.g., `s3://seqera-bucket`. This bucket must be in the same region chosen in the previous step.
 
-    :::note
-    When you specify an S3 bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. Seqera adds a `cloudcache` block to the Nextflow configuration file for all runs executed with this compute environment. This block includes the path to a `cloudcache` folder in your work directory, e.g., `s3://seqera-bucket/cloudcache/.cache`. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
-    :::
+   :::note
+   When you specify an S3 bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. Seqera adds a `cloudcache` block to the Nextflow configuration file for all runs executed with this compute environment. This block includes the path to a `cloudcache` folder in your work directory, e.g., `s3://seqera-bucket/cloudcache/.cache`. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
+   :::
 
 9. Set the **Config mode** to **Manual**.
 10. Enter the **Head queue**, which is the name of the AWS Batch queue that the Nextflow main job will run.
@@ -311,6 +311,5 @@ Seqera Platform compute environments for AWS Batch include advanced options to c
 - Specify a **CloudWatch Log group** for the `awslogs` driver to stream the logs entry to an existing Log group in Cloudwatch.
 
 See [Launch pipelines](../launch/launchpad) to start executing workflows in your AWS Batch compute environment.
-
 
 [quota]: https://docs.aws.amazon.com/batch/latest/userguide/service_limits.html

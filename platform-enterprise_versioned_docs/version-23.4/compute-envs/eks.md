@@ -110,8 +110,8 @@ Seqera Platform compute environments for EKS include advanced options for storag
 
 ```yaml
 spec:
-    nodeSelector:
-    disktype: ssd
+  nodeSelector:
+  disktype: ssd
 ```
 
 - Use **Custom service pod specs** to provide custom options for the compute environment pod. See above for an example.
@@ -137,24 +137,24 @@ To use [Fusion v2](../supported_software/fusion/overview) in your Seqera EKS com
 
 ```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": ["s3:ListBucket"],
-            "Resource": ["arn:aws:s3:::<YOUR-BUCKET>"]
-        },
-        {
-            "Action": [
-                "s3:GetObject",
-                "s3:PutObject",
-                "s3:PutObjectTagging",
-                "s3:DeleteObject"
-            ],
-            "Resource": ["arn:aws:s3:::<YOUR-BUCKET>/*"],
-            "Effect": "Allow"
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": ["s3:ListBucket"],
+      "Resource": ["arn:aws:s3:::<YOUR-BUCKET>"]
+    },
+    {
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject",
+        "s3:PutObjectTagging",
+        "s3:DeleteObject"
+      ],
+      "Resource": ["arn:aws:s3:::<YOUR-BUCKET>/*"],
+      "Effect": "Allow"
+    }
+  ]
 }
 ```
 
@@ -164,22 +164,22 @@ Replace `<YOUR-BUCKET>` with a bucket name of your choice.
 
 ```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": {
-                "Federated": "arn:aws:iam::<YOUR-ACCOUNT-ID>:oidc-provider/oidc.eks.<YOUR-REGION>.amazonaws.com/id/<YOUR-CLUSTER-ID>"
-            },
-            "Action": "sts:AssumeRoleWithWebIdentity",
-            "Condition": {
-                "StringEquals": {
-                    "oidc.eks.eu-west-2.amazonaws.com/id/<YOUR CLUSTER ID>:aud": "sts.amazonaws.com",
-                    "oidc.eks.eu-west-2.amazonaws.com/id/<YOUR CLUSTER ID>:sub": "system:serviceaccount:<YOUR-EKS-SERVICE-ACCOUNT>"
-                }
-            }
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Federated": "arn:aws:iam::<YOUR-ACCOUNT-ID>:oidc-provider/oidc.eks.<YOUR-REGION>.amazonaws.com/id/<YOUR-CLUSTER-ID>"
+      },
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Condition": {
+        "StringEquals": {
+          "oidc.eks.eu-west-2.amazonaws.com/id/<YOUR CLUSTER ID>:aud": "sts.amazonaws.com",
+          "oidc.eks.eu-west-2.amazonaws.com/id/<YOUR CLUSTER ID>:sub": "system:serviceaccount:<YOUR-EKS-SERVICE-ACCOUNT>"
         }
-    ]
+      }
+    }
+  ]
 }
 ```
 

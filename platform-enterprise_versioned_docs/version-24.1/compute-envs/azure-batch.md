@@ -51,9 +51,9 @@ After creating a resource group, set up an [Azure storage account][az-learn-stor
 
 1. Log in to your Azure account, go to the [Create storage account][az-create-storage] page, and select **Create a storage account**.
 
-    :::note
-    If you haven't created a resource group, you can do so now.
-    :::
+   :::note
+   If you haven't created a resource group, you can do so now.
+   :::
 
 1. Enter a name for the storage account, such as _seqeracomputestorage_.
 1. Choose the preferred region (same as the Batch account).
@@ -63,9 +63,9 @@ After creating a resource group, set up an [Azure storage account][az-learn-stor
 1. Select **Next: Networking**.
    - Enable public access from all networks. You can enable public access from selected virtual networks and IP addresses, but you will be unable to use Forge to create compute resources. Disabling public access is not supported.
 1. Select **Data protection**.
-    - Configure appropriate settings. All settings are supported by the platform.
+   - Configure appropriate settings. All settings are supported by the platform.
 1. Select **Encryption**.
-    - Only Microsoft-managed keys (MMK) are supported.
+   - Only Microsoft-managed keys (MMK) are supported.
 1. In **tags**, add any required tags for the storage account.
 1. Select **Review and Create**.
 1. Select **Create** to create the Azure Storage account.
@@ -98,24 +98,24 @@ After you have created a resource group and storage account, create a [Batch acc
 1. Go to your new Batch account, then select **Access Keys**.
 1. Store the access keys for your Batch account, to be used when you create a Seqera compute environment.
 
-    :::caution
-    A newly-created Azure Batch account may not be entitled to create virtual machines without making a service request to Azure.
-    See [Azure Batch service quotas and limits][az-batch-quotas] for more information.
-    :::
+   :::caution
+   A newly-created Azure Batch account may not be entitled to create virtual machines without making a service request to Azure.
+   See [Azure Batch service quotas and limits][az-batch-quotas] for more information.
+   :::
 
 1. Select the **+ Quotas** tab of the Azure Batch account to check and increase existing quotas if necessary.
 1. Select **+ Request quota increase** and add the quantity of resources you require. Here is a brief guideline:
 
-    - **Active jobs and schedules**: Each Nextflow process will require an active Batch job per pipeline while running, so increase this number to a high level. See [here][az-learn-jobs] to learn more about jobs in Batch.
-    - **Pools**: Each platform compute environment requires one Batch pool. Each pool is composed of multiple machines of one virtual machine size.
+   - **Active jobs and schedules**: Each Nextflow process will require an active Batch job per pipeline while running, so increase this number to a high level. See [here][az-learn-jobs] to learn more about jobs in Batch.
+   - **Pools**: Each platform compute environment requires one Batch pool. Each pool is composed of multiple machines of one virtual machine size.
 
-    :::note
-    To use separate pools for head and compute nodes, see [this FAQ entry](../troubleshooting_and_faqs/azure_troubleshooting).
-    :::
+   :::note
+   To use separate pools for head and compute nodes, see [this FAQ entry](../troubleshooting_and_faqs/azure_troubleshooting).
+   :::
 
-    - **Batch accounts per region per subscription**: Set this to the number of Azure Batch accounts per region per subscription. Only one is required.
-    - **Spot/low-priority vCPUs**: Platform does not support spot or low-priority machines when using Forge, so when using Forge this number can be zero. When manually setting up a pool, select an appropriate number of concurrent vCPUs here.
-    - **Total Dedicated vCPUs per VM series**: See the Azure documentation for [virtual machine sizes][az-vm-sizes] to help determine the machine size you need. We recommend the latest version of the ED series available in your region as a cost-effective and appropriately-sized machine for running Nextflow. However, you will need to select alternative machine series that have additional requirements, such as those with additional GPUs or faster storage. Increase the quota by the number of required concurrent CPUs. In Azure, machines are charged per cpu minute so there is no additional cost for a higher number.
+   - **Batch accounts per region per subscription**: Set this to the number of Azure Batch accounts per region per subscription. Only one is required.
+   - **Spot/low-priority vCPUs**: Platform does not support spot or low-priority machines when using Forge, so when using Forge this number can be zero. When manually setting up a pool, select an appropriate number of concurrent vCPUs here.
+   - **Total Dedicated vCPUs per VM series**: See the Azure documentation for [virtual machine sizes][az-vm-sizes] to help determine the machine size you need. We recommend the latest version of the ED series available in your region as a cost-effective and appropriately-sized machine for running Nextflow. However, you will need to select alternative machine series that have additional requirements, such as those with additional GPUs or faster storage. Increase the quota by the number of required concurrent CPUs. In Azure, machines are charged per cpu minute so there is no additional cost for a higher number.
 
 ### Compute environment
 
@@ -137,18 +137,18 @@ Create a Batch Forge compute environment:
 1. Select **Azure Batch** as the target platform.
 1. Choose existing Azure credentials or add a new credential. If you are using existing credentials, skip to step 7.
 
-    :::tip
-    You can create multiple credentials in your Seqera environment.
-    :::
+   :::tip
+   You can create multiple credentials in your Seqera environment.
+   :::
 
 1. Enter a name for the credentials, e.g., _Azure Credentials_.
 1. Add the **Batch account** and **Blob Storage** account names and access keys.
 1. Select a **Region**, e.g., _eastus_.
 1. In the **Pipeline work directory** field, enter the Azure blob container created previously, e.g., `az://seqeracomputestorage-container/work`.
 
-    :::note
-    When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
-    :::
+   :::note
+   When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
+   :::
 
 1. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers][wave-docs] for more information.
 1. Select **Enable Fusion v2** to allow access to your Azure Blob Storage data via the [Fusion v2](https://docs.seqera.io/fusion) virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled. See [Fusion file system](../supported_software/fusion/overview) for configuration details.
@@ -160,16 +160,16 @@ Create a Batch Forge compute environment:
 1. Select or create [**Container registry credentials**](../credentials/azure_registry_credentials) to authenticate a registry (used by the [Wave containers](https://www.nextflow.io/docs/latest/wave.html) service). It is recommended to use an [Azure Container registry](https://azure.microsoft.com/en-gb/products/container-registry) within the same region for maximum performance.
 1. Apply [**Resource labels**](../resource-labels/overview). This will populate the **Metadata** fields of the Batch pool.
 1. Expand **Staging options** to include:
-    - Optional [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
-    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch. 
-    :::info
-    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority. 
-    :::
+   - Optional [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
+   - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch.
+     :::info
+     Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
+     :::
 1. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
 1. Configure any advanced options you need:
 
-    - Use **Jobs cleanup policy** to control how Nextflow process jobs are deleted on completion. Active jobs consume the quota of the Azure Batch account. By default, jobs are terminated by Nextflow and removed from the quota when all tasks succesfully complete. If set to _Always_, all jobs are deleted by Nextflow after pipeline completion. If set to _Never_, jobs are never deleted. If set to _On success_, successful tasks are removed but failed tasks will be left for debugging purposes.
-    - Use **Token duration** to control the duration of the SAS token generated by Nextflow. This must be as long as the longest period of time the pipeline will run.
+   - Use **Jobs cleanup policy** to control how Nextflow process jobs are deleted on completion. Active jobs consume the quota of the Azure Batch account. By default, jobs are terminated by Nextflow and removed from the quota when all tasks succesfully complete. If set to _Always_, all jobs are deleted by Nextflow after pipeline completion. If set to _Never_, jobs are never deleted. If set to _On success_, successful tasks are removed but failed tasks will be left for debugging purposes.
+   - Use **Token duration** to control the duration of the SAS token generated by Nextflow. This must be as long as the longest period of time the pipeline will run.
 
 1. Select **Add** to finalize the compute environment setup. It will take a few seconds for all the resources to be created before the compute environment is ready to launch pipelines.
 
@@ -189,35 +189,35 @@ Your Seqera compute environment uses resources that you may be charged for in yo
 1. Enter a descriptive name for this environment, such as _Azure Batch (east-us)_.
 1. Select **Azure Batch** as the target platform.
 1. Select your existing Azure credentials or select **+** to add new credentials. If you choose to use existing credentials, skip to step 7.
-    :::tip
-    You can create multiple credentials in your Seqera environment.
-    :::
+   :::tip
+   You can create multiple credentials in your Seqera environment.
+   :::
 1. Enter a name, e.g., _Azure Credentials_.
 1. Add the **Batch account** and **Blob Storage** credentials you created previously.
 1. Select a **Region**, e.g., _eastus (East US)_.
 1. In the **Pipeline work directory** field, add the Azure blob container created previously, e.g., `az://seqeracomputestorage-container/work`.
-    :::note
-    When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
-    :::
+   :::note
+   When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
+   :::
 1. Set the **Config mode** to **Manual**.
 1. Enter the **Compute Pool name**. This is the name of the Batch pool you created previously in the Azure Batch account.
-    :::note
-    The default Azure Batch implementation uses a single pool for head and compute nodes. To use separate pools for head and compute nodes (for example, to use low-priority VMs for compute jobs), see [this FAQ entry](../troubleshooting_and_faqs/azure_troubleshooting).
-    :::
+   :::note
+   The default Azure Batch implementation uses a single pool for head and compute nodes. To use separate pools for head and compute nodes (for example, to use low-priority VMs for compute jobs), see [this FAQ entry](../troubleshooting_and_faqs/azure_troubleshooting).
+   :::
 1. Apply [**Resource labels**](../resource-labels/overview). This will populate the **Metadata** fields of the Azure Batch pool.
 1. Expand **Staging options** to include:
-    - Optional [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
-    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch. 
-    :::info
-    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority. 
-    :::
-    :::info
-    To use managed identities, Platform requires Nextflow version 24.10.0 or later.
-    :::
+   - Optional [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
+   - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch.
+     :::info
+     Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
+     :::
+     :::info
+     To use managed identities, Platform requires Nextflow version 24.10.0 or later.
+     :::
 1. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
 1. Configure any advanced options you need:
-    - Use **Jobs cleanup policy** to control how Nextflow process jobs are deleted on completion. Active jobs consume the quota of the Batch account. By default, jobs are terminated by Nextflow and removed from the quota when all tasks succesfully complete. If set to _Always_, all jobs are deleted by Nextflow after pipeline completion. If set to _Never_, jobs are never deleted. If set to _On success_, successful tasks are removed but failed tasks will be left for debugging purposes.
-    - Use **Token duration** to control the duration of the SAS token generated by Nextflow. This must be as long as the longest period of time the pipeline will run.
+   - Use **Jobs cleanup policy** to control how Nextflow process jobs are deleted on completion. Active jobs consume the quota of the Batch account. By default, jobs are terminated by Nextflow and removed from the quota when all tasks succesfully complete. If set to _Always_, all jobs are deleted by Nextflow after pipeline completion. If set to _Never_, jobs are never deleted. If set to _On success_, successful tasks are removed but failed tasks will be left for debugging purposes.
+   - Use **Token duration** to control the duration of the SAS token generated by Nextflow. This must be as long as the longest period of time the pipeline will run.
 1. Select **Add** to finalize the compute environment setup. It will take a few seconds for all the resources to be created before you are ready to launch pipelines.
 
 **See [Launch pipelines](../launch/launchpad) to start executing workflows in your Azure Batch compute environment.**
@@ -233,5 +233,4 @@ Your Seqera compute environment uses resources that you may be charged for in yo
 [az-learn-jobs]: https://learn.microsoft.com/en-us/azure/batch/jobs-and-tasks
 [az-create-rg]: https://portal.azure.com/#create/Microsoft.ResourceGroup
 [az-create-storage]: https://portal.azure.com/#create/Microsoft.StorageAccount-ARM
-
 [wave-docs]: https://docs.seqera.io/wave

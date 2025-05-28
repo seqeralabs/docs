@@ -13,38 +13,39 @@ Seqera publishes legacy Seqera Enterprise containers to a private Elastic Contai
 
 1. **Provide Seqera with your AWS Account ID.**
 
-  Supply this value to the Seqera representative managing your onboarding and wait for confirmation that it has been added to the ECR repository policy as an approved Principal.
+Supply this value to the Seqera representative managing your onboarding and wait for confirmation that it has been added to the ECR repository policy as an approved Principal.
 
 2. **Retrieve a local copy of the container.**
 
-  With the `docker compose` deployment method, you must retrieve container copies for local use:
+With the `docker compose` deployment method, you must retrieve container copies for local use:
 
-  1. Install [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) on the target machine.
+1. Install [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) on the target machine.
 
-  2. Configure the AWS CLI with an IAM User with at least these privileges:
+2. Configure the AWS CLI with an IAM User with at least these privileges:
 
-      ```bash
-      ecr:BatchGetImage
-      ecr:GetAuthorizationToken
-      ecr:GetDownloadUrlForLayer
-      ```
-  3. Authenticate Docker against the Seqera ECR:
+   ```bash
+   ecr:BatchGetImage
+   ecr:GetAuthorizationToken
+   ecr:GetDownloadUrlForLayer
+   ```
 
-      ```bash
-      # AWS CLI v2
-      aws ecr get-login-password --region eu-west-1 | \
-      docker login --username AWS --password-stdin 195996028523.dkr.ecr.eu-west-1.amazonaws.com
+3. Authenticate Docker against the Seqera ECR:
 
-      # AWS CLI v1
-      $(aws ecr get-login --registry-ids 195996028523 --region eu-west-1 --no-include-email)
-      ```
+   ```bash
+   # AWS CLI v2
+   aws ecr get-login-password --region eu-west-1 | \
+   docker login --username AWS --password-stdin 195996028523.dkr.ecr.eu-west-1.amazonaws.com
 
-  4. Pull the containers to your machine:
+   # AWS CLI v1
+   $(aws ecr get-login --registry-ids 195996028523 --region eu-west-1 --no-include-email)
+   ```
 
-      ```bash
-      export REPOSITORY_URL="195996028523.dkr.ecr.eu-west-1.amazonaws.com/nf-tower-enterprise"
-      export TAG="v22.3.1"
+4. Pull the containers to your machine:
 
-      docker pull ${REPOSITORY_URL}/backend:${TAG}
-      docker pull ${REPOSITORY_URL}/frontend:${TAG}
-      ```
+   ```bash
+   export REPOSITORY_URL="195996028523.dkr.ecr.eu-west-1.amazonaws.com/nf-tower-enterprise"
+   export TAG="v22.3.1"
+
+   docker pull ${REPOSITORY_URL}/backend:${TAG}
+   docker pull ${REPOSITORY_URL}/frontend:${TAG}
+   ```

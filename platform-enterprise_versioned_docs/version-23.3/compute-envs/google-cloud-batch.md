@@ -78,9 +78,9 @@ To configure a credential in Seqera, you must first create a [service account JS
 1. In the Google Cloud navigation menu, select **IAM & Admin > Service Accounts**.
 2. Select the email address of the service account.
 
-    :::note
-    The Compute Engine default service account is not recommended for production environments due to its powerful permissions. To use a service account other than the Compute Engine default, specify the service account email address under **Advanced options** on the Seqera compute environment creation form.
-    :::
+   :::note
+   The Compute Engine default service account is not recommended for production environments due to its powerful permissions. To use a service account other than the Compute Engine default, specify the service account email address under **Advanced options** on the Seqera compute environment creation form.
+   :::
 
 3. Select **Keys > Add key > Create new key**.
 4. Select **JSON** as the key type.
@@ -103,9 +103,9 @@ Google Cloud Storage is a type of **object storage**. To access files and store 
 5. Select **Standard** for the default storage class.
 6. Under **Access control**, select **Uniform**.
 
-    :::note
-    The Batch API is available in a limited number of [locations][batch-locations]. These locations are only used to store metadata about the pipeline operations. The storage bucket and compute resources can be in any region.
-    :::
+   :::note
+   The Batch API is available in a limited number of [locations][batch-locations]. These locations are only used to store metadata about the pipeline operations. The storage bucket and compute resources can be in any region.
+   :::
 
 7. Select any additional object data protection tools, per your organization's data protection requirements.
 8. Select **Create**.
@@ -135,9 +135,9 @@ After your Google Cloud resources have been created, create a new Seqera compute
 7. Select the **Location** where you will execute your pipelines. See [Location][location] to learn more.
 8. In the **Pipeline work directory** field, enter your storage bucket URL, e.g., `gs://my-bucket`. This bucket must be accessible in the location selected in the previous step.
 
-    :::note
-    When you specify a Cloud Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
-    :::
+   :::note
+   When you specify a Cloud Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
+   :::
 
 9. (_Optional_) Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers][wave-docs] for more information.
 10. (_Optional_) Select **Enable Fusion v2** to allow access to your GCS-hosted data via the [Fusion v2][fusion-docs] virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled in the previous step. See [Fusion file system][platform-fusion-docs] for configuration details.

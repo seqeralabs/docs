@@ -22,6 +22,7 @@ Fusion smoothly integrates with Nextflow and does not require any installation o
 :::note
 
     This feature requires Nextflow ``22.10.0`` or later.
+
 :::
 
 ### Nextflow installation

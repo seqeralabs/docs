@@ -23,9 +23,9 @@ To add a new data studio, complete the following steps:
       - **Maximum memory allocated**: The default allocation is 8192 MiB of memory.
    1. Select **Mount data**, and then from the **Mount data** modal, select data to mount. Select **Mount data** to confirm your selection.
 
-        :::tip
-        Datasets are mounted using the [Fusion file system](https://docs.seqera.io/fusion) and are available at `/workspace/data/<dataset>`. Mounted data doesn't need to match the compute environment or region of the cloud provider of the data studio. However, this might cause increased costs or errors.
-        :::
+      :::tip
+      Datasets are mounted using the [Fusion file system](https://docs.seqera.io/fusion) and are available at `/workspace/data/<dataset>`. Mounted data doesn't need to match the compute environment or region of the cloud provider of the data studio. However, this might cause increased costs or errors.
+      :::
 
    1. Select **Next**.
 
@@ -47,6 +47,7 @@ To add a new data studio, complete the following steps:
    - To use a custom container template image that you supply, complete the following steps:
 
      1. Customize the following fields:
+
         - **Container template**: Select **Prebuilt container image** from the list. For information about providing your own template, see [Custom container template image][custom-image].
 
           :::tip
@@ -55,6 +56,7 @@ To add a new data studio, complete the following steps:
 
         - **Session name**
         - Optional: **Description**
+
      1. Optional: Select **Private** to enable private mode.
      1. For **Session lifespan**, select either:
         - **Automatically stop the session after a predefined lifespan** and input a **Lifespan** if the default is not appropriate.
@@ -163,7 +165,7 @@ To limit read-write access to a specific subdirectory, complete the following st
 1. Complete the following fields:
    - **Provider**: Select your cloud provider.
    - **Bucket path**: Enter the full path to the subdirectory of the bucket that you want to use with your Studio, such as `s3://1000genomes/data`.
-   - **Name**: Enter a name for this cloud bucket, such as *1000-genomes-data-dir*, to indicate the bucket name and subdirectory path.
+   - **Name**: Enter a name for this cloud bucket, such as _1000-genomes-data-dir_, to indicate the bucket name and subdirectory path.
    - **Credentials**: Select your provider credentials.
    - Optional: **Description**: Enter a description for this cloud bucket.
 1. Select **Add** to create a custom data-link to a subdirectory in the cloud bucket.
@@ -180,9 +182,8 @@ For users with the **Admin** role, the lifespan for all newly launched studio se
    - If you want to sessions to automatically shut down after a specific lifetime, select **Automatically stop the session after a predefined lifespan**, and then input a **Lifespan** in hours between 1-120 hours.
 1. Select **Update** to commit your changes.
 
-
 <!-- links -->
-[aws-gpu]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-gpu.html
 
+[aws-gpu]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-gpu.html
 [conda-syntax]: ./custom-envs#conda-package-syntax
 [custom-image]: ./custom-envs#custom-containers

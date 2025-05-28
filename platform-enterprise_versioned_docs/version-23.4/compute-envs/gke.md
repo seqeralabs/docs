@@ -115,8 +115,8 @@ Seqera Platform compute environments for GKE include advanced options for storag
 
 ```yaml
 spec:
-    nodeSelector:
-    disktype: ssd
+  nodeSelector:
+  disktype: ssd
 ```
 
 - Use **Custom service pod specs** to provide custom options for the compute environment pod. See above for an example.

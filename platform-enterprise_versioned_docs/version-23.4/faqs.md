@@ -195,22 +195,22 @@ To fix the problem, try the following:
 
 1. Set a JDK environment variable to force Nextflow and Seqera containers to use TLSv1.2 by default:
 
-    ```
-    export JAVA_OPTIONS="-Dmail.smtp.ssl.protocols=TLSv1.2"
-    ```
+   ```
+   export JAVA_OPTIONS="-Dmail.smtp.ssl.protocols=TLSv1.2"
+   ```
 
 2. Add this parameter to your [nextflow.config file](./launch/advanced#nextflow-config-file):
 
-    ```
-    mail {
-        smtp.ssl.protocols = 'TLSv1.2'
-    }
-    ```
+   ```
+   mail {
+       smtp.ssl.protocols = 'TLSv1.2'
+   }
+   ```
 
 3. Ensure these values are also set for Nextflow and/or Seqera:
 
-    -   `mail.smtp.starttls.enable=true`
-    -   `mail.smtp.starttls.required=true`
+   - `mail.smtp.starttls.enable=true`
+   - `mail.smtp.starttls.required=true`
 
 ## Git integration
 
@@ -805,9 +805,9 @@ If you need to save files to an S3 bucket with a policy that [enforces AES256 se
 The default Azure Batch implementation in Seqera Platform uses a single pool for head and compute nodes. This means that all jobs spawn dedicated/on-demand VMs by default. To save cloud costs by using low priority VMs for compute jobs, specify separate pools for head and compute jobs:
 
 1. Create two Batch pools in Azure:
-    - One Dedicated
-    - One [Low priority](https://learn.microsoft.com/en-us/azure/batch/batch-spot-vms#differences-between-spot-and-low-priority-vms).
-    - **Note**: Both pools must meet the requirements of a pre-existing pool as detailed in the [Nextflow documentation](https://www.nextflow.io/docs/latest/azure.html#requirements-on-pre-existing-named-pools).
+   - One Dedicated
+   - One [Low priority](https://learn.microsoft.com/en-us/azure/batch/batch-spot-vms#differences-between-spot-and-low-priority-vms).
+   - **Note**: Both pools must meet the requirements of a pre-existing pool as detailed in the [Nextflow documentation](https://www.nextflow.io/docs/latest/azure.html#requirements-on-pre-existing-named-pools).
 2. Create a manual [Azure Batch](./compute-envs/azure-batch#manual) compute environment in Seqera Platform.
 3. In **Compute pool name** (step 10 in the guide linked above), specify your dedicated Batch pool.
 4. Specify the Low priority pool using the `process.queue` [directive](https://www.nextflow.io/docs/latest/process.html#queue) in your `nextflow.config` file (either via the launch form, or your pipeline repository's `nextflow.config` file).

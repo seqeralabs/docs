@@ -20,6 +20,7 @@ If your organization enabled 2FA for your organization or project, you must crea
 ## Add credentials to Seqera
 
 1.  Add your credentials to your organization or personal workspace:
+
     - From an organization workspace: Go to **Credentials > Add Credentials**.
     - From your personal workspace: From the user menu, go to **Your credentials > Add credentials**.
 

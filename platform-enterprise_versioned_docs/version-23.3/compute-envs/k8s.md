@@ -67,12 +67,12 @@ You can create multiple credentials in your Seqera workspace. See [Credentials](
 
    - To authenticate using a Kubernetes service account, enter your **Service account token**. Obtain the token with the following command:
 
-      ```bash
-      SECRET=$(kubectl get secrets | grep <SERVICE-ACCOUNT-NAME> | cut -f1 -d ' ')
-      kubectl describe secret $SECRET | grep -E '^token' | cut -f2 -d':' | tr -d '\t'
-      ```
+     ```bash
+     SECRET=$(kubectl get secrets | grep <SERVICE-ACCOUNT-NAME> | cut -f1 -d ' ')
+     kubectl describe secret $SECRET | grep -E '^token' | cut -f2 -d':' | tr -d '\t'
+     ```
 
-      Replace `<SERVICE-ACCOUNT-NAME>` with the name of the service account created in the [cluster preparation](#cluster-preparation) instructions (default: `tower-launcher-sa`).
+     Replace `<SERVICE-ACCOUNT-NAME>` with the name of the service account created in the [cluster preparation](#cluster-preparation) instructions (default: `tower-launcher-sa`).
 
    - To authenticate using an X509 client certificate, paste the contents of your certificate and key file (including the `-----BEGIN...-----` and `-----END...-----` lines) in the **Client certificate** and **Client Key** fields respectively. See the [Kubernetes documentation](https://kubernetes.io/docs/tasks/administer-cluster/certificates/) for instructions to generate your client certificate and key.
 
@@ -117,8 +117,8 @@ Seqera Platform compute environments for Kubernetes include advanced options for
 
 ```yaml
 spec:
-   nodeSelector:
-      disktype: ssd
+  nodeSelector:
+    disktype: ssd
 ```
 
 - Use **Custom service pod specs** to provide custom options for the compute environment pod. See above for an example.

@@ -5,7 +5,6 @@ date: "21 Oct 2024"
 tags: [seqerakit, cli, automation, installation]
 ---
 
-
 Seqerakit is a Python wrapper that sets [Platform CLI](../cli/overview) command options using YAML configuration files. Individual commands and configuration parameters can be chained together to automate the end-to-end creation of all Seqera Platform entities.
 
 As an extension of the Platform CLI, Seqerakit enables:
@@ -14,7 +13,7 @@ As an extension of the Platform CLI, Seqerakit enables:
 - **Simple configuration**: All Platform CLI command-line options can be defined in simple YAML format.
 - **Automation**: End-to-end creation of Seqera entities, from adding an organization to launching pipelines.
 
-### Installation 
+### Installation
 
 Seqerakit has three dependencies:
 
@@ -59,20 +58,20 @@ Install the development branch of `seqerakit` on your local machine to test the 
 
 1. You must have [Python](https://www.python.org/downloads/) and [Git](https://git-scm.com/downloads) installed on your system.
 1. To install directly from pip:
-    ```shell-session
-    pip install git+https://github.com/seqeralabs/seqera-kit.git@dev
-    ```
+   ```shell-session
+   pip install git+https://github.com/seqeralabs/seqera-kit.git@dev
+   ```
 1. Alternatively, clone the repository locally and install manually:
-    ```shell-session
-    git clone https://github.com/seqeralabs/seqera-kit.git
-    cd seqera-kit
-    git checkout dev
-    pip install .
-    ```
+   ```shell-session
+   git clone https://github.com/seqeralabs/seqera-kit.git
+   cd seqera-kit
+   git checkout dev
+   pip install .
+   ```
 1. Verify your installation:
-    ```shell-session
-    pip show seqerakit
-    ```
+   ```shell-session
+   pip show seqerakit
+   ```
 
 ### Configuration
 
@@ -94,7 +93,7 @@ By default, this is set to `https://api.cloud.seqera.io` to connect to Seqera Cl
 
 ### Usage
 
-To confirm the installation of `seqerakit`, configuration of the Platform CLI, and connection to Seqera is working as expected, run this command: 
+To confirm the installation of `seqerakit`, configuration of the Platform CLI, and connection to Seqera is working as expected, run this command:
 
 ```shell-session
 seqerakit --info

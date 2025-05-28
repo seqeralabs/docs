@@ -15,17 +15,17 @@ Nextflow Tower is distributed as a collection of Docker containers available thr
 
 2. Run the following Docker command to authenticate to the registry (using the `username` and `password` values copied in step 1):
 
-    ```bash
-    docker login -u '/\<USERNAME\>/' -p '/\PASSWORD\>/' cr.seqera.io
-    ```
+   ```bash
+   docker login -u '/\<USERNAME\>/' -p '/\PASSWORD\>/' cr.seqera.io
+   ```
 
 3. Pull the Nextflow Tower container images with the following commands:
 
-    ```bash
-    docker pull {{ images.tower_be_image }}
-    
-    docker pull {{ images.tower_fe_image }}
-    ```
+   ```bash
+   docker pull {{ images.tower_be_image }}
+
+   docker pull {{ images.tower_fe_image }}
+   ```
 
 :::caution
 The Seqera Labs container registry `cr.seqera.io` is the default Tower container image registry from version 22.4. Use of the AWS, Azure, and Google Cloud Tower image registries in existing installations is still supported but will be deprecated for **new installations** starting June 2023. See [here](../advanced-topics/seqera-container-images) for steps to use the Seqera Labs private AWS Elastic Container Registry.
@@ -82,6 +82,7 @@ The ingress that we provide for EKS assumes that your cluster supports:
     Additionally, the ingress assumes the presence of SSL certificates, DNS resolution, and ALB logging.
 
     If you have chosen not to use some or all of these features, you will need to modify the manifest accordingly before applying it to the cluster.
+
 :::
 
 ## Optional prerequisites
@@ -262,7 +263,7 @@ If you have never set up an Amazon EC2 instance for Linux, refer to [this guide]
     sudo service docker start
     sudo usermod -a -G docker ec2-user
     sudo chkconfig docker on
-    
+
     # Setup docker-compose
     sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
     sudo chmod +x /usr/local/bin/docker-compose

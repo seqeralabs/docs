@@ -104,11 +104,11 @@ Basic configuration options such as the Seqera instance server URL, application 
 YAML configuration keys in this table are listed in "dot" notation, i.e., a nested value:
 
 ```yaml
-...
+
+---
 mail:
-    smtp:
-        host: "your.smtphost.com"
-...
+  smtp:
+    host: "your.smtphost.com"
 ```
 
 is represented as `mail.smtp.host`.
@@ -207,9 +207,9 @@ TOWER_REDIS_URL=redis://<redis private IP>:6379
 
 If you run the Redis service as a container in your Docker or Kubernetes installation, specify the service name as part of the `TOWER_REDIS_URL`:
 
-  ```bash
-  TOWER_REDIS_URL=redis://redis:6379
-  ```
+```bash
+TOWER_REDIS_URL=redis://redis:6379
+```
 
 </TabItem>
 </Tabs>
@@ -235,11 +235,11 @@ We recommend using managed cloud database services for production deployments.
 YAML configuration keys in this table are listed in "dot" notation, i.e., a nested value:
 
 ```yaml
-...
+
+---
 mail:
-    smtp:
-        host: "your.smtphost.com"
-...
+  smtp:
+    host: "your.smtphost.com"
 ```
 
 is represented as `mail.smtp.host`.
@@ -310,11 +310,11 @@ Do not modify your crypto secret key between starts. Changing this value will pr
 YAML configuration keys in this table are listed in "dot" notation, i.e., a nested value:
 
 ```yaml
-...
+
+---
 mail:
-    smtp:
-        host: "your.smtphost.com"
-...
+  smtp:
+    host: "your.smtphost.com"
 ```
 
 is represented as `mail.smtp.host`.
@@ -376,11 +376,11 @@ Credentials and other secrets must not be stored in plain text in production env
 YAML configuration keys in this table are listed in "dot" notation, i.e., a nested value:
 
 ```yaml
-...
+
+---
 mail:
-    smtp:
-        host: "your.smtphost.com"
-...
+  smtp:
+    host: "your.smtphost.com"
 ```
 
 is represented as `mail.smtp.host`.
@@ -435,11 +435,11 @@ Your organization's email security policy may prevent the `TOWER_CONTACT_EMAIL` 
 YAML configuration keys in this table are listed in "dot" notation, i.e., a nested value:
 
 ```yaml
-...
+
+---
 mail:
-    smtp:
-        host: "your.smtphost.com"
-...
+  smtp:
+    host: "your.smtphost.com"
 ```
 
 is represented as `mail.smtp.host`.
@@ -470,9 +470,9 @@ To configure AWS SES as your Seqera email service:
 
 1. Set `TOWER_ENABLE_AWS_SES=true` in your environment variables.
 2. Specify the email address used to send Seqera emails with one of the following:
-    - the `TOWER_CONTACT_EMAIL` environment variable
-    - a `mail.from` entry in `tower.yml`
-    - a `/config/<application_name>/mail/from` AWS Parameter Store entry
+   - the `TOWER_CONTACT_EMAIL` environment variable
+   - a `mail.from` entry in `tower.yml`
+   - a `/config/<application_name>/mail/from` AWS Parameter Store entry
 3. The [AWS SES service](https://docs.aws.amazon.com/ses/index.html) must run in the same region as your Seqera instance.
 4. The [Seqera IAM role](../../compute-envs/aws-batch#iam) must include the `ses:SendRawEmail` permission.
 
@@ -485,30 +485,30 @@ Do not replace the [Seqera-provided default image](../../functionality_matrix/ov
 <Tabs>
 <TabItem value="Environment variables" label="Environment variables" default>
 
-| Environment Variable      | Description                                                                                                     | Value                              |
-| ------------------------- | --------------------------------------------------------------------------------------------------------------- | ---------------------------------- |
-| `TOWER_LAUNCH_CONTAINER`  | The container image to run the Nextflow execution. This setting overrides the launch container selection for all organizations and workspaces in your account. | Example: `quay.io/seqeralabs/nf-launcher:j17-23.04.3` |
+| Environment Variable     | Description                                                                                                                                                    | Value                                                 |
+| ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| `TOWER_LAUNCH_CONTAINER` | The container image to run the Nextflow execution. This setting overrides the launch container selection for all organizations and workspaces in your account. | Example: `quay.io/seqeralabs/nf-launcher:j17-23.04.3` |
 
 </TabItem>
 </Tabs>
 
 ## Seqera API
 
-Enable the API endpoints to host the Seqera Enterprise OpenAPI specification and use the [tw CLI](https://github.com/seqeralabs/tower-cli). Set custom API rate limits and timeouts. 
+Enable the API endpoints to host the Seqera Enterprise OpenAPI specification and use the [tw CLI](https://github.com/seqeralabs/tower-cli). Set custom API rate limits and timeouts.
 
 :::note
 To configure API rate limit environment variables, you must add `ratelim` to the `MICRONAUT_ENVIRONMENTS`. Without `ratelim` being set, the rate limit configuration variables below are ignored.
-::: 
+:::
 
 <Tabs>
 <TabItem value="Environment variables" label="Environment variables" default>
 
-| Environment variable   | Description                                                                   | Value           |
-| ---------------------- | ----------------------------------------------------------------------------- | --------------- |
-| `TOWER_ENABLE_OPENAPI` | Enable the OpenAPI documentation endpoint, e.g., [cloud.seqera.io/openapi/index.html](https://cloud.seqera.io/openapi/index.html). | Default: `true` |
-| `TOWER_RATELIMIT_PERIOD` | Specify the maximum number of HTTP requests that can be made during the `TOWER_RATELIMIT_REFRESH` period. | Default: `20` |
-| `TOWER_RATELIMIT_REFRESH` | API rate limit refresh period. | Default: `1s` |
-| `TOWER_RATELIMIT_TIMEOUT` | The waiting period before rejecting requests over the `TOWER_RATELIMIT_PERIOD` limit during the refresh period. | Default: `500ms` |
+| Environment variable      | Description                                                                                                                        | Value            |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `TOWER_ENABLE_OPENAPI`    | Enable the OpenAPI documentation endpoint, e.g., [cloud.seqera.io/openapi/index.html](https://cloud.seqera.io/openapi/index.html). | Default: `true`  |
+| `TOWER_RATELIMIT_PERIOD`  | Specify the maximum number of HTTP requests that can be made during the `TOWER_RATELIMIT_REFRESH` period.                          | Default: `20`    |
+| `TOWER_RATELIMIT_REFRESH` | API rate limit refresh period.                                                                                                     | Default: `1s`    |
+| `TOWER_RATELIMIT_TIMEOUT` | The waiting period before rejecting requests over the `TOWER_RATELIMIT_PERIOD` limit during the refresh period.                    | Default: `500ms` |
 
 </TabItem>
 </Tabs>

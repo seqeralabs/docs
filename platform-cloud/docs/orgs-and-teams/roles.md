@@ -18,50 +18,50 @@ You can group **members** and **collaborators** into **teams** and apply a role 
 
 ### Workspace participant roles
 
-| Permission / Role                          | Owner | Admin | Maintain | Launch | Connect | View |
-|--------------------------------------------|:-------:|:-------:|:----------:|:--------:|:---------:|:------:|
-| **Organization: Settings:** Add, edit, delete        | ✅     | ❌     | ❌       | ❌     | ❌      | ❌   |
-| **Organization: Workspaces:** Add, delete        | ✅     | ❌     | ❌       | ❌     | ❌      | ❌   |
-| **Organization: Workspaces:** Edit, change visibility        | ✅     | ✅     | ❌       | ❌     | ❌      | ❌   |
-| **Organization: Members:** Add, delete, change role        | ✅     | ❌     | ❌       | ❌     | ❌      | ❌   |
-| **Organization: Teams:** Add, edit, delete        | ✅     | ❌     | ❌       | ❌     | ❌      | ❌   |
-| **Organization: Teams: Members:** Add, remove        | ✅     | ❌     | ❌       | ❌     | ❌      | ❌   |
-| **Organization: Teams: Workspaces:** Add, remove, change role        | ✅     | ❌     | ❌       | ❌     | ❌      | ❌   |
-| **Organization: Collaborators:** Add, edit, delete        | ✅     | ✅     | ❌       | ❌     | ❌      | ❌   |
-| **Organization: Managed identities:** Add, delete        | ✅     | ❌     | ❌       | ❌     | ❌      | ❌   |
-| **Organization: Managed identities:** Edit        | ✅     | ✅     | ❌       | ❌     | ❌      | ❌   |
-| **Organization: Managed identities: Users:** Manage credentials        | ✅     | ❌     | ❌       | ❌     | ❌      | ❌   |
-| **Workspace: Settings: Studios:** Edit session lifespan  | ✅     | ✅     | ❌       | ❌     | ❌      | ❌   |
-| **Workspace: Settings: Labels & Resource Labels:** Add, edit, delete | ✅     | ✅     | ✅       | ❌     | ❌      | ❌   |
-| **Workspace: Compute environments:** Add, rename, make primary, duplicate, delete    | ✅     | ✅     | ❌       | ❌     | ❌      | ❌   |
-| **Workspace: Actions:** Add, edit, delete  | ✅     | ✅     | ✅       | ❌     | ❌      | ❌   |
-| **Workspace: Credentials:** Add, edit, delete  | ✅     | ✅     | ✅       | ❌     | ❌      | ❌   |
-| **Workspace: Secrets:** Add, edit, delete  | ✅     | ✅     | ✅       | ❌     | ❌      | ❌   |
-| **Workspace: Participants:** Add, remove, change role             | ✅     | ✅     | ✅       | ❌     | ❌      | ❌   |
-| **Workspace: Pipelines:** Launch                          | ✅     | ✅     | ✅        | ✅      | ❌      | ❌   |
-| **Workspace: Pipelines:** View                         | ✅     | ✅     | ✅        | ✅      | ✅      | ✅   |
-| **Workspace: Pipelines:** Define input/output parameters   | ✅     | ✅     | ✅        | ✅      | ❌      | ❌   |
-| **Workspace: Pipelines:** Modify execution configurations  | ✅     | ✅     | ✅        | ❌     | ❌      | ❌   |
-| **Workspace: Pipelines:** Add, edit, duplicate, delete  | ✅     | ✅     | ✅        | ✅     | ❌      | ❌   |
-| **Workspace: Pipelines:** Modify resource labels       | ✅     | ✅     | ✅        | ❌     | ❌      | ❌   |
-| **Workspace: Pipelines: Run:** Apply labels, relaunch, save as new pipeline  | ✅     | ✅     | ✅        | ❌     | ❌      | ❌   |
-| **Workspace: Pipelines: Run:** Resume, delete, star (favourite)  | ✅     | ✅     | ✅        | ✅     | ❌      | ❌   |
-| **Workspace: Pipelines:** Modify resource labels       | ✅     | ✅     | ✅        | ❌     | ❌      | ❌   |
-| **Workspace: Datasets:** Add, edit        | ✅     | ✅     | ✅        | ✅     | ❌      | ❌   |
-| **Workspace: Datasets:** Delete        | ✅     | ✅     | ✅        | ❌     | ❌      | ❌   |
-| **Workspace: Data Explorer:** Upload, download, preview data        | ✅     | ✅     | ✅        | ❌     | ❌      | ❌   |
-| **Workspace: Data Explorer:** Attach, edit, remove buckets                            | ✅     | ✅     | ✅        | ❌     | ❌      | ❌   |
-| **Workspace: Data Explorer:** Hide/unhide buckets                       | ✅     | ✅     | ✅        | ❌     | ❌      | ❌   |
-| **Workspace: Data Explorer:** Edit bucket metadata   | ✅     | ✅     | ✅        | ❌     | ❌      | ❌   |
-| **Workspace: Studios:** Add, edit, delete a studio    | ✅     | ✅     | ✅        | ❌     | ❌      | ❌   |
-| **Workspace: Studios:** List/search/view studios          | ✅     | ✅     | ✅        | ✅      | ✅       | ✅    |
-| **Workspace: Studios:** Connect to a running session       | ✅     | ✅     | ✅        | ✅      | ✅       | ❌   |
-| **Workspace: Studios:** Add, edit, delete studio      | ✅     | ✅     | ✅       | ❌     | ❌      | ❌   |
-| **Workspace: Studios:** Edit studio resource labels                        | ✅     | ✅     | ✅        | ❌     | ❌      | ❌   |
-| **Workspace: Studios:** Start, stop studio session                        | ✅     | ✅     | ✅        | ❌     | ❌      | ❌   |
-| **Workspace: Studios:** Add as new (duplicate studio)                        | ✅     | ✅     | ✅        | ❌     | ❌      | ❌   |
-| **Workspace: Studios: Checkpoints:** Edit studio checkpoint name                        | ✅     | ✅     | ✅        | ❌     | ❌      | ❌   |
-| **Workspace:** View (read-only) resources         | ✅     | ✅     | ✅        | ✅     | ✅       | ✅    |
+| Permission / Role                                                                 | Owner | Admin | Maintain | Launch | Connect | View |
+| --------------------------------------------------------------------------------- | :---: | :---: | :------: | :----: | :-----: | :--: |
+| **Organization: Settings:** Add, edit, delete                                     |  ✅   |  ❌   |    ❌    |   ❌   |   ❌    |  ❌  |
+| **Organization: Workspaces:** Add, delete                                         |  ✅   |  ❌   |    ❌    |   ❌   |   ❌    |  ❌  |
+| **Organization: Workspaces:** Edit, change visibility                             |  ✅   |  ✅   |    ❌    |   ❌   |   ❌    |  ❌  |
+| **Organization: Members:** Add, delete, change role                               |  ✅   |  ❌   |    ❌    |   ❌   |   ❌    |  ❌  |
+| **Organization: Teams:** Add, edit, delete                                        |  ✅   |  ❌   |    ❌    |   ❌   |   ❌    |  ❌  |
+| **Organization: Teams: Members:** Add, remove                                     |  ✅   |  ❌   |    ❌    |   ❌   |   ❌    |  ❌  |
+| **Organization: Teams: Workspaces:** Add, remove, change role                     |  ✅   |  ❌   |    ❌    |   ❌   |   ❌    |  ❌  |
+| **Organization: Collaborators:** Add, edit, delete                                |  ✅   |  ✅   |    ❌    |   ❌   |   ❌    |  ❌  |
+| **Organization: Managed identities:** Add, delete                                 |  ✅   |  ❌   |    ❌    |   ❌   |   ❌    |  ❌  |
+| **Organization: Managed identities:** Edit                                        |  ✅   |  ✅   |    ❌    |   ❌   |   ❌    |  ❌  |
+| **Organization: Managed identities: Users:** Manage credentials                   |  ✅   |  ❌   |    ❌    |   ❌   |   ❌    |  ❌  |
+| **Workspace: Settings: Studios:** Edit session lifespan                           |  ✅   |  ✅   |    ❌    |   ❌   |   ❌    |  ❌  |
+| **Workspace: Settings: Labels & Resource Labels:** Add, edit, delete              |  ✅   |  ✅   |    ✅    |   ❌   |   ❌    |  ❌  |
+| **Workspace: Compute environments:** Add, rename, make primary, duplicate, delete |  ✅   |  ✅   |    ❌    |   ❌   |   ❌    |  ❌  |
+| **Workspace: Actions:** Add, edit, delete                                         |  ✅   |  ✅   |    ✅    |   ❌   |   ❌    |  ❌  |
+| **Workspace: Credentials:** Add, edit, delete                                     |  ✅   |  ✅   |    ✅    |   ❌   |   ❌    |  ❌  |
+| **Workspace: Secrets:** Add, edit, delete                                         |  ✅   |  ✅   |    ✅    |   ❌   |   ❌    |  ❌  |
+| **Workspace: Participants:** Add, remove, change role                             |  ✅   |  ✅   |    ✅    |   ❌   |   ❌    |  ❌  |
+| **Workspace: Pipelines:** Launch                                                  |  ✅   |  ✅   |    ✅    |   ✅   |   ❌    |  ❌  |
+| **Workspace: Pipelines:** View                                                    |  ✅   |  ✅   |    ✅    |   ✅   |   ✅    |  ✅  |
+| **Workspace: Pipelines:** Define input/output parameters                          |  ✅   |  ✅   |    ✅    |   ✅   |   ❌    |  ❌  |
+| **Workspace: Pipelines:** Modify execution configurations                         |  ✅   |  ✅   |    ✅    |   ❌   |   ❌    |  ❌  |
+| **Workspace: Pipelines:** Add, edit, duplicate, delete                            |  ✅   |  ✅   |    ✅    |   ✅   |   ❌    |  ❌  |
+| **Workspace: Pipelines:** Modify resource labels                                  |  ✅   |  ✅   |    ✅    |   ❌   |   ❌    |  ❌  |
+| **Workspace: Pipelines: Run:** Apply labels, relaunch, save as new pipeline       |  ✅   |  ✅   |    ✅    |   ❌   |   ❌    |  ❌  |
+| **Workspace: Pipelines: Run:** Resume, delete, star (favourite)                   |  ✅   |  ✅   |    ✅    |   ✅   |   ❌    |  ❌  |
+| **Workspace: Pipelines:** Modify resource labels                                  |  ✅   |  ✅   |    ✅    |   ❌   |   ❌    |  ❌  |
+| **Workspace: Datasets:** Add, edit                                                |  ✅   |  ✅   |    ✅    |   ✅   |   ❌    |  ❌  |
+| **Workspace: Datasets:** Delete                                                   |  ✅   |  ✅   |    ✅    |   ❌   |   ❌    |  ❌  |
+| **Workspace: Data Explorer:** Upload, download, preview data                      |  ✅   |  ✅   |    ✅    |   ❌   |   ❌    |  ❌  |
+| **Workspace: Data Explorer:** Attach, edit, remove buckets                        |  ✅   |  ✅   |    ✅    |   ❌   |   ❌    |  ❌  |
+| **Workspace: Data Explorer:** Hide/unhide buckets                                 |  ✅   |  ✅   |    ✅    |   ❌   |   ❌    |  ❌  |
+| **Workspace: Data Explorer:** Edit bucket metadata                                |  ✅   |  ✅   |    ✅    |   ❌   |   ❌    |  ❌  |
+| **Workspace: Studios:** Add, edit, delete a studio                                |  ✅   |  ✅   |    ✅    |   ❌   |   ❌    |  ❌  |
+| **Workspace: Studios:** List/search/view studios                                  |  ✅   |  ✅   |    ✅    |   ✅   |   ✅    |  ✅  |
+| **Workspace: Studios:** Connect to a running session                              |  ✅   |  ✅   |    ✅    |   ✅   |   ✅    |  ❌  |
+| **Workspace: Studios:** Add, edit, delete studio                                  |  ✅   |  ✅   |    ✅    |   ❌   |   ❌    |  ❌  |
+| **Workspace: Studios:** Edit studio resource labels                               |  ✅   |  ✅   |    ✅    |   ❌   |   ❌    |  ❌  |
+| **Workspace: Studios:** Start, stop studio session                                |  ✅   |  ✅   |    ✅    |   ❌   |   ❌    |  ❌  |
+| **Workspace: Studios:** Add as new (duplicate studio)                             |  ✅   |  ✅   |    ✅    |   ❌   |   ❌    |  ❌  |
+| **Workspace: Studios: Checkpoints:** Edit studio checkpoint name                  |  ✅   |  ✅   |    ✅    |   ❌   |   ❌    |  ❌  |
+| **Workspace:** View (read-only) resources                                         |  ✅   |  ✅   |    ✅    |   ✅   |   ✅    |  ✅  |
 
 ### Role inheritance
 

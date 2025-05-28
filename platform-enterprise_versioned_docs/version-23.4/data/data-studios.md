@@ -113,11 +113,11 @@ To add a new data studio from an existing **stopped** data studio, complete the 
 1. In a workspace, select **Data Studios**.
 1. From the list of data studios in your workspace, select the three dots next to the status message for the data studio you want to start, then select **Start as new**. The **Add data studio** form opens.
 1. Optional: In the **Add data studio** form, customize the following fields:
-    - **Data studio name**
-    - **Description**: By default, the parent data studio name(s).
-    - **Mounted data**
-    - **CPU**
-    - **Memory**
+   - **Data studio name**
+   - **Description**: By default, the parent data studio name(s).
+   - **Mounted data**
+   - **CPU**
+   - **Memory**
 1. Select **Add** to add the new data studio.
 
 Additionally, you can add a new data studio from any existing data studio checkpoint except the currently running checkpoint. From the data studio detail page, select the **Checkpoints** tab and in the **Actions** column, select **Start as new data studio**. This is useful for tertiary analysis experimentation without impacting the state of the original data studio.
@@ -174,7 +174,7 @@ You can only delete a data studio when it's **stopped**. Select the three dots n
 
 ## Data studio checkpoints
 
-When you start a data studio session, it automatically creates a *checkpoint*. A checkpoint saves changes that you make to the data studio root filesystem and stores it in the compute environment's pipeline work directory in the `.studios/checkpoints` directory under a unique name.
+When you start a data studio session, it automatically creates a _checkpoint_. A checkpoint saves changes that you make to the data studio root filesystem and stores it in the compute environment's pipeline work directory in the `.studios/checkpoints` directory under a unique name.
 
 :::note
 Running data studios create a new checkpoint, or snapshot, every five minutes.

@@ -5,9 +5,9 @@ date: "12 Apr 2023"
 tags: [aws, gcp, azure, cloud costs, cost, billing, alerts]
 ---
 
-Monitor cloud costs to manage resources effectively and prevent unexpected expenses when running pipelines in Seqera Platform. 
+Monitor cloud costs to manage resources effectively and prevent unexpected expenses when running pipelines in Seqera Platform.
 
-## Resource labels 
+## Resource labels
 
 Use [Resource labels](../resource-labels/overview) in your compute environments to annotate and track the actual cloud resources consumed by a pipeline run. Resource labels are applied to the resources spawned during a run and sent to your cloud provider in `key=value` format.
 
@@ -45,13 +45,13 @@ The estimated cost is subject to several limitations:
 
 - On a resumed pipeline run, the cost of cached tasks is included in the estimated cost. This estimate is an aggregation of all compute costs associated with the run. As a result, the total cost of multiple attempts of a pipeline run tends to overestimate the actual cost, because the cost of cached tasks may be counted multiple times.
 
-For accurate cost accounting, you should use the cost reporting tools for your cloud provider. 
+For accurate cost accounting, you should use the cost reporting tools for your cloud provider.
 
 ## Cloud provider cost monitoring and alerts
 
-AWS, Google Cloud, and Microsoft Azure provide cost alerting and budgeting tools to enable effective cloud resource management and prevent unexpected costs. 
+AWS, Google Cloud, and Microsoft Azure provide cost alerting and budgeting tools to enable effective cloud resource management and prevent unexpected costs.
 
-### AWS 
+### AWS
 
 - **Budgets**: [AWS Budgets](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html) lets you set custom cost and usage budgets with alerts when costs or usage exceed pre-defined thresholds. Set up notifications via email or SNS (Simple Notification Service) to receive alerts when budget thresholds are reached.
 
@@ -59,14 +59,14 @@ AWS, Google Cloud, and Microsoft Azure provide cost alerting and budgeting tools
 
 - **Cost Anomaly Detection**: [AWS Cost Anomaly Detection](https://docs.aws.amazon.com/cost-management/latest/userguide/getting-started-ad.html) uses machine learning models to detect and alert on anomalous spend patterns in your deployed AWS services.
 
-### Google Cloud 
+### Google Cloud
 
 - **Budgets and budget alerts**: [Budgets](https://cloud.google.com/billing/docs/how-to/budgets) allow you to set budget thresholds for your GCP projects. When costs exceed these thresholds, you can receive alerts via email, SMS, or notifications in the Google Cloud Console.
 
 - **Cost management tools**: [Cloud Billing](https://cloud.google.com/billing/docs/onboarding-checklist) provides cost management tools such as billing reports and spend visualization to help you analyze and understand your GCP costs.
 
-### Microsoft Azure 
+### Microsoft Azure
 
-- **Cost Management**: [Microsoft Cost Management](https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/overview-cost-management) is a suite of FinOps tools that help organizations analyze, monitor, and optimize their Microsoft Cloud costs. 
+- **Cost Management**: [Microsoft Cost Management](https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/overview-cost-management) is a suite of FinOps tools that help organizations analyze, monitor, and optimize their Microsoft Cloud costs.
 
 - **Cost alerts**: Create [alerts](https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/overview-cost-management#monitor-costs-with-alerts) for usage anomalies and costs that exceed pre-defined thresholds.

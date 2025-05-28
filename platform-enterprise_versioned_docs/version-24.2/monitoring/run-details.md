@@ -58,7 +58,7 @@ The **Status** panel provides a real-time status of all tasks in the pipeline ru
 - **completed**: The task completed successfully
 - **failed**: The task failed
 
-### Processes 
+### Processes
 
 The **Processes** panel displays the status of each process in a pipeline run. In Nextflow, a process is an individual step in a pipeline, while a task is a particular invocation of a process for given input data. In the panel, each process is shown with a progress bar indicating how many tasks have been completed for that process.
 
@@ -66,7 +66,7 @@ The progress bar is color-coded based on task status (**created**, **submitted**
 
 Select a process to navigate to the [Tasks](#tasks) panel and filter the table contents by the selected process.
 
-### Aggregate stats 
+### Aggregate stats
 
 The **Aggregate stats** panel displays a real-time summary of the resources used by a pipeline run.
 
@@ -104,7 +104,7 @@ See also: **readBytes** and **writeBytes** in the task table.
 
 #### Estimated cost
 
-See [Cloud costs](../monitoring/cloud-costs#seqera-cost-estimate). 
+See [Cloud costs](../monitoring/cloud-costs#seqera-cost-estimate).
 
 ### Load
 
@@ -128,7 +128,7 @@ See also: **pcpu**, **cpus**, **peakRss**, and **memory** in the task table.
 
 These metrics measure how efficiently the pipeline is using its compute resources. Low utilization indicates that the pipeline may be over-requesting resources for some tasks.
 
-### Tasks 
+### Tasks
 
 The **Tasks** panel shows all the tasks that were executed in a pipeline run.
 
@@ -141,6 +141,7 @@ Use the search bar to filter tasks with substrings in the table columns such as 
 Select a task in the task table to open the **Task details** dialog. The dialog has three tabs:
 
 - **About**
+
   - **Name**: Process name and tag
   - **Command**: Task script, defined in the pipeline process
   - **Status**: Exit code, task status, attempts
@@ -158,7 +159,7 @@ Select a task in the task table to open the **Task details** dialog. The dialog 
 
   If the pipeline work directory is in cloud storage, this tab shows a [Data Explorer](../data/data-explorer) view of the task's work directory location with the files associated with the task.
 
-### Metrics 
+### Metrics
 
 The **Metrics** panel displays interactive plots for CPU usage, memory usage, task duration, and I/O usage, grouped by process. These metrics include succeeded and failed tasks. Use these plots to quickly inspect a pipeline run to determine the resources requested and consumed by each process.
 

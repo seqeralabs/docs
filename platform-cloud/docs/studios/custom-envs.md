@@ -14,7 +14,7 @@ Studios uses the [Wave][wave-home] service to build custom container template im
 ### Prerequisites
 
 - Wave must be configured. For more information, see [Wave containers][wave-config].
- 
+
 :::note
 To augment Seqera-provided images, Enterprise deployments must either allow access to the public Wave server, or self-host their own [Wave server][wave-server].
 :::
@@ -33,8 +33,8 @@ dependencies:
   - numpy>1.7,<1.19.2
   - scipy
   - pip:
-    - matplotlib=3.10.*
-    - seaborn=0.13.2
+      - matplotlib=3.10.*
+      - seaborn=0.13.2
 ```
 
 Either directly copy and paste your valid YAML code or use the Import from file to attach an `environment.yml` file.
@@ -131,8 +131,7 @@ To inspect the status of an ongoing build, or a successful or failed build, comp
 1. In the **Details** tab, scroll to **Build reports** and select **Summary** to open the Wave service container build report for your build.
 1. Optional: If the build failed, select the **Error report** tab to view the errors associated with the build failure.
 
-
-{/* links */}
+{/_ links _/}
 
 [wave-home]: https://seqera.io/wave/
 [wave-config]: https://docs.seqera.io/wave

@@ -12,9 +12,9 @@ Fusion simplifies and improves the efficiency of Nextflow pipelines in [AWS Batc
 - Fusion uses an efficient data transfer and caching algorithm that provides much faster throughput compared to AWS CLI and does not require a local copy of data files.
 - By replacing the AWS CLI with a native API client, the transfer is much more robust at scale.
 
-### Platform AWS Batch compute environments 
+### Platform AWS Batch compute environments
 
-Seqera Platform supports Fusion in Batch Forge and manual AWS Batch compute environments. 
+Seqera Platform supports Fusion in Batch Forge and manual AWS Batch compute environments.
 
 See [AWS Batch](https://docs.seqera.io/platform-cloud/compute-envs/aws-batch) for compute and storage recommendations and instructions to enable Fusion.
 
@@ -31,32 +31,33 @@ Seqera Platform automatically formats and configures NVMe instance storage with 
 
 1. Add the following to your `nextflow.config` file:
 
-    ```groovy
-    process.executor = 'awsbatch'
-    process.queue = '<AWS_BATCH_QUEUE>'
-    process.scratch = false
-    process.containerOptions = '-v <PATH_TO_SSD>:/tmp' // Required for SSD volumes
-    wave.enabled = true
-    fusion.enabled = true
-    tower.accessToken = '<PLATFORM_ACCESS_TOKEN>'
-    aws.region = '<AWS_REGION>'
-    ```
+   ```groovy
+   process.executor = 'awsbatch'
+   process.queue = '<AWS_BATCH_QUEUE>'
+   process.scratch = false
+   process.containerOptions = '-v <PATH_TO_SSD>:/tmp' // Required for SSD volumes
+   wave.enabled = true
+   fusion.enabled = true
+   tower.accessToken = '<PLATFORM_ACCESS_TOKEN>'
+   aws.region = '<AWS_REGION>'
+   ```
 
-    Replace the following:
-    - `<AWS_BATCH_QUEUE>`: the path to your AWS Batch queue.
-    - `<PATH_TO_SSD>`: your SSD path.
-    - `<PLATFORM_ACCESS_TOKEN>`: your Platform access token.
+   Replace the following:
 
+   - `<AWS_BATCH_QUEUE>`: the path to your AWS Batch queue.
+   - `<PATH_TO_SSD>`: your SSD path.
+   - `<PLATFORM_ACCESS_TOKEN>`: your Platform access token.
 
 1. Run the pipeline with the Nextflow run command:
 
-    ```
-    nextflow run <PIPELINE_SCRIPT> -w s3://<S3_BUCKET>/work
-    ```
+   ```
+   nextflow run <PIPELINE_SCRIPT> -w s3://<S3_BUCKET>/work
+   ```
 
-    Replace the following:
-    - `<PIPELINE_SCRIPT>`: your pipeline Git repository URI.
-    - `<S3_BUCKET>`: your S3 bucket.
+   Replace the following:
+
+   - `<PIPELINE_SCRIPT>`: your pipeline Git repository URI.
+   - `<S3_BUCKET>`: your S3 bucket.
 
 :::tip
 You can use an EBS gp3 volume with a throughput of 325 MiB/s (or more) and a size of 100 GiB (or larger) as an alternative to configuring NVMe storage on your compute node. While slower than NVMe storage, this configuration provides sufficient performance for many workloads.

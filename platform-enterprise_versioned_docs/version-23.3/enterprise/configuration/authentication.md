@@ -174,12 +174,10 @@ TOWER_AUTH_<PROVIDER>_ALLOW_LIST=*@foo.com,user1@bar.com
 **tower.yml**
 
 ```yaml
-
 tower:
 auth:
-   <PROVIDER>:
-      allow-list:
+  <PROVIDER>:
+    allow-list:
       - "*@foo.com"
       - "me@bar.com"
-
 ```

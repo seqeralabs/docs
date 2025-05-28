@@ -34,10 +34,10 @@ All pipelines contain at least these parameters:
 **Input/output options**: Specify paths to pipeline input [datasets](../data/datasets), output directories, and other pipeline-specific I/O options. _input_ and _outdir_ are required fields common to all pipelines:
 
 - **input**
-Specify compatible input datasets manually or from the drop-down menu. Select **Browse** to view the available datasets or browse for [Data Explorer](../data/data-explorer) files in a popup window. The Data Explorer tab allows you to select input datasets that match your [pipeline schema](../pipeline-schema/overview) `mimetype` criteria (`text/csv` for CSV files, or `text/tsv` for TSV files).
+  Specify compatible input datasets manually or from the drop-down menu. Select **Browse** to view the available datasets or browse for [Data Explorer](../data/data-explorer) files in a popup window. The Data Explorer tab allows you to select input datasets that match your [pipeline schema](../pipeline-schema/overview) `mimetype` criteria (`text/csv` for CSV files, or `text/tsv` for TSV files).
 
 - **outdir**
-Specify the output directory where run results will be saved. Specify the directory path manually, or select **Browse** to specify a cloud storage directory using [Data Explorer](../data/data-explorer).
+  Specify the output directory where run results will be saved. Specify the directory path manually, or select **Browse** to specify a cloud storage directory using [Data Explorer](../data/data-explorer).
 
 The remaining fields of the pipeline parameters form will vary for each pipeline, dependent on the parameters specified in the pipeline schema. When you have filled the necessary launch form details, select **Launch**. The **Runs** tab shows your new run in a **submitted** status at the top of the list. Select the run name to navigate to the [**View Workflow Run**](../monitoring/run-details) page and view the configuration, parameters, status of individual tasks, and run report.
 

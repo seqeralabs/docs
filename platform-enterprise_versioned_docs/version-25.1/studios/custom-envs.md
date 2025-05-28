@@ -14,10 +14,10 @@ Studios uses the [Wave][wave-home] service to build custom container template im
 ### Prerequisites
 
 - Wave must be configured. For more information, see [Wave containers][wave].
- 
- :::note
- To augment Seqera-provided images, Enterprise deployments must either allow access to the public Wave server, or self-host their own Wave server.
- :::
+
+:::note
+To augment Seqera-provided images, Enterprise deployments must either allow access to the public Wave server, or self-host their own Wave server.
+:::
 
 ### Conda package syntax {#conda-package-syntax}
 
@@ -29,8 +29,8 @@ channels:
 dependencies:
   - numpy
   - pip:
-    - matplotlib
-    - seaborn
+      - matplotlib
+      - seaborn
 ```
 
 To create a Studio with custom Conda packages, see [Add a Studio][add-s].
@@ -107,6 +107,7 @@ ENTRYPOINT ["/usr/bin/connect-client", "--entrypoint"]
 
 CMD ["/usr/bin/bash", "-c", "python3 -m http.server $CONNECT_TOOL_PORT"]
 ```
+
 ### Getting started with custom containers template images
 
 You can review a series of example custom studio environment container template images [here](custom-studios-examples).
@@ -124,8 +125,7 @@ To inspect the status of an ongoing build, or a successful or failed build, comp
 1. In the **Details** tab, scroll to **Build reports** and select **Summary** to open the Wave service container build report for your build.
 1. Optional: If the build failed, select the **Error report** tab to view the errors associated with the build failure.
 
-
-{/* links */}
+{/_ links _/}
 [add-s]: ./managing#add-a-studio
 [wave]: ../../version-24.2/enterprise/configuration/wave
 [custom-studios-examples]: https://github.com/seqeralabs/custom-studios-examples
