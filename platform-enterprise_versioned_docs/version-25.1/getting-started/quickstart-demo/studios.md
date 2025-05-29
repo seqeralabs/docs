@@ -2,7 +2,7 @@
 title: "Studios"
 description: "An introduction to Studios in Seqera Platform"
 date: "8 Jul 2024"
-tags: [platform, data,  studios]
+tags: [platform, studios]
 ---
 
 :::info
