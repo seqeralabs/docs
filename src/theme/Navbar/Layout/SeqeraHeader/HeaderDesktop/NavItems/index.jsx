@@ -104,15 +104,9 @@ const NavItems = ({ isDark = false, hideMenu }) => {
               </ActiveLink>
             </li>
             <li>
-              <a
-                className="mr-6"
-                href="https://nextflow.io/docs/latest/index.html"
-              >
-                <div className="flex flex-row items-center">
-                 Nextflow 
-                <svg width="10" height="10" aria-hidden="true" viewBox="0 0 24 24" className="opacity-50 ml-1"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg>
-                </div>
-              </a>
+            <ActiveLink url="/nextflow/nextflow" customClasses={`mr-6`}> 
+                Nextflow
+              </ActiveLink>
             </li>
             <li>
             <ActiveLink url="/multiqc" customClasses={`mr-6`}> 

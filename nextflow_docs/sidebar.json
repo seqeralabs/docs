@@ -1,5 +1,6 @@
 {
     "sidebar": [
+        "nextflow",
         {
         "type": "category",
         "label": "Getting started",

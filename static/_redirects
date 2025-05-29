@@ -1,4 +1,4 @@
-/nextflow           https://www.nextflow.io/docs/latest/ 301!
+#/nextflow           https://www.nextflow.io/docs/latest/ 301!
 
 # Fix top nav 404 for Cloud and Enterprise after index page rename
 /platform-cloud   /platform-cloud/platform-cloud 301
