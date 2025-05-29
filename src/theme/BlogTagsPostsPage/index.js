@@ -14,6 +14,7 @@ import SearchMetadata from '@theme/SearchMetadata';
 import BlogPostItems from '@theme/BlogPostItems';
 import Unlisted from '@theme/ContentVisibility/Unlisted';
 import Heading from '@theme/Heading';
+
 function BlogTagsPostsPageMetadata({tag}) {
   const title = useBlogTagsPostsPageTitle(tag);
   return (
@@ -23,11 +24,12 @@ function BlogTagsPostsPageMetadata({tag}) {
     </>
   );
 }
+
 function BlogTagsPostsPageContent({tag, items, sidebar, listMetadata}) {
   let title = tag.label.replace(/\b\w/g, function(char) { return char.toUpperCase(); });
   if(title == 'Multiqc') title = 'MultiQC';
   return (
-    <BlogLayout sidebar={sidebar}>
+    <BlogLayout sidebar={sidebar} className="blog-tag-page">
       {tag.unlisted && <Unlisted />}
       <header className="margin-bottom--xl">
         <Heading as="h1" style={{ fontSize: '3em' }}>Changelog: {title}</Heading>
@@ -38,12 +40,14 @@ function BlogTagsPostsPageContent({tag, items, sidebar, listMetadata}) {
     </BlogLayout>
   );
 }
+
 export default function BlogTagsPostsPage(props) {
   return (
     <HtmlClassNameProvider
       className={clsx(
         ThemeClassNames.wrapper.blogPages,
         ThemeClassNames.page.blogTagPostListPage,
+        'blog-tag-page'
       )}>
       <BlogTagsPostsPageMetadata {...props} />
       <BlogTagsPostsPageContent {...props} />
