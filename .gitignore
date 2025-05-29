@@ -36,3 +36,4 @@ internal/tmp
 # OSS repo clones
 multiqc_docs/multiqc_repo
 wave_docs/wave_repo
+nextflow_docs/nextflow_repo
