@@ -60,7 +60,7 @@ In Data Explorer, you can:
     ![Data Explorer bucket](assets/sp-cloud-data-explorer.gif)
 
    - **Preview files**: 
-    Select a file to open a preview window that includes a **Download** button. For example, view the resultant gene counts of the salmon quantification step of an `nf-core/rnaseq` run:
+    Select a file to open a preview window that includes a **Download** button. For example, view the resultant gene counts of the salmon quantification step of an *nf-core/rnaseq* run:
 
     ![Preview pipeline results](assets/data-explorer-preview-files.gif)
 
