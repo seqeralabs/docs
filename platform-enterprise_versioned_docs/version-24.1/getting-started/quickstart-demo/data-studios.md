@@ -2,7 +2,7 @@
 title: "Data Studios"
 description: "An introduction to Data Studios in Seqera Platform"
 date: "8 Jul 2024"
-tags: [platform, data, data studios]
+tags: [platform, studios]
 ---
 
 :::info
