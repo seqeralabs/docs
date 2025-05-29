@@ -55,7 +55,7 @@ In Data Explorer, you can:
     ![Bucket details](assets/data-explorer-view-details.gif)
 
   - **View bucket contents**:
-    Select a bucket name from the list to view the bucket contents. The file type, size, and path of objects are displayed in columns next to the object name. For example, view the outputs of an `nf-core/rnaseq` run:
+    Select a bucket name from the list to view the bucket contents. The file type, size, and path of objects are displayed in columns next to the object name. For example, view the outputs of an *nf-core/rnaseq* run:
 
     ![Data Explorer bucket](assets/sp-cloud-data-explorer.gif)
 
