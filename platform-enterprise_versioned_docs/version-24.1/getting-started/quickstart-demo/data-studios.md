@@ -1,49 +1,46 @@
 ---
-title: "Studios"
-description: "An introduction to Studios in Seqera Platform"
+title: "Data Studios"
+description: "An introduction to Data Studios in Seqera Platform"
 date: "8 Jul 2024"
-tags: [platform, data,  studios]
+tags: [platform, studios]
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 :::info
-This guide provides an introduction to Studios using a demo Studio in the Community Showcase workspace. See [Studios](../../studios/overview) to learn how to create Studios in your own workspace. 
+This guide provides an introduction to Data Studios using a demo studio in the Community Showcase workspace. See [Data Studios](../../data_studios/index) to learn how to create data studios in your own workspace. 
 :::
 
 Interactive analysis of pipeline results is often performed in platforms like Jupyter Notebook or RStudio. Setting up the infrastructure for these platforms, including accessing pipeline data and the necessary bioinformatics packages, can be complex and time-consuming.
 
-Studios streamlines the process of creating interactive analysis environments for Platform users. With built-in templates, creating a Studio is as simple as adding and sharing pipelines or datasets. Platform manages all the details, enabling you to easily select your preferred interactive tool and analyze your data.
+Data Studios streamlines the process of creating interactive analysis environments for Platform users. With built-in templates, creating a data studio is as simple as adding and sharing pipelines or datasets. Platform manages all the details, enabling you to easily select your preferred interactive tool and analyze your data.
 
-In the **Studios** tab, you can monitor and see the details of the Studios in the Community Showcase workspace.
+In the **Data Studios** tab, you can monitor and see the details of the data studios in the Community Showcase workspace.
 
-![Studios overview](./assets/studios-overview.png)
+![Data studios overview](./assets/data-studios-overview.png)
 
-Select the options menu next to a Studio to:
-- See Studio details
-- Start or stop the Studio, and connect to a running Studio
-- Copy the Studio URL to share it with collaborators
+Select the options menu next to a data studio to:
+- See data studio details
+- Start or stop the studio, and connect to a running studio
+- Copy the studio URL to share it with collaborators
 
-### Analyze RNAseq data in Studios
+### Analyze RNAseq data in Data Studios
 
-Studios is used to perform bespoke analysis on the results of upstream workflows. For example, in the Community Showcase workspace we have run the nf-core/rnaseq workflow to quantify gene expression, followed by nf-core/differentialabundance to derive differential expression statistics. The workspace contains a Studio with these results from cloud storage mounted into the Studio to perform further analysis. One of these outputs is an RShiny application, which can be deployed for interactive analysis.
+Data Studios is used to perform bespoke analysis on the results of upstream workflows. For example, in the Community Showcase workspace we have run the nf-core/rnaseq workflow to quantify gene expression, followed by nf-core/differentialabundance to derive differential expression statistics. The workspace contains a data studio with these results from cloud storage mounted into the studio to perform further analysis. One of these outputs is an RShiny application, which can be deployed for interactive analysis.
 
-### Open the RNAseq analysis Studio 
+### Open the RNAseq analysis studio 
 
-Select the `rnaseq_to_differentialabundance` Studio. This Studio consists of an RStudio environment that uses an existing compute environment available in the showcase workspace. The Studio also contains mounted data generated from the nf-core/rnaseq and subsequent nf-core/differentialabundance pipeline runs, directly from AWS S3. 
+Select the `rnaseq_to_differentialabundance` data studio. This studio consists of an RStudio environment that uses an existing compute environment available in the showcase workspace. The studio also contains mounted data generated from the nf-core/rnaseq and subsequent nf-core/differentialabundance pipeline runs, directly from AWS S3. 
 
-![RNAseq Studio details](assets/rnaseq-diffab-studio-details.gif)
+![RNAseq studio details](assets/rnaseq-diffab-studio-details.gif)
 
 :::info
-Studios allows you to specify the resources each Studio will use. When [creating your own Studios](../../studios/overview) with shared compute environment resources, you must allocate sufficient resources to the compute environment to prevent Studio or pipeline run interruptions. 
+Data Studios allows you to specify the resources each studio will use. When [creating your own data studios](../../data_studios/index) with shared compute environment resources, you must allocate sufficient resources to the compute environment to prevent data studio or pipeline run interruptions. 
 :::
 
-### Connect to the Studio
+### Connect to the data studio
 
-This Studio will start an RStudio environment which already contains the necessary R packages for deploying an RShiny application to interact with various visualizations of the RNAseq data. The Studio also contains an R Markdown document with the commands in place to generate the application.
+This data studio will start an RStudio environment which already contains the necessary R packages for deploying an RShiny application to interact with various visualizations of the RNAseq data. The studio also contains an R Markdown document with the commands in place to generate the application.
 
-Deploy the RShiny app in the Studio by selecting the green play button on the last chunk of the R script:
+Deploy the RShiny app in the data studio by selecting the green play button on the last chunk of the R script:
 
 ![Run RShiny app](./assets/rnaseq-diffab-run-rshiny-app.png)
 
@@ -91,6 +88,6 @@ Using the volcano plot, you can effectively identify and explore the genes with 
 
 ![RShiny volcano plot](assets/rnaseq-diffab-rshiny-volcano-plot.gif)
 
-### Collaborate in the Studio
+### Collaborate in the data studio
 
-To share the results of your RNAseq analysis or allow colleagues to perform exploratory analysis, share a link to the Studio by selecting the options menu for the Studio you want to share, then select **Copy Studio URL**. With this link, other authenticated users with the **Connect** [role](../../orgs-and-teams/roles) (or greater) can access the session directly.
+To share the results of your RNAseq analysis or allow colleagues to perform exploratory analysis, share a link to the data studio by selecting the options menu for the data studio you want to share, then select **Copy data studio URL**. With this link, other authenticated users with the **Connect** [role](../../orgs-and-teams/roles) (or greater) can access the session directly.

@@ -5,9 +5,6 @@ date: "21 Jul 2024"
 tags: [platform, data, data explorer, datasets]
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 Most bioinformatics pipelines require an input of some sort. This is typically a samplesheet where each row consists of a sample, the location of files for that sample (such as FASTQ files), and other sample details. Reliable shared access to pipeline input data is crucial to simplify data management, minimize user data-input errors, and facilitate reproducible workflows.
 
 In Platform, samplesheets and other data can be made easily accessible in one of two ways: 
@@ -58,12 +55,12 @@ In Data Explorer, you can:
     ![Bucket details](assets/data-explorer-view-details.gif)
 
   - **View bucket contents**:
-    Select a bucket name from the list to view the bucket contents. The file type, size, and path of objects are displayed in columns next to the object name. For example, view the outputs of your [nf-core/rnaseq](./comm-showcase#launch-the-nf-corernaseq-pipeline) run:
+    Select a bucket name from the list to view the bucket contents. The file type, size, and path of objects are displayed in columns next to the object name. For example, view the outputs of an *nf-core/rnaseq* run:
 
     ![Data Explorer bucket](assets/sp-cloud-data-explorer.gif)
 
    - **Preview files**: 
-    Select a file to open a preview window that includes a **Download** button. For example, view the resultant gene counts of the salmon quantification step of your [nf-core/rnaseq](./comm-showcase#launch-the-nf-corernaseq-pipeline) run:
+    Select a file to open a preview window that includes a **Download** button. For example, view the resultant gene counts of the salmon quantification step of an *nf-core/rnaseq* run:
 
     ![Preview pipeline results](assets/data-explorer-preview-files.gif)
 
