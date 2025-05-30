@@ -42,3 +42,8 @@
 /platform/:version/enterprise/*   /platform-enterprise/:version/enterprise/:splat   301
 /platform/:version/*    /platform-cloud/:splat
 /platform/*   /platform-cloud/:splat
+
+
+
+#Redirect platform-api to intro page
+/platform-api   /platform-api/seqera-api   301
