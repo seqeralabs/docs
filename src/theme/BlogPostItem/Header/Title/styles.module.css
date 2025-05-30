@@ -1,9 +1,11 @@
 .blogPostPageTitle {
   font-size: 3rem;
 }
+
 .listTitle {
   font-size: 2rem;
 }
+
 .blogTitleLink {
   color: var(--text-color);
   text-decoration: none;
