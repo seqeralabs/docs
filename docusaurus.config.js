@@ -364,7 +364,7 @@ export default async function createConfigAsync() {
             items: [
               {
                 label: "Platform Enterprise",
-                to: "/platform-enterprise//latest/platform-enterprise",
+                to: "/platform-enterprise/latest/platform-enterprise",
               },
               {
                 label: "Platform Cloud",
