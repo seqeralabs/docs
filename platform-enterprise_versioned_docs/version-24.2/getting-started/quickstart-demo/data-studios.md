@@ -5,9 +5,6 @@ date: "8 Jul 2024"
 tags: [platform, data, data studios]
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 :::info
 This guide provides an introduction to Data Studios using a demo studio in the Community Showcase workspace. See [Data Studios](../../data_studios/index) to learn how to create data studios in your own workspace. 
 :::

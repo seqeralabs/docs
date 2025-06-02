@@ -419,3 +419,44 @@ html[data-theme="dark"]{
     }
   }
 }
+
+/* removes jumping effect when sidebar accordion open or closes */
+.menu__list .menu__list {
+  margin-top: 0;
+}
+
+/* Font rendering + code block tweaks */
+article .markdown {
+  -webkit-font-smoothing: auto;
+  line-height: 24px;
+}
+:root {
+  --ifm-code-border-radius: 0;
+}
+article .markdown code {
+  font-size: 75%;
+  border-radius: 0;
+  border: 1px solid #e1e4e5;
+}
+article .markdown :not(pre) > code {
+  color: #C3514D;
+  padding: 2px 5px;
+  background: #fff;
+}
+article .markdown pre code {
+  background-color: #f8f8f8;
+  font-size: .75rem !important;
+}
+html[data-theme="dark"]{ 
+  article .markdown code {
+    background: #1C1C1E;
+    border: 1px solid rgba(255,255,255,.5);
+  }
+  article .markdown :not(pre) > code {
+    color: #E15361;
+  }
+
+  article .markdown pre code {
+    background-color: #353437;
+  }
+}
