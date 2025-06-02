@@ -21,7 +21,7 @@ Each new or resumed run is given a random name, which can be customized prior to
 
 ![View runs](assets/sp-cloud-view-all-runs.gif)
 
-### View run details for nf-core/rnaseq
+### View run details for *nf-core/rnaseq*
 
 The pipeline launched [previously](./launch-pipelines) is listed on the **Runs** tab. Select it from the list to view the run details.
 
