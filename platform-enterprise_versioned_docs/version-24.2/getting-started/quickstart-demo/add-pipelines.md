@@ -46,7 +46,7 @@ From your workspace Launchpad, select **Add Pipeline** and specify the following
     You can upload custom icons when adding or updating a pipeline. If no user-uploaded icon is defined, Platform will retrieve and attach a pipeline icon in the following order of precedence:
       1. A valid icon key:value pair defined in the "manifest" object of the nextflow.config file
       2. The Github organization avatar (if the repository is hosted on Github)
-    If none of the above are defined, Platform auto-generates and attaches a pipeline icon.
+    3. If none of the above are defined, Platform auto-generates and attaches a pipeline icon.
     :::
 - **Name**: A custom name of your choice. Pipeline names must be unique per workspace. 
 - (*Optional*) **Description**: A summary of the pipeline or any information that may be useful to workspace participants when selecting a pipeline to launch. 
