@@ -35,9 +35,9 @@ You can group **members** and **collaborators** into **teams** and apply a role 
 | **Workspace: Settings: Labels & Resource Labels:** Add, edit, delete | ✅     | ✅     | ✅       | ❌     | ❌      | ❌   |
 | **Workspace: Compute environments:** Add, rename, make primary, duplicate, delete    | ✅     | ✅     | ❌       | ❌     | ❌      | ❌   |
 | **Workspace: Actions:** Add, edit, delete  | ✅     | ✅     | ✅       | ❌     | ❌      | ❌   |
-| **Workspace: Credentials:** Add, edit, delete  | ✅     | ✅     | ✅       | ❌     | ❌      | ❌   |
+| **Workspace: Credentials:** Add, edit, delete  | ✅     | ✅     | ❌       | ❌     | ❌      | ❌   |
 | **Workspace: Secrets:** Add, edit, delete  | ✅     | ✅     | ✅       | ❌     | ❌      | ❌   |
-| **Workspace: Participants:** Add, remove, change role             | ✅     | ✅     | ✅       | ❌     | ❌      | ❌   |
+| **Workspace: Participants:** Add, remove, change role             | ✅     | ✅     | ❌       | ❌     | ❌      | ❌   |
 | **Workspace: Pipelines:** Launch                          | ✅     | ✅     | ✅        | ✅      | ❌      | ❌   |
 | **Workspace: Pipelines:** View                         | ✅     | ✅     | ✅        | ✅      | ✅      | ✅   |
 | **Workspace: Pipelines:** Define input/output parameters   | ✅     | ✅     | ✅        | ✅      | ❌      | ❌   |
