@@ -13,7 +13,7 @@ Pipeline optimization analyzes resource usage data from previous runs to optimiz
 
 ### Optimize nf-core/rnaseq
 
-Navigate back to the Launchpad and select the lightbulb icon next to the nf-core/rnaseq pipeline to view the optimized profile. You have the flexibility to tailor the optimization's target settings and incorporate a retry strategy as needed.
+Navigate back to the Launchpad and select the lightbulb icon next to the *nf-core/rnaseq* pipeline to view the optimized profile. You have the flexibility to tailor the optimization's target settings and incorporate a retry strategy as needed.
 
 ### View optimized configuration
 
