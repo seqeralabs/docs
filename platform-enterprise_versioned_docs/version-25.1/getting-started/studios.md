@@ -370,7 +370,7 @@ RStudio notebooks enable interactive analysis using R libraries and tools. For e
 Studios require an AWS Batch compute environment. If you do not have an existing compute environment available, [create one](../compute-envs/aws-batch#batch-forge-compute-environment) with the following attributes:
 
 - **Region**: To minimize costs, your compute environment should be in the same region as your data. To browse the nf-core AWS megatests public data optimally, select **eu-west-1**.
-- **Provisioning model**: Use **On-demand** EC2 instances. 
+- **Provisioning model**: Use **On-Demand** EC2 instances. 
 - Studios does not support AWS Fargate. Do not enable **Use Fargate for head job**. 
 - At least 2 available CPUs and 8192 MB of RAM.
 

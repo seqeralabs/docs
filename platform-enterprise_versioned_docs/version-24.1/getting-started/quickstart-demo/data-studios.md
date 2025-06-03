@@ -2,14 +2,11 @@
 title: "Data Studios"
 description: "An introduction to Data Studios in Seqera Platform"
 date: "8 Jul 2024"
-tags: [platform, data, data studios]
+tags: [platform, studios]
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 :::info
-This guide provides an introduction to Data Studios using a demo studio in the Community Showcase workspace. See [Data Studios](../../data_studios/index) to learn how to create data studios in your own workspace. 
+This guide provides an introduction to Data Studios using a demo studio in the Community Showcase workspace. See [Data Studios](../../data_studios/overview) to learn how to create data studios in your own workspace. 
 :::
 
 Interactive analysis of pipeline results is often performed in platforms like Jupyter Notebook or RStudio. Setting up the infrastructure for these platforms, including accessing pipeline data and the necessary bioinformatics packages, can be complex and time-consuming.
@@ -36,7 +33,7 @@ Select the `rnaseq_to_differentialabundance` data studio. This studio consists o
 ![RNAseq studio details](assets/rnaseq-diffab-studio-details.gif)
 
 :::info
-Data Studios allows you to specify the resources each studio will use. When [creating your own data studios](../../data_studios/index) with shared compute environment resources, you must allocate sufficient resources to the compute environment to prevent data studio or pipeline run interruptions. 
+Data Studios allows you to specify the resources each studio will use. When [creating your own data studios](../../data_studios/overview) with shared compute environment resources, you must allocate sufficient resources to the compute environment to prevent data studio or pipeline run interruptions. 
 :::
 
 ### Connect to the data studio

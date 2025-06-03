@@ -38,7 +38,7 @@ The DB or Redis volume is persistent after a Docker restart by default. Use the 
 6. After you've confirmed that Seqera Enterprise is correctly configured and you can launch workflows, run `docker compose up -d` to deploy the application as a background process. You can then disconnect from the VM instance.
 
 :::note
-For more information on configuration, see [Configuration options](../configuration/overview).
+For more information on configuration, see [Configuration options](./configuration/overview).
 :::
 
 ## Optional features
