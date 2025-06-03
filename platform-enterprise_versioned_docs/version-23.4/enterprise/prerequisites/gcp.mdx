@@ -1,0 +1,172 @@
+---
+title: "Google Cloud"
+description: Prerequisites for GCP deployments
+date: "12 Apr 2023"
+tags: [gcp, prerequisites, configuration]
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+This page describes the infrastructure and other prerequisites for deploying Seqera Platform Enterprise on Google Cloud Platform (GCP).
+
+Run the Seqera container with [Docker](../docker-compose) on a GCP VM instance or with [Kubernetes](../kubernetes) on a Google Kubernetes Engine cluster. You must satisfy the requirements for your installation target:
+
+- **SMTP server**: If you don't have an email server, Google Cloud provides several ways to send emails, such as [SendGrid][sendgrid], [Mailgun][mailgun], and [Mailjet][mailjet]. Work with your IT team to select the best solution for your organization.
+- **MySQL database**: An external database such as [Google CloudSQL][gcloudsql] is highly recommended for production environments.
+- **SSL certificate**: An SSL certificate is required for your Seqera instance to handle HTTPS traffic.
+
+  :::caution
+  HTTP-only implementations **must** set the `TOWER_ENABLE_UNSAFE_MODE=true` environment variable in the Seqera hosting infrastructure to enable user login. HTTP must not be used in production environments.
+  :::
+
+- **Public IP address**: (Optional) A public IP address can be reserved for the Seqera ingress to keep the IP address constant across restarts.
+
+  <details>
+    <summary>Reserve a public IP address</summary>
+
+      1. Go to **VPC network > External IP addresses** and select **Reserve Static Address**.
+      2. Assign a name (such as `tower-ip`). This name will be used later to configure the ingress.
+      3. Select the region where your GKE cluster is deployed.
+      4. Select **Reserve**.
+
+  </details>
+
+### Prerequisites for Docker
+
+A [Google Compute Engine (GCE)][gce] instance is required to deploy Seqera Enterprise via Docker Compose. See [Google Compute Engine](#google-compute-engine) to provision a VM instance for this purpose.
+
+### Prerequisites for GKE
+
+A [Google Kubernetes Engine (GKE)][gke] cluster is required to deploy Seqera Enterprise via Kubernetes. See the [GKE documentation][gke-docs] to provision your own cluster.
+
+:::note
+Seqera doesn't currently support GKE Autopilot due to a privilege issue with the Redis deployment. However, you can achieve most of the same behavior with a Standard cluster by enabling autoscaling and node auto-provisioning.
+:::
+
+## GCP setup
+
+This section provides step-by-step instructions for some commonly used GCP services for Seqera deployment. See the [GCP documentation][gcp-docs] for up-to-date instructions and contact [GCP support][gcp-support] if you have any issues with provisioning GCP resources.
+
+### Google CloudSQL
+
+Create a Google CloudSQL instance with the following attributes:
+- MySQL 8.0
+- At least **2 vCPUs**, **8 GB** memory, and **30 GB SSD** storage
+- Private IP 
+
+:::caution 
+The recommended machine type and storage requirements depend on the number of parallel pipelines you expect to run. 
+:::
+
+<Tabs>
+<TabItem value="GCP console" label="GCP console" default>
+
+1. See [Create a MySQL instance][gcloudsql-create] for Cloud console instructions.
+1. After the instance has been created, select the instance, then **Databases**. Create a new database named `tower`.
+1. Note the Private IP address of the instance as it must be supplied to the `TOWER_DB_URL` environment variable.
+
+</TabItem>
+<TabItem value="gcloud CLI" label="gcloud CLI" default>
+
+See [Create a MySQL instance][gcloudsql-create] for gcloud CLI instructions.
+
+1. Create your MySQL instance with the following command:
+    ```bash 
+    gcloud sql instances create INSTANCE_NAME \
+    --database-version=MYSQL_8_0 \
+    --cpu=2 \
+    --memory=8GB \
+    --storage-size=30GB \
+    --region=us-central1
+    ```
+1. Note the private IP address as it must be supplied to the `TOWER_DB_URL` environment variable during Seqera configuration. 
+1. Set the password for the root MySQL user:
+    ```bash
+    gcloud sql users set-password root \
+    --host=% \
+    --instance INSTANCE_NAME \
+    --password PASSWORD
+    ```
+1. Create a database named `tower` on the instance: 
+    ```bash 
+    gcloud sql databases create tower \
+    --instance=INSTANCE_NAME \
+    ```
+
+</TabItem>
+</Tabs>
+
+### Google Compute Engine
+
+Create a VM instance with these attributes:
+- At least **2 vCPUs** and **8 GB** memory
+- HTTP traffic enabled. By default, the frontend is exposed to port 8000, so you must add a firewall rule to the underlying VPC network to allow traffic on port 8000 after VM creation.
+- SSH enabled (to allow connection to the VM). If you experience issues with SSH, or would like to set up IAP SSH, see [TCP forward to IAP][tcp-iap].
+
+<Tabs>
+<TabItem value="GCP console" label="GCP console" default>
+
+See [Create a VM instance from a public image][gcp-vm-public] for Cloud console instructions. 
+
+</TabItem>
+<TabItem value="gcloud CLI" label="gcloud CLI" default>
+
+1. Run `gcloud compute images list` to view a list of available public OS images. Note the name of the image you wish to use and the name of the project that contains it.
+1. Create your VM with the following command (you can use either `--image` or `--image-family`, only one is required):
+    ```gcloud
+    gcloud compute instances create VM_NAME \
+      [--image=IMAGE | --image-family=IMAGE_FAMILY] \
+      --image-project=IMAGE_PROJECT
+      --machine-type=MACHINE_TYPE
+    ```
+    Replace `VM_NAME`, `IMAGE`, `IMAGE_FAMILY`, `IMAGE_PROJECT`, and `MACHINE_TYPE` with your VM details.
+1. Run `gcloud compute instances describe VM_NAME` to verify that Compute Engine created the VM. 
+
+</TabItem>
+</Tabs>
+
+After you have created your VM instance:
+
+1. Connect to the machine using SSH.
+1. [Install Docker][install-docker].
+1. Confirm that Docker Compose is installed:
+    ```bash
+    docker compose version
+    Docker Compose version v2.24.1
+    ```
+
+## Seqera container images
+
+Seqera Platform Enterprise is distributed as a collection of Docker containers available through the Seqera
+container registry [`cr.seqera.io`](https://cr.seqera.io). Contact [support](https://support.seqera.io) to get your container access credentials. After you receive your credentials, retrieve the Seqera container images on your VM instance:
+
+1. Retrieve the **username** and **password** you received from Seqera support.
+1. Authenticate to the registry:
+   ```bash
+   docker login -u '/\<USERNAME\>/' -p '/\PASSWORD\>/' cr.seqera.io
+   ```
+1. Pull the Seqera container images:
+   ```bash
+   docker pull cr.seqera.io/private/nf-tower-enterprise/backend:v23.4.3
+
+   docker pull cr.seqera.io/private/nf-tower-enterprise/frontend:v23.4.3
+   ```
+
+## Next steps 
+
+See [Configuration](../configuration/overview).
+
+[gce]: https://cloud.google.com/compute
+[gcloudsql]: https://cloud.google.com/sql/docs/mysql/quickstart
+[gcloudsql-create]: https://cloud.google.com/sql/docs/mysql/create-instance#create-2nd-gen
+[gcp-docs]: https://cloud.google.com/docs
+[gcp-support]: https://cloud.google.com/support-hub
+[gcp-vm-public]: https://cloud.google.com/compute/docs/instances/create-start-instance#publicimage
+[gke]: https://cloud.google.com/kubernetes-engine
+[gke-docs]: https://cloud.google.com/kubernetes-engine/docs
+[install-docker]: https://docs.docker.com/engine/install/debian/
+[mailgun]: https://cloud.google.com/compute/docs/tutorials/sending-mail/using-mailgun
+[mailjet]: https://cloud.google.com/compute/docs/tutorials/sending-mail/using-mailjet
+[sendgrid]: https://cloud.google.com/compute/docs/tutorials/sending-mail/using-sendgrid
+[tcp-iap]: https://cloud.google.com/iap/docs/using-tcp-forwarding

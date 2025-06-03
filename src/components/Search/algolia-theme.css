@@ -1,0 +1,222 @@
+:root {
+  --aa-primary-color: #0284c7;
+  --aa-text-color: #333;
+  --aa-background-color: white;
+  --aa-input-background: #f9fafb;
+  --aa-input-border-color: #e5e7eb;
+  --aa-item-hover-color: #f3f4f6;
+  --aa-spacing-half: calc(calc(16 * 1 * 1px) / 2);
+  /* Add more variables as needed */
+}
+
+.aa-Form {
+  background-color: var(--aa-input-background);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.08),
+    0 1px 2px rgba(0, 0, 0, 0.12);
+}
+html[data-theme="dark"] .aa-Form {
+  border-color: var(--color-gray-600);
+}
+/* Continue styling using variables */
+
+/* Base container styles */
+.aa-Autocomplete {
+  width: 100%;
+}
+
+/* Input wrapper */
+.aa-InputWrapperPrefix,
+.aa-InputWrapperSuffix {
+  display: flex;
+  align-items: center;
+}
+
+.aa-InputWrapperPrefix {
+  height: 42px;
+}
+
+/* Input */
+.aa-Input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: none;
+  font-size: 1rem;
+  color: #333;
+  outline: none;
+  background-color: transparent;
+  @media (min-width: 768px) {
+    font-size: 0.875rem;
+  }
+}
+html[data-theme="dark"] .aa-Input {
+  color: #F1F1F1;
+  &::placeholder {
+    color: #F1F1F1;;
+  }
+}
+html[data-theme="dark"] .aa-Label {
+  svg {
+    fill: #F1F1F1;
+  }
+}
+/* Panel (dropdown) */
+.aa-Panel {
+  background-color: white;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  box-shadow: none;
+  border: none;
+  /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); */
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  /* margin: 18px -8px 0; */
+  margin: 5px -8px 0;
+
+  h5 {
+    color: var(--color-gray-1000);
+  }
+}
+html[data-theme="dark"] .aa-Panel {
+  background-color: #464646;
+
+  h5 {
+    color: #F1F1F1;
+  }
+}
+
+.html[data-theme="dark"] .aa-GradientBottom {
+  background-image: none;
+}
+
+.aa-GradientBottom {
+  display: none;
+}
+.aa-Panel a:hover {
+  text-decoration: none;
+}
+
+.aa-Panel--scrollable {
+  /* padding: 0 0 var(--aa-spacing-half) 0; */
+  padding: 0;
+}
+
+/* Item */
+.aa-Item {
+  /* padding: 0.5rem 1rem; */
+  cursor: pointer;
+  transition: background-color 0.2s;
+  &:hover {
+    background-color: #f3f4f6;
+  }
+}
+html[data-theme="dark"] .aa-Item {
+  color: #F1F1F1;;
+  span {
+    color: #F1F1F1;;
+  }
+  a {
+    color: #F1F1F1;;
+  }
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+}
+
+.aa-Source[data-autocomplete-source-id="ai-thread"] .aa-Item {
+  padding: 0.5rem 0;
+}
+
+.aa-ItemLink {
+  display: flex;
+  text-decoration: none;
+  color: inherit;
+}
+
+.aa-ItemContent {
+  flex: 1;
+}
+
+.aa-ItemTitle {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.aa-ItemDescription {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+/* Section headers */
+.aa-SourceHeader,
+.aa-SourceFooterHeader {
+  /* padding: 0.35rem .75rem; */
+  font-weight: 600;
+  /* color: #1f2937; */
+  /* background-color: #f9fafb; */
+  /* border-bottom: 1px solid #e5e7eb; */
+  margin: var(--aa-spacing-half) 0;
+}
+
+.aa-SourceNoResults {
+  padding: 0.35rem 0.75rem 0;
+  margin-bottom: 1rem;
+}
+
+.aa-SourceFooter ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Empty state */
+.aa-EmptyStateContainer {
+  padding: 1.5rem;
+  text-align: center;
+  color: #6b7280;
+}
+
+/* Your custom shadow for the input container */
+.aa-Form {
+  border-radius: 0.375rem;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.12); */
+  box-shadow: none;
+  transition: box-shadow 0.2s;
+  background: none;
+}
+html[data-theme="dark"] .aa-Form {
+  background: #464646;
+}
+
+.aa-Form:focus-within {
+  box-shadow: none;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.12); */
+}
+
+/* .aa-SubmitButton {
+  background-color: #0284c7; 
+  color: white;
+  border-radius: 0.25rem;
+}
+
+.aa-LoadingIndicator,
+.aa-SubmitButton svg {
+  color: #0284c7;
+}  */
+
+.custom-search-panel {
+  position: fixed;
+}
+.aa-DetachedContainer .aa-Panel {
+  position: relative;
+}
+
+html[data-theme="dark"] {
+  .aa-DetachedContainer {
+    background: #464646;
+  }
+  .aa-DetachedCancelButton {
+    color: white;
+  }
+}

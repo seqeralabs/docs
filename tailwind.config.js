@@ -14,7 +14,7 @@ module.exports = {
   theme: {
     screens: {
       sm: "640px",
-      md: "768px",
+      md: "996px", // set to match docusaurus default breakpoint
       lg: "1024px",
       xl: "1280px",
     },
@@ -211,6 +211,7 @@ module.exports = {
       shadow: {
         default: "0px 5px 10px rgba(0, 0, 0, 0.1)",
         xl: "0 2px 21px 11px rgba(0,0,0,0.05)",
+        hover: "0 0 0 1px rgba(0, 0, 0, 0.65)",
       },
       spacing: getSpacing(),
       zIndex: {

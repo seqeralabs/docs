@@ -14,7 +14,7 @@ const repoUrl = `https://${token}@github.com/${owner}/${repoName}.git`;
 // Paths
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const destPath = path.join(__dirname, "..", "platform_versioned_docs");
+const destPath = path.join(__dirname, "..", "platform-enterprise_versioned_docs");
 const tmpPath = path.join(__dirname, "tmp");
 
 async function fetchAndSaveContents() {

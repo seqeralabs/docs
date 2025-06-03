@@ -14,16 +14,10 @@ import SeqeraHeader from "./SeqeraHeader";
 import styles from "./styles.module.css";
 import custom from "./styles.custom.module.css";
 import useMediaQuery from "./SeqeraHeader/hooks/useMediaQuery";
-
-function NavbarBackdrop(props) {
-  return (
-    <div
-      role="presentation"
-      {...props}
-      className={clsx("navbar-sidebar__backdrop", props.className)}
-    />
-  );
-}
+import Search from "@site/src/components/Search/Search";
+import { useColorMode } from "@docusaurus/theme-common";
+import Sun from "./SeqeraHeader/HeaderDesktop/NavItems/images/SunIcon.svg";
+import Moon from "./SeqeraHeader/HeaderDesktop/NavItems/images/MoonIcon.svg";
 
 {
   /* Desktop nav */
@@ -57,9 +51,11 @@ export default function NavbarLayout({ children }) {
   } = useThemeConfig();
   const mobileSidebar = useNavbarMobileSidebar();
   const { navbarRef, isNavbarVisible } = useHideableNavbar(hideOnScroll);
-  const isMobile = useMediaQuery("(max-width: 996px)");
+  const isMobile = useMediaQuery("(max-width: 995px)");
   const location = useLocation();
   const isHome = location.pathname === "/";
+
+  const { colorMode, setColorMode } = useColorMode();
 
   return (
     <Container isMobile={isMobile}>
@@ -93,7 +89,18 @@ export default function NavbarLayout({ children }) {
           Home
         </Link>
         {children}
-        <NavbarBackdrop onClick={mobileSidebar.toggle} />
+
+        <button
+          onClick={() => setColorMode(colorMode === "dark" ? "light" : "dark")}
+          aria-label="Toggle Light or Dark Mode"
+          className="flex flex-row mr-3"
+        >
+          <span className="">
+            {" "}
+            {colorMode === "light" ? <Sun size={50} /> : <Moon size={24} />}
+          </span>
+        </button>
+        <Search />
         <NavbarMobileSidebar />
       </nav>
     </Container>
