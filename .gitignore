@@ -36,3 +36,6 @@ internal/tmp
 # OSS repo clones
 multiqc_docs/multiqc_repo
 wave_docs/wave_repo
+
+# Ignore all archive folders
+**/archive/
