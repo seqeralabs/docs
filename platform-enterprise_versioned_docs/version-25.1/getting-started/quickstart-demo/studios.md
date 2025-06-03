@@ -19,16 +19,16 @@ In the **Studios** tab, you can monitor and see the details of the Studios in th
 
 Select the options menu next to a Studio to:
 - See Studio details
-- Start or stop the Studio, and connect to a running Studio
+- Start or stop the Studio, and connect to a running Studio session
 - Copy the Studio URL to share it with collaborators
 
 ### Analyze RNAseq data in Studios
 
-Studios is used to perform bespoke analysis on the results of upstream workflows. For example, in the Community Showcase workspace we have run the nf-core/rnaseq workflow to quantify gene expression, followed by nf-core/differentialabundance to derive differential expression statistics. The workspace contains a Studio with these results from cloud storage mounted into the Studio to perform further analysis. One of these outputs is an RShiny application, which can be deployed for interactive analysis.
+Studios is used to perform bespoke analysis on the results of upstream workflows. For example, in the Community Showcase workspace we have run the *nf-core/rnaseq* workflow to quantify gene expression, followed by *nf-core/differentialabundance* to derive differential expression statistics. The workspace contains a Studio with these results from cloud storage mounted into the Studio to perform further analysis. One of these outputs is an RShiny application, which can be deployed for interactive analysis.
 
 ### Open the RNAseq analysis Studio 
 
-Select the `rnaseq_to_differentialabundance` Studio. This Studio consists of an RStudio environment that uses an existing compute environment available in the showcase workspace. The Studio also contains mounted data generated from the nf-core/rnaseq and subsequent nf-core/differentialabundance pipeline runs, directly from AWS S3. 
+Select the *rnaseq_to_differentialabundance* Studio. This Studio consists of an RStudio environment that uses an existing compute environment available in the showcase workspace. The Studio also contains mounted data generated from the *nf-core/rnaseq* and subsequent *nf-core/differentialabundance* pipeline runs, directly from AWS S3. 
 
 ![RNAseq Studio details](assets/rnaseq-diffab-studio-details.gif)
 
@@ -40,7 +40,7 @@ Studios allows you to specify the resources each Studio will use. When [creating
 
 This Studio will start an RStudio environment which already contains the necessary R packages for deploying an RShiny application to interact with various visualizations of the RNAseq data. The Studio also contains an R Markdown document with the commands in place to generate the application.
 
-Deploy the RShiny app in the Studio by selecting the green play button on the last chunk of the R script:
+Deploy the RShiny app in the Studio by selecting the play button on the last chunk of the R script:
 
 ![Run RShiny app](./assets/rnaseq-diffab-run-rshiny-app.png)
 
