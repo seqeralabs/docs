@@ -125,7 +125,7 @@ After you've prepared your Kubernetes cluster for Seqera integration, create a c
 1. Configure any advanced options described below, as needed.
 1. Select **Create** to finalize the compute environment setup.
 
-See [Launch pipelines](../launch/launchpad.mdx) to start executing workflows in your Kubernetes compute environment.
+See [Launch pipelines](../launch/launchpad.md) to start executing workflows in your Kubernetes compute environment.
 
 ### Advanced options
 
