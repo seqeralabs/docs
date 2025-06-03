@@ -114,7 +114,7 @@ After you've prepared your Kubernetes cluster for Seqera integration, create a c
 1. Specify the **Namespace** created in the [cluster preparation](#cluster-preparation) instructions, which is _tower-nf_ by default.
 1. Specify the **Head service account** created in the [cluster preparation](#cluster-preparation) instructions, which is _tower-launcher-sa_ by default.
 1. Specify the **Storage claim** created in the [cluster preparation](#cluster-preparation) instructions, which serves as a scratch filesystem for Nextflow pipelines. The storage claim is called _tower-scratch_ in each of the provided examples.
-1. Apply [**Resource labels**](../resource-labels/overview.mdx) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
+1. Apply [**Resource labels**](../resource-labels/overview.md) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
 1. Expand **Staging options** to include:
     - Optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre--post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
     - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch. 
