@@ -86,7 +86,7 @@ The dropdown of available config profiles is populated by inspecting the Nextflo
 There are three ways to enter **Run parameters** prior to launch:
 
 - The **Input form view** displays form fields to enter text, select attributes from dropdowns, and browse input and output locations with [Data Explorer](../data/data-explorer).
-- The **Config view** displays a raw schema that you can edit directly. Select JSON or YAML format from the **View as** dropdown.
+- The **Params file view** displays a raw schema that you can edit directly. Select JSON or YAML format from the **View as** dropdown.
 - **Upload params file** allows you to upload a JSON or YAML file with run parameters.
 
 Seqera uses a `nextflow_schema.json` file in the root of the pipeline repository to dynamically create a form with the necessary pipeline parameters. Most pipelines contain at least input and output parameters:
