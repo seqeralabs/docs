@@ -1,0 +1,71 @@
+---
+id: delete-organization-member
+title: "Delete member"
+description: "Deletes the member identified by the given `memberId`."
+sidebar_label: "Delete member"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVG1P2zAQ/iuWP21S1nQDTVo/DUQnob0hYJ9QJdzk2hgSO9jXsi7Kf9+d46SlIDaNfbJ9b37u7rlrZA4+c7pGbY2cyBMoAcELLEBUUM3BCZ2DQb3QkIv5JiiWeg1GXHf60/x6JBOJaunl5EpaR+cskbYGpzjoaT6E/e6WyuhfQfw1OJNjrZyqSOnYvZGGHuRAYcgxkZpB1QoLuj9EuhtMmFUFTmdbrBzZwd1KO6D/0a0gkT4roFJy0kjc1PyJNgjLYLqwrlLYid4fyrZNBiR9ln8PJtbtv2OasbuvrfHg2ePd+JCPPSSfxRvxzYrMUiCDsk3k4Xj82O5Y5YLBgEf6q7cmM1XXpc5CJumNZ9tmB+UW/xVVxnu1BO52BG/nN5BxvNpx/1F3QHvDbZYenTZLrrNEjSWLps5Zdx7zI00bkB88kWHPLGEsClWW9p7wsLmHbOU0bgKRjkE5cEcr6tbkasbFI5YVltmYBzYG7rFWpkzatAmca9OuffTuO9/KbegLrkSX1e4HQ2IFYi1jW/k9D0Yk6S6f+p7e3GOArM3CBvdYhQu4o+zE0dnpI45F1VmpkKkhPLi1zmhWO2NuocpCC1eujFD8JE198BtpS0bURV0GSi3sx62CgKwp5e6ft6ODD6Mxy2rrsVKBAXEYujmODN9H2Gxp9II90tUR4Semdalo5AhISKiJ7Yo7JpGTfknEjrFomFbqd0Hw2bxp5srDD1e2LYuJ844pQte1clrNufBEmFx7vhNBFqr08Exyr87jFLwWf95CTyYUhcpsJKMoV/yi6y1shuXHO+jlmJ5bRv8AbahvOyPbAlROkbh6nfooy6DGHcdH2+TBIJ5Mv0wvp2SuHk7R3tSED57ERa0NFpf2FkzbDjCR34yxbX8DwQpc2Q==
+sidebar_class_name: "delete api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Delete member"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/orgs/{orgId}/members/{memberId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Deletes the member identified by the given `memberId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"memberId","in":"path","description":"Organization member numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      
