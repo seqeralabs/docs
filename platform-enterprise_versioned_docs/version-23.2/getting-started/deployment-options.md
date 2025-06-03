@@ -13,7 +13,7 @@ Tower is available in two deployment editions and can be accessed via web UI, [A
 
 The hosted Cloud edition of Tower is available free of charge at [cloud.tower.nf](https://tower.nf/login) — log in with your GitHub or Google credentials.
 
-Cloud is recommended for users who are new to Tower. It's an ideal choice for individuals and organizations looking to set up quickly. The service is hosted by Seqera. See [Community showcase](../getting-started/community-showcase) for instructions to launch your first pipeline. Tower Cloud has a limit of five concurrent workflow runs per user.
+Cloud is recommended for users who are new to Tower. It's an ideal choice for individuals and organizations looking to set up quickly. The service is hosted by Seqera. See [Community showcase](https://docs.seqera.io/platform-cloud/getting-started/community-showcase) for instructions to launch your first pipeline. Tower Cloud has a limit of five concurrent workflow runs per user.
 
 ![](./_images/starting_tower_nf.png)
 

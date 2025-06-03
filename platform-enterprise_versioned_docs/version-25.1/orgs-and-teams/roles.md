@@ -42,9 +42,8 @@ You can group **members** and **collaborators** into **teams** and apply a role 
 | **Workspace: Pipelines:** View                         | ✅     | ✅     | ✅        | ✅      | ✅      | ✅   |
 | **Workspace: Pipelines:** Define input/output parameters   | ✅     | ✅     | ✅        | ✅      | ❌      | ❌   |
 | **Workspace: Pipelines:** Modify execution configurations  | ✅     | ✅     | ✅        | ❌     | ❌      | ❌   |
-| **Workspace: Pipelines:** Add, edit, duplicate, delete  | ✅     | ✅     | ✅        | ✅     | ❌      | ❌   |
+| **Workspace: Pipelines:** Add, edit, duplicate, delete  | ✅     | ✅     | ✅        | ❌     | ❌      | ❌   |
 | **Workspace: Pipelines:** Modify resource labels       | ✅     | ✅     | ✅        | ❌     | ❌      | ❌   |
-| **Workspace: Pipelines:** Create, modify, delete          | ✅     | ✅     | ❌       | ❌     | ❌      | ❌   |
 | **Workspace: Pipelines: Run:** Apply labels, relaunch, save as new pipeline  | ✅     | ✅     | ✅        | ❌     | ❌      | ❌   |
 | **Workspace: Pipelines: Run:** Resume, delete, star (favourite)  | ✅     | ✅     | ✅        | ✅     | ❌      | ❌   |
 | **Workspace: Pipelines:** Modify resource labels       | ✅     | ✅     | ✅        | ❌     | ❌      | ❌   |
