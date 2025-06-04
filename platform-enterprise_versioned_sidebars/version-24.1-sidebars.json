@@ -1,6 +1,6 @@
 {
   "platformSidebar": [
-    "index",
+    "platform-enterprise",
     {
       "type": "category",
       "label": "Installation",
@@ -178,7 +178,7 @@
       "type": "category",
       "label": "Data Studios",
       "items": [
-        "data_studios/index",
+        "data_studios/overview",
         "data_studios/custom-envs",
         "data_studios/managing"
       ]
