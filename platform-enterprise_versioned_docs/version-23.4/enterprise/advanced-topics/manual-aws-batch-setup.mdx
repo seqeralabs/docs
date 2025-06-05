@@ -196,11 +196,9 @@ Create a launch template to configure the EC2 instances deployed by Batch jobs:
             echo ECS_ENABLE_AWSLOGS_EXECUTIONROLE_OVERRIDE=true >> /etc/ecs/ecs.config
             systemctl stop docker
             ## install AWS CLI
-            mkdir -p /home/ec2-user
-            curl -s https://nf-xpack.seqera.io/miniconda-awscli/miniconda-awscli.tar.gz \
-            | tar xz -C /home/ec2-user
-            export PATH=$PATH:/home/ec2-user/miniconda/bin
-            ln -s /home/ec2-user/miniconda/bin/aws /usr/bin/aws
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-$(arch).zip" -o "awscliv2.zip"
+            unzip -q awscliv2.zip
+            sudo ./aws/install
             systemctl start docker
             systemctl enable --now --no-block ecs
             echo "1258291200" > /proc/sys/vm/dirty_bytes
