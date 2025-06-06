@@ -46,5 +46,5 @@ Your credential must be stored in Seqera Platform as a **container registry** cr
 3.  After you've completed all the form fields, select **Add**. The new credential is now listed under the **Credentials** tab.
 
 :::note
-To use the Amazon ECR Public Registry, create a container registry credential with **public.ecr.aws** as the registry server. You can reuse your existing IAM credentials, but ensure that the IAM user has the **AmazonElasticContainerRegistryPublicReadOnly** policy attached.
+To use the Amazon ECR Public Registry, create a container registry credential with **public.ecr.aws** as the registry server. You can reuse your existing IAM credentials, but ensure that the IAM user has the `AmazonElasticContainerRegistryPublicReadOnly` policy attached.
 :::
