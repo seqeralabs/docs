@@ -226,7 +226,7 @@ If a task fails, a good place to begin troubleshooting is the task's work direct
 
 ## Interactive analysis
 
-Interactive analysis of pipeline results is often performed in platforms like Jupyter Notebook or RStudio. Setting up the infrastructure for these platforms, including accessing pipeline data and the necessary bioinformatics packages, can be complex and time-consuming.
+Interactive analysis of pipeline results is often performed in platforms like Jupyter Notebook or R-IDE. Setting up the infrastructure for these platforms, including accessing pipeline data and the necessary bioinformatics packages, can be complex and time-consuming.
 
 **Studios** streamlines the process of creating interactive analysis environments for Platform users. With built-in templates, creating a Studio is as simple as adding and sharing pipelines or datasets.
 
@@ -238,7 +238,7 @@ Studios is used to perform bespoke analysis on the results of upstream workflows
 
 #### Connect to the RNAseq analysis Studio 
 
-Select the *rnaseq_to_differentialabundance* Studio. This Studio consists of an RStudio environment that uses an existing compute environment available in the Community Showcase workspace. The Studio also contains mounted data generated from the `nf-core/rnaseq` and subsequent *nf-core/differentialabundance* pipeline runs, directly from AWS S3. 
+Select the *rnaseq_to_differentialabundance* Studio. This Studio consists of an R-IDE notebook that uses an existing compute environment available in the Community Showcase workspace. The Studio also contains mounted data generated from the `nf-core/rnaseq` and subsequent *nf-core/differentialabundance* pipeline runs, directly from AWS S3. 
 
 ![RNAseq Studio details](assets/rnaseq-diffab-studio-details.gif)
 

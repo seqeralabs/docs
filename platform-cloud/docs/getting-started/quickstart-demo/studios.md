@@ -9,7 +9,7 @@ tags: [platform, data,  studios]
 This guide provides an introduction to Studios using a demo Studio in the Community Showcase workspace. See [Studios](../../studios/overview) to learn how to create Studios in your own workspace. 
 :::
 
-Interactive analysis of pipeline results is often performed in platforms like Jupyter Notebook or RStudio. Setting up the infrastructure for these platforms, including accessing pipeline data and the necessary bioinformatics packages, can be complex and time-consuming.
+Interactive analysis of pipeline results is often performed in platforms like Jupyter Notebook or R IDE. Setting up the infrastructure for these platforms, including accessing pipeline data and the necessary bioinformatics packages, can be complex and time-consuming.
 
 Studios streamlines the process of creating interactive analysis environments for Platform users. With built-in templates, creating a Studio is as simple as adding and sharing pipelines or datasets. Platform manages all the details, enabling you to easily select your preferred interactive tool and analyze your data.
 
@@ -28,7 +28,7 @@ Studios is used to perform bespoke analysis on the results of upstream workflows
 
 ### Open the RNAseq analysis Studio 
 
-Select the *rnaseq_to_differentialabundance* Studio. This Studio consists of an RStudio environment that uses an existing compute environment available in the Community Showcase workspace. The Studio also contains mounted data generated from the *nf-core/rnaseq* and subsequent *nf-core/differentialabundance* pipeline runs, directly from AWS S3. 
+Select the *rnaseq_to_differentialabundance* Studio. This Studio consists of an R IDE environment that uses an existing compute environment available in the Community Showcase workspace. The Studio also contains mounted data generated from the *nf-core/rnaseq* and subsequent *nf-core/differentialabundance* pipeline runs, directly from AWS S3. 
 
 ![RNAseq Studio details](assets/rnaseq-diffab-studio-details.gif)
 
@@ -38,7 +38,7 @@ Studios allows you to specify the resources each Studio will use. When [creating
 
 ### Connect to the Studio
 
-This Studio will start an RStudio environment which already contains the necessary R packages for deploying an RShiny application to interact with various visualizations of the RNAseq data. The Studio also contains an R Markdown document with the commands in place to generate the application.
+This Studio will start an R IDE environment which already contains the necessary R packages for deploying an RShiny application to interact with various visualizations of the RNAseq data. The Studio also contains an R Markdown document with the commands in place to generate the application.
 
 Deploy the RShiny app in the Studio by selecting the green play button on the last chunk of the R script:
 
