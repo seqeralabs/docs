@@ -5,7 +5,7 @@ date: "1 Oct 2024"
 tags: [data, studios]
 ---
 
-Data Studios is a unified platform where you can host a combination of container images and compute environments for interactive analysis using your preferred tools, like JupyterLab and RStudio Notebooks, Visual Studio Code IDEs, or Xpra remote desktops. Each data studio session is an individual interactive environment that encapsulates the live environment for dynamic data analysis.
+Data Studios is a unified platform where you can host a combination of container images and compute environments for interactive analysis using your preferred tools, like JupyterLab and an R-IDE, Visual Studio Code IDEs, or Xpra remote desktops. Each data studio session is an individual interactive environment that encapsulates the live environment for dynamic data analysis.
 
 On Seqera Cloud, the free tier permits only one running data studio session at a time. To run simultaneous sessions, [contact Seqera][contact] for a Seqera Cloud Pro license.
 
@@ -34,7 +34,7 @@ For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
 
 ## Container image templates
 
-Data Studios provides four container image templates: JupyterLab, RStudio Server, Visual Studio Code, and Xpra. The image templates install a very limited number of packages when the session container is built. You can install additional packages as needed during a session.
+Data Studios provides four container image templates: JupyterLab, R-IDE, Visual Studio Code, and Xpra. The image templates install a very limited number of packages when the session container is built. You can install additional packages as needed during a session.
 
 You can also create your own container image templates. For more information, see [Custom environments][custom-envs].
 
@@ -64,7 +64,7 @@ The default user is the `root` account. The following [conda-forge](https://cond
 
 To install additional Python packages, execute `!pip install <packagename>` commands in your notebook environment. Additional system-level packages can be installed in a terminal window using `apt install <packagename>`.
 
-**RStudio Server 4.4.1**
+** R-IDE**
 
 The default user is the `root` account. To install R packages, execute `install.packages("<packagename>")` commands in your notebook environment. Additional system-level packages can be installed in a terminal window using `apt install <packagename>`.
 

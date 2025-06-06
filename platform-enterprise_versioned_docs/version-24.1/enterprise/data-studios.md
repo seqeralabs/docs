@@ -35,12 +35,12 @@ You can configure which organizational workspaces have access to Data Studios. T
 
 Each of the provided Data Studios environments includes a particular version of the underlying data analytics software package.
 
-To quickly identify which version of the software an image includes, the version string for each container is in the form of `<software_version>-<seqera_version>`. For example, if the version string for the RStudio Server is `4.4.1-0.7.4`, version `4.4.1` is the RStudio version and `0.7.4` is the version of this Seqera-built container image.
+To quickly identify which version of the software an image includes, the version string for each container is in the form of `<software_version>-<seqera_version>`. For example, if the version string for the R-IDE is `4.4.1-0.7.4`, version `4.4.1` is the R-IDE version and `0.7.4` is the version of this Seqera-built container image.
 
 The latest environment versions are listed below:
 
 - JupyterLab: `public.cr.seqera.io/platform/data-studio-jupyter:4.1.5-0.7.4`
-- RStudio Server: `public.cr.seqera.io/platform/data-studio-rstudio:4.4.1-0.7.4`
+- R-IDE: `public.cr.seqera.io/platform/data-studio-rstudio:4.4.1-0.7.4`
 - Visual Studio Code: `public.cr.seqera.io/platform/data-studio-vscode:1.83.0-0.7.4`
 - Xpra: `public.cr.seqera.io/platform/data-studio-xpra:6.0-r0-1-0.7.4`
 

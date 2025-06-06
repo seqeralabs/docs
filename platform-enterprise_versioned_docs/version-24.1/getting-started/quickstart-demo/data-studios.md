@@ -9,7 +9,7 @@ tags: [platform, studios]
 This guide provides an introduction to Data Studios using a demo studio in the Community Showcase workspace. See [Data Studios](../../data_studios/overview) to learn how to create data studios in your own workspace. 
 :::
 
-Interactive analysis of pipeline results is often performed in platforms like Jupyter Notebook or RStudio. Setting up the infrastructure for these platforms, including accessing pipeline data and the necessary bioinformatics packages, can be complex and time-consuming.
+Interactive analysis of pipeline results is often performed in platforms like Jupyter Notebook or an R-IDE. Setting up the infrastructure for these platforms, including accessing pipeline data and the necessary bioinformatics packages, can be complex and time-consuming.
 
 Data Studios streamlines the process of creating interactive analysis environments for Platform users. With built-in templates, creating a data studio is as simple as adding and sharing pipelines or datasets. Platform manages all the details, enabling you to easily select your preferred interactive tool and analyze your data.
 
@@ -28,7 +28,7 @@ Data Studios is used to perform bespoke analysis on the results of upstream work
 
 ### Open the RNAseq analysis studio 
 
-Select the `rnaseq_to_differentialabundance` data studio. This studio consists of an RStudio environment that uses an existing compute environment available in the showcase workspace. The studio also contains mounted data generated from the nf-core/rnaseq and subsequent nf-core/differentialabundance pipeline runs, directly from AWS S3. 
+Select the `rnaseq_to_differentialabundance` data studio. This studio consists of an R-IDE that uses an existing compute environment available in the showcase workspace. The studio also contains mounted data generated from the nf-core/rnaseq and subsequent nf-core/differentialabundance pipeline runs, directly from AWS S3. 
 
 ![RNAseq studio details](assets/rnaseq-diffab-studio-details.gif)
 
