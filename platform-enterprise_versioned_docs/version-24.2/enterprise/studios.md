@@ -35,12 +35,12 @@ You can configure which organizational workspaces have access to Studios. This c
 
 Each of the provided environments includes a particular version of the underlying software package and the version of Seqera Connect, an integrated web- and file-server.
 
-To quickly identify which version of the software an image includes, the version string for each container is in the form of `<software_version>-<seqera_connect_version>`. For example, if the version string for the RStudio Server is `4.4.1-0.8`, version `4.4.1` is the RStudio version and `0.8` is the Connect version of this Seqera-built container image. Learn more about Studios [environment versioning](../data_studios/overview#container-image-templates).
+To quickly identify which version of the software an image includes, the version string for each container is in the form of `<software_version>-<seqera_connect_version>`. For example, if the version string for the R-IDE is `4.4.1-0.8`, version `4.4.1` is the R-IDE version and `0.8` is the Connect version of this Seqera-built container image. Learn more about Studios [environment versioning](../data_studios/overview#container-image-templates).
 
 The latest environment versions are listed below:
 
 - JupyterLab: `public.cr.seqera.io/platform/data-studio-jupyter:4.2.5-0.8`
-- RStudio Server: `public.cr.seqera.io/platform/data-studio-rstudio:4.4.1-0.8`
+- R-IDE: `public.cr.seqera.io/platform/data-studio-rstudio:4.4.1-0.8`
 - Visual Studio Code: `public.cr.seqera.io/platform/data-studio-vscode:1.93.1-0.8`
 - Xpra: `public.cr.seqera.io/platform/data-studio-xpra:6.2.0-r2-1-0.8`
 
