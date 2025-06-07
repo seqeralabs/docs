@@ -414,7 +414,7 @@ The following R script installs and configures the prerequisite packages and lib
 <details>
 <summary>R script individual steps</summary>
 
-    1. Configure the R IDE session with installed packages, including [ShinyNGS](https://github.com/pinin4fjords/shinyngs):
+    1. Configure the R-IDE session with installed packages, including [ShinyNGS](https://github.com/pinin4fjords/shinyngs):
 
         ```r 
         if (!require("BiocManager", quietly = TRUE))
