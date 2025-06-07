@@ -456,7 +456,7 @@ The following R script installs and configures the prerequisite packages and lib
 
 #### Interactive collaboration 
 
-To share a link to the running session with collaborators inside your workspace, select the options menu for your R IDE session, then select **Copy Studio URL**. Using this link, other authenticated users can access the session directly to collaborate in real time.
+To share a link to the running session with collaborators inside your workspace, select the options menu for your R-IDE session, then select **Copy Studio URL**. Using this link, other authenticated users can access the session directly to collaborate in real time.
 
 ## Xpra: Visualize genetic variants with IGV
 
