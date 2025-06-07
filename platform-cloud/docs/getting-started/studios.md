@@ -402,7 +402,7 @@ From the **Studios** tab, select **Add a Studio** and complete the following:
     - Optional: Enter CPU and memory allocations. The default values are 2 CPUs and 8192 MB memory (RAM).
     - Mount data using Data Explorer: Mount the nf-core AWS megatests S3 bucket, or the directory path that contains the results of your *nf-core/differentialabundance* pipeline run. 
 - In the **General config** tab:
-    - Select the latest **R IDE** container image template from the list.
+    - Select the latest **R-IDE** container image template from the list.
     - Optional: Enter a unique name and description for the Studio. 
 - Select **Add** or choose to **Add and start** a Studio session immediately.
 - If you chose to **Add** the Studio in the preceding step, select **Start** in the options menu, then **Connect** to open a Studio session in a new browser tab when it is running. 
