@@ -361,7 +361,7 @@ Run the following script in your Jupyter notebook to install the necessary packa
 
 To share a link to the running Studio session with collaborators inside your workspace, select the options menu for your Jupyter Studio session, then select **Copy Studio URL**. Using this link, other authenticated users can access the session directly to collaborate in real time.
 
-## R IDE: Analyze RNASeq data and differential expression statistics 
+## R-IDE: Analyze RNASeq data and differential expression statistics 
 
 R-IDE notebooks enable interactive analysis using R libraries and tools. For example, Shiny for R enables you to render functions in a reactive application and build a custom user interface to explore your data. The public data used in this section consists of RNA sequencing data that was processed by the *nf-core/rnaseq* pipeline to quantify gene expression, followed by *nf-core/differentialabundance* to derive differential expression statistics. This section demonstrates how to create a Studio to perform further analysis with these results from cloud storage. One of these outputs is an RShiny application that can be deployed for interactive analysis.
 
