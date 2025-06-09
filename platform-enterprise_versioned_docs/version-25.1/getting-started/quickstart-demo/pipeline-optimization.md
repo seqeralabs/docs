@@ -5,9 +5,6 @@ date: "8 Jul 2024"
 tags: [platform, runs, pipeline optimization]
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 Seqera Platform's task-level resource usage metrics allow you to determine the resources requested for a task and what was actually used. This information helps you fine-tune your configuration more accurately.
 
 However, manually adjusting resources for every task in your pipeline is impractical. Instead, you can leverage the pipeline optimization feature available on the Launchpad.
@@ -16,7 +13,7 @@ Pipeline optimization analyzes resource usage data from previous runs to optimiz
 
 ### Optimize nf-core/rnaseq
 
-Navigate back to the Launchpad and select the lightbulb icon next to the nf-core/rnaseq pipeline to view the optimized profile. You have the flexibility to tailor the optimization's target settings and incorporate a retry strategy as needed.
+Navigate back to the Launchpad and select the lightbulb icon next to the *nf-core/rnaseq* pipeline to view the optimized profile. You have the flexibility to tailor the optimization's target settings and incorporate a retry strategy as needed.
 
 ### View optimized configuration
 
