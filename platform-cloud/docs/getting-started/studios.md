@@ -391,7 +391,7 @@ For the purposes of this guide, add the nf-core AWS megatests S3 bucket to your 
 To use your own pipeline data for interactive analysis, add the cloud bucket that contains the results of your *nf-core/differentialabundance* pipeline run. See [Add a cloud bucket](./quickstart-demo/add-data#add-a-cloud-bucket) for more information. 
 :::
 
-### Create an R IDE Studio session
+### Create an R-IDE Studio session
 
 From the **Studios** tab, select **Add a Studio** and complete the following:
 - In the **Compute & Data** tab:
