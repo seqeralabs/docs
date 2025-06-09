@@ -56,7 +56,7 @@ export default async function createConfigAsync() {
       routeBasePath: "/platform-api",
       path: "platform-api-docs/docs",
       remarkPlugins: [(await require("remark-yaml-to-table")).default],
-      sidebarPath: "platform-api-docs/docs/sidebar.js",
+      sidebarPath: "platform-api-docs/docs/sidebar/sidebar.js",
       docItemComponent: "@theme/ApiItem",
     },
   ];

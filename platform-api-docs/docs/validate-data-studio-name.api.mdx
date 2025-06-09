@@ -1,11 +1,11 @@
 ---
 id: validate-data-studio-name
 title: "Validate Studio name"
-description: "Confirms the availability of the given name for a Studio in the given workspace or user context."
+description: "Confirms the availability of the given name for a Studio in the user context. Append `?workspaceId=` to validate the name in a workspace context."
 sidebar_label: "Validate Studio name"
 hide_title: true
 hide_table_of_contents: true
-api: eJy9VE1v2zAM/SuCzlmSrcWA5rR2X+ilK9Bul6EHxqYTLYrkSnS6wPB/HynZSdoU2U472RIpvsfHJ7W6xFgEU5PxTs/0R+8qE9ZR0RIVbMBYmBtraKt8lfYWZoNOOVijqnxQoO6oKY1Xxh2En3xYxRoKVJzSRAyq8I7wN431SBMsop791DEdjPphpH2NAYTBdckcfoA1JRB+AoJc/Ybh+GQNgX8Ig5xvtZDg9B0YHx5pI108Nhi2vHje27f0A/aAninRkakMBs6OxRLXoGetpm0tlQ1zXqQQt7oGylvvz3XXjXbwLnM7gdsrlDQjr+aoNn2H5WuokYJxC8ZgYQLG2ruIUeLvpufyedHUSr1RNz4L7GikTJ5TQjMxQylw5TBNi2PdjfT5dHpc7ApKFZC7iMeFnKdcrD9+9gqXYYwpGaz1T9xiyr44zharWVMwUoIom5pXIspzL+2cw6LriEUT2I1p/lcIAcNlQ0tePohcbI6lFwstkJJfJKQnvdMmg+x6X+hO1M/yHpbbDWNJVA9DkvU8JfFO/vky+OLXEyWCxlU+HTdkJf8OH1kTdXl7fWyLHLq1QGIvxddkYwqMfbL0DQVJsSbYnkqcTSYxnRsbz0nsHGOTLSv/YR9gIhu+JRnn7fjsYjyVvdpHWoOTkr15h6umDjz6kmire2/9p+chCy/LSW2B7xUzTwq0/UD3Twe3OYyUp7/k9iTatnOI+D3YrpPtfCnFMKWJ4n82SAU24ok+//ZUvEpyhduj54j5NZKp5cX4d/zTT8YJ9H6Ae9gHWQQjuOmWHFySr5/vORWeG/6FwZNufQjc9qA0q5wy7v0KHSs9MCBZM27XdX8AC6IwUQ==
+api: eJzNVE1v2zAM/SuCzlmSbcGABRi2dl/opSvQbjsMBcradKJFkVyJThcE/u8jJTt1m7bYcSdbIvX49PionS4xFsHUZLzTc/3Ru8qEdVS0RAUbMBaujTW0Vb5KewuzQaccrFFVPihQ59SUxivjUriJGFThHeEfGqujukZXqqv3tz6sYg0FnpTvrhR5tQFrSiBMhxIaA4Da5+0x9EgTLKKe/9IxVYr6cqR9jQGE8knJpH90YJ+AINM5ZUQ+WUPgH8Ig53da6nD6gAznGLn2TYNhy4v7YvzcszElOjKVwcBJsVjiGvR8p2lbC6BhqosUYknWQHnrzUy37Whf1WVKz5TrlExqDCR6rGKkYNyC8VmLgLH2LmKU+KvpTD73gb+t1At16rOmjkbKVAPdY66kgDvVddziWLcjPZtOD8GOoVQB+QbxEMh5ymDd8dePcOk7l5LBWn+LZc5+e5gtdrSm4EqpRNnUvGJNyt5v2Y57s7DgOmLRBHZsavkxQsBw1NCSl5ciF/th6cU1C6RkEQnpSWeuyVD1Duhc1M/yDuH2zVgS1X2TZH2dkngn/3zpPfH7lhJB4yqfjhuykn+ON6yJOjo7ObREDp1ZILGW4unamAJjlyz3hoIErAm2oxLnk0lM58bGcxI7x9hkycp/uAswkQ0PRq7zcjybjaeyV/tIa3AC2Rm3ny418OdDojvdeet/fUJyp2Q5qS3wEPJVk2S7zgF3zwvr0nuA7bJkPSS6211DxO/Btq1s5wkWh5UmysCwoyqwEZ8R5onn5FFuK9wevFRMq5FMLa/Kv5d9+ll5pnLX5LuSl7IIRmqmSRoM0tfPF5wK94fiwRAkqboQuO0AmoVNGRd+hY7F7RmQrLlu27Z/AbmwSYs=
 sidebar_class_name: "get api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -36,7 +36,7 @@ import Heading from "@theme/Heading";
 
 
 
-Confirms the availability of the given name for a Studio in the given workspace or user context.
+Confirms the availability of the given name for a Studio in the user context. Append `?workspaceId=` to validate the name in a workspace context.
 
 <Heading
   id={"request"}
@@ -47,7 +47,7 @@ Confirms the availability of the given name for a Studio in the given workspace 
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"workspaceId","in":"query","description":"Optional workspace identifier","schema":{"type":"integer","format":"int64"}},{"name":"name","in":"query","description":"Studio name to be validated","schema":{"type":"string"}}]}
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace identifier","schema":{"type":"integer","format":"int64"}},{"name":"name","in":"query","description":"Studio name to validate","schema":{"type":"string"}}]}
 >
   
 </ParamsDetails>
