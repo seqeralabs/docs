@@ -38,7 +38,7 @@ Studios allows you to specify the resources each Studio will use. When [creating
 
 ### Connect to the Studio
 
-This Studio will start an R IDE environment which already contains the necessary R packages for deploying an RShiny application to interact with various visualizations of the RNAseq data. The Studio also contains an R Markdown document with the commands in place to generate the application.
+This Studio will start an R-IDE environment which already contains the necessary R packages for deploying an RShiny application to interact with various visualizations of the RNAseq data. The Studio also contains an R Markdown document with the commands in place to generate the application.
 
 Deploy the RShiny app in the Studio by selecting the green play button on the last chunk of the R script:
 
