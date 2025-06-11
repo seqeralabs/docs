@@ -464,3 +464,8 @@ html[data-theme="dark"]{
     background-color: #353437;
   }
 }
+
+.breadcrumbs__link:any-link:hover,
+.breadcrumbs__link:hover {
+  background: transparent;
+}
