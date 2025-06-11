@@ -425,6 +425,10 @@ html[data-theme="dark"]{
   margin-top: 0;
 }
 
+article {
+  max-width: 730px;
+  margin: 0 auto;
+}
 /* Font rendering + code block tweaks */
 article .markdown {
   -webkit-font-smoothing: auto;
