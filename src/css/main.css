@@ -438,7 +438,7 @@ article .markdown {
   --ifm-code-border-radius: 0;
 }
 article .markdown code {
-  font-size: 75%;
+  font-size: 85%;
   border-radius: 0;
   border: 1px solid #e1e4e5;
 }
@@ -449,7 +449,7 @@ article .markdown :not(pre) > code {
 }
 article .markdown pre code {
   background-color: #f8f8f8;
-  font-size: .75rem !important;
+  font-size: .85rem !important;
 }
 html[data-theme="dark"]{ 
   article .markdown code {
