@@ -1,7 +1,7 @@
 ---
 title: "Explore Platform Cloud"
 description: "Seqera Platform Cloud demonstration walkthrough"
-create date: "8 Jul 2024"
+date created: "8 Jul 2024"
 last updated: "14 June 2025"
 tags: [platform, launch, pipelines, launchpad, showcase tutorial]
 toc_max_heading_level: 3
