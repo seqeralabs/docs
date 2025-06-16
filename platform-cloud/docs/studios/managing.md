@@ -21,6 +21,7 @@ To add a new Studio, select the **Studios** tab in your workspace then select **
       - **CPUs allocated**: The default allocation is 2 CPUs.
       - **GPUs allocated**: Available only if the selected compute environment has GPU support enabled. For more information about GPUs on AWS, see [Amazon ECS task definitions for GPU workloads][aws-gpu]. The default allocation is 0 GPUs.
       - **Maximum memory allocated**: The default allocation is 8192 MiB of memory.
+   1. Optionally define per-session **environment variables**: Any compute environment environment variable key-value pair is automatically inherited by the studio session. Additional environment variables can be defined for the session. Session-level environment variables take precedence, meaning you can overwrite an existing compute environment-defined environment variable value if necessary.
    1. Select **Mount data**, and then from the **Mount data** modal, select data to mount. Select **Mount data** to confirm your selection.
 
         :::tip
