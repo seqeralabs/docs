@@ -21,7 +21,6 @@ To add a new Studio, select the **Studios** tab in your workspace then select **
       - **CPUs allocated**: The default allocation is 2 CPUs.
       - **GPUs allocated**: Available only if the selected compute environment has GPU support enabled. For more information about GPUs on AWS, see [Amazon ECS task definitions for GPU workloads][aws-gpu]. The default allocation is 0 GPUs.
       - **Maximum memory allocated**: The default allocation is 8192 MiB of memory.
-   1. Optionally define per-session **environment variables**: Any compute environment environment variable key-value pair is automatically inherited by the studio session. Additional environment variables can be defined for the session. Session-level environment variables take precedence, meaning you can overwrite an existing compute environment-defined environment variable value if necessary.
    1. Select **Mount data**, and then from the **Mount data** modal, select data to mount. Select **Mount data** to confirm your selection.
 
         :::tip
@@ -35,7 +34,7 @@ To add a new Studio, select the **Studios** tab in your workspace then select **
    - To use one of the Seqera-provided container templates, complete the following steps:
 
      1. Customize the following fields:
-        - **Container template**: Select a template from the dropdown list.
+        - **Container template**: Select a template from the dropdown list. The most recent template is labeled "recommended" and older templates are labeled "deprecated". 
         - **Studio name**
         - Optional: **Description**
      1. Optional: Select **Install Conda packages** to enter or upload a list of Conda packages to include with the Studio. For more information on the syntax for specifying Conda packages, see [Conda package syntax][conda-syntax].
@@ -45,6 +44,12 @@ To add a new Studio, select the **Studios** tab in your workspace then select **
                - If there is an existing defined session lifespan workspace setting, you won't be able to edit this. If no workspace setting is defined, you can edit this field. The minimum value is 1 hour and the maximum is 120 hours. The default value is 8 hours. 
                - If you change the default value, the change applies only to that session. Once you've stopped the session, the value returns to default.
           -  **Keep the session running until it's manually stopped or encounters an error which ends the session.**
+     1. **Environment variables**: For the selected compute environment, all existing environment variable key-value pairs are displayed and automatically inherited by the studio session. Additional per-session environment variables can be defined for the studio. 
+     
+       :::tip
+       Session-level environment variables take precedence. You can overwrite an existing compute environment-defined environment variable key-value pair by defining the same key and a different value.
+       :::
+
      1. Select **Next**.
 
    - To use a custom container template image that you supply, complete the following steps:
