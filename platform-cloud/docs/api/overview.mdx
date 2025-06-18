@@ -34,16 +34,6 @@ For more information on the OpenAPI standard, see [OpenAPI](https://swagger.io/s
 
 :::note
 The API uses the [semantic versioning convention](https://semver.org/) (major.minor.patch). If/when we introduce a breaking change (v2+), we will publish guidance on the v1 support schedule and how to traverse the changes.
-:::
-
-### Encoding and formatting standards
-
-- The API can be accessed from `https://api.cloud.seqera.io`.
-- All API endpoints use HTTPS, and all request and response payloads use [JSON](https://www.json.org/) encoding.
-- All timestamps use the [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) date-time standard format: `YYYY-MM-DDTHH:MM:SSZ`.
-
-:::note
-From version 23.4, the Platform API is live on `https://api.cloud.seqera.io`. The legacy API `https://api.tower.nf` remains fully operational, so existing API integrations will continue to perform as expected. Deprecation of the legacy API will be communicated well in advance to avoid any breaking changes to your integrations.
 
 Non-breaking changes that may occur in minor or patch releases include:
 
@@ -57,6 +47,16 @@ Non-breaking changes that may occur in minor or patch releases include:
 - Deprecation warnings (without removal)
 
 Clients should be designed to gracefully handle unknown enum values, ignore unrecognized response fields, and not rely on specific error message text.
+:::
+
+### Encoding and formatting standards
+
+- The API can be accessed from `https://api.cloud.seqera.io`.
+- All API endpoints use HTTPS, and all request and response payloads use [JSON](https://www.json.org/) encoding.
+- All timestamps use the [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) date-time standard format: `YYYY-MM-DDTHH:MM:SSZ`.
+
+:::note
+From version 23.4, the Platform API is live on `https://api.cloud.seqera.io`. The legacy API `https://api.tower.nf` remains fully operational, so existing API integrations will continue to perform as expected. Deprecation of the legacy API will be communicated well in advance to avoid any breaking changes to your integrations.
 :::
 
 ### Programmatic API
