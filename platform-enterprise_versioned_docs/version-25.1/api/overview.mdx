@@ -34,6 +34,17 @@ For more information on the OpenAPI standard, see [OpenAPI](https://swagger.io/s
 
 :::note
 The API uses the [semantic versioning convention](https://semver.org/) (major.minor.patch). If/when we introduce a breaking change (v2+), we will publish guidance on the v1 support schedule and how to traverse the changes.
+
+- Adding new API endpoints, request parameters, or response fields
+- Adding new values to existing enums or string constants
+- Expanding accepted input formats or value ranges
+- Adding new optional headers or query parameters
+- Improving error messages or adding new error codes
+- Performance optimizations that don't alter behavior
+- Adding new HTTP methods to existing endpoints
+- Deprecation warnings (without removal)
+
+Clients should be designed to gracefully handle unknown enum values, ignore unrecognized response fields, and not rely on specific error message text.
 :::
 
 ### Encoding and formatting standards

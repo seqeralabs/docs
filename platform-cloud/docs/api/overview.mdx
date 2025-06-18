@@ -44,6 +44,19 @@ The API uses the [semantic versioning convention](https://semver.org/) (major.mi
 
 :::note
 From version 23.4, the Platform API is live on `https://api.cloud.seqera.io`. The legacy API `https://api.tower.nf` remains fully operational, so existing API integrations will continue to perform as expected. Deprecation of the legacy API will be communicated well in advance to avoid any breaking changes to your integrations.
+
+Non-breaking changes that may occur in minor or patch releases include:
+
+- Adding new API endpoints, request parameters, or response fields
+- Adding new values to existing enums or string constants
+- Expanding accepted input formats or value ranges
+- Adding new optional headers or query parameters
+- Improving error messages or adding new error codes
+- Performance optimizations that don't alter behavior
+- Adding new HTTP methods to existing endpoints
+- Deprecation warnings (without removal)
+
+Clients should be designed to gracefully handle unknown enum values, ignore unrecognized response fields, and not rely on specific error message text.
 :::
 
 ### Programmatic API
