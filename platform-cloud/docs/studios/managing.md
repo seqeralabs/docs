@@ -176,7 +176,7 @@ When defining a new Studio, you can configure the **Mounted data** by selecting 
 
 ## Migrate a Studio from an earlier container image template
 
-As Studios matures and new versions of JupyterLab, R-IDE, Visual Studio Code, and Xpra are released, new Seqera-provided image templates will be periodically released including updated versions of Seqera Connect. The most recent container template images will be tagged `recommended` and earlier template images will be tagged `deprecated`. 
+As Studios matures and new versions of JupyterLab, [R-IDE](https://github.com/seqeralabs/r-ide), Visual Studio Code, and Xpra are released, new Seqera-provided image templates will be periodically released including updated versions of Seqera Connect. The most recent container template images will be tagged **recommended** and earlier template images will be tagged **deprecated**. 
 
 :::info
 Temporary container templates tagged with `experimental` are not supported and should not be used in production environments.
