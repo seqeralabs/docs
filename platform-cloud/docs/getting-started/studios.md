@@ -6,7 +6,7 @@ tags: [platform, studios, jupyter, r-ide, xpra, vscode, conda]
 toc_max_heading_level: 3
 ---
 
-[Studios](../studios/overview) allows users to host a variety of container images directly in Seqera Platform compute environments for analysis using popular environments including [Jupyter](https://jupyter.org/) (Python) and an [R-IDE](https://posit.co/products/open-source/rstudio/) (R), [Visual Studio Code](https://code.visualstudio.com/) IDEs, and [Xpra](https://xpra.org/index.html) remote desktops. Each Studio session provides a dedicated interactive environment that encapsulates the live environment.
+[Studios](../studios/overview) allows users to host a variety of container images directly in Seqera Platform compute environments for analysis using popular environments including [Jupyter](https://jupyter.org/) (Python) and an [R-IDE](https://github.com/seqeralabs/r-ide) (R), [Visual Studio Code](https://code.visualstudio.com/) IDEs, and [Xpra](https://xpra.org/index.html) remote desktops. Each Studio session provides a dedicated interactive environment that encapsulates the live environment.
 
 This guide explores how Studios integrates with your existing workflows, bridging the gap between pipeline execution and interactive analysis. It details how to set up and use each type of Studio, demonstrating a practical use case for each.
 
