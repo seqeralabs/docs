@@ -34,7 +34,7 @@ To add a new Studio, select the **Studios** tab in your workspace then select **
    - To use one of the Seqera-provided container templates, complete the following steps:
 
      1. Customize the following fields:
-        - **Container template**: Select a template from the dropdown list. The most recent template is labeled "recommended" and older templates are labeled "deprecated". 
+        - **Container template**: Select a template from the dropdown list. The most recent template is labeled **recommended** and older templates are labeled **deprecated**. 
         - **Studio name**
         - Optional: **Description**
      1. Optional: Select **Install Conda packages** to enter or upload a list of Conda packages to include with the Studio. For more information on the syntax for specifying Conda packages, see [Conda package syntax][conda-syntax].
