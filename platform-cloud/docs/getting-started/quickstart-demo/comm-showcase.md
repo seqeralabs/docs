@@ -227,7 +227,7 @@ If a task fails, a good place to begin troubleshooting is the task's work direct
 
 ## Interactive analysis
 
-Interactive analysis of pipeline results is often performed in platforms like Jupyter Notebook or using the R-IDE. Setting up the infrastructure for these platforms, including accessing pipeline data and the necessary bioinformatics packages, can be complex and time-consuming.
+Interactive analysis of pipeline results is often performed in platforms like Jupyter Notebook or using the [R-IDE](https://github.com/seqeralabs/r-ide). Setting up the infrastructure for these platforms, including accessing pipeline data and the necessary bioinformatics packages, can be complex and time-consuming.
 
 **Studios** streamlines the process of creating interactive analysis environments for Platform users. With built-in templates, creating a Studio is as simple as adding and sharing pipelines or datasets.
 
