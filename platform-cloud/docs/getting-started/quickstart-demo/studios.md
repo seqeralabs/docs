@@ -28,7 +28,7 @@ Studios is used to perform bespoke analysis on the results of upstream workflows
 
 ### Open the RNAseq analysis Studio 
 
-Select the *rnaseq_to_differentialabundance* Studio. This Studio consists of an R-IDE environment that uses an existing compute environment available in the Community Showcase workspace. The Studio also contains mounted data generated from the *nf-core/rnaseq* and subsequent *nf-core/differentialabundance* pipeline runs, directly from AWS S3. 
+Select the *rnaseq_to_differentialabundance* Studio. This Studio consists of an R-IDE that uses an existing compute environment available in the Community Showcase workspace. The Studio also contains mounted data generated from the *nf-core/rnaseq* and subsequent *nf-core/differentialabundance* pipeline runs, directly from AWS S3. 
 
 ![RNAseq Studio details](assets/rnaseq-diffab-studio-details.gif)
 
