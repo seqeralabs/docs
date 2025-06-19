@@ -40,7 +40,7 @@ To quickly identify which version of the software an image includes, the version
 The latest environment versions are listed below:
 
 - JupyterLab: `public.cr.seqera.io/platform/data-studio-jupyter:4.1.5-0.7.4`
-- R-IDE: `public.cr.seqera.io/platform/data-studio-rstudio:4.4.1-0.7.4`
+- R-IDE: `public.cr.seqera.io/platform/data-studio-ride:2025.04.1-0.8`
 - Visual Studio Code: `public.cr.seqera.io/platform/data-studio-vscode:1.83.0-0.7.4`
 - Xpra: `public.cr.seqera.io/platform/data-studio-xpra:6.0-r0-1-0.7.4`
 
