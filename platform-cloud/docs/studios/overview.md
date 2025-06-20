@@ -105,7 +105,7 @@ To see the list of all Visual Studio Code image templates available, including s
 
 #### Docker-in-docker
 
-A primary use case for VS Code in Studios is to develop new, and troubleshoot existing, Nextflow pipelines. This commonly requires running docker in the dockerized container. The recommended method is to:
+A primary use case for VS Code in Studios is to develop new, and troubleshoot existing, Nextflow pipelines. This commonly requires running Docker in the Dockerized container. The recommended method is to:
 
 **1. Create an [AWS Cloud][aws-cloud] compute environment:** By default, this type of compute environment is optimized for running Nextflow pipelines.
 
