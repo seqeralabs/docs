@@ -25,7 +25,7 @@ The scripts and instructions provided in this guide were tested on 24 February 2
 
 ## Jupyter: Python-based visualization of protein structure prediction data 
 
-Jupyter notebooks enable interactive analysis using Python libraries and tools. For example, Py3DMol is a tool used for visualizing and comparing structures produced by workflows such as [nf-core/proteinfold](https://nf-co.re/proteinfold/1.1.1), a bioinformatics best-practice analysis pipeline for protein 3D structure prediction. This section demonstrates how to create an AWS Batch compute environment, add the nf-core AWS megatests public proteinfold data to your workspace, create a Jupyter Studio, and run the provided Python script to produce interactive composite 3D images of the [H1065 sequence](https://predictioncenter.org/casp14/multimer_results.cgi?target=H1065). 
+Jupyter notebooks enable interactive analysis using Python libraries and tools. For example, Py3DMol is a tool used for visualizing and comparing structures produced by workflows such as [*nf-core/proteinfold*](https://nf-co.re/proteinfold/1.1.1), a bioinformatics best-practice analysis pipeline for protein 3D structure prediction. This section demonstrates how to create an AWS Batch compute environment, add the nf-core AWS megatests public proteinfold data to your workspace, create a Jupyter Studio, and run the provided Python script to produce interactive composite 3D images of the [H1065 sequence](https://predictioncenter.org/casp14/multimer_results.cgi?target=H1065). 
 
 :::note
 This script and instructions can also be used to visualize the structures from *nf-core/proteinfold* runs performed with your own public or private data. 
@@ -38,7 +38,7 @@ Studios require an AWS Batch compute environment. If you do not have an existing
 - **Region**: To minimize costs, your compute environment should be in the same region as your data. To browse the nf-core AWS megatests public data optimally, select **eu-west-1**.
 - **Provisioning model**: Use **On-demand** EC2 instances. 
 - Studios does not support AWS Fargate. Do not enable **Use Fargate for head job**. 
-- At least 2 available CPUs and 8192 MiB of RAM. 
+- At least 2 available CPUs and 8192 MB of RAM. 
 
 #### Add data using Data Explorer
 
@@ -361,9 +361,9 @@ Run the following script in your Jupyter notebook to install the necessary packa
 
 To share a link to the running Studio session with collaborators inside your workspace, select the options menu for your Jupyter Studio session, then select **Copy Studio URL**. Using this link, other authenticated users can access the session directly to collaborate in real time.
 
-## RStudio: Analyze RNASeq data and differential expression statistics 
+## R-IDE: Analyze RNASeq data and differential expression statistics 
 
-RStudio notebooks enable interactive analysis using R libraries and tools. For example, Shiny for R enables you to render functions in a reactive application and build a custom user interface to explore your data. The public data used in this section consists of RNA sequencing data that was processed by the *nf-core/rnaseq* pipeline to quantify gene expression, followed by *nf-core/differentialabundance* to derive differential expression statistics. This section demonstrates how to create a Studio to perform further analysis with these results from cloud storage. One of these outputs is an RShiny application that can be deployed for interactive analysis.
+The R-IDE enables interactive analysis using R libraries and tools. For example, Shiny for R enables you to render functions in a reactive application and build a custom user interface to explore your data. The public data used in this section consists of RNA sequencing data that was processed by the *nf-core/rnaseq* pipeline to quantify gene expression, followed by *nf-core/differentialabundance* to derive differential expression statistics. This section demonstrates how to create a Studio to perform further analysis with these results from cloud storage. One of these outputs is a web application that can be deployed for interactive analysis.
 
 #### Create an AWS Batch compute environment 
 
@@ -409,7 +409,7 @@ From the **Studios** tab, select **Add a Studio** and complete the following:
 
 ### Configure environment and explore data in the web app
 
-The following R script installs and configures the prerequisite packages and libraries to deploy ShinyNGS, a web application created by members of the nf-core community to explore genomic data. The script also downloads the RDS file from nf-core AWS megatests to use as input data for the Shiny app's various plots, heatmaps, and tables. To use your own *nf-core/rnaseq* and *nf-core/differentialabundance* results, modify the script as instructed in step 2 below: 
+The following R script installs and configures the prerequisite packages and libraries to deploy ShinyNGS, a web application created by members of the nf-core community to explore genomic data. The script also downloads the RDS file from nf-core AWS megatests to use as input data for the web app's various plots, heatmaps, and tables. To use your own *nf-core/rnaseq* and *nf-core/differentialabundance* results, modify the script as instructed in step 2 below: 
 
 <details>
 <summary>R script individual steps</summary>
