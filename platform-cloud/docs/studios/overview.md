@@ -110,7 +110,7 @@ A primary use case for VS Code in Studios is to develop new, and troubleshoot ex
 **1. Create an [AWS Cloud][aws-cloud] compute environment:** By default, this type of compute environment is optimized for running Nextflow pipelines.
 
 :::tip
-Many standard nf-core pipelines such as [nf-core/rnaseq](https://nf-co.re/rnaseq) require at least 4 CPUs and 16 GB memory, so when defining your compute environment under "Advanced options" be sure to specify an instance type with at least these amount of resources (e.g. `m5d.xlarge`).
+Many standard nf-core pipelines such as [*nf-core/rnaseq*](https://nf-co.re/rnaseq) require at least 4 CPUs and 16 GB memory. In **Advanced options**, specify an instance type with at least this amount of resources (e.g., `m5d.xlarge`).
 :::
 
 **2. One running Studio session per compute environment:** This allows the Studio session, and Nextflow, to maximize the available CPU and memory.
