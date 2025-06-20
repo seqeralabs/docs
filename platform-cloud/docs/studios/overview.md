@@ -117,6 +117,7 @@ Many standard nf-core pipelines such as [*nf-core/rnaseq*](https://nf-co.re/rnas
 
 :::tip
 The template for nf-core pipelines has recently been updated, and many existing pipelines don't yet use the new multi-line shell command defined in `nextflow.config`. To ensure maximum compatibility with the latest version of Nextflow (that ships with the VS Code container template image), include the following in your pipeline `nextflow.config` file.
+:::
 
 ```bash
 // Set bash options
