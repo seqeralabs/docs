@@ -6,8 +6,7 @@ tags: [platform, studios, jupyter, r-ide, xpra, vscode, conda]
 toc_max_heading_level: 3
 ---
 
-[Studios](../studios/overview) allows users to host a variety of container images directly in Seqera Platform compute environments for analysis using popular environments including [Jupyter](https://jupyter.org/) (Python) and an [R-IDE](https://posit.co/products/open-source/rstudio/) (R), [Visual Studio Code](https://code.visualstudio.com/) IDEs, and [Xpra](https://xpra.org/index.html) remote desktops. Each Studio session provides a dedicated interactive environment that encapsulates the live environment.
-
+[Studios](../studios/overview) allows users to host a variety of container images directly in Seqera Platform compute environments for analysis using popular environments including [Jupyter](https://jupyter.org/) (Python) and an [R-IDE](https://github.com/seqeralabs/r-ide) (R), [Visual Studio Code](https://code.visualstudio.com/) IDEs, and [Xpra](https://xpra.org/index.html) remote desktops. Each Studio session provides a dedicated interactive environment that encapsulates the live environment.
 This guide explores how Studios integrates with your existing workflows, bridging the gap between pipeline execution and interactive analysis. It details how to set up and use each type of Studio, demonstrating a practical use case for each.
 
 :::info[**Prerequisites**]
@@ -363,7 +362,7 @@ To share a link to the running Studio session with collaborators inside your wor
 
 ## R-IDE: Analyze RNASeq data and differential expression statistics 
 
-The R-IDE enable interactive analysis using R libraries and tools. For example, Shiny for R enables you to render functions in a reactive application and build a custom user interface to explore your data. The public data used in this section consists of RNA sequencing data that was processed by the *nf-core/rnaseq* pipeline to quantify gene expression, followed by *nf-core/differentialabundance* to derive differential expression statistics. This section demonstrates how to create a Studio to perform further analysis with these results from cloud storage. One of these outputs is an application that can be deployed for interactive analysis.
+An R-IDE enables interactive analysis using R libraries and tools. For example, Shiny for R enables you to render functions in a reactive application and build a custom user interface to explore your data. The public data used in this section consists of RNA sequencing data that was processed by the *nf-core/rnaseq* pipeline to quantify gene expression, followed by *nf-core/differentialabundance* to derive differential expression statistics. This section demonstrates how to create a Studio to perform further analysis with these results from cloud storage. One of these outputs is an RShiny application that can be deployed for interactive analysis.
 
 #### Create an AWS Batch compute environment 
 

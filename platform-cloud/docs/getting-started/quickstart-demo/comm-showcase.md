@@ -1,7 +1,8 @@
 ---
 title: "Explore Platform Cloud"
 description: "Seqera Platform Cloud demonstration walkthrough"
-date: "8 Jul 2024"
+date created: "8 Jul 2024"
+last updated: "14 June 2025"
 tags: [platform, launch, pipelines, launchpad, showcase tutorial]
 toc_max_heading_level: 3
 ---
@@ -111,7 +112,7 @@ As the pipeline runs, run details will populate with parameters, logs, and other
   - **Resolved Nextflow configuration**: The full Nextflow configuration settings used for the run. This includes parameters, but also settings specific to task execution (such as memory, CPUs, and output directory).
   - **Execution Log**: A summarized Nextflow log providing information about the pipeline and the status of the run.
   - **Datasets**: Link to datasets, if any were used in the run.
-  - **Reports**: View pipeline outputs directly in the Platform.
+  - **Reports**: View pipeline outputs directly in Platform.
 
   ![View the nf-core/rnaseq run](assets/sp-cloud-run-info.gif)
 
@@ -153,7 +154,7 @@ See [Reports](../../reports/overview) to configure reports for pipeline runs in 
 
 ### View general information
 
-The run details page includes general information about who executed the run and when, the Git hash and tag used, and additional details about the compute environment and Nextflow version used.
+The **Run details** page includes general information about who executed the run and when, the Git hash and tag used, and additional details about the compute environment and Nextflow version used.
 
 <details>
   <summary>View general run information</summary>
@@ -226,7 +227,7 @@ If a task fails, a good place to begin troubleshooting is the task's work direct
 
 ## Interactive analysis
 
-Interactive analysis of pipeline results is often performed in platforms like Jupyter Notebook or R-IDE. Setting up the infrastructure for these platforms, including accessing pipeline data and the necessary bioinformatics packages, can be complex and time-consuming.
+Interactive analysis of pipeline results is often performed in platforms like Jupyter Notebook or using the [R-IDE](https://github.com/seqeralabs/r-ide). Setting up the infrastructure for these platforms, including accessing pipeline data and the necessary bioinformatics packages, can be complex and time-consuming.
 
 **Studios** streamlines the process of creating interactive analysis environments for Platform users. With built-in templates, creating a Studio is as simple as adding and sharing pipelines or datasets.
 
@@ -238,18 +239,18 @@ Studios is used to perform bespoke analysis on the results of upstream workflows
 
 #### Connect to the RNAseq analysis Studio 
 
-Select the *rnaseq_to_differentialabundance* Studio. This Studio consists of an R-IDE notebook that uses an existing compute environment available in the Community Showcase workspace. The Studio also contains mounted data generated from the `nf-core/rnaseq` and subsequent *nf-core/differentialabundance* pipeline runs, directly from AWS S3. 
+Select the *rnaseq_to_differentialabundance* Studio. This Studio consists of an R-IDE that uses an existing compute environment available in the Community Showcase workspace. The Studio also contains mounted data generated from the *nf-core/rnaseq* and subsequent *nf-core/differentialabundance* pipeline runs, directly from AWS S3. 
 
 ![RNAseq Studio details](assets/rnaseq-diffab-studio-details.gif)
 
-Select **Connect** to view the running RStudio environment. The *rnaseq_to_differentialabundance* Studio includes the necessary R packages for deploying an RShiny application to visualize the RNAseq data.
+Select **Connect** to view the running R-IDE. The *rnaseq_to_differentialabundance* Studio includes the necessary R packages for deploying an RShiny application to visualize the RNAseq data.
 
-Deploy the RShiny app in the Studio by selecting the green play button on the last chunk of the R script:
+Deploy the RShiny app in the Studio by selecting the play button on the last chunk of the R script:
 
 ![Run RShiny app](./assets/rnaseq-diffab-run-rshiny-app.png)
 
 :::note
-Studios allows you to specify the resources each Studio will use. When [creating your own Studios](../../studios/overview) with shared compute environment resources, you must allocate sufficient resources to the compute environment to prevent Studio or pipeline run interruptions. 
+You can specify the resources each Studio will use. When [you create your own Studios](../../studios/overview) with shared compute environment resources, you must allocate sufficient resources to the compute environment to prevent Studio or pipeline run interruptions. 
 :::
 
 ### Explore results
@@ -265,10 +266,10 @@ The RShiny app will deploy in a separate browser window, providing a data interf
 
   In this example, we used RNA sequencing data from the publicly-available ENCODE project, which includes samples from four different cell lines: 
 
-  - **GM12878** — a lymphoblastoid cell line
-  - **K562** — a chronic myelogenous leukemia cell line
-  - **MCF-7** — a breast cancer cell line
-  - **H1-hESC** — human embryonic stem cells
+  - **GM12878**: a lymphoblastoid cell line
+  - **K562**: a chronic myelogenous leukemia cell line
+  - **MCF-7**: a breast cancer cell line
+  - **H1-hESC**: human embryonic stem cells
 
   What to look for in the PCA plot:
 
@@ -304,7 +305,7 @@ The RShiny app will deploy in a separate browser window, providing a data interf
 
 ### Collaborate in the Studio
 
-To share the results of your RNAseq analysis or allow colleagues to perform exploratory analysis, share a link to the Studio by selecting the options menu for the Studio you want to share, then select **Copy Studio URL**. With this link, other authenticated users with the **Connect** [role](../../orgs-and-teams/roles) (or greater) can access the session directly.
+To share the results of your RNAseq analysis or allow colleagues to perform exploratory analysis, select the options menu for the Studio you want to share then select **Copy Studio URL**. With this link, other authenticated users with the **Connect** [role](../../orgs-and-teams/roles) (or greater) can access the session directly.
 
 :::note
 See [Studios](../../studios/overview) to learn how to create Studios in your own workspace. 
@@ -327,7 +328,7 @@ Pipeline optimization analyzes resource usage data from previous runs to optimiz
 
   When you select the lightbulb, you can access an optimized configuration profile in the second tab of the **Customize optimization profile** window.
 
-  This profile consists of Nextflow configuration settings for each process and each resource directive (where applicable):  **cpus**, **memory**, and **time**. The optimized setting for a given process and resource directive is based on the maximum use of that resource across all tasks in that process.
+  This profile consists of Nextflow configuration settings for each process and each resource directive (where applicable): **cpus**, **memory**, and **time**. The optimized setting for a given process and resource directive is based on the maximum use of that resource across all tasks in that process.
 
   Once optimization is selected, subsequent runs of that pipeline will inherit the optimized configuration profile, indicated by the black lightbulb icon with a checkmark. 
 

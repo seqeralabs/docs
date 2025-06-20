@@ -34,7 +34,7 @@ To add a new Studio, select the **Studios** tab in your workspace then select **
    - To use one of the Seqera-provided container templates, complete the following steps:
 
      1. Customize the following fields:
-        - **Container template**: Select a template from the dropdown list.
+        - **Container template**: Select a template from the dropdown list. The most recent template is labeled **recommended** and older templates are labeled **deprecated**. 
         - **Studio name**
         - Optional: **Description**
      1. Optional: Select **Install Conda packages** to enter or upload a list of Conda packages to include with the Studio. For more information on the syntax for specifying Conda packages, see [Conda package syntax][conda-syntax].
@@ -44,6 +44,12 @@ To add a new Studio, select the **Studios** tab in your workspace then select **
                - If there is an existing defined session lifespan workspace setting, you won't be able to edit this. If no workspace setting is defined, you can edit this field. The minimum value is 1 hour and the maximum is 120 hours. The default value is 8 hours. 
                - If you change the default value, the change applies only to that session. Once you've stopped the session, the value returns to default.
           -  **Keep the session running until it's manually stopped or encounters an error which ends the session.**
+     1. **Environment variables**: For the selected compute environment, all existing environment variable key-value pairs are displayed and automatically inherited by the studio session. Additional per-session environment variables can be defined for the studio. 
+     
+       :::tip
+       Session-level environment variables take precedence. You can overwrite an existing compute environment-defined environment variable key-value pair by defining the same key and a different value.
+       :::
+
      1. Select **Next**.
 
    - To use a custom container template image that you supply, complete the following steps:
@@ -170,7 +176,7 @@ When defining a new Studio, you can configure the **Mounted data** by selecting 
 
 ## Migrate a Studio from an earlier container image template
 
-As Studios matures and new versions of JupyterLab, R-IDE, Visual Studio Code, and Xpra are released, new Seqera-provided image templates will be periodically released including updated versions of Seqera Connect. The most recent container template images will be tagged `recommended` and earlier template images will be tagged `deprecated`. 
+As Studios matures and new versions of JupyterLab, [R-IDE](https://github.com/seqeralabs/r-ide), Visual Studio Code, and Xpra are released, new Seqera-provided image templates will be periodically released including updated versions of Seqera Connect. The most recent container template images will be tagged **recommended** and earlier template images will be tagged **deprecated**. 
 
 :::info
 Temporary container templates tagged with `experimental` are not supported and should not be used in production environments.
