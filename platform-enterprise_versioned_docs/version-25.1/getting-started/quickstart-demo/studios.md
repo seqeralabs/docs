@@ -52,10 +52,10 @@ In the **QC/Exploratory** tab, select the PCA (Principal Component Analysis) plo
 
 In this example, we used RNA sequencing data from the publicly-available ENCODE project, which includes samples from four different cell lines: 
 
-- **GM12878** — a lymphoblastoid cell line
-- **K562** — a chronic myelogenous leukemia cell line
-- **MCF-7** — a breast cancer cell line
-- **H1-hESC** — a human embryonic stem cell line
+- **GM12878**: a lymphoblastoid cell line
+- **K562**: a chronic myelogenous leukemia cell line
+- **MCF-7**: a breast cancer cell line
+- **H1-hESC**: a human embryonic stem cell line
 
 What to look for in the PCA plot:
 
