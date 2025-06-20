@@ -243,7 +243,7 @@ Select the *rnaseq_to_differentialabundance* Studio. This Studio consists of an 
 
 ![RNAseq Studio details](assets/rnaseq-diffab-studio-details.gif)
 
-Select **Connect** to view the running R-IDE. The *rnaseq_to_differentialabundance* Studio includes the necessary R packages for deploying an RShiny application to visualize the RNAseq data.
+Select **Connect** to view the running R-IDE session. The *rnaseq_to_differentialabundance* Studio includes the necessary R packages for deploying a web app to visualize the RNAseq data.
 
 Deploy the RShiny app in the Studio by selecting the play button on the last chunk of the R script:
 
