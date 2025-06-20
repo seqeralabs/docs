@@ -24,7 +24,7 @@ Select the options menu next to a data studio to:
 
 ### Analyze RNAseq data in Data Studios
 
-Data Studios is used to perform bespoke analysis on the results of upstream workflows. For example, in the Community Showcase workspace we have run the nf-core/rnaseq workflow to quantify gene expression, followed by nf-core/differentialabundance to derive differential expression statistics. The workspace contains a data studio with these results from cloud storage mounted into the studio to perform further analysis. One of these outputs is an RShiny application, which can be deployed for interactive analysis.
+Data Studios is used to perform bespoke analysis on the results of upstream workflows. For example, in the Community Showcase workspace we have run the *nf-core/rnaseq* workflow to quantify gene expression, followed by *nf-core/differentialabundance* to derive differential expression statistics. The workspace contains a data studio with these results from cloud storage mounted into the studio to perform further analysis. One of these outputs is a web appn, which can be deployed for interactive analysis.
 
 ### Open the RNAseq analysis studio 
 
@@ -38,17 +38,13 @@ Data Studios allows you to specify the resources each studio will use. When [cre
 
 ### Connect to the data studio
 
-This data studio will start an RStudio environment which already contains the necessary R packages for deploying an RShiny application to interact with various visualizations of the RNAseq data. The studio also contains an R Markdown document with the commands in place to generate the application.
+This data studio will start an R-IDE which already contains the necessary R packages for deploying a web application to interact with various visualizations of the RNAseq data. The studio also contains an R Markdown document with the commands in place to generate the application.
 
-Deploy the RShiny app in the data studio by selecting the green play button on the last chunk of the R script:
+Deploy the web app in the data studio by selecting the play button on the last chunk of the R script:
 
-![Run RShiny app](./assets/rnaseq-diffab-run-rshiny-app.png)
+### Explore results in the web app
 
-### Explore results in the RShiny app
-
-The RShiny app will deploy in a separate browser window, providing a data interface. Here you can view information about your sample data, perform QC or exploratory analysis, and view the differential expression analyses.
-
-![RShiny app exploration](assets/rnaseq-diffab-rshiny-app-explore.gif)
+The web app will deploy in a separate browser window, providing a data interface. Here you can view information about your sample data, perform QC or exploratory analysis, and view the differential expression analyses.
 
 #### Sample clustering with PCA plots
 
@@ -56,10 +52,10 @@ In the **QC/Exploratory** tab, select the PCA (Principal Component Analysis) plo
 
 In this example, we used RNA sequencing data from the publicly-available ENCODE project, which includes samples from four different cell lines: 
 
-- **GM12878** — a lymphoblastoid cell line
-- **K562** — a chronic myelogenous leukemia cell line
-- **MCF-7** — a breast cancer cell line
-- **H1-hESC** — a human embryonic stem cell line
+- **GM12878**: a lymphoblastoid cell line
+- **K562**: a chronic myelogenous leukemia cell line
+- **MCF-7**: a breast cancer cell line
+- **H1-hESC**: a human embryonic stem cell line
 
 What to look for in the PCA plot:
 
