@@ -15,8 +15,6 @@ Studios streamlines the process of creating interactive analysis environments fo
 
 In the **Studios** tab, you can monitor and see the details of the Studios in the Community Showcase workspace.
 
-![Studios overview](./assets/studios-overview.png)
-
 Select the options menu next to a Studio to:
 - See Studio details
 - Start or stop the Studio, and connect to a running Studio session
