@@ -6,7 +6,7 @@ tags: [platform, studios, jupyter, rstudio, xpra, vscode, conda]
 toc_max_heading_level: 3
 ---
 
-[Studios](../studios/overview) allows users to host a variety of container images directly in Seqera Platform compute environments for analysis using popular environments including [Jupyter](https://jupyter.org/) (Python) and [RStudio](https://posit.co/products/open-source/rstudio/) notebooks (R), [Visual Studio Code](https://code.visualstudio.com/) IDEs, and [Xpra](https://xpra.org/index.html) remote desktops. Each Studio session provides a dedicated interactive environment that encapsulates the live environment.
+[Studios](../studios/overview) allows users to host a variety of container images directly in Seqera Platform compute environments for analysis using popular environments including [Jupyter](https://jupyter.org/) (Python) an [R-IDE](https://github.com/seqeralabs/r-ide), [Visual Studio Code](https://code.visualstudio.com/) IDEs, and [Xpra](https://xpra.org/index.html) remote desktops. Each Studio session provides a dedicated interactive environment that encapsulates the live environment.
 
 This guide explores how Studios integrates with your existing workflows, bridging the gap between pipeline execution and interactive analysis. It details how to set up and use each type of Studio, demonstrating a practical use case for each.
 
@@ -14,7 +14,7 @@ This guide explores how Studios integrates with your existing workflows, bridgin
 You will need the following to get started:
 
 - At least the **Maintain** workspace [user role](../orgs-and-teams/roles) to create and configure Studios.
-- An [AWS Batch compute environment](../compute-envs/aws-batch#batch-forge-compute-environment) (**without Fargate**) with sufficient resources (minimum: 2 CPUs, 8192 MB RAM).
+- An [AWS Batch compute environment](../compute-envs/aws-batch#batch-forge-compute-environment) (**without Fargate**) with sufficient resources (minimum: 2 CPUs, 8192 MiB RAM).
 - Valid [credentials](../credentials/overview) for your cloud storage account and compute environment.
 - [Data Explorer](../data/data-explorer) enabled in your workspace.
 :::
@@ -38,7 +38,7 @@ Studios require an AWS Batch compute environment. If you do not have an existing
 - **Region**: To minimize costs, your compute environment should be in the same region as your data. To browse the nf-core AWS megatests public data optimally, select **eu-west-1**.
 - **Provisioning model**: Use **On-demand** EC2 instances. 
 - Studios does not support AWS Fargate. Do not enable **Use Fargate for head job**. 
-- At least 2 available CPUs and 8192 MB of RAM. 
+- At least 2 available CPUs and 8192 MiB of RAM. 
 
 #### Add data using Data Explorer
 
@@ -391,7 +391,7 @@ For the purposes of this guide, add the nf-core AWS megatests S3 bucket to your 
 To use your own pipeline data for interactive analysis, add the cloud bucket that contains the results of your *nf-core/differentialabundance* pipeline run. See [Add a cloud bucket](./quickstart-demo/add-data#add-a-cloud-bucket) for more information. 
 :::
 
-### Create an RStudio notebook Studio 
+### Create an R-IDE Studio 
 
 From the **Studios** tab, select **Add a Studio** and complete the following:
 - In the **Compute & Data** tab:
@@ -402,19 +402,19 @@ From the **Studios** tab, select **Add a Studio** and complete the following:
     - Optional: Enter CPU and memory allocations. The default values are 2 CPUs and 8192 MB memory (RAM).
     - Mount data using Data Explorer: Mount the nf-core AWS megatests S3 bucket, or the directory path that contains the results of your *nf-core/differentialabundance* pipeline run. 
 - In the **General config** tab:
-    - Select the latest **RStudio** container image template from the list.
+    - Select the latest **R-IDE** container image template from the list.
     - Optional: Enter a unique name and description for the Studio. 
 - Select **Add** or choose to **Add and start** a Studio session immediately.
 - If you chose to **Add** the Studio in the preceding step, select **Start** in the options menu, then **Connect** to open a Studio session in a new browser tab when it is running. 
 
-### Configure environment and explore data in RShiny app
+### Configure environment and explore data in the web app
 
-The following R script installs and configures the prerequisite packages and libraries to deploy ShinyNGS, an RShiny application created by members of the nf-core community to explore genomic data. The script also downloads the RDS file from nf-core AWS megatests to use as input data for the Shiny app's various plots, heatmaps, and tables. To use your own *nf-core/rnaseq* and *nf-core/differentialabundance* results, modify the script as instructed in step 2 below: 
+The following R script installs and configures the prerequisite packages and libraries to deploy ShinyNGS, a web application created by members of the nf-core community to explore genomic data. The script also downloads the RDS file from nf-core AWS megatests to use as input data for the Shiny app's various plots, heatmaps, and tables. To use your own *nf-core/rnaseq* and *nf-core/differentialabundance* results, modify the script as instructed in step 2 below: 
 
 <details>
 <summary>R script individual steps</summary>
 
-    1. Configure the RStudio environment with installed packages, including [ShinyNGS](https://github.com/pinin4fjords/shinyngs):
+    1. Configure the R-IDE with installed packages, including [ShinyNGS](https://github.com/pinin4fjords/shinyngs):
 
         ```r 
         if (!require("BiocManager", quietly = TRUE))
@@ -440,7 +440,7 @@ The following R script installs and configures the prerequisite packages and lib
         download.file("https://bucket.s3-region.amazonaws.com/differentialabundance/results/shinyngs_app/study-name/data.rds", 'data.rds')
         ```
 
-    1. Import libraries, read your RDS data, and launch the RShiny app:
+    1. Import libraries, read your RDS data, and launch the app:
 
         ```r 
         library(shinyngs)
@@ -452,11 +452,9 @@ The following R script installs and configures the prerequisite packages and lib
 
 </details>
 
-![Explore the RShiny app](./quickstart-demo/assets/rnaseq-diffab-rshiny-app-explore.gif)
-
 #### Interactive collaboration 
 
-To share a link to the running session with collaborators inside your workspace, select the options menu for your RStudio session, then select **Copy Studio URL**. Using this link, other authenticated users can access the session directly to collaborate in real time.
+To share a link to the running session with collaborators inside your workspace, select the options menu for your R-IDE session, then select **Copy Studio URL**. Using this link, other authenticated users can access the session directly to collaborate in real time.
 
 ## Xpra: Visualize genetic variants with IGV
 
@@ -583,7 +581,7 @@ From the **Studios** tab, select **Add a Studio** and complete the following:
 See [User and workspace settings](https://code.visualstudio.com/docs/editor/settings) if you wish to import existing VS Code configuration and preferences to your Studio session's VS Code environment. 
 :::
 
-### Run nf-core/fetchngs with Conda 
+### Run *nf-core/fetchngs* with Conda 
 
 Run the following Nextflow command to run *nf-core/fetchngs* with Conda:
 
@@ -594,7 +592,7 @@ nextflow run nf-core/fetchngs -profile test,conda --outdir ./nf-core-fetchngs-co
 ### Write a Nextflow pipeline with nf-core tools 
 
 - Run `nf-core pipelines create` to create a new pipeline. Choose which parts of the nf-core template you want to use.
-- Run `code [your new pipeline]` to open the new pipeline as a project in VSCode. This allows you to code your pipeline with the help of the Nextflow language server and nf-core tools.
+- Run `code [NEW_PIPELINE]` to open the new pipeline as a project in VSCode. This allows you to code your pipeline with the help of the Nextflow language server and nf-core tools.
 
 ![VS Code Studio session](./_images/guide-vs-code-studio-nf-env-1080p-cropped.gif)
 
