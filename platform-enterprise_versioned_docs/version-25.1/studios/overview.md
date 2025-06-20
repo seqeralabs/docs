@@ -19,7 +19,7 @@ Before you get started, you need the following:
 
 - Valid credentials to access your cloud storage data resources.
 - At least the **Maintain** role set of permissions.
-- A compute environment with sufficient resources. This is highly dependent on the volume of data you wish to process, but we recommended at least 2 CPUs allocated with 8192 MiB of memory. See [AWS Batch](../compute-envs/aws-batch) for more information about compute environment configuration.
+- A compute environment with sufficient resources. This is highly dependent on the volume of data you wish to process, but we recommended at least 2 CPUs allocated with 8192 MB of memory. See [AWS Batch](../compute-envs/aws-batch) for more information about compute environment configuration.
 - [Data Explorer](../data/data-explorer) is enabled.
 
 :::note
