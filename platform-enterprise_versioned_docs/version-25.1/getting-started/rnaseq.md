@@ -30,7 +30,7 @@ You will need the following to get started:
 
 Compute and storage requirements for RNA-Seq analysis are dependent on the number of samples and the sequencing depth of your input data. See [RNA-Seq data and requirements](#rna-seq-data-and-requirements) for details on RNA-Seq datasets and the CPU and memory requirements for important steps of RNA-Seq pipelines. 
 
-In this guide, you will create an AWS Batch compute environment with sufficient resources allocated to run the [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline with a large dataset. This compute environment will also be used to run a Studios RStudio environment for interactive analysis of the resulting pipeline data. 
+In this guide, you will create an AWS Batch compute environment with sufficient resources allocated to run the [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline with a large dataset. This compute environment will also be used to run a Studios R-IDE session for interactive analysis of the resulting pipeline data. 
 
 :::note
 The compute recommendations below are based on internal benchmarking performed by Seqera. See [RNA-Seq data and requirements](#rna-seq-data-and-requirements) for more information. 
@@ -321,9 +321,9 @@ After you have filled the necessary launch details, select **Launch**. The **Run
 
 ## Interactive analysis with Studios
 
-**Studios** streamline the process of creating interactive analysis environments for Platform users. With built-in templates for platforms like Jupyter Notebook, RStudio, and VSCode, creating a Studio is as simple as adding and sharing pipelines or datasets. The Studio URL can also be shared with any user with the [Connect role](../orgs-and-teams/roles) for real-time access and collaboration.
+**Studios** streamline the process of creating interactive analysis environments for Platform users. With built-in templates for platforms like Jupyter Notebook, an R-IDE, and VSCode, creating a Studio is as simple as adding and sharing pipelines or datasets. The Studio URL can also be shared with any user with the [Connect role](../orgs-and-teams/roles) for real-time access and collaboration.
 
-For the purposes of this guide, an RStudio environment will be used to normalize the pipeline output data, perform differential expression analysis, and visualize the data with exploratory plots.
+For the purposes of this guide, an R-IDE will be used to normalize the pipeline output data, perform differential expression analysis, and visualize the data with exploratory plots.
 
 ### Prepare your data
 
@@ -365,12 +365,12 @@ The analysis script provided in this section requires a sample information file 
 
 </details>
 
-### Create an RStudio analysis environment with Studios
+### Create an R-IDE analysis environment with Studios
 
 ![Add data studio](./_images/create-ds.gif)
 
 From the **Studios** tab, select **Add a studio** and complete the following:
-- Select the latest **RStudio** container image template from the list.
+- Select the latest **R-IDE** container image template from the list.
 - Select your AWS Batch compute environment. 
 :::note
 Studio sessions compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and sessions. The default CPU and memory allocation for a Studio is 2 CPUs and 8192 MB RAM. 
@@ -378,12 +378,12 @@ Studio sessions compete for computing resources when sharing compute environment
 - Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the pipeline work directory of your RNA-Seq run. 
 - Optional: Enter CPU and memory allocations. The default values are 2 CPUs and 8192 MB memory (RAM).
 - Select **Add**.
-- Once the data studio has been created, select the options menu next to it and select **Start**.
-- When the data studio is in a running state, **Connect** to it. 
+- Once the Studio has been created, select the options menu next to it and select **Start**.
+- When the Studio is in a running state, **Connect** to it. 
 
 ### Perform the analysis and explore results
 
-The RStudio environment can be configured with the packages you wish to install and the R script you wish to run. For the purposes of this guide, run the following scripts in the RStudio console to install the necessary packages and perform the analysis:
+The R-IDE can be configured with the packages you wish to install and the R script you wish to run. For the purposes of this guide, run the following scripts in the R-IDE console to install the necessary packages and perform the analysis:
 
 1. Install and load the necessary packages and libraries:
 
@@ -462,7 +462,7 @@ The RStudio environment can be configured with the packages you wish to install 
     print(y$samples)
     ```
 
-1. Create an MDS plot, displayed in RStudio plots viewer (`a`) and saved as a PNG file (`b`):
+1. Create an MDS plot, displayed in the plots viewer (`a`) and saved as a PNG file (`b`):
 
     :::info
     MDS plots are used to visualize the overall similarity between RNA-Seq samples based on their gene expression profiles, helping to identify sample clusters and potential batch effects.
@@ -551,7 +551,7 @@ The RStudio environment can be configured with the packages you wish to install 
     }
     ```
 
-1. Create volcano plots for each differential expression comparison, displayed in RStudio plots viewer and saved as PNG files:
+1. Create volcano plots for each differential expression comparison, displayed in the plots viewer and saved as PNG files:
 
     :::info
     Volcano plots in RNA-Seq analysis display the magnitude of gene expression changes (log2 fold change) against their statistical significance. This allows for quick identification of significantly up- and down-regulated genes between two conditions.
@@ -646,7 +646,7 @@ The RStudio environment can be configured with the packages you wish to install 
 
 ### Collaborate in the Studio
 
-To share your results or allow colleagues to perform exploratory analysis, share a link to the Studio by selecting the options menu for the Studio you want to share, then select **Copy data studio URL**. With this link, other authenticated users with the **Connect** [role](../orgs-and-teams/roles) (or greater) can access the session directly.
+To share your results or allow colleagues to perform exploratory analysis, share a link to the Studio by selecting the options menu for the Studio you want to share, then select **Copy Studio URL**. With this link, other authenticated users with the **Connect** [role](../orgs-and-teams/roles) (or greater) can access the session directly.
 
 ## RNA-Seq data and requirements
 
