@@ -362,7 +362,7 @@ To share a link to the running Studio session with collaborators inside your wor
 
 ## R-IDE: Analyze RNASeq data and differential expression statistics 
 
-An R-IDE enables interactive analysis using R libraries and tools. For example, Shiny for R enables you to render functions in a reactive application and build a custom user interface to explore your data. The public data used in this section consists of RNA sequencing data that was processed by the *nf-core/rnaseq* pipeline to quantify gene expression, followed by *nf-core/differentialabundance* to derive differential expression statistics. This section demonstrates how to create a Studio to perform further analysis with these results from cloud storage. One of these outputs is an RShiny application that can be deployed for interactive analysis.
+An R-IDE enables interactive analysis using R libraries and tools. For example, Shiny for R enables you to render functions in a reactive application and build a custom user interface to explore your data. The public data used in this section consists of RNA sequencing data that was processed by the *nf-core/rnaseq* pipeline to quantify gene expression, followed by *nf-core/differentialabundance* to derive differential expression statistics. This section demonstrates how to create a Studio to perform further analysis with these results from cloud storage. One of these outputs is web app that can be deployed for interactive analysis.
 
 #### Create an AWS Batch compute environment 
 
