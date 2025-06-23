@@ -419,6 +419,11 @@ export default async function createConfigAsync() {
           variant: "unirest",
         },
         {
+          highlight: "r",
+          language: "r",
+          logoClass: "r",
+        },
+        {
           highlight: "javascript",
           language: "javascript",
           logoClass: "javascript",
