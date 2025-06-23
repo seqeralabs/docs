@@ -40,7 +40,7 @@ Studios allows you to specify the resources each Studio will use. When [creating
 
 This Studio will start an R-IDE which already contains the necessary R packages for deploying a web app to interact with various visualizations of the RNAseq data. The Studio also contains an R Markdown document with the commands in place to generate the application.
 
-Deploy the RShiny app in the Studio by selecting the green play button on the last chunk of the R script:
+Deploy the app in the Studio by selecting the play button on the last chunk of the R script:
 
 ![Run RShiny app](./assets/rnaseq-diffab-run-rshiny-app.png)
 
