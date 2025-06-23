@@ -9,7 +9,7 @@ tags: [platform, data,  studios]
 This guide provides an introduction to Studios using a demo Studio in the Community Showcase workspace. See [Studios](../../studios/overview) to learn how to create Studios in your own workspace. 
 :::
 
-Interactive analysis of pipeline results is often performed in platforms like Jupyter Notebook or [R-IDE](https://github.com/seqeralabs/r-ide). Setting up the infrastructure for these platforms, including accessing pipeline data and the necessary bioinformatics packages, can be complex and time-consuming.
+Interactive analysis of pipeline results is often performed in platforms like Jupyter Notebook or an [R-IDE](https://github.com/seqeralabs/r-ide). Setting up the infrastructure for these platforms, including accessing pipeline data and the necessary bioinformatics packages, can be complex and time-consuming.
 
 Studios streamlines the process of creating interactive analysis environments for Platform users. With built-in templates, creating a Studio is as simple as adding and sharing pipelines or datasets. Platform manages all the details, enabling you to easily select your preferred interactive tool and analyze your data.
 
