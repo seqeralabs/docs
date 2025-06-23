@@ -37,7 +37,7 @@ dependencies:
     - seaborn=0.13.2
 ```
 
-Either directly copy and paste your valid YAML code or use the Import from file to attach an `environment.yml` file.
+Either directly copy and paste your valid YAML code or use **Import from file** to attach an `environment.yml` file.
 
 To create a Studio with custom Conda packages, see [Add a Studio][add-s].
 
