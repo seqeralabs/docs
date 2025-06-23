@@ -9,7 +9,7 @@ tags: [platform, studios]
 This guide provides an introduction to Data Studios using a demo studio in the Community Showcase workspace. See [Data Studios](../../data_studios/overview) to learn how to create data studios in your own workspace. 
 :::
 
-Interactive analysis of pipeline results is often performed in platforms like Jupyter Notebook or an R-IDE. Setting up the infrastructure for these platforms, including accessing pipeline data and the necessary bioinformatics packages, can be complex and time-consuming.
+Interactive analysis of pipeline results is often performed in platforms like Jupyter Notebooks or an R-IDE. Setting up the infrastructure for these platforms, including accessing pipeline data and the necessary bioinformatics packages, can be complex and time-consuming.
 
 Data Studios streamlines the process of creating interactive analysis environments for Platform users. With built-in templates, creating a data studio is as simple as adding and sharing pipelines or datasets. Platform manages all the details, enabling you to easily select your preferred interactive tool and analyze your data.
 
