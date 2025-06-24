@@ -85,7 +85,7 @@ From the **Compute Environments** tab in your organization workspace, select **A
 ## Add pipeline to Platform
 
 :::info
-The [nf-core/proteinfold](https://github.com/nf-core/proteinfold) pipeline is a bioinformatics best-practice analysis pipeline for Protein 3D structure prediction.
+The [*nf-core/proteinfold*](https://github.com/nf-core/proteinfold) pipeline is a bioinformatics best-practice analysis pipeline for Protein 3D structure prediction.
 
 ![nf-core/proteinfold subway map](./_images/nf-core-proteinfold_metro_map_1.1.0.png)
 :::
@@ -112,7 +112,7 @@ To add a custom pipeline not listed in Seqera Pipelines to your Platform workspa
 
 ## Pipeline input data
 
-The [nf-core/proteinfold](https://github.com/nf-core/proteinfold) pipeline works with input datasets (samplesheets) containing sequence names and FASTA file locations (paths to FASTA files in cloud or local storage). The pipeline includes an example samplesheet that looks like this:
+The [*nf-core/proteinfold*](https://github.com/nf-core/proteinfold) pipeline works with input datasets (samplesheets) containing sequence names and FASTA file locations (paths to FASTA files in cloud or local storage). The pipeline includes an example samplesheet that looks like this:
 
 <details>
   <summary>**nf-core/proteinfold example samplesheet**</summary>
@@ -175,10 +175,10 @@ In Platform, samplesheets and other data can be made easily accessible in one of
 ## Launch pipeline
 
 :::note
-This guide is based on [version 1.1.1](https://nf-co.re/proteinfold/1.1.1) of the nf-core/proteinfold pipeline. Launch form parameters and tools may differ in other versions. 
+This guide is based on [version 1.1.1](https://nf-co.re/proteinfold/1.1.1) of the *nf-core/proteinfold* pipeline. Launch form parameters and tools may differ in other versions. 
 :::
 
-With your compute environment created, nf-core/proteinfold added to your workspace Launchpad, and your samplesheet accessible in Platform, you are ready to launch your pipeline. Navigate to the Launchpad and select **Launch** next to *nf-core-proteinfold* to open the launch form.
+With your compute environment created, *nf-core/proteinfold* added to your workspace Launchpad, and your samplesheet accessible in Platform, you are ready to launch your pipeline. Navigate to the Launchpad and select **Launch** next to *nf-core-proteinfold* to open the launch form.
 
 The launch form consists of **General config**, **Run parameters**, and **Advanced options** sections to specify your run parameters before execution, and an execution summary. Use section headings or select the **Previous** and **Next** buttons at the bottom of the page to navigate between sections. 
 
@@ -317,7 +317,7 @@ From the **Studios** tab, select **Add a Studio** and complete the following:
 - In the **Compute & Data** tab:
     - Select your AWS Batch compute environment. 
         :::info
-        The same compute environment can be used for pipeline execution and running your Studios notebook environment, but Studios does not support AWS Fargate and data studio sessions must run on CPUs. To use one compute environment for both nf-core/proteinfold execution and your Studio, leave **Enable Fargate for head job** disabled and include at least one CPU-based EC2 instance family (`c6id`, `r6id`, etc.) in your **Instance types**. 
+        The same compute environment can be used for pipeline execution and running your Studios notebook environment, but Studios does not support AWS Fargate and sessions must run on CPUs. To use one compute environment for both *nf-core/proteinfold* execution and your Studio, leave **Enable Fargate for head job** disabled and include at least one CPU-based EC2 instance family (`c6id`, `r6id`, etc.) in your **Instance types**. 
 
         Alternatively, create a second basic AWS Batch compute environment with at least 2 CPUs and 8192 MB of RAM for your data studio.
         :::
