@@ -11,7 +11,7 @@ Seqera Platform is available in two deployment editions and can be accessed via 
 
 ### Seqera Platform Cloud
 
-The hosted Seqera Cloud edition is recommended for users who are new to Seqera. It's an ideal choice for individuals and organizations looking to set up quickly. See [Community Showcase](https://docs.seqera.io/platform-cloud/getting-started/community-showcase) for instructions to launch your first pipeline. Seqera Cloud has a limit of five concurrent workflow runs per user. It's available free of charge at [cloud.tower.nf](https://tower.nf/login).
+The hosted Seqera Cloud edition is recommended for users who are new to Seqera. It's an ideal choice for individuals and organizations looking to set up quickly. See [Community Showcase](https://docs.seqera.io/platform-cloud/getting-started/quickstart-demo/comm-showcase) for instructions to launch your first pipeline. Seqera Cloud has a limit of five concurrent workflow runs per user. It's available free of charge at [cloud.tower.nf](https://tower.nf/login).
 
 ### Seqera Platform Enterprise
 
