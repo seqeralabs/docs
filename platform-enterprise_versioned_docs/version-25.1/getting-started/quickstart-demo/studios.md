@@ -9,13 +9,11 @@ tags: [platform, studios]
 This guide provides an introduction to Studios using a demo Studio in the Community Showcase workspace. See [Studios](../../studios/overview) to learn how to create Studios in your own workspace. 
 :::
 
-Interactive analysis of pipeline results is often performed in platforms like Jupyter Notebook or RStudio. Setting up the infrastructure for these platforms, including accessing pipeline data and the necessary bioinformatics packages, can be complex and time-consuming.
+Interactive analysis of pipeline results is often performed in platforms like Jupyter Notebook or an R-IDE. Setting up the infrastructure for these platforms, including accessing pipeline data and the necessary bioinformatics packages, can be complex and time-consuming.
 
 Studios streamlines the process of creating interactive analysis environments for Platform users. With built-in templates, creating a Studio is as simple as adding and sharing pipelines or datasets. Platform manages all the details, enabling you to easily select your preferred interactive tool and analyze your data.
 
 In the **Studios** tab, you can monitor and see the details of the Studios in the Community Showcase workspace.
-
-![Studios overview](./assets/studios-overview.png)
 
 Select the options menu next to a Studio to:
 - See Studio details
@@ -24,11 +22,11 @@ Select the options menu next to a Studio to:
 
 ### Analyze RNAseq data in Studios
 
-Studios is used to perform bespoke analysis on the results of upstream workflows. For example, in the Community Showcase workspace we have run the *nf-core/rnaseq* workflow to quantify gene expression, followed by *nf-core/differentialabundance* to derive differential expression statistics. The workspace contains a Studio with these results from cloud storage mounted into the Studio to perform further analysis. One of these outputs is an RShiny application, which can be deployed for interactive analysis.
+Studios is used to perform bespoke analysis on the results of upstream workflows. For example, in the Community Showcase workspace we have run the *nf-core/rnaseq* workflow to quantify gene expression, followed by *nf-core/differentialabundance* to derive differential expression statistics. The workspace contains a Studio with these results from cloud storage mounted into the Studio to perform further analysis. One of these outputs is a web app, which can be deployed for interactive analysis.
 
 ### Open the RNAseq analysis Studio 
 
-Select the *rnaseq_to_differentialabundance* Studio. This Studio consists of an RStudio environment that uses an existing compute environment available in the showcase workspace. The Studio also contains mounted data generated from the *nf-core/rnaseq* and subsequent *nf-core/differentialabundance* pipeline runs, directly from AWS S3. 
+Select the *rnaseq_to_differentialabundance* Studio. This Studio consists of an R-IDE that uses an existing compute environment available in the showcase workspace. The Studio also contains mounted data generated from the *nf-core/rnaseq* and subsequent *nf-core/differentialabundance* pipeline runs, directly from AWS S3. 
 
 ![RNAseq Studio details](assets/rnaseq-diffab-studio-details.gif)
 
@@ -38,17 +36,15 @@ Studios allows you to specify the resources each Studio will use. When [creating
 
 ### Connect to the Studio
 
-This Studio will start an RStudio environment which already contains the necessary R packages for deploying an RShiny application to interact with various visualizations of the RNAseq data. The Studio also contains an R Markdown document with the commands in place to generate the application.
+This Studio will start an R-IDE which already contains the necessary R packages for deploying a web app to interact with various visualizations of the RNAseq data. The Studio also contains an R Markdown document with the commands in place to generate the application.
 
-Deploy the RShiny app in the Studio by selecting the play button on the last chunk of the R script:
+Deploy the web app in the Studio by selecting the play button on the last chunk of the R script:
 
 ![Run RShiny app](./assets/rnaseq-diffab-run-rshiny-app.png)
 
-### Explore results in the RShiny app
+### Explore results in the web app
 
-The RShiny app will deploy in a separate browser window, providing a data interface. Here you can view information about your sample data, perform QC or exploratory analysis, and view the differential expression analyses.
-
-![RShiny app exploration](assets/rnaseq-diffab-rshiny-app-explore.gif)
+The web app will deploy in a separate browser window, providing a data interface. Here you can view information about your sample data, perform QC or exploratory analysis, and view the differential expression analyses.
 
 #### Sample clustering with PCA plots
 
@@ -56,10 +52,10 @@ In the **QC/Exploratory** tab, select the PCA (Principal Component Analysis) plo
 
 In this example, we used RNA sequencing data from the publicly-available ENCODE project, which includes samples from four different cell lines: 
 
-- **GM12878** — a lymphoblastoid cell line
-- **K562** — a chronic myelogenous leukemia cell line
-- **MCF-7** — a breast cancer cell line
-- **H1-hESC** — a human embryonic stem cell line
+- **GM12878**: a lymphoblastoid cell line
+- **K562**: a chronic myelogenous leukemia cell line
+- **MCF-7**: a breast cancer cell line
+- **H1-hESC**: a human embryonic stem cell line
 
 What to look for in the PCA plot:
 
@@ -67,8 +63,6 @@ What to look for in the PCA plot:
 - **Cell type separation**: Different cell types should form distinct clusters. For instance, GM12878, K562, MCF-7, and H1-hESC cells should each form their own separate clusters, reflecting their unique gene expression patterns.
 
 From this PCA plot, you can gain insights into the consistency and quality of your sequencing data, identify any potential issues, and understand the major sources of variation among your samples - all directly in Platform.
-
-![RShiny PCA plot](assets/rnaseq-diffab-rshiny-pca-plot.gif)
 
 #### Gene expression changes with Volcano plots 
 
