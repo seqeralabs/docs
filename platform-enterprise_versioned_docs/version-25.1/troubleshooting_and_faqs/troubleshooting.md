@@ -9,7 +9,7 @@ tags: [troubleshooting, help]
 
 **_timeout is not an integer or out of range_** or **_ERR timeout is not an integer or out of range_**
 
-This error can occur if you're using Seqera Platfrom v24.2 upwards and have an outdated version of Redis. From v24.2 Redis version 6.2 or greater is required. Follow your cloud provider specifications to upgrade your instance.
+This error can occur if you're using Seqera Platform v24.2 upwards and have an outdated version of Redis. From v24.2 Redis version 6.2 or greater is required. Follow your cloud provider specifications to upgrade your instance.
 
 **_Unknown pipeline repository or missing credentials_ error from public GitHub repositories**
 
@@ -234,7 +234,6 @@ Although it's not possible to directly download the trace logs via Seqera, you c
 Seqera Platform uses [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) to push real-time updates to your browser. The client must establish a connection to the server's `/api/live` endpoint to initiate the stream of data, and this connection can occasionally fail due to factors like network latency.
 
 To resolve the issue, try reloading the Platform browser tab to reinitiate the client's connection to the server. If reloading fails to resolve the problem, contact [Seqera support](https://support.seqera.io) for assistance with webserver timeout settings adjustments.
-
 
 ## Optimization
 
