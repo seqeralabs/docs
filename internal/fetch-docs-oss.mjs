@@ -24,7 +24,7 @@ const repositories = [
     name: "nextflow",
     url: "https://github.com/nextflow-io/nextflow.git",
     path: path.join(__dirname, "..", "nextflow_docs", "nextflow_repo"),
-    branch: "docs-poc-relative",
+    branch: "docs-migration",
   },
 ];
 

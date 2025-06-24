@@ -239,6 +239,7 @@ export default async function createConfigAsync() {
               require.resolve("./src/css/misc.css"),
               require.resolve("./src/css/components/checklist.css"),
               require.resolve("./src/css/components/box.css"),
+              require.resolve("./src/css/components/definitionlist.css"),
               require.resolve("./src/css/theme-colors.css"),
               require.resolve("./src/css/api.css"),
               require.resolve("./src/css/fonts/inter.css"),
@@ -286,6 +287,21 @@ export default async function createConfigAsync() {
                 component: "@site/src/pages/platform-enterprise/latest.tsx",
               },
             ].map((route) => actions.addRoute(route));
+          },
+        };
+      },
+      function webpackAliases() {
+        return {
+          name: "webpack-aliases",
+          configureWebpack() {
+            return {
+              resolve: {
+                alias: {
+                  '@site': path.resolve(__dirname, './'),
+                  '@components': path.resolve(__dirname, './src/components'),
+                },
+              },
+            };
           },
         };
       },
