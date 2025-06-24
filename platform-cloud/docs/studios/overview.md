@@ -113,7 +113,7 @@ A primary use case for VS Code in Studios is to develop new, and troubleshoot ex
 Many standard nf-core pipelines such as [*nf-core/rnaseq*](https://nf-co.re/rnaseq) require at least 4 CPUs and 16 GB memory. In **Advanced options**, specify an instance type with at least this amount of resources (e.g., `m5d.xlarge`).
 :::
 
-**2. One running Studio session per compute environment:** This allows the Studio session, and Nextflow, to maximize the available CPU and memory.
+**2. Only have one running Studio session per compute environment:** This allows the Studio session, and Nextflow, to maximize the available CPU and memory.
 
 :::tip
 The template for nf-core pipelines has recently been updated, and many existing pipelines don't yet use the new multi-line shell command defined in `nextflow.config`. To ensure maximum compatibility with the latest version of Nextflow (that ships with the VS Code container template image), include the following in your pipeline `nextflow.config` file.
