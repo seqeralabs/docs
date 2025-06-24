@@ -1,0 +1,7 @@
+# placeholder so Git tracks this folder
+extends: existence
+message: "Placeholder rule — replace with real rules later."
+scope: raw
+level: suggestion
+tokens:
+  - '___PLACEHOLDER___'
