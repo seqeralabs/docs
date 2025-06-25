@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dbconsole
+  labels:
+    app: dbconsole
+spec:
+  selector:
+    matchLabels:
+      app: dbconsole
+  template:
+    metadata:
+      labels:
+        app: dbconsole
+    spec:
+      containers:
+        - image: adminer:4.7.7
+          name: dbconsole
+          ports:
+            - containerPort: 8080
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dbconsole
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  type: NodePort
+  selector:
+    app: dbconsole
