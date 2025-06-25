@@ -40,7 +40,7 @@ export default async function createConfigAsync() {
     {
         id: 'platform-enterprise',
         path: 'platform-enterprise',
-        routeBasePath: 'platform-enterprise',
+        routeBasePath: '/platform-enterprise',
         sidebarPath: './platform-enterprise/sidebar.json',
         includeCurrentVersion: false,
         remarkPlugins: [ math, remarkYamlToTable], //remarkCodeImport tabBlocks
