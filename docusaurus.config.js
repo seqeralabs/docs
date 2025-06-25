@@ -146,6 +146,7 @@ export default async function createConfigAsync() {
         (await require("remark-math")).default,
         (await import("docusaurus-remark-plugin-tab-blocks")).default,
         (await require("remark-yaml-to-table")).default,
+        (await require("remark-code-import")).default,
       ],
       rehypePlugins: [(await require("rehype-katex")).default],
       editUrl: "https://github.com/seqeralabs/docs/tree/master/",
@@ -225,7 +226,10 @@ export default async function createConfigAsync() {
       defaultLocale: "en",
       locales: ["en"],
     },
-    themes: ["docusaurus-theme-openapi-docs"],
+    markdown: {
+      mermaid: true,
+    },
+    themes: ["docusaurus-theme-openapi-docs","@docusaurus/theme-mermaid"],
     presets: [
       [
         "classic",

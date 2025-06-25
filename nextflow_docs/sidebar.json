@@ -20,8 +20,19 @@
                 "cli",
                 "config",
                 "executor",
-                "cache-and-resume"
+                "cache-and-resume",
+                "reports",
+                "plugins"
             ]
-            }
+        },
+        {
+            "type": "category",
+            "label": "Developing pipelines",
+            "collapsed": false,
+            "items": [
+                "script",
+                "working-with-files"
+            ]
+        }
     ]
 }
