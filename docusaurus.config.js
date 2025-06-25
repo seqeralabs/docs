@@ -82,7 +82,7 @@ export default async function createConfigAsync() {
     {
         id: 'platform-cloud',
         path: "platform-cloud/docs",
-        routeBasePath: 'platform-cloud',
+        routeBasePath: '/platform-cloud',
         sidebarPath: './platform-cloud/cloud-sidebar.json',
         editUrl: 'https://github.com/seqeralabs/docs/tree/master/',
         remarkPlugins: [math, remarkYamlToTable, remarkCodeImport ,  tabBlocks],
@@ -95,7 +95,7 @@ export default async function createConfigAsync() {
     {
         id: 'multiqc',
         path: "multiqc_docs/multiqc_repo/docs/markdown",
-        routeBasePath: 'multiqc',
+        routeBasePath: '/multiqc',
         sidebarPath: './multiqc_docs/sidebar.js',
         remarkPlugins: [math, remarkYamlToTable, remarkCodeImport ,  tabBlocks],
         rehypePlugins: [katex],
@@ -109,7 +109,7 @@ export default async function createConfigAsync() {
     {
         id: 'fusion',
         path: 'fusion_docs',
-        routeBasePath: 'fusion',
+        routeBasePath: '/fusion',
         sidebarPath: './fusion_docs/sidebar.json',
         remarkPlugins: [math, remarkYamlToTable, remarkCodeImport ,  tabBlocks],
         rehypePlugins: [katex],
