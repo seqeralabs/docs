@@ -1,0 +1,10 @@
+# .github/styles/Seqera/HeadingJump.yml
+extends: script
+level: error
+message: "Heading jumps more than one level."
+script: |
+  import re, sys, json
+  levels = [len(m.group(1)) for m in re.finditer(r'^(#{1,6}) ', sys.stdin.read(), re.M)]
+  for a, b in zip(levels, levels[1:]):
+      if b - a > 1:
+          print(json.dumps({"match": "#"}))
