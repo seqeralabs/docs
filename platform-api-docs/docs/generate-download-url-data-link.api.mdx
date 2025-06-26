@@ -1,0 +1,71 @@
+---
+id: generate-download-url-data-link
+title: "Generate data-link file download URL"
+description: "Returns a URL to download files from the data-link associated with the given `dataLinkId`."
+sidebar_label: "Generate data-link file download URL"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVl1vEzsQ/SuWn0BKmwIRD/tEoRRVoHurAOKhioS7O5t1u7G39mxCFEW6P+L+Qn4JM96vbLOkBQmJp3btY59j+8yZbCSquZfRlUwUqqNcm1svZyOZgI+dLlBbIyM5BSyd8UKJz9MPAq1I7MrkViUi1Tl4kTq7EJiBaDcRynsba4WQiJXGLMzO9RKM+MqgD4S5SL4ey5G0BTjFRBcJUb0Dw59wVjN8dvlZjSdsoZxaAIJjyRtp6IPWdBsSRLPgQmEm75/irBXn0WkzFzoBgzrV4Ajr4K7UDkgDuhJG0scZLJSMNhLXBbNUi+R2O2qJ+fSXFVWgvSvBrfd4zwklWNHuzcnHMcSkiEWq3HenG6Z500H7J3sMz8q6W1+oGB5i+dIAhSkX4HT8AJc2CPMwlVq3UFgNvZz02AsHSw2rB5gzIBM5vsR5bZLgKrYk7S3qTURRusJ6ciWNJfSiMXZ2fZJAqsocI5HSNcHTIcXX1uagDAmcsSt8YQ3txoDnJyf8py/r3/e0SWzpmAZ5VhVFruNg6PGNZ8hmn8Ne35AuNrRj+6OuCEqXDz6TRI051BZmp+9Ux7RWSDhGToY0vlbJlOwNHn9Fa1cRV3IB3qs5cDQcPkIDPHiMt85Ztyf8xcDlNtkgjEWh8tyuSE9AT/bR/1g8t6VJxPf//heto9kHO2UUdkoZNhKnlxdkEa+uc4op9hD7qV04Cg5qQ4MtxkXcrv9b75ImPcSl07gOKfkalAN3WlJORVczdjVFaGY5becQWDnCIjnuWsB402XqdtyU21FTR0ds1I7lIx+zkrzL1arOEIum0kKFBRCNVP+cN8Fws8JwNG1SG5bXR/wId8TPr7UXCvXUZa6Q80V4cEsdU/FXYH4fFWNbW0GKj8ZjH9Yda0sgeiKdh1xK7atugoQsqdFUPM+OJ5PjEx6jbMGFCs9bp1fTsna8wo2hSx1KqPvCN511/mx3rZ8A4RuOi1xRvtIZ6pyp3r3X+kcy6nXT4acnC2V0Dbx2s7lWHiiHtlserqKbXdfUlYxC1B44/8/646D0W1j3G+9S5SXDJPeTx5P+tFseYL3fjH+T+oEWekBAv0v/Lv2f6aMHZHftvZM84w+nWfMv2uXJtM7Sp+LwL7pBRfWgMutdOY3SHe9vZ4TOQCW0FwusAKdxDAXuLN2L/V6+vnv7ibCqH4f34i/sPiiLaisgPtlbMFRfjUrkbxa43f4AbtwUEQ==
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Generate data-link file download URL"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/data-links/{dataLinkId}/generate-download-url"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Returns a URL to download files from the data-link associated with the given `dataLinkId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"dataLinkId","in":"path","description":"Data-link string identifier","required":true,"schema":{"type":"string"}},{"name":"filePath","in":"query","description":"File path to download","schema":{"type":"string"}},{"name":"credentialsId","in":"query","description":"Credentials identifier","schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"preview","in":"query","description":"Whether to generate the URL for preview purposes or direct download (default: false)","schema":{"type":"boolean"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"url":{"type":"string"}},"title":"DataLinkDownloadUrlResponse"}}}},"400":{"description":"BadRequest","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"NotFound — workspace or credentials not found, API disabled for the workspace, or data-link or path not found","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      
