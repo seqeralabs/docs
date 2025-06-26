@@ -22,7 +22,9 @@
                 "executor",
                 "cache-and-resume",
                 "reports",
-                "plugins"
+                "plugins",
+                "secrets",
+                "sharing"
             ]
         },
         {
@@ -31,7 +33,12 @@
             "collapsed": false,
             "items": [
                 "script",
-                "working-with-files"
+                "working-with-files",
+                "process",
+                "channel",
+                "workflow",
+                "module",
+                "notifications"
             ]
         }
     ]
