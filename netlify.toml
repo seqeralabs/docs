@@ -2,7 +2,7 @@
   function = "og-generate.png"
   path = "/og-generate.png"
 
-# Redirects from the missing docs -> API docs branch
+# Redirects for the missing API docs
 [[redirects]]
   from = "/platform-api/*"
   to = "https://seqera-docs-api.netlify.app/platform-api/:splat"
