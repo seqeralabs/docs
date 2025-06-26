@@ -15,22 +15,20 @@
         {
             "type": "category",
             "label": "Running pipelines",
-            "collapsed": false,
+            "collapsed": true,
             "items": [
                 "cli",
                 "config",
                 "executor",
                 "cache-and-resume",
                 "reports",
-                "plugins",
-                "secrets",
-                "sharing"
+                "plugins"
             ]
         },
         {
             "type": "category",
             "label": "Developing pipelines",
-            "collapsed": false,
+            "collapsed": true,
             "items": [
                 "script",
                 "working-with-files",
@@ -38,7 +36,10 @@
                 "channel",
                 "workflow",
                 "module",
-                "notifications"
+                "notifications",
+                "secrets",
+                "sharing",
+                "vscode"
             ]
         }
     ]
