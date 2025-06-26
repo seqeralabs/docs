@@ -135,6 +135,7 @@
           "orgs-and-teams/organizations",
           "orgs-and-teams/workspace-management",
           "orgs-and-teams/roles"
+          "monitoring/audit-logs"
           ]
       },
       {
