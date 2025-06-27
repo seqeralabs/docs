@@ -41,6 +41,16 @@
                 "sharing",
                 "vscode"
             ]
+        },
+        {
+            "type": "category",
+            "label": "Software dependencies",
+            "collapsed": true,
+            "items": [
+                "git",
+                "container",
+                "conda"
+            ]
         }
     ]
 }
