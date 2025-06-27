@@ -63,7 +63,7 @@ When pushed to the container registry, an image template is tagged with the foll
 
 To view the latest versions of the images, see [public.cr.seqera.io](https://public.cr.seqera.io/). You can also augment the Seqera-provided image templates or use your own custom container image templates. This approach is recommended for managing reproducible analysis environments. For more information, see [Custom environments][custom-envs].
 
-**JupyterLab 4.2.5**
+### JupyterLab 4.2.5
 
 The default user is the `root` account. The following [conda-forge](https://conda-forge.org/) packages are available by default:
 
@@ -91,19 +91,19 @@ To install additional Python packages during a running Studio session, execute `
 
 To see the list of all JupyterLab image templates available, including security scan results or to inspect the container specification, see [public.cr.seqera.io/repo/platform/data-studio-jupyter][ds-jupyter].
 
-**R-IDE 4.4.1**
+### R-IDE 4.4.1
 
 The default user is the `root` account. To install R packages during a running Studio session, execute `install.packages("<packagename>")` commands in your notebook environment. Additional system-level packages can be installed in a terminal window using `apt install <packagename>`.
 
 To see the list of all R-IDE image templates available, including security scan results or to inspect the container specification, see [https://public.cr.seqera.io/repo/platform/data-studio-ride][ds-ride].
 
-**Visual Studio Code 1.93.1**
+### Visual Studio Code 1.93.1
 
 [Visual Studio Code][def-vsc] is an integrated development environment (IDE) that supports many programming languages. The default user is the `root` account. The container template image ships with the latest stable version of [Nextflow] and the [VS Code extension for Nextflow][nf-lang-server] to make troubleshooting Nextflow workflows easier. To install additional extensions during a running Studio session, select **Extensions**. Additional system-level packages can be installed in a terminal window using `apt install <packagename>`.
 
 To see the list of all Visual Studio Code image templates available, including security scan results or to inspect the container specification, see [public.cr.seqera.io/platform/data-studio-vscode][ds-vscode].
 
-**Xpra 6.2.0**
+### Xpra 6.2.0
 
 [Xpra][def-xpra], known as _screen for X_, allows you to run X11 programs by giving you remote access to individual graphical applications. The container template image also installs NVIDIA Linux x64 (AMD64/EM64T) drivers for Ubuntu 22.04 for running GPU-enabled applications. To use these GPU drivers, your compute environment must specify GPU instance families.
 
