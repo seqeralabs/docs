@@ -178,9 +178,7 @@ When starting a Studio session, a *checkpoint* is automatically created. A check
 Checkpoints vary in size depending on libraries installed in your session environment. This can potentially result in many large files stored in the compute environment's pipeline work directory and saved to cloud storage. This storage will incur costs based on the cloud provider. Due to the architecture of Studios, you cannot delete any checkpoint files to save on storage costs. Deleting a Studio session's checkpoints will result in a corrupted Studio session that cannot be started nor recovered.
 :::
 
-When you stop and start a session, or start a new session from a previously created checkpoint, changes such as installed software packages and configuration files are restored and made available. Changes made to mounted data are not included in a checkpoint.
-
-Checkpoints can be renamed and the name has to be unique per Studio. Spaces in checkpoint names are converted to underscores automatically.
+When you stop and start a session, or start a new session from a previously created checkpoint, changes such as installed software packages and configuration files are restored and made available. Changes made to mounted data are not included in a checkpoint. Checkpoints can be renamed and the name has to be unique per Studio. Spaces in checkpoint names are converted to underscores automatically.
 
 Checkpoint files in the compute environment work directory may be shared by multiple Studios. Each checkpoint file is cleaned up asynchronously after the last Studio referencing the checkpoint is deleted.
 
@@ -190,9 +188,7 @@ The cleanup process is a best effort and not guaranteed. Seqera attempts to remo
 
 ## Session volume automatic resizing
 
-By default, a session allocates an initial 2 GB of storage. Available disk space is continually monitored and if the available space drops below a 1 GB threshold, the file system is dynamically resized to include an additional 2 GB of available disk space.
-
-This approach ensures that a session doesn't initially include unnecessary free disk space, while providing the flexibility to accommodate installation of large software packages required for data analysis.
+By default, a session allocates an initial 2 GB of storage. Available disk space is continually monitored and if the available space drops below a 1 GB threshold, the file system is dynamically resized to include an additional 2 GB of available disk space. This approach ensures that a session doesn't initially include unnecessary free disk space, while providing the flexibility to accommodate installation of large software packages required for data analysis.
 
 The maximum storage allocation for a session is limited by the compute environment disk boot size. By default, this is 30 GB. This limit is shared by all sessions running in the same compute environment. If the maximum allocation size is reached, it is possible to reclaim storage space using a snapshot. 
 
@@ -201,6 +197,7 @@ Stop the active session to trigger a snapshot from the active volume. The snapsh
 {/* links */}
 [contact]: https://support.seqera.io/
 [aws-batch]: ../compute-envs/aws-batch
+[aws-cloud]: ../compute-envs/aws-cloud
 [custom-envs]: ./custom-envs
 [build-status]: ./custom-envs#build-status
 [cloud-bucket-subdirectory]: ./managing#cloud-bucket-subdirectory
