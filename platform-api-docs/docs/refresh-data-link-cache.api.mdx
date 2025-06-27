@@ -1,11 +1,11 @@
 ---
 id: refresh-data-link-cache
-title: "Refresh data link cache for workspace or specific credentials"
-description: "Refresh data link cache for workspace or specific credentials"
-sidebar_label: "Refresh data link cache for workspace or specific credentials"
+title: "Refresh data-link cache"
+description: "Refreshes the data-link cache for the given `workspaceId` or `credentialsId`."
+sidebar_label: "Refresh data-link cache"
 hide_title: true
 hide_table_of_contents: true
-api: eJylVNtu2zAM/RVDz1mcrcWA5WndFcUGrFi7pyEPjMzEWhTJleh0geF/Hyk7iZN096eEF5GH55BuFMEyqulXVQDBE2vcKqrZSPkKA5Dx7rpQU/UZFwFj+YZTPnLGa9AlqpGqIMAaCYMUaJRjg5MffFjFCjTy05Eyjl33NYYtGwVGHUwlddn7Kf0Bm+1fZK5eYzA6MwU6MguDgV9F7rYGNW0UbSvpYBzhMoUWPqyBOtfzS9W2oz0MHTAVARv/GMjgzW8gRArGLbkhc8XUVN5FjBJ/NpnIz0mDD6odqcvJxSOhHdGZ85SBtf4BCxlERdR1MLRN3L5CCBiuairZnEnX4zK9QpmomImKmRaRMiZoQC8bsULNU+nhrDwgy1h6kXqJlJSVRio/LEWe6uWh66MO8G6Fmm72Icg9UyVRtWNQ7HlKYk/3591OwW8PlMY2buHTc0NW8m/xnhnKrm6uz3TrQzcWSBYhixg2RmPsk7V3BJqkWB1sDyVO8zymd2PjOYllNTYt0MK/PAQYyIb3uuvzdHzxYjwRX+UjrcFJyX7N/pf4o4n2pBF+p7yywEvLXRP6phfl6FJ5yP4Wd8LwZpQMUvKaZg4RvwTbtuLudl+WqTAR5pbXbLpgEHgGQohjhH9xoo/CXuH27HOwAVtLppJL/QccP73QXyA4/RIcMMzECEZApLMa3MH7t3ecCse7fLK7icw+BG47KM3Up4w7v0LH9O+gkNjct23bH10y5I8=
+api: eJy1U02P2jAQ/SuWzxRoi3rg1O32Q6iVuupu1cMKCZNMiIuxs/YEiqL89844CQF2Bb30BON5mffmzUwlUwiJ1wVqZ+VU/oDMQ8ghCMxBpArVK6PtWiQqoThzPr6v9BasWOycX4dCJTBLF4JSi8RDCha1MoGehnIgUa2CnD7KQ6Ug5wPpCvCKGWdpz/mRIN8IcctU9GmhvNoAgucClbQUEPiIkzCaNT+V4PcUnHbyqwMKW27A60ToqC3T4AkciGSj5LSSuC+4sLYIq5iiLjcKm6d3E1nXgwP7SYOX+W97qAjotV1dEdCAiI4MIj8KZwMEzr8Zj/nntPz3r7IeyMn47Qupzl1hHQpljNtBym3IAEnpNe6joR9AefA3JeYUzpmV3M4dT2QFGAfAKTnqZzeKazDyzcBkX/Cem2nUHpc99JYjFl3PHC8jiF6aP587x3/vMArVNnPxc42G8ffwRD2Jm7vZM5/b1J1RyIMTAfxWJ7TADThxFlWCXKz0ppUSpqNRiN8NtSMQDUKbOPDMve8TJGRL69fwvB5OJsMxvxUu4EZZLtmuRbvB5/dyrrWKamgH/sehNUYj/MFRYRQtJimNHVftIE+OkIxpFXbDpPnn1BjjqmqpAvz0pq75udlvXplUB7U0tEzTjJjhQntXru9FtWvYPzvwrTIlIyUf4b/TXzu+C/znJ94rmHPgNUuIF3N0MF8+PRBUnS792ZJHB9uUsvuj0uR3RDy4NVjyvJOCHBNvXdd/AcR/80Y=
 sidebar_class_name: "get api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -22,7 +22,7 @@ import Heading from "@theme/Heading";
 <Heading
   as={"h1"}
   className={"openapi__heading"}
-  children={"Refresh data link cache for workspace or specific credentials"}
+  children={"Refresh data-link cache"}
 >
 </Heading>
 
@@ -36,7 +36,7 @@ import Heading from "@theme/Heading";
 
 
 
-Refresh data link cache for workspace or specific credentials
+Refreshes the data-link cache for the given `workspaceId` or `credentialsId`.
 
 <Heading
   id={"request"}
@@ -47,7 +47,7 @@ Refresh data link cache for workspace or specific credentials
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"workspaceId","in":"query","description":"Optional workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"credentialsId","in":"query","description":"Optional credentials identifier","schema":{"type":"string"}}]}
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"credentialsId","in":"query","description":"Credentials string identifier","schema":{"type":"string"}}]}
 >
   
 </ParamsDetails>
