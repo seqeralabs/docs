@@ -1,8 +1,8 @@
 ---
 title: "General troubleshooting"
 description: "Troubleshooting Seqera Platform"
-date: "24 Apr 2023"
-tags: [troubleshooting, help]
+date: "2023-04-24"
+tags: [troubleshooting, common errors, help, sleep, timeout]
 ---
 
 ## Common errors
@@ -48,7 +48,6 @@ The `sleep` commands in your Nextflow workflows may differ in behavior depending
 
 - If used within an `errorStrategy` block, the Groovy sleep function will be used (which takes its value in milliseconds).
 - If used within a process script block, that language's sleep binary/method will be used. For example, [this bash script](https://www.nextflow.io/docs/latest/metrics.html?highlight=sleep) uses the bash sleep binary, which takes its value in seconds.
-
 
 **Large number of batch job definitions**
 

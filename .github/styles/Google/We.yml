@@ -6,6 +6,6 @@ ignorecase: true
 tokens:
   - we
   - we'(?:ve|re)
-  - ours?
+  # - ours?
   - us
   - let's
