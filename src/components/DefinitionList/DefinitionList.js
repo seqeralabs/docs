@@ -40,25 +40,21 @@ export function DefinitionTerm({ children }) {
         marginTop: '1.5em',
         marginBottom: '0.3em',
         lineHeight: 1.3,
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.5em',
       }}
     >
-      <span>{children}</span>
-      <Link
-        to={link}
-        aria-label={`Anchor link to ${text}`}
-        title={text}
-        className="definition-anchor-link"
-        tabIndex={-1}
-        name={id}
-        style={{
-          marginBottom: '0.8em',
-        }}
-      >
-        #
-      </Link>
+      <span style={{ display: 'inline-flex', alignItems: 'baseline', gap: '0.5em' }}>
+        <span>{children}</span>
+        <Link
+          to={link}
+          aria-label={`Anchor link to ${text}`}
+          title={text}
+          className="definition-anchor-link"
+          tabIndex={-1}
+          name={id}
+        >
+          #
+        </Link>
+      </span>
       <style>{`
         dt:hover .definition-anchor-link,
         dt:focus-within .definition-anchor-link {
