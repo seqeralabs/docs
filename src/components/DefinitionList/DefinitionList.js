@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from '@docusaurus/Link';
 
 // Recursively extract plain text from React children
 function extractText(children) {
@@ -45,26 +46,16 @@ export function DefinitionTerm({ children }) {
       }}
     >
       <span>{children}</span>
-      <a
-        href={link}
+      <Link
+        to={link}
         aria-label={`Anchor link to ${text}`}
         title={text}
         className="definition-anchor-link"
         tabIndex={-1}
-        style={{
-          textDecoration: 'none',
-          color: 'var(--ifm-color-primary)',
-          fontWeight: 'normal',
-          fontSize: '0.9em',
-          opacity: 0,
-          transition: 'opacity 0.2s',
-          marginLeft: '0.2em',
-          cursor: 'pointer',
-        }}
         name={id}
       >
         #
-      </a>
+      </Link>
       <style>{`
         dt:hover .definition-anchor-link,
         dt:focus-within .definition-anchor-link {
