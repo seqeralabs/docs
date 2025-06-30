@@ -10,3 +10,4 @@ jobs:
       - uses: errata-ai/vale-action@v2.1.1
         with:
           files: '["platform-enterprise_versioned_docs/version-25.1"]'
+          
