@@ -53,6 +53,9 @@ export function DefinitionTerm({ children }) {
         className="definition-anchor-link"
         tabIndex={-1}
         name={id}
+        style={{
+          marginBottom: '0.8em',
+        }}
       >
         #
       </Link>
