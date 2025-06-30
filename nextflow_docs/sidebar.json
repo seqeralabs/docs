@@ -56,7 +56,7 @@
         },
         {
             "type": "category",
-            "label": "Compute & storage",
+            "label": "Compute and storage",
             "collapsed": true,
             "items": [
                 "aws",
@@ -65,6 +65,25 @@
                 "google",
                 "kubernetes",
                 "fusion"
+            ]
+        },
+        {
+            "type": "category",
+            "label": "Language reference",
+            "collapsed": true,
+            "items": [
+                "reference/feature-flags",
+                "reference/syntax",
+                {
+                    "type": "category",
+                    "label": "Standard library",
+                    "link": { "type": "doc", "id": "reference/stdlib" },
+                    "items": [
+                        "reference/stdlib-namespaces",
+                        "reference/stdlib-types",
+                        "reference/stdlib-groovy"
+                    ]
+                }
             ]
         }
     ]
