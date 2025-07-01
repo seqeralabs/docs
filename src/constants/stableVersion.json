@@ -1,0 +1,20 @@
+{
+  "nextflow": [
+    {
+      "stable": "stable-2",
+      "replaces": [
+        "24.10.1-edge",
+        "24.06.0-edge",
+        "24.07.0-edge",
+        "24.08.0-edge",
+        "24.09.0-edge"
+      ]
+    },
+    {
+      "stable": "stable-1",
+      "replaces": [
+        "23.20.1-edge"
+      ]
+    }
+  ]
+} 

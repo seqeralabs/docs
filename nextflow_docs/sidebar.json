@@ -81,7 +81,8 @@
                     "items": [
                         "reference/stdlib-namespaces",
                         "reference/stdlib-types",
-                        "reference/stdlib-groovy"
+                        "reference/stdlib-groovy",
+                        "test"
                     ]
                 }
             ]
