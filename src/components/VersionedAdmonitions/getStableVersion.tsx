@@ -1,4 +1,4 @@
-import stableVersions from '/stableVersion.json';
+import stableVersions from '../../../stableVersion.json';
 
 type Tool = keyof typeof stableVersions;
 
