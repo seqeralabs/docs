@@ -1,7 +1,7 @@
 {
   "nextflow": [
     {
-      "stable": "stable-2",
+      "stable": "stable 24",
       "replaces": [
         "24.10.1-edge",
         "24.06.0-edge",
