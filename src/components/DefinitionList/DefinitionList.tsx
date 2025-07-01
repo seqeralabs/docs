@@ -1,22 +1,23 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import Link from '@docusaurus/Link';
 
 // Recursively extract plain text from React children
-function extractText(children) {
+function extractText(children: React.ReactNode): string {
   if (typeof children === 'string' || typeof children === 'number') {
     return String(children);
   }
   if (Array.isArray(children)) {
     return children.map(extractText).join('');
   }
-  if (children && typeof children === 'object' && children.props) {
+  if (children && typeof children === 'object' && 'props' in children) {
+    // @ts-ignore
     return extractText(children.props.children);
   }
   return '';
 }
 
 // Simple slugify function
-function slugify(text) {
+function slugify(text: string): string {
   return String(text)
     .toLowerCase()
     .replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>{}\[\]]/gi, '') // remove special chars including [ and ]
@@ -25,7 +26,11 @@ function slugify(text) {
     .replace(/^-+|-+$/g, ''); // trim - from start/end
 }
 
-export function DefinitionTerm({ children }) {
+interface DefinitionTermProps {
+  children: ReactNode;
+}
+
+export function DefinitionTerm({ children }: DefinitionTermProps) {
   // Extract plain text from children for slug and anchor name
   const text = extractText(children).trim();
   const id = slugify(text);
@@ -50,7 +55,6 @@ export function DefinitionTerm({ children }) {
           title={text}
           className="definition-anchor-link"
           tabIndex={-1}
-          name={id}
         >
           #
         </Link>
@@ -68,10 +72,18 @@ export function DefinitionTerm({ children }) {
   );
 }
 
-export function DefinitionDescription({ children }) {
+interface DefinitionDescriptionProps {
+  children: ReactNode;
+}
+
+export function DefinitionDescription({ children }: DefinitionDescriptionProps) {
   return <dd>{children}</dd>;
 }
 
-export default function DefinitionList({ children }) {
+interface DefinitionListProps {
+  children: ReactNode;
+}
+
+export default function DefinitionList({ children }: DefinitionListProps) {
   return <dl>{children}</dl>;
 }
