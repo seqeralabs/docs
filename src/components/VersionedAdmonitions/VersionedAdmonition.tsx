@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import Admonition from "@theme/Admonition";
-import { getDisplayVersion } from "../../constants/getStableVersion";
+import { getDisplayVersion } from "./getStableVersion";
 
 interface VersionedAdmonitionProps {
   type?: "info" | "warning" | "danger" | "success";
