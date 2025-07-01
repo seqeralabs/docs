@@ -1,0 +1,91 @@
+{
+    "sidebar": [
+        "nextflow",
+        {
+        "type": "category",
+        "label": "Getting started",
+        "collapsed": false,
+        "items": [
+            "overview",
+            "install",
+            "developer-env",
+            "your-first-script"
+        ]
+        },
+        {
+            "type": "category",
+            "label": "Running pipelines",
+            "collapsed": true,
+            "items": [
+                "cli",
+                "config",
+                "executor",
+                "cache-and-resume",
+                "reports",
+                "plugins"
+            ]
+        },
+        {
+            "type": "category",
+            "label": "Developing pipelines",
+            "collapsed": true,
+            "items": [
+                "script",
+                "working-with-files",
+                "process",
+                "channel",
+                "workflow",
+                "module",
+                "notifications",
+                "secrets",
+                "sharing",
+                "vscode"
+            ]
+        },
+        {
+            "type": "category",
+            "label": "Software dependencies",
+            "collapsed": true,
+            "items": [
+                "git",
+                "container",
+                "conda",
+                "spack",
+                "wave"
+            ]
+        },
+        {
+            "type": "category",
+            "label": "Compute and storage",
+            "collapsed": true,
+            "items": [
+                "aws",
+                "amazons3",
+                "azure",
+                "google",
+                "kubernetes",
+                "fusion"
+            ]
+        },
+        {
+            "type": "category",
+            "label": "Language reference",
+            "collapsed": true,
+            "items": [
+                "reference/feature-flags",
+                "reference/syntax",
+                {
+                    "type": "category",
+                    "label": "Standard library",
+                    "link": { "type": "doc", "id": "reference/stdlib" },
+                    "items": [
+                        "reference/stdlib-namespaces",
+                        "reference/stdlib-types",
+                        "reference/stdlib-groovy",
+                        "test"
+                    ]
+                }
+            ]
+        }
+    ]
+}
