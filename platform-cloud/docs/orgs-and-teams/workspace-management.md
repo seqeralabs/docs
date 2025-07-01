@@ -1,7 +1,7 @@
 ---
 title: "Workspaces"
 description: "Manage users and teams for an organization in Seqera Platform."
-date: "24 Apr 2023"
+date: "2025-07-01"
 tags: [workspaces, teams, users, administration]
 ---
 
