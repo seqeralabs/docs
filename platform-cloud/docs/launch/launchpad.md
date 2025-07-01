@@ -158,8 +158,13 @@ Pipeline names must be unique per workspace.
 The launch form can populate fields with values passed as URL query parameters. For example, append `?revision=master` to your launch URL to prefill the **Revision** field. 
 
 Platform validates run parameters passed via the launch URL in the following way:
+- The validity of parameter names is **not** validated. You must provide valid and supported parameters for launch form fields to be populated without error. See supported parameter names in the following section. 
 - Parameter values are validated and warnings are shown for any invalid supplied values.
-- The validity of parameter names is **not** validated. You must provide valid and supported parameters for launch form fields to be populated without error. 
+- Pipeline-specific run parameters can be passed with the `paramsText` query parameter. Include both the parameter name and value, and chain parameters together using `&`. For example:
+
+```
+?paramsText=key1:value1&key2:value2
+```
 
 ### Supported URL query parameters and corresponding launch form fields
 
@@ -190,3 +195,4 @@ Platform validates run parameters passed via the launch URL in the following way
 | User's pipeline secrets                        | userSecrets               |
 | Pre-run script                                 | preRunScript              |
 | Post-run script                                | postRunScript             |
+
