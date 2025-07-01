@@ -1,0 +1,15 @@
+{
+    "git.autofetch": true,
+    "git.confirmSync": false,
+    "git.enableSmartCommit": true,
+    "workbench.editor.enablePreview": false,
+    "window.autoDetectColorScheme": true,
+    "editor.tokenColorCustomizations": {},
+    "emmet.syntaxProfiles": {},
+    "editor.wordWrap": "on",
+    "diffEditor.ignoreTrimWhitespace": false,
+    "redhat.telemetry.enabled": false,
+    "vale.doNotShowWarningForFileToBeSavedBeforeLinting": true,
+    "vale.valeCLI.path": "/opt/homebrew/bin/vale",
+    "vale.readabilityProblemLocation": "inline"
+} 
