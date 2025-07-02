@@ -1,0 +1,51 @@
+---
+- 
+  Environment variable:            '`TOWER_SERVER_URL`'
+  Description: >
+    Your Seqera instance hostname, IP address, DNS name, or full [reverse proxy path](https://docs.seqera.io/platform-enterprise/latest/enterprise/configuration/reverse_proxy) where the application is exposed. The `https://` protocol is required for instances that use an SSL certificate. As of version 22.1, HTTPS is used by default. To use HTTP, set `TOWER_ENABLE_UNSAFE_MODE=true`.
+  Value:                "Default: `http://localhost:8000`"
+-
+  Environment variable:            '`TOWER_LICENSE`'
+  Description: > 
+    Your Seqera Enterprise license key (**required**). [Contact us](mailto:sales@seqera.io) to obtain your license key. The key is base64-encoded by Seqera — paste this value exactly as received. 
+  Value:                '`DT8G5F3...BBV90OW`'
+- 
+  Environment variable:            '`TOWER_APP_NAME`'
+  Description: > 
+    Application name. To run multiple instances of the same Seqera account, each instance must have a unique name, e.g., `tower-dev` and `tower-prod`.
+  Value:                'Default: `tower`'
+- 
+  Environment variable:            '`TOWER_CONFIG_FILE`'
+  Description: > 
+    Custom path for the `tower.yml` file.
+  Value:                '`path/to/tower/config`'
+- 
+  Environment variable:            '`TOWER_LANDING_URL`'
+  Description: > 
+    Custom landing page for the application (requires version 21.10.1 or later). This value doesn't change the `TOWER_SERVER_URL` used for inbound Seqera connections.
+  Value:                '`https://your.custom.landing.example.net`'               
+- 
+  Environment variable:            '`TOWER_CRON_SERVER_PORT`'
+  Description: > 
+    Define the HTTP port used by the Seqera cron service (requires version 21.06.1 or later).
+  Value:                '`8080`'
+- 
+  Environment variable:            '`TOWER_ROOT_USERS`'
+  Description: > 
+    Grant users access to the application admin panel.
+  Value:                '`user1@your-company.com,user2@your-company.com`'
+- 
+  Environment variable:            '`TOWER_CONTACT_EMAIL`'
+  Description: > 
+    Your Seqera system administrator contact email.
+  Value:                '`seqera@your-company.com`'
+- 
+  Environment variable:            '`TOWER_AUTH_DISABLE_EMAIL`'
+  Description: > 
+    Set to `true` to disable the email login. Ensure that you've configured an alternative authentication provider first.
+  Value:                'Default: `false`'  
+-
+  Environment variable:            '`TOWER_USER_WORKSPACE_ENABLED`'
+  Description: > 
+    Enable or disable user private workspaces (requires version 22.1.0 or later).
+  Value:                'Default: `true`'
