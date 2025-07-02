@@ -196,7 +196,7 @@ Platform will ignore added percent-encoding characters in form fields, so you do
 | Compute environment                            | `computeEnvId`              |
 | Work directory                                 | `workDir`                   |
 | **Run parameters**                             |                           |
-| Run parameters                                 | `paramsText`                |
+| Pipeline-specific run parameters                                 | `paramsText`                |
 | **Advanced settings**                          |                           |
 | Resource labels                                | `resourceLabelIds`          |
 | Nextflow config file                           | `configText`                |
