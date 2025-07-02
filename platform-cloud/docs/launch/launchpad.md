@@ -155,44 +155,60 @@ Pipeline names must be unique per workspace.
 
 ## Populate launch form with URL query parameters
 
-The launch form can populate fields with values passed as URL query parameters. For example, append `?revision=master` to your launch URL to prefill the **Revision** field. 
+The launch form can populate fields with values passed as URL query parameters. For example, append `?revision=master` to your launch URL to prefill the **Revision** field with `master`. This feature is useful for Platform administrators to provide custom pipeline launch URLs to users in order to hard-code required run and pipeline parameters for every run.
 
 Platform validates run parameters passed via the launch URL in the following way:
 - The validity of parameter names is **not** validated. You must provide valid and supported parameters for launch form fields to be populated without error. See supported parameter names in the following section. 
 - Parameter values are validated and warnings are shown for any invalid supplied values.
-- Pipeline-specific run parameters can be passed with the `paramsText` query parameter. Include both the parameter name and value, and chain parameters together using `&`. For example:
+
+Pipeline-specific run parameters can be passed with the `paramsText` query parameter. Pass both the name and value for any parameter defined in your [pipeline schema](../pipeline-schema/overview.md) in JSON format:
 
 ```
-?paramsText=key1:value1&key2:value2
+?paramsText={"key1": "value1", "key2": "value2"}
 ```
+
+:::note
+When submitted, JSON-formatted paramsText input will be formatted with percent-encoding for spaces, brackets and other non-standard URL characters. For example:
+
+```
+?paramsText={"key1": "value1", "key2": "value2"}
+```
+
+will be formatted and added to relevant launch form fields with this syntax:
+
+```
+%7B"key1":%20"value1",%20"key2":%20"value2"%7D
+```
+
+Platform will ignore added percent-encoding characters in form fields, so you do not need to remove them manually before submitting your pipeline launch. 
+:::
 
 ### Supported URL query parameters and corresponding launch form fields
 
 | **Launch form field**                          | **Query parameter name**  |
 |------------------------------------------------|---------------------------|
 | **General config**                             |                           |
-| Pipeline to launch                             | pipeline                  |
-| Revision number                                | revision                  |
-| Config profiles                                | configProfiles            |
-| Workflow run name                              | runName                   |
-| Labels                                         | labelIds                  |
-| Compute environment                            | computeEnvId              |
-| Work directory                                 | workDir                   |
+| Pipeline to launch                             | `pipeline`                  |
+| Revision number                                | `revision`                  |
+| Config profiles                                | `configProfiles`            |
+| Workflow run name                              | `runName`                   |
+| Labels                                         | `labelIds`                  |
+| Compute environment                            | `computeEnvId`              |
+| Work directory                                 | `workDir`                   |
 | **Run parameters**                             |                           |
-| Run parameters                                 | paramsText                |
+| Run parameters                                 | `paramsText`                |
 | **Advanced settings**                          |                           |
-| Resource labels                                | resourceLabelIds          |
-| Nextflow config file                           | configText                |
-| Seqera Cloud config file                       | towerConfig               |
-| Pull latest                                    | pullLatest                |
-| Stub run                                       | stubRun                   |
-| Main script                                    | mainScript                |
-| Workflow entry name                            | entryName                 |
-| Schema name                                    | schemaName                |
-| Head job CPUs                                  | headJobCpus               |
-| Head job memory                                | headJobMemoryMb           |
-| Workspace's pipeline secrets                   | workspaceSecrets          |
-| User's pipeline secrets                        | userSecrets               |
-| Pre-run script                                 | preRunScript              |
-| Post-run script                                | postRunScript             |
-
+| Resource labels                                | `resourceLabelIds`          |
+| Nextflow config file                           | `configText`                |
+| Seqera Cloud config file                       | `towerConfig`               |
+| Pull latest                                    | `pullLatest`                |
+| Stub run                                       | `stubRun`                   |
+| Main script                                    | `mainScript`                |
+| Workflow entry name                            | `entryName`                 |
+| Schema name                                    | `schemaName`                |
+| Head job CPUs                                  | `headJobCpus`               |
+| Head job memory                                | `headJobMemoryMb`           |
+| Workspace's pipeline secrets                   | `workspaceSecrets`          |
+| User's pipeline secrets                        | `userSecrets`               |
+| Pre-run script                                 | `preRunScript`              |
+| Post-run script                                | `postRunScript`             |
