@@ -1,0 +1,71 @@
+---
+id: validate-pipeline-name
+title: "Validate pipeline name"
+description: "Confirms the validity of the given pipeline `name` in a user context. Append `?name=<your_pipeline_name>`. Append `?workspaceId` to validate the name in a workspace context."
+sidebar_label: "Validate pipeline name"
+hide_title: true
+hide_table_of_contents: true
+api: eJzVVV1v0zAU/SuWn0tboEKi4quDgSakMbEBD2ha3eQm9ZbYnu10lKj/nXsdp03XqkOIB3hq7Xt8z7mfqXkKLrHSeKkVH/O3WmXSlo75ObCFKGQq/ZLpLJxzuQDFjDRQSAVsqkQJUyYVE6xyYFmilYcfvs8mxoBK2fQ1IV6+WOrKXrXPruju1bQDutP2xhmRwEk6ZV43tMJD4CR0Q7GGrXl4j3uROz7+zlvvjl/2uDZgBQV0kmJIX6O7swg5RY/40giLfzxYel9z4kFwRwtiJKXktgK7xMN2or6t1aiqBCsTJlNQXmYSLIJdModS8HHN/dKQY4mS82DKtC2Fb66ejfhq1Vuza5s/xPvJ5kLJnyG8v0mtmqwcYG7z15SkU6d9nM5bqXJkwHJYcEYrh7VB+5PhiH7uBfWRPWKnuims8nzV46PhcBd3JFJmAeU5j6QtGmHCmEImISmDa0fYuqOJnkgLKTVKCc6JHKhNolQ9u4aE/BlLjeNlI7QF7okJn0pf0NWxtdp+jvGhZRWUP90TYduSTGnPRFHoO9QT0M930e+qJhxgUEBJMf6j0aLRQVJZXBJhio5AWLCTys/xeEnFxxGbaxrDHAKrIBMfrOd10O2i6OqcYml0dR2upc29N23T0XkWQHjT/Hnfdvn1nQ/6pcp0eB7jOIdbrAabnJ3sNHk0nRXC07AwXGsLmYCLYCqCSEIRKltEKW48GLjwri81grAOsghDluk3GwMKWeC2aXge90ej/pDujHa+FKGGcRTbhbXZtHE4t6TWm474/7Z2U0c6DkwhcOlgIkJC69gh3Y2OeWt7BBtqjvkie13PhIMvtlit6LrZWdSDqXRiVlD/Z6JwcCBtD+zwvSpvYLnzmUB5FSE57dPfp394lR9Q0H4q/pD70DI/wBobcUN6SQcriTVMPNYHRIriqRLNm0mSgPGdVzvra2tPfDi+QKzYnvh7Ex68R5NQy45v7IqAuNA3oLAzWuGezkiEK+sX89Ialw==
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Validate pipeline name"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/pipelines/validate"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Confirms the validity of the given pipeline `name` in a user context. Append `?name=<your_pipeline_name>`. Append `?workspaceId` to validate the name in a workspace context.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"orgId","in":"query","description":"Organization numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"name","in":"query","description":"Pipeline name to validate","schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"409":{"description":"Duplicate element","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

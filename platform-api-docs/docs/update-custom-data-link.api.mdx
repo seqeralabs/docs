@@ -1,0 +1,71 @@
+---
+id: update-custom-data-link
+title: "Update data-link"
+description: "Update the data-link associated with the given `dataLinkId`."
+sidebar_label: "Update data-link"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVttu20YQ/RVin1qAkdxW6IOe6ksCCAhiQ7bbB0NoRuRKWovk0nuRohIE+hH9wn5JZ3Z5k8gqSRMgfbGpnduZ+xQs5jpSIjdCZmzKHvMYDA/Mhgf4Aa8SkW0D0FpGAt/jYC/MxlHXYsez4D0xvUWeWfx+xEJmYK3Z9Ik1spotQiZzroAMzOLGxLXVRqY3lTiK5qAg5YYrUlCwDH8gc6sfWQQhzMFs8PsY9k2DVRslsnUgYp4ZsRJcIa/iL1YojsaNsjxkOtrwFNi0YOaQkxUvxMoybAzvpdrqHCLeWn6xXB16pn+rGYPMplyJ6Nh2z5bIDF870kqqFIx/+nmC1hceKtfmSsYHkvk3L61PU8WNuiKJajNDMpDniYhcvMfPmgSLPgq5fOYRCeaKsmME10T1zvficuLzAD3C8JLXkGhK8kBkmREm4ZUXlFJfB/PKhZJYjhPlHnQuM+3B/Xhx0Y/JvY0irnXw959/Bafxib9eYMSQU+F/jxc6Jq2K0P3VIN0/nBJCxrHIqMGWNtpyQ811GtYHkigd/h1WojqnBfYaf62lXKOKkMEfVjX/f8eoKaAK5i/YvpFMc2v4kMW72pLza/0JJdKhg1JATSUMT917WwNPFPUqxh1/FuFXztW3iNRAP1x34kP03C6xXC9deYtl0sW+lDLhkBH4jYhRapimDRjrQgJJcrtyc/XUQcUhvs2SQz0ba4d/vXw7u0H67J3/GvBmdO/109Q8r7ZcIJoU/YD1UAoGgnFjJI0EpEyGuv4K4vnnz75uadVoPlpNnwT7tVJSzath1QD/qQ/8tl6FQSZNgGmRe8TjuCd97nfSvJE2i910azZSIFXQaSanaUVsYXB5NwtioQHLJcY35VZ1IxiSZLvWG7n/awyphHlklTAHV7tXHBRXlxYPgOnTgtYlHgwbSUcFdpy7IYjExu35MS7aC6Jkrb57csiD62pt8G2Myevt7brKMeGL/3hTr+7nvXFOUKDm7e5+/QHS3LdsdU80nXGc4eb5ZIF2xpPIVtIhq+J076YMpbqnrSLdJWDouAg0VzuB86NipiRD5JJsVVJ5qafjsR9cIyFp4qUgEneUrOQvLQGB7PA283Z+GE0mows3O6U2KWQdR6sLsknBKciirbUvvjZ9rgz/YMZ5AsINPedZUZXC0SUasmnnnMTq2SB44imKJWj+qJKypGd/51HB1a3EpivMCz/jyUeuwEGkW37oHZo7SCxxMqruHSgBbvJ/Fpbv5lWPfh+cv4sHUdV7OTt04dRoOwF0Q32Dc542JwL0DNcexit3hrQKekOFloaXoA2Xm7O83U6/e3ygNqwO5FTGJKJgT0sH/zqs0kXFnxP0VrAEsrV1I4h5ldS0cNzzJz3eXZfH0cB6cRwPcsuzsmyCY+g3xaUs/wEjY535
+sidebar_class_name: "put api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Update data-link"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"put"}
+  path={"/data-links/{dataLinkId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Update the data-link associated with the given `dataLinkId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"dataLinkId","in":"path","description":"Data-link string identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Data-link update request","content":{"application/json":{"schema":{"type":"object","properties":{"name":{"type":"string"},"description":{"type":"string"},"credentialsId":{"type":"string"}},"title":"DataLinkUpdateRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Success — Data-link updated","content":{"application/json":{"schema":{"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"description":{"type":"string"},"resourceRef":{"type":"string"},"type":{"type":"string","enum":["bucket"],"title":"DataLinkType"},"provider":{"type":"string","enum":["aws","google","azure","azure_entra","seqeracompute"],"title":"DataLinkProvider"},"region":{"type":"string"},"credentials":{"type":"array","items":{"required":["id","name","provider"],"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"provider":{"type":"string","enum":["aws","google","azure","azure_entra","seqeracompute"],"title":"DataLinkProvider"}},"title":"DataLinkCredentials"}},"publicAccessible":{"type":"boolean"},"hidden":{"type":"boolean"},"status":{"allOf":[{"type":"string","readOnly":true,"enum":["VALID","INVALID"],"title":"DataLink.Status"},{"type":"string","readOnly":true}]},"message":{"type":"string"}},"title":"DataLinkDto"}}}},"400":{"description":"BadRequest","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"NotFound — workspace or credentials not found, API disabled for the workspace, or data-link not found","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

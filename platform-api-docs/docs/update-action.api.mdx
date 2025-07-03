@@ -1,0 +1,71 @@
+---
+id: update-action
+title: "Update action"
+description: "Updates the details of the action identified by the given `actionId`. The `source` of an existing action cannot be changed."
+sidebar_label: "Update action"
+hide_title: true
+hide_table_of_contents: true
+api: eJzFV9tuGzcQ/RWCfUkA3ew4Saun2m4KuE1cw1ZQoIIAU7sjifGK3JBcOaqgf+8MuRfKu7aToEBeBC3nwpnh8JzhjqdgEyNzJ7XiY/4xT4UDy9wKWApOyMwyvfCfIiEdJlNQTi4kpGy+9YKl3IBit0F+kd4O2ARXb60uTAK3ZC4Ugy/SOqmWlZtEKKUdmwNLVkItIR3wHndiafl4yoOO5bMe1zkYERzX4Z16Mernwog1ODBkteMKP1CpCgQVJOWUC7fC/4eJBh/MOkNB1UkZVDTwuZAGcD9nCuhxm6xgLfh4x902pw2CEd/ve/We99rc2Vwk0Gz7uQCzbe37d6XIVLEGI5PDvVt7SeVg6UULbdbChaU3J7j7LIQK1p3pdEs2nSkWvmasVEVHiUafypGByPNMJr6+w0+WrHbtEPT8EyRkmBs6DSfBkjRk3ipKj2eiUMnqeQcy7TRP9DovHLxTm4tuBVOoy8f2zmUOmVTdQjqk36TpdgobaWWoQEtowdqyBTsDVgu5vDJ6IbOQWakijBHUAdLB2nb2Dy8smBtIDLhvNKwb7rusQ8gT+OI6M3L6Hsy51+muMt07+6h5buC6UDe+FdsKrZuYpkywsIJ4IhxiBSQFoZBUHmDUoh96qtLKjdSGOY0KG31HF/gSY1lk+h5FOsHTAjtgNwBsemUQuVTKcm1dHzundGFnL1bO5XY8HKY6sQMLnxFnBlIP80w4umr9JNNFOgwbD0W6ESqB9CfMrY/++pW/funv5cBnjqv/T+pigbDGRJZ1pMZWYoO4ifckQ/BLf0imayEfTRPFiC9m++gtDRDzqNiALQ5Ec60zEMpXuMiy90RRrltuXTHHE+gWaiz8Wv5b80nH3rHKRJjl4dWKQW4O2UX6NffuCQjv8RWI9A89P8+L501eHfPG4gOstdl+mH+lVThdvNPI6Qq6MZB44twA/nbUJnJKen0sE/gMnHQZlMxGffre73Rd0k2sEbN3I98/ZNzQATkOAAFNj0cnbXL760/WZ5eaVWSGRiejUVvvTKTfQ31NRFO+xksnlkDTyNOEVil2Qm5VhHfGaHNd5kfp+8hfdWRYTT6MBiVEAgTl1LuyiBFGuq0fes5AGDCnBc444+mMhgKciFaapiWkUT8kkYgPy6FquKvmoz1vXN1Q5iGL2GGdCEFINZ74S+WVcCX8+b1qjU/34cipotfNcPLuiyCwasaGpquaaYHmgWb9cAxo1mv2b5Ya0m/Waq6PLGuKb9YiZo+3PiT0aSWaPSDsWNAm5FgaE26z0QHPRvlE9BqtHrBqtH7IOY0ghuhmNULmqAwRIMcFCzgcxuAYecvBuMLa8PkQXRtHnaAat0CFpdPR7AEkjjoAb9QBZxHFxiiG4HF80h+97R//Mjl6PX59ND7+eTB6e/SP71KpFto3eXk3bzw3stOrixZVl6KrkjMZtsFGIh2XygQseK/IWWGy8sIQ59Z0S6XHE8k8KC/0r40AA9ngEybsczQ4ORmMqlliLVR0ZwJ+li+ohxHuGnD70a+4ABkO+5dmDOmp11dlV4JR88Lr8XH9XKOj19RdU77bzYWFjybb72k5PKUI7VJpxTyjk12IzMITNXjmodUZ5B1sW2+5jcgK0uQErRthJO3/jbG8uC7p5CV74t3ZGVI1W6htHEsVal27/aycDOguYGxBfB4i6E/ISWPeoj56yAaL0ySB3D2pGzPM1ccJcUD5/FzrlEyMuCfwwF8fqc7DUROr0toOL69aFp4oeXBJd1EcEs4DgvFJddYCW8VrTPQdqP2+Lo2jb6rLfv8fHP/fmg==
+sidebar_class_name: "put api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Update action"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"put"}
+  path={"/actions/{actionId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Updates the details of the action identified by the given `actionId`. The `source` of an existing action cannot be changed.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"actionId","in":"path","description":"Action string identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Action update request","content":{"application/json":{"schema":{"type":"object","properties":{"name":{"type":"string"},"launch":{"type":"object","properties":{"id":{"type":"string"},"computeEnvId":{"type":"string"},"runName":{"type":"string"},"pipeline":{"type":"string"},"workDir":{"type":"string"},"revision":{"type":"string"},"sessionId":{"type":"string"},"configProfiles":{"type":"array","items":{"type":"string"}},"userSecrets":{"type":"array","items":{"type":"string"}},"workspaceSecrets":{"type":"array","items":{"type":"string"}},"configText":{"type":"string"},"towerConfig":{"type":"string"},"paramsText":{"type":"string"},"preRunScript":{"type":"string","description":"Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."},"postRunScript":{"type":"string","description":"Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."},"mainScript":{"type":"string"},"entryName":{"type":"string"},"schemaName":{"type":"string"},"resume":{"type":"boolean"},"pullLatest":{"type":"boolean"},"stubRun":{"type":"boolean"},"optimizationId":{"type":"string"},"optimizationTargets":{"type":"string"},"labelIds":{"type":"array","items":{"type":"integer","format":"int64"}},"headJobCpus":{"type":"integer","format":"int32"},"headJobMemoryMb":{"type":"integer","format":"int32"},"launchContainer":{"type":"string"},"dateCreated":{"type":"string","format":"date-time"}},"title":"WorkflowLaunchRequest"}},"title":"UpdateActionRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

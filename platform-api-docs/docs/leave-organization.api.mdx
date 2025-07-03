@@ -1,0 +1,71 @@
+---
+id: leave-organization
+title: "Leave organization"
+description: "Removes the requesting user from the organization identified by the given `orgId`."
+sidebar_label: "Leave organization"
+hide_title: true
+hide_table_of_contents: true
+api: eJy1VMFu2zAM/RVBpw3I4mwLdshpLZYBwYqtaLtTEaCKzcRKZUmV6HSZ4X8fKdtN0hbbaSdL5CP1yEe6kQXEPGiP2lk5k1dQuR1EgSWIAA81RNR2I+oIQayDq5LDhY2y+rfiGKELsKjXGgqx2if3Ru/AijtCLYq7sRxJVJsoZ7eSLFEuR9J5CCl4UdCTF6B28OMoJUV4FVQFCIHjGmnpQsiUkbyamXqFJZ1P6R+nEbauIOj8wDAQnovSAehhDDWMZMxLqJScNRL3nh/RFmGToGsXKoWd6dNUtu2Sw6N3NkLkiA+TKX+eUfgm3onvTuSOElmU7UhOJ5OXuHNVDB2mtwY0wZT3RuephGwbGdscsTzwv5UVxKg2wC3tybvVFnLO5wM3GXVHdAAeqowYSFeqiUI1GjbNQ3Dhqq+PPG1i/vGVCgf5hHUolDHukfgwPEJeB437JNo5qADhrCaZZrdLbh4pWjqWvABD4iad2SsznoysSfq2WQXVipTPDA+GPGS95iZ0BR3nfqqpRPSyV5TvqwQiS3f4Osi5fcTEVtu1S+F9A67hgQoTZ5eLF3PVuy6NQp4KQeuw0zntSQdm9VSe1KuD6anEWZbFFDfWjkAkoDZpmtbu88FBRHZUbffO+/F0Op6wzbuIlUri99Of9uRk957TbA5j9J8WuWs0wi/MvFG0h8Q0Vdz0UvZLPpKzYVl7NenU6UlzUFJtDG2alYrwM5i2ZTORDDw6dNypoNWKVaFBKnTkMw3OWpkIfyn6zVW/HW/Fv/8ErxbTG5XdS2Zhar7R8R72Tz+gdknAElRBaZhf5zvLc/B4FPVij09W4Mv8Yn4zJ7g6HeJnQ5seeJUUNS8hbtw9WGrgwBH5zhzb9g/TtQVP
+sidebar_class_name: "delete api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Leave organization"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/orgs/{orgId}/members/leave"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Removes the requesting user from the organization identified by the given `orgId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

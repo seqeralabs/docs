@@ -1,0 +1,71 @@
+---
+id: list-datasets-v-2
+title: "List datasets"
+description: "Lists all available datasets in a user context. Append `?workspaceId` to list datasets in a workspace context."
+sidebar_label: "List datasets"
+hide_title: true
+hide_table_of_contents: true
+api: eJzFVW1vEzEM/iuniA8gbWs3JgSV0Civmpg0xDaQKAO8O7fNlktuia9bOfrfsdNre7dWvIgPfOk1zmPnsf3EqVSGIfW6IO2s6qkjHSgkYEwCE9AGLgwmGRAEZLO2CSRlQJ+kzhLe0k7SLwq0WfLt4Mb5q1BAiofZt4RcYjjQHc8lZOmuthTBKKjeQC2g6nxLuQI9CKHDrKb0st79sMcuBXjIkdCLY6UsLxjWIMAYLclcl+invGin+HFJw5Y5ep0mOkNLeqjRMzikY8xB9SpF00ICa+Y6iltD53OguenRvprNmKvHUDgbMIjHXrcrn/Z5x2/ZNWZsSXahKIxOY36dyyCQav1Qd3GJKUmyXqpBen7AskorJHgPkqQmzKPd43WpPWZS1VgbZvnrqDqT3xxuj9COaKx6e3tLl0Be25GabdV1buF2u11pB3EvJNMvA9j+3t/+9Plzdn7/oNdY/Rhsf2XT04bpwYNqd+vJ49k9teGsVgXvHtnd4JBjpuE0Wlvwx5vAGRqWT9Yo4oVzBsEq6Sdkx9ZMVY98iQIGwhdsbTvUwRqaENw2aa7RhiAGAp0V2b8E4SikyYhffRtYgA1j85q8r0UpCIbsb5Llc8gSkQoG+ht9NtWVYwgw+gOBLYBrqTcTeOW982vMH264UIvxkFhHMqvcDfMReMC09JqmcS48R/Do+6XIYHAud5WHxtjJSBlh5AiypTrLS7UKcCL5zrk3wyzpj4mKxayI+okgtsz/vF708/KGIjFthy6617me4DXnkPTfHa6Np3rrnQESWSQ8bic6xVCDpVGQxkaV3tRUQq/TCdFvRzsGca+0iXNq6J6tNpjIhKfm/Jzdnf39na7YChcoh9jnepYeNYf3XYbVSiz/4bmY11+WncIAj3lOIBaiqvvZfkrGnJvYquqCbWfezGZinr8MopJMB2HNqhiCCfiLXH/zbmxkdoXTtadpAqYUpBJJTsBrOT9KlOnynedoQmzu2k9TLKjhtXY7W8J+8+qUsdAW6x1xxuiLx8NOG7G5SBFx6q7QcqEW/EnWfBBfyZ/rYs/n
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List datasets"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/datasets"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Lists all available datasets in a user context. Append `?workspaceId` to list datasets in a workspace context.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"datasets":{"type":"array","items":{"required":["name"],"type":"object","properties":{"id":{"maxLength":22,"type":"string"},"name":{"maxLength":100,"pattern":"^[a-zA-Z\\d](?:[a-zA-Z\\d]|[-_](?=[a-zA-Z\\d])){1,98}$","type":"string"},"description":{"maxLength":1000,"type":"string"},"mediaType":{"maxLength":80,"type":"string"},"deleted":{"type":"boolean","readOnly":true},"dateCreated":{"type":"string","format":"date-time","readOnly":true},"lastUpdated":{"type":"string","format":"date-time","readOnly":true}},"title":"Dataset"}}},"title":"ListDatasetsResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

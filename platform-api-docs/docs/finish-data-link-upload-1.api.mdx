@@ -1,0 +1,71 @@
+---
+id: finish-data-link-upload-1
+title: "Finish data-link file upload to given path"
+description: "Finish upload of a data-link file, specifying a file path (`dirPath`). This is necessary for AWS S3 data-links (`DataLinkProvider=aws`) to finalize a successful file upload, or abort an upload if an error was encountered while uploading a file using an upload URL from the `/upload` endpoint."
+sidebar_label: "Finish data-link file upload to given path"
+hide_title: true
+hide_table_of_contents: true
+api: eJztVttu2zgQ/RWCTw3g2m5i7IOBBZq0CVCgmxqJgz4ExoaWKIsJRSokZdc1BOxH7Bful3SG1MWKvc7laR8WCByRnOvh8MxsqGMLS8e3NGaOvZdCPVg669GY28iI3Amt6JheCCVsSopcahYTnRBGGnGSCMl7xOY8EslaqAUc4hbJmUvJu7tYmAl83R31yTQVlsCf4hG3lpk1SbQhp9+vyfVJa9CC0mdYfIXvidFLEXPzO1vZuyPiNJhWTIqfHLzYIkI7SSGDwxBej4BNNtfGEabqkEWCC24MnK2YJVxFulCOGx6TVdoqb4VfWL9oTNxcfSWJ0RlxKSd3g7B7B5biXAvl+rRHdc4NQ8i+xA1odSY3Xv7PDyCWM8MyDs4R9w1VsADxuBIE3R4ViDoCSJ9execGd+sMRgjwKCcSwQ3IGv5YCEiKjp0peI/aKOUZo+MNdescvQQlWpa91nG4oINeUQDRx9zhxMEl4AkBXR45bdZv9B2BPIbPpG3zfiy4N9gN4VMr2s35JX5W2jzYnEX8OS/fa0GiiowbET3jC26eL/wRlHLGXNj6bQTeZwESQOtMx2vUiTRIK4efLM+liDyIg3uLrje7xvX8HtDFijFYWk5wi6eh9LDGdlKGMKB2L33Sew7DW28OmDEMIRCOZ/Z5v1C37rLI5pDucwCcHKM7PmWLvfdCnXASt8KrOIe4/PZKuPQcH+mW1lxryZnqqNWPKjyxPwrpxASCC9auAuigUD4tSr9hc61syOh4OMR/+8ju6bslIEtqZcj2jXdZ+qiOh8e7fi81qY2CyGhfaGdtdq+IoMXglmZIvAuOFH/4smvBg9fn7+qqBiXkNhqe7Ab+rWZGojTwspR6BfF46dE+JNwF0HNM/vnrb9I8XeT1Lb7wlhIU65HTyRegIsvmEvgcewryVKPoO0Lbr2DhW1Oj/1/FEg4tjwoj3No3ijPODDenBfDz+HaG/AJdJNXYa3LtS8Jz95gO2l462LR9paya1iDxFQ5HgflL2jq6xkxD1NvumsBT5/KaB/3r9EKwEz4uag64XzmfHSJ41bLg+Q+W5ZJ3WaxGY5u82r1qPunSz7AmlwbJWYc9qscuVKJ98BXG1/wR6hDLZYf4q6OJZA6JjFhulgLGi0oYC4RFvkAKIysg7HgwsF6vLzQIQY0I6Qkw0R/bAwhkCc0++PnQH436Q9zDO8uYr6+qS1VjVne0qucP6L4LseSK7GvQW73l/2HtZcNaVdCO/3CDXDKYCeBO/N1uqnfUmYl7dNyZ0IJJX7MItz+vBikoxRTfIxjYbObM8hsjyxK3w8yBxVyzFR0nwGX8wHX+69yzN4EHvt4zVi2ZLFCW4kj0ctfPDEMHAujOW637GS6MQP+vhOHdVcW8R+TwCLw3qnrgUevtcOpoty72dQBtBfWSCfktoVU1Vc5ANOUsRvYD4MLppxDJ+ynaaLV3WhhmFTRO4RXm7qDsdl+ZfLueIrlXA2ymY9QxbIXzPvz6SLVHxvcMv7ehkqlF4TseDTaxFbBuJ3nSOXxWe7GAN+QlpvqBq7JsoHG4RmDK8hcEtiE9
+sidebar_class_name: "post api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Finish data-link file upload to given path"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/data-links/{dataLinkId}/upload/finish/{dirPath}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Finish upload of a data-link file, specifying a file path (`dirPath`). This is necessary for AWS S3 data-links (`DataLinkProvider=aws`) to finalize a successful file upload, or abort an upload if an error was encountered while uploading a file using an upload URL from the `/upload` endpoint.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"dataLinkId","in":"path","description":"Data-link string identifier","required":true,"schema":{"type":"string"}},{"name":"dirPath","in":"path","description":"Path to the destination directory","required":true,"schema":{"type":"string"}},{"name":"credentialsId","in":"query","description":"Credentials identifier","schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"content":{"application/json":{"schema":{"type":"object","properties":{"uploadId":{"type":"string"},"fileName":{"type":"string"},"tags":{"type":"array","items":{"type":"object","properties":{"partNumber":{"type":"integer","format":"int32"},"eTag":{"type":"string"}},"title":"UploadEtag"}},"withError":{"type":"boolean"}},"title":"DataLinkFinishMultiPartUploadRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"FinishDataLinkUpload_1 200 response","content":{"application/json":{"schema":{"type":"object"}}}},"202":{"description":"No content"},"400":{"description":"BadRequest","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"NotFound — workspace or credentials not found, API disabled for the workspace, or data-link or path not found","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

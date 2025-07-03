@@ -1,59 +1,31 @@
 .nav {
-  @media (min-width: 1024px) {
+  @media (min-width: 996px) {
     display: flex;
   }
-  padding-left: 16px;
   display: none;
-  align-items: center;
-  margin: 0 -2px;
 }
 .navItem {
   position: relative;
-  margin: 0 2px;
-  /* padding: 0 12px; */
-  padding: 8px 9px;
-  /* height: 40px; */
+  height: 40px;
+  width: 40px;
   transition: all 0.2s;
-  color: var(--color-brand);
   cursor: pointer;
-  font-size: 16px;
-  font-weight: 400;
-  letter-spacing: 0.17px;
   text-decoration: none;
   outline: none;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  border-radius: 6px;
-  border: none;
+  justify-content: center;
+  border-radius: 8px;
+  border: 1px solid transparent;
   background-color: transparent;
-  font-family: inherit;
-  & .chevron {
-    margin-left: 10px;
-    fill: var(--color-brand);
-    transition: all 0.2s;
-  }
-  & .pill {
-    display: inline-block;
-    padding: 3px 8px;
-    margin: 4px;
-    background: #E6E5E8;
-    border: 1px solid var(--color-brand);
-    border-radius: 12px;
-    font-size: 10px;
-    line-height: 0.8;
-    color: var(--color-brand-1100);
-  }
-  
   &:hover,
   &.active {
-    background-color: var(--color-brand-200);
+    border: 1px solid var(--color-brand);
     color: var(--color-brand);
     text-decoration: none;
   }
-  &.active {
-    & .chevron {
-      transform: rotate(180deg);
-    }
+  &:focus-visible {
+    border: 2px solid blue;
   }
 }
 .nav.dark {
@@ -65,10 +37,55 @@
   }
 }
 
-@media (max-width: 1023px) {
-  & .logo {
-    width: 114px;
-    height: 24px;
-    margin-left: 4px;
+.navList {
+  list-style-type: none;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  padding-inline-start: 0;
+
+  a {
+    color: var(--color-brand);
+    font-size: 0.9rem;
+    position: relative;
+    display: inline-block;
+    padding: .125rem .45rem;
+    &:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 100%;
+      height: 4px;
+      background-color: var(--color-blu);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    &:hover {
+      text-decoration: none;
+      background: var(--color-gray-200);
+      border-radius: 4px;
+      color: var(--color-brand);
+    }
+  }
+}
+
+html[data-theme="dark"] .navList {
+  a {
+    &:hover {
+      background: var(--color-gray-1000);
+    }
+  }
+}
+
+html[data-theme="dark"] .navList {
+  a {
+    color: #F1F1F1;;
+    &:after {
+      background-color: var(--color-blu-300);
+    }
+    &:hover {
+      text-decoration: none;
+      color:  #F1F1F1;;
+    }
   }
 }

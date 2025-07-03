@@ -1,0 +1,71 @@
+---
+id: get-data-studio-checkpoint
+title: "Get Studio checkpoint"
+description: "Retrieves the details of the given Studio checkpoint ID."
+sidebar_label: "Get Studio checkpoint"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVslu2zAQ/RWBpxZw7bQ1evCp2REUSIMs6CHwgZHGFmNZVMiRXcPQv3eG1OZISJy0h15skbO92bkVEdjQqAyVTsVEXAMaBSuwAcYQRIBSJTbQM3ecqxWkwQ3mkdJBGEO4yLRKMbg4GYqBQDm3YnIvrKNbMR0InYGRrPkiIt3ngCcSpZc/rsVJNJNGLgHBsIKtSOlA/Bas9bIDoRhcJjGm713EJZySOUjzJRgVBiqCFNVMgSEJA0+5MkAg0OQwEJbAL6WYbAVuMmeKvE7noigGtfXGv1cAXHYsVvFqVAz3AUF8MHd4Z9osJfqrb+MdWGttFjaTITSonnIwmw6sXxVjf0jeYn3K4G2mUwoyS3w5OOC/XXs/f5BoqEkLpZSoMssSFbrsjx4ts2xbRptg3AuZY6zZcCQRjg3Qb1SebuTKfSv+cREY+CQQpBK3fniE0BWR4XJD5TGSxD6+lVq7lbCLpkNvaWK+T6hIS9EGvbdI6f7zoKyoVRgxBUwlVQhyC+aSAf87/2uVfTHwxvsoJb6+FhKoMIG6Ne/IAEu4vL3I3zcdTlATD3ON+6ruSEbXFDWw+N7qW9LgkPM9IloxvujCqTHaXJfNUgP/2tMu1WgMUo2BTBK9hmgoHPu4y36p8UznaTQI1jHNYJ4u5eDT5tmsCZR1OmfMz+Ra4vDqgomRsvIhgYg4vGw9U4b/axCJaCHMjcKN2xBHIA2Yw5wr6n7KA4rWR6x5y8wBqyExEaNyGY229TIpRk2o6L495gvRmLlhPz3mtrEadoyYVWOUzw+OiW78x1nVZ49rdL6pdKadeNUb8EQFwCnpbjRPukokcrvSajMrFdJK9sycIBm6BOUmKaHYyWhkndxQ6XpqTJzZ7w2BgKxoy3o7n4fj8fDAtaa2uJQuv+WaoV3dXfTPkW6bYvmrh4OPKMJvHGWJpJ3GY8m4uePz2DwqBmLSfha0UsmknZ1NRRGTXyy93T5IC3cmKQq+9guT66hqBTGZycTCC/69sk57fVjAprOxVzLJmVNw0a6kUWz/jVg+XJet9zHY5/XTi628lOmmDarC3MSYnx7vQrbvs+gd6HbSXEyJPwYZka8cRs9yGIaQYUu4M8t2hsb56a3wm7jV4s9a2mnvBUbl5Thu9QLSoqhxIp8ZYFH8AXsG7rg=
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get Studio checkpoint"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/studios/{sessionId}/checkpoints/{checkpointId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Retrieves the details of the given Studio checkpoint ID.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"sessionId","in":"path","description":"Studio session numeric identifier","required":true,"schema":{"type":"string"}},{"name":"checkpointId","in":"path","description":"Numeric identifier of the checkpoint.","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"required":["author","dateCreated","dateSaved","id","name","path"],"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"},"dateCreated":{"type":"string","format":"date-time"},"dateSaved":{"type":"string","format":"date-time"},"author":{"required":["avatar","email","id","userName"],"type":"object","properties":{"id":{"type":"integer","format":"int64"},"userName":{"type":"string"},"email":{"type":"string"},"avatar":{"type":"string"}},"title":"StudioUser"},"path":{"type":"string"}},"title":"DataStudioCheckpointDto"}}}},"400":{"description":"BadRequest","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed."},"404":{"description":"NotFound, when the Studio or the checkpoint is not found or when the API is disabled for the workspace.","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

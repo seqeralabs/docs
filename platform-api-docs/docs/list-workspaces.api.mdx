@@ -1,0 +1,71 @@
+---
+id: list-workspaces
+title: "List organization workspaces"
+description: "Lists the organization workspaces in `orgId` to which the requesting user belongs."
+sidebar_label: "List organization workspaces"
+hide_title: true
+hide_table_of_contents: true
+api: eJy1VVFv2kAM/ivRPW0Sgm5De+BpVGUb2rRVtOseEFIviSHXXnLpnQNjUf777EtCoNB2e9gTl/N39mf7sylFDC6yKkdlMjESX5VDF2ACgbErmanfkg3Bxth7l8sIXKCy4JZs0/g2QBNsEhUlHm/hoQCHKlsFhQMbhKBNtnJ90RMoV06M5qLzIhY9YXKw3vs0bgL/7Ow9kUsrU0Cw/LQUGX0QzEcmq2KyucSEzocZfN/nnRUpWBUFKoYM1VKBJTwzVRYoKtoCesJFCaRSjEqB25yDqAxh5aFLY1OJ9dX7oaiqBT93uckckaQXb8/O+OcRhS/0NDLkJUO2yjzXKvKMBneOIeVxUBPeQYScuOXKoKoD7NWsw0pr5ZargJC6l32o+K+S6zVF3kEdWmonG5aF1t+eMh4kf8K+Vk6FSivcHpt7AqhHLI7L2fRmfD2hm6vP49nkgiWCCjWDbzoPVdVd7/RyEV6gIdOe7VBPs6ZnjCHQ8FTXzmXcivhf2tepaS5ScE6uwFN/tiMt8LhceylMrDX2iPm7E3prJynIDAZSa7MhPgx3EBXWF55G6BykBTsuaGhG8wVLmeYrMTx9K/AceZ5GYkBD5galH7VqsNkfytbfFadfp7LvdZdNgpiLZrL4O/QguqkPH1vl3W3Q81TZ0vjnTepX8EApBePL6dF8N6ZLLZEFHNCuWSteTDWY+yYj37fC6oaKGw0Gzr/rK8OaS6XSXvhL86EzsFZp39Rx3vSHw/4Z3+XGYSp925stxOJ6akE+Jlx2UvpP27UuOcIvHORa0mYkzj73sunonNcmExu16/NwEyeUIKPKMpQOflhdVXxNES0rh45raZUMuTWko1g5PpNullI7eCbfV7NmOF4HL6/lk3m0Cy/jdbeWuuAvOt7DdvdvUC0ImICMyQ3zq23jKIIc914djfHBBHyaXBNWHsr4kWy995OMqHIecW3uIaPqtQSRv5lgVf0B61CQOQ==
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List organization workspaces"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/orgs/{orgId}/workspaces"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Lists the organization workspaces in `orgId` to which the requesting user belongs.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"workspaces":{"type":"array","items":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"},"fullName":{"type":"string"},"description":{"type":"string"},"visibility":{"type":"string","enum":["PRIVATE","SHARED"],"title":"Visibility"}},"title":"WorkspaceDbDto"}}},"title":"ListWorkspacesResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

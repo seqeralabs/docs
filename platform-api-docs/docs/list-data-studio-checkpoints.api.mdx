@@ -1,0 +1,71 @@
+---
+id: list-data-studio-checkpoints
+title: "List Studio checkpoints"
+description: "Retrieves the list of checkpoints for the given Studio session ID."
+sidebar_label: "List Studio checkpoints"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVt1v00gQ/1dW+3RIuaQH0T3kiULhVN2Jq1oQD1WkbuxxvK3jdXfHKbnI/zszu7bjxCYEDiReEtvz9Zvv2coYXGR1gdrkciavAa2GNTiBKYhMOxQmEVEK0UNhdI5OJMZ62lKvIRc3WMbaCAfOkQJxeTGWI4lq6eTsVjpPdHI+kqYAq9jGZUxW/iG9FwpVkH69007ChbJqBQiWVWxlTi8kURsg6ZHUDLRQmNLzPvoDNHm5AqsjoWPIUScaLElYeCy1BYKBtoSRdOTcSsnZVuKm8KYoAvlSVtWotf5k7IMrVAQ7+48l2E0PwMeGcdh2zxb5DEtPorCuFIZPf073rDtQNkqPG/7XP6hMBGZBJAqhViOhssw8kUMisQAC4RM2PBwhsiBUHosH2JCTsZuJuwUQFrjzn+9UQmruxkPYB+K0Up+Ow7xSS537OhDEKyy4MvNZPzEyL57v2TNJ4gBPNtmyf4u1OZeMK0xOVcUSz8/O+O8g/H+TaGRIS45MVUWR6chbndw7Ztl2jO5K8FZGe8WPBlV2o/8D7pkam1ncQ8SoC8tdhDrg6AruHFHWKo4BZX/lDm2pElPDTsYK4bUF+o3rtxu19s+af3x0R6HFvoqDJE6p51prv3z20fToHU3M9ztq0lJ1QZ8sUrt/GJQ1DSJGTMnRWROC0oF9x4B/nP+tyqEYBONDlBrfUN9J1JhBO/c+kAGW8Hk7yj80ey/QBJ62BE8bUwNKebx3hvp13T7EzfzToQZ6peJrSgo4/N5GWtHQV8sTEtYwHo3QG2uN7QF/MdD5zWITucEwbAmP5572ud8ZfGvKPB6Jp5S2J+/RsCSFdl5BwlRBK7aln19dMjHWTi0yiNv92+6kXzVgRHQQlbSINn6Tv6KtA/a85OK8nfNcpTWfGr4Hln4qh7qVk/psmGzbpV9N9sdko/eGHQsgu9pbnCli0Yx7fl94JvoSHt42xXz/hN4ZnSfGizd9BY+UXU5B/9QIpKtMIfcE7VS71hHdTYGZM6Iin5HSZjUUN5tMnJcba9NOnJk3+3JHICBrOn+CnT/G0+n4zLe1cbhSPqH1+uM+ay6w/QDtYd3u6uMH3XchunxLTIpM0fLl8Wb9/ApJ3N1+Iznr3m5dmFQBKfnE3NvtQjn4YLOq4s9hk3PRNGUvZ4nKHBzx7Cun1yBmunp6191aZSVzSr4zTjf/8w+wIx60F+J3gv/iWXbEZrj1/r/B9ig7Yqvl2Zmb8wvFd8GN+k2F8tt1PQSfHVb36YXTXFv5pgtql46m4Ks5MaegYlLFKAP9PIqg6LrTG9p70/GvN+9luF46o+1glHntg6iotTzHe/MAObVXAxL5nQFW1WdYiNfV
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List Studio checkpoints"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/studios/{sessionId}/checkpoints"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Retrieves the list of checkpoints for the given Studio session ID.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"sessionId","in":"path","description":"Studio session numeric identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"search","in":"query","description":"Optional search criteria, allowing free text search on name and keywords: `before` and `after`.","schema":{"type":"string"}},{"name":"max","in":"query","description":"Pagination max results","schema":{"type":"integer","format":"int32"}},{"name":"offset","in":"query","description":"Pagination offset","schema":{"type":"integer","format":"int32"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"required":["checkpoints","totalSize"],"type":"object","properties":{"checkpoints":{"type":"array","items":{"required":["author","dateCreated","dateSaved","id","name","path"],"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"},"dateCreated":{"type":"string","format":"date-time"},"dateSaved":{"type":"string","format":"date-time"},"author":{"required":["avatar","email","id","userName"],"type":"object","properties":{"id":{"type":"integer","format":"int64"},"userName":{"type":"string"},"email":{"type":"string"},"avatar":{"type":"string"}},"title":"StudioUser"},"path":{"type":"string"}},"title":"DataStudioCheckpointDto"}},"totalSize":{"type":"integer","format":"int64"}},"title":"DataStudioListCheckpointsResponse"}}}},"400":{"description":"BadRequest","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"NotFound, when the studio is not found or when the API is disabled for the workspace","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

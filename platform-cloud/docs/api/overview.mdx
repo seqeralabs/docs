@@ -32,6 +32,19 @@ Download the current OpenAPI schema file [here](https://cloud.seqera.io/openapi/
 For more information on the OpenAPI standard, see [OpenAPI](https://swagger.io/specification/).
 :::
 
+:::note
+The API uses the [semantic versioning convention](https://semver.org/) (major.minor.patch). In the event that a breaking change is introduced in future versions, we will publish guidance on the v1 support schedule and steps to mitigate disruption to your production environment. The following do _not_ constitute breaking changes:
+
+- Adding new API endpoints, new HTTP methods to existing endpoints, request parameters, or response fields
+- Adding new values to existing enums or string constants
+- Expanding accepted input formats or value ranges
+- Adding new optional headers or query parameters
+- Improving error messages or adding new error codes
+- Deprecation warnings (without removal)
+
+Clients should be designed to gracefully handle unknown enum values, ignore unrecognized response fields, and not rely on specific error message text.
+:::
+
 ### Encoding and formatting standards
 
 - The API can be accessed from `https://api.cloud.seqera.io`.
@@ -44,7 +57,7 @@ From version 23.4, the Platform API is live on `https://api.cloud.seqera.io`. Th
 
 ### Programmatic API
 
-Both the [Seqera Platform CLI](../cli/overview.mdx) and [seqerakit](https://github.com/seqeralabs/seqera-kit) are built on the Platform API and provide a programmatic automation layer for operations.
+Both the [Seqera Platform CLI](../cli/overview) and [seqerakit](https://github.com/seqeralabs/seqera-kit) are built on the Platform API and provide a programmatic automation layer for operations.
 
 You can also use tools such as [openapi-python-client](https://github.com/openapi-generators/openapi-python-client) to generate your own programmatic API for a particular language (such as Python) based on the OpenAPI schema. However, we do not guarantee that any OpenAPI client generators will work with the Platform API.
 

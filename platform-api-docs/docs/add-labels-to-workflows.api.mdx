@@ -1,0 +1,71 @@
+---
+id: add-labels-to-workflows
+title: "Add labels to workflows"
+description: "Adds the given list of labels to the given workflows. Existing labels are preserved."
+sidebar_label: "Add labels to workflows"
+hide_title: true
+hide_table_of_contents: true
+api: eJy1VE1vGjEQ/SuWzwRoi3rgVFKlEmrURAlVDojDsDuAE+/asb0QtOK/d8beDUuI0l56QaznzdebN1PLHH3mlA3KlHIsJ3nuRdigWKstlkIrH4RZCQ1L1GQwHdvOuKeVNjvfF1cvhFPlusWBQ2EdenRbzPuyJwOsvRzPZbLLRU8aiw446TRPaa+jaWYe2rDkZsFBgQEdO9eypA8Cc2JvIUNy7UnFZT9X6Pb0cdrMQwsUZVWgU5lQOZZBrRQ6AvtsgwXIcS3D3nJgVQZcR9PKuAJCevo6kocDVeyQsvhwafI9+5ymum4az3PR4ChKZihgGRgN1mqVxYYHj55d6vP8ZvmIGTtax/QEhZ6tLdHT3HfA4Bxwyypg0X33wdEkqOReYvvfvD5onQIFFTSjJt6bTEHAdkip7bum44jl9pVDmmpwFcYHb03pUy+fh6Nz8m5+igvxy4iWL3IaDb+8g2s1I0oTBGgqgPJwUo9Z5VTYR5lcIunPTaqwoc8Fj440tDGsM2viYCywTQ5aZgdJlwManzwGu+f5pLK7IV8524RgWxnx9zKC6CX9+dES+bgLsUie+91RRFcvUFim9c2E5+0IF90JzoeLA4t9ZWIFzUDu8ZkoEZPb6Zn4G9OthsAjFbyMKkPfgJlryKI2K6ebbvx4MPDRr68MgUieSkcprMy3o4EK2dJOpjyf+qNRf8hvTG4BUdrNptJad07HrrPZJ7XWx035bwcojSzgSxhYDXQ0qODYeN2oYf46Bdlr71RPsiJoDhvWDUHqegkefzt9OPBzOjusuVx5WGpW/Qq0xw8a/MtRerfQJ9yf3b0t6IqRkgW+Bac4fxQ8lYuQUzQuLLl+T+kvZhz96Ht2lU6W5fbmfsZqbg5eYXL2ccAE8S/l5jvO3nFJ4ltN3JXrCtaMTTFZ+3C6Om9WJVbaXqhy36mQCI+ImXnCkkhvuQj8TeVS8D95BFYp
+sidebar_class_name: "post api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Add labels to workflows"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/workflow/labels/add"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Adds the given list of labels to the given workflows. Existing labels are preserved.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Labels add request","content":{"application/json":{"schema":{"type":"object","properties":{"workflowIds":{"type":"array","items":{"type":"string"}},"labelIds":{"type":"array","items":{"type":"integer","format":"int64"}}},"title":"AssociateWorkflowLabelsRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

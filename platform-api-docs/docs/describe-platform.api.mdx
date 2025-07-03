@@ -1,0 +1,71 @@
+---
+id: describe-platform
+title: "Describe platform"
+description: "Retrieves the details of the computing platform identified by the given `platformId`."
+sidebar_label: "Describe platform"
+hide_title: true
+hide_table_of_contents: true
+api: eJztWt1T4zYQ/1c8empnckBbpnPDU6FHGHptoUDbByYzp9ibRMSWjCSTC5n8792V7cR2nE+S5nrNE9haaX/7vXJ2xAIwvhaxFUqyM3YHVgt4AePZHngBWC5C46mOe/RVFCdWyK4Xh9x2lI48EYC0oiMg8NpDR9QVLyC9TznFdfDpiDWY5V3Dzh5Z/tqwVoOpGDQnxtcBsv7ggLThNiPBXTHXPAILmvaOmMQHJJwejSSCUMfc9vD/sij5OZ5BkRDzBKpGUg3PidCAfK1OoMGM34OIs7MRs8OYmKSb2HjcmPAdKN03Mfdhyvg5AT2c4fx3TujJJAIt/DLvGV5CWui6JcLLbfrqx9MSdw3dVFMV1ptI4iM9AeKhecuBLSI2sZIGDK1/f3JCf8rKuPmIZ/oKRZSWVnkch8J3Zj9+MkQymmWh2k/gW/IATU5iRcogIn+UHVVHGQjiGgnJrdJEkG0d/p7KXF5vsAiBkBhI2e3Du9yploOYYVRRS4MNuJb4rykscq05KVdYiEytcZgfJiZ19dV34TYrbEjvrvqTyPkN1XRNasJlPjDv/FAlwf4Eayd+H+wqm+YAc+Fde3Qu/IVj4V71YXjLxXpqbLCX2H8DQBHUqkuYD9DhSWgLq22lQuCyhP6v2HfPIuJdWAhjGpuPuOhXk16DkDTSKMfg3Ah0miJqFkphXbPu8Cy00jXJ594Y8BMt7PBKqyTevuLnyoBmvq7bUgB5X4SWgk3a8k3+Owflq5Kbo3SYUq+RxnLpwwMSr+c8m7rICpYuYCqnqfOB+ZnSUTFXiSxX9d+bLebhAtOP701dbuxqsYW0WMzBeGCdYJSE29yWtPYvJ+En1f4jgWR1D3ExhM5vuV0hmcyNuHT/Qq39kkHbQ7HoiBDuh6Zy8nbCO5B1psDGQyXSLkbYNJ+bE2RuBTqmuTOsBc6XRT6Henqop//fetrkkQjFYv+ZPZCHofLvLd5roTvcsJXHGnlB1aKulODpPNxNlfyVjq4tX6+Jhn0XsBgDfd0bFd46UYg171ToL9HSXmqR9V7nGg/622xw9nTRvOzXNFNEgOF303Efag4tzqHFObQ4hxbn0OIcWpy1W5x9lY/DZ8pDzjnknJ3nnKWt9Zf+mXKZGumGRt63ZmjvKq2R+b68THilVDeEqnaPKn2rQVWsBH4ODst1F+oa0QWxl5tvI/zNHHTlt7la6j3Wuq/gMv013Z7/q8LU/+b8VmEKDOp/uNkigzm/2GyRw5yvaq0pxexiYXt1KuYuG7ggQyDZad3IxQUPPKqimIrWmb0oFt4IjKEuaGntzQkXX7m1VnoG+Q+zyG/yiSBPKuvRRWOAeIqtmPu+dAFcgz5PqMo8tkiXEdieoikiyveNrACx48m40fFoOjU0ZtPj7kn6VJLioRNhetbGLJuBcX2xI8I36T/NfF7naZB3Odl0yqRNe0aJvPPba1adEsqWpmNKoF+EDyYjdvnWd2ZLdJhBMWfHx8btOxIKidBygtaI7U/TBUq7GNUpn++OTk+PTpjL+sZG3Fk9GwTKvWsy0FVFOZq6z+5mw1JVW/hsyWBCElYnc95JFOfGGuysMACGpu+hVEQyGrW5gT91OB7T63ScibwFg5W3Q/LrDg8NLJBwyeBWLVC8yLHqbNgLDxOidJlkdfbf3GUR+K23mFthFmzXrKqjYlN+LXrQghiuqeYC84VDerWw8jIlh0U0OdyCa4xbSN0DHuBZhC8lOPd9iG1h60xOLKWTq8sHpOXlpFBJAsVP3mVY6JKO4kH1QY7HE5SWngngePwP9IlZzg==
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Describe platform"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/platforms/{platformId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Retrieves the details of the computing platform identified by the given `platformId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"platformId","in":"path","description":"Platform string identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"regionId","in":"query","required":true,"schema":{"type":"string"}},{"name":"credentialsId","in":"query","required":true,"schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"metainfo":{"type":"object","discriminator":{"propertyName":"discriminator","mapping":{"gke-platform":{"type":"object","properties":{"discriminator":{"type":"string"},"warnings":{"type":"array","items":{"type":"string"}},"clusters":{"type":"array","items":{"type":"string"}}},"title":"GkePlatformMetaInfo"},"aws-cloud":{"type":"object","properties":{"discriminator":{"type":"string"},"warnings":{"type":"array","items":{"type":"string"}},"buckets":{"type":"array","items":{"type":"object","properties":{"path":{"type":"string"}},"title":"Bucket"}},"keyPairs":{"type":"array","items":{"type":"string"}},"vpcs":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"},"isDefault":{"type":"boolean"}},"title":"Vpc"}},"images":{"type":"array","items":{"required":["arch","description","id","name"],"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"description":{"type":"string"},"arch":{"type":"string"}},"title":"Image"}},"securityGroups":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"vpcId":{"type":"string"}},"title":"SecurityGroup"}},"subnets":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"},"zone":{"type":"string"},"vpcId":{"type":"string"}},"title":"Subnet"}},"instanceTypes":{"type":"array","items":{"required":["arch"],"type":"object","properties":{"id":{"type":"string"},"arch":{"type":"string"}},"title":"InstanceType"}}},"title":"AwsCloudPlatformMetainfo"},"k8s-platform":{"type":"object","properties":{"discriminator":{"type":"string"}},"title":"K8sPlatformMetaInfo"},"grid":{"type":"object","properties":{"discriminator":{"type":"string"}},"title":"GridPlatformMetainfo"},"aws-batch":{"type":"object","properties":{"discriminator":{"type":"string"},"warnings":{"type":"array","items":{"type":"string"}},"jobQueues":{"type":"array","items":{"required":["name","state"],"type":"object","properties":{"name":{"type":"string"},"state":{"type":"string"}},"title":"JobQueue"}},"buckets":{"type":"array","items":{"type":"object","properties":{"path":{"type":"string"}},"title":"Bucket"}},"fileSystems":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"},"dns":{"type":"string"},"mount":{"type":"string"}},"title":"FsxFileSystem"}},"efsFileSystems":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"}},"title":"EfsFileSystem"}},"keyPairs":{"type":"array","items":{"type":"string"}},"vpcs":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"},"isDefault":{"type":"boolean"}},"title":"Vpc"}},"images":{"type":"array","items":{"required":["arch","description","id","name"],"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"description":{"type":"string"},"arch":{"type":"string"}},"title":"Image"}},"securityGroups":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"vpcId":{"type":"string"}},"title":"SecurityGroup"}},"subnets":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"},"zone":{"type":"string"},"vpcId":{"type":"string"}},"title":"Subnet"}},"instanceFamilies":{"type":"array","items":{"type":"string"}},"allocStrategy":{"type":"array","items":{"type":"string"}}},"title":"AwsBatchPlatformMetainfo"},"local-platform":{"type":"object","properties":{"discriminator":{"type":"string"}},"title":"LocalPlatformMetainfo"},"azure-batch":{"type":"object","properties":{"discriminator":{"type":"string"},"warnings":{"type":"array","items":{"type":"string"}},"pools":{"type":"array","items":{"type":"string"}},"containers":{"type":"array","items":{"type":"string"}},"vmTypes":{"type":"array","items":{"type":"string"}}},"title":"AzBatchPlatformMetainfo"},"eks-platform":{"type":"object","properties":{"discriminator":{"type":"string"},"warnings":{"type":"array","items":{"type":"string"}},"clusters":{"type":"array","items":{"type":"string"}}},"title":"EksPlatformMetaInfo"}}},"oneOf":[{"type":"object","properties":{"discriminator":{"type":"string"},"warnings":{"type":"array","items":{"type":"string"}},"jobQueues":{"type":"array","items":{"required":["name","state"],"type":"object","properties":{"name":{"type":"string"},"state":{"type":"string"}},"title":"JobQueue"}},"buckets":{"type":"array","items":{"type":"object","properties":{"path":{"type":"string"}},"title":"Bucket"}},"fileSystems":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"},"dns":{"type":"string"},"mount":{"type":"string"}},"title":"FsxFileSystem"}},"efsFileSystems":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"}},"title":"EfsFileSystem"}},"keyPairs":{"type":"array","items":{"type":"string"}},"vpcs":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"},"isDefault":{"type":"boolean"}},"title":"Vpc"}},"images":{"type":"array","items":{"required":["arch","description","id","name"],"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"description":{"type":"string"},"arch":{"type":"string"}},"title":"Image"}},"securityGroups":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"vpcId":{"type":"string"}},"title":"SecurityGroup"}},"subnets":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"},"zone":{"type":"string"},"vpcId":{"type":"string"}},"title":"Subnet"}},"instanceFamilies":{"type":"array","items":{"type":"string"}},"allocStrategy":{"type":"array","items":{"type":"string"}}},"title":"AwsBatchPlatformMetainfo"},{"type":"object","properties":{"discriminator":{"type":"string"},"warnings":{"type":"array","items":{"type":"string"}},"buckets":{"type":"array","items":{"type":"object","properties":{"path":{"type":"string"}},"title":"Bucket"}},"keyPairs":{"type":"array","items":{"type":"string"}},"vpcs":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"},"isDefault":{"type":"boolean"}},"title":"Vpc"}},"images":{"type":"array","items":{"required":["arch","description","id","name"],"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"description":{"type":"string"},"arch":{"type":"string"}},"title":"Image"}},"securityGroups":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"vpcId":{"type":"string"}},"title":"SecurityGroup"}},"subnets":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"},"zone":{"type":"string"},"vpcId":{"type":"string"}},"title":"Subnet"}},"instanceTypes":{"type":"array","items":{"required":["arch"],"type":"object","properties":{"id":{"type":"string"},"arch":{"type":"string"}},"title":"InstanceType"}}},"title":"AwsCloudPlatformMetainfo"},{"type":"object","properties":{"locations":{"type":"array","items":{"type":"string"}},"discriminator":{"type":"string"},"warnings":{"type":"array","items":{"type":"string"}},"zones":{"type":"array","items":{"type":"string"}},"buckets":{"type":"array","items":{"type":"object","properties":{"path":{"type":"string"}},"title":"GooglePlatformMetainfo.Bucket"}},"filestores":{"type":"array","items":{"type":"object","properties":{"target":{"type":"string"},"name":{"type":"string"},"location":{"type":"string"}},"title":"GooglePlatformMetainfo.Filestore"}}},"title":"GooglePlatformMetainfo"},{"type":"object","properties":{"discriminator":{"type":"string"},"warnings":{"type":"array","items":{"type":"string"}},"pools":{"type":"array","items":{"type":"string"}},"containers":{"type":"array","items":{"type":"string"}},"vmTypes":{"type":"array","items":{"type":"string"}}},"title":"AzBatchPlatformMetainfo"},{"type":"object","properties":{"discriminator":{"type":"string"},"warnings":{"type":"array","items":{"type":"string"}},"clusters":{"type":"array","items":{"type":"string"}}},"title":"EksPlatformMetaInfo"},{"type":"object","properties":{"discriminator":{"type":"string"},"warnings":{"type":"array","items":{"type":"string"}},"clusters":{"type":"array","items":{"type":"string"}}},"title":"GkePlatformMetaInfo"},{"type":"object","properties":{"discriminator":{"type":"string"}},"title":"K8sPlatformMetaInfo"},{"type":"object","properties":{"discriminator":{"type":"string"}},"title":"GridPlatformMetainfo"},{"type":"object","properties":{"discriminator":{"type":"string"}},"title":"LocalPlatformMetainfo"}],"title":"PlatformMetainfo"}},"title":"DescribePlatformResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

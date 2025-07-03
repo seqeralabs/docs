@@ -1,13 +1,13 @@
 {
   "platformSidebar": [
-    "index",
+    "platform-enterprise",
     {
       "type": "category",
       "label": "Installation",
       "collapsed": true,
       "link": {
         "type": "doc",
-        "id": "enterprise/index"
+        "id": "enterprise/overview"
       },      
       "items": [
         {
@@ -66,8 +66,7 @@
       "items": [
         "getting-started/overview",
         "getting-started/definitions",
-        "getting-started/deployment-options",
-        "getting-started/community-showcase"
+        "getting-started/deployment-options"
       ]
     },
     {
@@ -171,8 +170,8 @@
           "type": "category",
           "label": "Software integration",
           "items": [
-            "supported_software/agent/agent",
-            "supported_software/fusion/fusion",
+            "supported_software/agent/overview",
+            "supported_software/fusion/overview",
             "supported_software/dragen/overview"
           ]
         },
@@ -230,9 +229,9 @@
       "label": "Reference",
       "collapsed": true,
       "items": [
-        "functionality_matrix/functionality_matrix",
+        "functionality_matrix/overview",
         "data-privacy/overview",
-        "limits/limits"
+        "limits/overview"
       ]
     },
     {

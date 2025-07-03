@@ -1,4 +1,4 @@
-@media (min-width: 997px) {
+@media (min-width: 996px) {
   .blogWrapper {
     display: flex;
     width: 100%;
@@ -9,24 +9,77 @@
   flex-grow: 1;
   flex-wrap: nowrap;
   max-width: 100%;
-  @media (min-width: 997px) {
+  @media (min-width: 996px) {
     max-width: calc(100% - var(--doc-sidebar-width));
   }
 }
 
 .toc {
   display: none;
-  @media (min-width: 997px) {
+  @media (min-width: 996px) {
     display: flex;
   }
 }
 
-@media (min-width: 997px) {
+@media (min-width: 996px) {
   .blogBody {
     display: flex;
     flex-wrap: nowrap;
   }
   .blogContent {
-    max-width: 75% !important;
+    max-width: 75%;
+  }
+}
+
+/* Shrink headings in blog content on both list and tag pages */
+:global(.blog-list-page) .blogContent,
+:global(.blog-tag-page) .blogContent {
+  /* Keep list titles at their original size */
+  & :global(.blogPostItem) > :global(.blogPostItemHeader) > :global(.blogPostItemTitle) {
+    font-size: 2rem !important;
+  }
+
+  /* Shrink other headings */
+  & h1:not(:global(.blogPostItemTitle)) {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+  }
+
+  & h2:not(:global(.blogPostItemTitle)) {
+    font-size: 1.75rem;
+    font-weight: 600;
+    line-height: 1;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  & h3:not(:global(.blogPostItemTitle)) {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  & h4:not(:global(.blogPostItemTitle)) {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: .45rem;
+  }
+
+  & h5:not(:global(.blogPostItemTitle)) {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0.5rem 0;
+  }
+
+  & h6:not(:global(.blogPostItemTitle)) {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0.25rem 0;
   }
 }

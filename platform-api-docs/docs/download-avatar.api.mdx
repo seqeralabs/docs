@@ -1,0 +1,71 @@
+---
+id: download-avatar
+title: "Download the avatar image"
+description: "Download the avatar image"
+sidebar_label: "Download the avatar image"
+hide_title: true
+hide_table_of_contents: true
+api: eJyVVMFu2zAM/RVDpw0wkm7LyaelWDcUA7ai7U5FDozNxGptSZXoZIHhfx8pO06yZAV2siQ+ko/ko1tFsA4qe1KwAQIf1CJV1qEH0tbcFipTX+zWVBaKeQSoVDnwUCOhF79WGb4wrPdnj1Rpw3cHVPK5wJB77SQaP/YxkkBem3WiCzSkVxolqsfXRnvkjOQbTFXIS6xBZa2inZMEvZPquoWAg7MmYBD7x6sr+Zxm+vmdY+bWEKcQKzhX6TxWNX0OAmn/mSJVK+trYD+11Ab8jpN2XapmlxJdQ5EIdwz0PxkP5T6pGkOANUrrByJ2+Yy5xHNehkG6r3QPvNAUdtVUydON99bfDw0amX+60KL9mBNjKYGqslvmE9Gzc/QPxqxsY4oEK6ylRgkcMG+8pl1UwjWCRz9vePDZ00LmdBpir6SESkx6vSS6loJSLo1KK3JbY6xb1JOp6aDKabuXV6cOSR+km31njlOPzSmJnBqUJPdlBPFLf/i6H/Lzti9Gm5WN7kMnH/CVO5TM727PhDyY7iog0UoS0G90jmEAiwwgjzJofDVQCdl0GqLfRFsGsRK02CTt54OBiWx4t/o8Hyaz2eRK3pwNVENU0bBxb7XzhO3YEMLfNHUV8IJyxMisHVp9+AGkKht3mUdYcl4xt+0SAv7yVdfJMwvey9T5uAGvYSkdYw0UOsiZJ7mCKuAZk3FB1Lv7YQXeJ2/8Fi4yHx7B7JSkrxq58fEFd8d/om7B2BKh4EjCrTfP8xwdHTmeLaood9Tjt5tHxsKpsv5SUox+kRR3LSIe7Quarhs5ktyFYNf9ARJy42Q=
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Download the avatar image"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/avatars/{avatarId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Download the avatar image
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"avatarId","in":"path","description":"Avatar string identifier","required":true,"schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"string","format":"binary"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"Not found element"}}}
+>
+  
+</StatusCodes>
+
+
+      

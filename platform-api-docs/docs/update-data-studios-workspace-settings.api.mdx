@@ -1,0 +1,71 @@
+---
+id: update-data-studios-workspace-settings
+title: "Update workspace Studios settings"
+description: "Updates the Studios settings of the workspace identified by the given `workspaceId`."
+sidebar_label: "Update workspace Studios settings"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVt9v2zgM/lcEPd0BWZ3rggMuT5euHVYcsBVJuz0UBcbYTKJWtjxJbpcZ/t9Hyj/TZO1Q7IC9GDJFUR8/0h9dygRdbFXulcnkVF7lCXh0wm9QLHyRKOOEQ+9VtnbCrIL9wdg7l0OMQiWYebVSmIjlNuyt1T1m4nPncp58PpIj6WHt5PRadnYnb0bS5GiBLz5PuqtPwUNz8afWedEAoEA5WEjRo+VwpczohY4au6YQI6k4hRz8hta7eX2wa8jUt3CbyIoUrYp7+Jb8LX4plEVC4m2BI+niDaYgp6X025wvUZnHdXBdGZuCr01/T2RVjTokg8SfxhMWoAdk/nJUN/VxdP7EJFs+s4uh41cUgXrReFOs2FDYzPMZyHOt4kBcdOv4YLmPwixvMeaDueWiekUFnrakdF7OWyqjrAhrofX7H23uoDywf6+cWiqt/HZ/eySReORWu5iff5xdnpFl8W42PzvlhvPKa3b+2Eeg4nXmugM7WuYNHRX77BYiGFxuMlcnejwe7/P7fEMLOifaQC+nvQoIj8eTfQwf/hOvxHsj2sjkNzmE9QSSl5S/Z+VapugcrDHw/GRXtI77tR3U4sxaY+ctNXWGk/HrAxm2IiIy4wVobR4IT/D+Z9/7tKjTQYEaU87xN82WNh3GhQ1dTkp3gmDRzgrSkun1DX/bJIMbw8KZF+FWlpmpjEgLXVQGRayiXm+jciBNVdRqeuTq1pT9dQvOt8Y+vLSDv/E+l40S8fsyOJGlXrxtZej2wYccmcd5r0NnXyHNNfby0H+6vSr0tt3ydeahBnSfesWKuzIBa0PsAr9Qe4jZxflerGbrQoNn6aQxZ+8VMdU4c1dAHLqisLrJ200joo7PHSnDYpOC0kFyV+bffoNFikZUfc9fR5PJ0ZhtuXE+hWyQei0RgyHweOY+Rl323fq/zeq6zB6/+ijXQDOMoAcKyqbJrnngMrRpO3gHc52su0NwkErbbNS9G+KCI5XlEhxeWV1VbKY2sdzwtLwHq2DJVaT2T5TjNbX7CrTDJ1j5Y958pX+K54f+wVwbI2RbbjTQBb/R8g633b8Gj/yXYfrJwf8CZEPaqxty3yAkFIz5qz3e1IheXXKcPsKe6nF29YlZHGPun/QdStHF1SULQfO7kZqEj1h44D8ZegawJjAQ9CXYSqkhWxdBI2UdkmUDdlXnkcqEpA7SQQ0VPC7NHWbUVC07nt+Zl6r6DvvZ0IA=
+sidebar_class_name: "put api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Update workspace Studios settings"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"put"}
+  path={"/orgs/{orgId}/workspaces/{workspaceId}/settings/studios"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Updates the Studios settings of the workspace identified by the given `workspaceId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"path","description":"Optional workspace numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Workspace update request","content":{"application/json":{"schema":{"type":"object","properties":{"name":{"type":"string"},"fullName":{"type":"string"},"description":{"type":"string"},"visibility":{"type":"string","enum":["PRIVATE","SHARED"],"title":"Visibility"}},"title":"UpdateWorkspaceRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"UpdateDataStudiosWorkspaceSettings 200 response","content":{"application/json":{"schema":{"type":"object"}}}},"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"409":{"description":"Duplicate element","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

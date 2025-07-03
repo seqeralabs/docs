@@ -1,0 +1,71 @@
+---
+id: stop-data-studio
+title: "Stop Studio"
+description: "Stops the given Studio session ID."
+sidebar_label: "Stop Studio"
+hide_title: true
+hide_table_of_contents: true
+api: eJydVcFu2zAM/RVDpw3IkmwLdshpHboCwYCtaFbsUOSg2Eyi1JFUiU4WGP73kbId23WydjtFEZ/IR/KRzkUCPnbKojJaTMUcjfURbiBaqz3oaI5ZokzkwXsCRLProRgIlGsvpg/CB6MXi4EwFpxkH7Ok8nItUZav6YWVTu4AwfG7XGj6Q7DKKz0ZCMXRrcQNnZ9T6lDQ2Q6ciiOVgEa1UuDohYOnTDmg2OgyGAgfb2AnxTQXeLQhFDql16IoBqfoB+MevZUxNPGfMnDHHoFfNfB87F4spRHWwbQybiexvPo0oegLpuqt0ZQNv/gwHvNPN96Pb/Q0NuRFI1ultamKQ3VHW8+QvBW0Sf1BbM1yni13ChE4p3Z9PUrM/EyvDLerYmqWW4iR++O4gahKVh03TV5LY1KQWhRtz/0Sd2I15guxSmzfzUAAVbtUmSR0uHKZ1uXJk8Js6xjyBeeMC6dlptKkNIfjjVQpGThzhSmHaeQ5LxkQ7x1lJddwNqdUery3icQz5lajGfAOFQmMpHYxWCjNJYCxd5VECMKgyfjjGZHUAxdpg5FMU3OgBAN60kd/N3hjMp0MosOGpprnuxzeSPngYMXWyLjGfnU7Y2OivFxS7Qjhwv1pbP5XpHWVX5Th5Xa0KveVe94pWJBnnDmFx7BsvoB04K4yWi3ThwWPIG2ijeE9ZbMQlbfOVIyqdTbKT+ouRiwu0Ticc0Ylu7bbE8ENoq1XQhiZAGIVhsNNLZPtAUMWqp6RKps5PFFbufb9NViablOJrDbah26vYvAVmFsh49CKzKUVFT8djXx4NwxrmLqh0rCOVuZzYyAie1rNZZz3w8lkOOY7azzuZOhktTJZnNFpqXf45Y0YXvkRKSuG8BtHNpUq7JVAPa860nxgBmLa3WXUFOrjhggyLM+X0sO9S4uCr8stzq2vxSumK5l6+AvlF3b8WbKPcOx9RvYyzRgpWGd76RTH/0cub+6qaXn7vHKv51ZdSn1sk6o5N8UsFgTegEzIFbMs7VdxDBZbL3vT3Rmj2/ufhJXdUXgm/eD9LCvqXkD8NI+gqYM1SeT/TLAo/gCLe/7a
+sidebar_class_name: "put api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Stop Studio"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"put"}
+  path={"/studios/{sessionId}/stop"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Stops the given Studio session ID.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"sessionId","in":"path","description":"Studio session numeric identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"required":["jobSubmitted","sessionId","statusInfo"],"type":"object","properties":{"jobSubmitted":{"type":"boolean"},"sessionId":{"type":"string"},"statusInfo":{"type":"object","properties":{"status":{"type":"string","enum":["starting","running","stopping","stopped","errored","building","buildFailed"],"title":"DataStudioStatus"},"message":{"type":"string"},"lastUpdate":{"type":"string","format":"date-time"}},"title":"DataStudioStatusInfo"}},"title":"DataStudioStopResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"NotFound, when the studio is not found or when the API is disabled for the workspace","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      
