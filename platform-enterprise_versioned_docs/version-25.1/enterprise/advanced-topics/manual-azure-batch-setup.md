@@ -85,7 +85,7 @@ Next, create a compute environment with Batch Forge:
 1. Go to the **Compute Environments** tab and select **Add Compute Environment**.
 1. Enter a name such as `1-azure-batch-forge`.
 1. Select Azure Batch from the **Provider** dropdown.
-1. Sellect your `azure-keys` credentials.
+1. Select your `azure-keys` credentials.
 1. Select the **Region** of your Batch account.
 1. Select the `az://work` container in your Storage account.
 1. For **VMs type**, select `standard_e2ds_v5`.
@@ -396,7 +396,7 @@ See [Create a Nextflow-compatible Azure Batch pool](../../compute-envs/azure-bat
 - Use the autoscale formula described in the documentation, with a minimum size of 0 and a maximum size of 4.
 - For Virtual network, create a new virtual network with the default subnet. You can add this to a new resource group here.
 
-In practice, you are more likely to connect an Azure Batch Node pool to an existing virtual network that is connected to other resources, such as Seqera Platform or the Azure Storage Acccount. In this instance, connecting it to a VNet with public internet access will route the network traffic via the virtual network while still allowing you to perform every action.
+In practice, you are more likely to connect an Azure Batch Node pool to an existing virtual network that is connected to other resources, such as Seqera Platform or the Azure Storage Account. In this instance, connecting it to a VNet with public internet access will route the network traffic via the virtual network while still allowing you to perform every action.
 
 Back in Seqera Platform, add a new Azure Batch compute environment:
 
