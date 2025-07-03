@@ -1,8 +1,8 @@
 ---
 title: "Run a pipeline"
 description: "An overview of Seqera Platform deployment versions and ways to run Seqera."
-date: "15 September 2023"
-tags: [overview]
+date: "2023-09-15"
+tags: [overview, pipelines, getting started, deployment, pipeline, run]
 ---
 
 On this page, learn how to run a pipeline with sample data and get started running your own pipelines.
