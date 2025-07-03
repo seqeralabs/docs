@@ -53,6 +53,7 @@
     "remark-code-import": "^1.2.0",
     "remark-definition-list": "^2.0.0",
     "remark-math": "^6.0.0",
+    "remark-sectionize": "^2.1.0",
     "remark-yaml-to-table": "github:seqeralabs/remark-yaml-to-table",
     "unist-util-visit": "^5.0.0"
   },

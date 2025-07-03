@@ -3,7 +3,7 @@
     {
       "stable": "stable 24",
       "replaces": [
-        "24.10.1-edge",
+        "24.10.chris-edge",
         "24.06.0-edge",
         "24.07.0-edge",
         "24.08.0-edge",

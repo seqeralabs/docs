@@ -81,10 +81,20 @@
                     "items": [
                         "reference/stdlib-namespaces",
                         "reference/stdlib-types",
-                        "reference/stdlib-groovy",
-                        "test"
+                        "reference/stdlib-groovy"
                     ]
-                }
+                },
+                "reference/process",
+                "reference/channel",
+                "reference/operator"
+            ]
+        },
+        {
+            "type": "category",
+            "label": "Runtime reference",
+            "collapsed": true,
+            "items": [
+                "reference/cli"
             ]
         }
     ]

@@ -1,0 +1,5 @@
+section > section h5 ~ *,
+section > section h6 ~ *,
+section .admonition {
+  margin-left: 2em !important;
+}
