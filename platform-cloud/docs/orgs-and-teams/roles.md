@@ -1,7 +1,7 @@
 ---
 title: "User roles"
 description: "Understand the various roles in Seqera Platform."
-date: "2025/07/01"
+date: "2025-07-01"
 tags: [roles, user-roles]
 ---
 
