@@ -30,6 +30,10 @@ As a best practice, use teams as the primary vehicle for assigning rights within
 
 ### Workspace participant roles
 
+:::note
+Workspace participants with any role can leave the workspace, i.e., remove themselves as a workspace participant. However, only workspace owners and admins can add or remove workspace participants other than themselves. 
+:::
+
 | Permission / Role                          | Owner | Admin | Maintain | Launch | Connect | View |
 |--------------------------------------------|:-------:|:-------:|:----------:|:--------:|:---------:|:------:|
 | **Organization: Settings:** Add, edit, delete        | ✅     | ❌     | ❌       | ❌     | ❌      | ❌   |
@@ -47,14 +51,14 @@ As a best practice, use teams as the primary vehicle for assigning rights within
 | **Workspace: Settings: Labels & Resource Labels:** Add, edit, delete | ✅     | ✅     | ✅       | ❌     | ❌      | ❌   |
 | **Workspace: Compute environments:** Add, rename, make primary, duplicate, delete    | ✅     | ✅     | ❌       | ❌     | ❌      | ❌   |
 | **Workspace: Actions:** Add, edit, delete  | ✅     | ✅     | ✅       | ❌     | ❌      | ❌   |
-| **Workspace: Credentials:** Add, edit, delete  | ✅     | ✅     | ✅       | ❌     | ❌      | ❌   |
+| **Workspace: Credentials:** Add, edit, delete  | ✅     | ✅     | ❌       | ❌     | ❌      | ❌   |
 | **Workspace: Secrets:** Add, edit, delete  | ✅     | ✅     | ✅       | ❌     | ❌      | ❌   |
-| **Workspace: Participants:** Add, remove, change role             | ✅     | ✅     | ✅       | ❌     | ❌      | ❌   |
+| **Workspace: Participants:** Add, remove, change role             | ✅     | ✅     | ❌       | ❌     | ❌      | ❌   |
 | **Workspace: Pipelines:** Launch                          | ✅     | ✅     | ✅        | ✅      | ❌      | ❌   |
 | **Workspace: Pipelines:** View                         | ✅     | ✅     | ✅        | ✅      | ✅      | ✅   |
 | **Workspace: Pipelines:** Define input/output parameters   | ✅     | ✅     | ✅        | ✅      | ❌      | ❌   |
 | **Workspace: Pipelines:** Modify execution configurations  | ✅     | ✅     | ✅        | ❌     | ❌      | ❌   |
-| **Workspace: Pipelines:** Add, edit, duplicate, delete  | ✅     | ✅     | ✅        | ✅     | ❌      | ❌   |
+| **Workspace: Pipelines:** Add, edit, duplicate, delete  | ✅     | ✅     | ✅        | ❌     | ❌      | ❌   |
 | **Workspace: Pipelines:** Modify resource labels       | ✅     | ✅     | ✅        | ❌     | ❌      | ❌   |
 | **Workspace: Pipelines: Run:** Apply labels, relaunch, save as new pipeline  | ✅     | ✅     | ✅        | ❌     | ❌      | ❌   |
 | **Workspace: Pipelines: Run:** Resume, delete, star (favourite)  | ✅     | ✅     | ✅        | ✅     | ❌      | ❌   |
@@ -74,4 +78,3 @@ As a best practice, use teams as the primary vehicle for assigning rights within
 | **Workspace: Studios:** Add as new (duplicate studio)                        | ✅     | ✅     | ✅        | ❌     | ❌      | ❌   |
 | **Workspace: Studios: Checkpoints:** Edit studio checkpoint name                        | ✅     | ✅     | ✅        | ❌     | ❌      | ❌   |
 | **Workspace:** View (read-only) resources         | ✅     | ✅     | ✅        | ✅     | ✅       | ✅    |
-
