@@ -160,6 +160,13 @@ The launch form can populate fields with values passed as URL query parameters. 
 Platform validates run parameters passed via the launch URL in the following way:
 - The validity of parameter names is **not** validated. You must provide valid and supported parameters for launch form fields to be populated without error. See supported parameter names in the following section. 
 - Parameter values are validated and warnings are shown for any invalid supplied values.
+- Disabled launch form fields, such as the `pipeline` field when launching a presaved pipeline, cannot be populated by URL.
+
+Parameters that accept arrays (multiple values) as input must be specified with the parameter name for each individual value. For example:
+
+```
+?labelIds=<label_1_id>&labelIds=<label_2_id>
+```
 
 Pipeline-specific run parameters can be passed with the `paramsText` query parameter. Pass both the name and value for any parameter defined in your [pipeline schema](../pipeline-schema/overview.md) in JSON format:
 
@@ -185,9 +192,9 @@ Platform will ignore added percent-encoding characters in form fields, so you do
 
 ### Supported URL query parameters and corresponding launch form fields
 
-| **Launch form field**                          | **Query parameter name**  |
-|------------------------------------------------|---------------------------|
-| **General config**                             |                           |
+| **Launch form field**                          | **Query parameter name**    |
+|------------------------------------------------|-----------------------------|
+| **General config**                             |                             |
 | Pipeline to launch                             | `pipeline`                  |
 | Revision number                                | `revision`                  |
 | Config profiles                                | `configProfiles`            |
@@ -195,9 +202,9 @@ Platform will ignore added percent-encoding characters in form fields, so you do
 | Labels                                         | `labelIds`                  |
 | Compute environment                            | `computeEnvId`              |
 | Work directory                                 | `workDir`                   |
-| **Run parameters**                             |                           |
-| Pipeline-specific run parameters                                 | `paramsText`                |
-| **Advanced settings**                          |                           |
+| **Run parameters**                             |                             |
+| Pipeline-specific run parameters               | `paramsText`                |
+| **Advanced settings**                          |                             |
 | Resource labels                                | `resourceLabelIds`          |
 | Nextflow config file                           | `configText`                |
 | Seqera Cloud config file                       | `towerConfig`               |
