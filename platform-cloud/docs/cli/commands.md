@@ -793,6 +793,7 @@ Data-links allow you to work with public and private cloud storage buckets in [D
 - `delete`: Delete a custom data-link from a workspace
 - `browse`: Browse the contents of a data-link in a workspace
 - `upload`: Upload files and directories to a data-link in a workspace
+- `download`: Download files and directories from a data-link in a workspace
 
 ### List data-links
 
@@ -927,6 +928,8 @@ FOLDER | technical/                                 | 0
 
 Run `tw data-links upload -h` to view all the required and optional fields for uploading files and directories to a data-link in a workspace. 
 
+#### Upload files
+
 ```bash
 tw data-links upload -n my-bucket -c <credentials_ID> -w <workspace_ID> path/to/file.txt
 
@@ -934,10 +937,7 @@ Fetching data-links.
   Waiting DONE status....FETCHING.........DONE  [DONE]
 
 Uploading file: file.txt
- Progress: [                                        ]   2% (8/269 KBs, ETA: 13.4s) 
- Progress: [====                                    ]  11% (32/269 KBs, ETA: 3.1s) 
- Progress: [===================================     ]  88% (240/269 KBs, ETA: 0.5s) 
- Progress: [====================================    ]  91% (248/269 KBs, ETA: 0.2s) 
+....
  Progress: [========================================] 100% (269/269 KBs, ETA: 0.0s)
 
   Successfully uploaded files
@@ -948,24 +948,34 @@ Uploading file: file.txt
      FILE | 1          | file.txt
 ```
 
+#### Upload directories
+
+```bash
+tw data-links upload -n my-bucket -c <credentials_ID> -w <workspace_ID> path/to/my-directory/
+
+Uploading file: my-directory/file.txt
+....
+ Progress: [========================================] 100% (5/5 bytes, ETA: 0.0s)
+
+  Successfully uploaded files
+
+
+     Type   | File count | Path
+    --------+------------+---------------
+     FOLDER | 1          | my-directory/
+```
+
 ### Download data-link content
 
 Run `tw data-links download -h` to view all the required and optional fields for downloading files and directories from a data-link in a workspace. 
+
+#### Download files
 
 ```bash
 tw data-links download -n my-bucket -c <credentials_ID> -w <workspace_ID> path/to/file.txt
 
 Downloading file: file.txt
- Progress: [                                        ]   2% (8/269 KBs, ETA: 0.1s) 
- Progress: [===                                     ]   9% (24/269 KBs, ETA: 1.5s) 
- Progress: [====                                    ]  12% (32/269 KBs, ETA: 1.1s) 
- Progress: [==========                              ]  25% (68/269 KBs, ETA: 0.9s) 
- Progress: [===========                             ]  28% (77/269 KBs, ETA: 0.7s) 
- Progress: [============                            ]  31% (85/269 KBs, ETA: 0.6s)  
- Progress: [====================                    ]  50% (136/269 KBs, ETA: 0.4s) 
- Progress: [==============================          ]  76% (205/269 KBs, ETA: 0.4s) 
- Progress: [===================================     ]  88% (238/269 KBs, ETA: 0.2s) 
- Progress: [=====================================   ]  94% (255/269 KBs, ETA: 0.1s) 
+....
  Progress: [========================================] 100% (269/269 KBs, ETA: 0.0s)
 
   Successfully downloaded files
@@ -974,6 +984,23 @@ Downloading file: file.txt
      Type | File count | Path
     ------+------------+-----------------------------------
      FILE | 1          | file.txt
+```
+
+#### Download directories
+
+```bash
+tw data-links download -n my-bucket -c <credentials_ID> -w <workspace_ID> path/to/my-directory/
+
+Downloading file: my-directory/file.txt
+....
+ Progress: [========================================] 100% (5/5 bytes, ETA: 0.0s)
+
+  Successfully downloaded files
+
+
+     Type   | File count | Path
+    --------+------------+---------------
+     FOLDER | 1          | my-directory/
 ```
 
 ## Organizations
