@@ -158,7 +158,7 @@ Pipeline names must be unique per workspace.
 The launch form can populate fields with values passed as URL query parameters. For example, append `?revision=master` to your launch URL to prefill the **Revision** field with `master`. This feature is useful for Platform administrators to provide custom pipeline launch URLs to users in order to hard-code required run and pipeline parameters for every run.
 
 Platform validates run parameters passed via the launch URL in the following way:
-- The validity of parameter names is **not** validated. You must provide valid and supported parameters for launch form fields to be populated without error. See supported parameter names in the following section. 
+- Parameter names are **not** validated. You must provide valid and supported parameters for launch form fields to be populated without error. See supported parameter names in the following section.
 - Parameter values are validated and warnings are shown for any invalid supplied values.
 - Disabled launch form fields, such as the `pipeline` field when launching a presaved pipeline, cannot be populated by URL.
 
