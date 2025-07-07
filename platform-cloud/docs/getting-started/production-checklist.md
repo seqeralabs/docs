@@ -15,19 +15,18 @@ The first decision you need to make is how your organization is set up in Seqera
 
 Organizations are the top-level structure and contain workspaces, members, and teams. 
 
-You can create multiple organizations within Seqera Platform, each of which can also contain multiple workspaces with shared users and resources. 
+You can create multiple organizations within Seqera Platform, each of which can also contain multiple workspaces with shared users and resources. This means you can customize and organize the use of resources while maintaining an access control layer for users associated with a workspace.
 
-This means you can customize and organize the use of resources while maintaining an access control layer for users associated with a workspace.
-
-Before you create your organizations and workspaces, think about the various roles and work streams that you’d like to start with and scale to. [Our documentation](https://docs.seqera.io/platform-cloud/orgs-and-teams/organizations)will provide you with the steps needed to set this up in Seqera Platform. 
+Before you create your organizations and workspaces, think about the various roles and work streams that you’d like to start with and scale to. [Our documentation](https://docs.seqera.io/platform-cloud/orgs-and-teams/organizations) will provide you with the steps needed to set this up in Seqera Platform. 
 
 ## Users and roles
 
 After an organization is created, the user who created the organization is the default owner of that organization. Additional users can be assigned as organization owners. Owners have full read/write access to modify members, teams, collaborators, and settings within an organization.
 
-A member is a user who is internal to the organization. Members have an organization role and can operate in one or more organization workspaces. In each workspace, members have a participant role that defines the permissions granted to them within that workspace.
-
-Members can create their own workspaces within an organization and be part of a team.
+- A member is a user who is internal to the organization. 
+- Members have an organization role and can operate in one or more organization workspaces.
+- In each workspace, members have a participant role that defines the permissions granted to them within that workspace.
+- Members can create their own workspaces within an organization and be part of a team.
 
 All users can be assigned roles which granulate the type of access and permissions they have to resources within Platform. 
 
@@ -46,9 +45,7 @@ When deploying Seqera Enterprise in a generic Kubernetes cluster we recommend st
 - 4 vCPU
 - 7 GB nodes 
 
-This sizing recommendation is a basic starting point. Your requirements may vary significantly based on the number of pipelines, and number of concurrent processes, you have in mind. 
- 
-Consult the [Kubernetes Configure pods and containers documentation](https://kubernetes.io/docs/tasks/configure-pod-container/) for information about how to increase your resources.
+This sizing recommendation is a basic starting point. Your requirements may vary significantly based on the number of pipelines, and number of concurrent processes, you have in mind. Consult the [Kubernetes Configure pods and containers documentation](https://kubernetes.io/docs/tasks/configure-pod-container/) for information about how to increase your resources.
 
 ### Docker
 
@@ -58,9 +55,7 @@ When deploying Seqera Platform using Docker compose we recommend starting with:
 - External DB Aurora V3 provisioned - `db.t3.medium`
 - External Redis - `cache.t2.micro`
 
-This sizing recommendation is a basic starting point. Your requirements may vary significantly based on the number of pipelines, and number of concurrent processes, you have in mind. 
-
-Consult the [Docker Resource constraints](https://docs.docker.com/engine/containers/resource_constraints/) documentation for information about resource management in Docker.
+This sizing recommendation is a basic starting point. Your requirements may vary significantly based on the number of pipelines, and number of concurrent processes, you have in mind. Consult the [Docker Resource constraints](https://docs.docker.com/engine/containers/resource_constraints/) documentation for information about resource management in Docker.
 
 ### AWS
 
@@ -70,9 +65,7 @@ When deploying Seqera Enterprise using AWS we recommend starting with:
 - Instance type: `c5a.2xlarge` with 8 CPUs and 16 GB RAM
 - A MySQL8 Community DB instance with minimum 2 vCPUs, 8 GB memory, and 30 GB SSD storage
 
-This sizing recommendation is a basic starting point. Your requirements may vary significantly based on the number of pipelines, and number of concurrent processes, you have in mind. 
-
-Consult the [AWS Autoscaling documentation](https://aws.amazon.com/autoscaling/) information about resource management in AWS.
+This sizing recommendation is a basic starting point. Your requirements may vary significantly based on the number of pipelines, and number of concurrent processes, you have in mind. Consult the [AWS Autoscaling documentation](https://aws.amazon.com/autoscaling/) information about resource management in AWS.
 
 ### Azure
 
@@ -83,33 +76,19 @@ When deploying Seqera Enterprise using Azure we recommend starting with:
 - Ubuntu Server 22.04 LTS - Gen2 image
 - A MySQL8 Community DB instance with minimum 2 vCPUs, 8 GB memory, and 30 GB SSD storage
 
-These autoscale for pipeline runs, but the sizing recommendation will be based on the workload and can vary significantly and this is a default/minimal starting point for <add number of pipelines, number of concurrent processes etc. 
-
-Consult the [Azure autoscaling documentation](https://learn.microsoft.com/en-us/azure/azure-monitor/autoscale/autoscale-get-started) for information about scaling in Azure.
-
+These autoscale for pipeline runs, but the sizing recommendation will be based on the workload and can vary significantly and this is a default/minimal starting point for <add number of pipelines, number of concurrent processes etc. Consult the [Azure autoscaling documentation](https://learn.microsoft.com/en-us/azure/azure-monitor/autoscale/autoscale-get-started) for information about scaling in Azure.
 
 ## Spot instance retry strategy
 
 One way to mitigate issues is having a robust retry and resume strategy. Refer to [our retry strategy tutorial](https://docs.seqera.io/platform-cloud/tutorials/retry-strategy) about this for more information.   
-
-## Security
-
-These are the minimal security settings we recommend:
-
-## IAM policies
-
-These are the minimal IAM policies and their functions: 
-
 
 ## Cost management and alerts
 
 Managing your compute spend upfront is a critical part of your production deployment. Here are some best practices that we recommend:
 
 - Utilize AWS Batch job tagging. This is facilitated by Nextflow's configuration and can be crucial in tracing costs back to specific pipelines. They can include dynamic variables and can be a valuable tool for helping diagnose and identify unexpected fees. This is especially helpful if you’re using Nextflow outside of Seqera Platform.
-- Note that CloudWatch fees are not included in the cost estimate for runs. 
+- Note that CloudWatch fees are not included in the cost estimate for runs.
 
 ## Seqera Platform limitations
 
 When cancelling large runs, make sure to check that all jobs were killed in your compute environment (ZOMBIE JOBS). Large runs sometimes leak jobs because Nextflow is killed before it can cancel all of them, which can lead to significant cost overruns.
-
-
