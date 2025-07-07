@@ -152,7 +152,19 @@
                         "developer/nextflow.secret",
                         "developer/nextflow.trace"
                     ]
-                }
+                },
+                "developer/plugins"
+            ]
+        },
+        {
+            "type": "category",
+            "label": "Guides",
+            "collapsed": true,
+            "items": [
+                "data-lineage",
+                "updating-spot-retries",
+                "metrics",
+                "flux"
             ]
         }
     ]
