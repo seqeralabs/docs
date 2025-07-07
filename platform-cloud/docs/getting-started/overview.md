@@ -1,7 +1,8 @@
 ---
 title: "Run a pipeline"
 description: "An overview of Seqera Platform deployment versions and ways to run Seqera."
-date: "2023-09-15"
+date created: "2023-09-15"
+last updated: "2025-07-07"
 tags: [overview, pipelines, getting started, deployment, pipeline, run]
 ---
 
