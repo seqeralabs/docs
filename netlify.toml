@@ -14,3 +14,7 @@
   from = "/assets/*"
   to = "https://seqera-docs-api.netlify.app/assets/:splat"
   status = 200
+
+EXCLUDE_PLATFORM_ENTERPRISE = true # TESTING
+EXCLUDE_PLATFORM_API = true # TESTING
+EXCLUDE_PLATFORM_OPENAPI = true # TESTING
