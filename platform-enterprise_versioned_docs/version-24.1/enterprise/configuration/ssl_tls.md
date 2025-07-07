@@ -1,8 +1,9 @@
 ---
 title: "SSL/TLS"
 description: Configure your Seqera instance to use SSL/TLS certificates for HTTPS
-date: "21 Apr 2023"
-tags: [ssl, tls, https, configuration]
+date created: "2023-04-21"
+last updated: "2025-07-07"
+tags: [ssl, tls, https, configuration, spec, certificate]
 ---
 
 HTTP must not be used in production environments. An SSL certificate is required for your Seqera instance to handle HTTPS traffic. Private certificates are supported, but require additional configuration during Seqera Enterprise installation and Nextflow execution.
