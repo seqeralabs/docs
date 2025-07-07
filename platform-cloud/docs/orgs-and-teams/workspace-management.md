@@ -9,9 +9,9 @@ Each user has a unique **user workspace** to manage resources such as pipelines,
 
 **Organization workspaces** extend the functionality of user workspaces by adding the ability to fine-tune access levels for specific members, collaborators, or teams. This is achieved by managing **participants** in the organization workspaces.
 
+:::note
 Organizations consist of members, while workspaces consist of participants.
 
-:::note
 A workspace participant may be a member of the workspace organization or a collaborator within that workspace only. Collaborators count toward the total number of workspace participants. See [Usage limits](../limits/overview).
 :::
 

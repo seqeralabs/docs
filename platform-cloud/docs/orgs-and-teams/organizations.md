@@ -13,6 +13,10 @@ Within an organization, you have members - users that you add to your organizati
 
 Lastly, you can also add external users (collaborators) to shared workspaces within your organization.
 
+:::note
+Organizations consist of members, while workspaces consist of participants.
+:::
+
 ### Create an organization
 
 When you create an organization, you become the organization owner. Organization owners can add or remove members from an organization or workspace, and can allocate specific access roles within workspaces. You can also add external collaborators to an organization.
