@@ -1,7 +1,7 @@
 ---
 title: "Production checklist"
 description: "A pre-production checklist for Seqera Platform."
-date: "2025-07-03"
+date created: "2025-07-03"
 tags: [production, checklist, deployment, limitations, retry]
 ---
 
