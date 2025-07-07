@@ -56,7 +56,7 @@ export default async function createConfigAsync() {
       routeBasePath: "/platform-api",
       path: "platform-api-docs/docs",
       remarkPlugins: [(await require("remark-yaml-to-table")).default],
-      sidebarPath: "platform-api-docs/docs/sidebar.js",
+      sidebarPath: "platform-api-docs/docs/sidebar/sidebar.js",
       docItemComponent: "@theme/ApiItem",
     },
   ];
@@ -448,6 +448,45 @@ export default async function createConfigAsync() {
         ],
         copyright: `© ${new Date().getFullYear()} Seqera`,
       },
+      languageTabs: [
+        {
+          highlight: "python",
+          language: "python",
+          logoClass: "python",
+        },
+        {
+          highlight: "bash",
+          language: "curl",
+          logoClass: "curl",
+        },
+        {
+          highlight: "java",
+          language: "java",
+          logoClass: "java",
+          variant: "unirest",
+        },
+        {
+          highlight: "r",
+          language: "r",
+          logoClass: "r",
+        },
+        {
+          highlight: "javascript",
+          language: "javascript",
+          logoClass: "javascript",
+        },
+        {
+          highlight: "go",
+          language: "go",
+          logoClass: "go",
+        },
+        {
+          highlight: "powershell",
+          language: "powershell",
+          logoClass: "powershell",
+        },
+
+      ],
       prism: {
         theme: themes.oneLight,
         darkTheme: themes.oneDark,
