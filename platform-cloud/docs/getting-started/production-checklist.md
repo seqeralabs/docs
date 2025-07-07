@@ -76,7 +76,7 @@ When deploying Seqera Enterprise using Azure we recommend starting with:
 - Ubuntu Server 22.04 LTS - Gen2 image
 - A MySQL8 Community DB instance with minimum 2 vCPUs, 8 GB memory, and 30 GB SSD storage
 
-These autoscale for pipeline runs, but the sizing recommendation will be based on the workload and can vary significantly and this is a default/minimal starting point for <add number of pipelines, number of concurrent processes etc. Consult the [Azure autoscaling documentation](https://learn.microsoft.com/en-us/azure/azure-monitor/autoscale/autoscale-get-started) for information about scaling in Azure.
+These autoscale for pipeline runs, but the sizing recommendation will be based on the workload and can vary significantly based on the number of pipelines, and number of concurrent processes, you have in mind. Consult the [Azure autoscaling documentation](https://learn.microsoft.com/en-us/azure/azure-monitor/autoscale/autoscale-get-started) for information about scaling in Azure.
 
 ## Spot instance retry strategy
 
