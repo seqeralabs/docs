@@ -1,8 +1,9 @@
 ---
 title: "Organizations"
 description: "Manage organizations in Seqera Platform."
-date: "2025-07-01"
-tags: [organizations, administration]
+date created: "2023-04-21"
+last updated: "2025-07-01"
+tags: [organizations, administration, workspaces, create-organization, organization-settings]
 ---
 
 Organizations are the top-level structure and contain workspaces, members, and teams. Before you start using Platform, consider the projects, research areas, and resources that you'd like to build out and who'll be using them so that you can scale up easily. 
