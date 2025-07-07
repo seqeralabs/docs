@@ -19,12 +19,6 @@ The list layout is the default **Launchpad** view. Use the toggle next to the **
 
 ## Launch form
 
-:::note
-In Platform Enterprise version 24.2, the stepped launch form described below is enabled for all user and organization workspaces by default. You can disable the new launch form in some or all organization workspaces with the `TOWER_STEPPED_LAUNCH_FORM_ALLOWED_WORKSPACES` [environment variable](https://docs.seqera.io/platform-enterprise/latest/enterprise/configuration/overview#core-features). 
-
-Platform Cloud accounts use the new launch form in all user and organization workspaces.
-:::
-
 The launch form is used to launch pipelines and to add pipelines to the **Launchpad**. Select **Launch** next to a saved pipeline in the list, or select **launch a run without configuration** to perform a quick launch of an unsaved pipeline.
 
 The launch form consists of [General config](#general-config), [Run parameters](#run-parameters), and [Advanced options](#advanced-options) sections to specify your run parameters before execution, and an execution summary. Use section headings or select the **Previous** and **Next** buttons at the bottom of the page to navigate between sections. 

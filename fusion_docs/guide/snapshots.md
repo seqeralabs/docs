@@ -11,22 +11,16 @@ More specifically, the first use case for this feature is for Seqera Platform us
 
 ### Seqera Platform compute environment requirements
 
-Fusion Snapshots v1.0.0 requires the following [Seqera compute environment](https://docs.seqera.io/platform-cloud/compute-envs/aws-batch) configuration:
+Fusion Snapshots v1 requires the following [Seqera compute environment](https://docs.seqera.io/platform-cloud/compute-envs/aws-batch) configuration:
 
 - **Provider**: AWS Batch
 - **Pipeline work directory**: An S3 bucket located in the same region as your AWS Batch compute resources
-- **Enable Wave containers**
-- **Enable Fusion v2**
-- **Enable fast instance storage**
+- **Enable Fusion Snapshots (beta)**
 - **Config mode**: Batch Forge
 - **Provisioning model**: Spot 
-- **Nextflow config**: Set AWS Batch max spot attempts and the custom Fusion container URL received from Seqera [shown below](#enable-snapshots-via-nextflow-config)
 - **Instance types**: See recommended instance sizes below
-- **AMI ID**: Amazon Linux 2023 ECS Optimized
 
-### Enable Snapshots 
-
-To use Fusion Snapshots in a Seqera AWS Batch compute environment, select **Enable Fusion Snapshots (beta)** during compute environment creation. When Fusion Snapshots are enabled, the Nextflow Spot reclamation retry setting automatically defaults to `aws.batch.maxSpotAttempts = 5`. 
+When Fusion Snapshots are enabled, the Nextflow Spot reclamation retry setting automatically defaults to `aws.batch.maxSpotAttempts = 5`. 
 
 ### EC2 instance selection guidelines
 
