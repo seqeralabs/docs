@@ -113,12 +113,12 @@ After you have created a resource group and Storage account, create a [Batch acc
 There are two types of Azure credentials available: access keys and Entra service principals.
 
 Access keys are simple to use but have several limitations:
-- Access keys are long-lived. 
-- Access keys provide full access to the Azure Storage and Azure Batch accounts. 
-- Azure allows only two access keys per account, making them a single point of failure. 
+- Access keys are long-lived.
+- Access keys provide full access to the Azure Storage and Azure Batch accounts.
+- Azure allows only two access keys per account, making them a single point of failure.
 
-Entra service principals are accounts which can be granted access to Azure Batch and Azure Storage resources: 
-- Service principals enable role-based access control with more precise permissions. 
+Entra service principals are accounts which can be granted access to Azure Batch and Azure Storage resources:
+- Service principals enable role-based access control with more precise permissions.
 - Service principals map to a many-to-many relationship with Azure Batch and Azure Storage accounts.
 - Some Azure Batch features are only available when using a service principal.
 
@@ -129,7 +129,7 @@ The two Azure credential types use different authentication methods. You can add
 #### Access keys
 
 :::info
-Batch Forge compute environments must use access keys for authentication. Service principals are only supported in manual compute environments. 
+Batch Forge compute environments must use access keys for authentication. Service principals are only supported in manual compute environments.
 :::
 
 To create an access key:
@@ -140,7 +140,7 @@ To create an access key:
 1. In your Platform workspace **Credentials** tab, select the **Add credentials** button and complete the following fields:
     - Enter a **Name** for the credentials
     - **Provider**: Azure
-    - Select the **Shared key** tab 
+    - Select the **Shared key** tab
     - Add the **Batch account** and **Blob Storage account** names and access keys to the relevant fields.
 1. Delete the copied keys from their temporary location after they have been added to a credential in Platform.
 
@@ -153,7 +153,7 @@ Therefore, you must create both an Entra service principal and a managed identit
 :::info
 Batch Forge compute environments must use access keys for authentication. Service principals are only supported in manual compute environments.
 
-The use of Entra service principals in manual compute environments requires the use of a [managed identity](#managed-identity). 
+The use of Entra service principals in manual compute environments requires the use of a [managed identity](#managed-identity).
 :::
 
 ##### Service principal
@@ -171,11 +171,11 @@ To create an Entra service principal:
     1. Repeat the same process for the Azure Batch account, using the **Azure Batch Data Contributor** role.
 1. Platform will need credentials to authenticate as the service principal:
     1. Navigate back to the app registration. On the **Overview** page, save the **Application (client) ID** value for use in Platform.
-    1. Select **Certificates & secrets**, then **New client secret**. A new secret is created containing a value and secret ID. Save both values securely for use in Platform. 
+    1. Select **Certificates & secrets**, then **New client secret**. A new secret is created containing a value and secret ID. Save both values securely for use in Platform.
 1. In your Platform workspace **Credentials** tab, select the **Add credentials** button and complete the following fields:
     - Enter a **Name** for the credentials
     - **Provider**: Azure
-    - Select the **Entra** tab 
+    - Select the **Entra** tab
     - Complete the remaining fields: **Batch account name**, **Blob Storage account name**, **Tenant ID** (Application (client) ID in Azure), **Client ID** (Client secret ID in Azure), **Client secret** (Client secret value in Azure).
 1. Delete the ID and secret values from their temporary location after they have been added to a credential in Platform.
 
@@ -185,7 +185,7 @@ To create an Entra service principal:
 To use managed identities, Seqera requires Nextflow version 24.06.0-edge or later.
 :::
 
-Nextflow can authenticate to Azure services using a managed identity. This method offers enhanced security compared to access keys, but must run on Azure infrastructure. 
+Nextflow can authenticate to Azure services using a managed identity. This method offers enhanced security compared to access keys, but must run on Azure infrastructure.
 
 When you use a manually-configured compute environment with a managed identity attached to the Azure Batch Pool, Nextflow can use this managed identity for authentication. However, Seqera still needs to use access keys or an Entra service principal to submit the initial task to Azure Batch to run Nextflow, which will then proceed with the managed identity for subsequent authentication.
 
@@ -230,10 +230,10 @@ In general, we recommend using the E family of machines for bioinformatics workl
     - p: ARM-based CPUs, such as Azure Cobalt.
     - l: Reduced memory with a large cost reduction.
 
-1. **Version**: The version of the VM size. This is the generation of the machine. Typically, more recent is better but availability can vary between regions. 
+1. **Version**: The version of the VM size. This is the generation of the machine. Typically, more recent is better but availability can vary between regions.
 
 In the Azure Portal on the page for your Azure Batch account, request an appropriate quota for your desired VM size. See [Azure Batch service quotas and limits][az-batch-quotas] for more information.
- 
+
 ### Batch Forge
 
 :::caution
@@ -247,7 +247,7 @@ Create a Batch Forge Azure Batch compute environment:
 1. Select **Azure Batch** as the target platform.
 1. Choose existing Azure credentials or add a new credential.
     :::info
-    Batch Forge compute environments must use access keys for authentication. Entra service principals are only supported in manual compute environments. 
+    Batch Forge compute environments must use access keys for authentication. Entra service principals are only supported in manual compute environments.
     :::
 1. Add the **Batch account** and **Blob Storage** account names and access keys.
 1. Select a **Region**, such as _eastus_.
@@ -262,20 +262,20 @@ Create a Batch Forge Azure Batch compute environment:
     <summary>Use Fusion v2</summary>
 
     :::note
-    The compute recommendations below are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files and a total size of approximately 123.5 GB. 
+    The compute recommendations below are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files and a total size of approximately 123.5 GB.
     :::
 
-    Azure virtual machines include fast SSDs and require no additional storage configuration for Fusion. For optimal performance, use VMs with sufficient local storage to support Fusion's streaming data throughput. 
+    Azure virtual machines include fast SSDs and require no additional storage configuration for Fusion. For optimal performance, use VMs with sufficient local storage to support Fusion's streaming data throughput.
 
     1. Use Seqera Platform version 23.1 or later.
     1. Use an Azure Blob storage container as the work directory.
     1. Enable **Wave containers** and **Fusion v2**.
     1. Select the **Batch Forge** config mode.
-    1. Specify suitable VM sizes under **VMs type**. A `Standard_E16d_v5` VM or larger is recommended for production use. 
+    1. Specify suitable VM sizes under **VMs type**. A `Standard_E16d_v5` VM or larger is recommended for production use.
 
     :::tip
-    We recommend selecting machine types with a local temp storage disk of at least 200 GB and a random read speed of 1000 MBps or more for large and long-lived production pipelines. To work with files larger than 100 GB, increase temp storage accordingly (400 GB or more). 
-    
+    We recommend selecting machine types with a local temp storage disk of at least 200 GB and a random read speed of 1000 MBps or more for large and long-lived production pipelines. To work with files larger than 100 GB, increase temp storage accordingly (400 GB or more).
+
     The suffix `d` after the core number (e.g., `Standard_E16*d*_v5`) denotes a VM with a local temp disk. Select instances with Standard SSDs — Fusion does not support Azure network-attached storage (Premium SSDv2, Ultra Disk, etc.). Larger local storage increases Fusion's throughput and reduces the chance of overloading the machine. See [Sizes for virtual machines in Azure](https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/overview) for more information.
     :::
 
@@ -290,9 +290,9 @@ Create a Batch Forge Azure Batch compute environment:
 1. Apply [**Resource labels**](../resource-labels/overview). This will populate the **Metadata** fields of the Azure Batch pool.
 1. Expand **Staging options** to include:
     - Optional [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
-    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch. 
+    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch.
     :::info
-    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority. 
+    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
     :::
 1. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
 1. Configure any advanced options you need:
@@ -328,7 +328,7 @@ If not described below, use the default settings:
     - **Security type**: `standard`
 1. **OS disk storage account type**: Certain VM series only support a specific Storage account type. See [Azure managed disk types][az-disk-type] and [Azure Virtual Machine series][az-vm-gen] for more information. In general, a VM series with the suffix *s* supports a *Premium LRS* Storage account type. For example, a `standard_e16ds_v5` supports `Premium_LRS` but a `standard_e16d_v5` does not. Premium LRS offers the best performance.
 1. **OS disk size**: The size of the OS disk in GB. This must be sufficient to hold every Docker container the VM will run, plus any logging or further files. If you are not using a machine with attached storage, you must increase this disk size to accommodate task files (see VM type below). If you are using a machine with attached storage, this setting can be left at the OS default size.
-1. **Container configuration**: Container configuration must be turned on. Do this by switching it from **None** to **Custom**. The type is **Docker compatible** which should be the only available option. This will enable the VM to use Docker images and is sufficient. However, you can add further options: 
+1. **Container configuration**: Container configuration must be turned on. Do this by switching it from **None** to **Custom**. The type is **Docker compatible** which should be the only available option. This will enable the VM to use Docker images and is sufficient. However, you can add further options:
     - Under **Container image names** you can add containers for the VM to grab at startup time. Add a list of fully qualified Docker URIs, such as `quay.io/seqeralabs/nf-launcher:j17-23.04.2`. - Under **Container registries**, you can add any container registries that require additional authentication. Select **Container registries**, then **Add**. Here, you can add a registry username, password, and registry server. If you attached the managed identity earlier, select this as an authentication method so you don't have to enter a username and password.
 1. **VM size**: This is the size of the VM. See [Sizes for virtual machines in Azure][az-vm-sizes] for more information.
 1. **Scale**: Azure Node pools can be fixed in size or autoscale based on a formula. Autoscaling is recommended to enable scaling your resources down to zero when not in use. Select **Auto scale** and change the **AutoScale evaluation interval** to 5 minutes - this is the minimum period between evaluations of the autoscale formula. For **Formula**, you can use any valid formula — See [Create a formula to automatically scale compute nodes in a Batch pool][az-batch-autoscale] for more information. This is the default autoscaling formula, with a maximum of 8 VMs:
@@ -346,7 +346,7 @@ If not described below, use the default settings:
     targetPoolSize = max(0, min($targetVMs, 8));
 
     // For first interval, deploy 1 node, for other intervals scale up/down as per tasks.
-    $TargetLowPriorityNodes = lifespan < interval ? 1 : targetPoolSize;
+    $TargetDedicatedNodes = lifespan < interval ? 1 : targetPoolSize;
     $NodeDeallocationOption = taskcompletion;
     ```
 
@@ -374,7 +374,7 @@ If not described below, use the default settings:
     - **Source**: URL in format `https://${accountName}.file.core.windows.net/${fileShareName}`
     - **Relative mount path**: Path where the file share will be mounted on the VM
     - **Storage account name** and **Storage account key** (managed identity is not supported)
-    
+
 Leave the node pool to start and create a single Azure VM. Monitor the VM to ensure it starts correctly. If any errors occur, check and correct them - you may need to create a new Azure node pool if issues persist.
 
 The following settings can be modified after creating a pool:
@@ -392,7 +392,7 @@ The following settings can be modified after creating a pool:
 1. For **Provider**, select **Azure Batch**.
 1. Select your existing Azure credentials (access keys or Entra service principal) or select **+** to add new credentials.
     :::note
-    To authenticate using an Entra service principal, you must include a user-assigned managed identity. See [Managed identity](#managed-identity) below. 
+    To authenticate using an Entra service principal, you must include a user-assigned managed identity. See [Managed identity](#managed-identity) below.
     :::
 1. Select a **Region**, such as _eastus (East US)_.
 1. In the **Work directory** field, add the Azure blob container created previously. For example, `az://seqeracomputestorage-container/work`.
@@ -406,10 +406,10 @@ The following settings can be modified after creating a pool:
     <summary>Use Fusion v2</summary>
 
     :::note
-    The compute recommendations below are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files and a total size of approximately 123.5 GB. 
+    The compute recommendations below are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files and a total size of approximately 123.5 GB.
     :::
 
-    Azure virtual machines include fast SSDs and require no additional storage configuration for Fusion. For optimal performance, use VMs with sufficient local storage to support Fusion's streaming data throughput. 
+    Azure virtual machines include fast SSDs and require no additional storage configuration for Fusion. For optimal performance, use VMs with sufficient local storage to support Fusion's streaming data throughput.
 
     1. Use Seqera Platform version 23.1 or later.
     1. Use an Azure Blob storage container as the work directory.
@@ -417,8 +417,8 @@ The following settings can be modified after creating a pool:
     1. Specify suitable VM sizes under **VMs type**. A `Standard_E16d_v5` VM or larger is recommended for production use.
 
     :::tip
-    We recommend selecting machine types with a local temp storage disk of at least 200 GB and a random read speed of 1000 MBps or more for large and long-lived production pipelines. To work with files larger than 100 GB, increase temp storage accordingly (400 GB or more). 
-    
+    We recommend selecting machine types with a local temp storage disk of at least 200 GB and a random read speed of 1000 MBps or more for large and long-lived production pipelines. To work with files larger than 100 GB, increase temp storage accordingly (400 GB or more).
+
     The suffix `d` after the core number (e.g., `Standard_E16*d*_v5`) denotes a VM with a local temp disk. Select instances with Standard SSDs — Fusion does not support Azure network-attached storage (Premium SSDv2, Ultra Disk, etc.). Larger local storage increases Fusion's throughput and reduces the chance of overloading the machine. See [Sizes for virtual machines in Azure](https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/overview) for more information.
     :::
 
@@ -433,9 +433,9 @@ The following settings can be modified after creating a pool:
 1. Apply [**Resource labels**](../resource-labels/overview). This will populate the **Metadata** fields of the Azure Batch pool.
 1. Expand **Staging options** to include:
     - Optional [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
-    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch. 
+    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch.
     :::info
-    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority. 
+    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
     :::
 1. Define custom **Environment Variables** for the **Head Job** and/or **Compute Jobs**.
 1. Configure any necessary advanced options:
