@@ -111,6 +111,7 @@
                     "label": "Migration notes",
                     "link": { "type": "doc", "id": "migrations/notes" },
                     "items": [
+                        "migrations/25-10",
                         "migrations/25-04",
                         "migrations/24-10",
                         "migrations/24-04",
@@ -158,13 +159,22 @@
         },
         {
             "type": "category",
+            "label": "Tutorials",
+            "collapsed": true,
+            "items": [
+                "tutorials/data-lineage",
+                "tutorials/flux",
+                "tutorials/metrics",
+                "tutorials/workflow-outputs"
+            ]
+        },
+        {
+            "type": "category",
             "label": "Guides",
             "collapsed": true,
             "items": [
-                "data-lineage",
-                "updating-spot-retries",
-                "metrics",
-                "flux"
+                "guides/aws-java-sdk-v2",
+                "guides/updating-spot-retries"
             ]
         }
     ]
