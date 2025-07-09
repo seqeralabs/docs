@@ -5,9 +5,6 @@ date: "16 Jul 2024"
 tags: [cli, commands]
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 :::note
 The CLI performs operations in the user workspace context by default. Use the `TOWER_WORKSPACE_ID` environment variable or the `--workspace` parameter to specify an organization workspace ID.
 :::
@@ -727,7 +724,7 @@ tw runs dump -i 5z4AMshti4g0GK -o file.tar.gz
   Pipeline run '5z4AMshti4g0GK' at [seqeralabs / testing] workspace details dump at 'file.tar.gz' 
 ```
 
-## Labels
+## Labels and resource labels
 
 Run `tw labels -h` to view supported label operations.  
 
@@ -738,8 +735,8 @@ Manage labels and resource labels.
 Run `tw labels add -h` to view the required and optional fields for adding a label. 
 
 :::note
-[Resource labels](../resource-labels/overview) consist of a `name=value` pair.
-[Labels](../labels/overview) require only a name. 
+[Resource labels](../resource-labels/overview) consist of a `name=value` pair and can only be applied to compute environments, pipelines, runs, and actions. 
+[Labels](../labels/overview) require only a name and can be applied to pipelines, runs, and actions.  
 ::: 
 
 ```bash
@@ -781,31 +778,33 @@ tw labels delete -i 203879852150462
 Label '203879852150462' deleted at '97652229034604' workspace
 ```
 
-## Data links
+## Data-links
 
-Run `tw data-links -h` to view supported data link operations.
+Run `tw data-links -h` to view supported data-link operations.
 
-Data links allow you to work with public and private cloud storage buckets in [Data Explorer](../data/data-explorer) in the specified workspace. AWS S3, Azure Blob Storage, and Google Cloud Storage are supported. The full list of operations are:
+Data-links allow you to work with public and private cloud storage buckets in [Data Explorer](../data/data-explorer) in the specified workspace. AWS S3, Azure Blob Storage, and Google Cloud Storage are supported. The full list of operations are:
 
-- `list`: List data links in a workspace
-- `add`: Add a custom data link to a workspace
-- `update`: Update a custom data link in a workspace
-- `delete`: Delete a custom data link from a workspace
-- `browse`: Browse the contents of a data link in a workspace
+- `list`: List data-links in a workspace
+- `add`: Add a custom data-link to a workspace
+- `update`: Update a custom data-link in a workspace
+- `delete`: Delete a custom data-link from a workspace
+- `browse`: Browse the contents of a data-link in a workspace
+- `upload`: Upload files and directories to a data-link in a workspace
+- `download`: Download files and directories from a data-link in a workspace
 
-### List data links
+### List data-links
 
-Run `tw data-links list -h` to view all the optional fields for listing data links in a workspace. 
+Run `tw data-links list -h` to view all the optional fields for listing data-links in a workspace. 
 
-If a workspace is not defined, the `TOWER_WORKSPACE_ID` workspace is used by default. Data links can be one of two types:
+If a workspace is not defined, the `TOWER_WORKSPACE_ID` workspace is used by default. data-links can be one of two types:
 
-- `v1-cloud-<id>`: Cloud data links auto-discovered using credentials attached to the workspace.
-- `v1-user-<id>`: Custom data links created by users.
+- `v1-cloud-<id>`: Cloud data-links auto-discovered using credentials attached to the workspace.
+- `v1-user-<id>`: Custom data-links created by users.
 
 ```bash
 tw data-links list -w seqeralabs/showcase
 
-Data links at [seqeralabs / showcase] workspace:
+data-links at [seqeralabs / showcase] workspace:
 
 ID                                        | Provider | Name                           | Resource ref                                                    | Region    
 -------------------------------------------+----------+--------------------------------+-----------------------------------------------------------------+-----------
@@ -823,59 +822,59 @@ v1-user-e7bf26921ba74032bd6ae1870df381fc  | aws      | NCBI_Sequence_Read_Archiv
 Showing from 0 to 99 from a total of 16 entries. 
 ```
 
-### Add a custom data link
+### Add a custom data-link
 
-Run `tw data-links add -h` to view all the required and optional fields for adding a custom data link to a workspace. 
+Run `tw data-links add -h` to view all the required and optional fields for adding a custom data-link to a workspace. 
 
-Users with the workspace `MAINTAIN` role and above can add custom data links. The data link `name`, `uri`, and `provider` (`aws`, `azure`, or `google`) fields are required. If adding a custom data link for a private bucket, the credentials identifier field is also required. Adding a custom data link for a public bucket doesn't require credentials.
+Users with the workspace `MAINTAIN` role and above can add custom data-links. The data-link `name`, `uri`, and `provider` (`aws`, `azure`, or `google`) fields are required. If adding a custom data-link for a private bucket, the credentials identifier field is also required. Adding a custom data-link for a public bucket doesn't require credentials.
 
 ```bash
 tw data-links add -w seqeralabs/showcase -n FOO -u az://seqeralabs.azure-benchmarking \
 -p azure -c seqera_azure_credentials
 
-Data link created:
+data-link created:
 
 ID                                       | Provider | Name | Resource ref                       | Region 
 ------------------------------------------+----------+------+------------------------------------+--------
 v1-user-152116183ee325463901430bb9efb8c9 | azure    | FOO  | az://seqeralabs.azure-benchmarking |        
 ```
 
-### Update a custom data link
+### Update a custom data-link
 
-Run `tw data-links update -h` to view all the required and optional fields for updating a custom data link in a workspace. Users with the `MAINTAIN` role and above for a workspace can update custom data links.
+Run `tw data-links update -h` to view all the required and optional fields for updating a custom data-link in a workspace. Users with the `MAINTAIN` role and above for a workspace can update custom data-links.
 
 ```bash
 tw data-links update -w seqeralabs/showcase -i v1-user-152116183ee325463901430bb9efb8c9 -n BAR
 
-Data link updated:
+data-link updated:
 
 ID                                       | Provider | Name | Resource ref                       | Region 
 ------------------------------------------+----------+------+------------------------------------+--------
 v1-user-152116183ee325463901430bb9efb8c9 | azure    | BAR  | az://seqeralabs.azure-benchmarking | 
 ```       
 
-### Delete a custom data link
+### Delete a custom data-link
 
-Run `tw data-links delete -h` to view all the required and optional fields for deleting a custom data link from a workspace. 
+Run `tw data-links delete -h` to view all the required and optional fields for deleting a custom data-link from a workspace. 
 
-Users with the `MAINTAIN` role and above for a workspace can delete custom data links.
+Users with the `MAINTAIN` role and above for a workspace can delete custom data-links.
 
 ```bash 
 tw data-links delete -w seqeralabs/showcase -i v1-user-152116183ee325463901430bb9efb8c9
 
-Data link 'v1-user-152116183ee325463901430bb9efb8c9' deleted at '138659136604200' workspace.
+data-link 'v1-user-152116183ee325463901430bb9efb8c9' deleted at '138659136604200' workspace.
 ```
 
-### Browse data link contents
+### Browse data-link contents
 
-Run `tw data-links browse -h` to view all the required and optional fields for browsing a data link in a workspace. 
+Run `tw data-links browse -h` to view all the required and optional fields for browsing a data-link in a workspace. 
 
-Define the data link ID using the required `-i` or `--id` argument, which can be found by first using the list operation for a workspace. In the example below, a name is defined to only retrieve data links with names that start with the given word:
+Define the data-link ID using the required `-i` or `--id` argument, which can be found by first using the list operation for a workspace. In the example below, a name is defined to only retrieve data-links with names that start with the given word:
 
 ```bash 
 tw data-links list -w seqeralabs/showcase -n 1000genomes
 
-Data links at [seqeralabs / showcase] workspace:
+data-links at [seqeralabs / showcase] workspace:
 
 ID                                       | Provider | Name        | Resource ref     | Region    
 ------------------------------------------+----------+-------------+------------------+-----------
@@ -920,6 +919,85 @@ FOLDER | pilot_data/                                | 0
 FOLDER | release/                                   | 0        
 FOLDER | sequence_indices/                          | 0        
 FOLDER | technical/                                 | 0        
+```
+
+### Upload files and directories to a data-link
+
+Run `tw data-links upload -h` to view all the required and optional fields for uploading files and directories to a data-link in a workspace. 
+
+#### Upload files
+
+```bash
+tw data-links upload -n my-bucket -c <credentials_ID> -w <workspace_ID> path/to/file.txt
+
+Fetching data-links.
+  Waiting DONE status....FETCHING.........DONE  [DONE]
+
+Uploading file: file.txt
+....
+ Progress: [========================================] 100% (269/269 KBs, ETA: 0.0s)
+
+  Successfully uploaded files
+
+
+     Type | File count | Path
+    ------+------------+-----------------------------------
+     FILE | 1          | file.txt
+```
+
+#### Upload directories
+
+```bash
+tw data-links upload -n my-bucket -c <credentials_ID> -w <workspace_ID> path/to/my-directory/
+
+Uploading file: my-directory/file.txt
+....
+ Progress: [========================================] 100% (5/5 bytes, ETA: 0.0s)
+
+  Successfully uploaded files
+
+
+     Type   | File count | Path
+    --------+------------+---------------
+     FOLDER | 1          | my-directory/
+```
+
+### Download data-link content
+
+Run `tw data-links download -h` to view all the required and optional fields for downloading files and directories from a data-link in a workspace. 
+
+#### Download files
+
+```bash
+tw data-links download -n my-bucket -c <credentials_ID> -w <workspace_ID> path/to/file.txt
+
+Downloading file: file.txt
+....
+ Progress: [========================================] 100% (269/269 KBs, ETA: 0.0s)
+
+  Successfully downloaded files
+
+
+     Type | File count | Path
+    ------+------------+-----------------------------------
+     FILE | 1          | file.txt
+```
+
+#### Download directories
+
+```bash
+tw data-links download -n my-bucket -c <credentials_ID> -w <workspace_ID> path/to/my-directory/
+
+Downloading file: my-directory/file.txt
+....
+ Progress: [========================================] 100% (5/5 bytes, ETA: 0.0s)
+
+  Successfully downloaded files
+
+
+     Type   | File count | Path
+    --------+------------+---------------
+     FOLDER | 1          | my-directory/
 ```
 
 ## Organizations
