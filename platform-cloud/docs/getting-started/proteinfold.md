@@ -64,7 +64,7 @@ From the **Compute Environments** tab in your organization workspace, select **A
 | **Access Key**                        | AWS access key ID.                                         |
 | **Secret Key**                        | AWS secret access key.                                     |
 | **Region**                            | The target execution region.                               |
-| **Pipeline work directory**           | An S3 bucket path in the same execution region.            |
+| **Work directory**                    | An S3 bucket path in the same execution region.            |
 | **Enable Wave Containers**            | Use the Wave containers service to provision containers.   |
 | **Enable Fusion v2**                  | Access your S3-hosted data via the Fusion v2 file system.  |
 | **Enable fast instance storage**      | Use NVMe instance storage to speed up I/O and disk access. Requires Fusion v2.|
@@ -175,7 +175,7 @@ In Platform, samplesheets and other data can be made easily accessible in one of
 This guide is based on [version 1.1.1](https://nf-co.re/proteinfold/1.1.1) of the nf-core/proteinfold pipeline. Launch form parameters and tools may differ in other versions. 
 :::
 
-With your compute environment created, nf-core/proteinfold added to your workspace Launchpad, and your samplesheet accessible in Platform, you are ready to launch your pipeline. Navigate to the Launchpad and select **Launch** next to *nf-core-proteinfold* to open the launch form.
+With your compute environment created, *nf-core/proteinfold* added to your workspace Launchpad, and your samplesheet accessible in Platform, you are ready to launch your pipeline. Navigate to the Launchpad and select **Launch** next to *nf-core-proteinfold* to open the launch form.
 
 The launch form consists of **General config**, **Run parameters**, and **Advanced options** sections to specify your run parameters before execution, and an execution summary. Use section headings or select the **Previous** and **Next** buttons at the bottom of the page to navigate between sections. 
 
@@ -308,24 +308,24 @@ After you have filled the necessary launch details, select **Launch**. The **Run
 
 For the purposes of this guide, a Jupyter notebook environment will be used for interactive visualization of the predicted protein structures, optionally comparing AlphaFold2 and Colabfold structures for the same sequence data. 
 
-### Create a Jupyter notebookStudio
+### Create a Jupyter Notebook studio
 
 From the **Studios** tab, select **Add a Studio** and complete the following:
 - In the **Compute & Data** tab:
     - Select your AWS Batch compute environment. 
         :::info
-        The same compute environment can be used for pipeline execution and running your Studios notebook environment, but Studios does not support AWS Fargate and data studio sessions must run on CPUs. To use one compute environment for both nf-core/proteinfold execution and your Studio, leave **Enable Fargate for head job** disabled and include at least one CPU-based EC2 instance family (`c6id`, `r6id`, etc.) in your **Instance types**. 
+        The same compute environment can be used for pipeline execution and running your Studio, but Studios does not support AWS Fargate and data studio sessions must run on CPUs. To use one compute environment for both *nf-core/proteinfold* execution and your Studio, leave **Enable Fargate for head job** disabled and include at least one CPU-based EC2 instance family (`c6id`, `r6id`, etc.) in your **Instance types**. 
 
         Alternatively, create a second basic AWS Batch compute environment with at least 2 CPUs and 8192 MB of RAM for your data studio.
         :::
     - Optional: Enter CPU and memory allocations. The default values are 2 CPUs and 8192 MB memory (RAM).
         :::note
-        Studios compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and data studio sessions. 
+        Studios compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and studio sessions. 
         :::
     - Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the pipeline work directory of your Proteinfold run. 
 - In the **General config** tab:
     - Select the latest **Jupyter** container image template from the list.
-    - Optional: Enter a unique name and description for the data studio. 
+    - Optional: Enter a unique name and description for the Studio. 
     - Check **Install Conda packages** and paste the following Conda environment YAML snippet:
 
     ```yaml 
