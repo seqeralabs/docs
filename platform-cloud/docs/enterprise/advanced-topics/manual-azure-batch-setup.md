@@ -6,7 +6,7 @@ description: "A tutorial for using Azure Batch with Seqera Platform"
 
 This guide details how to set up an Azure Batch and Seqera Cloud account to run a workflow in a Seqera Azure Batch compute environment.
 
-It begins with the simplest possible setup and then details more complex environment configuration options. 
+It begins with the simplest possible setup and then details more complex environment configuration options.
 
 ## Prerequisites
 
@@ -67,7 +67,7 @@ In Seqera Cloud:
 - Because the processes require larger resources than the head node, you often have oversized machines running Nextflow or undersized machines running processes.
 - Dedicated nodes only.
 
-The first configuration is a simple Azure Batch compute environment created with Batch Forge. This environment uses the same Batch pool for both the Nextflow head job and task nodes. 
+The first configuration is a simple Azure Batch compute environment created with Batch Forge. This environment uses the same Batch pool for both the Nextflow head job and task nodes.
 
 First, add the Azure Batch account credentials to Seqera Platform:
 
@@ -97,25 +97,24 @@ Add the `nextflow-hello` pipeline to your workspace:
 
 [Add a pipeline][add-pipeline] from your workspace Launchpad with the following settings:
 
-- Select your Azure Batch compute environment from the dropdown. 
-- For **Pipeline to launch**, enter `https://github.com/nextflow-io/hello`. 
+- Select your Azure Batch compute environment from the dropdown.
+- For **Pipeline to launch**, enter `https://github.com/nextflow-io/hello`.
 - For **Work directory**, enter a subdirectory in the `az://work` container in your Storage account.
 
-Select **Launch** next to the pipeline name in your workspace Launchpad to complete the launch form and launch the workflow. 
+Select **Launch** next to the pipeline name in your workspace Launchpad to complete the launch form and launch the workflow.
 
 ### Option 2. Use a separate node and head pool on Seqera Platform
 
 **Behavior**:
 
-- Seqera Platform will submit a Nextflow job and task to the first pool, which uses dedicated VMs.
-- The Nextflow job will execute and submit each task to the second pool, which uses low-priority VMs.
+- Seqera Platform will submit a Nextflow job and task to the first pool.
+- The Nextflow job will execute and submit each task to the second pool.
 - Both pools will autoscale up and down based on the number of waiting tasks.
 
 **Advantages**:
 
 - The processes are not bottlenecked by the head node.
 - You can set the worker nodes to use a different VM size than the head node.
-- Cheaper nodes for work than for running Nextflow.
 
 **Disadvantages**:
 
@@ -123,7 +122,7 @@ Select **Launch** next to the pipeline name in your workspace Launchpad to compl
 - Still fairly inflexible.
 - You have to wait a long time for nodes to autoscale up and down in response to the work.
 
-This configuration separates head and task nodes into different Batch pools. 
+This configuration separates head and task nodes into different Batch pools.
 
 To create a separate node pool to run all the processes:
 
@@ -140,7 +139,6 @@ To create a separate node pool to run all the processes:
 1. Go to the **Pools** tab and create a new pool.
 1. Find the pool called `tower-pool-${id}`, where `${id}` is the ID you noted earlier.
 1. Select **Scale**.
-1. An Autoscale formula is displayed. On the second-to-last line, there will be a line that starts with `$TargetDedicatedNodes`. Change this string to `$TargetLowPriorityNodes`.
 1. Select **Evaluate**, then **Save**.
 
 You have created a new node pool that uses low-priority VMs, which are cheaper than dedicated VMs. You can now run Nextflow on the first pool, but execute all the processes on the second pool.
@@ -158,7 +156,7 @@ You have created a new node pool that uses low-priority VMs, which are cheaper t
 
 1. Save the pipeline as `hello-world-low-priority`.
 
-Select **Launch** next to the `hello-world-low-priority` pipeline in your workspace Launchpad to complete the launch form and launch the workflow. 
+Select **Launch** next to the `hello-world-low-priority` pipeline in your workspace Launchpad to complete the launch form and launch the workflow.
 
 ### Option 3. Configure the head pool with a hot node
 
@@ -319,9 +317,9 @@ Select **Launch** next to the `hello-world-autopool-low-priority` pipeline in yo
 - The setup is quite complicated with room for error.
 - Errors can be harder to troubleshoot.
 
-Seqera can utilize an Azure Entra service principal to authenticate and access Azure Batch for job execution and Azure Storage for data management, and Nextflow can authenticate to Azure services using a managed identity. This method offers enhanced security compared to access keys, but must run on Azure infrastructure. 
+Seqera can utilize an Azure Entra service principal to authenticate and access Azure Batch for job execution and Azure Storage for data management, and Nextflow can authenticate to Azure services using a managed identity. This method offers enhanced security compared to access keys, but must run on Azure infrastructure.
 
-See [Microsoft Entra](https://www.nextflow.io/docs/latest/azure.html#microsoft-entra) in the Nextflow documentation for more information. 
+See [Microsoft Entra](https://www.nextflow.io/docs/latest/azure.html#microsoft-entra) in the Nextflow documentation for more information.
 
 #### Create a service principal for Seqera to use for authentication
 
@@ -434,14 +432,14 @@ Using this technique allows you to run pipelines on Azure Batch with more restri
 - The set up is very complicated now and errors are likely to occur.
 - Errors can be hard to troubleshoot.
 
-Finally, you can combine some of the previous approaches. Nextflow can create and modify Azure Batch pools based on the pipeline requirements. You can also attach Azure Batch pools to a VNet. Next, attach the worker nodes to the same VNet. 
+Finally, you can combine some of the previous approaches. Nextflow can create and modify Azure Batch pools based on the pipeline requirements. You can also attach Azure Batch pools to a VNet. Next, attach the worker nodes to the same VNet.
 
 To achieve this, the following requirements must be met:
 
 - The pipeline must be launched on the node pool attached to the VNet.
 - The managed identity must be used to authenticate to Azure Batch and Storage.
 - The managed identity must have permissions to create resources attached to the VNet.
-- Nextflow creates node pools attached to the VNet. 
+- Nextflow creates node pools attached to the VNet.
 
 Do the following:
 
