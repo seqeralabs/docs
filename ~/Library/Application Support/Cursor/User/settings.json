@@ -9,7 +9,6 @@
     "editor.wordWrap": "on",
     "diffEditor.ignoreTrimWhitespace": false,
     "redhat.telemetry.enabled": false,
-    "vale.doNotShowWarningForFileToBeSavedBeforeLinting": true,
-    "vale.valeCLI.path": "/opt/homebrew/bin/vale",
+    "vale.doNotShowWarningForFileToBeSavedBeforeLinting": true, 
     "vale.readabilityProblemLocation": "inline"
 } 
