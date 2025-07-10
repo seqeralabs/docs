@@ -1,8 +1,7 @@
 ---
 title: "AWS Cloud"
 description: "Instructions to set up an AWS Cloud CE in Seqera Platform"
-date created: "2025-05-15"
-last updated: "2025-07-09"
+date created: "2025-07-09"
 tags: [cloud, vm, amazon, compute environment]
 ---
 
@@ -15,7 +14,7 @@ This compute environment type is currently in public preview. Please consult thi
 The current implementation of compute environments for cloud providers all rely on the use of batch services such as AWS Batch, Azure Batch, and Google Batch for the execution and management of submitted jobs, including pipelines and Studio session environments. Batch services are suitable for large-scale workloads, but they add management complexity. In practical terms, the currently used batch services result in some limitations:
 
 - **Long launch delay**: When you launch a pipeline or Studio in a batch compute environment, there's a delay of several minutes before the pipeline or Studio session environment is in a running state. This is caused by the batch services that need to provision the associated compute service to run a single job.
-- **Complex setup**: Standard batch services require complex identity management policies and configuration of multiple services including compute environments, job queues, job definitions, etc.
+- **Complex setup**: Standard batch services require complex identity management policies and configuration of multiple services, including compute environments, job queues, job definitions, etc.
 - **Allocation constraints**: AWS Batch and other cloud batch services have strict resource quotas. For example, a hard limit of 50 job queues per account per region. This means that no new compute environment can be created when this quota limit is reached.
 
 The AWS Cloud compute environment addresses these pain points with:
