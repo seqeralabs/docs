@@ -380,7 +380,7 @@ Studio sessions compete for computing resources when sharing compute environment
 
 ### Perform the analysis and explore results
 
-The R-IDE can be configured with the packages you wish to install and the R script you wish to run. For the purposes of this guide, run the following scripts to install the necessary packages and perform the analysis:
+The R-IDE environment can be configured with the packages you wish to install and the R script you wish to run. For the purposes of this guide, run the following scripts to install the necessary packages and perform the analysis:
 
 1. Install and load the necessary packages and libraries:
 
