@@ -372,7 +372,7 @@ From the **Studios** tab, select **Add a studio** and complete the following:
 :::note
 Studio sessions compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and sessions. The default CPU and memory allocation for a Studio is 2 CPUs and 8192 MB RAM. 
 :::
-- Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the pipeline work directory of your RNA-Seq run. 
+- Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the work directory of your RNA-Seq run. 
 - Optional: Enter CPU and memory allocations. The default values are 2 CPUs and 8192 MB memory (RAM).
 - Select **Add**.
 - Once the Studio has been created, select the options menu next to it and select **Start**.

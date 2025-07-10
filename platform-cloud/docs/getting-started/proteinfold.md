@@ -322,7 +322,7 @@ From the **Studios** tab, select **Add a Studio** and complete the following:
         :::note
         Studios compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and studio sessions. 
         :::
-    - Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the pipeline work directory of your Proteinfold run. 
+    - Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the work directory of your Proteinfold run. 
 - In the **General config** tab:
     - Select the latest **Jupyter** container image template from the list.
     - Optional: Enter a unique name and description for the Studio. 
