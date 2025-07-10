@@ -83,8 +83,10 @@ Customize the following Dockerfile to include any additional software that you r
 ARG CONNECT_CLIENT_VERSION="0.8"
 
 # Seqera base image
+# highlight-next-line
 FROM public.cr.seqera.io/platform/connect-client:${CONNECT_CLIENT_VERSION} AS connect
 
+# highlight-start
 # 1. Add connect binary
 COPY --from=connect /usr/bin/connect-client /usr/bin/connect-client
 
@@ -93,11 +95,12 @@ RUN /usr/bin/connect-client --install
 
 # 3. Configure connect as the entrypoint
 ENTRYPOINT ["/usr/bin/connect-client", "--entrypoint"]
+# highlight-end
 ```
 
 For example, to run a basic Python-based HTTP server, build a container from the following Dockerfile. When a Studio runs the custom template environment, the value for the `CONNECT_TOOL_PORT` environment variable is provided dynamically.
 
-```docker title="Example Dockerfile with Python HTTP server"
+```docker title="Example Dockerfile with Python HTTP server" {5,10-12,14}
 # Add a default Connect client version. Can be overridden by build arg
 ARG CONNECT_CLIENT_VERSION="0.8"
 
