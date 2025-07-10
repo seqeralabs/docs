@@ -100,20 +100,24 @@ ENTRYPOINT ["/usr/bin/connect-client", "--entrypoint"]
 
 For example, to run a basic Python-based HTTP server, build a container from the following Dockerfile. When a Studio runs the custom template environment, the value for the `CONNECT_TOOL_PORT` environment variable is provided dynamically.
 
-```docker title="Example Dockerfile with Python HTTP server" {5,10-12,14}
+```docker title="Example Dockerfile with Python HTTP server"
 # Add a default Connect client version. Can be overridden by build arg
 ARG CONNECT_CLIENT_VERSION="0.8"
 
 # Seqera base image
+# highlight-next-line
 FROM public.cr.seqera.io/platform/connect-client:${CONNECT_CLIENT_VERSION} AS connect
 
 FROM ubuntu:20.04
 RUN apt-get update --yes && apt-get install --yes --no-install-recommends python3
 
+# highlight-start
 COPY --from=connect /usr/bin/connect-client /usr/bin/connect-client
 RUN /usr/bin/connect-client --install
 ENTRYPOINT ["/usr/bin/connect-client", "--entrypoint"]
+# highlight-end
 
+# highlight-next-line
 CMD ["/usr/bin/bash", "-c", "python3 -m http.server $CONNECT_TOOL_PORT"]
 ```
 
