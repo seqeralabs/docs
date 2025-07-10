@@ -55,7 +55,7 @@ To create and launch pipelines or Studio sessions with this compute environment 
 
 #### Compute environment creation
 
-The following permissions are required to provision resources in the AWS account. Only IAM roles that will be assumed by the EC2 instance need to be provisioned:
+The following permissions are required to provision resources in the AWS account. Only IAM roles that will be assumed by the EC2 instance must be provisioned:
 
 ```json
 {
@@ -185,7 +185,7 @@ The following permissions enable Seqera to populate values for dropdown fields. 
 
 The AWS Cloud compute environment uses an AMI maintained by Seqera, and the pipeline launch procedure assumes that some basic tooling is already present in the image itself. If you want to provide your own AMI, it must include at least the following:
 
-- Docker engine, configured to be running at startup.
+- Docker engine, configured to run at startup.
 - CloudWatch agent.
 - The ability to shut down with the `shutdown` command. If this is missing, EC2 instances will keep running and accumulate additional costs.
 
@@ -199,5 +199,4 @@ The AWS Cloud compute environment uses an AMI maintained by Seqera, and the pipe
 - **Subnets**: The list of VPC subnets where the EC2 instance will run. If unspecified, all the subnets of the VPC will be used.
 - **Security groups**: The security groups the EC2 instance will be a part of. If unspecified, no security groups will be used.
 - **Instance Profile**: The ARN of the `InstanceProfile` used by the EC2 instance to assume a role while running. If unspecified, Seqera will provision one with enough permissions to run.
-- **Boot disk size**: The size of the EBS boot disk for the EC2 instance. If undefined, a default 50 GB gp3 volume will be used.
-
+- **Boot disk size**: The size of the EBS boot disk for the EC2 instance. If undefined, a default 50 GB `gp3` volume will be used.
