@@ -27,7 +27,7 @@ Example:
 - If the participant role is Admin and the team role is Launch, the user will have Admin rights.
 - If the participant role is Launch and the team role is Launch, the user will have Launch rights.
 
-As a best practice, use teams as the primary vehicle for assigning rights within a workspace and only add named participants when one-off privilege escalations are deemed necessary.
+As a best practice, use teams as the primary vehicle for assigning rights within a workspace and only add named participants when one-off privilege escalations are necessary.
 
 ### Workspace participant roles
 
