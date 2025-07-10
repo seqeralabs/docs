@@ -21,6 +21,7 @@ export default async function createConfigAsync() {
       description: "Stay updated with our blog posts!",
       copyright: `Copyright © ${new Date().getFullYear()} Seqera`,
     },
+    onUntruncatedBlogPosts: 'ignore',
   };
 
   const docs_platform_enterprise = [
