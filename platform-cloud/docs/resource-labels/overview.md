@@ -32,8 +32,6 @@ If a resource label is applied to a compute environment, all runs in that comput
 
 #### Resource labels applied to pipelines, actions, and runs
 
-**Available from Seqera Platform version 22.4.0**
-
 Admins can override the default resource labels inherited from the compute environment when creating and editing pipelines, actions, and runs on the fly. The custom resource labels associated with each element will propagate to the associated resources in the cloud environment without altering the default resource labels associated with the compute environment.
 
 When an admin adds or edits the resource labels associated with a pipeline, action, or run, the **submission and execution time** resource labels are altered. This does not affect the resource labels for resources spawned at (compute environment) **creation time**.

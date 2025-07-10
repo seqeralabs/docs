@@ -35,37 +35,42 @@ Apart from the **Participants** tab, the _organization_ workspace is similar to 
 
 ### Workspace settings 
 
-Select the **Settings** tab within a workspace to manage credits, Studios settings, workspace labels, and edit or delete the workspace. 
+Select the **Settings** tab within a workspace to manage credits, Studios settings, workspace labels, and edit or delete the workspace.
 
 #### Credits 
 
 [Seqera Compute](../compute-envs/seqera-compute) environments consume credits when running pipelines or Studio sessions. Credits are consumed for CPU time, memory and storage usage, and network costs. One Seqera Compute credit is equivalent to $1 (USD), and resources are charged at the following rates:
 - CPU time: 1 CPU/Hr = 0.1 credits
-- Memory: 1 GiB/Hr = 0.025 credits 
-- Storage: 1 GB = 0.025 credits per month 
+- Memory: 1 GiB/Hr = 0.025 credits
+- Storage: 1 GB = 0.025 credits per month
 
 :::note 
-Storage and network costs vary per region, charged at standard AWS rates. Data ingress and egress across regions incur additional costs. 
+Storage and network costs vary per region, charged at standard AWS rates. Data ingress and egress across regions incur additional costs.
 :::
 
-Your available credit balance depends on the credits purchased and limits applied to your Seqera license. The **Credits** view contains the current credit balance available to the organization, and the credits spent in the workspace. Select **Contact us to upgrade** to purchase additional credits for your organization. 
+Your available credit balance depends on the credits purchased and limits applied to your Seqera license. The **Credits** view contains the current credit balance available to the organization, and the credits spent in the workspace. Select **Contact us to upgrade** to purchase additional credits for your organization.
 
-#### Studios settings 
+#### Studios settings
 
-Edit the workspace's Studio settings to set a predefined lifespan (between 1 and 120 hours), after which all Studio sessions in the workspace are automatically stopped. To keep all workspace Studios running indefinitely, select **Always keep the session running**. 
+Edit the workspace's Studio settings to set a predefined lifespan (between 1 and 120 hours), after which all Studio sessions in the workspace are automatically stopped. To keep all workspace Studios running indefinitely, select **Always keep the session running**.
+
+:::note
+Studios sessions created in shared workspaces are not shared across all the workspaces in an organization.
+:::
 
 #### Edit labels
 
 Select **Edit labels** to manage the workspace [labels and resource labels](../labels/overview).
 
-#### Edit or delete workspace 
+#### Edit or delete workspace
 
 :::note
 Workspace **owners** can edit their workspace name from the workspace **Settings** tab.
 :::
 
 - Select **Edit workspace** to update the workspace name, full name, description, and sharing. Select **Update** to save changes.
-- Select **Delete workspace** to delete the workspace and its associated resources. This action cannot be reveresed. 
+- Select **Delete workspace** to delete the workspace and its associated resources. This action cannot be reversed.
+``
 
 ### Add a new participant
 
