@@ -111,7 +111,7 @@ Usage limits differ per organization and [subscription type](https://seqera.io/p
 - Storage: 1 GB = 0.025 credits per month 
 
 :::note 
-Storage and network costs vary per region, charged at standard AWS rates. Data ingress and egress across regions incur additional costs. 
+Storage and network costs vary per region and are charged at standard AWS rates. Data ingress and egress across regions incur additional costs. 
 :::
 
 Your available credit balance depends on the credits purchased and limits applied to your Seqera license. The **Credits** view contains the current credit balance available to the organization, and the total credits spent in the organization's workspaces. Select **Contact us to upgrade** to request additional credits for your organization. 
