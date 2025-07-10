@@ -6,7 +6,7 @@ last updated: "2025-07-01"
 tags: [organizations, administration, workspaces, create-organization, organization-settings]
 ---
 
-Organizations are the top-level structure and contain workspaces, members, and teams. Before you start using Platform, consider the projects, research areas, and resources that you'd like to build out and who'll be using them so that you can scale up easily. 
+Organizations are the top-level structure and contain workspaces, members, and teams. Before you start using Platform, consider the projects, research areas, and resources you'd like to build out and who'll be using them so that you can scale up easily. 
 
 You can create multiple organizations, each of which can contain multiple workspaces with shared users and resources. This means you can customize and organize the use of resources while maintaining an access control layer for users associated with a workspace. A workspace can be public (shared across the organization) or private (accessible only to the user who created it)
 
