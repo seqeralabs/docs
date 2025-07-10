@@ -2,7 +2,7 @@
 title: "RNA-Seq"
 description: "An introduction to running nf-core/rnaseq in Seqera Platform"
 date created: "2024-07-21"
-last uodated: "2025-07-09"
+last updated: "2025-07-09"
 tags: [platform, seqera pipelines, studios, rnaseq, compute environment, aws]
 toc_max_heading_level: 2
 ---
