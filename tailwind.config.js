@@ -14,7 +14,7 @@ module.exports = {
   theme: {
     screens: {
       sm: "640px",
-      md: "768px",
+      md: "996px", // set to match docusaurus default breakpoint
       lg: "1024px",
       xl: "1280px",
     },
@@ -133,6 +133,19 @@ module.exports = {
           900: "#362C5D",
           1000: "#251E3F",
         },
+        blu: {
+          100: "#E8EBFC",
+          200: "#C6CCF8",
+          300: "#A1ABF3",
+          400: "#7B89EE",
+          500: "#5E6FEB",
+          600: "#4256E7", // Replaces sl-blue
+          700: "#3C4ED1",
+          800: "#3443B4",
+          900: "#2C3999",
+          1000: "#1E2768",
+          DEFAULT: "#4256E7",
+        },
       },
       borderRadius: {
         sm: "4px",
@@ -198,6 +211,7 @@ module.exports = {
       shadow: {
         default: "0px 5px 10px rgba(0, 0, 0, 0.1)",
         xl: "0 2px 21px 11px rgba(0,0,0,0.05)",
+        hover: "0 0 0 1px rgba(0, 0, 0, 0.65)",
       },
       spacing: getSpacing(),
       zIndex: {

@@ -5,20 +5,23 @@
 }
 
 a {
-  color: #4256e7;
+  color: var(--color-blu);
   &:hover {
-    color: #2c3999;
+    color: var(--color-blu-700);
+    /* text-decoration: none; */
   }
   &:active {
-    color: #3443B4;
+    color: var(--color-blu-800);
   }
   &:disabled {
-    color: #7B89EE;
+    color: var(--color-blu-400);
   }
 }
 
-pre, code {
-  max-height: 300px !important;
+pre,
+code {
+  max-height: 300px;
+  font-size: 90%;
 }
 
 .page {
@@ -38,3 +41,8 @@ html[data-theme="light"] {
   flex: none;
   background: rgba(0, 0, 0, 0.02);
 }
+
+html[data-theme="dark"] a {
+    color: white;
+}
+

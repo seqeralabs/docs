@@ -1,0 +1,71 @@
+---
+id: create-workflow-launch
+title: "Launch workflow"
+description: "Submits a workflow execution."
+sidebar_label: "Launch workflow"
+hide_title: true
+hide_table_of_contents: true
+api: eJzFV21v2zYQ/isC92UD4pek6dr505IsA7K1TRB7CDDDH2jpbDORSJWknHiG/3vvSMmibMVJiwD7Yli8F94dj89zXLMETKxFboWSbMCGxTQT1kQ8elT6YZaqxwieIC5I3GVHzPK5YYMxq6SGTY6YykFz0rhK0MWFBm7hrlT4xAsZL9Ay55pnYEGT/ZpJ/EBl8mNyHgOaHjFBIXwtQK/woxnYXaUYySIDLeJIJCCtmAnQqGziBWScDdbMrnJyLKSFuRPNlM649Uu/nrLN5mi7u1GFjuHutTEMnXp07b55Gj2+VUxHTBZpyqcpalldwGaDVdWAURh7rpIV+dgvhzud1NU3KpXRU6xwF2nJhOd5KmJ3Mr17Q3br/aDU9B5iMsw1naMVYEjq/b6sJ5JAx1gt5JxtKIosLyxcyuVVu4Iu5Bd3CC2yXOSQCtkupKL/IXS7U1gKI3yie0IDxpQ92hqwnIn5jVYzkfrMShWuNadWEBYy02KKtoUBPYRYg/1Ow20D/ZC1D3kET7Y1I6seQV84nfYq04U0z5rnGm4LOXQ9t6+wezXOkgQxw69EdsFtCRtgIiFxAa/IrFP2aqmVa6F0ZBUqLNUDOo2+YCyuqbHFYjwtMN1oCBCNbzREXCZRroztYOeULszk54W1uRn0eomKTdfAVwSirlC9POWW7lgnTlWR9PzGPZ4suYwh+Qlz66C/TuWvU/r7pesyx9W3SZ3PEO8inqYtqUULvoSI7kmKqJj8L5lmXDybJooRRvTq2VvqkeRZsQZTNERTpVLg0lUY0e4TkoSx7XJjiymeQLtQYeEz8d+WcFr2DlVGXM+bV6vWQ8iF9Cp5zb07xCdsATz5S00v8uJlk3cnrLb4DJnSq8/TV1r508U7bfHgoB0DE6yrp+CW2gROSa+DZQKXgRWWyIc1afu2ZJVQw08Iz+ltPG8JTbs7KnOdkCtpPKqe9Pv7bHb999sRVzWZtLbGi3n4SCkRVD1ti/WcJz/CtnVVxixDAOBzoNHpcC6V4sFELrVWei/ydy1Vrsa0SCpLqIQEkThXBvFKC7tyk9k5cA36rLDI/uMJTSI4ti0UjXaEIm6UIxnrVaUuUYfVjoaUt88hdLdNg8CsmpDc9XZKuOL//Fk16f2jbz6q5209D10+cYLN5pxCk0jd580BpF7fzh31Uj1u1GvbKSOw3A4X9VowU4RbN0eJcSWa7IwKoWB/FAilIdXXGzUYPsgnIPZgtcHnwXqT7WpBSA71asAJQRkCKggL5hmAYKCJ+X5li/L+cxfXa0etcF6LaxQf9yc7YNxvgdp+C5AG5B7iJ8LVyWmn/6Fz8tvo+P3g/fHg5GO3/+H4X9eVQs6Ua+oKUhwrR2c3V/tPBy+6Kdk6wjZYChwESmWCER47GCl0Wl4QYvst0VPp8URSRwcz9XstwECW+Kry+xx3T0+7/WqKybhDofK14zFu+7DbjXFdg9nLz0B/jS32GE0gwhGzi3xdokP9RGRVuamRF4QgKFyvp9zAPzrdbGjZv7cIfRJh6B2EtZ/x1MCBGF94EbaG+ACrvUfnkqcFaTJ6GL5+++98DB4Ip+0VWgc1oQ8t/OMQ8dg3NPUsVss7uPBBdUa0R227R0iUoLc4i2PI7UHdEPdvrocjAufyKZqphGw0p7OlX4zT31KkIEd2tEbYLOeF4y/mfdKl4U0m2EF+l1U1islVECF2jNMYqQeQ2DVV9Sx9Y7jo/Btp3d3t
+sidebar_class_name: "post api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Launch workflow"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/workflow/launch"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Submits a workflow execution.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"sourceWorkspaceId","in":"query","description":"Source Optional workspace numeric identifier","schema":{"type":"integer","format":"int64","nullable":true}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Workflow launch request","content":{"application/json":{"schema":{"type":"object","properties":{"launch":{"type":"object","properties":{"id":{"type":"string"},"computeEnvId":{"type":"string"},"runName":{"type":"string"},"pipeline":{"type":"string"},"workDir":{"type":"string"},"revision":{"type":"string"},"sessionId":{"type":"string"},"configProfiles":{"type":"array","items":{"type":"string"}},"userSecrets":{"type":"array","items":{"type":"string"}},"workspaceSecrets":{"type":"array","items":{"type":"string"}},"configText":{"type":"string"},"towerConfig":{"type":"string"},"paramsText":{"type":"string"},"preRunScript":{"type":"string","description":"Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."},"postRunScript":{"type":"string","description":"Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."},"mainScript":{"type":"string"},"entryName":{"type":"string"},"schemaName":{"type":"string"},"resume":{"type":"boolean"},"pullLatest":{"type":"boolean"},"stubRun":{"type":"boolean"},"optimizationId":{"type":"string"},"optimizationTargets":{"type":"string"},"labelIds":{"type":"array","items":{"type":"integer","format":"int64"}},"headJobCpus":{"type":"integer","format":"int32"},"headJobMemoryMb":{"type":"integer","format":"int32"},"launchContainer":{"type":"string"},"dateCreated":{"type":"string","format":"date-time"}},"title":"WorkflowLaunchRequest"}},"title":"SubmitWorkflowLaunchRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"workflowId":{"type":"string"}},"title":"SubmitWorkflowLaunchResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

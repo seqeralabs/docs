@@ -1,0 +1,71 @@
+---
+id: create-avatar
+title: "Create the avatar image"
+description: "Create the avatar image"
+sidebar_label: "Create the avatar image"
+hide_title: true
+hide_table_of_contents: true
+api: eJyVVE1v2zAM/SuGzk7TZT3ltHTYgGIDWizpKeiBsZlEqS2pEpM2CPzfR0pO63wg626y+Eg9Pj56pwgWQQ2nCjZA4IN6ypV16IG0NXelGqrvHoFwFMMqVx5f1hjo1pZbNdypEkPhtRM0Y+9qWGA21xVmLY4zCmsIDQm6XlekHXjqz62veyXXlOtQLLGOJ9o65Dp2tsJCcp0XMqQxSFRL+Q4skNdmwTCpBvyCmmkDfquapskVmsKWEu9mtmQmqQA4V+ki9tq3BSH1uCRCLQWkhMfgrAnp9cH19WnH978OO+xWXAWBfL69NIJPyFBGLeHtN5oFLdVwMMiPJGHuLC6m2ZUXJRNcj3SNklRBoEdX/k8SZ5GmSnCtSfhm7avT/C6066o/rcoqiX5zTudbKM9b6rLgkqK9NDNVNYYgLnjK/6HvHnixgR/e21PmX884ZL9NmbGUQVXZV+Yj8IDF2mviPZru1C2CRz9ayzynTw2TPCyTBMtoiVnySZY8nTNdWlrZVGejOA6khurvN/rjobHoknrsPvfe5pLICTzCZJsiiG/S4ed++qtXig1oM7cxvdVkjC/cazZ6uFPH9NvQQwUkJsoC+o0uMLRgGSgUcaDROpFKGPb7IeZdacsgnqmWmDz77SPARDboQ3rny9XNzdW13IkaNUQ/GKjxooQHXN/lIHyjvqtAm46lk7oH/8ul6M5Xu90MAj76qmnkms3qZbZ83IDXMBONeLScgFCyrjL2Z9wKs+TnXvwtCbxaC4Fzv8sm3yeNigIddeAnqyAuenfHw/14IqNsf9y1LSVHCse6+ccxkYRDbxx5IZJvQ2C2HRasQkRM7DMaViJv6ZJ8MyXelL9gFTmL
+sidebar_class_name: "post api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Create the avatar image"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/avatars"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Create the avatar image
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Image file request","content":{"multipart/form-data":{"schema":{"type":"object","properties":{"image":{"type":"string","format":"binary"}}},"encoding":{"image":{"contentType":"application/octet-stream"}}}}}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"avatar":{"type":"object","properties":{"id":{"maxLength":22,"type":"string"},"dateCreated":{"type":"string","format":"date-time"},"lastUpdated":{"type":"string","format":"date-time"}},"title":"Avatar"},"url":{"type":"string"}},"title":"CreateAvatarResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

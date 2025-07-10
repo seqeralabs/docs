@@ -1,0 +1,71 @@
+---
+id: refresh-data-link-cache
+title: "Refresh data-link cache"
+description: "Refreshes the data-link cache for the given `workspaceId` or `credentialsId`."
+sidebar_label: "Refresh data-link cache"
+hide_title: true
+hide_table_of_contents: true
+api: eJy1U02P2jAQ/SuWzxRoi3rg1O32Q6iVuupu1cMKCZNMiIuxs/YEiqL89844CQF2Bb30BON5mffmzUwlUwiJ1wVqZ+VU/oDMQ8ghCMxBpArVK6PtWiQqoThzPr6v9BasWOycX4dCJTBLF4JSi8RDCha1MoGehnIgUa2CnD7KQ6Ug5wPpCvCKGWdpz/mRIN8IcctU9GmhvNoAgucClbQUEPiIkzCaNT+V4PcUnHbyqwMKW27A60ToqC3T4AkciGSj5LSSuC+4sLYIq5iiLjcKm6d3E1nXgwP7SYOX+W97qAjotV1dEdCAiI4MIj8KZwMEzr8Zj/nntPz3r7IeyMn47Qupzl1hHQpljNtBym3IAEnpNe6joR9AefA3JeYUzpmV3M4dT2QFGAfAKTnqZzeKazDyzcBkX/Cem2nUHpc99JYjFl3PHC8jiF6aP587x3/vMArVNnPxc42G8ffwRD2Jm7vZM5/b1J1RyIMTAfxWJ7TADThxFlWCXKz0ppUSpqNRiN8NtSMQDUKbOPDMve8TJGRL69fwvB5OJsMxvxUu4EZZLtmuRbvB5/dyrrWKamgH/sehNUYj/MFRYRQtJimNHVftIE+OkIxpFXbDpPnn1BjjqmqpAvz0pq75udlvXplUB7U0tEzTjJjhQntXru9FtWvYPzvwrTIlIyUf4b/TXzu+C/znJ94rmHPgNUuIF3N0MF8+PRBUnS792ZJHB9uUsvuj0uR3RDy4NVjyvJOCHBNvXdd/AcR/80Y=
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Refresh data-link cache"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/data-links/cache/refresh"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Refreshes the data-link cache for the given `workspaceId` or `credentialsId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"credentialsId","in":"query","description":"Credentials string identifier","schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK"},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

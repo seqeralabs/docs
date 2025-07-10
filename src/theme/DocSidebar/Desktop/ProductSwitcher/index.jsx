@@ -11,8 +11,12 @@ import VersionSwitcher from "./VersionSwitcher";
 
 const products = [
   {
-    name: "Platform",
-    url: "/platform/",
+    name: "Platform Cloud",
+    url: "/platform-cloud/platform-cloud",
+  },
+  {
+    name: "Platform Enterprise",
+    url: "/platform-enterprise/latest/platform-enterprise",
   },
   {
     name: "Nextflow",
@@ -25,6 +29,7 @@ const products = [
 
 const ProductSwitcher = ({ isDropdown }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isEnterprisePage, setEnterprisePage] = useState(false);
   const [isSecondaryOpen, setIsSecondaryOpen] = useState(false);
   const dropdownRef = useRef(null);
   const location = useLocation();
@@ -49,10 +54,21 @@ const ProductSwitcher = ({ isDropdown }) => {
     if (location.pathname.startsWith("/fusion")) return "Fusion";
     if (location.pathname.startsWith("/nextflow")) return "Nextflow";
     if (location.pathname.startsWith("/multiqc")) return "MultiQC";
-    if (location.pathname.startsWith("/platform")) return "Platform";
+    if (location.pathname.startsWith("/platform-cloud"))
+      return "Platform Cloud";
+    if (location.pathname.startsWith("/platform-enterprise"))
+      return "Platform Enterprise";
     if (location.pathname.startsWith("/wave")) return "Wave";
     return null;
   };
+
+  useEffect(() => {
+    if (location.pathname.startsWith('/platform-enterprise')) {
+      setEnterprisePage(true);
+    } else {
+      setEnterprisePage(false);
+    }
+  }, [location.pathname]);
 
   const currentProduct = getCurrentProduct();
 
@@ -60,24 +76,26 @@ const ProductSwitcher = ({ isDropdown }) => {
   if (!isDropdown) items = products;
 
   return (
-    <div className={clsx(styles.switcher)}>
+    <div className={clsx(`${styles.switcher} ${isEnterprisePage ? 'pt-2 px-4 mb-3' : 'hidden'}`)}>
       {isDropdown && (
+        <div className={`${isEnterprisePage ? '' : 'hidden'}`}>
         <div
           className={clsx(styles.items, {
-            [styles.active]: isOpen || isSecondaryOpen,
+            [styles.active]: isOpen || isSecondaryOpen
           })}
         >
-          <button
+          {/* <button
             onClick={toggleDropdown}
             className={clsx(styles.item, styles.button)}
             ref={dropdownRef}
           >
             <ProductLogo />
-          </button>
+          </button> */}
           <VersionSwitcher
             isOpen={isSecondaryOpen}
             setIsOpen={setIsSecondaryOpen}
           />
+          </div>
         </div>
       )}
       <div

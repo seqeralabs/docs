@@ -1,0 +1,71 @@
+---
+id: create-action
+title: "Create action"
+description: "Creates a new pipeline action. Append `?workspaceId` to associate the action with the given workspace."
+sidebar_label: "Create action"
+hide_title: true
+hide_table_of_contents: true
+api: eJzFV9tu4zYQ/RVBfWmB+JJsttv6pU3SFEi7lyB2UaBGgKWlsc1EIrUkZcc1/O+dISWRsuVku1i0L4bFuXBmODxnuI1T0IniheFSxKP4SgEzoCMWCVhHBS8g4wIilpC8H10UBYg0+vjTWqpHXbAEbtKPkZER01omHE0js6zVozU3S/u94CvAz9qmH5/Ehi10PJrGTlXH9yexLEAx+rpJm0gurBj1C6ZYDgYUWW1jgR+oFISBOpwy+FSC2uBHO68/a8VIlDkonkQ8BWH4nINCZZ0sIWfxaBubTUGOuTCwsKK5VDkzbun783i3w0gV4C7aXMp0QzbtrVzIUWLjjypVdJRI9CkMGbCiyHhicx08aLLaHoYgZw+QkGGhqDKGgyapy7zR0kZxsYh3mIMsVdIhOokBc6ZaL/A8yhkVX64xN0zEcJNBE3N/7Fygs4yVIlm+HA1PO2NJZF6UBq7F6qZbQZXi/bFE6q7rFNKJ/8JVt1NYcc1dOQ/LA1pXvdUZsJjzxa2Sc565zCoVphSjduIGct1hiralBjUGPG/zLw2b7v0iaxfyBJ5MZ0b2jK+sTneV6ULpo+aFgrtSjG1fd/XUXs+nKUKGW8Ebz0wET5CUhCRcWAgQ857rqVqrUFwqgg4uVvIRnUbvMZZ5JhF2lEzwtED3ozFANL1VCCkIO4XUpoedU7nQ998ujSn0aDBIZaL7Gj4hgPS5HBQZM3Rve0kmy3TgNh6wdMVEAuk3mFsP/fVqf73K33d9mzmufp3U2RzxKmJZ1pFatGQriOieZIhq6f+Sac740TR3BBtGbY7eUodXR8UKdNkSzaTMgAlb4TLL3hLNmG65NuUMT6BbKLHwOf+7IYqOvUOVCVOL9tXyehmbQXaTfs69e4YPTuIlsPQ3ObsqypdNXp3F3uId5FJt3s0+08qdLt5pgwcH3RiYYl0ddXbUJnBKej0sE9gMah4gmqQ+fWt3uqu4K9QIadnLd44TuaJdjSrBdUCBzO7Q9Gw4PGTKD79/PVp0c0RnQxyN3sVH4aPKeVeElyz9Egb3tZjGOV53tgDLts9mUCs+m8C1UlIdRP6qo7b1MBUJaQiDkA5S60ojOiluNnaOugSmQF2UBrl+ek+zDQ5ZS0kDGGGGHbxIFg/qQc07GFO+LvbQTRM+QVY9W9lLbJVwxf35tW7Fh7VrMarjnZ+srp8YgaOfeXwX16OOn2j8vEITiddsDyJ+vZk//JIfO/xaM20Els2QEcTjZ4tw6/ZIMa1F93sjQyg4HAlCaUj5fqMW0wf5BAQfrLZ4PVhvs54XhCQRjpQNNwRlCCghLJhjAoKFNva7lQbt3ec+vntHnbDuxR7Np8P7PVAedkDusANQA5IPcRTh6+y8N3zTO/txcvp69Pp0dPZDf/jm9C/bt1zMpW376o6OLTtHF7c3B8NCJbqtWDvCNlhxHAgqZQIYvGfkrFRZdYWI9RvCp9LjiWSWFubyZy/AQFb4OnL7nPbPz/vDeprJmQhukcuqeqPtR7j1IPcfvgUdXhhsVRpouOV5W4BtBT+td+KSgAmXttsZ0/CHynY7WnYPPwK1lGs2y+jg5izT8EyKLzwLOwN7hM3By3PFspI0Y0LQFVOc9reI6hqPegsDc6ZXbvvehLx72wNK2Z3UFhdJAoV5VjdE7tsP4wnBbPU8zWVKNoqt6TbiL8bpbhMVlOiK1rZ4G8SitAwUO5/U3KyN6XsYbrOqRyexCSLEw7EaE/kIAg+orpuhbwwXnf8DS8O8jg==
+sidebar_class_name: "post api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Create action"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/actions"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Creates a new pipeline action. Append `?workspaceId` to associate the action with the given workspace.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Action create request","content":{"application/json":{"schema":{"type":"object","properties":{"name":{"type":"string"},"source":{"type":"string","enum":["github","tower"],"title":"Action.Source"},"launch":{"type":"object","properties":{"id":{"type":"string"},"computeEnvId":{"type":"string"},"runName":{"type":"string"},"pipeline":{"type":"string"},"workDir":{"type":"string"},"revision":{"type":"string"},"sessionId":{"type":"string"},"configProfiles":{"type":"array","items":{"type":"string"}},"userSecrets":{"type":"array","items":{"type":"string"}},"workspaceSecrets":{"type":"array","items":{"type":"string"}},"configText":{"type":"string"},"towerConfig":{"type":"string"},"paramsText":{"type":"string"},"preRunScript":{"type":"string","description":"Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."},"postRunScript":{"type":"string","description":"Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."},"mainScript":{"type":"string"},"entryName":{"type":"string"},"schemaName":{"type":"string"},"resume":{"type":"boolean"},"pullLatest":{"type":"boolean"},"stubRun":{"type":"boolean"},"optimizationId":{"type":"string"},"optimizationTargets":{"type":"string"},"labelIds":{"type":"array","items":{"type":"integer","format":"int64"}},"headJobCpus":{"type":"integer","format":"int32"},"headJobMemoryMb":{"type":"integer","format":"int32"},"launchContainer":{"type":"string"},"dateCreated":{"type":"string","format":"date-time"}},"title":"WorkflowLaunchRequest"}},"title":"CreateActionRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"actionId":{"type":"string"}},"title":"CreateActionResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

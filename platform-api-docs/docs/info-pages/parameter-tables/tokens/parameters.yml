@@ -1,0 +1,5 @@
+- Name: "`tokenId`"
+  Type: integer
+  Location: path
+  Req/Opt: Required
+  Description: Token numeric identifier

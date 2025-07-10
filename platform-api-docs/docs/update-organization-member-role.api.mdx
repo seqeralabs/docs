@@ -1,0 +1,71 @@
+---
+id: update-organization-member-role
+title: "Update member role"
+description: "Updates the role of the member identified by the given `memberId`."
+sidebar_label: "Update member role"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVU1v2zAM/SuCThuQxtkW7JDT2qEDimFrkbanIkAVm0nU2pIqyUkzw/99pCTnYymyoeullSmSenx8ZBpegMutNF5qxUf81hTCg2N+AczqEpiehXMF1RQskwUoL2cSCjZdh4u5XIJi9/H+orjv8x73Yu746I5ri/8nPa4NWEEPXBSbJy7tXCj5K5h/hOAxPofBRlhRgQdLKRqu8AODMBUG97gkkEb4BZ73ke8mZKquwMp8i9eiv4WnWlpADN7W0OMuX0Al+Kjhfm3oEak8zIPrTNtK+Gj6PORt29sg6Sr9dzCJuzfHNInh4PyZLtYUsw8i0hrbWAfSWfLHbLnGxMpTlDCmlHnAmj04Cm0OcejpA+QUaCy100twdEvJd7yct1LN0Quw2iCBlQrgIwfh3bIUU4160Ja04aWnDMRYEABSvbFFpWzVMU7oW3LaZy4YnNHKRVwfB8NDQi6/sxP2U7OudgwaDgaHfmeieA1TW0R3WK9zYg6hwqMEdo4HHO4ScW6ttuNUH5UfkH96ocJu0pjSnomy1CvEQ+4O8tpKvw5DdQbCgj2tUbmjuwkJCSduoWk6TR0wkqhHPKMJzpowfG0We4jf3Qi0mY0z2yW/Ji5iXbtPbEpbeG94Ejl9T4MTWuLhW6fwh5UPoInj8Vbi58+iMlFvUXdJXi2N4kyHhxJj1/CETLDTq4uD2UxXV6XwNFLMgV3KHHdedKZ2izy0u7ZlAu1GWeZCXF9qknclZBlGcaa/bC8QyBIZiu986A+H/QHZjHa+EkEtaYlEZXebIbG4B7PZ6u6NlnJsgYdnn5lS4O5CZKHCJrU7LeweH3XbNnWcTDtrL8BFzSywLIpqmqlwcGvLtiUztsuSzPC4FFaKKTUERVdIR2cU2UyUDo7U+26cJuk9+/tWf7GuZBRqzQlFWdMXHh9hvfkxoZ3+/5iOLfdXQNvQ3E7QdwGiwEzEXrz+GvGc3FCSbfjBXqLaYsRpnoPxR313x//q9obGMf2eVLqgECtW1Hb8G5DqQE9c/2RreCnUvA5bjMeUNLxif/b/mPVQ1ItcoJyCx41+BIWS6qjx9E28tO1vsukBAw==
+sidebar_class_name: "put api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Update member role"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"put"}
+  path={"/orgs/{orgId}/members/{memberId}/role"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Updates the role of the member identified by the given `memberId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"memberId","in":"path","description":"Organization member numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Member role update request","content":{"application/json":{"schema":{"type":"object","properties":{"role":{"type":"string","enum":["owner","member","collaborator"],"title":"OrgRole"}},"title":"UpdateMemberRoleRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

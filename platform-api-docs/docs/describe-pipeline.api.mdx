@@ -1,0 +1,71 @@
+---
+id: describe-pipeline
+title: "Describe pipeline"
+description: "Retrieves the details of the pipeline identified by the given `pipelineId`, enriched by `attributes`."
+sidebar_label: "Describe pipeline"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNV9tu4zYQ/RVCTxvAtdM26IOf6myyhdF0k+bSBRoEMC2NbSaUqCVHzrqG/r0z1NW27HW2RdEni+Th8MyFw+N1EIELrUpRmSQYBreAVsESnMAFiAhQKu2EmflhqlLQKgGhIkhQzRREYrryS3O1hERMKsQ4mvQEJFaFiwIzkUiGpxmCm/SDXoBy7oLhY1BtcMFTLzApWMlExhFRufDEpnBTQmhXKq2MAcHy3nWQ0ICAzaEEUexFKnFB35uuVXZEksVAzBovLGEtfM6UBToYbQa9wBHzWAbDdYCrlE9RCcLcQ2fGxhKLqZ/Ogjzv1VQaLysqnzOwqx0uoyhS/Cm1qLeIpdQZB94IlYQ6iyjOiQ+uBZeaxIF4N9FyCtpRcCeGbMXqL4gmwqHEzNFcaOKULF0my8lJX1AuM5s4IRMBcYqr4oDayJACoTXnCcP+iVAzYWKFCBHnB76k2kTk0kxq1xUOaa1kvxRC7FrzjrxJ5myBwswZrnnSXHEwfTREOe+oUEMrQ79zzEZVXCjArQi/GvviUhm2st0d4k8VsDvf35ZfZzIbwqdjOdx5uLhOy1y//lucegHnTk45bFyvef7EJVyUiU/HD6en/LPJ5/pXH3uymiCvyjTVKvRXbvDsGLLeJWGmzxAi3z7LFxRVcUB1645H8q0+Ity9MtjbJZVvRbdjXYV7Fiykxik0lKOu5cyBPZodgz/uY8iLH5R1eBBxJQ8AjJ0fzYWwe+20b8px1uode20ulVNTpRV2xzECTd25fdzUGA0y4UVNTj+kkdwE1P2ipsOI76hngHew6B71q9AVrxbkXto5YEc/2sLd+Y55qG1d39yPfxv/eXlBc+X36PzqkkYPH0d/jMZXftTRvK53j8nrzvf1/rnnDql/fHd8899zOYq21p025S5gJjON3cucrfcW3pLVvAnaFYflYnqBxk+3noW3RaRxZq//qZbIbPaEYN7dU1pc39fkGsLbyd9d2VYxt2WT5leNYGddbfpcRoL1CDh8S79uJMxjEINzcg6+QA+GsQIedP3SWmN3mP/Y8cBUCk4kBoXU2rwSH4Y7CDPr+wYJt3OQFuwoI5U2fHzit4tU3cKw6qPr64UeLwWDWh4O1s0rkgeNuTv2vvCkbbR2ZoGYVi+rr1wPopni40NVns+v6GmqZGb89tLzO/hMHonRzXj3cS+Wbsq6EtTXlyokAVeAOW0y9GnLrC6puOFg4Py+vjLcbWLS1/76zszPzQJfVxK5xTnf98/O+qe+hI3DWPqsl3qkqq5amm+zXDfl899p+yL0CF9wQLdO+T7hY7AuE9vW/b1g2BIIVAoL8pIh6/VUOniwOs95ulBYXD2Rcqx8olqc7vX4fy+zO0P1AqvtvxJl8w4C1qLH+/8VDXzg9E2Z/Y3Hv1H+HqDTpbsbUk88sKqQw28qkHe3Zc88EYf/HnZyq57yZNWmU3FuVXX+ROgFyIhsMcECMApDSLG1dae9b3TGXy7vCSs3+9tWP/PWO2nRbfKIe/MCSZ7XLJHHTDDP/wYpq5BY
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Describe pipeline"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/pipelines/{pipelineId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Retrieves the details of the pipeline identified by the given `pipelineId`, enriched by `attributes`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"pipelineId","in":"path","description":"Pipeline numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"attributes","in":"query","description":"Additional attribute values to include in the response (`labels`, `optimized` status, `computeEnv`). Returns an empty value (`labels: null`, etc.) if omitted.","explode":false,"schema":{"type":"array","items":{"type":"string","enum":["optimized","labels","computeEnv"],"title":"PipelineQueryAttribute"}}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"sourceWorkspaceId","in":"query","description":"Source Optional workspace numeric identifier","schema":{"type":"integer","format":"int64","nullable":true}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"pipeline":{"type":"object","properties":{"pipelineId":{"type":"integer","format":"int64"},"name":{"type":"string"},"description":{"type":"string"},"icon":{"type":"string"},"repository":{"type":"string"},"userId":{"type":"integer","format":"int64"},"userName":{"type":"string"},"userFirstName":{"type":"string"},"userLastName":{"type":"string"},"orgId":{"type":"integer","format":"int64"},"orgName":{"type":"string"},"workspaceId":{"type":"integer","format":"int64"},"workspaceName":{"type":"string"},"visibility":{"type":"string"},"deleted":{"type":"boolean"},"lastUpdated":{"type":"string","format":"date-time"},"optimizationId":{"type":"string"},"optimizationTargets":{"type":"string"},"optimizationStatus":{"type":"string","enum":["OPTIMIZED","OPTIMIZABLE","UNAVAILABLE"],"title":"PipelineOptimizationStatus"},"labels":{"type":"array","items":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"},"value":{"type":"string"},"resource":{"type":"boolean"},"isDefault":{"type":"boolean"},"dateCreated":{"type":"string","format":"date-time"}},"title":"LabelDbDto"}},"computeEnv":{"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"platform":{"type":"string"},"region":{"type":"string"}},"title":"ComputeEnvDbDto"}},"title":"PipelineDbDto"}},"title":"DescribePipelineResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

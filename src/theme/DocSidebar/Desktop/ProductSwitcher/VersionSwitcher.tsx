@@ -14,8 +14,8 @@ const VersionSwitcher = ({ isOpen, setIsOpen }) => {
   const dropdownRef = useRef(null);
   const location = useLocation();
   const { preferredVersion, savePreferredVersionName } =
-    useDocsPreferredVersion("platform");
-  const versions = useVersions("platform");
+    useDocsPreferredVersion("platform-enterprise");
+  const versions = useVersions("platform-enterprise");
   const currentVersion = useDocsVersion();
 
   useEffect(() => {
@@ -38,24 +38,23 @@ const VersionSwitcher = ({ isOpen, setIsOpen }) => {
 
   if (typeof window === "undefined") return null;
   if (!versions) return null;
-  if (!location.pathname.startsWith("/platform")) return null;
+  if (!location.pathname.startsWith("/platform-enterprise/")) return null;
 
   const items = versions.filter(
     (version) => version.label !== currentVersion.label,
   );
 
   // Extract the part of the URL after the current version
-  const currentVersionPrefix = `/platform/${currentVersion.label}`;
+  const currentVersionPrefix = `/platform-enterprise/${currentVersion.label}`;
   const urlSuffix = location.pathname.replace(currentVersionPrefix, "");
 
   return (
-    <>
+    <div ref={dropdownRef}>
       <button
         onClick={toggleDropdown}
         className={clsx(styles.item, styles.button, {
           [styles.active]: isOpen,
         })}
-        ref={dropdownRef}
       >
         <span>
           v{currentVersion.label}{" "}
@@ -71,11 +70,12 @@ const VersionSwitcher = ({ isOpen, setIsOpen }) => {
           {items?.map((version) => (
             <div
               key={version.name}
+              className="w-full"
               onClick={() => handleSelectVersion(version.name)}
             >
               <Link
                 to={`${version.path}${urlSuffix}`} // Append the suffix to the version path
-                className={styles.item}
+                className={`${styles.item} `}
               >
                 v{version.label}{" "}
                 {version.label === versions[0].label ? " (current)" : ""}
@@ -84,7 +84,7 @@ const VersionSwitcher = ({ isOpen, setIsOpen }) => {
           ))}
         </div>
       )}
-    </>
+    </div>
   );
 };
 

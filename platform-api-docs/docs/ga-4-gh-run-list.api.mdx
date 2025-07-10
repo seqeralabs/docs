@@ -1,0 +1,71 @@
+---
+id: ga-4-gh-run-list
+title: "GA4GH: List runs"
+description: "Uses the GA4GH workflow execution service API to list all run records."
+sidebar_label: "GA4GH: List runs"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVNty2jAQ/RWPnxmcC088lVCXMiGGAp70MhlG2IutxLYcSYZQD//eXdkmUGibzuTFllZnd89eSzsEFUieay4yu2v7CpSlY7AGvc7gs7UR8mmViI0FLxAUhLEUyDUPwOpNhpYWVsKVtliSWLLILAmBkKFq2y1bs0jZ3R92xDpRbD+0bJGDZGRhGKKfAYmnRTZCdUTnTLIUNEjSKe0MLwjKWQQLxX8CIjixey5AbvFyzHmCMKuGqSCGlNnd0tbbnGzwTEMEEp9WQqZMV6LrK3u3ax070uIJsjd4anAnrpSWPIvQMEYrQeUiw2TS+9XFBf2ObY1v0UYgkF6m6ZXlecIDkyHnURGkPHUhlo8QmIRJyqfmlQPMvTpAMSkZkecaUvUm7QUPzwSCMWqm4fSlZUNWpFRe37v1xvceSr74ru9+xMPQG86HvdHw+9Ab4HXqe151mvT8mUH0x3eTkTt38eh+dfv+fDxduNPpeIqC2bfZ3L3bX/s9r++OKi1zJFOYX811QoRmhiDWci/BpiJhoYw0gxe9OCjvmWodqVI/Tuva4Ru9ds5V74aF2O3YJaZ936mMqYr+WIVCLQIRwhs7ex/SPShXSiFPYro+05HNhFqZMDMtNhAaaziasaCxjaCaVh3jxTGz7WxAOetLx/QgcsU9IbnezijmKqwbYBJkryClPftY67wZIrovDQgl1eFTE9LjRhsKPFsJo94UHp6RLW2hkymtnyYJ05SZZmOpGkzFYoEpViGTmorqOo4yem0uqL9TxhOT0ZX48PqARNa4pCo/l+1Op31BslwonTJT63qjmPXZtaidrDozRyTL1555x51bpVZjzzt5wnCRITcTY1nXrNnHLRurht/1JX4MP5ypGKMgSFkumQJfJrsdiatVSGs55IotE+yJ7oolCv4S0uFKPsvqCba/Lfg1SwrC2bSX/9NTs5L/5arBvfp6oIvk5AxDfEB4DCzERqR4K81eEECuD7RORpys7Edk4M6xYX8BH5V15A==
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"GA4GH: List runs"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/ga4gh/wes/v1/runs"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Uses the GA4GH workflow execution service API to list all run records.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"page_size","in":"query","description":"Page size","schema":{"type":"integer","format":"int32"}},{"name":"page_token","in":"query","description":"Page token","schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"runs":{"type":"array","items":{"type":"object","properties":{"run_id":{"type":"string"},"state":{"type":"string","enum":["UNKNOWN","QUEUED","INITIALIZING","RUNNING","PAUSED","COMPLETE","EXECUTOR_ERROR","SYSTEM_ERROR","CANCELED","CANCELING"],"title":"State"}},"title":"RunStatus"}},"next_page_token":{"type":"string"}},"title":"RunListResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"type":"object","properties":{"msg":{"type":"string"},"status_code":{"type":"integer","format":"int32"}},"title":"WesErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

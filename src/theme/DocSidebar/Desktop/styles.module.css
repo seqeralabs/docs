@@ -1,12 +1,13 @@
 :global(.theme-doc-sidebar-container) {
-  border-right: 0 !important;
+  border-right: 0;
   margin-top: unset !important;
 }
+
 [data-theme="light"] :global(.theme-doc-sidebar-container) {
   background: rgb(249, 249, 249);
 }
 [data-theme="dark"] :global(.theme-doc-sidebar-container) {
-  background: rgb(27, 24, 35);
+  background: #2A2A2A;
 }
 
 .sidebar {
@@ -19,26 +20,35 @@
   }
   /* Remove strange padding around docs sidebar nav */
   & div[class^="sidebar"] {
-    padding-top: 0 !important;
-    width: auto !important;
+    padding-top: 0;
+    width: auto;
   }
 }
 .sidebarHeader {
   position: relative;
   z-index: 10;
-  padding: 0 30px;
+  margin-top: 1rem;
+  /* padding: 2rem 1rem 1rem 1rem; */
 }
 .sidebarHeaderFade {
   height: 15px;
-  background: linear-gradient(180deg, rgba(249,249,249,1) 0%, rgba(249,249,249,0) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(249, 249, 249, 1) 0%,
+    rgba(249, 249, 249, 0) 100%
+  );
 }
 [data-theme="dark"] .sidebarHeaderFade {
-  background: linear-gradient(180deg, rgba(27, 24, 35,0.5) 0%, rgba(27, 24, 35,0) 100%) ;
+  background: linear-gradient(
+    180deg,
+    rgba(27, 24, 35, 0.5) 0%,
+    rgba(27, 24, 35, 0) 100%
+  );
 }
 .sidebarNav {
   margin-top: -15px;
-  padding: 30px;
-  height: calc(100% - 180px);
+  padding: 1rem;
+  height: calc(100% - 80px);
   overflow-y: auto;
   & > div {
     margin-top: 15px;

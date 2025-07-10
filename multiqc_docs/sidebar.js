@@ -29,6 +29,7 @@ export default {
         ]
       },
       "custom_content/index",
+      "ai/index",
       {
         "type": "category",
         "label": "Usage",

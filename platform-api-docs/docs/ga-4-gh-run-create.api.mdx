@@ -1,0 +1,71 @@
+---
+id: ga-4-gh-run-create
+title: "GA4GH: Launch run"
+description: "Uses the GA4GH workflow execution service API to launch a new run. Runs are launched in the user workspace context by default. To launch in an organization workspace context, include the `workspaceId` in `workflow_engine_parameters`. Runs are launched with the workspace primary compute environment by default. To launch with a different compute environment, include the `computeEnvId` in `workflow_engine_parameters`."
+sidebar_label: "GA4GH: Launch run"
+hide_title: true
+hide_table_of_contents: true
+api: eJztVslu2zAQ/RVCZ8fK4pNPTYI0DVogRhb0EAT2WBpbTCSSISk7rqF/7wwlW47tID0EBQr0JpFvhm+WN+QyStElVhovtYr60b1DJ3yG4vK0d/lNzLV9nuR6LvAVk5IxwqGdyQTF6eBKeC1yKFWSCRAK58KWqituSuUEWGy2MBVSBZclmQaPzgA5SLTy+OrFeCFSnECZ+664WzskG1BC2yko+QvCyTumHUIleZlicD9a71+lI7YfrdgPUU2lwqEBCwV6tG60j+Zc+ix4ag8yVhZgF3RgYUqPAtVMWq0KVO/xDk5ApHIyQcuwPaZbvBvEhZr9CfGoE3mYuqj/EE2hN82ix06kDdqQo6uUanjJyxTeuUXwSHiLLyU6f6bTRdRfblWcgKIBEDRkVnmGgTG5TILb+Mkxdhk5SlQB/OUXBslaj58wYUNjmYSX6Hh3HUBg7jYMnLdSTaOq02LqnY8QwxmFL2saO8g6I7usIE0lBwD54A2/LQebZ+2k/JP8ljbfj/DS51gX4qapAy8X1FiSWPh4om1xkIKH/xX4ixWoat1Ii6Qpb0sMC85o5eqTjg8Pd9V0/f3zRETTdCjTDymT5qtAt7eP0Bmkny/vwk33NoHz4Es3THS62U6SzpyiJS/cyeDrpZPjN4H8RHdhrbY3TYrXMZ3sSfJq3AmlvYCciotpLRr0meYZaHSI14DP6C8OkzKeo4tnRzHl1dGeoxvNSr+45aDruM6QLgR7WrLRmn7mvWF4gNH/OIBopf74uorpaV4Ll5N5007ci1coTI57NblK3Y4U39loFdgCGuF9JKAdIWyUTaqJDgE3tbjFF0ow3/Dk/23qm61BDp6LuXoNuAbM/QVJ6K/6EE6e68exC3ZdqQlELSbz0AQT/aXdICJteEfdXq97yGtcyQJCeyoIBQhPk774UV+4VM1tlsu2z/8/aP6JB03d9JyC2OQgFRe+Gde1hFePHepiZPHOjvhdw0Km50/GYifIcjkGh/c2rypeJglaevA80OcMrIQxN/fDI7nOEFKScP9hGT0jQaLzul8O7pgIw/OSCe27g6vOyug0SdD4DfjOSK0eN0bS4Pr2jqdG8worwpAMIzH47bSfTLKqfgMJyCNv
+sidebar_class_name: "post api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"GA4GH: Launch run"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/ga4gh/wes/v1/runs"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Uses the GA4GH workflow execution service API to launch a new run. Runs are launched in the user workspace context by default. To launch in an organization workspace context, include the `workspaceId` in `workflow_engine_parameters`. Runs are launched with the workspace primary compute environment by default. To launch with a different compute environment, include the `computeEnvId` in `workflow_engine_parameters`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Run request","content":{"application/json":{"schema":{"type":"object","properties":{"workflow_params":{"type":"string"},"workflow_type":{"type":"string"},"workflow_type_version":{"type":"string"},"tags":{"type":"object","additionalProperties":{"type":"string"}},"workflow_engine_parameters":{"type":"object","additionalProperties":{"type":"string"}},"workflow_url":{"type":"string"}},"title":"RunRequest"}},"multipart/form-data":{"schema":{"type":"object","properties":{"workflow_params":{"type":"string"},"workflow_type":{"type":"string"},"workflow_type_version":{"type":"string"},"tags":{"type":"object","additionalProperties":{"type":"string"}},"workflow_engine_parameters":{"type":"object","additionalProperties":{"type":"string"}},"workflow_url":{"type":"string"}},"title":"RunRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"run_id":{"type":"string"}},"title":"RunId"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"type":"object","properties":{"msg":{"type":"string"},"status_code":{"type":"integer","format":"int32"}},"title":"WesErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

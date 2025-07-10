@@ -1,0 +1,71 @@
+---
+id: list-organization-members
+title: "List organization members"
+description: "Lists the members of the organization identified by the given `orgId`."
+sidebar_label: "List organization members"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVttOIkEQ/ZVJP+0mBFwl+8DTatSN2ZtR94mQWAwFtPZMj901KBL+fat6LoCMiGafZLpO1znVdXOhRuhjpzPSNlU99VN78hFNMUowGaLzkR2HT+smkOpnEFykR5iSHmscRcN5ME/0DNPollEXo9u2aimCiVe9vuITrwYtZTN04fLFqKT5s+bxV0HG9zJwkCDJR6+/UCl/MD74ZasWjRnQlH9vCl/3FqV5gk7HK52O8Q4fcu2Q6cnl2FI+nmICqrdQNM+ERKeEkwAdW5cAFUdfu2q5bNVKEniqdDzk6OZbQi5hotNCBmMjhz43JJHtyXd0uMFnx2OPtDdlDf8Ym0dw8XQ327k2nJ6ogEZ1vpo4PTmdTphhIM/vM5t69GI/PDiQPy9S+IN9xJZ1piRWyDKj4xBX584LZLFNYYd3GEvAmZMSI10QlNW7BgTnQILRhInf14EU6x710VK5fyf4d3jwrZdqKQ5Pm0bLWDtPr94zsMMIMyBwjSZnTcMd1sFNFBr4MQ1hFA8SMmQMDC13s3XS2aRJPEgHXokvrqf6rOjr0+Ep2eLcEphr/Yx7tl3tSAZGOSSuykJiuyC6TaV0AqNI+h09vaemViOiz/F6DxMMEb5RKQWwoexX+s+cs25L+VFDE1RzMkotRWCMfWQ9AvcY507TPMzFE+4+dMc5T8JefyD9xU04tTJbJ6H/w5DsqY7M384izM9lJ6nHbOXsWmIv4lh3WYcyJcqqzpbvYQDxSfHjvMrY3SMFkTod23C9jPsaHzie6PjyYmuOlKZLAySJ54HiZjpGX4IlaRCHpOXOlFJ8r9Px4V5bW1U3S6D9tjKwkBnHWfB8aXe77QM5y6ynBELOy3knZbW52lZPtKF2sSqi/7gjizcmfKJOZoBnrgwHF7q/yF+5P1uqV23ASh9nfMrhCGSxGILHv84sl3JcTG0pkpH2MDRSzmMwHneE9OrSapR4j/N6E87A5IJQskU+RFivrB1cNeaDdK/vrB2k9TJckQ7kw2lhfecLf7oqZ8vn6O1/VRpFVXssna9Lql8o1MdywMApwojdiL7CdhzHmK2/3tYU3Bgg389uGAubg+BF4wfvjYq4GgPixt5jyhVZCST5FoHL5T/tH5Y3
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List organization members"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/orgs/{orgId}/members"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Lists the members of the organization identified by the given `orgId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"max","in":"query","description":"Pagination max results","schema":{"type":"integer","format":"int32"}},{"name":"offset","in":"query","description":"Pagination offset","schema":{"type":"integer","format":"int32"}},{"name":"search","in":"query","description":"Filter search parameter","schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"members":{"type":"array","items":{"type":"object","properties":{"memberId":{"type":"integer","format":"int64"},"userId":{"type":"integer","format":"int64"},"userName":{"type":"string"},"email":{"type":"string"},"firstName":{"type":"string"},"lastName":{"type":"string"},"avatar":{"type":"string"},"role":{"type":"string","enum":["owner","member","collaborator"],"title":"OrgRole"}},"title":"MemberDbDto"}},"totalSize":{"type":"integer","format":"int64"}},"title":"ListMembersResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

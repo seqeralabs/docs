@@ -1,0 +1,93 @@
+---
+-
+  Resource:            'Access tokens'
+  Events logged:       'Add, delete'
+  Note:                'Log entry includes the access token ID.'
+- 
+  Resource:            'Compute environments'
+  Events logged:       'Add, edit, edit primary, delete'
+  Note:                'Log entry includes the compute environment ID. Edit event entries do not include the edited parameters. An entry is also recorded when workspace compute environments are made primary or removed from primary.'
+- 
+  Resource:            'Credentials'
+  Events logged:       'Add, edit, delete, access'
+  Note:                'Log entry includes the credential ID. A log entry is also created each time the credentials are accessed by the application.'
+- 
+  Resource:            'Data Explorer cloud buckets'
+  Events logged:       'Add, edit, remove, hide, show'
+  Note:                'Events for public and private buckets are logged.'
+-
+  Resource:            'Data Explorer files'
+  Events logged:       'Download, upload, preview'
+  Note:                'Events for public and private bucket files are logged.'
+- 
+  Resource:            'Labels and resource labels'
+  Events logged:       'Add, edit, delete'
+  Note:                'Log entry includes the label ID.'
+- 
+  Resource:            'Managed identities'
+  Events logged:       'Add, edit, delete'
+  Note:                'Log entry includes the managed identity ID.'
+- 
+  Resource:            'Organizations'
+  Events logged:       'Add, edit, delete'
+  Note:                'Log entry includes the organization ID.'
+- 
+  Resource:            'Organization members'
+  Events logged:       'Add, update role, delete'
+  Note:                'Log entry includes the organization member user ID. The associated organization ID is recorded in the `status` field.'
+-   
+  Resource:            'Organization settings'
+  Events logged:       'Edit'
+  Note:                'Log entry includes the organization ID.'
+- 
+  Resource:            'Participants'
+  Events logged:       'Add, update role, delete'
+  Note:                'Log entry includes the participant ID. The associated workspace ID is recorded in the `status` field.'
+- 
+  Resource:            'Pipelines'
+  Events logged:       'Add, edit, delete'
+  Note:                'Edit event entries do not include the edited parameters. Log entry includes the pipeline ID.'
+- 
+  Resource:            'Pipeline actions'
+  Events logged:       'Add, edit, pause, unpause, delete'
+  Note:                'Log entry includes the pipeline action ID.'
+- 
+  Resource:            'Pipeline secrets'
+  Events logged:       'Add, edit, delete'
+  Note:                'Log entry includes the pipeline secret ID.'
+- 
+  Resource:           'Runs'
+  Events logged:      'Launch, create, relaunch, resume, status change, complete, delete, drop'
+  Note:               'Relaunched/resumed runs are stored with the initial launch run ID. Deleted runs are marked for deletion before being dropped from the runs database by the application backend (constituting two events).'
+-
+  Resource:            'Studios sessions'
+  Events logged:       'Add, start, connect, disconnect, stop, delete'
+  Note:                'Temporary states (starting, stopping, deleting) are not logged.'
+-
+  Resource:            'Studios custom environments'
+  Events logged:       'Build start, build success, build fail'
+  Note:                'Applies only to Wave-enabled custom environment creation.'
+- 
+  Resource:            'Teams'
+  Events logged:       'Add, edit, delete'
+  Note:                'Log entry includes the team ID.'
+- 
+  Resource:            'Team members'
+  Events logged:       'Add, delete'
+  Note:                'Log entry includes the user ID of the team member. The associated team ID is recorded in the `status` field.'
+- 
+  Resource:            'Team workspaces'
+  Events logged:       'Add, edit, delete'
+  Note:                'Events are recorded when access to a workspace is granted to or removed from a team. An event is also recorded when a team workspace role is updated.'
+- 
+  Resource:            'Users'
+  Events logged:       'Add, edit, delete'
+  Note:                'Log entry includes the user ID. See [user deletion](https://docs.seqera.io/platform/24.1/data-privacy/overview#user-deletion).'
+- 
+  Resource:            'User sessions'
+  Events logged:       'Login'
+  Note:                'Login event entries include the login IP address.'
+- 
+  Resource:            'Workspaces'
+  Events logged:       'Add, edit, delete'
+  Note:                'Log entry includes the workspace ID.'

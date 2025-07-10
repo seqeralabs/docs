@@ -32,8 +32,16 @@ function BlogSidebarDesktop({sidebar}) {
   const location = useLocation();
   const pathMatch = location.pathname.match(/\/changelog\/(?:tags\/)?([^\/]+)(?:\/v[\d.]+.*)?/);
   const product = pathMatch ? pathMatch[1] : null;
-  const product_platform = product?.includes('seqera') ? 'platform' : product;
-  const returnToDocs = ['multiqc', 'fusion', 'platform', 'wave', 'nextflow'].includes(product_platform) ? product_platform : '';
+
+  // Map product names to their correct documentation paths
+  const getProductPath = (product) => {
+    if (!product) return '/';
+    const mapping = {
+      'seqera-cloud': '/platform-cloud/platform-cloud',
+      'seqera-enterprise': '/platform-enterprise/latest/platform-enterprise'
+    };
+    return mapping[product] || `/${product}`;
+  };
 
   // Filter the sidebar for just this product
   const filteredItems = product ? items.filter(item => item.permalink.includes(`/changelog/${product}/`)) : items;
@@ -54,7 +62,7 @@ function BlogSidebarDesktop({sidebar}) {
             <RssIcon />
           </Link>
         </div>
-        <Link href={`/${returnToDocs}`} className={styles.backToDocs}>
+        <Link href={getProductPath(product)} className={styles.backToDocs}>
           &larr; back to docs
         </Link>
         <BlogSidebarContent

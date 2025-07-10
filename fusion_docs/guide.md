@@ -1,0 +1,51 @@
+---
+title: User guide
+description: "Overview of the Fusin v2 file system"
+date: "23 Aug 2024"
+tags: [fusion, storage, compute, file system, posix, client]
+---
+
+# User guide
+
+Fusion is a virtual, lightweight, distributed file system designed to optimise the data access of Nextflow data pipelines.
+
+Fusion enables seamless filesystem I/O to cloud object stores via a standard POSIX interface resulting in simpler pipeline logic and faster, more efficient pipeline execution.
+
+:::note
+Fusion requires a license for use in Seqera Platform compute environments or directly in Nextflow. See [Fusion licensing](https://seqera.io/contact-us) for more information.
+:::
+
+## Getting started
+
+Fusion smoothly integrates with Nextflow and does not require any installation or change in pipeline code. It only requires to use of container runtime or a container computing service such as Kubernetes, AWS Batch, or Google Cloud Batch.
+
+:::note
+
+    This feature requires Nextflow ``22.10.0`` or later.
+:::
+
+### Nextflow installation
+
+If you have already installed Nextflow, update to the latest version using this command:
+
+```bash
+nextflow -self-update
+```
+
+If you don't have Nextflow already installed, install it with the command below:
+
+```bash
+curl get.nextflow.io | bash
+```
+
+### Fusion configuration
+
+To enable Fusion in your Nextflow pipeline add the following snippet to your `nextflow.config` file:
+
+```groovy
+fusion.enabled = true
+wave.enabled = true
+tower.accessToken = '<PLATFORM_ACCESS_TOKEN>'
+```
+
+Replace `<PLATFORM_ACCESS_TOKEN>` with your Platform access token.

@@ -1,0 +1,71 @@
+---
+id: delete-workflow-many
+title: "Delete workflows"
+description: "Deletes the workflow records identified by the given list of `workflowIds`."
+sidebar_label: "Delete workflows"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVlFP2zAQ/iuWn0vLtmoPfRoMkKppAgETD6gS1/jSGpw42E6hivrfd+ckTSFVNyFeEDl/d/d9d75zK6nQJ04XQdtcTuQZGgzoRViieLHuKTX2RThMrFNeaIV50KlGJebrCFnoFebCaB+ETcVD6zFV/mEoBzLAwsvJvWztXs4G0hbogNNN1TbhXQP4Dfma/ApwkJHZsXclc/ogKEfxBSRIjgOpme5ziY4d3oq4a4EiLzN0OumYOwL7ZIkZyEklw7rgwDoPuIhHqXUZhNr0fSw3m8E2Ox0leDjvBUNiXRSrIqNAro9OBena1tMLcCggCVS8fXTm1hqEnLJTtRxSLh9OrVozZF+3dgI3aIqaWBKVB/aBojA6iSUfPXp2rPpJ7fwRE3YsHDcoaPR8utPRHTA4ByxfB8x27T44nS+I+IZ6r4PBXoP9dcMwYpiudkj3ILgSo8EXNvd17q/Hx33Jl7/EkbjGULo8Vnp65vnqdSUISwgisaVRIrdBzJtmoBo0ffi84qSgDaq7zy9RXQQGEWq8rwynoD7S7K7g9zJD72GBPJKHZbbAPSI6DefOWddj/m1PA9vxj+0BQ4qJD8M9JqXTYR1n/hRpSNxJGZb0OeNJoIWwtLwyChtFF8BnctS2flT3WXaBblh3rWE33FbGMoSiHcA4eBFElvqfi3YZPL6ESJDred3N4/krZIXB3pjct/WZbXhdpDambOp0g8+kX5xcTXvrozm6MhB4DwmPbqUTWsY1mJtMS4ODlc409P1kNPLRb6gtgajP2sT9ldof3QERWdE2rfN8GY7Hw2O2cSUziHek2XLvN8p7klV31z77rah7EvA1jAoDtGaJYBRaNa3u3pHIKjab7sWSrwMdVtUcPP5xZrNhc72i+Sop7WFu+NKnYDweUPSPh2MvxSdc996mFZiSkZLfj/9P/7H34wCr9s3q+Mz4w2kmFOeKyoegSB0Xqnb6WfM5uuW4nW9vsbC22uMkSbAIB7G783t1eXPLQ9Y8aZlV7OOA28p/iSf/SmDvOLvRVkkD+aKMe0jWMXkk4e1Ev5vgqKpdyHHztwzpskTErX3CnC5MW7HA30SXgv8FyI0srA==
+sidebar_class_name: "post api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Delete workflows"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/workflow/delete"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Deletes the workflow records identified by the given list of `workflowIds`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"force","in":"query","description":"Force the deletion even if any workflows are active","schema":{"type":"boolean"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Delete workflows request","content":{"application/json":{"schema":{"type":"object","properties":{"workflowIds":{"type":"array","items":{"type":"string"}}},"title":"DeleteWorkflowsRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK - Return the IDs of workflows that could not be deleted, if any","content":{"application/json":{"schema":{"type":"object","properties":{"failedWorkflowIds":{"type":"array","items":{"type":"string"}}},"title":"DeleteWorkflowsResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

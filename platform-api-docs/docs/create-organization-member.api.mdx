@@ -1,0 +1,71 @@
+---
+id: create-organization-member
+title: "Add organization member"
+description: "Adds a new member to the organization identified by the given `orgId`."
+sidebar_label: "Add organization member"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVktv2zAM/iuCThuQJd0WDFhOSx8DimFrkbWnIkAZm0nU2pIryUkzw/99pOS8ljTthh52CWTxoY/kRzKVTNElVhVeGS17sp+mToDQOBc55iO0whvhpyiMnYBWv4D1hEpRezVWmIrRIognaoZa3JLWeXrbli3pYeJk70bSjZPDljQF2mB8ntIzJxbB48WGz+/hNTIswEKOHi2bV1LTBxkExyRVDLIAP6XzNvJNZ0KXOVqVrIGyZ4sPpbJI73tbYku6ZIo5yF4l/aLgR5T2OAmqY2Nz8PHqU1fW9TCao/PHJl2wzfbrEb6ANFUBQKNMrhJDXrVnEyiKTCUBYefOsV21C8KM7jBhw8JyzrxCx9LSEbC1lvNW6QkBo0wrn2EsXUQxaN6uWboddLhwhdEuev1wdLQby8W314MdSfRSPebGC6rRCtn4K+UfgUY76WtJikJleyVjZZ1/0i6DA0KYgYd95aL0m2yPDeEgyoZ+mesQRr7sh8RkGYwMNY+x3EjLchPfB+xrkwKx/qejU2+eokYsPnOD5N195T+G9F/ouybaDYF3DiYY4D5T9qh4kNhn1ppd5B/3EHc5Y4Q2XkCWmTnhCdqfd7VPyxgOCsww5xj/02hJ6DAprfKLMBKPESzafklDsHcz5NFE83JqeK4WZXiV52NPdnj2dqowOutOJJTr0IiSa4c/OaKIbtPtCuDU+0I2o5K/R0GJbuLh67LZ7uY+RMGZGqwH5dkj5EUkfBxgG52g9NiEl5rAf+IDlU/0L893ZnsjuszAc3sLcjVTCbpGmasGSahaabMGtet1Oi7YtZWRq0YPz35ZCwjIjNIS33nf7nbbR3xXGOdzCEVvNhD10PYSXHXoFtZqzaFXXKaxGB4ffafIgJYgjzUb5lYsdrNoW7K33JRNvenEFSeSTCkkVqyqETi8tlld8zXVyjKv6DgDq2DExSCWpcrxmVg1hszhgTDfDJpmeCueX8J7Q2kuQS8ko8hK/qLjPS5Wu78ekuIUIWUaEb4oO4ko3l2xh7XtTvPWraVFP0mw8Ad1Nzvq8vqK2d4s/dykbGJhzv8n6DfANCEpoYnCXUXbQU/K0OoyuuTegO3W+qOVQlB7E0EFCxpX5h41FW2ZF8/fnJe6/g2WYl8T
+sidebar_class_name: "put api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Add organization member"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"put"}
+  path={"/orgs/{orgId}/members/add"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Adds a new member to the organization identified by the given `orgId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Member addition request","content":{"application/json":{"schema":{"type":"object","properties":{"user":{"type":"string"}},"title":"AddMemberRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"member":{"type":"object","properties":{"memberId":{"type":"integer","format":"int64"},"userId":{"type":"integer","format":"int64"},"userName":{"type":"string"},"email":{"type":"string"},"firstName":{"type":"string"},"lastName":{"type":"string"},"avatar":{"type":"string"},"role":{"type":"string","enum":["owner","member","collaborator"],"title":"OrgRole"}},"title":"MemberDbDto"}},"title":"AddMemberResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"409":{"description":"Duplicate element","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

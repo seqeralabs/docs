@@ -1,0 +1,71 @@
+---
+id: start-data-studio
+title: "Start Studio"
+description: "Starts the given Studio session ID."
+sidebar_label: "Start Studio"
+hide_title: true
+hide_table_of_contents: true
+api: eJydVktv4zYQ/isCTy2gjbVZoyh8anY3wQYtukEe6CHwgZbGNhOKVEjKiWHov3eGlCxZUpxNLolMzosz33wzO5aBTY0onNCKzdiN48bZyK0hWokNqOjGlZnQkQVrUSK6/H7CYub4yrLZPbP+0rJ5zHQBhpORy6wx8507HtRRpeCG5+DAkOKOKfyBcrVZ1ImZIP8Fd2v87gd1EIMqczAijUQGyomlAIMaBp5KYQCdO1NCzGy6hpyz2Y65beFdOSPUilVVvPf+rM2jLXgKrf+nEsx2EMB/jeC474EvoRys/NVSm5y7cPTHFL3PQ6hg3VedbUnn0NWZirT/5jLSGzBGZBh2lGq1FKsypDhCq75EIf+R09GCfmDOIaP6oLTD+Mg6LwopUq82ebDkYjeMVy8eIHVUJUN1dAIs3R44pQNVSskXEpokcyl/Ln09jxtaFSX9y4USeZmzWRIfz9SXU1bhKz6klUOuzfYjirpUHrOdxHBjOMFBOMjtKJgoSRk/VxthtMrrpOf85R9QK4Ty7DSZ/hn31WImxRIQUeqHLo19d7BowAlHdWBtk307qFY1r3oo7gcf98pJUfEFyMvMjmSgX/p+Ro5AHhuk0K4ju9BaAlfDCEbf5bnkOvQMWqv6ve4P0IOyAWynSTJsq59/v6ctWgf37EEvbspFLhz2FvV6h7Gw41xpL9VSEwMeb4EDM8NUVF3LQ5wd+Hqzb4PsWMVBEcSIuDGn4ciUSoUv63RRdD79e5GBtPFfi1LILFz7zwsuJF7MX6kZReDb0Vq+gtE3SW7dXZFxN3LdwREJfHICKftVgDSpOYqggBGCEEpNky8jKGmGWKS0i5Dd9DO+0EtPh9L/aneBnJHF0fMaJ2WHkIX1BpZ0GyFX7+/Pri7pMhOWUJ/tiXw/iT6K0ibNb+Lw9Xp0UndORT9ImMdnWhrhtp7vvwI3YM5Korj7OU01HO5rTbO/KL1XGuQzNqlXhMluD+9q4tHHWos39KQQXtfuPsK1c0UzZn3TeCHCof+4aIDy8Oz8MyhV1+2QPX/heSFhdKL5yZTUsyZpp0dyMA/umyTNx/i+hWyP1ZM+BXck90x7n8wbgqzZTDRNXlfjBp4QloSd4WYUrq4kd9QuuCKZjUjB1sIEJZ56KJVG1pm0s8nEer0Tv5khmoT0dL3Uf7UXGAiuHzb4+XwynZ4kdFZo63IetoGwRfnuivaLXm/m7NH8q6tlKLmDFzcpJBeeGn3wuxpT7doZs1mPjhFWmM01xkhyu92CW7gzsqroOOx2hN6m/9hsyaWFI0G/sfmNRvsI28FyueGyJElGrbLhRoSp965YfruuG/73fup+PbZmqqttN6gm5jabfn1YA8/QFEUZ7r+FWD7dkpVWf0BTtGMHjbM0hcIdle1yx9XdLbV1vRnnOiMVw59pTuFfH2pYjz1b+LMdNpNalZ7UWDBJJMAPOaTHGd2l9TAZCBovcasfQSFwmtw4+k15qar/AbspkrQ=
+sidebar_class_name: "put api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Start Studio"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"put"}
+  path={"/studios/{sessionId}/start"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Starts the given Studio session ID.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"sessionId","in":"path","description":"Studio session numeric identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"An optional overriding configuration for the studio to be started.","content":{"application/json":{"schema":{"type":"object","properties":{"configuration":{"nullable":true,"allOf":[{"type":"object","properties":{"gpu":{"minimum":0,"type":"integer","format":"int32"},"cpu":{"minimum":0,"type":"integer","format":"int32"},"memory":{"minimum":0,"type":"integer","format":"int32"},"mountData":{"type":"array","items":{"type":"string"}},"condaEnvironment":{"maxLength":2048,"type":"string"},"lifespanHours":{"minimum":0,"type":"integer","format":"int32"}},"title":"DataStudioConfiguration"}]},"description":{"type":"string","nullable":true},"labelIds":{"type":"array","nullable":true,"items":{"type":"integer","format":"int64"}},"spot":{"type":"boolean","nullable":true}},"title":"DataStudioStartRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"required":["jobSubmitted","sessionId","statusInfo"],"type":"object","properties":{"jobSubmitted":{"type":"boolean"},"sessionId":{"type":"string"},"statusInfo":{"type":"object","properties":{"status":{"type":"string","enum":["starting","running","stopping","stopped","errored","building","buildFailed"],"title":"DataStudioStatus"},"message":{"type":"string"},"lastUpdate":{"type":"string","format":"date-time"}},"title":"DataStudioStatusInfo"}},"title":"DataStudioStartResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"NotFound, when the studio is not found or when the API is disabled for the workspace","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      
