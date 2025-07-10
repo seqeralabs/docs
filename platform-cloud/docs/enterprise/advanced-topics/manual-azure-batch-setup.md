@@ -6,7 +6,7 @@ description: "A tutorial for using Azure Batch with Seqera Platform"
 
 This guide details how to set up an Azure Batch and Seqera Cloud account to run a workflow in a Seqera Azure Batch compute environment.
 
-It begins with the simplest possible setup and then details more complex environment configuration options. 
+It begins with the simplest possible setup and then details more complex environment configuration options.
 
 ## Prerequisites
 
@@ -67,7 +67,7 @@ In Seqera Cloud:
 - Because the processes require larger resources than the head node, you often have oversized machines running Nextflow or undersized machines running processes.
 - Dedicated nodes only.
 
-The first configuration is a simple Azure Batch compute environment created with Batch Forge. This environment uses the same Batch pool for both the Nextflow head job and task nodes. 
+The first configuration is a simple Azure Batch compute environment created with Batch Forge. This environment uses the same Batch pool for both the Nextflow head job and task nodes.
 
 First, add the Azure Batch account credentials to Seqera Platform:
 
@@ -97,25 +97,24 @@ Add the `nextflow-hello` pipeline to your workspace:
 
 [Add a pipeline][add-pipeline] from your workspace Launchpad with the following settings:
 
-- Select your Azure Batch compute environment from the dropdown. 
-- For **Pipeline to launch**, enter `https://github.com/nextflow-io/hello`. 
+- Select your Azure Batch compute environment from the dropdown.
+- For **Pipeline to launch**, enter `https://github.com/nextflow-io/hello`.
 - For **Work directory**, enter a subdirectory in the `az://work` container in your Storage account.
 
-Select **Launch** next to the pipeline name in your workspace Launchpad to complete the launch form and launch the workflow. 
+Select **Launch** next to the pipeline name in your workspace Launchpad to complete the launch form and launch the workflow.
 
 ### Option 2. Use a separate node and head pool on Seqera Platform
 
 **Behavior**:
 
-- Seqera Platform will submit a Nextflow job and task to the first pool, which uses dedicated VMs.
-- The Nextflow job will execute and submit each task to the second pool, which uses low-priority VMs.
+- Seqera Platform will submit a Nextflow job and task to the first pool.
+- The Nextflow job will execute and submit each task to the second pool.
 - Both pools will autoscale up and down based on the number of waiting tasks.
 
 **Advantages**:
 
 - The processes are not bottlenecked by the head node.
 - You can set the worker nodes to use a different VM size than the head node.
-- Cheaper nodes for work than for running Nextflow.
 
 **Disadvantages**:
 
@@ -123,7 +122,7 @@ Select **Launch** next to the pipeline name in your workspace Launchpad to compl
 - Still fairly inflexible.
 - You have to wait a long time for nodes to autoscale up and down in response to the work.
 
-This configuration separates head and task nodes into different Batch pools. 
+This configuration separates head and task nodes into different Batch pools.
 
 To create a separate node pool to run all the processes:
 
@@ -140,10 +139,9 @@ To create a separate node pool to run all the processes:
 1. Go to the **Pools** tab and create a new pool.
 1. Find the pool called `tower-pool-${id}`, where `${id}` is the ID you noted earlier.
 1. Select **Scale**.
-1. An Autoscale formula is displayed. On the second-to-last line, there will be a line that starts with `$TargetDedicatedNodes`. Change this string to `$TargetLowPriorityNodes`.
 1. Select **Evaluate**, then **Save**.
 
-You have created a new node pool that uses low-priority VMs, which are cheaper than dedicated VMs. You can now run Nextflow on the first pool, but execute all the processes on the second pool.
+You can now run Nextflow on the first pool, but execute all the processes on the second pool.
 
 1. On the pipeline launch page, duplicate the existing pipeline, but do not save it yet.
 1. Under advanced options, add the following configuration block to the `nextflow.config` text input:
@@ -156,9 +154,9 @@ You have created a new node pool that uses low-priority VMs, which are cheaper t
     Remember to replace `${id}` with the ID of the compute environment you created earlier!
     :::
 
-1. Save the pipeline as `hello-world-low-priority`.
+1. Save the pipeline as `hello-world-worker`.
 
-Select **Launch** next to the `hello-world-low-priority` pipeline in your workspace Launchpad to complete the launch form and launch the workflow. 
+Select **Launch** next to the `hello-world-worker` pipeline in your workspace Launchpad to complete the launch form and launch the workflow.
 
 ### Option 3. Configure the head pool with a hot node
 
@@ -189,7 +187,7 @@ To create the compute environment with a persistent head node:
 
 The node pool will increase to a minimum of 1 node. Now, when you make adjustments to the pipeline, the head node will not be scaled down.
 
-Select **Launch** next to the `hello-world-low-priority` pipeline in your workspace Launchpad to complete the launch form and launch the workflow. With this run, it should respond much faster. The _latency_ of the pipeline has improved, although the overall run time will be similar. This effect is more substantial on larger production pipelines.
+Select **Launch** next to the `hello-world-worker` pipeline in your workspace Launchpad to complete the launch form and launch the workflow. With this run, it should respond much faster. The _latency_ of the pipeline has improved, although the overall run time will be similar. This effect is more substantial on larger production pipelines.
 
 :::tip
 If you do not wish to continue paying for the head node, scale the node pool back down by replacing the original autoscale formula (`targetPoolSize = max(0, min($targetVMs, 4))`).
@@ -219,13 +217,12 @@ Nextflow will create a range of pools based on resource sizes and try to reuse t
 **Disadvantages**:
 
 - You may be overly specific and end up with a lot of pools, which can exhaust your quota for the maximum number of pools.
-- This configuration does not use low-priority nodes.
 
 With the autopool feature, Nextflow automatically creates and manages Azure Batch pools based on your pipeline's requirements.
 
 To configure your pipeline to use Nextflow autopool:
 
-1. Duplicate the `hello-world-low-priority` pipeline to a new pipeline called `hello-world-autopool`.
+1. Duplicate the `hello-world-worker` pipeline to a new pipeline called `hello-world-autopool`.
 1. Update your Nextflow config to use autopool mode:
 
 ```groovy
@@ -250,55 +247,7 @@ azure {
 
 Select **Launch** next to the `hello-world-autopool` pipeline in your workspace Launchpad to complete the launch form and launch the workflow.
 
-### Option 5. Use Nextflow autopool feature with low-priority nodes
-
-**Behavior**:
-
-- Seqera submits a Nextflow job and task to the first pool, which uses dedicated VMs.
-- The Nextflow job creates pools in the Azure Batch account based on the pipeline's requirements.
-- The pools are named `nf-pool-${id}`, where `${id}` is a unique identifier for the pool.
-- The pools are created with the VM size specified in the Nextflow config.
-- The pools are created with the autoscale settings specified in the Nextflow config.
-- These pools use low-priority nodes. It achieves this by modifying the autoscale formula.
-
-**Advantages**:
-
-- Nextflow handles the creation and management of pools.
-- You can create flexible pools with the correct VM size and autoscale settings.
-- This configuration uses low-priority nodes.
-
-**Disadvantages**:
-
-- Spot and low-priority nodes can be preempted, which can cause the pipeline to fail.
-
-To configure your pipeline to use Nextflow autopool with low-priority nodes:
-
-1. Duplicate the `hello-world-autopool` pipeline to a new pipeline called `hello-world-autopool-low-priority`.
-1. Update your Nextflow config to use low-priority nodes:
-
-```groovy
-process.queue = "auto"
-process.machineType = "Standard_E*d_v5"
-azure {
-    batch {
-        autoPoolMode = true
-        allowPoolCreation = true
-        pools {
-            auto {
-                autoscale = true
-                vmCount = 1
-                maxVmCount = 4
-            }
-        }
-    }
-}
-```
-
-3. Save the pipeline.
-
-Select **Launch** next to the `hello-world-autopool-low-priority` pipeline in your workspace Launchpad to complete the launch form and launch the workflow.
-
-### Option 6. Use Entra authentication
+### Option 5. Use Entra authentication
 
 **Behavior**:
 
@@ -319,9 +268,9 @@ Select **Launch** next to the `hello-world-autopool-low-priority` pipeline in yo
 - The setup is quite complicated with room for error.
 - Errors can be harder to troubleshoot.
 
-Seqera can utilize an Azure Entra service principal to authenticate and access Azure Batch for job execution and Azure Storage for data management, and Nextflow can authenticate to Azure services using a managed identity. This method offers enhanced security compared to access keys, but must run on Azure infrastructure. 
+Seqera can utilize an Azure Entra service principal to authenticate and access Azure Batch for job execution and Azure Storage for data management, and Nextflow can authenticate to Azure services using a managed identity. This method offers enhanced security compared to access keys, but must run on Azure infrastructure.
 
-See [Microsoft Entra](https://www.nextflow.io/docs/latest/azure.html#microsoft-entra) in the Nextflow documentation for more information. 
+See [Microsoft Entra](https://www.nextflow.io/docs/latest/azure.html#microsoft-entra) in the Nextflow documentation for more information.
 
 #### Create a service principal for Seqera to use for authentication
 
@@ -360,7 +309,7 @@ In Seqera:
 1. For **Compute pool**, select the pool you added the managed identity to earlier (`tower-pool-${id}`).
 1. For **Managed Identity Client ID**, enter the client ID of the managed identity created earlier.
 
-Duplicate the `hello-world-autopool-low-priority` pipeline and save it as `hello-world-entra-mi`.
+Duplicate the `hello-world-autopool` pipeline and save it as `hello-world-entra-mi` but use the new compute environment.
 
 Select **Launch** next to the `hello-world-entra-mi` pipeline in your workspace Launchpad to complete the launch form and launch the workflow.
 
@@ -370,7 +319,7 @@ The pipeline will run as before, but using the managed identity to authenticate 
 You can also use User Subscription mode instead of Batch Managed here, but this is beyond the scope of this tutorial.
 :::
 
-### Option 7. Use a node pool attached to a VNet
+### Option 6. Use a node pool attached to a VNet
 
 **Behavior**:
 
@@ -416,7 +365,7 @@ The pipeline runs as before, but it will run on the node pool attached to the VN
 
 Using this technique allows you to run pipelines on Azure Batch with more restrictive networking and security requirements.
 
-### Option 8. Use a node pool attached to a VNet with worker nodes attached to the same VNet
+### Option 7. Use a node pool attached to a VNet with worker nodes attached to the same VNet
 
 **Behavior**:
 
@@ -434,14 +383,14 @@ Using this technique allows you to run pipelines on Azure Batch with more restri
 - The set up is very complicated now and errors are likely to occur.
 - Errors can be hard to troubleshoot.
 
-Finally, you can combine some of the previous approaches. Nextflow can create and modify Azure Batch pools based on the pipeline requirements. You can also attach Azure Batch pools to a VNet. Next, attach the worker nodes to the same VNet. 
+Finally, you can combine some of the previous approaches. Nextflow can create and modify Azure Batch pools based on the pipeline requirements. You can also attach Azure Batch pools to a VNet. Next, attach the worker nodes to the same VNet.
 
 To achieve this, the following requirements must be met:
 
 - The pipeline must be launched on the node pool attached to the VNet.
 - The managed identity must be used to authenticate to Azure Batch and Storage.
 - The managed identity must have permissions to create resources attached to the VNet.
-- Nextflow creates node pools attached to the VNet. 
+- Nextflow creates node pools attached to the VNet.
 
 Do the following:
 
