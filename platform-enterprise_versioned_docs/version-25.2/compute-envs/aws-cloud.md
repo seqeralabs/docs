@@ -184,7 +184,7 @@ The following permissions enable Seqera to populate values for dropdown fields. 
 
 The AWS Cloud compute environment uses an AMI maintained by Seqera, and the pipeline launch procedure assumes that some basic tooling is already present in the image itself. If you want to provide your own AMI, it must include at least the following:
 
-- Docker engine, configured to be running at startup.
+- Docker engine, configured to run at startup.
 - CloudWatch agent.
 - The ability to shut down with the `shutdown` command. If this is missing, EC2 instances will keep running and accumulate additional costs.
 
