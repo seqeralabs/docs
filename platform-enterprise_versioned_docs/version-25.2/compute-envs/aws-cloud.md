@@ -54,7 +54,7 @@ To create and launch pipelines or Studio sessions with this compute environment 
 
 #### Compute environment creation
 
-The following permissions are required to provision resources in the AWS account. Only IAM roles that will be assumed by the EC2 instance need to be provisioned:
+The following permissions are required to provision resources in the AWS account. Only IAM roles that will be assumed by the EC2 instance must be provisioned:
 
 ```json
 {
