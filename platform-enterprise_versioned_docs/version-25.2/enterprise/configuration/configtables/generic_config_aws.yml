@@ -1,0 +1,41 @@
+---
+- 
+  AWS Parameter Store:  '`{prefix}/tower/serverUrl`'
+  Description: >
+    Your Seqera instance hostname, IP address, DNS name, or full [reverse proxy path](https://docs.seqera.io/platform-enterprise/latest/enterprise/configuration/reverse_proxy) where the application is exposed. The `https://` protocol is required for instances that use an SSL certificate. As of version 22.1, HTTPS is used by default. To use HTTP, set `TOWER_ENABLE_UNSAFE_MODE=true`.
+  Value:                "Default: `http://localhost:8000`"
+-
+  AWS Parameter Store:  '`{prefix}/tower/license`'
+  Description: > 
+    Your Seqera Enterprise license key (**required**). [Contact us](mailto:sales@seqera.io) to obtain your license key. The key is base64-encoded by Seqera — paste this value exactly as received. 
+  Value:                '`DT8G5F3...BBV90OW`'
+- 
+  AWS Parameter Store:  '`{prefix}/tower/landingUrl`'
+  Description: > 
+    Custom landing page for the application (requires version 21.10.1 or later). This value doesn't change the `TOWER_SERVER_URL` used for inbound Seqera connections.
+  Value:                '`https://your.custom.landing.example.net`'              
+- 
+  AWS Parameter Store:  '`{prefix}/micronaut/server/port`'
+  Description: > 
+    Define the HTTP port used by the Seqera cron service (requires version 21.06.1 or later).
+  Value:                '`8080`'
+- 
+  AWS Parameter Store:  '`{prefix}/tower/admin/root-users`'
+  Description: > 
+    Grant users access to the application admin panel.
+  Value:                '`user1@your-company.com,user2@your-company.com`'
+- 
+  AWS Parameter Store:  '`{prefix}/tower/contactEmail`'
+  Description: > 
+    Your Seqera system administrator contact email.
+  Value:                '`tower@your-company.com`'
+- 
+  AWS Parameter Store:    '`{prefix}/tower/auth/disable-email`'
+  Description: > 
+    Set to `true` to disable the email login. Ensure that you've configured an alternative authentication provider first.
+  Value:                'Default: `false`'  
+-  
+  AWS Parameter Store:  '`{prefix}/tower/admin/user-workspace-enabled`'
+  Description: > 
+    Enable or disable user private workspaces (requires version 22.1.0 or later).
+  Value:                'Default: `true`'
