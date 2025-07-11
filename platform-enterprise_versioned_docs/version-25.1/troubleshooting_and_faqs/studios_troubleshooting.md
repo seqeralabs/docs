@@ -1,7 +1,7 @@
 ---
 title: "Studios"
 description: "Studios troubleshooting with Seqera Platform."
-date: "26 August 2024"
+date: "2024-08-26"
 tags: [faq, help, studios, troubleshooting]
 ---
 
@@ -13,10 +13,10 @@ In your interactive analysis environment, open a new terminal and type `ls -la /
 
 ## Enabling AI coding assistants in Studios
 
-VS Code, RStudio, and Jupyter environments natively integrate with [GitHub Copilot][gh-copilot]. Enabling it requires a GitHub Account and an active Copilot subscription.
+VS Code, R-IDE, and Jupyter environments natively integrate with [GitHub Copilot][gh-copilot]. Enabling it requires a GitHub Account and an active Copilot subscription.
 
 - **VS Code:** To enable GitHub Copilot in your VS Code session, install the extension and then sign in with your GitHub account. [Learn more][vscode-blog].
-- **RStudio:** To enable GitHub Copilot in your RStudio session requires RStudio configuration changes. By default, the Studio session user has root permissions, so configuration changes are possible. You will need to restart the RStudio once the required changes have been made. [Learn more][posit-ghcopilot-guide].
+- **R-IDE:** To enable GitHub Copilot in your R-IDE session requires configuration changes. By default, the Studio session user has root permissions, so configuration changes are possible. You will need to restart the session once the required changes have been made. [Learn more][posit-ghcopilot-guide].
 - **Jupyter:** [Notebook Intelligence (NBI)][nbi] is an AI coding assistant and extensible AI framework for Jupyter. It can use GitHub Copilot or AI models from any other LLM Provider. [Learn more][nbi-blog].
 
 ## Session size limited by compute environment advanced options: Head job CPUs and Head job memory

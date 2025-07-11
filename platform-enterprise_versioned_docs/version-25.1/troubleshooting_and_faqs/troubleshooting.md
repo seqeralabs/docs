@@ -1,15 +1,15 @@
 ---
 title: "General troubleshooting"
 description: "Troubleshooting Seqera Platform"
-date: "24 Apr 2023"
-tags: [troubleshooting, help]
+date: "2023-04-24"
+tags: [troubleshooting, common errors, help, sleep, timeout]
 ---
 
 ## Common errors
 
 **_timeout is not an integer or out of range_** or **_ERR timeout is not an integer or out of range_**
 
-This error can occur if you're using Seqera Platfrom v24.2 upwards and have an outdated version of Redis. From v24.2 Redis version 6.2 or greater is required. Follow your cloud provider specifications to upgrade your instance.
+This error can occur if you're using Seqera Platform v24.2 upwards and have an outdated version of Redis. From v24.2 Redis version 6.2 or greater is required. Follow your cloud provider specifications to upgrade your instance.
 
 **_Unknown pipeline repository or missing credentials_ error from public GitHub repositories**
 
@@ -48,7 +48,6 @@ The `sleep` commands in your Nextflow workflows may differ in behavior depending
 
 - If used within an `errorStrategy` block, the Groovy sleep function will be used (which takes its value in milliseconds).
 - If used within a process script block, that language's sleep binary/method will be used. For example, [this bash script](https://www.nextflow.io/docs/latest/metrics.html?highlight=sleep) uses the bash sleep binary, which takes its value in seconds.
-
 
 **Large number of batch job definitions**
 
@@ -234,7 +233,6 @@ Although it's not possible to directly download the trace logs via Seqera, you c
 Seqera Platform uses [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) to push real-time updates to your browser. The client must establish a connection to the server's `/api/live` endpoint to initiate the stream of data, and this connection can occasionally fail due to factors like network latency.
 
 To resolve the issue, try reloading the Platform browser tab to reinitiate the client's connection to the server. If reloading fails to resolve the problem, contact [Seqera support](https://support.seqera.io) for assistance with webserver timeout settings adjustments.
-
 
 ## Optimization
 
