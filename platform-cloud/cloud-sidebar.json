@@ -108,7 +108,6 @@
           "label": "Monitor runs",
           "items": [
             "monitoring/overview",
-            "monitoring/dashboard",
             "monitoring/run-details"
           ]
           },
@@ -134,7 +133,8 @@
         "items": [
           "orgs-and-teams/organizations",
           "orgs-and-teams/workspace-management",
-          "orgs-and-teams/roles"
+          "orgs-and-teams/roles",
+          "monitoring/dashboard",
           ]
       },
       {
