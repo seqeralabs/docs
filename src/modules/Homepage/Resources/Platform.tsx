@@ -1,8 +1,6 @@
 import React from "react";
 import Link from "@docusaurus/Link";
 
-import platform_enterprise_latest_version from "@site/platform-enterprise_latest_version";
-
 type Props = {};
 
 const Platform: React.FC<Props> = () => {
@@ -34,7 +32,7 @@ const Platform: React.FC<Props> = () => {
         <li>
           For installation and configuration, the Seqera Platform{" "}
           <Link
-            to={`/platform-enterprise/${platform_enterprise_latest_version}/`}
+            to="/platform-enterprise/enterprise/overview"
           >
             deployment guide
           </Link>{" "}
