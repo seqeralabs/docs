@@ -9,6 +9,7 @@ The Seqera Platform **Dashboard** is accessed from the user menu and provides an
 
 - Pipeline runs in your personal and organization workspaces.
 - Studio sessions in your organization workspaces only.
+- Fusion usage in your organization workspaces.
 
 ## Pipelines
 
@@ -51,6 +52,9 @@ The **Dashboard** view defaults to all organizations and workspaces you can acce
 
 Select **Export data** in the view panel near the top of the page to export a CSV of the dashboard data for the selected organizations and workspaces.
 
+## Fusion
+
+Select a workspace from the drop-down menu to view a Fusion usage comparison between the current month and the previous month. The usage value is displayed in GB with a percentage comparison against usage in the previous month).
 
 <!-- links -->
 [ds]: ../studios/overview
