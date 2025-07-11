@@ -32,10 +32,12 @@
     "@docusaurus/plugin-google-gtag": "^3.8.1",
     "@docusaurus/plugin-google-tag-manager": "^3.8.1",
     "@docusaurus/preset-classic": "^3.8.1",
+    "@docusaurus/theme-mermaid": "^3.8.1",
     "@mdx-js/react": "^3.0.0",
     "@types/react-instantsearch-dom": "^6.12.3",
     "algoliasearch": "^4.22.1",
     "clsx": "^1.2.1",
+    "delaunator": "^5.0.1",
     "docusaurus-plugin-openapi-docs": "^4.3.7",
     "docusaurus-remark-plugin-tab-blocks": "^3.1.0",
     "docusaurus-theme-openapi-docs": "^4.3.7",
@@ -52,8 +54,11 @@
     "react-instantsearch-dom": "^6.40.4",
     "rehype-katex": "^7.0.1",
     "remark-code-import": "^1.2.0",
+    "remark-definition-list": "^2.0.0",
     "remark-math": "^6.0.0",
-    "remark-yaml-to-table": "github:seqeralabs/remark-yaml-to-table"
+    "remark-sectionize": "^2.1.0",
+    "remark-yaml-to-table": "github:seqeralabs/remark-yaml-to-table",
+    "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
     "@docusaurus/eslint-plugin": "^3.7.0",
