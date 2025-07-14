@@ -313,12 +313,10 @@ ol li {
   }
 }
 .theme-admonition {
-  div {
-    &:first-child {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-    }
+  div[class*="admonitionHeading"] {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
   }
   svg {
     &:first-child {
@@ -451,7 +449,7 @@ article .markdown pre code {
   background-color: #f8f8f8;
   font-size: .85rem !important;
 }
-html[data-theme="dark"]{ 
+html[data-theme="dark"]{
   article .markdown code {
     background: #1C1C1E;
     border: 1px solid rgba(255,255,255,.5);

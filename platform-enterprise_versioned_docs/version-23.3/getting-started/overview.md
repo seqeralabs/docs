@@ -9,7 +9,7 @@ Seqera Platform is available in two [deployment editions](../getting-started/dep
 
 ## Community Showcase
 
-When you first log in to Seqera Platform, you land on the [Community Showcase](../getting-started/community-showcase) Launchpad. This is an example workspace provided by Seqera. It's pre-configured with pipelines, compute environments, and credentials to get you running Nextflow pipelines immediately. The pre-built community AWS Batch environments include 100 free hours of compute.
+When you first log in to Seqera Platform, you land on the [Community Showcase](https://docs.seqera.io/platform-cloud/getting-started/quickstart-demo/comm-showcase) Launchpad. This is an example workspace provided by Seqera. It's pre-configured with pipelines, compute environments, and credentials to get you running Nextflow pipelines immediately. The pre-built community AWS Batch environments include 100 free hours of compute.
 
 The Community Showcase consists of:
 
