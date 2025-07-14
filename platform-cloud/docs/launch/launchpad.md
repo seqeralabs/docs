@@ -25,6 +25,10 @@ The launch form consists of [General config](#general-config), [Run parameters](
 
 For saved pipelines, **General config** and **Run parameters** fields are prefilled and can be edited before launch. 
 
+:::info
+The launch form accepts URL query parameters. See [Populate launch form with URL query parameters](#populate-launch-form-with-url-query-parameters) for more information. 
+:::
+
 ### General config 
 
 - **Pipeline to launch**: A Git repository name or URL. For saved pipelines, this is prefilled and cannot be edited. Private repositories require [access credentials](../credentials/overview).
@@ -77,11 +81,12 @@ The dropdown of available config profiles is populated by inspecting the Nextflo
 
 ### Run parameters 
 
-There are three ways to enter **Run parameters** prior to launch:
+There are four ways to enter **Run parameters** prior to launch:
 
 - The **Input form view** displays form fields to enter text, select attributes from dropdowns, and browse input and output locations with [Data Explorer](../data/data-explorer).
 - The **Config view** displays a raw schema that you can edit directly. Select JSON or YAML format from the **View as** dropdown.
 - **Upload params file** allows you to upload a JSON or YAML file with run parameters.
+- Specify run parameters with query parameters in the launch URL. See [Populate launch form with URL query parameters](#populate-launch-form-with-url-query-parameters) for more information. 
 
 Seqera uses a `nextflow_schema.json` file in the root of the pipeline repository to dynamically create a form with the necessary pipeline parameters. Most pipelines contain at least input and output parameters:
 
@@ -116,7 +121,7 @@ See [Advanced options](../launch/advanced).
 After you have filled the necessary launch details, select **Launch**. The **Runs** tab shows your new run in a **submitted** status at the top of the list. Select the run name to navigate to the [**View Workflow Run**](../monitoring/overview) page and view the configuration, parameters, status of individual tasks, and run report.
 
 :::note
-For more information on relaunch and resume, see [Nextflow cache and resume](./cache-resume).
+For more information on relaunch and resume, see [Nextflow cache and resume](./cache-resume.mdx).
 :::
 
 ## Add new pipeline
@@ -147,3 +152,70 @@ Select **Update** when you are ready to save the updated pipeline.
 :::note
 Pipeline names must be unique per workspace.
 :::
+
+## Populate launch form with URL query parameters
+
+The launch form can populate fields with values passed as URL query parameters. For example, append `?revision=master` to your launch URL to prefill the **Revision** field with `master`. This feature is useful for Platform administrators to provide custom pipeline launch URLs to users in order to hard-code required run and pipeline parameters for every run.
+
+Platform validates run parameters passed via the launch URL in the following way:
+- Parameter names are **not** validated. You must provide valid and supported parameters for launch form fields to be populated without error. See supported parameter names in the following section.
+- Parameter values are validated and warnings are shown for any invalid supplied values.
+- Disabled launch form fields, such as the `pipeline` field when launching a presaved pipeline, cannot be populated by URL.
+
+Parameters that accept arrays (multiple values) as input must be specified with the parameter name for each individual value. For example:
+
+```
+?labelIds=<label_1_id>&labelIds=<label_2_id>
+```
+
+Pipeline-specific run parameters can be passed with the `paramsText` query parameter. Pass both the name and value for any parameter defined in your [pipeline schema](../pipeline-schema/overview.md) in JSON format:
+
+```
+?paramsText={"key1": "value1", "key2": "value2"}
+```
+
+:::note
+When submitted, JSON-formatted paramsText input will be formatted with percent-encoding for spaces, brackets and other non-standard URL characters. For example:
+
+```
+?paramsText={"key1": "value1", "key2": "value2"}
+```
+
+will be formatted and added to relevant launch form fields with this syntax:
+
+```
+%7B"key1":%20"value1",%20"key2":%20"value2"%7D
+```
+
+Platform will ignore added percent-encoding characters in form fields, so you do not need to remove them manually before submitting your pipeline launch. 
+:::
+
+### Supported URL query parameters and corresponding launch form fields
+
+| **Launch form field**                          | **Query parameter name**    |
+|------------------------------------------------|-----------------------------|
+| **General config**                             |                             |
+| Pipeline to launch                             | `pipeline`                  |
+| Revision number                                | `revision`                  |
+| Config profiles                                | `configProfiles`            |
+| Workflow run name                              | `runName`                   |
+| Labels                                         | `labelIds`                  |
+| Compute environment                            | `computeEnvId`              |
+| Work directory                                 | `workDir`                   |
+| **Run parameters**                             |                             |
+| Pipeline-specific run parameters               | `paramsText`                |
+| **Advanced settings**                          |                             |
+| Resource labels                                | `resourceLabelIds`          |
+| Nextflow config file                           | `configText`                |
+| Seqera Cloud config file                       | `towerConfig`               |
+| Pull latest                                    | `pullLatest`                |
+| Stub run                                       | `stubRun`                   |
+| Main script                                    | `mainScript`                |
+| Workflow entry name                            | `entryName`                 |
+| Schema name                                    | `schemaName`                |
+| Head job CPUs                                  | `headJobCpus`               |
+| Head job memory                                | `headJobMemoryMb`           |
+| Workspace's pipeline secrets                   | `workspaceSecrets`          |
+| User's pipeline secrets                        | `userSecrets`               |
+| Pre-run script                                 | `preRunScript`              |
+| Post-run script                                | `postRunScript`             |

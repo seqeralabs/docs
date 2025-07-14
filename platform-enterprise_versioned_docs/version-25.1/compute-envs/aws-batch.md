@@ -121,7 +121,7 @@ Batch Forge automatically creates resources that you may be charged for in your 
     <summary>Use Fusion v2 file system</summary>
 
     :::note
-    The compute recommendations below are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files and a total size of approximately 123.5 GB. 
+    The compute recommendations below are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files and a total size of approximately 123.5 GB.
     :::
 
     We recommend using Fusion with AWS NVMe instances (fast instance storage) as this delivers the fastest performance when compared to environments using only AWS EBS (Elastic Block Store).
@@ -137,7 +137,7 @@ Batch Forge automatically creates resources that you may be charged for in your 
     :::
 
     :::tip
-    We recommend selecting 8xlarge or above for large and long-lived production pipelines: 
+    We recommend selecting 8xlarge or above for large and long-lived production pipelines:
     - A local temp storage disk of at least 200 GB and a random read speed of 1000 MBps or more. To work with files larger than 100 GB, increase temp storage accordingly (400 GB or more).
     - Dedicated networking ensures a guaranteed network speed service level compared with "burstable" instances. See [Instance network bandwidth](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-network-bandwidth.html) for more information.
     :::
@@ -173,8 +173,8 @@ Batch Forge automatically creates resources that you may be charged for in your 
     Fargate requires the Fusion v2 file system and a **Spot** provisioning model. Fargate is not compatible with EFS and FSx file systems.
     :::
 1. Select **Enable GPUs** if you intend to run GPU-dependent workflows in the compute environment. See [GPU usage](./overview#aws-batch) for more information.
-    :::note 
-    Seqera only supports NVIDIA GPUs. Select instances with NVIDIA GPUs for your GPU-dependent processes. 
+    :::note
+    Seqera only supports NVIDIA GPUs. Select instances with NVIDIA GPUs for your GPU-dependent processes.
     :::
 1. Select **Use Graviton CPU architecture** to execute on Graviton-based EC2 instances (i.e., ARM64 CPU architecture). When enabled, `m6g`, `r6g`, and `c6g` instance types are used by default for compute jobs, but 3rd-generation Graviton [instances](https://www.amazonaws.cn/en/ec2/graviton/) are also supported. You can specify your own **Instance types** under [**Advanced options**](#advanced-options).
     :::note
@@ -186,7 +186,7 @@ Batch Forge automatically creates resources that you may be charged for in your 
     - To create a new EFS file system, enter the **EFS mount path**. We advise that you specify `/mnt/efs` as the EFS mount path.
     - EFS file systems created by Batch Forge are automatically tagged in AWS with `Name=TowerForge-<id>`, with `<id>` being the compute environment ID. Any manually-added resource label with the key `Name` (capital N) will override the automatically-assigned `TowerForge-<id>` label.
     :::warning
-    EFS file systems are compatible with [Studios](../studios/index), **except** when using the EFS file system as your **work directory**. 
+    EFS file systems are compatible with [Studios](../studios/overview), **except** when using the EFS file system as your **work directory**.
     :::
 1. To use **FSx for Lustre**, you can either select **Use existing FSx file system** and specify an existing FSx instance, or select **Create new FSx file system** to create one. To use the FSx file system as your work directory, specify `<your_FSx_mount_path>/work` in the **Pipeline work directory** field (step 8 of this guide).
     - To use an existing FSx file system, enter the **FSx DNS name** and **FSx mount path**. The FSx mount path is the path where the FSx volume is accessible to the compute environment. For simplicity, we recommend that you use `/mnt/fsx` as the FSx mount path.
@@ -196,15 +196,15 @@ Batch Forge automatically creates resources that you may be charged for in your 
 1. Apply [**Resource labels**](../resource-labels/overview) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
 1. Expand **Staging options** to include:
     - Optional [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
-    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch. 
+    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch.
     :::info
-    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority. 
+    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
     :::
 1. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
 1. Configure any advanced options described in the next section, as needed.
 1. Select **Create** to finalize the compute environment setup. It will take a few seconds for all the AWS resources to be created before you are ready to launch pipelines.
 
-:::info 
+:::info
 See [Launch pipelines](../launch/launchpad) to start executing workflows in your AWS Batch compute environment.
 :::
 
@@ -313,7 +313,7 @@ Your Seqera compute environment uses resources that you may be charged for in yo
     <summary>Use Fusion v2 file system</summary>
 
     :::note
-    The compute recommendations below are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files and a total size of approximately 123.5 GB. 
+    The compute recommendations below are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files and a total size of approximately 123.5 GB.
     :::
 
     We recommend using Fusion with AWS NVMe instances (fast instance storage) as this delivers the fastest performance when compared to environments using only AWS EBS (Elastic Block Store).
@@ -328,7 +328,7 @@ Your Seqera compute environment uses resources that you may be charged for in yo
     :::
 
     :::tip
-    We recommend selecting 8xlarge or above for large and long-lived production pipelines: 
+    We recommend selecting 8xlarge or above for large and long-lived production pipelines:
     - A local temp storage disk of at least 200 GB and a random read speed of 1000 MBps or more. To work with files larger than 100 GB, increase temp storage accordingly (400 GB or more).
     - Dedicated networking ensures a guaranteed network speed service level compared with "burstable" instances. See [Instance network bandwidth](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-network-bandwidth.html) for more information.
     :::
@@ -349,10 +349,10 @@ Your Seqera compute environment uses resources that you may be charged for in yo
 1. Apply [**Resource labels**](../resource-labels/overview) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
 1. Expand **Staging options** to include:
     - Optional [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
-    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch. 
+    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch.
     :::info
-    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority. 
-    ::: 
+    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
+    :::
 1. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
 1. Configure any advanced options described in the next section, as needed.
 1. Select **Create** to finalize the compute environment setup.

@@ -131,7 +131,7 @@ To create a separate node pool to run all the processes:
     - **Platform**: Azure Batch
     - **Credentials**: `azure-keys`
     - **Region**: As before
-    - **Pipeline work directory**: As before
+    - **Work directory**: As before
     - **VMs type**: `standard_e2ds_v5`
     - **VMs count**: `4`
 1. Note the compute environment ID, which is the first item on the compute environment page.

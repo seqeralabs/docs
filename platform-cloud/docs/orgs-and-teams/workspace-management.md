@@ -1,17 +1,18 @@
 ---
 title: "Workspaces"
 description: "Manage users and teams for an organization in Seqera Platform."
-date: "24 Apr 2023"
-tags: [workspaces, teams, users, organization, administration]
+date created: "2023-04-23"
+last updated: "2025-07-01"
+tags: [workspaces, teams, users, administration, user-workspace, create-workspace, credits, settings]
 ---
 
 Each user has a unique **user workspace** to manage resources such as pipelines, compute environments, and credentials. You can also create multiple workspaces within an organization context and associate each of these workspaces with dedicated teams of users, while providing fine-grained access control for each of the teams.
 
 **Organization workspaces** extend the functionality of user workspaces by adding the ability to fine-tune access levels for specific members, collaborators, or teams. This is achieved by managing **participants** in the organization workspaces.
 
+:::note
 Organizations consist of members, while workspaces consist of participants.
 
-:::note
 A workspace participant may be a member of the workspace organization or a collaborator within that workspace only. Collaborators count toward the total number of workspace participants. See [Usage limits](../limits/overview).
 :::
 

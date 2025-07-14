@@ -251,7 +251,7 @@ Create a Batch Forge Azure Batch compute environment:
     :::
 1. Add the **Batch account** and **Blob Storage** account names and access keys.
 1. Select a **Region**, such as _eastus_.
-1. In the **Pipeline work directory** field, enter the Azure blob container created previously. For example, `az://seqeracomputestorage-container/work`.
+1. In the **Work directory** field, enter the Azure blob container created previously. For example, `az://seqeracomputestorage-container/work`.
     :::note
     When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
     :::
@@ -268,7 +268,7 @@ Create a Batch Forge Azure Batch compute environment:
     Azure virtual machines include fast SSDs and require no additional storage configuration for Fusion. For optimal performance, use VMs with sufficient local storage to support Fusion's streaming data throughput.
 
     1. Use Seqera Platform version 23.1 or later.
-    1. Use an Azure Blob storage container as the pipeline work directory.
+    1. Use an Azure Blob storage container as the work directory.
     1. Enable **Wave containers** and **Fusion v2**.
     1. Select the **Batch Forge** config mode.
     1. Specify suitable VM sizes under **VMs type**. A `Standard_E16d_v5` VM or larger is recommended for production use.
@@ -395,7 +395,7 @@ The following settings can be modified after creating a pool:
     To authenticate using an Entra service principal, you must include a user-assigned managed identity. See [Managed identity](#managed-identity) below.
     :::
 1. Select a **Region**, such as _eastus (East US)_.
-1. In the **Pipeline work directory** field, add the Azure blob container created previously. For example, `az://seqeracomputestorage-container/work`.
+1. In the **Work directory** field, add the Azure blob container created previously. For example, `az://seqeracomputestorage-container/work`.
     :::note
     When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
     :::
@@ -412,7 +412,7 @@ The following settings can be modified after creating a pool:
     Azure virtual machines include fast SSDs and require no additional storage configuration for Fusion. For optimal performance, use VMs with sufficient local storage to support Fusion's streaming data throughput.
 
     1. Use Seqera Platform version 23.1 or later.
-    1. Use an Azure Blob storage container as the pipeline work directory.
+    1. Use an Azure Blob storage container as the work directory.
     1. Enable **Wave containers** and **Fusion v2**.
     1. Specify suitable VM sizes under **VMs type**. A `Standard_E16d_v5` VM or larger is recommended for production use.
 
