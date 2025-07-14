@@ -1,7 +1,8 @@
 ---
 title: "Legacy Tower container image registries"
 description: Legacy Tower container deployments
-date created: "12 Apr 2023"
+date created: "2023-04-12"
+last updated: "2025-07-14"
 tags: [on-prem, prerequisites, configuration]
 ---
 

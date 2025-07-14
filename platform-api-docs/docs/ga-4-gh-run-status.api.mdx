@@ -1,0 +1,71 @@
+---
+id: ga-4-gh-run-status
+title: "GA4GH: Retrieve run status"
+description: "Uses the GA4GH workflow execution service API to retrieve the status of the run associated with the given `run_id`."
+sidebar_label: "GA4GH: Retrieve run status"
+hide_title: true
+hide_table_of_contents: true
+api: eJzFVEtv2kAQ/iurPbUSwnlw4lRCXYqSADVY6UNRstgD3sR43d01BFn+751ZGwgi6alSL/bsvB/fTMljMJGWuZUq410eGjDMJsAGvc7gK9so/bxI1YbBC0QF6TADei0jYL3JkFnFNFgtYQ3OyFhhC8PUwr10kTFhjIqksBCzjbSJ4y/lGjL2iOIHGT+2eYtbsTS8+4svRWeZ8PsWVzloQeGGMSY1IHZQZFPnHvVzocUKLGiyKnmGD1SrHaJYUiW5sAnSx+WhE0xSy2zJZAyZlQsJGrU0/C6kBgxmdQEtbqIEVoJ3S263OfmujXhV3ZOyyVWGjSL5xdkZ/Y7DjK/RZ6QyiyFIKvI8lZEryHsypFKehlDzJ4gsVaepfCvrAE1Vp6lgltgPOJW0OGTFivoZjq5H47sRcr6Ffuh/RmI4Gs6GvZvhz+FogM8gHI1qatILp06jP76d3PgzH0n/u98PZ+PgwQ+CcYCM6Y/pzL/dP/u9Ud+/qa0cSa6wQ1balBKaugSr6sA5TLGqiN95q31XImY0ETD23/VxZZbvNrEwD5GKX7dSYsylg8ZC6ZWwNevy4qiYOzC+1koHDSD2NV2+AYkdolmmLBMpLhXCjdQRyIkimC/BZU247XLP7YK3AeOtzz0EgfHKGgqVZ3Z7YHAptbTbKfWgLvMKhAbdK8jJvprE2pw3qKb33Ckhpya+7Ep82liXkswWypnv5gi/MXta+ZONakSTVFjq1O48mEaZhiciN7xCp00qput5xtm1pSK4roRMXYcX6tNBgImsccXrOOftTqd9RrxcGbsSbvbN4rtb1WXB7hRpt+VNj47SLQ9o+l+nrp6IhRfr5anAU4UludaUzeh3Z7DFcfj4XZ/TgUIA4K+7v3FNfbhsCfaDrMpyLgyEOq0qYuP66C3ykVwLLcWcJonHMpaGaATcQqQG/tKgD0FzFT+y9+7mm9U0TJFtKXuRFvRC8hm2hytd3aNmAiJGP5RWLexFEeT2ldnJxtMB3m/MwJ8hXv8AnExIQg==
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"GA4GH: Retrieve run status"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/ga4gh/wes/v1/runs/{run_id}/status"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Uses the GA4GH workflow execution service API to retrieve the status of the run associated with the given `run_id`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"run_id","in":"path","description":"Run string identifier","required":true,"schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"run_id":{"type":"string"},"state":{"type":"string","enum":["UNKNOWN","QUEUED","INITIALIZING","RUNNING","PAUSED","COMPLETE","EXECUTOR_ERROR","SYSTEM_ERROR","CANCELED","CANCELING"],"title":"State"}},"title":"RunStatus"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"type":"object","properties":{"msg":{"type":"string"},"status_code":{"type":"integer","format":"int32"}},"title":"WesErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

@@ -1,0 +1,71 @@
+---
+id: upload-dataset-v-2
+title: "Upload new dataset version"
+description: "Uploads the CSV or TSV content to create a new version of the dataset identified by the given `datasetId`."
+sidebar_label: "Upload new dataset version"
+hide_title: true
+hide_table_of_contents: true
+api: eJy9Vk1v2zAM/SuCThvgNl1X7JDT+rFhxbC1aNPuUASYYjOJWsdyJbpdEPi/j5Ts2J7ddLvs1Fp8FPnIJzIbmYCLrc5Rm0yO5U2eGpU4gUsQp9e3wlgxoT+xyRAyFGhEbEEhCCUyeBZPYB05CjP3HolC5QCFTgis5xoSMVt7y0I/QSZ+VoDz5Oe+jCSqhZPjO1mdOjmNpMnBKk7mPNmmcxbst4fkkyurVoAUlzw3MqMPwj0b++ByFQN5RVIzk8cC7Jo+uvx+1ECRFSuwOm5ytQR28RJWSo43Etc5X6yJ98Kb5sauFIajD0eyLKNt9C2rOnaucNkLXbEQDq3OFt24Fh4LbYEooy1gII/g1Im6BJV45x10Q/2oDXOdglgqJ7ZevRAzY1JQGcWYhoTA4YlJ1gwZZuIvrZB0YyUSxq+KFDW1Ckdctj0uEB/3YprZPcTsm1tuPGpwbOWL++RbPZjpTBFdKodEjQyW3zjkVUjmM/lfh1glY7rl9QcuN5kL0Q4PDvocL752Gak8T3XslTm6dwz5ezrVK3kd2Aip3/motn737X/ZftbmMQAjFXwJIhjofTSQ7MtvIJKpcniTU2QYyLnlwIg91JQ5OXF7X2SxgkSriT8dsBY2HXwVWxnUsyKwOJudoenYuxMloK4qNbBYCHo0pIcTlQxLfbcwGuXdETPn1AJ4yu2WQQ3cSfSTtcb2Mn8/oOR6oorMoFBpap4pH4Y7iAurce0n6QkoC/a4oMk1vpvyDKAxuzQ8hXPjSfupNpajelyPNlu9lqPC11U2l/r3F/i0r95SWiLm9RjyEvQgOgn/fK6Vc/+MPlmdzY13r/hfwyPxEseX572pV5kuU4UsQOHAPukYXAXm5qnYN8/LyafixqOR83772hCI+qdTr/S5+dgY2g9Evts/Oto/4DOu0Er53lfTOejML8l6K9aOf6S7adT0n9dvaATCLxzlqdJZ64GFXrdWcyTH7TVXtZtUsmRxEHKzmZH1xqZlycdhH7GwEu3ULOUnMFepgx3sX1nOg/k+wLq3/59UWjBS8rb8+/A7luWO0FtME3XKH1Zz2H+swJural68Fbt+LgymUx2qbN1Opk6zaV455SVQbQDKLthPQw57fvI2/kOLnKsanI7jGHJswXvDsDNHLi+uJ/zAqx8VK5OwD1/s742af3kCRVJ1J8YfE8InP0iapOgRE/MAGcmxrgHyN/Mvy9+OYMu9
+sidebar_class_name: "post api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Upload new dataset version"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/datasets/{datasetId}/upload"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Uploads the CSV or TSV content to create a new version of the dataset identified by the given `datasetId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"datasetId","in":"path","description":"Dataset string identifier","required":true,"schema":{"type":"string"}},{"name":"header","in":"query","description":"Uploaded file has header","schema":{"type":"boolean"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Dataset file request","content":{"multipart/form-data":{"schema":{"type":"object","properties":{"file":{"type":"string","format":"binary"}},"title":"MultiRequestFileSchema"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"version":{"type":"object","properties":{"datasetId":{"type":"string"},"datasetName":{"type":"string"},"datasetDescription":{"type":"string"},"hasHeader":{"type":"boolean"},"version":{"type":"integer","format":"int64"},"lastUpdated":{"type":"string","format":"date-time"},"fileName":{"type":"string"},"mediaType":{"type":"string"},"url":{"type":"string"}},"title":"DatasetVersionDbDto"}},"title":"UploadDatasetVersionResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

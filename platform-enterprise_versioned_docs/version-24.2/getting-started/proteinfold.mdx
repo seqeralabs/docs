@@ -20,9 +20,9 @@ This guide details how to perform best-practice analysis for protein 3D structur
 :::info[**Prerequisites**]
 You will need the following to get started:
 
-- [Admin](../orgs-and-teams/roles.mdx) permissions in an existing organization workspace. See [Set up your workspace](./workspace-setup.mdx) to create an organization and workspace from scratch.
+- [Admin](../orgs-and-teams/roles) permissions in an existing organization workspace. See [Set up your workspace](./workspace-setup) to create an organization and workspace from scratch.
 - An existing AWS cloud account with access to the AWS Batch service.
-- Existing access credentials with permissions to create and manage resources in your AWS account. See [IAM](../compute-envs/aws-batch.mdx#iam) for guidance to set up IAM permissions for Platform. 
+- Existing access credentials with permissions to create and manage resources in your AWS account. See [IAM](../compute-envs/aws-batch#iam) for guidance to set up IAM permissions for Platform. 
 :::
 
 ## Compute environment
@@ -41,7 +41,7 @@ When you launch nf-core/proteinfold in Platform, enable **use_gpu** to instruct 
 
 ### Fusion file system
 
-The [Fusion](../supported_software/fusion/fusion.mdx) file system enables seamless read and write operations to cloud object stores, leading to
+The [Fusion](../supported_software/fusion/overview) file system enables seamless read and write operations to cloud object stores, leading to
 simpler pipeline logic and faster, more efficient execution. While Fusion is not required to run nf-core/proteinfold, it significantly enhances I/O-intensive tasks and eliminates the need for intermediate data copies, which is particularly beneficial when working with the large databases used by deep learning models for prediction. 
 
 Fusion works best with AWS NVMe instances (fast instance storage) as this delivers the fastest performance when compared to environments using only AWS EBS (Elastic Block Store). Batch Forge selects instances automatically based on your compute environment configuration, but you can optionally specify instance types. To enable fast instance storage, you must select EC2 instances with NVMe SSD storage (`g4dn`, `g5`, or `P3` families or greater). 
@@ -108,7 +108,7 @@ To use Seqera Pipelines to import the `nf-core/proteinfold` pipeline to your wor
 1. Select **Add Pipeline**. 
 
 :::info
-To add a custom pipeline not listed in Seqera Pipelines to your Platform workspace, see [Add pipelines](./quickstart-demo/add-pipelines.mdx#) for manual Launchpad instructions. 
+To add a custom pipeline not listed in Seqera Pipelines to your Platform workspace, see [Add pipelines](./quickstart-demo/add-pipelines#) for manual Launchpad instructions. 
 :::
 
 ## Pipeline input data
@@ -189,7 +189,7 @@ The launch form consists of **General config**, **Run parameters**, and **Advanc
 - **Revision number**: A valid repository commit ID, tag, or branch name: `1.1.1`. For saved pipelines, this is prefilled and cannot be edited.
 - **Config profiles**: One or more [configuration profile](https://www.nextflow.io/docs/latest/config.html#config-profiles) names to use for the execution. Config profiles must be defined in the `nextflow.config` file in the pipeline repository. Benchmarking runs for this guide used nf-core profiles with included test datasets — `test_full_alphafold2_multimer` for Alphafold2 and `test_full_alphafold2_multimer` for Colabfold.  
 - **Workflow run name**: An identifier for the run, pre-filled with a random name. This can be customized.
-- **Labels**: Assign new or existing [labels](../labels/overview.mdx) to the run.
+- **Labels**: Assign new or existing [labels](../labels/overview) to the run.
 - **Compute environment**: Your AWS Batch compute environment. 
 - **Work directory**: The cloud storage path where pipeline scratch data is stored. Platform will create a scratch sub-folder if only a cloud bucket location is specified.
     :::note
@@ -202,7 +202,7 @@ The launch form consists of **General config**, **Run parameters**, and **Advanc
 
 There are three ways to enter **Run parameters** prior to launch:
 
-- The **Input form view** displays form fields to enter text or select attributes from lists, and browse input and output locations with [Data Explorer](../data/data-explorer.mdx).
+- The **Input form view** displays form fields to enter text or select attributes from lists, and browse input and output locations with [Data Explorer](../data/data-explorer).
 - The **Config view** displays raw configuration text that you can edit directly. Select JSON or YAML format from the **View as** list.
 - **Upload params file** allows you to upload a JSON or YAML file with run parameters.
 
@@ -241,11 +241,11 @@ For the purposes of this guide, run the pipeline in both `alphafold2` and `colab
 
 ### Advanced settings 
 
-- Use [resource labels](../resource-labels/overview.mdx) to tag the computing resources created during the workflow execution. While resource labels for the run are inherited from the compute environment and pipeline, workspace admins can override them from the launch form. Applied resource label names must be unique. 
-- [Pipeline secrets](../secrets/overview.mdx) store keys and tokens used by workflow tasks to interact with external systems. Enter the names of any stored user or workspace secrets required for the workflow execution.
-- See [Advanced options](../launch/advanced.mdx) for more details.
+- Use [resource labels](../resource-labels/overview) to tag the computing resources created during the workflow execution. While resource labels for the run are inherited from the compute environment and pipeline, workspace admins can override them from the launch form. Applied resource label names must be unique. 
+- [Pipeline secrets](../secrets/overview) store keys and tokens used by workflow tasks to interact with external systems. Enter the names of any stored user or workspace secrets required for the workflow execution.
+- See [Advanced options](../launch/advanced) for more details.
 
-After you have filled the necessary launch details, select **Launch**. The **Runs** tab shows your new run in a **submitted** status at the top of the list. Select the run name to navigate to the [**View Workflow Run**](../monitoring/overview.mdx) page and view the configuration, parameters, status of individual tasks, and run report.
+After you have filled the necessary launch details, select **Launch**. The **Runs** tab shows your new run in a **submitted** status at the top of the list. Select the run name to navigate to the [**View Workflow Run**](../monitoring/overview) page and view the configuration, parameters, status of individual tasks, and run report.
 
 <details>
   <summary>**Run monitoring**</summary>
@@ -272,7 +272,7 @@ After you have filled the necessary launch details, select **Launch**. The **Run
   The paths to report files point to a location in cloud storage (in the `outdir` directory specified during launch), but you can view the contents directly and download each file without navigating to the cloud or a remote filesystem.
 
   :::info
-  See [Reports](../reports/overview.mdx) for more information. 
+  See [Reports](../reports/overview) for more information. 
   :::
 
   #### View general information
@@ -306,11 +306,11 @@ After you have filled the necessary launch details, select **Launch**. The **Run
 
 </details>
 
-## Interactive analysis with Data Studios
+## Interactive analysis with Studios
 
-[Data Studios](../data_studios/index.mdx) streamlines the process of creating interactive analysis environments for Platform users. With built-in templates for platforms like Jupyter Notebook, RStudio, and VSCode, creating a data studio is as simple as adding and sharing pipelines or datasets. The data studio URL can also be shared with any user with the [Connect role](../orgs-and-teams/roles.mdx) for real-time access and collaboration.
+[Studios](../data_studios/overview.md) streamlines the process of creating interactive analysis environments for Platform users. With built-in templates for platforms like Jupyter Notebook, RStudio, and VS Code, creating a data studio is as simple as adding and sharing pipelines or datasets. The data studio URL can also be shared with any user with the [Connect role](../orgs-and-teams/roles.md) for real-time access and collaboration.
 
-For the purposes of this guide, a Jupyter notebook environment will be used for interactive visualization of the predicted protein structures, optionally comparing AlphaFold2 and Colabfold structures for the same sequence data. 
+For the purposes of this guide, a Jupyter Notebook environment will be used for interactive visualization of the predicted protein structures, optionally comparing AlphaFold2 and Colabfold structures for the same sequence data. 
 
 ### Create a Jupyter notebook data studio
 

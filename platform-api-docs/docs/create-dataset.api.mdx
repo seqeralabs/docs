@@ -1,0 +1,75 @@
+---
+id: create-dataset
+title: "Create dataset"
+description: "Creates a new dataset in the given workspace context. Include the dataset file and details in your request body."
+sidebar_label: "Create dataset"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVm1rIzcQ/itC9MMF/JY0lDtDaZPrFUILCUmOQn1ukVdjW8mutCdp47jb/e+dkXa9a3txS1tovyxaaUaa55lnRiq5BJdYlXtlNJ/y9xaEB8cE07BhUnjhwDOlmV8DW6kX0Gxj7LPLRQIsMdrDqx+xG52khYRg1PgsVQpMaMkkeKFSR5tsTWGZhc8FOM8WRm5HfMC9WDk+nfHa0fH5gJscrKCQbuQuqO/iOnrkwooMPFjyK7nGH7TaxYU+A64ITS78Gsf7EH/axa+LDKxKmJKgvVoqsGhM4SkLeK63BQy4S9aQCT4tud/mdI5C0KtgujQ2Ez5OfXXJq2oe3RHdNYIjn/2jawgsCYAaJnCnwKT25CHyPFVJAD9+cuRWHsdgFk+QBCosUeUVOFqNTOysnLdKr3h1wMDROhp45VM4pPq+jq8ii31ewoTLjXbx5IvJ5Bju7Q//HrRaHTRsI5lFxEj7aWcl6ZuJ1x9Br1AS04uLwTFJDXsdu/PJhOTmUWsE6JeZGP52Nfz50yc5f/PNtPP3+2z4K0593Zk6OyvPB+/eVl/wnrMOErJ/5KTHIQOpxGOY3TN/22csIcXykB1WF8akIHTQt5C3Ot3u8ojMQky7PNZGR+RkN/QKOerZJBXOf8zlP9mko8Km1E8oM2qPpIk2l33quxby71RYV10ZOCdWf0FgjeHJ2vpgrbFHkX/ZUzdN92PaeCbS1GwwnmD9rqepFBEOMMx6Rhj/p2iDMHMLSVRJ3V4hKazy29DJr0FYsFcFCXs2p3aKbX5t6A7IjYutn9b4eNfs3bjsNP5qvLtF2q0fCG2MvHvALvi19zmvG32olWCEM3HwfaPdp01UJLF437b5D68iy1No+28r+/1EtfWp9NKEAGquHuAzZpxd3d0cOdVLd6nwVETMgX1RCLs2pkSLJCS6sGkNxk3HYxf8RsqgEeZapeGaWppv2wUM5AXv0HjO+ejycjShOWI6E7qDJ5Zec7Mfhli2avtPng8xibTTOE8F3vuIIXBR1mqZtU8DksV0/6HQfXasSWRoX5YLnPto06qiaTzQkkBx+CKsEgtKGspVKkdjlOdSpA5O8PLmvq6zM/Ynz49eOPWk0FtOIaQF/eHwGbYHD59qjuZrbKy4GYUYLd7HQIbh/mh3OGoN1aDxuEoSyP1J22513t0+PFLB1K+ezEjysWJDbR6/IVoTiAl1GOZKvDX0qgidhMc9qbzEfnUeVGNA1csHJi1YPJpn0Ji4hh5P/0RMVf0By7/HqA==
+sidebar_class_name: "post api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Create dataset"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/workspaces/{workspaceId}/datasets"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+:::caution deprecated
+
+This endpoint has been deprecated and may be replaced or removed in future versions of the API.
+
+:::
+
+Creates a new dataset in the given workspace context. Include the dataset file and details in your request body.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"path","description":"Workspace numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Dataset create request","content":{"application/json":{"schema":{"type":"object","properties":{"name":{"type":"string"},"description":{"type":"string"}},"title":"CreateDatasetRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"dataset":{"required":["name"],"type":"object","properties":{"id":{"maxLength":22,"type":"string"},"name":{"maxLength":100,"pattern":"^[a-zA-Z\\d](?:[a-zA-Z\\d]|[-_](?=[a-zA-Z\\d])){1,98}$","type":"string"},"description":{"maxLength":1000,"type":"string"},"mediaType":{"maxLength":80,"type":"string"},"deleted":{"type":"boolean","readOnly":true},"dateCreated":{"type":"string","format":"date-time","readOnly":true},"lastUpdated":{"type":"string","format":"date-time","readOnly":true}},"title":"Dataset"}},"title":"CreateDatasetResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"409":{"description":"Duplicate element","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

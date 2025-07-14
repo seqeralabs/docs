@@ -21,16 +21,16 @@ This guide details how to run bulk RNA sequencing (RNA-Seq) data analysis, from 
 :::info[**Prerequisites**]
 You will need the following to get started:
 
-- [Admin](../orgs-and-teams/roles.mdx) permissions in an existing organization workspace. See [Set up your workspace](./workspace-setup.mdx) to create an organization and workspace from scratch.
+- [Admin](../orgs-and-teams/roles) permissions in an existing organization workspace. See [Set up your workspace](./workspace-setup) to create an organization and workspace from scratch.
 - An existing AWS cloud account with access to the AWS Batch service.
-- Existing access credentials with permissions to create and manage resources in your AWS account. See [IAM](../compute-envs/aws-batch.mdx#iam) for guidance to set up IAM permissions for Platform. 
+- Existing access credentials with permissions to create and manage resources in your AWS account. See [IAM](../compute-envs/aws-batch#iam) for guidance to set up IAM permissions for Platform. 
 :::
 
 ## Compute environment
 
 Compute and storage requirements for RNA-Seq analysis are dependent on the number of samples and the sequencing depth of your input data. See [RNA-Seq data and requirements](#rna-seq-data-and-requirements) for details on RNA-Seq datasets and the CPU and memory requirements for important steps of RNA-Seq pipelines. 
 
-In this guide, you will create an AWS Batch compute environment with sufficient resources allocated to run the [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline with a large dataset. This compute environment will also be used to run a Studios RStudio environment for interactive analysis of the resulting pipeline data. 
+In this guide, you will create an AWS Batch compute environment with sufficient resources allocated to run the [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline with a large dataset. This compute environment will also be used to run a Studios R-IDE session for interactive analysis of the resulting pipeline data. 
 
 :::note
 The compute recommendations below are based on internal benchmarking performed by Seqera. See [RNA-Seq data and requirements](#rna-seq-data-and-requirements) for more information. 
@@ -50,13 +50,13 @@ The following compute resources are recommended for production RNA-Seq pipelines
 
 #### Fusion file system 
 
-The [Fusion](../supported_software/fusion/fusion.mdx) file system enables seamless read and write operations to cloud object stores, leading to
+The [Fusion](../supported_software/fusion/overview) file system enables seamless read and write operations to cloud object stores, leading to
 simpler pipeline logic and faster, more efficient execution. While Fusion is not required to run *nf-core/rnaseq*, it is recommended for optimal performance. See [nf-core/rnaseq performance in Platform](#nf-corernaseq-performance-in-platform) at the end of this guide.
 
 Fusion works best with AWS NVMe instances (fast instance storage) as this delivers the fastest performance when compared to environments using only AWS EBS (Elastic Block Store). Batch Forge selects instances automatically based on your compute environment configuration, but you can optionally specify instance types. To enable fast instance storage (see Create compute environment below), you must select EC2 instances with NVMe SSD storage (`m5d` or `r5d` families). 
 
-:::note 
-Fusion requires a license for use in Seqera Platform compute environments or directly in Nextflow. Fusion can be trialed at no cost. [Contact Seqera](https://seqera.io/contact-us/) for more details.
+:::note
+Fusion requires a license for use in Seqera Platform compute environments or directly in Nextflow. See [Fusion licensing](https://docs.seqera.io/fusion/licensing) for more information.
 :::
 
 ### Create compute environment
@@ -99,7 +99,7 @@ To use Seqera Pipelines to import the *nf-core/rnaseq* pipeline to your workspac
 
 ![Seqera Pipelines add to Launchpad](./_images/pipelines-add.gif)
 
-1. Search for `nf-core/rnaseq` and select **Launch** next to the pipeline name in the list. In the **Add pipeline** tab, select **Cloud** or **Enterprise** depending on your Platform account type, then provide the information needed for Seqera Pipelines to access your Platform instance:
+1. Search for *nf-core/rnaseq* and select **Launch** next to the pipeline name in the list. In the **Add pipeline** tab, select **Cloud** or **Enterprise** depending on your Platform account type, then provide the information needed for Seqera Pipelines to access your Platform instance:
     - **Seqera Cloud**: Paste your Platform **Access token** and select **Next**.  
     - **Seqera Enterprise**: Specify the **Seqera Platform URL** (hostname) and **Base API URL** for your Enterprise instance, then paste your Platform **Access token** and select **Next**.
     :::tip
@@ -110,7 +110,7 @@ To use Seqera Pipelines to import the *nf-core/rnaseq* pipeline to your workspac
 1. Select **Add Pipeline**. 
 
 :::info
-To add a custom pipeline not listed in Seqera Pipelines to your Platform workspace, see [Add pipelines](./quickstart-demo/add-pipelines.mdx#) for manual Launchpad instructions. 
+To add a custom pipeline not listed in Seqera Pipelines to your Platform workspace, see [Add pipelines](./quickstart-demo/add-pipelines#) for manual Launchpad instructions. 
 :::
 
 ## Pipeline input data
@@ -201,7 +201,7 @@ The launch form consists of **General config**, **Run parameters**, and **Advanc
 - **Revision number**: A valid repository commit ID, tag, or branch name. For saved pipelines, this is prefilled and cannot be edited.
 - **Config profiles**: One or more [configuration profile](https://www.nextflow.io/docs/latest/config.html#config-profiles) names to use for the execution. Config profiles must be defined in the `nextflow.config` file in the pipeline repository.
 - **Workflow run name**: An identifier for the run, pre-filled with a random name. This can be customized.
-- **Labels**: Assign new or existing [labels](../labels/overview.mdx) to the run.
+- **Labels**: Assign new or existing [labels](../labels/overview) to the run.
 - **Compute environment**: Your AWS Batch compute environment. 
 - **Work directory**: The cloud storage path where pipeline scratch data is stored. Platform will create a scratch sub-folder if only a cloud bucket location is specified.
   :::note
@@ -214,7 +214,7 @@ The launch form consists of **General config**, **Run parameters**, and **Advanc
 
 There are three ways to enter **Run parameters** prior to launch:
 
-- The **Input form view** displays form fields to enter text or select attributes from lists, and browse input and output locations with [Data Explorer](../data/data-explorer.mdx).
+- The **Input form view** displays form fields to enter text or select attributes from lists, and browse input and output locations with [Data Explorer](../data/data-explorer).
 - The **Config view** displays raw configuration text that you can edit directly. Select JSON or YAML format from the **View as** list.
 - **Upload params file** allows you to upload a JSON or YAML file with run parameters.
 
@@ -246,11 +246,11 @@ Modify other parameters to customize the pipeline execution through the paramete
 
 ### Advanced settings 
 
-- Use [resource labels](../resource-labels/overview.mdx) to tag the computing resources created during the workflow execution. While resource labels for the run are inherited from the compute environment and pipeline, workspace admins can override them from the launch form. Applied resource label names must be unique. 
-- [Pipeline secrets](../secrets/overview.mdx) store keys and tokens used by workflow tasks to interact with external systems. Enter the names of any stored user or workspace secrets required for the workflow execution.
-- See [Advanced options](../launch/advanced.mdx) for more details.
+- Use [resource labels](../resource-labels/overview) to tag the computing resources created during the workflow execution. While resource labels for the run are inherited from the compute environment and pipeline, workspace admins can override them from the launch form. Applied resource label names must be unique. 
+- [Pipeline secrets](../secrets/overview) store keys and tokens used by workflow tasks to interact with external systems. Enter the names of any stored user or workspace secrets required for the workflow execution.
+- See [Advanced options](../launch/advanced) for more details.
 
-After you have filled the necessary launch details, select **Launch**. The **Runs** tab shows your new run in a **submitted** status at the top of the list. Select the run name to navigate to the [**View Workflow Run**](../monitoring/overview.mdx) page and view the configuration, parameters, status of individual tasks, and run report.
+After you have filled the necessary launch details, select **Launch**. The **Runs** tab shows your new run in a **submitted** status at the top of the list. Select the run name to navigate to the [**View Workflow Run**](../monitoring/overview) page and view the configuration, parameters, status of individual tasks, and run report.
 
 <details>
   <summary>**Run monitoring**</summary>
@@ -283,7 +283,7 @@ After you have filled the necessary launch details, select **Launch**. The **Run
   The paths to report files point to a location in cloud storage (in the `outdir` directory specified during launch), but you can view the contents directly and download each file without navigating to the cloud or a remote filesystem.
 
   :::info
-  See [Reports](../reports/overview.mdx) for more information. 
+  See [Reports](../reports/overview) for more information. 
   :::
 
   #### View general information
@@ -321,9 +321,9 @@ After you have filled the necessary launch details, select **Launch**. The **Run
 
 ## Interactive analysis with Studios
 
-**Studios** streamline the process of creating interactive analysis environments for Platform users. With built-in templates for platforms like Jupyter Notebook, RStudio, and VSCode, creating a data studio is as simple as adding and sharing pipelines or datasets. The data studio URL can also be shared with any user with the [Connect role](../orgs-and-teams/roles.mdx) for real-time access and collaboration.
+**Studios** streamline the process of creating interactive analysis environments for Platform users. With built-in templates for platforms like Jupyter Notebook, an R-IDE, and VSCode, creating a Studio is as simple as adding and sharing pipelines or datasets. The Studio URL can also be shared with any user with the [Connect role](../orgs-and-teams/roles) for real-time access and collaboration.
 
-For the purposes of this guide, an RStudio environment will be used to normalize the pipeline output data, perform differential expression analysis, and visualize the data with exploratory plots.
+For the purposes of this guide, an R-IDE will be used to normalize the pipeline output data, perform differential expression analysis, and visualize the data with exploratory plots.
 
 ### Prepare your data
 
@@ -365,12 +365,12 @@ The analysis script provided in this section requires a sample information file 
 
 </details>
 
-### Create an RStudio analysis environment with Studios
+### Create an R-IDE analysis environment with Studios
 
 ![Add data studio](./_images/create-ds.gif)
 
 From the **Studios** tab, select **Add a studio** and complete the following:
-- Select the latest **RStudio** container image template from the list.
+- Select the latest **R-IDE** container image template from the list.
 - Select your AWS Batch compute environment. 
 :::note
 Studio sessions compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and sessions. The default CPU and memory allocation for a Studio is 2 CPUs and 8192 MB RAM. 
@@ -378,12 +378,12 @@ Studio sessions compete for computing resources when sharing compute environment
 - Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the pipeline work directory of your RNA-Seq run. 
 - Optional: Enter CPU and memory allocations. The default values are 2 CPUs and 8192 MB memory (RAM).
 - Select **Add**.
-- Once the data studio has been created, select the options menu next to it and select **Start**.
-- When the data studio is in a running state, **Connect** to it. 
+- Once the Studio has been created, select the options menu next to it and select **Start**.
+- When the Studio is in a running state, **Connect** to it. 
 
 ### Perform the analysis and explore results
 
-The RStudio environment can be configured with the packages you wish to install and the R script you wish to run. For the purposes of this guide, run the following scripts in the RStudio console to install the necessary packages and perform the analysis:
+The R-IDE can be configured with the packages you wish to install and the R script you wish to run. For the purposes of this guide, run the following scripts in the R-IDE console to install the necessary packages and perform the analysis:
 
 1. Install and load the necessary packages and libraries:
 
@@ -403,12 +403,12 @@ The RStudio environment can be configured with the packages you wish to install 
 1. Read and convert the count data and sample information:
 
     :::info
-    Replace `<PATH_TO_YOUR_COUNTS_FILE>` and `<PATH_TO_YOUR_SAMPLE_INFO_FILE>` with the paths to your `salmon.merged.gene_counts_length_scaled.tsv` and `sampleinfo.txt` files.
+    Replace `<PATH_TO_COUNTS_FILE>` and `<PATH_TO_SAMPLE_INFO_FILE>` with the paths to your `salmon.merged.gene_counts_length_scaled.tsv` and `sampleinfo.txt` files.
     :::
 
     ```r
     # Read in the count data
-    counts <- read.delim(file = "/workspace/data/<PATH_TO_YOUR_COUNTS_FILE>", row.names =
+    counts <- read.delim(file = "/workspace/data/<PATH_TO_COUNTS_FILE>", row.names =
                           1)
 
     # Remove the gene_name column if it exists
@@ -421,7 +421,7 @@ The RStudio environment can be configured with the packages you wish to install 
 
     # Read in the sample information
     targets <- read.table(
-      file = "/workspace/data/<PATH_TO_YOUR_SAMPLE_INFO_FILE>",
+      file = "/workspace/data/<PATH_TO_SAMPLE_INFO_FILE>",
       header = TRUE,
       stringsAsFactors = FALSE,
       sep = "",
@@ -462,7 +462,7 @@ The RStudio environment can be configured with the packages you wish to install 
     print(y$samples)
     ```
 
-1. Create an MDS plot, displayed in RStudio plots viewer (`a`) and saved as a PNG file (`b`):
+1. Create an MDS plot, displayed in the plots viewer (`a`) and saved as a PNG file (`b`):
 
     :::info
     MDS plots are used to visualize the overall similarity between RNA-Seq samples based on their gene expression profiles, helping to identify sample clusters and potential batch effects.
@@ -551,7 +551,7 @@ The RStudio environment can be configured with the packages you wish to install 
     }
     ```
 
-1. Create volcano plots for each differential expression comparison, displayed in RStudio plots viewer and saved as PNG files:
+1. Create volcano plots for each differential expression comparison, displayed in the plots viewer and saved as PNG files:
 
     :::info
     Volcano plots in RNA-Seq analysis display the magnitude of gene expression changes (log2 fold change) against their statistical significance. This allows for quick identification of significantly up- and down-regulated genes between two conditions.
@@ -644,17 +644,17 @@ The RStudio environment can be configured with the packages you wish to install 
 
 ![RStudio plots](./_images/rstudio.gif)
 
-### Collaborate in the data studio
+### Collaborate in the Studio
 
-To share your results or allow colleagues to perform exploratory analysis, share a link to the data studio by selecting the options menu for the data studio you want to share, then select **Copy data studio URL**. With this link, other authenticated users with the **Connect** [role](../orgs-and-teams/roles.mdx) (or greater) can access the session directly.
+To share your results or allow colleagues to perform exploratory analysis, share a link to the Studio by selecting the options menu for the Studio you want to share, then select **Copy Studio URL**. With this link, other authenticated users with the **Connect** [role](../orgs-and-teams/roles) (or greater) can access the session directly.
 
 ## RNA-Seq data and requirements
 
 RNA-Seq data typically consists of raw sequencing reads from high-throughput sequencing technologies. These reads are used to quantify gene expression levels and discover novel transcripts. A typical RNA-Seq dataset can range from a few GB to several hundred GB, depending on the number of samples and the sequencing depth.
 
-### nf-core/rnaseq performance in Platform
+### *nf-core/rnaseq* performance in Platform
 
-The compute recommendations in this guide are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files (8 paired-end samples) and a total size of approximately 123.5 GB.
+The compute recommendations in this guide are based on internal benchmarking performed by Seqera. Benchmark runs of [*nf-core/rnaseq*](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files (8 paired-end samples) and a total size of approximately 123.5 GB.
 
 This benchmark compares pipeline run metrics between single *nf-core/rnaseq* runs in an AWS Batch compute environment with Fusion file system and fast instance storage enabled (**Fusion** group) and an identical AWS Batch compute environment using S3 storage without Fusion (**AWS S3** group).
 
@@ -690,9 +690,9 @@ The Fusion file system demonstrates significant performance improvements for mos
 
 - The most time-consuming processes see improvements of 36.07% to 70.15%, saving hours of runtime in a full pipeline execution.
 - Most processes show significant performance improvements with Fusion, with time savings ranging from 35.57% to 99.14%.
-- The most substantial improvements are seen in I/O-intensive tasks like SAMTOOLS_FLAGSTAT (95.20% faster) and SAMTOOLS_IDXSTATS (99.14% faster).
-- SALMON_INDEX shows a notable 70.15% improvement, reducing runtime from 102.18 minutes to 30.50 minutes.
-- STAR_ALIGN_IGENOMES, one of the most time-consuming processes, is 53.82% faster with Fusion, saving nearly an hour of runtime.
+- The most substantial improvements are seen in I/O-intensive tasks like `SAMTOOLS_FLAGSTAT` (95.20% faster) and `SAMTOOLS_IDXSTATS` (99.14% faster).
+- `SALMON_INDEX` shows a notable 70.15% improvement, reducing runtime from 102.18 minutes to 30.50 minutes.
+- `STAR_ALIGN_IGENOMES`, one of the most time-consuming processes, is 53.82% faster with Fusion, saving nearly an hour of runtime.
 
 ![Average runtime of *nf-core/rnaseq* processes for eight samples using the Fusion file system and plain S3 storage. Error bars = standard deviation of the mean.](./_images/process-runtime-2.png) 
 

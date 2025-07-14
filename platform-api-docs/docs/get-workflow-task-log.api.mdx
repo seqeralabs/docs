@@ -1,0 +1,71 @@
+---
+id: get-workflow-task-log
+title: "Get workflow task logs"
+description: "Retrieves the output logs for the workflow task identified by the given `taskId`."
+sidebar_label: "Get workflow task logs"
+hide_title: true
+hide_table_of_contents: true
+api: eJy1Vktv2kAQ/iurPbUSgrRFPfjURE0r1KqNklQ9RChZ7AE2LLvO7hqKLP/3zqxtjMHQUqknjOf1zesb5zwBF1uZemk0j/gteCthBY75OTCT+TTzTJmZY1Njw7u1sYupMmvmhVswmYD2ciohYZNNkM/kCjR7IukoeerzHvdi5nj0wGtLx8c9blKwgoKOEgz7GfzPSnqPhl/NDO1SYcUSPFiyzrnGP6hae0G7HpeEORV+js/tRGp3zGFCetYAtahq4SWTFjCytxn0uIvnsBQ8yrnfpBSkNOJF0dvGLRM6GZOgM50twcr4zIBSe5gFVazzUvjy1fthC4KGX74G8JKB3RzPGlvG4sw6Qy7/Jj0qq0tFDE2Ox0MExe5Mz8lsTIVxqdEOHFm8vbign3a871/QNDboRXuSijRVMg6jM3h2pJIfBjWTZ4ipVqmlQfOyDIBV+bMSdkijf2rWVnVijAKhedHjCMPWmnt+vPSKXow8zbaxj3ehzo9kZmEtdXJvFqA7GhGKsxb2hEIKOqHHTlBLcE7MoNMwMWutjEh2IQtrBbVWelh2ptIuiRMr+BbmpAu5VMeFiXSpEpt7mtyu+dvWDFf+BjPof6zQovBQ2rKoZx1lt9UUkRFqDLvm6EokjNYQnD9noJrNfdhWGef2dL2Ot2MH/7W1xh4gf9exATVVMm08EwpzhiS4coA7Lv0m8OMVCAv2MkNiih7GtFxInnND9DqDgJE4K+KDmkEHecOlxQB3Y5CXJFfwxvUdVaLMajfANrG592m99mEogxK+KR8+1Tv/vPYBstRTE8yrKtzBC2bHLm9GB0xTiW6U8EQdzIFdyRhPU6lMLRRxaGFmVQXFRYOBC3Z9aVAJuyhVoJyp+dAIEMgK70oZ501/OOxfhB0zzi9FmICKFvEw7V08Oob7UPNmnv7PBS1r7XGLBrhOMux8SDqvutpcV1SPWjdShWMaVfcLx2KOWZJFnk+Egx9WFQW9LumeJgmXVkwUzfxUKAcnku2+N51wF7BpTthKqIxUOF2g88KduD0n4rbPWxN+TH+spPhnpv7qtmKG1+zkt0YnqJqG9WYXzS7Yqn3n1WcH0/FvkX8AVM1OMUbNOYgE/VCxSuFlHEO629QDQm1x0efre9QVbRbZY43gvRMSzmzQCHeyKBqE4W4iwKL4DdG4vvU=
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get workflow task logs"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/workflow/{workflowId}/log/{taskId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Retrieves the output logs for the workflow task identified by the given `taskId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workflowId","in":"path","description":"Workflow string identifier","required":true,"schema":{"type":"string"}},{"name":"taskId","in":"path","description":"Task numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"next","in":"query","description":"Workflow log cursor","schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"log":{"type":"object","properties":{"truncated":{"type":"boolean"},"entries":{"type":"object","title":"Iterator_String_"},"rewindToken":{"type":"string"},"forwardToken":{"type":"string"},"pending":{"type":"boolean"},"message":{"type":"string"},"downloads":{"type":"array","items":{"type":"object","properties":{"saveName":{"type":"string"},"fileName":{"type":"string"},"displayText":{"type":"string"}},"title":"LogPage.Download"}}},"title":"LogPage"}},"title":"WorkflowLogResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

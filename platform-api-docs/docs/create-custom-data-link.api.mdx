@@ -1,0 +1,71 @@
+---
+id: create-custom-data-link
+title: "Create data-link"
+description: "Creates a new data-link in a user context. Append `?workspaceId=` to create the data-link in a workspace context."
+sidebar_label: "Create data-link"
+hide_title: true
+hide_table_of_contents: true
+api: eJzVV1Fv4zYM/iuGnnNJtwV7CDBsaXsHBDhci7S7PRTFjrGZRI0t+SQ5uSwwsB+xX7hfMlJybCf22ttwwG0vSSSR1EfyI8UcRII2NjJ3UisxEVcGwaGNIFK4ixJw8CqVahNJRVuFRRPFWjn85IbRNM9RJdGHH3fabGwOMc6SHz5ETkexNxK5NZ5bqEVrM2IgHKysmDyIWtaKx4HQORpgVLOkxnVVWKeza5J7S2KkmoOBDB0aNnAQihYk3AJEMpL9+lig2dPi1NtfajiqyNDIOJIJKieXEg0J23iNGYjJQbh9zoYlYV75o6U2Gbiw9f1YlCUhNki3WHepkz3rnF51XQfCR4c2o0qerPlgKMdakOepjL3A6Mmy6qGLQy+eMGbF3HCYnETLp8H9Wso6I9VKlGde95yHjfODgUAKC2dmUcQbdJwVJ12KlTucg3vWKD2QLcXOPGcFdpZWK61XZGIg4LfC1N+/kvsGOOb4kfIe6ywvHPbdeHu8qeSIW12YGOe47PUrLxYUzGkco7VykbZ9XGidIiiWooT4rENqmWsdO2UXRKDjvEpgWZYh+5IsiYkzBQZwuVY2pObbi4suJ+4Kj+zLEUD2wR/8e168FN//L29Wf+dyiwytczAGuH1Ih5nfb7L9wFGvYtzy53HwhXP1NSLVz/w6PuVnl9haJqTVf2YduMKHBNL0Zukb+bmDVG7JjUr3obgah99P386u6Xz2Lvzq8WZ4F+yXg5fMlo+EJiM/YNWXgp5gXDvNxU8n4776voRk/s97fJtaRzQvsumzYL82Rpt51ZZq4N91gd8c395IaRdRWvSO8HjpcVf6nXZvdEGjwJ+//9F64bWJWsXkLS1ZbBBNb2dRIi0QXRKeC3hQqPUGrNiMDbTIwa0b9f9qKJnJGBdGur2n8CWCQTMt3JqWjzwf0KCy1jzM5Nozgv2i1ag19zQ27tiJAKhtqca0di4/jii+oLwQ7YQfb47zydPOeeAcnHkzoLz+BFkeqrUamuqiOE1uvX0s3NDS2/2oajsnj0Wj120QoYTPXt1Wp5Nqqb2nVazvfMNi1nTQVUe3KTieyCIaULeSbqqEmSgQe6IUJq2iZiejUeiBQ6m5eWYgUz/JLfVPzQEB2dJcGe75ZjgeDy98G6bcZaBagQuzQEPZc5CHhq9fZ7wOiePlKE9B+qbrw3GoKHg+eq+Zn7R7OCzA4s8mLUveDjM0c/tYvGKypPThMw6/MGH3YtvgvjPEbyEtWFJwIW3BSPBUeuCWvaYuzjwkYEH1Klz/yg8ZjW6nV/CTEDSYnrl7VrZdwLc3d/dcatWkn+mEdQzsuAzok3DyHxjWDtMC7x1ECmpV+NYigk0uTDit67M6br+GoPYthJQcL3GvN6goQce4OV4TXDL+F89Qy9Y=
+sidebar_class_name: "post api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Create data-link"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/data-links"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Creates a new data-link in a user context. Append `?workspaceId=` to create the data-link in a workspace context.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Data-link creation request","content":{"application/json":{"schema":{"type":"object","properties":{"name":{"type":"string"},"description":{"type":"string"},"type":{"type":"string","enum":["bucket"],"title":"DataLinkType"},"provider":{"type":"string","enum":["aws","google","azure","azure_entra","seqeracompute"],"title":"DataLinkProvider"},"resourceRef":{"type":"string"},"publicAccessible":{"type":"boolean"},"credentialsId":{"type":"string"}},"title":"DataLinkCreateRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Success","content":{"application/json":{"schema":{"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"description":{"type":"string"},"resourceRef":{"type":"string"},"type":{"type":"string","enum":["bucket"],"title":"DataLinkType"},"provider":{"type":"string","enum":["aws","google","azure","azure_entra","seqeracompute"],"title":"DataLinkProvider"},"region":{"type":"string"},"credentials":{"type":"array","items":{"required":["id","name","provider"],"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"provider":{"type":"string","enum":["aws","google","azure","azure_entra","seqeracompute"],"title":"DataLinkProvider"}},"title":"DataLinkCredentials"}},"publicAccessible":{"type":"boolean"},"hidden":{"type":"boolean"},"status":{"allOf":[{"type":"string","readOnly":true,"enum":["VALID","INVALID"],"title":"DataLink.Status"},{"type":"string","readOnly":true}]},"message":{"type":"string"}},"title":"DataLinkDto"}}}},"400":{"description":"BadRequest","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"NotFound — workspace or credentials not found, API disabled in the workspace, or data-link or path not found","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

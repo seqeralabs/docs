@@ -1,0 +1,71 @@
+---
+id: update-user
+title: "Update an user entity"
+description: "Update an user entity"
+sidebar_label: "Update an user entity"
+hide_title: true
+hide_table_of_contents: true
+api: eJylVttu2zgQ/RWBT13AF9nrtLt6apJ2gaBFE+TysoEfxhJtM5FElaScpIL+fWcoyromSLEvhjQ8c9WZYxbMwE6z4J7lmivN1hMmM67ACJleRCxgd1kEht/hIZuwDBQk3BAwuC9Yii8IIU/ETphI8S0Ds8fniOtQiYziUBSEeGmecCVCT0Q8NWIrbEjFf+ZCcUxlVM4nTId7ngALCmZeMoouUsN3FrqVKgFTmT6uWFmuK3euzZmMXshnJGtuG/AcEMOEEiOmhuCQZbEIbbPzB00+RauAprR7hiYRozP1+oPaxtyuQLl54CEFzhSNzgiuyVtE72qiFRLhCTx/5+kOJxis/GMGbZRId4StyugClycnfWQrTeWBrluhtBnJs/DHEsXwG2CpdpCKX1CN/R0Onc/Ux485wAEMqNZA+0cX0ehhKolo4bEyB9hIGXNICYFkTvTlFqlyLlPteDGEJaAeucGob6JoaqdhyLUeVtP6JkTIqRE4XZoFvpwrjr8jLbzmRImqzfwNp4jHvOtwLJ0GIUzM3dJ82XwxEq1lfz+tQWc0A9vi0l8N1+7ymzf1fkivXjR0Wvn+EHcG0f9dywRHDbt3bGMNHJKk1fpXpaS6dv1R+7byP0c6rCXSQ4J5EMfyCeshuOZhroR5sfp4xkFxdZoTse/XJFc9faqkCVKPNMAjVURPJBs3e0nim0k7GiupAZtbiZ4Xld6WrMl2Q8OpGm3nPPa6NyZjTlvtd7cgtFQP/9R0eXgytgsa+nWjrF+fIcliXqua39ashnROm+zZZ165zEKZsI72NPhGYhpbV0kae3duR3MtC32L/ec62roiUP3NjKx9dTBc9MreXm2k/XI19T9Nl3/fLk6Ck0Ww/Gvmf1r8y3rr/Baws8JvRqzX1i2gSLfSflvH2hv+E9nonV5dDAbljq5iMCQJHn6Zg8AeHJhWDkK7crmKHU90MJ9r6zcTsvVZKe3n5gALOSAbqzyL2Wo188lGjE3Abqy7HbxG8t5/gGOq4c9mnsUgrJ7aqgrH//qKMmGBu3HgQu1pQ/CoKDag+Z2Ky5LMSF1FO4iPB1ACNjQp3MhIaHrGYW4h1nxQxVGE2IdrJzN/eK9fXkaLdkZIqcsDxDm94eMjf2kuS+UakXsOEcahwqrD8yr99JZCNM4DPSwntQdRMjNvYtctQbm6vLmltXfXpURG5KPgiW5i+GsLlXYcVk2srUCuprvcyierYpJIQFdjeppiuxodBX4qi7iVjzwty+NkDL3TYMryP2iXlVA=
+sidebar_class_name: "post api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Update an user entity"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/users/{userId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Update an user entity
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"userId","in":"path","description":"User numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"User update request","content":{"application/json":{"schema":{"required":["email","userName"],"type":"object","properties":{"id":{"type":"integer","format":"int64"},"userName":{"maxLength":40,"type":"string"},"email":{"maxLength":255,"type":"string","format":"email"},"firstName":{"maxLength":100,"type":"string"},"lastName":{"maxLength":100,"type":"string"},"organization":{"maxLength":100,"type":"string"},"description":{"maxLength":1000,"type":"string"},"avatar":{"type":"string"},"avatarId":{"type":"string"},"notification":{"type":"boolean"},"termsOfUseConsent":{"type":"boolean"},"marketingConsent":{"type":"boolean"},"lastAccess":{"type":"string","format":"date-time"},"dateCreated":{"type":"string","format":"date-time"},"lastUpdated":{"type":"string","format":"date-time"},"deleted":{"type":"boolean"}},"title":"UserDbDto"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

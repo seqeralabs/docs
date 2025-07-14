@@ -1,0 +1,71 @@
+---
+id: delete-organization-team-member
+title: "Delete team member"
+description: "Deletes the team member identified by the given `memberId`."
+sidebar_label: "Delete team member"
+hide_title: true
+hide_table_of_contents: true
+api: eJy1VE1v2zAM/SuCThuQxdkW7JDTWjQDin0VbXcKAlSxGVutLbmSnC4z/N9HSrKTfqwFsu1kmXqkHslHtjwDmxpZO6kVn/ETKMGBZa4A5kBUrIJqBYbJDJSTawkZW239bS43oNhVuD/NrsZ8xJ3ILZ8tOHlavhxxXYMRFPo0G4J/N7lQ8pc3XyLwq4+A3rUwokKAoRgtV/iDTtrk6DzikujVwhV4vs95PyBTTQVGpjvCFNnAbSMNIAdnGhhxmxZQCT5rudvW9IhUDnIPXWtTCRdMH6a860YDE8rqBSqUz/+k0Ff7WRKhoP+expLcba2VBUse7yZT+jxoxmf2hn3TLNUYSDnejfh0MnmMOxYZIzJgHb7VoxEm6rqUqW9mcm0J2+6x3PFfYDGsFTmQziJ5vbqGlOLVhpTnZCDaA3dZWmekyqm03ElXkmlujDbnMT+86Tzz909k2GuaKe2YKEt9h3wIbiFtjHRbL99jEAbMUYMNmi2WVDzUdqFpDjI/B17xdMsT1LhNWq/0LvHDk7RBbV0SWo6GvvddMvj3D15QfUKu+88O6RbO1Tw2m/5XHoSWcPjUd/r6zvlEpFpr7x5rcwG3mDM7Ojt9JLZ4dVYKR4JhFsxGprhBApgaK1Lf2MaUkYqdJYn1fmOpEYS9laUX2lp/3F0gkQ1mHt55O55OxxOy1dq6SnhdxKkIe2V/Xz2k2e4U9rcrLlTUwU+X1KXAKURKPrU2tnNBK8sidNavrrAO0TBskNhUsu2NdOwrSqXAHClS266EhR+m7Doy47gYUhceN8JIsaLuoNYyaemM2lqL0sIzyb86jwP0mr28Np/MNRqF2nJiUTb0h8cb2A7bmjbWQZz+vD8P4BKrfTCZ5/boAXSGRndLxBYgMoxE3QvXR2kKtdtzfLQI7+2Qk/mX+eUc4eL+qD8Ybf/Ak7xQWh5xqW9AobyGqtE/cey630Z0xmw=
+sidebar_class_name: "delete api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Delete team member"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/orgs/{orgId}/teams/{teamId}/members/{memberId}/delete"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Deletes the team member identified by the given `memberId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"teamId","in":"path","description":"Team numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"memberId","in":"path","description":"Member numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

@@ -1,5 +1,9 @@
 /nextflow           https://www.nextflow.io/docs/latest/ 301!
 
+# Fix top nav 404 for Cloud and Enterprise after index page rename
+/platform-cloud   /platform-cloud/platform-cloud 301
+/platform-enterprise/:version   /platform-enterprise/:version/platform-enterprise 301
+
 # Add redirects to account for Wave docs refresh
 /wave/cli/install   /wave/cli               301
 /wave/guide         /wave/nextflow          301
@@ -38,3 +42,8 @@
 /platform/:version/enterprise/*   /platform-enterprise/:version/enterprise/:splat   301
 /platform/:version/*    /platform-cloud/:splat
 /platform/*   /platform-cloud/:splat
+
+
+
+#Redirect platform-api to intro page
+/platform-api   /platform-api/seqera-api   301

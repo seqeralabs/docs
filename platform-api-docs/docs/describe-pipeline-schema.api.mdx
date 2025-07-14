@@ -1,0 +1,74 @@
+---
+id: describe-pipeline-schema
+title: "Describe pipeline schema"
+description: "Retrieves the pipeline schema of the pipeline identified by the given `pipelineId`, enriched by `attributes`."
+sidebar_label: "Describe pipeline schema"
+hide_title: true
+hide_table_of_contents: true
+api: eJztVk2P2zYQ/SsETy2g2tvW6MGnOkhSLAJ0F94UOaQGTEsjm7sSqZCUHUPQf88M9W1pnWTRS4H4YJvkI/nm6w0LHoENjcyc1Iov+RqckXAEy9wBWCYzSKQCZsMDpILpeDgtI1BOxhIitjv7pb08gmLbBnEbbQMGykjc7zFb4fCCXe7Abmf/Ktb7bH+7uWG/sLt3W2bAZlpZZCFVmOQRTLEZb19MbI9kKBwwwWwehmBtnCe4/ikH6wJ2ku7AlGZWHJFebWSscxXht+kZ1F59+/riWh5wJ/aWLz/yBmT5JuA6AyPIqbcRuvW1d/IO7mvIg78K92bCiBQcGDqh4AoHCO/chxBJccmEO+D/YbCa05jKU0Afd/EwiCUrpQG83pkcAl6Zx5cFd+eMbpHKwd5D0dhUuGrqjwUvy6ClctLmyWYi7HFB55nziMyHBjjN5mW3W52bED58K4cHD2d3fiwSdvqvOAVc5UkidglU3uxz7DL6OrlVFMmaV7uFHUWSU7HpNtOl8nnX5PCSbSualNYuN2qyMgMsOcok+wwq1CqW+xlb14siSZiMB9XIpGU6lc5BNEPu8DlLdIT2xSKxU9kjjBFkpHSQ2t68xRPVnk5An1NZ2EGu++Jw0pEn+bAcVp0jy7LcUAbXdUzHozrQz9Cnd+/wXDTOYVRpVWRZQgWPq/NHS5Cix7yriJYVkal4690jhI5oGqpdJ6trR3bX9pWtPeOl8jkL17VBZB+CULHGJq0rcUIhQzX7W49VaaRIxGUx5Z1XImq07qVuSlEyxR6+7qcGeNUbb4zR5sIJi5vfJ+LaqCeqs6Ns1SfkQ3ALYW6kO3u5fAXCgFnlqI3LjxtKGdTSgybF3YPnSLK55PNWmudFp63lvE3N5lQfpsqg/tmtTQfnskY4aLzzIJyp/rxtVOPx5DxbqWLtt9cOeIBPaBhb3d+Otatauk+EI/FhFsxRYseqwRQ9Efro5SapqdjlfG79vpnUVHKpkIkXrVj/2S0gkSN2mOqeX2eLxezG56+2LhU++LWUNW3qUl4uyRZdMv14MbzkxVBlk4PPbp4lApsGhsOHtahTtv+aCPhy8CDopOuAESRsUeyEhX9MUpY0XfUfKpBIWmpaUSvjz4bxK+17kvETnEcvBN/QcJZTh/z267+zc1+hM/VkeCGp/1fHvuKTwROlc8aGBkZWz5rvypaf1nWP+Jldf4ROkmpeEOrcp9OQ7eV6uUH0AUSEZxHBCrDCssxcb+uonQ06wV9v3iNWDIX8Qrj96ZO0sLQ84r1+AoXl1bB0NCaCZfkFhzCURg==
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Describe pipeline schema"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/pipelines/{pipelineId}/schema"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Retrieves the pipeline schema of the pipeline identified by the given `pipelineId`, enriched by `attributes`.
+            `200 - OK` responses include the pipeline schema.
+            `204 - OK` responses indicate a successful request, with no saved schema found for the given pipeline ID.
+            
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"pipelineId","in":"path","description":"Pipeline numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"sourceWorkspaceId","in":"query","description":"Source Optional workspace numeric identifier","schema":{"type":"integer","format":"int64","nullable":true}},{"name":"attributes","in":"query","description":"Additional attribute values to include in the response: `schema` returns the pipeline schema, `params` returns the pipeline config. Returns all if `attributes` is omitted.","explode":false,"schema":{"type":"array","items":{"type":"string","enum":["schema","params"],"title":"PipelineSchemaAttributes"}}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"required":["schema"],"type":"object","properties":{"schema":{"type":"string"},"params":{"type":"string"}},"title":"PipelineSchemaResponse"}}}},"204":{"description":"Request OK - No schema found for given pipeline ID"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

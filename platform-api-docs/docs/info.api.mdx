@@ -1,0 +1,63 @@
+---
+id: info
+title: "General Seqera service features and version."
+description: "General Seqera service features and version."
+sidebar_label: "General Seqera service features and version."
+hide_title: true
+hide_table_of_contents: true
+api: eJylVk1z2jAQ/SuMzhTSlOmBUwlDUiZfTEjaA5PDIi+2EllyJJmEMvz3rmRDILWBTE84qyfprd7b3SyZg9iy7oRZNHPB8YtQM80em0xnaMAJrYYR67KhjzaZQZtpZZF2LNnpyYn/idByIzIPJeDtJcG4Vg6V86uQZVLwcFD7yXrIklmeYAr+yy0ypE16+oTc0cbM+GudKC4oKYW7D4LnaKwozi+B1hmhYrZqEgnxa88y12kqnM+zam/uknsK2q1VMAYWxEA4TG3FLtomdSzUCFxSeaiC+RTM4aRSVPkxF9dslzBFWUkgN1VxWnDCSR+6CQz7Ws1E3Cr+uCYyhKkB+VMTBOOmCG5I+ps5bN8hKBSjIY4zbVJwRejbaWBDSv/W5tlmwHGgYCpxW4yp1hJBBTWk1K9DZR0ojn2DEdlMgLTVaAkqosQeKpOlNNCk9nb2YLEOURq5bhkUyIUT/AgpknxKpVNnskxbl+i4l4lLXBxA/KSv/dr1NrTWL3alOcg7pEMqHqpJJZwZpCL1r+5Mju+ZX8PbuZA4Fn/woJbfO/6+V5jvlzA2OleRfUUpj8X1fA4YbSxyTEnUc6SzLU/tmByKpk5a2hTjyOBMvFWuW3yh/tiXOq+hj2T/DeFh9N+UvSDA3SAFUWNG/0g3+OZm9NuX4krHdWWhY51Xm5paUy6lV6V0wpatxlvtuCZ+V84H3yYI0amaEGcQNQy+5GjdZ0aF3yKMN8uE2qK1EKMfU4f6ZwHcWy4DY7TZYb5qfuB8gYrUlo1xUL1RDqbGjFpdTjOxQX2mUQ6gFpFIkWrVj80YA6cwBlh7Z8R6C/HcCLcY+xwLvmfUQNH08p2xkTiXeXiAeSUDiCLFx/naK0+vLuQl1vNyo08g3RsN2ce8yqWRBOctt07MluDSc/6wMDACFdtttwv3t4RPAwtHhmt/vC8Qkc1IZl9bnU7rZN3HUgjaKgjpfPJtdxLYvJEj37czCUJtTbfi3f/91yYJHXTClssphN6/WvkwWdJQ853Q5xyMKIpg8ljMtYhevDtZsmffn1mPc8y8tFTkeSjpj95dPW7Z4GJwT8r8BWt4RrM=
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"General Seqera service features and version."}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/service-info"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+General Seqera service features and version.
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"serviceInfo":{"type":"object","properties":{"version":{"type":"string"},"apiVersion":{"type":"string"},"commitId":{"type":"string"},"authTypes":{"type":"array","items":{"type":"string"}},"loginPath":{"type":"string"},"navbar":{"type":"object","properties":{"menus":{"type":"array","items":{"type":"object","properties":{"label":{"type":"string"},"url":{"type":"string"}},"title":"NavbarConfig.NavbarMenu"}}},"title":"NavbarConfig"},"heartbeatInterval":{"type":"integer","format":"int32"},"userWorkspaceEnabled":{"type":"boolean"},"allowInstanceCredentials":{"type":"boolean"},"landingUrl":{"type":"string"},"termsOfUseUrl":{"type":"string"},"contentUrl":{"type":"string"},"analytics":{"type":"object","properties":{"hubspotId":{"type":"string"},"posthogApiKey":{"type":"string"},"posthogApiHost":{"type":"string"}},"title":"Analytics"},"allowLocalRepos":{"type":"boolean","deprecated":true},"contentMaxFileSize":{"type":"integer","format":"int64"},"waveEnabled":{"type":"boolean"},"groundswellEnabled":{"type":"boolean"},"groundswellAllowedWorkspaces":{"type":"array","items":{"type":"integer","format":"int64"}},"scmsServerUrl":{"type":"string"},"forgePrefix":{"type":"string"},"seqeraCloud":{"type":"boolean"},"evalWorkspaceIds":{"type":"array","items":{"type":"integer","format":"int64"}},"contactEmail":{"type":"string"},"allowNextflowCliLogs":{"type":"boolean"},"logoutUrl":{"type":"string","nullable":true}},"title":"ServiceInfo"}},"title":"ServiceInfoResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

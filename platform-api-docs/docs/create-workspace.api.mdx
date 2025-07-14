@@ -1,0 +1,71 @@
+---
+id: create-workspace
+title: "Create workspace"
+description: "Creates a new organization workspace."
+sidebar_label: "Create workspace"
+hide_title: true
+hide_table_of_contents: true
+api: eJztVm1v2zYQ/isCsQ8NINty6q6tgGF12gwLNiyB43ZAXXegpbPNRBJVkorjqvrvvaNkvdhe+vKpH/pFEI93x7vnniMvZyHoQInUCJkwn71UwA1ohzsJbBypVjwRHzltOhupbnXKA+gzlxm+0syfsVqo2dxlMgVllS/C2te/Ow20SrniMRhQZJuzBBeoh6egvssEBZBys8b/blSX7TiSLAYlAkeEkBixFKBQX8GHTCjAY43KwGU6WEPMmZ8zs03pEJEYWFnVpVQxN6Xo1xErinlpDtqcyXBLNt3T6wycwGbkVNroK5DoNjFkw9M0EoENcXCjyTA/jEIubiAgw1QRVkYgbrhbo0iLJpUZW2ZR9A+h5JZguexOaLEQkTBbAvxhtyL8GgDQNZ7CFxGU4BXVWWga8/u/IVlhRfyRR+UzWDuC5P2M9z6Oe2/fvQvnj373W6tPs95/KPqtJTo5yYfu42fFL6wOWBslkhXDo+oMu8cNPe+Icqcu+/rHDFpoNUhU2y4DpBKhfDW5eDOenqPk+s/x5PyVRVYYAoS9aTxQAFj+ktbhMYc1sqTXMwLTQqOIa/M6Db/FqGgCaPqnLd3rrUnFyIJ0ur1gBTqViS5Jcep5hxS//OsnmX+S+Ychc0lXYjNqjY4R9oyH33MNt+kYg9Z8BV9m3k7xIN12DudKSXUQ+eMjrbZ7I51EGodHkdxgPFb7+aH2q6xMBxyIIKYcf9BscVNDkCnLTnzbz4ArUOOM+Dyb0xuLD/9a0lyQSls0+9L7bIDPvx7kdggoBq15onF4TRmV0bXd1gGujUlZ9ebTemGVUFL+/LHj5M3G2CwIqUnz4p/f8ziN4ODuohvH290fLYrXTd7IukWrxe2ObTVmp/HwQj4d9bynvdPn0+ET/8nQP33W954O37K9Zvt/RcpJJEtpIakqdA0fkGfO+OriILxq6yrihtrV0aDuBCJeKRO9eGDplamoglf7g4G2dn0h6baJuYjsrbuUL5oNuqVwuivPGfZHo75HMqp4zC07KzTL9JuZcj/IvGH518+kJRsM3JtBGnEcJ/Fom0JekW1GsyYxy9/NnN35dU3MRK08X3ANr1VUFCRGpihiNf7ecSXK1wU5HgpN/1ibJY80PJDCo0nViifOl2fZo3lUQp5siVc8ymiFv7ewrUfoYo6Ka+AhuqH4yr2XZRS9KXlobA+ujsLdWYyDAFLzoG67n68ur6fUbNXwHMuQbBTf0FyOXxuntKjYHrayHMmdrDJ707DSJ9GYdzt7r5NtVkeRwIpZjam8hQSrtgPG0JqAKYrPwu9izw==
+sidebar_class_name: "post api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Create workspace"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/orgs/{orgId}/workspaces"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Creates a new organization workspace.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Workspace create request","content":{"application/json":{"schema":{"type":"object","properties":{"workspace":{"required":["fullName","name","visibility"],"type":"object","properties":{"id":{"type":"integer","format":"int64","nullable":true},"name":{"maxLength":40,"pattern":"^[a-zA-Z\\d](?:[a-zA-Z\\d]|[-_](?=[a-zA-Z\\d])){1,38}$","type":"string"},"fullName":{"maxLength":100,"type":"string"},"description":{"maxLength":1000,"type":"string"},"visibility":{"type":"string","enum":["PRIVATE","SHARED"],"title":"Visibility"},"dateCreated":{"type":"string","format":"date-time"},"lastUpdated":{"type":"string","format":"date-time"}},"title":"Workspace"}},"title":"CreateWorkspaceRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"workspace":{"required":["fullName","name","visibility"],"type":"object","properties":{"id":{"type":"integer","format":"int64","nullable":true},"name":{"maxLength":40,"pattern":"^[a-zA-Z\\d](?:[a-zA-Z\\d]|[-_](?=[a-zA-Z\\d])){1,38}$","type":"string"},"fullName":{"maxLength":100,"type":"string"},"description":{"maxLength":1000,"type":"string"},"visibility":{"type":"string","enum":["PRIVATE","SHARED"],"title":"Visibility"},"dateCreated":{"type":"string","format":"date-time"},"lastUpdated":{"type":"string","format":"date-time"}},"title":"Workspace"}},"title":"CreateWorkspaceResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"409":{"description":"Duplicate element","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

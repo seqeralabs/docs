@@ -1,0 +1,71 @@
+---
+id: list-platforms
+title: "List platforms"
+description: "Lists all available computing platforms in a user context. Append `?workspaceId` to list platforms in a workspace context."
+sidebar_label: "List platforms"
+hide_title: true
+hide_table_of_contents: true
+api: eJzFVEtv2zAM/iuCzkHSbcEOuWzp0A3FCqxYu9NQoIrNOGoVSaXkdJmR/z5SthM7yfrADjvZIj+SH5+VzCFkqH3UzsqJvNAhBqGMEWqltFEzAyJzS19GbQvhjYpzh8sgtBVKlAGQtDbCrzgUU+/B5uL2w6PD++BVBuf5rYhOGPK5b7rFbO3lQEZVBDn5KbdYeTOQzgMqZneeN/wut+qB9ArVEiIgG1bS0oNQDgtCD6TmlB5KwDU9+ol+w0JZ/Tt5FrZcAupM6Bxs1HMNSPiQLWCp5KSSce3ZqyaiRVJxdBVr0fux3GwG29Cd5J8hkH6U6ZTin2lQuRCCdzZAYIu3Jyf82Qv8lUxT1W1krfLe6CwVYnQXGFIdBnWzO8giFxy5IVHXAXad2kEVouJ0dYSe/C8udN7BhIg0Z3IzaMp5RJEhpPIoEy7RrahW+JLorQPqlYw6GpZ9SoMN7Tz1lb1J+95UlSGEGR+r66nKBQI1O8TXFJhNNOXEg7+EEFQBPPZPF60FHslvl8EZosMD5u+OTES7YsK6yMvvHokPwwNkJeq4Tst1CgoBp2Vc0POGh402b+F4LQtIHBWr5Mh3FrT1cMUJ1+S7frb8FzH6dtr5PUsgktQ/n9tRv3uMiZm2c5fMm2Sv4IGSENPL84NNa1RtMwVdrZXOIDRg7pTKUqdKNA2VMBmNQrIbakcgapY2adPm7uNOQURWNH91nDfD8Xh4wjLvQlyq1OjmLFz0buA+xWo3Lv/5AtfN4Cd3kc4XZZOqUjXd3bvOC8qUhVU1UwF+oNlsWFyfPB6aXAdOgYZkThsLTyT+/EU+yu4e1p2Lv1KmZIzkk/yK2C88xk8w6B/+HY8bfqBmImltqGag6Gil6tSm0ywDHztWBxejt2xfzq4Jq/r7s7cvyXt7Eu2645s6lRDX7h4sdavlH/lNgehM/AEpC9B4
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List platforms"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/platforms"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Lists all available computing platforms in a user context. Append `?workspaceId` to list platforms in a workspace context.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"query","description":"Organization numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"query","description":"Optional workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"platforms":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"credentialsProviders":{"type":"array","items":{"type":"string"}}},"title":"ComputePlatform"}}},"title":"ListPlatformsResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

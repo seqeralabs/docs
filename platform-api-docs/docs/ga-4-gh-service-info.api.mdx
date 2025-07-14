@@ -1,0 +1,63 @@
+---
+id: ga-4-gh-service-info
+title: "GA4GH workflow execution service API info"
+description: "GA4GH workflow execution service API info"
+sidebar_label: "GA4GH workflow execution service API info"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVktv2zAM/iuBzl3SrsEOPS0tuizoY8W6roegGBiZsdXKkifRSbMg/32U7KTuYLcdtlMU8SGS30fSa0GQenE0FSkM00zc7QlboANS1kwScSTG4foa3UJJnJi5FXvCoS+s8chma/F+fz/8JOilU0UwY6MvZ6wmrSE0FKRQFFrJ6HRw74PKWniZYQ7hRKsC2cjO7lESGxYuhECqemCBzqvKpFb05JRJxWaP/arvL4ilzXNFIY0225Kyb3zpG1JwDlYcgSLMfYsVm2mbKnMFlLU6NbCYgXs9qRxN+ZaHO8w1zFC3BlC6tnsWkCIdri5jhCfWzFXar/5ccDCs06EUvGYIjmYINGFI3QKabyi+StFxjHPrcqDq6vB9jMaju7XuwRcg8dTATGMTjJm1GsFENLS2y4nxBEbiicOEmaNA+3ZtDSbhxG5ak+U00OX+y/zGY5dGzc0uMRjQK1LyDVBk5Yy7oYtkhfWU2XRUqDNcvaLxmU8vYzfahbWt2LmVoL8iO2kp1B53ZeGQ+y5UnVyJT5lfwOMnpfFa/cJXsfwwDO8tYfEyhKmzpUn8ErV+q94o5IDJjiJvaYnuGNm3l7kPwwpdF7RslOKVw7l6bJV7/Mnj70TbsiN8ZPrvAp4k/xxyAAQkneagOsgYinSJjzTn3xOtzm3a1RY2tWU7qXk0lVoHVGomNGjVnO6bOAeGbUP9GJKew58levp/0z33aTsMBFT6H9Imr/MzzJpGOrfoT52z7mu9pnY5HbYsqu2u6xlLPajoGL091xuPhuPPvSXDHkDo4SPKMpr5qna90dWkp6r1mCM3dFidKcZ8464Qg7hfB0v0g8XBoDZ7V5t4ducUra5D1arCHPPIRTcqny2ajKgI6lEtYB+V+KY6fNoW5X5JMYnoPpjvkA7kDsGKPzOsRVcaKNR2m5ivlWuWBmdxxcRQ/NFgUPVLX4U0sOJwfPbjk4AD2S1xcdAfDvv728mXQ2SLgZjO31T5WfS7AhG3yaDQoExjGVYIbL9weJJxhTmkg1j4Bg787ZPFGTwV6/UM4vbYbMI1k97x+J7ycQFOVW00vas2Y8IIHE3X4iFMeDGSEouAO4+JMg6FP7tjc9fgyPj0GyP1G6DUSrM=
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"GA4GH workflow execution service API info"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/ga4gh/wes/v1/service-info"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+GA4GH workflow execution service API info
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"version":{"type":"string"},"apiVersion":{"type":"string"},"commitId":{"type":"string"},"authTypes":{"type":"array","items":{"type":"string"}},"loginPath":{"type":"string"},"navbar":{"type":"object","properties":{"menus":{"type":"array","items":{"type":"object","properties":{"label":{"type":"string"},"url":{"type":"string"}},"title":"NavbarConfig.NavbarMenu"}}},"title":"NavbarConfig"},"heartbeatInterval":{"type":"integer","format":"int32"},"userWorkspaceEnabled":{"type":"boolean"},"allowInstanceCredentials":{"type":"boolean"},"landingUrl":{"type":"string"},"termsOfUseUrl":{"type":"string"},"contentUrl":{"type":"string"},"analytics":{"type":"object","properties":{"hubspotId":{"type":"string"},"posthogApiKey":{"type":"string"},"posthogApiHost":{"type":"string"}},"title":"Analytics"},"allowLocalRepos":{"type":"boolean","deprecated":true},"contentMaxFileSize":{"type":"integer","format":"int64"},"waveEnabled":{"type":"boolean"},"groundswellEnabled":{"type":"boolean"},"groundswellAllowedWorkspaces":{"type":"array","items":{"type":"integer","format":"int64"}},"scmsServerUrl":{"type":"string"},"forgePrefix":{"type":"string"},"seqeraCloud":{"type":"boolean"},"evalWorkspaceIds":{"type":"array","items":{"type":"integer","format":"int64"}},"contactEmail":{"type":"string"},"allowNextflowCliLogs":{"type":"boolean"},"logoutUrl":{"type":"string","nullable":true}},"title":"ServiceInfo"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"type":"object","properties":{"msg":{"type":"string"},"status_code":{"type":"integer","format":"int32"}},"title":"WesErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

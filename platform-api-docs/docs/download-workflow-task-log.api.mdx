@@ -1,0 +1,71 @@
+---
+id: download-workflow-task-log
+title: "Download workflow task files"
+description: "Downloads the workflow files of the task identified by the given `taskId`."
+sidebar_label: "Download workflow task files"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVd9v0zAQ/lcsP4FUNQMqHvLEJgaaQDBtQ3uYKs1NLq3X1M5sp6OK8r9z5zhLsmVlRfSliX1333e/vlQ8BZsYWTipFY/5Z/2gci1Sy9wK2IM26yzXDyyTOVimM3/qhF0zmYJyMpOQssXOHy/lFhS7pduz9HbKJ9yJpeXxDW/DWD6fcF2AEYR2lvbwroPJFXp/10t0LoQRG3BgKETFFb6gfRsKnSdcEuNCuBU+D9NowzHrjFTLjq1BUwP3pTSA8M6UMOE2WcFG8LjiblcQSOPE63ryiNtktReTqDNVbsDI5EBAqRwsvWmmzUa45ujjbECBevCDHgOJ+xLM7hmLL2hFDsxplobi8tflSLW1hUigS3Qc47o1HE/3kPTmVB1baGXBksf7oyP6G+L9/IauicYoytGtKIpcJn6IojtLJtWLCfYwF1IJzKbG34TPxoBORMqoWWDdIYhdf2/4BqwVS6BJD0T04g4SilcYmn0nm0xbw7GWcCddTkenxmhzEQr0yPzDSInarWJKOyZynH3kQ+YWktJIt/NbdALCgDkucXzjmzlVH1dspWkTl+A50mTHPGr3LKq6jaujdqCiqtmHmnfxL6kcTWp9lMfsVs4V7XDQ+8Ib4Unz8KXt0t2D87ylyrR3D6W4hHtMkR2fnz2bx3B1ngtHzWYWzFYmKFiNMfVRJL6PpckDFRtHkfV+U6nRCFspcz+Ymf7UXSCRLUpQg/NuOptNj+is0NZthB+DsDytkHWa6WXSC+dTwlU3Wv9ZcJtSO/jtoiIXuMLI1edchc52Yozm8UBNe2oRB7nD+VhhpuRWVQth4ZfJ65qOG2GgkUqlFYuchj8TuYU9qb4gTaOk17AbSt5W5CWZcRKs12P+Rar2YA/VsIOf04uRhH9g/m8ugk68ZXu/T6OkwqFQuz6bPtnQyMPq0+P08vfrHwiFAarnaLkCkWIcKlZzeZwkULie2zN5HSjT19MrtBVDOXkiHz76KCUcXG9xpdeg6rpjSO9EsK7/AN6RHbQ=
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Download workflow task files"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/workflow/{workflowId}/download/{taskId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Downloads the workflow files of the task identified by the given `taskId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workflowId","in":"path","description":"Workflow string identifier","required":true,"schema":{"type":"string"}},{"name":"taskId","in":"path","description":"Task numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"fileName","in":"query","description":"Filename to download","schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"string","format":"binary"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

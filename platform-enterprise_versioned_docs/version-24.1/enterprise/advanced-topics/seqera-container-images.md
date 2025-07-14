@@ -1,13 +1,15 @@
 ---
 title: "Legacy Tower container image registries"
 description: Legacy Tower container deployments
-date created: "12 Apr 2023"
+date created: "2023-04-12"
+last updated: "2025-07-14"
 tags: [on-prem, prerequisites, configuration]
 ---
 
 :::caution
 The Seqera container registry `cr.seqera.io` is the default Tower container image registry from version 22.4. AWS, Azure, and Google Cloud Tower image registries in existing installations are still supported but are deprecated for **new installations** from June 2023.
 :::
+
 
     === "AWS"
         Seqera publishes legacy Tower Enterprise containers to a private Elastic Container Registry (ECR) on AWS. Retrieve them with the following steps:

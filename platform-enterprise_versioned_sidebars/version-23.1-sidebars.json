@@ -1,12 +1,11 @@
 {
   "platformSidebar": [
-    "index",
+    "platform-enterprise",
     {
       "type": "category",
       "label": "Getting started",
       "collapsed": true,
       "items": [
-        "getting-started/community-showcase",
         "getting-started/definitions",
         "getting-started/deployment-options",
         "getting-started/workspace"
@@ -97,7 +96,7 @@
           "type": "category",
           "label": "Software integration",
           "items": [
-            "supported_software/fusion/fusion",
+            "supported_software/fusion/overview",
             "supported_software/dragen/overview"
           ]
         },
@@ -119,7 +118,7 @@
       "label": "Installation guide",
       "collapsed": true,
       "items": [
-        "enterprise/index",
+        "enterprise/overview",
         {
           "type": "category",
           "label": "Prerequisites",
@@ -172,7 +171,7 @@
       "collapsed": true,
       "items": [
         "api/overview",
-        "cli/cli"
+        "cli/overview"
       ]
     },
     {
@@ -181,7 +180,7 @@
       "collapsed": true,
       "items": [
         "data-privacy/overview",
-        "limits/limits"
+        "limits/overview"
       ]
     },
     "faqs"

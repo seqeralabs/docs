@@ -1,0 +1,71 @@
+---
+id: list-mounted-data-link-ids
+title: "List mounted data-links"
+description: "Lists the IDs of all available data-links mounted in existing Studios. Append `orgId` or `?workspaceId` to list mounted data-links in an organization or workspace context, respectively."
+sidebar_label: "List mounted data-links"
+hide_title: true
+hide_table_of_contents: true
+api: eJzVVU1vGjEQ/SuWzxTSFvXApaVKW6GmatSk6qGKlGF3AAdjb+xZEor4753xLrAEStIql55Yez7efDw/ljrHmAVTkPFO9/SZiRQVTVANTqPyIwXWKpiDsTC0qHIgeGGNm0Y186UjzJVxCu85yrixuqAyNz62Vb8o0OXq2ofxIL9WPqjrt3c+TGMBGcoNeWU5aJOlkZgTguOQMTjzC6Quid9Eq8xzxD21VMBYYEZmjnbR1i1NMI6691PHqgp91dK+wJBSDPK6uS8V4CnjnTHcII8cWUCAGRIGiV9qxwd2T8Wz1chgbksMCz7sjutrs0pXzjCYTJkcHZmRwcD+MZvgDHRvqWlRSFbD8ONkGvkwA6qu3nT1atXaQDdmdbyAH5uxPCN6JKAyPtJ5+gBb71xtYvYgIwXmxg4A3me2zPEvETBGGfPgVNhTpxC2CFsDcpJI7aMFMCGEM95xKrG/OjmRnwewnzlH4pgjsUJRWJOlDXduorgs9yH88IaZKEwKQjkyFUDeYNnWGUIAadcQzuKhOlfMZUNW7oSnVf81cSVd/FZ3Ib7s3D15faCPNfWV8yTP2N9hLlvQEbMyGFokrr9HCBj6JU34eCUj4ocw8fJcxpg6AjHpTv2qOtuXqrepLmQgVc/NhJvWJkTFejVyHiYnvqk+Pq65eHNHqUTjRj6F12O4wFvuRvXPB3s0qU3nFkgozTQJc5NhrJ1lk5ClTZbB1qXEXqcTU1zbeHbiZRqbnsLIv9sauJA5a0KF87Ld7bZP5K7wkWaQiFDz+eywlD2sdbnl1f8ttNVSxdgpLPAb5qmk6S5rumxFuKUb82B2TXh4Yl8uhxDxe7CrlVxXEiCEzE2UCTABR2AjHhnh4+J7sNApLhriPgdbio8WeXo69iO6ewR4V9r/Ef6P6nsEeOPzXJhP1OMjJW3/B7Y1XckhGCkqKRJTBiHnqQo5qrB+lmFBjag9jd7RsU8fLtkXdhXpgQKl7Gt9dotGbiZq8rj0U3RM1nXtJGcGYgX+DRbyOds=
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List mounted data-links"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/studios/data-links"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Lists the IDs of all available data-links mounted in existing Studios. Append `orgId` or `?workspaceId` to list mounted data-links in an organization or workspace context, respectively.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"query","description":"Organization numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"status","in":"query","description":"Optional Studio status","schema":{"type":"string"}},{"name":"exclude","in":"query","description":"Optional Studio session ID to exclude in the request.","schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"dataLinkIds":{"type":"array","items":{"type":"string"}}},"title":"DataStudioMountedLinksResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      
