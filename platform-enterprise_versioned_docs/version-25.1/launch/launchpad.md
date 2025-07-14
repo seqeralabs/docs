@@ -20,18 +20,18 @@ The list layout is the default **Launchpad** view. Use the toggle next to the **
 ## Launch form
 
 :::note
-In Platform Enterprise version 24.2, the stepped launch form described below is enabled for all user and organization workspaces by default. You can disable the new launch form in some or all organization workspaces with the `TOWER_STEPPED_LAUNCH_FORM_ALLOWED_WORKSPACES` [environment variable](../../version-24.2/enterprise/configuration/overview#core-features). 
+In Platform Enterprise version 24.2, the stepped launch form described below is enabled for all user and organization workspaces by default. You can disable the new launch form in some or all organization workspaces with the `TOWER_STEPPED_LAUNCH_FORM_ALLOWED_WORKSPACES` [environment variable](../../enterprise/configuration/overview.mdx#core-features).
 
 Platform Cloud accounts use the new launch form in all user and organization workspaces.
 :::
 
 The launch form is used to launch pipelines and to add pipelines to the **Launchpad**. Select **Launch** next to a saved pipeline in the list, or select **launch a run without configuration** to perform a quick launch of an unsaved pipeline.
 
-The launch form consists of [General config](#general-config), [Run parameters](#run-parameters), and [Advanced options](#advanced-options) sections to specify your run parameters before execution, and an execution summary. Use section headings or select the **Previous** and **Next** buttons at the bottom of the page to navigate between sections. 
+The launch form consists of [General config](#general-config), [Run parameters](#run-parameters), and [Advanced options](#advanced-options) sections to specify your run parameters before execution, and an execution summary. Use section headings or select the **Previous** and **Next** buttons at the bottom of the page to navigate between sections.
 
-For saved pipelines, **General config** and **Run parameters** fields are prefilled and can be edited before launch. 
+For saved pipelines, **General config** and **Run parameters** fields are prefilled and can be edited before launch.
 
-### General config 
+### General config
 
 - **Pipeline to launch**: A Git repository name or URL. For saved pipelines, this is prefilled and cannot be edited. Private repositories require [access credentials](../credentials/overview).
   :::note
@@ -67,7 +67,7 @@ The dropdown of available config profiles is populated by inspecting the Nextflo
   ```groovy
   includeConfig params.custom_config_base ? "${params.custom_config_base}/nfcore_custom.config" : "/dev/null"
   ```
-  
+
   :::note
   Only the "true" branch is inspected.
   :::
@@ -81,7 +81,7 @@ The dropdown of available config profiles is populated by inspecting the Nextflo
   }
   ```
 
-### Run parameters 
+### Run parameters
 
 There are three ways to enter **Run parameters** prior to launch:
 
@@ -97,22 +97,22 @@ Specify compatible input [datasets](../data/datasets)  manually or from the drop
 - **outdir**
 Specify the output directory where run results will be saved manually, or select **Browse** to choose a cloud storage directory using [Data Explorer](../data/data-explorer).
 
-The remaining fields will vary for each pipeline, dependent on the parameters specified in the pipeline schema. 
+The remaining fields will vary for each pipeline, dependent on the parameters specified in the pipeline schema.
 
-### Advanced settings 
+### Advanced settings
 
-Enter [resource labels](../resource-labels/overview), [pipeline secrets](../secrets/overview), and [advanced options](../launch/advanced) before launch. 
+Enter [resource labels](../resource-labels/overview), [pipeline secrets](../secrets/overview), and [advanced options](../launch/advanced) before launch.
 
 #### Resource labels
 
-Use resource labels to tag the computing resources created during the workflow execution. While resource labels for the run are inherited from the compute environment and pipeline, admins can override them from the launch form. Applied resource label names must be unique. 
+Use resource labels to tag the computing resources created during the workflow execution. While resource labels for the run are inherited from the compute environment and pipeline, admins can override them from the launch form. Applied resource label names must be unique.
 
-#### Pipeline secrets 
+#### Pipeline secrets
 
 Secrets are used to store keys and tokens used by workflow tasks to interact with external systems. Enter the names of any stored user or workspace secrets required for the workflow execution.
 
-:::note 
-In AWS Batch compute environments, Seqera passes stored secrets to jobs as part of the Seqera-created job definition. Seqera secrets cannot be used in Nextflow processes that use a [custom job definition](https://www.nextflow.io/docs/latest/aws.html#custom-job-definition). 
+:::note
+In AWS Batch compute environments, Seqera passes stored secrets to jobs as part of the Seqera-created job definition. Seqera secrets cannot be used in Nextflow processes that use a [custom job definition](https://www.nextflow.io/docs/latest/aws.html#custom-job-definition).
 :::
 
 #### Advanced options
