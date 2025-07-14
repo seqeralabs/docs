@@ -13,12 +13,10 @@ import Heading from "@theme/Heading";
 import SchemaTabs from "@theme/SchemaTabs";
 import TabItem from "@theme/TabItem";
 import Export from "@theme/ApiExplorer/Export";
-import MDXComponents from "@theme-original/MDXComponents";
-import Button from "@site/src/components/Button";
 
 <span
   className={"theme-doc-version-badge badge badge--secondary"}
-  children={"Version: 1.39.0"}
+  children={"Version: 1.44.0"}
 >
 </span>
 
@@ -29,7 +27,9 @@ import Button from "@site/src/components/Button";
 >
 </Heading>
 
-The Seqera Platform services API is a programmatic interface for all operations available in the Platform web UI. This allows organizations to integrate Platform seamlessly into existing processes.
+
+
+Seqera Platform services API
 
 <div
   style={{"marginBottom":"2rem"}}
@@ -78,6 +78,18 @@ The Seqera Platform services API is a programmatic interface for all operations 
       </div>
     </TabItem>
   </SchemaTabs>
+</div><div
+  style={{"display":"flex","flexDirection":"column","marginBottom":"var(--ifm-paragraph-margin-bottom)"}}
+>
+  <h3
+    style={{"marginBottom":"0.25rem"}}
+  >
+    Contact
+  </h3><span>
+    [info@seqera.io](mailto:info@seqera.io)
+  </span><span>
+    URL: [https://seqera.io](https://seqera.io)
+  </span>
 </div>
 
 :::info
@@ -97,6 +109,21 @@ The API and its interactive reference documentation is built on the OpenAPI stan
 :::tip
 For more information on the OpenAPI standard, see [OpenAPI](https://swagger.io/specification/).
 :::
+
+### API versioning
+
+
+The API uses the [semantic versioning convention](https://semver.org/) (major.minor.patch). In the event that a breaking change is introduced in future versions, we will publish guidance on the v1 support schedule and steps to mitigate disruption to your production environment. The following do _not_ constitute breaking changes:
+
+- Adding new API endpoints, new HTTP methods to existing endpoints, request parameters, or response fields
+- Adding new values to existing enums or string constants
+- Expanding accepted input formats or value ranges
+- Adding new optional headers or query parameters
+- Improving error messages or adding new error codes
+- Deprecation warnings (without removal)
+
+Clients should be designed to gracefully handle unknown enum values, ignore unrecognized response fields, and not rely on specific error message text.
+
 
 ### Encoding and formatting standards
 
