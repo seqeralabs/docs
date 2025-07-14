@@ -9,7 +9,7 @@ tags: [fusion, storage, compute, file system, license, quotas]
 Fusion licensing requirements and free tier quotas will be enforced starting June 30th, 2025. [Contact Seqera](https://seqera.io/contact-us) with any questions or licensing requests.
 :::
 
-A Fusion license sets a specific quota for Fusion use, measured by total throughput per month (defined by [Nextflow’s I/O metrics](https://www.nextflow.io/docs/latest/metrics.html#i-o-usage)).
+A Fusion license sets a specific quota for Fusion use, measured by total throughput per month (defined by [Nextflow’s I/O metrics](https://www.nextflow.io/docs/latest/tutorials/metrics.html#i-o-usage)).
 
 ### For Seqera Cloud 
 
