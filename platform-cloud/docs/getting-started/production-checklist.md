@@ -5,9 +5,7 @@ date created: "2025-07-03"
 tags: [production, checklist, deployment, limitations, retry]
 ---
 
-This document provides guidance and best practices for your Seqera deployment as well as areas you should consider before you begin. 
-
-We recommend working with your sales team for guidance around your infrastructure when you go into production but this document should give you an idea of how to get everything set up so you’re ready to go without delays. 
+This document provides guidance and best practices for your Seqera deployment as well as areas you should consider before you begin. We recommend working with your sales team for additional guidance around your infrastructure prior to going into production.
 
 ## Workspaces
 
