@@ -218,7 +218,7 @@ export default function Home(): JSX.Element {
                           </Link>
                         </li>
                         <li>
-                          <Link to="/nextflow.io/cli">
+                          <Link to="nextflow/cli">
                             Nextflow CLI
                           </Link>
                         </li>
