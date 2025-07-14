@@ -43,7 +43,7 @@ The running container in the AWS Batch compute environment inherits the memory l
 
 By default, AWS Batch compute environments that are created with Batch Forge restrict access to S3 to the working directory only, unless additional **Allowed S3 Buckets** are specified. If the compute environment does not have write access to the mounted dataset, it will be mounted as read-only.
 
-## My Studio session with GPU isn't starting 
+## My Studio session with GPU isn't starting
 
 Check whether the instance type you selected [supports GPU](https://aws.amazon.com/ec2/instance-types/). If you specify multiple GPUs make sure that multi-GPU instances can be launched by your compute environment and are not limited by the maximum CPU config that you've set.
 
@@ -62,7 +62,7 @@ This is displayed because logging is set to `stderr` by default to ensure all lo
 
 ### VS Code
 
-When running an SCA security scan (e.g., with Trivy) on the latest Seqera-provided VS Code image [container template](../data_studios#container-image-templates), you may encounter multiple false-positive findings. This issue is due to how VSCode defines extensions, which can cause certain security scanners to incorrectly identify them as `npm` packages.
+When running an SCA security scan (e.g., with Trivy) on the latest Seqera-provided VS Code image [container template](../data_studios/overview#container-image-templates), you may encounter multiple false-positive findings. This issue is due to how VS Code defines extensions, which can cause certain security scanners to incorrectly identify them as `npm` packages.
 
 This is a known limitation and has been discussed in the Trivy community [here(https://github.com/aquasecurity/trivy/discussions/6112)].
 
