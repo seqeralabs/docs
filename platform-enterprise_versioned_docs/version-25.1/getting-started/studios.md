@@ -592,7 +592,7 @@ nextflow run nf-core/fetchngs -profile test,conda --outdir ./nf-core-fetchngs-co
 ### Write a Nextflow pipeline with nf-core tools 
 
 - Run `nf-core pipelines create` to create a new pipeline. Choose which parts of the nf-core template you want to use.
-- Run `code [NEW_PIPELINE]` to open the new pipeline as a project in VSCode. This allows you to code your pipeline with the help of the Nextflow language server and nf-core tools.
+- Run `code [NEW_PIPELINE]` to open the new pipeline as a project in VS Code. This allows you to code your pipeline with the help of the Nextflow language server and nf-core tools.
 
 ![VS Code Studio session](./_images/guide-vs-code-studio-nf-env-1080p-cropped.gif)
 
