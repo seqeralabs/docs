@@ -11,32 +11,30 @@ We recommend working with your sales team for guidance around your infrastructur
 
 ## Workspaces
 
-The first decision you need to make is how your organization is set up in Seqera Platform. The way you configure your organization, workspaces, and user roles will help make the onboarding process smooth.
-
-Organizations are the top-level structure and contain workspaces, members, and teams. 
+Organizations are the top-level structure and contain workspaces, members, and teams.
 
 You can create multiple organizations within Seqera Platform, each of which can also contain multiple workspaces with shared users and resources. This means you can customize and organize the use of resources while maintaining an access control layer for users associated with a workspace.
 
-Before you create your organizations and workspaces, think about the various roles and work streams that you’d like to start with and scale to. [Our documentation](https://docs.seqera.io/platform-cloud/orgs-and-teams/organizations) will provide you with the steps needed to set this up in Seqera Platform. 
+Before you create your organizations and workspaces, consider the various roles and work streams that you’d like to start with and scale to. [Our documentation](https://docs.seqera.io/platform-cloud/orgs-and-teams/organizations) covers the steps to follow in Seqera Platform.
 
 ## Users and roles
 
-After an organization is created, the user who created the organization is the default owner of that organization. Additional users can be assigned as organization owners. Owners have full read/write access to modify members, teams, collaborators, and settings within an organization.
+Once an organization is created, the user who created the organization is the default owner of that organization. Additional users can be assigned as organization owners. Owners have full read/write access to modify members, teams, collaborators, and settings within an organization.
 
-- A member is a user who is internal to the organization. 
+- A member is a user who is internal to the organization.
 - Members have an organization role and can operate in one or more organization workspaces.
 - In each workspace, members have a participant role that defines the permissions granted to them within that workspace.
 - Members can create their own workspaces within an organization and be part of a team.
 
 All users can be assigned roles which granulate the type of access and permissions they have to resources within Platform. 
 
-Before you dive into Platform, it’s a good idea to map out the expected users and their roles so you can ensure your plans are scalable. Read [our documentation](https://docs.seqera.io/platform-enterprise/25.1/orgs-and-teams/roles) for more information.
+It’s a good idea to map out the expected users and their roles so you can ensure your plans are scalable. Read [our documentation](https://docs.seqera.io/platform-enterprise/25.1/orgs-and-teams/roles) for more information.
 
 ## Infrastructure
 
 Infrastructural requirements differ widely based on the workload you’re expecting. 
 
-To begin with, build out a proof of concept using the below recommendations. This should give you an idea of your capacity requirements. Once you’re ready to move to production, take into account the increased workload you’d expect. Here are some starting points for estimating compute and database requirements.
+To begin with, build out a proof of concept using the below recommendations, to create a baseline of your capacity requirements. Once you’re ready to move to production, take into account the increased workload you’d expect. Here are some starting points for estimating compute and database requirements.
 
 ### Kubernetes
 
@@ -80,7 +78,7 @@ These autoscale for pipeline runs, but the sizing recommendation will be based o
 
 ## Spot instance retry strategy
 
-One way to mitigate issues is having a robust retry and resume strategy. Refer to [our retry strategy tutorial](https://docs.seqera.io/platform-cloud/tutorials/retry-strategy) about this for more information.   
+One way to mitigate issues is having a robust retry and resume strategy. Refer to [our retry strategy tutorial](https://docs.seqera.io/platform-cloud/tutorials/retry-strategy) about this for more information.  
 
 ## Cost management and alerts
 
