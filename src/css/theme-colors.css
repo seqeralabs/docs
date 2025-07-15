@@ -273,11 +273,18 @@ html[data-theme="dark"] {
   }
 
 }
+
+.theme-admonition,
+.theme-admonition.theme-admonition-note {
+  border: none;
+  border-color: transparent;
+}
 /* info and note  */
 .theme-admonition.theme-admonition-note,
 .theme-admonition.alert--info {
   background-color: var(--color-wave-100);
-  border-color: var(--color-wave-400);
+  /* border-color: var(--color-wave-400); */
+  
   a  {
     text-decoration-color: var(--color-wave-blu-700);
     color: var(--color-blu-700);
@@ -292,7 +299,7 @@ html[data-theme="dark"] {
 .theme-admonition.theme-admonition-tip,
 .theme-admonition.theme-admonition-success {
     background-color: var(--color-nextflow-100);
-    border-color: var(--color-nextflow-900);
+    /* border-color: var(--color-nextflow-900); */
     text-decoration-color: var(--color-nextflow-600);
     a {
       color: var(--color-nextflow-800);
@@ -318,9 +325,9 @@ html[data-theme="dark"]  {
       background: #403F43;
     }
   }
-  .details.alert--info {
+  /* .details.alert--info {
     border-color: #F1F1F1;
-  }
+  } */
 
   .theme-doc-version-banner {
     background: var(--color-multiqc-1000);
@@ -341,7 +348,7 @@ html[data-theme="dark"]  {
   }
   .theme-admonition.alert--success {
     background-color: var(--color-nextflow-1000);
-    border-color: var(--color-nextflow-100);
+    /* border-color: var(--color-nextflow-100); */
     text-decoration-color: var(--color-nextflow-200);
     a {
       color: var(--color-nextflow-200);
