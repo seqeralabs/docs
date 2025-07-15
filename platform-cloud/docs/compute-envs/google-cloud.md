@@ -1,0 +1,71 @@
+---
+title: "Google Cloud"
+description: "Instructions to set up an Google Cloud CE in Seqera Platform"
+date created: "2025-07-15"
+tags: [cloud, vm, google, compute environment]
+---
+
+# Google Cloud
+
+:::note
+This compute environment type is currently in public preview. Please consult this guide for the latest information on recommended configuration and limitations. his guide assumes you already have a GCP account with a valid GCP subscription.
+::: 
+
+Many of the current implementation of compute environments for cloud providers rely on the use of batch services such as AWS Batch, Azure Batch, and Google Batch for the execution and management of submitted jobs, including pipelines and Studio session environments. Batch services are suitable for large-scale workloads, but they add management complexity. In practical terms, the currently used batch services result in some limitations:
+
+- **Long launch delay**: When you launch a pipeline or Studio in a batch compute environment, there's a delay of several minutes before the pipeline or Studio session environment is in a running state. This is caused by the batch services that need to provision the associated compute service to run a single job.
+- **Complex setup**: Standard batch services require complex identity management policies and configuration of multiple services including compute environments, job queues, job definitions, etc.
+- **Allocation constraints**: Google Cloud and other cloud batch services have strict resource quotas. 
+
+The Google Cloud compute environment addresses these pain points with:
+
+- **Faster startup time**: Nextflow pipelines reach a `Running` status and Studio sessions connect in under a minute (a 4x improvement compared to classic AWS Batch compute environments).
+- **Simplified configuration**: Fewer configurable options, with opinionated defaults, provide the best Nextflow pipeline and Studio session execution environment, with both Wave and Fusion enabled.
+
+This type of compute environment is best suited to run Studios and small to medium-sized pipelines. It offers more predictable compute pricing, given the fixed instance types. It spins up a standalone Google Cloud Engine instance and executes a Nextflow pipeline or Studio session with a local executor on the Google Cloud Engine machine. At the end of the execution, the instance is terminated.
+
+## Limitations
+
+The Nextflow pipeline will run entirely on a single Google Cloud Engine instance. If the instance does not have sufficient resources, the pipeline execution will fail. For this reason, the number of tasks Nextflow can execute in parallel is limited by the number of cores of the instance type selected. If you need more computing resources, you must create a new compute environment with a larger instance type. This makes the compute environment less suited for larger, more complex pipelines.
+
+## Supported regions
+
+The following regions are currently supported: 
+
+- `eu-west-1`
+- `us-east-1`
+- `us-west-2`
+- `eu-west-2`
+- `us-east-2`
+- `eu-central-1`
+- `us-west-1`
+- `eu-west-3`
+- `ap-southeast-1`
+
+## Requirements
+
+### Platform credentials
+
+To create and launch pipelines or Studio sessions with this compute environment type, you must attach Seqera credentials for the cloud provider. Some permissions are mandatory for the compute environment to be created and function correctly; others are optional and used to pre-fill options in Platform.
+
+### Required permissions
+
+#### Service account permissions​
+
+[Create a custom service account](https://cloud.google.com/iam/docs/service-accounts-create#creating) with at least the following permissions:
+
+- Compute instance admin (`roles/compute.instanceAdmin.v1`)
+- Project IAM admin (`roles/resourcemanager.projectIamAdmin`)
+- Service Account Admin (`roles/iam.serviceAccountAdmin`)
+- Service Account User (`roles/iam.serviceAccountUser`)
+
+If your Google Cloud project does not require access restrictions on any of its Cloud Storage buckets, you can grant project Storage Admin (`roles/storage.admin`) permissions to your service account to simplify setup. To grant access only to specific buckets, add the service account as a principal [on each bucket individually](https://docs.seqera.io/platform-cloud/compute-envs/google-cloud-batch#cloud-storage-bucket). For each Google Cloud compute environment created in the Seqera platform, a separate service account is created with the necessary permissions to launch pipelines/studios.
+
+## Advanced options
+
+- **Use an ARM64 architecture instance**: Select this option to enable a ARM architecture instance to be created for your compute workload. Defaults to using a C4A machine series VM with Google's Arm-based Axion™ processor.
+- **User GPU-enabled instance**: Select this option to enable a GPU-enabled instance to be created for your compute workload. Defaults to using a A2 machine series VM with an NVIDIA A100 GPU.
+- **Instance type**: The Google Cloud Engine machine type used by the compute environment. Choosing the instance type will directly allocate the CPU and memory available for computation. See [Google machine type families](https://cloud.google.com/compute/docs/machine-resource) for a comprehensive list of instance types and their resource limitations.
+- **Image**: The image defining the operating system and pre-installed software for the VM. Currently only Ubuntu LTS Google public image project images are available and supported. For GPU-enabled instances a Deep Learning VM base image with CUDA pre-installed is automatically selected (See Google Deep Learning VM Images documentation for more details). In future, there will be optimized Seqera-owned custom images.
+- **Boot disk size**: The size of the boot disk for the Compute Engine instance. If undefined, a default 50 GB `gp3` volume will be used.
+- **Zone**: The specific zone within the selected region, where the VM will be provisioned (defaults to the first zone in the list alphabetically).
