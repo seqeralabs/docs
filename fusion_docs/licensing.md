@@ -14,7 +14,7 @@ A Fusion license sets a specific quota for Fusion use, measured by total pipelin
 ### For Seqera Cloud 
 
 - Seqera Platform will automatically add and manage a Fusion license on your behalf, up to the allowed usage quota. Seqera will track Fusion use for all pipelines run in Platform.
-- By default, Seqera Cloud provides a monthly free tier for Fusion that allows up to 100TB of throughput.    
+- By default, Seqera Cloud provides a monthly free tier for Fusion that allows up to 100 TB of throughput.
 - Once your quota is met or exceeded, you will be prevented from running additional Nextflow pipelines with Fusion.
 
 ### For Seqera Enterprise instances with connectivity to Seqera’s license server
