@@ -17,11 +17,15 @@ Each Studio is reachable at a unique URL that includes a randomly generated subd
 
 Provide a wildcard TLS certificate to allow for uniquely generated subdomains. A wildcard certificate common name includes `*.` in the domain name, such as `*.example.com`, thereby securing any subdomain name at this level.
 
+:::info
+If your Enterprise deployment needs to have custom subdomains and/or needs non-wildcard certificates you can enable path-based routing for Studios. To do this, add the  `TOWER_DATA_STUDIO_ENABLE_PATH_ROUTING=true` environment variable to the `tower.env` file. Path routing is only available from Seqera Platform 25.2 and the latest Connect server and clients. It is supported for VS Code, Jupyter, and R-IDE. It is not supported for xpra.
+:::
+
 Studios uses the following set of domains and subdomains:
 
 - The domain that you set for `TOWER_SERVER_URL`, such as `example.com`.
 - A wildcard subdomain that you must configure specifically for Studios. This wildcard subdomain is the parent for each unique session URL, such as `abcd.example.com`.
-- The connection proxy, defined by `CONNECT_PROXY_URL`. This URL is a first-level subdomain of your `TOWER_SERVER_URL`. For example, `https://connect.example.com`. 
+- The connection proxy, defined by `CONNECT_PROXY_URL`. This URL is a first-level subdomain of your `TOWER_SERVER_URL`. For example, `https://connect.example.com`.
 
 ## Studios workspace availability
 
