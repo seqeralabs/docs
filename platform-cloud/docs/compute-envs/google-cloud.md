@@ -68,7 +68,7 @@ If your Google Cloud project does not require access restrictions on any of its 
 - **User GPU-enabled instance**: Select this option to enable a GPU-enabled instance to be created for your compute workload. Defaults to using an [A2 machine series](https://cloud.google.com/compute/docs/gpus) VM with an NVIDIA A100 GPU.
 - **Instance type**: The Compute Engine machine type used by the compute environment. Choosing the instance type will directly allocate the CPU and memory available for computation. See the [machine resource type documentation](https://cloud.google.com/compute/docs/machine-resource) for a comprehensive list of instance types and their resource limitations.
   - :::note
-    It is not possible to specify instance templates with predefined machine types, storage, boot strapped, etc.
+    It is not possible to specify instance templates with predefined machine types, storage, bootstrapped, etc.
     :::  
 - **Image**: The image defining the operating system and pre-installed software for the VM. Currently only [Ubuntu LTS](https://cloud.google.com/compute/docs/images/os-details#ubuntu_lts) Google public image project images are available and supported. For GPU-enabled instances, a Deep Learning VM base image with CUDA pre-installed is automatically selected (See [Google Deep Learning VM Images](https://cloud.google.com/deep-learning-vm/docs/images#base_versions) for more details). Optimized, Seqera-owned custom images will be available in a future release.
 - **Boot disk size**: The size of the boot disk for the Compute Engine instance. A standard persistent disk (`pd-standard`) is used. If undefined, a default 50 GB volume will be used.
