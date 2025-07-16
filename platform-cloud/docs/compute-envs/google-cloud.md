@@ -58,6 +58,7 @@ To create and launch pipelines or Studio sessions with this compute environment 
 - Project IAM admin (`roles/resourcemanager.projectIamAdmin`)
 - Service Account Admin (`roles/iam.serviceAccountAdmin`)
 - Service Account User (`roles/iam.serviceAccountUser`)
+- Service Usage Consumer (`roles/serviceusage.serviceUsageConsumer`)
 
 If your Google Cloud project does not require access restrictions on any of its Cloud Storage buckets, you can grant project Storage Admin (`roles/storage.admin`) permissions to your service account to simplify setup. To grant access only to specific buckets, add the service account as a principal [on each bucket individually](https://docs.seqera.io/platform-cloud/compute-envs/google-cloud-batch#cloud-storage-bucket). For each Google Cloud compute environment created in the Seqera platform, a separate service account is created with the necessary permissions to launch pipelines/studios.
 
@@ -70,5 +71,5 @@ If your Google Cloud project does not require access restrictions on any of its 
     It is not possible to specify instance templates with predefined machine types, storage, boot strapped, etc.
     :::  
 - **Image**: The image defining the operating system and pre-installed software for the VM. Currently only [Ubuntu LTS](https://cloud.google.com/compute/docs/images/os-details#ubuntu_lts) Google public image project images are available and supported. For GPU-enabled instances a Deep Learning VM base image with CUDA pre-installed is automatically selected (See the [Google Deep Learning VM Images documentation](https://cloud.google.com/deep-learning-vm/docs/images#base_versions) for more details). In future, there will be optimized Seqera-owned custom images.
-- **Boot disk size**: The size of the boot disk for the Compute Engine instance. If undefined, a default 50 GB gp3 volume will be used.
+- **Boot disk size**: The size of the boot disk for the Compute Engine instance. A standard persistent disk (`pd-standard`) is used. If undefined, a default 50 GB volume will be used.
 - **Zone**: The specific [zone](https://cloud.google.com/compute/docs/regions-zones) within the selected region, where the VM will be provisioned (defaults to the first zone in the list alphabetically).
