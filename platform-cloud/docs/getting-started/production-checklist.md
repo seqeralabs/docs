@@ -77,7 +77,7 @@ These autoscale for pipeline runs, but the sizing recommendation will be based o
 
 ## Spot instance retry strategy
 
-One way to mitigate issues is having a robust retry and resume strategy. Refer to [our retry strategy tutorial](https://docs.seqera.io/platform-cloud/tutorials/retry-strategy) about this for more information.  
+One way to mitigate issues is having a robust retry and resume strategy. Refer to [our retry strategy tutorial](https://docs.seqera.io/platform-cloud/tutorials/retry-strategy) for more information.  
 
 ## Cost management and alerts
 
