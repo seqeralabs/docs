@@ -65,7 +65,7 @@ If your Google Cloud project does not require access restrictions on any of its 
 ## Advanced options
 
 - **Use an ARM64 architecture instance**: Use an ARM64 architecture instance: Select this option to enable a ARM architecture instance to be created for your compute workload. Defaults to using a [C4A machine series](https://cloud.google.com/compute/docs/general-purpose-machines#c4a_series) VM with Google's Arm-based Axion™ processor.
-- **User GPU-enabled instance**: Select this option to enable a GPU-enabled instance to be created for your compute workload. Defaults to using an [A2 machine series](https://cloud.google.com/compute/docs/gpus) VM with an NVIDIA A100 GPU.
+- **User GPU-enabled instance**: Select this option to enable a GPU-enabled instance to be created for your compute workload. This option defaults to using an [A2 machine series](https://cloud.google.com/compute/docs/gpus) VM with an NVIDIA A100 GPU.
 - **Instance type**: The Compute Engine machine type used by the compute environment. Choosing the instance type will directly allocate the CPU and memory available for computation. See the [machine resource type documentation](https://cloud.google.com/compute/docs/machine-resource) for a comprehensive list of instance types and their resource limitations.
   - :::note
     It is not possible to specify instance templates with predefined machine types, storage, bootstrapped, etc.
