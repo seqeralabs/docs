@@ -18,7 +18,7 @@ Many of the current implementations of compute environments for cloud providers 
 
 The Google Cloud compute environment addresses these pain points with:
 
-- **Faster startup time**: By eliminating the per-task overhead of VM provisioning, environment bootstrapping, and container image pulling that occurs with traditional batch, Nextflow pipelines reach a `Running` status and Studio sessions connect in under a minute (a 4x improvement compared to classic AWS Batch compute environments).
+- **Faster startup time**: By eliminating the per-task overhead of VM provisioning, environment bootstrapping, and container image pulling that occurs with traditional batch, Nextflow pipelines reach a `Running` status and Studio sessions connect in under a minute (a 4x improvement compared to classic GCP Batch compute environments).
 - **Simplified configuration**: Fewer configurable options, with opinionated defaults, provide the best Nextflow pipeline and Studio session execution environment, with both Wave and Fusion enabled.
 - **Fewer GCP dependencies**: Direct use of Compute Engine eliminates the reliance on Google Batch APIs and reduces the required IAM permissions to core services (Compute Engine, Cloud Storage, and IAM), resulting in a simpler architecture with fewer potential points of failure.
 
