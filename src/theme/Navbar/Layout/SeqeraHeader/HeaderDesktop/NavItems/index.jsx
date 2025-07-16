@@ -104,7 +104,7 @@ const NavItems = ({ isDark = false, hideMenu }) => {
               </ActiveLink>
             </li>
             <li>
-            <ActiveLink url="/nextflow/nextflow" customClasses={`mr-6`}> 
+            <ActiveLink url="/nextflow" customClasses={`mr-6`}> 
                 Nextflow
               </ActiveLink>
             </li>

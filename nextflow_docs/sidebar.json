@@ -1,6 +1,6 @@
 {
     "sidebar": [
-        "nextflow",
+        "index",
         {
         "type": "category",
         "label": "Getting started",
@@ -109,7 +109,7 @@
                 {
                     "type": "category",
                     "label": "Migration notes",
-                    "link": { "type": "doc", "id": "migrations/notes" },
+                    "link": { "type": "doc", "id": "migrations/index" },
                     "items": [
                         "migrations/25-10",
                         "migrations/25-04",
@@ -125,7 +125,7 @@
             "label": "Contributing",
             "collapsed": true,
             "items": [
-                "developer/overview",
+                "developer/index",
                 "developer/diagram",
                 {
                     "type": "category",
