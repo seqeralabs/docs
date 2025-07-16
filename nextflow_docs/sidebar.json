@@ -159,6 +159,15 @@
         },
         {
             "type": "category",
+            "label": "Guides",
+            "collapsed": true,
+            "items": [
+                "guides/aws-java-sdk-v2",
+                "guides/updating-spot-retries"
+            ]
+        },
+        {
+            "type": "category",
             "label": "Tutorials",
             "collapsed": true,
             "items": [
@@ -166,15 +175,6 @@
                 "tutorials/flux",
                 "tutorials/metrics",
                 "tutorials/workflow-outputs"
-            ]
-        },
-        {
-            "type": "category",
-            "label": "Guides",
-            "collapsed": true,
-            "items": [
-                "guides/aws-java-sdk-v2",
-                "guides/updating-spot-retries"
             ]
         }
     ]
