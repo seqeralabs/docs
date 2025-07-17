@@ -1,14 +1,15 @@
 ---
 title: "Audit logs"
 description: An overview of application event audit logs in the Admin panel
-date: "08 Apr 2024"
+date created: "2024-04-08"
+last updated: "2025-07-17"
 tags: [logging, audit logs, admin panel]
 ---
 
 Root users can view application event audit logs from the [Admin panel](../administration/overview) **Audit logs** tab.
 
 :::info
-Application event audit logs are retained for 365 days by default. In Platform Enterprise, this retention period can be [customized](../../version-24.2/enterprise/configuration/overview#logging).
+Application event audit logs are retained for 365 days by default. In Platform Enterprise, this retention period can be [customized](../enterprise/configuration/overview#logging).
 :::
 
 ### Audit log event format

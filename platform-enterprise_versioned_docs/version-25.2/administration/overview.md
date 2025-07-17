@@ -8,7 +8,7 @@ tags: [administration, user, workspace, organization]
 As a root user, you can access a comprehensive overview of the organizations, workspaces, users, and teams in your account from the **Admin panel**. It also includes tabs for application event audit logs, administrative statistics, and system configuration options. The root user system role should only be assigned to a system administrator as it provides high-level visibility and configuration access to your account.
 
 :::tip
-See [Basic configuration](../../version-24.2/enterprise/configuration/overview#basic-configuration) to learn how to add root users to your Seqera Enterprise deployment with the `TOWER_ROOT_USERS` environment variable.
+See [Basic configuration](../enterprise/configuration/overview#basic-configuration) to learn how to add root users to your Seqera Enterprise deployment with the `TOWER_ROOT_USERS` environment variable.
 :::
 
 ## Manage organizations

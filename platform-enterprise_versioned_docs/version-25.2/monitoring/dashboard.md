@@ -1,14 +1,16 @@
 ---
 title: "Dashboard"
 description: "View pipeline run status overview in Seqera Platform."
-date: "21 Apr 2023"
-tags: [dashboard, pipeline runs, monitoring]
+date created: "2023-04-21"
+last updated: "2025-07-17"
+tags: [dashboard, pipeline runs, fusion, monitoring]
 ---
 
 The Seqera Platform **Dashboard** is accessed from the user menu and provides an overview of:
 
 - Pipeline runs in your personal and organization workspaces.
 - Studio sessions in your organization workspaces only.
+- Fusion usage in your organization workspaces.
 
 ## Pipelines
 
@@ -51,6 +53,9 @@ The **Dashboard** view defaults to all organizations and workspaces you can acce
 
 Select **Export data** in the view panel near the top of the page to export a CSV of the dashboard data for the selected organizations and workspaces.
 
+## Fusion
+
+Select a workspace from the drop-down menu to view Fusion usage for the current and previous month. The usage is displayed in GB and shows a percentage change from the previous month.
 
 <!-- links -->
-[ds]: ../studios/index
+[ds]: ../studios/overview
