@@ -201,6 +201,7 @@ Stop the active session to trigger a snapshot from the active volume. The snapsh
 
 {/* links */}
 [contact]: https://support.seqera.io/
+[aws-cloud]: ../compute-envs/aws-cloud
 [aws-batch]: ../compute-envs/aws-batch
 [custom-envs]: ./custom-envs
 [build-status]: ./custom-envs#build-status
