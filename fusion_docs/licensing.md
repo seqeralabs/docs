@@ -24,5 +24,5 @@ A Fusion license sets a specific quota for Fusion use, measured by total pipelin
 
 ### For Seqera Enterprise instances without network connectivity, and direct Fusion use with Nextflow  
 
-- Run Fusion by using a Cloud API via Nextflow’s `TOWER_ACCESS_TOKEN` environment variable in the `nextflow.config` file.
+- Run Fusion using the [`TOWER_ACCESS_TOKEN` environment variable](https://www.nextflow.io/docs/latest/reference/config.html#tower) to allow Nextflow to connect to Seqera Cloud.
 - Throughput counts towards the free or paid usage associated with your Cloud organization.
