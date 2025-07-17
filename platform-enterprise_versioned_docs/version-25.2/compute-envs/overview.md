@@ -14,7 +14,6 @@ Each compute environment must be configured to enable Seqera to submit tasks. Se
 - [AWS Batch](./aws-batch)
 - [Azure Batch](./azure-batch)
 - [Google Cloud Batch](./google-cloud-batch)
-- [Google Life Sciences](./google-cloud-lifesciences)
 - [Grid Engine](./hpc)
 - [Altair PBS Pro](./hpc)
 - [IBM LSF](./hpc)
