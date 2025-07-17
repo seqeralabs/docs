@@ -1,7 +1,8 @@
 ---
 title: "Git integration"
 description: "Connecting to Git repositories in Seqera Platform."
-date: "24 Jun 2024"
+date created: "2024-06-24"
+last updated: "2025-07-17"
 tags: [git]
 ---
 
@@ -197,4 +198,4 @@ To connect to a private AWS CodeCommit repository, see the [AWS documentation](h
 
 ### Self-hosted Git
 
-Seqera Platform Enterprise supports Git server endpoints. For more information, see [Git configuration](../version-24.2/enterprise/configuration/overview#git-integration) in the Enterprise installation guide.
+Seqera Platform Enterprise supports Git server endpoints. For more information, see [Git configuration](../enterprise/configuration/overview#git-integration).
