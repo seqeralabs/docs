@@ -97,7 +97,7 @@ To see the list of all R-IDE image templates available, including security scan 
 
 The following [conda-forge](https://conda-forge.org/) packages are available by default:
 
-- `python=3.13`
+- `python=3.13.5`
 - `pip=24.2`
 
 To install additional extensions during a running Studio session, select **Extensions**. Additional system-level packages can be installed in a terminal window using `apt install <packagename>`.
