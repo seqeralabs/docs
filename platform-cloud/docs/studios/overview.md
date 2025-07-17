@@ -28,9 +28,19 @@ Currently, Studios supports [AWS Cloud][aws-cloud] and [AWS Batch][aws-batch] co
 
 ## Limitations
 
+### Including an EFS File System
+
 If you configured your compute environment to include an EFS file system with **EFS file system > EFS mount path**, the mount path must be explicitly specified. The mount path cannot be the same as your compute environment work directory. If the EFS file system is mounted as your compute environment work directory, snapshots cannot be saved and sessions fail. To mount an EFS volume in a Studio session (for example, if your organization has a custom, managed, and standardized software stack in an EFS volume), add the EFS volume to the compute environment (system ID and mount path). The volume will be available at the specified mount path in the session.
 
 For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
+
+### Custom subdomains/non-wildcard SSL/TLS certificates
+
+Connect, the Studios webserver, uses dynamic subdomains to manage session routing of requests. This requires a wildcard SSL/TLS certificate. For Enterprise deployments that cannot use a wildcard SSL/TLS certificate or that require custom subdomains, an optional configuration environment variable can be added (`TOWER_DATA_STUDIO_ENABLE_PATH_ROUTING = True`). Setting this configures Studios requests to use path-based routing, which does not require a wildcard SSL/TLS certificate and allows custom subdomains.
+
+:::warning
+Path-based routing is only supported for the Seqera-provided JupyterLab, R-IDE Server, and Visual Studio Code container template images (and custom environments built from each). Xpra and user-defined [custom container template images](./custom-envs.md#custom-containers) are not supported.
+:::
 
 ## Container image templates
 
