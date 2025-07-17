@@ -54,7 +54,7 @@ Select **Export data** in the view panel near the top of the page to export a CS
 
 ## Fusion
 
-Select a workspace from the drop-down menu to view a Fusion usage comparison between the current month and the previous month. The usage value is displayed in GB with a percentage comparison against usage in the previous month).
+Select a workspace from the drop-down menu to view Fusion usage for the current and previous month. The usage is displayed in GB and shows a percentage change from the previous month.
 
 <!-- links -->
 [ds]: ../studios/overview
