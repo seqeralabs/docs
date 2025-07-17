@@ -186,7 +186,7 @@ Batch Forge automatically creates resources that you may be charged for in your 
     - To create a new EFS file system, enter the **EFS mount path**. We advise that you specify `/mnt/efs` as the EFS mount path.
     - EFS file systems created by Batch Forge are automatically tagged in AWS with `Name=TowerForge-<id>`, with `<id>` being the compute environment ID. Any manually-added resource label with the key `Name` (capital N) will override the automatically-assigned `TowerForge-<id>` label.
     :::warning
-    EFS file systems are compatible with [Studios](../studios/index), **except** when using the EFS file system as your **work directory**. 
+    EFS file systems are compatible with [Studios](../studios/overview), **except** when using the EFS file system as your **work directory**. 
     :::
 1. To use **FSx for Lustre**, you can either select **Use existing FSx file system** and specify an existing FSx instance, or select **Create new FSx file system** to create one. To use the FSx file system as your work directory, specify `<your_FSx_mount_path>/work` in the **Pipeline work directory** field (step 8 of this guide).
     - To use an existing FSx file system, enter the **FSx DNS name** and **FSx mount path**. The FSx mount path is the path where the FSx volume is accessible to the compute environment. For simplicity, we recommend that you use `/mnt/fsx` as the FSx mount path.

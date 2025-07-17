@@ -109,7 +109,7 @@ CMD ["/usr/bin/bash", "-c", "python3 -m http.server $CONNECT_TOOL_PORT"]
 ```
 ### Getting started with custom containers template images
 
-You can review a series of example custom studio environment container template images [here](custom-studios-examples).
+You can review a series of example custom studio environment container template images [here][custom-studios-examples].
 
 ### Inspect container augmentation build status {#build-status}
 
@@ -127,7 +127,7 @@ To inspect the status of an ongoing build, or a successful or failed build, comp
 
 {/* links */}
 [add-s]: ./managing#add-a-studio
-[wave]: ../../version-24.2/enterprise/configuration/wave
+[wave]: ../version-24.2/enterprise/configuration/wave
 [custom-studios-examples]: https://github.com/seqeralabs/custom-studios-examples
 [wave-home]: https://seqera.io/wave/
 [env-manually]: https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-file-manually
