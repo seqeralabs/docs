@@ -66,6 +66,7 @@
               "compute-envs/aws-cloud",
               "compute-envs/azure-batch",
               "compute-envs/google-cloud-batch",
+              "compute-envs/google-cloud",
               "compute-envs/google-cloud-lifesciences",
               "compute-envs/eks",
               "compute-envs/gke",
