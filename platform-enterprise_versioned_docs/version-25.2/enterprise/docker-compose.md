@@ -15,9 +15,9 @@ The DB or Redis volume is persistent after a Docker restart by default. Use the 
 
 ## Deploy Seqera Enterprise
 
-1. Download and configure [tower.env](_templates/docker/tower.env). See [Configuration](../configuration/overview#basic-configuration) for detailed instructions.
+1. Download and configure [tower.env](_templates/docker/tower.env). See [Configuration](./configuration/overview#basic-configuration) for detailed instructions.
 
-2. Download and configure [tower.yml](_templates/docker/tower.yml). See [Configuration](../configuration/overview#basic-configuration) for detailed instructions.
+2. Download and configure [tower.yml](_templates/docker/tower.yml). See [Configuration](./configuration/overview#basic-configuration) for detailed instructions.
 
 3. Download and configure the [docker-compose.yml](_templates/docker/docker-compose.yml) file:
 

@@ -78,7 +78,7 @@ This is displayed because logging is set to `stderr` by default to ensure all lo
 
 ### VS Code
 
-When running an SCA security scan (e.g., with Trivy) on the latest Seqera-provided VS Code image [container template](../studios#container-image-templates), you may encounter multiple false-positive findings. This issue is due to how VS Code defines extensions, which can cause certain security scanners to incorrectly identify them as `npm` packages.
+When running an SCA security scan (e.g., with Trivy) on the latest Seqera-provided VS Code image [container template](../studios#custom-envs), you may encounter multiple false-positive findings. This issue is due to how VS Code defines extensions, which can cause certain security scanners to incorrectly identify them as `npm` packages.
 
 This is a known limitation and has been discussed in the Trivy community [here(https://github.com/aquasecurity/trivy/discussions/6112)].
 
