@@ -66,6 +66,7 @@
               "compute-envs/aws-cloud",
               "compute-envs/azure-batch",
               "compute-envs/google-cloud-batch",
+              "compute-envs/google-cloud",
               "compute-envs/google-cloud-lifesciences",
               "compute-envs/eks",
               "compute-envs/gke",
@@ -108,7 +109,6 @@
           "label": "Monitor runs",
           "items": [
             "monitoring/overview",
-            "monitoring/dashboard",
             "monitoring/run-details"
           ]
           },
@@ -134,7 +134,8 @@
         "items": [
           "orgs-and-teams/organizations",
           "orgs-and-teams/workspace-management",
-          "orgs-and-teams/roles"
+          "orgs-and-teams/roles",
+          "monitoring/dashboard"
           ]
       },
       {
