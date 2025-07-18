@@ -11,6 +11,7 @@ For more information, see:
 - [Seqera documentation](#seqera-documentation)
   - [Architecture](#architecture)
     - [Seqera Platform](#seqera-platform)
+    - [Nextflow](#nextflow)
     - [Wave](#wave)
   - [Writing new content](#writing-new-content)
   - [Fixing legacy content](#fixing-legacy-content)
@@ -19,7 +20,7 @@ For more information, see:
 
 ## Architecture
 
-Contentful/relevant files include:
+Relevant files/folders include:
 
 ```
 ├── README.md
@@ -35,7 +36,11 @@ Contentful/relevant files include:
 │   ├── version-23.2.0-sidebars.json
 │   └── version-23.3.0-sidebars.json
 ├── platform-enterprise_versions.json
-└── wave_docs // Git submodule
+├── nextflow_docs
+│   └── sidebar.json
+└── wave_docs
+    └── sidebar.json
+
 ```
 
 ### Seqera Platform
@@ -44,11 +49,13 @@ The Platform documentation is versioned and lives in the `platform-enterprise_ve
 
 We have a script which can select a commit (or ideally release tag) to be used for publishing a new version on the docs website.
 
+### Nextflow
+
+Wave documentation is pulled from the [`nextflow-io/nextflow`](https://github.com/nextflow-io/nextflow) repo during the docs build. It is not versioned and lives in the `nextflow_docs` directory. Changes to the Nextflow documentation must be made in the [`nextflow-io/nextflow`](https://github.com/nextflow-io/nextflow) repo.
+
 ### Wave
 
-Wave documentation is available as a Git submodule. Wave documentation is not versioned, and lives in the `wave_docs` directory. Changes to the Wave documentation must be made in the [Wave repo](https://github.com/seqeralabs/wave/tree/master/docs). To enable access to the Wave docs in the submodule, after cloning this repository you must run `git submodule update --init --recursive`.
-
-To incorporate documentation changes from the Wave repository, run the following command: `git submodule update --recursive --remote`. This is mandatory, or published documentation cannot reflect any changes made to the Wave documentation since this command was last run. If you accidentally run the aforementioned command and want to revert, run the following command to revert to the previous commit ID for the Wave repository: `git submodule update --init`.
+Wave documentation is pulled from the [seqeralabs/wave/](https://github.com/seqeralabs/wave/) repo during the docs build. It is not versioned and lives in the `wave_docs` directory. Changes to the Wave documentation must be made in the [Wave](https://github.com/seqeralabs/wave/tree/master/docs) repo.
 
 ## Writing new content
 
