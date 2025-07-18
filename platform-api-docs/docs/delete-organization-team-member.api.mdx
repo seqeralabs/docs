@@ -5,7 +5,7 @@ description: "Deletes the team member identified by the given `memberId`."
 sidebar_label: "Delete team member"
 hide_title: true
 hide_table_of_contents: true
-api: eJy1VE1v2zAM/SuCThuQxdkW7JDTWjQDin0VbXcKAlSxGVutLbmSnC4z/N9HSrKTfqwFsu1kmXqkHslHtjwDmxpZO6kVn/ETKMGBZa4A5kBUrIJqBYbJDJSTawkZW239bS43oNhVuD/NrsZ8xJ3ILZ8tOHlavhxxXYMRFPo0G4J/N7lQ8pc3XyLwq4+A3rUwokKAoRgtV/iDTtrk6DzikujVwhV4vs95PyBTTQVGpjvCFNnAbSMNIAdnGhhxmxZQCT5rudvW9IhUDnIPXWtTCRdMH6a860YDE8rqBSqUz/+k0Ff7WRKhoP+expLcba2VBUse7yZT+jxoxmf2hn3TLNUYSDnejfh0MnmMOxYZIzJgHb7VoxEm6rqUqW9mcm0J2+6x3PFfYDGsFTmQziJ5vbqGlOLVhpTnZCDaA3dZWmekyqm03ElXkmlujDbnMT+86Tzz909k2GuaKe2YKEt9h3wIbiFtjHRbL99jEAbMUYMNmi2WVDzUdqFpDjI/B17xdMsT1LhNWq/0LvHDk7RBbV0SWo6GvvddMvj3D15QfUKu+88O6RbO1Tw2m/5XHoSWcPjUd/r6zvlEpFpr7x5rcwG3mDM7Ojt9JLZ4dVYKR4JhFsxGprhBApgaK1Lf2MaUkYqdJYn1fmOpEYS9laUX2lp/3F0gkQ1mHt55O55OxxOy1dq6SnhdxKkIe2V/Xz2k2e4U9rcrLlTUwU+X1KXAKURKPrU2tnNBK8sidNavrrAO0TBskNhUsu2NdOwrSqXAHClS266EhR+m7Doy47gYUhceN8JIsaLuoNYyaemM2lqL0sIzyb86jwP0mr28Np/MNRqF2nJiUTb0h8cb2A7bmjbWQZz+vD8P4BKrfTCZ5/boAXSGRndLxBYgMoxE3QvXR2kKtdtzfLQI7+2Qk/mX+eUc4eL+qD8Ybf/Ak7xQWh5xqW9AobyGqtE/cey630Z0xmw=
+api: eJzFVU1v2zAM/SuCThvgxNmW7ZDTWjQDin0VXXcKAlSxGVutbamS3DYz/N9HSraTtF0LZAN2ikyR1CP5HtPwFGxipHZSVXzGT6AAB5a5HJgDUbISyhUYJlOonFxLSNlq428zeQsVuwz3p+nlmEfciczy2YJTpOXLiCsNRlDq03RI/t1kopK/vPkCHb/6DBithRElOhjK0fAKPzBImQyDIy4JnhYux/M+5t2ErKpLMDLZAqbMBm5qaQAxOFNDxG2SQyn4rOFuo+kRWTnIvOtamVK4YPow5W3E70dWg7gGYTcjD3Gk/MuiCOnaaMBKdb8Alir+vyD7iT0LMwzlnwNtlxRutaosWIp4O5nSz4OBfmYj9k2xRGGiylF908nksd+xSBmBAevwrd4b3YTWhUw8IeIrS77NDsot/gU2w1qRAXG1A69WV5BQPm2IvU4GoL3jtkrrjKwyrAlDpSvINDdGmfOuPrxpPfJ3T1TY64JVyjFRFOoO8ZC7haQ20m28BI5BGDBHNQ5otlhS81AfuSItpV5LXjV0y2PUiY0br5Y29gKMm8DHNg4jR0M/+zYe4i2Y215ytUG68Nw5bWdxLLQcJ4Wq07GFG8Q7looThh7iD+po6M4u0KFBlId39KDvlXdCSzh86rlxded86bJaKx/edfOHf5UdnZ0+omd3dVYIRxRjVIRMcG8FZ6KCSDwV9kvaFhJxZIMsPDXX6uNOhRGnfoR33oyn78cTsmllXSk8kzodhW22uyUfwmy2nPzbxRo66uDexboQqFuE5EtrOgIsaFFadJ31CzMsYTQMW6mjAdl2lkDHBBxsjjVSpqZZCQs/TdG2ZEaBGeIjHm+FkWJF00G2pNLSGdm4FoWFZ4p/dd5J7jV7eVk/WWtnFNWGE4qipi88XsNm+I+gHXcQpj/v5AOwdN0+GMxzm/cAOMOg2yX65iBSzETTC9dHSQLa7QQ+Wp17W+dk/mV+MUd3sS/1B9L2DzyJC6nlPS7UNVRIr6Fr9E0Y2/Y3fETxMQ==
 sidebar_class_name: "delete api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -47,7 +47,7 @@ Deletes the team member identified by the given `memberId`.
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"teamId","in":"path","description":"Team numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"memberId","in":"path","description":"Member numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"},"x-speakeasy-param-optional":true},{"name":"teamId","in":"path","description":"Team numeric identifier","required":true,"schema":{"type":"integer","format":"int64"},"x-speakeasy-param-optional":true},{"name":"memberId","in":"path","description":"Member numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
 >
   
 </ParamsDetails>
