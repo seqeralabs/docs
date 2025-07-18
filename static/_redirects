@@ -30,6 +30,7 @@
 # Data Studios redirect
 /platform/:version/data_studios/*    /platform-cloud/studios/:splat  301
 /platform-cloud/data_studios/*   /platform-cloud/studios/:splat 301
+/platform-enterprise/24.1/enterprise/studios /platform-enterprise/24.1/enterprise/data-studios: splat 301
 
 
 # Redirect to fix temporarily broken URL in UI
