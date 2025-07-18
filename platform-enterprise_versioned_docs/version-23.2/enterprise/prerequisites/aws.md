@@ -46,6 +46,10 @@ An external database (i.e. external to your Docker Compose or Kubernetes deploym
 
 If you decide to use an external database, you must create a MySQL user and database manually. See [Configuration](../configuration/database_and_redis) for more details.
 
+### Redis-compatible cache
+
+An external Redis-compatible cache, such as one provided by [Amazon ElastiCache](https://aws.amazon.com/elasticache/), is highly recommended for production deployments.
+
 ### EC2 instance (Docker Compose)
 
 An [EC2](https://aws.amazon.com/ec2/) instance is required to deploy Tower via Docker Compose. Refer to the [detailed instructions](#detailed-instructions) to provision an EC2 instance for this purpose.
