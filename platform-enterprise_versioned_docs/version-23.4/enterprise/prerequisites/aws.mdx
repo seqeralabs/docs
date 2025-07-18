@@ -93,7 +93,6 @@ If you use AWS SES in sandbox mode, both the _sender_ and the _receiver_ email a
 - To prevent emails from SES being flagged as spam, see these AWS instructions for setting up an email authentication method:
 
    - [DKIM for a domain](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-authentication-dkim-easy-setup-domain.html)
-
    - [SPF authentication](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-authentication-spf.html)
 
 ### Amazon RDS
@@ -154,11 +153,8 @@ Create an instance with these attributes:
 After your instance is launched:
 
 1. Use the key pair to connect to the server with SSH and its public IP address. Terminal-based SSH is easier to use than browser-based SSH for copying and pasting text.
-
 1. [Install Docker](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-docker.html#install-docker-instructions).
-
 1. [Install Docker Compose](https://docs.docker.com/compose/install/linux/#install-the-plugin-manually).
-
 1. Confirm that Docker Compose is installed:
 
     ```bash
@@ -167,11 +163,9 @@ After your instance is launched:
 
 ### Seqera container images
 
-Seqera Platform Enterprise is distributed as a collection of Docker containers available through the Seqera
-container registry ([cr.seqera.io](https://cr.seqera.io)). Contact [support](https://support.seqera.io) to get your container access credentials. Once you've received your credentials, retrieve the Seqera container images on your EC2 instance:
+Seqera Platform Enterprise is distributed as a collection of Docker containers available through the Seqera container registry ([cr.seqera.io](https://cr.seqera.io)). Contact [support](https://support.seqera.io) to get your container access credentials. Once you've received your credentials, retrieve the Seqera container images on your EC2 instance:
 
 1. Retrieve the **username** and **password** you received from Seqera support.
-
 1. Authenticate to the registry:
 
    ```bash
