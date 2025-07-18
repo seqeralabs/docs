@@ -1,7 +1,8 @@
 ---
 title: "AWS"
 description: Prerequisites for AWS deployments
-date: "12 Apr 2023"
+date created: "2023-04-12"
+last updated: "225-07-18"
 tags: [aws, prerequisites, configuration, ec2, ses, rds]
 ---
 
@@ -92,7 +93,6 @@ If you use AWS SES in sandbox mode, both the _sender_ and the _receiver_ email a
 - To prevent emails from SES being flagged as spam, see these AWS instructions for setting up an email authentication method:
 
    - [DKIM for a domain](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-authentication-dkim-easy-setup-domain.html)
-
    - [SPF authentication](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-authentication-spf.html)
 
 ### Amazon RDS
@@ -153,11 +153,8 @@ Create an instance with these attributes:
 After your instance is launched:
 
 1. Use the key pair to connect to the server with SSH and its public IP address. Terminal-based SSH is easier to use than browser-based SSH for copying and pasting text.
-
 1. [Install Docker](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-docker.html#install-docker-instructions).
-
 1. [Install Docker Compose](https://docs.docker.com/compose/install/linux/#install-the-plugin-manually).
-
 1. Confirm that Docker Compose is installed:
 
     ```bash
