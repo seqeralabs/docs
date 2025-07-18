@@ -4,18 +4,22 @@ import { useLocation, useHistory } from "@docusaurus/router";
 import platform_enterprise_latest_version from "@site/platform-enterprise_latest_version";
 
 export default function Platform(): JSX.Element {
-  const match = useLocation();
+  const location = useLocation();
   const history = useHistory();
-  const { pathname } = match;
-  const actualPath = pathname.replace(
-    "latest",
-    platform_enterprise_latest_version,
-  );
+  const { pathname } = location;
 
-  useEffect(function redirectToActualPath() {
-    if (typeof window === "undefined") return;
-    history.push(actualPath);
-  }, []);
+  // Only perform the replacement if the path actually contains "latest"
+  const containsLatest = pathname.includes("latest");
+  const actualPath = containsLatest ? pathname.replace("latest", "") : pathname;
+
+  useEffect(
+    function redirectToActualPath() {
+      // Only redirect if we actually changed the path
+      if (typeof window === "undefined" || pathname === actualPath) return;
+      history.push(actualPath);
+    },
+    [pathname, actualPath, history],
+  );
 
   return <div />;
 }
