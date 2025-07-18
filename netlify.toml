@@ -16,12 +16,13 @@
   status = 200
 
 [build.environment]
+NODE_OPTIONS = "--max-old-space-size=4096"
 # EXCLUDE_CHANGELOG = "true"
 # EXCLUDE_PLATFORM_ENTERPRISE= "true"
 # EXCLUDE_PLATFORM_CLOUD = "true"
 # EXCLUDE_PLATFORM_API = "true"
 # EXCLUDE_PLATFORM_OPENAPI = "true"
 # EXCLUDE_MULTIQC = "true"
-EXCLUDE_NEXTFLOW = "true"
+# EXCLUDE_NEXTFLOW = "true"
 # EXCLUDE_FUSION = "true"
 # EXCLUDE_WAVE = "true"
