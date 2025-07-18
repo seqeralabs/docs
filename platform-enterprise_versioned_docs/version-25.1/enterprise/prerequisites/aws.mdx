@@ -22,8 +22,6 @@ Run the Seqera container with [Docker](../docker-compose.md) on an AWS EC2 insta
    Amazon [blocks EC2 traffic over port 25 by default](https://aws.amazon.com/premiumsupport/knowledge-center/ec2-port-25-throttle/). Your integration must use a port that can successfully reach your SMTP server.
    :::
 
-- **MySQL database**: An external database, such as one provided by [Amazon Relational Database Service](https://aws.amazon.com/rds/), is highly recommended for production deployments.
-
 - **(Optional) SSL certificate**: HTTP must not be used in production environments. An SSL certificate is required for your Seqera instance to handle HTTPS traffic. See [SSL/TLS configuration](../configuration/ssl_tls#aws-deployments-manage-ssl-certificates-with-amazon-certificate-manager-acm) for more information.
 
    :::note
