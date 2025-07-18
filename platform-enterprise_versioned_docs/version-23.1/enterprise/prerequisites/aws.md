@@ -23,7 +23,7 @@ Nextflow Tower is distributed as a collection of Docker containers available thr
 
     ```bash
     docker pull {{ images.tower_be_image }}
-    
+
     docker pull {{ images.tower_fe_image }}
     ```
 
@@ -266,7 +266,7 @@ If you have never set up an Amazon EC2 instance for Linux, refer to [this guide]
     sudo service docker start
     sudo usermod -a -G docker ec2-user
     sudo chkconfig docker on
-    
+
     # Setup docker-compose
     sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
     sudo chmod +x /usr/local/bin/docker-compose
