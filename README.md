@@ -51,7 +51,7 @@ We have a script which can select a commit (or ideally release tag) to be used f
 
 ### Nextflow
 
-Wave documentation is pulled from the [`nextflow-io/nextflow`](https://github.com/nextflow-io/nextflow) repo during the docs build. It is not versioned and lives in the `nextflow_docs` directory. Changes to the Nextflow documentation must be made in the [`nextflow-io/nextflow`](https://github.com/nextflow-io/nextflow) repo. Currently pulling from a migration branch.
+Nextflow documentation is pulled from the [`nextflow-io/nextflow`](https://github.com/nextflow-io/nextflow) repo during the docs build. It is not versioned and lives in the `nextflow_docs` directory. Changes to the Nextflow documentation must be made in the [`nextflow-io/nextflow`](https://github.com/nextflow-io/nextflow) repo. Currently pulling from a migration branch.
 
 ### Wave
 
