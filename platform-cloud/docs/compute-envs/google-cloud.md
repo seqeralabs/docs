@@ -41,7 +41,7 @@ The following locations are currently supported:
 - `asia-south2`
 - `asia-southeast1`
 - `asia-southeast2`
-- `australia-southeast1
+- `australia-southeast1`
 - `europe-central2`
 - `europe-north1`
 - `europe-southwest1`
