@@ -17,10 +17,10 @@
 - 
   Environment variable:            '`TOWER_SECRET_ROTATION_PREVIOUS_KEY`'
   Description: > 
-    Used to store the value of the key used to encrypt existing credentials and secrets (`TOWER_CRYPTO_SECRETKEY` value before rotation), to keep cryptographic features enabled while rotation is in progress. Requires `TOWER_SECRET_ROTATION_ENABLED=true`, else ignored. 
+    Used to store the value of the key used to encrypt existing credentials and secrets (`TOWER_CRYPTO_SECRETKEY` value before rotation), to keep cryptographic features enabled while rotation is in progress. Requires `TOWER_SECRET_ROTATION_ENABLED=true`. 
   Value:                'Your existing `TOWER_CRYPTO_SECRETKEY` before rotation.'
 - 
   Environment variable:            '`TOWER_SECRET_ROTATION_CHUNK_SIZE`'
   Description: > 
-    The number of records to extract in chunks until all secrets and credentials are processed. Requires `TOWER_SECRET_ROTATION_ENABLED=true`, else ignored.
+    The number of records to extract in chunks until all secrets and credentials are processed. Requires `TOWER_SECRET_ROTATION_ENABLED=true`.
   Value:                'Default: `50`'
