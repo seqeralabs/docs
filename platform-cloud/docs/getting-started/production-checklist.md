@@ -2,7 +2,7 @@
 title: "Production checklist"
 description: "A pre-production checklist for Seqera Platform."
 date created: "2025-07-03"
-last updated: "2025-07-14"
+last updated: "2025-07-21"
 tags: [production, checklist, deployment, limitations, retry]
 ---
 
@@ -31,7 +31,7 @@ It’s a good idea to map out the expected users and their roles so you can ensu
 
 ## Infrastructure
 
-Infrastructural requirements differ widely based on the workload you’re expecting. 
+Infrastructural requirements differ widely based on the workload you’re expecting. The [Seqera Enterprise architecture overview](https://docs.seqera.io/platform-enterprise/latest/enterprise/overview) provides an outline of the components of Platform.
 
 To begin with, build out a proof of concept using the below recommendations, to create a baseline of your capacity requirements. Once you’re ready to move to production, take into account the increased workload you’d expect. Here are some starting points for estimating compute and database requirements.
 
