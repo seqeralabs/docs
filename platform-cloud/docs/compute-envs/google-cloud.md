@@ -28,19 +28,41 @@ This type of compute environment is best suited to run Studios and small to medi
 
 The Nextflow pipeline will run entirely on a single Google Compute Engine instance. If the instance does not have sufficient resources, the pipeline execution will fail. For this reason, the number of tasks Nextflow can execute in parallel is limited by the number of cores of the instance type selected. If you need more computing resources, you must create a new compute environment with a larger instance type. This makes the compute environment less suited for larger, more complex pipelines.
 
-## Supported regions
+## Supported locations
 
-The following regions are currently supported: 
+The following locations are currently supported: 
 
-- `eu-west-1`
-- `us-east-1`
-- `us-west-2`
-- `eu-west-2`
-- `us-east-2`
-- `eu-central-1`
-- `us-west-1`
-- `eu-west-3`
-- `ap-southeast-1`
+- `asia-east1`
+- `asia-east2`
+- `asia-northeast1`
+- `asia-northeast2`
+- `asia-northeast3`
+- `asia-south1`
+- `asia-south2`
+- `asia-southeast1`
+- `asia-southeast2`
+- `australia-southeast1
+- `europe-central2`
+- `europe-north1`
+- `europe-southwest1`
+- `europe-west1`
+- `europe-west2`
+- `europe-west3`
+- `europe-west4`
+- `europe-west6`
+- `europe-west9`
+- `europe-west10`
+- `me-central1`
+- `northamerica-northeast1`
+- `southamerica-west1`
+- `us-central1`
+- `us-east1`
+- `us-east4`
+- `us-south1`
+- `us-west1`
+- `us-west2`
+- `us-west3`
+- `us-west4`
 
 ## Requirements
 
