@@ -11,7 +11,7 @@ As a root user, you can access a comprehensive overview of the organizations, wo
 See [Basic configuration](../enterprise/configuration/overview#basic-configuration) to learn how to add root users to your Seqera Enterprise deployment with the `TOWER_ROOT_USERS` environment variable.
 :::
 
-## Manage organizations
+## Organizations
 
 :::note
 From version 23.2, organization owners and root users can edit organization names on the **Edit organization** page.
@@ -25,7 +25,7 @@ The **Organizations** tab lists all the organizations in your account.
 
 See [Organizations](../orgs-and-teams/organizations) for more information. 
 
-## Manage members
+### Members
 
 From an organization's page, select the **Members of organization** tab to view a list of its members. Here you can list and search for all members and owners of the organization, change a member's role, remove a member from the organization, or add a new member to the organization.
 
@@ -33,7 +33,7 @@ You can only add existing users to an organization. You can't remove the last ow
 
 See [Members](../orgs-and-teams/organizations#members) for more information. 
 
-## Manage workspaces
+## Workspaces
 
 The **Workspaces** tab lists all the workspaces in your account. 
 
@@ -43,7 +43,7 @@ The **Workspaces** tab lists all the workspaces in your account.
 
 See [Workspaces](../orgs-and-teams/workspace-management) for more information.
 
-## Manage users
+## Users
 
 The **Users** tab lists all the users in your account.
 
@@ -55,7 +55,7 @@ The **Users** tab lists all the users in your account.
 
 See [User roles](../orgs-and-teams/roles) for more information on organization and workspace user access roles. 
 
-## Manage teams
+## Teams
 
 The **Teams** tab lists all the teams in your account.
 
@@ -67,3 +67,15 @@ The **Teams** tab lists all the teams in your account.
 From the teams list, you have an overview of the number of members and the unique ID of each team. Select **Edit** to view a team's page, or select the number next to **Members:** to go to the **Members** tab of the team page. From the **Members of team** tab, you can list and search for all users that are members of the selected team, change a user's role, remove a member from the team, or add a new member to the team.
 
 See [Teams](../orgs-and-teams/organizations#teams) for more information. 
+
+## Audit logs
+
+View application event [audit logs](../monitoring/audit-logs).
+
+## Encryption
+
+With [secret key rotation](../enterprise/configuration/overview.mdx#secret-key-rotation) configured in your Enterprise instance, the **Encryption** tab displays the status of encryption tasks as they complete. Encryption tasks complete with one of three statuses:
+
+- **Success**: Secret encryption with the new secret key has completed successfully. 
+- **Error**: Secret encryption has failed, usually due to corrupted or missing data. The **Encrypted data ID** displays the path to the secret or credential. Locate the secret in the workspace ID listed to delete and recreate it. 
+- **Orphaned**: While secret data has been successfully encrypted, the secret is orphaned in the Platform database. This means that no secret or credential exists in your Platform account's workspaces and this secret data exists in an encrypted state in your Platform database without a corresponding key or ID in Platform. Locate the orphaned entry in your Platform database by its encrypted data ID and delete it directly. 

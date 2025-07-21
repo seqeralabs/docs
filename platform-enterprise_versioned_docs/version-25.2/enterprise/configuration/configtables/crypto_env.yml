@@ -2,10 +2,25 @@
 - 
   Environment variable:            '`TOWER_CRYPTO_SECRETKEY`'
   Description: > 
-    The secret key used to encrypt user credentials (**required**).
+    The secret key used to encrypt credentials and secrets (**required**).
   Value:                'Random string of alphanumeric characters.'
 - 
   Environment variable:            '`TOWER_JWT_SECRET`'
   Description: > 
     The secret used to generate the login JWT token (**required**).
   Value:                'Random string of 35 characters or more.'
+- 
+  Environment variable:            '`TOWER_SECRET_ROTATION_ENABLED`'
+  Description: > 
+    Enable (`true`) or disable (`false`) rotation of the encryption key used to encrypt credentials and secrets in your Platform database.
+  Value:                'Default: `false`'
+- 
+  Environment variable:            '`TOWER_SECRET_ROTATION_PREVIOUS_KEY`'
+  Description: > 
+    Used to store the value of the key used to encrypt existing credentials and secrets (`TOWER_CRYPTO_SECRETKEY` value before rotation), to keep cryptographic features enabled while rotation is in progress. Requires `TOWER_SECRET_ROTATION_ENABLED=true`, else ignored. 
+  Value:                'Your existing `TOWER_CRYPTO_SECRETKEY` before rotation.'
+- 
+  Environment variable:            '`TOWER_SECRET_ROTATION_CHUNK_SIZE`'
+  Description: > 
+    The number of records to extract in chunks until all secrets and credentials are processed. Requires `TOWER_SECRET_ROTATION_ENABLED=true`, else ignored.
+  Value:                'Default: `50`'
