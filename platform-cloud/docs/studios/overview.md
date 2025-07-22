@@ -1,8 +1,9 @@
 ---
 title: "Overview"
-description: "Studios public preview."
-date: "6 February 2025"
-tags: [studios]
+description: "Seqera Studios."
+date created: "2025-02-06"
+last updated: "2025-07-22"
+tags: [studios, connect, xpra, ride, vscode, containers, docker]
 ---
 
 Studios is a unified platform where you can host a combination of container images and compute environments for interactive analysis using your preferred tools, like JupyterLab notebooks, an [R-IDE](https://github.com/seqeralabs/r-ide), Visual Studio Code IDEs, or Xpra remote desktops. Each Studio session is an individual interactive environment that encapsulates the live environment for dynamic data analysis.
@@ -108,7 +109,7 @@ To see the list of all Visual Studio Code image templates available, including s
 
 A primary use case for VS Code in Studios is to develop new, and troubleshoot existing, Nextflow pipelines. This commonly requires running Docker in the Dockerized container. The recommended method is to:
 
-**1. Create an [AWS Cloud][aws-cloud] compute environment:** By default, this type of compute environment is optimized for running Nextflow pipelines. 
+**1. Create an [AWS Cloud][aws-cloud] compute environment:** By default, this type of compute environment is optimized for running Nextflow pipelines.
 
 :::tip
 Many standard nf-core pipelines such as [*nf-core/rnaseq*](https://nf-co.re/rnaseq) require at least 4 CPUs and 16 GB memory. In **Advanced options**, specify an instance type with at least this amount of resources (e.g., `m5d.xlarge`).
