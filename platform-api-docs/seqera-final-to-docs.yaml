@@ -562,6 +562,27 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/CreateComputeEnvRequest"
+            examples:
+              AwsBatchForge:
+                description: "A minimal AWS Batch Forge compute environment with Wave and Fusion v2 enabled."
+                value: 
+                  computeEnv:     
+                    name: "compute-env1"
+                    platform: "aws-batch"
+                    credentialsId: "11gg7Owxx6VyhZTbx50c3B"
+                    description: "Minimal AWS Batch Forge compute environment with Wave, Fusion, and fast instance storage enabled"
+                    config: {
+                        region: "eu-west-2",
+                        forge: {      
+                          type: "SPOT",
+                          minCpus: "0",
+                          maxCpus: "100",
+                        },
+                        workDir: "s3://llew-manual-test/work",
+                        waveEnabled: "true",
+                        fusion2Enabled: "true",
+                        nvnmeStorageEnabled: "true" 
+                        } 
         required: true
       responses:
         "200":
@@ -9846,6 +9867,7 @@ components:
           format: int32
         fusionEnabled:
           type: boolean
+          deprecated: true
         bidPercentage:
           type: integer
           format: int32
