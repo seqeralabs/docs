@@ -361,6 +361,7 @@ Enable rotation by setting the following configuration values:
 - `/tower/crypto/secretKey: <your new secret key value>`
 
 </TabItem>
+</Tabs>
 
 With rotation enabled and the previous and new key values set, secret key rotation will run as part of the Platform cron service during application startup. Normal application startup is not affected by this process, and Platform is fully operational while the credentials and secrets in your database are being encrypted using your new secret key.
 
