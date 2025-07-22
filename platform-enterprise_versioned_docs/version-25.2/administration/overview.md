@@ -8,7 +8,7 @@ tags: [administration, user, workspace, organization]
 As a root user, you can access a comprehensive overview of the organizations, workspaces, users, and teams in your account from the **Admin panel**. It also includes tabs for application event audit logs, administrative statistics, and system configuration options. The root user system role should only be assigned to a system administrator as it provides high-level visibility and configuration access to your account.
 
 :::tip
-See [Basic configuration](../enterprise/configuration/overview#basic-configuration) to learn how to add root users to your Seqera Enterprise deployment with the `TOWER_ROOT_USERS` environment variable.
+See [Basic configuration](../enterprise/configuration/overview.mdx#basic-configuration) to learn how to add root users to your Seqera Enterprise deployment with the `TOWER_ROOT_USERS` environment variable.
 :::
 
 ## Organizations
@@ -78,4 +78,4 @@ With [secret key rotation](../enterprise/configuration/overview.mdx#secret-key-r
 
 - **Success**: Secret encryption with the new secret key has completed successfully. 
 - **Error**: Secret encryption has failed, usually due to corrupted or missing data. The **Encrypted data ID** displays the path to the secret or credential. Locate the secret in the workspace ID listed to delete and recreate it. 
-- **Orphaned**: While secret data has been successfully encrypted, the secret is orphaned in the Platform database. This means that no secret or credential exists in your Platform account's workspaces and this secret data exists in an encrypted state in your Platform database without a corresponding key or ID in Platform. Locate the orphaned entry in your Platform database by its encrypted data ID and delete it directly. 
+- **Orphaned**: While secret data has been successfully encrypted, the secret is orphaned in the Platform database. This means that this secret data exists in an encrypted state in your Platform database without a corresponding secret or credential ID in Platform. Use the **Encrypted data ID** to locate the orphaned entry in your Platform database and delete it directly. 

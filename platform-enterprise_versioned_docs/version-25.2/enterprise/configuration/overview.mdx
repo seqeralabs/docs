@@ -335,19 +335,23 @@ Replace `{prefix}` in each configuration path with `/config/<application_name>`,
 
 ### Secret key rotation
 
-Rotate the key used to encrypt the credentials and secrets stored in your Platform database as security best practice at an interval stipulated in your organization's security requirements, or in the event of a suspected compromise of your secret key. 
+Rotate the key used to encrypt the credentials and secrets stored in your Platform database. Encryption key rotation is a security best practice and should be performed at an interval specified by your organization's security requirements, or in the event of a suspected compromise of your secret key. 
 
-Secret key rotation runs during Platform Enterprise startup as part of the Platform cron service. Enable rotation by setting the following configuration values (`tower.env` values are shown below — see the tower.yml and AWS Parameter Store tables in the preceding section for corresponding values):
+Enable rotation by setting the following configuration values:
 
 - `TOWER_SECRET_ROTATION_ENABLED=true`
 - `TOWER_SECRET_ROTATION_PREVIOUS_KEY=<your existing TOWER_CRYPTO_SECRETKEY value>`
 - `TOWER_CRYPTO_SECRETKEY=<your new secret key value>`
 
-With rotation enabled and the previous and new key values set, rotation will run as part of the Platform cron service during application startup. Normal application startup is not affected by this process, and Platform is fully operational while key rotation performs encryption of the credentials and secrets in your database using your new crypto secret key.
+:::tip 
+See the **tower.yml** and **AWS Parameter Store** tables in the preceding section for configuration parameters corresponding to the environment variables above.
+:::
+
+With rotation enabled and the previous and new key values set, secret key rotation will run as part of the Platform cron service during application startup. Normal application startup is not affected by this process, and Platform is fully operational while the credentials and secrets in your database are being encrypted using your new secret key.
 
 :::warning 
-- To prevent the loss of data, perform a backup of your Platform database and back up your current crypto secret key value before enabling and performing secret key rotation. 
-- All backend pods or containers for your Enterprise deployment must contain the same previous and new secret key values in their Platform config and must be in a ready/running state before starting the Platform cron service which performs the secret key rotation. 
+- To prevent the loss of data, perform a backup of your Platform database and securely back up your current crypto secret key before enabling and performing key rotation. 
+- All backend pods or containers for your Enterprise deployment must contain the same previous and new secret key values in their Platform config and must be in a ready/running state before starting the Platform cron service. 
 :::
 
 The [Admin panel](../../administration/overview.md) **Encryption** tab displays the status of completed or errored encryption tasks. 
