@@ -25,12 +25,6 @@ Before you get started, you need the following:
 Currently, Studios only supports AWS Batch compute environments that **do not** have Fargate enabled.
 :::
 
-## Limitations
-
-If you configured your AWS Batch compute environment to include an EFS file system with **EFS file system > EFS mount path**, the mount path must be explicitly specified. The mount path cannot be the same as your compute environment work directory. If the EFS file system is mounted as your compute environment work directory, snapshots cannot be saved and sessions fail. To mount an EFS volume in a Studio session (for example, if your organization has a custom, managed, and standardized software stack in an EFS volume), add the EFS volume to the compute environment (system ID and mount path). The volume will be available at the specified mount path in the session.
-
-For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
-
 ## Container image templates
 
 There are four container image templates provided: JupyterLab, R-IDE, Visual Studio Code, and Xpra. The image templates install a very limited number of packages when the Studio session container is built. You can install additional packages as needed during a Studio session.
