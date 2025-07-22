@@ -339,13 +339,28 @@ Rotate the key used to encrypt the credentials and secrets stored in your Platfo
 
 Enable rotation by setting the following configuration values:
 
+<Tabs>
+<TabItem value="Environment variables" label="Environment variables" default>
+
 - `TOWER_SECRET_ROTATION_ENABLED=true`
 - `TOWER_SECRET_ROTATION_PREVIOUS_KEY=<your existing TOWER_CRYPTO_SECRETKEY value>`
 - `TOWER_CRYPTO_SECRETKEY=<your new secret key value>`
 
-:::tip 
-See the **tower.yml** and **AWS Parameter Store** tables in the preceding section for configuration parameters corresponding to the environment variables above.
-:::
+</TabItem>
+<TabItem value="tower.yml" label="tower.yml" default>
+
+- `tower.secret.rotation.enabled: true`
+- `tower.secret.rotation.previous-key: <your existing tower.crypto.secretKey value>`
+- `tower.crypto.secretKey: <your new secret key value>`
+
+</TabItem>
+<TabItem value="AWS Parameter Store" label="AWS Parameter Store" default>
+
+- `/tower/secret/rotation/enabled: true`
+- `/tower/secret/rotation/previous-key: <your existing /tower/crypto/secretKey value>`
+- `/tower/crypto/secretKey: <your new secret key value>`
+
+</TabItem>
 
 With rotation enabled and the previous and new key values set, secret key rotation will run as part of the Platform cron service during application startup. Normal application startup is not affected by this process, and Platform is fully operational while the credentials and secrets in your database are being encrypted using your new secret key.
 
