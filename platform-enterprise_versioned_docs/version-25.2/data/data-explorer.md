@@ -109,7 +109,7 @@ This customized Data Explorer view will be displayed by default to all workspace
 
 ## Upload files to private buckets
 
-Data Explorer supports single or bulk file uploads to your private cloud storage buckets. From the **View cloud bucket** page, select **Upload** and choose either the **Upload files* or **Upload folder** option. You can also drag and drop files and folders directly into Data Explorer. You can upload up to 300 files at a time via the Platform interface. The file size upload limits reflect the size limitations of the relevant cloud storage provider. 
+Data Explorer supports single or bulk file uploads to your private cloud storage buckets. From the **View cloud bucket** page, select **Upload** and choose either the **Upload files** or **Upload folder** option. You can also drag and drop files and folders directly into Data Explorer. You can upload up to 300 files at a time via the Platform interface. The file size upload limits reflect the size limitations of the relevant cloud storage provider. 
 
 Currently, these limits are:
 
