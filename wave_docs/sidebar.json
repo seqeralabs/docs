@@ -30,9 +30,17 @@
       "label": "Developer tools",
       "collapsed": true,
       "items": [
-        "cli/index",
-        "cli/reference",
-        "api"
+        "api",
+        {
+          "type": "category",
+          "label": "CLI",
+          "collapsed": true,
+          "items": [
+            "cli/index",
+            "cli/installation",
+            "cli/reference"
+          ]
+        }
       ]
     },
     "faq",
