@@ -1,6 +1,6 @@
 ---
 title: "Overview"
-description: "Seqera Studios."
+description: "Seqera Studios overview"
 date created: "2025-02-06"
 last updated: "2025-07-22"
 tags: [studios, connect, xpra, ride, vscode, containers, docker]
