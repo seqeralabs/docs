@@ -569,8 +569,8 @@ paths:
                   computeEnv:     
                     name: "compute-env1"
                     platform: "aws-batch"
-                    credentialsId: "11gg7Owxx6VyhZTbx50c3B"
-                    description: "Minimal AWS Batch Forge compute environment with Wave, Fusion, and fast instance storage enabled"
+                    credentialsId: "11gg7Owxxxxxxxxxx50c3B"
+                    description: "Minimal AWS Batch Forge compute environment with Wave, Fusion v2, and fast instance storage enabled"
                     config: {
                         region: "eu-west-2",
                         forge: {      
@@ -578,7 +578,7 @@ paths:
                           minCpus: "0",
                           maxCpus: "100",
                         },
-                        workDir: "s3://llew-manual-test/work",
+                        workDir: "s3://your-bucket/work",
                         waveEnabled: "true",
                         fusion2Enabled: "true",
                         nvnmeStorageEnabled: "true" 
@@ -7734,6 +7734,8 @@ components:
           type: string
         propagateHeadJobOptions:
           type: boolean
+      required:
+        - workDir    
     AccessToken:
       required:
         - name
@@ -8051,6 +8053,7 @@ components:
             additionalProperties: true
           x-speakeasy-terraform-ignore: true
       required:
+        - workDir
         - region
         - forge
     AwsBatchPlatformMetainfo:
@@ -8167,6 +8170,7 @@ components:
           x-speakeasy-terraform-ignore: true
       required:
         - region
+        - workDir
     AwsCloudPlatformMetainfo:
       type: object
       properties:
@@ -8260,6 +8264,7 @@ components:
           type: string
           nullable: true
       required:
+        - workDir
         - region
         - forge
     AzBatchForgeConfig:
@@ -8512,6 +8517,7 @@ components:
         - config
         - name
         - platform
+        - credentialsId
       type: object
       properties:
         credentialsId:
@@ -10099,6 +10105,9 @@ components:
           type: string
         computeJobsInstanceTemplate:
           type: string
+      required: 
+        - workDir
+        - location    
     GoogleLifeSciencesConfig:
       title: Google life sciences configuration
       type: object
@@ -10318,6 +10327,7 @@ components:
         nextflowConfig:
           type: string
       required:
+        - workDir
         - server
         - namespace
         - sslCert
