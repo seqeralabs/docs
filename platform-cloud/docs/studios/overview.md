@@ -1,8 +1,9 @@
 ---
 title: "Overview"
-description: "Studios public preview."
-date: "6 February 2025"
-tags: [studios]
+description: "Seqera Studios overview"
+date created: "2025-02-06"
+last updated: "2025-07-22"
+tags: [studios, connect, xpra, ride, vscode, containers, docker]
 ---
 
 Studios is a unified platform where you can host a combination of container images and compute environments for interactive analysis using your preferred tools, like JupyterLab notebooks, an [R-IDE](https://github.com/seqeralabs/r-ide), Visual Studio Code IDEs, or Xpra remote desktops. Each Studio session is an individual interactive environment that encapsulates the live environment for dynamic data analysis.
@@ -25,12 +26,6 @@ Before you get started, you need the following:
 :::note
 Currently, Studios supports [AWS Cloud][aws-cloud] and [AWS Batch][aws-batch] compute environments that **do not** have Fargate enabled.
 :::
-
-## Limitations
-
-If you configured your compute environment to include an EFS file system with **EFS file system > EFS mount path**, the mount path must be explicitly specified. The mount path cannot be the same as your compute environment work directory. If the EFS file system is mounted as your compute environment work directory, snapshots cannot be saved and sessions fail. To mount an EFS volume in a Studio session (for example, if your organization has a custom, managed, and standardized software stack in an EFS volume), add the EFS volume to the compute environment (system ID and mount path). The volume will be available at the specified mount path in the session.
-
-For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
 
 ## Container image templates
 
@@ -97,9 +92,16 @@ The default user is the `root` account. To install R packages during a running S
 
 To see the list of all R-IDE image templates available, including security scan results or to inspect the container specification, see [public.cr.seqera.io/repo/platform/data-studio-rstudio][ds-rstudio].
 
-### Visual Studio Code 1.93.1
+### Visual Studio Code 1.101.2
 
-[Visual Studio Code][def-vsc] is an integrated development environment (IDE) that supports many programming languages. The default user is the `root` account. The container template image ships with the latest stable version of [Nextflow] and the [VS Code extension for Nextflow][nf-lang-server] to make troubleshooting Nextflow workflows easier. To install additional extensions during a running Studio session, select **Extensions**. Additional system-level packages can be installed in a terminal window using `apt install <packagename>`.
+[Visual Studio Code][def-vsc] is an integrated development environment (IDE) that supports many programming languages. The default user is the `root` account. The container template image ships with the latest stable version of [Nextflow] and the [VS Code extension for Nextflow][nf-lang-server] to make troubleshooting Nextflow workflows easier. 
+
+The following [conda-forge](https://conda-forge.org/) packages are available by default:
+
+- `python=3.13.5`
+- `pip=24.2`
+
+To install additional extensions during a running Studio session, select **Extensions**. Additional system-level packages can be installed in a terminal window using `apt install <packagename>`.
 
 To see the list of all Visual Studio Code image templates available, including security scan results or to inspect the container specification, see [public.cr.seqera.io/platform/data-studio-vscode][ds-vscode].
 
@@ -107,7 +109,7 @@ To see the list of all Visual Studio Code image templates available, including s
 
 A primary use case for VS Code in Studios is to develop new, and troubleshoot existing, Nextflow pipelines. This commonly requires running Docker in the Dockerized container. The recommended method is to:
 
-**1. Create an [AWS Cloud][aws-cloud] compute environment:** By default, this type of compute environment is optimized for running Nextflow pipelines. 
+**1. Create an [AWS Cloud][aws-cloud] compute environment:** By default, this type of compute environment is optimized for running Nextflow pipelines.
 
 :::tip
 Many standard nf-core pipelines such as [*nf-core/rnaseq*](https://nf-co.re/rnaseq) require at least 4 CPUs and 16 GB memory. In **Advanced options**, specify an instance type with at least this amount of resources (e.g., `m5d.xlarge`).
@@ -155,18 +157,18 @@ Sessions have the following possible statuses:
 There might be errors reported by the session itself but these will be overwritten with a **running** status if the session is still running.
 :::
 
-## Studio session data links
+## Studio session data-links
 
-You can configure a Studio session to mount one or more data links, where cloud buckets that you have configured in your compute environment are read-only, or read-write available to the session.
+You can configure a Studio session to mount one or more data-links, where cloud buckets that you have configured in your compute environment are read-only, or read-write available to the session.
 
-If your compute environment includes a cloud bucket in the **Allowed S3 bucket** list, the bucket is writeable from within a session when that bucket is included as a data link.
+If your compute environment includes a cloud bucket in the **Allowed S3 bucket** list, the bucket is writeable from within a session when that bucket is included as a data-link.
 
 You can limit write access to just a subdirectory of a bucket by creating a custom data-link for only that subdirectory in Data Explorer, and then mount the data-link to the Studio session. For example, if you have the following S3 buckets:
 
 - `s3://biopharmaXs`: Entire bucket
 - `s3://biopharmaX/experiments/project-A/experiment-1/data`: Subdirectory to mount in a Studio session
 
-Mounted data links are exposed at the `/workspace/data/` directory path inside a Studio session. For example, the bucket subdirectory `s3://biopharmaX/experiments/project-A/experiment-1/data`, when mounted as a data link, is exposed at `/workspace/data/biopharmaxs-project-a-experiment-1-data`.
+Mounted data-links are exposed at the `/workspace/data/` directory path inside a Studio session. For example, the bucket subdirectory `s3://biopharmaX/experiments/project-A/experiment-1/data`, when mounted as a data-link, is exposed at `/workspace/data/biopharmaxs-project-a-experiment-1-data`.
 
 For more information, see [Limit Studio access to a specific cloud bucket subdirectory][cloud-bucket-subdirectory].
 
@@ -192,13 +194,29 @@ The cleanup process is a best effort and not guaranteed. Seqera attempts to remo
 
 By default, a session allocates an initial 2 GB of storage. Available disk space is continually monitored and if the available space drops below a 1 GB threshold, the file system is dynamically-resized to include an additional 2 GB of available disk space.
 
-This approach ensures that a session doesn't initially include unnecessary free disk space, while providing the flexibility to accommodate installation of large software packages required for data analysis.
-
-The maximum storage allocation for a session is limited by the compute environment disk boot size. By default, this is 30 GB. This limit is shared by all sessions running in the same compute environment.
+This approach ensures that a session doesn't initially include unnecessary free disk space, while providing the flexibility to accommodate installation of large software packages required for data analysis. The maximum storage allocation for a session is limited by the compute environment disk boot size. By default, this is 30 GB. This limit is shared by all sessions running in the same compute environment.
 
 If the maximum allocation size is reached, it is possible to reclaim storage space using a snapshot. 
 
 Stop the active session to trigger a snapshot from the active volume. The snapshot is uploaded to cloud storage with Fusion. When you start from the newly saved snapshot, all previous data is loaded, and the newly started session will have 2 GB of available space.
+
+## Limitations
+
+### EFS file systems
+
+If you configured your compute environment to include an EFS file system with **EFS file system > EFS mount path**, the mount path must be explicitly specified. The mount path cannot be the same as your compute environment work directory. If the EFS file system is mounted as your compute environment work directory, snapshots cannot be saved and sessions fail. 
+
+To mount an EFS volume in a Studio session (for example, if your organization has a custom, managed, and standardized software stack in an EFS volume), add the EFS volume to the compute environment (system ID and mount path). The volume will be available at the specified mount path in the session.
+
+For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
+
+### Custom subdomains/non-wildcard SSL/TLS certificates
+
+Connect, the Studios webserver, uses dynamic subdomains to manage session routing of requests. This requires a wildcard SSL/TLS certificate. For Enterprise deployments that cannot use a wildcard SSL/TLS certificate or that require custom subdomains, an optional configuration environment variable can be added (`TOWER_DATA_STUDIO_ENABLE_PATH_ROUTING = True`). Setting this configures Studios requests to use path-based routing, which does not require a wildcard SSL/TLS certificate and allows custom subdomains.
+
+:::warning
+Path-based routing is only supported for the Seqera-provided JupyterLab, R-IDE Server, and Visual Studio Code container template images (and custom environments built from each). Xpra and user-defined [custom container template images](./custom-envs.md#custom-containers) are not supported.
+:::
 
 {/* links */}
 [contact]: https://support.seqera.io/
