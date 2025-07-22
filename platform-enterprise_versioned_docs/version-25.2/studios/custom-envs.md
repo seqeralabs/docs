@@ -2,7 +2,7 @@
 title: "Custom environments"
 description: "Custom environments for Studios"
 date created: "2024-10-01"
-last updated: "2025-07-17"
+last updated: "2025-07-22"
 tags: [environments, custom, studio, studio]
 ---
 
@@ -46,14 +46,12 @@ Public container registries are supported by default. Amazon Elastic Container R
 
 ### Prerequisites
 
-- Access to a container image repository, either a public container registry or a private Amazon ECR repository
-- A container template image
+- Access to a container image repository, either a public container registry or a private Amazon ECR repository.
+- A container template image.
 
 ### Dockerfile configuration {#dockerfile}
 
-For your custom template container image, you must use a Seqera-provided base image and include several additional build steps for compatibility with Studios.
-
-To create a Studio with a custom template image, see [Add a Studio][add-s].
+For your custom template container image, you must use a Seqera-provided base image and include several additional build steps for compatibility with Studios. To create a Studio with a custom template image, see [Add a Studio][add-s].
 
 #### Ports
 
@@ -67,9 +65,9 @@ Upon termination, the container's main process must handle the `SIGTERM` signal 
 
 The minimal Dockerfile includes directives to accomplish the following:
 
-- Pull a Seqera-provided base image with prerequisite binaries
-- Copy the `connect` binary into the build
-- Set the container entry point
+- Pull a Seqera-provided base image with prerequisite binaries.
+- Copy the `connect` binary into the build.
+- Set the container entry point.
 
 Customize the following Dockerfile to include any additional software that you require:
 
@@ -78,8 +76,10 @@ Customize the following Dockerfile to include any additional software that you r
 ARG CONNECT_CLIENT_VERSION="0.8"
 
 # Seqera base image
+# highlight-next-line
 FROM public.cr.seqera.io/platform/connect-client:${CONNECT_CLIENT_VERSION} AS connect
 
+# highlight-start
 # 1. Add connect binary
 COPY --from=connect /usr/bin/connect-client /usr/bin/connect-client
 
@@ -88,6 +88,7 @@ RUN /usr/bin/connect-client --install
 
 # 3. Configure connect as the entrypoint
 ENTRYPOINT ["/usr/bin/connect-client", "--entrypoint"]
+# highlight-end
 ```
 
 For example, to run a basic Python-based HTTP server, build a container from the following Dockerfile. When a Studio runs the custom template environment, the value for the `CONNECT_TOOL_PORT` environment variable is provided dynamically.
@@ -97,15 +98,19 @@ For example, to run a basic Python-based HTTP server, build a container from the
 ARG CONNECT_CLIENT_VERSION="0.8"
 
 # Seqera base image
+# highlight-next-line
 FROM public.cr.seqera.io/platform/connect-client:${CONNECT_CLIENT_VERSION} AS connect
 
 FROM ubuntu:20.04
 RUN apt-get update --yes && apt-get install --yes --no-install-recommends python3
 
+# highlight-start
 COPY --from=connect /usr/bin/connect-client /usr/bin/connect-client
 RUN /usr/bin/connect-client --install
 ENTRYPOINT ["/usr/bin/connect-client", "--entrypoint"]
+# highlight-end
 
+# highlight-next-line
 CMD ["/usr/bin/bash", "-c", "python3 -m http.server $CONNECT_TOOL_PORT"]
 ```
 ### Getting started with custom containers template images
@@ -114,14 +119,12 @@ You can review a series of example custom studio environment container template 
 
 ### Inspect container augmentation build status {#build-status}
 
-You can inspect the progress of a custom container template image build, including any errors if the build fails. A link to the [Wave service][wave-home] container build report is always available for builds.
-
-If the custom container template image build fails, the Studio session has the **build-failed** status. The details about build failures are available when inspecting the session details in the **Error report** tab.
+You can inspect the progress of a custom container template image build, including any errors if the build fails. A link to the [Wave service][wave-home] container build report is always available for builds. If the custom container template image build fails, the Studio session has the **build-failed** status. The details about build failures are available when inspecting the session details in the **Error report** tab.
 
 To inspect the status of an ongoing build, or a successful or failed build, complete the following steps:
 
 1. Select the **Studios** tab in Seqera Platform.
-1. From the list of sessions, select the name of the session with **building** or **build-failed** status that you want to inspect, and then select **View**.
+1. From the list of sessions, select the name of the session with `building` or `build-failed`status that you want to inspect, and then select **View**.
 1. In the **Details** tab, scroll to **Build reports** and select **Summary** to open the Wave service container build report for your build.
 1. Optional: If the build failed, select the **Error report** tab to view the errors associated with the build failure.
 
