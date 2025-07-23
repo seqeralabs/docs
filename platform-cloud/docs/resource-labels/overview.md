@@ -5,16 +5,27 @@ date: "24 Apr 2023"
 tags: [resource labels, labels]
 ---
 
-From version 22.3.0, Seqera supports resource labels in compute environments and other elements of your Seqera instance. This offers a flexible tagging system for annotation and tracking of the cloud services consumed by a run.
-Resource labels are sent to the service provider for each cloud compute environment in `key=value` format.
+Platform supports resource labels in runs, compute environments, pipelines, and actions. This offers a flexible tagging system for annotation and tracking of the cloud services consumed by a run. Resource labels are sent to the cloud service provider in `key=value` format.
 
 Resource labels are applied to elements during:
 
-- Compute environment creation with Batch Forge
-- Submission
-- Execution
+- Compute environment creation
+- Workflow submission
+- Workflow execution
 
-### Create and apply labels
+### Dynamic resource labels 
+
+Use dynamic resource labels to tag cloud resources with Platform run and Nextflow session identifiers at workflow submission and execution time. By providing a variable value (either `${workflowId}` or `${sessionId}`) in the standard `key=value` resource label format, the unique run or session ID for each pipeline run will be propagated to your cloud provider for all the resources spawned by that particular run. 
+
+For example, for user Alex to apply labels containing the unique Platform run ID to all the resources spawned by a run, they could apply a dynamic label such as `alex=run-${workflowId}` to their compute environment, pipeline, or manually in the pipeline launch form. 
+
+Dynamic resource labels applied at the compute environment or pipeline level are prefilled in the pipeline launch form, and they can be applied or overridden during pipeline launch. 
+
+:::info
+Since dynamic resource labels are used to tag the resources spawned with the Platform run ID or Nextflow session ID, they are only applied during workflow submission and execution time and not at compute environment creation. Therefore, only the **Submission time** and **Execution time** resources listed for each cloud provider on this page can be tagged with a dynamic resource label. 
+:::
+
+### Create and apply resource labels
 
 Resource labels can be created, applied, and edited by a workspace admin or owner. When applying a label, users can select from existing labels or add new labels on the fly.
 
@@ -30,11 +41,11 @@ Once the compute environment has been created, its resource labels cannot be edi
 
 If a resource label is applied to a compute environment, all runs in that compute environment will inherit it. Likewise, all cloud resources generated during the workflow execution will be tagged with the same resource label.
 
-#### Resource labels applied to pipelines, actions, and runs
+#### Resource labels applied to runs, pipelines, and actions
 
 Admins can override the default resource labels inherited from the compute environment when creating and editing pipelines, actions, and runs on the fly. The custom resource labels associated with each element will propagate to the associated resources in the cloud environment without altering the default resource labels associated with the compute environment.
 
-When an admin adds or edits the resource labels associated with a pipeline, action, or run, the **submission and execution time** resource labels are altered. This does not affect the resource labels for resources spawned at (compute environment) **creation time**.
+When an admin adds or edits the resource labels associated with a pipeline, action, or run, the **submission and execution time** resource labels are altered. This does not affect the resource labels for resources spawned at compute environment **creation time**.
 
 For example, the resource label `name=ce1` is set during AWS Batch compute environment creation. If you create the resource label `pipeline=pipeline1` while creating a pipeline which uses the same AWS Batch compute environment, the EC2 instances associated with that compute environment will still contain only the `name=ce1` label, while the Job Definitions associated with the pipeline will inherit the `pipeline=pipeline1` resource label.
 
@@ -44,25 +55,26 @@ If a maintainer changes the compute environment associated with a pipeline or ru
 
 Search and filter pipelines and runs using one or more resource labels. The resource label search uses a `label:key=value` format.
 
-### Overview of resource labels in a workspace
+### Manage workspace resource labels
 
-Select a workspace's **Settings** tab to view all the resource labels used in that workspace. Resource labels can only be edited or deleted by admins and only if they're not already associated with **any** resource. This applies to resource labels associated with compute environments and runs. When you add or edit a resource label, you can optionally set the **"Use as default in compute environment form"** option. Workspace default resource labels are prefilled in the **Resource labels** field when creating a new compute environment in that workspace.
+Select a workspace's **Settings** tab to view all the resource labels used in that workspace. Resource labels can only be edited or deleted by admins and only if they're not already associated with **any** resource. This applies to resource labels associated with compute environments and runs. When you add or edit a resource label, you can optionally set the **Use as default in compute environment form** option. Workspace default resource labels are prefilled in the **Resource labels** field when creating a new compute environment in that workspace.
 
 The deletion of a resource label from a workspace has no influence on the cloud environment.
 
 ### Resource label propagation to cloud environments
 
 :::note
-You can't assign multiple resource labels, using the same key, to the same resource — regardless of whether this option is supported by the destination cloud provider.
+- Cloud provider credentials must have the appropriate roles or permissions to tag resources in your environment.
+- You can't assign multiple resource labels, using the same key, to the same resource — regardless of whether this option is supported by the destination cloud provider.
 :::
 
-Resource labels are only available for cloud environments that use a resource tagging system. Seqera supports AWS, Google Batch, Google Life Sciences, Azure, and Kubernetes. HPC compute environments do not support resource labels.
+Resource labels are only available for cloud environments that use a resource tagging system. AWS, Azure, Google Cloud, and Kubernetes are supported. HPC compute environments do not support resource labels.
 
-Note that the cloud provider credentials you use must have the appropriate roles or permissions to tag resources in your environment.
+When a run is executed in a compute environment with associated resource labels:
+- Seqera propagates the labels to the set of resources listed for each provider below 
+- Nextflow distributes the labels for the resources spawned at runtime.
 
-When a run is executed in a compute environment with associated resource labels, Seqera Platform propagates the labels to a set of resources (listed below), while Nextflow distributes the labels for the resources spawned at runtime.
-
-If the compute environment is created through Forge, the compute environment will propagate the tags to the resources generated by the Forge execution.
+If the compute environment is created with Batch Forge, the compute environment will propagate the tags to the resources generated by the Forge execution.
 
 :::caution
 Resource label propagation is one-way and not synchronized with the cloud environment. This means that Seqera attaches tags to cloud resources, but isn't aware if those tags are changed or deleted directly in the cloud environment.
@@ -177,7 +189,7 @@ Currently, tagging with resource labels is not available for the files created d
 
 The following resources will be tagged using the labels associated with the compute environment:
 
-**Forge creation time**
+**Compute environment creation time**
 
 - Deployment
 - PodTemplate
@@ -198,4 +210,4 @@ The following resources will be tagged using the labels associated with the comp
 - A maximum of 25 resource labels can be applied to each resource.
 - A maximum of 1000 resource labels can be used in each workspace.
 
-See [here](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set) for more information on Kubernetes object labeling.
+See [Syntax and character set](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set) for more information on Kubernetes object labeling.
