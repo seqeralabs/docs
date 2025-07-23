@@ -18,7 +18,7 @@ Each Studio is reachable at a unique URL that includes a randomly generated subd
 Provide a wildcard TLS certificate to allow for uniquely generated subdomains. A wildcard certificate common name includes `*.` in the domain name, such as `*.example.com`, thereby securing any subdomain name at this level.
 
 :::info
-If your Enterprise deployment needs to have custom subdomains and/or needs non-wildcard certificates you can enable path-based routing for Studios. This changes the dynamic subdomain used for each Studio session to a fixed subdomain with path-based routing.
+If your Enterprise deployment needs non-wildcard certificates, you can enable path-based routing for Studios. This changes the dynamic subdomain used for each Studio session to a fixed subdomain with path-based routing.
 
 - When `TOWER_DATA_STUDIO_ENABLE_PATH_ROUTING` is left blank:
     - https://a1234abc.connect.cloud.seqera.io/
