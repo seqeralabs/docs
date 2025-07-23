@@ -25,7 +25,7 @@
     Used to store the value of the key used to encrypt existing credentials and secrets (`tower.crypto.secretKey` value before rotation), to keep cryptographic features enabled while rotation is in progress. Requires `tower.secret-rotation.enabled=true`. 
   Value:                'Your existing `tower.crypto.secretKey` before rotation.'
 - 
-  tower.yml:            '`tower.secret.rotation.chunk-size`'
+  tower.yml:            '`tower.secret-rotation.chunk-size`'
   Description: > 
     The number of records to extract in chunks until all secrets and credentials are processed. Requires `tower.secret.rotation.enabled=true`.
   Value:                'Default: `50`'
