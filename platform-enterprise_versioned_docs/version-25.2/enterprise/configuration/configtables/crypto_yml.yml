@@ -15,7 +15,7 @@
     The secret used to generate the login refresh token (**required**).
   Value:                'Random string of 35 characters or more.'
 - 
-  tower.yml:            '`tower.secret.rotation.enabled`'
+  tower.yml:            '`tower.secret-rotation.enabled`'
   Description: > 
     Enable (`true`) or disable (`false`) rotation of the encryption key used to encrypt credentials and secrets in your Platform database.
   Value:                'Default: `false`'
