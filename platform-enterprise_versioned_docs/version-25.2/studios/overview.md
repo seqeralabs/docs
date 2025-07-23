@@ -203,7 +203,7 @@ For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
 
 ### Custom subdomains/non-wildcard SSL/TLS certificates
 
-Connect, the Studios webserver, uses dynamic subdomains to manage session routing of requests. This requires a wildcard SSL/TLS certificate. For Enterprise deployments that cannot use a wildcard SSL/TLS certificate or that require custom subdomains, an optional configuration environment variable can be added (`TOWER_DATA_STUDIO_ENABLE_PATH_ROUTING = True`). Setting this configures Studios requests to use path-based routing, which does not require a wildcard SSL/TLS certificate and allows custom subdomains.
+Connect, the Studios webserver, uses dynamic subdomains to manage session routing of requests. This requires a wildcard SSL/TLS certificate. For Enterprise deployments that cannot use a wildcard SSL/TLS certificate or that require custom subdomains, an optional configuration environment variable can be added (`TOWER_DATA_STUDIO_ENABLE_PATH_ROUTING = true`). Setting this configures Studios requests to use path-based routing, which does not require a wildcard SSL/TLS certificate and allows custom subdomains.
 
 :::warning
 Path-based routing is only supported for the Seqera-provided JupyterLab, R-IDE Server, and Visual Studio Code container template images (and custom environments built from each). Xpra and user-defined [custom container template images](./custom-envs.md#custom-containers) are not supported.
