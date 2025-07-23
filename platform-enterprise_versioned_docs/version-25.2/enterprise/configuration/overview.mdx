@@ -366,7 +366,7 @@ Enable rotation by setting the following configuration values:
 With rotation enabled and the previous and new key values set, secret key rotation will run as part of the Platform cron service during application startup. Normal application startup is not affected by this process, and Platform is fully operational while the credentials and secrets in your database are being encrypted using your new secret key.
 
 :::warning 
-- To prevent the loss of data, perform a backup of your Platform database and securely back up your current crypto secret key before enabling and performing key rotation. 
+- To prevent data loss, perform a backup of your Platform database and securely back up your current crypto secret key before enabling and performing key rotation.
 - All backend pods or containers for your Enterprise deployment must contain the same previous and new secret key values in their Platform config and must be in a ready/running state before starting the Platform cron service.
 :::
 
