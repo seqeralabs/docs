@@ -27,5 +27,5 @@
 - 
   AWS Parameter Store:            '`{prefix}/tower/secret/rotation/chunk-size`'
   Description: > 
-    The number of records to extract in chunks until all secrets and credentials are processed. Requires `tower.secret.rotation.enabled=true`.
+    The number of records to extract in chunks until all secrets and credentials are processed. Requires `/tower/secret-rotation/enabled=true`.
   Value:                'Default: `50`'
