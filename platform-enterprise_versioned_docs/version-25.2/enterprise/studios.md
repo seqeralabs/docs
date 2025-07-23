@@ -20,7 +20,7 @@ Provide a wildcard TLS certificate to allow for uniquely generated subdomains. A
 :::info
 If your Enterprise deployment needs to have custom subdomains and/or needs non-wildcard certificates you can enable path-based routing for Studios. This changes the dynamic subdomain used for each Studio session to a fixed subdomain with path-based routing.
 
-- When `TOWER_DATA_STUDIO_ENABLE_PATH_ROUTING` is not set:
+- When `TOWER_DATA_STUDIO_ENABLE_PATH_ROUTING` is left blank:
     - https://a1234abc.connect.cloud.seqera.io/
     - https://a5678abcd.connect.cloud.seqera.io/
 
