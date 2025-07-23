@@ -201,9 +201,18 @@ To mount an EFS volume in a Studio session (for example, if your organization ha
 
 For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
 
-### Custom subdomains/non-wildcard SSL/TLS certificates
+### Path-based routing/non-wildcard SSL/TLS certificates
 
-Connect, the Studios webserver, uses dynamic subdomains to manage session routing of requests. This requires a wildcard SSL/TLS certificate. For Enterprise deployments that cannot use a wildcard SSL/TLS certificate or that require custom subdomains, an optional configuration environment variable can be added (`TOWER_DATA_STUDIO_ENABLE_PATH_ROUTING = true`). Setting this configures Studios requests to use path-based routing, which does not require a wildcard SSL/TLS certificate and allows custom subdomains.
+Connect, the Studios webserver, uses dynamic subdomains to manage session routing of requests (for example `https://a1234abc.connect.cloud.seqera.io/`, `https://a5678abcd.connect.cloud.seqera.io/`). This requires a wildcard SSL/TLS certificate. For Enterprise deployments that cannot use a wildcard SSL/TLS certificate or that require custom subdomains, an optional configuration environment variable can be added (`TOWER_DATA_STUDIO_ENABLE_PATH_ROUTING = true`). Setting this configures Studios requests to use path-based routing, which does not require a wildcard SSL/TLS certificate and allows custom subdomains (for example `https://connect.connect.cloud.seqera.io/_studio/a1234abc`).
+
+To enable path-based routing in Platform, create a new certificate that contains the Platform and Connect addresses (this does not require a wildcard certificate) and use the following configuration:
+
+- `TOWER_DATA_STUDIO_ENABLE_PATH_ROUTING=true`
+- `TOWER_DATA_STUDIO_CONNECT_URL=<NEW_CONNECT_ADDRESS>`
+
+To enable path-based routing in the Connect proxy/server, make sure your `connect-proxy` is available on the address you plan to use as this might require some changes in your DNS configuration, and then use the following configuration:
+
+- `CONNECT_PROXY_URL=<NEW_CONNECT_ADDRESS>`
 
 :::warning
 Path-based routing is only supported for the Seqera-provided JupyterLab, R-IDE Server, and Visual Studio Code container template images (and custom environments built from each). Xpra and user-defined [custom container template images](./custom-envs.md#custom-containers) are not supported.
