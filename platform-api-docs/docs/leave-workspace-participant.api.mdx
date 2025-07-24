@@ -5,7 +5,7 @@ description: "Removes the requesting user from the given workspace."
 sidebar_label: "Leave workspace"
 hide_title: true
 hide_table_of_contents: true
-api: eJytVMFu2zAM/RVBpw3I4mwLdshpLZYBxYqtaDv0EOTA2Iyt1pZUSU6XGf73kYodJ22xDsVOlqkn6ZHvkY3M0KdO2aCMljN5iZXZoBehQOHwvkYflM5F7dGJtTNV3MjVBrV4MO7OW0hxLEcyQO7lbCH3QS+XI2ksOuCbzzK6+xxhgzc94AJcUKmyoAOdt+CgwoCOb2mkph86YVxOJ0dSMTULoaD1Md8fLgetfsdHhK4rdCoVKkMd1FqhIzxnoRwSgeBqHEmfFliBnDUybC0/onTAPELXxlUQdqFPU9m2oz2TfV4v8YkLKIfq/H9WSz7urdGeqkwnPkym/HlE5Jt4J74bkRq6iErcjuR0MnmKO4WsF5re6tEEA2tLlcbCJreesc0By4H/QlboPeTIgnfkzeoW0yirYwsEtSPaA4csfXBkL660DCqUHJo7Z9xllx/ttJH5x2cy7M0ltAkCytI8EB+Ge0xrp8I2WukUwaE7qUms2WLJxSOfFYYNmWFJlovu412ZkN980kTXtclg5aQ5kL9N7OBcL4fXrrg4u0QP39znWoRgZac0/68iiCK7xdde5tuHELNQem3i8a4wV3hPCYuTi7Mnruu2LkoI7BZB3bpRRLwDs6qQRlVrV3ZU/CxJfDw3VoZAJKwqo8vW5vOwQUQ21JW7d96Pp9PxhGPW+FBBNEXXIbG7B9s/5tgM3nr9kNkVMuCvkNgSqAuJScyo6SRc8MhgUWb96DgYSBQ9buMjIckYBSXFdzTNCjz+dGXbcpgIOvYSLTfgFKxYDnJWpjyvyUlrKD3+JeE3l127vBUvD6xns+yCoLeSWZQ1/9HyDrf7Ocnj6nWc/nFovYLZYcHbJcELhIwu4/rtECdpijYcnH0yeI569sv8fH49Jzgcd9ejbooPPEuNxI2Ia3OHmgTumQb+Z45t+wc1B3OT
+api: eJytVMFu2zAM/RVBpw1w4mzLdshpLZYBxYqtaDvsEOTA2EyixrZUSU6bGf73kbIdJ2mxDsVOlimKfI98ZCVTdIlVxitdyIm8xlxv0Qm/RmHxvkTnVbESpUMrllbn4WKltliIB203zkCCQxlJDysnJzO5Nzo5j6Q2aIEjX6QU+xJhi786hyuwXiXKQOHpvQELOXq0HKWSBf3QC21X9DKSiqEZ8Gs6H+P9YVdQqN8hiSjKHK1KhEqx8Gqp0JI/s1AWCYC3JUbSJWvMQU4q6XeGk6jC4yq4LrXNwTemT2NZR/Jx4AzCBsHtBgHiQIfMkDXh6miPdc/8JcRtgL5+/x13PefnzujCUR/oxfvRmD8nQL6JgfiuRaIpEDWB6I5Ho6d+55B2UqBcnTe5gTGZSkLp4zvHvtUByh7/TOboHKyQJdGC14s7TELjLYvEqwZo59izdN6SAIkTPVU+Y9PUWm2vW350UwfkH55h2MlPFNoLyDL9QHjY3WFSWuV3QWznCBbtWUnNmszmXDxS4lqzZFPMSJRBn3wrY1Kki6ugyzruxR5XB+2vY9Nr20nOZredsktL0pFr742bxDEYNUwyXaZDh/cEdqi0ZAAdvhsuZ1OaQ5T76nAc2WqD/xfBiSzN4WsnjLsHH3irYqnD87aUNyGrOLu6eKLT9uoqA8/6EkxCEdXWmXUASdDBMaWeSCRJCioLulzqzwcMI8n1aPK8G44/DkdsM9r5HIKM2pkKG6MflFOMVa/G1y+uppAeH31sMqC5JSSBUdU2fcZriNs46dbRwZIj6/HgH7WeOrkmUhyjqhbg8KfN6prNBNCy+ui4Batgwe0geaTK8Zm0t4TM4V8Iv7luB+yteHkJPsuyNUKxk4wiK/mPjhvc7XcvL7jXYfrHNfcKZIcFr+fkvkZIKRjXr/E4SxI0/uDtk1V1NOVfppfT2ym5w/F0nUxTSPAsNGpu8LjVGyyowR1Sz/+Msa7/AB3ykbI=
 sidebar_class_name: "delete api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -47,7 +47,7 @@ Removes the requesting user from the given workspace.
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"path","description":"Optional workspace numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"},"x-speakeasy-param-optional":true},{"name":"workspaceId","in":"path","description":"Optional workspace numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
 >
   
 </ParamsDetails>
