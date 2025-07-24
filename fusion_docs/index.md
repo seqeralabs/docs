@@ -39,12 +39,12 @@ When pipelines run with cloud storage, tasks typically read data from a bucket, 
 
 The result is significant overhead for every task. Fusion enables direct file access to cloud object storage, eliminating unnecessary I/O and dramatically reducing data movement and overall runtime.
 
-### Checkpoint and recovery terminated instances
+### Checkpoint and recover reclaimed spot instances with Fusion Snapshots
 
 Running pipelines on AWS Spot instances can lead to interruptions, causing tasks to restart from the beginning and waste time and compute resources.
 
-Fusion Snapshots enable checkpointing of running Nextflow processes, allowing tasks to be resumed on a different machine if interrupted.
-By leveraging the Fusion file system and shared S3 storage, tasks seamlessly continue from the last checkpoint, improving efficiency and reducing resource usage.
+Fusion Snapshots checkpoint Nextflow processes mid-task when a Spot instance interruption occurs and save their state to S3.
+The task is restored from the last checkpoint on a new AWS instance, saving time and computational resources.
 
 ### Seamless access to cloud object storage
 
