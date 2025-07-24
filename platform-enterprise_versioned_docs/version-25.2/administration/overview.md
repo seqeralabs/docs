@@ -77,5 +77,5 @@ View application event [audit logs](../monitoring/audit-logs).
 With [secret key rotation](../enterprise/configuration/overview.mdx#secret-key-rotation) configured in your Enterprise instance, the **Encryption** tab displays the status of encryption tasks as they complete. Encryption tasks complete with one of three statuses:
 
 - **Success**: Secret encryption with the new secret key has completed successfully. 
-- **Error**: Secret encryption has failed, usually due to corrupted or missing data. The **Encrypted data ID** displays the path to the secret or credential. Locate the secret in the workspace ID listed to delete and recreate it. 
-- **Orphaned**: While secret data has been successfully encrypted, the secret is orphaned in the Platform database. This means that this secret data exists in an encrypted state in your Platform database without a corresponding secret or credential ID in Platform. Use the **Encrypted data ID** to locate the orphaned entry in your Platform database and delete it directly. 
+- **Error**: Secret encryption has failed, usually due to corrupted or missing data. **Encrypted data ID** displays the path to the secret or credential.
+- **Orphaned**: While secret data has been successfully encrypted, the secret is orphaned in the Platform database. This means that this secret data exists in an encrypted state in your Platform database without a corresponding secret or credential ID in a Platform workspace. **Encrypted data ID** displays the unique identifier for the orphaned entry in your Platform database.
