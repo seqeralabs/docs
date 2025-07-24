@@ -67,7 +67,7 @@ The deletion of a resource label from a workspace has no influence on the cloud 
 
 :::note
 - Cloud provider credentials must have the appropriate roles or permissions to tag resources in your environment.
-- You can't assign multiple resource labels, using the same key, to the same resource — regardless of whether this option is supported by the destination cloud provider.
+- You can't assign multiple resource labels, using the same key, to the same resource, regardless of whether this option is supported by the destination cloud provider.
 :::
 
 Resource labels are only available for cloud environments that use a resource tagging system. AWS, Azure, Google Cloud, and Kubernetes are supported. HPC compute environments do not support resource labels.
