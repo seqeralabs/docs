@@ -43,7 +43,7 @@ The result is significant overhead for every task. Fusion enables direct file ac
 
 Running pipelines on AWS Spot instances can lead to interruptions, causing tasks to restart from the beginning and waste time and compute resources.
 
-Fusion Snapshots checkpoint Nextflow processes mid-task when a Spot instance interruption occurs and save their state to S3.
+When a Spot instance interruption occurs, Fusion Snapshots checkpoint Nextflow processes mid-task and save their state to S3.
 The task is restored from the last checkpoint on a new AWS instance, saving time and computational resources.
 
 ### Seamless access to cloud object storage
