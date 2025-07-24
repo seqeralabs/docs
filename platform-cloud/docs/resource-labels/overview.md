@@ -15,7 +15,7 @@ Resource labels are applied to elements during:
 
 ### Dynamic resource labels 
 
-Use dynamic resource labels to tag cloud resources with Platform run and Nextflow session identifiers at workflow submission and execution time. By providing a variable value (either `${workflowId}` or `${sessionId}`) in the standard `key=value` resource label format, the unique run or session ID for each pipeline run will be propagated to your cloud provider for all the resources spawned by that particular run. 
+Use dynamic resource labels to tag cloud resources with Platform run and Nextflow session identifiers at workflow submission and execution time. When you provide a variable value (either `${workflowId}` or `${sessionId}`) in the standard `key=value` resource label format, the unique run or session ID for each pipeline run will be propagated to your cloud provider for all the resources spawned by that particular run.
 
 For example, for user Alex to apply labels containing the unique Platform run ID to all the resources spawned by a run, they could apply a dynamic label such as `alex=run-${workflowId}` to their compute environment, pipeline, or manually in the pipeline launch form. 
 
