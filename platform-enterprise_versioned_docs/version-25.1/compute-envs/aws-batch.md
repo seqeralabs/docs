@@ -1,7 +1,8 @@
 ---
 title: "AWS Batch"
 description: "Instructions to set up AWS Batch in Seqera Platform"
-date: "21 Apr 2023"
+date created: "2023-04-21"
+last updated: "2025-07-24"
 tags: [aws, batch, compute environment]
 ---
 
