@@ -22,7 +22,7 @@ For example, to apply labels containing the unique Platform run ID to all the re
 Dynamic resource labels applied at the compute environment or pipeline level are prefilled in the pipeline launch form, and they can be applied or overridden during pipeline launch.
 
 :::info
-Since dynamic resource labels are used to tag the resources spawned with the Platform run ID or Nextflow session ID, they are only applied during workflow submission and execution time and not at compute environment creation. Therefore, only the **Submission time** and **Execution time** resources listed for each cloud provider on this page can be tagged with a dynamic resource label. 
+Because dynamic resource labels are used to tag the resources spawned with the Platform run ID or Nextflow session ID, they are only applied during workflow submission and execution time, and not at compute environment creation. As a result, only the **Submission time** and **Execution time** resources listed for each cloud provider on this page can be tagged with a dynamic resource label.
 :::
 
 ### Create and apply resource labels
