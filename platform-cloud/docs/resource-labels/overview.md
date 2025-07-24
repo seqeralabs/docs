@@ -57,7 +57,9 @@ Search and filter pipelines and runs using one or more resource labels. The reso
 
 ### Manage workspace resource labels
 
-Select a workspace's **Settings** tab to view all the resource labels used in that workspace. Resource labels can only be edited or deleted by admins and only if they're not already associated with **any** resource. This applies to resource labels associated with compute environments and runs. When you add or edit a resource label, you can optionally set the **Use as default in compute environment form** option. Workspace default resource labels are prefilled in the **Resource labels** field when creating a new compute environment in that workspace.
+Select a workspace's **Settings** tab to view all the resource labels used in that workspace. All users can add resource labels, but only admins can edit or delete them, provided they're not already associated with **any** resource. This applies to resource labels associated with compute environments and runs. 
+
+When you add or edit a resource label, you can optionally set **Use as default in compute environment form**. Workspace default resource labels are prefilled in the **Resource labels** field when you create a new compute environment in that workspace.
 
 The deletion of a resource label from a workspace has no influence on the cloud environment.
 
