@@ -203,7 +203,7 @@ For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
 
 ### Path-based routing/non-wildcard SSL/TLS certificates
 
-Connect, the Studios webserver, uses dynamic subdomains to manage session routing of requests (for example `https://a1234abc.connect.cloud.seqera.io/`, `https://a5678abcd.connect.cloud.seqera.io/`). This requires a wildcard SSL/TLS certificate. 
+Connect, the Studios webserver, uses dynamic subdomains to manage session routing of requests (for example `https://a1234abc.connect.cloud.seqera.io/`, `https://a5678abcd.connect.cloud.seqera.io/`). This requires a wildcard SSL/TLS certificate.
 
 For Enterprise deployments that cannot use a wildcard SSL/TLS certificate, an optional configuration environment variable, `TOWER_DATA_STUDIO_ENABLE_PATH_ROUTING` can be added. Setting this configures Studios requests to use path-based routing and a single, fixed domain for Studio sessions (for example `https://connect.connect.cloud.seqera.io/_studio/a1234abc`, `https://connect.connect.cloud.seqera.io/_studio/a5678abcd`).
 
