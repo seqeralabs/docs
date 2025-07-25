@@ -209,7 +209,7 @@ For Enterprise deployments that cannot use a wildcard SSL/TLS certificate, an op
 
 To enable path-based routing in Platform, create a new certificate that contains the Platform and Connect addresses (this does not require a wildcard certificate) and use the following configuration: `TOWER_DATA_STUDIO_ENABLE_PATH_ROUTING=true`.
 
-### Custom studio domain setup
+### Custom Studio domain setup
 
 By default, Seqera Platform Cloud uses `https://connect.connect.cloud.seqera.io` as the Studios subdomain. However, the domain used for Studios can be configured by the following two environment variables.
 
