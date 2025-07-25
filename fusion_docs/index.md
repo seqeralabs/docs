@@ -11,8 +11,8 @@ Fusion is a virtual, lightweight, distributed file system that bridges the gap b
 storage. Fusion enables seamless filesystem I/O to cloud object stores via a standard POSIX interface, resulting in
 simpler pipeline logic and faster, more efficient pipeline execution.
 
-:::note 
-Fusion requires a license for use in Seqera Platform compute environments or directly in Nextflow. See [Fusion licensing](https://docs.seqera.io/fusion/licensing) for more information.
+:::note
+Fusion requires a license for use in Seqera Platform compute environments or directly in Nextflow. See [Fusion licensing](./licensing.md) for more information.
 :::
 
 ### Transparent, automated installation
@@ -38,6 +38,12 @@ Fusion eliminates these bottlenecks and delays, reducing execution time and clou
 When pipelines run with cloud storage, tasks typically read data from a bucket, copy it to compute instance storage for processing, and copy the results back to the cloud storage bucket.
 
 The result is significant overhead for every task. Fusion enables direct file access to cloud object storage, eliminating unnecessary I/O and dramatically reducing data movement and overall runtime.
+
+### Checkpoint and recover reclaimed Spot instances with Fusion Snapshots
+
+Running pipelines on AWS Spot instances can lead to interruptions, causing tasks to restart from the beginning which wastes time and compute resources.
+
+When a Spot instance interruption occurs, Fusion Snapshots checkpoint Nextflow processes mid-task and save their state to S3. The task is restored from the last checkpoint on a new AWS instance, saving time and computational resources.
 
 ### Seamless access to cloud object storage
 
