@@ -1,0 +1,41 @@
+---
+- 
+  tower.yml:            '`tower.scm.provider.github.user`'
+  Description:          'Your GitHub username.'
+- 
+  tower.yml:            '`tower.scm.provider.github.password`'
+  Description:          'Your GitHub (classic or fine-grained) access token.'
+-
+  tower.yml:            '`tower.scm.provider.gitlab.user`'
+  Description:          'Your GitLab username.'
+-
+  tower.yml:            '`tower.scm.provider.gitlab.password`'
+  Description:          'Your GitLab (Personal, Group, or Project) access token.'
+-
+  tower.yml:            '`tower.scm.provider.gitlab.token`'
+  Description:          'Your GitLab (Personal, Group, or Project) access token.'
+- 
+  tower.yml:            '`tower.scm.provider.bitbucket.user`'
+  Description:          'Your BitBucket username.'
+- 
+  tower.yml:            '`tower.scm.provider.bitbucket.password`'
+  Description:          'Your BitBucket App password.'
+- 
+  tower.yml:            '`tower.scm.provider.gitea.user`'
+  Description:          'Your Gitea username.'
+- 
+  tower.yml:            '`tower.scm.provider.gitea.password`'
+  Description:          'Your Gitea token.'
+- 
+  tower.yml:            '`tower.scm.provider.azurerepos.user`'
+  Description:          'Your Azure DevOps repository username.'
+- 
+  tower.yml:            '`tower.scm.provider.azurerepos.token`'
+  Description:          'Your Azure DevOps repository personal access token.'
+#To be confirmed
+#- 
+#  tower.yml:            '`tower.scm.provider.`'
+#  Description:          'AWS CodeCommit user access key.'
+#- 
+#  tower.yml:            '`tower.scm.provider.`'
+#  Description:          'AWS CodeCommit user secret key.'
