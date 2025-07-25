@@ -99,7 +99,7 @@ External databases for Seqera Enterprise deployments require:
 
 - A **MySQL8 Community** DB instance
 - At least 2 vCPUs, 8 GB memory, and 30 GB SSD storage
-- Manual MySQL user and database schema creation. See [Database configuration](../configuration/overview#seqera-and-redis-databases) for more details.
+- Manual MySQL user and database schema creation. See [Database configuration](../configuration/overview.mdx#seqera-and-redis-databases) for more details.
 
 :::caution 
 Recommended instance class and storage requirements depend on the number of parallel pipelines you expect to run. 
@@ -133,7 +133,7 @@ aws rds create-db-instance \
 After your database is created:
 
 - Update the inbound rules for the underlying EC2 instance to allow MySQL connections.
-- Update your Seqera [configuration](../configuration/overview#seqera-and-redis-databases) with the database hostname, username, and password.
+- Update your Seqera [configuration](../configuration/overview.mdx#seqera-and-redis-databases) with the database hostname, username, and password.
 
 ### Amazon EC2
 
