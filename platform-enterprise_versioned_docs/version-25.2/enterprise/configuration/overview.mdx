@@ -333,6 +333,45 @@ Replace `{prefix}` in each configuration path with `/config/<application_name>`,
 </TabItem>
 </Tabs>
 
+### Secret key rotation
+
+Rotate the key used to encrypt the credentials and secrets stored in your Platform database. Encryption key rotation is a security best practice and should be performed at an interval specified by your organization's security requirements, or in the event of a suspected compromise of your secret key. 
+
+Enable rotation by setting the following configuration values:
+
+<Tabs>
+<TabItem value="Environment variables" label="Environment variables" default>
+
+- `TOWER_SECRET_ROTATION_ENABLED=true`
+- `TOWER_SECRET_ROTATION_PREVIOUS_KEY=<EXISTING_TOWER_CRYPTO_SECRET_KEY_VALUE>`
+- `TOWER_CRYPTO_SECRETKEY=<NEW_SECRET_KEY_VALUE>`
+
+</TabItem>
+<TabItem value="tower.yml" label="tower.yml" default>
+
+- `tower.secret.rotation.enabled: true`
+- `tower.secret.rotation.previous-key: <EXISTING_tower.crypto.secretKey_VALUE>`
+- `tower.crypto.secretKey: <NEW_SECRET_KEY_VALUE>`
+
+</TabItem>
+<TabItem value="AWS Parameter Store" label="AWS Parameter Store" default>
+
+- `/tower/secret/rotation/enabled: true`
+- `/tower/secret/rotation/previous-key: <EXISTING_/tower/crypto/secretKey_VALUE>`
+- `/tower/crypto/secretKey: <NEW_SECRET_KEY_VALUE>`
+
+</TabItem>
+</Tabs>
+
+With rotation enabled and the previous and new key values set, secret key rotation will run as part of the Platform cron service during application startup. Normal application startup is not affected by this process, and Platform is fully operational while the credentials and secrets in your database are being encrypted using your new secret key.
+
+:::warning 
+- To prevent data loss, perform a backup of your Platform database and securely back up your current crypto secret key before enabling and performing key rotation.
+- All backend pods or containers for your Enterprise deployment must contain the same previous and new secret key values in their Platform config and must be in a ready/running state before starting the Platform cron service.
+:::
+
+The [Admin panel](../../administration/overview.md#encryption) **Encryption** tab displays the status of completed or errored encryption tasks.
+
 ## Compute environments
 
 Configuration values to enable computing platforms and customize Batch Forge resource naming.

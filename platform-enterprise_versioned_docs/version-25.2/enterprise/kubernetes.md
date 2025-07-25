@@ -60,7 +60,7 @@ Seqera Enterprise is distributed as a collection of Docker containers available 
 
 ### Seqera ConfigMap
 
-Download and configure a [ConfigMap](_templates/k8s/configmap.yml). See [Configuration](./configuration/overview) for more information.
+Download and configure a [ConfigMap](_templates/k8s/configmap.yml). See [Configuration](./configuration/overview.mdx) for more information.
 
 Deploy the ConfigMap to your cluster after it is configured:
 
@@ -105,7 +105,7 @@ Seqera supports managed Redis services such as [Amazon ElastiCache][aws-elastica
 
 - Use a single-node cluster, as multi-node clusters are not supported
 - Use an instance with at least 6GB capacity ([cache.m4.large][aws-cache-instances] or greater)
-- Specify your private ElastiCache instance in the Seqera [environment variables](./configuration/overview#database-and-redis-manual-configuration):
+- Specify your private ElastiCache instance in the Seqera [environment variables](./configuration/overview.mdx#database-and-redis-manual-configuration):
 
   ```bash
   TOWER_REDIS_URL=redis://<redis private IP>:6379
@@ -115,8 +115,8 @@ Seqera supports managed Redis services such as [Amazon ElastiCache][aws-elastica
 <TabItem value="Azure Cache for Redis" label="Azure Cache for Redis" default>
 
 - Use a single-node cluster, as multi-node clusters are not supported
-- Use an instance with at least 6GB capacity ([C3][azure-cache-instances] or greater)
-- Specify your private Azure Cache for Redis instance in the Seqera [environment variables](./configuration/overview#database-and-redis-manual-configuration):
+- Use an instance with at least 6 GB capacity ([C3][azure-cache-instances] or greater)
+- Specify your private Azure Cache for Redis instance in the Seqera [environment variables](./configuration/overview.mdx#database-and-redis-manual-configuration):
 
   ```bash
   TOWER_REDIS_URL=redis://<redis private IP>:6379
@@ -126,8 +126,8 @@ Seqera supports managed Redis services such as [Amazon ElastiCache][aws-elastica
 <TabItem value="Google Memorystore" label="Google Memorystore" default>
 
 - Use a single-node cluster, as multi-node clusters are not supported
-- Use an instance with at least 6GB capacity ([M2][google-cache-instances] or greater)
-- Specify your private Memorystore instance in the Seqera [environment variables](./configuration/overview#database-and-redis-manual-configuration):
+- Use an instance with at least 6 GB capacity ([M2][google-cache-instances] or greater)
+- Specify your private Memorystore instance in the Seqera [environment variables](./configuration/overview.mdx#database-and-redis-manual-configuration):
 
   ```bash
   TOWER_REDIS_URL=redis://<redis private IP>:6379
