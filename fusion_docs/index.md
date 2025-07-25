@@ -12,7 +12,7 @@ storage. Fusion enables seamless filesystem I/O to cloud object stores via a sta
 simpler pipeline logic and faster, more efficient pipeline execution.
 
 :::note 
-Fusion requires a license for use in Seqera Platform compute environments or directly in Nextflow. See [Fusion licensing](https://seqera.io/contact-us) for more information.
+Fusion requires a license for use in Seqera Platform compute environments or directly in Nextflow. See [Fusion licensing](https://docs.seqera.io/fusion/licensing) for more information.
 :::
 
 ### Transparent, automated installation
