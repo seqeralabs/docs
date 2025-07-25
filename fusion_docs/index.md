@@ -41,7 +41,7 @@ The result is significant overhead for every task. Fusion enables direct file ac
 
 ### Checkpoint and recover reclaimed Spot instances with Fusion Snapshots
 
-Running pipelines on AWS Spot instances can lead to interruptions, causing tasks to restart from the beginning and waste time and compute resources.
+Running pipelines on AWS Spot instances can lead to interruptions, causing tasks to restart from the beginning which wastes time and compute resources.
 
 When a Spot instance interruption occurs, Fusion Snapshots checkpoint Nextflow processes mid-task and save their state to S3. The task is restored from the last checkpoint on a new AWS instance, saving time and computational resources.
 
