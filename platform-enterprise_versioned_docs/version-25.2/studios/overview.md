@@ -211,7 +211,7 @@ To enable path-based routing in Platform, create a new certificate that contains
 
 ### Custom studio domain setup
 
-By default Seqera Platform Cloud uses this subdomain for studio 'https://connect.connect.cloud.seqera.io'. However, the domain used for Studios can be configured by the following two environment variables.
+By default, Seqera Platform Cloud uses `https://connect.connect.cloud.seqera.io` as the Studios subdomain. However, the domain used for Studios can be configured by the following two environment variables.
 
 In Platform:
 - `TOWER_DATA_STUDIO_CONNECT_URL=<NEW_DOMAIN_ADDRESS>`
