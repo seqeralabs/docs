@@ -24,7 +24,7 @@ If your Enterprise deployment needs non-wildcard certificates, you can enable pa
     - https://a1234abc.connect.cloud.seqera.io/
     - https://a5678abcd.connect.cloud.seqera.io/
 
-- When `TOWER_DATA_STUDIO_ENABLE_PATH_ROUTING=true` is set:
+- When `TOWER_DATA_STUDIO_ENABLE_PATH_ROUTING=true`:
     - https://connect.connect.cloud.seqera.io/_studio/a1234abc
     - https://connect.connect.cloud.seqera.io/_studio/a5678abcd
 
