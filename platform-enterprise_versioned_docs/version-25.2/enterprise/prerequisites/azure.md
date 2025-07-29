@@ -272,9 +272,9 @@ container registry ([cr.seqera.io](https://cr.seqera.io)). Contact [support](htt
 1. Pull the Seqera container images with the following commands:
 
     ```bash
-    docker pull cr.seqera.io/private/nf-tower-enterprise/backend:v25.1.1
+    docker pull cr.seqera.io/private/nf-tower-enterprise/backend:v25.2.0
 
-    docker pull cr.seqera.io/private/nf-tower-enterprise/frontend:v25.1.1
+    docker pull cr.seqera.io/private/nf-tower-enterprise/frontend:v25.2.0
     ```
 
 ## Next steps 

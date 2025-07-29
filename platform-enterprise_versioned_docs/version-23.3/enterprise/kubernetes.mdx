@@ -99,7 +99,7 @@ Seqera supports managed Redis services such as [Amazon ElastiCache][aws-elastica
 
 - Use a single-node cluster, as multi-node clusters are not supported
 - Use an instance with at least 6GB capacity ([cache.m4.large][aws-cache-instances] or greater)
-- Specify your private ElastiCache instance in the Seqera [environment variables](./configuration/overview#database-and-redis-manual-configuration):
+- Specify your private ElastiCache instance in the Seqera [environment variables](./configuration/overview.mdx#database-and-redis-manual-configuration):
 
   ```bash
   TOWER_REDIS_URL=redis://<redis private IP>:6379
@@ -110,7 +110,7 @@ Seqera supports managed Redis services such as [Amazon ElastiCache][aws-elastica
 
 - Use a single-node cluster, as multi-node clusters are not supported
 - Use an instance with at least 6GB capacity ([C3][azure-cache-instances] or greater)
-- Specify your private Azure Cache for Redis instance in the Seqera [environment variables](./configuration/overview#database-and-redis-manual-configuration):
+- Specify your private Azure Cache for Redis instance in the Seqera [environment variables](./configuration/overview.mdx#database-and-redis-manual-configuration):
 
   ```bash
   TOWER_REDIS_URL=redis://<redis private IP>:6379
@@ -121,7 +121,7 @@ Seqera supports managed Redis services such as [Amazon ElastiCache][aws-elastica
 
 - Use a single-node cluster, as multi-node clusters are not supported
 - Use an instance with at least 6GB capacity ([M2][google-cache-instances] or greater)
-- Specify your private Memorystore instance in the Seqera [environment variables](./configuration/overview#database-and-redis-manual-configuration):
+- Specify your private Memorystore instance in the Seqera [environment variables](./configuration/overview.mdx#database-and-redis-manual-configuration):
 
   ```bash
   TOWER_REDIS_URL=redis://<redis private IP>:6379
