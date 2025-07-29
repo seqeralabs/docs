@@ -44,6 +44,12 @@ To add a new Studio, select the **Studios** tab in your workspace then select **
                - If there is an existing defined session lifespan workspace setting, you won't be able to edit this. If no workspace setting is defined, you can edit this field. The minimum value is 1 hour and the maximum is 120 hours. The default value is 8 hours. 
                - If you change the default value, the change applies only to that session. Once you've stopped the session, the value returns to default.
           -  **Keep the session running until it's manually stopped or encounters an error which ends the session.**
+     1. **Environment variables**: For the selected compute environment, all existing environment variable key-value pairs are displayed and automatically inherited by the studio session. Additional per-session environment variables can be defined for the Studio.
+     
+        :::tip
+        Session-level environment variables take precedence. You can overwrite an existing compute environment-defined environment variable key-value pair by defining the same key and a different value.
+        :::   
+ 
      1. Select **Next**.
 
    - To use a custom container template image that you supply, complete the following steps:
@@ -119,8 +125,6 @@ Once connected, the session will display the status of **running** in the list, 
 This functionality is available to all user roles excluding the **View** role.
 
 To share a link to a running session with collaborators inside your workspace, select the three dots next to the status message for the session you want to share, then select **Copy Studio URL**. Using this link, other authenticated users can access the session directly.
-
-![](./_images/studios_collaboration.png)
 
 :::note
 Collaborators need valid workspace permissions to connect to the running Studio.
