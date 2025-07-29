@@ -215,7 +215,7 @@ Path-based routing is only supported for the Seqera-provided JupyterLab, R-IDE S
 
 ### Custom Studio domain setup
 
-By default, Seqera Platform Cloud uses https://connect.connect.cloud.seqera.io as the Studios subdomain. However, the domain used for Studios can be configured by the following two environment variables.
+By default, Seqera Platform Cloud uses https://{sessionId}.connect.cloud.seqera.io as the Studios subdomain. However, the domain used for Studios can be configured by the following two environment variables.
 
 :::note
 This may require changes to your DNS configuration and the addition of a SSL/TLS certificate for the new domain.
