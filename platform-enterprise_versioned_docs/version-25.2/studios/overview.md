@@ -203,29 +203,29 @@ For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
 
 ### Path-based routing/non-wildcard SSL/TLS certificates
 
-Connect, the Studios webserver, uses dynamic subdomains to manage session routing of requests (for example `https://a1234abc.connect.cloud.seqera.io/`, `https://a5678abcd.connect.cloud.seqera.io/`). This requires a wildcard SSL/TLS certificate.
+Connect, the Studios webserver, uses dynamic subdomains to manage session routing of requests (for example https://a1234abc.connect.cloud.seqera.io/, https://a5678abcd.connect.cloud.seqera.io/), which requires a wildcard SSL/TLS certificates. 
 
-For Enterprise deployments that cannot use a wildcard SSL/TLS certificate, an optional configuration environment variable, `TOWER_DATA_STUDIO_ENABLE_PATH_ROUTING` can be added. Setting this configures Studios requests to use path-based routing and a single, fixed domain for Studio sessions (for example `https://connect.connect.cloud.seqera.io/_studio/a1234abc`, `https://connect.connect.cloud.seqera.io/_studio/a5678abcd`).
+For Enterprise deployments that cannot use a wildcard SSL/TLS certificate, an optional configuration environment variable, `TOWER_DATA_STUDIO_ENABLE_PATH_ROUTING` can be added. Setting this configures Studios requests to use path-based routing and a single, fixed domain for Studio sessions (for example https://connect.connect.cloud.seqera.io/_studio/a1234abc, https://connect.connect.cloud.seqera.io/_studio/a5678abcd).
 
-To enable path-based routing in Platform, create a new certificate that contains the Platform and Connect addresses (this does not require a wildcard certificate) and use the following configuration: `TOWER_DATA_STUDIO_ENABLE_PATH_ROUTING=true`.
+To enable path-based routing in Platform, create a new certificate that contains the Platform and Connect addresses and use the following configuration, which does not require a wildcard certificate: `TOWER_DATA_STUDIO_ENABLE_PATH_ROUTING=true`.
+
+:::warning
+Path-based routing is only supported for the Seqera-provided JupyterLab, R-IDE Server, and Visual Studio Code container template images (and custom environments built from each). Xpra and user-defined [custom container template images](./custom-envs.md#custom-containers) are not supported.
+:::
 
 ### Custom Studio domain setup
 
-By default, Seqera Platform Cloud uses `https://connect.connect.cloud.seqera.io` as the Studios subdomain. However, the domain used for Studios can be configured by the following two environment variables.
+By default, Seqera Platform Cloud uses https://connect.connect.cloud.seqera.io as the Studios subdomain. However, the domain used for Studios can be configured by the following two environment variables.
+
+:::note
+This may require changes to your DNS configuration and the addition of SSL/TLS certificates for the new domain.
+:::
 
 In Platform:
 - `TOWER_DATA_STUDIO_CONNECT_URL=<NEW_DOMAIN_ADDRESS>`
 
 In Connect proxy/server:
 - `CONNECT_PROXY_URL=<NEW_DOMAIN_ADDRESS>`
-
-:::note
-This might require some changes in your DNS configuration, and adding SSL/TLS certificates for the new domain.
-:::
-
-:::warning
-Path-based routing is only supported for the Seqera-provided JupyterLab, R-IDE Server, and Visual Studio Code container template images (and custom environments built from each). Xpra and user-defined [custom container template images](./custom-envs.md#custom-containers) are not supported.
-:::
 
 {/* links */}
 [contact]: https://support.seqera.io/
