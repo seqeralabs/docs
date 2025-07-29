@@ -1,7 +1,8 @@
 ---
 title: "Seqera Platform Enterprise"
 description: "Introduction to Seqera Platform Enterprise."
-date: "24 Apr 2023"
+date created: "2023-04-24"
+last updated: "2025-07-17"
 ---
 
 Seqera Platform Enterprise is an intuitive, centralized command post designed to make scientific analysis accessible at any scale. 
