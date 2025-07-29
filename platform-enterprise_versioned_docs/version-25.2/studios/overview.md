@@ -207,7 +207,7 @@ Connect, the Studios webserver, uses dynamic subdomains to manage session routin
 
 For Enterprise deployments that cannot use a wildcard SSL/TLS certificate, an optional configuration environment variable, `TOWER_DATA_STUDIO_ENABLE_PATH_ROUTING` can be added. Setting this configures Studios requests to use path-based routing and a single, fixed domain for Studio sessions (for example https://connect.connect.cloud.seqera.io/_studio/a1234abc, https://connect.connect.cloud.seqera.io/_studio/a5678abcd).
 
-To enable path-based routing in Platform, create a new certificate that contains the Platform and Connect addresses and use the following configuration, which does not require a wildcard certificate: `TOWER_DATA_STUDIO_ENABLE_PATH_ROUTING=true`.
+To enable path-based routing in Seqera Platform, create a new certificate that contains the platform and Connect addresses and use the following configuration, which does not require a wildcard certificate: `TOWER_DATA_STUDIO_ENABLE_PATH_ROUTING=true`.
 
 :::warning
 Path-based routing is only supported for the Seqera-provided JupyterLab, R-IDE Server, and Visual Studio Code container template images (and custom environments built from each). Xpra and user-defined [custom container template images](./custom-envs.md#custom-containers) are not supported.
