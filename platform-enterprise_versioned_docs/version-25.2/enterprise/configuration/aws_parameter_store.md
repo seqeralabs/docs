@@ -24,7 +24,7 @@ Due to the order of operations when deploying Seqera Enterprise, some configurat
 | `TOWER_DB_URL`            | The URL to access your database. **For installation in a new environment, this value must be set as an environment variable.** | Example: `jdbc:mysql://db:3306/tower` |
 | `TOWER_APP_NAME`          | Application name. To run multiple instances of the same Seqera account, each instance must have a unique name, e.g., `tower-dev` and `tower-prod`. **Can also be set in `tower.yml` with `tower.appName`.** | Default: `tower` |
 | `TOWER_ENABLE_AWS_SES`   | Set `true` to enable AWS Simple Email Service for sending Seqera emails instead of SMTP. | Default: `false` |
-| `TOWER_ENABLE_PLATFORMS`  | A comma-separated list of execution backends to enable. **At least one is required.** | `altair-platform,awsbatch-platform,azbatch-platform,eks-platform,googlebatch-platform,gke-platform,k8s-platform,local-platform,lsf-platform,moab-platform,slurm-platform` |
+| `TOWER_ENABLE_PLATFORMS`  | A comma-separated list of execution backends to enable. **At least one is required.** | `altair-platform,awsbatch-platform,awscloud-platform,azbatch-platform,eks-platform,googlebatch-platform,googlecloud-platform,gke-platform,k8s-platform,local-platform,lsf-platform,moab-platform,slurm-platform` |
 | `TOWER_ENABLE_UNSAFE_MODE` | Set to `true` to allow HTTP connections to Seqera. HTTP must not be used in production deployments. HTTPS is used by default from version 22.1.x. | Default: `false` |
 
 ## Configure Seqera to use AWS Parameter Store values
