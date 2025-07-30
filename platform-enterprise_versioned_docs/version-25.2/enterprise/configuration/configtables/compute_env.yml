@@ -3,7 +3,7 @@
   Environment variable:            '`TOWER_ENABLE_PLATFORMS`'
   Description: > 
     Comma-separated list of the execution backends to enable. **At least one is required**.
-  Value:                '`altair-platform,awsbatch-platform,azbatch-platform,eks-platform,googlebatch-platform,gke-platform,k8s-platform,local-platform,lsf-platform,moab-platform,slurm-platform`'
+  Value:                '`altair-platform,awsbatch-platform,awscloud-platform,azbatch-platform,eks-platform,googlebatch-platform,googlecloud-platform,gke-platform,k8s-platform,local-platform,lsf-platform,moab-platform,slurm-platform`'
 - 
   Environment variable:            '`MICRONAUT_ENVIRONMENTS`'
   Description: > 
