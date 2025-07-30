@@ -243,7 +243,7 @@ In Connect proxy/server:
 [build-status]: ./custom-envs#build-status
 [cloud-bucket-subdirectory]: ./managing#cloud-bucket-subdirectory
 [ds-jupyter]: https://public.cr.seqera.io/repo/platform/data-studio-jupyter
-[ds-rstudio]: https://public.cr.seqera.io/repo/platform/data-studio-rstudio
+[ds-ride]: https://public.cr.seqera.io/repo/platform/data-studio-ride
 [def-vsc]: https://code.visualstudio.com/
 [Nextflow]: https://nextflow.io/
 [nf-lang-server]: https://marketplace.visualstudio.com/items?itemName=nextflow.nextflow
