@@ -206,14 +206,14 @@ For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
 Connect, the Studios webserver, uses dynamic subdomains to manage session routing of requests, which require a wildcard SSL/TLS certificate. 
 
 For example: 
-- https://a1234abc.connect.cloud.seqera.io/
-- https://a5678abcd.connect.cloud.seqera.io/
+- `https://a1234abc.connect.cloud.seqera.io/`
+- `https://a5678abcd.connect.cloud.seqera.io/`
 
 For Enterprise deployments that cannot use a wildcard SSL/TLS certificate, an optional configuration environment variable, `TOWER_DATA_STUDIO_ENABLE_PATH_ROUTING` can be added. Setting this configures Studios requests to use path-based routing and a single, fixed domain for Studio sessions.
 
 For example:
-- https://connect.cloud.seqera.io/_studio/a1234abc
-- https://connect.cloud.seqera.io/_studio/a5678abcd
+- `https://connect.cloud.seqera.io/_studio/a1234abc`
+- `https://connect.cloud.seqera.io/_studio/a5678abcd`
 
 To enable path-based routing in Seqera Platform, create a new certificate that contains the platform and Connect addresses and use the following configuration, which does not require a wildcard certificate: `TOWER_DATA_STUDIO_ENABLE_PATH_ROUTING=true`.
 
@@ -223,7 +223,7 @@ Path-based routing is only supported for the Seqera-provided JupyterLab, R-IDE S
 
 ### Custom Studio domain setup
 
-By default, Seqera Platform Cloud uses https://{sessionId}.connect.cloud.seqera.io as the Studios subdomain. However, the domain used for Studios can be configured by the following two environment variables.
+By default, Seqera Platform Cloud uses `https://{sessionId}.connect.cloud.seqera.io` as the Studios subdomain. However, the domain used for Studios can be configured by the following two environment variables.
 
 :::note
 This may require changes to your DNS configuration and the addition of a SSL/TLS certificate for the new domain.
@@ -244,25 +244,6 @@ In Connect proxy/server:
 [cloud-bucket-subdirectory]: ./managing#cloud-bucket-subdirectory
 [ds-jupyter]: https://public.cr.seqera.io/repo/platform/data-studio-jupyter
 [ds-rstudio]: https://public.cr.seqera.io/repo/platform/data-studio-rstudio
-[def-vsc]: https://code.visualstudio.com/
-[Nextflow]: https://nextflow.io/
-[nf-lang-server]: https://marketplace.visualstudio.com/items?itemName=nextflow.nextflow
-[ds-vscode]: https://public.cr.seqera.io/repo/platform/data-studio-vscode
-[def-xpra]: https://github.com/Xpra-org/xpra
-[ds-xpra]: https://public.cr.seqera.io/repo/platform/data-studio-xpra
-[Wave]: https://seqera.io/wave/
-[build-status]: ./custom-envs#build-status
-
-
-{/* links */}
-[contact]: https://support.seqera.io/
-[aws-cloud]: ../compute-envs/aws-cloud
-[aws-batch]: ../compute-envs/aws-batch
-[custom-envs]: ./custom-envs
-[build-status]: ./custom-envs#build-status
-[cloud-bucket-subdirectory]: ./managing#cloud-bucket-subdirectory
-[ds-jupyter]: https://public.cr.seqera.io/repo/platform/data-studio-jupyter
-[ds-ride]: https://public.cr.seqera.io/repo/platform/data-studio-ride
 [def-vsc]: https://code.visualstudio.com/
 [Nextflow]: https://nextflow.io/
 [nf-lang-server]: https://marketplace.visualstudio.com/items?itemName=nextflow.nextflow
