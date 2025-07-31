@@ -79,7 +79,7 @@ const CookieBanner = () => {
               experience. <br className="hidden md:block" />
               Find out more on{" "}
               <a
-                href="/privacy-policy/#cookies"
+                href="https://seqera.io/privacy-policy"
                 className="text-[var(--sl-blue)]"
               >
                 how we use cookies
