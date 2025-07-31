@@ -22,7 +22,7 @@ Before you get started, you need the following:
 - [Data Explorer](../data/data-explorer) is enabled.
 
 :::note
-Currently, Studios supports [AWS Cloud][aws-cloud], [Google Cloud(https://docs.seqera.io/platform-cloud/compute-envs/google-cloud), and [AWS Batch][aws-batch] compute environments that **do not** have Fargate enabled.
+Currently, Studios supports [AWS Cloud][aws-cloud], [Google Cloud][google-cloud], and [AWS Batch][aws-batch] compute environments that **do not** have Fargate enabled.
 :::
 
 ## Container image templates
@@ -239,6 +239,7 @@ In Connect proxy/server:
 [contact]: https://support.seqera.io/
 [aws-cloud]: ../compute-envs/aws-cloud
 [aws-batch]: ../compute-envs/aws-batch
+[google-cloud]: ../compute-envs/google-cloud
 [custom-envs]: ./custom-envs
 [build-status]: ./custom-envs#build-status
 [cloud-bucket-subdirectory]: ./managing#cloud-bucket-subdirectory
