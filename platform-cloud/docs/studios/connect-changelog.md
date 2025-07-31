@@ -1,3 +1,0 @@
----
-title: Seqera Connect changelog
----
