@@ -51,12 +51,12 @@ Each of the provided environments includes a particular version of the underlyin
 
 To quickly identify which version of the software an image includes, the version string for each container is in the form of `<software_version>-<seqera_connect_version>`. For example, if the version string for the R-IDE is `2025.04.1-0.8`, version `2025.04.01` is the R-IDE version and `0.8` is the Connect version of this Seqera-built container image. Learn more about Studios [environment versioning](../studios/overview#container-image-templates).
 
-- To see the list of all JupyterLab image templates available, including security scan results or to inspect the container specification, see [public.cr.seqera.io/repo/platform/data-studio-jupyter][ds-jupyter].
-- To see the list of all R-IDE image templates available, including security scan results or to inspect the container specification, see [https://public.cr.seqera.io/repo/platform/data-studio-ride][ds-ride].
-- To see the list of all Visual Studio Code image templates available, including security scan results or to inspect the container specification, see [public.cr.seqera.io/platform/data-studio-vscode][ds-vscode].
-- To see the list of all Xpra image templates available, including security scan results or to inspect the container specification, see [public.cr.seqera.io/repo/platform/data-studio-xpra][ds-xpra].
+- To see the list of all JupyterLab image templates available, including security scan results or to inspect the container specification (including container specifications, configuration, and manifest), see [public.cr.seqera.io/repo/platform/data-studio-jupyter][ds-jupyter].
+- To see the list of all R-IDE image templates available, including security scan results or to inspect the container specification (including container specifications, configuration, and manifest), see [https://public.cr.seqera.io/repo/platform/data-studio-ride][ds-ride].
+- To see the list of all Visual Studio Code image templates available, including security scan results or to inspect the container specification (including container specifications, configuration, and manifest), see [public.cr.seqera.io/platform/data-studio-vscode][ds-vscode].
+- To see the list of all Xpra image templates available, including security scan results or to inspect the container specification (including container specifications, configuration, and manifest), see [public.cr.seqera.io/repo/platform/data-studio-xpra][ds-xpra].
 
-Security scans and container inspection reports (including container specifications, configuration, and manifest) are available on-demand at public.cr.seqera.io/platform for each environment images by selecting the `Scan` and `Inspect` icons respectively. When adding a new Studio in Platform, the latest environment versions are tagged `recommended`, and earlier compatible versions are tagged `deprecated`.
+When adding a new Studio in Platform, the latest environment versions are tagged `recommended`, and earlier compatible versions are tagged `deprecated`.
 
 ## Docker Compose
 
@@ -267,3 +267,9 @@ You can also check the current template configuration using `https://towerurl/ap
     It can take several minutes for Kubernetes to apply your changes, during which new pods are rolled out.
 
 1. To confirm that Studios is available, log in to your Platform instance and navigate to an organizational workspace that has Studios enabled. The **Studios** tab is included with the available tabs.
+
+{/* links */}
+[ds-jupyter]: https://public.cr.seqera.io/repo/platform/data-studio-jupyter
+[ds-ride]: https://public.cr.seqera.io/repo/platform/data-studio-ride
+[ds-vscode]: https://public.cr.seqera.io/repo/platform/data-studio-vscode
+[ds-xpra]: https://public.cr.seqera.io/repo/platform/data-studio-xpra
