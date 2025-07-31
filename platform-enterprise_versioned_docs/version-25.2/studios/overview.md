@@ -8,8 +8,6 @@ tags: [studios, container, image, session, interactive, analysis]
 
 Studios is a unified platform where you can host a combination of container images and compute environments for interactive analysis using your preferred tools, like JupyterLab, an R-IDE, Visual Studio Code IDEs, or Xpra remote desktops. Each Studio session is an individual interactive environment that encapsulates the live environment for dynamic data analysis.
 
-On Seqera Cloud, the free tier permits only one running Studio session at a time. To run simultaneous sessions, [contact Seqera][contact] for a Seqera Cloud Pro license.
-
 :::note
 Studios in Enterprise is not enabled by default. You can enable Studios in the [environment variables configuration](../enterprise/studios).
 :::
@@ -20,18 +18,12 @@ Before you get started, you need the following:
 
 - Valid credentials to access your cloud storage data resources.
 - At least the **Maintain** role set of permissions.
-- A compute environment with sufficient resources. This is highly dependent on the volume of data you wish to process, but we recommended at least 2 CPUs allocated with 8192 MB of memory. See [AWS Batch](../compute-envs/aws-batch) for more information about compute environment configuration.
+- A compute environment with sufficient resources. This is highly dependent on the volume of data you wish to process, but we recommended at least 2 CPUs allocated with 8192 MB of memory. See [AWS Batch][aws-batch] for more information about compute environment configuration.
 - [Data Explorer](../data/data-explorer) is enabled.
 
 :::note
-Currently, Studios only supports AWS Batch compute environments that **do not** have Fargate enabled.
+Currently, Studios supports [AWS Cloud][aws-cloud], [Google Cloud][google-cloud], and [AWS Batch][aws-batch] compute environments that **do not** have Fargate enabled.
 :::
-
-## Limitations
-
-If you configured your AWS Batch compute environment to include an EFS file system with **EFS file system > EFS mount path**, the mount path must be explicitly specified. The mount path cannot be the same as your compute environment work directory. If the EFS file system is mounted as your compute environment work directory, snapshots cannot be saved and sessions fail. To mount an EFS volume in a Studio session (for example, if your organization has a custom, managed, and standardized software stack in an EFS volume), add the EFS volume to the compute environment (system ID and mount path). The volume will be available at the specified mount path in the session.
-
-For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
 
 ## Container image templates
 
@@ -45,7 +37,7 @@ The image template tag includes the version of the analysis application, an opti
 
 - `<tool_version>`: Third-party analysis application that follows its own semantic versioning `<major>.<minor>.<patch>`, such as `4.2.5` for JupyterLab.
 - `<update_version>`: Optional analysis application update version, such as `u1`, for instances where a backwards incompatible change is introduced.
-- `<connect_version>`: Seqera Connect client version, such as `0.7` or `0.7.0`.
+- `<connect_version>`: Seqera Connect client version, such as `0.8` or `0.8.0`.
 
 Additionally, the Seqera Connect client version string has the format:
 
@@ -59,8 +51,8 @@ Additionally, the Seqera Connect client version string has the format:
 
 When pushed to the container registry, an image template is tagged with the following tags:
 
-- `<tool_version>-<major>.<minor>`, such as `4.2.3-0.7`. When adding a new container template image this is the tag displayed in Seqera Platform.
-- `<tool_version>-<major>.<minor>.<patch>`, such as `4.2.3-0.7.1`.
+- `<tool_version>-<major>.<minor>`, such as `4.2.3-0.8`. When adding a new container template image this is the tag displayed in Seqera Platform.
+- `<tool_version>-<major>.<minor>.<patch>`, such as `4.2.3-0.8.4`.
 
 To view the latest versions of the images, see [public.cr.seqera.io](https://public.cr.seqera.io/). You can also augment the Seqera-provided image templates or use your own custom container image templates. This approach is recommended for managing reproducible analysis environments. For more information, see [Custom environments][custom-envs].
 
@@ -156,18 +148,18 @@ Sessions have the following possible statuses:
 There might be errors reported by the session itself but these will be overwritten with a **running** status if the session is still running.
 :::
 
-## Studio session data links
+## Studio session data-links
 
-You can configure a Studio session to mount one or more data links, where cloud buckets that you have configured in your compute environment are read-only, or read-write available to the session.
+You can configure a Studio session to mount one or more data-links, where cloud buckets that you have configured in your compute environment are read-only, or read-write available to the session.
 
-If your compute environment includes a cloud bucket in the **Allowed S3 bucket** list, the bucket is writeable from within a session when that bucket is included as a data link.
+If your compute environment includes a cloud bucket in the **Allowed S3 bucket** list, the bucket is writeable from within a session when that bucket is included as a data-link.
 
 You can limit write access to just a subdirectory of a bucket by creating a custom data-link for only that subdirectory in Data Explorer, and then mount the data-link to the Studio session. For example, if you have the following S3 buckets:
 
 - `s3://biopharmaXs`: Entire bucket
 - `s3://biopharmaX/experiments/project-A/experiment-1/data`: Subdirectory to mount in a Studio session
 
-Mounted data links are exposed at the `/workspace/data/` directory path inside a Studio session. For example, the bucket subdirectory `s3://biopharmaX/experiments/project-A/experiment-1/data`, when mounted as a data link, is exposed at `/workspace/data/biopharmaxs-project-a-experiment-1-data`.
+Mounted data links are exposed at the `/workspace/data/` directory path inside a Studio session. For example, the bucket subdirectory `s3://biopharmaX/experiments/project-A/experiment-1/data`, when mounted as a data-link, is exposed at `/workspace/data/biopharmaxs-project-a-experiment-1-data`.
 
 For more information, see [Limit Studio access to a specific cloud bucket subdirectory][cloud-bucket-subdirectory].
 
@@ -199,10 +191,55 @@ The maximum storage allocation for a session is limited by the compute environme
 
 Stop the active session to trigger a snapshot from the active volume. The snapshot is uploaded to cloud storage with Fusion. When you start from the newly saved snapshot, all previous data is loaded, and the newly started session will have 2 GB of available space.
 
+## Limitations
+
+### EFS file systems
+
+If you configured your compute environment to include an EFS file system with **EFS file system > EFS mount path**, the mount path must be explicitly specified. The mount path cannot be the same as your compute environment work directory. If the EFS file system is mounted as your compute environment work directory, snapshots cannot be saved and sessions fail. 
+
+To mount an EFS volume in a Studio session (for example, if your organization has a custom, managed, and standardized software stack in an EFS volume), add the EFS volume to the compute environment (system ID and mount path). The volume will be available at the specified mount path in the session.
+
+For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
+
+### Path-based routing/non-wildcard SSL/TLS certificates
+
+Connect, the Studios webserver, uses dynamic subdomains to manage session routing of requests, which require a wildcard SSL/TLS certificate. 
+
+For example: 
+- `https://a1234abc.connect.cloud.seqera.io/`
+- `https://a5678abcd.connect.cloud.seqera.io/`
+
+For Enterprise deployments that cannot use a wildcard SSL/TLS certificate, an optional [configuration environment variable](../configuration/overview#data-features), `TOWER_DATA_STUDIO_ENABLE_PATH_ROUTING` can be added. Setting this configures Studios requests to use path-based routing and a single, fixed domain for Studio sessions.
+
+For example:
+- `https://connect.cloud.seqera.io/_studio/a1234abc`
+- `https://connect.cloud.seqera.io/_studio/a5678abcd`
+
+To enable path-based routing in Seqera Platform, create a new certificate that contains the platform and Connect addresses and use the following configuration, which does not require a wildcard certificate: `TOWER_DATA_STUDIO_ENABLE_PATH_ROUTING=true`.
+
+:::warning
+Path-based routing is only supported for the Seqera-provided JupyterLab, R-IDE Server, and Visual Studio Code container template images (and custom environments built from each). Xpra and user-defined [custom container template images](./custom-envs.md#custom-containers) are not supported.
+:::
+
+### Custom Studio domain setup
+
+By default, Seqera Platform Cloud uses `https://{sessionId}.connect.cloud.seqera.io` as the Studios subdomain. However, the domain used for Studios can be configured by the following two environment variables.
+
+:::note
+This may require changes to your DNS configuration and the addition of a SSL/TLS certificate for the new domain.
+:::
+
+In Platform:
+- `TOWER_DATA_STUDIO_CONNECT_URL=<NEW_DOMAIN_ADDRESS>`
+
+In Connect proxy/server:
+- `CONNECT_PROXY_URL=<NEW_DOMAIN_ADDRESS>`
+
 {/* links */}
 [contact]: https://support.seqera.io/
 [aws-cloud]: ../compute-envs/aws-cloud
 [aws-batch]: ../compute-envs/aws-batch
+[google-cloud]: ../compute-envs/google-cloud
 [custom-envs]: ./custom-envs
 [build-status]: ./custom-envs#build-status
 [cloud-bucket-subdirectory]: ./managing#cloud-bucket-subdirectory
