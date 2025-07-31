@@ -148,7 +148,7 @@ This functionality is available to users with the **Maintain** role and above.
 
 You can start a new session from an existing stopped session. This will inherit the history of the parent checkpoint state. From the list of **stopped** Studios in your workspace, select the three dots next to the status message for the Studio you want to start and select **Add as new**. Alternatively, select the **Checkpoints** tab on the detail page, select the three dots in the **Actions** column, and then select **Add as new Studio** to start a new session.
 
-## Delete a Studios
+## Delete a Studio
 
 This functionality is available to users with the **Maintain** role and above.
 
