@@ -209,7 +209,7 @@ For example:
 - `https://a1234abc.connect.cloud.seqera.io/`
 - `https://a5678abcd.connect.cloud.seqera.io/`
 
-For Enterprise deployments that cannot use a wildcard SSL/TLS certificate, an optional [configuration environment variable](../configuration/overview#data-features), `TOWER_DATA_STUDIO_ENABLE_PATH_ROUTING` can be added. Setting this configures Studios requests to use path-based routing and a single, fixed domain for Studio sessions.
+For Enterprise deployments that cannot use a wildcard SSL/TLS certificate, an optional [configuration environment variable](../enterprise/configuration/overview#data-features), `TOWER_DATA_STUDIO_ENABLE_PATH_ROUTING` can be added. Setting this configures Studios requests to use path-based routing and a single, fixed domain for Studio sessions.
 
 For example:
 - `https://connect.cloud.seqera.io/_studio/a1234abc`
