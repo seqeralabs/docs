@@ -22,7 +22,7 @@ Before you get started, you need the following:
 - [Data Explorer](../data/data-explorer) is enabled.
 
 :::note
-Currently, Studios only supports AWS Batch compute environments that **do not** have Fargate enabled.
+Currently, Studios supports [AWS Cloud](https://docs.seqera.io/platform-cloud/compute-envs/aws-cloud), [Google Cloud(https://docs.seqera.io/platform-cloud/compute-envs/google-cloud), and [AWS Batch](https://docs.seqera.io/platform-cloud/compute-envs/aws-batch) compute environments that **do not** have Fargate enabled.
 :::
 
 ## Container image templates
