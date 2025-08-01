@@ -1,7 +1,8 @@
 ---
 title: "Data Explorer"
 description: "Using Seqera Data Explorer."
-date: "08 May 2025"
+date created: "2025-05-08"
+last updated: "2025-07-29"
 tags: [data, explorer]
 ---
 
@@ -48,11 +49,9 @@ A workspace maintainer can remove a manually created cloud storage bucket.
 
 From the **Data Explorer** tab, find the cloud bucket that you want to delete. Select the options menu for the bucket, and select **Remove**. When prompted, select **Remove** from the confirmation modal that appears.
 
-If you remove a data link associated with a cloud storage bucket, the data link is automatically removed from the relevant Studio configuration.
+If you remove a data-link associated with a cloud storage bucket, the data-link is automatically removed from the relevant Studio configuration.
 
 ## Browse cloud storage buckets
-
-![](./_images/data_explorer.png)
 
 - **View bucket details**
 
