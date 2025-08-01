@@ -1,11 +1,12 @@
 ---
 title: "Monitoring cloud costs"
-description: Guidelines for monitoring Seqera Platform cloud expenditure
-date: "12 Apr 2023"
-tags: [aws, gcp, azure, cloud costs, cost, billing, alerts]
+description: Guidelines for monitoring Seqera Platform cloud expenditure.
+date created: "2023-04-12"
+last updated: "2025-08-01"
+tags: [aws, gcp, azure, cloud-costs, cost, billing, alerts]
 ---
 
-Monitor cloud costs to manage resources effectively and prevent unexpected expenses when running pipelines in Seqera Platform. 
+Monitor cloud costs to manage resources effectively and prevent unexpected expenses when running pipelines in Seqera Platform.
 
 ## Resource labels 
 
@@ -45,11 +46,12 @@ The estimated cost is subject to several limitations:
 
 - On a resumed pipeline run, the cost of cached tasks is included in the estimated cost. This estimate is an aggregation of all compute costs associated with the run. As a result, the total cost of multiple attempts of a pipeline run tends to overestimate the actual cost, because the cost of cached tasks may be counted multiple times.
 
-For accurate cost accounting, you should use the cost reporting tools for your cloud provider. 
+For accurate cost accounting, you should use the cost reporting tools for your cloud provider.
 
 ## Cloud provider cost monitoring and alerts
 
-AWS, Google Cloud, and Microsoft Azure provide cost alerting and budgeting tools to enable effective cloud resource management and prevent unexpected costs. 
+AWS, Google Cloud, and Microsoft Azure provide cost alerting and budgeting tools to enable effective cloud resource management and prevent unexpected costs.
+
 
 ### AWS 
 
@@ -67,6 +69,6 @@ AWS, Google Cloud, and Microsoft Azure provide cost alerting and budgeting tools
 
 ### Microsoft Azure 
 
-- **Cost Management**: [Microsoft Cost Management](https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/overview-cost-management) is a suite of FinOps tools that help organizations analyze, monitor, and optimize their Microsoft Cloud costs. 
+- **Cost Management**: [Microsoft Cost Management](https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/overview-cost-management) is a suite of FinOps tools that help organizations analyze, monitor, and optimize their Microsoft Cloud costs.
 
 - **Cost alerts**: Create [alerts](https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/overview-cost-management#monitor-costs-with-alerts) for usage anomalies and costs that exceed pre-defined thresholds.
