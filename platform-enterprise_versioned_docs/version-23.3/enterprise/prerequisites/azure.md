@@ -104,7 +104,7 @@ Create a storage account:
 External databases for Seqera Enterprise deployments require:
 - A **MySQL8 Community** DB instance.
 - At least **2 vCPUs**, **8 GB memory**, and **30 GB** SSD storage.
-- Manual MySQL user and database schema creation. See [Database configuration](../configuration/overview#seqera-and-redis-databases) for more details.
+- Manual MySQL user and database schema creation. See [Database configuration](../configuration/overview.mdx#seqera-and-redis-databases) for more details.
 
 :::caution 
 Recommended instance performance and storage requirements depend on the number of parallel pipelines you expect to run. 
@@ -157,7 +157,7 @@ Create an Azure MySQL DB instance:
 
 </details>
 
-After your database is created, update your Seqera [configuration](../configuration/overview#seqera-and-redis-databases) with the database hostname, Admin username, and password.
+After your database is created, update your Seqera [configuration](../configuration/overview.mdx#seqera-and-redis-databases) with the database hostname, Admin username, and password.
 
 :::note
 When creating a MySQL user, use the `USER@HOSTNAME` format for the `TOWER_DB_USER` environment variable. For Azure managed MySQL, it's [recommended][azure-db-config] to pass an explicit `serverTimezone` to the `TOWER_DB_URL` environment variable, which (depending on your configuration) may be `UTC`. The DB connection string should be similar to `jdbc:mysql://towerdbserver.mysql.database.azure.com/towerdb?serverTimezone=UTC`.
