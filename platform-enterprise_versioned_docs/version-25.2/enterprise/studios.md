@@ -56,8 +56,6 @@ To quickly identify which version of the software an image includes, the version
 - To see the list of all Visual Studio Code image templates available, including security scan results or to inspect the container specification (including container specifications, configuration, and manifest), see [public.cr.seqera.io/platform/data-studio-vscode][ds-vscode].
 - To see the list of all Xpra image templates available, including security scan results or to inspect the container specification (including container specifications, configuration, and manifest), see [public.cr.seqera.io/repo/platform/data-studio-xpra][ds-xpra].
 
-When adding a new Studio in Platform, the latest environment versions are tagged `recommended`, and earlier compatible versions are tagged `deprecated`.
-
 ## Docker Compose
 
 This guide assumes that all services will be run in the same container as the rest of your Seqera Platform services.
