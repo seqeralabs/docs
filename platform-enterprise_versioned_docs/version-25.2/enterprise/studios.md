@@ -28,7 +28,7 @@ If your Enterprise deployment requires non-wildcard SSL certificates, enable pat
     - https://connect.connect.cloud.seqera.io/_studio/a1234abc
     - https://connect.connect.cloud.seqera.io/_studio/a5678abcd
 
-Path routing is only available from Seqera Platform 25.2 and the latest Connect server and clients. It is supported for VS Code, Jupyter, and R-IDE. It is not supported for Xpra.
+Path routing is only available from Seqera Platform version 25.2 and the latest Connect server and clients. It is supported for VS Code, Jupyter, and R-IDE. It is not supported for Xpra.
 :::
 
 Studios uses the following set of domains and subdomains:
@@ -51,22 +51,16 @@ Each of the provided environments includes a particular version of the underlyin
 
 To quickly identify which version of the software an image includes, the version string for each container is in the form of `<software_version>-<seqera_connect_version>`. For example, if the version string for the R-IDE is `2025.04.1-0.8`, version `2025.04.01` is the R-IDE version and `0.8` is the Connect version of this Seqera-built container image. Learn more about Studios [environment versioning](../studios/overview#container-image-templates).
 
-The latest environment versions are listed below:
-
-- JupyterLab: `public.cr.seqera.io/platform/data-studio-jupyter:4.2.5-0.8`
-- R-IDE: `public.cr.seqera.io/platform/data-studio-ride:2025.04.1-0.8`
-- Visual Studio Code: `public.cr.seqera.io/platform/data-studio-vscode:1.93.1-0.8`
-- Xpra: `public.cr.seqera.io/platform/data-studio-xpra:6.2.0-r2-1-0.8`
-
-When adding a new Studio, the latest environment versions are tagged `recommended`, and earlier compatible versions are tagged `deprecated`.
-
-Security scans and container inspection reports (including container specifications, configuration, and manifest) are available on-demand at public.cr.seqera.io/platform for each environment images by selecting the `Scan` and `Inspect` icons respectively.
+- To see the list of all JupyterLab image templates available, including security scan results or to inspect the container specification (including container specifications, configuration, and manifest), see [public.cr.seqera.io/repo/platform/data-studio-jupyter][ds-jupyter].
+- To see the list of all R-IDE image templates available, including security scan results or to inspect the container specification (including container specifications, configuration, and manifest), see [https://public.cr.seqera.io/repo/platform/data-studio-ride][ds-ride].
+- To see the list of all Visual Studio Code image templates available, including security scan results or to inspect the container specification (including container specifications, configuration, and manifest), see [public.cr.seqera.io/platform/data-studio-vscode][ds-vscode].
+- To see the list of all Xpra image templates available, including security scan results or to inspect the container specification (including container specifications, configuration, and manifest), see [public.cr.seqera.io/repo/platform/data-studio-xpra][ds-xpra].
 
 ## Docker Compose
 
 This guide assumes that all services will be run in the same container as the rest of your Seqera Platform services.
 
-If you were using Studios prior to GA (v25.1) please review the `tower.env` file and make sure you are using the latest version which includes a new variable `TOWER_DATA_STUDIO_TEMPLATES_<TEMPLATE_KEY>_TOOL`. This variable needs to be added to the default/Seqera provided Studio templates:
+If you were using Studios prior to GA (v25.1) please review the `tower.env` file and make sure you are using the latest version which includes a new variable `TOWER_DATA_STUDIO_TEMPLATES_<TEMPLATE_KEY>_TOOL`. This variable needs to be added to the default/Seqera-provided Studio templates:
 
 `TOWER_DATA_STUDIO_TEMPLATES_<TEMPLATE_KEY>_TOOL: '<TOOL_NAME>'`
 
@@ -83,7 +77,6 @@ You can also check the current template configuration using `https://towerurl/ap
 ### Procedure
 
 1. Download the Studios [environment configuration file](./_templates/docker/data-studios.env).
-
 1. Create an initial OIDC registration token, which can be any secure random string. For example, using openssl:
 
     ```
@@ -96,9 +89,7 @@ You can also check the current template configuration using `https://towerurl/ap
     openssl genrsa -out private.pem 2048
     openssl rsa -pubout -in private.pem -out public.pem
     ```
-
 1. Download the [data-studios-rsa.pem](./_templates/docker/data-studios-rsa.pem) file and replace its contents with the content of your private and public key files, in the same order (private key on top, public key directly beneath it). Save the file as `data-studios-rsa.pem`, in the same directory as your `docker-compose.yml` file. 
-
 1. Open the `docker-compose.yml` and uncomment the volume mount for the PEM key file for the `backend` and `cron` services in the `volumes` list. Your PEM file must be named `data-studios-rsa.pem`.
 
     ```yaml
@@ -132,7 +123,6 @@ You can also check the current template configuration using `https://towerurl/ap
     ```
 
 1. Start your Platform instance: `docker compose -d up`.
-
 1. Confirm that the Platform containers are running:
 
     ```
@@ -143,9 +133,7 @@ You can also check the current template configuration using `https://towerurl/ap
 
 ## Kubernetes
 
-This procedure describes how to configure Studios for Seqera Enterprise deployments in Kubernetes.
-
-If you were using Studios prior to GA (v25.1) please review the `configmap.yaml` file and make sure you are using the latest version which includes a new variable `TOWER_DATA_STUDIO_TEMPLATES_<TEMPLATE_NAME>_TOOL` which needs to be added to the default/Seqera provided Studio templates:
+This procedure describes how to configure Studios for Seqera Enterprise deployments in Kubernetes. If you were using Studios prior to GA (v25.1) please review the `configmap.yaml` file and make sure you are using the latest version which includes a new variable `TOWER_DATA_STUDIO_TEMPLATES_<TEMPLATE_NAME>_TOOL` which needs to be added to the default/Seqera-provided Studio templates:
 
 `TOWER_DATA_STUDIO_TEMPLATES_<TEMPLATE_KEY>_TOOL: '<TOOL_NAME>'`
 
@@ -167,7 +155,6 @@ You can also check the current template configuration using `https://towerurl/ap
     ```
 
 1. Edit the `server.yml` file and set the `CONNECT_REDIS_ADDRESS` environment variable to the hostname or IP address of the Redis server configured for Platform.
-
 1. Create an initial OIDC registration token, which can be any secure random string. For example, using openssl:
 
     ```
@@ -227,7 +214,6 @@ You can also check the current template configuration using `https://towerurl/ap
     ```
 
 1. Edit the `tower-svc.yml` file and uncomment the `volumes.cert-volume`, `volumeMounts.cert-volume`, and `env.TOWER_OIDC_PEM_PATH` fields so that the public/private key pair is available to Platform.
-
 1. Edit the ConfigMap named `platform-backend-cfg` in the `configmap.yml` for Platform by editing the following environment variables:
 
    - `TOWER_DATA_STUDIO_CONNECT_URL`: The URL of the Studios connect proxy, such as `https://connect.example.com/`.
@@ -279,3 +265,9 @@ You can also check the current template configuration using `https://towerurl/ap
     It can take several minutes for Kubernetes to apply your changes, during which new pods are rolled out.
 
 1. To confirm that Studios is available, log in to your Platform instance and navigate to an organizational workspace that has Studios enabled. The **Studios** tab is included with the available tabs.
+
+{/* links */}
+[ds-jupyter]: https://public.cr.seqera.io/repo/platform/data-studio-jupyter
+[ds-ride]: https://public.cr.seqera.io/repo/platform/data-studio-ride
+[ds-vscode]: https://public.cr.seqera.io/repo/platform/data-studio-vscode
+[ds-xpra]: https://public.cr.seqera.io/repo/platform/data-studio-xpra
