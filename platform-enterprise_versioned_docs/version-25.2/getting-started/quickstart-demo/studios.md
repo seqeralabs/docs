@@ -1,12 +1,13 @@
 ---
 title: "Studios"
 description: "An introduction to Studios in Seqera Platform"
-date: "8 Jul 2024"
+date created: "2024-07-08"
+last updated: "2025-08-01"
 tags: [platform, studios]
 ---
 
 :::info
-This guide provides an introduction to Studios using a demo Studio in the Community Showcase workspace. See [Studios](../../studios/overview) to learn how to create Studios in your own workspace. 
+This guide provides an introduction to Studios using a demo Studio in the Community Showcase workspace. See [Studios](../../studios/overview) to learn how to create Studios in your own workspace.
 :::
 
 Interactive analysis of pipeline results is often performed in platforms like Jupyter Notebook or an R-IDE. Setting up the infrastructure for these platforms, including accessing pipeline data and the necessary bioinformatics packages, can be complex and time-consuming.
@@ -26,12 +27,10 @@ Studios is used to perform bespoke analysis on the results of upstream workflows
 
 ### Open the RNAseq analysis Studio 
 
-Select the *rnaseq_to_differentialabundance* Studio. This Studio consists of an R-IDE that uses an existing compute environment available in the showcase workspace. The Studio also contains mounted data generated from the *nf-core/rnaseq* and subsequent *nf-core/differentialabundance* pipeline runs, directly from AWS S3. 
-
-![RNAseq Studio details](assets/rnaseq-diffab-studio-details.gif)
+Select the *rnaseq_to_differentialabundance* Studio. This Studio consists of an R-IDE that uses an existing compute environment available in the showcase workspace. The Studio also contains mounted data generated from the *nf-core/rnaseq* and subsequent *nf-core/differentialabundance* pipeline runs, directly from AWS S3.
 
 :::info
-Studios allows you to specify the resources each Studio will use. When [creating your own Studios](../../studios/overview) with shared compute environment resources, you must allocate sufficient resources to the compute environment to prevent Studio or pipeline run interruptions. 
+Studios allows you to specify the resources each Studio will use. When [creating your own Studios](../../studios/overview) with shared compute environment resources, you must allocate sufficient resources to the compute environment to prevent Studio or pipeline run interruptions.
 :::
 
 ### Connect to the Studio
@@ -50,7 +49,7 @@ The web app will deploy in a separate browser window, providing a data interface
 
 In the **QC/Exploratory** tab, select the PCA (Principal Component Analysis) plot to visualize how the samples group together based on their gene expression profiles.
 
-In this example, we used RNA sequencing data from the publicly-available ENCODE project, which includes samples from four different cell lines: 
+In this example, we used RNA sequencing data from the publicly-available ENCODE project, which includes samples from four different cell lines:
 
 - **GM12878**: a lymphoblastoid cell line
 - **K562**: a chronic myelogenous leukemia cell line
@@ -64,7 +63,7 @@ What to look for in the PCA plot:
 
 From this PCA plot, you can gain insights into the consistency and quality of your sequencing data, identify any potential issues, and understand the major sources of variation among your samples - all directly in Platform.
 
-#### Gene expression changes with Volcano plots 
+#### Gene expression changes with Volcano plots
 
 In the **Differential** tab, select **Volcano plots** to compare genes with significant changes in expression between two samples. For example, filter for `Type: H1 vs MCF-7` to view the differences in expression between these two cell lines.
 
