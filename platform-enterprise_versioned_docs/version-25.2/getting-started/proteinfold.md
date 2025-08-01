@@ -1,18 +1,19 @@
 ---
 title: "Protein structure prediction"
 description: "An introduction to running nf-core/proteinfold in Seqera Platform"
-date: "21 Jul 2024"
-tags: [platform, seqera pipelines, studios, proteinfold, alphafold, colabfold, compute environment, aws]
+date created: "2024-07-21"
+last updated: "2025-08-01"
+tags: [platform, seqera-pipelines, studios, proteinfold, alphafold, colabfold, compute-environment, aws]
 toc_max_heading_level: 2
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-This guide details how to perform best-practice analysis for protein 3D structure prediction on an AWS Batch compute environment in Platform. It includes: 
+This guide details how to perform best-practice analysis for protein 3D structure prediction on an AWS Batch compute environment in Platform. It includes:
 
 - Creating AWS Batch compute environments to run your pipeline and downstream analysis
-- Adding the *nf-core/proteinfold* pipeline to your workspace 
+- Adding the *nf-core/proteinfold* pipeline to your workspace
 - Importing your pipeline input data
 - Launching the pipeline and monitoring execution from your workspace
 - Setting up a custom analysis environment with Studios
@@ -22,7 +23,7 @@ You will need the following to get started:
 
 - [Admin](../orgs-and-teams/roles) permissions in an existing organization workspace. See [Set up your workspace](./workspace-setup) to create an organization and workspace from scratch.
 - An existing AWS cloud account with access to the AWS Batch service.
-- Existing access credentials with permissions to create and manage resources in your AWS account. See [IAM](../compute-envs/aws-batch#iam) for guidance to set up IAM permissions for Platform. 
+- Existing access credentials with permissions to create and manage resources in your AWS account. See [IAM](../compute-envs/aws-batch#iam) for guidance to set up IAM permissions for Platform.
 :::
 
 ## Compute environment
@@ -35,15 +36,15 @@ Given the data sizes and computational intensity, production pipelines perform b
 
 The *nf-core/proteinfold* pipeline performs protein folding prediction using one of three deep learning models: AlphaFold2, ColabFold, or ESMFold. The computationally intensive tasks for protein structure prediction perform better on GPUs due to their ability to handle large matrix operations efficiently and perform parallel computations. GPUs can dramatically reduce the time required for protein structure predictions, making it feasible to analyze larger datasets or perform more complex simulations.
 
-Platform supports the allocation of both CPUs and GPUs in the same compute environment. For example, specify `m6id`, `c6id`, `r6id`, `g5`, `p3` instance families in the **Instance types** field when creating your AWS Batch compute environment. See [Create compute environment](#create-compute-environment) below. 
+Platform supports the allocation of both CPUs and GPUs in the same compute environment. For example, specify `m6id`, `c6id`, `r6id`, `g5`, `p3` instance families in the **Instance types** field when creating your AWS Batch compute environment. See [Create compute environment](#create-compute-environment) below.
 
-When you launch *nf-core/proteinfold* in Platform, enable **use_gpu** to instruct Nextflow to run GPU-compatible pipeline processes on GPU instances. See [Launch pipeline](#launch-pipeline) below. 
+When you launch *nf-core/proteinfold* in Platform, enable **use_gpu** to instruct Nextflow to run GPU-compatible pipeline processes on GPU instances. See [Launch pipeline](#launch-pipeline) below.
 
 ### Fusion file system
 
-The [Fusion](../supported_software/fusion/overview) file system enables seamless read and write operations to cloud object stores, leading to simpler pipeline logic and faster, more efficient execution. While Fusion is not required to run nf-core/proteinfold, it significantly enhances I/O-intensive tasks and eliminates the need for intermediate data copies, which is particularly beneficial when working with the large databases used by deep learning models for prediction. 
+The [Fusion](../supported_software/fusion/overview) file system enables seamless read and write operations to cloud object stores, leading to simpler pipeline logic and faster, more efficient execution. While Fusion is not required to run nf-core/proteinfold, it significantly enhances I/O-intensive tasks and eliminates the need for intermediate data copies, which is particularly beneficial when working with the large databases used by deep learning models for prediction.
 
-Fusion works best with AWS NVMe instances (fast instance storage) as this delivers the fastest performance when compared to environments using only AWS EBS (Elastic Block Store). Batch Forge selects instances automatically based on your compute environment configuration, but you can optionally specify instance types. To enable fast instance storage, you must select EC2 instances with NVMe SSD storage (`g4dn`, `g5`, or `P3` families or greater). 
+Fusion works best with AWS NVMe instances (fast instance storage) as this delivers the fastest performance when compared to environments using only AWS EBS (Elastic Block Store). Batch Forge selects instances automatically based on your compute environment configuration, but you can optionally specify instance types. To enable fast instance storage, you must select EC2 instances with NVMe SSD storage (`g4dn`, `g5`, or `P3` families or greater).
 
 :::note 
 Fusion requires a license for use in Seqera Platform compute environments or directly in Nextflow. See [Fusion licensing](https://docs.seqera.io/fusion/licensing) for more information.
@@ -52,7 +53,7 @@ Fusion requires a license for use in Seqera Platform compute environments or dir
 ### Create compute environment
 
 :::info
-The same compute environment can be used for pipeline execution and running your Studios notebook environment, but Studios does not support AWS Fargate. To use this compute environment for both *nf-core/proteinfold* execution and your Studio, leave **Enable Fargate for head job** disabled and include a CPU-based EC2 instance family (`c6id`, `r6id`, etc.) in your **Instance types**. 
+The same compute environment can be used for pipeline execution and running your Studios notebook environment, but Studios does not support AWS Fargate. To use this compute environment for both *nf-core/proteinfold* execution and your Studio, leave **Enable Fargate for head job** disabled and include a CPU-based EC2 instance family (`c6id`, `r6id`, etc.) in your **Instance types**.
 
 Alternatively, create a second basic AWS Batch compute environment and a Studio with at least 2 CPUs and 8192 MB of RAM.
 :::
@@ -80,8 +81,6 @@ From the **Compute Environments** tab in your organization workspace, select **A
 | **Instance types**                    | Specify the instance types to be used for computation. You must include GPU-enabled instance types (`g4dn`, `g5`) when the Amazon-recommended GPU-optimized ECS AMI is in use. Include CPU-based instance families for Studios compute environments. | 
 | **Resource labels**                   | `name=value` pairs to tag the AWS resources created by this compute environment.|
 
-![Create AWS Batch compute environment](./_images/pf-ce.gif)
-
 ## Add pipeline to Platform
 
 :::info
@@ -97,17 +96,17 @@ To use Seqera Pipelines to import the *nf-core/proteinfold* pipeline to your wor
 ![Seqera Pipelines add to Launchpad](./_images/pipelines-add-pf.gif)
 
 1. Search for *nf-core/proteinfold* and select **Launch** next to the pipeline name in the list. In the **Add pipeline** tab, select **Cloud** or **Enterprise** depending on your Platform account type, then provide the information needed for Seqera Pipelines to access your Platform instance:
-    - **Seqera Cloud**: Paste your Platform **Access token** and select **Next**.  
+    - **Seqera Cloud**: Paste your Platform **Access token** and select **Next**.
     - **Seqera Enterprise**: Specify the **Seqera Platform URL** (hostname) and **Base API URL** for your Enterprise instance, then paste your Platform **Access token** and select **Next**.
     :::tip
     If you do not have a Platform access token, select **Get your access token from Seqera Platform** to open the Access tokens page in a new browser tab.
     :::
-1. Select your Platform **Organization**, **Workspace**, and **Compute environment** for the imported pipeline. 
+1. Select your Platform **Organization**, **Workspace**, and **Compute environment** for the imported pipeline.
 1. (Optional) Customize the **Pipeline Name** and **Pipeline Description**.
-1. Select **Add Pipeline**. 
+1. Select **Add Pipeline**.
 
 :::info
-To add a custom pipeline not listed in Seqera Pipelines to your Platform workspace, see [Add pipelines](./quickstart-demo/add-pipelines#) for manual Launchpad instructions. 
+To add a custom pipeline not listed in Seqera Pipelines to your Platform workspace, see [Add pipelines](./quickstart-demo/add-pipelines#) for manual Launchpad instructions.
 :::
 
 ## Pipeline input data
@@ -124,7 +123,7 @@ The [*nf-core/proteinfold*](https://github.com/nf-core/proteinfold) pipeline wor
 
 </details>
 
-In Platform, samplesheets and other data can be made easily accessible in one of two ways: 
+In Platform, samplesheets and other data can be made easily accessible in one of two ways:
 - Use **Data Explorer** to browse and interact with remote data from AWS S3, Azure Blob Storage, and Google Cloud Storage repositories, directly in your organization workspace.
 - Use **Datasets** to upload structured data to your workspace in CSV (Comma-Separated Values) or TSV (Tab-Separated Values) format.
 
@@ -137,7 +136,7 @@ In Platform, samplesheets and other data can be made easily accessible in one of
 
   ![Add public bucket](./_images/data-explorer-add-proteinfold.gif)
 
-  1. From the **Data Explorer** tab, select **Add cloud bucket**. 
+  1. From the **Data Explorer** tab, select **Add cloud bucket**.
   1. Specify the bucket details:
       - The cloud **Provider**: AWS
       - An existing cloud **Bucket path**: `s3://proteinfold-dataset`
@@ -146,7 +145,7 @@ In Platform, samplesheets and other data can be made easily accessible in one of
       - An optional bucket **Description**.
   1. Select **Add**.
 
-  You can now select data directly from this bucket as input when launching your pipeline, without the need to interact with cloud consoles or CLI tools. 
+  You can now select data directly from this bucket as input when launching your pipeline, without the need to interact with cloud consoles or CLI tools.
 
 </details>
 
@@ -164,7 +163,7 @@ In Platform, samplesheets and other data can be made easily accessible in one of
   - Select the **First row as header** option to prevent Platform from parsing the header row of the samplesheet as sample data.
   - Select **Upload file** and browse to your CSV or TSV samplesheet file in local storage, or simply drag and drop it into the box.
 
-  The dataset is now listed in your organization workspace datasets and can be selected as input when launching your pipeline. 
+  The dataset is now listed in your organization workspace datasets and can be selected as input when launching your pipeline.
 
   :::info
   Platform does not store the data used for analysis in pipelines. The dataset must specify the locations of data stored on your own infrastructure.
@@ -175,18 +174,18 @@ In Platform, samplesheets and other data can be made easily accessible in one of
 ## Launch pipeline
 
 :::note
-This guide is based on [version 1.1.1](https://nf-co.re/proteinfold/1.1.1) of the *nf-core/proteinfold* pipeline. Launch form parameters and tools may differ in other versions. 
+This guide is based on [version 1.1.1](https://nf-co.re/proteinfold/1.1.1) of the *nf-core/proteinfold* pipeline. Launch form parameters and tools may differ in other versions.
 :::
 
 With your compute environment created, *nf-core/proteinfold* added to your workspace Launchpad, and your samplesheet accessible in Platform, you are ready to launch your pipeline. Navigate to the Launchpad and select **Launch** next to *nf-core-proteinfold* to open the launch form.
 
-The launch form consists of **General config**, **Run parameters**, and **Advanced options** sections to specify your run parameters before execution, and an execution summary. Use section headings or select the **Previous** and **Next** buttons at the bottom of the page to navigate between sections. 
+The launch form consists of **General config**, **Run parameters**, and **Advanced options** sections to specify your run parameters before execution, and an execution summary. Use section headings or select the **Previous** and **Next** buttons at the bottom of the page to navigate between sections.
 
 ### General config 
 
 - **Pipeline to launch**: The pipeline Git repository name or URL: `https://github.com/nf-core/proteinfold`. For saved pipelines, this is prefilled and cannot be edited.
 - **Revision number**: A valid repository commit ID, tag, or branch name: `1.1.1`. For saved pipelines, this is prefilled and cannot be edited.
-- **Config profiles**: One or more [configuration profile](https://www.nextflow.io/docs/latest/config.html#config-profiles) names to use for the execution. Config profiles must be defined in the `nextflow.config` file in the pipeline repository. Benchmarking runs for this guide used nf-core profiles with included test datasets — `test_full_alphafold2_multimer` for Alphafold2 and `test_full_alphafold2_multimer` for Colabfold.  
+- **Config profiles**: One or more [configuration profile](https://www.nextflow.io/docs/latest/config.html#config-profiles) names to use for the execution. Config profiles must be defined in the `nextflow.config` file in the pipeline repository. Benchmarking runs for this guide used nf-core profiles with included test datasets — `test_full_alphafold2_multimer` for Alphafold2 and `test_full_alphafold2_multimer` for Colabfold.
 - **Workflow run name**: An identifier for the run, pre-filled with a random name. This can be customized.
 - **Labels**: Assign new or existing [labels](../labels/overview) to the run.
 - **Compute environment**: Your AWS Batch compute environment. 
@@ -205,16 +204,16 @@ There are three ways to enter **Run parameters** prior to launch:
 - The **Config view** displays raw configuration text that you can edit directly. Select JSON or YAML format from the **View as** list.
 - **Upload params file** allows you to upload a JSON or YAML file with run parameters.
 
-Platform uses the `nextflow_schema.json` file in the root of the pipeline repository to dynamically create a form with the necessary pipeline parameters. 
+Platform uses the `nextflow_schema.json` file in the root of the pipeline repository to dynamically create a form with the necessary pipeline parameters.
 
 ![Run parameters](./_images/proteinfold-lf2.gif)
 
-Specify your pipeline input and output and modify other pipeline parameters as needed. 
+Specify your pipeline input and output and modify other pipeline parameters as needed.
 
 <details>
   <summary>**input**</summary>
 
-  Use **Browse** to select your pipeline input data: 
+  Use **Browse** to select your pipeline input data:
 
   - In the **Data Explorer** tab, select the existing cloud bucket that contains your samplesheet, browse or search for the samplesheet file, and select the chain icon to copy the file path before closing the data selection window and pasting the file path in the input field.
   - In the **Datasets** tab, search for and select your existing dataset.
@@ -223,14 +222,14 @@ Specify your pipeline input and output and modify other pipeline parameters as n
 <details>
   <summary>**outdir**</summary>
 
-  Use the `outdir` parameter to specify where the pipeline outputs are published. `outdir` must be unique for each pipeline run. Otherwise, your results will be overwritten. 
+  Use the `outdir` parameter to specify where the pipeline outputs are published. `outdir` must be unique for each pipeline run. Otherwise, your results will be overwritten.
 
   **Browse** and copy cloud storage directory paths using Data Explorer, or enter a path manually.
 
 </details>
 
-- The **mode** menu allows you to select the deep learning model used for structure prediction (`alphafold2`, `colabfold`, or `esmfold`). 
-- Enable **use_gpu** to run GPU-compatible tasks on GPUs. This requires **Use Amazon-recommended GPU-optimized ECS AMI** to be enabled and GPU-enabled instances to be specified under **Instance types** in your compute environment. 
+- The **mode** menu allows you to select the deep learning model used for structure prediction (`alphafold2`, `colabfold`, or `esmfold`).
+- Enable **use_gpu** to run GPU-compatible tasks on GPUs. This requires **Use Amazon-recommended GPU-optimized ECS AMI** to be enabled and GPU-enabled instances to be specified under **Instance types** in your compute environment.
 
 ![Mode options](./_images/proteinfold-mode.gif)
 
@@ -240,7 +239,7 @@ For the purposes of this guide, run the pipeline in both `alphafold2` and `colab
 
 ### Advanced settings 
 
-- Use [resource labels](../resource-labels/overview) to tag the computing resources created during the workflow execution. While resource labels for the run are inherited from the compute environment and pipeline, workspace admins can override them from the launch form. Applied resource label names must be unique. 
+- Use [resource labels](../resource-labels/overview) to tag the computing resources created during the workflow execution. While resource labels for the run are inherited from the compute environment and pipeline, workspace admins can override them from the launch form. Applied resource label names must be unique.
 - [Pipeline secrets](../secrets/overview) store keys and tokens used by workflow tasks to interact with external systems. Enter the names of any stored user or workspace secrets required for the workflow execution.
 - See [Advanced options](../launch/advanced) for more details.
 
@@ -271,7 +270,7 @@ After you have filled the necessary launch details, select **Launch**. The **Run
   The paths to report files point to a location in cloud storage (in the `outdir` directory specified during launch), but you can view the contents directly and download each file without navigating to the cloud or a remote filesystem.
 
   :::info
-  See [Reports](../reports/overview) for more information. 
+  See [Reports](../reports/overview) for more information.
   :::
 
   #### View general information
@@ -295,9 +294,9 @@ After you have filled the necessary launch details, select **Launch**. The **Run
 
   Select a task in the task table to open the **Task details** dialog. The dialog has three tabs:
 
-  - The **About** tab contains extensive task execution details. 
+  - The **About** tab contains extensive task execution details.
   - The **Execution log** tab provides a real-time log of the selected task's execution. Task execution and other logs (such as stdout and stderr) are available for download from here, if still available in your compute environment.
-  - The **Data Explorer** tab allows you to view the task working directory directly in Platform.  
+  - The **Data Explorer** tab allows you to view the task working directory directly in Platform.
 
   ![Task details window](./_images/pf-task-details.gif)
 
@@ -309,26 +308,26 @@ After you have filled the necessary launch details, select **Launch**. The **Run
 
 [Studios](../studios/overview) streamlines the process of creating interactive analysis environments for Platform users. With built-in templates for platforms like Jupyter Notebook, RStudio, and VS Code, creating a Studio is as simple as adding and sharing pipelines or datasets. The Studio URL can also be shared with any user with the [Connect role](../orgs-and-teams/roles) for real-time access and collaboration.
 
-For the purposes of this guide, a Jupyter notebook environment will be used for interactive visualization of the predicted protein structures, optionally comparing AlphaFold2 and Colabfold structures for the same sequence data. 
+For the purposes of this guide, a Jupyter notebook environment will be used for interactive visualization of the predicted protein structures, optionally comparing AlphaFold2 and Colabfold structures for the same sequence data.
 
 ### Create a Jupyter notebookStudio
 
 From the **Studios** tab, select **Add a Studio** and complete the following:
 - In the **Compute & Data** tab:
-    - Select your AWS Batch compute environment. 
+    - Select your AWS Batch compute environment.
         :::info
-        The same compute environment can be used for pipeline execution and running your Studios notebook environment, but Studios does not support AWS Fargate and sessions must run on CPUs. To use one compute environment for both *nf-core/proteinfold* execution and your Studio, leave **Enable Fargate for head job** disabled and include at least one CPU-based EC2 instance family (`c6id`, `r6id`, etc.) in your **Instance types**. 
+        The same compute environment can be used for pipeline execution and running your Studios notebook environment, but Studios does not support AWS Fargate and sessions must run on CPUs. To use one compute environment for both *nf-core/proteinfold* execution and your Studio, leave **Enable Fargate for head job** disabled and include at least one CPU-based EC2 instance family (`c6id`, `r6id`, etc.) in your **Instance types**.
 
-        Alternatively, create a second basic AWS Batch compute environment with at least 2 CPUs and 8192 MB of RAM for your data studio.
+        Alternatively, create a second basic AWS Batch compute environment with at least 2 CPUs and 8192 MB of RAM for your Studio.
         :::
     - Optional: Enter CPU and memory allocations. The default values are 2 CPUs and 8192 MB memory (RAM).
         :::note
-        Studios compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and data studio sessions. 
+        Studios compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and Studio sessions.
         :::
-    - Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the pipeline work directory of your Proteinfold run. 
+    - Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the pipeline work directory of your Proteinfold run.
 - In the **General config** tab:
     - Select the latest **Jupyter** container image template from the list.
-    - Optional: Enter a unique name and description for the data studio. 
+    - Optional: Enter a unique name and description for the Studio.
     - Check **Install Conda packages** and paste the following Conda environment YAML snippet:
 
     ```yaml 
@@ -342,11 +341,9 @@ From the **Studios** tab, select **Add a Studio** and complete the following:
       - conda-forge::ipywidgets=8.1.5
     ```
 
-- Confirm the Studio details in the **Summary** tab
+- Confirm the Studio details in the **Summary** tab.
 - Select **Add** and choose whether to add and start the Studio immediately.
-- When the Studio is created and in a running state, **Connect** to it. 
-
-![Add Studio](./_images/add-s-pf.gif)
+- When the Studio is created and in a running state, **Connect** to it.
 
 ### Visualize protein structures
 

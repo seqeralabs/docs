@@ -2,7 +2,7 @@
 title: "AWS Cloud"
 description: "Instructions to set up an AWS Cloud CE in Seqera Platform"
 date created: "2025-07-09"
-tags: [cloud, vm, amazon, compute environment]
+tags: [cloud, vm, amazon, aws, compute-environment]
 ---
 
 # AWS Cloud

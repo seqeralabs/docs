@@ -1,8 +1,9 @@
 ---
 title: "Compute environment overview"
 description: "Overview of compute environments in Seqera Platform"
-date: "21 Apr 2023"
-tags: [compute environment]
+date created: "2023-04-21"
+last updated: "2025-07-31"
+tags: [compute-environment, compute-environments, workspace, environment]
 ---
 
 Seqera Platform **compute environments** define the execution platform where a pipeline will run. Compute environments enable users to launch pipelines on a growing number of **cloud** and **on-premises** platforms.
@@ -12,8 +13,10 @@ Each compute environment must be configured to enable Seqera to submit tasks. Se
 ## Platforms
 
 - [AWS Batch](./aws-batch)
+- [AWS Cloud](./aws-cloud)
 - [Azure Batch](./azure-batch)
 - [Google Cloud Batch](./google-cloud-batch)
+- [Google Cloud](./google-cloud)
 - [Grid Engine](./hpc)
 - [Altair PBS Pro](./hpc)
 - [IBM LSF](./hpc)

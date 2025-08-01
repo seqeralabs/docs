@@ -2,8 +2,8 @@
 title: "Dashboard"
 description: "View pipeline run status overview in Seqera Platform."
 date created: "2023-04-21"
-last updated: "2025-07-17"
-tags: [dashboard, pipeline runs, fusion, monitoring]
+last updated: "2025-08-01"
+tags: [dashboard, pipeline-runs, fusion, monitoring]
 ---
 
 The Seqera Platform **Dashboard** is accessed from the user menu and provides an overview of:

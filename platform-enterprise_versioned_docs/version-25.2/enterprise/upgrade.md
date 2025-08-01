@@ -1,11 +1,60 @@
 ---
 title: "Upgrade deployment"
-description: "Platform Enterprise update guidance"
+description: "Guidance for upgrading to Platform Enterprise version 25.2"
 date: "21 Aug 2024"
 tags: [enterprise, update, install]
 ---
 
-Follow these steps to upgrade your database instance and Platform Enterprise installation:
+This page outlines the steps to upgrade your database instance and Platform Enterprise installation to version 25.2, including special considerations for upgrading from versions prior to 25.1. 
+
+### Considerations for versions prior to 24.1
+
+- If you are upgrading from a version older than 23.4.1, update your installation to [version 23.4.4](../../version-23.4/enterprise/overview.md) **first**, before updating to version 25.2 with the steps on this page. 
+
+### Considersations for versions 24.1 - 25.1
+
+- **OIDC Secrets injection modifications**
+
+  The `auth-oidc-secrets` Micronaut environment has been replaced with `oidc-token-import`. If you use this configuration, you must change the `MICRONAUT_ENV` environment variable in the manifest during the migration process. If you activate the feature with the `TOWER_OIDC_TOKEN_IMPORT` environment variable, no changes are needed.
+
+- **MariaDB driver: New MySQL connection parameter required**
+
+  MariaDB driver 3.x requires the `permitMysqlScheme=true` parameter in the connection URL to connect to a MySQL database:
+
+  `jdbc:mysql://<domain>:<port>/tower?permitMysqlScheme=true`
+
+  All deployments using a MySQL database (regardless of version) must be updated when upgrading to Platform version 24.1 or later.
+
+- **Redis version change and property deprecation**
+
+  - From Seqera Enterprise version 24.2, Redis version 6.2 or greater is required, and the stable and generally available version 7.4.5 is strongly recommended.
+  - From Seqera Enterprise version 24.2, `redisson.*` configuration properties are deprecated. If you have set `redisson.*` properties directly previously, do the following:
+    •	Replace `/redisson/*` references in AWS Parameter Store entries with TOWER_REDIS_*.
+    •	Replace `redisson.*` references in tower.yml with `TOWER_REDIS_*`.
+    :::note
+    Set TOWER_REDIS_* values directly in the tower.yml or AWS Parameter Store entry (for example, TOWER_REDIS_URL: redis://...).
+    :::
+
+- **Micronaut property key changes**
+
+  In version 24.1, the property that determines the expiration time of the JWT access token (used for authenticating web sessions and Nextflow-Platform interactions) has changed:
+
+  | Previous                                                         | New                                                          |
+  | ---------------------------------------------------------------- | ------------------------------------------------------------ |
+  | `micronaut.security.token.jwt.generator.access-token.expiration` | `micronaut.security.token.generator.access-token.expiration` |
+    
+  Enterprise deployments that have customized this value previously will need to adopt the new format.
+
+### Version 25.2 upgrade considerations 
+
+**Secret key rotation requires backup and careful configuration**
+
+To configure [secret key rotation](../enterprise/configuration/overview.mdx#secret-key-rotation):
+- To prevent data loss, perform a backup of your Platform database and securely back up your current crypto secret key before enabling and performing key rotation.
+- All backend pods or containers for your Enterprise deployment must contain the same previous and new secret key values in their configuration.
+- All backend pods or containers must be in a ready/running state before starting the Platform cron service. 
+
+### General upgrade steps 
 
 :::caution
 The database volume is persistent on the local machine by default if you use the `volumes` key in the `db` or `redis` section of your `docker-compose.yml` file to specify a local path to the DB or Redis instance. If your database is not persistent, you must back up your database before performing any application or database upgrades.

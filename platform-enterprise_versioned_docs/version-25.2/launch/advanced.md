@@ -1,8 +1,8 @@
 ---
 title: "Advanced options"
-description: "Advanced guide to launching Nextflow pipelines in Seqera Platform"
+description: "Advanced guide to launching Nextflow pipelines in Seqera Platform."
 date created: "2023-04-21"
-last updated: "2025-07-17"
+last updated: "2025-08-01"
 tags: [advanced, launch]
 ---
 
@@ -23,9 +23,9 @@ For example, modify the **manifest** section to give the pipeline a name and des
 
 #### Nextflow configuration order of priority
 
-When launching pipelines in Platform, Nextflow configuration values can be supplied from the `nextflow.config` file in the pipeline repository and the **Nextflow config file** field in the pipeline launch form. If different values of the same configuration parameter are defined, Nextflow parameters defined in the launch form **Nextflow config file** field override the same parameters in your `nextflow.config` file. 
+When launching pipelines in Platform, Nextflow configuration values can be supplied from the `nextflow.config` file in the pipeline repository and the **Nextflow config file** field in the pipeline launch form. If different values of the same configuration parameter are defined, Nextflow parameters defined in the launch form **Nextflow config file** field override the same parameters in your `nextflow.config` file.
 
-Configuration values set in the **Global Nextflow config** field during compute environment creation are pre-filled in the **Nextflow config file** field during pipeline launch. These pre-filled values from the compute environment can be overridden manually during launch. 
+Configuration values set in the **Global Nextflow config** field during compute environment creation are pre-filled in the **Nextflow config file** field during pipeline launch. These pre-filled values from the compute environment can be overridden manually during launch.
 
 | Priority | Nextflow configuration                               |
 |----------|------------------------------------------------------|
@@ -107,7 +107,7 @@ Instruct Nextflow to pull the latest pipeline version from the Git repository. T
 
 ### Stub run 
 
-Replace Nextflow process commands with command [stubs](https://www.nextflow.io/docs/latest/process.html#stub), where defined, before execution. 
+Replace Nextflow process commands with command [stubs](https://www.nextflow.io/docs/latest/process.html#stub), where defined, before execution.
 
 ### Main script
 
@@ -123,9 +123,9 @@ Nextflow DSL2 provides the ability to launch workflows with specific names. Ente
 
 ### Schema name 
 
-Specify the name of a pipeline schema file in the workflow repository root folder to override the default `nextflow_schema.json`. 
+Specify the name of a pipeline schema file in the workflow repository root folder to override the default `nextflow_schema.json`.
 
 ### Head job CPUs and memory
 
-Specify the compute resources allocated to the Nextflow head job. These fields are only displayed for runs executing on [AWS Batch](../compute-envs/aws-batch) and [Azure Batch](../compute-envs/azure-batch) compute environments. 
+Specify the compute resources allocated to the Nextflow head job. These fields are only displayed for runs executing on [AWS Batch](../compute-envs/aws-batch) and [Azure Batch](../compute-envs/azure-batch) compute environments.
 

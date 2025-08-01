@@ -1,7 +1,8 @@
 ---
 title: "Installation"
 description: "Seqera Platform CLI installation and configuration instructions."
-date: "16 Jul 2024"
+date created: "2024-07-16"
+last updated: "2025-08-01"
 tags: [cli, platform, installation, configuration]
 ---
 
@@ -126,7 +127,7 @@ tw CLI is a platform binary executable created by a native compilation from Java
     gu install native-image
     ```
 
-1. Export your Github credentials. Github requires authentication for public packages (the token only requires the `read:packages` scope):
+1. Export your GitHub credentials. GitHub requires authentication for public packages (the token only requires the `read:packages` scope):
 
     ```bash
     export GITHUB_USERNAME=...

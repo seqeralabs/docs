@@ -1,8 +1,9 @@
 ---
 title: "Add data"
 description: "An introduction to adding pipeline input data in Seqera Platform"
-date: "21 Jul 2024"
-tags: [platform, data, data explorer, datasets]
+date created: "2024-07-21"
+last updated: "2025-08-01"
+tags: [platform, data, data-explorer, datasets]
 ---
 
 import Tabs from '@theme/Tabs';
@@ -10,9 +11,9 @@ import TabItem from '@theme/TabItem';
 
 Most bioinformatics pipelines require an input of some sort. This is typically a samplesheet where each row consists of a sample, the location of files for that sample (such as FASTQ files), and other sample details. Reliable shared access to pipeline input data is crucial to simplify data management, minimize user data-input errors, and facilitate reproducible workflows.
 
-In Platform, samplesheets and other data can be made easily accessible in one of two ways: 
+In Platform, samplesheets and other data can be made easily accessible in one of two ways:
 - Use **Data Explorer** to browse and interact with remote data from AWS S3, Azure Blob Storage, and Google Cloud Storage repositories, directly in your organization workspace.
-- Use **Datasets** to upload structured data to your workspace in CSV (Comma-Separated Values) or TSV (Tab-Separated Values) format. 
+- Use **Datasets** to upload structured data to your workspace in CSV (Comma-Separated Values) or TSV (Tab-Separated Values) format.
 
 ## Data Explorer 
 
@@ -24,7 +25,7 @@ Private cloud storage buckets accessible by the [credentials](../../credentials/
 
 To add individual buckets (or directory paths within buckets):
 
-1. From the **Data Explorer** tab, select **Add cloud bucket**. 
+1. From the **Data Explorer** tab, select **Add cloud bucket**.
 1. Specify the bucket details:
     - The cloud **Provider**.
     - An existing cloud **Bucket path**.
@@ -33,9 +34,7 @@ To add individual buckets (or directory paths within buckets):
     - An optional bucket **Description**.
 1. Select **Add**.
 
-  ![Add public bucket](assets/data-explorer-add-bucket.gif)
-
-You can now use this data in your analysis without the need to interact with cloud consoles or CLI tools. 
+You can now use this data in your analysis without the need to interact with cloud consoles or CLI tools.
 
 #### Public data sources
 
@@ -55,21 +54,15 @@ In Data Explorer, you can:
   - **View bucket details**:
     Select the information icon next to a bucket in the list to view the cloud provider, bucket address, and credentials.
 
-    ![Bucket details](assets/data-explorer-view-details.gif)
-
   - **View bucket contents**:
     Select a bucket name from the list to view the bucket contents. The file type, size, and path of objects are displayed in columns next to the object name. For example, view the outputs of an *nf-core/rnaseq* run:
-
-    ![Data Explorer bucket](assets/sp-cloud-data-explorer.gif)
 
    - **Preview files**: 
     Select a file to open a preview window that includes a **Download** button. For example, view the resultant gene counts of the salmon quantification step of an *nf-core/rnaseq* run:
 
-    ![Preview pipeline results](assets/data-explorer-preview-files.gif)
-
 ## Datasets
 
-Datasets in Platform are CSV (comma-separated values) and TSV (tab-separated values) files stored in a workspace. You can select stored datasets as input data when launching a pipeline. 
+Datasets in Platform are CSV (comma-separated values) and TSV (tab-separated values) files stored in a workspace. You can select stored datasets as input data when launching a pipeline.
 
 <details>
   <summary>**Example: nf-core/rnaseq test samplesheet**</summary>
@@ -96,8 +89,6 @@ Download the nf-core/rnaseq [samplesheet_test.csv](samplesheet_test.csv).
 
 From the **Datasets** tab, select **Add Dataset**.
 
-![Add a dataset](assets/sp-cloud-add-a-dataset.gif)
-
 Specify the following dataset details:
 
 - A **Name** for the dataset, such as `nf-core-rnaseq-test-dataset`.
@@ -105,7 +96,7 @@ Specify the following dataset details:
 - Select the **First row as header** option to prevent Platform from parsing the header row of the samplesheet as sample data.
 - Select **Upload file** and browse to your CSV or TSV file in local storage, or simply drag and drop it into the box.
 
-Notice the location of the files in the *nf-core/rnaseq* example dataset point to a path on S3. This could also be a path to a shared filesystem, if using an HPC compute environment. Nextflow will use these paths to stage the files into the task working directory. 
+Notice the location of the files in the *nf-core/rnaseq* example dataset point to a path on S3. This could also be a path to a shared filesystem, if using an HPC compute environment. Nextflow will use these paths to stage the files into the task working directory.
 
 :::info
 Platform does not store the data used for analysis in pipelines. The datasets must provide the locations of data that is stored on your own infrastructure.
