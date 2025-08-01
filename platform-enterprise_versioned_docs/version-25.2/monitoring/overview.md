@@ -1,7 +1,8 @@
 ---
 title: "Overview"
 description: "Monitoring pipeline runs in Seqera Platform."
-date: "11 Apr 2024"
+date created: "2024-04-11"
+last updated: "2025-08-01"
 tags: [runs, monitoring]
 ---
 
@@ -19,8 +20,6 @@ The **Runs** tab contains all previous runs in the workspace. Each new or resume
 Select the name of a run from the list to display that run's [execution details](./run-details).
 
 ## Save run as pipeline
-
-_Available from version 23.1_
 
 From the **Runs** list, any run can be saved as a new pipeline for future use, regardless of run status. Select the item menu next to any run in the list, then select **Save as pipeline**. In the dialog box shown, you can edit the pipeline name, add labels, and **Save**.
 

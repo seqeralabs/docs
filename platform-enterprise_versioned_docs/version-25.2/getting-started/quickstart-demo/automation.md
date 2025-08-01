@@ -20,8 +20,6 @@ The API can be accessed from `https://api.cloud.seqera.io`.
 
 The full list of endpoints is available in Seqera's [OpenAPI schema](https://cloud.seqera.io/openapi/index.html). The API requires an authentication token to be specified in every API request. This can be created in your user menu under **Your tokens**.
 
-![Platform access token](./assets/generate-access-token.gif)
-
 The token is only displayed once. Store your token in a secure place. Use this token to authenticate requests to the API.
   
 <details>
