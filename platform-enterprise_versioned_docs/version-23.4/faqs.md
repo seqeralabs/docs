@@ -76,7 +76,7 @@ Try the following:
 
 **_Row was updated or deleted by another transaction (or unsaved-value mapping was incorrect)_ error**
 
-This error can occur if incorrect configuration values are assigned to the `backend` and `cron` containers' [`MICRONAUT_ENVIRONMENTS`](./enterprise/configuration/overview#compute-environments) environment variable. You may see other unexpected system behavior, like two exact copies of the same Nextflow job submitted to the executor for scheduling.
+This error can occur if incorrect configuration values are assigned to the `backend` and `cron` containers' [`MICRONAUT_ENVIRONMENTS`](./enterprise/configuration/overview.mdx#compute-environments) environment variable. You may see other unexpected system behavior, like two exact copies of the same Nextflow job submitted to the executor for scheduling.
 
 Please verify the following:
 
