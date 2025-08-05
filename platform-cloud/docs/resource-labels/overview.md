@@ -15,14 +15,19 @@ Resource labels are applied to elements during:
 
 ### Dynamic resource labels 
 
-Use dynamic resource labels to tag cloud resources with Platform run and Nextflow session identifiers at workflow submission and execution time. When you provide a variable value (either `${workflowId}` or `${sessionId}`) in the standard `key=value` resource label format, the unique run or session ID for each pipeline run will be propagated to your cloud provider for all the resources spawned by that particular run.
+Use dynamic resource labels to tag cloud resources with Platform run and Nextflow session identifiers at workflow submission and execution time. When you provide a variable value in the standard `key=value` resource label format, the corresponding unique value for each pipeline run will be propagated to your cloud provider for all the resources spawned by that particular run.
 
-For example, to apply labels containing the unique Platform run ID to all the resources spawned by a run, add a dynamic label such as `name=run-${workflowId}` to your compute environment, pipeline, or manually in the pipeline launch form. 
+| Value           | Description         |
+|-----------------|---------------------|
+| `${workflowId}` | Platform run ID     |
+| `${sessionId}`  | Nextflow session ID |
+
+For example, to apply labels containing the unique Platform run ID to all the resources spawned by a run, add a dynamic label such as `platform-run=${workflowId}` to your compute environment, pipeline, or manually in the pipeline launch form. 
 
 Dynamic resource labels applied at the compute environment or pipeline level are prefilled in the pipeline launch form, and they can be applied or overridden during pipeline launch.
 
 :::info
-Because dynamic resource labels are used to tag the resources spawned with the Platform run ID or Nextflow session ID, they are only applied during workflow submission and execution time, and not at compute environment creation. As a result, only the **Submission time** and **Execution time** resources listed for each cloud provider on this page can be tagged with a dynamic resource label.
+Because dynamic resource labels are used to tag resources with unique values coresponding to a pipeline run, they are only applied during workflow submission and execution time, and not during compute environment creation. See the **Submission time** and **Execution time** resources listed for each cloud provider on this page.
 :::
 
 ### Create and apply resource labels
@@ -70,7 +75,7 @@ The deletion of a resource label from a workspace has no influence on the cloud 
 - You can't assign multiple resource labels, using the same key, to the same resource, regardless of whether this option is supported by the destination cloud provider.
 :::
 
-Resource labels are only available for cloud environments that use a resource tagging system. AWS, Azure, Google Cloud, and Kubernetes are supported. HPC compute environments do not support resource labels.
+Resource labels are only available for cloud environments that use a resource tagging system. AWS, Azure, Google, and Kubernetes are supported. HPC compute environments do not support resource labels.
 
 When a run is executed in a compute environment with associated resource labels:
 - Seqera propagates the labels to the set of resources listed for each provider below.
