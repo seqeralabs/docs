@@ -31,7 +31,6 @@
 /platform/:version/data_studios/*    /platform-cloud/studios/:splat  301
 /platform-cloud/data_studios/*   /platform-cloud/studios/:splat 301
 
-
 # Redirect to fix temporarily broken URL in UI
 /platform/:version/data/data_studios   /platform-cloud/studios/  301
 
@@ -43,7 +42,8 @@
 /platform/:version/*    /platform-cloud/:splat
 /platform/*   /platform-cloud/:splat
 
-
+# Redirect from orphan Fusion page
+/fusion/guide  /fusion 301
 
 #Redirect platform-api to intro page
 /platform-api   /platform-api/seqera-api   301
