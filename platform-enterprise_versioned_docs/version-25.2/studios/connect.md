@@ -40,7 +40,7 @@ tags: [connect, changelog, connect-changelog]
 * Disable template clients publishing from connect repository
 * Create a client and server packages
 * Restructure proxy package
-* Use synctest in `executor_test.go`
+* Use `synctest` in `executor_test.go`
 * Basic structure of management API
 * Implemented proxy log management API and logging reload
 * Implemented of user tracking notifications
@@ -79,8 +79,8 @@ tags: [connect, changelog, connect-changelog]
 * Swap connector after closing previous
 * Delay running notification until the downstream is connectable
 * Extend `GithubActions` to trigger clients publishing/promoting in downstream repo studio-templates
-* `sync.Map` use `Swap` instead of `LoadAndDelete`
-* Update Connect core module
+* `sync.Map`: use `Swap` instead of `LoadAndDelete`
+* Update connect core module
 * Server version 0.8.0 was released to prod, bumping to next version
 * Client version 0.8.0 was released to prod, bumping to next version
 * Cut release 0.8.1
@@ -93,7 +93,7 @@ tags: [connect, changelog, connect-changelog]
 * Feat: client mux implementation
 * Feat: server connect-tunnel implementation
 * Feat: in case view scope is missing from access token, redirect with auth callback error query parameter
-* Feat: removal of `go-gost`, implement `connect-tunnel`, and upgrade go (from v1.20 to v1.23)
+* Feat: removal of `go-gost`, implement `connect-tunnel`, and upgrade go from v1.20 to v1.23
 * Feat: micromamba based RStudio
 * Feat: add Git hash to stage releases
 * Feat: add 10 minutes' waiting period before failing notifying Platform
@@ -127,7 +127,7 @@ tags: [connect, changelog, connect-changelog]
 * Fix Docker images
 * Fix recorder not being used
 * Fix storage errors shown by caddy
-* Fix Closure and Redis issues
+* Fix closure and Redis issues
 * Fix: handle closing listener
 * Fix: remove only keys that belong to current server
 * Fix: the workflow file condition
@@ -144,6 +144,7 @@ tags: [connect, changelog, connect-changelog]
 * Logs: move to info logs level for redis calls
 * Infra: add option to trigger client build via UI
 * Cut 0.8.0 release
+* Update CI if statement
 * Use Fusion v2.4.9
 * Upgrade xcaddy version (from v0.4.2 to v0.4.4)
 * Release Server version 0.7.5
@@ -156,7 +157,7 @@ tags: [connect, changelog, connect-changelog]
 * Feat: micromamba based rstudio
 * Feat: server connect-tunnel implementation
 * Feat: in case view scope is missing form access token, redirect with auth callback error query parameter
-* Feat: removal of go-gost and upgrade go (from v1.20 to v1.23)
+* Feat: removal of `go-gost`, implement `connect-tunnel`, and upgrade `go` (from v1.20 to v1.23)
 * Add specific error for reason when tunnel not found
 * Add exponential backoff for reopening tunnel
 * Add the retry policy for opening tunnel
@@ -200,6 +201,7 @@ tags: [connect, changelog, connect-changelog]
 * Latest release with adjusted workflow
 * Minimal change just to trigger build
 * Missing previous patch output
+* Update CI if statement
 * Server version 0.7.5 was released to prod, bumping to next version
 
 ### server/v0.7.5 - 2025-01-07
@@ -227,7 +229,7 @@ tags: [connect, changelog, connect-changelog]
 ### client/v0.8.2 - 2025-06-17
 
 * Add R-IDE option and remove unused scripts
-* Add last release step
+* Add last release step to CI
 * Implementation of user tracking notifications
 * Updated local dev docs
 * API tunnels close
@@ -235,10 +237,10 @@ tags: [connect, changelog, connect-changelog]
 
 ### client/v0.8.1 - 2025-05-29
 
-* Feat: management API tunnels get
 * Feat: delay running notification until the downstream is connectable
 * Feat: Spot instance termination watcher implementation
 * Feat: simplify `sessionid` functionality interface
+* Add management API tunnels `GET` requests
 * Add connect-registry module
 * Add support for multi-platform build of connect clients (adding Linux/ARM64)
 * Add network metering to the client
@@ -248,10 +250,10 @@ tags: [connect, changelog, connect-changelog]
 * Add mount data to initial configuration logs
 * Re-open tunnel if websocket connection is broken or closed
 * Set up `deadlineDuration` instead of static deadline
-* Connect core module
+* Update connect core module
 * Rename `connect-registry` to `registry`
 * Extend `GithubActions` to trigger clients publishing/promoting in downstream repo studio-templates
-* `sync.Map` use Swap instead of `LoadAndDelete`
+* `sync.Map`: use `Swap` instead of `LoadAndDelete`
 * Improved race condition `reOpening`, `compareAndDelete`, and `Handle`
 * Use `CONNECT_MANAGEMENT_PORT` for proxy instead of deprecated `CONNECT_METRICS_PORT`
 * Revert "Improvements: race condition `reOpening`,`compareAndDelete`, and `Handle`"
@@ -279,16 +281,16 @@ tags: [connect, changelog, connect-changelog]
 * Fix: add timeout to notifier call
 * Fix: swap connector after closing previous
 * Fix: update Dockerfile with replacements
-* Cut release 0.8.1
+* Cut server release 0.8.1
 * Server version 0.8.0 was released to prod, bumping to next version 
 * Client version 0.8.0 was released to prod, bumping to next version
 * Server version 0.8.1 was released to prod, bumping to next version
-* Update x/net dependency
-* Update go-jose library
-* Bump golang.org/x/net
-* Bump dependencies that were using vulnerable golang.org/x/crypto
-* Upgrade to go 1.24.3
-* Upgrade Dockerfiles to go 1.24
+* Update x/net dependency (from v0.36.0 to v0.40.0)
+* Update go-jose library v3 (from 3.0.3 to 3.0.4) and v4 (from 4.0.4 to 4.0.5)
+* Bump golang.org/x/net (from v0.35.0 to v0.36.0)
+* Bump dependencies that were using vulnerable golang.org/x/crypto (from v0.33.0 to v0.35.0)
+* Upgrade go (from v1.23.0 to v1.24.3) and xcaddy (from v2.9.1 to v2.10.0)
+* Upgrade go in Dockerfiles (from v1.23 to v1.24)
 
 ### client/v0.8.0-rc - 2025-03-19
 
@@ -301,10 +303,10 @@ tags: [connect, changelog, connect-changelog]
 
 ### client/v0.7.6 - 2025-03-03
 
-* Feat: micromamba based rstudio
+* Feat: micromamba based RStudio
 * Feat: client mux implementation
 * Feat: in case view scope is missing from access token, redirect with auth callback error query parameter
-* Feat: removal of go-gost and upgrade go 1.23
+* Feat: removal of `go-gost`, implement `connect-tunnel`, and upgrade go (from v1.20 to v1.23)
 * Feat: server connect-tunnel implementation
 * Add specific error for reason when tunnel not found
 * Add exponential backoff for reopening tunnel
@@ -342,7 +344,7 @@ tags: [connect, changelog, connect-changelog]
 * Fix: error mounting `tmpfs /sys/fs/cgroup`
 * Fix: create mount target folder if not exists
 * Fix: include ca certs in tunnel Docker image
-* Updated Fusion version and use released VS Code extension
+* Updated Fusion version (from v2.4.2 to v2.4.6) and use released Nextflow language server (v1.0.0) VS Code extension
 * Client version 0.7.4 was released to prod, bumping to next version
 
 ### client/v0.7.4 - 2024-10-28
@@ -355,8 +357,8 @@ tags: [connect, changelog, connect-changelog]
 * Print configured version and linger period
 * Hide env vars and log which notifier version is instantiated
 * Updated tools versions
-* Quickfix typo
-* Simplified image
+* Experiment with simplified image
+* Bind all container mount points for GPUs
 * Fix integration tests and support for v2 protocol
 * Fix Jupyter package versions and ulimit bug
 * Fix integration tests
@@ -379,8 +381,9 @@ tags: [connect, changelog, connect-changelog]
 
 * Feat: workflows for publishing versioned images for dev/staging/prod
 * Feat: template to test clients locally against dev
+* Add warning notifications
 * Add custom Xpra wallpaper
-* Add a note about incompatible arch and pulling an image for the first time
+* Add a docs note about incompatible arch and pulling an image for the first time
 * Gracefully exit the client on failure
 * Run clients locally
 * Remove go test from client release
