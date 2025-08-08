@@ -16,15 +16,17 @@ The **Runs** tab contains all previous runs in the workspace. Each new or resume
 - `cancelled`: Stopped manually during execution
 - `unknown`: Indeterminate status
 
-Select the name of a run from the list to display that run's [execution details](./run-details).
+Select the name of a run from the list to display that run's [execution details](./run-details.mdx).
 
 ## Save run as pipeline
-
-_Available from version 23.1_
 
 From the **Runs** list, any run can be saved as a new pipeline for future use, regardless of run status. Select the item menu next to any run in the list, then select **Save as pipeline**. In the dialog box shown, you can edit the pipeline name, add labels, and **Save**.
 
 You can **Review and edit** any run details prior to saving the pipeline. After you've saved the pipeline, it is listed on the **Launchpad** and can be run from the same workspace where it was created.
+
+:::note
+Only runs launched via Platform UI, API, CLI, or seqerakit can be saved as pipelines to Launchpad. Runs launched via Nextflow CLI using the `--with-tower` flag cannot be saved as pipelines in Platform.
+:::
 
 ## All runs view
 
