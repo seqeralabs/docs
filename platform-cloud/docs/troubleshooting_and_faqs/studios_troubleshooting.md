@@ -76,7 +76,7 @@ This is displayed because logging is set to `stderr` by default to ensure all lo
 
 ## Running session does not show new data in object storage
 
-By default, Fusion does not resync objects from the remotely mounted data-link(s) after initial mounting. This means that when running a session with data mounted, if the underlying storage updates, the data is not re-synced to the studio session. This behavior can be changed by setting the `FUSION_REFRESH_TIMEOUT` environment variable in your studio session to a number of seconds. This will force Fusion to refresh the view of the mounted data-link.
+By default, Fusion does not resync objects from the remotely mounted data-link(s) after initial mounting. This means that when running a session with data mounted, if the underlying storage updates, the data is not re-synced to the studio session. This behavior can be changed by setting the `FUSION_REFRESH_TIMEOUT` environment variable in your studio session to a number of seconds. This will force Fusion to refresh the view of the mounted data-link(s).
 
 :::warning
 This is an experimental feature and may cause consistency issues in the Fusion namespace, resulting in data loss.
