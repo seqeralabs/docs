@@ -1,7 +1,8 @@
 ---
 title: "Configuration overview"
 description: Overview of Tower configuration options
-date: "21 Apr 2023"
+date created: "2023-04-21"
+last updated: "2025-08-09"
 tags: [configuration]
 ---
 
