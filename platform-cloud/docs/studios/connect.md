@@ -405,10 +405,10 @@ tags: [connect, changelog, connect-changelog]
 * Stop Xpra container gracefully, fix Xpra integration tests
 * Hacky way to fix RStudio wrong redirect
 * New versioning and new RStudio
-* GHA fixes
-* GHA fixes
-* Refine GHA
-* GHA fixes
+* GitHub actions fixes
+* GitHub actions fixes
+* Refine GitHub actions
+* GitHub actions fixes
 * Fix RStudio version 4.4
 * Fix missing comma in GHA workflow
 * Fix workflow file again
