@@ -25,7 +25,7 @@ From the **Runs** list, any run can be saved as a new pipeline for future use, r
 You can **Review and edit** any run details prior to saving the pipeline. After you've saved the pipeline, it is listed on the **Launchpad** and can be run from the same workspace where it was created.
 
 :::note
-Only runs launched via Platform UI, API, CLI, or seqerakit can be saved as pipelines to Launchpad. Runs launched via Nextflow CLI using the `--with-tower` flag cannot be saved as pipelines in Platform.
+Only runs launched via Platform UI, API, CLI, or Seqerakit can be saved as pipelines to Launchpad. Runs launched via Nextflow CLI using the `--with-tower` flag cannot be saved as pipelines in Platform.
 :::
 
 ## All runs view
