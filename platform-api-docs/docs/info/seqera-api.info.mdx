@@ -1,0 +1,116 @@
+---
+id: seqera-api
+title: "Platform API"
+description: "Seqera Platform services API"
+sidebar_label: Platform API
+sidebar_position: 0
+hide_title: true
+custom_edit_url: null
+---
+
+import ApiLogo from "@theme/ApiLogo";
+import Heading from "@theme/Heading";
+import SchemaTabs from "@theme/SchemaTabs";
+import TabItem from "@theme/TabItem";
+import Export from "@theme/ApiExplorer/Export";
+import MDXComponents from "@theme-original/MDXComponents";
+import Button from "@site/src/components/Button";
+
+<span
+  className={"theme-doc-version-badge badge badge--secondary"}
+  children={"Version: 1.45.0"}
+>
+</span>
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Platform API"}
+>
+</Heading>
+
+The Seqera Platform services API is a programmatic interface for all operations available in the Platform web UI. This allows organizations to integrate Platform seamlessly into existing processes.
+
+<div
+  style={{"marginBottom":"2rem"}}
+></div>
+
+### Authentication
+
+The API requires an authentication token to be specified in each API request using the
+[Bearer](https://swagger.io/docs/specification/authentication/bearer-authentication) HTTP header.
+
+<Button to="https://cloud.seqera.io/tokens" secondary medium alt>Create an access token</Button>
+
+:::note
+The token is only displayed once when it is created. Store your token in a safe place.
+:::
+
+### Versioning 
+
+The API uses the [semantic versioning convention](https://semver.org/) (major.minor.patch). In the event that a breaking change is introduced in future versions, we will publish guidance on the v1 support schedule and steps to mitigate disruption to your production environment. The following do _not_ constitute breaking changes:
+
+- Adding new API endpoints, new HTTP methods to existing endpoints, request parameters, or response fields
+- Adding new values to existing enums or string constants
+- Expanding accepted input formats or value ranges
+- Adding new optional headers or query parameters
+- Improving error messages or adding new error codes
+- Deprecation warnings (without removal)
+
+Clients should be designed to gracefully handle unknown enum values, ignore unrecognized response fields, and not rely on specific error message text.
+
+### Encoding and formatting standards
+
+- The API can be accessed from `https://api.cloud.seqera.io`.
+- All API endpoints use HTTPS, and all request and response payloads use [JSON](https://www.json.org/) encoding.
+- All timestamps use the [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) date-time standard format: `YYYY-MM-DDTHH:MM:SSZ`.
+
+:::note
+The Platform API is live on `https://api.cloud.seqera.io`. The legacy API `https://api.tower.nf` remains fully operational, so existing API integrations will continue to perform as expected. Deprecation of the legacy API will be communicated well in advance to avoid any breaking changes to your integrations.
+:::
+
+### Programmatic API
+
+Both the [Seqera Platform CLI](https://docs.seqera.io/platform-cloud/cli/overview) and [seqerakit](https://docs.seqera.io/platform-cloud/seqerakit/installation) are built on the Platform API and provide a programmatic automation layer for operations.
+
+You can also use tools such as [openapi-python-client](https://github.com/openapi-generators/openapi-python-client) to generate your own programmatic API for a particular language (such as Python) based on the OpenAPI schema. However, we do not guarantee that any OpenAPI client generators will work with the Platform API.
+
+### Parameters
+
+Some API `GET` methods will accept standard `query` parameters, which are defined in the documentation. Optional parameters such as page size, number (when available), and file name can be submitted as query parameters. `POST`, `PUT`, and `DELETE` requests require additional parameters to be provided in your request body.
+
+Several head parameters are also accepted, such as `Authorization` for bearer access tokens or `Accept-Version` to indicate the desired API version to use (default version 1):
+
+```bash
+curl -H "Authorization: Bearer QH..E5M="
+     -H "Accept-Version:1"
+     -X POST https://api.cloud.seqera.io/domain/{item_id}?queryString={value}
+     -d { params: { "key":"value" } }
+
+```
+
+### Client errors
+
+Two typical standard errors (i.e., response statuses other than `200` or `204`) are returned by the API.
+
+#### Bad Request
+
+The request payload is not properly defined or the query parameters are invalid.
+
+```json
+{
+  "message": "Unexpected error while processing - Error ID: 54apnFENQxbvCr23JaIjLb"
+}
+```
+
+#### Forbidden
+
+Your access token is invalid or expired. This response may also imply that the endpoint you are trying to access is not available. Check your request syntax for typos, and confirm that your access token is valid.
+
+```bash
+Status: 403 Forbidden
+```
+
+### Rate limiting
+
+For all API requests, there is a limit of 20 calls per second, per access token (72000 calls per hour).
