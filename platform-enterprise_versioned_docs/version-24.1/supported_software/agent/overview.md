@@ -1,7 +1,8 @@
 ---
 title: "Tower Agent"
 description: "Instructions to use Tower Agent."
-date: "24 Apr 2023"
+date created: "2023-04-24"
+last updated: "2025-08-08"
 tags: [agent]
 ---
 
@@ -26,7 +27,7 @@ Tower Agent is distributed as a single executable file to simply download and ex
 
 Before running the Agent:
 
-1. Create a [**personal access token**](../../api/overview#authentication).
+1. Create a [**personal access token**](https://docs.seqera.io/platform-api/create-token).
 
 2. Create [Tower Agent credentials](../../credentials/agent_credentials) in a Seqera Platform workspace.
 
