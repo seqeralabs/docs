@@ -208,7 +208,7 @@ export default function Home(): JSX.Element {
                       </p>
                       <ul className="list-none p-0 leading-8">
                         <li>
-                          <a href="https://docs.seqera.io/platform-api/seqera-api">
+                          <a href="https://docs.seqera.io/platform-api/info/seqera-api">
                             Platform API
                           </a>
                         </li>
