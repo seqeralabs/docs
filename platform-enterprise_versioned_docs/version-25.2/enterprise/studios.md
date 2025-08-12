@@ -5,7 +5,7 @@ date: "17 Mar 2025"
 tags: [docker, compose, kubernetes, studios, deployment]
 ---
 
-Enable Studios as part of your Seqera Platform Enterprise instance. You must have Data Explorer enabled to use Studios. Only the AWS public cloud is currently supported.
+Enable Studios as part of your Seqera Platform Enterprise instance. You must have Data Explorer enabled to use Studios. Both the AWS and GCP public clouds are currently supported.
 
 :::caution 
 You must upgrade your Seqera Enterprise installation to version 25.1 before you enable and configure Studios.
@@ -28,7 +28,7 @@ If your Enterprise deployment requires non-wildcard SSL certificates, enable pat
     - https://connect.connect.cloud.seqera.io/_studio/a1234abc
     - https://connect.connect.cloud.seqera.io/_studio/a5678abcd
 
-Path routing is only available from Seqera Platform version 25.2 and the latest Connect server and clients. It is supported for VS Code, Jupyter, and R-IDE. It is not supported for Xpra.
+Path-based routing is only available from Seqera Platform version 25.2 and the latest Connect server and clients. It is supported for Visual Studio Code, JupyterLab, and R-IDE container template images. It is not supported for the Xpra container template image.
 :::
 
 Studios uses the following set of domains and subdomains:
