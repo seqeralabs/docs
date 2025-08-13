@@ -127,6 +127,7 @@
             "items": [
                 "developer/index",
                 "developer/diagram",
+                "developer/config-scopes",
                 {
                     "type": "category",
                     "label": "Packages",
@@ -159,22 +160,22 @@
         },
         {
             "type": "category",
+            "label": "Tutorials",
+            "collapsed": true,
+            "items": [
+                "tutorials/data-lineage",
+                "tutorials/workflow-outputs",
+                "tutorials/metrics",
+                "tutorials/flux"
+            ]
+        },
+        {
+            "type": "category",
             "label": "Guides",
             "collapsed": true,
             "items": [
                 "guides/aws-java-sdk-v2",
                 "guides/updating-spot-retries"
-            ]
-        },
-        {
-            "type": "category",
-            "label": "Tutorials",
-            "collapsed": true,
-            "items": [
-                "tutorials/data-lineage",
-                "tutorials/flux",
-                "tutorials/metrics",
-                "tutorials/workflow-outputs"
             ]
         }
     ]
