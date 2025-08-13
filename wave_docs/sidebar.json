@@ -7,9 +7,7 @@
       "collapsed": true,
       "items": [
         "install/docker-compose",
-        "install/kubernetes",
-        "install/configuring-wave",
-        "install/configuring-wave-build"
+        "install/kubernetes"
       ]
     },
     {
@@ -21,6 +19,16 @@
           "get-started/nextflow-seqera-containers",
           "get-started/nextflow-wave",
           "get-started/wave-cli"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Configuration",
+      "collapsed": true,
+      "items": [   
+        "wave-lite",     
+        "install/configure-wave",
+        "install/configure-wave-build"
       ]
     },
     "provisioning",
