@@ -5,50 +5,7 @@ info:
   contact:
     url: https://seqera.io
     email: info@seqera.io
-  version: 1.39.0
-tags:
-  - name: actions
-    description: Pipeline actions
-  - name: avatars
-    description: Avatars
-  - name: compute-envs
-    description: Compute environments 
-  - name: credentials
-    description: Credentials
-  - name: data-links
-    description: Cloud storage directory paths in Data Explorer
-  - name: datasets
-    description: Pipeline input datasets (samplesheets) in CSV or TSV format
-  - name: ga4gh
-    description: GA4GH workflow execution service runs 
-  - name: labels
-    description: Labels and resource labels  
-  - name: launch
-    description: Workflow launch events 
-  - name: orgs
-    description: Organizations 
-  - name: pipelines
-    description: Pipelines
-  - name: pipeline-secrets
-    description: Pipeline secrets in a user or workspace context
-  - name: platforms
-    description: Computing platforms
-  - name: service-info
-    description: Seqera Platform API service information
-  - name: studios
-    description: Studios and Studio sessions
-  - name: teams
-    description: Teams in an organization context 
-  - name: tokens
-    description: API access tokens 
-  - name: trace
-    description: Workflow execution traces 
-  - name: users
-    description: Users
-  - name: workflows
-    description: Workflow executions
-  - name: workspaces
-    description: Workspaces in an organization context
+  version: 1.44.0
 paths:
   /actions:
     get:
@@ -287,7 +244,7 @@ paths:
   /actions/{actionId}:
     get:
       summary: Describe action
-      description: Retrieves the details of the pipeline action identified by the
+      description: Retrieves the details of the action identified by the
         given `actionId`.
       tags:
       - actions
@@ -1076,43 +1033,44 @@ paths:
       - BearerAuth: []
   /data-links:
     get:
-      summary: List data links in a user or workspace context
+      summary: List data-links 
+      description: Retrieves all available data-links in a user context. Append `?workspaceId={your-workspace-id}` to retrieve data-links in a workspace context. 
       tags:
       - data-links
       operationId: ListDataLinks
       parameters:
       - name: workspaceId
         in: query
-        description: Optional workspace numeric identifier
+        description: Workspace numeric identifier
         schema:
           type: integer
           format: int64
       - name: credentialsId
         in: query
-        description: Optional credentials identifier
+        description: Credentials identifier
         schema:
           type: string
       - name: search
         in: query
-        description: "Optional search criteria, allowing free text search on datalink\
-          \ name and keywords: `region`, or `provider`"
+        description: "Free text search criteria — data-link\
+          \ name and keywords: `region`, `provider`."
         schema:
           type: string
       - name: max
         in: query
-        description: "Optional max number of items to be returned, used for pagination"
+        description: Pagination max results
         schema:
           type: integer
           format: int32
       - name: offset
         in: query
-        description: Optional offset used for paginated responses
+        description: Pagination offset
         schema:
           type: integer
           format: int32
       - name: visibility
         in: query
-        description: Optional parameter to filter results by visibility
+        description: Filter results by visibility
         schema:
           type: string
       responses:
@@ -1135,8 +1093,8 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
         "404":
-          description: "NotFound, when the workspace or credentials are not found\
-            \ or when the api is disabled for the workspace"
+          description: "NotFound — workspace or credentials not found,\
+            \ or the API is disabled in the workspace."
           content:
             application/json:
               schema:
@@ -1146,19 +1104,20 @@ paths:
       security:
       - BearerAuth: []
     post:
-      summary: Create data link in a user or workspace context
+      summary: Create data-link 
+      description: Creates a new data-link in a user context. Append `?workspaceId=` to create the data-link in a workspace context.
       tags:
       - data-links
       operationId: CreateCustomDataLink
       parameters:
       - name: workspaceId
         in: query
-        description: Optional workspace numeric identifier
+        description: Workspace numeric identifier
         schema:
           type: integer
           format: int64
       requestBody:
-        description: Request for creating new data link
+        description: Data-link creation request
         content:
           application/json:
             schema:
@@ -1178,8 +1137,8 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
         "404":
-          description: "NotFound, when the workspace or credentials are not found\
-            \ or when the api is disabled for the workspace or if data link or path\
+          description: "NotFound — workspace or credentials not found,\
+            \ API disabled in the workspace, or data-link or path\
             \ not found"
           content:
             application/json:
@@ -1191,20 +1150,21 @@ paths:
       - BearerAuth: []
   /data-links/cache/refresh:
     get:
-      summary: Refresh data link cache for workspace or specific credentials
+      summary: Refresh data-link cache
+      description: Refreshes the data-link cache for the given `workspaceId` or `credentialsId`.
       tags:
       - data-links
       operationId: RefreshDataLinkCache
       parameters:
       - name: workspaceId
         in: query
-        description: Optional workspace numeric identifier
+        description: Workspace numeric identifier
         schema:
           type: integer
           format: int64
       - name: credentialsId
         in: query
-        description: Optional credentials identifier
+        description: Credentials string identifier
         schema:
           type: string
       responses:
@@ -1216,26 +1176,27 @@ paths:
       - BearerAuth: []
   /data-links/{dataLinkId}:
     get:
-      summary: Describe a DataLink
+      summary: Describe data-link
+      description: Retrieves the details of the data-link associated with the given `dataLinkId`.
       tags:
       - data-links
       operationId: DescribeDataLink
       parameters:
       - name: dataLinkId
         in: path
-        description: Datalink identifier
+        description: Data-link string identifier
         required: true
         schema:
           type: string
       - name: workspaceId
         in: query
-        description: Optional workspace numeric identifier
+        description: Workspace numeric identifier
         schema:
           type: integer
           format: int64
       - name: credentialsId
         in: query
-        description: Optional credentials identifier
+        description: Credentials string identifier
         schema:
           type: string
       responses:
@@ -1252,8 +1213,8 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
         "404":
-          description: "NotFound, when the workspace or credentials are not found\
-            \ or when the api is disabled for the workspace or data link not found"
+          description: "NotFound — workspace or credentials not found,\
+            \ API disabled for the workspace, or data-link not found"
           content:
             application/json:
               schema:
@@ -1263,25 +1224,26 @@ paths:
       security:
       - BearerAuth: []
     put:
-      summary: Update data link in a user or workspace context
+      summary: Update data-link
+      description: Update the data-link associated with the given `dataLinkId`.
       tags:
       - data-links
       operationId: UpdateCustomDataLink
       parameters:
       - name: dataLinkId
         in: path
-        description: Datalink identifier
+        description: Data-link string identifier
         required: true
         schema:
           type: string
       - name: workspaceId
         in: query
-        description: Optional workspace numeric identifier
+        description: Workspace numeric identifier
         schema:
           type: integer
           format: int64
       requestBody:
-        description: Request for updating data link
+        description: Data-link update request
         content:
           application/json:
             schema:
@@ -1289,7 +1251,7 @@ paths:
         required: true
       responses:
         "200":
-          description: Success
+          description: Success — Data-link updated
           content:
             application/json:
               schema:
@@ -1301,8 +1263,8 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
         "404":
-          description: "NotFound, when the workspace or credentials are not found\
-            \ or when the api is disabled for the workspace or data link was not found"
+          description: "NotFound — workspace or credentials not found,\
+            \ API disabled for the workspace, or data-link not found"
           content:
             application/json:
               schema:
@@ -1312,26 +1274,27 @@ paths:
       security:
       - BearerAuth: []
     delete:
-      summary: Delete data link in a user or workspace context
+      summary: Delete data-link 
+      description: Deletes the data-link associated with the given `dataLinkId`.
       tags:
       - data-links
       operationId: DeleteCustomDataLink
       parameters:
       - name: dataLinkId
         in: path
-        description: Datalink identifier
+        description: Data-link identifier
         required: true
         schema:
           type: string
       - name: workspaceId
         in: query
-        description: Optional workspace numeric identifier
+        description: Workspace numeric identifier
         schema:
           type: integer
           format: int64
       responses:
         "200":
-          description: Success
+          description: Success — Data-link deleted
         "400":
           description: BadRequest
           content:
@@ -1339,8 +1302,8 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
         "404":
-          description: "NotFound, when the workspace or credentials are not found\
-            \ or when the api is disabled for the workspace or data link was not found"
+          description: "NotFound — workspace or credentials not found,\
+            \ API disabled for the workspace, or data-link not found"
           content:
             application/json:
               schema:
@@ -1353,10 +1316,77 @@ paths:
       - BearerAuth: []
   /data-links/{dataLinkId}/browse:
     get:
-      summary: Explore content of data link
+      summary: Explore data-link
+      description: Retrieves the content of the data-link associated with the given `dataLinkId`. 
       tags:
       - data-links
       operationId: ExploreDataLink
+      parameters:
+      - name: dataLinkId
+        in: path
+        description: Data-link string identifier
+        required: true
+        schema:
+          type: string
+      - name: workspaceId
+        in: query
+        description: Workspace numeric identifier
+        schema:
+          type: integer
+          format: int64
+      - name: credentialsId
+        in: query
+        description: Credentials string identifier
+        schema:
+          type: string
+      - name: search
+        in: query
+        description: Prefix search of data-link content
+        schema:
+          type: string
+      - name: nextPageToken
+        in: query
+        description: Token used to fetch the next page of items
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: "Number of items to return per page. If ommitted, a default maximum value is returned."
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DataLinkContentResponse"
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: "NotFound — workspace or credentials not found,\
+            \ API disabled for the workspace, or data-link not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Operation not allowed
+      security:
+      - BearerAuth: []
+  /data-links/{dataLinkId}/browse-tree:
+    get:
+      tags:
+      - data-links
+      summary: Explore a data-link tree
+      description: Provides a list of all files in the provided paths (including files
+        in sub-paths).
+      operationId: ExploreDataLinkTree
       parameters:
       - name: dataLinkId
         in: path
@@ -1375,31 +1405,20 @@ paths:
         description: Optional credentials identifier
         schema:
           type: string
-      - name: search
+      - name: paths
         in: query
-        description: "Optional search criteria, allowing prefix search on datalink\
-          \ content"
+        description: List of paths
         schema:
-          type: string
-      - name: nextPageToken
-        in: query
-        description: Optional token used to fetch the next page of items
-        schema:
-          type: string
-      - name: pageSize
-        in: query
-        description: "Optional number of items to return per page, if missing a max-allowed\
-          \ default value is used"
-        schema:
-          type: integer
-          format: int32
+          type: array
+          items:
+            type: object
       responses:
         "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DataLinkContentResponse"
+                $ref: "#/components/schemas/DataLinkContentTreeListResponse"
         "400":
           description: BadRequest
           content:
@@ -1407,9 +1426,8 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
         "404":
-          description: "NotFound, when the workspace or credentials are not found\
-            \ or when the API is disabled for the workspace or if data link or path\
-            \ not found"
+          description: "NotFound, when the workspace, credentials or data link are\
+            \ not found or when the api is disabled for the workspace"
           content:
             application/json:
               schema:
@@ -1420,14 +1438,15 @@ paths:
       - BearerAuth: []
   /data-links/{dataLinkId}/browse/{path}:
     get:
-      summary: Explore content of data link
+      summary: Explore data-link path
+      description: Retrieves the content of the data-link associated with the given `dataLinkId`, at the given `path`. 
       tags:
       - data-links
       operationId: ExploreDataLink_1
       parameters:
       - name: dataLinkId
         in: path
-        description: Datalink identifier
+        description: Data-link string identifier
         required: true
         schema:
           type: string
@@ -1439,30 +1458,28 @@ paths:
           type: string
       - name: workspaceId
         in: query
-        description: Optional workspace numeric identifier
+        description: Workspace numeric identifier
         schema:
           type: integer
           format: int64
       - name: credentialsId
         in: query
-        description: Optional credentials identifier
+        description: Credentials identifier
         schema:
           type: string
       - name: search
         in: query
-        description: "Optional search criteria, allowing prefix search on datalink\
-          \ content"
+        description: Prefix search on data-link content
         schema:
           type: string
       - name: nextPageToken
         in: query
-        description: Optional token used to fetch the next page of items
+        description: Token used to fetch the next page of items
         schema:
           type: string
       - name: pageSize
         in: query
-        description: "Optional number of items to return per page, if missing a max-allowed\
-          \ default value is used"
+        description: "Number of items to return per page. If ommitted, a default maximum value is returned."
         schema:
           type: integer
           format: int32
@@ -1480,9 +1497,501 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
         "404":
-          description: "NotFound, when the workspace or credentials are not found\
-            \ or when the API is disabled for the workspace or if data link or path\
-            \ not found"
+          description: "NotFound — workspace or credentials not found,\
+            \ API disabled for the workspace, or data-link or path not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Operation not allowed
+      security:
+      - BearerAuth: []
+  /data-links/{dataLinkId}/content:
+    delete:
+      tags:
+      - data-links
+      summary: Delete data-link content
+      description: Deletes the content of the data-link associated with the given `dataLinkId`. The data-link itself is preserved. 
+      operationId: DeleteDataLinkItem
+      parameters:
+      - name: dataLinkId
+        in: path
+        description: Data-link string identifier
+        required: true
+        schema:
+          type: string
+      - name: workspaceId
+        in: query
+        description: Workspace numeric identifier
+        schema:
+          type: integer
+          format: int64
+      - name: credentialsId
+        in: query
+        description: Credentials identifier
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DataLinkDeleteItemRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DataLinkDeleteItemResponse"
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: "NotFound — workspace or credentials not found,\
+            \ API disabled for the workspace, or data-link or path not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Operation not allowed
+      security:
+      - BearerAuth: []
+  /data-links/{dataLinkId}/download/{filePath}:
+    get:
+      tags:
+      - data-links
+      summary: Download data-link file at path
+      description: Downloads the content at the given `filePath` in the data-link associated with the given `dataLinkId`.
+      operationId: DownloadDataLink
+      parameters:
+      - name: dataLinkId
+        in: path
+        description: Data-link string identifier
+        required: true
+        schema:
+          type: string
+      - name: filePath
+        in: path
+        description: File path to download
+        required: true
+        schema:
+          type: string
+      - name: credentialsId
+        in: query
+        description: Credentials identifier
+        schema:
+          type: string
+      - name: workspaceId
+        in: query
+        description: Workspace numeric identifier
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+                format: binary
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: "NotFound — workspace or credentials not found,\
+            \ API disabled for the workspace, or data-link or path not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Operation not allowed
+      security:
+      - BearerAuth: []
+  /data-links/{dataLinkId}/generate-download-url:
+    get:
+      tags:
+      - data-links
+      summary: Generate data-link file download URL
+      description: Returns a URL to download files from the data-link associated with the given `dataLinkId`.
+      operationId: GenerateDownloadUrlDataLink
+      parameters:
+      - name: dataLinkId
+        in: path
+        description: Data-link string identifier
+        required: true
+        schema:
+          type: string
+      - name: filePath
+        in: query
+        description: File path to download
+        schema:
+          type: string
+      - name: credentialsId
+        in: query
+        description: Credentials identifier
+        schema:
+          type: string
+      - name: workspaceId
+        in: query
+        description: Workspace numeric identifier
+        schema:
+          type: integer
+          format: int64
+      - name: preview
+        in: query
+        description: "Whether to generate the URL for preview purposes or direct download\
+          \ (default: false)"
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DataLinkDownloadUrlResponse"
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: "NotFound — workspace or credentials not found,\
+            \ API disabled for the workspace, or data-link or path not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Operation not allowed
+      security:
+      - BearerAuth: []
+  /data-links/{dataLinkId}/script/download:
+    get:
+      tags:
+      - data-links
+      summary: Generate download script
+      description: "Creates a script to download files from the data-link associated with the given `dataLinkId`.\ 
+        \ Append `?dirs` or `?files` to specify a list of files or paths to download within the data-link." 
+      operationId: GenerateDownloadScript
+      parameters:
+      - name: dataLinkId
+        in: path
+        description: Data-link string identifier
+        required: true
+        schema:
+          type: string
+      - name: workspaceId
+        in: query
+        description: Workspace numeric identifier
+        schema:
+          type: integer
+          format: int64
+      - name: credentialsId
+        in: query
+        description: Credentials identifier
+        schema:
+          type: string
+      - name: dirs
+        in: query
+        description: List of paths to directories to download
+        schema:
+          type: array
+          items:
+            type: object
+      - name: files
+        in: query
+        description: List of paths to files to download
+        schema:
+          type: array
+          items:
+            type: object
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DataLinkDownloadScriptResponse"
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: "NotFound — workspace or credentials not found,\
+            \ API disabled for the workspace, or data-link or path not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Operation not allowed
+      security:
+      - BearerAuth: []
+  /data-links/{dataLinkId}/upload:
+    post:
+      tags:
+      - data-links
+      summary: Generate file upload URL
+      description: |-
+        Creates a URL to upload files to the data-link associated with the given `dataLinkId`.
+        For AWS S3 data-links, an additional follow-up request must be sent after your file upload has completed (or encountered an error) to finalize the upload - see the `/upload/finish` endpoint.
+      operationId: GenerateDataLinkUploadUrl
+      parameters:
+      - name: dataLinkId
+        in: path
+        description: Data-link string identifier
+        required: true
+        schema:
+          type: string
+      - name: credentialsId
+        in: query
+        description: Credentials identifier
+        schema:
+          type: string
+      - name: workspaceId
+        in: query
+        description: Workspace numeric identifier
+        schema:
+          type: integer
+          format: int64
+      - name: Origin
+        in: header
+        schema:
+          type: string
+          nullable: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DataLinkMultiPartUploadRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DataLinkMultiPartUploadResponse"
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: "NotFound — workspace or credentials not found,\
+            \ API disabled for the workspace, or data-link or path not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Operation not allowed
+      security:
+      - BearerAuth: []
+  /data-links/{dataLinkId}/upload/finish:
+    post:
+      tags:
+      - data-links
+      summary: Finish data-link file upload
+      description: Finish upload of a data-link file. This is necessary for AWS S3 data-links
+        (`DataLinkProvider=aws`) to finalize
+        a successful file upload, or abort an upload if an error was encountered
+        while uploading a file using an upload URL from the `/upload`
+        endpoint.
+      operationId: FinishDataLinkUpload
+      parameters:
+      - name: dataLinkId
+        in: path
+        description: Data-link string identifier
+        required: true
+        schema:
+          type: string
+      - name: credentialsId
+        in: query
+        description: Credentials identifier
+        schema:
+          type: string
+      - name: workspaceId
+        in: query
+        description: Workspace numeric identifier
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DataLinkFinishMultiPartUploadRequest"
+        required: true
+      responses:
+        "202":
+          description: No content
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: "NotFound — workspace or credentials not found,\
+            \ API disabled for the workspace, or data-link or path not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Operation not allowed
+        "200":
+          description: FinishDataLinkUpload 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - BearerAuth: []
+  /data-links/{dataLinkId}/upload/finish/{dirPath}:
+    post:
+      tags:
+      - data-links
+      summary: Finish data-link file upload to given path
+      description: Finish upload of a data-link file, specifying a file path (`dirPath`). This is necessary for AWS S3 data-links
+        (`DataLinkProvider=aws`) to finalize
+        a successful file upload, or abort an upload if an error was encountered
+        while uploading a file using an upload URL from the `/upload`
+        endpoint.
+      operationId: FinishDataLinkUpload_1
+      parameters:
+      - name: dataLinkId
+        in: path
+        description: Data-link string identifier
+        required: true
+        schema:
+          type: string
+      - name: dirPath
+        in: path
+        description: Path to the destination directory
+        required: true
+        schema:
+          type: string
+      - name: credentialsId
+        in: query
+        description: Credentials identifier
+        schema:
+          type: string
+      - name: workspaceId
+        in: query
+        description: Workspace numeric identifier
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DataLinkFinishMultiPartUploadRequest"
+        required: true
+      responses:
+        "202":
+          description: No content
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: "NotFound — workspace or credentials not found,\
+            \ API disabled for the workspace, or data-link or path not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Operation not allowed
+        "200":
+          description: FinishDataLinkUpload_1 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - BearerAuth: []
+  /data-links/{dataLinkId}/upload/{dirPath}:
+    post:
+      tags:
+      - data-links
+      summary: Generate data-link file upload URL (to given path)
+      description: |-
+        Creates a URL to upload files to the data-link associated with the given `dataLinkId`, specifying a file path (`dirPath`).
+        For AWS S3 data-links, an additional follow-up request must be sent after your file upload has completed (or encountered an error) to finalize the upload - see the `/upload/finish` endpoint.
+      operationId: GenerateDataLinkUploadUrl_1
+      parameters:
+      - name: dataLinkId
+        in: path
+        description: Data-link string identifier
+        required: true
+        schema:
+          type: string
+      - name: dirPath
+        in: path
+        description: Path to the destination directory
+        required: true
+        schema:
+          type: string
+      - name: credentialsId
+        in: query
+        description: Credentials identifier
+        schema:
+          type: string
+      - name: workspaceId
+        in: query
+        description: Workspace numeric identifier
+        schema:
+          type: integer
+          format: int64
+      - name: Origin
+        in: header
+        schema:
+          type: string
+          nullable: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DataLinkMultiPartUploadRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DataLinkMultiPartUploadResponse"
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: "NotFound, when the API is disabled or the file does not exist\
+            \ or data link not found"
           content:
             application/json:
               schema:
@@ -1493,9 +2002,9 @@ paths:
       - BearerAuth: []
   /datasets:
     get:
-      summary: List available datasets
-      description: Lists all available datasets in the user context. Append `?workspaceId`
-        to list datasets in a workspace context
+      summary: List datasets
+      description: Lists all available datasets in a user context. Append `?workspaceId`
+        to list datasets in a workspace context.
       tags:
       - datasets
       operationId: ListDatasetsV2
@@ -1585,6 +2094,7 @@ paths:
           format: int64
       - name: mimeType
         in: query
+        description: Dataset MIME type
         schema:
           type: string
           nullable: true
@@ -2524,7 +3034,7 @@ paths:
           format: int64
       - name: max
         in: query
-        description: Pagination result max result
+        description: Pagination max results
         schema:
           type: integer
           format: int32
@@ -2573,7 +3083,7 @@ paths:
           format: int64
       - name: max
         in: query
-        description: Pagination result max result
+        description: Pagination max results
         schema:
           type: integer
           format: int32
@@ -2813,7 +3323,7 @@ paths:
           format: int64
       - name: max
         in: query
-        description: Pagination result max result
+        description: Pagination max results
         schema:
           type: integer
           format: int32
@@ -2907,7 +3417,7 @@ paths:
           format: int64
       - name: name
         in: query
-        description: Organization name to validate
+        description: Team name to validate
         schema:
           type: string
       responses:
@@ -3069,16 +3579,16 @@ paths:
           format: int64
       - name: max
         in: query
+        description: Pagination max results
         schema:
           type: integer
           format: int32
-          nullable: true
       - name: offset
         in: query
+        description: Pagination offset
         schema:
           type: integer
           format: int32
-          nullable: true
       - name: search
         in: query
         schema:
@@ -3218,7 +3728,7 @@ paths:
           format: int32
       - name: offset
         in: query
-        description: Paginantion offset
+        description: Pagination offset
         schema:
           type: integer
           format: int32
@@ -3344,7 +3854,7 @@ paths:
           format: int64
       - name: name
         in: query
-        description: Name to validate
+        description: Workspace name to validate
         schema:
           type: string
       responses:
@@ -3384,7 +3894,7 @@ paths:
           format: int64
       - name: workspaceId
         in: path
-        description: Workspace numeric identifier
+        description: Optional workspace numeric identifier
         required: true
         schema:
           type: integer
@@ -3422,7 +3932,7 @@ paths:
           format: int64
       - name: workspaceId
         in: path
-        description: Workspace numeric identifier
+        description: Optional workspace numeric identifier
         required: true
         schema:
           type: integer
@@ -3473,7 +3983,7 @@ paths:
           format: int64
       - name: workspaceId
         in: path
-        description: Workspace numeric identifier
+        description: Optional workspace numeric identifier
         required: true
         schema:
           type: integer
@@ -3509,14 +4019,14 @@ paths:
           format: int64
       - name: workspaceId
         in: path
-        description: Workspace numeric identifier
+        description: Optional workspace numeric identifier
         required: true
         schema:
           type: integer
           format: int64
       - name: max
         in: query
-        description: Pagination result max result
+        description: Pagination max results
         schema:
           type: integer
           format: int32
@@ -3564,7 +4074,7 @@ paths:
           format: int64
       - name: workspaceId
         in: path
-        description: Workspace numeric identifier
+        description: Optional workspace numeric identifier
         required: true
         schema:
           type: integer
@@ -3600,7 +4110,7 @@ paths:
           format: int64
       - name: workspaceId
         in: path
-        description: Workspace numeric identifier
+        description: Optional workspace numeric identifier
         required: true
         schema:
           type: integer
@@ -3652,7 +4162,7 @@ paths:
           format: int64
       - name: workspaceId
         in: path
-        description: Workspace numeric identifier
+        description: Optional workspace numeric identifier
         required: true
         schema:
           type: integer
@@ -3694,7 +4204,7 @@ paths:
           format: int64
       - name: workspaceId
         in: path
-        description: Workspace numeric identifier
+        description: Optional workspace numeric identifier
         required: true
         schema:
           type: integer
@@ -3743,7 +4253,7 @@ paths:
           format: int64
       - name: workspaceId
         in: path
-        description: Workspace numeric identifier
+        description: Optional workspace numeric identifier
         required: true
         schema:
           type: integer
@@ -3793,7 +4303,7 @@ paths:
           format: int64
       - name: workspaceId
         in: path
-        description: Workspace numeric identifier
+        description: Optional workspace numeric identifier
         required: true
         schema:
           type: integer
@@ -4066,6 +4576,7 @@ paths:
         description: "Additional attribute values to include in the response (`labels`,\
           \ `optimized` status, `computeEnv`). Returns an empty value (`labels: null`,\
           \ etc.) if omitted."
+          
         explode: false
         schema:
           type: array
@@ -4393,6 +4904,7 @@ paths:
         description: "Additional attribute values to include in the response (`labels`,\
           \ `optimized` status, `computeEnv`). Returns an empty value (`labels: null`,\
           \ etc.) if omitted."
+          
         explode: false
         schema:
           type: array
@@ -4406,8 +4918,7 @@ paths:
           format: int64
       - name: sourceWorkspaceId
         in: query
-        description: Source workspace numeric identifier
-        required: false
+        description: Source Optional workspace numeric identifier
         schema:
           type: integer
           format: int64
@@ -4540,8 +5051,7 @@ paths:
           format: int64
       - name: sourceWorkspaceId
         in: query
-        description: Source workspace numeric identifier
-        required: false
+        description: Source Optional workspace numeric identifier
         schema:
           type: integer
           format: int64
@@ -4590,17 +5100,17 @@ paths:
           format: int64
       - name: sourceWorkspaceId
         in: query
-        description: Source workspace numeric identifier
-        required: false
+        description: Source Optional workspace numeric identifier
         schema:
           type: integer
           format: int64
           nullable: true
       - name: attributes
         in: query
-        description: "Attribute values to include in the response: `schema` returns\
+        description: "Additional attribute values to include in the response: `schema` returns\
           \ the pipeline schema, `params` returns the pipeline config. Returns all\
           \ if `attributes` is omitted."
+          
         explode: false
         schema:
           type: array
@@ -4637,14 +5147,12 @@ paths:
       - name: orgId
         in: query
         description: Organization numeric identifier
-        required: false
         schema:
           type: integer
           format: int64
       - name: workspaceId
         in: query
-        description: Workspace numeric identifier
-        required: false
+        description: Optional workspace numeric identifier
         schema:
           type: integer
           format: int64
@@ -4773,40 +5281,39 @@ paths:
   /studios:
     get:
       summary: List Studios
-      description: "Lists all available Studios in a user context. Append\
-        \ `?workspaceId` to list Studios in a workspace context."
+      description: Lists all available Studios in a user context. Append `?workspaceId` to list Studios in a workspace context.
       tags:
       - studios
       operationId: ListDataStudios
       parameters:
       - name: workspaceId
         in: query
-        description: Optional workspace numeric identifier
+        description: Workspace numeric identifier
         schema:
           type: integer
           format: int64
       - name: search
         in: query
         description: "Optional search criteria, allowing free text search on name\
-          \ and templateUrl and keywords: `userId`, `computeEnvId` and `status`"
+          \ and templateUrl and keywords: `userId`, `computeEnvId` and `status`."
         schema:
           type: string
       - name: max
         in: query
-        description: "Optional max number of items to be returned, used for pagination"
+        description: Pagination max results
         schema:
           type: integer
           format: int32
       - name: offset
         in: query
-        description: Optional offset used for paginated responses
+        description: Pagination offset
         schema:
           type: integer
           format: int32
       - name: attributes
         in: query
-        description: "Optional additional attribute values to be included in the response\
-          \ (`labels`). Returns an empty (`labels: null`) if omitted"
+        description: "Optional attribute values to be included in the response\
+          \ (`labels`). Returns an empty value (`labels: null`) if omitted."
         schema:
           type: array
           items:
@@ -4826,7 +5333,7 @@ paths:
                 $ref: "#/components/schemas/ErrorResponse"
         "404":
           description: "NotFound, when the workspace is not found or when the API\
-            \ is disabled for the workspace"
+            \ is disabled for the workspace."
           content:
             application/json:
               schema:
@@ -4837,7 +5344,7 @@ paths:
       - BearerAuth: []
     post:
       summary: Create Studio
-      description: "Creates a new Studio environment, starting it by default. Default start\
+      description: "Creates a new Studio environment, starting it by default. Default\
         \ behavior can be changed using the query parameter `autoStart=false`."
       tags:
       - studios
@@ -4845,18 +5352,17 @@ paths:
       parameters:
       - name: workspaceId
         in: query
-        description: Optional workspace numeric identifier
+        description: Workspace numeric identifier
         schema:
           type: integer
           format: int64
       - name: autoStart
         in: query
-        description: Optionally disable automatic launch of DataStudio upon successful
-          creation.
+        description: Optionally disable the Studio's automatic launch when it is created.
         schema:
           type: boolean
       requestBody:
-        description: A request to create a new data studio
+        description: Create Studio request
         content:
           application/json:
             schema:
@@ -4871,7 +5377,7 @@ paths:
                 $ref: "#/components/schemas/DataStudioCreateResponse"
         "404":
           description: "NotFound, when the workspace or compute environment is not\
-            \ found or when the API is disabled"
+            \ found or when the API is disabled."
           content:
             application/json:
               schema:
@@ -4891,7 +5397,7 @@ paths:
         "403":
           description: Operation not allowed
         "200":
-          description: CreateDataStudio 200 response
+          description: Create Studio 200 response
           content:
             application/json:
               schema:
@@ -4900,32 +5406,32 @@ paths:
       - BearerAuth: []
   /studios/data-links:
     get:
-      summary: List mounted data links 
-      description: "Lists the IDs of all data links mounted in the available Studios."
+      summary: List mounted data-links
+      description: Lists the IDs of all available data-links mounted in existing Studios. Append `orgId` or `?workspaceId` to list mounted data-links in an organization or workspace context, respectively.
       tags:
       - studios
       operationId: ListMountedDataLinkIds
       parameters:
       - name: orgId
         in: query
-        description: "Organization numeric identifier."
+        description: Organization numeric identifier
         schema:
           type: integer
           format: int64
       - name: workspaceId
         in: query
-        description: "Workspace numeric identifier."
+        description: Workspace numeric identifier
         schema:
           type: integer
           format: int64
       - name: status
         in: query
-        description: "Optional Studio status."
+        description: Optional Studio status
         schema:
           type: string
       - name: exclude
         in: query
-        description: "Optional session ID of the Studio to exclude in a query."
+        description: Optional Studio session ID to exclude in the request.
         schema:
           type: string
       responses:
@@ -4941,33 +5447,33 @@ paths:
       - BearerAuth: []
   /studios/templates:
     get:
-      summary: List Studio templates
-      description: "Retrieves the list of available configured Studio templates."
+      summary: List available Studio templates
+      description: Returns the list of available, configured Studio templates.
       tags:
       - studios
       operationId: ListDataStudioTemplates
       parameters:
       - name: workspaceId
         in: query
-        description: Optional workspace identifier
+        description: Workspace identifier
         schema:
           type: integer
           format: int64
       - name: max
         in: query
-        description: "Optional max number of items to be returned, used for pagination"
+        description: Pagination max results
         schema:
           type: integer
           format: int32
       - name: offset
         in: query
-        description: Optional offset used for paginated responses
+        description: Pagination offset
         schema:
           type: integer
           format: int32
       responses:
         "200":
-          description: Ok - paginated list of available data studio templates
+          description: Ok - paginated list of available Studio templates.
           content:
             application/json:
               schema:
@@ -4979,7 +5485,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
         "404":
-          description: "NotFound, when the API is disabled for the workspace"
+          description: NotFound, when the API is disabled for the workspace.
           content:
             application/json:
               schema:
@@ -4991,21 +5497,21 @@ paths:
   /studios/validate:
     get:
       summary: Validate Studio name
-      description: "Confirms the availability of the given name for a Studio in
-        the given workspace or user context."
+      description: Confirms the availability of the given name for a Studio in
+        the user context. Append `?workspaceId=` to validate the name in a workspace context.
       tags:
       - studios
       operationId: ValidateDataStudioName
       parameters:
       - name: workspaceId
         in: query
-        description: Optional workspace identifier
+        description: Workspace identifier
         schema:
           type: integer
           format: int64
       - name: name
         in: query
-        description: Studio name to be validated
+        description: Studio name to validate
         schema:
           type: string
       responses:
@@ -5022,20 +5528,20 @@ paths:
   /studios/{sessionId}:
     get:
       summary: Describe Studio
-      description: "Retrieves the details of the given Studio session ID."
+      description: Retrieves the details of the Studio session identified by the given `sessionId`.
       tags:
       - studios
       operationId: DescribeDataStudio
       parameters:
       - name: sessionId
         in: path
-        description: "Session ID of the Studio."
+        description: Studio session numeric identifier
         required: true
         schema:
           type: string
       - name: workspaceId
         in: query
-        description: "Optional workspace numeric identifier."
+        description: Workspace numeric identifier
         schema:
           type: integer
           format: int64
@@ -5073,13 +5579,13 @@ paths:
       parameters:
       - name: sessionId
         in: path
-        description: "Session ID of the Studio."
+        description: Studio session numeric identifier
         required: true
         schema:
           type: string
       - name: workspaceId
         in: query
-        description: "Optional workspace numeric identifier."
+        description: Workspace numeric identifier
         schema:
           type: integer
           format: int64
@@ -5107,13 +5613,13 @@ paths:
       parameters:
       - name: sessionId
         in: path
-        description: "Session ID of the Studio."
+        description: Studio session numeric identifier
         required: true
         schema:
           type: string
       - name: workspaceId
         in: query
-        description: "Optional workspace numeric identifier."
+        description: Workspace numeric identifier
         schema:
           type: integer
           format: int64
@@ -5125,13 +5631,13 @@ paths:
           type: string
       - name: max
         in: query
-        description: "Optional max number of items to be returned, used for pagination."
+        description: Pagination max results
         schema:
           type: integer
           format: int32
       - name: offset
         in: query
-        description: Optional offset used for paginated responses
+        description: Pagination offset
         schema:
           type: integer
           format: int32
@@ -5169,7 +5675,7 @@ paths:
       parameters:
       - name: sessionId
         in: path
-        description: "Session ID of the Studio."
+        description: Studio session numeric identifier
         required: true
         schema:
           type: string
@@ -5182,7 +5688,7 @@ paths:
           format: int64
       - name: workspaceId
         in: query
-        description: "Optional workspace numeric identifier."
+        description: Workspace numeric identifier
         schema:
           type: integer
           format: int64
@@ -5219,7 +5725,7 @@ paths:
       parameters:
       - name: sessionId
         in: path
-        description: "Session ID of the Studio."
+        description: Studio session numeric identifier
         required: true
         schema:
           type: string
@@ -5232,7 +5738,7 @@ paths:
           format: int64
       - name: workspaceId
         in: query
-        description: "Optional workspace numeric identifier."
+        description: Workspace numeric identifier
         schema:
           type: integer
           format: int64
@@ -5282,13 +5788,13 @@ paths:
       parameters:
       - name: sessionId
         in: path
-        description: "Session ID of the Studio."
+        description: Studio session numeric identifier
         required: true
         schema:
           type: string
       - name: workspaceId
         in: query
-        description: Optional workspace numeric identifier
+        description: Workspace numeric identifier
         schema:
           type: integer
           format: int64
@@ -5326,13 +5832,13 @@ paths:
       parameters:
       - name: sessionId
         in: path
-        description: "Session ID of the Studio."
+        description: Studio session numeric identifier
         required: true
         schema:
           type: string
       - name: workspaceId
         in: query
-        description: "Optional workspace numeric identifier."
+        description: Workspace numeric identifier
         schema:
           type: integer
           format: int64
@@ -5371,13 +5877,13 @@ paths:
       parameters:
       - name: sessionId
         in: path
-        description: "Session ID of the Studio."
+        description: Studio session numeric identifier
         required: true
         schema:
           type: string
       - name: workspaceId
         in: query
-        description: "Optional workspace numeric identifier."
+        description: Workspace numeric identifier
         schema:
           type: integer
           format: int64
@@ -5517,7 +6023,7 @@ paths:
       parameters:
       - name: workspaceId
         in: query
-        description: "Workspace numeric identifier."
+        description: Workspace numeric identifier
         schema:
           type: integer
           format: int64
@@ -5561,7 +6067,7 @@ paths:
           type: string
       - name: workspaceId
         in: query
-        description: "Workspace numeric identifier."
+        description: Workspace numeric identifier
         schema:
           type: integer
           format: int64
@@ -5649,7 +6155,7 @@ paths:
           type: string
       - name: workspaceId
         in: query
-        description: "Workspace numeric identifier."
+        description: Workspace numeric identifier
         schema:
           type: integer
           format: int64
@@ -5693,7 +6199,7 @@ paths:
           type: string
       - name: workspaceId
         in: query
-        description: "Workspace numeric identifier."
+        description: Workspace numeric identifier
         schema:
           type: integer
           format: int64
@@ -5911,8 +6417,8 @@ paths:
       - name: attributes
         in: query
         description: "Additional attribute values to include in the response (`labels`,\
-          \ `optimized` status). Returns an empty value (`labels: null`) if omitted.\
-          \ Specify `minimal` to remove non-essential fields (for use in UI only)."
+          \ `optimized` status). Returns an empty value (`labels: null`) if omitted."
+          
         explode: false
         schema:
           type: array
@@ -5926,7 +6432,7 @@ paths:
           format: int64
       - name: max
         in: query
-        description: Pagination result max result
+        description: Pagination max results
         schema:
           type: integer
           format: int32
@@ -6104,8 +6610,7 @@ paths:
           format: int64
       - name: sourceWorkspaceId
         in: query
-        description: Source workspace numeric identifier
-        required: false
+        description: Source Optional workspace numeric identifier
         schema:
           type: integer
           format: int64
@@ -6213,8 +6718,9 @@ paths:
           format: int64
       - name: attributes
         in: query
-        description: Comma-separated list of attributes to retrieve. Returns an empty
-          value for each attribute not specified.
+        description: "Comma-separated list of attributes to retrieve. Returns an empty
+          value for each attribute not specified."
+          
         explode: false
         schema:
           type: array
@@ -6790,7 +7296,7 @@ paths:
           format: int64
       - name: max
         in: query
-        description: Pagination result max result
+        description: Pagination max results
         schema:
           type: integer
           format: int32
@@ -7205,7 +7711,7 @@ paths:
           type: string
       - name: mimeType
         in: query
-        description: Optional MIME type filter
+        description: MIME type filter
         schema:
           type: string
       responses:
@@ -7233,10 +7739,13 @@ components:
       properties:
         workDir:
           type: string
+          description: "Compute environment working directory"
         preRunScript:
           type: string
+          description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
         postRunScript:
           type: string
+          description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
         nextflowConfig:
           type: string
         launchDir:
@@ -7546,8 +8055,10 @@ components:
           type: string
         preRunScript:
           type: string
+          description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."      
         postRunScript:
           type: string
+          description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
         headJobCpus:
           type: integer
           format: int32
@@ -7568,6 +8079,8 @@ components:
           type: string
         nextflowConfig:
           type: string
+        fusionSnapshots:
+          type: boolean
         forge:
           $ref: "#/components/schemas/ForgeConfig"
         forgedResources:
@@ -7628,6 +8141,64 @@ components:
           type: array
           items:
             type: string
+    AwsCloudConfig:
+      title: AWS Cloud configuration
+      type: object
+      properties:
+        discriminator:
+          type: string
+          description: property to select the compute config platform
+          readOnly: true
+        allowBuckets:
+          type: array
+          items:
+            type: string
+        region:
+          type: string
+        instanceType:
+          type: string
+        imageId:
+          type: string
+        workDir:
+          type: string
+        preRunScript:
+          type: string
+        postRunScript:
+          type: string
+        nextflowConfig:
+          type: string
+        environment:
+          type: array
+          items:
+            $ref: "#/components/schemas/ConfigEnvVariable"
+        waveEnabled:
+          type: boolean
+        fusion2Enabled:
+          type: boolean
+        logGroup:
+          type: string
+        arm64Enabled:
+          type: boolean
+        gpuEnabled:
+          type: boolean
+        ec2KeyPair:
+          type: string
+        ebsBootSize:
+          type: integer
+          format: int32
+        instanceProfileArn:
+          type: string
+        subnetId:
+          type: string
+        securityGroups:
+          type: array
+          items:
+            type: string
+        forgedResources:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
     AwsCloudPlatformMetainfo:
       type: object
       properties:
@@ -7690,8 +8261,10 @@ components:
           type: string
         preRunScript:
           type: string
+          description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."       
         postRunScript:
           type: string
+          description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
         region:
           type: string
         headPool:
@@ -7838,8 +8411,12 @@ components:
           type: string
         preRunScript:
           type: string
+          description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+                  
         postRunScript:
           type: string
+          description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+          
         environment:
           type: array
           items:
@@ -7857,6 +8434,7 @@ components:
           aws-batch: "#/components/schemas/AwsBatchConfig"
           gke-platform: "#/components/schemas/GkeComputeConfig"
           google-batch: "#/components/schemas/GoogleBatchConfig"
+          aws-cloud: "#/components/schemas/AwsCloudConfig"
           slurm-platform: "#/components/schemas/SlurmComputeConfig"
           k8s-platform: "#/components/schemas/K8sComputeConfig"
           altair-platform: "#/components/schemas/AltairPbsComputeConfig"
@@ -7868,6 +8446,7 @@ components:
           uge-platform: "#/components/schemas/UnivaComputeConfig"
       oneOf:
       - $ref: "#/components/schemas/AwsBatchConfig"
+      - $ref: "#/components/schemas/AwsCloudConfig"
       - $ref: "#/components/schemas/SeqeraComputeConfig"
       - $ref: "#/components/schemas/GoogleLifeSciencesConfig"
       - $ref: "#/components/schemas/GoogleBatchConfig"
@@ -7916,6 +8495,7 @@ components:
           type: string
           enum:
           - aws-batch
+          - aws-cloud
           - seqeracompute-platform
           - google-lifesciences
           - google-batch
@@ -8354,6 +8934,15 @@ components:
             $ref: "#/components/schemas/DataLinkItem"
         nextPageToken:
           type: string
+    DataLinkContentTreeListResponse:
+      required:
+      - items
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/DataLinkSimpleItem"
     DataLinkCreateRequest:
       type: object
       properties:
@@ -8384,6 +8973,34 @@ components:
           type: string
         provider:
           $ref: "#/components/schemas/DataLinkProvider"
+    DataLinkDeleteItemRequest:
+      type: object
+      properties:
+        files:
+          type: array
+          items:
+            type: string
+        dirs:
+          type: array
+          items:
+            type: string
+    DataLinkDeleteItemResponse:
+      type: object
+      properties:
+        deletionFailures:
+          type: array
+          items:
+            $ref: "#/components/schemas/DataLinkItemDeletionFailure"
+    DataLinkDownloadScriptResponse:
+      type: object
+      properties:
+        script:
+          type: string
+    DataLinkDownloadUrlResponse:
+      type: object
+      properties:
+        url:
+          type: string
     DataLinkDto:
       type: object
       properties:
@@ -8416,6 +9033,19 @@ components:
             readOnly: true
         message:
           type: string
+    DataLinkFinishMultiPartUploadRequest:
+      type: object
+      properties:
+        uploadId:
+          type: string
+        fileName:
+          type: string
+        tags:
+          type: array
+          items:
+            $ref: "#/components/schemas/UploadEtag"
+        withError:
+          type: boolean
     DataLinkItem:
       type: object
       properties:
@@ -8428,11 +9058,40 @@ components:
           format: int64
         mimeType:
           type: string
+    DataLinkItemDeletionFailure:
+      required:
+      - dataLinkItem
+      - errorMessage
+      type: object
+      properties:
+        dataLinkItem:
+          $ref: "#/components/schemas/DataLinkItem"
+        errorMessage:
+          type: string
     DataLinkItemType:
       type: string
       enum:
       - FOLDER
       - FILE
+    DataLinkMultiPartUploadRequest:
+      type: object
+      properties:
+        fileName:
+          type: string
+        contentLength:
+          type: integer
+          format: int64
+        contentType:
+          type: string
+    DataLinkMultiPartUploadResponse:
+      type: object
+      properties:
+        uploadId:
+          type: string
+        uploadUrls:
+          type: array
+          items:
+            type: string
     DataLinkProvider:
       type: string
       enum:
@@ -8446,6 +9105,17 @@ components:
       properties:
         dataLink:
           $ref: "#/components/schemas/DataLinkDto"
+    DataLinkSimpleItem:
+      required:
+      - path
+      - size
+      type: object
+      properties:
+        path:
+          type: string
+        size:
+          type: integer
+          format: int64
     DataLinkType:
       type: string
       enum:
@@ -8476,6 +9146,7 @@ components:
       - dateSaved
       - id
       - name
+      - path
       type: object
       properties:
         id:
@@ -8491,6 +9162,8 @@ components:
           format: date-time
         author:
           $ref: "#/components/schemas/StudioUser"
+        path:
+          type: string
     DataStudioCheckpointUpdateRequest:
       type: object
       properties:
@@ -8502,6 +9175,8 @@ components:
       - $ref: "#/components/schemas/ComputeEnvDbDto"
       - properties:
           credentialsId:
+            type: string
+          workDir:
             type: string
     DataStudioConfiguration:
       type: object
@@ -8562,6 +9237,9 @@ components:
           items:
             type: integer
             format: int64
+        spot:
+          type: boolean
+          nullable: true
     DataStudioCreateResponse:
       type: object
       properties:
@@ -8713,6 +9391,9 @@ components:
           items:
             type: integer
             format: int64
+        spot:
+          type: boolean
+          nullable: true
     DataStudioStartResponse:
       required:
       - jobSubmitted
@@ -9334,8 +10015,12 @@ components:
             type: string
         preRunScript:
           type: string
+          description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+                  
         postRunScript:
           type: string
+          description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+          
         headJobCpus:
           type: integer
           format: int32
@@ -9408,8 +10093,12 @@ components:
             type: string
         preRunScript:
           type: string
+          description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+          
         postRunScript:
           type: string
+          description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+          
         headJobCpus:
           type: integer
           format: int32
@@ -9549,8 +10238,12 @@ components:
           type: string
         preRunScript:
           type: string
+          description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+          
         postRunScript:
           type: string
+          description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+          
         server:
           type: string
         sslCert:
@@ -9616,6 +10309,9 @@ components:
           type: boolean
         isDefault:
           type: boolean
+        dateCreated:
+          type: string
+          format: date-time
     LabelType:
       type: string
       enum:
@@ -9651,8 +10347,12 @@ components:
           type: string
         preRunScript:
           type: string
+          description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+          
         postRunScript:
           type: string
+          description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+          
         mainScript:
           maxLength: 200
           type: string
@@ -10244,6 +10944,9 @@ components:
         maxDataStudiosRunning:
           type: integer
           format: int32
+        maxSeqeraComputeComputeEnvs:
+          type: integer
+          format: int32
     ParticipantDbDto:
       type: object
       properties:
@@ -10451,6 +11154,7 @@ components:
       - never
     ProcessLoad:
       required:
+      - aborted
       - cached
       - cpuLoad
       - cpuTime
@@ -10491,6 +11195,9 @@ components:
           type: integer
           format: int64
         cached:
+          type: integer
+          format: int64
+        aborted:
           type: integer
           format: int64
         memoryEfficiency:
@@ -11423,6 +12130,14 @@ components:
       properties:
         version:
           $ref: "#/components/schemas/DatasetVersionDbDto"
+    UploadEtag:
+      type: object
+      properties:
+        partNumber:
+          type: integer
+          format: int32
+        eTag:
+          type: string
     UserDbDto:
       required:
       - email
@@ -11852,8 +12567,12 @@ components:
           type: string
         preRunScript:
           type: string
+          description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+          
         postRunScript:
           type: string
+          description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+          
         mainScript:
           type: string
         entryName:
@@ -11924,8 +12643,12 @@ components:
           type: string
         preRunScript:
           type: string
+          description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+          
         postRunScript:
           type: string
+          description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+          
         mainScript:
           type: string
         entryName:
@@ -11957,6 +12680,7 @@ components:
           format: date-time
     WorkflowLoad:
       required:
+      - aborted
       - cached
       - cpuLoad
       - cpuTime
@@ -11996,6 +12720,9 @@ components:
           type: integer
           format: int64
         cached:
+          type: integer
+          format: int64
+        aborted:
           type: integer
           format: int64
         memoryEfficiency:
@@ -12169,3 +12896,46 @@ components:
       type: http
       scheme: bearer
       bearerFormat: jwt
+tags:
+  - name: actions
+    description: Pipeline actions
+  - name: avatars
+    description: Avatars
+  - name: compute-envs
+    description: Compute environments
+  - name: credentials
+    description: Credentials
+  - name: data-links
+    description: Cloud storage directory paths in Data Explorer
+  - name: datasets
+    description: Pipeline input datasets (samplesheets) in CSV or TSV format
+  - name: ga4gh
+    description: GA4GH workflow execution service runs
+  - name: labels
+    description: Labels and resource labels
+  - name: launch
+    description: Workflow launch events
+  - name: orgs
+    description: Organizations
+  - name: pipelines
+    description: Pipelines
+  - name: pipeline-secrets
+    description: Pipeline secrets in a user or workspace context
+  - name: platforms
+    description: Computing platforms
+  - name: service-info
+    description: Seqera Platform API service information
+  - name: studios
+    description: Studios and Studio sessions
+  - name: teams
+    description: Teams in an organization context
+  - name: tokens
+    description: API access tokens
+  - name: trace
+    description: Workflow execution traces
+  - name: users
+    description: Users
+  - name: workflows
+    description: Workflow executions
+  - name: workspaces
+    description: Workspaces in an organization context

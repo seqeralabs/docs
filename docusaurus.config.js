@@ -33,6 +33,7 @@ export default async function createConfigAsync() {
       description: "Stay updated with our blog posts!",
       copyright: `Copyright © ${new Date().getFullYear()} Seqera`,
     },
+    onUntruncatedBlogPosts: 'ignore',
   };
 
   const docs_platform_enterprise = [
@@ -56,7 +57,7 @@ export default async function createConfigAsync() {
       routeBasePath: "/platform-api",
       path: "platform-api-docs/docs",
       remarkPlugins: [(await require("remark-yaml-to-table")).default],
-      sidebarPath: "platform-api-docs/docs/sidebar.js",
+      sidebarPath: "platform-api-docs/docs/sidebar/sidebar.js",
       docItemComponent: "@theme/ApiItem",
     },
   ];
@@ -67,7 +68,7 @@ export default async function createConfigAsync() {
       docsPluginId: "classic", // configured for preset-classic
       config: {
         platform: {
-          specPath: "platform-api-docs/seqera-api-latest.yml",
+          specPath: "platform-api-docs/seqera-final-to-docs.yaml",
           outputDir: "platform-api-docs/docs",
           sidebarOptions: {
             groupPathsBy: "tag",
@@ -319,12 +320,12 @@ export default async function createConfigAsync() {
             target: "_blank",
           },
           {
-            // to: "/platform-api/seqera-api",
+            // to: "/platform-api/info/seqera-api",
             // label: "Platform API",
             // position: "left",
             type: 'html',
             position: 'left',
-            value: '<a href="https://docs.seqera.io/platform-api/seqera-api" class="menu__link">Platform API</a>'
+            value: '<a href="https://docs.seqera.io/platform-api/info/seqera-api" class="menu__link">Platform API</a>'
           },
         ],
       },
@@ -381,6 +382,45 @@ export default async function createConfigAsync() {
         ],
         copyright: `© ${new Date().getFullYear()} Seqera`,
       },
+      languageTabs: [
+        {
+          highlight: "python",
+          language: "python",
+          logoClass: "python",
+        },
+        {
+          highlight: "bash",
+          language: "curl",
+          logoClass: "curl",
+        },
+        {
+          highlight: "java",
+          language: "java",
+          logoClass: "java",
+          variant: "unirest",
+        },
+        {
+          highlight: "r",
+          language: "r",
+          logoClass: "r",
+        },
+        {
+          highlight: "javascript",
+          language: "javascript",
+          logoClass: "javascript",
+        },
+        {
+          highlight: "go",
+          language: "go",
+          logoClass: "go",
+        },
+        {
+          highlight: "powershell",
+          language: "powershell",
+          logoClass: "powershell",
+        },
+
+      ],
       prism: {
         theme: prismThemes.oneLight,
         darkTheme: prismThemes.oneDark,

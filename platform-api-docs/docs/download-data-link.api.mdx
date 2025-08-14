@@ -1,0 +1,71 @@
+---
+id: download-data-link
+title: "Download data-link file at path"
+description: "Downloads the content at the given `filePath` in the data-link associated with the given `dataLinkId`."
+sidebar_label: "Download data-link file at path"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVttuEzEQ/RXLTyAtSYHCwz7RUooqEFRtEQ9VpDq7k8SNY29tb0O0WomP4Av5Ema815A0vTwg8pLYPuNzZjyXFNyLqePxJU+FFy+U1HPHRxFPwSVWZl4azWN+ZJZaGZE65mfAEqM9aM+ED8upvAXNriZSwanwsysmddhvL2TCOZNI4SFlS+lnfSsCfUbMSXo14BE3GVhBpCdpj/aoBiEgE1YswIMlzQXXuEBgdwtCJCnOUAnfcKNV5LyVespkin7IiQSLWAs3ubSAxN7mEHGXzGAheFxwv8qIpTLiZRm1xI3TO2mPEcTohHnD0tqnJxImiCfNQrnO2Zsc7GqD9n0HXXf0ITxLY+cuEwncx/K9ATKdL8DK5B4uibkzDUcTYxfCV1tv95F9RCFxmdEOHFm82tujr3W+r5/QtM5AOhVZpmQScmZ47QhS3Olgj3MstUBvSvxEfH8b0aFIz/CBwPnHEHZveskX4JyYApVTrcOMryGh+zJLme5l5WgD3PYi3EuvaOuDtcae1fFphb/eEqGmhpg2WKRKmSXqCej9TfQX449NrlP2++cv1r46M5b1Ui3cNCFYxA5OT1gqnRgrLGeMZ6jm1jAiy67ycRESv7X/X2OJhw6S3Eq/Co3lEIQFe5BjOceXI0pN7DozQ11pCoGVKj3mw65tDouuDZXDps6HRdMjSioHsLdN78qtwgtm3mcuHg5FJgeJMnk6cHCDDziQhhNto+qcwlK52NfWekn3NPVG63EA4U7147hJ/OulD6GQemKCeR2S88BKr7tR4vXRqRKe6oeREzIBV4PpPUUS3nPdpc6RiOOTShVqfWLe9TyMOMWj4nk52H8z2KO9zDi/ECEd6n7UjIJeblFcaQZt67lFl2X/bnjVL+Hhhx9mSmDTRFdCSIo6XdambMTjtbnVmwxxO1cwA2YYDDItirFw8M2qsqTtqh1TIjXViGZYq7AjFHeOhK3S57DaMnFuhcoJy2laPJz6njmxQ8D6KOroR7SwkvgfGYZnZ3Vnec52/yXYqqreFHrVl9Oo7T3p4wLUE3XXH4YnyGkTqRwhdgYiRccoWtXxQZJA5nuGGx15rfV9/HCBWLHeef7qNOH2raIwgQPiwsxBl2Wr0dOaBJblH60Ip4w=
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Download data-link file at path"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/data-links/{dataLinkId}/download/{filePath}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Downloads the content at the given `filePath` in the data-link associated with the given `dataLinkId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"dataLinkId","in":"path","description":"Data-link string identifier","required":true,"schema":{"type":"string"}},{"name":"filePath","in":"path","description":"File path to download","required":true,"schema":{"type":"string"}},{"name":"credentialsId","in":"query","description":"Credentials identifier","schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"string","format":"binary"}}}},"400":{"description":"BadRequest","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"NotFound — workspace or credentials not found, API disabled for the workspace, or data-link or path not found","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

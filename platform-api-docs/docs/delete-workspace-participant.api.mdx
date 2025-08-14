@@ -5,7 +5,7 @@ description: "Deletes the given participant from the given workspace."
 sidebar_label: "Delete workspace participant"
 hide_title: true
 hide_table_of_contents: true
-api: eJy1VE1v2zAM/SuCThuQxdlaDFhOa9EMKDZsRdthhyAHxWZstbalSnK6zNB/Hyk7/miLBci2k2WSoh7Jx1fzBGxspHZSlXzOLyAHB5a5DFgqt1AyLYyTsdSidGxjVDFwPSpzb7WIYcon3InU8vmSd0bLVxOuNBhBuS+TLvuPfcRVnxoT4EOiQLehNDUv8QevKJPi1QmXhE4Ll+F5DPmbSUUpf4VXWFkVYGTMZAKlkxsJBuMNPFTSACJwpoIJt3EGheDzmrudpkdk6SANoRtlCuEa0/tT7v2kQ9IVdgBPV97/BDOYygE4gyb/e0Arum61Ki2OG2+8m53S58mAPrM37KtiscJEOGo/4aez2fO4c5EwAgOW6LCPxjChdS7jMODozlJsPUDZ41/yAqwVKRDzWvBqfQdxoJchLjrZAN0H9lVaZ2SZUpO5ky4n08IYZa7b+tDjA/KTFyrcs5yVyjGR5+oR8VC4hbgy0u0Cpc9BGDBnFU5pvlxR85DvmaLNSMJmhC0gL4+Q9zaqA/t91O9UVA9o6KMBDdA1IoXn/es31Kym8CGGrvbMOc3bydP/OgShpTl82o/97tGFqmS5UeF626gbeMAGsLOry2f0a11XuXDEHmbBbCUW0gbTlEUcplyZvIVi51Fkw72pVBiEg5Z5YN1GfewdCGSLatG883Z68mE6I5tW1hUikKRdlkZ2erkaatpTwHVPvL8Rw6avDn66SOcCtxOBhQLrdsJLUjaLofO9wg2EE61jtRnOmbzj9UciZVg0Ja3rtbDw3eTekxmXyRD38LgVRoo1jQuZmEhLZ2TeRuQW/tCDV9fter1mh4X2xbJboyh3nFDkFf3h8R52nb6Tsh2F6YDYHgFo2PijYR0U3SOAjWfuV3ghA5FgOppoE3MWx6Dd4PYz6RypzsXiy+J2geFirAdP9j888CI4pFuIuFX3UHrfYXX0Txi9/w0nBueC
+api: eJytVcFu2zAM/RVBpw1w4mzrdshpLZoBxYataDvsEOTA2EyixrFUSW6bGf73kbKd2G2xDFlPkSmKfCQfX0qZokusMl7pXI7lOWbo0Qm/QrFU95gLA9arRBnIvVhYvelcPWi7dgYSHMpIelg6OZ7KndHJWSS1QQsc+yLdRf/VelzuQ1MASgQburYcppQ5fdATbZf0NJKK0RnwKzr3If+wS8jV75BF5MUGrUqESjH3aqHQkr/Fu0JZJATeFhhJl6xwA3JcSr81nETlHpfBdaHtBnxt+nQiq0g+DpxBWCO47SBAHOiQGbI6XBXtsO5KP4S4CbBv4Kvj7qDqDPAArs48Xh/QjJ87o3NHzKAX70cn/POkM1/FQHzXItEUiFhB/T8ZjZ77nUEqGAw6Zk7rTW5gTKaSwIX41rFv2UG5xz+VG3QOlsgkbcDr+S0mgYmWaetVDbR13FfpvFX5kpssvfIZmybWanvV1Ec3VUD+4YUK24UQufYCskw/EB52d5gUVvltYP8ZgkV7WtCUxtMZN49WY6V5idKwRGFh+FbGtCIuLsOiVPF+/eKyw8cq7tCArnqkqCRnt/ft6hWWuC1X3hs3jmMwaphkukiHDu8I/FBpyYBavNfc3rpVXdS7bnEc2XCFv+fBiSz14UtLlNsHH/qg8oUOz5vWXoes4vTy4hlhm6vLDDzzTXARikpvnJkXkARe9EvaFxJJoobKAk8X+nOnwkhyP+o874YnH4cjthnt/AYCrZr1qjWts8qmp2o9wOWeqv+jtHVfPT762GRA+0zAQoFlw4kpy6Yj13Ernx1VJmtfqLrM4Nu+YNCkV1Q0By3LOTj8abOqYjOtn2W20vEerII5j4vokyrHZ+LqAjKHf+nBm6tmId+Kwyr+YtmNEfKtZBRZwV90XON29+fBWngcpn/U6SOQdSdwNL6Den0EsP7wqxk9WCGkFI5HW/ucJgka33n9THV7gnU++Ta5mZA79IXhiRCEBC+CI94Fjxu9xryqdlg9fzPGqvoDje8MuA==
 sidebar_class_name: "delete api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -47,7 +47,7 @@ Deletes the given participant from the given workspace.
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"path","description":"Workspace numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"participantId","in":"path","description":"Participant numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"},"x-speakeasy-param-optional":true},{"name":"workspaceId","in":"path","description":"Optional workspace numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"participantId","in":"path","description":"Participant numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
 >
   
 </ParamsDetails>

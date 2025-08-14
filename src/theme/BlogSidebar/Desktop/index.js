@@ -35,7 +35,7 @@ function BlogSidebarDesktop({sidebar}) {
 
   // Map product names to their correct documentation paths
   const getProductPath = (product) => {
-    if (!product) return '/';
+    if (!product || product === 'tags' || product === 'page') return '/';
     const mapping = {
       'seqera-cloud': '/platform-cloud/platform-cloud',
       'seqera-enterprise': '/platform-enterprise/latest/platform-enterprise'

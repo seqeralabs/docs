@@ -1,7 +1,8 @@
 ---
 title: "RNA-Seq"
 description: "An introduction to running nf-core/rnaseq in Seqera Platform"
-date: "21 Jul 2024"
+date created: "2024-07-21"
+last updated: "2025-07-09"
 tags: [platform, seqera pipelines, studios, rnaseq, compute environment, aws]
 toc_max_heading_level: 2
 ---
@@ -27,7 +28,7 @@ You will need the following to get started:
 
 Compute and storage requirements for RNA-Seq analysis are dependent on the number of samples and the sequencing depth of your input data. See [RNA-Seq data and requirements](#rna-seq-data-and-requirements) for details on RNA-Seq datasets and the CPU and memory requirements for important steps of RNA-Seq pipelines. 
 
-In this guide, you will create an AWS Batch compute environment with sufficient resources allocated to run the [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline with a large dataset. This compute environment will also be used to run a Studios RStudio environment for interactive analysis of the resulting pipeline data. 
+In this guide, you will create an AWS Batch compute environment with sufficient resources allocated to run the [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline with a large dataset. This compute environment will also be used to run a Studios R-IDE environment for interactive analysis of the resulting pipeline data. 
 
 :::note
 The compute recommendations below are based on internal benchmarking performed by Seqera. See [RNA-Seq data and requirements](#rna-seq-data-and-requirements) for more information. 
@@ -69,7 +70,7 @@ From the **Compute Environments** tab in your organization workspace, select **A
 | **Access Key**                        | AWS access key ID.                                         |
 | **Secret Key**                        | AWS secret access key.                                     |
 | **Region**                            | The target execution region.                               |
-| **Pipeline work directory**           | An S3 bucket path in the same execution region.            |
+| **Work directory**                    | An S3 bucket path in the same execution region.            |
 | **Enable Wave Containers**            | Use the Wave containers service to provision containers.   |
 | **Enable Fusion v2**                  | Access your S3-hosted data via the Fusion v2 file system.  |
 | **Enable fast instance storage**      | Use NVMe instance storage to speed up I/O and disk access. Requires Fusion v2.|
@@ -77,16 +78,16 @@ From the **Compute Environments** tab in your organization workspace, select **A
 | **Provisioning Model**                | Choose between Spot and On-demand instances.               |
 | **Max CPUs**                          | Sensible values for production use range between 2000 and 5000.|
 | **Enable Fargate for head job**       | Run the Nextflow head job using the Fargate container service to speed up pipeline launch. Requires Fusion v2.|
-| **Allowed S3 buckets**                | Additional S3 buckets or paths to be granted read-write permission for this compute environment. Add data paths to be mounted in your data studio here, if different from your pipeline work directory.|
+| **Allowed S3 buckets**                | Additional S3 buckets or paths to be granted read-write permission for this compute environment. Add data paths to be mounted in your data studio here, if different from your work directory.|
 | **Resource labels**                   | `name=value` pairs to tag the AWS resources created by this compute environment.|
 
 
 ## Add pipeline to Platform 
 
 :::info
-The [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline is a highly configurable and robust workflow designed to analyze RNA-Seq data. It performs quality control, alignment and quantification.
+The [*nf-core/rnaseq*](https://github.com/nf-core/rnaseq) pipeline is a highly configurable and robust workflow designed to analyze RNA-Seq data. It performs quality control, alignment and quantification.
 
-![nf-core/rnaseq subway map](./_images/nf-core-rnaseq_metro_map_grey_static.svg)
+![*nf-core/rnaseq* subway map](./_images/nf-core-rnaseq_metro_map_grey_static.svg)
 :::
 
 [Seqera Pipelines](https://seqera.io/pipelines) is a curated collection of quality open-source pipelines that can be imported directly to your workspace Launchpad in Platform. Each pipeline includes a dataset to use in a test run to confirm compute environment compatibility in just a few steps.
@@ -111,7 +112,7 @@ To add a custom pipeline not listed in Seqera Pipelines to your Platform workspa
 
 ## Pipeline input data
 
-The [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline works with input datasets (samplesheets) containing sample names, FASTQ file locations (paths to FASTQ files in cloud or local storage), and strandedness. For example, the dataset used in the `test_full` profile is derived from the publicly available iGenomes collection of datasets, commonly used in bioinformatics analyses. 
+The [*nf-core/rnaseq*](https://github.com/nf-core/rnaseq) pipeline works with input datasets (samplesheets) containing sample names, FASTQ file locations (paths to FASTQ files in cloud or local storage), and strandedness. For example, the dataset used in the `test_full` profile is derived from the publicly available iGenomes collection of datasets, commonly used in bioinformatics analyses. 
 
 This dataset represents RNA-Seq samples from various human cell lines (GM12878, K562, MCF7, and H1) with biological replicates, stored in an AWS S3 bucket (`s3://ngi-igenomes`) as part of the iGenomes resource. These RNA-Seq datasets consist of paired-end sequencing reads, which can be used to study gene expression patterns in different cell types.
 
@@ -317,7 +318,7 @@ After you have filled the necessary launch details, select **Launch**. The **Run
 
 ## Interactive analysis with Studios
 
-**Studios** streamline the process of creating interactive analysis environments for Platform users. With built-in templates for platforms like Jupyter Notebook, RStudio, and VSCode, creating a Studio is as simple as adding and sharing pipelines or datasets. The Studio URL can also be shared with any user with the [Connect role](../orgs-and-teams/roles) for real-time access and collaboration.
+**Studios** streamline the process of creating interactive analysis environments for Platform users. With built-in templates for platforms like Jupyter Notebook, R-IDE, and VS Code, creating a Studio is as simple as adding and sharing pipelines or datasets. The Studio URL can also be shared with any user with the [Connect role](../orgs-and-teams/roles) for real-time access and collaboration.
 
 For the purposes of this guide, an RStudio environment will be used to normalize the pipeline output data, perform differential expression analysis, and visualize the data with exploratory plots.
 
@@ -361,17 +362,17 @@ The analysis script provided in this section requires a sample information file 
 
 </details>
 
-### Create an RStudio analysis environment with Studios
+### Create an R-IDE analysis environment with Studios
 
 ![Add data studio](./_images/create-ds.gif)
 
 From the **Studios** tab, select **Add a studio** and complete the following:
-- Select the latest **RStudio** container image template from the list.
+- Select the latest **R-IDE** container image template from the list.
 - Select your AWS Batch compute environment. 
 :::note
 Studio sessions compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and sessions. The default CPU and memory allocation for a Studio is 2 CPUs and 8192 MB RAM. 
 :::
-- Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the pipeline work directory of your RNA-Seq run. 
+- Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the work directory of your RNA-Seq run. 
 - Optional: Enter CPU and memory allocations. The default values are 2 CPUs and 8192 MB memory (RAM).
 - Select **Add**.
 - Once the Studio has been created, select the options menu next to it and select **Start**.
@@ -379,7 +380,7 @@ Studio sessions compete for computing resources when sharing compute environment
 
 ### Perform the analysis and explore results
 
-The RStudio environment can be configured with the packages you wish to install and the R script you wish to run. For the purposes of this guide, run the following scripts in the RStudio console to install the necessary packages and perform the analysis:
+The R-IDE environment can be configured with the packages you wish to install and the R script you wish to run. For the purposes of this guide, run the following scripts to install the necessary packages and perform the analysis:
 
 1. Install and load the necessary packages and libraries:
 
@@ -547,7 +548,7 @@ The RStudio environment can be configured with the packages you wish to install 
     }
     ```
 
-1. Create volcano plots for each differential expression comparison, displayed in RStudio plots viewer and saved as PNG files:
+1. Create volcano plots for each differential expression comparison, displayed in the plots viewer and saved as PNG files:
 
     :::info
     Volcano plots in RNA-Seq analysis display the magnitude of gene expression changes (log2 fold change) against their statistical significance. This allows for quick identification of significantly up- and down-regulated genes between two conditions.
@@ -648,7 +649,7 @@ To share your results or allow colleagues to perform exploratory analysis, share
 
 RNA-Seq data typically consists of raw sequencing reads from high-throughput sequencing technologies. These reads are used to quantify gene expression levels and discover novel transcripts. A typical RNA-Seq dataset can range from a few GB to several hundred GB, depending on the number of samples and the sequencing depth.
 
-### nf-core/rnaseq performance in Platform
+### *nf-core/rnaseq* performance in Platform
 
 The compute recommendations in this guide are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files (8 paired-end samples) and a total size of approximately 123.5 GB.
 

@@ -1,0 +1,71 @@
+---
+id: generate-download-script
+title: "Generate download script"
+description: "Creates a script to download files from the data-link associated with the given `dataLinkId`.   Append `?dirs` or `?files` to specify a list of files or paths to download within the data-link."
+sidebar_label: "Generate download script"
+hide_title: true
+hide_table_of_contents: true
+api: eJzdVs1u2zgQfhWCpxbQ2ulu2oMv2/QXwRbdIuliD4EBM9LIZkKTCjmK1xAM9CH6hH2SnaEky4pVp+nuoejJFjmc75sffsNKopoHObmQmUL1i9H2OshpIjMIqdcFamflRL70oBCCUKJeFehE5lbWOJWJXBvayr1bClyA2PoRKgSXajqYiZXGRdyd61uwYsZG78jmNJuNhBAnRQE2E7PfM+3DTDhPf6PbGSOFAlKdrwnd6IDC5Q0kmRUKF6HHhpG07TMZyUS6ArzicE4zCugtWP6EV82x8xgWmRXKqyUgeM5JJS19kHlHl0w0Z4SB5d00vdqGHtBrOxc6A4s61+DJ1sNNqT0QPPoSEhnSBSyVnFQS1wWj1IfkZpNsgVfOX4dCpdAh35Tg13vQf7eGwpZL8DrtY+9haYswj1u580uF9dKz4x56SmzZiTLhPvyXnek9yANRctUPu3/XFL6rN2UyRec19Mo/BKi8V+xRIyzDzrq7vCIXRGSHSWysB1Kpm/E/k5hyh4TC2QDR4NejI/7pg//5B/lIHRXPIu+qojA6jX09vgpsUu1jNxjU3J5vAeoaoPY7WBmJGg00Hc2N378nZw1Ppk3Gx0NMX6jsjBoeAj6EcXdHLuQSQlBzYDU6HEhreDCS1947v0f8t4EUt0IhrEOhjHEr4hOtj/et3zt840rSri+fPovtbWVp2rk80VPOZok4+XBKzRvUpSFZpLsXlWp7MOGTnYI2Cted/1FzSZsB0tJrXEfdfAHKgz8pSSQnF1PubRLVhWPpnUOts7wlx93UGVedym7GdY7Hu1cK/G0ry6U3dHiBWITJeKwKPUqNK7NRgBsq3kg7yZAto3NOSR3eLq9thOynvbP8fRmNaKX+86YVyKsVxjRom7t4vEnHeUTlyu6JRbP1wShknRUchE5JLmpjrqVKYy37IXWBJJLKqU3U59w934kwkZyPGufJ6Pjp6IjXChdwqWIrNJrWzrpuRoZ22vXIVl1r/QwDvykuwj84LowiRafsxCxXTff13jyJnPSmfJejtgWpoxaUXD5XVZcqwF/ebDa8XA8Kbsz2ZstJTvceDmT4noE9yP4a1ntvgltlSraUPMW+Hf6r8/oA8N3nwHdCP2CWHyDTvBn+Lw5DQ/wAevtO6OCn/OE14z+wEx6dNUL9WBx+QA7yad8Xdr1LZ5ulrqU3U7JegMrIFxOsDU7SFGKbt0f3ZkpPvN++/ki2qq+fd/Qyeh+kRdcmWnx012Dp6rQskb+Z4GbzL7tpXMc=
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Generate download script"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/data-links/{dataLinkId}/script/download"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Creates a script to download files from the data-link associated with the given `dataLinkId`.   Append `?dirs` or `?files` to specify a list of files or paths to download within the data-link.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"dataLinkId","in":"path","description":"Data-link string identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"credentialsId","in":"query","description":"Credentials identifier","schema":{"type":"string"}},{"name":"dirs","in":"query","description":"List of paths to directories to download","schema":{"type":"array","items":{"type":"object"}}},{"name":"files","in":"query","description":"List of paths to files to download","schema":{"type":"array","items":{"type":"object"}}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"script":{"type":"string"}},"title":"DataLinkDownloadScriptResponse"}}}},"400":{"description":"BadRequest","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"NotFound — workspace or credentials not found, API disabled for the workspace, or data-link or path not found","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

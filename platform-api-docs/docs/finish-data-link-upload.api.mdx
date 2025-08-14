@@ -1,0 +1,71 @@
+---
+id: finish-data-link-upload
+title: "Finish data-link file upload"
+description: "Finish upload of a data-link file. This is necessary for AWS S3 data-links (`DataLinkProvider=aws`) to finalize a successful file upload, or abort an upload if an error was encountered while uploading a file using an upload URL from the `/upload` endpoint."
+sidebar_label: "Finish data-link file upload"
+hide_title: true
+hide_table_of_contents: true
+api: eJztVs1uGzcQfhWCpwRQJNVWexAQIHZiAwZSR5Bk5GAIMLXL1dLmkmuSa0URFuhD9An7JJ0h90drqVLSUw8FDHlJzu83w4+zpY6tLB3f05g59k4K9WTpokdjbiMjcie0omN6LZSwKSlyqVlMdEIYacRJIiTvk3kqLIE/xSNuLTMbkmhDLr7OyOy8FbbkzcMnWHyG74nRLyLm5j1b24e3xGmwpJgU3zmYt0WEdpJCevuV6x4Bm2ypjSNM1eGIBBfcGDhbM0u4inShHDc8Juu0VRZqBYaDNesXjYm76WeSGJ0Rl3LyMAi7D2ApzrVQrk97VOfcMITjJm4AqTO58/IglDPDMg6uEdEtVbAA4bgSu0ERgXjmzKX0NcifGkStMxgfgKOcSAQ3IGv4cyEgJTp2puA9aqOUZ4yOt9RtcvQSlGhZ9hrHEcijCSZt6/u54Gaz5/xjK9r1+yN+1to82ZxF/JSXr7UgUUXGjYhO+ALs+cofQTNlzIWt30bgfREg4dZd6niDOpEGaeXwk+W5FJEv1+DRouvtvnG9fOSRw6oZLK4T3OJpKD5WeS9lCAO659YnfeAw3KTmgBnDEALheGZP+4XecbdFtoR0TwFwfobu+JytDtaFOuEkboW+vIK4/PZauPQKr8mO1lJryZnqqNVtHZr890I6MYHggrVpAB0UytdN6TdsrpUNGZ0Nh/jvEJV0bw4BSVKrQq7/spKlj+lseLbv9VaT2iiIjA4Fdtnm9hMRtAjc0wyJb8WRPo+XuhY8WjxfqWkNSshtNDzfD/xLzUxEaeBFKfUa4vHSo0NIuGugx5j89cefpLm4yKs7bOEtJSjWIxeTGxILy5YS+BQ5HTmyUfSM3L4FsEBua/X/q1jCoeVRYYTbeKq+5Mxwc1EAL4/vF8guwOOpRq7PtW8Jz9ljOmjfssG2ZfayejQGie9vJDNuXuqHoDASVFPncjseDFgu+pHURdy3/Blq1xeaosc6oBkiErLbDatJEO3UbOnvsBeCnfBxXTPF49p5FBDpacuVV99Ylkve5boatV2Ka/eqGaFLUsOaghrEFx2OqShBqET74KtazHzO2FZ7z0N1NJHMId0RhFDAGFAJYyOxyDdSF9AWRggpY0J6mkz0hx18exSrEfz80h/92h/iHtY2Y74Pq7esGnW64001J7wOeOfN+X9Eai6q49/cIJcM5gBA2FdqW92ezpTZo+POZNRgXF0h6KYUrx5obbdLZvmdkWWJ22G4wH6siYmOE6AtfqQ+/zjgHIz6iW8OzE8vTBYoS3H2+XHXJ6aeIwF0B6vW/QIXRqD/n4ThzbQi2bfk+Lx5MKp6slGb3XDqaHeqWS5AOuUsRqKAAIPAxxDGuzmaaQ3svQoIb9C4gBbP3VHZXaqefJnNkQeriTDTMeoYtsYBGn59sNrD4unV722pZGpV+EeEBpvImqxLuq9I1md1EA7oVS8x109cQb/W6DhcIzBl+TeCtq0N
+sidebar_class_name: "post api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Finish data-link file upload"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/data-links/{dataLinkId}/upload/finish"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Finish upload of a data-link file. This is necessary for AWS S3 data-links (`DataLinkProvider=aws`) to finalize a successful file upload, or abort an upload if an error was encountered while uploading a file using an upload URL from the `/upload` endpoint.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"dataLinkId","in":"path","description":"Data-link string identifier","required":true,"schema":{"type":"string"}},{"name":"credentialsId","in":"query","description":"Credentials identifier","schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"content":{"application/json":{"schema":{"type":"object","properties":{"uploadId":{"type":"string"},"fileName":{"type":"string"},"tags":{"type":"array","items":{"type":"object","properties":{"partNumber":{"type":"integer","format":"int32"},"eTag":{"type":"string"}},"title":"UploadEtag"}},"withError":{"type":"boolean"}},"title":"DataLinkFinishMultiPartUploadRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"FinishDataLinkUpload 200 response","content":{"application/json":{"schema":{"type":"object"}}}},"202":{"description":"No content"},"400":{"description":"BadRequest","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"NotFound — workspace or credentials not found, API disabled for the workspace, or data-link or path not found","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

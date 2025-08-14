@@ -66,6 +66,7 @@
               "compute-envs/aws-cloud",
               "compute-envs/azure-batch",
               "compute-envs/google-cloud-batch",
+              "compute-envs/google-cloud",
               "compute-envs/google-cloud-lifesciences",
               "compute-envs/eks",
               "compute-envs/gke",
@@ -108,7 +109,6 @@
           "label": "Monitor runs",
           "items": [
             "monitoring/overview",
-            "monitoring/dashboard",
             "monitoring/run-details"
           ]
           },
@@ -125,7 +125,8 @@
         "items": [
           "studios/overview",
           "studios/custom-envs",
-          "studios/managing"
+          "studios/managing",
+          "studios/connect"
         ]
       },
       {
@@ -134,7 +135,8 @@
         "items": [
           "orgs-and-teams/organizations",
           "orgs-and-teams/workspace-management",
-          "orgs-and-teams/roles"
+          "orgs-and-teams/roles",
+          "monitoring/dashboard"
           ]
       },
       {
@@ -142,7 +144,11 @@
         "label": "Developer tools",
         "collapsed": true,
         "items": [
-          "api/overview",
+          {
+            "type": "link",
+            "label": "API",
+            "href": "https://docs.seqera.io/platform-api/info/seqera-api"
+          },
           {
             "type": "category",
             "label": "CLI",

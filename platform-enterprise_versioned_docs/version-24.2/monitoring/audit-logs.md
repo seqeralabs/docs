@@ -24,7 +24,7 @@ Audit log entries record the following event details:
 - **Workspace ID**
 - **Workspace name**
 - **Client IP**: IP address of user/client initiating the event. Empty for Seqera-initiated events.
-- **Creation date**: Event timestamp in `YYYY-MM-DD-HH-MM-SS` format.
+- **Creation date**: Event timestamp in ISO 8601 format `YYYY-MM-DDTHH:MM:SSZ` (e.g., `2025-06-28T22:07:40Z`).
 
 ### Audit log events
 

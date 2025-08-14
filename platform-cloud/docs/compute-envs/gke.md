@@ -114,7 +114,7 @@ See [Launch pipelines](../launch/launchpad) to start executing workflows in your
 
 To use [Fusion v2](https://docs.seqera.io/fusion) in your Seqera GKE compute environment:
 1. Use Seqera Platform version 23.1 or later.
-1. Use an S3 bucket as the pipeline work directory. 
+1. Use an S3 bucket as the work directory.
 1. Both the head service and compute service accounts must have access to the Google Cloud storage bucket specified as the work directory.
 
 <details>

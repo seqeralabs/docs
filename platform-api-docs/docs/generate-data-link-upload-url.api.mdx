@@ -1,0 +1,72 @@
+---
+id: generate-data-link-upload-url
+title: "Generate file upload URL"
+description: "Creates a URL to upload files to the data-link associated with the given `dataLinkId`."
+sidebar_label: "Generate file upload URL"
+hide_title: true
+hide_table_of_contents: true
+api: eJztVsFu4zYQ/RWCp11AsdNu2oNPTbKbImi6CeIEe0gNhJZGNhOK1JJUsq4hoB/RL+yXdIaULMt2nQTooYdenJB6w5l5HL6ZJfdi5vjojmfCiwMl9aPjk4Rn4FIrSy+N5iN+akF4cEyw2+sL5g2rSmVExnKpcBfXfg5sdQATzplUokXGnqWfh68z+QSa3RPoAjHn2f3gN31mLDv+MmbjD521S5jQTGSZJOdCsdwoZZ4PqpJZ+FqB86yo8GcKzIH2TOQeLFuYyoZw2tDmwrHUFKUCCuMdOgKdmkojGNfoAaw19j0Fn0t0I3+HEGdjfoCHx437YdwaIky6+T2ek5VGaj/gCTclWEFxnmdI08+gaQkfmyRvg+GtVYgshRUFxmKJ7CXXuECLjg6ESKK6FH7ON/n/uKLWeSv1jMkMU5e5BItYokViVnzkbQUJd+kcCsFHS+4XJXmJRryuk5XjFPF0hFCu843s2sWW89MO2vf7Gj/Pxj66UqTwkpcvLZDpqgAr0xd84QXALHzKjS2Ej1s/HvW8X1o5Q5+N4zmIbG/gCdeVUmKqIFJZ15PILhbdickWZJEadKw9/SvKUsk0XP/wwVEWy+2jzfQBUk8FYKlYvARHX6lUP4cgt9hLWh8XoGdYDK/JeWVzE5A7boR76Skv3hbnr5Xy8kpYH6v0OqaJ0HqzosKGK412MfbvDw/pT//+Ln/hyb9FTnxw9KR2kFO1j8qtfRbWCqop6aFwu/J/DQExRQIj+mhXkicdT29ItmPzjhfgnJgBSex+Dlrg3rv8RBq2FfiHHbfT6hTTBiWTBBXjCeijbfRn489QKjP21x9/stULZqiha7IRTsoJlrDjq3OWSUcvB5sC4kg4V4YJWXbdARckcp39f5VL/Oggraz0i6DZJyAs2OOK3uTdhLQBBX1uSPlLE0oiiPeID7tmNlx2El83nYQUCOxT2woq7A8oTt6XbjQcilIOUmWqbODgK17aQBpOrtpIxkRFTGs9nlVmdE4rcbSeBhDuxH/OWuF4ePYhfaL4upO4T98E9cy+RHX6uKFMhxu6s/ZMpc5NCKuhdxyyoUrZkv7m05USnnSNETkyxcEigsmDSENt9KnqCEo4lodUQQ9z89MacwknnqOf7wZHPwwOaY+uqxChtJpO0bbu3gyBw85msGsN4P+p6J+moqYUPXzzw1IJbL6k23R3y+aJ9MbNhI96c1DzSrDo5/SsELxcToUD1Py6pu04QdDbaUWHj3KUJNh/WbunmJ3BPsJix5D0JFRFWE4jxutdvzDa7AmgPz117ie0sDJOKm+i4d11I6Dv2f6hcmdUbbfVi/Vw2mjXLrGeILqZt94W4H5CVgNd7yrit9N4xkGQog6x1U86i+M0hdLvxa6L/NXl+IaEtJkEC5ORjRXPNIPjbwjehJyCPoe9JVdCz6rQfng8k2RX9FV7Q6UDZzvJxpcQEDfmETS+hpYYT2uiva7/Bsoez4g=
+sidebar_class_name: "post api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Generate file upload URL"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/data-links/{dataLinkId}/upload"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Creates a URL to upload files to the data-link associated with the given `dataLinkId`.
+For AWS S3 data-links, an additional follow-up request must be sent after your file upload has completed (or encountered an error) to finalize the upload - see the `/upload/finish` endpoint.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"dataLinkId","in":"path","description":"Data-link string identifier","required":true,"schema":{"type":"string"}},{"name":"credentialsId","in":"query","description":"Credentials identifier","schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"Origin","in":"header","schema":{"type":"string","nullable":true}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"content":{"application/json":{"schema":{"type":"object","properties":{"fileName":{"type":"string"},"contentLength":{"type":"integer","format":"int64"},"contentType":{"type":"string"}},"title":"DataLinkMultiPartUploadRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"uploadId":{"type":"string"},"uploadUrls":{"type":"array","items":{"type":"string"}}},"title":"DataLinkMultiPartUploadResponse"}}}},"400":{"description":"BadRequest","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"NotFound — workspace or credentials not found, API disabled for the workspace, or data-link or path not found","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

@@ -5,7 +5,7 @@ description: "Confirms the validity of the given workspace name. Append `?name=<
 sidebar_label: "Validate workspace name"
 hide_title: true
 hide_table_of_contents: true
-api: eJzNVG1v0zAQ/iuWP4FUmsImpEW8dTDQhDSmbcCHqtrc5JJ6S2zPdjpKlP/OnZO0XVuB+IDEp8S+5+6ex/dS8xRcYqXxUise8/daZdKWjvk5sIUoZCr9kuksnHO5AMUetL1zRiTAlChhyMbGgErZzVs6vn611JW9XmGu6fLNzZAPuBe54/GEr2yOTwdcG7CCkp+mmP57b/tGqYUH9DPCYgwPlrxrTgERqW2OHgMuibURfo7/j6V8sblQ8mcIzlRVgpUJkykoLzMJFvEW7itpARN7W8GAu2QOpeBxzf3SUBKpPOQBmmlbCt9evTzkTTNYMQmfjsh9BXa5w+QMEczr9j1bUTupnLdS5Rh4Sryc0crhA6H9xeiQPlvaPrNn7EyzRCND5Xkz4Iej0S7uWKSMVILzmLRHI0wYU8gkvE106whbb3BaP8yEl+CcyIFq1VHVs1tIKJ6xVD0vW6I9cI8mdJW+oKsTa7W96PShpQnMD/Yo7PuCKe2ZKAr9gHwC+mgX/aFq5QCDAkrS+J+qRaODpLI4VaGbj0FYsOMK+zeeTKn42OpzTbOQQ8hKrR3zCPvdRXXo+iZaj1C02VNd4EtS1rLcDL8iOvfe9C1I51kA4U3787Fv9dsHH9RIleng3qm6hHusDRufn+50emc6L4SniWEO7EIizQ5MJRFJKElli46Ki6PIBb+h1AjCqsgiTFqm360NSGSBO6DN83x4cDQc0Z3RzpciVLSbx351bC2qba71ukH+6dZr39zDDx+ZQuCWQNJBfN3VdkK7zCE07nfaxoZE0X2BsTfmKJYc6nomHHy1RdPQdbt1qJ1S6cSsoFbOROHgN5L37KS9VO9gud5xCK4IwqlRF8JKSvaXiZ9cdOP2lP15Q++l1F0Ktdyk1FNtH7GZInAOIsUwxK+1jZMEjN/w2lkMjybw08kVYsXj6dmalhB9LyMsUkBc6TtQWKieoKczEWyaX+C5lhc=
+api: eJzNVV1v0zAU/SuWn0BKmwIFiYqvDgaakGDaBnuoqs1NblNvqe3ZTrcS5b9zr5P0W0M8IPHU2D72Pefee25LnoJLrDReasUH/KNWU2nnjvkZsIXIZSr9kulpWGdyAYrda3vrjEiAKTGHLhsaAypl1+9p+fbNUhf2aoW5os13110ecS8yxwcjvjpzfBxxbcAKCn6SYvjL9uwnhRYe8J4RFt/wYOl2yelBRGqb4Y2IS2JthJ/h97aU7zYTSv4KjzNVzMHKhMkUlJdTCRbxFu4KaQEDe1tAxF0yg7ngg5L7paEgUnnIAnSq7Vz4eutVn1cRf+g4A+IWhFt2AsWODpFFXj9XRSuu4aeheleAXe5xvdzKKfO6zn2dgD1azlupMl5VY9LgjFYOk4nnz3t9+tnJw1fWYd80SzSqUZ6493u9fdyRSBllBJzHoC0aYcKYXCYhj/GNI2y5wWmdxBGfg3MiA6prQ1VPbiCh94ylSntZE22BBzThVelz2jq2VtuzRh+eVIH5iwMK2x5iSnsm8lzfI5+Afr2P/lTUcoBBDnPS+J+qxUMHSWHRgaHzj0BYsMMCe30wGlPx0RYzTb7JIEQlGwx4jN5wcRkcUsVru8WbPQV20TqqsNiyfOa9cYM4FkZ2k1wXadfBHea1KzWnWC2Vc8pFrWuT0EoavdM2La0nAYQ79cfn1kg39z7ol2qqw/UmD+chKhuenuy5pDk6zYUnPzISIVFYA6YiiiQUcVvSWkjEsY4yDz6e6g8bCiNO+ajjPOv2X3Z7tGe083MReqDxcjuYdsbgLtdy3VL/dKbWOffw4GOTC5wwSDqIL5tuGNGkdAgdtBNzY/6i6LYlsMIzFEsXynIiHPyweVXRdj2xqFFS6cQkp+afitzBI5IfnWcHSd/Ccj0pEVwQJDTeQlhJYf+SwpOzxqpP2Z//CQ5SajaFWm5SaqnW6azGCJyBSPEZ4lefDZMEjN+4tTdUttz75fgCsWLbRzu+Ca8fZITlCogLfQsKS9YS9LQmglX1G/sZvBA=
 sidebar_class_name: "get api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -47,7 +47,7 @@ Confirms the validity of the given workspace name. Append `?name=<your_workspace
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"name","in":"query","description":"Name to validate","schema":{"type":"string"}}]}
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"},"x-speakeasy-param-optional":true},{"name":"name","in":"query","description":"Workspace name to validate","schema":{"type":"string"}}]}
 >
   
 </ParamsDetails>

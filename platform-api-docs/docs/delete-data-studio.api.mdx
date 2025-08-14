@@ -5,7 +5,7 @@ description: "Deletes the Studio associated with the given Studio session ID."
 sidebar_label: "Delete Studio"
 hide_title: true
 hide_table_of_contents: true
-api: eJytVE1v2zAM/SuCThvgJd1aDFhO65AUKDZ0RdudihwYm4nVOpYr0ckCw/99pPyVNEGxATtZ5of4SL6nSifoY2cKMjbXEz3FDAm9ohTVPZWJsQq8t7EBwkRtDaXBtTIbzLsAj95ztrqejnSkCVZeTx61D06v55G2BTqQAtdJX2IKBE0+5xTgYM1GJ5mVzvmHA9t7OSnSRsAVQCmfDxHf99WVXe7hFiwOX0rjkKuSKzHSPk5xDXpSadoVoQQ5k690XUd91a11z76AGIe6LyW63VHhn+EAmeozVF6u0ZlYmQRzMkuDTlAcVTU54Qodu5bWrYEa0+cLxjEX0L6wOTcvGZ/OLuTzqvJ39UHdWBVbvignXUf64uz8RFw3d5VbUpBldovJqAk/ce2NpStb5kmktilvd48CxocbluJV1g3+y9trcSbGwyJjgnA/wd6PRPrvYHJBKIrMxAHT+MlL1WpvPMO6HvWa1worFPq0U7OLJ4xJ2OKEUGSaCXWBp5aqyVAmpplz1t21g2VPLU6PcekM7QLnviE4dJclM2zyOJc9MCFTK4RNAmEDTcWrxy21x1XP0FoP191LPw22/Ut7eClR0bFC/hchiC3N4aqjxNOWQg8mX9qQ3vZyjy+8Vhn9CS0E120GJMxiZbqNiVnOTbAsAuKwiNJlLRQ/GY99yBsFLfIuTBYYubRfBwcD2bA+mzofR+dfRmdiK6ynNYQ9tvpp5K16bR8grAYy/I+nphko4W8aFxmwVhlR6KxqdzU8Q5GeDO8Jbzdl4OKvqgV4/OWyuhZzI3UhRMdpPVlC5vGNRv76ITiJ9xl3R6/OBrJSIrXwcAPOCJJ/RPXurlXTe/XWE3kSU2uEfLcPpsM6zLGec3CKkDB/BV3jv4xjLGgv80j1B/Kazn7MHmYcDoc6eaWLUOAkMF5hiHiwz5jXdY+T5F8w1vUfqrpfJw==
+api: eJytVE1v2kAQ/SvW9tJKBtKW9sCpqSBS1CqNklQ9RBwGe8AbjNfZHYcgy/+9M+svCChtpZ7AO19vZt6bUsXoIqtz0iZTEzXFFAldQAkGt1TE2gTgnIk0EMbBVlPiTSv9hFnr4NA5jg4up0MVKoKVU5N75bzRqXmoTI4WpMBl3JWYAkEdzzE5WNjwo5XIUmX8wY5NXg4KlRZwOVDC/w8RvwCRFRu0Ogp0jBnppUbLERYfC22Rq5MtMFQuSnADalIq2uW+FFmdrVQVqueByxHWCG438LAGxleCtA6uwg7f1ti1yyHCHuFjgXZ3BPFX63ga3REanRGuvGlp7Aaofvo8VlU1l2ZcbjLuVyI+nI3l57Dej2/BILgyQWQ4UUbS1vjs4wm/di9BZiiANDVbjIe1+4m0V4YuTJHFYbBNePt7FNHOZ1iKNTC2t59fX4ox1g4WKROI+/Hv3eiEMS1MLgh5nurIYxo9OKla7o2nX+O92vC+YYVCr2ZqZvGAEQmbrBCOdD2h1vF42dwnaUrlaWatsTfNYNlSidFhVFhNO8/JrwgW7XnBDJzcz2UP+0yRbdJu0BG946V7E3u6Myx85i6FozXJ18iJX08SqidICzxOJuVZL4kRPXUFvDwmatQob1R2AqqEZWifWoEVltmsEqLcTUYjyPUwSk0RDx0+cu0ha1IqtP3fygLqYe5PoZun5GlpLN8L78Qv9Z+LlsMPW/JD19nS+PBm+Le+qnDlWNy16ToFEikE0oSO+D7VzsIciDxzDlvqG+G5b0CnXkJL82WvQ54uz6Ou8344/jQ8k7fcONqAJ14j8/peBd2xOkBY9uz9H7ezHigxVUZ5CnxSGJHvrGy229/VUE36A8nbShi42MtyAQ5/2rSq5Lm+SLL0VoRqsoTU4SuN/OFenURZ0/nwJLbs9Wx6Aqul/j9ieXvTiP7dy5H9PbbmEbLdPqgWcz/Fas7OCULMqXqJnkcR5rQXeXSkDuQ4nX2f3c3YHQ5V8kIVvsBJYLxA73Fn1phVVYeT5FswVtVvCuCseg==
 sidebar_class_name: "delete api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -47,7 +47,7 @@ Deletes the Studio associated with the given Studio session ID.
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"sessionId","in":"path","description":"Session ID of the Studio.","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Optional workspace numeric identifier.","schema":{"type":"integer","format":"int64"}}]}
+  parameters={[{"name":"sessionId","in":"path","description":"Studio session numeric identifier","required":true,"schema":{"type":"string"},"x-speakeasy-param-optional":true},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
 >
   
 </ParamsDetails>

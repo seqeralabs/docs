@@ -64,7 +64,7 @@ The default user is the `root` account. The following [conda-forge](https://cond
 
 To install additional Python packages, execute `!pip install <packagename>` commands in your notebook environment. Additional system-level packages can be installed in a terminal window using `apt install <packagename>`.
 
-** R-IDE 4.4.1**
+**R-IDE 4.4.1**
 
 The default user is the `root` account. To install R packages, execute `install.packages("<packagename>")` commands in your notebook environment. Additional system-level packages can be installed in a terminal window using `apt install <packagename>`.
 
