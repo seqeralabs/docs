@@ -9,17 +9,14 @@ const apiKey = process.env.ALGOLIA_API_KEY;
 const indexName = process.env.ALGOLIA_INDEX_NAME;
 
 if (!appId || !apiKey || !indexName) {
-  console.error('Missing required Algolia environment variables:');
-  console.error('ALGOLIA_APP_ID:', !!appId);
-  console.error('ALGOLIA_API_KEY:', !!apiKey);
-  console.error('ALGOLIA_INDEX_NAME:', !!indexName);
+  console.error('Missing required Algolia environment variables');
   process.exit(1);
 }
 
 const client = algoliasearch(appId, apiKey);
 const index = client.initIndex(indexName);
 
-// Documentation directories to index
+// Define directories to scan
 const DOC_DIRECTORIES = [
   'platform-enterprise_docs',
   'platform-enterprise_versioned_docs',
@@ -30,59 +27,31 @@ const DOC_DIRECTORIES = [
   'platform-api-docs/docs'
 ];
 
-function getAllMarkdownFiles(dir) {
-  const files = [];
-  
-  if (!fs.existsSync(dir)) {
-    console.log(`Directory ${dir} does not exist, skipping...`);
-    return files;
-  }
-
-  function traverse(currentDir) {
-    const entries = fs.readdirSync(currentDir, { withFileTypes: true });
-    
-    for (const entry of entries) {
-      const fullPath = path.join(currentDir, entry.name);
-      
-      if (entry.isDirectory()) {
-        // Skip certain directories
-        if (entry.name.startsWith('.') || 
-            entry.name === 'node_modules' || 
-            entry.name === '_images' ||
-            entry.name === '_logos' ||
-            entry.name === '_templates') {
-          continue;
-        }
-        traverse(fullPath);
-      } else if (entry.isFile() && (entry.name.endsWith('.md') || entry.name.endsWith('.mdx'))) {
-        files.push(fullPath);
-      }
-    }
-  }
-  
-  traverse(dir);
-  return files;
-}
-
-function extractTextContent(content) {
-  // Remove code blocks
-  content = content.replace(/```[\s\S]*?```/g, '');
-  // Remove inline code
-  content = content.replace(/`[^`]*`/g, '');
-  // Remove HTML tags
-  content = content.replace(/<[^>]*>/g, '');
-  // Remove markdown links but keep text
-  content = content.replace(/\[([^\]]*)\]\([^\)]*\)/g, '$1');
-  // Remove markdown formatting
-  content = content.replace(/[*_#]/g, '');
-  // Clean up extra whitespace
-  content = content.replace(/\s+/g, ' ').trim();
+function extractTextContent(markdownContent) {
+  // Remove markdown syntax and extract plain text
+  let content = markdownContent
+    // Remove code blocks
+    .replace(/```[\s\S]*?```/g, '')
+    // Remove inline code
+    .replace(/`([^`]+)`/g, '$1')
+    // Remove links but keep text
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    // Remove images
+    .replace(/!\[([^\]]*)\]\([^)]+\)/g, '$1')
+    // Remove headers markdown
+    .replace(/^#{1,6}\s+/gm, '')
+    // Remove bold/italic
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/\*([^*]+)\*/g, '$1')
+    // Remove extra whitespace
+    .replace(/\s+/g, ' ')
+    .trim();
   
   return content;
 }
 
 function generateUrlFromPath(filePath) {
-  // Convert file path to URL path
+  // Convert file path to URL path - must match your actual site URLs
   let url = filePath
     .replace(/^platform-enterprise_docs\//, '/platform/')
     .replace(/^platform-enterprise_versioned_docs\/version-([^\/]+)\//, '/platform/$1/')
@@ -94,21 +63,25 @@ function generateUrlFromPath(filePath) {
     .replace(/\.mdx?$/, '')
     .replace(/\/index$/, '');
   
-  // Ensure URL starts with /
-  if (!url.startsWith('/')) {
-    url = '/' + url;
-  }
-  
-  return url;
+  // Add the base domain to match your crawler
+  const fullUrl = 'https://docs.seqera.io' + url;
+  return fullUrl;
 }
 
-function getDocumentType(filePath) {
-  if (filePath.includes('platform-enterprise')) return 'Platform Enterprise';
+function extractVersion(filePath) {
+  // Extract version from platform-enterprise versioned docs
+  const versionMatch = filePath.match(/platform-enterprise_versioned_docs\/version-([^\/]+)\//); 
+  return versionMatch ? versionMatch[1] : null;
+}
+
+function getLvl0(filePath) {
+  // Map to your site's main sections
+  if (filePath.includes('platform-enterprise')) return 'Platform';
   if (filePath.includes('fusion')) return 'Fusion';
   if (filePath.includes('wave')) return 'Wave';
   if (filePath.includes('multiqc')) return 'MultiQC';
-  if (filePath.includes('platform-cloud')) return 'Platform Cloud';
-  if (filePath.includes('platform-api')) return 'Platform API';
+  if (filePath.includes('platform-cloud')) return 'Cloud';
+  if (filePath.includes('platform-api')) return 'API';
   return 'Documentation';
 }
 
@@ -118,103 +91,181 @@ function processMarkdownFile(filePath) {
     const parsed = matter(fileContent);
     const { data: frontmatter, content } = parsed;
     
-    // Extract title
+    // Extract title (lvl1)
     const title = frontmatter.title || 
                  frontmatter.name || 
                  path.basename(filePath, path.extname(filePath));
     
-    // Extract description
-    const description = frontmatter.description || 
-                       frontmatter.summary || 
-                       extractTextContent(content).substring(0, 200);
-    
     // Generate URL
     const url = generateUrlFromPath(filePath);
     
-    // Get document type
-    const docType = getDocumentType(filePath);
+    // Get hierarchical data
+    const lvl0 = getLvl0(filePath);
+    const version = extractVersion(filePath);
     
-    // Extract headings and create sections
-    const headings = content.match(/^#{1,6}\s+(.+)$/gm) || [];
-    const sections = [];
+    const records = [];
     
-    if (headings.length > 0) {
-      // Split content by headings
-      const contentParts = content.split(/^#{1,6}\s+.+$/gm);
+    // Split content by headings to create individual records
+    const lines = content.split('\n');
+    let currentH2 = '';
+    let currentH3 = '';
+    let currentH4 = '';
+    let currentContent = [];
+    let recordCount = 0;
+    
+    for (const line of lines) {
+      const h2Match = line.match(/^##\s+(.+)/);
+      const h3Match = line.match(/^###\s+(.+)/);
+      const h4Match = line.match(/^####\s+(.+)/);
       
-      headings.forEach((heading, index) => {
-        const headingText = heading.replace(/^#{1,6}\s+/, '');
-        const sectionContent = contentParts[index + 1] || '';
-        const cleanContent = extractTextContent(sectionContent);
-        
-        if (cleanContent.length > 20) { // Only index substantial content
-          sections.push({
-            objectID: `${url}#${headingText.toLowerCase().replace(/\s+/g, '-')}`,
-            title: headingText,
-            content: cleanContent.substring(0, 8000), // Limit content length
-            url: `${url}#${headingText.toLowerCase().replace(/\s+/g, '-')}`,
-            type: 'section',
-            docType,
-            hierarchy: [title, headingText],
-            _tags: [docType.toLowerCase().replace(/\s+/g, '-')]
-          });
+      if (h2Match) {
+        // Save previous section if it has content
+        if (currentContent.length > 0) {
+          const cleanContent = extractTextContent(currentContent.join(' '));
+          if (cleanContent.length > 10) {
+            records.push(createRecord(
+              url, lvl0, title, currentH2, currentH3, currentH4, 
+              cleanContent, version, recordCount++
+            ));
+          }
         }
-      });
+        
+        currentH2 = h2Match[1];
+        currentH3 = '';
+        currentH4 = '';
+        currentContent = [];
+      } else if (h3Match) {
+        // Save previous section if it has content
+        if (currentContent.length > 0) {
+          const cleanContent = extractTextContent(currentContent.join(' '));
+          if (cleanContent.length > 10) {
+            records.push(createRecord(
+              url, lvl0, title, currentH2, currentH3, currentH4, 
+              cleanContent, version, recordCount++
+            ));
+          }
+        }
+        
+        currentH3 = h3Match[1];
+        currentH4 = '';
+        currentContent = [];
+      } else if (h4Match) {
+        // Save previous section if it has content
+        if (currentContent.length > 0) {
+          const cleanContent = extractTextContent(currentContent.join(' '));
+          if (cleanContent.length > 10) {
+            records.push(createRecord(
+              url, lvl0, title, currentH2, currentH3, currentH4, 
+              cleanContent, version, recordCount++
+            ));
+          }
+        }
+        
+        currentH4 = h4Match[1];
+        currentContent = [];
+      } else {
+        // Regular content line
+        if (line.trim() && !line.match(/^#{1,6}/)) {
+          currentContent.push(line.trim());
+        }
+      }
     }
     
-    // Main document record
-    const mainRecord = {
-      objectID: url,
-      title,
-      content: extractTextContent(content).substring(0, 8000),
-      description,
-      url,
-      type: 'page',
-      docType,
-      hierarchy: [title],
-      _tags: [docType.toLowerCase().replace(/\s+/g, '-')]
-    };
+    // Don't forget the last section
+    if (currentContent.length > 0) {
+      const cleanContent = extractTextContent(currentContent.join(' '));
+      if (cleanContent.length > 10) {
+        records.push(createRecord(
+          url, lvl0, title, currentH2, currentH3, currentH4, 
+          cleanContent, version, recordCount++
+        ));
+      }
+    }
     
-    return [mainRecord, ...sections];
+    // Always create at least one record for the page
+    if (records.length === 0) {
+      const description = frontmatter.description || extractTextContent(content).substring(0, 200);
+      records.push(createRecord(url, lvl0, title, '', '', '', description, version, 0));
+    }
+    
+    return records;
+    
   } catch (error) {
-    console.error(`Error processing file ${filePath}:`, error.message);
+    console.error(`Error processing ${filePath}:`, error.message);
     return [];
   }
 }
 
-async function indexDocuments() {
-  console.log('🔍 Starting documentation indexing...');
+function createRecord(url, lvl0, lvl1, lvl2, lvl3, lvl4, content, version, position) {
+  // Create objectID similar to DocSearch crawler
+  const anchor = lvl2 ? `#${lvl2.toLowerCase().replace(/\s+/g, '-')}` : '';
+  const objectID = url + (anchor || '');
   
-  let allRecords = [];
-  let processedFiles = 0;
+  const record = {
+    objectID: objectID,
+    url: url,
+    url_without_anchor: url,
+    hierarchy: {
+      lvl0: lvl0,
+      lvl1: lvl1,
+      lvl2: lvl2 || null,
+      lvl3: lvl3 || null,
+      lvl4: lvl4 || null,
+      lvl5: null,
+      lvl6: null
+    },
+    content: content,
+    type: 'content',
+    anchor: anchor
+  };
   
-  for (const docDir of DOC_DIRECTORIES) {
-    console.log(`📂 Processing directory: ${docDir}`);
-    const markdownFiles = getAllMarkdownFiles(docDir);
+  // Add version for platform-enterprise docs
+  if (version) {
+    record.version = [version];
+  }
+  
+  return record;
+}
+
+async function indexAllDocs() {
+  try {
+    console.log('🔍 Starting documentation indexing...');
     
-    for (const file of markdownFiles) {
-      const records = processMarkdownFile(file);
-      allRecords.push(...records);
-      processedFiles++;
+    let allRecords = [];
+    let totalFiles = 0;
+    
+    for (const dir of DOC_DIRECTORIES) {
+      if (!fs.existsSync(dir)) {
+        console.log(`⚠️  Directory ${dir} does not exist, skipping...`);
+        continue;
+      }
       
-      if (processedFiles % 50 === 0) {
-        console.log(`   Processed ${processedFiles} files...`);
+      console.log(`📂 Processing directory: ${dir}`);
+      const files = getAllMarkdownFiles(dir);
+      
+      for (const file of files) {
+        const records = processMarkdownFile(file);
+        allRecords.push(...records);
+        totalFiles++;
+        
+        if (totalFiles % 25 === 0) {
+          console.log(`   Processed ${totalFiles} files...`);
+        }
       }
     }
-  }
-  
-  console.log(`📝 Total records to index: ${allRecords.length} from ${processedFiles} files`);
-  
-  if (allRecords.length === 0) {
-    console.log('❌ No records to index. Exiting...');
-    return;
-  }
-  
-  try {
-    // Clear existing index and add new records
+    
+    console.log(`📝 Total records to index: ${allRecords.length} from ${totalFiles} files`);
+    
+    if (allRecords.length === 0) {
+      console.log('❌ No records to index');
+      return;
+    }
+    
+    // Clear existing index
     console.log('🧹 Clearing existing index...');
     await index.clearObjects();
     
+    // Upload new records in batches
     console.log('📤 Uploading new records to Algolia...');
     const { objectIDs } = await index.saveObjects(allRecords);
     
@@ -228,5 +279,27 @@ async function indexDocuments() {
   }
 }
 
+function getAllMarkdownFiles(directory) {
+  const files = [];
+  
+  function scanDirectory(dir) {
+    const items = fs.readdirSync(dir);
+    
+    for (const item of items) {
+      const fullPath = path.join(dir, item);
+      const stat = fs.statSync(fullPath);
+      
+      if (stat.isDirectory()) {
+        scanDirectory(fullPath);
+      } else if (item.match(/\.(md|mdx)$/)) {
+        files.push(fullPath);
+      }
+    }
+  }
+  
+  scanDirectory(directory);
+  return files;
+}
+
 // Run the indexing
-indexDocuments();
+indexAllDocs();
