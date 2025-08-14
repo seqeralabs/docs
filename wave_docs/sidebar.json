@@ -1,6 +1,17 @@
 {
   "sidebar": [
     "index",
+        {
+      "type": "category",
+      "label": "Tutorials",
+      "link": {"type": "doc", "id": "tutorials/index"},
+      "collapsed": true,
+      "items": [
+          "tutorials/nextflow-seqera-containers",
+          "tutorials/nextflow-wave",
+          "tutorials/wave-cli"
+      ]
+    },
     {
       "type": "category",
       "label": "Installation",
@@ -8,17 +19,6 @@
       "items": [
         "install/docker-compose",
         "install/kubernetes"
-      ]
-    },
-    {
-      "type": "category",
-      "label": "Get started",
-      "link": {"type": "doc", "id": "get-started/index"},
-      "collapsed": true,
-      "items": [
-          "get-started/nextflow-seqera-containers",
-          "get-started/nextflow-wave",
-          "get-started/wave-cli"
       ]
     },
     {
