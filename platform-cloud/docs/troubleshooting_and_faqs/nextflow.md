@@ -181,9 +181,9 @@ See [here](https://www.nextflow.io/blog/2019/demystifying-nextflow-resume.html) 
 
 ```
  [scheduled-executor-thread-2] - WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 1366, SQLState: HY000
- 
+
  [scheduled-executor-thread-2] - ERROR o.h.e.jdbc.spi.SqlExceptionHelper - (conn=34) Incorrect string value: '\xF0\x9F\x94\x8D |...' for column 'error_report' at row 1
- 
+
  [scheduled-executor-thread-2] - ERROR i.s.t.service.job.JobSchedulerImpl - Unable to save status of job id=18165; name=nf-workflow-26uD5XXXXXXXX; opId=nf-workflow-26uD5XXXXXXXX; status=UNKNOWN
 ```
 
@@ -210,11 +210,11 @@ If you're restricted from using public container registries, see Seqera Enterpri
 Each Seqera Platform release uses a specific nf-launcher image by default. This image is loaded with a specific Nextflow version that any workflow run in the container uses by default. Force your jobs to use a newer/older version of Nextflow with one of the following strategies:
 
 - Use a [pre-run script](../launch/advanced#pre-and-post-run-scripts) to set the desired Nextflow version. For example: `export NXF_VER=22.08.0-edge`
-- For jobs executing in an AWS Batch compute environment, create a [custom job definition](https://docs.seqera.io/platform-enterprise/latest/enterprise/advanced-topics/custom-launch-container) which references a different nf-launcher image.
+- For jobs executing in an AWS Batch compute environment, create a [custom job definition](https://docs.seqera.io/platform-enterprise/enterprise/advanced-topics/custom-launch-container) which references a different nf-launcher image.
 
 ### Spot instance failures and retries in Nextflow
 
-Up to version 24.10, Nextflow silently retried Spot instance failures up to five times when using AWS Batch or Google Batch. These retries were controlled by cloud-specific configuration parameters (e.g., `aws.batch.maxSpotAttempts`) and happened in cloud infrastructure without explicit visibility to Nextflow. 
+Up to version 24.10, Nextflow silently retried Spot instance failures up to five times when using AWS Batch or Google Batch. These retries were controlled by cloud-specific configuration parameters (e.g., `aws.batch.maxSpotAttempts`) and happened in cloud infrastructure without explicit visibility to Nextflow.
 
 From version 24.10, the default Spot reclamation retry setting changed to `0` on AWS and Google. By default, no _internal_ retries are attempted on these platforms. Spot reclamations now lead to an immediate failure, exposed to Nextflow in the same way as other generic failures (returning, for example, `exit code 1` on AWS). Nextflow will treat these failures like any other job failure unless you actively configure a retry strategy.
 
@@ -225,4 +225,4 @@ If you rely on silent Spot retries (the previous default behavior), you may now 
 - **AWS**: Generic failure with `exit code 1`. You may see messages indicating the host machine was terminated.
 - **Google**: Spot reclamation typically produces a specific code, but is now surfaced as a recognizable task failure in Nextflow logs.
 
-Since the default for Spot retries is now zero, you must actively enable a retry strategy if you want Nextflow to handle reclaimed Spot instances automatically. For more information, see the [Spot Instance failures and retries](https://www.nextflow.io/docs/latest/updating-spot-retries.html) guide. 
+Since the default for Spot retries is now zero, you must actively enable a retry strategy if you want Nextflow to handle reclaimed Spot instances automatically. For more information, see the [Spot Instance failures and retries](https://www.nextflow.io/docs/latest/updating-spot-retries.html) guide.

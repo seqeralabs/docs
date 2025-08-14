@@ -1,6 +1,6 @@
 {
-  "platformSidebar": [
-    "index",
+    "platformCloudSidebar": [
+      "index",
       {
         "type": "category",
         "label": "Installation",

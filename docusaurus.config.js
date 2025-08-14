@@ -1,20 +1,8 @@
 import { themes } from "prism-react-renderer";
 const path = require("path");
-// @ts-check
-// `@type` JSDoc annotations allow editor autocompletion and type checking
-// (when paired with `@ts-check`).
-// There are various equivalent ways to declare your Docusaurus config.
-// See: https://docusaurus.io/docs/api/docusaurus-config
-
-import {themes as prismThemes} from 'prism-react-renderer';
-import math from 'remark-math';
-import katex from 'rehype-katex';
-import remarkYamlToTable from 'remark-yaml-to-table';
-import remarkCodeImport from 'remark-code-import';
-import tabBlocks from 'docusaurus-remark-plugin-tab-blocks';
 import "dotenv/config";
 
-// This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
+import platform_enterprise_latest_version from "./platform-enterprise_latest_version.js";
 
 export default async function createConfigAsync() {
   const changelog = {
@@ -39,16 +27,22 @@ export default async function createConfigAsync() {
   const docs_platform_enterprise = [
     "@docusaurus/plugin-content-docs",
     {
-        id: 'platform-enterprise',
-        path: 'platform-enterprise',
-        routeBasePath: '/platform-enterprise',
-        sidebarPath: './platform-enterprise/sidebar.json',
-        includeCurrentVersion: false,
-        remarkPlugins: [ math, remarkYamlToTable], //remarkCodeImport tabBlocks
-        rehypePlugins: [katex],
-        editUrl: 'https://github.com/seqeralabs/docs/tree/master/',
+      id: "platform-enterprise",
+      routeBasePath: "/platform-enterprise",
+      path: "platform-enterprise_docs",
+      includeCurrentVersion: false,
+      remarkPlugins: [
+        (await import("remark-code-import")).default,
+        (await require("remark-math")).default,
+        (await import("docusaurus-remark-plugin-tab-blocks")).default,
+        (await require("remark-yaml-to-table")).default,
+      ],
+      rehypePlugins: [(await require("rehype-katex")).default],
+      editUrl: "https://github.com/seqeralabs/docs/tree/master/",
+      sidebarPath: "platform-enterprise_docs/enterprise-sidebar.json",
     },
   ];
+  
 
   const docs_platform_api = [
     "@docusaurus/plugin-content-docs",
@@ -81,55 +75,75 @@ export default async function createConfigAsync() {
   const docs_platform_cloud = [
     "@docusaurus/plugin-content-docs",
     {
-        id: 'platform-cloud',
-        path: "platform-cloud/docs",
-        routeBasePath: '/platform-cloud',
-        sidebarPath: './platform-cloud/cloud-sidebar.json',
-        editUrl: 'https://github.com/seqeralabs/docs/tree/master/',
-        remarkPlugins: [math, remarkYamlToTable, remarkCodeImport ,  tabBlocks],
-        rehypePlugins: [katex],
+      id: "platform-cloud",
+      routeBasePath: "/platform-cloud",
+      path: "platform-cloud/docs",
+      remarkPlugins: [
+        (await import("remark-code-import")).default,
+        (await require("remark-math")).default,
+        (await import("docusaurus-remark-plugin-tab-blocks")).default,
+        (await require("remark-yaml-to-table")).default,
+      ],
+      rehypePlugins: [(await require("rehype-katex")).default],
+      editUrl: "https://github.com/seqeralabs/docs/tree/master/",
+      sidebarPath: "./platform-cloud/cloud-sidebar.json",
     },
   ];
 
   const docs_multiqc = [
     "@docusaurus/plugin-content-docs",
     {
-        id: 'multiqc',
-        path: "multiqc_docs/multiqc_repo/docs/markdown",
-        routeBasePath: '/multiqc',
-        sidebarPath: './multiqc_docs/sidebar.js',
-        remarkPlugins: [math, remarkYamlToTable, remarkCodeImport ,  tabBlocks],
-        rehypePlugins: [katex],
-        editUrl: ({ docPath }) => {
-          return `https://github.com/MultiQC/MultiQC/blob/main/docs/markdown/${docPath.replace('multiqc', '')}`
-        },
+      id: "multiqc",
+      routeBasePath: "/multiqc",
+      path: "multiqc_docs/multiqc_repo/docs/markdown",
+      remarkPlugins: [
+        (await import("remark-code-import")).default,
+        (await require("remark-math")).default,
+        (await import("docusaurus-remark-plugin-tab-blocks")).default,
+        (await require("remark-yaml-to-table")).default,
+      ],
+      rehypePlugins: [(await require("rehype-katex")).default],
+      editUrl: ({ docPath }) => {
+        return `https://github.com/MultiQC/MultiQC/blob/main/docs/markdown/${docPath.replace("multiqc_docs/multiqc_repo/docs", "")}`;
+      },
+      sidebarPath: "./multiqc_docs/sidebar.js",
     },
   ];
   const docs_fusion = [
     "@docusaurus/plugin-content-docs",
     {
-        id: 'fusion',
-        path: 'fusion_docs',
-        routeBasePath: '/fusion',
-        sidebarPath: './fusion_docs/sidebar.json',
-        remarkPlugins: [math, remarkYamlToTable, remarkCodeImport ,  tabBlocks],
-        rehypePlugins: [katex],
-        editUrl: 'https://github.com/seqeralabs/docs/tree/master/',
+      id: "fusion",
+      routeBasePath: "/fusion",
+      path: "fusion_docs",
+      remarkPlugins: [
+        (await import("remark-code-import")).default,
+        (await require("remark-math")).default,
+        (await import("docusaurus-remark-plugin-tab-blocks")).default,
+        (await require("remark-yaml-to-table")).default,
+      ],
+      rehypePlugins: [(await require("rehype-katex")).default],
+      editUrl: "https://github.com/seqeralabs/docs/tree/master/",
+      sidebarPath: "./fusion_docs/sidebar.json",
     },
   ];
 
   const docs_wave = [
     "@docusaurus/plugin-content-docs",
     {
-        id: "wave",
-        routeBasePath: "/wave",
-        path: "wave_docs/wave_repo/docs",
-        sidebarPath: './wave_docs/sidebar.json',
-        remarkPlugins: [math, remarkYamlToTable, remarkCodeImport ,  tabBlocks],
-        rehypePlugins: [katex],
-        editUrl: ({ docPath }) => {
-          return `https://github.com/seqeralabs/wave/blob/master/docs/${docPath.replace('wave', '')}`
-        },
+      id: "wave",
+      routeBasePath: "/wave",
+      path: "wave_docs/wave_repo/docs",
+      remarkPlugins: [
+        (await import("remark-code-import")).default,
+        (await require("remark-math")).default,
+        (await import("docusaurus-remark-plugin-tab-blocks")).default,
+        (await require("remark-yaml-to-table")).default,
+      ],
+      rehypePlugins: [(await require("rehype-katex")).default],
+      editUrl: ({ docPath }) => {
+        return `https://github.com/seqeralabs/wave/blob/master/docs/${docPath.replace("wave_docs/wave_repo/docs", "")}`;
+      },
+      sidebarPath: "./wave_docs/sidebar.json",
     },
   ];
 
@@ -233,20 +247,6 @@ export default async function createConfigAsync() {
           },
         };
       },
-      function routing() {
-        return {
-          name: "latest-routing",
-          async contentLoaded({ actions }) {
-            [
-              {
-                path: "/platform-enterprise/latest",
-                exact: false,
-                component: "@site/src/pages/platform-enterprise/latest.tsx",
-              },
-            ].map((route) => actions.addRoute(route));
-          },
-        };
-      },
     ],
 
     themeConfig: {
@@ -268,7 +268,7 @@ export default async function createConfigAsync() {
             // label: "Platform Cloud",
             type: 'html',
             position: 'left',
-            value: '<a href="https://docs.seqera.io/platform-cloud/platform-cloud" class="menu__link">Platform Cloud</a>'
+            value: '<a href="https://docs.seqera.io/platform-cloud/" class="menu__link">Platform Cloud</a>'
           },
           {
             // to: "/platform-enterprise/",
@@ -276,7 +276,7 @@ export default async function createConfigAsync() {
             // label: "Platform Enterprise",
             type: 'html',
             position: 'left',
-            value: '<a href="https://docs.seqera.io/platform-enterprise/latest/platform-enterprise" class="menu__link">Platform Enterprise</a>'
+            value: '<a href="https://docs.seqera.io/platform-enterprise/" class="menu__link">Platform Enterprise</a>'
           },
           {
             type: "docsVersionDropdown",
@@ -345,11 +345,11 @@ export default async function createConfigAsync() {
             items: [
               {
                 label: "Platform Enterprise",
-                to: "/platform-enterprise/latest/platform-enterprise",
+                to: "/platform-enterprise/",
               },
               {
                 label: "Platform Cloud",
-                to: "/platform-cloud/platform-cloud",
+                to: "/platform-cloud/",
               },
             ],
           },
@@ -422,8 +422,8 @@ export default async function createConfigAsync() {
 
       ],
       prism: {
-        theme: prismThemes.oneLight,
-        darkTheme: prismThemes.oneDark,
+        theme: themes.oneLight,
+        darkTheme: themes.oneDark,
         additionalLanguages: [
           "bash",
           "docker",

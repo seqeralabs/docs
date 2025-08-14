@@ -11,7 +11,7 @@ Studios is a unified platform where you can host a combination of container imag
 On Seqera Cloud, the free tier permits only one running Studio session at a time. To run simultaneous sessions, [contact Seqera][contact] for a Seqera Cloud Pro license.
 
 :::note
-Studios is available from Seqera Platform v24.1. [Contact Seqera support](https://support.seqera.io) if you experience any problems during the deployment process. Studios in Enterprise is not enabled by default. You can enable Studios in the [environment variables configuration](https://docs.seqera.io/platform-enterprise/latest/enterprise/studios).
+Studios is available from Seqera Platform v24.1. [Contact Seqera support](https://support.seqera.io) if you experience any problems during the deployment process. Studios in Enterprise is not enabled by default. You can enable Studios in the [environment variables configuration](https://docs.seqera.io/platform-enterprise/enterprise/studios).
 :::
 
 ## Requirements
@@ -94,7 +94,7 @@ To see the list of all R-IDE image templates available, including security scan 
 
 ### Visual Studio Code 1.101.2
 
-[Visual Studio Code][def-vsc] is an integrated development environment (IDE) that supports many programming languages. The default user is the `root` account. The container template image ships with the latest stable version of [Nextflow] and the [VS Code extension for Nextflow][nf-lang-server] to make troubleshooting Nextflow workflows easier. 
+[Visual Studio Code][def-vsc] is an integrated development environment (IDE) that supports many programming languages. The default user is the `root` account. The container template image ships with the latest stable version of [Nextflow] and the [VS Code extension for Nextflow][nf-lang-server] to make troubleshooting Nextflow workflows easier.
 
 The following [conda-forge](https://conda-forge.org/) packages are available by default:
 
@@ -151,7 +151,7 @@ Sessions have the following possible statuses:
 - **running**: When a session is **running**, you can connect to it, copy the URL, or stop it. In addition, the session can continue to process requests/run computations in the absence of an ongoing connection.
 - **stopping**: The recently-running session is in the process of being stopped.
 - **stopped**: When a session is stopped, the associated compute resources are deallocated. You can start or delete the session when it's in this state.
-- **errored**: This state most often indicates that there has been an error starting the session but it is in a **stopped** state. 
+- **errored**: This state most often indicates that there has been an error starting the session but it is in a **stopped** state.
 
 :::note
 There might be errors reported by the session itself but these will be overwritten with a **running** status if the session is still running.
@@ -196,7 +196,7 @@ By default, a session allocates an initial 2 GB of storage. Available disk space
 
 This approach ensures that a session doesn't initially include unnecessary free disk space, while providing the flexibility to accommodate installation of large software packages required for data analysis. The maximum storage allocation for a session is limited by the compute environment disk boot size. By default, this is 30 GB. This limit is shared by all sessions running in the same compute environment.
 
-If the maximum allocation size is reached, it is possible to reclaim storage space using a snapshot. 
+If the maximum allocation size is reached, it is possible to reclaim storage space using a snapshot.
 
 Stop the active session to trigger a snapshot from the active volume. The snapshot is uploaded to cloud storage with Fusion. When you start from the newly saved snapshot, all previous data is loaded, and the newly started session will have 2 GB of available space.
 
@@ -204,7 +204,7 @@ Stop the active session to trigger a snapshot from the active volume. The snapsh
 
 ### EFS file systems
 
-If you configured your compute environment to include an EFS file system with **EFS file system > EFS mount path**, the mount path must be explicitly specified. The mount path cannot be the same as your compute environment work directory. If the EFS file system is mounted as your compute environment work directory, snapshots cannot be saved and sessions fail. 
+If you configured your compute environment to include an EFS file system with **EFS file system > EFS mount path**, the mount path must be explicitly specified. The mount path cannot be the same as your compute environment work directory. If the EFS file system is mounted as your compute environment work directory, snapshots cannot be saved and sessions fail.
 
 To mount an EFS volume in a Studio session (for example, if your organization has a custom, managed, and standardized software stack in an EFS volume), add the EFS volume to the compute environment (system ID and mount path). The volume will be available at the specified mount path in the session.
 

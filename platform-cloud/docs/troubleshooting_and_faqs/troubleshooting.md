@@ -25,7 +25,7 @@ Try the following:
 
 **_Row was updated or deleted by another transaction (or unsaved-value mapping was incorrect)_ error**
 
-This error can occur if incorrect configuration values are assigned to the `backend` and `cron` containers' [`MICRONAUT_ENVIRONMENTS`](https://docs.seqera.io/platform-enterprise/latest/enterprise/configuration/overview#compute-environments) environment variable. You may see other unexpected system behavior, like two exact copies of the same Nextflow job submitted to the executor for scheduling.
+This error can occur if incorrect configuration values are assigned to the `backend` and `cron` containers' [`MICRONAUT_ENVIRONMENTS`](https://docs.seqera.io/platform-enterprise/enterprise/configuration/overview#compute-environments) environment variable. You may see other unexpected system behavior, like two exact copies of the same Nextflow job submitted to the executor for scheduling.
 
 Verify the following:
 
@@ -57,10 +57,10 @@ Platform normally looks for an existing job definition that matches your workflo
 ```bash
 jobs=$(aws --region eu-west-1 batch describe-job-definitions | jq -r .jobDefinitions[].jobDefinitionArn)
 
-for x in $jobs; do 
-  echo "Deregister $x"; 
-  sleep 0.01;  
-  aws --region eu-west-1 batch deregister-job-definition --job-definition $x; 
+for x in $jobs; do
+  echo "Deregister $x";
+  sleep 0.01;
+  aws --region eu-west-1 batch deregister-job-definition --job-definition $x;
 done
 ```
 
@@ -177,7 +177,7 @@ Users with email addresses other than the `trustedEmails` list will undergo an a
 
 :::note
 
-1. You must rebuild your containers (`docker compose down`) to force Seqera to implement this change. Ensure your database is persistent before issuing the teardown command. See [here](https://docs.seqera.io/platform-enterprise/latest/enterprise/docker-compose) for more information.
+1. You must rebuild your containers (`docker compose down`) to force Seqera to implement this change. Ensure your database is persistent before issuing the teardown command. See [here](https://docs.seqera.io/platform-enterprise/enterprise/docker-compose) for more information.
 2. All login attempts are visible to the root user at **Profile > Admin panel > Users**.
 3. Any user logged in prior to the restriction will not be subject to the new restriction. An admin of the organization should remove users that have previously logged in via (untrusted) email from the Admin panel users list. This will restart the approval process before they can log in via email.
 
