@@ -219,29 +219,8 @@ async function indexDocuments() {
     const { objectIDs } = await index.saveObjects(allRecords);
     
     console.log(`✅ Successfully indexed ${objectIDs.length} records to Algolia index "${indexName}"`);
-    
-    // Configure search settings
-    await index.setSettings({
-      searchableAttributes: [
-        'title',
-        'content',
-        'description'
-      ],
-      attributesForFaceting: [
-        'type',
-        'docType',
-        '_tags'
-      ],
-      customRanking: [
-        'desc(type)', // Pages rank higher than sections
-      ],
-      highlightPreTag: '<mark>',
-      highlightPostTag: '</mark>',
-      snippetEllipsisText: '…'
-    });
-    
-    console.log('⚙️  Search settings configured');
     console.log('🎉 Indexing completed successfully!');
+    console.log('💡 Existing search settings preserved');
     
   } catch (error) {
     console.error('❌ Error during indexing:', error);
