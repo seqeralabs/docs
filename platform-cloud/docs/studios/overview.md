@@ -10,10 +10,6 @@ Studios is a unified platform where you can host a combination of container imag
 
 On Seqera Cloud, the free tier permits only one running Studio session at a time. To run simultaneous sessions, [contact Seqera][contact] for a Seqera Cloud Pro license.
 
-:::note
-Studios is available from Seqera Platform v24.1. [Contact Seqera support](https://support.seqera.io) if you experience any problems during the deployment process. Studios in Enterprise is not enabled by default. You can enable Studios in the [environment variables configuration](https://docs.seqera.io/platform-enterprise/enterprise/studios).
-:::
-
 ## Requirements
 
 Before you get started, you need the following:

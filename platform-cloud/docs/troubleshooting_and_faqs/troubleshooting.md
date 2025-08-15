@@ -23,21 +23,6 @@ Try the following:
 
    `curl -H "Authorization: token ghp_LONG_ALPHANUMERIC_PAT" -H "Accept: application/vnd.github.v3+json" https://api.github.com/rate_limit`
 
-**_Row was updated or deleted by another transaction (or unsaved-value mapping was incorrect)_ error**
-
-This error can occur if incorrect configuration values are assigned to the `backend` and `cron` containers' [`MICRONAUT_ENVIRONMENTS`](https://docs.seqera.io/platform-enterprise/enterprise/configuration/overview#compute-environments) environment variable. You may see other unexpected system behavior, like two exact copies of the same Nextflow job submitted to the executor for scheduling.
-
-Verify the following:
-
-1. The `MICRONAUT_ENVIRONMENTS` environment variable associated with the `backend` container:
-   - Contains `prod,redis,ha`
-   - Does not contain `cron`
-2. The `MICRONAUT_ENVIRONMENTS` environment variable associated with the `cron` container:
-   - Contains `prod,redis,cron`
-   - Does not contain `ha`
-3. You don't have another copy of the `MICRONAUT_ENVIRONMENTS` environment variable defined elsewhere in your application (such as a `tower.env` file or Kubernetes `ConfigMap`).
-4. If you're using a separate container/pod to execute `migrate-db.sh`, ensure there's no `MICRONAUT_ENVIRONMENTS` environment variable assigned to it.
-
 **_No such variable_ error**
 
 This error can occur if you execute a DSL1-based Nextflow workflow using [Nextflow 22.03.0-edge](https://github.com/nextflow-io/nextflow/releases/tag/v22.03.0-edge) or later.
@@ -87,153 +72,11 @@ k8s.securityContext = [
 ]
 ```
 
-## Databases
-
-**Seqera Enterprise 22.2.0: Database connection failure**
-
-Seqera Enterprise 22.2.0 introduced a breaking change whereby the `TOWER_DB_DRIVER` is now required to be `org.mariadb.jdbc.Driver`.
-
-If you use Amazon Aurora as your database solution, you may encounter a _java.sql.SQLNonTransientConnectionException: ... could not load system variables_ error, likely due to a [known error](https://jira.mariadb.org/browse/CONJ-824) tracked within the MariaDB project.
-
-Please modify the Seqera Enterprise configuration as follows to try resolving the problem:
-
-1. Ensure your `TOWER_DB_DRIVER` uses the specified MariaDB URI.
-2. Modify your `TOWER_DB_URL` to: `TOWER_DB_URL=jdbc:mysql://YOUR_DOMAIN:YOUR_PORT/YOUR_TOWER_DB?usePipelineAuth=false&useBatchMultiSend=false`
-
-## Email and TLS
-
-**TLS errors**
-
-Nextflow and Seqera Platform both have the ability to interact with email providers on your behalf. These providers often require TLS connections, with many now requiring at least TLSv1.2.
-
-TLS connection errors can occur due to variability in the [default TLS version specified by your JDK distribution](https://aws.amazon.com/blogs/opensource/tls-1-0-1-1-changes-in-openjdk-and-amazon-corretto/). If you encounter any of the following errors, there is likely a mismatch between your default TLS version and what is supported by the email provider:
-
-- _Unexpected error sending mail ... TLS 1.0 and 1.1 are not supported. Please upgrade/update your client to support TLS 1.2_
-- _ERROR nextflow.script.WorkflowMetadata - Failed to invoke 'workflow.onComplete' event handler ... javax.net.ssl.SSLHandshakeException: No appropriate protocol (protocol is disabled or cipher suites are inappropriate)_
-
-To fix the problem, try the following:
-
-1. Set a JDK environment variable to force Nextflow and Seqera containers to use TLSv1.2 by default:
-
-    ```
-    export JAVA_OPTIONS="-Dmail.smtp.ssl.protocols=TLSv1.2"
-    ```
-
-2. Add this parameter to your [nextflow.config file](../launch/advanced#nextflow-config-file):
-
-    ```
-    mail {
-        smtp.ssl.protocols = 'TLSv1.2'
-    }
-    ```
-
-3. Ensure these values are also set for Nextflow and/or Seqera:
-
-    -   `mail.smtp.starttls.enable=true`
-    -   `mail.smtp.starttls.required=true`
-
 ## Git integration
 
 **BitBucket authentication failure: _Can't retrieve revisions for pipeline - https://my.bitbucketserver.com/path/to/pipeline/repo - Cause: Get branches operation not supported by BitbucketServerRepositoryProvider provider_**
 
 If you supplied the correct BitBucket credentials and URL details in your `tower.yml` and still experience this error, update your version to at least v22.3.0. This version addresses SCM provider authentication issues and is likely to resolve the retrieval failure described here.
-
-## Healthcheck
-
-**Seqera Platform API healthcheck endpoint**
-
-To implement automated healthcheck functionality, use Seqera's `service-info` endpoint. For example:
-
-```
-curl -o /dev/null -s -w "%{http_code}\n" --connect-timeout 2  "https://api.cloud.seqera.io/service-info"  -H "Accept: application/json"
-200
-```
-
-## Login
-
-**Login failures: screen frozen at `/auth?success=true`**
-
-From version 22.1, Seqera Enterprise implements stricter cookie security by default and will only send an auth cookie if the client is connected via HTTPS. Login attempts via HTTP fail by default.
-
-Set the environment variable `TOWER_ENABLE_UNSAFE_MODE=true` to allow HTTP connectivity to Seqera (**not recommended for production environments**).
-
-**Restrict Seqera access to a set of email addresses, or none**
-
-Removing the email section from the login page is not currently supported. You can, however, restrict which email identities may log into your Seqera Enterprise instance using the `trustedEmails` configuration parameter in your `tower.yml` file:
-
-```yaml
-# tower.yml
-tower:
-  trustedEmails:
-    # Any email address pattern which matches will have automatic access.
-    - '*@seqera.io`
-    - 'named_user@example.com'
-
-    # Alternatively, specify a single entry to deny access to all other emails.
-    - 'fake_email_address_which_cannot_be_accessed@your_domain.org'
-```
-
-Users with email addresses other than the `trustedEmails` list will undergo an approval process on the **Profile > Admin > Users** page. This has been used effectively as a backup method when SSO becomes unavailable.
-
-:::note
-
-1. You must rebuild your containers (`docker compose down`) to force Seqera to implement this change. Ensure your database is persistent before issuing the teardown command. See [here](https://docs.seqera.io/platform-enterprise/enterprise/docker-compose) for more information.
-2. All login attempts are visible to the root user at **Profile > Admin panel > Users**.
-3. Any user logged in prior to the restriction will not be subject to the new restriction. An admin of the organization should remove users that have previously logged in via (untrusted) email from the Admin panel users list. This will restart the approval process before they can log in via email.
-
-:::
-
-**Login failure: Admin approval is required when using Entra ID OIDC**
-
-The Entra ID app integrated with Seqera must have user consent settings configured to "Allow user consent for apps" to ensure that admin approval is not required for each application login. See [User consent settings](https://learn.microsoft.com/en-us/azure/active-directory/manage-apps/configure-user-consent?pivots=portal#configure-user-consent-settings).
-
-**Google SMTP: _Username and Password not accepted_ errors**
-
-Previously functioning Seqera Enterprise email integration with Google SMTP likely to encounter errors as of May 30, 2022 due to a [security posture change](https://support.google.com/accounts/answer/6010255#more-secure-apps-how&zippy=%2Cuse-more-secure-apps) implemented by Google.
-
-To re-establish email connectivity, see [these instructions](https://support.google.com/accounts/answer/3466521) to provision an app password. Update your `TOWER_SMTP_PASSWORD` environment variable with the app password, then restart the application.
-
-## Logging
-
-**v22.3.1: Broken Nextflow log file**
-
-A Seqera Launcher issue has been identified that affects the Nextflow log file download in version 22.3.1. A patch was released in version 22.3.2 that addresses this behavior. Update to version 22.3.2 or later.
-
-## Miscellaneous
-
-**Maximum parallel Seqera browser tabs**
-
-Due to a limitation of [server-side event technology implementation in HTTP/1.1](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events), up to five tabs can be open simultaneously (per browser product). Any more will remain stuck in a loading state.
-
-## Monitoring
-
-**Integration with 3rd-party Java-based Application Performance Monitoring (APM) solutions**
-
-Mount the APM solution's JAR file in Seqera's `backend` container and set the agent JVM option via the `JAVA_OPTS` env variable.
-
-**Retrieve the trace logs for a Seqera-based workflow run**
-
-Although it's not possible to directly download the trace logs via Seqera, you can configure your workflow to export the file to persistent storage:
-
-1. Set this block in your [`nextflow.config`](../launch/advanced#nextflow-config-file):
-
-   ```nextflow
-   trace {
-       enabled = true
-   }
-   ```
-
-2. Add a copy command to your pipeline's **Advanced options > Post-run script** field:
-
-   ```
-   aws s3 cp ./trace.txt s3://MY_BUCKET/trace/trace.txt
-   ```
-
-**Runs monitoring: Seqera Platform intermittently reports _Live events sync offline_**
-
-Seqera Platform uses [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) to push real-time updates to your browser. The client must establish a connection to the server's `/api/live` endpoint to initiate the stream of data, and this connection can occasionally fail due to factors like network latency.
-
-To resolve the issue, try reloading the Platform browser tab to reinitiate the client's connection to the server. If reloading fails to resolve the problem, contact [Seqera support](https://support.seqera.io) for assistance with webserver timeout settings adjustments.
 
 
 ## Optimization

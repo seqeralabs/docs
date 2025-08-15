@@ -181,6 +181,7 @@ export default async function createConfigAsync() {
 
     onBrokenLinks: "warn",
     onBrokenMarkdownLinks: "warn",
+    onDuplicateRoutes: "warn",
 
     customFields: {
       // Put your custom environment here
