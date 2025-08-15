@@ -26,7 +26,6 @@ In the Azure Portal:
 1. For **Quota Type**, select **Batch**, then select **Next**.
 1. Select **Enter Details**, then choose the **Location** as the region of your Batch account.
 1. Select **EDv5 Series**.
-1. Select **Spot/low-priority vCPUS (all Series)**.
 1. Select **Active jobs and job schedules per Batch account**.
 1. Select **Pools per Batch account**.
 
@@ -35,7 +34,6 @@ Increase each value to a minimum of the following:
 - **EDv5 Series**: 192
 - **Active jobs and job schedules per Batch account**: 100
 - **Pools per Batch account**: 50
-- **Spot/low-priority vCPUS (all Series)**: 192
 
 ### Set up Seqera Cloud
 

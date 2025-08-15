@@ -46,4 +46,6 @@
 /fusion/guide  /fusion 301
 
 #Redirect platform-api to intro page
-/platform-api   /platform-api/seqera-api   301
+/platform-api                              /platform-api/info/seqera-api   301
+/platform-enterprise/:version/api/overview  /platform-api/info/seqera-api   301
+/platform-cloud/api/overview                /platform-api/info/seqera-api   301
