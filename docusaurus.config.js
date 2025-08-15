@@ -77,7 +77,7 @@ export default async function createConfigAsync() {
     {
       id: "platform-cloud",
       routeBasePath: "/platform-cloud",
-      path: "platform-cloud/docs",
+      path: "platform-enterprise_docs",
       remarkPlugins: [
         (await import("remark-code-import")).default,
         (await require("remark-math")).default,
@@ -86,7 +86,7 @@ export default async function createConfigAsync() {
       ],
       rehypePlugins: [(await require("rehype-katex")).default],
       editUrl: "https://github.com/seqeralabs/docs/tree/master/",
-      sidebarPath: "./platform-cloud/cloud-sidebar.json",
+      sidebarPath: "platform-enterprise_docs/cloud-sidebar.json",
     },
   ];
 
