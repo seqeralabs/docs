@@ -6,7 +6,7 @@ last updated: "2025-08-08"
 tags: [deployment]
 ---
 
-[Seqera Platform Enterprise](https://docs.seqera.io/platform-enterprise/latest/enterprise/overview) is installed in an organization's own cloud or on-premises infrastructure. It includes:
+[Seqera Platform Enterprise](/platform-enterprise/enterprise/overview) is installed in an organization's own cloud or on-premises infrastructure. It includes:
 
 - Monitoring, logging, and observability
 - Pipeline execution Launchpad

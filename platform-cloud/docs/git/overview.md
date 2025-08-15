@@ -194,7 +194,3 @@ To connect to a private AWS CodeCommit repository, see the [AWS documentation](h
 4. Enter the **Access key** and **Secret key** of the AWS IAM account that will be used to access the target CodeCommit repository.
 
 5. Enter the **Repository base URL** for which the credentials should be applied (recommended). This option can be used to apply the credentials to a specific region, e.g., `https://git-codecommit.eu-west-1.amazonaws.com`.
-
-### Self-hosted Git
-
-Seqera Platform Enterprise supports Git server endpoints. For more information, see [Git configuration](https://docs.seqera.io/platform-enterprise/latest/enterprise/configuration/overview#git-integration) in the Enterprise installation guide.
