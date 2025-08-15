@@ -9,7 +9,7 @@
       "items": [
           "tutorials/nextflow-seqera-containers",
           "tutorials/nextflow-wave",
-          "tutorials/wave-cli"
+          "tutorials/wave-cli" 
       ]
     },
     {
