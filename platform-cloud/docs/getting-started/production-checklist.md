@@ -91,7 +91,3 @@ Managing your compute spend upfront is a critical part of your production deploy
 
 - Utilize AWS Batch job tagging. This is facilitated by Nextflow's configuration and can be crucial in tracing costs back to specific pipelines. They can include dynamic variables and can be a valuable tool for helping diagnose and identify unexpected fees. This is especially helpful if you’re using Nextflow outside of Seqera Platform.
 - Note that CloudWatch fees are not included in the cost estimate for runs.
-
-## Seqera Platform limitations
-
-When cancelling large runs, make sure to check that all jobs were killed in your compute environment (ZOMBIE JOBS). Large runs sometimes leak jobs because Nextflow is killed before it can cancel all of them, which can lead to significant cost overruns.
