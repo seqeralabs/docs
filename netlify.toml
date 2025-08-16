@@ -2,6 +2,10 @@
   function = "og-generate.png"
   path = "/og-generate.png"
 
+[build.environment]
+  NODE_VERSION = "22"
+  DOCUSAURUS_SSG_WORKER_THREAD_COUNT = "1"
+
 # Redirects for the missing API docs
 [[redirects]]
   from = "/platform-api/*"
@@ -14,3 +18,4 @@
   from = "/assets/*"
   to = "https://seqera-docs-api.netlify.app/assets/:splat"
   status = 200
+

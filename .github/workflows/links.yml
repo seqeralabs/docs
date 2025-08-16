@@ -14,6 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
       - name: Omit files
         run: find platform-enterprise_versioned_docs -type f \( -name 'README.mdx' -o -name '_todo.mdx' \) -exec rm {} +

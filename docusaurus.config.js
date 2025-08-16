@@ -180,6 +180,19 @@ export default async function createConfigAsync() {
     baseUrl: "/",
     trailingSlash: false,
 
+
+    future: {
+    experimental_faster: {
+      swcJsLoader: false,
+      swcJsMinimizer: false,
+      swcHtmlMinimizer: false,
+      lightningCssMinimizer: false,
+      rspackBundler: true,
+      mdxCrossCompilerCache: true,
+    },
+    v4: true,
+  },
+
     // GitHub pages deployment config.
     // If you aren't using GitHub pages, you don't need these.
     organizationName: "seqeralabs", // Usually your GitHub org/user name.
