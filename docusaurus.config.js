@@ -184,9 +184,9 @@ export default async function createConfigAsync() {
     future: {
     experimental_faster: {
       swcJsLoader: true,
-      swcJsMinimizer: true,
+      swcJsMinimizer: false, // This flags dramatically baloons memory and causes builds to fail
       swcHtmlMinimizer: true,
-      lightningCssMinimizer: false,
+      lightningCssMinimizer: true,
       rspackBundler: true,
       mdxCrossCompilerCache: true,
     },
