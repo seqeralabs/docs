@@ -4,6 +4,12 @@
 
 [build.environment]
   NODE_VERSION = "22"
+  # Limit SSG worker threads to prevent OOM errors in Netlify builds
+  # Docusaurus defaults to 32 threads with 1GB memory each, but Netlify's
+  # memory limits aren't properly enforced, causing out-of-memory 137 errors.
+  # Limiting thread processing avoids this issue with some build time impact however, 
+  # build are still significantly faster than without SSG in-use.
+  # Reference: https://github.com/facebook/docusaurus/discussions/11199
   DOCUSAURUS_SSG_WORKER_THREAD_COUNT = "1"
 
 # Redirects for the missing API docs
