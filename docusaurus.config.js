@@ -1,8 +1,8 @@
 import { themes } from "prism-react-renderer";
 const path = require("path");
 import "dotenv/config";
-
 import platform_enterprise_latest_version from "./platform-enterprise_latest_version.js";
+
 
 export default async function createConfigAsync() {
   const changelog = {
@@ -30,7 +30,9 @@ export default async function createConfigAsync() {
       id: "platform-enterprise",
       routeBasePath: "/platform-enterprise",
       path: "platform-enterprise_docs",
-      includeCurrentVersion: false,
+      // For PR Previews we want to see the latest doc-set with expected changes. 
+      includeCurrentVersion: process.env.INCLUDE_NEXT ? true : false,
+      lastVersion: platform_enterprise_latest_version,
       remarkPlugins: [
         (await import("remark-code-import")).default,
         (await require("remark-math")).default,
@@ -160,6 +162,7 @@ export default async function createConfigAsync() {
     "\n  EXCLUDE_MULTIQC: " + (process.env.EXCLUDE_MULTIQC ? true : false),
     "\n  EXCLUDE_FUSION: " + (process.env.EXCLUDE_FUSION ? true : false),
     "\n  EXCLUDE_WAVE: " + (process.env.EXCLUDE_WAVE ? true : false),
+    "\n  INCLUDE_NEXT: " + (process.env.INCLUDE_NEXT ? true : false),
   );
 
   return {

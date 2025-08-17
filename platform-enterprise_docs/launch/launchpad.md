@@ -20,7 +20,7 @@ The list layout is the default **Launchpad** view. Use the toggle next to the **
 ## Launch form
 
 :::note
-The stepped launch form described below is enabled for all user and organization workspaces by default. You can disable the new launch form in some or all organization workspaces with the `TOWER_STEPPED_LAUNCH_FORM_ALLOWED_WORKSPACES` [environment variable](../../version-24.2/enterprise/configuration/overview.mdx#core-features). 
+The stepped launch form described below is enabled for all user and organization workspaces by default. You can disable the new launch form in some or all organization workspaces with the `TOWER_STEPPED_LAUNCH_FORM_ALLOWED_WORKSPACES` [environment variable](../enterprise/configuration/overview.mdx#core-features). 
 :::
 
 The launch form is used to launch pipelines and to add pipelines to the **Launchpad**. Select **Launch** next to a saved pipeline in the list, or select **launch a run without configuration** to perform a quick launch of an unsaved pipeline.
