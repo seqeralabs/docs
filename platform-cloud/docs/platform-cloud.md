@@ -16,7 +16,7 @@ Seqera helps organizations:
 - Easily provision and leverage cloud-based and HPC compute environments
 - Share pipelines and data and collaborate securely between local and remote teams
 - Access a [curated library](https://seqera.io/pipelines/) of production-proven Nextflow community pipelines from [nf-core](https://nf-co.re/) and others
-- [Automate](getting-started/quickstart-demo/automation) complex tasks as part of broader enterprise processes
+- [Automate](/platform-cloud/getting-started/quickstart-demo/automation) complex tasks as part of broader enterprise processes
 
 :::tip
 [**Sign up**](https://cloud.seqera.io "Seqera Platform Cloud") to try Seqera Cloud for free, or request a [**Seqera Enterprise demo**](https://seqera.io/demo "Seqera Platform Enterprise Demo") for deployments in your own on-premises or cloud environment.
@@ -28,8 +28,8 @@ Log in to [Seqera Cloud](https://cloud.seqera.io/login) with your GitHub or Goog
 
 Upon your first login, you arrive in `community/showcase`, a workspace pre-filled with resources to launch your first pipeline with public data.
 
-- To begin launching Showcase pipelines, see [Launch pipelines](getting-started/quickstart-demo/launch-pipelines).
-- To skip the Showcase and begin adding your own pipelines and resources, see [Set up your workspace](getting-started/workspace-setup) to first create your own organizations and workspaces.
+- To begin launching Showcase pipelines, see [Launch pipelines](/platform-cloud/getting-started/quickstart-demo/launch-pipelines).
+- To skip the Showcase and begin adding your own pipelines and resources, see [Set up your workspace](/platform-cloud/getting-started/workspace-setup) to first create your own organizations and workspaces.
 
 ### What is Nextflow?
 
