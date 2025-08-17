@@ -208,8 +208,9 @@ export default async function createConfigAsync() {
     organizationName: "seqeralabs", // Usually your GitHub org/user name.
     projectName: "docs", // Usually your repo name.
 
-    onBrokenLinks: "warn",
-    onBrokenMarkdownLinks: "warn",
+    onBrokenLinks: process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
+    onBrokenMarkdownLinks: process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
+    onBrokenAnchors: process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
 
     customFields: {
       // Put your custom environment here
