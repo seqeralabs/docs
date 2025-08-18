@@ -78,7 +78,7 @@ These autoscale for pipeline runs, but the sizing recommendation will be based o
 
 ## Spot instance retry strategy
 
-One way to mitigate issues with Spot reclamation and the resulting interruptions is having a robust retry and resume strategy. The are multiple options available to you:
+One way to mitigate issues with Spot reclamation and the resulting interruptions is by having a robust retry and resume strategy. The are multiple options available to you:
 
 - [Handle retries in Nextflow by setting `errorStrategy` and `maxRetries`](https://docs.seqera.io/platform-cloud/tutorials/retry-strategy#handle-retries-in-nextflow-by-setting-errorstrategy-and-maxretries)
 - [Handle retries in AWS by setting `aws.batch.maxSpotAttempts`](https://docs.seqera.io/platform-cloud/tutorials/retry-strategy#handle-retries-in-aws-by-setting-awsbatchmaxspotattempts)
