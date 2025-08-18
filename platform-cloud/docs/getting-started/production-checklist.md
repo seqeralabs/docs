@@ -14,7 +14,7 @@ Organizations are the top-level structure and contain workspaces, members, and t
 
 You can create multiple organizations within Seqera Platform, each of which can contain multiple workspaces with shared users and resources. This means you can customize and organize the use of resources while maintaining an access control layer for users associated with a workspace.
 
-Before you create your organizations and workspaces, consider the various roles and work streams that you’d like to start with and scale to. [Our documentation](https://docs.seqera.io/platform-cloud/orgs-and-teams/organizations) covers the steps to follow in Seqera Platform.
+Before you create your organizations and workspaces, consider the various roles and work streams that you’d like to start with and scale to. See [Organizations](https://docs.seqera.io/platform-cloud/orgs-and-teams/organizations) for more information.
 
 ## Users and roles
 
