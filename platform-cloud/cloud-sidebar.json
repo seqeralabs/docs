@@ -24,7 +24,8 @@
           "getting-started/quickstart-demo/add-data",
           "getting-started/quickstart-demo/launch-pipelines",
           "getting-started/quickstart-demo/monitor-runs",
-          "getting-started/quickstart-demo/automation"
+          "getting-started/quickstart-demo/automation",
+          "getting-started/production-checklist"
         ]
       },
       {
