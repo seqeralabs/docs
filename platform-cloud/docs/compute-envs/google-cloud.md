@@ -75,7 +75,7 @@ The following locations are currently supported:
 
 ### Platform credentials
 
-To create and launch pipelines or Studio sessions with this compute environment type, you must attach Seqera credentials for the cloud provider. Some permissions are mandatory for the compute environment to be created and function correctly; others are used to pre-fill Platform options, which are optional .
+To create and launch pipelines or Studio sessions with this compute environment type, you must attach Seqera credentials for the cloud provider. Some permissions are mandatory for the compute environment to be created and function correctly; others are used to pre-fill Platform options, which are optional.
 
 ### Required permissions
 

@@ -99,7 +99,7 @@ const NavItems = ({ isDark = false, hideMenu }) => {
               </ActiveLink>
             </li>
             <li>
-            <ActiveLink url="/platform-enterprise/25.1/platform-enterprise" customClasses={`mr-6`}>
+            <ActiveLink url="/platform-enterprise/latest/platform-enterprise" customClasses={`mr-6`}>
                 Enterprise
               </ActiveLink>
             </li>
@@ -141,7 +141,7 @@ const NavItems = ({ isDark = false, hideMenu }) => {
             </a>
           </li>
           <li>
-            <ActiveLink apiLink url="https://docs.seqera.io/platform-api/seqera-api" customClasses={`ml-8`}>
+            <ActiveLink apiLink url="https://docs.seqera.io/platform-api/info/seqera-api" customClasses={`ml-8`}>
               Platform API
             </ActiveLink>
           </li>
