@@ -8,7 +8,7 @@ tags: [production, checklist, deployment, limitations, retry]
 
 This page provides guidance and best practices for your Seqera deployment, as well as areas you should consider before you begin. We recommend working with your sales team for additional guidance around your infrastructure before going into production.
 
-## Workspaces
+## Organizations and workspaces
 
 Organizations are the top-level structure and contain workspaces, members, and teams.
 
