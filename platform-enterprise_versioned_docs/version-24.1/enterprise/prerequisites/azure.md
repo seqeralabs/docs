@@ -1,7 +1,8 @@
 ---
 title: "Azure"
 description: Prerequisites for Azure deployments
-date: "12 Apr 2023"
+date created: "2023-04-12"
+last updated: "2025-08-18"
 tags: [azure, prerequisites, configuration]
 ---
 
