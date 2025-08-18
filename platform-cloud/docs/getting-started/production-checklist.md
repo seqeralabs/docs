@@ -57,7 +57,7 @@ This sizing recommendation is a basic starting point. Your requirements may vary
 
 ### AWS
 
-When deploying Seqera Enterprise using AWS we recommend starting with: 
+When deploying Seqera Platform using AWS we recommend starting with: 
 
 - Amazon Machine Image (AMI): Amazon Linux 2023 Optimized
 - Instance type: `c5a.2xlarge` with 8 CPUs and 16 GB RAM
