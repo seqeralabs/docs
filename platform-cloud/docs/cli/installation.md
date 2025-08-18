@@ -1,11 +1,12 @@
 ---
-title: "Installation"
-description: "Seqera Platform CLI installation and configuration instructions."
-date: "16 Jul 2024"
+title: Installation
+description: Seqera Platform CLI installation and configuration instructions.
+date created: 2024-07-16
+last updated: 2025-08-18
 tags: [cli, platform, installation, configuration]
 ---
 
-### Option 1: download latest binary
+### Option 1: Download latest binary
 
 1. Download the latest [version][releases] for your OS from the CLI GitHub repository.
 1. Rename the file and and make it executable:
@@ -21,7 +22,7 @@ tags: [cli, platform, installation, configuration]
     sudo mv tw /usr/local/bin/
     ```
 
-### Option 2: install through Homebrew (Linux and macOS)
+### Option 2: Install through Homebrew (Linux and macOS)
 
 tw-cli is published to the Seqera Homebrew tap and can be installed like this:
 
@@ -31,7 +32,7 @@ brew install seqeralabs/tap/tw
 
 ### Configuration
 
-The CLI requires an access token to interact with your Seqera Platform instance. Select **User tokens** from the user menu in the [Platform UI](https://cloud.seqera.io), then select **Add token** to create a new token.
+The CLI requires an access token to interact with Seqera Platform. Select **User tokens** from the user menu in the [Platform UI](https://cloud.seqera.io), then select **Add token** to create a new token.
 
 Copy the access token value and use it with the CLI in one of two ways:
 
