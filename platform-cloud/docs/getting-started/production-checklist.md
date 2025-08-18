@@ -38,7 +38,7 @@ To begin, build out a proof of concept using the below recommendations and creat
 
 ### Kubernetes
 
-When deploying Seqera Enterprise in a generic Kubernetes cluster we recommend starting with: 
+When deploying Seqera Platform in a generic Kubernetes cluster we recommend starting with: 
 
 - 4 vCPU
 - 7 GB nodes 
