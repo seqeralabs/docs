@@ -67,7 +67,7 @@ This sizing recommendation is a basic starting point. Your requirements may vary
 
 ### Azure
 
-When deploying Seqera Enterprise using Azure we recommend starting with: 
+When deploying Seqera Platform using Azure we recommend starting with: 
 
 - Azure Linux VM with default values
 - At least 2 CPUS and 8 GB RAM
