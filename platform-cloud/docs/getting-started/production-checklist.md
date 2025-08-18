@@ -6,7 +6,7 @@ last updated: "2025-07-21"
 tags: [production, checklist, deployment, limitations, retry]
 ---
 
-This page provides guidance and best practices for your Seqera deployment, as well as areas you should consider before you begin. We recommend working with your sales team for additional guidance around your infrastructure before going into production.
+This page provides guidance and best practices for your Seqera Platform deployment, and areas you should consider before you begin. We recommend working with your sales team for additional guidance around your particular infrastructure before going into production.
 
 ## Organizations and workspaces
 
