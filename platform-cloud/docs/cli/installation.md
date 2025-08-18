@@ -5,6 +5,8 @@ date: "16 Jul 2024"
 tags: [cli, platform, installation, configuration]
 ---
 
+### Option 1: download latest binary
+
 1. Download the latest [version][releases] for your OS from the CLI GitHub repository.
 1. Rename the file and and make it executable:
 
@@ -18,6 +20,14 @@ tags: [cli, platform, installation, configuration]
     ```bash
     sudo mv tw /usr/local/bin/
     ```
+
+### Option 2: install through Homebrew (Linux and macOS)
+
+tw-cli is published to the Seqera Homebrew tap and can be installed like this:
+
+```bash
+brew install seqeralabs/tap/tw
+```
 
 ### Configuration
 
@@ -62,12 +72,12 @@ tw info
     Details
     -------------------------+----------------------
      Tower API endpoint      | <TOWER_API_ENDPOINT>
-     Tower API version       | 1.25.0               
-     Tower version           | 24.2.0_cycle22       
-     CLI version             | 0.9.4 (f3e846e)      
-     CLI minimum API version | 1.15                 
-     Authenticated user      | <username>  
-     
+     Tower API version       | 1.25.0
+     Tower version           | 24.2.0_cycle22
+     CLI version             | 0.9.4 (f3e846e)
+     CLI minimum API version | 1.15
+     Authenticated user      | <username>
+
     System health status
     ---------------------------------------+------------------
      Remote API server connection check    | OK
@@ -95,7 +105,7 @@ If you are using a Private CA SSL certificate not recognized by the default Java
 tw -Djavax.net.ssl.trustStore=/absolute/path/to/cacerts -Djavax.net.ssl.trustStorePassword=<your-password> info
 ```
 
-Replace `<your-password>` with your keystore password. If you did not set a password when creating the keystore, include the default keystore password `changeit` in the command above. 
+Replace `<your-password>` with your keystore password. If you did not set a password when creating the keystore, include the default keystore password `changeit` in the command above.
 
 You can also rename the binary to `tw-binary` and create a `tw` script to automatically include the custom `cacerts` store in every session:
 
@@ -144,7 +154,7 @@ tw CLI is a platform binary executable created by a native compilation from Java
     ========================================================================================================================
     Finished generating 'tw' in 1m 6s.
     [native-image-plugin] Native Image written to: <tower-cli-repository-root>/build/native/nativeCompile
-    
+
     BUILD SUCCESSFUL in 1m 8s
     6 actionable tasks: 2 executed, 4 up-to-date
     ```
