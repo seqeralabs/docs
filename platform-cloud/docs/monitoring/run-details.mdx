@@ -52,7 +52,30 @@ Select a process to navigate to the [Tasks](#tasks) panel and filter the table c
 
 ### Tasks 
 
-The **Tasks** panel shows all the tasks that were executed in the run.
+The **Tasks** panel shows all the tasks that were executed in the run, including the following task details:
+
+| Name | Description |
+|------|-------------|
+| task_id | Unique identifier for the task. |
+| process | Process name. |
+| tag | User-defined label or tag associated with the task. |
+| hash | Nextflow task hash value. |
+| status | Task execution status (e.g., COMPLETED, FAILED, RUNNING). |
+| attempt | Number of execution attempts for this task (for retry logic). |
+| exit | Task exit code. |
+| container | Container image used to execute the task. |
+| native_id | Native job ID assigned by the executor (e.g., cluster job ID). |
+| submit | Timestamp when the task was submitted for execution. |
+| duration | Total execution time for the task. |
+| realtime | CPU wall time the task actually ran. |
+| % cpu | Percentage of CPU utilization during task execution. |
+| % mem | Percentage of memory utilization during task execution. |
+| peak_rss | Peak resident set size (physical memory usage). |
+| peak_vmem | Peak virtual memory usage. |
+| rchar | Number of characters read from storage. |
+| wchar | Number of characters written to storage. |
+| vol_ctxt | Number of voluntary context switches. |
+| inv_ctxt | Number of involuntary context switches. |
 
 Use the search bar to filter tasks with substrings in the table columns such as **process**, **tag**, **hash**, and **status**. For example, if you enter `succeeded` in the **Search task** field, the table displays only tasks that succeeded.
 
@@ -80,6 +103,10 @@ Select a task in the task table to open the **Task details** dialog. The dialog 
 
   If the pipeline work directory is in cloud storage, this tab shows a [Data Explorer](../data/data-explorer) view of the task's work directory location with the files associated with the task.
 
+- **Container**
+
+  This tab contains the image and build details of the container used to execute the task. 
+  
 </TabItem>
 <TabItem value="Logs" label="Logs" default>
 
