@@ -1,7 +1,8 @@
 ---
 title: "On-prem"
 description: Prerequisites for on-premises deployments
-date: "12 Apr 2023"
+date created: "2023-04-12"
+last updated: "2025-08-18"
 tags: [on-prem, prerequisites, configuration]
 ---
 
