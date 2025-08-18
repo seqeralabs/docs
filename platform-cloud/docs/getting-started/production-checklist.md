@@ -26,7 +26,7 @@ Organization members have specific roles and permissions that define their acces
 - In each workspace, members have a participant role that defines the permissions granted to them within that workspace.
 - Members can create their own workspaces within an organization and be part of a team.
 
-All users can be assigned roles which granulate the type of access and permissions they have to resources within Platform. 
+All users can be assigned roles that grant the type of access and permissions they have to resources within Platform. 
 
 It’s a good idea to map out the expected users and their roles to ensure your plans are scalable. See [User roles](https://docs.seqera.io/platform-enterprise/25.1/orgs-and-teams/roles) for more information.
 
