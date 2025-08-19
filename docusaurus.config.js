@@ -188,7 +188,6 @@ export default async function createConfigAsync() {
     * 
     * These optimizations may require additional configuration when memory issues are resolved.
     */
-    future: {
     v4: true,
     future: {
       experimental_faster: {
@@ -200,7 +199,6 @@ export default async function createConfigAsync() {
         mdxCrossCompilerCache: false,
       },
     },
-  },
 
     // GitHub pages deployment config.
     // If you aren't using GitHub pages, you don't need these.
