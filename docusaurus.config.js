@@ -188,8 +188,8 @@ export default async function createConfigAsync() {
     * 
     * These optimizations may require additional configuration when memory issues are resolved.
     */
-    v4: true,
-    future: {
+   future: {
+      v4: true,
       experimental_faster: {
         swcJsLoader: false,
         swcJsMinimizer: false,
