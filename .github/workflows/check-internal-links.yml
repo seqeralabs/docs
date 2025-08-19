@@ -9,24 +9,22 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Check out repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v5
+
       # Node is required for npm
-      - name: Set up Node
-        uses: actions/setup-node@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: "18"
-      - name: Pull & update submodules recursively
-        run: |
-          git submodule update --init --recursive
-      # Fail the build in PRs, but not for Netlify previews or production builds
-      - name: Fail build on error
-        run: |
-          sed -Ei 's/onBroken([A-Za-z]+): "warn"/onBroken\1: "throw"/g' docusaurus.config.js
-      - name: Faster builds
-        run: |
-          sed -Ei 's/experimental_faster: "false"/experimental_faster: "true"/g' docusaurus.config.js
-      # Install and build Docusaurus website
+          node-version: "22"
+          cache: npm
+
+      - name: Install npm dependencies
+        run: npm ci
+      
+      - name: Cache Docusaurus build artifacts
+        uses: docuactions/cache@v1
+      
       - name: Build Docusaurus website
-        run: |
-          npm install
-          npm run build
+        env:
+          FAIL_ON_BROKEN_LINKS: true
+        run: npm run build

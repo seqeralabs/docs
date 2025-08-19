@@ -177,14 +177,37 @@ export default async function createConfigAsync() {
     baseUrl: "/",
     trailingSlash: false,
 
+    /*
+    * Enable faster Docusaurus optimizations (experimental v4 features)
+    * Reference: https://github.com/facebook/docusaurus/issues/10556
+    * 
+    * WARNING: swcJsMinimizer & lightningCssMinimizer are disabled due to memory issues
+    * - Cause excessive memory usage leading to build failures
+    * - The believe is that our 22k of OpenAPI docs causes this issue due to the way they are generated.
+    * - See: https://github.com/PaloAltoNetworks/docusaurus-openapi-docs/issues/1025
+    * 
+    * These optimizations may require additional configuration when memory issues are resolved.
+    */
+   future: {
+      v4: true,
+      experimental_faster: {
+        swcJsLoader: false,
+        swcJsMinimizer: false,
+        swcHtmlMinimizer: false,
+        lightningCssMinimizer: false,
+        rspackBundler: true,
+        mdxCrossCompilerCache: false,
+      },
+    },
+
     // GitHub pages deployment config.
     // If you aren't using GitHub pages, you don't need these.
     organizationName: "seqeralabs", // Usually your GitHub org/user name.
     projectName: "docs", // Usually your repo name.
 
-    onBrokenLinks: "warn",
-    onBrokenMarkdownLinks: "warn",
-    onDuplicateRoutes: "warn",
+    onBrokenLinks: process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
+    onBrokenMarkdownLinks: process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
+    onBrokenAnchors: process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
 
     customFields: {
       // Put your custom environment here
@@ -240,6 +263,21 @@ export default async function createConfigAsync() {
       process.env.EXCLUDE_MULTIQC ? null : docs_multiqc,
       process.env.EXCLUDE_FUSION ? null : docs_fusion,
       process.env.EXCLUDE_WAVE ? null : docs_wave,
+
+      // Disable expensive bundler options.
+      // https://github.com/facebook/docusaurus/pull/11176
+      function disableExpensiveBundlerOptimizations() {
+        return {
+          name: "disable-expensive-bundler-optimizations",
+          configureWebpack(_config, isServer) {
+            return {
+              optimization: {
+                concatenateModules: false,
+              },
+            };
+          },
+        };
+      },
 
       async function tailwind() {
         return {
