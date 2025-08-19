@@ -1,8 +1,8 @@
 import { themes } from "prism-react-renderer";
 const path = require("path");
 import "dotenv/config";
-
 import platform_enterprise_latest_version from "./platform-enterprise_latest_version.js";
+
 
 export default async function createConfigAsync() {
   const changelog = {
@@ -29,7 +29,10 @@ export default async function createConfigAsync() {
     {
       id: "platform-enterprise",
       routeBasePath: "/platform-enterprise",
-      includeCurrentVersion: false,
+      path: "platform-enterprise_docs",
+      // For PR Previews we want to see the latest doc-set with expected changes. 
+      includeCurrentVersion: process.env.INCLUDE_NEXT ? true : false,
+      lastVersion: platform_enterprise_latest_version,
       remarkPlugins: [
         (await import("remark-code-import")).default,
         (await require("remark-math")).default,
@@ -38,17 +41,10 @@ export default async function createConfigAsync() {
       ],
       rehypePlugins: [(await require("rehype-katex")).default],
       editUrl: "https://github.com/seqeralabs/docs/tree/master/",
-      sidebarPath: false,
-      versions: {
-        // Replace /platform-enterprise with /platform-enterprise/24.2, when no version is specified in the URL.
-        // (Applies to latest version only)
-        [platform_enterprise_latest_version]: {
-          label: platform_enterprise_latest_version,
-          path: platform_enterprise_latest_version,
-        },
-      },
+      sidebarPath: "platform-enterprise_docs/enterprise-sidebar.json",
     },
   ];
+  
 
   const docs_platform_api = [
     "@docusaurus/plugin-content-docs",
@@ -166,6 +162,7 @@ export default async function createConfigAsync() {
     "\n  EXCLUDE_MULTIQC: " + (process.env.EXCLUDE_MULTIQC ? true : false),
     "\n  EXCLUDE_FUSION: " + (process.env.EXCLUDE_FUSION ? true : false),
     "\n  EXCLUDE_WAVE: " + (process.env.EXCLUDE_WAVE ? true : false),
+    "\n  INCLUDE_NEXT: " + (process.env.INCLUDE_NEXT ? true : false),
   );
 
   return {
@@ -187,6 +184,7 @@ export default async function createConfigAsync() {
 
     onBrokenLinks: "warn",
     onBrokenMarkdownLinks: "warn",
+    onDuplicateRoutes: "warn",
 
     customFields: {
       // Put your custom environment here
@@ -253,20 +251,6 @@ export default async function createConfigAsync() {
           },
         };
       },
-      function routing() {
-        return {
-          name: "latest-routing",
-          async contentLoaded({ actions }) {
-            [
-              {
-                path: "/platform-enterprise/latest",
-                exact: false,
-                component: "@site/src/pages/platform-enterprise/latest.tsx",
-              },
-            ].map((route) => actions.addRoute(route));
-          },
-        };
-      },
     ],
 
     themeConfig: {
@@ -288,7 +272,7 @@ export default async function createConfigAsync() {
             // label: "Platform Cloud",
             type: 'html',
             position: 'left',
-            value: '<a href="https://docs.seqera.io/platform-cloud/platform-cloud" class="menu__link">Platform Cloud</a>'
+            value: '<a href="https://docs.seqera.io/platform-cloud/" class="menu__link">Platform Cloud</a>'
           },
           {
             // to: "/platform-enterprise/",
@@ -296,7 +280,7 @@ export default async function createConfigAsync() {
             // label: "Platform Enterprise",
             type: 'html',
             position: 'left',
-            value: '<a href="https://docs.seqera.io/platform-enterprise/latest/platform-enterprise" class="menu__link">Platform Enterprise</a>'
+            value: '<a href="https://docs.seqera.io/platform-enterprise/" class="menu__link">Platform Enterprise</a>'
           },
           {
             type: "docsVersionDropdown",
@@ -365,11 +349,11 @@ export default async function createConfigAsync() {
             items: [
               {
                 label: "Platform Enterprise",
-                to: "/platform-enterprise/latest/platform-enterprise",
+                to: "/platform-enterprise/",
               },
               {
                 label: "Platform Cloud",
-                to: "/platform-cloud/platform-cloud",
+                to: "/platform-cloud/",
               },
             ],
           },

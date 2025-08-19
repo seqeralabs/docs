@@ -8,6 +8,10 @@
   to = "https://seqera-docs-api.netlify.app/platform-api/:splat"
   status = 200
 
+
+[context.deploy-preview.build.environment]
+  INCLUDE_NEXT="true"
+
 # Redirect missing assets (so that we don't lose CSS on the API docs)
 # NB: Force is not true, so will use local if available
 [[redirects]]

@@ -38,15 +38,21 @@ const VersionSwitcher = ({ isOpen, setIsOpen }) => {
 
   if (typeof window === "undefined") return null;
   if (!versions) return null;
-  if (!location.pathname.startsWith("/platform-enterprise/")) return null;
+  if (!location.pathname.startsWith("/platform-enterprise")) return null;
 
   const items = versions.filter(
-    (version) => version.label !== currentVersion.label,
+    (version) => version.label !== currentVersion?.label,
   );
 
-  // Extract the part of the URL after the current version
-  const currentVersionPrefix = `/platform-enterprise/${currentVersion.label}`;
-  const urlSuffix = location.pathname.replace(currentVersionPrefix, "");
+  let urlSuffix = "";
+
+  if (
+    currentVersion &&
+    location.pathname.startsWith(`/platform-enterprise/${currentVersion.label}`)
+  ) {
+    const currentVersionPrefix = `/platform-enterprise/${currentVersion.label}`;
+    urlSuffix = location.pathname.replace(currentVersionPrefix, "");
+  }
 
   return (
     <div ref={dropdownRef}>
@@ -57,8 +63,10 @@ const VersionSwitcher = ({ isOpen, setIsOpen }) => {
         })}
       >
         <span>
-          v{currentVersion.label}{" "}
-          {currentVersion.label == versions[0].label ? " (current)" : ""}
+          {currentVersion ? `v${currentVersion.label}` : "Version"}{" "}
+          {currentVersion && currentVersion.label === versions[0].label
+            ? " (current)"
+            : ""}
         </span>
       </button>
       {isOpen && (
