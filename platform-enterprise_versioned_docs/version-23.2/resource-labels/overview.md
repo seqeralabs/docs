@@ -28,11 +28,15 @@ Resource labels applied to a compute environment are displayed on the compute en
 
 Apply a label when adding a new compute environment to the workspace.
 
-:::caution
+:::info
 Once the compute environment has been created, its resource labels cannot be edited.
 :::
 
 If a resource label is applied to a compute environment, all runs in that compute environment will inherit it. Likewise, all cloud resources generated during the workflow execution will be tagged with the same resource label.
+
+:::warning
+If you are using Azure Batch compute environments, resource labels added to the compute environment **do not propagate** to the runs because [Azure Batch jobs do not have a "Tags" property](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/tag-support#microsoftresources). Cloud resources generated during the workflow execution **will not be tagged** with the resource label.
+:::
 
 #### Resource labels applied to pipelines, actions, and runs
 

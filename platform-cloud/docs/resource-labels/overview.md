@@ -40,11 +40,15 @@ Admins can assign a set of resource labels when creating a compute environment. 
 
 Apply resource labels when you create a new compute environment.
 
-:::caution
+:::info
 Once the compute environment has been created, its resource labels cannot be edited.
 :::
 
 If a resource label is applied to a compute environment, all runs in that compute environment will inherit it. Likewise, all cloud resources generated during the workflow execution will be tagged with the same resource label.
+
+:::warning
+If you are using Azure Batch compute environments, resource labels added to the compute environment **do not propagate** to the runs because [Azure Batch jobs do not have a "Tags" property](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/tag-support#microsoftresources). Cloud resources generated during the workflow execution **will not be tagged** with the resource label.
+:::
 
 #### Resource labels applied to runs, pipelines, and actions
 
@@ -56,7 +60,7 @@ For example, the resource label `name=ce1` is set during AWS Batch compute envir
 
 If a maintainer changes the compute environment associated with a pipeline or run, the **Resource labels** field is updated with the resource labels from the new compute environment.
 
-### Search and filter with labels
+### Search and filter with resource labels
 
 Search and filter pipelines and runs using one or more resource labels. The resource label search uses a `label:key=value` format.
 
