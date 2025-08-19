@@ -35,7 +35,23 @@ html[data-theme="light"] {
 }
 
 .sidebarProductLogos a {
-  @apply flex justify-between items-center my-4 border-solid border border-gray-500 rounded px-4 py-3 bg-white hover:bg-[#e8ebfc] w-full leading-none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-style: solid;
+  border-width: 1px;
+  border-color: var(--color-gray-500);
+  border-radius: 0.25rem;
+  padding: 0.75rem 1rem;
+  background-color: white;
+  width: 100%;
+  line-height: 1;
+  
+  &:hover {
+    background-color: #e8ebfc;
+  }
 }
 .sidebarContainer {
   flex: none;

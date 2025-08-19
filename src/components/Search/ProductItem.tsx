@@ -32,7 +32,7 @@ export default function ProductItem({ hit, components }) {
             <span className="break-words"><components.Highlight hit={hit._highlightResult.hierarchy.lvl1} attribute="value" tagName="b" /></span>
           </div>
         </div>
-        <div className="flex-shrink-0 text-right">
+        <div className="shrink-0 text-right">
           {(hit.url.includes('https://docs.seqera.io/platform-enterprise') || hit.url.includes('https://docs.seqera.io/changelog/page') || hit.url.includes('https://docs.seqera.io/changelog/seqera-enterprise/')) && (
             <div className="flex items-start pb-2 last:pb-0">
               <span className={`${styles.productItemCta} text-xs mr-2 px-2 py-1  rounded-md `}>Seqera Enterprise</span>

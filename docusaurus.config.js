@@ -3,7 +3,6 @@ const path = require("path");
 import "dotenv/config";
 import platform_enterprise_latest_version from "./platform-enterprise_latest_version.js";
 
-
 export default async function createConfigAsync() {
   const changelog = {
     blogTitle: "Seqera Changelog",
@@ -21,7 +20,7 @@ export default async function createConfigAsync() {
       description: "Stay updated with our blog posts!",
       copyright: `Copyright © ${new Date().getFullYear()} Seqera`,
     },
-    onUntruncatedBlogPosts: 'ignore',
+    onUntruncatedBlogPosts: "ignore",
   };
 
   const docs_platform_enterprise = [
@@ -30,7 +29,7 @@ export default async function createConfigAsync() {
       id: "platform-enterprise",
       routeBasePath: "/platform-enterprise",
       path: "platform-enterprise_docs",
-      // For PR Previews we want to see the latest doc-set with expected changes. 
+      // For PR Previews we want to see the latest doc-set with expected changes.
       includeCurrentVersion: process.env.INCLUDE_NEXT ? true : false,
       lastVersion: platform_enterprise_latest_version,
       remarkPlugins: [
@@ -44,7 +43,6 @@ export default async function createConfigAsync() {
       sidebarPath: "platform-enterprise_docs/enterprise-sidebar.json",
     },
   ];
-  
 
   const docs_platform_api = [
     "@docusaurus/plugin-content-docs",
@@ -178,25 +176,25 @@ export default async function createConfigAsync() {
     trailingSlash: false,
 
     /*
-    * Enable faster Docusaurus optimizations (experimental v4 features)
-    * Reference: https://github.com/facebook/docusaurus/issues/10556
-    * 
-    * WARNING: swcJsMinimizer & lightningCssMinimizer are disabled due to memory issues
-    * - Cause excessive memory usage leading to build failures
-    * - The believe is that our 22k of OpenAPI docs causes this issue due to the way they are generated.
-    * - See: https://github.com/PaloAltoNetworks/docusaurus-openapi-docs/issues/1025
-    * 
-    * These optimizations may require additional configuration when memory issues are resolved.
-    */
-   future: {
+     * Enable faster Docusaurus optimizations (experimental v4 features)
+     * Reference: https://github.com/facebook/docusaurus/issues/10556
+     *
+     * WARNING: swcJsMinimizer & lightningCssMinimizer are disabled due to memory issues
+     * - Cause excessive memory usage leading to build failures
+     * - The believe is that our 22k of OpenAPI docs causes this issue due to the way they are generated.
+     * - See: https://github.com/PaloAltoNetworks/docusaurus-openapi-docs/issues/1025
+     *
+     * These optimizations may require additional configuration when memory issues are resolved.
+     */
+    future: {
       v4: true,
       experimental_faster: {
-        swcJsLoader: false,
-        swcJsMinimizer: false,
-        swcHtmlMinimizer: false,
-        lightningCssMinimizer: false,
+        swcJsLoader: true,
+        swcJsMinimizer: true,
+        swcHtmlMinimizer: true,
+        lightningCssMinimizer: true,
         rspackBundler: true,
-        mdxCrossCompilerCache: false,
+        mdxCrossCompilerCache: true,
       },
     },
 
@@ -205,9 +203,12 @@ export default async function createConfigAsync() {
     organizationName: "seqeralabs", // Usually your GitHub org/user name.
     projectName: "docs", // Usually your repo name.
 
-    onBrokenLinks: process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
-    onBrokenMarkdownLinks: process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
-    onBrokenAnchors: process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
+    onBrokenLinks:
+      process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
+    onBrokenMarkdownLinks:
+      process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
+    onBrokenAnchors:
+      process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
 
     customFields: {
       // Put your custom environment here
@@ -283,8 +284,7 @@ export default async function createConfigAsync() {
         return {
           name: "docusaurus-tailwindcss",
           configurePostCss(postcssOptions) {
-            postcssOptions.plugins.push(require("tailwindcss"));
-            postcssOptions.plugins.push(require("autoprefixer"));
+            postcssOptions.plugins = [require("@tailwindcss/postcss")];
             return postcssOptions;
           },
         };
@@ -299,7 +299,11 @@ export default async function createConfigAsync() {
           src: "img/Logo.svg",
           srcDark: "img/LogoWhite.svg",
           width: "180px",
-          className: 'w-[100px]'
+          height: "40px",
+          style: {
+            width: "180px",
+            height: "40px"
+          }
         },
         items: [
           {
@@ -332,7 +336,6 @@ export default async function createConfigAsync() {
             to: "/wave",
             label: "Wave",
             position: "left",
-
           },
           {
             to: "/fusion",
@@ -355,12 +358,12 @@ export default async function createConfigAsync() {
       footer: {
         style: "dark",
         logo: {
-          alt: 'Seqera Docs logo',
-          src: 'img/icon.svg', 
+          alt: "Seqera Docs logo",
+          src: "img/icon.svg",
           srcDark: "img/iconLight.svg",
-          href: 'https://docs.seqera.io', 
-          width: 25,  
-          height: 25, 
+          href: "https://docs.seqera.io",
+          width: 25,
+          height: 25,
         },
         links: [
           {
@@ -442,7 +445,6 @@ export default async function createConfigAsync() {
           language: "powershell",
           logoClass: "powershell",
         },
-
       ],
       prism: {
         theme: themes.oneLight,

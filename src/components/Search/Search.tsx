@@ -318,7 +318,7 @@ export default function Search() {
                         noResults({ state }) {
                           return (
                             <div className="typo-small">
-                              <p className="text-gray-1000 font-medium typo-small">No results for "<b>{`${state?.query}`}</b>"</p>
+                              <p className="text-gray-800 font-medium typo-small">No results for "<b>{`${state?.query}`}</b>"</p>
                             </div>
                           );
                         }
