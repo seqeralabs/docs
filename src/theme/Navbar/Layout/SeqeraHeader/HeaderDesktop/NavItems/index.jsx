@@ -141,7 +141,7 @@ const NavItems = ({ isDark = false, hideMenu }) => {
             </a>
           </li>
           <li>
-            <ActiveLink apiLink url="https://docs.seqera.io/platform-api/info/seqera-api" customClasses={`ml-8`}>
+            <ActiveLink apiLink url="/platform-api" customClasses={`ml-8`}>
               Platform API
             </ActiveLink>
           </li>

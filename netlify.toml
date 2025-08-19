@@ -14,19 +14,5 @@
   # Reference: https://github.com/facebook/docusaurus/discussions/11199
   DOCUSAURUS_SSG_WORKER_THREAD_COUNT = "1"
 
-# Redirects for the missing API docs
-[[redirects]]
-  from = "/platform-api/*"
-  to = "https://seqera-docs-api.netlify.app/platform-api/:splat"
-  status = 200
-
 [context.deploy-preview.build.environment]
   INCLUDE_NEXT="true"
-
-# Redirect missing assets (so that we don't lose CSS on the API docs)
-# NB: Force is not true, so will use local if available
-[[redirects]]
-  from = "/assets/*"
-  to = "https://seqera-docs-api.netlify.app/assets/:splat"
-  status = 200
-

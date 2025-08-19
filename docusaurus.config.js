@@ -302,23 +302,15 @@ export default async function createConfigAsync() {
           className: 'w-[100px]'
         },
         items: [
-           // Note: This workaround was added to resolve pages from 404ing when navigating away from platform-api paths, due to separate build implementation. 
-           // TODO: Revert urls once we have docs in a single build
           {
-            // to: "/platform-cloud/",
-            // position: "left",
-            // label: "Platform Cloud",
-            type: 'html',
-            position: 'left',
-            value: '<a href="https://docs.seqera.io/platform-cloud/" class="menu__link">Platform Cloud</a>'
+            to: "/platform-cloud",
+            position: "left",
+            label: "Platform Cloud",
           },
           {
-            // to: "/platform-enterprise/",
-            // position: "left",
-            // label: "Platform Enterprise",
-            type: 'html',
-            position: 'left',
-            value: '<a href="https://docs.seqera.io/platform-enterprise/" class="menu__link">Platform Enterprise</a>'
+            to: "/platform-enterprise",
+            position: "left",
+            label: "Platform Enterprise",
           },
           {
             type: "docsVersionDropdown",
@@ -332,28 +324,20 @@ export default async function createConfigAsync() {
             target: "_blank",
           },
           {
-            // to: "/multiqc/",
-            // label: "MultiQC",
-            // position: "left",
-            type: 'html',
-            position: 'left',
-            value: '<a href="https://docs.seqera.io/multiqc/" class="menu__link">MultiQC</a>'
+            to: "/multiqc",
+            label: "MultiQC",
+            position: "left",
           },
           {
-            // to: "/wave/",
-            // label: "Wave",
-            // position: "left",
-            type: 'html',
-            position: 'left',
-            value: '<a href="https://docs.seqera.io/wave/" class="menu__link">Wave</a>'
+            to: "/wave",
+            label: "Wave",
+            position: "left",
+
           },
           {
-            // to: "/fusion/",
-            // label: "Fusion",
-            // position: "left",
-            type: 'html',
-            position: 'left',
-            value: '<a href="https://docs.seqera.io/fusion/" class="menu__link">Fusion</a>'
+            to: "/fusion",
+            label: "Fusion",
+            position: "left",
           },
           {
             to: "https://training.nextflow.io/latest/",
@@ -362,12 +346,9 @@ export default async function createConfigAsync() {
             target: "_blank",
           },
           {
-            // to: "/platform-api/info/seqera-api",
-            // label: "Platform API",
-            // position: "left",
-            type: 'html',
-            position: 'left',
-            value: '<a href="https://docs.seqera.io/platform-api/info/seqera-api" class="menu__link">Platform API</a>'
+            to: "/platform-api",
+            label: "Platform API",
+            position: "left",
           },
         ],
       },
@@ -387,11 +368,11 @@ export default async function createConfigAsync() {
             items: [
               {
                 label: "Platform Enterprise",
-                to: "/platform-enterprise/",
+                to: "/platform-enterprise",
               },
               {
                 label: "Platform Cloud",
-                to: "/platform-cloud/",
+                to: "/platform-cloud",
               },
             ],
           },
