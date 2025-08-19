@@ -55,7 +55,8 @@
 /platform-cloud/compute-envs/google-cloud-lifesciences   /platform-cloud/compute-envs/overview   301
 
 #Redirect platform-api to intro page
-/platform-api/info/seqera-api  /platform-api                                301
+# TODO DEBUG This redirect
+# /platform-api/info/seqera-api  /platform-api   301
 /platform-enterprise/:version/api/overview  /platform-api   301
 /platform-cloud/api/overview                /platform-api   301
 
