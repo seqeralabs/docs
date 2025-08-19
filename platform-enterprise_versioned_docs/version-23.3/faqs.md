@@ -837,7 +837,7 @@ EOT
 
 This can occur if a tool/library in your task container requires SSL certificates to validate the identity of an external data source.
 
-Mount SSL certificates into the container to resolve this issue. See [SSL/TLS](./enterprise/configuration/ssl_tls#configure-tower-to-trust-your-private-certificate) for more information.
+Mount SSL certificates into the container to resolve this issue. See [SSL/TLS](./enterprise/configuration/ssl_tls#configure-seqera-to-trust-your-private-certificate) for more information.
 
 **Azure SQL database error: _Connections using insecure transport are prohibited while --require_secure_transport=ON_**
 
