@@ -264,6 +264,21 @@ export default async function createConfigAsync() {
       process.env.EXCLUDE_FUSION ? null : docs_fusion,
       process.env.EXCLUDE_WAVE ? null : docs_wave,
 
+      // Disable expensive bundler options.
+      // https://github.com/facebook/docusaurus/pull/11176
+      function disableExpensiveBundlerOptimizations() {
+        return {
+          name: "disable-expensive-bundler-optimizations",
+          configureWebpack(_config, isServer) {
+            return {
+              optimization: {
+                concatenateModules: false,
+              },
+            };
+          },
+        };
+      },
+
       async function tailwind() {
         return {
           name: "docusaurus-tailwindcss",
