@@ -259,7 +259,7 @@ export default async function createConfigAsync() {
     plugins: [
       process.env.EXCLUDE_PLATFORM_ENTERPRISE ? null : docs_platform_enterprise,
       process.env.EXCLUDE_PLATFORM_CLOUD ? null : docs_platform_cloud,
-      process.env.EXCLUDE_PLATFORM_API ? null : docs_platform_api,
+      process.env.EXCLUDE_PLATFORM_API_FOO ? null : docs_platform_api,
       process.env.EXCLUDE_PLATFORM_OPENAPI ? null : docs_platform_openapi,
       process.env.EXCLUDE_MULTIQC ? null : docs_multiqc,
       process.env.EXCLUDE_FUSION ? null : docs_fusion,
