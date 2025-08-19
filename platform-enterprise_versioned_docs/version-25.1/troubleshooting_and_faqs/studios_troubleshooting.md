@@ -51,7 +51,7 @@ If you have access to the AWS Console for your organization, check the jobs asso
 
 ## Memory allocation of the session is exceeded
 
-The running container in the AWS Batch compute environment inherits the memory limits specified by the session configuration when adding or starting the session. The kernel then handles the memory as if running natively on Linux. Linux can overcommit memory, leading to possible out-of-memory errors in a container environment. The kernel has protections in place to prevent this, but it can happen, and in this case, the process is killed. This can manifest as a performance lag, killed subprocesses, or at worst, a killed session. 
+The running container in the AWS Batch compute environment inherits the memory limits specified by the session configuration when adding or starting the session. The kernel then handles the memory as if running natively on Linux. Linux can overcommit memory, leading to possible out-of-memory errors in a container environment. The kernel has protections in place to prevent this, but it can happen, and in this case, the process is killed. This can manifest as a performance lag, killed subprocesses, or at worst, a killed session.
 
 Running sessions have automated snapshots created every five minutes, so if the running container is killed only those changes made after the prior snapshot creation will be lost.
 
@@ -59,7 +59,7 @@ Running sessions have automated snapshots created every five minutes, so if the 
 
 By default, AWS Batch compute environments that are created with Batch Forge restrict access to S3 to the working directory only, unless additional **Allowed S3 Buckets** are specified. If the compute environment does not have write access to the mounted dataset, it will be mounted as read-only.
 
-## My session with GPU isn't starting 
+## My session with GPU isn't starting
 
 Check whether the instance type you selected [supports GPU](https://aws.amazon.com/ec2/instance-types/). If you specify multiple GPUs make sure that multi-GPU instances can be launched by your compute environment and are not limited by the maximum CPU config that you've set.
 
@@ -78,7 +78,7 @@ This is displayed because logging is set to `stderr` by default to ensure all lo
 
 ### VS Code
 
-When running an SCA security scan (e.g., with Trivy) on the latest Seqera-provided VS Code image [container template](../studios#container-image-templates), you may encounter multiple false-positive findings. This issue is due to how VS Code defines extensions, which can cause certain security scanners to incorrectly identify them as `npm` packages.
+When running an SCA security scan (e.g., with Trivy) on the latest Seqera-provided VS Code image [container template](../studios/overview#container-image-templates), you may encounter multiple false-positive findings. This issue is due to how VS Code defines extensions, which can cause certain security scanners to incorrectly identify them as `npm` packages.
 
 This is a known limitation and has been discussed in the Trivy community [here(https://github.com/aquasecurity/trivy/discussions/6112)].
 

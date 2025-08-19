@@ -55,12 +55,12 @@ const NavItems = ({ isDark = false, hideMenu }) => {
         {isOnPlatformAPI ? (
             <ul className={`${styles.navList} flex flex-row`}>
             <li>
-            <ActiveLink externalLink url="https://docs.seqera.io/platform-cloud/platform-cloud" customClasses={`mr-6`}>
+            <ActiveLink externalLink url="https://docs.seqera.io/platform-cloud" customClasses={`mr-6`}>
                 Cloud
               </ActiveLink>
             </li>
             <li>
-            <ActiveLink externalLink url="https://docs.seqera.io/platform-enterprise/latest/platform-enterprise" customClasses={`mr-6`}>
+            <ActiveLink externalLink url="https://docs.seqera.io/platform-enterprise/" customClasses={`mr-6`}>
                 Enterprise
               </ActiveLink>
             </li>
@@ -94,12 +94,12 @@ const NavItems = ({ isDark = false, hideMenu }) => {
         ) : (
           <ul className={`${styles.navList} flex flex-row`}>
             <li>
-            <ActiveLink url="/platform-cloud/platform-cloud" customClasses={`mr-6`}>
+            <ActiveLink url="/platform-cloud/" customClasses={`mr-6`}>
                 Cloud
               </ActiveLink>
             </li>
             <li>
-            <ActiveLink url="/platform-enterprise/25.1/platform-enterprise" customClasses={`mr-6`}>
+            <ActiveLink url="/platform-enterprise/" customClasses={`mr-6`}>
                 Enterprise
               </ActiveLink>
             </li>
@@ -141,7 +141,7 @@ const NavItems = ({ isDark = false, hideMenu }) => {
             </a>
           </li>
           <li>
-            <ActiveLink externalLink url="https://docs.seqera.io/platform-api/seqera-api" customClasses={`ml-8`}>
+            <ActiveLink apiLink url="https://docs.seqera.io/platform-api/info/seqera-api" customClasses={`ml-8`}>
               Platform API
             </ActiveLink>
           </li>

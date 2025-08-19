@@ -10,7 +10,7 @@ Studios is a unified platform where you can host a combination of container imag
 On Seqera Cloud, the free tier permits only one running Studio session at a time. To run simultaneous sessions, [contact Seqera][contact] for a Seqera Cloud Pro license.
 
 :::note
-Studios in Enterprise is not enabled by default. You can enable Studios in the [environment variables configuration](../../version-25.1/enterprise/studios).
+Studios in Enterprise is not enabled by default. You can enable Studios in the [environment variables configuration](../enterprise/studios.md).
 :::
 
 ## Requirements
@@ -107,7 +107,7 @@ To see the list of all Visual Studio Code image templates available, including s
 
 A primary use case for VS Code in Studios is to develop new, and troubleshoot existing, Nextflow pipelines. This commonly requires running Docker in the Dockerized container. The recommended method is to:
 
-**1. Create an [AWS Cloud][aws-cloud] compute environment:** By default, this type of compute environment is optimized for running Nextflow pipelines. 
+**1. Create an [AWS Cloud][aws-cloud] compute environment:** By default, this type of compute environment is optimized for running Nextflow pipelines.
 
 :::tip
 Many standard nf-core pipelines such as [*nf-core/rnaseq*](https://nf-co.re/rnaseq) require at least 4 CPUs and 16 GB memory. In **Advanced options**, specify an instance type with at least this amount of resources (e.g., `m5d.xlarge`).
@@ -149,7 +149,7 @@ Sessions have the following possible statuses:
 - **running**: When a session is **running**, you can connect to it, copy the URL, or stop it. In addition, the session can continue to process requests/run computations in the absence of an ongoing connection.
 - **stopping**: The recently-running session is in the process of being stopped.
 - **stopped**: When a session is stopped, the associated compute resources are deallocated. You can start or delete the session when it's in this state.
-- **errored**: This state most often indicates that there has been an error starting the session but it is in a **stopped** state. 
+- **errored**: This state most often indicates that there has been an error starting the session but it is in a **stopped** state.
 
 :::note
 There might be errors reported by the session itself but these will be overwritten with a **running** status if the session is still running.
@@ -190,14 +190,14 @@ The cleanup process is a best effort and not guaranteed. Seqera attempts to remo
 
 By default, a session allocates an initial 2 GB of storage. Available disk space is continually monitored and if the available space drops below a 1 GB threshold, the file system is dynamically resized to include an additional 2 GB of available disk space. This approach ensures that a session doesn't initially include unnecessary free disk space, while providing the flexibility to accommodate installation of large software packages required for data analysis.
 
-The maximum storage allocation for a session is limited by the compute environment disk boot size. By default, this is 30 GB. This limit is shared by all sessions running in the same compute environment. If the maximum allocation size is reached, it is possible to reclaim storage space using a snapshot. 
+The maximum storage allocation for a session is limited by the compute environment disk boot size. By default, this is 30 GB. This limit is shared by all sessions running in the same compute environment. If the maximum allocation size is reached, it is possible to reclaim storage space using a snapshot.
 
 Stop the active session to trigger a snapshot from the active volume. The snapshot is uploaded to cloud storage with Fusion. When you start from the newly saved snapshot, all previous data is loaded, and the newly started session will have 2 GB of available space.
 
 {/* links */}
 [contact]: https://support.seqera.io/
 [aws-batch]: ../compute-envs/aws-batch
-[aws-cloud]: ../compute-envs/aws-cloud
+[aws-cloud]: ../compute-envs/aws-batch
 [custom-envs]: ./custom-envs
 [build-status]: ./custom-envs#build-status
 [cloud-bucket-subdirectory]: ./managing#cloud-bucket-subdirectory

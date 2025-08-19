@@ -14,7 +14,7 @@ More specifically, the first use case for this feature is for Seqera Platform us
 Fusion Snapshots v1 requires the following [Seqera compute environment](https://docs.seqera.io/platform-cloud/compute-envs/aws-batch) configuration:
 
 - **Provider**: AWS Batch
-- **Pipeline work directory**: An S3 bucket located in the same region as your AWS Batch compute resources
+- **Work directory**: An S3 bucket located in the same region as your AWS Batch compute resources
 - **Enable Fusion Snapshots (beta)**
 - **Config mode**: Batch Forge
 - **Provisioning model**: Spot 

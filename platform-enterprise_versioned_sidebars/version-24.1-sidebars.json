@@ -199,8 +199,11 @@
       "label": "Developer tools",
       "collapsed": true,
       "items": [         
-        "api/overview",
-        {
+          {
+            "type": "link",
+            "label": "API",
+            "href": "https://docs.seqera.io/platform-api/info/seqera-api"
+          },        {
           "type": "category",
           "label": "CLI",
           "collapsed": true,

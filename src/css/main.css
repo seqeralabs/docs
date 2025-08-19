@@ -458,3 +458,24 @@ html[data-theme="dark"]{
     background-color: #353437;
   }
 }
+
+/* Enhanced line highlighting for better visibility */
+:root {
+  --docusaurus-highlighted-code-line-bg: rgba(66, 86, 231, 0.15);
+}
+
+.theme-code-block-highlighted-line {
+  background-color: var(--docusaurus-highlighted-code-line-bg);
+  border-left: 3px solid #4256e7;
+  padding-left: 10px;
+  margin-left: -13px;
+  display: block;
+}
+
+html[data-theme="dark"] {
+  --docusaurus-highlighted-code-line-bg: rgba(152, 163, 255, 0.12);
+}
+
+html[data-theme="dark"] .theme-code-block-highlighted-line {
+  border-left: 3px solid var(--color-blu-300);
+}

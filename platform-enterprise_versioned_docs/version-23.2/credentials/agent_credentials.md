@@ -1,7 +1,8 @@
 ---
 title: "Tower Agent credentials"
 description: "Instructions to create Tower Agent credentials in Nextflow Tower."
-date: "21 Apr 2023"
+date created: "2023-04-21"
+last updated: "2025-08-08"
 tags: [agent, credentials]
 ---
 
@@ -25,6 +26,6 @@ You can share a single Tower Agent instance with all members of a workspace. Cre
 | Provider            | Credential type                                                                                                                                                      | Tower Agent                            |
 | Agent connection ID | The connection ID used to run your Tower Agent instance. Must match the connection ID used when running the Agent (see **Usage** below)                              | `5429d66d-7712-xxxx-xxxx-xxxxxxxxxxxx` |
 | Shared agent        | Enables Tower Agent sharing for all workspace members.                                                                                                               |                                        |
-| Usage               | Populates a code snippet for Tower Agent download with your connection ID. Replace `<YOUR TOKEN>` with your [Tower access token](../api/overview#authentication). |                                        |
+| Usage               | Populates a code snippet for Tower Agent download with your connection ID. Replace `<YOUR TOKEN>` with your [Tower access token](https://docs.seqera.io/platform-api/create-token). |                                        |
 
 Once the form is complete, select **Add**. The new credential is now listed under the **Credentials** tab.
