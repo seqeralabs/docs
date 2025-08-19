@@ -192,10 +192,16 @@ export default async function createConfigAsync() {
     * These optimizations may require additional configuration when memory issues are resolved.
     */
     future: {
-      v4: true, // opt-in for Docusaurus v4 planned changes
-      experimental_faster: true, // turns Docusaurus Faster on globally
+    v4: true,
+    experimental_faster: {
+      swcJsLoader: true,
+      swcJsMinimizer: false,
+      swcHtmlMinimizer: true,
+      lightningCssMinimizer: false,
+      rspackBundler: true,
+      mdxCrossCompilerCache: true,
     },
-
+  },
 
     // GitHub pages deployment config.
     // If you aren't using GitHub pages, you don't need these.
