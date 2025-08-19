@@ -183,11 +183,19 @@ export default async function createConfigAsync() {
     /*
     * Enable faster Docusaurus optimizations (experimental v4 features)
     * Reference: https://github.com/facebook/docusaurus/issues/10556
+    * 
+    * WARNING: swcJsMinimizer & lightningCssMinimizer are disabled due to memory issues
+    * - Cause excessive memory usage leading to build failures
+    * - The believe is that our 22k of OpenAPI docs causes this issue due to the way they are generated.
+    * - See: https://github.com/PaloAltoNetworks/docusaurus-openapi-docs/issues/1025
+    * 
+    * These optimizations may require additional configuration when memory issues are resolved.
     */
     future: {
-    v4: true,
-    experimental_faster: true 
-  },
+      v4: true, // opt-in for Docusaurus v4 planned changes
+      experimental_faster: true, // turns Docusaurus Faster on globally
+    },
+
 
     // GitHub pages deployment config.
     // If you aren't using GitHub pages, you don't need these.
