@@ -1,6 +1,6 @@
 {
-  "enterprise-23.3": "https://docs.seqera.io/platform-enterprise/23.3",
-  "enterprise-23.4": "https://docs.seqera.io/platform-enterprise/23.4",
-  "enterprise-24.1": "https://docs.seqera.io/platform-enterprise/24.1",
-  "enterprise-24.2": "https://docs.seqera.io/platform-enterprise/24.2"
+    "enterprise-24.2": "https://docs.seqera.io/platform-enterprise/24.2",
+    "enterprise-24.1": "https://docs.seqera.io/platform-enterprise/24.1",
+    "enterprise-23.4": "https://docs.seqera.io/platform-enterprise/23.4",
+    "enterprise-23.3": "https://docs.seqera.io/platform-enterprise/23.3"
 }
