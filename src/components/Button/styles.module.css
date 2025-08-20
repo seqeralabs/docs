@@ -138,6 +138,11 @@ html[data-theme="dark"] {
   }
 }
 
+.notFoundSpacing {
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+}
+
 
 html[data-theme="dark"] {
   .button.blue {
