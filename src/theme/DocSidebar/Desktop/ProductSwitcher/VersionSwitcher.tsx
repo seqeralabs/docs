@@ -9,6 +9,7 @@ import Link from "@docusaurus/Link";
 
 import styles from "./styles.module.css";
 import clsx from "clsx";
+import archivedVersions from "../../../../../archivedVersions.json";
 
 const VersionSwitcher = ({ isOpen, setIsOpen }) => {
   const dropdownRef = useRef(null);
@@ -40,9 +41,18 @@ const VersionSwitcher = ({ isOpen, setIsOpen }) => {
   if (!versions) return null;
   if (!location.pathname.startsWith("/platform-enterprise")) return null;
 
-  const items = versions.filter(
+  const docusaurusItems = versions.filter(
     (version) => version.label !== currentVersion?.label,
   );
+
+  const archivedItems = Object.entries(archivedVersions).map(([key, url]) => ({
+    name: key,
+    label: key.replace('enterprise-', ''),
+    path: url,
+    isExternal: true
+  })).filter((item) => item.label !== currentVersion?.label);
+
+  const items = [...docusaurusItems, ...archivedItems];
 
   let urlSuffix = "";
 
@@ -79,14 +89,16 @@ const VersionSwitcher = ({ isOpen, setIsOpen }) => {
             <div
               key={version.name}
               className="w-full"
-              onClick={() => handleSelectVersion(version.name)}
+              onClick={() => !version.isExternal && handleSelectVersion(version.name)}
             >
               <Link
-                to={`${version.path}${urlSuffix}`} // Append the suffix to the version path
+                to={version.isExternal ? version.path : `${version.path}${urlSuffix}`}
                 className={`${styles.item} `}
+                {...(version.isExternal && { target: "_blank", rel: "noopener noreferrer" })}
               >
                 v{version.label}{" "}
                 {version.label === versions[0].label ? " (current)" : ""}
+                {version.isExternal && "(archived)"}
               </Link>
             </div>
           ))}
