@@ -17,19 +17,15 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
+        uses: actions/checkout@v5
+      - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'npm'
-
+          node-version: "22"
       - name: Install dependencies
         run: |
           npm ci
           npm install gray-matter
-
       - name: Parse and Index Docs
         env:
           ALGOLIA_APP_ID: 5E8JEKSR3W
@@ -40,5 +36,4 @@ jobs:
 
       - name: Summary
         run: |
-          echo "✅ Algolia indexing completed successfully"
-          echo "📊 Check the job logs above for detailed statistics"
+          node scripts/indexDocs.js

@@ -673,7 +673,7 @@ HTTP must not be used in production environments.
 
 **Resume/relaunch runs with tw CLI**
 
-Runs can be [relaunched](./launch/cache-resume#relaunch-a-workflow--run) with `tw runs relaunch` .
+Runs can be [relaunched](./launch/cache-resume#relaunch-a-workflow-run) with `tw runs relaunch` .
 
 ```
 $ tw runs relaunch -i 3adMwRdD75ah6P -w 161372824019700

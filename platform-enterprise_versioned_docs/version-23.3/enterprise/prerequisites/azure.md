@@ -1,7 +1,8 @@
 ---
 title: "Azure"
 description: Prerequisites for Azure deployments
-date: "12 Apr 2023"
+date created: "2023-04-12"
+last updated: "2025-08-18"
 tags: [azure, prerequisites, configuration]
 ---
 
@@ -12,6 +13,7 @@ Run the Seqera container with [Docker](../docker-compose) on an Azure VM instanc
 - A resource group and a storage account are required to use Azure. See [Azure setup](#azure-setup) below to provision these resources.
 - **SMTP server**: If you don't have an email server, see [Azure's recommended method of sending email][azure-sendmail]. Microsoft recommends [Microsoft 365][msft-365] or the third party service [SendGrid][sendgrid].
 - **MySQL database**: An external database such as [Azure Database for MySQL][azure-db-create-portal] is highly recommended for production deployments.
+- **Redis-compatible cache**: An external Redis-compatible cache, such as [Azure Cache for Redis](https://azure.microsoft.com/en-gb/products/cache/), is highly recommended for production deployments.
 - **SSL certificate**: An SSL certificate is required for your Seqera instance to handle HTTPS traffic.
 
   :::caution

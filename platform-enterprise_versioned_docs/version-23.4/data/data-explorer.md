@@ -226,4 +226,4 @@ The role assigned to a user affects what functionality is available in Data Expl
 
 For more information on roles in Seqera Platform, see [Participant roles][roles].
 
-[roles]: ../orgs-and-teams/workspace-management#participant-roles
+[roles]: ../orgs-and-teams/roles#workspace-participant-roles
