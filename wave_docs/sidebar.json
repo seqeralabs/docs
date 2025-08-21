@@ -7,8 +7,8 @@
       "link": {"type": "doc", "id": "tutorials/index"},
       "collapsed": true,
       "items": [
-          "tutorials/nextflow-seqera-containers",
           "tutorials/nextflow-wave",
+          "tutorials/nextflow-seqera-containers",
           "tutorials/wave-cli" 
       ]
     },
