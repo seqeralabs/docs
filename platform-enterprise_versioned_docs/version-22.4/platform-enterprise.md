@@ -2,6 +2,7 @@
 title: Introduction
 headline: "Tower User Documentation - Welcome!"
 description: "Nextflow Tower is a full-stack application for the development, deployment, and monitoring of Nextflow data analysis pipelines."
+slug: /
 ---
 
 Nextflow Tower is the centralized command post for the management of [Nextflow](https://www.nextflow.io/) data pipelines. It brings monitoring, logging, and observability to distributed workflows and simplifies the deployment of pipelines on any cloud, cluster, or laptop.

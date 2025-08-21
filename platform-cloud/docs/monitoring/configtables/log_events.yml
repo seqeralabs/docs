@@ -86,7 +86,7 @@
 - 
   Resource:            'Users'
   Events logged:       'Add, edit, delete'
-  Note:                'Log entry includes the user ID. See [user deletion](https://docs.seqera.io/platform/24.1/data-privacy/overview#user-deletion).'
+  Note:                'Log entry includes the user ID. See [user deletion](../../data-privacy/overview#user-deletion).'
 - 
   Resource:            'User sessions'
   Events logged:       'Login'

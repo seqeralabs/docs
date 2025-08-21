@@ -1,6 +1,6 @@
 {
-    "platformSidebar": [
-      "platform-enterprise",
+  "platformSidebar": [
+    "platform-enterprise",
       {
         "type": "category",
         "label": "Installation",
