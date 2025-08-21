@@ -140,17 +140,18 @@ To include the cost information associated with your resource labels in your AWS
 
 See [here](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#tag-restrictions) for more information on AWS resource tagging.
 
-### Google Cloud Batch and Google Cloud
+### Google Cloud
 
-The following resources are tagged using the labels associated with the compute environment:
+The following resources are tagged using the labels associated with the compute environment (either [Batch](../compute-envs/google-cloud-batch.md) or [Cloud](../compute-envs/google-cloud.md)):
 
 **Submission time**
 
-- Job
+- Job (Batch)
 
 **Execution time**
 
-- AllocationPolicy
+- AllocationPolicy (Batch)
+- VirtualMachine (Cloud)
 
 #### GCP limits
 
