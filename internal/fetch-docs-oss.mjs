@@ -12,7 +12,7 @@ const repositories = [
     name: "multiqc",
     url: "https://github.com/MultiQC/MultiQC.git",
     path: path.join(__dirname, "..", "multiqc_docs", "multiqc_repo"),
-    branch: "main",
+    branch: "master",
   },
   {
     name: "wave",
