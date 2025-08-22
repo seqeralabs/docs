@@ -4,8 +4,6 @@
   "compilerOptions": {
     "baseUrl": ".",
     "module": "esnext",
-    "moduleResolution": "node",
-    "jsx": "react-jsx", // or "react" for older React versions
-    "jsxImportSource": "react" // if using React 17+
+    "moduleResolution": "node"
   }
 }
