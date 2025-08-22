@@ -103,7 +103,7 @@ export default function Home(): JSX.Element {
     <Layout>
       <div className="homepage flex w-full pt-10">
         {!isMobile && !disabled && (
-          <div className="flex-none bg-gray-50/20">
+          <div className="flex-none bg-black/[0.02]">
             <Sidebar path="/" />
           </div>
         )}
