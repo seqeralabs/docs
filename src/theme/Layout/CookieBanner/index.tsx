@@ -61,7 +61,7 @@ const CookieBanner = () => {
   return (
     <div
       className={clsx(
-        "fixed bottom-0 left-0 right-0 flex justify-center z-2147483648 p-4 lg:mb-6",
+        "fixed bottom-0 left-0 right-0 lg:left-1/2 lg:right-auto lg:-translate-x-1/2 flex justify-center z-2147483648 p-4 lg:mb-6",
         {
           hidden: cookies.preferencesSet !== undefined,
         },
