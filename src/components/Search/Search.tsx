@@ -318,7 +318,7 @@ export default function Search() {
                         noResults({ state }) {
                           return (
                             <div className="typo-small">
-                              <p className="text-gray-800 font-medium typo-small">No results for "<b>{`${state?.query}`}</b>"</p>
+                              <p className="text-gray-1000 font-medium typo-small">No results for "<b>{`${state?.query}`}</b>"</p>
                             </div>
                           );
                         }
@@ -355,7 +355,7 @@ export default function Search() {
         </svg>
         <span className="hidden md:block"> Search docs...</span>
         <span
-          className="hidden md:flex ml-2 text-xs px-1.5 py-0.5 rounded"
+          className="hidden md:flex ml-2 text-xs px-1.5 py-0.5 rounded-sm"
           style={{ border: "1px solid #d1d5db" }}
         >
           ⌘K

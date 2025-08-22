@@ -76,7 +76,7 @@ export default function SearchPage() {
               <Hits 
                 hitComponent={ProductItem}
                 classNames={{
-                  list: 'space-y-4',
+                  list: 'flex flex-col gap-4',
                   item: 'p-4 border border-gray-200 rounded-lg hover:border-blue-500 transition-colors',
                 }}
               />
@@ -85,9 +85,9 @@ export default function SearchPage() {
             <div className="flex justify-center">
               <Pagination 
                 classNames={{
-                  root: 'flex items-center space-x-2',
-                  list: 'flex items-center space-x-2',
-                  item: 'px-3 py-1 rounded hover:bg-gray-100',
+                  root: 'flex items-center gap-2',
+                  list: 'flex items-center gap-2',
+                  item: 'px-3 py-1 rounded-sm hover:bg-gray-100',
                   selectedItem: 'bg-blue-500 text-white hover:bg-blue-600',
                   disabledItem: 'opacity-50 cursor-not-allowed',
                 }}

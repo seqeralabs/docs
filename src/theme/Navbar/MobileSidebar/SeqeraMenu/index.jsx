@@ -32,7 +32,7 @@ const Menu = () => {
           transition={transition}
           className={`${styles.mobileMenu}`}
         >
-          <div className="flex flex-row space-x-2 px-4 mb-6 mt-3">
+          <div className="flex flex-row gap-2 px-4 mb-6 mt-3">
             <a
               className={clsx(styles.button, {}, "w-full text-center")}
               href="https://cloud.seqera.io/login"

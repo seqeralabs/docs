@@ -23,29 +23,27 @@ const Card: React.FC<Props> = ({ children, to, title, Img, id }) => {
         className={clsx(styles.card, styles[id])}
         rel="noopener noreferrer"
       >
-        <h3>{title}</h3>
-        {Img && (
+        {Img ? (
           <div>
             <Img className={id ? styles[id] : ""} />
           </div>
+        ) : (
+          <h3>{title}</h3>
         )}
-        <div className={styles.description}>
-          {children}
-        </div>
+        {children}
       </a>
     );
 
   return (
     <Link to={to} className={clsx(styles.card, styles[id])}>
-      <h3>{title}</h3>
-      {Img && (
+      {Img ? (
         <div>
           <Img />
         </div>
+      ) : (
+        <h3>{title}</h3>
       )}
-      <div className={styles.description}>
-        {children}
-      </div>
+      {children}
     </Link>
   );
 };
