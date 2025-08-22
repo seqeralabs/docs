@@ -53,7 +53,7 @@ const Menu = () => {
           </div>
 
           <div className="px-1 pb-5 border-b border-b-gray-600">
-          <h6 className="px-3 mb-2 text-[.7rem] font-display">Docs</h6>
+          <p className="px-3 mb-2 text-[.7rem] font-display">Docs</p>
             <NavbarMobilePrimaryMenu />
           </div>
 

@@ -240,6 +240,10 @@ nav.menu .menu__list-item--collapsed .menu__link--sublist:after,
   padding: 0;
 }
 
+.breadcrumbs__link:any-link:hover {
+  background: none;
+}
+
 .breadcrumbs__item--active .breadcrumbs__link {
   color: var(--color-brand);
   background: none;

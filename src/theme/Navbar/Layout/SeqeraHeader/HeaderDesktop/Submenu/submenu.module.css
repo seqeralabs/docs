@@ -24,6 +24,7 @@
   &:hover {
     color: var(--color-brand);
     background: var(--color-blu-100);
+    text-decoration: none;
   }
 }
 [data-theme="dark"] {
