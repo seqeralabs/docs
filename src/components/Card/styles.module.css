@@ -8,6 +8,25 @@
   color: #160f26;
   transition: all 0.3s;
 }
+
+.card h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  order: 1;
+}
+
+.card .description {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  line-height: 1.5;
+}
+
+.card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 .card:hover {
   text-decoration: none;
   /* transform: scale(1.01); */
