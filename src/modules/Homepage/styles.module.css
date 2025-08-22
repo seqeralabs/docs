@@ -1,7 +1,11 @@
-.hero {
-  background: #eee;
-  border-bottom: 1px solid #ccc;
-  padding: 40px;
+
+.page ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.page p.typo-h4 {
+  margin-top: 0;
 }
 
 a {
@@ -34,29 +38,6 @@ html[data-theme="light"] {
   }
 }
 
-.sidebarProductLogos a {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  border-style: solid;
-  border-width: 1px;
-  border-color: var(--color-gray-500);
-  border-radius: 0.25rem;
-  padding: 0.75rem 1rem;
-  background-color: white;
-  width: 100%;
-  line-height: 1;
-  
-  &:hover {
-    background-color: #e8ebfc;
-  }
-}
-.sidebarContainer {
-  flex: none;
-  background: rgba(0, 0, 0, 0.02);
-}
 
 html[data-theme="dark"] a {
     color: white;
