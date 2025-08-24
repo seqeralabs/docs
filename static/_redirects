@@ -61,3 +61,6 @@
 
 #Redirect get started to tutorials
 /wave/get-started/*                         /wave/tutorials/:splat          301
+
+# Add redirects
+/platform-enterprise/25.2/*                  /platform-enterprise/:splat    301
