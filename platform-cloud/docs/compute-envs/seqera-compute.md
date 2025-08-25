@@ -69,6 +69,7 @@ See [Launch pipelines](../launch/launchpad) to start executing workflows in your
 
 #### Advanced options (optional)
 
+1. Toggle **Automatic data retention policy**. When enabled (default), intermediary files are deleted after 28 days to manage cloud storage usage and cost.
 1. Enter a relative **Work directory** path to be appended to the S3 storage bucket Seqera creates for this compute environment. 
 1. Enter [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
 1. Enter Global Nextflow configuration settings for all pipeline runs launched with this environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden at pipeline launch. 
