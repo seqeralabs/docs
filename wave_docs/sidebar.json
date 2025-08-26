@@ -15,6 +15,7 @@
     {
       "type": "category",
       "label": "Installation",
+      "link": {"type": "doc", "id": "install/index"},
       "collapsed": true,
       "items": [
         "install/docker-compose",
