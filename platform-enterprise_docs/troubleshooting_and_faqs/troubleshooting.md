@@ -101,10 +101,10 @@ Please modify the Seqera Enterprise configuration as follows to try resolving th
 2. Modify your `TOWER_DB_URL` to: `TOWER_DB_URL=jdbc:mysql://YOUR_DOMAIN:YOUR_PORT/YOUR_TOWER_DB?usePipelineAuth=false&useBatchMultiSend=false`
 
 
-
 **Unable to Create Initial Connections**
 
-In Seqera Enterprise 24.1 and later, you may encounter the following error when the Platform cannot connect to the database:
+After upgrading to Seqera Enterprise version 24.1 or later, you may encounter an error when the Platform cannot connect to the database. This issue is caused by a breaking change that requires you to explicitly define certain configuration values. Specifically, newer Platform versions require an additional parameter in the `TOWER_DB_URL` connection string. Without this parameter, the MariaDB JDBC driver cannot properly initialize connections.
+
 
     ```
     Aug 26, 2025 3:46:01 PM org.apache.tomcat.jdbc.pool.ConnectionPool init
@@ -112,7 +112,6 @@ In Seqera Enterprise 24.1 and later, you may encounter the following error when 
     java.sql.SQLException: Driver:org.mariadb.jdbc.Driver@54ce2da8 returned null for URL:jdbc:mysql://platform-tower-database.com/tower
     ```
 
-This error occurs because newer Platform versions require an additional parameter in the TOWER_DB_URL connection string. Without this parameter, the MariaDB JDBC driver cannot properly initialize connections.
 
 To fix the problem, try the following:
 
