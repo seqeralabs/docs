@@ -294,7 +294,7 @@ export default function Search() {
                               indexName: envIndexName,
                               params: {
                                 query,
-                                hitsPerPage: 5,
+                                hitsPerPage: 20,
                                 attributesToHighlight: ['*'],
                               },
                             },
