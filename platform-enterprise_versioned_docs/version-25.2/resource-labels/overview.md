@@ -123,20 +123,18 @@ To include the cost information associated with your resource labels in your AWS
 
 See [here](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#tag-restrictions) for more information on AWS resource tagging.
 
-### Google Batch and Google Life Sciences
+### Google Cloud
 
-When the compute environment is created with Forge, the following resources will be tagged using the labels associated with the compute environment:
+The following resources are tagged using the labels associated with the compute environment (either [Batch](../compute-envs/google-cloud-batch.md) or [Cloud](../compute-envs/google-cloud.md)):
 
 **Submission time**
 
 - Job (Batch)
-- RunPipeline (Life Sciences)
 
 **Execution time**
 
 - AllocationPolicy (Batch)
-- VirtualMachine (Life Sciences)
-- RunPipeline (Life Sciences)
+- VirtualMachine (Cloud)
 
 #### GCP limits
 
