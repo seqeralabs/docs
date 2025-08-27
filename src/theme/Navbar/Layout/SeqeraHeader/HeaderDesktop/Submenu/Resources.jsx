@@ -70,9 +70,9 @@ const LinkItem = ({ to, children }) => {
 const Column = ({ title, links }) => {
   return (
     <div className="flex flex-col items-start min-w-[200px]">
-      <h3 className="text-[.8rem] font-display font-semibold mt-[2px] mb-[2px]">
+      <p className="text-[.8rem] font-display font-semibold mt-[2px] mb-[2px]">
         {title}
-      </h3>
+      </p>
       <ul className="mt-2 -mx-2 p-0 list-none mb-0">
         {links.map(([label, href, Icon]) => (
           <li key={label}>
