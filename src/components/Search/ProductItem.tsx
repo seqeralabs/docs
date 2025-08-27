@@ -21,14 +21,14 @@ export default function ProductItem({ hit, components }) {
   return (
     <a 
       href={hit.url} 
-      className="aa-ItemLink search-item-link px-2 py-2 flex whitespace-pre-wrap  text-blu-600"
+      className="aa-ItemLink search-item-link px-2 py-2 flex whitespace-pre-wrap text-blu-600 dark:text-blu-300 hover:text-blu-700 dark:hover:text-blu-200"
     >
       <div className="flex flex-row w-full gap-4">
         <div className="flex-1 min-w-0">
-          <div className="flex items-start pb-2 last:pb-0 text-sm text-slate-1000 break-words">
+          <div className="flex items-start pb-2 last:pb-0 text-sm text-slate-900 dark:text-slate-100 break-words">
             <span className="break-words"><components.Highlight hit={hit._highlightResult.hierarchy.lvl0} attribute="value" tagName="b" /></span>
           </div>
-          <div className="flex items-start pb-2 last:pb-0 text-xs text-slate-500 break-words">
+          <div className="flex items-start pb-2 last:pb-0 text-xs text-slate-500 dark:text-slate-300 break-words">
             <span className="break-words"><components.Highlight hit={hit._highlightResult.hierarchy.lvl1} attribute="value" tagName="b" /></span>
           </div>
         </div>
@@ -58,7 +58,7 @@ export default function ProductItem({ hit, components }) {
             <div className="flex items-start pb-2 last:pb-0">
               <span className={`${styles.productWave} text-xs mr-2 px-2 py-1 rounded-md`}>Wave</span>
               {hit._highlightResult?.version?.[0]?.value && (
-                <span className={`${styles.productItemVersion} text-xs px-2 py-1 bg-slate-100 rounded-md text-slate-1000 whitespace-pre-wrap`}>Latest</span>
+                <span className={`${styles.productItemVersion} text-xs px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded-md text-slate-900 dark:text-slate-100 whitespace-pre-wrap`}>Latest</span>
               )}
             </div>
           )}
@@ -66,7 +66,7 @@ export default function ProductItem({ hit, components }) {
             <div className="flex items-start pb-2 last:pb-0">
               <span className={`${styles.productMultiQC} text-xs mr-2 px-2 py-1 rounded-md `}>MultiQC</span>
               {hit._highlightResult?.version?.[0]?.value && (
-                <span className={`${styles.productItemVersion} text-xs px-2 py-1 bg-slate-100 rounded-md text-slate-1000 whitespace-pre-wrap`}>Latest</span>
+                <span className={`${styles.productItemVersion} text-xs px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded-md text-slate-900 dark:text-slate-100 whitespace-pre-wrap`}>Latest</span>
               )}
             </div>
           )}
@@ -74,7 +74,7 @@ export default function ProductItem({ hit, components }) {
             <div className="flex items-start pb-2 last:pb-0">
               <span className={`${styles.productFusion} text-xs mr-2 px-2 py-1 rounded-md `}>Fusion</span>
               {hit._highlightResult?.version?.[0]?.value && (
-                <span className={`${styles.productItemVersion} text-xs px-2 py-1 bg-slate-100 rounded-md text-slate-1000 whitespace-pre-wrap`}>Latest</span>
+                <span className={`${styles.productItemVersion} text-xs px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded-md text-slate-900 dark:text-slate-100 whitespace-pre-wrap`}>Latest</span>
               )}
             </div>
           )}
@@ -82,7 +82,7 @@ export default function ProductItem({ hit, components }) {
             <div className="flex items-start pb-2 last:pb-0">
               <span className={`${styles.productNextflow} text-xs mr-2 px-2 py-1 rounded-md `}>Nextflow</span>
               {hit._highlightResult?.version?.[0]?.value && (
-                <span className={`${styles.productItemVersion} text-xs px-2 py-1 bg-slate-100 rounded-md text-slate-1000 whitespace-pre-wrap`}>Latest</span>
+                <span className={`${styles.productItemVersion} text-xs px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded-md text-slate-900 dark:text-slate-100 whitespace-pre-wrap`}>Latest</span>
               )}
             </div>
           )}
