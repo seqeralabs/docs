@@ -112,22 +112,16 @@ html[data-theme="dark"] .aa-Panel {
   }
 }
 html[data-theme="dark"] .aa-Item {
-  /* Default color for items without specific styling */
-  color: #F1F1F1;
+  color: #F1F1F1;;
+  span {
+    color: #F1F1F1;;
+  }
+  a {
+    color: #F1F1F1;;
+  }
   &:hover {
     background-color: rgba(0, 0, 0, 0.4);
   }
-}
-
-/* Allow Tailwind classes to override default colors in search items */
-html[data-theme="dark"] .aa-Item .search-item-link {
-  /* Let Tailwind text- classes take precedence */
-  color: inherit;
-}
-
-html[data-theme="dark"] .aa-Item .search-item-link * {
-  /* Allow child elements to inherit colors from Tailwind classes */
-  color: inherit;
 }
 
 .aa-Source[data-autocomplete-source-id="ai-thread"] .aa-Item {
