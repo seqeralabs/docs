@@ -129,7 +129,7 @@ See [here](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#t
 
 ### Google Batch and Google Life Sciences
 
-When the compute environment is created with Forge, the following resources will be tagged using the labels associated with the compute environment:
+The following resources are tagged using the labels associated with the compute environment:
 
 **Submission time**
 

@@ -221,7 +221,7 @@ module.exports = {
     },
   },
   plugins: [
-    function ({ addUtilities, theme }) {
+    function ({ addBase, theme }) {
       function extractColorVars(colorObj, colorGroup = "") {
         return Object.keys(colorObj).reduce((vars, colorKey) => {
           const value = colorObj[colorKey];
@@ -235,7 +235,7 @@ module.exports = {
         }, {});
       }
 
-      addUtilities({
+      addBase({
         html: extractColorVars(theme("colors")),
       });
     },
