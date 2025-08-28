@@ -5,7 +5,7 @@
 /platform-cloud/platform-cloud /platform-cloud 301
 /platform-enterprise/:version/platform-enterprise /platform-enterprise/:version 301
 /platform-enterprise/platform-enterprise /platform-enterprise 301
-/platform-enterprise/latest/:splat /platform-enterprise/:splat 301
+/platform-enterprise/latest/* /platform-enterprise/:splat 301
 /platform-enterprise/latest /platform-enterprise 301
 
 # Drop the latest functionality redirect users to the "current version" which is the base URL.

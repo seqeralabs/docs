@@ -56,7 +56,7 @@ const NavItems = ({ isDark = false, hideMenu }) => {
               </ActiveLink>
             </li>
             <li>
-            <ActiveLink url="/platform-enterprise/" customClasses={styles.navItemSpacing}>
+            <ActiveLink url="/platform-enterprise" customClasses={styles.navItemSpacing}>
                 Enterprise
               </ActiveLink>
             </li>
