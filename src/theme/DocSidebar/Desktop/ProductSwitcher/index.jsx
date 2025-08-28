@@ -12,19 +12,19 @@ import VersionSwitcher from "./VersionSwitcher";
 const products = [
   {
     name: "Platform Cloud",
-    url: "/platform-cloud/",
+    url: "/platform-cloud",
   },
   {
     name: "Platform Enterprise",
-    url: "/platform-enterprise/",
+    url: "/platform-enterprise",
   },
   {
     name: "Nextflow",
     url: "https://www.nextflow.io/docs/latest/",
   },
-  { name: "MultiQC", url: "/multiqc/" },
-  { name: "Wave", url: "/wave/" },
-  { name: "Fusion", url: "/fusion/" },
+  { name: "MultiQC", url: "/multiqc" },
+  { name: "Wave", url: "/wave" },
+  { name: "Fusion", url: "/fusion" },
 ];
 
 const ProductSwitcher = ({ isDropdown }) => {
