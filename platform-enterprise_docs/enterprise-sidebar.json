@@ -202,7 +202,7 @@
         {
           "type": "link",
           "label": "API",
-          "href": "https://docs.seqera.io/platform-api"
+          "href": "https://docs.seqera.io/platform-api/"
         },
         {
           "type": "category",

@@ -51,7 +51,7 @@ const NavItems = ({ isDark = false, hideMenu }) => {
       <div className={styles.contentRow}>
           <ul className={styles.navList}>
             <li>
-            <ActiveLink url="/platform-cloud" customClasses={styles.navItemSpacing}>
+            <ActiveLink url="/platform-cloud/" customClasses={styles.navItemSpacing}>
                 Cloud
               </ActiveLink>
             </li>
@@ -97,7 +97,7 @@ const NavItems = ({ isDark = false, hideMenu }) => {
             </a>
           </li>
           <li>
-            <ActiveLink apiLink url="/platform-api" customClasses={styles.linkContainer}>
+            <ActiveLink apiLink url="platform-api/" customClasses={styles.linkContainer}>
               Platform API
             </ActiveLink>
           </li>

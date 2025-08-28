@@ -29,7 +29,7 @@ const ProductSwitcher = ({ product }) => {
     if (location.pathname.startsWith("/multiqc")) {
       product = "MultiQC";
     }
-    if (location.pathname.startsWith("/platform-cloud")) {
+    if (location.pathname.startsWith("/platform-cloud/")) {
       product = "Platform Cloud";
     }
     if (location.pathname.startsWith("/platform-enterprise")) {

@@ -48,7 +48,7 @@ export default async function createConfigAsync() {
     "@docusaurus/plugin-content-docs",
     {
       id: "platform-api",
-      routeBasePath: "/platform-api",
+      routeBasePath: "platform-api/",
       path: "platform-api-docs/docs",
       remarkPlugins: [(await require("remark-yaml-to-table")).default],
       sidebarPath: "platform-api-docs/docs/sidebar/sidebar.js",
@@ -173,8 +173,13 @@ export default async function createConfigAsync() {
     // Set the /<baseUrl>/ pathname under which your site is served
     // For GitHub pages deployment, it is often '/<projectName>/'
     baseUrl: "/",
-    // This is true to help with multi-site setups and redirects.
-    trailingSlash: true,
+
+    // This is false to help with multi-site setups and redirects.
+    // See 
+    //  - https://docusaurus.io/docs/api/docusaurus-config#trailingSlash 
+    //  - https://docusaurus.io/docs/deployment#deploying-to-netlify
+    //  - Important ensure pretty-urls is disabled.
+    trailingSlash: false,
 
     /*
      * Enable faster Docusaurus optimizations (experimental v4 features)
@@ -190,12 +195,12 @@ export default async function createConfigAsync() {
     future: {
       v4: true,
       experimental_faster: {
-        swcJsLoader: false,
-        swcJsMinimizer: false,
-        swcHtmlMinimizer: false,
-        lightningCssMinimizer: false,
+        swcJsLoader: true,
+        swcJsMinimizer: true,
+        swcHtmlMinimizer: true,
+        lightningCssMinimizer: true,
         rspackBundler: true,
-        mdxCrossCompilerCache: false,
+        mdxCrossCompilerCache: true,
       },
     },
 
@@ -308,7 +313,7 @@ export default async function createConfigAsync() {
         },
         items: [
           {
-            to: "/platform-cloud",
+            to: "/platform-cloud/",
             position: "left",
             label: "Platform Cloud",
           },
@@ -350,7 +355,7 @@ export default async function createConfigAsync() {
             target: "_blank",
           },
           {
-            to: "/platform-api",
+            to: "platform-api/",
             label: "Platform API",
             position: "left",
           },
@@ -376,7 +381,7 @@ export default async function createConfigAsync() {
               },
               {
                 label: "Platform Cloud",
-                to: "/platform-cloud",
+                to: "/platform-cloud/",
               },
             ],
           },
