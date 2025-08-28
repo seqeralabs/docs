@@ -7,10 +7,10 @@ const company = {
 const products = {
   Cloud: "/cloud",
   Enterprise: "/cloud-enterprise",
-  Nextflow: "/nextflow/",
-  MultiQC: "/multiqc/",
-  Wave: "/wave/",
-  Fusion: "/fusion/",
+  Nextflow: "/nextflow",
+  MultiQC: "/multiqc",
+  Wave: "/wave",
+  Fusion: "/fusion",
 };
 
 const help = {

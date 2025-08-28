@@ -21,7 +21,7 @@ To install Platform in your organization's infrastructure, [contact us](https://
 
 ## How to use Platform
 
-You can access your Seqera instance through the UI, the [API](https://docs.seqera.io/platform-api/info/seqera-api), the [CLI](../cli/overview), or in Nextflow directly using the `-with-tower` option.
+You can access your Seqera instance through the UI, the [API](https://docs.seqera.io/platform-api), the [CLI](../cli/overview), or in Nextflow directly using the `-with-tower` option.
 
 ### Platform web-based UI
 
@@ -36,7 +36,7 @@ You can access your Seqera instance through the UI, the [API](https://docs.seqer
 
 ### Seqera API
 
-See [API](https://docs.seqera.io/platform-api/info/seqera-api).
+See [API](https://docs.seqera.io/platform-api).
 
 ### Seqera CLI
 

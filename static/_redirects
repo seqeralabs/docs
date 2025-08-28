@@ -5,6 +5,8 @@
 /platform-cloud/platform-cloud /platform-cloud 301
 /platform-enterprise/:version/platform-enterprise /platform-enterprise/:version 301
 /platform-enterprise/platform-enterprise /platform-enterprise 301
+/platform-enterprise/latest/* /platform-enterprise/:splat 301
+/platform-enterprise/latest /platform-enterprise 301
 
 # Drop the latest functionality redirect users to the "current version" which is the base URL.
 /platform-cloud/latest/platform-cloud /platform-cloud 301
@@ -55,9 +57,9 @@
 /platform-cloud/compute-envs/google-cloud-lifesciences   /platform-cloud/compute-envs/overview   301
 
 #Redirect platform-api to intro page
-/platform-api                               /platform-api/info/seqera-api   301
-/platform-enterprise/:version/api/overview  /platform-api/info/seqera-api   301
-/platform-cloud/api/overview                /platform-api/info/seqera-api   301
+/platform-api/info/seqera-api               /platform-api   301
+/platform-enterprise/:version/api/overview  /platform-api   301
+/platform-cloud/api/overview                /platform-api   301
 
 #Redirect get started to tutorials
 /wave/get-started/*                         /wave/tutorials/:splat          301
