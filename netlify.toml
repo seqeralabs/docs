@@ -31,9 +31,3 @@
   from = "/assets/*"
   to = "https://seqera-docs-api.netlify.app/assets/:splat"
   status = 200
-
-# SPA fallback for client-side routing - must be last redirect
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200

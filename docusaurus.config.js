@@ -173,7 +173,8 @@ export default async function createConfigAsync() {
     // Set the /<baseUrl>/ pathname under which your site is served
     // For GitHub pages deployment, it is often '/<projectName>/'
     baseUrl: "/",
-    trailingSlash: false,
+    // This is true to help with multi-site setups and redirects.
+    trailingSlash: true,
 
     /*
      * Enable faster Docusaurus optimizations (experimental v4 features)
