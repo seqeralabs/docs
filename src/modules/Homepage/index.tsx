@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { JSX } from "react";
 import Layout from "@theme/Layout";
 import clsx from "clsx";
 
@@ -9,96 +9,94 @@ import styles from "./styles.module.css";
 
 import Link from "@docusaurus/Link";
 
-import CodeBlock from "@theme-original/CodeBlock";
+// import CodeBlock from "@theme-original/CodeBlock";
 
-import Fusion from "./images/fusion.inline.svg";
-import Nextflow from "./images/nextflow.inline.svg";
-import MultiQC from "./images/multiqc.inline.svg";
-import Platform from "./images/platform2.inline.svg";
-import Wave from "./images/wave.inline.svg";
+// import Fusion from "./images/fusion.inline.svg";
+// import Nextflow from "./images/nextflow.inline.svg";
+// import MultiQC from "./images/multiqc.inline.svg";
+// import Platform from "./images/platform2.inline.svg";
+// import Wave from "./images/wave.inline.svg";
 
-import Card from "../../components/Card";
-import Grid from "../../components/Grid";
+// import Card from "../../components/Card";
+// import Grid from "../../components/Grid";
 
-import Resources from "./Resources";
-import SearchBar from "@theme/SearchBar";
+// import Resources from "./Resources";
+// import SearchBar from "@theme/SearchBar";
 
-import { themes } from "prism-react-renderer";
+// import { themes } from "prism-react-renderer";
 import Button from "../../components/Button";
 
-const useCases = [
-  {
-    title: "Basic pipeline",
-    code: `
-workflow {
-  FASTQC(read_pairs_ch)
-  MULTIQC(FASTQC.out.collect())
-}`,
-  },
-  {
-    title: "Parallel execution",
-    code: `
-process SPLIT_SEQUENCES {
-  input:
-    path sequences
-  output:
-    path 'chunk_*'
+// const useCases = [
+//   {
+//     title: "Basic pipeline",
+//     code: `
+// workflow {
+//   FASTQC(read_pairs_ch)
+//   MULTIQC(FASTQC.out.collect())
+// }`,
+//   },
+//   {
+//     title: "Parallel execution",
+//     code: `
+// process SPLIT_SEQUENCES {
+//   input:
+//     path sequences
+//   output:
+//     path 'chunk_*'
 
-  script:
-  """
-  split -l 100 $sequences chunk_
-  """
-}
+//   script:
+//   """
+//   split -l 100 $sequences chunk_
+//   """
+// }
 
-workflow {
-  Channel
-    .fromPath('data/*.fa')
-    .set { sequences }
+// workflow {
+//   Channel
+//     .fromPath('data/*.fa')
+//     .set { sequences }
 
-  SPLIT_SEQUENCES(sequences)
-  SPLIT_SEQUENCES.out
-    .flatten()
-    .set { chunks }
+//   SPLIT_SEQUENCES(sequences)
+//   SPLIT_SEQUENCES.out
+//     .flatten()
+//     .set { chunks }
 
-  ALIGN(chunks)
-  MERGE(ALIGN.out.collect())
-}`,
-  },
-  {
-    title: "Conditional execution",
-    code: `
-workflow {
-  if (params.with_fusion) {
-    FUSION(input_ch)
-    PROCESS(FUSION.out)
-  } else {
-    PROCESS(input_ch)
-  }
-}`,
-  },
-  {
-    title: "Cloud execution",
-    code: `
-process {
-  executor = 'awsbatch'
-  queue = 'my-batch-queue'
-  container = 'nextflow/rnaseq-nf:latest'
-}
+//   ALIGN(chunks)
+//   MERGE(ALIGN.out.collect())
+// }`,
+//   },
+//   {
+//     title: "Conditional execution",
+//     code: `
+// workflow {
+//   if (params.with_fusion) {
+//     FUSION(input_ch)
+//     PROCESS(FUSION.out)
+//   } else {
+//     PROCESS(input_ch)
+//   }
+// }`,
+//   },
+//   {
+//     title: "Cloud execution",
+//     code: `
+// process {
+//   executor = 'awsbatch'
+//   queue = 'my-batch-queue'
+//   container = 'nextflow/rnaseq-nf:latest'
+// }
 
-aws {
-  region = 'eu-west-1'
-  batch {
-    cliPath = '/home/ec2-user/miniconda/bin/aws'
-  }
-}`,
-  },
-];
+// aws {
+//   region = 'eu-west-1'
+//   batch {
+//     cliPath = '/home/ec2-user/miniconda/bin/aws'
+//   }
+// }`,
+//   },
+// ];
 
 export default function Home(): JSX.Element {
   const isMobile = useMediaQuery("(max-width: 995px)");
   const disabled = true;
-  const [selectedUseCase, setSelectedUseCase] = useState(0);
-
   return (
     <Layout>
       <div className="homepage flex w-full pt-10">
@@ -120,7 +118,7 @@ export default function Home(): JSX.Element {
                 </p>
               </div>
               <Button
-                to="/platform-cloud/getting-started/quickstart-demo/comm-showcase"
+                to="/platform-cloud/getting-started/quickstart-demo/comm-showcase/"
                 blue
                 medium
                
@@ -166,17 +164,17 @@ export default function Home(): JSX.Element {
                       <p className="font-title typo-h4 font-medium mb-2">Platform</p>
                       <ul className="list-none p-0 leading-8 flex flex-col gap-1">
                         <li>
-                          <Link to="/platform-cloud/getting-started/quickstart-demo/add-pipelines">
+                          <Link to="/platform-cloud/getting-started/quickstart-demo/add-pipelines/">
                             Add pipelines
                           </Link>
                         </li>
                         <li>
-                          <Link to="/platform-cloud/getting-started/quickstart-demo/monitor-runs">
+                          <Link to="/platform-cloud/getting-started/quickstart-demo/monitor-runs/">
                             Monitor runs
                           </Link>
                         </li>
                         <li>
-                          <Link to="/platform-cloud/getting-started/quickstart-demo/automation">
+                          <Link to="/platform-cloud/getting-started/quickstart-demo/automation/">
                             Automation
                           </Link>
                         </li>
@@ -186,17 +184,17 @@ export default function Home(): JSX.Element {
                       <p className="font-title typo-h4 font-medium mb-2">Studios</p>
                       <ul className="list-none p-0 leading-8 flex flex-col gap-1">
                         <li>
-                          <Link to="/platform-cloud/studios/overview">
+                          <Link to="/platform-cloud/studios/overview/">
                             Studios overview
                           </Link>
                         </li>
                         <li>
-                          <Link to="/platform-enterprise/enterprise/studios">
+                          <Link to="/platform-enterprise/enterprise/studios/">
                             Enterprise deployment
                           </Link>
                         </li>
                         <li>
-                          <Link to="/platform-cloud/data/data-explorer">
+                          <Link to="/platform-cloud/data/data-explorer/">
                             Data Explorer
                           </Link>
                         </li>
@@ -208,7 +206,7 @@ export default function Home(): JSX.Element {
                       </p>
                       <ul className="list-none p-0 leading-8 flex flex-col gap-1">
                         <li>
-                          <a href="/platform-api">
+                          <a href="/platform-api/">
                             Platform API
                           </a>
                         </li>
@@ -228,17 +226,17 @@ export default function Home(): JSX.Element {
                       <p className="font-title typo-h4 font-medium mb-2">MultiQC</p>
                       <ul className="list-none p-0 leading-8 flex flex-col gap-1">
                         <li>
-                          <Link to="/multiqc/getting_started/quick_start">
+                          <Link to="/multiqc/getting_started/quick_start/">
                             Get started
                           </Link>
                         </li>
                         <li>
-                          <Link to="/multiqc/getting_started/running_multiqc">
+                          <Link to="/multiqc/getting_started/running_multiqc/">
                             Run MultiQC
                           </Link>
                         </li>
                         <li>
-                          <Link to="/multiqc/modules">Modules</Link>
+                          <Link to="/multiqc/modules/">Modules</Link>
                         </li>
                       </ul>
                     </div>
@@ -264,7 +262,7 @@ export default function Home(): JSX.Element {
                         </p>
                       </Link>
                       <Link
-                        to="/wave"
+                        to="/wave/"
                         className="flex-col items-start w-full max-w-full md:max-w-[30%] border border-gray-300 border-solid rounded-md p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-lg hover:border-brand dark:hover:border-brand-800"
                       >
                         <img
@@ -277,7 +275,7 @@ export default function Home(): JSX.Element {
                         </p>
                       </Link>
                       <Link
-                        to="/multiqc"
+                        to="/multiqc/"
                         className="flex-col items-start w-full max-w-full md:max-w-[30%] border border-gray-300 border-solid rounded-md p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-lg hover:border-brand dark:hover:border-brand-800"
                       >
                         <img
@@ -297,7 +295,7 @@ export default function Home(): JSX.Element {
                     </div>
                     <div className="flex flex-row flex-wrap w-full gap-4">
                       <Link
-                        to="/platform-cloud"
+                        to="/platform-cloud/"
                         className="flex-col items-start w-full max-w-full md:max-w-[30%] border border-gray-300 border-solid rounded-md p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-lg hover:border-brand dark:hover:border-brand-800"
                       >
                         <div className="w-6 h-6 mb-3 bg-[url('/img/cloud.svg')] dark:bg-[url('/img/cloud-white.svg')] bg-contain bg-no-repeat bg-center"></div>
@@ -306,7 +304,7 @@ export default function Home(): JSX.Element {
                         </p>
                       </Link>
                       <Link
-                        to="/platform-enterprise"
+                        to="/platform-enterprise/"
                         className="flex-col items-start w-full max-w-full md:max-w-[30%] border border-gray-300 border-solid rounded-md p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-lg hover:border-brand dark:hover:border-brand-800"
                       >
                         <div className="w-6 h-6 mb-3 bg-[url('/img/enterprise.svg')] dark:bg-[url('/img/enterprise-white.svg')] bg-contain bg-no-repeat bg-center"></div>
@@ -315,7 +313,7 @@ export default function Home(): JSX.Element {
                         </p>
                       </Link>
                       <Link
-                        to="/fusion"
+                        to="/fusion/"
                         className="flex-col items-start w-full max-w-full md:max-w-[30%] border border-gray-300 border-solid rounded-md p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-lg hover:border-brand dark:hover:border-brand-800"
                       >
                         <img
@@ -335,7 +333,7 @@ export default function Home(): JSX.Element {
                     </div>
                     <div className="flex flex-row flex-wrap w-full gap-4">
                       <Link
-                        to="/platform-cloud/compute-envs/aws-batch"
+                        to="/platform-cloud/compute-envs/aws-batch/"
                         className="flex-col items-start w-full max-w-full md:max-w-[30%] border border-gray-300 border-solid rounded-md p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-lg hover:border-brand dark:hover:border-brand-800"
                       >
                         <div className="w-6 h-6 mb-3 bg-[url('/img/aws.svg')] dark:bg-[url('/img/aws-white.svg')] bg-contain bg-no-repeat bg-center"></div>
@@ -344,7 +342,7 @@ export default function Home(): JSX.Element {
                         </p>
                       </Link>
                       <Link
-                        to="/platform-cloud/compute-envs/google-cloud-batch"
+                        to="/platform-cloud/compute-envs/google-cloud-batch/"
                         className="flex-col items-start w-full max-w-full md:max-w-[30%] border border-gray-300 border-solid rounded-md p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-lg hover:border-brand dark:hover:border-brand-800"
                       >
                         <div className="w-6 h-6 mb-3 bg-[url('/img/gcp.svg')] dark:bg-[url('/img/gcp-white.svg')] bg-contain bg-no-repeat bg-center"></div>
@@ -353,7 +351,7 @@ export default function Home(): JSX.Element {
                         </p>
                       </Link>
                       <Link
-                        to="/platform-cloud/compute-envs/azure-batch"
+                        to="/platform-cloud/compute-envs/azure-batch/"
                         className="flex-col items-start w-full max-w-full md:max-w-[30%] border border-gray-300 border-solid rounded-md p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-lg hover:border-brand dark:hover:border-brand-800"
                       >
                         <div className="w-6 h-6 mb-3 bg-[url('/img/azure.svg')] dark:bg-[url('/img/azure-white.svg')] bg-contain bg-no-repeat bg-center"></div>
