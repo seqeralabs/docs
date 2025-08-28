@@ -97,7 +97,7 @@ export default function ProductItem({ hit, components }) {
               )}
             </div>
           )}
-          {hit.url.includes('/cloud/') && (
+          {hit.url.includes('/platform-cloud/') && (
             <div className="flex items-start pb-2 last:pb-0">
               <span className={`${styles.productItemCta} text-xs mr-2 px-2 py-1 rounded-md`}>Seqera Cloud</span>
               <span className={`${styles.productItemVersion} text-xs px-2 py-1 rounded-md whitespace-pre-wrap`}>Latest</span>
