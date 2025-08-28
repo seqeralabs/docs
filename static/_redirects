@@ -1,5 +1,8 @@
 /nextflow           https://www.nextflow.io/docs/latest/ 301!
 
+# Add redirects for version non-existent 25.2 to current docs
+/platform-enterprise/25.2/*    /platform-enterprise/:splat    301
+
 # These redirects reverse the existing 301's 
 # See https://moz.com/blog/can-you-reverse-a-301-redirect
 /platform-cloud/platform-cloud /platform-cloud 301
