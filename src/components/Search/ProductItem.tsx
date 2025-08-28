@@ -36,7 +36,7 @@ export default function ProductItem({ hit, components }) {
 
   // Extract version from URL path
   const getVersionFromUrl = (url) => {
-    const versionMatch = url.match(/\/platform\/(\d+\.\d+)\//);
+    const versionMatch = url.match(/\/platform-enterprise\/(\d+\.\d+)\//);
     return versionMatch ? versionMatch[1] : null;
   };
 
