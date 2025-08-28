@@ -179,7 +179,7 @@ export default async function createConfigAsync() {
     //  - https://docusaurus.io/docs/api/docusaurus-config#trailingSlash 
     //  - https://docusaurus.io/docs/deployment#deploying-to-netlify
     //  - Important ensure pretty-urls is disabled.
-    trailingSlash: false,
+    trailingSlash: true,
 
     /*
      * Enable faster Docusaurus optimizations (experimental v4 features)
