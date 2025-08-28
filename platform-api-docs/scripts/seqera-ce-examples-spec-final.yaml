@@ -588,7 +588,7 @@ paths:
                 value:
                   computeEnv:
                     name: "google-batch-ce"
-                    description: "Minimal Google Cloud Batch compute environment with Wave and Fusion enabled"
+                    description: "Minimal Google Cloud Batch compute environment with Wave and Fusion v2 enabled"
                     platform: "google-batch"
                     credentialsId: "your-google-credentials-id"
                     config:
@@ -597,12 +597,23 @@ paths:
                       spot: true
                       waveEnabled: true
                       fusion2Enabled: true
-              AzureBatch:
-                description: "Minimal Azure Batch Forge compute environment with Wave and Fusion enabled"
+              GoogleCloud:
+                description: "Minimal Google Cloud compute environment with default instance type and image ID"
+                value:
+                  computeEnv:
+                    name: "google-cloud-ce"
+                    description: "Minimal Google Cloud compute environment with default instance type and image ID"
+                    platform: "google-cloud"
+                    credentialsId: "your-google-credentials-id"
+                    config:
+                      region: "europe-west2"
+                      workDir: "gs://your-bucket/work"
+              AzureBatchForge:
+                description: "Minimal Azure Batch Forge compute environment with Wave and Fusion v2 enabled"
                 value:
                   computeEnv:
                     name: "azure-batch-ce"
-                    description: "Minimal Azure Batch Forge compute environment with Wave and Fusion enabled"
+                    description: "Minimal Azure Batch Forge compute environment with Wave and Fusion v2 enabled"
                     platform: "azure-batch"
                     credentialsId: "your-azure-credentials-id"
                     config:
