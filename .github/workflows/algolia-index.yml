@@ -30,7 +30,7 @@ jobs:
         env:
           ALGOLIA_APP_ID: 5E8JEKSR3W
           ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
-          ALGOLIA_INDEX_NAME: "Docs Crawler (Staging)"
+          ALGOLIA_INDEX_NAME: "Docs Crawler"
         run: |
           node scripts/indexDocs.js
 
