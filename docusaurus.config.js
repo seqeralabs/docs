@@ -62,7 +62,7 @@ export default async function createConfigAsync() {
       docsPluginId: "classic", // configured for preset-classic
       config: {
         platform: {
-          specPath: "platform-api-docs/seqera-final-to-docs.yaml",
+          specPath: "platform-api-docs/scripts/seqera-ce-examples-spec-final.yaml",
           outputDir: "platform-api-docs/docs",
           sidebarOptions: {
             groupPathsBy: "tag",
