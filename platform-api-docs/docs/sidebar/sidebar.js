@@ -8,7 +8,7 @@ module.exports = {
       type: "doc",
       id: "info/seqera-api",
     },
-    { type: "doc", id: "service-info", label: "API service info", className: "api-method get" },
+    { type: "doc", id: "info", label: "API service info", className: "api-method get" },
     {
       type: "category",
       label: "Credentials",
