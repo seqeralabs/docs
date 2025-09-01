@@ -46,7 +46,7 @@
           "items": [
             "cli/index",
             "cli/installation",
-            "cli/reference"
+            "cli/use-cases"
           ]
         }
       ]
