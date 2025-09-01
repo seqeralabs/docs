@@ -1,10 +1,15 @@
 name: Update Algolia Index
 
 on:
-  push:
-    branches:
-      - main
+  # Run nightly at 2 AM UTC (avoids peak usage times)
+  schedule:
+    - cron: '0 2 * * *'
+  # Allow manual triggering
   workflow_dispatch:
+  # Optional: run on pushes to main for immediate updates (remove if you want nightly-only)
+  # push:
+  #   branches:
+  #     - main
 
 jobs:
   update-index:
@@ -13,20 +18,22 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
-
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: "22"
-
       - name: Install dependencies
         run: |
-          npm install # Ensure `gray-matter` is in package.json
-
+          npm ci
+          npm install gray-matter
       - name: Parse and Index Docs
         env:
           ALGOLIA_APP_ID: 5E8JEKSR3W
           ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
-          ALGOLIA_INDEX_NAME: test_docs_webhooks
+          ALGOLIA_INDEX_NAME: "Docs Crawler"
+        run: |
+          node scripts/indexDocs.js
+
+      - name: Summary
         run: |
           node scripts/indexDocs.js

@@ -294,7 +294,7 @@ export default function Search() {
                               indexName: envIndexName,
                               params: {
                                 query,
-                                hitsPerPage: 5,
+                                hitsPerPage: 20,
                                 attributesToHighlight: ['*'],
                               },
                             },
@@ -355,7 +355,7 @@ export default function Search() {
         </svg>
         <span className="hidden md:block"> Search docs...</span>
         <span
-          className="hidden md:flex ml-2 text-xs px-1.5 py-0.5 rounded"
+          className="hidden md:flex ml-2 text-xs px-1.5 py-0.5 rounded-sm"
           style={{ border: "1px solid #d1d5db" }}
         >
           ⌘K
