@@ -138,6 +138,7 @@ export default async function createConfigAsync() {
         (await require("remark-math")).default,
         (await import("docusaurus-remark-plugin-tab-blocks")).default,
         (await require("remark-yaml-to-table")).default,
+        (await require("remark-deflist")).default,
       ],
       rehypePlugins: [(await require("rehype-katex")).default],
       editUrl: ({ docPath }) => {
@@ -237,6 +238,7 @@ export default async function createConfigAsync() {
             customCss: [
               require.resolve("./src/css/main.css"),
               require.resolve("./src/css/typography.css"),
+              require.resolve("./src/css/def-list.css"),
               require.resolve("./src/css/misc.css"),
               require.resolve("./src/css/components/checklist.css"),
               require.resolve("./src/css/components/box.css"),

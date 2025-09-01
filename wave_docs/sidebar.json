@@ -18,17 +18,18 @@
       "collapsed": true,
       "items": [
         "install/docker-compose",
-        "install/kubernetes"
+        "install/kubernetes",
+        "install/configure-wave-build"
       ]
     },
     {
       "type": "category",
       "label": "Configuration",
       "collapsed": true,
-      "items": [   
+      "items": [
+        "configuration",
         "wave-lite",     
-        "install/configure-wave",
-        "install/configure-wave-build"
+        "install/configure-wave"
       ]
     },
     "provisioning",
