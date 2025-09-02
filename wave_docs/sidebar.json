@@ -27,9 +27,9 @@
       "label": "Configuration",
       "collapsed": true,
       "items": [
-        "configuration",
-        "wave-lite",     
-        "install/configure-wave"
+        "wave-lite",
+        "configure-wave",
+        "reference"
       ]
     },
     "provisioning",
