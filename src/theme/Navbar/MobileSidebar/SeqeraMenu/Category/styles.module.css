@@ -2,8 +2,12 @@
 
 .menuList {
   margin-right: 1.5rem;
+  list-style: none;
+  padding: 0;
  li a {
     font-size: 1rem;
+    color: var(--color-brand);
+    text-decoration: none;
   }
 
   li {
