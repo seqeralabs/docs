@@ -18,7 +18,8 @@
       "collapsed": true,
       "items": [
         "install/docker-compose",
-        "install/kubernetes"
+        "install/kubernetes",
+        "install/configure-wave-build"
       ]
     },
     {
@@ -27,8 +28,7 @@
       "collapsed": true,
       "items": [   
         "wave-lite",     
-        "install/configure-wave",
-        "install/configure-wave-build"
+        "install/configure-wave"
       ]
     },
     "provisioning",
@@ -46,7 +46,7 @@
           "items": [
             "cli/index",
             "cli/installation",
-            "cli/reference"
+            "cli/use-cases"
           ]
         }
       ]
