@@ -1,7 +1,7 @@
 {
   "sidebar": [
     "index",
-      {
+    {
       "type": "category",
       "label": "Tutorials",
       "link": {"type": "doc", "id": "tutorials/index"},
