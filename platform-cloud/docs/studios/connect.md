@@ -7,7 +7,7 @@ tags: [connect, changelog, connect-changelog]
 
 ## Connect server
 
-### server/v0.8.2 - 2025-07-21
+### server/v0.8.2 `latest` - 2025-07-21
 
 * Add ability to set tool identifier after compile time
 * Add mount data to initial configuration logs
@@ -211,7 +211,18 @@ tags: [connect, changelog, connect-changelog]
 
 ## Connect client
 
-### client/v0.8.4 `latest` - 2025-07-18
+### client/v0.8.5 `latest` - 2025-07-29
+
+* Feat: send squash notifications to platform 
+* Feat: add Claude Code review 
+* build(server): add slack notification for enterprise release
+* build(server): add missing slack webhook secret 
+* build(server): temp fix for -rc releases 
+* Extract Fusion version 
+* fix(proxy): include prefix in Location header
+* released 0.8.2 - bump server version
+
+### client/v0.8.4 - 2025-07-18
 
 * Feat: add optional `CONNECT_TOOL_PATH_PREFIX` as base URL
 * Feat: install pip for VS Code images
