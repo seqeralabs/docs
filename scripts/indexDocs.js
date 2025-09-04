@@ -52,13 +52,14 @@ function extractTextContent(markdownContent) {
 
 function generateUrlFromPath(filePath) {
   // Convert file path to URL path - must match your actual site URLs
-  let url = filePath    
+  let url = filePath   
+    .replace(/^platform-enterprise_docs\/version-([^\/]+)\//, '/platform-enterprise/$1/') 
     .replace(/^platform-enterprise_versioned_docs\/version-([^\/]+)\//, '/platform-enterprise/$1/')
     .replace(/^fusion_docs\//, '/fusion/')
     .replace(/^wave_docs\//, '/wave/')
     .replace(/^multiqc_docs\//, '/multiqc/')
     .replace(/^platform-cloud\/docs\//, '/platform-cloud/')
-    .replace(/^platform-api-docs\/docs\//, '/api/')
+    .replace(/^platform-api-docs\/docs\//, '/platform-api/')
     .replace(/\.mdx?$/, '')
     .replace(/\/index$/, '');
   
