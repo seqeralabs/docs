@@ -90,7 +90,3 @@ h1,h2,h3,h4,h5,h6 {
     font-size: 80%;
   }
 }
-
-.markdown > h2.openapi__method-endpoint-path {
-  font-size: 1rem;
-}
