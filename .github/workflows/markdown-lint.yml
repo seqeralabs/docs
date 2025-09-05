@@ -7,9 +7,17 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: DavidAnson/markdownlint-cli2-action@v15
+      - name: Checkout repository
+        uses: actions/checkout@v5
+               
+      - uses: tj-actions/changed-files@v44
+        id: changed-files
         with:
-          # Only finds files with directory, glob, then *.mdx file glob
-          globs: |
-            platform-enterprise_versioned_docs/**/*.mdx
+          files: '**/*.md'
+          separator: ","
+
+      - uses: DavidAnson/markdownlint-cli2-action@v16
+        if: steps.changed-files.outputs.any_changed == 'true'
+        with:
+          globs: ${{ steps.changed-files.outputs.all_changed_files }}
+          separator: ","

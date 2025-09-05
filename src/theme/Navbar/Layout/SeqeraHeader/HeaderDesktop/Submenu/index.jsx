@@ -30,10 +30,10 @@ const Submenu = ({ hideMenu }) => {
           exit="exit"
           variants={navVariants}
           transition={transition}
-          className= {clsx(styles.submenu, 'absolute top-16 right-4 rounded-md shadow-lg border z-[999]')}
+          className={styles.submenu}
         >
         
-            <div className="w-full h-full pt-2">
+            <div className={styles.submenuContent}>
               {activeMenu === "resources" && <Resources />}
             </div>
        

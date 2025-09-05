@@ -114,7 +114,6 @@ After you have created a resource group and storage account, create a [Batch acc
     :::
 
     - **Batch accounts per region per subscription**: Set this to the number of Azure Batch accounts per region per subscription. Only one is required.
-    - **Spot/low-priority vCPUs**: Platform does not support spot or low-priority machines when using Forge, so when using Forge this number can be zero. When manually setting up a pool, select an appropriate number of concurrent vCPUs here.
     - **Total Dedicated vCPUs per VM series**: See the Azure documentation for [virtual machine sizes][az-vm-sizes] to help determine the machine size you need. We recommend the latest version of the ED series available in your region as a cost-effective and appropriately-sized machine for running Nextflow. However, you will need to select alternative machine series that have additional requirements, such as those with additional GPUs or faster storage. Increase the quota by the number of required concurrent CPUs. In Azure, machines are charged per cpu minute so there is no additional cost for a higher number.
 
 ### Compute environment
@@ -161,9 +160,9 @@ Create a Batch Forge compute environment:
 1. Apply [**Resource labels**](../resource-labels/overview). This will populate the **Metadata** fields of the Batch pool.
 1. Expand **Staging options** to include:
     - Optional [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
-    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch. 
+    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch.
     :::info
-    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority. 
+    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
     :::
 1. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
 1. Configure any advanced options you need:
@@ -202,14 +201,14 @@ Your Seqera compute environment uses resources that you may be charged for in yo
 1. Set the **Config mode** to **Manual**.
 1. Enter the **Compute Pool name**. This is the name of the Batch pool you created previously in the Azure Batch account.
     :::note
-    The default Azure Batch implementation uses a single pool for head and compute nodes. To use separate pools for head and compute nodes (for example, to use low-priority VMs for compute jobs), see [this FAQ entry](../troubleshooting_and_faqs/azure_troubleshooting).
+    The default Azure Batch implementation uses a single pool for head and compute nodes. To use separate pools for head and compute nodes, see [this FAQ entry](../troubleshooting_and_faqs/azure_troubleshooting).
     :::
 1. Apply [**Resource labels**](../resource-labels/overview). This will populate the **Metadata** fields of the Azure Batch pool.
 1. Expand **Staging options** to include:
     - Optional [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
-    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch. 
+    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch.
     :::info
-    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority. 
+    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
     :::
     :::info
     To use managed identities, Platform requires Nextflow version 24.10.0 or later.

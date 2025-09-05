@@ -13,21 +13,22 @@ jobs:
   linkChecker:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
 
-      - name: Omit files
+      - name: Remove TODO and README files from link checking
         run: find platform-enterprise_versioned_docs -type f \( -name 'README.mdx' -o -name '_todo.mdx' \) -exec rm {} +
 
-      - name: Link Checker
+      - name: Check external links in documentation
         id: lychee
-        uses: lycheeverse/lychee-action@v1
-        # --verbose --no-progress
+        uses: lycheeverse/lychee-action@v2
         with:
           args: --base . -v -n -s https -s http './**/*.mdx'
 
-      - name: Create Issue From File
-        if: env.lychee_exit_code != 0
-        uses: peter-evans/create-issue-from-file@v4
+      - name: Create GitHub issue for broken links
+        if: steps.lychee.outputs.exit_code != 0
+        uses: peter-evans/create-issue-from-file@v5
         with:
           title: Link Checker Report
           content-filepath: ./lychee/out.md

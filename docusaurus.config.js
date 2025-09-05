@@ -1,7 +1,6 @@
 import { themes } from "prism-react-renderer";
 const path = require("path");
 import "dotenv/config";
-
 import platform_enterprise_latest_version from "./platform-enterprise_latest_version.js";
 
 export default async function createConfigAsync() {
@@ -21,7 +20,7 @@ export default async function createConfigAsync() {
       description: "Stay updated with our blog posts!",
       copyright: `Copyright © ${new Date().getFullYear()} Seqera`,
     },
-    onUntruncatedBlogPosts: 'ignore',
+    onUntruncatedBlogPosts: "ignore",
   };
 
   const docs_platform_enterprise = [
@@ -29,7 +28,10 @@ export default async function createConfigAsync() {
     {
       id: "platform-enterprise",
       routeBasePath: "/platform-enterprise",
-      includeCurrentVersion: false,
+      path: "platform-enterprise_docs",
+      // For PR Previews we want to see the latest doc-set with expected changes.
+      includeCurrentVersion: process.env.INCLUDE_NEXT ? true : false,
+      lastVersion: platform_enterprise_latest_version,
       remarkPlugins: [
         (await import("remark-code-import")).default,
         (await require("remark-math")).default,
@@ -38,15 +40,7 @@ export default async function createConfigAsync() {
       ],
       rehypePlugins: [(await require("rehype-katex")).default],
       editUrl: "https://github.com/seqeralabs/docs/tree/master/",
-      sidebarPath: false,
-      versions: {
-        // Replace /platform-enterprise with /platform-enterprise/24.2, when no version is specified in the URL.
-        // (Applies to latest version only)
-        [platform_enterprise_latest_version]: {
-          label: platform_enterprise_latest_version,
-          path: platform_enterprise_latest_version,
-        },
-      },
+      sidebarPath: "platform-enterprise_docs/enterprise-sidebar.json",
     },
   ];
 
@@ -68,7 +62,7 @@ export default async function createConfigAsync() {
       docsPluginId: "classic", // configured for preset-classic
       config: {
         platform: {
-          specPath: "platform-api-docs/seqera-final-to-docs.yaml",
+          specPath: "platform-api-docs/scripts/seqera-ce-examples-spec-final.yaml",
           outputDir: "platform-api-docs/docs",
           sidebarOptions: {
             groupPathsBy: "tag",
@@ -166,6 +160,7 @@ export default async function createConfigAsync() {
     "\n  EXCLUDE_MULTIQC: " + (process.env.EXCLUDE_MULTIQC ? true : false),
     "\n  EXCLUDE_FUSION: " + (process.env.EXCLUDE_FUSION ? true : false),
     "\n  EXCLUDE_WAVE: " + (process.env.EXCLUDE_WAVE ? true : false),
+    "\n  INCLUDE_NEXT: " + (process.env.INCLUDE_NEXT ? true : false),
   );
 
   return {
@@ -180,13 +175,40 @@ export default async function createConfigAsync() {
     baseUrl: "/",
     trailingSlash: false,
 
+    /*
+     * Enable faster Docusaurus optimizations (experimental v4 features)
+     * Reference: https://github.com/facebook/docusaurus/issues/10556
+     *
+     * WARNING: swcJsMinimizer & lightningCssMinimizer are disabled due to memory issues
+     * - Cause excessive memory usage leading to build failures
+     * - The believe is that our 22k of OpenAPI docs causes this issue due to the way they are generated.
+     * - See: https://github.com/PaloAltoNetworks/docusaurus-openapi-docs/issues/1025
+     *
+     * These optimizations may require additional configuration when memory issues are resolved.
+     */
+    future: {
+      v4: true,
+      experimental_faster: {
+        swcJsLoader: false,
+        swcJsMinimizer: false,
+        swcHtmlMinimizer: false,
+        lightningCssMinimizer: false,
+        rspackBundler: true,
+        mdxCrossCompilerCache: false,
+      },
+    },
+
     // GitHub pages deployment config.
     // If you aren't using GitHub pages, you don't need these.
     organizationName: "seqeralabs", // Usually your GitHub org/user name.
     projectName: "docs", // Usually your repo name.
 
-    onBrokenLinks: "warn",
-    onBrokenMarkdownLinks: "warn",
+    onBrokenLinks:
+      process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
+    onBrokenMarkdownLinks:
+      process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
+    onBrokenAnchors:
+      process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
 
     customFields: {
       // Put your custom environment here
@@ -243,27 +265,27 @@ export default async function createConfigAsync() {
       process.env.EXCLUDE_FUSION ? null : docs_fusion,
       process.env.EXCLUDE_WAVE ? null : docs_wave,
 
+      // Disable expensive bundler options.
+      // https://github.com/facebook/docusaurus/pull/11176
+      function disableExpensiveBundlerOptimizations() {
+        return {
+          name: "disable-expensive-bundler-optimizations",
+          configureWebpack(_config, isServer) {
+            return {
+              optimization: {
+                concatenateModules: false,
+              },
+            };
+          },
+        };
+      },
+
       async function tailwind() {
         return {
           name: "docusaurus-tailwindcss",
           configurePostCss(postcssOptions) {
-            postcssOptions.plugins.push(require("tailwindcss"));
-            postcssOptions.plugins.push(require("autoprefixer"));
+            postcssOptions.plugins = [require("@tailwindcss/postcss")];
             return postcssOptions;
-          },
-        };
-      },
-      function routing() {
-        return {
-          name: "latest-routing",
-          async contentLoaded({ actions }) {
-            [
-              {
-                path: "/platform-enterprise/latest",
-                exact: false,
-                component: "@site/src/pages/platform-enterprise/latest.tsx",
-              },
-            ].map((route) => actions.addRoute(route));
           },
         };
       },
@@ -277,26 +299,22 @@ export default async function createConfigAsync() {
           src: "img/Logo.svg",
           srcDark: "img/LogoWhite.svg",
           width: "180px",
-          className: 'w-[100px]'
+          height: "40px",
+          style: {
+            width: "180px",
+            height: "40px"
+          }
         },
         items: [
-           // Note: This workaround was added to resolve pages from 404ing when navigating away from platform-api paths, due to separate build implementation. 
-           // TODO: Revert urls once we have docs in a single build
           {
-            // to: "/platform-cloud/",
-            // position: "left",
-            // label: "Platform Cloud",
-            type: 'html',
-            position: 'left',
-            value: '<a href="https://docs.seqera.io/platform-cloud/platform-cloud" class="menu__link">Platform Cloud</a>'
+            to: "/platform-cloud",
+            position: "left",
+            label: "Platform Cloud",
           },
           {
-            // to: "/platform-enterprise/",
-            // position: "left",
-            // label: "Platform Enterprise",
-            type: 'html',
-            position: 'left',
-            value: '<a href="https://docs.seqera.io/platform-enterprise/latest/platform-enterprise" class="menu__link">Platform Enterprise</a>'
+            to: "/platform-enterprise",
+            position: "left",
+            label: "Platform Enterprise",
           },
           {
             type: "docsVersionDropdown",
@@ -310,28 +328,19 @@ export default async function createConfigAsync() {
             target: "_blank",
           },
           {
-            // to: "/multiqc/",
-            // label: "MultiQC",
-            // position: "left",
-            type: 'html',
-            position: 'left',
-            value: '<a href="https://docs.seqera.io/multiqc/" class="menu__link">MultiQC</a>'
+            to: "/multiqc",
+            label: "MultiQC",
+            position: "left",
           },
           {
-            // to: "/wave/",
-            // label: "Wave",
-            // position: "left",
-            type: 'html',
-            position: 'left',
-            value: '<a href="https://docs.seqera.io/wave/" class="menu__link">Wave</a>'
+            to: "/wave",
+            label: "Wave",
+            position: "left",
           },
           {
-            // to: "/fusion/",
-            // label: "Fusion",
-            // position: "left",
-            type: 'html',
-            position: 'left',
-            value: '<a href="https://docs.seqera.io/fusion/" class="menu__link">Fusion</a>'
+            to: "/fusion",
+            label: "Fusion",
+            position: "left",
           },
           {
             to: "https://training.nextflow.io/latest/",
@@ -340,24 +349,21 @@ export default async function createConfigAsync() {
             target: "_blank",
           },
           {
-            // to: "/platform-api/seqera-api",
-            // label: "Platform API",
-            // position: "left",
-            type: 'html',
-            position: 'left',
-            value: '<a href="https://docs.seqera.io/platform-api/seqera-api" class="menu__link">Platform API</a>'
+            to: "/platform-api",
+            label: "Platform API",
+            position: "left",
           },
         ],
       },
       footer: {
         style: "dark",
         logo: {
-          alt: 'Seqera Docs logo',
-          src: 'img/icon.svg', 
+          alt: "Seqera Docs logo",
+          src: "img/icon.svg",
           srcDark: "img/iconLight.svg",
-          href: 'https://docs.seqera.io', 
-          width: 25,  
-          height: 25, 
+          href: "https://docs.seqera.io",
+          width: 25,
+          height: 25,
         },
         links: [
           {
@@ -365,11 +371,11 @@ export default async function createConfigAsync() {
             items: [
               {
                 label: "Platform Enterprise",
-                to: "/platform-enterprise/latest/platform-enterprise",
+                to: "/platform-enterprise",
               },
               {
                 label: "Platform Cloud",
-                to: "/platform-cloud/platform-cloud",
+                to: "/platform-cloud",
               },
             ],
           },
@@ -439,7 +445,6 @@ export default async function createConfigAsync() {
           language: "powershell",
           logoClass: "powershell",
         },
-
       ],
       prism: {
         theme: themes.oneLight,

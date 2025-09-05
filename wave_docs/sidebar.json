@@ -1,35 +1,54 @@
 {
   "sidebar": [
-    {
+    "index",
+        {
       "type": "category",
-      "label": "Wave",
-      "collapsed": false,
+      "label": "Tutorials",
+      "link": {"type": "doc", "id": "tutorials/index"},
+      "collapsed": true,
       "items": [
-        "index",
-        "get-started",
-        "provisioning"
+          "tutorials/nextflow-wave",
+          "tutorials/nextflow-seqera-containers",
+          "tutorials/wave-cli" 
       ]
     },
     {
       "type": "category",
       "label": "Installation",
-      "collapsed": false,
+      "collapsed": true,
       "items": [
         "install/docker-compose",
         "install/kubernetes",
-        "install/configuring-wave",
-        "install/configuring-wave-build"
+        "install/configure-wave-build"
       ]
     },
+    {
+      "type": "category",
+      "label": "Configuration",
+      "collapsed": true,
+      "items": [   
+        "wave-lite",     
+        "install/configure-wave"
+      ]
+    },
+    "provisioning",
     "nextflow",
     {
       "type": "category",
       "label": "Developer tools",
-      "collapsed": false,
+      "collapsed": true,
       "items": [
-        "cli/index",
-        "cli/reference",
-        "api"
+        "api",
+        {
+          "type": "category",
+          "label": "CLI",
+          "collapsed": true,
+          "items": [
+            "cli/index",
+            "cli/installation",
+            "cli/use-cases"
+          ]
+        }
       ]
     },
     "faq",
