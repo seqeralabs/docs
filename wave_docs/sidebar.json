@@ -32,7 +32,16 @@
       ]
     },
     "provisioning",
-    "nextflow",
+    {
+      "type": "category",
+      "label": "Nextflow",
+      "collapsed": true,
+      "items": [   
+        "nextflow/overview",     
+        "nextflow/use-cases",
+        "nextflow/reference"
+      ]
+    },
     {
       "type": "category",
       "label": "Developer tools",
