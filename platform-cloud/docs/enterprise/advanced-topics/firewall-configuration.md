@@ -7,7 +7,7 @@ tags: [firewall, configuration]
 
 Seqera Platform Cloud ([cloud.seqera.io](https://cloud.seqera.io)) may need to connect to resources within your network, e.g., your storage server. To do so, your firewall must be configured to allow certain IPs to reach your resources.
 
-A dynamic list of IPs is kept up-to-date at https://meta.seqera.io.
+A dynamic list of IPs is kept up-to-date at https://meta.seqera.io/v3.
 
 This endpoint returns a JSON object that can be parsed to dynamically adapt your firewall, e.g., in Python with the `requests` package:
 
