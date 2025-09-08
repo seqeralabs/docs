@@ -37,7 +37,7 @@
       "label": "Nextflow",
       "collapsed": true,
       "items": [   
-        "nextflow/overview",     
+        "nextflow/index",     
         "nextflow/use-cases",
         "nextflow/reference"
       ]
