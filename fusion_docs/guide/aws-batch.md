@@ -26,7 +26,7 @@ parallel to and from the object storage and container-local temporary directory 
 
 Several AWS EC2 instance types include one or more NVMe SSD volumes. These volumes must be formatted to be used. See [SSD instance storage](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ssd-instance-store.html) for details.
 
-Seqera Platform automatically formats and configures NVMe instance storage with the **Fast instance storage** option when you create an AWS Batch compute environment.
+Seqera Platform automatically formats and configures NVMe instance storage with the **Fast instance storage** option when you create an AWS Batch compute environment using **Batch Forge**.
 :::
 
 1. Add the following to your `nextflow.config` file:
@@ -59,7 +59,16 @@ Seqera Platform automatically formats and configures NVMe instance storage with 
     - `<S3_BUCKET>`: your S3 bucket.
 
 :::tip
-You can use an EBS gp3 volume with a throughput of 325 MiB/s (or more) and a size of 100 GiB (or larger) as an alternative to configuring NVMe storage on your compute node. While slower than NVMe storage, this configuration provides sufficient performance for many workloads.
+**Storage recommendations for Fusion scratch space:**
+
+**For small workloads:** You can use an EBS gp3 volume with a throughput of 325 MiB/s (or more) and a size of 100 GiB as an alternative to configuring NVMe storage on your compute node. While slower than NVMe storage, this configuration provides sufficient performance for smaller instances and workloads.
+
+The scratch space at `/tmp` is shared by all tasks running on the instance. For large instances running many concurrent tasks, insufficient scratch space can cause backpressure and significant performance slowdowns.
+
+**For production workloads:** Consider these options based on your requirements:
+- **Use NVMe storage (recommended):** NVMe disks provide better performance and their capacity scales with instance size
+- **Use larger EBS volumes:** Scale EBS volume size with instance size (400 GiB or more may be required for larger instances hosting many concurrent tasks)
+- **Manual compute environments:** Scale EBS volume size proportionally with the number of CPUs via a custom launch template to ensure adequate scratch space per task
 :::
 
 ### IAM permissions
