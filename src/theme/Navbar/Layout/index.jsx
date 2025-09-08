@@ -14,7 +14,6 @@ import SeqeraHeader from "./SeqeraHeader";
 import styles from "./styles.module.css";
 import custom from "./styles.custom.module.css";
 import useMediaQuery from "./SeqeraHeader/hooks/useMediaQuery";
-import Search from "@site/src/components/Search/Search";
 import { useColorMode } from "@docusaurus/theme-common";
 import Sun from "./SeqeraHeader/HeaderDesktop/NavItems/images/SunIcon.svg";
 import Moon from "./SeqeraHeader/HeaderDesktop/NavItems/images/MoonIcon.svg";
@@ -100,7 +99,7 @@ export default function NavbarLayout({ children }) {
             {colorMode === "light" ? <Sun size={50} /> : <Moon size={24} />}
           </span>
         </button>
-        <Search />
+    
         <NavbarMobileSidebar />
       </nav>
     </Container>
