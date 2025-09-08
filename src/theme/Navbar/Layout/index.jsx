@@ -92,7 +92,7 @@ export default function NavbarLayout({ children }) {
         <button
           onClick={() => setColorMode(colorMode === "dark" ? "light" : "dark")}
           aria-label="Toggle Light or Dark Mode"
-          className="flex flex-row mr-3"
+          className="flex flex-row mr-7"
         >
           <span className="">
             {" "}
