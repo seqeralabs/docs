@@ -39,7 +39,7 @@
       "items": [   
         "nextflow/index",     
         "nextflow/use-cases",
-        "nextflow/reference"
+        "nextflow/configuration"
       ]
     },
     {
