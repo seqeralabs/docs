@@ -34,7 +34,7 @@ Ensure your Enterprise instance can communicate with the following Seqera-hosted
 
 ### Restricting outbound traffic
 
-To restrict outbound traffic from your Enterprise installation, you must allow access to Seqera assets hosted on Cloudflare, Nextflow assets hosted on Github artifacts, and any code hosting solutions or third party dependancies you require, such as Github, Gitlab, or Artifactory.
+To restrict outbound traffic from your Enterprise installation, you must allow access to Seqera assets hosted on Cloudflare, Nextflow assets hosted on GitHub artifacts, and any code hosting solutions or third-party dependencies you require, such as GitHub, GitLab, or Artifactory.
 
 ## HTTP proxy environment variables
 
