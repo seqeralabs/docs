@@ -59,8 +59,6 @@ Seqera Platform automatically formats and configures NVMe instance storage with 
     - `<S3_BUCKET>`: your S3 bucket.
 
 :::tip
-**Storage recommendations for Fusion scratch space:**
-
 **For small workloads:** You can use an EBS gp3 volume with a throughput of 325 MiB/s (or more) and a size of 100 GiB as an alternative to configuring NVMe storage on your compute node. While slower than NVMe storage, this configuration provides sufficient performance for smaller instances and workloads.
 
 The scratch space at `/tmp` is shared by all tasks running on the instance. For large instances running many concurrent tasks, insufficient scratch space can cause backpressure and significant performance slowdowns.
