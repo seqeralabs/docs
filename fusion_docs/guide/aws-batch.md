@@ -1,8 +1,9 @@
 ---
 title: AWS Batch
 description: "Use Fusion with AWS Batch and S3 storage"
-date: "23 Aug 2024"
-tags: [fusion, storage, compute, aws batch, s3]
+date created: "2024-08-23"
+last updated: "2025-09-09"
+tags: [fusion, storage, compute, aws-batch, s3]
 ---
 
 Fusion simplifies and improves the efficiency of Nextflow pipelines in [AWS Batch](https://aws.amazon.com/batch/) in several ways:
@@ -14,15 +15,14 @@ Fusion simplifies and improves the efficiency of Nextflow pipelines in [AWS Batc
 
 ### Platform AWS Batch compute environments 
 
-Seqera Platform supports Fusion in Batch Forge and manual AWS Batch compute environments. 
+Seqera Platform supports Fusion in Batch Forge and manual AWS Batch compute environments.
 
 See [AWS Batch](https://docs.seqera.io/platform-cloud/compute-envs/aws-batch) for compute and storage recommendations and instructions to enable Fusion.
 
 ### Nextflow CLI
 
 :::tip
-Fusion file system implements a lazy download and upload algorithm that runs in the background to transfer files in
-parallel to and from the object storage and container-local temporary directory (`/tmp`).
+Fusion file system implements a lazy download and upload algorithm that runs in the background to transfer files in parallel to and from the object storage and container-local temporary directory (`/tmp`).
 
 Several AWS EC2 instance types include one or more NVMe SSD volumes. These volumes must be formatted to be used. See [SSD instance storage](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ssd-instance-store.html) for details.
 
@@ -64,9 +64,9 @@ Seqera Platform automatically formats and configures NVMe instance storage with 
 The scratch space at `/tmp` is shared by all tasks running on the instance. For large instances running many concurrent tasks, insufficient scratch space can cause backpressure and significant performance slowdowns.
 
 **For production workloads:** Consider these options based on your requirements:
-- **Use NVMe storage (recommended):** NVMe disks provide better performance and their capacity scales with instance size
-- **Use larger EBS volumes:** Scale EBS volume size with instance size (400 GiB or more may be required for larger instances hosting many concurrent tasks)
-- **Manual compute environments:** Scale EBS volume size proportionally with the number of CPUs via a custom launch template to ensure adequate scratch space per task
+- **Use NVMe storage (recommended):** NVMe disks provide better performance and their capacity scales with instance size.
+- **Use larger EBS volumes:** Scale EBS volume size with instance size (400 GiB or more may be required for larger instances hosting many concurrent tasks).
+- **Manual compute environments:** Scale EBS volume size proportionally with the number of CPUs via a custom launch template to ensure adequate scratch space per task.
 :::
 
 ### IAM permissions
