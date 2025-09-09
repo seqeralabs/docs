@@ -1,7 +1,8 @@
 ---
 title: "Illumina DRAGEN"
 description: "Instructions to integrate Illumina DRAGEN with Seqera Platform."
-date: "24 Apr 2023"
+date created: "2023-08-24"
+last updated: "2025-09-09"
 tags: [dragen, integration]
 ---
 
@@ -15,9 +16,9 @@ We have extended the [Batch Forge](../../compute-envs/aws-batch?h=forge#batch-fo
 
 When deploying data analysis workflows, some tasks will need to use normal instance types (e.g., for non-DRAGEN processing of samples) and others will need to be executed on F1 instances. If the DRAGEN feature is enabled, Batch Forge will create an additional AWS Batch compute queue which only uses F1 instances, to which DRAGEN tasks will be dispatched.
 
-## Getting started
+## Get started
 
-To showcase the capability of this integration, we have implemented a proof of concept pipeline called [nf-dragen](https://github.com/seqeralabs/nf-dragen). To run it, sign into Seqera Platform, navigate to the [Community Showcase](https://tower.nf/orgs/community/workspaces/showcase/launchpad) and select the "nf-dragen" pipeline.
+To showcase the capability of this integration, we have implemented a proof of concept pipeline called [*nf-dragen*](https://github.com/seqeralabs/nf-dragen). To run it, sign into Seqera Platform, navigate to the [Community Showcase](https://tower.nf/orgs/community/workspaces/showcase/launchpad) and select the *nf-dragen* pipeline.
 
 You can run this pipeline at your convenience without any extra setup. Note however that it will be deployed in the compute environment owned by the Community Showcase.
 
@@ -41,11 +42,13 @@ In the **DRAGEN AMI ID** field, enter the AWS AMI ID provided by Illumina. Then 
 The Region you select must contain DRAGEN F1 instances.
 :::
 
-## Using DRAGEN v4.4.4 AMI with F2 Instances
-You can deploy DRAGEN pipelines on Seqera Platform using AWS F2 instances with the DRAGEN v4.4.4 AMI, enabling access to the latest DRAGEN features and improved performance. For Seqera Platform Enterprise, F2 instance support starts from version 25.2.0.
+## Using DRAGEN v4.4.4 AMI with F2 instances
 
-### Configuration Steps
-Before launching the pipeline, you need to add a new library mount in the Nextflow configuration. This is done via Advanced options → Nextflow config in the Seqera Platform UI.
+You can deploy DRAGEN pipelines on Seqera Platform using AWS F2 instances with the DRAGEN v4.4.4 AMI. This enables access to the latest DRAGEN features and improved performance. For Seqera Platform Enterprise, F2 instance support starts from version 25.2.0.
+
+### Configuration steps
+
+Before launching the pipeline, you need to add a new library mount in the Nextflow configuration. This is done via **Advanced options > Nextflow config** in the Seqera Platform UI.
 
 If you are using Fusion:
    ```
@@ -58,9 +61,8 @@ If you are not using Fusion:
    ```
 
 :::note
-The DRAGEN v4.4.4 AMI must be selected when configuring your environment. Ensure your AWS region supports F2 instances and the DRAGEN v4.4.4 AMI.
+The DRAGEN v4.4.4 AMI must be selected when configuring your environment. Ensure your AWS Region supports F2 instances and the DRAGEN v4.4.4 AMI.
 :::
-
 
 ## Pipeline implementation and deployment
 
