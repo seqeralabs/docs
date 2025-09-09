@@ -212,11 +212,6 @@ export default async function createConfigAsync() {
 
     customFields: {
       // Put your custom environment here
-      algolia: {
-        appId: process.env.PUBLIC_DOCUSAURUS_ALGOLIA_APP_ID,
-        apiKey: process.env.PUBLIC_DOCUSAURUS_ALGOLIA_API_KEY,
-        indexName: process.env.PUBLIC_DOCUSAURUS_ALGOLIA_INDEX_NAME,
-      },
     },
 
     // Even if you don't use internalization, you can use this field to set useful
