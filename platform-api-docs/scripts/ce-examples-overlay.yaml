@@ -67,12 +67,12 @@ actions:
                 region: "europe-west2"
                 workDir: "gs://your-bucket/work"
         
-        AzureBatch:
-          description: "Minimal Azure Batch Forge compute environment with Wave and Fusion enabled"
+        AzureBatchForge:
+          description: "Minimal Azure Batch Forge compute environment with Wave and Fusion v2 enabled"
           value:
             computeEnv:
               name: "azure-batch-ce"
-              description: "Minimal Azure Batch Forge compute environment with Wave and Fusion enabled"
+              description: "Minimal Azure Batch Forge compute environment with Wave and Fusion v2 enabled"
               platform: "azure-batch"
               credentialsId: "your-azure-credentials-id"
               config:
@@ -83,3 +83,54 @@ actions:
                   autoScale: true
                 waveEnabled: true
                 fusion2Enabled: true
+        
+        AwsEks:
+          description: "Minimal AWS EKS compute environment with Fusion storage"
+          value:
+            computeEnv:
+              name: "aws-eks-ce"
+              description: "Minimal AWS EKS compute environment with Fusion storage"
+              platform: "eks-platform"
+              credentialsId: "your-aws-credentials-id"
+              config:
+                region: "eu-west-2"
+                workDir: "s3://your-bucket/work"
+                clusterName: "your-cluster-name"
+                namespace: "your-namespace"
+                headServiceAccount: "your-service-account"
+                waveEnabled: "true"
+                fusion2Enabled: "true"
+        
+        GoogleGke:
+          description: "Minimal Google Kubernetes Engine compute environment with Wave and Fusion enabled"
+          value:
+            computeEnv:
+              name: "gke-ce"
+              description: "Minimal Google Kubernetes Engine compute environment with Wave and Fusion enabled"
+              platform: "gke-platform"
+              credentialsId: "your-google-credentials-id"
+              config:
+                region: "europe-west2"
+                workDir: "gs://your-bucket/work"
+                clusterName: "your-cluster-name"
+                namespace: "your-namespace"
+                headServiceAccount: "your-service-account"
+                waveEnabled: "true"
+                fusion2Enabled: "true"
+        
+        Kubernetes:
+          description: "Minimal Kubernetes compute environment with persistent volume storage"
+          value:
+            computeEnv:
+              name: "k8s-ce"
+              description: "Minimal Kubernetes compute environment with persistent volume storage"
+              platform: "k8s-platform"
+              credentialsId: "your-k8s-credentials-id"
+              config:
+                workDir: "/workspace"
+                server: "https://your-k8s-api-server:6443"
+                sslCert: "-----BEGIN CERTIFICATE-----\nYOUR_CERTIFICATE\n-----END CERTIFICATE-----"
+                namespace: "your-namespace"
+                headServiceAccount: "your-service-account"
+                storageClaimName: "your-storage-claim"
+                storageMountPath: "/workspace"
