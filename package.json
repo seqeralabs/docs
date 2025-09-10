@@ -53,7 +53,8 @@
     "remark-code-import": "^1.2.0",
     "remark-math": "^6.0.0",
     "remark-yaml-to-table": "github:seqeralabs/remark-yaml-to-table",
-    "webpack-dev-server": "^5.2.2"
+    "webpack-dev-server": "^5.2.2",
+    "yaml": "^2.8.1"
   },
   "devDependencies": {
     "@docusaurus/eslint-plugin": "^3.7.0",
