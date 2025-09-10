@@ -564,13 +564,13 @@ paths:
               $ref: "#/components/schemas/CreateComputeEnvRequest"
             examples:
               AwsBatchForge:
-                description: "A minimal AWS Batch Forge compute environment with Wave and Fusion 2 enabled."
+                description: "A minimal AWS Batch Forge compute environment with Wave and Fusion enabled."
                 value:
                   computeEnv:
                     name: "aws-batch-ce"
                     platform: "aws-batch"
                     credentialsId: "your-aws-credentials-id"
-                    description: "Minimal AWS Batch Forge compute environment with Wave, Fusion v2, and fast instance storage enabled"
+                    description: "Minimal AWS Batch Forge compute environment with Wave, Fusion, and fast instance storage enabled"
                     config: {region: "eu-west-2", forge: {type: "SPOT", minCpus: "0", maxCpus: "100"}, workDir: "s3://your-bucket/work", waveEnabled: "true", fusion2Enabled: "true", nvnmeStorageEnabled: "true"}
               AwsCloud:
                 description: "Minimal AWS Cloud compute environment with default instance type and AMI"
@@ -584,11 +584,11 @@ paths:
                       region: "eu-west-2"
                       workDir: "s3://your-bucket/work"
               GoogleBatch:
-                description: "Minimal Google Cloud Batch compute environment with Wave and Fusion 2 enabled"
+                description: "Minimal Google Cloud Batch compute environment with Wave and Fusion enabled"
                 value:
                   computeEnv:
                     name: "google-batch-ce"
-                    description: "Minimal Google Cloud Batch compute environment with Wave and Fusion 2 enabled"
+                    description: "Minimal Google Cloud Batch compute environment with Wave and Fusion enabled"
                     platform: "google-batch"
                     credentialsId: "your-google-credentials-id"
                     config:
@@ -609,11 +609,11 @@ paths:
                       region: "europe-west2"
                       workDir: "gs://your-bucket/work"
               AzureBatchForge:
-                description: "Minimal Azure Batch Forge compute environment with Wave and Fusion 2 enabled"
+                description: "Minimal Azure Batch Forge compute environment with Wave and Fusion enabled"
                 value:
                   computeEnv:
                     name: "azure-batch-ce"
-                    description: "Minimal Azure Batch Forge compute environment with Wave and Fusion 2 enabled"
+                    description: "Minimal Azure Batch Forge compute environment with Wave and Fusion enabled"
                     platform: "azure-batch"
                     credentialsId: "your-azure-credentials-id"
                     config:
@@ -4746,6 +4746,20 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/CreatePipelineRequest"
+            examples:
+              BasicPipelineCreation:
+                summary: "Create a pipeline with nf-core/rnaseq"
+                description: "Minimal pipeline creation request using nf-core/rnaseq with the `test_full` configuration profile."
+                value:
+                  name: "rnaseq-pipeline"
+                  description: "Minimal nf-core/rnaseq pipeline configuration with the `test_full` profile."
+                  launch:
+                    pipeline: "https://github.com/nf-core/rnaseq"
+                    computeEnvId: "your-compute-env-id"
+                    revision: "master"
+                    configProfiles:
+                      - "test_full"
+                      - "test_full"
         required: true
       responses:
         "200":
