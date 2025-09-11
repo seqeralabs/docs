@@ -61,7 +61,7 @@ Workspace participants with any role can leave the workspace, i.e., remove thems
 | **Workspace: Studios:** Add, edit, delete a studio                                | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
 | **Workspace: Studios:** List/search/view studios                                  | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | **Workspace: Studios:** Connect to a running session (collaborative mode)         | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
-| **Workspace: Studios:** Connect to a running session (private mode, creator)      | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
+| **Workspace: Studios:** Connect to a running session (private mode, creator)      | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
 | **Workspace: Studios:** Connect to a running session (private mode, non-creator)  | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | **Workspace: Studios:** Add, edit, delete studio                                  | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
 | **Workspace: Studios:** Edit studio resource labels                               | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
