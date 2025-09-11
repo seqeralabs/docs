@@ -1,0 +1,71 @@
+---
+id: list-managed-identities
+title: "List Managed Identities"
+description: "List all Managed Identities in an organization."
+sidebar_label: "List Managed Identities"
+hide_title: true
+hide_table_of_contents: true
+api: eJzFVktz2zYQ/isY9JLO6OEmGR90qhKnqftI3Sg5eTTJilxKsEGAAUDZikb/vbsgKdGSLMlJOz1JxL6B3W+/pQww9XJwLVWKJqig0MtxR6boE6eKoKyRA/mH8kGA1uJPMDDFVFyulYUyAoywbgpGfQU26MmOtAW6+HGZ1va16caStApwkGNAxxkspaEP0iZfZNWRikN/KdEt5HZCf7XCCVPm6FQiqgoyhY70fTLDHORgKcOiYK/KBJxGUWZdDqE6On8pV6vOOrRHcMnsSOz4B7SolAWJqAIFHb4he6fMVGQOUQS8D40OZ0kR6KZScYuLO+tSPxCfCw2Bsxl83pexD46ckcSUWsNE01lwJbbzzeH+cLJXMFWmuibSFQ59qYM//X5ePD8Y32aZx3ByCmv174lO3UllFNZ46iHy8PzsjH+2Hul3skwseTWBpVAUWiUxi/6NZ5XlbhJ2coMJp1c47t/YpCTNdzp3YwLOAZdMLZD7465UelJHdur73W4FEjQts69PkCaBRxl0AOW6a9WO1D5rf+YWJu1vr0uXtw/KKW4+x6t4lZmaHi+QOvv2Qrl92T18oNc2L8qAAs1cOWtyulvBxjw+qXLk21IvccEO35dmFE2Pux2mqQBRnYgwgyDwHhMKFIEqzFCYrKuhNDSUtVbhlHUiWFKY2xj/HU1uRqNMIpugpz7riRFN9PWVq0a4sD50XWlqF378bBZC4Qf9fmoT3/P4hdCvp2y/ucNuom2Z9qvAfUjnYBJMf6DauuSv2/jr1v5+7MXK6fTfKR0yQqgI4LuliRnMUST0HJqQOP1fKjV1Vq+3u2zT95XDva1F0tKje/fYyMwo5qPCwrpwCg6xH4T07xLL/Y6SqqEfVyD8jcKR+opPiPibnVQbx+/Pn8YPphDw18d0J9ZqBMN7ThJ+MZDK4YQ8QBLeOpXWl94WP9zVi4vJRbCfdm0+VUY2gD6pqGrZrqPsZQXva2gnTdZ9uQ/cX0FKm4y2jQ9PQXk2IWRJGSJz6n0KzFTnCPjXirt336rkjXPW7WT+Ys9aamiRMDZUfIHyYXVPo0pEYhGJ0CtiDeiGZZjR55g3HrGkmWUqNY37swAWyb5qs6nGxYgrrrJvO1oXwBPc7ODYIFGJTqo/vzQvdnMXYmrKZDaa19WO4tCL4dXlDgbVoqsaDIj+uLkinKmV+amog9hZ6XSdCoPJGkd4i+WgdGyYzP68EVAicyKKVZyfeufnvbMGJGlBs8uak0SyuktUt3NdbhrnG/htfZXM8Rj6iP4wCnFNy/pxthk1oxCfLpcT8PjR6dWKjyvOxI+eKs80hx45A+3xQLrH2e/e9Ih4ttj1HDQDlZRM554Q+z9ivwcyXpPyb0z5UQ58IGZFrL8/4JrxHnqRRmcTbswfdKuR9l6P61VAT8uNUlkNkwSLttUO+D3AjbdvPpAuPESCrcmP3htiaxYt39S0UeODvUVDjdukHvibAhHi/QNaGfv/
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List Managed Identities"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/identities"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+List all Managed Identities in an organization.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"query","description":"Organization numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"search","in":"query","description":"Optional search criteria, allowing free text search on name and keywords: `platform:`","schema":{"type":"string","nullable":true}},{"name":"max","in":"query","description":"Pagination max results","schema":{"type":"integer","format":"int32","nullable":true}},{"name":"offset","in":"query","description":"Pagination offset","schema":{"type":"integer","format":"int32","nullable":true}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"managedIdentities":{"type":"array","items":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"},"platform":{"type":"string","enum":["altair-platform","lsf-platform","moab-platform","slurm-platform","uge-platform"]},"config":{"type":"object","properties":{"workDir":{"type":"string","description":"Compute environment working directory"},"preRunScript":{"type":"string","description":"Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."},"postRunScript":{"type":"string","description":"Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."},"nextflowConfig":{"type":"string"},"launchDir":{"type":"string"},"userName":{"type":"string"},"hostName":{"type":"string"},"port":{"type":"integer","format":"int32"},"headQueue":{"type":"string"},"computeQueue":{"type":"string"},"maxQueueSize":{"type":"integer","format":"int32"},"headJobOptions":{"type":"string"},"propagateHeadJobOptions":{"type":"boolean"}},"title":"AbstractGridConfig"}},"title":"ManagedIdentityDbDto_AbstractGridConfig_"}},"totalSize":{"type":"integer","format":"int64"}},"title":"ListManagedIdentitiesResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

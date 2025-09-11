@@ -2,61 +2,62 @@
   Type: array
   Location: query
   Req/Opt: Optional
-  Description: "Additional attribute values to include in the response (`labels`,
-    `optimized` status, `computeEnv`). Returns an empty value (`labels: null`,
-    etc.) if omitted."
+  Description: Additional attribute values to include in the response (`labels`,
+    `optimized`, `computeEnv`). Returns empty values if omitted.
 - Name: "`workspaceId`"
   Type: integer
   Location: query
   Req/Opt: Optional
-  Description: Workspace numeric identifier
+  Description: Workspace numeric identifier. If omitted, lists pipelines in a user context.
 - Name: "`max`"
   Type: integer
   Location: query
   Req/Opt: Optional
-  Description: Pagination max results
+  Description: "Maximum number of results to return (pagination). Default: 50, Maximum: 100"
 - Name: "`offset`"
   Type: integer
   Location: query
   Req/Opt: Optional
-  Description: Pagination offset
+  Description: "Number of results to skip for pagination. Default: 0"
 - Name: "`search`"
   Type: string
   Location: query
   Req/Opt: Optional
-  Description: Filter search parameter
+  Description: Search string to filter pipelines by name or description.
 - Name: "`visibility`"
   Type: string
   Location: query
   Req/Opt: Optional
-  Description: Filter visibility parameter
+  Description: "Filter pipelines by visibility. Valid values: `private`, `shared`, `all`"
 - Name: "`name`"
   Type: string
   Location: query
   Req/Opt: Optional
-  Description: Pipeline repository name or URL
+  Description: Pipeline repository name (e.g., `nextflow-io/hello`) or full URL.
 - Name: "`revision`"
   Type: string
   Location: query
   Req/Opt: Optional
-  Description: Pipeline revision
+  Description: "Git revision, branch, or tag to describe. Default: repository
+    default branch."
 - Name: "`mainScript`"
   Type: string
   Location: query
   Req/Opt: Optional
-  Description: Pipeline alternative main.nf
+  Description: "Alternative main script filename. Default: main.nf"
 - Name: "`orgId`"
   Type: integer
   Location: query
   Req/Opt: Optional
-  Description: Organization numeric identifier
+  Description: Organization numeric identifier. Used for organization-level validation.
 - Name: "`pipelineId`"
   Type: integer
   Location: path
   Req/Opt: Required
-  Description: Pipeline numeric identifier
+  Description: Pipeline numeric identifier.
 - Name: "`sourceWorkspaceId`"
   Type: integer
   Location: query
   Req/Opt: Optional
-  Description: Source workspace numeric identifier
+  Description: Source workspace numeric identifier. Used when accessing a shared
+    pipeline from another workspace.

@@ -27,10 +27,10 @@ actions:
     update: "Compute environment name to validate for uniqueness and format."
       
   - target: "$.paths./compute-envs/validate.get.parameters[?(@.name=='workspaceId')].description"
-    update: "Workspace numeric identifier. If omitted, validates in a user context."
+    update: "Workspace numeric identifier. If omitted, validates compute environment name in a user context."
       
   - target: "$.paths./compute-envs/validate.get.parameters[?(@.name=='orgId')].description"
-    update: "Organization numeric identifier. Used for organization-level validation."
+    update: "Organization numeric identifier. Used for organization-level compute environment name validation."
   
   # GET /compute-envs/{computeEnvId} - Describe compute environment
   - target: "$.paths./compute-envs/{computeEnvId}.get.parameters[?(@.name=='computeEnvId')].description"
@@ -218,7 +218,7 @@ actions:
       
   - target: "$.components.schemas.AwsBatchConfig.properties.dragenQueue"
     update:
-      description: "AWS Batch queue for DRAGEN workflows."
+      description: "AWS Batch queue for DRAGEN workflows. See [Illumina DRAGEN](https://docs.seqera.io/platform-cloud/supported_software/dragen/overview)."
       
   - target: "$.components.schemas.AwsBatchConfig.properties.dragenInstanceType"
     update:
@@ -250,15 +250,15 @@ actions:
       
   - target: "$.components.schemas.AwsBatchConfig.properties.waveEnabled"
     update:
-      description: "Enable Wave containers."
+      description: "Enable [Wave containers](https://docs.seqera.io/wave)."
       
   - target: "$.components.schemas.AwsBatchConfig.properties.fusion2Enabled"
     update:
-      description: "Enable Fusion file system."
+      description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers."
       
   - target: "$.components.schemas.AwsBatchConfig.properties.nvnmeStorageEnabled"
     update:
-      description: "Enable NVMe instance storage."
+      description: "Enable NVMe instance storage. Requires Fusion file system."
 
   # ===== AWS CLOUD CONFIG =====
   
@@ -352,11 +352,11 @@ actions:
       
   - target: "$.components.schemas.GoogleCloudConfig.properties.waveEnabled"
     update:
-      description: "Enable Wave containers."
+      description: "Enable [Wave containers](https://docs.seqera.io/wave)."
       
   - target: "$.components.schemas.GoogleCloudConfig.properties.fusion2Enabled"
     update:
-      description: "Enable Fusion file system."
+      description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers."
 
   # ===== GOOGLE BATCH CONFIG =====
   
@@ -371,7 +371,7 @@ actions:
       
   - target: "$.components.schemas.GoogleBatchConfig.properties.spot"
     update:
-      description: "Use Spot/Preemptible instances for cost savings."
+      description: "Use Spot instances."
       
   - target: "$.components.schemas.GoogleBatchConfig.properties.projectId"
     update:
@@ -407,11 +407,11 @@ actions:
       
   - target: "$.components.schemas.GoogleBatchConfig.properties.waveEnabled"
     update:
-      description: "Enable Wave containers."
+      description: "Enable [Wave containers](https://docs.seqera.io/wave)."
       
   - target: "$.components.schemas.GoogleBatchConfig.properties.fusion2Enabled"
     update:
-      description: "Enable Fusion file system."
+      description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers."
 
   # ===== AZURE BATCH CONFIG =====
   
@@ -462,11 +462,11 @@ actions:
       
   - target: "$.components.schemas.AzBatchConfig.properties.waveEnabled"
     update:
-      description: "Enable Wave containers."
+      description: "Enable [Wave containers](https://docs.seqera.io/wave)."
       
   - target: "$.components.schemas.AzBatchConfig.properties.fusion2Enabled"
     update:
-      description: "Enable Fusion file system."
+      description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers."
 
   # ===== AZURE CLOUD CONFIG =====
   
@@ -555,11 +555,11 @@ actions:
       
   - target: "$.components.schemas.EksComputeConfig.properties.waveEnabled"
     update:
-      description: "Enable Wave containers."
+      description: "Enable [Wave containers](https://docs.seqera.io/wave)."
       
   - target: "$.components.schemas.EksComputeConfig.properties.fusion2Enabled"
     update:
-      description: "Enable Fusion file system."
+      description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers."
 
   # ===== GKE CONFIG =====
   
@@ -590,11 +590,11 @@ actions:
       
   - target: "$.components.schemas.GkeComputeConfig.properties.waveEnabled"
     update:
-      description: "Enable Wave containers."
+      description: "Enable [Wave containers](https://docs.seqera.io/wave)."
       
   - target: "$.components.schemas.GkeComputeConfig.properties.fusion2Enabled"
     update:
-      description: "Enable Fusion file system."
+      description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers."
 
   # ===== HPC CONFIGS (Slurm, LSF, UGE, Altair PBS) =====
   
@@ -817,7 +817,7 @@ actions:
       
   - target: "$.components.schemas.ForgeConfig.properties.instanceTypes"
     update:
-      description: "List of allowed instance types."
+      description: "Comma-separated list of allowed instance types."
       
   - target: "$.components.schemas.ForgeConfig.properties.allocStrategy"
     update:
