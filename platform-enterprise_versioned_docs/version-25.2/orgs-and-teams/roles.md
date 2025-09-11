@@ -67,7 +67,7 @@ Workspace participants with any role can leave the workspace, i.e., remove thems
 | **Workspace: Studios:** Edit studio resource labels                               | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
 | **Workspace: Studios:** Start, stop studio session                                | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
 | **Workspace: Studios:** Extend studio session lifespan (collaborative mode)       | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
-| **Workspace: Studios:** Extend studio session lifespan (private mode, creator)    | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
+| **Workspace: Studios:** Extend studio session lifespan (private mode, creator)    | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
 | **Workspace: Studios:** Extend studio session lifespan (private mode, non-creator)| ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | **Workspace: Studios:** Add as new (duplicate studio)                             | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
 | **Workspace: Studios: Checkpoints:** Edit studio checkpoint name                  | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
