@@ -1,0 +1,71 @@
+---
+id: delete-managed-identity
+title: "Delete a Managed Identity"
+description: "Delete a Managed Identity identified by the given ID."
+sidebar_label: "Delete a Managed Identity"
+hide_title: true
+hide_table_of_contents: true
+api: eJy9VUtz2jAQ/isandoZCrTNZKacmgedYfrKJOkpw0HYCxaRJUeSSSnj/95d2cYG05Dk0BNY+rT77bevDfdi4fjojssYtJdeguPTHo/BRVZmXhrNR/wSFHhggn0XWiwgZpMSvGblq7nEs9ma+QTYQq5As8lln/e4ycAKsjGJt1YqE7UFRGXCihRvLPHYcI0fiE53cWihxyWRyYRP+D7DDjGdp2Bl1BC0+MbCQy4tIBlvc+hxFyWQCj7acL/OyKnUHhYBOjc2Fb48Oj3hRdHbMjN20bB5yMGuO3R+2oXQ8k+I/TCV17nGR9E9HHE+mbOYpCbfZs6EcyaSwqM6tUoXqAFxEcqxR6kUmwGbKUOmKY0211rqBVuamcOcCo/2MtAxQ4OY4vQQ/ZkxCoTGK50rJWYKSpGLYkq6u8xoh6WFDz4MT+hnT7Cv7B37YVhkUAbtedHjJ8NhF3cuYkZZBOfRVY1GmMgyJaMg+GDpCLtpkWwSf8dTcA5VoCqvuJvZEiKyl1mq2NAD+KgGNkE6b1EXygjHIqMQ+dhaY6+r+PCmCMw/Hoiw7gWmjWdCKfOIfAL6Uxd93U5BSE1ornZefSJdpyFfIsqR6EvLrVKhJu5IEfzN0Yt3rVthrSAu0kPqjvsqbw/Yloddlt1w4CK36ul07cygVmwXVRB1Jvv1AS9e8zwUAr5zEOWW0kKD7RyEBXuW4/ga3U2pL3DqJYZGY8grhFlIt3zQTOPBpjMJC95YvqF0liq27W81SLzP6n4NfRpAeFL++VLPmuWjD0JJPTfheRXxDTxg3bKzq0lnzlRXV0p4GlnMgV3JCFwFpjoUUajDkJZAxY0GAxfe9aVBEJaiVGHUzc3n5gKJrHAflH7e909P+0M6y4zzqAaZrAbiPzfTPttN0xevXmeVpB5++0GmBI7gpuTKxO2s0R4fdZcYZj3BKAi62cyEg19WFQUdl8OcCiWWjgYoFsYcawueiOT4njnI+R7WrT22EionDKdF83zf/2PNPMG+WYUN/yl9WFlunxcJ+ea62hBvu0XxfF3r6afXbVo1424xFFN8lICI0STxLXFnUQSZb1nojPGd2XE5/ja+HSNc7Hb+XqcHBwcJYh0GxK25B10UW76evoljUfwFmCqFhg==
+sidebar_class_name: "delete api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Delete a Managed Identity"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/identities/{managedIdentityId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Delete a Managed Identity identified by the given ID.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"managedIdentityId","in":"path","description":"Managed Identity numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"orgId","in":"query","description":"Organization numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"checked","in":"query","description":"If deletion of associated Managed Credentials will be blocked by running jobs that depend on them","schema":{"type":"boolean","nullable":true}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"409":{"description":"Running jobs block the deletion of this Managed Identity","content":{"application/json":{"schema":{"type":"object","properties":{"managedCredentialsId":{"type":"string"},"conflicts":{"type":"array","items":{"type":"object","properties":{"type":{"type":"string"},"id":{"type":"string"},"name":{"type":"string"},"url":{"type":"string"}},"title":"DeleteManagedCredentialsConflictResponse.Conflict"}}},"title":"DeleteManagedCredentialsConflictResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

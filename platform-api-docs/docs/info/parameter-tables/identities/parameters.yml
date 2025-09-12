@@ -1,0 +1,42 @@
+- Name: "`orgId`"
+  Type: integer
+  Location: query
+  Req/Opt: Optional
+  Description: Organization numeric identifier
+- Name: "`search`"
+  Type: string
+  Location: query
+  Req/Opt: Optional
+  Description: "Optional search criteria, allowing free text search on name and
+    keywords: `platform:`"
+- Name: "`max`"
+  Type: integer
+  Location: query
+  Req/Opt: Optional
+  Description: Pagination max results
+- Name: "`offset`"
+  Type: integer
+  Location: query
+  Req/Opt: Optional
+  Description: Pagination offset
+- Name: "`managedIdentityId`"
+  Type: integer
+  Location: path
+  Req/Opt: Required
+  Description: Managed Identity numeric identifier
+- Name: "`checked`"
+  Type: boolean
+  Location: query
+  Req/Opt: Optional
+  Description: If deletion of associated Managed Credentials will be blocked by
+    running jobs that depend on them
+- Name: "`userId`"
+  Type: integer
+  Location: query
+  Req/Opt: Optional
+  Description: User numeric identifier to filter records by
+- Name: "`managedCredentialsId`"
+  Type: integer
+  Location: path
+  Req/Opt: Required
+  Description: Managed Credentials numeric identifier

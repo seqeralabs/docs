@@ -217,7 +217,7 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "docs/explore-data-link",
-          label: "Explore data-link",
+          label: "Explore data-link path",
           className: "api-method get",
         },
         {
@@ -259,13 +259,13 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "docs/generate-data-link-upload-url",
-          label: "Generate file upload URL",
+          label: "Generate data-link file upload URL (to given path)",
           className: "api-method post",
         },
         {
           type: "doc",
           id: "docs/finish-data-link-upload",
-          label: "Finish data-link file upload",
+          label: "Finish data-link file upload to given path",
           className: "api-method post",
         },
         {
@@ -477,6 +477,12 @@ const sidebar: SidebarsConfig = {
           id: "docs/create-label",
           label: "Create label",
           className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "docs/get-allowed-dynamic-labels",
+          label: "GetAllowedDynamicLabels",
+          className: "api-method get",
         },
         {
           type: "doc",
@@ -841,7 +847,7 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "docs/start-data-studio",
-          label: "Start Studio",
+          label: "Starts a Studio",
           className: "api-method put",
         },
         {
@@ -1233,6 +1239,66 @@ const sidebar: SidebarsConfig = {
           id: "docs/list-workspaces-user",
           label: "List user workspaces and organizations",
           className: "api-method get",
+        },
+      ],
+    },
+    {
+      type: "category",
+      label: "identities",
+      items: [
+        {
+          type: "doc",
+          id: "docs/list-managed-identities",
+          label: "List Managed Identities",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "docs/create-managed-identity",
+          label: "Create Managed Identity",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "docs/describe-managed-identity",
+          label: "Describe a Managed Identity",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "docs/update-managed-identity",
+          label: "Update a Managed Identity",
+          className: "api-method put",
+        },
+        {
+          type: "doc",
+          id: "docs/delete-managed-identity",
+          label: "Delete a Managed Identity",
+          className: "api-method delete",
+        },
+        {
+          type: "doc",
+          id: "docs/list-managed-credentials",
+          label: "List Managed Credentials",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "docs/create-managed-credentials",
+          label: "Creates Managed Credentials",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "docs/update-managed-credentials",
+          label: "Updates Managed Credentials",
+          className: "api-method put",
+        },
+        {
+          type: "doc",
+          id: "docs/delete-managed-credentials",
+          label: "Delete a user's Managed Credentials record belonging to a Managed Identity",
+          className: "api-method delete",
         },
       ],
     },

@@ -10,13 +10,13 @@ actions:
     update:
       examples:
         AwsBatchForge:
-          description: "A minimal AWS Batch Forge compute environment with Wave and Fusion v2 enabled."
+          description: "A minimal AWS Batch Forge compute environment with Wave and Fusion enabled."
           value:
             computeEnv:
               name: "aws-batch-ce"
               platform: "aws-batch"
               credentialsId: "your-aws-credentials-id"
-              description: "Minimal AWS Batch Forge compute environment with Wave, Fusion v2, and fast instance storage enabled"
+              description: "Minimal AWS Batch Forge compute environment with Wave, Fusion, and fast instance storage enabled"
               config:
                 region: "eu-west-2"
                 forge:
@@ -68,11 +68,11 @@ actions:
                 workDir: "gs://your-bucket/work"
         
         AzureBatchForge:
-          description: "Minimal Azure Batch Forge compute environment with Wave and Fusion v2 enabled"
+          description: "Minimal Azure Batch Forge compute environment with Wave and Fusion enabled"
           value:
             computeEnv:
               name: "azure-batch-ce"
-              description: "Minimal Azure Batch Forge compute environment with Wave and Fusion v2 enabled"
+              description: "Minimal Azure Batch Forge compute environment with Wave and Fusion enabled"
               platform: "azure-batch"
               credentialsId: "your-azure-credentials-id"
               config:
@@ -102,11 +102,11 @@ actions:
                 fusion2Enabled: "true"
         
         GoogleGke:
-          description: "Minimal Google Kubernetes Engine compute environment with Wave and Fusion enabled"
+          description: "Minimal Google Kubernetes Engine compute environment with Fusion storage"
           value:
             computeEnv:
               name: "gke-ce"
-              description: "Minimal Google Kubernetes Engine compute environment with Wave and Fusion enabled"
+              description: "Minimal Google Kubernetes Engine compute environment with Fusion storage"
               platform: "gke-platform"
               credentialsId: "your-google-credentials-id"
               config:
@@ -134,3 +134,20 @@ actions:
                 headServiceAccount: "your-service-account"
                 storageClaimName: "your-storage-claim"
                 storageMountPath: "/workspace"
+
+  # Add request example to POST /pipelines (CreatePipeline)
+  - target: "$.paths./pipelines.post.requestBody.content.application/json"
+    update:
+      examples:
+        BasicPipelineCreation:
+          summary: "Create a pipeline with nf-core/rnaseq"
+          description: "Minimal pipeline creation request using nf-core/rnaseq with the `test_full` configuration profile."
+          value:
+            name: "rnaseq-pipeline"
+            description: "Minimal nf-core/rnaseq pipeline configuration with the `test_full` profile."
+            launch:
+              pipeline: "https://github.com/nf-core/rnaseq"
+              computeEnvId: "your-compute-env-id"
+              revision: "master"
+              configProfiles:
+                - "test_full"
