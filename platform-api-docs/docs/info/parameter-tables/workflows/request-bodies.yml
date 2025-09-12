@@ -14,10 +14,6 @@
   Type: object
   Req/Opt: Optional
   Description: ""
-- Name: launch.id
-  Type: string
-  Req/Opt: Optional
-  Description: Launch configuration identifier.
 - Name: launch.computeEnvId
   Type: string
   Req/Opt: Optional
@@ -29,7 +25,7 @@
   Description: Custom run name for the workflow execution.
 - Name: launch.pipeline
   Type: string
-  Req/Opt: Optional
+  Req/Opt: Required
   Description: Pipeline repository URL (e.g., https://github.com/nextflow-io/hello).
 - Name: launch.workDir
   Type: string

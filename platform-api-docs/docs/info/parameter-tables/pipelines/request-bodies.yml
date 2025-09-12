@@ -1,10 +1,10 @@
 - Name: "**CreatePipeline**"
   Type: ""
   Req/Opt: ""
-  Description: Create pipeline
+  Description: Create pipeline request.
 - Name: name
   Type: string
-  Req/Opt: Optional
+  Req/Opt: Required
   Description: Pipeline name. Must be unique within the workspace.
 - Name: description
   Type: string
@@ -16,12 +16,8 @@
   Description: Pipeline icon URL.
 - Name: launch
   Type: object
-  Req/Opt: Optional
-  Description: ""
-- Name: launch.id
-  Type: string
-  Req/Opt: Optional
-  Description: Launch configuration identifier.
+  Req/Opt: Required
+  Description: "Pipeline launch configuration object."
 - Name: launch.computeEnvId
   Type: string
   Req/Opt: Optional
@@ -33,7 +29,7 @@
   Description: Custom run name for the workflow execution.
 - Name: launch.pipeline
   Type: string
-  Req/Opt: Optional
+  Req/Opt: Required
   Description: Pipeline repository URL (e.g., https://github.com/nextflow-io/hello).
 - Name: launch.workDir
   Type: string
@@ -148,7 +144,7 @@
 - Name: "**UpdatePipeline**"
   Type: ""
   Req/Opt: ""
-  Description: Update pipeline
+  Description: Update pipeline request.
 - Name: name
   Type: string
   Req/Opt: Optional
@@ -164,11 +160,7 @@
 - Name: launch
   Type: object
   Req/Opt: Optional
-  Description: ""
-- Name: launch.id
-  Type: string
-  Req/Opt: Optional
-  Description: Launch configuration identifier.
+  Description: "Pipeline launch configuration object."
 - Name: launch.computeEnvId
   Type: string
   Req/Opt: Optional
@@ -180,7 +172,7 @@
   Description: Custom run name for the workflow execution.
 - Name: launch.pipeline
   Type: string
-  Req/Opt: Optional
+  Req/Opt: Required
   Description: Pipeline repository URL (e.g., https://github.com/nextflow-io/hello).
 - Name: launch.workDir
   Type: string

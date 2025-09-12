@@ -12,7 +12,7 @@
   Type: integer
   Location: path
   Req/Opt: Required
-  Description: Workspace numeric identifier
+  Description: Optional workspace numeric identifier
 - Name: "`max`"
   Type: integer
   Location: query

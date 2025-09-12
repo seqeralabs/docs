@@ -8,7 +8,7 @@
   Description: ""
 - Name: computeEnv.credentialsId
   Type: string
-  Req/Opt: Optional
+  Req/Opt: Required
   Description: Credentials identifier for compute environment authentication.
     Requires existing cloud provider/HPC credentials.
 - Name: computeEnv.orgId

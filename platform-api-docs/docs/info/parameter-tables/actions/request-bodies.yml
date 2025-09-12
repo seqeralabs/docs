@@ -29,7 +29,7 @@
   Description: Custom run name for the workflow execution.
 - Name: launch.pipeline
   Type: string
-  Req/Opt: Optional
+  Req/Opt: Required
   Description: Pipeline repository URL (e.g., https://github.com/nextflow-io/hello).
 - Name: launch.workDir
   Type: string
@@ -164,7 +164,7 @@
   Description: Custom run name for the workflow execution.
 - Name: launch.pipeline
   Type: string
-  Req/Opt: Optional
+  Req/Opt: Required
   Description: Pipeline repository URL (e.g., https://github.com/nextflow-io/hello).
 - Name: launch.workDir
   Type: string

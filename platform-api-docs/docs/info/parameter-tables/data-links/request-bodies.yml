@@ -4,31 +4,31 @@
   Description: Create data-link
 - Name: name
   Type: string
-  Req/Opt: Optional
+  Req/Opt: Required
   Description: ""
 - Name: description
   Type: string
-  Req/Opt: Optional
+  Req/Opt: Required
   Description: ""
 - Name: type
   Type: string
-  Req/Opt: Optional
+  Req/Opt: Required
   Description: ""
 - Name: provider
   Type: string
-  Req/Opt: Optional
+  Req/Opt: Required
   Description: ""
 - Name: resourceRef
   Type: string
-  Req/Opt: Optional
+  Req/Opt: Required
   Description: ""
 - Name: publicAccessible
   Type: boolean
-  Req/Opt: Optional
+  Req/Opt: Required
   Description: ""
 - Name: credentialsId
   Type: string
-  Req/Opt: Optional
+  Req/Opt: Required
   Description: ""
 - Name: "**UpdateCustomDataLink**"
   Type: ""
