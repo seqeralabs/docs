@@ -175,7 +175,7 @@ This procedure describes how to configure Studios for Kubernetes deployments of 
 1. Apply a base64 encoding to the PEM file that you created in the previous step:
 
     ```
-    base64_pem=$(cat data-studios-rsa.pem | base64)
+    base64_pem=$(cat data-studios-rsa.pem | base64 -w0)
     ```
 
 1. Create a secret file named `secret.yml` and set the `oidc.pem` key by pasting the contents of the base64-encoded public/private key pair:
