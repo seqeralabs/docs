@@ -119,7 +119,7 @@ To include the cost information associated with your resource labels in your AWS
 #### AWS limits
 
 - Resource label keys and values must contain a minimum of 2 and a maximum of 39 alphanumeric characters (each), separated by dashes or underscores.
-- The key and value cannot begin or end with dashes `-` or underscores `_`.
+- Keys and values cannot begin or end with dashes `-` or underscores `_`.
 - Keys and values cannot contain consecutive `-` or `_` characters (`--`, `__`, `-_`, etc.)
 - A maximum of 25 resource labels can be applied to each resource.
 - A maximum of 1000 resource labels can be used in each workspace.
@@ -144,8 +144,8 @@ The following resources are tagged using the labels associated with the compute 
 #### GCP limits
 
 - Resource label keys and values must contain a minimum of 2 and a maximum of 39 alphanumeric characters (each), separated by dashes or underscores.
-- The key and value cannot begin or end with dashes `-` or underscores `_`.
-- The key and value cannot contain a consecutive combination of `-` or `_` characters (`--`, `__`, `-_`, etc.)
+- Keys and values cannot begin or end with dashes `-` or underscores `_`.
+- Keys and values cannot contain consecutive `-` or `_` characters (`--`, `__`, `-_`, etc.)
 - A maximum of 25 resource labels can be applied to each resource.
 - A maximum of 1000 resource labels can be used in each workspace.
 - Keys and values in Google Cloud Resource Manager may contain only lowercase letters. Resource labels created with uppercase characters are changed to lowercase before propagating to Google Cloud.
@@ -163,8 +163,8 @@ When you create an Azure Batch compute environment with Forge, resource labels a
 #### Azure limits
 
 - Resource label keys and values must contain a minimum of 2 and a maximum of 39 alphanumeric characters (each), separated by dashes or underscores.
-- The key and value cannot begin or end with dashes `-` or underscores `_`.
-- The key and value cannot contain a consecutive combination of `-` or `_` characters (`--`, `__`, `-_`, etc.)
+- Keys and values cannot begin or end with dashes `-` or underscores `_`.
+- Keys and values cannot contain consecutive `-` or `_` characters (`--`, `__`, `-_`, etc.)
 - A maximum of 25 resource labels can be applied to each resource.
 - A maximum of 1000 resource labels can be used in each workspace.
 - Keys are case-insensitive, but values are case-sensitive.
