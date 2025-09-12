@@ -4689,13 +4689,13 @@ paths:
             format: int64
         - name: max
           in: query
-          description: 'Maximum number of results to return (pagination). Default: 50, Maximum: 100'
+          description: 'Maximum number of results to return (pagination). Default: `50`, Maximum: `100`.'
           schema:
             type: integer
             format: int32
         - name: offset
           in: query
-          description: 'Number of results to skip for pagination. Default: 0'
+          description: 'Number of results to skip for pagination. Default: `0`.'
           schema:
             type: integer
             format: int32
@@ -4706,7 +4706,7 @@ paths:
             type: string
         - name: visibility
           in: query
-          description: 'Filter pipelines by visibility. Valid values: `private`, `shared`, `all`'
+          description: 'Filter pipelines by visibility. Valid values: `private`, `shared`, `all`.'
           schema:
             type: string
       responses:
@@ -4759,7 +4759,9 @@ paths:
                     revision: "master"
                     configProfiles:
                       - "test_full"
-                      - "test_full"
+                    labelIds:
+                      - "label_id_1"
+                      - "label_id_2"
         required: true
       responses:
         "200":
@@ -4811,7 +4813,7 @@ paths:
             format: int64
         - name: mainScript
           in: query
-          description: 'Alternative main script filename. Default: main.nf'
+          description: 'Alternative main script filename. Default: `main.nf`.'
           schema:
             type: string
       responses:
@@ -5352,7 +5354,8 @@ paths:
         - BearerAuth: []
   /service-info:
     get:
-      summary: General Seqera service features and version.
+      summary: Get API version and features
+      description: General Seqera service features and version.
       tags:
         - service-info
       operationId: Info
@@ -12733,7 +12736,7 @@ components:
           description: "Custom run name for the workflow execution."
         pipeline:
           type: string
-          description: "Pipeline repository URL (e.g., https://github.com/nextflow-io/hello)."
+          description: "Pipeline repository URL (e.g., `https://github.com/nextflow-io/hello`)."
         workDir:
           type: string
           description: "Work directory path where workflow intermediate files are stored. Defaults to compute environment work directory if omitted."
@@ -12775,7 +12778,7 @@ components:
           description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
         mainScript:
           type: string
-          description: "Alternative main script filename (default: main.nf)."
+          description: "Alternative main script filename. Default: `main.nf`."
         entryName:
           type: string
           description: "Workflow entry point name when using Nextflow DSL2."

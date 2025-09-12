@@ -15,16 +15,16 @@ actions:
     update: "Workspace numeric identifier. If omitted, lists pipelines in a user context."
       
   - target: "$.paths./pipelines.get.parameters[?(@.name=='max')].description"
-    update: "Maximum number of results to return (pagination). Default: 50, Maximum: 100"
+    update: "Maximum number of results to return (pagination). Default: `50`, Maximum: `100`."
       
   - target: "$.paths./pipelines.get.parameters[?(@.name=='offset')].description"
-    update: "Number of results to skip for pagination. Default: 0"
+    update: "Number of results to skip for pagination. Default: `0`."
       
   - target: "$.paths./pipelines.get.parameters[?(@.name=='search')].description"
     update: "Search string to filter pipelines by name or description."
       
   - target: "$.paths./pipelines.get.parameters[?(@.name=='visibility')].description"
-    update: "Filter pipelines by visibility. Valid values: `private`, `shared`, `all`"
+    update: "Filter pipelines by visibility. Valid values: `private`, `shared`, `all`."
   
   # POST /pipelines - Create pipeline
   - target: "$.paths./pipelines.post.parameters[?(@.name=='workspaceId')].description"
@@ -41,7 +41,7 @@ actions:
     update: "Workspace numeric identifier. If omitted, describes pipeline in a user context."
       
   - target: "$.paths./pipelines/info.get.parameters[?(@.name=='mainScript')].description"
-    update: "Alternative main script filename. Default: main.nf"
+    update: "Alternative main script filename. Default: `main.nf`."
   
   # GET /pipelines/repositories - List pipeline repositories
   - target: "$.paths./pipelines/repositories.get.parameters[?(@.name=='workspaceId')].description"
@@ -168,7 +168,7 @@ actions:
       
   - target: "$.components.schemas.WorkflowLaunchRequest.properties.pipeline"
     update:
-      description: "Pipeline repository URL (e.g., https://github.com/nextflow-io/hello)."
+      description: "Pipeline repository URL (e.g., `https://github.com/nextflow-io/hello`)."
       
   - target: "$.components.schemas.WorkflowLaunchRequest.properties.workDir"
     update:
@@ -216,7 +216,7 @@ actions:
       
   - target: "$.components.schemas.WorkflowLaunchRequest.properties.mainScript"
     update:
-      description: "Alternative main script filename (default: main.nf)."
+      description: "Alternative main script filename. Default: `main.nf`."
       
   - target: "$.components.schemas.WorkflowLaunchRequest.properties.entryName"
     update:
