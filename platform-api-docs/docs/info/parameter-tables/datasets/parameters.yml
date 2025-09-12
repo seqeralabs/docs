@@ -7,7 +7,7 @@
   Type: string
   Location: query
   Req/Opt: Optional
-  Description: ""
+  Description: Dataset MIME type
 - Name: "`datasetId`"
   Type: string
   Location: path
