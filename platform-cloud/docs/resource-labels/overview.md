@@ -1,7 +1,8 @@
 ---
 title: "Resource labels"
 description: "Instructions to use resource labels in Seqera Platform."
-date: "24 Apr 2023"
+date: "2023-04-24"
+last_update: "2025-08-12"
 tags: [resource labels, labels]
 ---
 
@@ -21,7 +22,7 @@ Resource labels can be created, applied, and edited by a workspace admin or owne
 
 Admins can assign a set of resource labels when creating a compute environment. All runs executed using the compute environment will be tagged with its resource labels. Resource labels applied to a compute environment are displayed on the compute environment details page.
 
-Apply resource labels when you create a new compute environment.
+To apply resource labels, add them when you create a new compute environment.
 
 :::info
 Once the compute environment has been created, its resource labels cannot be edited.
@@ -45,11 +46,11 @@ If a maintainer changes the compute environment associated with a pipeline or ru
 
 ### Search and filter with resource labels
 
-Search and filter pipelines and runs using one or more resource labels. The resource label search uses a `label:key=value` format.
+To search and filter pipelines and runs, use one or more resource labels in the `label:key=value` format.
 
 ### Manage workspace resource labels
 
-Select a workspace's **Settings** tab to view all the resource labels used in that workspace. All users can add resource labels, but only admins can edit or delete them, provided they're not already associated with **any** resource. This applies to resource labels associated with compute environments and runs. 
+Select a workspace's **Settings** tab to view all the resource labels used in that workspace. All users can add resource labels, but only admins can edit or delete them, provided they're not already associated with **any** resource. This applies to resource labels associated with compute environments and runs.
 
 When you add or edit a resource label, you can optionally set **Use as default in compute environment form**. Workspace default resource labels are prefilled in the **Resource labels** field when you create a new compute environment in that workspace.
 
@@ -119,13 +120,13 @@ To include the cost information associated with your resource labels in your AWS
 
 - Resource label keys and values must contain a minimum of 2 and a maximum of 39 alphanumeric characters (each), separated by dashes or underscores.
 - The key and value cannot begin or end with dashes `-` or underscores `_`.
-- The key and value cannot contain a consecutive combination of `-` or `_` characters (`--`, `__`, `-_`, etc.)
+- Keys and values cannot contain consecutive `-` or `_` characters (`--`, `__`, `-_`, etc.)
 - A maximum of 25 resource labels can be applied to each resource.
 - A maximum of 1000 resource labels can be used in each workspace.
 - Keys and values cannot start with `aws` or `user`, as these are reserved prefixes appended to tags by AWS.
 - Keys and values are case-sensitive in AWS.
 
-See [here](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#tag-restrictions) for more information on AWS resource tagging.
+For more resource tagging information, see [Tag restrictions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#tag-restrictions).
 
 ### Google Cloud
 
@@ -149,7 +150,7 @@ The following resources are tagged using the labels associated with the compute 
 - A maximum of 1000 resource labels can be used in each workspace.
 - Keys and values in Google Cloud Resource Manager may contain only lowercase letters. Resource labels created with uppercase characters are changed to lowercase before propagating to Google Cloud.
 
-See [here](https://cloud.google.com/resource-manager/docs/creating-managing-labels#requirements) for more information on Google Cloud Resource Manager labeling.
+For more Google Cloud Resource Manager labeling information, see [Requirements](https://cloud.google.com/resource-manager/docs/creating-managing-labels#requirements).
 
 ### Azure
 
@@ -157,7 +158,7 @@ See [here](https://cloud.google.com/resource-manager/docs/creating-managing-labe
 The labeling system on Azure Cloud uses the term metadata to refer to resource and other labels
 :::
 
-When creating an Azure Batch compute environment with Forge, resource labels are added to the Pool parameters — this adds set of `key=value` metadata pairs to the Azure Batch Pool.
+When you create an Azure Batch compute environment with Forge, resource labels are added to the Pool parameters. This adds a set of `key=value` metadata pairs to the Azure Batch Pool.
 
 #### Azure limits
 
@@ -167,9 +168,9 @@ When creating an Azure Batch compute environment with Forge, resource labels are
 - A maximum of 25 resource labels can be applied to each resource.
 - A maximum of 1000 resource labels can be used in each workspace.
 - Keys are case-insensitive, but values are case-sensitive.
-- Microsoft advises against using a non-English language in your resource labels, as this can lead to decoding progress failure while loading your VM's metadata.
+- Microsoft advises against using a non-English language in your resource labels, as this can cause decoding failures when loading your VM metadata.
 
-See [here](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/tag-resources?tabs=json) for more information on Azure Resource Manager tagging.
+For more information, see [Azure Resource Manager tagging](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/tag-resources?tabs=json).
 
 ### Kubernetes
 
@@ -197,9 +198,9 @@ The following resources will be tagged using the labels associated with the comp
 #### Kubernetes limits
 
 - Resource label keys and values must contain a minimum of 2 and a maximum of 39 alphanumeric characters (each), separated by dashes or underscores.
-- The key and value cannot begin or end with dashes `-` or underscores `_`.
-- The key and value cannot contain a consecutive combination of `-` or `_` characters (`--`, `__`, `-_`, etc.)
+- Keys and values cannot begin or end with dashes `-` or underscores `_`.
+- Keys and values cannot contain consecutive `-` or `_` characters (`--`, `__`, `-_`, etc.)
 - A maximum of 25 resource labels can be applied to each resource.
 - A maximum of 1000 resource labels can be used in each workspace.
 
-See [Syntax and character set](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set) for more information on Kubernetes object labeling.
+For more information, see [Kubernetes label syntax and character set](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set).
