@@ -1,7 +1,7 @@
 - Name: "**CreatePipeline**"
   Type: ""
   Req/Opt: ""
-  Description: Create pipeline
+  Description: Create pipeline request.
 - Name: name
   Type: string
   Req/Opt: Required
@@ -17,7 +17,7 @@
 - Name: launch
   Type: object
   Req/Opt: Required
-  Description: ""
+  Description: "Pipeline launch configuration object."
 - Name: launch.computeEnvId
   Type: string
   Req/Opt: Optional
@@ -144,7 +144,7 @@
 - Name: "**UpdatePipeline**"
   Type: ""
   Req/Opt: ""
-  Description: Update pipeline
+  Description: Update pipeline request.
 - Name: name
   Type: string
   Req/Opt: Optional
@@ -160,7 +160,7 @@
 - Name: launch
   Type: object
   Req/Opt: Optional
-  Description: ""
+  Description: "Pipeline launch configuration object."
 - Name: launch.computeEnvId
   Type: string
   Req/Opt: Optional
