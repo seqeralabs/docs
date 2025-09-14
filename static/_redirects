@@ -66,3 +66,6 @@
 
 #Wave redirects
 /wave/get-started/*                         /wave/tutorials/:splat          301
+
+#Wave page renaming and moving
+/wave/install/configure-wave               /wave/configure-wave             301

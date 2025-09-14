@@ -62,7 +62,7 @@ export default async function createConfigAsync() {
       docsPluginId: "classic", // configured for preset-classic
       config: {
         platform: {
-          specPath: "platform-api-docs/scripts/seqera-ce-examples-spec-final.yaml",
+          specPath: "platform-api-docs/scripts/seqera-decorated-spec-final.yaml",
           outputDir: "platform-api-docs/docs",
           sidebarOptions: {
             groupPathsBy: "tag",
@@ -233,6 +233,7 @@ export default async function createConfigAsync() {
             customCss: [
               require.resolve("./src/css/main.css"),
               require.resolve("./src/css/typography.css"),
+              require.resolve("./src/css/def-list.css"),
               require.resolve("./src/css/misc.css"),
               require.resolve("./src/css/def-list.css"),
               require.resolve("./src/css/components/checklist.css"),

@@ -26,9 +26,10 @@
       "type": "category",
       "label": "Configuration",
       "collapsed": true,
-      "items": [   
-        "wave-lite",     
-        "install/configure-wave"
+      "items": [
+        "wave-lite",
+        "configure-wave",
+        "configuration"
       ]
     },
     "provisioning",

@@ -73,12 +73,15 @@ Workspace participants with any role can leave the workspace, i.e., remove thems
 | **Workspace: Data Explorer:** Edit bucket metadata                                | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
 | **Workspace: Studios:** Add, edit, delete a studio                                | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
 | **Workspace: Studios:** List/search/view studios                                  | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| **Workspace: Studios:** Connect to a running session                              | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
+| **Workspace: Studios:** Connect to a running session (collaborative mode)         | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
+| **Workspace: Studios:** Connect to a running session (private mode, creator)      | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
+| **Workspace: Studios:** Connect to a running session (private mode, non-creator)  | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | **Workspace: Studios:** Add, edit, delete studio                                  | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
 | **Workspace: Studios:** Edit studio resource labels                               | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
 | **Workspace: Studios:** Start, stop studio session                                | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| **Workspace: Studios:** Extend shared studio session lifespan                     | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
-| **Workspace: Studios:** Extend private studio session lifespan (if creator)       | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
+| **Workspace: Studios:** Extend studio session lifespan (collaborative mode)       | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
+| **Workspace: Studios:** Extend studio session lifespan (private mode, creator)    | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
+| **Workspace: Studios:** Extend studio session lifespan (private mode, non-creator)| ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | **Workspace: Studios:** Add as new (duplicate studio)                             | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
 | **Workspace: Studios: Checkpoints:** Edit studio checkpoint name                  | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
 | **Workspace:** View (read-only) resources                                         | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
