@@ -33,8 +33,17 @@
       ]
     },
     "provisioning",
-    "nextflow",
-{
+    {
+      "type": "category",
+      "label": "Nextflow integration",
+      "collapsed": true,
+      "items": [   
+        "nextflow/index",     
+        "nextflow/use-cases",
+        "nextflow/configuration"
+      ]
+    },
+    {
       "type": "category",
       "label": "Updates",
       "collapsed": true,
