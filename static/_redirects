@@ -64,7 +64,7 @@
 /platform-enterprise/:version/api/overview  /platform-api   301
 /platform-cloud/api/overview                /platform-api   301
 
-#Redirect get started to tutorials
+#Wave redirects
 /wave/get-started/*                         /wave/tutorials/:splat          301
 
 #Wave page renaming and moving
