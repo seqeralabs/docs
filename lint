@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Documentation Linter Shortcut
+# Usage: ./lint [options] [directories...]
+# 
+# If no directories specified, lints current directory
+# Options are passed through to the linter
+
+LINTER_PATH="../Claude/Linting/claude-md-linter.js"
+
+# Check if linter exists
+if [ ! -f "$LINTER_PATH" ]; then
+    echo "Error: Linter not found at $LINTER_PATH"
+    exit 1
+fi
+
+# If no arguments provided, lint current directory
+if [ $# -eq 0 ]; then
+    echo "Linting current directory..."
+    node "$LINTER_PATH" .
+else
+    # Pass all arguments through to the linter
+    node "$LINTER_PATH" "$@"
+fi
