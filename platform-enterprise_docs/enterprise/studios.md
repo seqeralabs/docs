@@ -192,7 +192,7 @@ You can also check the current template configuration using `https://towerurl/ap
 1. Apply a base64 encoding to the PEM file that you created in the previous step:
 
     ```
-    base64_pem=$(cat data-studios-rsa.pem | base64)
+    base64_pem=$(cat data-studios-rsa.pem | base64 -w0)
     ```
 
 1. Create a secret file named `secret.yml` and set the `oidc.pem` key by pasting the contents of the base64-encoded public/private key pair:
