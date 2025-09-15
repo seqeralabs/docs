@@ -1,7 +1,7 @@
 {
   "sidebar": [
     "index",
-        {
+    {
       "type": "category",
       "label": "Tutorials",
       "link": {"type": "doc", "id": "tutorials/index"},
@@ -18,21 +18,49 @@
       "collapsed": true,
       "items": [
         "install/docker-compose",
-        "install/kubernetes"
+        "install/kubernetes",
+        "install/configure-wave-build"
       ]
     },
     {
       "type": "category",
       "label": "Configuration",
       "collapsed": true,
-      "items": [   
-        "wave-lite",     
-        "install/configure-wave",
-        "install/configure-wave-build"
+      "items": [
+        "wave-lite",
+        "configure-wave",
+        "configuration"
       ]
     },
     "provisioning",
-    "nextflow",
+    {
+      "type": "category",
+      "label": "Nextflow integration",
+      "collapsed": true,
+      "items": [   
+        "nextflow/index",     
+        "nextflow/use-cases",
+        "nextflow/configuration"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Updates",
+      "collapsed": true,
+      "items": [
+        {
+          "type": "category",
+          "label": "Migration notes",
+          "link": {"type": "doc", "id": "migrations/index"},
+          "collapsed": true,
+          "items": [
+            "migrations/1-25-0",
+            "migrations/1-24-0",
+            "migrations/1-21-0"
+          ]
+        }
+      ]
+    },
     {
       "type": "category",
       "label": "Developer tools",
@@ -46,7 +74,7 @@
           "items": [
             "cli/index",
             "cli/installation",
-            "cli/reference"
+            "cli/use-cases"
           ]
         }
       ]

@@ -13,23 +13,6 @@ Resource labels are applied to elements during:
 - Workflow submission
 - Workflow execution
 
-### Dynamic resource labels 
-
-Use dynamic resource labels to tag cloud resources with Platform run and Nextflow session identifiers at workflow submission and execution time. When you provide a variable value in the standard `key=value` resource label format, the corresponding unique value for each pipeline run will be propagated to your cloud provider for all the resources spawned by that particular run.
-
-| Value           | Description         |
-|-----------------|---------------------|
-| `${workflowId}` | Platform run ID     |
-| `${sessionId}`  | Nextflow session ID |
-
-For example, to apply labels containing the unique Platform run ID to all the resources spawned by a run, add a dynamic label such as `platform-run=${workflowId}` to your compute environment, pipeline, or manually in the pipeline launch form. 
-
-Dynamic resource labels applied at the compute environment or pipeline level are prefilled in the pipeline launch form, and they can be applied or overridden during pipeline launch.
-
-:::info
-Because dynamic resource labels are used to tag resources with unique values coresponding to a pipeline run, they are only applied during workflow submission and execution time, and not during compute environment creation. See the **Submission time** and **Execution time** resources listed for each cloud provider on this page.
-:::
-
 ### Create and apply resource labels
 
 Resource labels can be created, applied, and edited by a workspace admin or owner. When applying a label, users can select from existing labels or add new labels on the fly.
@@ -40,11 +23,15 @@ Admins can assign a set of resource labels when creating a compute environment. 
 
 Apply resource labels when you create a new compute environment.
 
-:::caution
+:::info
 Once the compute environment has been created, its resource labels cannot be edited.
 :::
 
 If a resource label is applied to a compute environment, all runs in that compute environment will inherit it. Likewise, all cloud resources generated during the workflow execution will be tagged with the same resource label.
+
+:::warning
+If you are using Azure Batch compute environments, the [Azure Batch node pool](https://learn.microsoft.com/en-us/azure/batch/nodes-and-pools) is managed by the compute environment and **resource labels are fixed at the time of creation**.
+:::
 
 #### Resource labels applied to runs, pipelines, and actions
 
@@ -56,7 +43,7 @@ For example, the resource label `name=ce1` is set during AWS Batch compute envir
 
 If a maintainer changes the compute environment associated with a pipeline or run, the **Resource labels** field is updated with the resource labels from the new compute environment.
 
-### Search and filter with labels
+### Search and filter with resource labels
 
 Search and filter pipelines and runs using one or more resource labels. The resource label search uses a `label:key=value` format.
 
