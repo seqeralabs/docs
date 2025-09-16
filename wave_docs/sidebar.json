@@ -22,6 +22,34 @@
     },
     {
       "type": "category",
+      "label": "Nextflow integration",
+      "collapsed": true,
+      "items": [   
+        "nextflow/index",     
+        "nextflow/use-cases",
+        "nextflow/configuration"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Developer tools",
+      "collapsed": true,
+      "items": [
+        "api",
+        {
+          "type": "category",
+          "label": "CLI",
+          "collapsed": true,
+          "items": [
+            "cli/index",
+            "cli/installation",
+            "cli/use-cases"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "category",
       "label": "Self-hosted Wave",
       "collapsed": true,
       "items": [
@@ -54,34 +82,6 @@
             "migrations/1-25-0",
             "migrations/1-24-0",
             "migrations/1-21-0"
-          ]
-        }
-      ]
-    },
-    {
-      "type": "category",
-      "label": "Nextflow integration",
-      "collapsed": true,
-      "items": [   
-        "nextflow/index",     
-        "nextflow/use-cases",
-        "nextflow/configuration"
-      ]
-    },
-    {
-      "type": "category",
-      "label": "Developer tools",
-      "collapsed": true,
-      "items": [
-        "api",
-        {
-          "type": "category",
-          "label": "CLI",
-          "collapsed": true,
-          "items": [
-            "cli/index",
-            "cli/installation",
-            "cli/use-cases"
           ]
         }
       ]
