@@ -103,18 +103,18 @@ export default function Home(): JSX.Element {
     <Layout>
       <div className="homepage flex w-full pt-10">
         {!isMobile && !disabled && (
-          <div className={styles.sidebarContainer}>
+          <div className="flex-none bg-black/[0.02]">
             <Sidebar path="/" />
           </div>
         )}
-        <main className="flex-grow">
+        <main className="grow">
           <div className={clsx("p-8 md:p-8 py-10", styles.page)}>
             <div className="container-md flex flex-wrap text-brand-1000 dark:text-white">
               <div className="flex flex-col w-full">
                 <p className="font-title typo-h2 font-medium w-full text-left mb-4">
                   Documentation
                 </p>
-                <p className="font-title typo-h4 font-normal w-full text-left">
+                <p className="font-title typo-h4 font-normal w-full text-left mb-6">
                   Explore our guides, documentation, and examples to build with
                   Seqera.
                 </p>
@@ -138,14 +138,14 @@ export default function Home(): JSX.Element {
                   <div className="w-full">
                     <p className="font-title typo-h4 font-semibold mb-4">Try Nextflow</p>
                     <div className="flex gap-5">
-                      <div className="w-1/3 h-[300px] max-h-[300px] min-h-[300px] p-3 bg-white rounded-lg border border-gray-300 border-solid">
+                      <div className="w-1/3 h-[300px] max-h-[300px] min-h-[300px] p-3 bg-white rounded-md border border-gray-300 border-solid">
                         {useCases.map((useCase, index) => (
                           <button
                             key={index}
-                            className={`block w-full text-left py-4 px-3 mb-2 rounded text-base cursor-pointer font-normal ${
+                            className={`block w-full text-left py-4 px-3 mb-2 rounded-sm text-base cursor-pointer font-normal ${
                               selectedUseCase === index
-                                ? "bg-white text-brand shadow-xl border-none"
-                                : "text-brand-600 border-none bg-transparent transition-all ease-in-out duration-300 hover:shadow-xl"
+                                ? "bg-white text-brand shadow-lg border-none"
+                                : "text-brand-600 border-none bg-transparent transition-all ease-in-out duration-300 hover:shadow-lg"
                             }`}
                             onClick={() => setSelectedUseCase(index)}
                           >
@@ -160,11 +160,11 @@ export default function Home(): JSX.Element {
                   </div>
                 </div> */}
 
-                <div className="flex flex-col w-full gap-10">
+                <div className="flex flex-col w-full gap-6">
                   <div className="flex flex-row flex-wrap w-full gap-0">
-                    <div className="w-full max-w-[100%] md:max-w-[50%] lg:max-w-[25%]">
+                    <div className="w-full max-w-full md:max-w-[50%] lg:max-w-[25%]">
                       <p className="font-title typo-h4 font-medium mb-2">Platform</p>
-                      <ul className="list-none p-0 leading-8">
+                      <ul className="list-none p-0 leading-8 flex flex-col gap-1">
                         <li>
                           <Link to="/platform-cloud/getting-started/quickstart-demo/add-pipelines">
                             Add pipelines
@@ -182,16 +182,16 @@ export default function Home(): JSX.Element {
                         </li>
                       </ul>
                     </div>
-                    <div className="w-full max-w-[100%] md:max-w-[50%] lg:max-w-[25%]">
+                    <div className="w-full max-w-full md:max-w-[50%] lg:max-w-[25%]">
                       <p className="font-title typo-h4 font-medium mb-2">Studios</p>
-                      <ul className="list-none p-0 leading-8">
+                      <ul className="list-none p-0 leading-8 flex flex-col gap-1">
                         <li>
                           <Link to="/platform-cloud/studios/overview">
                             Studios overview
                           </Link>
                         </li>
                         <li>
-                          <Link to="/platform-enterprise/latest/enterprise/studios">
+                          <Link to="/platform-enterprise/enterprise/studios">
                             Enterprise deployment
                           </Link>
                         </li>
@@ -202,13 +202,13 @@ export default function Home(): JSX.Element {
                         </li>
                       </ul>
                     </div>
-                    <div className="w-full max-w-[100%] md:max-w-[50%] lg:max-w-[25%]">
+                    <div className="w-full max-w-full md:max-w-[50%] lg:max-w-[25%]">
                       <p className="font-title typo-h4 font-medium mb-2">
                         Developer tools
                       </p>
-                      <ul className="list-none p-0 leading-8">
+                      <ul className="list-none p-0 leading-8 flex flex-col gap-1">
                         <li>
-                          <a href="https://docs.seqera.io/platform-api/info/seqera-api">
+                          <a href="/platform-api">
                             Platform API
                           </a>
                         </li>
@@ -224,9 +224,9 @@ export default function Home(): JSX.Element {
                         </li>
                       </ul>
                     </div>
-                    <div className="w-full max-w-[100%] md:max-w-[50%] lg:max-w-[25%]">
+                    <div className="w-full max-w-full md:max-w-[50%] lg:max-w-[25%]">
                       <p className="font-title typo-h4 font-medium mb-2">MultiQC</p>
-                      <ul className="list-none p-0 leading-8">
+                      <ul className="list-none p-0 leading-8 flex flex-col gap-1">
                         <li>
                           <Link to="/multiqc/getting_started/quick_start">
                             Get started
@@ -252,7 +252,7 @@ export default function Home(): JSX.Element {
                     <div className="flex flex-row flex-wrap w-full gap-4">
                       <Link
                         to="https://nextflow.io/docs/latest/index.html"
-                        className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border border-gray-300 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800"
+                        className="flex-col items-start w-full max-w-full md:max-w-[30%] border border-gray-300 border-solid rounded-md p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-lg hover:border-brand dark:hover:border-brand-800"
                       >
                         <img
                           src="/img/nextflow-icon.svg"
@@ -265,7 +265,7 @@ export default function Home(): JSX.Element {
                       </Link>
                       <Link
                         to="/wave"
-                        className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border border-gray-300 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800"
+                        className="flex-col items-start w-full max-w-full md:max-w-[30%] border border-gray-300 border-solid rounded-md p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-lg hover:border-brand dark:hover:border-brand-800"
                       >
                         <img
                           src="/img/wave-icon.svg"
@@ -278,7 +278,7 @@ export default function Home(): JSX.Element {
                       </Link>
                       <Link
                         to="/multiqc"
-                        className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border border-gray-300 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800"
+                        className="flex-col items-start w-full max-w-full md:max-w-[30%] border border-gray-300 border-solid rounded-md p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-lg hover:border-brand dark:hover:border-brand-800"
                       >
                         <img
                           src="/img/multiqc-icon.svg"
@@ -297,8 +297,8 @@ export default function Home(): JSX.Element {
                     </div>
                     <div className="flex flex-row flex-wrap w-full gap-4">
                       <Link
-                        to="/platform-cloud/platform-cloud"
-                        className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border border-gray-300 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800"
+                        to="/platform-cloud"
+                        className="flex-col items-start w-full max-w-full md:max-w-[30%] border border-gray-300 border-solid rounded-md p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-lg hover:border-brand dark:hover:border-brand-800"
                       >
                         <div className="w-6 h-6 mb-3 bg-[url('/img/cloud.svg')] dark:bg-[url('/img/cloud-white.svg')] bg-contain bg-no-repeat bg-center"></div>
                         <p className="m-0 text-brand dark:text-white text-lg">
@@ -306,8 +306,8 @@ export default function Home(): JSX.Element {
                         </p>
                       </Link>
                       <Link
-                        to="/platform-enterprise/latest/platform-enterprise"
-                        className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border border-gray-300 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800"
+                        to="/platform-enterprise"
+                        className="flex-col items-start w-full max-w-full md:max-w-[30%] border border-gray-300 border-solid rounded-md p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-lg hover:border-brand dark:hover:border-brand-800"
                       >
                         <div className="w-6 h-6 mb-3 bg-[url('/img/enterprise.svg')] dark:bg-[url('/img/enterprise-white.svg')] bg-contain bg-no-repeat bg-center"></div>
                         <p className="m-0 text-brand dark:text-white text-lg">
@@ -316,7 +316,7 @@ export default function Home(): JSX.Element {
                       </Link>
                       <Link
                         to="/fusion"
-                        className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border border-gray-300 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800"
+                        className="flex-col items-start w-full max-w-full md:max-w-[30%] border border-gray-300 border-solid rounded-md p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-lg hover:border-brand dark:hover:border-brand-800"
                       >
                         <img
                           src="/img/fusion-icon.svg"
@@ -336,7 +336,7 @@ export default function Home(): JSX.Element {
                     <div className="flex flex-row flex-wrap w-full gap-4">
                       <Link
                         to="/platform-cloud/compute-envs/aws-batch"
-                        className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border border-gray-300 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800"
+                        className="flex-col items-start w-full max-w-full md:max-w-[30%] border border-gray-300 border-solid rounded-md p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-lg hover:border-brand dark:hover:border-brand-800"
                       >
                         <div className="w-6 h-6 mb-3 bg-[url('/img/aws.svg')] dark:bg-[url('/img/aws-white.svg')] bg-contain bg-no-repeat bg-center"></div>
                         <p className="m-0 text-brand dark:text-white text-lg">
@@ -345,7 +345,7 @@ export default function Home(): JSX.Element {
                       </Link>
                       <Link
                         to="/platform-cloud/compute-envs/google-cloud-batch"
-                        className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border border-gray-300 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800"
+                        className="flex-col items-start w-full max-w-full md:max-w-[30%] border border-gray-300 border-solid rounded-md p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-lg hover:border-brand dark:hover:border-brand-800"
                       >
                         <div className="w-6 h-6 mb-3 bg-[url('/img/gcp.svg')] dark:bg-[url('/img/gcp-white.svg')] bg-contain bg-no-repeat bg-center"></div>
                         <p className="m-0 text-brand dark:text-white text-lg">
@@ -354,7 +354,7 @@ export default function Home(): JSX.Element {
                       </Link>
                       <Link
                         to="/platform-cloud/compute-envs/azure-batch"
-                        className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border border-gray-300 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800"
+                        className="flex-col items-start w-full max-w-full md:max-w-[30%] border border-gray-300 border-solid rounded-md p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-lg hover:border-brand dark:hover:border-brand-800"
                       >
                         <div className="w-6 h-6 mb-3 bg-[url('/img/azure.svg')] dark:bg-[url('/img/azure-white.svg')] bg-contain bg-no-repeat bg-center"></div>
                         <p className="m-0 text-brand dark:text-white text-lg">
@@ -371,7 +371,7 @@ export default function Home(): JSX.Element {
                   <div className="flex flex-row flex-wrap w-full gap-4">
                     <Link
                       to="https://support.seqera.io"
-                      className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border border-gray-300 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800"
+                      className="flex-col items-start w-full max-w-full md:max-w-[30%] border border-gray-300 border-solid rounded-md p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-lg hover:border-brand dark:hover:border-brand-800"
                     >
                       <div className="w-6 h-6 mb-3 bg-[url('/img/help.svg')] dark:bg-[url('/img/help-white.svg')] bg-contain bg-no-repeat bg-center"></div>
                       <p className="m-0 text-brand dark:text-white text-lg mb-1">
@@ -384,7 +384,7 @@ export default function Home(): JSX.Element {
                     </Link>
                     <Link
                       to="https://community.seqera.io"
-                      className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border border-gray-300 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800"
+                      className="flex-col items-start w-full max-w-full md:max-w-[30%] border border-gray-300 border-solid rounded-md p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-lg hover:border-brand dark:hover:border-brand-800"
                     >
                       <div className="w-6 h-6 mb-3 bg-[url('/img/forum.svg')] dark:bg-[url('/img/forum-white.svg')] bg-contain bg-no-repeat bg-center"></div>
                       <p className="m-0 text-brand dark:text-white text-lg mb-1">
@@ -396,7 +396,7 @@ export default function Home(): JSX.Element {
                     </Link>
                     <Link
                       to="https://status.seqera.io"
-                      className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border border-gray-300 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800"
+                      className="flex-col items-start w-full max-w-full md:max-w-[30%] border border-gray-300 border-solid rounded-md p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-lg hover:border-brand dark:hover:border-brand-800"
                     >
                       <div className="w-6 h-6 mb-3 bg-[url('/img/status.svg')] dark:bg-[url('/img/status-white.svg')] bg-contain bg-no-repeat bg-center"></div>
                       <p className="m-0 text-brand dark:text-white text-lg mb-1">

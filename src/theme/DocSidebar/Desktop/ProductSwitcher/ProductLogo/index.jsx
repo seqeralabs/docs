@@ -71,7 +71,7 @@ const ProductSwitcher = ({ product }) => {
   const LogoDark = logos[product]?.dark;
 
   return (
-    <span className={styles.item}>
+    <span className={styles.logo}>
       {Logo && <Logo className={styles.themeLight} />}
       {LogoDark && <LogoDark className={styles.themeDark} />}
     </span>

@@ -24,7 +24,8 @@
           "getting-started/quickstart-demo/add-data",
           "getting-started/quickstart-demo/launch-pipelines",
           "getting-started/quickstart-demo/monitor-runs",
-          "getting-started/quickstart-demo/automation"
+          "getting-started/quickstart-demo/automation",
+          "getting-started/production-checklist"
         ]
       },
       {
@@ -66,8 +67,7 @@
               "compute-envs/aws-cloud",
               "compute-envs/azure-batch",
               "compute-envs/google-cloud-batch",
-              "compute-envs/google-cloud",
-              "compute-envs/google-cloud-lifesciences",
+              "compute-envs/google-cloud",             
               "compute-envs/eks",
               "compute-envs/gke",
               "monitoring/cloud-costs"
@@ -147,7 +147,7 @@
           {
             "type": "link",
             "label": "API",
-            "href": "https://docs.seqera.io/platform-api/info/seqera-api"
+            "href": "https://docs.seqera.io/platform-api"
           },
           {
             "type": "category",

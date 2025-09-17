@@ -67,7 +67,7 @@ In Seqera Cloud:
 - Because the processes require larger resources than the head node, you often have oversized machines running Nextflow or undersized machines running processes.
 - Dedicated nodes only.
 
-The first configuration is a simple Azure Batch compute environment created with Batch Forge. This environment uses the same Batch pool for both the Nextflow head job and task nodes. 
+The first configuration is a simple Azure Batch compute environment created with Batch Forge. This environment uses the same Batch pool for both the Nextflow head job and task nodes.
 
 First, add the Azure Batch account credentials to Seqera Platform:
 
@@ -97,11 +97,11 @@ Add the `nextflow-hello` pipeline to your workspace:
 
 [Add a pipeline][add-pipeline] from your workspace Launchpad with the following settings:
 
-- Select your Azure Batch compute environment from the dropdown. 
-- For **Pipeline to launch**, enter `https://github.com/nextflow-io/hello`. 
+- Select your Azure Batch compute environment from the dropdown.
+- For **Pipeline to launch**, enter `https://github.com/nextflow-io/hello`.
 - For **Work directory**, enter a subdirectory in the `az://work` container in your Storage account.
 
-Select **Launch** next to the pipeline name in your workspace Launchpad to complete the launch form and launch the workflow. 
+Select **Launch** next to the pipeline name in your workspace Launchpad to complete the launch form and launch the workflow.
 
 ### Option 2. Use a separate node and head pool on Seqera Platform
 
@@ -123,7 +123,7 @@ Select **Launch** next to the pipeline name in your workspace Launchpad to compl
 - Still fairly inflexible.
 - You have to wait a long time for nodes to autoscale up and down in response to the work.
 
-This configuration separates head and task nodes into different Batch pools. 
+This configuration separates head and task nodes into different Batch pools.
 
 To create a separate node pool to run all the processes:
 
@@ -157,7 +157,7 @@ You have created a new node pool that uses low-priority VMs, which are cheaper t
 
 1. Save the pipeline as `hello-world-low-priority`.
 
-Select **Launch** next to the `hello-world-low-priority` pipeline in your workspace Launchpad to complete the launch form and launch the workflow. 
+Select **Launch** next to the `hello-world-low-priority` pipeline in your workspace Launchpad to complete the launch form and launch the workflow.
 
 ### Option 3. Configure the head pool with a hot node
 
@@ -318,16 +318,16 @@ Select **Launch** next to the `hello-world-autopool-low-priority` pipeline in yo
 - The setup is quite complicated with room for error.
 - Errors can be harder to troubleshoot.
 
-Seqera can utilize an Azure Entra service principal to authenticate and access Azure Batch for job execution and Azure Storage for data management, and Nextflow can authenticate to Azure services using a managed identity. This method offers enhanced security compared to access keys, but must run on Azure infrastructure. 
+Seqera can utilize an Azure Entra service principal to authenticate and access Azure Batch for job execution and Azure Storage for data management, and Nextflow can authenticate to Azure services using a managed identity. This method offers enhanced security compared to access keys, but must run on Azure infrastructure.
 
-See [Microsoft Entra](https://www.nextflow.io/docs/latest/azure.html#microsoft-entra) in the Nextflow documentation for more information. 
+See [Microsoft Entra](https://www.nextflow.io/docs/latest/azure.html#microsoft-entra) in the Nextflow documentation for more information.
 
 #### Create a service principal for Seqera to use for authentication
 
 1. [Create an Azure service principal](https://learn.microsoft.com/en-us/entra/identity-platform/howto-create-service-principal-portal).
 1. [Assign roles to the service principal](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal?tabs=current).
 1. [Get the Service Principal ID, Tenant ID, and Client Secret](https://learn.microsoft.com/en-us/entra/identity-platform/howto-create-service-principal-portal#option-3-create-a-new-client-secret).
-1. [Add to Seqera credentials](https://docs.seqera.io/platform/24.2/compute-envs/azure-batch#entra-service-principal).
+1. [Add to Seqera credentials](../../compute-envs/azure-batch#entra-service-principal-and-managed-identity).
 
 In Seqera:
 
@@ -433,14 +433,14 @@ Using this technique allows you to run pipelines on Azure Batch with more restri
 - The set up is very complicated now and errors are likely to occur.
 - Errors can be hard to troubleshoot.
 
-Finally, you can combine some of the previous approaches. Nextflow can create and modify Azure Batch pools based on the pipeline requirements. You can also attach Azure Batch pools to a VNet. Next, attach the worker nodes to the same VNet. 
+Finally, you can combine some of the previous approaches. Nextflow can create and modify Azure Batch pools based on the pipeline requirements. You can also attach Azure Batch pools to a VNet. Next, attach the worker nodes to the same VNet.
 
 To achieve this, the following requirements must be met:
 
 - The pipeline must be launched on the node pool attached to the VNet.
 - The managed identity must be used to authenticate to Azure Batch and Storage.
 - The managed identity must have permissions to create resources attached to the VNet.
-- Nextflow creates node pools attached to the VNet. 
+- Nextflow creates node pools attached to the VNet.
 
 Do the following:
 
