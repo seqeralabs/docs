@@ -7,7 +7,7 @@ import { parse } from 'yaml';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const SPEC_PATH = path.resolve(__dirname, 'seqera-api-latest-decorated-final.yaml');
+const SPEC_PATH = path.resolve(__dirname, 'seqera-api-latest-decorated-final-fr.yaml');
 const OUTPUT_DIR = path.resolve(__dirname, '../docs/info/parameter-tables');
 
 // Utility to safely dereference $ref fields

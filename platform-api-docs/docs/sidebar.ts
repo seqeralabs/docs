@@ -769,7 +769,7 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "docs/info",
-          label: "Get API version and features",
+          label: "General Seqera service features and version.",
           className: "api-method get",
         },
       ],

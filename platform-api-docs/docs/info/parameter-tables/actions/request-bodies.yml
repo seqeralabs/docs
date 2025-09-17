@@ -29,8 +29,8 @@
   Description: Custom run name for the workflow execution.
 - Name: launch.pipeline
   Type: string
-  Req/Opt: Required
-  Description: Pipeline repository URL (e.g., https://github.com/nextflow-io/hello).
+  Req/Opt: Optional
+  Description: Pipeline repository URL (e.g., `https://github.com/nextflow-io/hello`).
 - Name: launch.workDir
   Type: string
   Req/Opt: Optional
@@ -83,7 +83,7 @@
 - Name: launch.mainScript
   Type: string
   Req/Opt: Optional
-  Description: "Alternative main script filename (default: main.nf)."
+  Description: "Alternative main script filename. Default: `main.nf`."
 - Name: launch.entryName
   Type: string
   Req/Opt: Optional
@@ -164,8 +164,8 @@
   Description: Custom run name for the workflow execution.
 - Name: launch.pipeline
   Type: string
-  Req/Opt: Required
-  Description: Pipeline repository URL (e.g., https://github.com/nextflow-io/hello).
+  Req/Opt: Optional
+  Description: Pipeline repository URL (e.g., `https://github.com/nextflow-io/hello`).
 - Name: launch.workDir
   Type: string
   Req/Opt: Optional
@@ -218,7 +218,7 @@
 - Name: launch.mainScript
   Type: string
   Req/Opt: Optional
-  Description: "Alternative main script filename (default: main.nf)."
+  Description: "Alternative main script filename. Default: `main.nf`."
 - Name: launch.entryName
   Type: string
   Req/Opt: Optional

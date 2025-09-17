@@ -85,40 +85,9 @@
   Type: string
   Location: path
   Req/Opt: Required
-  Description: Content path
-- Name: "`filePath`"
-  Type: string
-  Location: path
-  Req/Opt: Required
-  Description: File path to download
-- Name: "`filePath`"
-  Type: string
-  Location: query
-  Req/Opt: Optional
-  Description: File path to download
-- Name: "`preview`"
-  Type: boolean
-  Location: query
-  Req/Opt: Optional
-  Description: "Whether to generate the URL for preview purposes or direct
-    download (default: false)"
-- Name: "`dirs`"
-  Type: array
-  Location: query
-  Req/Opt: Optional
-  Description: List of paths to directories to download
-- Name: "`files`"
-  Type: array
-  Location: query
-  Req/Opt: Optional
-  Description: List of paths to files to download
+  Description: Path to the destination directory
 - Name: "`Origin`"
   Type: string
   Location: header
   Req/Opt: Optional
   Description: ""
-- Name: "`dirPath`"
-  Type: string
-  Location: path
-  Req/Opt: Required
-  Description: Path to the destination directory

@@ -17,7 +17,8 @@
 - Name: config.workDir
   Type: string
   Req/Opt: Optional
-  Description: Compute environment working directory
+  Description: Nextflow work directory on the cluster's shared file system. Must
+    be an absolute path and credentials must have read-write access.
 - Name: config.preRunScript
   Type: string
   Req/Opt: Optional
@@ -33,43 +34,48 @@
 - Name: config.nextflowConfig
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Additional Nextflow configuration to apply. See [Nextflow config
+    file](https://docs.seqera.io/platform-cloud/launch/advanced#nextflow-config-file).
 - Name: config.launchDir
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Directory where Nextflow runs. Must be an absolute path and
+    credentials must have read-write access. If omitted, defaults to `workDir`.
 - Name: config.userName
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Username for SSH connection to HPC head node.
 - Name: config.hostName
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Hostname or IP address of HPC head node.
 - Name: config.port
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: "SSH port. Default: `22`."
 - Name: config.headQueue
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: The name of the queue on the cluster used to launch the Nextflow execution.
 - Name: config.computeQueue
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: The name of queue on the cluster to which pipeline jobs are
+    submitted. Can be overridden by the pipeline configuration.
 - Name: config.maxQueueSize
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: "The maximum number of jobs Nextflow can submit to the queue
+    simultaneously. Default: `100`."
 - Name: config.headJobOptions
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Additional submit options for the Nextflow head job.
 - Name: config.propagateHeadJobOptions
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: If true, `headJobOptions` are also applied to the
+    Nextflow-submitted compute jobs.
 - Name: "**UpdateManagedIdentity**"
   Type: ""
   Req/Opt: ""
@@ -97,7 +103,8 @@
 - Name: managedIdentity.config.workDir
   Type: string
   Req/Opt: Optional
-  Description: Compute environment working directory
+  Description: Nextflow work directory on the cluster's shared file system. Must
+    be an absolute path and credentials must have read-write access.
 - Name: managedIdentity.config.preRunScript
   Type: string
   Req/Opt: Optional
@@ -113,43 +120,48 @@
 - Name: managedIdentity.config.nextflowConfig
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Additional Nextflow configuration to apply. See [Nextflow config
+    file](https://docs.seqera.io/platform-cloud/launch/advanced#nextflow-config-file).
 - Name: managedIdentity.config.launchDir
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Directory where Nextflow runs. Must be an absolute path and
+    credentials must have read-write access. If omitted, defaults to `workDir`.
 - Name: managedIdentity.config.userName
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Username for SSH connection to HPC head node.
 - Name: managedIdentity.config.hostName
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Hostname or IP address of HPC head node.
 - Name: managedIdentity.config.port
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: "SSH port. Default: `22`."
 - Name: managedIdentity.config.headQueue
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: The name of the queue on the cluster used to launch the Nextflow execution.
 - Name: managedIdentity.config.computeQueue
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: The name of queue on the cluster to which pipeline jobs are
+    submitted. Can be overridden by the pipeline configuration.
 - Name: managedIdentity.config.maxQueueSize
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: "The maximum number of jobs Nextflow can submit to the queue
+    simultaneously. Default: `100`."
 - Name: managedIdentity.config.headJobOptions
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Additional submit options for the Nextflow head job.
 - Name: managedIdentity.config.propagateHeadJobOptions
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: If true, `headJobOptions` are also applied to the
+    Nextflow-submitted compute jobs.
 - Name: "**CreateManagedCredentials**"
   Type: ""
   Req/Opt: ""

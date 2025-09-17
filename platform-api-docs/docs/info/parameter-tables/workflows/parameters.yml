@@ -33,7 +33,7 @@
   Type: integer
   Location: query
   Req/Opt: Optional
-  Description: Source Optional workspace numeric identifier
+  Description: Source workspace numeric identifier
 - Name: "`runName`"
   Type: string
   Location: query
