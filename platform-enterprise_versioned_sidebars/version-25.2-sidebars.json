@@ -183,6 +183,7 @@
         "label": "Studios",
         "items": [
           "studios/overview",
+          "studios/configuration",
           "studios/custom-envs",
           "studios/managing",
           "studios/connect"
