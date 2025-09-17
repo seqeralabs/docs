@@ -235,6 +235,7 @@ export default async function createConfigAsync() {
               require.resolve("./src/css/typography.css"),
               require.resolve("./src/css/def-list.css"),
               require.resolve("./src/css/misc.css"),
+              require.resolve("./src/css/def-list.css"),
               require.resolve("./src/css/components/checklist.css"),
               require.resolve("./src/css/components/box.css"),
               require.resolve("./src/css/theme-colors.css"),

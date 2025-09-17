@@ -1,6 +1,14 @@
 {
   "sidebar": [
-    "index",
+    {
+      "type": "category",
+      "label": "Wave containers",
+      "link": {"type": "doc", "id": "index"},
+      "collapsed": true,
+      "items": [
+          "provisioning"
+      ]
+    },
     {
       "type": "category",
       "label": "Tutorials",
@@ -14,42 +22,12 @@
     },
     {
       "type": "category",
-      "label": "Installation",
+      "label": "Nextflow integration",
       "collapsed": true,
-      "items": [
-        "install/docker-compose",
-        "install/kubernetes",
-        "install/configure-wave-build"
-      ]
-    },
-    {
-      "type": "category",
-      "label": "Configuration",
-      "collapsed": true,
-      "items": [
-        "wave-lite",
-        "configure-wave",
-        "configuration"
-      ]
-    },
-    "provisioning",
-    "nextflow",
-{
-      "type": "category",
-      "label": "Updates",
-      "collapsed": true,
-      "items": [
-        {
-          "type": "category",
-          "label": "Migration notes",
-          "link": {"type": "doc", "id": "migrations/index"},
-          "collapsed": true,
-          "items": [
-            "migrations/1-25-0",
-            "migrations/1-24-0",
-            "migrations/1-21-0"
-          ]
-        }
+      "items": [   
+        "nextflow/index",     
+        "nextflow/use-cases",
+        "nextflow/configuration"
       ]
     },
     {
@@ -67,6 +45,44 @@
             "cli/installation",
             "cli/use-cases"
           ]
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Self-hosted Wave",
+      "collapsed": true,
+      "items": [
+        {
+          "type": "category",
+          "label": "Installation",
+          "collapsed": true,
+          "items": [
+            "install/docker-compose",
+            "install/kubernetes",
+            "install/configure-wave-build"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Configuration",
+          "collapsed": true,
+          "items": [
+            "wave-lite",
+            "configure-wave",
+            "configuration"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Migration notes",
+          "link": {"type": "doc", "id": "migrations/index"},
+          "collapsed": true,
+          "items": [
+            "migrations/1-25-0",
+            "migrations/1-24-0",
+            "migrations/1-21-0"
+          ] 
         }
       ]
     },
