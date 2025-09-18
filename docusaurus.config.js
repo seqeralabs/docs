@@ -28,7 +28,7 @@ export default async function createConfigAsync() {
     {
       id: "platform-enterprise",
       routeBasePath: "/platform-enterprise",
-      path: "platform-enterprise_docs",
+      path: "platform-cloud/docs",
       // For PR Previews we want to see the latest doc-set with expected changes.
       includeCurrentVersion: process.env.INCLUDE_NEXT ? true : false,
       lastVersion: platform_enterprise_latest_version,
@@ -40,7 +40,7 @@ export default async function createConfigAsync() {
       ],
       rehypePlugins: [(await require("rehype-katex")).default],
       editUrl: "https://github.com/seqeralabs/docs/tree/master/",
-      sidebarPath: "platform-enterprise_docs/enterprise-sidebar.json",
+      sidebarPath: "./platform-cloud/enterprise-sidebar.json",
     },
   ];
 
@@ -255,8 +255,8 @@ export default async function createConfigAsync() {
       ],
     ],
     plugins: [
-      process.env.EXCLUDE_PLATFORM_ENTERPRISE ? null : docs_platform_enterprise,
-      process.env.EXCLUDE_PLATFORM_CLOUD ? null : docs_platform_cloud,
+    process.env.EXCLUDE_PLATFORM_ENTERPRISE ? null : docs_platform_enterprise,
+    process.env.EXCLUDE_PLATFORM_CLOUD ? null : docs_platform_cloud,
       process.env.EXCLUDE_PLATFORM_API ? null : docs_platform_api,
       process.env.EXCLUDE_PLATFORM_OPENAPI ? null : docs_platform_openapi,
       process.env.EXCLUDE_MULTIQC ? null : docs_multiqc,
