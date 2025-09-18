@@ -21,8 +21,7 @@
                 "config",
                 "executor",
                 "cache-and-resume",
-                "reports",
-                "plugins"
+                "reports"
             ]
         },
         {
@@ -154,8 +153,7 @@
                         "developer/nextflow.secret",
                         "developer/nextflow.trace"
                     ]
-                },
-                "developer/plugins"
+                }
             ]
         },
         {
