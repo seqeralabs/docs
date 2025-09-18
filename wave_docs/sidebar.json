@@ -70,6 +70,7 @@
           "items": [
             "wave-lite",
             "configure-wave",
+            "metrics",
             "configuration"
           ]
         },
