@@ -12,19 +12,19 @@ import VersionSwitcher from "./VersionSwitcher";
 const products = [
   {
     name: "Platform Cloud",
-    url: "/platform-cloud/platform-cloud",
+    url: "/platform-cloud",
   },
   {
     name: "Platform Enterprise",
-    url: "/platform-enterprise/latest/platform-enterprise",
+    url: "/platform-enterprise",
   },
   {
     name: "Nextflow",
     url: "/nextflow/",
   },
-  { name: "MultiQC", url: "/multiqc/" },
-  { name: "Wave", url: "/wave/" },
-  { name: "Fusion", url: "/fusion/" },
+  { name: "MultiQC", url: "/multiqc" },
+  { name: "Wave", url: "/wave" },
+  { name: "Fusion", url: "/fusion" },
 ];
 
 const ProductSwitcher = ({ isDropdown }) => {
@@ -76,9 +76,12 @@ const ProductSwitcher = ({ isDropdown }) => {
   if (!isDropdown) items = products;
 
   return (
-    <div className={clsx(`${styles.switcher} ${isEnterprisePage ? 'pt-2 px-4 mb-3' : 'hidden'}`)}>
+    <div className={clsx(styles.switcher, {
+      [styles.switcherPadding]: isEnterprisePage,
+      [styles.hidden]: !isEnterprisePage
+    })}>
       {isDropdown && (
-        <div className={`${isEnterprisePage ? '' : 'hidden'}`}>
+        <div className={clsx({ [styles.hidden]: !isEnterprisePage })}>
         <div
           className={clsx(styles.items, {
             [styles.active]: isOpen || isSecondaryOpen

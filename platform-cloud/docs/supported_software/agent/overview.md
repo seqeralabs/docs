@@ -37,7 +37,7 @@ To share a single Tower Agent instance with all members of a workspace, create a
 
 When you create the credentials, you receive an _Agent Connection ID_. You can use the default ID or enter a custom ID. The connection ID in the workspace credentials must match the ID entered when you run the Agent.
 
-The Aagent should always be running in order to accept incoming requests from Seqera. We recommend that you use a terminal multiplexer like [tmux](https://github.com/tmux/tmux) or [GNU Screen](https://www.gnu.org/software/screen/), so that it keeps running even if you close your SSH session.
+The Agent should always be running in order to accept incoming requests from Seqera. We recommend that you use a terminal multiplexer like [tmux](https://github.com/tmux/tmux) or [GNU Screen](https://www.gnu.org/software/screen/), so that it keeps running even if you close your SSH session.
 
 ```bash
 export TOWER_ACCESS_TOKEN=<YOUR TOKEN>

@@ -1,272 +1,288 @@
 - Name: "**CreatePipeline**"
   Type: ""
   Req/Opt: ""
-  Description: Create pipeline
+  Description: Create pipeline request.
 - Name: name
   Type: string
-  Req/Opt: Optional
-  Description: ""
+  Req/Opt: Required
+  Description: Pipeline name. Must be unique within the workspace.
 - Name: description
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Pipeline description.
 - Name: icon
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Pipeline icon URL.
 - Name: launch
   Type: object
-  Req/Opt: Optional
-  Description: ""
-- Name: launch.id
-  Type: string
-  Req/Opt: Optional
-  Description: ""
+  Req/Opt: Required
+  Description: "Pipeline launch configuration object."
 - Name: launch.computeEnvId
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Compute environment identifier where the pipeline will run.
+    Defaults to workspace primary compute environment if omitted.
 - Name: launch.runName
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Custom run name for the workflow execution.
 - Name: launch.pipeline
   Type: string
-  Req/Opt: Optional
-  Description: ""
+  Req/Opt: Required
+  Description: Pipeline repository URL (e.g., https://github.com/nextflow-io/hello).
 - Name: launch.workDir
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Work directory path where workflow intermediate files are stored.
+    Defaults to compute environment work directory if omitted.
 - Name: launch.revision
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Git revision, branch, or tag to use.
 - Name: launch.sessionId
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Nextflow session identifier for resuming failed runs.
 - Name: launch.configProfiles
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of Nextflow configuration profile names to apply.
 - Name: launch.userSecrets
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of user secrets to make available to the pipeline.
 - Name: launch.workspaceSecrets
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of workspace secrets to make available to the pipeline.
 - Name: launch.configText
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Nextflow configuration as text (overrides config files).
 - Name: launch.towerConfig
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Platform-specific configuration options.
 - Name: launch.paramsText
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Pipeline parameters in JSON or YAML format.
 - Name: launch.preRunScript
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Add a script that executes in the nf-launch script prior to
+    invoking Nextflow processes. See [Pre and post-run
+    scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts).
 - Name: launch.postRunScript
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Add a script that executes after all Nextflow processes have
+    completed. See [Pre and post-run
+    scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts).
 - Name: launch.mainScript
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: "Alternative main script filename (default: main.nf)."
 - Name: launch.entryName
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Workflow entry point name when using Nextflow DSL2.
 - Name: launch.schemaName
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Name of the pipeline schema to use.
 - Name: launch.resume
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: Enable resume to restart workflow execution from the last
+    successful process. See [Resume a workflow
+    run](https://docs.seqera.io/platform-cloud/launch/cache-resume#resume-a-workflow-run).
 - Name: launch.pullLatest
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: Pull the latest version of the pipeline from the repository.
 - Name: launch.stubRun
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: Execute a stub run for testing (processes return dummy results).
 - Name: launch.optimizationId
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Optimization configuration identifier. See [Pipeline resource
+    optimization](https://docs.seqera.io/platform-cloud/pipeline-optimization/overview).
 - Name: launch.optimizationTargets
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Comma-separated list of optimization targets. See [Pipeline
+    resource
+    optimization](https://docs.seqera.io/platform-cloud/pipeline-optimization/overview).
 - Name: launch.labelIds
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of label IDs to assign to each pipeline run.
 - Name: launch.headJobCpus
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of CPUs allocated for the Nextflow head job.
 - Name: launch.headJobMemoryMb
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Memory allocation for the Nextflow head job in megabytes.
 - Name: launch.launchContainer
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Container image to use for the Nextflow launcher.
 - Name: launch.dateCreated
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Timestamp when the launch configuration was created.
 - Name: labelIds
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of label IDs to apply to the pipeline.
 - Name: "**UpdatePipeline**"
   Type: ""
   Req/Opt: ""
-  Description: Update pipeline
+  Description: Update pipeline request.
 - Name: name
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Pipeline name. Must be unique within the workspace.
 - Name: description
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Pipeline description.
 - Name: icon
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Pipeline icon URL.
 - Name: launch
   Type: object
   Req/Opt: Optional
-  Description: ""
-- Name: launch.id
-  Type: string
-  Req/Opt: Optional
-  Description: ""
+  Description: "Pipeline launch configuration object."
 - Name: launch.computeEnvId
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Compute environment identifier where the pipeline will run.
+    Defaults to workspace primary compute environment if omitted.
 - Name: launch.runName
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Custom run name for the workflow execution.
 - Name: launch.pipeline
   Type: string
-  Req/Opt: Optional
-  Description: ""
+  Req/Opt: Required
+  Description: Pipeline repository URL (e.g., https://github.com/nextflow-io/hello).
 - Name: launch.workDir
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Work directory path where workflow intermediate files are stored.
+    Defaults to compute environment work directory if omitted.
 - Name: launch.revision
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Git revision, branch, or tag to use.
 - Name: launch.sessionId
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Nextflow session identifier for resuming failed runs.
 - Name: launch.configProfiles
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of Nextflow configuration profile names to apply.
 - Name: launch.userSecrets
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of user secrets to make available to the pipeline.
 - Name: launch.workspaceSecrets
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of workspace secrets to make available to the pipeline.
 - Name: launch.configText
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Nextflow configuration as text (overrides config files).
 - Name: launch.towerConfig
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Platform-specific configuration options.
 - Name: launch.paramsText
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Pipeline parameters in JSON or YAML format.
 - Name: launch.preRunScript
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Add a script that executes in the nf-launch script prior to
+    invoking Nextflow processes. See [Pre and post-run
+    scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts).
 - Name: launch.postRunScript
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Add a script that executes after all Nextflow processes have
+    completed. See [Pre and post-run
+    scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts).
 - Name: launch.mainScript
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: "Alternative main script filename (default: main.nf)."
 - Name: launch.entryName
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Workflow entry point name when using Nextflow DSL2.
 - Name: launch.schemaName
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Name of the pipeline schema to use.
 - Name: launch.resume
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: Enable resume to restart workflow execution from the last
+    successful process. See [Resume a workflow
+    run](https://docs.seqera.io/platform-cloud/launch/cache-resume#resume-a-workflow-run).
 - Name: launch.pullLatest
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: Pull the latest version of the pipeline from the repository.
 - Name: launch.stubRun
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: Execute a stub run for testing (processes return dummy results).
 - Name: launch.optimizationId
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Optimization configuration identifier. See [Pipeline resource
+    optimization](https://docs.seqera.io/platform-cloud/pipeline-optimization/overview).
 - Name: launch.optimizationTargets
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Comma-separated list of optimization targets. See [Pipeline
+    resource
+    optimization](https://docs.seqera.io/platform-cloud/pipeline-optimization/overview).
 - Name: launch.labelIds
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of label IDs to assign to each pipeline run.
 - Name: launch.headJobCpus
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of CPUs allocated for the Nextflow head job.
 - Name: launch.headJobMemoryMb
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Memory allocation for the Nextflow head job in megabytes.
 - Name: launch.launchContainer
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Container image to use for the Nextflow launcher.
 - Name: launch.dateCreated
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Timestamp when the launch configuration was created.
 - Name: labelIds
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of label IDs to assign to the pipeline. If null, empty, or
+    omitted, all existing labels are removed. Label IDs to be preserved must be
+    included in your request.

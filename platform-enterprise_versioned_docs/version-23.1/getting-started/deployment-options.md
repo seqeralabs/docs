@@ -6,7 +6,7 @@ last updated: "2025-08-08"
 tags: [deployment]
 ---
 
-Tower is available in two deployment editions and can be accessed via web UI, [API](https://docs.seqera.io/platform-api/info/seqera-api), [CLI](../cli/overview), or directly in your Nextflow command using a flag.
+Tower is available in two deployment editions and can be accessed via web UI, [API](https://docs.seqera.io/platform-api), [CLI](../cli/overview), or directly in your Nextflow command using a flag.
 
 ## Tower editions
 
@@ -37,7 +37,7 @@ To install Tower in your organization's infrastructure, [contact us](https://clo
 
 ## Tower usage methods
 
-You can access Tower through the web user interface, the [API](https://docs.seqera.io/platform-api/info/seqera-api), the [CLI](../cli/overview), or in Nextflow directly using the `-with-tower` option.
+You can access Tower through the web user interface, the [API](https://docs.seqera.io/platform-api), the [CLI](../cli/overview), or in Nextflow directly using the `-with-tower` option.
 
 ### Tower UI
 
@@ -49,7 +49,7 @@ You can access Tower through the web user interface, the [API](https://docs.seqe
 
 ### Tower API
 
-See [API](https://docs.seqera.io/platform-api/info/seqera-api).
+See [API](https://docs.seqera.io/platform-api).
 
 ### Tower CLI
 
