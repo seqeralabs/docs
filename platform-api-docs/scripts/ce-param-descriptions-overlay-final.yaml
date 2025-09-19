@@ -1,6 +1,6 @@
 overlay: "1.0.0"
 info:
-  title: "Compute Environment Parameters Descriptions"
+  title: "Compute environment parameter descriptions"
   version: "2.0.0"
   description: "Comprehensive descriptions for all compute environment parameters - path, query, request body, and platform configs"
 
