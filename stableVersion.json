@@ -1,0 +1,44 @@
+{
+  "nextflow": [
+    {
+      "stable": "stable 24.10.0",
+      "replaces": [
+        "24.05.0-edge",
+        "24.06.0-edge",
+        "24.07.0-edge",
+        "24.08.0-edge",
+        "24.09.0-edge"
+      ]
+    },
+        {
+      "stable": "stable 24.04.0",
+      "replaces": [
+        "23.11.0-edge",
+        "23.12.0-edge",
+        "24.01.0-edge",
+        "24.02.0-edge",
+        "24.03.0-edge"
+      ]
+    },
+        {
+      "stable": "stable 23.10.0",
+      "replaces": [
+        "23.05.0-edge",
+        "23.06.0-edge",
+        "23.07.0-edge",
+        "23.08.0-edge",
+        "23.09.0-edge"
+      ]
+        },
+        {
+      "stable": "stable 23.04.0",
+      "replaces": [
+        "22.11.0-edge",
+        "22.12.0-edge",
+        "23.01.0-edge",
+        "23.02.0-edge",
+        "23.03.0-edge"
+      ]
+    }
+  ]
+} 
