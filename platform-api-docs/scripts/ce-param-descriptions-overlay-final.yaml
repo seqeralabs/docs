@@ -118,7 +118,7 @@ actions:
   - target: "$.components.schemas.ComputeEnv_ComputeConfig_.properties.platform"
     update:
       description: "Compute platform provider."
-      enum: ["aws-batch", "aws-cloud", "google-batch", "google-cloud", "azure-batch", "k8s-platform", "eks-platform", "gke-platform", "slurm-platform", "lsf-platform", "uge-platform", "moab-platform", "altair-platform", "local-platform", "seqeracompute-platform"]
+      enum: ["aws-batch", "aws-cloud", "google-batch", "google-cloud", "azure-batch", "azure-cloud", "k8s-platform", "eks-platform", "gke-platform", "slurm-platform", "lsf-platform", "uge-platform", "moab-platform", "altair-platform", "local-platform", "seqeracompute-platform"]
       
   - target: "$.components.schemas.ComputeEnv_ComputeConfig_.properties.config"
     update:
@@ -250,11 +250,11 @@ actions:
       
   - target: "$.components.schemas.AwsBatchConfig.properties.waveEnabled"
     update:
-      description: "Enable [Wave containers](https://docs.seqera.io/wave)."
+      description: "Enable [Wave containers](https://docs.seqera.io/wave). Default: `false`."
       
   - target: "$.components.schemas.AwsBatchConfig.properties.fusion2Enabled"
     update:
-      description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers."
+      description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers. Default: `false`."
       
   - target: "$.components.schemas.AwsBatchConfig.properties.nvnmeStorageEnabled"
     update:
@@ -369,11 +369,11 @@ actions:
       
   - target: "$.components.schemas.AwsCloudConfig.properties.waveEnabled"
     update:
-      description: "Enable [Wave containers](https://docs.seqera.io/wave)."
+      description: "Enable [Wave containers](https://docs.seqera.io/wave). Default: `false`."
       
   - target: "$.components.schemas.AwsCloudConfig.properties.fusion2Enabled"
     update:
-      description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers."
+      description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers. Default: `false`."
       
   - target: "$.components.schemas.AwsCloudConfig.properties.forgedResources"
     update:
@@ -436,11 +436,11 @@ actions:
       
   - target: "$.components.schemas.GoogleCloudConfig.properties.waveEnabled"
     update:
-      description: "Enable [Wave containers](https://docs.seqera.io/wave)."
+      description: "Enable [Wave containers](https://docs.seqera.io/wave). Default: `false`."
       
   - target: "$.components.schemas.GoogleCloudConfig.properties.fusion2Enabled"
     update:
-      description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers."
+      description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers. Default: `false`."
       
   - target: "$.components.schemas.GoogleCloudConfig.properties.forgedResources"
     update:
@@ -507,11 +507,11 @@ actions:
       
   - target: "$.components.schemas.GoogleBatchConfig.properties.waveEnabled"
     update:
-      description: "Enable [Wave containers](https://docs.seqera.io/wave)."
+      description: "Enable [Wave containers](https://docs.seqera.io/wave). Default: `false`."
       
   - target: "$.components.schemas.GoogleBatchConfig.properties.fusion2Enabled"
     update:
-      description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers."
+      description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers. Default: `false`."
       
   - target: "$.components.schemas.GoogleBatchConfig.properties.machineType"
     update:
@@ -599,11 +599,11 @@ actions:
       
   - target: "$.components.schemas.AzBatchConfig.properties.waveEnabled"
     update:
-      description: "Enable [Wave containers](https://docs.seqera.io/wave)."
+      description: "Enable [Wave containers](https://docs.seqera.io/wave). Default: `false`."
       
   - target: "$.components.schemas.AzBatchConfig.properties.fusion2Enabled"
     update:
-      description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers."
+      description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers. Default: `false`."
       
   - target: "$.components.schemas.AzBatchConfig.properties.headPool"
     update:
@@ -686,11 +686,11 @@ actions:
       
   - target: "$.components.schemas.AzCloudConfig.properties.waveEnabled"
     update:
-      description: "Enable [Wave containers](https://docs.seqera.io/wave)."
+      description: "Enable [Wave containers](https://docs.seqera.io/wave). Default: `false`."
       
   - target: "$.components.schemas.AzCloudConfig.properties.fusion2Enabled"
     update:
-      description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers."
+      description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers. Default: `false`."
       
   - target: "$.components.schemas.AzCloudConfig.properties.forgedResources"
     update:
@@ -781,11 +781,11 @@ actions:
       
   - target: "$.components.schemas.EksComputeConfig.properties.waveEnabled"
     update:
-      description: "Enable [Wave containers](https://docs.seqera.io/wave)."
+      description: "Enable [Wave containers](https://docs.seqera.io/wave). Default: `false`."
       
   - target: "$.components.schemas.EksComputeConfig.properties.fusion2Enabled"
     update:
-      description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers."
+      description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers. Default: `false`."
 
   # ===== GKE CONFIG =====
   
@@ -804,11 +804,11 @@ actions:
       
   - target: "$.components.schemas.GkeComputeConfig.properties.waveEnabled"
     update:
-      description: "Enable [Wave containers](https://docs.seqera.io/wave)."
+      description: "Enable [Wave containers](https://docs.seqera.io/wave). Default: `false`."
       
   - target: "$.components.schemas.GkeComputeConfig.properties.fusion2Enabled"
     update:
-      description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers."
+      description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers. Default: `false`."
 
   # ===== ABSTRACT GRID CONFIG (Base for HPC platforms) =====
   

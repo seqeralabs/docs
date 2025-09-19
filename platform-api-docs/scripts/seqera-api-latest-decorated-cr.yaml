@@ -557,7 +557,7 @@ paths:
           description: Filter by compute environment status.
           schema:
             type: string
-            enum: ["CREATING", "AVAILABLE", "ERRORED", "INVALID"]
+            enum: ["CREATING", "AVAILABLE", "ERRORED", "INVALID", "CREATING", "AVAILABLE", "ERRORED", "INVALID"]
         - name: workspaceId
           in: query
           description: Workspace numeric identifier. If omitted, lists compute environments in a user context.
@@ -803,7 +803,7 @@ paths:
             items:
               $ref: "#/components/schemas/ComputeEnvQueryAttribute"
               type: string
-              enum: ["labels"]
+              enum: ["labels", "labels"]
       responses:
         "200":
           description: OK
@@ -8611,10 +8611,10 @@ components:
             $ref: "#/components/schemas/ConfigEnvVariable"
         waveEnabled:
           type: boolean
-          description: "Enable [Wave containers](https://docs.seqera.io/wave)."
+          description: "Enable [Wave containers](https://docs.seqera.io/wave). Default: `false`."
         fusion2Enabled:
           type: boolean
-          description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers."
+          description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers. Default: `false`."
         nvnmeStorageEnabled:
           type: boolean
           description: "Enable NVMe instance storage. Requires Fusion file system."
@@ -8636,7 +8636,7 @@ components:
             type: object
             additionalProperties: true
           description: "Resources created by Batch Forge (read-only)."
-      required: ["region", "workDir"]
+      required: ["region", "workDir", "region", "workDir"]
     AwsBatchPlatformMetainfo:
       type: object
       properties:
@@ -8729,10 +8729,10 @@ components:
             $ref: "#/components/schemas/ConfigEnvVariable"
         waveEnabled:
           type: boolean
-          description: "Enable [Wave containers](https://docs.seqera.io/wave)."
+          description: "Enable [Wave containers](https://docs.seqera.io/wave). Default: `false`."
         fusion2Enabled:
           type: boolean
-          description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers."
+          description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers. Default: `false`."
         logGroup:
           type: string
           description: "CloudWatch Logs group for container logs."
@@ -8766,7 +8766,7 @@ components:
             type: object
             additionalProperties: true
           description: "Resources created by Cloud Forge (read-only)."
-      required: ["region", "workDir"]
+      required: ["region", "workDir", "region", "workDir"]
     AwsCloudPlatformMetainfo:
       type: object
       properties:
@@ -8851,7 +8851,7 @@ components:
         deleteJobsOnCompletion:
           $ref: "#/components/schemas/JobCleanupPolicy"
           description: "Automatically delete Batch jobs after completion."
-          enum: ["on_success", "always", "never"]
+          enum: ["on_success", "always", "never", "on_success", "always", "never"]
         deletePoolsOnCompletion:
           type: boolean
           description: "Automatically delete Batch pools after completion. Default: `false`."
@@ -8861,10 +8861,10 @@ components:
             $ref: "#/components/schemas/ConfigEnvVariable"
         waveEnabled:
           type: boolean
-          description: "Enable [Wave containers](https://docs.seqera.io/wave)."
+          description: "Enable [Wave containers](https://docs.seqera.io/wave). Default: `false`."
         fusion2Enabled:
           type: boolean
-          description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers."
+          description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers. Default: `false`."
         nextflowConfig:
           type: string
           description: "Additional Nextflow configuration to apply. See [Nextflow config file](https://docs.seqera.io/platform-cloud/launch/advanced#nextflow-config-file)."
@@ -8872,7 +8872,7 @@ components:
           type: string
           nullable: true
           description: "The ID of a [managed identity client](https://docs.seqera.io/platform-cloud/compute-envs/azure-batch#managed-identity) attached to the Azure Batch Pool, used by Nextflow to authenticate to Azure Batch and Storage."
-      required: ["region", "workDir"]
+      required: ["region", "workDir", "region", "workDir"]
     AzBatchForgeConfig:
       type: object
       properties:
@@ -8935,10 +8935,10 @@ components:
             $ref: "#/components/schemas/ConfigEnvVariable"
         waveEnabled:
           type: boolean
-          description: "Enable [Wave containers](https://docs.seqera.io/wave)."
+          description: "Enable [Wave containers](https://docs.seqera.io/wave). Default: `false`."
         fusion2Enabled:
           type: boolean
-          description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers."
+          description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers. Default: `false`."
         nextflowConfig:
           type: string
         instanceType:
@@ -8978,7 +8978,7 @@ components:
           items:
             $ref: "#/components/schemas/Map.Entry_String.String_"
           description: "Resources created by Cloud Forge (read-only)."
-      required: ["location", "workDir"]
+      required: ["location", "workDir", "location", "workDir"]
     AzureEntraKeys:
       type: object
       allOf:
@@ -9208,6 +9208,9 @@ components:
         - "name"
         - "platform"
         - "config"
+        - "name"
+        - "platform"
+        - "config"
       type: object
       properties:
         credentialsId:
@@ -9272,6 +9275,22 @@ components:
             - "altair-platform"
             - "local-platform"
             - "seqeracompute-platform"
+            - "aws-batch"
+            - "aws-cloud"
+            - "google-batch"
+            - "google-cloud"
+            - "azure-batch"
+            - "azure-cloud"
+            - "k8s-platform"
+            - "eks-platform"
+            - "gke-platform"
+            - "slurm-platform"
+            - "lsf-platform"
+            - "uge-platform"
+            - "moab-platform"
+            - "altair-platform"
+            - "local-platform"
+            - "seqeracompute-platform"
           description: "Compute platform provider."
         config:
           $ref: "#/components/schemas/ComputeConfig"
@@ -9301,7 +9320,7 @@ components:
           allOf:
             - $ref: "#/components/schemas/ComputeEnv.Status"
           description: "Current status of the compute environment (read-only)."
-          enum: ["CREATING", "AVAILABLE", "ERRORED", "INVALID"]
+          enum: ["CREATING", "AVAILABLE", "ERRORED", "INVALID", "CREATING", "AVAILABLE", "ERRORED", "INVALID"]
         message:
           maxLength: 4096
           type: string
@@ -9348,7 +9367,7 @@ components:
         compute:
           type: boolean
           description: "Apply this variable to the Nextflow compute jobs."
-      required: ["name", "value"]
+      required: ["name", "value", "name", "value"]
     ContainerData:
       required:
         - targetImage
@@ -9431,7 +9450,7 @@ components:
             type: integer
             format: int64
           description: "Array of label IDs to assign to the compute environment."
-      required: ["computeEnv"]
+      required: ["computeEnv", "computeEnv"]
     CreateComputeEnvResponse:
       type: object
       properties:
@@ -10545,7 +10564,7 @@ components:
               type: boolean
             fusion2Enabled:
               type: boolean
-      required: ["region", "clusterName", "workDir"]
+      required: ["region", "clusterName", "workDir", "region", "clusterName", "workDir"]
     EksPlatformMetaInfo:
       type: object
       properties:
@@ -10589,6 +10608,8 @@ components:
             - EC2
             - "SPOT"
             - "EC2"
+            - "SPOT"
+            - "EC2"
           description: "Instance type. `EC2` deploys uninterruptible on-demand EC2 instances. `SPOT` deploys interruptible Spot instances (lower cost)."
         minCpus:
           type: integer
@@ -10616,6 +10637,10 @@ components:
             - BEST_FIT_PROGRESSIVE
             - SPOT_CAPACITY_OPTIMIZED
             - SPOT_PRICE_CAPACITY_OPTIMIZED
+            - "BEST_FIT"
+            - "BEST_FIT_PROGRESSIVE"
+            - "SPOT_CAPACITY_OPTIMIZED"
+            - "SPOT_PRICE_CAPACITY_OPTIMIZED"
             - "BEST_FIT"
             - "BEST_FIT_PROGRESSIVE"
             - "SPOT_CAPACITY_OPTIMIZED"
@@ -10818,7 +10843,7 @@ components:
               type: boolean
             waveEnabled:
               type: boolean
-      required: ["region", "clusterName", "workDir"]
+      required: ["region", "clusterName", "workDir", "region", "clusterName", "workDir"]
     GkePlatformMetaInfo:
       type: object
       properties:
@@ -10911,10 +10936,10 @@ components:
             $ref: "#/components/schemas/ConfigEnvVariable"
         waveEnabled:
           type: boolean
-          description: "Enable [Wave containers](https://docs.seqera.io/wave)."
+          description: "Enable [Wave containers](https://docs.seqera.io/wave). Default: `false`."
         fusion2Enabled:
           type: boolean
-          description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers."
+          description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers. Default: `false`."
         serviceAccount:
           type: string
           description: "Specify a service account email address other than the Compute Engine default to execute workflows (recommended for production environments)."
@@ -10926,11 +10951,11 @@ components:
           description: "Subnetwork name within the VPC."
         headJobInstanceTemplate:
           type: string
-          description: "Specify the name or fully-qualified reference of a [VM instance template](https://cloud.google.com/compute/docs/instance-templates), without the template:// prefix, to use for the Nextflow head job."
+          description: "Specify the name or fully-qualified reference of a [VM instance template](https://cloud.google.com/compute/docs/instance-templates), without the `template://` prefix, to use for the Nextflow head job."
         computeJobsInstanceTemplate:
           type: string
-          description: "Specify the name or fully-qualified reference of a [VM instance template](https://cloud.google.com/compute/docs/instance-templates), without the template:// prefix, to use for Nextflow compute jobs."
-      required: ["location", "workDir"]
+          description: "Specify the name or fully-qualified reference of a [VM instance template](https://cloud.google.com/compute/docs/instance-templates), without the `template://` prefix, to use for Nextflow compute jobs."
+      required: ["location", "workDir", "location", "workDir"]
     GoogleBucket:
       type: object
       properties:
@@ -10961,10 +10986,10 @@ components:
             $ref: "#/components/schemas/ConfigEnvVariable"
         waveEnabled:
           type: boolean
-          description: "Enable [Wave containers](https://docs.seqera.io/wave)."
+          description: "Enable [Wave containers](https://docs.seqera.io/wave). Default: `false`."
         fusion2Enabled:
           type: boolean
-          description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers."
+          description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers. Default: `false`."
         projectId:
           type: string
           description: "Google Cloud project ID."
@@ -10999,7 +11024,7 @@ components:
             type: object
             additionalProperties: true
           description: "Resources created by Cloud Forge (read-only)."
-      required: ["region", "workDir"]
+      required: ["region", "workDir", "region", "workDir"]
     GoogleCloudPlatformMetaInfo:
       type: object
       properties:
@@ -11258,7 +11283,7 @@ components:
         podCleanup:
           $ref: "#/components/schemas/PodCleanupPolicy"
           description: "Pod cleanup policy after job completion."
-          enum: ["on_success", "always", "never"]
+          enum: ["on_success", "always", "never", "on_success", "always", "never"]
         headPodSpec:
           type: string
           description: "Custom configuration for the pod running the Nextflow head job, e.g., `nodeSelector` and `affinity` constraints. Must be a valid PodSpec YAML structure starting with `spec:`."
@@ -11280,7 +11305,7 @@ components:
         nextflowConfig:
           type: string
           description: "Additional Nextflow configuration to apply. See [Nextflow config file](https://docs.seqera.io/platform-cloud/launch/advanced#nextflow-config-file)."
-      required: ["server", "sslCert", "workDir"]
+      required: ["server", "sslCert", "workDir", "server", "sslCert", "workDir"]
     K8sPlatformMetaInfo:
       type: object
       properties:
@@ -12607,7 +12632,7 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ConfigEnvVariable"
-      required: ["region", "workDir"]
+      required: ["region", "workDir", "region", "workDir"]
     SeqeraComputePlatformDescriber:
       type: object
     SeqeraComputePlatformMetainfo:
