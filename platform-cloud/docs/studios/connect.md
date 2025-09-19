@@ -1,13 +1,19 @@
 ---
 title: Connect changelog
 date created: "2025-07-30"
-last updated: "2025-08-08"
+last updated: "2025-09-13"
 tags: [connect, changelog, connect-changelog]
 ---
 
 ## Connect server
 
-### server/v0.8.2 `latest` - 2025-07-21
+### server/v0.8.3 `latest` - 2025-07-25
+
+* Released 0.8.2 - bump server version
+* Extract Fusion version 
+* Fix(proxy): include prefix in Location header
+
+### server/v0.8.2 - 2025-07-21
 
 * Add ability to set tool identifier after compile time
 * Add mount data to initial configuration logs
