@@ -68,6 +68,17 @@
         },
         {
             "type": "category",
+            "label": "Plugins",
+            "collapsed": true,
+            "items": [
+                "plugins/plugins",
+                "plugins/using-plugins",
+                "plugins/developing-plugins",
+                "plugins/plugin-registry"
+            ]
+        },
+        {
+            "type": "category",
             "label": "Language reference",
             "collapsed": true,
             "items": [
@@ -173,6 +184,8 @@
             "collapsed": true,
             "items": [
                 "guides/aws-java-sdk-v2",
+                "guides/gradle-plugin",
+                "guides/migrate-plugin",
                 "guides/updating-spot-retries"
             ]
         }
