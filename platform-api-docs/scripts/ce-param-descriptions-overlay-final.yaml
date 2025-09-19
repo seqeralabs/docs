@@ -559,7 +559,7 @@ actions:
       
   - target: "$.components.schemas.GoogleBatchConfig.properties.computeJobsInstanceTemplate"
     update:
-      description: "Specify the name or fully-qualified reference of a [VM instance template](https://cloud.google.com/compute/docs/instance-templates), without the template:// prefix, to use for Nextflow compute jobs."
+      description: "Specify the name or fully-qualified reference of a [VM instance template](https://cloud.google.com/compute/docs/instance-templates), without the `template://` prefix, to use for Nextflow compute jobs."
 
   - target: "$.components.schemas.GoogleBatchConfig.properties.preRunScript"
     update:
