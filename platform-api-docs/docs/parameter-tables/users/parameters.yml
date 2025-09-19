@@ -1,0 +1,10 @@
+- Name: "`name`"
+  Type: string
+  Location: query
+  Req/Opt: Optional
+  Description: User name to validate
+- Name: "`userId`"
+  Type: integer
+  Location: path
+  Req/Opt: Required
+  Description: User numeric identifier
