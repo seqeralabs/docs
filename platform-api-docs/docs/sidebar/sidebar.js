@@ -23,6 +23,7 @@ module.exports = {
         {
           type: "category",
           label: "Managed identities",     
+          link: {type: 'doc', id: 'info/identities-info'},      
           items: [
             { type: "doc", id: "list-managed-identities", label: "List managed identities", className: "api-method get" },
             { type: "doc", id: "list-managed-credentials", label: "List managed credentials", className: "api-method get" },
@@ -31,8 +32,10 @@ module.exports = {
             { type: "doc", id: "describe-managed-identity", label: "Describe managed identity", className: "api-method get" },
             { type: "doc", id: "delete-managed-identity", label: "Delete managed identity", className: "api-method delete" },
             { type: "doc", id: "delete-managed-credentials", label: "Delete managed credentials", className: "api-method delete" },
+          ],
+        },
       ],
-    },   
+    },     
     {
       type: "category",
       label: "Compute",
