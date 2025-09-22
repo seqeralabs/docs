@@ -62,7 +62,7 @@ Workspace participants with any role can leave the workspace, i.e., remove thems
 | **Workspace: Pipelines:** Add, edit, duplicate, delete                            | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
 | **Workspace: Pipelines:** Modify resource labels                                  | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
 | **Workspace: Pipelines:** Create, modify, delete                                  | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
-| **Workspace: Pipelines: Run:** Apply labels, relaunch, save as new pipeline       | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
+| **Workspace: Pipelines: Run:** Apply labels, relaunch, save as new pipeline       | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
 | **Workspace: Pipelines: Run:** Resume, delete, star (favourite)                   | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
 | **Workspace: Pipelines:** Modify resource labels                                  | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
 | **Workspace: Datasets:** Add, edit                                                | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
