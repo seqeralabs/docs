@@ -7,7 +7,7 @@
   Type: integer
   Location: query
   Req/Opt: Optional
-  Description: Optional workspace numeric identifier
+  Description: Workspace numeric identifier
 - Name: "`platformId`"
   Type: string
   Location: path

@@ -4,11 +4,11 @@
   Description: Create pipeline secret
 - Name: name
   Type: string
-  Req/Opt: Required
+  Req/Opt: Optional
   Description: ""
 - Name: value
   Type: string
-  Req/Opt: Required
+  Req/Opt: Optional
   Description: ""
 - Name: "**UpdatePipelineSecret**"
   Type: ""

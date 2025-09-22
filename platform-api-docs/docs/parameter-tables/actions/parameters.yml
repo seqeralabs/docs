@@ -1,0 +1,21 @@
+- Name: "`workspaceId`"
+  Type: integer
+  Location: query
+  Req/Opt: Optional
+  Description: Workspace numeric identifier
+- Name: "`attributes`"
+  Type: array
+  Location: query
+  Req/Opt: Optional
+  Description: "Additional attribute values to include in the response (`labels`).
+    Returns an empty value (`labels: null`) if omitted."
+- Name: "`name`"
+  Type: string
+  Location: query
+  Req/Opt: Optional
+  Description: Action name to validate
+- Name: "`actionId`"
+  Type: string
+  Location: path
+  Req/Opt: Required
+  Description: Action string identifier

@@ -4,31 +4,31 @@
   Description: Create data-link
 - Name: name
   Type: string
-  Req/Opt: Required
+  Req/Opt: Optional
   Description: ""
 - Name: description
   Type: string
-  Req/Opt: Required
+  Req/Opt: Optional
   Description: ""
 - Name: type
   Type: string
-  Req/Opt: Required
+  Req/Opt: Optional
   Description: ""
 - Name: provider
   Type: string
-  Req/Opt: Required
+  Req/Opt: Optional
   Description: ""
 - Name: resourceRef
   Type: string
-  Req/Opt: Required
+  Req/Opt: Optional
   Description: ""
 - Name: publicAccessible
   Type: boolean
-  Req/Opt: Required
+  Req/Opt: Optional
   Description: ""
 - Name: credentialsId
   Type: string
-  Req/Opt: Required
+  Req/Opt: Optional
   Description: ""
 - Name: "**UpdateCustomDataLink**"
   Type: ""
@@ -61,7 +61,7 @@
 - Name: "**GenerateDataLinkUploadUrl**"
   Type: ""
   Req/Opt: ""
-  Description: Generate file upload URL
+  Description: Generate data-link file upload URL (to given path)
 - Name: fileName
   Type: string
   Req/Opt: Optional
@@ -77,7 +77,7 @@
 - Name: "**FinishDataLinkUpload**"
   Type: ""
   Req/Opt: ""
-  Description: Finish data-link file upload
+  Description: Finish data-link file upload to given path
 - Name: uploadId
   Type: string
   Req/Opt: Optional
