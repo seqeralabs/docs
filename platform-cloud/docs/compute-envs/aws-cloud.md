@@ -191,7 +191,7 @@ The AWS Cloud compute environment uses a public AMI maintained by Seqera, and th
 
 ### Release cadence and sofware updates
 
-The AMI is based off the [AmazonLinux2023 image](https://docs.aws.amazon.com/linux/al2023/ug/what-is-amazon-linux.html): system package versions for a specific AmazonLinux2023 version are pinned. We subscribe to the [AWS SNS topic](https://docs.aws.amazon.com/linux/al2023/ug/receive-update-notification.html) to receive AmazonLinux2023 update notification and trigger a Seqera AMI release on top of the latest released image, bringing sytem package updates and security patches.
+The AMI is based on the [Amazon Linux 2023 image](https://docs.aws.amazon.com/linux/al2023/ug/what-is-amazon-linux.html). System package versions are pinned for each specific Amazon Linux 2023 version. Seqera subscribes to the [AWS SNS topic](https://docs.aws.amazon.com/linux/al2023/ug/receive-update-notification.html) to receive Amazon Linux 2023 update notifications. When updates are available, this triggers a new Seqera AMI release built on the latest image, which includes system package updates and security patches.
 
 ## Advanced options
 
