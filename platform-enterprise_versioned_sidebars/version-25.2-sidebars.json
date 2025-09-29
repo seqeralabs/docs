@@ -183,8 +183,15 @@
         "label": "Studios",
         "items": [
           "studios/overview",
-          "studios/custom-envs",
-          "studios/managing",
+          "studios/custom-envs",          
+          {
+          "type": "category",
+          "label": "Manage Studios",
+          "items": [
+            "studios/managing",            
+            "studios/add_studio"
+          ]
+          },
           "studios/connect"
         ]
       },

@@ -2,13 +2,13 @@
 title: "Tower Agent credentials"
 description: "Instructions to create Tower Agent credentials in Seqera Platform."
 date created: "2023-04-21"
-last updated: "2025-08-08"
+last updated: "2025-08-20"
 tags: [agent, credentials]
 ---
 
 [Tower Agent](../supported_software/agent/overview) enables Seqera Platform to launch pipelines on HPC clusters that do not allow direct access through an SSH client. Tower Agent authenticates a secure connection with Seqera using a Tower Agent credential.
 
-## Tower Agent sharing
+## Share Tower Agent
 
 You can share a single Tower Agent instance with all members of a workspace. Create a Tower Agent credential, with **Shared agent** enabled, in the relevant workspace. All workspace members can then use this credential (Connection ID + Seqera access token) to use the same Tower Agent instance.
 
