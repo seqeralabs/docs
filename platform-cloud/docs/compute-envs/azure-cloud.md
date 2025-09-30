@@ -14,13 +14,14 @@ This compute environment type is currently in public preview. Please consult thi
 
 Many of the current implementations of compute environments for cloud providers rely on the use of batch services such as AWS Batch, Azure Batch, and Google Batch for the execution and management of submitted jobs, including pipelines and Studio session environments. Batch services are suitable for large-scale workloads, but they add management complexity. In practical terms, the currently used batch services result in some limitations:
 
-- **Complex setup**: Azure Batch compute environments require users to autonomously set up their own Batch accounts.
+- **Complex setup**: Azure Batch compute environments require users to independently configure their own Batch accounts.
 - **Long lived credentials**: Azure Batch uses access keys to authenticate with the Batch account and the Storage account. These credentials are long lived, and Azure has hard limits on how many access keys can be created per resource type.
+- *Quotas**: Azure Batch accounts have limits on the number of Jobs, Pools, and compute resources. If these limits are exceeded, no additional pipelines can run until the existing resources are removed.
 
 The Azure Cloud compute environment addresses these pain points with:
 
 - **Simplified configuration**: Fewer configurable options, with opinionated defaults, provide the best Nextflow pipeline and Studio session execution environment, with both Wave and Fusion enabled.
-- **More secure credentials**: Authenticate only through Entra credentials and Managed identities. This allows for more fine grained access control to Azure resources.
+- **More secure credentials**: Authenticate exclusively via Entra. This provides enhanced security by default, with automatic configuration for the user.
 
 This type of compute environment is best suited to run Studios and small to medium-sized pipelines. It offers more predictable compute pricing, given the fixed instance types. It spins up a standalone Virtual Machine and executes a Nextflow pipeline or Studio session with a local executor on the Virtual Machine. At the end of the execution, the instance is terminated.
 
@@ -33,7 +34,7 @@ This type of compute environment is best suited to run Studios and small to medi
 Seqera platform will create the following resources in Azure when creating the Compute Environment:
 
 - One Azure resource group: will be the container for all the other resources created.
-- One Azure Managed identity: will be the identity attached to the Virtual Machine for Nextflow execution.
+- One Azure managed identity: this will be the Entra identity connected to the Virtual Machine, enabling Nextflow to authenticate to Azure services.
 - One Azure role: will be the role attached to the managed identity granting the necessary permissions.
 - One Log Analytics Workspace: will be used to collect and query execution logs.
 - One Data collection rule: will route execution logs to the appropriate Log Analytics table.
@@ -48,8 +49,8 @@ Upon launching Virtual Machines, other resources will be provisioned for each ma
 
 ### Platform credentials
 
-To create and launch pipelines or Studio sessions with this compute environment type, you must attach Seqera credentials for the cloud provider. Platform supports three different credentials type for Azure provider, however only the Cloud type can be used for the Azure Cloud compute environment, which are Entra client id / client secret pairs, with some extra configuration for subscription id and storage account.
-Please refer to Azure official documentation on how to [create a service principal](https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app) and how to [create a client secret](https://learn.microsoft.com/en-us/entra/identity-platform/how-to-add-credentials?tabs=client-secret).
+To create and launch pipelines or Studio sessions with Azure Cloud compute environments, you must attach Seqera credentials with an Entra client ID/client secret pair. These credentials must also include your Azure subscription ID and storage account configuration.
+Please refer to Azure official documentation on how to [register an application](https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app) and how to [create a client secret](https://learn.microsoft.com/en-us/entra/identity-platform/how-to-add-credentials?tabs=client-secret).
 
 ### Required permissions
 
