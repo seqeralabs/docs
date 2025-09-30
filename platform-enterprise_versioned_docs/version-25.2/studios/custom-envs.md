@@ -6,19 +6,14 @@ last updated: "2025-09-30"
 tags: [environments, custom, studio, studio]
 ---
 
-In addition to the Seqera-provided container images, you can provide your own custom container environments by augmenting the Seqera-provided images with a list of Conda packages or by providing your own base container image.
-
-Studios uses the [Wave][wave-home] service to build custom container images.
+In addition to the Seqera-provided container images, you can provide your own custom container environments by augmenting the Seqera-provided images with a list of Conda packages or by providing your own base container image. Studios uses the [Wave][wave-home] service to build custom container images.
 
 ## Conda packages
 
 ### Prerequisites
 
 - Wave must be configured. For more information, see [Wave containers][wave].
- 
- :::note
- To augment Seqera-provided images, Enterprise deployments must either allow access to the public Wave server, or self-host their own Wave server.
- :::
+- To augment Seqera-provided images, Enterprise deployments must either allow access to the public Wave server, or self-host their own Wave server.
 
 ### Conda package syntax {#conda-package-syntax}
 
@@ -46,8 +41,8 @@ Public container registries are supported by default. Amazon Elastic Container R
 
 ### Prerequisites
 
-- Access to a container image repository, either a public container registry or a private Amazon ECR repository.
 - A container image.
+- Access to a container image repository, either a public container registry or a private Amazon ECR repository.
 
 ### Dockerfile configuration {#dockerfile}
 
