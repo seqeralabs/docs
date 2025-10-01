@@ -1,0 +1,267 @@
+overlay: "1.0.0"
+info:
+  title: "Pipeline Parameters Descriptions"
+  version: "1.0.0"
+  description: "Comprehensive descriptions for all pipeline parameters - path, query, and request body"
+
+actions:
+  # ===== PATH AND QUERY PARAMETERS =====
+  
+  # GET /pipelines - List pipelines
+  - target: "$.paths./pipelines.get.parameters[?(@.name=='attributes')].description"
+    update: "Additional attribute values to include in the response (`labels`, `optimized`, `computeEnv`). Returns empty values if omitted."
+      
+  - target: "$.paths./pipelines.get.parameters[?(@.name=='workspaceId')].description"
+    update: "Workspace numeric identifier. If omitted, lists pipelines in a user context."
+      
+  - target: "$.paths./pipelines.get.parameters[?(@.name=='max')].description"
+    update: "Maximum number of results to return (pagination). Default: `50`, Maximum: `100`."
+      
+  - target: "$.paths./pipelines.get.parameters[?(@.name=='offset')].description"
+    update: "Number of results to skip for pagination. Default: `0`."
+      
+  - target: "$.paths./pipelines.get.parameters[?(@.name=='search')].description"
+    update: "Search string to filter pipelines by name or description."
+      
+  - target: "$.paths./pipelines.get.parameters[?(@.name=='visibility')].description"
+    update: "Filter pipelines by visibility. Valid values: `private`, `shared`, `all`."
+  
+  # POST /pipelines - Create pipeline
+  - target: "$.paths./pipelines.post.parameters[?(@.name=='workspaceId')].description"
+    update: "Workspace numeric identifier. If omitted, creates pipeline in a user context."
+  
+  # GET /pipelines/info - Describe remote pipeline repository
+  - target: "$.paths./pipelines/info.get.parameters[?(@.name=='name')].description"
+    update: "Pipeline repository name (e.g., `nextflow-io/hello`) or full URL."
+      
+  - target: "$.paths./pipelines/info.get.parameters[?(@.name=='revision')].description"
+    update: "Git revision, branch, or tag to describe. Default: repository default branch."
+      
+  - target: "$.paths./pipelines/info.get.parameters[?(@.name=='workspaceId')].description"
+    update: "Workspace numeric identifier. If omitted, describes pipeline in a user context."
+      
+  - target: "$.paths./pipelines/info.get.parameters[?(@.name=='mainScript')].description"
+    update: "Alternative main script filename. Default: `main.nf`."
+  
+  # GET /pipelines/repositories - List pipeline repositories
+  - target: "$.paths./pipelines/repositories.get.parameters[?(@.name=='workspaceId')].description"
+    update: "Workspace numeric identifier. If omitted, lists repositories in a user context."
+  
+  # GET /pipelines/validate - Validate pipeline name
+  - target: "$.paths./pipelines/validate.get.parameters[?(@.name=='name')].description"
+    update: "Pipeline name to validate for uniqueness and format."
+      
+  - target: "$.paths./pipelines/validate.get.parameters[?(@.name=='workspaceId')].description"
+    update: "Workspace numeric identifier. If omitted, validates pipeline name in a user context."
+      
+  - target: "$.paths./pipelines/validate.get.parameters[?(@.name=='orgId')].description"
+    update: "Organization numeric identifier. Used for organization-level validation."
+  
+  # GET /pipelines/{pipelineId} - Describe pipeline
+  - target: "$.paths./pipelines/{pipelineId}.get.parameters[?(@.name=='pipelineId')].description"
+    update: "Pipeline numeric identifier."
+      
+  - target: "$.paths./pipelines/{pipelineId}.get.parameters[?(@.name=='attributes')].description"
+    update: "Additional attribute values to include in the response (`labels`, `optimized` status, `computeEnv`). Returns empty values if omitted."
+      
+  - target: "$.paths./pipelines/{pipelineId}.get.parameters[?(@.name=='workspaceId')].description"
+    update: "Workspace numeric identifier."
+      
+  - target: "$.paths./pipelines/{pipelineId}.get.parameters[?(@.name=='sourceWorkspaceId')].description"
+    update: "Source workspace numeric identifier. Used when accessing a shared pipeline from another workspace."
+  
+  # PUT /pipelines/{pipelineId} - Update pipeline
+  - target: "$.paths./pipelines/{pipelineId}.put.parameters[?(@.name=='pipelineId')].description"
+    update: "Pipeline numeric identifier."
+      
+  - target: "$.paths./pipelines/{pipelineId}.put.parameters[?(@.name=='workspaceId')].description"
+    update: "Workspace numeric identifier."
+  
+  # DELETE /pipelines/{pipelineId} - Delete pipeline
+  - target: "$.paths./pipelines/{pipelineId}.delete.parameters[?(@.name=='pipelineId')].description"
+    update: "Pipeline numeric identifier."
+      
+  - target: "$.paths./pipelines/{pipelineId}.delete.parameters[?(@.name=='workspaceId')].description"
+    update: "Workspace numeric identifier."
+  
+  # GET /pipelines/{pipelineId}/launch - Describe pipeline launch
+  - target: "$.paths./pipelines/{pipelineId}/launch.get.parameters[?(@.name=='pipelineId')].description"
+    update: "Pipeline numeric identifier."
+      
+  - target: "$.paths./pipelines/{pipelineId}/launch.get.parameters[?(@.name=='workspaceId')].description"
+    update: "Workspace numeric identifier."
+      
+  - target: "$.paths./pipelines/{pipelineId}/launch.get.parameters[?(@.name=='sourceWorkspaceId')].description"
+    update: "Source workspace numeric identifier. Used when accessing a shared pipeline from another workspace."
+  
+  # GET /pipelines/{pipelineId}/schema - Describe pipeline schema
+  - target: "$.paths./pipelines/{pipelineId}/schema.get.parameters[?(@.name=='pipelineId')].description"
+    update: "Pipeline numeric identifier."
+      
+  - target: "$.paths./pipelines/{pipelineId}/schema.get.parameters[?(@.name=='workspaceId')].description"
+    update: "Workspace numeric identifier."
+      
+  - target: "$.paths./pipelines/{pipelineId}/schema.get.parameters[?(@.name=='sourceWorkspaceId')].description"
+    update: "Source workspace numeric identifier. Used when accessing a shared pipeline from another workspace."
+      
+  - target: "$.paths./pipelines/{pipelineId}/schema.get.parameters[?(@.name=='attributes')].description"
+    update: "Attribute values to include in the response. `schema` returns the pipeline schema, `params` returns the pipeline config. Returns all if omitted."
+
+  # ===== REQUEST BODY PARAMETERS =====
+  
+  # CreatePipelineRequest - Top level fields
+  - target: "$.components.schemas.CreatePipelineRequest.properties.name"
+    update:
+      description: "Pipeline name. Must be unique within the workspace."
+      
+  - target: "$.components.schemas.CreatePipelineRequest.properties.description"
+    update:
+      description: "Pipeline description."
+      
+  - target: "$.components.schemas.CreatePipelineRequest.properties.icon"
+    update:
+      description: "Pipeline icon URL."
+      
+  - target: "$.components.schemas.CreatePipelineRequest.properties.labelIds"
+    update:
+      description: "Array of label IDs to apply to the pipeline."
+      
+  # CreatePipelineRequest - Launch object
+  - target: "$.components.schemas.CreatePipelineRequest.properties.launch"
+    update:
+      description: "Launch configuration for the pipeline."
+      
+  # UpdatePipelineRequest - Top level fields
+  - target: "$.components.schemas.UpdatePipelineRequest.properties.name"
+    update:
+      description: "Pipeline name. Must be unique within the workspace."
+      
+  - target: "$.components.schemas.UpdatePipelineRequest.properties.description"
+    update:
+      description: "Pipeline description."
+      
+  - target: "$.components.schemas.UpdatePipelineRequest.properties.icon"
+    update:
+      description: "Pipeline icon URL."
+      
+  - target: "$.components.schemas.UpdatePipelineRequest.properties.labelIds"
+    update:
+      description: "Array of label IDs to assign to the pipeline. If null, empty, or omitted, all existing labels are removed. Label IDs to be preserved must be included in your request."
+      
+  # UpdatePipelineRequest - Launch object
+  - target: "$.components.schemas.UpdatePipelineRequest.properties.launch"
+    update:
+      description: "Launch configuration for the pipeline."
+
+  # WorkflowLaunchRequest fields (used by both Create and Update)
+  - target: "$.components.schemas.WorkflowLaunchRequest.properties.id"
+    update:
+      description: "Launch configuration identifier."
+      
+  - target: "$.components.schemas.WorkflowLaunchRequest.properties.computeEnvId"
+    update:
+      description: "Compute environment identifier where the pipeline will run. Defaults to workspace primary compute environment if omitted."
+      
+  - target: "$.components.schemas.WorkflowLaunchRequest.properties.runName"
+    update:
+      description: "Custom run name for the workflow execution."
+      
+  - target: "$.components.schemas.WorkflowLaunchRequest.properties.pipeline"
+    update:
+      description: "Pipeline repository URL (e.g., `https://github.com/nextflow-io/hello`)."
+      
+  - target: "$.components.schemas.WorkflowLaunchRequest.properties.workDir"
+    update:
+      description: "Work directory path where workflow intermediate files are stored. Defaults to compute environment work directory if omitted."
+      
+  - target: "$.components.schemas.WorkflowLaunchRequest.properties.revision"
+    update:
+      description: "Git revision, branch, or tag to use."
+      
+  - target: "$.components.schemas.WorkflowLaunchRequest.properties.sessionId"
+    update:
+      description: "Nextflow session identifier for resuming failed runs."
+      
+  - target: "$.components.schemas.WorkflowLaunchRequest.properties.configProfiles"
+    update:
+      description: "Array of Nextflow configuration profile names to apply."
+      
+  - target: "$.components.schemas.WorkflowLaunchRequest.properties.userSecrets"
+    update:
+      description: "Array of user secrets to make available to the pipeline."
+      
+  - target: "$.components.schemas.WorkflowLaunchRequest.properties.workspaceSecrets"
+    update:
+      description: "Array of workspace secrets to make available to the pipeline."
+      
+  - target: "$.components.schemas.WorkflowLaunchRequest.properties.configText"
+    update:
+      description: "Nextflow configuration as text (overrides config files)."
+      
+  - target: "$.components.schemas.WorkflowLaunchRequest.properties.towerConfig"
+    update:
+      description: "Platform-specific configuration options."
+      
+  - target: "$.components.schemas.WorkflowLaunchRequest.properties.paramsText"
+    update:
+      description: "Pipeline parameters in JSON or YAML format."
+      
+  - target: "$.components.schemas.WorkflowLaunchRequest.properties.preRunScript"
+    update:
+      description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+      
+  - target: "$.components.schemas.WorkflowLaunchRequest.properties.postRunScript"
+    update:
+      description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+      
+  - target: "$.components.schemas.WorkflowLaunchRequest.properties.mainScript"
+    update:
+      description: "Alternative main script filename. Default: `main.nf`."
+      
+  - target: "$.components.schemas.WorkflowLaunchRequest.properties.entryName"
+    update:
+      description: "Workflow entry point name when using Nextflow DSL2."
+      
+  - target: "$.components.schemas.WorkflowLaunchRequest.properties.schemaName"
+    update:
+      description: "Name of the pipeline schema to use."
+      
+  - target: "$.components.schemas.WorkflowLaunchRequest.properties.resume"
+    update:
+      description: "Enable resume to restart workflow execution from the last successful process. See [Resume a workflow run](https://docs.seqera.io/platform-cloud/launch/cache-resume#resume-a-workflow-run)."
+      
+  - target: "$.components.schemas.WorkflowLaunchRequest.properties.pullLatest"
+    update:
+      description: "Pull the latest version of the pipeline from the repository."
+      
+  - target: "$.components.schemas.WorkflowLaunchRequest.properties.stubRun"
+    update:
+      description: "Execute a stub run for testing (processes return dummy results)."
+      
+  - target: "$.components.schemas.WorkflowLaunchRequest.properties.optimizationId"
+    update:
+      description: "Optimization configuration identifier. See [Pipeline resource optimization](https://docs.seqera.io/platform-cloud/pipeline-optimization/overview)."
+      
+  - target: "$.components.schemas.WorkflowLaunchRequest.properties.optimizationTargets"
+    update:
+      description: "Comma-separated list of optimization targets. See [Pipeline resource optimization](https://docs.seqera.io/platform-cloud/pipeline-optimization/overview)."
+      
+  - target: "$.components.schemas.WorkflowLaunchRequest.properties.labelIds"
+    update:
+      description: "Array of label IDs to assign to each pipeline run."
+      
+  - target: "$.components.schemas.WorkflowLaunchRequest.properties.headJobCpus"
+    update:
+      description: "Number of CPUs allocated for the Nextflow head job."
+      
+  - target: "$.components.schemas.WorkflowLaunchRequest.properties.headJobMemoryMb"
+    update:
+      description: "Memory allocation for the Nextflow head job in megabytes."
+      
+  - target: "$.components.schemas.WorkflowLaunchRequest.properties.launchContainer"
+    update:
+      description: "Container image to use for the Nextflow launcher."
+      
+  - target: "$.components.schemas.WorkflowLaunchRequest.properties.dateCreated"
+    update:
+      description: "Timestamp when the launch configuration was created."

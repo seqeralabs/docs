@@ -1,0 +1,81 @@
+- Name: "**CreateManagedIdentity**"
+  Type: ""
+  Req/Opt: ""
+  Description: Create managed identity
+- Name: name
+  Type: string
+  Req/Opt: Optional
+  Description: Unique name for the managed identity. Must consist of alphanumeric,
+    dash, or underscore characters.
+- Name: platform
+  Type: string
+  Req/Opt: Optional
+  Description: HPC platform type for this managed identity.
+- Name: config
+  Type: object
+  Req/Opt: Optional
+  Description: "Platform-specific configuration object."
+- Name: config.hostName
+  Type: string
+  Req/Opt: Optional
+  Description: Hostname or IP address of HPC head node.
+- Name: config.port
+  Type: integer
+  Req/Opt: Optional
+  Description: "SSH port. Default: `22`."
+- Name: "**UpdateManagedIdentity**"
+  Type: ""
+  Req/Opt: ""
+  Description: Update managed identity request
+- Name: managedIdentity
+  Type: object
+  Req/Opt: Optional
+  Description: "Managed identity object."
+- Name: managedIdentity.id
+  Type: integer
+  Req/Opt: Optional
+  Description: Managed identity numeric identifier.
+- Name: managedIdentity.name
+  Type: string
+  Req/Opt: Optional
+  Description: Name of the managed identity.
+- Name: managedIdentity.platform
+  Type: string
+  Req/Opt: Optional
+  Description: HPC platform type.
+- Name: managedIdentity.config
+  Type: object
+  Req/Opt: Optional
+  Description: "Platform-specific configuration object."
+- Name: managedIdentity.config.hostName
+  Type: string
+  Req/Opt: Optional
+  Description: Hostname or IP address of HPC head node.
+- Name: managedIdentity.config.port
+  Type: integer
+  Req/Opt: Optional
+  Description: "SSH port. Default: `22`."
+- Name: "**CreateManagedCredentials**"
+  Type: ""
+  Req/Opt: ""
+  Description: Create managed credentials
+- Name: provider
+  Type: string
+  Req/Opt: Optional
+  Description: Authentication provider type. Currently supports `ssh`.
+- Name: credentials
+  Type: object
+  Req/Opt: Optional
+  Description: "Credentials configuration object. Fields depend on credential type."
+- Name: "**UpdateManagedCredentials**"
+  Type: ""
+  Req/Opt: ""
+  Description: Update managed credentials request
+- Name: provider
+  Type: string
+  Req/Opt: Optional
+  Description: Authentication provider type. Currently supports `ssh`.
+- Name: credentials
+  Type: object
+  Req/Opt: Optional
+  Description: "Credentials configuration object. Fields depend on credential type."

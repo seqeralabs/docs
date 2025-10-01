@@ -7,7 +7,7 @@
   Type: string
   Location: query
   Req/Opt: Optional
-  Description: Name to validate
+  Description: Workspace name to validate
 - Name: "`workspaceId`"
   Type: integer
   Location: path
@@ -17,7 +17,7 @@
   Type: integer
   Location: query
   Req/Opt: Optional
-  Description: Pagination result max result
+  Description: Pagination max results
 - Name: "`offset`"
   Type: integer
   Location: query

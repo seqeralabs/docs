@@ -62,7 +62,7 @@ export default async function createConfigAsync() {
       docsPluginId: "classic", // configured for preset-classic
       config: {
         platform: {
-          specPath: "platform-api-docs/scripts/seqera-ce-examples-spec-final.yaml",
+          specPath: "platform-api-docs/scripts/seqera-api-latest-decorated-mi.yaml",
           outputDir: "platform-api-docs/docs",
           sidebarOptions: {
             groupPathsBy: "tag",
@@ -138,6 +138,7 @@ export default async function createConfigAsync() {
         (await require("remark-math")).default,
         (await import("docusaurus-remark-plugin-tab-blocks")).default,
         (await require("remark-yaml-to-table")).default,
+        (await require("remark-deflist")).default,
       ],
       rehypePlugins: [(await require("rehype-katex")).default],
       editUrl: ({ docPath }) => {
@@ -212,11 +213,6 @@ export default async function createConfigAsync() {
 
     customFields: {
       // Put your custom environment here
-      algolia: {
-        appId: process.env.PUBLIC_DOCUSAURUS_ALGOLIA_APP_ID,
-        apiKey: process.env.PUBLIC_DOCUSAURUS_ALGOLIA_API_KEY,
-        indexName: process.env.PUBLIC_DOCUSAURUS_ALGOLIA_INDEX_NAME,
-      },
     },
 
     // Even if you don't use internalization, you can use this field to set useful
@@ -237,7 +233,9 @@ export default async function createConfigAsync() {
             customCss: [
               require.resolve("./src/css/main.css"),
               require.resolve("./src/css/typography.css"),
+              require.resolve("./src/css/def-list.css"),
               require.resolve("./src/css/misc.css"),
+              require.resolve("./src/css/def-list.css"),
               require.resolve("./src/css/components/checklist.css"),
               require.resolve("./src/css/components/box.css"),
               require.resolve("./src/css/theme-colors.css"),
