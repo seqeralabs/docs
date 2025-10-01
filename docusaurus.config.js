@@ -298,6 +298,7 @@ export default async function createConfigAsync() {
       // Typesense search configuration
       typesense: {
         typesenseCollectionName: 'seqera_docs',
+        searchPagePath: '/search',
         
         typesenseServerConfig: {
           nodes: [{
@@ -305,15 +306,15 @@ export default async function createConfigAsync() {
             port: 443,
             protocol: 'https',
           }],
-          apiKey: 'cGtYFY0RUnLAnYk2TRk42RSM5N6zrD7a', 
+          apiKey: 'UUIEzlGORRp9lV5GndPR1zYBVBCPIJOl', 
           connectionTimeoutSeconds: 2,
         },
 
         typesenseSearchParameters: {
-          query_by: 'title,content,hierarchy_lvl0,hierarchy_lvl1,hierarchy_lvl2',
-          query_by_weights: '4,2,3,2,1',
+          query_by: 'content,hierarchy_lvl0,hierarchy_lvl1,hierarchy_lvl2',
+          query_by_weights: '4,3,2,1',
           num_typos: 2,
-          prefix: 'true,true,true,true,true',
+          prefix: 'true,true,true,true',
         },
 
         contextualSearch: true,

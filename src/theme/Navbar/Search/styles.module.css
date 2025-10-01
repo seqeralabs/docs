@@ -27,20 +27,6 @@ See https://github.com/facebook/docusaurus/pull/9385
   * Custom
   */
 
-:global(.DocSearch) {
-  & :global(.DocSearch-Button-Key) {
-    box-shadow: none;
-    top: 0;
-    background: var(--color-brand-500);
-    border: none;
-    color: rgba(255, 255, 255, 0.8);
-    padding-top: 2px;
-    &:first-child {
-      font-size: 15px;
-    }
-  }
-}
-
 /* Dark mode */
 
 html[data-theme="dark"] {
@@ -62,12 +48,4 @@ html[data-theme="dark"] {
     inset 0 1px 0 0 rgba(73, 76, 106, 0.5), 0 -4px 8px 0 rgba(0, 0, 0, 0.2);
   --docsearch-logo-color: #fff;
   --docsearch-muted-color: #7f8497;
-  & :global(.DocSearch) {
-    & :global(.DocSearch-Search-Icon) {
-      color: var(--color-brand-900);
-    }
-    & :global(.DocSearch-Button-Key) {
-      background: var(--color-brand-900);
-    }
-  }
 }
