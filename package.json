@@ -37,6 +37,7 @@
     "docusaurus-plugin-openapi-docs": "^4.5.1",
     "docusaurus-remark-plugin-tab-blocks": "^3.1.0",
     "docusaurus-theme-openapi-docs": "^4.5.1",
+    "docusaurus-theme-search-typesense": "^0.25.0",
     "framer-motion": "^11.0.0",
     "image-size": "^2.0.2",
     "mdi-react": "^9.4.0",
@@ -53,7 +54,6 @@
     "remark-code-import": "^1.2.0",
     "remark-deflist": "^1.0.0",
     "remark-math": "^6.0.0",
-    "remark-deflist": "^1.0.0",
     "remark-yaml-to-table": "github:seqeralabs/remark-yaml-to-table",
     "webpack-dev-server": "^5.2.2",
     "yaml": "^2.8.1"

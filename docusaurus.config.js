@@ -222,7 +222,10 @@ export default async function createConfigAsync() {
       defaultLocale: "en",
       locales: ["en"],
     },
-    themes: ["docusaurus-theme-openapi-docs"],
+    themes: [
+      "docusaurus-theme-openapi-docs",
+      "docusaurus-theme-search-typesense",
+    ],
     presets: [
       [
         "classic",
@@ -291,6 +294,32 @@ export default async function createConfigAsync() {
 
     themeConfig: {
       image: "img/share.jpg",
+      
+      // Typesense search configuration
+      typesense: {
+        typesenseCollectionName: 'seqera_docs',
+        
+        typesenseServerConfig: {
+          nodes: [{
+            host: '9scwdgbn4v8r1lyfp.a1.typesense.net', 
+            port: 443,
+            protocol: 'https',
+          }],
+          apiKey: 'cGtYFY0RUnLAnYk2TRk42RSM5N6zrD7a', 
+          connectionTimeoutSeconds: 2,
+        },
+
+        typesenseSearchParameters: {
+          query_by: 'title,content,hierarchy_lvl0,hierarchy_lvl1,hierarchy_lvl2',
+          query_by_weights: '4,2,3,2,1',
+          num_typos: 2,
+          prefix: 'true,true,true,true,true',
+        },
+
+        contextualSearch: true,
+        placeholder: 'Search Seqera docs...',
+      },
+      
       navbar: {
         logo: {
           alt: "Seqera",
