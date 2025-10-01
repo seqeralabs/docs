@@ -48,8 +48,8 @@ Dynamic resource labels provide several key advantages:
 2. Select **Edit** > **Add label**.
 3. Enter a **Name** such as `owner`, `team`, or `platformRun`.
 4. Enter a **Value**: 
-**Standard resource labels**: `<your-username>`, `your-team-name`
-**Dynamic resource labels**: Use variable syntax — `${workflowId}` or `${sessionId}`
+  - **Standard resource labels**: `<your-username>`, `your-team-name`
+  - **Dynamic resource labels**: Use variable syntax — `${workflowId}` or `${sessionId}`
 5. Optionally, enable **Use as default in compute environment form** to automatically apply this label to all new compute environments in this workspace.
 6. Select **Save**.
 
@@ -126,7 +126,7 @@ When the compute environment is created with Forge, the following resources will
 
 At execution time, when the jobs are submitted to Batch, the requests are set up to propagate tags to all the instances and volumes created by the head job.
 
-The [`forge-policy.json`](https://github.com/seqeralabs/nf-tower-aws/blob/master/forge/forge-policy.json) file contains the roles needed for Batch Forge-created AWS compute environments to tag AWS resources. Specifically, the required roles are `iam:TagRole`, `iam:TagInstanceProfile`, and `batch:TagResource`.
+The [`forge-policy.json` file](https://github.com/seqeralabs/nf-tower-aws/blob/master/forge/forge-policy.json) contains the roles needed for Batch Forge-created AWS compute environments to tag AWS resources. Specifically, the required roles are `iam:TagRole`, `iam:TagInstanceProfile`, and `batch:TagResource`.
 
 To view and manage the resource labels applied to AWS resources by Seqera and Nextflow, go to the [AWS Tag Editor](https://docs.aws.amazon.com/tag-editor/latest/userguide/find-resources-to-tag.html) (as an administrative user) and follow these steps:
 
@@ -270,15 +270,11 @@ See [Syntax and character set](https://kubernetes.io/docs/concepts/overview/work
 
 ## Best Practices
 
-**Use descriptive keys**: Choose tag keys that clearly indicate their purpose (e.g., `workflow-id`, `pipeline-run`, `session-id`).
-
-**Plan for cost analysis**: Consider how you'll group and filter costs in your cloud provider's tools when designing your tag schema.
-
-**Combine static and dynamic labels**: Use dynamic resource labels alongside static labels for comprehensive cost attribution (e.g., static `project=genomics` with dynamic `platformRun=${workflowId}`).
-
-**Monitor tag limits**: Stay within cloud provider tag limits (25 tags per resource for AWS/GCP/Azure).
-
-**Document your schema**: Maintain documentation of your tagging strategy for team members who will analyze costs.
+- **Use descriptive keys**: Choose tag keys that clearly indicate their purpose (e.g., `workflow-id`, `pipeline-run`, `session-id`).
+- **Plan for cost analysis**: Consider how you'll group and filter costs in your cloud provider's tools when designing your tag schema.
+- **Combine static and dynamic labels**: Use dynamic resource labels alongside static labels for comprehensive cost attribution (e.g., static `project=genomics` with dynamic `platformRun=${workflowId}`).
+- **Monitor tag limits**: Stay within cloud provider tag limits (25 tags per resource for AWS/GCP/Azure).
+- **Document your schema**: Maintain documentation of your tagging strategy for team members who will analyze costs.
 
 ## Troubleshooting
 
