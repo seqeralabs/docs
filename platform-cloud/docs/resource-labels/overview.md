@@ -49,8 +49,8 @@ Dynamic resource labels provide several key advantages:
 1. Under **Type**, select **Resource label**.
 1. Enter a **Name** such as `owner`, `team`, or `platform-run`.
 1. Enter a **Value**: 
-  - **Standard resource labels**: `<USERNAME>`, `TEAM_NAME`
-  - **Dynamic resource labels**: Use variable syntax — `${workflowId}` or `${sessionId}`
+    - **Standard resource labels**: `<USERNAME>`, `TEAM_NAME`
+    - **Dynamic resource labels**: Use variable syntax — `${workflowId}` or `${sessionId}`
 1. Optionally, enable **Use as default in compute environment form** to automatically apply this label to all new compute environments in this workspace.
 1. Select **Save**.
 
@@ -107,28 +107,30 @@ Resource label propagation is one-way and not synchronized with the cloud enviro
 The following resources are tagged using the labels associated with the compute environment (either [Batch](../compute-envs/aws-batch.md) or [Cloud](../compute-envs/aws-cloud.md)):
 
 **Batch**:
-**Batch Forge creation time**
-- FSX Filesystems (does not cascade to files)
-- EFS Filesystems (does not cascade to files)
-- Batch Compute Environment
-- Batch Queue(s)
-- ComputeResource (EC2 instances, including EBS volumes)
-- Service role
-- Spot Fleet role
-- Execution role
-- Instance Profile role
-- Launch template
 
-**Submission time**
-- Jobs and Job Definitions
-- Tasks (via the `propagateTags` parameter on Job Definitions)
+- **Batch Forge creation time**
+  - FSX Filesystems (does not cascade to files)
+  - EFS Filesystems (does not cascade to files)
+  - Batch Compute Environment
+  - Batch Queue(s)
+  - ComputeResource (EC2 instances, including EBS volumes)
+  - Service role
+  - Spot Fleet role
+  - Execution role
+  - Instance Profile role
+  - Launch template
 
-**Execution time**
-- Work Tasks (via the `propagateTags` parameter on Job Definitions)
+- **Submission time**
+  - Jobs and Job Definitions
+  - Tasks (via the `propagateTags` parameter on Job Definitions)
+
+- **Execution time**
+  - Work Tasks (via the `propagateTags` parameter on Job Definitions)
 
 **Cloud**:
-**Submission and execution time**
-- ComputeResource (EC2 instances, including EBS volumes)
+
+- **Submission and execution time**
+  - ComputeResource (EC2 instances, including EBS volumes)
 
 At execution time, when jobs are submitted to Batch, the requests are set up to propagate tags to all the instances and volumes created by the head job.
 
@@ -211,7 +213,7 @@ In Azure Batch compute environments, the [Azure Batch node pool](https://learn.m
 Azure supports cost analysis by tags. However, you must configure tag inheritance and cost allocation.
 
 :::note
-Dynamic resource labels create tags on Azure Batch resources. However, Azure's cost reporting integration has some limitations. Azure tags may not always appear immediately in **Cost Management**.
+Dynamic resource labels create tags in the form of metadata pairs on Azure Batch resources. However, Azure's cost reporting integration has some limitations. Azure tags may not always appear immediately in **Cost Management**.
 :::
 
 **Prerequisites**: Billing profile contributor/owner permissions for billing profile tags, and Contributor role or Tag Contributor role for resource tagging.
