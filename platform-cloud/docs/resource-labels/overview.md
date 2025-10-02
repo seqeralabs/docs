@@ -70,7 +70,7 @@ Once created at the workspace level, resource labels can be applied to:
 - **Pipeline runs**: In the **Resource labels** field when launching a pipeline. 
 - **Actions**: In the **Resource labels** field when creating or editing an action.
 
-Resource labels applied at the compute environment or pipeline level are prefilled in the pipeline launch form, and they can be applied or overridden during pipeline launch. Admins can override the default resource labels inherited from the compute environment when creating and editing pipelines, actions, and runs on the fly. The custom resource labels associated with each element will be propagated to the associated resources in your cloud provider account, without altering the default resource labels associated with the compute environment.
+Resource labels from the compute environment or pipeline are prefilled in the pipeline launch form. You can apply or override these labels when you launch a pipeline. Admins can override default resource labels inherited from the compute environment when they create or edit pipelines, actions, and pipeline runs. Custom resource labels associated with each element propagate to resources in your cloud provider account. They don't alter the default resource labels on the compute environment.
 
 When an admin adds or edits the resource labels associated with a pipeline, action, or run, the **submission and execution time** resource labels are altered. This does not affect the resource labels for resources spawned at compute environment **creation time**.
 
