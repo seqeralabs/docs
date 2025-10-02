@@ -2,7 +2,8 @@
 Workaround to avoid rendering empty search container
 See https://github.com/facebook/docusaurus/pull/9385
 */
-.navbarSearchContainer:not(:has(> *)) {
+
+/* .navbarSearchContainer:not(:has(> *)) {
   display: none;
 }
 
@@ -21,14 +22,14 @@ See https://github.com/facebook/docusaurus/pull/9385
   .navbarSearchContainer > button {
     width: 200px;
   }
-}
+} */
 
 /**
   * Custom
   */
 
 /* Dark mode */
-
+/*
 html[data-theme="dark"] {
   --docsearch-text-color: #f5f6f7;
   --docsearch-container-background: rgba(9, 10, 17, 0.8);
@@ -49,3 +50,4 @@ html[data-theme="dark"] {
   --docsearch-logo-color: #fff;
   --docsearch-muted-color: #7f8497;
 }
+*/
