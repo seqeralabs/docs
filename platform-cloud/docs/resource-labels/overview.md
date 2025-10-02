@@ -173,7 +173,7 @@ The following resources are tagged using the labels associated with the compute 
 
 ### View costs by resource labels in Google Cloud
 
-Google Cloud includes resource labels in billing data, making them available for cost analysis and reporting:
+Google Cloud includes resource labels in billing data for cost analysis and reporting:
 
 1. **Access Billing Console**: Go to [Google Cloud Console > Billing](https://console.cloud.google.com/billing) and navigate to **Reports** in the Cost management section.
 
