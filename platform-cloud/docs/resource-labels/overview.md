@@ -72,7 +72,7 @@ Once created at the workspace level, resource labels can be applied to:
 
 Resource labels from the compute environment or pipeline are prefilled in the pipeline launch form. You can apply or override these labels when you launch a pipeline. Admins can override default resource labels inherited from the compute environment when they create or edit pipelines, actions, and pipeline runs. Custom resource labels associated with each element propagate to resources in your cloud provider account. They don't alter the default resource labels on the compute environment.
 
-When an admin adds or edits the resource labels associated with a pipeline, action, or run, the **submission and execution time** resource labels are altered. This does not affect the resource labels for resources spawned at compute environment **creation time**.
+When admins add or edit resource labels associated with a pipeline, action, or run, the **submission and execution time** resource labels are altered. This does not affect the resource labels for resources spawned at compute environment **creation time**.
 
 For example, the resource label `name=ce1` is set during AWS Batch compute environment creation. If you create the resource label `pipeline=pipeline1` while launching a pipeline with the same AWS Batch compute environment, the EC2 instances associated with that compute environment will still contain only the `name=ce1` label, while the Job Definitions associated with the pipeline run will inherit the `pipeline=pipeline1` resource label.
 
