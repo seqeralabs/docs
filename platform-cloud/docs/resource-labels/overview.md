@@ -74,7 +74,7 @@ Resource labels from the compute environment or pipeline are prefilled in the pi
 
 When admins add or edit resource labels associated with a pipeline, action, or run, the **submission and execution time** resource labels are altered. This does not affect the resource labels for resources spawned at compute environment **creation time**.
 
-For example, the resource label `name=ce1` is set during AWS Batch compute environment creation. If you create the resource label `pipeline=pipeline1` while launching a pipeline with the same AWS Batch compute environment, the EC2 instances associated with that compute environment will still contain only the `name=ce1` label, while the Job Definitions associated with the pipeline run will inherit the `pipeline=pipeline1` resource label.
+For example, the resource label `name=ce1` is set during AWS Batch compute environment creation. If you create the resource label `pipeline=pipeline1` while launching a pipeline with the same AWS Batch compute environment, the EC2 instances associated with that compute environment will still contain only the `name=ce1` label. Job Definitions associated with the pipeline run will inherit the `pipeline=pipeline1` resource label.
 
 If a maintainer changes the compute environment associated with a pipeline, the **Resource labels** field is updated with the resource labels from the new compute environment.
 
