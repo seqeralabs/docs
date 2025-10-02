@@ -1,13 +1,13 @@
 name: Index docs in Typesense
 
 on:
-  # Run after successful deployment
-  deployment_status:
+  # Trigger on push to any branch (for testing)
+  push:
+    branches:
+      - '**'
 
 jobs:
   scrape:
-    # Only run on successful production deployments
-    if: github.event.deployment_status.state == 'success'
     runs-on: ubuntu-latest
     
     steps:
