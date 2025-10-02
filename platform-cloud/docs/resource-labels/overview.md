@@ -28,7 +28,7 @@ For example, a dynamic resource label `platformRun=${workflowId}` becomes `platf
 Additional dynamic values, such as the user or team that launched a run, will be supported in a future release.
 
 :::info
-Because **dynamic resource labels** are used to tag resources with unique values corresponding to a pipeline run, they are only applied during workflow submission and execution time, and not during compute environment creation. See the **Submission time** and **Execution time** resources listed for each cloud provider on this page.
+**Dynamic resource labels** tag resources with unique values for each pipeline run. Nextflow applies these labels at workflow submission and execution time, not during compute environment creation. See the **Submission time** and **Execution time** resources listed for each cloud provider on this page.
 :::
 
 ### Benefits of dynamic resource labels
