@@ -49,7 +49,7 @@ Workspace participants with any role can leave the workspace, i.e., remove thems
 | **Organization: Managed identities:** Edit                                        | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | **Organization: Managed identities: Users:** Manage credentials                   | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | **Workspace: Settings: Studios:** Edit session lifespan                           | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
-| **Workspace: Settings: Labels & Resource Labels:** Add, edit, delete              | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
+| **Workspace: Settings: Labels and resource labels:** Add, edit, delete              | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | **Workspace: Compute environments:** Add, rename, make primary, duplicate, delete | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | **Workspace: Actions:** Add, edit, delete                                         | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
 | **Workspace: Credentials:** Add, edit, delete                                     | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
