@@ -311,14 +311,10 @@ export default async function createConfigAsync() {
         },
 
         typesenseSearchParameters: {
-          query_by: 'content,hierarchy.lvl0,hierarchy.lvl1,hierarchy.lvl2,hierarchy.lvl3',
-          query_by_weights: '4,3,2,1,1',
-          num_typos: 2,
-          prefix: 'true,true,true,true,true',
-          sort_by: '_text_match:desc',
+          query_by: 'content,hierarchy.lvl0,hierarchy.lvl1,hierarchy.lvl2,hierarchy.lvl3',          
         },
 
-        contextualSearch: false,
+        contextualSearch: true,
         placeholder: 'Search Seqera docs...',
       },
       
