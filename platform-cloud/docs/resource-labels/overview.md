@@ -35,23 +35,24 @@ Additional dynamic values, such as the user or team that launched a run, will be
 
 Dynamic resource labels provide several key advantages:
 
-**Granular cost tracking**: Associate cloud costs with specific workflow runs rather than entire compute environments or projects.
-**Automated attribution**: Apply labels automatically at execution time - no manual tagging of individual runs
-**Enhanced reporting**: Filter and group costs by individual workflow runs in your cloud provider's cost management tools.
-**Audit trails**: Track resource usage patterns for specific workflows over time.
+- **Granular cost tracking**: Associate cloud costs with specific workflow runs rather than entire compute environments or projects.
+- **Automated attribution**: Apply labels automatically at execution time - no manual tagging of individual runs
+- **Enhanced reporting**: Filter and group costs by individual workflow runs in your cloud provider's cost management tools.
+- **Audit trails**: Track resource usage patterns for specific workflows over time.
 
 ## Create resource labels
 
 **Workspace-level labels**: Create resource labels at the workspace level for consistent use across compute environments, pipelines, runs, and actions:
 
 1. Navigate to your workspace **Settings** > **Edit labels**.
-2. Select **Edit** > **Add label**.
-3. Enter a **Name** such as `owner`, `team`, or `platformRun`.
-4. Enter a **Value**: 
+1. Select **Add label**.
+1. Under **Type**, select **Resource label**.
+1. Enter a **Name** such as `owner`, `team`, or `platform-run`.
+1. Enter a **Value**: 
   - **Standard resource labels**: `<USERNAME>`, `TEAM_NAME`
   - **Dynamic resource labels**: Use variable syntax — `${workflowId}` or `${sessionId}`
-5. Optionally, enable **Use as default in compute environment form** to automatically apply this label to all new compute environments in this workspace.
-6. Select **Save**.
+1. Optionally, enable **Use as default in compute environment form** to automatically apply this label to all new compute environments in this workspace.
+1. Select **Save**.
 
 **Create labels during compute environment, pipeline, run, and action creation**: Standard and dynamic resource labels can also be created and added to new Platform entities on the fly.
 
@@ -103,9 +104,10 @@ Resource label propagation is one-way and not synchronized with the cloud enviro
 
 ## AWS
 
-When the compute environment is created with Forge, the following resources will be tagged using the labels associated with the compute environment:
+The following resources are tagged using the labels associated with the compute environment (either [Batch](../compute-envs/aws-batch.md) or [Cloud](../compute-envs/aws-cloud.md)):
 
-**Forge creation time**
+**Batch**:
+**Batch Forge creation time**
 - FSX Filesystems (does not cascade to files)
 - EFS Filesystems (does not cascade to files)
 - Batch Compute Environment
@@ -124,32 +126,34 @@ When the compute environment is created with Forge, the following resources will
 **Execution time**
 - Work Tasks (via the `propagateTags` parameter on Job Definitions)
 
-At execution time, when the jobs are submitted to Batch, the requests are set up to propagate tags to all the instances and volumes created by the head job.
+**Cloud**:
+**Submission and execution time**
+- ComputeResource (EC2 instances, including EBS volumes)
 
-The [`forge-policy.json` file](https://github.com/seqeralabs/nf-tower-aws/blob/master/forge/forge-policy.json) contains the roles needed for Batch Forge-created AWS compute environments to tag AWS resources. Specifically, the required roles are `iam:TagRole`, `iam:TagInstanceProfile`, and `batch:TagResource`.
+At execution time, when jobs are submitted to Batch, the requests are set up to propagate tags to all the instances and volumes created by the head job.
+
+The [`forge-policy.json` file](https://github.com/seqeralabs/nf-tower-aws/blob/master/forge/forge-policy.json) contains the roles needed for Batch Forge-created AWS Batch compute environments to tag AWS resources. Specifically, the required roles are `iam:TagRole`, `iam:TagInstanceProfile`, and `batch:TagResource`.
 
 To view and manage the resource labels applied to AWS resources by Seqera and Nextflow, go to the [AWS Tag Editor](https://docs.aws.amazon.com/tag-editor/latest/userguide/find-resources-to-tag.html) (as an administrative user) and follow these steps:
 
-Under **Find resources to tag**, search for the resource label key and value in the relevant search fields under **Tags**. Your search can be further refined by AWS region and resource type. 
-Select **Search resources**. **Resource search results** display all the resources tagged with your given resource label key and/or value.
+1. Under **Find resources to tag**, search for the resource label key and value in the relevant search fields under **Tags**. Your search can be further refined by AWS region and resource type. 
+1. Select **Search resources**. **Resource search results** display all the resources tagged with your given resource label key and/or value.
 
 ### Include Seqera resource labels in AWS billing reports
 
 To include the cost information associated with your resource labels in your AWS billing reports:
 
 1. **Wait for tag creation**: After creating resources with resource labels, wait up to 24 hours for the tag keys to appear in your cost allocation tags page.
-
 2. **Activate cost allocation tags**: [Activate](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/activating-tags.html) the associated tags in the **AWS Billing and Cost Management console**:
    - In the navigation pane, choose **Cost allocation tags**
    - Select the tag keys you want to activate
    - Choose **Activate**
    - Allow up to 24 hours for tags to activate
-
 3. **Create cost allocation reports**: When your tags are activated and displayed in **Billing and Cost Management > Cost allocation tags**, you can apply them when you create [cost allocation reports](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/configurecostallocreport.html#allocation-viewing).
-
 4. **View in Cost Explorer**: Navigate to AWS Cost Explorer and use **Group by** filters to organize costs by your activated tag keys.
 
-### AWS limits
+### AWS limitations
+
 - Resource label keys and values must contain a minimum of 2 and a maximum of 39 alphanumeric characters (each), separated by dashes or underscores.
 - The key and value cannot begin or end with dashes `-` or underscores `_`.
 - The key and value cannot contain a consecutive combination of `-` or `_` characters (`--`, `__`, `-_`, etc.)
@@ -175,32 +179,28 @@ The following resources are tagged using the labels associated with the compute 
 
 Google Cloud includes resource labels in billing data for cost analysis and reporting:
 
-1. **Access Billing Console**: Go to [Google Cloud Console > Billing](https://console.cloud.google.com/billing) and navigate to **Reports** in the Cost management section.
-
+1. **Access Billing Console**: Go to [Google Cloud Billing](https://console.cloud.google.com/billing) and navigate to **Reports** in the Cost management section.
 2. **Configure Reports**: Use the **Labels** filter to select specific label keys and set **Group by** to organize costs by your label values.
-
 3. **Export for Analysis**:
    - [Enable Cloud Billing export to BigQuery](https://cloud.google.com/billing/docs/how-to/export-data-bigquery) for detailed analysis and custom reporting.
    - Use tools like [Looker Studio](https://cloud.google.com/looker-studio/docs/overview) to visualize your labeled cost data.
 
-### GCP limits
+### Google Cloud limitations
 
 - Resource label keys and values must contain a minimum of 2 and a maximum of 39 alphanumeric characters (each), separated by dashes or underscores.
 - The key and value cannot begin or end with dashes `-` or underscores `_`.
 - The key and value cannot contain a consecutive combination of `-` or `_` characters (`--`, `__`, `-_`, etc.)
 - A maximum of 25 resource labels can be applied to each resource.
 - A maximum of 1000 resource labels can be used in each workspace.
-- Keys and values in Google Cloud Resource Manager may contain only lowercase letters. Resource labels created with uppercase characters are converted to lowercase before being propagated to Google Cloud.
+- Keys and values in Google Cloud Resource Manager may contain **only lowercase letters**. Resource labels created with uppercase characters are **automatically converted to lowercase** in Platform before being propagated to Google Cloud.
 
 See [here](https://cloud.google.com/resource-manager/docs/creating-managing-labels#requirements) for more information on Google Cloud Resource Manager labeling.
 
 ## Azure
 
-:::note
-The labeling system on Azure Cloud uses the term metadata to refer to resource and other labels.
-:::
-
-When creating an Azure Batch compute environment with Forge, resource labels are added to the Pool parameters — this adds set of `key=value` metadata pairs to the Azure Batch Pool.
+The system used for labeling resources in Azure differs depending on your compute environment type: 
+- In an **Azure Batch** compute environment created with Batch Forge, resource labels are added to the Pool parameters — this adds set of `key=value` **metadata** pairs to the Azure Batch Pool.
+- In an **Azure Cloud** (single instance) compute environment, resource labels are propagated to VMs and related resources as **tags**.
 
 :::warning
 In Azure Batch compute environments, the [Azure Batch node pool](https://learn.microsoft.com/en-us/azure/batch/nodes-and-pools) is managed by the compute environment and **resource labels are fixed at the time of creation**.
@@ -219,12 +219,10 @@ Dynamic resource labels create tags on Azure Batch resources. However, Azure's c
 **Steps to enable cost tracking**:
 
 1. **Enable Tag Inheritance** (recommended): Navigate to Cost Management in the Azure portal, select a billing account or subscription scope, and under **Settings** > **Configuration** > **Tag inheritance**, enable "Automatically apply subscription and resource group tags to new data". See [Azure tag inheritance documentation](https://docs.microsoft.com/en-us/azure/cost-management-billing/costs/enable-tag-inheritance) for detailed steps.
-
 2. **View Tagged Costs**: Navigate to **Cost Management + Billing** > **Cost Management** > **Cost analysis** and select **Group by** for your tag key.
-
 3. **Create Budgets with Tag Filters**: [Create budgets with filters](https://docs.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-acm-create-budgets) on the inherited tags, available 24 hours after enabling tag inheritance.
 
-### Azure limits
+### Azure limitations
 
 - Resource label keys and values must contain a minimum of 2 and a maximum of 39 alphanumeric characters (each), separated by dashes or underscores.
 - The key and value cannot begin or end with dashes `-` or underscores `_`.
@@ -284,18 +282,11 @@ See [Syntax and character set](https://kubernetes.io/docs/concepts/overview/work
 - Verify that resources are actively running and generating usage data
 
 **Permission errors**: 
-- Ensure compute environment credentials have the required tagging permissions
+- Ensure compute environment credentials have the permissions required to tag resources
 - For Google Cloud, verify billing account administrator access
-- For Azure, confirm billing profile contributor permissions
+- For Azure, confirm billing profile contributor permissions and appropriate permissions to view Cost Management reports
 
-**Missing tag values**: 
+**Missing tag values in cloud provider resources**: 
 - Verify that resource labels are applied to the correct compute environment
 - Check that workflows are using the tagged compute environment
 - For dynamic labels, ensure variables use correct syntax: `${workflowId}` and `${sessionId}`
-
-## Related Documentation
-
-- [Resource Labels Overview](overview) - General resource labels functionality
-- [AWS Batch Compute Environments](../compute-envs/aws-batch) - Setting up AWS compute environments with tagging
-- [Google Cloud Compute Environments](../compute-envs/google-cloud) - Google Cloud environment configuration
-- [Azure Compute Environments](../compute-envs/azure) - Azure environment setup and limitations
