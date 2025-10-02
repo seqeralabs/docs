@@ -315,6 +315,7 @@ export default async function createConfigAsync() {
           query_by_weights: '4,3,2,1',
           num_typos: 2,
           prefix: 'true,true,true,true',
+          sort_by: '_text_match:desc',
         },
 
         contextualSearch: false,
