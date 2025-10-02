@@ -218,7 +218,7 @@ Dynamic resource labels create tags on Azure Batch resources. However, Azure's c
 
 **Steps to enable cost tracking**:
 
-1. **Enable Tag Inheritance** (recommended): Navigate to Cost Management in the Azure portal, select a billing account or subscription scope, and under Settings > **Configuration** > **Tag inheritance**, enable "Automatically apply subscription and resource group tags to new data". See [Azure tag inheritance documentation](https://docs.microsoft.com/en-us/azure/cost-management-billing/costs/enable-tag-inheritance) for detailed steps.
+1. **Enable Tag Inheritance** (recommended): Navigate to Cost Management in the Azure portal, select a billing account or subscription scope, and under **Settings** > **Configuration** > **Tag inheritance**, enable "Automatically apply subscription and resource group tags to new data". See [Azure tag inheritance documentation](https://docs.microsoft.com/en-us/azure/cost-management-billing/costs/enable-tag-inheritance) for detailed steps.
 
 2. **View Tagged Costs**: Navigate to **Cost Management + Billing** > **Cost Management** > **Cost analysis** and select **Group by** for your tag key.
 
