@@ -211,7 +211,7 @@ In Azure Batch compute environments, the [Azure Batch node pool](https://learn.m
 Azure supports cost analysis by tags. However, you must configure tag inheritance and cost allocation.
 
 :::note
-Dynamic resource labels create tags on Azure Batch resources, but Azure's cost reporting integration has some limitations. Azure tags may not always appear immediately in Cost Management.
+Dynamic resource labels create tags on Azure Batch resources. However, Azure's cost reporting integration has some limitations. Azure tags may not always appear immediately in **Cost Management**.
 :::
 
 **Prerequisites**: Billing profile contributor/owner permissions for billing profile tags, and Contributor role or Tag Contributor role for resource tagging.
