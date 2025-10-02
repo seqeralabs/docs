@@ -7,7 +7,7 @@ on:
 jobs:
   scrape:
     # Only run on successful production deployments
-    if: github.event.deployment_status.state == 'success' && github.event.deployment_status.environment == 'production'
+    if: github.event.deployment_status.state == 'success'
     runs-on: ubuntu-latest
     
     steps:
