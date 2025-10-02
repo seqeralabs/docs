@@ -36,7 +36,7 @@ Additional dynamic values, such as the user or team that launched a run, will be
 Dynamic resource labels provide several key advantages:
 
 **Granular cost tracking**: Associate cloud costs with specific workflow runs rather than entire compute environments or projects.
-**Automated attribution**: No manual tagging of individual runs - labels are applied automatically at execution time.
+**Automated attribution**: Apply labels automatically at execution time - no manual tagging of individual runs
 **Enhanced reporting**: Filter and group costs by individual workflow runs in your cloud provider's cost management tools.
 **Audit trails**: Track resource usage patterns for specific workflows over time.
 
