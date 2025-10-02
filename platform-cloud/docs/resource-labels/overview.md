@@ -208,7 +208,7 @@ In Azure Batch compute environments, the [Azure Batch node pool](https://learn.m
 
 ### View costs by resource labels in Azure
 
-Azure supports cost analysis by tags, but requires additional configuration for tag inheritance and cost allocation.
+Azure supports cost analysis by tags. However, you must configure tag inheritance and cost allocation.
 
 :::note
 Dynamic resource labels create tags on Azure Batch resources, but Azure's cost reporting integration has some limitations. Azure tags may not always appear immediately in Cost Management.
