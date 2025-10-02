@@ -48,7 +48,7 @@ Dynamic resource labels provide several key advantages:
 2. Select **Edit** > **Add label**.
 3. Enter a **Name** such as `owner`, `team`, or `platformRun`.
 4. Enter a **Value**: 
-  - **Standard resource labels**: `<your-username>`, `your-team-name`
+  - **Standard resource labels**: `<USERNAME>`, `TEAM_NAME`
   - **Dynamic resource labels**: Use variable syntax — `${workflowId}` or `${sessionId}`
 5. Optionally, enable **Use as default in compute environment form** to automatically apply this label to all new compute environments in this workspace.
 6. Select **Save**.
