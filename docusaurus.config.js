@@ -317,7 +317,7 @@ export default async function createConfigAsync() {
           prefix: 'true,true,true,true',
         },
 
-        contextualSearch: true,
+        contextualSearch: false,
         placeholder: 'Search Seqera docs...',
       },
       
