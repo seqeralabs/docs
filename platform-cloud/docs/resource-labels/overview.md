@@ -44,7 +44,7 @@ Dynamic resource labels provide several key advantages:
 
 **Workspace-level labels**: Create resource labels at the workspace level for consistent use across compute environments, pipelines, runs, and actions:
 
-1. Navigate to your workspace **Settings** > **Edit labels**.
+1. In your workspace,  select **Settings** > **Edit labels**.
 1. Select **Add label**.
 1. Under **Type**, select **Resource label**.
 1. Enter a **Name** such as `owner`, `team`, or `platform-run`.
