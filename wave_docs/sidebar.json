@@ -75,6 +75,14 @@
         },
         {
           "type": "category",
+          "label": "Guides",
+          "collapsed": true,
+          "items": [
+            "db-migration"
+          ]
+        },
+        {
+          "type": "category",
           "label": "Migration notes",
           "link": {"type": "doc", "id": "migrations/index"},
           "collapsed": true,
