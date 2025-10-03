@@ -14,7 +14,7 @@ Resource labels are applied to elements during:
 
 ## Dynamic resource labels 
 
-Dynamic resource labels extend the standard resource labels functionality by allowing variable values that are populated at runtime with unique workflow identifiers. This enables precise cost tracking and resource attribution for individual pipeline runs across cloud compute environments.
+Dynamic resource labels extend the standard resource labels functionality by allowing variable values that are populated with unique workflow identifiers at runtime. This enables precise cost tracking and resource attribution for individual pipeline runs across cloud compute environments.
 
 Standard resource labels use static key-value pairs, such as `project=research` or `environment=production`. Dynamic resource labels use variable placeholders. Nextflow resolves these placeholders when a workflow runs:
 
