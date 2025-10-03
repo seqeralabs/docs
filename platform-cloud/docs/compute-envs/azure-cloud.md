@@ -144,6 +144,8 @@ In order to have more control over the permissions granted to Seqera platform, w
 }
 ```
 
+Create this custom role on the Azure Portal by importing the JSON as per [the provided instructions](https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles-portal#start-from-json).
+
 It can be applied as is for convenience or it can be broken down into smaller roles. We'll outline the rationale for those permission based on their purpose in the next sections.
 
 #### Compute environment creation
