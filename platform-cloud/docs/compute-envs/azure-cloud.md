@@ -28,6 +28,7 @@ This type of compute environment is best suited to run Studios and small to medi
 ## Limitations
 
 - The Nextflow pipeline will run entirely on a single Virtual Machine. If the instance does not have sufficient resources, the pipeline execution will fail. For this reason, the number of tasks Nextflow can execute in parallel is limited by the number of cores of the instance type selected. If you need more computing resources, you must create a new compute environment with a larger instance type. This makes the compute environment less suited for larger, more complex pipelines.
+- There is a considerable delay for streaming logs to become available for querying them. This means that if your pipeline completes in under a minute, you might not see streaming logs during the execution.
 
 ## Created resources
 
@@ -45,6 +46,14 @@ Upon launching Virtual Machines, other resources will be provisioned for each ma
 
 - One network interface
 - One OS disk
+
+While the workflow is running, logs will be streamed to the `Nextflow_log_CL` table in the Log Analytics workspace for the compute environment. You can query logs for your specific workflow id with this expression:
+
+```
+Nextflow_log_CL | where workflowId == "<WORKFLOW_ID>"
+```
+
+The table has 7 days retention, Nextflow will upload log files to Azure Storage for long term storage.
 
 ## Requirements
 
@@ -73,61 +82,60 @@ In order to have more control over the permissions granted to Seqera platform, w
                     "Microsoft.Compute/virtualMachines/delete",
                     "Microsoft.Compute/virtualMachines/deallocate/action",
                     "Microsoft.Compute/virtualMachines/attachDetachDataDisks/action",
-                    "Microsoft.Compute/virtualMachines/providers/Microsoft.Insights/logDefinitions/read",
+
                     "Microsoft.Resources/subscriptions/resourceGroups/write",
                     "Microsoft.Resources/subscriptions/resourceGroups/read",
                     "Microsoft.Resources/subscriptions/resourceGroups/delete",
-                    "Microsoft.Storage/storageAccounts/blobServices/containers/read",
+
+                    "Microsoft.Network/publicIPAddresses/read",
                     "Microsoft.Network/publicIPAddresses/write",
                     "Microsoft.Network/publicIPAddresses/delete",
+                    "Microsoft.Network/publicIPAddresses/join/action",
+
+                    "Microsoft.Network/virtualNetworks/read",
                     "Microsoft.Network/virtualNetworks/write",
                     "Microsoft.Network/virtualNetworks/delete",
                     "Microsoft.Network/virtualNetworks/subnets/read",
                     "Microsoft.Network/virtualNetworks/subnets/write",
                     "Microsoft.Network/virtualNetworks/subnets/delete",
+                    "Microsoft.Network/virtualNetworks/subnets/join/action",
+
                     "Microsoft.Network/networkInterfaces/delete",
                     "Microsoft.Network/networkInterfaces/write",
                     "Microsoft.Network/networkInterfaces/read",
-                    "Microsoft.Network/virtualNetworks/read",
-                    "Microsoft.Network/virtualNetworks/subnets/join/action",
                     "Microsoft.Network/networkInterfaces/join/action",
-                    "Microsoft.Network/publicIPAddresses/read",
-                    "Microsoft.Network/publicIPAddresses/join/action",
+
                     "Microsoft.ManagedIdentity/userAssignedIdentities/read",
                     "Microsoft.ManagedIdentity/userAssignedIdentities/write",
                     "Microsoft.ManagedIdentity/userAssignedIdentities/delete",
                     "Microsoft.ManagedIdentity/userAssignedIdentities/assign/action",
+
                     "Microsoft.Authorization/roleAssignments/read",
                     "Microsoft.Authorization/roleAssignments/write",
                     "Microsoft.Authorization/roleAssignments/delete",
+
                     "Microsoft.Authorization/roleDefinitions/read",
                     "Microsoft.Authorization/roleDefinitions/write",
                     "Microsoft.Authorization/roleDefinitions/delete",
+
                     "Microsoft.Insights/DataCollectionRules/Read",
                     "Microsoft.Insights/DataCollectionRules/Write",
                     "Microsoft.Insights/DataCollectionRules/Delete",
+
                     "Microsoft.Insights/DataCollectionEndpoints/Write",
                     "Microsoft.Insights/DataCollectionEndpoints/Delete",
-                    "Microsoft.OperationalInsights/workspaces/analytics/query/action",
-                    "Microsoft.OperationalInsights/workspaces/searchJobs/write",
-                    "Microsoft.OperationalInsights/workspaces/tables/read",
-                    "Microsoft.OperationalInsights/workspaces/tables/query/read",
-                    "Microsoft.OperationalInsights/workspaces/providers/Microsoft.Insights/logDefinitions/read",
-                    "Microsoft.OperationalInsights/workspaces/query/read",
-                    "Microsoft.OperationalInsights/workspaces/sharedkeys/action",
+
                     "Microsoft.OperationalInsights/workspaces/write",
                     "Microsoft.OperationalInsights/workspaces/read",
                     "Microsoft.OperationalInsights/workspaces/delete",
+                    "Microsoft.OperationalInsights/workspaces/sharedkeys/action",
+                    "Microsoft.OperationalInsights/workspaces/tables/read",
                     "Microsoft.OperationalInsights/workspaces/tables/write",
                     "Microsoft.OperationalInsights/workspaces/tables/delete",
-                    "Microsoft.OperationalInsights/workspaces/search/action",
-                    "Microsoft.OperationalInsights/workspaces/analytics/query/schema/read",
-                    "Microsoft.OperationalInsights/workspaces/api/query/action",
-                    "Microsoft.OperationalInsights/workspaces/api/query/schema/read",
-                    "Microsoft.OperationalInsights/workspaces/customfields/read",
-                    "Microsoft.OperationalInsights/workspaces/schema/read",
-                    "Microsoft.OperationalInsights/workspaces/operations/read",
-                    "Microsoft.OperationalInsights/workspaces/search/read",
+                    "Microsoft.OperationalInsights/workspaces/query/read",
+                    "Microsoft.OperationalInsights/workspaces/query/Tables.Custom/read",
+
+                    "Microsoft.Storage/storageAccounts/blobServices/containers/read",
                     "Microsoft.Storage/storageAccounts/blobServices/generateUserDelegationKey/action"
                 ],
                 "notActions": [],
@@ -136,7 +144,8 @@ In order to have more control over the permissions granted to Seqera platform, w
                     "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/read",
                     "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/tags/read",
                     "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/write",
-                    "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/tags/write"
+                    "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/tags/write",
+                    "Microsoft.OperationalInsights/workspaces/tables/data/read"
                 ],
                 "notDataActions": []
             }
@@ -144,6 +153,8 @@ In order to have more control over the permissions granted to Seqera platform, w
     }
 }
 ```
+
+Create this custom role on the Azure Portal by importing the JSON as per [the provided instructions](https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles-portal#start-from-json).
 
 It can be applied as is for convenience or it can be broken down into smaller roles. We'll outline the rationale for those permission based on their purpose in the next sections.
 
@@ -222,6 +233,7 @@ The following permissions are required to launch pipelines and studios:
 
                     "Microsoft.Network/publicIPAddresses/read",
                     "Microsoft.Network/publicIPAddresses/write",
+                    "Microsoft.Network/publicIPAddresses/delete",
                     "Microsoft.Network/publicIPAddresses/join/action",
 
                     "Microsoft.Network/networkInterfaces/read",
@@ -260,28 +272,12 @@ The following permissions are required to fetch logs for the pipeliene execution
         "permissions": [
             {
                 "actions": [
-                    "Microsoft.Compute/virtualMachines/providers/Microsoft.Insights/logDefinitions/read",
-                    "Microsoft.Storage/storageAccounts/blobServices/containers/read",
-                    "Microsoft.OperationalInsights/workspaces/analytics/query/action",
-                    "Microsoft.OperationalInsights/workspaces/searchJobs/write",
-                    "Microsoft.OperationalInsights/workspaces/tables/read",
-                    "Microsoft.OperationalInsights/workspaces/tables/query/read",
-                    "Microsoft.OperationalInsights/workspaces/providers/Microsoft.Insights/logDefinitions/read",
                     "Microsoft.OperationalInsights/workspaces/query/read",
-                    "Microsoft.OperationalInsights/workspaces/sharedkeys/action",
-                    "Microsoft.OperationalInsights/workspaces/analytics/query/schema/read",
-                    "Microsoft.OperationalInsights/workspaces/api/query/action",
-                    "Microsoft.OperationalInsights/workspaces/api/query/schema/read",
-                    "Microsoft.OperationalInsights/workspaces/customfields/read",
-                    "Microsoft.OperationalInsights/workspaces/schema/read",
-                    "Microsoft.OperationalInsights/workspaces/operations/read",
-                    "Microsoft.OperationalInsights/workspaces/search/read",
-                    "Microsoft.Storage/storageAccounts/blobServices/generateUserDelegationKey/action"
+                    "Microsoft.OperationalInsights/workspaces/query/Tables.Custom/read"
                 ],
                 "notActions": [],
                 "dataActions": [
-                    "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/read",
-                    "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/tags/read",
+                    "Microsoft.OperationalInsights/workspaces/tables/data/read"
                 ],
                 "notDataActions": []
             }
@@ -289,8 +285,6 @@ The following permissions are required to fetch logs for the pipeliene execution
     }
 }
 ```
-
-Additonally, to be able to fetch live logs from Workflow executions, the [builtin Reader role](https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles/general#reader) needs to be assigned to the service principal.
 
 #### Data links
 
