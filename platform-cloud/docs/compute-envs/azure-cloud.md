@@ -6,7 +6,7 @@ last updated: "2025-09-29"
 tags: [cloud, vm, azure, compute environment]
 ---
 
-# Azure Cloud
+## Azure Cloud
 
 :::note
 This compute environment type is currently in public preview. Please consult this guide for the latest information on recommended configuration and limitations. This guide assumes you already have an Azure account with a valid Azure subscription.
@@ -43,6 +43,7 @@ Seqera platform will create the following resources in Azure when creating the C
 - One Virtual Network: Virtual Machines launched will be inside this network.
 
 Upon launching Virtual Machines, other resources will be provisioned for each machine launched and will be tied to the machine lifecycle:
+
 - One network interface
 - One OS disk
 
@@ -353,6 +354,77 @@ The following permissions are required to delete the resources created for the c
     }
 }
 ```
+
+## Adding Azure Cloud credentials
+
+### Create a custom role in Microsoft Entra
+
+First, you need to create a custom role with the permissions required for Seqera Platform to manage Azure resources.
+
+1.  Save the above permissions to a local JSON file and be sure to update the subscription ID in the `assignableScopes` field.
+1.  Navigate to the Azure Portal and go to Subscriptions and select your subscription
+1.  Create a Custom Role by clicking on **Access control (IAM)** and then **Add** in the **Create a custom role** section
+1.  Provide the following details:
+    - **Custm role name**: `seqera-azure-cloud` (for example)
+    - **Description**: `Role for Seqera Platform to manage Azure Cloud compute environments` (for example)
+    - **Baseline permissions**: Select **Start from JSON**
+    - **File**: Select the local JSON file you saved earlier
+1.  Click **Next** and review the permissions, ensure all have been included correctly.
+1.  Click **Next** and check the assignable scope is your subscription ID.
+1.  Click **Next**. If there was an error in the previous step you can edit the JSON file here.
+1.  Click **Next** and then **Create** to save the role.
+
+### Register an application in Microsoft Entra ID
+
+We need to create an application for Seqera Platform to use for authentication.
+
+1.  On the Azure Portal, navigate to **App registrations** and click **New registration**
+1.  Give the app a descriptive name such as `SeqeraPlatformApp`. Select `Single tenant` for the supported account types.
+1.  Create a client secret for the application. Seqera Platform will use this value to authenticate to Azure so keep it secret. Under **Certificates & secrets**, click **New client secret** and give it a description such as `SeqeraPlatformSecret`. Set the expiration to a duration that matches your security policy. Click **Add**.
+
+- After registration, you'll be taken to the application overview page
+- Copy and save the following values:
+  - **Application (client) ID**: This is your Client ID
+  - **Directory (tenant) ID**: This is your Tenant ID
+
+### Assign the custom role to the service principal
+
+Grant the service principal the necessary permissions by assigning the custom role.
+
+1.  In the Azure Portal, navigate to **Subscriptions** and select your subscription. Then click on **Access control (IAM)** and **Add role assignment** in the **Grant access to this resource** section.
+1.  Select the **Privileged administrator roles** tab and select the role you created earlier then click **Next**.
+1.  Click the **Select members** button and search for the application name (`SeqeraPlatformApp`) and click **Select** then **Next**.
+1.  Click **Review + assign** and then **Review** and then **Assign**.
+1.  Under **What user can do** select "Allow user to assign all roles except privileged administrator roles Owner, UAA, RBAC (Recommended)" and click **Next**.
+1.  Check the final details and click **Review + assign**
+
+### Configure Seqera Platform credentials
+
+Add the service principal credentials to Seqera Platform.
+
+1.  Sign in to your Seqera Platform workspace and navigate to the **Credentials** tab
+1.  Click **Add credentials** and select **Azure** as the provider and choose the **Cloud** tab for Microsoft Entra ID authentication
+1.  Enter credentials details you saved earlier:
+    - **Name**: Provide a descriptive name (e.g., `AzureCloudCredentials`)
+    - **Subscription ID**: Your Azure subscription ID
+    - **Tenant ID**: The Directory (tenant) ID from Step 2
+    - **Client ID**: The Application (client) ID from Step 2
+    - **Client secret**: The client secret value from Step 3
+    - **Blob Storage account name**: Your Azure Storage account name
+1.  Review the details and click **Add** to save the credentials
+
+### Create a compute environment
+
+Create a compute environment on Seqera Platform using the credentials.
+
+1.  In your Seqera Platform workspace, navigate to the **Compute Environments** tab and click **Add Compute Environment**
+1.  Select **Azure Cloud** as the target platform
+1.  From the **Credentials** drop-down, select the credentials you created earlier
+1.  Enter a name for the compute environment
+1.  Select the **Location** as the Azure region
+1.  Select the **Work directory** as the Azure blob container you plan to use as Nextflow working directory
+1.  Under advanced options, select the **Instance Type** to select an instance larger than the default of `Standard_D2ds_v4`
+1.  Click **Create** to save the compute environment
 
 ## Advanced options
 
