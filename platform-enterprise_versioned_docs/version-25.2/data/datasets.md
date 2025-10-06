@@ -1,8 +1,7 @@
 ---
 title: "Datasets"
 description: "Using datasets in Seqera Platform."
-date created: "2023-04-23"
-last updated: "2025-10-06"
+date: "21 Apr 2023"
 tags: [datasets]
 ---
 
@@ -12,14 +11,7 @@ This feature is only available in organization workspaces.
 
 Datasets in Seqera are CSV (comma-separated values) and TSV (tab-separated values) files stored in a workspace. They are used as inputs to pipelines to simplify data management, minimize user data-input errors, and facilitate reproducible workflows.
 
-On the datasets screen, you can:
-
-- View which pipeline runs have used a specific dataset input.
-- Apply multiple labels to datasets for easier searching and grouping.
-- Hide datasets that you're no longer using.
-- Upload new versions of a dataset.
-
-The most commonly used datasets for Nextflow pipelines are samplesheets, where each row consists of a sample, the location of files for that sample (such as FASTQ files), and other sample details. For example, [*nf-core/rnaseq*](https://github.com/nf-core/rnaseq) works with input datasets (samplesheets) containing sample names, FASTQ file locations, and indications of strandedness. The Seqera Community Showcase sample dataset for *nf-core/rnaseq* looks like this:
+The most commonly used datasets for Nextflow pipelines are samplesheets, where each row consists of a sample, the location of files for that sample (such as FASTQ files), and other sample details. For example, [nf-core/rnaseq](https://github.com/nf-core/rnaseq) works with input datasets (samplesheets) containing sample names, FASTQ file locations, and indications of strandedness. The Seqera Community Showcase sample dataset for _nf-core/rnaseq_ looks like this:
 
 **Example rnaseq dataset**
 
@@ -37,7 +29,7 @@ The most commonly used datasets for Nextflow pipelines are samplesheets, where e
 Use [Data Explorer](../data/data-explorer) to browse for cloud storage objects directly and copy the object paths to be used in your datasets.
 :::
 
-The combination of datasets, [secrets](../secrets/overview), and [actions](../pipeline-actions/overview) allows you to automate workflows to curate your data and maintain and launch pipelines based on specific events. See [here](https://seqera.io/blog/workflow-automation/) for an example of pipeline workflow automation using Seqera.
+The combination of datasets, [secrets](../secrets/overview), and [actions](../pipeline-actions/overview) in the application allows you to automate workflows to curate your data and maintain and launch pipelines based on specific events. See [here](https://seqera.io/blog/workflow-automation/) for an example of pipeline workflow automation using Seqera.
 
 - Datasets reduce errors that occur due to manual data entry when you launch pipelines.
 - Datasets can be generated automatically in response to events (such as S3 storage new file notifications).
@@ -53,32 +45,29 @@ Datasets can point to files stored in various locations, such as Amazon S3 or Gi
 
 ### Create a dataset
 
-All Seqera users with any role have access to the datasets feature in organization workspaces. 
+All Seqera users with any role have access to the datasets feature in organization workspaces. To create a new dataset:
+
+1. Open the **Datasets** tab in your organization workspace.
+2. Select **New dataset**.
+3. Complete the **Name** and **Description** fields using information relevant to your dataset.
+4. Add the dataset file to your workspace with drag-and-drop or the system file explorer dialog.
+5. For dataset files that use the first row for column names, customize the dataset view with the **First row as header** option.
 
 :::note
 The size of the dataset file must not exceed 10 MB.
 :::
 
-1. Open the **Datasets** tab in your organization workspace.
-2. Select **Add Dataset**.
-3. Complete the **Name** and **Description** fields using information relevant to your dataset.
-4. Add a **Label** to your dataset. You can use labels as a search filter but they don't apply to other resources in Seqera.
-4. Add the dataset file to your workspace with drag-and-drop or the system file explorer dialog.
-5. For dataset files that use the first row for column names, customize the dataset view with the **First row as header** option.
-
 ## Dataset versions
 
-Seqera can accommodate multiple versions of a dataset. To add a new version for an existing dataset:
+Seqera can accommodate multiple versions of a dataset. To add a new version for an existing dataset, follow these steps:
 
-1. Select the three dots next to the dataset you want to update.
-2. Select **Add a version**.
-3. Upload the newer version of the dataset and select **Add**.
+1. Select **Edit** next to the dataset you wish to update.
+2. Select **Add a new version**.
+3. Upload the newer version of the dataset and select **Update**.
 
 :::caution
 All subsequent versions of a dataset must be the same format (CSV or TSV) as the initial version.
 :::
-
-Select a dataset to access the version drop-down menu.
 
 ### Use a dataset
 
@@ -91,18 +80,3 @@ To use a dataset with the saved pipelines in your workspace:
 :::note
 The input field drop-down menu will only display datasets that match the file type specified in the `nextflow_schema.json` of the chosen pipeline. If the schema specifies `"mimetype": "text/csv"`, no TSV datasets will be available for use with that pipeline, and vice-versa.
 :::
-
-## Manage datasets
-
-**View runs**
-
-Select the three dots next to a dataset to view which pipeline runs have used a specific dataset input. 
-
-**Hide datasets**
-
-Select the three dots next to a dataset to hide datasets you're no longer using. Hidden datasets do not count toward your quota. You can toggle between **Visible**, **Hidden**, and **All** datasets in the **Show** dropdown on the main datasets page.
-
-**Edit datasets**
-
-Select the three dots next to a dataset to edit the name, description, and labels associated with a dataset.
-
