@@ -34,6 +34,11 @@
   Location: path
   Req/Opt: Required
   Description: Data-link string identifier
+- Name: "`path`"
+  Type: string
+  Location: path
+  Req/Opt: Required
+  Description: Content path
 - Name: "`nextPageToken`"
   Type: string
   Location: query
@@ -50,11 +55,6 @@
   Location: query
   Req/Opt: Optional
   Description: List of paths
-- Name: "`path`"
-  Type: string
-  Location: path
-  Req/Opt: Required
-  Description: Content path
 - Name: "`filePath`"
   Type: string
   Location: path
@@ -81,13 +81,13 @@
   Location: query
   Req/Opt: Optional
   Description: List of paths to files to download
-- Name: "`Origin`"
-  Type: string
-  Location: header
-  Req/Opt: Optional
-  Description: ""
 - Name: "`dirPath`"
   Type: string
   Location: path
   Req/Opt: Required
   Description: Path to the destination directory
+- Name: "`Origin`"
+  Type: string
+  Location: header
+  Req/Opt: Optional
+  Description: ""
