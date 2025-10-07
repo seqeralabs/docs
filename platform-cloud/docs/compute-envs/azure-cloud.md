@@ -1,6 +1,6 @@
 ---
 title: "Azure Cloud"
-description: "Instructions to set up an Azure Cloud CE in Seqera Platform"
+description: "Instructions to set up an Azure Cloud compute environment in Seqera Platform"
 date created: "2025-09-29"
 last updated: "2025-09-29"
 tags: [cloud, vm, azure, compute environment]
@@ -15,64 +15,64 @@ This compute environment type is currently in public preview. Please consult thi
 Many of the current implementations of compute environments for cloud providers rely on the use of batch services such as AWS Batch, Azure Batch, and Google Batch for the execution and management of submitted jobs, including pipelines and Studio session environments. Batch services are suitable for large-scale workloads, but they add management complexity. In practical terms, the currently used batch services result in some limitations:
 
 - **Complex setup**: Azure Batch compute environments require users to independently configure their own Batch accounts.
-- **Long lived credentials**: Azure Batch uses access keys to authenticate with the Batch account and the Storage account. These credentials are long lived, and Azure has hard limits on how many access keys can be created per resource type.
-- *Quotas**: Azure Batch accounts have limits on the number of Jobs, Pools, and compute resources. If these limits are exceeded, no additional pipelines can run until the existing resources are removed.
+- **Long-lived credentials**: Azure Batch uses access keys to authenticate with Batch and Storage accounts. These credentials are long-lived, and Azure has hard limits on the number of access keys that can be created per resource type.
+- *Quotas**: Azure Batch accounts have limits for Jobs, Pools, and compute resources. If these limits are exceeded, no additional pipelines can run until the existing resources are removed.
 
 The Azure Cloud compute environment addresses these pain points with:
 
-- **Simplified configuration**: Fewer configurable options, with opinionated defaults, provide the best Nextflow pipeline and Studio session execution environment, with both Wave and Fusion enabled.
-- **More secure credentials**: Authenticate exclusively via Entra. This provides enhanced security by default, with automatic configuration for the user.
+- **Simplified configuration**: Fewer configurable options, with opinionated defaults, provide the best Nextflow pipeline and Studio session execution environment, with both [Wave](https://docs.seqera.io/wave) and [Fusion](https://docs.seqera.io/fusion) enabled.
+- **More secure credentials**: Authenticate exclusively via [Entra ID](https://learn.microsoft.com/en-us/entra/fundamentals/what-is-entra). This provides enhanced security by default, with automatic configuration for the user.
 
 This type of compute environment is best suited to run Studios and small to medium-sized pipelines. It offers more predictable compute pricing, given the fixed instance types. It spins up a standalone Virtual Machine and executes a Nextflow pipeline or Studio session with a local executor on the Virtual Machine. At the end of the execution, the instance is terminated.
 
 ## Limitations
 
 - The Nextflow pipeline will run entirely on a single Virtual Machine. If the instance does not have sufficient resources, the pipeline execution will fail. For this reason, the number of tasks Nextflow can execute in parallel is limited by the number of cores of the instance type selected. If you need more computing resources, you must create a new compute environment with a larger instance type. This makes the compute environment less suited for larger, more complex pipelines.
-- There is a considerable delay for streaming logs to become available for querying them. This means that if your pipeline completes in under a minute, you might not see streaming logs during the execution.
+- There is a considerable delay before streaming logs can be queried. This means that if your pipeline completes in under a minute, you might not see streaming logs during the execution.
 
 ## Created resources
 
-Seqera platform will create the following resources in Azure when creating the Compute Environment:
+Seqera will create the following resources in Azure when creating the compute environment:
 
-- One Azure resource group: will be the container for all the other resources created.
-- One Azure managed identity: this will be the Entra identity connected to the Virtual Machine, enabling Nextflow to authenticate to Azure services.
-- One Azure role: will be the role attached to the managed identity granting the necessary permissions.
-- One Log Analytics Workspace: will be used to collect and query execution logs.
-- One Data collection rule: will route execution logs to the appropriate Log Analytics table.
-- One Data collection endpoint: tied to the data collection rule, logs will be sent to this endpoint.
-- One Virtual Network: Virtual Machines launched will be inside this network.
+- One Azure resource group: the container for all other created resources.
+- One Azure managed identity: the Entra identity connected to the Virtual Machine, enabling Nextflow to authenticate to Azure services.
+- One Azure role: the role attached to the managed identity, which grants the necessary permissions.
+- One Log Analytics Workspace: used to collect and query execution logs.
+- One Data collection rule: to route execution logs to the appropriate Log Analytics table.
+- One Data collection endpoint: the endpoint that receives logs, tied to the data collection rule.
+- One Virtual Network: the network in which Virtual Machines are launched.
 
-Upon launching Virtual Machines, other resources will be provisioned for each machine launched and will be tied to the machine lifecycle:
+When Virtual Machines are launched, other resources are provisioned for each machine and tied to the machine lifecycle:
 
 - One network interface
 - One OS disk
 
-While the workflow is running, logs will be streamed to the `Nextflow_log_CL` table in the Log Analytics workspace for the compute environment. You can query logs for your specific workflow id with this expression:
+While the workflow is running, logs are streamed to the `Nextflow_log_CL` table in the Log Analytics workspace for the compute environment. You can query logs for your specific workflow ID with this expression:
 
 ```
 Nextflow_log_CL | where workflowId == "<WORKFLOW_ID>"
 ```
 
-The table has 7 days retention, Nextflow will upload log files to Azure Storage for long term storage.
+The table retains logs for 7 days. Nextflow uploads log files to Azure Storage for long-term storage.
 
 ## Requirements
 
 ### Platform credentials
 
-To create and launch pipelines or Studio sessions with Azure Cloud compute environments, you must attach Seqera credentials with an Entra client ID/client secret pair. These credentials must also include your Azure subscription ID and storage account configuration.
-Please refer to Azure official documentation on how to [register an application](https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app) and how to [create a client secret](https://learn.microsoft.com/en-us/entra/identity-platform/how-to-add-credentials?tabs=client-secret).
+To create and launch pipelines or Studio sessions with Azure Cloud compute environments, you must attach Seqera credentials with an Entra client ID/client secret pair. These credentials must also include your Azure subscription ID and Storage account configuration.
+See [Register an application in Microsoft Entra ID](https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app) and [Add and manage application credentials in Microsoft Entra ID](https://learn.microsoft.com/en-us/entra/identity-platform/how-to-add-credentials?tabs=client-secret) for more information.
 
 ### Required permissions
 
-In order to have more control over the permissions granted to Seqera platform, we recommend using [Azure custom roles](https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles) and assign them to the service principal through a [role assignment](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal). The full role JSON definiton is:
+For granular control over the permissions granted to Seqera, use [Azure custom roles](https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles) and [assign](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal) them to the service principal. The full role JSON definition is:
 
 ```json
 {
     "properties": {
         "roleName": "seqera-azure-cloud",
-        "description": "Role to be assumed by Seqera platform to create Azure Cloud compute environment",
+        "description": "Role assumed by Seqera Platform to create Azure Cloud compute environments",
         "assignableScopes": [
-            "/subscriptions/<YOUR-SUBSCRIPTION-ID>"
+            "/subscriptions/<SUBSCRIPTION-ID>"
         ],
         "permissions": [
             {
@@ -154,21 +154,21 @@ In order to have more control over the permissions granted to Seqera platform, w
 }
 ```
 
-Create this custom role on the Azure Portal by importing the JSON as per [the provided instructions](https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles-portal#start-from-json).
+See [Start from JSON](https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles-portal#start-from-json) to create this custom role in the Azure Portal.
 
-It can be applied as is for convenience or it can be broken down into smaller roles. We'll outline the rationale for those permission based on their purpose in the next sections.
+This role definition can be applied as is for convenience, or it can be broken down into smaller roles. The purpose for each permission is outlined in the following sections.
 
 #### Compute environment creation
 
-The following permissions are required to provision resources in the Azure account, when first creating the compute environment:
+The following permissions are required to provision resources in the Azure account when first creating the compute environment:
 
 ```json
 {
     "properties": {
         "roleName": "seqera-azure-cloud-create",
-        "description": "Role to be assumed by Seqera platform to create Azure Cloud compute environment",
+        "description": "Role assumed by Seqera Platform to create Azure Cloud compute environments",
         "assignableScopes": [
-            "/subscriptions/<YOUR-SUBSCRIPTION-ID>"
+            "/subscriptions/<SUBSCRIPTION-ID>"
         ],
         "permissions": [
             {
@@ -212,15 +212,15 @@ The following permissions are required to provision resources in the Azure accou
 
 #### Pipeline and Studio launch
 
-The following permissions are required to launch pipelines and studios:
+The following permissions are required to launch pipelines and Studios:
 
 ```json
 {
     "properties": {
         "roleName": "seqera-azure-cloud-launch",
-        "description": "Role to be assumed by Seqera platform to launch Studios and pipelines on Azure Cloud compute environment",
+        "description": "Role assumed by Seqera Platform to launch Studios and pipelines on Azure Cloud compute environments",
         "assignableScopes": [
-            "/subscriptions/<YOUR-SUBSCRIPTION-ID>"
+            "/subscriptions/<SUBSCRIPTION-ID>"
         ],
         "permissions": [
             {
@@ -259,15 +259,15 @@ The following permissions are required to launch pipelines and studios:
 
 #### Live stream log fetching
 
-The following permissions are required to fetch logs for the pipeliene execution while the task is running:
+The following permissions are required to fetch logs for the pipeline execution while the task is running:
 
 ``` json
 {
     "properties": {
         "roleName": "seqera-azure-cloud-logs",
-        "description": "Role to be assumed by Seqera platform to read live streamed logs for Azure Cloud compute environment",
+        "description": "Role to be assumed by Seqera Platform to read live-streamed logs for Azure Cloud compute environments",
         "assignableScopes": [
-            "/subscriptions/<YOUR-SUBSCRIPTION-ID>"
+            "/subscriptions/<SUBSCRIPTION-ID>"
         ],
         "permissions": [
             {
@@ -286,17 +286,17 @@ The following permissions are required to fetch logs for the pipeliene execution
 }
 ```
 
-#### Data links
+#### Data-links
 
-The following permissions are required to work with Data links on Azure:
+The following permissions are required to work with [Data Explorer](../data/data-explorer) data-links on Azure:
 
 ```json
 {
     "properties": {
         "roleName": "seqera-azure-cloud-data-links",
-        "description": "Role to be assumed by Seqera platform to access data links in Azure Cloud compute environment",
+        "description": "Role assumed by Seqera Platform to access data-links in Azure Cloud compute environments",
         "assignableScopes": [
-            "/subscriptions/<YOUR-SUBSCRIPTION-ID>"
+            "/subscriptions/<SUBSCRIPTION-ID>"
         ],
         "permissions": [
             {
@@ -326,9 +326,9 @@ The following permissions are required to delete the resources created for the c
 {
     "properties": {
         "roleName": "seqera-azure-cloud-dispose",
-        "description": "Role to be assumed by Seqera platform to delete Azure Cloud compute environment",
+        "description": "Role assumed by Seqera Platform to delete Azure Cloud compute environment resources",
         "assignableScopes": [
-            "/subscriptions/<YOUR-SUBSCRIPTION-ID>"
+            "/subscriptions/<SUBSCRIPTION-ID>"
         ],
         "permissions": [
             {
@@ -355,35 +355,34 @@ The following permissions are required to delete the resources created for the c
 }
 ```
 
-## Adding Azure Cloud credentials
+## Add Azure Cloud credentials
 
 ### Create a custom role in Microsoft Entra
 
-First, you need to create a custom role with the permissions required for Seqera Platform to manage Azure resources.
+First, you must create a custom role with the permissions required for Seqera Platform to manage Azure resources.
 
-1.  Save the above permissions to a local JSON file and be sure to update the subscription ID in the `assignableScopes` field.
-1.  Navigate to the Azure Portal and go to Subscriptions and select your subscription
-1.  Create a Custom Role by clicking on **Access control (IAM)** and then **Add** in the **Create a custom role** section
+1.  Save the relevant permissions from the preceding sections to a local JSON file. Replace <SUBSCRIPTION-ID> in the `assignableScopes` field of each permission with your Azure subscription ID.
+1.  In the Azure Portal, go to **Subscriptions** and select your subscription.
+1.  To create a custom role, select **Access control (IAM)**, then **Add** in the **Create a custom role** section. 
 1.  Provide the following details:
-    - **Custm role name**: `seqera-azure-cloud` (for example)
-    - **Description**: `Role for Seqera Platform to manage Azure Cloud compute environments` (for example)
+    - **Custom role name**: e.g., `seqera-azure-cloud`
+    - **Description**: e.g., `Role for Seqera Platform to manage Azure Cloud compute environments`
     - **Baseline permissions**: Select **Start from JSON**
     - **File**: Select the local JSON file you saved earlier
-1.  Click **Next** and review the permissions, ensure all have been included correctly.
-1.  Click **Next** and check the assignable scope is your subscription ID.
-1.  Click **Next**. If there was an error in the previous step you can edit the JSON file here.
-1.  Click **Next** and then **Create** to save the role.
+1.  Select **Next** and review the permissions to ensure all have been included correctly.
+1.  Select **Next** and confirm that the assignable scope is your subscription ID.
+1.  Select **Next**. If you found errors in the previous step, you can edit the JSON file here.
+1.  Select **Next** and then **Create** to save the role.
 
 ### Register an application in Microsoft Entra ID
 
-We need to create an application for Seqera Platform to use for authentication.
+Create an application for Seqera Platform to use for authentication:
 
-1.  On the Azure Portal, navigate to **App registrations** and click **New registration**
-1.  Give the app a descriptive name such as `SeqeraPlatformApp`. Select `Single tenant` for the supported account types.
-1.  Create a client secret for the application. Seqera Platform will use this value to authenticate to Azure so keep it secret. Under **Certificates & secrets**, click **New client secret** and give it a description such as `SeqeraPlatformSecret`. Set the expiration to a duration that matches your security policy. Click **Add**.
+1.  In the Azure Portal, go to **App registrations** and select **New registration**.
+1.  Give the app a descriptive name, such as `SeqeraPlatformApp`. Select `Single tenant` for the supported account types.
+1.  Create a client secret for the application. Seqera will use this value to authenticate to Azure, so keep it secret and store it securely. Under **Certificates & secrets**, select **New client secret** and give it a description such as `SeqeraPlatformSecret`. Set the expiration to a duration that matches your security policy. Select **Add**.
 
-- After registration, you'll be taken to the application overview page
-- Copy and save the following values:
+1. After registration, you'll be taken to the application overview page. Copy and save the following values:
   - **Application (client) ID**: This is your Client ID
   - **Directory (tenant) ID**: This is your Tenant ID
 
@@ -391,42 +390,42 @@ We need to create an application for Seqera Platform to use for authentication.
 
 Grant the service principal the necessary permissions by assigning the custom role.
 
-1.  In the Azure Portal, navigate to **Subscriptions** and select your subscription. Then click on **Access control (IAM)** and **Add role assignment** in the **Grant access to this resource** section.
-1.  Select the **Privileged administrator roles** tab and select the role you created earlier then click **Next**.
-1.  Click the **Select members** button and search for the application name (`SeqeraPlatformApp`) and click **Select** then **Next**.
-1.  Click **Review + assign** and then **Review** and then **Assign**.
-1.  Under **What user can do** select "Allow user to assign all roles except privileged administrator roles Owner, UAA, RBAC (Recommended)" and click **Next**.
-1.  Check the final details and click **Review + assign**
+1.  In the Azure Portal, navigate to **Subscriptions** and select your subscription. Then select **Access control (IAM)** and **Add role assignment** in the **Grant access to this resource** section.
+1.  Select the **Privileged administrator roles** tab and select the role you created earlier, then select **Next**.
+1.  Choose **Select members** and search for the application name (`SeqeraPlatformApp`). Then choose **Select**, then **Next**.
+1.  Select **Review + assign**, **Review**, and then **Assign**.
+1.  Under **What user can do**, select "Allow user to assign all roles except privileged administrator roles Owner, UAA, RBAC (Recommended)", then select **Next**.
+1.  Check the final details and select **Review + assign**.
 
 ### Configure Seqera Platform credentials
 
-Add the service principal credentials to Seqera Platform.
+Add the service principal credentials to Seqera:
 
-1.  Sign in to your Seqera Platform workspace and navigate to the **Credentials** tab
-1.  Click **Add credentials** and select **Azure** as the provider and choose the **Cloud** tab for Microsoft Entra ID authentication
-1.  Enter credentials details you saved earlier:
-    - **Name**: Provide a descriptive name (e.g., `AzureCloudCredentials`)
+1.  Sign in to your Seqera workspace and navigate to the **Credentials** tab.
+1.  Select **Add credentials**, select **Azure** as the provider, and select the **Cloud** tab for Microsoft Entra ID authentication.
+1.  Enter the details of the credentials you saved earlier:
+    - **Name**: Provide a descriptive name, such as `AzureCloudCredentials`
     - **Subscription ID**: Your Azure subscription ID
-    - **Tenant ID**: The Directory (tenant) ID from Step 2
-    - **Client ID**: The Application (client) ID from Step 2
-    - **Client secret**: The client secret value from Step 3
+    - **Tenant ID**: Your Directory (tenant) ID from the [Register an application in Microsoft Entra ID](#register-an-application-in-microsoft-entra-id) instructions
+    - **Client ID**: Your Application (client) ID from the [Register an application in Microsoft Entra ID](#register-an-application-in-microsoft-entra-id) instructions
+    - **Client secret**: Your client secret value from the [Register an application in Microsoft Entra ID](#register-an-application-in-microsoft-entra-id) instructions
     - **Blob Storage account name**: Your Azure Storage account name
-1.  Review the details and click **Add** to save the credentials
+1.  Review the details, then select **Add** to save the credentials.
 
 ### Create a compute environment
 
-Create a compute environment on Seqera Platform using the credentials.
+Create a compute environment in Seqera using the credentials:
 
-1.  In your Seqera Platform workspace, navigate to the **Compute Environments** tab and click **Add Compute Environment**
-1.  Select **Azure Cloud** as the target platform
-1.  From the **Credentials** drop-down, select the credentials you created earlier
-1.  Enter a name for the compute environment
-1.  Select the **Location** as the Azure region
-1.  Select the **Work directory** as the Azure blob container you plan to use as Nextflow working directory
-1.  Under advanced options, select the **Instance Type** to select an instance larger than the default of `Standard_D2ds_v4`
-1.  Click **Create** to save the compute environment
+1.  In your Seqera workspace, navigate to the **Compute Environments** tab and select **Add Compute Environment**.
+1.  Select **Azure Cloud** as the target platform.
+1.  From the **Credentials** drop-down, select the credentials you created previously.
+1.  Enter a name for the compute environment.
+1.  Enter or select a **Location** for the compute environment.
+1.  Select the **Work directory** as the Azure blob container you plan to use as the Nextflow working directory. The container must be in the same **Location** as selected in the previous step.
+1.  (Optional) Under **Advanced options**, specify an **Instance Type**. If left blank, the default VM used is a `Standard_D2ds_v4`.
+1.  Select **Create** to save the compute environment.
 
 ## Advanced options
 
-- **Subscription ID**: The id of the subscription where to deploy resources. This is optional, if not specified the subscription id of the credentials will be used.
+- (Optional) **Subscription ID**: The ID of the subscription where resources must be deployed. If not specified, the subscription ID of the credentials is used.
 - **Instance Type**: The Virtual Machine type used by the compute environment. Choosing the instance type will directly allocate the CPU and memory available for computation. See [virtual machine sizes](https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/overview) for a comprehensive list of instance types and their resource limitations.
