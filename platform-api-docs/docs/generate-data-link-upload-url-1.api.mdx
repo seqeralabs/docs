@@ -1,0 +1,72 @@
+---
+id: generate-data-link-upload-url-1
+title: "Generate data-link file upload URL (to given path)"
+description: "Creates a URL to upload files to the data-link associated with the given `dataLinkId`, specifying a file path (`dirPath`)."
+sidebar_label: "Generate data-link file upload URL (to given path)"
+hide_title: true
+hide_table_of_contents: true
+api: eJztV81u4zYQfhWCpwRQ7Gw3yMGnJrubImi6MeIEe0iNmpZGNhOZ1JJUvK4hoA/RJ+yTdIaULPkHjrPtoYdeHJH8hjPzzXBmsuROTCzvPfJEOHGSSfVs+TDiCdjYyNxJrXiPfzAgHFgm2MPdDXOaFXmmRcJSmeEurt0U2OoCJqzVsUSJhM2lm/rTiXwBxUYEukHMdTKKmM0hlulCqgneTHexXCD8aJRI08ev0XHnV3WlDbv4MmCD940GGzGhmEgSSQaKjKU6y/T8pMiZga8FWMdmBf6MgVlQjonUgWELXZigpjJ/KiyL9SzPgEw9QkWgYl0oBOMaNYAx2hyTg6lENfJ38L5U4id4edgYdcNWF2HSTkd4T5JrqVyHR1znYATZeZ0glT+BoiV8rIh48IIPJvvtHWJzYcQMrTEUkiVXuECZhjSESAoI8cQ3o/RxFQDrDJEqE3RephIMYokYiX7xnjMFRNzGU5gJ3ltyt8hJSxDiZRk1ikMc9molwCoFkHkkik4YykLstFl8p+4Y8WS+yGzjN8bWX7iVnjV0p+uHqJtr82xzEcNryr7UQKaKGRgZv6ILswAm/ijVZiZc2Do/W9N+a+QEdVaKpyCSvYZHXBVZJsYZBEbLchhIRv4vdbIgiVijYuXoU+R5JmMflu6TJS+W21fr8RPGi3LQUMY6CZZO6b189kZusRfVOm5ATTAzDvF5JXPvkTsiwp105BevX8gvReZkXxgXnspdcBOh5WZi+Q2ba2WD7T+cntKf9fjd/syjf4uc8OrpXe8gp6hftm0dC2ME5ZR0MLO7/D+EgOAigRF9tsvJy4anNzjbsPnIZ2CtmAD1gv0c1MC9sfxEhXTL8Pc7olMXS6Y01m2q6miPR59toz9rd4X1OmF//fEnW71ghoW8VT38TSnBInbRv8bCZOnlYPdCHFWtlWBEkk0bw4XvRyv5/yqXeGghLox0C982LkEYMBcFvcnHIdUG7ClTTe0n1z4lfCXv8W7TUbvLpsuUdTtbVg2g5I2GAbkYzG3rWVk8dS6vSxetxx6EO+Hjqi4IT3Pn3SLq7prS9emboIa8XnqaurdRcU436knr+UmVam9WRdsAvmJqUQZslfTqqJ8JR/UK27p5kTFONgFMGkTsY16YrHLR9rpd6+U6UiMIwy4zX+dS/WNzgIa8YDcPet51zs87p7RHYZgJnzJVB6jnglb+tUcVmruOsMuGMYrCd7zpRqvk/z+w/ZOBrUpkB99cN88EtmSq5hT5ZfVw1qbliPfWBrRws9+uxid8gFN6dyi3XI6FBWwKZUnbYcSgN1tXJd5LsWbB/tjunXZ2mv8Mix0z1YvICsJyGkUOt+CVEWiPAetTVqN+SAsjw0TzJjaO7qpCe8z2z787raq7slq0zamtbYX1bQS1jDpkPP4e06rUKocIrebFtxG3P1CrgXQtRcLZh3DHiS+5DWKrHzYSF3EMuduLbTep/u3gnhpGNcnOdEIyRszpXwn89cZr75PvQ35vyTOhJoVvnzzcSe1FrHenjW7kOdvJND5Uj7jXz6DKckW8ozXRXpZ/A2pnTIA=
+sidebar_class_name: "post api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Generate data-link file upload URL (to given path)"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/data-links/{dataLinkId}/upload/{dirPath}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Creates a URL to upload files to the data-link associated with the given `dataLinkId`, specifying a file path (`dirPath`).
+For AWS S3 data-links, an additional follow-up request must be sent after your file upload has completed (or encountered an error) to finalize the upload - see the `/upload/finish` endpoint.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"dataLinkId","in":"path","description":"Data-link string identifier","required":true,"schema":{"type":"string"}},{"name":"dirPath","in":"path","description":"Path to the destination directory","required":true,"schema":{"type":"string"}},{"name":"credentialsId","in":"query","description":"Credentials string identifier","schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"Origin","in":"header","schema":{"type":"string","nullable":true}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"content":{"application/json":{"schema":{"type":"object","properties":{"fileName":{"type":"string"},"contentLength":{"type":"integer","format":"int64"},"contentType":{"type":"string"}},"title":"DataLinkMultiPartUploadRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"uploadId":{"type":"string"},"uploadUrls":{"type":"array","items":{"type":"string"}}},"title":"DataLinkMultiPartUploadResponse"}}}},"400":{"description":"BadRequest","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"NotFound — workspace or credentials not found, API disabled for the workspace, or data-link or path not found","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

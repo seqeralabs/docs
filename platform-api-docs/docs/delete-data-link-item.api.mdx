@@ -1,0 +1,71 @@
+---
+id: delete-data-link-item
+title: "Delete data-link content"
+description: "Deletes the content of the data-link associated with the given `dataLinkId`. The data-link itself is preserved."
+sidebar_label: "Delete data-link content"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVlFv4zYM/iuCnnZALum2og95WntJgGLd7tDLcA9FgFNtOlFrW64kN5cZBvYj9gv3S0ZKdmzHXpICA7aXxJJI8eNHimTBrVgbPn3gobDifSzTZ8NXIx6CCbTMrFQpn/IZxGDBMLsBFqjUQmqZitxyr8aEMSqQwkLIttJu3OlavkLKvpLQHcrchl/HbNnRktZAHDFpWKbBgH6FcMxHXGWgBVm/Dff2Z/UtFhIUyYQWCW5rgl/wFBco2phCEUngM2E3vOfRHoCxWqZrJkN0SkYSNMpqeMmlBjRtdQ4jboINJIJPC253GVnxSrwsR3vDW6WfTSYCaCy/5KB3PdNfakGW5gloGXRt92xJ5HvtjiKlE2H91tVlx3qAaOkSEZtT9j80ooPO/7OzK88MGHujwh1JVMlAnyLLYhm4mE2eDFkq+lepxycILAVPU4StBEOnkYz9RyUmtBYEXGKkzSDtPJT6TRqoYqWNoYo9pYjPKsqme++VF+sG322YTKXGI/zh4oL+upR+/BlN/0tchIQKFRdCxrk+TksD9aFJfP86QGulfwFjxBroQZ8w2lY+CdGfHnKMNjGhCcri491sfo8bi9u7uTN+wDyZWZIysusTuBcwzEP5O5z1DEY8kQksB0ENxd05WR5QdLbmrBuf06nlk4fkUPByKH1uRFhn4BvSqB385NxAJ+e4OydiesB/HMj7ukqzVFkm4lhtEY+TvuxL/6rsQuVpyP7640+2L5dMadaqXu6miMRG7PrTLQulEY8x9hSMumspe8URaTaNBBdU6Rv9/yuXlNoQ5FranWtcNyA06Oscu9T0YUVFFrvaRlHfc7UAXK+jUz5pmvSkaDpdOakdba7+TL55nG0De6gba7O62NP60Qnhjv9Y1G/saWudP8TZfVP8599EksXQKt4Ptferujg3OyU1pEg58xUvn+EFc4dC3GtQ1dGnWFh66oymAhng+OGFyVcRuKDmOq5cMdPJxDi9sVRUihJ8nq5EROqn5gCBvOLA4O18P766Gl/QXqaMTYTLiaqf+gfcSq+G4Q7YVgv8D6akKpYWvtlJFgts+uiMI6WoUqYz1434tDMe1dAxYhtkgKSL4lEY+E3HZUnbfoKgLK3fIZ9G+ErhCA0n5ptBzM+w641QryLOSZLTmHO++VPjzRH7h0NUg2BFCy0JwhvZ+O6+Ki3v2PGZcxBX3fjTXRtOjbcVzJLe2AZEiHcRQC/wwcN473pjc0GvFhLDXuM6CCCzR2XbBWo2v5sv51Q1qoEwUSFpabGlMRp/HVzliPEjC+0VPBbpOnfFk/tbqcaIbok6KEnOr0FCMGmdxFI9Q4qJW/NjaU3UlOXfGkN59w==
+sidebar_class_name: "delete api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Delete data-link content"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/data-links/{dataLinkId}/content"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Deletes the content of the data-link associated with the given `dataLinkId`. The data-link itself is preserved.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"dataLinkId","in":"path","description":"Data-link string identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"credentialsId","in":"query","description":"Credentials string identifier","schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"content":{"application/json":{"schema":{"type":"object","properties":{"files":{"type":"array","items":{"type":"string"}},"dirs":{"type":"array","items":{"type":"string"}}},"title":"DataLinkDeleteItemRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"deletionFailures":{"type":"array","items":{"required":["dataLinkItem","errorMessage"],"type":"object","properties":{"dataLinkItem":{"type":"object","properties":{"type":{"type":"string","enum":["FOLDER","FILE"],"title":"DataLinkItemType"},"name":{"type":"string"},"size":{"type":"integer","format":"int64"},"mimeType":{"type":"string"}},"title":"DataLinkItem"},"errorMessage":{"type":"string"}},"title":"DataLinkItemDeletionFailure"}}},"title":"DataLinkDeleteItemResponse"}}}},"400":{"description":"BadRequest","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"NotFound — workspace or credentials not found, API disabled for the workspace, or data-link or path not found","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

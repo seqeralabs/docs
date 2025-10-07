@@ -14,7 +14,7 @@ Studios uses the [Wave][wave-home] service to build custom container template im
 ### Prerequisites
 
 - Wave must be configured. For more information, see [Wave containers][wave-config].
- 
+
 :::note
 To augment Seqera-provided images, Enterprise deployments must either allow access to the public Wave server, or self-host their own [Wave server][wave-server].
 :::
@@ -37,7 +37,7 @@ dependencies:
     - seaborn=0.13.2
 ```
 
-Either directly copy and paste your valid YAML code or use the Import from file to attach an `environment.yml` file.
+Either directly copy and paste your valid YAML code or use **Import from file** to attach an `environment.yml` file.
 
 To create a Studio with custom Conda packages, see [Add a Studio][add-s].
 
@@ -83,8 +83,10 @@ Customize the following Dockerfile to include any additional software that you r
 ARG CONNECT_CLIENT_VERSION="0.8"
 
 # Seqera base image
+# highlight-next-line
 FROM public.cr.seqera.io/platform/connect-client:${CONNECT_CLIENT_VERSION} AS connect
 
+# highlight-start
 # 1. Add connect binary
 COPY --from=connect /usr/bin/connect-client /usr/bin/connect-client
 
@@ -93,6 +95,7 @@ RUN /usr/bin/connect-client --install
 
 # 3. Configure connect as the entrypoint
 ENTRYPOINT ["/usr/bin/connect-client", "--entrypoint"]
+# highlight-end
 ```
 
 For example, to run a basic Python-based HTTP server, build a container from the following Dockerfile. When a Studio runs the custom template environment, the value for the `CONNECT_TOOL_PORT` environment variable is provided dynamically.
@@ -102,15 +105,19 @@ For example, to run a basic Python-based HTTP server, build a container from the
 ARG CONNECT_CLIENT_VERSION="0.8"
 
 # Seqera base image
+# highlight-next-line
 FROM public.cr.seqera.io/platform/connect-client:${CONNECT_CLIENT_VERSION} AS connect
 
 FROM ubuntu:20.04
 RUN apt-get update --yes && apt-get install --yes --no-install-recommends python3
 
+# highlight-start
 COPY --from=connect /usr/bin/connect-client /usr/bin/connect-client
 RUN /usr/bin/connect-client --install
 ENTRYPOINT ["/usr/bin/connect-client", "--entrypoint"]
+# highlight-end
 
+# highlight-next-line
 CMD ["/usr/bin/bash", "-c", "python3 -m http.server $CONNECT_TOOL_PORT"]
 ```
 
@@ -136,7 +143,7 @@ To inspect the status of an ongoing build, or a successful or failed build, comp
 
 [wave-home]: https://seqera.io/wave/
 [wave-config]: https://docs.seqera.io/wave
-[wave-server]: https://docs.seqera.io/platform-enterprise/latest/enterprise/configuration/wave
+[wave-server]: https://seqera.io/wave/
 [conda-schema]: https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/pkg-search.html
 [env-manually]: https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-file-manually
 [add-s]: ./managing#add-a-studio

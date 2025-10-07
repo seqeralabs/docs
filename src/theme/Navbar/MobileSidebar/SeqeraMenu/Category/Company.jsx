@@ -19,15 +19,15 @@ const links = {
 const Company = ({ toggleMenu }) => {
   return (
     <ul className={`${styles.menuList}`}>
-      <h6 className="mb-4 text-[.7rem] font-display">Company</h6>
+      <p className="mb-4 text-[.7rem] font-display">Company</p>
       {links.company.map(([label, href, Icon]) => (
         <li key={label}>
           <a
             href={href}
             className={`whitespace-nowrap
-              flex items-center text-[14px] pr-2 rounded-md
-              transition-all duration-500 ease-in-out hover:no-underline
-              h-[25px] font-normal text-brand`}
+              flex items-center pr-2 rounded-md
+              transition-all duration-500 ease-in-out
+              h-[25px] font-normal`}
           >
             <div className={`${styles.iconItem}`}>
               <Icon />
