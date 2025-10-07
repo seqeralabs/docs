@@ -1,11 +1,13 @@
 name: Index docs in Typesense
 
-on: [pull_request]
+on:
+  schedule:
+    - cron: '0 1 * * *'  # 1am UTC = 3am SAST
+  workflow_dispatch:  # Optional: allows manual triggering
 
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    
     steps:
       - name: Check out repo
         uses: actions/checkout@v3
