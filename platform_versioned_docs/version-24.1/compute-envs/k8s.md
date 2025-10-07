@@ -92,7 +92,7 @@ After you've prepared your Kubernetes cluster for Seqera integration, create a c
     - To authenticate using a Kubernetes service account, enter your **Service account token**. Obtain the token with the following command:
 
         ```bash
-        kubectl describe secret <SERVICE-ACCOUNT-TOKEN-NAME> | grep -E '^token' | cut -f2 -d':' | tr -d '\t '
+        kubectl -n tower-nf describe secret <SERVICE-ACCOUNT-TOKEN-NAME> | grep -E '^token' | cut -f2 -d':' | tr -d '\t '
         ```
 
         Replace `<SERVICE-ACCOUNT-TOKEN-NAME>` with the name of the service account token created in the [cluster preparation](#cluster-preparation) instructions (default: `tower-launcher-token`).
