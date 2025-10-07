@@ -297,7 +297,7 @@ export default async function createConfigAsync() {
       
       // Typesense search configuration
       typesense: {
-        typesenseCollectionName: 'seqera_docs_1759513957',
+        typesenseCollectionName: 'seqera_docs',
         searchPagePath: '/search',
         
         typesenseServerConfig: {

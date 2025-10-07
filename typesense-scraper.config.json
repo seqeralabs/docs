@@ -1,5 +1,7 @@
 {
   "index_name": "seqera_docs",
+  "use_collection_alias": true,
+  "clean_old_collections": true,
   "start_urls": [
     "https://docs.seqera.io/"
   ],
