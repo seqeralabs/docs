@@ -54,7 +54,7 @@ This guide applies a Kubernetes manifest that creates a service account named `t
 1. Confirm that Kubernetes created the persistent API token secret:
 
     ```bash
-    kubectl describe secrets/tower-launcher-token
+    kubectl -n tower-nf describe secrets/tower-launcher-token
     ```
 
 1. Create persistent storage. Seqera requires a `ReadWriteMany` persistent volume claim (PVC) mounted to all nodes where workflow pods will be dispatched.
