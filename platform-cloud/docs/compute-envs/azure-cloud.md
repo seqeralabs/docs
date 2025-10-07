@@ -3,7 +3,7 @@ title: "Azure Cloud"
 description: "Instructions to set up an Azure Cloud compute environment in Seqera Platform"
 date created: "2025-09-29"
 last updated: "2025-09-29"
-tags: [cloud, vm, azure, compute environment]
+tags: [cloud, vm, azure, compute-environment]
 ---
 
 ## Azure Cloud
@@ -361,7 +361,7 @@ The following permissions are required to delete the resources created for the c
 
 First, you must create a custom role with the permissions required for Seqera Platform to manage Azure resources.
 
-1.  Save the relevant permissions from the preceding sections to a local JSON file. Replace <SUBSCRIPTION-ID> in the `assignableScopes` field of each permission with your Azure subscription ID.
+1.  Save the relevant permissions from the preceding sections to a local JSON file. Replace `<SUBSCRIPTION-ID>` in the `assignableScopes` field of each permission with your Azure subscription ID.
 1.  In the Azure Portal, go to **Subscriptions** and select your subscription.
 1.  To create a custom role, select **Access control (IAM)**, then **Add** in the **Create a custom role** section. 
 1.  Provide the following details:
