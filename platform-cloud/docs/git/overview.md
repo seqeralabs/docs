@@ -165,7 +165,11 @@ To connect to a private [Gitea](https://gitea.io/) repository, use your Gitea us
 
 ### Bitbucket
 
-To connect to a private BitBucket repository, see the [BitBucket documentation](https://support.atlassian.com/bitbucket-cloud/docs/app-passwords/) to learn how to create a BitBucket App password. Then, create a new credential in Seqera with these steps:
+To connect to a private BitBucket repository, see [API tokens](https://support.atlassian.com/bitbucket-cloud/docs/api-tokens/) to learn how to create a BitBucket API token (the API token must have at least `read:repository:bitbucket` scope). Then, create a new credential in Seqera with these steps:
+
+:::warning
+API tokens replace [app passwords](https://support.atlassian.com/bitbucket-cloud/docs/app-passwords/), which can no longer be created after September 9, 2025 and will be phased out June 9, 2026. While app passwords are still supported, they are not recommended. See [Bitbucket Cloud transitions to API tokens](https://www.atlassian.com/blog/bitbucket/bitbucket-cloud-transitions-to-api-tokens-enhancing-security-with-app-password-deprecation) for more information.
+:::
 
 **Create BitBucket credentials**
 
@@ -175,7 +179,7 @@ To connect to a private BitBucket repository, see the [BitBucket documentation](
 
 3. Select _BitBucket_ as the **Provider**.
 
-4. Enter your **Username** and **Password**.
+4. Enter your **Username** (account email) and **Token**.
 
 5. Enter the **Repository base URL** (recommended). This option can be used to apply the credentials to a specific repository, e.g., `https://bitbucket.org/seqeralabs`.
 
@@ -194,7 +198,3 @@ To connect to a private AWS CodeCommit repository, see the [AWS documentation](h
 4. Enter the **Access key** and **Secret key** of the AWS IAM account that will be used to access the target CodeCommit repository.
 
 5. Enter the **Repository base URL** for which the credentials should be applied (recommended). This option can be used to apply the credentials to a specific region, e.g., `https://git-codecommit.eu-west-1.amazonaws.com`.
-
-### Self-hosted Git
-
-Seqera Platform Enterprise supports Git server endpoints. For more information, see [Git configuration](https://docs.seqera.io/platform-enterprise/latest/enterprise/configuration/overview#git-integration) in the Enterprise installation guide.

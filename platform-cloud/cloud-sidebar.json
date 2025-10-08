@@ -24,7 +24,8 @@
           "getting-started/quickstart-demo/add-data",
           "getting-started/quickstart-demo/launch-pipelines",
           "getting-started/quickstart-demo/monitor-runs",
-          "getting-started/quickstart-demo/automation"
+          "getting-started/quickstart-demo/automation",
+          "getting-started/production-checklist"
         ]
       },
       {
@@ -65,8 +66,9 @@
               "compute-envs/aws-batch",
               "compute-envs/aws-cloud",
               "compute-envs/azure-batch",
+              "compute-envs/azure-cloud",
               "compute-envs/google-cloud-batch",
-              "compute-envs/google-cloud-lifesciences",
+              "compute-envs/google-cloud",             
               "compute-envs/eks",
               "compute-envs/gke",
               "monitoring/cloud-costs"
@@ -108,7 +110,6 @@
           "label": "Monitor runs",
           "items": [
             "monitoring/overview",
-            "monitoring/dashboard",
             "monitoring/run-details"
           ]
           },
@@ -125,7 +126,8 @@
         "items": [
           "studios/overview",
           "studios/custom-envs",
-          "studios/managing"
+          "studios/managing",
+          "studios/connect"
         ]
       },
       {
@@ -134,7 +136,8 @@
         "items": [
           "orgs-and-teams/organizations",
           "orgs-and-teams/workspace-management",
-          "orgs-and-teams/roles"
+          "orgs-and-teams/roles",
+          "monitoring/dashboard"
           ]
       },
       {
@@ -142,7 +145,11 @@
         "label": "Developer tools",
         "collapsed": true,
         "items": [
-          "api/overview",
+          {
+            "type": "link",
+            "label": "API",
+            "href": "https://docs.seqera.io/platform-api"
+          },
           {
             "type": "category",
             "label": "CLI",

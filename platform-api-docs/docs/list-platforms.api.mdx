@@ -5,7 +5,7 @@ description: "Lists all available computing platforms in a user context. Append 
 sidebar_label: "List platforms"
 hide_title: true
 hide_table_of_contents: true
-api: eJzFVEtv2zAM/iuCzkHSbcEOuWzp0A3FCqxYu9NQoIrNOGoVSaXkdJmR/z5SthM7yfrADjvZIj+SH5+VzCFkqH3UzsqJvNAhBqGMEWqltFEzAyJzS19GbQvhjYpzh8sgtBVKlAGQtDbCrzgUU+/B5uL2w6PD++BVBuf5rYhOGPK5b7rFbO3lQEZVBDn5KbdYeTOQzgMqZneeN/wut+qB9ArVEiIgG1bS0oNQDgtCD6TmlB5KwDU9+ol+w0JZ/Tt5FrZcAupM6Bxs1HMNSPiQLWCp5KSSce3ZqyaiRVJxdBVr0fux3GwG29Cd5J8hkH6U6ZTin2lQuRCCdzZAYIu3Jyf82Qv8lUxT1W1krfLe6CwVYnQXGFIdBnWzO8giFxy5IVHXAXad2kEVouJ0dYSe/C8udN7BhIg0Z3IzaMp5RJEhpPIoEy7RrahW+JLorQPqlYw6GpZ9SoMN7Tz1lb1J+95UlSGEGR+r66nKBQI1O8TXFJhNNOXEg7+EEFQBPPZPF60FHslvl8EZosMD5u+OTES7YsK6yMvvHokPwwNkJeq4Tst1CgoBp2Vc0POGh402b+F4LQtIHBWr5Mh3FrT1cMUJ1+S7frb8FzH6dtr5PUsgktQ/n9tRv3uMiZm2c5fMm2Sv4IGSENPL84NNa1RtMwVdrZXOIDRg7pTKUqdKNA2VMBmNQrIbakcgapY2adPm7uNOQURWNH91nDfD8Xh4wjLvQlyq1OjmLFz0buA+xWo3Lv/5AtfN4Cd3kc4XZZOqUjXd3bvOC8qUhVU1UwF+oNlsWFyfPB6aXAdOgYZkThsLTyT+/EU+yu4e1p2Lv1KmZIzkk/yK2C88xk8w6B/+HY8bfqBmImltqGag6Gil6tSm0ywDHztWBxejt2xfzq4Jq/r7s7cvyXt7Eu2645s6lRDX7h4sdavlH/lNgehM/AEpC9B4
+api: eJzFVdtuGjEQ/RXLzwjSNsoDLy2J0ipqpEZNqj5ESDG7AzhZbGc8S0pX/HtnzC7LLZdKlfoEts/MnLmdrTSZSdT9Wx0KQ2OPs6iHHZ1DzNAGst7pvr60kaIyRaHM3NjCjApQmZ+FkqybqLWhsk4ZVUZAfnUEv6irBiGAy9XdxyePDzGYDC7yO0VeFexz13SNWdvrjvYB0AiRi7ymcrVm2tHBoJkBAUoOlXZ8YJTHCaM72gr7xxJwoXdz+oYT4+zv5Fm5cgZoM2VzcGTHFpDxCI+lReCoY1NE6OiYTWFmdL/StAgSxjLJScIKHUOrq5NjvVx21lw2En+Z0c919v+ezlDsY/AuQhSL90dH8rNTkq9smirvSF5NCIXNUoV691Eg1X5QP7qHjKQTKJ0iuwrQTlMLNYhG0rYEW/fPuLD5BiYS8qzpZacu64GHjIsj9eLqXKGfc/HwLdEbB9wzTZYKuTtLww3NoG0/bo3g97qqAmHM8aG6nppcSfcg0t8UuG34rZ5BjGYCspovF60BHsivzeAc0eMe8w8HJqLZPeU8iQD4J+Yj8AhZiZYWaetOwSDgoKQpH4cybLySUy/7OoHE0ciT7oWNzW08XEvCK/Kbftb8p0RB19Mu51EC8c3qz+dm1O+fKDGzbuyTeZ3sNTxyEmpwdbG3cfVT00zFyjW3GcQaLJ0yWepUiUVNJfZ7vZjsutYziJtli7RpY/+pfWAic56/VZx33ZOT7pHcBR9pZlKja3m43NLBXYpVOy7/V4XrZshRusgyxtmkqlR1d3e+IFPOVC6ramQi/MBiuZTrlfTJ0OQ2Sgqtnj2b+OtSfZDdAyw2PgVzU5SC0SLNb4/9iii/EHhb99vwQzmglfhpW7hUYFirUlFWpoMsg0AbVntCsbVjX85vGGu212ZnTZL3RgndYsM3NyghbvwDOG5Sw5/kzIFYHf4ArfHVnA==
 sidebar_class_name: "get api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -47,7 +47,7 @@ Lists all available computing platforms in a user context. Append `?workspaceId`
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"orgId","in":"query","description":"Organization numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"query","description":"Optional workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+  parameters={[{"name":"orgId","in":"query","description":"Organization numeric identifier","required":false,"schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","required":false,"schema":{"type":"integer","format":"int64"}}]}
 >
   
 </ParamsDetails>

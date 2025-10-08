@@ -19,39 +19,6 @@
   }
 }
 
-.item {
-  height: 35px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 12px;
-  cursor: pointer;
-  position: relative;
-  width: 100%;
-  border: none;
-  border-radius: none;
-  /* border-bottom: 1px solid var(--color-brand-300); */
-  background: transparent;
-  font-size: 13px;
-  font-family: Inter, sans-serif;
-  & .caret {
-    fill: var(--color-brand-800);
-    width: 18px;
-    height: 18px;
-    fill: #000;
-    transform: rotate(-90deg);
-    transition: transform 200ms ease-in-out;
-  }
-  &:hover {
-    background: #e8ebfc;
-    text-decoration: none;
-    color: var(--color-brand);
-  }
-  &:last-child {
-    border-bottom: 1px solid var(--color-brand-300);
-  }
-}
-
 .items {
   background-color: white;
   border-radius: 9px;
@@ -69,22 +36,56 @@
     }
   }
 }
+.switcherPadding {
+  padding-top: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.hidden {
+  display: none;
+}
+
 .item {
   height: 35px;
   line-height: 35px;
   text-decoration: none;
   width: 100%;
   transition: background 100ms;
-  @apply text-gray-1000;
+  color: var(--color-gray-1000);
   border-bottom: 1px solid var(--color-brand-200);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  cursor: pointer;
+  position: relative;
+  border: none;
+  border-radius: none;
+  background: transparent;
+  font-size: 13px;
+  font-family: Inter, sans-serif;
+  
+  & .caret {
+    fill: var(--color-brand-800);
+    width: 18px;
+    height: 18px;
+    fill: #000;
+    transform: rotate(-90deg);
+    transition: transform 200ms ease-in-out;
+  }
+  
   &:hover {
     background: #e8ebfc;
+    text-decoration: none;
+    color: var(--color-brand);
   }
+  
   &:last-child {
-    border-bottom: 1px solid transparent;
-    /* border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px; */
+    border-bottom: 1px solid var(--color-brand-300);
   }
+  
   &:first-child {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;

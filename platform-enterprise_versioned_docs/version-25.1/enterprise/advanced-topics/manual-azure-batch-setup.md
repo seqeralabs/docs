@@ -26,7 +26,6 @@ In the Azure Portal:
 1. For **Quota Type**, select **Batch**, then select **Next**.
 1. Select **Enter Details**, then choose the **Location** as the region of your Batch account.
 1. Select **EDv5 Series**.
-1. Select **Spot/low-priority vCPUS (all Series)**.
 1. Select **Active jobs and job schedules per Batch account**.
 1. Select **Pools per Batch account**.
 
@@ -35,7 +34,6 @@ Increase each value to a minimum of the following:
 - **EDv5 Series**: 192
 - **Active jobs and job schedules per Batch account**: 100
 - **Pools per Batch account**: 50
-- **Spot/low-priority vCPUS (all Series)**: 192
 
 ### Set up Seqera Cloud
 
@@ -277,7 +275,7 @@ See [Microsoft Entra](https://www.nextflow.io/docs/latest/azure.html#microsoft-e
 1. [Create an Azure service principal](https://learn.microsoft.com/en-us/entra/identity-platform/howto-create-service-principal-portal).
 1. [Assign roles to the service principal](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal?tabs=current).
 1. [Get the Service Principal ID, Tenant ID, and Client Secret](https://learn.microsoft.com/en-us/entra/identity-platform/howto-create-service-principal-portal#option-3-create-a-new-client-secret).
-1. [Add to Seqera credentials](https://docs.seqera.io/platform/24.2/compute-envs/azure-batch#entra-service-principal).
+1. [Add to Seqera credentials](../../compute-envs/azure-batch#entra-service-principal-and-managed-identity).
 
 In Seqera:
 

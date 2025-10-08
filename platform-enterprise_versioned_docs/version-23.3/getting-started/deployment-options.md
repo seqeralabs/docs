@@ -1,11 +1,12 @@
 ---
 title: "Deployment and usage methods"
 description: "An overview of deployment versions and ways to run Seqera Platform."
-date: "21 Apr 2023"
+date created: "2023-04-21"
+last updated: "2025-08-08"
 tags: [deployment]
 ---
 
-Seqera Platform is available in two deployment editions and can be accessed via the web user interface (UI), [API](../api/overview), [CLI](../cli/overview), or in Nextflow directly using a flag.
+Seqera Platform is available in two deployment editions and can be accessed via the web user interface (UI), [API](https://docs.seqera.io/platform-api), [CLI](../cli/overview), or in Nextflow directly using a flag.
 
 ## Seqera Platform editions
 
@@ -30,7 +31,7 @@ To install Seqera Platform in your organization's infrastructure, [contact us](h
 
 ## How to use Seqera Platform
 
-You can access your Seqera instance through the UI, the [API](../api/overview), the [CLI](../cli/overview.mdx), or in Nextflow directly using the `-with-tower` option.
+You can access your Seqera instance through the UI, the [API](https://docs.seqera.io/platform-api), the [CLI](../cli/overview.mdx), or in Nextflow directly using the `-with-tower` option.
 
 ### Seqera Platform UI
 
@@ -45,7 +46,7 @@ You can access your Seqera instance through the UI, the [API](../api/overview), 
 
 ### Seqera API
 
-See [API](../api/overview).
+See [API](https://docs.seqera.io/platform-api).
 
 ### Seqera CLI
 

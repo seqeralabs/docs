@@ -1,7 +1,8 @@
 ---
 title: "Data Explorer"
 description: "Using Seqera Data Explorer."
-date: "21 Apr 2023"
+date created: "2023-04-21"
+last updated: "2025-07-29"
 tags: [data, explorer]
 ---
 
@@ -48,7 +49,7 @@ A workspace maintainer can remove a manually created cloud storage bucket.
 
 From the **Data Explorer** tab, find the cloud bucket that you want to delete. Select the options menu for the bucket, and select **Remove**. When prompted, select **Remove** from the confirmation modal that appears.
 
-If you remove a data link associated with a cloud storage bucket, the data link is automatically removed from the relevant Studio configuration.
+If you remove a data-link associated with a cloud storage bucket, the data-link is automatically removed from the relevant Studio configuration.
 
 ## Browse cloud storage buckets
 
@@ -88,7 +89,7 @@ If you remove a data link associated with a cloud storage bucket, the data link 
   :::note
   The file size limit for preview is 10 MB. 10-25 MB files can still be downloaded directly.
 
-  Seqera Enterprise users can increase the default 25 MB file size download limit with `tower.content.max-file-size` in the `tower.yml` [configuration](https://docs.seqera.io/platform-enterprise/latest/enterprise/configuration/overview#data-features) file. Note that increasing this value may degrade Platform performance.
+  Seqera Enterprise users can increase the default 25 MB file size download limit with `tower.content.max-file-size` in the `tower.yml` [configuration](https://docs.seqera.io/platform-enterprise/enterprise/configuration/overview#data-features) file. Note that increasing this value may degrade Platform performance.
   :::
 
 - **Copy bucket/object paths**
@@ -109,23 +110,23 @@ This customized Data Explorer view will be displayed by default to all workspace
 
 ## Upload files to private buckets
 
-Data Explorer supports single or bulk file uploads to your private cloud storage buckets. From the **View cloud bucket** page, select **Upload** and choose either the **Upload files* or **Upload folder** option. You can also drag and drop files and folders directly into Data Explorer. You can upload up to 300 files at a time via the Platform interface. The file size upload limits reflect the size limitations of the relevant cloud storage provider. 
+Data Explorer supports single or bulk file uploads to your private cloud storage buckets. From the **View cloud bucket** page, select **Upload** and choose either the **Upload files* or **Upload folder** option. You can also drag and drop files and folders directly into Data Explorer. You can upload up to 300 files at a time via the Platform interface. The file size upload limits reflect the size limitations of the relevant cloud storage provider.
 
 Currently, these limits are:
 
 - [AWS](https://docs.aws.amazon.com/AmazonS3/latest/userguide/upload-objects.html)
   - Single `PUT` upload: 5 GB
   - Multi-part upload: 5 TB
-  
+
 - [Azure](https://learn.microsoft.com/en-us/rest/api/storageservices/put-blob?tabs=microsoft-entra-id#remarks)
   - Single `PUT` upload: 5 GB
   - Multi-part upload: 4.77 TB
-  
+
 - [GCP](https://cloud.google.com/storage/quotas#objects):
   - Single `PUT` upload: 5 TB
   - Multi-part upload: 5 TB
 
-To cancel an upload, select **X** in the upload window. Any files not uploaded will display as **Failed**. Files that were successfully uploaded will not be removed. 
+To cancel an upload, select **X** in the upload window. Any files not uploaded will display as **Failed**. Files that were successfully uploaded will not be removed.
 
 :::note
 You must configure cross-origin resource sharing (CORS) for your cloud storage provider to allow file uploads from Platform. CORS configuration differs for each provider.

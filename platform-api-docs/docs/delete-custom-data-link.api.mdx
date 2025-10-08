@@ -5,7 +5,7 @@ description: "Deletes the data-link associated with the given `dataLinkId`."
 sidebar_label: "Delete data-link"
 hide_title: true
 hide_table_of_contents: true
-api: eJzNVc1uEzEQfhXLJ5CWpEDEISdamkqVKqjaIg5VpDq7k6ybjb21ZxOi1Uo8BE/IkzDj/UuaAEJcOGVtfzPzzc83KWUCPnY6R22NHMtzyADBC0xBJArVq0ybpVDe21grhERsNKbhdaHXYMQDg64Ic5k8DGQkUS28HN/LztbLaSRtDk5xhMuki/Gh8GhX5405mebKqRU9OHZQSkMHAvf+CaKZYq4wpe9nvDuuOgGDeq7BEcjBU6EdUFR0BUTSxymslByXErc5u/fotFnIqoq6iBvrlj5XMfQhnwpw24OYX1qgMMUKnI73Yx/E0gZhEZ7m1q0U1lfvRhR9ylR9bo0HzxZvTk74Zz/ebRHH4L348e276PNNQjUTWUVkNTq0OlZtQUjRBmTL0bF4Zyq5ofqBR6IcW2JvkFEqzzMdh34OHz1Dy51k+5LfyxXRVQvgEWhqYGePELO/3PFQoK7zbYHHGiNRY8ZXE+esu+lYV1Ug/vaQ+Kd23ISxKFSW2U1doNGxAn20eGELk4S6ds0X1omY0uCGqswHT3OGReL0+lIk2qtZRnqgVgY5dIYRW/bS6ez+1xrSo4e4cBq3QXdnoBy404JENr6f8mSSKFPLwq1HLUiVX+WwV/mw7IVayd7lLedU89t13FFMEfNWK3yeBRDd1B8XrVAeNxjy0GZug3mTzy08Ua+5JQfybJ6uM4WsN+HBrTUJqAFzM1QcmlG4rKHix8OhD3YDbQlE/dBZ0Oncvu8fiMia9lQd5/VgNBqc8F1uPa5U6GWzS2rx9ePwnGTZz8S/r966oghfcZhnihYXUQqplU3D9tZyJMc7u5XanBJ7xpTlTHn47LKq4ut69/FktDMvx3NSBPwmlT9sxqNMl7A9WL5rlRWMlDyGa+U0x/9LLi9uGjG9FL/4kzhKp7lUZrvLo6W5U7lqSugUVEK+mFkNOKVVneOO6YHg95R1Prma3E0Irvbl8UwOIcBRZtS0gLizSzBV1RFFPjPHqvoJpTW8kQ==
+api: eJzNVc1u00AQfpXVnkAySYGoh5xoaSpVqqBqQRyqSN3Yk3gbx+vujhMiyxIPwRPyJMys/5LaKkJcOLXe+Wbmm59vUkhUKyen9zJSqN4kOl07OQ9kBC60OkNtUjmVF5AAghMYg2hxQjlnQq0QIrHTGHvrSm8hFQ8MuibMVfQwkoE0GVjFsa6iNtrH3KHZXNRAAmXKqg0ZLNMpZEofBO4iEUQzmUxhLHsMW1YOrU5XQkeQol5qsIS18JRrC5QcbQ6BdGEMGyWnhcR9xlkqJ1mWQZt4Z+zaZSqELvNTDnbfS/2tAYo034DV4XHuXi6dIqy8aWnsRmH1dDqh7HOm6jKTOnDs8e7khP8c57vLwxCcE79+/BRd2ZFvaiTLgLwmfa+hpgtCiiYhe06G8p2r6Jb6Bw6JcmiIfYqMUlmW6NCPdfzoGFocFNu1/F5uiK5aAe9V3QOzeISQ42WWdwN1VW8DHBqMRI0JP82sNfa2ZV2Wnvj7PvHPzdaJ1KBQSWJ2VYMmQw36ZPDS5Gnk+9oOXxgrQiqDB6oS5yMtGRaIs5srEWmnFgkJgEbp9791DNiz00rr97/2kIwOwtxq3Hv5nYOyYM9y0tr0fs6bSdqMDeu3WjWvWLbKcXc6xkWn11J2Ie+4porfYeCWYoyYNVrh74UH0Uv1z2UjlMcd+jp0ujTeva7nDp5o1jySnjxr002ikPUmHNitJgHVYB6GCv0wcpvUVNx0PHbeb6QNgWgeOvE6XZoPnYGIbOlcVXnejk5PRyf8lhmHG+VnWd+SSnzdOjwnWXQ78c+3tu4ownccZ4miw0WUfGlFPbCjWx/I6cGJpTHHxJ4xRbFQDr7apCz5ubp9vBnNzsvpkhQBL5Tyh8s4yHQN+97x3aokZ6TkNdwqqzn/X3J5dVuL6bV4+bdikFX9qNL9IZ2G7UEDyzmhY1ARxWKCFeCMLnaGB6493R8J7GJ2PfsyI7g6VskzVfgEg8xodh7xxawhLcuWKPI3cyzL33Q/wgM=
 sidebar_class_name: "delete api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -47,7 +47,7 @@ Deletes the data-link associated with the given `dataLinkId`.
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"dataLinkId","in":"path","description":"Data-link identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+  parameters={[{"name":"dataLinkId","in":"path","description":"Data-link string identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
 >
   
 </ParamsDetails>

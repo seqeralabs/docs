@@ -76,7 +76,7 @@ Try the following:
 
 **_Row was updated or deleted by another transaction (or unsaved-value mapping was incorrect)_ error**
 
-This error can occur if incorrect configuration values are assigned to the `backend` and `cron` containers' [`MICRONAUT_ENVIRONMENTS`](./enterprise/configuration/overview#compute-environments) environment variable. You may see other unexpected system behavior, like two exact copies of the same Nextflow job submitted to the executor for scheduling.
+This error can occur if incorrect configuration values are assigned to the `backend` and `cron` containers' [`MICRONAUT_ENVIRONMENTS`](./enterprise/configuration/overview.mdx#compute-environments) environment variable. You may see other unexpected system behavior, like two exact copies of the same Nextflow job submitted to the executor for scheduling.
 
 Please verify the following:
 
@@ -673,7 +673,7 @@ HTTP must not be used in production environments.
 
 **Resume/relaunch runs with tw CLI**
 
-Runs can be [relaunched](./launch/cache-resume#relaunch-a-workflow--run) with `tw runs relaunch` .
+Runs can be [relaunched](./launch/cache-resume#relaunch-a-workflow-run) with `tw runs relaunch` .
 
 ```
 $ tw runs relaunch -i 3adMwRdD75ah6P -w 161372824019700

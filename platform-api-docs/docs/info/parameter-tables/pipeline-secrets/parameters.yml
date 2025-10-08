@@ -1,0 +1,15 @@
+- Name: "`workspaceId`"
+  Type: integer
+  Location: query
+  Req/Opt: Optional
+  Description: Workspace numeric identifier
+- Name: "`name`"
+  Type: string
+  Location: query
+  Req/Opt: Optional
+  Description: Secret name to validate
+- Name: "`secretId`"
+  Type: integer
+  Location: path
+  Req/Opt: Required
+  Description: Secret numeric identifier

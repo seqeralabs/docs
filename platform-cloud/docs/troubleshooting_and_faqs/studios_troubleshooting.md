@@ -1,7 +1,8 @@
 ---
 title: "Studios"
 description: "Studios troubleshooting with Seqera Platform."
-date: "26 August 2024"
+date created: "2024-08-26"
+last updated: "2025-08-08"
 tags: [faq, help, studios, troubleshooting]
 ---
 
@@ -31,9 +32,11 @@ This is determined by the configuration of the Elastic Container Service (ECS) a
 
 ## Session is stuck in **starting**
 
-If your Studio session doesn't advance from **starting** status to **running** status within 30 minutes, and you have access to the AWS Console for your organization, check that the AWS Batch compute environment associated with the session is in the **ENABLED** state with a **VALID** status. You can also check the **Compute resources** settings. Contact your organization's AWS administrator if you don't have access to the AWS Console.
+If your Studio session doesn't advance from starting status to running status within 30 minutes, and you are a Maintain role or higher, select the three dots next to the status message for the Studio you want to stop, then select Stop.
 
-If sufficient compute environment resources are unavailable, **Stop** the session and any others that may be running before trying again. If you have access to the AWS Console for your organization, you can terminate a specific session from the AWS Batch Jobs page (filtering by compute environment queue).
+If you are not a Maintain or higher user but you have access to the AWS Console for your organization, check that the AWS Batch compute environment associated with the session is in the ENABLED state with a VALID status. You can also check the Compute resources settings. Contact your organization's AWS administrator if you don't have access to the AWS Console.
+
+If there are not sufficient compute environment available, Stop the session and any others that may be running before trying again. If you have access to the AWS Console for your organization, you can terminate a specific session from the AWS Batch Jobs page (filtering by compute environment queue).
 
 ## Session status is **errored**
 
@@ -73,6 +76,22 @@ ERROR system error 2 (No such file or directory) [path:/sys/fs/cgroup/memory/mem
 ```
 
 This is displayed because logging is set to `stderr` by default to ensure all logs are shown during the session, and can safely be ignored.
+
+## Running session does not show new data in object storage
+
+By default, Fusion does not resync objects from remotely mounted data-link(s) after initial mounting.
+
+If you have a running session with data mounted and the underlying storage is updated, the data will not be resynced to the Studio session.
+
+You can change this behavior when you are [adding a Studio session](../studios/managing#add-a-studio) by defining the `FUSION_REFRESH_TIMEOUT` environment variable to a specified number of seconds (e.g., `30`). This will force Fusion to refresh the view of the mounted data-link(s) at the specified interval.
+
+:::note
+Setting the environment variable _inside_ an already running Studio session by executing the command `export FUSION_REFRESH_TIMEOUT=30` won't change the behavior of the outer Fusion session. The environment variable should be set in the "General config" section durion Studio creation. 
+:::
+
+:::warning
+This is an experimental feature and may cause consistency issues in the Fusion namespace, resulting in data loss.
+:::
 
 ## Container template image security scan false positives
 
