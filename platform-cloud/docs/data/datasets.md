@@ -120,7 +120,10 @@ The input field drop-down menu will only display datasets that match the file ty
 
 **View runs**
 
-Select the three dots next to a dataset to view which pipeline runs have used a specific dataset input. 
+To view a list of all pipeline runs in a workspace that have used a specific dataset input either:
+
+- Select the three dots next to a dataset and select **View runs**.
+- Click the number displayed in the **Runs** column.
 
 **Toggle dataset visibility**
 
