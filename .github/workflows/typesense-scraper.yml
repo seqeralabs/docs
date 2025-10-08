@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v3
       
       - name: Run Typesense DocSearch Scraper
-        uses: celsiusnarhwal/typesense-scraper@v2
+        uses: celsiusnarhwal/typesense-scraper@15f9049f1e4a868fc94e45948f86bd0ceed2f4b3 #v2.0.1
         with:
           api-key: ${{ secrets.TYPESENSE_API_KEY }}
           host: 9scwdgbn4v8r1lyfp.a1.typesense.net
