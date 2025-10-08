@@ -14,7 +14,7 @@ Datasets in Seqera are CSV (comma-separated values) and TSV (tab-separated value
 
 On the datasets screen, you can:
 
-- View which pipeline runs have used a specific dataset input.
+- View the count of pipeline runs in the workspace that have used a specific dataset input.
 - Apply multiple labels to datasets for easier searching and grouping.
 - Sort datasets by name, most recently updated, and most recently used.
 - Hide datasets that are not used in the workspace.
