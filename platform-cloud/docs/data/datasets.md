@@ -62,7 +62,7 @@ All Seqera user roles have access to the datasets feature in organization worksp
 The size of the dataset file cannot exceed 10 MB.
 :::
 
-1. Open the **Datasets** tab in your organization workspace.
+1. In the sidebar navigation, select the **Datasets** link under the Data heading in your organization workspace.
 2. Select **Add Dataset**.
 3. Complete the **Name** and **Description** fields using information relevant to your dataset.
 4. Add a **Label** to your dataset. You can use labels as a search filter but they don't apply to other resources in Seqera.
