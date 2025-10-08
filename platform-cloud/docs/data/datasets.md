@@ -106,7 +106,7 @@ Select the three dots next to a dataset to hide datasets you're no longer using.
 
 Filter the list of datasets to only display datasets that match one or more filters defined in the **Search datasets** field. Select the info icon to see the list of available filters.
 
-**Edit datasets**
+**Edit dataset details**
 
 Select the three dots next to a dataset to edit the name, description, and labels associated with a dataset.
 
