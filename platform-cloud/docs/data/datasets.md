@@ -86,7 +86,15 @@ Seqera can manage multiple versions of an existing dataset.
 All subsequent versions of a dataset must be the same format (CSV or TSV) as the initial version.
 :::
 
-Select a dataset to access the version drop-down menu.
+### Viewing dataset versions
+
+To see all versions of a dataset, use the **Show** drop-down menu in the **Preview** tab. A preview of the most recent version of the dataset is automatically displayed and the version flagged as **(latest)**, provided it is not disabled.
+
+To preview previous dataset versions, change the version from the **Show** drop-down menu. The **Created by** and **Created on** values will also change.
+
+To download a dataset version, select the **Download** icon.
+
+To copy a permalink to the dataset, select the **Copy** icon.
 
 ### Use a dataset
 
