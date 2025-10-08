@@ -1,7 +1,8 @@
 ---
 title: "AWS Cloud"
 description: "Instructions to set up an AWS Cloud CE in Seqera Platform"
-date: "15 May 2025"
+date created: "2025-05-15"
+last updated: "2025-09-25"
 tags: [cloud, vm, amazon, compute environment]
 ---
 
@@ -9,9 +10,9 @@ tags: [cloud, vm, amazon, compute environment]
 
 :::note
 This compute environment type is currently in public preview. Please consult this guide for the latest information on recommended configuration and limitations. This guide assumes you already have an AWS account with a valid AWS subscription.
-::: 
+:::
 
-The current implementation of compute environments for cloud providers all rely on the use of batch services such as AWS Batch, Azure Batch, and Google Batch for the execution and management of submitted jobs, including pipelines and Studio session environments. Batch services are suitable for large-scale workloads, but they add management complexity. In practical terms, the currently used batch services result in some limitations:
+Many of the current implementations of compute environments for cloud providers rely on the use of batch services such as AWS Batch, Azure Batch, and Google Batch for the execution and management of submitted jobs, including pipelines and Studio session environments. Batch services are suitable for large-scale workloads, but they add management complexity. In practical terms, the currently used batch services result in some limitations:
 
 - **Long launch delay**: When you launch a pipeline or Studio in a batch compute environment, there's a delay of several minutes before the pipeline or Studio session environment is in a running state. This is caused by the batch services that need to provision the associated compute service to run a single job.
 - **Complex setup**: Standard batch services require complex identity management policies and configuration of multiple services including compute environments, job queues, job definitions, etc.
@@ -24,7 +25,7 @@ The AWS Cloud compute environment addresses these pain points with:
 - **Fewer AWS dependencies**: Only one IAM role in AWS is required. IAM roles are subject to a 1000 soft limit per account.
 - **Spot instances**: Studios can be launched on a Spot instance.
 
-This type of compute environment is best suited to run Studios and small to medium-sized pipelines. It offers more predictable compute pricing, given the fixed instance type. It spins up a standalone EC2 instance and executes a Nextflow pipeline or Studio session with a local executor on the EC2 machine. At the end of the execution, the instance is terminated.
+This type of compute environment is best suited to run Studios and small to medium-sized pipelines. It offers more predictable compute pricing, given the fixed instance types. It spins up a standalone EC2 instance and executes a Nextflow pipeline or Studio session with a local executor on the EC2 machine. At the end of the execution, the instance is terminated.
 
 ## Limitations
 
@@ -32,7 +33,7 @@ This type of compute environment is best suited to run Studios and small to medi
 
 ## Supported regions
 
-The following regions are currently supported: 
+The following regions are currently supported:
 
 - `eu-west-1`
 - `us-east-1`
@@ -54,7 +55,7 @@ To create and launch pipelines or Studio sessions with this compute environment 
 
 #### Compute environment creation
 
-The following permissions are required to provision resources in the AWS account. Only IAM roles that will be assumed by the EC2 instance need to be provisioned:
+The following permissions are required to provision resources in the AWS account. Only IAM roles that will be assumed by the EC2 instance must be provisioned:
 
 ```json
 {
@@ -180,13 +181,17 @@ The following permissions enable Seqera to populate values for dropdown fields. 
 }
 ```
 
-## Managed Amazon Machine Image (AMI) 
+## Managed Amazon Machine Image (AMI)
 
-The AWS Cloud compute environment uses an AMI maintained by Seqera, and the pipeline launch procedure assumes that some basic tooling is already present in the image itself. If you want to provide your own AMI, it must include at least the following:
+The AWS Cloud compute environment uses a public AMI maintained by Seqera, and the pipeline launch procedure assumes that some basic tooling is already present in the image itself. If you want to provide your own AMI, it must include at least the following:
 
-- Docker engine, configured to be running at startup.
+- Docker engine, configured to run at startup.
 - CloudWatch agent.
 - The ability to shut down with the `shutdown` command. If this is missing, EC2 instances will keep running and accumulate additional costs.
+
+### Release cadence and sofware updates
+
+The AMI is based on the [Amazon Linux 2023 image](https://docs.aws.amazon.com/linux/al2023/ug/what-is-amazon-linux.html). System package versions are pinned for each specific Amazon Linux 2023 version. Seqera subscribes to the [AWS SNS topic](https://docs.aws.amazon.com/linux/al2023/ug/receive-update-notification.html) to receive Amazon Linux 2023 update notifications. When updates are available, this triggers a new Seqera AMI release built on the latest image, which includes system package updates and security patches.
 
 ## Advanced options
 
@@ -198,5 +203,4 @@ The AWS Cloud compute environment uses an AMI maintained by Seqera, and the pipe
 - **Subnets**: The list of VPC subnets where the EC2 instance will run. If unspecified, all the subnets of the VPC will be used.
 - **Security groups**: The security groups the EC2 instance will be a part of. If unspecified, no security groups will be used.
 - **Instance Profile**: The ARN of the `InstanceProfile` used by the EC2 instance to assume a role while running. If unspecified, Seqera will provision one with enough permissions to run.
-- **Boot disk size**: The size of the EBS boot disk for the EC2 instance. If undefined, a default 50 GB gp3 volume will be used.
-
+- **Boot disk size**: The size of the EBS boot disk for the EC2 instance. If undefined, a default 50 GB `gp3` volume will be used.

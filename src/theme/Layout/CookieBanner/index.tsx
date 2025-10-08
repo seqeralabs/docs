@@ -49,7 +49,7 @@ const CookieBanner = () => {
     }
 
     setTimeout(() => {
-      if (!preferenceSet) {
+      if (!preferenceSet ) {
         setIsHidden(false);
         return;
       }
@@ -61,13 +61,18 @@ const CookieBanner = () => {
   return (
     <div
       className={clsx(
-        styles.banner,
-        "fixed bottom-0 w-full lg:left-1/2 lg:transform lg:-translate-x-[50%] lg:w-[70%] z-[2147483648] p-4 lg:rounded-md lg:mb-6",
+        "fixed bottom-0 left-0 right-0 flex justify-center z-2147483648 p-4 lg:mb-6",
         {
           hidden: cookies.preferencesSet !== undefined,
         },
       )}
     >
+      <div
+        className={clsx(
+          styles.banner,
+          "w-full lg:w-[70%] lg:rounded-md p-4"
+        )}
+      >
       <div className="container-lg">
         <div className="flex text-white items-center justify-between flex-wrap -my-2">
           <div className="flex items-center py-2 md:pr-4">
@@ -79,8 +84,8 @@ const CookieBanner = () => {
               experience. <br className="hidden md:block" />
               Find out more on{" "}
               <a
-                href="/privacy-policy/#cookies"
-                className="text-[var(--sl-blue)]"
+                href="https://seqera.io/privacy-policy"
+                className="text-(--sl-blue)"
               >
                 how we use cookies
               </a>
@@ -102,6 +107,7 @@ const CookieBanner = () => {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

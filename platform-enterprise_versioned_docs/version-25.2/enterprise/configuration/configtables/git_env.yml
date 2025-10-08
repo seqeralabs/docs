@@ -1,0 +1,41 @@
+---
+- 
+  Environment variable:            '`TOWER_SCM_PROVIDERS_GITHUB_USER`'
+  Description:          'Your GitHub username.'
+- 
+  Environment variable:            '`TOWER_SCM_PROVIDERS_GITHUB_PASSWORD`'
+  Description:          'Your GitHub (classic or fine-grained) access token.'
+-
+  Environment variable:            '`TOWER_SCM_PROVIDERS_GITLAB_USER`'
+  Description:          'Your GitLab username.'
+-
+  Environment variable:            '`TOWER_SCM_PROVIDERS_GITLAB_PASSWORD`'
+  Description:          'Your GitLab (Personal, Group, or Project) access token.'
+-
+  Environment variable:            '`TOWER_SCM_PROVIDERS_GITLAB_TOKEN`'
+  Description:          'Your GitLab (Personal, Group, or Project) access token.'
+- 
+  Environment variable:            '`TOWER_SCM_PROVIDERS_BITBUCKET_USER`'
+  Description:          'Your BitBucket username.'
+- 
+  Environment variable:            '`TOWER_SCM_PROVIDERS_BITBUCKET_PASSWORD`'
+  Description:          'Your BitBucket App password.'
+- 
+  Environment variable:            '`TOWER_SCM_PROVIDERS_GITEA_USER`'
+  Description:          'Your Gitea username.'
+- 
+  Environment variable:            '`TOWER_SCM_PROVIDERS_GITEA_PASSWORD`'
+  Description:          'Your Gitea token.'
+- 
+  Environment variable:            '`TOWER_SCM_PROVIDERS_AZUREREPOS_USER`'
+  Description:          'Your Azure DevOps repository username.'
+- 
+  Environment variable:            '`TOWER_SCM_PROVIDERS_AZUREREPOS_TOKEN`'
+  Description:          'Your Azure DevOps repository personal access token.'
+#To be confirmed
+#- 
+#  Environment variable:            '`TOWER_SCM_PROVIDERS_CODECOMMIT_ACCESS_KEY`'
+#  Description:          'AWS CodeCommit user access key.'
+#- 
+#  Environment variable:            '`TOWER_SCM_PROVIDERS_CODECOMMIT_SECRET_KEY`'
+#  Description:          'AWS CodeCommit user secret key.'

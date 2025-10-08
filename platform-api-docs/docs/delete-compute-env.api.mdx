@@ -5,7 +5,7 @@ description: "Deletes the compute environment identified by the given `computeEn
 sidebar_label: "Delete compute environment"
 hide_title: true
 hide_table_of_contents: true
-api: eJzNlEtv2zAMx7+KoNMGpEm2BQOW0/rIgGLDVnQddigCVLGZRK0tqRKdLjD83UfKzsO1sQewwy6JTf0p/mg+SplCSLx2qK2RU3kBGSAEgWsQic1dgSDAbLS3JgeDQqf0q5caUrHYRtVKb8CIu0Y8M5vL9G4oBxLVKsjprWwOTuiWIOcDaR14xdEu0328870zOTrlVU5Gz+6lNPRCwuP7SaQZ1ilc03M7g/Me6oBem9UB3pOXh8dCeyAI9AUMZEjWkCs5LSVuHUesnWRVDfYQT9Y/BKcSODA8FuC3HYjvO6EwRQ5eJ+3YnVjaIKzi0dL6XGFtejuh6HNGDc6aAIE9Xo8n/NeO9+WjOBGfLZWMLjIoq4GcjMdd3ZlKBScOASnWTk0y5Vymk1iX0X1gbXlEefhWtzKHENQKuJQNvF3cQ8L3Oc/FRV2D7oR9X1SixoxNM++tv27yo5Mqkr/pyXDXNsJYFCrL7BPxRPW7rvrcmiXlg1z1lFuMzf9pwnQYICm8xm1s+DNQHvxpQb09vZ1z/Wka1panJaYCcUb4VI6Oh2tUHs9IJQ/XfuW8asbjy/eYa0S360p+X0QRWeqHD7uWvH/CmIs2Sxvdm5y+wiMVR5xeXXYGoTm6yhRyZ4sAfqMTWjC1mAuikliQwmcNSpiORiH6DbUlEdVEZ3Eilvb94YBANrQk6jivhpPJcMw2ZwPmKtazmdp6x/Sts+e45aFD/uUmrL8ywg8cuUzR2iDMmG7ZFPLZlhzIaWvdUQusKSvWleVCBfjms6pic719uGtSHdQi445dqizALxL7zW7qpX2AbWf9bVRWsFJyi26U1xz/L1leXDeD9lL86d7u5WuMymyPwXbcrY9ZzUm/BpXSbQxbS06TBBweOXf2Q2sQL2afZjczkqv2JD2bnBigl43qGBU39gFMVe1Rkd+Zsap+AiyJpS8=
+api: eJzNlN9r2zAQx/8VoacN0iTbSmF5Wn9kUDa20nbsIQSq2JdYrS2pkuwuGP/vu5PtxInNRmEPe2nq01d3n9P9KLkXG8dnCx7pzOQeTkAVji9HPAYXWWm81IrP+BWk4MExnwBrlAyV0mqVgfJMxvhXriXEbLUNqo0sQLGHRjxXxXX8MOYjrg1YQV6v453fy50IBUZYkaHRElbJFX6gsOsHRZKgjPAJPya9HKATqUmEyjOwMtqjWsKx8JxLC8jibQ4j7qIEMsFnJfdbQ4Gdt1JteFWNdiwv2j45IyLYozznYLc9lp+tkA0H7wWTysMGLB6ttc2Er01npxh+SazOaOXA0Y3301P6OQz4/Qs7Yd80lggdKc+rET+dTvu6CxEzyhycx1itGmXCmFRGoT6TR0faskO5f6wFz8A5sQFqlQZerx4hIn/GUpG9rEFb4dCTci99Sqa5tdreNvnhSRXIPwxk2LYPU5oKm+oX5Anqj331pVZrzMdjOBZTq5H5P00YDx1EuZV+Gxr/AoQFe55jj88WS6o/TkWiaWpCKhBmhU75pDu8k7I7KxXfu72jvGrGrvMdZuK9abuSvldBhJb6n89tSz6++JCLVGsdrjc53cEzFoed31z3JqE5ukmFp85mDmwhI1wotZgKIqJQkNymDYqbTSYu3BtLjSKsiUzDRKz1p/0BghS4LOo478ZnZ+Mp2Yx2PhOhns3Y1rtmaH0d45b7DvmHm695ZQ+//MSkAvcGYoZ0y6aQR1t4xGcHaw9bIMGsSFeWK+Hgh02risz1+qGuiaUTq5Q6di1SB39I7G/LaRD3Cba9BViINCclpx4thJUE8EqYN7fNpL1lr1zgg5iNUahtl6/FP3jUaon6BESMnU7MteQ8isD4zuXenjgYyKv51/n9HOXicKKOJigEGGTDegbFvX4CVVU7VE/fxFhVvwFtKaqv
 sidebar_class_name: "delete api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -47,7 +47,7 @@ Deletes the compute environment identified by the given `computeEnvId`.
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"computeEnvId","in":"path","description":"Compute environment string identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+  parameters={[{"name":"computeEnvId","in":"path","description":"Compute environment alphanumeric identifier.","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier.","schema":{"type":"integer","format":"int64"}}]}
 >
   
 </ParamsDetails>
