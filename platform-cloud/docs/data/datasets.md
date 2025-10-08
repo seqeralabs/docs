@@ -72,7 +72,9 @@ The size of the dataset file cannot exceed 10 MB.
 
 ## Manage dataset versions
 
-Seqera can accommodate multiple versions of a dataset. To add a new version for an existing dataset:
+Seqera can manage multiple versions of an existing dataset.
+
+### Adding a dataset version
 
 1. Select the three dots next to the dataset you want to update.
 2. Select **Add a version**.
