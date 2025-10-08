@@ -76,7 +76,7 @@ Seqera can manage multiple versions of an existing dataset.
 
 ### Adding a dataset version
 
-1. Select the three dots next to the dataset you want to update.
+1. Select the three dots next to the dataset you want to add a new version for.
 2. Select **Add a version**.
 3. Upload the newer version of the dataset and select **Add**.
 
