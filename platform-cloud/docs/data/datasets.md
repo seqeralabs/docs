@@ -88,7 +88,7 @@ Select a dataset to access the version drop-down menu.
 
 ### Use a dataset
 
-To use a dataset with the saved pipelines in your workspace:
+To use a dataset with pipelines added to your workspace:
 
 1. Open any pipeline that contains a pipeline schema from the [Launchpad](../launch/launchpad).
 2. Select the input field for the pipeline, removing any default values.
