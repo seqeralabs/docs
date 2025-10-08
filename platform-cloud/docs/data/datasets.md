@@ -54,7 +54,7 @@ Seqera doesn't validate your dataset file contents. While datasets can contain s
 
 Datasets can point to files stored in various locations, such as Amazon S3 or GitHub. To stage the file paths defined in the dataset, Nextflow requires access to the infrastructure where the files reside, whether on cloud or HPC systems. Add the access keys for data sources that require authentication to your [secrets](../secrets/overview).
 
-### Create a dataset
+## Create a dataset
 
 All Seqera user roles have access to the datasets feature in organization workspaces. 
 
