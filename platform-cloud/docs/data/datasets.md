@@ -57,7 +57,7 @@ Datasets can point to files stored in various locations, such as Amazon S3 or Gi
 All Seqera users with any role have access to the datasets feature in organization workspaces. 
 
 :::note
-The size of the dataset file must not exceed 10 MB.
+The size of the dataset file cannot exceed 10 MB.
 :::
 
 1. Open the **Datasets** tab in your organization workspace.
