@@ -101,7 +101,13 @@ Select the three dots next to a dataset to view which pipeline runs have used a 
 
 **Toggle dataset visibility**
 
-Select the three dots next to a dataset to hide datasets you're no longer using. Hidden datasets do not count toward your quota. You can toggle between **Visible**, **Hidden**, and **All** datasets in the **Show** dropdown on the main datasets page.
+Select the three dots next to a dataset and select **Mark dataset as hidden** to hide a dataset no longer used in your workspace. To show a hidden dataset, select "Mark dataset as visible" to make it visible. This filter applies to all workspace users. 
+
+You can toggle between **Visible**, **Hidden**, and **All** datasets in the **Show** drop-down on the main datasets page.
+
+:::note
+Hidden datasets do not count toward your per workspace quota.
+:::
 **Filter datasets**
 
 Filter the list of datasets to only display datasets that match one or more filters defined in the **Search datasets** field. Select the info icon to see the list of available filters.
