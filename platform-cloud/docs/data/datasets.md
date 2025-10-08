@@ -17,7 +17,9 @@ On the datasets screen, you can:
 - View which pipeline runs have used a specific dataset input.
 - Apply multiple labels to datasets for easier searching and grouping.
 - Sort datasets by name, most recently updated, and most recently used.
-- Hide datasets that you're no longer using.
+- Hide datasets that are not used in the workspace.
+- View dataset metadata (created by, last updated, last used).
+- Edit dataset details (name, description, and labels).
 - Upload new versions of a dataset.
 
 The most commonly used datasets for Nextflow pipelines are samplesheets, where each row consists of a sample, the location of files for that sample (such as FASTQ files), and other sample details. For example, [*nf-core/rnaseq*](https://github.com/nf-core/rnaseq) works with input datasets (samplesheets) containing sample names, FASTQ file locations, and indications of strandedness. The Seqera Community Showcase sample dataset for *nf-core/rnaseq* looks like this:
