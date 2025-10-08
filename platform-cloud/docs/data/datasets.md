@@ -16,6 +16,7 @@ On the datasets screen, you can:
 
 - View which pipeline runs have used a specific dataset input.
 - Apply multiple labels to datasets for easier searching and grouping.
+- Sort datasets by name, most recently updated, and most recently used.
 - Hide datasets that you're no longer using.
 - Upload new versions of a dataset.
 
