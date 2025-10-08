@@ -99,7 +99,7 @@ The input field drop-down menu will only display datasets that match the file ty
 
 Select the three dots next to a dataset to view which pipeline runs have used a specific dataset input. 
 
-**Hide datasets**
+**Toggle dataset visibility**
 
 Select the three dots next to a dataset to hide datasets you're no longer using. Hidden datasets do not count toward your quota. You can toggle between **Visible**, **Hidden**, and **All** datasets in the **Show** dropdown on the main datasets page.
 **Filter datasets**
