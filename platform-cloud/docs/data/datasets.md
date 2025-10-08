@@ -113,7 +113,7 @@ To use a dataset with pipelines added to your workspace:
 3. Pick the dataset to use as input to your pipeline.
 
 :::note
-The input field drop-down menu will only display datasets that match the file type specified in the `nextflow_schema.json` of the chosen pipeline. If the schema specifies `"mimetype": "text/csv"`, no TSV datasets will be available for use with that pipeline, and vice-versa.
+The input field drop-down menu will only display datasets that match the file type specified in the `nextflow_schema.json` of the chosen pipeline. If the schema specifies `"mimetype": "text/csv"`, no TSV datasets will be available for use with that pipeline, and vice-versa. If multiple dataset versions exist, the pipeline input will always default to the **latest** version.
 :::
 
 ## Manage datasets
