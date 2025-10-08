@@ -6,13 +6,13 @@ module.exports = {
   apisidebar: [
     {
       type: "doc",
-      id: "seqera-api",
+      id: "info/seqera-api",
     },
     { type: "doc", id: "info", label: "API service info", className: "api-method get" },
     {
       type: "category",
       label: "Credentials",
-      link: {type: 'doc', id: 'info-pages/credentials-info'},      
+      link: {type: 'doc', id: 'info/credentials-info'},      
       items: [
         { type: "doc", id: "list-credentials", label: "List credentials", className: "api-method get" },
         { type: "doc", id: "create-credentials", label: "Create credentials", className: "api-method post" },
@@ -20,12 +20,26 @@ module.exports = {
         { type: "doc", id: "describe-credentials", label: "Describe credentials", className: "api-method get" },
         { type: "doc", id: "update-credentials", label: "Update credentials", className: "api-method put" },
         { type: "doc", id: "delete-credentials", label: "Delete credentials", className: "api-method delete" },
+        {
+          type: "category",
+          label: "Managed identities",     
+          link: {type: 'doc', id: 'info/identities-info'},      
+          items: [
+            { type: "doc", id: "list-managed-identities", label: "List managed identities", className: "api-method get" },
+            { type: "doc", id: "list-managed-credentials", label: "List managed credentials", className: "api-method get" },
+            { type: "doc", id: "create-managed-identity", label: "Create managed identity", className: "api-method post" },
+            { type: "doc", id: "create-managed-credentials", label: "Create managed credentials", className: "api-method post" },
+            { type: "doc", id: "describe-managed-identity", label: "Describe managed identity", className: "api-method get" },
+            { type: "doc", id: "delete-managed-identity", label: "Delete managed identity", className: "api-method delete" },
+            { type: "doc", id: "delete-managed-credentials", label: "Delete managed credentials", className: "api-method delete" },
+          ],
+        },
       ],
-    },   
+    },     
     {
       type: "category",
       label: "Compute",
-      link: {type: 'doc', id: 'info-pages/compute-envs-info'},      
+      link: {type: 'doc', id: 'info/compute-envs-info'},      
       items: [
         { type: "doc", id: "list-compute-envs", label: "List compute environments", className: "api-method get" },
         { type: "doc", id: "create-compute-env", label: "Create compute environment", className: "api-method post" },
@@ -37,7 +51,7 @@ module.exports = {
         {
           type: "category",
           label: "Platforms",
-          link: {type: 'doc', id: 'info-pages/platforms-info'},
+          link: {type: 'doc', id: 'info/platforms-info'},
           items: [
             { type: "doc", id: "list-platforms", label: "List platforms", className: "api-method get" },
             { type: "doc", id: "describe-platform", label: "Describe platform", className: "api-method get" },
@@ -49,7 +63,7 @@ module.exports = {
     {
       type: "category",
       label: "Data Explorer",
-      link: {type: 'doc', id: 'info-pages/data-links-info'},      
+      link: {type: 'doc', id: 'info/data-links-info'},      
       items: [
         { type: "doc", id: "list-data-links", label: "List data links in a user or workspace context", className: "api-method get" },
         { type: "doc", id: "create-custom-data-link", label: "Create data link in a user or workspace context", className: "api-method post" },
@@ -73,7 +87,7 @@ module.exports = {
     {
       type: "category",
       label: "Datasets",
-      link: {type: 'doc', id: 'info-pages/datasets-info'},      
+      link: {type: 'doc', id: 'info/datasets-info'},      
       items: [
         { type: "doc", id: "list-datasets-v-2", label: "List available datasets", className: "api-method get" },
         { type: "doc", id: "create-dataset-v-2", label: "Create dataset", className: "api-method post" },
@@ -99,7 +113,7 @@ module.exports = {
     {
       type: "category",
       label: "Pipelines",
-      link: {type: 'doc', id: 'info-pages/pipelines-info'},
+      link: {type: 'doc', id: 'info/pipelines-info'},
       items: [
         { type: "doc", id: "list-pipelines", label: "List pipelines", className: "api-method get" },
         { type: "doc", id: "create-pipeline", label: "Create pipeline", className: "api-method post" },
@@ -116,7 +130,7 @@ module.exports = {
     {
       type: "category",
       label: "Actions",
-      link: {type: 'doc', id: 'info-pages/actions-info'},
+      link: {type: 'doc', id: 'info/actions-info'},
       items: [
         { type: "doc", id: "list-actions", label: "List actions", className: "api-method get" },
         { type: "doc", id: "create-action", label: "Create action", className: "api-method post" },
@@ -132,7 +146,7 @@ module.exports = {
     {
       type: "category",
       label: "Labels",
-      link: {type: 'doc', id: 'info-pages/labels-info'},      
+      link: {type: 'doc', id: 'info/labels-info'},      
       items: [
         { type: "doc", id: "add-labels-to-actions", label: "Add labels to actions", className: "api-method post" },
         { type: "doc", id: "apply-labels-to-actions", label: "Replace action labels", className: "api-method post" },
@@ -152,7 +166,7 @@ module.exports = {
     {
       type: "category",
       label: "Secrets",
-      link: {type: 'doc', id: 'info-pages/secrets-info'},
+      link: {type: 'doc', id: 'info/secrets-info'},
       items: [
         { type: "doc", id: "list-pipeline-secrets", label: "List pipeline secrets", className: "api-method get" },
         { type: "doc", id: "create-pipeline-secret", label: "Create pipeline secret", className: "api-method post" },
@@ -165,7 +179,7 @@ module.exports = {
     {
       type: "category",
       label: "Pipeline runs (workflows)",
-      link: {type: 'doc', id: 'info-pages/workflows-info'},
+      link: {type: 'doc', id: 'info/workflows-info'},
       items: [
         { type: "doc", id: "list-workflows", label: "List workflows", className: "api-method get" },
         { type: "doc", id: "delete-workflow-many", label: "Delete workflows", className: "api-method post" },
@@ -192,7 +206,7 @@ module.exports = {
     {
       type: "category",
       label: "GA4GH-WES",
-      link: {type: 'doc', id: 'info-pages/ga4gh-info'},      
+      link: {type: 'doc', id: 'info/ga4gh-info'},      
       items: [
         { type: "doc", id: "ga-4-gh-run-list", label: "GA4GH: List runs", className: "api-method get" },
         { type: "doc", id: "ga-4-gh-run-create", label: "GA4GH: Launch run", className: "api-method post" },
@@ -205,7 +219,7 @@ module.exports = {
     {
       type: "category",
       label: "Workflow trace",
-      link: {type: 'doc', id: 'info-pages/trace-info'},
+      link: {type: 'doc', id: 'info/trace-info'},
       items: [
         { type: "doc", id: "create-trace", label: "Create workflow execution trace", className: "api-method post" },
         { type: "doc", id: "update-trace-begin", label: "Signal workflow execution start", className: "api-method put" },
@@ -218,7 +232,7 @@ module.exports = {
     {
       type: "category",
       label: "Studios",
-      link: {type: 'doc', id: 'info-pages/studios-info'},
+      link: {type: 'doc', id: 'info/studios-info'},
       items: [
         { type: "doc", id: "list-data-studios", label: "List Studios", className: "api-method get" },
         { type: "doc", id: "create-data-studio", label: "Create Studio", className: "api-method post" },
@@ -238,7 +252,7 @@ module.exports = {
     {
       type: "category",
       label: "Organizations",
-      link: {type: 'doc', id: 'info-pages/organizations-info'},
+      link: {type: 'doc', id: 'info/organizations-info'},
       items: [
         { type: "doc", id: "list-organizations", label: "List organizations", className: "api-method get" },
         { type: "doc", id: "create-organization", label: "Create organization", className: "api-method post" },
@@ -258,7 +272,7 @@ module.exports = {
     {
       type: "category",
       label: "Workspaces",
-      link: {type: 'doc', id: 'info-pages/workspaces-info'},
+      link: {type: 'doc', id: 'info/workspaces-info'},
       items: [
         { type: "doc", id: "list-workspaces", label: "List organization workspaces", className: "api-method get" },
         { type: "doc", id: "create-workspace", label: "Create workspace", className: "api-method post" },
@@ -279,7 +293,7 @@ module.exports = {
     {
       type: "category",
       label: "Users",
-      link: {type: 'doc', id: 'info-pages/users-info'},
+      link: {type: 'doc', id: 'info/users-info'},
       items: [
         { type: "doc", id: "user-info", label: "Describe current user", className: "api-method get" },
         { type: "doc", id: "validate-user-name", label: "Check that the user name is valid", className: "api-method get" },
@@ -291,7 +305,7 @@ module.exports = {
     {
       type: "category",
       label: "Teams",
-      link: {type: 'doc', id: 'info-pages/teams-info'},
+      link: {type: 'doc', id: 'info/teams-info'},
       items: [
         { type: "doc", id: "list-organization-teams", label: "List organization teams", className: "api-method get" },
         { type: "doc", id: "create-organization-team", label: "Create team", className: "api-method post" },
@@ -308,7 +322,7 @@ module.exports = {
     {
       type: "category",
       label: "Tokens",
-      link: {type: 'doc', id: 'info-pages/tokens-info'},
+      link: {type: 'doc', id: 'info/tokens-info'},
       items: [
         { type: "doc", id: "token-list", label: "List tokens", className: "api-method get" },
         { type: "doc", id: "create-token", label: "Create token", className: "api-method post" },
@@ -319,7 +333,7 @@ module.exports = {
     {
       type: "category",
       label: "Avatars",
-      link: {type: 'doc', id: 'info-pages/avatars-info'},
+      link: {type: 'doc', id: 'info/avatars-info'},
       items: [
         { type: "doc", id: "create-avatar", label: "Create the avatar image", className: "api-method post" },
         { type: "doc", id: "download-avatar", label: "Download the avatar image", className: "api-method get" },

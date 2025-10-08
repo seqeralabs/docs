@@ -1,6 +1,6 @@
 {
-    "platformSidebar": [
-      "platform-enterprise",
+  "platformSidebar": [
+    "platform-enterprise",
       {
         "type": "category",
         "label": "Installation",
@@ -184,7 +184,8 @@
         "items": [
           "studios/overview",
           "studios/custom-envs",
-          "studios/managing"
+          "studios/managing",
+          "studios/connect"
         ]
       },
       {
@@ -204,7 +205,11 @@
         "label": "Developer tools",
         "collapsed": true,
         "items": [
-          "api/overview",
+          {
+            "type": "link",
+            "label": "API",
+            "href": "https://docs.seqera.io/platform-api"
+          },
           {
             "type": "category",
             "label": "CLI",

@@ -1,8 +1,9 @@
 ---
-title: "Run a pipeline"
-description: "An overview of Seqera Platform deployment versions and ways to run Seqera."
-date: "15 September 2023"
-tags: [overview]
+title: Run a pipeline
+description: An overview of Seqera Platform deployment versions and ways to run Seqera.
+date created: 2023-09-15
+last updated: 2025-08-01
+tags: [overview, pipelines, getting-started, deployment, pipeline, run]
 ---
 
 On this page, learn how to run a pipeline with sample data and get started running your own pipelines.
@@ -18,7 +19,7 @@ The Community Showcase [Launchpad](../launch/launchpad) is an example workspace 
 - [Datasets](../data/datasets) are collections of versioned, structured data (usually in the form of a samplesheet) in CSV or TSV format. A dataset is used as the input for a pipeline run. Sample datasets are used in pipelines with the same name, e.g., the *nf-core-rnaseq-test* dataset is used as input when you run the *nf-core-rnaseq* pipeline.
 - [Compute environments](../compute-envs/overview) are the platforms where workflows are executed. A compute environment consists of access credentials, configuration settings, and storage options for the environment.
 - [Credentials](../credentials/overview) are the authentication keys Seqera uses to access compute environments, private code repositories, and external services. Credentials are SHA-256 encrypted before secure storage. The Community Showcase includes all the credentials you need to run pipelines in the included AWS Batch compute environments.
-- [Secrets](../secrets/overview) are retrieved and used during pipeline execution. In your private or organization workspace, you can store the access keys, licenses, or passwords required for your pipeline execution to interact with third-party services. The secrets included in the Community Showcase contain license keys to run *nf-dragen* and *nf-sentieon* pipelines in the showcase compute environments.
+- [Secrets](../secrets/overview) are retrieved and used during pipeline execution. In your private or organization workspace, you can store the access keys, licenses, or passwords required for your pipeline execution to interact with third-party services. The secrets included in the Community Showcase contain license keys to run *nf-dragen* and *nf-sentieon* pipelines in the Showcase compute environments.
 
 ## Run a pipeline with sample data
 
@@ -40,7 +41,7 @@ Once you've filled the necessary launch form details, select **Launch**. Your ne
 
 To run pipelines on your own infrastructure, you first need to create your own organization.
 
-* [Organizations](../orgs-and-teams/organizations) are the top-level structure in Seqera. They contain the building blocks of your organizational infrastructure.
+* [Organizations](../orgs-and-teams/organizations) are the top-level structure in Platform. They contain the building blocks of your organizational infrastructure.
 * [Workspaces](../orgs-and-teams/workspace-management) are where resources are managed. All team members can access the organization workspace. In addition to this, each user has a unique personal workspace to manage resources such as pipelines, compute environments, and credentials.
 * [Teams](../orgs-and-teams/organizations) are collections of members.
 * [Members](../orgs-and-teams/organizations#members) belong to an organization and can have different levels of access across workspaces.

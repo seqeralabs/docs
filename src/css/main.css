@@ -1,6 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../../tailwind.config.js";
 
 :root {
   --ifm-navbar-height: 4rem;
@@ -101,23 +100,6 @@
     width: 0;
     display: none;
   }
-}
-
-/* Custom styling for the Algolia search box */
-[data-theme="light"] .DocSearch {
-  --docsearch-searchbox-background: var(--ifm-color-white);
-}
-[data-theme="dark"] .DocSearch {
-  --docsearch-searchbox-background: var(--ifm-color-black);
-}
-.DocSearch-Button {
-  width: 100%;
-}
-[data-theme="light"] .DocSearch-Button {
-  box-shadow: inset 0 0 0 1px #d0cfd4;
-}
-[data-theme="dark"] .DocSearch-Button {
-  box-shadow: inset 0 0 0 1px var(--color-brand-800);
 }
 
 /* Custom styling for sidebar nav links */
@@ -239,6 +221,10 @@ nav.menu .menu__list-item--collapsed .menu__link--sublist:after,
 }
 .breadcrumbs__link {
   padding: 0;
+}
+
+.breadcrumbs__link:any-link:hover {
+  background: none;
 }
 
 .breadcrumbs__item--active .breadcrumbs__link {
