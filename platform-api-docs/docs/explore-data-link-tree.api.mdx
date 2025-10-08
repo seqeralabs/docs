@@ -1,0 +1,71 @@
+---
+id: explore-data-link-tree
+title: "Explore a data-link tree"
+description: "Provides a list of all files in the provided paths (including files in sub-paths)."
+sidebar_label: "Explore a data-link tree"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVs1O20AQfpXVnkAKhLaIQ07lt0JFLQKqHlAOG3uSLGy8ZncMpJGlPkSfsE/SmbUd23EUKFKlnsC738z3zc/OZCFRTbwc3MpYodoxOrn3ctiTMfjI6RS1TeRAXjr7qOlIKGG0R2HHQhkjxtrQmU4ETkGkBSYWqcKpF1s6iUwW62RSw3w22gm327uyJ20KTjHBeUwUp8+psQ5OSMUFibhxAIRJlVMzQHAscSET+iBsXILIsCc1C2SvclX1SRWR8OhYCMlLUI81OMI6eMi0A+JGl0FP+mgKMyUHC4nzlFkKI5nnvSXxk3X3PlUR1MwPGbh5h/p7BRRJNgOnozZ3h0snCJNwNbZuprA4OthvsUeklp0o41/iP66ha4N/TbChUptpLspmqKAdt8o5xWYaYeYb53Z0BxESXT7kSvjUJh4C4P3eHv9p83z9TD4iS0lKkG9Vmhodhebp33mGLBrcdWVvS2IiaRNTZznuP9QF66q+ju6mz7LZvP4BL3sO4G6eS/PXdYBEjQbKjubGv9az1MA5ieMUdu+Pi1TxI+ISXZUJZjCh99el+EjFVxQjeHxrqmfgvZq8IiUVcF33LUM5dc66jvAPa3qjGiMischjyT6RnoDe76K/WDyzWRKL3z9/ieVzFtaJxusKnsYM64nDy3MRa69GhkYblSbMuqVhjy2Xk5M/uN61/f+aS+4/iDKncR4G6xEoB+4w4169HfKjpKk7tTyYJxBYQxvLfr0l+ot6DOf9kbNPHnawGNuV72sOrhDaZFhqnSKm1djg71EA0Unxz1n1Eu6eMASkk7EN5mVg1/BAxecadUZTeXVpFPKDEh7co45oDxVgroqKQlUyZ0opftDv+2C3qy2BqDDahIc4th/rCxLySBup4Hm3e3Cwu8dnqfU4U6Go5QQtdxptzbpFygy1xC7qJvk3q7ZMN8Iz9lOjaKKT3hB3NaBa+78nB60V2ywutcaUAmWLxWKkPHxzJs/5uFgR3E3Ve5GDMb0m2BDtC3tyre57mHdW8aMyGSMl76/X07+0Jjfwry7jNypY3aAbGCtIzTTkD6eZ6i/zvnVVDpttsflX0lo91ZJM5k05lc5G6+RDQk9BxeSLBRaAwyiCFBumnbnYGkCfTm8Iq9qTY2VSBO9rZVGTBsSNvYeEGrVSifzNAvP8D4Qnzmo=
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Explore a data-link tree"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/data-links/{dataLinkId}/browse-tree"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Provides a list of all files in the provided paths (including files in sub-paths).
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"dataLinkId","in":"path","description":"Data-link string identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"credentialsId","in":"query","description":"Credentials string identifier","schema":{"type":"string"}},{"name":"paths","in":"query","description":"List of paths","schema":{"type":"array","items":{"type":"object"}}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"required":["items"],"type":"object","properties":{"items":{"type":"array","items":{"required":["path","size"],"type":"object","properties":{"path":{"type":"string"},"size":{"type":"integer","format":"int64"}},"title":"DataLinkSimpleItem"}}},"title":"DataLinkContentTreeListResponse"}}}},"400":{"description":"BadRequest","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"NotFound — workspace or credentials not found, API disabled for the workspace, or data-link or path not found","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

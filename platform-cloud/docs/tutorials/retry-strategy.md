@@ -21,7 +21,7 @@ For workflows with a significant proportion of long-running processes, the costs
 
 Tasks with long runtimes are particularly vulnerable to Spot termination. If you don’t already have one, first create an On-Demand compute environment in Seqera Platform. Then, in Platform, you can explicitly assign critical or long-duration tasks to On-Demand queues and leave other tasks to run in a Spot queue by default: 
 
-```
+```groovy
 process {
 	withName: 'run_bcl2fastq' {
 	     queue = 'TowerForge-MyOnDemandQueue'
@@ -50,7 +50,7 @@ This retry strategy in the above example configuration will all types of job fai
 
 If all processes in your workflow have runtimes short enough to feasibly complete before reclamation, you can consider configuring automatic retries in case of interruption:
 
-```
+```groovy
 aws.batch.maxSpotAttempts = 3
 ```
 

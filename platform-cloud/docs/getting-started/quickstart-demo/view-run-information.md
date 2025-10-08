@@ -73,7 +73,7 @@ The **General** panel displays top-level information about a pipeline run:
 
 - Unique workflow run ID
 - Workflow run name
-- Timestamp of pipeline start
+- Timestamp of pipeline start (the time displayed is based on your local timezone defined in your device's system settings)
 - Pipeline version and Git commit ID
 - Nextflow session ID
 - Username of the launcher
@@ -103,7 +103,7 @@ The **About** tab includes:
 3. **Status**: Exit code, task status, and number of attempts
 4. **Work directory**: Directory where the task was executed
 5. **Environment**: Environment variables that were supplied to the task
-6. **Execution time**: Metrics for task submission, start, and completion time
+6. **Execution time**: Metrics for task submission, start, and completion time (the time displayed is based on your local timezone defined in your device's system settings)
 7. **Resources requested**: Metrics for the resources requested by the task
 8. **Resources used**: Metrics for the resources used by the task
 

@@ -26,7 +26,7 @@ The token is only displayed once. Store your token in a secure place. Use this t
     ```
     curl -X POST "https://api.cloud.seqera.io/workflow/launch?workspaceId=38659136604200" \
         -H "Accept: application/json" \
-        -H "Authorization: Bearer <your_access_token>" \
+        -H "Authorization: Bearer <ACCESS_TOKEN>" \
         -H "Content-Type: application/json" \
         -H "Accept-Version:1" \
         -d '{

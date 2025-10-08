@@ -1,11 +1,12 @@
 ---
 title: "Deploy Platform"
 description: "An overview of deployment versions and ways to run Seqera Platform."
-date: "21 Apr 2023"
+date created: "2023-04-21"
+last updated: "2025-08-08"
 tags: [deployment]
 ---
 
-[Seqera Platform Enterprise](../../version-25.1/enterprise/overview) is installed in an organization's own cloud or on-premises infrastructure. It includes:
+[Seqera Platform Enterprise](/platform-enterprise/enterprise/overview) is installed in an organization's own cloud or on-premises infrastructure. It includes:
 
 - Monitoring, logging, and observability
 - Pipeline execution Launchpad
@@ -20,7 +21,7 @@ To install Platform in your organization's infrastructure, [contact us](https://
 
 ## How to use Platform
 
-You can access your Seqera instance through the UI, the [API](../api/overview), the [CLI](../cli/overview), or in Nextflow directly using the `-with-tower` option.
+You can access your Seqera instance through the UI, the [API](https://docs.seqera.io/platform-api), the [CLI](../cli/overview), or in Nextflow directly using the `-with-tower` option.
 
 ### Platform web-based UI
 
@@ -35,7 +36,7 @@ You can access your Seqera instance through the UI, the [API](../api/overview), 
 
 ### Seqera API
 
-See [API](../api/overview).
+See [API](https://docs.seqera.io/platform-api).
 
 ### Seqera CLI
 
@@ -55,10 +56,10 @@ If you have an existing environment where you run Nextflow directly, you can sti
     The access token is displayed only once. Save the token value before closing the **Personal Access Token** window.
     :::
 
-6. Open a terminal window and create environment variables to store the Seqera access token and Nextflow version. Replace `<your access token>` with your newly-created token.
+6. Open a terminal window and create environment variables to store the Seqera access token and Nextflow version. Replace `<ACCESS_TOKEN>` with your newly-created token.
 
     ```bash
-    export TOWER_ACCESS_TOKEN=<your access token>
+    export TOWER_ACCESS_TOKEN=<ACCESS_TOKEN>
     export NXF_VER=23.10.1
     ```
 

@@ -139,6 +139,7 @@ html[data-theme="dark"] {
 }
 
 
+
 html[data-theme="dark"] {
   .button.blue {
     background: var(--color-blu-700);

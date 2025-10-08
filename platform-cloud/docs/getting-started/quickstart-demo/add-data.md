@@ -71,7 +71,7 @@ Datasets in Platform are CSV (comma-separated values) and TSV (tab-separated val
 <details>
   <summary>**Example: nf-core/rnaseq test samplesheet**</summary>
 
-  The [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline works with input datasets (samplesheets) containing sample names, FASTQ file locations, and indications of strandedness. The Seqera Community Showcase sample dataset for nf-core/rnaseq specifies the paths to 7 small sub-sampled FASTQ files from a yeast RNAseq dataset:
+  The [*nf-core/rnaseq*](https://github.com/nf-core/rnaseq) pipeline works with input datasets (samplesheets) containing sample names, FASTQ file locations, and indications of strandedness. The Seqera Community Showcase sample dataset for *nf-core/rnaseq* specifies the paths to 7 small sub-sampled FASTQ files from a yeast RNAseq dataset:
 
   **Example nf-core/rnaseq dataset**
 
@@ -102,7 +102,7 @@ Specify the following dataset details:
 - Select the **First row as header** option to prevent Platform from parsing the header row of the samplesheet as sample data.
 - Select **Upload file** and browse to your CSV or TSV file in local storage, or simply drag and drop it into the box.
 
-Notice the location of the files in the nf-core/rnaseq example dataset point to a path on S3. This could also be a path to a shared filesystem, if using an HPC compute environment. Nextflow will use these paths to stage the files into the task working directory. 
+Notice the location of the files in the *nf-core/rnaseq* example dataset point to a path on S3. This could also be a path to a shared filesystem, if using an HPC compute environment. Nextflow will use these paths to stage the files into the task working directory. 
 
 :::info
 Platform does not store the data used for analysis in pipelines. The datasets must provide the locations of data that is stored on your own infrastructure.

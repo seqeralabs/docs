@@ -36,7 +36,7 @@ async function cloneOrUpdateRepo({ name, url, path: repoPath, branch }) {
       console.log(`✅ ${name}: Pulled latest changes`);
     } else {
       console.log(`${name}: Cloning into ${repoPath}`);
-      await git().clone(url, repoPath);
+      await git().clone(url, repoPath, ['--branch', branch]);
       console.log(`✅ ${name}: Cloned`);
     }
   } catch (error) {

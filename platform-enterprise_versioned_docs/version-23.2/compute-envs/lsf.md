@@ -15,7 +15,7 @@ To launch pipelines into an **LSF** cluster from Tower, the following requiremen
 
 - The cluster should allow outbound connections to the Tower web service.
 - The cluster queue used to run the Nextflow head job must be able to submit cluster jobs.
-- The Nextflow runtime version **21.02.0-edge** (or later) must be installed on the cluster.
+- The Nextflow runtime version **21.02.0-edge** (or later) must be [installed on the cluster](https://nextflow.io/docs/latest/install.html).
 
 ## Compute environment
 

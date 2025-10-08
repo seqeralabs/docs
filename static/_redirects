@@ -1,8 +1,19 @@
 /nextflow           https://www.nextflow.io/docs/latest/ 301!
 
-# Fix top nav 404 for Cloud and Enterprise after index page rename
-/platform-cloud   /platform-cloud/platform-cloud 301
-/platform-enterprise/:version   /platform-enterprise/:version/platform-enterprise 301
+# Add redirects for version non-existent 25.2 to current docs
+/platform-enterprise/25.2/*    /platform-enterprise/:splat    301
+
+# These redirects reverse the existing 301's 
+# See https://moz.com/blog/can-you-reverse-a-301-redirect
+/platform-cloud/platform-cloud /platform-cloud 301
+/platform-enterprise/:version/platform-enterprise /platform-enterprise/:version 301
+/platform-enterprise/platform-enterprise /platform-enterprise 301
+/platform-enterprise/latest/* /platform-enterprise/:splat 301
+/platform-enterprise/latest /platform-enterprise 301
+
+# Drop the latest functionality redirect users to the "current version" which is the base URL.
+/platform-cloud/latest/platform-cloud /platform-cloud 301
+/platform-enterprise/latest/platform-enterprise /platform-enterprise 301
 
 # Add redirects to account for Wave docs refresh
 /wave/cli/install   /wave/cli               301
@@ -31,7 +42,6 @@
 /platform/:version/data_studios/*    /platform-cloud/studios/:splat  301
 /platform-cloud/data_studios/*   /platform-cloud/studios/:splat 301
 
-
 # Redirect to fix temporarily broken URL in UI
 /platform/:version/data/data_studios   /platform-cloud/studios/  301
 
@@ -42,3 +52,20 @@
 /platform/:version/enterprise/*   /platform-enterprise/:version/enterprise/:splat   301
 /platform/:version/*    /platform-cloud/:splat
 /platform/*   /platform-cloud/:splat
+
+# Redirect from orphan Fusion page
+/fusion/guide  /fusion 301
+
+# Redirect Google Life Sciences page
+/platform-cloud/compute-envs/google-cloud-lifesciences   /platform-cloud/compute-envs/overview   301
+
+#Redirect platform-api to intro page
+/platform-api/info/seqera-api               /platform-api   301
+/platform-enterprise/:version/api/overview  /platform-api   301
+/platform-cloud/api/overview                /platform-api   301
+
+#Wave redirects
+/wave/get-started/*                         /wave/tutorials/:splat          301
+
+#Wave page renaming and moving
+/wave/install/configure-wave               /wave/configure-wave             301

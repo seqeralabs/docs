@@ -5,9 +5,6 @@ date: "16 Jul 2024"
 tags: [cli, platform, installation, configuration]
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 1. Download the latest [version][releases] for your OS from the CLI GitHub repository.
 1. Rename the file and and make it executable:
 

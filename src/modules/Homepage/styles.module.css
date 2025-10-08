@@ -1,7 +1,11 @@
-.hero {
-  background: #eee;
-  border-bottom: 1px solid #ccc;
-  padding: 40px;
+
+.page ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.page p.typo-h4 {
+  margin-top: 0;
 }
 
 a {
@@ -34,13 +38,6 @@ html[data-theme="light"] {
   }
 }
 
-.sidebarProductLogos a {
-  @apply flex justify-between items-center my-4 border-solid border border-gray-500 rounded px-4 py-3 bg-white hover:bg-[#e8ebfc] w-full leading-none;
-}
-.sidebarContainer {
-  flex: none;
-  background: rgba(0, 0, 0, 0.02);
-}
 
 html[data-theme="dark"] a {
     color: white;

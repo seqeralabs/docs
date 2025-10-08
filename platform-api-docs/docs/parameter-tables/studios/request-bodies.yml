@@ -58,6 +58,10 @@
   Type: array
   Req/Opt: Optional
   Description: ""
+- Name: spot
+  Type: boolean
+  Req/Opt: Optional
+  Description: ""
 - Name: "**UpdateDataStudioCheckpoint**"
   Type: ""
   Req/Opt: ""
@@ -80,5 +84,9 @@
   Description: ""
 - Name: labelIds
   Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: spot
+  Type: boolean
   Req/Opt: Optional
   Description: ""

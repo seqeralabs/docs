@@ -61,6 +61,7 @@ By default, Google Cloud Batch uses the default Compute Engine service account t
 - Batch Agent Reporter (`roles/batch.agentReporter`) on the project
 - Batch Job Editor (`roles/batch.jobsEditor`) on the project
 - Logs Writer (`roles/logging.logWriter`) on the project (to let jobs generate logs in Cloud Logging)
+- Logs Viewer (`roles/logging.logViewer`) on the project (to view and retrieve logs from Cloud Logging)
 - Service Account User (`roles/iam.serviceAccountUser`)
 
 If your Google Cloud project does not require access restrictions on any of its Cloud Storage buckets, you can grant project Storage Admin (`roles/storage.admin`) permissions to your service account to simplify setup. To grant access only to specific buckets, add the service account as a principal on each bucket individually. See [Cloud Storage bucket](#cloud-storage-bucket) below.
@@ -144,7 +145,7 @@ After your Google Cloud resources have been created, create a new Seqera compute
 
 Select the **Location** where you will execute your pipelines. See [Location][location] to learn more.
 
-In the **Pipeline work directory** field, enter your storage bucket URL, e.g., `gs://my-bucket`. This bucket must be accessible in the location selected in the previous step.
+In the **Work directory** field, enter your storage bucket URL, e.g., `gs://my-bucket`. This bucket must be accessible in the location selected in the previous step.
 
 :::note
 When you specify a Cloud Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
@@ -160,11 +161,11 @@ Select **Enable Fusion v2** to allow access to your Google Cloud Storage data vi
   <summary>Use Fusion v2</summary>
 
   :::note
-  The compute recommendations below are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files and a total size of approximately 123.5 GB. 
+  The compute recommendations below are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files and a total size of approximately 123.5 GB.
   :::
 
   1. Use Seqera Platform version 23.1 or later.
-  1. Use a Google Cloud Storage bucket as the pipeline work directory.
+  1. Use a Google Cloud Storage bucket as the work directory.
   1. Enable **Wave containers** and **Fusion v2**.
   1. Specify suitable virtual machine types and local storage settings, or accept the default machine settings listed below. An `n2-highmem-16-lssd` VM or larger is recommended for production use.
 
@@ -192,8 +193,8 @@ Wave containers and Fusion v2 are recommended features for added capability and 
 
 Enable **Spot** to use Spot instances, which have significantly reduced cost compared to On-Demand instances.
 
-:::note 
-From Nextflow version 24.10, the default Spot reclamation retry setting changed to `0` on AWS and Google. By default, no internal retries are attempted on these platforms. Spot reclamations now lead to an immediate failure, exposed to Nextflow in the same way as other generic failures (returning for example, `exit code 1` on AWS). Nextflow will treat these failures like any other job failure unless you actively configure a retry strategy. For more information, see [Spot instance failures and retries](https://docs.seqera.io/platform/24.2/troubleshooting_and_faqs/nextflow#spot-instance-failures-and-retries-in-nextflow).
+:::note
+From Nextflow version 24.10, the default Spot reclamation retry setting changed to `0` on AWS and Google. By default, no internal retries are attempted on these platforms. Spot reclamations now lead to an immediate failure, exposed to Nextflow in the same way as other generic failures (returning for example, `exit code 1` on AWS). Nextflow will treat these failures like any other job failure unless you actively configure a retry strategy. For more information, see [Spot instance failures and retries](../troubleshooting_and_faqs/nextflow.md#spot-instance-failures-and-retries-in-nextflow).
 :::
 
 Apply [**Resource labels**][resource-labels] to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
@@ -202,9 +203,9 @@ Apply [**Resource labels**][resource-labels] to the cloud resources consumed by 
 
 - Expand **Staging options** to include:
     - Optional [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
-    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch. 
+    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch.
     :::info
-    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority. 
+    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
     :::
 
 

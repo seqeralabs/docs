@@ -252,7 +252,7 @@ The initContainers will wait until both the Seqera and pipeline optimization ser
 
 ### Studios
 
-[Studios](../studios/index) is an interactive analysis environment available in organizational workspaces. To enable Studios, see [Studios deployment](./studios).
+[Studios](../studios/overview) is an interactive analysis environment available in organizational workspaces. To enable Studios, see [Studios deployment](./studios).
 
 :::note
 Studios is available from Seqera Platform v24.1. If you experience any problems during the deployment process [contact Seqera support](https://support.seqera.io). Studios in Enterprise is not installed by default.

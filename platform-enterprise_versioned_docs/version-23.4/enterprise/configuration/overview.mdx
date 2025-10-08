@@ -1,7 +1,8 @@
 ---
 title: "Configuration overview"
 description: Overview of Seqera configuration options
-date: "21 Apr 2023"
+date created: "2023-04-21"
+last updated: "2025-08-09"
 tags: [configuration]
 ---
 
@@ -506,7 +507,7 @@ To configure API rate limit environment variables, you must add `ratelim` to the
 
 | Environment variable   | Description                                                                   | Value           |
 | ---------------------- | ----------------------------------------------------------------------------- | --------------- |
-| `TOWER_ENABLE_OPENAPI` | Enable the OpenAPI documentation endpoint, e.g., [cloud.seqera.io/openapi/index.html](https://cloud.seqera.io/openapi/index.html). | Default: `true` |
+| `TOWER_ENABLE_OPENAPI` | Enable the OpenAPI documentation endpoint, e.g., [cloud.seqera.io/openapi/index.html](https://cloud.seqera.io/openapi/index.html). | Default: `false` |
 | `TOWER_RATELIMIT_PERIOD` | Specify the maximum number of HTTP requests that can be made during the `TOWER_RATELIMIT_REFRESH` period. | Default: `20` |
 | `TOWER_RATELIMIT_REFRESH` | API rate limit refresh period. | Default: `1s` |
 | `TOWER_RATELIMIT_TIMEOUT` | The waiting period before rejecting requests over the `TOWER_RATELIMIT_PERIOD` limit during the refresh period. | Default: `500ms` |

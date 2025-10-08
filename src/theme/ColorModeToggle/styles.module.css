@@ -15,7 +15,8 @@
 }
 
 .toggleButton:hover {
-  background: var(--ifm-color-emphasis-200);
+  opacity: .8;
+  transition: all .25s;
 }
 
 [data-theme="light"] .darkToggleIcon,

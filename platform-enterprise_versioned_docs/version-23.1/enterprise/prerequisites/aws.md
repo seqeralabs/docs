@@ -1,7 +1,8 @@
 ---
 title: "AWS prerequisites"
 description: Prerequisites for AWS deployments
-date: "12 Apr 2023"
+date created: "2023-04-12"
+last updated: "2025-07-18"
 tags: [aws, prerequisites, configuration]
 ---
 
@@ -23,7 +24,7 @@ Nextflow Tower is distributed as a collection of Docker containers available thr
 
     ```bash
     docker pull {{ images.tower_be_image }}
-    
+
     docker pull {{ images.tower_fe_image }}
     ```
 
@@ -46,6 +47,10 @@ Amazon [blocks EC2 traffic over port 25 by default](https://aws.amazon.com/premi
 An external database (i.e. external to your Docker Compose or Kubernetes deployment) is _highly_ recommended for production deployments. If you don't have your own database service, you can use [Amazon Relational Database Service](https://aws.amazon.com/rds/).
 
 If you decide to use an external database, you must create a MySQL user and database manually. See [Configuration](../configuration/database_and_redis) for more details.
+
+### Redis-compatible cache
+
+An external Redis-compatible cache, such as one provided by [Amazon ElastiCache](https://aws.amazon.com/elasticache/), is highly recommended for production deployments.
 
 ### EC2 instance (Docker Compose)
 
@@ -138,13 +143,9 @@ If you're using Simple Email Service in sandbox mode, ensure that both the _send
 :::
 
 1. Navigate to the [**Amazon Simple Email Service**](https://us-east-2.console.aws.amazon.com/ses) console.
-
 2. In the navigation menu, select **SMTP Settings**.
-
 3. Select **Create my SMTP Credentials**
-
 4. Select **Create**.
-
 5. Select **Show User SMTP Credentials** to copy your credentials, or select **Download Credentials**.
 
    :::caution
@@ -152,11 +153,8 @@ If you're using Simple Email Service in sandbox mode, ensure that both the _send
    :::
 
 6. You will be automatically redirected to the IAM dashboard. Log back in to the [Amazon SES Console](https://us-east-2.console.aws.amazon.com/ses).
-
 7. Select **Email Addresses** in the navigation menu. Then, select **Verify a new Email Address**.
-
 8. A pop-up asking for your email should automatically appear. Once you type in your email address and select **Verify This Email Address**, you should receive a confirmation email from Amazon SES to confirm email address ownership.
-
 9. Open the verification link in the message.
 
    :::caution
@@ -174,32 +172,23 @@ See the AWS documentation for more options, such as setting up an [Easy DKIM for
 ### Amazon RDS
 
 1. Open the [Amazon RDS console](https://console.aws.amazon.com/rds/).
-
 2. Select **Create database** -> **Standard create** -> **MySQL**.
-
 3. Under **Edition**, select **MySQL Community** and any version under **5.7.x**, or **8.0.x**.
-
 4. Enter the **DB cluster identifier** (e.g., `nftower-db`).
-
 5. Enter the **Master username**, or keep the default.
-
 6. Enter the **Master password**.
 
    - To use an automatically generated master password, select **Auto generate a password**.
    - To use a custom master password, deselect **Auto generate a password** and enter your password in **Master password** and **Confirm password**.
 
 7. Under **Instance configuration**, select the **DB instance class** and instance type.
-
 8. Under **Connectivity**, select the correct **VPC security group**. Confirm this with your AWS administrator.
-
 9. Under **Additional configuration**, enter the **Initial database name** (e.g., `tower`).
-
 10. Select **Create database**.
 
 After your database is created:
 
 1. Update the inbound rules for the underlying EC2 instance to allow MySQL connections.
-
 2. Update `TOWER_DB_URL` in your configuration value with the database hostname.
 
 ### Amazon EC2
@@ -207,53 +196,31 @@ After your database is created:
 If you have never set up an Amazon EC2 instance for Linux, refer to [this guide](https://aws.amazon.com/ec2/getting-started/) to get started with Amazon EC2.
 
 1. Open the [AWS Management console](https://us-east-2.console.aws.amazon.com/console/home).
-
 2. Log in as an IAM user with your credentials.
-
 3. Under **AWS services**, select **All Services**.
-
 4. Under **Compute**, select **EC2**.
-
 5. Select **Instances**, then **Launch instances**.
-
 6. You will be asked to choose an Amazon Machine Image (AMI). Scroll to the middle of the page and select **Amazon Linux 2**.
-
 7. Once you click **Select**, you will be redirected to **Step 2: Choose an Instance Type**.
-
 8. Scroll down and select either **c5a.xlarge** or **c5.large** — these provide 4 CPUs and 8GB of RAM.
-
 9. Select **Next: Configure Instance Details**.
-
 10. If required, configure the instance details settings. Then, select **Next: Add Storage**.
-
 11. The root storage should be 20GB. Configure this under **Size (GiB)**.
-
 12. Select **Add Tags** (if required) to add case-sensitive key-value pairs (e.g., `key = Name` and `value = Webserver`).
-
 13. Select **Next: Configure Security Group**.
-
 14. Enter `nftower-sg` as the Security Group name.
-
 15. Optionally, you can enter a description for your Security Group's name.
-
 16. Configure the type of protocol settings. Note that the security group port must be configured to 8000.
-
 17. Select **Review and Launch**.
-
 18. Once you have reviewed your instance, select **Launch**.
-
 19. Select an existing key pair or create a new one in the pop-up that appears.
 
-    If you already have an existing key pair, select **Choose an existing key pair** and choose from the available options in the drop-down menu.
-
-    If you do not have a key pair yet, select **Create a new keypair**. Enter a name, then select **Download Key Pair**.
-
-    **Note:** once you download the key pair, store it in a secure and accessible location. You will not be able to download the file again after it is created.
+    - If you already have an existing key pair, select **Choose an existing key pair** and choose from the available options in the drop-down menu.
+    - If you do not have a key pair yet, select **Create a new keypair**. Enter a name, then select **Download Key Pair**.
+    **Once you download the key pair, store it in a secure and accessible location. You will not be able to download the file again after it is created.**
 
 20. Select **Launch Instances**.
-
 21. Use the key pair to connect to the server using SSH and its public IP address. Terminal-based SSH is easier to use than browser-based SSH for copying and pasting text.
-
 22. Enter the following commands to set up `docker` and `docker-compose`.
 
     ```bash
@@ -262,7 +229,7 @@ If you have never set up an Amazon EC2 instance for Linux, refer to [this guide]
     sudo service docker start
     sudo usermod -a -G docker ec2-user
     sudo chkconfig docker on
-    
+
     # Setup docker-compose
     sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
     sudo chmod +x /usr/local/bin/docker-compose

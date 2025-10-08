@@ -1,0 +1,26 @@
+---
+id: identities-info
+title: "Managed identities"
+description: "API operations for managed identities and managed credentials in Seqera Platform"
+sidebar_label: Managed identities
+hide_title: false
+custom_edit_url: null
+---
+
+import ApiLogo from "@theme/ApiLogo";
+import Heading from "@theme/Heading";
+import SchemaTabs from "@theme/SchemaTabs";
+import TabItem from "@theme/TabItem";
+import Export from "@theme/ApiExplorer/Export";
+import MDXComponents from "@theme-original/MDXComponents";
+import Button from "@site/src/components/Button";
+
+[Managed identities](https://docs.seqera.io/platform-cloud/credentials/managed_identities) offer significant advantages for high performance computing (HPC) environments by enabling granular access control for individual workspace users. Unlike traditional SSH credentials that grant all workspace users access to HPC clusters using the same set of credentials, managed identities ensure each user’s activity is logged under their own credentials.
+
+### Path and query parameters 
+
+::table{file=parameter-tables/identities/parameters.yml}
+
+### Request body parameters 
+
+::table{file=parameter-tables/identities/request-bodies.yml}

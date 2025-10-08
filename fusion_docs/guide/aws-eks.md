@@ -72,7 +72,7 @@ Create a namespace and a service account in your Kubernetes cluster to run the j
 
     Replace `<ACCOUNT_ID>` with your account ID.
 
-1. Configure your AWS IAM role to provide read-write permission to the S3 bucket used as the pipeline work directory. For example:
+1. Configure your AWS IAM role to provide read-write permission to the S3 bucket used as the work directory. For example:
 
     ```json
     {

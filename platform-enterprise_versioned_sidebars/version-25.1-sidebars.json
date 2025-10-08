@@ -87,17 +87,7 @@
           "getting-started/quickstart-demo/monitor-runs",
           "getting-started/quickstart-demo/automation"
         ]
-      },
-      {
-        "type": "category",
-        "label": "Tutorials",
-        "collapsed": true,
-        "items": [          
-          "getting-started/rnaseq",
-          "getting-started/proteinfold",
-          "getting-started/studios"
-          ]
-      },      
+      },    
       {
         "type": "category",
         "label": "Credentials",
@@ -213,7 +203,11 @@
         "label": "Developer tools",
         "collapsed": true,
         "items": [
-          "api/overview",
+          {
+            "type": "link",
+            "label": "API",
+            "href": "https://docs.seqera.io/platform-api"
+          },
           {
             "type": "category",
             "label": "CLI",

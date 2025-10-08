@@ -178,7 +178,7 @@ spec:
   ...
       containers:
         - name: frontend
-          image: cr.seqera.io/private/nf-tower-enterprise/frontend:v24.1.7-unprivileged
+          image: cr.seqera.io/private/nf-tower-enterprise/frontend:v24.1.8-unprivileged
           env:
             - name: NGINX_LISTEN_PORT  # If not defined, defaults to 8000.
               value: 8000
@@ -252,7 +252,7 @@ The initContainers will wait until both the Seqera and pipeline optimization ser
 
 ### Data Studios
 
-[Data Studios](../data_studios/index) is an interactive analysis environment available in organizational workspaces. To enable Data Studios, see [Data Studios deployment](./data-studios).
+[Data Studios](../data_studios/overview) is an interactive analysis environment available in organizational workspaces. To enable Data Studios, see [Data Studios deployment](./data-studios).
 
 :::note
 Data Studios is currently in **public preview** and is available from Seqera Platform v24.1. If you experience any problems during the deployment process [contact Seqera support](https://support.seqera.io). Data Studios in Enterprise is not installed by default.

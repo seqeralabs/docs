@@ -48,7 +48,7 @@
 .sidebarNav {
   margin-top: -15px;
   padding: 1rem;
-  height: calc(100% - 180px);
+  height: calc(100% - 80px);
   overflow-y: auto;
   & > div {
     margin-top: 15px;

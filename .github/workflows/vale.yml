@@ -6,7 +6,10 @@ jobs:
     name: runner / vale
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: errata-ai/vale-action@v2.1.1
+      - name: Checkout repository
+        uses: actions/checkout@v5
+      
+      - name: Run Vale prose linter
+        uses: errata-ai/vale-action@v2.1.1
         with:
           files: '["platform-enterprise_versioned_docs/version-24.2"]'

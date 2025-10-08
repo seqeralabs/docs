@@ -1,13 +1,12 @@
 ---
 title: "Studios for interactive analysis"
-description: "Creating interactive analysis Studios for Jupyter, RStudio, VS Code, and more"
+description: "Creating interactive analysis Studios for Jupyter, R-IDE, VS Code, and more"
 date: "24 Feb 2025"
-tags: [platform, studios, jupyter, rstudio, xpra, vscode, conda]
+tags: [platform, studios, jupyter, r-ide, xpra, vscode, conda]
 toc_max_heading_level: 3
 ---
 
-[Studios](../studios/overview) allows users to host a variety of container images directly in Seqera Platform compute environments for analysis using popular environments including [Jupyter](https://jupyter.org/) (Python) and [RStudio](https://posit.co/products/open-source/rstudio/) notebooks (R), [Visual Studio Code](https://code.visualstudio.com/) IDEs, and [Xpra](https://xpra.org/index.html) remote desktops. Each Studio session provides a dedicated interactive environment that encapsulates the live environment.
-
+[Studios](../studios/overview) allows users to host a variety of container images directly in Seqera Platform compute environments for analysis using popular environments including [Jupyter](https://jupyter.org/) (Python) and an [R-IDE](https://github.com/seqeralabs/r-ide) (R), [Visual Studio Code](https://code.visualstudio.com/) IDEs, and [Xpra](https://xpra.org/index.html) remote desktops. Each Studio session provides a dedicated interactive environment that encapsulates the live environment.
 This guide explores how Studios integrates with your existing workflows, bridging the gap between pipeline execution and interactive analysis. It details how to set up and use each type of Studio, demonstrating a practical use case for each.
 
 :::info[**Prerequisites**]
@@ -57,7 +56,7 @@ For the purposes of this guide, add the proteinfold results (H1065 sequence) fro
 To use your own pipeline data for interactive visualization, add the cloud bucket that contains the results of your *nf-core/proteinfold* pipeline run. See [Add a cloud bucket](./quickstart-demo/add-data#add-a-cloud-bucket) for more information. 
 :::
 
-### Create a Jupyter Studio
+### Create a Jupyter Studio session
 
 From the **Studios** tab, select **Add a Studio** and complete the following:
 - In the **Compute & Data** tab:
@@ -66,7 +65,7 @@ From the **Studios** tab, select **Add a Studio** and complete the following:
         Studio sessions compete for computing resources when sharing compute environments. Ensure your shared compute environment has sufficient resources to run both your pipelines and Studio sessions. 
         :::
     - Optional: Enter CPU and memory allocations. The default values are 2 CPUs and 8192 MB memory (RAM).
-    - Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the nf-core AWS megatests proteinfold data, or the pipeline work directory of your *nf-core/proteinfold* run. 
+    - Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the nf-core AWS megatests proteinfold data, or the work directory of your *nf-core/proteinfold* run. 
 - In the **General config** tab:
     - Select the latest **Jupyter** container image template from the list.
     - Optional: Enter a unique name and description for the Studio. 
@@ -361,9 +360,9 @@ Run the following script in your Jupyter notebook to install the necessary packa
 
 To share a link to the running Studio session with collaborators inside your workspace, select the options menu for your Jupyter Studio session, then select **Copy Studio URL**. Using this link, other authenticated users can access the session directly to collaborate in real time.
 
-## RStudio: Analyze RNASeq data and differential expression statistics 
+## R-IDE: Analyze RNASeq data and differential expression statistics 
 
-RStudio notebooks enable interactive analysis using R libraries and tools. For example, Shiny for R enables you to render functions in a reactive application and build a custom user interface to explore your data. The public data used in this section consists of RNA sequencing data that was processed by the *nf-core/rnaseq* pipeline to quantify gene expression, followed by *nf-core/differentialabundance* to derive differential expression statistics. This section demonstrates how to create a Studio to perform further analysis with these results from cloud storage. One of these outputs is an RShiny application that can be deployed for interactive analysis.
+An R-IDE enables interactive analysis using R libraries and tools. For example, Shiny for R enables you to render functions in a reactive application and build a custom user interface to explore your data. The public data used in this section consists of RNA sequencing data that was processed by the *nf-core/rnaseq* pipeline to quantify gene expression, followed by *nf-core/differentialabundance* to derive differential expression statistics. This section demonstrates how to create a Studio to perform further analysis with these results from cloud storage. One of these outputs is web app that can be deployed for interactive analysis.
 
 #### Create an AWS Batch compute environment 
 
@@ -391,7 +390,7 @@ For the purposes of this guide, add the nf-core AWS megatests S3 bucket to your 
 To use your own pipeline data for interactive analysis, add the cloud bucket that contains the results of your *nf-core/differentialabundance* pipeline run. See [Add a cloud bucket](./quickstart-demo/add-data#add-a-cloud-bucket) for more information. 
 :::
 
-### Create an RStudio notebook Studio 
+### Create an R-IDE Studio session
 
 From the **Studios** tab, select **Add a Studio** and complete the following:
 - In the **Compute & Data** tab:
@@ -402,19 +401,19 @@ From the **Studios** tab, select **Add a Studio** and complete the following:
     - Optional: Enter CPU and memory allocations. The default values are 2 CPUs and 8192 MB memory (RAM).
     - Mount data using Data Explorer: Mount the nf-core AWS megatests S3 bucket, or the directory path that contains the results of your *nf-core/differentialabundance* pipeline run. 
 - In the **General config** tab:
-    - Select the latest **RStudio** container image template from the list.
+    - Select the latest **R-IDE** container image template from the list.
     - Optional: Enter a unique name and description for the Studio. 
 - Select **Add** or choose to **Add and start** a Studio session immediately.
 - If you chose to **Add** the Studio in the preceding step, select **Start** in the options menu, then **Connect** to open a Studio session in a new browser tab when it is running. 
 
-### Configure environment and explore data in RShiny app
+### Configure environment and explore data in a web app
 
-The following R script installs and configures the prerequisite packages and libraries to deploy ShinyNGS, an RShiny application created by members of the nf-core community to explore genomic data. The script also downloads the RDS file from nf-core AWS megatests to use as input data for the Shiny app's various plots, heatmaps, and tables. To use your own *nf-core/rnaseq* and *nf-core/differentialabundance* results, modify the script as instructed in step 2 below: 
+The following R script installs and configures the prerequisite packages and libraries to deploy ShinyNGS, a web application created by members of the nf-core community to explore genomic data. The script also downloads the RDS file from nf-core AWS megatests to use as input data for the app's various plots, heatmaps, and tables. To use your own *nf-core/rnaseq* and *nf-core/differentialabundance* results, modify the script as instructed in step 2 below: 
 
 <details>
 <summary>R script individual steps</summary>
 
-    1. Configure the RStudio environment with installed packages, including [ShinyNGS](https://github.com/pinin4fjords/shinyngs):
+    1. Configure the R-IDE session with installed packages, including [ShinyNGS](https://github.com/pinin4fjords/shinyngs):
 
         ```r 
         if (!require("BiocManager", quietly = TRUE))
@@ -440,7 +439,7 @@ The following R script installs and configures the prerequisite packages and lib
         download.file("https://bucket.s3-region.amazonaws.com/differentialabundance/results/shinyngs_app/study-name/data.rds", 'data.rds')
         ```
 
-    1. Import libraries, read your RDS data, and launch the RShiny app:
+    1. Import libraries, read your RDS data, and launch the app:
 
         ```r 
         library(shinyngs)
@@ -456,7 +455,7 @@ The following R script installs and configures the prerequisite packages and lib
 
 #### Interactive collaboration 
 
-To share a link to the running session with collaborators inside your workspace, select the options menu for your RStudio session, then select **Copy Studio URL**. Using this link, other authenticated users can access the session directly to collaborate in real time.
+To share a link to the running session with collaborators inside your workspace, select the options menu for your R-IDE session, then select **Copy Studio URL**. Using this link, other authenticated users can access the session directly to collaborate in real time.
 
 ## Xpra: Visualize genetic variants with IGV
 
@@ -488,7 +487,7 @@ Add the 1000 Genomes S3 bucket to your workspace using Data Explorer:
 To use your own data for interactive analysis, see [Add a cloud bucket](./quickstart-demo/add-data#add-a-cloud-bucket) for instructions to add your own public or private cloud bucket. 
 :::
 
-### Create an Xpra Studio 
+### Create an Xpra Studio session
 
 From the **Studios** tab, select **Add a Studio** and complete the following:
 - In the **Compute & Data** tab:
@@ -552,7 +551,7 @@ The *nf-core/fetchngs* pipeline uses data from the NGI iGenomes public dataset f
       - An optional bucket **Description**
 1. Select **Add**.
 
-### Create a VS Code Studio 
+### Create a VS Code Studio session
 
 From the **Studios** tab, select **Add a Studio** and complete the following:
 - In the **Compute & Data** tab:
@@ -583,7 +582,7 @@ From the **Studios** tab, select **Add a Studio** and complete the following:
 See [User and workspace settings](https://code.visualstudio.com/docs/editor/settings) if you wish to import existing VS Code configuration and preferences to your Studio session's VS Code environment. 
 :::
 
-### Run nf-core/fetchngs with Conda 
+### Run *nf-core/fetchngs* with Conda 
 
 Run the following Nextflow command to run *nf-core/fetchngs* with Conda:
 

@@ -54,8 +54,15 @@ spec:
             runAsNonRoot: true
             runAsUser: 65532
             runAsGroup: 65532
+          volumeMounts:
+            - mountPath: /data
+              name: caddy-temp-data-volume
       securityContext:
         fsGroup: 65532
+      volumes:
+        - name: caddy-temp-data-volume
+          emptyDir:
+            sizeLimit: 100Mi  
 ---
 apiVersion: v1
 kind: Service

@@ -391,7 +391,7 @@ tw studios stop -i 13083356 -w community/showcase
 
 Run `tw studios checkpoints -h` to view the required and optional fields for viewing checkpoints for a session.
 
-List all checkpoints for an existing Studio session in a workspace. See [Session checkpoints](../studios/overview#session-checkpoints) for more information.
+List all checkpoints for an existing Studio session in a workspace. See [Session checkpoints](../studios/overview#studio-session-checkpoints) for more information.
 
 ```bash
 tw studios checkpoints -i 19a3abbd -w community/showcase

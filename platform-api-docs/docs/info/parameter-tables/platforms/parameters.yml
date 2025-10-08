@@ -1,0 +1,25 @@
+- Name: "`orgId`"
+  Type: integer
+  Location: query
+  Req/Opt: Optional
+  Description: Organization numeric identifier
+- Name: "`workspaceId`"
+  Type: integer
+  Location: query
+  Req/Opt: Optional
+  Description: Workspace numeric identifier
+- Name: "`platformId`"
+  Type: string
+  Location: path
+  Req/Opt: Required
+  Description: Platform string identifier
+- Name: "`regionId`"
+  Type: string
+  Location: query
+  Req/Opt: Required
+  Description: ""
+- Name: "`credentialsId`"
+  Type: string
+  Location: query
+  Req/Opt: Required
+  Description: ""

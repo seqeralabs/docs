@@ -38,14 +38,14 @@ The DB or Redis volume is persistent after a Docker restart by default. Use the 
 6. After you've confirmed that Seqera Enterprise is correctly configured and you can launch workflows, run `docker compose up -d` to deploy the application as a background process. You can then disconnect from the VM instance.
 
 :::note
-For more information on configuration, see [Configuration options](./configuration/overview).
+For more information on configuration, see [Configuration options](./configuration/overview.mdx).
 :::
 
 ## Optional features
 
 ### Data Studios
 
-[Data Studios](../data_studios/index) is an interactive analysis environment available in organizational workspaces. To enable Data Studios, see [Data Studios deployment](./data-studios).
+[Data Studios](../data_studios/overview) is an interactive analysis environment available in organizational workspaces. To enable Data Studios, see [Data Studios deployment](./data-studios).
 
 :::note
 Data Studios is currently in **public preview** and is available from Seqera Platform v24.1. If you experience any problems during the deployment process please contact your account executive. Data Studios in Enterprise is not installed by default.

@@ -7,10 +7,11 @@ jobs:
   detect-unresolved-conflicts:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v5
+      
       - name: List files with merge conflict markers
         run: git --no-pager grep "<<<<<<<" ":(exclude).github/" || true
-      - name: Fail or succeed job if any files with merge conflict markers have been checked in
-        # Find lines containing "<<<<<<<", then count the number of lines.
-        # 0 matching lines results in exit code 0, i.e. success.
+      
+      - name: Fail if merge conflict markers found
         run: exit $(git grep "<<<<<<<" ":(exclude).github/" | wc --lines)

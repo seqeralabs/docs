@@ -5,7 +5,7 @@ description: "Lists known Nextflow pipeline Git repositories, extracted from exi
 sidebar_label: "List user pipeline repositories"
 hide_title: true
 hide_table_of_contents: true
-api: eJzNVMFu2zAM/RVB5yLp1mLActlSoCuCDVvRbthhKFDFZhI1tqRSdLLAyL+PlO3EaYIOu+2UyHqk3iMfWescYoY2kPVOj/QXGymqpfNrp77Cb5oVfq2CDVBYB+rGkkIIPlryaCGeKYagyQhyNUNf8pHjrZsrrFwcqHEI4HL1+GHtcRmDyWCSPyryqmDYQSZlnTJqB1OZd8S5B/pMk5lHPfqlOxZRP5xpHwCNcJ7kLevb9vqul5Wjg0FTAgFKjlo7PnBAjw9jrCh/rgA3fDisx88dI1eVgDZTNgdHdmYBGRyzBZRGj2pNmyCJLdOep6uZx9JQ8+ndpd5umTVCDN5FJsYRb8/P5efwvW+fOTSJdyS3JoTCZknp8CkKpD5+1E+fICMRi1IXss0D+4LtoQbRiEpLUPa/R0JuG7PccsEtFfCiqhM383cte0Ex7PIU/yuTc1+5lpH+RYiEWIRc+lxCjGYO0uXX9XXAEyr2Iq4RPR4xvzhR+c5RynlSpmDjMx+BR8gqtLRJBroCg4DjihZ8fJCmsrsWXlw4h8TRyJUe7qo/xENHdunuRX2jpJ90J2ZBFDqLyXmaQPyl+fOp89fTmhJNyy1K4a3ye3hmRWp8OzlydXt1WxgSm6oIuLIZT2EDlrbxUEuyCouWShwNhzHFDaxnEHfOFsneM/9xf8FEVjxszTtvBhfvB+fyjStApUldb0dQ3KUqfnm/Xl4U6oBzvTfTf7mkmp7JcRgKwxuFRafi1a0j+gtMNkFPKptowfURTF1PTYQfWGy38rlZSuK73EYzLWRCZqaI8Ep1/rKyTjJdwuZoK65MUQlSi8lXBq28n0zPdMHknE2INaHjLINAvaijeT8YlZvr74w1h4Z/YfCUvVtbbtPLzUVKiO9+CY4L1fEnOfNDPOR/AF19ZtY=
+api: eJzNVE1v2zAM/SuCzkHSbUUPuWwp0BXBhq1oO+wwFKhi04kaW1IpOllg5L+P9EfifKDAgB12SmQ9Uu+Rj6w0mXnU41862AC5dRD100CnEBO0gax3eqy/2khRLZ1fO/UNflOW+7Xq8OrWkkIIPlryaCEOFEPQJASpytAXfOR46+YKSxeHahICuFQ9f1x7XMZgEpimz4q8yhl2kElZp4zawVTiHXHuoR5oHwCN0JumLcG7ls99LwEDg0FTAAGKyEo7PnBA72nGWBH5WgJu9LH0n7vHXVkA2kTZFBzZzAIO1TRTvrDESgc1+3iGfhkB+8xjsoDC6HGlaROEi+WrOSBfZR4LQ82nq0u93XInEGLwLrIWjnh/cSE/hxS/f+HQ+gFHcmtCyG1SF2f0EgVSnT7qZy+QkNQHpZRkmwf2JthDDaKRwliCov89EnJTmeV2oMlSDkeNmLrM37fsBcWwy3P8r03KZePyR/obIRJiEVLxbgExmjmIc9/W1wHPqNiLuEH0eML8w5nKdyZUzpMyOY8F8xF4hKRES5vac9dgEHBS0oKPT9JUNuTCi3HnUHM0cqVHu+qP8NDEXboHUd8o6SfdiVkQhc5icp7VIP7S/Pnc+etlTTVNyy2qw1vlD/DKitTkbnoyCO3VXW5IbKrY1SubsMkbsLSNR16SlZi3VOJ4NIp13NB6BnHnbF7bO/Of9hdMZMXz2bzzbnh1NbyQb1wBKkzd9XZqxV3NPO2Wz1GhDjhXezP9jyus7ZkcRyE3vIRYdF28qnVEfynLJuhJZRMtuD6CqaqZifAD8+1WPjd7THyX2mhmuUxIZvIIb1Tn32+5s+KWsDnZvSuTl4LUMhcrg1Yo13PCCsGkbF/R0oROkgQC9aJOVsTBdN3ePDLWHM7I0UzU2btN5za93FzXGvHol+C4th1/kjM/xHvhD/Y8i9Y=
 sidebar_class_name: "get api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -47,7 +47,7 @@ Lists known Nextflow pipeline Git repositories, extracted from existing runs. Ap
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier. If omitted, lists repositories in a user context.","schema":{"type":"integer","format":"int64"}}]}
 >
   
 </ParamsDetails>
