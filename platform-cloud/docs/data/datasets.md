@@ -56,7 +56,7 @@ Datasets can point to files stored in various locations, such as Amazon S3 or Gi
 
 ### Create a dataset
 
-All Seqera users with any role have access to the datasets feature in organization workspaces. 
+All Seqera user roles have access to the datasets feature in organization workspaces. 
 
 :::note
 The size of the dataset file cannot exceed 10 MB.
