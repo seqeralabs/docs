@@ -66,7 +66,7 @@ The size of the dataset file cannot exceed 10 MB.
 2. Select **Add Dataset**.
 3. Complete the **Name** and **Description** fields using information relevant to your dataset.
 4. Add a **Label** to your dataset. You can use labels as a search filter but they don't apply to other resources in Seqera.
-4. Add the dataset file to your workspace with drag-and-drop or the system file explorer dialog.
+4. Upload a dataset to your workspace with drag-and-drop or use the system "Upload file" file explorer dialog.
 5. For dataset files that use the first row for column names, customize the dataset view with the **First row as header** option.
 
 ## Dataset versions
