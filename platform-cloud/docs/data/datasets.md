@@ -95,7 +95,15 @@ To preview previous dataset versions, change the version from the **Show** drop-
 To download a dataset version, select the **Download** icon.
 
 To copy a permalink to the dataset, select the **Copy** icon.
+### Disabling a dataset version
 
+One or more dataset versions can be **disabled** by selecting the **Disable version** option. Disabling a dataset version means that it cannot be selected as an input to a pipeline run. If the most recent version of a dataset is disabled, the most recent previous non-disabled version is flagged as **(latest)**.
+
+:::note
+For compliance reasons, datasets or dataset versions cannot be deleted, they can only be **hidden** or **disabled**, respectively.
+
+Once disabled, a dataset version cannot be re-enabled.
+:::
 ### Use a dataset
 
 To use a dataset with pipelines added to your workspace:
