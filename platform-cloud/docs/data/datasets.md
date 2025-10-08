@@ -70,7 +70,7 @@ The size of the dataset file cannot exceed 10 MB.
 5. For datasets that use their first row for column names, customize the dataset view using the **Set first row as header** option.
 6. Select **Add**. 
 
-## Dataset versions
+## Manage dataset versions
 
 Seqera can accommodate multiple versions of a dataset. To add a new version for an existing dataset:
 
