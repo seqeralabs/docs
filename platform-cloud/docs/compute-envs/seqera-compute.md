@@ -31,7 +31,7 @@ Seqera Compute environments automatically provision cloud resources when you lau
 - 48 vCPUs
 - 192 GiB memory
 
-Running workflows requesting resources higher than these limits will result in errors. 
+Running workflows that request resources exceeding these limits will result in errors. 
 
 #### Workspace limits
 
