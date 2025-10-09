@@ -24,7 +24,7 @@ Resource labels can be applied to compute environments, pipelines, actions, runs
 - The start of a Studio's first session
 
 :::info
-Resource label propagation is one-way and not synchronized with the cloud environment. This means that Seqera attaches tags to cloud resources, but isn't aware if those tags are changed or deleted directly in the cloud environment.
+Seqera applies resource labels to cloud resources in one direction only. Any tags changed or deleted directly in your cloud environment will not be reflected in Seqera.
 :::
 
 ### Resource labels applied to compute environments
