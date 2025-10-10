@@ -24,6 +24,17 @@ Select **Contact us to upgrade** to request additional credits for your organiza
 
 ### Default limits
 
+#### Compute environment limits
+
+Seqera Compute environments automatically provision cloud resources when you launch pipelines or Studios. The maximum resources that can be allocated to a Seqera Compute environment are:
+
+- 48 vCPUs
+- 192 GiB memory
+
+Running workflows that request resources exceeding these limits will result in errors. 
+
+#### Workspace limits
+
 Seqera Compute has default workspace limits on compute environments, and organization limits on data storage and CPU cores. 
 
 |                                    | **Basic**                        | **Pro**                            |
