@@ -9,18 +9,7 @@ Seqera Compute enables you to run pipelines and Studio sessions in Seqera Cloud 
 
 ### Manage Seqera Compute credits 
 
-Seqera Compute environments consume credits when running pipelines or Studio sessions. Credits are consumed for CPU time, memory and storage usage, and network costs. One Seqera Compute credit is equivalent to $1 (USD), and resources are charged at the following rates:
-- CPU time: 1 CPU/Hr = 0.1 credits
-- Memory: 1 GiB/Hr = 0.025 credits 
-- Storage: 1 GB = 0.025 credits per month 
-
-:::note 
-Storage and network costs vary per region, charged at standard AWS rates. Data ingress and egress across regions incur additional costs. 
-:::
-
-View your Seqera Compute credit balance and spend under both the organization and workspace **Settings** tabs. Workspace settings show the credits spent in that workspace, whereas organization settings show the total credits spent in all workspaces within that organization. 
-
-Select **Contact us to upgrade** to request additional credits for your organization. 
+Seqera Compute uses prepaid credits with real-time billing. Credits are deducted as tasks complete. See [Billing and credit management](../administration/credit-management.md) for details.
 
 ### Default limits
 

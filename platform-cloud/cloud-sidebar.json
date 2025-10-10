@@ -61,7 +61,14 @@
             "type": "category",
             "label": "Cloud",
             "items": [
-              "compute-envs/seqera-compute",
+              {
+                "type": "category",
+                "label": "Seqera Compute",
+                "link": {"type": "doc", "id": "compute-envs/seqera-compute"},
+                "items": [
+                  "administration/credit-management"
+                ]
+              },  
               "compute-envs/aws-batch",
               "compute-envs/aws-cloud",
               "compute-envs/azure-batch",
