@@ -6,24 +6,15 @@ last updated: "2025-07-29"
 tags: [data, explorer]
 ---
 
-With Data Explorer, you can browse and interact with remote data repositories from organization workspaces in Seqera Platform. It supports AWS S3, Azure Blob Storage, and Google Cloud Storage repositories.
+With Data Explorer, you can browse and interact with remote data repositories from organization workspaces in Seqera Platform. It supports AWS S3, Azure Blob Storage, Google Cloud Storage, and Amazon S3-compatible API storage.
 
-Access the **Data Explorer** tab from any enabled workspace to view and manage all available cloud storage buckets. It is also integrated with the pipeline launch form and run detail pages, which allows you to select input data files and output directories or quickly view the output files of a run.
+Access the **Data Explorer** tab from any workspace to view and manage all available object storage buckets. It is also integrated with the pipeline launch form and run detail pages and Studios, which allow you to select input data files and output directories or quickly view the output files of a run and directly use files in object storage for interactive analysis.
 
 If you use Seqera Cloud and want to disable Data Explorer, [contact](https://seqera.io/contact-us/) your Seqera account executive.
 
 ## Participant roles
 
-The role assigned to a workspace user affects what functionality is available in Data Explorer. The specific functionality for each role is described in the following list of roles:
-
-- **View**: Can only view contents of cloud storage buckets. Cannot download, upload, or preview. Cannot hide or add buckets.
-- **Launch**: Can only view contents of cloud storage buckets. Cannot download, upload, or preview. Cannot hide or add buckets.
-- **Connect**: Can only view contents of cloud storage buckets. Cannot download, upload, or preview. Cannot hide or add buckets.
-- **Maintain**: Can view download, upload, and preview contents of cloud storage buckets. Can hide and add buckets.
-- **Admin**: Can view, download, upload, and preview contents of cloud storage buckets. Can hide and add buckets.
-- **Owner**: Can view, download, upload, and preview contents of cloud storage buckets. Can hide and add buckets.
-
-For more information on roles in Seqera Platform, see [Participant roles][roles].
+The role assigned to a workspace user affects what functionality is available in Data Explorer. These permissions are listed in the [Participant roles][roles].
 
 ## Add cloud storage buckets
 
