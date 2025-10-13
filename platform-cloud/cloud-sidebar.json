@@ -24,8 +24,7 @@
           "getting-started/quickstart-demo/add-data",
           "getting-started/quickstart-demo/launch-pipelines",
           "getting-started/quickstart-demo/monitor-runs",
-          "getting-started/quickstart-demo/automation",
-          "getting-started/production-checklist"
+          "getting-started/quickstart-demo/automation"          
         ]
       },
       {
@@ -66,6 +65,7 @@
               "compute-envs/aws-batch",
               "compute-envs/aws-cloud",
               "compute-envs/azure-batch",
+              "compute-envs/azure-cloud",
               "compute-envs/google-cloud-batch",
               "compute-envs/google-cloud",             
               "compute-envs/eks",
@@ -200,6 +200,7 @@
           "troubleshooting_and_faqs/aws_troubleshooting",
           "troubleshooting_and_faqs/azure_troubleshooting",
           "troubleshooting_and_faqs/workspaces_troubleshooting",
+          "troubleshooting_and_faqs/resource-labels",
           "troubleshooting_and_faqs/datasets_troubleshooting"
         ]
       }

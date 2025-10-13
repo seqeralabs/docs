@@ -79,7 +79,7 @@ html[data-theme="light"] .navbar__items--right a:hover {
 html[data-theme="light"] .navbar__items--right button {
   color: var(--ifm-font-color-base);
 }
-html[data-theme="light"] .navbar__items--right button:not(.DocSearch):hover {
+html[data-theme="light"] .navbar__items--right button:hover {
   background-color: var(--color-wave);
 }
 
@@ -111,10 +111,6 @@ html[data-theme="light"]
 }
 
 /* Search modal */
-html[data-theme="light"] .DocSearch-Logo svg * {
-  fill: var(--ifm-font-color-base);
-  opacity: 0.6;
-}
 
 /* Footer */
 html[data-theme="light"] .footer--dark {
@@ -168,7 +164,7 @@ html[data-theme="dark"] .pagination-nav__link:hover {
 html[data-theme="dark"] .navbar__items--right {
   color: #F1F1F1;
 }
-html[data-theme="dark"] .navbar__items--right button:not(.DocSearch):hover {
+html[data-theme="dark"] .navbar__items--right button:hover {
   background-color: var(--color-wave);
 }
 
