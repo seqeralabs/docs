@@ -11,7 +11,7 @@ tags: [connect, changelog, connect-changelog]
 
 * Released 0.8.2 - bump server version
 * Extract Fusion version 
-* Fix(proxy): include prefix in Location header
+* Fix location header for path-based routing reverse proxy requests
 
 ### server/v0.8.2 - 2025-07-21
 
