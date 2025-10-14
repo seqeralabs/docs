@@ -99,17 +99,29 @@ Data Explorer supports single or bulk file uploads to your private data reposito
 
 Currently, these limits are (for cloud providers):
 
-- [AWS](https://docs.aws.amazon.com/AmazonS3/latest/userguide/upload-objects.html)
-  - Single `PUT` upload: 5 GB
-  - Multi-part upload: 5 TB
+- [AWS](https://docs.aws.amazon.com/AmazonS3/latest/userguide/qfacts.html)
+  - Single `PUT` upload: 5 GiB
+  - Multi-part upload: 5 TiB
 
 - [Azure](https://learn.microsoft.com/en-us/rest/api/storageservices/put-blob?tabs=microsoft-entra-id#remarks)
-  - Single `PUT` upload: 5 GB
-  - Multi-part upload: 4.77 TB
+  - Single `PUT` upload: 5 GiB
+  - Multi-part upload: 4.77 TiB
+
+- [Cloudflare R2](https://developers.cloudflare.com/r2/platform/limits/)
+  - Single `PUT` upload: 4.995 GiB
+  - Multi-part upload: 50 TiB
 
 - [GCP](https://cloud.google.com/storage/quotas#objects):
-  - Single `PUT` upload: 5 TB
-  - Multi-part upload: 5 TB
+  - Single `PUT` upload: 5 TiB
+  - Multi-part upload: 5 TiB
+
+- [MinIO](https://docs.min.io/enterprise/aistor-object-store/reference/aistor-server/thresholds/)
+  - Single `PUT` upload: 5 TiB
+  - Multi-part upload: 50 TiB
+
+- [Oracle Cloud](https://docs.oracle.com/en-us/iaas/Content/Object/Tasks/managingobjects_topic-To_upload_objects_to_a_bucket.htm)
+  - Single `PUT` upload: 64 MiB
+  - Multi-part upload: 50 GiB
 
 To cancel an upload, select **X** in the upload window. Any files not uploaded will display as **Failed**. Files that were successfully uploaded will not be removed.
 
