@@ -45,20 +45,12 @@ Seqera Compute has default workspace limits on compute environments, and organiz
     :::info
     Seqera Compute is available in the following AWS regions: 
 
-      **United States**:
-      - us-east-1 (Northern Virginia, USA)
-      - us-west-2 (Oregon, USA)
-      - us-east-2 (Ohio, USA)
-      - us-west-1 (Northern California, USA)
-      
-      **Europe**:
-      - eu-west-1 (Ireland)
-      - eu-west-2 (London, UK)
-      - eu-central-1 (Frankfurt, Germany)
-      - eu-west-3 (Paris, France)
-      
-      **APAC**:
-      - ap-southeast-1 (Singapore)
+    | United States | Europe | APAC |
+    |--------------|--------|------|
+    | us-east-1 (Northern Virginia, USA) | eu-west-1 (Ireland) | ap-southeast-1 (Singapore) |
+    | us-west-2 (Oregon, USA) | eu-west-2 (London, UK) | |
+    | us-east-2 (Ohio, USA) | eu-central-1 (Frankfurt, Germany) | |
+    | us-west-1 (Northern California, USA) | eu-west-3 (Paris, France) | |
     :::
 1. Configure any advanced options described in the next section, as needed.
 1. Select **Add** to complete the Seqera Compute environment configuration and return to the compute environments list. It will take a few seconds for the compute environment resources to be created before you are ready to launch pipelines or add studios. 

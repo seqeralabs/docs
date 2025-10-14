@@ -13,11 +13,8 @@ One Seqera Compute credit equals $1 USD. Resources are charged at AWS on-demand 
 
 ### Real-time credit deduction
 
-Credits are deducted throughout pipeline execution rather than only at workflow completion:
-
-- **Task-level billing**: Credits are deducted as each pipeline task completes, providing real-time visibility into run costs
-- **Immediate updates**: Credit balance and workflow costs update immediately in the Platform UI
-- **Cost aggregation**: The billing report CSV file shows aggregated compute and memory costs per workflow
+- **Task-level billing**: Credits are deducted as each pipeline task completes, providing real-time visibility into run costs. Credit spend for running Studio sessions updates at regular intervals.
+- **Cost aggregation**: The usage report CSV file shows aggregated compute and memory costs per workflow or Studio session.
 
 ### What is billed
 
@@ -34,122 +31,57 @@ Seqera Compute bills for four resource types:
 CPU and memory are billed based on **requested** resources in your pipeline configuration, not actual usage. Storage and network costs are billed based on actual consumption.
 :::
 
+#### Billing example: pipeline run
+
+The [nf-core/rnaseq](https://nf-co.re/rnaseq/3.21.0) pipeline is run on a Seqera Compute environment with a test dataset as input. The following run metrics are recorded at workflow completion:
+
+![](./_images/run-details.jpg)
+
 ## Credit management
 
-### View credit balance
+### Credit balance and spend overview
 
-Credit information is available at two levels:
+- Navigate to your organization or workspace **Settings** tab to view credit balance and spend information, request more credits, and download usage reports. 
+- Select **Usage overview** in the top navigation bar to view real-time run, Studio, user, and credit usage information for your workspace. Select **Details** to navigate to workspace **Settings**.
 
-- **Organization level**: Shows total available credits and aggregate spending across all workspaces
-  - Navigate to **Organization > Settings > Credits**
-- **Workspace level**: Shows credits consumed within that specific workspace
-  - Navigate to **Workspace > Settings > Credits**
+### Usage report
+
+From your organization or workspace **Settings** tab, select **Download report** in the **Credits** section to download a usage report in CSV format. The report is structured as follows:
+
+| Date | WorkflowId | WorkspaceId | Region | ProductName | UnitPrice(USD) | Quantity | Total(USD) |
+|------|------------|-------------|--------|-------------|----------------|----------|------------|
+| 2025-10-06 | PBoxxxxxxxkWO | 1884xxxxxxx2036 | us-east-2 | Cpu Hours | 0.1 | 244.7376722221 | 24.47376722221 |
+| 2025-10-06 | PBoxxxxxxxkWO | 1884xxxxxxx2036 | us-east-2 | Memory Gb | 0.025 | 1468.426185 | 36.710654625 |
+| 2025-10-10 | 2BYxxxxxxxMoy | 1884xxxxxxx2036 | us-east-2 | Cpu Hours | 0.1 | 1.3255897223 | 0.13255897223 |
+| 2025-10-10 | 2BYxxxxxxxMoy | 1884xxxxxxx2036 | us-east-2 | Memory Gb | 0.025 | 5.514970833333334 | 0.13787427083333334 |
+
+The report includes:
+  - Separate line items for compute and memory per workflow or Studio session
+  - Aggregated costs (not individual task breakdowns)
+
+### Request additional credits
+
+To request more credits:
+1. Select **Request more credits** in the organization or workspace settings **Credits** view.
+1. Complete the form with your contact, organization, and credit request details.
+1. Credits are typically allocated within one business day.
+
+:::info
+[**Request credits**](https://seqera.io/platform/compute/request-credits/) online or contact your Seqera account manager for assistance.
+:::
 
 ### Credit limits and run and Studio suspension
 
-When your organization's credit balance is exhausted:
+When your organization or workspace credit balance is exhausted:
 
-1. **Running pipelines pause** - All active pipeline runs and Studio sessions are automatically suspended
-1. **Notifications sent** - You receive an alert about credit exhaustion
-1. **New launches blocked** - No new pipeline runs or Studios can be started
-1. **Manual resumption** - After purchasing additional credits, manually resume paused pipelines from where they stopped
+1. **Running pipelines pause** - All active pipeline runs and Studio sessions are automatically suspended.
+1. **Notifications sent** - You receive an alert about credit exhaustion.
+1. **New launches blocked** - No new pipeline runs or Studios can be started.
+1. **Manual resumption** - After purchasing additional credits, manually [resume](../launch/cache-resume.mdx) paused pipelines.
 
 :::warning
 Long-running tasks are periodically monitored. If a single task's estimated cost would exceed remaining credits, the workflow is preemptively paused.
 :::
-
-### Requesting additional credits
-
-To request more credits:
-1. Select **Contact us to upgrade** in the organization or workspace **Credits** view.
-1. Provide your organization details and credit requirements.
-1. Credits are typically allocated within one business day.
-
-## Monitoring costs
-
-### Pipeline run costs
-
-View real-time cost information for each pipeline run:
-
-1. Navigate to the **Runs** page
-2. Click on a specific run
-3. The **Run details** page displays:
-   - **Total cost**: Aggregated cost of all completed tasks
-   - **Running cost**: Updates as tasks complete
-   - **Task costs**: Individual task compute and memory costs
-
-### Billing CSV export
-
-Download detailed billing records:
-
-1. Go to **Organization > Settings > Credits**
-2. Click **Download billing CSV**
-3. The CSV includes:
-   - Separate line items for compute and memory per workflow
-   - Aggregated costs (not individual task breakdowns)
-   - Timestamps for billing events
-
-### Cost estimation
-
-The Platform provides cost estimates for:
-- Completed tasks (actual billed amount)
-- Running tasks (estimated based on current runtime)
-- Cached tasks (included in resumed run estimates)
-
-> **Note**: Cost estimates are for reference only. For accurate accounting, use the billing CSV or resource labels with your cloud provider's cost management tools.
-
-## Best practices
-
-### Optimize credit usage
-
-1. **Set appropriate resource requests**: Request only the CPU and memory your tasks actually need
-2. **Use spot instances**: When available, spot instances can reduce costs by up to 90%
-3. **Enable task retry limits**: Prevent runaway costs from repeatedly failing tasks
-4. **Monitor long-running tasks**: Tasks running for extended periods consume credits continuously
-
-### Cost allocation
-
-Use resource labels to track costs by project, team, or experiment:
-
-1. Configure resource labels in your compute environment
-2. Labels are applied to all AWS resources created for your pipelines
-3. Use AWS Cost Explorer to analyze spending by label
-
-### Credit planning
-
-- **Estimate pipeline costs**: Use historical run data to predict credit requirements
-- **Set workspace budgets**: Allocate credits to different teams or projects
-- **Monitor trends**: Review the billing CSV regularly to identify cost patterns
-
-## Default limits
-
-Seqera Compute has the following default limits:
-
-| Resource | Default limit | Scope |
-|----------|--------------|-------|
-| Initial credits | $100 | Organization |
-| Compute environments | 10 | Workspace |
-| Storage | 10 TB | Organization |
-| CPU cores | 5,000 vCPUs | Organization |
-
-Contact support to request increased limits for production workloads.
-
-## Frequently asked questions
-
-**Q: When are credits deducted?**
-A: Credits are deducted when each task completes, not when the entire workflow finishes. This provides real-time visibility into costs.
-
-**Q: What happens if I run out of credits mid-pipeline?**
-A: The pipeline automatically pauses, preserving completed work. After adding credits, you can resume from where it stopped without losing progress.
-
-**Q: Why is memory billed at minimum 2GB per task?**
-A: This ensures sustainable operation of the service and reflects the minimum viable container size in AWS.
-
-**Q: How accurate are cost estimates?**
-A: Cost estimates are typically within 10% of actual AWS charges. For precise accounting, use the billing CSV or AWS Cost Explorer with resource labels.
-
-**Q: Can I set spending limits per workspace?**
-A: Not currently. Credits are managed at the organization level. Use monitoring and alerts to track workspace-specific spending.
 
 ## Example: Understanding your bill
 
