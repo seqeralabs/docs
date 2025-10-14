@@ -108,22 +108,3 @@ When your organization or workspace credit balance is exhausted:
 :::warning
 Long-running tasks are periodically monitored. If a single task's estimated cost would exceed remaining credits, the workflow is preemptively paused.
 :::
-
-## Example: Understanding your bill
-
-Consider a pipeline run with the following task:
-- Requested: 4 vCPUs, 8 GB memory  
-- Runtime: 2 hours
-- Region: us-east-1
-
-**Cost calculation:**
-```
-CPU cost:    4 vCPUs × 2 hours × $0.096/vCPU-hour = $0.768
-Memory cost: 8 GB × 2 hours × $0.0128/GB-hour = $0.205
-Task total:  $0.973
-```
-
-This cost appears in:
-- Run details page (immediately after task completion)
-- Organization/workspace credits view (real-time)
-- Billing CSV (aggregated per workflow)
