@@ -30,11 +30,11 @@ Data Explorer lists public and private data repositories. Repositories accessibl
 
 ## Remove data repository links
 
-A workspace maintainer can remove a manually created data link to a repository.
+A workspace maintainer can remove a manually created data-link to a repository.
 
 From the **Data Explorer** tab, find the data repository that you want to remove. Select the options menu for the repository, and select **Remove**. When prompted, select **Remove** from the confirmation modal that appears.
 
-If you remove a data link associated with a repository, the repository is automatically removed from the relevant Studio configuration.
+If you remove a data-link associated with a repository, the repository is automatically removed from the relevant Studio configuration.
 
 ## Browse data repositories
 
@@ -42,7 +42,7 @@ If you remove a data link associated with a repository, the repository is automa
 
 - **View data repository details**
 
-  To view details such as the cloud provider, address, and credentials, select the information icon next to a data link in the Data Explorer list.
+  To view details such as the cloud provider, address, and credentials, select the information icon next to a data-link in the Data Explorer list.
 
 - **Search and filter data repositories**
 
@@ -56,7 +56,7 @@ If you remove a data link associated with a repository, the repository is automa
 
 - **View data repository contents**
 
-  Select a data link from the Data Explorer list to view the contents of that data repository. From the **View data repository** page, you can browse directories and search for objects by name in a particular directory. The size and path of an object is displayed in columns to the right of the object name. To view data repository details such as the provider, address, and credentials, select the information icon.
+  Select a data-link from the Data Explorer list to view the contents of that data repository. From the **View data repository** page, you can browse directories and search for objects by name in a particular directory. The size and path of an object is displayed in columns to the right of the object name. To view data repository details such as the provider, address, and credentials, select the information icon.
 
 - **Preview and download files**
 
