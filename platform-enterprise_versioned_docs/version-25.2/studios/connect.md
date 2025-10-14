@@ -10,7 +10,7 @@ tags: [connect, changelog, connect-changelog]
 ### server/v0.8.3 `latest` - 2025-07-25
 
 * Released 0.8.2 - bump server version
-* Extract Fusion version 
+* Extract Fusion version to it's own constant
 * Fix location header for path-based routing reverse proxy requests
 
 ### server/v0.8.2 - 2025-07-21
