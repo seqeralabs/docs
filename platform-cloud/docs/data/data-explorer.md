@@ -8,7 +8,7 @@ tags: [data, explorer]
 
 With Data Explorer, you can browse and interact with remote data repositories from organization workspaces in Seqera Platform. It supports AWS S3, Azure Blob Storage, Google Cloud Storage, and Amazon S3-compatible API storage.
 
-Access the **Data Explorer** tab from any workspace to view and manage all available object storage buckets. It is also integrated with the pipeline launch form and run detail pages and Studios, which allow you to select input data files and output directories or quickly view the output files of a run and directly use files in object storage for interactive analysis.
+Access the **Data Explorer** tab from any workspace to view and manage all available data repositories. It is also integrated with the pipeline launch form and run detail pages and Studios, which allow you to select input data files and output directories or quickly view the output files of a run and directly use files in object storage for interactive analysis.
 
 If you use Seqera Cloud and want to disable Data Explorer, [contact](https://seqera.io/contact-us/) your Seqera account executive.
 
@@ -16,51 +16,51 @@ If you use Seqera Cloud and want to disable Data Explorer, [contact](https://seq
 
 The role assigned to a workspace user affects what functionality is available in Data Explorer. These permissions are listed in the [Participant roles][roles].
 
-## Add cloud storage buckets
+## Add data repository links
 
-Data Explorer lists public and private cloud storage buckets. Buckets accessible to your workspace cloud credentials are retrieved automatically; workspace maintainers can also configure buckets manually.
+Data Explorer lists public and private data repositories. Repositories accessible to your workspace credentials are retrieved automatically; workspace maintainers can also configure repositories manually.
 
-- **Retrieve cloud buckets with workspace credentials**
+- **Retrieve data repositories with workspace credentials**
 
-  Private cloud storage buckets accessible to the credentials defined in your workspace are listed in Data Explorer automatically. The cloud storage permissions required for your [AWS](../compute-envs/aws-batch#iam), [Google Cloud](../compute-envs/google-cloud-batch#iam), and [Azure Batch](../compute-envs/azure-batch#storage-account) compute environment credentials allow full Data Explorer functionality.
+  Private data repositories accessible to the credentials defined in your workspace are listed in Data Explorer automatically. The permissions required for your [AWS](../compute-envs/aws-batch#iam), [Google Cloud](../compute-envs/google-cloud-batch#iam), [Azure Batch](../compute-envs/azure-batch#storage-account), or HPC compute environment credentials allow full Data Explorer functionality.
 
-- **Configure individual buckets manually**
+- **Configure individual data repositories manually**
 
-  Select **Add cloud bucket** from the Data Explorer tab to add individual buckets (or directory paths within buckets). Specify the **Provider**, **Bucket path**, **Name**, **Credentials**, and **Description**, then select **Add**. For public cloud buckets, select **Public** from the **Credentials** drop-down menu.
+  Select **Add data repository** from the Data Explorer tab to add a link to an individual repository (or prefix within a cloud bucket). Specify the **Provider**, **Path**, **Name**, **Credentials**, and **Description**, then select **Add**. For public cloud buckets, select **Public** from the **Credentials** drop-down menu.
 
-## Remove cloud storage buckets
+## Remove data repository links
 
-A workspace maintainer can remove a manually created cloud storage bucket.
+A workspace maintainer can remove a manually created data link to a repository.
 
-From the **Data Explorer** tab, find the cloud bucket that you want to delete. Select the options menu for the bucket, and select **Remove**. When prompted, select **Remove** from the confirmation modal that appears.
+From the **Data Explorer** tab, find the data repository that you want to remove. Select the options menu for the repository, and select **Remove**. When prompted, select **Remove** from the confirmation modal that appears.
 
-If you remove a data-link associated with a cloud storage bucket, the data-link is automatically removed from the relevant Studio configuration.
+If you remove a data link associated with a repository, the repository is automatically removed from the relevant Studio configuration.
 
-## Browse cloud storage buckets
+## Browse data repositories
 
 ![](./_images/data_explorer.png)
 
-- **View bucket details**
+- **View data repository details**
 
-  To view bucket details such as the cloud provider, bucket address, and credentials, select the information icon next to a bucket in the Data Explorer list.
+  To view details such as the cloud provider, address, and credentials, select the information icon next to a data link in the Data Explorer list.
 
-- **Search and filter buckets**
+- **Search and filter data repositories**
 
-  Search for buckets by name and region (e.g., `region:eu-west-2`) in the search field, and filter by provider.
+  Search for repositories by name and region (e.g., `region:eu-west-2`) in the search field, and filter by provider.
 
-- **Hide buckets from list view**
+- **Hide data repositories from list view**
 
-  Using checkboxes, choose one or more buckets, then select the **Hide** icon in the Data Explorer toolbar. To hide buckets individually, select **Hide** from the three dots options menu of a bucket in the list.
+  Using checkboxes, choose one or more data repositories, then select the **Hide** icon in the Data Explorer toolbar. To hide repositories individually, select **Hide** from the three dots options menu of a repository in the list.
 
-  The Data Explorer list filter defaults to **Only visible**. Select **Only hidden** or **All** from the filtering menu to view hidden buckets in the list. You can unhide a bucket by selecting **Show** from the three dots options menu in the list view.
+  The Data Explorer list filter defaults to **Only visible**. Select **Only hidden** or **All** from the filtering menu to view hidden data repositories in the list. You can unhide a data repository by selecting **Show** from the three dots options menu in the list view.
 
-- **View bucket contents**
+- **View data repository contents**
 
-  Select a bucket name from the Data Explorer list to view the contents of that bucket. From the **View cloud bucket** page, you can browse directories and search for objects by name in a particular directory. The size and path of an object is displayed in columns to the right of the object name. To view bucket details such as the cloud provider, bucket address, and credentials, select the information icon.
+  Select a data link from the Data Explorer list to view the contents of that data repository. From the **View data repository** page, you can browse directories and search for objects by name in a particular directory. The size and path of an object is displayed in columns to the right of the object name. To view data repository details such as the provider, address, and credentials, select the information icon.
 
 - **Preview and download files**
 
-  From the **View cloud bucket** page, you can preview and download files. Select the download icon in the **Actions** column to download a file directly from the list view. Select a file to open a preview window that includes a **Download** button.
+  From the **View data repository** page, you can preview and download files. Select the download icon in the **Actions** column to download a file directly from the list view. Select a file to open a preview window that includes a **Download** button.
 
   File preview is supported for these object types:
 
@@ -77,13 +77,13 @@ If you remove a data-link associated with a cloud storage bucket, the data-link 
   Seqera Enterprise users can increase the default 25 MB file size download limit with `tower.content.max-file-size` in the `tower.yml` [configuration](https://docs.seqera.io/platform-enterprise/enterprise/configuration/overview#data-features) file. Note that increasing this value may degrade Platform performance.
   :::
 
-- **Copy bucket/object paths**
+- **Copy object paths**
 
-  Select the **Path** of an object on the **View cloud bucket** page to copy its absolute path to the clipboard. Use these object paths to specify input data locations during [pipeline launch](../launch/launchpad), or add them to a [dataset](../data/datasets) for pipeline input.
+  Select the **Path** of an object on the **View data repository** page to copy its absolute path to the clipboard. Use these object paths to specify input data locations during [pipeline launch](../launch/launchpad), add them to a [dataset](../data/datasets) for pipeline input, or when mounting data during Studio creation.
 
-## Isolate view, read, and write permissions to specific cloud storage bucket paths
+## Isolate view, read, and write permissions to specific data repository paths
 
-To isolate pipeline or Studios view, read, and write permissions to a specific **Bucket path**, workspace maintainers can optionally create **custom data-links** by manually configuring an individual bucket plus path to a specific folder/directory. This is supported to any level of the cloud storage bucket path hierarchy, provided it is a folder (also known as a **prefix**). You can optionally choose to **Hide** or **Show** either the root bucket and/or any related custom data-links on demand in Data Explorer using the **Show/Hide** toggle and the **Show cloud buckets** filter options:
+To isolate pipeline or Studios view, read, and write permissions to a specific **data repository path**, workspace maintainers can optionally create **custom data-links** by manually configuring an individual data repository plus path to a specific folder/directory. This is supported to any level of the data repository path hierarchy, provided it is a folder (also known as a **prefix**). You can optionally choose to **Hide** or **Show** either the base data repository and/or any related custom data-links on demand in Data Explorer using the **Show/Hide** toggle and the **Show data repositories** filter options:
 
 - Only visible (default)
 - Only hidden
@@ -93,11 +93,11 @@ To isolate pipeline or Studios view, read, and write permissions to a specific *
 This customized Data Explorer view will be displayed by default to all workspace users, until the filter is updated or removed by a workspace maintainer.
 :::
 
-## Upload files to private buckets
+## Upload files to private data repositories 
 
-Data Explorer supports single or bulk file uploads to your private cloud storage buckets. From the **View cloud bucket** page, select **Upload** and choose either the **Upload files* or **Upload folder** option. You can also drag and drop files and folders directly into Data Explorer. You can upload up to 300 files at a time via the Platform interface. The file size upload limits reflect the size limitations of the relevant cloud storage provider.
+Data Explorer supports single or bulk file uploads to your private data repositories. From the **View data repositories** page, select **Upload** and choose either the **Upload files* or **Upload folder** option. You can also drag and drop files and folders directly into Data Explorer. You can upload up to 300 files at a time via the Platform interface. The file size upload limits reflect the size limitations of the relevant cloud storage provider or data repository integration.
 
-Currently, these limits are:
+Currently, these limits are (for cloud providers):
 
 - [AWS](https://docs.aws.amazon.com/AmazonS3/latest/userguide/upload-objects.html)
   - Single `PUT` upload: 5 GB
@@ -114,28 +114,28 @@ Currently, these limits are:
 To cancel an upload, select **X** in the upload window. Any files not uploaded will display as **Failed**. Files that were successfully uploaded will not be removed.
 
 :::note
-You must configure cross-origin resource sharing (CORS) for your cloud storage provider to allow file uploads from Platform. CORS configuration differs for each provider.
+You must configure cross-origin resource sharing (CORS) for your data repository provider to allow file uploads from Platform. CORS configuration differs for each provider.
 :::
 
 ## Download multiple files
 
-You can download up to a maximum of 1,000 files using the browser interface, or an unlimited number of files with the auto-generated download script that uses your cloud provider's CLI and credentials.
+You can download up to a maximum of 1,000 files using the browser interface, or an unlimited number of files with the auto-generated download script that uses your data repositor provider's CLI and credentials.
 
 :::note
-If you use a non-Chromium based browser, such as Safari or Firefox, file paths are concatenated with an underscore (`_`) character and the cloud bucket directory structure is not reproduced locally. For example, the file `s3://example-us-east-1/path/to/files/my-file-1.txt` is saved as `path_to_files_my-file-1.txt`.
+If you use a non-Chromium based browser, such as Safari or Firefox, file paths are concatenated with an underscore (`_`) character and the data repository directory structure is not reproduced locally. For example, the file `s3://example-us-east-1/path/to/files/my-file-1.txt` is saved as `path_to_files_my-file-1.txt`.
 :::
 
-Open the cloud bucket and navigate to the folder that you'd like to download files and folders from. By default, you can download the contents of the current directory by choosing **Download current directory**. Alternatively, use checkboxes to select specific files and folders, and select the **Download** button. You can **Download files** via the browser or **Download using code**.
+Open the data repository and navigate to the folder that you'd like to download files and folders from. By default, you can download the contents of the current directory by choosing **Download current directory**. Alternatively, use checkboxes to select specific files and folders, and select the **Download** button. You can **Download files** via the browser or **Download using code**.
 
-The code snippet provided is specific to the cloud provider you've configured. You may be prompted to authenticate during the download process. Refer to your cloud provider's documentation for troubleshooting credential-related issues:
+The code snippet provided is specific to the data repository provider you've configured. You may be prompted to authenticate during the download process. Refer to your data repository provider's documentation for troubleshooting credential-related issues:
 
 - [GCP](https://cloud.google.com/sdk/gcloud/reference/storage)
 - [AWS](https://docs.aws.amazon.com/cli/latest/reference/s3/)
 - [Azure](https://learn.microsoft.com/en-us/cli/azure/storage?view=azure-cli-latest)
 
-## CORS configurations
+## CORS configurations for cloud providers
 
-Each public cloud provider has a specific way to allow Cross-Origin Resource Sharing (CORS) for both uploads and multi-file downloads.
+Each cloud provider has a specific way to allow Cross-Origin Resource Sharing (CORS) for both uploads and multi-file downloads.
 
 ### Amazon S3 CORS configuration
 
