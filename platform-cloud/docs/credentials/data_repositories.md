@@ -26,7 +26,7 @@ Select between different credential types: a **Shared key**, **Entra**, or **Clo
 - **Cloud:** Authenticate via an Azure Entra service principal for Azure Cloud.
 
 :::info
-Select Entra for modern, identity-based access control. Select Cloud for Entra identity-based access control with Cloud specializations. Select Shared key for full, direct account access.
+Select Shared key for full administrator access via long-lived keys, choose Entra for access through an Entra service principal, or opt for Cloud to access via an Entra service principal with compatibility to the single VM compute type but not Azure Batch.
 :::
 
 Add a **Batch account name**, **Batch account key**, **Blob Storage account name**, and **Blob Storage account key**.
