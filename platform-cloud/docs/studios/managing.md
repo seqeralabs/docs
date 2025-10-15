@@ -39,7 +39,7 @@ When adding a new session from an existing session or checkpoint, the following 
 - **Installed Conda packages**
 - **Session duration**
 
-To add a new session from an existing **stopped** session, complete the steps described in [Add a Studio](#add-a-studio).
+To add a new session from an existing **stopped** session, complete the steps described in [Add a Studio][add-s].
 
 Additionally, you can add a new session from any existing Studio checkpoint except the currently running checkpoint. From the detail page, select the **Checkpoints** tab and in the **Actions** column, select **Add as new Studio**. This is useful for interactive analysis experimentation without impacting the state of the original Studio.
 
@@ -135,6 +135,7 @@ To migrate a Studio to a more recent container version and Seqera Connect:
 1. Repeat Step 1 **Add as new** using the new, most recent created checkpoint from the steps above.
 
 {/* links */}
+[add-s]: ./add-studio
 [aws-gpu]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-gpu.html
 [conda-syntax]: ./custom-envs#conda-package-syntax
 [custom-image]: ./custom-envs#custom-containers

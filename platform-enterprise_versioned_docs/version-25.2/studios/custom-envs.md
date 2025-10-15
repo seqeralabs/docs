@@ -125,7 +125,7 @@ To inspect the status of an ongoing build, or a successful or failed build, comp
 
 
 {/* links */}
-[add-s]: ./managing#add-studio
+[add-s]: ./add-studio
 [wave]: ../enterprise/configuration/wave
 [custom-studios-examples]: https://github.com/seqeralabs/custom-studios-examples
 [wave-home]: https://seqera.io/wave/
