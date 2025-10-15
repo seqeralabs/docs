@@ -311,7 +311,10 @@ export default async function createConfigAsync() {
         },
 
         typesenseSearchParameters: {
-          query_by: 'content,hierarchy.lvl0,hierarchy.lvl1,hierarchy.lvl2,hierarchy.lvl3',          
+          query_by: 'content,hierarchy.lvl0,hierarchy.lvl1,hierarchy.lvl2,hierarchy.lvl3',
+          highlight_fields: 'content',
+          highlight_affix_num_tokens: 10,
+          snippet_threshold: 20,          
         },
 
         contextualSearch: true,
