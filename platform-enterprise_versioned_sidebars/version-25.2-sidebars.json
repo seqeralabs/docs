@@ -190,7 +190,7 @@
           "label": "Manage Studios",
           "items": [
             "studios/managing",            
-            "studios/add_studio"
+            "studios/add-studio"
           ]
           },
           "studios/connect"
