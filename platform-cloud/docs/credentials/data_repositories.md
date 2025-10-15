@@ -11,7 +11,11 @@ To automatically connect to one or more data repositories, create a new credenti
 
 ## AWS Simple Storage Service (S3) object storage 
 
-Add an **Access key**, and **Secret key**. You can optionally provide an IAM role for temporary access - this must be a fully qualified AWS role ARN. S3 object storage buckets will be prefixed with an AWS icon and `s3://` in Data Explorer.
+Add an **Access key**, and **Secret key**. You can optionally provide an IAM role for temporary access - this must be a fully qualified AWS role ARN. S3 object storage buckets are prefixed with an AWS icon and `s3://` in Data Explorer.
+
+:::note
+Seqera Compute uses AWS S3 object storage, and are prefixed with a Seqera icon and the `s3://` namespace in Data Explorer.
+:::
 
 ## Azure Blob Storage
 
@@ -27,11 +31,11 @@ Select Entra for modern, identity-based access control. Select Cloud for Entra i
 
 Add a **Batch account name**, **Batch account key**, **Blob Storage account name**, and **Blob Storage account key**.
 
-Azure Blob Storage will be prefixed with an Azure icon and `az://` in Data Explorer.
+Azure Blob Storage are prefixed with an Azure icon and `az://` in Data Explorer.
 
 ## GCP object storage
 
-Add the contents of the **Service account key** JSON file. GCP object storage buckets will be prefixed with a GCP icon and `gs://` in Data Explorer.
+Add the contents of the **Service account key** JSON file. GCP object storage buckets are prefixed with a GCP icon and `gs://` in Data Explorer.
 
 ## S3-compatible storage
 
@@ -43,7 +47,7 @@ Add an **Access key**, **Secret key**, **Server base URL**, and optionally selec
 OCI has specific object-storage endpoints that are [S3-compatible][oci-s3-compatible], and include `.compat.` in the server base URL. These are in the form `https://<object_storage_namespace>.compat.objectstorage.<region>.oci.customer-oci.com`.
 :::
 
-S3-compatible storage will be prefixed with a S3-compatible storage icon and `s3://` in Data Explorer.
+S3-compatible storage are prefixed with a S3-compatible storage icon and `s3://` in Data Explorer.
 
 {/* Links */}
 
