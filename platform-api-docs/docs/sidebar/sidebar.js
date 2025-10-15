@@ -20,8 +20,22 @@ module.exports = {
         { type: "doc", id: "describe-credentials", label: "Describe credentials", className: "api-method get" },
         { type: "doc", id: "update-credentials", label: "Update credentials", className: "api-method put" },
         { type: "doc", id: "delete-credentials", label: "Delete credentials", className: "api-method delete" },
+        {
+          type: "category",
+          label: "Managed identities",     
+          link: {type: 'doc', id: 'info/identities-info'},      
+          items: [
+            { type: "doc", id: "list-managed-identities", label: "List managed identities", className: "api-method get" },
+            { type: "doc", id: "list-managed-credentials", label: "List managed credentials", className: "api-method get" },
+            { type: "doc", id: "create-managed-identity", label: "Create managed identity", className: "api-method post" },
+            { type: "doc", id: "create-managed-credentials", label: "Create managed credentials", className: "api-method post" },
+            { type: "doc", id: "describe-managed-identity", label: "Describe managed identity", className: "api-method get" },
+            { type: "doc", id: "delete-managed-identity", label: "Delete managed identity", className: "api-method delete" },
+            { type: "doc", id: "delete-managed-credentials", label: "Delete managed credentials", className: "api-method delete" },
+          ],
+        },
       ],
-    },   
+    },     
     {
       type: "category",
       label: "Compute",
