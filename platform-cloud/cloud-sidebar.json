@@ -124,6 +124,7 @@
         "label": "Studios",
         "items": [
           "studios/overview",
+          "studios/add-studio",
           "studios/custom-envs",
           "studios/managing",
           "studios/connect"
