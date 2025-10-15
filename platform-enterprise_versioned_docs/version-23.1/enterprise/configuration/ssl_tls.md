@@ -251,7 +251,7 @@ Tower Enterprise versions 22.3.2 and earlier rely on Java 11 (Amazon Corretto). 
 
 ```bash
 
-_JAVA_OPTIONS="-Dmail.smtp.ssl.protocols=TLSv1.2
+_JAVA_OPTS="-Dmail.smtp.ssl.protocols=TLSv1.2
 
 ```
 
