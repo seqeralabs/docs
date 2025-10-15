@@ -6,6 +6,14 @@ last updated: "2025-09-04"
 tags: [data, session, studios]
 ---
 
+Select the **Studios** tab in Platform to add a new Studio.
+
+:::note
+- If you're not able to see the Studios tab, contact your Platform adminstrator.
+- Review the user roles documentation for details about role permissions.
+- The following functionality is available to users with the **Maintain** role and above.
+:::
+
 Users with the **Maintain** role and above can add Studios via the **Studios** tab in your workspace. Select **Add Studio** to get started.
 
 ## Compute and Data

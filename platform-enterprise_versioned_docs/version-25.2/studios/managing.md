@@ -8,7 +8,6 @@ tags: [data, session, studios]
 
 Select the **Studios** tab in Platform to:
 
-- Add a new Studio.
 - Start, stop, or connect to an existing session. 
 - Dynamically filter the list of Studios using the search bar.
 - Open a detailed view that displays configuration information.
@@ -16,9 +15,7 @@ Select the **Studios** tab in Platform to:
 :::note
 - If you're not able to see the Studios tab, contact your Platform adminstrator.
 - Review the user roles documentation for details about role permissions.
-- The following functionality is available to users with the **Maintain** role and above.
 :::
-
 
 ## Start a Studio session
 
@@ -62,13 +59,11 @@ When you restart a stopped session, the session uses the most recent checkpoint.
 
 ## Delete a Studio
 
-You can only delete a Studio when it's **stopped**. Select the three dots next to the status message and then select **Delete**. The Studio is deleted immediately and can't be recovered.
-
 :::note
-- If you're not able to see the Studios tab, contact your Platform adminstrator.
-- Review the user roles documentation for details about role permissions.
-- The following functionality is available to all user roles excluding the **View** role.
+This functionality is available to all user roles excluding the **View** role.
 :::
+
+You can only delete a Studio when it's **stopped**. Select the three dots next to the status message and then select **Delete**. The Studio is deleted immediately and can't be recovered.
 
 ## Connect to a Studio
 
@@ -82,11 +77,11 @@ Once connected, the session will display the status of **running** in the list, 
 
 ## Collaborate in a Studio session
 
-To share a link to a running session with collaborators inside your workspace, select the three dots next to the status message for the session you want to share, then select **Copy Studio URL**. Using this link, other authenticated users can access the session directly.
-
 :::note
 Collaborators need valid workspace permissions to connect to the running Studio.
 :::
+
+To share a link to a running session with collaborators inside your workspace, select the three dots next to the status message for the session you want to share, then select **Copy Studio URL**. Using this link, other authenticated users can access the session directly.
 
 ## Limit Studio access to a specific cloud bucket subdirectory {#cloud-bucket-subdirectory}
 
@@ -108,17 +103,17 @@ When defining a new Studio, you can configure the **Mounted data** by selecting 
 
 ## Migrate a Studio from an earlier container image template
 
-As Studios matures and new versions of JupyterLab, R-IDE, Visual Studio Code, and Xpra are released, new Seqera-provided image templates will be periodically released including updated versions of Seqera Connect. The most recent container template images will be tagged `recommended` and earlier template images will be tagged `deprecated`.
-
-:::info
-Temporary container templates tagged with `experimental` are not supported and should not be used in production environments.
+:::warning
+Due to the nature of fully customizable, containerized applications, users can modify environments leading to a variety of configurations and outcomes. This is therefore a best effort to support Studio migrations and a successful outcome is not guaranteed.
 :::
 
-To migrate a Studio to a more recent container version and Seqera Connect:
+As Studios matures and new versions of JupyterLab, R-IDE, Visual Studio Code, and Xpra are released, new Seqera-provided image templates will be periodically released including updated versions of Seqera Connect. The most recent container template images will be tagged `recommended` and earlier template images will be tagged `deprecated`. Temporary container templates tagged with `experimental` are not supported and should not be used in production environments.
 
 :::tip
 Always use the `recommended` tagged template image for new Studios. Only two earlier minor versions of [Seqera Connect][connect] are supported by Seqera.
 :::
+
+To migrate a Studio to a more recent container version and Seqera Connect:
 
 1. Select the Studio to migrate.
 1. Select **Add as new**. By default this selects the latest session checkpoint.
@@ -138,10 +133,6 @@ Always use the `recommended` tagged template image for new Studios. Only two ear
       1. Xpra: Use `apt remove <packagename>` to uninstall system-level packages.
    1. **Stop** the running Studio session. A new checkpoint is created.
 1. Repeat Step 1 **Add as new** using the new, most recent created checkpoint from the steps above.
-
-:::warning
-Due to the nature of fully customizable, containerized applications, users can modify environments leading to a variety of configurations and outcomes. This is therefore a best effort to support Studio migrations and a successful outcome is not guaranteed.
-:::
 
 {/* links */}
 [aws-gpu]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-gpu.html
