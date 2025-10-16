@@ -37,7 +37,7 @@ Write permissions can be added for specific AWS S3 buckets in the compute enviro
 
 ## General config
 
-### Seqera-provided container templates
+### Seqera-managed container template images
 
 You can customize the following fields:
 - **Container template**: Select a template from the dropdown list.
