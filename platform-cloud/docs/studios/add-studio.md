@@ -6,15 +6,22 @@ last updated: "2025-09-04"
 tags: [data, session, studios]
 ---
 
-Select the **Studios** tab in Platform to add a new Studio.
+Select the **Studios** tab, and then select **Add Studio**.
+
+:::info[**Prerequisites**]
+Before you get started, you need:
+
+- Valid credentials to access your cloud storage data resources.
+- At least the **Maintain** role set of permissions.
+- A compute environment with sufficient resources. This is highly dependent on the volume of data you wish to process, but at least 2 CPUs allocated with 8192 MB of memory is recommended.
+- [Data Explorer](../data/data-explorer) enabled.
+:::
 
 :::note
 - If you're not able to see the Studios tab, contact your Platform adminstrator.
 - Review the user roles documentation for details about role permissions.
 - The following functionality is available to users with the **Maintain** role and above.
 :::
-
-Users with the **Maintain** role and above can add Studios via the **Studios** tab in your workspace. Select **Add Studio** to get started.
 
 ## Compute and Data
 
@@ -74,4 +81,4 @@ Customize the following fields:
       - To not immediately start the session, select **Add only**.
       - If you want to save and immediately start the Studio, select **Add and start**.
 
-You'll be returned to the Studios landing page that displays the list of Studio sessions (and status) in your workspace. Select a Studio to inspect its configuration details. The Studio you created will be listed with a status of either **stopped** or **starting**, based on whether you elected to **Add** it or to **Add and start** a session as well.
+The Studio you created will be listed on the Studios landing page with a status of either **stopped** or **starting**, based on whether you elected to **Add** it or to **Add and start** a session as well. Select a Studio to inspect its configuration details. 

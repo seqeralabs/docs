@@ -134,6 +134,66 @@ To migrate a Studio to a more recent container version and Seqera Connect:
    1. **Stop** the running Studio session. A new checkpoint is created.
 1. Repeat Step 1 **Add as new** using the new, most recent created checkpoint from the steps above.
 
+## Studio session statuses
+
+Sessions have the following possible statuses:
+
+- **building**: When a custom environment is building the template image for a new session. The [Wave] service performs the build action. For more information on this status, see [Inspect custom container template build status][build-status].
+- **build-failed**:  When a custom environment build has failed. This is a non-recoverable error. Logs are provided to assist with troubleshooting. For more information on this status, see [Inspect custom container template build status][build-status].
+- **starting**: The Studio is initializing.
+- **running**: When a session is **running**, you can connect to it, copy the URL, or stop it. In addition, the session can continue to process requests/run computations in the absence of an ongoing connection.
+- **stopping**: The recently-running session is in the process of being stopped.
+- **stopped**: When a session is stopped, the associated compute resources are deallocated. You can start or delete the session when it's in this state.
+- **errored**: This state most often indicates that there has been an error starting the session but it is in a **stopped** state.
+
+:::note
+There might be errors reported by the session itself but these will be overwritten with a **running** status if the session is still running.
+:::
+
+## Studio session data-links
+
+You can configure a Studio session to mount one or more data-links, where cloud buckets that you have configured in your compute environment are read-only, or read-write available to the session.
+
+If your compute environment includes a cloud bucket in the **Allowed S3 bucket** list, the bucket is writeable from within a session when that bucket is included as a data-link.
+
+You can limit write access to just a subdirectory of a bucket by creating a custom data-link for only that subdirectory in Data Explorer, and then mount the data-link to the Studio session. For example, if you have the following S3 buckets:
+
+- `s3://biopharmaXs`: Entire bucket
+- `s3://biopharmaX/experiments/project-A/experiment-1/data`: Subdirectory to mount in a Studio session
+
+Mounted data-links are exposed at the `/workspace/data/` directory path inside a Studio session. For example, the bucket subdirectory `s3://biopharmaX/experiments/project-A/experiment-1/data`, when mounted as a data-link, is exposed at `/workspace/data/biopharmaxs-project-a-experiment-1-data`.
+
+For more information, see [Limit Studio access to a specific cloud bucket subdirectory][cloud-bucket-subdirectory].
+
+## Studio session checkpoints
+
+When starting a Studio session, a *checkpoint* is automatically created. A checkpoint saves all changes made to the root filesystem and stores it in the attached compute environment's work directory in the `.studios/checkpoints` folder with a unique name. The current checkpoint is updated every five minutes during a session.
+
+:::warning
+Checkpoints vary in size depending on libraries installed in your session environment. This can potentially result in many large files stored in the compute environment's work directory and saved to cloud storage. This storage will incur costs based on the cloud provider. Due to the architecture of Studios, you cannot delete any checkpoint files to save on storage costs. Deleting a Studio session's checkpoints will result in a corrupted Studio session that cannot be started nor recovered.
+:::
+
+When you stop and start a session, or start a new session from a previously created checkpoint, changes such as installed software packages and configuration files are restored and made available. Changes made to mounted data are not included in a checkpoint.
+
+Checkpoints can be renamed and the name has to be unique per Studio. Spaces in checkpoint names are converted to underscores automatically.
+
+Checkpoint files in the compute environment work directory may be shared by multiple Studios. Each checkpoint file is cleaned up asynchronously after the last Studio referencing the checkpoint is deleted.
+
+:::note
+The cleanup process is a best effort and not guaranteed. Seqera attempts to remove the checkpoint, but it can fail if, for example, the compute environment credentials used do not have sufficient permissions to delete objects from storage buckets.
+:::
+
+## Session volume automatic resizing
+
+By default, a session allocates an initial 2 GB of storage. Available disk space is continually monitored and if the available space drops below a 1 GB threshold, the file system is dynamically-resized to include an additional 2 GB of available disk space.
+
+This approach ensures that a session doesn't initially include unnecessary free disk space, while providing the flexibility to accommodate installation of large software packages required for data analysis. The maximum storage allocation for a session is limited by the compute environment disk boot size. By default, this is 30 GB. This limit is shared by all sessions running in the same compute environment.
+
+If the maximum allocation size is reached, it is possible to reclaim storage space using a snapshot.
+
+Stop the active session to trigger a snapshot from the active volume. The snapshot is uploaded to cloud storage with Fusion. When you start from the newly saved snapshot, all previous data is loaded, and the newly started session will have 2 GB of available space.
+
+
 {/* links */}
 [add-s]: ./add-studio
 [aws-gpu]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-gpu.html
