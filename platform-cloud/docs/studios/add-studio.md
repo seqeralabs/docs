@@ -55,7 +55,7 @@ Select **Install Conda packages** to define or upload a list of Conda packages t
 
 #### Environment variables
 
-For the selected compute environment, all existing environment variable key-value pairs are displayed and automatically inherited by the studio session. Additional per-session environment variables can be defined for the Studio.
+For the selected compute environment, all existing environment variable key-value pairs are automatically inherited and displayed for the studio session. Additional per-session environment variables can be defined for the Studio.
      
 Session-level environment variables take precedence. You can overwrite an existing compute environment-defined environment variable key-value pair by defining the same key and a different value.
 
