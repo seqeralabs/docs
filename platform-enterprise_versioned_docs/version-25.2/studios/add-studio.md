@@ -70,4 +70,4 @@ Customize the following fields:
       - To not immediately start the session, select **Add only**.
       - If you want to save and immediately start the Studio, select **Add and start**.
 
-You'll be returned to the Studios landing page that displays the list of Studio sessions in your workspace. Select a Studio to inspect its configuration details. The Studio you created will be listed with a status of either **stopped** or **starting**, based on whether you elected to **Add** it or to **Add and start** a session as well.
+You'll be returned to the Studios landing page that displays the list of Studio sessions (and status) in your workspace. Select a Studio to inspect its configuration details. The Studio you created will be listed with a status of either **stopped** or **starting**, based on whether you elected to **Add** it or to **Add and start** a session as well.
