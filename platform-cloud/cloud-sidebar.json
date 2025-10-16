@@ -125,6 +125,8 @@
         "label": "Studios",
         "items": [
           "studios/overview",
+          "studios/add-studio",
+          "studios/container-images",
           "studios/custom-envs",
           "studios/managing",
           "studios/connect"

@@ -146,5 +146,5 @@ To inspect the status of an ongoing build, or a successful or failed build, comp
 [wave-server]: https://seqera.io/wave/
 [conda-schema]: https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/pkg-search.html
 [env-manually]: https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-file-manually
-[add-s]: ./managing#add-a-studio
+[add-s]: ./add-studio
 [custom-studios-examples]: https://github.com/seqeralabs/custom-studios-examples
