@@ -22,8 +22,8 @@ Seqera Compute bills for four resource types:
 
 | Resource | Rate (credits) | Billing unit | Based on | Billing frequency | Details |
 |----------|---------------|--------------|----------|-------------------|---------|
-| **CPU time** | 0.1 | vCPU-hour | Requested vCPUs × runtime | At task completion | Charged based on requested vCPUs |
-| **Memory** | 0.025 | GiB-hour | Requested memory × runtime | At task completion | Minimum 2GiB per task |
+| **CPU time** | 0.1 | CPU-hour | Requested vCPUs × runtime | At task completion | Charged based on requested vCPUs |
+| **Memory** | 0.025 | GB-hour | Requested memory × runtime | At task completion | Minimum 2GiB per task |
 | **Storage** | 0.025 | GB-month | Actual usage | Daily reconciliation | S3 storage costs at AWS rates, varies by region |
 | **Network transfer** | Varies by region | GB | Actual data transfer | Daily reconciliation | Data egress charges at AWS rates |
 
@@ -39,21 +39,21 @@ The [nf-core/rnaseq](https://nf-co.re/rnaseq/3.21.0) pipeline is run on a Seqera
 
 To calculate the credit spend for this run, the vCPUs and memory **requested** for each task are multiplied by task runtime:
 
-| Task Name | Duration | CPUs | Memory |
+| Task | Duration | CPUs | Memory |
 |-----------|----------|------|--------|
-| NFCORE_RNASEQ:PREPARE_GENOME:GUNZIP_ADDITIONAL_FASTA (gfp.fa.gz) | 3 m 28 s | 1 | 6.0 GB |
-| NFCORE_RNASEQ:PREPARE_GENOME:UNTAR_SALMON_INDEX (salmon.tar.gz) | 3 m 28 s | 1 | 6.0 GB |
-| NFCORE_RNASEQ:PREPARE_GENOME:GUNZIP_GTF (genes_with_empty_tid.gtf.gz) | 3 m 28 s | 1 | 6.0 GB |
-| NFCORE_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:CAT_FASTQ (WT_REP1) | 3 m 29 s | 1 | 6.0 GB |
-| NFCORE_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:FQ_LINT (WT_REP2) | 3 m 29 s | 2 | 12.0 GB |
-| NFCORE_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:FQ_LINT (RAP1_UNINDUCED_REP1) | 3 m 29 s | 2 | 12.0 GB |
-| NFCORE_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:CAT_FASTQ (RAP1_UNINDUCED_REP2) | 3 m 29 s | 1 | 6.0 GB |
-| NFCORE_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:FQ_LINT (RAP1_IAA_30M_REP1) | 3 m 29 s | 2 | 12.0 GB |
-| NFCORE_RNASEQ:PREPARE_GENOME:GTF_FILTER (genome.fasta) | 47 s | 1 | 6.0 GB |
-| NFCORE_RNASEQ:RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:FASTQ_FASTQC_UMITOOLS_TRIMGALORE:FASTQC (WT_REP2) | 46 s | 4 | 15.0 GB |
+| PREPARE_GENOME:GUNZIP_ADDITIONAL_FASTA (gfp.fa.gz) | 3 m 28 s | 1 | 6.0 GB |
+| PREPARE_GENOME:UNTAR_SALMON_INDEX (salmon.tar.gz) | 3 m 28 s | 1 | 6.0 GB |
+| PREPARE_GENOME:GUNZIP_GTF (genes_with_empty_tid.gtf.gz) | 3 m 28 s | 1 | 6.0 GB |
+| RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:CAT_FASTQ (WT_REP1) | 3 m 29 s | 1 | 6.0 GB |
+| RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:FQ_LINT (WT_REP2) | 3 m 29 s | 2 | 12.0 GB |
+| RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:FQ_LINT (RAP1_UNINDUCED_REP1) | 3 m 29 s | 2 | 12.0 GB |
+| RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:CAT_FASTQ (RAP1_UNINDUCED_REP2) | 3 m 29 s | 1 | 6.0 GB |
+| RNASEQ:FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS:FQ_LINT (RAP1_IAA_30M_REP1) | 3 m 29 s | 2 | 12.0 GB |
+| PREPARE_GENOME:GTF_FILTER (genome.fasta) | 47 s | 1 | 6.0 GB |
+| FASTQ_FASTQC_UMITOOLS_TRIMGALORE:FASTQC (WT_REP2) | 46 s | 4 | 15.0 GB |
 
 :::info
-The **Tasks** tab of the [run details](../monitoring/run-details.mdx) page lists the processes and tasks executed during the run. Select a task from the list to view the task's details, including the **Execution time** and **Resources requested**.
+The **Tasks** tab of the [run details](../monitoring/run-details.mdx) page lists the processes and tasks executed during the run. Select a task from the list to view the task's details, including metrics for **Execution time** and **Resources requested**.
 :::
 
 The usage report for this run shows the CPU and memory cost as separate line items:
