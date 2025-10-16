@@ -37,13 +37,6 @@ Studios uses the following set of domains and subdomains:
 - A wildcard subdomain that you must configure specifically for Studios. This wildcard subdomain is the parent for each unique session URL, such as `abcd.example.com`.
 - The connection proxy, defined by `CONNECT_PROXY_URL`. This URL is a first-level subdomain of your `TOWER_SERVER_URL`. For example, `https://connect.example.com`.
 
-## Studios workspace availability
-
-You can configure which organizational workspaces have access to Studios. This configuration is set in the `tower.yml` file. The `tower.data-studio.allowed-workspaces` field supports the following options:
-
-- `allowed-workspaces: []`: Disables Studios. This is the default if the `allowed-workspaces` field is not specified.
-- `allowed-workspaces: [ <WORKSPACE_ID>,<WORKSPACE_ID> ]`: Enables Studios for the comma-separated list of organizational workspace IDs.
-- `allowed-workspaces: null`: Enables Studios for all organizational workspaces.
 
 ## Available Studio environment images
 
