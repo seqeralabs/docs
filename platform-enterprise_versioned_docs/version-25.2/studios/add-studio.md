@@ -59,7 +59,7 @@ Session-level environment variables take precedence. You can overwrite an existi
 
 Customize the following fields:
  **Container template**: Select **Prebuilt container image** from the list. For information about providing your own template, see [Custom container template image][custom-image].
- If you select the **Prebuilt container image** template, you cannot select **Install Conda packages** as these options are mutually exclusive.
+ If you select the **Prebuilt container image** template, you cannot select **Install Conda packages** as these options are currently mutually exclusive.
  - **Studio name**
 - Optional: **Description**
 
