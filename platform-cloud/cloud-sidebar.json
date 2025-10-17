@@ -102,6 +102,7 @@
         "type": "category",
         "label": "Pipelines",
         "items": [
+          "pipelines/overview",
           "pipeline-schema/overview",
           "launch/launchpad",
           "labels/overview",
