@@ -100,10 +100,6 @@ Pre-run scripts are executed in the nf-launch script prior to invoking Nextflow 
 
 Post-run scripts are executed after all Nextflow processes have completed. Post-run scripts are useful for triggering a third party service via API request.
 
-### Pull latest
-
-Instruct Nextflow to pull the latest pipeline version from the Git repository. This is equivalent to using the `-latest` flag.
-
 ### Stub run
 
 Replace Nextflow process commands with command [stubs](https://www.nextflow.io/docs/latest/process.html#stub), where defined, before execution.

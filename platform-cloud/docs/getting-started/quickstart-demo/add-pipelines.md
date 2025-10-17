@@ -56,9 +56,14 @@ From your workspace Launchpad, select **Add Pipeline** and specify the following
 - Optional: **Labels**: Categorize the pipeline according to arbitrary criteria (such research group or reference genome version) that may help workspace participants to select the appropriate pipeline for their analysis.
 - **Compute environment**: Select an existing workspace [compute environment](../../compute-envs/overview).
 - **Pipeline to launch**: The URL of any public or private Git repository that contains Nextflow source code.
-- **Revision number**: Platform will search all of the available tags and branches in the provided pipeline repository and render a dropdown to select the appropriate version. 
+- **Revision number**: A valid repository commit ID, tag, or branch name. Determines the version of the pipeline to launch. 
     :::tip
     Selecting a specific pipeline version is important for reproducibility as this ensures that each run with the same input data will generate the same results.
+    :::
+- **Commit ID**: Pin pipeline revision to the most recent HEAD commit ID. If no commit ID is pinned, the latest revision of the repository branch or tag is used.
+- **Pull latest**: Fetch the most recent HEAD commit ID of the pipeline revision at launch time. Unpins the **Commit ID**, if set. 
+    :::info
+    See [Pin commit ID](../../pipelines/overview.md#pin-commit-id) for more information on **Commit ID**, **Pull latest**, and **Revision number** behavior. 
     :::
 - (*Optional*) **Config profiles**: Select a predefined profile for the Nextflow pipeline. 
     :::info 
