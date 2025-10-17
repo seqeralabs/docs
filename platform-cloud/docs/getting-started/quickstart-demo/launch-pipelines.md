@@ -43,11 +43,11 @@ The launch form consists of **General config**, **Run parameters**, and **Advanc
 ![General config tab](../_images/launch-form-2.gif)
 
 - **Pipeline to launch**: The pipeline Git repository name or URL. For saved pipelines, this is prefilled and cannot be edited.
-- **Revision number**: A valid repository commit ID, tag, or branch name. Determines the version of the pipeline to launch. 
+- **Revision**: A valid repository commit ID, tag, or branch name. Determines the version of the pipeline to launch. 
 - **Commit ID**: Pin pipeline revision to the most recent HEAD commit ID. If no commit ID is pinned, the latest revision of the repository branch or tag is used.
 - **Pull latest**: Fetch the most recent HEAD commit ID of the pipeline revision at launch time. Unpins the **Commit ID**, if set. 
   :::info
-  See [Pin commit ID](../../pipelines/overview.md#pin-commit-id) for more information on **Commit ID**, **Pull latest**, and **Revision number** behavior. 
+  See [Pin commit ID](../../pipelines/overview.md#pin-commit-id) for more information on **Commit ID**, **Pull latest**, and **Revision** behavior. 
   :::
 - (*Optional*) **Config profiles**: One or more [configuration profile](https://www.nextflow.io/docs/latest/config.html#config-profiles) names to use for the execution. 
 - **Workflow run name**: An identifier for the run, pre-filled with a random name. This can be customized.
