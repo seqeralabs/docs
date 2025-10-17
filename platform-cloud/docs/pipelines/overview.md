@@ -15,7 +15,7 @@ When you add a pipeline to Seqera, you define:
 - (Optional) [Resource labels](../resource-labels/overview.md) and [secrets](../secrets/overview.md)
 - (Optional) [Pre-run and post-run](../launch/advanced.md#pre-and-post-run-scripts) bash scripts that execute in your compute environment
 
-### Pipeline versions
+### Pipeline versioning
 
 Seqera's pipeline versioning system captures configuration changes as new **draft versions** of the pipeline, ensuring configuration traceability and execution reproducibility. Users with appropriate permissions can edit and publish draft versions, creating **published versions** that teams can reference and launch consistently. When you add a new pipeline to Seqera, the first default version of that pipeline is automatically published.
 
