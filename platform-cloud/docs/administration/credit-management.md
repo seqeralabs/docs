@@ -14,7 +14,7 @@ One Seqera Compute credit equals $1 USD. Resources are charged at AWS on-demand 
 ### Real-time credit deduction
 
 - **Task-level billing**: Credits are deducted as each pipeline task completes, providing real-time visibility into run costs. Credit spend for running Studio sessions updates at regular intervals.
-- **Cost aggregation**: The usage report CSV file shows aggregated compute and memory costs per workflow or Studio session.
+- **Cost aggregation**: The [usage report](#usage-report) shows aggregated compute and memory costs per workflow or Studio session.
 
 ### What is billed
 
