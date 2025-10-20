@@ -18,10 +18,11 @@ Generic email domains like Gmail are not eligible for the free resources detaile
 
 When you first log in after verifying your email, Seqera automatically creates an organization and workspace for you. You can **Explore Platform** and look around your workspace while starter resources are provisioned in the background, or wait for the setup to complete. Resource provisioning typically takes under a minute. Once setup is complete, you'll see a banner confirming that starter resources are ready for you to start launching pipelines.
 
-Seqera provisions three types of resources to get you started: 
-- A Seqera Compute environment with $100 in free credits
-- A cloud storage bucket in Data Explorer
-- Pre-configured nf-core pipelines, ready to launch.
+Seqera provisions four types of resources to get you started: 
+- A [Seqera Compute environment](./compute-envs/seqera-compute.md) with $100 in free credits
+- [Credentials](./credentials/overview.md) used by your compute environment to create and manage cloud resources on your behalf
+- A cloud storage bucket in [Data Explorer](./data/data-explorer.md)
+- Pre-configured nf-core pipelines, ready to launch
 
 ### Seqera Compute environment
 
@@ -29,7 +30,7 @@ Your organization workspace includes a pre-configured [Seqera Compute](https://d
 
 Credits are consumed based on the computational resources your pipeline runs and Studio session use, calculated from CPU-hours, GB-hours, and network and storage costs. You can monitor your credit balance in the **Usage overview** dropdown in the top navigation bar, or view detailed usage in your organization or workspace **Settings** tab.
 
-See [Credit management](../docs/administration/credit-management) for more information on monitoring usage and requesting additional credits.
+See [Credit management](./administration/credit-management) for more information on monitoring usage and requesting additional credits.
 
 ### Data Explorer
 
