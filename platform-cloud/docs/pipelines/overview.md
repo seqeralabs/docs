@@ -27,7 +27,7 @@ Workflow repositories are mutable - branches can be updated, tags can be moved (
 Commit ID pinning requires a valid pipeline and **Revision number** (commit ID, tag, or branch name) to be specified. The **Commit ID** field and pin icon is disabled if the **Revision number** field is left empty. 
 :::
 
-The **Pull latest** toggle controls whether Nextflow fetches the most recent HEAD commit of the pipeline revision at execution time. Enabling **Pull latest** unpins any pinned commit ID.
+The **Pull latest** toggle controls whether Nextflow fetches the most recent HEAD commit of the pipeline revision at execution time. This is equivalent to the `nextflow run -latest` flag. If Pull latest is **disabled** in HPC compute environments, the Nextflow cache is used (if available). Cloud compute environments always pull the latest HEAD commit of the revision at execution time, unless a specific commit ID revision is set or pinned. Enabling **Pull latest** unpins any pinned commit ID.
 
 #### Pin commit ID versus Pull latest behavior
 
@@ -39,7 +39,7 @@ The **Commit ID** and **Pull latest** fields appear on pipeline add, edit, and l
 |----------|-----------|-------------|-------------------|
 | Branch/tag | Empty (unpinned) - default | OFF - default | Fetches current HEAD commit at execution time (non-deterministic). |
 | Branch/tag | Pinned | OFF - automatically set when pinned | Uses the pinned commit ID for deterministic execution. |
-| Branch/tag | Empty (unpinned) | ON | Fetches current HEAD commit at execution time (non-deterministic). |
+| Branch/tag | Empty (unpinned) | ON | Fetches current HEAD commit at execution time (non-deterministic). Equivalent to `nextflow run -latest`. |
 | Commit ID | Automatically populated and pinned | OFF - default | Uses the specified commit ID (deterministic by definition). |
 
 **HPC compute environments**
@@ -48,7 +48,7 @@ The **Commit ID** and **Pull latest** fields appear on pipeline add, edit, and l
 |----------|-----------|-------------|-------------------|
 | Branch/tag | Empty (unpinned) - default | OFF - default | Runs locally cached pipeline version. No update or network fetch is performed. |
 | Branch/tag | Pinned | OFF - automatically set when pinned | Uses the pinned commit ID for deterministic execution. |
-| Branch/tag | Empty (unpinned) | ON | Fetches and caches current HEAD commit before execution (non-deterministic). |
+| Branch/tag | Empty (unpinned) | ON | Fetches and caches current HEAD commit before execution (non-deterministic). Equivalent to `nextflow run -latest`. |
 | Commit ID | Automatically populated and pinned | OFF - default | Uses the specified commit ID (deterministic by definition). |
 
 This relationship ensures commit ID pinning provides deterministic execution across both Cloud and HPC environments. Once pinned, the same commit ID is used for each launch, regardless of compute environment type.
