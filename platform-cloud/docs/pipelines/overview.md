@@ -54,7 +54,7 @@ The **Commit ID** and **Pull latest** fields appear on pipeline add, edit, and l
 This relationship ensures commit ID pinning provides deterministic execution across both Cloud and HPC environments. Once pinned, the same commit ID is used for each launch, regardless of compute environment type.
 
 :::note
-If you enter a commit ID in the **Revision** field, the **Commit ID** field, pin icon, and **Pull latest** toggle are disabled.
+If you enter a commit ID in the **Revision number** field, the **Commit ID** field, pin icon, and **Pull latest** toggle are disabled.
 :::
 
 ### Manage pipelines
