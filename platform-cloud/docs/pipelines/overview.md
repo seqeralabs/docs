@@ -39,7 +39,7 @@ The **Commit ID** and **Pull latest** fields appear on pipeline add, edit, and l
 |----------|-----------|-------------|-------------------|
 | Branch/tag | Empty (unpinned) - default | OFF - default | Fetches current HEAD commit at execution time (non-deterministic). |
 | Branch/tag | Pinned | OFF - automatically set when pinned | Uses the pinned commit ID for deterministic execution. |
-| Branch/tag | Empty (unpinned) | ON | Fetches current HEAD commit at execution time (non-deterministic). |
+| Branch/tag | Empty (unpinned) | ON | Fetches current HEAD commit at execution time (non-deterministic). Equivalent to `nextflow run -latest`. |
 | Commit ID | Automatically populated and pinned | OFF - default | Uses the specified commit ID (deterministic by definition). |
 
 **HPC compute environments**
