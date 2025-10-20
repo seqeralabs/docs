@@ -32,15 +32,17 @@ Before you get started, you need:
    
 ### Mount data
 
-Select **Mount data**, and then from the **Mount data** modal, select data to mount. Select **Mount data** to confirm your selection.
+Mount data repositories to make them accessible in your session:
 
-Data repositories are mounted using the [Fusion file system](https://docs.seqera.io/fusion) and are available at `/workspace/data/<data_repository>`. Mounted data doesn't need to match the compute environment or region of the cloud provider of the Studio. However, this might cause increased costs or errors.
+1. Select **Mount data** to open the data selection modal.
+1. Choose the data repositories to mount.
+1. Select **Mount data** to confirm.
 
-By default, sessions only have read permissions to mounted data paths. 
+Mounted repositories are accessible at /workspace/data/<DATA_REPOSITORY> using the [Fusion file system](https://docs.seqera.io/fusion). Data doesn't need to match the compute environment region, though cross-region access may increase costs or cause errors.
 
-:::info
-Write permissions can be added for specific AWS S3 buckets in the compute environment configuration by defining additional **Allowed S3 Buckets** during creation. This means that data can be written from the session back to the cloud storage path(s) mounted. If a new file is uploaded to the cloud storage bucket path while a session is running, the file may not be available to the session immediately.
-:::
+Sessions have read-only access to mounted data by default. Enable write permissions by adding AWS S3 buckets as **Allowed S3 Buckets** in your compute environment configuration.
+
+Files uploaded to a mounted bucket during an active session may not be immediately available within that session.
 
 ## General config
 
