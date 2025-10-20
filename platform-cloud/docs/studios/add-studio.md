@@ -60,13 +60,6 @@ Select **Install Conda packages** to define or upload a list of Conda packages t
 - **Stop the session automatically after a predefined period of time:** If there is an existing defined session lifespan workspace setting, you won't be able to edit this. If no workspace setting is defined, you can edit this field. The minimum value is 1 hour and the maximum is 120 hours. The default value is 8 hours. If you change the default value, the change applies only to that session. Once you've stopped the session, the value returns to default.
 - **Keep the session running:** The session will stay active (and consuming compute resources) until it's manually stopped or encounters an error which ends the session.**
 
-### Custom container template image (BYOC)
-
-Customize the following fields:
- **Container template**: Select **Prebuilt container image** from the list. For information about providing your own template, see [Custom container template image][custom-image].
- If you select the **Prebuilt container image** template, you cannot select **Install Conda packages** as these options are currently mutually exclusive.
- - **Studio name**
-- Optional: **Description**
 
 ## Save and start
 
