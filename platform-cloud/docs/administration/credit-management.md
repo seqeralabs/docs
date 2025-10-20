@@ -100,10 +100,9 @@ To request more credits:
 
 When your organization or workspace credit balance is exhausted:
 
-1. **Running pipelines pause** - All active pipeline runs and Studio sessions are automatically suspended.
-1. **Notifications sent** - You receive an alert about credit exhaustion.
-1. **New launches blocked** - No new pipeline runs or Studios can be started.
-1. **Manual resumption** - After purchasing additional credits, manually [resume](../launch/cache-resume.mdx) paused pipelines.
+1. **Running pipelines paused**: All active pipeline runs and Studio sessions are automatically suspended.
+1. **New launches blocked**: No new pipeline runs or Studios can be started using Seqera Compute environments.
+1. **Resume runs manually**: After purchasing additional credits, manually [resume](../launch/cache-resume.mdx) paused pipelines.
 
 :::warning
 Long-running tasks are periodically monitored. If a single task's estimated cost would exceed remaining credits, the workflow is preemptively paused.
