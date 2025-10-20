@@ -16,7 +16,7 @@ The image template tag includes the version of the analysis application, an opti
 <TOOL_VERSION>-[<UPDATE_VERSION>]-<CONNECT_VERSION>
 ```
 
-- `<tool_version>`: Third-party analysis application that follows its own semantic versioning `<major>.<minor>.<patch>`, such as `4.2.5` for JupyterLab.
+- `<TOOL_VERSION>`: Third-party analysis application that follows its own semantic versioning `<MAJOR>.<MINOR>.<PATCH>`, such as `4.2.5` for JupyterLab.
 - `<update_version>`: Optional analysis application update version, such as `u1`, for instances where a backwards incompatible change is introduced.
 - `<connect_version>`: Seqera Connect client version, such as `0.8` or `0.8.0`.
 
