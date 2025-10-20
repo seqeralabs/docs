@@ -28,7 +28,7 @@ Before you get started, you need:
 - **Resource labels**: Any [resource label](../labels/overview) already defined for the compute environment is added by default. adfdAdditional custom resource labels can be added or removed as needed.
 - **CPUs allocated**: The default allocation is 2 CPUs.
 - **GPUs allocated**: Available only if the selected compute environment has GPU support enabled. For more information about GPUs on AWS, see [Amazon ECS task definitions for GPU workloads][aws-gpu]. The default allocation is 0 GPUs.
-- **Maximum memory allocated**: The default allocation is 8192 MiB of memory.
+- **Maximum memory allocated**: The default allocation is 8192 MiB.
    
 ### Mount data
 
