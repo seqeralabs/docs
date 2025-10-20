@@ -70,7 +70,7 @@ Customize the following fields:
 
 ## Save and start
 
-   1. Ensure that the specified configuration is correct.
+   1. Review the configuration to ensure all settings are correct.
    1. Save your configuration:
       - To not immediately start the session, select **Add only**.
       - If you want to save and immediately start the Studio, select **Add and start**.
