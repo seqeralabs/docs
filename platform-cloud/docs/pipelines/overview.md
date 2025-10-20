@@ -27,7 +27,7 @@ Workflow repositories are mutable - branches can be updated, tags can be moved (
 Commit ID pinning requires a valid pipeline and **Revision number** (commit ID, tag, or branch name) to be specified. The **Commit ID** field and pin icon is disabled if the **Revision number** field is left empty. 
 :::
 
-The **Pull latest** toggle controls whether Nextflow fetches the most recent HEAD commit of the pipeline revision at execution time. Enabling **Pull latest** unpins any pinned commit ID.
+The **Pull latest** toggle controls whether Nextflow fetches the most recent HEAD commit of the pipeline revision at execution time. This is equivalent to the `nextflow run -latest` flag. If Pull latest is **disabled** in HPC compute environments, the Nextflow cache is used (if available). Cloud compute environments always pull the latest HEAD commit of the revision at execution time, unless a specific commit ID revision is set or pinned. Enabling **Pull latest** unpins any pinned commit ID.
 
 #### Pin commit ID versus Pull latest behavior
 
