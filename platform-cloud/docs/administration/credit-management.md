@@ -23,9 +23,9 @@ Seqera Compute bills for four resource types:
 | Resource | Rate (credits) | Billing unit | Based on | Billing frequency | Details |
 |----------|---------------|--------------|----------|-------------------|---------|
 | **CPU time** | 0.1 | CPU-hour | Requested vCPUs × runtime | At task completion | Charged based on requested vCPUs |
-| **Memory** | 0.025 | GB-hour | Requested memory × runtime | At task completion | Minimum 2 GB per task |
+| **Memory** | 0.025 | GB-hour | Requested memory × runtime | At task completion | Charged based on requested memory. If tasks request no memory, peak memory at task completion is charged (minimum 2 GB per task). |
 | **Storage** | 0.025 | GB-month | Actual usage | Daily reconciliation | S3 storage costs at AWS rates, varies by region |
-| **Network transfer** | Varies by region | GB | Actual data transfer | Daily reconciliation | Data egress charges at AWS rates |
+| **Network transfer** | Varies by region | GB | Actual data transfer | Daily reconciliation | Data egress charges at AWS rates. Network charges reflect in billing reports after 48 hours. |
 
 :::info
 CPU and memory are billed based on **requested** resources in your pipeline configuration, not actual usage. Storage and network costs are billed based on actual consumption.
