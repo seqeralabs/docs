@@ -35,11 +35,11 @@ The launch form accepts URL query parameters. See [Populate launch form with URL
   :::note
   Nextflow pipelines are Git repositories that can reside on any public or private Git-hosting platform. See [Git integration](../git/overview) in the Seqera docs and [Pipeline sharing](https://www.nextflow.io/docs/latest/sharing.html) in the Nextflow docs for more details.
   :::
-- **Revision number**: A valid repository commit ID, tag, or branch name. Determines the version of the pipeline to launch. 
+- **Revision**: A valid repository commit ID, tag, or branch name. Determines the version of the pipeline to launch. 
 - **Commit ID**: Pin pipeline revision to the most recent HEAD commit ID. If no commit ID is pinned, the latest revision of the repository branch or tag is used.
 - **Pull latest**: Fetch the most recent HEAD commit ID of the pipeline revision at launch time. Unpins the **Commit ID**, if set. 
   :::info
-  See [Pin commit ID](../pipelines/overview.md#pin-commit-id) for more information on **Commit ID**, **Pull latest**, and **Revision number** behavior. 
+  See [Pin commit ID](../pipelines/overview.md#pin-commit-id) for more information on **Commit ID**, **Pull latest**, and **Revision** behavior. 
   :::
 - **Config profiles**: One or more [configuration profile](https://www.nextflow.io/docs/latest/config.html#config-profiles) names to use for the execution. Config profiles must be defined in the `nextflow.config` file in the pipeline repository.
 - **Workflow run name**: A unique identifier for the run, pre-filled with a random name. This can be customized.
@@ -160,7 +160,7 @@ Pipeline names must be unique per workspace.
 
 ## Populate launch form with URL query parameters
 
-The launch form can populate fields with values passed as URL query parameters. For example, append `?revision=master` to your launch URL to prefill the **Revision number** field with `master`. This feature is useful for Platform administrators to provide custom pipeline launch URLs to users in order to hard-code required run and pipeline parameters for every run.
+The launch form can populate fields with values passed as URL query parameters. For example, append `?revision=master` to your launch URL to prefill the **Revision** field with `master`. This feature is useful for Platform administrators to provide custom pipeline launch URLs to users in order to hard-code required run and pipeline parameters for every run.
 
 Platform validates run parameters passed via the launch URL in the following way:
 - Parameter names are **not** validated. You must provide valid and supported parameters for launch form fields to be populated without error. See supported parameter names in the following section.
