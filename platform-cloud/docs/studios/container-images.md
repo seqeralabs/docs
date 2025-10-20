@@ -13,7 +13,7 @@ There are four container image templates provided: JupyterLab, R-IDE, Visual Stu
 The image template tag includes the version of the analysis application, an optional incompatibility flag, and the Seqera Connect version. Connect is the proprietary Seqera web server client that manages communication with the container. Tag strings use the following format:
 
 ```ignore title="Image template tag"
-<tool_version>-[u<update_version>]-<connect_version>
+<TOOL_VERSION>-[<UPDATE_VERSION>]-<CONNECT_VERSION>
 ```
 
 - `<tool_version>`: Third-party analysis application that follows its own semantic versioning `<major>.<minor>.<patch>`, such as `4.2.5` for JupyterLab.
