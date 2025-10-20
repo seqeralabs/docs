@@ -61,14 +61,7 @@
             "type": "category",
             "label": "Cloud",
             "items": [
-              {
-                "type": "category",
-                "label": "Seqera Compute",
-                "link": {"type": "doc", "id": "compute-envs/seqera-compute"},
-                "items": [
-                  "administration/credit-management"
-                ]
-              },  
+              "compute-envs/seqera-compute",
               "compute-envs/aws-batch",
               "compute-envs/aws-cloud",
               "compute-envs/azure-batch",
@@ -143,7 +136,8 @@
           "orgs-and-teams/organizations",
           "orgs-and-teams/workspace-management",
           "orgs-and-teams/roles",
-          "monitoring/dashboard"
+          "monitoring/dashboard",
+          "administration/credit-management"
           ]
       },
       {
