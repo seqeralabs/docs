@@ -1,7 +1,7 @@
 ---
 title: "Billing and credit management"
 description: "Manage Seqera Compute credits and billing in Seqera Platform"
-date: "2025-04-21"
+date: "2025-10-20"
 tags: [seqera compute, compute environment]
 ---
 
