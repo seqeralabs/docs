@@ -23,7 +23,7 @@ Seqera Compute bills for four resource types:
 | Resource | Rate (credits) | Billing unit | Based on | Billing frequency | Details |
 |----------|---------------|--------------|----------|-------------------|---------|
 | **CPU time** | 0.1 | CPU-hour | Requested vCPUs × runtime | At task completion | Charged based on requested vCPUs |
-| **Memory** | 0.025 | GB-hour | Requested memory × runtime | At task completion | Minimum 2GiB per task |
+| **Memory** | 0.025 | GB-hour | Requested memory × runtime | At task completion | Minimum 2GB per task |
 | **Storage** | 0.025 | GB-month | Actual usage | Daily reconciliation | S3 storage costs at AWS rates, varies by region |
 | **Network transfer** | Varies by region | GB | Actual data transfer | Daily reconciliation | Data egress charges at AWS rates |
 
