@@ -103,7 +103,7 @@ services:
       - cron
 
   frontend:
-    image: cr.seqera.io/private/nf-tower-enterprise/frontend:v25.2.3
+    image: cr.seqera.io/private/nf-tower-enterprise/frontend:v25.3
     platform: linux/amd64
     networks:
       - frontend
