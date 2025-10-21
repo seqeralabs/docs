@@ -42,14 +42,6 @@ process.shell = [
 ```
 :::
 
-### Xpra 6.2.0
-
-[Xpra][def-xpra], known as _screen for X_, allows you to run X11 programs by giving you remote access to individual graphical applications. The container template image also installs NVIDIA Linux x64 (AMD64/EM64T) drivers for Ubuntu 22.04 for running GPU-enabled applications. To use these GPU drivers, your compute environment must specify GPU instance families.
-
-The default user is the `root` account. The image is based on `ubuntu:jammy`. Additional system-level packages can be installed during a running Studio session in a terminal window using `apt install <package_name>`.
-
-To see the list of all Xpra image templates available, including security scan results or to inspect the container specification, see [public.cr.seqera.io/repo/platform/data-studio-xpra][ds-xpra].
-
 ## Limitations
 
 ### EFS file systems
