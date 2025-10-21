@@ -1,8 +1,9 @@
 ---
-title: "Credentials Overview"
-description: "Overview of credentials in Seqera Platform."
-date: "21 Apr 2023"
-tags: [credentials]
+title: "Credentials overview"
+description: "Learn about credentials in Seqera Platform."
+date: "2023-04-21"
+last updated: "2025-10-21"
+tags: [credentials, git, container, registry,]
 ---
 
 Seqera Platform supports secure credential management for all your infrastructure and service integrations. Configure credentials to authenticate with:

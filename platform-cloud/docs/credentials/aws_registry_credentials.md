@@ -1,7 +1,8 @@
 ---
 title: "AWS ECR credentials"
-description: "Instructions to create AWS ECR credentials in Seqera Platform."
-date: "21 Apr 2023"
+description: "Create AWS ECR credentials in Seqera Platform."
+date: "2023-04-21"
+last updated: "2025-10-21"
 tags: [aws, ecr, credentials]
 ---
 

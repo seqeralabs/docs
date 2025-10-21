@@ -1,7 +1,9 @@
 ---
 title: "Data repositories"
-description: "Instructions for adding data repositories to Seqera Platform"
+description: "Add data repositories to Seqera Platform"
 date: "15 Oct 2025"
+date: "2025-10-15"
+last updated: "2025-10-21"
 tags: [data explorer, aws, azure, gcp, s3-compatible, api, credentials]
 ---
 
@@ -9,7 +11,7 @@ Data Explorer requires programmatic access via valid credentials to browse and i
 
 To automatically connect to one or more data repositories, create a new credential that includes **Name** and **Provider**. Specific data repositories require additional information to connect.
 
-## AWS Simple Storage Service (S3) object storage 
+## AWS Simple Storage Service (S3) object storage
 
 Add an **Access key**, and **Secret key**. You can optionally provide an IAM role for temporary access - this must be a fully qualified AWS role ARN. S3 object storage buckets are prefixed with an AWS icon and `s3://` in Data Explorer.
 
