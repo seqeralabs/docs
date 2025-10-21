@@ -19,11 +19,11 @@ Seqera Platform supports credential configuration for the following container re
 - [AWS ECR credentials](./aws_registry_credentials.md)
 - [Azure container registry credentials](./azure_registry_credentials.md)
 - [Docker Hub credentials](./docker_hub_registry_credentials.md)
+- [Gitea container registry credentials](./gitea_registry_credentials.md)
 - [GitHub container registry credentials](./github_registry_credentials.md)
 - [GitLab container registry credentials](./gitlab_registry_credentials.md)
-- [Gitea container registry credentials](./gitea_registry_credentials.md)
 - [Google registry credentials](./google_registry_credentials.md)
-- [Quay](./quay_registry_credentials.md)
+- [Quay container registry credentials](./quay_registry_credentials.md)
 
 ## Next steps
 
