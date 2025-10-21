@@ -50,19 +50,20 @@ Files uploaded to a mounted bucket during an active session may not be immediate
 
 ### Seqera-managed container template images
 
-You can customize the following fields:
-- **Container template**: Select a template from the dropdown list.
-- **Studio name**
-- Optional: **Description**
+Configure the following fields:
 
-Select **Install Conda packages** to define or upload a list of Conda packages to include with the Studio. For more information on the syntax for specifying Conda packages, see [Conda package syntax][conda-syntax].
-
-**Collaboration**: By default, all Studios are collaborative. This means all workspace users with the launch role and above can connect to the session. You can toggle **Private** on which means that only the workspace user who created the Studio can connect to it. When **Private** is on, workspace administrators can still start, stop, and delete sessions but cannot connect to them.
-
-**Session lifespan**: Depending on your workspace settings, you may be able to choose between the following options:
-
-- **Stop the session automatically after a predefined period of time:** If there is an existing defined session lifespan workspace setting, you won't be able to edit this. If no workspace setting is defined, you can edit this field. The minimum value is 1 hour and the maximum is 120 hours. The default value is 8 hours. If you change the default value, the change applies only to that session. Once you've stopped the session, the value returns to default.
-- **Keep the session running:** The session will stay active (and consuming compute resources) until it's manually stopped or encounters an error which ends the session.**
+- **Container template**: Selects a template from the dropdown list. Select a provided container template or select **Prebuilt container image** and provide your own template (see [Custom container template image][custom-image]). If you select **Prebuilt container image**, the **Install Conda packages** option is unavailable.
+- **Studio name**: Sets the name for the Studio.
+- **Description** (optional): Adds a description for the Studio.
+- **Install Conda packages**: Defines or uploads a list of Conda packages to include with the Studio. For more information on package syntax, see [Conda package syntax][conda-syntax].
+- **Collaboration**: Controls session access permissions. By default, all workspace users with the launch role and above can connect to the session. Toggle **Private** on to restrict connections to the session creator only.
+    :::note
+    When private, workspace administrators can still start, stop, and delete sessions, but cannot connect to them.
+    :::
+- **Session lifespan**: Determines how long the session remains active. Available options depend on your workspace settings:
+    - **Stop the session automatically after a predefined period of time**: Sets an automatic timeout for the session (minimum: 1 hour; maximum: 120 hours; default: 8 hours). If a workspace-level session lifespan is configured, this field cannot be edited. Changes apply only to the current session and revert to default values after the session stops.
+    - **Keep the session running:** Keeps the session active until manually stopped or an error terminates it. The session continues consuming compute resources until stopped.
+- **Environment variable**: Defines environment variables for the session. All variables from the selected compute environment are automatically inherited and displayed. Additional session-specific variables can be added. Session-level variables take precedence—to override an inherited variable, define the same key with a different value.
 
 
 ## Save and start
