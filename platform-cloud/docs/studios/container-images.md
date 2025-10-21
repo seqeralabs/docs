@@ -2,7 +2,7 @@
 title: "Studios container image templates"
 description: "Use container images with Studios."
 date created: "2025-10-16"
-last updated: "2025-10-16"
+last updated: "2025-10-21"
 tags: [container, container-images, session, studios]
 ---
 
@@ -61,21 +61,29 @@ The default user is the `root` account. The following [conda-forge](https://cond
 - `nb_black=1.0.7`
 - `qgrid=1.3.1`
 
-To install additional Python packages during a running Studio session, run `!pip install <PACKAGE_NAME>` commands in your notebook environment. To install additional system-level packages, execute `apt install <PACKAGE_NAME>` in your terminal window.
+To install additional Python packages during a running Studio session, run `!pip install <PACKAGE_NAME>` commands in your notebook environment. To install additional system-level packages, run `apt install <PACKAGE_NAME>` in your terminal window.
 
 To view the list of all JupyterLab image templates available, including security scan results or to inspect the container specification, see [public.cr.seqera.io/repo/platform/data-studio-jupyter][ds-jupyter].
 
 ### R-IDE 4.4.1
 
-The default user is the `root` account. To install R packages during a running Studio session, execute `install.packages("<PACKAGE_NAME>")` commands in your notebook environment. To install system-level packages, execute `apt install <PACKAGE_NAME>` in your terminal window.
+The default user is the `root` account. To install R packages during a running Studio session, run `install.packages("<PACKAGE_NAME>")` commands in your notebook environment. To install system-level packages, run `apt install <PACKAGE_NAME>` in your terminal window.
 
 To view the list of all R-IDE image templates available, including security scan results or to inspect the container specification, see [https://public.cr.seqera.io/repo/platform/data-studio-ride][ds-ride].
 
 ### Visual Studio Code 1.93.1
 
-[Visual Studio Code][def-vsc] is an integrated development environment (IDE) that supports many programming languages. The default user is the `root` account. The container template image ships with the latest stable version of [Nextflow] and the [VS Code extension for Nextflow][nf-lang-server] to make troubleshooting Nextflow workflows easier. To install additional extensions during a running Studio session, select **Extensions**. To install additional system-level packages, execute `apt install <PACKAGE_NAME>` in your terminal window.
+[Visual Studio Code][def-vsc] is an integrated development environment (IDE) that supports many programming languages. The default user is the `root` account. The container template image ships with the latest stable version of [Nextflow] and the [VS Code extension for Nextflow][nf-lang-server] to make troubleshooting Nextflow workflows easier. To install additional extensions during a running Studio session, select **Extensions**. To install additional system-level packages, run `apt install <PACKAGE_NAME>` in your terminal window.
 
 To view the list of all Visual Studio Code image templates available, including security scan results or to inspect the container specification, see [public.cr.seqera.io/platform/data-studio-vscode][ds-vscode].
+
+### Xpra 6.2.0
+
+[Xpra][def-xpra], known as _screen for X_, allows you to run X11 programs by giving you remote access to individual graphical applications. The container template image also installs NVIDIA Linux x64 (AMD64/EM64T) drivers for Ubuntu 22.04 for running GPU-enabled applications. To use these GPU drivers, your compute environment must specify GPU instance families.
+
+The default user is the `root` account. The image is based on `ubuntu:jammy`. To install system-level packages during a running Studio session, run `apt install <PACKAGE_NAME>`.
+
+To see the list of all Xpra image templates available, including security scan results or to inspect the container specification, see [public.cr.seqera.io/repo/platform/data-studio-xpra][ds-xpra].
 
 [contact]: https://support.seqera.io/
 [aws-cloud]: ../compute-envs/aws-cloud
