@@ -36,6 +36,8 @@
           {
             "type": "category",
             "label": "Container registry credentials",
+            "link": {"type": "doc", "id": "credentials/container_registry_credentials"},
+            "collapsed": true,
             "items": [
               "credentials/docker_hub_registry_credentials",
               "credentials/aws_registry_credentials",
