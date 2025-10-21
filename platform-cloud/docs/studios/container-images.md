@@ -75,7 +75,7 @@ To see the list of all R-IDE image templates available, including security scan 
 
 [Visual Studio Code][def-vsc] is an integrated development environment (IDE) that supports many programming languages. The default user is the `root` account. The container template image ships with the latest stable version of [Nextflow] and the [VS Code extension for Nextflow][nf-lang-server] to make troubleshooting Nextflow workflows easier. To install additional extensions during a running Studio session, select **Extensions**. Additional system-level packages can be installed in a terminal window using `apt install <packagename>`.
 
-To see the list of all Visual Studio Code image templates available, including security scan results or to inspect the container specification, see [public.cr.seqera.io/platform/data-studio-vscode][ds-vscode].
+To view the list of all Visual Studio Code image templates available, including security scan results or to inspect the container specification, see [public.cr.seqera.io/platform/data-studio-vscode][ds-vscode].
 
 [contact]: https://support.seqera.io/
 [aws-cloud]: ../compute-envs/aws-cloud
