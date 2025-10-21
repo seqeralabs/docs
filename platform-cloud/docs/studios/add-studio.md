@@ -69,7 +69,7 @@ Select **Install Conda packages** to define or upload a list of Conda packages t
 
    1. Review the configuration to ensure all settings are correct.
    1. Save your configuration:
-      - To not immediately start the session, select **Add only**.
-      - If you want to save and immediately start the Studio, select **Add and start**.
+      - To save and immediately start your Studio, select **Add and start**. 
+      - To save but not immediately start your Studio, select **Add only**.
 
 The Studio you created will be listed on the Studios landing page with a status of either **stopped** or **starting**, based on whether you elected to **Add** it or to **Add and start** a session as well. Select a Studio to inspect its configuration details. 
