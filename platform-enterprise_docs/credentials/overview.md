@@ -1,16 +1,28 @@
 ---
-title: "Credentials Overview"
-description: "Overview of credentials in Seqera Platform."
-date: "21 Apr 2023"
-tags: [credentials]
+title: "Credentials overview"
+description: "Learn about credentials in Seqera Platform."
+date created: "2023-04-21"
+last updated: "2025-10-21"
+tags: [credentials, git, container, registry,]
 ---
 
-Configure **workspace credentials** in Seqera Platform to store the access keys and tokens for your [compute environments](../compute-envs/overview) and [Git hosting services](../git/overview).
+Seqera Platform supports secure credential management for all your infrastructure and service integrations. Configure credentials to authenticate with:
 
-From version 22.3, you can configure **container registry credentials** to be used by the [Wave container service](https://nextflow.io/docs/latest/wave.html) to authenticate to private and public container registries like Docker Hub, Google Artifact Registry, Quay, etc.
-
-See the **Container registry credentials** section for registry-specific instructions.
+- **[Git hosting services][git]**: Access private repositories from GitHub, GitLab, Bitbucket, and other Git providers.
+- **[Container registries][registry]**: Authenticate the Wave container service with private registries like Docker Hub, AWS ECR, Azure Container Registry, and Google Artifact Registry.
+- **[Data repositories][data]**: Connect to cloud storage services like AWS S3, Azure Blob Storage, and Google Cloud Storage.
+- **[Managed identities][managed]**: Use cloud provider managed identities for secure, credential-free authentication.
+- **[SSH credentials][ssh]**: Connect to HPC and on-premises compute environments.
+- **[Agent credentials][agent]**: Authenticate Seqera Agents for hybrid and on-premises deployments.
 
 :::note
-All credentials are (AES-256) encrypted before secure storage and not exposed in an unencrypted way by any Seqera API.
+Seqera Platform encrypts all credentials with AES-256 encryption before storing them. No Seqera API exposes credentials in an unencrypted way.
 :::
+
+[git]: ../git/overview
+[registry]: ./container_registry_credentials
+[data]: ./data_repositories
+[managed]: ./managed_identities
+[ssh]: ./ssh_credentials
+[agent]: ./agent_credentials
+
