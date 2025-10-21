@@ -67,7 +67,7 @@ To view the list of all JupyterLab image templates available, including security
 
 ### R-IDE 4.4.1
 
-The default user is the `root` account. To install R packages during a running Studio session, execute `install.packages("<packagename>")` commands in your notebook environment. Additional system-level packages can be installed in a terminal window using `apt install <packagename>`.
+The default user is the `root` account. To install R packages during a running Studio session, execute `install.packages("<PACKAGE_NAME>")` commands in your notebook environment. To install system-level packages, execute `apt install <PACKAGE_NAME>` in your terminal window.
 
 To see the list of all R-IDE image templates available, including security scan results or to inspect the container specification, see [https://public.cr.seqera.io/repo/platform/data-studio-ride][ds-ride].
 
