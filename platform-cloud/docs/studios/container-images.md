@@ -61,7 +61,7 @@ The default user is the `root` account. The following [conda-forge](https://cond
 - `nb_black=1.0.7`
 - `qgrid=1.3.1`
 
-To install additional Python packages during a running Studio session, execute `!pip install <packagename>` commands in your notebook environment. Additional system-level packages can be installed in a terminal window using `apt install <packagename>`.
+To install additional Python packages during a running Studio session, execute `!pip install <PACKAGE_NAME>` commands in your notebook environment. To install additional system-level packages, execute `apt install <PACKAGE_NAME>` in your terminal window.
 
 To view the list of all JupyterLab image templates available, including security scan results or to inspect the container specification, see [public.cr.seqera.io/repo/platform/data-studio-jupyter][ds-jupyter].
 
