@@ -26,9 +26,9 @@ Additionally, the Seqera Connect client version string has the format:
 <major>.<minor>.<patch>
 ```
 
-- `<major>`: Signifies major version changes in the underlying Seqera Connect client.
-- `<minor>`: Signifies breaking changes in the underlying Seqera Connect client.
-- `<patch>`: Signifies patch (non-breaking) changes in the underlying Seqera Connect client.
+- `<MAJOR>`: Signifies major version changes in the underlying Seqera Connect client.
+- `<MINOR>`: Signifies breaking changes in the underlying Seqera Connect client.
+- `<PATCH>`: Signifies patch (non-breaking) changes in the underlying Seqera Connect client.
 
 When pushed to the container registry, an image template is tagged with the following tags:
 
