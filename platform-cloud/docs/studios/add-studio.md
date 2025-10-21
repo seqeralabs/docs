@@ -9,7 +9,7 @@ tags: [data, session, studios]
 Select the **Studios** tab, and then select **Add Studio**.
 
 :::info[**Prerequisites**]
-Before you get started, you need:
+You will need the following to get started:
 
 - Valid credentials for accessing cloud storage resources
 - **Maintain** role permissions (minimum)
