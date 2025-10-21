@@ -11,10 +11,12 @@ Select the **Studios** tab, and then select **Add Studio**.
 :::info[**Prerequisites**]
 Before you get started, you need:
 
-- Valid credentials to access your cloud storage data resources.
-- At least the **Maintain** role set of permissions.
-- A compute environment with sufficient resources. This is highly dependent on the volume of data you wish to process, but at least 2 CPUs allocated with 8192 MB of memory is recommended.
-- [Data Explorer](../data/data-explorer) enabled.
+- Valid credentials for accessing cloud storage resources
+- **Maintain** role permissions (minimum)
+- A compute environment with sufficient resources (scale based on data volume):
+    - **CPUs**: 2 (minimum)
+    - **Memory**: 8192 MB  (minimum)
+- [Data Explorer](../data/data-explorer) enabled
 :::
 
 :::info[**Access and permissions**]
