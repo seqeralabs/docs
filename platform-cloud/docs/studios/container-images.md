@@ -63,7 +63,7 @@ The default user is the `root` account. The following [conda-forge](https://cond
 
 To install additional Python packages during a running Studio session, execute `!pip install <packagename>` commands in your notebook environment. Additional system-level packages can be installed in a terminal window using `apt install <packagename>`.
 
-To see the list of all JupyterLab image templates available, including security scan results or to inspect the container specification, see [public.cr.seqera.io/repo/platform/data-studio-jupyter][ds-jupyter].
+To view the list of all JupyterLab image templates available, including security scan results or to inspect the container specification, see [public.cr.seqera.io/repo/platform/data-studio-jupyter][ds-jupyter].
 
 ### R-IDE 4.4.1
 
