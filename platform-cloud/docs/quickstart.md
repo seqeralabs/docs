@@ -8,7 +8,7 @@ tags: [pipelines, versioning, nextflow, parameters]
 
 When you create a new Seqera Cloud account with a verified work email, Seqera automatically provisions starter resources on your first login. These resources give you everything you need to start running bioinformatics pipelines immediately, including a Seqera compute environment and $100 in free credits to launch pipelines and Studios.
 
-This guide walks you through your starter resources and shows you how to launch your first pipelines.
+This guide shows you how to launch your first pipelines with the starter resources provided.
 
 :::note
 Generic email domains like Gmail are not eligible for the free resources detailed in this guide.
