@@ -8,11 +8,11 @@ tags: [pipelines, versioning, nextflow, parameters]
 
 When you create a new Seqera Cloud account with a verified work email, Seqera automatically provisions starter resources on your first login. These resources give you everything you need to start running bioinformatics pipelines immediately, including a Seqera compute environment and $100 in free credits to launch pipelines and Studios.
 
-This guide shows you how to launch your first pipelines with the starter resources provided.
-
 :::note
 Generic email domains like Gmail are not eligible for the free resources detailed in this guide.
 :::
+
+This guide shows you how to launch your first pipelines with the starter resources provided.
 
 ## Your free resources
 
@@ -35,6 +35,10 @@ See [Credit management](./administration/credit-management) for more information
 ### Data Explorer
 
 Your workspace includes an automatically provisioned cloud storage bucket in [Data Explorer](https://docs.seqera.io/platform-cloud/data/data-explorer), linked to your Seqera Compute environment. This bucket provides storage for pipeline outputs, intermediate files, and any data you want to browse or manage through the Seqera interface. Your organization includes 25 GB of free cloud storage.
+
+:::tip
+After completing pipeline test runs, delete working directory files and other data you no longer need to manage your cloud storage optimally. 
+:::
 
 ### Launchpad
 
@@ -136,3 +140,5 @@ When you're ready to run pipelines and Studios with your own data, you can:
 - [Add data](./getting-started/quickstart-demo/add-data.md)
 - [Add new pipelines](./getting-started/quickstart-demo/add-pipelines.md)
 - [Add participants](./getting-started/workspace-setup.md) to collaborate with your team
+
+Contact the [Seqera community forum](https://community.seqera.io/) or ask [Seqera AI](https://seqera.io/ask-ai/chat-v2) if you encounter any unexpected issues or need assistance.
