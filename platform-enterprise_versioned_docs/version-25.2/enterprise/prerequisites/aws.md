@@ -1,7 +1,8 @@
 ---
 title: "AWS"
 description: Prerequisites for AWS deployments
-date: "12 Apr 2023"
+date created: "2023-04-12"
+last updated: "2025-10-22"
 tags: [aws, prerequisites, configuration, ec2, ses, rds]
 ---
 
@@ -19,6 +20,8 @@ Run the Seqera container with [Docker](../docker-compose) on an AWS EC2 instance
    :::
 
 - **MySQL database**: An external database, such as one provided by [Amazon Relational Database Service](https://aws.amazon.com/rds/), is highly recommended for production deployments.
+
+- **Redis-compatible cache**: An external Redis-compatible cache, such as one provided by [Amazon ElastiCache](https://aws.amazon.com/elasticache/), is highly recommended for production deployments.
 
 - **(Optional) SSL certificate**: HTTP must not be used in production environments. An SSL certificate is required for your Seqera instance to handle HTTPS traffic. See [SSL/TLS configuration](../configuration/ssl_tls#aws-deployments-manage-ssl-certificates-with-amazon-certificate-manager-acm) for more information.
 

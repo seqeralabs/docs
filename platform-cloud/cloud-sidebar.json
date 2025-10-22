@@ -102,6 +102,7 @@
         "type": "category",
         "label": "Pipelines",
         "items": [
+          "pipelines/overview",
           "pipeline-schema/overview",
           "launch/launchpad",
           "labels/overview",
@@ -137,7 +138,8 @@
           "orgs-and-teams/organizations",
           "orgs-and-teams/workspace-management",
           "orgs-and-teams/roles",
-          "monitoring/dashboard"
+          "monitoring/dashboard",
+          "administration/credit-management"
           ]
       },
       {
