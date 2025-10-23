@@ -19,10 +19,8 @@ You will need the following to get started:
 - [Data Explorer](../data/data-explorer) enabled
 :::
 
-:::info[**Access and permissions**]
-- If you're not able to see the Studios tab, contact your Platform adminstrator.
-- Review the user roles documentation for details about role permissions.
-- The following functionality is available to users with the **Maintain** role and above.
+:::tip[**Access and permissions**]
+If you're unable to see the Studios tab, contact your Platform administrator.
 :::
 
 ## Compute and Data
