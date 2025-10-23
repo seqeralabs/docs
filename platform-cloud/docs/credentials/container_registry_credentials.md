@@ -6,7 +6,7 @@ last updated: "2025-10-21"
 tags: [credentials, container-registry, wave, docker, authentication]
 ---
 
-From version 22.3, Seqera Platform supports the configuration of credentials for the Nextflow Wave container service to authenticate to private and public container registries. For more information about Wave container service, see [Wave containers](https://docs.seqera.io/wave).
+Seqera Platform supports the configuration of credentials for the Wave container service to authenticate to private and public container registries. For more information about Wave, see [Wave containers](https://docs.seqera.io/wave).
 
 :::note
 Container registry credentials are only used by the Wave container service. Add `wave { enabled=true }` to the **Nextflow config** field on the launch page, or to your `nextflow.config` file, for your pipeline execution to use Wave containers.
