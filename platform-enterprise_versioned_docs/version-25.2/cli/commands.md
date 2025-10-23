@@ -1,7 +1,8 @@
 ---
 title: "Commands"
 description: "Seqera Platform CLI commands."
-date: "16 Jul 2024"
+date created: "2024-07-16"
+last updated: "2025-08-20"
 tags: [cli, commands]
 ---
 

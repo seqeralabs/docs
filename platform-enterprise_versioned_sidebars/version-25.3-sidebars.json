@@ -109,6 +109,7 @@
               "credentials/gitea_registry_credentials"
             ]
           },
+          "credentials/data_repositories",
           "credentials/managed_identities",
           "credentials/ssh_credentials",
           "credentials/agent_credentials"
@@ -185,8 +186,9 @@
         "items": [
           "studios/overview",
           "studios/add-studio",
+          "studios/container-images",
           "studios/custom-envs",
-          "studios/managing",        
+          "studios/managing",
           "studios/connect"
         ]
       },
@@ -268,3 +270,4 @@
       }
     ]
   }
+
