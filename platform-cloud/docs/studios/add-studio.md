@@ -54,11 +54,11 @@ Files uploaded to a mounted bucket during an active session may not be immediate
 
 Configure the following fields:
 
-- **Container template**: Selects a template from the dropdown list. Select a provided container template or select **Prebuilt container image** and provide your own template (see [Custom container template image][custom-image]). If you select **Prebuilt container image**, the **Install Conda packages** option is unavailable.
-- **Studio name**: Sets the name for the Studio.
-- **Description** (optional): Adds a description for the Studio.
-- **Install Conda packages**: Defines or uploads a list of conda packages to include with the Studio. For more information on package syntax, see [conda package syntax][conda-syntax].
-- **Collaboration**: Controls session access permissions. By default, all workspace users with the launch role and above can connect to the session. Toggle **Private** on to restrict connections to the session creator only.
+- **Container template**: The template for the container. Select a provided container template or select **Prebuilt container image** and provide your own template (see [Custom container template image][custom-image]). If you select **Prebuilt container image**, the **Install Conda packages** option is unavailable.
+- **Studio name**: The name for the Studio.
+- **Description** (optional): A description for the Studio.
+- **Install Conda packages**: A list of conda packages to include with the Studio. For more information on package syntax, see [conda package syntax][conda-syntax].
+- **Collaboration**: Session access permissions. By default, all workspace users with the launch role and above can connect to the session. Toggle **Private** on to restrict connections to the session creator only.
     :::note
     When private, workspace administrators can still start, stop, and delete sessions, but cannot connect to them.
     :::
