@@ -1,0 +1,229 @@
+# ===== DATASETS PARAMETERS - PATH, QUERY, AND REQUEST BODY =====
+
+# ---- PATH PARAMETERS ----
+
+# datasetId - used across multiple endpoints
+- target: "$.paths./datasets/{datasetId}/metadata.get.parameters[?(@.name=='datasetId')]"
+  update:
+    description: "Dataset string identifier."
+
+- target: "$.paths./datasets/{datasetId}.put.parameters[?(@.name=='datasetId')]"
+  update:
+    description: "Dataset string identifier."
+
+- target: "$.paths./datasets/{datasetId}/upload.post.parameters[?(@.name=='datasetId')]"
+  update:
+    description: "Dataset string identifier."
+
+- target: "$.paths./datasets/{datasetId}/versions.get.parameters[?(@.name=='datasetId')]"
+  update:
+    description: "Dataset string identifier."
+
+- target: "$.paths./datasets/{datasetId}/v/{version}/n/{fileName}.get.parameters[?(@.name=='datasetId')]"
+  update:
+    description: "Dataset string identifier."
+
+- target: "$.paths./datasets/{datasetId}.delete.parameters[?(@.name=='datasetId')]"
+  update:
+    description: "Dataset string identifier."
+
+- target: "$.paths./datasets/{datasetId}/versions/{version}/disable.post.parameters[?(@.name=='datasetId')]"
+  update:
+    description: "Dataset string identifier."
+
+# version parameter
+- target: "$.paths./datasets/{datasetId}/v/{version}/n/{fileName}.get.parameters[?(@.name=='version')]"
+  update:
+    description: "Dataset version number."
+
+- target: "$.paths./datasets/{datasetId}/versions/{version}/disable.post.parameters[?(@.name=='version')]"
+  update:
+    description: "Dataset version number to disable."
+
+# fileName parameter
+- target: "$.paths./datasets/{datasetId}/v/{version}/n/{fileName}.get.parameters[?(@.name=='fileName')]"
+  update:
+    description: "File name for the downloaded dataset content. Must match the original uploaded filename."
+
+# launchId parameter
+- target: "$.paths./launch/{launchId}/datasets.get.parameters[?(@.name=='launchId')]"
+  update:
+    description: "Launch string identifier."
+
+# ---- QUERY PARAMETERS - workspaceId ----
+
+# Confirmed user/workspace context operations
+- target: "$.paths./datasets.get.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. If omitted, lists datasets in a user context."
+
+- target: "$.paths./datasets.post.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. If omitted, creates dataset in a user context."
+
+- target: "$.paths./datasets/versions.get.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. If omitted, lists dataset versions in a user context."
+
+# All other workspaceId parameters (behavior not explicitly confirmed)
+- target: "$.paths./datasets.delete.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier."
+
+- target: "$.paths./datasets/hide.post.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier."
+
+- target: "$.paths./datasets/show.post.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier."
+
+- target: "$.paths./datasets/labels/add.post.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier."
+
+- target: "$.paths./datasets/labels/apply.post.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier."
+
+- target: "$.paths./datasets/labels/remove.post.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier."
+
+- target: "$.paths./datasets/{datasetId}/metadata.get.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier."
+
+- target: "$.paths./datasets/{datasetId}.put.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier."
+
+- target: "$.paths./datasets/{datasetId}/upload.post.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier."
+
+- target: "$.paths./datasets/{datasetId}/versions.get.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier."
+
+- target: "$.paths./datasets/{datasetId}/v/{version}/n/{fileName}.get.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier."
+
+- target: "$.paths./datasets/{datasetId}.delete.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier."
+
+- target: "$.paths./datasets/{datasetId}/versions/{version}/disable.post.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier."
+
+- target: "$.paths./launch/{launchId}/datasets.get.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier."
+
+# ---- PAGINATION PARAMETERS ----
+
+# GET /datasets - pagination
+- target: "$.paths./datasets.get.parameters[?(@.name=='max')]"
+  update:
+    description: "Maximum number of results to return. Default: `20`."
+
+- target: "$.paths./datasets.get.parameters[?(@.name=='offset')]"
+  update:
+    description: "Number of results to skip for pagination. Default: `0`."
+
+# GET /datasets/versions - pagination
+- target: "$.paths./datasets/versions.get.parameters[?(@.name=='max')]"
+  update:
+    description: "Maximum number of results to return. Default: `20`."
+
+- target: "$.paths./datasets/versions.get.parameters[?(@.name=='offset')]"
+  update:
+    description: "Number of results to skip for pagination. Default: `0`."
+
+# ---- SEARCH PARAMETERS ----
+
+- target: "$.paths./datasets.get.parameters[?(@.name=='search')]"
+  update:
+    description: "Filter search parameter. Supports free text search on dataset name and description."
+
+- target: "$.paths./datasets/versions.get.parameters[?(@.name=='search')]"
+  update:
+    description: "Filter search parameter. Supports free text search on dataset name and description."
+
+# ---- SORTING PARAMETERS ----
+
+- target: "$.paths./datasets.get.parameters[?(@.name=='sortBy')]"
+  update:
+    description: "Sort field. Supports `name` (alphabetical by name) or `modified` (by last update timestamp). Default: `name`."
+
+- target: "$.paths./datasets.get.parameters[?(@.name=='sortDir')]"
+  update:
+    description: "Sort direction. Supports `asc` (ascending) or `desc` (descending). Default: `asc`."
+
+# ---- VISIBILITY PARAMETERS ----
+
+- target: "$.paths./datasets.get.parameters[?(@.name=='visibility')]"
+  update:
+    description: "Visibility filter. Supports `visible` (show only visible datasets), `hidden` (show only hidden datasets), or `all` (show all datasets). Default: `visible`."
+
+# ---- ATTRIBUTES PARAMETERS ----
+
+- target: "$.paths./datasets.get.parameters[?(@.name=='attributes')]"
+  update:
+    description: "Additional attribute values to include in the response. Supports `labels`. Returns `labels: null` if omitted."
+
+- target: "$.paths./datasets/{datasetId}/metadata.get.parameters[?(@.name=='attributes')]"
+  update:
+    description: "Additional attribute values to include in the response. Supports `labels`. Returns `labels: null` if omitted."
+
+# ---- MIME TYPE PARAMETERS ----
+
+- target: "$.paths./datasets/versions.get.parameters[?(@.name=='mimeType')]"
+  update:
+    description: "Dataset MIME type filter (e.g., `text/csv`, `text/tab-separated-values`)."
+
+- target: "$.paths./datasets/{datasetId}/versions.get.parameters[?(@.name=='mimeType')]"
+  update:
+    description: "Optional MIME type filter (e.g., `text/csv`, `text/tab-separated-values`)."
+
+# ---- UPLOAD PARAMETERS ----
+
+- target: "$.paths./datasets/{datasetId}/upload.post.parameters[?(@.name=='header')]"
+  update:
+    description: "Indicates whether the uploaded file contains a header row. Default: `true`."
+
+# ---- REQUEST BODY DESCRIPTIONS ----
+
+- target: "$.paths./datasets.post.requestBody"
+  update:
+    description: "Dataset create request."
+
+- target: "$.paths./datasets.delete.requestBody"
+  update:
+    description: "Dataset IDs to delete."
+
+- target: "$.paths./datasets/hide.post.requestBody"
+  update:
+    description: "Dataset IDs to hide."
+
+- target: "$.paths./datasets/show.post.requestBody"
+  update:
+    description: "Dataset IDs to show."
+
+- target: "$.paths./datasets/labels/add.post.requestBody"
+  update:
+    description: "Dataset IDs and label IDs to add."
+
+- target: "$.paths./datasets/labels/apply.post.requestBody"
+  update:
+    description: "Dataset IDs and label IDs to apply (replacing existing labels)."
+
+- target: "$.paths./datasets/labels/remove.post.requestBody"
+  update:
+    description: "Dataset IDs and label IDs to remove."
+
+- target: "$.paths./datasets/{datasetId}.put.requestBody"
+  update:
+    description: "Dataset update request."

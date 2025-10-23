@@ -1,0 +1,265 @@
+# ===== DATA-LINKS PARAMETERS - PATH, QUERY, AND REQUEST BODY =====
+
+# ---- PATH PARAMETERS ----
+
+# dataLinkId - used across multiple endpoints
+- target: "$.paths./data-links/{dataLinkId}/browse{/path}.get.parameters[?(@.name=='dataLinkId')]"
+  update:
+    description: "Data-link string identifier."
+
+- target: "$.paths./data-links/{dataLinkId}/browse-tree.get.parameters[?(@.name=='dataLinkId')]"
+  update:
+    description: "Data-link string identifier."
+
+- target: "$.paths./data-links/{dataLinkId}.get.parameters[?(@.name=='dataLinkId')]"
+  update:
+    description: "Data-link string identifier."
+
+- target: "$.paths./data-links/{dataLinkId}.put.parameters[?(@.name=='dataLinkId')]"
+  update:
+    description: "Data-link string identifier."
+
+- target: "$.paths./data-links/{dataLinkId}.delete.parameters[?(@.name=='dataLinkId')]"
+  update:
+    description: "Data-link string identifier."
+
+- target: "$.paths./data-links/{dataLinkId}/download/{+filePath}.get.parameters[?(@.name=='dataLinkId')]"
+  update:
+    description: "Data-link string identifier."
+
+- target: "$.paths./data-links/{dataLinkId}/generate-download-url.get.parameters[?(@.name=='dataLinkId')]"
+  update:
+    description: "Data-link string identifier."
+
+- target: "$.paths./data-links/{dataLinkId}/script/download.get.parameters[?(@.name=='dataLinkId')]"
+  update:
+    description: "Data-link string identifier."
+
+- target: "$.paths./data-links/{dataLinkId}/upload{/dirPath}.post.parameters[?(@.name=='dataLinkId')]"
+  update:
+    description: "Data-link string identifier."
+
+- target: "$.paths./data-links/{dataLinkId}/upload/finish{/dirPath}.post.parameters[?(@.name=='dataLinkId')]"
+  update:
+    description: "Data-link string identifier."
+
+- target: "$.paths./data-links/{dataLinkId}/content.delete.parameters[?(@.name=='dataLinkId')]"
+  update:
+    description: "Data-link string identifier."
+
+# path parameter
+- target: "$.paths./data-links/{dataLinkId}/browse{/path}.get.parameters[?(@.name=='path')]"
+  update:
+    description: "Content path within the data-link. Use forward slashes to navigate directory structures (e.g., `folder/subfolder`)."
+
+# filePath parameter
+- target: "$.paths./data-links/{dataLinkId}/download/{+filePath}.get.parameters[?(@.name=='filePath')]"
+  update:
+    description: "File path to download within the data-link (e.g., `folder/subfolder/object`)."
+
+- target: "$.paths./data-links/{dataLinkId}/generate-download-url.get.parameters[?(@.name=='filePath')]"
+  update:
+    description: "File path to download within the data-link (e.g., `folder/subfolder/object`)."
+
+# dirPath parameter
+- target: "$.paths./data-links/{dataLinkId}/upload{/dirPath}.post.parameters[?(@.name=='dirPath')]"
+  update:
+    description: "Path to the destination directory within the data-link where the file will be uploaded (e.g., `folder/subfolder`)."
+
+- target: "$.paths./data-links/{dataLinkId}/upload/finish{/dirPath}.post.parameters[?(@.name=='dirPath')]"
+  update:
+    description: "Path to the destination directory within the data-link where the file was uploaded (e.g., `folder/subfolder`)."
+
+# ---- QUERY PARAMETERS - workspaceId ----
+
+- target: "$.paths./data-links/cache/refresh.get.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. If omitted, refreshes cache in a user context."
+
+- target: "$.paths./data-links/.get.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. If omitted, lists data-links in a user context."
+
+- target: "$.paths./data-links/{dataLinkId}/browse{/path}.get.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. Optional."
+
+- target: "$.paths./data-links/{dataLinkId}/browse-tree.get.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. Optional."
+
+- target: "$.paths./data-links/{dataLinkId}.get.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. Optional."
+
+- target: "$.paths./data-links/hide.post.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. Optional."
+
+- target: "$.paths./data-links/show.post.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. Optional."
+
+- target: "$.paths./data-links/.post.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. If omitted, creates data-link in a user context."
+
+- target: "$.paths./data-links/{dataLinkId}.put.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. Optional."
+
+- target: "$.paths./data-links/{dataLinkId}.delete.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. Optional."
+
+- target: "$.paths./data-links/{dataLinkId}/download/{+filePath}.get.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. Optional."
+
+- target: "$.paths./data-links/{dataLinkId}/generate-download-url.get.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. Optional."
+
+- target: "$.paths./data-links/{dataLinkId}/script/download.get.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. Optional."
+
+- target: "$.paths./data-links/{dataLinkId}/upload{/dirPath}.post.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. Optional."
+
+- target: "$.paths./data-links/{dataLinkId}/upload/finish{/dirPath}.post.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. Optional."
+
+- target: "$.paths./data-links/{dataLinkId}/content.delete.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. Optional."
+
+# ---- QUERY PARAMETERS - credentialsId ----
+
+- target: "$.paths./data-links/cache/refresh.get.parameters[?(@.name=='credentialsId')]"
+  update:
+    description: "Credentials string identifier. Filters cache refresh to data-links accessible with the specified credentials."
+
+- target: "$.paths./data-links/.get.parameters[?(@.name=='credentialsId')]"
+  update:
+    description: "Credentials string identifier. Filters results to data-links accessible with the specified credentials."
+
+- target: "$.paths./data-links/{dataLinkId}/browse{/path}.get.parameters[?(@.name=='credentialsId')]"
+  update:
+    description: "Credentials string identifier. Required for accessing private data-links."
+
+- target: "$.paths./data-links/{dataLinkId}/browse-tree.get.parameters[?(@.name=='credentialsId')]"
+  update:
+    description: "Credentials string identifier. Required for accessing private data-links."
+
+- target: "$.paths./data-links/{dataLinkId}.get.parameters[?(@.name=='credentialsId')]"
+  update:
+    description: "Credentials string identifier. Required for accessing private data-links."
+
+- target: "$.paths./data-links/{dataLinkId}/download/{+filePath}.get.parameters[?(@.name=='credentialsId')]"
+  update:
+    description: "Credentials string identifier. Required for downloading from private data-links."
+
+- target: "$.paths./data-links/{dataLinkId}/generate-download-url.get.parameters[?(@.name=='credentialsId')]"
+  update:
+    description: "Credentials string identifier. Required for generating download URLs for private data-links."
+
+- target: "$.paths./data-links/{dataLinkId}/script/download.get.parameters[?(@.name=='credentialsId')]"
+  update:
+    description: "Credentials string identifier. Required for generating download scripts for private data-links."
+
+- target: "$.paths./data-links/{dataLinkId}/upload{/dirPath}.post.parameters[?(@.name=='credentialsId')]"
+  update:
+    description: "Credentials string identifier. Required for uploading to private data-links."
+
+- target: "$.paths./data-links/{dataLinkId}/upload/finish{/dirPath}.post.parameters[?(@.name=='credentialsId')]"
+  update:
+    description: "Credentials string identifier. Required for finalizing uploads to private data-links."
+
+- target: "$.paths./data-links/{dataLinkId}/content.delete.parameters[?(@.name=='credentialsId')]"
+  update:
+    description: "Credentials string identifier. Required for deleting content from private data-links."
+
+# ---- SEARCH AND FILTER PARAMETERS ----
+
+- target: "$.paths./data-links/.get.parameters[?(@.name=='search')]"
+  update:
+    description: "Free text search criteria. Supports data-link `name`, `region`, and `provider`."
+
+- target: "$.paths./data-links/{dataLinkId}/browse{/path}.get.parameters[?(@.name=='search')]"
+  update:
+    description: "Prefix search of data-link content. Filters files and folders by `name` prefix (e.g., `search=my-file` matches `my-file.txt`, `my-file-2.csv`)."
+
+# ---- PAGINATION PARAMETERS ----
+
+- target: "$.paths./data-links/.get.parameters[?(@.name=='max')]"
+  update:
+    description: "Maximum number of results to return. Default: `25`, maximum: `100`."
+
+- target: "$.paths./data-links/.get.parameters[?(@.name=='offset')]"
+  update:
+    description: "Number of results to skip for pagination. Default: `0`."
+
+- target: "$.paths./data-links/{dataLinkId}/browse{/path}.get.parameters[?(@.name=='pageSize')]"
+  update:
+    description: "Number of items to return per page. If omitted, a default maximum value is returned. Maximum: `100`."
+
+- target: "$.paths./data-links/{dataLinkId}/browse{/path}.get.parameters[?(@.name=='nextPageToken')]"
+  update:
+    description: "Token used to fetch the next page of items. Obtained from the previous response."
+
+# ---- VISIBILITY PARAMETERS ----
+
+- target: "$.paths./data-links/.get.parameters[?(@.name=='visibility')]"
+  update:
+    description: "Visibility filter. Supports `visible` (show only visible data-links), `hidden` (show only hidden data-links), or `all` (show all data-links)."
+
+# ---- DOWNLOAD/UPLOAD PARAMETERS ----
+
+- target: "$.paths./data-links/{dataLinkId}/generate-download-url.get.parameters[?(@.name=='preview')]"
+  update:
+    description: "If `true`, generates a URL for preview purposes. If `false`, generates a URL for direct download. Default: `false`."
+
+- target: "$.paths./data-links/{dataLinkId}/script/download.get.parameters[?(@.name=='dirs')]"
+  update:
+    description: "List of directory paths to include in the download script."
+
+- target: "$.paths./data-links/{dataLinkId}/script/download.get.parameters[?(@.name=='files')]"
+  update:
+    description: "List of file paths to include in the download script."
+
+- target: "$.paths./data-links/{dataLinkId}/browse-tree.get.parameters[?(@.name=='paths')]"
+  update:
+    description: "List of paths to explore. Returns all files within the specified paths, including sub-paths."
+
+# ---- REQUEST BODY DESCRIPTIONS ----
+
+- target: "$.paths./data-links/hide.post.requestBody"
+  update:
+    description: "Data-link IDs to hide."
+
+- target: "$.paths./data-links/show.post.requestBody"
+  update:
+    description: "Data-link IDs to show."
+
+- target: "$.paths./data-links/.post.requestBody"
+  update:
+    description: "Data-link creation request."
+
+- target: "$.paths./data-links/{dataLinkId}.put.requestBody"
+  update:
+    description: "Data-link update request."
+
+- target: "$.paths./data-links/{dataLinkId}/upload{/dirPath}.post.requestBody"
+  update:
+    description: "Multi-part upload request containing file metadata (name, size, content type)."
+
+- target: "$.paths./data-links/{dataLinkId}/upload/finish{/dirPath}.post.requestBody"
+  update:
+    description: "Finish multi-part upload request for AWS S3 data-links, containing upload ID, file name, part tags, and error status."
+
+- target: "$.paths./data-links/{dataLinkId}/content.delete.requestBody"
+  update:
+    description: "Data-link content deletion request specifying files and directories to delete."

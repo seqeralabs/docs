@@ -1,0 +1,97 @@
+# ===== DATA-LINKS OPERATIONS - SUMMARIES & DESCRIPTIONS =====
+
+# GET /data-links/cache/refresh - Refresh data-link cache
+- target: "$.paths./data-links/cache/refresh.get"
+  update:
+    summary: "Refresh data-link cache"
+    description: "Refreshes the data-link cache for the given `workspaceId` or `credentialsId`. Forces immediate re-discovery of available cloud storage resources."
+
+# GET /data-links/ - List data-links
+- target: "$.paths./data-links/.get"
+  update:
+    summary: "List data-links"
+    description: "Retrieves all available data-links in a user context. Append `?workspaceId={your-workspace-id}` to retrieve data-links in a workspace context. Results can be filtered by credentials, provider, region, search query, and visibility."
+
+# GET /data-links/{dataLinkId}/browse{/path} - Explore data-link path
+- target: "$.paths./data-links/{dataLinkId}/browse{/path}.get"
+  update:
+    summary: "Explore data-link path"
+    description: "Retrieves the content of the data-link associated with the given `dataLinkId`, at the given `path`. Returns a paginated list of files and folders at the specified location."
+
+# GET /data-links/{dataLinkId}/browse-tree - Explore data-link tree
+- target: "$.paths./data-links/{dataLinkId}/browse-tree.get"
+  update:
+    summary: "Explore data-link tree"
+    description: "Retrieves a list of all files in the data-link associated with the given `dataLinkId`, including files in sub-paths. Useful for retrieving complete directory structures."
+
+# GET /data-links/{dataLinkId} - Describe data-link
+- target: "$.paths./data-links/{dataLinkId}.get"
+  update:
+    summary: "Describe data-link"
+    description: "Retrieves the details of the data-link associated with the given `dataLinkId`, including provider information, credentials, and access status."
+
+# POST /data-links/hide - Hide data-links
+- target: "$.paths./data-links/hide.post"
+  update:
+    summary: "Hide data-links"
+    description: "Hides the given data-links from the data-links list view. Hidden data-links remain accessible but are filtered from default list views."
+
+# POST /data-links/show - Show data-links
+- target: "$.paths./data-links/show.post"
+  update:
+    summary: "Show data-links"
+    description: "Shows previously hidden data-links in the data-links list view."
+
+# POST /data-links/ - Create data-link
+- target: "$.paths./data-links/.post"
+  update:
+    summary: "Create data-link"
+    description: "Creates a new data-link in a user context. Append `?workspaceId=` to create the data-link in a workspace context. Data-links can be public (no credentials required) or private (credentials-based access)."
+
+# PUT /data-links/{dataLinkId} - Update data-link
+- target: "$.paths./data-links/{dataLinkId}.put"
+  update:
+    summary: "Update data-link"
+    description: "Updates the data-link associated with the given `dataLinkId`. Allows modification of name, description, and associated credentials."
+
+# DELETE /data-links/{dataLinkId} - Delete data-link
+- target: "$.paths./data-links/{dataLinkId}.delete"
+  update:
+    summary: "Delete data-link"
+    description: "Deletes the data-link associated with the given `dataLinkId`. The underlying cloud storage resource is not affected."
+
+# GET /data-links/{dataLinkId}/download/{+filePath} - Download data-link file
+- target: "$.paths./data-links/{dataLinkId}/download/{+filePath}.get"
+  update:
+    summary: "Download data-link file"
+    description: "Downloads the content at the given `filePath` in the data-link associated with the given `dataLinkId`. Returns the file content directly as a streamed response."
+
+# GET /data-links/{dataLinkId}/generate-download-url - Generate download URL
+- target: "$.paths./data-links/{dataLinkId}/generate-download-url.get"
+  update:
+    summary: "Generate download URL"
+    description: "Returns a pre-signed URL to download files from the data-link associated with the given `dataLinkId`. The URL can be used for direct downloads or preview purposes."
+
+# GET /data-links/{dataLinkId}/script/download - Generate download script
+- target: "$.paths./data-links/{dataLinkId}/script/download.get"
+  update:
+    summary: "Generate download script"
+    description: "Creates a script to download files from the data-link associated with the given `dataLinkId`. Append `?dirs` or `?files` to specify a list of files or paths to download within the data-link."
+
+# POST /data-links/{dataLinkId}/upload{/dirPath} - Generate upload URL
+- target: "$.paths./data-links/{dataLinkId}/upload{/dirPath}.post"
+  update:
+    summary: "Generate upload URL"
+    description: "Creates a URL to upload files to the data-link associated with the given `dataLinkId`, specifying a file path (`dirPath`). For AWS S3 data-links, an additional follow-up request must be sent after your file upload has completed (or encountered an error) to finalize the upload - see the `/upload/finish` endpoint."
+
+# POST /data-links/{dataLinkId}/upload/finish{/dirPath} - Finish upload
+- target: "$.paths./data-links/{dataLinkId}/upload/finish{/dirPath}.post"
+  update:
+    summary: "Finish upload"
+    description: "Finalizes upload of a data-link file, specifying a file path (`dirPath`). This endpoint is required for AWS S3 data-links to complete a successful file upload, or abort an upload if an error was encountered while uploading a file using an upload URL from the `/upload` endpoint."
+
+# DELETE /data-links/{dataLinkId}/content - Delete data-link content
+- target: "$.paths./data-links/{dataLinkId}/content.delete"
+  update:
+    summary: "Delete data-link content"
+    description: "Deletes the content of the data-link associated with the given `dataLinkId`. The data-link itself is preserved, but files and directories within it are removed."

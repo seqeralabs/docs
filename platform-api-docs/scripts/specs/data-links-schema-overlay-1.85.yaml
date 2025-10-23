@@ -1,0 +1,267 @@
+# ===== DATA-LINKS SCHEMAS - REQUEST/RESPONSE OBJECTS =====
+
+# ---- REQUEST SCHEMAS ----
+
+# DataLinkCreateRequest
+- target: "$.components.schemas.DataLinkCreateRequest.properties.name"
+  update:
+    description: "Unique name for the data-link. Must consist of alphanumeric, dash, or underscore characters."
+
+- target: "$.components.schemas.DataLinkCreateRequest.properties.description"
+  update:
+    description: "Description of the data-link. Maximum length: 1000 characters."
+
+- target: "$.components.schemas.DataLinkCreateRequest.properties.type"
+  update:
+    description: "Type of the data-link. Currently supports `bucket`."
+
+- target: "$.components.schemas.DataLinkCreateRequest.properties.provider"
+  update:
+    description: "Cloud provider for the data-link. Supports `aws`, `google`, `azure`, `azure_entra`, `azure-cloud`, `seqeracompute`, and `s3`."
+
+- target: "$.components.schemas.DataLinkCreateRequest.properties.resourceRef"
+  update:
+    description: "Resource path for the data-link, including the URI scheme (e.g., `s3://my-bucket`, `gs://my-bucket`, `az://account.container`)."
+
+- target: "$.components.schemas.DataLinkCreateRequest.properties.publicAccessible"
+  update:
+    description: "Whether the data-link is publicly accessible. If `true`, no credentials are required. If `false`, `credentialsId` must be provided."
+
+- target: "$.components.schemas.DataLinkCreateRequest.properties.credentialsId"
+  update:
+    description: "Credentials string identifier. Required when `publicAccessible` is `false`."
+
+# DataLinkUpdateRequest
+- target: "$.components.schemas.DataLinkUpdateRequest.properties.name"
+  update:
+    description: "New name for the data-link. Must be unique within the workspace or user context."
+
+- target: "$.components.schemas.DataLinkUpdateRequest.properties.description"
+  update:
+    description: "Updated description for the data-link. Maximum length: 1000 characters."
+
+- target: "$.components.schemas.DataLinkUpdateRequest.properties.credentialsId"
+  update:
+    description: "Updated credentials ID for accessing the data-link."
+
+# DataLinksVisibilityRequest
+- target: "$.components.schemas.DataLinksVisibilityRequest.properties.dataLinkIds"
+  update:
+    description: "Array of data-link IDs to hide or show."
+
+# DataLinkDeleteItemRequest
+- target: "$.components.schemas.DataLinkDeleteItemRequest.properties.files"
+  update:
+    description: "Array of file paths to be deleted from the data-link."
+
+- target: "$.components.schemas.DataLinkDeleteItemRequest.properties.dirs"
+  update:
+    description: "Array of directory paths to be deleted from the data-link."
+
+# DataLinkMultiPartUploadRequest
+- target: "$.components.schemas.DataLinkMultiPartUploadRequest.properties.fileName"
+  update:
+    description: "Name of the file to upload."
+
+- target: "$.components.schemas.DataLinkMultiPartUploadRequest.properties.contentLength"
+  update:
+    description: "Size of the file to upload in bytes."
+
+- target: "$.components.schemas.DataLinkMultiPartUploadRequest.properties.contentType"
+  update:
+    description: "MIME type of the file to upload (e.g., `application/octet-stream`, `text/plain`)."
+
+# DataLinkFinishMultiPartUploadRequest
+- target: "$.components.schemas.DataLinkFinishMultiPartUploadRequest.properties.uploadId"
+  update:
+    description: "Upload ID assigned when initiating multi-part upload for AWS S3. Obtained from the `/upload` endpoint response."
+
+- target: "$.components.schemas.DataLinkFinishMultiPartUploadRequest.properties.fileName"
+  update:
+    description: "Name of the uploaded file."
+
+- target: "$.components.schemas.DataLinkFinishMultiPartUploadRequest.properties.tags"
+  update:
+    description: "Array of ETags assigned for each part by AWS S3 during the upload process. Each ETag is returned in the response headers when uploading a part to the pre-signed URLs from the `/upload` endpoint."
+
+- target: "$.components.schemas.DataLinkFinishMultiPartUploadRequest.properties.withError"
+  update:
+    description: "Flag indicating whether the upload encountered an error. If `true`, the upload will be aborted. If `false`, the upload will be completed."
+
+# ---- RESPONSE SCHEMAS ----
+
+# DataLinkResponse
+- target: "$.components.schemas.DataLinkResponse.properties.dataLink"
+  update:
+    description: "Data-link object containing metadata."
+
+# DataLinksListResponse
+- target: "$.components.schemas.DataLinksListResponse.properties.dataLinks"
+  update:
+    description: "Array of data-link objects."
+
+- target: "$.components.schemas.DataLinksListResponse.properties.totalSize"
+  update:
+    description: "Total number of data-links matching the query."
+
+- target: "$.components.schemas.DataLinksListResponse.properties.isFetching"
+  update:
+    description: "Flag indicating whether more data-links are currently being fetched from cloud providers. Not rendered in JSON response; used to determine HTTP status code."
+
+# DataLinkContentResponse
+- target: "$.components.schemas.DataLinkContentResponse.properties.originalPath"
+  update:
+    description: "Base path for all returned objects within the data-link."
+
+- target: "$.components.schemas.DataLinkContentResponse.properties.objects"
+  update:
+    description: "Array of data-link items (files and folders) at the specified path."
+
+- target: "$.components.schemas.DataLinkContentResponse.properties.nextPageToken"
+  update:
+    description: "Token that can be used to request the next page of items. Null if no more items are available."
+
+# DataLinkContentTreeListResponse
+- target: "$.components.schemas.DataLinkContentTreeListResponse.properties.items"
+  update:
+    description: "Array of simple data-link items containing file paths and sizes."
+
+# DataLinkDownloadUrlResponse
+- target: "$.components.schemas.DataLinkDownloadUrlResponse.properties.url"
+  update:
+    description: "Pre-signed URL to download the requested file."
+
+# DataLinkDownloadScriptResponse
+- target: "$.components.schemas.DataLinkDownloadScriptResponse.properties.script"
+  update:
+    description: "Shell script content to download files from the data-link."
+
+# DataLinkMultiPartUploadResponse
+- target: "$.components.schemas.DataLinkMultiPartUploadResponse.properties.uploadId"
+  update:
+    description: "Upload ID generated by AWS S3. Required for the `/upload/finish` request."
+
+- target: "$.components.schemas.DataLinkMultiPartUploadResponse.properties.uploadUrls"
+  update:
+    description: "Array of pre-signed URLs to execute multi-part upload. One URL per part."
+
+# DataLinkDeleteItemResponse
+- target: "$.components.schemas.DataLinkDeleteItemResponse.properties.deletionFailures"
+  update:
+    description: "Array of items that failed to be deleted, including error messages."
+
+# ---- DTO SCHEMAS ----
+
+# DataLinkDto
+- target: "$.components.schemas.DataLinkDto.properties.id"
+  update:
+    description: "Data-link string identifier. Generated based on provider, type, region, and resource path."
+
+- target: "$.components.schemas.DataLinkDto.properties.name"
+  update:
+    description: "Name of the data-link (e.g., bucket name)."
+
+- target: "$.components.schemas.DataLinkDto.properties.description"
+  update:
+    description: "Description of the data-link. Null for data-links auto-discovered from workspace credentials."
+
+- target: "$.components.schemas.DataLinkDto.properties.resourceRef"
+  update:
+    description: "Resource path for the data-link, including the URI scheme (e.g., `s3://my-bucket`, `gs://my-bucket`, `az://account.container`)."
+
+- target: "$.components.schemas.DataLinkDto.properties.type"
+  update:
+    description: "Data-link type. Currently supports `bucket`."
+
+- target: "$.components.schemas.DataLinkDto.properties.provider"
+  update:
+    description: "Cloud provider for the data-link. Supports `aws`, `google`, `azure`, `azure_entra`, `azure-cloud`, `seqeracompute`, and `s3`."
+
+- target: "$.components.schemas.DataLinkDto.properties.region"
+  update:
+    description: "Cloud region of the data-link (e.g., `us-east-1`, `europe-west1`). May be null for some providers."
+
+- target: "$.components.schemas.DataLinkDto.properties.credentials"
+  update:
+    description: "Array of credentials that can access this data-link. Empty for public data-links."
+
+- target: "$.components.schemas.DataLinkDto.properties.publicAccessible"
+  update:
+    description: "Whether the data-link is publicly accessible without credentials."
+
+- target: "$.components.schemas.DataLinkDto.properties.hidden"
+  update:
+    description: "Visibility status flag. If `true`, data-link is hidden from default list views."
+
+- target: "$.components.schemas.DataLinkDto.properties.status"
+  update:
+    description: "Status of the data-link. Can be `VALID` or `INVALID`. Set to `INVALID` when associated credentials are deleted."
+
+- target: "$.components.schemas.DataLinkDto.properties.message"
+  update:
+    description: "Error message for invalid data-links. Null for valid data-links."
+
+# DataLinkItem
+- target: "$.components.schemas.DataLinkItem.properties.type"
+  update:
+    description: "Type of the item. Either `FILE` or `FOLDER`."
+
+- target: "$.components.schemas.DataLinkItem.properties.name"
+  update:
+    description: "Name of the file or folder."
+
+- target: "$.components.schemas.DataLinkItem.properties.size"
+  update:
+    description: "Size of the file in bytes. For folders, always `0`."
+
+- target: "$.components.schemas.DataLinkItem.properties.mimeType"
+  update:
+    description: "MIME type of the file, calculated by analyzing the file extension. Null for folders."
+
+# DataLinkSimpleItem
+- target: "$.components.schemas.DataLinkSimpleItem.properties.path"
+  update:
+    description: "Path to the item from the data-link root (resource path)."
+
+- target: "$.components.schemas.DataLinkSimpleItem.properties.size"
+  update:
+    description: "Size of the file in bytes. For folders, always `0`."
+
+# DataLinkItemDeletionFailure
+- target: "$.components.schemas.DataLinkItemDeletionFailure.properties.dataLinkItem"
+  update:
+    description: "Data-link item that failed to be deleted."
+
+- target: "$.components.schemas.DataLinkItemDeletionFailure.properties.errorMessage"
+  update:
+    description: "Error message describing why the deletion failed."
+
+# DataLinkCredentials
+- target: "$.components.schemas.DataLinkCredentials.properties.id"
+  update:
+    description: "Credentials string identifier."
+
+- target: "$.components.schemas.DataLinkCredentials.properties.name"
+  update:
+    description: "Name of the credentials."
+
+- target: "$.components.schemas.DataLinkCredentials.properties.provider"
+  update:
+    description: "Credentials cloud provider."
+
+# ---- ENUM SCHEMAS ----
+
+# DataLinkType
+- target: "$.components.schemas.DataLinkType"
+  update:
+    description: "Data-link type. Currently only `bucket` is supported."
+
+# DataLinkProvider
+- target: "$.components.schemas.DataLinkProvider"
+  update:
+    description: "Cloud provider for data-links. Supports AWS S3, Google Cloud Storage, Azure Blob Storage, Azure with Entra ID, Seqera Compute storage, and generic S3-compatible storage."
+
+# DataLinkItemType
+- target: "$.components.schemas.DataLinkItemType"
+  update:
+    description: "Type of data-link content item. Either `FILE` or `FOLDER`."
