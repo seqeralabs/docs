@@ -6,7 +6,7 @@
         "label": "Tutorials",
         "collapsed": true,
         "items": [
-          "getting-started/quickstart-demo/comm-showcase",
+          "quickstart",
           "getting-started/rnaseq",
           "getting-started/proteinfold",
           "getting-started/studios",
