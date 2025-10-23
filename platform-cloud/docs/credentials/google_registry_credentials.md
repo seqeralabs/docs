@@ -6,7 +6,7 @@ last updated: "2025-10-21"
 tags: [google, container, registry, artifact, credentials]
 ---
 
-Google Cloud registry credentials allow the Wave container service to authenticate and pull container images from Google Artifact Registry or Google Container Registry. Google Cloud registries require programmatic access using service account keys with appropriate read permissions.
+Google Cloud registry credentials allow the Wave container service to authenticate and pull container images from Google Artifact Registry. Google Cloud registries require programmatic access using service account keys with appropriate read permissions.
 
 :::note
 Container registry credentials are only used by the Wave container service. Add `wave { enabled=true }` to the **Nextflow config** field on the launch page, or to your `nextflow.config` file, for your pipeline execution to use Wave containers.
