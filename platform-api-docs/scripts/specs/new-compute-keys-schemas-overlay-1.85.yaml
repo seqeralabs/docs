@@ -110,7 +110,7 @@
     type: array
     items:
       type: string
-    description: "Azure container images."
+    description: "Azure Blob Storage containers accessible to workspace credentials."
 
 - target: "$.components.schemas.AzCloudPlatformMetaInfo.properties.instanceTypes"
   update:
