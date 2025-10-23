@@ -14,7 +14,7 @@ Container registry credentials are only used by Wave containers. Enable Wave whe
 
 ## Supported container registries
 
-Seqera Platform supports credential configuration for the following container registries. Select a registry below for detailed instructions on how to create and configure credentials for that provider:
+Seqera supports credential configuration for the following container registries. Select a registry below for detailed instructions on how to create and configure credentials for that provider:
 
 - [AWS ECR credentials](./aws_registry_credentials.md)
 - [Azure container registry credentials](./azure_registry_credentials.md)
