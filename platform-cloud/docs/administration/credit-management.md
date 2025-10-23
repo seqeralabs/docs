@@ -101,6 +101,7 @@ To request more credits:
 When your organization or workspace credit balance is exhausted:
 
 1. **Running pipelines paused**: All active pipeline runs and Studio sessions are automatically suspended.
+1. **Seqera Compute buckets locked**: Data can no longer be browsed or downloaded from Data Explorer.
 1. **New launches blocked**: No new pipeline runs or Studios can be started using Seqera Compute environments.
 1. **Resume runs manually**: After purchasing additional credits, manually [resume](../launch/cache-resume.mdx) paused pipelines.
 
