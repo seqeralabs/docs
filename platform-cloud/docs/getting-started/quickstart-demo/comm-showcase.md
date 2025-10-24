@@ -8,7 +8,7 @@ toc_max_heading_level: 3
 ---
 
 :::info
-This demo tutorial provides an introduction to Seqera Platform, including instructions to:
+This demo tutorial provides an introduction to the Seqera Cloud Community Showcase workspace, including instructions to:
 - Launch, monitor, and optimize the [*nf-core/rnaseq*](https://github.com/nf-core/rnaseq) pipeline.
 - Select pipeline input data with [Data Explorer](../../data/data-explorer) and Platform [datasets](../../data/datasets).
 - Perform interactive analysis of pipeline results with [Studios](../../studios/overview).
