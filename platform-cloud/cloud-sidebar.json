@@ -10,6 +10,7 @@
           "getting-started/rnaseq",
           "getting-started/proteinfold",
           "getting-started/studios",
+          "getting-started/quickstart-demo/comm-showcase",
           "tutorials/retry-strategy"
           ]
       },
