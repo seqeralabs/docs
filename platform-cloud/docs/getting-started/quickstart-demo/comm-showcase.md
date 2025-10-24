@@ -1,6 +1,6 @@
 ---
-title: "Explore Platform Cloud"
-description: "Seqera Platform Cloud demonstration walkthrough"
+title: "Community Showcase"
+description: "Seqera Cloud Community showcase workspace walkthrough"
 date created: "8 Jul 2024"
 last updated: "14 June 2025"
 tags: [platform, launch, pipelines, launchpad, showcase tutorial]
