@@ -180,3 +180,38 @@
     type: string
     nullable: true
     description: "Instance type used by the compute environment. Null if information is unavailable."
+
+# ---- DATA STUDIO CREATE REQUEST ----
+
+# Update required fields to only computeEnvId and name
+- target: "$.components.schemas.DataStudioCreateRequest.required[*]"
+  remove: true
+
+- target: "$.components.schemas.DataStudioCreateRequest.required"
+  update:
+    - computeEnvId
+    - name
+
+# Remove minLength constraint from dataStudioToolUrl
+- target: "$.components.schemas.DataStudioCreateRequest.properties.dataStudioToolUrl.minLength"
+  remove: true
+
+# Add remoteConfig property
+- target: "$.components.schemas.DataStudioCreateRequest.properties.remoteConfig"
+  update:
+    nullable: true
+    allOf:
+      - $ref: "#/components/schemas/StudioRemoteConfiguration"
+
+# ---- DATA STUDIO DTO ----
+
+# Add remoteConfig property
+- target: "$.components.schemas.DataStudioDto.properties.remoteConfig"
+  update:
+    $ref: "#/components/schemas/StudioRemoteConfiguration"
+
+# ---- DATA STUDIO WORKSPACE SETTINGS RESPONSE ----
+
+# Remove required array
+- target: "$.components.schemas.DataStudioWorkspaceSettingsResponse.required"
+  remove: true
