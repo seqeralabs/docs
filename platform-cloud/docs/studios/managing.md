@@ -193,34 +193,6 @@ If the maximum allocation size is reached, it is possible to reclaim storage spa
 
 Stop the active session to trigger a snapshot from the active volume. The snapshot is uploaded to cloud storage with Fusion. When you start from the newly saved snapshot, all previous data is loaded, and the newly started session will have 2 GB of available space.
 
-#### Docker-in-docker
-
-A primary use case for VS Code in Studios is to develop new, and troubleshoot existing, Nextflow pipelines. This commonly requires running Docker in the Dockerized container. The recommended method is to:
-
-**1. Create an [AWS Cloud][aws-cloud] compute environment:** By default, this type of compute environment is optimized for running Nextflow pipelines.
-
-:::tip
-Many standard nf-core pipelines such as [*nf-core/rnaseq*](https://nf-co.re/rnaseq) require at least 4 CPUs and 16 GB memory. In **Advanced options**, specify an instance type with at least this amount of resources (e.g., `m5d.xlarge`).
-:::
-
-**2. Only have one running Studio session per compute environment:** This allows the Studio session, and Nextflow, to maximize the available CPU and memory.
-
-:::tip
-The template for nf-core pipelines has recently been updated, and many existing pipelines don't yet use the new multi-line shell command defined in `nextflow.config`. To ensure maximum compatibility with the latest version of Nextflow (that ships with the VS Code container template image), include the following in your pipeline `nextflow.config` file.
-
-```bash
-// Set bash options
-process.shell = [
-    "bash",
-    "-C",         // No clobber - prevent output redirection from overwriting files.
-    "-e",         // Exit if a tool returns a non-zero status/exit code
-    "-u",         // Treat unset variables and parameters as an error
-    "-o",         // Returns the status of the last command to exit..
-    "pipefail"    //   ..with a non-zero status or zero if all successfully execute
-]
-```
-:::
-
 ## EFS file systems
 
 If you configured your compute environment to include an EFS file system with **EFS file system > EFS mount path**, the mount path must be explicitly specified. The mount path cannot be the same as your compute environment work directory. If the EFS file system is mounted as your compute environment work directory, snapshots cannot be saved and sessions fail.

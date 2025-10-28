@@ -134,7 +134,6 @@ To migrate a Studio to a more recent container version and Seqera Connect:
    1. **Stop** the running Studio session. A new checkpoint is created.
 1. Repeat Step 1 **Add as new** using the new, most recent created checkpoint from the steps above.
 
-
 ## Studio session statuses
 
 Sessions have the following possible statuses:
@@ -194,8 +193,24 @@ The maximum storage allocation for a session is limited by the compute environme
 
 Stop the active session to trigger a snapshot from the active volume. The snapshot is uploaded to cloud storage with Fusion. When you start from the newly saved snapshot, all previous data is loaded, and the newly started session will have 2 GB of available space.
 
-
 {/* links */}
+[contact]: https://support.seqera.io/
+[aws-cloud]: ../compute-envs/aws-cloud
+[aws-batch]: ../compute-envs/aws-batch
+[google-cloud]: ../compute-envs/google-cloud
+[custom-envs]: ./custom-envs
+[build-status]: ./custom-envs#build-status
+[cloud-bucket-subdirectory]: ./managing#cloud-bucket-subdirectory
+[ds-jupyter]: https://public.cr.seqera.io/repo/platform/data-studio-jupyter
+[ds-ride]: https://public.cr.seqera.io/repo/platform/data-studio-ride
+[def-vsc]: https://code.visualstudio.com/
+[Nextflow]: https://nextflow.io/
+[nf-lang-server]: https://marketplace.visualstudio.com/items?itemName=nextflow.nextflow
+[ds-vscode]: https://public.cr.seqera.io/repo/platform/data-studio-vscode
+[def-xpra]: https://github.com/Xpra-org/xpra
+[ds-xpra]: https://public.cr.seqera.io/repo/platform/data-studio-xpra
+[Wave]: https://seqera.io/wave/
+[build-status]: ./custom-envs#build-status
 [add-s]: ./add-studio
 [aws-gpu]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-gpu.html
 [conda-syntax]: ./custom-envs#conda-package-syntax

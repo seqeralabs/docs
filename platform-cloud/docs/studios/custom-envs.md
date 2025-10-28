@@ -140,7 +140,9 @@ To inspect the status of an ongoing build, or a successful or failed build, comp
 
 
 {/* links */}
-
+[contact]: https://support.seqera.io/
+[aws-cloud]: ../compute-envs/aws-cloud
+[aws-batch]: ../compute-envs/aws-batch
 [wave-home]: https://seqera.io/wave/
 [wave-config]: https://docs.seqera.io/wave
 [wave-server]: https://seqera.io/wave/
