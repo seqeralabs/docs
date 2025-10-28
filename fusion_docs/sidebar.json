@@ -1,11 +1,19 @@
 {
   "sidebar": [
-    "index",
+    {
+      "type": "category",
+      "label": "Fusion file system",
+      "link": {"type": "doc", "id": "index"},
+      "collapsed": true,
+      "items": [
+          "licensing"
+      ]
+    },
     "get-started",
     {
       "type": "category",
       "label": "User guide",
-      "collapsed": false,
+      "collapsed": true,
       "items": [
         "guide/aws-batch",
         "guide/gcp-batch",
@@ -27,7 +35,6 @@
         }
       ]
     },
-    "licensing",
     "reference",
     "troubleshooting",
     "faq",
