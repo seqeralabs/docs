@@ -14,9 +14,9 @@ Studios in Enterprise is not enabled by default. You can enable Studios in the [
 
 - [Deploy Studios in Seqera Platform](../enterprise/studios): Enable Studios as part of your Seqera Platform Enterprise instance.
 - [Add Studios](./add-studio): Understand the configuration options for creating, running, and customizing Studio sessions.
-- [Manage Studios](./managing): Manage your Studios and how collaborators use them.
 - [Container images](./container-images): Learn about the container image templates provided: JupyterLab, R-IDE, Visual Studio Code, and Xpra.
 - [Custom environments](./custom-envs): Augument the Seqera-provided images with a list of Conda packages or by providing your own base container template image.
+- [Manage Studios](./managing): Manage your Studios and how collaborators use them.
 
 :::note
 Currently, Studios supports [AWS Cloud][aws-cloud], [Google Cloud][google-cloud], and [AWS Batch][aws-batch] compute environments that **do not** have Fargate enabled.
