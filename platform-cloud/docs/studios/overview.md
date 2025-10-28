@@ -22,4 +22,5 @@ Currently, Studios supports [AWS Cloud][aws-cloud], [Google Cloud][google-cloud]
 {/* links */}
 [aws-cloud]: ../compute-envs/aws-cloud
 [aws-batch]: ../compute-envs/aws-batch
-[google-cloud]: ../compute/google-cloud
+[google-cloud]: ../compute-envs/google-cloud
+[contact]: https://support.seqera.io/
