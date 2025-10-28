@@ -42,9 +42,7 @@ process.shell = [
 ```
 :::
 
-## Limitations
-
-### EFS file systems
+## EFS file systems
 
 If you configured your compute environment to include an EFS file system with **EFS file system > EFS mount path**, the mount path must be explicitly specified. The mount path cannot be the same as your compute environment work directory. If the EFS file system is mounted as your compute environment work directory, snapshots cannot be saved and sessions fail.
 
