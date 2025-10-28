@@ -11,7 +11,7 @@ Studios is a unified platform where you can host a combination of container imag
 On Seqera Cloud, the free tier permits only one running Studio session at a time. To run simultaneous sessions, [contact Seqera][contact] for a Seqera Cloud Pro license.
 
 :::note
-Currently, Studios supports [AWS Cloud][aws-cloud] and [AWS Batch][aws-batch] compute environments that **do not** have Fargate enabled.
+Studios supports [AWS Cloud][aws-cloud], [AWS Batch][aws-batch] (without Fargate enabled), [Azure Cloud][azure-cloud], and [Google Cloud][google-cloud] compute environments.
 :::
 
 #### Docker-in-docker
