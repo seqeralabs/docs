@@ -101,3 +101,71 @@
   update:
     summary: "Describe launch datasets"
     description: "Retrieves the details of the datasets used in the launch identified by the given `launchId`."
+
+# ===== DEPRECATED DATASET OPERATIONS - ADDENDUM =====
+# Updates for workspace-scoped dataset endpoints that are now deprecated
+# in favor of user/workspace-scoped endpoints with optional workspaceId query param
+
+# ---- LIST DATASETS (DEPRECATED) ----
+
+- target: "$.paths./workspaces/{workspaceId}/datasets.get.summary"
+  update: "(Deprecated) List available datasets"
+
+- target: "$.paths./workspaces/{workspaceId}/datasets.get.description"
+  update: "**This endpoint is deprecated. See [List datasets](https://docs.seqera.io/platform-api/list-datasets-v-2) for the current endpoint.**\n\nLists all available datasets in the workspace context identified by the given `workspaceId`."
+
+# ---- CREATE DATASET (DEPRECATED) ----
+
+- target: "$.paths./workspaces/{workspaceId}/datasets.post.summary"
+  update: "(Deprecated) Create dataset"
+
+- target: "$.paths./workspaces/{workspaceId}/datasets.post.description"
+  update: "**This endpoint is deprecated. See [Create dataset](https://docs.seqera.io/platform-api/create-dataset-v-2) for the current endpoint.**\n\nCreates a new dataset in the given workspace context. Include the dataset file and details in your request body."
+
+# ---- LIST WORKSPACE DATASET VERSIONS (DEPRECATED) ----
+
+- target: "$.paths./workspaces/{workspaceId}/datasets/versions.get.summary"
+  update: "(Deprecated) List latest dataset versions"
+
+- target: "$.paths./workspaces/{workspaceId}/datasets/versions.get.description"
+  update: "**This endpoint is deprecated. See [List latest dataset versions](https://docs.seqera.io/platform-api/list-latest-dataset-versions-v-2) for the current endpoint.**\n\nLists the latest version of each dataset associated with the given `workspaceId`."
+
+# ---- UPDATE DATASET (DEPRECATED) ----
+
+- target: "$.paths./workspaces/{workspaceId}/datasets/{datasetId}.put.summary"
+  update: "(Deprecated) Update dataset"
+
+- target: "$.paths./workspaces/{workspaceId}/datasets/{datasetId}.put.description"
+  update: "**This endpoint is deprecated. See [Update dataset](https://docs.seqera.io/platform-api/update-dataset-v-2) for the current endpoint.**\n\nUpdates the details of the dataset identified by the given `datasetId`."
+
+# ---- DELETE DATASET (DEPRECATED) ----
+
+- target: "$.paths./workspaces/{workspaceId}/datasets/{datasetId}.delete.summary"
+  update: "(Deprecated) Delete dataset"
+
+- target: "$.paths./workspaces/{workspaceId}/datasets/{datasetId}.delete.description"
+  update: "**This endpoint is deprecated. See [Delete dataset](https://docs.seqera.io/platform-api/delete-dataset-v-2) for the current endpoint.**\n\nDeletes the dataset identified by the given `datasetId`."
+
+# ---- DESCRIBE DATASET (DEPRECATED) ----
+
+- target: "$.paths./workspaces/{workspaceId}/datasets/{datasetId}/metadata.get.summary"
+  update: "(Deprecated) Describe dataset"
+
+- target: "$.paths./workspaces/{workspaceId}/datasets/{datasetId}/metadata.get.description"
+  update: "**This endpoint is deprecated. See [Describe dataset](https://docs.seqera.io/platform-api/describe-dataset-v-2) for the current endpoint.**\n\nRetrieves the metadata of the dataset identified by the given `datasetId`."
+
+# ---- UPLOAD DATASET (DEPRECATED) ----
+
+- target: "$.paths./workspaces/{workspaceId}/datasets/{datasetId}/upload.post.summary"
+  update: "(Deprecated) Upload new dataset version"
+
+- target: "$.paths./workspaces/{workspaceId}/datasets/{datasetId}/upload.post.description"
+  update: "**This endpoint is deprecated. See [Upload new dataset version](https://docs.seqera.io/platform-api/upload-dataset-v-2) for the current endpoint.**\n\nUploads the CSV or TSV content to create a new version of the dataset identified by the given `datasetId`."
+
+# ---- LIST DATASET VERSIONS (DEPRECATED) ----
+
+- target: "$.paths./workspaces/{workspaceId}/datasets/{datasetId}/versions.get.summary"
+  update: "(Deprecated) List all dataset versions"
+
+- target: "$.paths./workspaces/{workspaceId}/datasets/{datasetId}/versions.get.description"
+  update: "**This endpoint is deprecated. See [List all dataset versions](https://docs.seqera.io/platform-api/list-dataset-versions-v-2) for the current endpoint.**\n\nLists all versions of the given `datasetId`."
