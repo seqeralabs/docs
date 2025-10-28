@@ -139,11 +139,11 @@ If you use a non-Chromium based browser, such as Safari or Firefox, file paths a
 
 Open the data repository and navigate to the folder that you'd like to download files and folders from. By default, you can download the contents of the current directory by choosing **Download current directory**. Alternatively, use checkboxes to select specific files and folders, and select the **Download** button. You can **Download files** via the browser or **Download using code**.
 
-The code snippet provided is specific to the data repository provider you've configured. You may be prompted to authenticate during the download process. Refer to your data repository provider's documentation for troubleshooting credential-related issues:
+The code snippet provided is specific to the data repository provider you've configured and currently only the three major cloud providers are supported. You may be prompted to authenticate during the download process. Refer to your data repository provider's documentation for troubleshooting credential-related issues:
 
-- [GCP](https://cloud.google.com/sdk/gcloud/reference/storage)
 - [AWS](https://docs.aws.amazon.com/cli/latest/reference/s3/)
 - [Azure](https://learn.microsoft.com/en-us/cli/azure/storage?view=azure-cli-latest)
+- [GCP](https://cloud.google.com/sdk/gcloud/reference/storage)
 
 ## CORS configurations for cloud providers
 
