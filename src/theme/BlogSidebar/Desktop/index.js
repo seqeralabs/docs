@@ -7,7 +7,7 @@ import {
   BlogSidebarItemList,
 } from '@docusaurus/plugin-content-blog/client';
 import BlogSidebarContent from '@theme/BlogSidebar/Content';
-import SearchBar from "@theme-original/SearchBar";
+// import SearchBar from "@theme-original/SearchBar";
 import Link from '@docusaurus/Link';
 
 import RssIcon from "./rss.svg";
@@ -55,7 +55,7 @@ function BlogSidebarDesktop({sidebar}) {
           message: 'Blog recent posts navigation',
           description: 'The ARIA label for recent posts in the blog sidebar',
         })}>
-        <SearchBar />
+        {/* <SearchBar /> */}
         <div className={styles.sidebarItemTitle}>
           <Link href="/changelog">{sidebar.title}</Link>
           <Link href="/changelog/rss.xml" target="_blank" rel="noopener noreferrer" title="Subscribe to RSS" className={styles.RssIconLink}>

@@ -120,7 +120,7 @@ export default function Home(): JSX.Element {
                 </p>
               </div>
               <Button
-                to="/platform-cloud/getting-started/quickstart-demo/comm-showcase"
+                to="/platform-cloud/quickstart"
                 blue
                 medium
                

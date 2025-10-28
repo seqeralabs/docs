@@ -9,7 +9,8 @@ import Hamburger from "./Hamburger";
 import { useHeaderContext } from "../../context";
 import ActiveLink from "./ActiveLink";
 import NavbarLogo from '@theme/Navbar/Logo';
-import NavbarColorModeToggle from '@theme/Navbar/ColorModeToggle';
+import NavbarColorModeToggle from '@theme/Navbar/ColorModeToggle'; 
+import SearchBar from "@theme/SearchBar";
 
 
 const NavItems = ({ isDark = false, hideMenu }) => {
@@ -32,6 +33,9 @@ const NavItems = ({ isDark = false, hideMenu }) => {
 
         {!hideMenu && (
           <nav className={clsx(styles.nav, { [styles.dark]: isDark })}>
+            <div className={styles.navItemContainer}>
+              <SearchBar />
+            </div>
             <div className={styles.navItemContainer}>
               <NavbarColorModeToggle />
             </div>

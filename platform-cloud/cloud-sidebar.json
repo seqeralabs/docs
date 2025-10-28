@@ -6,10 +6,11 @@
         "label": "Tutorials",
         "collapsed": true,
         "items": [
-          "getting-started/quickstart-demo/comm-showcase",
+          "quickstart",
           "getting-started/rnaseq",
           "getting-started/proteinfold",
           "getting-started/studios",
+          "getting-started/quickstart-demo/comm-showcase",
           "tutorials/retry-strategy"
           ]
       },
@@ -24,8 +25,7 @@
           "getting-started/quickstart-demo/add-data",
           "getting-started/quickstart-demo/launch-pipelines",
           "getting-started/quickstart-demo/monitor-runs",
-          "getting-started/quickstart-demo/automation",
-          "getting-started/production-checklist"
+          "getting-started/quickstart-demo/automation"          
         ]
       },
       {
@@ -37,17 +37,20 @@
           {
             "type": "category",
             "label": "Container registry credentials",
+            "link": {"type": "doc", "id": "credentials/container_registry_credentials"},
+            "collapsed": true,
             "items": [
-              "credentials/docker_hub_registry_credentials",
               "credentials/aws_registry_credentials",
               "credentials/azure_registry_credentials",
-              "credentials/google_registry_credentials",
-              "credentials/quay_registry_credentials",
-              "credentials/gitlab_registry_credentials",
+              "credentials/docker_hub_registry_credentials",
+              "credentials/gitea_registry_credentials",
               "credentials/github_registry_credentials",
-              "credentials/gitea_registry_credentials"
+              "credentials/gitlab_registry_credentials",
+              "credentials/google_registry_credentials",
+              "credentials/quay_registry_credentials"
             ]
           },
+          "credentials/data_repositories",
           "credentials/managed_identities",
           "credentials/ssh_credentials",
           "credentials/agent_credentials"
@@ -66,6 +69,7 @@
               "compute-envs/aws-batch",
               "compute-envs/aws-cloud",
               "compute-envs/azure-batch",
+              "compute-envs/azure-cloud",
               "compute-envs/google-cloud-batch",
               "compute-envs/google-cloud",             
               "compute-envs/eks",
@@ -101,6 +105,7 @@
         "type": "category",
         "label": "Pipelines",
         "items": [
+          "pipelines/overview",
           "pipeline-schema/overview",
           "launch/launchpad",
           "labels/overview",
@@ -136,7 +141,8 @@
           "orgs-and-teams/organizations",
           "orgs-and-teams/workspace-management",
           "orgs-and-teams/roles",
-          "monitoring/dashboard"
+          "monitoring/dashboard",
+          "administration/credit-management"
           ]
       },
       {
@@ -200,6 +206,7 @@
           "troubleshooting_and_faqs/aws_troubleshooting",
           "troubleshooting_and_faqs/azure_troubleshooting",
           "troubleshooting_and_faqs/workspaces_troubleshooting",
+          "troubleshooting_and_faqs/resource-labels",
           "troubleshooting_and_faqs/datasets_troubleshooting"
         ]
       }
