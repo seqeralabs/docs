@@ -6,8 +6,6 @@ last updated: "2025-10-21"
 tags: [container, container-images, session, studios]
 ---
 
-## Container image templates
-
 There are four container image templates provided: JupyterLab, R-IDE, Visual Studio Code, and Xpra. The image templates install a very limited number of packages when the Studio session container is built. You can install additional packages as needed during a Studio session.
 
 The image template tag includes the version of the analysis application, an optional incompatibility flag, and the Seqera Connect version. Connect is the proprietary Seqera web server client that manages communication with the container. Tag strings use the following format:
