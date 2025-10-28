@@ -72,7 +72,7 @@ See [Configuration options](https://www.nextflow.io/docs/latest/reference/config
 
 ### Run your Nextflow pipeline
 
-To run your pipeline with Fusion enabled, execute your Nextflow command as usual. For example:
+To run your pipeline with Fusion enabled, run your Nextflow command as usual. For example:
 
 ```bash
 nextflow run main.nf
