@@ -1,7 +1,7 @@
 ---
 title: Get started
 description: "Use the Fusion v2 file system in Seqera Platform and Nextflow"
-date: "23 Aug 2024"
+date: "2024-08-23"
 tags: [fusion, storage, compute, file system, posix, client]
 ---
 
@@ -21,19 +21,19 @@ See the Platform compute environment page for your cloud provider for Fusion con
 
 ## Nextflow
 
-Fusion integrates seamlessly with Nextflow 22.10.0 or later and requires no installation or pipeline code changes.
+Fusion integrates seamlessly with Nextflow and requires no installation or pipeline code changes.
 
 This section describes how to enable Fusion in your Nextflow pipelines. It includes:
 
-- Creating a Seqera access token
-- Configuring Fusion in your pipeline
-- Running your Nextflow pipeline with Fusion
+- Creating a Seqera access token.
+- Configuring Fusion in your pipeline.
+- Running your Nextflow pipeline with Fusion.
 
 :::info[Prerequisites]
 You will need the following to get started:
 
 - Nextflow 22.10.0 or later installed locally. See [Updating Nextflow](https://www.nextflow.io/docs/latest/updating-nextflow.html) to update.
-- A Seqera account to log into Platform.
+- A Seqera account.
 - A container runtime or container computing service, for example, Kubernetes, AWS Batch, or Google Cloud Batch.
 
 :::
@@ -61,10 +61,14 @@ To enable Fusion in your Nextflow pipeline, add the following to your `nextflow.
 ```groovy
 fusion.enabled = true
 wave.enabled = true
-tower.accessToken = ''
+tower.accessToken = '<TOWER_ACCESS_TOKEN>'
 ```
 
-Replace `<PLATFORM_ACCESS_TOKEN>` with your Seqera access token.
+Replace `<TOWER_ACCESS_TOKEN>` with your Seqera access token.
+
+:::tip
+See [Configuration options](https://www.nextflow.io/docs/latest/reference/config.html) for a full list of Nextflow configuration options.
+:::
 
 ### Run your Nextflow pipeline
 
