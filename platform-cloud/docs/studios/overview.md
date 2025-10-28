@@ -18,3 +18,8 @@ On Seqera Cloud, the free tier permits only one running Studio session at a time
 :::note
 Currently, Studios supports [AWS Cloud][aws-cloud], [Google Cloud][google-cloud], and [AWS Batch][aws-batch] compute environments that **do not** have Fargate enabled.
 :::
+
+{/* links */}
+[aws-cloud]: ../compute-envs/aws-cloud
+[aws-batch]: ../compute-envs/aws-batch
+[google-cloud]: ../compute/google-cloud

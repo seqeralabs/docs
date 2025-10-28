@@ -10,10 +10,11 @@ In addition to the Seqera-provided container images, you can provide your own cu
 
 ## Conda packages
 
-### Prerequisites
+:::info[**Prerequisites**]
 
 - Wave must be configured. For more information, see [Wave containers][wave].
 - To augment Seqera-provided images, Enterprise deployments must either allow access to the public Wave server, or self-host their own Wave server.
+:::
 
 ### Conda package syntax {#conda-package-syntax}
 
@@ -39,10 +40,11 @@ For advanced use cases, you can build your own container image.
 Public container registries are supported by default. Amazon Elastic Container Registry (ECR) is the only supported private container registry.
 :::
 
-### Prerequisites
+:::info[**Prerequisites**]
 
 - A container image.
 - Access to a container image repository, either a public container registry or a private Amazon ECR repository.
+:::
 
 ### Dockerfile configuration {#dockerfile}
 

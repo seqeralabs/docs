@@ -11,12 +11,8 @@ Studios uses the [Wave][wave-home] service to build custom container template im
 
 ## Conda packages
 
-### Prerequisites
-
+:::info[**Prerequisites**]
 - Wave must be configured. For more information, see [Wave containers][wave-config].
-
-:::note
-To augment Seqera-provided images, Enterprise deployments must either allow access to the public Wave server, or self-host their own [Wave server][wave-server].
 :::
 
 ### Conda package syntax {#conda-package-syntax}
@@ -49,10 +45,11 @@ For advanced use cases, you can build your own container template image.
 Public container registries are supported by default. Amazon Elastic Container Registry (ECR) is the only supported private container registry.
 :::
 
-### Prerequisites
+:::info[**Prerequisites**]
 
 - Access to a container image repository, either a public container registry or a private Amazon ECR repository
 - A container template image
+:::
 
 ### Dockerfile configuration {#dockerfile}
 

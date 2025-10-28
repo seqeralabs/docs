@@ -21,3 +21,8 @@ Studios in Enterprise is not enabled by default. You can enable Studios in the [
 :::note
 Currently, Studios supports [AWS Cloud][aws-cloud], [Google Cloud][google-cloud], and [AWS Batch][aws-batch] compute environments that **do not** have Fargate enabled.
 :::
+
+{/* links */}
+[aws-cloud]: ../compute-envs/aws-cloud
+[aws-batch]: ../compute-envs/aws-batch
+[google-cloud]: ../compute/google-cloud
