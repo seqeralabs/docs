@@ -52,7 +52,7 @@ Seqera Compute has default workspace limits on compute environments, and organiz
     | us-east-2 (Ohio, USA) | eu-central-1 (Frankfurt, Germany) | |
     | us-west-1 (Northern California, USA) | eu-west-3 (Paris, France) | |
     :::
-1. Configure any advanced options described in the next section, as needed.
+1. Configure any [advanced options](#advanced-options-optional) described in the next section, as needed.
 1. Select **Add** to complete the Seqera Compute environment configuration and return to the compute environments list. It will take a few seconds for the compute environment resources to be created before you are ready to launch pipelines or add studios. 
 
 :::info 

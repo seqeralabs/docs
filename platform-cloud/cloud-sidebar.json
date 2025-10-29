@@ -6,10 +6,11 @@
         "label": "Tutorials",
         "collapsed": true,
         "items": [
-          "getting-started/quickstart-demo/comm-showcase",
+          "quickstart",
           "getting-started/rnaseq",
           "getting-started/proteinfold",
           "getting-started/studios",
+          "getting-started/quickstart-demo/comm-showcase",
           "tutorials/retry-strategy"
           ]
       },
@@ -36,15 +37,17 @@
           {
             "type": "category",
             "label": "Container registry credentials",
+            "link": {"type": "doc", "id": "credentials/container_registry_credentials"},
+            "collapsed": true,
             "items": [
-              "credentials/docker_hub_registry_credentials",
               "credentials/aws_registry_credentials",
               "credentials/azure_registry_credentials",
-              "credentials/google_registry_credentials",
-              "credentials/quay_registry_credentials",
-              "credentials/gitlab_registry_credentials",
+              "credentials/docker_hub_registry_credentials",
+              "credentials/gitea_registry_credentials",
               "credentials/github_registry_credentials",
-              "credentials/gitea_registry_credentials"
+              "credentials/gitlab_registry_credentials",
+              "credentials/google_registry_credentials",
+              "credentials/quay_registry_credentials"
             ]
           },
           "credentials/data_repositories",
