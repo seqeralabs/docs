@@ -215,4 +215,4 @@ Stop the active session to trigger a snapshot from the active volume. The snapsh
 [aws-gpu]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-gpu.html
 [conda-syntax]: ./custom-envs#conda-package-syntax
 [custom-image]: ./custom-envs#custom-containers
-[connect]: ./overview#container-image-templates
+[connect]: ./connect
