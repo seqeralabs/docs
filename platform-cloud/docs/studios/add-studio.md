@@ -19,10 +19,6 @@ You will need the following to get started:
 - [Data Explorer](../data/data-explorer) enabled
 :::
 
-:::tip[**Access and permissions**]
-If you're unable to see the Studios tab, contact your Platform administrator.
-:::
-
 ## Compute and Data
 
 Configure the following resource setting:

@@ -18,7 +18,6 @@ Before you get started, you need:
 :::
 
 :::note
-- If you're not able to see the Studios tab, contact your Platform adminstrator.
 - Review the [user roles](../orgs-and-teams/roles) documentation for details about role permissions.
 - The following functionality is available to users with the **Maintain** role and above.
 :::
