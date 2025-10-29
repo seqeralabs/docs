@@ -119,6 +119,7 @@ To mount an EFS volume in a Studio session (for example, if your organization ha
 
 For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
 
+{/* links */}
 [contact]: https://support.seqera.io/
 [aws-cloud]: ../compute-envs/aws-cloud
 [aws-batch]: ../compute-envs/aws-batch
@@ -126,12 +127,14 @@ For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
 [build-status]: ./custom-envs#build-status
 [cloud-bucket-subdirectory]: ./managing#cloud-bucket-subdirectory
 [ds-jupyter]: https://public.cr.seqera.io/repo/platform/data-studio-jupyter
+[ds-vscode]: https://public.cr.seqera.io/repo/platform/data-studio-vscode
+[ds-xpra]: https://public.cr.seqera.io/repo/platform/data-studio-xpra
+[ds-ride]: https://public.cr.seqera.io/repo/platform/data-studio-ride
 [ds-rstudio]: https://public.cr.seqera.io/repo/platform/data-studio-rstudio
 [def-vsc]: https://code.visualstudio.com/
 [Nextflow]: https://nextflow.io/
 [nf-lang-server]: https://marketplace.visualstudio.com/items?itemName=nextflow.nextflow
-[ds-vscode]: https://public.cr.seqera.io/repo/platform/data-studio-vscode
 [def-xpra]: https://github.com/Xpra-org/xpra
-[ds-xpra]: https://public.cr.seqera.io/repo/platform/data-studio-xpra
 [Wave]: https://seqera.io/wave/
 [build-status]: ./custom-envs#build-status
+
