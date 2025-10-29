@@ -212,7 +212,6 @@ Stop the active session to trigger a snapshot from the active volume. The snapsh
 [Wave]: https://seqera.io/wave/
 [build-status]: ./custom-envs#build-status
 [add-s]: ./add-studio
-[aws-gpu]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-gpu.html
 [conda-syntax]: ./custom-envs#conda-package-syntax
 [custom-image]: ./custom-envs#custom-containers
 [connect]: ./connect

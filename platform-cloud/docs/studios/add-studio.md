@@ -73,6 +73,7 @@ Studios you create will be listed on the Studios landing page with a status of e
 {/* links */}
 [contact]: https://support.seqera.io/
 [aws-cloud]: ../compute-envs/aws-cloud
+[aws-gpu]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-gpu.html
 [aws-batch]: ../compute-envs/aws-batch
 [custom-envs]: ./custom-envs
 [conda-syntax]: ./custom-envs#conda-package-syntax
