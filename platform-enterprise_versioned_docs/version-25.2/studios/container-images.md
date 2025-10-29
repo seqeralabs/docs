@@ -1,5 +1,5 @@
 ---
-title: "Container image templates"
+title: "Studios container image templates"
 description: "Use container images with Studios."
 date created: "2025-10-16"
 last updated: "2025-10-16"
@@ -139,3 +139,9 @@ For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
 [ds-xpra]: https://public.cr.seqera.io/repo/platform/data-studio-xpra
 [Wave]: https://seqera.io/wave/
 [build-status]: ./custom-envs#build-status
+[add-s]: ./add-studio
+[aws-batch]: ../compute-envs/aws-batch
+[wave]: ../enterprise/configuration/wave
+[custom-studios-examples]: https://github.com/seqeralabs/custom-studios-examples
+[wave-home]: https://seqera.io/wave/
+[env-manually]: https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-file-manually

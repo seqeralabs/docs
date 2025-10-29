@@ -126,7 +126,6 @@ To inspect the status of an ongoing build, or a successful or failed build, comp
 1. Optional: If the build failed, select the **Error report** tab to view the errors associated with the build failure.
 
 
-
 {/* links */}
 [add-s]: ./add-studio
 [aws-batch]: ../compute-envs/aws-batch

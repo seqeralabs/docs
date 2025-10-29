@@ -111,14 +111,7 @@ The default user is the `root` account. The image is based on `ubuntu:jammy`. To
 
 To see the list of all Xpra image templates available, including security scan results or to inspect the container specification, see [public.cr.seqera.io/repo/platform/data-studio-xpra][ds-xpra].
 
-## EFS file systems
-
-If you configured your compute environment to include an EFS file system with **EFS file system > EFS mount path**, the mount path must be explicitly specified. The mount path cannot be the same as your compute environment work directory. If the EFS file system is mounted as your compute environment work directory, snapshots cannot be saved and sessions fail.
-
-To mount an EFS volume in a Studio session (for example, if your organization has a custom, managed, and standardized software stack in an EFS volume), add the EFS volume to the compute environment (system ID and mount path). The volume will be available at the specified mount path in the session.
-
-For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
-
+{/* links */}
 [contact]: https://support.seqera.io/
 [aws-cloud]: ../compute-envs/aws-cloud
 [aws-batch]: ../compute-envs/aws-batch
@@ -135,3 +128,9 @@ For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
 [ds-xpra]: https://public.cr.seqera.io/repo/platform/data-studio-xpra
 [Wave]: https://seqera.io/wave/
 [build-status]: ./custom-envs#build-status
+[add-s]: ./add-studio
+[aws-batch]: ../compute-envs/aws-batch
+[wave]: ../enterprise/configuration/wave
+[custom-studios-examples]: https://github.com/seqeralabs/custom-studios-examples
+[wave-home]: https://seqera.io/wave/
+[env-manually]: https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-file-manually

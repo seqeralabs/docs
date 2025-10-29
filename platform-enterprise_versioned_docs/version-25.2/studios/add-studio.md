@@ -26,9 +26,12 @@ Before you get started, you need:
 ## Compute and Data
 
 - **Resource labels**: Any [resource label](../labels/overview) already defined for the compute environment is added by default. Additional custom resource labels can be added or removed as needed.
+
+For AWS Batch compute environments:
+
 - **CPUs allocated**: The default allocation is 2 CPUs.
 - **GPUs allocated**: Available only if the selected compute environment has GPU support enabled. For more information about GPUs on AWS, see [Amazon ECS task definitions for GPU workloads][aws-gpu]. The default allocation is 0 GPUs.
-- **Maximum memory allocated**: The default allocation is 8192 MiB of memory.
+- **Maximum memory allocated**: The default allocation is 8192 MiB.
    
 ### Mount data
 
@@ -112,3 +115,11 @@ In Platform:
 
 In Connect proxy/server:
 - `CONNECT_PROXY_URL=<NEW_DOMAIN_ADDRESS>`
+
+{/* links */}
+[contact]: https://support.seqera.io/
+[aws-cloud]: ../compute-envs/aws-cloud
+[aws-batch]: ../compute-envs/aws-batch
+[custom-envs]: ./custom-envs
+[conda-syntax]: ./custom-envs#conda-package-syntax
+[custom-image]: ./custom-envs#custom-containers
