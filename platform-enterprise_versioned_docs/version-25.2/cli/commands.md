@@ -327,7 +327,7 @@ Build reports       | NA
 
 Run `tw studios templates -h` to view the required and optional fields for session templates.
 
-Templates are the container image templates used as the foundation for Studio sessions. See [Container image templates](../studios/container-image-templates) for more information.
+Templates are the container image templates used as the foundation for Studio sessions. See [Container image templates](../studios/container-images) for more information.
 
 ```bash
 tw studios templates -w community/showcase
