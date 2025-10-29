@@ -222,4 +222,4 @@ For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
 [aws-gpu]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-gpu.html
 [conda-syntax]: ./custom-envs#conda-package-syntax
 [custom-image]: ./custom-envs#custom-containers
-[connect]: ./overview#container-image-templates
+[connect]: ./connect
