@@ -69,3 +69,11 @@ Configure the following fields:
       - To save but not immediately start your Studio, select **Add only**.
 
 Studios you create will be listed on the Studios landing page with a status of either **stopped** or **starting**. Select a Studio to inspect its configuration details. 
+
+{/* links */}
+[contact]: https://support.seqera.io/
+[aws-cloud]: ../compute-envs/aws-cloud
+[aws-batch]: ../compute-envs/aws-batch
+[custom-envs]: ./custom-envs
+[conda-syntax]: ./custom-envs#conda-package-syntax
+[custom-image]: ./custom-envs#custom-containers

@@ -111,3 +111,11 @@ In Platform:
 
 In Connect proxy/server:
 - `CONNECT_PROXY_URL=<NEW_DOMAIN_ADDRESS>`
+
+{/* links */}
+[contact]: https://support.seqera.io/
+[aws-cloud]: ../compute-envs/aws-cloud
+[aws-batch]: ../compute-envs/aws-batch
+[custom-envs]: ./custom-envs
+[conda-syntax]: ./custom-envs#conda-package-syntax
+[custom-image]: ./custom-envs#custom-containers
