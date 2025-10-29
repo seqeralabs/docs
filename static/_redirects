@@ -71,14 +71,13 @@
 /wave/install/configure-wave               /wave/configure-wave             301
 
 #Studios page restructure
-/platform-enterprise/studios/overview#limitations                 /platform-enterprise/studios/container-images#limitations 301 
-/platform-enterprise/studios/overview#container-image-templates   /platform-enterprise/studios/container-image-templates  301
-/platform-enterprise/studios/overview#studio-session-checkpoints  /platform-enterprise/studios/managing#studio-session-checkpoints  301
-/platform-enterprise/studios/overview#container-image-templates   /platform-enterprise/studios/container-images 301
-/platform-enterprise/studios/overview#studio-session-statuses     /platform-enterprise/studios/managing#studio-session-statuses  301
-/platform-enterprise/studios/overview#studio-session-data-links   /platform-enterprise/studios/managing#studio-session-data-links  301
-/platform-enterprise/studios/overview#session-volume-automatic-resizing  /platform-enterprise/studios/managing#session-volume-automatic-resizing  301
-/platform-enterprise/studios/managing#add-a-studio               /platform-enterprise/studios/add-studio
+/platform-enterprise/:version/studios/overview#limitations                 /platform-enterprise/:version/studios/container-images#limitations 301 
+/platform-enterprise/:version/studios/overview#container-image-templates   /platform-enterprise/:version/studios/container-image-templates  301
+/platform-enterprise/:version/studios/overview#studio-session-checkpoints  /platform-enterprise/:version/studios/managing#studio-session-checkpoints  301
+/platform-enterprise/:version/studios/overview#container-image-templates   /platform-enterprise/:version/studios/container-images 301
+/platform-enterprise/:version/studios/overview#studio-session-statuses     /platform-enterprise/:version/studios/managing#studio-session-statuses  301
+/platform-enterprise/:version/studios/overview#session-volume-automatic-resizing  /platform-enterprise/:version/studios/managing#session-volume-automatic-resizing  301
+/platform-enterprise/:version/studios/managing#add-a-studio               /platform-enterprise/:version/studios/add-studio 301
 
 /platform-cloud/studios/overview#limitations                 /platform-cloud/studios/container-images#limitations 301 
 /platform-cloud/studios/overview#container-image-templates   /platform-cloud/studios/container-image-templates  301
@@ -87,4 +86,4 @@
 /platform-cloud/studios/overview#studio-session-statuses     /platform-cloud/studios/managing#studio-session-statuses  301
 /platform-cloud/studios/overview#studio-session-data-links   /platform-cloud/studios/managing#studio-session-data-links  301
 /platform-cloud/studios/overview#session-volume-automatic-resizing  /platform-cloud/studios/managing#session-volume-automatic-resizing  301
-/platform-cloud/studios/managing#add-a-studio               /platform-cloud/studios/add-studio
+/platform-cloud/studios/managing#add-a-studio               /platform-cloud/studios/add-studio 301
