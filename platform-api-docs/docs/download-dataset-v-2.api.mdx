@@ -1,11 +1,11 @@
 ---
 id: download-dataset-v-2
 title: "Download dataset content"
-description: "Downloads the content of the dataset identified by the given `datasetId` and `version`."
+description: "Downloads the content of the dataset version identified by the given `datasetId` and `version`. The `fileName` must match the original uploaded filename."
 sidebar_label: "Download dataset content"
 hide_title: true
 hide_table_of_contents: true
-api: eJzNVVFr2zAQ/itCTxuEuOtKH/y0lrajDLrSdt1DCUSxz4laR3IlOV0w/u+7k2UnabyMBAYLhETSd/q+0306VdyJqeXxE0+FExac5aMBT8EmRhZOasVjfqHfVK5FapmbAUu0cqAc05kfhjAmU5yUmYSUTZZ+ZSoXoNg4AK7TMRMqZeMFGIv7jod8wHUBRhDLdbrGc9FEPB4johBGzMFhDGqsuMIBIt+0ebGFSADjBlySyNcSzJK/l/6zBTJVzsHIZKXTINgmM5gLHlfcLQvaWGJuU7+UaTMXrpk6PeF1PejYu4xa7kK42RZ1yIJZZ6SabvIaeC2lAUzamRJ6dDRBG6zh3HZyPjYYSnYChjnN0nCmB5JmMocb+ruL9QpBjAIYHlpjisCKZmj9EWyzl44RgW2hlQVL68dHR/Szyf79G+7Z7o6roihymXhXRc+WINUfKdbKPJFKoIFq/Az4SR/RuUgZaQfr9mFcpfvE52CtmAJdsSBET54hof0KQ5fBySbTFthXHO6ky2nq0hht7sIBdco/9xxRe82Y0o6JPNdvqMejT7bRN4jJdKnS/zVLXLSQlEa6pW8K5yAMmLMSrRk/jcg12DFmmlrKFDwruTbmUdvioqq7wnW0iKpwtepIRVXr+JqvWO4pzUbyOleneuZc0XYTGk88CGeaP1etx57fnE9Nqkz78JDiPbxigdjZ7fXW3QpLt7lwZFVmwSxkAjaAqT4i8fUpTR6k2DiKrI8bSo0gLJHMfSfL9JfVAgppe0rMPw1PT4dHNFdo6+bClzc0gbYv99zlDbHVyi7/8M0IZ+7gl4uKXGBbQtE++SoUeu0tG/B4vVsvaGLVSOkbdy0OfTPD3Cm+qiYY88PkdU3TzdtCVkulFZOcbJ6J3MKOA/jLy9ObxQsstx63hchLQnLy9UIYSfx7avlwF27nR7brVerVFCaFWq6LabWuDpcejYMU7XyzDpDUlvdgQXs+ZwdI7CxXjxA7A9zZ+JI2y2dJAoVbC9xqvRs97uvlA2LFZkt614L87r2i0Ooe8aBfQNV1p9HRmATW9W9VuYDb
+api: eJzNVdtOGzEQ/RXLT60UZSlFPOxToUCFqlIEtH1AkeLsThLDxl5sb2i02n/vjNfOvVxSVQIJwdpnPOfMteZOjCxPb3kunLDgLO91eA42M7J0Uiue8hP9qAotcsvcGFimlQPlmB76z2DGpmAswpnM8VIOJeRsMPOIkZyCYv0APM/7TKic9YNBv8tuENQfygIuxAT6bFJZxybCZWNvro0cSSUKVpVEAt8lqEJol3e4LsEI4nmeLzE9aX393EdEKQxiHXpDlTUnQ0Q+anNvS5EB2nW4JJkPFZgZXxf/KwKZqiZgZLZQaIiAzcYwETytuZuV9LLE8IzA4NVQG5TRHh0e8KbpzN3PgxGdl8KNN3wHGcw6I9VozbGBh0oaQNnOVLCFSGu14jbE/EVOY0JR9mB3jzGtT7o8QxAjA4Yha6sqJBKzHQss1F2XfXtNfbycc4/AttTKgqX7/b09+rPK9PtXfDMwoVtRloXMfAEmd5Yg9V9dLBXEAAljrTX40+EH2xwdi5wRd7DuNR4Xcm/5BKwVI6B+DkT04A4yeq801DdOtkojcFsiuZOuoKNTY7S5CgGaM/+4JUSxI5nSjomi0I/Ix6MPNtEXiBnqSuVvVSVeWsgqI93Mz49jEAbMUYVlnN72qGpwuIw1TZ8ReK9U4SlP4jxN6nmzN8k0qUNfNYlK6tgdDQ0SMNM4pCpT4BNj50qbJokoZTcrdJV3LTxgcLtSb7TQtb9hl4VwVGXsM+HZ0eU5J4pRwTWFsA3Hso55RMhjnGn0PfAgPGn/OYv1e/fofNikGmpvHsIXWJDb5wiSXJmBDWDKvch87lfFL0vG9MvCz9Oh/rS4QCJxsKX8Q/fwsLtHZ6W2biJ86YRhFNfD+kxZJ1svSvFNL7+QNQe/XVIWAgcsyvbhq0MZLq31Dk+Xt86UDhb7gH7T+bDGkhlj9Mi+rgdo88MUTUPH7ZKkGs2lFYOCmnAoCgtPhPC5FbpVxj3MNtb0VBQVIX1NT4WRROCVZN5dheHxnj25XreSCodCzZbZRLKL8NIC/CdKm8t3Bz4xuzuz+Y97eQc58+pseogdA75pfPLb66Msg9ItGW7skJVh/eX0BrFidf6tzTv/+lZS2BUecaPvQTXNnKOjbyLYNH8ADnzvdg==
 sidebar_class_name: "get api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -36,7 +36,7 @@ import Heading from "@theme/Heading";
 
 
 
-Downloads the content of the dataset identified by the given `datasetId` and `version`.
+Downloads the content of the dataset version identified by the given `datasetId` and `version`. The `fileName` must match the original uploaded filename.
 
 <Heading
   id={"request"}
@@ -47,7 +47,7 @@ Downloads the content of the dataset identified by the given `datasetId` and `ve
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"datasetId","in":"path","description":"Dataset string identifier","required":true,"schema":{"type":"string"}},{"name":"version","in":"path","description":"Version number to download","required":true,"schema":{"type":"string"}},{"name":"fileName","in":"path","description":"File name for the downloaded dataset content","required":true,"schema":{"type":"string"}}]}
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier.","schema":{"type":"integer","format":"int64"}},{"name":"datasetId","in":"path","description":"Dataset string identifier.","required":true,"schema":{"type":"string"}},{"name":"version","in":"path","description":"Dataset version number.","required":true,"schema":{"type":"string"}},{"name":"fileName","in":"path","description":"File name for the downloaded dataset content. Must match the original uploaded filename.","required":true,"schema":{"type":"string"}}]}
 >
   
 </ParamsDetails>
