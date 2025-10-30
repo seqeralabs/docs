@@ -25,7 +25,7 @@
 - Name: "**CreateDataset**"
   Type: ""
   Req/Opt: ""
-  Description: Create dataset
+  Description: (Deprecated) Create dataset
 - Name: name
   Type: string
   Req/Opt: Optional
@@ -37,7 +37,7 @@
 - Name: "**UpdateDataset**"
   Type: ""
   Req/Opt: ""
-  Description: Update dataset
+  Description: (Deprecated) Update dataset
 - Name: name
   Type: string
   Req/Opt: Optional
