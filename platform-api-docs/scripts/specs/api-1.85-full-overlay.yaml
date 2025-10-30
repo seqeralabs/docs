@@ -1,0 +1,1678 @@
+overlay: 1.0.0
+info:
+  title: Seqera Platform API v1.85 overlay
+  version: 1.0.0
+  description: Combines all specs folder overlays into a single overlay to apply to our decorated spec.
+
+actions:
+- target: "$"
+  update:
+    servers:
+      - url: https://api.cloud.seqera.io
+        description: Seqera Platform Cloud API
+
+# ===== HPC COMPUTE CONFIGS - GRID SCHEDULER PROPERTY DESCRIPTIONS =====
+
+# These properties were previously inherited from AbstractGridConfig and now need
+# explicit descriptions on each scheduler type (LSF, Slurm, Altair PBS, Moab, Univa)
+
+# ---- LSF COMPUTE CONFIG ----
+
+- target: "$.components.schemas.LsfComputeConfig.allOf[1].properties.workDir"
+  update:
+    type: string
+    description: "Nextflow work directory on the cluster's shared file system. Must be an absolute path and credentials must have read-write access."
+
+- target: "$.components.schemas.LsfComputeConfig.allOf[1].properties.launchDir"
+  update:
+    type: string
+    description: "Directory where Nextflow runs. Must be an absolute path and credentials must have read-write access. If omitted, defaults to `workDir`."
+
+- target: "$.components.schemas.LsfComputeConfig.allOf[1].properties.userName"
+  update:
+    type: string
+    description: "Username for SSH connection to HPC head node."
+
+- target: "$.components.schemas.LsfComputeConfig.allOf[1].properties.hostName"
+  update:
+    type: string
+    description: "Hostname or IP address of HPC head node."
+
+- target: "$.components.schemas.LsfComputeConfig.allOf[1].properties.port"
+  update:
+    type: integer
+    format: int32
+    description: "SSH port. Default: `22`."
+
+- target: "$.components.schemas.LsfComputeConfig.allOf[1].properties.headQueue"
+  update:
+    type: string
+    description: "The name of the queue on the cluster used to launch the Nextflow execution."
+
+- target: "$.components.schemas.LsfComputeConfig.allOf[1].properties.computeQueue"
+  update:
+    type: string
+    description: "The name of queue on the cluster to which pipeline jobs are submitted. Can be overridden by the pipeline configuration."
+
+- target: "$.components.schemas.LsfComputeConfig.allOf[1].properties.maxQueueSize"
+  update:
+    type: integer
+    format: int32
+    description: "The maximum number of jobs Nextflow can submit to the queue simultaneously. Default: `100`."
+
+- target: "$.components.schemas.LsfComputeConfig.allOf[1].properties.headJobOptions"
+  update:
+    type: string
+    description: "Additional submit options for the Nextflow head job."
+
+- target: "$.components.schemas.LsfComputeConfig.allOf[1].properties.propagateHeadJobOptions"
+  update:
+    type: boolean
+    description: "If true, `headJobOptions` are also applied to the Nextflow-submitted compute jobs."
+
+- target: "$.components.schemas.LsfComputeConfig.allOf[1].properties.preRunScript"
+  update:
+    type: string
+    description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+- target: "$.components.schemas.LsfComputeConfig.allOf[1].properties.postRunScript"
+  update:
+    type: string
+    description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+- target: "$.components.schemas.LsfComputeConfig.allOf[1].properties.nextflowConfig"
+  update:
+    type: string
+    description: "Additional Nextflow configuration to apply. See [Nextflow config file](https://docs.seqera.io/platform-cloud/launch/advanced#nextflow-config-file)."
+
+# ---- SLURM COMPUTE CONFIG ----
+
+- target: "$.components.schemas.SlurmComputeConfig.allOf[1].properties.workDir"
+  update:
+    type: string
+    description: "Nextflow work directory on the cluster's shared file system. Must be an absolute path and credentials must have read-write access."
+
+- target: "$.components.schemas.SlurmComputeConfig.allOf[1].properties.launchDir"
+  update:
+    type: string
+    description: "Directory where Nextflow runs. Must be an absolute path and credentials must have read-write access. If omitted, defaults to `workDir`."
+
+- target: "$.components.schemas.SlurmComputeConfig.allOf[1].properties.userName"
+  update:
+    type: string
+    description: "Username for SSH connection to HPC head node."
+
+- target: "$.components.schemas.SlurmComputeConfig.allOf[1].properties.hostName"
+  update:
+    type: string
+    description: "Hostname or IP address of HPC head node."
+
+- target: "$.components.schemas.SlurmComputeConfig.allOf[1].properties.port"
+  update:
+    type: integer
+    format: int32
+    description: "SSH port. Default: `22`."
+
+- target: "$.components.schemas.SlurmComputeConfig.allOf[1].properties.headQueue"
+  update:
+    type: string
+    description: "The name of the queue on the cluster used to launch the Nextflow execution."
+
+- target: "$.components.schemas.SlurmComputeConfig.allOf[1].properties.computeQueue"
+  update:
+    type: string
+    description: "The name of queue on the cluster to which pipeline jobs are submitted. Can be overridden by the pipeline configuration."
+
+- target: "$.components.schemas.SlurmComputeConfig.allOf[1].properties.maxQueueSize"
+  update:
+    type: integer
+    format: int32
+    description: "The maximum number of jobs Nextflow can submit to the queue simultaneously. Default: `100`."
+
+- target: "$.components.schemas.SlurmComputeConfig.allOf[1].properties.headJobOptions"
+  update:
+    type: string
+    description: "Additional submit options for the Nextflow head job."
+
+- target: "$.components.schemas.SlurmComputeConfig.allOf[1].properties.propagateHeadJobOptions"
+  update:
+    type: boolean
+    description: "If true, `headJobOptions` are also applied to the Nextflow-submitted compute jobs."
+
+- target: "$.components.schemas.SlurmComputeConfig.allOf[1].properties.preRunScript"
+  update:
+    type: string
+    description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+- target: "$.components.schemas.SlurmComputeConfig.allOf[1].properties.postRunScript"
+  update:
+    type: string
+    description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+- target: "$.components.schemas.SlurmComputeConfig.allOf[1].properties.nextflowConfig"
+  update:
+    type: string
+    description: "Additional Nextflow configuration to apply. See [Nextflow config file](https://docs.seqera.io/platform-cloud/launch/advanced#nextflow-config-file)."
+
+# ---- ALTAIR PBS COMPUTE CONFIG ----
+
+- target: "$.components.schemas.AltairPbsComputeConfig.allOf[1].properties.workDir"
+  update:
+    type: string
+    description: "Nextflow work directory on the cluster's shared file system. Must be an absolute path and credentials must have read-write access."
+
+- target: "$.components.schemas.AltairPbsComputeConfig.allOf[1].properties.launchDir"
+  update:
+    type: string
+    description: "Directory where Nextflow runs. Must be an absolute path and credentials must have read-write access. If omitted, defaults to `workDir`."
+
+- target: "$.components.schemas.AltairPbsComputeConfig.allOf[1].properties.userName"
+  update:
+    type: string
+    description: "Username for SSH connection to HPC head node."
+
+- target: "$.components.schemas.AltairPbsComputeConfig.allOf[1].properties.hostName"
+  update:
+    type: string
+    description: "Hostname or IP address of HPC head node."
+
+- target: "$.components.schemas.AltairPbsComputeConfig.allOf[1].properties.port"
+  update:
+    type: integer
+    format: int32
+    description: "SSH port. Default: `22`."
+
+- target: "$.components.schemas.AltairPbsComputeConfig.allOf[1].properties.headQueue"
+  update:
+    type: string
+    description: "The name of the queue on the cluster used to launch the Nextflow execution."
+
+- target: "$.components.schemas.AltairPbsComputeConfig.allOf[1].properties.computeQueue"
+  update:
+    type: string
+    description: "The name of queue on the cluster to which pipeline jobs are submitted. Can be overridden by the pipeline configuration."
+
+- target: "$.components.schemas.AltairPbsComputeConfig.allOf[1].properties.maxQueueSize"
+  update:
+    type: integer
+    format: int32
+    description: "The maximum number of jobs Nextflow can submit to the queue simultaneously. Default: `100`."
+
+- target: "$.components.schemas.AltairPbsComputeConfig.allOf[1].properties.headJobOptions"
+  update:
+    type: string
+    description: "Additional submit options for the Nextflow head job."
+
+- target: "$.components.schemas.AltairPbsComputeConfig.allOf[1].properties.propagateHeadJobOptions"
+  update:
+    type: boolean
+    description: "If true, `headJobOptions` are also applied to the Nextflow-submitted compute jobs."
+
+- target: "$.components.schemas.AltairPbsComputeConfig.allOf[1].properties.preRunScript"
+  update:
+    type: string
+    description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+- target: "$.components.schemas.AltairPbsComputeConfig.allOf[1].properties.postRunScript"
+  update:
+    type: string
+    description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+- target: "$.components.schemas.AltairPbsComputeConfig.allOf[1].properties.nextflowConfig"
+  update:
+    type: string
+    description: "Additional Nextflow configuration to apply. See [Nextflow config file](https://docs.seqera.io/platform-cloud/launch/advanced#nextflow-config-file)."
+
+# ---- MOAB COMPUTE CONFIG ----
+
+- target: "$.components.schemas.MoabComputeConfig.allOf[1].properties.workDir"
+  update:
+    type: string
+    description: "Nextflow work directory on the cluster's shared file system. Must be an absolute path and credentials must have read-write access."
+
+- target: "$.components.schemas.MoabComputeConfig.allOf[1].properties.launchDir"
+  update:
+    type: string
+    description: "Directory where Nextflow runs. Must be an absolute path and credentials must have read-write access. If omitted, defaults to `workDir`."
+
+- target: "$.components.schemas.MoabComputeConfig.allOf[1].properties.userName"
+  update:
+    type: string
+    description: "Username for SSH connection to HPC head node."
+
+- target: "$.components.schemas.MoabComputeConfig.allOf[1].properties.hostName"
+  update:
+    type: string
+    description: "Hostname or IP address of HPC head node."
+
+- target: "$.components.schemas.MoabComputeConfig.allOf[1].properties.port"
+  update:
+    type: integer
+    format: int32
+    description: "SSH port. Default: `22`."
+
+- target: "$.components.schemas.MoabComputeConfig.allOf[1].properties.headQueue"
+  update:
+    type: string
+    description: "The name of the queue on the cluster used to launch the Nextflow execution."
+
+- target: "$.components.schemas.MoabComputeConfig.allOf[1].properties.computeQueue"
+  update:
+    type: string
+    description: "The name of queue on the cluster to which pipeline jobs are submitted. Can be overridden by the pipeline configuration."
+
+- target: "$.components.schemas.MoabComputeConfig.allOf[1].properties.maxQueueSize"
+  update:
+    type: integer
+    format: int32
+    description: "The maximum number of jobs Nextflow can submit to the queue simultaneously. Default: `100`."
+
+- target: "$.components.schemas.MoabComputeConfig.allOf[1].properties.headJobOptions"
+  update:
+    type: string
+    description: "Additional submit options for the Nextflow head job."
+
+- target: "$.components.schemas.MoabComputeConfig.allOf[1].properties.propagateHeadJobOptions"
+  update:
+    type: boolean
+    description: "If true, `headJobOptions` are also applied to the Nextflow-submitted compute jobs."
+
+- target: "$.components.schemas.MoabComputeConfig.allOf[1].properties.preRunScript"
+  update:
+    type: string
+    description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+- target: "$.components.schemas.MoabComputeConfig.allOf[1].properties.postRunScript"
+  update:
+    type: string
+    description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+- target: "$.components.schemas.MoabComputeConfig.allOf[1].properties.nextflowConfig"
+  update:
+    type: string
+    description: "Additional Nextflow configuration to apply. See [Nextflow config file](https://docs.seqera.io/platform-cloud/launch/advanced#nextflow-config-file)."
+
+# ---- UNIVA COMPUTE CONFIG ----
+
+- target: "$.components.schemas.UnivaComputeConfig.allOf[1].properties.workDir"
+  update:
+    type: string
+    description: "Nextflow work directory on the cluster's shared file system. Must be an absolute path and credentials must have read-write access."
+
+- target: "$.components.schemas.UnivaComputeConfig.allOf[1].properties.launchDir"
+  update:
+    type: string
+    description: "Directory where Nextflow runs. Must be an absolute path and credentials must have read-write access. If omitted, defaults to `workDir`."
+
+- target: "$.components.schemas.UnivaComputeConfig.allOf[1].properties.userName"
+  update:
+    type: string
+    description: "Username for SSH connection to HPC head node."
+
+- target: "$.components.schemas.UnivaComputeConfig.allOf[1].properties.hostName"
+  update:
+    type: string
+    description: "Hostname or IP address of HPC head node."
+
+- target: "$.components.schemas.UnivaComputeConfig.allOf[1].properties.port"
+  update:
+    type: integer
+    format: int32
+    description: "SSH port. Default: `22`."
+
+- target: "$.components.schemas.UnivaComputeConfig.allOf[1].properties.headQueue"
+  update:
+    type: string
+    description: "The name of the queue on the cluster used to launch the Nextflow execution."
+
+- target: "$.components.schemas.UnivaComputeConfig.allOf[1].properties.computeQueue"
+  update:
+    type: string
+    description: "The name of queue on the cluster to which pipeline jobs are submitted. Can be overridden by the pipeline configuration."
+
+- target: "$.components.schemas.UnivaComputeConfig.allOf[1].properties.maxQueueSize"
+  update:
+    type: integer
+    format: int32
+    description: "The maximum number of jobs Nextflow can submit to the queue simultaneously. Default: `100`."
+
+- target: "$.components.schemas.UnivaComputeConfig.allOf[1].properties.headJobOptions"
+  update:
+    type: string
+    description: "Additional submit options for the Nextflow head job."
+
+- target: "$.components.schemas.UnivaComputeConfig.allOf[1].properties.propagateHeadJobOptions"
+  update:
+    type: boolean
+    description: "If true, `headJobOptions` are also applied to the Nextflow-submitted compute jobs."
+
+- target: "$.components.schemas.UnivaComputeConfig.allOf[1].properties.preRunScript"
+  update:
+    type: string
+    description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+- target: "$.components.schemas.UnivaComputeConfig.allOf[1].properties.postRunScript"
+  update:
+    type: string
+    description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+- target: "$.components.schemas.UnivaComputeConfig.allOf[1].properties.nextflowConfig"
+  update:
+    type: string
+    description: "Additional Nextflow configuration to apply. See [Nextflow config file](https://docs.seqera.io/platform-cloud/launch/advanced#nextflow-config-file)."
+
+# ===== NEW SCHEMAS - 1.85 =====
+# Descriptions for completely new schemas added in 1.85
+
+# ---- LOCAL COMPUTE CONFIG ----
+
+- target: "$.components.schemas.LocalComputeConfig.properties.discriminator"
+  update:
+    type: string
+    description: "Platform type discriminator (read-only, set based on platform selection)."
+
+- target: "$.components.schemas.LocalComputeConfig.properties.workDir"
+  update:
+    type: string
+    description: "Nextflow work directory on the local file system. Must be an absolute path and credentials must have read-write access."
+
+- target: "$.components.schemas.LocalComputeConfig.properties.preRunScript"
+  update:
+    type: string
+    description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+- target: "$.components.schemas.LocalComputeConfig.properties.postRunScript"
+  update:
+    type: string
+    description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+- target: "$.components.schemas.LocalComputeConfig.properties.environment"
+  update:
+    type: array
+    items:
+      $ref: "#/components/schemas/ConfigEnvVariable"
+    description: "Environment variables to set for Nextflow execution."
+
+- target: "$.components.schemas.LocalComputeConfig.properties.waveEnabled"
+  update:
+    type: boolean
+    description: "Enable [Wave containers](https://docs.seqera.io/wave). Default: `false`."
+
+- target: "$.components.schemas.LocalComputeConfig.properties.fusion2Enabled"
+  update:
+    type: boolean
+    description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers. Default: `false`."
+
+- target: "$.components.schemas.LocalComputeConfig.properties.nextflowConfig"
+  update:
+    type: string
+    description: "Additional Nextflow configuration to apply. See [Nextflow config file](https://docs.seqera.io/platform-cloud/launch/advanced#nextflow-config-file)."
+
+# ---- LOCAL SECURITY KEYS ----
+
+- target: "$.components.schemas.LocalSecurityKeys.properties.discriminator"
+  update:
+    type: string
+    description: "Credentials provider type identifier."
+
+- target: "$.components.schemas.LocalSecurityKeys.properties.password"
+  update:
+    type: string
+    writeOnly: true
+    description: "Password for local platform access."
+
+# ---- AZURE CLOUD KEYS ----
+
+- target: "$.components.schemas.AzureCloudKeys.allOf[1].properties.discriminator"
+  update:
+    type: string
+    description: "Credentials provider type identifier."
+
+- target: "$.components.schemas.AzureCloudKeys.allOf[1].properties.subscriptionId"
+  update:
+    type: string
+    description: "Azure subscription ID."
+
+- target: "$.components.schemas.AzureCloudKeys.allOf[1].properties.storageName"
+  update:
+    type: string
+    description: "Azure storage account name."
+
+- target: "$.components.schemas.AzureCloudKeys.allOf[1].properties.tenantId"
+  update:
+    type: string
+    description: "Azure tenant ID."
+
+- target: "$.components.schemas.AzureCloudKeys.allOf[1].properties.clientId"
+  update:
+    type: string
+    description: "Azure service principal client ID."
+
+- target: "$.components.schemas.AzureCloudKeys.allOf[1].properties.clientSecret"
+  update:
+    type: string
+    writeOnly: true
+    description: "Azure service principal client secret."
+
+# ---- AZURE CLOUD PLATFORM META INFO ----
+
+- target: "$.components.schemas.AzCloudPlatformMetaInfo.properties.discriminator"
+  update:
+    type: string
+    description: "Platform type identifier."
+
+- target: "$.components.schemas.AzCloudPlatformMetaInfo.properties.warnings"
+  update:
+    type: array
+    items:
+      type: string
+    description: "Azure Cloud configuration warnings."
+
+- target: "$.components.schemas.AzCloudPlatformMetaInfo.properties.containers"
+  update:
+    type: array
+    items:
+      type: string
+    description: "Azure Blob Storage containers accessible to workspace credentials."
+
+- target: "$.components.schemas.AzCloudPlatformMetaInfo.properties.instanceTypes"
+  update:
+    type: array
+    items:
+      type: string
+    description: "Available Azure VM instance types."
+
+# ---- STUDIO REMOTE CONFIGURATION ----
+
+- target: "$.components.schemas.StudioRemoteConfiguration.properties.repository"
+  update:
+    type: string
+    description: "Git repository URL for Studios remote configuration."
+
+- target: "$.components.schemas.StudioRemoteConfiguration.properties.revision"
+  update:
+    type: string
+    nullable: true
+    description: "Git branch, tag, or commit ID. If omitted, uses the default branch."
+
+- target: "$.components.schemas.StudioRemoteConfiguration.properties.commitId"
+  update:
+    type: string
+    nullable: true
+    description: "Git commit ID for the remote configuration. Maximum length: 40 characters."
+
+# ---- COMPUTE ENV RESOURCES ----
+
+- target: "$.components.schemas.ComputeEnvResources.properties.cpus"
+  update:
+    type: integer
+    format: int32
+    nullable: true
+    description: "Number of CPUs allocated to the compute environment. Null if information is unavailable."
+
+- target: "$.components.schemas.ComputeEnvResources.properties.memory"
+  update:
+    type: integer
+    format: int32
+    nullable: true
+    description: "Memory allocated to the compute environment in GB. Null if information is unavailable."
+
+- target: "$.components.schemas.ComputeEnvResources.properties.gpus"
+  update:
+    type: integer
+    format: int32
+    nullable: true
+    description: "Number of GPUs allocated to the compute environment. Null if information is unavailable."
+
+- target: "$.components.schemas.ComputeEnvResources.properties.diskSize"
+  update:
+    type: integer
+    format: int32
+    nullable: true
+    description: "Disk size allocated to the compute environment in GB. Null if information is unavailable."
+
+- target: "$.components.schemas.ComputeEnvResources.properties.estimatedPrice"
+  update:
+    type: number
+    format: float
+    nullable: true
+    description: "Estimated hourly cost of the compute environment in USD. Null if information is unavailable."
+
+- target: "$.components.schemas.ComputeEnvResources.properties.instanceType"
+  update:
+    type: string
+    nullable: true
+    description: "Instance type used by the compute environment. Null if information is unavailable."
+
+# ---- DATA STUDIO CREATE REQUEST ----
+
+# Update required fields to only computeEnvId and name
+- target: "$.components.schemas.DataStudioCreateRequest.required[*]"
+  remove: true
+
+- target: "$.components.schemas.DataStudioCreateRequest.required"
+  update:
+    - computeEnvId
+    - name
+
+# Remove minLength constraint from dataStudioToolUrl
+- target: "$.components.schemas.DataStudioCreateRequest.properties.dataStudioToolUrl.minLength"
+  remove: true
+
+# Add remoteConfig property
+- target: "$.components.schemas.DataStudioCreateRequest.properties.remoteConfig"
+  update:
+    nullable: true
+    allOf:
+      - $ref: "#/components/schemas/StudioRemoteConfiguration"
+
+# ---- DATA STUDIO DTO ----
+
+# Add remoteConfig property
+- target: "$.components.schemas.DataStudioDto.properties.remoteConfig"
+  update:
+    $ref: "#/components/schemas/StudioRemoteConfiguration"
+
+# ---- DATA STUDIO WORKSPACE SETTINGS RESPONSE ----
+
+# Remove required array
+- target: "$.components.schemas.DataStudioWorkspaceSettingsResponse.required"
+  remove: true
+
+# ===== PIPELINES - OPERATIONS =====
+
+# ---- UPDATE PIPELINE ----
+
+- target: "$.paths./pipelines/{pipelineId}.put.summary"
+  update: "Update pipeline"
+
+- target: "$.paths./pipelines/{pipelineId}.put.description"
+  update: "Updates the details of the pipeline identified by the given `pipelineId`.\n\n**Note**: If `labelIds` is `null`, empty, or omitted, existing pipeline labels are removed. Include `labelIds: [<label-id-1>,<label-id-2>]` to override existing labels. Labels to be preserved must be included. To append a list of labels to multiple pipelines, use `/pipelines/labels/add`."
+
+# ===== PIPELINES - PARAMETERS =====
+
+# ---- LIST PIPELINES ----
+
+- target: "$.paths./pipelines.get.parameters[?(@.name=='attributes')].description"
+  update: "Additional attribute values to include in the response (`labels`, `optimized` status, `computeEnv`). Returns an empty value (`labels: null`, etc.) if omitted."
+
+- target: "$.paths./pipelines.get.parameters[?(@.name=='workspaceId')].description"
+  update: "Workspace numeric identifier."
+
+- target: "$.paths./pipelines.get.parameters[?(@.name=='max')].description"
+  update: "Maximum number of pipelines to return per request."
+
+- target: "$.paths./pipelines.get.parameters[?(@.name=='offset')].description"
+  update: "Number of results to skip for pagination. Default: `0`."
+
+- target: "$.paths./pipelines.get.parameters[?(@.name=='sortBy')].description"
+  update: "Field to sort pipelines by. Accepts `NAME`, `CREATED`, or `MODIFIED`. Default: `NAME`."
+
+- target: "$.paths./pipelines.get.parameters[?(@.name=='sortDir')].description"
+  update: "Sort direction for results. Accepts `ASCENDING` or `DESCENDING`. Default: `ASCENDING`."
+
+- target: "$.paths./pipelines.get.parameters[?(@.name=='search')].description"
+  update: "Free-text search filter to match against pipeline names and descriptions."
+
+- target: "$.paths./pipelines.get.parameters[?(@.name=='visibility')].description"
+  update: "Filter pipelines by visibility. Accepts `private`, `shared`, or `all`."
+
+# ===== WORKFLOWS - OPERATIONS =====
+
+# ---- GET WORKFLOW LOG ----
+
+- target: "$.paths./workflow/{workflowId}/log.get.operationId"
+  update: "GetWorkflowLog"
+
+- target: "$.paths./workflow/{workflowId}/log.get.summary"
+  update: "Get workflow log"
+
+- target: "$.paths./workflow/{workflowId}/log.get.description"
+  update: "Retrieves the execution log output of the workflow identified by the given `workflowId`."
+
+# ===== WORKSPACES - OPERATIONS =====
+
+# ---- VALIDATE WORKSPACE NAME ----
+
+- target: "$.paths./orgs/{orgId}/workspaces/validate.get.operationId"
+  update: "ValidateWorkspaceName"
+
+- target: "$.paths./orgs/{orgId}/workspaces/validate.get.summary"
+  update: "Validate workspace name"
+
+- target: "$.paths./orgs/{orgId}/workspaces/validate.get.description"
+  update: "Confirms the validity of the given workspace name within the organization identified by the given `orgId`. Append `?name=<your_workspace_name>`."
+
+# ===== DATA-LINKS OPERATIONS - SUMMARIES & DESCRIPTIONS =====
+
+# GET /data-links/cache/refresh - Refresh data-link cache
+- target: "$.paths./data-links/cache/refresh.get"
+  update:
+    summary: "Refresh data-link cache"
+    description: "Refreshes the data-link cache for the given `workspaceId` or `credentialsId`. Forces immediate re-discovery of available cloud storage resources."
+
+# GET /data-links/ - List data-links
+- target: "$.paths./data-links/.get"
+  update:
+    summary: "List data-links"
+    description: "Retrieves all available data-links in a user context. Append `?workspaceId={your-workspace-id}` to retrieve data-links in a workspace context. Results can be filtered by credentials, provider, region, search query, and visibility."
+
+# GET /data-links/{dataLinkId}/browse{/path} - Explore data-link path
+- target: "$.paths./data-links/{dataLinkId}/browse{/path}.get"
+  update:
+    summary: "Explore data-link path"
+    description: "Retrieves the content of the data-link associated with the given `dataLinkId`, at the given `path`. Returns a paginated list of files and folders at the specified location."
+
+# GET /data-links/{dataLinkId}/browse-tree - Explore data-link tree
+- target: "$.paths./data-links/{dataLinkId}/browse-tree.get"
+  update:
+    summary: "Explore data-link tree"
+    description: "Retrieves a list of all files in the data-link associated with the given `dataLinkId`, including files in sub-paths. Useful for retrieving complete directory structures."
+
+# GET /data-links/{dataLinkId} - Describe data-link
+- target: "$.paths./data-links/{dataLinkId}.get"
+  update:
+    summary: "Describe data-link"
+    description: "Retrieves the details of the data-link associated with the given `dataLinkId`, including provider information, credentials, and access status."
+
+# POST /data-links/hide - Hide data-links
+- target: "$.paths./data-links/hide.post"
+  update:
+    summary: "Hide data-links"
+    description: "Hides the given data-links from the data-links list view. Hidden data-links remain accessible but are filtered from default list views."
+
+# POST /data-links/show - Show data-links
+- target: "$.paths./data-links/show.post"
+  update:
+    summary: "Show data-links"
+    description: "Shows previously hidden data-links in the data-links list view."
+
+# POST /data-links/ - Create data-link
+- target: "$.paths./data-links/.post"
+  update:
+    summary: "Create data-link"
+    description: "Creates a new data-link in a user context. Append `?workspaceId=` to create the data-link in a workspace context. Data-links can be public (no credentials required) or private (credentials-based access)."
+
+# PUT /data-links/{dataLinkId} - Update data-link
+- target: "$.paths./data-links/{dataLinkId}.put"
+  update:
+    summary: "Update data-link"
+    description: "Updates the data-link associated with the given `dataLinkId`. Allows modification of name, description, and associated credentials."
+
+# DELETE /data-links/{dataLinkId} - Delete data-link
+- target: "$.paths./data-links/{dataLinkId}.delete"
+  update:
+    summary: "Delete data-link"
+    description: "Deletes the data-link associated with the given `dataLinkId`. The underlying cloud storage resource is not affected."
+
+# GET /data-links/{dataLinkId}/download/{+filePath} - Download data-link file
+- target: "$.paths./data-links/{dataLinkId}/download/{+filePath}.get"
+  update:
+    summary: "Download data-link file"
+    description: "Downloads the content at the given `filePath` in the data-link associated with the given `dataLinkId`. Returns the file content directly as a streamed response."
+
+# GET /data-links/{dataLinkId}/generate-download-url - Generate download URL
+- target: "$.paths./data-links/{dataLinkId}/generate-download-url.get"
+  update:
+    summary: "Generate download URL"
+    description: "Returns a pre-signed URL to download files from the data-link associated with the given `dataLinkId`. The URL can be used for direct downloads or preview purposes."
+
+# GET /data-links/{dataLinkId}/script/download - Generate download script
+- target: "$.paths./data-links/{dataLinkId}/script/download.get"
+  update:
+    summary: "Generate download script"
+    description: "Creates a script to download files from the data-link associated with the given `dataLinkId`. Append `?dirs` or `?files` to specify a list of files or paths to download within the data-link."
+
+# POST /data-links/{dataLinkId}/upload{/dirPath} - Generate upload URL
+- target: "$.paths./data-links/{dataLinkId}/upload{/dirPath}.post"
+  update:
+    summary: "Generate upload URL"
+    description: "Creates a URL to upload files to the data-link associated with the given `dataLinkId`, specifying a file path (`dirPath`). For AWS S3 data-links, an additional follow-up request must be sent after your file upload has completed (or encountered an error) to finalize the upload - see the `/upload/finish` endpoint."
+
+# POST /data-links/{dataLinkId}/upload/finish{/dirPath} - Finish upload
+- target: "$.paths./data-links/{dataLinkId}/upload/finish{/dirPath}.post"
+  update:
+    summary: "Finish upload"
+    description: "Finalizes upload of a data-link file, specifying a file path (`dirPath`). This endpoint is required for AWS S3 data-links to complete a successful file upload, or abort an upload if an error was encountered while uploading a file using an upload URL from the `/upload` endpoint."
+
+# DELETE /data-links/{dataLinkId}/content - Delete data-link content
+- target: "$.paths./data-links/{dataLinkId}/content.delete"
+  update:
+    summary: "Delete data-link content"
+    description: "Deletes the content of the data-link associated with the given `dataLinkId`. The data-link itself is preserved, but files and directories within it are removed."
+
+# ===== DATA-LINKS PARAMETERS - PATH, QUERY, AND REQUEST BODY =====
+
+# ---- PATH PARAMETERS ----
+
+# dataLinkId - used across multiple endpoints
+- target: "$.paths./data-links/{dataLinkId}/browse{/path}.get.parameters[?(@.name=='dataLinkId')]"
+  update:
+    description: "Data-link string identifier."
+
+- target: "$.paths./data-links/{dataLinkId}/browse-tree.get.parameters[?(@.name=='dataLinkId')]"
+  update:
+    description: "Data-link string identifier."
+
+- target: "$.paths./data-links/{dataLinkId}.get.parameters[?(@.name=='dataLinkId')]"
+  update:
+    description: "Data-link string identifier."
+
+- target: "$.paths./data-links/{dataLinkId}.put.parameters[?(@.name=='dataLinkId')]"
+  update:
+    description: "Data-link string identifier."
+
+- target: "$.paths./data-links/{dataLinkId}.delete.parameters[?(@.name=='dataLinkId')]"
+  update:
+    description: "Data-link string identifier."
+
+- target: "$.paths./data-links/{dataLinkId}/download/{+filePath}.get.parameters[?(@.name=='dataLinkId')]"
+  update:
+    description: "Data-link string identifier."
+
+- target: "$.paths./data-links/{dataLinkId}/generate-download-url.get.parameters[?(@.name=='dataLinkId')]"
+  update:
+    description: "Data-link string identifier."
+
+- target: "$.paths./data-links/{dataLinkId}/script/download.get.parameters[?(@.name=='dataLinkId')]"
+  update:
+    description: "Data-link string identifier."
+
+- target: "$.paths./data-links/{dataLinkId}/upload{/dirPath}.post.parameters[?(@.name=='dataLinkId')]"
+  update:
+    description: "Data-link string identifier."
+
+- target: "$.paths./data-links/{dataLinkId}/upload/finish{/dirPath}.post.parameters[?(@.name=='dataLinkId')]"
+  update:
+    description: "Data-link string identifier."
+
+- target: "$.paths./data-links/{dataLinkId}/content.delete.parameters[?(@.name=='dataLinkId')]"
+  update:
+    description: "Data-link string identifier."
+
+# path parameter
+- target: "$.paths./data-links/{dataLinkId}/browse{/path}.get.parameters[?(@.name=='path')]"
+  update:
+    description: "Content path within the data-link. Use forward slashes to navigate directory structures (e.g., `folder/subfolder`)."
+
+# filePath parameter
+- target: "$.paths./data-links/{dataLinkId}/download/{+filePath}.get.parameters[?(@.name=='filePath')]"
+  update:
+    description: "File path to download within the data-link (e.g., `folder/subfolder/object`)."
+
+- target: "$.paths./data-links/{dataLinkId}/generate-download-url.get.parameters[?(@.name=='filePath')]"
+  update:
+    description: "File path to download within the data-link (e.g., `folder/subfolder/object`)."
+
+# dirPath parameter
+- target: "$.paths./data-links/{dataLinkId}/upload{/dirPath}.post.parameters[?(@.name=='dirPath')]"
+  update:
+    description: "Path to the destination directory within the data-link where the file will be uploaded (e.g., `folder/subfolder`)."
+
+- target: "$.paths./data-links/{dataLinkId}/upload/finish{/dirPath}.post.parameters[?(@.name=='dirPath')]"
+  update:
+    description: "Path to the destination directory within the data-link where the file was uploaded (e.g., `folder/subfolder`)."
+
+# ---- QUERY PARAMETERS - workspaceId ----
+
+- target: "$.paths./data-links/cache/refresh.get.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. If omitted, refreshes cache in a user context."
+
+- target: "$.paths./data-links/.get.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. If omitted, lists data-links in a user context."
+
+- target: "$.paths./data-links/{dataLinkId}/browse{/path}.get.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. Optional."
+
+- target: "$.paths./data-links/{dataLinkId}/browse-tree.get.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. Optional."
+
+- target: "$.paths./data-links/{dataLinkId}.get.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. Optional."
+
+- target: "$.paths./data-links/hide.post.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. Optional."
+
+- target: "$.paths./data-links/show.post.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. Optional."
+
+- target: "$.paths./data-links/.post.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. If omitted, creates data-link in a user context."
+
+- target: "$.paths./data-links/{dataLinkId}.put.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. Optional."
+
+- target: "$.paths./data-links/{dataLinkId}.delete.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. Optional."
+
+- target: "$.paths./data-links/{dataLinkId}/download/{+filePath}.get.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. Optional."
+
+- target: "$.paths./data-links/{dataLinkId}/generate-download-url.get.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. Optional."
+
+- target: "$.paths./data-links/{dataLinkId}/script/download.get.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. Optional."
+
+- target: "$.paths./data-links/{dataLinkId}/upload{/dirPath}.post.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. Optional."
+
+- target: "$.paths./data-links/{dataLinkId}/upload/finish{/dirPath}.post.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. Optional."
+
+- target: "$.paths./data-links/{dataLinkId}/content.delete.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. Optional."
+
+# ---- QUERY PARAMETERS - credentialsId ----
+
+- target: "$.paths./data-links/cache/refresh.get.parameters[?(@.name=='credentialsId')]"
+  update:
+    description: "Credentials string identifier. Filters cache refresh to data-links accessible with the specified credentials."
+
+- target: "$.paths./data-links/.get.parameters[?(@.name=='credentialsId')]"
+  update:
+    description: "Credentials string identifier. Filters results to data-links accessible with the specified credentials."
+
+- target: "$.paths./data-links/{dataLinkId}/browse{/path}.get.parameters[?(@.name=='credentialsId')]"
+  update:
+    description: "Credentials string identifier. Required for accessing private data-links."
+
+- target: "$.paths./data-links/{dataLinkId}/browse-tree.get.parameters[?(@.name=='credentialsId')]"
+  update:
+    description: "Credentials string identifier. Required for accessing private data-links."
+
+- target: "$.paths./data-links/{dataLinkId}.get.parameters[?(@.name=='credentialsId')]"
+  update:
+    description: "Credentials string identifier. Required for accessing private data-links."
+
+- target: "$.paths./data-links/{dataLinkId}/download/{+filePath}.get.parameters[?(@.name=='credentialsId')]"
+  update:
+    description: "Credentials string identifier. Required for downloading from private data-links."
+
+- target: "$.paths./data-links/{dataLinkId}/generate-download-url.get.parameters[?(@.name=='credentialsId')]"
+  update:
+    description: "Credentials string identifier. Required for generating download URLs for private data-links."
+
+- target: "$.paths./data-links/{dataLinkId}/script/download.get.parameters[?(@.name=='credentialsId')]"
+  update:
+    description: "Credentials string identifier. Required for generating download scripts for private data-links."
+
+- target: "$.paths./data-links/{dataLinkId}/upload{/dirPath}.post.parameters[?(@.name=='credentialsId')]"
+  update:
+    description: "Credentials string identifier. Required for uploading to private data-links."
+
+- target: "$.paths./data-links/{dataLinkId}/upload/finish{/dirPath}.post.parameters[?(@.name=='credentialsId')]"
+  update:
+    description: "Credentials string identifier. Required for finalizing uploads to private data-links."
+
+- target: "$.paths./data-links/{dataLinkId}/content.delete.parameters[?(@.name=='credentialsId')]"
+  update:
+    description: "Credentials string identifier. Required for deleting content from private data-links."
+
+# ---- SEARCH AND FILTER PARAMETERS ----
+
+- target: "$.paths./data-links/.get.parameters[?(@.name=='search')]"
+  update:
+    description: "Free text search criteria. Supports data-link `name`, `region`, and `provider`."
+
+- target: "$.paths./data-links/{dataLinkId}/browse{/path}.get.parameters[?(@.name=='search')]"
+  update:
+    description: "Prefix search of data-link content. Filters files and folders by `name` prefix (e.g., `search=my-file` matches `my-file.txt`, `my-file-2.csv`)."
+
+# ---- PAGINATION PARAMETERS ----
+
+- target: "$.paths./data-links/.get.parameters[?(@.name=='max')]"
+  update:
+    description: "Maximum number of results to return. Default: `25`, maximum: `100`."
+
+- target: "$.paths./data-links/.get.parameters[?(@.name=='offset')]"
+  update:
+    description: "Number of results to skip for pagination. Default: `0`."
+
+- target: "$.paths./data-links/{dataLinkId}/browse{/path}.get.parameters[?(@.name=='pageSize')]"
+  update:
+    description: "Number of items to return per page. If omitted, a default maximum value is returned. Maximum: `100`."
+
+- target: "$.paths./data-links/{dataLinkId}/browse{/path}.get.parameters[?(@.name=='nextPageToken')]"
+  update:
+    description: "Token used to fetch the next page of items. Obtained from the previous response."
+
+# ---- VISIBILITY PARAMETERS ----
+
+- target: "$.paths./data-links/.get.parameters[?(@.name=='visibility')]"
+  update:
+    description: "Visibility filter. Supports `visible` (show only visible data-links), `hidden` (show only hidden data-links), or `all` (show all data-links)."
+
+# ---- DOWNLOAD/UPLOAD PARAMETERS ----
+
+- target: "$.paths./data-links/{dataLinkId}/generate-download-url.get.parameters[?(@.name=='preview')]"
+  update:
+    description: "If `true`, generates a URL for preview purposes. If `false`, generates a URL for direct download. Default: `false`."
+
+- target: "$.paths./data-links/{dataLinkId}/script/download.get.parameters[?(@.name=='dirs')]"
+  update:
+    description: "List of directory paths to include in the download script."
+
+- target: "$.paths./data-links/{dataLinkId}/script/download.get.parameters[?(@.name=='files')]"
+  update:
+    description: "List of file paths to include in the download script."
+
+- target: "$.paths./data-links/{dataLinkId}/browse-tree.get.parameters[?(@.name=='paths')]"
+  update:
+    description: "List of paths to explore. Returns all files within the specified paths, including sub-paths."
+
+# ---- REQUEST BODY DESCRIPTIONS ----
+
+- target: "$.paths./data-links/hide.post.requestBody"
+  update:
+    description: "Data-link IDs to hide."
+
+- target: "$.paths./data-links/show.post.requestBody"
+  update:
+    description: "Data-link IDs to show."
+
+- target: "$.paths./data-links/.post.requestBody"
+  update:
+    description: "Data-link creation request."
+
+- target: "$.paths./data-links/{dataLinkId}.put.requestBody"
+  update:
+    description: "Data-link update request."
+
+- target: "$.paths./data-links/{dataLinkId}/upload{/dirPath}.post.requestBody"
+  update:
+    description: "Multi-part upload request containing file metadata (name, size, content type)."
+
+- target: "$.paths./data-links/{dataLinkId}/upload/finish{/dirPath}.post.requestBody"
+  update:
+    description: "Finish multi-part upload request for AWS S3 data-links, containing upload ID, file name, part tags, and error status."
+
+- target: "$.paths./data-links/{dataLinkId}/content.delete.requestBody"
+  update:
+    description: "Data-link content deletion request specifying files and directories to delete."
+
+# ===== DATA-LINKS SCHEMAS - REQUEST/RESPONSE OBJECTS =====
+
+# ---- REQUEST SCHEMAS ----
+
+# DataLinkCreateRequest
+- target: "$.components.schemas.DataLinkCreateRequest.properties.name"
+  update:
+    description: "Unique name for the data-link. Must consist of alphanumeric, dash, or underscore characters."
+
+- target: "$.components.schemas.DataLinkCreateRequest.properties.description"
+  update:
+    description: "Description of the data-link. Maximum length: 1000 characters."
+
+- target: "$.components.schemas.DataLinkCreateRequest.properties.type"
+  update:
+    description: "Type of the data-link. Currently supports `bucket`."
+
+- target: "$.components.schemas.DataLinkCreateRequest.properties.provider"
+  update:
+    description: "Cloud provider for the data-link. Supports `aws`, `google`, `azure`, `azure_entra`, `azure-cloud`, `seqeracompute`, and `s3`."
+
+- target: "$.components.schemas.DataLinkCreateRequest.properties.resourceRef"
+  update:
+    description: "Resource path for the data-link, including the URI scheme (e.g., `s3://my-bucket`, `gs://my-bucket`, `az://account.container`)."
+
+- target: "$.components.schemas.DataLinkCreateRequest.properties.publicAccessible"
+  update:
+    description: "Whether the data-link is publicly accessible. If `true`, no credentials are required. If `false`, `credentialsId` must be provided."
+
+- target: "$.components.schemas.DataLinkCreateRequest.properties.credentialsId"
+  update:
+    description: "Credentials string identifier. Required when `publicAccessible` is `false`."
+
+# DataLinkUpdateRequest
+- target: "$.components.schemas.DataLinkUpdateRequest.properties.name"
+  update:
+    description: "New name for the data-link. Must be unique within the workspace or user context."
+
+- target: "$.components.schemas.DataLinkUpdateRequest.properties.description"
+  update:
+    description: "Updated description for the data-link. Maximum length: 1000 characters."
+
+- target: "$.components.schemas.DataLinkUpdateRequest.properties.credentialsId"
+  update:
+    description: "Updated credentials ID for accessing the data-link."
+
+# DataLinksVisibilityRequest
+- target: "$.components.schemas.DataLinksVisibilityRequest.properties.dataLinkIds"
+  update:
+    description: "Array of data-link IDs to hide or show."
+
+# DataLinkDeleteItemRequest
+- target: "$.components.schemas.DataLinkDeleteItemRequest.properties.files"
+  update:
+    description: "Array of file paths to be deleted from the data-link."
+
+- target: "$.components.schemas.DataLinkDeleteItemRequest.properties.dirs"
+  update:
+    description: "Array of directory paths to be deleted from the data-link."
+
+# DataLinkMultiPartUploadRequest
+- target: "$.components.schemas.DataLinkMultiPartUploadRequest.properties.fileName"
+  update:
+    description: "Name of the file to upload."
+
+- target: "$.components.schemas.DataLinkMultiPartUploadRequest.properties.contentLength"
+  update:
+    description: "Size of the file to upload in bytes."
+
+- target: "$.components.schemas.DataLinkMultiPartUploadRequest.properties.contentType"
+  update:
+    description: "MIME type of the file to upload (e.g., `application/octet-stream`, `text/plain`)."
+
+# DataLinkFinishMultiPartUploadRequest
+- target: "$.components.schemas.DataLinkFinishMultiPartUploadRequest.properties.uploadId"
+  update:
+    description: "Upload ID assigned when initiating multi-part upload for AWS S3. Obtained from the `/upload` endpoint response."
+
+- target: "$.components.schemas.DataLinkFinishMultiPartUploadRequest.properties.fileName"
+  update:
+    description: "Name of the uploaded file."
+
+- target: "$.components.schemas.DataLinkFinishMultiPartUploadRequest.properties.tags"
+  update:
+    description: "Array of ETags assigned for each part by AWS S3 during the upload process. Each ETag is returned in the response headers when uploading a part to the pre-signed URLs from the `/upload` endpoint."
+
+- target: "$.components.schemas.DataLinkFinishMultiPartUploadRequest.properties.withError"
+  update:
+    description: "Flag indicating whether the upload encountered an error. If `true`, the upload will be aborted. If `false`, the upload will be completed."
+
+# ---- RESPONSE SCHEMAS ----
+
+# DataLinkResponse
+- target: "$.components.schemas.DataLinkResponse.properties.dataLink"
+  update:
+    description: "Data-link object containing metadata."
+
+# DataLinksListResponse
+- target: "$.components.schemas.DataLinksListResponse.properties.dataLinks"
+  update:
+    description: "Array of data-link objects."
+
+- target: "$.components.schemas.DataLinksListResponse.properties.totalSize"
+  update:
+    description: "Total number of data-links matching the query."
+
+- target: "$.components.schemas.DataLinksListResponse.properties.isFetching"
+  update:
+    description: "Flag indicating whether more data-links are currently being fetched from cloud providers. Not rendered in JSON response; used to determine HTTP status code."
+
+# DataLinkContentResponse
+- target: "$.components.schemas.DataLinkContentResponse.properties.originalPath"
+  update:
+    description: "Base path for all returned objects within the data-link."
+
+- target: "$.components.schemas.DataLinkContentResponse.properties.objects"
+  update:
+    description: "Array of data-link items (files and folders) at the specified path."
+
+- target: "$.components.schemas.DataLinkContentResponse.properties.nextPageToken"
+  update:
+    description: "Token that can be used to request the next page of items. Null if no more items are available."
+
+# DataLinkContentTreeListResponse
+- target: "$.components.schemas.DataLinkContentTreeListResponse.properties.items"
+  update:
+    description: "Array of simple data-link items containing file paths and sizes."
+
+# DataLinkDownloadUrlResponse
+- target: "$.components.schemas.DataLinkDownloadUrlResponse.properties.url"
+  update:
+    description: "Pre-signed URL to download the requested file."
+
+# DataLinkDownloadScriptResponse
+- target: "$.components.schemas.DataLinkDownloadScriptResponse.properties.script"
+  update:
+    description: "Shell script content to download files from the data-link."
+
+# DataLinkMultiPartUploadResponse
+- target: "$.components.schemas.DataLinkMultiPartUploadResponse.properties.uploadId"
+  update:
+    description: "Upload ID generated by AWS S3. Required for the `/upload/finish` request."
+
+- target: "$.components.schemas.DataLinkMultiPartUploadResponse.properties.uploadUrls"
+  update:
+    description: "Array of pre-signed URLs to execute multi-part upload. One URL per part."
+
+# DataLinkDeleteItemResponse
+- target: "$.components.schemas.DataLinkDeleteItemResponse.properties.deletionFailures"
+  update:
+    description: "Array of items that failed to be deleted, including error messages."
+
+# ---- DTO SCHEMAS ----
+
+# DataLinkDto
+- target: "$.components.schemas.DataLinkDto.properties.id"
+  update:
+    description: "Data-link string identifier. Generated based on provider, type, region, and resource path."
+
+- target: "$.components.schemas.DataLinkDto.properties.name"
+  update:
+    description: "Name of the data-link (e.g., bucket name)."
+
+- target: "$.components.schemas.DataLinkDto.properties.description"
+  update:
+    description: "Description of the data-link. Null for data-links auto-discovered from workspace credentials."
+
+- target: "$.components.schemas.DataLinkDto.properties.resourceRef"
+  update:
+    description: "Resource path for the data-link, including the URI scheme (e.g., `s3://my-bucket`, `gs://my-bucket`, `az://account.container`)."
+
+- target: "$.components.schemas.DataLinkDto.properties.type"
+  update:
+    description: "Data-link type. Currently supports `bucket`."
+
+- target: "$.components.schemas.DataLinkDto.properties.provider"
+  update:
+    description: "Cloud provider for the data-link. Supports `aws`, `google`, `azure`, `azure_entra`, `azure-cloud`, `seqeracompute`, and `s3`."
+
+- target: "$.components.schemas.DataLinkDto.properties.region"
+  update:
+    description: "Cloud region of the data-link (e.g., `us-east-1`, `europe-west1`). May be null for some providers."
+
+- target: "$.components.schemas.DataLinkDto.properties.credentials"
+  update:
+    description: "Array of credentials that can access this data-link. Empty for public data-links."
+
+- target: "$.components.schemas.DataLinkDto.properties.publicAccessible"
+  update:
+    description: "Whether the data-link is publicly accessible without credentials."
+
+- target: "$.components.schemas.DataLinkDto.properties.hidden"
+  update:
+    description: "Visibility status flag. If `true`, data-link is hidden from default list views."
+
+- target: "$.components.schemas.DataLinkDto.properties.status"
+  update:
+    description: "Status of the data-link. Can be `VALID` or `INVALID`. Set to `INVALID` when associated credentials are deleted."
+
+- target: "$.components.schemas.DataLinkDto.properties.message"
+  update:
+    description: "Error message for invalid data-links. Null for valid data-links."
+
+# DataLinkItem
+- target: "$.components.schemas.DataLinkItem.properties.type"
+  update:
+    description: "Type of the item. Either `FILE` or `FOLDER`."
+
+- target: "$.components.schemas.DataLinkItem.properties.name"
+  update:
+    description: "Name of the file or folder."
+
+- target: "$.components.schemas.DataLinkItem.properties.size"
+  update:
+    description: "Size of the file in bytes. For folders, always `0`."
+
+- target: "$.components.schemas.DataLinkItem.properties.mimeType"
+  update:
+    description: "MIME type of the file, calculated by analyzing the file extension. Null for folders."
+
+# DataLinkSimpleItem
+- target: "$.components.schemas.DataLinkSimpleItem.properties.path"
+  update:
+    description: "Path to the item from the data-link root (resource path)."
+
+- target: "$.components.schemas.DataLinkSimpleItem.properties.size"
+  update:
+    description: "Size of the file in bytes. For folders, always `0`."
+
+# DataLinkItemDeletionFailure
+- target: "$.components.schemas.DataLinkItemDeletionFailure.properties.dataLinkItem"
+  update:
+    description: "Data-link item that failed to be deleted."
+
+- target: "$.components.schemas.DataLinkItemDeletionFailure.properties.errorMessage"
+  update:
+    description: "Error message describing why the deletion failed."
+
+# DataLinkCredentials
+- target: "$.components.schemas.DataLinkCredentials.properties.id"
+  update:
+    description: "Credentials string identifier."
+
+- target: "$.components.schemas.DataLinkCredentials.properties.name"
+  update:
+    description: "Name of the credentials."
+
+- target: "$.components.schemas.DataLinkCredentials.properties.provider"
+  update:
+    description: "Credentials cloud provider."
+
+# ---- ENUM SCHEMAS ----
+
+# DataLinkType
+- target: "$.components.schemas.DataLinkType"
+  update:
+    description: "Data-link type. Currently only `bucket` is supported."
+
+# DataLinkProvider
+- target: "$.components.schemas.DataLinkProvider"
+  update:
+    description: "Cloud provider for data-links. Supports AWS S3, Google Cloud Storage, Azure Blob Storage, Azure with Entra ID, Seqera Compute storage, and generic S3-compatible storage."
+
+# DataLinkItemType
+- target: "$.components.schemas.DataLinkItemType"
+  update:
+    description: "Type of data-link content item. Either `FILE` or `FOLDER`."
+
+# ===== DATASETS OPERATIONS - SUMMARIES & DESCRIPTIONS =====
+
+# GET /datasets - List datasets
+- target: "$.paths./datasets.get"
+  update:
+    summary: "List datasets"
+    description: "Lists all available datasets in a user context. Append `?workspaceId` to list datasets in a workspace context. Results can be filtered by search query, sorted, and paginated."
+
+# POST /datasets - Create dataset
+- target: "$.paths./datasets.post"
+  update:
+    summary: "Create dataset"
+    description: "Creates a new dataset in the user context. Include the dataset name and description in your request body. Append `?workspaceId` to create the dataset in a workspace context."
+
+# DELETE /datasets - Delete multiple datasets
+- target: "$.paths./datasets.delete"
+  update:
+    summary: "Delete datasets"
+    description: "Deletes multiple datasets identified by the given `datasetIds`. Returns arrays of successfully deleted and failed dataset IDs."
+
+# POST /datasets/hide - Hide datasets
+- target: "$.paths./datasets/hide.post"
+  update:
+    summary: "Hide datasets"
+    description: "Hides the given datasets from the datasets list view. Hidden datasets remain accessible but are filtered from default list views unless `?visibility=hidden` or `?visibility=all` is specified."
+
+# POST /datasets/show - Show datasets
+- target: "$.paths./datasets/show.post"
+  update:
+    summary: "Show datasets"
+    description: "Shows previously hidden datasets in the datasets list view."
+
+# POST /datasets/labels/add - Add labels to datasets
+- target: "$.paths./datasets/labels/add.post"
+  update:
+    summary: "Add labels to datasets"
+    description: "Adds the given list of labels to the given datasets. Existing labels are preserved. Only simple labels are supported; resource labels cannot be attached to datasets."
+
+# POST /datasets/labels/apply - Replace dataset labels
+- target: "$.paths./datasets/labels/apply.post"
+  update:
+    summary: "Replace dataset labels"
+    description: "Applies the given list of labels to the given datasets. Existing labels are replaced - include labels to be preserved in `labelIds`. Only simple labels are supported; resource labels cannot be attached to datasets."
+
+# POST /datasets/labels/remove - Remove labels from datasets
+- target: "$.paths./datasets/labels/remove.post"
+  update:
+    summary: "Remove labels from datasets"
+    description: "Removes the given list of labels from the given datasets."
+
+# GET /datasets/versions - List latest dataset versions
+- target: "$.paths./datasets/versions.get"
+  update:
+    summary: "List latest dataset versions"
+    description: "Lists the latest version of each dataset in the user context. Append `?workspaceId` to list latest versions in a workspace context. Filter by MIME type and search query."
+
+# GET /datasets/{datasetId}/metadata - Describe dataset
+- target: "$.paths./datasets/{datasetId}/metadata.get"
+  update:
+    summary: "Describe dataset"
+    description: "Retrieves the metadata of the dataset identified by the given `datasetId`. Append `?attributes=labels` to include label information in response."
+
+# PUT /datasets/{datasetId} - Update dataset
+- target: "$.paths./datasets/{datasetId}.put"
+  update:
+    summary: "Update dataset"
+    description: "Updates the name and description of the dataset identified by the given `datasetId`."
+
+# POST /datasets/{datasetId}/upload - Upload new dataset version
+- target: "$.paths./datasets/{datasetId}/upload.post"
+  update:
+    summary: "Upload new dataset version"
+    description: "Uploads CSV or TSV content to create a new version of the dataset identified by the given `datasetId`. Each upload increments the version number."
+
+# GET /datasets/{datasetId}/versions - List all dataset versions
+- target: "$.paths./datasets/{datasetId}/versions.get"
+  update:
+    summary: "List all dataset versions"
+    description: "Lists all versions of the dataset identified by the given `datasetId`. Filter by MIME type to retrieve specific file format versions."
+
+# GET /datasets/{datasetId}/v/{version}/n/{fileName} - Download dataset content
+- target: "$.paths./datasets/{datasetId}/v/{version}/n/{fileName}.get"
+  update:
+    summary: "Download dataset content"
+    description: "Downloads the content of the dataset version identified by the given `datasetId` and `version`. The `fileName` must match the original uploaded filename."
+
+# DELETE /datasets/{datasetId} - Delete dataset
+- target: "$.paths./datasets/{datasetId}.delete"
+  update:
+    summary: "Delete dataset"
+    description: "Deletes the dataset identified by the given `datasetId`, including all associated versions."
+
+# POST /datasets/{datasetId}/versions/{version}/disable - Disable dataset version
+- target: "$.paths./datasets/{datasetId}/versions/{version}/disable.post"
+  update:
+    summary: "Disable dataset version"
+    description: "Disables the specified version of a dataset. Disabled versions cannot be used in workflow runs and cannot be re-enabled."
+
+# GET /launch/{launchId}/datasets - Describe launch datasets
+- target: "$.paths./launch/{launchId}/datasets.get"
+  update:
+    summary: "Describe launch datasets"
+    description: "Retrieves the details of the datasets used in the launch identified by the given `launchId`."
+
+# ===== DEPRECATED DATASET OPERATIONS - ADDENDUM =====
+# Updates for workspace-scoped dataset endpoints that are now deprecated
+# in favor of user/workspace-scoped endpoints with optional workspaceId query param
+
+# ---- LIST DATASETS (DEPRECATED) ----
+
+- target: "$.paths./workspaces/{workspaceId}/datasets.get.summary"
+  update: "(Deprecated) List available datasets"
+
+- target: "$.paths./workspaces/{workspaceId}/datasets.get.description"
+  update: "**This endpoint is deprecated. See [List datasets](https://docs.seqera.io/platform-api/list-datasets-v-2) for the current endpoint.**\n\nLists all available datasets in the workspace context identified by the given `workspaceId`."
+
+# ---- CREATE DATASET (DEPRECATED) ----
+
+- target: "$.paths./workspaces/{workspaceId}/datasets.post.summary"
+  update: "(Deprecated) Create dataset"
+
+- target: "$.paths./workspaces/{workspaceId}/datasets.post.description"
+  update: "**This endpoint is deprecated. See [Create dataset](https://docs.seqera.io/platform-api/create-dataset-v-2) for the current endpoint.**\n\nCreates a new dataset in the given workspace context. Include the dataset file and details in your request body."
+
+# ---- LIST WORKSPACE DATASET VERSIONS (DEPRECATED) ----
+
+- target: "$.paths./workspaces/{workspaceId}/datasets/versions.get.summary"
+  update: "(Deprecated) List latest dataset versions"
+
+- target: "$.paths./workspaces/{workspaceId}/datasets/versions.get.description"
+  update: "**This endpoint is deprecated. See [List latest dataset versions](https://docs.seqera.io/platform-api/list-latest-dataset-versions-v-2) for the current endpoint.**\n\nLists the latest version of each dataset associated with the given `workspaceId`."
+
+# ---- UPDATE DATASET (DEPRECATED) ----
+
+- target: "$.paths./workspaces/{workspaceId}/datasets/{datasetId}.put.summary"
+  update: "(Deprecated) Update dataset"
+
+- target: "$.paths./workspaces/{workspaceId}/datasets/{datasetId}.put.description"
+  update: "**This endpoint is deprecated. See [Update dataset](https://docs.seqera.io/platform-api/update-dataset-v-2) for the current endpoint.**\n\nUpdates the details of the dataset identified by the given `datasetId`."
+
+# ---- DELETE DATASET (DEPRECATED) ----
+
+- target: "$.paths./workspaces/{workspaceId}/datasets/{datasetId}.delete.summary"
+  update: "(Deprecated) Delete dataset"
+
+- target: "$.paths./workspaces/{workspaceId}/datasets/{datasetId}.delete.description"
+  update: "**This endpoint is deprecated. See [Delete dataset](https://docs.seqera.io/platform-api/delete-dataset-v-2) for the current endpoint.**\n\nDeletes the dataset identified by the given `datasetId`."
+
+# ---- DESCRIBE DATASET (DEPRECATED) ----
+
+- target: "$.paths./workspaces/{workspaceId}/datasets/{datasetId}/metadata.get.summary"
+  update: "(Deprecated) Describe dataset"
+
+- target: "$.paths./workspaces/{workspaceId}/datasets/{datasetId}/metadata.get.description"
+  update: "**This endpoint is deprecated. See [Describe dataset](https://docs.seqera.io/platform-api/describe-dataset-v-2) for the current endpoint.**\n\nRetrieves the metadata of the dataset identified by the given `datasetId`."
+
+# ---- UPLOAD DATASET (DEPRECATED) ----
+
+- target: "$.paths./workspaces/{workspaceId}/datasets/{datasetId}/upload.post.summary"
+  update: "(Deprecated) Upload new dataset version"
+
+- target: "$.paths./workspaces/{workspaceId}/datasets/{datasetId}/upload.post.description"
+  update: "**This endpoint is deprecated. See [Upload new dataset version](https://docs.seqera.io/platform-api/upload-dataset-v-2) for the current endpoint.**\n\nUploads the CSV or TSV content to create a new version of the dataset identified by the given `datasetId`."
+
+# ---- LIST DATASET VERSIONS (DEPRECATED) ----
+
+- target: "$.paths./workspaces/{workspaceId}/datasets/{datasetId}/versions.get.summary"
+  update: "(Deprecated) List all dataset versions"
+
+- target: "$.paths./workspaces/{workspaceId}/datasets/{datasetId}/versions.get.description"
+  update: "**This endpoint is deprecated. See [List all dataset versions](https://docs.seqera.io/platform-api/list-dataset-versions-v-2) for the current endpoint.**\n\nLists all versions of the given `datasetId`."
+
+# ===== DATASETS PARAMETERS - PATH, QUERY, AND REQUEST BODY =====
+
+# ---- PATH PARAMETERS ----
+
+# datasetId - used across multiple endpoints
+- target: "$.paths./datasets/{datasetId}/metadata.get.parameters[?(@.name=='datasetId')]"
+  update:
+    description: "Dataset string identifier."
+
+- target: "$.paths./datasets/{datasetId}.put.parameters[?(@.name=='datasetId')]"
+  update:
+    description: "Dataset string identifier."
+
+- target: "$.paths./datasets/{datasetId}/upload.post.parameters[?(@.name=='datasetId')]"
+  update:
+    description: "Dataset string identifier."
+
+- target: "$.paths./datasets/{datasetId}/versions.get.parameters[?(@.name=='datasetId')]"
+  update:
+    description: "Dataset string identifier."
+
+- target: "$.paths./datasets/{datasetId}/v/{version}/n/{fileName}.get.parameters[?(@.name=='datasetId')]"
+  update:
+    description: "Dataset string identifier."
+
+- target: "$.paths./datasets/{datasetId}.delete.parameters[?(@.name=='datasetId')]"
+  update:
+    description: "Dataset string identifier."
+
+- target: "$.paths./datasets/{datasetId}/versions/{version}/disable.post.parameters[?(@.name=='datasetId')]"
+  update:
+    description: "Dataset string identifier."
+
+# version parameter
+- target: "$.paths./datasets/{datasetId}/v/{version}/n/{fileName}.get.parameters[?(@.name=='version')]"
+  update:
+    description: "Dataset version number."
+
+- target: "$.paths./datasets/{datasetId}/versions/{version}/disable.post.parameters[?(@.name=='version')]"
+  update:
+    description: "Dataset version number to disable."
+
+# fileName parameter
+- target: "$.paths./datasets/{datasetId}/v/{version}/n/{fileName}.get.parameters[?(@.name=='fileName')]"
+  update:
+    description: "File name for the downloaded dataset content. Must match the original uploaded filename."
+
+# launchId parameter
+- target: "$.paths./launch/{launchId}/datasets.get.parameters[?(@.name=='launchId')]"
+  update:
+    description: "Launch string identifier."
+
+# ---- QUERY PARAMETERS - workspaceId ----
+
+# Confirmed user/workspace context operations
+- target: "$.paths./datasets.get.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. If omitted, lists datasets in a user context."
+
+- target: "$.paths./datasets.post.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. If omitted, creates dataset in a user context."
+
+- target: "$.paths./datasets/versions.get.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier. If omitted, lists dataset versions in a user context."
+
+# All other workspaceId parameters (behavior not explicitly confirmed)
+- target: "$.paths./datasets.delete.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier."
+
+- target: "$.paths./datasets/hide.post.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier."
+
+- target: "$.paths./datasets/show.post.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier."
+
+- target: "$.paths./datasets/labels/add.post.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier."
+
+- target: "$.paths./datasets/labels/apply.post.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier."
+
+- target: "$.paths./datasets/labels/remove.post.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier."
+
+- target: "$.paths./datasets/{datasetId}/metadata.get.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier."
+
+- target: "$.paths./datasets/{datasetId}.put.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier."
+
+- target: "$.paths./datasets/{datasetId}/upload.post.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier."
+
+- target: "$.paths./datasets/{datasetId}/versions.get.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier."
+
+- target: "$.paths./datasets/{datasetId}/v/{version}/n/{fileName}.get.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier."
+
+- target: "$.paths./datasets/{datasetId}.delete.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier."
+
+- target: "$.paths./datasets/{datasetId}/versions/{version}/disable.post.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier."
+
+- target: "$.paths./launch/{launchId}/datasets.get.parameters[?(@.name=='workspaceId')]"
+  update:
+    description: "Workspace numeric identifier."
+
+# ---- PAGINATION PARAMETERS ----
+
+# GET /datasets - pagination
+- target: "$.paths./datasets.get.parameters[?(@.name=='max')]"
+  update:
+    description: "Maximum number of results to return. Default: `20`."
+
+- target: "$.paths./datasets.get.parameters[?(@.name=='offset')]"
+  update:
+    description: "Number of results to skip for pagination. Default: `0`."
+
+# GET /datasets/versions - pagination
+- target: "$.paths./datasets/versions.get.parameters[?(@.name=='max')]"
+  update:
+    description: "Maximum number of results to return. Default: `20`."
+
+- target: "$.paths./datasets/versions.get.parameters[?(@.name=='offset')]"
+  update:
+    description: "Number of results to skip for pagination. Default: `0`."
+
+# ---- SEARCH PARAMETERS ----
+
+- target: "$.paths./datasets.get.parameters[?(@.name=='search')]"
+  update:
+    description: "Filter search parameter. Supports free text search on dataset name and description."
+
+- target: "$.paths./datasets/versions.get.parameters[?(@.name=='search')]"
+  update:
+    description: "Filter search parameter. Supports free text search on dataset name and description."
+
+# ---- SORTING PARAMETERS ----
+
+- target: "$.paths./datasets.get.parameters[?(@.name=='sortBy')]"
+  update:
+    description: "Sort field. Supports `name` (alphabetical by name) or `modified` (by last update timestamp). Default: `name`."
+
+- target: "$.paths./datasets.get.parameters[?(@.name=='sortDir')]"
+  update:
+    description: "Sort direction. Supports `asc` (ascending) or `desc` (descending). Default: `asc`."
+
+# ---- VISIBILITY PARAMETERS ----
+
+- target: "$.paths./datasets.get.parameters[?(@.name=='visibility')]"
+  update:
+    description: "Visibility filter. Supports `visible` (show only visible datasets), `hidden` (show only hidden datasets), or `all` (show all datasets). Default: `visible`."
+
+# ---- ATTRIBUTES PARAMETERS ----
+
+- target: "$.paths./datasets.get.parameters[?(@.name=='attributes')]"
+  update:
+    description: "Additional attribute values to include in the response. Supports `labels`. Returns `labels: null` if omitted."
+
+- target: "$.paths./datasets/{datasetId}/metadata.get.parameters[?(@.name=='attributes')]"
+  update:
+    description: "Additional attribute values to include in the response. Supports `labels`. Returns `labels: null` if omitted."
+
+# ---- MIME TYPE PARAMETERS ----
+
+- target: "$.paths./datasets/versions.get.parameters[?(@.name=='mimeType')]"
+  update:
+    description: "Dataset MIME type filter (e.g., `text/csv`, `text/tab-separated-values`)."
+
+- target: "$.paths./datasets/{datasetId}/versions.get.parameters[?(@.name=='mimeType')]"
+  update:
+    description: "Optional MIME type filter (e.g., `text/csv`, `text/tab-separated-values`)."
+
+# ---- UPLOAD PARAMETERS ----
+
+- target: "$.paths./datasets/{datasetId}/upload.post.parameters[?(@.name=='header')]"
+  update:
+    description: "Indicates whether the uploaded file contains a header row. Default: `true`."
+
+# ---- REQUEST BODY DESCRIPTIONS ----
+
+- target: "$.paths./datasets.post.requestBody"
+  update:
+    description: "Dataset create request."
+
+- target: "$.paths./datasets.delete.requestBody"
+  update:
+    description: "Dataset IDs to delete."
+
+- target: "$.paths./datasets/hide.post.requestBody"
+  update:
+    description: "Dataset IDs to hide."
+
+- target: "$.paths./datasets/show.post.requestBody"
+  update:
+    description: "Dataset IDs to show."
+
+- target: "$.paths./datasets/labels/add.post.requestBody"
+  update:
+    description: "Dataset IDs and label IDs to add."
+
+- target: "$.paths./datasets/labels/apply.post.requestBody"
+  update:
+    description: "Dataset IDs and label IDs to apply (replacing existing labels)."
+
+- target: "$.paths./datasets/labels/remove.post.requestBody"
+  update:
+    description: "Dataset IDs and label IDs to remove."
+
+- target: "$.paths./datasets/{datasetId}.put.requestBody"
+  update:
+    description: "Dataset update request."
