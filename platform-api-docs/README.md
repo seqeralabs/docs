@@ -398,7 +398,7 @@ Before finalizing, verify:
 - ✅ Docusaurus config points to correct spec path
 - ✅ "Try it out" functionality works (servers block preserved)
 - ✅ `specs` folder contains only latest specs and `servers-overlay.yaml`
-- ✅ Old specs and used overlays moved to `overlays_archive`
+- ✅ Old specs deleted and used overlays moved to `overlays_archive`
 
 ---
 
