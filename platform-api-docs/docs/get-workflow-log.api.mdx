@@ -1,11 +1,11 @@
 ---
-id: workflow-logs
-title: "Get workflow logs"
-description: "Retrieves the output logs for the Nextflow main job of the workflow identified by the given `workflowId`."
-sidebar_label: "Get workflow logs"
+id: get-workflow-log
+title: "Get workflow log"
+description: "Retrieves the execution log output of the workflow identified by the given `workflowId`."
+sidebar_label: "Get workflow log"
 hide_title: true
 hide_table_of_contents: true
-api: eJy9Vltv2zwM/SuCnr4BQdJd0Ic8fR12QbFb0XbYQxFsis0kamXJleikgeH/PlK267jxUmQPe0oiHZGH5CGZUqJaBjm9kRvn7xbGbYKcjWQKIfE6R+2snMpLQK9hDUHgCoQrMC9QGLcMYuF8PPsKD8iPRaa0FbduLtwiXrRWhU7Bol5oSMV8G6+Weg1W/GoR5+mvsRxJl4NX7Pc8Jc8/msvP5Iwuc+VVBgieGZfS0g8CdRYIoplwrnAln0bR2hKBorHLjpEnqIf7Qnsgn+gLGMmQrCBTclpK3ObspH4kq2rU8xtylUDn+L4Avx30HIHCFhl4nfR97/nSFmEZryi/mcL66PRNz7ullD/vNgZMpRJJ4YMb9DYQWaYePoNdxiQecPBFPeisyISJWEGVn2+RVNLUnt2iE75Rz5GRzrgoIXc2QOAXr05O+KPP4Nsnepo4smKRb1WeG51E/UxuA0PKfadufgsJ5y73rDbUtQOi+zyI1GHJPgvlETp3zoCyshpJouFb5BM7qNHwwTmywJ3/eRXz/pOfedhom167O7ADhYnJ2Sh/AJCDTfnrIKkMQlBLGHyYuo01TqW7lJX3ioutEbLBUPopCWoNX6Nuhphr8+fLVIfcqO01K3lIj485o/a/oAjG7xq2dLl/23uxMzguGxXxI0K8GdLRW5UKHgEQ8BhBdVPj5jHLpNvD+fpzOXb4v/fe+T3mrwc6oJ2XwjoUylDMkEZTAajnNW7jqHwLyoM/K6ilpzczbi6aoyvHM3YJkSOPzKmctMN0UnZjtZpwb3QWrzgBdTC7dh/jWSHmbbdHLUYQndRfPrStfrvByFTbhYvPm+Cv4J6CEmcX53sjp7m6MAp5YogAfq0Tmjk1mCunkli5wpuGSphOJiG+G2tHICqeNnHSLNz/3QURWdNmqf28HJ+ejk9ia7mAmYqFb6bjR8Bur5l6M/VYlp2C/unubNKPZHBCjaVj98c8lE19uzVP8GlvcXKJSRYrCpdxZTlXAb57U1V8XC8AVhI1rZob1vxCmQAHQn9m7Q2yvYPt3mZdK1MwUvKGOs79/vo74LXZqH/p7uhleIDJ7v7t6Mz4h9fM58hK/HfZDKoX4uC/oEFK7Vaw2102u6VqNFTNCL0ClZIt5lcDzpIE8t287o3U3jT6+P6asKo/UJ4MkGh9kBapNiLipiTltiwxbk4iWFW/AWTYy+k=
+api: eJy1Vstu2zAQ/BWCpxYw7PSBHHxq0qZB0FeQpOghMFJaWstMKFIhKTuGoH/vLiVZUqw6cIGeLGuH3NnlcFYF9yJxfHrL18Y+LJRZOz4b8RhcZGXmpdF8yq/AWwkrcMwvgcETRDlFmDIJM7nPcs/MIsSaTZiMQXu5kBCz+SaEErkCzX43iIv495iPuMnACtrsIsZE5+B/1fGvJsFwJqxIwYMligXX+Adh7R4IkcQwE37Jn9NutmIO6euk5WQRauExlxYwq7c5jLiLlpAKPi2432SUpFrEy3LUy+syEUGb+DEHuxnMHIBM5ylYGfVz7+SS2kMSQgtjU+GrV8fve9k1PPmX04aC6WCi3DozmG2gslQ8fQWdhCbuSfBNPMk0T5kKWCY1Hq5HWdSnT2m9YbaWy4GVzuhQXGa0A0cr3h4d0U+fwY8vuDQyuIv2FBVZpmQUFDS5dwQpdpOa+T1E1LvMkt68rBIg3ZdBqA6N+5NQttC5MQqE5uWIIw3bIJ/t46VX9OLCk8SNvbsOfb+jZRbWUsc35gH0wMGE5qyF3QPIQMf0OEgqBedEAoMLY7PWyoi4S1lYK+iwpYd0sJR+S5xYwfegmyHmUv09GEuXKbG5ISUP6XHbM7z9l1jB+FPNFoO70d6Kjm9c1SqiRYh4P6SjUxEzsgBw/hBBta5xu+0y6nZ/v/5+HB3+Z9Yau8P83cANaByTaeOZUFgzxGErh75spd8EqzwFYcGe5Hilp7czulzoo0tDLptA4EiWOeWTxkwnRWur5UQF+3VgV4335lYhfOl95qaTicjkOFImj8cOHpHQWJodt7gOEXaphKfLzj4Snp1cXnCi07C9puZWjepy3vaKMjZOEnQeQPimevjc2Mj92ocuSL0wYXnd2JoFpX2JIJUrI/SzCkyqEFFQRb/4bskoDKmCiy3MhzaARKhzVZ434+Pj8VG4tsb5VARR1c6LI6+dmlXXeySLVpz/cw7XzfZ4Myd4RWXwkVB1USul/UJA+LQ3gok2nugSiyNcUcyFg59WlSW9rkYJSQivv5gruj0LoRzsqfSFATrI9gE2OzN6JVROSE6z7rD0u4N0T9Z6Nv9juoPH6h4m3Une0pnRHyuJz4En8eqqtrzXbO/31CClZr7oTZdN96hqDZUzRC9BxLgX8asAJ1EEWbevO+bc87XzsxvEir59PLOLsPsgLVRtQISZi8ptWPowg5FgWf4BdXngSA==
 sidebar_class_name: "get api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -22,7 +22,7 @@ import Heading from "@theme/Heading";
 <Heading
   as={"h1"}
   className={"openapi__heading"}
-  children={"Get workflow logs"}
+  children={"Get workflow log"}
 >
 </Heading>
 
@@ -36,7 +36,7 @@ import Heading from "@theme/Heading";
 
 
 
-Retrieves the output logs for the Nextflow main job of the workflow identified by the given `workflowId`.
+Retrieves the execution log output of the workflow identified by the given `workflowId`.
 
 <Heading
   id={"request"}

@@ -223,7 +223,7 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "docs/explore-data-link-tree",
-          label: "Explore a data-link tree",
+          label: "Explore data-link tree",
           className: "api-method get",
         },
         {
@@ -247,7 +247,7 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "docs/generate-download-url-data-link",
-          label: "Generate data-link file download URL",
+          label: "Generate download URL",
           className: "api-method get",
         },
         {
@@ -349,43 +349,43 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "docs/list-datasets",
-          label: "List available datasets",
+          label: "(Deprecated) List available datasets",
           className: "menu__list-item--deprecated api-method get",
         },
         {
           type: "doc",
           id: "docs/create-dataset",
-          label: "Create dataset",
+          label: "(Deprecated) Create dataset",
           className: "menu__list-item--deprecated api-method post",
         },
         {
           type: "doc",
           id: "docs/list-workspace-dataset-versions",
-          label: "List latest dataset versions",
+          label: "(Deprecated) List latest dataset versions",
           className: "menu__list-item--deprecated api-method get",
         },
         {
           type: "doc",
           id: "docs/update-dataset",
-          label: "Update dataset",
+          label: "(Deprecated) Update dataset",
           className: "menu__list-item--deprecated api-method put",
         },
         {
           type: "doc",
           id: "docs/delete-dataset",
-          label: "Delete dataset",
+          label: "(Deprecated) Delete dataset",
           className: "menu__list-item--deprecated api-method delete",
         },
         {
           type: "doc",
           id: "docs/describe-dataset",
-          label: "Describe dataset",
+          label: "(Deprecated) Describe dataset",
           className: "menu__list-item--deprecated api-method get",
         },
         {
           type: "doc",
           id: "docs/upload-dataset",
-          label: "Upload new dataset version",
+          label: "(Deprecated) Upload new dataset version",
           className: "menu__list-item--deprecated api-method post",
         },
         {
@@ -397,7 +397,7 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "docs/list-dataset-versions",
-          label: "List all dataset versions",
+          label: "(Deprecated) List all dataset versions",
           className: "menu__list-item--deprecated api-method get",
         },
       ],
@@ -1098,8 +1098,8 @@ const sidebar: SidebarsConfig = {
         },
         {
           type: "doc",
-          id: "docs/workflow-logs",
-          label: "Get workflow logs",
+          id: "docs/get-workflow-log",
+          label: "Get workflow log",
           className: "api-method get",
         },
         {
@@ -1170,7 +1170,7 @@ const sidebar: SidebarsConfig = {
         },
         {
           type: "doc",
-          id: "docs/workspace-validate",
+          id: "docs/validate-workspace-name",
           label: "Validate workspace name",
           className: "api-method get",
         },

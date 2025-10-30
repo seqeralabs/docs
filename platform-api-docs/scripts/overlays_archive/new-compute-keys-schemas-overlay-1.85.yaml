@@ -1,0 +1,217 @@
+# ===== NEW SCHEMAS - 1.85 =====
+# Descriptions for completely new schemas added in 1.85
+
+# ---- LOCAL COMPUTE CONFIG ----
+
+- target: "$.components.schemas.LocalComputeConfig.properties.discriminator"
+  update:
+    type: string
+    description: "Platform type discriminator (read-only, set based on platform selection)."
+
+- target: "$.components.schemas.LocalComputeConfig.properties.workDir"
+  update:
+    type: string
+    description: "Nextflow work directory on the local file system. Must be an absolute path and credentials must have read-write access."
+
+- target: "$.components.schemas.LocalComputeConfig.properties.preRunScript"
+  update:
+    type: string
+    description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+- target: "$.components.schemas.LocalComputeConfig.properties.postRunScript"
+  update:
+    type: string
+    description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+- target: "$.components.schemas.LocalComputeConfig.properties.environment"
+  update:
+    type: array
+    items:
+      $ref: "#/components/schemas/ConfigEnvVariable"
+    description: "Environment variables to set for Nextflow execution."
+
+- target: "$.components.schemas.LocalComputeConfig.properties.waveEnabled"
+  update:
+    type: boolean
+    description: "Enable [Wave containers](https://docs.seqera.io/wave). Default: `false`."
+
+- target: "$.components.schemas.LocalComputeConfig.properties.fusion2Enabled"
+  update:
+    type: boolean
+    description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers. Default: `false`."
+
+- target: "$.components.schemas.LocalComputeConfig.properties.nextflowConfig"
+  update:
+    type: string
+    description: "Additional Nextflow configuration to apply. See [Nextflow config file](https://docs.seqera.io/platform-cloud/launch/advanced#nextflow-config-file)."
+
+# ---- LOCAL SECURITY KEYS ----
+
+- target: "$.components.schemas.LocalSecurityKeys.properties.discriminator"
+  update:
+    type: string
+    description: "Credentials provider type identifier."
+
+- target: "$.components.schemas.LocalSecurityKeys.properties.password"
+  update:
+    type: string
+    writeOnly: true
+    description: "Password for local platform access."
+
+# ---- AZURE CLOUD KEYS ----
+
+- target: "$.components.schemas.AzureCloudKeys.allOf[1].properties.discriminator"
+  update:
+    type: string
+    description: "Credentials provider type identifier."
+
+- target: "$.components.schemas.AzureCloudKeys.allOf[1].properties.subscriptionId"
+  update:
+    type: string
+    description: "Azure subscription ID."
+
+- target: "$.components.schemas.AzureCloudKeys.allOf[1].properties.storageName"
+  update:
+    type: string
+    description: "Azure storage account name."
+
+- target: "$.components.schemas.AzureCloudKeys.allOf[1].properties.tenantId"
+  update:
+    type: string
+    description: "Azure tenant ID."
+
+- target: "$.components.schemas.AzureCloudKeys.allOf[1].properties.clientId"
+  update:
+    type: string
+    description: "Azure service principal client ID."
+
+- target: "$.components.schemas.AzureCloudKeys.allOf[1].properties.clientSecret"
+  update:
+    type: string
+    writeOnly: true
+    description: "Azure service principal client secret."
+
+# ---- AZURE CLOUD PLATFORM META INFO ----
+
+- target: "$.components.schemas.AzCloudPlatformMetaInfo.properties.discriminator"
+  update:
+    type: string
+    description: "Platform type identifier."
+
+- target: "$.components.schemas.AzCloudPlatformMetaInfo.properties.warnings"
+  update:
+    type: array
+    items:
+      type: string
+    description: "Azure Cloud configuration warnings."
+
+- target: "$.components.schemas.AzCloudPlatformMetaInfo.properties.containers"
+  update:
+    type: array
+    items:
+      type: string
+    description: "Azure Blob Storage containers accessible to workspace credentials."
+
+- target: "$.components.schemas.AzCloudPlatformMetaInfo.properties.instanceTypes"
+  update:
+    type: array
+    items:
+      type: string
+    description: "Available Azure VM instance types."
+
+# ---- STUDIO REMOTE CONFIGURATION ----
+
+- target: "$.components.schemas.StudioRemoteConfiguration.properties.repository"
+  update:
+    type: string
+    description: "Git repository URL for Studios remote configuration."
+
+- target: "$.components.schemas.StudioRemoteConfiguration.properties.revision"
+  update:
+    type: string
+    nullable: true
+    description: "Git branch, tag, or commit ID. If omitted, uses the default branch."
+
+- target: "$.components.schemas.StudioRemoteConfiguration.properties.commitId"
+  update:
+    type: string
+    nullable: true
+    description: "Git commit ID for the remote configuration. Maximum length: 40 characters."
+
+# ---- COMPUTE ENV RESOURCES ----
+
+- target: "$.components.schemas.ComputeEnvResources.properties.cpus"
+  update:
+    type: integer
+    format: int32
+    nullable: true
+    description: "Number of CPUs allocated to the compute environment. Null if information is unavailable."
+
+- target: "$.components.schemas.ComputeEnvResources.properties.memory"
+  update:
+    type: integer
+    format: int32
+    nullable: true
+    description: "Memory allocated to the compute environment in GB. Null if information is unavailable."
+
+- target: "$.components.schemas.ComputeEnvResources.properties.gpus"
+  update:
+    type: integer
+    format: int32
+    nullable: true
+    description: "Number of GPUs allocated to the compute environment. Null if information is unavailable."
+
+- target: "$.components.schemas.ComputeEnvResources.properties.diskSize"
+  update:
+    type: integer
+    format: int32
+    nullable: true
+    description: "Disk size allocated to the compute environment in GB. Null if information is unavailable."
+
+- target: "$.components.schemas.ComputeEnvResources.properties.estimatedPrice"
+  update:
+    type: number
+    format: float
+    nullable: true
+    description: "Estimated hourly cost of the compute environment in USD. Null if information is unavailable."
+
+- target: "$.components.schemas.ComputeEnvResources.properties.instanceType"
+  update:
+    type: string
+    nullable: true
+    description: "Instance type used by the compute environment. Null if information is unavailable."
+
+# ---- DATA STUDIO CREATE REQUEST ----
+
+# Update required fields to only computeEnvId and name
+- target: "$.components.schemas.DataStudioCreateRequest.required[*]"
+  remove: true
+
+- target: "$.components.schemas.DataStudioCreateRequest.required"
+  update:
+    - computeEnvId
+    - name
+
+# Remove minLength constraint from dataStudioToolUrl
+- target: "$.components.schemas.DataStudioCreateRequest.properties.dataStudioToolUrl.minLength"
+  remove: true
+
+# Add remoteConfig property
+- target: "$.components.schemas.DataStudioCreateRequest.properties.remoteConfig"
+  update:
+    nullable: true
+    allOf:
+      - $ref: "#/components/schemas/StudioRemoteConfiguration"
+
+# ---- DATA STUDIO DTO ----
+
+# Add remoteConfig property
+- target: "$.components.schemas.DataStudioDto.properties.remoteConfig"
+  update:
+    $ref: "#/components/schemas/StudioRemoteConfiguration"
+
+# ---- DATA STUDIO WORKSPACE SETTINGS RESPONSE ----
+
+# Remove required array
+- target: "$.components.schemas.DataStudioWorkspaceSettingsResponse.required"
+  remove: true

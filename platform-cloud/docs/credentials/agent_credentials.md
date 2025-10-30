@@ -1,8 +1,8 @@
 ---
 title: "Tower Agent credentials"
-description: "Instructions to create Tower Agent credentials in Seqera Platform."
+description: "Create Tower Agent credentials in Seqera Platform."
 date created: "2023-04-21"
-last updated: "2025-08-08"
+last updated: "2025-10-21"
 tags: [agent, credentials]
 ---
 
