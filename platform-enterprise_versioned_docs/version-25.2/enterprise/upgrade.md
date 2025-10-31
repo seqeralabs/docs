@@ -70,7 +70,7 @@ The database volume is persistent on the local machine by default if you use the
 1. Download the latest versions of your deployment templates and update your Seqera container versions:
     - [docker-compose.yml](./_templates/docker/docker-compose.yml) for Docker Compose deployments
     - [tower-cron.yml](./_templates/k8s/tower-cron.yml) and [tower-svc.yml](./_templates/k8s/tower-svc.yml) for Kubernetes deployments
-1. **JVM memory configuration (recommended)**: Configure the following `JAVA_OPTS` environment variable for the Platform backend and cron services in the deployment templates downloaded in the preceding step, to optimize JVM memory settings:
+1. **JVM memory configuration defaults (recommended)**: The following `JAVA_OPTS` environment variable is included in the deployment templates downloaded in the preceding step, to optimize JVM memory settings:
 
     ```bash
     JAVA_OPTS: -Xms1000M -Xmx2000M -XX:MaxDirectMemorySize=800m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144
