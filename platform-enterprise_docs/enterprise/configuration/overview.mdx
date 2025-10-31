@@ -141,7 +141,29 @@ From Seqera Enterprise version 24.2:
 Follow your cloud provider specifications to upgrade your instance.
 :::
 
-If you use a database **other than** the provided `db` container, you must create a user and database schema manually.
+### Database requirements 
+
+:::warning Aurora Serverless is not supported
+AWS Aurora Serverless is **not supported** for production Seqera Enterprise deployments. We have observed critical stability and performance issues with Aurora Serverless under typical production workloads, including:
+
+- Database connection pool exhaustion
+- Unpredictable query performance degradation
+- Scaling limitations that cannot handle concurrent workflow execution loads
+
+**Supported database options:**
+- AWS RDS MySQL 8.0 (recommended)
+- AWS Aurora MySQL (standard provisioned instances, not Serverless)
+- Self-managed MySQL 8.0
+
+If you are currently using Aurora Serverless and experiencing performance issues, we strongly recommend migrating to one of the supported database configurations above.
+:::
+
+External databases for Seqera Enterprise deployments require:
+
+- A **MySQL8 Community** DB instance
+- At least 2 vCPUs, 8 GB memory, and 30 GB SSD storage
+
+If you use a database **other than** the provided `db` container, you must create a user and database schema manually:
 
 <Tabs>
 <TabItem value="MySQL DB schema creation" label="MySQL DB schema creation" default>
@@ -163,6 +185,29 @@ GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, REFERENCES, INDEX, ALTER, CR
 
 </TabItem>
 </Tabs>
+
+### Connection pool sizing
+
+The database connection pool size should be configured based on your expected concurrent workflow load. Each backend instance maintains its own connection pool to the database.
+
+**Recommended starting values:**
+- For deployments running **up to 100 concurrent workflows**: Start with 50 connections per backend instance
+- For deployments running **100-250 concurrent workflows**: Start with 64-100 connections per backend instance
+- For higher loads: Increase proportionally and monitor database connection metrics
+
+**Configuration:**
+Set the connection pool size using the `TOWER_DB_POOL_MAX_SIZE` environment variable (default: 32).
+
+**Example for 4 backend instances with 64 connections each:**
+```bash
+TOWER_DB_POOL_MAX_SIZE=64
+```
+
+This configuration provides 256 total database connections across all instances. Monitor your database connection usage and adjust as needed based on your actual concurrent workflow patterns.
+
+:::tip
+Use database monitoring tools like AWS RDS Performance Insights to track connection usage, slow queries, and identify bottlenecks during peak usage periods.
+:::
 
 ### Managed Redis services
 
