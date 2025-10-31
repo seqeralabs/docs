@@ -373,6 +373,75 @@ With rotation enabled and the previous and new key values set, secret key rotati
 
 The [Admin panel](../../administration/overview.md#encryption) **Encryption** tab displays the status of completed or errored encryption tasks.
 
+## Backend memory requirements
+
+The Platform backend and cron services run on the JVM and require appropriate memory allocation for stable operation under load.
+
+**Minimum memory allocation:**
+- Backend service: 4 GB minimum
+- Cron service: 4 GB minimum
+
+**How to set memory limits:**
+
+**Kubernetes:**
+Set resource limits in your pod specifications:
+```yaml
+resources:
+  limits:
+    memory: "4Gi"
+  requests:
+    memory: "4Gi"
+```
+
+**Docker Compose:**
+Set memory limits in your service definitions:
+```yaml
+services:
+  backend:
+    mem_limit: 4g
+    memswap_limit: 4g
+```
+
+These default memory allocation limits are set in your Kubernetes manifests or Docker Compose configurations.
+
+### JVM memory tuning
+
+For production deployments, configure JVM memory parameters via the `JAVA_OPTS` environment variable. The following baseline configuration is suitable for most deployments:
+
+```bash
+JAVA_OPTS: -Xms1000M -Xmx2000M -XX:MaxDirectMemorySize=800m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144
+```
+
+**Parameter descriptions:**
+- **Heap memory** (`-Xms`/`-Xmx`): Memory pool for Java objects. Set initial (`Xms`) and maximum (`Xmx`) heap size.
+- **Direct memory** (`MaxDirectMemorySize`): Off-heap memory used for NIO operations, network buffers, and file I/O. Critical for handling concurrent workflow API operations.
+- **Netty memory accounting** (`io.netty.maxDirectMemory=0`): Disables Netty's internal tracking; relies on JVM direct memory limits instead.
+- **Buffer caching** (`jdk.nio.maxCachedBufferSize`): Limits size of cached NIO buffers to prevent excessive memory retention.
+
+**When to adjust these values:**
+
+Increase `MaxDirectMemorySize` if you observe:
+- `OutOfMemoryError: Direct buffer memory` in logs
+- High concurrent workflow launch rates (>100 simultaneous workflows)
+- Large configuration payloads or extensive API usage
+
+Increase heap memory (`-Xmx`) if you observe:
+- `OutOfMemoryError: Java heap space` in logs
+- Garbage collection pauses affecting performance
+- Growing memory usage under sustained load
+
+**Example: High-concurrency deployment**
+For deployments running 200+ concurrent workflows:
+```bash
+JAVA_OPTS: -Xms1000M -Xmx3000M -XX:MaxDirectMemorySize=1600m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144
+```
+
+Ensure pod memory limits are set higher than JVM limits to accommodate non-heap memory usage.
+
+:::warning
+These are starting recommendations. Monitor your deployment's actual memory usage and adjust based on your specific workload patterns. Undersized memory allocation can cause OOM failures and service instability.
+:::
+
 ## Compute environments
 
 Configuration values to enable computing platforms and customize Batch Forge resource naming.
