@@ -1,5 +1,5 @@
 ---
-title: "Container image templates"
+title: "Container images"
 description: "Use container images with Studios."
 date created: "2025-10-16"
 last updated: "2025-10-21"
