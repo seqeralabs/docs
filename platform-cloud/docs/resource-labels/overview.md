@@ -171,18 +171,34 @@ To view and manage the resource labels applied to AWS resources by Seqera and Ne
 1. Under **Find resources to tag**, search for the resource label key and value in the relevant search fields under **Tags**. Your search can be further refined by AWS region and resource type. 
 1. Select **Search resources**. **Resource search results** display all the resources tagged with your given resource label key and/or value.
 
-#### Include Seqera resource labels in AWS billing reports
+### Include Seqera resource labels in AWS billing reports
 
-To include the cost information associated with your resource labels in your AWS billing reports:
+To include the cost information associated with your resource labels in your AWS billing reports, you need to activate cost allocation tags. The method for viewing costs differs between static and dynamic resource labels:
 
-1. **Wait for tag creation**: After creating resources with resource labels, wait up to 24 hours for the tag keys to appear in your cost allocation tags page.
-2. **Activate cost allocation tags**: [Activate](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/activating-tags.html) the associated tags in the **AWS Billing and Cost Management console**:
+**For static resource labels**: Because static resource labels have fixed values at compute environment creation time or workflow submission time, they are applied to static resources including Batch compute environments and EC2 instances. Static resource label costs can be viewed in AWS Cost Explorer, [Data Exports](https://docs.aws.amazon.com/cur/latest/userguide/what-is-data-exports.html), and QuickSight dashboards.
+
+**For dynamic resource labels**: Dynamic resource labels are only propagated at workflow submission and execution time. This means only jobs and job definitions (for AWS Batch compute environments), and EC2 instances (for AWS Cloud compute environments) spawned at runtime are tagged with the unique workflow identifiers. You must [enable split cost allocation data](https://docs.aws.amazon.com/cur/latest/userguide/enabling-split-cost-allocation-data.html) and view costs in [AWS Data Exports](https://docs.aws.amazon.com/cur/latest/userguide/what-is-data-exports.html) and Cost and Usage Reports (CUR). Dynamic resource label costs are not visible in AWS Cost Explorer, which does not support split cost allocation data.
+
+**Steps to activate cost allocation tags**:
+
+1. **Wait for tag creation**: After creating resources with resource labels, wait up to 24 hours for the tag keys to appear in your cost allocation tags page
+
+2. **Activate cost allocation tags**: [Activate](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/activating-tags.html) the associated tags in the **AWS Billing and Cost Management console**. Newly-applied tags may take up to 24 hours to appear on your cost allocation tags page.
    - In the navigation pane, choose **Cost allocation tags**
    - Select the tag keys you want to activate
    - Choose **Activate**
    - Allow up to 24 hours for tags to activate
-3. **Create cost allocation reports**: When your tags are activated and displayed in **Billing and Cost Management > Cost allocation tags**, you can apply them when you create [cost allocation reports](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/configurecostallocreport.html#allocation-viewing).
-4. **View in Cost Explorer**: Navigate to AWS Cost Explorer and use **Group by** filters to organize costs by your activated tag keys.
+
+3. **For static resource labels - View in Cost Explorer or Data Exports**: 
+   - Navigate to AWS Cost Explorer and use **Group by** filters to organize costs by your activated tag keys
+   - Create [cost allocation reports](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/configurecostallocreport.html#allocation-viewing) including your resource label tags
+   - Alternatively, view in Data Exports and QuickSight dashboards for more detailed analysis
+
+4. **For dynamic resource labels - Enable split cost allocation and view in Data Exports**: 
+   - [Enable split cost allocation data](https://docs.aws.amazon.com/cur/latest/userguide/enabling-split-cost-allocation-data.html) in your Cost and Usage Reports preferences
+   - View costs in your [Data Exports](https://docs.aws.amazon.com/cur/latest/userguide/what-is-data-exports.html) and Cost and Usage Reports (CUR)
+   - Query reports using Amazon Athena or visualize in Amazon QuickSight dashboards (requires a QuickSight subscription)
+   - For a complete walkthrough, see our [guide to AWS cost tracking with resource labels](https://seqera.io/blog/aws-labels-cost-tracking/)
 
 #### AWS limitations
 
