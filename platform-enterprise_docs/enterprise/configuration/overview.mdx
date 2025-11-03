@@ -161,7 +161,7 @@ If you are currently using Aurora Serverless and experiencing performance issues
 External databases for Seqera Enterprise deployments require:
 
 - A **MySQL8 Community** DB instance
-- At least 2 vCPUs, 8 GB memory, and 30 GB SSD storage
+- At least 2 vCPUs, 16 GB memory, and 30 GB SSD storage
 
 If you use a database **other than** the provided `db` container, you must create a user and database schema manually:
 
@@ -186,9 +186,9 @@ GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, REFERENCES, INDEX, ALTER, CR
 </TabItem>
 </Tabs>
 
-### Connection pool sizing
+### Kubernetes deployments: Connection pool sizing
 
-The database connection pool size should be configured based on your expected concurrent workflow load. Each backend instance maintains its own connection pool to the database.
+The database connection pool size in Kubernetes deployments should be configured based on your expected concurrent workflow load. Each backend instance maintains its own connection pool to the database.
 
 **Recommended starting values:**
 - For deployments running **up to 100 concurrent workflows**: Start with 50 connections per backend instance
@@ -197,6 +197,10 @@ The database connection pool size should be configured based on your expected co
 
 **Configuration:**
 Set the connection pool size using the `TOWER_DB_POOL_MAX_SIZE` environment variable (default: 32).
+
+:::note
+For Docker Compose deployments, it is recommended to keep the connection pool size default of 32.
+:::
 
 **Example for 4 backend instances with 64 connections each:**
 ```bash
