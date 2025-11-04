@@ -1,0 +1,452 @@
+overlay: 1.0.0
+info:
+  title: Studios schemas overlay
+  version: 0.0.0
+actions:
+  # ===== STUDIOS SCHEMAS - REQUEST/RESPONSE OBJECTS =====
+  
+  # ---- REQUEST SCHEMAS ----
+  
+  # DataStudioCreateRequest - Create Studio
+  - target: "$.components.schemas.DataStudioCreateRequest.properties.name"
+    update:
+      description: "Studio name. Must be unique within the user or workspace context. Minimum length: 1 character, Maximum length: 100 characters."
+  
+  - target: "$.components.schemas.DataStudioCreateRequest.properties.description"
+    update:
+      description: "Optional Studio description. Maximum length: 500 characters."
+  
+  - target: "$.components.schemas.DataStudioCreateRequest.properties.computeEnvId"
+    update:
+      description: "Compute environment ID where the Studio session will run."
+  
+  - target: "$.components.schemas.DataStudioCreateRequest.properties.templateUrl"
+    update:
+      description: "Container image template URL for the Studio environment. Accepts Seqera-provided templates or custom container images."
+  
+  - target: "$.components.schemas.DataStudioCreateRequest.properties.mountData"
+    update:
+      description: "Array of data-link IDs to mount in the Studio session."
+  
+  - target: "$.components.schemas.DataStudioCreateRequest.properties.cpu"
+    update:
+      description: "Number of CPUs to allocate to the Studio session."
+  
+  - target: "$.components.schemas.DataStudioCreateRequest.properties.gpu"
+    update:
+      description: "Number of GPUs to allocate to the Studio session. Only available if the compute environment has GPU support enabled."
+  
+  - target: "$.components.schemas.DataStudioCreateRequest.properties.memory"
+    update:
+      description: "Amount of memory in MiB to allocate to the Studio session."
+  
+  - target: "$.components.schemas.DataStudioCreateRequest.properties.environment"
+    update:
+      description: "Array of environment variable key-value pairs to set in the Studio session. Session-level variables take precedence over compute environment variables."
+  
+  - target: "$.components.schemas.DataStudioCreateRequest.properties.labels"
+    update:
+      description: "Array of resource label IDs to apply to the Studio session."
+  
+  - target: "$.components.schemas.DataStudioCreateRequest.properties.isPrivate"
+    update:
+      description: "If true, only the Studio creator can connect to the session. Workspace administrators can still start, stop, and delete the Studio but cannot connect to it. Default: `false`."
+  
+  - target: "$.components.schemas.DataStudioCreateRequest.properties.lifespanHours"
+    update:
+      description: "Number of hours the Studio session will run before automatically stopping. Minimum: 1 hour, Maximum: 120 hours, Default: 8 hours."
+  
+  - target: "$.components.schemas.DataStudioCreateRequest.properties.condaEnvironment"
+    update:
+      description: "Conda package specification for installing additional packages in the Studio environment."
+  
+  - target: "$.components.schemas.DataStudioCreateRequest.properties.dockerFileBase64"
+    update:
+      description: "Base64-encoded Dockerfile for building a custom Studio container image."
+  
+  - target: "$.components.schemas.DataStudioCreateRequest.properties.gitSource"
+    update:
+      description: "Git repository configuration for cloning a repository into the Studio session at startup."
+  
+  - target: "$.components.schemas.DataStudioCreateRequest.properties.fromCheckpoint"
+    update:
+      description: "Checkpoint ID to restore when creating the Studio. Creates a new Studio session starting from the specified checkpoint state."
+  
+  # DataStudioStartRequest - Start Studio
+  - target: "$.components.schemas.DataStudioStartRequest.properties.cpu"
+    update:
+      description: "Optional CPU allocation override for starting the Studio session."
+  
+  - target: "$.components.schemas.DataStudioStartRequest.properties.gpu"
+    update:
+      description: "Optional GPU allocation override for starting the Studio session."
+  
+  - target: "$.components.schemas.DataStudioStartRequest.properties.memory"
+    update:
+      description: "Optional memory allocation override (in MiB) for starting the Studio session."
+  
+  - target: "$.components.schemas.DataStudioStartRequest.properties.labels"
+    update:
+      description: "Optional resource label IDs to apply when starting the Studio session."
+  
+  # DataStudioCheckpointUpdateRequest - Update checkpoint name
+  - target: "$.components.schemas.DataStudioCheckpointUpdateRequest.properties.name"
+    update:
+      description: "New checkpoint name. Must be unique per Studio. Spaces are automatically converted to underscores."
+  
+  # ---- MAIN RESPONSE SCHEMAS ----
+  
+  # DataStudioCreateResponse
+  - target: "$.components.schemas.DataStudioCreateResponse.properties.studio"
+    update:
+      description: "Created Studio details."
+  
+  - target: "$.components.schemas.DataStudioCreateResponse.properties.sessionUrl"
+    update:
+      description: "URL to access the Studio session once it is running."
+  
+  # DataStudioStartResponse
+  - target: "$.components.schemas.DataStudioStartResponse.properties.sessionId"
+    update:
+      description: "Studio session string identifier."
+  
+  - target: "$.components.schemas.DataStudioStartResponse.properties.status"
+    update:
+      description: "Current Studio session status after the start operation."
+  
+  # DataStudioStopResponse
+  - target: "$.components.schemas.DataStudioStopResponse.properties.sessionId"
+    update:
+      description: "Studio session string identifier."
+  
+  - target: "$.components.schemas.DataStudioStopResponse.properties.status"
+    update:
+      description: "Current Studio session status after the stop operation."
+  
+  # DataStudioListResponse
+  - target: "$.components.schemas.DataStudioListResponse.properties.studios"
+    update:
+      description: "Array of Studio summary objects."
+  
+  - target: "$.components.schemas.DataStudioListResponse.properties.totalSize"
+    update:
+      description: "Total number of Studios matching the query criteria."
+  
+  # DataStudioListCheckpointsResponse
+  - target: "$.components.schemas.DataStudioListCheckpointsResponse.properties.checkpoints"
+    update:
+      description: "Array of checkpoint objects for the Studio session, sorted by creation date in descending order."
+  
+  - target: "$.components.schemas.DataStudioListCheckpointsResponse.properties.totalSize"
+    update:
+      description: "Total number of checkpoints for the Studio session."
+  
+  # DataStudioTemplatesListResponse
+  - target: "$.components.schemas.DataStudioTemplatesListResponse.properties.templates"
+    update:
+      description: "Array of available Studio container image templates."
+  
+  - target: "$.components.schemas.DataStudioTemplatesListResponse.properties.totalSize"
+    update:
+      description: "Total number of available templates."
+  
+  # DataStudioMountedLinksResponse
+  - target: "$.components.schemas.DataStudioMountedLinksResponse.properties.dataLinkIds"
+    update:
+      description: "Array of data-link IDs currently mounted in Studios within the specified context."
+  
+  # ---- DataStudioDto - Main Studio Response Object ----
+  
+  - target: "$.components.schemas.DataStudioDto.properties.sessionId"
+    update:
+      description: "Studio session string identifier."
+  
+  - target: "$.components.schemas.DataStudioDto.properties.workspaceId"
+    update:
+      description: "Workspace numeric identifier. Null if the Studio belongs to the user context."
+  
+  - target: "$.components.schemas.DataStudioDto.properties.user"
+    update:
+      description: "Studio creator user information."
+  
+  - target: "$.components.schemas.DataStudioDto.properties.name"
+    update:
+      description: "Studio name."
+  
+  - target: "$.components.schemas.DataStudioDto.properties.description"
+    update:
+      description: "Studio description."
+  
+  - target: "$.components.schemas.DataStudioDto.properties.studioUrl"
+    update:
+      description: "URL to access the running Studio session."
+  
+  - target: "$.components.schemas.DataStudioDto.properties.computeEnv"
+    update:
+      description: "Compute environment information where the Studio runs."
+  
+  - target: "$.components.schemas.DataStudioDto.properties.template"
+    update:
+      description: "Container image template information for the Studio environment."
+  
+  - target: "$.components.schemas.DataStudioDto.properties.configuration"
+    update:
+      description: "Studio resource allocation and environment configuration."
+  
+  - target: "$.components.schemas.DataStudioDto.properties.status"
+    update:
+      description: "Current Studio session status."
+  
+  - target: "$.components.schemas.DataStudioDto.properties.statusText"
+    update:
+      description: "Human-readable status message providing additional context about the current session state."
+  
+  - target: "$.components.schemas.DataStudioDto.properties.dateCreated"
+    update:
+      description: "Timestamp when the Studio was created."
+  
+  - target: "$.components.schemas.DataStudioDto.properties.lastUpdated"
+    update:
+      description: "Timestamp when the Studio was last updated."
+  
+  - target: "$.components.schemas.DataStudioDto.properties.lastStarted"
+    update:
+      description: "Timestamp when the Studio session was last started."
+  
+  - target: "$.components.schemas.DataStudioDto.properties.activeConnections"
+    update:
+      description: "Array of currently active user connections to the Studio session."
+  
+  - target: "$.components.schemas.DataStudioDto.properties.labels"
+    update:
+      description: "Array of resource labels applied to the Studio."
+  
+  - target: "$.components.schemas.DataStudioDto.properties.isPrivate"
+    update:
+      description: "If true, only the Studio creator can connect to the session."
+  
+  - target: "$.components.schemas.DataStudioDto.properties.parentCheckpoint"
+    update:
+      description: "Information about the parent checkpoint if this Studio was created from an existing checkpoint."
+  
+  - target: "$.components.schemas.DataStudioDto.properties.effectiveLifespanHours"
+    update:
+      description: "Total accumulated lifespan hours for the Studio session, including any extensions."
+  
+  - target: "$.components.schemas.DataStudioDto.properties.appliedLifespanHours"
+    update:
+      description: "Number of hours already consumed from the effective lifespan."
+  
+  - target: "$.components.schemas.DataStudioDto.properties.remainingLifespanHours"
+    update:
+      description: "Number of hours remaining before the Studio automatically stops."
+  
+  - target: "$.components.schemas.DataStudioDto.properties.stopBy"
+    update:
+      description: "Timestamp when the Studio session will automatically stop based on the remaining lifespan."
+  
+  - target: "$.components.schemas.DataStudioDto.properties.mountedData"
+    update:
+      description: "Array of mounted data-link information for the Studio session."
+  
+  - target: "$.components.schemas.DataStudioDto.properties.isFetching"
+    update:
+      description: "If true, indicates the Studio is currently fetching mounted data-links in the background."
+  
+  - target: "$.components.schemas.DataStudioDto.properties.progress"
+    update:
+      description: "Studio session startup progress information, including build status and checkpoint mounting progress."
+  
+  - target: "$.components.schemas.DataStudioDto.properties.gitSource"
+    update:
+      description: "Git repository configuration if the Studio was created from a remote Git source."
+  
+  # ---- DataStudioConfiguration - Studio Resource Configuration ----
+  
+  - target: "$.components.schemas.DataStudioConfiguration.properties.cpu"
+    update:
+      description: "Number of CPUs allocated to the Studio session."
+  
+  - target: "$.components.schemas.DataStudioConfiguration.properties.memory"
+    update:
+      description: "Amount of memory in MiB allocated to the Studio session."
+  
+  - target: "$.components.schemas.DataStudioConfiguration.properties.gpu"
+    update:
+      description: "Number of GPUs allocated to the Studio session."
+  
+  - target: "$.components.schemas.DataStudioConfiguration.properties.mountData"
+    update:
+      description: "Array of data-link IDs mounted in the Studio session."
+  
+  - target: "$.components.schemas.DataStudioConfiguration.properties.environment"
+    update:
+      description: "Array of environment variable key-value pairs set in the Studio session."
+  
+  - target: "$.components.schemas.DataStudioConfiguration.properties.condaEnvironment"
+    update:
+      description: "Conda package specification for custom packages installed in the Studio environment."
+  
+  - target: "$.components.schemas.DataStudioConfiguration.properties.lifespanHours"
+    update:
+      description: "Number of hours the Studio session will run before automatically stopping. A value of `0` indicates unlimited lifespan."
+  
+  # ---- DataStudioTemplate - Studio Container Template ----
+  
+  - target: "$.components.schemas.DataStudioTemplate.properties.repository"
+    update:
+      description: "Container image repository URL for the template."
+  
+  - target: "$.components.schemas.DataStudioTemplate.properties.name"
+    update:
+      description: "Display name of the template."
+  
+  - target: "$.components.schemas.DataStudioTemplate.properties.icon"
+    update:
+      description: "URL to the template icon image."
+  
+  - target: "$.components.schemas.DataStudioTemplate.properties.tool"
+    update:
+      description: "Tool name or type provided by this template (e.g., 'jupyter', 'rstudio', 'vscode')."
+  
+  - target: "$.components.schemas.DataStudioTemplate.properties.port"
+    update:
+      description: "Port number on which the Studio application listens."
+  
+  - target: "$.components.schemas.DataStudioTemplate.properties.description"
+    update:
+      description: "Description of the template and its intended use."
+  
+  # ---- DataStudioComputeEnvDto - Compute Environment Summary ----
+  
+  - target: "$.components.schemas.DataStudioComputeEnvDto.properties.id"
+    update:
+      description: "Compute environment string identifier."
+  
+  - target: "$.components.schemas.DataStudioComputeEnvDto.properties.name"
+    update:
+      description: "Compute environment name."
+  
+  - target: "$.components.schemas.DataStudioComputeEnvDto.properties.platform"
+    update:
+      description: "Compute platform type for the environment."
+  
+  # ---- ActiveConnection - User Connection Information ----
+  
+  - target: "$.components.schemas.ActiveConnection.properties.userId"
+    update:
+      description: "Connected user numeric identifier."
+  
+  - target: "$.components.schemas.ActiveConnection.properties.userName"
+    update:
+      description: "Connected user display name."
+  
+  - target: "$.components.schemas.ActiveConnection.properties.email"
+    update:
+      description: "Connected user email address."
+  
+  - target: "$.components.schemas.ActiveConnection.properties.avatar"
+    update:
+      description: "URL to the connected user's avatar image."
+  
+  - target: "$.components.schemas.ActiveConnection.properties.lastActive"
+    update:
+      description: "Timestamp of the user's last activity in the Studio session."
+  
+  # ---- DataStudioStatusInfo - Studio Status Details ----
+  
+  - target: "$.components.schemas.DataStudioStatusInfo.properties.status"
+    update:
+      description: "Current Studio session status. Possible values: `stopped`, `starting`, `running`, `stopping`, `failed`, `building`."
+  
+  - target: "$.components.schemas.DataStudioStatusInfo.properties.statusText"
+    update:
+      description: "Human-readable status message providing additional context about the current session state."
+  
+  - target: "$.components.schemas.DataStudioStatusInfo.properties.appliedLifespanHours"
+    update:
+      description: "Number of hours already consumed from the Studio's lifespan allocation."
+  
+  - target: "$.components.schemas.DataStudioStatusInfo.properties.remainingLifespanHours"
+    update:
+      description: "Number of hours remaining before the Studio automatically stops. A value of `0` indicates unlimited lifespan."
+  
+  - target: "$.components.schemas.DataStudioStatusInfo.properties.stopBy"
+    update:
+      description: "Timestamp when the Studio session will automatically stop based on the remaining lifespan."
+  
+  # ---- ParentCheckpoint - Checkpoint Origin Information ----
+  
+  - target: "$.components.schemas.ParentCheckpoint.properties.checkpointId"
+    update:
+      description: "Parent checkpoint numeric identifier."
+  
+  - target: "$.components.schemas.ParentCheckpoint.properties.checkpointName"
+    update:
+      description: "Parent checkpoint name."
+  
+  - target: "$.components.schemas.ParentCheckpoint.properties.sessionId"
+    update:
+      description: "Parent Studio session string identifier."
+  
+  - target: "$.components.schemas.ParentCheckpoint.properties.studioName"
+    update:
+      description: "Parent Studio name from which the checkpoint was created."
+  
+  # ---- DataStudioCheckpointDto - Checkpoint Information ----
+  
+  - target: "$.components.schemas.DataStudioCheckpointDto.properties.id"
+    update:
+      description: "Checkpoint numeric identifier."
+  
+  - target: "$.components.schemas.DataStudioCheckpointDto.properties.name"
+    update:
+      description: "Checkpoint name."
+  
+  - target: "$.components.schemas.DataStudioCheckpointDto.properties.status"
+    update:
+      description: "Checkpoint status. Possible values: `pending`, `finalized`, `failed`."
+  
+  - target: "$.components.schemas.DataStudioCheckpointDto.properties.savedDate"
+    update:
+      description: "Timestamp when the checkpoint was saved."
+  
+  - target: "$.components.schemas.DataStudioCheckpointDto.properties.size"
+    update:
+      description: "Checkpoint size in bytes."
+  
+  - target: "$.components.schemas.DataStudioCheckpointDto.properties.user"
+    update:
+      description: "User information for the person who created the checkpoint."
+  
+  - target: "$.components.schemas.DataStudioCheckpointDto.properties.isFinal"
+    update:
+      description: "If true, this checkpoint was automatically created when the Studio session ended."
+  
+  # ---- DataStudioProgressStep - Session Startup Progress ----
+  
+  - target: "$.components.schemas.DataStudioProgressStep.properties.step"
+    update:
+      description: "Progress step identifier describing the current stage."
+  
+  - target: "$.components.schemas.DataStudioProgressStep.properties.message"
+    update:
+      description: "Human-readable message describing the current progress step."
+  
+  - target: "$.components.schemas.DataStudioProgressStep.properties.timestamp"
+    update:
+      description: "Timestamp when this progress step was reached."
+  
+  # ---- StudioRemoteConfiguration - Git Source Configuration ----
+  
+  - target: "$.components.schemas.StudioRemoteConfiguration.properties.repository"
+    update:
+      description: "Git repository URL for the Studio remote configuration."
+  
+  - target: "$.components.schemas.StudioRemoteConfiguration.properties.revision"
+    update:
+      description: "Git branch, tag, or commit ID. If omitted, uses the repository's default branch."
+  
+  - target: "$.components.schemas.StudioRemoteConfiguration.properties.commitId"
+    update:
+      description: "Git commit hash for the remote configuration. Maximum length: 40 characters."
