@@ -17,7 +17,69 @@ You will need the following to get started:
     - **CPUs**: 2 (minimum)
     - **Memory**: 8192 MB  (minimum)
 - [Data Explorer](../data/data-explorer) enabled
+- If you're adding a Studio from a Git repository:
+  - Git credentials configured in your workspace
+  - A Git repository containing `.seqera/studio-config.yaml` and at least one of `.seqera/conda-environment.yaml` or `.seqera/Dockerfile`
 :::
+
+## Add a Studio from Git repository
+
+You can add a Studio by referencing a Git repository containing Studio configuration files.
+
+**Limitations**
+
+- **Compute environments**: Compute environments are workspace-specific and cannot be defined in Git repositories. Select the compute environment when adding a Studio.
+- **Data links**: Data links cannot be referenced in Git repositories. Select data links when adding a Studio.
+- **Mono-repos**: Git repositories containing multiple Studio configurations are not supported.
+
+### Create a `.seqera/studio-config.yaml` configuration file
+
+The following fields can be defined:
+
+**Required:**
+- Maximum memory in MiB allocated
+
+**Optional:**
+- Resource labels
+- CPUs allocated
+- GPUs allocated
+- Name (if undefined, auto-generated name will be used)
+- Description (if undefined, will remain NULL)
+- Base template image (valid path to Seqera-managed template or full path to Dockerfile)
+- Environment (reference to conda-environment.yaml file)
+- Collaboration mode ("Private") (if True, session is private to creator)
+- Session lifespan (hours session will run; defaults to workspace setting, can be overridden with Maintain+ role)
+- Environment variables (list of key:value pairs)
+
+### Create a `.seqera/conda-environment.yaml` configuration file 
+
+YAML object defining the list of packages (and optionally pinned versions) to install. Uses standard Conda environment file syntax. See [Conda package syntax](/platform-cloud/studios/custom-envs#conda-package-syntax).
+
+### Create a `.seqera/Dockerfile` configuration file
+
+Customer-generated container definition. See [Custom container template image](/platform-cloud/studios/custom-envs#custom-containers) for requirements.
+
+### Add a Studio
+
+1. From the **Studios** tab, select **Add Studio**.
+2. Add Git repository information:
+   - **Repository URL**: Enter the full URL to your Git repository (e.g., `https://github.com/your-org/studio-config.git`)
+   - **Revision**: Select a branch, tag, or commit from the dropdown. The dropdown is dynamically populated based on the repository URL. If no revision is selected, the default branch is used.
+:::note
+When the Git URL or Revision fields are changed, form field values dynamically update.
+:::
+3. **Select compute environment** (required): This must be selected manually as compute environments cannot be defined in Git repositories.
+4. **Mount data** (optional): Select data-links to mount. Data links cannot be defined in Git repositories.
+5. Review the auto-populated configuration. All form fields remain editable.
+6. Select **Add and start** or **Add only**.
+
+### Repository cloning
+
+When a Studio session starts from a Git repository, the repository contents are cloned into the session:
+- **JupyterLab, R-IDE, VS Code**: `/workspace/<repository-name>/`
+- **Xpra**: `/root/`
+
+**Example:** Repository `https://github.com/seqeralabs/studio-templates.git` clones to `/workspace/studio-templates/` with README.md at `/workspace/studio-templates/README.md`.
 
 ## Compute and Data
 

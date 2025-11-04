@@ -9,6 +9,10 @@ In addition to the Seqera-provided container template images, you can provide yo
 
 Studios uses the [Wave][wave-home] service to build custom container template images.
 
+## Configuration from Git repositories
+
+You can define custom environments in a Git repository using `.seqera/conda-environment.yaml` or `.seqera/Dockerfile` files. See [Add a Studio from Git repository][git-studio].
+
 ## Conda packages
 
 :::info[**Prerequisites**]
@@ -147,3 +151,4 @@ To inspect the status of an ongoing build, or a successful or failed build, comp
 [env-manually]: https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-file-manually
 [add-s]: ./add-studio
 [custom-studios-examples]: https://github.com/seqeralabs/custom-studios-examples
+[git-studio]: ./add-studio#add-a-studio-from-git-repository
