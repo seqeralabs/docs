@@ -25,7 +25,7 @@ Fusion integrates seamlessly with Nextflow and requires no installation or pipel
 
 This section describes how to enable Fusion in your Nextflow pipelines. It includes:
 
-- Creating a Seqera access token.
+- Creating a Platform access token.
 - Configuring Fusion in your pipeline.
 - Running your Nextflow pipeline with Fusion.
 
@@ -38,11 +38,11 @@ You will need the following to get started:
 
 :::
 
-### Create your Seqera access token
+### Create your Platform access token
 
-A Seqera access token is your personal authentication key that enables access to Seqera Platform services.
+A Platform access token is your personal authentication key that enables access to Seqera Platform services.
 
-To create a Seqera access token:
+To create a Platform access token:
 
 1. Log in to [Seqera](https://cloud.seqera.io/login).
 2. From your personal workspace: Go to the user menu and select **Settings > Your tokens**.
@@ -64,7 +64,7 @@ wave.enabled = true
 tower.accessToken = '<TOWER_ACCESS_TOKEN>'
 ```
 
-Replace `<TOWER_ACCESS_TOKEN>` with your Seqera access token.
+Replace `<TOWER_ACCESS_TOKEN>` with your Platform access token.
 
 :::tip
 See [Configuration options](https://www.nextflow.io/docs/latest/reference/config.html) for a full list of Nextflow configuration options.
