@@ -20,7 +20,7 @@ const products = [
   },
   {
     name: "Nextflow",
-    url: "https://www.nextflow.io/docs/latest/",
+    url: "/nextflow/",
   },
   { name: "MultiQC", url: "/multiqc" },
   { name: "Wave", url: "/wave" },
