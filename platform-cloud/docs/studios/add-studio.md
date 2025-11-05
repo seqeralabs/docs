@@ -36,28 +36,28 @@ You can add a Studio by referencing a Git repository containing Studio configura
 
 The following fields can be defined:
 
-**Required:**
+**Required**
 - Maximum memory in MiB allocated
 
-**Optional:**
+**Optional**
 - Resource labels
 - CPUs allocated
 - GPUs allocated
-- Name (if undefined, auto-generated name will be used)
-- Description (if undefined, will remain NULL)
+- Name (if undefined, an auto-generated name will be used)
+- Description
 - Base template image (valid path to Seqera-managed template or full path to Dockerfile)
-- Environment (reference to conda-environment.yaml file)
-- Collaboration mode ("Private") (if True, session is private to creator)
-- Session lifespan (hours session will run; defaults to workspace setting, can be overridden with Maintain+ role)
-- Environment variables (list of key:value pairs)
+- Environment (reference to `conda-environment.yaml` file)
+- Collaboration mode (**Private**) 
+- Session lifespan (hours session will run; defaults to workspace setting)
+- Environment variables (list of `key:value` pairs)
 
 ### Create a `.seqera/conda-environment.yaml` configuration file 
 
-YAML object defining the list of packages (and optionally pinned versions) to install. Uses standard Conda environment file syntax. See [Conda package syntax](/platform-cloud/studios/custom-envs#conda-package-syntax).
+This is a YAML object defining the list of packages (and optionally pinned versions) to install. It uses standard conda environment file syntax. See [Conda package syntax][conda-syntax].
 
 ### Create a `.seqera/Dockerfile` configuration file
 
-Customer-generated container definition. See [Custom container template image](/platform-cloud/studios/custom-envs#custom-containers) for requirements.
+Customer-generated container definition. See [Custom container template image][custom-image] for requirements.
 
 ### Add a Studio
 
@@ -66,7 +66,7 @@ Customer-generated container definition. See [Custom container template image](/
    - **Repository URL**: Enter the full URL to your Git repository (e.g., `https://github.com/your-org/studio-config.git`)
    - **Revision**: Select a branch, tag, or commit from the dropdown. The dropdown is dynamically populated based on the repository URL. If no revision is selected, the default branch is used.
 :::note
-When the Git URL or Revision fields are changed, form field values dynamically update.
+When the **Git URL** or **Revision** fields are changed, form field values dynamically update.
 :::
 3. **Select compute environment** (required): This must be selected manually as compute environments cannot be defined in Git repositories.
 4. **Mount data** (optional): Select data-links to mount. Data links cannot be defined in Git repositories.
@@ -75,11 +75,7 @@ When the Git URL or Revision fields are changed, form field values dynamically u
 
 ### Repository cloning
 
-When a Studio session starts from a Git repository, the repository contents are cloned into the session:
-- **JupyterLab, R-IDE, VS Code**: `/workspace/<repository-name>/`
-- **Xpra**: `/root/`
-
-**Example:** Repository `https://github.com/seqeralabs/studio-templates.git` clones to `/workspace/studio-templates/` with README.md at `/workspace/studio-templates/README.md`.
+When a Studio session starts from a Git repository, the repository contents are cloned into the session. For example, repository `https://github.com/seqeralabs/studio-templates.git` clones to `/workspace/studio-templates/` with README.md at `/workspace/studio-templates/README.md`.
 
 ## Compute and Data
 
