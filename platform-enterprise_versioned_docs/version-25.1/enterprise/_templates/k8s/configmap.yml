@@ -12,7 +12,7 @@ data:
   TOWER_DB_DRIVER: "org.mariadb.jdbc.Driver"
   TOWER_DB_USER: "tower"
   TOWER_DB_PASSWORD: "<YOUR DB PASSWORD>"
-  TOWER_DB_DIALECT: "io.seqera.util.MySQL55DialectCollateBin"
+  TOWER_DB_DIALECT: "io.seqera.util.MySQL8DialectCollateBin"
   TOWER_DB_MIN_POOL_SIZE: "2"
   TOWER_DB_MAX_POOL_SIZE: "10"
   TOWER_DB_MAX_LIFETIME: "180000"

@@ -138,7 +138,7 @@
                         },
                         {
                             "Name": "TOWER_DB_DIALECT",
-                            "Value": "io.seqera.util.MySQL55DialectCollateBin"
+                            "Value": "io.seqera.util.MySQL8DialectCollateBin"
                         },
                         {
                             "Name": "TOWER_DB_USER",
@@ -279,7 +279,7 @@
                         },
                         {
                             "Name": "TOWER_DB_DIALECT",
-                            "Value": "io.seqera.util.MySQL55DialectCollateBin"
+                            "Value": "io.seqera.util.MySQL8DialectCollateBin"
                         },
                         {
                             "Name": "TOWER_DB_USER",
