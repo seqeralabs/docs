@@ -22,6 +22,7 @@ data:
   TOWER_CRYPTO_SECRETKEY: "<YOUR CRYPTO SECRET>"
   TOWER_LICENSE: "<YOUR TOWER LICENSE KEY>"
   TOWER_ENABLE_PLATFORMS: "awsbatch-platform,gls-platform,azbatch-platform,slurm-platform"
+  FLYWAY_LOCATIONS: "classpath:db-schema/mysql"
   TOWER_REDIS_URL: "redis://<YOUR REDIS IP>:6379"
 ---
 kind: ConfigMap
