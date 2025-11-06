@@ -27,7 +27,7 @@ data:
 
   # Pipeline resource optimization service. Set TOWER_ENABLE_GROUNDSWELL true to use default service URL (http://groundswell:8090)
   # Use GROUNDSWELL_SERVER_URL to specify a custom service URL (enables the service by default)
-  TOWER_ENABLE_GROUNDSWELL: false
+  TOWER_ENABLE_GROUNDSWELL: "false"
   GROUNDSWELL_SERVER_URL: http://groundswell:8090
 
   # Studios configuration variables
