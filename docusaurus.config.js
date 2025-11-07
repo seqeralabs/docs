@@ -444,7 +444,6 @@ export default async function createConfigAsync() {
         ],
       },
     },
-    clientModules: [require.resolve("./clientside-scripts.js")],
     stylesheets: [
       {
         href: "https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css",
