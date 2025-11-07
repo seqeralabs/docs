@@ -15,7 +15,7 @@
   tower.yml:            '`datasources.default.url`'
   Description: >
     The URL to access your database. **For installation in a new environment, this value must be set as an environment variable.**
-  Value:               'Example: `jdbc:mysql://db:3306/tower?permitMysqlScheme=true'
+  Value:               'Example: `jdbc:mysql://db:3306/tower?permitMysqlScheme=true`'
 -
   tower.yml:            '`datasources.default.minPoolSize`'
   Description: >

@@ -15,7 +15,7 @@
   Environment variable:            '`TOWER_DB_URL`'
   Description: >
     The URL to access your database.
-  Value:               'Example: `jdbc:mysql://db:3306/tower?permitMysqlScheme=true'
+  Value:               'Example: `jdbc:mysql://db:3306/tower?permitMysqlScheme=true`'
 -
   Environment variable:            '`TOWER_DB_MIN_POOL_SIZE`'
   Description: >
