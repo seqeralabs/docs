@@ -84,11 +84,12 @@ To enable Seqera AI to interact with your pipeline GitHub repositories:
    - Create a new token with the following permissions:
      - **Pull Requests**: Read & Write
      - **Contents**: Read & Write
+   - Your token value will be displayed only once. Copy it before navigating away from the tokens page.
 
 2. **Add the token to Seqera AI**
    - Open [Seqera AI](https://seqera.io/ask-ai/chat-v2).
-   - In the left sidebar, select **Connect** under **Access tokens**.
-   - Enter your personal access token, then select **Update**.
+   - In the bottom-left user menu, select **Add token**.
+   - Enter your personal access token in the field provided, then select **Set token**.
 
 ### Capabilities
 
