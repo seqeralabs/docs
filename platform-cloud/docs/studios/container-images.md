@@ -1,14 +1,24 @@
 ---
-title: "Container images"
-description: "Use container images with Studios."
+title: "Container template"
+description: "Use container templates with Studios."
 date created: "2025-10-16"
 last updated: "2025-10-21"
-tags: [container, container-images, session, studios]
+tags: [container, container-templates, session, studios]
 ---
 
-There are four container image templates provided: JupyterLab, R-IDE, Visual Studio Code, and Xpra. The image templates install a very limited number of packages when the Studio session container is built. You can install additional packages as needed during a Studio session.
+There are four container templates provided: JupyterLab, R-IDE, Visual Studio Code, and Xpra. The image templates install a very limited number of packages when the Studio session container is built. You can install additional packages as needed during a Studio session.
 
-The image template tag includes the version of the analysis application, an optional incompatibility flag, and the Seqera Connect version. Connect is the proprietary Seqera web server client that manages communication with the container. Tag strings use the following format:
+1. From the **Studios** tab, select **Add Studio**.
+2. **Select compute environment** (required): This must be selected manually as compute environments cannot be defined in Git repositories.
+3. **Mount data** (optional): Select data-links to mount. Data links cannot be defined in Git repositories.
+4. Review the auto-populated configuration. All form fields remain editable.
+5. Select **Add and start** or **Add only**.
+
+Configure the following resource settings:
+
+- **Resource labels**: Any [resource label](../labels/overview) already defined for the compute environment is added by default. Additional custom resource labels can be added or removed as needed.
+  
+The template tag includes the version of the analysis application, an optional incompatibility flag, and the Seqera Connect version. Connect is the proprietary Seqera web server client that manages communication with the container. Tag strings use the following format:
 
 ```ignore title="Image template tag"
 <TOOL_VERSION>-[<UPDATE_VERSION>]-<CONNECT_VERSION>
@@ -33,7 +43,7 @@ When pushed to the container registry, an image template is tagged with the foll
 - `<TOOL_VERSION>-<MAJOR>.<MINOR>`, such as `4.2.3-0.8`. Seqera Platform displays this tag when adding a new container template image.
 - `<TOOL_VERSION>-<MAJOR>.<MINOR>.<PATCH>`, such as `4.2.3-0.8.4`.
 
-To view the latest versions of the images, see [public.cr.seqera.io](https://public.cr.seqera.io/). You can also augment the Seqera-provided image templates or use your own custom container image templates. This approach is recommended for managing reproducible analysis environments. For more information, see [Custom environments][custom-envs].
+To view the latest versions of the templates, see [public.cr.seqera.io](https://public.cr.seqera.io/). You can also augment the Seqera-provided image templates or use your own custom container image templates. This approach is recommended for managing reproducible analysis environments. For more information, see [Custom environments][custom-envs].
 
 ### JupyterLab 4.2.5
 
@@ -110,6 +120,32 @@ process.shell = [
 The default user is the `root` account. The image is based on `ubuntu:jammy`. To install system-level packages during a running Studio session, run `apt install <PACKAGE_NAME>`.
 
 To see the list of all Xpra image templates available, including security scan results or to inspect the container specification, see [public.cr.seqera.io/repo/platform/data-studio-xpra][ds-xpra].
+
+## Conda packages
+
+:::info[**Prerequisites**]
+- Wave must be configured. For more information, see [Wave containers][wave-config].
+:::
+
+### Conda package syntax {#conda-package-syntax}
+
+When adding a new Studio, you can optionally customize the environment configuration to install a list of additional Conda packages to the selected template image. The [supported schema][conda-schema] is identical to that used by a Conda `environment.yml` file, including pinning specific package versions, wildcards, version range, or build name. Not pinning a specific package version will install the latest stable release.
+
+For more information on the Conda environment file, see [Creating an environment file manually][env-manually].
+
+```yaml title="Example environment.yml file"
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - numpy>1.7,<1.19.2
+  - scipy
+  - pip:
+    - matplotlib=3.10.*
+    - seaborn=0.13.2
+```
+
+Either directly copy and paste your valid YAML code or use **Import from file** to attach an `environment.yml` file.
 
 ## EFS file systems
 
