@@ -43,7 +43,7 @@ For advanced use cases, you can build your own container template image.
 
 :::note
 Public container registries are supported by default. 
-Private container registries have limited support. Only private Amazon Elastic Container Registry (ECR) is supported, and only on AWS based compute environments, in case the registry is in the same AWS account as the compute environment.
+Private container registries have limited support. Only private Amazon Elastic Container Registry (ECR) is supported, and only on AWS based compute environments, in case the registry is in the same AWS account as the compute environment. In this case no further setup is required, the access to ECR will be automatically configured when creating the compute environment.
 :::
 
 :::info[**Prerequisites**]
