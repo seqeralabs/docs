@@ -279,7 +279,7 @@ container registry ([cr.seqera.io](https://cr.seqera.io)). Contact [support](htt
 
 ## Next steps 
 
-See [Configuration](../configuration/overview). 
+See [Configuration](../configuration/overview.mdx). 
 
 [docker]: https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
 [aks-walkthrough]: https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough-portal

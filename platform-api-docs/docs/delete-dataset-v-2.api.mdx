@@ -1,11 +1,11 @@
 ---
 id: delete-dataset-v-2
 title: "Delete dataset"
-description: "Deletes the dataset identified by the given `datasetId`."
+description: "Deletes the dataset identified by the given `datasetId`, including all associated versions."
 sidebar_label: "Delete dataset"
 hide_title: true
 hide_table_of_contents: true
-api: eJylVE1v2zAM/SuCdtmAfK3LdshpKZoBxYataLvtUAQoYzOJGsdSJTltYPi/j5S/4iboMOyUmHwiH8lH5jJGF1llvNKpnMgLTNCjE36NIgYPDr1QMaZeLRXGYrEPnpXaYSruK8BlfD+QPelh5eTkTlZWJ+c9qQ1a4NCXcRP8ovT/OqM3BixsyWb5ZS5T+iDck7YbZyBCetWTink9Zmj39NFl+7sGijTbolVRy9US2EVr3IKc5NLvDQdWqcdVcC213YIvTZ/Gsih6Tfamqjq3Ab8+Sl1VIZy3Kl1181p8zJRFKtnbDE/wKB9R1jmDndGpQ8f+s9GYf7qpfnwVffFdi0gT/dTLoifHo9Ex7hxiwanReSJRowkGxiQqCnMYPjjG5gecWrZ3covOwQp5dBVVvXjAiOMZy8P0qiRaA0/URE+VT9g0s1bb66o+8hSB+YcTFdYyEan2ApJEPxEfhjuMMqv8PsjjHMGinWY0jsndnJv33HcGYYPg9n0egN/3G8m1Q3oTB+FREfhMPXHkLPW2QQr8epCe3EGS4XEwTk/SXWtWdpMgaGUih/USDPNGTgUrEu2uFntmE0KuvTduMhyCUYMo0Vk8cPhIyQdKhxR1A254XmXvD9vQtJ/j1JLn70UAkaX886XW+8OTD41V6VKH59WsbkJWMb26PJJ65bpKwPPaCC5CRXQkSjALDaIgtG5JbSHU+C2oJKzbUn8+qJDaS/0o87wfjD8ORmwz2vktBJ1WS1mejvokvaSYt2r/rwtWttKTSoYmAVp+4hJqyqvBHly3npy0l4IGtSbODMjzBRl/2qQo2FweLp53rBwsEt6zJSQOXynhL2ftJM1Syt3LWSs3CGkHVnH+f+Ty9ro6D+/EayfvJKfKCOn+kEzNte1eMSfwGiGmUO1aTqMIjT94eXTGOit4Mfs2u50RHLqL8WIRQoKTxGhwAXGrN5gWRcPT8zdzLIo/eJd6RA==
+api: eJy1lE1PGzEQhv+K5VMrbZOUIg45FUoqoVYtAtoeUCQc7yQxOGtjz4ZGq/3vzHh380EiUA89Jet57Xlm/I4riWoW5fBW5gpVBIxynMkcog7Go3GFHMpzsIAQBc5BtCphcijQTA3kYrJKkZlZQiHuWsFFfpcJU2hb5qaYCWWtUDE6bRTSliWESGfHnsyk8xAUZ7rI17nOm0N+H1Hcq6AWtBaYspIFfZDuyYWH6JUG2pVJw5iPJYSVfAn/pxOKolxAMHqDHjh91HNYKDmsJK48n2wKhBkECk1dWChslk6OZV1n6/TrKrvkXuF8L3dbhogYuAm7iQM8liYAFY2hhAMgzS5KO2Zx9NQviBw/Ghzzz26un9/EB/HDCe2Iv0BZZ/J4MNjXnalccGqISBCdmmTKe2t0uon+fWRttcW0ob2VC4hRzYCN0qK6yT1oPs8Hvk40DWgnPFATbTVoeWkUggtXbX0UqRP5pwMVdkYRhUN2lHsiHpZH0GUwuEoGOQMVIJyWdB/D2zE3j9wzd2yuPJkreYqjst95vl+tL7RmT0BYdn4rgyXlHNHHYb+vvOlp68q8F+GRcHrG7d36dYqIS6uQHSS+sF6cXl5IhulYr7m1TZu2ided4oydPfl7kkS00vz52nnz/glTD0wxdWl729aWgtO+BcjlGk0D3ojZE0onT+wWv10y2cLYNBpT93kTIJB2tin2sXdy0hvwmncRFypZqh2gZs675+QlYrUx5n9+fdpuI/zFvreKZplwU9lV65KtlzGTw83g013OqSwWVNWEFn8FW9e83DxEbJ7cRDWxPDVTZSO8UuVbz9RBzgdY7T2FS2VLViazLVUwDPCPMO+u2ml/L159wg5CtYuqWG3TdLCb/tVjEs9B5eRqxmvip1qDx62de8/SzkSfj76PbkYkV7vT82JaUoKDYHR1SXHjHqCo6zUn8jcz1vUzRQN2Eg==
 sidebar_class_name: "delete api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -36,7 +36,7 @@ import Heading from "@theme/Heading";
 
 
 
-Deletes the dataset identified by the given `datasetId`.
+Deletes the dataset identified by the given `datasetId`, including all associated versions.
 
 <Heading
   id={"request"}
@@ -47,7 +47,7 @@ Deletes the dataset identified by the given `datasetId`.
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"datasetId","in":"path","description":"Dataset string identifier","required":true,"schema":{"type":"string"}}]}
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier.","schema":{"type":"integer","format":"int64"}},{"name":"datasetId","in":"path","description":"Dataset string identifier.","required":true,"schema":{"type":"string"}}]}
 >
   
 </ParamsDetails>

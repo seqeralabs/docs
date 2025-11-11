@@ -5,7 +5,7 @@ description: "Deletes the workspace identified by the given `workspaceId`."
 sidebar_label: "Delete workspace"
 hide_title: true
 hide_table_of_contents: true
-api: eJy1VE1v00AQ/SvWcgEpiQMEDj7RqkGqQFC1RRyiSJ3Yk2Qbx7vdXacNlv87M+vPtFFBRZxsr9/OvJl5bwqRoI2N1E6qTETiDFN0aAO3xuBemY3VEGMgE8ycXEpMgsXe/1vJHWbBTQs5T25GYiAcrKyIZqI9t2I+EEqjAU5wnrQpfjYIuqXBwJbODN8tREYfhFNmRfiBkMxLg1vT+yHZ72YFmfzlQwdZvkUj446rIbzBu1wapLTO5DgQNl7jFkRUCLfXnERmDlceulRmC646+jgR5UA8DK1G2CDY/dBTHCqfGdIqXDloufb68DzjOkCvt/+XN/Mbqh0aQ/EZlIhyzvGtVpml8VDId+MJPx4x/RIMg28qiBVlyhzHnYzHT3GnkATMFq0jMg2aYKB1KmM/m/DWMrboldEVOBNbtBZWyEqpq1OLW4w5njasHScrog2wa4N1RmYrURI7J13KR1NjlLms66M/pWf+/kiFjSqDTLkA0lTdEx+GW4xzI93eq/EUwaA5yWma0WzOzev3l2fm9sNW4RS3VfarxCudysAH6oql35XAN0ihnw8zEDtIczwWjimQW9aKzdSm8HKLREiusWHhvVOGnQ3DoifRUnCNZtcYLjekaLF2TtsoDEHLUZyqPBlZvCM+I6l8zqYrVzzEaiD93rQz4Tiilix/LzyITqqXz41eb++d77bMlspfrwd45bMGJxfnT+xT/7pIwbHsAy5CUnU1mNUHsVffYUldITSLLcjU22WpPvUqpI5TP6o8b0eTD6Mxn2ll3Ra8eGurV+urM/BjkkVngn/eplVDHckn1CnQWiFGvrKinveMt6QlaNRsy97mpdP+XqIRrqkavlQUC7D4w6RlycfkXsNin7PqjIQFz4F0kUjL76SzJaQWnyn09WXt5zfBn5fy0bLqQ8j2Pe3Ta+WVqjpeuC/j9Jdr9wXM+h0u5wRfIyQUrPP5SRyjdr27TzbjgaPPpl+n11OCw6GtHtnIJzhKjYbrEddqg1lZtkwdfzPHsvwNxTDDCQ==
+api: eJytVE1v2zAM/SuCThuQxdlW9JDT2jUDig1b0XbYIQhQxWZstY6kSnK7zNB/Hyl/Ni1aoNvJMvVEPpKPrLkXuePzJb/X9sYZkYLjqwnPwKVWGi+14nN+AiV4cMwXwHockxkoLzcSMrbexbtc3oFiVz3kNLua8gnXBqwgV6dZ7+xXh8F7I6zYos0SkZor/EGctjniJ1wSAyN8wfdp/bC5UPJPdM1UtQUr04GVRbyF20pawLDeVjDhLi1gK/i85n5nKIhUHvII3Wi7Fb4xHR7wECY9k1E+z/Lpc/r/ZFb03BmtHPYHX3yYHdBnrx5f2Tv2XbNUoyPleZjwg9nsMe5YZIzIgPMYq0MjTBhTyjTWM7l2hK1HLAf+S74F50QOJJWWvF5fQ0r+jKV+e9kQ7YBDls5bqXIqMPfSl2RaWKvteZsf3oTI/OMTGXZKYkp7JspS3yMfgjtIKyv9LiroGIQFe1Rhj+bLFRUP5VVoUl8W1RdFR7c8QZm5pI5iC8kwBEk96nrgFMDedQqtbIlPC++NmyeJMHKalrrKpg5ukd9U6kfSuIg37KwUnnrLPhOeHZ2dcmLXkb+gWjd1G6fQl44i8lY49L+OILQ0hy+daq7vfSyKVBsdn7d1bllQ2JcIUroS69CCSSQijSJ5mPw4ZdSJLKNoN/rTcIFEqHJNnPfTw8PpjGxGO78VUWPtnDWbYdgw+yTrQav/upLagnr47RNTCpxpZBQzq1tlLGkBOYTOu0U02pBoHS8FbGGB2dCjul4LBz9tGQKZccgsaRKPd8JKsaY+oIIy6eiMityI0sEzib45b8fuLXt53z2ZVmsUaseJRVnRHx5vYNevWdp2r+L0ws57BaFxYcMK4QWIDJ1R2RrEUZqC8aO3j/bWg5E/WXxbXC4QLh5O0970xABPUsOeRsSlvgEVQs/U0z9xDOEveguCpA==
 sidebar_class_name: "delete api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -47,7 +47,7 @@ Deletes the workspace identified by the given `workspaceId`.
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"},"x-speakeasy-param-optional":true},{"name":"workspaceId","in":"path","description":"Optional workspace numeric identifier","required":true,"schema":{"type":"integer","format":"int64"},"x-speakeasy-name-override":"id"}]}
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"path","description":"Workspace numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
 >
   
 </ParamsDetails>

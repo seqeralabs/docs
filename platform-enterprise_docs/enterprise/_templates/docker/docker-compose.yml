@@ -127,6 +127,8 @@ services:
 #    restart: always
 #    depends_on:
 #      - redis
+#   volumes:
+#     - $HOME/.tower/connect:/data
 #
 #  connect-server:
 #    image: cr.seqera.io/private/nf-tower-enterprise/data-studio/connect-server:0.8.0

@@ -12,7 +12,7 @@
   Description: ""
 - Name: dataStudioToolUrl
   Type: string
-  Req/Opt: Required
+  Req/Opt: Optional
   Description: ""
 - Name: computeEnvId
   Type: string
@@ -40,6 +40,10 @@
   Description: ""
 - Name: configuration.mountData
   Type: array
+  Req/Opt: Optional
+  Description: ""
+- Name: configuration.environment
+  Type: object
   Req/Opt: Optional
   Description: ""
 - Name: configuration.condaEnvironment
@@ -73,7 +77,7 @@
 - Name: "**StartDataStudio**"
   Type: ""
   Req/Opt: ""
-  Description: Start Studio
+  Description: Starts a Studio
 - Name: configuration
   Type: object
   Req/Opt: Optional

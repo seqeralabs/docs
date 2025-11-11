@@ -136,7 +136,29 @@ Configuration values that control Seqera's interaction with databases and Redis 
 From Seqera Enterprise version 23.3, Redis version 7 is officially supported. Follow your cloud provider specifications to upgrade your instance.
 :::
 
-If you use a database **other than** the provided `db` container, you must create a user and database schema manually.
+### Database requirements 
+
+:::warning Aurora Serverless is not supported
+AWS Aurora Serverless is **not supported** for production Seqera Enterprise deployments. We have observed critical stability and performance issues with Aurora Serverless under typical production workloads, including:
+
+- Database connection pool exhaustion
+- Unpredictable query performance degradation
+- Scaling limitations that cannot handle concurrent workflow execution loads
+
+**Supported database options:**
+- AWS RDS MySQL 8.0 (recommended)
+- AWS Aurora MySQL (standard provisioned instances, not Serverless)
+- Self-managed MySQL 8.0
+
+If you are currently using Aurora Serverless and experiencing performance issues, we strongly recommend migrating to one of the supported database configurations above.
+:::
+
+External databases for Seqera Enterprise deployments require:
+
+- A **MySQL8 Community** DB instance
+- At least 2 vCPUs, 16 GB memory, and 30 GB SSD storage
+
+If you use a database **other than** the provided `db` container, you must create a user and database schema manually:
 
 <Tabs>
 <TabItem value="MySQL DB schema creation" label="MySQL DB schema creation" default>
@@ -159,6 +181,33 @@ GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, REFERENCES, INDEX, ALTER, CR
 </TabItem>
 </Tabs>
 
+### Kubernetes deployments: Connection pool sizing
+
+The database connection pool size in Kubernetes deployments should be configured based on your expected concurrent workflow load. Each backend instance maintains its own connection pool to the database.
+
+**Recommended starting values:**
+- For deployments running **up to 100 concurrent workflows**: Start with 50 connections per backend instance
+- For deployments running **100-250 concurrent workflows**: Start with 64-100 connections per backend instance
+- For higher loads: Increase proportionally and monitor database connection metrics
+
+**Configuration:**
+Set the connection pool size using the `TOWER_DB_POOL_MAX_SIZE` environment variable (default: 32).
+
+:::note
+For Docker Compose deployments, it is recommended to keep the connection pool size default of 32.
+:::
+
+**Example for 4 backend instances with 64 connections each:**
+```bash
+TOWER_DB_POOL_MAX_SIZE=64
+```
+
+This configuration provides 256 total database connections across all instances. Monitor your database connection usage and adjust as needed based on your actual concurrent workflow patterns.
+
+:::tip
+Use database monitoring tools like AWS RDS Performance Insights to track connection usage, slow queries, and identify bottlenecks during peak usage periods.
+:::
+
 ### Managed Redis services
 
 Seqera supports managed Redis services such as [Amazon ElastiCache](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/WhatIs.html), [Azure Cache for Redis](https://learn.microsoft.com/en-gb/azure/azure-cache-for-redis/cache-overview), or [Google Memorystore](https://cloud.google.com/memorystore/docs/redis).
@@ -169,7 +218,7 @@ When using a managed Redis service, you must specify the service IP address or D
 <TabItem value="AWS ElastiCache" label="AWS ElastiCache" default>
 
 - Use a single-node cluster, as multi-node clusters are not supported
-- Use an instance with at least 6GB capacity ([cache.m4.large](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html) or greater)
+- Use an instance with at least 6 GB capacity ([cache.m4.large](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html) or greater)
 - Specify your private ElastiCache instance in the Seqera environment variables:
 
 ```bash
@@ -180,7 +229,7 @@ TOWER_REDIS_URL=redis://<redis private IP>:6379
 <TabItem value="Azure Cache for Redis" label="Azure Cache for Redis" default>
 
 - Use a single-node cluster, as multi-node clusters are not supported
-- Use an instance with at least 6GB capacity ([C3](https://azure.microsoft.com/en-gb/pricing/details/cache/) or greater)
+- Use an instance with at least 6 GB capacity ([C3](https://azure.microsoft.com/en-gb/pricing/details/cache/) or greater)
 - Specify your private Azure Cache for Redis instance in the Seqera environment variables:
 
 ```bash
@@ -191,7 +240,7 @@ TOWER_REDIS_URL=redis://<redis private IP>:6379
 <TabItem value="Google Memorystore" label="Google Memorystore" default>
 
 - Use a single-node cluster, as multi-node clusters are not supported
-- Use an instance with at least 6GB capacity ([M2](https://cloud.google.com/memorystore/docs/redis/pricing#instance_pricing) or greater)
+- Use an instance with at least 6 GB capacity ([M2](https://cloud.google.com/memorystore/docs/redis/pricing#instance_pricing) or greater)
 - Specify your private Memorystore instance in the Seqera environment variables:
 
 ```bash

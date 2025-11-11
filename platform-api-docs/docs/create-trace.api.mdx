@@ -5,7 +5,7 @@ description: "Creates a new workflow execution trace."
 sidebar_label: "Create workflow execution trace"
 hide_title: true
 hide_table_of_contents: true
-api: eJytVU1PGzEQ/Ssrn9OEtrSHnAqISqhSQZCqB8TB8U4Sg9dexl5CtNr/3hl7N7shgaqolyjr+XrzPM9Tixy8Ql0G7ayYijMEGcBnMrOwztYOHxbGrTN4BlWxSxZQKhiLkQhy6cX0VsQDcTcSrgSU7HORbxPNonEkSomygADIIbWw9EE+nN6X5EERI6G5/mMFuKGPXVS/O8fMVgWgVpnOwQa90IDk7NUKCimmtQibkhNrG2AZTQuHhQzp6OuxaBoCikBVfDh1+YZjdktFxJmK6LPWk9tVjnLawAGyLI1WsdXJveeoeh+Cm9+DCtw6MjFBg2erkZVVK2Zo6+kDaruMPZcIlBfIGrCChjoD71tGX/qTFSv7MzJ5wEZlGcCrdoTSeR0cbg6au5s/WJnsQQcDHV3prq8TWWRuEscaB50g+NJZn1j4dHS0z/zlj/9Hc0G8yeXhzt/VWgLPvZHH8SH4pzLv5uVf+uiJut2iphl9b3sD/OeIDveQfz5AfCfczLqQSUPcEJ4mjp+qUIdNFO0pSAQ8qcKKPu9YSKTolWOx0yhFkJJtYhKfhEnSEMsT8KlTfoWGPFYhlH46mchSj5VxVT728EggxtoJTtzVvWGaUsvD6tuuOU+nf/6eRyc6SX++d+K/X4fYD9N/3av//FkWpYk0DoTWC3Krr/5oR1YDz4Ga+tPhpA0GUNuFi020F3UTe89Ori72Hr7WdGVk4JcsYyq1ovc5OfOUSRWnbJfYns6RoEHTJr6AC/dtwPNI8K2kOh/Hx1/GR/HdoKssZBzS9pVOEnh1F7zEXPez/y/bJF1ogOcwKY2kXUBYYk91O1bdpqGu02DRnKx47shS13Pp4ReapuHjtER43HLt5dywuhbSeHgD6l9WzEF8D7DZ22JP0lTsGef4SaLm+lEwBBdkTtkYWAo9S+U/zDh7H7v3YjSjLuJEKSjDm75DYV5d3sxYDu2qK1zOMSjXPLP0Szh5cXN0VFk84y1ll1V8YETKyeKRu9p7obXYVWuSdjNASJcTPWbuASxdUMdb4G+CS8n/AMUf9Ko=
+api: eJytVU1PGzEQ/Ssrn9OEtogDpwKiEqpUEKTqAfXgeCeJYdc2Yy8hWu1/74y9m918ACrqJcp6PvzmzbxxLYJceHF6LwJKBeLPSOTgFWoXtDXiVFwgyAA+k5mBVbay+Dgv7CqDF1AVu2QxbixGwjpAyUdX+SZuGpOOhJMoSwiAfFUtDH2QD2fzjjwoYiQ0X/dUAa7FLojfnWNmqhJQq0znYIKea0By9moJpRSntQhrx4m1CbCIprnFUoZ0dHIsmoYKRKBbfDi3+Zpjtq+KiDMV0WetJ+VRllKawP7SuUKrWOnkwXNQvY/Azh5AcaBD5iVo8GwtZGXUkgnaePqA2ixiyQ6B8gJZA1bQUGHgfUvorj9ZsTI/I5EHbHQtA3jVjuCs18Hi+qC56/PBm8kedCigYyu1+rblqmmaRLHGQSUI3lnjEwtfjo72ib/+8f9oLok3uThc+YdKS+C5NvI4PgT/XOYfGZeeqPsNahrRj5Y3wH+JaHEP+dcDxHe6zYwNmSyIG8LTxPFTFeqwjpo9B4mAZ1VY0ucf1hEJemlZ6zRKEaRkm5jEjTBJEmJ1Aj53wq+wII9lCM6fTibS6bEqbJWPPTwRiLG2e9K/i5bsppCBtZxdsH92dnMlGEKH8I4JTeQMcW744Ru7RcHfs+hEJ+nP925LPKxCrJwbdduvicsXWboiEj6QZC/djRL7oy0BDjwHuutPhzM5GFVt5jYW0ba05YKLf48mJl0r2tvJmedRqjiP2y0YEk8jqYu4Kuf2W28gINy/dM/n8cnJ+ChuGGp6KeM4t+s8ieXVN2IXc92r5B9embahAV7CxBWSHg3CEmuq2wHsnjKqOo0gzcmSJ5QsdT2THn5h0TR8nF4bHsxcezkrWIdzWXh4A+o7b9FBfI+w3nvunmVRsWec42eJmu+P0iK4IHPKxsBS6EW6/tOUs/exe7ulGXURZ0qBC2/6DiV8c303ZTm0b2Jpc45BueKZpV/CyS88R0eVxTN+z8yiiqtIpJwsHrmtvR2txapakzTrAUJqTvSY2kcw1KCOt8DfBJeS/wVJ3wL3
 sidebar_class_name: "post api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -54,7 +54,7 @@ Creates a new workflow execution trace.
 
 <RequestSchema
   title={"Body"}
-  body={{"description":"Trace create request.","content":{"application/json":{"schema":{"type":"object","properties":{"launchId":{"type":"string","deprecated":true},"sessionId":{"type":"string"},"runName":{"type":"string"},"projectName":{"type":"string"},"repository":{"type":"string"},"workflowId":{"type":"string"}},"title":"TraceCreateRequest"}}},"required":true}}
+  body={{"description":"Trace create request","content":{"application/json":{"schema":{"type":"object","properties":{"launchId":{"type":"string","deprecated":true},"sessionId":{"type":"string"},"runName":{"type":"string"},"projectName":{"type":"string"},"repository":{"type":"string"},"workflowId":{"type":"string"}},"title":"TraceCreateRequest"}}},"required":true}}
 >
   
 </RequestSchema>
