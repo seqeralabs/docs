@@ -12,7 +12,7 @@
   Description: ""
 - Name: dataStudioToolUrl
   Type: string
-  Req/Opt: Required
+  Req/Opt: Optional
   Description: ""
 - Name: computeEnvId
   Type: string

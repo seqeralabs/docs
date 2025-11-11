@@ -85,29 +85,33 @@
           "getting-started/quickstart-demo/add-data",
           "getting-started/quickstart-demo/launch-pipelines",
           "getting-started/quickstart-demo/monitor-runs",
-          "getting-started/quickstart-demo/automation"
+          "getting-started/quickstart-demo/automation",
+          "getting-started/production-checklist"
         ]
       },    
       {
         "type": "category",
         "label": "Credentials",
-        "items": [
+                "items": [
           "credentials/overview",
           "git/overview",
           {
             "type": "category",
             "label": "Container registry credentials",
+            "link": {"type": "doc", "id": "credentials/container_registry_credentials"},
+            "collapsed": true,
             "items": [
-              "credentials/docker_hub_registry_credentials",
               "credentials/aws_registry_credentials",
               "credentials/azure_registry_credentials",
-              "credentials/google_registry_credentials",
-              "credentials/quay_registry_credentials",
-              "credentials/gitlab_registry_credentials",
+              "credentials/docker_hub_registry_credentials",
+              "credentials/gitea_registry_credentials",
               "credentials/github_registry_credentials",
-              "credentials/gitea_registry_credentials"
+              "credentials/gitlab_registry_credentials",
+              "credentials/google_registry_credentials",
+              "credentials/quay_registry_credentials"
             ]
           },
+          "credentials/data_repositories",
           "credentials/managed_identities",
           "credentials/ssh_credentials",
           "credentials/agent_credentials"
@@ -183,8 +187,10 @@
         "label": "Studios",
         "items": [
           "studios/overview",
+          "studios/add-studio",
+          "studios/container-images",
           "studios/custom-envs",
-          "studios/managing",
+          "studios/managing",        
           "studios/connect"
         ]
       },

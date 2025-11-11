@@ -1,11 +1,11 @@
 ---
 id: create-dataset-v-2
 title: "Create dataset"
-description: "Creates a new dataset in the user context. Include the dataset file and details in your request body. Append `?workspaceId` to create the dataset in a workspace context."
+description: "Creates a new dataset in the user context. Include the dataset name and description in your request body. Append `?workspaceId` to create the dataset in a workspace context."
 sidebar_label: "Create dataset"
 hide_title: true
 hide_table_of_contents: true
-api: eJzdV0tvGzcQ/isEz47kpoGB6tLacQoILRojtttDECCj3ZFEm0syJFeKKui/Z4a7q11JK8Uxckh7MbycB795fJzRWkaYBTl6L3OIEDAG+eFM5hgyr1xU1siRfO0RIgYBwuBS1HpCGRHnKMqAXmTWRPwcB2JsMl3mmCSN4lRpFGBykWMEpQNbrmzphcdPJYYoJjZfDcSlc0hKH39dWv8YHGQ4zj+KaEWWrt9xSR5AbPW218szaR16YNzjfIv8urL6+yXJHXgoMKLnmNfS0Afpda4kHcVBEzS/kvup+Gd7pykL9CoTKkcT1VShJ+WQzbEAOVrLuHLsWBGwWRJNrS8gVkcXr+RmQ2muE3BF8bPN7lU16ib8Wpc8pWhNZAtwTqssxTt8CGy2PsRgJw+YsaHznJ2oMLC0Cn2rFaJXZiY3exEfyEkhqqhxP7vvanwb1mCwyiOVIPoS00Fw1oTq5pfn54fhvv3j+4VWt8nXFVXemwHuaRa0YbyXsCCnXEhCoDR3CbcKa/7FiaRqfsNVx9ui47IPWXV5n6TGd7Jg9+R6bKaW9bst/zRg1s/AqH+37HqS0dEu0xDivaNKYX61+r8n+zSlzmSBuYK7dNpHSEpSxbWedu1ExXovoqJodvP7dKMcNe4aTKzVCKbyOEEdOjLwHviJVBGL8I1ke1bPLECX/RJ6X2iiZNiPXIVrnEKp41Hxiu5U2THxmMB6ZzUczc0zStRplT85s9eT62jT8YKm026nnBgjrZf6IW68HHmlq3eYn2nSedX3El9B/pxp0+VvgSHA7AlEbRRPMumN99YfIP+5Z4Y0w18YGwVobZeEJ2n/0jNgyyocFNT1Bcf4g0ZLwoBZ6VVcpaXlCsGjvyzjnD4/8CJBG83c8sLjbCqaA5bJ4Xanaz3ccggVnK6fLaJ5jK7ZZFKTJyU6qf75vem/h2VMsDk179o95s1nKJzGdsFoSbCb/Za7ih9JBlAn4BY/URnF5c34wKgW3RATmQiCntiFymg1rZS5epCl6pVe18GE0XAYkt1A2e1IGaVrf2sFXd7JnwYXF4NzPuOEFmA68VR8albRfYjrtoX+U3tzXX3+HDoNKr1qKYnrupt2fyHMudHobL2e0Nm915sNH1dbMzdprgJMNBNkCjrgiTR9ZafuRfaIq4O1vZ4OUjIjFuAV358YQnARct7pCFhl+rq6/kUauq3tAek3Z43FZZahiyd1u0y8eXt7x6ypd/vC5mzjYUmH/Jdw8q8Vtk5kTGdrGrJmVqY3QlY+mWOwS9E9SqaompFsVh2EVJykcWcf0VCBmrxF/ia45PwLY2nUgg==
+api: eJzdV0tvGzcQ/isEz4rkpoGB+tL6kQJCi8aI7fYQBMhodyTR5pIMyZWiCvrvneHuSrvSSrGDHNpeDIvz4DffPDi7lhFmQV58kDlECBiD/DiQOYbMKxeVNfJCXnuEiEGAMLgUtZ5QRsQ5ijKgF5k1Eb/EoRibTJc5JkmjaKBAASYXLa9svbKlFx4/lxiimNh8NRSXziEpfvp5af1TcJDhOP8kohVZgtBxSx5AbPW2EORAWoce+JZxvkV/U1n9+ZrkDjxBiug57rVkfKTXupJ0FAdO0PxK7tPx1/ZOUxboVSZUjiaqqUJPDEyFLVSMmA9q1KELuUMYOQ/ZHAuQF2sZV46BKBLN0JNoan0BsTo6fyM3G0pNTdgV8cU2XWh1lA1dtS7fki40kU3AOa2yRNDoMbDd+hCEnTxiFpksz3RGhYGlFVdbrRC9MjO52aPoQE4KUUWN++l4XwEkhU0VmfJIOYu+xHQQnDWhuvn12dlhvO9++36h1Un6uqLKexngvLJgF8YHCQtyypkkBEpzWXFtseYfTCSl8wVXHa+Llss+ZNXlfZIa38mEPZDrsZla1m/3yPOAWT8Do/7etuOzjI5WmYYQHxxlCvOr1f+d7NMtNZAF5gru02lfQxJJVa/1lGsrKtZ7FRVF0+X3+UY5auwaTKzVCKbyOEEdWjLwHnimqohFeGGzfVPNLECX/RKaL/QEZdiPXIUbnEKp41Hxiu5U2THxmMB6ZzUc5eYbUtQqld+Z2ZvJTbTpeEHPWbdSTrwjOy/1IG68HJnS1RzmMU06b/om8RXkzXPzkpHc7t8CQ4DZMxq1UTzZSW+9t/4A+Y89b0izLQhjowCt7ZLwJO2fel7YsgoHBVV9wTH+S6MlYcCs9Cqu0pZzheDRX5ZxTj8/8iZBK9Dc8obkbEqaA5bJ0XYRZA9+0axJpaexJucxunAxGoFTw0zbMh8G/EwEDpU9WJTukkTcUgtwBYpr1heXt2PJ1zfo7pieKtQ2xm20fGOzJqUGSkp0Uv3za1Pbj8uYKGHa3++WpLdfoHAad8vLrsG6aHdzQfEAZgA1uXUcDPxrITJhKqOVr1LmyoAsVUaXvjZp9YuRrv1lJ2j3tPxheH4+POMzTlYBphVP1avNkrkPcb0rz//cIl9XAP8cOQ0qTc1E5Lqu1u5ny5wLmc7W6wmdPXi92fBxtcZzDecqwERzA05BBzxB1Xde8nsjecLVwXdH/VrJ1CIL8Irxpo6l8BBy3jEpkMr0uoL7Ki0BO9uDIbQZNBaXWYYuntRtT4bbd3f33Gn1x0Zhc7bxsKRD/ks4+XOLrVMDp7M1PfpmVqaZJSuf3JfQbeu9Nk5RNSuCWbUQUjKTxr19QkMJbXiL/JvgkvN/AKhmGgo=
 sidebar_class_name: "post api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -36,7 +36,7 @@ import Heading from "@theme/Heading";
 
 
 
-Creates a new dataset in the user context. Include the dataset file and details in your request body. Append `?workspaceId` to create the dataset in a workspace context.
+Creates a new dataset in the user context. Include the dataset name and description in your request body. Append `?workspaceId` to create the dataset in a workspace context.
 
 <Heading
   id={"request"}
@@ -47,14 +47,14 @@ Creates a new dataset in the user context. Include the dataset file and details 
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier. If omitted, creates dataset in a user context.","schema":{"type":"integer","format":"int64"}}]}
 >
   
 </ParamsDetails>
 
 <RequestSchema
   title={"Body"}
-  body={{"description":"Dataset create request","content":{"application/json":{"schema":{"type":"object","properties":{"name":{"type":"string"},"description":{"type":"string"}},"title":"CreateDatasetRequest"}}},"required":true}}
+  body={{"description":"Dataset create request.","content":{"application/json":{"schema":{"type":"object","properties":{"name":{"type":"string"},"description":{"type":"string"}},"title":"CreateDatasetRequest"}}},"required":true}}
 >
   
 </RequestSchema>

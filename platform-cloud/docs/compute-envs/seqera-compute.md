@@ -9,20 +9,20 @@ Seqera Compute enables you to run pipelines and Studio sessions in Seqera Cloud 
 
 ### Manage Seqera Compute credits 
 
-Seqera Compute environments consume credits when running pipelines or Studio sessions. Credits are consumed for CPU time, memory and storage usage, and network costs. One Seqera Compute credit is equivalent to $1 (USD), and resources are charged at the following rates:
-- CPU time: 1 CPU/Hr = 0.1 credits
-- Memory: 1 GiB/Hr = 0.025 credits 
-- Storage: 1 GB = 0.025 credits per month 
-
-:::note 
-Storage and network costs vary per region, charged at standard AWS rates. Data ingress and egress across regions incur additional costs. 
-:::
-
-View your Seqera Compute credit balance and spend under both the organization and workspace **Settings** tabs. Workspace settings show the credits spent in that workspace, whereas organization settings show the total credits spent in all workspaces within that organization. 
-
-Select **Contact us to upgrade** to request additional credits for your organization. 
+Seqera Compute uses prepaid credits with real-time billing. Credits are deducted as tasks complete. See [Billing and credit management](../administration/credit-management.md) for details.
 
 ### Default limits
+
+#### Compute environment limits
+
+Seqera Compute environments automatically provision cloud resources when you launch pipelines or Studios. The maximum resources that can be allocated to a Seqera Compute environment are:
+
+- 48 vCPUs
+- 192 GiB memory
+
+Running workflows that request resources exceeding these limits will result in errors. 
+
+#### Workspace limits
 
 Seqera Compute has default workspace limits on compute environments, and organization limits on data storage and CPU cores. 
 
@@ -45,22 +45,14 @@ Seqera Compute has default workspace limits on compute environments, and organiz
     :::info
     Seqera Compute is available in the following AWS regions: 
 
-      **United States**:
-      - us-east-1 (Northern Virginia, USA)
-      - us-west-2 (Oregon, USA)
-      - us-east-2 (Ohio, USA)
-      - us-west-1 (Northern California, USA)
-      
-      **Europe**:
-      - eu-west-1 (Ireland)
-      - eu-west-2 (London, UK)
-      - eu-central-1 (Frankfurt, Germany)
-      - eu-west-3 (Paris, France)
-      
-      **APAC**:
-      - ap-southeast-1 (Singapore)
+    | United States | Europe | APAC |
+    |--------------|--------|------|
+    | us-east-1 (Northern Virginia, USA) | eu-west-1 (Ireland) | ap-southeast-1 (Singapore) |
+    | us-west-2 (Oregon, USA) | eu-west-2 (London, UK) | |
+    | us-east-2 (Ohio, USA) | eu-central-1 (Frankfurt, Germany) | |
+    | us-west-1 (Northern California, USA) | eu-west-3 (Paris, France) | |
     :::
-1. Configure any advanced options described in the next section, as needed.
+1. Configure any [advanced options](#advanced-options-optional) described in the next section, as needed.
 1. Select **Add** to complete the Seqera Compute environment configuration and return to the compute environments list. It will take a few seconds for the compute environment resources to be created before you are ready to launch pipelines or add studios. 
 
 :::info 
