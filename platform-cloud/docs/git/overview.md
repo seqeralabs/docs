@@ -84,11 +84,12 @@ To enable Seqera AI to interact with your pipeline GitHub repositories:
    - Create a new token with the following permissions:
      - **Pull Requests**: Read & Write
      - **Contents**: Read & Write
+   - Your token value will be displayed only once. Copy it before navigating away from the tokens page.
 
 2. **Add the token to Seqera AI**
    - Open [Seqera AI](https://seqera.io/ask-ai/chat-v2).
-   - In the left sidebar, select **Connect** under **Access tokens**.
-   - Enter your personal access token, then select **Update**.
+   - In the bottom-left user menu, select **Add token**.
+   - Enter your personal access token in the field provided, then select **Set token**.
 
 ### Capabilities
 
@@ -175,6 +176,8 @@ To connect to a private [Gitea](https://gitea.io/) repository, use your Gitea us
 To connect to a private BitBucket repository, see [API tokens](https://support.atlassian.com/bitbucket-cloud/docs/api-tokens/) to learn how to create a BitBucket API token (the API token must have at least `read:repository:bitbucket` scope). Then, create a new credential in Seqera with these steps:
 
 :::warning
+API tokens are tied to users. This differs from access tokens, which are tied to a specific resource. While Seqera supports API tokens, access tokens are not supported for accessing BitBucket repositories.
+
 API tokens replace [app passwords](https://support.atlassian.com/bitbucket-cloud/docs/app-passwords/), which can no longer be created after September 9, 2025 and will be phased out June 9, 2026. While app passwords are still supported, they are not recommended. See [Bitbucket Cloud transitions to API tokens](https://www.atlassian.com/blog/bitbucket/bitbucket-cloud-transitions-to-api-tokens-enhancing-security-with-app-password-deprecation) for more information.
 :::
 
