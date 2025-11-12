@@ -42,7 +42,8 @@ To create a Studio with custom Conda packages, see [Add a Studio][add-s].
 For advanced use cases, you can build your own container template image.
 
 :::note
-Public container registries are supported by default. Amazon Elastic Container Registry (ECR) is the only supported private container registry.
+Public container registries are supported by default. 
+Private container registries have limited support. Only private Amazon Elastic Container Registry (ECR) is supported, and only on AWS-based compute environments, where the registry is in the same AWS account as the compute environment. Access to the ECR is automatically configured when creating the compute environment.
 :::
 
 :::info[**Prerequisites**]
