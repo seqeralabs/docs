@@ -1,7 +1,8 @@
 ---
 title: "CloudFormation deployment (deprecated)"
 description: Deploy Tower to ECS using CloudFormation
-date: "12 Apr 2023"
+date created: "2023-04-12"
+last updated: "2025-08-20"
 tags: [ecs, cloudformation, deployment]
 ---
 
@@ -15,16 +16,14 @@ This guide assumes that all [prerequisites](../prerequisites/aws) have been met.
 ## Set up an ECS cluster
 
 1. Navigate to the ECS console in AWS.
-
 2. Select **Create cluster**.
-
 3. Select **Amazon ECS > Clusters > EC2 Linux + Networking**.
 
-### ECS Cluster Configuration
+### ECS Cluster configuration
 
 - Name: _nf-tower_
 
-**Instance Configuration**
+**Instance configuration**
 
 - Provisioning Model: On-Demand
 - EC2 instance type: c4.2xlarge
@@ -33,7 +32,7 @@ This guide assumes that all [prerequisites](../prerequisites/aws) have been met.
 - Root EBS Volume Size (GiB): none
 - Key pair: none
 
-### Networking Configuration
+### Networking configuration
 
 - Create a new VPC
 
