@@ -405,7 +405,7 @@ actions:
   
   - target: "$.components.schemas.DataStudioCheckpointDto.properties.status"
     update:
-      description: "Checkpoint status. Possible values: `pending`, `finalized`, `failed`."
+      description: "Checkpoint status."
   
   - target: "$.components.schemas.DataStudioCheckpointDto.properties.savedDate"
     update:
