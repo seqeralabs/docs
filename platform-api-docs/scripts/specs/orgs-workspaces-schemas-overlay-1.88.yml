@@ -1,0 +1,722 @@
+overlay: 1.0.0
+info:
+  title: Organizations, workspaces, teams, and users schemas overlay
+  version: 0.0.0
+actions:
+  # ===== ORGANIZATIONS - REQUEST SCHEMAS =====
+  
+  # ---- CreateOrganizationRequest ----
+  
+  - target: "$.components.schemas.CreateOrganizationRequest.properties.organization"
+    update:
+      description: "Organization details to create, including name, full name, and optional description, location, and website."
+  
+  - target: "$.components.schemas.CreateOrganizationRequest.properties.logoId"
+    update:
+      type: string
+      description: "Logo image identifier for the organization. See [Create avatar](https://docs.seqera.io/platform-api/create-avatar) to upload images and obtain a logo ID."
+  
+  # ---- UpdateOrganizationRequest ----
+  
+  - target: "$.components.schemas.UpdateOrganizationRequest.properties.organization"
+    update:
+      description: "Updated organization details, including full name, description, location, and website."
+  
+  - target: "$.components.schemas.UpdateOrganizationRequest.properties.logoId"
+    update:
+      type: string
+      description: "Updated logo image identifier for the organization. See [Create avatar](https://docs.seqera.io/platform-api/create-avatar) to upload images and obtain a logo ID."
+  
+  # ---- AddMemberRequest ----
+  
+  - target: "$.components.schemas.AddMemberRequest.properties.user"
+    update:
+      type: string
+      description: "Username or email address of the user to add as an organization member."
+  
+  # ---- UpdateMemberRoleRequest ----
+  
+  - target: "$.components.schemas.UpdateMemberRoleRequest.properties.role"
+    update:
+      description: "Updated organization role for the member. Accepts `owner`, `admin`, `maintain`, or `view`. See [Organization user roles](https://docs.seqera.io/platform-cloud/orgs-and-teams/roles#organization-user-roles) for more information."
+  
+  # ===== ORGANIZATIONS - RESPONSE SCHEMAS =====
+  
+  # ---- CreateOrganizationResponse ----
+  
+  - target: "$.components.schemas.CreateOrganizationResponse.properties.organization"
+    update:
+      description: "Details of the newly created organization."
+  
+  # ---- DescribeOrganizationResponse ----
+  
+  - target: "$.components.schemas.DescribeOrganizationResponse.properties.organization"
+    update:
+      description: "Organization details including ID, name, full name, description, location, website, logo, member role, and organization type."
+  
+  # ---- ListOrganizationsResponse ----
+  
+  - target: "$.components.schemas.ListOrganizationsResponse.properties.organizations"
+    update:
+      description: "Array of organizations to which the requesting user belongs."
+  
+  - target: "$.components.schemas.ListOrganizationsResponse.properties.totalSize"
+    update:
+      type: integer
+      format: int32
+      description: "Total number of organizations to which the requesting user belongs."
+  
+  # ---- AddMemberResponse ----
+  
+  - target: "$.components.schemas.AddMemberResponse.properties.member"
+    update:
+      description: "Details of the newly added organization member."
+  
+  # ---- ListMembersResponse ----
+  
+  - target: "$.components.schemas.ListMembersResponse.properties.members"
+    update:
+      description: "Array of organization members matching the query criteria."
+  
+  - target: "$.components.schemas.ListMembersResponse.properties.totalSize"
+    update:
+      type: integer
+      format: int32
+      description: "Total number of members in the organization."
+  
+  # ---- DescribeOrganizationQuotasResponse ----
+  
+  - target: "$.components.schemas.DescribeOrganizationQuotasResponse.properties.quotas"
+    update:
+      description: "Resource quotas and usage limits for the organization."
+  
+  # ===== WORKSPACES - REQUEST SCHEMAS =====
+  
+  # ---- CreateWorkspaceRequest ----
+  
+  - target: "$.components.schemas.CreateWorkspaceRequest.properties.workspace"
+    update:
+      description: "Workspace details to create, including name, full name, description, and visibility."
+  
+  # ---- UpdateWorkspaceRequest ----
+  
+  - target: "$.components.schemas.UpdateWorkspaceRequest.properties.workspace"
+    update:
+      description: "Updated workspace details, including full name, description, and visibility."
+  
+  # ---- AddParticipantRequest ----
+  
+  - target: "$.components.schemas.AddParticipantRequest.properties.memberId"
+    update:
+      type: integer
+      format: int64
+      description: "Organization member numeric identifier to add as a workspace participant. Provide either `memberId` or `teamId`."
+  
+  - target: "$.components.schemas.AddParticipantRequest.properties.teamId"
+    update:
+      type: integer
+      format: int64
+      description: "Team numeric identifier to add as a workspace participant. Provide either `memberId` or `teamId`."
+  
+  - target: "$.components.schemas.AddParticipantRequest.properties.userNameOrEmail"
+    update:
+      type: string
+      description: "Username or email address of the user to add as a workspace participant. Alternative to providing `memberId`."
+  
+  # ---- UpdateParticipantRoleRequest ----
+  
+  - target: "$.components.schemas.UpdateParticipantRoleRequest.properties.role"
+    update:
+      description: "Updated workspace role for the participant. Accepts `owner`, `admin`, `maintain`, `launch`, `connect`, or `view`. See [Workspace participant roles](https://docs.seqera.io/platform-cloud/orgs-and-teams/roles#workspace-participant-roles) for more information."
+  
+  # ===== WORKSPACES - RESPONSE SCHEMAS =====
+  
+  # ---- CreateWorkspaceResponse ----
+  
+  - target: "$.components.schemas.CreateWorkspaceResponse.properties.workspace"
+    update:
+      description: "Details of the newly created workspace."
+  
+  # ---- DescribeWorkspaceResponse ----
+  
+  - target: "$.components.schemas.DescribeWorkspaceResponse.properties.workspace"
+    update:
+      description: "Workspace details including ID, name, full name, description, visibility, and timestamps."
+  
+  # ---- ListWorkspacesResponse ----
+  
+  - target: "$.components.schemas.ListWorkspacesResponse.properties.workspaces"
+    update:
+      description: "Array of workspaces in the organization to which the requesting user belongs."
+  
+  - target: "$.components.schemas.ListWorkspacesResponse.properties.totalSize"
+    update:
+      type: integer
+      format: int32
+      description: "Total number of workspaces in the organization to which the requesting user belongs."
+  
+  # ---- AddParticipantResponse ----
+  
+  - target: "$.components.schemas.AddParticipantResponse.properties.participant"
+    update:
+      description: "Details of the newly added workspace participant."
+  
+  # ---- ListParticipantsResponse ----
+  
+  - target: "$.components.schemas.ListParticipantsResponse.properties.participants"
+    update:
+      description: "Array of workspace participants matching the query criteria."
+  
+  - target: "$.components.schemas.ListParticipantsResponse.properties.totalSize"
+    update:
+      type: integer
+      format: int32
+      description: "Total number of participants in the workspace."
+  
+  # ---- DataStudioWorkspaceSettingsResponse ----
+  
+  - target: "$.components.schemas.DataStudioWorkspaceSettingsResponse.properties.settings"
+    update:
+      description: "Studios configuration settings for the workspace, including default compute environment, work directory, and mount paths."
+  
+  # ---- ListWorkspacesAndOrgResponse ----
+  
+  - target: "$.components.schemas.ListWorkspacesAndOrgResponse.properties.orgsAndWorkspaces"
+    update:
+      description: "Array of organizations and their associated workspaces to which the user belongs."
+  
+  # ===== TEAMS - REQUEST SCHEMAS =====
+  
+  # ---- CreateTeamRequest ----
+  
+  - target: "$.components.schemas.CreateTeamRequest.properties.team"
+    update:
+      description: "Team details to create, including name and optional description."
+  
+  - target: "$.components.schemas.CreateTeamRequest.properties.avatarId"
+    update:
+      type: string
+      description: "Avatar image identifier for the team. See [Create avatar](https://docs.seqera.io/platform-api/create-avatar) to upload images and obtain an avatar ID."
+  
+  # ---- UpdateTeamRequest ----
+  
+  - target: "$.components.schemas.UpdateTeamRequest.properties.team"
+    update:
+      description: "Updated team details, including name and description."
+  
+  - target: "$.components.schemas.UpdateTeamRequest.properties.avatarId"
+    update:
+      type: string
+      description: "Updated avatar image identifier for the team. See [Create avatar](https://docs.seqera.io/platform-api/create-avatar) to upload images and obtain an avatar ID."
+  
+  # ---- CreateTeamMemberRequest ----
+  
+  - target: "$.components.schemas.CreateTeamMemberRequest.properties.userNameOrEmail"
+    update:
+      type: string
+      description: "Username or email address of the organization member to add to the team."
+  
+  # ===== TEAMS - RESPONSE SCHEMAS =====
+  
+  # ---- CreateTeamResponse ----
+  
+  - target: "$.components.schemas.CreateTeamResponse.properties.team"
+    update:
+      description: "Details of the newly created team."
+  
+  # ---- DescribeTeamResponse ----
+  
+  - target: "$.components.schemas.DescribeTeamResponse.properties.team"
+    update:
+      description: "Team details including ID, name, description, avatar, and member count."
+  
+  # ---- ListTeamResponse ----
+  
+  - target: "$.components.schemas.ListTeamResponse.properties.teams"
+    update:
+      description: "Array of teams in the organization matching the query criteria."
+  
+  - target: "$.components.schemas.ListTeamResponse.properties.totalSize"
+    update:
+      type: integer
+      format: int32
+      description: "Total number of teams in the organization."
+  
+  # ---- AddTeamMemberResponse ----
+  
+  - target: "$.components.schemas.AddTeamMemberResponse.properties.member"
+    update:
+      description: "Details of the organization member added to the team."
+  
+  # ---- ListWorkspacesByTeamResponse ----
+  
+  - target: "$.components.schemas.ListWorkspacesByTeamResponse.properties.workspaces"
+    update:
+      description: "Array of workspaces where the team is a participant."
+  
+  - target: "$.components.schemas.ListWorkspacesByTeamResponse.properties.totalSize"
+    update:
+      type: integer
+      format: int32
+      description: "Total number of workspaces where the team is a participant."
+  
+  # ===== USER - RESPONSE SCHEMAS =====
+  
+  # ---- DescribeUserResponse ----
+  
+  - target: "$.components.schemas.DescribeUserResponse.properties.user"
+    update:
+      description: "User details including ID, username, email, first name, last name, avatar, and organization membership."
+  
+  # ===== DOMAIN OBJECTS AND DTOS =====
+  
+  # ---- Organization ----
+  
+  - target: "$.components.schemas.Organization.properties.id"
+    update:
+      type: integer
+      format: int64
+      nullable: true
+      readOnly: true
+      description: "Organization numeric identifier."
+  
+  - target: "$.components.schemas.Organization.properties.name"
+    update:
+      maxLength: 40
+      pattern: "^[a-zA-Z\\d](?:[a-zA-Z\\d]|[-_](?=[a-zA-Z\\d])){1,38}$"
+      type: string
+      description: "Unique organization name. Must be 2-40 characters, start and end with alphanumeric characters, and can contain hyphens or underscores between characters."
+  
+  - target: "$.components.schemas.Organization.properties.fullName"
+    update:
+      maxLength: 100
+      type: string
+      description: "Full display name for the organization. Maximum 100 characters."
+  
+  - target: "$.components.schemas.Organization.properties.description"
+    update:
+      maxLength: 1000
+      type: string
+      description: "Optional description of the organization. Maximum 1000 characters."
+  
+  - target: "$.components.schemas.Organization.properties.location"
+    update:
+      maxLength: 100
+      type: string
+      description: "Optional location or address for the organization. Maximum 100 characters."
+  
+  - target: "$.components.schemas.Organization.properties.website"
+    update:
+      type: string
+      description: "Optional website URL for the organization."
+  
+  - target: "$.components.schemas.Organization.properties.dateCreated"
+    update:
+      type: string
+      format: date-time
+      readOnly: true
+      description: "Timestamp when the organization was created."
+  
+  - target: "$.components.schemas.Organization.properties.lastUpdated"
+    update:
+      type: string
+      format: date-time
+      readOnly: true
+      description: "Timestamp when the organization was last updated."
+  
+  # ---- OrganizationDbDto ----
+  
+  - target: "$.components.schemas.OrganizationDbDto.properties.orgId"
+    update:
+      type: integer
+      format: int64
+      description: "Organization numeric identifier."
+  
+  - target: "$.components.schemas.OrganizationDbDto.properties.name"
+    update:
+      type: string
+      description: "Unique organization name."
+  
+  - target: "$.components.schemas.OrganizationDbDto.properties.fullName"
+    update:
+      type: string
+      description: "Full display name for the organization."
+  
+  - target: "$.components.schemas.OrganizationDbDto.properties.description"
+    update:
+      type: string
+      description: "Organization description."
+  
+  - target: "$.components.schemas.OrganizationDbDto.properties.location"
+    update:
+      type: string
+      description: "Organization location or address."
+  
+  - target: "$.components.schemas.OrganizationDbDto.properties.website"
+    update:
+      type: string
+      description: "Organization website URL."
+  
+  - target: "$.components.schemas.OrganizationDbDto.properties.logoId"
+    update:
+      type: string
+      description: "Logo image identifier for the organization."
+  
+  - target: "$.components.schemas.OrganizationDbDto.properties.logoUrl"
+    update:
+      type: string
+      description: "Full URL to the organization logo image."
+  
+  - target: "$.components.schemas.OrganizationDbDto.properties.memberId"
+    update:
+      type: integer
+      format: int64
+      description: "Member numeric identifier for the requesting user within this organization."
+  
+  - target: "$.components.schemas.OrganizationDbDto.properties.memberRole"
+    update:
+      description: "Organization role of the requesting user. Accepts `owner`, `admin`, `maintain`, or `view`. See [Organization user roles](https://docs.seqera.io/platform-cloud/orgs-and-teams/roles#organization-user-roles) for more information."
+  
+  - target: "$.components.schemas.OrganizationDbDto.properties.type"
+    update:
+      description: "Organization type. Accepts `PERSONAL` or `COLLABORATION`."
+  
+  # ---- OrganizationQuotas ----
+  
+  - target: "$.components.schemas.OrganizationQuotas.properties.maxWorkspaces"
+    update:
+      type: integer
+      format: int64
+      description: "Maximum number of workspaces allowed in the organization."
+  
+  - target: "$.components.schemas.OrganizationQuotas.properties.maxMembers"
+    update:
+      type: integer
+      format: int64
+      description: "Maximum number of members allowed in the organization."
+  
+  - target: "$.components.schemas.OrganizationQuotas.properties.maxTeams"
+    update:
+      type: integer
+      format: int64
+      description: "Maximum number of teams allowed in the organization."
+  
+  - target: "$.components.schemas.OrganizationQuotas.properties.maxPipelinesPerWorkspace"
+    update:
+      type: integer
+      format: int64
+      description: "Maximum number of pipelines allowed per workspace."
+  
+  - target: "$.components.schemas.OrganizationQuotas.properties.maxParticipantsPerWorkspace"
+    update:
+      type: integer
+      format: int64
+      description: "Maximum number of participants allowed per workspace."
+  
+  - target: "$.components.schemas.OrganizationQuotas.properties.maxDatasetsPerWorkspace"
+    update:
+      type: integer
+      format: int64
+      description: "Maximum number of datasets allowed per workspace."
+  
+  - target: "$.components.schemas.OrganizationQuotas.properties.maxVersionsPerDataset"
+    update:
+      type: integer
+      format: int64
+      description: "Maximum number of versions allowed per dataset."
+  
+  - target: "$.components.schemas.OrganizationQuotas.properties.maxRuns"
+    update:
+      type: integer
+      format: int64
+      description: "Maximum number of concurrent workflow runs allowed."
+  
+  - target: "$.components.schemas.OrganizationQuotas.properties.maxRunHistory"
+    update:
+      type: integer
+      format: int64
+      description: "Maximum number of workflow runs to retain in history."
+  
+  - target: "$.components.schemas.OrganizationQuotas.properties.maxLabelsPerWorkspace"
+    update:
+      type: integer
+      format: int64
+      description: "Maximum number of labels allowed per workspace."
+  
+  - target: "$.components.schemas.OrganizationQuotas.properties.maxDataStudiosRunning"
+    update:
+      type: integer
+      format: int64
+      description: "Maximum number of Studios instances that can run concurrently."
+  
+  - target: "$.components.schemas.OrganizationQuotas.properties.maxSeqeraComputeComputeEnvs"
+    update:
+      type: integer
+      format: int64
+      description: "Maximum number of Seqera Compute environments allowed per organization."
+  
+  - target: "$.components.schemas.OrganizationQuotas.properties.maxFusionThroughputBytes"
+    update:
+      type: integer
+      format: int64
+      description: "Maximum Fusion throughput in bytes allowed."
+  
+  # ---- Workspace ----
+  
+  - target: "$.components.schemas.Workspace.properties.id"
+    update:
+      type: integer
+      format: int64
+      nullable: true
+      description: "Workspace numeric identifier."
+  
+  - target: "$.components.schemas.Workspace.properties.name"
+    update:
+      maxLength: 40
+      pattern: "^[a-zA-Z\\d](?:[a-zA-Z\\d]|[-_](?=[a-zA-Z\\d])){1,38}$"
+      type: string
+      description: "Unique workspace name within the organization. Must be 2-40 characters, start and end with alphanumeric characters, and can contain hyphens or underscores between characters."
+  
+  - target: "$.components.schemas.Workspace.properties.fullName"
+    update:
+      maxLength: 100
+      type: string
+      description: "Full display name for the workspace. Maximum 100 characters."
+  
+  - target: "$.components.schemas.Workspace.properties.description"
+    update:
+      maxLength: 1000
+      type: string
+      description: "Optional description of the workspace. Maximum 1000 characters."
+  
+  - target: "$.components.schemas.Workspace.properties.visibility"
+    update:
+      description: "Workspace visibility setting. Accepts `PRIVATE` (only participants can access) or `SHARED` (all organization members can view)."
+  
+  - target: "$.components.schemas.Workspace.properties.dateCreated"
+    update:
+      type: string
+      format: date-time
+      description: "Timestamp when the workspace was created."
+  
+  - target: "$.components.schemas.Workspace.properties.lastUpdated"
+    update:
+      type: string
+      format: date-time
+      description: "Timestamp when the workspace was last updated."
+  
+  # ---- WorkspaceDbDto ----
+  
+  - target: "$.components.schemas.WorkspaceDbDto.properties.id"
+    update:
+      type: integer
+      format: int64
+      description: "Workspace numeric identifier."
+  
+  - target: "$.components.schemas.WorkspaceDbDto.properties.name"
+    update:
+      type: string
+      description: "Unique workspace name within the organization."
+  
+  - target: "$.components.schemas.WorkspaceDbDto.properties.fullName"
+    update:
+      type: string
+      description: "Full display name for the workspace."
+  
+  - target: "$.components.schemas.WorkspaceDbDto.properties.description"
+    update:
+      type: string
+      description: "Workspace description."
+  
+  - target: "$.components.schemas.WorkspaceDbDto.properties.visibility"
+    update:
+      description: "Workspace visibility setting. Accepts `PRIVATE` or `SHARED`."
+  
+  # ---- MemberDbDto ----
+  
+  - target: "$.components.schemas.MemberDbDto.properties.memberId"
+    update:
+      type: integer
+      format: int64
+      description: "Member numeric identifier."
+  
+  - target: "$.components.schemas.MemberDbDto.properties.userName"
+    update:
+      type: string
+      description: "Username of the organization member."
+  
+  - target: "$.components.schemas.MemberDbDto.properties.email"
+    update:
+      type: string
+      description: "Email address of the organization member."
+  
+  - target: "$.components.schemas.MemberDbDto.properties.firstName"
+    update:
+      type: string
+      description: "First name of the organization member."
+  
+  - target: "$.components.schemas.MemberDbDto.properties.lastName"
+    update:
+      type: string
+      description: "Last name of the organization member."
+  
+  - target: "$.components.schemas.MemberDbDto.properties.avatar"
+    update:
+      type: string
+      description: "Avatar image URL for the organization member."
+  
+  - target: "$.components.schemas.MemberDbDto.properties.orgRole"
+    update:
+      description: "Organization role of the member. Accepts `owner`, `admin`, `maintain`, or `view`. See [Organization user roles](https://docs.seqera.io/platform-cloud/orgs-and-teams/roles#organization-user-roles) for more information."
+  
+  # ---- ParticipantResponseDto ----
+  
+  - target: "$.components.schemas.ParticipantResponseDto.properties.participantId"
+    update:
+      type: integer
+      format: int64
+      description: "Participant numeric identifier."
+  
+  - target: "$.components.schemas.ParticipantResponseDto.properties.memberId"
+    update:
+      type: integer
+      format: int64
+      description: "Organization member numeric identifier if the participant is an individual user."
+  
+  - target: "$.components.schemas.ParticipantResponseDto.properties.userName"
+    update:
+      type: string
+      description: "Username if the participant is an individual user."
+  
+  - target: "$.components.schemas.ParticipantResponseDto.properties.firstName"
+    update:
+      type: string
+      description: "First name if the participant is an individual user."
+  
+  - target: "$.components.schemas.ParticipantResponseDto.properties.lastName"
+    update:
+      type: string
+      description: "Last name if the participant is an individual user."
+  
+  - target: "$.components.schemas.ParticipantResponseDto.properties.email"
+    update:
+      type: string
+      description: "Email address if the participant is an individual user."
+  
+  - target: "$.components.schemas.ParticipantResponseDto.properties.avatar"
+    update:
+      type: string
+      description: "Avatar image URL for the participant."
+  
+  - target: "$.components.schemas.ParticipantResponseDto.properties.wspRole"
+    update:
+      description: "Workspace role of the participant. Accepts `owner`, `admin`, `maintain`, `launch`, `connect`, or `view`. See [Workspace participant roles](https://docs.seqera.io/platform-cloud/orgs-and-teams/roles#workspace-participant-roles) for more information."
+  
+  - target: "$.components.schemas.ParticipantResponseDto.properties.teamId"
+    update:
+      type: integer
+      format: int64
+      description: "Team numeric identifier if the participant is a team."
+  
+  - target: "$.components.schemas.ParticipantResponseDto.properties.teamName"
+    update:
+      type: string
+      description: "Team name if the participant is a team."
+  
+  - target: "$.components.schemas.ParticipantResponseDto.properties.teamAvatar"
+    update:
+      type: string
+      description: "Team avatar image URL if the participant is a team."
+  
+  # ---- WorkspaceParticipantResponseDto ----
+  
+  - target: "$.components.schemas.WorkspaceParticipantResponseDto.properties.orgId"
+    update:
+      type: integer
+      format: int64
+      description: "Organization numeric identifier."
+  
+  - target: "$.components.schemas.WorkspaceParticipantResponseDto.properties.orgName"
+    update:
+      type: string
+      description: "Organization name."
+  
+  - target: "$.components.schemas.WorkspaceParticipantResponseDto.properties.workspaceId"
+    update:
+      type: integer
+      format: int64
+      description: "Workspace numeric identifier."
+  
+  - target: "$.components.schemas.WorkspaceParticipantResponseDto.properties.workspaceName"
+    update:
+      type: string
+      description: "Workspace name."
+  
+  - target: "$.components.schemas.WorkspaceParticipantResponseDto.properties.workspaceFullName"
+    update:
+      type: string
+      description: "Workspace full display name."
+  
+  - target: "$.components.schemas.WorkspaceParticipantResponseDto.properties.participantId"
+    update:
+      type: integer
+      format: int64
+      description: "Participant numeric identifier."
+  
+  - target: "$.components.schemas.WorkspaceParticipantResponseDto.properties.participantRole"
+    update:
+      type: string
+      description: "Workspace role of the participant. Accepts `owner`, `admin`, `maintain`, `launch`, `connect`, or `view`. See [Workspace participant roles](https://docs.seqera.io/platform-cloud/orgs-and-teams/roles#workspace-participant-roles) for more information."
+  
+  # ---- Team ----
+  
+  - target: "$.components.schemas.Team.properties.id"
+    update:
+      type: integer
+      format: int64
+      nullable: true
+      description: "Team numeric identifier."
+  
+  - target: "$.components.schemas.Team.properties.name"
+    update:
+      type: string
+      description: "Unique team name within the organization."
+  
+  - target: "$.components.schemas.Team.properties.description"
+    update:
+      type: string
+      description: "Optional description of the team."
+  
+  # ---- TeamDbDto ----
+  
+  - target: "$.components.schemas.TeamDbDto.properties.teamId"
+    update:
+      type: integer
+      format: int64
+      description: "Team numeric identifier."
+  
+  - target: "$.components.schemas.TeamDbDto.properties.name"
+    update:
+      type: string
+      description: "Team name."
+  
+  - target: "$.components.schemas.TeamDbDto.properties.description"
+    update:
+      type: string
+      description: "Team description."
+  
+  - target: "$.components.schemas.TeamDbDto.properties.avatarId"
+    update:
+      type: string
+      description: "Avatar image identifier for the team."
+  
+  - target: "$.components.schemas.TeamDbDto.properties.avatarUrl"
+    update:
+      type: string
+      description: "Full URL to the team avatar image."
+  
+  - target: "$.components.schemas.TeamDbDto.properties.membersCount"
+    update:
+      type: integer
+      format: int32
+      description: "Number of members in the team."
