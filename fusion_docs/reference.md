@@ -21,7 +21,7 @@ The following options are available:
 | `fusion.logOutput`                | Location for log output.                                                                                                                                                                                  |
 | `fusion.privileged`               | _New in version 23.10.0_.<br /> If `true`, enables privileged containers. Non-privileged use is supported only on Kubernetes with the `k8s-fuse-plugin` or a similar FUSE device plugin. Default: `true`. |
 | `fusion.snapshots`                | _New in version 25.03.0-edge_.<br /> If `true`, enables Fusion Snapshots. AWS Batch only. Preview feature. Default: `false`.                                                                              |
-| `fusion.tags`                     | Pattern for tagging files created via the Fusion client. Set to `false` to disable. Default: `[.command.*\|.exitcode\|.fusion.*](nextflow.io/metadata=true),[*](nextflow.io/temporary=true)`.             |
+| `fusion.tags`                     | Tag pattern for files created via the Fusion client. When false, disables file tagging. Default: `[.command.*\|.exitcode\|.fusion.*](nextflow.io/metadata=true),[*](nextflow.io/temporary=true)`.             |
 
 :::note
 See [Configuration options](https://www.nextflow.io/docs/latest/reference/config.html#configuration-options) for a full list of Nextflow configuration options.
