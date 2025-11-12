@@ -37,7 +37,7 @@ actions:
   - target: "$.paths./studios/{sessionId}.delete.description"
     update: "Deletes the Studio associated with the given Studio session ID. Append `?workspaceId=` to delete a Studio in a workspace context."
   
-  # ---- UPDATE STUDIO ----
+  # ---- UPDATE STUDIO -----
   
   - target: "$.paths./studios/{sessionId}.put.summary"
     update: "Update Studio"
