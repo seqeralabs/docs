@@ -54,7 +54,7 @@ actions:
   
   - target: "$.components.schemas.DataStudioCreateRequest.properties.lifespanHours"
     update:
-      description: "Number of hours the Studio session will run before automatically stopping. Minimum: 1 hour, Maximum: 120 hours, Default: 8 hours."
+      description: "Number of hours the Studio session will run before automatically stopping. Set `0` for infinite lifespan. Default: `8` hours."
   
   - target: "$.components.schemas.DataStudioCreateRequest.properties.condaEnvironment"
     update:
@@ -235,7 +235,7 @@ actions:
   
   - target: "$.components.schemas.DataStudioDto.properties.appliedLifespanHours"
     update:
-      description: "Number of hours already consumed from the effective lifespan."
+      description: "The Studio's lifespan allocation at creation time, in hours."
   
   - target: "$.components.schemas.DataStudioDto.properties.remainingLifespanHours"
     update:
@@ -365,7 +365,7 @@ actions:
   
   - target: "$.components.schemas.DataStudioStatusInfo.properties.appliedLifespanHours"
     update:
-      description: "Number of hours already consumed from the Studio's lifespan allocation."
+      description: "The Studio's lifespan allocation at creation time, in hours."
   
   - target: "$.components.schemas.DataStudioStatusInfo.properties.remainingLifespanHours"
     update:

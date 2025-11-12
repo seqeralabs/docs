@@ -101,22 +101,6 @@ actions:
   - target: "$.paths./studios/data-links.get.description"
     update: "Lists the IDs of all available data-links mounted in existing Studios. Append `?orgId=` or `?workspaceId=` to list mounted data-links in an organization or workspace context, respectively."
   
-  # ---- CONNECT TO STUDIO ----
-  
-  - target: "$.paths./studios/{sessionId}/connect.get.summary"
-    update: "Connect to Studio"
-  
-  - target: "$.paths./studios/{sessionId}/connect.get.description"
-    update: "Generates a connection token to access the given Studio session ID. Append `?workspaceId=` to connect to a Studio in a workspace context."
-  
-  # ---- GET STUDIO CONNECTION TOKEN ----
-  
-  - target: "$.paths./studios/{sessionId}/session-init-token.get.summary"
-    update: "Get Studio connection token"
-  
-  - target: "$.paths./studios/{sessionId}/session-init-token.get.description"
-    update: "Retrieves the session initialization token for the given Studio session ID. This token is used by the Studio client to authenticate with the Studio service. Append `?workspaceId=` to get the token for a Studio in a workspace context."
-  
   # ---- LIST STUDIO CHECKPOINTS ----
   
   - target: "$.paths./studios/{sessionId}/checkpoints.get.summary"
