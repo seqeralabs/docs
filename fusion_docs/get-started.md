@@ -32,9 +32,9 @@ This section describes how to enable Fusion in your Nextflow pipelines. It inclu
 :::info[Prerequisites]
 You will need the following to get started:
 
-- Nextflow 22.10.0 or later installed locally. See [Updating Nextflow](https://www.nextflow.io/docs/latest/updating-nextflow.html) to update
-- A Seqera account
-- A container runtime or container computing service (e.g., Kubernetes, AWS Batch, or Google Cloud Batch.)
+- Nextflow 22.10.0 or later installed locally. See [Updating Nextflow](https://www.nextflow.io/docs/latest/updating-nextflow.html) to update.
+- A Seqera account.
+- A container runtime or container computing service (e.g., Kubernetes, AWS Batch, or Google Cloud Batch).
 
 :::
 
