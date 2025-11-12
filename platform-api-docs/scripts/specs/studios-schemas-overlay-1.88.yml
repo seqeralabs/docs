@@ -357,7 +357,7 @@ actions:
   
   - target: "$.components.schemas.DataStudioStatusInfo.properties.status"
     update:
-      description: "Current Studio session status. Possible values: `stopped`, `starting`, `running`, `stopping`, `failed`, `building`."
+      description: "Current Studio session status. Possible values: `stopped`, `starting`, `running`, `stopping`, `failed`, `building`, `buildFailed`."
   
   - target: "$.components.schemas.DataStudioStatusInfo.properties.statusText"
     update:
