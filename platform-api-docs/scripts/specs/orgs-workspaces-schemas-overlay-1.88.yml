@@ -379,7 +379,12 @@ actions:
   
   - target: "$.components.schemas.OrganizationDbDto.properties.type"
     update:
-      description: "Organization type. Accepts `PERSONAL` or `COLLABORATION`."
+      enum:
+        - pro
+        - basic
+        - academic
+        - evaluating      
+      description: "Organization type. Accepts `pro`, `basic`, `academic`, or `evaluating`."
   
   # ---- OrganizationQuotas ----
   
