@@ -10,7 +10,7 @@ This deployment option is deprecated, and will be removed in the future. We stro
 
 Tower can be deployed via AWS CloudFormation, using the included configuration.
 
-This guide assumes that all [prerequisites](../prerequisites/aws) have been met.
+This guide assumes that all [prerequisites](../prerequisites/aws.mdx) have been met.
 
 ## Set up an ECS cluster
 
