@@ -34,7 +34,7 @@ You will need the following to get started:
 
 - Nextflow 22.10.0 or later installed locally. See [Updating Nextflow](https://www.nextflow.io/docs/latest/updating-nextflow.html) to update
 - A Seqera account
-- A container runtime or container computing service
+- A container runtime or container computing service (e.g., Kubernetes, AWS Batch, or Google Cloud Batch.)
 
 :::
 
@@ -54,7 +54,7 @@ To create a Platform access token:
 The access token is displayed only once. Save the token value before you close the **Personal Access Token** window.
 :::
 
-### Configure Fusion in your pipeline
+### Configure Fusion
 
 To enable Fusion in your Nextflow pipeline, add the following to your `nextflow.config` file:
 
