@@ -107,7 +107,7 @@ actions:
     update: "Connect to Studio"
   
   - target: "$.paths./studios/{sessionId}/connect.get.description"
-    update: "Generates a connection token to access the given Studio session ID. Append `?workspaceId=` to connect to a Studio in a workspace context."
+    update: "Returns a connection URL to access the given Studio session ID. Append `?workspaceId=` to connect to a Studio in a workspace context."
   
   # ---- GET STUDIO CONNECTION TOKEN ----
   
