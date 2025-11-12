@@ -25,16 +25,16 @@ Fusion integrates seamlessly with Nextflow and requires no installation or pipel
 
 This section describes how to enable Fusion in your Nextflow pipelines. It includes:
 
-- Creating a Platform access token.
-- Configuring Fusion in your pipeline.
-- Running your Nextflow pipeline with Fusion.
+- Creating a Platform access token
+- Configuring Fusion in your pipeline
+- Running your Nextflow pipeline with Fusion
 
 :::info[Prerequisites]
 You will need the following to get started:
 
-- Nextflow 22.10.0 or later installed locally. See [Updating Nextflow](https://www.nextflow.io/docs/latest/updating-nextflow.html) to update.
-- A Seqera account.
-- A container runtime or container computing service, for example, Kubernetes, AWS Batch, or Google Cloud Batch.
+- Nextflow 22.10.0 or later installed locally. See [Updating Nextflow](https://www.nextflow.io/docs/latest/updating-nextflow.html) to update
+- A Seqera account
+- A container runtime or container computing service
 
 :::
 
@@ -70,9 +70,9 @@ Replace `<TOWER_ACCESS_TOKEN>` with your Platform access token.
 See [Configuration options](https://www.nextflow.io/docs/latest/reference/config.html) for a full list of Nextflow configuration options.
 :::
 
-### Run your Nextflow pipeline
+### Run your pipeline
 
-To run your pipeline with Fusion enabled, run your Nextflow command as usual. For example:
+To run your Nextflow pipeline with Fusion, execute your Nextflow `run` command as usual. For example:
 
 ```bash
 nextflow run main.nf
