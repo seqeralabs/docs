@@ -106,7 +106,10 @@ Replace Nextflow process commands with command [stubs](https://www.nextflow.io/d
 
 ### Main script
 
-Nextflow will attempt to run the script named `main.nf` in the project repository by default. You can configure a custom script filename in `manifest.mainScript` or you can provide the script filename in this field.
+Nextflow will attempt to run the script named `main.nf` in the root of the project repository by default. You can configure a custom script path and/or filename in `manifest.mainScript`, or you can provide the script path and filename in this field.
+
+In a pipeline repository set up with subdirectories containing multiple main script files, enter the path name to your desired custom script in **Main script**. For example: 
+- `/custom-pipeline/custom-script.nf`
 
 :::note
 If you specify a custom script filename, the root of the default branch in your pipeline repository must still contain blank `main.nf` and `nextflow.config` files. See [Nextflow configuration](../troubleshooting_and_faqs/nextflow) for more information on this known Nextflow behavior.
