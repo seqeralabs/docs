@@ -1,18 +1,27 @@
 ---
-title: "Custom container"
+title: "Custom container template"
 description: "Add a Studio in Platform."
 date created: "2025-09-04"
 last updated: "2025-11-14"
 tags: [studio-custom, git-repository, session, studios]
 ---
 
-## Custom container template
+:::info[**Prerequisites**]
+You will need the following to get started:
 
-Select **Prebuilt container image** and provide your own template (see [Custom container template image][custom-image]). If you select **Prebuilt container image**, the **Install Conda packages** option is unavailable.
+- **Maintain** role permissions (minimum)
+- A compute environment with sufficient resources (scale based on data volume):
+- [Data Explorer](../data/data-explorer) enabled
+- Git credentials configured in your workspace
+- A Git repository containing `.seqera/studio-config.yaml` and at least one of `.seqera/conda-environment.yaml` or `.seqera/Dockerfile`
+:::
+
+
+Select **Custom container template** and provide your own template (see [Custom container template image][custom-image]). When you select this option, you cannot **Install Conda packages**.
 
 Configure the following fields:
 
-- **Container template**: The template for the container. Select a provided container template.
+- **Container identifier**: The template for the container.
 - **Studio name**: The name for the Studio.
 - **Description** (optional): A description for the Studio.
 - **Install Conda packages**: A list of conda packages to include with the Studio. For more information on package syntax, see [conda package syntax][conda-syntax].

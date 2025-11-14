@@ -1,12 +1,10 @@
 ---
-title: "Seqera-provided template"
+title: "Seqera-provided container template"
 description: "Add a Studio in Platform."
 date created: "2025-09-04"
 last updated: "2025-11-14"
 tags: [template, seqera-template, seqera-template-studio, session, studios]
 ---
-
-## Provided container template
 
 :::info[**Prerequisites**]
 You will need the following to get started:
@@ -46,6 +44,15 @@ Mounted repositories are accessible at `/workspace/data/<DATA_REPOSITORY>` using
 Sessions have read-only access to mounted data by default. Enable write permissions by adding AWS S3 buckets as **Allowed S3 Buckets** in your compute environment configuration.
 
 Files uploaded to a mounted bucket during an active session may not be immediately available within that session.
+
+## Save and start
+
+   1. Review the configuration to ensure all settings are correct.
+   1. Save your configuration:
+      - To save and immediately start your Studio, select **Add and start**. 
+      - To save but not immediately start your Studio, select **Add only**.
+
+Studios you create will be listed on the Studios landing page with a status of either **stopped** or **starting**. Select a Studio to inspect its configuration details. 
 
 {/* links */}
 [contact]: https://support.seqera.io/

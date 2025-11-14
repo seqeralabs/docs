@@ -1,12 +1,10 @@
 ---
-title: "Git repository"
+title: "Import from Git repository"
 description: "Add a Studio in Platform."
 date created: "2025-09-04"
 last updated: "2025-11-14"
 tags: [studio-git, git-repository, session, studios]
 ---
-
-## Import from a Git repository
 
 :::info[**Prerequisites**]
 You will need the following to get started:
@@ -57,6 +55,8 @@ You can add a Studio by referencing a Git repository containing Studio configura
 
 - **Repository URL**: Enter the full URL to your Git repository (e.g., `https://github.com/your-org/studio-config.git`)
 - **Revision**: Select a branch, tag, or commit from the dropdown. The dropdown is dynamically populated based on the repository URL. If no revision is selected, the default branch is used.
+- **Resource labels**: Any [resource label](../labels/overview) already defined for the compute environment is added by default. Additional custom resource labels can be added or removed as needed.
+- **Environment variable**: Environment variables for the session. All variables from the selected compute environment are automatically inherited and displayed. Additional session-specific variables can be added. Session-level variables take precedence — to override an inherited variable, define the same key with a different value.
 - **Collaboration**: Session access permissions. By default, all workspace users with the launch role and above can connect to the session. Toggle **Private** on to restrict connections to the session creator only.
     :::note
     When private, workspace administrators can still start, stop, and delete sessions, but cannot connect to them.
@@ -64,8 +64,6 @@ You can add a Studio by referencing a Git repository containing Studio configura
 - **Session lifespan**: The duration the session remains active. Available options depend on your workspace settings:
     - **Stop the session automatically after a predefined period of time**: An automatic timeout for the session (minimum: 1 hour; maximum: 120 hours; default: 8 hours). If a workspace-level session lifespan is configured, this field cannot be edited. Changes apply only to the current session and revert to default values after the session stops.
     - **Keep the session running:** Continuous session operation until manually stopped or an error terminates it. The session continues consuming compute resources until stopped.
-- **Environment variable**: Environment variables for the session. All variables from the selected compute environment are automatically inherited and displayed. Additional session-specific variables can be added. Session-level variables take precedence — to override an inherited variable, define the same key with a different value.
-- **Resource labels**: Any [resource label](../labels/overview) already defined for the compute environment is added by default. Additional custom resource labels can be added or removed as needed.
 
  :::note
  When the **Git URL** or **Revision** fields are changed, form field values dynamically update.
@@ -88,6 +86,15 @@ Files uploaded to a mounted bucket during an active session may not be immediate
 ### Repository cloning
 
 When a Studio session starts from a Git repository, the repository contents are cloned into the session. For example, repository `https://github.com/seqeralabs/studio-templates.git` clones to `/workspace/studio-templates/` with README.md at `/workspace/studio-templates/README.md`.
+
+## Save and start
+
+   1. Review the configuration to ensure all settings are correct.
+   1. Save your configuration:
+      - To save and immediately start your Studio, select **Add and start**. 
+      - To save but not immediately start your Studio, select **Add only**.
+
+Studios you create will be listed on the Studios landing page with a status of either **stopped** or **starting**. Select a Studio to inspect its configuration details. 
 
 {/* links */}
 [contact]: https://support.seqera.io/

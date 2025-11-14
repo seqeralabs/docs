@@ -1,5 +1,5 @@
 ---
-title: "Container template"
+title: "Container templates"
 description: "Use container templates with Studios."
 date created: "2025-10-16"
 last updated: "2025-10-21"
@@ -8,16 +8,6 @@ tags: [container, container-templates, session, studios]
 
 There are four container templates provided: JupyterLab, R-IDE, Visual Studio Code, and Xpra. The image templates install a very limited number of packages when the Studio session container is built. You can install additional packages as needed during a Studio session.
 
-1. From the **Studios** tab, select **Add Studio**.
-2. **Select compute environment** (required): This must be selected manually as compute environments cannot be defined in Git repositories.
-3. **Mount data** (optional): Select data-links to mount. Data links cannot be defined in Git repositories.
-4. Review the auto-populated configuration. All form fields remain editable.
-5. Select **Add and start** or **Add only**.
-
-Configure the following resource settings:
-
-- **Resource labels**: Any [resource label](../labels/overview) already defined for the compute environment is added by default. Additional custom resource labels can be added or removed as needed.
-  
 The template tag includes the version of the analysis application, an optional incompatibility flag, and the Seqera Connect version. Connect is the proprietary Seqera web server client that manages communication with the container. Tag strings use the following format:
 
 ```ignore title="Image template tag"
