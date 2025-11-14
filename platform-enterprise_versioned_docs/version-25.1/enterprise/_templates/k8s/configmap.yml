@@ -8,7 +8,7 @@ data:
   TOWER_SERVER_URL: "https://<YOUR PUBLIC TOWER HOST NAME>"
   TOWER_CONTACT_EMAIL: "support@tower.nf"
   TOWER_JWT_SECRET: "ReplaceThisWithALongSecretString"
-  TOWER_DB_URL: "jdbc:mysql://<YOUR DB HOST NAME AND PORT>/tower"
+  TOWER_DB_URL: "jdbc:mysql://<YOUR DB HOST NAME AND PORT>/tower?permitMysqlScheme=true"
   TOWER_DB_DRIVER: "org.mariadb.jdbc.Driver"
   TOWER_DB_USER: "tower"
   TOWER_DB_PASSWORD: "<YOUR DB PASSWORD>"
