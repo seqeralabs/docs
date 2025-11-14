@@ -15,6 +15,28 @@ You can provide your own custom container template with your own base container 
 
 Public container registries are supported by default. Private container registries have limited support. Only private Amazon Elastic Container Registry (ECR) is supported, and only on AWS-based compute environments, where the registry is in the same AWS account as the compute environment. Access to the ECR is automatically configured when creating the compute environment.
 
+### Conda package syntax {#conda-package-syntax}
+
+When adding a new Studio, you can optionally customize the environment configuration to install a list of additional Conda packages to the selected template image. The [supported schema][conda-schema] is identical to that used by a Conda `environment.yml` file, including pinning specific package versions, wildcards, version range, or build name. Not pinning a specific package version will install the latest stable release.
+
+For more information on the Conda environment file, see [Creating an environment file manually][env-manually].
+
+```yaml title="Example environment.yml file"
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - numpy>1.7,<1.19.2
+  - scipy
+  - pip:
+    - matplotlib=3.10.*
+    - seaborn=0.13.2
+```
+
+Either directly copy and paste your valid YAML code or use **Import from file** to attach an `environment.yml` file.
+
+To create a Studio with custom Conda packages, see [Add a Studio][add-s].
+
 ### Dockerfile configuration {#dockerfile}
 
 For your custom template container image, you must use a Seqera-provided base image and include several additional build steps for compatibility with Studios.
