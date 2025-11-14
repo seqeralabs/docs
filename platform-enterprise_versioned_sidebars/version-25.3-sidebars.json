@@ -202,6 +202,14 @@
           "monitoring/audit-logs"
           ]
       },
+    {
+      "type": "category",
+      "label": "Seqera AI",
+      "collapsed": true,
+      "items": [
+        "seqera_ai/overview"          
+      ]
+      },
       {
         "type": "category",
         "label": "Developer tools",
