@@ -1,8 +1,0 @@
-## To see the full list of options available, run: "tw workspaces add -h"
-workspaces:
-  - name: 'workspace-1'                             # required
-    full-name: 'Workspace one'                      # required
-    organization: 'your-organization'               # required
-    description: 'Your workspace description'       # optional
-    visibility: 'PRIVATE'                           # optional
-    overwrite: True                                 # optional
