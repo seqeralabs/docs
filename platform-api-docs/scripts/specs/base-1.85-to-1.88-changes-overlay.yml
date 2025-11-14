@@ -1,0 +1,84 @@
+overlay: 1.0.0
+x-speakeasy-jsonpath: rfc9535
+info:
+  title: Overlay seqera-api-1.85.0.yml => seqera-api-1.88.0.yml
+  version: 0.0.0
+actions:
+  - target: $["info"]["version"]
+    update: 1.88.0
+  - target: $["paths"]["/orgs/{orgId}/teams/{teamId}/workspaces"]["get"]["responses"]["200"]["content"]["application/json"]["schema"]["$ref"]
+    update: "#/components/schemas/ListWorkspacesByTeamResponse"
+  - target: $["components"]["schemas"]["AddParticipantResponse"]["properties"]["participant"]["$ref"]
+    update: "#/components/schemas/ParticipantResponseDto"
+  - target: $["components"]["schemas"]["ListParticipantsResponse"]["properties"]["participants"]["items"]["$ref"]
+    update: "#/components/schemas/ParticipantResponseDto"
+  - target: $["components"]["schemas"]
+    update:
+      ListWorkspacesByTeamResponse:
+        type: object
+        properties:
+          workspaces:
+            type: array
+            items:
+              $ref: "#/components/schemas/WorkspaceParticipantResponseDto"
+          totalSize:
+            type: integer
+            format: int64
+  - target: $["components"]["schemas"]
+    update:
+      ParticipantResponseDto:
+        type: object
+        properties:
+          participantId:
+            type: integer
+            format: int64
+          memberId:
+            type: integer
+            format: int64
+          userName:
+            type: string
+          firstName:
+            type: string
+          lastName:
+            type: string
+          email:
+            type: string
+          orgRole:
+            $ref: "#/components/schemas/OrgRole"
+          teamId:
+            type: integer
+            format: int64
+          teamName:
+            type: string
+          wspRole:
+            type: string
+          type:
+            $ref: "#/components/schemas/ParticipantType"
+          teamAvatarUrl:
+            type: string
+          userAvatarUrl:
+            type: string
+  - target: $["components"]["schemas"]
+    update:
+      WorkspaceParticipantResponseDto:
+        type: object
+        properties:
+          orgId:
+            type: integer
+            format: int64
+          orgName:
+            type: string
+          workspaceId:
+            type: integer
+            format: int64
+          workspaceName:
+            type: string
+          workspaceFullName:
+            type: string
+          participantId:
+            type: integer
+            format: int64
+          participantRole:
+            type: string
+  - target: $["components"]["schemas"]["ParticipantDbDto"]
+    remove: true

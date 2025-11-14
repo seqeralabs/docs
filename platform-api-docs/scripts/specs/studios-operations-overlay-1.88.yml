@@ -1,0 +1,142 @@
+overlay: 1.0.0
+info:
+  title: Studios operations overlay
+  version: 0.0.0
+actions:
+  # ===== STUDIOS - OPERATIONS =====
+  
+  # ---- CREATE STUDIO ----
+  
+  - target: "$.paths./studios.post.summary"
+    update: "Create Studio"
+  
+  - target: "$.paths./studios.post.description"
+    update: "Creates a new Studio, starting it by default. Default behavior can be changed using the query parameter `autoStart=false`. Append `?workspaceId=` to create the Studio in a workspace context."
+  
+  # ---- LIST STUDIOS ----
+  
+  - target: "$.paths./studios.get.summary"
+    update: "List Studios"
+  
+  - target: "$.paths./studios.get.description"
+    update: "Retrieves a list of Studios in the user context. Append `?workspaceId=` to list Studios in a workspace context. Supports pagination and filtering using the `search` parameter. The search parameter accepts free-text queries matched against Studio name and template URL, as well as keyword filters for `userId` (Studio creator) and `status` (current Studio status)."
+  
+  # ---- DESCRIBE STUDIO ----
+  
+  - target: "$.paths./studios/{sessionId}.get.summary"
+    update: "Describe Studio"
+  
+  - target: "$.paths./studios/{sessionId}.get.description"
+    update: "Retrieves the details of the Studio associated with the given Studio session ID. Append `?workspaceId=` to describe a Studio in a workspace context."
+  
+  # ---- DELETE STUDIO ----
+  
+  - target: "$.paths./studios/{sessionId}.delete.summary"
+    update: "Delete Studio"
+  
+  - target: "$.paths./studios/{sessionId}.delete.description"
+    update: "Deletes the Studio associated with the given Studio session ID. Append `?workspaceId=` to delete a Studio in a workspace context."
+  
+  # ---- UPDATE STUDIO -----
+  
+  - target: "$.paths./studios/{sessionId}.put.summary"
+    update: "Update Studio"
+  
+  - target: "$.paths./studios/{sessionId}.put.description"
+    update: "Updates the details of the Studio associated with the given Studio session ID. Append `?workspaceId=` to update a Studio in a workspace context."
+  
+  # ---- START STUDIO ----
+  
+  - target: "$.paths./studios/{sessionId}/start.put.summary"
+    update: "Start Studio"
+  
+  - target: "$.paths./studios/{sessionId}/start.put.description"
+    update: "Starts the given Studio session ID. Append `?workspaceId=` to start a Studio in a workspace context."
+  
+  # ---- STOP STUDIO ----
+  
+  - target: "$.paths./studios/{sessionId}/stop.put.summary"
+    update: "Stop Studio"
+  
+  - target: "$.paths./studios/{sessionId}/stop.put.description"
+    update: "Stops the given Studio session ID. Append `?workspaceId=` to stop a Studio in a workspace context."
+  
+  # ---- EXTEND STUDIO LIFESPAN ----
+  
+  - target: "$.paths./studios/{sessionId}/lifespan.post.summary"
+    update: "Extend Studio lifespan"
+  
+  - target: "$.paths./studios/{sessionId}/lifespan.post.description"
+    update: "Extends the lifespan of the given Studio session ID. Append `?workspaceId=` to extend the lifespan of a Studio in a workspace context."
+  
+  # ---- VALIDATE STUDIO NAME ----
+  
+  - target: "$.paths./studios/validate.get.summary"
+    update: "Validate Studio name"
+  
+  - target: "$.paths./studios/validate.get.description"
+    update: "Confirms the availability of the given name for a Studio in the user context. Append `?workspaceId=` to validate the name in a workspace context."
+  
+  # ---- LIST STUDIO TEMPLATES ----
+  
+  - target: "$.paths./studios/templates.get.summary"
+    update: "List Studio container templates"
+  
+  - target: "$.paths./studios/templates.get.description"
+    update: "Retrieves a list of available Studio container image templates. Append `?workspaceId=` to list templates in a workspace context."
+  
+  # ---- DESCRIBE REMOTE STUDIO REPOSITORY ----
+  
+  - target: "$.paths./studios/remote-config.get.summary"
+    update: "Describe remote Studio repository"
+  
+  - target: "$.paths./studios/remote-config.get.description"
+    update: "Retrieves the details of a remote Git repository for Studios and pre-fills Studio configuration from a config file present in the repository. Append `?workspaceId=` to describe a repository in a workspace context."
+  
+  # ---- LIST MOUNTED DATA-LINKS ----
+  
+  - target: "$.paths./studios/data-links.get.summary"
+    update: "List mounted data-links"
+  
+  - target: "$.paths./studios/data-links.get.description"
+    update: "Lists the IDs of all available data-links mounted in existing Studios. Append `?orgId=` or `?workspaceId=` to list mounted data-links in an organization or workspace context, respectively."
+  
+  # ---- LIST STUDIO CHECKPOINTS ----
+  
+  - target: "$.paths./studios/{sessionId}/checkpoints.get.summary"
+    update: "List Studio checkpoints"
+  
+  - target: "$.paths./studios/{sessionId}/checkpoints.get.description"
+    update: "Retrieves the list of checkpoints for the given Studio session ID, sorted by creation date in descending order. Append `?workspaceId=` to list checkpoints in a workspace context. Supports pagination and filtering using the `search` parameter."
+  
+  # ---- GET STUDIO CHECKPOINT ----
+  
+  - target: "$.paths./studios/{sessionId}/checkpoints/{checkpointId}.get.summary"
+    update: "Get Studio checkpoint"
+  
+  - target: "$.paths./studios/{sessionId}/checkpoints/{checkpointId}.get.description"
+    update: "Retrieves the details of the given Studio checkpoint ID. Append `?workspaceId=` to get a checkpoint in a workspace context."
+  
+  # ---- UPDATE STUDIO CHECKPOINT ----
+  
+  - target: "$.paths./studios/{sessionId}/checkpoints/{checkpointId}.put.summary"
+    update: "Update Studio checkpoint name"
+  
+  - target: "$.paths./studios/{sessionId}/checkpoints/{checkpointId}.put.description"
+    update: "Updates the name of the given Studio checkpoint ID. Append `?workspaceId=` to update a checkpoint in a workspace context."
+  
+  # ---- DELETE STUDIO CHECKPOINT ----
+  
+  - target: "$.paths./studios/{sessionId}/checkpoints/{checkpointId}.delete.summary"
+    update: "Delete Studio checkpoint"
+  
+  - target: "$.paths./studios/{sessionId}/checkpoints/{checkpointId}.delete.description"
+    update: "Deletes the given Studio checkpoint ID. Append `?workspaceId=` to delete a checkpoint in a workspace context."
+  
+  # ---- STUDIO EVENT NOTIFICATIONS (HIDDEN) ----
+  
+  - target: "$.paths./studios/{sessionId}/events.post.summary"
+    update: "Send Studio event notification"
+  
+  - target: "$.paths./studios/{sessionId}/events.post.description"
+    update: "Receives event notifications from the Studio client about session status updates and user activity. This endpoint is used internally by the Studio infrastructure and is not intended for direct API consumption."
