@@ -9,13 +9,11 @@ tags: [studio-custom, git-repository, session, studios]
 :::info[**Prerequisites**]
 You will need the following to get started:
 
+- Valid credentials for accessing cloud storage resources
 - **Maintain** role permissions (minimum)
-- A compute environment with sufficient resources (scale based on data volume):
+- A compute environment with sufficient resources (scale based on data volume)
 - [Data Explorer](../data/data-explorer) enabled
-- Git credentials configured in your workspace
-- A Git repository containing `.seqera/studio-config.yaml` and at least one of `.seqera/conda-environment.yaml` or `.seqera/Dockerfile`
 :::
-
 
 Select **Custom container template** and provide your own template (see [Custom container template image][custom-image]). When you select this option, you cannot **Install Conda packages**.
 

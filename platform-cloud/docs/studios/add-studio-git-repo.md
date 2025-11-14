@@ -10,10 +10,10 @@ tags: [studio-git, git-repository, session, studios]
 You will need the following to get started:
 
 - **Maintain** role permissions (minimum)
-- A compute environment with sufficient resources (scale based on data volume):
+- A compute environment with sufficient resources (scale based on data volume)
 - [Data Explorer](../data/data-explorer) enabled
 - Git credentials configured in your workspace
-- A Git repository containing `.seqera/studio-config.yaml` and at least one of `.seqera/conda-environment.yaml` or `.seqera/Dockerfile`
+- A Git repository containing either `.seqera/conda-environment.yaml` or `.seqera/Dockerfile`
 :::
 
 **Limitations**
@@ -43,9 +43,44 @@ The following fields can be defined:
 - Session lifespan (hours session will run; defaults to workspace setting)
 - Environment variables (list of `key:value` pairs)
 
+
 **`.seqera/conda-environment.yaml` configuration file**
 
-This is a YAML object defining the list of packages (and optionally pinned versions) to install. It uses standard conda environment file syntax. See [Conda package syntax][conda-syntax].
+This is a YAML object defining the list of packages (and optionally pinned versions) to install. It uses standard conda environment file syntax. See [Conda package syntax][conda-syntax]. 
+
+The only required field is `session.template.kind`. All other fields are optional.
+
+Example: 
+
+```yaml
+schemaVersion: "0.0.1"
+kind: "studio-config"
+session:
+    name: "studio-name"
+    description: "desc"
+    template:
+        kind: "registry"|"dockerfile"|"none"
+        registry: "cr.seqera.io/image:latest"    # Ignored for `dockerfile` nad `none`
+        dockerfile: "Dockerfile"                 # Ignored for `registry` and `none`
+    clone:
+        enabled: true                            # Defaults to `true`
+        path: "/workspace"                # Defaults to `/workspace`
+    dependencies:
+        condaEnvironmentFile: "environment.yaml" # Ignored for `dockerfile`
+    computeRequirements:
+        awsBatch: # Ignored for non-batch CE
+            cpu: 2
+            gpu: 0
+            memory: 8192
+    environmentVariables:
+        -   name: "var1"
+            value: "value1"
+        -   name: "var2"
+            value: "value2"
+    management:
+        lifespanHours: 1 # Ignored if workspace lifespan is set
+        isPrivate: false # Defaults to false
+```
 
 **`.seqera/Dockerfile` configuration file**
 

@@ -11,7 +11,7 @@ You will need the following to get started:
 
 - Valid credentials for accessing cloud storage resources
 - **Maintain** role permissions (minimum)
-- A compute environment with sufficient resources (scale based on data volume):
+- A compute environment with sufficient resources (scale based on data volume)
 - [Data Explorer](../data/data-explorer) enabled
 :::
 
