@@ -1,15 +1,15 @@
 ---
 title: "Upgrade deployment"
-description: "Guidance for upgrading to Platform Enterprise version 25.2"
-date: "21 Aug 2024"
+description: "Guidance for upgrading to Platform Enterprise version 25.3"
+date created: "2025-11-11"
 tags: [enterprise, update, install]
 ---
 
-This page outlines the steps to upgrade your database instance and Platform Enterprise installation to version 25.2, including special considerations for upgrading from versions prior to 25.1. 
+This page outlines the steps to upgrade your database instance and Platform Enterprise installation to version 25.3, including special considerations for upgrading from versions prior to 25.1. 
 
 :::note
 - Make a backup of your Platform database prior to upgrade.
-- If you are upgrading from a version prior to 25.1, complete all intermediate major version upgrades before upgrading to 25.2.
+- If you are upgrading from a version prior to 25.1, complete all intermediate major version upgrades before upgrading to 25.3.
 - Ensure that no pipelines are in a running state during this upgrade as active run data may be lost. 
 :::
 
@@ -51,7 +51,7 @@ This page outlines the steps to upgrade your database instance and Platform Ente
     
   Enterprise deployments that have customized this value previously will need to adopt the new format.
 
-### Version 25.2 upgrade considerations 
+### Version 25.3 upgrade considerations 
 
 **Secret key rotation requires backup and careful configuration**
 
