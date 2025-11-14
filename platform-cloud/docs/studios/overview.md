@@ -13,8 +13,8 @@ Studios is a unified platform where you can host a combination of container imag
 On Seqera Cloud, the free tier permits only one running Studio session at a time. To run simultaneous sessions, [contact Seqera][contact] for a Seqera Cloud Pro license.
 
 - [Add a Studio](./add-studio): Understand the configuration options for creating, running, and customizing Studio sessions, and define Studio configurations in version-controlled Git repositories.
-- [Container image templates](./container-images): Learn about the container image templates provided: JupyterLab, R-IDE, Visual Studio Code, and Xpra.
-- [Custom environments](./custom-envs): Augument the Seqera-provided images with a list of Conda packages or by providing your own base container template image.
+- [Container templates](./container-images): Learn about the container image templates provided: JupyterLab, R-IDE, Visual Studio Code, and Xpra.
+- [Custom container templates](./custom-envs): Augument the Seqera-provided images with a list of Conda packages or by providing your own base container template image.
 - [Manage Studios](./managing): Manage your Studios and how collaborators use them.
 
 :::note
