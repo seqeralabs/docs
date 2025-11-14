@@ -129,7 +129,17 @@
         "label": "Studios",
         "items": [
           "studios/overview",
-          "studios/add-studio",
+          {
+          "type": "category",
+          "label": "Add Studios",
+          "link": {"type": "doc", "id": "studios/add-studio"},
+          "collapsed": true,
+          "items": [
+            "add-studio-provided-template",
+            "add-studio-git-repo",
+            "add-studio-custom-container"
+          ]
+          },
           "studios/container-images",
           "studios/custom-envs",
           "studios/managing",
