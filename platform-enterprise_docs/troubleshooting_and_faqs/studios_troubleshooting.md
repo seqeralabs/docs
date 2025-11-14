@@ -77,6 +77,22 @@ ERROR system error 2 (No such file or directory) [path:/sys/fs/cgroup/memory/mem
 
 This is displayed because logging is set to `stderr` by default to ensure all logs are shown during the session, and can safely be ignored.
 
+## Running session does not show new data in object storage
+
+By default, Fusion does not resync objects from remotely mounted data-link(s) after initial mounting.
+
+If you have a running session with data mounted and the underlying storage is updated, the data will not be resynced to the Studio session.
+
+You can change this behavior when you are [adding a Studio session](../studios/managing#add-a-studio) by defining the `FUSION_REFRESH_TIMEOUT` environment variable to a specified number of seconds (e.g., `30`). This will force Fusion to refresh the view of the mounted data-link(s) at the specified interval.
+
+:::note
+Setting the environment variable _inside_ an already running Studio session by executing the command `export FUSION_REFRESH_TIMEOUT=30` won't change the behavior of the outer Fusion session. The environment variable should be set in the "General config" section durion Studio creation.
+:::
+
+:::warning
+This is an experimental feature and may cause consistency issues in the Fusion namespace, resulting in data loss.
+:::
+
 ## Container template image security scan false positives
 
 ### VS Code

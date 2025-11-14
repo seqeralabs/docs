@@ -43,7 +43,7 @@ To determine the options to provide as definitions in your YAML file, run the Pl
     * -n, --name=<name>                        Pipeline name.
       -w, --workspace=<workspace>              Workspace numeric identifier (TOWER_WORKSPACE_ID as default) or workspace reference as OrganizationName/WorkspaceName
       -d, --description=<description>          Pipeline description.
-          --labels=<labels>[,<labels>...]      List of labels separated by comma.
+          --labels=<labels>[,<labels>...]      List of labels seperated by coma.
       -c, --compute-env=<computeEnv>           Compute environment name.
           --work-dir=<workDir>                 Path where the pipeline scratch data is stored.
       -p, --profile=<profile>[,<profile>...]   Comma-separated list of one or more configuration profile names you want to use for this pipeline execution.
@@ -76,7 +76,7 @@ To determine the options to provide as definitions in your YAML file, run the Pl
     - The corresponding values are user-defined.
 
 #### Best practices
-
+ 
 - The indentation and structure of the YAML file must be correct — YAML is sensitive to formatting.
 - Use quotes around strings that contain special characters or spaces.
 - To list multiple values (such as multiple `labels`, `instance-types`, or `allow-buckets`), separate values with commas. This is shown with `labels` in the preceding example.
@@ -117,7 +117,7 @@ params:
   fasta: 's3://path/to/reference.fasta'
 ```
 
-:::note
+:::note 
 If duplicate parameters are provided, the parameters provided as key-value pairs inside the `params` nested dictionary of the YAML file will take precedence **over** values in the `params-file`.
 :::
 

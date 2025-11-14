@@ -100,30 +100,6 @@ Please modify the Seqera Enterprise configuration as follows to try resolving th
 1. Ensure your `TOWER_DB_DRIVER` uses the specified MariaDB URI.
 2. Modify your `TOWER_DB_URL` to: `TOWER_DB_URL=jdbc:mysql://YOUR_DOMAIN:YOUR_PORT/YOUR_TOWER_DB?usePipelineAuth=false&useBatchMultiSend=false`
 
-
-**Unable to create initial connections**
-
-After upgrading to Seqera Enterprise version 24.1 or later, you may encounter an error when the Platform cannot connect to the database. This issue is caused by a breaking change that requires you to explicitly define certain configuration values. Specifically, newer Platform versions require an additional parameter in the `TOWER_DB_URL` connection string. Refer to [this link](https://docs.seqera.io/changelog/seqera-enterprise/v25.1#mariadb-driver-new-mysql-connection-parameter-required) for more information about the change.
-
-Without this required parameter, the MariaDB JDBC driver cannot properly initialize connections and will generate this error:
-
-    ```
-    Aug 26, 2025 3:46:01 PM org.apache.tomcat.jdbc.pool.ConnectionPool init
-    SEVERE: Unable to create initial connections of pool.
-    java.sql.SQLException: Driver:org.mariadb.jdbc.Driver@54ce2da8 returned null for URL:jdbc:mysql://platform-tower-database.com/tower
-    ```
-
-To fix the problem:
-
-1. Open your Platform configuration (`ConfigMap` or `tower.env`) and locate the `TOWER_DB_URL` setting.
-2. Add the required parameter `permitMysqlScheme=true` to the URL. For example:
-
-    ```
-    TOWER_DB_URL=jdbc:mysql://platform-tower-database.com/tower?permitMysqlScheme=true
-    ```
-
-3. Save the configuration and restart Platform to apply the changes.
-
 ## Email and TLS
 
 **TLS errors**
@@ -231,7 +207,7 @@ Due to a limitation of [server-side event technology implementation in HTTP/1.1]
 
 ## Monitoring
 
-**Integration with third-party Java-based Application Performance Monitoring (APM) solutions**
+**Integration with 3rd-party Java-based Application Performance Monitoring (APM) solutions**
 
 Mount the APM solution's JAR file in Seqera's `backend` container and set the agent JVM option via the `JAVA_OPTS` env variable.
 
