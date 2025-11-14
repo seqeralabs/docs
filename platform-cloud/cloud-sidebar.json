@@ -136,8 +136,8 @@
           "collapsed": true,
           "items": [
             "studios/add-studio-provided-template",
-            "studios/add-studio-git-repo",
-            "studios/add-studio-custom-container"
+            "studios/add-studio-custom-container",
+            "studios/add-studio-git-repo"
           ]
           },
           "studios/container-images",
