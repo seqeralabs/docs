@@ -129,6 +129,8 @@
         "label": "Studios",
         "items": [
           "studios/overview",
+          "studios/container-images",
+          "studios/custom-envs",
           {
           "type": "category",
           "label": "Add Studios",
@@ -139,9 +141,7 @@
             "studios/add-studio-custom-container",
             "studios/add-studio-git-repo"
           ]
-          },
-          "studios/container-images",
-          "studios/custom-envs",
+          },         
           "studios/managing",
           "studios/connect"
         ]
