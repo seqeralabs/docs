@@ -135,9 +135,9 @@
           "link": {"type": "doc", "id": "studios/add-studio"},
           "collapsed": true,
           "items": [
-            "add-studio-provided-template",
-            "add-studio-git-repo",
-            "add-studio-custom-container"
+            "studios/add-studio-provided-template",
+            "studios/add-studio-git-repo",
+            "studios/add-studio-custom-container"
           ]
           },
           "studios/container-images",
