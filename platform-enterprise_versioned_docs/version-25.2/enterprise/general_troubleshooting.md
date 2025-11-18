@@ -147,7 +147,7 @@ This error means that Seqera is unable to connect to the database and the `JDBC`
 To resolve this issue for `Europe/Amsterdam` time zone, append `serverTimezone` to the value of [`TOWER_DB_URL`](./configuration/overview#seqera-and-redis-databases):
 
 ```bash
-export TOWER_DB_URL": "jdbc:mysql://<YOUR_DATABASE_IP>:3306/tower?permitMysqlScheme=true&serverTimezone=Europe/Amsterdam"
+export TOWER_DB_URL="jdbc:mysql://<YOUR_DATABASE_IP>:3306/tower?permitMysqlScheme=true&serverTimezone=Europe/Amsterdam"
 ```
 
 **_java.io.IOException: Unsupported protocol version 252_ error while completed or terminated runs display as in progress on Seqera**
