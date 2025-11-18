@@ -133,6 +133,10 @@ This must be an `https://` URI, per Microsoft's requirements.
     ```
 12. Add `auth-oidc` to the `MICRONAUT_ENVIRONMENTS` environment variable for both the `cron` and `backend` services.
 
+:::note 
+Due to changes in Entra ID's supported authentication methods, users on Seqera Platform version 25.2.3 and below may experience incompatibility. To resolve this, add MICRONAUT_SECURITY_OAUTH2_CLIENTS_OIDC_OPENID_TOKEN_AUTH_METHOD=client_secret_post to your tower.env file or Kubernetes ConfigMap. 
+:::
+
 ### Okta identity provider
 
 To use [Okta](https://www.okta.com/) as the identity provider for Seqera:

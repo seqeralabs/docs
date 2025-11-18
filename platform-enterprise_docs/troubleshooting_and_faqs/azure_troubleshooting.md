@@ -49,3 +49,19 @@ This can occur if a tool/library in your task container requires SSL certificate
 This error is due to Azure's default MySQL behavior which enforces the SSL connections between your server and client application, as detailed in [SSL/TLS connectivity in Azure Database for MySQL](https://learn.microsoft.com/en-us/azure/mysql/single-server/concepts-ssl-connection-security). To fix this, append `useSSL=true&enabledSslProtocolSuites=TLSv1.2&trustServerCertificate=true` to your `TOWER_DB_URL` connection string. For example:
 
 `TOWER_DB_URL: jdbc:mysql://mysql:3306/tower?permitMysqlScheme=true/azuredatabase.com/tower?serverTimezone=UTC&useSSL=true&enabledSslProtocolSuites=TLSv1.2&trustServerCertificate=true`
+
+### Azure Entra ID / OIDC
+
+When attempting to authenticate via Azure (Entra ID) on Seqera Platform v25.2.3 and below, users fail to log in, and the following error appears in the backend logs:
+
+```bash
+java.lang.IllegalArgumentException: No enum constant io.micronaut.security.oauth2.endpoint.AuthenticationMethod.SELF_SIGNED_TLS_CLIENT_AUTH**
+```
+
+This issue is caused by a change in Azure's supported authentication methods which creates an incompatibility with the OIDC library used in older versions of Seqera Platform.
+
+To resolve this, force the authentication method to client_secret_post by adding the following environment variable to your tower.env file or Kubernetes ConfigMap:
+
+```bash
+MICRONAUT_SECURITY_OAUTH2_CLIENTS_OIDC_OPENID_TOKEN_AUTH_METHOD=client_secret_post
+```
