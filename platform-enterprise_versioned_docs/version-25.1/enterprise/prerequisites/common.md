@@ -23,6 +23,7 @@ As a reference, here are links to the documentation for setting up replication i
 ### Automated replication with Skopeo
 
 [Skopeo](https://github.com/containers/skopeo) is a command-line utility that performs various operations on container images and image repositories. It can sync external image repositories like the Seqera container registry `cr.seqera.io` to an internal registry. Refer to the Skopeo documentation for installation instructions.
+If possible, always replicate images using your internal container registry native functionality as described in the previous section. Use Skopeo only if your container registry does not support replication from external registries. Note that Skopeo does not continuously monitor for new images, so you will need to set up a periodic job (for example, using a CI/CD pipeline) to keep your internal registry up-to-date with the latest Seqera images.
 We recommend installing the latest version of Skopeo (or at least v1.15+ to work with the `images-by-semver` option in the `sync` command).
 
 1. Configure `skopeo` with the credentials to access the Seqera container registry, and your internal registry if needed.
@@ -69,7 +70,7 @@ Then run the following command to sync all specified images to your internal reg
 skopeo sync --scoped --src yaml --dest docker seqera-container-registry.yaml YOUR_INTERNAL_REGISTRY
 ```
 
-This command can be automated with a CI/CD pipeline to periodically update your internal registry with the latest Seqera images.
+The above command can be automated with a scheduled job or a CI/CD pipeline to periodically update your internal registry with the latest Seqera images.
 
 An alternative to using Skopeo is to use [`gcrane`](https://docs.cloud.google.com/artifact-registry/docs/docker/copy-images), a tool from Google that can copy container images between registries. However, GCrane only supports copying one image at a time, so it may require more scripting to automate the replication of multiple images.
 
