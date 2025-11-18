@@ -6,9 +6,19 @@ Seqera Enterprise is distributed as a collection of container images available t
 
 Vendoring images to your own container registry ensures that your deployments are not impacted by the potential unavailability of the Seqera container registry due to network issues, or to deploy Seqera in air-gapped environments. We recommend vendoring images to your own container registry, such as Amazon Elastic Container Registry (ECR), Google Container Registry (GCR), Docker Hub, among others.
 
-Two options are available to vendor images:
-1. Automated replication (**recommended**): Use a tool like [Skopeo](https://github.com/containers/skopeo) to automate the process of copying container images between registries.
-2. Manual replication: Pull images from the Seqera container registry, re-tag them, and push them to your preferred container registry. This process is described in detail below.
+Three options are available to vendor images:
+1. Automated replication using Container Registry native functionality (**recommended**): Use your container registry's native replication features to automatically replicate images from the Seqera container registry to your own registry. This option is only available if your container registry supports replication from external registries.
+1. Automated replication using Skopeo: Use a tool like [Skopeo](https://github.com/containers/skopeo) to automate the process of copying container images between registries.
+1. Manual replication: Pull images from the Seqera container registry, re-tag them, and push them to your preferred container registry. This process is described in detail below.
+
+### Automated replication using Container Registries
+
+Several container registries offer native replication features that can be used to automatically replicate images from external registries like the Seqera container registry `cr.seqera.io` to your own registry. This is the recommended approach as it simplifies the management of image replication and ensures that your registry stays up-to-date with the latest Seqera images.
+
+As a reference, here are links to the documentation for setting up replication in some popular container registries:
+- [Amazon Elastic Container Registry (ECR) Replication](https://docs.aws.amazon.com/AmazonECR/latest/userguide/replication.html)
+- [Azure Container Registry (ACR) Artifact caching](https://learn.microsoft.com/en-us/azure/container-registry/artifact-cache-overview)
+- [Harbor Replication](https://goharbor.io/docs/latest/administration/configuring-replication/)
 
 ### Automated replication with Skopeo
 
@@ -60,6 +70,8 @@ skopeo sync --scoped --src yaml --dest docker seqera-container-registry.yaml YOU
 ```
 
 This command can be automated with a CI/CD pipeline to periodically update your internal registry with the latest Seqera images.
+
+An alternative to using Skopeo is to use [`gcrane`](https://docs.cloud.google.com/artifact-registry/docs/docker/copy-images), a tool from Google that can copy container images between registries. However, GCrane only supports copying one image at a time, so it may require more scripting to automate the replication of multiple images.
 
 ### Manual replication
 
