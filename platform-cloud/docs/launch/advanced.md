@@ -111,7 +111,7 @@ Nextflow will attempt to run the script named `main.nf` in the root of the proje
 In a pipeline repository set up with subdirectories containing multiple main script files, enter the path name to your desired custom script in **Main script**. For example: 
 - `/custom-pipeline/custom-script.nf`
 
-If you point to a custom script using this field, Platform will look for a `nextflow.conf` in the same directory as the custom script, and if none exists, default to the `nextflow.conf` in the repository root.
+If you point to a custom script using this field, Platform also looks for a `nextflow.conf` in the same directory as the custom script, and if none exists, it defaults to the `nextflow.conf` in the repository root.
 
 :::note
 If you specify a custom script filename, the root of the default branch in your pipeline repository must still contain a `main.nf` file, even if blank. See [Nextflow configuration](../troubleshooting_and_faqs/nextflow) for more information on this known Nextflow behavior.
