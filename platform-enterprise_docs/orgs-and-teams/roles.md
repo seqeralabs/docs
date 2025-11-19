@@ -14,7 +14,7 @@ You can group **members** and **collaborators** into **teams** and apply a role 
 
 ### Organization user roles
 
-- **Owner**: After an organization is created, the user who created the organization is the default owner of that organization. Additional users can be assigned as organization owners. Owners have full read/write access to modify members, teams, collaborators, and settings within an organization.
+- **Owner**: After an organization is created, the user who created the organization is the default owner of that organization. Additional users can be assigned as organization owners. Owners have full read/write access to modify members, teams, collaborators, and settings within an organization. Organization owners always have full owner access to organization workspaces, regardless of their participant roles at the workspace level.
 - **Member**: A member is a user who is internal to the organization. Members have an organization role and can operate in one or more organization workspaces. In each workspace, members have a participant role that defines the permissions granted to them within that workspace.
 
 ### Role inheritance
@@ -32,7 +32,7 @@ As a best practice, use teams as the primary vehicle for assigning rights within
 ## Workspace participant roles
 
 The default workspace participant roles are:
-- **Owner**: The user who created the workspace is its owner. Owners have full administrative privileges over a workspace and its resources, including permission to delete tyhe workspace.
+- **Owner**: The user who created the workspace is its first owner. Owners have full administrative privileges over a workspace and its resources, including permission to delete the workspace. Regular participants can also be promoted to workspace owners. 
 - **Admin**: Workspace admins share most of the administrative privileges of workspace owners, but admins cannot delete a workspace.
 - **Maintain**: Workspace maintainers can use and manage all workspace resources, but cannot create workspace credentials, compute environments, or Studios
 - **Launch**: Launch users can use existing workspace resources and launch pipelines, but they cannot modify workspace resources.
@@ -73,10 +73,6 @@ The following table shows which operations are available to the default workspac
 | `dataset:write` | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `dataset:delete` | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
 | `dataset:admin` | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| `dataset_label:write` | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| `dataset_legacy:read` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| `dataset_legacy:write` | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
-| `dataset_legacy:delete` | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
 | `essential:read` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `eval_workspace:delete` | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
 | `ga4gh:execute` | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
