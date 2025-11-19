@@ -31,7 +31,7 @@ As a best practice, use teams as the primary vehicle for assigning rights within
 
 ## Workspace participant roles
 
-- **Owner**: The user who created the workspace is its owner. Owners have full administrative privileges over a workspace and its resources, including permission to delete tyhe workspace.
+- **Owner**: The user who created the workspace is its first owner. Owners have full administrative privileges over a workspace and its resources, including permission to delete the workspace. Regular participants can also be promoted to workspace owners. 
 - **Admin**: Workspace admins share most of the administrative privileges of workspace owners, but admins cannot delete a workspace.
 - **Maintain**: Workspace maintainers can use and manage all workspace resources, but cannot create workspace credentials, compute environments, or Studios
 - **Launch**: Launch users can use existing workspace resources and launch pipelines, but they cannot modify workspace resources.
