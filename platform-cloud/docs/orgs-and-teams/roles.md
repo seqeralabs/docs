@@ -71,7 +71,6 @@ The following table shows which operations are available to the default workspac
 | `dataset:delete` | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
 | `dataset:admin` | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
 | `dataset_label:write` | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| `essential:read` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `ga4gh:execute` | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
 | `label:read` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `label:write` | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
