@@ -6,6 +6,8 @@ last updated: "2025-11-17"
 tags: [roles, user-roles, custom roles, rbac, permissions]
 ---
 
+**TODO**: UI instructions for creating a custom role. 
+
 ### Actions
 
 | Permission | Action | API endpoint |
