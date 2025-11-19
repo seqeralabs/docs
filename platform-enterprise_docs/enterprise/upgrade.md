@@ -5,17 +5,17 @@ date created: "2025-11-11"
 tags: [enterprise, update, install]
 ---
 
-This page outlines the steps to upgrade your database instance and Platform Enterprise installation to version 25.3, including special considerations for upgrading from versions prior to 25.1. 
+This page outlines the steps to upgrade your database instance and Platform Enterprise installation to version 25.3, including special considerations for upgrading from versions prior to 25.1.
 
 :::note
 - Make a backup of your Platform database prior to upgrade.
 - If you are upgrading from a version prior to 25.1, complete all intermediate major version upgrades before upgrading to 25.3.
-- Ensure that no pipelines are in a running state during this upgrade as active run data may be lost. 
+- Ensure that no pipelines are in a running state during this upgrade as active run data may be lost.
 :::
 
 ### Considerations for versions prior to 24.1
 
-- If you are upgrading from a version older than 23.4.1, update your installation to [version 23.4.4](../../version-23.4/enterprise/overview.md) **first**, before updating to version 25.2 with the steps on this page. 
+- If you are upgrading from a version older than 23.4.1, update your installation to [version 23.4.4](../../version-23.4/enterprise/overview.md) **first**, before updating to version 25.2 with the steps on this page.
 
 ### Considersations for versions 24.1 - 25.1
 
@@ -48,22 +48,26 @@ This page outlines the steps to upgrade your database instance and Platform Ente
   | Previous                                                         | New                                                          |
   | ---------------------------------------------------------------- | ------------------------------------------------------------ |
   | `micronaut.security.token.jwt.generator.access-token.expiration` | `micronaut.security.token.generator.access-token.expiration` |
-    
+
   Enterprise deployments that have customized this value previously will need to adopt the new format.
 
-### Version 25.3 upgrade considerations 
+### Version 25.3 upgrade considerations
 
 **Secret key rotation requires backup and careful configuration**
 
 To configure [secret key rotation](../enterprise/configuration/overview.mdx#secret-key-rotation):
 - To prevent data loss, perform a backup of your Platform database and securely back up your current crypto secret key before enabling and performing key rotation.
 - All backend pods or containers for your Enterprise deployment must contain the same previous and new secret key values in their configuration.
-- All backend pods or containers must be in a ready/running state before starting the Platform cron service. 
+- All backend pods or containers must be in a ready/running state before starting the Platform cron service.
 
-### General upgrade steps 
+### General upgrade steps
 
 :::caution
 The database volume is persistent on the local machine by default if you use the `volumes` key in the `db` or `redis` section of your `docker-compose.yml` file to specify a local path to the DB or Redis instance. If your database is not persistent, you must back up your database before performing any application or database upgrades.
+:::
+
+:::info
+Starting from version 26.1, the frontend image running as root user will be deprecated. We recommend starting to switch to the [root-less image (also known as "unprivileged" image)](./kubernetes#seqera-frontend-unprivileged) during this upgrade.
 :::
 
 1. Make a backup of the Seqera database. If you use the pipeline optimization service and your `groundswell` database resides in a database instance separate from your Seqera database, make a backup of your `groundswell` database as well.
@@ -73,11 +77,11 @@ The database volume is persistent on the local machine by default if you use the
 1. If you're using Studios, download and apply the latest versions of the Kubernetes manifests:
     - [proxy.yml](./_templates/k8s/data_studios/proxy.yml)
     - [server.yml](./_templates/k8s/data_studios/server.yml)
-    
+
     :::warning
     If you have customized the default Studios container template images, you must ensure that you update to latest recommended versions. Templates using earlier versions of Connect (than defined in the latest `proxy.yml` and `server.yml`) may no longer be supported in your existing Studios environments. Refer to the [Studios migration documentation](../studios/managing#migrate-a-studio-from-an-earlier-container-image-template) for guidance on migrating to the most recent versions of Connect server and clients.
     :::
-   
+
 1. Restart the application.
 1. If you're using a containerized database as part of your implementation:
     1. Stop the application.
