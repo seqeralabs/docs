@@ -33,7 +33,7 @@ As a best practice, use teams as the primary vehicle for assigning rights within
 
 - **Owner**: The user who created the workspace is its first owner. Owners have full administrative privileges over a workspace and its resources, including permission to delete the workspace. Regular participants can also be promoted to workspace owners. 
 - **Admin**: Workspace admins share most of the administrative privileges of workspace owners, but admins cannot delete a workspace.
-- **Maintain**: Workspace maintainers can use and manage all workspace resources, but cannot create workspace credentials, compute environments, or Studios
+- **Maintain**: Workspace maintainers can use and manage all workspace resources, but cannot create workspace credentials or compute environments.
 - **Launch**: Launch users can use existing workspace resources and launch pipelines, but they cannot modify workspace resources.
 - **Connect**: Connect users can connect to running workspace Studios.
 - **View**: View users can view workspace resources, but cannot modify or execute them.
