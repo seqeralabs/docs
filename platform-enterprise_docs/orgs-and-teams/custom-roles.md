@@ -46,7 +46,6 @@ tags: [roles, user-roles, custom roles, rbac, permissions]
 |------------|--------|--------------|
 | **platform:read** | List platform regions | `GET /platforms/{platformId}/regions` |
 | | View platform details | `GET /platforms/{platformId}` |
-| **essential:read** | List available platforms | `GET /platforms` |
 | | List available features | _(Used by UI)_ |
 
 ### Containers
