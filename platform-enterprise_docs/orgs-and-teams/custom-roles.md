@@ -10,8 +10,8 @@ tags: [roles, user-roles, custom roles, rbac, permissions]
 
 ### Actions
 
-| Permission | Action | API endpoint |
-|------------|--------|--------------|
+| Permission | Description | API endpoint |
+|------------|-------------|--------------|
 | **action:read** | View action details | `GET /actions/{actionId}` |
 | | View available action types | `GET /actions/types` |
 | | List all actions in workspace | `GET /actions` |
@@ -30,8 +30,8 @@ tags: [roles, user-roles, custom roles, rbac, permissions]
 
 ### Compute environments
 
-| Permission | Action | API endpoint |
-|------------|--------|--------------|
+| Permission | Description | API endpoint |
+|------------|-------------|--------------|
 | **compute_environment:read** | List all compute environments | `GET /compute-envs` |
 | | View compute environment details | `GET /compute-envs/{computeEnvId}` |
 | **compute_environment:write** | Create a new compute environment | `POST /compute-envs` |
@@ -42,23 +42,23 @@ tags: [roles, user-roles, custom roles, rbac, permissions]
 
 ### Compute platforms
 
-| Permission | Action | API endpoint |
-|------------|--------|--------------|
+| Permission | Description | API endpoint |
+|------------|-------------|--------------|
 | **platform:read** | List platform regions | `GET /platforms/{platformId}/regions` |
 | | View platform details | `GET /platforms/{platformId}` |
 
 ### Containers
 
-| Permission | Action | API endpoint |
-|------------|--------|--------------|
+| Permission | Description | API endpoint |
+|------------|-------------|--------------|
 | **container:read** | View container details | _(Used by Platform)_ |
 | | List containers | _(Used by Platform)_ |
 | | List workflow containers | _(Used by Platform)_ |
 
 ### Credentials
 
-| Permission | Action | API endpoint |
-|------------|--------|--------------|
+| Permission | Description | API endpoint |
+|------------|-------------|--------------|
 | **credentials:read** | List all credentials in workspace | `GET /credentials` |
 | | View credential details | `GET /credentials/{credentialsId}` |
 | **credentials:write** | Add new credentials | `POST /credentials` |
@@ -70,14 +70,14 @@ tags: [roles, user-roles, custom roles, rbac, permissions]
 
 ### Credits
 
-| Permission | Action | API endpoint |
-|------------|--------|--------------|
+| Permission | Description | API endpoint |
+|------------|-------------|--------------|
 | **credits:read** | Download usage CSV | _(Used by Platform)_ |
 
 ### Data-links (Data Explorer)
 
-| Permission | Action | API endpoint |
-|------------|--------|--------------|
+| Permission | Description | API endpoint |
+|------------|-------------|--------------|
 | **data_link:read** | List all data-links (cloud buckets) | `GET /data-links` |
 | | Browse data-link contents | `GET /data-links/{dataLinkId}/browse` |
 | | View data-link details | `GET /data-links/{dataLinkId}` |
@@ -97,8 +97,8 @@ tags: [roles, user-roles, custom roles, rbac, permissions]
 
 ### Datasets
 
-| Permission | Action | API endpoint |
-|------------|--------|--------------|
+| Permission | Description | API endpoint |
+|------------|-------------|--------------|
 | **dataset:read** | List all datasets | `GET /datasets` |
 | | List latest dataset versions | `GET /datasets/versions` |
 | | List versions for a specific dataset | `GET /datasets/{datasetId}/versions` |
@@ -128,14 +128,14 @@ tags: [roles, user-roles, custom roles, rbac, permissions]
 
 ### GA4GH
 
-| Permission | Action | API endpoint |
-|------------|--------|--------------|
+| Permission | Description | API endpoint |
+|------------|-------------|--------------|
 | **ga4gh:execute** | Create GA4GH workflow run | `POST /ga4gh/wes/v1/runs` |
 
 ### Labels
 
-| Permission | Action | API endpoint |
-|------------|--------|--------------|
+| Permission | Description | API endpoint |
+|------------|-------------|--------------|
 | **label:read** | List all workspace labels | `GET /labels` |
 | **label:write** | Create a new label | `POST /labels` |
 | | Edit an existing label | `PUT /labels/{labelId}` |
@@ -143,14 +143,14 @@ tags: [roles, user-roles, custom roles, rbac, permissions]
 
 ### Launch
 
-| Permission | Action | API endpoint |
-|------------|--------|--------------|
+| Permission | Description | API endpoint |
+|------------|-------------|--------------|
 | **launch:read** | View launch details | `GET /launch/{launchId}` |
 
 ### Pipelines
 
-| Permission | Action | API endpoint |
-|------------|--------|--------------|
+| Permission | Description | API endpoint |
+|------------|-------------|--------------|
 | **pipeline:read** | View pipeline repository information | `GET /pipelines/info` |
 | | View pipeline schema and parameters | `GET /pipelines/{pipelineId}/schema` |
 | | View pipeline schema from repository URL | _(Used by Platform)_ |
@@ -177,8 +177,8 @@ tags: [roles, user-roles, custom roles, rbac, permissions]
 
 ### Pipeline secrets
 
-| Permission | Action | API endpoint |
-|------------|--------|--------------|
+| Permission | Description | API endpoint |
+|------------|-------------|--------------|
 | **pipeline_secrets:read** | List all pipeline secrets | `GET /pipeline-secrets` |
 | | View pipeline secret details | `GET /pipeline-secrets/{secretId}` |
 | **pipeline_secrets:write** | Create a new pipeline secret | `POST /pipeline-secrets` |
@@ -188,8 +188,8 @@ tags: [roles, user-roles, custom roles, rbac, permissions]
 
 ### Runs (Workflows)
 
-| Permission | Action | API endpoint |
-|------------|--------|--------------|
+| Permission | Description | API endpoint |
+|------------|-------------|--------------|
 | **workflow:read** | View run details | `GET /workflow/{workflowId}` |
 | | View run progress | `GET /workflow/{workflowId}/progress` |
 | | List tasks in a run | `GET /workflow/{workflowId}/tasks` |
@@ -226,8 +226,8 @@ tags: [roles, user-roles, custom roles, rbac, permissions]
 
 ### Studios
 
-| Permission | Action | API endpoint |
-|------------|--------|--------------|
+| Permission | Description | API endpoint |
+|------------|-------------|--------------|
 | **studio:read** | View studio session details | `GET /studios/{sessionId}` |
 | | View studio repository details | _(Used by Platform)_ |
 | | List all studios in workspace | `GET /studios` |
@@ -256,8 +256,8 @@ tags: [roles, user-roles, custom roles, rbac, permissions]
 
 ### Workspaces
 
-| Permission | Action | API endpoint |
-|------------|--------|--------------|
+| Permission | Description | API endpoint |
+|------------|-------------|--------------|
 | **workspace:read** | View workspace details | `GET /orgs/{orgId}/workspaces/{workspaceId}` |
 | | List workspace participants | `GET /orgs/{orgId}/workspaces/{workspaceId}/participants` |
 | **workspace:write** | Edit workspace settings | `PUT /orgs/{orgId}/workspaces/{workspaceId}` |

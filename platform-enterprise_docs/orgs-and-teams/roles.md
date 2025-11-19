@@ -49,7 +49,7 @@ Workspace participants with any role can leave the workspace, i.e., remove thems
 
 The following table shows which operations are available to the default workspace participant roles:
 
-| Operation | Owner | Admin | Maintainer | Launcher | Connect | Viewer |
+| Permission | Owner | Admin | Maintainer | Launcher | Connect | Viewer |
 |-----------|-------|-------|------------|----------|---------|--------|
 | `action:read` | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
 | `action:execute` | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
