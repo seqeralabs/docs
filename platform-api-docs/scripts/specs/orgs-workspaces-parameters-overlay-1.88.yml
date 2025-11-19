@@ -182,7 +182,7 @@ actions:
   # ---- role (QUERY PARAMETER) ----
   
   - target: "$.paths./orgs.get.parameters[?(@.name=='role')].description"
-    update: "Filter results by organization role. Accepts `owner`, `admin`, `maintain`, or `view`."
+    update: "Filter results by organization role. Accepts: `owner`, `member`."
   
   # ---- max (QUERY PARAMETER) ----
   
@@ -277,7 +277,7 @@ actions:
   # ---- UPDATE ORGANIZATION MEMBER ROLE ----
   
   - target: "$.paths./orgs/{orgId}/members/{memberId}/role.put.requestBody.description"
-    update: "Updated role for the organization member."
+    update: "Updated role for the organization member. Accepts: `owner`, `member`."
   
   # ===== WORKSPACES - REQUEST BODY DESCRIPTIONS =====
   
@@ -299,7 +299,7 @@ actions:
   # ---- UPDATE WORKSPACE PARTICIPANT ROLE ----
   
   - target: "$.paths./orgs/{orgId}/workspaces/{workspaceId}/participants/{participantId}/role.put.requestBody.description"
-    update: "Updated role for the workspace participant."
+    update: "Updated role for the workspace participant. Accepts `owner`, `admin`, `maintain`, `launch`, `connect`, `view`."
   
   # ===== TEAMS - REQUEST BODY DESCRIPTIONS =====
   

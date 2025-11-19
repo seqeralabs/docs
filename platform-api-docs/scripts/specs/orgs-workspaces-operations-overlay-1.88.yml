@@ -51,15 +51,15 @@ actions:
     update: "Delete organization"
   
   - target: "$.paths./orgs/{orgId}.delete.description"
-    update: "Deletes the organization identified by the given `orgId`. This operation permanently removes the organization and all associated workspaces, members, and resources."
+    update: "Deletes the organization identified by the given `orgId`. This operation permanently removes the organization and associated memberships."
   
-  # ---- LIST ORGANIZATION COLLABORATORS (DEPRECATED) ----
+  # ---- LIST ORGANIZATION COLLABORATORS ----
   
   - target: "$.paths./orgs/{orgId}/collaborators.get.summary"
-    update: "(Deprecated) List organization collaborators"
+    update: "List organization collaborators"
   
   - target: "$.paths./orgs/{orgId}/collaborators.get.description"
-    update: "**This endpoint is deprecated and will be removed in a future release.** Use [List organization members](https://docs.seqera.io/platform/latest/api/list-organization-members) to retrieve organization members.\n\nLists all collaborators (members and participants) associated with the organization identified by the given `orgId`."
+    update: "Lists all collaborators (members and participants) associated with the organization identified by the given `orgId`."
   
   # ---- LIST ORGANIZATION MEMBERS ----
   
@@ -67,7 +67,7 @@ actions:
     update: "List organization members"
   
   - target: "$.paths./orgs/{orgId}/members.get.description"
-    update: "Lists all members of the organization identified by the given `orgId`. Members are users who belong to an organization and can be assigned roles such as owner, admin, maintain, or view."
+    update: "Lists all members of the organization identified by the given `orgId`."
   
   # ---- CREATE ORGANIZATION MEMBER ----
   
@@ -75,7 +75,7 @@ actions:
     update: "Create organization member"
   
   - target: "$.paths./orgs/{orgId}/members/add.put.description"
-    update: "Adds a new member to the organization identified by the given `orgId`. The member is assigned the specified organization role."
+    update: "Adds a new member to the organization identified by the given `orgId`."
   
   # ---- LEAVE ORGANIZATION ----
   
@@ -99,7 +99,7 @@ actions:
     update: "Update organization member role"
   
   - target: "$.paths./orgs/{orgId}/members/{memberId}/role.put.description"
-    update: "Updates the role of the member identified by the given `memberId` in the organization identified by the given `orgId`. Available roles are owner, admin, maintain, and view."
+    update: "Updates the role of the member identified by the given `memberId` in the organization identified by the given `orgId`. Accepted values: `owner`, `member`."
   
   # ---- DESCRIBE ORGANIZATION QUOTAS ----
   
@@ -157,7 +157,7 @@ actions:
     update: "Delete workspace"
   
   - target: "$.paths./orgs/{orgId}/workspaces/{workspaceId}.delete.description"
-    update: "Deletes the workspace identified by the given `workspaceId`. This operation permanently removes the workspace and all associated resources, pipelines, and data."
+    update: "Deletes the workspace identified by the given `workspaceId`. This operation permanently removes the workspace and associated participations."
   
   # ---- LIST WORKSPACE PARTICIPANTS ----
   
@@ -165,15 +165,15 @@ actions:
     update: "List workspace participants"
   
   - target: "$.paths./orgs/{orgId}/workspaces/{workspaceId}/participants.get.description"
-    update: "Lists all participants of the workspace identified by the given `workspaceId`. Participants are users or teams who have been granted access to a workspace and can be assigned roles such as owner, admin, maintain, or view."
-  
+    update: "Lists all participants of the workspace identified by the given `workspaceId`. Participants are users or teams who have been granted access to a workspace."
+
   # ---- CREATE WORKSPACE PARTICIPANT ----
   
   - target: "$.paths./orgs/{orgId}/workspaces/{workspaceId}/participants/add.put.summary"
     update: "Create workspace participant"
   
   - target: "$.paths./orgs/{orgId}/workspaces/{workspaceId}/participants/add.put.description"
-    update: "Adds a new participant to the workspace identified by the given `workspaceId`. The participant can be either an individual user or a team, and is assigned the specified workspace role."
+    update: "Adds a new participant to the workspace identified by the given `workspaceId`. The participant can be either an individual user or a team."
   
   # ---- DELETE WORKSPACE PARTICIPANT ----
   
@@ -189,7 +189,7 @@ actions:
     update: "Update workspace participant role"
   
   - target: "$.paths./orgs/{orgId}/workspaces/{workspaceId}/participants/{participantId}/role.put.description"
-    update: "Updates the role of the participant identified by the given `participantId` in the given workspace. Available roles are owner, admin, maintain, view, and launch."
+    update: "Updates the role of the participant identified by the given `participantId` in the given workspace. Accepts `owner`, `admin`, `maintain`, `launch`, `connect`, `view`."
   
   # ---- DESCRIBE WORKSPACE STUDIOS SETTINGS ----
   
@@ -207,7 +207,7 @@ actions:
     update: "List user workspaces"
   
   - target: "$.paths./user/{userId}/workspaces.get.description"
-    update: "Lists all workspaces and organizations to which the user identified by the given `userId` belongs. This includes both workspaces where the user is a direct participant and organizations where the user is a member."
+    update: "Lists all workspaces and organizations to which the user identified by the given `userId` belongs. This includes both workspaces where the user is a participant and organizations where the user is a member."
   
   # ===== TEAMS - OPERATIONS =====
   

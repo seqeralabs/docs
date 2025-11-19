@@ -38,7 +38,7 @@ actions:
   
   - target: "$.components.schemas.UpdateMemberRoleRequest.properties.role"
     update:
-      description: "Updated organization role for the member. Accepts `owner`, `admin`, `maintain`, or `view`. See [Organization user roles](https://docs.seqera.io/platform-cloud/orgs-and-teams/roles#organization-user-roles) for more information."
+      description: "Updated organization role for the member. Accepts: `owner`, `member`. See [Organization user roles](https://docs.seqera.io/platform-cloud/orgs-and-teams/roles#organization-user-roles) for more information."
   
   # ===== ORGANIZATIONS - RESPONSE SCHEMAS =====
   
