@@ -8,13 +8,19 @@ tags: [pipelines, versioning, nextflow, parameters]
 Seqera's pipeline versioning system captures configuration changes as new draft versions of the pipeline, ensuring configuration traceability and execution reproducibility. Users with appropriate permissions can edit and publish draft versions, creating published versions that teams can reference and launch consistently.
 When you add a new pipeline to Seqera, the first default version of that pipeline is automatically published.
 
-New draft versions are automatically generated whenever you modify pipeline schema parameters that have `track_changes` set to `true`, or fields in the pipeline **Edit** form, excluding:
-- Name
-- Image
-- Description
-- Labels
+New draft versions are automatically generated when you modify the following:
+- Pipeline schema parameters, unless the `track_changes` schema configuration for the given property is set to `false`
+- Fields in the pipeline **Edit** form, excluding:
+  - **Name**
+  - **Image**
+  - **Description**
+  - **Labels**
 
-Published versions can be set as default, are visible to all users, and provide a stable reference for team-wide pipeline launches. Users with Maintain or higher permissions can publish a draft version, giving it a name (e.g., "production-v1.2", "cloud-ce-test-config") and optionally set it as the default version. This makes important configurations easy to identify, share, and promote across your team.
+Published versions provide a stable reference for team-wide pipeline launches. Users with Maintain or higher permissions can publish a draft version, giving it a name and optionally setting it as the default version. This makes important configurations easy to identify, share, and promote across your team.
+
+:::info 
+A pipeline's default version is shown in the Launchpad and automatically selected during launch.
+:::
 
 Seqera maintains a history of all draft and published versions, providing an audit trail of pipeline evolution.
 
@@ -35,10 +41,13 @@ Select a pipeline from the workspace Launchpad to open the pipeline's details pa
 
 Individual draft versions cannot be deleted - the pipeline configuration audit trail is immutable. However, published versions can be unpublished or have their names reassigned to different draft versions.
 
+:::note
+A shared pipeline's versions can only be edited from its original workspace.
+:::
+
 #### Version checksums
 
-Seqera calculates a checksum for each draft version based on its version-triggering parameters, providing cryptographic verification of the exact configuration. This provides:
+Seqera calculates a checksum for each draft version based on its version-triggering parameters. This provides:
 
 **Cryptographic verification** that a workflow run's configuration matches its associated pipeline version
-**Duplicate detection** when an edited configuration is identical to a previous draft version
 **Provenance tracking** for audit and compliance requirements
