@@ -60,7 +60,7 @@ java.lang.IllegalArgumentException: No enum constant io.micronaut.security.oauth
 
 This issue is caused by a change in Azure's supported authentication methods which creates an incompatibility with the OIDC library used in older versions of Seqera Platform.
 
-To resolve this, force the authentication method to client_secret_post by adding the following environment variable to your tower.env file or Kubernetes ConfigMap:
+To resolve this, force the authentication method to `client_secret_post` by adding the following environment variable to your `tower.env' file or Kubernetes ConfigMap:
 
 ```bash
 MICRONAUT_SECURITY_OAUTH2_CLIENTS_OIDC_OPENID_TOKEN_AUTH_METHOD=client_secret_post
