@@ -601,7 +601,7 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "docs/create-organization-member",
-          label: "Add organization member",
+          label: "Create organization member",
           className: "api-method put",
         },
         {
@@ -613,13 +613,13 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "docs/delete-organization-member",
-          label: "Delete member",
+          label: "Delete organization member",
           className: "api-method delete",
         },
         {
           type: "doc",
           id: "docs/update-organization-member-role",
-          label: "Update member role",
+          label: "Update organization member role",
           className: "api-method put",
         },
         {
@@ -799,7 +799,7 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "docs/list-data-studio-templates",
-          label: "List available Studio templates",
+          label: "List Studio container templates",
           className: "api-method get",
         },
         {
@@ -847,7 +847,7 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "docs/start-data-studio",
-          label: "Starts a Studio",
+          label: "Start Studio",
           className: "api-method put",
         },
         {
@@ -871,37 +871,37 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "docs/create-organization-team",
-          label: "Create team",
+          label: "Create organization team",
           className: "api-method post",
         },
         {
           type: "doc",
           id: "docs/validate-team-name",
-          label: "Validate team name",
+          label: "Validate organization team name",
           className: "api-method get",
         },
         {
           type: "doc",
           id: "docs/describe-organization-team",
-          label: "Describe team",
+          label: "Describe organization team",
           className: "api-method get",
         },
         {
           type: "doc",
           id: "docs/update-organization-team",
-          label: "Update team",
+          label: "Update organization team",
           className: "api-method put",
         },
         {
           type: "doc",
           id: "docs/delete-organization-team",
-          label: "Delete team",
+          label: "Delete organization team",
           className: "api-method delete",
         },
         {
           type: "doc",
           id: "docs/list-organization-team-members",
-          label: "List team members",
+          label: "List organization team members",
           className: "api-method get",
         },
         {
@@ -913,13 +913,13 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "docs/delete-organization-team-member",
-          label: "Delete team member",
+          label: "Delete organization team member",
           className: "api-method delete",
         },
         {
           type: "doc",
           id: "docs/list-workspaces-by-team",
-          label: "List team workspaces",
+          label: "List workspaces by team",
           className: "api-method get",
         },
       ],
@@ -1159,7 +1159,7 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "docs/list-workspaces",
-          label: "List organization workspaces",
+          label: "List workspaces",
           className: "api-method get",
         },
         {
@@ -1219,13 +1219,13 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "docs/update-workspace-participant-role",
-          label: "Update participant role",
+          label: "Update workspace participant role",
           className: "api-method put",
         },
         {
           type: "doc",
           id: "docs/find-data-studios-workspace-settings",
-          label: "List workspace Studios settings",
+          label: "Describe workspace Studios settings",
           className: "api-method get",
         },
         {
@@ -1237,7 +1237,7 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "docs/list-workspaces-user",
-          label: "List user workspaces and organizations",
+          label: "List user workspaces",
           className: "api-method get",
         },
       ],
