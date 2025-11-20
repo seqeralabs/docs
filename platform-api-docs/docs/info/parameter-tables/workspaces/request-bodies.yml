@@ -9,19 +9,21 @@
 - Name: workspace.id
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Workspace numeric identifier.
 - Name: workspace.name
   Type: string
   Req/Opt: Required
-  Description: ""
+  Description: Unique workspace name within the organization. Must be 2-40
+    characters, start and end with alphanumeric characters, and can contain
+    hyphens or underscores between characters.
 - Name: workspace.fullName
   Type: string
   Req/Opt: Required
-  Description: ""
+  Description: Full display name for the workspace. Maximum 100 characters.
 - Name: workspace.description
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Optional description of the workspace. Maximum 1000 characters.
 - Name: workspace.visibility
   Type: string
   Req/Opt: Required
@@ -29,11 +31,11 @@
 - Name: workspace.dateCreated
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Timestamp when the workspace was created.
 - Name: workspace.lastUpdated
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Timestamp when the workspace was last updated.
 - Name: "**UpdateWorkspace**"
   Type: ""
   Req/Opt: ""
@@ -61,19 +63,22 @@
 - Name: memberId
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Organization member numeric identifier to add as a workspace
+    participant. Provide either `memberId` or `teamId`.
 - Name: teamId
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Team numeric identifier to add as a workspace participant. Provide
+    either `memberId` or `teamId`.
 - Name: userNameOrEmail
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Username or email address of the user to add as a workspace
+    participant. Alternative to providing `memberId`.
 - Name: "**UpdateWorkspaceParticipantRole**"
   Type: ""
   Req/Opt: ""
-  Description: Update participant role
+  Description: Update workspace participant role
 - Name: role
   Type: string
   Req/Opt: Optional
@@ -81,7 +86,7 @@
 - Name: "**FindDataStudiosWorkspaceSettings**"
   Type: ""
   Req/Opt: ""
-  Description: List workspace Studios settings
+  Description: Describe workspace Studios settings
 - Name: name
   Type: string
   Req/Opt: Optional
