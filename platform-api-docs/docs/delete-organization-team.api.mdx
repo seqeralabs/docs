@@ -1,11 +1,11 @@
 ---
 id: delete-organization-team
-title: "Delete team"
-description: "Deletes the team identified by the given `teamId`."
-sidebar_label: "Delete team"
+title: "Delete organization team"
+description: "Deletes the team identified by the given `teamId`. This operation removes the team from all workspaces where it is a participant."
+sidebar_label: "Delete organization team"
 hide_title: true
 hide_table_of_contents: true
-api: eJytVFFP2zAQ/iuWnzapa7oN8dCnwegktGlDwJ6qSrjJNTEktrEvsC7Kf+fOSdpSGEhoT3HuPt99d/7uGokqD3I6lwiqCnIxkhmE1GuH2ho5lSdQAkIQWIBgiNAZGNQrDZlYrqM513dgxBV7T7OrsRxJ68ArDnCabUL88rky+m80XxKUYE55VZHLM4FGGvohuPU5XRtJzemdwkLuc9oNJUxdgdfplpcnvIfbWnug7OhrGMmQFlApOW0krh0n0QYhj9CV9ZXCznR4INt2tGHSVfQiFa7k/1NY8PXgrAkQ+ManyQF/9rrwXXwQP61ILQUyKNuRPJhMnuKOVSaYDASkXAOaYMq5Uqexi8l1YGyzw3LLfy4rCEHlwOroydvlNaQcz3l+bNQd0QG4rTKg1ybntkrUWLJp5r3153195Gkj88/PVDjISBiLQpWlvSc+DA+Q1l7jOurmGJQHf1TT80znC24eiaqwLL0sSi9Kjb0yIXGFpIkSa5Mo+aTpnrmVHNbfDWqsfUkXCkQXpkminB6npa2zcYBbYjXW9okWLqJHnJUK+UXFV8aLo7NTyZwGyhfc4a5bu8Q3DeOMspcL/y8jiCzd4duglet7jK3QZmXj9b67PQtO+xpBLlenNNwdmKWh0iiNx8Xvlkzq0GWU6sp+2TqICHeuy/NxfHg4nrDN2YCVisrqZ6pbBnGV7PNrtuJ829rpO4jwBxNXKppaohBLaXoBzHm7BIJOhy3TrT0y9MNOL1UQaYY2zVIF+O3LtmUzTZBnwdHxTnmtltxuEkqmA59JbitVBnihqHfn/Uy9F6+vsGeL6Y3KrCWzKGv+o+MNrDebkxfYmzj9e5e9gUvfznZByAJURnG4WZ3zKE3B4c61J6vo0RSfzH7MLmcEV49HZW80YoJnWdFLRsSlvQHTtluS/M8c2/YBCrhnQQ==
+api: eJzNVE1v2zAM/SuCThuQ2dlW9JDT2jUDig1b0WWnIEAVm4nV2pIq0ckyw/99pOx8tUU3FBiwk2XykXqkHtlIVMsgR1OJoKogZwOZQ8i8dqitkSN5ASUgBIEFCIYInYNBvdCQi/kmmpd6BUbcsPcyv0nEpNBBWAdecQ7hobKrwwwLbyuhylKsrb8LTmXkXBfgQWgUFKqEUx51pp0ymMiB3OW6zHeMvvmlMvpXNE8oK8EoSlXk8lxPIw39ENz6JYUNpOZqnMJCPizxMJUwdQVeZ/syPTPwcF9rD3Q9+hoGMmQFVEqOGokbx7dog7AET9CF9ZXCznR6Itt2sKPSdehZLlzKP+Aw4/DgrAkQOOLd8IQ/D/rwWbwRX63ILCUyKNuBPBkOH+POVS6YDASku7ZoginnSp3FPqa3gbHNAcs9/6msIAS1BJZbT97ObyHjfM7zc6PuiG6B+yoDem2W3FeJGks2jb23/rqvjzxtZP7+iQp3ojQWWYJ2TXwYHiCrvcZNVM45KA/+rKb3GU1n3DySVWFZfHkUXxQbe2VK8gppE0XWpnGG0qZ751ZyWr/a6rH2JQUUiC6M0lQ5nWSlrfMkwD2xSrR9JIbv0SOuSoX8ouIj48XZ1aVkTlvK37nDXbcOie8axjfKXi78P48gsnSHT1ut3K4xtkKbhY3hfXd7FnztnwhyuZrHuQOzNFQWpXFc/GHJpA5dRqku7Ie9g4hw57p73ianp8mQbc4GrFRUVj9U3ToQ9nCIsVsIR2SbvVL/i6XWvw7CT0xdqWglUHmxTU0vrinvrkDQ0XaHdTuaDP0mIRUU1BCGNs1cBfjhy7ZlM02nZzHTcaW8VnN+ShJhrgOfScoLVQZ4pkevrvt5fS3+YkE+WU1vVGYjmUZZ8x8d72CzW8y8Hl9E6plN+QIyfUPbGSELUDkNCLerc55lGTg8CHu06I52xMX4y3gyJrg6HsQHgxcveJIVvWVETOwdmLbdk+R/5ti2vwEdj6d0
 sidebar_class_name: "delete api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -22,7 +22,7 @@ import Heading from "@theme/Heading";
 <Heading
   as={"h1"}
   className={"openapi__heading"}
-  children={"Delete team"}
+  children={"Delete organization team"}
 >
 </Heading>
 
@@ -36,7 +36,7 @@ import Heading from "@theme/Heading";
 
 
 
-Deletes the team identified by the given `teamId`.
+Deletes the team identified by the given `teamId`. This operation removes the team from all workspaces where it is a participant.
 
 <Heading
   id={"request"}
@@ -47,7 +47,7 @@ Deletes the team identified by the given `teamId`.
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"teamId","in":"path","description":"Team numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier.","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"teamId","in":"path","description":"Team numeric identifier.","required":true,"schema":{"type":"integer","format":"int64"}}]}
 >
   
 </ParamsDetails>

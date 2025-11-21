@@ -2,61 +2,65 @@
   Type: integer
   Location: query
   Req/Opt: Optional
-  Description: Workspace numeric identifier
+  Description: Workspace numeric identifier. When omitted, Studios are listed in
+    the user context.
 - Name: "`search`"
   Type: string
   Location: query
   Req/Opt: Optional
-  Description: "Optional search criteria, allowing free text search on name and
-    templateUrl and keywords: `userId`, `computeEnvId` and `status`."
+  Description: Free-text search filter to match against Studio `name` and
+    `templateUrl`. Supports keyword filters for `userId` (Studio creator) and
+    `status` (current Studio status).
 - Name: "`max`"
   Type: integer
   Location: query
   Req/Opt: Optional
-  Description: Pagination max results
+  Description: "Maximum number of results to return. Default: `100`."
 - Name: "`offset`"
   Type: integer
   Location: query
   Req/Opt: Optional
-  Description: Pagination offset
+  Description: "Number of results to skip for pagination. Default: `0`."
 - Name: "`attributes`"
   Type: array
   Location: query
   Req/Opt: Optional
-  Description: "Optional attribute values to be included in the response
-    (`labels`). Returns an empty value (`labels: null`) if omitted."
+  Description: "Optional attribute values to be included in the response. Supports
+    `labels`. Returns an empty value (`labels: null`) if omitted."
 - Name: "`autoStart`"
   Type: boolean
   Location: query
   Req/Opt: Optional
-  Description: Optionally disable the Studio's automatic launch when it is created.
+  Description: "If true, automatically starts the Studio after creation. Default: `true`."
 - Name: "`orgId`"
   Type: integer
   Location: query
   Req/Opt: Optional
-  Description: Organization numeric identifier
+  Description: Organization numeric identifier. When specified, lists mounted
+    data-links in the organization context.
 - Name: "`status`"
   Type: string
   Location: query
   Req/Opt: Optional
-  Description: Optional Studio status
+  Description: Studio status filter. Filters mounted data-links by the status of
+    the Studios they are mounted in.
 - Name: "`exclude`"
   Type: string
   Location: query
   Req/Opt: Optional
-  Description: Optional Studio session ID to exclude in the request.
+  Description: Studio session ID to exclude from the mounted data-links list.
 - Name: "`name`"
   Type: string
   Location: query
   Req/Opt: Optional
-  Description: Studio name to validate
+  Description: Studio name to validate for availability.
 - Name: "`sessionId`"
   Type: string
   Location: path
   Req/Opt: Required
-  Description: Studio session numeric identifier
+  Description: Studio session string identifier.
 - Name: "`checkpointId`"
   Type: integer
   Location: path
   Req/Opt: Required
-  Description: Numeric identifier of the checkpoint.
+  Description: Checkpoint numeric identifier.

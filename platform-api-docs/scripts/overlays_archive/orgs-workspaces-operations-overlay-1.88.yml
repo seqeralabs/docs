@@ -1,0 +1,292 @@
+overlay: 1.0.0
+info:
+  title: Organizations, workspaces, teams, and users operations overlay
+  version: 0.0.0
+actions:
+  # ===== ORGANIZATIONS - OPERATIONS =====
+  
+  # ---- LIST ORGANIZATIONS ----
+  
+  - target: "$.paths./orgs.get.summary"
+    update: "List organizations"
+  
+  - target: "$.paths./orgs.get.description"
+    update: "Lists all organizations to which the requesting user belongs."
+  
+  # ---- CREATE ORGANIZATION ----
+  
+  - target: "$.paths./orgs.post.summary"
+    update: "Create organization"
+  
+  - target: "$.paths./orgs.post.description"
+    update: "Creates a new organization with the requesting user as an owner."
+  
+  # ---- VALIDATE ORGANIZATION NAME ----
+  
+  - target: "$.paths./orgs/validate.get.summary"
+    update: "Validate organization name"
+  
+  - target: "$.paths./orgs/validate.get.description"
+    update: "Confirms that the given organization name is valid and available for use. Append `?name=<your_org_name>` to specify the name to validate."
+  
+  # ---- DESCRIBE ORGANIZATION ----
+  
+  - target: "$.paths./orgs/{orgId}.get.summary"
+    update: "Describe organization"
+  
+  - target: "$.paths./orgs/{orgId}.get.description"
+    update: "Retrieves the details of the organization identified by the given `orgId`."
+  
+  # ---- UPDATE ORGANIZATION ----
+  
+  - target: "$.paths./orgs/{orgId}.put.summary"
+    update: "Update organization"
+  
+  - target: "$.paths./orgs/{orgId}.put.description"
+    update: "Updates the details of the organization identified by the given `orgId`."
+  
+  # ---- DELETE ORGANIZATION ----
+  
+  - target: "$.paths./orgs/{orgId}.delete.summary"
+    update: "Delete organization"
+  
+  - target: "$.paths./orgs/{orgId}.delete.description"
+    update: "Deletes the organization identified by the given `orgId`. This operation permanently removes the organization and associated memberships."
+  
+  # ---- LIST ORGANIZATION COLLABORATORS ----
+  
+  - target: "$.paths./orgs/{orgId}/collaborators.get.summary"
+    update: "List organization collaborators"
+  
+  - target: "$.paths./orgs/{orgId}/collaborators.get.description"
+    update: "Lists all collaborators (members and participants) associated with the organization identified by the given `orgId`."
+  
+  # ---- LIST ORGANIZATION MEMBERS ----
+  
+  - target: "$.paths./orgs/{orgId}/members.get.summary"
+    update: "List organization members"
+  
+  - target: "$.paths./orgs/{orgId}/members.get.description"
+    update: "Lists all members of the organization identified by the given `orgId`."
+  
+  # ---- CREATE ORGANIZATION MEMBER ----
+  
+  - target: "$.paths./orgs/{orgId}/members/add.put.summary"
+    update: "Create organization member"
+  
+  - target: "$.paths./orgs/{orgId}/members/add.put.description"
+    update: "Adds a new member to the organization identified by the given `orgId`."
+  
+  # ---- LEAVE ORGANIZATION ----
+  
+  - target: "$.paths./orgs/{orgId}/members/leave.delete.summary"
+    update: "Leave organization"
+  
+  - target: "$.paths./orgs/{orgId}/members/leave.delete.description"
+    update: "Removes the requesting user from the organization identified by the given `orgId`. The requesting user must not be the only owner of the organization."
+  
+  # ---- DELETE ORGANIZATION MEMBER ----
+  
+  - target: "$.paths./orgs/{orgId}/members/{memberId}.delete.summary"
+    update: "Delete organization member"
+  
+  - target: "$.paths./orgs/{orgId}/members/{memberId}.delete.description"
+    update: "Removes the member identified by the given `memberId` from the organization identified by the given `orgId`. This operation also removes the member from all workspaces within the organization."
+  
+  # ---- UPDATE ORGANIZATION MEMBER ROLE ----
+  
+  - target: "$.paths./orgs/{orgId}/members/{memberId}/role.put.summary"
+    update: "Update organization member role"
+  
+  - target: "$.paths./orgs/{orgId}/members/{memberId}/role.put.description"
+    update: "Updates the role of the member identified by the given `memberId` in the organization identified by the given `orgId`. Accepted values: `owner`, `member`."
+  
+  # ---- DESCRIBE ORGANIZATION QUOTAS ----
+  
+  - target: "$.paths./orgs/{orgId}/quotas.get.summary"
+    update: "Describe organization quotas"
+  
+  - target: "$.paths./orgs/{orgId}/quotas.get.description"
+    update: "Retrieves the resource quotas and usage limits for the organization identified by the given `orgId`. Quotas define resource limits for pipelines, compute environments, and other platform features."
+  
+  # ===== WORKSPACES - OPERATIONS =====
+  
+  # ---- LIST WORKSPACES ----
+  
+  - target: "$.paths./orgs/{orgId}/workspaces.get.summary"
+    update: "List workspaces"
+  
+  - target: "$.paths./orgs/{orgId}/workspaces.get.description"
+    update: "Lists all workspaces in the organization identified by the given `orgId` to which the requesting user belongs. Workspaces are isolated environments within an organization where users can run pipelines and manage resources."
+  
+  # ---- CREATE WORKSPACE ----
+  
+  - target: "$.paths./orgs/{orgId}/workspaces.post.summary"
+    update: "Create workspace"
+  
+  - target: "$.paths./orgs/{orgId}/workspaces.post.description"
+    update: "Creates a new workspace in the organization identified by the given `orgId`. The requesting user is automatically added as an owner of the workspace."
+  
+  # ---- VALIDATE WORKSPACE NAME ----
+  
+  - target: "$.paths./orgs/{orgId}/workspaces/validate.get.summary"
+    update: "Validate workspace name"
+  
+  - target: "$.paths./orgs/{orgId}/workspaces/validate.get.description"
+    update: "Confirms that the given workspace name is valid and available for use within the organization. Append `?name=<your_workspace_name>` to specify the name to validate."
+  
+  # ---- DESCRIBE WORKSPACE ----
+  
+  - target: "$.paths./orgs/{orgId}/workspaces/{workspaceId}.get.summary"
+    update: "Describe workspace"
+  
+  - target: "$.paths./orgs/{orgId}/workspaces/{workspaceId}.get.description"
+    update: "Retrieves the details of the workspace identified by the given `workspaceId`."
+  
+  # ---- UPDATE WORKSPACE ----
+  
+  - target: "$.paths./orgs/{orgId}/workspaces/{workspaceId}.put.summary"
+    update: "Update workspace"
+  
+  - target: "$.paths./orgs/{orgId}/workspaces/{workspaceId}.put.description"
+    update: "Updates the details of the workspace identified by the given `workspaceId`."
+  
+  # ---- DELETE WORKSPACE ----
+  
+  - target: "$.paths./orgs/{orgId}/workspaces/{workspaceId}.delete.summary"
+    update: "Delete workspace"
+  
+  - target: "$.paths./orgs/{orgId}/workspaces/{workspaceId}.delete.description"
+    update: "Deletes the workspace identified by the given `workspaceId`. This operation permanently removes the workspace and associated participations."
+  
+  # ---- LIST WORKSPACE PARTICIPANTS ----
+  
+  - target: "$.paths./orgs/{orgId}/workspaces/{workspaceId}/participants.get.summary"
+    update: "List workspace participants"
+  
+  - target: "$.paths./orgs/{orgId}/workspaces/{workspaceId}/participants.get.description"
+    update: "Lists all participants of the workspace identified by the given `workspaceId`. Participants are users or teams who have been granted access to a workspace."
+
+  # ---- CREATE WORKSPACE PARTICIPANT ----
+  
+  - target: "$.paths./orgs/{orgId}/workspaces/{workspaceId}/participants/add.put.summary"
+    update: "Create workspace participant"
+  
+  - target: "$.paths./orgs/{orgId}/workspaces/{workspaceId}/participants/add.put.description"
+    update: "Adds a new participant to the workspace identified by the given `workspaceId`. The participant can be either an individual user or a team."
+  
+  # ---- DELETE WORKSPACE PARTICIPANT ----
+  
+  - target: "$.paths./orgs/{orgId}/workspaces/{workspaceId}/participants/{participantId}.delete.summary"
+    update: "Delete workspace participant"
+  
+  - target: "$.paths./orgs/{orgId}/workspaces/{workspaceId}/participants/{participantId}.delete.description"
+    update: "Removes the participant identified by the given `participantId` from the given workspace."
+  
+  # ---- UPDATE WORKSPACE PARTICIPANT ROLE ----
+  
+  - target: "$.paths./orgs/{orgId}/workspaces/{workspaceId}/participants/{participantId}/role.put.summary"
+    update: "Update workspace participant role"
+  
+  - target: "$.paths./orgs/{orgId}/workspaces/{workspaceId}/participants/{participantId}/role.put.description"
+    update: "Updates the role of the participant identified by the given `participantId` in the given workspace. Accepts `owner`, `admin`, `maintain`, `launch`, `connect`, `view`."
+  
+  # ---- DESCRIBE WORKSPACE STUDIOS SETTINGS ----
+  
+  - target: "$.paths./orgs/{orgId}/workspaces/{workspaceId}/settings/studios.get.summary"
+    update: "Describe workspace Studios settings"
+  
+  - target: "$.paths./orgs/{orgId}/workspaces/{workspaceId}/settings/studios.get.description"
+    update: "Retrieves the Studios configuration settings for the workspace identified by the given `workspaceId`. Studios settings control default values for Studios instances created in this workspace."
+  
+  # ===== USER WORKSPACES - OPERATIONS =====
+  
+  # ---- LIST USER WORKSPACES ----
+  
+  - target: "$.paths./user/{userId}/workspaces.get.summary"
+    update: "List user workspaces"
+  
+  - target: "$.paths./user/{userId}/workspaces.get.description"
+    update: "Lists all workspaces and organizations to which the user identified by the given `userId` belongs. This includes both workspaces where the user is a participant and organizations where the user is a member."
+  
+  # ===== TEAMS - OPERATIONS =====
+  
+  # ---- LIST ORGANIZATION TEAMS ----
+  
+  - target: "$.paths./orgs/{orgId}/teams.get.summary"
+    update: "List organization teams"
+  
+  - target: "$.paths./orgs/{orgId}/teams.get.description"
+    update: "Lists all teams in the organization identified by the given `orgId`. Teams are groups of organization members that can be added as participants to workspaces."
+  
+  # ---- CREATE ORGANIZATION TEAM ----
+  
+  - target: "$.paths./orgs/{orgId}/teams.post.summary"
+    update: "Create organization team"
+  
+  - target: "$.paths./orgs/{orgId}/teams.post.description"
+    update: "Creates a new team in the organization identified by the given `orgId`. Teams allow you to manage workspace access for groups of members."
+  
+  # ---- VALIDATE ORGANIZATION TEAM NAME ----
+  
+  - target: "$.paths./orgs/{orgId}/teams/validate.get.summary"
+    update: "Validate organization team name"
+  
+  - target: "$.paths./orgs/{orgId}/teams/validate.get.description"
+    update: "Confirms that the given team name is valid and available for use within the organization. Append `?name=<your_team_name>` to specify the name to validate."
+  
+  # ---- DESCRIBE ORGANIZATION TEAM ----
+  
+  - target: "$.paths./orgs/{orgId}/teams/{teamId}.get.summary"
+    update: "Describe organization team"
+  
+  - target: "$.paths./orgs/{orgId}/teams/{teamId}.get.description"
+    update: "Retrieves the details of the team identified by the given `teamId`."
+  
+  # ---- UPDATE ORGANIZATION TEAM ----
+  
+  - target: "$.paths./orgs/{orgId}/teams/{teamId}.put.summary"
+    update: "Update organization team"
+  
+  - target: "$.paths./orgs/{orgId}/teams/{teamId}.put.description"
+    update: "Updates the details of the team identified by the given `teamId`."
+  
+  # ---- DELETE ORGANIZATION TEAM ----
+  
+  - target: "$.paths./orgs/{orgId}/teams/{teamId}.delete.summary"
+    update: "Delete organization team"
+  
+  - target: "$.paths./orgs/{orgId}/teams/{teamId}.delete.description"
+    update: "Deletes the team identified by the given `teamId`. This operation removes the team from all workspaces where it is a participant."
+  
+  # ---- LIST ORGANIZATION TEAM MEMBERS ----
+  
+  - target: "$.paths./orgs/{orgId}/teams/{teamId}/members.get.summary"
+    update: "List organization team members"
+  
+  - target: "$.paths./orgs/{orgId}/teams/{teamId}/members.get.description"
+    update: "Lists all members of the team identified by the given `teamId`."
+  
+  # ---- CREATE ORGANIZATION TEAM MEMBER ----
+  
+  - target: "$.paths./orgs/{orgId}/teams/{teamId}/members/add.put.summary"
+    update: "Create organization team member"
+  
+  - target: "$.paths./orgs/{orgId}/teams/{teamId}/members/add.put.description"
+    update: "Adds an organization member to the team identified by the given `teamId`."
+  
+  # ---- DELETE ORGANIZATION TEAM MEMBER ----
+  
+  - target: "$.paths./orgs/{orgId}/teams/{teamId}/members/{memberId}/delete.delete.summary"
+    update: "Delete organization team member"
+  
+  - target: "$.paths./orgs/{orgId}/teams/{teamId}/members/{memberId}/delete.delete.description"
+    update: "Removes the member identified by the given `memberId` from the team identified by the given `teamId`."
+  
+  # ---- LIST WORKSPACES BY TEAM ----
+  
+  - target: "$.paths./orgs/{orgId}/teams/{teamId}/workspaces.get.summary"
+    update: "List workspaces by team"
+  
+  - target: "$.paths./orgs/{orgId}/teams/{teamId}/workspaces.get.description"
+    update: "Lists all workspaces where the team identified by the given `teamId` is a participant."
