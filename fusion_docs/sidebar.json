@@ -12,7 +12,17 @@
         "guide/azure-batch",
         "guide/aws-eks",
         "guide/gcp-gke",
-        "guide/snapshots",
+        {
+          "type": "category",
+          "label": "Snapshots",
+          "collapsed": false,
+          "items": [
+            "guide/snapshots/index",
+            "guide/snapshots/aws",
+            "guide/snapshots/gcp",
+            "guide/snapshots/troubleshooting"
+          ]
+        },
         {
           "type": "category",
           "label": "Local execution",
