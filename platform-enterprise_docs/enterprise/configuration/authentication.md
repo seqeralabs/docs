@@ -1,7 +1,8 @@
 ---
 title: "Authentication"
 description: Seqera configuration options for authentication
-date: "21 Apr 2023"
+date created: "2023-04-21"
+last updated: "2025-11-19"
 tags: [authentication, configuration]
 ---
 
@@ -132,6 +133,10 @@ This must be an `https://` URI, per Microsoft's requirements.
     TOWER_OIDC_ISSUER=<OIDC_METADATA_URL_UP_TO_"v2.0"> (e.g. https://login.microsoftonline.com/000000-0000-0000-00-0000000000000/v2.0)
     ```
 12. Add `auth-oidc` to the `MICRONAUT_ENVIRONMENTS` environment variable for both the `cron` and `backend` services.
+
+:::note 
+Due to changes in Entra ID's supported authentication methods, users on Seqera Platform version 25.2.3 and below may experience incompatibility. To resolve this, add `MICRONAUT_SECURITY_OAUTH2_CLIENTS_OIDC_OPENID_TOKEN_AUTH_METHOD=client_secret_post` to your `tower.env` file or Kubernetes ConfigMap. 
+:::
 
 ### Okta identity provider
 
