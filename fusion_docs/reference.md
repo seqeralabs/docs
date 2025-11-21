@@ -1,5 +1,6 @@
 ---
 title: Reference
+description: "Fusion configuration options"
 tags: [fusion, storage, compute, file system, posix, configuration]
 ---
 
