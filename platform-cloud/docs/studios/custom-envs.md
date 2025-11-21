@@ -1,19 +1,19 @@
 ---
-title: "Custom environments"
+title: "Custom container templates"
 description: "Custom environments for Studios"
 date: "1 Oct 2024"
 tags: [environments, custom, studio, studio]
 ---
 
-In addition to the Seqera-provided container template images, you can provide your own custom container environments by augmenting the Seqera-provided images with a list of Conda packages or by providing your own base container template image.
-
-Studios uses the [Wave][wave-home] service to build custom container template images.
-
-## Conda packages
-
 :::info[**Prerequisites**]
 - Wave must be configured. For more information, see [Wave containers][wave-config].
+- Access to a container image repository, either a public container registry or a private Amazon ECR repository
+- A container template image
 :::
+
+You can provide your own custom container template with your own base container template image. Studios uses the [Wave][wave-home] service to build custom container templates.
+
+Public container registries are supported by default. Private container registries have limited support. Only private Amazon Elastic Container Registry (ECR) is supported, and only on AWS-based compute environments, where the registry is in the same AWS account as the compute environment. Access to the ECR is automatically configured when creating the compute environment.
 
 ### Conda package syntax {#conda-package-syntax}
 
@@ -36,21 +36,6 @@ dependencies:
 Either directly copy and paste your valid YAML code or use **Import from file** to attach an `environment.yml` file.
 
 To create a Studio with custom Conda packages, see [Add a Studio][add-s].
-
-## Custom container template image {#custom-containers}
-
-For advanced use cases, you can build your own container template image.
-
-:::note
-Public container registries are supported by default. 
-Private container registries have limited support. Only private Amazon Elastic Container Registry (ECR) is supported, and only on AWS-based compute environments, where the registry is in the same AWS account as the compute environment. Access to the ECR is automatically configured when creating the compute environment.
-:::
-
-:::info[**Prerequisites**]
-
-- Access to a container image repository, either a public container registry or a private Amazon ECR repository
-- A container template image
-:::
 
 ### Dockerfile configuration {#dockerfile}
 
@@ -148,3 +133,4 @@ To inspect the status of an ongoing build, or a successful or failed build, comp
 [env-manually]: https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-file-manually
 [add-s]: ./add-studio
 [custom-studios-examples]: https://github.com/seqeralabs/custom-studios-examples
+[git-studio]: ./add-studio#add-a-studio-from-git-repository
