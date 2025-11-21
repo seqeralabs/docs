@@ -19,8 +19,9 @@ On top of the general prerequisites, ensure you have the following:
 ## Installing the Helm Chart
 
 Helm bundles resource definitions into templates for repeatable deployments: inputs can be passed to the Helm chart either via a YAML file or inline to replace the default values.
+
 The `values.yaml` file defines a chart's settings: examples include container image tags, CPU/memory limits, ingress definition to expose the service, environment variables, etc.
-Each chart comes with a default `values.yaml` file containing default settings that can be overridden by providing a custom `values.yaml` file.
+Each Helm chart generally comes with its own `values.yaml` file containing default settings, which can be overridden by providing a custom values file. More details about values customization can be found in the [Helm documentation](https://helm.sh/docs/topics/charts#values-files).
 
 1. Fetch the default `values.yaml` file to customize the installation with your specific configuration:
 
@@ -28,8 +29,10 @@ Each chart comes with a default `values.yaml` file containing default settings t
    helm show values oci://public.cr.seqera.io/charts/platform --version 0.16.1 > my-values.yaml
    ```
 
-   Edit the `my-values.yaml` file to set your configuration options, such as database connection details, license information, and other settings.
+   Now edit the `my-values.yaml` file to set your options, such as internal container image registry, database connection details, license information, and other settings.
+
    You can drop lines that you don't want to customize to keep the file concise and only include the settings you want to change: this will make it easier to maintain your configuration in the future. The values you don't specify will fall back to the defaults defined in the chart in the `values.yaml` file. For an example of a minimal configuration file, see the [example values file](https://github.com/seqeralabs/helm-charts/blob/0.16.1/platform/examples/kustomize/values.yaml).
+
    You can browse all the available configuration options in a tabular format in the [Readme](https://github.com/seqeralabs/helm-charts/tree/0.16.1/platform) file.
 
 1. Install the chart from the public OCI registry in your desired namespace and with the values file customized in the previous step:
