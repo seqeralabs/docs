@@ -61,5 +61,5 @@ A shared pipeline's versions can only be edited from its original workspace.
 
 Seqera calculates a checksum for each draft version based on its version-triggering parameters. This provides:
 
-**Cryptographic verification** that a workflow run's configuration matches its associated pipeline version
-**Provenance tracking** for audit and compliance requirements
+- **Cryptographic verification** that a workflow run's configuration matches its associated pipeline version
+- **Provenance tracking** for audit and compliance requirements
