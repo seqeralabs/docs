@@ -47,6 +47,11 @@ Each Helm chart generally comes with its own `values.yaml` file containing defau
 
    The chart will fail to install if mandatory values are not provided.
 
+### Installing a Helm chart with Kustomize
+
+Kustomize can be used to manage Helm chart installations as well and provides further customization options.
+To install the Seqera Platform Enterprise Helm chart using Kustomize, check out the [Kustomize example directory](https://github.com/seqeralabs/helm-charts/tree/0.16.1/platform/examples/kustomize).
+
 ## Upgrading the Helm Chart
 
 To upgrade an existing Seqera Platform Enterprise Helm chart installation to a new version, run the following command, replacing `my-release` and `my-namespace` with your release name and namespace:
