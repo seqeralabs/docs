@@ -1,6 +1,6 @@
 ---
 title: Reference
-tags: [fusion, storage, compute, file system, posix, client]
+tags: [fusion, storage, compute, file system, posix, configuration]
 ---
 
 # Reference
