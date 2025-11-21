@@ -6,17 +6,15 @@ tags: [helm, deployment, installation, kubernetes]
 ---
 
 [Helm](https://helm.sh) is an open-source command line tool used for managing Kubernetes applications.
-Seqera offers a [Helm chart](https://github.com/seqeralabs/helm-charts/tree/master/platform) to deploy Seqera Platform Enterprise on a Kubernetes cluster.
+Seqera offers a [Helm chart](https://github.com/seqeralabs/helm-charts/tree/0.16.1/platform) to deploy Seqera Platform Enterprise on a Kubernetes cluster.
 
 ## Prerequisites
 
-Before installing the Seqera Platform Enterprise Helm chart, ensure you have the following prerequisites in place:
+This guide assumes that all prerequisites have been met. Visit the corresponding Prerequisites page for your infrastructure provider for more information.
+On top of the general prerequisites, ensure you have the following:
 
 - A Kubernetes cluster running a supported version;
-- [Helm v3](https://helm.sh/docs/intro/install) and [kubectl](https://kubernetes.io/docs/tasks/tools/) installed on your local machine;
-- Access to the Seqera Platform Enterprise Docker registry;
-- A valid Seqera Platform Enterprise license from your Seqera representative;
-- Other prerequisites as outlined in the Prerequisites section of the docs
+- [Helm v3](https://helm.sh/docs/intro/install) and [kubectl](https://kubernetes.io/docs/tasks/tools/) installed on your local machine.
 
 ## Installing the Helm Chart
 
