@@ -9,7 +9,17 @@ Seqera's pipeline versioning system captures configuration changes as new draft 
 When you add a new pipeline to Seqera, the first default version of that pipeline is automatically published.
 
 New draft versions are automatically generated when you modify the following:
-- Pipeline schema parameters, unless the `track_changes` schema configuration for the given property is set to `false`
+- All pipeline schema parameters, unless the `track_changes` schema configuration for a given property is set to `false`.
+  :::info
+  Changes to all pipeline schema parameters trigger a new version by default (`"track_changes": true`). To alter this behavior for specific parameters, add `"track_changes": false` to the parameter definition:
+  ```json
+  "my_parameter": {
+    "type": "string",
+    "description": "Changes to this parameter will not trigger a new pipeline version to be created",
+    "track_changes": false
+  }
+  ```
+  :::
 - Fields in the pipeline **Edit** form, excluding:
   - **Name**
   - **Image**
@@ -31,6 +41,8 @@ Seqera maintains a history of all draft and published versions, providing an aud
 Select a pipeline from the workspace Launchpad to open the pipeline's details page. From here, users with Maintain or higher permissions can:
 
 - **View version history**: See a chronological list of all draft and published versions with creator, date, and checksum.
+  - Use the dropdown next to **Show:** to show all versions, or filter by draft or published versions.
+  - **Search** for specific version names (freetext search), or use keywords to search by `pipelineVersionId:` or `pipelineVersionHash:` ([version checksum](#version-checksums)).
 - **Manage draft versions**: 
   - Select **Publish** from the options menu of a draft version to name this version and optionally make it the default version to launch from the Launchpad. 
   - Select **Edit** to open the pipeline edit form and either save a new draft or publish the current draft version.
@@ -39,7 +51,7 @@ Select a pipeline from the workspace Launchpad to open the pipeline's details pa
   - Select **Edit** to open the pipeline edit form and either save a new draft or update the current published version.
   - Select **Unpublish** to turn this version back into a draft. Draft versions are still visible to launch users.
 
-Individual draft versions cannot be deleted - the pipeline configuration audit trail is immutable. However, published versions can be unpublished or have their names reassigned to different draft versions.
+Individual draft versions cannot be deleted. This ensures that the pipeline configuration audit trail is immutable. However, published versions can be unpublished or have their names reassigned to different draft versions.
 
 :::note
 A shared pipeline's versions can only be edited from its original workspace.
