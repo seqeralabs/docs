@@ -107,7 +107,6 @@
         "items": [
           "pipelines/overview",
           "pipeline-schema/overview",
-          "pipelines/versioning",
           "pipelines/revision",
           "launch/launchpad",
           "labels/overview",

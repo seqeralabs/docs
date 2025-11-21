@@ -26,7 +26,3 @@ When you add a pipeline to Seqera, you define:
 #### Pipeline revision management
 
 Workflow repositories change over time as code is updated. Seqera provides [revision management](./revision.md) features, such as **commit ID pinning** to ensure reproducible execution by locking pipelines to specific Git commits, and **Pull latest** controls to instruct Nextflow to fetch the most recent commit at execution time.
-
-#### Pipeline versioning
-
-Seqera's [pipeline versioning system](./versioning.md) automatically tracks pipeline configuration changes as draft versions, creating an immutable audit trail of your pipeline evolution. Publish drafts to make important configurations easy to identify, share, and promote across your team. Version checksums provide cryptographic verification that workflow runs match their associated pipeline configurations.
