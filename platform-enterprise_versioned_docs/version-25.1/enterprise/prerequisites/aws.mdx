@@ -54,8 +54,8 @@ If you're installing Seqera Enterprise with Kubernetes, an [Elastic Kubernetes S
 
     - **RBAC requirements**
 
-      - The cluster must be created by a non-root user.
-      - `aws-auth` must be updated to [allow access to additional IAM users/roles](https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html) (if needed).
+      - The cluster must be created by a non-root user
+      - `aws-auth` must be updated to [allow access to additional IAM users/roles](https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html) (if needed)
 
     - **Addons**
 
@@ -96,8 +96,8 @@ Seqera Enterprise requires a MySQL 8.0-compatible database. For AWS deployments,
 - MySQL version: 8.0.x
 - Multi-AZ deployment recommended for production
 
-:::caution 
-Recommended instance class and storage requirements depend on the number of parallel pipelines you expect to run. 
+:::caution
+Recommended instance class and storage requirements depend on the number of parallel pipelines you expect to run.
 :::
 
 See the [Database configuration](../configuration/overview.mdx#database-requirements) section for connection pool sizing and performance tuning guidance.
@@ -156,25 +156,9 @@ After your instance is launched:
     docker compose version
     ```
 
-### Seqera container images
+## Seqera container images
 
-Seqera Platform Enterprise is distributed as a collection of Docker containers available through the Seqera container registry ([cr.seqera.io](https://cr.seqera.io)). Contact [support](https://support.seqera.io) to get your container access credentials. Once you've received your credentials, retrieve the Seqera container images on your EC2 instance:
-
-1. Retrieve the **username** and **password** you received from Seqera support.
-
-1. Authenticate to the registry:
-
-   ```bash
-   docker login -u 'username' -p 'password' cr.seqera.io
-   ```
-
-1. Pull the Seqera container images:
-
-   ```bash
-   docker pull cr.seqera.io/private/nf-tower-enterprise/backend:v25.1.1
-
-   docker pull cr.seqera.io/private/nf-tower-enterprise/frontend:v25.1.1
-   ```
+Seqera Enterprise is distributed as a collection of container images available through the Seqera container registry [`cr.seqera.io`](https://cr.seqera.io). Refer to the instructions in the [Common prerequisites](./common.md#vendoring-seqera-container-images-to-your-own-registry) page to replicate the required images to your internal container registry for High Availability or for air-gapped environments.
 
 ### Fetch Seqera config values from AWS Parameter Store
 

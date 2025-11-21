@@ -15,6 +15,7 @@
           "label": "Prerequisites",
           "collapsed": true,
           "items": [
+            "enterprise/prerequisites/common",
             "enterprise/prerequisites/aws",
             "enterprise/prerequisites/azure",
             "enterprise/prerequisites/gcp",
