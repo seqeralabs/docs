@@ -1,12 +1,13 @@
 ---
 title: "GitHub container registry credentials"
-description: "Create GitHub container registry credentials in Seqera Platform."
-date created: "2025-12-15"
-last updated: "2025-10-21"
+description: "Instructions to create GitHub container registry credentials in Seqera Platform."
+date: "15 Dec 2023"
 tags: [github, registry, credentials]
 ---
 
-GitHub Container Registry credentials allow the Wave container service to authenticate and pull container images from GitHub Packages. GitHub Packages only supports [authentication][github-pat] using a personal access token (classic) for programmatic access.
+From version 22.3, Seqera Platform supports the configuration of credentials for the Nextflow Wave container service to authenticate to private and public container registries. For more information on Wave containers, see the [Nextflow documentation](https://www.nextflow.io/docs/latest/wave.html).
+
+GitHub Packages only supports [authentication][github-pat] using a personal access token (classic). Use your personal access token as your password when you create your GitHub container registry credentials in Seqera.
 
 :::note
 Container registry credentials are only used by the Wave container service. Add `wave { enabled=true }` to the **Nextflow config** field on the launch page, or to your `nextflow.config` file, for your pipeline execution to use Wave containers.

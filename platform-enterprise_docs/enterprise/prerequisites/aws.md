@@ -93,28 +93,17 @@ If you use AWS SES in sandbox mode, both the _sender_ and the _receiver_ email a
    
    - [SPF authentication](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-authentication-spf.html)
 
-### Database requirements
+### Amazon RDS
 
-Seqera Enterprise requires a MySQL 8.0-compatible database. For AWS deployments, we recommend:
+External databases for Seqera Enterprise deployments require:
 
-- **AWS RDS MySQL 8.0** (recommended for most deployments)
-- **AWS Aurora MySQL** with standard provisioned instances
-
-:::warning Aurora Serverless is not supported
-**Do not use AWS Aurora Serverless.** Aurora Serverless v1 and v2 are not supported for Seqera Platform due to documented stability and performance issues under production workloads. Use standard provisioned Aurora MySQL instances or RDS MySQL instead.
-:::
-
-**Minimum specifications:**
-- Instance class: `db.r5.large` or equivalent (2 vCPUs, 16 GB RAM minimum)
-- Storage: 100 GB minimum, with auto-scaling enabled
-- MySQL version: 8.0.x
-- Multi-AZ deployment recommended for production
+- A **MySQL8 Community** DB instance
+- At least 2 vCPUs, 8 GB memory, and 30 GB SSD storage
+- Manual MySQL user and database schema creation. See [Database configuration](../configuration/overview#seqera-and-redis-databases) for more details.
 
 :::caution 
 Recommended instance class and storage requirements depend on the number of parallel pipelines you expect to run. 
 :::
-
-See the [Database configuration](../configuration/overview.mdx#database-requirements) section for connection pool sizing and performance tuning guidance.
 
 <Tabs>
 <TabItem value="AWS console" label="AWS console" default>
@@ -189,9 +178,9 @@ container registry ([cr.seqera.io](https://cr.seqera.io)). Contact [support](htt
 1. Pull the Seqera container images:
 
    ```bash
-   docker pull cr.seqera.io/private/nf-tower-enterprise/backend:v25.2.2
+   docker pull cr.seqera.io/private/nf-tower-enterprise/backend:v25.3
 
-   docker pull cr.seqera.io/private/nf-tower-enterprise/frontend:v25.2.2
+   docker pull cr.seqera.io/private/nf-tower-enterprise/frontend:v25.3
    ```
 
 ## Next steps 

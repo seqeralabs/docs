@@ -1,11 +1,17 @@
 ---
 title: Connect changelog
 date created: "2025-07-30"
-last updated: "2025-08-08"
+last updated: "2025-09-02"
 tags: [connect, changelog, connect-changelog]
 ---
 
 ## Connect server
+
+### server/v0.8.3 `latest` - 2025-07-25
+
+* Released 0.8.2 - bump server version by @weronikasosnowskaseqera in https://github.com/seqeralabs/connect/pull/434
+* Extract fusion version by @t0randr in https://github.com/seqeralabs/connect/pull/439
+* fix(proxy): include prefix in Location header PLAT-3239 by @weronikasosnowskaseqera in https://github.com/seqeralabs/connect/pull/438
 
 ### server/v0.8.2 - 2025-07-21
 
@@ -211,18 +217,7 @@ tags: [connect, changelog, connect-changelog]
 
 ## Connect client
 
-### client/v0.8.5 `latest` - 2025-07-29
-
-* Feat: send squash notifications to platform 
-* Feat: add Claude Code review 
-* build(server): add slack notification for enterprise release
-* build(server): add missing slack webhook secret 
-* build(server): temp fix for -rc releases 
-* Extract Fusion version 
-* fix(proxy): include prefix in Location header
-* released 0.8.2 - bump server version
-
-### client/v0.8.4 - 2025-07-18
+### client/v0.8.4 `latest` - 2025-07-18
 
 * Feat: add optional `CONNECT_TOOL_PATH_PREFIX` as base URL
 * Feat: install pip for VS Code images

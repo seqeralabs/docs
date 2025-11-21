@@ -1,8 +1,7 @@
 ---
 title: "Data repositories"
-description: "Add data repositories to Seqera Platform"
-date created: "2025-10-15"
-last updated: "2025-10-21"
+description: "Instructions for adding data repositories to Seqera Platform"
+date: "15 Oct 2025"
 tags: [data explorer, aws, azure, gcp, s3-compatible, api, credentials]
 ---
 
@@ -10,7 +9,7 @@ Data Explorer requires programmatic access via valid credentials to browse and i
 
 To automatically connect to one or more data repositories, create a new credential that includes **Name** and **Provider**. Specific data repositories require additional information to connect.
 
-## AWS Simple Storage Service (S3) object storage
+## AWS Simple Storage Service (S3) object storage 
 
 Add an **Access key**, and **Secret key**. You can optionally provide an IAM role for temporary access - this must be a fully qualified AWS role ARN. S3 object storage buckets are prefixed with an AWS icon and `s3://` in Data Explorer.
 
@@ -27,7 +26,7 @@ Select between different credential types: a **Shared key**, **Entra**, or **Clo
 - **Cloud:** Authenticate via an Azure Entra service principal for Azure Cloud.
 
 :::info
-Select Shared key for full administrator access via long-lived keys, choose Entra for access through an Entra service principal, or opt for Cloud to access via an Entra service principal with compatibility to the single VM compute type but not Azure Batch.
+Select Entra for modern, identity-based access control. Select Cloud for Entra identity-based access control with Cloud specializations. Select Shared key for full, direct account access.
 :::
 
 Add a **Batch account name**, **Batch account key**, **Blob Storage account name**, and **Blob Storage account key**.
