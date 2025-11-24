@@ -170,6 +170,58 @@
           {
           "type": "category",
           "label": "Monitor runs",
+          "items": ["monitoring/overview", "monitoring/run-details"]
+        },
+        "reports/overview",
+        "launch/cache-resume",
+        "secrets/overview",
+        "pipeline-optimization/overview",
+        "launch/advanced"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Studios",
+      "items": [
+        "studios/overview",
+        "studios/custom-envs",
+        "studios/managing",
+        "studios/connect"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Administration",
+      "items": [
+        "administration/overview",
+        "orgs-and-teams/organizations",
+        "orgs-and-teams/workspace-management",
+        "orgs-and-teams/roles",
+        "orgs-and-teams/custom-roles",
+        "monitoring/dashboard",
+        "monitoring/audit-logs"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Developer tools",
+      "collapsed": true,
+      "items": [
+        {
+          "type": "link",
+          "label": "API",
+          "href": "https://docs.seqera.io/platform-api"
+        },
+        {
+          "type": "category",
+          "label": "CLI",
+          "collapsed": true,
+          "items": ["cli/overview", "cli/installation", "cli/commands"]
+        },
+        {
+          "type": "category",
+          "label": "Seqerakit",
+          "collapsed": true,
           "items": [
             "monitoring/overview",            
             "monitoring/run-details"
