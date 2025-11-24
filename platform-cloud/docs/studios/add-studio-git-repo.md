@@ -88,7 +88,7 @@ Customer-generated container definition. See [Custom container template image][c
 
 You can add a Studio by referencing a Git repository containing Studio configuration files. You can also configure the following fields:
 
-- **Repository URL**: Enter the full URL to your Git repository (e.g., `https://github.com/your-org/studio-config.git`)
+- **Repository URL**: Enter the full URL to your Git repository (e.g., `https://github.com/your-org/your-repo`)
 - **Revision**: Select a branch, tag, or commit from the dropdown. The dropdown is dynamically populated based on the repository URL. If no revision is selected, the main or master branch is used.
 - **Resource labels**: Any [resource label](../labels/overview) already defined for the compute environment is added by default. Additional custom resource labels can be added or removed as needed.
 - **Environment variable**: Environment variables for the session. All variables from the selected compute environment are automatically inherited and displayed. Additional session-specific variables can be added. Session-level variables take precedence — to override an inherited variable, define the same key with a different value.
