@@ -47,7 +47,7 @@ The launch form consists of **General config**, **Run parameters**, and **Advanc
 - **Commit ID**: Pin pipeline revision to the most recent HEAD commit ID. If no commit ID is pinned, the latest revision of the repository branch or tag is used.
 - **Pull latest**: Fetch the most recent HEAD commit ID of the pipeline revision at launch time. Unpins the **Commit ID**, if set. 
   :::info
-  See [Pin commit ID](../../pipelines/overview.md#pin-commit-id) for more information on **Commit ID**, **Pull latest**, and **Revision** behavior. 
+  See [Git revision management](../../pipelines/revision.md) for more information on **Commit ID**, **Pull latest**, and **Revision** behavior. 
   :::
 - (*Optional*) **Config profiles**: One or more [configuration profile](https://www.nextflow.io/docs/latest/config.html#config-profiles) names to use for the execution. 
 - **Workflow run name**: An identifier for the run, pre-filled with a random name. This can be customized.
