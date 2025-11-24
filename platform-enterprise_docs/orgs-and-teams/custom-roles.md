@@ -6,9 +6,26 @@ last updated: "2025-11-17"
 tags: [roles, user-roles, custom roles, rbac, permissions]
 ---
 
-**TODO**: UI instructions for creating a custom role. 
+Seqera Platform supports custom roles to define permissions-based access control at a more granular level than the six default [workspace participant roles](./roles.md#workspace-participant-roles). 
 
-### Actions
+### Create custom roles
+
+Organization owners can add custom roles and assign read, write, execute, admin, and delete permissions for every Seqera resource type:
+
+1. Select your organization name from the organization and workspace switcher in the top navigation.
+1. Select **Access control** to view the list of default and custom roles available in your organization.
+1. Select **Add role**.
+1. Enter a role **Name** and optional **Description**. 
+1. From the **Permissions** list, select the **Read**, **Write**, **Execute**, **Admin**, and **Delete** permissions your custom role requires for each resource type. 
+1. Select **Add** to create the custom role and return to the **Access control** roles list. 
+
+Select **Edit** or **Delete** to manage existing custom roles in the list. 
+
+### Permissions
+
+Individual permissions grant read, write, execute, admin, or delete access for each Seqera entity. Individual read and write permissions may grant access for multiple operations via the Platform UI, API, and other programmatic tools such as Platform CLI. For example, the `action:read` permission allows a user to view the list of actions in a workspace, view the details of a specific action, and view available action types. 
+
+#### Actions
 
 | Permission | Description | API endpoint |
 |------------|-------------|--------------|
@@ -28,7 +45,7 @@ tags: [roles, user-roles, custom roles, rbac, permissions]
 | | Remove labels from actions | `POST /actions/labels/remove` |
 | | Apply label sets to actions | `POST /actions/labels/apply` |
 
-### Compute environments
+#### Compute environments
 
 | Permission | Description | API endpoint |
 |------------|-------------|--------------|
@@ -40,14 +57,14 @@ tags: [roles, user-roles, custom roles, rbac, permissions]
 | | Validate compute environment name availability | `GET /compute-envs/validate` |
 | **compute_environment:delete** | Delete a compute environment | `DELETE /compute-envs/{computeEnvId}` |
 
-### Compute platforms
+#### Compute platforms
 
 | Permission | Description | API endpoint |
 |------------|-------------|--------------|
 | **platform:read** | List platform regions | `GET /platforms/{platformId}/regions` |
 | | View platform details | `GET /platforms/{platformId}` |
 
-### Containers
+#### Containers
 
 | Permission | Description | API endpoint |
 |------------|-------------|--------------|
@@ -55,7 +72,7 @@ tags: [roles, user-roles, custom roles, rbac, permissions]
 | | List containers | _(Used by Platform)_ |
 | | List workflow containers | _(Used by Platform)_ |
 
-### Credentials
+#### Credentials
 
 | Permission | Description | API endpoint |
 |------------|-------------|--------------|
@@ -68,13 +85,13 @@ tags: [roles, user-roles, custom roles, rbac, permissions]
 | **credentials:delete** | Delete credentials | `DELETE /credentials/{credentialsId}` |
 | **credentials_encrypted:read** | Get encrypted credentials | _(Used by Platform)_ |
 
-### Credits
+#### Credits
 
 | Permission | Description | API endpoint |
 |------------|-------------|--------------|
 | **credits:read** | Download usage CSV | _(Used by Platform)_ |
 
-### Data-links (Data Explorer)
+#### Data-links (Data Explorer)
 
 | Permission | Description | API endpoint |
 |------------|-------------|--------------|
@@ -95,7 +112,7 @@ tags: [roles, user-roles, custom roles, rbac, permissions]
 | **data_link:admin** | Hide data-links | _(Used by Platform)_ |
 | | Show data-links | _(Used by Platform)_ |
 
-### Datasets
+#### Datasets
 
 | Permission | Description | API endpoint |
 |------------|-------------|--------------|
@@ -126,13 +143,13 @@ tags: [roles, user-roles, custom roles, rbac, permissions]
 | | Remove labels from datasets | `POST /datasets/labels/remove` |
 | | Apply label sets to datasets | `POST /datasets/labels/apply` |
 
-### GA4GH
+#### GA4GH
 
 | Permission | Description | API endpoint |
 |------------|-------------|--------------|
 | **ga4gh:execute** | Create GA4GH workflow run | `POST /ga4gh/wes/v1/runs` |
 
-### Labels
+#### Labels
 
 | Permission | Description | API endpoint |
 |------------|-------------|--------------|
@@ -141,13 +158,13 @@ tags: [roles, user-roles, custom roles, rbac, permissions]
 | | Edit an existing label | `PUT /labels/{labelId}` |
 | **label:delete** | Delete a label | `DELETE /labels/{labelId}` |
 
-### Launch
+#### Launch
 
 | Permission | Description | API endpoint |
 |------------|-------------|--------------|
 | **launch:read** | View launch details | `GET /launch/{launchId}` |
 
-### Pipelines
+#### Pipelines
 
 | Permission | Description | API endpoint |
 |------------|-------------|--------------|
@@ -175,7 +192,7 @@ tags: [roles, user-roles, custom roles, rbac, permissions]
 | | Remove labels from pipelines | `POST /pipelines/labels/remove` |
 | | Apply label sets to pipelines | `POST /pipelines/labels/apply` |
 
-### Pipeline secrets
+#### Pipeline secrets
 
 | Permission | Description | API endpoint |
 |------------|-------------|--------------|
@@ -186,7 +203,7 @@ tags: [roles, user-roles, custom roles, rbac, permissions]
 | | Edit an existing pipeline secret | `PUT /pipeline-secrets/{secretId}` |
 | **pipeline_secrets:delete** | Delete a pipeline secret | `DELETE /pipeline-secrets/{secretId}` |
 
-### Runs (Workflows)
+#### Runs (Workflows)
 
 | Permission | Description | API endpoint |
 |------------|-------------|--------------|
@@ -224,7 +241,7 @@ tags: [roles, user-roles, custom roles, rbac, permissions]
 | **workflow_star:write** | Star (favourite) a run | `POST /workflow/{workflowId}/star` |
 | **workflow_star:delete** | Unstar (unfavourite) a run | `DELETE /workflow/{workflowId}/star` |
 
-### Studios
+#### Studios
 
 | Permission | Description | API endpoint |
 |------------|-------------|--------------|
@@ -254,7 +271,7 @@ tags: [roles, user-roles, custom roles, rbac, permissions]
 | **studio_session:execute** | Extend studio lifespan (iframe) | _(Used by Platform)_ |
 | | Extend studio session lifespan | `POST /studios/{sessionId}/lifespan` |
 
-### Workspaces
+#### Workspaces
 
 | Permission | Description | API endpoint |
 |------------|-------------|--------------|
