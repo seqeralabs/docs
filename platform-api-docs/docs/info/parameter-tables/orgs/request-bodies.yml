@@ -9,39 +9,43 @@
 - Name: organization.id
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Organization numeric identifier.
 - Name: organization.name
   Type: string
   Req/Opt: Required
-  Description: ""
+  Description: Unique organization name. Must be 2-40 characters, start and end
+    with alphanumeric characters, and can contain hyphens or underscores between
+    characters.
 - Name: organization.fullName
   Type: string
   Req/Opt: Required
-  Description: ""
+  Description: Full display name for the organization. Maximum 100 characters.
 - Name: organization.description
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Optional description of the organization. Maximum 1000 characters.
 - Name: organization.location
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Optional location or address for the organization. Maximum 100 characters.
 - Name: organization.website
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Optional website URL for the organization.
 - Name: organization.dateCreated
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Timestamp when the organization was created.
 - Name: organization.lastUpdated
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Timestamp when the organization was last updated.
 - Name: logoId
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Logo image identifier for the organization. See [Create
+    avatar](https://docs.seqera.io/platform-api/create-avatar) to upload images
+    and obtain a logo ID.
 - Name: "**UpdateOrganization**"
   Type: ""
   Req/Opt: ""
@@ -69,7 +73,9 @@
 - Name: logoId
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Updated logo image identifier for the organization. See [Create
+    avatar](https://docs.seqera.io/platform-api/create-avatar) to upload images
+    and obtain a logo ID.
 - Name: paying
   Type: boolean
   Req/Opt: Optional
@@ -81,15 +87,15 @@
 - Name: "**CreateOrganizationMember**"
   Type: ""
   Req/Opt: ""
-  Description: Add organization member
+  Description: Create organization member
 - Name: user
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Username or email address of the user to add as an organization member.
 - Name: "**UpdateOrganizationMemberRole**"
   Type: ""
   Req/Opt: ""
-  Description: Update member role
+  Description: Update organization member role
 - Name: role
   Type: string
   Req/Opt: Optional

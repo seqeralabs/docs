@@ -1,11 +1,11 @@
 ---
 id: delete-organization-member
-title: "Delete member"
-description: "Deletes the member identified by the given `memberId`."
-sidebar_label: "Delete member"
+title: "Delete organization member"
+description: "Removes the member identified by the given `memberId` from the organization identified by the given `orgId`. This operation also removes the member from all workspaces within the organization."
+sidebar_label: "Delete organization member"
 hide_title: true
 hide_table_of_contents: true
-api: eJytlE1P3DAQhv+K5VMrpZttizjsqVC2EuoXAnpCK+FNZjeGxDa2A91G+e/MOE72C0FFe0o8Ho+fGb8zDfdi6fjkimuL31nCc3CZlcZLrfiEn0AJHhzzBbAKqjlYJnNQXi4k5Gy+ChtLeQ+KXXf7p/n1iCdcG7CCgpzmQ5ifdimU/BPM34MzOhphRYWbligarnCBB5AGDyZcEoQRvuC7ZJvBmKorsDJbs1FkC3e1tID3e1tDwl1WQCX4pOF+ZegSqTwsg+tC20r4znR4wNs2GUj6rP4eJtbpvzPN6LgzWjlwdOLD+IA+OyRf2Tv2Q7NMYyDleZvwg/F43+9Y5IxgwHm8q/dGN2FMKbOQSXrjyLfZoFzzX2FlnBNLINFEeD2/gYziGUvv72UH2juus3TeSrWkOnMvfUmmqbXansf8cKcN5B+fyLBXFlPaM1GW+gF5yN1BVlvpV0FIxyAs2KMaX2tyNaPiocoKTWrMgxqD9miXp6T9tAmaa9Pu+XDdv3zLKbS97yVa2xIPFd4bN0lTYeQoK3WdjxzcIdlI6j15XIQddlYKT6/KPpM/Ozo75cTVY19QlbuKbcIPRaMbeZQMrefBCS3dz5deLzcPPpRDqoUOx2OFIwVd+xIgpSsz7PvOmeQhsiCP7eQ3U0aFyDLIdaE/rTcQhCrX3fN+dHg4GpPNaOcrEdQVG62bEbF7dgmbtURfP5NiHT389qkpBbYzgoSEmiiFOAYTPukHUFQDmYZJgG9WID65N81cOPhly7YlM/aTJfnh772wUsyp8CiZXDr6R/EtROngmeTenMcOe8tennBPJhSNQq04UZQ1rfD3FlbDYKX59u9Mzw26V6AN9W1n6FuAyDESVa/bPsoyMH7j4N6k2mryk+m36eUU3cV2F+10TbjgSS582uBxqW9Bte2A6WlNjG37CAtpfLo=
+api: eJzdVU1vEzEQ/SuWTyCFJEDVQ060NEgVX1UppypSnd1J1u2u7dqzCWG1/50Z70eSphRUiQunrD3P4zfPbyaVRLUMcnItraff2UCmEBKvHWpr5EReQmFXEARmIAoo5uCFTsGgXmhIxXwTA0u9AiNumvh5eiMW3hYxQkmV0T8VZ/v9QULRqaG4ynQQ1oFv8CoPVvhDAjG7ynOxtv4uOJVQeK0x0+bgzqEcyD7heUoFnUEOCF93MJ9jVgI65VVBQc96VNLQgg5EchTVLIdTmMmHGu0mE6YswOtkW6xnDh7uS+2BCKAvYSBDkkGh5KSSuHF8izYIy8hiYX2hsNk6PpJ1PeipdAI/yaYp5x/wmPHx4KwJEPjEm/ER/zzQ4qN4Jb5YkVhKZFDWA3k0Hh/iTlUqmAwEpLs6NMGUc7lOopaj28DYaofllv81qRGCWgJ7tiVv57eQcD7n+dFRN0Q74LbKgF6bJWsrUWPOW1Pvrb9s66NIHZm/faTC3p/GItvQrokPwwMkpde4ie45BeXBn5T0QpPrGYtH1sosWzCNFoyG46gcceuNqmi0etQ8Mq27164lp/arzpelz+lQhujCZDRSTg+T3JbpMMA9MRtqe2CJbzEiLnKF/KriPePFycW5ZF4d7W+scqPYLvleNL5Rtpbh9TyCaKf5+ND55XaNUQ5tFjYebxVuWfC1fyLI5Wpu6wbM9lBJtMd+8bslk0N0Hu26sO+2ASLCyjX3vB4eHw/HvOdswEJFd7XN1QyG/YlVdKNhj2619ev/MB/b50X4gSOXK5ospE/UuWod2v45DOSkG4atSXmrH0pkpYxUZXhVzVWA7z6va96mNvfcFfS5Ul6rOfuBnJzqwN/UEwuqBZ6Q+cVl2/gvxV9M20crajeV2UimkZe8os872PRTnmfts0g9OXSfQacXtZ4RNgOVkg1ZsiZ8kiTgcOfgwdTcGzhn00/TqynB1X5HP+jgeMGjvOg9I+LK3oGp654m8po51vUv4+XftQ==
 sidebar_class_name: "delete api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -22,7 +22,7 @@ import Heading from "@theme/Heading";
 <Heading
   as={"h1"}
   className={"openapi__heading"}
-  children={"Delete member"}
+  children={"Delete organization member"}
 >
 </Heading>
 
@@ -36,7 +36,7 @@ import Heading from "@theme/Heading";
 
 
 
-Deletes the member identified by the given `memberId`.
+Removes the member identified by the given `memberId` from the organization identified by the given `orgId`. This operation also removes the member from all workspaces within the organization.
 
 <Heading
   id={"request"}
@@ -47,7 +47,7 @@ Deletes the member identified by the given `memberId`.
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"memberId","in":"path","description":"Organization member numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier.","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"memberId","in":"path","description":"Member numeric identifier.","required":true,"schema":{"type":"integer","format":"int64"}}]}
 >
   
 </ParamsDetails>
