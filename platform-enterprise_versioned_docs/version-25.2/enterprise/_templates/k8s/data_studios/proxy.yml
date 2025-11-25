@@ -57,12 +57,10 @@ spec:
           volumeMounts:
             - mountPath: /data
               name: caddy-temp-data-volume
-      securityContext:
-        fsGroup: 65532
       volumes:
         - name: caddy-temp-data-volume
           emptyDir:
-            sizeLimit: 100Mi  
+            sizeLimit: 100Mi
       securityContext:
         fsGroup: 65532
 ---
