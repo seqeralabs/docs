@@ -218,7 +218,7 @@ export default function Home(): JSX.Element {
                           </Link>
                         </li>
                         <li>
-                          <Link to="https://nextflow.io/docs/latest/cli.html">
+                          <Link to="nextflow/cli">
                             Nextflow CLI
                           </Link>
                         </li>
@@ -251,8 +251,8 @@ export default function Home(): JSX.Element {
                     </div>
                     <div className="flex flex-row flex-wrap w-full gap-4">
                       <Link
-                        to="https://nextflow.io/docs/latest/index.html"
-                        className="flex-col items-start w-full max-w-full md:max-w-[30%] border border-gray-300 border-solid rounded-md p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-lg hover:border-brand dark:hover:border-brand-800"
+                        to="/nextflow/"
+                        className="flex-col items-start w-full max-w-[100%] md:max-w-[30%] border border-gray-300 border-solid rounded-lg p-6 flex ease-in-out duration-300 transition-all hover:no-underline hover:shadow-xl hover:border-brand dark:hover:border-brand-800"
                       >
                         <img
                           src="/img/nextflow-icon.svg"
