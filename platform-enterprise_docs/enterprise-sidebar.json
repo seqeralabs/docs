@@ -13,9 +13,9 @@
         {
           "type": "category",
           "label": "Prerequisites",
+          "link": {"type": "doc", "id": "enterprise/prerequisites/common"},
           "collapsed": true,
-          "items": [
-            "enterprise/prerequisites/common",
+          "items": [            
             "enterprise/prerequisites/aws",
             "enterprise/prerequisites/azure",
             "enterprise/prerequisites/gcp",
