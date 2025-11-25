@@ -1,0 +1,43 @@
+# If this workflow failed in your PR, run `pre-commit install` and commit your files again.
+# See instructions in the README.md in the repo root for more details.
+name: Run pre-commit to check that formatting is correct
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+
+jobs:
+  pre_commit:
+    name: "pre-commit"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # ratchet:actions/checkout@v6.0.0
+
+      - uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c # ratchet:actions/setup-python@v6.0.0
+        with:
+          python-version: "3.14"
+          cache: "pip"
+
+      # Only run it on changed files with: https://github.com/pre-commit/action/issues/7
+      - id: changed-files
+        uses: tj-actions/changed-files@24d32ffd492484c1d75e0c0b894501ddb9d30d62 # ratchet:tj-actions/changed-files@v47
+
+      - uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # ratchet:pre-commit/action@v3.0.1
+        with:
+          extra_args: --files ${{ steps.changed-files.outputs.all_changed_files }}
+
+      # Send a notification to the PR if pre-commit fails
+      - name: Notify on failure
+        if: failure() && github.event_name == 'pull_request'
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # ratchet:actions/github-script@v8.0.0
+        with:
+          script: |
+            let body = "⚠️ **Pre-commit checks failed!** ⚠️\n\n";
+            body += "Please run `pre-commit install` locally and fix the issues before pushing again.\n\n";
+            body += "If you need help, refer to the [README](https://github.com/${{ github.repository }}/blob/main/README.md) in the repo root.\n";
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            })
