@@ -1,9 +1,13 @@
 ---
 title: Connect changelog
 date created: "2025-07-30"
-last updated: "2025-11-21"
+last updated: "2025-11-24"
 tags: [connect, changelog, connect-changelog]
 ---
+
+:::note
+Always use the `recommended` tagged template image for new Studios. Only two earlier minor versions of Seqera Connect are supported by Seqera.
+:::
 
 ## Connect server
 
