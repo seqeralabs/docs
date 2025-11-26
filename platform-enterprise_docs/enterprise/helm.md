@@ -18,7 +18,7 @@ This guide assumes that all [Seqera prerequisites](./prerequisites/common) have 
 
 Helm bundles resource definitions into templates for repeatable deployments: inputs can be passed to the Helm chart either via a YAML file or inline to replace the default values.
 
-The `values.yaml` file defines a chart's settings: examples include container image tags, CPU/memory limits, ingress definition to expose the service, environment variables, etc. Each Helm chart generally comes with its own `values.yaml` file containing default settings, which can be overridden by providing a custom values file. More details about values customization can be found in the [Helm documentation](https://helm.sh/docs/topics/charts#values-files).
+The `values.yaml` file defines a chart's settings, such as container image tags, CPU/memory limits, ingress definition to expose the service, environment variables, etc. Each Helm chart generally comes with its own `values.yaml` file containing default settings, which can be overridden by providing a custom values file. More details about values customization can be found in the [Helm documentation](https://helm.sh/docs/topics/charts#values-files).
 
 1. Fetch the default `values.yaml` file to customize the installation with your specific configuration:
 
