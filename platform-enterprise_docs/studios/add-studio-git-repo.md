@@ -24,7 +24,7 @@ You will need the following to get started:
 
 ### Create the required configuration files 
 
-**`.seqera/studio-config.yaml` configuration file**
+**.seqera/studio-config.yaml configuration file**
 
 The following fields can be defined:
 
@@ -44,7 +44,7 @@ The following fields can be defined:
 - Environment variables (list of `key:value` pairs)
 
 
-**`.seqera/conda-environment.yaml` configuration file**
+**.seqera/conda-environment.yaml configuration file**
 
 This is a YAML object defining the list of packages (and optionally pinned versions) to install. It uses standard conda environment file syntax. See [Conda package syntax][conda-syntax]. 
 
@@ -82,7 +82,7 @@ session:
         isPrivate: false # Defaults to false
 ```
 
-**`.seqera/Dockerfile` configuration file**
+**.seqera/Dockerfile configuration file**
 
 Customer-generated container definition. See [Custom container template image][custom-image] for requirements.
 
