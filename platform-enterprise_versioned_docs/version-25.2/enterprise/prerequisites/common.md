@@ -1,5 +1,7 @@
 # Common prerequisites to all Enterprise installations
 
+Before installing Seqera Enterprise, ensure that the following prerequisites are met, as well as any additional prerequisites specified for your chosen infrastructure provider, such as [AWS](./aws), [GCP](./gcp), [Azure](./azure) or [on-premises installations](./on-prem).
+
 ## Vendoring Seqera container images to your own registry
 
 Seqera Enterprise is distributed as a collection of container images available through the Seqera container registry [`cr.seqera.io`](https://cr.seqera.io). Contact [support](https://support.seqera.io) to get your container access credentials.
