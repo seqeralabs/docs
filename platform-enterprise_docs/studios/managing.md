@@ -8,7 +8,7 @@ tags: [data, session, studios]
 
 Select the **Studios** tab in Platform to:
 
-- Start, stop, or connect to an existing session. 
+- Start, stop, or connect to an existing session.
 - Dynamically filter the list of Studios using the search bar.
 - Open a detailed view that displays configuration information.
 
@@ -144,7 +144,7 @@ Sessions have the following possible statuses:
 - **running**: When a session is **running**, you can connect to it, copy the URL, or stop it. In addition, the session can continue to process requests/run computations in the absence of an ongoing connection.
 - **stopping**: The recently-running session is in the process of being stopped.
 - **stopped**: When a session is stopped, the associated compute resources are deallocated. You can start or delete the session when it's in this state.
-- **errored**: This state most often indicates that there has been an error starting the session but it is in a **stopped** state. 
+- **errored**: This state most often indicates that there has been an error starting the session but it is in a **stopped** state.
 
 :::note
 There might be errors reported by the session itself but these will be overwritten with a **running** status if the session is still running.
@@ -189,7 +189,7 @@ By default, a session allocates an initial 2 GB of storage. Available disk space
 
 This approach ensures that a session doesn't initially include unnecessary free disk space, while providing the flexibility to accommodate installation of large software packages required for data analysis.
 
-The maximum storage allocation for a session is limited by the compute environment disk boot size. By default, this is 30 GB. This limit is shared by all sessions running in the same compute environment. If the maximum allocation size is reached, it is possible to reclaim storage space using a snapshot. 
+The maximum storage allocation for a session is limited by the compute environment disk boot size. By default, this is 30 GB. This limit is shared by all sessions running in the same compute environment. If the maximum allocation size is reached, it is possible to reclaim storage space using a snapshot.
 
 Stop the active session to trigger a snapshot from the active volume. The snapshot is uploaded to cloud storage with Fusion. When you start from the newly saved snapshot, all previous data is loaded, and the newly started session will have 2 GB of available space.
 
