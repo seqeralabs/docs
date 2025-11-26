@@ -20,7 +20,8 @@ You will need the following to get started:
 
 - Compute environments are workspace-specific and cannot be defined in Git repositories. Select the compute environment when adding a Studio.
 - Data links cannot be referenced in Git repositories. Select data links when adding a Studio.
-- Git repositories containing multiple Studio configurations are not supported.
+- Git repositories containing multiple Studio configurations are not supported. 
+- Git repositories with multiple branches and different configurations are supported.
 
 ### Create the required configuration files 
 
