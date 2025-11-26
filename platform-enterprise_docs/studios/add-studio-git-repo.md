@@ -13,7 +13,7 @@ You will need the following to get started:
 - A compute environment with sufficient resources (scale based on data volume)
 - [Data Explorer](../data/data-explorer) enabled
 - Git credentials configured in your workspace
-- A Git repository containing either `.seqera/conda-environment.yaml` or `.seqera/Dockerfile`
+- A Git repository containing `seqera/studio-config.yaml`.
 :::
 
 **Limitations**
