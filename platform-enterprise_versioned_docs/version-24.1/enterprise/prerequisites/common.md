@@ -4,6 +4,8 @@
 
 Seqera Enterprise is distributed as a collection of container images available through the Seqera container registry [`cr.seqera.io`](https://cr.seqera.io). Contact [support](https://support.seqera.io) to get your container access credentials.
 
+Before installing Seqera Enterprise, ensure that the following prerequisites are met, as well as any additional prerequisites specified for your chosen infrastructure provider, such as [AWS](./aws), [GCP](./gcp), [Azure](./azure) or [on-premises installations](./on-prem).
+
 Vendoring images to your own container registry ensures that your deployments are not impacted by the potential unavailability of the Seqera container registry due to network issues, or to deploy Seqera in air-gapped environments. We recommend vendoring images to your own container registry, such as Amazon Elastic Container Registry (ECR), Google Container Registry (GCR), Docker Hub, among others.
 
 Three options are available to vendor images:
