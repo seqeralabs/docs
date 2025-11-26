@@ -1,11 +1,12 @@
 ---
-title: "Pipeline versioning"
+title: "Pipeline versioning (preview)"
 description: "Introduction to pipeline versioning in Seqera Platform."
 date created: "2025-11-14"
 tags: [pipelines, versioning, nextflow, parameters]
 ---
 
 Seqera's pipeline versioning system captures configuration changes as new draft versions of the pipeline, ensuring configuration traceability and execution reproducibility. Users with appropriate permissions can edit and publish draft versions, creating published versions that teams can reference and launch consistently.
+
 When you add a new pipeline to Seqera, the first default version of that pipeline is automatically published.
 
 New draft versions are automatically generated when you modify the following:
@@ -28,7 +29,7 @@ New draft versions are automatically generated when you modify the following:
 
 Published versions provide a stable reference for team-wide pipeline launches. Users with Maintain or higher permissions can publish a draft version, giving it a name and optionally setting it as the default version. This makes important configurations easy to identify, share, and promote across your team.
 
-:::info 
+:::info
 A pipeline's default version is shown in the Launchpad and automatically selected during launch.
 :::
 
@@ -42,9 +43,9 @@ Select a pipeline from the workspace Launchpad to open the pipeline's details pa
 
 - **View version history**: See a chronological list of all draft and published versions with creator, date, and checksum.
   - Use the dropdown next to **Show:** to show all versions, or filter by draft or published versions.
-  - **Search** for specific version names (freetext search), or use keywords to search by `pipelineVersionId:` or `pipelineVersionHash:` ([version checksum](#version-checksums)).
-- **Manage draft versions**: 
-  - Select **Publish** from the options menu of a draft version to name this version and optionally make it the default version to launch from the Launchpad. 
+  - **Search** for specific version names (freetext search), or use keywords to search by `pipelineVersionId:` ([version checksum](#version-checksums)).
+- **Manage draft versions**:
+  - Select **Publish** from the options menu of a draft version to name this version and optionally make it the default version to launch from the Launchpad.
   - Select **Edit** to open the pipeline edit form and either save a new draft or publish the current draft version.
 - **Manage published versions**:
   - Select **Make default** from the options menu of a published version to use this version for every pipeline launch.
@@ -61,5 +62,5 @@ A shared pipeline's versions can only be edited from its original workspace.
 
 Seqera calculates a checksum for each draft version based on its version-triggering parameters. This provides:
 
-- **Cryptographic verification** that a workflow run's configuration matches its associated pipeline version
-- **Provenance tracking** for audit and compliance requirements
+- **Provenance tracking** for audit and compliance requirements.
+- **Cryptographic verification** that a workflow run's configuration matches its associated pipeline version.
