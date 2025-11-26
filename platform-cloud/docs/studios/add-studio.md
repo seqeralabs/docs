@@ -2,40 +2,124 @@
 title: "Add a Studio"
 description: "Add a Studio in Platform."
 date created: "2025-09-04"
-last updated: "2025-10-21"
+last updated: "2025-09-04"
 tags: [data, session, studios]
 ---
 
-Select the **Studios** tab, and then select **Add Studio**. The options available are:
+Select the **Studios** tab, and then select **Add Studio**.
 
-- [Provided container template][containers]
-- [Import from a Git repository][github]
-- [Custom container template][custom-container]
+:::info[**Prerequisites**]
+Before you get started, you need:
 
-### Compute environment requirements
+- Valid credentials to access your cloud storage data resources.
+- At least the **Maintain** role set of permissions.
+- A compute environment with sufficient resources. This is highly dependent on the volume of data you wish to process, but at least 2 CPUs allocated with 8192 MB of memory is recommended.
+- [Data Explorer](../data/data-explorer) enabled.
+:::
+
+:::note
+- Review the [user roles](../orgs-and-teams/roles) documentation for details about role permissions.
+- The following functionality is available to users with the **Maintain** role and above.
+:::
+
+## Compute and Data
+
+- **Resource labels**: Any [resource label](../labels/overview) already defined for the compute environment is added by default. Additional custom resource labels can be added or removed as needed.
 
 For AWS Batch compute environments:
 
-   - **CPUs allocated**: The default allocation is 2 CPUs.
-   - **GPUs allocated**: Available only if the selected compute environment has GPU support enabled. For more information about GPUs on AWS, see [Amazon ECS task definitions for GPU workloads][aws-gpu]. The default allocation is 0 GPUs.
-   - **Maximum memory allocated**: The default allocation is 8192 MiB of memory.
+- **CPUs allocated**: The default allocation is 2 CPUs.
+- **GPUs allocated**: Available only if the selected compute environment has GPU support enabled. For more information about GPUs on AWS, see [Amazon ECS task definitions for GPU workloads][aws-gpu]. The default allocation is 0 GPUs.
+- **Maximum memory allocated**: The default allocation is 8192 MiB of memory.
+   
+### Mount data
 
-### EFS file systems
+Select **Mount data**, and then from the **Mount data** modal, select data to mount. Select **Mount data** to confirm your selection.
 
-If you configured your compute environment to include an EFS file system with **EFS file system > EFS mount path**, the mount path must be explicitly specified. The mount path cannot be the same as your compute environment work directory. If the EFS file system is mounted as your compute environment work directory, snapshots cannot be saved and sessions fail.
+Datasets are mounted using the [Fusion file system](https://docs.seqera.io/fusion) and are available at `/workspace/data/<dataset>`. Mounted data doesn't need to match the compute environment or region of the cloud provider of the Studio. However, this might cause increased costs or errors.
 
-To mount an EFS volume in a Studio session (for example, if your organization has a custom, managed, and standardized software stack in an EFS volume), add the EFS volume to the compute environment (system ID and mount path). The volume will be available at the specified mount path in the session.
+By default, sessions only have read permissions to mounted data paths. Write permissions can be added for specific cloud storage buckets during the compute environment configuration by defining additional **Allowed S3 Buckets**. This means that data can be written from the session back to the cloud storage path(s) mounted. If a new file is uploaded to the cloud storage bucket path while a session is running, the file may not be available to the session immediately.
 
-For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
+## General config
+
+### Seqera-provided container templates
+
+You can customize the following fields:
+- **Container template**: Select a template from the dropdown list.
+- **Studio name**
+- Optional: **Description**
+
+Select **Install Conda packages** to enter or upload a list of Conda packages to include with the Studio. For more information on the syntax for specifying Conda packages, see [Conda package syntax][conda-syntax].
+
+**Collaboration**: By default, all Studios are collaborative. This means all workspace users with the launch role and above can connect to the session. You can toggle **Private** on which means that only the workspace user who created the Studio can connect to it. When **Private** is on, workspace administrators can still start, stop, and delete sessions but cannot connect to them.
+
+**Session lifespan**: Depending on your workspace settings, you may be able to choose between the following options.
+**Stop the session automatically after a predefined period of time.**
+If there is an existing defined session lifespan workspace setting, you won't be able to edit this. If no workspace setting is defined, you can edit this field. The minimum value is 1 hour and the maximum is 120 hours. The default value is 8 hours. If you change the default value, the change applies only to that session. Once you've stopped the session, the value returns to default.
+**Keep the session running until it's manually stopped or encounters an error which ends the session.**
+
+#### Environment variables
+
+For the selected compute environment, all existing environment variable key-value pairs are displayed and automatically inherited by the studio session. Additional per-session environment variables can be defined for the Studio.
+     
+Session-level environment variables take precedence. You can overwrite an existing compute environment-defined environment variable key-value pair by defining the same key and a different value.
+
+### Custom container template image (BYOC)
+
+Customize the following fields:
+ **Container template**: Select **Prebuilt container image** from the list. For information about providing your own template, see [Custom container template image][custom-image].
+ If you select the **Prebuilt container image** template, you cannot select **Install Conda packages** as these options are mutually exclusive.
+ - **Studio name**
+- Optional: **Description**
+
+## Save and start
+
+   1. Ensure that the specified configuration is correct.
+   1. Save your configuration:
+      - To not immediately start the session, select **Add only**.
+      - If you want to save and immediately start the Studio, select **Add and start**.
+
+The Studio you created will be listed on the Studios landing page with a status of either **stopped** or **starting**, based on whether you elected to **Add** it or to **Add and start** a session as well. Select a Studio to inspect its configuration details. 
+
+### Path-based routing/non-wildcard SSL/TLS certificates
+
+Connect, the Studios webserver, uses dynamic subdomains to manage session routing of requests, which require a wildcard SSL/TLS certificate. 
+
+For example: 
+- `https://a1234abc.connect.cloud.seqera.io/`
+- `https://a5678abcd.connect.cloud.seqera.io/`
+
+For Enterprise deployments that cannot use a wildcard SSL/TLS certificate, an optional [configuration environment variable](../enterprise/configuration/overview#data-features), `TOWER_DATA_STUDIO_ENABLE_PATH_ROUTING` can be added. Setting this configures Studios requests to use path-based routing and a single, fixed domain for Studio sessions.
+
+For example:
+- `https://connect.cloud.seqera.io/_studio/a1234abc`
+- `https://connect.cloud.seqera.io/_studio/a5678abcd`
+
+To enable path-based routing in Seqera Platform, create a new certificate that contains the platform and Connect addresses and use the following configuration, which does not require a wildcard certificate: `TOWER_DATA_STUDIO_ENABLE_PATH_ROUTING=true`.
+
+:::warning
+Path-based routing is only supported for the Seqera-provided JupyterLab, R-IDE Server, and Visual Studio Code container template images (and custom environments built from each). Xpra and user-defined [custom container template images](./custom-envs.md#custom-containers) are not supported.
+:::
+
+### Custom Studio domain setup
+
+By default, Seqera Platform Cloud uses `https://{sessionId}.connect.cloud.seqera.io` as the Studios subdomain. However, the domain used for Studios can be configured by the following two environment variables.
+
+:::note
+This may require changes to your DNS configuration and the addition of a SSL/TLS certificate for the new domain.
+:::
+
+In Platform:
+- `TOWER_DATA_STUDIO_CONNECT_URL=<NEW_DOMAIN_ADDRESS>`
+
+In Connect proxy/server:
+- `CONNECT_PROXY_URL=<NEW_DOMAIN_ADDRESS>`
 
 {/* links */}
 [contact]: https://support.seqera.io/
-[aws-cloud]: ../compute-envs/aws-cloud
 [aws-gpu]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-gpu.html
+[aws-cloud]: ../compute-envs/aws-cloud
 [aws-batch]: ../compute-envs/aws-batch
-[github]: ./add-studio-git-repo
-[custom-container]: ./add-studio-custom-container
+[custom-envs]: ./custom-envs
 [conda-syntax]: ./custom-envs#conda-package-syntax
 [custom-image]: ./custom-envs#custom-containers
-[containers]: ./add-studio-custom-container
-
