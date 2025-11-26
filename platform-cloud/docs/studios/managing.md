@@ -110,7 +110,7 @@ Due to the nature of fully customizable, containerized applications, users can m
 As Studios matures and new versions of JupyterLab, R-IDE, Visual Studio Code, and Xpra are released, new Seqera-provided image templates will be periodically released including updated versions of Seqera Connect. The most recent container template images will be tagged `recommended` and earlier template images will be tagged `deprecated`. Temporary container templates tagged with `experimental` are not supported and should not be used in production environments.
 
 :::tip
-Always use the `recommended` tagged template image for new Studios. Only two earlier minor versions of [Seqera Connect][connect] are supported by Seqera.
+Always use the `recommended` tagged template image for new Studios. Only two earlier minor versions of Seqera Connect are supported by Seqera.
 :::
 
 To migrate a Studio to a more recent container version and Seqera Connect:
@@ -214,4 +214,3 @@ Stop the active session to trigger a snapshot from the active volume. The snapsh
 [add-s]: ./add-studio
 [conda-syntax]: ./custom-envs#conda-package-syntax
 [custom-image]: ./custom-envs#custom-containers
-[connect]: ./connect
