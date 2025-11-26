@@ -178,17 +178,7 @@
         "pipeline-optimization/overview",
         "launch/advanced"
       ]
-    },
-    {
-      "type": "category",
-      "label": "Studios",
-      "items": [
-        "studios/overview",
-        "studios/custom-envs",
-        "studios/managing",
-        "studios/connect"
-      ]
-    },
+    },    
     {
       "type": "category",
       "label": "Administration",
