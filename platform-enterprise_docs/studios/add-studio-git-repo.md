@@ -26,31 +26,7 @@ You will need the following to get started:
 
 **.seqera/studio-config.yaml configuration file**
 
-The following fields can be defined:
-
-**Required**
-- Maximum memory in MiB allocated
-
-**Optional**
-- Resource labels
-- CPUs allocated
-- GPUs allocated
-- Name (if undefined, an auto-generated name will be used)
-- Description
-- Base template image (valid path to Seqera-managed template or full path to Dockerfile)
-- Environment (reference to `conda-environment.yaml` file)
-- Collaboration mode (**Private**) 
-- Session lifespan (hours session will run; defaults to workspace setting)
-- Environment variables (list of `key:value` pairs)
-
-
-**.seqera/conda-environment.yaml configuration file**
-
-This is a YAML object defining the list of packages (and optionally pinned versions) to install. It uses standard conda environment file syntax. See [Conda package syntax][conda-syntax]. 
-
-The only required field is `session.template.kind`. All other fields are optional.
-
-Example: 
+Create a `.seqera/studio-config.yaml` file in the the `.seqera/ ` directory in your repo. The only required field is `session.template.kind`. All other fields are optional.
 
 ```yaml
 schemaVersion: "0.0.1"
@@ -64,7 +40,7 @@ session:
         dockerfile: "Dockerfile"                 # Ignored for `registry` and `none`
     clone:
         enabled: true                            # Defaults to `true`
-        path: "/workspace"                # Defaults to `/workspace`
+        path: "/workspace"                       # Defaults to `/workspace`. If you want to clone to `/workspace/repository` then you need to specify this.
     dependencies:
         condaEnvironmentFile: "environment.yaml" # Ignored for `dockerfile`
     computeRequirements:
@@ -82,9 +58,7 @@ session:
         isPrivate: false # Defaults to false
 ```
 
-**.seqera/Dockerfile configuration file**
-
-Customer-generated container definition. See [Custom container template image][custom-image] for requirements.
+### Add a Studio
 
 You can add a Studio by referencing a Git repository containing Studio configuration files. You can also configure the following fields:
 
