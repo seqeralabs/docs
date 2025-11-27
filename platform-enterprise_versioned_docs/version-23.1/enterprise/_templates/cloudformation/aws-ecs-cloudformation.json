@@ -186,7 +186,7 @@
                         },
                         {
                             "Name": "FLYWAY_LOCATIONS",
-                            "Value": "classpath:db-schema/mysql"
+                            "Value": "classpath:db-schema/mysql"                        
                         }
                     ]
                     },
@@ -327,7 +327,7 @@
                         },
                         {
                             "Name": "FLYWAY_LOCATIONS",
-                            "Value": "classpath:db-schema/mysql"
+                            "Value": "classpath:db-schema/mysql"                        
                         }
                     ],
                     "EntryPoint": [ "/bin/sh" ],

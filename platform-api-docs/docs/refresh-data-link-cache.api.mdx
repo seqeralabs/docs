@@ -1,11 +1,11 @@
 ---
 id: refresh-data-link-cache
 title: "Refresh data-link cache"
-description: "Refreshes the data-link cache for the given `workspaceId` or `credentialsId`"
+description: "Refreshes the data-link cache for the given `workspaceId` or `credentialsId`. Forces immediate re-discovery of available cloud storage resources."
 sidebar_label: "Refresh data-link cache"
 hide_title: true
 hide_table_of_contents: true
-api: eJytU02P2jAQ/SuWz5TQdsWBU7fbD6FW6qq7VQ8VEiaZEBdjZ+0JFEX5751xAgF2BT30BJ55efPmzUwtUS2DnPySmUL1ymi7CnI2kBmE1OsStbNyIr9D7iEUEAQWIA5IkaqU3rnzMb7UG7BivnV+FUqVwjSbC0rNUw8ZWNTKBArJgXQleMXU06wn/0CsX4n0jjkJVCqv1oDgWV0tLT0IfEROGM3inirwO3ku+eceKGy1Bq9ToaOIXIMncKAiayUntcRdycTaIixjitpZK2xD4xvZNIND9ZNOLte/66EioNd2eUVAC6Jy5D75UTobIHD+zWjEP6f0377IZiBvRm9fSO3dFdahUMa4LWTchgyQVl7jLhr6HpQHf1thQc8ZVyW3C8cTWQLGAXBKJv1iJHHeiW8HJnvCB26mVXtMe+itQCz3PfN7EUEUaf982jv+e4tRqLa5i59rNIx/gCfqSdzeT5/53KXujUIenAjgNzqlTW3BqbOoUmSyyptOSpgkSYjfDbUjEA1Cmzjw3L3rEyRkQ+vX1nk9HI+HI46VLuBaWabs1qLb4PPDONdaRzW0A///ojqfEf5gUhpFe0lCY8N1N8eTAydfOoH7WdL4C+qLcXW9UAF+eNM0HG7Xmzcm00EtDO3SJKfCcKG7K8f3otoV7J7d90aZipGSb/Dfy1+7vQv1zy+8VzDjh9csIR7M0b18/vhIUHW682c7Hh3sUsrujqjJ74h4dCuw5PleCvKb6jZN8xfPMPLu
+api: eJzNlFFv0zAQx7+K5eeSFpj20CfGYKgCiYkN8YAm7eZcGlPHzmynpary3blzkqXtpsEDQjy19l3s3/9/59vJCMsg599lDhFeGG1XQd5MZI5BeV1H7aycyy9YeAwlBhFLFA+ZQoGideF82l/qNVpxu3F+FWpQuMhvBYVulcccbdRgAm1l4sJ5RUfpqsJcQ0Th8UWug3Jr9FvhCgFr0AbuDAplXJOLEJ2HJecF1/C3mZxIV6MH5lvkI+E7QvtEZOcMRkk1eKgwomeJO2lpQcl7hJSjWeF9Q3fLY93fhkRhmwq9VkInJYVGn4lFIVylY8R8QmiDQ50n2goQTUAvlLMRf0ZGDhSpQM53Mm5rBtEUWqKnEHlYQey2Tk9k204eaA/se573fEwl07y2ywPgC23Yih6xRxbRjRUNAhT5GzSbv9GxTIUNNSo+Ihd7LE8K6i4lfGohOrx2NmDg+KvZjH8OcT9/lO1EnsxePxEaqiusiwKMcRvM2RYZUDVex20q6FsEj/6siSUtb/hWqnbpuCOWGFMDcEhOR4XTpH7aq2cR6NdDgzTeUHYZYx3m0ynUOksdmAW8J55Mu0eWX6WIuDQQuYbiPHXs2eVCMs0Ae8VGdU7sIz/4xjcOfvL6LiXRTvfnYuiOH5uYTNC2cOlzHQ2OFHzt7wBZrub31yVze4KKfNih+H3JVGRtUnMW7s0YIBB2rrvnZXZ6ms14r3YhVmD5yL6F+9d5PDmOWXeJhvrrPx05fbH4OU9rA/QQSW1ybdc32sEYJXN7lUOzUUeUZA7n7XZ3EPCrN23L29175hYkLOagFi6IHp+x6C9PpyfVrXD7aGCuwTScKXlI/Tnuvx5Oz+g5HqmjohteeM2S0kTZGygf3l9TKhw+3KOHmirYh8Bu946meqeMa7dCSzUfUCKv6d62bX8BIRaiwg==
 sidebar_class_name: "get api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -36,7 +36,7 @@ import Heading from "@theme/Heading";
 
 
 
-Refreshes the data-link cache for the given `workspaceId` or `credentialsId`
+Refreshes the data-link cache for the given `workspaceId` or `credentialsId`. Forces immediate re-discovery of available cloud storage resources.
 
 <Heading
   id={"request"}
@@ -47,7 +47,7 @@ Refreshes the data-link cache for the given `workspaceId` or `credentialsId`
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"credentialsId","in":"query","description":"Credentials string identifier","schema":{"type":"string"}}]}
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier. If omitted, refreshes cache in a user context.","schema":{"type":"integer","format":"int64"}},{"name":"credentialsId","in":"query","description":"Credentials string identifier. Filters cache refresh to data-links accessible with the specified credentials.","schema":{"type":"string"}}]}
 >
   
 </ParamsDetails>

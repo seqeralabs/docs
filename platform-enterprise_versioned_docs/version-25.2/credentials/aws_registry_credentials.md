@@ -1,11 +1,12 @@
 ---
 title: "AWS ECR credentials"
-description: "Instructions to create AWS ECR credentials in Seqera Platform."
-date: "21 Apr 2023"
+description: "Create AWS ECR credentials in Seqera Platform."
+date created: "2023-04-21"
+last updated: "2025-10-21"
 tags: [aws, ecr, credentials]
 ---
 
-From version 22.3, Seqera Platform supports the configuration of credentials for the Nextflow Wave container service to authenticate to private and public container registries. For more information on Wave containers, see [the Nextflow documentation](https://www.nextflow.io/docs/latest/wave.html).
+AWS Elastic Container Registry (ECR) credentials allow the Wave container service to authenticate and pull container images from your private ECR repositories. Wave requires IAM user credentials with long-term access keys and appropriate ECR read permissions.
 
 :::note
 Container registry credentials are only used by the Wave container service. Add `wave { enabled=true }` to the **Nextflow config** field on the launch page, or to your `nextflow.config` file, for your pipeline execution to use Wave containers.
