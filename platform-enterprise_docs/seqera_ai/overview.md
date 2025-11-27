@@ -6,11 +6,7 @@ last updated: "2025-11-11"
 tags: [seqera-ai, ai, pipelines]
 ---
 
-Seqera AI is an AI-powered assistant for pipeline development, debugging, and optimization, which has read and write access to Seqera Platform. This enables Seqera AI to directly interact with Seqera Platform primitives to debug pipelines, modify parameters, and launch runs, all without switching context between different tools and interfaces.
-
-## Seqera AI
-
-[Seqera AI](https://seqera.io/ask-ai/chat-v2) integrates with your pipeline GitHub repositories to provide intelligent assistance with pipeline development and modification. To fully utilize the power of Seqera AI, it needs access to your pipeline codebase to analyze, suggest changes, and even create pull requests on your behalf.
+[Seqera AI](https://seqera.io/ask-ai/chat-v2) is an AI-powered assistant for pipeline development, debugging, and optimization, which has read and write access to Seqera Platform. This enables Seqera AI to directly interact with Seqera Platform to debug pipelines, modify parameters, and launch runs, all without switching context between different tools and interfaces. Seqera AI integrates with your pipeline GitHub repositories to provide intelligent assistance with pipeline development and modification. To fully utilize the power of Seqera AI, it needs access to your pipeline codebase to analyze, suggest changes, and even create pull requests on your behalf.
 
 ### Set up GitHub access
 
@@ -31,6 +27,7 @@ To enable Seqera AI to interact with your pipeline GitHub repositories:
 ### Capabilities
 
 With proper GitHub access configured, Seqera AI can:
+
 - Access and analyze your pipeline codebase
 - Create feature branches for proposed changes
 - Generate pull requests for your review
