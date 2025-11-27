@@ -1,5 +1,5 @@
 ---
-title: Fusion Snapshots Troubleshooting
+title: Troubleshooting
 description: "Troubleshooting guide for Fusion Snapshots issues"
 date: "21 Nov 2024"
 tags: [fusion, snapshot, troubleshooting, support]

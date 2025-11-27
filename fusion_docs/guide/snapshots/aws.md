@@ -1,11 +1,11 @@
 ---
 title: Fusion Snapshots for AWS Batch
 description: "Fusion Snapshots configuration and best practices for AWS Batch"
-date: "21 Nov 2024"
+date: "2025-11-21"
 tags: [fusion, storage, compute, snapshot, aws, batch]
 ---
 
-Fusion Snapshots enable checkpoint/restore functionality for Nextflow processes running on AWS Batch Spot instances. When a Spot instance interruption occurs, AWS provides a **guaranteed 120-second warning window** to checkpoint and save the task state before the instance terminates.
+Fusion Snapshots enable checkpoint/restore functionality for Nextflow processes running on AWS Batch Spot instances. When a Spot instance interruption occurs, AWS provides a guaranteed 120-second warning window to checkpoint and save the task state before the instance terminates.
 
 ## Requirements
 
@@ -19,26 +19,28 @@ Fusion Snapshots enable checkpoint/restore functionality for Nextflow processes 
 - **Instance types**: See recommendations below
 
 :::tip Configuration
-Fusion Snapshots work with sensible defaults (5 automatic retry attempts). For advanced configuration options like changing retry behavior or TCP handling, see the [Configuration Guide](configuration.md).
+Fusion Snapshots work with sensible defaults (e.g., 5 automatic retry attempts). For advanced configuration options like changing retry behavior or TCP handling, see the [Configuration guide](configuration.md).
 :::
 
 ### (Seqera Enterprise only) Select an Amazon Linux 2023 ECS-optimized AMI
 
-To obtain sufficient performance, Fusion Snapshots require instances with Amazon Linux 2023 (which ships with Linux Kernel 6.1), with an ECS Container-optimized AMI.
+For optimal performance, Fusion Snapshots require instances running Amazon Linux 2023 (which ships with Linux Kernel 6.1) and an ECS Container-optimized AMI.
 
 :::note
-Selecting a custom Amazon Linux 2023 ECS-optimized AMI is only required for compute environments in Seqera Enterprise deployments. Seqera Cloud AWS Batch compute environments use Amazon Linux 2023 AMIs by default.
+You only need to select a custom Amazon Linux 2023 ECS-optimized AMI for compute environments in Seqera Enterprise deployments. Seqera Cloud AWS Batch compute environments use Amazon Linux 2023 AMIs by default.
 :::
 
-To find the recommended AL2023 ECS-optimized AMI for your region, run the following (replace eu-central-1 with your AWS region):
+To find the recommended AL2023 ECS-optimized AMI for your region, run:
 
 
 ```bash
-export REGION=eu-central-1
+export REGION=<AWS_REGION>
 aws ssm get-parameter --name "/aws/service/ecs/optimized-ami/amazon-linux-2023/recommended" --region $REGION
 ```
 
-The result for the `eu-central-1` region is similar to the following:
+Replace `<AWS_REGION>` with your AWS region (for example, `eu-central-1`).
+
+The output for the `eu-central-1` region is similar to the following:
 
 ```json
 {
@@ -53,18 +55,20 @@ The result for the `eu-central-1` region is similar to the following:
 }
 ```
 
+Note the `image_id` in your output (in the above example, `ami-0281c9a5cd9de63bd`). Specify this ID in the **Advanced options > AMI ID** field when you create your Seqera compute environment.
+
 Note the `image_id` in your result (in this example, `ami-0281c9a5cd9de63bd`). Specify this ID in the **AMI ID** field under **Advanced options** when you create your Seqera compute environment.
 
 ## Incremental snapshots
 
-Incremental snapshots are enabled by default on amd64 instances, capturing only changed memory pages between checkpoints for faster operations and reduced data transfer.
+AWS provides a guaranteed 120-second reclamation window. Choose instances that can transfer checkpoint data within this time frame. Checkpoint time is primarily determined by memory usage, though other factors like number of open file descriptors also contribute.
 
 ## EC2 instance selection
 
-AWS provides a **guaranteed 120-second reclamation window**. Choose instances that can transfer checkpoint data within this time frame. Checkpoint time is primarily determined by memory usage, though other factors like number of open file descriptors also contribute.
-
-### Key guidelines
-
+- Select instances with guaranteed network bandwidth, not "up to" values.
+- Maintain a 5:1 ratio between memory (GiB) and network bandwidth (Gbps).
+- Prefer NVMe storage instances, i.e., those with a `d` suffix: `c6id`, `r6id`, `m6id`.
+- Use x86_64 instances for incremental snapshot support.
 - Select instances with **guaranteed** network bandwidth (not "up to" values)
 - Maintain a **5:1 ratio** between memory (GiB) and network bandwidth (Gbps)
 - Prefer **NVMe storage** instances (`d` suffix: `c6id`, `r6id`, `m6id`)
@@ -74,9 +78,9 @@ AWS provides a **guaranteed 120-second reclamation window**. Choose instances th
 
 - Choose EC2 Spot instances with sufficient memory and network bandwidth to dump the cache of task intermediate files to S3 storage before AWS terminates an instance.
 - Select instances with guaranteed network bandwidth (not instances with bandwidth "up to" a maximum value).
-- Maintain a 5:1 ratio between memory (GiB) and network bandwidth (Gbps).
+A c6id.8xlarge instance provides 64 GiB memory and 12.5 Gbps guaranteed network bandwidth. This configuration can transfer the entire memory contents to S3 in approximately 70 seconds.
 - Recommended instance families: `c6id`, `r6id`, or `m6id` series instances work optimally with Fusion fast instance storage.
-
+Instances with memory:bandwidth ratios over 5:1 may not complete transfers before termination, potentially resulting in task failures.
 :::info With incremental snapshots
 A c6id.8xlarge instance provides 64 GiB memory and 12.5 Gbps guaranteed network bandwidth. This configuration can transfer the entire memory contents to S3 in approximately 70 seconds, well within the 2-minute reclamation window.
 
@@ -93,27 +97,23 @@ Instances with memory:bandwitdth ratios over 5:1 may not complete transfers befo
 | c6id.12xlarge  | 48    | 96           | 18.75                    | 5.12:1                 | ~70 seconds       |
 | r6id.4xlarge   | 16    | 128          | 12.5                     | 10.24:1                | ~105 seconds      |
 | m6id.8xlarge   | 32    | 128          | 25                       | 5.12:1                 | ~70 seconds       |
-
+A single job can request more resources than are available on a single instance. In this case, the job waits indefinitely and never runs. To prevent this, set the maximum requested resources below the capacity of a single instance. You can be configure this using the `process.resourceLimits` directive in your Nextflow configuration. For example, to limit a single process to fit within a `c6id.8xlarge` machine, you could set:
 
 ### Resource limits
 
 It's possible for a single job to request more resources than are available on a single instance. In this case, the job will wait indefinitely and never progress to running. To prevent this from occurring, you should set the maximum resources requested to below the size of a single instance listed above. This can be configured using the `process.resourceLimits` directive in your Nextflow configuration. For example, to limit a single process to fit within a `c6id.8xlarge` machine, you could set the following:
 
 
-```groovy
-process.resourceLimits = [cpus: 32, memory: '60.GB']
-```
-
 ## Best practices
 
-- **Instance selection**: Prefer instances with 5:1 or lower memory:bandwidth ratio
-- **Architecture**: Use x86_64 instances to enable incremental snapshots
+- **Instance selection**: Prefer instances with 5:1 or lower memory:bandwidth ratio.
+- **Architecture**: Use x86_64 instances to enable incremental snapshots.
 
 ## Troubleshooting
 
-- **Exit code 175**: Dump failed, likely due to timeout. Reduce memory usage or increase bandwidth.
-- **Exit code 176**: Restore failed. Check logs and verify checkpoint data integrity.
-- **Long checkpoint times**: Review instance bandwidth, consider x86_64 for incremental snapshots.
+- **Exit code 175**: Dump failed, likely due to timeout. To resolve this, reduce memory usage or increase bandwidth.
+- **Exit code 176**: Restore failed. Check the logs and verify checkpoint data integrity.
+- **Long checkpoint times**: Review your instance bandwidth and consider using x86_64 instances for incremental snapshots.
 - **State stuck in DUMPING**: Previous checkpoint exceeded reclamation window.
 
-For detailed troubleshooting, see [Troubleshooting Guide](troubleshooting.md).
+For detailed troubleshooting, see [Fusion Snapshots troubleshooting](./troubleshooting.md).

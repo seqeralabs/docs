@@ -1,45 +1,34 @@
 ---
-title: Fusion Snapshots Configuration
+title: Advanced configuration
 description: "Advanced configuration options for Fusion Snapshots"
-date: "22 Nov 2024"
+date: "2024-11-22"
 tags: [fusion, snapshot, configuration, nextflow]
 ---
 
-Fusion Snapshots are designed with sensible defaults and typically require no additional configuration. The settings below are provided for edge cases and advanced use scenarios.
+Fusion Snapshots work optimally with default configuration for most workloads. You typically don't need to modify these settings unless you have specific organizational policies, experience issues with default behavior, or have edge case requirements.
 
-:::note
-You likely don't need to change these settings. Fusion Snapshots work out of the box with optimal defaults for most workloads.
+:::tip
+For troubleshooting, focus on task memory usage and instance selection before adjusting these advanced configuration options.
 :::
 
 ## Spot reclamation retries
 
-Control how many times Nextflow automatically retries a task after spot instance reclamation.
+You can control how many times Nextflow automatically retries a task after spot instance reclamation.
 
-**Default with Fusion Snapshots enabled**: `5` (automatic retries on spot reclamation)
-**Default without Fusion Snapshots**: `0` (no automatic retries)
+**Default with Fusion Snapshots enabled**: `5`
+**Default without Fusion Snapshots**: `0`
 
 :::info
-When Fusion Snapshots are enabled, Nextflow automatically sets `maxSpotAttempts = 5` to enable automatic retry on spot reclamation. This allows the checkpoint to be restored on a new instance after reclamation.
+When you enable Fusion Snapshots, Nextflow automatically sets `maxSpotAttempts = 5` to enable automatic retries on spot reclamation. This allows the checkpoint to be restored on a new instance after reclamation.
 :::
 
-### AWS Batch
 
-```groovy
-aws.batch.maxSpotAttempts = 10  // Increase retries beyond default of 5
-aws.batch.maxSpotAttempts = 0   // Disable automatic retries
-```
+### When to customize
 
-### Google Batch
+- Increase above `5` if you expect frequent spot reclamations
+- Set to `0` if you want to handle retries only through error strategies
 
-```groovy
-google.batch.maxSpotAttempts = 10  // Increase retries beyond default of 5
-google.batch.maxSpotAttempts = 0   // Disable automatic retries
-```
-
-**When to customize**:
-- Increase above 5 if you expect frequent spot reclamations
-- Set to 0 if you want to handle retries only through error strategies
-- Most users should keep the default (5)
+**AWS Batch**
 
 ## Error retry strategy
 
@@ -54,7 +43,7 @@ process {
         } else {
             return 'terminate'
         }
-    }
+Using error strategy gives you fine-grained control over retry behavior per exit code, while `maxSpotAttempts` retries all spot reclamations regardless of the cause. This is the recommended approach for retry logic.
 }
 ```
 
@@ -77,28 +66,10 @@ process.containerOptions = '-e FUSION_SNAPSHOTS_TCP_MODE=close'
 **Options**:
 - `established`: Preserve TCP connections (default, for plain TCP)
 - `close`: Close all TCP connections during checkpoint
+Fusion Snapshots preserve TCP connections during checkpoint operations by default. This works well for plain TCP connections.
 
-**When to use**: Set to `close` if your application uses SSL/TLS connections (HTTPS, SSH, etc.), as CRIU cannot preserve encrypted connections.
+Change this setting to `close` if your application uses SSL/TLS connections (e.g., HTTPS, SSH), as CRIU cannot preserve encrypted connections.
 
-## Debug logging
-
-Enable detailed logging for troubleshooting.
-
-**Default**: `WARN` (warnings and errors only)
-
-```groovy
-process.containerOptions = '-e FUSION_SNAPSHOT_LOG_LEVEL=debug'
-```
-
-**Log levels**:
-- `ERROR`: Only critical errors
-- `WARN`: Warnings and errors (default)
-- `INFO`: General informational messages
-- `DEBUG`: Detailed debug information
-
-**When to use**: Only for troubleshooting checkpoint issues. Debug logs are verbose and may impact performance.
-
-## Resource limits
 
 Prevent tasks from requesting resources that exceed available capacity.
 
