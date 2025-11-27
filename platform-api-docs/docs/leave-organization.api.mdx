@@ -1,11 +1,11 @@
 ---
 id: leave-organization
 title: "Leave organization"
-description: "Removes the requesting user from the organization identified by the given `orgId`."
+description: "Removes the requesting user from the organization identified by the given `orgId`. The requesting user must not be the only owner of the organization."
 sidebar_label: "Leave organization"
 hide_title: true
 hide_table_of_contents: true
-api: eJy1VMFu2zAM/RVBpw3I4mwresipLZYBwYqtaLtTEaCKzcRKZUmV6HSZ4X8fKdtNmhbbaSdL5CP1yEe6kajWUU7vpAv0XYxkATEP2qN2Vk7lNVRuC1FgCSLAYw0RtV2LOkIQq+Cq5KBQZfVvxTFCF2BRrzQUYrlL7rXeghX3hJoX92M5ks5DSOB5QU9cgtrCj4MUhPAqqAoQAlNrpKULIVMG8mpm5hWW8pjuYRph6wqCzveMAuG5CB2AHsZQw0jGvIRKyWkjcef5EW0R1gm6cqFS2JlOT2TbLjg8emcjRI74NDnhzxGFb+KD+O5E7iiRRdmO5Mlk8hp3oYqho/TWgCaY8t7oPJWQbSJjmwOWe/53soIY1RpYtZ68W24g53w+cJNRd0QH4L7KiIF0pJooVKNh0ywEF677+sjTJuaf36hwkE9Yh0IZ456ID8Mj5HXQuEuiXYAKEM5rkml6t+DmkaKlY8kLMCRu0pm9MuPhy5qkb5tVUC1J+czwYMh91htuQlfQYe7nmkpEL3tF+b5MILJ0h6+DnJsnTGy1XbkU3jfgBh6pMHF+NX81V73ryijkqRA0/lud0150YFZP5Um9OpieSpxmWUxxY+0IRAJqk6Zp5c72DiKypWq7dz6OT0/HE7Z5F7FSSfx++tOevNi1Y5rNfoz+z+L2jUb4hZk3ivaQmKaKm17K/j8yktNhWXs16dTpSXNQUm0MbZqlivAzmLZlM5EMPDp03Kqg1ZJVoUEqdOQzDc5KmQh/Kfrddb8d78W//wRvFtMbld1JZmFqvtHxAXbPP6B2QcASVEFpmF/nO89z8HgQ9WqPX6zAl9nl7HZGcPVyiI+GNj3wJilqXkLcugew1MCBI/KdObbtH40DBVM=
+api: eJzNVE1v1DAQ/SuWTyAtyQJVD3uihUWqqKBqy6laqU4y2bh1bNd2tixR/ntnnKT7KeDIyR/z7Hkz79ktD2Lp+eyOG4fjYsIL8LmTNkij+YxfQ21W4FmogDl4asAHqZes8eBY6UwdA3hUaPlb0BkmC9BBlhIKlq1jeClXoNk9oi6K+4TdHrmqbnxg2gSWQX+jVmtmnjWGTHmQI+ETbiy4uLgokOYliBX82IIgwgonagjgqLyWa1wgMrLAqKTqrAgV3y95+xqmmxqczDdVOUpO9KUDzBxcAxPu8wpqwWctD2tLWaQOsASH0NK4WoR+6/SEd92CjntrtAdPJz5MT2jY4/CNvWPfDcsNXqQD7yb8ZDo9xJ2LYuwl5hrRCBPWKpnHGtIHT9h2i+WG/x2vwXuxBJJ+IG+yB8jpPuuoy0H2REfgpkofHCqINeFRGRRtzZ0z7nqoDyNdZP7xSIWjflF2oZR5Rj4E95A3ToZ1VO0chAN31qBOs7sFNQ8lrQxpXoBCdaPQFOUpOThto8BdWkOdofSpImdwutWtRis0TiG+CsH6WZoKK5NcmaZIPDwhqUSaA0/cxAi7UiKQoOwz4dnZ1QUnSiPjG2pw36xt3q/9oox8cAutswjCnX7ydbTKw3OInZC6NPH40NyBBaX9G0EqV+b4cHswOUPk0Rm7xW+XjOaQKjq1NJ82ASRCnevzvE9OT5Mp7VnjQy2isYanFR/hzkPdp9luLPr//iyDWAF+hdQqgR8FVhu71g5WGz7LCZ+Nv8ngNpz1fkNTVNgfgrZtJjz8dKrraBvZObI2TlfCSZGRsujJQnqao7FLoTz8oXFvrofX+5b9w1d1tJphU+g1JxqqoRVOH2H9+kV2CwRWIAp0KBHsY2d5DjZsnTr4aHbe6Jf55fx2jnCx+xL2nB8THCWF3YuIW/MIGjs4cgy0Jo5d9wI8eFeu
 sidebar_class_name: "delete api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -36,7 +36,7 @@ import Heading from "@theme/Heading";
 
 
 
-Removes the requesting user from the organization identified by the given `orgId`.
+Removes the requesting user from the organization identified by the given `orgId`. The requesting user must not be the only owner of the organization.
 
 <Heading
   id={"request"}
@@ -47,7 +47,7 @@ Removes the requesting user from the organization identified by the given `orgId
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier.","required":true,"schema":{"type":"integer","format":"int64"}}]}
 >
   
 </ParamsDetails>

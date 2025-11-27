@@ -1,11 +1,11 @@
 ---
 id: delete-workspace-participant
 title: "Delete workspace participant"
-description: "Deletes the given participant from the given workspace."
+description: "Removes the participant identified by the given `participantId` from the given workspace."
 sidebar_label: "Delete workspace participant"
 hide_title: true
 hide_table_of_contents: true
-api: eJy1VFFv0zAQ/iuWn0AqTYFpD31i04o0gWDaQDxUfXCTa+MtsT3b6SiR/zt3Tpqk3USlAk9x7M/n7+6++2ruxdrx6Zw/afvgjEjB8cWIZ+BSK42XWvEpv4ICPDjmc2BruQHFjLBeptII5dnK6nJw1AUa8xHXBqygKNdZF+fHDnDTB0EohhQlHluiU3OFP3hF2zVeHXFJPIzwOT8k99WuhZK/4itMVSVYmTKZgfJyJcEi3sJjJS0gA28rGHGX5lAKPq253xp6RCoP6whdaVsK32ydn/EQRh2TLq8jfLr0/ieZQf2P0BkU+d8TWtB1Z7RyKBu88W5yRp+DBn1ib9gXzVKNgbDVYcTPJpPnuEuRMSIDjuSwQyNMGFPINDY4uXeErQcse/5zXoJzYg2k4Ja8Xt5DGuVlSYteNkR3wD5L561Uayoy99IXtDWzVtvbNj88CZH5+xcy3KmcKe2ZKAr9hHwI7iCtrPTbKOlLEBbsRYVdms4XVDzUe65pMrI4GXEK6JQnqHuX1FH9IelnM6kHMgzJQAZ4tCeKwPvX76hYTeJDDl3uufeGt52n/2UE4U6z+Lhr+/2Tj1lJtdLxeluoO3jEArCLm+tn8muPbgrhST3Mgd1ITKQFU5dFGrtc2aKl4qZJ4uK9sdQIwkbLIqpupT/0B0hkg27RvPN2fH4+ntCe0c6XIoqkHZbGdnpjGrrXIeG6F95f2F5bVw8/fWIKgdOJxGKCddvhOTmbQ+h053ADA8bdfbcZ9plO98cfhZRj0hS0rpfCwXdbhEDbOEyWtIfLjbBSLKldqMRMOlqj8laicPCHGry6bcfrNTtutC+m3W4KteXEoqjoD5cPsO38nZztJE5HzPYEQsPCn0zrqOmeQGy/52GBF3IQGYajjjaYizQF4we3n1nnnutczT7Pvs0QLvb94GD+4wMvkkO5RcQ3/QAqhI6rp3/iGMJvCFnngg==
+api: eJy1VU1v2zAM/SuCThuQxdlW9JDT2jUDig1b0W7YIQhQxWZstbalSnK6zPB/Hyl/p0UzBOgpsvQkPpKPLyV3IrZ8vuSPytxbLUKwfDXhEdjQSO2kyvmcX0OmtmCZS4BpYZwMpRa5YzKC3MmNhIitd/40llvI2e0AdBndso1R2eC4CzXlE640GEFxLiOMdAEpOPjdAq76dxCKr4oMjw0RLnmOH3hFmRivTrgkplq4hO/T/2Fikcu/PgrLiwyMDHvuhlgYeCikAaTgTAETbsMEMsHnJXc7TVFk7iAGg9CNMplw9dbpCa+qSUelS+wAoS6/V2UzasKLfAZlfgVGK7putcotagtvfJid0M9ej76yd+y7YqHCh7Db1YSfzGZPceciYkQGLCmiRSNMaJ3K0Pc4uLOELQcse/5LnoG1IgaSeUNere8g9AozJEcna6ItsM/SOiPzmKrMnXQpbS2MUea6yQ9PKs/84zMZtkJnuXJMpKl6RD4EtxAWRrqdV/U5CAPmrMA2zZcrKh5KPlE0HJEfDj8IdMoDlL4NSj8AVdAPcFAOhFgFAx3g0UgVFafoZtuOVGFSfDdxTtt5EAgtp2Gqimhq4QHJT6V6Ip0bf8KuUuGo8ewz4dnZ1SUn6m1mN9SIuqjD/Lq6UkTeqIq+1x6EO/XiSyupu0fnKybzjfLXmyY0LCjsIYKUrsQiNWBSkAi9gsbJD1NGEcnUK3qjPvUHSIQqV8d5Pz09nc5oTyvrMuEF2Exi7Wq97w1NdJ9w2Yv6VX23qbyDPy7QqUBzQOq+BGWjryVZq0XovLXYwX8E7o7dbqgyOh27D2ohwbLQo2W5FhZ+mbSqaBtH2ZDycbkVRoo1NRSlGElLa9T9RqQWXqjSm+tmuN+y/3D6Z/NuNkW+40QjLegLl/ew6/5hyFmPInXI7Y9gNCz90bwOu/4RzMZtr1Z4IQER4TBTU2vMWRiCdoPbT7x7ZHsXi2+LnwuEi7Fp7JmED/AsOVScR/xU95BXVcfV0TdxrKp/UnEiNg==
 sidebar_class_name: "delete api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -36,7 +36,7 @@ import Heading from "@theme/Heading";
 
 
 
-Deletes the given participant from the given workspace.
+Removes the participant identified by the given `participantId` from the given workspace.
 
 <Heading
   id={"request"}
@@ -47,7 +47,7 @@ Deletes the given participant from the given workspace.
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"path","description":"Workspace numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"participantId","in":"path","description":"Participant numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier.","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"path","description":"Workspace numeric identifier.","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"participantId","in":"path","description":"Participant numeric identifier.","required":true,"schema":{"type":"integer","format":"int64"}}]}
 >
   
 </ParamsDetails>

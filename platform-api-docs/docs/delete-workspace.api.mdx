@@ -1,11 +1,11 @@
 ---
 id: delete-workspace
 title: "Delete workspace"
-description: "Deletes the workspace identified by the given `workspaceId`."
+description: "Deletes the workspace identified by the given `workspaceId`. This operation permanently removes the workspace and associated participations."
 sidebar_label: "Delete workspace"
 hide_title: true
 hide_table_of_contents: true
-api: eJytVMFu2zAM/RVBpw3I4mwreshpLZoBxYataDfsEASoYjOOWkdSJTpdZvjfR8qO7aZFC3Q7WaaeyEfykZVElQc5nct762+DUykEuRjJDELqtUNtjZzKMygAIQhcg+hwQmdgUK80ZGK5i3e53oIR1x3kPLsey5G0DrxiV+dZ5+zXHkP3Tnm1IZtnIpU09EM463PCj6RmBk7hWh7S+u5zZfSf6FqYcgNepz0rT3gPd6X2QGHRlzCSIV3DRslpJXHnOIg2CHmErqzfKGxMx0eyrkcdk0E+z/Lpcvr/ZBb8PDhrAvWHXnyYHPHnoB5fxDvxzYrUkiODsh7Jo8nkMe5UZYLJQECKtUcTTDlX6DTWM7kJjK0GLHv+c7mBEFQOLJWWvF3eQMr+nOd+o26I7oF9lgG9NjkXWKLGgk0z762/bPOjmzoy//hEhnslCWNRqKKw98SH4QHS0mvcRQWdgvLgT0rq0XS+4OKRvNaW1ZdF9UXR8a1MSGYhqaLY6qQfgqQadL2WfYArrkeT2zBMl94a0cm2ufy/jCCyNIfP+87e3GMkrs3KxudtLa7gjnIUJxfnj/TVXl0UClkgIoDfauLagrmRKo2NLH3RUgnTJAnx3VhbAlEvdRGFtbKf+gsisqX5a+K8Hx8fjydsczbgRkUdtLPQTG+/BQ5JVr2e/nVttAVF+I2JKxTNHTGKmVVt9+a8JAJBp/tlMdhiZB0OLolgTdnwo6paqgA/fVHXbKZB8KwbOm6V12rJfSAVZTrwmVSzUkWAZxJ9c9mOxlvx8k56Mq3WqMxOMoui5D863sKuW4W8kV7F6YW99ApCw8LWC4KvQWXkjMvWIE7SFBwO3j7aLQ/G8mz2dfZjRnD1cJoOpicGeJIa9TQifthbMHXdMUX+Z451/Rdi4GLD
+api: eJzNVN9v0zAQ/lcsP4FUkgLTHvrExoo0gWAaQzxUleYm18Rbanu201Gi/O/cOT/XThuahMRTHPu7u+8+f76Ke5E5Plvwe21vnREJOL6c8BRcYqXxUis+42dQgAfHfA6sxzGZgvJyLSFlq104y+QWFLvuIefpdcSucumYNmAFZWO42AiFkcWOWdjo7UFeoVImnNOJFB5zG2G9TKQJ4S7iE94nO097cj+7cDzHCLHBPUuNVVzhD+K0zRA/4ZI6wmw532/zm82Ekr8bnqrcgJXJ0KWl0hbuSmkB63pbwoS7JIeN4LOK+52hKlJ5yMAidK2xUd9sHR/xup70VEYCPUmob+ofsFlSuDMoKd44RrybHtFnT5HP7A37qlmiMZHyvJ7wo+n0EHcqUkZkwHms1aERJowpZBIUjW8cYasRy4H/gm/AOZEBma8lr1c3kFA+Y+nGvWyIdsChS+etVBkpzL30BW3NrdX2su0PT+rA/P0jHfbGVNozURT6HvkQ3EFSWul3wUOnICzYkxIvabZYknhosFyT/9Lgv2A7OuUxGs3FVbBbHQ/PKq5G115zKmC3nUdLW2Bo7r1xszgWRkZJocs0cnCH/CKpD7zxPZywi0J4ulv2kfDs5OKcE7uO/HfSutFt3EIvHVXkrXHofxVAuNMsPnWuubn3QRSp1jqEtzq3LKjscwSpXYk6tGAyiUiCSR42P24ZfSKLYNq1/jAcIBFSrqnzNjo+jqa0Z7TzOFsoZfvQmtkwzJZ9ktXg1f9tyLUX5OGXj00hcEhgh0GpqnXagkaaQ+isG22jGY674ymDlshRHQqqqpVw8MMWdU3b+GgteRyXW2GlWNG9oiNT6WiNDl+LwsETwr26bJ/xa/YXE/TRvtpNoXacaBQl/eHyFnb95Kb5+SJSz03RFzAaS1svEZ6DSPHdkHAN4iRJwPhR7MEkfDBEzuZf5ldzhIuH73PvPYYCj1LDWw2IK30Lqq57pp7+iWNd/wFHxcDE
 sidebar_class_name: "delete api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -36,7 +36,7 @@ import Heading from "@theme/Heading";
 
 
 
-Deletes the workspace identified by the given `workspaceId`.
+Deletes the workspace identified by the given `workspaceId`. This operation permanently removes the workspace and associated participations.
 
 <Heading
   id={"request"}
@@ -47,7 +47,7 @@ Deletes the workspace identified by the given `workspaceId`.
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"path","description":"Workspace numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier.","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"path","description":"Workspace numeric identifier.","required":true,"schema":{"type":"integer","format":"int64"}}]}
 >
   
 </ParamsDetails>

@@ -2,6 +2,7 @@
 title: "Google Cloud"
 description: Prerequisites for GCP deployments
 date: "12 Apr 2023"
+last updated: "2025-10-22"
 tags: [gcp, prerequisites, configuration]
 ---
 
@@ -14,6 +15,7 @@ Run the Seqera container with [Docker](../docker-compose) on a GCP VM instance o
 
 - **SMTP server**: If you don't have an email server, Google Cloud provides several ways to send emails, such as [SendGrid][sendgrid], [Mailgun][mailgun], and [Mailjet][mailjet]. Work with your IT team to select the best solution for your organization.
 - **MySQL database**: An external database such as [Google CloudSQL][gcloudsql] is highly recommended for production environments.
+- **Redis-compatible cache**: An external Redis-compatible cache, such as [Google Memorystore] (https://cloud.google.com/memorystore/docs/redis/), is highly recommended for production deployments.
 - **SSL certificate**: An SSL certificate is required for your Seqera instance to handle HTTPS traffic.
 
   :::caution
