@@ -242,7 +242,8 @@
             "studios/add-studio-git-repo"
           ]
           },         
-          "studios/managing"
+          "studios/managing",
+          "studios/connect"
         ]
       },
       {
