@@ -266,6 +266,26 @@
   Type: integer
   Req/Opt: Optional
   Description: ""
+- Name: workflow.fusion
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: workflow.fusion.enabled
+  Type: boolean
+  Req/Opt: Optional
+  Description: ""
+- Name: workflow.fusion.version
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: workflow.wave
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: workflow.wave.enabled
+  Type: boolean
+  Req/Opt: Optional
+  Description: ""
 - Name: workflow.errorMessage
   Type: string
   Req/Opt: Optional
@@ -572,6 +592,26 @@
   Description: ""
 - Name: workflow.stats.succeedDuration
   Type: integer
+  Req/Opt: Optional
+  Description: ""
+- Name: workflow.fusion
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: workflow.fusion.enabled
+  Type: boolean
+  Req/Opt: Optional
+  Description: ""
+- Name: workflow.fusion.version
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: workflow.wave
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: workflow.wave.enabled
+  Type: boolean
   Req/Opt: Optional
   Description: ""
 - Name: workflow.errorMessage

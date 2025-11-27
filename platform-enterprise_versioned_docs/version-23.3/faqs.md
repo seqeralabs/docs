@@ -196,7 +196,7 @@ To fix the problem, try the following:
 1. Set a JDK environment variable to force Nextflow and Seqera containers to use TLSv1.2 by default:
 
     ```
-    export JAVA_OPTIONS="-Dmail.smtp.ssl.protocols=TLSv1.2"
+    export JAVA_OPTS="-Dmail.smtp.ssl.protocols=TLSv1.2"
     ```
 
 2. Add this parameter to your [nextflow.config file](./launch/advanced#nextflow-config-file):

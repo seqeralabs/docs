@@ -183,10 +183,6 @@
                             "Value": {
                                 "Ref": "TowerLicense"
                             }
-                        },
-                        {
-                            "Name": "FLYWAY_LOCATIONS",
-                            "Value": "classpath:db-schema/mysql"
                         }
                     ]
                     },
@@ -324,10 +320,6 @@
                             "Value": {
                                 "Ref": "TowerLicense"
                             }
-                        },
-                        {
-                            "Name": "FLYWAY_LOCATIONS",
-                            "Value": "classpath:db-schema/mysql"
                         }
                     ],
                     "EntryPoint": [ "/bin/sh" ],

@@ -1,11 +1,11 @@
 ---
 id: list-datasets-v-2
 title: "List datasets"
-description: "Lists all available datasets in a user context. Append `?workspaceId` to list datasets in a workspace context."
+description: "Lists all available datasets in a user context. Append `?workspaceId` to list datasets in a workspace context. Results can be filtered by search query, sorted, and paginated."
 sidebar_label: "List datasets"
 hide_title: true
 hide_table_of_contents: true
-api: eJzFVW1vEzkQ/isr6z6AlCZpr4cgEoJwx52qqwSCckiUAtP1JHHrtbf2bEtY8t9vxtlNd5uIO8QHvmTj8TMvz/jxuFYaYx5MScY7NVHHJlLMwNoMrsFYOLeYaSCIyGbjMsiqiCHLvSP8TMNsWpbodPbpyY0Pl7GEHI/0p4x8ZjnQHc8NZOOuBopgHtXkVLVQdTZQvsQAUtCRbkr6o9n954BdSghQIGEQx1o5XjCsUwBjjJC5qjAsedGn+HZThqsKDCbPjEZHZmYwMDjmCyxATWpFy1ICG651nrZmPhRAa9ODQ7Vaca0BY+ldxCgeB+OxfPr5XvzNromxI9mFsrQmT/xGF1Eg9XZSf36BOQnZIN0gs06w6dItEkIAIWkIi2QPeFWZgFq6mnrDVX47qtHyW8DnY3RzWqjJwcHGJVIwbq5Wg6bPPdz+eCzHQXwWwvTDKex9me69e/9en917Mumsvp7ufWTT447p/v16f/Do4eoXtSNXr4N3U453OBSoDZwkaw/+cBdYo2X56E4Tz723CE7JeYJ+4exSTShUKGAg/J2tfYcmWEcTgtsjwz3aEcRCpDel/pEgHIUMWfFrbgMLsGPsXpNXjSgFwZDDXbJ8BjoTqWCk79FnV10Fxgjz/yGwFrhFvUvgeQg+bFX+644L1Y6HzHmSWeVvuB6BR8yrYGiZ5sIzhIBhWokMTs/krvLQWHgZKXNMNYJsqdHmUkmAcN3OlSpY3l0QlXEyGkFphrn1lR5GvOL8Q+OVxGxTvpYOrdl2E28IS5x2uiTFJRBb1n/+bBVwcUOJinEzn9yb7rxOWbPpy6OtgdZsvbRAIqRMSJgcYwOWo4U8HW2f0i2RgeLTNTZNtpl/2mE4UNKPdZ794eFvw7HYSh+pgKSMZvoed8f93QrrW3n9hAdm3X9ZjkoL/DAwgdSIulFA//FZMDex1fU5294Eu1qJef2WiC60iVI162gGNuI3uP7HS7Ozsktcbj1m12ArQSbBXUMwkj+JmsvlKcHRpLC16zTPsaSO19Z97l2Fv56fMBb6Yr0jzhS9fW7cshObm5QQJ/4SHTeqrZ9kzYn4Ev8LMZzhYA==
+api: eJzdVktvGzcQ/isEz6rkJoEPvqR2nBZCjTZI7PZQBMiIO5Joc0ma5MpRBf33znB3pV1r5ThBLs1JWs7rm4/z4EYmWER59o8sIEHEFOXHkSwwqqB90s7KM3mlY4oCjBGwAm1gZlC02kJbAaKKGIRyNuHnNBbn3qMtxKfXDy7cRQ8Kp8UnkZww5OiR5U5lb/4eY2VIrsCKGYq5NgkDFmK2FhEhqKW4rzCsRyK6kLAYCaBgHhbaAn2O5Ug6jwEY/LRo4F82Qf96QWIPAUokp5z3Rlr6ILUOWNLRnHiOIx/T8fcOsq1KDFoJXaBNeq4xjMV0LlypUwZmMnFPUEW+o1piCfJsI9PaMw5NogUGEs1dKCHVR6ev5HZLNxMwemcjRrZ4cXLCP314f/5OpjmATSwF741WmY7JbWSVzWFQN7tFlZibwOQlXQfY1cReE0IA5kQnLOOXPeiioxNT0HYhtyPJLLAg4H2l6XK5AKm4EnDeBE0bDsEXwZp/8A1R8l8R6jiLHZdDyOrgQ5IG36GIZEknw0c35Hpq5471uwX1PGAuLMDqf3el+ywjeywTAzHd+IKb4mL9o5Pd64EBfyUWGq7z6YCUSXoTkKk6lHeyYr2fkqZs+vw+36hAg32DmXMGwdYeZ2i+V7N9U82swFTDEho8rgoKh5HreIlzoLF9VLymmFodE08JbPDOwFFuvuGKOqVyxcxezi6Ty8crmv39Snli6u69NFuk9tL13tkw75sBzRqk8mpoRF9AIbgZMaavmdXd/i0xRlg8o1FbxSc76W0ILhwgfzmwXNrNKqxL/CRwD4SH1SOqKui0ziv1gvY0hvMqLenzI+8t2rdLx9t4gRkjsEhOdguGHYRVu5KrQFNBLlPy8WwyAa/HyriqGEe8p/hj7Q6W8ocsEe+ogvgCxRvWF+fvppKjt+A+MJc1L12IO2o4YruTc/1lJTqp//zalsbtQ8pJa54+bN7w2KDgsF8CyOlqhbFR5iIAlYugn3w35WZc5rC/7AXdgpY/j09Pxyd85l1MJeQaap44V93312OEm30h/v9efM39sbuJN6DzyMhEbppa6z9wl8QNn202Mzq7CWa75eP6wccVWOjIWVPFzsFEfIKr7/scHEzkDtcHD9RmUstc3ysImuHmbqPsEAp+X1Eetem5UuhTx+pg0PR69Le316QL/d541AvZe7um7LrjmzjNGtfuDi3x2uJP/E2BaLr8B0m4Sco=
 sidebar_class_name: "get api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -36,7 +36,7 @@ import Heading from "@theme/Heading";
 
 
 
-Lists all available datasets in a user context. Append `?workspaceId` to list datasets in a workspace context.
+Lists all available datasets in a user context. Append `?workspaceId` to list datasets in a workspace context. Results can be filtered by search query, sorted, and paginated.
 
 <Heading
   id={"request"}
@@ -47,7 +47,7 @@ Lists all available datasets in a user context. Append `?workspaceId` to list da
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier. If omitted, lists datasets in a user context.","schema":{"type":"integer","format":"int64"}}]}
 >
   
 </ParamsDetails>
@@ -62,7 +62,7 @@ Lists all available datasets in a user context. Append `?workspaceId` to list da
 <StatusCodes
   id={undefined}
   label={undefined}
-  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"datasets":{"type":"array","items":{"required":["name"],"type":"object","properties":{"id":{"maxLength":22,"type":"string"},"name":{"maxLength":100,"pattern":"^[a-zA-Z\\d](?:[a-zA-Z\\d]|[-_](?=[a-zA-Z\\d])){1,98}$","type":"string"},"description":{"maxLength":1000,"type":"string"},"mediaType":{"maxLength":80,"type":"string"},"deleted":{"type":"boolean","readOnly":true},"dateCreated":{"type":"string","format":"date-time","readOnly":true},"lastUpdated":{"type":"string","format":"date-time","readOnly":true}},"title":"Dataset"}}},"title":"ListDatasetsResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"datasets":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"},"user":{"required":["avatar","email","id","userName"],"type":"object","properties":{"id":{"type":"integer","format":"int64"},"userName":{"type":"string"},"email":{"type":"string"},"avatar":{"type":"string"}},"title":"UserInfo"},"workspaceId":{"type":"integer","format":"int64"},"organizationId":{"type":"integer","format":"int64"},"name":{"type":"string"},"lastUpdatedBy":{"required":["avatar","email","id","userName"],"type":"object","properties":{"id":{"type":"integer","format":"int64"},"userName":{"type":"string"},"email":{"type":"string"},"avatar":{"type":"string"}},"title":"UserInfo"},"description":{"type":"string"},"mediaType":{"type":"string"},"dateCreated":{"type":"string","format":"date-time"},"lastUpdated":{"type":"string","format":"date-time"},"deleted":{"type":"boolean"},"labels":{"type":"array","items":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"},"value":{"type":"string"},"resource":{"type":"boolean"},"isDefault":{"type":"boolean"},"isDynamic":{"type":"boolean"},"isInterpolated":{"type":"boolean"},"dateCreated":{"type":"string","format":"date-time"}},"title":"LabelDbDto"}},"version":{"type":"integer","format":"int64"}},"title":"DatasetDto"}}},"title":"ListDatasetsResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
 >
   
 </StatusCodes>

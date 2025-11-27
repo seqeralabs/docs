@@ -49,7 +49,7 @@ Workspace participants with any role can leave the workspace, i.e., remove thems
 | **Organization: Managed identities:** Edit                                        | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | **Organization: Managed identities: Users:** Manage credentials                   | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | **Workspace: Settings: Studios:** Edit session lifespan                           | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
-| **Workspace: Settings: Labels & Resource Labels:** Add, edit, delete              | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
+| **Workspace: Settings: Labels and resource labels:** Add, edit, delete              | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
 | **Workspace: Compute environments:** Add, rename, make primary, duplicate, delete | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | **Workspace: Actions:** Add, edit, delete                                         | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
 | **Workspace: Credentials:** Add, edit, delete                                     | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
@@ -62,9 +62,8 @@ Workspace participants with any role can leave the workspace, i.e., remove thems
 | **Workspace: Pipelines:** Add, edit, duplicate, delete                            | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
 | **Workspace: Pipelines:** Modify resource labels                                  | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
 | **Workspace: Pipelines:** Create, modify, delete                                  | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
-| **Workspace: Pipelines: Run:** Apply labels, relaunch, save as new pipeline       | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| **Workspace: Pipelines: Run:** Resume, delete, star (favourite)                   | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
-| **Workspace: Pipelines:** Modify resource labels                                  | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
+| **Workspace: Pipeline runs:** Apply labels, save as new pipeline                  | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
+| **Workspace: Pipeline runs:** Resume, relaunch, delete, star (favourite)          | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
 | **Workspace: Datasets:** Add, edit                                                | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
 | **Workspace: Datasets:** Delete                                                   | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
 | **Workspace: Data Explorer:** Upload, download, preview data                      | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |

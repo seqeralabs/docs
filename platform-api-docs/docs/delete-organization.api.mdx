@@ -1,11 +1,11 @@
 ---
 id: delete-organization
 title: "Delete organization"
-description: "Deletes the organization identified by the given `orgId`."
+description: "Deletes the organization identified by the given `orgId`. This operation permanently removes the organization and associated memberships."
 sidebar_label: "Delete organization"
 hide_title: true
 hide_table_of_contents: true
-api: eJylVE1v2zAM/SuCdtmAfG3LdvBpLZoBxYat6LpTEaCMzcRqHUmV5LaZ4f8+UnISJy26w06WKYp8j3xkIwv0uVM2KKNlJs+wwoBehBKFcSvQ6g/wlVAF6qCWCgux2MTrlXpALW7I67y4GcmBDLDyMruWZPFyPpDGoouPz4td5J+9mPTEgoM1mR0/bKSmH3KNIelWMSILoaTzIcx+GKHrNTqV7yE68nd4XyuHlDm4GgfS5yWuQWaNDBvLSZQOuIquS+PWEJLp81S2A/k09BbhDsFvhhHi0MTMUKVw7ZwTeGu0R88xP0ym/DkC+U0MxQ8jckOpdODA08nkud8pFILhog+EZutNbmBtpfJIcnzr2bfp8dgzvJZr9B5WyFXv6JnFLeYczzruQ1AJ6NZxXwcfnNIr2RK6oELFpplzxl12/Oimjcg/vsBw22GhTRBQVeaR8LC7x7x2KmxiW08RHLqTmhqZXc+5eP0Cc9PCZrhTS2qvf1NEwRADfKKCeLpJIrlDivp6hIF8gKrGo0icmMRWGpbjLnrUVybHrNpxE6XXSibgHrayrB31XZYhWJ+Nx2DVKK9MXYw83lPGkTIx9JbyL+5Qqnaf+K7gHEd2guT/RXQiSzp83arx9jHEUiq9NPF5151fMas4uTh/Nhbd1UUFgUUtmITKaZyTM0sL8iitQ0p7IlTtNagqDsPSfOkxpJpSPVKe96Ppp9GEbdb4sIaozG5405wfLI9jnM1e5P+3cFJBAwlkbCugdUGIIrOma2u3jAYySzuF2lQSYr5omgV4/O2qtmUzjZ9jtc5ZO07BgmtNvS+U5zNJZgmVx1eYvL3sBvKd+Pd6ehF6ZwS96SmYjknxiUE7J8cSoaAw+2k4yXO0offq2eo4EP/Z7PvsakbucCjNIynGBC+CouJFjytzh7ptdxgD/zPGtv0LNkwxVg==
+api: eJzNVE1v2zAM/SuCThuQOdlW9JDT2jUDig1b0XanIkAZm4nVypIqyekyw/+9pOx8Nth23Mmy+EQ+ko9sZIRFkOM7aT19pwNZYMi9clFZI8fyAjVGDCKWKAgBRv0GNglVoIlqrrAQs1UyL9QSjbgn1GVxn4nbUgVhHfoOT4cKDL3RK+GxsstjTsEUAkKwuYJIjiusZuhDqVzI5EBunF0WG2Y/dp4TxIGHiq49p9RIQz8ETZTIqjgjB7GUh2nuuhGmrtCrfJui5+gen2rlkUJHX+NAhrzECuS4kXHlOIoyERfoCTq3lGvsrk5PZNtO+Xlw1gQM/OLD6IQ/Bxy+infiuxW5JUcmynYgT0aj17hzKASTwRAp1hpNMHBOqzzlMHwIjG12WG7538kKQ4AFcrt78nb2gDn7c57LHFVHdA3cZhmiV2ZBOdFTFTVfTby3/rrPjyxtYv7xSIYbNRgbBWhtn4kPwwPmtVdxlbp2juDRn9XUp/HdlItHLS0tN71ITU+NZqscsmqHTWpwK9mPX66bX3tNiDJGF8bDITiV5drWRRbwiWhkyr5SwU2yiCsNkVsoPjNenF1dSiax5njDJe3Ks8t0UyGOKHt98P8sgeimO3xZi+PhOabclZnb9LwvZ8+Cw/6NIKercpqkDsxagDxpYT/53ZRJDkonbc7tp62BiHDlujjvs9PTbMR3zoZIc8su+2Hq5m5vbg95NltV/lcLpG9QxF9x6DTQOqAMU6WaXlD9GhzIcbczqO0lVYANTTODgD+9blu+pvnzLFc6LsErmHHvSHWFCnwmsc5BB/xDZd5c9xP5VvzD+jnKvb8Es5JMQ9f8R8dHXG3WXjslYIlQkAaZYGc7y3N0cefVq+WxN3cXk2+T2wnBYV/rB9pOAY6SouolxK19RNO2G46R/5lj274ArUFFYA==
 sidebar_class_name: "delete api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -36,7 +36,7 @@ import Heading from "@theme/Heading";
 
 
 
-Deletes the organization identified by the given `orgId`.
+Deletes the organization identified by the given `orgId`. This operation permanently removes the organization and associated memberships.
 
 <Heading
   id={"request"}
@@ -47,7 +47,7 @@ Deletes the organization identified by the given `orgId`.
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"},"x-speakeasy-param-optional":true}]}
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier.","required":true,"schema":{"type":"integer","format":"int64"}}]}
 >
   
 </ParamsDetails>

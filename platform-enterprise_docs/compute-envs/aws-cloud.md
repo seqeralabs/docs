@@ -2,6 +2,7 @@
 title: "AWS Cloud"
 description: "Instructions to set up an AWS Cloud CE in Seqera Platform"
 date created: "2025-07-09"
+last updated: "2025-09-25"
 tags: [cloud, vm, amazon, aws, compute-environment]
 ---
 
@@ -9,7 +10,7 @@ tags: [cloud, vm, amazon, aws, compute-environment]
 
 :::note
 This compute environment type is currently in public preview. Please consult this guide for the latest information on recommended configuration and limitations. This guide assumes you already have an AWS account with a valid AWS subscription.
-::: 
+:::
 
 The current implementation of compute environments for cloud providers all rely on the use of batch services such as AWS Batch, Azure Batch, and Google Batch for the execution and management of submitted jobs, including pipelines and Studio session environments. Batch services are suitable for large-scale workloads, but they add management complexity. In practical terms, the currently used batch services result in some limitations:
 
@@ -32,17 +33,30 @@ This type of compute environment is best suited to run Studios and small to medi
 
 ## Supported regions
 
-The following regions are currently supported: 
+The following regions are currently supported:
 
-- `eu-west-1`
-- `us-east-1`
-- `us-west-2`
-- `eu-west-2`
-- `us-east-2`
-- `eu-central-1`
-- `us-west-1`
-- `eu-west-3`
+- `af-south-1`
+- `ap-east-1`
+- `ap-northeast-1`
+- `ap-northeast-2`
+- `ap-northeast-3`
+- `ap-south-1`
 - `ap-southeast-1`
+- `ap-southeast-2`
+- `ap-southeast-3`
+- `ca-central-1`
+- `eu-central-1`
+- `eu-north-1`
+- `eu-south-1`
+- `eu-west-1`
+- `eu-west-2`
+- `eu-west-3`
+- `me-south-1`
+- `sa-east-1`
+- `us-east-1`
+- `us-east-2`
+- `us-west-1`
+- `us-west-2`
 
 ## Requirements
 
@@ -180,13 +194,17 @@ The following permissions enable Seqera to populate values for dropdown fields. 
 }
 ```
 
-## Managed Amazon Machine Image (AMI) 
+## Managed Amazon Machine Image (AMI)
 
-The AWS Cloud compute environment uses an AMI maintained by Seqera, and the pipeline launch procedure assumes that some basic tooling is already present in the image itself. If you want to provide your own AMI, it must include at least the following:
+The AWS Cloud compute environment uses a public AMI maintained by Seqera, and the pipeline launch procedure assumes that some basic tooling is already present in the image itself. If you want to provide your own AMI, it must include at least the following:
 
 - Docker engine, configured to run at startup.
 - CloudWatch agent.
 - The ability to shut down with the `shutdown` command. If this is missing, EC2 instances will keep running and accumulate additional costs.
+
+### Release cadence and sofware updates
+
+The AMI is based on the [Amazon Linux 2023 image](https://docs.aws.amazon.com/linux/al2023/ug/what-is-amazon-linux.html). System package versions are pinned for each specific Amazon Linux 2023 version. Seqera subscribes to the [AWS SNS topic](https://docs.aws.amazon.com/linux/al2023/ug/receive-update-notification.html) to receive Amazon Linux 2023 update notifications. When updates are available, this triggers a new Seqera AMI release built on the latest image, which includes system package updates and security patches.
 
 ## Advanced options
 

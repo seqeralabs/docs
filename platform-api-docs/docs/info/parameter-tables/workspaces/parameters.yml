@@ -2,39 +2,41 @@
   Type: integer
   Location: path
   Req/Opt: Required
-  Description: Organization numeric identifier
+  Description: Organization numeric identifier.
 - Name: "`name`"
   Type: string
   Location: query
   Req/Opt: Optional
-  Description: Workspace name to validate
+  Description: The workspace name to validate for availability and format
+    compliance within the organization.
 - Name: "`workspaceId`"
   Type: integer
   Location: path
   Req/Opt: Required
-  Description: Optional workspace numeric identifier
+  Description: Workspace numeric identifier.
 - Name: "`max`"
   Type: integer
   Location: query
   Req/Opt: Optional
-  Description: Pagination max results
+  Description: "Maximum number of results to return. Default: `50`."
 - Name: "`offset`"
   Type: integer
   Location: query
   Req/Opt: Optional
-  Description: Pagination offset
+  Description: "Number of results to skip for pagination. Default: `0`."
 - Name: "`search`"
   Type: string
   Location: query
   Req/Opt: Optional
-  Description: Filter search parameter
+  Description: Free-text search filter to match against participant names and
+    email addresses.
 - Name: "`participantId`"
   Type: integer
   Location: path
   Req/Opt: Required
-  Description: Participant numeric identifier
+  Description: Participant numeric identifier.
 - Name: "`userId`"
   Type: integer
   Location: path
   Req/Opt: Required
-  Description: User numeric identifier
+  Description: User numeric identifier.
