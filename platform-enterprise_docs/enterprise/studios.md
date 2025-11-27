@@ -1,7 +1,8 @@
 ---
 title: "Studios deployment"
 description: Deploy Seqera Platform with Studios
-date: "17 Mar 2025"
+date created: "2025-03-17"
+last updated: "2025-11-27"
 tags: [docker, compose, kubernetes, studios, deployment]
 ---
 
