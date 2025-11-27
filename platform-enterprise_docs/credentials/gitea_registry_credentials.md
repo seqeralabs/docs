@@ -1,13 +1,12 @@
 ---
 title: "Gitea container registry credentials"
-description: "Instructions to create GitHub container registry credentials in Seqera Platform."
-date: "15 Dec 2023"
+description: "Create GitHub container registry credentials in Seqera Platform."
+date created: "2025-12-15"
+last updated: "2025-10-21"
 tags: [gitea, registry, credentials]
 ---
 
-From version 22.3, Seqera Platform supports the configuration of credentials for the Nextflow Wave container service to authenticate to private and public container registries. For more information on Wave containers, see the [Nextflow documentation](https://www.nextflow.io/docs/latest/wave.html).
-
-Gitea container registries support [authentication][gitea-auth] using a personal access token. Use your personal access token as your password when you create your Gitea container registry credentials in Seqera.
+Gitea Container Registry credentials allow the Wave container service to authenticate and pull container images from your Gitea repositories. Gitea registries support [authentication][gitea-auth] using personal access tokens for programmatic access.
 
 :::note
 Container registry credentials are only used by the Wave container service. Add `wave { enabled=true }` to the **Nextflow config** field on the launch page, or to your `nextflow.config` file, for your pipeline execution to use Wave containers.
