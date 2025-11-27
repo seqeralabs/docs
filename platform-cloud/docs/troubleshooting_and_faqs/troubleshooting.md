@@ -36,7 +36,7 @@ Unknown pipeline repository or missing credentials
 
 **Cause:** GitHub imposes [rate limits](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting) on repository pulls (including public repositories). Unauthenticated requests are capped at 60 requests/hour and authenticated requests are capped at 5000 requests/hour. This error typically occurs when hitting the 60 requests/hour cap for unauthenticated requests.
 
-**Solution:**
+**Solution:** To resolve this issue:
 
 1. Ensure there's at least one GitHub credential in your workspace's **Credentials** tab.
 2. Ensure that the **Access token** field of all GitHub credential objects is populated with a [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) value and **not** a user password. GitHub PATs are typically longer than passwords and include a `ghp_` prefix. For example: `ghp*IqIMNOZH6zOwIEB4T9A2g4EHMy8Ji42q4HA`
@@ -54,13 +54,9 @@ Unknown pipeline repository or missing credentials
 No such variable
 ```
 
-**Cause**
+**Cause:** This error occurs when executing a DSL1-based Nextflow workflow using [Nextflow 22.03.0-edge](https://github.com/nextflow-io/nextflow/releases/tag/v22.03.0-edge) or later.
 
-This error occurs when executing a DSL1-based Nextflow workflow using [Nextflow 22.03.0-edge](https://github.com/nextflow-io/nextflow/releases/tag/v22.03.0-edge) or later.
-
-**Solution**
-
-Upgrade your workflow to use DSL2 syntax, or use a Nextflow version earlier than 22.03.0-edge.
+**Solution:** Upgrade your workflow to use DSL2 syntax, or use a Nextflow version earlier than 22.03.0-edge.
 
 ### Sleep commands in Nextflow workflows
 
@@ -72,7 +68,6 @@ Upgrade your workflow to use DSL2 syntax, or use a Nextflow version earlier than
 - If used within a process script block, that language's sleep binary/method is used. For example, [this bash script](https://www.nextflow.io/docs/latest/metrics.html?highlight=sleep) uses the bash sleep binary, which takes its value in seconds.
 
 **Solution:** Be aware of the context where you're using `sleep` and adjust the time value accordingly (milliseconds for `errorStrategy` blocks, seconds for bash process scripts).
-
 
 ### Large number of batch job definitions
 
