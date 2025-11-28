@@ -1,5 +1,8 @@
 ---
 title: Troubleshooting
+description: "Troubleshooting for Fusion issues"
+date: "2025-11-29"
+tags: [troubleshooting, fusion, fusion snapshots, configuration]
 ---
 
 ## General
@@ -273,15 +276,12 @@ Confirm your environment is properly configured:
 - Architecture is x86_64 (not ARM64) if experiencing issues
 - Fusion Snapshots are enabled in your compute environment
 
-1.  Test with different instance types:
+1.  Test with different instance types. If uncertain:
 
-    If uncertain:
-
-    - Try to run the same task with different instance types (that have better disk iops and bandwidth guarantees)
-    - Verify if snapshots work there
+    - Run the same task with different instance types that have better disk iops and bandwidth guarantees and verify if Fusions Snapshots work there
     - Decrease memory usage to a manageable amount
 
-## Getting help
+### Getting help
 
 When contacting support, provide:
 

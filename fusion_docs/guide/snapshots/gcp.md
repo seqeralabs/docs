@@ -1,8 +1,8 @@
 ---
 title: Google Cloud Batch
 description: "Fusion Snapshots configuration and best practices for Google Cloud Batch"
-date: "2024-11-21"
-tags: [fusion, storage, compute, snapshot, gcp, google, batch]
+date: "2024-11-29"
+tags: [fusion, fusion snapshots, storage, compute, snapshot, gcp, google, batch]
 ---
 
 Fusion Snapshots enable checkpoint/restore functionality for Nextflow processes running on Google Cloud Batch preemptible instances. When a preemption occurs, Google Batch provides up to 30 seconds before instance termination.

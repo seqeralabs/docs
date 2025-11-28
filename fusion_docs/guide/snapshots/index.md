@@ -1,8 +1,8 @@
 ---
 title: Fusion Snapshots
 description: "Introduction to Fusion Snapshots checkpoint/restore functionality"
-date: "21 Nov 2024"
-tags: [fusion, storage, snapshot, checkpoint, restore]
+date: "2024-11-29"
+tags: [fusion, fusion snapshots, storage, snapshot, checkpoint, restore]
 ---
 
 Fusion Snapshots enable checkpoint/restore functionality for Nextflow pipeline processes running on cloud spot/preemptible instances. When a cloud provider reclaims an instance, Fusion Snapshots creates a checkpoint of the running process and restores it on a new instance, allowing the process to resume exactly where it left off.

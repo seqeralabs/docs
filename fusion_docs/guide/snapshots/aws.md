@@ -2,7 +2,7 @@
 title: AWS Batch
 description: "Fusion Snapshots configuration and best practices for AWS Batch"
 date: "2024-11-21"
-tags: [fusion, storage, compute, snapshot, aws, batch]
+tags: [fusion, fusion snapshots, storage, compute, snapshot, aws, batch]
 ---
 
 Fusion Snapshots enable checkpoint/restore functionality for Nextflow processes running on AWS Batch Spot instances. When a Spot instance interruption occurs, AWS provides a guaranteed 120-second warning window to checkpoint and save the task state before the instance terminates.
@@ -26,31 +26,33 @@ Fusion Snapshots work with sensible defaults (e.g., 5 automatic retry attempts).
 
 Fusion Snapshots require instances running Amazon Linux 2023 (which ships with Linux Kernel 6.1) and an ECS container-optimized AMI for optimal performance.
 
-To find the recommended AL2023 ECS-optimized AMI for your region, run:
+To find the recommended AL2023 ECS-optimized AMI for your region:
 
-```bash
-export REGION=<AWS_REGION>
-aws ssm get-parameter --name "/aws/service/ecs/optimized-ami/amazon-linux-2023/recommended" --region $REGION
-```
+1. Retrieve the application configuration:
 
-Replace `<AWS_REGION>` with your AWS region (for example, `eu-central-1`).
+    ```bash
+    export REGION=<AWS_REGION>
+    aws ssm get-parameter --name "/aws/service/ecs/optimized-ami/amazon-linux-2023/recommended" --region $REGION
+    ```
 
-The output for the `eu-central-1` region is similar to the following:
+    Replace `<AWS_REGION>` with your AWS region (for example, `eu-central-1`).
 
-```json
-{
-    "Parameter": {
-        "Name": "/aws/service/ecs/optimized-ami/amazon-linux-2023/recommended",
-        "Type": "String",
-        "Value": "{\"ecs_agent_version\":\"1.88.0\",\"ecs_runtime_version\":\"Docker version 25.0.6\",\"image_id\":\"ami-0281c9a5cd9de63bd\",\"image_name\":\"al2023-ami-ecs-hvm-2023.0.20241115-kernel-6.1-x86_64\",\"image_version\":\"2023.0.20241115\",\"os\":\"Amazon Linux 2023\",\"schema_version\":1,\"source_image_name\":\"al2023-ami-minimal-2023.6.20241111.0-kernel-6.1-x86_64\"}",
-        "Version": 61,
-        "LastModifiedDate": "2024-11-18T17:08:46.926000+01:00",
-        "ARN": "arn:aws:ssm:eu-central-1::parameter/aws/service/ecs/optimized-ami/amazon-linux-2023/recommended",
-        "DataType": "text"
-}
-```
+    The output for the `eu-central-1` region is similar to the following:
 
-Note the `image_id` in your output (in the above example, `ami-0281c9a5cd9de63bd`). Specify this ID in the **Advanced options > AMI ID** field when you create your Seqera compute environment.
+    ```json
+    {
+        "Parameter": {
+            "Name": "/aws/service/ecs/optimized-ami/amazon-linux-2023/recommended",
+            "Type": "String",
+            "Value": "{\"ecs_agent_version\":\"1.88.0\",\"ecs_runtime_version\":\"Docker version 25.0.6\",\"image_id\":\"ami-0281c9a5cd9de63bd\",\"image_name\":\"al2023-ami-ecs-hvm-2023.0.20241115-kernel-6.1-x86_64\",\"image_version\":\"2023.0.20241115\",\"os\":\"Amazon Linux 2023\",\"schema_version\":1,\"source_image_name\":\"al2023-ami-minimal-2023.6.20241111.0-kernel-6.1-x86_64\"}",
+            "Version": 61,
+            "LastModifiedDate": "2024-11-18T17:08:46.926000+01:00",
+            "ARN": "arn:aws:ssm:eu-central-1::parameter/aws/service/ecs/optimized-ami/amazon-linux-2023/recommended",
+            "DataType": "text"
+    }
+    ```
+
+1. Identify the `image_id` in your output (e.g, `ami-0281c9a5cd9de63bd` in the above example) and set in the **Advanced options > AMI ID** field when you create your Seqera compute environment.
 
 :::note
 You only need to select a custom Amazon Linux 2023 ECS-optimized AMI for compute environments in Seqera Enterprise deployments. Seqera Cloud AWS Batch compute environments use Amazon Linux 2023 AMIs by default.
@@ -58,7 +60,9 @@ You only need to select a custom Amazon Linux 2023 ECS-optimized AMI for compute
 
 ## Selecting an EC2 instance
 
-AWS provides a guaranteed 120-second reclamation window. Select instance types that can transfer checkpoint data within this timeframe. Checkpoint time is primarily determined by memory usage. Other factors like the number of open file descriptors also affect performance.
+AWS provides a guaranteed 120-second reclamation window. Select instance types that can transfer checkpoint data within this timeframe.
+
+Checkpoint time is primarily determined by memory usage. Other factors like the number of open file descriptors also affect performance.
 
 When you select an EC2 instance:
 
