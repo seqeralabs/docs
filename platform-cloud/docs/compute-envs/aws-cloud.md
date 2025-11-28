@@ -62,7 +62,7 @@ The following regions are currently supported:
 
 ### Platform credentials
 
-To create and launch pipelines or Studio sessions with this compute environment type, you must attach Seqera credentials for the cloud provider. Some permissions are mandatory for the compute environment to be created and function correctly; others are optional and used to pre-fill options in Platform.
+To create and launch pipelines or Studio sessions with this compute environment type, you must attach Seqera credentials for the cloud provider. Some permissions are mandatory for the compute environment to be created and function correctly; others are optional and used to pre-fill options in Platform. If you use `TOWER_FORGE_PREFIX` you can customize the policy with find and replace.
 
 ### Required permissions
 
@@ -83,11 +83,21 @@ The following permissions are required to provision resources in the AWS account
                 "iam:CreateInstanceProfile",
                 "iam:AttachRolePolicy",
                 "iam:PutRolePolicy",
-                "iam:PassRole",
                 "iam:TagRole",
                 "iam:TagInstanceProfile"
             ],
-            "Resource": "*"
+            "Resource": [
+                "arn:aws:iam::*:role/TowerForge*",
+                "arn:aws:iam::*:instance-profile/TowerForge*"
+            ]
+        },
+        {
+            "Sid": "AwsCloudCreatePassRole",
+            "Effect": "Allow",
+            "Action": [
+                "iam:PassRole"
+            ],
+            "Resource": "arn:aws:iam::*:role/TowerForge*"
         }
     ]
 }
@@ -124,15 +134,49 @@ The following permissions are required to launch pipelines, run Studio sessions,
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "AwsCloudLaunch",
+            "Sid": "AwsCloudLaunchEC2",
             "Effect": "Allow",
             "Action": [
                 "ec2:RunInstances",
-                "ec2:DescribeInstances",
                 "ec2:CreateTags",
-                "ec2:TerminateInstances",
-                "ec2:DeleteTags",
-                "logs:GetLogEvents",
+                "ec2:DeleteTags"
+            ],
+            "Resource": [
+                "arn:aws:ec2:*:*:instance/*",
+                "arn:aws:ec2:*:*:volume/*",
+                "arn:aws:ec2:*:*:network-interface/*",
+                "arn:aws:ec2:*:*:subnet/*",
+                "arn:aws:ec2:*:*:security-group/*",
+                "arn:aws:ec2:*:*:key-pair/*",
+                "arn:aws:ec2:*:*:image/*"
+            ]
+        },
+        {
+            "Sid": "AwsCloudLaunchInstances",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeInstances",
+                "ec2:TerminateInstances"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringLike": {
+                    "ec2:ResourceTag/Name": "TowerForge-*"
+                }
+            }
+        },
+        {
+            "Sid": "AwsCloudLaunchLogs",
+            "Effect": "Allow",
+            "Action": [
+                "logs:GetLogEvents"
+            ],
+            "Resource": "arn:aws:logs:*:*:log-group:*:log-stream:*"
+        },
+        {
+            "Sid": "AwsCloudLaunchS3",
+            "Effect": "Allow",
+            "Action": [
                 "s3:GetObject"
             ],
             "Resource": "*"
@@ -162,7 +206,10 @@ The following permissions are required to remove resources created by Seqera whe
                 "iam:DetachRolePolicy",
                 "iam:DeleteRolePolicy"
             ],
-            "Resource": "*"
+            "Resource": [
+                "arn:aws:iam::*:role/TowerForge*",
+                "arn:aws:iam::*:instance-profile/TowerForge*"
+            ]
         }
     ]
 }
