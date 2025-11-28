@@ -19,11 +19,12 @@ Studios in Enterprise is not enabled by default. You can enable Studios in the [
 - [Manage Studios](./managing): Manage your Studios and how collaborators use them.
 
 :::note
-Currently, Studios supports [AWS Cloud][aws-cloud], [Google Cloud][google-cloud], and [AWS Batch][aws-batch] compute environments that **do not** have Fargate enabled.
+Currently, Studios supports [AWS Cloud][aws-cloud], [Google Cloud][google-cloud], [Azure Cloud][azure-cloud] and [AWS Batch][aws-batch] compute environments that **do not** have Fargate enabled.
 :::
 
 {/* links */}
 [aws-cloud]: ../compute-envs/aws-cloud
 [aws-batch]: ../compute-envs/aws-batch
+[azure-cloud]: ../compute-envs/azure-cloud.md
 [google-cloud]: ../compute-envs/google-cloud
 [contact]: https://support.seqera.io/
