@@ -16,7 +16,7 @@ Fusion Snapshots require the following Seqera Platform compute environment confi
 - **Fusion Snapshots (beta)**: Enabled
 - **Config mode**: Batch Forge
 - **Provisioning model**: Spot
-- **Instance types**: See [Selecting an EC2 instance](#ec2-instance-selection) for a detailed guide
+- **Instance types**: See [Selecting an EC2 instance](#selecting-an-ec2-instance) for a detailed guide
 
 :::tip
 Fusion Snapshots work with sensible defaults (e.g., 5 automatic retry attempts). For configuration options, see [Advanced configuration](./configuration.md).

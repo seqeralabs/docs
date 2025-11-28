@@ -127,4 +127,4 @@ process.resourceLimits = [cpus: 32, memory: '60.GB']
 process.resourceLimits = [cpus: 16, memory: '20.GB']
 ```
 
-See [AWS Batch](./aws.md#best-practices) or [Google Cloud Batch](./gcp.md#best-practices) for more information about reclamation windows. See [`resourceLimits`](https://www.nextflow.io/docs/latest/reference/process.html#resourcelimits) for more configuration options.
+See [AWS Batch](./aws.md) or [Google Cloud Batch](./gcp.md) for more information about reclamation windows. See [`resourceLimits`](https://www.nextflow.io/docs/latest/reference/process.html#resourcelimits) for more configuration options.

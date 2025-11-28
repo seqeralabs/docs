@@ -133,7 +133,7 @@ Checkpoints take longer than expected, approaching timeout limits.
    - Verify guaranteed network bandwidth (not "up to" values)
    - Prefer NVMe storage instances on AWS (instances with `d` suffix)
 
-See [AWS Batch instance selection](./guide/snapshots/aws.md#ec2-instance-selection) for detailed recommendations.
+See [Selecting an EC2 instance](./guide/snapshots/aws.md#selecting-an-ec2-instance) for detailed recommendations.
 
 ### Frequent checkpoint failures
 
