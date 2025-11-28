@@ -27,17 +27,21 @@ If you experience frequent spot reclamations, increase `maxSpotAttempts` above `
     aws.batch.maxSpotAttempts = 10  // Increase retries beyond default of 5
     ```
 
+    See [`aws`](https://www.nextflow.io/docs/latest/reference/config.html#aws) for more configuration options.
+
 - Google Batch:
 
     ```groovy
     google.batch.maxSpotAttempts = 10  // Increase retries beyond default of 5
     ```
 
+    See [`google`](https://www.nextflow.io/docs/latest/reference/config.html#google) for more configuration options.
+
 ### Fine-grained retries with `errorStrategy`
 
-For more control, configure your Nextflow `errorStrategy` to implement retry logic based on specific checkpoint failure types. This allows you to handle different failure scenarios (e.g., checkpoint dump failures differently from restore failures) differently.
+For more control, configure your Nextflow [`errorStrategy`](https://www.nextflow.io/docs/latest/reference/process.html#errorstrategy) to implement retry logic based on specific checkpoint failure types. This allows you to handle different failure scenarios (e.g., checkpoint dump failures differently from restore failures) differently.
 
-To configure, set to `maxSpotAttempts = 0` to disable automatic retries and set an `errorStrategy`. For example:
+To configure, set to `maxSpotAttempts = 0` to disable automatic retries and set an [`errorStrategy`](https://www.nextflow.io/docs/latest/reference/process.html#errorstrategy). For example:
 
 ```groovy
 process {
@@ -51,6 +55,8 @@ process {
     }
 }
 ```
+
+See [`errorStrategy`](https://www.nextflow.io/docs/latest/reference/process.html#errorstrategy) for more configuration options.
 
 **Exit codes**:
 
@@ -107,4 +113,4 @@ process.resourceLimits = [cpus: 32, memory: '60.GB']
 process.resourceLimits = [cpus: 16, memory: '20.GB']
 ```
 
-See [AWS Batch](./aws.md#best-practices) or [Google Cloud Batch](./gcp.md#best-practices) for more information about reclamation windows.
+See [AWS Batch](./aws.md#best-practices) or [Google Cloud Batch](./gcp.md#best-practices) for more information about reclamation windows. See [`resourceLimits`](https://www.nextflow.io/docs/latest/reference/process.html#resourcelimits) for more configuration options.
