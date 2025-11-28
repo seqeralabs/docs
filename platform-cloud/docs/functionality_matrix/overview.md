@@ -1,11 +1,11 @@
 ---
 title: "Version compatibility"
 description: "Platform / nf-launcher / Nextflow / Fusion version compatibility"
-date: "20 Jun 2024"
+date: "28 Nov 2025"
 tags: [compatibility, nextflow, nf-launcher]
 ---
 
-The two most recent major Seqera Platform versions (24.1.x, 23.4.x, etc) are supported at any given time.
+The two most recent major Seqera Platform versions (25.3.x, 25.2.x, etc) are supported at any given time.
 
 Each version makes use of `nf-launcher` to determine the Nextflow version used as its baseline. You can override this version during pipeline launch, but note that Seqera may not work reliably with Nextflow versions other than the baseline version. To use a Nextflow version other than the baseline in your pipeline run, use a [pre-run script](../launch/advanced#pre-and-post-run-scripts) during launch.
 
@@ -13,6 +13,14 @@ If no Nextflow version is specified in your configuration, Seqera defaults to th
 
 | Platform version | nf-launcher version | Nextflow version | Fusion version |
 | ---------------- | ------------------- | ---------------- | -------------- |
+| 25.3.0           | j21-25.10           | 25.10.1          | 2.5.1          |
+| 25.2.2           | j21-25.10           | 25.10.1          | 2.5.1          |
+| 25.2.1           | j21-25.10           | 25.10.1          | 2.5.1          |
+| 25.2.0           | j21-25.10           | 25.10.1          | 2.5.1          |
+| 25.1.5           | j21-25.10           | 25.10.1          | 2.5.1          |
+| 25.1.3           | j21-25.10           | 25.10.1          | 2.5.1          |
+| 25.1.0           | j21-25.10           | 25.10.1          | 2.5.1          |
+| 24.2.6           | j17-24.10.4         | 24.10.4          | 2.4            |
 | 24.2.4           | j17-24.10.4         | 24.10.4          | 2.4            |
 | 24.2.3           | j17-24.10.4         | 24.10.4          | 2.4            |
 | 24.2.2           | j17-24.10.0         | 24.10.0          | 2.4            |
@@ -31,4 +39,4 @@ If no Nextflow version is specified in your configuration, Seqera defaults to th
 | 23.2.0           | j17.23.04.2-up3     | 23.04.2          | 2.1            |
 | 23.1.3           | j17-23.04.1         | 23.04.1          | 2.1            |
 
-nf-launcher versions prefixed with j17 refer to Java version 17; j11 refers to Java 11.
+nf-launcher versions prefixed with j21 refer to Java version 21; j17 refers to Java 17; j11 refers to Java 11.
