@@ -21,7 +21,7 @@ Fusion Snapshots require the following Seqera Platform compute environment confi
 - **Provisioning model**: Spot
 
 :::tip Configuration
-Fusion Snapshots work with sensible defaults (5 automatic retry attempts). For configuration options, see [Advanced configuration]](./configuration.md).
+Fusion Snapshots work with sensible defaults (5 automatic retry attempts). For configuration options, see [Advanced configuration](./configuration.md).
 :::
 
 ## Incremental snapshots
