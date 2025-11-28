@@ -17,31 +17,45 @@ When spot instances are reclaimed, you can configure how Nextflow retries the ta
 
 ### Automatic retries with `maxSpotAttempts`
 
-The simplest approach uses `maxSpotAttempts` to automatically retry any task that fails due to spot reclamation, regardless of the specific failure reason. When you enable Fusion Snapshots, Nextflow automatically sets `maxSpotAttempts = 5`. This allows the checkpoint to be restored on a new instance after reclamation.
+The simplest approach uses `maxSpotAttempts` to automatically retry any task that fails due to spot reclamation, regardless of the specific failure reason. When you enable Fusion Snapshots, Nextflow automatically sets `maxSpotAttempts = 5`. This allows the checkpoint to be restored on a new instance after reclamation up to 5 times.
 
-If you experience frequent spot reclamations, increase `maxSpotAttempts` above `5`. For example:
+**Increase retries**
+
+If you experience frequent spot reclamations, increase `maxSpotAttempts` above `5`:
 
 - AWS Batch:
 
     ```groovy
-    aws.batch.maxSpotAttempts = 10  // Increase retries beyond default of 5
+    aws.batch.maxSpotAttempts = 10
     ```
 
-    See [`aws`](https://www.nextflow.io/docs/latest/reference/config.html#aws) for more configuration options.
-
-- Google Batch:
+- Google Cloud Batch:
 
     ```groovy
-    google.batch.maxSpotAttempts = 10  // Increase retries beyond default of 5
+    google.batch.maxSpotAttempts = 10
     ```
 
-    See [`google`](https://www.nextflow.io/docs/latest/reference/config.html#google) for more configuration options.
+**Disable retries**
+
+To disable automatic retries and handle failures differently, set `maxSpotAttempts = 0`:
+
+- AWS Batch:
+
+    ```groovy
+    aws.batch.maxSpotAttempts = 0
+    ```
+
+- Google Cloud Batch:
+
+    ```groovy
+    google.batch.maxSpotAttempts = 0
+    ```
 
 ### Fine-grained retries with `errorStrategy`
 
 For more control, configure your Nextflow [`errorStrategy`](https://www.nextflow.io/docs/latest/reference/process.html#errorstrategy) to implement retry logic based on specific checkpoint failure types. This allows you to handle different failure scenarios (e.g., checkpoint dump failures differently from restore failures) differently.
 
-To configure, set to `maxSpotAttempts = 0` to disable automatic retries and set an [`errorStrategy`](https://www.nextflow.io/docs/latest/reference/process.html#errorstrategy). For example:
+To configure, set to `maxSpotAttempts = 0` and add an [`errorStrategy`](https://www.nextflow.io/docs/latest/reference/process.html#errorstrategy). For example:
 
 ```groovy
 process {
@@ -109,7 +123,7 @@ Setting resource limits ensures tasks can checkpoint successfully and prevents j
 // AWS Batch example (120-second reclamation window)
 process.resourceLimits = [cpus: 32, memory: '60.GB']
 
-// Google Batch example (Up to 30-second reclamation window - more conservative)
+// Google Cloud Batch example (Up to 30-second reclamation window - more conservative)
 process.resourceLimits = [cpus: 16, memory: '20.GB']
 ```
 

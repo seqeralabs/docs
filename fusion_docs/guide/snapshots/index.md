@@ -54,7 +54,3 @@ To get started with you cloud provide, see:
 
 - [AWS Batch](./aws.md)
 - [Google Cloud Batch](./gcp.md)
-
-For advanced configuration, see:
-
-- [Advanced configuration](./configuration.md)

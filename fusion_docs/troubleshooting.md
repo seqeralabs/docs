@@ -283,29 +283,34 @@ Confirm your environment is properly configured:
 
 ### Getting help
 
-When contacting support, provide:
+When contacting Seqera support about Fusion Snapshots issues, provide the following information to help diagnose the problem:
 
 1. **Task information**:
 
    - Nextflow version
-   - Cloud provider (AWS/GCP)
+   - Cloud provider (AWS Batch or Google Cloud Batch)
    - Instance type used
    - Memory and CPU requested
-   - Linux Kernel Version
+   - Linux kernel version
 
 2. **Error details**:
 
-   - Exit code
-   - Relevant log excerpts
+   - Exit code (especially 175 or 176 for snapshot failures)
+   - Task logs from the work directory (`.command.log`)
+   - Fusion Snapshots logs (if available)
    - Timestamp of failure
 
 3. **Configuration**:
 
-   - Compute environment settings
-   - Nextflow config related to snapshots
+   - Compute environment settings in Platform
+   - Nextflow config related to snapshots (`fusion.snapshots.*` settings)
    - Architecture (x86_64 or ARM64)
 
 4. **Dump data** (if available):
 
-   - From the task workdir, `.fusion/dump/` directory contents
-   - It might be not practical to share the whole directory, in that case, please start by sharing the `dump_metadata` file and any `*.log` files you can find inside the numbered dump folders
+   Diagnostic data from snapshot operations can help identify the root cause:
+
+   - Preferred: Complete `.fusion/dump/` directory from the task work directory
+   - Minimum: The `dump_metadata` file and all `*.log` files from numbered dump folders
+
+   If the directory is too large to share, prioritize the metadata and log files over the full checkpoint data.
