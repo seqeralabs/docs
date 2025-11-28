@@ -5,6 +5,23 @@ date: "21 Nov 2024"
 tags: [fusion, snapshot, troubleshooting, support]
 ---
 
+## GCP
+
+- **Exit code 175**: Dump failed, likely due to timeout because too much memory is used and cannot be dumped fast enough.
+- **Exit code 176**: Restore failed. Check logs and verify checkpoint data integrity.
+
+For detailed troubleshooting, see [Troubleshooting Guide](troubleshooting.md).
+
+## AWS Troubleshooting
+
+- **Exit code 175**: Dump failed, likely due to timeout. To resolve this, reduce memory usage or increase bandwidth.
+- **Exit code 176**: Restore failed. Check the logs and verify checkpoint data integrity.
+- **Long checkpoint times**: Review your instance bandwidth and consider using x86_64 instances for incremental snapshots.
+- **State stuck in DUMPING**: Previous checkpoint exceeded reclamation window.
+
+For detailed troubleshooting, see [Fusion Snapshots troubleshooting](./troubleshooting.md).
+
+
 This guide helps you diagnose and resolve common Fusion Snapshots issues.
 
 ## Understanding exit codes

@@ -5,95 +5,106 @@ date: "2024-11-22"
 tags: [fusion, snapshot, configuration, nextflow]
 ---
 
-Fusion Snapshots work optimally with default configuration for most workloads. You typically don't need to modify these settings unless you have specific organizational policies, experience issues with default behavior, or have edge case requirements.
+Fusion Snapshots work optimally with default configuration for most workloads. You typically do not need to modify these settings unless you have specific organizational policies, experience issues with default behavior, or have edge case requirements.
 
 :::tip
-For troubleshooting, focus on task memory usage and instance selection before adjusting these advanced configuration options.
+For troubleshooting, focus on task memory usage and instance selection before adjusting these advanced configuration options. See [Troubleshooting](../../troubleshooting.md) for more information.
 :::
 
-## Spot reclamation retries
+## Retry handling
 
-You can control how many times Nextflow automatically retries a task after spot instance reclamation.
+When spot instances are reclaimed, you can configure how Nextflow retries the tasks. There are two approaches:
 
-**Default with Fusion Snapshots enabled**: `5`
-**Default without Fusion Snapshots**: `0`
+### Automatic retries with `maxSpotAttempts`
 
-:::info
-When you enable Fusion Snapshots, Nextflow automatically sets `maxSpotAttempts = 5` to enable automatic retries on spot reclamation. This allows the checkpoint to be restored on a new instance after reclamation.
-:::
+The simplest approach uses `maxSpotAttempts` to automatically retry any task that fails due to spot reclamation, regardless of the specific failure reason. When you enable Fusion Snapshots, Nextflow automatically sets `maxSpotAttempts = 5`. This allows the checkpoint to be restored on a new instance after reclamation.
 
+If you experience frequent spot reclamations, increase `maxSpotAttempts` above `5`. For example:
 
-### When to customize
+- AWS Batch:
 
-- Increase above `5` if you expect frequent spot reclamations
-- Set to `0` if you want to handle retries only through error strategies
+    ```groovy
+    aws.batch.maxSpotAttempts = 10  // Increase retries beyond default of 5
+    ```
 
-**AWS Batch**
+- Google Batch:
 
-## Error retry strategy
+    ```groovy
+    google.batch.maxSpotAttempts = 10  // Increase retries beyond default of 5
+    ```
 
-Configure how Nextflow handles checkpoint failures. This is the recommended approach for retry logic.
+### Fine-grained retries with `errorStrategy`
+
+For more control, configure your Nextflow `errorStrategy` to implement retry logic based on specific checkpoint failure types. This allows you to handle different failure scenarios (e.g., checkpoint dump failures differently from restore failures) differently.
+
+To configure, set to `maxSpotAttempts = 0` to disable automatic retries and set an `errorStrategy`. For example:
 
 ```groovy
 process {
     maxRetries = 2
     errorStrategy = {
         if (task.exitStatus == 175) {
-            return 'retry'  // Retry on checkpoint dump failure
+            return 'retry'  // Retry checkpoint dump failures
         } else {
-            return 'terminate'
+            return 'terminate'  // Don't retry other failures
         }
-Using error strategy gives you fine-grained control over retry behavior per exit code, while `maxSpotAttempts` retries all spot reclamations regardless of the cause. This is the recommended approach for retry logic.
+    }
 }
 ```
 
 **Exit codes**:
-- `175`: Checkpoint dump failed
-- `176`: Restore failed
 
-**Why this is better**: Using error strategy gives you fine-grained control over retry behavior per exit code, while `maxSpotAttempts` retries all spot reclamations regardless of the cause.
+- `175`: Checkpoint dump failed — The snapshot could not be saved (e.g., insufficient memory, I/O errors)
+- `176`: Checkpoint restore failed — The snapshot could not be restored on the new instance
 
 ## TCP connection handling
 
-Control how TCP connections are handled during checkpoint operations.
+By default, Fusion Snapshots preserve TCP connections during checkpoint operations (`established` mode). This works well for plain TCP connections. If your application uses SSL/TLS connections (HTTPS, SSH, etc.), you need to configure TCP close mode because CRIU cannot preserve encrypted connections.
 
-**Default**: `established` (preserve TCP connections)
+To close all TCP connections during checkpoint operations, set:
 
 ```groovy
 process.containerOptions = '-e FUSION_SNAPSHOTS_TCP_MODE=close'
 ```
 
-**Options**:
-- `established`: Preserve TCP connections (default, for plain TCP)
+**Options:**
+
+- `established`: Preserve TCP connections (default)
 - `close`: Close all TCP connections during checkpoint
-Fusion Snapshots preserve TCP connections during checkpoint operations by default. This works well for plain TCP connections.
 
-Change this setting to `close` if your application uses SSL/TLS connections (e.g., HTTPS, SSH), as CRIU cannot preserve encrypted connections.
+## Debug logging
 
+By default, Fusion Snapshots use `WARN` level logging (warnings and errors only). If you are troubleshooting checkpoint issues, you can enable more detailed logging to help diagnose problems.
 
-Prevent tasks from requesting resources that exceed available capacity.
+To enable debug logging, set:
 
 ```groovy
-// AWS Batch example
+process.containerOptions = '-e FUSION_SNAPSHOT_LOG_LEVEL=debug'
+```
+
+**Log levels**:
+
+- `ERROR`: Only critical errors
+- `WARN`: Warnings and errors (default)
+- `INFO`: General informational messages
+- `DEBUG`: Detailed debug information
+
+:::warning
+Use debug logging only when troubleshooting, as it is verbose and may impact performance.
+:::
+
+## Resource limits
+
+By default, tasks can request any amount of resources. If a task requests more resources than are available on a single instance, the job waits indefinitely and never runs. Use the `process.resourceLimits` directive to set maximum requested resources below the capacity of a single instance.
+
+Setting resource limits ensures tasks can checkpoint successfully and prevents jobs from becoming unschedulable. For example:
+
+```groovy
+// AWS Batch example (120-second reclamation window)
 process.resourceLimits = [cpus: 32, memory: '60.GB']
 
-// Google Batch example (more conservative for 30s window)
+// Google Batch example (Up to 30-second reclamation window - more conservative)
 process.resourceLimits = [cpus: 16, memory: '20.GB']
 ```
 
-**When to use**:
-- Prevent jobs from becoming unschedulable
-- Ensure tasks can checkpoint within reclamation windows
-- Enforce organization-wide resource policies
-
-See [AWS Batch](aws.md#best-practices) or [Google Batch](gcp.md#best-practices) for recommended memory limits.
-
-## Summary
-
-Most users never need to modify these settings. Fusion Snapshots are designed to work optimally with default configuration. Only adjust these settings if:
-
-- You have specific organizational policies
-- You're experiencing issues with the default behavior
-- You have edge case requirements not covered by defaults
-
-For most troubleshooting scenarios, focus on task memory usage and instance selection rather than configuration changes.
+See [AWS Batch](./aws.md#best-practices) or [Google Cloud Batch](./gcp.md#best-practices) for more information about reclamation windows.

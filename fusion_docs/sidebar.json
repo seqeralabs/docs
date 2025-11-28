@@ -14,13 +14,13 @@
         "guide/gcp-gke",
         {
           "type": "category",
-          "label": "Snapshots",
-          "collapsed": false,
+          "label": "Fusion Snapshots",
+          "link": {"type": "doc", "id": "guide/snapshots/index"},
+          "collapsed": true,
           "items": [
-            "guide/snapshots/index",
             "guide/snapshots/aws",
             "guide/snapshots/gcp",
-            "guide/snapshots/troubleshooting"
+            "guide/snapshots/configuration"
           ]
         },
         {
