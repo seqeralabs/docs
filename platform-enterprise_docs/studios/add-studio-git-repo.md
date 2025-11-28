@@ -96,6 +96,17 @@ Files uploaded to a mounted bucket during an active session may not be immediate
 
 When a Studio session starts from a Git repository, the repository contents are cloned into the session. For example, repository `https://github.com/seqeralabs/studio-templates.git` clones to `/workspace/studio-templates/` with README.md at `/workspace/studio-templates/README.md`.
 
+And it uses the same commit that was selected, or resolved while creating the studio in the first place.
+Cloning can be disabled, and the path at which the repository content will be cloned can be defined in the schema
+This configurability allows you to:
+Clone disabled: you can share a public/private template just for the tool
+Clone path configuration: can be used to configure specific functionalities of the tool with config files without the need to build a different docker image.
+We decided not to store the .git folder, and not share the platform credentials with the studio for the time being. It should be clear to users that they won't have that repository linked to their studio once they are in, meaning:
+
+there are no preprovisioned git credentials available for them to use in the studio
+they cannot push/pull from the configured repository
+We might enhance/change this behavior in the future, but it's not yet possible due to the shared sutdios constraints.
+
 ## Save and start
 
    1. Review the configuration to ensure all settings are correct.
