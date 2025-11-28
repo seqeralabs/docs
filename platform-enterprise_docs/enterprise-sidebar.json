@@ -62,64 +62,8 @@
           },
           "enterprise/general_troubleshooting"
         ]
-      },
-      "items": [
-        {
-          "type": "category",
-          "label": "Prerequisites",
-          "link": {"type": "doc", "id": "enterprise/prerequisites/common"},
-          "collapsed": true,
-          "items": [            
-            "enterprise/prerequisites/aws",
-            "enterprise/prerequisites/azure",
-            "enterprise/prerequisites/gcp",
-            "enterprise/prerequisites/on-prem"
-          ]
-        },
-        {
-          "type": "category",
-          "label": "Configuration",
-          "collapsed": true,
-          "items": [
-            "enterprise/configuration/overview",
-            "enterprise/configuration/authentication",
-            "enterprise/configuration/aws_parameter_store",
-            "enterprise/configuration/networking",
-            "enterprise/configuration/reverse_proxy",
-            "enterprise/configuration/ssl_tls",
-            "enterprise/configuration/pipeline_optimization",
-            "enterprise/configuration/wave",
-            "enterprise/studios"
-          ]
-        },
-        {
-          "type": "category",
-          "label": "Deployment",
-          "collapsed": true,
-          "items": [
-            "enterprise/helm",
-            "enterprise/kubernetes",
-            "enterprise/docker-compose",
-            "enterprise/testing",
-            "enterprise/upgrade"
-          ]
-        },
-        {
-          "type": "category",
-          "label": "Advanced",
-          "collapsed": true,
-          "items": [
-            "enterprise/advanced-topics/db-docker-to-RDS",
-            "enterprise/advanced-topics/use-iam-role",
-            "enterprise/advanced-topics/custom-launch-container",
-            "enterprise/advanced-topics/firewall-configuration",
-            "enterprise/advanced-topics/seqera-container-images"
-          ]
-        },
-        "enterprise/general_troubleshooting"
-      ]
-    },
-    {
+      },      
+      {
       "type": "category",
       "label": "Tutorials",
       "collapsed": true,
@@ -233,52 +177,7 @@
         "pipeline-optimization/overview",
         "launch/advanced"
       ]
-    },    
-    {
-      "type": "category",
-      "label": "Administration",
-      "items": [
-        "administration/overview",
-        "orgs-and-teams/organizations",
-        "orgs-and-teams/workspace-management",
-        "orgs-and-teams/roles",
-        "orgs-and-teams/custom-roles",
-        "monitoring/dashboard",
-        "monitoring/audit-logs"
-      ]
-    },
-    {
-      "type": "category",
-      "label": "Developer tools",
-      "collapsed": true,
-      "items": [
-        {
-          "type": "link",
-          "label": "API",
-          "href": "https://docs.seqera.io/platform-api"
-        },
-        {
-          "type": "category",
-          "label": "CLI",
-          "collapsed": true,
-          "items": ["cli/overview", "cli/installation", "cli/commands"]
-        },
-        {
-          "type": "category",
-          "label": "Seqerakit",
-          "collapsed": true,
-          "items": [
-            "monitoring/overview",
-            "monitoring/run-details"
-          ]
-          },
-          "reports/overview",
-          "launch/cache-resume",
-          "secrets/overview",
-          "pipeline-optimization/overview",
-          "launch/advanced"
-        ]
-      },
+    },       
        {
         "type": "category",
         "label": "Studios",
