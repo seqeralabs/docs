@@ -272,3 +272,40 @@ Confirm your environment is properly configured:
 - Memory usage is within safe limits for your cloud provider
 - Architecture is x86_64 (not ARM64) if experiencing issues
 - Fusion Snapshots are enabled in your compute environment
+
+1.  Test with different instance types:
+
+    If uncertain:
+
+    - Try to run the same task with different instance types (that have better disk iops and bandwidth guarantees)
+    - Verify if snapshots work there
+    - Decrease memory usage to a manageable amount
+
+## Getting help
+
+When contacting support, provide:
+
+1. **Task information**:
+
+   - Nextflow version
+   - Cloud provider (AWS/GCP)
+   - Instance type used
+   - Memory and CPU requested
+   - Linux Kernel Version
+
+2. **Error details**:
+
+   - Exit code
+   - Relevant log excerpts
+   - Timestamp of failure
+
+3. **Configuration**:
+
+   - Compute environment settings
+   - Nextflow config related to snapshots
+   - Architecture (x86_64 or ARM64)
+
+4. **Dump data** (if available):
+
+   - From the task workdir, `.fusion/dump/` directory contents
+   - It might be not practical to share the whole directory, in that case, please start by sharing the `dump_metadata` file and any `*.log` files you can find inside the numbered dump folders
