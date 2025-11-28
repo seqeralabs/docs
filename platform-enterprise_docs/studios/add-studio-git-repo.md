@@ -92,6 +92,17 @@ Sessions have read-only access to mounted data by default. Enable write permissi
 
 Files uploaded to a mounted bucket during an active session may not be immediately available within that session.
 
+### Docker builds
+
+- The schema can define a Dockerfile that has to be inside the `.seqera` folder.
+- Build context is limited to 10MB.
+
+The Studio image is built by Wave when the studio is added, and cached - so if you create a completely separate studio, and the repo has not changed, Platform will reuse the existing image without rebuild. Dockerfile-based Studios cannot be pushed to the Wave community registry and so need some preconfiguration:
+
+- You need to configure a specific registry with an environment variable.
+- Each workspace that wants to use the functionality needs to have credentials available in the workspace to push to the defined registry.
+- Standard limitations around private images (private for pull) apply, so the only supported registry/CE combination for a fully private dockerfile based studio) is ECR and AWS.
+
 ### Repository cloning
 
 When a Studio session starts from a Git repository, the repository contents are cloned into the session, using the same commit that was selected, or resolved when the Studio was initially created. For example, repository `https://github.com/seqeralabs/studio-templates.git` clones to `/workspace/studio-templates/` with README.md at `/workspace/studio-templates/README.md`.
