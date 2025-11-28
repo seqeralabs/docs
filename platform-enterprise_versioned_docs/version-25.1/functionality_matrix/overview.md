@@ -13,6 +13,11 @@ If no Nextflow version is specified in your configuration, Seqera defaults to th
 
 | Platform version | nf-launcher version | Nextflow version | Fusion version |
 | ---------------- | ------------------- | ---------------- | -------------- |
+| 25.1.5           | j17-24.10.9-b1      | 24.10.9          | 2.4            |
+| 25.1.4           | j17-24.10.9-b1      | 24.10.9          | 2.4            |
+| 25.1.3           | j17-24.10.9-b1      | 24.10.9          | 2.4            |
+| 25.1.1           | j17-24.10.5         | 24.10.5          | 2.4            |
+| 25.1.0           | j17-24.10.5         | 24.10.5          | 2.4            |
 | 24.2.4           | j17-24.10.4         | 24.10.4          | 2.4            |
 | 24.2.3           | j17-24.10.4         | 24.10.4          | 2.4            |
 | 24.2.2           | j17-24.10.0         | 24.10.0          | 2.4            |
@@ -31,4 +36,4 @@ If no Nextflow version is specified in your configuration, Seqera defaults to th
 | 23.2.0           | j17.23.04.2-up3     | 23.04.2          | 2.1            |
 | 23.1.3           | j17-23.04.1         | 23.04.1          | 2.1            |
 
-nf-launcher versions prefixed with j17 refer to Java version 17; j11 refers to Java 11.
+nf-launcher versions prefixed with j21 refer to Java version 21; j17 refers to Java version 17; j11 refers to Java 11.
