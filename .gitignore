@@ -25,7 +25,7 @@ yarn-error.log*
 internal/tmp
 
 # Ignore all pre-packaged styles
-.github/styles/*
+
 # Include our own configuration
 !.github/styles/config
 !.github/styles/Google

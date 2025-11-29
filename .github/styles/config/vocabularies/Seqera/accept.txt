@@ -19,12 +19,13 @@ OAuth
 Kubernetes
 Gitpod
 Hashicorp
-RStudio
-Seqerakit
+[Ss]eqerakit
 Fusion
 Wave
+MultiQC
 [Cc]onfig
 Xpra
+R-IDE
 
 # Acronyms
 AMI
@@ -52,7 +53,6 @@ Cron
 
 # Other
 subnets
-autoscaling
 prefilled
 unencrypted
 deallocated
@@ -66,7 +66,6 @@ Pre-run scripts
 samplesheet
 datasheet
 openssl
-
 
 # Seqera Platform UI
 hostname
