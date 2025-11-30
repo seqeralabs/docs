@@ -78,11 +78,11 @@ Task fails with exit code 175, indicating the checkpoint operation did not compl
 
 See [AWS Batch instance selection](./guide/snapshots/aws.md#selecting-an-ec2-instance) or [Google Batch best practices](./guide/snapshots/gcp.md) for recommended configurations.
 
-### Exit code 176: Checkpoint restore failed
+### Exit code `176`: Checkpoint restore failed
 
 **Issue:**
 
-Task fails with exit code 176 when attempting to restore from a checkpoint.
+Task fails with exit code `176` when attempting to restore from a checkpoint.
 
 **Cause:**
 
@@ -194,8 +194,8 @@ To diagnose checkpoint problems:
 
 1. Check the exit code to identify the failure type:
 
-        - **Exit code 175**: Checkpoint dump failed — The snapshot could not be saved
-        - **Exit code 176**: Checkpoint restore failed — The snapshot could not be restored
+        - **Exit code `175`**: Checkpoint dump failed — The snapshot could not be saved
+        - **Exit code `176`**: Checkpoint restore failed — The snapshot could not be restored
         - **Other exit codes**: Likely an application error, not snapshot-related
 
 1. Review task logs:
@@ -295,7 +295,7 @@ When contacting Seqera support about Fusion Snapshots issues, provide the follow
 
 2. **Error details**:
 
-   - Exit code (especially 175 or 176 for snapshot failures)
+   - Exit code (especially `175` or `176` for snapshot failures)
    - Task logs from the work directory (`.command.log`)
    - Fusion Snapshots logs (if available)
    - Timestamp of failure
