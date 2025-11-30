@@ -50,7 +50,7 @@ When the system detects a spot instance interruption:
 
 ## Get started
 
-To get started with you cloud provide, see:
+To get started with your cloud provider, see:
 
 - [AWS Batch](./aws.md)
 - [Google Cloud Batch](./gcp.md)

@@ -15,6 +15,10 @@ For troubleshooting, focus on task memory usage and instance selection before ad
 
 When spot instances are reclaimed, you can configure how Nextflow retries the tasks. There are two approaches:
 
+- [Automatic retries with `maxSpotAttempts`](#automatic-retries-with-maxspotattempts)
+- [Fine-grained retries with `errorStrategy`](#fine-grained-retries-with-errorstrategy)
+
+
 ### Automatic retries with `maxSpotAttempts`
 
 The simplest approach uses `maxSpotAttempts` to automatically retry any task that fails due to spot reclamation, regardless of the specific failure reason. When you enable Fusion Snapshots, Nextflow automatically sets `maxSpotAttempts = 5`. This allows the checkpoint to be restored on a new instance after reclamation up to 5 times.
@@ -37,7 +41,7 @@ If you experience frequent spot reclamations, increase `maxSpotAttempts` above `
 
 **Disable retries**
 
-To disable automatic retries and handle failures differently, set `maxSpotAttempts = 0`:
+To disable automatic retries, set `maxSpotAttempts = 0`:
 
 - AWS Batch:
 
@@ -53,9 +57,9 @@ To disable automatic retries and handle failures differently, set `maxSpotAttemp
 
 ### Fine-grained retries with `errorStrategy`
 
-For more control, configure your Nextflow [`errorStrategy`](https://www.nextflow.io/docs/latest/reference/process.html#errorstrategy) to implement retry logic based on specific checkpoint failure types. This allows you to handle different failure scenarios (e.g., checkpoint dump failures differently from restore failures) differently.
+For fine-grained control of retries, configure your Nextflow [`errorStrategy`](https://www.nextflow.io/docs/latest/reference/process.html#errorstrategy) to implement retry logic based on specific checkpoint failure types. This allows you to handle different failure scenarios (e.g., checkpoint dump failures differently from restore failures) differently.
 
-To configure, set to `maxSpotAttempts = 0` and add an [`errorStrategy`](https://www.nextflow.io/docs/latest/reference/process.html#errorstrategy). For example:
+To configure, set to `maxSpotAttempts = 0` and add an [`errorStrategy`](https://www.nextflow.io/docs/latest/reference/process.html#errorstrategy) to your process configuration. For example:
 
 ```groovy
 process {
@@ -70,16 +74,18 @@ process {
 }
 ```
 
-See [`errorStrategy`](https://www.nextflow.io/docs/latest/reference/process.html#errorstrategy) for more configuration options.
-
 **Exit codes**:
 
 - `175`: Checkpoint dump failed — The snapshot could not be saved (e.g., insufficient memory, I/O errors)
 - `176`: Checkpoint restore failed — The snapshot could not be restored on the new instance
 
+**Configuration options**:
+
+See [`errorStrategy`](https://www.nextflow.io/docs/latest/reference/process.html#errorstrategy) for more configuration options.
+
 ## TCP connection handling
 
-By default, Fusion Snapshots preserve TCP connections during checkpoint operations (`established` mode). This works well for plain TCP connections. If your application uses SSL/TLS connections (HTTPS, SSH, etc.), you need to configure TCP close mode because CRIU cannot preserve encrypted connections.
+By default, Fusion Snapshots use `established` mode to preserve TCP connections during checkpoint operations. This works well for plain TCP connections. If your application uses SSL/TLS connections (HTTPS, SSH, etc.), you need to configure TCP close mode because CRIU cannot preserve encrypted connections.
 
 To close all TCP connections during checkpoint operations, set:
 
@@ -110,7 +116,7 @@ process.containerOptions = '-e FUSION_SNAPSHOT_LOG_LEVEL=debug'
 - `DEBUG`: Detailed debug information
 
 :::warning
-Use debug logging only when troubleshooting, as it is verbose and may impact performance.
+Use `debug` logging only when troubleshooting. It is verbose and may impact performance.
 :::
 
 ## Resource limits

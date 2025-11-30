@@ -76,7 +76,7 @@ Task fails with exit code 175, indicating the checkpoint operation did not compl
    }
    ```
 
-See [AWS Batch instance selection](./guide/snapshots/aws.md#ec2-instance-selection) or [Google Batch best practices](./guide/snapshots/gcp.md) for recommended configurations.
+See [AWS Batch instance selection](./guide/snapshots/aws.md#selecting-an-ec2-instance) or [Google Batch best practices](./guide/snapshots/gcp.md) for recommended configurations.
 
 ### Exit code 176: Checkpoint restore failed
 
