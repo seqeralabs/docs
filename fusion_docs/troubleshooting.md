@@ -5,11 +5,23 @@ date: "2025-11-29"
 tags: [troubleshooting, fusion, fusion snapshots, configuration]
 ---
 
+When working with Fusion and Fusion Snapshots, you might encounter the following issues. This page provides solutions for common problems.
+
 ## General
 
 ### Too many open files
 
-If you're experiencing an error about too many open files, increase the `ulimit` for the container. Append the following to your Nextflow configuration:
+**Issue:**
+
+Tasks fail with an error about too many open files.
+
+**Cause:**
+
+The default file descriptor limit is too low for the container workload.
+
+**Solution:**
+
+Increase the `ulimit` for the container. Append the following to your Nextflow configuration:
 
 ```groovy
 process.containerOptions = '--ulimit nofile=1048576:1048576'
