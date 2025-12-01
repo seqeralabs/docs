@@ -1,17 +1,24 @@
 ---
 title: Connect changelog
 date created: "2025-07-30"
-last updated: "2025-09-13"
+last updated: "2025-11-24"
 tags: [connect, changelog, connect-changelog]
 ---
 
+:::note
+Always use the `recommended` tagged template image for new Studios. Only two earlier minor versions of Seqera Connect are supported by Seqera.
+:::
+
 ## Connect server
 
-### server/v0.8.3 `latest` - 2025-07-25
+### server/v0.8.4 `latest` - 2025-10-31
 
-* Released 0.8.2 - bump server version
-* Extract Fusion version to it's own constant
-* Fix location header for path-based routing reverse proxy requests
+* N/A
+
+### server/v0.8.3 - 2025-07-25
+
+* Extract Fusion version 
+* Fix(proxy): include prefix in Location header
 
 ### server/v0.8.2 - 2025-07-21
 
@@ -217,12 +224,30 @@ tags: [connect, changelog, connect-changelog]
 
 ## Connect client
 
-### client/v0.8.4 `latest` - 2025-07-18
+### client/v0.8.7 `latest` - 2025-10-14
 
-* Feat: add optional `CONNECT_TOOL_PATH_PREFIX` as base URL
+* * Fix(vscode): incorrect path in Dockerfile
+
+### client/v0.8.6 - 2025-10-14
+
+* Fix(vscode): incorrect path in Dockerfile
+
+### client/v0.8.5 - 2025-07-29
+
+* Feat: add eStargz support to client images
+* Feat: send squash notifications to platform 
+* Feat: extract Fusion version 
+* Fix(proxy): include prefix in Location header
+* Fix(r-ide): add reverse proxy to support custom paths
+
+### client/v0.8.4 - 2025-07-18
+
+* Management: add `set readiness` endpoint
+* Feat: enable path-based routing (optional `CONNECT_TOOL_PATH_PREFIX` as base URL)
+* Fix: include all architectures when retagging images
 * Feat: install pip for VS Code images
-* Shut down Docker gracefully upon container shutdown
-* Enable GHA runner cache to improve build time performance
+* Fix: shut down Docker gracefully upon container shutdown
+* Feat: enable GHA runner cache to improve build time performance
 * Fix: use correct latest snapshot Connect-client version when workflow triggered from merge
 * Fix: include all arch when retagging images
 * Fix: remove extra space
@@ -231,7 +256,6 @@ tags: [connect, changelog, connect-changelog]
 ### client/v0.8.3 - 2025-06-19
 
 * Fix: return normal err when server closes connection 
-* Client version 0.8.2 was released to prod, bumping to next version 
 
 ### client/v0.8.2 - 2025-06-17
 
@@ -240,7 +264,6 @@ tags: [connect, changelog, connect-changelog]
 * Implementation of user tracking notifications
 * Updated local dev docs
 * API tunnels close
-* Client version 0.8.1 was released to prod, bumping to next version
 
 ### client/v0.8.1 - 2025-05-29
 
@@ -288,10 +311,6 @@ tags: [connect, changelog, connect-changelog]
 * Fix: add timeout to notifier call
 * Fix: swap connector after closing previous
 * Fix: update Dockerfile with replacements
-* Cut server release 0.8.1
-* Server version 0.8.0 was released to prod, bumping to next version 
-* Client version 0.8.0 was released to prod, bumping to next version
-* Server version 0.8.1 was released to prod, bumping to next version
 * Update x/net dependency (from v0.36.0 to v0.40.0)
 * Update go-jose library v3 (from 3.0.3 to 3.0.4) and v4 (from 4.0.4 to 4.0.5)
 * Bump golang.org/x/net (from v0.35.0 to v0.36.0)
@@ -340,7 +359,6 @@ tags: [connect, changelog, connect-changelog]
 * Fix: set server address based on real host
 * Infra: add option to trigger client build via ui
 * Upgrade xcaddy version
-* Server version 0.7.7 was released to prod, bumping to next version
 * Use Fusion v2.4.9
 
 ### client/v0.7.5 - 2024-11-18
@@ -352,7 +370,6 @@ tags: [connect, changelog, connect-changelog]
 * Fix: create mount target folder if not exists
 * Fix: include ca certs in tunnel Docker image
 * Updated Fusion version (from v2.4.2 to v2.4.6) and use released Nextflow language server (v1.0.0) VS Code extension
-* Client version 0.7.4 was released to prod, bumping to next version
 
 ### client/v0.7.4 - 2024-10-28
 
@@ -366,9 +383,9 @@ tags: [connect, changelog, connect-changelog]
 * Updated tools versions
 * Experiment with simplified image
 * Bind all container mount points for GPUs
-* Fix integration tests and support for v2 protocol
-* Fix Jupyter package versions and ulimit bug
-* Fix integration tests
+* Fix: integration tests and support for v2 protocol
+* Fix: Jupyter package versions and ulimit bug
+* Fix: integration tests
 * Fix: entrypoint
 * Fix: if notifier is nil, do not notify
 * Fix: increase retry timeout for integration test
@@ -382,7 +399,6 @@ tags: [connect, changelog, connect-changelog]
 * Feat: add micromamba to VS Code Docker image
 * Notification protocol document
 * Fix: correct release update
-* Client version 0.7.1 was released to prod, bumping to next version
 
 ### client/v0.7.1 - 2024-09-17
 
