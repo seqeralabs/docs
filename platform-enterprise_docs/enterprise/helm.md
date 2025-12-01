@@ -23,20 +23,20 @@ The `values.yaml` file defines a chart's settings, such as container image tags,
 1. Fetch the default `values.yaml` file to customize the installation with your specific configuration:
 
    ```bash
-   helm show values oci://public.cr.seqera.io/charts/platform --version 0.16.1 > my-values.yaml
+   helm show values oci://public.cr.seqera.io/charts/platform --version 0.19.0 > my-values.yaml
    ```
 
    Now edit the `my-values.yaml` file to set your options, such as internal container image registry, database connection details, license information, and other settings.
 
-   You can drop lines that you don't want to customize to keep the file concise and only include the settings you want to change: this will make it easier to maintain your configuration in the future. The values you don't specify will fall back to the defaults defined in the chart in the `values.yaml` file. For an example of a minimal configuration file, see the [example values file](https://github.com/seqeralabs/helm-charts/blob/0.16.1/platform/examples/kustomize/values.yaml).
+   You can drop lines that you don't want to customize to keep the file concise and only include the settings you want to change: this will make it easier to maintain your configuration in the future. The values you don't specify will fall back to the defaults defined in the chart in the `values.yaml` file. For an example of a minimal configuration file, see the [example values file](https://github.com/seqeralabs/helm-charts/blob/0.19.0/platform/examples/kustomize/values.yaml).
 
-   You can browse all the available configuration options in a tabular format in the [README](https://github.com/seqeralabs/helm-charts/tree/0.16.1/platform) file.
+   You can browse all the available configuration options in a tabular format in the [README](https://github.com/seqeralabs/helm-charts/tree/0.19.0/platform) file.
 
 1. Install the chart from the public OCI registry in your desired namespace and with the values file customized in the previous step:
 
    ```bash
    helm install my-release oci://public.cr.seqera.io/charts/platform \
-       --version 0.16.1 \
+       --version 0.19.0 \
        --namespace my-namespace \
        --create-namespace \
        --values my-values.yaml
@@ -46,7 +46,7 @@ The `values.yaml` file defines a chart's settings, such as container image tags,
 
 ### Installing a Helm chart with Kustomize
 
-Kustomize can be used to manage Helm chart installations as well and provides further customization options. To install the Seqera Platform Enterprise Helm chart using Kustomize, check out the [Kustomize example directory](https://github.com/seqeralabs/helm-charts/tree/0.16.1/platform/examples/kustomize).
+Kustomize can be used to manage Helm chart installations as well and provides further customization options. To install the Seqera Platform Enterprise Helm chart using Kustomize, check out the [Kustomize example directory](https://github.com/seqeralabs/helm-charts/tree/0.19.0/platform/examples/kustomize).
 
 ## Upgrading the Helm chart
 
