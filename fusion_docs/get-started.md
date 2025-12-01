@@ -5,7 +5,7 @@ date: "2024-08-23"
 tags: [fusion, storage, compute, file system, posix, client]
 ---
 
-Fusion is a distributed virtual file system optimized for cloud-native data pipelines. It provides fast, efficient access to cloud object storage (S3, Azure Blob, Google Cloud Storage) by allowing your pipeline tasks to work with cloud data as if it were a local POSIX file system, eliminating the need for data staging and transfer.
+Fusion is a distributed virtual file system optimized for cloud-native data pipelines. It provides fast, efficient access to cloud object storage (AWS S3, Azure Blob Storage, Google Cloud Storage) by allowing your pipeline tasks to work with cloud data as if it were a local POSIX file system, eliminating the need for data staging and transfer.
 
 Use Fusion directly in Seqera Platform compute environments, or add Fusion to your Nextflow pipeline configuration.
 
