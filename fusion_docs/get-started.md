@@ -70,7 +70,7 @@ Replace `<TOWER_ACCESS_TOKEN>` with your Platform access token.
 
 ### Run your pipeline
 
-To run your pipeline, execute your run as usual. For example:
+Execute the pipeline as you normally would. For example:
 
 ```bash
 nextflow run main.nf
