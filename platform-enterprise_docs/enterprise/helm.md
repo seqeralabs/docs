@@ -5,7 +5,7 @@ date created: "2025-11-21"
 tags: [helm, deployment, installation, kubernetes]
 ---
 
-[Helm](https://helm.sh) is an open-source command line tool used for managing Kubernetes applications. Seqera offers a [Helm chart](https://github.com/seqeralabs/helm-charts/tree/0.19.0/platform) to deploy Seqera Platform Enterprise on a Kubernetes cluster.
+[Helm](https://helm.sh) is an open-source command line tool used for managing Kubernetes applications. Seqera offers a [Helm chart](https://github.com/seqeralabs/helm-charts/tree/platform-0.19.0/platform) to deploy Seqera Platform Enterprise on a Kubernetes cluster.
 
 ## Prerequisites
 
