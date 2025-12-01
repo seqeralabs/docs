@@ -5,11 +5,13 @@ date: "2024-08-23"
 tags: [fusion, storage, compute, file system, posix, client]
 ---
 
+Fusion is a distributed virtual file system optimized for cloud-native data pipelines. It provides fast, efficient access to cloud object storage (S3, Azure Blob, Google Cloud Storage) by allowing your pipeline tasks to work with cloud data as if it were a local POSIX file system, eliminating the need for data staging and transfer.
+
 Use Fusion directly in Seqera Platform compute environments, or add Fusion to your Nextflow pipeline configuration.
 
 ## Seqera Platform
 
-Use Fusion directly in the following Seqera Platform compute environments:
+Fusion is available in the following Seqera Platform compute environments:
 
 - [AWS Batch](https://docs.seqera.io/platform-cloud/compute-envs/aws-batch)
 - [Azure Batch](https://docs.seqera.io/platform-cloud/compute-envs/azure-batch)
@@ -17,7 +19,7 @@ Use Fusion directly in the following Seqera Platform compute environments:
 - [Amazon Elastic Kubernetes Service](https://docs.seqera.io/platform-cloud/compute-envs/eks)
 - [Google Kubernetes Engine](https://docs.seqera.io/platform-cloud/compute-envs/gke)
 
-See the Platform compute environment page for your cloud provider for Fusion configuration instructions and optimal compute and storage recommendations.
+See the compute environment documentation for your specific cloud provider above for detailed configuration instructions, required permissions, and optimal compute and storage recommendations.
 
 ## Nextflow
 
@@ -32,9 +34,9 @@ This section describes how to enable Fusion in your Nextflow pipelines. It inclu
 :::info[Prerequisites]
 You will need the following to get started:
 
-- Nextflow 22.10.0 or later installed locally. See [Updating Nextflow](https://www.nextflow.io/docs/latest/updating-nextflow.html) to update.
-- A Seqera account.
-- A container runtime or container computing service (e.g., Kubernetes, AWS Batch, or Google Cloud Batch).
+- Nextflow 22.10.0 or later installed locally
+- A Seqera account
+- A container runtime or container computing service (e.g., Kubernetes, AWS Batch, or Google Cloud Batch)
 
 :::
 
@@ -44,11 +46,11 @@ A Platform access token is your personal authentication key that enables access 
 
 To create a Platform access token:
 
-1. Log in to [Seqera](https://cloud.seqera.io/login).
-2. From your personal workspace: Go to the user menu and select **Settings > Your tokens**.
-3. Select **Add token**.
-4. Enter a unique name for your token, then select **Add**.
-5. Copy and store your token securely.
+1. Log in to [Seqera](https://cloud.seqera.io/login)
+2. From your personal workspace, go to the user menu and select **Settings > Your tokens**
+3. Select **Add token**
+4. Enter a unique name for your token, then select **Add**
+5. Copy and store your token securely
 
 :::caution
 The access token is displayed only once. Save the token value before you close the **Personal Access Token** window.
@@ -66,13 +68,9 @@ tower.accessToken = '<TOWER_ACCESS_TOKEN>'
 
 Replace `<TOWER_ACCESS_TOKEN>` with your Platform access token.
 
-:::tip
-See [Configuration options](https://www.nextflow.io/docs/latest/reference/config.html) for a full list of Nextflow configuration options.
-:::
-
 ### Run your pipeline
 
-To run your Nextflow pipeline with Fusion, execute your Nextflow `run` command as usual. For example:
+To run your Nextflow pipeline with Fusion, execute your Nextflow run as usual. For example:
 
 ```bash
 nextflow run main.nf
