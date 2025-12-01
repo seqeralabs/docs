@@ -36,7 +36,7 @@ You will need the following to get started:
 
 - Nextflow 22.10.0 or later installed locally
 - A Seqera account
-- A container runtime or container computing service (e.g., Kubernetes, AWS Batch, or Google Cloud Batch)
+- A configured container runtime or container computing service (e.g., Kubernetes, AWS Batch, or Google Cloud Batch)
 
 :::
 
@@ -58,7 +58,7 @@ The access token is displayed only once. Save the token value before you close t
 
 ### Configure Fusion
 
-To enable Fusion in your Nextflow pipeline, add the following to your `nextflow.config` file:
+To enable Fusion, add the following to your `nextflow.config` file:
 
 ```groovy
 fusion.enabled = true
@@ -70,7 +70,7 @@ Replace `<TOWER_ACCESS_TOKEN>` with your Platform access token.
 
 ### Run your pipeline
 
-To run your Nextflow pipeline with Fusion, execute your Nextflow run as usual. For example:
+To run your pipeline, execute your run as usual. For example:
 
 ```bash
 nextflow run main.nf
