@@ -39,9 +39,9 @@
         {
           "type": "category",
           "label": "CLI",
+          "link": {"type": "doc", "id": "cli/index"},
           "collapsed": true,
           "items": [
-            "cli/index",
             "cli/installation",
             "cli/use-cases"
           ]
