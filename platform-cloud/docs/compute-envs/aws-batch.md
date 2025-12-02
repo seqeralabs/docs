@@ -299,7 +299,7 @@ Permissions can be restricted to only allow passing the manually created roles o
 
 Seqera requires access to CloudWatch logs to display relevant log data in the web interface.
 
-The policy can be scoped down to limit access to the [specific log group](https://docs.seqera.io/platform-cloud/compute-envs/aws-batch#advanced-options) defined on the compute environment in a specific account and region:
+The policy can be scoped down to limit access to the [specific log group](#advanced-options) defined on the compute environment in a specific account and region:
 
 ```json
 {
@@ -320,7 +320,7 @@ The policy can be scoped down to limit access to the [specific log group](https:
 
 ### S3 access (optional)
 
-Seqera offers several products to manipulate data on AWS S3 buckets, such as [Studios](https://docs.seqera.io/platform-cloud/studios/overview) and [Data Explorer](https://docs.seqera.io/platform-cloud/data/data-explorer); in addition to that, Seqera automatically fetches the list of buckets available in the AWS accounts connected to Platform, to provide them in a dropdown menu to be used as Nextflow working directory. The Studios and Data Explorer features are optional, and users can type the bucket name manually when creating pipelines, so this section of the policy is optional and can be omitted if these features are not used.
+Seqera offers several products to manipulate data on AWS S3 buckets, such as [Studios](../studios/overview) and [Data Explorer](../data/data-explorer); in addition to that, Seqera automatically fetches the list of buckets available in the AWS accounts connected to Platform, to provide them in a dropdown menu to be used as Nextflow working directory. The Studios and Data Explorer features are optional, and users can type the bucket name manually when creating pipelines, so this section of the policy is optional and can be omitted if these features are not used.
 
 The policy can be scoped down to only allow limited Read/Write permissions in certain S3 buckets used by Studios/Data Explorer, and to allow listing all the buckets in the account to populate the dropdown menu in the UI (the `s3:ListAllMyBuckets` action must have `Resource` set to `*` because it is not possible to restrict it to specific buckets).
 
@@ -350,7 +350,7 @@ The policy can be scoped down to only allow limited Read/Write permissions in ce
 
 ### IAM roles creation (optional)
 
-Seqera can automatically create the IAM roles needed to interact with AWS Batch and other AWS services. You can opt out of this behavior by creating the required IAM roles manually and providing their ARNs during compute environment creation in Platform: refer to the [documentation](https://docs.seqera.io/platform-cloud/enterprise/advanced-topics/manual-aws-batch-setup) for more details on how to manually set up IAM roles.
+Seqera can automatically create the IAM roles needed to interact with AWS Batch and other AWS services. You can opt out of this behavior by creating the required IAM roles manually and providing their ARNs during compute environment creation in Platform: refer to the [documentation](../enterprise/advanced-topics/manual-aws-batch-setup) for more details on how to manually set up IAM roles.
 
 To allow Seqera to create IAM roles but restrict it to your specific account and the default IAM role prefix, use the following statement:
 
@@ -384,7 +384,7 @@ To allow Seqera to create IAM roles but restrict it to your specific account and
 
 ### AWS Systems Manager (optional)
 
-Seqera Platform can interact with AWS Systems Manager (SSM) to [identify ECS Optimized AMIs](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/retrieve-ecs-optimized_AMI.html) for pipeline execution. This permission is optional, meaning that a [custom AMI ID](https://docs.seqera.io/platform-cloud/compute-envs/aws-batch#advanced-options) can be provided at compute environment creation, removing the need for this permission.
+Seqera Platform can interact with AWS Systems Manager (SSM) to [identify ECS Optimized AMIs](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/retrieve-ecs-optimized_AMI.html) for pipeline execution. This permission is optional, meaning that a [custom AMI ID](#advanced-options) can be provided at compute environment creation, removing the need for this permission.
 
 ### EC2 describe permissions (optional)
 
@@ -454,7 +454,7 @@ This section of the policy is optional and can be omitted if EFS file systems ar
 
 ### Pipeline secrets (optional)
 
-Seqera can synchronize [pipeline secrets](https://docs.seqera.io/platform-cloud/secrets/overview) defined on the Platform workspace with AWS Secrets Manager, which requires additional permissions on the IAM User.
+Seqera can synchronize [pipeline secrets](../secrets/overview) defined on the Platform workspace with AWS Secrets Manager, which requires additional permissions on the IAM User.
 
 The listing of secrets cannot be restricted, but the management actions can be restricted to only allow managing secrets in a specific account and region, which must be the same region where the pipeline runs. Note that Seqera only creates secrets with the `tower-` prefix.
 
@@ -479,7 +479,7 @@ The listing of secrets cannot be restricted, but the management actions can be r
 
 #### Additional steps required to use secrets in a pipeline
 
-To successfully use pipeline secrets, the IAM roles manually created must follow the steps detailed in the [documentation](https://docs.seqera.io/platform-cloud/secrets/overview#aws-secrets-manager-integration).
+To successfully use pipeline secrets, the IAM roles manually created must follow the steps detailed in the [documentation](../secrets/overview#aws-secrets-manager-integration).
 
 ## Automatic resource creation using Seqera Forge
 
