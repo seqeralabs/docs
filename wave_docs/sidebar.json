@@ -17,7 +17,7 @@
       "items": [
           "tutorials/nextflow-wave",
           "tutorials/nextflow-seqera-containers",
-          "tutorials/wave-cli" 
+          "tutorials/wave-cli"  
       ]
     },
     {
@@ -27,7 +27,15 @@
       "collapsed": true,
       "items": [   
         "nextflow/use-cases",
-        "nextflow/configuration"
+        "nextflow/configuration",
+        {
+          "type": "category",
+          "label": "Guides",
+          "collapsed": true,
+          "items": [
+            "nextflow/reduce-api-calls"
+          ]
+        }
       ]
     },
     {
