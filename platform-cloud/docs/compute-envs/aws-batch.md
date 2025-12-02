@@ -255,22 +255,25 @@ If you are required to use manually created CEs and JQs or prefer not to let Seq
 }
 ```
 
-> [!WARNING]
-> Restricting the `batch` actions using resource tags requires that you set the appropriate tags on each Seqera pipeline when configuring it in Platform. Forgetting to set the tag will cause the pipeline to fail to run.
+:::warning
+Restricting the `batch` actions using resource tags requires that you set the appropriate tags on each Seqera pipeline when configuring it in Platform. Forgetting to set the tag will cause the pipeline to fail to run.
+:::
 
 The job definition and job name resources cannot be restricted to specific names, as Seqera creates job definitions and jobs with dynamic names. Therefore, the wildcard `*` must be used for these resources.
 
 If you prefer to let Seqera manage Batch resources for you, you can still restrict the permissions to specific resources in your account ID and region; you can also restrict permissions based on Resource tag, as shown with the `Condition`s in the example above.
 
-> [!NOTE]
-> The quick start policy is expecting CE and JQ names automatically created by Seqera to start with the `TowerForge-` prefix, which is the default prefix used by Platform Cloud resources and can't be customized.
+:::note
+The quick start policy is expecting CE and JQ names automatically created by Seqera to start with the `TowerForge-` prefix, which is the default prefix used by Platform Cloud resources and can't be customized.
+:::
 
 ### Launch template management
 
 Seqera requires the ability to create and manage EC2 launch templates using optimized AMIs identified via AWS Systems Manager (SSM).
 
-> [!NOTE]
-> AWS does not support restricting IAM permissions on EC2 launch templates based on specific resource names or tags. As a result, permission to operate on any resource `*` must be granted.
+:::note
+AWS does not support restricting IAM permissions on EC2 launch templates based on specific resource names or tags. As a result, permission to operate on any resource `*` must be granted.
+:::
 
 ### Pass role to Batch
 
@@ -379,8 +382,9 @@ To allow Seqera to create IAM roles but restrict it to your specific account and
 }
 ```
 
-> [!NOTE]
-> The quick start policy is expecting role names automatically created by Seqera to start with the `TowerForge-` prefix, which is the default prefix used by Platform Cloud resources and can't be customized.
+:::note
+The quick start policy is expecting role names automatically created by Seqera to start with the `TowerForge-` prefix, which is the default prefix used by Platform Cloud resources and can't be customized.
+:::
 
 ### AWS Systems Manager (optional)
 
@@ -390,8 +394,9 @@ Seqera Platform can interact with AWS Systems Manager (SSM) to [identify ECS Opt
 
 Seqera can interact with EC2 to retrieve information about existing AWS resources in your account, including VPCs, subnets, and security groups. This data is used to populate dropdown menus in the Platform UI when creating new compute environments. While these permissions are optional, they are recommended to enhance the user experience. Without these permissions, resource ARNs need to be manually entered in the interface by the user.
 
-> [!NOTE]
-> AWS does not support restricting IAM permissions on EC2 Describe actions based on specific resource names or tags. As a result, permission to operate on any resource `*` must be granted.
+:::note
+AWS does not support restricting IAM permissions on EC2 Describe actions based on specific resource names or tags. As a result, permission to operate on any resource `*` must be granted.
+:::
 
 ### FSx file systems (optional)
 
