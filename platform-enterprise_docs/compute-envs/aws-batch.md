@@ -3,7 +3,7 @@ title: "AWS Batch"
 description: "Instructions to set up AWS Batch in Seqera Platform"
 date created: "2023-04-21"
 last updated: "2025-11-21"
-tags: [aws, batch, compute-environment]
+tags: [aws, batch, compute environment]
 ---
 
 :::tip
@@ -14,10 +14,474 @@ The AWS Batch service quota for job queues is 50 per account. For more informati
 
 There are two ways to create a Seqera Platform compute environment for AWS Batch:
 
-- [**Batch Forge**](#batch-forge): This option automatically creates the AWS Batch resources in your AWS account. This eliminates the need to set up your AWS Batch infrastructure manually.
-- [**Manual**](#manual): This option allows Seqera to use existing AWS Batch resources.
+- [**Automatic**](#automatic-resource-creation-using-seqera-forge): This option lets Seqera automatically create the required AWS Batch resources in your AWS account, using an internal tool with Seqera Platform called "Forge". This removes the need to set up your AWS Batch infrastructure manually. Resources are also automatically deleted when the compute environment is removed from Platform.
+- [**Manual**](#manual-resource-configuration): This option lets Seqera use existing AWS Batch resources created manually.
 
-## Batch Forge
+Both options require specific IAM permissions to function correctly.
+
+## Required Platform IAM permissions
+
+To create and launch pipelines or Studio sessions with this compute environment type, you must provide an IAM user with specific permissions. Some permissions are mandatory for the compute environment to be created and function correctly, while others are optional and used for example to provide list of values to pick from in the Platform UI.
+
+A permissive and broad policy with all the required permissions is provided here for a quick start. However, we recommend following the principle of least privilege and only granting the necessary permissions for your use case, as shown in the following sections.
+
+<details>
+<summary>Full permissive policy (for reference)</summary>
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "BatchEnvironmentManagementCanBeRestricted",
+      "Effect": "Allow",
+      "Action": [
+        "batch:CreateComputeEnvironment",
+        "batch:CreateJobQueue",
+        "batch:DeleteComputeEnvironment",
+        "batch:DeleteJobQueue",
+        "batch:DescribeComputeEnvironments",
+        "batch:DescribeJobQueues",
+        "batch:UpdateComputeEnvironment",
+        "batch:UpdateJobQueue"
+      ],
+      "Resource": [
+        "arn:aws:batch:*:*:compute-environment/TowerForge-*",
+        "arn:aws:batch:*:*:job-queue/TowerForge-*"
+      ]
+    },
+    {
+      "Sid": "BatchJobsManagementCanBeRestricted",
+      "Effect": "Allow",
+      "Action": [
+        "batch:CancelJob",
+        "batch:DescribeJobDefinitions",
+        "batch:DescribeJobs",
+        "batch:ListJobs",
+        "batch:RegisterJobDefinition",
+        "batch:SubmitJob",
+        "batch:TagResource",
+        "batch:TerminateJob"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "LaunchTemplateManagement",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:CreateLaunchTemplate",
+        "ec2:DeleteLaunchTemplate",
+        "ec2:DescribeLaunchTemplates",
+        "ec2:DescribeLaunchTemplateVersions"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "PassRolesToBatchCanBeRestricted",
+      "Effect": "Allow",
+      "Action": "iam:PassRole",
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "iam:PassedToService": [
+            "batch.amazonaws.com",
+            "ec2.amazonaws.com"
+          ]
+        }
+      }
+    },
+    {
+      "Sid": "CloudWatchLogsAccessCanBeRestricted",
+      "Effect": "Allow",
+      "Action": [
+        "logs:Describe*",
+        "logs:FilterLogEvents",
+        "logs:Get*",
+        "logs:List*",
+        "logs:StartQuery",
+        "logs:StopQuery",
+        "logs:TestMetricFilter"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "OptionalS3PlatformDataAccessCanBeRestricted",
+      "Effect": "Allow",
+      "Action": [
+        "s3:Get*",
+        "s3:List*",
+        "s3:PutObject"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "OptionalIAMManagementCanBeRestricted",
+      "Effect": "Allow",
+      "Action": [
+        "iam:AddRoleToInstanceProfile",
+        "iam:AttachRolePolicy",
+        "iam:CreateInstanceProfile",
+        "iam:CreateRole",
+        "iam:DeleteInstanceProfile",
+        "iam:DeleteRole",
+        "iam:DeleteRolePolicy",
+        "iam:DetachRolePolicy",
+        "iam:GetRole",
+        "iam:ListAttachedRolePolicies",
+        "iam:ListRolePolicies",
+        "iam:PutRolePolicy",
+        "iam:RemoveRoleFromInstanceProfile",
+        "iam:TagInstanceProfile",
+        "iam:TagRole"
+      ],
+      "Resource": "arn:aws:iam::*:role/TowerForge-*"
+    },
+    {
+      "Sid": "OptionalFetchOptimizedAMIMetadata",
+      "Effect": "Allow",
+      "Action": "ssm:GetParameters",
+      "Resource": "arn:aws:ssm:*:*:parameter/aws/service/ecs/*"
+    },
+    {
+      "Sid": "OptionalEC2MetadataDescribe",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeAccountAttributes",
+        "ec2:DescribeImages",
+        "ec2:DescribeInstanceTypeOfferings",
+        "ec2:DescribeInstanceTypes",
+        "ec2:DescribeKeyPairs",
+        "ec2:DescribeSecurityGroups",
+        "ec2:DescribeSubnets",
+        "ec2:DescribeVpcs"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "OptionalFSXManagementCanBeRestricted",
+      "Effect": "Allow",
+      "Action": [
+        "fsx:CreateFileSystem",
+        "fsx:DeleteFileSystem",
+        "fsx:DescribeFileSystems",
+        "fsx:TagResource"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "OptionalEFSManagementCanBeRestricted",
+      "Effect": "Allow",
+      "Action": [
+        "elasticfilesystem:CreateFileSystem",
+        "elasticfilesystem:DeleteFileSystem",
+        "elasticfilesystem:CreateMountTarget",
+        "elasticfilesystem:DeleteMountTarget",
+        "elasticfilesystem:DescribeFileSystems",
+        "elasticfilesystem:DescribeMountTargets",
+        "elasticfilesystem:UpdateFileSystem",
+        "elasticfilesystem:PutLifecycleConfiguration",
+        "elasticfilesystem:TagResource"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "OptionalPipelineSecretsListing",
+      "Effect": "Allow",
+      "Action": "secretsmanager:ListSecrets",
+      "Resource": "*"
+    },
+    {
+      "Sid": "OptionalPipelineSecretsManagementCanBeRestricted",
+      "Effect": "Allow",
+      "Action": [
+        "secretsmanager:DescribeSecret",
+        "secretsmanager:DeleteSecret",
+        "secretsmanager:CreateSecret"
+      ],
+      "Resource": "arn:aws:secretsmanager:*:*:secret:tower-*"
+    }
+  ]
+}
+```
+
+</details>
+
+### AWS Batch management
+
+The first section of the policy allows Seqera to create, update and delete Batch compute environments ("CE"), job queues ("JQ") and jobs.
+
+If you are required to use manually created CEs and JQs or prefer not to let Seqera manage their lifecycle for you, you can restrict the permissions to the specific Batch resources you created in your account and region; you can also restrict permissions based on Resource tag, which need to be defined by users when [setting up a pipeline in Platform](https://docs.seqera.io/platform-enterprise/resource-labels/overview).
+
+```json
+{
+  "Sid": "BatchEnvironmentManagement",
+  "Effect": "Allow",
+  "Action": [
+    "batch:DescribeComputeEnvironments",
+    "batch:DescribeJobQueues"
+  ],
+  "Resource": [
+    "arn:aws:batch:<REGION>:<ACCOUNT_ID>:compute-environment/MyManualCE",
+    "arn:aws:batch:<REGION>:<ACCOUNT_ID>:job-queue/MyManualJQ"
+  ],
+  "Condition": {
+    "StringEqualsIfExists": {
+      "aws:ResourceTag/MyCustomTag": "MyCustomValue"
+    }
+  }
+},
+{
+  "Sid": "BatchJobsManagement",
+  "Effect": "Allow",
+  "Action": [
+    "batch:CancelJob",
+    "batch:DescribeJobDefinitions",
+    "batch:DescribeJobs",
+    "batch:ListJobs",
+    "batch:RegisterJobDefinition",
+    "batch:SubmitJob",
+    "batch:TagResource",
+    "batch:TerminateJob"
+  ],
+  "Resource": [
+    "arn:aws:batch:<REGION>:<ACCOUNT_ID>:job-definition/*",
+    "arn:aws:batch:<REGION>:<ACCOUNT_ID>:job/*"
+  ],
+  "Condition": {
+    "StringEqualsIfExists": {
+      "aws:ResourceTag/MyCustomTag": "MyCustomValue"
+    }
+  }
+}
+```
+
+> [!WARNING]
+> Restricting the `batch` actions using resource tags requires that you set the appropriate tags on each Seqera pipeline when configuring it in Platform. Forgetting to set the tag will cause the pipeline to fail to run.
+
+The job definition and job name resources cannot be restricted to specific names, as Seqera creates job definitions and jobs with dynamic names. Therefore, the wildcard `*` must be used for these resources.
+
+If you prefer to let Seqera manage Batch resources for you, you can still restrict the permissions to specific resources in your account ID and region; you can also restrict permissions based on Resource tag, as shown with the `Condition`s in the example above.
+
+> [!NOTE]
+> The quick start policy is expecting CE and JQ names automatically created by Seqera to start with the `TowerForge-` prefix, which is the default prefix used by Platform Enterprise. If you [customized it on your Enterprise installations](../enterprise/configuration/overview#compute-environments) adapt the policy to the new prefix.
+
+### Launch template management
+
+Seqera requires the ability to create and manage EC2 launch templates using optimized AMIs identified via AWS Systems Manager (SSM).
+
+> [!NOTE]
+> AWS does not support restricting IAM permissions on EC2 launch templates based on specific resource names or tags. As a result, permission to operate on any resource `*` must be granted.
+
+### Pass role to Batch
+
+The `iam:PassRole` permission allows Seqera to pass [execution IAM roles](https://docs.aws.amazon.com/batch/latest/userguide/execution-IAM-role.html#create-execution-role) to AWS Batch to run Nextflow pipelines.
+
+Permissions can be restricted to only allow passing the manually created roles or the roles created by Seqera automatically with the default prefix `TowerForge-` to the AWS Batch and EC2 services, in a specific account:
+
+```json
+{
+  "Sid": "PassRolesToBatch",
+  "Effect": "Allow",
+  "Action": "iam:PassRole",
+  "Resource": "arn:aws:iam::<ACCOUNT_ID>:role/TowerForge-*",
+  "Condition": {
+    "StringEquals": {
+      "iam:PassedToService": [
+        "batch.amazonaws.com",
+        "ec2.amazonaws.com"
+      ]
+    }
+  }
+}
+```
+
+### CloudWatch logs access
+
+Seqera requires access to CloudWatch logs to display relevant log data in the web interface.
+
+The policy can be scoped down to limit access to the [specific log group](#advanced-options) defined on the compute environment in a specific account and region:
+
+```json
+{
+  "Sid": "CloudWatchLogsAccess",
+  "Effect": "Allow",
+  "Action": [
+    "logs:Describe*",
+    "logs:FilterLogEvents",
+    "logs:Get*",
+    "logs:List*",
+    "logs:StartQuery",
+    "logs:StopQuery",
+    "logs:TestMetricFilter"
+  ],
+  "Resource": "arn:aws:logs:<REGION>:<ACCOUNT_ID>:log-group:/aws/batch/job/*"
+}
+```
+
+### S3 access (optional)
+
+Seqera offers several products to manipulate data on AWS S3 buckets, such as [Studios](../studios/overview) and [Data Explorer](../data/data-explorer); in addition to that, Seqera automatically fetches the list of buckets available in the AWS accounts connected to Platform, to provide them in a dropdown menu to be used as Nextflow working directory. The Studios and Data Explorer features are optional, and users can type the bucket name manually when creating pipelines, so this section of the policy is optional and can be omitted if these features are not used.
+
+The policy can be scoped down to only allow limited Read/Write permissions in certain S3 buckets used by Studios/Data Explorer, and to allow listing all the buckets in the account to populate the dropdown menu in the UI (the `s3:ListAllMyBuckets` action must have `Resource` set to `*` because it is not possible to restrict it to specific buckets).
+
+```json
+{
+  "Sid": "S3ListBuckets",
+  "Effect": "Allow",
+  "Action": "s3:ListAllMyBuckets",
+  "Resource": "*"
+},
+{
+  "Sid": "S3ReadWriteBucketsForStudiosDataExplorer",
+  "Effect": "Allow",
+  "Action": [
+    "s3:Get*",
+    "s3:List*",
+    "s3:PutObject"
+  ],
+  "Resource": [
+    "arn:aws:s3:::example-bucket-read-write-studios",
+    "arn:aws:s3:::example-bucket-read-write-studios/*",
+    "arn:aws:s3:::example-bucket-read-write-data-explorer",
+    "arn:aws:s3:::example-bucket-read-write-data-explorer/*"
+  ]
+}
+```
+
+### IAM roles creation (optional)
+
+Seqera can automatically create the IAM roles needed to interact with AWS Batch and other AWS services. You can opt out of this behavior by creating the required IAM roles manually and providing their ARNs during compute environment creation in Platform: refer to the [documentation](../enterprise/advanced-topics/manual-aws-batch-setup) for more details on how to manually set up IAM roles.
+
+To allow Seqera to create IAM roles but restrict it to your specific account and the default IAM role prefix, use the following statement:
+
+```json
+{
+  "Sid": "IAMRoleAndProfileManagement",
+  "Effect": "Allow",
+  "Action": [
+    "iam:AddRoleToInstanceProfile",
+    "iam:AttachRolePolicy",
+    "iam:CreateInstanceProfile",
+    "iam:CreateRole",
+    "iam:DeleteInstanceProfile",
+    "iam:DeleteRole",
+    "iam:DeleteRolePolicy",
+    "iam:DetachRolePolicy",
+    "iam:GetRole",
+    "iam:ListAttachedRolePolicies",
+    "iam:ListRolePolicies",
+    "iam:PutRolePolicy",
+    "iam:RemoveRoleFromInstanceProfile",
+    "iam:TagInstanceProfile",
+    "iam:TagRole"
+  ],
+  "Resource": "arn:aws:iam::<ACCOUNT_ID>:role/TowerForge-*"
+}
+```
+
+> [!NOTE]
+> The quick start policy is expecting role names automatically created by Seqera to start with the `TowerForge-` prefix, which is the default prefix used by Platform Enterprise. If you [customized it on your Enterprise installations](../enterprise/configuration/overview#compute-environments) adapt the policy to the new prefix.
+
+### AWS Systems Manager (optional)
+
+Seqera Platform can interact with AWS Systems Manager (SSM) to [identify ECS Optimized AMIs](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/retrieve-ecs-optimized_AMI.html) for pipeline execution. This permission is optional, meaning that a [custom AMI ID](#advanced-options) can be provided at compute environment creation, removing the need for this permission.
+
+### EC2 describe permissions (optional)
+
+Seqera can interact with EC2 to retrieve information about existing AWS resources in your account, including VPCs, subnets, and security groups. This data is used to populate dropdown menus in the Platform UI when creating new compute environments. While these permissions are optional, they are recommended to enhance the user experience. Without these permissions, resource ARNs need to be manually entered in the interface by the user.
+
+> [!NOTE]
+> AWS does not support restricting IAM permissions on EC2 Describe actions based on specific resource names or tags. As a result, permission to operate on any resource `*` must be granted.
+
+### FSx file systems (optional)
+
+Seqera can interact with AWS FSx to manage [AWS FSx file systems](https://aws.amazon.com/fsx/), if needed by the pipelines.
+
+This section of the policy is optional and can be omitted if FSx file systems are not used by your pipelines. The describe actions cannot be restricted to specific resources, so permission to operate on any resource `*` must be granted. The management actions can be restricted to specific resources, like in the example below.
+
+```json
+{
+  "Sid": "FSxDescribe",
+  "Effect": "Allow",
+  "Action": [
+    "fsx:DescribeFileSystems"
+  ],
+  "Resource": "*"
+},
+{
+  "Sid": "FSxManagement",
+  "Effect": "Allow",
+  "Action": [
+    "fsx:CreateFileSystem",
+    "fsx:DeleteFileSystem",
+    "fsx:TagResource"
+  ],
+  "Resource": "arn:aws:fsx:<REGION>:<ACCOUNT_ID>:file-system/MyManualFSx"
+}
+```
+
+### EFS file systems (optional)
+
+Seqera can interact with [AWS EFS file systems](https://aws.amazon.com/efs/), if needed by the pipelines.
+
+This section of the policy is optional and can be omitted if EFS file systems are not used by your pipelines. The describe actions cannot be restricted to specific resources, so permission to operate on any resource `*` must be granted. The management actions can be restricted to specific resources, like in the example below.
+
+```json
+{
+  "Sid": "EFSDescribe",
+  "Effect": "Allow",
+  "Action": [
+    "elasticfilesystem:DescribeFileSystems",
+    "elasticfilesystem:DescribeMountTargets"
+  ],
+  "Resource": "*"
+},
+{
+  "Sid": "EFSManagement",
+  "Effect": "Allow",
+  "Action": [
+    "elasticfilesystem:CreateFileSystem",
+    "elasticfilesystem:DeleteFileSystem",
+    "elasticfilesystem:CreateMountTarget",
+    "elasticfilesystem:DeleteMountTarget",
+    "elasticfilesystem:UpdateFileSystem",
+    "elasticfilesystem:PutLifecycleConfiguration",
+    "elasticfilesystem:TagResource"
+  ],
+  "Resource": "arn:aws:elasticfilesystem:<REGION>:<ACCOUNT_ID>:file-system/MyManualEFS"
+}
+```
+
+### Pipeline secrets (optional)
+
+Seqera can synchronize [pipeline secrets](../secrets/overview) defined on the Platform workspace with AWS Secrets Manager, which requires additional permissions on the IAM User.
+
+The listing of secrets cannot be restricted, but the management actions can be restricted to only allow managing secrets in a specific account and region, which must be the same region where the pipeline runs. Note that Seqera only creates secrets with the `tower-` prefix.
+
+```json
+{
+  "Sid": "PipelineSecretsListing",
+  "Effect": "Allow",
+  "Action": "secretsmanager:ListSecrets",
+  "Resource": "*"
+},
+{
+  "Sid": "PipelineSecretsManagementCanBeRestricted",
+  "Effect": "Allow",
+  "Action": [
+    "secretsmanager:DescribeSecret",
+    "secretsmanager:DeleteSecret",
+    "secretsmanager:CreateSecret"
+  ],
+  "Resource": "arn:aws:secretsmanager:<REGION>:<ACCOUNT_ID>:secret:tower-*"
+}
+```
+
+#### Additional steps required to use secrets in a pipeline
+
+To successfully use pipeline secrets, the IAM roles manually created must follow the steps detailed in the [documentation](../secrets/overview#aws-secrets-manager-integration).
+
+## Automatic resource creation using Seqera Forge
 
 Batch Forge automates the configuration of an [AWS Batch](https://aws.amazon.com/batch/) compute environment and the queues required for deploying Nextflow pipelines.
 
@@ -259,7 +723,7 @@ Specify the **Allocation strategy** and indicate any preferred **Instance types*
     Altering this file may result in a malfunctioning Batch Forge compute environment. See [Amazon ECS container agent configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) to learn more about the available parameters.
     :::
 
-## Manual
+## Manual resource configuration
 
 This section is for users with a pre-configured AWS environment. You will need a [Batch queue, a Batch compute environment, an IAM user, and an S3 bucket](../enterprise/advanced-topics/manual-aws-batch-setup.mdx) already set up.
 
