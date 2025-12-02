@@ -26,6 +26,12 @@ You will need the following to get started:
 
 **.seqera/studio-config.yaml configuration file**
 
+The schema can define a Dockerfile, which has to be inside the `.seqera` folder. Dockerfile-based Studios cannot be pushed to the Wave community registry and and the following applies:
+
+- You need to configure a specific registry with an environment variable.
+- Each workspace that will use the functionality needs to have credentials available in the workspace to push to the defined registry.
+- Standard limitations around private images (private for pull) apply. The only supported registry and compute environment combination for a fully private Dockerfile-based Studio is ECR and AWS.
+
 Create a `.seqera/studio-config.yaml` file in the the `.seqera/ ` directory in your repo. The only required field is `session.template.kind`. All other fields are optional.
 
 ```yaml
@@ -92,20 +98,9 @@ Sessions have read-only access to mounted data by default. Enable write permissi
 
 Files uploaded to a mounted bucket during an active session may not be immediately available within that session.
 
-### Docker builds
-
-- The schema can define a Dockerfile that has to be inside the `.seqera` folder.
-- Build context is limited to 10MB.
-
-The Studio image is built by Wave when the studio is added, and cached - so if you create a completely separate studio, and the repo has not changed, Platform will reuse the existing image without rebuild. Dockerfile-based Studios cannot be pushed to the Wave community registry and so need some preconfiguration:
-
-- You need to configure a specific registry with an environment variable.
-- Each workspace that wants to use the functionality needs to have credentials available in the workspace to push to the defined registry.
-- Standard limitations around private images (private for pull) apply, so the only supported registry/CE combination for a fully private dockerfile based studio) is ECR and AWS.
-
 ### Repository cloning
 
-When a Studio session starts from a Git repository, the repository contents are cloned into the session, using the same commit that was selected, or resolved when the Studio was initially created. For example, repository `https://github.com/seqeralabs/studio-templates.git` clones to `/workspace/studio-templates/` with README.md at `/workspace/studio-templates/README.md`.
+When a Studio session starts from a Git repository, the repository contents are cloned into the session, using the same commit that was selected, or resolved, when the Studio was first created. For example, repository `https://github.com/seqeralabs/studio-templates.git` clones to `/workspace/studio-templates/` with README.md` at `/workspace/studio-templates/README.md`.
 
 - You can disable cloning, which allows you to share a public/private template in order to use only the tool.
 - You can define the clone path configuration in the schema and configure specific functionalities of the tool with config files without the need to build a different Docker image.
