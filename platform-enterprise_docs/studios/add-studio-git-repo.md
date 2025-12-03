@@ -18,9 +18,9 @@ You will need the following to get started:
 
 **Limitations**
 
-- Compute environments are workspace-specific and cannot be defined in Git repositories. Select the compute environment when adding a Studio.
-- Data links cannot be referenced in Git repositories. Select data links when adding a Studio.
-- Git repositories with multiple Studio configurations are not supported. However, it is possible to use a Git repository with multiple branches and different configurations in each branch.
+- Compute environments are platform-specific and cannot be defined in external Git repositories. Select the compute environment when adding a Studio.
+- Data links currently cannot be referenced in Git repositories. Define data links when adding a Studio.
+- Git repositories with multiple Studio configurations are not supported. However, it is possible to use a Git repository with multiple branches and a single configuration per branch.
 
 ### Create the required configuration files 
 
@@ -33,30 +33,30 @@ Create a `.seqera/studio-config.yaml` file in the the `.seqera/ ` directory in y
 schemaVersion: "0.0.1"
 kind: "studio-config"
 session:
-    name: "studio-name" # Must be unique to a workspace. If undefined, an auto-generated name is used
-    description: "desc" # Short description of what the Studio is for
+    name: "studio-name"                         # Must be unique to a workspace. If undefined, an auto-generated name is used
+    description: "desc"                         # Short description of what the Studio is for
     template:
-        kind: "registry"|"dockerfile"|"none" # Required
+        kind: "registry"|"dockerfile"|"none"     # Required
         registry: "cr.seqera.io/image:latest"    # Ignored for `dockerfile` and `none`
         dockerfile: "Dockerfile"                 # Ignored for `registry` and `none`
     clone:
         enabled: true                            # Clone the contents of the repository to the Studio. Defaults to `true`
-        path: "/workspace"                       # Defaults to `/workspace`. If you want to clone to `/workspace/repository` then you need to specify this.
+        path: "/workspace"                       # Defaults to `/workspace`. If you want to clone to `/workspace/repository` then you need to specify this
     dependencies:
         condaEnvironmentFile: "environment.yaml" # Define additional libraries (and versions). Ignored for `dockerfile`
     computeRequirements:
-        awsBatch: # Ignored for non-AWS batch CE
-            cpu: 2 # Number of CPUs to use. Defaults to 2
-            gpu: 0 # Number of GPUs to use (if the CE supports GPUs). Defaults to 0
-            memory: 8192 # Memory allocated in MiB. Defaults to 8192.
-    environmentVariables: # Ordered sequence of elements that are objects (or mappings) of key-value pairs
+        awsBatch:                                # Ignored for non-AWS batch CE
+            cpu: 2                               # Number of CPUs to use. Defaults to 2
+            gpu: 0                               # Number of GPUs to use (if the CE supports GPUs). Defaults to 0
+            memory: 8192                         # Memory allocated in MiB. Defaults to 8192.
+    environmentVariables:                        # Ordered sequence of elements that are objects (or mappings) of key-value pairs
         -   name: "var1"
             value: "value1"
         -   name: "var2"
             value: "value2"
-    management: # Session management settings
-        lifespanHours: 1 # Ignored if workspace lifespan is set
-        isPrivate: false # Defaults to false
+    management:                                 # Session management settings
+        lifespanHours: 1                        # Ignored if workspace lifespan is set
+        isPrivate: false                        # Defaults to `false`
 ```
 
 The schema can define a Dockerfile, which has to be inside the `.seqera` folder. The following limitations apply:
@@ -74,7 +74,7 @@ You can add a Studio by referencing a Git repository containing Studio configura
 - **Repository URL**: Enter the full URL to your Git repository (e.g., `https://github.com/your-org/your-repo`)
 - **Revision**: Select a branch, tag, or commit from the dropdown. The dropdown is dynamically populated based on the repository URL. If no revision is selected, the main or master branch is used.
 - **Resource labels**: Any [resource label](../labels/overview) already defined for the compute environment is added by default. Additional custom resource labels can be added or removed as needed.
-- **Environment variable**: Environment variables for the session. All variables from the selected compute environment are automatically inherited and displayed. Additional session-specific variables can be added. Session-level variables take precedence — to override an inherited variable, define the same key with a different value.
+- **Environment variables**: Environment variables for the session. All variables from the selected compute environment are automatically inherited and displayed. Additional session-specific variables can be added. Session-level variables take precedence — to override an inherited variable, define the same key with a different value.
 - **Collaboration**: Session access permissions. By default, all workspace users with the launch role and above can connect to the session. Toggle **Private** on to restrict connections to the session creator only.
     :::note
     When private, workspace administrators can still start, stop, and delete sessions, but cannot connect to them.
@@ -89,17 +89,17 @@ You can add a Studio by referencing a Git repository containing Studio configura
 
 ### Mount data
 
-Mount data repositories to make them accessible in your session:
+Mount data to make them accessible in your session:
 
 1. Select **Mount data** to open the data selection modal.
-1. Choose the data repositories to mount.
+1. Choose the data to mount.
 1. Select **Mount data** to confirm.
 
-Mounted repositories are accessible at `/workspace/data/<DATA_REPOSITORY>` using the [Fusion file system](https://docs.seqera.io/fusion). Data doesn't need to match the compute environment region, though cross-region access may increase costs or cause errors.
+Once the Studio session is running, mounted data are accessible at `/workspace/data/<DATA_LINK_NAME>` using the [Fusion file system](https://docs.seqera.io/fusion). Data doesn't need to match the compute environment region, though cross-region data transfer (ingress and egress) may increase costs.
 
 Sessions have read-only access to mounted data by default. Enable write permissions by adding AWS S3 buckets as **Allowed S3 Buckets** in your compute environment configuration.
 
-Files uploaded to a mounted bucket during an active session may not be immediately available within that session.
+Files uploaded to a mounted bucket during an active session may not be immediately available within that session. [More information](../troubleshooting_and_faqs/studios_troubleshooting#running-session-does-not-show-new-data-in-object-storage).
 
 ### Repository cloning
 
@@ -110,7 +110,7 @@ You can disable cloning, which allows you to share a public/private template. Yo
 #### Limitations
 
 - Platform credentials are not shared with the Studio.
-- The `.git` folder is not shared and you cannot push/pull from the configured repository.
+- The `.git` folder is not synced and you cannot push/pull from the configured repository after initial Studio creation.
 - There are no preprovisioned Git credentials available to use in the Studio.
 
 ## Save and start
