@@ -26,7 +26,7 @@ You will need the following to get started:
 
 **.seqera/studio-config.yaml configuration file**
 
-Create a `.seqera/studio-config.yaml` file in the the `.seqera/ ` directory in your repo. The only required field is `session.template.kind`. All other fields are optional.
+Create a `.seqera/studio-config.yaml` file in the `.seqera/ ` directory of your repository. The only required field is `session.template.kind`. All other fields are optional.
 
 ```yaml
 schemaVersion: "0.0.1"
