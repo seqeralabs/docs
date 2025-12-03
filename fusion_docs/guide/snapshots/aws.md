@@ -11,22 +11,31 @@ Fusion Snapshots enable checkpoint/restore functionality for Nextflow processes 
 
 Fusion Snapshots require the following Seqera Platform compute environment configuration:
 
-- **Provider**: AWS Batch
-- **Work directory**: S3 bucket in the same region as compute resources
-- **Fusion Snapshots (beta)**: Enabled
-- **Config mode**: Batch Forge
-- **Provisioning model**: Spot
-- **Instance types**: See [Selecting an EC2 instance](#selecting-an-ec2-instance) for a detailed guide
+- **Provider:** AWS Batch
+- **Work directory:** S3 bucket in the same region as compute resources
+- **Fusion Snapshots (beta):** Enabled
+- **Config mode:** Batch Forge
+- **Provisioning model:** Spot
+- **AMI:** See [Selecting an AMI](#selecting-an-ami) for details
+- **Instance type:** See [Selecting an EC2 instance](#selecting-an-ec2-instance) for details
 
 :::tip
 Fusion Snapshots work with sensible defaults (e.g., 5 automatic retry attempts). For configuration options, see [Advanced configuration](./configuration.md).
 :::
 
-### Seqera Enterprise specific requirements
+### Selecting an AMI
 
 Fusion Snapshots require instances running Amazon Linux 2023 (which ships with Linux Kernel 6.1) and an ECS container-optimized AMI for optimal performance.
 
-To find the recommended AL2023 ECS-optimized AMI for your region:
+#### Seqera Cloud
+
+Seqera Cloud AWS Batch compute environments use an ECS container-optimized AMI by default. No additional AMI configuration is required.
+
+#### Seqera Enterprise
+
+Specify an Amazon Linux 2023 ECS-optimized AMI for your region when creating your compute environment.
+
+To find the recommended AMI:
 
 1. Retrieve the application configuration:
 
@@ -53,10 +62,6 @@ To find the recommended AL2023 ECS-optimized AMI for your region:
     ```
 
 1. Identify the `image_id` in your output (e.g, `ami-0281c9a5cd9de63bd` in the above example) and set in the **Advanced options > AMI ID** field when you create your Seqera compute environment.
-
-:::note
-You only need to select a custom Amazon Linux 2023 ECS-optimized AMI for compute environments in Seqera Enterprise deployments. Seqera Cloud AWS Batch compute environments use Amazon Linux 2023 AMIs by default.
-:::
 
 ## Selecting an EC2 instance
 
