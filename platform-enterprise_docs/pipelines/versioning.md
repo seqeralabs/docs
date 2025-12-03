@@ -5,22 +5,22 @@ date created: "2025-11-14"
 tags: [pipelines, versioning, nextflow, parameters]
 ---
 
-Seqera's pipeline versioning system captures configuration changes as new draft versions of the pipeline, ensuring configuration traceability and execution reproducibility. Users with appropriate permissions can edit and publish draft versions, creating published versions that teams can reference and launch consistently.
+Seqera's pipeline versioning system captures configuration changes as new draft versions of the pipeline, ensuring configuration traceability and execution reproducibility. Users with [Maintain or higher](../orgs-and-teams/roles.md) permissions can edit and publish draft versions, creating published versions that teams can reference and launch consistently.
 
 When you add a new pipeline to Seqera, the first default version of that pipeline is automatically published.
 
-New draft versions are automatically generated when you modify the following:
+New draft versions are automatically generated during pipeline edit or launch when you modify the following:
 - All pipeline schema parameters, unless the `track_changes` schema configuration for a given property is set to `false`.
-  :::info
-  Changes to all pipeline schema parameters trigger a new version by default (`"track_changes": true`). To alter this behavior for specific parameters, add `"track_changes": false` to the parameter definition:
-  ```json
-  "my_parameter": {
-    "type": "string",
-    "description": "Changes to this parameter will not trigger a new pipeline version to be created",
-    "track_changes": false
-  }
-  ```
-  :::
+    :::info
+    Changes to all pipeline schema parameters trigger a new version by default (`"track_changes": true`). To alter this behavior for specific parameters, add `"track_changes": false` to the parameter definition:
+    ```json
+    "my_parameter": {
+      "type": "string",
+      "description": "Changes to this parameter will not trigger a new pipeline version to be created",
+      "track_changes": false
+    }
+    ```
+    :::
 - Fields in the pipeline **Edit** form, excluding:
   - **Name**
   - **Image**
@@ -35,7 +35,7 @@ A pipeline's default version is shown in the Launchpad and automatically selecte
 
 Seqera maintains a history of all draft and published versions, providing an audit trail of pipeline evolution.
 
-#### Manage pipeline versions
+### Manage pipeline versions
 
 ![](./_images/pipeline-version-detail.jpg)
 
