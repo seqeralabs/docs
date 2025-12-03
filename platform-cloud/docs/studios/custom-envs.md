@@ -130,7 +130,7 @@ To inspect the status of an ongoing build, or a successful or failed build, comp
 {/* links */}
 [add-s]: ./add-studio
 [aws-batch]: ../compute-envs/aws-batch
-[wave]: ../enterprise/configuration/wave
+[wave]: https://docs.seqera.io/platform-enterprise/enterprise/configuration/wave
 [custom-studios-examples]: https://github.com/seqeralabs/custom-studios-examples
 [wave-home]: https://seqera.io/wave/
 [env-manually]: https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-file-manually
