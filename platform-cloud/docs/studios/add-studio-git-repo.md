@@ -3,7 +3,7 @@ title: "Import from Git repository"
 description: "Add a Studio in Platform."
 date created: "2025-09-04"
 last updated: "2025-11-14"
-tags: [studio-git, git-repository, session, studios]
+tags: [studio-git, git-repository, session, studios, git, version-control]
 ---
 
 :::info[**Prerequisites**]
