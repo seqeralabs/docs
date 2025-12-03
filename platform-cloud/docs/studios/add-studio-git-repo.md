@@ -109,7 +109,7 @@ You can disable cloning, which allows you to share a public/private template. Yo
 #### Limitations
 
 - Platform credentials are not shared with the Studio.
-- The `.git` folder is not shared and you cannot push/pull from the configured repository.
+- The `.git` folder is not synced and you cannot push/pull from the configured repository after initial Studio creation.
 - There are no preprovisioned Git credentials available to use in the Studio.
 
 ## Save and start
