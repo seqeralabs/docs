@@ -13,6 +13,7 @@
           {
             "type": "category",
             "label": "Prerequisites",
+            "link": {"type": "doc", "id": "enterprise/prerequisites/common"},
             "collapsed": true,
             "items": [
               "enterprise/prerequisites/aws",
