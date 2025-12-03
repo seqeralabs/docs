@@ -459,7 +459,7 @@ This section of the policy is optional and can be omitted if EFS file systems ar
 
 ### Pipeline secrets (optional)
 
-Seqera can synchronize [pipeline secrets](../secrets/overview) defined on the Platform workspace with AWS Secrets Manager, which requires additional permissions on the IAM User.
+Seqera can synchronize [pipeline secrets](../secrets/overview) defined on the Platform workspace with AWS Secrets Manager, which requires additional permissions on the IAM User. If you do not plan to use pipeline secrets, you can omit this section of the policy.
 
 The listing of secrets cannot be restricted, but the management actions can be restricted to only allow managing secrets in a specific account and region, which must be the same region where the pipeline runs. Note that Seqera only creates secrets with the `tower-` prefix.
 
@@ -488,10 +488,10 @@ To successfully use pipeline secrets, the IAM roles manually created must follow
 
 ## Automatic configuration of Batch resources
 
-Batch Forge automates the configuration of an [AWS Batch](https://aws.amazon.com/batch/) compute environment and the queues required for deploying Nextflow pipelines.
+Seqera automates the configuration of an [AWS Batch](https://aws.amazon.com/batch/) compute environment and the queues required for deploying Nextflow pipelines.
 
 :::caution
-Batch Forge automatically creates resources that you may be charged for in your AWS account. See [Cloud costs](../monitoring/cloud-costs) for guidelines to manage cloud resources effectively and prevent unexpected costs.
+Seqera automatically creates resources that you may be charged for in your AWS account. See [Cloud costs](../monitoring/cloud-costs) for guidelines to manage cloud resources effectively and prevent unexpected costs.
 :::
 
 ### IAM
@@ -559,9 +559,6 @@ Batch Forge automates the configuration of an [AWS Batch](https://aws.amazon.com
 
 #### Created resources
 
-:::caution
-Batch Forge automatically creates resources that you may be charged for in your AWS account. See [Cloud costs](../monitoring/cloud-costs) for guidelines to manage cloud resources effectively and prevent unexpected costs.
-:::
 
 Batch Forge will create the head and compute [job queues](https://docs.aws.amazon.com/batch/latest/userguide/job_queues.html) and their respective [compute environments](https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html) where jobs will be executed. The job queues are configured with [job state limit actions](https://docs.aws.amazon.com/batch/latest/APIReference/API_JobStateTimeLimitAction.html) to automatically purge jobs that cannot be scheduled on any node type available for the compute environment.
 

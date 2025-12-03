@@ -459,7 +459,7 @@ This section of the policy is optional and can be omitted if EFS file systems ar
 
 ### Pipeline secrets (optional)
 
-Seqera can synchronize [pipeline secrets](../secrets/overview) defined on the Platform workspace with AWS Secrets Manager, which requires additional permissions on the IAM User.
+Seqera can synchronize [pipeline secrets](../secrets/overview) defined on the Platform workspace with AWS Secrets Manager, which requires additional permissions on the IAM User. If you do not plan to use pipeline secrets, you can omit this section of the policy.
 
 The listing of secrets cannot be restricted, but the management actions can be restricted to only allow managing secrets in a specific account and region, which must be the same region where the pipeline runs. Note that Seqera only creates secrets with the `tower-` prefix.
 
@@ -488,10 +488,10 @@ To successfully use pipeline secrets, the IAM roles manually created must follow
 
 ## Automatic configuration of Batch resources
 
-Batch Forge automates the configuration of an [AWS Batch](https://aws.amazon.com/batch/) compute environment and the queues required for deploying Nextflow pipelines.
+Seqera automates the configuration of an [AWS Batch](https://aws.amazon.com/batch/) compute environment and the queues required for deploying Nextflow pipelines.
 
 :::caution
-Batch Forge automatically creates resources that you may be charged for in your AWS account. See [Cloud costs](../monitoring/cloud-costs) for guidelines to manage cloud resources effectively and prevent unexpected costs.
+Seqera automatically creates resources that you may be charged for in your AWS account. See [Cloud costs](../monitoring/cloud-costs) for guidelines to manage cloud resources effectively and prevent unexpected costs.
 :::
 
 ### IAM
@@ -557,9 +557,6 @@ S3 is used by Nextflow for the storage of intermediate files. In production pipe
 
 Batch Forge automates the configuration of an [AWS Batch](https://aws.amazon.com/batch/) compute environment and the queues required to deploy Nextflow pipelines. After your IAM user and S3 bucket have been set up, create a new **AWS Batch** compute environment in Seqera.
 
-:::caution
-Batch Forge automatically creates resources that you may be charged for in your AWS account. See [Cloud costs](../monitoring/cloud-costs) for guidelines to manage cloud resources effectively and prevent unexpected costs.
-:::
 
 **Create a Batch Forge AWS Batch compute environment**
 
