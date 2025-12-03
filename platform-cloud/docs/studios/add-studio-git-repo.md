@@ -58,7 +58,7 @@ session:
         isPrivate: false # Defaults to false
 ```
 
-The schema can define a Dockerfile, which has to be inside the `.seqera` folder. The following limitations apply:
+The schema can reference a `Dockerfile`, located inside the `.seqera` folder. The following limitations apply:
 
 - You need to configure a target repository for the registry using the `TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REGISTRY` and `TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REPOSITORY` environment variables.
 - Each workspace needs to have credentials available in the workspace to push to the defined registry.
