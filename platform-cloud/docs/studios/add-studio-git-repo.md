@@ -98,7 +98,7 @@ Mounted repositories are accessible at `/workspace/data/<DATA_REPOSITORY>` using
 
 Sessions have read-only access to mounted data by default. Enable write permissions by adding AWS S3 buckets as **Allowed S3 Buckets** in your compute environment configuration.
 
-Files uploaded to a mounted bucket during an active session may not be immediately available within that session.
+Files uploaded to a mounted bucket during an active session may not be immediately available within that session. [More information](../troubleshooting_and_faqs/studios_troubleshooting#running-session-does-not-show-new-data-in-object-storage).
 
 ### Repository cloning
 
