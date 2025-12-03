@@ -12,7 +12,7 @@ The improved performance offered by DRAGEN is possible due to the use of Illumin
 
 ## Run DRAGEN on Seqera Platform
 
-We have extended the [Batch Forge](../../compute-envs/aws-batch#automatic-resource-creation-using-seqera-forge) feature for AWS Batch to support DRAGEN. Batch Forge ensures that all of the appropriate components and settings are automatically provisioned when creating an AWS Batch compute environment.
+We have extended the [Batch Forge](../../compute-envs/aws-batch#automatic-configuration-of-batch-resources) feature for AWS Batch to support DRAGEN. Batch Forge ensures that all of the appropriate components and settings are automatically provisioned when creating an AWS Batch compute environment.
 
 When deploying data analysis workflows, some tasks will need to use normal instance types (e.g., for non-DRAGEN processing of samples) and others will need to be executed on F1 instances. If the DRAGEN feature is enabled, Batch Forge will create an additional AWS Batch compute queue which only uses F1 instances, to which DRAGEN tasks will be dispatched.
 

@@ -14,8 +14,8 @@ The AWS Batch service quota for job queues is 50 per account. For more informati
 
 There are two ways to create a Seqera Platform compute environment for AWS Batch:
 
-- [**Automatic**](#automatic-resource-creation-using-seqera-forge): This option lets Seqera automatically create the required AWS Batch resources in your AWS account, using an internal tool with Seqera Platform called "Forge". This removes the need to set up your AWS Batch infrastructure manually. Resources are also automatically deleted when the compute environment is removed from Platform.
-- [**Manual**](#manual-resource-configuration): This option lets Seqera use existing AWS Batch resources created manually.
+- [**Automatic**](#automatic-configuration-of-batch-resources): This option lets Seqera automatically create the required AWS Batch resources in your AWS account, using an internal tool with Seqera Platform called "Forge". This removes the need to set up your AWS Batch infrastructure manually. Resources are also automatically deleted when the compute environment is removed from Platform.
+- [**Manual**](#manual-configuration-of-batch-resources): This option lets Seqera use existing AWS Batch resources created manually.
 
 Both options require specific IAM permissions to function correctly.
 
@@ -486,7 +486,7 @@ The listing of secrets cannot be restricted, but the management actions can be r
 
 To successfully use pipeline secrets, the IAM roles manually created must follow the steps detailed in the [documentation](../secrets/overview#aws-secrets-manager-integration).
 
-## Automatic resource creation using Seqera Forge
+## Automatic configuration of Batch resources
 
 Batch Forge automates the configuration of an [AWS Batch](https://aws.amazon.com/batch/) compute environment and the queues required for deploying Nextflow pipelines.
 
@@ -735,7 +735,7 @@ Specify the **Allocation strategy** and indicate any preferred **Instance types*
     Altering this file may result in a malfunctioning Batch Forge compute environment. See [Amazon ECS container agent configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) to learn more about the available parameters.
     :::
 
-## Manual resource configuration
+## Manual configuration of Batch resources
 
 This section is for users with a pre-configured AWS environment. You will need a [Batch queue, a Batch compute environment, an IAM user, and an S3 bucket](../enterprise/advanced-topics/manual-aws-batch-setup.mdx) already set up.
 
