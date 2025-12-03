@@ -88,7 +88,7 @@ You can add a Studio by referencing a Git repository containing Studio configura
 
 ### Mount data
 
-Mount data repositories to make them accessible in your session:
+Mount data to make them accessible in your session:
 
 1. Select **Mount data** to open the data selection modal.
 1. Choose the data to mount.
