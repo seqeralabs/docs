@@ -36,7 +36,7 @@ session:
     description: "desc"
     template:
         kind: "registry"|"dockerfile"|"none"
-        registry: "cr.seqera.io/image:latest"    # Ignored for `dockerfile` nad `none`
+        registry: "cr.seqera.io/image:latest"    # Ignored for `dockerfile` and `none`
         dockerfile: "Dockerfile"                 # Ignored for `registry` and `none`
     clone:
         enabled: true                            # Defaults to `true`
