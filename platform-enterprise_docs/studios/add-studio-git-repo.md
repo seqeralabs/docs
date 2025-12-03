@@ -13,7 +13,7 @@ You will need the following to get started:
 - A compute environment with sufficient resources (scale based on data volume)
 - [Data Explorer](../data/data-explorer) enabled
 - Git credentials configured in your workspace
-- A Git repository containing `seqera/studio-config.yaml`
+- A Git repository containing a `seqera` folder
 :::
 
 **Limitations**
@@ -25,12 +25,6 @@ You will need the following to get started:
 ### Create the required configuration files 
 
 **.seqera/studio-config.yaml configuration file**
-
-The schema can define a Dockerfile, which has to be inside the `.seqera` folder. Dockerfile-based Studios cannot be pushed to the Wave community registry and and the following applies:
-
-- You need to configure a specific registry with an environment variable.
-- Each workspace that will use the functionality needs to have credentials available in the workspace to push to the defined registry.
-- Standard limitations around private images (private for pull) apply. The only supported registry and compute environment combination for a fully private Dockerfile-based Studio is ECR and AWS.
 
 Create a `.seqera/studio-config.yaml` file in the the `.seqera/ ` directory in your repo. The only required field is `session.template.kind`. All other fields are optional.
 
@@ -63,6 +57,14 @@ session:
         lifespanHours: 1 # Ignored if workspace lifespan is set
         isPrivate: false # Defaults to false
 ```
+
+The schema can define a Dockerfile, which has to be inside the `.seqera` folder. The following limitations apply:
+
+- You need to configure a target repository for the registry using the `TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REGISTRY` and `TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REPOSITORY` environment variables.
+- Each workspace needs to have credentials available in the workspace to push to the defined registry.
+- The only supported registry and compute environment combination for a fully private Dockerfile-based Studio is ECR and AWS.
+
+Dockerfile-based Studios cannot be pushed to the Wave community registry. If no registry configuration is specified, it defaults to the Wave default.
 
 ### Add a Studio
 
@@ -100,10 +102,9 @@ Files uploaded to a mounted bucket during an active session may not be immediate
 
 ### Repository cloning
 
-When a Studio session starts from a Git repository, the repository contents are cloned into the session, using the same commit that was selected, or resolved, when the Studio was first created. For example, repository `https://github.com/seqeralabs/studio-templates.git` clones to `/workspace/studio-templates/` with README.md` at `/workspace/studio-templates/README.md`.
+When a Studio session starts from a Git repository, the repository contents are cloned into the session, using the same commit that was selected, or resolved, when the Studio was first created. For example, repository `https://github.com/seqeralabs/studio-templates.git` clones to `/workspace/studio-templates/` with `README.md` at `/workspace/studio-templates/README.md`.
 
-- You can disable cloning, which allows you to share a public/private template in order to use only the tool.
-- You can define the clone path configuration in the schema and configure specific functionalities of the tool with config files without the need to build a different Docker image.
+You can disable cloning, which allows you to share a public/private template. You can define the clone path configuration in the schema without the need to build a different Docker image.
 
 #### Limitations
 
