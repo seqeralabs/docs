@@ -91,7 +91,7 @@ You can add a Studio by referencing a Git repository containing Studio configura
 Mount data repositories to make them accessible in your session:
 
 1. Select **Mount data** to open the data selection modal.
-1. Choose the data repositories to mount.
+1. Choose the data to mount.
 1. Select **Mount data** to confirm.
 
 Mounted repositories are accessible at `/workspace/data/<DATA_REPOSITORY>` using the [Fusion file system](https://docs.seqera.io/fusion). Data doesn't need to match the compute environment region, though cross-region access may increase costs or cause errors.
