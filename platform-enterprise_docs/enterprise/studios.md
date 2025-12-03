@@ -74,6 +74,7 @@ You can also check the current template configuration using `https://towerurl/ap
 - Allow inbound traffic to port 9090 on the EC2 instance
 - Allow traffic on port 9090 through the AWS LB (Load Balancer)
 - An AWS Route53 wildcard DNS record, such as `*.<seqera_platform_domain>`
+- Execute `mkdir 777 $HOME/.tower/connect` to create a folder that will be mounted to `connect-proxy` and used to store metadata. 
 
 ### Procedure
 
