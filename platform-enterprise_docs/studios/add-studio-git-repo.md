@@ -33,8 +33,8 @@ Create a `.seqera/studio-config.yaml` file in the the `.seqera/ ` directory in y
 schemaVersion: "0.0.1"
 kind: "studio-config"
 session:
-    name: "studio-name"                         # Must be unique to a workspace. If undefined, an auto-generated name is used
-    description: "desc"                         # Short description of what the Studio is for
+    name: "studio-name"                          # Must be unique to a workspace. If undefined, an auto-generated name is used
+    description: "desc"                          # Short description of what the Studio is for
     template:
         kind: "registry"|"dockerfile"|"none"     # Required
         registry: "cr.seqera.io/image:latest"    # Ignored for `dockerfile` and `none`
@@ -54,9 +54,9 @@ session:
             value: "value1"
         -   name: "var2"
             value: "value2"
-    management:                                 # Session management settings
-        lifespanHours: 1                        # Ignored if workspace lifespan is set
-        isPrivate: false                        # Defaults to `false`
+    management:                                  # Session management settings
+        lifespanHours: 1                         # Ignored if workspace lifespan is set
+        isPrivate: false                         # Defaults to `false`
 ```
 
 The schema can define a Dockerfile, which has to be inside the `.seqera` folder. The following limitations apply:
