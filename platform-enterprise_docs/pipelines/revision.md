@@ -7,7 +7,7 @@ tags: [pipelines, versioning, nextflow, parameters]
 
 Workflow repositories are mutable - branches can be updated, tags can be moved (though rarely), and the "latest" code changes over time. This creates a reproducibility challenge: launching the same pipeline configuration at different times could execute different workflow code.
 
-**Commit ID pinning** solves this by tracking the specific Git commit ID alongside the branch or tag revision. When you pin a commit ID, Seqera ensures that exact version of the workflow code is executed for every launch, regardless of upstream repository changes.
+**Commit ID pinning** solves this by tracking the specific Git commit ID alongside the branch or tag revision. When you pin a commit ID, Seqera ensures that exact version of the workflow code is executed for every launch, regardless of future changes to the repository branch or tag.
 
 :::info
 Commit ID pinning requires a valid pipeline and **Revision** (tag or branch name) to be specified. The **Commit ID** field and pin icon is disabled if the **Revision** field is left empty. 
@@ -22,7 +22,7 @@ The **Commit ID** and **Pull latest** fields appear on pipeline add, edit, and l
 **Cloud compute environments**
 
 | Revision | Commit ID | Pull latest | Launch behavior |
-|----------|-----------|-------------|-------------------|
+|----------|-----------|-------------|-----------------|
 | Branch/tag | Empty (unpinned) - default | OFF - default | Fetches current HEAD commit at execution time (non-deterministic). |
 | Branch/tag | Pinned | OFF - automatically set when pinned | Uses the pinned commit ID for deterministic execution. |
 | Branch/tag | Empty (unpinned) | ON | Fetches current HEAD commit at execution time (non-deterministic). Equivalent to `nextflow run -latest`. |
