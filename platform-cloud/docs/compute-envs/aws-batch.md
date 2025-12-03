@@ -19,7 +19,7 @@ There are two ways to create a Seqera Platform compute environment for AWS Batch
 
 Both options require specific IAM permissions to function correctly, as well as access to an S3 bucket or EFS/FSx file system to store intermediate Nextflow files.
 
-## S3 Bucket creation
+## S3 bucket creation
 
 AWS S3 (Simple Storage Service) is a type of **object storage**. To access input and output files using Seqera products like [Studios](../studios/overview) and [Data Explorer](../data/data-explorer) create one or more **S3 buckets**. An S3 bucket can also be used to store intermediate results of your Nextflow pipelines, in alternative to using EFS or FSx file systems (note that using EFS as Platform work directory is incompatible with Studios).
 
