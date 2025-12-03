@@ -28,32 +28,33 @@ You will need the following to get started:
 
 Create a `.seqera/studio-config.yaml` file in the the `.seqera/ ` directory in your repo. The only required field is `session.template.kind`. All other fields are optional.
 
+
 ```yaml
 schemaVersion: "0.0.1"
 kind: "studio-config"
 session:
-    name: "studio-name"
-    description: "desc"
+    name: "studio-name" # Must be unique to a workspace. If undefined, an auto-generated name is used
+    description: "desc" # Short description of what the Studio is for
     template:
-        kind: "registry"|"dockerfile"|"none"
-        registry: "cr.seqera.io/image:latest"    # Ignored for `dockerfile` nad `none`
+        kind: "registry"|"dockerfile"|"none" # Required
+        registry: "cr.seqera.io/image:latest"    # Ignored for `dockerfile` and `none`
         dockerfile: "Dockerfile"                 # Ignored for `registry` and `none`
     clone:
-        enabled: true                            # Defaults to `true`
+        enabled: true                            # Clone the contents of the repository to the Studio. Defaults to `true`
         path: "/workspace"                       # Defaults to `/workspace`. If you want to clone to `/workspace/repository` then you need to specify this.
     dependencies:
-        condaEnvironmentFile: "environment.yaml" # Ignored for `dockerfile`
+        condaEnvironmentFile: "environment.yaml" # Define additional libraries (and versions). Ignored for `dockerfile`
     computeRequirements:
-        awsBatch: # Ignored for non-batch CE
-            cpu: 2
-            gpu: 0
-            memory: 8192
-    environmentVariables:
+        awsBatch: # Ignored for non-AWS batch CE
+            cpu: 2 # Number of CPUs to use. Defaults to 2
+            gpu: 0 # Number of GPUs to use (if the CE supports GPUs). Defaults to 0
+            memory: 8192 # Memory allocated in MiB. Defaults to 8192.
+    environmentVariables: # Ordered sequence of elements that are objects (or mappings) of key-value pairs
         -   name: "var1"
             value: "value1"
         -   name: "var2"
             value: "value2"
-    management:
+    management: # Session management settings
         lifespanHours: 1 # Ignored if workspace lifespan is set
         isPrivate: false # Defaults to false
 ```
