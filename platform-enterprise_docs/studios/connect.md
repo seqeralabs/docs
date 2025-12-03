@@ -1,7 +1,7 @@
 ---
 title: Connect changelog
 date created: "2025-07-30"
-last updated: "2025-11-24"
+last updated: "2025-12-03"
 tags: [connect, changelog, connect-changelog]
 ---
 
@@ -11,11 +11,19 @@ Always use the `recommended` tagged template image for new Studios. Only two ear
 
 ## Connect server
 
-### server/v0.8.4 `latest` - 2025-10-31
+### server/0.9.0 - `latest`
+
+TBC
+
+### server/v0.8.4 latest - 2025-10-31
 
 * N/A
 
 ### server/v0.8.3 - 2025-07-25
+
+:::warning
+Connect version 0.8.3 introduced a change which required the creation of a `/data` folder which was mounted to `connect-proxy`. If this is not done, the deployment will fail. This requirement has been removed in version 0.9.0.
+:::
 
 * Extract Fusion version 
 * Fix(proxy): include prefix in Location header
