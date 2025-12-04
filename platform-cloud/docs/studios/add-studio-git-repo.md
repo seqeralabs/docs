@@ -60,18 +60,20 @@ session:
 
 The schema can reference a `Dockerfile`, located inside the `.seqera` folder. The following limitations apply:
 
-- You need to set the target repository per workspace, in **Settings > Studios > Container repository**. 
-- Each workspace needs to have credentials available in the workspace to push to the defined repository.
+- You need to set a target repository per workspace, in **Settings > Studios > Container repository**. If no repository configuration is specified, the build will fail.
+- Each workspace needs to have credentials available in the workspace to push to the repository you've specified.
 - The only supported repository and compute environment combination for a fully private Dockerfile-based Studio is ECR and AWS.
-
-Dockerfile-based Studios cannot be pushed to the Wave community repository. If no repository configuration is specified, it defaults to [commu​nity.​wave.​seqer​a.io](commu​nity.​wave.​seqer​a.io).
 
 ### Add a Studio
 
 You can add a Studio by referencing a Git repository containing Studio configuration files. You can also configure the following fields:
 
-- **Repository URL**: Enter the full URL to your Git repository (e.g., `https://github.com/your-org/your-repo`)
+- **Git repository**: Enter the full URL to your Git repository (e.g., `https://github.com/your-org/your-repo`).
 - **Revision**: Select a branch, tag, or commit from the dropdown. The dropdown is dynamically populated based on the repository URL. If no revision is selected, the default branch is used.
+- **Install Conda packages**: A list of conda packages to include with the Studio. For more information on package syntax, see [conda package syntax][conda-syntax].
+  :::note
+  You need to set a target repository per workspace, in **Settings > Studios > Container repository**. If no repository configuration is specified, the build will fail. Each workspace needs to have credentials available in the workspace to push to the repository you've specified.
+  :::
 - **Resource labels**: Any [resource label](../labels/overview) already defined for the compute environment is added by default, but can be removed. Additional custom resource labels can be added or removed as needed.
 - **Environment variables**: Environment variables for the session. All variables from the selected compute environment are automatically inherited and displayed. Additional session-specific variables can be added. Session-level variables take precedence — to override an inherited variable, define the same key with a different value.
 - **Collaboration**: Session access permissions. By default, all workspace users with the launch role and above can connect to the session. Toggle **Private** on to restrict connections to the session creator only.
