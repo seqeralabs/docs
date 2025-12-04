@@ -26,21 +26,24 @@ Data Explorer can read from, and write to, the following object storage provider
 If your object storage provider and Seqera deployment share the same subdomain (e.g. `minio.janedoepharma.com` and `platform.janedoepharma.com`) then communication between Seqera and provider works **without** additional customization. However, if your object storage provider and subdomain don't match, the CSP headers need to be customized.
 
 ## Connecting additional providers
+Accessing new object storage providers in [Data Explorer][data-explorer] requires updating the Content Security Policy to include the domains to access. This is done by setting the `ADDITIONAL_CSP` environment variable for the frontend container.
 
-Accessing new object storage providers in [Data Explorer][data-explorer] requires updating the NGINX web server template directives to include the domain to access. To update the platform configuration, edit the `nginx-unprivileged.conf.template` `$base_child_src` directive.
+:::note
+This configuration is only available when using the [Seqera frontend unprivileged](../kubernetes#seqera-frontend-unprivileged) image. If you'd like to use the legacy frontend image, please reach out to Seqera support for further assistance.
+:::
+
+### Configuration
+
+Set the `ADDITIONAL_CSP` environment variable with a space-separated list of domains to add to the Content Security Policy. For example, to add support for MinIO:
 
    ```bash
-   map $host $base_child_src {
-      default "'self' https://www.google.com https://*.$host https://*.$lower_lvl_domain https://*.amazonaws.com https://storage.googleapis.com https://*.blob.core.windows.net https://*.oci.customer-oci.com https://*.r2.cloudflarestorage.com https://*.lakefscloud.io blob:";
-   }
+   ADDITIONAL_CSP="https://*.min.io"
    ```
 
-Append the list of entries with your object storage provider domain (for example, `https://*.min.io`):
+To add multiple domains:
 
    ```bash
-   map $host $base_child_src {
-      default "'self' https://www.google.com https://*.$host https://*.$lower_lvl_domain https://*.amazonaws.com https://storage.googleapis.com https://*.blob.core.windows.net https://*.oci.customer-oci.com https://*.r2.cloudflarestorage.com https://*.lakefscloud.io blob: https://*.min.io";
-   }
+   ADDITIONAL_CSP="https://*.min.io https://custom-storage.example.com"
    ```
 
 :::info
