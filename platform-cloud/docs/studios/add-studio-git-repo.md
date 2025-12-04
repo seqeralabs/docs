@@ -79,6 +79,8 @@ You can add a Studio by referencing a Git repository containing Studio configura
   :::
 - **Resource labels**: Any [resource label](../labels/overview) already defined for the compute environment is added by default, but can be removed. Additional custom resource labels can be added or removed as needed.
 - **Environment variables**: Environment variables for the session. All variables from the selected compute environment are automatically inherited and displayed. Additional session-specific variables can be added. Session-level variables take precedence — to override an inherited variable, define the same key with a different value.
+- **Studio name**: The name for the Studio.
+- **Description** (optional): A description for the Studio.
 - **Collaboration**: Session access permissions. By default, all workspace users with the launch role and above can connect to the session. Toggle **Private** on to restrict connections to the session creator only.
     :::note
     When private, workspace administrators can still start, stop, and delete sessions, but cannot connect to them.
