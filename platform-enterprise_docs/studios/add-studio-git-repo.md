@@ -61,11 +61,11 @@ session:
 
 The schema can define a Dockerfile, which has to be inside the `.seqera` folder. The following limitations apply:
 
-- You need to configure a target repository for the registry using the `TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REGISTRY` and `TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REPOSITORY` environment variables.
-- Each workspace needs to have credentials available in the workspace to push to the defined registry.
-- The only supported registry and compute environment combination for a fully private Dockerfile-based Studio is ECR and AWS.
+- You need to configure a target repository for the repository using the `TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REGISTRY` and `TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REPOSITORY` environment variables.
+- Each workspace needs to have credentials available in the workspace to push to the defined repository.
+- The only supported repository and compute environment combination for a fully private Dockerfile-based Studio is ECR and AWS.
 
-Dockerfile-based Studios cannot be pushed to the Wave community registry. If no registry configuration is specified, it defaults to the Wave default.
+Dockerfile-based Studios cannot be pushed to the Wave community repository. If no repository configuration is specified, it defaults to [commu​nity.​wave.​seqer​a.io](commu​nity.​wave.​seqer​a.io).
 
 ### Add a Studio
 
