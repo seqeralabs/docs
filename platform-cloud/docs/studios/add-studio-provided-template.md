@@ -22,7 +22,7 @@ Configure the following fields:
 - **Description** (optional): A description for the Studio.
 - **Install Conda packages**: A list of conda packages to include with the Studio. For more information on package syntax, see [conda package syntax][conda-syntax].
   :::note
-  The workspace Admin needs to set a target repository per workspace, in **Settings > Studios > Container repository**. If no repository configuration is specified, the build will fail. Each workspace needs to have credentials available in the workspace to push to the specified repository.
+  The workspace Admin needs to set a target repository per workspace, in **Settings > Studios > Container repository**. If no repository configuration is specified, the build will fail. Each workspace must have credentials available to push to the specified repository.
   :::
 - **Collaboration**: Session access permissions. By default, all workspace users with the launch role and above can connect to the session. Toggle **Private** on to restrict connections to the session creator only.
     :::note
