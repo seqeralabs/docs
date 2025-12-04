@@ -49,7 +49,7 @@ Connect version 0.8.3 introduced a change which required the creation of a `/dat
 * Use `synctest` in `executor_test.go`
 * Basic structure of management API
 * Enable path-based routing
-** Update go-jose library (v3 from 3.0.3 to 3.0.4; v4 from 4.0.4 to 4.0.5)
+* Update go-jose library (v3 from 3.0.3 to 3.0.4; v4 from 4.0.4 to 4.0.5)
 * Update x/net dependency (from v0.36.0 to v0.40.0)
 * Upgrade go (from v1.23.0 to v1.24.3) and xcaddy (from v2.9.1 to v2.10.0)
 * Upgrade go in Dockerfiles (from v1.23 to v1.24)
