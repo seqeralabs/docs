@@ -64,7 +64,7 @@ The schema can reference a `Dockerfile`, located inside the `.seqera` folder. Th
 - Each workspace needs to have credentials available in the workspace to push to the defined repository.
 - The only supported repository and compute environment combination for a fully private Dockerfile-based Studio is ECR and AWS.
 
-Dockerfile-based Studios cannot be pushed to the Wave community registry. If no repository configuration is specified, it defaults to [commu​nity.​wave.​seqer​a.io](commu​nity.​wave.​seqer​a.io).
+Dockerfile-based Studios cannot be pushed to the Wave community repository. If no repository configuration is specified, it defaults to [commu​nity.​wave.​seqer​a.io](commu​nity.​wave.​seqer​a.io).
 
 ### Add a Studio
 
