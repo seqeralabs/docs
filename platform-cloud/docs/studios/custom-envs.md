@@ -13,7 +13,6 @@ In addition to the Seqera-provided container images, you can provide your own cu
 :::info[**Prerequisites**]
 
 - Wave must be configured. For more information, see [Wave containers][wave].
-- To augment Seqera-provided images, Enterprise deployments must either allow access to the public Wave server, or self-host their own Wave server.
 :::
 
 ### Conda package syntax {#conda-package-syntax}
