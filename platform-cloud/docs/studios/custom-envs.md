@@ -13,6 +13,7 @@ In addition to the Seqera-provided container images, you can provide your own cu
 :::info[**Prerequisites**]
 
 - Wave must be configured. For more information, see [Wave containers][wave].
+- The workspace Admin needs to set a target repository per workspace, in **Settings > Studios > Container repository**. If no repository configuration is specified, the build will fail. Each workspace must have credentials available to push to the specified repository.
 :::
 
 ### Conda package syntax {#conda-package-syntax}
