@@ -60,7 +60,7 @@ session:
 
 The schema can reference a `Dockerfile`, located inside the `.seqera` folder. The following limitations apply:
 
-- You need to set a target repository per workspace, in **Settings > Studios > Container repository**. If no repository configuration is specified, the build will fail.
+- The workspace Admin needs to set a target repository per workspace, in **Settings > Studios > Container repository**. If no repository configuration is specified, the build will fail.
 - Each workspace needs to have credentials available in the workspace to push to the repository you've specified.
 - The only supported repository and compute environment combination for a fully private Dockerfile-based Studio is ECR and AWS.
 - The files pulled for Dockerbuild context have individual and total file size limits:
