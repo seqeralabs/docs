@@ -11,7 +11,7 @@ Always use the `recommended` tagged template image for new Studios. Only two ear
 
 ## Connect server
 
-### server/v0.9.0 `latest` -2025-12-05
+### server/v0.9.0 `latest` - 2025-12-05
 
 - Add: missing env when testing with platform
 - Fix: security vulnerabilities for crypto ssh library and slack nebula
