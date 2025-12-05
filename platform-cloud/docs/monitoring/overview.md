@@ -20,7 +20,7 @@ Select the name of a run from the list to display that run's [execution details]
 
 ## Save run as pipeline
 
-From the **Runs** list, any run can be saved as a new pipeline for future use, regardless of run status. Select the item menu next to any run in the list, then select **Save as pipeline**. In the dialog box shown, you can edit the pipeline name, add labels, and **Save**.
+From the **Runs** list, any run can be saved as a new pipeline for future use, regardless of run status. Select the options menu next to any run in the list, then select **Save as pipeline**. In the dialog box shown, you can edit the pipeline name, add labels, and **Save**.
 
 You can **Review and edit** any run details prior to saving the pipeline. After you've saved the pipeline, it is listed on the **Launchpad** and can be run from the same workspace where it was created.
 
