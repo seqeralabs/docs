@@ -11,7 +11,10 @@ Always use the `recommended` tagged template image for new Studios. Only two ear
 
 ## Connect server
 
-### server/v0.8.4 `latest` - 2025-10-31
+### server/v0.9.0 `latest` - 2025-12-05
+
+
+### server/v0.8.4 - 2025-10-31
 
 * N/A
 
