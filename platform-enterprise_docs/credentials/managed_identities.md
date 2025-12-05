@@ -1,7 +1,7 @@
 ---
 title: "Managed identities"
 description: "Configure managed identities in Seqera Platform."
-date: "12 Jun 2024"
+date: "2024-06-12"
 tags: [organizations, administration, managed identities, clusters, ssh, credentials]
 ---
 
