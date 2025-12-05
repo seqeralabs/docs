@@ -37,5 +37,5 @@ For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
 [custom-container]: ./add-studio-custom-container
 [conda-syntax]: ./custom-envs#conda-package-syntax
 [custom-image]: ./custom-envs#custom-containers
-[containers]: ./add-studio-custom-container
-
+[custom-containers]: ./add-studio-custom-container
+[provided-template]: ./add-studio-provided-template

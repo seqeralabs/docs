@@ -10,7 +10,7 @@ tags: [template, seqera-template, seqera-template-studio, session, studios]
 You will need the following to get started:
 
 - Valid credentials for accessing cloud storage resources
-- **Maintain** role permissions (minimum)
+- **Maintain** role permissions or above
 - A compute environment with sufficient resources (scale based on data volume)
 - [Data Explorer](../data/data-explorer) enabled
 :::
@@ -18,12 +18,14 @@ You will need the following to get started:
 Configure the following fields:
 
 - **Container template**: The template for the container. Select a provided container template.
-- **Studio name**: The name for the Studio.
-- **Description** (optional): A description for the Studio.
 - **Install Conda packages**: A list of conda packages to include with the Studio. For more information on package syntax, see [conda package syntax][conda-syntax].
   :::note
-  You need to set a target repository per workspace, in **Settings > Studios > Container repository**. If no repository configuration is specified, the build will fail. Each workspace needs to have credentials available in the workspace to push to the repository you've specified.
+  The workspace Admin needs to set a target repository per workspace, in **Settings > Studios > Container repository**. If no repository configuration is specified, the build will fail. Each workspace must have credentials available to push to the specified repository.
   :::
+- **Resource labels**: Any [resource label](../labels/overview) already defined for the compute environment is added by default. Additional custom resource labels can be added or removed as needed.
+- **Environment variable**: Environment variables for the session. All variables from the selected compute environment are automatically inherited and displayed. Additional session-specific variables can be added. Session-level variables take precedence — to override an inherited variable, define the same key with a different value.
+- **Studio name**: The name for the Studio.
+- **Description** (optional): A description for the Studio.
 - **Collaboration**: Session access permissions. By default, all workspace users with the launch role and above can connect to the session. Toggle **Private** on to restrict connections to the session creator only.
     :::note
     When private, workspace administrators can still start, stop, and delete sessions, but cannot connect to them.
@@ -31,8 +33,6 @@ Configure the following fields:
 - **Session lifespan**: The duration the session remains active. Available options depend on your workspace settings:
     - **Stop the session automatically after a predefined period of time**: An automatic timeout for the session (minimum: 1 hour; maximum: 120 hours; default: 8 hours). If a workspace-level session lifespan is configured, this field cannot be edited. Changes apply only to the current session and revert to default values after the session stops.
     - **Keep the session running:** Continuous session operation until manually stopped or an error terminates it. The session continues consuming compute resources until stopped.
-- **Environment variable**: Environment variables for the session. All variables from the selected compute environment are automatically inherited and displayed. Additional session-specific variables can be added. Session-level variables take precedence — to override an inherited variable, define the same key with a different value.
-- **Resource labels**: Any [resource label](../labels/overview) already defined for the compute environment is added by default. Additional custom resource labels can be added or removed as needed.
 
 ### Mount data
 
@@ -46,7 +46,7 @@ Once the Studio session is running, mounted data are accessible at `/workspace/d
 
 Sessions have read-only access to mounted data by default. Enable write permissions by adding AWS S3 buckets as **Allowed S3 Buckets** in your compute environment configuration.
 
-Files uploaded to a mounted bucket during an active session may not be immediately available within that session. [More information](../troubleshooting_and_faqs/studios_troubleshooting#running-session-does-not-show-new-data-in-object-storage).
+Files uploaded to a mounted bucket during an active session may not be immediately available within that session. See [Running session does not show new data in object storage](../troubleshooting_and_faqs/studios_troubleshooting#running-session-does-not-show-new-data-in-object-storage) for more information.
 
 ## Save and start
 
