@@ -8,7 +8,7 @@ tags: [data, session, studios]
 
 Select the **Studios** tab in Platform to:
 
-- Start, stop, or connect to an existing session. 
+- Start, stop, or connect to an existing session.
 - Dynamically filter the list of Studios using the search bar.
 - Open a detailed view that displays configuration information.
 
