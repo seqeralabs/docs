@@ -22,7 +22,7 @@ You will need the following to get started:
 - Data-links currently cannot be referenced in Git repositories. Define data-links when adding a Studio.
 - Git repositories with multiple Studio configurations are not supported. However, it is possible to use a Git repository with multiple branches and a single configuration per branch.
 
-### Create the required configuration files 
+### Create configuration files 
 
 **`.seqera/studio-config.yaml` configuration file**
 
