@@ -62,7 +62,7 @@ session:
 The schema can define a Dockerfile, which must be in the `.seqera` folder. The following limitations apply:
 
 - You need to configure a target repository using the `TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REGISTRY` and `TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REPOSITORY` environment variables. If no repository configuration is specified, the build will fail.
-- Each workspace needs to have credentials available in the workspace to push to the repository you've specified.
+- Each workspace must contain credentials with permissions to push to the repository you've specified.
 - The only supported repository and compute environment combination for a fully private Dockerfile-based Studio is ECR and AWS.
 - The files pulled for Dockerbuild context have individual and total file size limits:
   - Individual files cannot be larger than 5 MB.
