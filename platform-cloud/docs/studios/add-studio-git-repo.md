@@ -9,7 +9,7 @@ tags: [studio-git, git-repository, session, studios, git, version-control]
 :::info[**Prerequisites**]
 You will need the following to get started:
 
-- **Maintain** role permissions (minimum)
+- **Maintain** role permissions or above
 - A compute environment with sufficient resources (scale based on data volume)
 - [Data Explorer](../data/data-explorer) enabled
 - Git credentials configured in your workspace
