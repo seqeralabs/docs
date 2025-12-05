@@ -23,7 +23,7 @@ Data Explorer can read from, and write to, the following object storage provider
 
 ## Subdomain support
 
-If your object storage provider and Seqera deployment share the same subdomain (e.g. `minio.janedoepharma.com` and `platform.janedoepharma.com`) then communication between Seqera and provider works **without** additional customization. However, if your object storage provider and subdomain don't match, the CSP headers need to be customized.
+If your object storage provider and Seqera deployment share the same subdomain (e.g., `minio.janedoepharma.com` and `platform.janedoepharma.com`), then communication between Seqera and the provider works **without** additional customization. However, if your object storage provider and subdomain don't match, the CSP headers need to be customized.
 
 ## Connecting additional providers
 
