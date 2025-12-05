@@ -46,7 +46,7 @@ Once the Studio session is running, mounted data are accessible at `/workspace/d
 
 Sessions have read-only access to mounted data by default. Enable write permissions by adding AWS S3 buckets as **Allowed S3 Buckets** in your compute environment configuration.
 
-Files uploaded to a mounted bucket during an active session may not be immediately available within that session. [More information](../troubleshooting_and_faqs/studios_troubleshooting#running-session-does-not-show-new-data-in-object-storage).
+Files uploaded to a mounted bucket during an active session may not be immediately available within that session. See [Running session does not show new data in object storage](../troubleshooting_and_faqs/studios_troubleshooting#running-session-does-not-show-new-data-in-object-storage) for more information.
 
 ## Save and start
 
