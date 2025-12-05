@@ -2,7 +2,7 @@
 title: "Studios deployment"
 description: Deploy Seqera Platform with Studios
 date created: "2025-03-17"
-last updated: "2025-11-27"
+last updated: "2025-12-05"
 tags: [docker, compose, kubernetes, studios, deployment]
 ---
 
@@ -50,7 +50,7 @@ You can configure which organizational workspaces have access to Studios. This c
 
 Each of the provided environments includes a particular version of the underlying software package and the version of Seqera Connect, an integrated web- and file-server.
 
-To quickly identify which version of the software an image includes, the version string for each container is in the form of `<software_version>-<seqera_connect_version>`. For example, if the version string for the R-IDE is `2025.04.1-0.9`, version `2025.04.01` is the R-IDE version and `0.8` is the Connect version of this Seqera-built container image. Learn more about Studios [environment versioning](../studios/container-images).
+To quickly identify which version of the software an image includes, the version string for each container is in the form of `<software_version>-<seqera_connect_version>`. For example, if the version string for the R-IDE is `2025.04.1-0.9`, version `2025.04.01` is the R-IDE version and `0.9` is the Connect version of this Seqera-built container image. Learn more about Studios [environment versioning](../studios/container-images).
 
 - To see the list of all JupyterLab image templates available, including security scan results or to inspect the container specification (including container specifications, configuration, and manifest), see [public.cr.seqera.io/repo/platform/data-studio-jupyter][ds-jupyter].
 - To see the list of all R-IDE image templates available, including security scan results or to inspect the container specification (including container specifications, configuration, and manifest), see [https://public.cr.seqera.io/repo/platform/data-studio-ride][ds-ride].

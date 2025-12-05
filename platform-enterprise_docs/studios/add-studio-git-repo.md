@@ -24,9 +24,9 @@ You will need the following to get started:
 
 ### Create the required configuration files 
 
-**.seqera/studio-config.yaml configuration file**
+**`.seqera/studio-config.yaml` configuration file**
 
-Create a `.seqera/studio-config.yaml` file in the the `.seqera/ ` directory in your repo. The only required field is `session.template.kind`. All other fields are optional.
+Create a `.seqera/studio-config.yaml` file in the the `.seqera/ ` directory in your repo. Your `studio-config.yaml` should contain at least `schemaVersion `, `kind` and `session.template.kind`. All other fields are optional.
 
 
 ```yaml
@@ -64,6 +64,9 @@ The schema can define a Dockerfile, which has to be inside the `.seqera` folder.
 - You need to configure a target repository using the `TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REGISTRY` and `TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REPOSITORY` environment variables. If no repository configuration is specified, the build will fail.
 - Each workspace needs to have credentials available in the workspace to push to the repository you've specified.
 - The only supported repository and compute environment combination for a fully private Dockerfile-based Studio is ECR and AWS.
+- The files pulled for Dockerbuild context have individual and total file size limits:
+  - Individual files cannot be larger than 5 MB.
+  - Total file size cannot be more than 10 MB.
 
 ### Add a Studio
 
@@ -72,8 +75,13 @@ You can add a Studio by referencing a Git repository containing Studio configura
 - **Git repository**: Enter the full URL to your Git repository (e.g., `https://github.com/your-org/your-repo`).
 - **Revision**: Select a branch, tag, or commit from the dropdown. The dropdown is dynamically populated based on the repository URL. If no revision is selected, the default branch is used.
 - **Install Conda packages**: A list of conda packages to include with the Studio. For more information on package syntax, see [conda package syntax][conda-syntax].
+ :::note
+  You need to configure a target repository using the `TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REGISTRY` and `TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REPOSITORY` environment variables. If no repository configuration is specified, the build will fail.
+ :::
 - **Resource labels**: Any [resource label](../labels/overview) already defined for the compute environment is added by default. Additional custom resource labels can be added or removed as needed.
-- **Environment variables**: Environment variables for the session. All variables from the selected compute environment are automatically inherited and displayed. Additional session-specific variables can be added. Session-level variables take precedence — to override an inherited variable, define the same key with a different value.
+- **Environment variables**: Environment variables for the session. All variables from the selected compute environment are automatically inherited and displayed. Additional session-specific variables can be added. Session-level variables take precedence. To override an inherited variable, define the same key with a different value.
+- **Studio name**: The name for the Studio.
+- **Description** (optional): A description for the Studio.
 - **Collaboration**: Session access permissions. By default, all workspace users with the launch role and above can connect to the session. Toggle **Private** on to restrict connections to the session creator only.
     :::note
     When private, workspace administrators can still start, stop, and delete sessions, but cannot connect to them.
