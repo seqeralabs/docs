@@ -32,7 +32,7 @@ Configure the following fields:
     :::
 - **Session lifespan**: The duration the session remains active. Available options depend on your workspace settings:
     - **Stop the session automatically after a predefined period of time**: An automatic timeout for the session (minimum: 1 hour; maximum: 120 hours; default: 8 hours). If a workspace-level session lifespan is configured, this field cannot be edited. Changes apply only to the current session and revert to default values after the session stops.
-    - **Keep the session running:** Continuous session operation until manually stopped or an error terminates it. The session continues consuming compute resources until stopped.
+    - **Keep the session running**: Continuous session operation until manually stopped or an error terminates it. The session continues consuming compute resources until stopped.
 
 ### Mount data
 
