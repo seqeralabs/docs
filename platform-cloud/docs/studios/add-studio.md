@@ -9,8 +9,8 @@ tags: [data, session, studios]
 Select the **Studios** tab, and then select **Add Studio**. The options available are:
 
 - [Provided container template][containers]
-- [Import from a Git repository][github]
 - [Custom container template][custom-container]
+- [Import from a Git repository][github]
 
 ### Compute environment requirements
 
