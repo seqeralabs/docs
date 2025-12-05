@@ -5,9 +5,6 @@ date: "12 Jul 2024"
 tags: [platform, launch, pipelines, launchpad]
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 The Launchpad lists the preconfigured Nextflow pipelines that can be executed on the [compute environments](../../compute-envs/overview) in your workspace. 
 
 Platform offers two methods to import pipelines to your workspace Launchpad — directly from Seqera Pipelines or manually via **Add pipeline** in Platform.
@@ -63,7 +60,7 @@ From your workspace Launchpad, select **Add Pipeline** and specify the following
 - **Commit ID**: Pin pipeline revision to the most recent HEAD commit ID. If no commit ID is pinned, the latest revision of the repository branch or tag is used.
 - **Pull latest**: Fetch the most recent HEAD commit ID of the pipeline revision at launch time. Unpins the **Commit ID**, if set. 
     :::info
-    See [Pin commit ID](../../pipelines/overview.md#pin-commit-id) for more information on **Commit ID**, **Pull latest**, and **Revision** behavior. 
+    See [Git revision management](../../pipelines/revision.md) for more information on **Commit ID**, **Pull latest**, and **Revision** behavior. 
     :::
 - (*Optional*) **Config profiles**: Select a predefined profile for the Nextflow pipeline. 
     :::info 

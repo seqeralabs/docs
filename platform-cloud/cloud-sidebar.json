@@ -25,7 +25,7 @@
           "getting-started/quickstart-demo/add-data",
           "getting-started/quickstart-demo/launch-pipelines",
           "getting-started/quickstart-demo/monitor-runs",
-          "getting-started/quickstart-demo/automation"          
+          "getting-started/quickstart-demo/automation"
         ]
       },
       {
@@ -71,7 +71,7 @@
               "compute-envs/azure-batch",
               "compute-envs/azure-cloud",
               "compute-envs/google-cloud-batch",
-              "compute-envs/google-cloud",             
+              "compute-envs/google-cloud",
               "compute-envs/eks",
               "compute-envs/gke",
               "monitoring/cloud-costs"
@@ -107,6 +107,7 @@
         "items": [
           "pipelines/overview",
           "pipeline-schema/overview",
+          "pipelines/revision",
           "launch/launchpad",
           "labels/overview",
           {
@@ -143,7 +144,7 @@
           ]
           },         
           "studios/managing",
-          "studios/connect"
+          "studios/connect"        
         ]
       },
       {
@@ -205,7 +206,7 @@
         "type": "link",
         "label": "Cloud changelog",
         "href": "/changelog/tags/seqera-cloud"
-      },        
+      },
       {
         "type": "category",
         "label": "Troubleshooting",
