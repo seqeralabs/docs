@@ -1,6 +1,6 @@
 ---
 title: "Import from Git repository"
-description: "Add a Studio in Platform."
+description: "Add a Studio from a Git repository in Platform."
 date created: "2025-09-04"
 last updated: "2025-11-14"
 tags: [studio-git, git-repository, session, studios]
