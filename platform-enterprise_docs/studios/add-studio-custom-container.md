@@ -20,7 +20,6 @@ Select **Custom container template** and provide your own template (see [Custom 
 Configure the following fields:
 
 - **Container identifier**: The template for the container.
-- **Install Conda packages**: A list of conda packages to include with the Studio. For more information on package syntax, see [conda package syntax][conda-syntax].
 - **Resource labels**: Any [resource label](../labels/overview) already defined for the compute environment is added by default. Additional custom resource labels can be added or removed as needed.
 - **Environment variable**: Environment variables for the session. All variables from the selected compute environment are automatically inherited and displayed. Additional session-specific variables can be added. Session-level variables take precedence. To override an inherited variable, define the same key with a different value.
 - **Studio name**: The name for the Studio.
