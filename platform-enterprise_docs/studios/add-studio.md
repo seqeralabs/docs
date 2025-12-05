@@ -8,7 +8,7 @@ tags: [data, session, studios]
 
 Select the **Studios** tab, and then select **Add Studio**. The options available are:
 
-- [Provided container template][provided-template]
+- [Provided container template][containers]
 - [Custom container template][custom-container]
 - [Import from a Git repository][github]
 
@@ -37,5 +37,5 @@ For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
 [custom-container]: ./add-studio-custom-container
 [conda-syntax]: ./custom-envs#conda-package-syntax
 [custom-image]: ./custom-envs#custom-containers
-[custom-container]: ./add-studio-custom-container
-[provided-template]: ./add-studio-provided-template
+[containers]: ./add-studio-custom-container
+
