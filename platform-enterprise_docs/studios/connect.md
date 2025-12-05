@@ -22,7 +22,7 @@ TBC
 ### server/v0.8.3 - 2025-07-25
 
 :::warning
-Connect version 0.8.3 introduced a change which required the creation of a `/data` folder which was mounted to `connect-proxy`. If this is not done, the deployment will fail. This requirement has been removed in version 0.9.0.
+Connect version 0.8.3 introduced a change which required the creation of a `/data` folder which was mounted to `connect-proxy`. If this is not done, the deployment will fail.
 :::
 
 * Extract Fusion version 
