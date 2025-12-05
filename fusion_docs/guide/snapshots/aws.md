@@ -95,3 +95,7 @@ For example, a c6id.8xlarge instance provides 64 GiB memory and 12.5 Gbps guaran
 ## Resource limits
 
 A single job can request more resources than are available on a single instance. To prevent this, set resource limits using the `process.resourceLimits` directive in your Nextflow configuration. See [Resource limits](./configuration.md#resource-limits) for more information.
+
+## Manual cleanup
+
+The `/fusion` folder in object storage may need manual cleanup. Administrators should verify Fusion has properly cleaned up and remove the folder if necessary.
