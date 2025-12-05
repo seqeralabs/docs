@@ -28,6 +28,10 @@ For Enterprise installations, in addition to the above:
 - All the user's compute environments are deleted from their personal workspace.
 - All actions created by the user are deleted from their personal workspace.
 
+#### Studios connectivity
+
+Studios is a stateless application that uses tokens to manage connections. By default, access tokens expire after one hour. This may pose a security risk if user access needs to be revoked within a period shorter than the typical one-hour lifespan. Seqera is actively working to bring continuous access evaluation to Studio sessions, which will help ensure the invalidation of access tokens in near real-time. Currently, this can be mitigated by a Maintain role workspace user stopping and starting all Studio sessions in the workspace where a user account has been deleted.
+
 ### Metadata stored by Seqera Platform
 
 Workflow execution metadata is sent by the Nextflow runtime to the application when:
