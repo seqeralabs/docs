@@ -189,7 +189,7 @@
           "studios/custom-envs",
           {
           "type": "category",
-          "label": "Add Studios",
+          "label": "Add a Studio",
           "link": {"type": "doc", "id": "studios/add-studio"},
           "collapsed": true,
           "items": [
