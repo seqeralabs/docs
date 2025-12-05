@@ -48,7 +48,7 @@ To add multiple domains:
    ```
 
 :::info
-If your object storage is accessed on a port other than port **80**, include the port in the address (e.g. `https://myobjectstorage.min.io:9000`).
+If your object storage is accessed on a port other than port **80**, include the port in the address (e.g., `https://myobjectstorage.min.io:9000`).
 :::
 
 {/* links */}
