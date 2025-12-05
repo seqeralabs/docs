@@ -11,8 +11,10 @@ Always use the `recommended` tagged template image for new Studios. Only two ear
 
 ## Connect server
 
-### server/v0.9.0 `latest` - 2025-10-31
+### server/v0.9.0 `latest` - 2025-12-05
 
+- Add: missing env when testing with platform
+- Fix: security vulnerabilities for crypto ssh library and slack nebula
 - Upgrade go (from v1.24.3 to 1.25.3) and caddyserver (from 2.10.0 to 2.10.2)
 
 ### server/v0.8.4 - 2025-10-31
@@ -97,7 +99,15 @@ Always use the `recommended` tagged template image for new Studios. Only two ear
 
 ## Connect client
 
-### client/v0.8.7 `latest` - 2025-10-14
+### client/v0.9.0 `latest` - 2025-12-05
+
+- Add: disk size and auto resizing based on compute env
+- Add: version module and add support for client version 
+- Fix: security vulnerabilities for crypto ssh library and slack nebula
+- Upgrade go (from v1.24.3 to 1.25.3) and caddyserver (from 2.10.0 to 2.10.2)
+- Bump server to 0.9.0
+
+### client/v0.8.7 - 2025-10-14
 
 * * Fix(vscode): incorrect path in Dockerfile
 
