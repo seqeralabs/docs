@@ -322,6 +322,6 @@ See [Syntax and character set](https://kubernetes.io/docs/concepts/overview/work
 - **Monitor tag limits**: Stay within cloud provider tag limits (25 tags per resource for AWS/GCP/Azure).
 - **Document your schema**: Maintain documentation of your tagging strategy for team members who will analyze costs.
 
+## Troubleshooting
 
-
-
+See [Resource labels](../troubleshooting_and_faqs/resource-labels.md) for troubleshooting common resource label propagation errors. 
