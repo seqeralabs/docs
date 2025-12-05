@@ -78,7 +78,7 @@ Seqera can manage multiple versions of an existing dataset.
 
 1. Select the three dots next to the dataset you want to add a new version for.
 2. Select **Add version**.
-3. Upload a dataset to your workspace with drag-and-drop or use the system "Upload file" file explorer dialog.
+3. Upload a dataset to your workspace with drag-and-drop or use the system **Upload file** file explorer dialog.
 4. For datasets that use their first row for column names, customize the dataset view using the **Set first row as header** option.
 5. Select **Add**.
 
