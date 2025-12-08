@@ -5,7 +5,7 @@ date: "08 May 2025"
 tags: [data, explorer]
 ---
 
-With Data Explorer, you can browse and interact with remote data repositories from organization workspaces in Seqera Platform. It supports AWS S3, Azure Blob Storage, Google Cloud Storage, and Amazon S3-compatible API storage (for example, but not limited to, Cloudflare R2, MinIO, and Oracle Cloud).
+With Data Explorer, you can browse and interact with remote data repositories from organization workspaces in Seqera Platform. It supports AWS S3, Azure Blob Storage, Google Cloud Storage, and Amazon S3-compatible API storage (for example, but not limited to, Cloudflare R2, MinIO, Nebius, and Oracle Cloud).
 
 Access the **Data Explorer** tab from any workspace to view and manage all available data repositories. It is also integrated with the pipeline launch form and run detail pages and Studios, which allow you to select input data files and output directories or quickly view the output files of a run and directly use files in object storage for interactive analysis.
 
@@ -231,5 +231,13 @@ Google Cloud Storage only supports CORS configuration via gcloud CLI.
   "maxAgeSeconds": 3600
 }
 ```
+
+## Limitations
+
+Using remote data repositories as inputs for pipelines or Studios currently requires the same credentials as the underlying Seqera Platform compute environment. This means that you currently **cannot** use data from S3-compatible object storage providers as inputs for pipelines or Studios because they don't offer configurable compute environments (eg. MinIO, Nebius).
+
+:::note
+Compute environment and Fusion multi-credential support will resolve this existing limitation, and is under active development.
+:::
 
 [roles]: ../orgs-and-teams/roles
