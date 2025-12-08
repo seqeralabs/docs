@@ -23,7 +23,7 @@ Fusion Snapshots is available for the following cloud providers:
 
 ## Incremental snapshots
 
-On x86_64 instances only, Fusion Snapshots automatically perform incremental snapshots to optimize performance. They capture changed memory pages between checkpoints, reducing snapshot time and data transfer.
+Incremental snapshots optimize performance by capturing only changed memory pages between checkpoints. This reduces snapshot time and data transfer. Fusion Snapshots automatically perform incremental snapshots on x86_64 instances.
 
 Key features of incremental snapshots include:
 
