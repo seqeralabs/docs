@@ -5,6 +5,10 @@ date created: "2025-11-14"
 tags: [pipelines, versioning, nextflow, parameters]
 ---
 
+:::info 
+Pipeline versioning is a preview feature in active development. [Contact Seqera support](https://support.seqera.io/) to enable the feature in your organization workspaces. 
+:::
+
 Seqera's pipeline versioning system captures configuration changes as new draft versions of the pipeline, ensuring configuration traceability and execution reproducibility. Users with appropriate permissions can edit and publish draft versions, creating published versions that teams can reference and launch consistently.
 When you add a new pipeline to Seqera, the first default version of that pipeline is automatically published.
 
