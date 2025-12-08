@@ -17,6 +17,8 @@ Fusion Snapshots require the following Seqera Platform compute environment confi
 
 - **Provider**: Google Batch
 - **Work directory**: GCS bucket in the same region as compute resources
+- **Fusion**: Enabled
+- **Wave**: Enabled
 - **Fusion Snapshots (beta)**: Enabled
 - **Provisioning model**: Spot
 
