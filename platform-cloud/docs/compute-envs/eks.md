@@ -69,7 +69,7 @@ After you have prepared your Kubernetes cluster and assigned a service account r
 1. Add the IAM user **Access key** and **Secret key**. This is the IAM user with the service account role detailed in the previous section.
 1. (Optional) Under **Assume role**, specify the IAM role to be assumed by the Seqera IAM user to access the compute environment AWS resources.
     :::note
-    When using AWS keys without an assumed role, the associated AWS user account must have Seqera [Launch](https://github.com/seqeralabs/nf-tower-aws/tree/master/launch) and [Forge](https://github.com/seqeralabs/nf-tower-aws/tree/master/forge) permissions. When an assumed role is provided, the keys are only used to retrieve temporary credentials impersonating the role specified. In this case, Seqera [Launch](https://github.com/seqeralabs/nf-tower-aws/tree/master/launch) and [Forge](https://github.com/seqeralabs/nf-tower-aws/tree/master/forge) permissions must be granted to the role instead of the user account.
+    When using AWS keys without an assumed role, the associated AWS user account must have all the appropriate [IAM permissions](./aws-batch.md#required-platform-iam-permissions). When an assumed role is provided, the keys are only used to retrieve temporary credentials impersonating the role specified: in this case, the permissions must be granted to the role instead of the user account, and the user must have the `sts:AssumeRole` permission for the role.
     :::
 1. Select a **Region**, e.g., _eu-west-1 - Europe (Ireland)_.
 1. Select a **Cluster name** from the list of available EKS clusters in the selected region.
@@ -85,9 +85,9 @@ After you have prepared your Kubernetes cluster and assigned a service account r
 1. Apply [**Resource labels**](../resource-labels/overview) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
 1. Expand **Staging options** to include:
     - Optional [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
-    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch. 
+    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch.
     :::info
-    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority. 
+    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
     :::
 1. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
 1. Configure any advanced options described in the next section, as needed.
@@ -191,4 +191,3 @@ To use [Fusion v2](https://docs.seqera.io/fusion) in your Seqera EKS compute env
     See the [AWS documentation](https://docs.aws.amazon.com/eks/latest/userguide/associate-service-account-role.html) for further details.
 
 </details>
-
