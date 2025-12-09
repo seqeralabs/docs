@@ -685,6 +685,20 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
     - To use an existing EFS file system, enter the **EFS file system id** and **EFS mount path**. This is the path where the EFS volume is accessible to the compute environment. For simplicity, we recommend that you use `/mnt/efs` as the EFS mount path.
     - To create a new EFS file system, enter the **EFS mount path**. We advise that you specify `/mnt/efs` as the EFS mount path.
     - EFS file systems created by Batch Forge are automatically tagged in AWS with `Name=TowerForge-<id>`, with `<id>` being the compute environment ID. Any manually-added resource label with the key `Name` (capital N) will override the automatically-assigned `TowerForge-<id>` label.
+    - A custom EC2 security group needs to be configured to allow the compute environment to access the EFS file system.
+      * Visit the [AWS Console for Security groups](https://console.aws.amazon.com/ec2/home?#SecurityGroups) and switch to the region where your workload will run.
+      * Select **Create security group**.
+      * Enter a relevant name like `seqera-efs-access-sg` and description, e.g., _EFS access for Seqera Batch compute environment_.
+      * Empty both **Inbound rules** and **Outbound rules** sections by deleting default rules.
+      * Optionally add **Tags** to the security group, then select **Create security group**.
+      * After creating the security group, select it from the security groups list, then select the **Inbound rules** tab and select **Edit inbound rules**.
+      * Select **Add rule** and configure the new rule as follows:
+        - **Type**: `NFS`
+        - **Source**: `Custom` and enter the security group ID that you're editing (you can search for it by name, e.g., `seqera-efs-access-sg`). This allows resources associated with the same security group to communicate with each other.
+      * Select **Save rules** to finalize the inbound rule configuration.
+      * Repeat the same steps to add an outbound rule to only allow outbound NFS traffic, or grant all outbound traffic (set type `All traffic` and destination `Anywhere-IPv4`/`Anywhere-IPv6`) if your CE requires internet access.
+      * See the [AWS documentation about EFS security groups](https://docs.aws.amazon.com/efs/latest/ug/network-access.html) for more information.
+      * The Security group then needs to be defined in the **Advanced options** below to allow the compute environment to access the EFS file system.
     :::warning
     EFS file systems are compatible with [Studios](../studios/overview), **except** when using the EFS file system as your **work directory**.
     :::
@@ -695,8 +709,27 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
     - To use an existing FSx file system, enter the **FSx DNS name** and **FSx mount path**. The FSx mount path is the path where the FSx volume is accessible to the compute environment. For simplicity, we recommend that you use `/mnt/fsx` as the FSx mount path.
     - To create a new FSx file system, enter the **FSx size** (in GB) and the **FSx mount path**. We advise that you specify `/mnt/fsx` as the FSx mount path.
     - FSx file systems created by Batch Forge are automatically tagged in AWS with `Name=TowerForge-<id>`, with `<id>` being the compute environment ID. Any manually-added resource label with the key `Name` (capital N) will override the automatically-assigned `TowerForge-<id>` label.
+    - A custom EC2 security group needs to be configured to allow the compute environment to access the FSx file system.
+      * Visit the [AWS Console for Security groups](https://console.aws.amazon.com/ec2/home?#SecurityGroups) and switch to the region where your workload will run.
+      * Select **Create security group**.
+      * Enter a relevant name like `seqera-fsx-access-sg` and description, e.g., _FSx access for Seqera Batch compute environment_.
+      * Empty both **Inbound rules** and **Outbound rules** sections by deleting default rules.
+      * Optionally add **Tags** to the security group, then select **Create security group**.
+      * After creating the security group, select it from the security groups list, then select the **Inbound rules** tab and select **Edit inbound rules**.
+      * Select **Add rule** and configure the new rule as follows:
+        - **Type**: `Custom TCP`
+        - **Port range**: `988`
+        - **Source**: `Custom` and enter the security group ID that you're editing (you can search for it by name, e.g., `seqera-fsx-access-sg`). This allows resources associated with the same security group to communicate with each other.
+      * Repeat the step to add another rule with:
+        - **Type**: `Custom TCP`
+        - **Port range**: `1018-1023`
+        - **Source**: `Custom`, same as above.
+      * Select **Save rules** to finalize the inbound rule configuration.
+      * Repeat the same steps to add an outbound rule to only allow outbound Lustre traffic, or grant all outbound traffic (set type `All traffic` and destination `Anywhere-IPv4`/`Anywhere-IPv6`) if your CE requires internet access.
+      * See the [AWS documentation about FSx security groups](https://docs.aws.amazon.com/fsx/latest/LustreGuide/limit-access-security-groups.html) for more information.
+      * The Security group then needs to be defined in the **Advanced options** below to allow the compute environment to access the FSx file system.
    - You may need to install the `lustre` client in the AMI used by your compute environment to access FSx file systems. See [Installing the Lustre client](https://docs.aws.amazon.com/fsx/latest/LustreGuide/install-lustre-client.html) for more information.
-    - A security group needs to be configured to allow the compute environment to access the FSx file system. See the [AWS documentation about FSx for Lustre security groups](https://docs.aws.amazon.com/fsx/latest/LustreGuide/limit-access-security-groups.html).
+
 1. Select **Dispose resources** to automatically delete all AWS resources created by Seqera Platform when you delete the compute environment, including EFS/FSx file systems.
 1. Apply [**Resource labels**](../resource-labels/overview) to the cloud resources produced by this compute environment. Workspace default resource labels are prefilled.
 1. Expand **Staging options** to include:
@@ -729,6 +762,8 @@ Seqera Platform compute environments for AWS Batch include advanced options to c
     :::
 
 - Configure a custom networking setup using the **VPC ID**, **Subnets**, and **Security groups** fields.
+  * If not defined, the default VPC, subnets, and security groups for the selected region will be used.
+  * When using EFS or FSx file systems, select the security group previously created to allow access to the file system. The VPC ID the security group belongs to needs to match the VPC ID defined for the Seqera Batch compute environment.
 - You can specify a custom **AMI ID**.
 
     :::note
