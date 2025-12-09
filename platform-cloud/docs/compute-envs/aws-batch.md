@@ -696,7 +696,7 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
         - **Type**: `NFS`
         - **Source**: `Custom` and enter the security group ID that you're editing (you can search for it by name, e.g., `seqera-efs-access-sg`). This allows resources associated with the same security group to communicate with each other.
       * Select **Save rules** to finalize the inbound rule configuration.
-      * Repeat the same steps to add an outbound rule to only allow outbound NFS traffic, or grant all outbound traffic (set type `All traffic` and destination `Anywhere-IPv4`/`Anywhere-IPv6`) if your CE requires internet access.
+      * Repeat the same steps to add an outbound rule to allow all outbound traffic: set type `All traffic` and destination `Anywhere-IPv4`/`Anywhere-IPv6`.
       * See the [AWS documentation about EFS security groups](https://docs.aws.amazon.com/efs/latest/ug/network-access.html) for more information.
       * The Security group then needs to be defined in the **Advanced options** below to allow the compute environment to access the EFS file system.
     :::warning
@@ -725,7 +725,7 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
         - **Port range**: `1018-1023`
         - **Source**: `Custom`, same as above.
       * Select **Save rules** to finalize the inbound rule configuration.
-      * Repeat the same steps to add an outbound rule to only allow outbound Lustre traffic, or grant all outbound traffic (set type `All traffic` and destination `Anywhere-IPv4`/`Anywhere-IPv6`) if your CE requires internet access.
+      * Repeat the same steps to add an outbound rule to allow all outbound traffic: set type `All traffic` and destination `Anywhere-IPv4`/`Anywhere-IPv6`.
       * See the [AWS documentation about FSx security groups](https://docs.aws.amazon.com/fsx/latest/LustreGuide/limit-access-security-groups.html) for more information.
       * The Security group then needs to be defined in the **Advanced options** below to allow the compute environment to access the FSx file system.
    - You may need to install the `lustre` client in the AMI used by your compute environment to access FSx file systems. See [Installing the Lustre client](https://docs.aws.amazon.com/fsx/latest/LustreGuide/install-lustre-client.html) for more information.
