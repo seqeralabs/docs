@@ -19,7 +19,7 @@ You will need the following to get started:
 
 - [Admin](../orgs-and-teams/roles) permissions in an existing organization workspace. See [Set up your workspace](./workspace-setup) to create an organization and workspace from scratch.
 - An existing AWS cloud account with access to the AWS Batch service.
-- Existing access credentials with permissions to create and manage resources in your AWS account. See [IAM](../compute-envs/aws-batch#iam) for guidance to set up IAM permissions for Platform. 
+- Existing access credentials with permissions to create and manage resources in your AWS account. See [IAM](../compute-envs/aws-batch#required-platform-iam-permissions) for guidance to set up IAM permissions for Platform. 
 :::
 
 ## Compute environment
