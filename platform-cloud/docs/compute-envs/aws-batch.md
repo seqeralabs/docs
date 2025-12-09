@@ -64,7 +64,9 @@ Make sure the [lustre client](https://docs.aws.amazon.com/fsx/latest/LustreGuide
 
 ## Required Platform IAM permissions
 
-To create and launch pipelines or Studio sessions with this compute environment type, you must provide an IAM user with specific permissions. Some permissions are mandatory for the compute environment to be created and function correctly, while others are optional and used for example to provide list of values to pick from in the Platform UI.
+To create and launch pipelines, explore buckets with Data Explorer or run Studio sessions with the AWS Batch compute environment, an IAM user with specific permissions must be provided. Some permissions are mandatory for the compute environment to be created and function correctly, while others are optional and used for example to provide list of values to pick from in the Platform UI.
+
+Permissions can be attached directly to an [IAM user](#iam-user-creation), or to an [IAM role](#iam-role-creation-optional) that the IAM user can assume when accessing AWS resources.
 
 A permissive and broad policy with all the required permissions is provided here for a quick start. However, we recommend following the principle of least privilege and only granting the necessary permissions for your use case, as shown in the following sections.
 
@@ -398,7 +400,7 @@ The policy can be scoped down to only allow limited Read/Write permissions in ce
 If you opted to create a separate S3 bucket only for Nextflow work directories, there is no need for the IAM user to have access to it: if Platform is allowed to manage resources (using Batch Forge) the IAM roles automatically created will have the necessary permissions; if you set up the compute environment manually, you can create the required IAM roles with the necessary permissions as detailed in the [manual AWS Batch setup documentation](../enterprise/advanced-topics/manual-aws-batch-setup).
 :::
 
-### IAM roles creation (optional)
+### IAM roles for AWS Batch (optional)
 
 Seqera can automatically create the IAM roles needed to interact with AWS Batch and other AWS services. You can opt out of this behavior by creating the required IAM roles manually and providing their ARNs during compute environment creation in Platform: refer to the [documentation](../enterprise/advanced-topics/manual-aws-batch-setup) for more details on how to manually set up IAM roles.
 
@@ -506,7 +508,7 @@ This section of the policy is optional and can be omitted if EFS file systems ar
 
 ### Pipeline secrets (optional)
 
-Seqera can synchronize [pipeline secrets](../secrets/overview) defined on the Platform workspace with AWS Secrets Manager, which requires additional permissions on the IAM User. If you do not plan to use pipeline secrets, you can omit this section of the policy.
+Seqera can synchronize [pipeline secrets](../secrets/overview) defined on the Platform workspace with AWS Secrets Manager, which requires additional permissions on the IAM user. If you do not plan to use pipeline secrets, you can omit this section of the policy.
 
 The listing of secrets cannot be restricted, but the management actions can be restricted to only allow managing secrets in a specific account and region, which must be the same region where the pipeline runs. Note that Seqera only creates secrets with the `tower-` prefix.
 
@@ -533,26 +535,40 @@ The listing of secrets cannot be restricted, but the management actions can be r
 
 To successfully use pipeline secrets, the IAM roles manually created must follow the steps detailed in the [documentation](../secrets/overview#aws-secrets-manager-integration).
 
-## IAM user creation
+## Create the IAM policy
 
-Seqera requires an Identity and Access Management (IAM) User to create and manage AWS Batch resources in your AWS account.
-
-Depending whether you choose to let Seqera automatically create the required AWS Batch resources in your account, or prefer to set them up manually, the IAM User must have specific permissions as detailed in the [Required Platform IAM permissions](#required-platform-iam-permissions) section.
-
-### Create an IAM policy
+The policy above must be created in the AWS account where the AWS Batch resources need to be created.
 
 1. Open the [AWS IAM console](https://console.aws.amazon.com/iam) in the account where you want to create the AWS Batch resources.
 1. From the left navigation menu, select **Policies** under **Access management**.
 1. Select **Create policy**.
 1. On the **Policy editor** section, select the **JSON** tab.
-1. Following the instructions detailed in the [IAM permissions breakdown section](#required-platform-iam-permissions) replace the default text in the policy editor area under the JSON tab with a policy adapted to your use case, then select **Next**. Carefully review the policy to ensure it includes all the necessary permissions for your intended use case.
+1. Following the instructions detailed in the [IAM permissions breakdown section](#required-platform-iam-permissions) replace the default text in the policy editor area under the **JSON** tab with a policy adapted to your use case, then select **Next**.
 1. Enter a name and description for the policy on the **Review and create** page, then select **Create policy**.
+
+## IAM user creation
+
+Seqera requires an Identity and Access Management (IAM) User to create and manage AWS Batch resources in your AWS account.
+
+In certain scenarios, for example when multiple users need to access the same AWS account and provision AWS Batch resources, an IAM role with the required permissions can be created instead, and the IAM user can assume that role when accessing AWS resources, as detailed in the [IAM role creation (optional)](#iam-role-creation-optional) section.
+
+Depending whether you choose to let Seqera automatically create the required AWS Batch resources in your account, or prefer to set them up manually, the IAM user must have specific permissions as detailed in the [Required Platform IAM permissions](#required-platform-iam-permissions) section. Alternatively, you can create an IAM role with the required permissions and allow the IAM user to assume that role when accessing AWS resources, as detailed in the [IAM role creation (optional)](#iam-role-creation-optional) section.
 
 ### Create an IAM user
 
 1. From the [AWS IAM console](https://console.aws.amazon.com/iam), select **Users** in the left navigation menu, then select **Create User** at the top right of the page.
 1. Enter a name for your user (e.g., _seqera_) and select **Next**.
 1. Under **Permission options**, select **Attach policies directly**, then search for and select the policy created above, and select **Next**.
+   * If you prefer to make the IAM user assume a role to manage AWS resources (see the [IAM role creation (optional)](#iam-role-creation-optional) section), create a policy with the following content (edit the AWS principal with the ARN of the role created) and attach it to the IAM user:
+
+   ```json
+   {
+     "Sid": "AssumeRoleToManageBatchResources",
+     "Effect": "Allow",
+     "Action": "sts:AssumeRole",
+     "Resource": "arn:aws:iam::<ACCOUNT_ID>:role/<IAM_ROLE_NAME>"
+   }
+   ```
 1. On the last page, review the user details and select **Create user**.
 
 The user has now been created. The most up-to-date instructions for creating an IAM user can be found in the [AWS documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html).
@@ -566,6 +582,33 @@ To get the credentials needed to connect Seqera to your AWS account, follow thes
 1. In the **Use case** dialog that appears, select **Command line interface (CLI)**, then tick the confirmation checkbox at the bottom to acknowledge that you want to proceed creating an access key, and select **Next**.
 1. Optionally provide a description for the access key, like the reason for creating it, then select **Create access key**.
 1. Save the **Access key** and **Secret access key** in a secure location as you will need to provide them when creating credentials in Seqera.
+
+## IAM role creation (optional)
+
+Rather than attaching permissions directly to the IAM user, you can create an IAM role with the required permissions and allow the IAM user to assume that role when accessing AWS resources. This is useful when multiple IAM users are used to access the same AWS account: this way the actual permissions to operate on the resources are only granted to a single centralized role.
+
+1. From the [AWS IAM console](https://console.aws.amazon.com/iam), select **Roles** in the left navigation menu, then select **Create role** at the top right of the page.
+1. Select **Custom trust policy** as the type of trusted entity, provide the following policy and edit the AWS principal with the ARN of the IAM user created in the [IAM user creation](#iam-user-creation) section, then select **Next**.
+   ```json
+   {
+     "Version": "2012-10-17",
+     "Statement": [
+       {
+         "Effect": "Allow",
+         "Principal": {
+           "AWS": [
+              "arn:aws:iam::<ACCOUNT_ID>:user/<IAM_USER_NAME>"
+            ]
+         },
+         "Action": "sts:AssumeRole"
+       }
+     ]
+   }
+   ```
+1. On the **Permissions** page, search for and select the policy created in the [IAM user creation](#iam-user-creation) section, then select **Next**.
+1. Give the role a name and optionally a description, review the details of the role, optionally provide tags to help you identify the role, then select **Create role**.
+
+Multiple users can be specified in the trust policy by adding more ARNs to the `Principal` section.
 
 ## Automatic configuration of Batch resources
 
@@ -596,7 +639,7 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
 1. Add the **Access key** and **Secret key** you [previously obtained](#obtain-iam-user-credentials) when you created the Seqera IAM user.
 1. (Optional) Under **Assume role**, specify the IAM role to be assumed by the Seqera IAM user to access the compute environment's AWS resources.
     :::note
-    When using AWS keys without an assumed role, the associated AWS user must have been granted permissions to operate on the cloud resources directly. When an assumed role is provided, the IAM User keys are only used to retrieve temporary credentials impersonating the role specified: this could be useful when e.g. multiple IAM Users are used to access the same AWS account, and the actual permissions to operate on the resources are only granted to the role.
+    When using AWS keys without an assumed role, the associated AWS user must have been granted permissions to operate on the cloud resources directly. When an assumed role is provided, the IAM user keys are only used to retrieve temporary credentials impersonating the role specified: this could be useful when e.g. multiple IAM users are used to access the same AWS account, and the actual permissions to operate on the resources are only granted to the role.
     :::
 1. Select a **Region**, e.g., _eu-west-1 - Europe (Ireland)_. This region must match the location of the S3 bucket or EFS/FSx file system you plan to use as work directory.
 1. In the **Pipeline work directory** field type or select from the dropdown menu the S3 bucket [previously created](#s3-bucket-creation), e.g., `s3://seqera-bucket`. The work directory can be customized to specify a folder inside the bucket where Nextflow intermediate files will be stored, e.g., `s3://seqera-bucket/nextflow-workdir`. The bucket must be located in the same region chosen in the previous step.
@@ -826,7 +869,7 @@ AWS Batch creates resources that you may be charged for in your AWS account. See
 1. Add the **Access key** and **Secret key** you [previously obtained](#obtain-iam-user-credentials) when you created the Seqera IAM user.
 1. (Optional) Under **Assume role**, specify the IAM role to be assumed by the Seqera IAM user to access the compute environment's AWS resources.
     :::note
-    When using AWS keys without an assumed role, the associated AWS user must have been granted permissions to operate on the cloud resources directly. When an assumed role is provided, the IAM User keys are only used to retrieve temporary credentials impersonating the role specified: this could be useful when e.g. multiple IAM Users are used to access the same AWS account, and the actual permissions to operate on the resources are only granted to the role.
+    When using AWS keys without an assumed role, the associated AWS user must have been granted permissions to operate on the cloud resources directly. When an assumed role is provided, the IAM user keys are only used to retrieve temporary credentials impersonating the role specified: this could be useful when e.g. multiple IAM users are used to access the same AWS account, and the actual permissions to operate on the resources are only granted to the role.
     :::
 1. Select a **Region**, e.g., _eu-west-1 - Europe (Ireland)_. This region must match the region where your S3 bucket or EFS/FSx work directory is located to avoid high data transfer costs.
 1. Enter or select from the dropdown menu the S3 bucket [previously created](#s3-bucket-creation) in the **Pipeline work directory** field, e.g., `s3://seqera-bucket`. This bucket must be in the same region chosen in the previous step to avoid incurring high data transfer costs. The work directory can be customized to specify a folder inside the bucket, e.g., `s3://seqera-bucket/nextflow-workdir`.
