@@ -29,3 +29,8 @@
   Description: > 
     Disable the [stepped launch form](https://docs.seqera.io/platform-cloud/launch/launchpad#launch-form) in the workspaces specified. Omit or set empty (`TOWER_STEPPED_LAUNCH_FORM_ALLOWED_WORKSPACES=`) to enable the new launch form in all workspaces, or provide a comma-separated list of workspace IDs to enable the form per workspace. 
   Value:                'Default: Enabled for all workspaces'
+-
+  Environment variable:            '`TOWER_PIPELINE_VERSIONING_ALLOWED_WORKSPACES`'
+  Description: > 
+    Enable [pipeline versioning](https://docs.seqera.io/platform-enterprise/pipelines/versioning) in the workspaces specified. Accepts a comma-separated list of workspace IDs.
+  Value:                'Default: Disabled for all workspaces'
