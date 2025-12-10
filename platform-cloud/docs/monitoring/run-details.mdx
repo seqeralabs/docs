@@ -2,8 +2,8 @@
 title: "Run details"
 description: "Monitoring a Nextflow pipeline executed through Seqera Platform."
 date created: "2023-04-21"
-last updated: "2025-08-18"
-tags: [logging, monitoring, workflows, execution]
+last updated: "2025-08-01"
+tags: [logging, monitoring, runs, details, workflow, execution]
 ---
 
 import Tabs from '@theme/Tabs';
@@ -16,17 +16,17 @@ Select a workflow run from the **Runs** list to open a run details page.
 The top of the page contains basic run details and a progress overview for an at-a-glance view of the run's status:
 - View and copy the run ID, pipeline name and repository, pipeline work directory, compute environment, and launch date.
 - Select the star icon to favorite the run and find it more easily via a filter view in the runs list later.
-- Use the options menu to apply labels, relaunch, resume, or delete the run, or to save the run as a new pipeline.
+- Use the options menu to apply labels, relaunch, resume, or delete the run, save the run as a new pipeline, or publish a new pipeline [version](../pipelines/versioning) (if the run was launched from an unnamed draft).
 
 Select the tabs below the workflow run progress bar to view further run details:
-- **Tasks**: View the status and progress of pipeline tasks and [processes](#processes), including extensive [task details](#tasks)
-- **Logs**: View and download the pipeline run's execution logs
-- **Metrics**: View resource [metrics](#wall-time) for the run 
-- **Configuration**: View Nextflow configuration files and the resolved [configuration](#configuration) used for the run
-- **Datasets**: View [datasets](../data/datasets) used as input for the run, if any
-- **Reports**: View [reports](../reports/overview) for the run, if any were configured
-- **Containers**: View the details of containers used in the run, if any
-- **Run Info**: View details about the [run](#run-details), [infrastructure](#infrastructure-details), and [executor](#executors-details)
+- **Tasks**: View the status and progress of pipeline tasks and [processes](#processes), including extensive [task details](#tasks).
+- **Logs**: View and download the pipeline run's execution logs.
+- **Metrics**: View resource [metrics](#wall-time) for the run.
+- **Configuration**: View Nextflow configuration files and the resolved [configuration](#configuration) used for the run.
+- **Datasets**: View [datasets](../data/datasets) used as input for the run, if any.
+- **Reports**: View [reports](../reports/overview) for the run, if any were configured.
+- **Containers**: View the details of containers used in the run, if any.
+- **Run Info**: View details about the [run](#run-details), [infrastructure](#infrastructure-details), and [executor](#executors-details).
 
 <Tabs>
 <TabItem value="Tasks" label="Tasks" default>
@@ -164,7 +164,7 @@ This tab contains the image and build details of the container used to execute t
 </TabItem>
 <TabItem value="Logs" label="Logs" default>
 
-The **Logs** tab contains a window with the Nextflow execution log console output. Select **Download log files** to download: 
+The **Logs** tab contains a window with the Nextflow execution log console output. Select **Download log files** to download:
 - Nextflow console output, in TXT format.
 - Nextflow log file, in LOG format.
 - Execution timeline graph, in HTML format.
@@ -178,7 +178,7 @@ The cards at the top of the **Metrics** tab display a real-time summary of the r
                         
 #### Wall time
 
-Wall time is the duration of the entire workflow run, from submission to completion. While the run is in progress, wall time is a measure of the time elapsed since run start. 
+Wall time is the duration of the entire workflow run, from submission to completion. While the run is in progress, wall time is a measure of the time elapsed since run start.
 
 #### CPU time
 
@@ -210,7 +210,7 @@ See also: **readBytes** and **writeBytes** in the task table.
 
 #### Estimated cost
 
-An estimated cost for the run. See [Seqera cost estimate](../monitoring/cloud-costs#seqera-cost-estimate) for details. 
+An estimated cost for the run. See [Seqera cost estimate](../monitoring/cloud-costs#seqera-cost-estimate) for details.
 
 #### Load
 
@@ -251,7 +251,7 @@ Hover the cursor over each box plot to show more details.
 </TabItem>
 <TabItem value="Configuration" label="Configuration" default>
 
-The **Configuration** tab contains information about the pipeline parameters, Nextflow configuration, and Nextflow command used for the run. 
+The **Configuration** tab contains information about the pipeline parameters, Nextflow configuration, and Nextflow command used for the run.
 
 #### Parameters 
 
@@ -263,20 +263,20 @@ The **Parameters** window displays the pipeline parameters configured for the ru
 
 ![Configuration](./_images/configuration.png)
 
-The **Configuration** window displays the locations of the Nextflow configuration files used for the run, and the resolved configuration resulting from those configuration files. 
+The **Configuration** window displays the locations of the Nextflow configuration files used for the run, and the resolved configuration resulting from those configuration files.
 
 #### Command
 
 ![Nextflow command](./_images/command.png)
 
-The **Command** window displays the Nextflow command used for the run. 
+The **Command** window displays the Nextflow command used for the run.
 
 </TabItem>
 <TabItem value="Datasets" label="Datasets" default>
 
 ![Datasets](./_images/datasets.png)
 
-The **Datasets** tab displays information about the [datasets](../data/datasets) used as input for the run. This view is empty if no datasets were selected. 
+The **Datasets** tab displays information about the [datasets](../data/datasets) used as input for the run. This view is empty if no datasets were selected.
 
 </TabItem>
 <TabItem value="Reports" label="Reports" default>
@@ -309,7 +309,7 @@ The **Containers** tab displays the details of containers used in the run, if an
 </TabItem>
 <TabItem value="Run Info" label="Run Info" default>
 
-The **Run Info** tab contains at-a-glance details about the run, infrastructure, and executor. Hover over the information icon next to a card's name to view a value description. Select the icons next to any run detail values to copy them. 
+The **Run Info** tab contains at-a-glance details about the run, infrastructure, and executor. Hover over the information icon next to a card's name to view a value description. Select the icons next to any run detail values to copy them.
 
 #### Run details 
 
@@ -317,14 +317,15 @@ The **Run Info** tab contains at-a-glance details about the run, infrastructure,
 
 The **Run details** view displays basic run details: 
 
-- **Pipeline** name. Select **View pipeline details** to navigate to the pipeline's details page. 
+- **Pipeline** name. Select **View pipeline details** to navigate to the pipeline details page.
+- **Pipeline version** information. Select **View version** to navigate to the pipeline details page.
 - **Workflow repository**. Select **View repository** to navigate to the pipeline Git repository.
-- Run **ID**. 
+- Run **ID**.
 - **Run start time**.
 - **Total run duration**.
-- **Launch user**. Select **View user runs** to view a list of the launch user's runs in the same workspace. 
+- **Launch user**. Select **View user runs** to view a list of the launch user's runs in the same workspace.
 - **Executor(s)** used for the run (AWS Batch, Azure Batch, etc.).
-- **Revision and Git commit ID**. The pipeline version and Git commit ID associated with the version used for the run. 
+- **Revision and Git commit ID**. The pipeline version and Git commit ID associated with the version used for the run.
 
 #### Infrastructure details 
 
@@ -333,18 +334,18 @@ The **Run details** view displays basic run details:
 The **Infrastructure details** view displays compute environment and work directory information:
 
 - **Compute environment** name. Select **Preview** to view a window with basic compute environment details, or **View** to navigate to the compute environment page.
-- **(Provider) operation ID**. The unique identifier for the task submitted to the cloud provider or compute platform, such as an AWS Batch operation ID. 
+- **(Provider) operation ID**. The unique identifier for the task submitted to the cloud provider or compute platform, such as an AWS Batch operation ID.
 - **Work directory**. Select **View** to browse the work directory in Data Explorer.
-- **Compute environment ID**. 
+- **Compute environment ID**.
 
 #### Executor(s) details 
 
 ![Infrastructure details](./_images/executor-details.png)
 
 View run executor details: 
-- The **Nextflow version** and **Nextflow session ID** for the run
-- The version of [**Fusion**](https://docs.seqera.io/fusion) used in the run, if enabled
-- Whether the run used [**Wave**](https://docs.seqera.io/wave) (**Enabled** or **Disabled**)
+- The **Nextflow version** and **Nextflow session ID** for the run.
+- The version of [**Fusion**](https://docs.seqera.io/fusion) used in the run, if enabled.
+- Whether the run used [**Wave**](https://docs.seqera.io/wave) (**Enabled** or **Disabled**).
 
 </TabItem>
 </Tabs>
