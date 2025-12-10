@@ -109,6 +109,28 @@ export default async function createConfigAsync() {
       sidebarPath: "./multiqc_docs/sidebar.js",
     },
   ];
+
+  const docs_nextflow = [
+    "@docusaurus/plugin-content-docs",
+    {
+      id: "nextflow",
+      routeBasePath: "/nextflow",
+      path: "nextflow_docs/nextflow_repo/docs",
+      remarkPlugins: [
+        (await import("remark-code-import")).default,
+        (await require("remark-math")).default,
+        (await import("docusaurus-remark-plugin-tab-blocks")).default,
+        (await require("remark-yaml-to-table")).default,
+        (await require("remark-sectionize")).default,
+      ],
+      rehypePlugins: [(await require("rehype-katex")).default],
+      editUrl: ({ docPath }) => {
+        return `https://github.com/nextflow-io/nextflow/blob/master/docs${docPath.replace('nextflow_docs/nextflow_repo/docs', '')}`
+      },
+      sidebarPath: "./nextflow_docs/sidebar.json",
+    },
+  ];
+
   const docs_fusion = [
     "@docusaurus/plugin-content-docs",
     {
@@ -120,6 +142,7 @@ export default async function createConfigAsync() {
         (await require("remark-math")).default,
         (await import("docusaurus-remark-plugin-tab-blocks")).default,
         (await require("remark-yaml-to-table")).default,
+        (await require("remark-code-import")).default,
       ],
       rehypePlugins: [(await require("rehype-katex")).default],
       editUrl: "https://github.com/seqeralabs/docs/tree/master/",
@@ -159,6 +182,7 @@ export default async function createConfigAsync() {
     "\n  EXCLUDE_PLATFORM_OPENAPI: " +
       (process.env.EXCLUDE_PLATFORM_OPENAPI ? true : false),
     "\n  EXCLUDE_MULTIQC: " + (process.env.EXCLUDE_MULTIQC ? true : false),
+    "\n  EXCLUDE_NEXTFLOW: " + (process.env.EXCLUDE_NEXTFLOW ? true : false),
     "\n  EXCLUDE_FUSION: " + (process.env.EXCLUDE_FUSION ? true : false),
     "\n  EXCLUDE_WAVE: " + (process.env.EXCLUDE_WAVE ? true : false),
     "\n  INCLUDE_NEXT: " + (process.env.INCLUDE_NEXT ? true : false),
@@ -222,6 +246,9 @@ export default async function createConfigAsync() {
       defaultLocale: "en",
       locales: ["en"],
     },
+    markdown: {
+      mermaid: true,
+    },
     themes: [
       "docusaurus-theme-openapi-docs",
       "docusaurus-theme-search-typesense",
@@ -241,6 +268,7 @@ export default async function createConfigAsync() {
               require.resolve("./src/css/def-list.css"),
               require.resolve("./src/css/components/checklist.css"),
               require.resolve("./src/css/components/box.css"),
+              require.resolve("./src/css/components/indentSection.css"),
               require.resolve("./src/css/theme-colors.css"),
               require.resolve("./src/css/api.css"),
               require.resolve("./src/css/fonts/inter.css"),
@@ -263,6 +291,7 @@ export default async function createConfigAsync() {
       process.env.EXCLUDE_PLATFORM_API ? null : docs_platform_api,
       process.env.EXCLUDE_PLATFORM_OPENAPI ? null : docs_platform_openapi,
       process.env.EXCLUDE_MULTIQC ? null : docs_multiqc,
+      process.env.EXCLUDE_NEXTFLOW ? null : docs_nextflow,
       process.env.EXCLUDE_FUSION ? null : docs_fusion,
       process.env.EXCLUDE_WAVE ? null : docs_wave,
 
@@ -347,9 +376,8 @@ export default async function createConfigAsync() {
             docsPluginId: "platform-enterprise",
           },
           {
-            to: "https://www.nextflow.io/docs/latest/",
-            html: 'Nextflow <svg width="12" height="12" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU" style="margin-left:6px;opacity:0.6;"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg>',
-            position: "left",
+            to: "/nextflow",
+            label: "Nextflow",
             target: "_blank",
           },
           {
