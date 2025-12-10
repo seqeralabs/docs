@@ -153,7 +153,7 @@ export default async function createConfigAsync() {
     {
       id: "mcp",
       routeBasePath: "/mcp",
-      path: "mcp_docs/mcp_repo/docs",
+      path: "mcp_docs",
       remarkPlugins: [
         (await import("remark-code-import")).default,
         (await require("remark-math")).default,
@@ -161,9 +161,7 @@ export default async function createConfigAsync() {
         (await require("remark-yaml-to-table")).default,
       ],
       rehypePlugins: [(await require("rehype-katex")).default],
-      editUrl: ({ docPath }) => {
-        return `https://github.com/seqeralabs/mcp/blob/master/docs/${docPath}`;
-      },
+      editUrl: "https://github.com/seqeralabs/docs/tree/master/",
       sidebarPath: "./mcp_docs/sidebar.json",
     },
   ];
