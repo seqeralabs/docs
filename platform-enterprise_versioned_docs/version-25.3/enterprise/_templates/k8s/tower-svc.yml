@@ -36,6 +36,9 @@ spec:
           env:
             - name: MICRONAUT_ENVIRONMENTS
               value: "prod,redis,ha"
+            # Configuration to optimize JVM memory settings. See https://docs.seqera.io/platform-enterprise/25.2/enterprise/configuration/overview#backend-memory-requirements
+            - name: JAVA_OPTS
+              value: "-Xms1000M -Xmx2000M -XX:MaxDirectMemorySize=800m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144"            
             # TLS certificate for Studios
             #- name: TOWER_OIDC_PEM_PATH
             #  value: '/data/certs/oidc.pem'
