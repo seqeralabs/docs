@@ -1,62 +1,54 @@
 ---
 title: "Custom environments"
 description: "Custom environments for Studios"
-date: "1 Oct 2024"
+date created: "2024-10-01"
+last updated: "2025-09-30"
 tags: [environments, custom, studio, studio]
 ---
 
-In addition to the Seqera-provided container template images, you can provide your own custom container environments by augmenting the Seqera-provided images with a list of Conda packages or by providing your own base container template image.
-
-Studios uses the [Wave][wave-home] service to build custom container template images.
+In addition to the Seqera-provided container images, you can provide your own custom container environments by augmenting the Seqera-provided images with a list of Conda packages or by providing your own base container image. Studios uses the [Wave][wave-home] service to build custom container images.
 
 ## Conda packages
 
 :::info[**Prerequisites**]
-- Wave must be configured. For more information, see [Wave containers][wave-config].
+
+- Wave must be configured. For more information, see [Wave containers][wave].
+- The workspace Admin needs to set a target repository per workspace, in **Settings > Studios > Container repository**. If no repository configuration is specified, the build will fail. Each workspace must have credentials available to push to the specified repository.
 :::
 
 ### Conda package syntax {#conda-package-syntax}
 
-When adding a new Studio, you can optionally customize the environment configuration to install a list of additional Conda packages to the selected template image. The [supported schema][conda-schema] is identical to that used by a Conda `environment.yml` file, including pinning specific package versions, wildcards, version range, or build name. Not pinning a specific package version will install the latest stable release.
-
-For more information on the Conda environment file, see [Creating an environment file manually][env-manually].
+When adding a new Studio, you can customize its configuration to install a list of Conda packages to the container image. The supported schema is identical to that used by the Conda `environment.yml` file. For more information on the Conda environment file, see [Creating an environment file manually][env-manually].
 
 ```yaml title="Example environment.yml file"
 channels:
   - conda-forge
-  - bioconda
 dependencies:
-  - numpy>1.7,<1.19.2
-  - scipy
+  - numpy
   - pip:
-    - matplotlib=3.10.*
-    - seaborn=0.13.2
+    - matplotlib
+    - seaborn
 ```
-
-Either directly copy and paste your valid YAML code or use **Import from file** to attach an `environment.yml` file.
 
 To create a Studio with custom Conda packages, see [Add a Studio][add-s].
 
-## Custom container template image {#custom-containers}
+## Custom container image {#custom-containers}
 
-For advanced use cases, you can build your own container template image.
+For advanced use cases, you can build your own container image.
 
 :::note
-Public container registries are supported by default. 
-Private container registries have limited support. Only private Amazon Elastic Container Registry (ECR) is supported, and only on AWS-based compute environments, where the registry is in the same AWS account as the compute environment. Access to the ECR is automatically configured when creating the compute environment.
+Public container registries are supported by default. Amazon Elastic Container Registry (ECR) is the only supported private container registry.
 :::
 
 :::info[**Prerequisites**]
 
-- Access to a container image repository, either a public container registry or a private Amazon ECR repository
-- A container template image
+- A container image.
+- Access to a container image repository, either a public container registry or a private Amazon ECR repository.
 :::
 
 ### Dockerfile configuration {#dockerfile}
 
-For your custom template container image, you must use a Seqera-provided base image and include several additional build steps for compatibility with Studios.
-
-To create a Studio with a custom template image, see [Add a Studio][add-s].
+For your custom container image, you must use a Seqera-provided base image and include several additional build steps for compatibility with Studios. To create a Studio with a custom image, see [Add a Studio][add-s].
 
 #### Ports
 
@@ -70,9 +62,9 @@ Upon termination, the container's main process must handle the `SIGTERM` signal 
 
 The minimal Dockerfile includes directives to accomplish the following:
 
-- Pull a Seqera-provided base image with prerequisite binaries
-- Copy the `connect` binary into the build
-- Set the container entry point
+- Pull a Seqera-provided base image with prerequisite binaries.
+- Copy the `connect` binary into the build.
+- Set the container entry point.
 
 Customize the following Dockerfile to include any additional software that you require:
 
@@ -118,33 +110,27 @@ ENTRYPOINT ["/usr/bin/connect-client", "--entrypoint"]
 # highlight-next-line
 CMD ["/usr/bin/bash", "-c", "python3 -m http.server $CONNECT_TOOL_PORT"]
 ```
+### Getting started with custom container images
 
-### Getting started with custom containers template images
-
-You can review a series of example custom studio environment container template images [here][custom-studios-examples].
+You can review a series of example custom Studio environment container images [here][custom-studios-examples].
 
 ### Inspect container augmentation build status {#build-status}
 
-You can inspect the progress of a custom container template image build, including any errors if the build fails. A link to the [Wave service][wave-home] container build report is always available for builds.
-
-If the custom container template image build fails, the Studio session has the **build-failed** status. The details about build failures are available when inspecting the session details in the **Error report** tab.
+You can inspect the progress of a custom container image build, including any errors if the build fails. A link to the [Wave service][wave-home] container build report is always available for builds. If the build fails, the Studio session has the **build-failed** status. The details about build failures are available when inspecting the session details in the **Error report** tab.
 
 To inspect the status of an ongoing build, or a successful or failed build, complete the following steps:
 
 1. Select the **Studios** tab in Seqera Platform.
-1. From the list of sessions, select the name of the session with **building** or **build-failed** status that you want to inspect, and then select **View**.
+1. From the list of sessions, select the name of the session with `building` or `build-failed`status that you want to inspect, and then select **View**.
 1. In the **Details** tab, scroll to **Build reports** and select **Summary** to open the Wave service container build report for your build.
 1. Optional: If the build failed, select the **Error report** tab to view the errors associated with the build failure.
 
 
+
 {/* links */}
-[contact]: https://support.seqera.io/
-[aws-cloud]: ../compute-envs/aws-cloud
-[aws-batch]: ../compute-envs/aws-batch
-[wave-home]: https://seqera.io/wave/
-[wave-config]: https://docs.seqera.io/wave
-[wave-server]: https://seqera.io/wave/
-[conda-schema]: https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/pkg-search.html
-[env-manually]: https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-file-manually
 [add-s]: ./add-studio
+[aws-batch]: ../compute-envs/aws-batch
+[wave]: https://docs.seqera.io/platform-enterprise/enterprise/configuration/wave
 [custom-studios-examples]: https://github.com/seqeralabs/custom-studios-examples
+[wave-home]: https://seqera.io/wave/
+[env-manually]: https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-file-manually
