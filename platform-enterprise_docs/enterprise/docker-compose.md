@@ -41,6 +41,36 @@ The DB or Redis volume is persistent after a Docker restart by default. Use the 
 For more information on configuration, see [Configuration options](./configuration/overview.mdx).
 :::
 
+#### Seqera frontend unprivileged
+
+An unprivileged version of the Seqera frontend image is also available. This image listens on an unprivileged port and therefore doesn't need to be run as the root user.
+
+Replace the tag of the frontend image `cr.seqera.io/private/nf-tower-enterprise/frontend:v24.x.x` with `cr.seqera.io/private/nf-tower-enterprise/frontend:v24.x.x-unprivileged`. Then update the `frontend` section of the `docker-compose.yml` file as follows, replacing the port mappings as needed:
+
+```yaml
+  frontend:
+    image: cr.seqera.io/private/nf-tower-enterprise/frontend:v24.x.x-unprivileged
+    platform: linux/amd64
+    environment:
+      NGINX_LISTEN_PORT: 8001  # If not defined, defaults to 8000
+    networks:
+      - frontend
+    ports:
+      - 8081:8001  # Map host port 8081 to container port 8001
+    restart: always
+    depends_on:
+      - backend
+```
+
+The unprivileged Seqera image will soon deprecate the current image that requires root. The unprivileged image can be easily customized using environment variables:
+
+- `NGINX_LISTEN_PORT`: The port the NGINX process will listen on inside the container. Default: `8000`.
+- `NGINX_LISTEN_PORT_IPV6`: The NGINX listening port to open on the IPv6 address. Default: `8000`.
+- `NGINX_UPSTREAM_HOST`: The hostname of the backend service to which the NGINX process will route requests. Default: `8000`.
+- `NGINX_UPSTREAM_PORT`: The port where the backend service is exposed. Default: `8000`.
+
+If further customization of the config file is needed, mount a config map/secret over the templated NGINX configuration file at `/etc/nginx/templates/tower.conf.template`. See [SSL/TLS](./configuration/ssl_tls#configure-seqera-to-present-a-ssltls-certificate) for an example.
+
 ## Optional features
 
 ### Studios

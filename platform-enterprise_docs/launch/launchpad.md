@@ -19,10 +19,6 @@ The list layout is the default **Launchpad** view. Use the toggle next to the **
 
 ## Launch form
 
-:::note
-The stepped launch form described below is enabled for all user and organization workspaces by default. You can disable the new launch form in some or all organization workspaces with the `TOWER_STEPPED_LAUNCH_FORM_ALLOWED_WORKSPACES` [environment variable](../enterprise/configuration/overview.mdx#core-features). 
-:::
-
 The launch form is used to launch pipelines and to add pipelines to the **Launchpad**. Select **Launch** next to a saved pipeline in the list, or select **launch a run without configuration** to perform a quick launch of an unsaved pipeline.
 
 The launch form consists of [General config](#general-config), [Run parameters](#run-parameters), and [Advanced options](#advanced-options) sections to specify your run parameters before execution, and an execution summary. Use section headings or select the **Previous** and **Next** buttons at the bottom of the page to navigate between sections. 
@@ -39,7 +35,12 @@ The launch form accepts URL query parameters. See [Populate launch form with URL
   :::note
   Nextflow pipelines are Git repositories that can reside on any public or private Git-hosting platform. See [Git integration](../git/overview) in the Seqera docs and [Pipeline sharing](https://www.nextflow.io/docs/latest/sharing.html) in the Nextflow docs for more details.
   :::
-- **Revision number**: A valid repository commit ID, tag, or branch name. For saved pipelines, this is prefilled and cannot be edited.
+- **Revision**: A valid repository commit ID, tag, or branch name. Determines the version of the pipeline to launch. 
+- **Commit ID**: Pin pipeline revision to the most recent HEAD commit ID. If no commit ID is pinned, the latest revision of the repository branch or tag is used.
+- **Pull latest**: Fetch the most recent HEAD commit ID of the pipeline revision at launch time. Unpins the **Commit ID**, if set. 
+  :::info
+  See [Git revision management](../pipelines/revision.md) for more information on **Commit ID**, **Pull latest**, and **Revision** behavior. 
+  :::
 - **Config profiles**: One or more [configuration profile](https://www.nextflow.io/docs/latest/config.html#config-profiles) names to use for the execution. Config profiles must be defined in the `nextflow.config` file in the pipeline repository.
 - **Workflow run name**: A unique identifier for the run, pre-filled with a random name. This can be customized.
 - **Labels**: Assign new or existing [labels](../labels/overview) to the run.
@@ -159,7 +160,7 @@ Pipeline names must be unique per workspace.
 
 ## Populate launch form with URL query parameters
 
-The launch form can populate fields with values passed as URL query parameters. For example, append `?revision=master` to your launch URL to prefill the **Revision number** field with `master`. This feature is useful for Platform administrators to provide custom pipeline launch URLs to users in order to hard-code required run and pipeline parameters for every run.
+The launch form can populate fields with values passed as URL query parameters. For example, append `?revision=master` to your launch URL to prefill the **Revision** field with `master`. This feature is useful for Platform administrators to provide custom pipeline launch URLs to users in order to hard-code required run and pipeline parameters for every run.
 
 Platform validates run parameters passed via the launch URL in the following way:
 - Parameter names are **not** validated. You must provide valid and supported parameters for launch form fields to be populated without error. See supported parameter names in the following section.

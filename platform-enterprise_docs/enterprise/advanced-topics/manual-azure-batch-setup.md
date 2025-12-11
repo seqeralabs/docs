@@ -329,7 +329,6 @@ See [Microsoft Entra](https://www.nextflow.io/docs/latest/azure.html#microsoft-e
 1. [Get the Service Principal ID, Tenant ID, and Client Secret](https://learn.microsoft.com/en-us/entra/identity-platform/howto-create-service-principal-portal#option-3-create-a-new-client-secret).
 1. [Add to Seqera credentials](../../compute-envs/azure-batch#entra-service-principal-and-managed-identity).
 
-
 In Seqera:
 
 1. Add new credentials with the name `entra-keys` and select the Azure **Provider**.
