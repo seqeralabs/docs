@@ -98,7 +98,26 @@ Pre-run scripts are executed in the nf-launch script prior to invoking Nextflow 
 - Executor setup, such as loading a private CA certificate.
 - Troubleshooting. For example, add `sleep 3600` to your pre-run script to instruct Nextflow to wait 3600 seconds (60 minutes) before process execution after the nf-launcher container is started, to create a window in which to test connectivity and other issues before your Nextflow processes execute.
 
-Post-run scripts are executed after all Nextflow processes have completed. Post-run scripts are useful for triggering a third party service via API request.
+Post-run scripts are executed after all Nextflow processes have completed.
+Post-run scripts have access to the following environment variables:
+
+- TOWER_WORKFLOW_ID: The unique workflow run identifier
+- TOWER_WORKSPACE_ID: The workspace identifier
+- NXF_UUID: The Nextflow session ID
+- NXF_OUT_FILE: Path to the Nextflow console output file
+- NXF_LOG_FILE: Path to the Nextflow log file
+- NXF_TML_FILE: Path to the timeline report HTML file
+- NXF_EXIT_STATUS: The exit code of the workflow execution
+- TOWER_ACCESS_TOKEN: Platform API access token for authentication
+- TOWER_REFRESH_TOKEN: Platform API refresh token
+- NXF_WORK: The work directory path used by the workflow
+- TOWER_CONFIG_FILE: Path to the Tower configuration file
+
+Post-run scripts are also useful for triggering a third party service via API request.
+
+:::note
+Post-run script failures do not affect the workflow exit status. Post-run scripts have a maximum size limit of 1 KB.
+:::
 
 ### Stub run
 
@@ -108,7 +127,7 @@ Replace Nextflow process commands with command [stubs](https://www.nextflow.io/d
 
 Nextflow will attempt to run the script named `main.nf` in the root of the project repository by default. You can configure a custom script path and/or filename in `manifest.mainScript`, or you can provide the script path and filename in this field.
 
-In a pipeline repository set up with subdirectories containing multiple main script files, enter the path name to your desired custom script in **Main script**. For example: 
+In a pipeline repository set up with subdirectories containing multiple main script files, enter the path name to your desired custom script in **Main script**. For example:
 - `/custom-pipeline/custom-script.nf`
 
 If you point to a custom script using this field, Platform also looks for a `nextflow.config` in the same directory as the custom script, and if none exists, it defaults to the `nextflow.config` in the repository root.
