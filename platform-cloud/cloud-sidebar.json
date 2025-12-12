@@ -158,6 +158,14 @@
           "administration/credit-management"
           ]
       },
+     {
+      "type": "category",
+      "label": "Seqera AI",
+      "collapsed": true,
+      "items": [
+       "seqera-ai/overview"       
+       ]
+     },    
       {
         "type": "category",
         "label": "Developer tools",
