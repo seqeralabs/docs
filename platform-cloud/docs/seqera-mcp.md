@@ -12,7 +12,6 @@ Seqera MCP is a [Model Context Protocol](https://modelcontextprotocol.io/) serve
 - **Seqera Platform integration**: Launch, monitor, and manage Nextflow pipelines.
 - **Wave container service**: Create containerized environments with conda/pip packages.
 - **nf-core modules**: Search and execute 1000+ standardized bioinformatics modules.
-- **Data resources**: Access reference genomes, sequencing data, and scientific literature.
 
 ## Remote server
 
@@ -31,6 +30,20 @@ Seqera MCP supports two authentication methods:
 
 ## Client setup
 
+### Claude Code
+
+```bash
+claude mcp add seqera --url https://mcp.seqera.io/mcp
+```
+
+### Claude Desktop
+
+1. Open Claude Desktop settings.
+2. Select **Add connectors**.
+3. Click **Add custom connector**.
+4. Enter the URL: `https://mcp.seqera.io/mcp`.
+5. Select **OAuth** as the authentication method.
+
 ### Cursor
 
 Create or edit `~/.cursor/mcp.json`:
@@ -47,49 +60,6 @@ Create or edit `~/.cursor/mcp.json`:
 
 Restart Cursor to apply the configuration. On first use, your browser will open for authentication.
 
-### VS Code
-
-Create or edit `~/Library/Application Support/Code/User/mcp.json` (macOS) or `%APPDATA%\Code\User\mcp.json` (Windows):
-
-```json
-{
-  "servers": {
-    "seqera": {
-      "url": "https://mcp.seqera.io/mcp",
-      "type": "http"
-    }
-  }
-}
-```
-
-### Windsurf
-
-Create or edit `~/.codeium/windsurf/mcp_config.json`:
-
-```json
-{
-  "mcpServers": {
-    "seqera": {
-      "serverUrl": "https://mcp.seqera.io/mcp"
-    }
-  }
-}
-```
-
-### Claude Code
-
-```bash
-claude mcp add seqera --url https://mcp.seqera.io/mcp
-```
-
-### Claude Desktop
-
-1. Open Claude Desktop settings.
-2. Select **Add connectors**.
-3. Click **Add custom connector**.
-4. Enter the URL: `https://mcp.seqera.io/mcp`.
-5. Select **OAuth** as the authentication method.
-
 ### OpenAI Codex
 
 First, enable the MCP client feature in `~/.codex/config.toml`:
@@ -104,6 +74,34 @@ Then add the Seqera MCP server and authenticate:
 ```bash
 codex mcp add seqera --url https://mcp.seqera.io/mcp
 codex mcp login seqera
+```
+
+### VS Code
+
+Create or edit `~/Library/Application Support/Code/User/mcp.json` (macOS) or `%APPDATA%\Code\User\mcp.json` (Windows):
+
+```json
+{
+  "servers": {
+    "seqera": {
+      "url": "https://mcp.seqera.io/mcp",
+      "type": "http"
+    }
+  }
+}
+```
+### Windsurf
+
+Create or edit `~/.codeium/windsurf/mcp_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "seqera": {
+      "serverUrl": "https://mcp.seqera.io/mcp"
+    }
+  }
+}
 ```
 
 ### Using Personal Access Token
@@ -126,4 +124,4 @@ For clients that don't support OAuth, add your access token as a header:
 ## Resources
 
 - [Model Context Protocol specification](https://modelcontextprotocol.io/)
-- [Seqera MCP repository](https://github.com/seqeralabs/seqera-mcp)
+
