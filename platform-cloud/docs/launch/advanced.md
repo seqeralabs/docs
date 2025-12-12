@@ -102,17 +102,17 @@ Post-run scripts are executed after all Nextflow processes have completed. The s
 
 | Environment variable | Description                                  |
 |----------------------|----------------------------------------------|
-| TOWER_WORKFLOW_ID    | The unique workflow run identifier           |
-| TOWER_WORKSPACE_ID   | The workspace identifier                     |
-| NXF_UUID             | The Nextflow session ID                      |
-| NXF_OUT_FILE         | Path to the Nextflow console output file     |
-| NXF_LOG_FILE         | Path to the Nextflow log file                |
-| NXF_TML_FILE         | Path to the timeline report HTML file        |
-| NXF_EXIT_STATUS      | The exit code of the workflow execution      |
-| TOWER_ACCESS_TOKEN   | Platform API access token for authentication |
-| TOWER_REFRESH_TOKEN  | Platform API refresh token                   |
-| NXF_WORK             | The work directory path used by the workflow |
-| TOWER_CONFIG_FILE    | Path to the Tower configuration file         |
+| `TOWER_WORKFLOW_ID`  | The unique workflow run identifier           |
+| `TOWER_WORKSPACE_ID` | The workspace identifier                     |
+| `NXF_UUID`           | The Nextflow session ID                      |
+| `NXF_OUT_FILE`       | Path to the Nextflow console output file     |
+| `NXF_LOG_FILE`       | Path to the Nextflow log file                |
+| `NXF_TML_FILE`       | Path to the timeline report HTML file        |
+| `NXF_EXIT_STATUS`    | The exit code of the workflow execution      |
+| `TOWER_ACCESS_TOKEN` | Platform API access token for authentication |
+| `TOWER_REFRESH_TOKEN`| Platform API refresh token                   |
+| `NXF_WORK`           | The work directory path used by the workflow |
+| `TOWER_CONFIG_FILE`  | Path to the Tower configuration file         |
 
 Post-run scripts are also useful for triggering a third party service via API request.
 
