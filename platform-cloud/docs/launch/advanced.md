@@ -100,17 +100,19 @@ Pre-run scripts are executed in the nf-launch script prior to invoking Nextflow 
 
 Post-run scripts are executed after all Nextflow processes have completed. The scripts have access to the following environment variables:
 
-- TOWER_WORKFLOW_ID: The unique workflow run identifier
-- TOWER_WORKSPACE_ID: The workspace identifier
-- NXF_UUID: The Nextflow session ID
-- NXF_OUT_FILE: Path to the Nextflow console output file
-- NXF_LOG_FILE: Path to the Nextflow log file
-- NXF_TML_FILE: Path to the timeline report HTML file
-- NXF_EXIT_STATUS: The exit code of the workflow execution
-- TOWER_ACCESS_TOKEN: Platform API access token for authentication
-- TOWER_REFRESH_TOKEN: Platform API refresh token
-- NXF_WORK: The work directory path used by the workflow
-- TOWER_CONFIG_FILE: Path to the Tower configuration file
+| Environment variable | Description                                  |
+|----------------------|----------------------------------------------|
+| TOWER_WORKFLOW_ID    | The unique workflow run identifier           |
+| TOWER_WORKSPACE_ID   | The workspace identifier                     |
+| NXF_UUID             | The Nextflow session ID                      |
+| NXF_OUT_FILE         | Path to the Nextflow console output file     |
+| NXF_LOG_FILE         | Path to the Nextflow log file                |
+| NXF_TML_FILE         | Path to the timeline report HTML file        |
+| NXF_EXIT_STATUS      | The exit code of the workflow execution      |
+| TOWER_ACCESS_TOKEN   | Platform API access token for authentication |
+| TOWER_REFRESH_TOKEN  | Platform API refresh token                   |
+| NXF_WORK             | The work directory path used by the workflow |
+| TOWER_CONFIG_FILE    | Path to the Tower configuration file         |
 
 Post-run scripts are also useful for triggering a third party service via API request.
 
@@ -126,8 +128,7 @@ Replace Nextflow process commands with command [stubs](https://www.nextflow.io/d
 
 Nextflow will attempt to run the script named `main.nf` in the root of the project repository by default. You can configure a custom script path and/or filename in `manifest.mainScript`, or you can provide the script path and filename in this field.
 
-In a pipeline repository set up with subdirectories containing multiple main script files, enter the path name to your desired custom script in **Main script**. For example:
-- `/custom-pipeline/custom-script.nf`
+In a pipeline repository set up with subdirectories containing multiple main script files, enter the path name to your desired custom script in **Main script**. For example: `/custom-pipeline/custom-script.nf`
 
 If you point to a custom script using this field, Platform also looks for a `nextflow.config` in the same directory as the custom script, and if none exists, it defaults to the `nextflow.config` in the repository root.
 
@@ -146,4 +147,3 @@ Specify the name of a pipeline schema file in the workflow repository root folde
 ### Head job CPUs and memory
 
 Specify the compute resources allocated to the Nextflow head job. These fields are only displayed for runs executing on [AWS Batch](../compute-envs/aws-batch) and [Azure Batch](../compute-envs/azure-batch) compute environments.
-
