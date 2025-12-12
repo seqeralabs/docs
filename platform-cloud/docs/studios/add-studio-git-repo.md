@@ -2,7 +2,7 @@
 title: "Import from Git repository"
 description: "Add a Studio in Platform."
 date created: "2025-09-04"
-last updated: "2025-11-14"
+last updated: "2025-12-12"
 tags: [studio-git, git-repository, session, studios, git, version-control]
 ---
 
@@ -18,15 +18,15 @@ You will need the following to get started:
 
 **Limitations**
 
-- Compute environments are platform-specific and cannot be defined in external Git repositories. Select the compute environment when adding a Studio.
-- Data-links currently cannot be referenced in Git repositories. Define data-links when adding a Studio.
+- Compute environments are Platform-specific and cannot be defined in external Git repositories. Select the compute environment when you add a Studio.
+- Data-links currently cannot be referenced in Git repositories. Mount data manually when adding a Studio.
 - Git repositories with multiple Studio configurations are not supported. However, it is possible to use a Git repository with multiple branches and a single configuration per branch.
 
 ### Create the required configuration files 
 
 **`.seqera/studio-config.yaml` configuration file**
 
-Create a `.seqera/studio-config.yaml` file in the `.seqera/ ` directory of your repository. Your `studio-config.yaml` should contain at least `schemaVersion `, `kind` and `session.template.kind`. All other fields are optional.
+Create a `studio-config.yaml` file in the the `.seqera` directory in your repo. Your `studio-config.yaml` should contain at least `schemaVersion `, `kind` and `session.template.kind`. All other fields are optional.
 
 ```yaml
 schemaVersion: "0.0.1"
@@ -58,7 +58,7 @@ session:
         isPrivate: false                         # Defaults to `false`
 ```
 
-The schema can reference a `Dockerfile`, located inside the `.seqera` folder. The following limitations apply:
+The schema can define a custom `Dockerfile` or an `environment.yaml` file, which must be in the `.seqera` folder. The following limitations apply:
 
 - The workspace Admin needs to set a target repository per workspace, in **Settings > Studios > Container repository**. If no repository configuration is specified, the build will fail.
 - Each workspace needs to have credentials available in the workspace to push to the repository you've specified.
@@ -66,6 +66,10 @@ The schema can reference a `Dockerfile`, located inside the `.seqera` folder. Th
 - The files pulled for Dockerbuild context have individual and total file size limits:
   - Individual files cannot be larger than 5 MB.
   - Total file size cannot be more than 10 MB.
+
+:::tip
+To help you get started, a [GitHub repository][github-examples] with multiple branches for various use cases is publicly available. Each branch offers different configuration options.
+:::
 
 ### Add a Studio
 
@@ -129,6 +133,7 @@ You can disable cloning, which allows you to share a public/private template. Yo
 Studios you create will be listed on the Studios landing page with a status of either **stopped** or **starting**. Select a Studio to inspect its configuration details. 
 
 {/* links */}
+[github-examples]: https://github.com/seqeralabs/studio-schema-examples
 [contact]: https://support.seqera.io/
 [aws-cloud]: ../compute-envs/aws-cloud
 [aws-gpu]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-gpu.html
