@@ -98,8 +98,7 @@ Pre-run scripts are executed in the nf-launch script prior to invoking Nextflow 
 - Executor setup, such as loading a private CA certificate.
 - Troubleshooting. For example, add `sleep 3600` to your pre-run script to instruct Nextflow to wait 3600 seconds (60 minutes) before process execution after the nf-launcher container is started, to create a window in which to test connectivity and other issues before your Nextflow processes execute.
 
-Post-run scripts are executed after all Nextflow processes have completed.
-Post-run scripts have access to the following environment variables:
+Post-run scripts are executed after all Nextflow processes have completed. The scripts have access to the following environment variables:
 
 - TOWER_WORKFLOW_ID: The unique workflow run identifier
 - TOWER_WORKSPACE_ID: The workspace identifier
