@@ -1,0 +1,3 @@
+[submodule "mcp_docs/mcp_repo"]
+	path = mcp_docs/mcp_repo
+	url = https://github.com/seqeralabs/mcp.git

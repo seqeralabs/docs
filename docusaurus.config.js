@@ -148,6 +148,26 @@ export default async function createConfigAsync() {
     },
   ];
 
+  const docs_mcp = [
+    "@docusaurus/plugin-content-docs",
+    {
+      id: "mcp",
+      routeBasePath: "/mcp",
+      path: "mcp_docs/mcp_repo/docs",
+      remarkPlugins: [
+        (await import("remark-code-import")).default,
+        (await require("remark-math")).default,
+        (await import("docusaurus-remark-plugin-tab-blocks")).default,
+        (await require("remark-yaml-to-table")).default,
+      ],
+      rehypePlugins: [(await require("rehype-katex")).default],
+      editUrl: ({ docPath }) => {
+        return `https://github.com/seqeralabs/mcp/blob/master/docs/${docPath}`;
+      },
+      sidebarPath: "./mcp_docs/sidebar.json",
+    },
+  ];
+
   console.log(
     "\n  EXCLUDE_CHANGELOG: " + (process.env.EXCLUDE_CHANGELOG ? true : false),
     "\n  EXCLUDE_PLATFORM_ENTERPRISE: " +
@@ -161,6 +181,7 @@ export default async function createConfigAsync() {
     "\n  EXCLUDE_MULTIQC: " + (process.env.EXCLUDE_MULTIQC ? true : false),
     "\n  EXCLUDE_FUSION: " + (process.env.EXCLUDE_FUSION ? true : false),
     "\n  EXCLUDE_WAVE: " + (process.env.EXCLUDE_WAVE ? true : false),
+    "\n  EXCLUDE_MCP: " + (process.env.EXCLUDE_MCP ? true : false),
     "\n  INCLUDE_NEXT: " + (process.env.INCLUDE_NEXT ? true : false),
   );
 
@@ -265,6 +286,7 @@ export default async function createConfigAsync() {
       process.env.EXCLUDE_MULTIQC ? null : docs_multiqc,
       process.env.EXCLUDE_FUSION ? null : docs_fusion,
       process.env.EXCLUDE_WAVE ? null : docs_wave,
+      process.env.EXCLUDE_MCP ? null : docs_mcp,
 
       // Disable expensive bundler options.
       // https://github.com/facebook/docusaurus/pull/11176
@@ -365,6 +387,11 @@ export default async function createConfigAsync() {
           {
             to: "/fusion",
             label: "Fusion",
+            position: "left",
+          },
+          {
+            to: "/mcp",
+            label: "MCP",
             position: "left",
           },
           {
