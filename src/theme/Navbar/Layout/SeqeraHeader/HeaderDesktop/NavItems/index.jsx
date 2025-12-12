@@ -86,7 +86,12 @@ const NavItems = ({ isDark = false, hideMenu }) => {
                 Fusion
               </ActiveLink>
             </li>
-             </ul>
+            <li>
+            <ActiveLink url="/mcp" customClasses={styles.navItemSpacing}>
+                MCP
+              </ActiveLink>
+            </li>
+            </ul>
         <ul className={styles.navList} style={{marginRight: '0.5rem'}}>
           <li>
             <a className={styles.linkContainer} href="https://training.nextflow.io/latest/">

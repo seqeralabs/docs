@@ -25,6 +25,7 @@ const products = [
   { name: "MultiQC", url: "/multiqc" },
   { name: "Wave", url: "/wave" },
   { name: "Fusion", url: "/fusion" },
+  { name: "MCP", url: "/mcp" },
 ];
 
 const ProductSwitcher = ({ isDropdown }) => {
