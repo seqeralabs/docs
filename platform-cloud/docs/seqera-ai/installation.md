@@ -25,24 +25,9 @@ python3 --version
 
 If you need to install or upgrade Python, visit [python.org](https://www.python.org/downloads/) or use your system's package manager.
 
-## Installation methods
+## Installation
 
-### Using pipx (recommended)
-
-[pipx](https://pipx.pypa.io/) installs Python applications in isolated environments, preventing dependency conflicts:
-
-```bash
-# Install pipx if you don't have it
-pip install pipx
-pipx ensurepath
-
-# Install Seqera AI
-pipx install seqera-ai
-```
-
-### Using pip
-
-Install directly with pip:
+Install with pip:
 
 ```bash
 pip install seqera-ai
@@ -79,27 +64,11 @@ seqera --help
 
 ## Upgrading
 
-### With pipx
-
-```bash
-pipx upgrade seqera-ai
-```
-
-### With pip
-
 ```bash
 pip install --upgrade seqera-ai
 ```
 
 ## Uninstalling
-
-### With pipx
-
-```bash
-pipx uninstall seqera-ai
-```
-
-### With pip
 
 ```bash
 pip uninstall seqera-ai
@@ -113,10 +82,7 @@ If you see `seqera: command not found` after installation:
 
 1. **Check PATH**: Ensure the Python scripts directory is in your PATH
    ```bash
-   # For pipx
-   pipx ensurepath
-
-   # Then restart your terminal or run
+   # Restart your terminal or run
    source ~/.bashrc  # or ~/.zshrc
    ```
 
@@ -146,9 +112,6 @@ If you encounter permission errors during installation:
 ```bash
 # Use --user flag with pip
 pip install --user seqera-ai
-
-# Or use pipx (recommended)
-pipx install seqera-ai
 ```
 
 ## Next steps

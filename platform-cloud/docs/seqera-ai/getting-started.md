@@ -20,13 +20,9 @@ Before you begin, ensure you have:
 
 ## Step 1: Install the CLI
 
-Install Seqera AI using pipx (recommended) or pip:
+Install Seqera AI using pip:
 
 ```bash
-# Using pipx (recommended - installs in isolated environment)
-pipx install seqera-ai
-
-# Or using pip
 pip install seqera-ai
 ```
 

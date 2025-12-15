@@ -42,8 +42,8 @@ Seqera AI runs as a local CLI tool that connects to the Seqera AI backend servic
 Install the CLI and start your first session in minutes:
 
 ```bash
-# Install with pipx (recommended)
-pipx install seqera-ai
+# Install the CLI
+pip install seqera-ai
 
 # Login to your Seqera account
 seqera login
