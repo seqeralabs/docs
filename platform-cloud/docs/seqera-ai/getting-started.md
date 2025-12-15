@@ -132,6 +132,94 @@ The assistant will analyze your project and create an appropriate configuration.
 
 Convert a Python script in your working directory to a Nextflow process.
 
+## Working with nf-core modules
+
+Seqera AI provides access to over 1,000 nf-core modules for common bioinformatics tasks:
+
+### Search for modules
+
+```
+> Find nf-core modules for sequence alignment
+```
+
+```
+> What modules are available for variant calling?
+```
+
+### Get module details
+
+```
+> Show me how to use the nf-core/bwa/mem module
+```
+
+The assistant returns detailed information including input/output schemas and ready-to-run Nextflow commands.
+
+### Run a module
+
+```
+> Run FastQC on my FASTQ files
+```
+
+The assistant can generate the exact Nextflow command with proper parameters for your data.
+
+## Working with data
+
+Seqera AI helps you manage data through Platform data links and access reference datasets:
+
+### Browse data links
+
+```
+> List my data links
+```
+
+```
+> Show me the contents of my S3 data link
+```
+
+### Download and upload files
+
+```
+> Generate a download URL for results/final_report.html
+```
+
+```
+> Upload my local results to the data link
+```
+
+### Access reference data
+
+```
+> Find the human reference genome GRCh38
+```
+
+```
+> Search for RNA-Seq test data
+```
+
+## Building containers with Wave
+
+Seqera AI can create containerized environments using Wave, without requiring you to write Dockerfiles:
+
+### Create a container with conda packages
+
+```
+> Create a container with samtools and bwa from bioconda
+```
+
+### Create a container with pip packages
+
+```
+> Build a container with pandas, numpy, and scikit-learn
+```
+
+### Get a container for a specific tool
+
+```
+> I need a container with FastQC version 0.12.1
+```
+
+The assistant will generate a Wave container URL that you can use directly in your Nextflow pipelines or pull with Docker.
+
 ## Working with local files
 
 Seqera AI can interact with files in your current working directory. Start the assistant from your project folder:

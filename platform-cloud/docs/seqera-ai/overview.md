@@ -19,6 +19,12 @@ Seqera AI is an intelligent command-line assistant that helps you build, run, an
 
 - **Pipeline development**: Generate Nextflow configurations, create pipeline schemas, and convert scripts from other workflow languages (WDL, Snakemake) to Nextflow.
 
+- **nf-core integration**: Search and discover nf-core modules, get detailed execution information, and access ready-to-run Nextflow commands for over 1,000 standardized bioinformatics tools.
+
+- **Data management**: Browse cloud storage through data links, manage datasets, generate download and upload URLs, and access reference genomes and sequencing data.
+
+- **Wave containers**: Build containerized environments on-the-fly with conda packages, pip packages, or custom Docker images. Create reproducible containers for your bioinformatics tools without writing Dockerfiles.
+
 - **Local file operations**: Edit files, run commands, and manage your local development environment with AI assistance and configurable approval modes.
 
 - **Seqera Platform integration**: Full access to Platform capabilities including compute environments, datasets, data links, and workspace management.
