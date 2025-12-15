@@ -29,7 +29,7 @@ Seqera AI runs as a local CLI tool that connects to the Seqera AI backend servic
 
 1. **Your Seqera Platform workspace** - View and manage workflows, pipelines, and data through your authenticated account.
 2. **Your local environment** - Execute commands and edit files in your working directory (with configurable approval controls).
-3. **AI capabilities** - Natural language understanding, code generation, and intelligent suggestions powered by Claude.
+3. **AI capabilities** - Natural language understanding, code generation, and intelligent suggestions.
 
 ## Getting started
 

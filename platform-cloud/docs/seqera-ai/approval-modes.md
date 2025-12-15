@@ -67,7 +67,7 @@ This is the most restrictive mode. The assistant can only auto-execute commands 
 - `head` - View file beginning
 - `tail` - View file end
 - `tree` - Display directory tree
-- `echo` - Print text
+- `echo` - Print text (without file redirection)
 - `date` - Show current date/time
 - `whoami` - Show current user
 - `env` - Display environment variables
@@ -75,21 +75,21 @@ This is the most restrictive mode. The assistant can only auto-execute commands 
 - `stat` - Show file status
 - `uptime` - Show system uptime
 
-**Requires approval**: All other commands, including file edits, directory creation, and any command execution.
+**Requires approval**: All other commands, including file edits, directory creation, and any other command execution. Safe commands that include file redirections (e.g., `echo "hello" > file.txt`) also require approval.
 
 **Use when**: You want maximum control and visibility over every action the assistant takes.
 
 ### Default mode
 
-**Rule**: Safe commands and file operations within your workspace run automatically. File edits outside your workspace and dangerous commands require approval.
+**Rule**: Safe commands and file operations within your workspace run automatically. All other commands require approval.
 
 This is the recommended mode for most users. It allows productive workflow while protecting system files and preventing destructive operations.
 
 **Auto-executes**:
-- All safe commands from basic mode
+- All safe commands from basic mode (without file redirections)
 - File edits **within your current workspace**:
   - Creating files (`touch`, file creation)
-  - Editing files (`edit`, text modifications)
+  - Editing files (text modifications)
   - Creating directories (`mkdir`)
   - Copying files (`cp` within workspace)
   - Moving files (`mv` within workspace)
@@ -98,6 +98,7 @@ This is the recommended mode for most users. It allows productive workflow while
 - File operations **outside your workspace**
 - All dangerous commands (see below)
 - Commands with file redirects to paths outside workspace
+- All other commands (e.g., `curl`, `wget`, `git`, `npm`, `python`, etc.)
 
 **Use when**: You're doing typical development work and want convenience without compromising safety.
 
