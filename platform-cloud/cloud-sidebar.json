@@ -160,12 +160,16 @@
       },
      {
       "type": "category",
-      "label": "Seqera AI",
+      "label": "Seqera AI CLI",
       "collapsed": true,
       "items": [
-       "seqera-ai/overview"       
-       ]
-     },    
+        "seqera-ai/overview",
+        "seqera-ai/getting-started",
+        "seqera-ai/installation",
+        "seqera-ai/authentication",
+        "seqera-ai/approval-modes"
+      ]
+    },    
       {
         "type": "category",
         "label": "Developer tools",
