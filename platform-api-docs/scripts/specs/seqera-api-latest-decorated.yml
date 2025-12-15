@@ -10732,7 +10732,7 @@ components:
               type: boolean
             fusion2Enabled:
               type: boolean
-      required: ["region", "clusterName", "workDir", "region", "clusterName", "workDir"]
+      required: ["region", "clusterName", "workDir"]
     EksPlatformMetaInfo:
       type: object
       properties:
@@ -10774,10 +10774,6 @@ components:
           enum:
             - SPOT
             - EC2
-            - "SPOT"
-            - "EC2"
-            - "SPOT"
-            - "EC2"
           description: "Instance type. `EC2` deploys uninterruptible on-demand EC2 instances. `SPOT` deploys interruptible Spot instances (lower cost)."
         minCpus:
           type: integer
@@ -10792,6 +10788,7 @@ components:
           description: "Enable GPU instances."
         ebsAutoScale:
           type: boolean
+          deprecated: true
           description: "If true, provisions an EBS auto-expandable disk in the compute environment. Not compatible with Fusion file system."
         instanceTypes:
           type: array
@@ -10805,14 +10802,6 @@ components:
             - BEST_FIT_PROGRESSIVE
             - SPOT_CAPACITY_OPTIMIZED
             - SPOT_PRICE_CAPACITY_OPTIMIZED
-            - "BEST_FIT"
-            - "BEST_FIT_PROGRESSIVE"
-            - "SPOT_CAPACITY_OPTIMIZED"
-            - "SPOT_PRICE_CAPACITY_OPTIMIZED"
-            - "BEST_FIT"
-            - "BEST_FIT_PROGRESSIVE"
-            - "SPOT_CAPACITY_OPTIMIZED"
-            - "SPOT_PRICE_CAPACITY_OPTIMIZED"
           description: "Determines how Batch selects EC2 instances to carry out job executions. Default: `BEST_FIT_PROGRESSIVE` for on-demand instances and `SPOT_PRICE_CAPACITY_OPTIMIZED` for Spot instances."
         imageId:
           type: string
@@ -10857,7 +10846,8 @@ components:
           description: "EBS volume size in GB."
         fusionEnabled:
           type: boolean
-          description: "(Deprecated) Enable Fusion file system (v1)."
+          deprecated: true
+          description: "Enable Fusion file system (v1)."
         bidPercentage:
           type: integer
           format: int32
