@@ -201,7 +201,8 @@
                 "seqerakit/templates"
               ]
               },
-            "pipeline-actions/overview"
+            "pipeline-actions/overview",
+            "seqera-mcp"
           ]
       },
       {
