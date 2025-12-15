@@ -52,9 +52,66 @@ seqera ai
 
 You'll see a welcome message and prompt where you can start typing commands in natural language.
 
-## Step 4: Try your first commands
+## Working with Nextflow
 
-Once in the assistant, try these example commands:
+Start from your Nextflow project directory to get the most out of Seqera AI:
+
+```bash
+cd /path/to/your/pipeline
+seqera ai
+```
+
+### Understand your pipeline
+
+```
+> Show me the structure of main.nf
+```
+
+```
+> What processes are defined in this pipeline?
+```
+
+### Generate a configuration file
+
+```
+> /config
+```
+
+The assistant will analyze your project and create an appropriate nextflow.config file.
+
+### Debug your pipeline
+
+```
+> /debug
+```
+
+Run nextflow lint and preview to check your pipeline for errors.
+
+```
+> Why is my pipeline failing?
+```
+
+The assistant analyzes your code and provides insights into what might be wrong.
+
+### Generate a schema
+
+```
+> /schema
+```
+
+Create a nextflow_schema.json file for your pipeline parameters.
+
+### Convert scripts to Nextflow
+
+```
+> /convert-python-script
+```
+
+Convert a Python script in your working directory to a Nextflow process.
+
+## Working with Seqera Platform
+
+Once you're ready to run pipelines at scale, use Seqera Platform:
 
 ### List your workflows
 
@@ -64,14 +121,6 @@ Once in the assistant, try these example commands:
 
 The assistant will show your recent workflow runs from Seqera Platform.
 
-### Check workflow status
-
-```
-> What's the status of my last run?
-```
-
-Get details about your most recent workflow execution, including status, duration, and any errors.
-
 ### Launch a pipeline
 
 ```
@@ -80,53 +129,17 @@ Get details about your most recent workflow execution, including status, duratio
 
 The assistant will guide you through launching a workflow, asking for any required parameters.
 
-## Basic usage examples
-
-### Monitor a running workflow
+### Debug a failed run
 
 ```
-> Show me the progress of workflow run 12345
+> Why did my last workflow fail?
 ```
 
 ```
 > Get the logs for the failed task in my last run
 ```
 
-### Debug a failed workflow
-
-```
-> Why did my last workflow fail?
-```
-
 The assistant analyzes logs and provides insights into what went wrong and how to fix it.
-
-### Work with pipelines
-
-```
-> List all pipelines in my workspace
-```
-
-```
-> Show me the parameters for nf-core/sarek
-```
-
-### Generate configuration files
-
-Use the `/config` command to generate a nextflow.config file:
-
-```
-> /config
-```
-
-The assistant will analyze your project and create an appropriate configuration.
-
-### Convert scripts to Nextflow
-
-```
-> /convert-python-script
-```
-
-Convert a Python script in your working directory to a Nextflow process.
 
 ## Working with nf-core modules
 
