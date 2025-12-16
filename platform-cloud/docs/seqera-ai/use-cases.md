@@ -15,6 +15,54 @@ Seqera Cloud users receive $20 in free credits to get started with Seqera AI. [C
 
 Seqera AI is an intelligent command-line assistant that helps you build, run, and manage bioinformatics workflows. The following sections describe several common use cases.
 
+## Work with Nextflow
+
+Seqera AI helps you develop, debug, and understand Nextflow pipelines with AI-powered analysis and code generation.
+
+<details open>
+<summary>**Working with Nextflow**</summary>
+
+**Understand your pipeline structure**:
+
+```
+> Show me the structure of main.nf
+```
+
+```
+> What processes are defined in this pipeline?
+```
+
+**Generate a `nextflow.config` file**:
+
+```
+> /config
+```
+
+**Debug your pipeline**:
+
+```
+> /debug
+```
+
+```
+> Why is my pipeline failing?
+```
+
+**Generate a schema (`nextflow_schema.json`) file**:
+
+```
+> /schema
+```
+
+
+**Convert scripts to Nextflow**:
+
+```
+> /convert-python-script
+```
+
+</details>
+
 ## Build containers with Wave
 
 Seqera AI can create containerized environments using Wave, without requiring you to write Dockerfiles.
@@ -176,54 +224,6 @@ seqera ai
 :::note
 Local file operations are controlled by [approval modes](./command-approval.md#approval-modes). By default, the assistant will ask for your approval before making changes outside your working directory or running potentially dangerous commands.
 :::
-
-</details>
-
-## Work with Nextflow
-
-Seqera AI helps you develop, debug, and understand Nextflow pipelines with AI-powered analysis and code generation.
-
-<details open>
-<summary>**Working with Nextflow**</summary>
-
-**Understand your pipeline structure**:
-
-```
-> Show me the structure of main.nf
-```
-
-```
-> What processes are defined in this pipeline?
-```
-
-**Generate a `nextflow.config` file**:
-
-```
-> /config
-```
-
-**Debug your pipeline**:
-
-```
-> /debug
-```
-
-```
-> Why is my pipeline failing?
-```
-
-**Generate a schema (`nextflow_schema.json`) file**:
-
-```
-> /schema
-```
-
-
-**Convert scripts to Nextflow**:
-
-```
-> /convert-python-script
-```
 
 </details>
 
