@@ -82,9 +82,10 @@ To uninstall your version of Seqera AI CLI, run:
 pip uninstall seqera-ai
 ```
 
-## Next steps
+## Learn more
 
-After installation:
-
-- [Authenticate](./authentication) with your Seqera Platform account
-- Try different [use cases](./use-cases.md)
+- [Seqera AI CLI](index.md): Seqera AI CLI overview
+- [Authentication](./authentication.md): Login, logout, and session management
+- [Command approval](./command-approval.md): Control which commands run automatically
+- [Use cases](./use-cases.md): Seqera AI CLI use cases
+- [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors

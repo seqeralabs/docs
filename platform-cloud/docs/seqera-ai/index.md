@@ -55,10 +55,9 @@ Edit files, run commands, and manage your local development environment with AI 
 
 Full access to Platform capabilities including compute environments, datasets, data links, and workspace management.
 
-## Quick start
+## Get started
 
-To quick start with Seqera AI:
-
+To get started with Seqera AI:
 
 1. Install the Seqera AI CLI:
 
@@ -66,7 +65,7 @@ To quick start with Seqera AI:
     pip install seqera-ai
     ```
 
-    See [Installation](./installation) for a comprehensive installation guide.
+    See [Installation](./installation.md) for a comprehensive installation guide.
 
 1. Log in to your Seqera account:
 
@@ -74,7 +73,7 @@ To quick start with Seqera AI:
     seqera login
     ```
 
-    See [Authentication](./authentication) for a comprehensive authentication guide.
+    See [Authentication](./authentication.md) for a comprehensive authentication guide.
 
 
 1. Start Seqera AI:
@@ -93,7 +92,8 @@ To quick start with Seqera AI:
 
 ## Learn more
 
-- [Installation](./installation): Detailed installation instructions
-- [Authentication](./authentication): Login, logout, and session management
-- [Use cases](./use-cases.md): Seqera AI use cases
-- [Approval modes](./approval-modes): Control which commands run automatically
+- [Installation](./installation.md): Detailed installation instructions
+- [Authentication](./authentication.md): Log in, log out, and session management
+- [Command approval](./command-approval.md): Control which commands run automatically
+- [Use cases](./use-cases.md): Seqera AI CLI use cases
+- [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors

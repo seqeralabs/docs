@@ -29,7 +29,7 @@ If keychain access isn't available, tokens are stored in:
 ~/.config/seqera-ai/refresh-token.<profile>
 ```
 
-Session metadata (e.g,m email, login timestamp) is stored in:
+Session metadata (e.g., email, login timestamp) is stored in:
 
 ```
 ~/.config/seqera-ai/auth-state.json
@@ -37,7 +37,7 @@ Session metadata (e.g,m email, login timestamp) is stored in:
 
 ## Token refresh
 
-Seqera AI automatically refreshes your authentication token when needed. You are not required to log in again unless:
+Seqera AI CLI automatically refreshes your authentication token when needed. You are not required to log in again unless:
 
 - You explicitly log out
 - Your refresh token expires (typically after extended inactivity)
@@ -85,13 +85,13 @@ Session expires: 2025-12-16 14:30:00
 For automated environments, you can provide a Seqera Platform access token directly:
 
 ```bash
-seqera ai --token <your-platform-access-token>
+seqera ai --token <PLATFORM_ACCESS_TOKEN>
 ```
 
 You can also set the token via environment variable:
 
 ```bash
-export TOWER_ACCESS_TOKEN=<your-platform-access-token>
+export TOWER_ACCESS_TOKEN=<PLATFORM_ACCESS_TOKEN>
 seqera ai
 ```
 
@@ -119,7 +119,10 @@ seqera logout --all
 
 This command removes all stored credentials and session data.
 
-## Next steps
+## Learn more
 
-- [Use cases](./use-cases.md)
-- [Approval modes](./approval-modes) - Configure command execution settings
+- [Seqera AI CLI](index.md): Seqera AI CLI overview
+- [Installation](./installation.md): Detailed installation instructions
+- [Command approval](./command-approval.md): Control which commands run automatically
+- [Use cases](./use-cases.md): Seqera AI use cases
+- [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors

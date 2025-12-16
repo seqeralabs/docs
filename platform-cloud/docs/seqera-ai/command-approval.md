@@ -13,7 +13,7 @@ Seqera AI CLI is currently in beta. Features and commands may change as we conti
 Seqera Cloud users receive $20 in free credits to get started with Seqera AI. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
 :::
 
-Seqera AI can execute local commands and edit files in your environment. This page explains approval modes that control which operations run automatically versus require your permission, including dangerous commands, workspace boundaries, and best practices.
+Seqera AI can execute local commands and edit files in your environment. This page explains approval modes that control which operations run automatically versus which require your permission, including dangerous commands, workspace boundaries, and best practices.
 
 ## Approval prompts
 
@@ -208,5 +208,8 @@ seqera ai -w /home/user/my-project
 
 ## Learn more
 
-- [Authentication](./authentication): Login and session management
-- [Use cases](./use-cases.md):
+- [Seqera AI CLI](index.md): Seqera AI CLI overview
+- [Installation](./installation): Detailed installation instructions
+- [Authentication](./authentication): Log in, log out, and session management
+- [Use cases](./use-cases.md): Seqera AI use cases
+- [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors
