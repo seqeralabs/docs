@@ -1,19 +1,40 @@
 ---
-title: "Approval modes"
+title: "Command approval"
 description: "Control which local commands require user approval in Seqera AI"
 date: "15 Dec 2025"
 tags: [seqera-ai, cli, approval, security]
 ---
 
-:::caution
-Seqera AI is currently in beta. Features and commands may change as we continue to improve the product.
+:::caution Seqera AI CLI is in beta
+Seqera AI CLI is currently in beta. Features and commands may change as we continue to improve the product.
 :::
 
+:::note
+Seqera Cloud users receive $20 in free credits to get started with Seqera AI. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
+:::
+
+Seqera AI can execute local commands and edit files in your environment. This page explains approval modes that control which operations run automatically versus require your permission, including dangerous commands, workspace boundaries, and best practices.
+
+## Approval prompts
+
+When a command requires approval, you will see output similar to:
+
+```
+The assistant wants to run:
+  rm -rf ./build/
+
+[A]pprove  [R]eject  [E]dit
+```
+
+You can:
+
+- **Approve (A)**: Run the command as shown
+- **Reject (R)**: Cancel the command
+- **Edit (E)**: Modify the command before running
+
+## Approval modes
+
 Approval modes control which local commands Seqera AI can execute automatically and which require your explicit approval. This provides a balance between convenience and safety when working with local files and commands.
-
-## Understanding approval modes
-
-When you ask Seqera AI to perform actions on your local machine (edit files, run commands), the approval mode determines whether the action runs immediately or prompts you for confirmation first.
 
 There are three approval modes:
 
@@ -23,44 +44,14 @@ There are three approval modes:
 | **default** | Safe commands and workspace file edits run automatically | Typical development |
 | **full** | Everything except dangerous commands runs automatically | Experienced users |
 
-## Setting the approval mode
-
-### At startup
-
-Set the approval mode when starting the assistant:
-
-```bash
-# Use basic mode (most restrictive)
-seqera ai -a basic
-
-# Use default mode (balanced)
-seqera ai -a default
-
-# Use full mode (most permissive)
-seqera ai -a full
-```
-
-### During a session
-
-Change the approval mode at any time using the `/approval` command:
-
-```
-> /approval basic
-Approval mode set to: basic
-
-> /approval
-Current approval mode: basic
-```
-
-## Mode details
-
-### Basic mode
+### Basic
 
 **Rule**: Only safe, read-only commands run automatically. Everything else requires approval.
 
 This is the most restrictive mode. The assistant can only auto-execute commands that view information without making changes.
 
 **Auto-executes**:
+
 - `cat` - View file contents
 - `ls` - List directory contents
 - `pwd` - Show current directory
@@ -79,7 +70,18 @@ This is the most restrictive mode. The assistant can only auto-execute commands 
 
 **Use when**: You want maximum control and visibility over every action the assistant takes.
 
-### Default mode
+**Examples**:
+
+```
+> Create a new file called test.txt with "hello world"
+
+The assistant wants to create file:
+  ./test.txt
+
+[A]pprove  [R]eject  [E]dit
+```
+
+### Default
 
 **Rule**: Safe commands and file operations within your workspace run automatically. All other commands require approval.
 
@@ -102,7 +104,29 @@ This is the recommended mode for most users. It allows productive workflow while
 
 **Use when**: You're doing typical development work and want convenience without compromising safety.
 
-### Full mode
+**Examples**:
+
+```
+> Create a new file called test.txt with "hello world"
+
+Created ./test.txt
+```
+
+File creation in the workspace runs automatically.
+
+```
+> Edit /etc/hosts
+
+The assistant wants to edit file:
+  /etc/hosts
+
+[A]pprove  [R]eject  [E]dit
+```
+
+Editing outside the workspace requires approval.
+
+
+### Full
 
 **Rule**: Everything runs automatically except explicitly dangerous commands.
 
@@ -134,76 +158,7 @@ These commands **always require approval** in any mode:
 | `reboot` | Restart system |
 | `shutdown` | Power off system |
 
-## Approval prompts
-
-When a command requires approval, you'll see a prompt like:
-
-```
-The assistant wants to run:
-  rm -rf ./build/
-
-[A]pprove  [R]eject  [E]dit
-```
-
-- **Approve (A)**: Run the command as shown
-- **Reject (R)**: Cancel the command
-- **Edit (E)**: Modify the command before running
-
-## Workspace boundaries
-
-In **default** mode, the "workspace" is your current working directory and its subdirectories. File operations are evaluated as:
-
-- **Inside workspace**: `/path/to/workspace/src/file.txt` - auto-executes
-- **Outside workspace**: `/etc/config` or `~/other-project/file.txt` - requires approval
-
-The workspace is set when you start the assistant:
-
-```bash
-# Workspace is /home/user/my-project
-cd /home/user/my-project
-seqera ai
-
-# Or explicitly set the workspace
-seqera ai -w /home/user/my-project
-```
-
-## Examples
-
-### Basic mode example
-
-```
-> Create a new file called test.txt with "hello world"
-
-The assistant wants to create file:
-  ./test.txt
-
-[A]pprove  [R]eject  [E]dit
-```
-
-Every file creation requires approval.
-
-### Default mode example
-
-```
-> Create a new file called test.txt with "hello world"
-
-Created ./test.txt
-```
-
-File creation in the workspace runs automatically.
-
-```
-> Edit /etc/hosts
-
-The assistant wants to edit file:
-  /etc/hosts
-
-[A]pprove  [R]eject  [E]dit
-```
-
-Editing outside the workspace requires approval.
-
-### Full mode example
+**Examples**:
 
 ```
 > Create files and directories as needed
@@ -226,15 +181,32 @@ The assistant wants to run:
 
 Dangerous commands still require approval.
 
+## Workspace boundaries
+
+In **default** mode, the "workspace" is your current working directory and its subdirectories. File operations are evaluated as:
+
+- **Inside workspace**: `/path/to/workspace/src/file.txt` - auto-executes
+- **Outside workspace**: `/etc/config` or `~/other-project/file.txt` - requires approval
+
+The workspace is set when you start the assistant:
+
+```bash
+# Workspace is /home/user/my-project
+cd /home/user/my-project
+seqera ai
+
+# Or explicitly set the workspace
+seqera ai -w /home/user/my-project
+```
+
 ## Best practices
 
-1. **Start with default mode**: It provides a good balance for most workflows
-2. **Use basic mode for unfamiliar projects**: When exploring new codebases
-3. **Reserve full mode for trusted contexts**: Disposable environments or well-understood tasks
-4. **Review dangerous command prompts carefully**: These commands can have significant impact
+- **Start with default mode**: It provides a good balance for most workflows
+- **Use basic mode for unfamiliar projects**: When exploring new codebases
+- **Reserve full mode for trusted contexts**: Disposable environments or well-understood tasks
+- **Review dangerous command prompts carefully**: These commands can have significant impact
 
-## Next steps
+## Learn more
 
-- [Getting started](./getting-started) - Learn the basics
-- [Installation](./installation) - Detailed installation instructions
-- [Authentication](./authentication) - Login and session management
+- [Authentication](./authentication): Login and session management
+- [Use cases](./use-cases.md):

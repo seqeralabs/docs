@@ -5,118 +5,86 @@ date: "15 Dec 2025"
 tags: [seqera-ai, cli, installation]
 ---
 
-:::caution
-Seqera AI is currently in beta. Features and commands may change as we continue to improve the product.
+:::caution Seqera AI CLI is in beta
+Seqera AI CLI is currently in beta. Features and commands may change as we continue to improve the product.
 :::
 
-## System requirements
-
-- **Python**: 3.13 or later
-- **Operating system**: macOS, Linux, or Windows with WSL
-- **Network**: Internet connection for authentication and AI services
-
-### Check your Python version
-
-```bash
-python --version
-# or
-python3 --version
-```
-
-If you need to install or upgrade Python, visit [python.org](https://www.python.org/downloads/) or use your system's package manager.
-
-## Installation
-
-Install with pip:
-
-```bash
-pip install seqera-ai
-```
-
-:::tip
-Consider using a virtual environment to avoid conflicts with other Python packages:
-```bash
-python -m venv seqera-env
-source seqera-env/bin/activate  # On Windows: seqera-env\Scripts\activate
-pip install seqera-ai
-```
+:::note
+Seqera Cloud users receive $20 in free credits to get started with Seqera AI. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
 :::
 
-## Verify installation
+## Requirements
 
-Confirm Seqera AI is installed correctly:
+- Python 3.13 or later
+- macOS, Linux, or Windows with WSL
+- A Seqera Platform account ([sign up for free](https://cloud.seqera.io))
+- An internet connection
 
-```bash
-seqera --version
-```
+## Python Package Index
 
-You should see output like:
+The Seqera AI CLI is distributed as a Python package through PyPI, making installation simple and straightforward using standard Python tools.
 
-```
-seqera-ai 0.1.0
-```
+### Install
 
-Check available commands:
+To install Seqera AI CLI from Python Package Index (PyPI):
 
-```bash
-seqera --help
-```
+1. Check your Python version:
 
-## Upgrading
+   ```bash
+   python --version
+   # or
+   python3 --version
+   ```
+
+   If you need to install or upgrade Python, see [python.org](https://www.python.org/downloads/) or use your system's package manager.
+
+
+1. Install Seqera AI CLI:
+
+   ```bash
+   pip install seqera-ai
+   ```
+
+   :::tip
+   Consider using a virtual environment to avoid conflicts with other Python packages:
+   ```bash
+   python -m venv seqera-env
+   source seqera-env/bin/activate  # On Windows: seqera-env\Scripts\activate
+   pip install seqera-ai
+   ```
+   :::
+
+1. Verify your installation:
+
+   ```bash
+   seqera --version
+   ```
+
+   You will see output similar to:
+
+   ```console
+   seqera-ai 0.1.0
+   ```
+
+### Upgrade
+
+To upgrade your version of Seqera AI CLI, run:
 
 ```bash
 pip install --upgrade seqera-ai
 ```
 
-## Uninstalling
+### Uninstall
+
+To uninstall your version of Seqera AI CLI, run:
 
 ```bash
 pip uninstall seqera-ai
-```
-
-## Troubleshooting
-
-### Command not found
-
-If you see `seqera: command not found` after installation:
-
-1. **Check PATH**: Ensure the Python scripts directory is in your PATH
-   ```bash
-   # Restart your terminal or run
-   source ~/.bashrc  # or ~/.zshrc
-   ```
-
-2. **Verify installation location**:
-   ```bash
-   pip show seqera-ai
-   ```
-
-### Python version errors
-
-If you see errors about Python version:
-
-1. Check you have Python 3.13+:
-   ```bash
-   python3 --version
-   ```
-
-2. If using multiple Python versions, specify the correct one:
-   ```bash
-   python3.13 -m pip install seqera-ai
-   ```
-
-### Permission errors
-
-If you encounter permission errors during installation:
-
-```bash
-# Use --user flag with pip
-pip install --user seqera-ai
 ```
 
 ## Next steps
 
 After installation:
 
-1. [Authenticate](./authentication) with your Seqera Platform account
-2. Start the [AI assistant](./getting-started#step-3-start-the-ai-assistant)
+- [Authenticate](./authentication) with your Seqera Platform account
+- Try different [use cases](./use-cases.md)
