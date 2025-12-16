@@ -54,3 +54,11 @@ Edit files, run commands, and manage your local development environment with AI 
 ### Seqera Platform integration
 
 Full access to Platform capabilities including compute environments, datasets, data links, and workspace management.
+
+## Learn more
+
+- [Installation](./installation.md): Detailed installation instructions
+- [Authentication](./authentication.md): Log in, log out, and session management
+- [Command approval](./command-approval.md): Control which commands run automatically
+- [Use cases](./use-cases.md): Seqera AI CLI use cases
+- [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors
