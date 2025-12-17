@@ -21,10 +21,13 @@ Both options require specific IAM permissions to function correctly, as well as 
 
 ## S3 bucket creation
 
-AWS S3 (Simple Storage Service) is a type of **object storage**. To access input and output files using Seqera products like [Studios](../studios/overview) and [Data Explorer](../data/data-explorer) create one or more **S3 buckets**. An S3 bucket can also be used to store intermediate results of your Nextflow pipelines, in alternative to using EFS or FSx file systems (note that using EFS as Platform work directory is incompatible with Studios).
+AWS S3 (Simple Storage Service) is a type of **object storage**. To access input and output files using Seqera products like [Studios](../studios/overview) and [Data Explorer](../data/data-explorer) create one or more **S3 buckets**. An S3 bucket can also be used to store intermediate results of your Nextflow pipelines, as an alternative to using EFS or FSx file systems.
+:::note
+Using EFS as the Platform work directory is incompatible with Studios.
+:::
 
 1. Navigate to the [AWS S3 service](https://console.aws.amazon.com/s3/home).
-1. In the top right of the page, make sure to select the same region where you plan to create your AWS Batch compute environment.
+1. In the top right of the page, select the same region where you plan to create your AWS Batch compute environment.
 1. Select **Create bucket**.
 1. Enter a unique name for your bucket.
 1. Leave the rest of the options as default and select **Create bucket**.
@@ -35,10 +38,10 @@ S3 can be used by Nextflow for the storage of intermediate files. In production 
 
 ## EFS or FSx file system creation
 
-[AWS Elastic File System (EFS)](https://aws.amazon.com/efs/) and [AWS FSx](https://aws.amazon.com/fsx/) are types of **file storage** that can be used as a Nextflow work directory to store intermediate files, in alternative to using S3 buckets.
+[AWS Elastic File System (EFS)](https://aws.amazon.com/efs/) and [AWS FSx](https://aws.amazon.com/fsx/) are types of **file storage** that can be used as a Nextflow work directory to store intermediate files, as an alternative to using S3 buckets.
 
 :::note
-Using EFS as Platform work directory is incompatible with Studios.
+Using EFS as the Platform work directory is incompatible with Studios.
 :::
 
 To use EFS or FSx as your Nextflow work directory, create an EFS or FSx file system in the same region where you plan to create your AWS Batch compute environment, to avoid high data transfer costs.
@@ -60,7 +63,7 @@ Visit the [FSx console](https://console.aws.amazon.com/fsx/home) to create a new
 1. Follow the prompts to configure the file system according to your requirements, then select **Next**.
 1. Review the configuration and select **Create file system**.
 
-Make sure the [lustre client](https://docs.aws.amazon.com/fsx/latest/LustreGuide/install-lustre-client.html) is available in the AMIs used by your AWS Batch compute environment to allow mounting FSx file systems.
+Make sure the [Lustre client](https://docs.aws.amazon.com/fsx/latest/LustreGuide/install-lustre-client.html) is available in the AMIs used by your AWS Batch compute environment to allow mounting FSx file systems.
 
 ## Required Platform IAM permissions
 
