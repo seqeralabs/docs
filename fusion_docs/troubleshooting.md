@@ -112,6 +112,7 @@ Task fails with exit code `176` when attempting to restore from a checkpoint.
 2. Verify checkpoint data exists:
    - Check work directory `.fusion/dump/` contains checkpoint files
    - Ensure S3/GCS bucket is accessible
+   - If missing, open a support ticket. See [Getting help](#getting-help) for more information.
 
 3. Configure retry for dump failures first:
    - Handle exit code 175 with retry. See [Retry handling](./guide/snapshots/configuration.md#retry-handling) for more information.
