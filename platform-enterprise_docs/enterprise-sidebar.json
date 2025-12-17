@@ -59,7 +59,8 @@
               "enterprise/advanced-topics/firewall-configuration",
               "enterprise/advanced-topics/seqera-container-images",
               "enterprise/advanced-topics/content-security-policy",
-              "enterprise/advanced-topics/jvm-memory-tuning"
+              "enterprise/advanced-topics/jvm-memory-tuning",
+              "enterprise/advanced-topics/monitoring"
             ]
           },
           "enterprise/general_troubleshooting"
