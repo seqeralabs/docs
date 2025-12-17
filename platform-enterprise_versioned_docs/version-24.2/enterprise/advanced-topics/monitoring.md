@@ -1,34 +1,28 @@
 ---
-title: Seqera Platform Monitoring
-headline: "Seqera Platform Monitoring"
+title: "Seqera Platform Monitoring"
 description: "A guide on relevant platform metrics"
-date_created: "2025-12-17"
+date created: "2025-12-17"
+tags: [platform, monitoring]
 ---
-
-# Seqera Platform Monitoring
-
-## Enabling observability metrics
 
 Seqera Platform has built-in observability metrics which can be enabled by adding `prometheus` to the `MICRONAUT_ENVIRONMENTS` environment variable. This exposes a Prometheus endpoint at `/prometheus` on the default listen port (e.g., `http://localhost:8080/prometheus`).
 
 Combined with infrastructure monitoring tools such as Node Exporter, you can monitor relevant metrics across your deployment.
 
----
-
 ## Key metrics to monitor
 
 ### Seqera Platform-specific metrics
 
-#### Data Studio metrics
+#### Studios metrics
 
 | Metric                                           | Description                          |
-| ------------------------------------------------ | ------------------------------------ |
-| `data_studio_startup_time_failure_seconds_sum`   | Time for failed Data Studio startups |
-| `data_studio_startup_time_failure_seconds_count` | Failed Data Studio startup count     |
+| ------------------------------------------------ | -------------------------------------|
+| `data_studio_startup_time_failure_seconds_sum`   | Time for failed Studio startups      |
+| `data_studio_startup_time_failure_seconds_count` | Failed Studio startup count          |
 
-Track Data Studio startup performance to identify environment provisioning issues. Slow or failing startups impact user productivity.
+Track Studio startup performance to identify environment provisioning issues. Slow or failing startups impact user productivity.
 
-**Average startup time by tool:**
+**Average startup time by tool**
 
 ```shell
 sum by (tool) (increase(data_studio_startup_time_success_seconds_sum{app="backend", namespace="$namespace"}[$__rate_interval]))
@@ -36,7 +30,7 @@ sum by (tool) (increase(data_studio_startup_time_success_seconds_sum{app="backen
 sum by (tool) (increase(data_studio_startup_time_success_seconds_count{app="backend", namespace="$namespace"}[$__rate_interval]))
 ```
 
-**Failed startup rate:**
+**Failed startup rate**
 
 ```shell
 rate(data_studio_startup_time_failure_seconds_count{namespace="$namespace"}[$__rate_interval])
@@ -52,7 +46,7 @@ rate(data_studio_startup_time_failure_seconds_count{namespace="$namespace"}[$__r
 
 Monitor application errors across different time windows. Rolling error counts help identify transient issues versus sustained problems.
 
-**Recent error counts:**
+**Recent error counts**
 
 ```shell
 tower_logs_errors_10secCount{namespace="$namespace"}
@@ -60,7 +54,7 @@ tower_logs_errors_1minCount{namespace="$namespace"}
 tower_logs_errors_5minCount{namespace="$namespace"}
 ```
 
-**Log events by severity level:**
+**Log events by severity level**
 
 ```shell
 rate(logback_events_total{namespace="$namespace"}[$__rate_interval])
@@ -72,7 +66,7 @@ rate(logback_events_total{namespace="$namespace"}[$__rate_interval])
 
 Monitor container CPU consumption against requested resources to identify capacity issues or inefficient resource allocation.
 
-**Backend CPU usage:**
+**Backend CPU usage**
 
 ```shell
 rate(container_cpu_usage_seconds_total{container="backend", namespace="$namespace"}[$__rate_interval])
@@ -148,13 +142,13 @@ topk(10, sum by(method, uri) (rate(http_server_requests_seconds_sum{namespace="$
 
 Monitor external API calls and integrations. Slow or failing outbound requests can cascade into application performance issues.
 
-**Outbound request rate:**
+**Outbound request rate**
 
 ```shell
 rate(http_client_requests_seconds_count{namespace="$namespace"}[$__rate_interval])
 ```
 
-**Average outbound request duration:**
+**Average outbound request duration**
 
 ```shell
 rate(http_client_requests_seconds_sum{namespace="$namespace"}[$__rate_interval])
@@ -289,7 +283,7 @@ Class loading metrics help identify class loader leaks or excessive dynamic clas
 jvm_classes_loaded_classes{namespace="$namespace", app="backend"}
 ```
 
-**Class unload rate:**
+**Class unload rate**
 
 ```shell
 rate(jvm_classes_unloaded_classes_total{namespace="$namespace", app="backend"}[$__rate_interval])
@@ -308,7 +302,7 @@ rate(jvm_classes_unloaded_classes_total{namespace="$namespace", app="backend"}[$
 
 Process-level metrics provide visibility into resource consumption and system limits.
 
-**JVM process CPU usage:**
+**JVM process CPU usage**
 
 ```shell
 process_cpu_usage{namespace="$namespace"}
@@ -342,7 +336,7 @@ process_uptime_seconds{namespace="$namespace"}
 
 System metrics provide host-level context for application performance.
 
-**System-wide CPU usage:**
+**System-wide CPU usage**
 
 ```shell
 system_cpu_usage{namespace="$namespace"}
@@ -354,7 +348,7 @@ system_cpu_usage{namespace="$namespace"}
 system_load_average_1m{namespace="$namespace"}
 ```
 
-**Available CPU count:**
+**Available CPU count**
 
 ```shell
 system_cpu_count{namespace="$namespace"}
@@ -381,7 +375,7 @@ executor_active_threads{service="backend", namespace="$namespace", name!="schedu
 executor_pool_size_threads{service="backend", namespace="$namespace", name!="scheduled"}
 ```
 
-**Cron scheduled executor utilization:**
+**Cron scheduled executor utilization**
 
 ```shell
 executor_active_threads{service="cron", namespace="$namespace", name="scheduled"}
@@ -395,7 +389,7 @@ executor_pool_size_threads{service="cron", namespace="$namespace", name="schedul
 executor_queued_tasks{app="backend", namespace="$namespace"}
 ```
 
-**Task completion rate:**
+**Task completion rate**
 
 ```shell
 rate(executor_completed_tasks_total{namespace="$namespace"}[$__rate_interval])
@@ -420,13 +414,13 @@ avg(irate(redis_keyspace_hits_total{app="platform-redis-exporter"}[$__rate_inter
 (irate(redis_keyspace_misses_total{app="platform-redis-exporter"}[$__rate_interval]) + irate(redis_keyspace_hits_total{app="platform-redis-exporter"}[$__rate_interval])))
 ```
 
-**Cache size by name:**
+**Cache size by name**
 
 ```shell
 cache_size{namespace="$namespace"}
 ```
 
-**Cache operation rates:**
+**Cache operation rates**
 
 ```shell
 rate(cache_gets_total{namespace="$namespace"}[$__rate_interval])
@@ -460,13 +454,13 @@ rate(hibernate_sessions_open_total{app="backend", namespace="$namespace"}[$__rat
 rate(hibernate_sessions_closed_total{app="backend", namespace="$namespace"}[$__rate_interval])
 ```
 
-**Connection acquisition rate:**
+**Connection acquisition rate**
 
 ```shell
 rate(hibernate_connections_obtained_total{app="backend", namespace="$namespace"}[$__rate_interval])
 ```
 
-**Query execution rate:**
+**Query execution rate**
 
 ```shell
 rate(hibernate_query_executions_total{app="backend", namespace="$namespace"}[$__rate_interval])
@@ -495,7 +489,7 @@ rate(hibernate_entities_deletes_total{app="backend", namespace="$namespace"}[$__
 rate(hibernate_entities_loads_total{app="backend", namespace="$namespace"}[$__rate_interval])
 ```
 
-**Transaction success/failure rate:**
+**Transaction success/failure rate**
 
 ```shell
 sum by (result) (rate(hibernate_transactions_total{app="backend", namespace="$namespace"}[$__rate_interval]))
@@ -539,7 +533,7 @@ sum(increase(hibernate_cache_query_requests_total{app="backend", namespace="$nam
 sum(increase(hibernate_cache_query_requests_total{app="backend", namespace="$namespace"}[$__rate_interval]))
 ```
 
-**Query plan cache hit rate:**
+**Query plan cache hit rate**
 
 ```shell
 sum(increase(hibernate_cache_query_plan_total{app="backend", namespace="$namespace", result="hit"}[$__rate_interval]))
@@ -547,7 +541,7 @@ sum(increase(hibernate_cache_query_plan_total{app="backend", namespace="$namespa
 sum(increase(hibernate_cache_query_plan_total{app="backend", namespace="$namespace"}[$__rate_interval]))
 ```
 
-**Second level cache hit rate by region:**
+**Second level cache hit rate by region**
 
 ```shell
 sum by (region) (increase(hibernate_second_level_cache_requests_total{app="backend", namespace="$namespace", result="hit"}[$__rate_interval]))
@@ -573,13 +567,11 @@ rate(logback_events_total{level="error"}[5m])
 
 Monitor pod health to catch deployment or infrastructure issues early.
 
-**Pods in unhealthy states:**
+**Pods in unhealthy states**
 
 ```shell
 sum by (namespace, pod) (kube_pod_status_phase{phase=~"Pending|Unknown|Failed", namespace!="wave-build"}) > 0
 ```
-
----
 
 ## Alerting recommendations
 
@@ -607,8 +599,6 @@ sum by (namespace, pod) (kube_pod_status_phase{phase=~"Pending|Unknown|Failed", 
 - Hibernate query cache hit rate < 60%
 - Growing gap between `credits_estimation_workflow_added_total` and `credits_estimation_workflow_ended_total`
 - `hibernate_sessions_open_total` >> `hibernate_sessions_closed_total` over time
-
----
 
 ## Quick reference: Metrics by troubleshooting scenario
 
