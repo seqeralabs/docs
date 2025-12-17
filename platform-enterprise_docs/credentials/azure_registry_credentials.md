@@ -1,12 +1,11 @@
 ---
 title: "Azure container registry credentials"
-description: "Create Azure container registry credentials in Seqera Platform."
-date created: "2023-04-21"
-last updated: "2025-10-21"
+description: "Instructions to create Azure container registry credentials in Seqera Platform."
+date: "21 Apr 2023"
 tags: [azure, registry, credentials]
 ---
 
-Azure Container Registry credentials allow the Wave container service to authenticate and pull container images from your private Azure registries. Azure uses Role-Based Access Control (RBAC) to manage registry access.
+From version 22.3, Seqera Platform supports the configuration of credentials for the Nextflow Wave container service to authenticate to private and public container registries. For more information on Wave containers, see the [Nextflow documentation](https://www.nextflow.io/docs/latest/wave.html).
 
 :::note
 Container registry credentials are only used by the Wave container service. Add `wave { enabled=true }` to the **Nextflow config** field on the launch page, or to your `nextflow.config` file, for your pipeline execution to use Wave containers.

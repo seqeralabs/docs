@@ -16,7 +16,7 @@ Select a workflow run from the **Runs** list to open a run details page.
 The top of the page contains basic run details and a progress overview for an at-a-glance view of the run's status:
 - View and copy the run ID, pipeline name and repository, pipeline work directory, compute environment, and launch date.
 - Select the star icon to favorite the run and find it more easily via a filter view in the runs list later.
-- Use the options menu to apply labels, relaunch, resume, or delete the run, or to save the run as a new pipeline.
+- Use the options menu to apply labels, relaunch, resume, or delete the run, save the run as a new pipeline, or publish a new pipeline [version](../pipelines/versioning) (if the run was launched from a draft version).
 
 Select the tabs below the workflow run progress bar to view further run details:
 - **Tasks**: View the status and progress of pipeline tasks and [processes](#processes), including extensive [task details](#tasks).
@@ -53,7 +53,30 @@ Select a process to navigate to the [Tasks](#tasks) panel and filter the table c
 
 ### Tasks 
 
-The **Tasks** panel shows all the tasks that were executed in the run.
+The **Tasks** panel shows all the tasks that were executed in the run, including the following task details:
+
+| Label | Description |
+|-------|-------------|
+| **task_id** | Unique identifier for the task. |
+| **process** | Process name. |
+| **tag** | User-defined label or tag associated with the task. |
+| **hash** | Nextflow task hash value. |
+| **status** | Task execution status (e.g., `COMPLETED`, `FAILED`, `RUNNING`). |
+| **attempt** | Number of execution attempts for this task (for retry logic). |
+| **exit** | Task exit code. |
+| **container** | Container image used to execute the task. |
+| **native_id** | Native job ID assigned by the executor (e.g., cluster job ID). |
+| **submit** | Timestamp when the task was submitted for execution. |
+| **duration** | Total execution time for the task. |
+| **realtime** | CPU wall time the task actually ran. |
+| **% cpu** | Percentage of CPU utilization during task execution. |
+| **% mem** | Percentage of memory utilization during task execution. |
+| **peak_rss** | Peak resident set size (physical memory usage). |
+| **peak_vmem** | Peak virtual memory usage. |
+| **rchar** | Number of characters read from storage. |
+| **wchar** | Number of characters written to storage. |
+| **vol_ctxt** | Number of voluntary context switches. |
+| **inv_ctxt** | Number of involuntary context switches. |
 
 Use the search bar to filter tasks with substrings in the table columns such as **process**, **tag**, **hash**, and **status**. For example, if you enter `succeeded` in the **Search task** field, the table displays only tasks that succeeded.
 
@@ -61,25 +84,82 @@ Use the search bar to filter tasks with substrings in the table columns such as 
 
 ![Task details](./_images/task-details.png)
 
-Select a task in the task table to open the **Task details** dialog. The dialog has three tabs:
+Select a task in the task table to open the **Task details** dialog. The dialog has four tabs: **About**, **Execution log**, **Data Explorer**, and **Container**.
 
-- **About**
-  - **Name**: Process name and tag.
-  - **Command**: Task script, defined in the pipeline process.
-  - **Status**: Exit code, task status, attempts.
-  - **Work directory**: Directory where the task was executed.
-  - **Environment**: Environment variables supplied to the task.
-  - **Execution time**: Metrics for task submission, start, and completion time.
-  - **Resources requested**: Metrics for the resources requested by the task.
-  - **Resources used**: Metrics for the resources used by the task.
+#### About 
 
-- **Execution log**
+- **Name**: Process name and tag.
+- **Command**: Task script, defined in the pipeline process.
+- **Status**: Exit code, task status, attempts.
+- **Work directory**: Directory where the task was executed.
+- **Environment**: Environment variables supplied to the task.
+- **Execution time**: Metrics for task submission, start, and completion time:
 
-  The **Execution log** tab provides a real-time log of the selected task's execution. Task execution and other logs (such as `stdout` and `stderr`) are available for download if they are still available in your compute environment.
+  | Label | Description |
+  |-------|-------------|
+  | **submit** | Task submission timestamp. |
+  | **start** | Task execution timestamp. |
+  | **complete** | Task completion timestamp. |
+  | **duration** | Time elapsed from task submission to completion, including scheduling time. |
+  | **realtime** | Task script execution time. |
 
-- **Data Explorer**
+- **Resources requested**: Metrics for the resources requested by the task:
 
-  If the pipeline work directory is in cloud storage, this tab shows a [Data Explorer](../data/data-explorer) view of the task's work directory location with the files associated with the task.
+  | Label | Description |
+  |-------|-------------|
+  | **container** | Container image name used to execute the task. |
+  | **queue** | The queue that the executor used to run the process. |
+  | **cpus** | Number of CPUs requested for task execution. |
+  | **memory** | Memory requested for task execution. |
+  | **disk** | Disk space requested for task executiuon. |
+  | **time** | Time requested for task execution. |
+  | **executor** | The Nextflow executor used for this task. |
+  | **machineType** | The virtual machine type used for this task. |
+  | **cloudZone** | The cloud zone (region) where the task was executed. |
+  | **priceModel** | The price model used to calculate the task computation cost. |
+  | **cost** | The estimated cost to compute this task. |
+
+- **Resources used**: Metrics for the actual resources used by the task:
+
+  | Label | Description |
+  |-------|-------------|
+  | **pcpu** | Percentage of CPU used by the task. |
+  | **rss** | Real memory (resident set) size of the task. |
+  | **peakRss** | Peak of real memory used. |
+  | **vmem** | Virtual memory size of the task. |
+  | **peakVmem** | Peak of virtual memory used. |
+  | **rchar** | Number of bytes the task read, using any read-like system call from files, pipes, tty, etc. |
+  | **wchar** | Number of bytes the task wrote, using any write-like system call. |
+  | **readBytes** | Number of bytes the task read directly from disk. |
+  | **writeBytes** | Number of bytes the task originally dirtied in the page-cache (assuming they will go to disk later). |
+  | **syscr** | Number of read-like system call invocations that the task performed. |
+  | **syscw** | Number of write-like system call invocations that the task performed. |
+  | **volCtxt** | Number of voluntary context switches. |
+  | **invCtxt** | Number of involuntary context switches. |
+
+#### Execution log
+
+The **Execution log** tab provides a real-time log of the selected task's execution. Task execution and other logs (such as `stdout` and `stderr`) are available for download if they are still available in your compute environment.
+
+#### Data Explorer
+
+If the pipeline work directory is in cloud storage, this tab shows a [Data Explorer](../data/data-explorer) view of the task's work directory location with the files associated with the task.
+
+#### Container
+
+This tab contains the image and build details of the container used to execute the task:
+
+| Label | Description |
+|-------|-------------|
+| **Target image** | The container image used to execute the workflow task. |
+| **Source image** | The container image specified in the workflow configuration, if available. |
+| **Request ID** | The unique request ID associated with the container. |
+| **Request time** | The timestamp when the container request was made. |
+| **Build ID** | The unique build ID assigned when the container was provisioned. |
+| **Mirror ID** | The unique mirror ID assigned when the container was copied between repositories. |
+| **Scan ID** | The unique scan ID from the vulnerability security scan of the container. |
+| **Cached** | Indicates whether the container was previously built in an earlier request. |
+| **Freeze** | Indicates whether the container was provisioned for persistent storage using Wave freeze mode. |
 
 </TabItem>
 <TabItem value="Logs" label="Logs" default>
@@ -92,9 +172,9 @@ The **Logs** tab contains a window with the Nextflow execution log console outpu
 </TabItem>
 <TabItem value="Metrics" label="Metrics" default>
 
-The cards at the top of the **Metrics** tab display a real-time summary of the resources used by the run.
-
 ![Metrics overview](./_images/metrics-tiles.png)
+
+The cards at the top of the **Metrics** tab display a real-time summary of the resources used by the run.
                         
 #### Wall time
 
@@ -237,7 +317,8 @@ The **Run Info** tab contains at-a-glance details about the run, infrastructure,
 
 The **Run details** view displays basic run details: 
 
-- **Pipeline** name. Select **View pipeline details** to navigate to the pipeline's details page.
+- **Pipeline** name. Select **View pipeline details** to navigate to the pipeline details page.
+- **Pipeline version** information. Select **View version** to navigate to the pipeline details page.
 - **Workflow repository**. Select **View repository** to navigate to the pipeline Git repository.
 - Run **ID**.
 - **Run start time**.
