@@ -573,8 +573,6 @@ Monitor pod health to catch deployment or infrastructure issues early.
 sum by (namespace, pod) (kube_pod_status_phase{phase=~"Pending|Unknown|Failed", namespace!="wave-build"}) > 0
 ```
 
----
-
 ## Alerting recommendations
 
 ### Critical alerts
@@ -601,8 +599,6 @@ sum by (namespace, pod) (kube_pod_status_phase{phase=~"Pending|Unknown|Failed", 
 - Hibernate query cache hit rate < 60%
 - Growing gap between `credits_estimation_workflow_added_total` and `credits_estimation_workflow_ended_total`
 - `hibernate_sessions_open_total` >> `hibernate_sessions_closed_total` over time
-
----
 
 ## Quick reference: Metrics by troubleshooting scenario
 
