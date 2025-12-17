@@ -115,78 +115,78 @@ jobs:
           # The skill is available in the repo at openapi-overlay-generator/
 
           python - <<'PYTHON_SCRIPT'
-import anthropic
-import json
-import os
-from pathlib import Path
+          import anthropic
+          import json
+          import os
+          from pathlib import Path
 
-# The analysis script creates a JSON file with the same name + -analysis.json
-specs_dir = Path("platform-api-docs/scripts/specs")
-comparison_file_base = "base-${{ steps.prev-version.outputs.previous_version }}-to-${{ steps.version.outputs.api_version }}-changes"
-analysis_file = specs_dir / f"{comparison_file_base}-analysis.json"
+          # The analysis script creates a JSON file with the same name + -analysis.json
+          specs_dir = Path("platform-api-docs/scripts/specs")
+          comparison_file_base = "base-${{ steps.prev-version.outputs.previous_version }}-to-${{ steps.version.outputs.api_version }}-changes"
+          analysis_file = specs_dir / f"{comparison_file_base}-analysis.json"
 
-if not analysis_file.exists():
-    print("⚠️  No analysis file found - may be no changes")
-    exit(0)
+          if not analysis_file.exists():
+              print("⚠️  No analysis file found - may be no changes")
+              exit(0)
 
-with open(analysis_file) as f:
-    analysis = json.load(f)
+          with open(analysis_file) as f:
+              analysis = json.load(f)
 
-# Read comparison overlay
-comparison_file = specs_dir / f"{comparison_file_base}.yaml"
-with open(comparison_file) as f:
-    comparison_overlay = f.read()
+          # Read comparison overlay
+          comparison_file = specs_dir / f"{comparison_file_base}.yaml"
+          with open(comparison_file) as f:
+              comparison_overlay = f.read()
 
-# Call Claude API with skill context
-client = anthropic.Anthropic(api_key=os.environ['ANTHROPIC_API_KEY'])
+          # Call Claude API with skill context
+          client = anthropic.Anthropic(api_key=os.environ['ANTHROPIC_API_KEY'])
 
-# Read standards and patterns from skill
-skill_path = Path("openapi-overlay-generator")
-standards = (skill_path / "references" / "standards.md").read_text()
-patterns = (skill_path / "references" / "overlay-patterns.md").read_text()
+          # Read standards and patterns from skill
+          skill_path = Path("openapi-overlay-generator")
+          standards = (skill_path / "references" / "standards.md").read_text()
+          patterns = (skill_path / "references" / "overlay-patterns.md").read_text()
 
-prompt = f"""I need you to generate OpenAPI overlay files for the Seqera Platform API version ${{ steps.version.outputs.api_version }}.
+          prompt = f"""I need you to generate OpenAPI overlay files for the Seqera Platform API version ${{ steps.version.outputs.api_version }}.
 
-Here is the analysis of changes:
-{json.dumps(analysis, indent=2)}
+          Here is the analysis of changes:
+          {json.dumps(analysis, indent=2)}
 
-Here is the full comparison overlay showing all changes:
-```yaml
-{comparison_overlay}
-```
+          Here is the full comparison overlay showing all changes:
+          ```yaml
+          {comparison_overlay}
+          ```
 
-Please generate three overlay files (operations, parameters, schemas) for each affected controller/tag. Follow the standards and patterns exactly.
+          Please generate three overlay files (operations, parameters, schemas) for each affected controller/tag. Follow the standards and patterns exactly.
 
-IMPORTANT:
-- Use exact standard descriptions for common parameters (workspaceId, max, offset, etc.)
-- Summaries are sentence case, no period
-- Descriptions are full sentences with periods
-- Follow verb-entity pattern for operations
-- Group by controller/feature
+          IMPORTANT:
+          - Use exact standard descriptions for common parameters (workspaceId, max, offset, etc.)
+          - Summaries are sentence case, no period
+          - Descriptions are full sentences with periods
+          - Follow verb-entity pattern for operations
+          - Group by controller/feature
 
-Generate the overlay files as separate YAML code blocks, clearly labeled with the filename."""
+          Generate the overlay files as separate YAML code blocks, clearly labeled with the filename."""
 
-message = client.messages.create(
-    model="claude-sonnet-4-5-20250929",
-    max_tokens=16000,
-    system=f"""You are an expert at generating OpenAPI overlay files for API documentation.
+          message = client.messages.create(
+              model="claude-sonnet-4-5-20250929",
+              max_tokens=16000,
+              system=f"""You are an expert at generating OpenAPI overlay files for API documentation.
 
-{standards}
+          {standards}
 
-{patterns}""",
-    messages=[{
-        "role": "user",
-        "content": prompt
-    }]
-)
+          {patterns}""",
+              messages=[{
+                  "role": "user",
+                  "content": prompt
+              }]
+          )
 
-# Save response for review
-output_file = specs_dir / "claude-generated-overlays.md"
-output_file.write_text(message.content[0].text)
+          # Save response for review
+          output_file = specs_dir / "claude-generated-overlays.md"
+          output_file.write_text(message.content[0].text)
 
-print(f"✅ Generated overlay files (saved to {output_file})")
-print("Human review required before applying")
-PYTHON_SCRIPT
+          print(f"✅ Generated overlay files (saved to {output_file})")
+          print("Human review required before applying")
+          PYTHON_SCRIPT
 
       - name: Create draft PR
         uses: peter-evans/create-pull-request@v6
