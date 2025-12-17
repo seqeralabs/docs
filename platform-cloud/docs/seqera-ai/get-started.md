@@ -20,7 +20,7 @@ To get started with Seqera AI:
 1. Install the Seqera AI CLI:
 
     ```bash
-    pip install seqera-ai
+    pip install seqera
     ```
 
     See [Installation](./installation.md) for a comprehensive installation guide.
