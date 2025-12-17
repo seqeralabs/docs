@@ -15,34 +15,6 @@ Seqera Cloud users receive $20 in free credits to get started with Seqera AI. [C
 
 Seqera AI uses your Seqera Platform account for authentication. This page describes authentication concepts and step-by-step instructions for managing your sessions.
 
-## Credential storage
-
-Seqera AI stores authentication tokens securely in your operating system's secure keychain:
-
-- **macOS**: Keychain Access
-- **Linux**: Secret Service (GNOME Keyring, KWallet)
-- **Windows**: Windows Credential Manager
-
-If keychain access isn't available, tokens are stored in:
-
-```
-~/.config/seqera-ai/refresh-token.<profile>
-```
-
-Session metadata (e.g., email, login timestamp) is stored in:
-
-```
-~/.config/seqera-ai/auth-state.json
-```
-
-## Token refresh
-
-Seqera AI CLI automatically refreshes your authentication token when needed. You are not required to log in again unless:
-
-- You explicitly log out
-- Your refresh token expires (typically after extended inactivity)
-- Your Seqera Platform account permissions change
-
 ## Authenticating Seqera AI
 
 ### Log in
@@ -118,6 +90,14 @@ seqera logout --all
 ```
 
 This command removes all stored credentials and session data.
+
+## Token refresh
+
+Seqera AI CLI automatically refreshes your authentication token when needed. You are not required to log in again unless:
+
+- You explicitly log out
+- Your refresh token expires (typically after extended inactivity)
+- Your Seqera Platform account permissions change
 
 ## Learn more
 
