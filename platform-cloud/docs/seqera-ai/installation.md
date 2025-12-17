@@ -42,7 +42,7 @@ To install Seqera AI CLI from Python Package Index (PyPI):
 1. Install Seqera AI CLI:
 
    ```bash
-   pip install seqera-ai
+   pip install seqera
    ```
 
    :::tip
@@ -50,7 +50,7 @@ To install Seqera AI CLI from Python Package Index (PyPI):
    ```bash
    python -m venv seqera-env
    source seqera-env/bin/activate  # On Windows: seqera-env\Scripts\activate
-   pip install seqera-ai
+   pip install seqera
    ```
    :::
 
@@ -63,7 +63,7 @@ To install Seqera AI CLI from Python Package Index (PyPI):
    You will see output similar to:
 
    ```console
-   seqera-ai 0.1.0
+   seqera, version 0.1.0
    ```
 
 ### Upgrade
@@ -71,7 +71,7 @@ To install Seqera AI CLI from Python Package Index (PyPI):
 To upgrade your version of Seqera AI CLI, run:
 
 ```bash
-pip install --upgrade seqera-ai
+pip install --upgrade seqera
 ```
 
 ### Uninstall
@@ -79,7 +79,7 @@ pip install --upgrade seqera-ai
 To uninstall your version of Seqera AI CLI, run:
 
 ```bash
-pip uninstall seqera-ai
+pip uninstall seqera
 ```
 
 ## Learn more
