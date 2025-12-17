@@ -20,17 +20,24 @@ Seqera AI can execute local commands and edit files in your environment. This pa
 When a command requires approval, you will see output similar to:
 
 ```
-The assistant wants to run:
-  rm -rf ./build/
+⚠ Approval required (default mode)
 
-[A]pprove  [R]eject  [E]dit
+╭──────────────────────────────────────╮
+│ rm -rf ./build/                      │
+╰──────────────────────────────────────╯
+
+  1 Yes, run this command
+  2 Yes, and don't ask again this session
+  3 No, cancel and stop
+
+Select [1/2/3]:
 ```
 
 You can:
 
-- **Approve (A)**: Run the command as shown
-- **Reject (R)**: Cancel the command
-- **Edit (E)**: Modify the command before running
+- **1**: Run the command as shown
+- **2**: Run the command and switch to `full` approval mode for the rest of the session
+- **3**: Cancel the command and stop the current operation
 
 ## Approval modes
 
@@ -75,10 +82,17 @@ This is the most restrictive mode. The assistant can only auto-execute commands 
 ```
 > Create a new file called test.txt with "hello world"
 
-The assistant wants to create file:
-  ./test.txt
+⚠ Approval required (basic mode)
 
-[A]pprove  [R]eject  [E]dit
+╭──────────────────────────────────────╮
+│ Write ./test.txt                     │
+╰──────────────────────────────────────╯
+
+  1 Yes, run this command
+  2 Yes, and don't ask again this session
+  3 No, cancel and stop
+
+Select [1/2/3]:
 ```
 
 ### Default
@@ -117,10 +131,17 @@ File creation in the workspace runs automatically.
 ```
 > Edit /etc/hosts
 
-The assistant wants to edit file:
-  /etc/hosts
+⚠ Approval required (default mode)
 
-[A]pprove  [R]eject  [E]dit
+╭──────────────────────────────────────╮
+│ Edit /etc/hosts                      │
+╰──────────────────────────────────────╯
+
+  1 Yes, run this command
+  2 Yes, and don't ask again this session
+  3 No, cancel and stop
+
+Select [1/2/3]:
 ```
 
 Editing outside the workspace requires approval.
@@ -173,10 +194,17 @@ Most operations run without prompts.
 ```
 > Delete the build directory
 
-The assistant wants to run:
-  rm -rf ./build/
+⚠ Approval required (full mode)
 
-[A]pprove  [R]eject  [E]dit
+╭──────────────────────────────────────╮
+│ rm -rf ./build/                      │
+╰──────────────────────────────────────╯
+
+  1 Yes, run this command
+  2 Yes, and don't ask again this session
+  3 No, cancel and stop
+
+Select [1/2/3]:
 ```
 
 Dangerous commands still require approval.
