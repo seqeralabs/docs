@@ -1,0 +1,234 @@
+# .github/workflows/generate-api-overlays.yml
+#
+# This workflow runs in the seqeralabs/docs repository
+# Phase 2: Generates overlay files when a new API version is detected
+
+name: Generate API Documentation Overlays
+
+on:
+  repository_dispatch:
+    types: [api-version-updated]
+  workflow_dispatch:
+    inputs:
+      api_version:
+        description: 'API version to generate overlays for'
+        required: true
+        type: string
+
+jobs:
+  generate-overlays:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout docs repo
+        uses: actions/checkout@v4
+        # Don't specify ref - use the branch that triggered the workflow
+
+      - name: Checkout Platform repo
+        uses: actions/checkout@v4
+        with:
+          repository: seqeralabs/platform
+          path: platform-repo
+          token: ${{ secrets.PLATFORM_REPO_PAT }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: |
+          pip install pyyaml anthropic
+
+      - name: Install Speakeasy CLI
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/speakeasy-api/speakeasy/main/install.sh | sh
+          echo "$HOME/.speakeasy/bin" >> $GITHUB_PATH
+
+      - name: Get API version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" == "repository_dispatch" ]; then
+            VERSION="${{ github.event.client_payload.api_version }}"
+          else
+            VERSION="${{ github.event.inputs.api_version }}"
+          fi
+          echo "api_version=$VERSION" >> $GITHUB_OUTPUT
+          echo "branch_name=api-docs-v${VERSION}" >> $GITHUB_OUTPUT
+
+      - name: Copy new base spec from Platform repo
+        run: |
+          # Copy the base spec
+          cp platform-repo/tower-backend/src/main/resources/META-INF/openapi/seqera-api-latest.yml \
+             platform-api-docs/scripts/specs/seqera-api-${{ steps.version.outputs.api_version }}.yaml
+
+          echo "✅ Copied base spec for version ${{ steps.version.outputs.api_version }}"
+
+      - name: Find previous version
+        id: prev-version
+        run: |
+          cd platform-api-docs/scripts/specs
+
+          # Find the most recent base spec (excluding the one we just added)
+          PREV_SPEC=$(ls -t seqera-api-*.yaml 2>/dev/null | grep -v "${{ steps.version.outputs.api_version }}" | head -n 1)
+
+          if [ -z "$PREV_SPEC" ]; then
+            echo "No previous spec found - this might be initial setup"
+            echo "has_previous=false" >> $GITHUB_OUTPUT
+          else
+            PREV_VERSION=$(echo "$PREV_SPEC" | sed 's/seqera-api-\(.*\)\.yaml/\1/')
+            echo "previous_version=$PREV_VERSION" >> $GITHUB_OUTPUT
+            echo "previous_spec=$PREV_SPEC" >> $GITHUB_OUTPUT
+            echo "has_previous=true" >> $GITHUB_OUTPUT
+            echo "✅ Found previous version: $PREV_VERSION"
+          fi
+
+      - name: Generate comparison overlay
+        if: steps.prev-version.outputs.has_previous == 'true'
+        run: |
+          cd platform-api-docs/scripts/specs
+
+          speakeasy overlay compare \
+            -b ${{ steps.prev-version.outputs.previous_spec }} \
+            -a seqera-api-${{ steps.version.outputs.api_version }}.yaml \
+            > base-${{ steps.prev-version.outputs.previous_version }}-to-${{ steps.version.outputs.api_version }}-changes.yaml
+
+          echo "✅ Generated comparison overlay"
+
+      - name: Analyze changes
+        if: steps.prev-version.outputs.has_previous == 'true'
+        run: |
+          cd platform-api-docs/scripts/specs
+
+          # Run analysis script - it outputs JSON to analysis.json
+          python ../../../openapi-overlay-generator/scripts/analyze_comparison.py \
+            base-${{ steps.prev-version.outputs.previous_version }}-to-${{ steps.version.outputs.api_version }}-changes.yaml
+
+          echo "✅ Analyzed changes"
+
+      - name: Generate overlay files with Claude
+        if: steps.prev-version.outputs.has_previous == 'true'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
+        run: |
+          # This step calls Claude API to generate overlay files
+          # The skill is available in the repo at openapi-overlay-generator/
+
+          python - <<'PYTHON_SCRIPT'
+import anthropic
+import json
+import os
+from pathlib import Path
+
+# The analysis script creates a JSON file with the same name + -analysis.json
+specs_dir = Path("platform-api-docs/scripts/specs")
+comparison_file_base = "base-${{ steps.prev-version.outputs.previous_version }}-to-${{ steps.version.outputs.api_version }}-changes"
+analysis_file = specs_dir / f"{comparison_file_base}-analysis.json"
+
+if not analysis_file.exists():
+    print("⚠️  No analysis file found - may be no changes")
+    exit(0)
+
+with open(analysis_file) as f:
+    analysis = json.load(f)
+
+# Read comparison overlay
+comparison_file = specs_dir / f"{comparison_file_base}.yaml"
+with open(comparison_file) as f:
+    comparison_overlay = f.read()
+
+# Call Claude API with skill context
+client = anthropic.Anthropic(api_key=os.environ['ANTHROPIC_API_KEY'])
+
+# Read standards and patterns from skill
+skill_path = Path("openapi-overlay-generator")
+standards = (skill_path / "references" / "standards.md").read_text()
+patterns = (skill_path / "references" / "overlay-patterns.md").read_text()
+
+prompt = f"""I need you to generate OpenAPI overlay files for the Seqera Platform API version ${{ steps.version.outputs.api_version }}.
+
+Here is the analysis of changes:
+{json.dumps(analysis, indent=2)}
+
+Here is the full comparison overlay showing all changes:
+```yaml
+{comparison_overlay}
+```
+
+Please generate three overlay files (operations, parameters, schemas) for each affected controller/tag. Follow the standards and patterns exactly.
+
+IMPORTANT:
+- Use exact standard descriptions for common parameters (workspaceId, max, offset, etc.)
+- Summaries are sentence case, no period
+- Descriptions are full sentences with periods
+- Follow verb-entity pattern for operations
+- Group by controller/feature
+
+Generate the overlay files as separate YAML code blocks, clearly labeled with the filename."""
+
+message = client.messages.create(
+    model="claude-sonnet-4-5-20250929",
+    max_tokens=16000,
+    system=f"""You are an expert at generating OpenAPI overlay files for API documentation.
+
+{standards}
+
+{patterns}""",
+    messages=[{
+        "role": "user",
+        "content": prompt
+    }]
+)
+
+# Save response for review
+output_file = specs_dir / "claude-generated-overlays.md"
+output_file.write_text(message.content[0].text)
+
+print(f"✅ Generated overlay files (saved to {output_file})")
+print("Human review required before applying")
+PYTHON_SCRIPT
+
+      - name: Create draft PR
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: |
+            Draft: API docs overlays for v${{ steps.version.outputs.api_version }}
+
+            - New base spec: seqera-api-${{ steps.version.outputs.api_version }}.yaml
+            - Comparison overlay generated
+            - Analysis report created
+            - Claude-generated overlays ready for review
+          branch: ${{ steps.version.outputs.branch_name }}
+          delete-branch: true
+          draft: true
+          title: '[Draft] API Documentation Updates for v${{ steps.version.outputs.api_version }}'
+          body: |
+            ## API Version: ${{ steps.version.outputs.api_version }}
+
+            This PR was automatically generated by the API docs workflow.
+
+            ### What's included
+
+            - ✅ New base spec copied from Platform repo
+            - ✅ Comparison overlay generated
+            - ✅ Changes analyzed and categorized
+            - ✅ Claude-generated overlay files (requires review)
+
+            ### Next steps
+
+            1. **Review Claude-generated overlays** in `claude-generated-overlays.md`
+            2. **Extract overlay files** from the markdown into separate YAML files
+            3. **Edit overlays** for accuracy and completeness
+            4. **Run validation**: `python scripts/validate_overlay.py <file>`
+            5. **Request engineering review** from appropriate team
+            6. **Once approved**, add label `overlays-approved` to trigger Phase 3
+
+            ### Analysis Summary
+
+            See analysis JSON file for detailed breakdown of changes.
+
+            ---
+
+            **Triggered by**: ${{ github.event.client_payload.triggered_by || github.actor }}
+            **Platform commit**: ${{ github.event.client_payload.platform_commit || 'manual trigger' }}
