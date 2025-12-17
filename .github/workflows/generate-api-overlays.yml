@@ -14,11 +14,6 @@ on:
         description: 'API version to generate overlays for'
         required: true
         type: string
-
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
 jobs:
   generate-overlays:
     runs-on: ubuntu-latest
