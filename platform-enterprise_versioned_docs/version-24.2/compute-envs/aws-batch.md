@@ -21,7 +21,7 @@ Both options require specific IAM permissions to function correctly, as well as 
 
 ## S3 bucket creation
 
-AWS S3 (Simple Storage Service) is a type of **object storage**. To access input and output files using Seqera products like [Studios](../studios/overview) and [Data Explorer](../data/data-explorer) create one or more **S3 buckets**. An S3 bucket can also be used to store intermediate results of your Nextflow pipelines, as an alternative to using EFS or FSx file systems.
+AWS S3 (Simple Storage Service) is a type of **object storage**. To access input and output files using Seqera products like [Studios](../data_studios/overview) and [Data Explorer](../data/data-explorer) create one or more **S3 buckets**. An S3 bucket can also be used to store intermediate results of your Nextflow pipelines, as an alternative to using EFS or FSx file systems.
 :::note
 Using EFS as the Platform work directory is incompatible with Studios.
 :::
@@ -373,7 +373,7 @@ The policy can be scoped down to limit access to the [specific log group](#advan
 
 ### S3 access (optional)
 
-Seqera offers several products to manipulate data on AWS S3 buckets, such as [Studios](../studios/overview) and [Data Explorer](../data/data-explorer); in addition to that, Seqera automatically fetches the list of buckets available in the AWS accounts connected to Platform, to provide them in a dropdown menu to be used as Nextflow working directory. The Studios and Data Explorer features are optional, and users can type the bucket name manually when creating pipelines, so this section of the policy is optional and can be omitted if these features are not used.
+Seqera offers several products to manipulate data on AWS S3 buckets, such as [Studios](../data_studios/overview) and [Data Explorer](../data/data-explorer); in addition to that, Seqera automatically fetches the list of buckets available in the AWS accounts connected to Platform, to provide them in a dropdown menu to be used as Nextflow working directory. The Studios and Data Explorer features are optional, and users can type the bucket name manually when creating pipelines, so this section of the policy is optional and can be omitted if these features are not used.
 
 The policy can be scoped down to only allow limited Read/Write permissions in certain S3 buckets used by Studios/Data Explorer, and to allow listing all the buckets in the account to populate the dropdown menu in the UI (the `s3:ListAllMyBuckets` action must have `Resource` set to `*` because it is not possible to restrict it to specific buckets).
 
