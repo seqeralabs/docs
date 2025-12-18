@@ -2,7 +2,7 @@
 title: "AWS Batch"
 description: "Instructions to set up AWS Batch in Seqera Platform"
 date created: "2023-04-21"
-last updated: "2025-11-21"
+last updated: "2025-12-18"
 tags: [aws, batch, compute environment]
 ---
 
@@ -38,17 +38,19 @@ S3 can be used by Nextflow for the storage of intermediate files. In production 
 
 ## EFS or FSx file system creation
 
-[AWS Elastic File System (EFS)](https://aws.amazon.com/efs/) and [AWS FSx](https://aws.amazon.com/fsx/) are types of **file storage** that can be used as a Nextflow work directory to store intermediate files, as an alternative to using S3 buckets.
+[AWS Elastic File System (EFS)](https://aws.amazon.com/efs/) and [AWS FSx for Lustre](https://aws.amazon.com/fsx/lustre/) are types of **file storage** that can be used as a Nextflow work directory to store intermediate files, as an alternative to using S3 buckets.
 
 :::note
 Using EFS as the Platform work directory is incompatible with Studios.
 :::
 
-To use EFS or FSx as your Nextflow work directory, create an EFS or FSx file system in the same region where you plan to create your AWS Batch compute environment, to avoid high data transfer costs.
+To use EFS or FSx as your Nextflow work directory, create an EFS or FSx file system in the same region where you plan to create your AWS Batch compute environment.
+
+The creation of an EFS or FSx file system can be done automatically by Seqera when creating the AWS Batch compute environment, or manually by following the steps below. If you let Seqera create the file system automatically, it will also be deleted when the compute environment is removed from Platform, unless the "Dispose Resources" option is disabled in the advanced options.
 
 ### Creating an EFS file system
 
-Visit the [EFS console](https://console.aws.amazon.com/efs/home) to create a new EFS file system.
+To create a new EFS file system manually, visit the [EFS console](https://console.aws.amazon.com/efs/home).
 
 1. Select **Create file system**.
 1. Optionally give it a name, then select the VPC where your AWS Batch compute environment will be created.
@@ -56,10 +58,10 @@ Visit the [EFS console](https://console.aws.amazon.com/efs/home) to create a new
 
 ### Creating an FSx file system
 
-Visit the [FSx console](https://console.aws.amazon.com/fsx/home) to create a new FSx file system.
+To create a new FSx for Lustre file system manually, visit the [FSx console](https://console.aws.amazon.com/fsx/home).
 
 1. Select **Create file system**.
-1. Select the desired FSx file system type (e.g., FSx for Lustre)
+1. Select FSx for Lustre
 1. Follow the prompts to configure the file system according to your requirements, then select **Next**.
 1. Review the configuration and select **Create file system**.
 
@@ -452,7 +454,7 @@ AWS does not support restricting IAM permissions on EC2 Describe actions based o
 
 ### FSx file systems (optional)
 
-Seqera can interact with AWS FSx to manage [AWS FSx file systems](https://aws.amazon.com/fsx/), if needed by the pipelines.
+Seqera can manage [AWS FSx file systems](https://aws.amazon.com/fsx/), if needed by the pipelines.
 
 This section of the policy is optional and can be omitted if FSx file systems are not used by your pipelines. The describe actions cannot be restricted to specific resources, so permission to operate on any resource `*` must be granted. The management actions can be restricted to specific resources, like in the example below.
 
@@ -479,7 +481,7 @@ This section of the policy is optional and can be omitted if FSx file systems ar
 
 ### EFS file systems (optional)
 
-Seqera can interact with [AWS EFS file systems](https://aws.amazon.com/efs/), if needed by the pipelines.
+Seqera can manage [AWS EFS file systems](https://aws.amazon.com/efs/), if needed by the pipelines.
 
 This section of the policy is optional and can be omitted if EFS file systems are not used by your pipelines. The describe actions cannot be restricted to specific resources, so permission to operate on any resource `*` must be granted. The management actions can be restricted to specific resources, like in the example below.
 
@@ -651,7 +653,7 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
     When you specify an S3 bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. Seqera adds a `cloudcache` block to the Nextflow configuration file for all runs executed with this compute environment. This block includes the path to a `cloudcache` folder in your work directory, e.g., `s3://seqera-bucket/cloudcache/.cache`. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
     :::
 
-   Similarly you can specify a path in an EFS or FSx file system as your work directory. When using EFS or FSx, you'll need to scroll down to "EFS file system" or "FSx for Lustre" sections to specify either an existing file system ID or let Seqera create a new one for you automatically. Read the notes below on how to setup EFS or FSx.
+   Similarly you can specify a path in an EFS or FSx file system as your work directory. When using EFS or FSx, you'll need to scroll down to "EFS file system" or "FSx for Lustre" sections to specify either an existing file system ID or let Seqera create a new one for you automatically. Read the notes in steps 23 and 24 below on how to setup EFS or FSx.
 
     :::warning
     Using an EFS file system as your work directory is currently incompatible with [Studios](../studios/overview), and will result in errors with checkpoints and mounted data.
@@ -880,7 +882,8 @@ AWS Batch creates resources that you may be charged for in your AWS account. See
     When you specify an S3 bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. Seqera adds a `cloudcache` block to the Nextflow configuration file for all runs executed with this compute environment. This block includes the path to a `cloudcache` folder in your work directory, e.g., `s3://seqera-bucket/cloudcache/.cache`. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
     :::
 
-   Similarly you can provide an EFS or FSx file system as your work directory.
+   Similarly you can specify a path in an EFS or FSx file system as your work directory. When using EFS or FSx, you'll need to scroll down to "EFS file system" or "FSx for Lustre" sections to specify either an existing file system ID or let Seqera create a new one for you automatically. Read the notes in steps 23 and 24 below on how to setup EFS or FSx.
+
     :::warning
     Using an EFS file system as your work directory is currently incompatible with [Studios](../studios/overview), and will result in errors with checkpoints and mounted data.
     :::
