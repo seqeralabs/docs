@@ -80,7 +80,7 @@
                     },
                     {
                     "Name": "cron",
-                    "Image": "cr.seqera.io/private/nf-tower-enterprise/backend:v25.2.2",
+                    "Image": "cr.seqera.io/private/nf-tower-enterprise/backend:v25.3.0",
                     "Memory": 2000,
                     "Cpu": 0,
                     "Links": [
@@ -138,7 +138,7 @@
                         },
                         {
                             "Name": "TOWER_DB_DIALECT",
-                            "Value": "io.seqera.util.MySQL8DialectCollateBin"
+                            "Value": "io.seqera.util.MySQL55DialectCollateBin"
                         },
                         {
                             "Name": "TOWER_DB_USER",
@@ -183,12 +183,16 @@
                             "Value": {
                                 "Ref": "TowerLicense"
                             }
+                        },
+                        {
+                            "Name": "FLYWAY_LOCATIONS",
+                            "Value": "classpath:db-schema/mysql"
                         }
                     ]
                     },
                     {
                     "Name": "frontend",
-                    "Image": "cr.seqera.io/private/nf-tower-enterprise/frontend:v25.2.2",
+                    "Image": "cr.seqera.io/private/nf-tower-enterprise/frontend:v25.3.0",
                     "Memory": 2000,
                     "Cpu": 0,
                     "Essential": false,
@@ -211,7 +215,7 @@
                     "Hostname": "backend",
                     "Memory": 2000,
                     "Cpu": 0,
-                    "Image": "cr.seqera.io/private/nf-tower-enterprise/backend:v25.2.2",
+                    "Image": "cr.seqera.io/private/nf-tower-enterprise/backend:v25.3.0",
                     "PortMappings": [{
                         "ContainerPort": 8080,
                         "HostPort": 8080
@@ -275,7 +279,7 @@
                         },
                         {
                             "Name": "TOWER_DB_DIALECT",
-                            "Value": "io.seqera.util.MySQL8DialectCollateBin"
+                            "Value": "io.seqera.util.MySQL55DialectCollateBin"
                         },
                         {
                             "Name": "TOWER_DB_USER",
@@ -320,6 +324,10 @@
                             "Value": {
                                 "Ref": "TowerLicense"
                             }
+                        },
+                        {
+                            "Name": "FLYWAY_LOCATIONS",
+                            "Value": "classpath:db-schema/mysql"
                         }
                     ],
                     "EntryPoint": [ "/bin/sh" ],

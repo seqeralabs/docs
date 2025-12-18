@@ -1,0 +1,186 @@
+---
+title: "AWS"
+description: Prerequisites for AWS deployments
+date: "12 Apr 2023"
+tags: [aws, prerequisites, configuration, ec2, ses, rds]
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+This page describes the infrastructure and other prerequisites for deploying Seqera Platform Enterprise on Amazon Web Services (AWS).
+
+Run the Seqera container with [Docker](../docker-compose) on an AWS EC2 instance, or with [Kubernetes](../kubernetes) on an Amazon EKS cluster. You must satisfy the requirements for your installation target:
+
+- **SMTP server**: If you don't have an email server, use [Amazon Simple Email Service](https://aws.amazon.com/ses/).
+
+   :::note
+   Amazon [blocks EC2 traffic over port 25 by default](https://aws.amazon.com/premiumsupport/knowledge-center/ec2-port-25-throttle/). Your integration must use a port that can successfully reach your SMTP server.
+   :::
+
+- **MySQL database**: An external database, such as one provided by [Amazon Relational Database Service](https://aws.amazon.com/rds/), is highly recommended for production deployments.
+
+- **Redis-compatible cache**: An external Redis-compatible cache, such as one provided by [Amazon ElastiCache](https://aws.amazon.com/elasticache/), is highly recommended for production deployments.
+
+- **(Optional) SSL certificate**: HTTP must not be used in production environments. An SSL certificate is required for your Seqera instance to handle HTTPS traffic. See [SSL/TLS configuration](../configuration/ssl_tls#aws-deployments-manage-ssl-certificates-with-amazon-certificate-manager-acm) for more information.
+
+   :::note
+   HTTP-only implementations **must** set the `TOWER_ENABLE_UNSAFE_MODE=true` environment variable in the Seqera hosting infrastructure to enable user login. HTTP must not be used in production environments.
+   :::
+
+- **(Optional) AWS Parameter Store**: Store sensitive Seqera configuration values as SecureString [AWS Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) parameters. See [AWS Parameter Store configuration](../configuration/aws_parameter_store) for instructions. This is recommended for production environments.
+
+- **(Optional) DNS**: DNS is required to support human-readable domain names and load-balanced traffic. If you don't have access to a pre-existing DNS service, use [Amazon Route 53](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html).
+
+### Prerequisites for Docker
+
+An [EC2](https://aws.amazon.com/ec2/) instance is required. See [Amazon EC2](#amazon-ec2) for instructions to provision an EC2 instance for this purpose.
+
+### Prerequisites for EKS
+
+If you're installing Seqera Enterprise with Kubernetes, an [Elastic Kubernetes Service (EKS)](https://docs.aws.amazon.com/eks/latest/userguide/getting-started.html) cluster is required. See the [EKS documentation](https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html) to provision your own cluster.
+
+<details>
+   <summary>EKS cluster requirements</summary>
+
+    - Kubernetes 1.19 or later
+
+    - **Subnet requirements**
+
+      - At least 2 subnets across two different Availability Zones
+      - Subnets must be tagged for [AWS Load Balancer Controller auto-discovery](https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html)
+      - Public subnets must be configured to [auto-assign IPs on launch](https://aws.amazon.com/blogs/containers/upcoming-changes-to-ip-assignment-for-eks-managed-node-groups/)
+      - Public and private subnets must allow egress traffic to the public internet
+
+    - **RBAC requirements**
+
+      - The cluster must be created by a non-root user
+      - `aws-auth` must be updated to [allow access to additional IAM users/roles](https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html) (if needed)
+
+    - **Addons**
+
+      - Install the [cert-manager](https://cert-manager.io/docs/)
+      - Install the [AWS Load Balancer Controller](https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html)
+
+    - **Ingress**
+
+      - ALB provisioning via the [AWS Load Balancer Controller](https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html)
+      - ALB integration with the [Amazon Certificate Manager](https://aws.amazon.com/certificate-manager/)
+
+      Additionally, the ingress assumes the presence of SSL certificates, DNS resolution, and ALB logging. If you've chosen not to use some or all of these features, you'll need to modify the manifest accordingly before applying it to the cluster.
+
+</details>
+
+## AWS setup
+
+Set up commonly-used AWS services for Seqera deployment.
+
+### Fetch Seqera config values from AWS Parameter Store
+
+From version 23.1, you can retrieve Seqera Enterprise configuration values remotely from the AWS Parameter Store. See [AWS Parameter Store configuration](../configuration/aws_parameter_store) for instructions.
+
+### Amazon SES
+
+Seqera Enterprise supports AWS Simple Email Service (SES) as an alternative to traditional SMTP servers for sending application emails.
+
+:::caution
+If you use AWS SES in sandbox mode, both the _sender_ and the _receiver_ email addresses must be verified via AWS SES. Sandbox is not recommended for production use. See the [AWS docs](https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html) for instructions to move out of the sandbox.
+:::
+
+- See [Obtaining SES SMTP credentials using the SES console](https://docs.aws.amazon.com/ses/latest/dg/smtp-credentials.html#smtp-credentials-console) for instructions to set up SES to send emails from your preferred address.
+
+- To prevent emails from SES being flagged as spam, see these AWS instructions for setting up an email authentication method:
+
+   - [DKIM for a domain](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-authentication-dkim-easy-setup-domain.html)
+
+   - [SPF authentication](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-authentication-spf.html)
+
+### Database requirements
+
+Seqera Enterprise requires a MySQL 8.0-compatible database. For AWS deployments, we recommend:
+
+- **AWS RDS MySQL 8.0** (recommended for most deployments)
+- **AWS Aurora MySQL** with standard provisioned instances
+
+:::warning Aurora Serverless is not supported
+**Do not use AWS Aurora Serverless.** Aurora Serverless v1 and v2 are not supported for Seqera Platform due to documented stability and performance issues under production workloads. Use standard provisioned Aurora MySQL instances or RDS MySQL instead.
+:::
+
+**Minimum specifications:**
+- Instance class: `db.r5.large` or equivalent (2 vCPUs, 16 GB RAM minimum)
+- Storage: 100 GB minimum, with auto-scaling enabled
+- MySQL version: 8.0.x
+- Multi-AZ deployment recommended for production
+
+:::caution
+Recommended instance class and storage requirements depend on the number of parallel pipelines you expect to run.
+:::
+
+See the [Database configuration](../configuration/overview.mdx#database-requirements) section for connection pool sizing and performance tuning guidance.
+
+<Tabs>
+<TabItem value="AWS console" label="AWS console" default>
+
+See [Creating an Amazon RDS DB instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_CreateDBInstance.html) to guide you through the external database setup for your production deployment.
+
+</TabItem>
+<TabItem value="AWS CLI" label="AWS CLI" default>
+
+To create a DB instance with the AWS CLI, call the [create-db-instance](https://docs.aws.amazon.com/cli/latest/reference/rds/create-db-instance.html) command, replacing `INSTANCE_NAME`, `SECURITY_GROUP`, `DB_USER`, and `DB_PASSWORD` with your unique values:
+
+```bash
+aws rds create-db-instance \
+    --engine mysql \
+    --db-instance-identifier INSTANCE_NAME \
+    --allocated-storage 30 \
+    --db-instance-class db.m5d.large \
+    --vpc-security-group-ids SECURITY_GROUP \
+    --db-subnet-group SUBNET_GROUP \
+    --master-username DB_USER \
+    --master-user-password DB_PASSWORD \
+```
+
+</TabItem>
+</Tabs>
+
+After your database is created:
+
+- Update the inbound rules for the underlying EC2 instance to allow MySQL connections.
+- Update your Seqera [configuration](../configuration/overview#seqera-and-redis-databases) with the database hostname, username, and password.
+
+### Amazon EC2
+
+See [Getting started with Amazon EC2](https://aws.amazon.com/ec2/getting-started/) for instructions to create your EC2 instance.
+
+Create an instance with these attributes:
+
+- **Amazon Machine Image (AMI)**: Amazon Linux 2023 Optimized
+- **Instance type**: c5a.xlarge or c5.large with 4 CPUs and 8 GB RAM
+- **Root storage**: 30 GB
+- **Tags**: It is helpful to use a descriptive `Name` value for your instance, such as `seqera-app-server`.
+- **Security Group name**: Seqera deployment manifests provided in this installation guide use `tower-sg` by default. If you choose to use a custom name, this must be updated consistently across your deployment files.
+- **Keypair**: It is security best practice to use a **new** keypair for your production deployment instance.
+
+After your instance is launched:
+
+1. Use the key pair to connect to the server with SSH and its public IP address. Terminal-based SSH is easier to use than browser-based SSH for copying and pasting text.
+
+1. [Install Docker](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-docker.html#install-docker-instructions).
+
+1. [Install Docker Compose](https://docs.docker.com/compose/install/linux/#install-the-plugin-manually).
+
+1. Confirm that Docker Compose is installed:
+
+    ```bash
+    docker compose version
+    ```
+
+## Seqera container images
+
+Seqera Enterprise is distributed as a collection of container images available through the Seqera container registry [`cr.seqera.io`](https://cr.seqera.io). Refer to the instructions in the [Common prerequisites](./common.md#vendoring-seqera-container-images-to-your-own-registry) page to replicate the required images to your internal container registry for High Availability or for air-gapped environments.
+
+## Next steps
+
+See [Configuration](../configuration/overview).
+
+[create-db-instance-cli]: https://docs.aws.amazon.com/cli/latest/reference/rds/create-db-instance.html

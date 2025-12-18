@@ -39,7 +39,7 @@ The launch form accepts URL query parameters. See [Populate launch form with URL
 - **Commit ID**: Pin pipeline revision to the most recent HEAD commit ID. If no commit ID is pinned, the latest revision of the repository branch or tag is used.
 - **Pull latest**: Fetch the most recent HEAD commit ID of the pipeline revision at launch time. Unpins the **Commit ID**, if set. 
   :::info
-  See [Pin commit ID](../pipelines/overview.md#pin-commit-id) for more information on **Commit ID**, **Pull latest**, and **Revision** behavior. 
+  See [Git revision management](../pipelines/revision.md) for more information on **Commit ID**, **Pull latest**, and **Revision** behavior. 
   :::
 - **Config profiles**: One or more [configuration profile](https://www.nextflow.io/docs/latest/config.html#config-profiles) names to use for the execution. Config profiles must be defined in the `nextflow.config` file in the pipeline repository.
 - **Workflow run name**: A unique identifier for the run, pre-filled with a random name. This can be customized.
