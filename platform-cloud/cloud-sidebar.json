@@ -67,6 +67,7 @@
             "items": [
               "compute-envs/seqera-compute",
               "compute-envs/aws-batch",
+              "compute-envs/aws-batch-new",
               "compute-envs/aws-cloud",
               "compute-envs/azure-batch",
               "compute-envs/azure-cloud",
