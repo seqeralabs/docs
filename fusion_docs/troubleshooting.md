@@ -1,25 +1,24 @@
 ---
 title: Troubleshooting
 description: "Troubleshooting for Fusion issues"
-date: "2025-11-29"
-tags: [troubleshooting, fusion, fusion snapshots, configuration]
+date created: "2025-11-29"
+last updated: "2025-12-19"
+tags: [troubleshooting, fusion, fusion-snapshots, configuration]
 ---
-
-When working with Fusion and Fusion Snapshots, you might encounter the following issues. This page provides solutions for common problems.
 
 ## General
 
 ### Too many open files
 
-**Issue:**
+**Issue**
 
 Tasks fail with an error about too many open files.
 
-**Cause:**
+**Cause**
 
 The default file descriptor limit is too low for the container workload.
 
-**Solution:**
+**Solution**
 
 Increase the `ulimit` for the container. Append the following to your Nextflow configuration:
 
@@ -29,25 +28,23 @@ process.containerOptions = '--ulimit nofile=1048576:1048576'
 
 ## Fusion Snapshots
 
-### Exit code 175: Checkpoint dump failed
+### Exit code `175`: Checkpoint dump failed
 
-**Issue:**
+**Issue**
 
-Task fails with exit code 175, indicating the checkpoint operation did not complete successfully.
+Task fails with exit code `175`, indicating the checkpoint operation did not complete successfully.
 
-**Cause:**
+**Cause**
 
 1. Checkpoint timeout — The process could not be saved within the reclamation window (typically due to high memory usage):
-
    - AWS Batch: 120 seconds (guaranteed)
    - Google Batch: Up to 30 seconds (not guaranteed)
    - Other factors: Large number of open file descriptors, complex process trees
 
-2. Insufficient network bandwidth — Cannot upload checkpoint data fast enough
+2. Insufficient network bandwidth — Cannot upload checkpoint data fast enough.
+3. Disk space issues — Not enough local storage for checkpoint files.
 
-3. Disk space issues — Not enough local storage for checkpoint files
-
-**Solution:**
+**Solution**
 
 1. Reduce memory usage:
 
@@ -65,13 +62,13 @@ Task fails with exit code 175, indicating the checkpoint operation did not compl
 
 2. Increase network bandwidth:
 
-   - Use instance types with higher guaranteed network bandwidth
-   - Ensure memory:bandwidth ratio is appropriate (5:1 or better for AWS)
+   - Use instance types with higher guaranteed network bandwidth.
+   - Ensure memory:bandwidth ratio is appropriate (5:1 or better for AWS).
 
-3. Enable incremental snapshots (automatic on x86_64):
+3. Enable incremental snapshots (automatic on `x86_64`):
 
-   - Verify you're using x86_64 architecture: `uname -m`
-   - Avoid ARM64 instances if checkpoints are failing
+   - Verify you're using `x86_64` architecture: `uname -m`
+   - Avoid ARM64 instances if checkpoints are failing.
 
 4. Configure retry strategy:
 
@@ -92,26 +89,26 @@ See [AWS Batch instance selection](./guide/snapshots/aws.md#selecting-an-ec2-ins
 
 ### Exit code `176`: Checkpoint restore failed
 
-**Issue:**
+**Issue**
 
 Task fails with exit code `176` when attempting to restore from a checkpoint.
 
-**Cause:**
+**Cause**
 
-1. Corrupted checkpoint — Previous checkpoint did not complete properly
-2. Missing checkpoint files — Checkpoint data missing or inaccessible in object storage
-3. State conflict — Attempting to restore while dump still in progress
-4. Environment mismatch — Different environment between checkpoint and restore
+1. Corrupted checkpoint — Previous checkpoint did not complete properly.
+2. Missing checkpoint files — Checkpoint data missing or inaccessible in object storage.
+3. State conflict — Attempting to restore while dump still in progress.
+4. Environment mismatch — Different environment between checkpoint and restore.
 
-**Solution:**
+**Solution**
 
 1. Check if previous checkpoint completed:
-   - Review logs for "Dumping finished successfully"
-   - If missing, previous checkpoint timed out with a 175 exit error
+   - Review logs for "Dumping finished successfully".
+   - If missing, previous checkpoint timed out with a `175` exit error.
 
 2. Verify checkpoint data exists:
-   - Check work directory `.fusion/dump/` contains checkpoint files
-   - Ensure S3/GCS bucket is accessible
+   - Check work directory `.fusion/dump/` contains checkpoint files.
+   - Ensure S3/GCS bucket is accessible.
    - If missing, open a support ticket. See [Getting help](#getting-help) for more information.
 
 3. Configure retry for dump failures first:
@@ -119,56 +116,56 @@ Task fails with exit code `176` when attempting to restore from a checkpoint.
 
 ### Long checkpoint times
 
-**Issue:**
+**Issue**
 
 Checkpoints take longer than expected, approaching timeout limits.
 
-**Cause:**
+**Cause**
 
-1. High memory usage — Memory is typically the primary factor affecting checkpoint time
-2. ARM64 architecture — Only full dumps available (no incremental snapshots)
-3. Insufficient network bandwidth — Instance bandwidth too low for memory size
-4. Open file descriptors — Large number of open files or complex process trees
+1. High memory usage — Memory is typically the primary factor affecting checkpoint time.
+2. ARM64 architecture — Only full dumps available (no incremental snapshots).
+3. Insufficient network bandwidth — Instance bandwidth too low for memory size.
+4. Open file descriptors — Large number of open files or complex process trees.
 
-**Solution:**
+**Solution**
 
 1. For AWS Batch (120-second window):
-   - Use instances with 5:1 or better memory:bandwidth ratio
-   - Use x86_64 instances for incremental snapshot support (c6id, m6id, r6id families)
+   - Use instances with 5:1 or better memory:bandwidth ratio.
+   - Use `x86_64` instances for incremental snapshot support (`c6id`, `m6id`, `r6id` families).
    - Check architecture: `uname -m`
 
 2. For Google Batch (30-second window):
-   - Use x86_64 instances (mandatory for larger workloads)
-   - Use more conservative memory limits
-   - Consider smaller instance types with better ratios
+   - Use `x86_64` instances (mandatory for larger workloads).
+   - Use more conservative memory limits.
+   - Consider smaller instance types with better ratios.
 
 3. Review instance specifications:
-   - Verify guaranteed network bandwidth (not "up to" values)
-   - Prefer NVMe storage instances on AWS (instances with `d` suffix)
+   - Verify guaranteed network bandwidth (not "up to" values).
+   - Prefer NVMe storage instances on AWS (instances with `d` suffix).
 
 See [Selecting an EC2 instance](./guide/snapshots/aws.md#selecting-an-ec2-instance) for detailed recommendations.
 
 ### Frequent checkpoint failures
 
-**Issue:**
+**Issue**
 
 Checkpoints consistently fail across multiple tasks.
 
-**Cause:**
+**Cause:*
 
-1. Task too large for reclamation window — Memory usage exceeds what can be checkpointed in time (more common on Google Batch with 30-second window)
-2. Network congestion or throttling — Bandwidth lower than instance specifications
-3. ARM64 architecture limitations — Full dumps only, requiring much more time and bandwidth
+1. Task too large for reclamation window — Memory usage exceeds what can be checkpointed in time (more common on Google Batch with 30-second window).
+2. Network congestion or throttling — Bandwidth lower than instance specifications.
+3. ARM64 architecture limitations — Full dumps only, requiring much more time and bandwidth.
 
-**Solution:**
+**Solution**
 
 1. Split large tasks:
-   - Break into smaller, checkpointable units
-   - Process data in chunks
+   - Break into smaller, checkpointable units.
+   - Process data in chunks.
 
-2. Switch to x86_64 instances:
-   - Essential for Google Batch
-   - Recommended for AWS Batch tasks > 40 GiB
+2. Switch to `x86_64` instances:
+   - Essential for Google Batch.
+   - Recommended for AWS Batch tasks > 40 GiB.
 
 3. Adjust memory limits:
    ```groovy
@@ -181,15 +178,15 @@ Checkpoints consistently fail across multiple tasks.
 
 ### SSL/TLS connection errors after restore
 
-**Issue:**
+**Issue**
 
 Applications fail after restore with connection errors, especially HTTPS connections.
 
-**Cause:**
+**Cause**
 
 CRIU cannot preserve encrypted TCP connections (SSL/TLS).
 
-**Solution:**
+**Solution**
 
 Configure TCP close mode to drop connections during checkpoint:
 
@@ -197,9 +194,7 @@ Configure TCP close mode to drop connections during checkpoint:
 process.containerOptions = '-e FUSION_SNAPSHOTS_TCP_MODE=close'
 ```
 
-Applications will need to re-establish connections after restore.
-
-See [TCP connection handling](./guide/snapshots/configuration.md#tcp-connection-handling) for more information.
+Applications will need to re-establish connections after restore. See [TCP connection handling](./guide/snapshots/configuration.md#tcp-connection-handling) for more information.
 
 ### Debugging workflow
 
@@ -207,9 +202,9 @@ To diagnose checkpoint problems:
 
 1. Check the exit code to identify the failure type:
 
-        - **Exit code `175`**: Checkpoint dump failed — The snapshot could not be saved
-        - **Exit code `176`**: Checkpoint restore failed — The snapshot could not be restored
-        - **Other exit codes**: Likely an application error, not snapshot-related
+        - **Exit code `175`**: Checkpoint dump failed — The snapshot could not be saved.
+        - **Exit code `176`**: Checkpoint restore failed — The snapshot could not be restored.
+        - **Other exit codes**: Likely an application error, not snapshot-related.
 
 1. Review task logs:
 
@@ -254,7 +249,7 @@ To diagnose checkpoint problems:
     1. For full dumps (FULL type), check for success markers at the end of the `dump_*.log` file:
 
         ```console
-        (25.867099)     Unseizing 90 into 2
+        (25.867099) Unseizing 90 into 2
         (27.160829) Writing stats
         (27.197458) Dumping finished successfully
         ```
@@ -267,8 +262,8 @@ To diagnose checkpoint problems:
         # Log truncated - instance was reclaimed before dump completed
         ```
 
-        - AWS Batch: Timestamps near 120 seconds indicate instance terminated during dump
-        - Google Batch: Timestamps near 30 seconds indicate instance terminated during dump
+        - AWS Batch: Timestamps near 120 seconds indicate instance terminated during dump.
+        - Google Batch: Timestamps near 30 seconds indicate instance terminated during dump.
 
         **Cause**: Task memory too large or bandwidth too low for reclamation window.
 
@@ -284,15 +279,15 @@ To diagnose checkpoint problems:
 
 Confirm your environment is properly configured:
 
-- Instance type has sufficient network bandwidth
-- Memory usage is within safe limits for your cloud provider
-- Architecture is x86_64 (not ARM64) if experiencing issues
-- Fusion Snapshots are enabled in your compute environment
+- Instance type has sufficient network bandwidth.
+- Memory usage is within safe limits for your cloud provider.
+- Architecture is x86_64 (not ARM64) if experiencing issues.
+- Fusion Snapshots are enabled in your compute environment.
 
 1.  Test with different instance types. If uncertain:
 
-    - Run the same task with different instance types that have better disk iops and bandwidth guarantees and verify if Fusions Snapshots work there
-    - Decrease memory usage to a manageable amount
+    - Run the same task with different instance types that have better disk iops and bandwidth guarantees and verify if Fusions Snapshots work there.
+    - Decrease memory usage to a manageable amount.
 
 ### Getting help
 
@@ -308,7 +303,7 @@ When contacting Seqera support about Fusion Snapshots issues, provide the follow
 
 2. **Error details**:
 
-   - Exit code (especially `175` or `176` for snapshot failures)
+   - Exit code (especially `175` or `176` for Snapshot failures)
    - Task logs from the work directory (`.command.log`)
    - Fusion Snapshots logs (if available)
    - Timestamp of failure
@@ -317,13 +312,13 @@ When contacting Seqera support about Fusion Snapshots issues, provide the follow
 
    - Compute environment settings in Platform
    - Nextflow config related to snapshots (`fusion.snapshots.*` settings)
-   - Architecture (x86_64 or ARM64)
+   - Architecture (`x86_64` or ARM64)
 
 4. **Dump data** (if available):
 
    Diagnostic data from snapshot operations can help identify the root cause:
 
-   - Preferred: Complete `.fusion/dump/` directory from the task work directory
-   - Minimum: The `dump_metadata` file and all `*.log` files from numbered dump folders
+   - Preferred: Complete `.fusion/dump/` directory from the task work directory.
+   - Minimum: The `dump_metadata` file and all `*.log` files from numbered dump folders.
 
    If the directory is too large to share, prioritize the metadata and log files over the full checkpoint data.
