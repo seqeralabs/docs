@@ -1,8 +1,9 @@
 ---
 title: Advanced configuration
 description: "Advanced configuration options for Fusion Snapshots"
-date: "2024-11-29"
-tags: [fusion, fusion snapshots, snapshot, configuration, nextflow]
+date created: "2024-11-29"
+last updated: "2025-12-19"
+tags: [fusion, fusion-snapshots, snapshot, configuration, nextflow]
 ---
 
 Fusion Snapshots work optimally with default configuration for most workloads. You typically do not need to modify these settings unless you have specific organizational policies, experience issues with default behavior, or have edge case requirements.
@@ -13,11 +14,10 @@ For troubleshooting, focus on task memory usage and instance selection before ad
 
 ## Retry handling
 
-When spot instances are reclaimed, you can configure how Nextflow retries the tasks. There are two approaches:
+When Spot instances are reclaimed, you can configure how Nextflow retries the tasks. There are two approaches:
 
 - [Automatic retries with `maxSpotAttempts`](#automatic-retries-with-maxspotattempts)
 - [Fine-grained retries with `errorStrategy`](#fine-grained-retries-with-errorstrategy)
-
 
 ### Automatic retries with `maxSpotAttempts`
 
@@ -25,7 +25,7 @@ The simplest approach uses `maxSpotAttempts` to automatically retry any task tha
 
 **Increase retries**
 
-If you experience frequent spot reclamations, increase `maxSpotAttempts` above `5`:
+If you experience frequent Spot reclamations, increase `maxSpotAttempts` above `5`:
 
 - AWS Batch:
 
@@ -76,8 +76,8 @@ process {
 
 **Exit codes**:
 
-- `175`: Checkpoint dump failed — The snapshot could not be saved (e.g., insufficient memory, I/O errors)
-- `176`: Checkpoint restore failed — The snapshot could not be restored on the new instance
+- `175`: Checkpoint dump failed — The snapshot could not be saved (e.g., insufficient memory, I/O errors).
+- `176`: Checkpoint restore failed — The snapshot could not be restored on the new instance.
 
 **Configuration options**:
 
@@ -95,8 +95,8 @@ process.containerOptions = '-e FUSION_SNAPSHOTS_TCP_MODE=close'
 
 **Options:**
 
-- `established`: Preserve TCP connections (default)
-- `close`: Close all TCP connections during checkpoint
+- `established`: Preserve TCP connections (default).
+- `close`: Close all TCP connections during checkpoint.
 
 ## Debug logging
 
