@@ -6,8 +6,6 @@ last updated: "2025-09-29"
 tags: [cloud, vm, azure, compute-environment]
 ---
 
-## Azure Cloud
-
 :::note
 This compute environment type is currently in public preview. Please consult this guide for the latest information on recommended configuration and limitations. This guide assumes you already have an Azure account with a valid Azure subscription.
 :::
