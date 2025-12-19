@@ -36,13 +36,12 @@ Task fails with exit code `175`, indicating the checkpoint operation did not com
 
 **Cause**
 
-1. Checkpoint timeout — The process could not be saved within the reclamation window (typically due to high memory usage):
+1. Checkpoint timeout - The process could not be saved within the reclamation window (typically due to high memory usage). The reclamation windows are:
    - AWS Batch: 120 seconds (guaranteed)
    - Google Batch: Up to 30 seconds (not guaranteed)
    - Other factors: Large number of open file descriptors, complex process trees
-
-2. Insufficient network bandwidth — Cannot upload checkpoint data fast enough.
-3. Disk space issues — Not enough local storage for checkpoint files.
+2. Insufficient network bandwidth - Cannot upload checkpoint data fast enough.
+3. Disk space issues - Not enough local storage for checkpoint files.
 
 **Solution**
 
@@ -95,24 +94,24 @@ Task fails with exit code `176` when attempting to restore from a checkpoint.
 
 **Cause**
 
-1. Corrupted checkpoint — Previous checkpoint did not complete properly.
-2. Missing checkpoint files — Checkpoint data missing or inaccessible in object storage.
-3. State conflict — Attempting to restore while dump still in progress.
-4. Environment mismatch — Different environment between checkpoint and restore.
+1. Corrupted checkpoint - Previous checkpoint did not complete properly.
+2. Missing checkpoint files - Checkpoint data missing or inaccessible in object storage.
+3. State conflict - Attempting to restore while dump still in progress.
+4. Environment mismatch - Different environment between checkpoint and restore.
 
 **Solution**
 
 1. Check if previous checkpoint completed:
    - Review logs for "Dumping finished successfully".
-   - If missing, previous checkpoint timed out with a `175` exit error.
+   - If the "Dumping finished successfully" message is missing, it means the previous checkpoint timed out with a `175` exit error.
 
 2. Verify checkpoint data exists:
-   - Check work directory `.fusion/dump/` contains checkpoint files.
-   - Ensure S3/GCS bucket is accessible.
-   - If missing, open a support ticket. See [Getting help](#getting-help) for more information.
+   - Check that the `.fusion/dump/` work directory contains checkpoint files.
+   - Ensure that the S3/GCS bucket is accessible.
+   - If the bucket is missing, open a support ticket. See [Getting help](#getting-help) for more information.
 
 3. Configure retry for dump failures first:
-   - Handle exit code 175 with retry. See [Retry handling](./guide/snapshots/configuration.md#retry-handling) for more information.
+   - Handle exit code `175` with retry. See [Retry handling](./guide/snapshots/configuration.md#retry-handling) for more information.
 
 ### Long checkpoint times
 
@@ -122,10 +121,10 @@ Checkpoints take longer than expected, approaching timeout limits.
 
 **Cause**
 
-1. High memory usage — Memory is typically the primary factor affecting checkpoint time.
-2. ARM64 architecture — Only full dumps available (no incremental snapshots).
-3. Insufficient network bandwidth — Instance bandwidth too low for memory size.
-4. Open file descriptors — Large number of open files or complex process trees.
+1. High memory usage - Memory is typically the primary factor affecting checkpoint time.
+2. ARM64 architecture - Only full dumps available (no incremental snapshots).
+3. Insufficient network bandwidth - Instance bandwidth too low for memory size.
+4. Open file descriptors - Large number of open files or complex process trees.
 
 **Solution**
 
@@ -153,9 +152,9 @@ Checkpoints consistently fail across multiple tasks.
 
 **Cause:*
 
-1. Task too large for reclamation window — Memory usage exceeds what can be checkpointed in time (more common on Google Batch with 30-second window).
-2. Network congestion or throttling — Bandwidth lower than instance specifications.
-3. ARM64 architecture limitations — Full dumps only, requiring much more time and bandwidth.
+1. Task too large for reclamation window - Memory usage exceeds what can be checkpointed in time (more common on Google Batch with 30-second window).
+2. Network congestion or throttling - Bandwidth lower than instance specifications.
+3. ARM64 architecture limitations - Full dumps only, requiring much more time and bandwidth.
 
 **Solution**
 
@@ -202,8 +201,8 @@ To diagnose checkpoint problems:
 
 1. Check the exit code to identify the failure type:
 
-        - **Exit code `175`**: Checkpoint dump failed — The snapshot could not be saved.
-        - **Exit code `176`**: Checkpoint restore failed — The snapshot could not be restored.
+        - **Exit code `175`**: Checkpoint dump failed - The snapshot could not be saved.
+        - **Exit code `176`**: Checkpoint restore failed - The snapshot could not be restored.
         - **Other exit codes**: Likely an application error, not snapshot-related.
 
 1. Review task logs:
@@ -224,17 +223,17 @@ To diagnose checkpoint problems:
 
         ```console
         .fusion/dump/
-        ├── 1/                    # First dump
+        ├── 1/                   # First dump
         │   ├── pre_*.log        # Pre-dump log (if incremental)
         │   └── <CRIU files>
-        ├── 2/                    # Second dump
+        ├── 2/                   # Second dump
         │   ├── pre_*.log
         │   └── <CRIU files>
-        ├── 3/                    # Third dump (full)
+        ├── 3/                   # Third dump (full)
         │   ├── dump_*.log       # Full dump log
         │   ├── restore_*.log    # Restore log (if restored)
         │   └── <CRIU files>
-        └── dump_metadata         # Metadata tracking all dumps
+        └── dump_metadata        # Metadata tracking all dumps
         ```
 
     1. For incremental dumps (PRE type), check for success markers at the end of the `pre_*.log` file:
@@ -281,7 +280,7 @@ Confirm your environment is properly configured:
 
 - Instance type has sufficient network bandwidth.
 - Memory usage is within safe limits for your cloud provider.
-- Architecture is x86_64 (not ARM64) if experiencing issues.
+- Architecture is `x86_64` (not ARM64) if experiencing issues.
 - Fusion Snapshots are enabled in your compute environment.
 
 1.  Test with different instance types. If uncertain:
@@ -303,7 +302,7 @@ When contacting Seqera support about Fusion Snapshots issues, provide the follow
 
 2. **Error details**:
 
-   - Exit code (especially `175` or `176` for Snapshot failures)
+   - Exit code (especially `175` or `176` for snapshot failures)
    - Task logs from the work directory (`.command.log`)
    - Fusion Snapshots logs (if available)
    - Timestamp of failure
@@ -311,7 +310,7 @@ When contacting Seqera support about Fusion Snapshots issues, provide the follow
 3. **Configuration**:
 
    - Compute environment settings in Platform
-   - Nextflow config related to snapshots (`fusion.snapshots.*` settings)
+   - Nextflow config related to Fusion Snapshots (`fusion.snapshots.*` settings)
    - Architecture (`x86_64` or ARM64)
 
 4. **Dump data** (if available):
