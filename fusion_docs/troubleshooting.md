@@ -150,7 +150,7 @@ See [Selecting an EC2 instance](./guide/snapshots/aws.md#selecting-an-ec2-instan
 
 Checkpoints consistently fail across multiple tasks.
 
-**Cause:*
+**Cause**
 
 1. Task too large for reclamation window - Memory usage exceeds what can be checkpointed in time (more common on Google Batch with 30-second window).
 2. Network congestion or throttling - Bandwidth lower than instance specifications.
