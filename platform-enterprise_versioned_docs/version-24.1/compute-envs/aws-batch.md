@@ -656,7 +656,7 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
    Similarly you can specify a path in an EFS or FSx file system as your work directory. When using EFS or FSx, you'll need to scroll down to "EFS file system" or "FSx for Lustre" sections to specify either an existing file system ID or let Seqera create a new one for you automatically. Read the notes in steps 23 and 24 below on how to setup EFS or FSx.
 
     :::warning
-    Using an EFS file system as your work directory is currently incompatible with [Studios](../studios/overview), and will result in errors with checkpoints and mounted data.
+    Using an EFS file system as your work directory is currently incompatible with [Studios](../data_studios/overview), and will result in errors with checkpoints and mounted data.
     :::
 
 1. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers](https://www.nextflow.io/docs/latest/wave.html) for more information.
@@ -748,7 +748,7 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
       * See the [AWS documentation about EFS security groups](https://docs.aws.amazon.com/efs/latest/ug/network-access.html) for more information.
       * The Security group then needs to be defined in the **Advanced options** below to allow the compute environment to access the EFS file system.
     :::warning
-    EFS file systems are compatible with [Studios](../studios/overview), **except** when using the EFS file system as your **work directory**.
+    EFS file systems are compatible with [Studios](../data_studios/overview), **except** when using the EFS file system as your **work directory**.
     :::
 
 1. To use a **FSx for Lustre** file system in your pipeline, you can either select **Use existing FSx file system** and specify an existing FSx instance, or select **Create new FSx file system** to create one.
@@ -885,7 +885,7 @@ AWS Batch creates resources that you may be charged for in your AWS account. See
    Similarly you can specify a path in an EFS or FSx file system as your work directory. When using EFS or FSx, you'll need to scroll down to "EFS file system" or "FSx for Lustre" sections to specify either an existing file system ID or let Seqera create a new one for you automatically. Read the notes in steps 23 and 24 below on how to setup EFS or FSx.
 
     :::warning
-    Using an EFS file system as your work directory is currently incompatible with [Studios](../studios/overview), and will result in errors with checkpoints and mounted data.
+    Using an EFS file system as your work directory is currently incompatible with [Studios](../data_studios/overview), and will result in errors with checkpoints and mounted data.
     :::
 
 1. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers](https://www.nextflow.io/docs/latest/wave.html) for more information.
