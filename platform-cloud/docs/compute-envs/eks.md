@@ -69,7 +69,7 @@ After you have prepared your Kubernetes cluster and assigned a service account r
 1. Add the IAM user **Access key** and **Secret key**. This is the IAM user with the service account role detailed in the previous section.
 1. (Optional) Under **Assume role**, specify the IAM role to be assumed by the Seqera IAM user to access the compute environment AWS resources.
     :::note
-    When using AWS keys without an assumed role, the associated AWS user account must have all the appropriate [IAM permissions](./aws-batch.md#required-platform-iam-permissions). When an assumed role is provided, the keys are only used to retrieve temporary credentials impersonating the role specified: in this case, the permissions must be granted to the role instead of the user account, and the user must have the `sts:AssumeRole` permission for the role (see [AWS Batch IAM role creation (optional)](./aws-batch.md#iam-role-creation-optional)).
+    When using AWS keys without an assumed role, the associated AWS user account must have Seqera [Launch](https://github.com/seqeralabs/nf-tower-aws/tree/master/launch) and [Forge](https://github.com/seqeralabs/nf-tower-aws/tree/master/forge) permissions. When an assumed role is provided, the keys are only used to retrieve temporary credentials impersonating the role specified. In this case, Seqera [Launch](https://github.com/seqeralabs/nf-tower-aws/tree/master/launch) and [Forge](https://github.com/seqeralabs/nf-tower-aws/tree/master/forge) permissions must be granted to the role instead of the user account.
     :::
 1. Select a **Region**, e.g., _eu-west-1 - Europe (Ireland)_.
 1. Select a **Cluster name** from the list of available EKS clusters in the selected region.
