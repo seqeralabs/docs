@@ -14,7 +14,7 @@ The AWS Batch service quota for job queues is 50 per account. For more informati
 
 There are two ways to create a Seqera Platform compute environment for AWS Batch:
 
-- [**Automatically**](#automatic-configuration-of-batch-resources): this option lets Seqera automatically create the required AWS Batch resources in your AWS account, using an internal tool within Seqera Platform called "Forge". This removes the need to set up your AWS Batch infrastructure manually. Resources are also automatically deleted when the compute environment is removed from Platform.
+- [**Automatically**](#automatic-configuration-of-batch-resources): this option lets Seqera automatically create the required AWS Batch resources in your AWS account, using an internal tool within Seqera Platform called "Forge". This removes the need to set up your AWS Batch infrastructure manually. Resources can also be automatically deleted when the compute environment is removed from Platform.
 - [**Manually**](#manual-configuration-of-batch-resources): this option lets Seqera use existing AWS Batch resources previously created.
 
 Both options require specific IAM permissions to function correctly, as well as access to an S3 bucket or EFS/FSx file system to store intermediate Nextflow files.
@@ -23,10 +23,10 @@ Both options require specific IAM permissions to function correctly, as well as 
 
 AWS S3 (Simple Storage Service) is a type of **object storage**. To access input and output files using Seqera products like [Studios](../studios/overview) and [Data Explorer](../data/data-explorer) create one or more **S3 buckets**. An S3 bucket can also be used to store intermediate results of your Nextflow pipelines, as an alternative to using EFS or FSx file systems.
 :::note
-Using EFS as the Platform work directory is incompatible with Studios.
+Using EFS or FSx as work directory is incompatible with Studios.
 :::
 
-1. Navigate to the [AWS S3 service](https://console.aws.amazon.com/s3/home).
+1. Navigate to the [AWS S3 console](https://console.aws.amazon.com/s3/home).
 1. In the top right of the page, select the same region where you plan to create your AWS Batch compute environment.
 1. Select **Create bucket**.
 1. Enter a unique name for your bucket.
@@ -41,7 +41,7 @@ S3 can be used by Nextflow for the storage of intermediate files. In production 
 [AWS Elastic File System (EFS)](https://aws.amazon.com/efs/) and [AWS FSx for Lustre](https://aws.amazon.com/fsx/lustre/) are types of **file storage** that can be used as a Nextflow work directory to store intermediate files, as an alternative to using S3 buckets.
 
 :::note
-Using EFS as the Platform work directory is incompatible with Studios.
+Using EFS or FSx as work directory is incompatible with Studios.
 :::
 
 To use EFS or FSx as your Nextflow work directory, create an EFS or FSx file system in the same region where you plan to create your AWS Batch compute environment.
@@ -656,7 +656,7 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
    Similarly you can specify a path in an EFS or FSx file system as your work directory. When using EFS or FSx, you'll need to scroll down to "EFS file system" or "FSx for Lustre" sections to specify either an existing file system ID or let Seqera create a new one for you automatically. Read the notes in steps 23 and 24 below on how to setup EFS or FSx.
 
     :::warning
-    Using an EFS file system as your work directory is currently incompatible with [Studios](../studios/overview), and will result in errors with checkpoints and mounted data.
+    Using an EFS or FSx file system as your work directory is currently incompatible with [Studios](../studios/overview), and will result in errors with checkpoints and mounted data. Use an S3 bucket as your work directory when using Studios.
     :::
 
 1. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers](https://www.nextflow.io/docs/latest/wave.html) for more information.
@@ -748,7 +748,7 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
       * See the [AWS documentation about EFS security groups](https://docs.aws.amazon.com/efs/latest/ug/network-access.html) for more information.
       * The Security group then needs to be defined in the **Advanced options** below to allow the compute environment to access the EFS file system.
     :::warning
-    EFS file systems are compatible with [Studios](../studios/overview), **except** when using the EFS file system as your **work directory**.
+    EFS file systems cannot be used as work directory for [Studios](../studios/overview), but can be mounted and used by applications running in Studios.
     :::
 
 1. To use a **FSx for Lustre** file system in your pipeline, you can either select **Use existing FSx file system** and specify an existing FSx instance, or select **Create new FSx file system** to create one.
@@ -777,6 +777,9 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
       * See the [AWS documentation about FSx security groups](https://docs.aws.amazon.com/fsx/latest/LustreGuide/limit-access-security-groups.html) for more information.
       * The Security group then needs to be defined in the **Advanced options** below to allow the compute environment to access the FSx file system.
    - You may need to install the `lustre` client in the AMI used by your compute environment to access FSx file systems. See [Installing the Lustre client](https://docs.aws.amazon.com/fsx/latest/LustreGuide/install-lustre-client.html) for more information.
+    :::warning
+    FSx file systems cannot be used as work directory for [Studios](../studios/overview), but can be mounted and used by applications running in Studios.
+    :::
 
 1. Select **Dispose resources** to automatically delete all AWS resources created by Seqera Platform when you delete the compute environment, including EFS/FSx file systems.
 1. Apply [**Resource labels**](../resource-labels/overview) to the cloud resources produced by this compute environment. Workspace default resource labels are prefilled.
@@ -885,7 +888,7 @@ AWS Batch creates resources that you may be charged for in your AWS account. See
    Similarly you can specify a path in an EFS or FSx file system as your work directory. When using EFS or FSx, you'll need to scroll down to "EFS file system" or "FSx for Lustre" sections to specify either an existing file system ID or let Seqera create a new one for you automatically. Read the notes in steps 23 and 24 below on how to setup EFS or FSx.
 
     :::warning
-    Using an EFS file system as your work directory is currently incompatible with [Studios](../studios/overview), and will result in errors with checkpoints and mounted data.
+    Using an EFS or FSx file system as your work directory is currently incompatible with [Studios](../studios/overview), and will result in errors with checkpoints and mounted data. Use an S3 bucket as your work directory when using Studios.
     :::
 
 1. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers](https://www.nextflow.io/docs/latest/wave.html) for more information.
@@ -950,6 +953,9 @@ See [Launch pipelines](../launch/launchpad) to start executing workflows in your
 
 Seqera compute environments for AWS Batch include advanced options to configure resource allocation, execution roles, custom AWS CLI tool paths, and CloudWatch integration.
 
+- Configure a custom networking setup using the **VPC ID**, **Subnets**, and **Security groups** fields.
+  * If not defined, the default VPC, subnets, and security groups for the selected region will be used.
+  * When using EFS or FSx file systems, select the security group previously created to allow access to the file system. The VPC ID the security group belongs to needs to match the VPC ID defined for the Seqera Batch compute environment.
 - Use **Head Job CPUs** and **Head Job Memory** to specify the hardware resources allocated for the Nextflow head job. The default head job memory allocation is 4096 MiB.
 - Use **Head Job role** and **Compute Job role** to grant fine-grained IAM permissions to the Head Job and Compute Jobs,
 - Add an execution role ARN to the **Batch execution role** field to grant permissions to make API calls on your behalf to the ECS container used by Batch. This is required if the pipeline launched with this compute environment needs access to the secrets stored in this workspace. This field can be ignored if you are not using secrets.
