@@ -8,11 +8,6 @@ data:
   SWELL_SERVER_HOST: "0.0.0.0"
   SWELL_SERVER_PORT: "8090"
 
-  # API settings
-  SWELL_API_TRAIN_TIMEOUT: "60"
-  SWELL_API_TRAIN_BATCH_SIZE: "1000"
-  SWELL_API_PREDICT_FRACTIONAL_CPUS: "false"
-
   # Database settings, different from the tower DB credentials.
   # If using Amazon RDS or similar managed database services, `SWELL_DB_URL` will have the form
   # SWELL_DB_URL=mysql://db1.abcdefghijkl.us-east-1.rds.amazonaws.com:3306/swell or similar

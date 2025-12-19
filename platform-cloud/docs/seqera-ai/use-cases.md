@@ -19,6 +19,8 @@ Seqera AI is an intelligent command-line assistant that helps you build, run, an
 
 Seqera AI helps you develop, debug, and understand Nextflow pipelines with AI-powered analysis and code generation.
 
+![Use Seqera AI CLI to debug Nextflow pipeline scripts](./_images/pipeline-debug.gif)
+
 <details open>
 <summary>**Working with Nextflow**</summary>
 
@@ -66,6 +68,8 @@ Seqera AI helps you develop, debug, and understand Nextflow pipelines with AI-po
 ## Build containers with Wave
 
 Seqera AI can create containerized environments using Wave, without requiring you to write Dockerfiles.
+
+![Use Seqera AI CLI to build containers with Wave](./_images/building-wave-container.gif)
 
 <details open>
 <summary>**Building containers with Wave**</summary>
@@ -265,6 +269,8 @@ The assistant can generate the exact Nextflow command with proper parameters for
 ## Work with Seqera Platform
 
 Use Seqera Platform capabilities to run and manage workflows at scale with AI assistance.
+
+![Use Seqera AI CLI to debug Platform run errors](./_images/sp-run-debug.gif)
 
 <details open>
 <summary>**Working with Seqera Platform**</summary>
