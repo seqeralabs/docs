@@ -107,7 +107,7 @@ Task fails with exit code `176` when attempting to restore from a checkpoint.
 
 1. Check if previous checkpoint completed:
    - Review logs for "Dumping finished successfully"
-   - If missing, previous checkpoint timed out (exit 175)
+   - If missing, previous checkpoint timed out with a 175 exit error
 
 2. Verify checkpoint data exists:
    - Check work directory `.fusion/dump/` contains checkpoint files
