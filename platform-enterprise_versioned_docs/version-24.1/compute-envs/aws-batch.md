@@ -778,7 +778,7 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
       * The Security group then needs to be defined in the **Advanced options** below to allow the compute environment to access the FSx file system.
    - You may need to install the `lustre` client in the AMI used by your compute environment to access FSx file systems. See [Installing the Lustre client](https://docs.aws.amazon.com/fsx/latest/LustreGuide/install-lustre-client.html) for more information.
     :::warning
-    FSx file systems cannot be used as work directory for [Studios](../studios/overview), but can be mounted and used by applications running in Studios.
+    FSx file systems cannot be used as work directory for [Studios](../data_studios/overview), but can be mounted and used by applications running in Studios.
     :::
 
 1. Select **Dispose resources** to automatically delete all AWS resources created by Seqera Platform when you delete the compute environment, including EFS/FSx file systems.
