@@ -8,6 +8,10 @@ tags: [fusion, fusion-snapshots, storage, compute, snapshot, gcp, google, batch]
 
 Fusion Snapshots enable checkpoint/restore functionality for Nextflow processes running on Google Cloud Batch preemptible instances. When a preemption occurs, Google Batch provides up to 30 seconds before instance termination.
 
+:::note
+When using Google Cloud Batch, Fusion Snapshots is currently only available for Seqera Cloud.
+:::
+
 :::warning
 Google Cloud [guarantees only up to 30 seconds](https://cloud.google.com/compute/docs/instances/spot) before instance termination. Careful instance selection and conservative memory planning are critical for successful checkpoints.
 :::
