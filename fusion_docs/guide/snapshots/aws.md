@@ -1,8 +1,9 @@
 ---
 title: AWS Batch
 description: "Fusion Snapshots configuration and best practices for AWS Batch"
-date: "2024-11-21"
-tags: [fusion, fusion snapshots, storage, compute, snapshot, aws, batch]
+date created: "2024-11-21"
+last updated: "2025-12-19"
+tags: [fusion, fusion-snapshots, storage, compute, snapshot, aws, batch]
 ---
 
 Fusion Snapshots enable checkpoint/restore functionality for Nextflow processes running on AWS Batch Spot instances. When a Spot instance interruption occurs, AWS provides a guaranteed 120-second warning window to checkpoint and save the task state before the instance terminates.
@@ -65,31 +66,29 @@ To find the recommended AMI:
 
 ## Selecting an EC2 instance
 
-AWS provides a guaranteed 120-second reclamation window. Select instance types that can transfer checkpoint data within this timeframe.
-
-Checkpoint time is primarily determined by memory usage. Other factors like the number of open file descriptors also affect performance.
+AWS provides a guaranteed 120-second reclamation window. Select instance types that can transfer checkpoint data within this timeframe. Checkpoint time is primarily determined by memory usage. Other factors like the number of open file descriptors also affect performance.
 
 When you select an EC2 instance:
 
-- Select instances with guaranteed network bandwidth, not "up to" values
-- Maintain a 5:1 ratio between memory (GiB) and network bandwidth (Gbps)
-- Prefer NVMe storage instances (those with a `d` suffix: `c6id`, `r6id`, `m6id`)
-- Use x86_64 instances for [incremental snapshots](./index.md#incremental-snapshots)
+- Select instances with guaranteed network bandwidth, not "up to" values.
+- Maintain a 5:1 ratio between memory (GiB) and network bandwidth (Gbps).
+- Prefer NVMe storage instances (those with a `d` suffix: `c6id`, `r6id`, `m6id`).
+- Use `x86_64` instances for [incremental snapshots](./index.md#incremental-snapshots).
 
-For example, a c6id.8xlarge instance provides 64 GiB memory and 12.5 Gbps guaranteed network bandwidth. This configuration can transfer the entire memory contents to S3 in approximately 70 seconds. Instances with memory:bandwidth ratios over 5:1 may not complete transfers before termination and risk task failures.
+For example, a `c6id.8xlarge` instance provides 64 GiB memory and 12.5 Gbps guaranteed network bandwidth. This configuration can transfer the entire memory contents to S3 in approximately 70 seconds. Instances with memory:bandwidth ratios over 5:1 may not complete transfers before termination and risk task failures.
 
 | Instance type  | Cores | Memory (GiB) | Network bandwidth (Gbps) | Memory:bandwidth ratio | Estimated snapshot time |
 |----------------|-------|--------------|--------------------------|------------------------|-------------------------|
-| c6id.4xlarge   | 16    | 32           | 12.5                     | 2.56:1                 | ~45 seconds             |
-| c6id.8xlarge   | 32    | 64           | 12.5                     | 5.12:1                 | ~70 seconds             |
-| r6id.2xlarge   | 8     | 16           | 12.5                     | 1.28:1                 | ~20 seconds             |
-| m6id.4xlarge   | 16    | 64           | 12.5                     | 5.12:1                 | ~70 seconds             |
-| c6id.12xlarge  | 48    | 96           | 18.75                    | 5.12:1                 | ~70 seconds             |
-| r6id.4xlarge   | 16    | 128          | 12.5                     | 10.24:1                | ~105 seconds            |
-| m6id.8xlarge   | 32    | 128          | 25                       | 5.12:1                 | ~70 seconds             |
+| `c6id.4xlarge` | 16    | 32           | 12.5                     | 2.56:1                 | ~45 seconds             |
+| `c6id.8xlarge` | 32    | 64           | 12.5                     | 5.12:1                 | ~70 seconds             |
+| `r6id.2xlarge` | 8     | 16           | 12.5                     | 1.28:1                 | ~20 seconds             |
+| `m6id.4xlarge` | 16    | 64           | 12.5                     | 5.12:1                 | ~70 seconds             |
+| `c6id.12xlarge`| 48    | 96           | 18.75                    | 5.12:1                 | ~70 seconds             |
+| `r6id.4xlarge` | 16    | 128          | 12.5                     | 10.24:1                | ~105 seconds            |
+| `m6id.8xlarge` | 32    | 128          | 25                       | 5.12:1                 | ~70 seconds             |
 
 :::info
-[Incremental snapshots](./index.md#incremental-snapshots) are enabled by default on x86_64 instances.
+[Incremental snapshots](./index.md#incremental-snapshots) are enabled by default on `x86_64` instances.
 :::
 
 ## Resource limits
