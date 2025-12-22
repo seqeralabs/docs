@@ -96,17 +96,17 @@ The general process to manually replicate images involves:
 1. Downloading the image from the Seqera container registry.
 
    ```console
-   docker pull cr.seqera.io/private/nf-tower-enterprise/backend:v25.2.3
+   docker pull cr.seqera.io/private/nf-tower-enterprise/backend:v25.3.1
    ```
 
 1. Re-tagging the image.
 
    ```console
-   docker tag cr.seqera.io/private/nf-tower-enterprise/backend:v25.2.3 YOUR_INTERNAL_REGISTRY/your-repo/backend:v25.2.3
+   docker tag cr.seqera.io/private/nf-tower-enterprise/backend:v25.3.1 YOUR_INTERNAL_REGISTRY/your-repo/backend:v25.3.1
    ```
 
 1. Pushing the image to your preferred container registry (for example, ECR, GCR, Docker Hub).
 
    ```console
-   docker push YOUR_INTERNAL_REGISTRY/your-repo/backend:v25.2.3
+   docker push YOUR_INTERNAL_REGISTRY/your-repo/backend:v25.3.1
    ```
