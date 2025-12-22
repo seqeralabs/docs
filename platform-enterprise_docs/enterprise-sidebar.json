@@ -12,13 +12,30 @@
         "items": [
           {
             "type": "category",
-            "label": "Prerequisites",
+            "label": "Platform",
             "collapsed": true,
             "items": [
-              "enterprise/prerequisites/aws",
-              "enterprise/prerequisites/azure",
-              "enterprise/prerequisites/gcp",
-              "enterprise/prerequisites/on-prem"
+              "enterprise/docker-compose",
+              "enterprise/kubernetes",
+              "enterprise/helm"
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Studios",
+            "collapsed": true,
+            "items": [
+              "enterprise/studios-docker-compose",
+              "enterprise/studios-kubernetes",
+              "enterprise/studios"
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Pipeline optimization",
+            "collapsed": true,
+            "items": [
+              "enterprise/configuration/pipeline_optimization"
             ]
           },
           {
@@ -28,26 +45,16 @@
             "items": [
               "enterprise/configuration/overview",
               "enterprise/configuration/authentication",
-              "enterprise/configuration/aws_parameter_store",
               "enterprise/configuration/networking",
-              "enterprise/configuration/reverse_proxy",
               "enterprise/configuration/ssl_tls",
-              "enterprise/configuration/pipeline_optimization",
+              "enterprise/configuration/reverse_proxy",
+              "enterprise/configuration/aws_parameter_store",
               "enterprise/configuration/wave",
-              "enterprise/studios"
+              "enterprise/configuration/mirroring"
             ]
           },
-          {
-            "type": "category",
-            "label": "Deployment",
-            "collapsed": true,
-            "items": [
-              "enterprise/docker-compose",
-              "enterprise/kubernetes",
-              "enterprise/testing",
-              "enterprise/upgrade"
-            ]
-          },
+          "enterprise/testing",
+          "enterprise/upgrade",
           {
             "type": "category",
             "label": "Advanced",
