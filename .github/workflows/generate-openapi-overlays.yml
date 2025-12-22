@@ -73,17 +73,19 @@ jobs:
           cd platform-api-docs/scripts/specs
 
           # Find the most recent base spec (excluding the one we just added)
-          PREV_SPEC=$(ls -t seqera-api-*.yaml 2>/dev/null | grep -v "${{ steps.version.outputs.api_version }}" | head -n 1)
+          # Handle both .yml and .yaml extensions
+          PREV_SPEC=$(ls -t seqera-api-*.yaml seqera-api-*.yml 2>/dev/null | grep -v "${{ steps.version.outputs.api_version }}" | grep -v "latest-decorated" | head -n 1)
 
           if [ -z "$PREV_SPEC" ]; then
             echo "No previous spec found - this might be initial setup"
             echo "has_previous=false" >> $GITHUB_OUTPUT
           else
-            PREV_VERSION=$(echo "$PREV_SPEC" | sed 's/seqera-api-\(.*\)\.yaml/\1/')
+            # Extract version - handle both .yml and .yaml extensions
+            PREV_VERSION=$(echo "$PREV_SPEC" | sed -E 's/seqera-api-(.*)\.ya?ml/\1/')
             echo "previous_version=$PREV_VERSION" >> $GITHUB_OUTPUT
             echo "previous_spec=$PREV_SPEC" >> $GITHUB_OUTPUT
             echo "has_previous=true" >> $GITHUB_OUTPUT
-            echo "✅ Found previous version: $PREV_VERSION"
+            echo "✅ Found previous version: $PREV_VERSION (file: $PREV_SPEC)"
           fi
 
       - name: Generate comparison overlay
@@ -104,7 +106,7 @@ jobs:
           cd platform-api-docs/scripts/specs
 
           # Run analysis script - it outputs JSON to analysis.json
-          python ../../../openapi-overlay-generator/scripts/analyze_comparison.py \
+          python3 ../../../.claude/skills/openapi-overlay-generator/scripts/analyze_comparison.py \
             base-${{ steps.prev-version.outputs.previous_version }}-to-${{ steps.version.outputs.api_version }}-changes.yaml
 
           echo "✅ Analyzed changes"
@@ -115,9 +117,9 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
         run: |
           # This step calls Claude API to generate overlay files
-          # The skill is available in the repo at openapi-overlay-generator/
+          # The skill is available in the repo at .claude/skills/openapi-overlay-generator/
 
-          python - <<'PYTHON_SCRIPT'
+          python3 - <<'PYTHON_SCRIPT'
           import anthropic
           import json
           import os
@@ -144,7 +146,7 @@ jobs:
           client = anthropic.Anthropic(api_key=os.environ['ANTHROPIC_API_KEY'])
 
           # Read standards and patterns from skill
-          skill_path = Path("openapi-overlay-generator")
+          skill_path = Path(".claude/skills/openapi-overlay-generator")
           standards = (skill_path / "references" / "standards.md").read_text()
           patterns = (skill_path / "references" / "overlay-patterns.md").read_text()
 
