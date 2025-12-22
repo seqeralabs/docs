@@ -31,21 +31,10 @@
    git pull origin master
    ```
 
-2. From Platform repo root, run `make update-api-docs`:
-   ```bash
-   make update-api-docs
-   ```
-   **IMPORTANT**: When prompted, **DO NOT INCREMENT VERSION**
-
-3. Copy new base spec from Platform repo:
-   ```bash
-   # Base spec will be at:
-   tower-backend/build/classes/groovy/main/META-INF/swagger/seqera-api-*.yml
-   ```
-
-4. Move new base spec to docs repo:
-   ```bash
-   cp tower-backend/build/classes/groovy/main/META-INF/swagger/seqera-api-*.yml \
+2. Copy the base spec from Platform repo to docs repo:
+```bash
+   # Base spec will be at: tower-backend/src/main/resources/META-INF/openapi/seqera-api-latest-flattened.yml
+   cp tower-backend/src/main/resources/META-INF/openapi/seqera-api-latest-flattened.yml
       /path/to/docs-repo/platform-api-docs/specs/
    ```
 
