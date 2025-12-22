@@ -1,5 +1,5 @@
 ---
-title: "Docker Compose"
+title: "Platform: Docker Compose"
 description: Deploy Seqera Platform Enterprise with Docker Compose
 date: "12 Feb 2024"
 tags: [docker, compose, deployment]

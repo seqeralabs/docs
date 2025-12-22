@@ -1,5 +1,5 @@
 ---
-title: "Kubernetes"
+title: "Platform: Kubernetes"
 description: Deploy Seqera Platform Enterprise with Kubernetes
 date: "21 Apr 2023"
 tags: [kubernetes, deployment]

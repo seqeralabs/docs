@@ -19,8 +19,8 @@
               "id": "enterprise/install-platform"
             },
             "items": [
-              "enterprise/docker-compose",
               "enterprise/kubernetes",
+              "enterprise/docker-compose",
               "enterprise/helm"
             ]
           },
@@ -33,8 +33,8 @@
               "id": "enterprise/install-studios"
             },
             "items": [
-              "enterprise/studios-docker-compose",
               "enterprise/studios-kubernetes",
+              "enterprise/studios-docker-compose",
               "enterprise/studios"
             ]
           },
@@ -47,8 +47,8 @@
               "id": "enterprise/install-groundswell"
             },
             "items": [
-              "enterprise/groundswell-docker-compose",
               "enterprise/groundswell-kubernetes",
+              "enterprise/groundswell-docker-compose",
               "enterprise/configuration/pipeline_optimization"
             ]
           },
@@ -58,7 +58,6 @@
             "collapsed": true,
             "items": [
               "enterprise/configuration/overview",
-              "enterprise/configuration/authentication",
               "enterprise/configuration/networking",
               "enterprise/configuration/ssl_tls",
               "enterprise/configuration/reverse_proxy",
