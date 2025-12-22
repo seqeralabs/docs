@@ -1,0 +1,79 @@
+{
+  "new_endpoints": [
+    {
+      "endpoint": "/compute-envs/{computeEnvId}/disable",
+      "method": "POST",
+      "operation_id": "DisableComputeEnv",
+      "tag": "compute-envs",
+      "summary": "Disable compute environment",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/compute-envs/{computeEnvId}/enable",
+      "method": "POST",
+      "operation_id": "EnableComputeEnv",
+      "tag": "compute-envs",
+      "summary": "Enable compute environment",
+      "target": "$[\"paths\"]"
+    }
+  ],
+  "modified_endpoints": [],
+  "new_schemas": [],
+  "modified_schemas": [
+    {
+      "schema": "ComputeEnv",
+      "target": "$[\"components\"][\"schemas\"][\"ComputeEnv.Status\"][\"enum\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "Task",
+      "target": "$[\"components\"][\"schemas\"][\"Task\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "TraceProgressData",
+      "target": "$[\"components\"][\"schemas\"][\"TraceProgressData\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "WorkflowLoad",
+      "target": "$[\"components\"][\"schemas\"][\"WorkflowLoad\"][\"properties\"]",
+      "is_property_change": true
+    }
+  ],
+  "new_parameters": [],
+  "deprecated_endpoints": [],
+  "by_tag": {
+    "compute-envs": {
+      "endpoints": [
+        {
+          "endpoint": "/compute-envs/{computeEnvId}/disable",
+          "method": "POST",
+          "operation_id": "DisableComputeEnv",
+          "tag": "compute-envs",
+          "summary": "Disable compute environment",
+          "target": "$[\"paths\"]"
+        },
+        {
+          "endpoint": "/compute-envs/{computeEnvId}/enable",
+          "method": "POST",
+          "operation_id": "EnableComputeEnv",
+          "tag": "compute-envs",
+          "summary": "Enable compute environment",
+          "target": "$[\"paths\"]"
+        }
+      ],
+      "schemas": []
+    }
+  },
+  "summary": {
+    "total_new_endpoints": 2,
+    "total_modified_endpoints": 0,
+    "total_new_schemas": 0,
+    "total_modified_schemas": 4,
+    "affected_tags": [
+      "compute-envs"
+    ],
+    "requires_new_category": false
+  }
+}
