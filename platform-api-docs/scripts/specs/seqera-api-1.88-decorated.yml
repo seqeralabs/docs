@@ -8665,7 +8665,7 @@ components:
           description: "Enable [Fusion Snapshots](https://docs.seqera.io/fusion/guide/snapshots). Requires Fusion file system."
         forge:
           $ref: "#/components/schemas/ForgeConfig"
-          description: "Batch Forge configuration options. [Batch Forge](https://docs.seqera.io/platform-cloud/compute-envs/aws-batch#batch-forge-compute-environment) automates the AWS Batch compute environment and job queue configuration required for deploying Nextflow pipelines."
+          description: "Batch Forge configuration options. [Batch Forge](https://docs.seqera.io/platform-cloud/compute-envs/aws-batch#automatic-configuration-of-batch-resources) automates the AWS Batch compute environment and job queue configuration required for deploying Nextflow pipelines."
         forgedResources:
           type: array
           items:
