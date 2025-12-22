@@ -1,5 +1,5 @@
 ---
-title: "Studios Kubernetes deployment"
+title: "Studios: Kubernetes"
 description: Deploy Studios on Kubernetes
 date: "12 Apr 2023"
 tags: [kubernetes, studios, deployment]

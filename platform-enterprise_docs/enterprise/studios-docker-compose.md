@@ -1,5 +1,5 @@
 ---
-title: "Studios Docker Compose deployment"
+title: "Studios: Docker Compose"
 description: Deploy Studios with Docker Compose
 date: "12 Apr 2023"
 tags: [docker, compose, studios, deployment]

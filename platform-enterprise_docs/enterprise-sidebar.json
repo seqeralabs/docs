@@ -14,6 +14,10 @@
             "type": "category",
             "label": "Platform",
             "collapsed": true,
+            "link": {
+              "type": "doc",
+              "id": "enterprise/install-platform"
+            },
             "items": [
               "enterprise/docker-compose",
               "enterprise/kubernetes",
@@ -24,6 +28,10 @@
             "type": "category",
             "label": "Studios",
             "collapsed": true,
+            "link": {
+              "type": "doc",
+              "id": "enterprise/install-studios"
+            },
             "items": [
               "enterprise/studios-docker-compose",
               "enterprise/studios-kubernetes",
@@ -34,7 +42,13 @@
             "type": "category",
             "label": "Pipeline optimization",
             "collapsed": true,
+            "link": {
+              "type": "doc",
+              "id": "enterprise/install-groundswell"
+            },
             "items": [
+              "enterprise/groundswell-docker-compose",
+              "enterprise/groundswell-kubernetes",
               "enterprise/configuration/pipeline_optimization"
             ]
           },
