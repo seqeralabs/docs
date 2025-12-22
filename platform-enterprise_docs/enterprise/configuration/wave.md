@@ -5,34 +5,88 @@ date: "12 Apr 2023"
 tags: [wave, containers, configuration]
 ---
 
-From version 22.4, Seqera Platform Enterprise supports the Seqera Wave containers service for on-prem installations.
+Wave is Seqera's container provisioning service that enables on-demand container image management for Nextflow pipelines. Wave can provision containers dynamically during pipeline execution, removing the need to manually build and upload images to a container registry.
 
-To learn more about Wave, see [Wave containers](https://wave.seqera.io). To learn more about Wave and Nextflow integration, see the [Nextflow documentation](https://www.nextflow.io/docs/latest/wave.html).
+## Deployment options
 
-## Pair your Seqera instance with Wave
+Wave can be integrated with Seqera Platform in two ways:
 
-To pair Seqera Enterprise with Wave, you need the following:
+- **Seqera Wave service**: Use the hosted Wave service at `https://wave.seqera.io` (default for Seqera Cloud)
+- **Self-hosted Wave**: Deploy Wave in your own infrastructure for full control over container builds and caching
 
-- Credentials to authenticate to your (private or public) container registry configured in the Seqera UI. See the [container registry credentials](../../credentials/overview) instructions for your provider.
+## Requirements
 
-- Your container registry must allow ingress from the Wave service (`https://wave.seqera.io`).
+### Network connectivity
 
-- The Wave service (`https://wave.seqera.io`) must be accessible from the network where your Seqera instance is installed (i.e., the domain should be whitelisted in protected Seqera installations).
+| Source | Destination | Purpose |
+| :----- | :---------- | :------ |
+| Seqera Platform | Wave server | API communication |
+| Container registry | Wave server | Allow ingress for container operations |
+| Compute environments | Wave server | Container image access during pipeline execution |
 
-- The `TOWER_ENABLE_WAVE=true` and `WAVE_SERVER_URL="https://wave.seqera.io"` environment variables must be added to your Seqera configuration environment.
+### Container registry credentials
 
-:::note
-Wave does not currently support container repositories that have private CA SSL certificates applied.
-:::
+Container registry credentials must be configured in the Seqera UI to authenticate with your private or public registries. See [container registry credentials](../../credentials/overview) for provider-specific instructions.
 
-You can test connectivity with the Wave service by accessing https://wave.seqera.io/service-info, either from the browser or with cURL:
+## Configuration
 
-```curl
-$ curl https://wave.seqera.io/service-info
+### Connect to Seqera Wave service
+
+Configure Seqera Platform to use the hosted Wave service:
+
+| Variable | Description |
+| :------- | :---------- |
+| `TOWER_ENABLE_WAVE` | Set to `true` to enable Wave integration |
+| `WAVE_SERVER_URL` | Wave server endpoint (default: `https://wave.seqera.io`) |
+
+### Connect to self-hosted Wave
+
+For self-hosted Wave deployments, set `WAVE_SERVER_URL` to your Wave server endpoint:
+
+| Variable | Description |
+| :------- | :---------- |
+| `TOWER_ENABLE_WAVE` | Set to `true` to enable Wave integration |
+| `WAVE_SERVER_URL` | Your self-hosted Wave server URL (e.g., `https://wave.your-domain.com`) |
+
+### Verify connectivity
+
+Test connectivity to your Wave server:
+
+```bash
+curl https://wave.seqera.io/service-info
 ```
 
-When these conditions are met, the Wave feature is available on the Seqera compute environment creation page (currently only available for AWS compute environments).
+Replace `wave.seqera.io` with your self-hosted Wave endpoint if applicable.
 
-After Wave is enabled, you can use private container repositories and the Fusion file system in your Nextflow pipelines.
+## Features enabled by Wave
 
-Wave can also be enabled in the Nextflow pipeline config file. See the [Nextflow documentation](https://www.nextflow.io/docs/latest/wave.html) for more information.
+After Wave is enabled, the following features become available:
+
+- **Private container registries**: Access containers from private repositories using credentials stored in Seqera
+- **Fusion file system**: High-performance cloud-native file system for pipeline execution
+- **Container augmentation**: Dynamically extend existing containers with additional layers
+- **Conda-based containers**: Provision containers from Conda or Bioconda packages on demand
+- **Singularity support**: Build and provision Singularity/Apptainer format containers
+- **Security scanning**: Automatic vulnerability scanning of built container images
+
+Wave features are available on the compute environment creation page after integration is configured.
+
+## Limitations
+
+- Wave does not support container repositories with private CA SSL certificates
+
+## Self-hosted Wave deployment
+
+For enterprises requiring full control over container builds, caching, and security scanning, Wave can be deployed in your own infrastructure.
+
+Self-hosted Wave supports:
+- **Wave Lite**: Container augmentation and inspection capabilities (AWS, Azure, GCP)
+- **Full Wave**: Complete build capabilities including Conda-based containers and security scanning (requires AWS EKS with EFS storage)
+
+See the [Wave documentation](https://docs.seqera.io/wave) for installation and configuration guidance.
+
+## Additional resources
+
+- [Wave documentation](https://docs.seqera.io/wave)
+- [Nextflow Wave integration](https://www.nextflow.io/docs/latest/wave.html)
+- [Seqera Containers](https://seqera.io/containers/) - Free community container registry
