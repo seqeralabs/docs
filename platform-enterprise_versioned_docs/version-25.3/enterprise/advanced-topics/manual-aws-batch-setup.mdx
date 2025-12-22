@@ -174,7 +174,7 @@ Create a launch template to configure the EC2 instances deployed by Batch jobs:
               -a fetch-config \
               -m ec2 \
               -s \
-              -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json          
+              -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json
             mkdir -p /scratch/fusion
             NVME_DISKS=($(nvme list | grep 'Amazon EC2 NVMe Instance Storage' | awk '{ print $1 }'))
             NUM_DISKS=${#NVME_DISKS[@]}
@@ -276,8 +276,8 @@ Create a launch template to configure the EC2 instances deployed by Batch jobs:
 
 ### Create the Batch compute environments
 
-:::caution 
-AWS Graviton instances (ARM64 CPU architecture) are not supported in manual compute environments. To use Graviton instances, create your AWS Batch compute environment with [Batch Forge](../../compute-envs/aws-batch#batch-forge-compute-environment).
+:::caution
+AWS Graviton instances (ARM64 CPU architecture) are not supported in manual compute environments. To use Graviton instances, create your AWS Batch compute environment with [Batch Forge](../../compute-envs/aws-batch#automatic-configuration-of-batch-resources).
 :::
 
 Nextflow makes use of two job queues during workflow execution:
@@ -301,7 +301,7 @@ The head queue requires an on-demand compute environment. Do not select **Use Sp
 1. In the [Batch Console](https://eu-west-1.console.aws.amazon.com/batch/home), select **Create** on the Compute environments page.
 1. Select **Amazon EC2** as the compute environment configuration.
     :::note
-    Seqera AWS Batch compute environments created with [Batch Forge](../../compute-envs/aws-batch#batch-forge-compute-environment) support using Fargate for the head job, but manual compute environments must use EC2.
+    Seqera AWS Batch compute environments created with [Batch Forge](../../compute-envs/aws-batch#automatic-configuration-of-batch-resources) support using Fargate for the head job, but manual compute environments must use EC2.
     :::
 1. Enter a name of your choice, and apply the `seqera-servicerole` and `seqera-instancerole`.
 1. Enter vCPU limits and instance types, if needed.
@@ -310,7 +310,7 @@ The head queue requires an on-demand compute environment. Do not select **Use Sp
     :::
 1. Expand **Additional configuration** and select the `seqera-launchtemplate` from the Launch template dropdown.
 1. Configure VPCs, subnets, and security groups on the next page as needed.
-1. Review your configuration and select **Create compute environment**.  
+1. Review your configuration and select **Create compute environment**.
 
 </TabItem>
 <TabItem value="Compute queue with Spot instances" label="Compute queue with Spot instances" default>
@@ -320,11 +320,11 @@ Create this compute environment to use Spot instances for your workflow compute 
 1. In the [Batch Console](https://eu-west-1.console.aws.amazon.com/batch/home), select **Create** on the Compute environments page.
 1. Select **Amazon EC2** as the compute environment configuration.
 1. Enter a name of your choice, and apply the `seqera-servicerole` and `seqera-instancerole`.
-1. Select **Enable using Spot instances** to use Spot instances and save computing costs.  
+1. Select **Enable using Spot instances** to use Spot instances and save computing costs.
 1. Select the `seqera-fleetrole` and enter vCPU limits and instance types, if needed.
 1. Expand **Additional configuration** and select the `seqera-launchtemplate` from the Launch template dropdown.
 1. Configure VPCs, subnets, and security groups on the next page as needed.
-1. Review your configuration and select **Create compute environment**.  
+1. Review your configuration and select **Create compute environment**.
 
 </TabItem>
 </Tabs>
@@ -356,4 +356,4 @@ You only need to create one queue if you intend to use on-demand instances for y
 </TabItem>
 </Tabs>
 
-Use the AWS resources created on this page to create your [manual AWS Batch compute environment](../../compute-envs/aws-batch#manual).
+Use the AWS resources created on this page to create your [manual AWS Batch compute environment](../../compute-envs/aws-batch#manual-configuration-of-batch-resources).

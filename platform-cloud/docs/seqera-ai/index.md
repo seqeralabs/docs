@@ -57,7 +57,7 @@ Full access to Platform capabilities including compute environments, datasets, d
 
 ## Learn more
 
-- [Installation](./installation.md): Detailed installation instructions
+- [Installation](./installation.mdx): Detailed installation instructions
 - [Authentication](./authentication.md): Log in, log out, and session management
 - [Command approval](./command-approval.md): Control which commands run automatically
 - [Use cases](./use-cases.md): Seqera AI CLI use cases

@@ -302,7 +302,7 @@ Use Seqera Platform capabilities to run and manage workflows at scale with AI as
 <h2>Learn more</h2>
 
 - [Seqera AI CLI](index.md): Seqera AI CLI overview
-- [Installation](./installation.md): Detailed installation instructions
+- [Installation](./installation.mdx): Detailed installation instructions
 - [Authentication](./authentication.md): Log in, log out, and session management
 - [Command approval](./command-approval.md): Control which commands run automatically
 - [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors
