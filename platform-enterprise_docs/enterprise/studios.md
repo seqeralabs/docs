@@ -1,5 +1,5 @@
 ---
-title: "Studios deployment"
+title: "Studios"
 description: Deploy Seqera Platform with Studios
 date created: "2025-03-17"
 last updated: "2025-12-05"

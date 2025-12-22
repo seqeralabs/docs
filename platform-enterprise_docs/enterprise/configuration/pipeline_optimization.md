@@ -1,5 +1,5 @@
 ---
-title: "Pipeline resource optimization"
+title: "Pipeline optimization"
 description: "Configure pipeline resource optimization in your Seqera Enterprise deployment."
 date: "12 Feb 2024"
 tags: [compute, resource, optimization, configuration]
