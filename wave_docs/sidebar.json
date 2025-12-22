@@ -27,7 +27,16 @@
       "collapsed": true,
       "items": [   
         "nextflow/use-cases",
-        "nextflow/configuration"
+        "nextflow/configuration",
+        {
+          "type": "category",
+          "label": "Guides",
+          "collapsed": true,
+          "items": [
+            "nextflow/bundle-scripts",
+            "nextflow/reduce-api-calls"
+          ]
+        }
       ]
     },
     {

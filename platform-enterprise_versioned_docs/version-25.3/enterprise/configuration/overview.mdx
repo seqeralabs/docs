@@ -141,7 +141,29 @@ From Seqera Enterprise version 24.2:
 Follow your cloud provider specifications to upgrade your instance.
 :::
 
-If you use a database **other than** the provided `db` container, you must create a user and database schema manually.
+### Database requirements
+
+:::warning Aurora Serverless is not supported
+AWS Aurora Serverless is **not supported** for production Seqera Enterprise deployments. We have observed critical stability and performance issues with Aurora Serverless under typical production workloads, including:
+
+- Database connection pool exhaustion
+- Unpredictable query performance degradation
+- Scaling limitations that cannot handle concurrent workflow execution loads
+
+**Supported database options:**
+- AWS RDS MySQL 8.0 (recommended)
+- AWS Aurora MySQL (standard provisioned instances, not Serverless)
+- Self-managed MySQL 8.0
+
+If you are currently using Aurora Serverless and experiencing performance issues, we strongly recommend migrating to one of the supported database configurations above.
+:::
+
+External databases for Seqera Enterprise deployments require:
+
+- A **MySQL8 Community** DB instance
+- At least 2 vCPUs, 16 GB memory, and 30 GB SSD storage
+
+If you use a database **other than** the provided `db` container, you must create a user and database schema manually:
 
 <Tabs>
 <TabItem value="MySQL DB schema creation" label="MySQL DB schema creation" default>
@@ -163,6 +185,33 @@ GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, REFERENCES, INDEX, ALTER, CR
 
 </TabItem>
 </Tabs>
+
+### Kubernetes deployments: Connection pool sizing
+
+The database connection pool size in Kubernetes deployments should be configured based on your expected concurrent workflow load. Each backend instance maintains its own connection pool to the database.
+
+**Recommended starting values:**
+- For deployments running **up to 100 concurrent workflows**: Start with 50 connections per backend instance
+- For deployments running **100-250 concurrent workflows**: Start with 64-100 connections per backend instance
+- For higher loads: Increase proportionally and monitor database connection metrics
+
+**Configuration:**
+Set the connection pool size using the `TOWER_DB_POOL_MAX_SIZE` environment variable (default: 32).
+
+:::note
+For Docker Compose deployments, it is recommended to keep the connection pool size default of 32.
+:::
+
+**Example for 4 backend instances with 64 connections each:**
+```bash
+TOWER_DB_POOL_MAX_SIZE=64
+```
+
+This configuration provides 256 total database connections across all instances. Monitor your database connection usage and adjust as needed based on your actual concurrent workflow patterns.
+
+:::tip
+Use database monitoring tools like AWS RDS Performance Insights to track connection usage, slow queries, and identify bottlenecks during peak usage periods.
+:::
 
 ### Managed Redis services
 
@@ -336,7 +385,7 @@ Replace `{prefix}` in each configuration path with `/config/<application_name>`,
 
 ### Secret key rotation
 
-Rotate the key used to encrypt the credentials and secrets stored in your Platform database. Encryption key rotation is a security best practice and should be performed at an interval specified by your organization's security requirements, or in the event of a suspected compromise of your secret key. 
+Rotate the key used to encrypt the credentials and secrets stored in your Platform database. Encryption key rotation is a security best practice and should be performed at an interval specified by your organization's security requirements, or in the event of a suspected compromise of your secret key.
 
 Enable rotation by setting the following configuration values:
 
@@ -366,12 +415,89 @@ Enable rotation by setting the following configuration values:
 
 With rotation enabled and the previous and new key values set, secret key rotation will run as part of the Platform cron service during application startup. Normal application startup is not affected by this process, and Platform is fully operational while the credentials and secrets in your database are being encrypted using your new secret key.
 
-:::warning 
+:::warning
 - To prevent data loss, perform a backup of your Platform database and securely back up your current crypto secret key before enabling and performing key rotation.
 - All backend pods or containers for your Enterprise deployment must contain the same previous and new secret key values in their Platform config and must be in a ready/running state before starting the Platform cron service.
 :::
 
 The [Admin panel](../../administration/overview.md#encryption) **Encryption** tab displays the status of completed or errored encryption tasks.
+
+## Backend memory requirements
+
+The Platform backend and cron services run on the JVM and require appropriate memory allocation for stable operation under load.
+
+**Minimum memory allocation:**
+- Backend service: 4 GB minimum
+- Cron service: 4 GB minimum
+
+**How to set memory limits:**
+
+**Kubernetes:**
+Set resource limits in your pod specifications:
+```yaml
+resources:
+  limits:
+    memory: "4Gi"
+  requests:
+    memory: "4Gi"
+```
+
+**Docker Compose:**
+Set memory limits in your service definitions:
+```yaml
+services:
+  backend:
+    mem_limit: 4g
+    memswap_limit: 4g
+```
+
+:::note
+These default memory allocation limits are included in your Kubernetes manifests ([tower-svc.yml](../_templates/k8s/tower-svc.yml) and [tower-cron.yml](../_templates/k8s/tower-cron.yml)) and Docker Compose ([docker-compose.yml](../_templates/docker/docker-compose.yml)) configuration templates.
+:::
+
+### JVM memory tuning
+
+For production deployments, configure JVM memory parameters via the `JAVA_OPTS` environment variable. The following baseline configuration is suitable for most deployments:
+
+```bash
+JAVA_OPTS: -Xms1000M -Xmx2000M -XX:MaxDirectMemorySize=800m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144
+```
+
+:::note
+These default JVM memory settings are included in the configuration templates provided in these docs:
+- Kubernetes: [tower-svc.yml](../_templates/k8s/tower-svc.yml) and [tower-cron.yml](../_templates/k8s/tower-cron.yml)
+- Docker Compose: [tower.env](../_templates/docker/tower.env)
+:::
+
+**Parameter descriptions:**
+- **Heap memory** (`-Xms`/`-Xmx`): Memory pool for Java objects. Set initial (`Xms`) and maximum (`Xmx`) heap size.
+- **Direct memory** (`MaxDirectMemorySize`): Off-heap memory used for NIO operations, network buffers, and file I/O. Critical for handling concurrent workflow API operations.
+- **Netty memory accounting** (`io.netty.maxDirectMemory=0`): Disables Netty's internal tracking; relies on JVM direct memory limits instead.
+- **Buffer caching** (`jdk.nio.maxCachedBufferSize`): Limits size of cached NIO buffers to prevent excessive memory retention.
+
+**When to adjust these values:**
+
+Increase `MaxDirectMemorySize` if you observe:
+- `OutOfMemoryError: Direct buffer memory` in logs
+- High concurrent workflow launch rates (>100 simultaneous workflows)
+- Large configuration payloads or extensive API usage
+
+Increase heap memory (`-Xmx`) if you observe:
+- `OutOfMemoryError: Java heap space` in logs
+- Garbage collection pauses affecting performance
+- Growing memory usage under sustained load
+
+**Example: High-concurrency deployment**
+For deployments running 200+ concurrent workflows:
+```bash
+JAVA_OPTS: -Xms1000M -Xmx3000M -XX:MaxDirectMemorySize=1600m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144
+```
+
+Ensure container/pod memory limits are set higher than JVM limits to accommodate non-heap memory usage.
+
+:::warning
+These are starting recommendations. Monitor your deployment's actual memory usage and adjust based on your specific workload patterns. Undersized memory allocation can cause OOM failures and service instability.
+:::
 
 ## Compute environments
 
@@ -514,7 +640,7 @@ To configure AWS SES as your Seqera email service:
     - a `mail.from` entry in `tower.yml`
     - a `/config/<application_name>/mail/from` AWS Parameter Store entry
 3. The [AWS SES service](https://docs.aws.amazon.com/ses/index.html) must run in the same region as your Seqera instance.
-4. The [Seqera IAM role](../../compute-envs/aws-batch#iam) must include the `ses:SendRawEmail` permission.
+4. The [Seqera IAM role](../../compute-envs/aws-batch#iam-user-creation) must include the `ses:SendRawEmail` permission.
 
 ## Nextflow launch container
 
@@ -534,11 +660,11 @@ Do not replace the [Seqera-provided default image](../../functionality_matrix/ov
 
 ## Seqera API
 
-Enable the API endpoints to host the Seqera Enterprise OpenAPI specification and use the [tw CLI](https://github.com/seqeralabs/tower-cli). Set custom API rate limits and timeouts. 
+Enable the API endpoints to host the Seqera Enterprise OpenAPI specification and use the [tw CLI](https://github.com/seqeralabs/tower-cli). Set custom API rate limits and timeouts.
 
 :::note
 To configure API rate limit environment variables, you must add `ratelim` to the `MICRONAUT_ENVIRONMENTS`. Without `ratelim` being set, the rate limit configuration variables below are ignored.
-::: 
+:::
 
 <Tabs>
 <TabItem value="Environment variables" label="Environment variables" default>
