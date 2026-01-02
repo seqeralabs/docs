@@ -47,7 +47,7 @@ Seqera Compute has default workspace limits on compute environments, and organiz
 
     | Americas                             | Europe                            | Asia Pacific                        | Middle East & Africa       |
     |--------------------------------------|-----------------------------------|-------------------------------------|----------------------------|
-    | us-east-1 (Northern Virginia, USA)   | eu-central-1 (Frankfurt, Germany) | ap-east-1 (Hong Kong)               | af-south-1 (Cape Town, SA) |
+    | us-east-1 (Northern Virginia, USA)   | eu-central-1 (Frankfurt, Germany) | ap-east-1 (Hong Kong)               | af-south-1 (Cape Town, South Africa) |
     | us-east-2 (Ohio, USA)                | eu-north-1 (Stockholm, Sweden)    | ap-northeast-1 (Tokyo, Japan)       | me-south-1 (Bahrain)       |
     | us-west-1 (Northern California, USA) | eu-south-1 (Milan, Italy)         | ap-northeast-2 (Seoul, South Korea) |                            |
     | us-west-2 (Oregon, USA)              | eu-west-1 (Ireland)               | ap-northeast-3 (Osaka, Japan)       |                            |
