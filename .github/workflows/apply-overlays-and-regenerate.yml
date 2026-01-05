@@ -1,0 +1,247 @@
+# .github/workflows/apply-overlays-and-regenerate.yml
+#
+# This workflow runs in the seqeralabs/docs repository
+# Phase 3: Applies approved overlays and regenerates documentation
+
+name: Apply Overlays and Regenerate Docs
+
+on:
+  pull_request:
+    types: [labeled]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'PR number to process'
+        required: true
+        type: number
+
+jobs:
+  apply-and-regenerate:
+    runs-on: ubuntu-latest
+    if: |
+      (github.event_name == 'pull_request' && github.event.label.name == 'overlays-approved') ||
+      github.event_name == 'workflow_dispatch'
+
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || format('refs/pull/{0}/head', github.event.inputs.pr_number) }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: |
+          pip install pyyaml
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Node dependencies
+        run: |
+          npm install
+
+      - name: Install Speakeasy CLI
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/speakeasy-api/speakeasy/main/install.sh | sh
+          echo "$HOME/.speakeasy/bin" >> $GITHUB_PATH
+
+      - name: Detect version from specs directory
+        id: version
+        run: |
+          cd platform-api-docs/scripts/specs
+
+          # Find the latest base spec (highest version number) - support both .yaml and .yml
+          LATEST_SPEC=$(ls -t seqera-api-*.yaml seqera-api-*.yml 2>/dev/null | head -n 1)
+          VERSION=$(echo "$LATEST_SPEC" | sed -E 's/seqera-api-(.*)\.ya?ml/\1/')
+
+          echo "api_version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Detected API version: $VERSION"
+
+      - name: Consolidate overlay files
+        run: |
+          cd platform-api-docs/scripts/specs
+
+          # Create consolidated overlay
+          cat > all-changes-overlay-${{ steps.version.outputs.api_version }}.yaml <<'EOF'
+          overlay: 1.0.0
+          info:
+            title: Consolidated overlay for v${{ steps.version.outputs.api_version }}
+            version: 0.0.0
+          actions:
+          EOF
+
+          # Append version-specific overlays
+          echo "  # ===== VERSION ${{ steps.version.outputs.api_version }} OVERLAYS =====" >> all-changes-overlay-${{ steps.version.outputs.api_version }}.yaml
+
+          # Find and append all version-specific overlay files - support both .yaml and .yml
+          for overlay in *-overlay-${{ steps.version.outputs.api_version }}.yaml *-overlay-${{ steps.version.outputs.api_version }}.yml; do
+            if [ -f "$overlay" ] && [ "$overlay" != "all-changes-overlay-${{ steps.version.outputs.api_version }}.yaml" ]; then
+              echo "Adding $overlay to consolidated file"
+              sed -n '/^actions:/,$ p' "$overlay" | tail -n +2 >> all-changes-overlay-${{ steps.version.outputs.api_version }}.yaml
+            fi
+          done
+
+          echo "✅ Created consolidated overlay"
+
+      - name: Apply overlays to decorated spec
+        run: |
+          cd platform-api-docs/scripts/specs
+
+          # Apply consolidated overlay
+          speakeasy overlay apply \
+            -s seqera-api-latest-decorated.yaml \
+            -o all-changes-overlay-${{ steps.version.outputs.api_version }}.yaml \
+            > seqera-api-latest-decorated-new.yaml
+
+          # Replace old decorated spec
+          mv seqera-api-latest-decorated-new.yaml seqera-api-latest-decorated.yaml
+
+          echo "✅ Applied overlays to decorated spec"
+
+      - name: Validate decorated spec
+        run: |
+          cd platform-api-docs/scripts/specs
+
+          speakeasy validate openapi -s seqera-api-latest-decorated.yaml
+
+          echo "✅ Decorated spec is valid"
+
+      - name: Generate parameter tables
+        run: |
+          cd platform-api-docs/scripts
+
+          node extract-api-tables.mjs
+
+          echo "✅ Generated parameter tables for info pages"
+
+      - name: Clean existing API docs
+        run: |
+          npx docusaurus clean-api-docs all
+
+          echo "✅ Cleaned existing API docs"
+
+      - name: Generate new API docs
+        run: |
+          npx docusaurus gen-api-docs all
+
+          echo "✅ Generated new API documentation"
+
+      - name: Update sidebar with new operations
+        run: |
+          cd platform-api-docs/scripts/specs
+
+          # Check if analysis JSON exists
+          ANALYSIS_FILE=$(ls -t *-analysis.json 2>/dev/null | head -n 1)
+
+          if [ -n "$ANALYSIS_FILE" ]; then
+            python ../../../openapi-overlay-generator/scripts/update_sidebar.py \
+              ../../docs/sidebar/sidebar.js \
+              "$ANALYSIS_FILE"
+
+            echo "✅ Updated sidebar with new operations"
+          else
+            echo "⚠️  No analysis file found - sidebar not updated"
+          fi
+
+      - name: Archive used overlays
+        run: |
+          cd platform-api-docs/scripts/specs
+
+          # Move version-specific overlays to archive
+          mkdir -p ../overlay_archives
+
+          # Archive both .yaml and .yml overlay files
+          for overlay in *-overlay-${{ steps.version.outputs.api_version }}.yaml *-overlay-${{ steps.version.outputs.api_version }}.yml; do
+            if [ -f "$overlay" ]; then
+              mv "$overlay" ../overlay_archives/
+              echo "Archived: $overlay"
+            fi
+          done
+
+          # Also archive comparison overlay - support both .yaml and .yml
+          for comparison in base-*-to-${{ steps.version.outputs.api_version }}-*.yaml base-*-to-${{ steps.version.outputs.api_version }}-*.yml; do
+            if [ -f "$comparison" ]; then
+              mv "$comparison" ../overlay_archives/
+              echo "Archived: $comparison"
+            fi
+          done
+
+          echo "✅ Archived overlays"
+
+      - name: Clean up old base specs
+        run: |
+          cd platform-api-docs/scripts/specs
+
+          # Keep only the latest 2 base specs - support both .yaml and .yml
+          ls -t seqera-api-*.yaml seqera-api-*.yml 2>/dev/null | tail -n +3 | xargs -r rm
+
+          echo "✅ Cleaned up old base specs"
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add platform-api-docs/
+          git commit -m "Apply overlays and regenerate docs for v${{ steps.version.outputs.api_version }}" || echo "No changes to commit"
+          git push
+
+      - name: Update PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prNumber = context.payload.pull_request?.number || ${{ github.event.inputs.pr_number }};
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              body: `## ✅ Overlays Applied and Docs Regenerated
+
+            **API Version**: ${{ steps.version.outputs.api_version }}
+
+            ### Changes Applied
+
+            - ✅ Consolidated overlays (permanent + version-specific)
+            - ✅ Applied to decorated spec
+            - ✅ Validated OpenAPI spec
+            - ✅ Generated parameter tables for info pages
+            - ✅ Regenerated MDX documentation files
+            - ✅ Updated sidebar with new operation entries
+            - ✅ Archived version-specific overlays
+            - ✅ Cleaned up old base specs
+
+            ### Next Steps
+
+            1. **Review the generated documentation** - Check MDX files look correct
+            2. **Test locally** - Run \`npm run start\` to preview
+            3. **Request final review** - Mark PR ready for review
+            4. **Merge when approved** - Documentation will be published
+
+            ---
+
+            *This PR is now ready for engineering review and final approval.*`
+            });
+
+            // Remove draft status
+            await github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: prNumber,
+              draft: false
+            });
+
+      - name: Create summary
+        run: |
+          echo "## 🎉 Documentation Update Complete!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**API Version**: ${{ steps.version.outputs.api_version }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "All overlay files have been applied and documentation has been regenerated." >> $GITHUB_STEP_SUMMARY
+          echo "The PR is now ready for final engineering review." >> $GITHUB_STEP_SUMMARY
