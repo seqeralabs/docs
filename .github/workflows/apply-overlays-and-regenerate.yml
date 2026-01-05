@@ -304,7 +304,7 @@ jobs:
 
             ---
 
-            *This PR is now ready for engineering review and final approval.*`
+            *This PR is now ready for final review and approval.*`
             });
 
             // Remove draft status
@@ -322,4 +322,4 @@ jobs:
           echo "**API Version**: ${{ steps.version.outputs.api_version }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "All overlay files have been applied and documentation has been regenerated." >> $GITHUB_STEP_SUMMARY
-          echo "The PR is now ready for final engineering review." >> $GITHUB_STEP_SUMMARY
+          echo "The PR is now ready for final review." >> $GITHUB_STEP_SUMMARY
