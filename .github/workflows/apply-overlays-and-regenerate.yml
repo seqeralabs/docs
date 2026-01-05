@@ -80,6 +80,8 @@ jobs:
           fi
 
           echo "✅ Found claude-generated-overlays.md"
+          echo "   File size: $(wc -l < claude-generated-overlays.md) lines"
+          echo ""
 
           # Extract YAML code blocks from markdown
           python3 - <<'PYTHON_SCRIPT'
@@ -139,6 +141,9 @@ jobs:
           # If we get here, extraction succeeded
           echo "has_overlays=true" >> $GITHUB_OUTPUT
           echo "✅ Overlay extraction complete"
+          echo ""
+          echo "📂 Verifying extracted files exist on disk:"
+          ls -lh *-overlay-*.yaml *-overlay-*.yml 2>/dev/null || echo "⚠️  WARNING: No overlay files found after extraction!"
 
       - name: Consolidate overlay files
         run: |
@@ -199,6 +204,13 @@ jobs:
           echo "✅ Successfully consolidated $ADDED_COUNT overlay file(s) into: $CONSOLIDATED_FILE"
           echo ""
           echo "📄 Consolidated overlay file size: $(wc -l < "$CONSOLIDATED_FILE") lines"
+          echo ""
+          echo "🔍 First 50 lines of consolidated overlay:"
+          head -50 "$CONSOLIDATED_FILE"
+          echo "..."
+          echo ""
+          echo "📂 All files in specs directory after consolidation:"
+          ls -lh
 
       - name: Apply overlays to decorated spec
         if: steps.extract.outputs.has_overlays == 'true'
@@ -238,22 +250,45 @@ jobs:
           echo "   Size before: $(wc -l < "$DECORATED_SPEC") lines"
           echo ""
 
-          echo "▶️  Running: speakeasy overlay apply -s $DECORATED_SPEC -o $CONSOLIDATED_OVERLAY"
+          echo "▶️  Running: speakeasy overlay apply -s $DECORATED_SPEC -o $CONSOLIDATED_OVERLAY > seqera-api-latest-decorated-new.yaml"
+          echo ""
 
-          # Apply consolidated overlay
+          # Apply consolidated overlay - capture both stdout and stderr
+          set +e  # Don't exit on error, we want to see the error message
           speakeasy overlay apply \
             -s "$DECORATED_SPEC" \
             -o "$CONSOLIDATED_OVERLAY" \
-            > seqera-api-latest-decorated-new.yaml
+            > seqera-api-latest-decorated-new.yaml 2>&1
+          SPEAKEASY_EXIT_CODE=$?
+          set -e
 
-          # Check if output was created
+          if [ $SPEAKEASY_EXIT_CODE -ne 0 ]; then
+            echo "❌ ERROR: Speakeasy overlay apply failed with exit code $SPEAKEASY_EXIT_CODE"
+            echo ""
+            echo "Output file content (if any):"
+            if [ -f "seqera-api-latest-decorated-new.yaml" ]; then
+              head -100 seqera-api-latest-decorated-new.yaml
+            else
+              echo "(No output file created)"
+            fi
+            exit 1
+          fi
+
+          # Check if output was created and has content
           if [ ! -f "seqera-api-latest-decorated-new.yaml" ]; then
             echo "❌ ERROR: Speakeasy overlay apply did not create output file"
             exit 1
           fi
 
+          OUTPUT_SIZE=$(wc -l < "seqera-api-latest-decorated-new.yaml")
+          if [ "$OUTPUT_SIZE" -lt 100 ]; then
+            echo "⚠️  WARNING: Output file seems too small ($OUTPUT_SIZE lines)"
+            echo "First 50 lines of output:"
+            head -50 seqera-api-latest-decorated-new.yaml
+          fi
+
           echo "✅ Speakeasy created new decorated spec"
-          echo "   Size after: $(wc -l < "seqera-api-latest-decorated-new.yaml") lines"
+          echo "   Size after: $OUTPUT_SIZE lines"
           echo ""
 
           # Backup old decorated spec before replacing (in case validation fails)
@@ -291,10 +326,53 @@ jobs:
           echo "▶️  Running: speakeasy validate openapi -s $SPEC_FILE"
           echo ""
 
-          speakeasy validate openapi -s "$SPEC_FILE"
+          # Run validation and capture output to avoid GITHUB_STEP_SUMMARY overflow
+          set +e
+          speakeasy validate openapi -s "$SPEC_FILE" > validation-output.txt 2>&1
+          VALIDATION_EXIT_CODE=$?
+          set -e
+
+          if [ $VALIDATION_EXIT_CODE -ne 0 ]; then
+            echo "❌ Validation FAILED with exit code $VALIDATION_EXIT_CODE"
+            echo ""
+
+            # Count errors and show summary
+            ERROR_COUNT=$(grep -c "Error:" validation-output.txt || echo "0")
+            WARNING_COUNT=$(grep -c "Warning:" validation-output.txt || echo "0")
+
+            echo "📊 Validation Summary:"
+            echo "   Errors: $ERROR_COUNT"
+            echo "   Warnings: $WARNING_COUNT"
+            echo ""
+            echo "🔍 First 100 lines of validation output:"
+            head -100 validation-output.txt
+            echo ""
+            echo "..."
+            echo ""
+            echo "💾 Full validation output saved to: validation-output.txt"
+            echo "   (This file is available in the workflow artifacts)"
+
+            exit 1
+          fi
 
           echo ""
           echo "✅ Decorated spec validation passed!"
+
+      - name: Upload debug artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: workflow-debug-files
+          path: |
+            platform-api-docs/scripts/specs/*-overlay-*.yaml
+            platform-api-docs/scripts/specs/*-overlay-*.yml
+            platform-api-docs/scripts/specs/all-changes-overlay-*.yaml
+            platform-api-docs/scripts/specs/claude-generated-overlays.md
+            platform-api-docs/scripts/specs/validation-output.txt
+            platform-api-docs/scripts/specs/seqera-api-latest-decorated-old.yaml
+            platform-api-docs/scripts/specs/seqera-api-latest-decorated-old.yml
+          retention-days: 7
+          if-no-files-found: ignore
 
       - name: Generate parameter tables
         run: |
