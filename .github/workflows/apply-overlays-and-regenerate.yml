@@ -64,14 +64,22 @@ jobs:
           echo "Detected API version: $VERSION"
 
       - name: Extract overlay files from markdown
+        id: extract
         run: |
           cd platform-api-docs/scripts/specs
 
           # Check if claude-generated-overlays.md exists
           if [ ! -f "claude-generated-overlays.md" ]; then
-            echo "⚠️  No claude-generated-overlays.md found - skipping extraction"
+            echo "⚠️  No claude-generated-overlays.md found"
+            echo "This might mean:"
+            echo "  - Wrong branch checked out"
+            echo "  - Phase 1 didn't create the markdown file"
+            echo "  - File was already processed and archived"
+            echo "has_overlays=false" >> $GITHUB_OUTPUT
             exit 0
           fi
+
+          echo "✅ Found claude-generated-overlays.md"
 
           # Extract YAML code blocks from markdown
           python3 - <<'PYTHON_SCRIPT'
@@ -121,18 +129,47 @@ jobs:
 
           if extracted_count > 0:
               print(f"\n✅ Successfully extracted {extracted_count} overlay file(s)")
+              exit(0)
           else:
               print("⚠️  No overlay files extracted - check markdown format")
+              print("This usually means filenames weren't found in the markdown")
+              exit(1)
           PYTHON_SCRIPT
 
+          # If we get here, extraction succeeded
+          echo "has_overlays=true" >> $GITHUB_OUTPUT
           echo "✅ Overlay extraction complete"
 
       - name: Consolidate overlay files
         run: |
           cd platform-api-docs/scripts/specs
 
+          echo "🔍 Looking for overlay files for version ${{ steps.version.outputs.api_version }}"
+          echo "Current directory: $(pwd)"
+          echo ""
+          echo "All files in specs directory:"
+          ls -lah
+          echo ""
+
+          # Count overlay files before consolidation
+          echo "Searching for: *-overlay-${{ steps.version.outputs.api_version }}.yaml and *-overlay-${{ steps.version.outputs.api_version }}.yml"
+          OVERLAY_FILES=$(ls *-overlay-${{ steps.version.outputs.api_version }}.yaml *-overlay-${{ steps.version.outputs.api_version }}.yml 2>/dev/null || true)
+
+          if [ -z "$OVERLAY_FILES" ]; then
+            echo "❌ ERROR: No overlay files found matching pattern *-overlay-${{ steps.version.outputs.api_version }}.yaml"
+            echo "Cannot proceed without overlay files to consolidate"
+            exit 1
+          fi
+
+          echo "📋 Found overlay files:"
+          echo "$OVERLAY_FILES"
+          echo ""
+
           # Create consolidated overlay
-          cat > all-changes-overlay-${{ steps.version.outputs.api_version }}.yaml <<'EOF'
+          CONSOLIDATED_FILE="all-changes-overlay-${{ steps.version.outputs.api_version }}.yaml"
+          echo "📝 Creating consolidated overlay file: $CONSOLIDATED_FILE"
+
+          cat > "$CONSOLIDATED_FILE" <<'EOF'
           overlay: 1.0.0
           info:
             title: Consolidated overlay for v${{ steps.version.outputs.api_version }}
@@ -141,21 +178,49 @@ jobs:
           EOF
 
           # Append version-specific overlays
-          echo "  # ===== VERSION ${{ steps.version.outputs.api_version }} OVERLAYS =====" >> all-changes-overlay-${{ steps.version.outputs.api_version }}.yaml
+          echo "  # ===== VERSION ${{ steps.version.outputs.api_version }} OVERLAYS =====" >> "$CONSOLIDATED_FILE"
 
           # Find and append all version-specific overlay files - support both .yaml and .yml
+          ADDED_COUNT=0
           for overlay in *-overlay-${{ steps.version.outputs.api_version }}.yaml *-overlay-${{ steps.version.outputs.api_version }}.yml; do
-            if [ -f "$overlay" ] && [ "$overlay" != "all-changes-overlay-${{ steps.version.outputs.api_version }}.yaml" ]; then
-              echo "Adding $overlay to consolidated file"
-              sed -n '/^actions:/,$ p' "$overlay" | tail -n +2 >> all-changes-overlay-${{ steps.version.outputs.api_version }}.yaml
+            if [ -f "$overlay" ] && [ "$overlay" != "$CONSOLIDATED_FILE" ]; then
+              echo "  ➕ Adding $overlay to consolidated file"
+              sed -n '/^actions:/,$ p' "$overlay" | tail -n +2 >> "$CONSOLIDATED_FILE"
+              ADDED_COUNT=$((ADDED_COUNT + 1))
             fi
           done
 
-          echo "✅ Created consolidated overlay"
+          echo ""
+          if [ "$ADDED_COUNT" -eq 0 ]; then
+            echo "❌ ERROR: No overlay files were added to consolidated file"
+            exit 1
+          fi
+
+          echo "✅ Successfully consolidated $ADDED_COUNT overlay file(s) into: $CONSOLIDATED_FILE"
+          echo ""
+          echo "📄 Consolidated overlay file size: $(wc -l < "$CONSOLIDATED_FILE") lines"
 
       - name: Apply overlays to decorated spec
+        if: steps.extract.outputs.has_overlays == 'true'
         run: |
           cd platform-api-docs/scripts/specs
+
+          echo "🔧 Applying overlays to decorated spec"
+          echo "Current directory: $(pwd)"
+          echo ""
+
+          # Verify consolidated overlay exists
+          CONSOLIDATED_OVERLAY="all-changes-overlay-${{ steps.version.outputs.api_version }}.yaml"
+          if [ ! -f "$CONSOLIDATED_OVERLAY" ]; then
+            echo "❌ ERROR: Consolidated overlay file not found: $CONSOLIDATED_OVERLAY"
+            echo "Files in directory:"
+            ls -la
+            exit 1
+          fi
+
+          echo "✅ Found consolidated overlay: $CONSOLIDATED_OVERLAY"
+          echo "   Size: $(wc -l < "$CONSOLIDATED_OVERLAY") lines"
+          echo ""
 
           # Find decorated spec - support both .yaml and .yml
           if [ -f "seqera-api-latest-decorated.yaml" ]; then
@@ -163,29 +228,72 @@ jobs:
           elif [ -f "seqera-api-latest-decorated.yml" ]; then
             DECORATED_SPEC="seqera-api-latest-decorated.yml"
           else
-            echo "❌ Error: seqera-api-latest-decorated file not found"
+            echo "❌ ERROR: seqera-api-latest-decorated file not found"
+            echo "Files in directory:"
+            ls -la
             exit 1
           fi
+
+          echo "✅ Found decorated spec: $DECORATED_SPEC"
+          echo "   Size before: $(wc -l < "$DECORATED_SPEC") lines"
+          echo ""
+
+          echo "▶️  Running: speakeasy overlay apply -s $DECORATED_SPEC -o $CONSOLIDATED_OVERLAY"
 
           # Apply consolidated overlay
           speakeasy overlay apply \
             -s "$DECORATED_SPEC" \
-            -o all-changes-overlay-${{ steps.version.outputs.api_version }}.yaml \
+            -o "$CONSOLIDATED_OVERLAY" \
             > seqera-api-latest-decorated-new.yaml
 
-          # Replace old decorated spec (keep as .yaml)
+          # Check if output was created
+          if [ ! -f "seqera-api-latest-decorated-new.yaml" ]; then
+            echo "❌ ERROR: Speakeasy overlay apply did not create output file"
+            exit 1
+          fi
+
+          echo "✅ Speakeasy created new decorated spec"
+          echo "   Size after: $(wc -l < "seqera-api-latest-decorated-new.yaml") lines"
+          echo ""
+
+          # Backup old decorated spec before replacing (in case validation fails)
+          echo "💾 Backing up old decorated spec to: seqera-api-latest-decorated-old.yaml"
+          mv seqera-api-latest-decorated.yaml seqera-api-latest-decorated-old.yaml
+
+          # Move new spec into place
           mv seqera-api-latest-decorated-new.yaml seqera-api-latest-decorated.yaml
 
-          echo "✅ Applied overlays to decorated spec"
+          echo "✅ Successfully applied overlays to decorated spec: seqera-api-latest-decorated.yaml"
+          echo "   Old spec backed up as: seqera-api-latest-decorated-old.yaml"
 
       - name: Validate decorated spec
+        if: steps.extract.outputs.has_overlays == 'true'
         run: |
           cd platform-api-docs/scripts/specs
 
-          # Validate the decorated spec (now always .yaml after apply step)
-          speakeasy validate openapi -s seqera-api-latest-decorated.yaml
+          echo "🔍 Validating decorated spec"
+          echo "Current directory: $(pwd)"
+          echo ""
 
-          echo "✅ Decorated spec is valid"
+          # Validate the decorated spec (now always .yaml after apply step)
+          SPEC_FILE="seqera-api-latest-decorated.yaml"
+          if [ ! -f "$SPEC_FILE" ]; then
+            echo "❌ ERROR: Decorated spec file not found: $SPEC_FILE"
+            echo "Files in directory:"
+            ls -la
+            exit 1
+          fi
+
+          echo "✅ Found spec file: $SPEC_FILE"
+          echo "   Size: $(wc -l < "$SPEC_FILE") lines"
+          echo ""
+          echo "▶️  Running: speakeasy validate openapi -s $SPEC_FILE"
+          echo ""
+
+          speakeasy validate openapi -s "$SPEC_FILE"
+
+          echo ""
+          echo "✅ Decorated spec validation passed!"
 
       - name: Generate parameter tables
         run: |
@@ -261,7 +369,16 @@ jobs:
             fi
           done
 
-          echo "✅ Archived overlays"
+          # Clean up old decorated spec backup (validation passed, so we don't need it)
+          if [ -f "seqera-api-latest-decorated-old.yaml" ]; then
+            rm seqera-api-latest-decorated-old.yaml
+            echo "Cleaned up: seqera-api-latest-decorated-old.yaml"
+          elif [ -f "seqera-api-latest-decorated-old.yml" ]; then
+            rm seqera-api-latest-decorated-old.yml
+            echo "Cleaned up: seqera-api-latest-decorated-old.yml"
+          fi
+
+          echo "✅ Archived overlays and cleaned up intermediate files"
 
       - name: Clean up old base specs
         run: |
