@@ -23,10 +23,35 @@ jobs:
       github.event_name == 'workflow_dispatch'
 
     steps:
+      - name: Get PR branch name
+        id: get-branch
+        uses: actions/github-script@v7
+        with:
+          script: |
+            let branchName;
+            if (context.eventName === 'pull_request') {
+              // For PR events, use head ref directly
+              branchName = context.payload.pull_request.head.ref;
+              console.log(`PR event - branch: ${branchName}`);
+            } else {
+              // For workflow_dispatch, fetch the PR to get the branch name
+              const prNumber = ${{ github.event.inputs.pr_number }};
+              const { data: pr } = await github.rest.pulls.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: prNumber
+              });
+              branchName = pr.head.ref;
+              console.log(`Workflow dispatch - PR #${prNumber} branch: ${branchName}`);
+            }
+            core.setOutput('branch', branchName);
+            return branchName;
+
       - name: Checkout PR branch
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref || format('refs/pull/{0}/head', github.event.inputs.pr_number) }}
+          ref: ${{ steps.get-branch.outputs.branch }}
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -470,12 +495,34 @@ jobs:
 
       - name: Commit changes
         run: |
+          echo "🔍 Current branch and status:"
+          git branch -vv
+          git status
+          echo ""
+
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
+          echo "📝 Adding changes to git..."
           git add platform-api-docs/
-          git commit -m "Apply overlays and regenerate docs for v${{ steps.version.outputs.api_version }}" || echo "No changes to commit"
-          git push
+
+          echo ""
+          echo "📊 Changes to be committed:"
+          git diff --cached --stat
+
+          echo ""
+          if git diff --cached --quiet; then
+            echo "⚠️  No changes to commit"
+          else
+            echo "💾 Creating commit..."
+            git commit -m "Apply overlays and regenerate docs for v${{ steps.version.outputs.api_version }}"
+
+            echo ""
+            echo "⬆️  Pushing to remote branch: ${{ steps.get-branch.outputs.branch }}"
+            git push origin HEAD:${{ steps.get-branch.outputs.branch }}
+
+            echo "✅ Successfully pushed changes!"
+          fi
 
       - name: Update PR
         uses: actions/github-script@v7
