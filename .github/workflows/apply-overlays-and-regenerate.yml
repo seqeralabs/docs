@@ -81,12 +81,20 @@ jobs:
         run: |
           cd platform-api-docs/scripts/specs
 
-          # Find the latest base spec (highest version number) - support both .yaml and .yml
-          LATEST_SPEC=$(ls -t seqera-api-*.yaml seqera-api-*.yml 2>/dev/null | head -n 1)
+          # Find the latest base spec (exclude decorated specs) - support both .yaml and .yml
+          LATEST_SPEC=$(ls -t seqera-api-*.yaml seqera-api-*.yml 2>/dev/null | grep -v "decorated" | head -n 1)
+
+          if [ -z "$LATEST_SPEC" ]; then
+            echo "❌ ERROR: No base spec files found matching seqera-api-*.yaml (excluding decorated)"
+            echo "Files in directory:"
+            ls -la
+            exit 1
+          fi
+
           VERSION=$(echo "$LATEST_SPEC" | sed -E 's/seqera-api-(.*)\.ya?ml/\1/')
 
           echo "api_version=$VERSION" >> $GITHUB_OUTPUT
-          echo "Detected API version: $VERSION"
+          echo "Detected API version: $VERSION from file: $LATEST_SPEC"
 
       - name: Extract overlay files from markdown
         id: extract
