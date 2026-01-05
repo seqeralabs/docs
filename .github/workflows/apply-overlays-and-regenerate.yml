@@ -257,8 +257,9 @@ jobs:
           echo ""
 
           # Backup old decorated spec before replacing (in case validation fails)
+          # Always normalize to .yaml extension
           echo "💾 Backing up old decorated spec to: seqera-api-latest-decorated-old.yaml"
-          mv seqera-api-latest-decorated.yaml seqera-api-latest-decorated-old.yaml
+          mv "$DECORATED_SPEC" seqera-api-latest-decorated-old.yaml
 
           # Move new spec into place
           mv seqera-api-latest-decorated-new.yaml seqera-api-latest-decorated.yaml
