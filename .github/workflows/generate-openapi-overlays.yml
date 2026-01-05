@@ -6,10 +6,6 @@
 name: Generate API Documentation Overlays
 
 on:
-  # Temporary: Remove push trigger after testing
-  push:
-    branches:
-      - api-docs-v195+automation
   repository_dispatch:
     types: [api-version-updated]
   workflow_dispatch:
