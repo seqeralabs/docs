@@ -63,6 +63,70 @@ jobs:
           echo "api_version=$VERSION" >> $GITHUB_OUTPUT
           echo "Detected API version: $VERSION"
 
+      - name: Extract overlay files from markdown
+        run: |
+          cd platform-api-docs/scripts/specs
+
+          # Check if claude-generated-overlays.md exists
+          if [ ! -f "claude-generated-overlays.md" ]; then
+            echo "⚠️  No claude-generated-overlays.md found - skipping extraction"
+            exit 0
+          fi
+
+          # Extract YAML code blocks from markdown
+          python3 - <<'PYTHON_SCRIPT'
+          import re
+          from pathlib import Path
+
+          md_file = Path("claude-generated-overlays.md")
+          if not md_file.exists():
+              print("No markdown file found")
+              exit(0)
+
+          content = md_file.read_text()
+
+          # Pattern to match yaml/yml code blocks with optional filename labels
+          # Looks for: ```yaml or ```yml, optionally preceded by filename comment
+          pattern = r'(?:```(?:yaml|yml)\s*\n)([^`]+)(?:```)'
+
+          # Also try to find filenames mentioned before code blocks
+          # Pattern: "filename.yaml" or **filename.yaml** or <!-- filename.yaml -->
+          filename_pattern = r'(?:^|\n)(?:#+\s*)?(?:\*\*)?([a-zA-Z0-9_-]+-overlay-[0-9.]+\.ya?ml)(?:\*\*)?'
+
+          blocks = re.finditer(pattern, content, re.MULTILINE | re.DOTALL)
+
+          extracted_count = 0
+          current_pos = 0
+
+          for block in blocks:
+              yaml_content = block.group(1).strip()
+
+              # Look backwards from this block to find a filename
+              text_before = content[current_pos:block.start()]
+              filename_match = re.search(filename_pattern, text_before, re.MULTILINE | re.IGNORECASE)
+
+              if filename_match:
+                  filename = filename_match.group(1)
+                  # Normalize to .yaml extension
+                  filename = re.sub(r'\.yml$', '.yaml', filename)
+
+                  output_path = Path(filename)
+                  output_path.write_text(yaml_content + '\n')
+                  print(f"✅ Extracted: {filename}")
+                  extracted_count += 1
+              else:
+                  print(f"⚠️  Found YAML block but no filename at position {block.start()}")
+
+              current_pos = block.end()
+
+          if extracted_count > 0:
+              print(f"\n✅ Successfully extracted {extracted_count} overlay file(s)")
+          else:
+              print("⚠️  No overlay files extracted - check markdown format")
+          PYTHON_SCRIPT
+
+          echo "✅ Overlay extraction complete"
+
       - name: Consolidate overlay files
         run: |
           cd platform-api-docs/scripts/specs
@@ -169,6 +233,20 @@ jobs:
             if [ -f "$comparison" ]; then
               mv "$comparison" ../overlay_archives/
               echo "Archived: $comparison"
+            fi
+          done
+
+          # Archive the claude-generated-overlays.md file
+          if [ -f "claude-generated-overlays.md" ]; then
+            mv claude-generated-overlays.md ../overlay_archives/
+            echo "Archived: claude-generated-overlays.md"
+          fi
+
+          # Archive analysis JSON files
+          for analysis in *-analysis.json; do
+            if [ -f "$analysis" ]; then
+              mv "$analysis" ../overlay_archives/
+              echo "Archived: $analysis"
             fi
           done
 
