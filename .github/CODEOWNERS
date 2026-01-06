@@ -1,5 +1,4 @@
 # More generic rules first, then more specific ones overwriting previous ones.
-*                                                                 @justinegeffen @llewellyn-sl
 
 /platform-enterprise_docs/enterprise/helm.md                      @justinegeffen @llewellyn-sl @seqeralabs/devops
 /platform-enterprise_docs/enterprise/kubernetes.md                @justinegeffen @llewellyn-sl @seqeralabs/devops
