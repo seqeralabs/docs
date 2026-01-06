@@ -8673,7 +8673,9 @@ components:
             type: object
             additionalProperties: true
           description: "Resources created by Batch Forge (read-only)."
-      required: ["region", "workDir", "region", "workDir"]
+      required:
+        - region
+        - workDir
     AwsBatchPlatformMetainfo:
       type: object
       properties:
@@ -8803,7 +8805,9 @@ components:
             type: object
             additionalProperties: true
           description: "Resources created by Cloud Forge (read-only)."
-      required: ["region", "workDir", "region", "workDir"]
+      required:
+        - region
+        - workDir
     AwsCloudPlatformMetainfo:
       type: object
       properties:
@@ -8909,7 +8913,9 @@ components:
           type: string
           nullable: true
           description: "The ID of a [managed identity client](https://docs.seqera.io/platform-cloud/compute-envs/azure-batch#managed-identity) attached to the Azure Batch Pool, used by Nextflow to authenticate to Azure Batch and Storage."
-      required: ["region", "workDir", "region", "workDir"]
+      required:
+        - region
+        - workDir
     AzBatchForgeConfig:
       type: object
       properties:
@@ -9015,7 +9021,9 @@ components:
           items:
             $ref: "#/components/schemas/Map.Entry_String.String_"
           description: "Resources created by Cloud Forge (read-only)."
-      required: ["location", "workDir", "location", "workDir"]
+      required:
+        - location
+        - workDir
     AzureEntraKeys:
       type: object
       allOf:
@@ -9239,16 +9247,6 @@ components:
           items:
             $ref: "#/components/schemas/LabelDbDto"
     ComputeEnv_ComputeConfig_:
-      required:
-        - config
-        - name
-        - platform
-        - "name"
-        - "platform"
-        - "config"
-        - "name"
-        - "platform"
-        - "config"
       type: object
       properties:
         credentialsId:
@@ -9365,6 +9363,10 @@ components:
         primary:
           type: boolean
           readOnly: true
+      required:
+        - config
+        - name
+        - platform
     ComputePlatform:
       type: object
       properties:
@@ -9405,7 +9407,9 @@ components:
         compute:
           type: boolean
           description: "Apply this variable to the Nextflow compute jobs."
-      required: ["name", "value", "name", "value"]
+      required:
+        - name
+        - value
     ContainerData:
       required:
         - targetImage
@@ -9488,7 +9492,8 @@ components:
             type: integer
             format: int64
           description: "Array of label IDs to assign to the compute environment."
-      required: ["computeEnv", "computeEnv"]
+      required:
+        - computeEnv
     CreateComputeEnvResponse:
       type: object
       properties:
@@ -11001,7 +11006,10 @@ components:
               type: boolean
             waveEnabled:
               type: boolean
-      required: ["region", "clusterName", "workDir", "region", "clusterName", "workDir"]
+      required:
+        - region
+        - clusterName
+        - workDir
     GkePlatformMetaInfo:
       type: object
       properties:
@@ -11113,7 +11121,9 @@ components:
         computeJobsInstanceTemplate:
           type: string
           description: "Specify the name or fully-qualified reference of a [VM instance template](https://cloud.google.com/compute/docs/instance-templates), without the `template://` prefix, to use for Nextflow compute jobs."
-      required: ["location", "workDir", "location", "workDir"]
+      required:
+        - location
+        - workDir
     GoogleBucket:
       type: object
       properties:
@@ -11182,7 +11192,9 @@ components:
             type: object
             additionalProperties: true
           description: "Resources created by Cloud Forge (read-only)."
-      required: ["region", "workDir", "region", "workDir"]
+      required:
+        - region
+        - workDir
     GoogleCloudPlatformMetaInfo:
       type: object
       properties:
@@ -11463,7 +11475,10 @@ components:
         nextflowConfig:
           type: string
           description: "Additional Nextflow configuration to apply. See [Nextflow config file](https://docs.seqera.io/platform-cloud/launch/advanced#nextflow-config-file)."
-      required: ["server", "sslCert", "workDir", "server", "sslCert", "workDir"]
+      required:
+        - server
+        - sslCert
+        - workDir
     K8sPlatformMetaInfo:
       type: object
       properties:
@@ -12833,7 +12848,9 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ConfigEnvVariable"
-      required: ["region", "workDir", "region", "workDir"]
+      required:
+        - region
+        - workDir
     SeqeraComputePlatformDescriber:
       type: object
     SeqeraComputePlatformMetainfo:

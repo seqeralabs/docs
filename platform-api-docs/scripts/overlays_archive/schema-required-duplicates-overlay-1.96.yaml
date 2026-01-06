@@ -1,0 +1,114 @@
+overlay: 1.0.0
+info:
+  title: Fix duplicate items in schema required arrays
+  version: 0.0.1
+actions:
+  # Fix AwsBatchConfig - remove and replace required array
+  - target: "$.components.schemas.AwsBatchConfig.required"
+    remove: true
+  - target: "$.components.schemas.AwsBatchConfig"
+    update:
+      required:
+        - region
+        - workDir
+
+  # Fix AwsCloudConfig - remove and replace required array
+  - target: "$.components.schemas.AwsCloudConfig.required"
+    remove: true
+  - target: "$.components.schemas.AwsCloudConfig"
+    update:
+      required:
+        - region
+        - workDir
+
+  # Fix AzBatchConfig - remove and replace required array
+  - target: "$.components.schemas.AzBatchConfig.required"
+    remove: true
+  - target: "$.components.schemas.AzBatchConfig"
+    update:
+      required:
+        - region
+        - workDir
+
+  # Fix AzCloudConfig - remove and replace required array
+  - target: "$.components.schemas.AzCloudConfig.required"
+    remove: true
+  - target: "$.components.schemas.AzCloudConfig"
+    update:
+      required:
+        - location
+        - workDir
+
+  # Fix ComputeEnv_ComputeConfig_ - remove and replace required array
+  - target: "$.components.schemas['ComputeEnv_ComputeConfig_'].required"
+    remove: true
+  - target: "$.components.schemas['ComputeEnv_ComputeConfig_']"
+    update:
+      required:
+        - config
+        - name
+        - platform
+
+  # Fix ConfigEnvVariable - remove and replace required array
+  - target: "$.components.schemas.ConfigEnvVariable.required"
+    remove: true
+  - target: "$.components.schemas.ConfigEnvVariable"
+    update:
+      required:
+        - name
+        - value
+
+  # Fix CreateComputeEnvRequest - remove and replace required array
+  - target: "$.components.schemas.CreateComputeEnvRequest.required"
+    remove: true
+  - target: "$.components.schemas.CreateComputeEnvRequest"
+    update:
+      required:
+        - computeEnv
+
+  # Fix GkeComputeConfig - remove and replace required array
+  - target: "$.components.schemas.GkeComputeConfig.required"
+    remove: true
+  - target: "$.components.schemas.GkeComputeConfig"
+    update:
+      required:
+        - region
+        - clusterName
+        - workDir
+
+  # Fix GoogleBatchConfig - remove and replace required array
+  - target: "$.components.schemas.GoogleBatchConfig.required"
+    remove: true
+  - target: "$.components.schemas.GoogleBatchConfig"
+    update:
+      required:
+        - location
+        - workDir
+
+  # Fix GoogleCloudConfig - remove and replace required array
+  - target: "$.components.schemas.GoogleCloudConfig.required"
+    remove: true
+  - target: "$.components.schemas.GoogleCloudConfig"
+    update:
+      required:
+        - region
+        - workDir
+
+  # Fix K8sComputeConfig - remove and replace required array
+  - target: "$.components.schemas.K8sComputeConfig.required"
+    remove: true
+  - target: "$.components.schemas.K8sComputeConfig"
+    update:
+      required:
+        - server
+        - sslCert
+        - workDir
+
+  # Fix SeqeraComputeConfig - remove and replace required array
+  - target: "$.components.schemas.SeqeraComputeConfig.required"
+    remove: true
+  - target: "$.components.schemas.SeqeraComputeConfig"
+    update:
+      required:
+        - region
+        - workDir
