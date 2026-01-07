@@ -92,6 +92,7 @@ Seqera-managed container templates offer varying levels of multi-user collaborat
 
 :::note
 RStudio Professional Server supports multi-user collaboration. Add your own custom container and include your Posit Workbench license code as a environment variable to take advantage of this.
+:::
 
 Multi-user collaboration in custom containers is dependent on the container configuration.
 
