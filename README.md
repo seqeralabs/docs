@@ -50,27 +50,35 @@ Wave documentation is available as a Git submodule. Wave documentation is not ve
 
 To incorporate documentation changes from the Wave repository, run the following command: `git submodule update --recursive --remote`. This is mandatory, or published documentation cannot reflect any changes made to the Wave documentation since this command was last run. If you accidentally run the aforementioned command and want to revert, run the following command to revert to the previous commit ID for the Wave repository: `git submodule update --init`.
 
-## Writing new content
+## Write and edit content
 
-All new content originates in the docs repo. This is the source of truth.
+### Install pre-commit
 
-To publish new content:
+We use pre-commit in our repo and it's invoked when a commit is made. When you (or Claude) are working locally and commit your changes in VS Code (or run `git commit -am`) the pre-commit hooks defined in the precommit config file are run and then committed to: https://github.com/seqeralabs/docs/blob/master/.pre-commit-config.yaml. We currently use basic standard hooks to remove trailing whitespaces, make sure the file ends with a newline, we check yaml documents and we prevent very large files from getting committed.
 
-1. Run the following commands to set up [pre-commit](https://github.com/pre-commit/pre-commit) hooks:
+1. Open up a Terminal window and navigate to the `docs` directory.
+2. Run the following commands to set up [pre-commit](https://github.com/pre-commit/pre-commit) hooks:
 
    ```console
    $ pre-commit install
    $ pre-commit install-hooks
    ```
+You shouldn't experience any issues but if you do, share them in the #team-documentation channel so we can try help.
 
-1. Create a new branch in the docs repo, such as `gh-issue-number`.
-2. Complete the necessary work.
-3. Raise a PR to merge your updates to master
-4. Add relevant labels to your PR and request reviews from:
-   - Language review from a docs-codeowners member
-   - Technical review from the backend engineer or other SME closest to the feature
-5. Check and review the changes using the Netlify preview.
-6. Merge the PR once approved, if you created a new branch in the first step.
+:::note
+  You only have to install pre-commit once.
+:::
+
+### Make changes and create a PR
+
+1. In GitHub, or VS Code, create a new branch (e.g., `gh-issue-number`).
+3. Complete the necessary work, save your changes, and commit.
+4. In GitHub, create a PR to merge your updates to master.
+5. Add relevant labels to your PR and request reviews from:
+   - Language review from a `docs-codeowners` member.
+   - Technical review from the backend engineer or other SME closest to the feature.
+6. Check and review the changes using the Netlify preview.
+7. If you created the PR, the onus is on you to merge the PR once approved. This is the Edu team's policy, to ensure that PRs are never merged inadvertently. If you'd like one of us to merge it for you, please let us know. 
 
 Once merged to the master branch, the changes will be live immediately.
 
