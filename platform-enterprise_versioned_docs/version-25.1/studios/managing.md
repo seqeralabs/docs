@@ -129,7 +129,7 @@ Collaborators need valid workspace permissions to connect to the running Studio.
 Seqera-managed container templates offer varying levels of multi-user collaboration:
 
 - **JupyterLab:** Supports multi-user collaboration via the `jupyter-collaboration` package. Each connected user has a randomly assigned colour-coded avatar and the user cursor inherits the same color for easily differentiating multiple connected users.
-- **VS Code:** Supports multi-user collaboration by default, but each connected user is not readily distinguishable. For a more fully-featured collaborative experience, install the [Microsoft Live Share extension][liveshare]. 
+- **VS Code:** Supports multi-user collaboration by default, but each connected user is not readily distinguishable. For a more fully-featured collaborative experience, install the [Microsoft Live Share extension][liveshare] or [P2P Live Share][p2p-liveshare].
 - **R-IDE:** By default, multi-user collaboration is not supported. When an additional user connects to the running session, the previously connected user is notified and forcibly disconnected.
 - **Xpra:** Supports multi-user collaboration by default and is similar to a remote desktop experience. Connected users are not readily distinguishable.
 
@@ -223,3 +223,4 @@ Due to the nature of fully customizable, containerized applications, users can m
 [custom-image]: ./custom-envs#custom-containers
 [connect]: ./overview#container-image-templates
 [liveshare]: https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare
+[p2p-liveshare]: https://open-vsx.org/extension/kermanx/p2p-live-share
