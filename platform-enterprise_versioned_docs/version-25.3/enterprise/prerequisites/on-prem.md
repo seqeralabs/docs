@@ -23,13 +23,13 @@ You must satisfy the requirements for your installation:
 
   If you don't have your own database service, use an external service from a cloud provider. Visit the provider's corresponding **Prerequisites** page for more information and consult your IT team to select the most suitable solution for your organization.
 
-  To use an external database, you must create a MySQL user and database manually. See [Configuration](../configuration/overview#seqera-and-redis-databases) for more details.
+  To use an external database, you must create a MySQL user and database manually. See [Configuration](../configuration/overview.mdx#seqera-and-redis-databases) for more details.
 
 - **Redis cache**: A Redis-compatible cache external to your Docker Compose or Kubernetes environment is highly recommended for production deployments.
 
   If you don't have your own Redis service, use an external service from a cloud provider. Visit the provider's corresponding **Prerequisites** page for more information and consult your IT team to select the most suitable solution for your organization.
 
-  See [Configuration](../configuration/overview#seqera-and-redis-databases) for more details.
+  See [Configuration](../configuration/overview.mdx#seqera-and-redis-databases) for more details.
 
 - **(Optional) SSL certificate**: An SSL certificate is required for your Seqera instance to handle HTTPS traffic.
 

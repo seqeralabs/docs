@@ -1,441 +1,382 @@
-# Platform OpenAPI documentation workflow
+# Platform API Documentation
 
-## Prerequisites
+Automated workflow for maintaining Seqera Platform API documentation using Claude Skills, GitHub Actions, and Speakeasy overlays.
 
-### Cloned repos
-- **seqeralabs/platform**
-- **seqeralabs/docs**
+## 🎯 Overview
 
-### Tools
+This documentation system uses a multi-phase automation approach to keep API docs in sync with Platform backend changes. **This branch implements Phase 2** of the automation system (overlay generation). Phase 3 (applying overlays and regenerating docs) will be added in a future PR.
+
+### Automation Phases
+
+```
+┌─────────────────────────────────────┐
+│ Phase 1: Platform Repo (Future)    │
+│ Detects API spec changes            │
+│ Triggers docs repo workflow         │
+└────────────┬────────────────────────┘
+             │
+             ▼
+┌─────────────────────────────────────┐
+│ Phase 2: Generate Overlays (✅)     │
+│ - Copies flattened base spec        │
+│ - Runs Speakeasy comparison         │
+│ - Analyzes changes                  │
+│ - Calls Claude API with skill       │
+│ - Creates draft PR for review       │
+└────────────┬────────────────────────┘
+             │
+             ▼
+┌─────────────────────────────────────┐
+│ Phase 3: Apply Overlays (Future)    │
+│ - Consolidates overlays             │
+│ - Applies to decorated spec         │
+│ - Regenerates MDX docs              │
+│ - Updates sidebar                   │
+└─────────────────────────────────────┘
+```
+
+## 🚀 Current Workflow (Phase 2)
+
+### Prerequisites
+
 - **Speakeasy CLI**: For overlay comparison and application
 - **Node.js/npm**: For Docusaurus commands
+- **GitHub Actions**: Automated workflow execution
+- **Claude Skill**: OpenAPI overlay generator (in `.claude/skills/`)
 
-### File Naming Conventions
-- Base specs: `seqera-api-{version}.yaml` (e.g., `seqera-api-1.85.0.yaml`)
-- Decorated specs: `seqera-api-latest-decorated.yaml` (consistent name for Docusaurus)
-- Comparison overlays: `base-{old-version}-to-{new-version}-changes-overlay.yaml`
-- Documentation overlays: `{feature}-{type}-overlay-{version}.yaml`
-  - Types: `operations`, `parameters`, `schemas`
-  - Example: `datasets-operations-overlay-1.85.yaml`
+### Automated Overlay Generation
 
----
+The `generate-openapi-overlays.yml` workflow automates the initial documentation work:
 
-## Workflow
+#### Workflow Trigger
 
-### Step 1: Get New Base Spec from Platform Repo
+**Manual trigger** (via GitHub Actions UI):
+1. Go to Actions → "Generate API Documentation Overlays"
+2. Click "Run workflow"
+3. Enter the API version (e.g., `1.95`)
+4. The workflow will create a draft PR with generated overlay files
 
-1. In Platform repo, switch to `master` branch and pull from origin:
+**Future**: Will be triggered automatically by Platform repo changes.
+
+#### What the Workflow Does
+
+1. **Copies flattened base spec** from Platform repo:
    ```bash
-   cd /path/to/tower-backend
-   git checkout master
-   git pull origin master
+   platform-repo/tower-backend/src/main/resources/META-INF/openapi/seqera-api-latest-flattened.yml
    ```
 
-2. Copy the base spec from Platform repo to docs repo:
-```bash
-   # Base spec will be at: tower-backend/src/main/resources/META-INF/openapi/seqera-api-latest-flattened.yml
-   cp tower-backend/src/main/resources/META-INF/openapi/seqera-api-latest-flattened.yml
-      /path/to/docs-repo/platform-api-docs/specs/
-   ```
+2. **Finds previous version** (handles both `.yml` and `.yaml` extensions)
 
-### Step 2: Generate Base Comparison Overlay
-
-Compare old and new base specs to identify all changes:
-
-```bash
-cd /path/to/docs-repo/platform-api-docs/specs
-
-speakeasy overlay compare \
-  -o seqera-api-1.66.0.yaml \
-  -n seqera-api-1.85.0.yaml \
-  > base-1.66-to-1.85-changes-overlay.yaml
-```
-
-**What this does**: Creates an overlay file showing every difference between the two base specs (new endpoints, changed parameters, added schemas, etc.).
-
-### Step 3: Analyze Changes
-
-Review the comparison overlay to identify:
-- **New endpoints**: Need complete documentation (operations, parameters, schemas)
-- **Modified endpoints**: Need updated descriptions
-- **New schemas**: Need property descriptions
-- **Deprecated endpoints**: Need deprecation notices
-
-Group changes by feature area (datasets, data-links, pipelines, compute environments, etc.) for organized overlay creation.
-
-### Step 4: Create Documentation Overlays
-
-For each feature area with changes, create separate overlay files in the `specs` folder:
-
-#### Operations Overlay
-Covers endpoint summaries and descriptions.
-
-**File**: `{feature}-operations-overlay-{version}.yaml`
-
-**Format**:
-```yaml
-overlay: 1.0.0
-info:
-  title: {Feature} operations overlay
-  version: 0.0.0
-actions:
-  # ===== {FEATURE} - OPERATIONS =====
-  
-  # ---- {OPERATION NAME} ----
-  
-  - target: "$.paths./{endpoint}.{method}.summary"
-    update: "{Verb} {entity}"
-  
-  - target: "$.paths./{endpoint}.{method}.description"
-    update: "{Full description with context and usage guidance.}"
-```
-
-**Conventions**:
-- Summaries: Sentence case, verb-entity format (e.g., "List datasets", "Create pipeline")
-- Descriptions: Full sentences with periods, include context about user/workspace scope
-- Deprecated operations: Lead with "(Deprecated)" in summary, include link to new endpoint
-
-#### Parameters Overlay
-Covers path, query, and request body parameter descriptions.
-
-**File**: `{feature}-parameters-overlay-{version}.yaml`
-
-**Format**:
-```yaml
-overlay: 1.0.0
-info:
-  title: {Feature} parameters overlay
-  version: 0.0.0
-actions:
-  # ===== {FEATURE} PARAMETERS - PATH, QUERY, AND REQUEST BODY =====
-  
-  # ---- PATH PARAMETERS ----
-  
-  - target: "$.paths./{endpoint}.{method}.parameters[?(@.name=='{paramName}')].description"
-    update: "{Parameter description with type and context.}"
-  
-  # ---- QUERY PARAMETERS ----
-  
-  - target: "$.paths./{endpoint}.{method}.parameters[?(@.name=='workspaceId')].description"
-    update: "Workspace numeric identifier."
-  
-  # ---- REQUEST BODY DESCRIPTIONS ----
-  
-  - target: "$.paths./{endpoint}.{method}.requestBody.description"
-    update: "{Request body description.}"
-```
-
-**Conventions**:
-- Consistent descriptions for repeated parameters (workspaceId, max, offset, search, etc.)
-- Always include defaults in backticks: "Default: `0`"
-- Specify accepted values: "Accepts `value1`, `value2`, or `value3`"
-- End all descriptions with periods
-
-#### Schemas Overlay
-Covers request/response object property descriptions.
-
-**File**: `{feature}-schemas-overlay-{version}.yaml`
-
-**Format**:
-```yaml
-overlay: 1.0.0
-info:
-  title: {Feature} schemas overlay
-  version: 0.0.0
-actions:
-  # ===== {FEATURE} SCHEMAS - REQUEST/RESPONSE OBJECTS =====
-  
-  # ---- REQUEST SCHEMAS ----
-  
-  - target: "$.components.schemas.{SchemaName}.properties.{propertyName}"
-    update:
-      type: string
-      description: "{Property description with validation rules and constraints.}"
-  
-  # ---- RESPONSE SCHEMAS ----
-  
-  - target: "$.components.schemas.{SchemaName}.properties.{propertyName}"
-    update:
-      description: "{Property description.}"
-```
-
-**Conventions**:
-- Include validation rules (max length, format requirements, etc.)
-- Note nullable fields explicitly
-- Describe enum values clearly
-- Document array item types
-
-### Step 5: Engineering Review
-
-Before applying overlays, raise a **draft PR** for engineering review:
-
-1. Commit all new overlay files in the `specs` folder to a feature branch
-2. Create a draft PR with the overlay files
-3. Request review from the appropriate Platform squad:
-   - **Data team**: data-links, datasets, studios
-   - **Unified compute team**: compute environments (all platforms)
-   - **Pipelines team**: pipelines, workflows, launch operations
-   - **Core team**: admin, organizations, workspaces, users, and everything else
-4. **What to review**: Ask engineering to review the overlay files directly for technical accuracy
-5. Iterate on feedback and update overlay files as needed
-6. Once approved, proceed to Step 6
-
-### Step 6: Consolidate Overlays
-
-After engineering approval, consolidate all individual overlay files into one comprehensive overlay:
-
-1. Create a new file: `all-changes-overlay-{version}.yaml`
-2. Copy contents from all individual overlay files into this single file:
-   - Keep sections clearly labeled (operations, parameters, schemas)
-   - Maintain all target paths and updates
-3. Move individual overlay files to archive:
+3. **Generates comparison overlay** using Speakeasy:
    ```bash
-   mv *-overlay-{version}.yaml overlays_archive/
+   speakeasy overlay compare -b <previous> -a <new> > comparison.yaml
    ```
-   **Note**: Keep the individual files in `overlays_archive` for reference and future updates
 
-### Step 7: Apply Consolidated Overlay
-
-Apply the single comprehensive overlay to your decorated spec, using the consistent naming convention:
-
-```bash
-cd /path/to/docs-repo/platform-api-docs/specs
-
-speakeasy overlay apply \
-  -s seqera-api-latest-decorated.yaml \
-  -o all-changes-overlay-1.85.yaml \
-  > seqera-api-latest-decorated-new.yaml
-
-# Replace old decorated spec with new one
-mv seqera-api-latest-decorated-new.yaml seqera-api-latest-decorated.yaml
-```
-
-**Note**: By keeping the same filename (`seqera-api-latest-decorated.yaml`), Docusaurus config doesn't need updating.
-
-### Step 8: Validate Output
-
-Verify the decorated spec:
-1. Check that all new endpoints have complete documentation
-2. Verify parameter descriptions are consistent
-3. Confirm schema properties are documented
-4. Test that the spec is valid OpenAPI 3.0/3.1
-
-```bash
-# Validate with Speakeasy
-speakeasy validate openapi -s seqera-api-latest-decorated.yaml
-```
-
-### Step 9: Update Docusaurus Config and Regenerate Documentation
-
-Before regenerating docs, verify Docusaurus is pointing to the correct spec:
-
-1. **Check `docusaurus.config.js`**:
-   
-   Open the config file and locate the `docs_platform_openapi` plugin configuration:
-   
-   ```javascript
-   const docs_platform_openapi = [
-     "docusaurus-plugin-openapi-docs",
-     {
-       id: "api", // plugin id
-       docsPluginId: "classic", // configured for preset-classic
-       config: {
-         platform: {
-           specPath: "platform-api-docs/scripts/seqera-api-latest-decorated.yaml",
-           outputDir: "platform-api-docs/docs",
-           sidebarOptions: {
-             groupPathsBy: "tag",
-           },
-         },
-       },
-     },
-   ];
-   ```
-   
-   **Verify**: The `specPath` should point to `seqera-api-latest-decorated.yaml`. Since we use a consistent filename, this should not require changes.
-
-2. **Regenerate documentation** from the decorated spec using Docusaurus:
-
+4. **Analyzes changes** using Python script:
    ```bash
-   cd /path/to/docs-repo
-
-   # Clean existing API docs
-   npx docusaurus clean-api-docs all
-
-   # Generate new API docs from decorated spec
-   npx docusaurus gen-api-docs all
+   python3 .claude/skills/openapi-overlay-generator/scripts/analyze_comparison.py
    ```
 
-This will regenerate documentation tables and "Try it out" functionality based on your updated decorated spec.
+5. **Generates overlay files** using Claude API with the skill context:
+   - Reads standards from `.claude/skills/openapi-overlay-generator/references/standards.md`
+   - Reads patterns from `.claude/skills/openapi-overlay-generator/references/overlay-patterns.md`
+   - Generates operations, parameters, and schemas overlays
+   - Follows documentation standards automatically
 
-### Step 10: Clean Up and Finalize PR
+6. **Creates draft PR** with all generated files for review
 
-After regenerating docs, clean up the `specs` folder and prepare for final review:
+### Claude Skill Integration
 
-1. Delete old base spec (keep only the latest):
+The workflow uses the **openapi-overlay-generator** skill located at `.claude/skills/openapi-overlay-generator/`:
+
+**Skill Contents**:
+- `SKILL.md`: Core workflow and instructions
+- `references/standards.md`: Complete documentation style guide
+- `references/overlay-patterns.md`: Templates and examples
+- `scripts/analyze_comparison.py`: Change analysis automation
+- `scripts/validate_overlay.py`: Overlay validation
+- `scripts/check_consistency.py`: Standards compliance checking
+- `scripts/healthcheck-overlay.yaml`: Permanent overlay for /service-info
+
+**How It's Used**:
+1. Workflow calls `analyze_comparison.py` to categorize changes
+2. Workflow reads `standards.md` and `overlay-patterns.md` into Claude's context
+3. Claude API generates overlay files following the standards
+4. Human reviews and refines the generated overlays
+5. Engineering team validates technical accuracy
+
+### Human Review Process
+
+After the workflow creates a draft PR:
+
+1. **Review Claude-generated overlays** in `claude-generated-overlays.md`
+2. **Extract overlay files** from markdown into separate YAML files:
+   - `{feature}-operations-overlay-{version}.yaml`
+   - `{feature}-parameters-overlay-{version}.yaml`
+   - `{feature}-schemas-overlay-{version}.yaml`
+3. **Edit overlays** for accuracy and completeness
+4. **Run validation**:
    ```bash
-   cd /path/to/docs-repo/platform-api-docs/specs
-   rm seqera-api-1.66.0.yaml  # Delete old version
+   python3 .claude/skills/openapi-overlay-generator/scripts/validate_overlay.py <file>
+   python3 .claude/skills/openapi-overlay-generator/scripts/check_consistency.py <file>
    ```
+5. **Request engineering review** from appropriate team
+6. **Once approved**, Phase 3 workflow will handle application (coming in future PR)
 
-2. Move all used overlays to archive:
-   ```bash
-   mv base-1.66-to-1.85-changes-overlay.yaml overlays_archive/
-   mv all-changes-overlay-1.85.yaml overlays_archive/
-   ```
+## 📁 File Organization
 
-3. Verify `specs` folder contents:
-   - ✅ Latest base spec (e.g., `seqera-api-1.85.0.yaml`)
-   - ✅ Decorated spec with consistent name (`seqera-api-latest-decorated.yaml`)
-   - ✅ `servers-overlay.yaml` (kept for reuse in future updates)
-   - ❌ No old specs or temporary overlay files
+### Specs Directory (`platform-api-docs/scripts/specs/`)
 
-4. Push changes to your PR:
-   ```bash
-   git add .
-   git commit -m "Update API docs to version 1.85.0"
-   git push origin your-feature-branch
-   ```
+**Base specs** (version-specific):
+- `seqera-api-{version}.yaml` (e.g., `seqera-api-1.95.yaml`)
+- Keep only the latest 2 versions
 
-5. Mark PR as **ready for review** (remove draft status)
+**Decorated spec** (consistent filename for Docusaurus):
+- `seqera-api-latest-decorated.yml`
 
----
+**Permanent overlays** (not archived):
+- `servers-overlay.yaml`: Adds API server URLs
+- `healthcheck-overlay.yaml`: Fixes /service-info endpoint
 
-## Documentation Standards
+**Generated overlays** (version-specific):
+- `base-{old}-to-{new}-changes.yaml`: Speakeasy comparison output
+- `{feature}-operations-overlay-{version}.yaml`
+- `{feature}-parameters-overlay-{version}.yaml`
+- `{feature}-schemas-overlay-{version}.yaml`
 
-### Terminology Consistency
+**Archives** (`overlays_archive/`):
+- Old overlays after they're applied
 
-**Standard terms**:
-- "data-links" (not "datalinks" or "data links")
-- "resource path" (for bucket URLs, not "bucket path" or "URI")
-- "Array of" (not "List of")
-- "Workspace numeric identifier" (consistent across all endpoints)
-- "Number of results to skip for pagination. Default: `0`." (standard offset description)
+## 📋 Documentation Standards
 
-**Cloud provider terms**:
-- Use "Azure Blob Storage containers" (not just "containers")
-- Distinguish between "simple labels" and "resource labels"
+The Claude skill enforces these standards automatically:
 
-### Style Guidelines
+### Format Rules
 
-Follow **US English** and **Google Developer Style Guide**:
-- Sentence case for summaries (not title case)
-- Full sentences with periods for descriptions
-- Active voice preferred over passive
-- Use backticks for code values: `workspaceId`, `default`, `null`
-- Use "Accepts X, Y, or Z" for listing options
+- ✅ **Summaries**: Sentence case, no period (e.g., "List datasets")
+- ✅ **Descriptions**: Full sentences with periods
+- ✅ **Defaults**: In backticks (e.g., "Default: `0`.")
+- ✅ **Standard parameters**: Consistent descriptions across all endpoints
+
+### Terminology
+
+- **data-links** (not "datalinks" or "data links")
+- **resource path** (not "bucket path" or "URI")
+- **Array of** (not "List of")
+- **Workspace numeric identifier** (consistent phrasing)
 
 ### Common Parameter Descriptions
 
-**Reuse these descriptions for consistency**:
-
-| Parameter | Description |
-|-----------|-------------|
-| `workspaceId` (query) | Workspace numeric identifier. |
-| `workspaceId` (path) | Workspace numeric identifier. |
+| Parameter | Standard Description |
+|-----------|---------------------|
+| `workspaceId` | Workspace numeric identifier. |
 | `max` | Maximum number of results to return. Default: `{value}`. |
 | `offset` | Number of results to skip for pagination. Default: `0`. |
 | `search` | Free-text search filter to match against {field names}. |
-| `sortBy` | Field to sort results by. Accepts `{value1}`, `{value2}`, or `{value3}`. Default: `{value}`. |
-| `sortDir` | Sort direction for results. Accepts `asc` (ascending) or `desc` (descending). Default: `{value}`. |
+
+See `.claude/skills/openapi-overlay-generator/references/standards.md` for complete guide.
+
+## 🛠 Local Development with Claude Code
+
+With Claude Code and the skill available:
+
+```bash
+# Analyze changes
+/openapi-overlay-generator "Analyze the comparison overlay"
+
+# Generate overlays
+/openapi-overlay-generator "Generate overlay files for version 1.95"
+
+# Validate overlays
+/openapi-overlay-generator "Validate all overlay files"
+```
+
+The skill provides context-aware assistance for all API documentation tasks.
+
+## 🔄 Manual Workflow (Fallback)
+
+If automation is unavailable, follow the manual process:
+
+### 1. Get Base Spec from Platform Repo
+
+```bash
+# Copy flattened spec from Platform repo
+cp platform-repo/tower-backend/src/main/resources/META-INF/openapi/seqera-api-latest-flattened.yml \
+   platform-api-docs/scripts/specs/seqera-api-{version}.yaml
+```
+
+### 2. Generate Comparison
+
+```bash
+cd platform-api-docs/scripts/specs
+
+speakeasy overlay compare \
+  -b seqera-api-{old-version}.yaml \
+  -a seqera-api-{new-version}.yaml \
+  > base-{old}-to-{new}-changes.yaml
+```
+
+### 3. Analyze and Generate Overlays
+
+```bash
+# Analyze changes
+python3 ../../.claude/skills/openapi-overlay-generator/scripts/analyze_comparison.py \
+  base-{old}-to-{new}-changes.yaml
+
+# Review analysis.json output
+# Create overlay files manually or with Claude assistance
+```
+
+### 4. Validate Overlays
+
+```bash
+python3 ../../.claude/skills/openapi-overlay-generator/scripts/validate_overlay.py \
+  {feature}-operations-overlay-{version}.yaml
+```
+
+### 5. Consolidate and Apply
+
+```bash
+# Manually consolidate all overlay files into:
+# all-changes-overlay-{version}.yaml
+
+# Apply consolidated overlay
+speakeasy overlay apply \
+  -s seqera-api-latest-decorated.yml \
+  -o all-changes-overlay-{version}.yaml \
+  > seqera-api-latest-decorated-new.yml
+
+# Replace old decorated spec
+mv seqera-api-latest-decorated-new.yml seqera-api-latest-decorated.yml
+```
+
+### 6. Validate Output
+
+```bash
+speakeasy validate openapi -s seqera-api-latest-decorated.yml
+```
+
+### 7. Regenerate Documentation
+
+```bash
+cd ../..
+
+# Clean and regenerate API docs
+npx docusaurus clean-api-docs all
+npx docusaurus gen-api-docs all
+```
+
+### 8. Update Sidebar (Future)
+
+The `update_sidebar.py` script will be included in Phase 3:
+
+```bash
+python3 .claude/skills/openapi-overlay-generator/scripts/update_sidebar.py \
+  platform-api-docs/docs/sidebar/sidebar.js \
+  platform-api-docs/scripts/specs/analysis.json
+```
+
+### 9. Clean Up
+
+```bash
+cd platform-api-docs/scripts/specs
+
+# Move overlays to archive
+mv *-overlay-{version}.yaml overlays_archive/
+
+# Delete old base spec (keep latest 2)
+rm seqera-api-{old-version}.yaml
+```
+
+## 🐛 Troubleshooting
+
+### Workflow Fails
+
+**Missing secrets**: Verify GitHub secrets are set:
+- `PLATFORM_REPO_PAT`: Read access to Platform repo
+- `ENG_ANTHROPIC_API_KEY`: Claude API access
+
+**Workflow not triggering**: See docs about GitHub Actions workflow recognition issues.
+
+### Claude API Call Fails
+
+**Rate limits**: Check Anthropic API quota and status.
+
+**Invalid context**: Ensure skill files exist in `.claude/skills/openapi-overlay-generator/`.
+
+### Overlay Application Errors
+
+**JSONPath issues**: Verify target paths exist in base spec.
+
+**YAML syntax**: Check indentation and quotes in overlay files.
+
+### Validation Failures
+
+Run validation scripts for detailed error messages:
+
+```bash
+python3 .claude/skills/openapi-overlay-generator/scripts/validate_overlay.py <file>
+python3 .claude/skills/openapi-overlay-generator/scripts/check_consistency.py <file>
+```
+
+## 📚 Resources
+
+### Full Automation System
+
+See **README-AUTOMATION-SYSTEM.md** (available separately) for:
+- Complete 3-phase automation architecture
+- Platform repo trigger workflow (Phase 1)
+- Apply overlays workflow (Phase 3)
+- Advanced troubleshooting
+- Performance metrics
+
+### Documentation
+
+- [Speakeasy Overlays](https://speakeasy.com/docs/overlay)
+- [OpenAPI Specification](https://spec.openapis.org/oas/v3.1.0)
+- [Google Developer Style Guide](https://developers.google.com/style)
+- [GitHub Actions](https://docs.github.com/en/actions)
+
+### Skill Documentation
+
+See `.claude/skills/openapi-overlay-generator/SKILL.md` for:
+- Detailed workflow instructions
+- Overlay pattern examples
+- Standards reference
+- Script usage
+
+## ✨ Benefits
+
+### Time Savings
+- **Before**: 4-6 hours per API update
+- **After (Phase 2 only)**: 2-3 hours of review time
+- **After (Full automation)**: 30-60 minutes of review time
+
+### Quality Improvements
+- ✅ Consistent terminology enforced by Claude skill
+- ✅ Standard descriptions for common parameters
+- ✅ Automatic validation against style guide
+- ✅ Reduced human error
+
+### Developer Experience
+- ✅ Clear workflow with automated generation
+- ✅ Human review at critical checkpoints
+- ✅ Engineering validation before application
+- ✅ Claude Code for local development
+
+## 🔮 Coming Soon (Phase 3)
+
+The next PR will add:
+- `apply-overlays-and-regenerate.yml` workflow
+- Automatic overlay consolidation
+- Decorated spec application
+- MDX docs regeneration
+- Sidebar updates
+- Archive management
+- Ready-for-review automation
 
 ---
 
-## Special Cases
+**Current Status**: Phase 2 (Generate Overlays) implemented ✅
 
-### Deprecated Endpoints
-
-For deprecated endpoints:
-
-1. **Update summary**: Prefix with "(Deprecated)"
-   ```yaml
-   - target: "$.paths./old-endpoint.get.summary"
-     update: "(Deprecated) List items"
-   ```
-
-2. **Update description**: Lead with deprecation notice and link to replacement
-   ```yaml
-   - target: "$.paths./old-endpoint.get.description"
-     update: "**This endpoint is deprecated. See [New operation name](https://docs.seqera.io/platform-api/new-operation-slug) for the current endpoint.**\n\n{Original description of what this endpoint does.}"
-   ```
-
-### HPC Compute Configurations
-
-Properties previously inherited from `AbstractGridConfig` now require explicit descriptions on each scheduler type (LSF, Slurm, Altair PBS, Moab, Univa). Duplicate property descriptions across all five scheduler configs.
-
-### Discriminator Properties
-
-When cleaning up schemas:
-- Remove incorrect `readOnly` flags from discriminator properties
-- Remove unnecessary `description` fields from discriminators
-- Preserve the discriminator properties themselves (don't remove entirely)
-
----
-
-## Quality Checks
-
-Before finalizing, verify:
-
-- ✅ All new endpoints have summaries and descriptions
-- ✅ All parameters have descriptions with proper formatting
-- ✅ All schema properties are documented
-- ✅ Consistent terminology throughout
-- ✅ All descriptions end with periods
-- ✅ Defaults are specified in backticks
-- ✅ Deprecated endpoints have proper notices
-- ✅ Spec validates successfully
-- ✅ Docusaurus config points to correct spec path
-- ✅ "Try it out" functionality works (servers block preserved)
-- ✅ `specs` folder contains only latest base and decorated specs and `servers-overlay.yaml`
-- ✅ Old specs deleted and used overlays moved to `overlays_archive`
-
----
-
-## Troubleshooting
-
-### Missing servers block
-
-If the `servers` block (containing API server URLs) is lost during updates:
-
-1. Use the existing `servers-overlay.yaml` in the `specs` folder:
-   ```yaml
-   overlay: 1.0.0
-   info:
-     title: Servers block preservation
-     version: 0.0.0
-   actions:
-     - target: "$.servers"
-       update:
-         - url: "https://api.platform.example.com"
-           description: "Platform API endpoint"
-   ```
-
-2. Include it in your consolidated overlay file or apply separately
-
-**Note**: `servers-overlay.yaml` is kept in `specs` folder (not archived) for reuse in every update.
-
-### Overlay application errors
-
-If overlays fail to apply:
-- Check JSONPath syntax in `target` fields
-- Verify all referenced schemas/paths exist in source spec
-- Ensure overlay files are valid YAML
-- Review Speakeasy error messages for specific issues
-
----
-
-## Resources
-
-- **Speakeasy Documentation**: [https://speakeasy.com/docs](https://speakeasy.com/docs)
-- **OpenAPI Specification**: [https://spec.openapis.org/oas/v3.1.0](https://spec.openapis.org/oas/v3.1.0)
-- **Google Developer Style Guide**: [https://developers.google.com/style](https://developers.google.com/style)
-
----
-
-## Revision History
-
-| Version | Date | Changes | Author |
-|---------|------|---------|--------|
-| 1.0 | 2025-10-28 | Initial workflow documentation | Llewellyn vd Berg |
-
----
+**Next Step**: Implement Phase 3 (Apply Overlays and Regenerate)
