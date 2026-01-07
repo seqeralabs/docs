@@ -1,6 +1,7 @@
 # More generic rules first, then more specific ones overwriting previous ones.
-*                                                                 @justinegeffen @llewellyn-sl
 
+/platform-enterprise_docs/enterprise/advanced-topics/firewall-configuration.md                            @justinegeffen @llewellyn-sl @seqeralabs/devops
+/platform-enterprise_docs/_versioned_docs/version-*/enterprise/advanced-topics/firewall-configuration.md  @justinegeffen @llewellyn-sl @seqeralabs/devops
 /platform-enterprise_docs/enterprise/helm.md                      @justinegeffen @llewellyn-sl @seqeralabs/devops
 /platform-enterprise_docs/enterprise/kubernetes.md                @justinegeffen @llewellyn-sl @seqeralabs/devops
 /platform-enterprise_versioned_docs/*/enterprise/helm.md          @justinegeffen @llewellyn-sl @seqeralabs/devops
