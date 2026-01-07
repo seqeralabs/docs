@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import Layout from "@theme/Layout";
 import clsx from "clsx";
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
-import useMediaQuery from "../../theme/Navbar/Layout/SeqeraHeader/hooks/useMediaQuery";
-import Sidebar from "../../theme/DocSidebar/Desktop";
+// Remove imports to swizzled components - use preset's components instead
+// import useMediaQuery from "../../theme/Navbar/Layout/SeqeraHeader/hooks/useMediaQuery";
+// import Sidebar from "../../theme/DocSidebar/Desktop";
 
 import styles from "./styles.module.css";
 
@@ -95,18 +97,19 @@ aws {
 ];
 
 export default function Home(): JSX.Element {
-  const isMobile = useMediaQuery("(max-width: 995px)");
+  // const isMobile = useMediaQuery("(max-width: 995px)");
   const disabled = true;
   const [selectedUseCase, setSelectedUseCase] = useState(0);
 
   return (
     <Layout>
       <div className="homepage flex w-full pt-10">
-        {!isMobile && !disabled && (
+        {/* Sidebar disabled for now - would need to adapt to preset's component structure */}
+        {/* {!isMobile && !disabled && (
           <div className="flex-none bg-black/[0.02]">
             <Sidebar path="/" />
           </div>
-        )}
+        )} */}
         <main className="grow">
           <div className={clsx("p-8 md:p-8 py-10", styles.page)}>
             <div className="container-md flex flex-wrap text-brand-1000 dark:text-white">
