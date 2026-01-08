@@ -95,8 +95,7 @@ module.exports = async ({ github, context, diff }) => {
 
   // Only post a comment if there are new suggestions
   if (newChanges.length > 0) {
-    let body = "⚠️ **Pre-commit checks failed!** ⚠️\n\n";
-    body += "Pre-commit hooks would make the following changes. You can apply each suggestion directly:\n\n";
+    let body = "Pre-commit found some formatting changes. You can apply each suggestion directly:\n\n";
 
     for (const change of newChanges) {
       const { file, hunk, marker } = change;
@@ -115,11 +114,11 @@ module.exports = async ({ github, context, diff }) => {
     }
 
     body += "---\n\n";
-    body += "**To fix this:**\n";
-    body += "1. Apply the suggestions above directly in GitHub, or\n";
-    body += "2. Run `pre-commit install` locally and commit again (auto-fixes issues), or\n";
-    body += "3. Apply these changes manually\n\n";
-    body += "If you need help, refer to the [README](https://github.com/" + context.repo.owner + "/" + context.repo.repo + "/blob/main/README.md).\n";
+    body += "🪄 **Quick fix:** Comment `fix formatting` below and I'll apply these changes automatically!\n\n";
+    body += "**Other options:**\n";
+    body += "- Apply the suggestions above directly in GitHub\n";
+    body += "- Run `pre-commit` locally and commit again\n\n";
+    body += "Need help? Check the [README](https://github.com/" + context.repo.owner + "/" + context.repo.repo + "/blob/main/README.md).\n";
 
     await github.rest.issues.createComment({
       issue_number: context.issue.number,
