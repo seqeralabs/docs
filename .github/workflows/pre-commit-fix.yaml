@@ -1,0 +1,51 @@
+name: Run pre-commit when requested via comment
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  pre_commit_fix:
+    runs-on: ubuntu-latest
+    # Only run if comment is on a PR with the main repo, and if it contains the magic keywords
+    if: >
+      github.event.issue.pull_request &&
+      startsWith(github.event.comment.body, 'fix formatting')
+
+    steps:
+      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # ratchet:actions/checkout@v6.0.0
+
+      # Action runs on the issue comment, so we don't get the PR by default.
+      # Use the GitHub CLI to check out the PR.
+      - name: Checkout Pull Request
+        run: gh pr checkout ${{ github.event.issue.number }}
+
+      - uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c # ratchet:actions/setup-python@v6.0.0
+        with:
+          python-version: "3.14"
+          cache: "pip"
+
+      # Only run it on changed files with: https://github.com/pre-commit/action/issues/7
+      - id: changed-files
+        uses: tj-actions/changed-files@24d32ffd492484c1d75e0c0b894501ddb9d30d62 # ratchet:tj-actions/changed-files@v47
+
+      - uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # ratchet:pre-commit/action@v3.0.1
+        id: pre-commit
+        continue-on-error: true
+        with:
+          extra_args: --files ${{ steps.changed-files.outputs.all_changed_files }}
+
+      - name: Check if any files changed
+        run: |
+          git diff --exit-code || echo "changed=YES" >> $GITHUB_ENV
+          echo "Files changed: ${{ env.changed }}"
+
+      - name: Commit and push changes
+        if: env.changed == 'YES'
+        run: |
+          git config user.name 'Seqera Docs Bot'
+          git config user.email 'info@seqera.io'
+          git config push.default upstream
+          git add .
+          git status
+          git commit -m "[automated] Fix code formatting"
+          git push
