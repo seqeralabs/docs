@@ -640,7 +640,7 @@ To configure AWS SES as your Seqera email service:
     - a `mail.from` entry in `tower.yml`
     - a `/config/<application_name>/mail/from` AWS Parameter Store entry
 3. The [AWS SES service](https://docs.aws.amazon.com/ses/index.html) must run in the same region as your Seqera instance.
-4. The [Seqera IAM role](../../compute-envs/aws-batch#iam) must include the `ses:SendRawEmail` permission.
+4. The [Seqera IAM role](../../compute-envs/aws-batch#iam-user-creation) must include the `ses:SendRawEmail` permission.
 
 ## Nextflow launch container
 

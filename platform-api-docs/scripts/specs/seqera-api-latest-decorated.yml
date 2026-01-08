@@ -5,7 +5,7 @@ info:
   contact:
     url: https://seqera.io
     email: info@seqera.io
-  version: 1.66.0
+  version: 1.95.0
 servers:
   - url: https://api.cloud.seqera.io
     description: Seqera Platform Cloud API
@@ -4295,7 +4295,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ListWorkspacesResponse"
+                $ref: "#/components/schemas/ListWorkspacesByTeamResponse"
         "404":
           description: Not Found
           content:
@@ -5796,7 +5796,8 @@ paths:
     get:
       tags:
         - service-info
-      summary: General Seqera service features and version.
+      summary: Get API version and features
+      description: General Seqera service features and version.
       operationId: Info
       responses:
         "200":
@@ -6880,7 +6881,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UserDbDto"
+              $ref: "#/components/schemas/UpsertUserRequest"
         required: true
       responses:
         "204":
@@ -8480,7 +8481,7 @@ components:
       type: object
       properties:
         participant:
-          $ref: "#/components/schemas/ParticipantDbDto"
+          $ref: "#/components/schemas/ParticipantResponseDto"
           description: "Details of the newly added workspace participant."
     AddTeamMemberResponse:
       type: object
@@ -8665,7 +8666,7 @@ components:
           description: "Enable [Fusion Snapshots](https://docs.seqera.io/fusion/guide/snapshots). Requires Fusion file system."
         forge:
           $ref: "#/components/schemas/ForgeConfig"
-          description: "Batch Forge configuration options. [Batch Forge](https://docs.seqera.io/platform-cloud/compute-envs/aws-batch#batch-forge-compute-environment) automates the AWS Batch compute environment and job queue configuration required for deploying Nextflow pipelines."
+          description: "Batch Forge configuration options. [Batch Forge](https://docs.seqera.io/platform-cloud/compute-envs/aws-batch#automatic-configuration-of-batch-resources) automates the AWS Batch compute environment and job queue configuration required for deploying Nextflow pipelines."
         forgedResources:
           type: array
           items:
@@ -9159,6 +9160,7 @@ components:
       enum:
         - CREATING
         - AVAILABLE
+        - DELETING
         - ERRORED
         - INVALID
     ComputeEnvDbDto:
@@ -10448,6 +10450,10 @@ components:
         lifespanHours:
           type: integer
           format: int32
+        containerRepository:
+          type: string
+          nullable: true
+          description: "Custom container repository for Studios in this workspace. Can be `null`."
     DatasetDto:
       type: object
       properties:
@@ -10640,7 +10646,7 @@ components:
       type: object
       properties:
         user:
-          $ref: "#/components/schemas/UserDbDto"
+          $ref: "#/components/schemas/UserResponseDto"
           description: "User details including ID, username, email, first name, last name, avatar, and organization membership."
         needConsent:
           type: boolean
@@ -10726,7 +10732,7 @@ components:
               type: boolean
             fusion2Enabled:
               type: boolean
-      required: ["region", "clusterName", "workDir", "region", "clusterName", "workDir"]
+      required: ["region", "clusterName", "workDir"]
     EksPlatformMetaInfo:
       type: object
       properties:
@@ -10768,10 +10774,6 @@ components:
           enum:
             - SPOT
             - EC2
-            - "SPOT"
-            - "EC2"
-            - "SPOT"
-            - "EC2"
           description: "Instance type. `EC2` deploys uninterruptible on-demand EC2 instances. `SPOT` deploys interruptible Spot instances (lower cost)."
         minCpus:
           type: integer
@@ -10786,6 +10788,7 @@ components:
           description: "Enable GPU instances."
         ebsAutoScale:
           type: boolean
+          deprecated: true
           description: "If true, provisions an EBS auto-expandable disk in the compute environment. Not compatible with Fusion file system."
         instanceTypes:
           type: array
@@ -10799,14 +10802,6 @@ components:
             - BEST_FIT_PROGRESSIVE
             - SPOT_CAPACITY_OPTIMIZED
             - SPOT_PRICE_CAPACITY_OPTIMIZED
-            - "BEST_FIT"
-            - "BEST_FIT_PROGRESSIVE"
-            - "SPOT_CAPACITY_OPTIMIZED"
-            - "SPOT_PRICE_CAPACITY_OPTIMIZED"
-            - "BEST_FIT"
-            - "BEST_FIT_PROGRESSIVE"
-            - "SPOT_CAPACITY_OPTIMIZED"
-            - "SPOT_PRICE_CAPACITY_OPTIMIZED"
           description: "Determines how Batch selects EC2 instances to carry out job executions. Default: `BEST_FIT_PROGRESSIVE` for on-demand instances and `SPOT_PRICE_CAPACITY_OPTIMIZED` for Spot instances."
         imageId:
           type: string
@@ -10851,7 +10846,8 @@ components:
           description: "EBS volume size in GB."
         fusionEnabled:
           type: boolean
-          description: "(Deprecated) Enable Fusion file system (v1)."
+          deprecated: true
+          description: "Enable Fusion file system (v1)."
         bidPercentage:
           type: integer
           format: int32
@@ -11605,6 +11601,10 @@ components:
         lastUpdated:
           type: string
           format: date-time
+        workspaceId:
+          type: integer
+          format: int64
+          description: "Workspace numeric identifier associated with this launch."
     LaunchActionRequest:
       type: object
       properties:
@@ -11817,7 +11817,7 @@ components:
         participants:
           type: array
           items:
-            $ref: "#/components/schemas/ParticipantDbDto"
+            $ref: "#/components/schemas/ParticipantResponseDto"
           description: "Array of workspace participants matching the query criteria."
         totalSize:
           type: integer
@@ -12307,38 +12307,6 @@ components:
           type: integer
           format: int64
           description: "Maximum Fusion throughput in bytes allowed."
-    ParticipantDbDto:
-      type: object
-      properties:
-        participantId:
-          type: integer
-          format: int64
-        memberId:
-          type: integer
-          format: int64
-        userName:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        orgRole:
-          $ref: "#/components/schemas/OrgRole"
-        teamId:
-          type: integer
-          format: int64
-        teamName:
-          type: string
-        wspRole:
-          $ref: "#/components/schemas/WspRole"
-        type:
-          $ref: "#/components/schemas/ParticipantType"
-        teamAvatarUrl:
-          type: string
-        userAvatarUrl:
-          type: string
     ParticipantType:
       type: string
       enum:
@@ -12998,6 +12966,10 @@ components:
         logoutUrl:
           type: string
           nullable: true
+        seqeraAiBaseUrl:
+          type: string
+          nullable: true
+          description: "Base URL for Seqera AI services. Can be `null` if not configured."
     ServiceInfoResponse:
       type: object
       properties:
@@ -13581,8 +13553,8 @@ components:
       type: object
       properties:
         role:
-          $ref: "#/components/schemas/WspRole"
-          description: "Updated workspace role for the participant. Accepts `owner`, `admin`, `maintain`, `launch`, `connect`, or `view`. See [Workspace participant roles](https://docs.seqera.io/platform-cloud/orgs-and-teams/roles#workspace-participant-roles) for more information."
+          description: "Workspace participant role to assign."
+          type: string
     UpdatePipelineRequest:
       type: object
       properties:
@@ -13648,55 +13620,6 @@ components:
           format: int32
         eTag:
           type: string
-    UserDbDto:
-      required:
-        - email
-        - userName
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        userName:
-          maxLength: 40
-          type: string
-        email:
-          maxLength: 255
-          type: string
-          format: email
-        firstName:
-          maxLength: 100
-          type: string
-        lastName:
-          maxLength: 100
-          type: string
-        organization:
-          maxLength: 100
-          type: string
-        description:
-          maxLength: 1000
-          type: string
-        avatar:
-          type: string
-        avatarId:
-          type: string
-        notification:
-          type: boolean
-        termsOfUseConsent:
-          type: boolean
-        marketingConsent:
-          type: boolean
-        lastAccess:
-          type: string
-          format: date-time
-        dateCreated:
-          type: string
-          format: date-time
-        lastUpdated:
-          type: string
-          format: date-time
-        deleted:
-          type: boolean
     UserInfo:
       required:
         - avatar
@@ -14436,11 +14359,13 @@ components:
         - labels
         - messages
         - minimal
+        - pipelineVersion
       x-enum-varnames:
         - optimized
         - labels
         - messages
         - minimal
+        - pipelineVersion
     WorkflowStatus:
       type: string
       enum:
@@ -14505,22 +14430,190 @@ components:
         visibility:
           $ref: "#/components/schemas/Visibility"
           description: "Workspace visibility setting. Accepts `PRIVATE` or `SHARED`."
-    WspRole:
-      type: string
-      enum:
-        - owner
-        - admin
-        - maintain
-        - launch
-        - connect
-        - view
-      x-enum-varnames:
-        - owner
-        - admin
-        - maintain
-        - launch
-        - connect
-        - view
+    ListWorkspacesByTeamResponse:
+      type: object
+      description: "Response object for listing workspaces associated with a team."
+      properties:
+        workspaces:
+          type: array
+          items:
+            $ref: "#/components/schemas/WorkspaceParticipantResponseDto"
+          description: "Array of workspace participation details for the team."
+        totalSize:
+          type: integer
+          format: int64
+          description: "Total number of workspaces associated with the team."
+    ParticipantResponseDto:
+      type: object
+      description: "Workspace participant details."
+      properties:
+        participantId:
+          type: integer
+          format: int64
+          description: "Participant numeric identifier."
+        memberId:
+          type: integer
+          format: int64
+          description: "Organization member numeric identifier."
+        userName:
+          type: string
+          description: "Participant username."
+        firstName:
+          type: string
+          description: "Participant first name."
+        lastName:
+          type: string
+          description: "Participant last name."
+        email:
+          type: string
+          description: "Participant email address."
+        orgRole:
+          $ref: "#/components/schemas/OrgRole"
+          description: "Participant role within the organization."
+        teamId:
+          type: integer
+          format: int64
+          description: "Team numeric identifier, if the participant is a team."
+        teamName:
+          type: string
+          description: "Team name, if the participant is a team."
+        wspRole:
+          type: string
+          description: "Participant role within the workspace."
+        type:
+          $ref: "#/components/schemas/ParticipantType"
+          description: "Participant type."
+        teamAvatarUrl:
+          type: string
+          description: "Team avatar URL, if the participant is a team."
+        userAvatarUrl:
+          type: string
+          description: "User avatar URL, if the participant is a member."
+    UpsertUserRequest:
+      required:
+        - email
+        - userName
+      type: object
+      description: "Request object for creating or updating a user."
+      properties:
+        userName:
+          maxLength: 40
+          type: string
+          description: "Unique username. Maximum 40 characters."
+        email:
+          maxLength: 255
+          type: string
+          format: email
+          description: "User email address in valid email format. Maximum 255 characters."
+        firstName:
+          maxLength: 100
+          type: string
+          description: "User first name. Maximum 100 characters."
+        lastName:
+          maxLength: 100
+          type: string
+          description: "User last name. Maximum 100 characters."
+        organization:
+          maxLength: 100
+          type: string
+          description: "User organization name. Maximum 100 characters."
+        description:
+          maxLength: 1000
+          type: string
+          description: "User description or bio. Maximum 1000 characters."
+        avatar:
+          type: string
+          description: "User avatar URL."
+        avatarId:
+          type: string
+          description: "User avatar identifier."
+        notification:
+          type: boolean
+          description: "If true, the user has notifications enabled."
+    UserResponseDto:
+      type: object
+      description: "User details response object."
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: "User numeric identifier."
+        userName:
+          type: string
+          description: "Unique username."
+        email:
+          type: string
+          description: "User email address."
+        firstName:
+          type: string
+          description: "User first name."
+        lastName:
+          type: string
+          description: "User last name."
+        organization:
+          type: string
+          description: "User organization name."
+        description:
+          type: string
+          description: "User description or bio."
+        avatar:
+          type: string
+          description: "User avatar URL."
+        avatarId:
+          type: string
+          description: "User avatar identifier."
+        notification:
+          type: boolean
+          description: "If true, the user has notifications enabled."
+        termsOfUseConsent:
+          type: boolean
+          description: "If true, the user has accepted the terms of use."
+        marketingConsent:
+          type: boolean
+          description: "If true, the user has consented to marketing communications."
+        lastAccess:
+          type: string
+          format: date-time
+          description: "Timestamp of the user's last access."
+        dateCreated:
+          type: string
+          format: date-time
+          description: "Timestamp when the user was created."
+        lastUpdated:
+          type: string
+          format: date-time
+          description: "Timestamp when the user was last updated."
+        deleted:
+          type: boolean
+          description: "If true, the user has been deleted."
+    WorkspaceParticipantResponseDto:
+      type: object
+      description: "Workspace participation details for a team or member."
+      properties:
+        orgId:
+          type: integer
+          format: int64
+          description: "Organization numeric identifier."
+        orgName:
+          type: string
+          description: "Organization name."
+        workspaceId:
+          type: integer
+          format: int64
+          description: "Workspace numeric identifier."
+        workspaceName:
+          type: string
+          description: "Workspace name."
+        workspaceFullName:
+          type: string
+          description: "Workspace full name including organization prefix."
+        participantId:
+          type: integer
+          format: int64
+          description: "Participant numeric identifier."
+        participantRole:
+          type: string
+          description: "Participant role within the workspace."
   securitySchemes:
     BearerAuth:
       type: http
