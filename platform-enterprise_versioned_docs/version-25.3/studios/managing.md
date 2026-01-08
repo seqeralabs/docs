@@ -2,7 +2,7 @@
 title: "Manage Studios"
 description: "Manage Studio sessions."
 date created: "2025-02-06"
-last updated: "2025-09-04"
+last updated: "2026-01-08"
 tags: [data, session, studios]
 ---
 
@@ -82,6 +82,19 @@ Collaborators need valid workspace permissions to connect to the running Studio.
 :::
 
 To share a link to a running session with collaborators inside your workspace, select the three dots next to the status message for the session you want to share, then select **Copy Studio URL**. Using this link, other authenticated users can access the session directly.
+
+Seqera-managed container templates offer varying levels of multi-user collaboration:
+
+- **JupyterLab:** Supports multi-user collaboration via the `jupyter-collaboration` package. Each connected user has a randomly assigned colour-coded avatar and the user cursor inherits the same color for easily differentiating multiple connected users.
+- **VS Code:** Supports multi-user collaboration by default, but each connected user is not readily distinguishable. For a more fully-featured collaborative experience, install the [Microsoft Live Share extension][liveshare] or [P2P Live Share][p2p-liveshare].
+- **R-IDE:** By default, multi-user collaboration is not supported. When an additional user connects to the running session, the previously connected user is notified and forcibly disconnected.
+- **Xpra:** Supports multi-user collaboration by default and is similar to a remote desktop experience. Connected users are not readily distinguishable.
+
+:::note
+RStudio Professional Server supports multi-user collaboration. Add your own custom container and include your Posit Workbench license code as a environment variable to take advantage of this.
+:::
+
+Multi-user collaboration in custom containers is dependent on the container configuration.
 
 ## Limit Studio access to a specific cloud bucket subdirectory {#cloud-bucket-subdirectory}
 
@@ -215,3 +228,5 @@ Stop the active session to trigger a snapshot from the active volume. The snapsh
 [conda-syntax]: ./custom-envs#conda-package-syntax
 [custom-image]: ./custom-envs#custom-containers
 [connect]: ./connect
+[liveshare]: https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare
+[p2p-liveshare]: https://open-vsx.org/extension/kermanx/p2p-live-share
