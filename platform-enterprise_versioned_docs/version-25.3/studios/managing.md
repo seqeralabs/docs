@@ -228,3 +228,5 @@ Stop the active session to trigger a snapshot from the active volume. The snapsh
 [conda-syntax]: ./custom-envs#conda-package-syntax
 [custom-image]: ./custom-envs#custom-containers
 [connect]: ./connect
+[liveshare]: https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare
+[p2p-liveshare]: https://open-vsx.org/extension/kermanx/p2p-live-share
