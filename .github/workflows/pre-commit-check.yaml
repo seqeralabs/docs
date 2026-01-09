@@ -2,8 +2,6 @@
 # See instructions in the README.md in the repo root for more details.
 name: Run pre-commit to check that formatting is correct
 on:
-  push:
-    branches: [master, main]
   pull_request:
 
 jobs:
@@ -23,21 +21,41 @@ jobs:
         uses: tj-actions/changed-files@24d32ffd492484c1d75e0c0b894501ddb9d30d62 # ratchet:tj-actions/changed-files@v47
 
       - uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # ratchet:pre-commit/action@v3.0.1
+        id: pre-commit
+        continue-on-error: true
         with:
           extra_args: --files ${{ steps.changed-files.outputs.all_changed_files }}
 
-      # Send a notification to the PR if pre-commit fails
-      - name: Notify on failure
-        if: failure() && github.event_name == 'pull_request'
+      # Capture the diff of proposed changes
+      - name: Get proposed changes
+        if: steps.pre-commit.outcome == 'failure' && github.event_name == 'pull_request'
+        id: get-diff
+        run: |
+          # Get the diff of changes that pre-commit would make
+          git diff > proposed-changes.diff
+
+          # Check if there are actual changes
+          if [ -s proposed-changes.diff ]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            # Store diff for use in the next step, escaping for JSON
+            DIFF_CONTENT=$(cat proposed-changes.diff)
+            echo "diff_content<<EOF" >> $GITHUB_OUTPUT
+            echo "$DIFF_CONTENT" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      # Post proposed changes as review comments with suggestions
+      - name: Post proposed changes
+        if: steps.get-diff.outputs.has_changes == 'true' && github.event_name == 'pull_request'
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # ratchet:actions/github-script@v8.0.0
         with:
           script: |
-            let body = "⚠️ **Pre-commit checks failed!** ⚠️\n\n";
-            body += "Please run `pre-commit install` locally and fix the issues before pushing again.\n\n";
-            body += "If you need help, refer to the [README](https://github.com/${{ github.repository }}/blob/main/README.md) in the repo root.\n";
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: body
-            })
+            const script = require('./.github/scripts/post-precommit-suggestions.js');
+            await script({ github, context, diff: `${{ steps.get-diff.outputs.diff_content }}` });
+
+      # Fail the workflow if pre-commit failed
+      - name: Fail if pre-commit failed
+        if: steps.pre-commit.outcome == 'failure'
+        run: exit 1
