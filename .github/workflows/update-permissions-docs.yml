@@ -6,8 +6,6 @@
 name: Update Permissions Documentation
 
 on:
-  push:
-    branches: [permissions-docs-workflow]  # TODO: Remove this trigger before merging - only for testing
   repository_dispatch:
     types: [permissions-docs-updated]
   workflow_dispatch:
