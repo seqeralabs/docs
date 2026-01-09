@@ -181,6 +181,6 @@ Seqera Enterprise is distributed as a collection of container images available t
 
 ## Next steps
 
-See [Configuration](../configuration/overview).
+See [Configuration](../configuration/overview.mdx).
 
 [create-db-instance-cli]: https://docs.aws.amazon.com/cli/latest/reference/rds/create-db-instance.html

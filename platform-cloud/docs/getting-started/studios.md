@@ -13,7 +13,7 @@ This guide explores how Studios integrates with your existing workflows, bridgin
 You will need the following to get started:
 
 - At least the **Maintain** workspace [user role](../orgs-and-teams/roles) to create and configure Studios.
-- An [AWS Batch compute environment](../compute-envs/aws-batch#batch-forge-compute-environment) (**without Fargate**) with sufficient resources (minimum: 2 CPUs, 8192 MB RAM).
+- An [AWS Batch compute environment](../compute-envs/aws-batch#create-a-seqera-aws-batch-compute-environment) (**without Fargate**) with sufficient resources (minimum: 2 CPUs, 8192 MB RAM).
 - Valid [credentials](../credentials/overview) for your cloud storage account and compute environment.
 - [Data Explorer](../data/data-explorer) enabled in your workspace.
 :::
@@ -32,7 +32,7 @@ This script and instructions can also be used to visualize the structures from *
 
 #### Create an AWS Batch compute environment
 
-Studios require an AWS Batch compute environment. If you do not have an existing compute environment available, [create one](../compute-envs/aws-batch#batch-forge-compute-environment) with the following attributes:
+Studios require an AWS Batch compute environment. If you do not have an existing compute environment available, [create one](../compute-envs/aws-batch#create-a-seqera-aws-batch-compute-environment) with the following attributes:
 
 - **Region**: To minimize costs, your compute environment should be in the same region as your data. To browse the nf-core AWS megatests public data optimally, select **eu-west-1**.
 - **Provisioning model**: Use **On-demand** EC2 instances. 
@@ -366,7 +366,7 @@ An R-IDE enables interactive analysis using R libraries and tools. For example, 
 
 #### Create an AWS Batch compute environment 
 
-Studios require an AWS Batch compute environment. If you do not have an existing compute environment available, [create one](../compute-envs/aws-batch#batch-forge-compute-environment) with the following attributes:
+Studios require an AWS Batch compute environment. If you do not have an existing compute environment available, [create one](../compute-envs/aws-batch#create-a-seqera-aws-batch-compute-environment) with the following attributes:
 
 - **Region**: To minimize costs, your compute environment should be in the same region as your data. To browse the nf-core AWS megatests public data optimally, select **eu-west-1**.
 - **Provisioning model**: Use **On-demand** EC2 instances. 
@@ -463,7 +463,7 @@ Xpra provides remote desktop functionality that enables many interactive analysi
 
 #### Create an AWS Batch compute environment 
 
-Studios require an AWS Batch compute environment. If you do not have an existing compute environment available, [create one](../compute-envs/aws-batch#batch-forge-compute-environment) with the following attributes:
+Studios require an AWS Batch compute environment. If you do not have an existing compute environment available, [create one](../compute-envs/aws-batch#create-a-seqera-aws-batch-compute-environment) with the following attributes:
 
 - **Region**: To minimize costs, your compute environment should be in the same region as your data. To browse the 1000 Genomes public data optimally, select **us-east-1**.
 - **Provisioning model**: Use **On-demand** EC2 instances. 
@@ -531,7 +531,7 @@ Using Studios and Visual Studio Code allows you to create a portable and interac
 
 #### Create an AWS Batch compute environment 
 
-Studios require an AWS Batch compute environment. If you do not have an existing compute environment available, [create one](../compute-envs/aws-batch#batch-forge-compute-environment) with the following attributes:
+Studios require an AWS Batch compute environment. If you do not have an existing compute environment available, [create one](../compute-envs/aws-batch#create-a-seqera-aws-batch-compute-environment) with the following attributes:
 
 - **Region**: To minimize costs, your compute environment should be in the same region as your data. To use the iGenomes public data bucket that contains the *nf-core/fetchngs* `test` profile data, select **eu-west-1**.
 - **Provisioning model**: Use **On-demand** EC2 instances. 

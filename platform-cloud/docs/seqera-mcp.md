@@ -33,7 +33,12 @@ Seqera MCP supports two authentication methods:
 ### Claude Code
 
 ```bash
-claude mcp add seqera --url https://mcp.seqera.io/mcp
+claude \
+  mcp add \
+  --scope=user \
+  --transport=http \
+  seqera \
+  https://mcp.seqera.io/mcp
 ```
 
 ### Claude Desktop
