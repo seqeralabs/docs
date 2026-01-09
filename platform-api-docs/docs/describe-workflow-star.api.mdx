@@ -5,7 +5,7 @@ description: "Confirms whether the given `workflowId` is starred."
 sidebar_label: "Check workflow star status"
 hide_title: true
 hide_table_of_contents: true
-api: eJydVFFv0zAQ/iuWn0CqmgIDiTwxykATEkwbiIdp0lzn0nhLbM92Wqqo/507J1mateo0XtLG/u6+7+6+XMODWHqeXvO1cfd5adae30x4Bl46ZYMymqd8bnSuXOXZuoBQgGP4YEu1As1u+7Dz7JYpz3wQzkE25RNuLDhBGc4zzPElZlzAnw5/hUAEWeFEBQEcaWi4xhcED0kRokiCFaHgT3X1uZDVKb1kKgMdVK6AMjt4qBVK4WlwNUy4lwVUgqcNDxtLJG0Q324nI15vhYSB+KEGtznIHIFM1xU4Jcfce1xKB1jGq9y4SoT26MMJst+QVG+N9uAp4u1sRj9jvp/fMVQazKID3QprSyVjd5M7T5Bmn9Qs7kAGarKjWQTVEuw091AzeFChpKO5AxFG87rsdCKMgCezdweU9lNn2gQmSgzFGUT0yT76B2JyU+vsJeUNk73mFXgvlkCePV51Dzxa8plzZlwlXqI9C0MWXkJMS05MedK3MWmGhm4T39rag1v1nq5difgiBOvTJBFWTWVp6mzq4QFbNVVmz11X8YZdlCKQXdic8Oz04pyTWzzI2qmwuaKGtMV9BuHAndak7LE+Yuy9SO+LCMKT9s/X3oh36xCboHRuYnjXjE4F0T4nkMpVEnwHpkkKGSc5Ln63ZBymKuN3kJtPwwUKoc61PG+mH99PZ3RmjQ+ViEbovtV5AfKerYcVIBw9Qu2fym0Ga/3nKus6GuBvSGwpcDGgpFha0/lh2J8IT0f7K1oC51ZgCQRsmoXw8NuV2y0dtwuGjJIpLxYl+ToXpYcjVTyzfg7KvYfN3oZbibImZPTVSjhF/C/U8uqy+xxfs6P7+KCo7lDoza6aXbFdG7c3iC5AZJiL9LWAUynBhp3QvcVBhT1+wN/OfqHT/wGEKWrp
+api: eJydVFFv0zAQ/iuWn0CqmgITiDwxykATEkwbiIdp0lzn0nhLbM92Wqqo/507J1mateo0XtLG/u6+7+6+XMODWHqeXvO1cfd5adae30x4Bl46ZYMymqd8bnSuXOXZuoBQgGP4YEu1As1u+7Dz7JYpz3wQzkE25RNuLDhBGc4zzPElZlzAnw5/hUAEWeFEBQEcaWi4xhcED0kRokiCFaHgT3X1uZDVKb1kKgMdVK6AMjt4qBVK4WlwNUy4lwVUgqcNDxtLJG0Q324nI15vhYSB+KEGtznIHIFM1xU4Jcfce1xKB1jGq9y4SoT26P0Jst+QVG+N9uAp4u1sRj9jvp/fMVQazKID3QprSyVjd5M7T5Bmn9Qs7kAGarKjWQTVEuw091AzeFChpKO5AxFG87rsdCKMgCezdweU9lNn2gQmSgzFGUT0yT76B2JyU+vsJeUNk73mFXgvlkCePV51Dzxa8plzZlwlXqI9C0MWXkJMS05MedK3MWmGhm4T39rag1v1nq5difgiBOvTJBFWTWVp6mzq4QFbNVVmz11X8YZdlCKQXdic8Oz04pyTWzzI2qmwuaKGtMV9BuHAndak7LE+Yuy9SO+LCMKT9s/X3oh36xCboHRuYnjXjE4F0T4nkMpVEnwHpkkKGSc5Ln63ZBymKuN3kJtPwwUKoc61PG+mHz9MZ3RmjQ+ViEbovtV5AfKerYcVIBw9Qu2fym0Ga/3nKus6GuBvSGwpcDGgpFha0/lh2J8IT0f7K1oC51ZgCQRsmoXw8NuV2y0dtwuGjJIpLxYl+ToXpYcjVTyzfg7KvYfN3oZbibImZPTVSjhF/C/U8uqy+xxfs6P7+KCo7lDoza6aXbFdG7c3iC5AZJiL9LWAUynBhp3QvcVBhT1+wN/OfqHT/wGIzWrr
 sidebar_class_name: "get api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -31,7 +31,7 @@ import Heading from "@theme/Heading";
   path={"/workflow/{workflowId}/star"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -49,14 +49,14 @@ Confirms whether the given `workflowId` is starred.
 <ParamsDetails
   parameters={[{"name":"workflowId","in":"path","description":"Workflow string identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
   title={"Body"}
   body={undefined}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
@@ -64,8 +64,5 @@ Confirms whether the given `workflowId` is starred.
   label={undefined}
   responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"workflowId":{"type":"string"}},"title":"CreateWorkflowStarResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"Not found","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
 >
-  
+
 </StatusCodes>
-
-
-      

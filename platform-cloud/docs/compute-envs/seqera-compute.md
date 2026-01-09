@@ -7,7 +7,7 @@ tags: [seqera compute, compute environment]
 
 Seqera Compute enables you to run pipelines and Studio sessions in Seqera Cloud in a fully managed and optimized AWS environment. Seqera automatically provisions and manages all the underlying resources, including AWS accounts, credentials, roles, compute environments, and S3 storage buckets, requiring minimal user configuration. Using prepaid credits enables control and visibility of the compute spend in each of your organization's workspaces.
 
-### Manage Seqera Compute credits 
+### Manage Seqera Compute credits
 
 Seqera Compute uses prepaid credits with real-time billing. Credits are deducted as tasks complete. See [Billing and credit management](../administration/credit-management.md) for details.
 
@@ -20,11 +20,11 @@ Seqera Compute environments automatically provision cloud resources when you lau
 - 48 vCPUs
 - 192 GiB memory
 
-Running workflows that request resources exceeding these limits will result in errors. 
+Running workflows that request resources exceeding these limits will result in errors.
 
 #### Workspace limits
 
-Seqera Compute has default workspace limits on compute environments, and organization limits on data storage and CPU cores. 
+Seqera Compute has default workspace limits on compute environments, and organization limits on data storage and CPU cores.
 
 |                                    | **Basic**                        | **Pro**                            |
 |------------------------------------|----------------------------------|------------------------------------|
@@ -33,39 +33,43 @@ Seqera Compute has default workspace limits on compute environments, and organiz
 | Total CPU cores                    | 100                              | 1000                               |
 
 :::info
-[Contact us](https://seqera.io/contact-us/) to discuss custom limits for Pro, academic, or evaluation licenses. 
+[Contact us](https://seqera.io/contact-us/) to discuss custom limits for Pro, academic, or evaluation licenses.
 :::
 
-### Create a Seqera Compute environment 
+### Create a Seqera Compute environment
 
 1. In a workspace with Seqera Compute enabled, select **Compute environments > New environment**.
 1. Enter a descriptive name for this environment, such as _Seqera Compute 1 (eu-west-1)_.
-1. Under **Platform**, select **Seqera Compute**. 
-1. Select a target execution **Region**. 
+1. Under **Platform**, select **Seqera Compute**.
+1. Select a target execution **Region**.
     :::info
-    Seqera Compute is available in the following AWS regions: 
+    Seqera Compute is available in the following AWS regions:
 
-    | United States | Europe | APAC |
-    |--------------|--------|------|
-    | us-east-1 (Northern Virginia, USA) | eu-west-1 (Ireland) | ap-southeast-1 (Singapore) |
-    | us-west-2 (Oregon, USA) | eu-west-2 (London, UK) | |
-    | us-east-2 (Ohio, USA) | eu-central-1 (Frankfurt, Germany) | |
-    | us-west-1 (Northern California, USA) | eu-west-3 (Paris, France) | |
+    | Americas                             | Europe                            | Asia Pacific                        | Middle East & Africa       |
+    |--------------------------------------|-----------------------------------|-------------------------------------|----------------------------|
+    | us-east-1 (Northern Virginia, USA)   | eu-central-1 (Frankfurt, Germany) | ap-east-1 (Hong Kong)               | af-south-1 (Cape Town, South Africa) |
+    | us-east-2 (Ohio, USA)                | eu-north-1 (Stockholm, Sweden)    | ap-northeast-1 (Tokyo, Japan)       | me-south-1 (Bahrain)       |
+    | us-west-1 (Northern California, USA) | eu-south-1 (Milan, Italy)         | ap-northeast-2 (Seoul, South Korea) |                            |
+    | us-west-2 (Oregon, USA)              | eu-west-1 (Ireland)               | ap-northeast-3 (Osaka, Japan)       |                            |
+    | ca-central-1 (Central, Canada)       | eu-west-2 (London, UK)            | ap-south-1 (Mumbai, India)          |                            |
+    | sa-east-1 (São Paulo, Brazil)        | eu-west-3 (Paris, France)         | ap-southeast-1 (Singapore)          |                            |
+    |                                      |                                   | ap-southeast-2 (Sydney, Australia)  |                            |
+    |                                      |                                   | ap-southeast-3 (Jakarta, Indonesia) |                            |
     :::
 1. Configure any [advanced options](#advanced-options-optional) described in the next section, as needed.
-1. Select **Add** to complete the Seqera Compute environment configuration and return to the compute environments list. It will take a few seconds for the compute environment resources to be created before you are ready to launch pipelines or add studios. 
+1. Select **Add** to complete the Seqera Compute environment configuration and return to the compute environments list. It will take a few seconds for the compute environment resources to be created before you are ready to launch pipelines or add studios.
 
-:::info 
+:::info
 See [Launch pipelines](../launch/launchpad) to start executing workflows in your Seqera Compute environment.
 :::
 
 #### Advanced options (optional)
 
 1. Toggle **Automatic data retention policy**. When enabled (default), intermediary files are deleted after 28 days to manage cloud storage usage and cost.
-1. Enter a relative **Work directory** path to be appended to the S3 storage bucket Seqera creates for this compute environment. 
+1. Enter a relative **Work directory** path to be appended to the S3 storage bucket Seqera creates for this compute environment.
 1. Enter [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
-1. Enter Global Nextflow configuration settings for all pipeline runs launched with this environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden at pipeline launch. 
+1. Enter Global Nextflow configuration settings for all pipeline runs launched with this environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden at pipeline launch.
     :::info
-    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority. 
+    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
     :::
 1. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.

@@ -1,0 +1,587 @@
+# .github/workflows/apply-overlays-and-regenerate.yml
+#
+# This workflow runs in the seqeralabs/docs repository
+# Phase 3: Applies approved overlays and regenerates documentation
+
+name: Apply Overlays and Regenerate Docs
+
+on:
+  pull_request:
+    types: [labeled]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'PR number to process'
+        required: true
+        type: number
+
+jobs:
+  apply-and-regenerate:
+    runs-on: ubuntu-latest
+    if: |
+      (github.event_name == 'pull_request' && github.event.label.name == 'overlays-approved') ||
+      github.event_name == 'workflow_dispatch'
+
+    steps:
+      - name: Get PR branch name
+        id: get-branch
+        uses: actions/github-script@v7
+        with:
+          script: |
+            let branchName;
+            if (context.eventName === 'pull_request') {
+              // For PR events, use head ref directly
+              branchName = context.payload.pull_request.head.ref;
+              console.log(`PR event - branch: ${branchName}`);
+            } else {
+              // For workflow_dispatch, fetch the PR to get the branch name
+              const prNumber = ${{ github.event.inputs.pr_number }};
+              const { data: pr } = await github.rest.pulls.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: prNumber
+              });
+              branchName = pr.head.ref;
+              console.log(`Workflow dispatch - PR #${prNumber} branch: ${branchName}`);
+            }
+            core.setOutput('branch', branchName);
+            return branchName;
+
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.get-branch.outputs.branch }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: |
+          pip install pyyaml
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Node dependencies
+        run: |
+          npm install
+
+      - name: Install Speakeasy CLI
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/speakeasy-api/speakeasy/main/install.sh | sh
+          echo "$HOME/.speakeasy/bin" >> $GITHUB_PATH
+
+      - name: Detect version from specs directory
+        id: version
+        run: |
+          cd platform-api-docs/scripts/specs
+
+          # Find the latest base spec (exclude decorated specs) - support both .yaml and .yml
+          LATEST_SPEC=$(ls -t seqera-api-*.yaml seqera-api-*.yml 2>/dev/null | grep -v "decorated" | head -n 1)
+
+          if [ -z "$LATEST_SPEC" ]; then
+            echo "❌ ERROR: No base spec files found matching seqera-api-*.yaml (excluding decorated)"
+            echo "Files in directory:"
+            ls -la
+            exit 1
+          fi
+
+          VERSION=$(echo "$LATEST_SPEC" | sed -E 's/seqera-api-(.*)\.ya?ml/\1/')
+
+          echo "api_version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Detected API version: $VERSION from file: $LATEST_SPEC"
+
+      - name: Extract overlay files from markdown
+        id: extract
+        run: |
+          cd platform-api-docs/scripts/specs
+
+          # Check if claude-generated-overlays.md exists
+          if [ ! -f "claude-generated-overlays.md" ]; then
+            echo "⚠️  No claude-generated-overlays.md found"
+            echo "This might mean:"
+            echo "  - Wrong branch checked out"
+            echo "  - Phase 1 didn't create the markdown file"
+            echo "  - File was already processed and archived"
+            echo "has_overlays=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          echo "✅ Found claude-generated-overlays.md"
+          echo "   File size: $(wc -l < claude-generated-overlays.md) lines"
+          echo ""
+
+          # Extract YAML code blocks from markdown
+          python3 - <<'PYTHON_SCRIPT'
+          import re
+          from pathlib import Path
+
+          md_file = Path("claude-generated-overlays.md")
+          if not md_file.exists():
+              print("No markdown file found")
+              exit(0)
+
+          content = md_file.read_text()
+
+          # Pattern to match yaml/yml code blocks with optional filename labels
+          # Looks for: ```yaml or ```yml, optionally preceded by filename comment
+          pattern = r'(?:```(?:yaml|yml)\s*\n)([^`]+)(?:```)'
+
+          # Also try to find filenames mentioned before code blocks
+          # Pattern: "filename.yaml" or **filename.yaml** or <!-- filename.yaml -->
+          filename_pattern = r'(?:^|\n)(?:#+\s*)?(?:\*\*)?([a-zA-Z0-9_-]+-overlay-[0-9.]+\.ya?ml)(?:\*\*)?'
+
+          blocks = re.finditer(pattern, content, re.MULTILINE | re.DOTALL)
+
+          extracted_count = 0
+          current_pos = 0
+
+          for block in blocks:
+              yaml_content = block.group(1).strip()
+
+              # Look backwards from this block to find a filename
+              text_before = content[current_pos:block.start()]
+              filename_match = re.search(filename_pattern, text_before, re.MULTILINE | re.IGNORECASE)
+
+              if filename_match:
+                  filename = filename_match.group(1)
+                  # Normalize to .yaml extension
+                  filename = re.sub(r'\.yml$', '.yaml', filename)
+
+                  output_path = Path(filename)
+                  output_path.write_text(yaml_content + '\n')
+                  print(f"✅ Extracted: {filename}")
+                  extracted_count += 1
+              else:
+                  print(f"⚠️  Found YAML block but no filename at position {block.start()}")
+
+              current_pos = block.end()
+
+          if extracted_count > 0:
+              print(f"\n✅ Successfully extracted {extracted_count} overlay file(s)")
+              exit(0)
+          else:
+              print("⚠️  No overlay files extracted - check markdown format")
+              print("This usually means filenames weren't found in the markdown")
+              exit(1)
+          PYTHON_SCRIPT
+
+          # If we get here, extraction succeeded
+          echo "has_overlays=true" >> $GITHUB_OUTPUT
+          echo "✅ Overlay extraction complete"
+          echo ""
+          echo "📂 Verifying extracted files exist on disk:"
+          ls -lh *-overlay-*.yaml *-overlay-*.yml 2>/dev/null || echo "⚠️  WARNING: No overlay files found after extraction!"
+
+      - name: Consolidate overlay files
+        run: |
+          cd platform-api-docs/scripts/specs
+
+          echo "🔍 Looking for overlay files for version ${{ steps.version.outputs.api_version }}"
+          echo "Current directory: $(pwd)"
+          echo ""
+          echo "All files in specs directory:"
+          ls -lah
+          echo ""
+
+          # Count overlay files before consolidation
+          echo "Searching for: *-overlay-${{ steps.version.outputs.api_version }}.yaml and *-overlay-${{ steps.version.outputs.api_version }}.yml"
+          OVERLAY_FILES=$(ls *-overlay-${{ steps.version.outputs.api_version }}.yaml *-overlay-${{ steps.version.outputs.api_version }}.yml 2>/dev/null || true)
+
+          if [ -z "$OVERLAY_FILES" ]; then
+            echo "❌ ERROR: No overlay files found matching pattern *-overlay-${{ steps.version.outputs.api_version }}.yaml"
+            echo "Cannot proceed without overlay files to consolidate"
+            exit 1
+          fi
+
+          echo "📋 Found overlay files:"
+          echo "$OVERLAY_FILES"
+          echo ""
+
+          # Create consolidated overlay
+          CONSOLIDATED_FILE="all-changes-overlay-${{ steps.version.outputs.api_version }}.yaml"
+          echo "📝 Creating consolidated overlay file: $CONSOLIDATED_FILE"
+
+          cat > "$CONSOLIDATED_FILE" <<'EOF'
+          overlay: 1.0.0
+          info:
+            title: Consolidated overlay for v${{ steps.version.outputs.api_version }}
+            version: 0.0.0
+          actions:
+          EOF
+
+          # Append version-specific overlays
+          echo "  # ===== VERSION ${{ steps.version.outputs.api_version }} OVERLAYS =====" >> "$CONSOLIDATED_FILE"
+
+          # Find and append all version-specific overlay files - support both .yaml and .yml
+          ADDED_COUNT=0
+          for overlay in *-overlay-${{ steps.version.outputs.api_version }}.yaml *-overlay-${{ steps.version.outputs.api_version }}.yml; do
+            if [ -f "$overlay" ] && [ "$overlay" != "$CONSOLIDATED_FILE" ]; then
+              echo "  ➕ Adding $overlay to consolidated file"
+              sed -n '/^actions:/,$ p' "$overlay" | tail -n +2 >> "$CONSOLIDATED_FILE"
+              ADDED_COUNT=$((ADDED_COUNT + 1))
+            fi
+          done
+
+          echo ""
+          if [ "$ADDED_COUNT" -eq 0 ]; then
+            echo "❌ ERROR: No overlay files were added to consolidated file"
+            exit 1
+          fi
+
+          echo "✅ Successfully consolidated $ADDED_COUNT overlay file(s) into: $CONSOLIDATED_FILE"
+          echo ""
+          echo "📄 Consolidated overlay file size: $(wc -l < "$CONSOLIDATED_FILE") lines"
+          echo ""
+          echo "🔍 First 50 lines of consolidated overlay:"
+          head -50 "$CONSOLIDATED_FILE"
+          echo "..."
+          echo ""
+          echo "📂 All files in specs directory after consolidation:"
+          ls -lh
+
+      - name: Apply overlays to decorated spec
+        if: steps.extract.outputs.has_overlays == 'true'
+        run: |
+          cd platform-api-docs/scripts/specs
+
+          echo "🔧 Applying overlays to decorated spec"
+          echo "Current directory: $(pwd)"
+          echo ""
+
+          # Verify consolidated overlay exists
+          CONSOLIDATED_OVERLAY="all-changes-overlay-${{ steps.version.outputs.api_version }}.yaml"
+          if [ ! -f "$CONSOLIDATED_OVERLAY" ]; then
+            echo "❌ ERROR: Consolidated overlay file not found: $CONSOLIDATED_OVERLAY"
+            echo "Files in directory:"
+            ls -la
+            exit 1
+          fi
+
+          echo "✅ Found consolidated overlay: $CONSOLIDATED_OVERLAY"
+          echo "   Size: $(wc -l < "$CONSOLIDATED_OVERLAY") lines"
+          echo ""
+
+          # Find decorated spec - support both .yaml and .yml
+          if [ -f "seqera-api-latest-decorated.yaml" ]; then
+            DECORATED_SPEC="seqera-api-latest-decorated.yaml"
+          elif [ -f "seqera-api-latest-decorated.yml" ]; then
+            DECORATED_SPEC="seqera-api-latest-decorated.yml"
+          else
+            echo "❌ ERROR: seqera-api-latest-decorated file not found"
+            echo "Files in directory:"
+            ls -la
+            exit 1
+          fi
+
+          echo "✅ Found decorated spec: $DECORATED_SPEC"
+          echo "   Size before: $(wc -l < "$DECORATED_SPEC") lines"
+          echo ""
+
+          echo "▶️  Running: speakeasy overlay apply -s $DECORATED_SPEC -o $CONSOLIDATED_OVERLAY > seqera-api-latest-decorated-new.yaml"
+          echo ""
+
+          # Apply consolidated overlay - capture both stdout and stderr
+          set +e  # Don't exit on error, we want to see the error message
+          speakeasy overlay apply \
+            -s "$DECORATED_SPEC" \
+            -o "$CONSOLIDATED_OVERLAY" \
+            > seqera-api-latest-decorated-new.yaml 2>&1
+          SPEAKEASY_EXIT_CODE=$?
+          set -e
+
+          if [ $SPEAKEASY_EXIT_CODE -ne 0 ]; then
+            echo "❌ ERROR: Speakeasy overlay apply failed with exit code $SPEAKEASY_EXIT_CODE"
+            echo ""
+            echo "Output file content (if any):"
+            if [ -f "seqera-api-latest-decorated-new.yaml" ]; then
+              head -100 seqera-api-latest-decorated-new.yaml
+            else
+              echo "(No output file created)"
+            fi
+            exit 1
+          fi
+
+          # Check if output was created and has content
+          if [ ! -f "seqera-api-latest-decorated-new.yaml" ]; then
+            echo "❌ ERROR: Speakeasy overlay apply did not create output file"
+            exit 1
+          fi
+
+          OUTPUT_SIZE=$(wc -l < "seqera-api-latest-decorated-new.yaml")
+          if [ "$OUTPUT_SIZE" -lt 100 ]; then
+            echo "⚠️  WARNING: Output file seems too small ($OUTPUT_SIZE lines)"
+            echo "First 50 lines of output:"
+            head -50 seqera-api-latest-decorated-new.yaml
+          fi
+
+          echo "✅ Speakeasy created new decorated spec"
+          echo "   Size after: $OUTPUT_SIZE lines"
+          echo ""
+
+          # Backup old decorated spec before replacing (in case validation fails)
+          # Always normalize to .yaml extension
+          echo "💾 Backing up old decorated spec to: seqera-api-latest-decorated-old.yaml"
+          mv "$DECORATED_SPEC" seqera-api-latest-decorated-old.yaml
+
+          # Move new spec into place
+          mv seqera-api-latest-decorated-new.yaml seqera-api-latest-decorated.yaml
+
+          echo "✅ Successfully applied overlays to decorated spec: seqera-api-latest-decorated.yaml"
+          echo "   Old spec backed up as: seqera-api-latest-decorated-old.yaml"
+
+      - name: Validate decorated spec
+        if: steps.extract.outputs.has_overlays == 'true'
+        run: |
+          cd platform-api-docs/scripts/specs
+
+          echo "🔍 Validating decorated spec"
+          echo "Current directory: $(pwd)"
+          echo ""
+
+          # Validate the decorated spec (now always .yaml after apply step)
+          SPEC_FILE="seqera-api-latest-decorated.yaml"
+          if [ ! -f "$SPEC_FILE" ]; then
+            echo "❌ ERROR: Decorated spec file not found: $SPEC_FILE"
+            echo "Files in directory:"
+            ls -la
+            exit 1
+          fi
+
+          echo "✅ Found spec file: $SPEC_FILE"
+          echo "   Size: $(wc -l < "$SPEC_FILE") lines"
+          echo ""
+          echo "▶️  Running: speakeasy validate openapi -s $SPEC_FILE"
+          echo ""
+
+          # Run validation and capture output to avoid GITHUB_STEP_SUMMARY overflow
+          set +e
+          speakeasy validate openapi -s "$SPEC_FILE" > validation-output.txt 2>&1
+          VALIDATION_EXIT_CODE=$?
+          set -e
+
+          if [ $VALIDATION_EXIT_CODE -ne 0 ]; then
+            echo "❌ Validation FAILED with exit code $VALIDATION_EXIT_CODE"
+            echo ""
+
+            # Count errors and show summary
+            ERROR_COUNT=$(grep -c "Error:" validation-output.txt || echo "0")
+            WARNING_COUNT=$(grep -c "Warning:" validation-output.txt || echo "0")
+
+            echo "📊 Validation Summary:"
+            echo "   Errors: $ERROR_COUNT"
+            echo "   Warnings: $WARNING_COUNT"
+            echo ""
+            echo "🔍 First 100 lines of validation output:"
+            head -100 validation-output.txt
+            echo ""
+            echo "..."
+            echo ""
+            echo "💾 Full validation output saved to: validation-output.txt"
+            echo "   (This file is available in the workflow artifacts)"
+
+            exit 1
+          fi
+
+          echo ""
+          echo "✅ Decorated spec validation passed!"
+
+      - name: Upload debug artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: workflow-debug-files
+          path: |
+            platform-api-docs/scripts/specs/*-overlay-*.yaml
+            platform-api-docs/scripts/specs/*-overlay-*.yml
+            platform-api-docs/scripts/specs/all-changes-overlay-*.yaml
+            platform-api-docs/scripts/specs/claude-generated-overlays.md
+            platform-api-docs/scripts/specs/validation-output.txt
+            platform-api-docs/scripts/specs/seqera-api-latest-decorated-old.yaml
+            platform-api-docs/scripts/specs/seqera-api-latest-decorated-old.yml
+          retention-days: 7
+          if-no-files-found: ignore
+
+      - name: Generate parameter tables
+        run: |
+          cd platform-api-docs/scripts
+
+          node extract-api-tables.mjs
+
+          echo "✅ Generated parameter tables for info pages"
+
+      - name: Clean existing API docs
+        run: |
+          npx docusaurus clean-api-docs all
+
+          echo "✅ Cleaned existing API docs"
+
+      - name: Generate new API docs
+        run: |
+          npx docusaurus gen-api-docs all
+
+          echo "✅ Generated new API documentation"
+
+      - name: Update sidebar with new operations
+        run: |
+          cd platform-api-docs/scripts/specs
+
+          # Check if analysis JSON exists
+          ANALYSIS_FILE=$(ls -t *-analysis.json 2>/dev/null | head -n 1)
+
+          if [ -n "$ANALYSIS_FILE" ]; then
+            python ../../../openapi-overlay-generator/scripts/update_sidebar.py \
+              ../../docs/sidebar/sidebar.js \
+              "$ANALYSIS_FILE"
+
+            echo "✅ Updated sidebar with new operations"
+          else
+            echo "⚠️  No analysis file found - sidebar not updated"
+          fi
+
+      - name: Archive used overlays
+        run: |
+          cd platform-api-docs/scripts/specs
+
+          # Move version-specific overlays to archive
+          mkdir -p ../overlay_archives
+
+          # Archive both .yaml and .yml overlay files
+          for overlay in *-overlay-${{ steps.version.outputs.api_version }}.yaml *-overlay-${{ steps.version.outputs.api_version }}.yml; do
+            if [ -f "$overlay" ]; then
+              mv "$overlay" ../overlay_archives/
+              echo "Archived: $overlay"
+            fi
+          done
+
+          # Also archive comparison overlay - support both .yaml and .yml
+          for comparison in base-*-to-${{ steps.version.outputs.api_version }}-*.yaml base-*-to-${{ steps.version.outputs.api_version }}-*.yml; do
+            if [ -f "$comparison" ]; then
+              mv "$comparison" ../overlay_archives/
+              echo "Archived: $comparison"
+            fi
+          done
+
+          # Archive the claude-generated-overlays.md file
+          if [ -f "claude-generated-overlays.md" ]; then
+            mv claude-generated-overlays.md ../overlay_archives/
+            echo "Archived: claude-generated-overlays.md"
+          fi
+
+          # Archive analysis JSON files
+          for analysis in *-analysis.json; do
+            if [ -f "$analysis" ]; then
+              mv "$analysis" ../overlay_archives/
+              echo "Archived: $analysis"
+            fi
+          done
+
+          # Clean up old decorated spec backup (validation passed, so we don't need it)
+          if [ -f "seqera-api-latest-decorated-old.yaml" ]; then
+            rm seqera-api-latest-decorated-old.yaml
+            echo "Cleaned up: seqera-api-latest-decorated-old.yaml"
+          elif [ -f "seqera-api-latest-decorated-old.yml" ]; then
+            rm seqera-api-latest-decorated-old.yml
+            echo "Cleaned up: seqera-api-latest-decorated-old.yml"
+          fi
+
+          echo "✅ Archived overlays and cleaned up intermediate files"
+
+      - name: Clean up old base specs
+        run: |
+          cd platform-api-docs/scripts/specs
+
+          # Keep only the latest 2 base specs - support both .yaml and .yml
+          ls -t seqera-api-*.yaml seqera-api-*.yml 2>/dev/null | tail -n +3 | xargs -r rm
+
+          echo "✅ Cleaned up old base specs"
+
+      - name: Commit changes
+        run: |
+          echo "🔍 Current branch and status:"
+          git branch -vv
+          git status
+          echo ""
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          echo "📝 Adding changes to git..."
+          git add platform-api-docs/
+
+          echo ""
+          echo "📊 Changes to be committed:"
+          git diff --cached --stat
+
+          echo ""
+          if git diff --cached --quiet; then
+            echo "⚠️  No changes to commit"
+          else
+            echo "💾 Creating commit..."
+            git commit -m "Apply overlays and regenerate docs for v${{ steps.version.outputs.api_version }}"
+
+            echo ""
+            echo "⬆️  Pushing to remote branch: ${{ steps.get-branch.outputs.branch }}"
+            git push origin HEAD:${{ steps.get-branch.outputs.branch }}
+
+            echo "✅ Successfully pushed changes!"
+          fi
+
+      - name: Update PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prNumber = context.payload.pull_request?.number || ${{ github.event.inputs.pr_number }};
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              body: `## ✅ Overlays Applied and Docs Regenerated
+
+            **API Version**: ${{ steps.version.outputs.api_version }}
+
+            ### Changes Applied
+
+            - ✅ Consolidated overlays (permanent + version-specific)
+            - ✅ Applied to decorated spec
+            - ✅ Validated OpenAPI spec
+            - ✅ Generated parameter tables for info pages
+            - ✅ Regenerated MDX documentation files
+            - ✅ Updated sidebar with new operation entries
+            - ✅ Archived version-specific overlays
+            - ✅ Cleaned up old base specs
+
+            ### Next Steps
+
+            1. **Review the generated documentation** - Check MDX files look correct
+            2. **Test locally** - Run \`npm run start\` to preview
+            3. **Request final review** - Mark PR ready for review
+            4. **Merge when approved** - Documentation will be published
+
+            ---
+
+            *This PR is now ready for final review and approval.*`
+            });
+
+            // Remove draft status
+            await github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: prNumber,
+              draft: false
+            });
+
+      - name: Create summary
+        run: |
+          echo "## 🎉 Documentation Update Complete!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**API Version**: ${{ steps.version.outputs.api_version }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "All overlay files have been applied and documentation has been regenerated." >> $GITHUB_STEP_SUMMARY
+          echo "The PR is now ready for final review." >> $GITHUB_STEP_SUMMARY

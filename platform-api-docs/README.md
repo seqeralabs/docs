@@ -310,6 +310,27 @@ rm seqera-api-{old-version}.yaml
 
 **YAML syntax**: Check indentation and quotes in overlay files.
 
+**Array replacement issues**: When replacing arrays (enums, required fields), direct `update` actions will APPEND instead of REPLACE, creating duplicates. Use the remove-then-update pattern:
+
+```yaml
+# WRONG - This appends to the array
+- target: "$.components.schemas.Config.required"
+  update:
+    - field1
+    - field2
+
+# CORRECT - Remove first, then update
+- target: "$.components.schemas.Config.required"
+  remove: true
+- target: "$.components.schemas.Config"
+  update:
+    required:
+      - field1
+      - field2
+```
+
+See `.claude/skills/openapi-overlay-generator/references/overlay-patterns.md` for detailed examples.
+
 ### Validation Failures
 
 Run validation scripts for detailed error messages:

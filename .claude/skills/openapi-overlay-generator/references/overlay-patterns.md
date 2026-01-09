@@ -350,6 +350,67 @@ $.components.schemas.DatasetRequest.required
 
 ---
 
+## Array Replacement Pattern
+
+**CRITICAL**: When replacing array values (enums, required fields, etc.), the `update` action will APPEND to existing arrays instead of replacing them. This creates invalid YAML and duplicate values.
+
+### The Problem
+
+❌ **WRONG - Direct update appends to array**
+```yaml
+# This will APPEND to the existing array, creating duplicates!
+- target: "$.components.schemas.AwsBatchConfig.required"
+  update:
+    - region
+    - workDir
+```
+
+Result: `required: ["region", "workDir", "region", "workDir", region, workDir]` (INVALID!)
+
+### The Solution
+
+✅ **CORRECT - Remove then update**
+```yaml
+# Step 1: Remove the existing array
+- target: "$.components.schemas.AwsBatchConfig.required"
+  remove: true
+
+# Step 2: Add back the corrected array
+- target: "$.components.schemas.AwsBatchConfig"
+  update:
+    required:
+      - region
+      - workDir
+```
+
+Result: `required: ["region", "workDir"]` (VALID!)
+
+### When to Use This Pattern
+
+Use the remove-then-update pattern for:
+- **Required field arrays**: Fixing duplicate entries in schema required fields
+- **Enum arrays**: Correcting duplicate enum values
+- **Any array that needs complete replacement**: When you need to change the entire array content
+
+### Example: Fixing Duplicate Enums
+
+```yaml
+# Remove duplicate enum values
+- target: "$.components.schemas.WorkflowStatus.properties.status.enum"
+  remove: true
+
+- target: "$.components.schemas.WorkflowStatus.properties.status"
+  update:
+    enum:
+      - SUBMITTED
+      - RUNNING
+      - SUCCEEDED
+      - FAILED
+      - CANCELLED
+```
+
+---
+
 ## Common Mistakes to Avoid
 
 ❌ **Summaries with periods**

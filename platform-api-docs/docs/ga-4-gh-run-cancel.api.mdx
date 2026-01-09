@@ -5,7 +5,7 @@ description: "Uses the GA4GH workflow execution service API to cancel the run as
 sidebar_label: "GA4GH: Cancel run"
 hide_title: true
 hide_table_of_contents: true
-api: eJy9VMtu2zAQ/BWCpxZwrbx6qE91gjQNekjgJOghMJK1tJaYSCJDUnYMQf/eXVKO83BToCiqg0SRy93h7HBa6SF3cnQtczjICzkdyAxdapXxStdyJK8cOuELFCfjg5PvYqnt/bzUS4GPmDYcIxzahUpRjM9PhdcihTrFMmyxTS3AOZ0q8JiJpfJFmM/VAmtxS8s3KrsdyoHUBi1wttOMap4wlElTH4VUtGzAQoUeLSNtZU0/FBb307JioAZ8IV+jpyTCeavqXKgMa6/mCi1FWXxolEUq5m2DA+nSAiuQo1b6leHccZPsumkMRucPdbbiiFTXnlLxEIwpVRqAJ3eOK7ZvU+nZHaaeinrlS544roxfcbZJTExVuo7LOKNropv37u3s8Oflac5+UJa/Lm8ss+xVLNCTt+XEG6DEHvUjojvYBugQMtGz8++QVS7fAot65ME37ibVGT5bV1QzDz2da1uBj1P7ey8O8hPdsbXaTnqKn860v4XktRRFrb2AksSOWchGCiw069PocN6guJFMws1JluiSxW5CvLqkjex2SbpWMF+StXwbW9K2wnvjRkkCRg3TUjfZ0OEDlR4q/UbGF2FFnJfg+ZTiiOP5wknWp6ObaJVfXTDBkcNDBIt23DDAJ6q4ouy1zv+zEEQzcfBtzd/d0ofzcuMmG+0fP0JlmM624ys31yF1z3CPkCH9CXzvF64PZtVAGlTzkpjndJBwVBlaO9dfNwsEhFmNdXaHXz4Pd3iO+1NBEF1vFcG8RiIaCvvSa5TPrvV/sry+KR4ffWJKIA8j5IGBtlfW2pMHkrRF78UuOxfpiz6jJ/PrJUY6KFiWtKttZ+DwypZdx9PUQEvGdU3DBVgFM24YyTBTjsck6DmUDt8h5MOkt8uP4neGuvU0/STUK0YPZcN/NLzH1ca+uylFFggZ5WFYcfEoFv90ySk2m9/4SjdY7xinKRr/buz02R0+P7u4ZOn3pl4FV5EWlswxvQNQHciIfslzrSyhzhvIOTbm5OcX5G1+NQ==
+api: eJy9VMtu2zAQ/BWCpxZwrbyAoj7VCdI06CGBk6CHwEjW0lpiIokMSdkxBP17d0k5zsNNgaKoDhJFLneHs8NppYfcydG1zOEgL+R0IDN0qVXGK13Lkbxy6IQvUJyMD06+i6W29/NSLwU+YtpwjHBoFypFMT4/FV6LFOoUy7DFNrUA53SqwGMmlsoXYT5XC6zFLS3fqOx2KAdSG7TA2U4zqnnCUCZNfRRS0bIBCxV6tIy0lTX9UFjcT8uKgRrwhXyNnpII562qc6EyrL2aK7QUZfGhURapmLcNDqRLC6xAjlrpV4Zzx02y66YxGJ0/1NmKI1Jde0rFQzCmVGkAntw5rti+TaVnd5h6KuqVL3niuDJ+xdkmMTFV6Tou44yuiW7eu7ezw5+Xpzn7QVn+uryxzLJXsUBP3pYTb4ASe9SPiO5gG6BDyETPzr9DVrl8CyzqkQffuJtUZ/hsXVHNPPR0rm0FPk7t7704yE90x9ZqO+kpfjrT/haS11IUtfYCShI7ZiEbKbDQrE+jw3mD4kYyCTcnWaJLFrsJ8eqSNrLbJelawXxJ1vJtbEnbCu+NGyUJGDVMS91kQ4cPVHqo9BsZX4QVcV6C51OKI47nCydZn45uolV+dcEERw4PESzaccMAn6jiirLXOv/PQhDNxMG3NX93Sx/Oy42bbLR//AiVYTrbjq/cXIfUPcM9Qob0J/C9X7g+mFUDaVDNS2Ke00HCUWVo7Vx/3SwQEGY11tkdfvk83OE57k8FQXS9VQTzGoloKOxLr1E+u9b/yfL6pnh89IkpgTyMkAcG2l5Za08eSNIWvRe77FykL/qMnsyvlxjpoGBZ0q62nYHDK1t2HU9TAy0Z1zUNF2AVzLhhJMNMOR6ToOdQOnyHkA+T3i4/it8Z6tbT9JNQrxg9lA3/0fAeVxv77qYUWSBklIdhxcWjWPzTJafYbH7jK91gvWOcpmj8u7HTZ3f4/OzikqXfm3oVXEVaWDLH9A5AdSAj+iXPtbKEOm8g59iYk59f6Vt+Nw==
 sidebar_class_name: "post api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -31,7 +31,7 @@ import Heading from "@theme/Heading";
   path={"/ga4gh/wes/v1/runs/{run_id}/cancel"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -49,14 +49,14 @@ Uses the GA4GH workflow execution service API to cancel the run associated with 
 <ParamsDetails
   parameters={[{"name":"run_id","in":"path","description":"Run string identifier","required":true,"schema":{"type":"string"}}]}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
   title={"Body"}
   body={{"content":{"application/json":{"schema":{"type":"object","title":"EmptyBodyRequest"}}}}}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
@@ -64,8 +64,5 @@ Uses the GA4GH workflow execution service API to cancel the run associated with 
   label={undefined}
   responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"run_id":{"type":"string"}},"title":"RunId"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"type":"object","properties":{"msg":{"type":"string"},"status_code":{"type":"integer","format":"int32"}},"title":"WesErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
 >
-  
+
 </StatusCodes>
-
-
-      

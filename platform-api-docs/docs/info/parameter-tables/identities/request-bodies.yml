@@ -77,6 +77,30 @@
   Req/Opt: Optional
   Description: If true, `headJobOptions` are also applied to the
     Nextflow-submitted compute jobs.
+- Name: config.environment
+  Type: array
+  Req/Opt: Optional
+  Description: Array of environment variables to set for Nextflow execution.
+- Name: config.environment[].name
+  Type: string
+  Req/Opt: Required
+  Description: Environment variable name.
+- Name: config.environment[].value
+  Type: string
+  Req/Opt: Required
+  Description: Environment variable value.
+- Name: config.environment[].head
+  Type: boolean
+  Req/Opt: Optional
+  Description: Apply this variable to the Nextflow head job.
+- Name: config.environment[].compute
+  Type: boolean
+  Req/Opt: Optional
+  Description: Apply this variable to the Nextflow compute jobs.
+- Name: config.discriminator
+  Type: string
+  Req/Opt: Optional
+  Description: Platform type discriminator (read-only, set based on platform selection).
 - Name: "**UpdateManagedIdentity**"
   Type: ""
   Req/Opt: ""
@@ -163,6 +187,30 @@
   Req/Opt: Optional
   Description: If true, `headJobOptions` are also applied to the
     Nextflow-submitted compute jobs.
+- Name: managedIdentity.config.environment
+  Type: array
+  Req/Opt: Optional
+  Description: Array of environment variables to set for Nextflow execution.
+- Name: managedIdentity.config.environment[].name
+  Type: string
+  Req/Opt: Required
+  Description: Environment variable name.
+- Name: managedIdentity.config.environment[].value
+  Type: string
+  Req/Opt: Required
+  Description: Environment variable value.
+- Name: managedIdentity.config.environment[].head
+  Type: boolean
+  Req/Opt: Optional
+  Description: Apply this variable to the Nextflow head job.
+- Name: managedIdentity.config.environment[].compute
+  Type: boolean
+  Req/Opt: Optional
+  Description: Apply this variable to the Nextflow compute jobs.
+- Name: managedIdentity.config.discriminator
+  Type: string
+  Req/Opt: Optional
+  Description: Platform type discriminator (read-only, set based on platform selection).
 - Name: "**CreateManagedCredentials**"
   Type: ""
   Req/Opt: ""
