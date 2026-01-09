@@ -118,9 +118,13 @@ module.exports = async ({ github, context, diff }) => {
       }
       body += "```";
 
+      // Calculate the correct line number
+      // newStart is where the hunk begins, then add context lines before changes, then the new lines
+      const lineNumber = hunk.newStart + hunk.contextBefore.length + hunk.newLines.length - 1;
+
       comments.push({
         path: file,
-        line: hunk.newStart + hunk.newLines.length - 1,
+        line: lineNumber,
         side: "RIGHT",
         body: body
       });
