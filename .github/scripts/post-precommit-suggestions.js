@@ -95,7 +95,8 @@ module.exports = async ({ github, context, diff }) => {
 
   // Only post a comment if there are new suggestions
   if (newChanges.length > 0) {
-    let body = "Pre-commit found some formatting changes. You can apply each suggestion directly:\n\n";
+    let body = "**Pre-commit formatting suggestions**\n\n";
+    body += "Pre-commit hooks found some formatting changes. You can apply each suggestion directly:\n\n";
 
     for (const change of newChanges) {
       const { file, hunk, marker } = change;
