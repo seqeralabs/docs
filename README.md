@@ -61,6 +61,7 @@ We currently use basic standard hooks to remove trailing whitespaces, make sure 
 2. Run the following commands to set up [pre-commit](https://github.com/pre-commit/pre-commit) hooks:
 
    ```console
+   $ pip install pre-commit
    $ pre-commit install
    $ pre-commit install-hooks
    ```
