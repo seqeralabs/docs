@@ -57,7 +57,7 @@ To incorporate documentation changes from the Wave repository, run the following
 We use [pre-commit](https://pre-commit.com/) in our repo, which is invoked when a commit is made. When you (or Claude) are working locally and commit your changes in VS Code (or run `git commit`) the pre-commit hooks defined in the [precommit config file](./.pre-commit-config.yaml) are executed and may tweak the files you're staging.
 We currently use basic standard hooks to remove trailing whitespaces, make sure the file ends with a newline, we check yaml documents and we prevent very large files from getting committed. More hooks may get installed in the future.
 
-1. Open up a Terminal window and navigate to the `docs` directory.
+1. Open up a Terminal window and navigate to the `docs` repository.
 2. Run the following commands to set up [pre-commit](https://github.com/pre-commit/pre-commit) hooks:
 
    ```console
