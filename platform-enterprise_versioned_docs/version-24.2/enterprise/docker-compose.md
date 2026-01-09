@@ -43,6 +43,10 @@ For more information on configuration, see [Configuration options](./configurati
 
 ## Optional features
 
+### Pipeline optimization
+
+Seqera Platform offers a service that optimizes pipeline resource requests. Refer to [Pipeline optimization](./configuration/pipeline_optimization.md) for more information.
+
 ### Studios
 
 [Studios](../data_studios/overview) is an interactive analysis environment available in organizational workspaces. To enable Studios, see [Studios deployment](../enterprise/studios).
