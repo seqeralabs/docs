@@ -80,7 +80,7 @@ You shouldn't experience any issues but if you do, share them in the #team-docum
    - Language review from a `docs-codeowners` member.
    - Technical review from the backend engineer or other SME closest to the feature.
 6. Check and review the changes using the Netlify preview.
-7. If you created the PR, the onus is on you to merge the PR once approved. This is the Edu team's policy, to ensure that PRs are never merged inadvertently. If you'd like one of us to merge it for you, please let us know. 
+7. If you created the PR, the onus is on you to merge the PR once approved. This is the Edu team's policy, to ensure that PRs are never merged inadvertently. If you'd like one of us to merge it for you, please let us know.
 
 Once merged to the master branch, the changes will be live immediately.
 
