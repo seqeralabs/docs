@@ -50,10 +50,12 @@ jobs:
       - name: Post proposed changes
         if: steps.get-diff.outputs.has_changes == 'true' && github.event_name == 'pull_request'
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # ratchet:actions/github-script@v8.0.0
+        env:
+          DIFF_CONTENT: ${{ steps.get-diff.outputs.diff_content }}
         with:
           script: |
             const script = require('./.github/scripts/post-precommit-suggestions.js');
-            await script({ github, context, diff: `${{ steps.get-diff.outputs.diff_content }}` });
+            await script({ github, context, diff: process.env.DIFF_CONTENT });
 
       # Fail the workflow if pre-commit failed
       - name: Fail if pre-commit failed
