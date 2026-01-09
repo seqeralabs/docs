@@ -11,12 +11,18 @@ jobs:
       github.event.issue.pull_request &&
       startsWith(github.event.comment.body, 'fix formatting')
 
+    permissions:
+      contents: write
+      pull-requests: read
+
     steps:
       - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # ratchet:actions/checkout@v6.0.0
 
       # Action runs on the issue comment, so we don't get the PR by default.
       # Use the GitHub CLI to check out the PR.
       - name: Checkout Pull Request
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: gh pr checkout ${{ github.event.issue.number }}
 
       - uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c # ratchet:actions/setup-python@v6.0.0
