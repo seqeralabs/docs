@@ -58,7 +58,7 @@ jobs:
       - name: Copy new base spec from Platform repo
         run: |
           # Copy the flattened base spec
-          cp platform-repo/tower-backend/src/main/resources/META-INF/openapi/seqera-api-latest.yml \
+          cp platform-repo/tower-backend/src/main/resources/META-INF/openapi/seqera-api-latest-flattened.yml \
              platform-api-docs/scripts/specs/seqera-api-${{ steps.version.outputs.api_version }}.yaml
 
           echo "✅ Copied flattened base spec for version ${{ steps.version.outputs.api_version }}"

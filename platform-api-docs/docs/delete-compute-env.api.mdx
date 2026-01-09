@@ -5,7 +5,7 @@ description: "Deletes the compute environment identified by the given `computeEn
 sidebar_label: "Delete compute environment"
 hide_title: true
 hide_table_of_contents: true
-api: eJzNld9v2jAQx/8Vy0+bRIFt3aTytJYyqdq0VW2nPSCkmuQgbhPbtR06FOV/352TQCDRqkp72AuQ8ze+z/2k4F6sHZ/MeaQzk3s4AbVxfDHgMbjISuOlVnzCLyEFD475BFitZKiUVqsMlGcyxk+5khCz5Tao1nIDit3X4pnaXMX3Qz7g2oAVdOtVvLt3uhOhwAgrMjRawiq4wgcUtu9BkSQoI3zCj0mnPXQiNYlQeQZWRntUSzgWnnJpAVm8zWHAXZRAJvik4H5ryLHzVqo1L8vBjuVZ20dnRAR7lKcc7LbD8qsRsn7nHWdSeViDxaOVtpnwlenTKbpfEKszWjlw9Mb78Sl9HTr88ZWdsO8aS4QXKc/LAT8dj7u6CxEzihycR1+NGmXCmFRGoT6jB0faokW5T9acZ+CcWAO1Sg2vlw8Q0X3GUpG9rEAbYV9KuZc+JdPMWm1v6vjwpAzkH3oibNqHKU2FTfUz8gT1WVc91WqF8Xh0x2JqNTL/pwHjoYMot9JvQ+NfgLBgz3Ps8cl8QfXHqUg0TU0IBcKs0CkftYd3VLRnpaQ2A7tpxim3Kb6QeG/cZDQSRg6jVOfx0METJnYodaeJb8MJu06Fp6ZkU9Kz8+srTkwN8i3lrIq/Db5LAXlsOp6el0GElurHl6bdH559yJNUKx1er/NVU5DblwApXBnhsqrEVGwRhWIfBt8OGest0zBtK/15f4AglLnKz7vh2cfhmGxGO5+J0Cv1Sqj2WN9qPMYt9t33D7dqnWUPv/3IpAJ3EmKGcIu6SY42/IBPDlYqljLBqEhXFEvh4KdNy5LM1Wqj3omlE8uUpmElUgd/CeylxdeL+wjbznLdiDQnZei1jbCSAF4J8+amnuK37JV/Dr2YtVGobZuvwT9IarlAfQIixk4n5kpyHkVgfOvlzg46GPbL2bfZ3Qzl4nCijiYoOOhlw3oGxZ1+BFWWO1RPz8RYln8AMsbKkg==
+api: eJzNld9v2jAQx/8Vy0+bRIFt1abytJYyqdq0VW2nPSCkmuQgbhPbtR06FOV/352TQCDRqkp72AuQ8ze+z/2k4F6sHZ/MeaQzk3s4AbVxfDHgMbjISuOlVnzCLyEFD475BFitZKiUVqsMlGcyxk+5khCz5Tao1nIDit3X4pnaXMX3Qz7g2oAVdOtVvLt3uhOhwAgrMjRawiq4wgcUtu9BkSQoI3zCj0mnPXQiNYlQeQZWRntUSzgWnnJpAVm8zWHAXZRAJvik4H5ryLHzVqo1L8vBjuVZ20dnRAR7lKcc7LbD8qsRsn7nHWdSeViDxaOVtpnwlenjKbpfEKszWjlw9Mb78Sl9HTr88ZWdsO8aS4QXKc/LAT8dj7u6CxEzihycR1+NGmXCmFRGoT6jB0faokW5T9acZ+CcWAO1Sg2vlw8Q0X3GUpG9rEAbYV9KuZc+JdPMWm1v6vjwpAzkH3oibNqHKU2FTfUz8gT1WVc91WqF8Xh0x2JqNTL/pwHjoYMot9JvQ+NfgLBgz3Ps8cl8QfXHqUg0TU0IBcKs0CkftYd3VLRnpaQ2A7tpxim3Kb6QeG/cZDQSRg6jVOfx0METJnYodaeJb8MJu06Fp6ZkU9Kz8+srTkwN8i3lrIq/Db5LAXlsOp6el0GElurHl6bdH559yJNUKx1er/NVU5DblwApXBnhsqrEVGwRhWIfBt8OGest0zBtK/15f4AglLnKz7vh2afhmGxGO5+J0Cv1Sqj2WN9qPMYt9t33D7dqnWUPv/3IpAJ3EmKGcIu6SY42/IBPDlYqljLBqEhXFEvh4KdNy5LM1Wqj3omlE8uUpmElUgd/CeylxdeL+wjbznLdiDQnZei1jbCSAF4J8+amnuK37JV/Dr2YtVGobZuvwT9IarlAfQIixk4n5kpyHkVgfOvlzg46GPbL2bfZ3Qzl4nCijiYoOOhlw3oGxZ1+BFWWO1RPz8RYln8AOHbKlA==
 sidebar_class_name: "delete api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -31,7 +31,7 @@ import Heading from "@theme/Heading";
   path={"/compute-envs/{computeEnvId}"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -49,14 +49,14 @@ Deletes the compute environment identified by the given `computeEnvId`.
 <ParamsDetails
   parameters={[{"name":"computeEnvId","in":"path","description":"Compute environment alphanumeric identifier.","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier.","schema":{"type":"integer","format":"int64"}}]}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
   title={"Body"}
   body={undefined}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
@@ -64,8 +64,5 @@ Deletes the compute environment identified by the given `computeEnvId`.
   label={undefined}
   responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"409":{"description":"Conflicting deletion","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
 >
-  
+
 </StatusCodes>
-
-
-      

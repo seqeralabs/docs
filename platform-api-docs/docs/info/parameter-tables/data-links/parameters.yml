@@ -34,16 +34,11 @@
   Location: path
   Req/Opt: Required
   Description: Data-link string identifier.
-- Name: "`path`"
-  Type: string
-  Location: path
-  Req/Opt: Required
-  Description: Content path
 - Name: "`nextPageToken`"
   Type: string
   Location: query
   Req/Opt: Optional
-  Description: Token used to fetch the next page of items
+  Description: Token used to fetch the next page of items.
 - Name: "`pageSize`"
   Type: integer
   Location: query
@@ -56,11 +51,11 @@
   Req/Opt: Optional
   Description: List of paths to explore. Returns all files within the specified
     paths, including sub-paths.
-- Name: "`filePath`"
+- Name: "`path`"
   Type: string
   Location: path
   Req/Opt: Required
-  Description: File path to download
+  Description: Content path
 - Name: "`filePath`"
   Type: string
   Location: query
@@ -82,13 +77,18 @@
   Location: query
   Req/Opt: Optional
   Description: List of file paths to include in the download script.
+- Name: "`Origin`"
+  Type: string
+  Location: header
+  Req/Opt: Optional
+  Description: Origin header for CORS preflight requests.
 - Name: "`dirPath`"
   Type: string
   Location: path
   Req/Opt: Required
   Description: Path to the destination directory
-- Name: "`Origin`"
+- Name: "`filePath`"
   Type: string
-  Location: header
-  Req/Opt: Optional
-  Description: ""
+  Location: path
+  Req/Opt: Required
+  Description: File path to download.

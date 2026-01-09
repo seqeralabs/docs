@@ -1,11 +1,11 @@
 ---
 id: generate-data-link-upload-url
-title: "Generate data-link file upload URL (to given path)"
-description: "Creates a URL to upload files to the data-link associated with the given `dataLinkId`, specifying a file path (`dirPath`)."
-sidebar_label: "Generate data-link file upload URL (to given path)"
+title: "Generate data-link file upload URL"
+description: "Creates a URL to upload files to the data-link associated with the given `dataLinkId`. For AWS S3 data-links, an additional follow-up request must be sent after your file upload has completed (or encountered an error) to finalize the upload - see the `/upload/finish` endpoint."
+sidebar_label: "Generate data-link file upload URL"
 hide_title: true
 hide_table_of_contents: true
-api: eJztV9tu4zYQ/RWCTwkg22k3LVA/ba5F0GQT5IJ9SAOYlkY2E5nUklQSryGgH9Ev7JfsDClZ8qV2su1DH/qSmORwZnjmckYz7sTI8v49T4QTnUyqJ8sfIp6AjY3MndSK9/mRAeHAMsHurs+Z06zIMy0SlsoMd3HtxsDmCpiwVscSbyTsRbqxPx3JZ1BsQELnKHOWDCJmc4hlOpVqhJpJF8sFiu8MEmmu8Ndgt/u7OtWGHXy+YTcfGgs2YkIxkSSSHBQZS3WW6ZdOkTMDXwqwjk0K/DMEZkE5JlIHhk11YYKZyv2xsCzWkzwDcnUHDYGKdaFQGNdoAYzRZpcemEo0I7+Cf0t1vYPKw8agF7Z6KCbteIB6klxL5bo84joHI8jPswSh/BUULeG4AuLOX7wzGUrmwogJ+mIoIDOucIE3GshQRFI4CCW+HKPjOfzWGYJUJvh0mUowKEuwSHwV7ztTQMRtPIaJ4P0Zd9OcrIRLvCyjxnCIwkarJDBPAMQdYaIThnchdtpMv9N2jPLkvshs826MrFe4kpy16Nqnv8XcizZPNhcxbDP2uRZkqpiAkfEWW5gDMPJHqTYT4cLWz/sL1i+NHKHNyvAYRLLR8YirIsvEMIOAaFk+BJAR/0OdTOlGrNGwcvRT5HkmYx+W3qOlV8xWVevhI8aLctBQvjoJlk6pWj55J1edWASGpJhOfSL4Gpt3iS4vo9qfc1AjzKI34LOs/4aKb61+JhUbTrE9tQ3devXbnL44uzhhJPI3mnegO+pGbNCGUMcOXAcVgphgDxs4eHW9PBNSYbuisHInHYWG1yV+UWROXgnjQq1fh0ihaLlcG37D5lrZAP+Pe3v0b9Hpy9949G/FN7yTGtM2qILv7OyYjaoOliDqVWfusuvqHdiJzfqWWCWoD1JRNz3bMiyMEVRw0sHErinXZY8OSJ4ClxvoWDlSaB3pyfMRvEJcOEAWQOg72FddnYzsUoFnMUSB0cEbYxaiQkFD6f11cTlsQvuO+DQJcM8nYK0YAfHv5rDVgut62vwpJ0ReK45/WJNQNUExpZEriUnRHy+9vyr9SbtT5MiE/fXHn2zeNxmGvdWzvaaUxCJ2cHWGdGCpXzXpMb8Y0c1mdNAmzADz+/9VLPHQYo4Z6aaerA9BGDAHBXW3+wfqyMjkY02Un2ufEp4/+7zXTDG9WcPtZVUv1PfBPNczQIGDAVKCc7nt93oil90400XStfAFg9aVerVR+hN2lQlHLZUdkTwFgZNTtc83BFoAoO35HAOyWFMQrYdeCHfCj9O6WT++OA8UBeO6oaCTV0Fj1SKFNK1liQ32ltp2q+SlSrV3qwpE9Tp6zraHE4wyxvk0CJMFEfssWgS1DSUmksw8B6X6Y3OAjlBEgp0fur/81N2jPQrsRPgkrJi8nu5aGd0eOKnv7GB7CsMwJcTu8jNa1P3/2P1Pxu4qkRt69sRDkZ9VpbjwzRPx/sKgXVUjlsyYyheFZ7OhsICkVZa0HeZDqtG6ufF+iq0PNgd046i61ucnmK4ZiJ9FVpAspzny7R5smV83OLA4IjfmH2hhZBhH34XGTj007LLNHy9rvaqnBjVtu1N724rl+wBqOfWWb5vvca36rCofULQa9t8H3OZAzb8mFlIknB0FHR3fZxuJFVptbhzEMeRuo2yb664ub26JJarPkIlO6I4RL/QdiH+989q/yZOP35vxTKhR4VmYB53EKWKRkpYoyGO2FmksVC9xq59AYbHWwDhaE+xl+Q0SHOWg
+api: eJztV81u4zYQfhWCpwSQ5bQbtKhPzW8RNNkEcYI9BAFMSyOZiUxqSSqJawjoQ/QJ90l2hpIs+WftBOihh15sk5zhfJy/bzznTqSWDx54LJzoZVI9W/4Y8BhsZGTupFZ8wE8MCAeWCXZ/e8mcZkWeaRGzRGa4i2s3Aba4gAlrdSRRI2av0k38aSpfQLERCV2izEU8Ctm5Nuzoy5ANP7XKNmBCMRHHkmyLjCU6y/Rrr8iZga8FWMemBX6MgVlQjonEgWEzXRiPpkE2EZZFeppnQCj20BCoSBcKhXGNFsAYbfYJeyLRjPwLPMxavYeXVxujfrXVRzFpJyO8J861VC7kAdc5GEE4L2L00h+gaAmn9RvvveK9yVAyF0ZMEYshX8+5wgVqtN5AEUmezoWb8FX3ny48a52RKmUyxqfLRIIhFOQXic/iA2cKCLiNJjAVfDDnbpaTmUqLl2WwsByhPN0hMtsaR/ea2Zr1k1Z0s/332HvV5tnmIoJd1r40gkwVUzAy2mUMQwEpGDxKtJkKV239crhk/trIFI3WlicgYq+xbLoSYtUp5p1hJ9e3Q5YbSDKZTlyTgHbbowOuiiwT4wyqcJTlYxUhVDzW8Yw0Io2YlaOfIs8zGfkc6j9ZgjFfv1qPnyBylEWGMs5JsHRK+f7Zv28dxPLLSIrpxCe0r5JFCYe8DBo8l6BSzL53uHb1/iGVz8b7GTp0PMPe0TV056/fBfrq4uqMkcgPbt6DMA0DNuq6UEcOXA8vBDEd4ZmDN9fPMyHVaD+kjOBOOgoNb4r0qsicvBHGVdV6W0UKRcvVwvIbNtfKVu7/+eCAvlZy6E8e/Fvxrd5JrWWXqyrs7OKUpXUPitHrdW8N2W39Dp/TG5tanaA+SEXTtmzHsDBGULFKB1O7odRXER2RPAUOq6dnZarQOnKHJwt4g6hwgH0cXd/DzuiaZGTXCjzFoBcYHbwzZlVUKGgofbgpLsdtaD8QnzYBHvgUrBUpEDluD1sjuKkfLp5yRvSzBvzThoRqKIYpjWxHXIh4vPThuvRn7c6R5WL27e9/2KLnMgx7p+H7mxISC9jRzQWLpaV+1abHQjEgzZbXNQUF+Xyh/1/1JR5azDEj3czT7TEIA+aooO728EgdGbl4oom0c+1TwvPugPfbOaQ/b9m5rOuF+j6Yl4bFC6R2ZBPncjvo90UuwyjTRRxa+IpBC6Veb5T+hN1kwlFLZSckT0HgBKrBPCSnVQ7oIl/4gCw2FETrsRfCnerHedOsn16ddxQF47aloLM3QYPRMoW0rWWFDQ5W2nan5KVKtIdVB6J+HT1n18PJjTLC4bESJgsi8lm07NSuKzGRZOY5KNG/twcIhCJS2fkp/O3X8ID2KLBT4ZOwHgKa+ayT0d2REfvOKuwOVf8/A/9gBq5zsmVazyEUxHldVUv/LQI+WJp668LC7J9QJaLwfD4WFpB/ypK2qzGRyq3pU3yQYBeD7bHaPrJuBP0Msw2T8YvICpLlNE6+H8KuOXYLguVZubX/SAsjq9nyQ/7YayaAfbbjv8RGWM0MoGZdPA3cTjjLR5Sup+uPIfzQ7L3Fd4tBfyls1dlJZa3n+1grsUZbrcZRFEHutsp2ueTmenhHXbge86c6Jh0jXulPGn56p2n/et/c/d6cZ0KlhWc5Xt1JPVsst/yVFu+9uzEsWD1e4k4/g8IKahzjaE0BKsvvY+qMTg==
 sidebar_class_name: "post api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -22,7 +22,7 @@ import Heading from "@theme/Heading";
 <Heading
   as={"h1"}
   className={"openapi__heading"}
-  children={"Generate data-link file upload URL (to given path)"}
+  children={"Generate data-link file upload URL"}
 >
 </Heading>
 
@@ -31,13 +31,12 @@ import Heading from "@theme/Heading";
   path={"/data-links/{dataLinkId}/upload"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
 
-Creates a URL to upload files to the data-link associated with the given `dataLinkId`, specifying a file path (`dirPath`).
-For AWS S3 data-links, an additional follow-up request must be sent after your file upload has completed (or encountered an error) to finalize the upload - see the `/upload/finish` endpoint.
+Creates a URL to upload files to the data-link associated with the given `dataLinkId`. For AWS S3 data-links, an additional follow-up request must be sent after your file upload has completed (or encountered an error) to finalize the upload - see the `/upload/finish` endpoint.
 
 <Heading
   id={"request"}
@@ -48,16 +47,16 @@ For AWS S3 data-links, an additional follow-up request must be sent after your f
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"dataLinkId","in":"path","description":"Data-link string identifier","required":true,"schema":{"type":"string"}},{"name":"dirPath","in":"path","description":"Path to the destination directory","required":true,"schema":{"type":"string"}},{"name":"credentialsId","in":"query","description":"Credentials string identifier","schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"Origin","in":"header","schema":{"type":"string","nullable":true}}]}
+  parameters={[{"name":"dataLinkId","in":"path","description":"Data-link string identifier.","required":true,"schema":{"type":"string"}},{"name":"credentialsId","in":"query","description":"Credentials string identifier.","schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier.","schema":{"type":"integer","format":"int64"}},{"name":"Origin","in":"header","description":"Origin header for CORS preflight requests.","schema":{"type":"string","nullable":true}}]}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
   title={"Body"}
   body={{"content":{"application/json":{"schema":{"type":"object","properties":{"fileName":{"type":"string","description":"Name of the file to upload."},"contentLength":{"type":"integer","format":"int64","description":"Size of the file to upload in bytes."},"contentType":{"type":"string","description":"MIME type of the file to upload (e.g., `application/octet-stream`, `text/plain`)."}},"title":"DataLinkMultiPartUploadRequest"}}},"required":true}}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
@@ -65,8 +64,5 @@ For AWS S3 data-links, an additional follow-up request must be sent after your f
   label={undefined}
   responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"uploadId":{"type":"string","description":"Upload ID generated by AWS S3. Required for the `/upload/finish` request."},"uploadUrls":{"type":"array","items":{"type":"string"},"description":"Array of pre-signed URLs to execute multi-part upload. One URL per part."}},"title":"DataLinkMultiPartUploadResponse"}}}},"400":{"description":"BadRequest","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"NotFound — workspace or credentials not found, API disabled for the workspace, or data-link or path not found","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
 >
-  
+
 </StatusCodes>
-
-
-      

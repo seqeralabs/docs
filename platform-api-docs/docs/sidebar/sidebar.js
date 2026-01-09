@@ -12,7 +12,7 @@ module.exports = {
     {
       type: "category",
       label: "Credentials",
-      link: {type: 'doc', id: 'info/credentials-info'},      
+      link: {type: 'doc', id: 'info/credentials-info'},
       items: [
         { type: "doc", id: "list-credentials", label: "List credentials", className: "api-method get" },
         { type: "doc", id: "create-credentials", label: "Create credentials", className: "api-method post" },
@@ -22,8 +22,8 @@ module.exports = {
         { type: "doc", id: "delete-credentials", label: "Delete credentials", className: "api-method delete" },
         {
           type: "category",
-          label: "Managed identities",     
-          link: {type: 'doc', id: 'info/identities-info'},      
+          label: "Managed identities",
+          link: {type: 'doc', id: 'info/identities-info'},
           items: [
             { type: "doc", id: "list-managed-identities", label: "List managed identities", className: "api-method get" },
             { type: "doc", id: "list-managed-credentials", label: "List managed credentials", className: "api-method get" },
@@ -35,11 +35,11 @@ module.exports = {
           ],
         },
       ],
-    },     
+    },
     {
       type: "category",
       label: "Compute",
-      link: {type: 'doc', id: 'info/compute-envs-info'},      
+      link: {type: 'doc', id: 'info/compute-envs-info'},
       items: [
         { type: "doc", id: "list-compute-envs", label: "List compute environments", className: "api-method get" },
         { type: "doc", id: "create-compute-env", label: "Create compute environment", className: "api-method post" },
@@ -59,11 +59,11 @@ module.exports = {
           ],
         },
       ],
-    },    
+    },
     {
       type: "category",
       label: "Data Explorer",
-      link: {type: 'doc', id: 'info/data-links-info'},      
+      link: {type: 'doc', id: 'info/data-links-info'},
       items: [
         { type: "doc", id: "list-data-links", label: "List data links in a user or workspace context", className: "api-method get" },
         { type: "doc", id: "create-custom-data-link", label: "Create data link in a user or workspace context", className: "api-method post" },
@@ -72,22 +72,22 @@ module.exports = {
         { type: "doc", id: "update-custom-data-link", label: "Update data link in a user or workspace context", className: "api-method put" },
         { type: "doc", id: "delete-custom-data-link", label: "Delete data link in a user or workspace context", className: "api-method delete" },
         { type: "doc", id: "explore-data-link", label: "Explore data-link content", className: "api-method get" },
-        { type: "doc", id: "explore-data-link-1", label: "Explore data-link content at path", className: "api-method get" },
+        { type: "doc", id: "explore-data-link-with-path", label: "Explore data-link path", className: "api-method get" },
         { type: "doc", id: "explore-data-link-tree", label: "Explore data-link tree", className: "api-method get" },
         { type: "doc", id: "delete-data-link-item", label: "Delete data-link content", className: "api-method delete" },
         { type: "doc", id: "download-data-link", label: "Download data-link file at path", className: "api-method get" },
         { type: "doc", id: "generate-data-link-upload-url", label: "Generate file upload URL", className: "api-method get" },
-        { type: "doc", id: "generate-data-link-upload-url-1", label: "Generate file upload URL to given path", className: "api-method get" },
+        { type: "doc", id: "generate-data-link-upload-url-with-path", label: "Generate file upload URL to given path", className: "api-method get" },
         { type: "doc", id: "generate-download-url-data-link", label: "Generate data-link file download URL", className: "api-method get" },
         { type: "doc", id: "generate-download-script", label: "Generate download script", className: "api-method get" },
         { type: "doc", id: "finish-data-link-upload", label: "Finish data-link file upload", className: "api-method post" },
-        { type: "doc", id: "finish-data-link-upload-1", label: "Finish data-link file upload to given path", className: "api-method post" },
+        { type: "doc", id: "finish-data-link-upload-with-path", label: "Finish data-link file upload with path", className: "api-method post" },
       ],
     },
     {
       type: "category",
       label: "Datasets",
-      link: {type: 'doc', id: 'info/datasets-info'},      
+      link: {type: 'doc', id: 'info/datasets-info'},
       items: [
         { type: "doc", id: "list-datasets-v-2", label: "List available datasets", className: "api-method get" },
         { type: "doc", id: "create-dataset-v-2", label: "Create dataset", className: "api-method post" },
@@ -109,7 +109,7 @@ module.exports = {
         { type: "doc", id: "download-dataset", label: "Download dataset content", className: "api-method get" },
         { type: "doc", id: "list-dataset-versions", label: "(Deprecated) List all dataset versions", className: "menu__list-item--deprecated api-method get" },
       ],
-    },  
+    },
     {
       type: "category",
       label: "Pipelines",
@@ -126,7 +126,7 @@ module.exports = {
         { type: "doc", id: "describe-pipeline-launch", label: "Describe pipeline launch", className: "api-method get" },
         { type: "doc", id: "describe-pipeline-schema", label: "Describe pipeline schema", className: "api-method get" },
       ],
-    },    
+    },
     {
       type: "category",
       label: "Actions",
@@ -146,7 +146,7 @@ module.exports = {
     {
       type: "category",
       label: "Labels",
-      link: {type: 'doc', id: 'info/labels-info'},      
+      link: {type: 'doc', id: 'info/labels-info'},
       items: [
         { type: "doc", id: "add-labels-to-actions", label: "Add labels to actions", className: "api-method post" },
         { type: "doc", id: "apply-labels-to-actions", label: "Replace action labels", className: "api-method post" },
@@ -162,7 +162,7 @@ module.exports = {
         { type: "doc", id: "apply-labels-to-workflows", label: "Replace workflow labels", className: "api-method post" },
         { type: "doc", id: "remove-labels-from-workflows", label: "Remove labels from workflows", className: "api-method post" },
       ],
-    },    
+    },
     {
       type: "category",
       label: "Secrets",
@@ -175,7 +175,7 @@ module.exports = {
         { type: "doc", id: "update-pipeline-secret", label: "Update secret", className: "api-method put" },
         { type: "doc", id: "delete-pipeline-secret", label: "Delete secret", className: "api-method delete" },
       ],
-    },    
+    },
     {
       type: "category",
       label: "Pipeline runs (workflows)",
@@ -202,11 +202,11 @@ module.exports = {
         { type: "doc", id: "describe-workflow-task", label: "Describe a task entity with the given ID", className: "api-method get" },
         { type: "doc", id: "list-workflow-tasks", label: "List the tasks for the given Workflow ID and filter parameters", className: "api-method get" },
       ],
-    }, 
+    },
     {
       type: "category",
       label: "GA4GH-WES",
-      link: {type: 'doc', id: 'info/ga4gh-info'},      
+      link: {type: 'doc', id: 'info/ga4gh-info'},
       items: [
         { type: "doc", id: "ga-4-gh-run-list", label: "GA4GH: List runs", className: "api-method get" },
         { type: "doc", id: "ga-4-gh-run-create", label: "GA4GH: Launch run", className: "api-method post" },
@@ -215,7 +215,7 @@ module.exports = {
         { type: "doc", id: "ga-4-gh-run-status", label: "GA4GH: Retrieve run status", className: "api-method get" },
         { type: "doc", id: "ga-4-gh-service-info", label: "GA4GH workflow execution service API info", className: "api-method get" },
       ],
-    }, 
+    },
     {
       type: "category",
       label: "Workflow trace",
@@ -227,7 +227,7 @@ module.exports = {
         { type: "doc", id: "update-trace-heartbeat", label: "Signal workflow execution heartbeat", className: "api-method put" },
         { type: "doc", id: "update-trace-progress", label: "Store workflow task execution metadata", className: "api-method put" },
       ],
-    },  
+    },
     { type: "doc", id: "describe-launch", label: "Launch records", className: "api-method get" },
     {
       type: "category",
@@ -338,6 +338,6 @@ module.exports = {
         { type: "doc", id: "create-avatar", label: "Create the avatar image", className: "api-method post" },
         { type: "doc", id: "download-avatar", label: "Download the avatar image", className: "api-method get" },
       ],
-    },    
+    },
   ],
 };

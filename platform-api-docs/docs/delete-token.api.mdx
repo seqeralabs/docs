@@ -5,7 +5,7 @@ description: "Deletes the given API access token ID."
 sidebar_label: "Delete token"
 hide_title: true
 hide_table_of_contents: true
-api: eJyNVE1v2zAM/SuCThuQJdnWDVhOa9cMCDZsRdudghwUm4nVKpIq0e0Cw/+9pKx8F91OlshH8ZF8dCNRLaMcTSW6e7BRznqyhFgE7VE7K0fyEgwgRIEViKV+BCvOryZCFQVEMnKQmFz2ZU86D0Fx0KTcht2yn3xeBbWie+BUjbR0IUyKJnRPas7kFVbyOH16Qdh6BUEXQpdgUS80BAIGeKh1AMqGoYaejEUFKyVHjcS15/e1RVgm6MKFlcLO9PlMtu2Mw6N3NkLkiA/DM/4c5v79Q7wTv5woHD1kUbY9eTYcnuIuVCmYDESkXBs0wZT3RhepKYO7yNhmj+WO/1SuqJtqCdz+TN7N76Dg93zgzqLuiG6AuyojBm2XVBOFajRsGofgwnWujzxtYv7xhQo3MxPWoVDGuCfiw/AIRR00rtO8LkAFCOc1zWc0nXHzaJiV4zmXac5pxOyVg05HgyYPt5X8VnjcjL4OhlAVoo+jwUB53S+Mq8t+hAei0tfuRAE3ySOujEIeo/jGeBahZCIbnjfc1q5F+2y3XeKMMmuE7/MEIkt3+L4RyN0Tpvq1XbgUnluaWXDafxHkcjWtRwazHlSR9HBY/H7JJAltkj4X7uvOQUS4c12e9/0vn/pDtnkXcaWSnPIqdevW7eMxwWYnyf/f5tw2hL848EbRglLexL/Jo97+Mnq0gHmTaSAVcWNn08xVhD/BtC2baTsCi4mOjypoNeeukh5KHflMUlooE+EV6m+u8768Fa/8FF7knY3KriWnNzXf6HgP673fUDsjaAWqpIeYWuc9p9543Is7WeqDfbgc/xzfjgmuDvV3pLeU4EVa1LeESDW27SFL5ti2z0ed8XY=
+api: eJyNVE1v2zAM/SuCThuQJdlWbFhOa9cMCDZsRdudghwUm4nVKpIq0e0Cw/+9pKx8F91OlshH8ZF8dCNRLaMcTSW6e7BRznqyhFgE7VE7K0fyEgwgRIEViKV+BCvOryZCFQVEMnKQmFz2ZU86D0Fx0KTcht2yn3xeBbWie+BUjbR0IUyKJnRPas7kFVbyOH16Qdh6BUEXQpdgUS80BAIGeKh1AMqGoYaejEUFKyVHjcS15/e1RVgm6MKFlcLO9OlMtu2Mw6N3NkLkiA/DM/4c5v79Q7wTv5woHD1kUbY9eTYcnuIuVCmYDESkXBs0wZT3RhepKYO7yNhmj+WO/1SuqJtqCdz+TN7N76Dg93zgzqLuiG6AuyojBm2XVBOFajRsGofgwnWujzxtYv7xhQo3MxPWoVDGuCfiw/AIRR00rtO8LkAFCOc1zWc0nXHzaJiV4zmXac5pxOyVg05HgyYPt5X8VnjcjL4OhlAVoo+jwUB53S+Mq8t+hAei0tfuRAE3ySOujEIeo/jGeBahZCIbnjfc1q5F+2y3XeKMMmuE7/MEIkt3+L4RyN0Tpvq1XbgUnluaWXDafxHkcjWtRwazHlSR9HBY/H7JJAltkj4X7uvOQUS4c12e9/0vn/tDtnkXcaWSnPIqdevW7eMxwWYnyf/f5tw2hL848EbRglLexL/Jo97+Mnq0gHmTaSAVcWNn08xVhD/BtC2baTsCi4mOjypoNeeukh5KHflMUlooE+EV6m+u8768Fa/8FF7knY3KriWnNzXf6HgP673fUDsjaAWqpIeYWuc9p9543Is7WeqDfbgc/xzfjgmuDvV3pLeU4EVa1LeESDW27SFL5ti2z0up8Xg=
 sidebar_class_name: "delete api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -31,7 +31,7 @@ import Heading from "@theme/Heading";
   path={"/tokens/{tokenId}"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -49,14 +49,14 @@ Deletes the given API access token ID.
 <ParamsDetails
   parameters={[{"name":"tokenId","in":"path","description":"Token numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
   title={"Body"}
   body={undefined}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
@@ -64,8 +64,5 @@ Deletes the given API access token ID.
   label={undefined}
   responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
 >
-  
+
 </StatusCodes>
-
-
-      

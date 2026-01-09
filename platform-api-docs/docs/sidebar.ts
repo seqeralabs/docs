@@ -217,7 +217,7 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "docs/explore-data-link",
-          label: "Explore data-link path",
+          label: "Explore data-link",
           className: "api-method get",
         },
         {
@@ -228,7 +228,7 @@ const sidebar: SidebarsConfig = {
         },
         {
           type: "doc",
-          id: "docs/explore-data-link-1",
+          id: "docs/explore-data-link-with-path",
           label: "Explore data-link path",
           className: "api-method get",
         },
@@ -237,12 +237,6 @@ const sidebar: SidebarsConfig = {
           id: "docs/delete-data-link-item",
           label: "Delete data-link content",
           className: "api-method delete",
-        },
-        {
-          type: "doc",
-          id: "docs/download-data-link",
-          label: "Download data-link file at path",
-          className: "api-method get",
         },
         {
           type: "doc",
@@ -259,26 +253,32 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "docs/generate-data-link-upload-url",
-          label: "Generate data-link file upload URL (to given path)",
+          label: "Generate data-link file upload URL",
           className: "api-method post",
         },
         {
           type: "doc",
           id: "docs/finish-data-link-upload",
+          label: "Finish data-link file upload",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "docs/finish-data-link-upload-with-path",
           label: "Finish data-link file upload to given path",
           className: "api-method post",
         },
         {
           type: "doc",
-          id: "docs/finish-data-link-upload-1",
-          label: "Finish data-link file upload to given path",
-          className: "api-method post",
-        },
-        {
-          type: "doc",
-          id: "docs/generate-data-link-upload-url-1",
+          id: "docs/generate-data-link-upload-url-with-path",
           label: "Generate data-link file upload URL (to given path)",
           className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "docs/download-data-link",
+          label: "Download data-link file at path",
+          className: "api-method get",
         },
       ],
     },

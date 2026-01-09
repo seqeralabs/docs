@@ -5,7 +5,7 @@ info:
   contact:
     url: https://seqera.io
     email: info@seqera.io
-  version: 1.95.0
+  version: 1.97.0
 servers:
   - url: https://api.cloud.seqera.io
     description: Seqera Platform Cloud API
@@ -1456,41 +1456,35 @@ paths:
     get:
       tags:
         - data-links
-      summary: Explore data-link path
-      description: "Retrieves the content of the data-link associated with the given `dataLinkId`, at the given `path`."
+      summary: Explore data-link
+      description: "Retrieves the content of the data-link associated with the given `dataLinkId`."
       operationId: ExploreDataLink
       parameters:
         - name: dataLinkId
           in: path
-          description: Data-link string identifier
-          required: true
-          schema:
-            type: string
-        - name: path
-          in: path
-          description: Content path
+          description: Data-link string identifier.
           required: true
           schema:
             type: string
         - name: workspaceId
           in: query
-          description: Workspace numeric identifier
+          description: Workspace numeric identifier.
           schema:
             type: integer
             format: int64
         - name: credentialsId
           in: query
-          description: Credentials string identifier
+          description: Credentials string identifier.
           schema:
             type: string
         - name: search
           in: query
-          description: Prefix search of data-link content
+          description: Prefix search of data-link content.
           schema:
             type: string
         - name: nextPageToken
           in: query
-          description: Token used to fetch the next page of items
+          description: Token used to fetch the next page of items.
           schema:
             type: string
         - name: pageSize
@@ -1583,7 +1577,7 @@ paths:
         - data-links
       summary: Explore data-link path
       description: "Retrieves the content of the data-link associated with the given `dataLinkId`, at the given `path`."
-      operationId: ExploreDataLink_1
+      operationId: ExploreDataLinkWithPath
       parameters:
         - name: dataLinkId
           in: path
@@ -1686,61 +1680,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/DataLinkDeleteItemResponse"
-        "400":
-          description: BadRequest
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "404":
-          description: "NotFound — workspace or credentials not found, API disabled for the workspace, or data-link or path not found"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "403":
-          description: Operation not allowed
-      security:
-        - BearerAuth: []
-  /data-links/{dataLinkId}/download:
-    get:
-      tags:
-        - data-links
-      summary: Download data-link file at path
-      description: Downloads the content at the given `filePath` in the data-link associated with the given `dataLinkId`.
-      operationId: DownloadDataLink
-      parameters:
-        - name: dataLinkId
-          in: path
-          description: Data-link string identifier
-          required: true
-          schema:
-            type: string
-        - name: filePath
-          in: path
-          description: File path to download
-          required: true
-          schema:
-            type: string
-        - name: credentialsId
-          in: query
-          description: Credentials string identifier
-          schema:
-            type: string
-        - name: workspaceId
-          in: query
-          description: Workspace numeric identifier
-          schema:
-            type: integer
-            format: int64
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: string
-                format: binary
         "400":
           description: BadRequest
           content:
@@ -1881,37 +1820,31 @@ paths:
     post:
       tags:
         - data-links
-      summary: Generate data-link file upload URL (to given path)
+      summary: Generate data-link file upload URL
       description: |-
-        Creates a URL to upload files to the data-link associated with the given `dataLinkId`, specifying a file path (`dirPath`).
-        For AWS S3 data-links, an additional follow-up request must be sent after your file upload has completed (or encountered an error) to finalize the upload - see the `/upload/finish` endpoint.
+        Creates a URL to upload files to the data-link associated with the given `dataLinkId`. For AWS S3 data-links, an additional follow-up request must be sent after your file upload has completed (or encountered an error) to finalize the upload - see the `/upload/finish` endpoint.
       operationId: GenerateDataLinkUploadUrl
       parameters:
         - name: dataLinkId
           in: path
-          description: Data-link string identifier
-          required: true
-          schema:
-            type: string
-        - name: dirPath
-          in: path
-          description: Path to the destination directory
+          description: Data-link string identifier.
           required: true
           schema:
             type: string
         - name: credentialsId
           in: query
-          description: Credentials string identifier
+          description: Credentials string identifier.
           schema:
             type: string
         - name: workspaceId
           in: query
-          description: Workspace numeric identifier
+          description: Workspace numeric identifier.
           schema:
             type: integer
             format: int64
         - name: Origin
           in: header
+          description: Origin header for CORS preflight requests.
           schema:
             type: string
             nullable: true
@@ -1948,30 +1881,24 @@ paths:
     post:
       tags:
         - data-links
-      summary: Finish data-link file upload to given path
-      description: "Finish upload of a data-link file, specifying a file path (`dirPath`). This is necessary for AWS S3 data-links (`DataLinkProvider=aws`) to finalize a successful file upload, or abort an upload if an error was encountered while uploading a file using an upload URL from the `/upload` endpoint."
+      summary: Finish data-link file upload
+      description: "Finish upload of a data-link file. This is necessary for AWS S3 data-links (`DataLinkProvider=aws`) to finalize a successful file upload, or abort an upload if an error was encountered while uploading a file using an upload URL from the `/upload` endpoint."
       operationId: FinishDataLinkUpload
       parameters:
         - name: dataLinkId
           in: path
-          description: Data-link string identifier
-          required: true
-          schema:
-            type: string
-        - name: dirPath
-          in: path
-          description: Path to the destination directory
+          description: Data-link string identifier.
           required: true
           schema:
             type: string
         - name: credentialsId
           in: query
-          description: Credentials string identifier
+          description: Credentials string identifier.
           schema:
             type: string
         - name: workspaceId
           in: query
-          description: Workspace numeric identifier
+          description: Workspace numeric identifier.
           schema:
             type: integer
             format: int64
@@ -1991,7 +1918,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
         "404":
-          description: "NotFound — workspace or credentials not found, API disabled for the workspace, or data-link or path not found"
+          description: "NotFound — workspace or credentials not found, API disabled for the workspace, or data-link not found."
           content:
             application/json:
               schema:
@@ -2012,7 +1939,7 @@ paths:
         - data-links
       summary: Finish data-link file upload to given path
       description: "Finish upload of a data-link file, specifying a file path (`dirPath`). This is necessary for AWS S3 data-links (`DataLinkProvider=aws`) to finalize a successful file upload, or abort an upload if an error was encountered while uploading a file using an upload URL from the `/upload` endpoint."
-      operationId: FinishDataLinkUpload_1
+      operationId: FinishDataLinkUploadWithPath
       parameters:
         - name: dataLinkId
           in: path
@@ -2061,7 +1988,7 @@ paths:
         "403":
           description: Operation not allowed
         "200":
-          description: FinishDataLinkUpload_1 200 response
+          description: FinishDataLinkUploadWithPath 200 response
           content:
             application/json:
               schema:
@@ -2076,7 +2003,7 @@ paths:
       description: |-
         Creates a URL to upload files to the data-link associated with the given `dataLinkId`, specifying a file path (`dirPath`).
         For AWS S3 data-links, an additional follow-up request must be sent after your file upload has completed (or encountered an error) to finalize the upload - see the `/upload/finish` endpoint.
-      operationId: GenerateDataLinkUploadUrl_1
+      operationId: GenerateDataLinkUploadUrlWithPath
       parameters:
         - name: dataLinkId
           in: path
@@ -8268,6 +8195,61 @@ paths:
       deprecated: true
       security:
         - BearerAuth: []
+  /data-links/{dataLinkId}/download/{filePath}:
+    get:
+      tags:
+        - data-links
+      summary: Download data-link file at path
+      description: Downloads the content at the given `filePath` in the data-link associated with the given `dataLinkId`.
+      operationId: DownloadDataLink
+      parameters:
+        - name: dataLinkId
+          in: path
+          description: Data-link string identifier.
+          required: true
+          schema:
+            type: string
+        - name: filePath
+          in: path
+          description: File path to download.
+          required: true
+          schema:
+            type: string
+        - name: credentialsId
+          in: query
+          description: Credentials string identifier.
+          schema:
+            type: string
+        - name: workspaceId
+          in: query
+          description: Workspace numeric identifier.
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+                format: binary
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: "NotFound — workspace or credentials not found, API disabled for the workspace, or data-link or path not found."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Operation not allowed
+      security:
+        - BearerAuth: []
 components:
   schemas:
     AbstractGridConfig:
@@ -8314,6 +8296,14 @@ components:
         propagateHeadJobOptions:
           type: boolean
           description: "If true, `headJobOptions` are also applied to the Nextflow-submitted compute jobs."
+        environment:
+          type: array
+          items:
+            $ref: "#/components/schemas/ConfigEnvVariable"
+          description: "Array of environment variables to set for Nextflow execution."
+        discriminator:
+          type: string
+          description: "Platform type discriminator (read-only, set based on platform selection)."
     AccessToken:
       required:
         - name
@@ -8341,7 +8331,6 @@ components:
       properties:
         discriminator:
           type: string
-          readOnly: true
       discriminator:
         propertyName: discriminator
         mapping:
@@ -8355,7 +8344,6 @@ components:
       properties:
         discriminator:
           type: string
-          readOnly: true
         timestamp:
           type: string
           format: date-time
@@ -8388,6 +8376,7 @@ components:
         discriminator:
           type: string
           readOnly: true
+      title: Action Config
     Action.TowerActionEvent:
       type: object
       properties:
@@ -8399,6 +8388,7 @@ components:
           format: date-time
         workflowId:
           type: string
+      title: Action event
     ActionQueryAttribute:
       type: string
       enum:
@@ -8501,6 +8491,7 @@ components:
           type: string
         shared:
           type: boolean
+      title: Tower Agent credentials
     AllowedDynamicLabelsResponse:
       type: object
       properties:
@@ -8511,17 +8502,56 @@ components:
     AltairPbsComputeConfig:
       title: Altair PBS configuration
       type: object
-      allOf:
-        - $ref: "#/components/schemas/AbstractGridConfig"
-        - properties:
-            discriminator:
-              type: string
-              description: property to select the compute config platform
-              readOnly: true
-            environment:
-              type: array
-              items:
-                $ref: "#/components/schemas/ConfigEnvVariable"
+      properties:
+        workDir:
+          type: string
+          description: "Nextflow work directory on the cluster's shared file system. Must be an absolute path and credentials must have read-write access."
+        preRunScript:
+          type: string
+          description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+        postRunScript:
+          type: string
+          description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+        environment:
+          type: array
+          items:
+            $ref: "#/components/schemas/ConfigEnvVariable"
+          description: "Array of environment variables to set for Nextflow execution."
+        nextflowConfig:
+          type: string
+          description: "Additional Nextflow configuration to apply. See [Nextflow config file](https://docs.seqera.io/platform-cloud/launch/advanced#nextflow-config-file)."
+        discriminator:
+          type: string
+          description: "Platform type discriminator (read-only, set based on platform selection)."
+        launchDir:
+          type: string
+          description: "Directory where Nextflow runs. Must be an absolute path and credentials must have read-write access. If omitted, defaults to `workDir`."
+        userName:
+          type: string
+          description: "Username for SSH connection to HPC head node."
+        hostName:
+          type: string
+          description: "Hostname or IP address of HPC head node."
+        port:
+          type: integer
+          format: int32
+          description: "SSH port. Default: `22`."
+        headQueue:
+          type: string
+          description: "The name of the queue on the cluster used to launch the Nextflow execution."
+        computeQueue:
+          type: string
+          description: "The name of queue on the cluster to which pipeline jobs are submitted. Can be overridden by the pipeline configuration."
+        maxQueueSize:
+          type: integer
+          format: int32
+          description: "The maximum number of jobs Nextflow can submit to the queue simultaneously. Default: `100`."
+        headJobOptions:
+          type: string
+          description: "Additional submit options for the Nextflow head job."
+        propagateHeadJobOptions:
+          type: boolean
+          description: "If true, `headJobOptions` are also applied to the Nextflow-submitted compute jobs."
     Analytics:
       type: object
       properties:
@@ -8597,7 +8627,7 @@ components:
           description: "EBS volumes to mount (format: `/host/path:/container/path`)."
         discriminator:
           type: string
-          description: property to select the compute config platform
+          description: Platform type discriminator (read-only, set based on platform selection).
           readOnly: true
         region:
           type: string
@@ -8628,6 +8658,7 @@ components:
           description: "Path to the AWS CLI installation in the container."
         workDir:
           type: string
+          description: "Nextflow work directory (resource path). Must be a path accessible by the compute environment and credentials must have read-write access."
         preRunScript:
           type: string
           description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
@@ -8681,6 +8712,7 @@ components:
       properties:
         discriminator:
           type: string
+          description: "Platform type discriminator (read-only, set based on platform selection)."
         warnings:
           type: array
           items:
@@ -8729,13 +8761,14 @@ components:
           type: array
           items:
             type: string
+      title: AWS Batch platform metainfo
     AwsCloudConfig:
       title: AWS Cloud configuration
       type: object
       properties:
         discriminator:
           type: string
-          description: property to select the compute config platform
+          description: Platform type discriminator (read-only, set based on platform selection).
           readOnly: true
         allowBuckets:
           type: array
@@ -8753,6 +8786,7 @@ components:
           description: "The AMI ID to use for launching EC2 instance. If omitted, the default [Seqera-maintained AMI](https://docs.seqera.io/platform-cloud/compute-envs/aws-cloud#managed-amazon-machine-image-ami) is used. Use Seqera AMIs for best performance."
         workDir:
           type: string
+          description: "Nextflow work directory (resource path). Must be a path accessible by the compute environment and credentials must have read-write access."
         preRunScript:
           type: string
           description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
@@ -8813,6 +8847,7 @@ components:
       properties:
         discriminator:
           type: string
+          description: "Platform type discriminator (read-only, set based on platform selection)."
         warnings:
           type: array
           items:
@@ -8845,6 +8880,7 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/InstanceType"
+      title: AWS Cloud platform metainfo
     AwsSecurityKeys:
       type: object
       properties:
@@ -8858,16 +8894,18 @@ components:
           writeOnly: true
         assumeRoleArn:
           type: string
+      title: AWS credentials
     AzBatchConfig:
       title: Azure batch configuration
       type: object
       properties:
         discriminator:
           type: string
-          description: property to select the compute config platform
+          description: Platform type discriminator (read-only, set based on platform selection).
           readOnly: true
         workDir:
           type: string
+          description: "Nextflow work directory (resource path). Must be a path accessible by the compute environment and credentials must have read-write access."
         preRunScript:
           type: string
           description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
@@ -8942,6 +8980,7 @@ components:
       properties:
         discriminator:
           type: string
+          description: "Platform type discriminator (read-only, set based on platform selection)."
         warnings:
           type: array
           items:
@@ -8958,20 +8997,24 @@ components:
           type: array
           items:
             type: string
+      title: Azure Batch platform metainfo
     AzCloudConfig:
       title: Azure Cloud configuration
       type: object
       properties:
         discriminator:
           type: string
-          description: property to select the compute config platform
+          description: Platform type discriminator (read-only, set based on platform selection).
           readOnly: true
         workDir:
           type: string
+          description: "Nextflow work directory (resource path). Must be a path accessible by the compute environment and credentials must have read-write access."
         preRunScript:
           type: string
+          description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
         postRunScript:
           type: string
+          description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
         environment:
           type: array
           items:
@@ -9026,19 +9069,34 @@ components:
         - workDir
     AzureEntraKeys:
       type: object
-      allOf:
-        - $ref: "#/components/schemas/AzureSecurityKeys"
-        - properties:
-            discriminator:
-              type: string
-              readOnly: true
-            tenantId:
-              type: string
-            clientId:
-              type: string
-            clientSecret:
-              type: string
-              writeOnly: true
+      title: Azure Entra credentials
+      properties:
+        discriminator:
+          type: string
+        batchName:
+          type: string
+          description: "Azure Batch account name."
+        storageName:
+          type: string
+          description: "Azure storage account name."
+        batchKey:
+          type: string
+          writeOnly: true
+          description: "Azure Batch account key."
+        storageKey:
+          type: string
+          writeOnly: true
+          description: "Azure storage account key."
+        tenantId:
+          type: string
+          description: "Azure tenant ID."
+        clientId:
+          type: string
+          description: "Azure service principal client ID."
+        clientSecret:
+          type: string
+          writeOnly: true
+          description: "Azure service principal client secret."
     AzureReposSecurityKeys:
       type: object
       properties:
@@ -9050,6 +9108,7 @@ components:
         password:
           type: string
           writeOnly: true
+      title: Azure Repos credentials
     AzureSecurityKeys:
       type: object
       properties:
@@ -9066,6 +9125,7 @@ components:
         storageKey:
           type: string
           writeOnly: true
+      title: Azure credentials
     BitBucketSecurityKeys:
       type: object
       properties:
@@ -9080,6 +9140,7 @@ components:
         password:
           type: string
           writeOnly: true
+      title: BitBucket credentials
     Bucket:
       type: object
       properties:
@@ -9104,6 +9165,7 @@ components:
         password:
           type: string
           writeOnly: true
+      title: AWS CodeCommit credentials
     ComputeConfig:
       type: object
       properties:
@@ -9127,7 +9189,6 @@ components:
         discriminator:
           type: string
           description: Platform type discriminator (read-only, set based on platform selection).
-          readOnly: true
       discriminator:
         propertyName: discriminator
         mapping:
@@ -9447,6 +9508,7 @@ components:
           writeOnly: true
         registry:
           type: string
+      title: Container registry credentials
     CreateAccessTokenRequest:
       type: object
       properties:
@@ -10708,41 +10770,84 @@ components:
     EksComputeConfig:
       title: Amazon EKS cluster configuration
       type: object
-      allOf:
-        - $ref: "#/components/schemas/K8sComputeConfig"
-        - properties:
-            discriminator:
-              type: string
-              description: property to select the compute config platform
-              readOnly: true
-            workDir:
-              type: string
-            preRunScript:
-              type: string
-            postRunScript:
-              type: string
-            environment:
-              type: array
-              items:
-                $ref: "#/components/schemas/ConfigEnvVariable"
-            nextflowConfig:
-              type: string
-            region:
-              type: string
-              description: AWS region
-            clusterName:
-              type: string
-              description: The AWS EKS cluster name
-            waveEnabled:
-              type: boolean
-            fusion2Enabled:
-              type: boolean
       required: ["region", "clusterName", "workDir"]
+      properties:
+        workDir:
+          type: string
+          description: "Nextflow work directory (resource path). Must be a path accessible by the compute environment and credentials must have read-write access."
+        preRunScript:
+          type: string
+          description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+        postRunScript:
+          type: string
+          description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+        environment:
+          type: array
+          items:
+            $ref: "#/components/schemas/ConfigEnvVariable"
+          description: "Array of environment variables to set for Nextflow execution."
+        nextflowConfig:
+          type: string
+          description: "Additional Nextflow configuration to apply. See [Nextflow config file](https://docs.seqera.io/platform-cloud/launch/advanced#nextflow-config-file)."
+        discriminator:
+          type: string
+          description: "Platform type discriminator (read-only, set based on platform selection)."
+        server:
+          type: string
+          description: "Kubernetes control plane URL (e.g., `https://your-k8s-host.com`)."
+        sslCert:
+          type: string
+          description: "SSL certificate to authenticate the connection with the Kubernetes cluster."
+        namespace:
+          type: string
+          description: "Kubernetes namespace for workflow execution. Default: `default`."
+        computeServiceAccount:
+          type: string
+          description: "Kubernetes service account to use for Nextflow-submitted pipeline jobs. Default: `default`."
+        headServiceAccount:
+          type: string
+          description: "Kubernetes service account to connect to the cluster and launch workflow executions. See [Cluster preparation](https://docs.seqera.io/platform-cloud/compute-envs/k8s#cluster-preparation)."
+        storageClaimName:
+          type: string
+          description: "PersistentVolumeClaim name used as scratch storage for workflow execution. Must allow `ReadWriteMany` access mode."
+        storageMountPath:
+          type: string
+          description: "Mount path of the persistent volume claim used as scratch storage. Default: `/scratch`."
+        podCleanup:
+          $ref: "#/components/schemas/PodCleanupPolicy"
+          description: "Pod cleanup policy after job completion."
+        headPodSpec:
+          type: string
+          description: "Custom configuration for the pod running the Nextflow head job. Must be a valid PodSpec YAML structure starting with `spec:`."
+        servicePodSpec:
+          type: string
+          description: "Custom configuration for the compute environment service pod. Must be a valid PodSpec YAML structure starting with `spec:`."
+        headJobCpus:
+          type: integer
+          format: int32
+          description: "Number of CPUs allocated for the Nextflow head job."
+        headJobMemoryMb:
+          type: integer
+          format: int32
+          description: "Memory allocation for the Nextflow head job in megabytes."
+        region:
+          type: string
+          description: AWS region
+        clusterName:
+          type: string
+          description: The AWS EKS cluster name
+        waveEnabled:
+          type: boolean
+          description: "Enable [Wave containers](https://docs.seqera.io/wave). Default: `false`."
+        fusion2Enabled:
+          type: boolean
+          description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers. Default: `false`."
     EksPlatformMetaInfo:
       type: object
       properties:
         discriminator:
           type: string
+          description: "Platform type discriminator (read-only, set based on platform selection)."
         warnings:
           type: array
           items:
@@ -10751,6 +10856,7 @@ components:
           type: array
           items:
             type: string
+      title: Amazon EKS platform metainfo
     EmptyBodyRequest:
       type: object
     ErrorResponse:
@@ -10920,6 +11026,7 @@ components:
         password:
           type: string
           writeOnly: true
+      title: GitHub credentials
     GitLabSecurityKeys:
       type: object
       properties:
@@ -10934,6 +11041,7 @@ components:
         password:
           type: string
           writeOnly: true
+      title: GitLab credentials
     GiteaSecurityKeys:
       type: object
       properties:
@@ -10945,6 +11053,7 @@ components:
         password:
           type: string
           writeOnly: true
+      title: Gitea credentials
     GithubActionConfig:
       type: object
       properties:
@@ -10955,6 +11064,7 @@ components:
           type: array
           items:
             type: string
+      title: GitHub action config
     GithubActionEvent:
       type: object
       properties:
@@ -10974,47 +11084,91 @@ components:
         timestamp:
           type: string
           format: date-time
+      title: GitHub action event
     GkeComputeConfig:
       title: Google GKE cluster configuration
       type: object
-      allOf:
-        - $ref: "#/components/schemas/K8sComputeConfig"
-        - properties:
-            discriminator:
-              type: string
-              description: property to select the compute config platform
-              readOnly: true
-            workDir:
-              type: string
-            preRunScript:
-              type: string
-            postRunScript:
-              type: string
-            environment:
-              type: array
-              items:
-                $ref: "#/components/schemas/ConfigEnvVariable"
-            nextflowConfig:
-              type: string
-            region:
-              type: string
-              description: The GKE cluster region - or - zone
-            clusterName:
-              type: string
-              description: The GKE cluster name
-            fusion2Enabled:
-              type: boolean
-            waveEnabled:
-              type: boolean
       required:
         - region
         - clusterName
         - workDir
+      properties:
+        workDir:
+          type: string
+          description: "Nextflow work directory (resource path). Must be a path accessible by the compute environment and credentials must have read-write access."
+        preRunScript:
+          type: string
+          description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+        postRunScript:
+          type: string
+          description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+        environment:
+          type: array
+          items:
+            $ref: "#/components/schemas/ConfigEnvVariable"
+          description: "Array of environment variables to set for Nextflow execution."
+        nextflowConfig:
+          type: string
+          description: "Additional Nextflow configuration to apply. See [Nextflow config file](https://docs.seqera.io/platform-cloud/launch/advanced#nextflow-config-file)."
+        discriminator:
+          type: string
+          description: "Platform type discriminator (read-only, set based on platform selection)."
+        server:
+          type: string
+          description: "Kubernetes control plane URL (e.g., `https://your-k8s-host.com`)."
+        sslCert:
+          type: string
+          description: "SSL certificate to authenticate the connection with the Kubernetes cluster."
+        namespace:
+          type: string
+          description: "Kubernetes namespace for workflow execution. Default: `default`."
+        computeServiceAccount:
+          type: string
+          description: "Kubernetes service account to use for Nextflow-submitted pipeline jobs. Default: `default`."
+        headServiceAccount:
+          type: string
+          description: "Kubernetes service account to connect to the cluster and launch workflow executions. See [Cluster preparation](https://docs.seqera.io/platform-cloud/compute-envs/k8s#cluster-preparation)."
+        storageClaimName:
+          type: string
+          description: "PersistentVolumeClaim name used as scratch storage for workflow execution. Must allow `ReadWriteMany` access mode."
+        storageMountPath:
+          type: string
+          description: "Mount path of the persistent volume claim used as scratch storage. Default: `/scratch`."
+        podCleanup:
+          $ref: "#/components/schemas/PodCleanupPolicy"
+          description: "Pod cleanup policy after job completion."
+        headPodSpec:
+          type: string
+          description: "Custom configuration for the pod running the Nextflow head job. Must be a valid PodSpec YAML structure starting with `spec:`."
+        servicePodSpec:
+          type: string
+          description: "Custom configuration for the compute environment service pod. Must be a valid PodSpec YAML structure starting with `spec:`."
+        headJobCpus:
+          type: integer
+          format: int32
+          description: "Number of CPUs allocated for the Nextflow head job."
+        headJobMemoryMb:
+          type: integer
+          format: int32
+          description: "Memory allocation for the Nextflow head job in megabytes."
+        region:
+          type: string
+          description: The GKE cluster region - or - zone
+        clusterName:
+          type: string
+          description: The GKE cluster name
+        fusion2Enabled:
+          type: boolean
+          description: "Enable [Fusion file system](https://docs.seqera.io/fusion). Requires Wave containers. Default: `false`."
+        waveEnabled:
+          type: boolean
+          description: "Enable [Wave containers](https://docs.seqera.io/wave). Default: `false`."
     GkePlatformMetaInfo:
       type: object
       properties:
         discriminator:
           type: string
+          description: "Platform type discriminator (read-only, set based on platform selection)."
         warnings:
           type: array
           items:
@@ -11023,19 +11177,21 @@ components:
           type: array
           items:
             type: string
+      title: Google GKE platform metainfo
     GoogleBatchConfig:
       title: Google Batch service configuration
       type: object
       properties:
         discriminator:
           type: string
-          description: property to select the compute config platform
+          description: Platform type discriminator (read-only, set based on platform selection).
           readOnly: true
         location:
           type: string
           description: "Google Cloud location (region) for Batch jobs (e.g., `us-central1`)."
         workDir:
           type: string
+          description: "Nextflow work directory (resource path). Must be a path accessible by the compute environment and credentials must have read-write access."
         spot:
           type: boolean
           description: "Use Spot instances."
@@ -11135,7 +11291,7 @@ components:
       properties:
         discriminator:
           type: string
-          description: property to select the compute config platform
+          description: Platform type discriminator (read-only, set based on platform selection).
           readOnly: true
         preRunScript:
           type: string
@@ -11145,6 +11301,7 @@ components:
           description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
         workDir:
           type: string
+          description: "Nextflow work directory (resource path). Must be a path accessible by the compute environment and credentials must have read-write access."
         nextflowConfig:
           type: string
           description: "Additional Nextflow configuration to apply. See [Nextflow config file](https://docs.seqera.io/platform-cloud/launch/advanced#nextflow-config-file)."
@@ -11200,6 +11357,7 @@ components:
       properties:
         discriminator:
           type: string
+          description: "Platform type discriminator (read-only, set based on platform selection)."
         warnings:
           type: array
           items:
@@ -11220,6 +11378,7 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/GoogleImage"
+      title: Google Cloud platform metainfo
     GoogleImage:
       type: object
       properties:
@@ -11244,7 +11403,7 @@ components:
       properties:
         discriminator:
           type: string
-          description: property to select the compute config platform
+          description: Platform type discriminator (read-only, set based on platform selection).
           readOnly: true
         region:
           type: string
@@ -11256,6 +11415,7 @@ components:
           type: string
         workDir:
           type: string
+          description: "Nextflow work directory (resource path). Must be a path accessible by the compute environment and credentials must have read-write access."
         preemptible:
           type: boolean
         bootDiskSizeGb:
@@ -11280,8 +11440,10 @@ components:
             type: string
         preRunScript:
           type: string
+          description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
         postRunScript:
           type: string
+          description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
         headJobCpus:
           type: integer
           format: int32
@@ -11307,6 +11469,7 @@ components:
             type: string
         discriminator:
           type: string
+          description: "Platform type discriminator (read-only, set based on platform selection)."
         warnings:
           type: array
           items:
@@ -11323,6 +11486,7 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/GooglePlatformMetainfo.Filestore"
+      title: Google Batch platform metainfo
     GooglePlatformMetainfo.Bucket:
       type: object
       properties:
@@ -11346,11 +11510,14 @@ components:
         data:
           type: string
           writeOnly: true
+      title: Google credentials
     GridPlatformMetainfo:
       type: object
       properties:
         discriminator:
           type: string
+          description: "Platform type discriminator (read-only, set based on platform selection)."
+      title: Grid platform metainfo
     Image:
       required:
         - arch
@@ -11419,10 +11586,11 @@ components:
       properties:
         discriminator:
           type: string
-          description: property to select the compute config platform
+          description: Platform type discriminator (read-only, set based on platform selection).
           readOnly: true
         workDir:
           type: string
+          description: "Nextflow work directory (resource path). Must be a path accessible by the compute environment and credentials must have read-write access."
         preRunScript:
           type: string
           description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
@@ -11484,6 +11652,8 @@ components:
       properties:
         discriminator:
           type: string
+          description: "Platform type discriminator (read-only, set based on platform selection)."
+      title: Kubernetes platform metainfo
     K8sSecurityKeys:
       type: object
       properties:
@@ -11498,6 +11668,7 @@ components:
         token:
           type: string
           writeOnly: true
+      title: Kubernetes credentials
     LabelDbDto:
       type: object
       properties:
@@ -11957,6 +12128,8 @@ components:
       properties:
         discriminator:
           type: string
+          description: "Platform type discriminator (read-only, set based on platform selection)."
+      title: Local platform metainfo
     Log:
       type: object
       properties:
@@ -12008,23 +12181,65 @@ components:
     LsfComputeConfig:
       title: IBM LSF configuration
       type: object
-      allOf:
-        - $ref: "#/components/schemas/AbstractGridConfig"
-        - properties:
-            discriminator:
-              type: string
-              description: property to select the compute config platform
-              readOnly: true
-            unitForLimits:
-              type: string
-            perJobMemLimit:
-              type: boolean
-            perTaskReserve:
-              type: boolean
-            environment:
-              type: array
-              items:
-                $ref: "#/components/schemas/ConfigEnvVariable"
+      properties:
+        workDir:
+          type: string
+          description: "Nextflow work directory on the cluster's shared file system. Must be an absolute path and credentials must have read-write access."
+        preRunScript:
+          type: string
+          description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+        postRunScript:
+          type: string
+          description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+        environment:
+          type: array
+          items:
+            $ref: "#/components/schemas/ConfigEnvVariable"
+          description: "Array of environment variables to set for Nextflow execution."
+        nextflowConfig:
+          type: string
+          description: "Additional Nextflow configuration to apply. See [Nextflow config file](https://docs.seqera.io/platform-cloud/launch/advanced#nextflow-config-file)."
+        discriminator:
+          type: string
+          description: "Platform type discriminator (read-only, set based on platform selection)."
+        launchDir:
+          type: string
+          description: "Directory where Nextflow runs. Must be an absolute path and credentials must have read-write access. If omitted, defaults to `workDir`."
+        userName:
+          type: string
+          description: "Username for SSH connection to HPC head node."
+        hostName:
+          type: string
+          description: "Hostname or IP address of HPC head node."
+        port:
+          type: integer
+          format: int32
+          description: "SSH port. Default: `22`."
+        headQueue:
+          type: string
+          description: "The name of the queue on the cluster used to launch the Nextflow execution."
+        computeQueue:
+          type: string
+          description: "The name of queue on the cluster to which pipeline jobs are submitted. Can be overridden by the pipeline configuration."
+        maxQueueSize:
+          type: integer
+          format: int32
+          description: "The maximum number of jobs Nextflow can submit to the queue simultaneously. Default: `100`."
+        headJobOptions:
+          type: string
+          description: "Additional submit options for the Nextflow head job."
+        propagateHeadJobOptions:
+          type: boolean
+          description: "If true, `headJobOptions` are also applied to the Nextflow-submitted compute jobs."
+        unitForLimits:
+          type: string
+          description: "Unit used for memory limits. Must match the LSF_UNIT_FOR_LIMITS value in `lsf.conf` file."
+        perJobMemLimit:
+          type: boolean
+          description: "Define whether memory limit is interpreted as per-job or per-process. Must match `LSB_JOB_MEMLIMIT` in `lsf.conf` file."
+        perTaskReserve:
+          type: boolean
+          description: "Define whether memory reservation is made on job tasks or per-host. Must match `RESOURCE_RESERVE_PER_TASK` value in `lsf.conf` file."
     ManagedCredentialsDbDto:
       type: object
       properties:
@@ -12098,17 +12313,56 @@ components:
     MoabComputeConfig:
       title: Moab configuration
       type: object
-      allOf:
-        - $ref: "#/components/schemas/AbstractGridConfig"
-        - properties:
-            discriminator:
-              type: string
-              description: property to select the compute config platform
-              readOnly: true
-            environment:
-              type: array
-              items:
-                $ref: "#/components/schemas/ConfigEnvVariable"
+      properties:
+        workDir:
+          type: string
+          description: "Nextflow work directory on the cluster's shared file system. Must be an absolute path and credentials must have read-write access."
+        preRunScript:
+          type: string
+          description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+        postRunScript:
+          type: string
+          description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+        environment:
+          type: array
+          items:
+            $ref: "#/components/schemas/ConfigEnvVariable"
+          description: "Array of environment variables to set for Nextflow execution."
+        nextflowConfig:
+          type: string
+          description: "Additional Nextflow configuration to apply. See [Nextflow config file](https://docs.seqera.io/platform-cloud/launch/advanced#nextflow-config-file)."
+        discriminator:
+          type: string
+          description: "Platform type discriminator (read-only, set based on platform selection)."
+        launchDir:
+          type: string
+          description: "Directory where Nextflow runs. Must be an absolute path and credentials must have read-write access. If omitted, defaults to `workDir`."
+        userName:
+          type: string
+          description: "Username for SSH connection to HPC head node."
+        hostName:
+          type: string
+          description: "Hostname or IP address of HPC head node."
+        port:
+          type: integer
+          format: int32
+          description: "SSH port. Default: `22`."
+        headQueue:
+          type: string
+          description: "The name of the queue on the cluster used to launch the Nextflow execution."
+        computeQueue:
+          type: string
+          description: "The name of queue on the cluster to which pipeline jobs are submitted. Can be overridden by the pipeline configuration."
+        maxQueueSize:
+          type: integer
+          format: int32
+          description: "The maximum number of jobs Nextflow can submit to the queue simultaneously. Default: `100`."
+        headJobOptions:
+          type: string
+          description: "Additional submit options for the Nextflow head job."
+        propagateHeadJobOptions:
+          type: boolean
+          description: "If true, `headJobOptions` are also applied to the Nextflow-submitted compute jobs."
     MultiRequestFileSchema:
       type: object
       properties:
@@ -12500,6 +12754,9 @@ components:
         - $ref: "#/components/schemas/GridPlatformMetainfo"
         - $ref: "#/components/schemas/SeqeraComputePlatformDescriber"
         - $ref: "#/components/schemas/LocalPlatformMetainfo"
+      properties:
+        discriminator:
+          type: string
     PodCleanupPolicy:
       type: string
       enum:
@@ -12759,6 +13016,7 @@ components:
           writeOnly: true
         pathStyleAccessEnabled:
           type: boolean
+      title: S3-compatible credentials
     SSHSecurityKeys:
       type: object
       properties:
@@ -12771,6 +13029,7 @@ components:
         passphrase:
           type: string
           writeOnly: true
+      title: SSH credentials
     SecurityGroup:
       type: object
       properties:
@@ -12785,7 +13044,6 @@ components:
       properties:
         discriminator:
           type: string
-          readOnly: true
       discriminator:
         propertyName: discriminator
         mapping:
@@ -12828,17 +13086,20 @@ components:
       properties:
         discriminator:
           type: string
-          description: property to select the compute config platform
+          description: Platform type discriminator (read-only, set based on platform selection).
           readOnly: true
         region:
           type: string
           description: "Target execution region. See supported AWS regions [under step 4 here](https://docs.seqera.io/platform-cloud/compute-envs/seqera-compute#create-a-seqera-compute-environment)."
         workDir:
           type: string
+          description: "Nextflow work directory (resource path). Must be a path accessible by the compute environment and credentials must have read-write access."
         preRunScript:
           type: string
+          description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
         postRunScript:
           type: string
+          description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
         defaultDataRetentionPolicy:
           type: boolean
           description: "If true, intermediary files are deleted after 28 days to manage storage cost/usage."
@@ -12910,14 +13171,24 @@ components:
             $ref: "#/components/schemas/InstanceType"
         discriminator:
           type: string
+          description: "Platform type discriminator (read-only, set based on platform selection)."
+      title: Seqera Compute platform metainfo
     SeqeraComputeSecurityKeys:
       type: object
-      allOf:
-        - $ref: "#/components/schemas/AwsSecurityKeys"
-        - properties:
-            discriminator:
-              type: string
-              readOnly: true
+      title: Seqera Compute credentials
+      properties:
+        discriminator:
+          type: string
+        accessKey:
+          type: string
+          description: "Seqera Compute access key."
+        secretKey:
+          type: string
+          writeOnly: true
+          description: "Seqera Compute secret key."
+        assumeRoleArn:
+          type: string
+          description: "Optional IAM role ARN to assume."
     ServiceInfo:
       type: object
       properties:
@@ -12995,17 +13266,56 @@ components:
     SlurmComputeConfig:
       title: Slurm configuration
       type: object
-      allOf:
-        - $ref: "#/components/schemas/AbstractGridConfig"
-        - properties:
-            discriminator:
-              type: string
-              description: property to select the compute config platform
-              readOnly: true
-            environment:
-              type: array
-              items:
-                $ref: "#/components/schemas/ConfigEnvVariable"
+      properties:
+        workDir:
+          type: string
+          description: "Nextflow work directory on the cluster's shared file system. Must be an absolute path and credentials must have read-write access."
+        preRunScript:
+          type: string
+          description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+        postRunScript:
+          type: string
+          description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+        environment:
+          type: array
+          items:
+            $ref: "#/components/schemas/ConfigEnvVariable"
+          description: "Array of environment variables to set for Nextflow execution."
+        nextflowConfig:
+          type: string
+          description: "Additional Nextflow configuration to apply. See [Nextflow config file](https://docs.seqera.io/platform-cloud/launch/advanced#nextflow-config-file)."
+        discriminator:
+          type: string
+          description: "Platform type discriminator (read-only, set based on platform selection)."
+        launchDir:
+          type: string
+          description: "Directory where Nextflow runs. Must be an absolute path and credentials must have read-write access. If omitted, defaults to `workDir`."
+        userName:
+          type: string
+          description: "Username for SSH connection to HPC head node."
+        hostName:
+          type: string
+          description: "Hostname or IP address of HPC head node."
+        port:
+          type: integer
+          format: int32
+          description: "SSH port. Default: `22`."
+        headQueue:
+          type: string
+          description: "The name of the queue on the cluster used to launch the Nextflow execution."
+        computeQueue:
+          type: string
+          description: "The name of queue on the cluster to which pipeline jobs are submitted. Can be overridden by the pipeline configuration."
+        maxQueueSize:
+          type: integer
+          format: int32
+          description: "The maximum number of jobs Nextflow can submit to the queue simultaneously. Default: `100`."
+        headJobOptions:
+          type: string
+          description: "Additional submit options for the Nextflow head job."
+        propagateHeadJobOptions:
+          type: boolean
+          description: "If true, `headJobOptions` are also applied to the Nextflow-submitted compute jobs."
     State:
       type: string
       enum:
@@ -13456,17 +13766,56 @@ components:
     UnivaComputeConfig:
       title: Univa Grid Engine configuration
       type: object
-      allOf:
-        - $ref: "#/components/schemas/AbstractGridConfig"
-        - properties:
-            discriminator:
-              type: string
-              description: property to select the compute config platform
-              readOnly: true
-            environment:
-              type: array
-              items:
-                $ref: "#/components/schemas/ConfigEnvVariable"
+      properties:
+        workDir:
+          type: string
+          description: "Nextflow work directory on the cluster's shared file system. Must be an absolute path and credentials must have read-write access."
+        preRunScript:
+          type: string
+          description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+        postRunScript:
+          type: string
+          description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+        environment:
+          type: array
+          items:
+            $ref: "#/components/schemas/ConfigEnvVariable"
+          description: "Array of environment variables to set for Nextflow execution."
+        nextflowConfig:
+          type: string
+          description: "Additional Nextflow configuration to apply. See [Nextflow config file](https://docs.seqera.io/platform-cloud/launch/advanced#nextflow-config-file)."
+        discriminator:
+          type: string
+          description: "Platform type discriminator (read-only, set based on platform selection)."
+        launchDir:
+          type: string
+          description: "Directory where Nextflow runs. Must be an absolute path and credentials must have read-write access. If omitted, defaults to `workDir`."
+        userName:
+          type: string
+          description: "Username for SSH connection to HPC head node."
+        hostName:
+          type: string
+          description: "Hostname or IP address of HPC head node."
+        port:
+          type: integer
+          format: int32
+          description: "SSH port. Default: `22`."
+        headQueue:
+          type: string
+          description: "The name of the queue on the cluster used to launch the Nextflow execution."
+        computeQueue:
+          type: string
+          description: "The name of queue on the cluster to which pipeline jobs are submitted. Can be overridden by the pipeline configuration."
+        maxQueueSize:
+          type: integer
+          format: int32
+          description: "The maximum number of jobs Nextflow can submit to the queue simultaneously. Default: `100`."
+        headJobOptions:
+          type: string
+          description: "Additional submit options for the Nextflow head job."
+        propagateHeadJobOptions:
+          type: boolean
+          description: "If true, `headJobOptions` are also applied to the Nextflow-submitted compute jobs."
     UpdateActionRequest:
       type: object
       properties:
@@ -14631,6 +14980,23 @@ components:
         participantRole:
           type: string
           description: "Participant role within the workspace."
+    GitKeys:
+      title: Git credentials
+      type: object
+      properties:
+        discriminator:
+          type: string
+        username:
+          type: string
+          description: "Git username for authentication."
+        password:
+          type: string
+          writeOnly: true
+          description: "Git password for authentication."
+        token:
+          type: string
+          writeOnly: true
+          description: "Git personal access token for authentication."
   securitySchemes:
     BearerAuth:
       type: http

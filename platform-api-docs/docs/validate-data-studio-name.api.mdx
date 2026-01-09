@@ -5,7 +5,7 @@ description: "Confirms the availability of the given name for a Studio in the us
 sidebar_label: "Validate Studio name"
 hide_title: true
 hide_table_of_contents: true
-api: eJzNVE1v2zAM/SuCzpnTbd2ABhi2rvtAL12BduthKFDWphMtiuRKdLog8H8fKduJ2wTddhiwky2RIt8jH7nWBNOoJ991pLowPurrkS4w5sFUZLzTE33iXWnCIiqaoYIlGAu3xhpaKV+mu6lZolMOFqhKHxSoixRKGZfMdcSgcu8If1KmjqsKXaFu3t77MI8V5HhavLlR5NUSrCmAMD1K0TgAqI3fJoYeaV9hAMF3WjDCb93LD0DQ5j7j5+xWQeAfwiAM11qCsvsgM/sY4XhXY1jpx8yvNqldvcBgcmUKdGRKgyFTVzNm7ReGCIvRAHTcMCn2loDTxHyGC9CTtaZVJZAMm6YY2MQVXAC1V68PddOMNrhdS+oJwF3hE45hRVNbBp3biyFSMG7KGVkBAWPlXcQo9hcHh/J5mOrLXD1TZ75l5WikTLlbAwXc6i6xxUw3I314cLAb7D0UKiBziruBnKc2WPf85R4svRqSM1jr77F3P9p1F0Fbk3OqlKOoKz4N29UKetMv7oGOmNeBK5d09B4hYDiuacbHa6kXi2zmRYpTpKQ7MelxN1PjvhFSdgzLXo91sOw1I6riZDyGymS59XWRRbxjQpnxuw1OFnVugUQo6kT81fH5qRYUPcgLaW3buyHUTaclY68AOd8mJ75pfz71EvxxT4m8caVPzw1Z3KKQtL8DKHRNjrFzlppCThLsIfkhZZalsWkCSv9ua2AgUrk2z/Ps6FV2IHeVj7QAJyG7OenXgRqMw2Oga90J9z9dcF2n5DiuLPDMM9VUsnWnru3G5rr0+mIRzLgeYl2vbyHi12CbRq7bhSGqK0yUaWS1lmAjPlGYf7b/9rKb42pnOXOkWjy1rME/B/43e/AJLJ1wtiCu5RCMoEiTPxj8zx8v2RUeDtqjwUrl70zgVoPQ3Kzkcenn6LhhPQKSM+dtmuYXYi6mVg==
+api: eJzNVE1v2zAM/SuCzpnTbcWGBhi2rvtAL12BduthKFDWphMtiuRKdLog8H8fKduJ2wTddhiwky2RIt8jH7nWBNOoJ991pLowPurrkS4w5sFUZLzTE33iXWnCIiqaoYIlGAu3xhpaKV+mu6lZolMOFqhKHxSoixRKGZfMdcSgcu8If1KmjqsKXaFu3t77MI8V5HhavLlR5NUSrCmAMD1K0TgAqI3fJoYeaV9hAMF3WjDCb93LD0DQ5j7j5+xWQeAfwiAM11qCsvsgM/sY4XhXY1jpx8yvNqldvcBgcmUKdGRKgyFTVzNm7ReGCIvRAHTcMCn2loDTxHyGC9CTtaZVJZAMm6YY2MQVXAC1V68OddOMNrhdS+oJwF3hE45hRVNbBp3biyFSMG7KGVkBAWPlXcQo9hcHh/J5mOrLXD1TZ75l5WikTLlbAwXc6i6xxUw3I314cLAb7D0UKiBziruBnKc2WPf85R4svRqSM1jr77F3P9p1F0Fbk3OqlKOoKz4N29UKetMv7oGOmNeBK5d09B4hYDiuacbHa6kXi2zmRYpTpKQ7MelxN1PjvhFSdgzLXo91sOw1I6riZDyGymS59XWRRbxjQpnxuw1OFnVugUQo6kT81fH5qRYUPcgLaW3buyHUTaclY68AOd8mJ75pfz71EvxxT4m8caVPzw1Z3KKQtL8DKHRNjrFzlppCThLsIfkhZZalsWkCSv9ua2AgUrk2z/Ps6HV2IHeVj7QAJyG7OenXgRqMw2Oga90J9z9dcF2n5DiuLPDMM9VUsnWnru3G5rr0+mIRzLgeYl2vbyHi12CbRq7bhSGqK0yUaWS1lmAjPlGYf7b/9rKb42pnOXOkWjy1rME/B/43e/AJLJ1wtiCu5RCMoEiTPxj8zx8v2RUeDtqjwUrl70zgVoPQ3Kzkcenn6LhhPQKSM+dtmuYXaAymWA==
 sidebar_class_name: "get api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -31,7 +31,7 @@ import Heading from "@theme/Heading";
   path={"/studios/validate"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -49,14 +49,14 @@ Confirms the availability of the given name for a Studio in the user context. Ap
 <ParamsDetails
   parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier. When omitted, the name is validated in the user context.","schema":{"type":"integer","format":"int64"}},{"name":"name","in":"query","description":"Studio name to validate for availability.","schema":{"type":"string"}}]}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
   title={"Body"}
   body={undefined}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
@@ -64,8 +64,5 @@ Confirms the availability of the given name for a Studio in the user context. Ap
   label={undefined}
   responses={{"204":{"description":"Ok - No content, if the name is valid and available."},"400":{"description":"Bad request, if the name is not valid."},"403":{"description":"Operation not allowed."},"409":{"description":"Conflict, name duplicated in the given context."}}}
 >
-  
+
 </StatusCodes>
-
-
-      

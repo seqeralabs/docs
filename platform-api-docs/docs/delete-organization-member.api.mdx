@@ -5,7 +5,7 @@ description: "Removes the member identified by the given `memberId` from the org
 sidebar_label: "Delete organization member"
 hide_title: true
 hide_table_of_contents: true
-api: eJzdVU1vEzEQ/SuWTyCFJEBBIidaGqSKr6otpypSnd1J1u2u7Y69KWG1/50Z70eSphRUiQunrD3P4zfPbyaVDGrp5eRSWqTf2UCm4BPULmhr5ESeQWFX4EXIQBRQzAGFTsEEvdCQivk6BpZ6BUZcNfGT9Eos0BYxQkmV0T8VZ/v9QULRqaG4yLQX1gE2eJV7K3CfQMyu8lzcWbzxTiUUvtMh02bvzqEcyD7hSUoFHUMOAb5tYb7ErAR0ClVBQWQ9KmloQQciOYpqlsOpkMn7Gm0nE6YsAHWyKRaZA8JtqRGIQMASBtInGRRKTioZ1o5v0SbAMrJYWCxUaLbeHsi6HvRUOoEfZdOU8w94zPi4d9Z48Hzi1fiAf+5p8Um8EF+tSCwlMkHWA3kwHu/jjlQqmAz4QHd1aIIp53KdRC1H156x1RbLDf9LUsN7tQT2bEvezq8h4XwO+dGDboh2wE2VPqA2S9ZWBh1y3poiWjxr66NIHZm/fqDC3p/GBrahvSM+DPeQlKjDOrrnCBQCHpb0QpPLGYtH1sosWzCNFoyG46gcceuNqmi0etQ8Mq27164lp8ZV58sSczqUheD8ZDRSTg+T3Jbp0MMtMRtqu2eJ8xgRp7kK/KriA+PF4emJZF4d7XNWuVFsm3wvGt8oW8vweh5BtNN8fOz8cn0XohzaLGw83ircsuBr/0SQy9Xc1g2Y7aGSaI/d4rdLJofoPNp1Yd9vAkSElWvueTl892Y45j1nfShUdFfbXM1g2J1YRTcaduhWG7/+D/Oxfd4AP8LI5YomC+kTda5ah7Z/DgM56YZha1Le6ocSWSkjVRleVXPl4Tvmdc3b1ObIXUGfK4VazdkP5ORUe/6mnlhQLfCIzM/O2sZ/Lv5i2j5YUbupzFoyjbzkFX3ewLqf8jxrn0Tq0aH7BDq9qPWMsBmolGzIkjXhwyQBF7YO7k3NnYFzPP08vZgSXO129L0Ojhc8yIveMyIu7A2Yuu5pBl4zx7r+BeqY37c=
+api: eJzdVU1vEzEQ/SuWTyCFJEAFIidaGqSKr6otpypSnd1J1u2u7Y69KWG1/50Z70eSphRUiQunrD3P4zfPbyaVDGrp5eRSWqTf2UCm4BPULmhr5ESeQWFX4EXIQBRQzAGFTsEEvdCQivk6BpZ6BUZcNfGT9Eos0BYxQkmV0T8VZ/v9QULRqaG4yLQX1gE2eJV7K3CfQMyu8lzcWbzxTiUUvtMh02bvzqEcyD7hSUoFHUMOAb5tYb7ErAR0ClVBQWQ9KmloQQciOYpqlsOpkMn7Gm0nE6YsAHWyKRaZA8JtqRGIQMASBtInGRRKTioZ1o5v0SbAMrJYWCxUaLbeHMi6HvRUOoEfZdOU8w94zPi4d9Z48Hzi1fiAf+5p8Um8EF+tSCwlMkHWA3kwHu/jjlQqmAz4QHd1aIIp53KdRC1H156x1RbLDf9LUsN7tQT2bEvezq8h4XwO+dGDboh2wE2VPqA2S9ZWBh1y3poiWjxr66NIHZm/fqDC3p/GBrahvSM+DPeQlKjDOrrnCBQCHpb0QpPLGYtH1sosWzCNFoyG46gcceuNqmi0etQ8Mq27164lp8ZV58sSczqUheD8ZDRSTg+T3Jbp0MMtMRtqu2eJ8xgRp7kK/KriA+PF4emJZF4d7XNWuVFsm3wvGt8oW8vweh5BtNN8fOz8cn0XohzaLGw83ircsuBr/0SQy9Xc1g2Y7aGSaI/d4rdLJofoPNp1Yd9vAkSElWvueTl893Y45j1nfShUdFfbXM1g2J1YRTcaduhWG7/+D/Oxfd4AP8LI5YomC+kTda5ah7Z/DgM56YZha1Le6ocSWSkjVRleVXPl4Tvmdc3b1ObIXUGfK4VazdkP5ORUe/6mnlhQLfCIzM/O2sZ/Lv5i2j5YUbupzFoyjbzkFX3ewLqf8jxrn0Tq0aH7BDq9qPWMsBmolGzIkjXhwyQBF7YO7k3NnYFzPP08vZgSXO129L0Ojhc8yIveMyIu7A2Yuu5pBl4zx7r+BfFI37k=
 sidebar_class_name: "delete api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -31,7 +31,7 @@ import Heading from "@theme/Heading";
   path={"/orgs/{orgId}/members/{memberId}"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -49,14 +49,14 @@ Removes the member identified by the given `memberId` from the organization iden
 <ParamsDetails
   parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier.","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"memberId","in":"path","description":"Member numeric identifier.","required":true,"schema":{"type":"integer","format":"int64"}}]}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
   title={"Body"}
   body={undefined}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
@@ -64,8 +64,5 @@ Removes the member identified by the given `memberId` from the organization iden
   label={undefined}
   responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
 >
-  
+
 </StatusCodes>
-
-
-      
