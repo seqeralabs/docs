@@ -1,14 +1,14 @@
 /**
- * Posts pre-commit suggestions as GitHub PR comments
+ * Posts pre-commit suggestions as inline GitHub PR review comments
  * Each suggestion is tracked with a unique marker to avoid duplicates across multiple workflow runs
  */
 
 const crypto = require('crypto');  // used to hash suggestion content
 
 module.exports = async ({ github, context, diff }) => {
-  // Get all existing comments to check for duplicates
-  const { data: comments } = await github.rest.issues.listComments({
-    issue_number: context.issue.number,
+  // Get all existing review comments to check for duplicates
+  const { data: reviewComments } = await github.rest.pulls.listReviewComments({
+    pull_number: context.issue.number,
     owner: context.repo.owner,
     repo: context.repo.repo,
   });
@@ -75,6 +75,14 @@ module.exports = async ({ github, context, diff }) => {
     fileChanges.push({ file: currentFile, hunk: currentHunk });
   }
 
+  // Get the PR head commit SHA
+  const { data: pullRequest } = await github.rest.pulls.get({
+    pull_number: context.issue.number,
+    owner: context.repo.owner,
+    repo: context.repo.repo,
+  });
+  const commitSha = pullRequest.head.sha;
+
   // Filter out changes that already have suggestions posted
   const newChanges = [];
   for (const change of fileChanges) {
@@ -85,47 +93,52 @@ module.exports = async ({ github, context, diff }) => {
     const hash = crypto.createHash('md5').update(file + suggestionContent).digest('hex').substring(0, 8);
     const marker = `<!-- pre-commit-suggestion-${hash} -->`;
 
-    // Check if this exact suggestion already exists
-    const alreadyExists = comments.some(comment => comment.body.includes(marker));
+    // Check if this exact suggestion already exists in review comments
+    const alreadyExists = reviewComments.some(comment => comment.body && comment.body.includes(marker));
 
     if (!alreadyExists) {
       newChanges.push({ ...change, marker });
     }
   }
 
-  // Only post a comment if there are new suggestions
+  // Only post inline review comments if there are new suggestions
   if (newChanges.length > 0) {
-    let body = "**Pre-commit formatting suggestions**\n\n";
-    body += "Pre-commit hooks found some formatting changes. You can apply each suggestion directly:\n\n";
+    // Create inline review comments for each suggestion
+    const comments = [];
 
     for (const change of newChanges) {
       const { file, hunk, marker } = change;
 
-      // Add the unique marker for this suggestion
-      body += marker + "\n";
-      body += `### \`${file}\` (line ${hunk.newStart})\n\n`;
-
-      // Create suggestion block
+      // Build the suggestion body with marker
+      let body = marker + "\n";
       body += "```suggestion\n";
       body += hunk.newLines.join('\n');
       if (hunk.newLines.length > 0 && !hunk.newLines[hunk.newLines.length - 1].endsWith('\n')) {
         body += '\n';
       }
-      body += "```\n\n";
+      body += "```";
+
+      // Calculate the correct line number
+      // newStart is where the hunk begins, then add context lines before changes, then the new lines
+      const lineNumber = hunk.newStart + hunk.contextBefore.length + hunk.newLines.length - 1;
+
+      comments.push({
+        path: file,
+        line: lineNumber,
+        side: "RIGHT",
+        body: body
+      });
     }
 
-    body += "---\n\n";
-    body += "🪄 **Quick fix:** Comment `fix formatting` below and I'll apply these changes automatically!\n\n";
-    body += "**Other options:**\n";
-    body += "- Apply the suggestions above directly in GitHub\n";
-    body += "- Run `pre-commit` locally and commit again\n\n";
-    body += "Need help? Check the [README](https://github.com/" + context.repo.owner + "/" + context.repo.repo + "/blob/main/README.md).\n";
-
-    await github.rest.issues.createComment({
-      issue_number: context.issue.number,
+    // Create a review with all inline comments
+    await github.rest.pulls.createReview({
+      pull_number: context.issue.number,
       owner: context.repo.owner,
       repo: context.repo.repo,
-      body: body
+      commit_id: commitSha,
+      event: "COMMENT",
+      body: "**Pre-commit formatting suggestions**\n\nPre-commit hooks found some formatting changes. You can apply each suggestion directly by clicking the \"Commit suggestion\" button, or run `pre-commit` locally and commit again.",
+      comments: comments
     });
   }
 };
