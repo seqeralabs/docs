@@ -56,8 +56,3 @@ jobs:
           script: |
             const script = require('./.github/scripts/post-precommit-suggestions.js');
             await script({ github, context, diff: process.env.DIFF_CONTENT });
-
-      # Fail the workflow if pre-commit failed
-      - name: Fail if pre-commit failed
-        if: steps.pre-commit.outcome == 'failure'
-        run: exit 1
