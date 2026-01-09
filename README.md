@@ -54,7 +54,8 @@ To incorporate documentation changes from the Wave repository, run the following
 
 ### Install pre-commit
 
-We use pre-commit in our repo and it's invoked when a commit is made. When you (or Claude) are working locally and commit your changes in VS Code (or run `git commit -am`) the pre-commit hooks defined in the precommit config file are run and then committed to: https://github.com/seqeralabs/docs/blob/master/.pre-commit-config.yaml. We currently use basic standard hooks to remove trailing whitespaces, make sure the file ends with a newline, we check yaml documents and we prevent very large files from getting committed.
+We use [pre-commit](https://pre-commit.com/) in our repo, which is invoked when a commit is made. When you (or Claude) are working locally and commit your changes in VS Code (or run `git commit`) the pre-commit hooks defined in the [precommit config file](./.pre-commit-config.yaml) are executed and may tweak the files you're staging.
+We currently use basic standard hooks to remove trailing whitespaces, make sure the file ends with a newline, we check yaml documents and we prevent very large files from getting committed. More hooks may get installed in the future.
 
 1. Open up a Terminal window and navigate to the `docs` directory.
 2. Run the following commands to set up [pre-commit](https://github.com/pre-commit/pre-commit) hooks:
