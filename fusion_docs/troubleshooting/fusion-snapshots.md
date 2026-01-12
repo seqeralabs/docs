@@ -1,28 +1,14 @@
 ---
-title: Troubleshooting
-description: "Troubleshooting for Fusion issues"
+title: Fusion Snapshots
+description: "Troubleshooting for Fusion Snapshots"
 date created: "2025-11-29"
-last updated: "2025-12-19"
+last updated: "2025-01-12"
 tags: [troubleshooting, fusion, fusion-snapshots, configuration]
 ---
 
-## General
+When working with Fusion Snapshots, you might encounter the following issues.
 
-### Too many open files
-
-Tasks fail with an error about too many open files.
-
-This issue occurs when the default file descriptor limit is too low for the container workload.
-
-To resolve this issue, increase the `ulimit` for the container. Append the following to your Nextflow configuration:
-
-```groovy
-process.containerOptions = '--ulimit nofile=1048576:1048576'
-```
-
-## Fusion Snapshots
-
-### Exit code `175`: Checkpoint dump failed
+## Exit code `175`: Checkpoint dump failed
 
 Task fails with exit code `175`, indicating the checkpoint dump operation did not complete successfully.
 
@@ -78,7 +64,11 @@ To resolve this issue:
 
 See [AWS Batch instance selection](./guide/snapshots/aws.md#selecting-an-ec2-instance) or [Google Batch best practices](./guide/snapshots/gcp.md) for recommended configurations.
 
-### Exit code `176`: Checkpoint restore failed
+:::tip
+For a comprehensive explanation of exit code `175`, see [Exit Codes](./error-reference.md#exit-codes).
+:::
+
+## Exit code `176`: Checkpoint restore failed
 
 Task fails with exit code `176` when attempting to restore from a checkpoint.
 
@@ -103,7 +93,11 @@ To resolve this issue:
 1. Configure retry for dump failures first:
    - Handle exit code `175` with retry. See [Retry handling](./guide/snapshots/configuration.md#retry-handling) for more information.
 
-### Long checkpoint times
+:::tip
+For a comprehensive explanation of exit code `176`, see [Exit Codes](./error-reference.md#exit-codes).
+:::
+
+## Long checkpoint times
 
 Checkpoints take longer than expected, approaching timeout limits.
 
@@ -132,15 +126,15 @@ To resolve this issue:
 
 See [Selecting an EC2 instance](./guide/snapshots/aws.md#selecting-an-ec2-instance) for detailed recommendations.
 
-### Frequent checkpoint failures
+## Frequent checkpoint failures
 
 Checkpoints consistently fail across multiple tasks.
 
 This issue can occur due to:
 
 1. Task too large for reclamation window - Memory usage exceeds what can be checkpointed in time (more common on Google Batch with 30-second window).
-2. Network congestion or throttling - Bandwidth lower than instance specifications.
-3. ARM64 architecture limitations - Full dumps only, requiring much more time and bandwidth.
+1. Network congestion or throttling - Bandwidth lower than instance specifications.
+1. ARM64 architecture limitations - Full dumps only, requiring much more time and bandwidth.
 
 To resolve this issue:
 
@@ -162,7 +156,7 @@ To resolve this issue:
    process.resourceLimits = [cpus: 16, memory: '20.GB']
    ```
 
-### SSL/TLS connection errors after restore
+## SSL/TLS connection errors after restore
 
 Applications fail after restore with connection errors, especially HTTPS connections.
 
@@ -176,7 +170,7 @@ process.containerOptions = '-e FUSION_SNAPSHOTS_TCP_MODE=close'
 
 Applications will need to re-establish connections after restore. See [TCP connection handling](./guide/snapshots/configuration.md#tcp-connection-handling) for more information.
 
-### Debugging workflow
+## Debugging workflow
 
 To diagnose checkpoint problems:
 
@@ -269,7 +263,11 @@ To diagnose checkpoint problems:
     - Run the same task with different instance types that have better disk iops and bandwidth guarantees and verify if Fusions Snapshots work there.
     - Decrease memory usage to a manageable amount.
 
-### Getting help
+:::tip
+For detailed information about error codes and logging, see [Error reference](./error-reference.md).
+:::
+
+## Getting help
 
 When contacting Seqera support about Fusion Snapshots issues, provide the following information to help diagnose the problem:
 
