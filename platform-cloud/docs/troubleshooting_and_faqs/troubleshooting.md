@@ -1,5 +1,5 @@
 ---
-title: "General troubleshooting"
+title: "General"
 description: "Troubleshooting Seqera Platform"
 date: "24 Apr 2023"
 tags: [troubleshooting, help]

@@ -13,13 +13,15 @@ This page describes the infrastructure and other prerequisites for deploying Seq
 
 Run the Seqera container with [Docker](../docker-compose.md) on an AWS EC2 instance, or with [Kubernetes](../kubernetes.md) on an Amazon EKS cluster. You must satisfy the requirements for your installation target:
 
-- **MySQL database**: An external database, such as one provided by [Amazon Relational Database Service](https://aws.amazon.com/rds/), is highly recommended for production deployments.
-- **Redis-compatible cache**: An external Redis-compatible cache, such as one provided by [Amazon ElastiCache](https://aws.amazon.com/elasticache/), is highly recommended for production deployments.
 - **SMTP server**: If you don't have an email server, use [Amazon Simple Email Service](https://aws.amazon.com/ses/).
 
    :::note
    Amazon [blocks EC2 traffic over port 25 by default](https://aws.amazon.com/premiumsupport/knowledge-center/ec2-port-25-throttle/). Your integration must use a port that can successfully reach your SMTP server.
    :::
+
+- **MySQL database**: An external database, such as one provided by [Amazon Relational Database Service](https://aws.amazon.com/rds/), is highly recommended for production deployments.
+
+- **Redis-compatible cache**: An external Redis-compatible cache, such as one provided by [Amazon ElastiCache](https://aws.amazon.com/elasticache/), is highly recommended for production deployments.
 
 - **(Optional) SSL certificate**: HTTP must not be used in production environments. An SSL certificate is required for your Seqera instance to handle HTTPS traffic. See [SSL/TLS configuration](../configuration/ssl_tls#aws-deployments-manage-ssl-certificates-with-amazon-certificate-manager-acm) for more information.
 
@@ -52,8 +54,8 @@ If you're installing Seqera Enterprise with Kubernetes, an [Elastic Kubernetes S
 
     - **RBAC requirements**
 
-      - The cluster must be created by a non-root user.
-      - `aws-auth` must be updated to [allow access to additional IAM users/roles](https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html) (if needed).
+      - The cluster must be created by a non-root user
+      - `aws-auth` must be updated to [allow access to additional IAM users/roles](https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html) (if needed)
 
     - **Addons**
 
@@ -77,13 +79,28 @@ Set up commonly-used AWS services for Seqera deployment.
 The following recommendations are minimum system requirements to successfully deploy Seqera Enterprise. Your deployment may require larger database and compute instances to scale to production, depending on the size and number of parallel workflows you expect to run.
 :::
 
-### Amazon RDS
+### Database requirements
 
-External databases for Seqera Enterprise deployments require:
+Seqera Enterprise requires a MySQL 8.0-compatible database. For AWS deployments, we recommend:
 
-- A **MySQL8 Community** DB instance
-- At least 2 vCPUs, 8 GB memory, and 30 GB SSD storage
-- Manual MySQL user and database schema creation. See [Database configuration](../configuration/overview.mdx#seqera-and-redis-databases) for more details.
+- **AWS RDS MySQL 8.0** (recommended for most deployments)
+- **AWS Aurora MySQL** with standard provisioned instances
+
+:::warning Aurora Serverless is not supported
+**Do not use AWS Aurora Serverless.** Aurora Serverless v1 and v2 are not supported for Seqera Platform due to documented stability and performance issues under production workloads. Use standard provisioned Aurora MySQL instances or RDS MySQL instead.
+:::
+
+**Minimum specifications:**
+- Instance class: `db.r5.large` or equivalent (2 vCPUs, 16 GB RAM minimum)
+- Storage: 100 GB minimum, with auto-scaling enabled
+- MySQL version: 8.0.x
+- Multi-AZ deployment recommended for production
+
+:::caution
+Recommended instance class and storage requirements depend on the number of parallel pipelines you expect to run.
+:::
+
+See the [Database configuration](../configuration/overview.mdx#database-requirements) section for connection pool sizing and performance tuning guidance.
 
 <Tabs>
 <TabItem value="AWS console" label="AWS console" default>
@@ -139,25 +156,9 @@ After your instance is launched:
     docker compose version
     ```
 
-### Seqera container images
+## Seqera container images
 
-Seqera Platform Enterprise is distributed as a collection of Docker containers available through the Seqera container registry ([cr.seqera.io](https://cr.seqera.io)). Contact [support](https://support.seqera.io) to get your container access credentials. Once you've received your credentials, retrieve the Seqera container images on your EC2 instance:
-
-1. Retrieve the **username** and **password** you received from Seqera support.
-
-1. Authenticate to the registry:
-
-   ```bash
-   docker login -u 'username' -p 'password' cr.seqera.io
-   ```
-
-1. Pull the Seqera container images:
-
-   ```bash
-   docker pull cr.seqera.io/private/nf-tower-enterprise/backend:v25.1.1
-
-   docker pull cr.seqera.io/private/nf-tower-enterprise/frontend:v25.1.1
-   ```
+Seqera Enterprise is distributed as a collection of container images available through the Seqera container registry [`cr.seqera.io`](https://cr.seqera.io). Refer to the instructions in the [Common prerequisites](./common.md#vendoring-seqera-container-images-to-your-own-registry) page to replicate the required images to your internal container registry for High Availability or for air-gapped environments.
 
 ### Fetch Seqera config values from AWS Parameter Store
 

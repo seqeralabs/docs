@@ -2,9 +2,9 @@
   Type: integer
   Location: query
   Req/Opt: Optional
-  Description: Workspace numeric identifier.
+  Description: Workspace numeric identifier
 - Name: "`workflowId`"
   Type: string
   Location: path
   Req/Opt: Required
-  Description: Workflow string identifier.
+  Description: Workflow string identifier

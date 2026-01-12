@@ -2,67 +2,39 @@
   Type: ""
   Req/Opt: ""
   Description: Update an user entity
-- Name: id
-  Type: integer
-  Req/Opt: Optional
-  Description: ""
 - Name: userName
   Type: string
   Req/Opt: Required
-  Description: ""
+  Description: Unique username. Maximum 40 characters.
 - Name: email
   Type: string
   Req/Opt: Required
-  Description: ""
+  Description: User email address in valid email format. Maximum 255 characters.
 - Name: firstName
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: User first name. Maximum 100 characters.
 - Name: lastName
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: User last name. Maximum 100 characters.
 - Name: organization
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: User organization name. Maximum 100 characters.
 - Name: description
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: User description or bio. Maximum 1000 characters.
 - Name: avatar
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: User avatar URL.
 - Name: avatarId
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: User avatar identifier.
 - Name: notification
   Type: boolean
   Req/Opt: Optional
-  Description: ""
-- Name: termsOfUseConsent
-  Type: boolean
-  Req/Opt: Optional
-  Description: ""
-- Name: marketingConsent
-  Type: boolean
-  Req/Opt: Optional
-  Description: ""
-- Name: lastAccess
-  Type: string
-  Req/Opt: Optional
-  Description: ""
-- Name: dateCreated
-  Type: string
-  Req/Opt: Optional
-  Description: ""
-- Name: lastUpdated
-  Type: string
-  Req/Opt: Optional
-  Description: ""
-- Name: deleted
-  Type: boolean
-  Req/Opt: Optional
-  Description: ""
+  Description: If true, the user has notifications enabled.

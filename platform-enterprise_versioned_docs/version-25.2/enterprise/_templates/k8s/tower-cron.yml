@@ -21,7 +21,7 @@ spec:
             name: tower-yml
       initContainers:
         - name: migrate-db
-          image: cr.seqera.io/private/nf-tower-enterprise/migrate-db:v25.2.2
+          image: cr.seqera.io/private/nf-tower-enterprise/migrate-db:v25.2.3
           command: ["sh", "-c", "/migrate-db.sh"]
           envFrom:
             - configMapRef:
@@ -32,7 +32,7 @@ spec:
               subPath: tower.yml
       containers:
         - name: backend
-          image: cr.seqera.io/private/nf-tower-enterprise/backend:v25.2.2
+          image: cr.seqera.io/private/nf-tower-enterprise/backend:v25.2.3
           envFrom:
             - configMapRef:
                 name: tower-backend-cfg
@@ -43,8 +43,17 @@ spec:
           env:
             - name: MICRONAUT_ENVIRONMENTS
               value: "prod,redis,cron"
+            # Configuration to optimize JVM memory settings. See https://docs.seqera.io/platform-enterprise/25.2/enterprise/configuration/overview#backend-memory-requirements
+            - name: JAVA_OPTS
+              value: "-Xms1000M -Xmx2000M -XX:MaxDirectMemorySize=800m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144"
           ports:
             - containerPort: 8080
+          resources:
+            requests:
+              cpu: "1"
+              memory: "4Gi"
+            limits:
+              memory: "4Gi"
           readinessProbe:
             httpGet:
               path: /health
