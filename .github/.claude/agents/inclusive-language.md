@@ -184,7 +184,7 @@ grep -in "he/she\|his/her\|guys\|mankind\|manpower" *.md
 # Ableist terms
 grep -in "sanity\|insane\|crazy\|blind spot\|cripple\|dumb\|lame" *.md
 
-# Assumptive language  
+# Assumptive language
 grep -in "simply\|just \|easily\|obviously\|of course" *.md
 
 # Link text
