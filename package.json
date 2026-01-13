@@ -36,6 +36,7 @@
     "@seqera/docusaurus-preset-seqera": "1.0.2-next.12",
     "@tailwindcss/postcss": "^4.1.12",
     "clsx": "^1.2.1",
+    "daisyui": "^5.5.5",
     "docusaurus-plugin-openapi-docs": "^4.5.1",
     "docusaurus-remark-plugin-tab-blocks": "^3.1.0",
     "framer-motion": "^11.0.0",
@@ -53,7 +54,7 @@
     "remark-code-import": "^1.2.0",
     "remark-deflist": "^1.0.0",
     "remark-math": "^6.0.0",
-    "remark-yaml-to-table": "git+https://github.com/seqeralabs/remark-yaml-to-table.git#0c0a028eb4e8c15a5d842ca0f31d3303410746d2",
+    "remark-yaml-to-table": "github:seqeralabs/remark-yaml-to-table",
     "webpack-dev-server": "^5.2.2",
     "yaml": "^2.8.1"
   },
