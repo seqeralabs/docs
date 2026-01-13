@@ -90,8 +90,6 @@ A permissive and broad policy with all the required permissions is provided here
         "batch:CreateJobQueue",
         "batch:DeleteComputeEnvironment",
         "batch:DeleteJobQueue",
-        "batch:DescribeComputeEnvironments",
-        "batch:DescribeJobQueues",
         "batch:UpdateComputeEnvironment",
         "batch:UpdateJobQueue"
       ],
@@ -107,6 +105,8 @@ A permissive and broad policy with all the required permissions is provided here
         "batch:CancelJob",
         "batch:DescribeJobDefinitions",
         "batch:DescribeJobs",
+        "batch:DescribeComputeEnvironments",
+        "batch:DescribeJobQueues",
         "batch:ListJobs",
         "batch:RegisterJobDefinition",
         "batch:SubmitJob",
@@ -184,7 +184,10 @@ A permissive and broad policy with all the required permissions is provided here
         "iam:TagInstanceProfile",
         "iam:TagRole"
       ],
-      "Resource": "arn:aws:iam::*:role/TowerForge-*"
+      "Resource": [
+        "arn:aws:iam::*:role/TowerForge-*",
+        "arn:aws:iam::*:instance-profile/TowerForge-*"
+      ]
     },
     {
       "Sid": "OptionalFetchOptimizedAMIMetadata",
@@ -432,7 +435,10 @@ To allow Seqera to create IAM roles but restrict it to your specific account and
     "iam:TagInstanceProfile",
     "iam:TagRole"
   ],
-  "Resource": "arn:aws:iam::<ACCOUNT_ID>:role/TowerForge-*"
+  "Resource": [
+    "arn:aws:iam::<ACCOUNT_ID>:role/TowerForge-*"
+    "arn:aws:iam::<ACCOUNT_ID>:instance-profile/TowerForge-*"
+  ]
 }
 ```
 
