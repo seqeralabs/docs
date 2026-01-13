@@ -214,25 +214,6 @@ export default async function createConfigAsync() {
       },
     ],
 
-    themeConfig: (() => {
-      const themeConfig = getSeqeraThemeConfig({});
-      // Override the Nextflow navbar link to use external URL
-      return {
-        ...themeConfig,
-        navbar: {
-          ...themeConfig.navbar,
-          items: themeConfig.navbar.items.map(item =>
-            item.label === 'Nextflow'
-              ? {
-                  ...item,
-                  href: 'https://www.nextflow.io/docs/latest/',
-                  to: undefined,
-                  target: '_self',
-                }
-              : item
-          ),
-        },
-      };
-    })(),
+    themeConfig: getSeqeraThemeConfig({}),
   });
 }
