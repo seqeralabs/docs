@@ -15,7 +15,7 @@ This page outlines the steps to upgrade your database instance and Platform Ente
 
 ### Considerations for versions prior to 24.1
 
-- If you are upgrading from a version older than 23.4.1, update your installation to [version 23.4.4](../../version-23.4/enterprise/overview.md) **first**, before updating to version 25.2 with the steps on this page.
+- If you are upgrading from a version older than 23.4.1, update your installation to [version 23.4.4](/platform-enterprise/23.4/enterprise/overview) **first**, before updating to version 25.2 with the steps on this page.
 
 ### Considerations for versions 24.1 - 25.1
 
