@@ -223,7 +223,12 @@ export default async function createConfigAsync() {
           ...themeConfig.navbar,
           items: themeConfig.navbar.items.map(item =>
             item.label === 'Nextflow'
-              ? { ...item, href: 'https://www.nextflow.io/docs/latest/', to: undefined }
+              ? {
+                  ...item,
+                  href: 'https://www.nextflow.io/docs/latest/',
+                  to: undefined,
+                  target: '_self',
+                }
               : item
           ),
         },
