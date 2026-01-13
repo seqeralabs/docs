@@ -5,7 +5,7 @@ import {
   createSeqeraConfig,
   getSeqeraThemeConfig,
   getSeqeraPresetOptions
-} from "@seqeralabs/docusaurus-preset-seqera";
+} from "@seqera/docusaurus-preset-seqera";
 
 export default async function createConfigAsync() {
   const changelog = {
@@ -42,7 +42,7 @@ export default async function createConfigAsync() {
         (await import("docusaurus-remark-plugin-tab-blocks")).default,
         (await require("remark-yaml-to-table")).default,
       ],
-      rehypePlugins: [(await require("rehype-katex")).default],
+      rehypePlugins: [require("rehype-katex")],
       editUrl: "https://github.com/seqeralabs/docs/tree/master/",
       sidebarPath: "platform-enterprise_docs/enterprise-sidebar.json",
     },
@@ -72,7 +72,7 @@ export default async function createConfigAsync() {
         (await import("docusaurus-remark-plugin-tab-blocks")).default,
         (await require("remark-yaml-to-table")).default,
       ],
-      rehypePlugins: [(await require("rehype-katex")).default],
+      rehypePlugins: [require("rehype-katex")],
       editUrl: "https://github.com/seqeralabs/docs/tree/master/",
       sidebarPath: "./platform-cloud/cloud-sidebar.json",
     },
@@ -90,7 +90,7 @@ export default async function createConfigAsync() {
         (await import("docusaurus-remark-plugin-tab-blocks")).default,
         (await require("remark-yaml-to-table")).default,
       ],
-      rehypePlugins: [(await require("rehype-katex")).default],
+      rehypePlugins: [require("rehype-katex")],
       editUrl: ({ docPath }) => {
         return `https://github.com/MultiQC/MultiQC/blob/main/docs/markdown/${docPath.replace("multiqc_docs/multiqc_repo/docs", "")}`;
       },
@@ -109,7 +109,7 @@ export default async function createConfigAsync() {
         (await import("docusaurus-remark-plugin-tab-blocks")).default,
         (await require("remark-yaml-to-table")).default,
       ],
-      rehypePlugins: [(await require("rehype-katex")).default],
+      rehypePlugins: [require("rehype-katex")],
       editUrl: "https://github.com/seqeralabs/docs/tree/master/",
       sidebarPath: "./fusion_docs/sidebar.json",
     },
@@ -128,7 +128,7 @@ export default async function createConfigAsync() {
         (await require("remark-yaml-to-table")).default,
         (await require("remark-deflist")).default,
       ],
-      rehypePlugins: [(await require("rehype-katex")).default],
+      rehypePlugins: [require("rehype-katex")],
       editUrl: ({ docPath }) => {
         return `https://github.com/seqeralabs/wave/blob/master/docs/${docPath.replace("wave_docs/wave_repo/docs", "")}`;
       },
@@ -158,7 +158,7 @@ export default async function createConfigAsync() {
     url: "https://docs.seqera.io",
     presets: [
       [
-        "@seqeralabs/docusaurus-preset-seqera",
+        "@seqera/docusaurus-preset-seqera",
         await getSeqeraPresetOptions({
           blog: process.env.EXCLUDE_CHANGELOG ? false : changelog,
           docs: false,

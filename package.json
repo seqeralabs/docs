@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "overrides": {
-    "glob": "^11.1.0"
+    "glob": "^11.1.0",
+    "rehype-katex": "5.0.0"
   },
   "scripts": {
     "docusaurus": "docusaurus",
@@ -33,9 +34,9 @@
     "@mdx-js/react": "^3.0.0",
     "@rspack/core": "^1.4.11",
     "@seqera/docusaurus-preset-seqera": "^1.0.2-next.10",
-    "@seqeralabs/docusaurus-preset-seqera": "file:../docusaurus-preset-seqera/packages/docusaurus-preset-seqera",
     "@tailwindcss/postcss": "^4.1.12",
     "clsx": "^1.2.1",
+    "daisyui": "^5.5.14",
     "docusaurus-plugin-openapi-docs": "^4.5.1",
     "docusaurus-remark-plugin-tab-blocks": "^3.1.0",
     "framer-motion": "^11.0.0",
@@ -49,7 +50,7 @@
     "react": "^18.2.0",
     "react-cookie": "^7.2.2",
     "react-dom": "^18.2.0",
-    "rehype-katex": "^7.0.1",
+    "rehype-katex": "5.0.0",
     "remark-code-import": "^1.2.0",
     "remark-deflist": "^1.0.0",
     "remark-math": "^6.0.0",
