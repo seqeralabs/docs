@@ -36,7 +36,6 @@
     "@seqera/docusaurus-preset-seqera": "1.0.2-next.12",
     "@tailwindcss/postcss": "^4.1.12",
     "clsx": "^1.2.1",
-    "daisyui": "^5.5.14",
     "docusaurus-plugin-openapi-docs": "^4.5.1",
     "docusaurus-remark-plugin-tab-blocks": "^3.1.0",
     "framer-motion": "^11.0.0",
