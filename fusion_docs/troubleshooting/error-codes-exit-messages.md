@@ -436,9 +436,3 @@ case $exit_code in
         ;;
 esac
 ```
-
-## Related documentation
-
-- [Fusion overview](https://docs.seqera.io/fusion/)
-- [Fusion configuration](https://docs.seqera.io/fusion/configuration/)
-- [Fusion Snapshots](./fusion-snapshots.md)
