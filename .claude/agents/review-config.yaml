@@ -1,0 +1,163 @@
+# Documentation Review Configuration
+# Controls which SME agents run on which file patterns
+
+version: 1
+
+# Default settings for all reviews
+defaults:
+  # Maximum files per review batch (prevents timeout on large PRs)
+  max_files_per_batch: 20
+
+  # Output format for PR comments
+  output_format: github-pr-comment
+
+  # Include severity ratings
+  include_severity: true
+
+# SME agent configuration
+agents:
+  page-structure:
+    # When to run
+    triggers:
+      - new_file        # Always run on new pages
+      - major_change    # Run when >50% of file changed
+
+    # File patterns (glob)
+    patterns:
+      - "docs/**/*.md"
+      - "*.md"
+
+    # Exclude patterns
+    exclude:
+      - "docs/changelog/**"
+      - "docs/api/generated/**"
+
+    # Priority (1 = highest, runs first)
+    priority: 1
+
+  voice-tone:
+    triggers:
+      - always          # Run on every docs change
+    patterns:
+      - "docs/**/*.md"
+    exclude:
+      - "docs/changelog/**"
+    priority: 2
+
+  terminology:
+    triggers:
+      - always
+    patterns:
+      - "docs/**/*.md"
+      - "*.md"
+    priority: 3
+
+  clarity:
+    triggers:
+      - new_file
+      - major_change
+    patterns:
+      - "docs/**/*.md"
+    exclude:
+      - "docs/api/**"   # API docs may have intentional jargon
+    priority: 4
+
+  inclusive-language:
+    triggers:
+      - always
+    patterns:
+      - "docs/**/*.md"
+      - "*.md"
+    priority: 5
+
+  topic-structure:
+    # CTRT (Concept, Task, Reference, Troubleshooting) compliance
+    triggers:
+      - new_file        # Always audit new pages
+      - major_change    # Audit when >50% of file changed
+    patterns:
+      - "docs/**/*.md"
+      - "*.md"
+    exclude:
+      - "docs/changelog/**"
+      - "docs/api/generated/**"
+      - "**/release-notes/**"
+    priority: 1  # Run first - structural issues affect other checks
+
+# Severity thresholds for CI pass/fail
+severity:
+  # Fail the check if any of these are found
+  fail_on:
+    - product_name_wrong      # "Tower" instead of "Seqera Platform"
+    - heading_skip            # H2 → H4 without H3
+    - missing_h1              # No page title
+    - mega_task               # More than 20 steps in single task
+    - mixed_topic_type        # Task content under concept title (critical)
+
+  # Warn but don't fail
+  warn_on:
+    - passive_voice
+    - long_sentence
+    - hedging_language
+    - missing_prerequisites
+    - task_title_no_verb      # Task section without active verb in title
+    - missing_step_intro      # Numbered steps without "To [verb]:" intro
+    - missing_troubleshooting # Feature page without troubleshooting section
+    - concept_title_overview  # Using "Overview" or "Introduction" as title
+
+  # Info only (in comments, doesn't affect status)
+  info_only:
+    - sentence_could_be_shorter
+    - optional_style_suggestion
+    - could_split_task        # Long task that could be split
+    - reference_not_table     # Reference content as prose, not table
+
+# Custom terminology for this repo
+terminology:
+  products:
+    correct:
+      - "Seqera Platform"
+      - "Studios"
+      - "Nextflow"
+      - "Wave"
+      - "MultiQC"
+      - "Fusion"
+
+    replacements:
+      "Tower": "Seqera Platform"
+      "NextFlow": "Nextflow"
+      "next-flow": "Nextflow"
+      "nextFlow": "Nextflow"
+      "multi-qc": "MultiQC"
+      "multiQC": "MultiQC"
+      "the platform": "Seqera Platform"
+
+  features:
+    correct:
+      - "compute environment"
+      - "pipeline"
+      - "workspace"
+      - "credentials"
+      - "access token"
+      - "personal access token"
+
+    replacements:
+      "compute env": "compute environment"
+      "CE": "compute environment"
+      "creds": "credentials"
+
+# Formatting rules
+formatting:
+  ui_elements:
+    style: bold
+    examples:
+      - "**Save**"
+      - "**Settings** > **Credentials**"
+
+  code_elements:
+    style: backticks
+    examples:
+      - "`nextflow run`"
+      - "`--profile`"
+      - "`nextflow.config`"
+      - "`NXF_HOME`"
