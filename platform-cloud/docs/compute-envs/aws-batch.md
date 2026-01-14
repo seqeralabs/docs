@@ -99,21 +99,29 @@ A permissive and broad policy with all the required permissions is provided here
       ]
     },
     {
+      "Sid": "BatchEnvironmentListing",
+      "Effect": "Allow",
+      "Action": [
+        "batch:DescribeJobDefinitions",
+        "batch:DescribeJobQueues"
+      ],
+      "Resource": "*"
+    },
+    {
       "Sid": "BatchJobsManagementCanBeRestricted",
       "Effect": "Allow",
       "Action": [
         "batch:CancelJob",
-        "batch:DescribeJobDefinitions",
-        "batch:DescribeJobs",
-        "batch:DescribeComputeEnvironments",
-        "batch:DescribeJobQueues",
-        "batch:ListJobs",
         "batch:RegisterJobDefinition",
         "batch:SubmitJob",
         "batch:TagResource",
         "batch:TerminateJob"
       ],
-      "Resource": "*"
+      "Resource": [
+        "arn:aws:batch:*:*:job-definition/*",
+        "arn:aws:batch:*:*:job-queue/*",
+        "arn:aws:batch:*:*:job/*"
+      ]
     },
     {
       "Sid": "LaunchTemplateManagement",
@@ -263,34 +271,28 @@ A permissive and broad policy with all the required permissions is provided here
 
 The first section of the policy allows Seqera to create, update and delete Batch compute environments ("CE"), job queues ("JQ") and jobs.
 
-If you are required to use manually created CEs and JQs or prefer not to let Seqera manage their lifecycle for you, you can restrict the permissions to the specific Batch resources you created in your account and region; you can also restrict permissions based on Resource tag, which need to be defined by users when [setting up a pipeline in Platform](https://docs.seqera.io/platform-enterprise/resource-labels/overview).
+If you are required to use manually created CEs and JQs or prefer to manage their lifecycle yourself, you can remove the permissions to manipulate CEs and JQs from the policy: the bare minimum permissions required are:
+- `batch:DescribeJobDefinitions` to list existing job definitions,
+- `batch:RegisterJobDefinition` to create new job definitions,
+- `batch:CancelJob`, `batch:SubmitJob`, `batch:TagResource`, `batch:TerminateJob` to manage jobs.
+
+`batch:DescribeJobQueues` is useful to allow Seqera to list the existing Job Queues in a dropdown menu but it's not required and the Job Queues where the jobs will be submitted can be specified manually when creating a compute environment in Platform.
+You can also restrict permissions based on Resource tag, which need to be defined by users when [setting up a pipeline in Platform](https://docs.seqera.io/platform-enterprise/resource-labels/overview).
 
 ```json
 {
-  "Sid": "BatchEnvironmentManagement",
+  "Sid": "BatchEnvironmentListing",
   "Effect": "Allow",
   "Action": [
-    "batch:DescribeComputeEnvironments",
-    "batch:DescribeJobQueues"
+    "batch:DescribeJobDefinitions"
   ],
-  "Resource": [
-    "arn:aws:batch:<REGION>:<ACCOUNT_ID>:compute-environment/MyManualCE",
-    "arn:aws:batch:<REGION>:<ACCOUNT_ID>:job-queue/MyManualJQ"
-  ],
-  "Condition": {
-    "StringEqualsIfExists": {
-      "aws:ResourceTag/MyCustomTag": "MyCustomValue"
-    }
-  }
+  "Resource": "*"
 },
 {
-  "Sid": "BatchJobsManagement",
+  "Sid": "BatchJobsManagementCanBeRestricted",
   "Effect": "Allow",
   "Action": [
     "batch:CancelJob",
-    "batch:DescribeJobDefinitions",
-    "batch:DescribeJobs",
-    "batch:ListJobs",
     "batch:RegisterJobDefinition",
     "batch:SubmitJob",
     "batch:TagResource",
@@ -298,6 +300,7 @@ If you are required to use manually created CEs and JQs or prefer not to let Seq
   ],
   "Resource": [
     "arn:aws:batch:<REGION>:<ACCOUNT_ID>:job-definition/*",
+    "arn:aws:batch:<REGION>:<ACCOUNT_ID>:job-queue/MyCustomJQ",
     "arn:aws:batch:<REGION>:<ACCOUNT_ID>:job/*"
   ],
   "Condition": {
@@ -312,7 +315,7 @@ If you are required to use manually created CEs and JQs or prefer not to let Seq
 Restricting the `batch` actions using resource tags requires that you set the appropriate tags on each Seqera pipeline when configuring it in Platform. Forgetting to set the tag will cause the pipeline to fail to run.
 :::
 
-The job definition and job name resources cannot be restricted to specific names, as Seqera creates job definitions and jobs with dynamic names. Therefore, the wildcard `*` must be used for these resources.
+The job definition and job name resources cannot be restricted to specific names, as Seqera creates job definitions and jobs with dynamic names. Therefore, the wildcard `*` must be used in the name of these resources. `batch:SubmitJob` requires permission on both job definitions and job queues, so make sure to include both ARNs in the `Resource` array.
 
 If you prefer to let Seqera manage Batch resources for you, you can still restrict the permissions to specific resources in your account ID and region; you can also restrict permissions based on Resource tag, as shown with the `Condition`s in the example above.
 
