@@ -1,0 +1,92 @@
+name: Update CLI Documentation
+
+on:
+  repository_dispatch:
+    types: [cli-release]
+  workflow_dispatch:
+    inputs:
+      cli_version:
+        description: 'CLI version to document (e.g., 0.9.3)'
+        required: true
+        type: string
+
+jobs:
+  update-cli-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout docs repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Determine CLI version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" == "repository_dispatch" ]; then
+            VERSION="${{ github.event.client_payload.version }}"
+          else
+            VERSION="${{ github.event.inputs.cli_version }}"
+          fi
+          # Remove 'v' prefix if present
+          VERSION="${VERSION#v}"
+          echo "cli_version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Checkout tower-cli at release tag
+        uses: actions/checkout@v4
+        with:
+          repository: seqeralabs/tower-cli
+          ref: v${{ steps.version.outputs.cli_version }}
+          path: tower-cli
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract CLI metadata
+        run: |
+          python tower-cli/docs/scripts/extract-cli-metadata.py \
+            tower-cli/src/main/java > \
+            platform-cloud/docs/cli/metadata/cli-metadata-v${{ steps.version.outputs.cli_version }}.json
+
+      - name: Compare with previous version
+        id: compare
+        run: |
+          if [ -f "platform-cloud/docs/cli/metadata/cli-metadata-latest.json" ]; then
+            python platform-cloud/docs/cli/scripts/compare-metadata.py \
+              platform-cloud/docs/cli/metadata/cli-metadata-latest.json \
+              platform-cloud/docs/cli/metadata/cli-metadata-v${{ steps.version.outputs.cli_version }}.json \
+              > comparison-report.md
+          else
+            echo "## CLI Documentation Changes" > comparison-report.md
+            echo "" >> comparison-report.md
+            echo "Initial CLI documentation generation for v${{ steps.version.outputs.cli_version }}" >> comparison-report.md
+          fi
+
+      - name: Generate documentation
+        run: |
+          python platform-cloud/docs/cli/scripts/generate-cli-docs.py \
+            --metadata platform-cloud/docs/cli/metadata/cli-metadata-v${{ steps.version.outputs.cli_version }}.json \
+            --overlays platform-cloud/docs/cli/overlays \
+            --output platform-cloud/docs/cli/reference
+
+      - name: Update latest symlink
+        run: |
+          cd platform-cloud/docs/cli/metadata
+          rm -f cli-metadata-latest.json
+          ln -s cli-metadata-v${{ steps.version.outputs.cli_version }}.json cli-metadata-latest.json
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: |
+            Update CLI documentation for v${{ steps.version.outputs.cli_version }}
+
+            Auto-generated from tower-cli metadata extraction.
+          branch: cli-docs-v${{ steps.version.outputs.cli_version }}
+          title: "CLI Docs: Update for v${{ steps.version.outputs.cli_version }}"
+          body-path: comparison-report.md
+          labels: |
+            documentation
+            cli
+            auto-generated
