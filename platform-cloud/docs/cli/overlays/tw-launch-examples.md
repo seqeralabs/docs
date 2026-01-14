@@ -3,7 +3,7 @@
 #### Launch a pipeline with default parameters
 
 ```bash
-tw pipelines launch --id 1234567890abcdef
+tw launch --id 1234567890abcdef
 ```
 
 This launches the pipeline using its default configuration and the primary compute environment configured in your workspace.
@@ -11,7 +11,7 @@ This launches the pipeline using its default configuration and the primary compu
 #### Launch with custom parameters
 
 ```bash
-tw pipelines launch \
+tw launch \
   --id 1234567890abcdef \
   --params-file params.json \
   --compute-env my-aws-batch
@@ -30,7 +30,7 @@ The `params.json` file should contain your pipeline parameters:
 #### Launch with inline parameters
 
 ```bash
-tw pipelines launch \
+tw launch \
   --id 1234567890abcdef \
   --params genome=GRCh38 \
   --params reads="s3://my-bucket/data/*.fastq.gz"
@@ -39,7 +39,7 @@ tw pipelines launch \
 #### Launch and wait for completion
 
 ```bash
-tw pipelines launch \
+tw launch \
   --id 1234567890abcdef \
   --wait \
   --workspace my-org/my-workspace
@@ -50,7 +50,7 @@ The `--wait` flag is useful in CI/CD environments where you need to monitor pipe
 #### Launch with a specific revision
 
 ```bash
-tw pipelines launch \
+tw launch \
   --id 1234567890abcdef \
   --revision dev \
   --profile test
@@ -63,7 +63,7 @@ tw pipelines launch \
 ```bash
 #!/bin/bash
 # Launch pipeline and capture run ID
-RUN_ID=$(tw pipelines launch \
+RUN_ID=$(tw launch \
   --id 1234567890abcdef \
   --params-file params.json \
   --output json | jq -r '.runId')
@@ -78,7 +78,7 @@ tw runs view --id $RUN_ID --wait
 
 ```bash
 for sample in sample1 sample2 sample3; do
-  tw pipelines launch \
+  tw launch \
     --id 1234567890abcdef \
     --params sample_id=$sample \
     --name "Analysis-$sample" &
@@ -96,6 +96,7 @@ wait
 
 ### Related Commands
 
-- [`tw pipelines list`](#tw-pipelines-list) - List available pipelines
+- [`tw pipelines list`](pipelines.md#tw-pipelines-list) - List available pipelines
+- [`tw pipelines add`](pipelines.md#tw-pipelines-add) - Add a pipeline to your workspace
 - [`tw runs view`](runs.md#tw-runs-view) - Monitor pipeline execution
 - [`tw runs cancel`](runs.md#tw-runs-cancel) - Cancel a running pipeline

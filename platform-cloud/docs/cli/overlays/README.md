@@ -35,7 +35,7 @@ tw-{command}-{subcommand}-{type}.md
 ```
 
 **Examples:**
-- `tw-pipelines-launch-examples.md` → Merged into `tw pipelines launch` section
+- `tw-launch-examples.md` → Merged into `tw pipelines launch` section
 - `tw-compute-envs-add-guide.md` → Merged into `tw compute-envs add` section
 - `tw-runs-view-examples.md` → Merged into `tw runs view` section
 
@@ -72,7 +72,7 @@ The pipelines commands allow you to manage and execute Nextflow pipelines in Seq
 
 ### Subcommand Overlay Example
 
-For `tw-pipelines-launch-examples.md` (subcommand level):
+For `tw-launch-examples.md` (subcommand level):
 
 ```markdown
 ### Examples
@@ -124,4 +124,4 @@ cat /tmp/test-output/{family}/{command}.md
 
 See the following templates:
 - `tw-pipelines.md` - Main command overlay template
-- `tw-pipelines-launch-examples.md` - Subcommand overlay template
+- `tw-launch-examples.md` - Subcommand overlay template
