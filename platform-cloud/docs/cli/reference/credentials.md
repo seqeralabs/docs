@@ -5,15 +5,12 @@ description: Manage workspace credentials
 
 # `tw credentials`
 
-Manage workspace credentials
-
-To launch pipelines in a Platform workspace, you need [credentials][credentials] for:
+To launch pipelines in a Platform workspace, you need [credentials](../../credentials/overview.md) for:
 
 1. Compute environments
 2. Pipeline repository Git providers
-3. (Optional) [Tower agent][tower-agent] — used with HPC clusters
+3. (Optional) [Tower agent](../../supported_software/agent/overview.md) — used with HPC clusters
 4. (Optional) Container registries, such as docker.io
-
 
 ## `tw credentials add`
 
@@ -53,12 +50,11 @@ tw credentials add github -n=my_GH_creds -u=<GitHub username> -p=<GitHub access 
 
 ### Container registry credentials
 
-Configure credentials for the Nextflow Wave container service to authenticate to private and public container registries. See the **Container registry credentials** section under [Credentials][credentials] for registry-specific instructions.
+Configure credentials for the Nextflow Wave container service to authenticate to private and public container registries. See [Container registry credentials](../../credentials/container_registry_credentials.md) for more information.
 
 :::note
-Container registry credentials are only used by the Wave container service. See [Wave containers][wave-docs] for more information.
+Container registry credentials are only used by the Wave container service. See [Wave containers](https://docs.seqera.io/wave) for more information.
 :::
-
 
 ### `tw credentials add aws`
 

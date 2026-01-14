@@ -5,10 +5,6 @@ description: Manage data links
 
 # `tw data-links`
 
-Manage data links
-
-Run `tw data-links -h` to view supported data-link operations.
-
 Data-links allow you to work with public and private cloud storage buckets in [Data Explorer](../../data/data-explorer) in the specified workspace. AWS S3, Azure Blob Storage, and Google Cloud Storage are supported. The full list of operations are:
 
 - `list`: List data-links in a workspace
@@ -18,7 +14,6 @@ Data-links allow you to work with public and private cloud storage buckets in [D
 - `browse`: Browse the contents of a data-link in a workspace
 - `upload`: Upload files and directories to a data-link in a workspace
 - `download`: Download files and directories from a data-link in a workspace
-
 
 ## `tw data-links list`
 
@@ -103,7 +98,6 @@ ID                                       | Provider | Name | Resource ref       
 v1-user-152116183ee325463901430bb9efb8c9 | azure    | FOO  | az://seqeralabs.azure-benchmarking |
 ```
 
-
 ## `tw data-links delete`
 
 Delete a data link.
@@ -130,7 +124,6 @@ tw data-links delete -w seqeralabs/showcase -i v1-user-152116183ee325463901430bb
 
 data-link 'v1-user-152116183ee325463901430bb9efb8c9' deleted at '138659136604200' workspace.
 ```
-
 
 ## `tw data-links update`
 
@@ -161,7 +154,6 @@ ID                                       | Provider | Name | Resource ref       
 ------------------------------------------+----------+------+------------------------------------+--------
 v1-user-152116183ee325463901430bb9efb8c9 | azure    | BAR  | az://seqeralabs.azure-benchmarking |
 ```
-
 
 ## `tw data-links browse`
 
@@ -239,7 +231,6 @@ FOLDER | sequence_indices/                          | 0
 FOLDER | technical/                                 | 0
 ```
 
-
 ## `tw data-links download`
 
 Download data link contents.
@@ -294,7 +285,6 @@ Downloading file: my-directory/file.txt
     --------+------------+---------------
      FOLDER | 1          | my-directory/
 ```
-
 
 ## `tw data-links upload`
 

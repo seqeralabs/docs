@@ -5,7 +5,7 @@ description: Manage pipeline actions
 
 # `tw actions`
 
-Manage pipeline actions
+Manage pipeline actions.
 
 Run `tw actions -h` to view supported pipeline action operations.
 

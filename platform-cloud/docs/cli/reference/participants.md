@@ -5,16 +5,13 @@ description: Manage workspace participants
 
 # `tw participants`
 
-Manage workspace participants
-
 Run `tw participants -h` to view supported participant operations.
 
-Manage workspace participants.
+Manage [workspace participants](../../orgs-and-teams/workspace-management.md).
 
 :::note
 The operations listed below require workspace `OWNER` or `ADMIN` permissions.
 :::
-
 
 ## `tw participants list`
 
@@ -75,7 +72,6 @@ tw participants add --name=collaborator@mydomain.com --type=MEMBER
   User 'collaborator' was added as participant to 'shared-workspace' workspace with role 'launch'
 ```
 
-
 ## `tw participants update`
 
 Update a participant role.
@@ -100,7 +96,6 @@ tw  participants update --name=collaborator@mydomain.com --type=COLLABORATOR --r
 
   Participant 'collaborator@mydomain.com' has now role 'maintain' for workspace 'shared-workspace'
 ```
-
 
 ## `tw participants delete`
 

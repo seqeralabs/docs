@@ -5,8 +5,6 @@ description: Manage studios
 
 # `tw studios`
 
-Manage studios
-
 Run `tw studios -h` to view the list of supported operations.
 
 Manage [Studio sessions](../../studios/overview) hosted in Seqera Platform. Studio sessions allow interactive analysis using Jupyter, RStudio, VS Code, and Xpra. Additional custom analysis environments can be defined as needed.
@@ -14,7 +12,6 @@ Manage [Studio sessions](../../studios/overview) hosted in Seqera Platform. Stud
 :::note
 Most Studio operations require workspace `MAINTAIN` permissions.
 :::
-
 
 ## `tw studios view`
 
@@ -58,7 +55,6 @@ Memory allocated    | 8192
 Build reports       | NA
 ```
 
-
 ## `tw studios list`
 
 List studios.
@@ -91,7 +87,6 @@ Checkpoints at studio 19a3abbd at [community / showcase] workspace:
     2010 | my_custom_named_ckpt | rob-newman | Fri, 31 Jan 2025 20:22:15 GMT | Fri, 31 Jan 2025 20:33:00 GMT
     2011 | foo_1738355617       | rob-newman | Fri, 31 Jan 2025 20:33:37 GMT | Fri, 31 Jan 2025 20:35:22 GMT
 ```
-
 
 ## `tw studios start`
 
@@ -132,7 +127,6 @@ tw studios start-as-new -pid=657ddbca \
 
   Studio 19a3abbd CREATED at [community / showcase] workspace and auto-started.
 ```
-
 
 ## `tw studios add`
 
@@ -176,7 +170,6 @@ tw studios add -n new-analysis -w community/showcase \
 
   Studio 2aa60bb7 CREATED at [community / showcase] workspace.
 ```
-
 
 ## `tw studios templates`
 
@@ -242,7 +235,6 @@ tw studios add-as-new [OPTIONS]
 
 ## `tw studios stop`
 
-
 Stop a studio.
 
 ```bash
@@ -268,9 +260,7 @@ tw studios stop -i 13083356 -w community/showcase
   Studio 13083356 STOP successfully submitted at [community / showcase] workspace.
 ```
 
-
 ## `tw studios delete`
-
 
 Delete a studio.
 

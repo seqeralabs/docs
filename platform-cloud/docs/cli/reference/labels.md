@@ -5,12 +5,9 @@ description: Manage workspace labels
 
 # `tw labels`
 
-Manage workspace labels
+Manage workspace [labels](../../labels/overview.md) and [resource labels](../../resource-labels/overview.md).
 
 Run `tw labels -h` to view supported label operations.
-
-Manage labels and resource labels.
-
 
 ## `tw labels add`
 
@@ -40,7 +37,6 @@ tw labels add -n Label1 -w DocTestOrg2/Testing -v Value1
 
 Label 'Label1=Value1' added at 'DocTestOrg2/Testing' workspace with id '268741348267491'
 ```
-
 
 ## `tw labels list`
 
@@ -78,7 +74,6 @@ Labels at 97652229034604 workspace:
     9184612610501   | Resource1              | Value1    | Resource
 ```
 
-
 ## `tw labels update`
 
 Update a label.
@@ -97,7 +92,6 @@ tw labels update [OPTIONS]
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
 
 Run `tw labels update -h` to view the required and optional fields for updating labels.
-
 
 ## `tw labels delete`
 

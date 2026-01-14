@@ -5,12 +5,9 @@ description: Manage datasets
 
 # `tw datasets`
 
-Manage datasets
-
 Run `tw datasets -h` to view the list of supported operations.
 
 [Datasets](../../data/datasets) are CSV (comma-separated values) and TSV (tab-separated values) files stored in a workspace, used as inputs during pipeline execution. The most commonly used datasets for Nextflow pipelines are samplesheets, where each row consists of a sample, the location of files for that sample (such as FASTQ files), and other sample details.
-
 
 ## `tw datasets add`
 
@@ -44,7 +41,6 @@ Dataset 'samplesheet1' added at user workspace with id '60gGrD4I2Gk0TUpEGOj5Td'
 The maximum supported dataset file size is 10 MB.
 :::
 
-
 ## `tw datasets delete`
 
 Delete a dataset.
@@ -68,7 +64,6 @@ tw datasets delete -i 6tYMjGqCUJy6dEXNK9y8kh
 
 Dataset '6tYMjGqCUJy6dEXNK9y8kh' deleted at 97652229034604 workspace
 ```
-
 
 ## `tw datasets download`
 
@@ -102,7 +97,6 @@ RAP1_UNINDUCED_REP2,https://raw.githubusercontent.com/nf-core/test-datasets/rnas
 RAP1_IAA_30M_REP1,https://raw.githubusercontent.com/nf-core/test-datasets/rnaseq/testdata/GSE110004/SRR6357076_1.fastq.gz,https://raw.githubusercontent.com/nf-core/test-datasets/rnaseq/testdata/GSE110004/SRR6357076_2.fastq.gz,reverse
 ```
 
-
 ## `tw datasets list`
 
 List datasets.
@@ -129,7 +123,6 @@ Datasets at 97652229034604 workspace:
   ------------------------+----------+-------------------------------
     6vBGj6aWWpBuLpGKjJDpZy | dataset2 | Tue, 27 Aug 2024 14:49:32 GMT
 ```
-
 
 ## `tw datasets view`
 
@@ -163,9 +156,7 @@ Dataset at 97652229034604 workspace:
     Updated     | Mon, 19 Aug 2024 07:59:17 GMT
 ```
 
-
 ### `tw datasets view versions`
-
 
 Display dataset versions.
 
@@ -200,7 +191,6 @@ tw datasets update -n dataset1 --new-name=dataset2 -f samplesheet_test.csv
 
 Dataset 'dataset1' updated at 97652229034604 workspace with id '6vBGj6aWWpBuLpGKjJDpZy'
 ```
-
 
 ## `tw datasets url`
 

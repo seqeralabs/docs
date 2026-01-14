@@ -5,14 +5,9 @@ description: Manage workspaces
 
 # `tw workspaces`
 
-Manage workspaces
-
 Run `tw workspaces -h` to view supported workspace operations.
 
-Workspaces provide the context in which a user launches workflow executions, defines the available resources, and manages who can access those resources. Workspaces contain pipelines, runs, actions, datasets, compute environments, credentials, and secrets. Access permissions are controlled with participants, collaborators, and teams.
-
-See [User workspaces][user-workspaces] for more information.
-
+[Workspaces](../../orgs-and-teams/workspace-management.md) provide the context in which a user launches workflow executions, defines the available resources, and manages who can access those resources. Workspaces contain pipelines, runs, actions, datasets, compute environments, credentials, and secrets. Access permissions are controlled with participants, collaborators, and teams.
 
 ## `tw workspaces list`
 
@@ -39,7 +34,6 @@ tw workspaces list
     -----------------+------------------+-------------------+-----------------
     26002603030407  | shared-workspace | my-tower-org      | 04303000612070
 ```
-
 
 ## `tw workspaces delete`
 
@@ -92,7 +86,6 @@ tw workspaces add --name=shared-workspace --full-name=shared-workspace-for-all  
 :::note
 By default, a workspace is set to private when created.
 :::
-
 
 ## `tw workspaces update`
 

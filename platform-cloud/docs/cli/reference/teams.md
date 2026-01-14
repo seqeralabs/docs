@@ -5,16 +5,13 @@ description: Manage teams
 
 # `tw teams`
 
-Manage teams
-
 Run `tw teams -h` to view supported team operations.
 
-Manage organization teams.
+Manage [organization teams](../../orgs-and-teams/organizations.md#teams).
 
 :::note
 Team management operations require organization `OWNER` permissions.
 :::
-
 
 ## `tw teams list`
 
@@ -45,7 +42,6 @@ Teams for TestOrg2 organization:
     84866234211969 | Testing   | 1
 ```
 
-
 ## `tw teams add`
 
 Add a team.
@@ -71,7 +67,6 @@ tw teams add -n team1 -o TestOrg2 -d testing
 A 'team1' team added for 'TestOrg2' organization
 ```
 
-
 ## `tw teams delete`
 
 Delete a team.
@@ -92,7 +87,6 @@ tw teams delete -i 169283393825479 -o TestOrg2
 
 Team '169283393825479' deleted for TestOrg2 organization
 ```
-
 
 ## `tw teams members`
 

@@ -7,13 +7,11 @@ description: Manage compute environments.
 
 Manage compute environments.
 
-Compute environments define the execution platform where a pipeline runs. A compute environment is composed of the credentials, configuration, and storage options related to a particular computing platform.  See [Compute environments][compute-envs] for more information on supported providers.
+Compute environments define the execution platform where a pipeline runs. A compute environment is composed of the credentials, configuration, and storage options related to a particular computing platform.  See [Compute environments](../../compute-envs/overview.md) for more information on supported providers.
 
 Run `tw compute-envs -h` to view the list of supported compute environment operations.
 
-
 ## `tw compute-envs add`
-
 
 Add a new compute environment.
 
@@ -44,7 +42,7 @@ This command will:
 - Use an existing S3 bucket to store the Nextflow work directory (`--work-dir`)
 - Wait until the compute environment has been successfully created and is ready to use (`--wait`)
 
-See the [compute environment][compute-envs] page for your provider for detailed information on Batch Forge and manual compute environment creation.
+See the [compute environment](../../compute-envs/overview.md) page for your provider for detailed information on Batch Forge and manual compute environment creation.
 
 
 ### `tw compute-envs add k8s`
@@ -67,7 +65,6 @@ tw compute-envs add aws-batch [OPTIONS]
 
 ### `tw compute-envs add eks`
 
-
 Add new Amazon EKS compute environment.
 
 ```bash
@@ -75,7 +72,6 @@ tw compute-envs add eks [OPTIONS]
 ```
 
 ### `tw compute-envs add slurm`
-
 
 Add new Slurm compute environment.
 
@@ -85,7 +81,6 @@ tw compute-envs add slurm [OPTIONS]
 
 ### `tw compute-envs add lsf`
 
-
 Add new IBM LSF compute environment.
 
 ```bash
@@ -93,7 +88,6 @@ tw compute-envs add lsf [OPTIONS]
 ```
 
 ### `tw compute-envs add uge`
-
 
 Add new UNIVA grid engine compute environment.
 
@@ -103,7 +97,6 @@ tw compute-envs add uge [OPTIONS]
 
 ### `tw compute-envs add altair`
 
-
 Add new Altair PBS Pro compute environment.
 
 ```bash
@@ -111,7 +104,6 @@ tw compute-envs add altair [OPTIONS]
 ```
 
 ### `tw compute-envs add moab`
-
 
 Add new MOAB compute environment.
 
@@ -121,7 +113,6 @@ tw compute-envs add moab [OPTIONS]
 
 ### `tw compute-envs add gke`
 
-
 Add new Google GKE compute environment.
 
 ```bash
@@ -129,7 +120,6 @@ tw compute-envs add gke [OPTIONS]
 ```
 
 ### `tw compute-envs add google-ls`
-
 
 Add new Google life sciences compute environment.
 
@@ -139,7 +129,6 @@ tw compute-envs add google-ls [OPTIONS]
 
 ### `tw compute-envs add google-batch`
 
-
 Add new Google Batch compute environment.
 
 ```bash
@@ -147,7 +136,6 @@ tw compute-envs add google-batch [OPTIONS]
 ```
 
 ### `tw compute-envs add azure-batch`
-
 
 Add new Azure Batch compute environments.
 
@@ -157,7 +145,6 @@ tw compute-envs add azure-batch [OPTIONS]
 
 ### `tw compute-envs add seqera-compute`
 
-
 Add new Seqera Compute environment.
 
 ```bash
@@ -165,7 +152,6 @@ tw compute-envs add seqera-compute [OPTIONS]
 ```
 
 ## `tw compute-envs update`
-
 
 Update a compute environment.
 
@@ -183,7 +169,6 @@ tw compute-envs update [OPTIONS]
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
 
 ## `tw compute-envs delete`
-
 
 Delete a compute environment.
 
@@ -205,9 +190,7 @@ tw compute-envs delete --name=my_aws_ce
   Compute environment '1sxCxvxfx8xnxdxGxQxqxH' deleted at user workspace
 ```
 
-
 ## `tw compute-envs view`
-
 
 View compute environment details.
 
@@ -225,7 +208,6 @@ tw compute-envs view [OPTIONS]
 
 ## `tw compute-envs list`
 
-
 List compute environments.
 
 ```bash
@@ -239,7 +221,6 @@ tw compute-envs list [OPTIONS]
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
 
 ## `tw compute-envs export`
-
 
 Export compute environment configuration as a JSON file.
 
@@ -257,7 +238,6 @@ tw compute-envs export [OPTIONS]
 
 ## `tw compute-envs import`
 
-
 Import a compute environment configuration from a JSON file.
 
 ```bash
@@ -272,7 +252,6 @@ tw compute-envs import [OPTIONS]
 
 ## `tw compute-envs primary`
 
-
 Manage the primary compute environment.
 
 ```bash
@@ -281,7 +260,6 @@ tw compute-envs primary [OPTIONS]
 
 ### `tw compute-envs primary get`
 
-
 Get the primary compute environment.
 
 ```bash
@@ -289,7 +267,6 @@ tw compute-envs primary get [OPTIONS]
 ```
 
 ### `tw compute-envs primary set`
-
 
 Set a compute environment as primary.
 

@@ -5,12 +5,9 @@ description: Manage pipelines
 
 # `tw pipelines`
 
-Manage pipelines
-
 Run `tw pipelines -h` to view the list of supported operations.
 
 Pipelines define pre-configured workflows in a workspace. A pipeline consists of a workflow repository, launch parameters, and a compute environment.
-
 
 ## `tw pipelines list`
 
@@ -84,7 +81,6 @@ The optional `--config` flag is used to pass a custom Nextflow configuration fil
 The `params-file` or `--config` file must be a YAML or JSON file using [Nextflow configuration][nextflow-config] syntax.
 :::
 
-
 ## `tw pipelines delete`
 
 Remove a pipeline.
@@ -157,7 +153,6 @@ The default launch parameters can be changed with the `update` command:
 tw pipelines update --name=my_rnaseq_nf_pipeline \
 --params-file=my_rnaseq_nf_pipeline_params_2.yaml
 ```
-
 
 ## `tw pipelines export`
 

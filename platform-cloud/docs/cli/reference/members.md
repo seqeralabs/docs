@@ -5,12 +5,9 @@ description: Manage organization members
 
 # `tw members`
 
-Manage organization members
-
 Run `tw members -h` to view supported member operations.
 
 Manage organization members. Organization membership management requires organization `OWNER` permissions.
-
 
 ## `tw members list`
 
@@ -45,7 +42,6 @@ Members for TestOrg2 organization:
 
 ```
 
-
 ## `tw members add`
 
 Add an organization member.
@@ -68,7 +64,6 @@ tw members add -u user1@domain.com -o DocTestOrg2
 
 Member 'user1' with ID '134534064600266' was added in organization 'TestOrg2'
 ```
-
 
 ## `tw members delete`
 
@@ -93,7 +88,6 @@ tw members delete -u user1 -o TestOrg2
 Member 'user1' deleted from organization 'TestOrg2'
 ```
 
-
 ## `tw members update`
 
 Update an organization member role.
@@ -117,7 +111,6 @@ tw members update -u user1 -r OWNER -o TestOrg2
 
 Member 'user1' updated to role 'owner' in organization 'TestOrg2'
 ```
-
 
 ## `tw members leave`
 
