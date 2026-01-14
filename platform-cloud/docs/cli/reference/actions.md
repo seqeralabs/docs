@@ -7,11 +7,14 @@ description: Manage pipeline actions
 
 Manage pipeline actions
 
+Run `tw actions -h` to view supported pipeline action operations.
+
+[Actions](../../pipeline-actions/overview) enable event-based pipeline execution, such as triggering a pipeline launch with a GitHub webhook whenever the pipeline repository is updated.
+
+
 ## `tw actions list`
 
-List pipeline actions
-
-### Synopsis
+List pipeline actions.
 
 ```bash
 tw actions list [OPTIONS]
@@ -25,9 +28,7 @@ tw actions list [OPTIONS]
 
 ## `tw actions view`
 
-View pipeline action details
-
-### Synopsis
+View pipeline action details.
 
 ```bash
 tw actions view [OPTIONS]
@@ -43,9 +44,7 @@ tw actions view [OPTIONS]
 
 ## `tw actions delete`
 
-Delete a pipeline action
-
-### Synopsis
+Delete a pipeline action.
 
 ```bash
 tw actions delete [OPTIONS]
@@ -61,19 +60,18 @@ tw actions delete [OPTIONS]
 
 ## `tw actions add`
 
-Add a pipeline action
-
-### Synopsis
+Add a pipeline action.
 
 ```bash
 tw actions add [OPTIONS]
 ```
 
+Run `tw actions add -h` to view the required and optional fields for adding an action.
+
+
 ### `tw actions add github`
 
-Add a pipeline action triggered by GitHub events
-
-### Synopsis
+Add a pipeline action triggered by GitHub events.
 
 ```bash
 tw actions add github [OPTIONS]
@@ -81,9 +79,7 @@ tw actions add github [OPTIONS]
 
 ### `tw actions add tower`
 
-Add a pipeline action triggered by Seqera Platform events
-
-### Synopsis
+Add a pipeline action triggered by Seqera Platform events.
 
 ```bash
 tw actions add tower [OPTIONS]
@@ -91,9 +87,7 @@ tw actions add tower [OPTIONS]
 
 ## `tw actions update`
 
-Update a pipeline action
-
-### Synopsis
+Update a pipeline action.
 
 ```bash
 tw actions update [OPTIONS]
@@ -126,9 +120,7 @@ tw actions update [OPTIONS]
 
 ## `tw actions labels`
 
-Manage pipeline action labels
-
-### Synopsis
+Manage pipeline action labels.
 
 ```bash
 tw actions labels [OPTIONS]

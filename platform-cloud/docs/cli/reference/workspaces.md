@@ -7,11 +7,16 @@ description: Manage workspaces
 
 Manage workspaces
 
+Run `tw workspaces -h` to view supported workspace operations.
+
+Workspaces provide the context in which a user launches workflow executions, defines the available resources, and manages who can access those resources. Workspaces contain pipelines, runs, actions, datasets, compute environments, credentials, and secrets. Access permissions are controlled with participants, collaborators, and teams.
+
+See [User workspaces][user-workspaces] for more information.
+
+
 ## `tw workspaces list`
 
-List workspaces
-
-### Synopsis
+List workspaces.
 
 ```bash
 tw workspaces list [OPTIONS]
@@ -23,11 +28,22 @@ tw workspaces list [OPTIONS]
 |--------|-------------|----------|----------|
 | `-o`, `--org`, `--organization` | Workspace organization name |  |  |
 
+List all the workspaces in which you are a participant:
+
+```bash
+tw workspaces list
+
+  Workspaces for default user:
+
+    Workspace ID    | Workspace Name   | Organization Name | Organization ID
+    -----------------+------------------+-------------------+-----------------
+    26002603030407  | shared-workspace | my-tower-org      | 04303000612070
+```
+
+
 ## `tw workspaces delete`
 
-Delete a workspace
-
-### Synopsis
+Delete a workspace.
 
 ```bash
 tw workspaces delete [OPTIONS]
@@ -42,9 +58,7 @@ tw workspaces delete [OPTIONS]
 
 ## `tw workspaces add`
 
-Add a workspace
-
-### Synopsis
+Add a workspace.
 
 ```bash
 tw workspaces add [OPTIONS]
@@ -61,11 +75,28 @@ tw workspaces add [OPTIONS]
 | `-v`, `--visibility` | Workspace visibility setting. Accepts `PRIVATE` (only participants can access) or `SHARED` (all organization members can view). |  |  |
 | `--overwrite` | Overwrite the workspace if it already exists |  | `false` |
 
+:::note
+Workspace management operations require organization `OWNER` permissions.
+:::
+
+Run `tw workspaces add -h` to view the required and optional fields for adding your workspace.
+
+In the example below, we create a shared workspace to be used for sharing pipelines with other private workspaces. See [Shared workspaces][shared-workspaces] for more information.
+
+```bash
+tw workspaces add --name=shared-workspace --full-name=shared-workspace-for-all  --org=my-tower-org --visibility=SHARED
+
+  A 'SHARED' workspace 'shared-workspace' added for 'my-tower-org' organization
+```
+
+:::note
+By default, a workspace is set to private when created.
+:::
+
+
 ## `tw workspaces update`
 
-Update a workspace
-
-### Synopsis
+Update a workspace.
 
 ```bash
 tw workspaces update [OPTIONS]
@@ -82,9 +113,7 @@ tw workspaces update [OPTIONS]
 
 ## `tw workspaces view`
 
-View workspace details
-
-### Synopsis
+View workspace details.
 
 ```bash
 tw workspaces view [OPTIONS]
@@ -99,9 +128,7 @@ tw workspaces view [OPTIONS]
 
 ## `tw workspaces leave`
 
-Leave a workspace
-
-### Synopsis
+Leave a workspace.
 
 ```bash
 tw workspaces leave [OPTIONS]

@@ -7,11 +7,14 @@ description: Manage organizations
 
 Manage organizations
 
+Run `tw organizations -h` to view supported workspace operations.
+
+Organizations are the top-level structure and contain workspaces, members, and teams. You can also add external collaborators to an organization. See [Organization management](../../orgs-and-teams/organizations) for more information.
+
+
 ## `tw organizations list`
 
-List organizations
-
-### Synopsis
+List organizations.
 
 ```bash
 tw organizations list [OPTIONS]
@@ -19,9 +22,7 @@ tw organizations list [OPTIONS]
 
 ## `tw organizations delete`
 
-Delete an organization
-
-### Synopsis
+Delete an organization.
 
 ```bash
 tw organizations delete [OPTIONS]
@@ -36,9 +37,7 @@ tw organizations delete [OPTIONS]
 
 ## `tw organizations add`
 
-Add an organization
-
-### Synopsis
+Add an organization.
 
 ```bash
 tw organizations add [OPTIONS]
@@ -55,11 +54,18 @@ tw organizations add [OPTIONS]
 | `-l`, `--location` | Organization location. Geographic location or region where the organization is based (e.g., 'San Francisco, CA' or 'EU'). |  |  |
 | `-w`, `--website` | Organization website URL. Public website or documentation site for the organization. Must be a valid URL (e.g., https://example.com). |  |  |
 
+Run `tw organizations add -h` to view the required and optional fields for adding your workspace.
+
+```bash
+tw organizations add -n TestOrg2 -f 2nd\ Test\ Organization\ LLC -l RSA
+
+Organization 'TestOrg2' with ID '204336622618177' was added
+```
+
+
 ## `tw organizations update`
 
-Update an organization
-
-### Synopsis
+Update an organization.
 
 ```bash
 tw organizations update [OPTIONS]
@@ -79,9 +85,7 @@ tw organizations update [OPTIONS]
 
 ## `tw organizations view`
 
-View organization details
-
-### Synopsis
+View organization details.
 
 ```bash
 tw organizations view [OPTIONS]

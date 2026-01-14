@@ -7,11 +7,18 @@ description: Manage studios
 
 Manage studios
 
+Run `tw studios -h` to view the list of supported operations.
+
+Manage [Studio sessions](../../studios/overview) hosted in Seqera Platform. Studio sessions allow interactive analysis using Jupyter, RStudio, VS Code, and Xpra. Additional custom analysis environments can be defined as needed.
+
+:::note
+Most Studio operations require workspace `MAINTAIN` permissions.
+:::
+
+
 ## `tw studios view`
 
-View studio details
-
-### Synopsis
+View studio details.
 
 ```bash
 tw studios view [OPTIONS]
@@ -25,11 +32,36 @@ tw studios view [OPTIONS]
 | `-i`, `--id` | Studio session identifier |  |  |
 | `-n`, `--name` | Studio name |  |  |
 
+Run `tw studios view -h` to view the required and optional fields for viewing session details.
+
+```bash
+tw studios view -i 23ce7967 -w community/showcase
+
+  Studio at workspace '[community / showcase]'
+
+---------------------+------------------------------------------------------------
+SessionID           | 23ce7967
+Name                | experiment-analysis-session
+Status              | STARTING
+Status Last Update  | Fri, 31 Jan 2025 19:35:07 GMT
+Studio URL          | https://a23ce7967.connect.cloud.seqera.io
+Description         |
+Created on          | Fri, 31 Jan 2025 18:12:27 GMT
+Created by          | rob-newman | rob.newman@seqera.io
+Template            | public.cr.seqera.io/platform/data-studio-jupyter:4.1.5-0.7
+Mounted Data        |
+Compute environment | aws-datastudios-sandbox-ireland-16cpus
+Region              | eu-west-1
+GPU allocated       | 0
+CPU allocated       | 2
+Memory allocated    | 8192
+Build reports       | NA
+```
+
+
 ## `tw studios list`
 
-List studios
-
-### Synopsis
+List studios.
 
 ```bash
 tw studios list [OPTIONS]
@@ -45,11 +77,26 @@ tw studios list [OPTIONS]
 | `--offset` | Row offset for paginated results (default: 0) |  |  |
 | `--max` | Maximum number of records to display (default: ) |  |  |
 
+Run `tw studios checkpoints -h` to view the required and optional fields for viewing checkpoints for a session.
+
+List all checkpoints for an existing Studio session in a workspace. See [Session checkpoints](../../studios/managing#studio-session-checkpoints) for more information.
+
+```bash
+tw studios checkpoints -i 19a3abbd -w community/showcase
+
+Checkpoints at studio 19a3abbd at [community / showcase] workspace:
+
+    ID   | Name                 | Author     | Date Created                  | Date Saved
+  ------+----------------------+------------+-------------------------------+-------------------------------
+    2010 | my_custom_named_ckpt | rob-newman | Fri, 31 Jan 2025 20:22:15 GMT | Fri, 31 Jan 2025 20:33:00 GMT
+    2011 | foo_1738355617       | rob-newman | Fri, 31 Jan 2025 20:33:37 GMT | Fri, 31 Jan 2025 20:35:22 GMT
+```
+
+
 ## `tw studios start`
 
-Start a studio.
 
-### Synopsis
+Start a studio.
 
 ```bash
 tw studios start [OPTIONS]
@@ -70,11 +117,26 @@ tw studios start [OPTIONS]
 | `--memory` | Optional configuration override for 'memory' setting (integer representing memory in MBs). |  |  |
 | `--lifespan` | Optional configuration override for 'lifespan' setting (integer representing hours). Defaults to workspace lifespan setting. |  |  |
 
+Run `tw studios start-as-new -h` to view the required and optional fields for adding and starting a new session from an existing session checkpoint.
+
+Add a new session from an existing parent Studio session and checkpoint. Useful for experimentation without impacting the parent Studio session state.
+
+```bash
+tw studios start-as-new -pid=657ddbca \
+-n=analysis-env-from-parent \
+-w community/showcase \
+--description="New sandbox for temporary analysis"  \
+--cpu=2 \
+--memory=8192 \
+-a
+
+  Studio 19a3abbd CREATED at [community / showcase] workspace and auto-started.
+```
+
+
 ## `tw studios add`
 
-Add a studio
-
-### Synopsis
+Add a studio.
 
 ```bash
 tw studios add [OPTIONS]
@@ -100,11 +162,25 @@ tw studios add [OPTIONS]
 | `--memory` | Optional configuration override for 'memory' setting (integer representing memory in MBs). |  |  |
 | `--lifespan` | Optional configuration override for 'lifespan' setting (integer representing hours). Defaults to workspace lifespan setting. |  |  |
 
+Run `tw studios add -h` to view the required and optional fields for adding sessions.
+
+Add a new Studio session in a workspace.
+
+```bash
+tw studios add -n new-analysis -w community/showcase \
+--description="New Python analysis for RNA experiment ABC" \
+--template="public.cr.seqera.io/platform/data-studio-jupyter:4.1.5-0.7" \
+--compute-env=48bB2PDk83AxskE40lealy \
+--cpu=2 \
+--memory=8192
+
+  Studio 2aa60bb7 CREATED at [community / showcase] workspace.
+```
+
+
 ## `tw studios templates`
 
-List available studio templates
-
-### Synopsis
+List available studio templates.
 
 ```bash
 tw studios templates [OPTIONS]
@@ -119,9 +195,7 @@ tw studios templates [OPTIONS]
 
 ## `tw studios checkpoints`
 
-List studio checkpoints
-
-### Synopsis
+List studio checkpoints.
 
 ```bash
 tw studios checkpoints [OPTIONS]
@@ -141,9 +215,7 @@ tw studios checkpoints [OPTIONS]
 
 ## `tw studios add-as-new`
 
-Add a studio from an existing one
-
-### Synopsis
+Add a studio from an existing one.
 
 ```bash
 tw studios add-as-new [OPTIONS]
@@ -170,9 +242,8 @@ tw studios add-as-new [OPTIONS]
 
 ## `tw studios stop`
 
-Stop a studio.
 
-### Synopsis
+Stop a studio.
 
 ```bash
 tw studios stop [OPTIONS]
@@ -187,11 +258,21 @@ tw studios stop [OPTIONS]
 | `-i`, `--id` | Studio session identifier |  |  |
 | `-n`, `--name` | Studio name |  |  |
 
+Run `tw studios stop -h` to view the required and optional fields for adding sessions.
+
+Stop an existing Studio session in a workspace.
+
+```bash
+tw studios stop -i 13083356 -w community/showcase
+
+  Studio 13083356 STOP successfully submitted at [community / showcase] workspace.
+```
+
+
 ## `tw studios delete`
 
-Delete a studio.
 
-### Synopsis
+Delete a studio.
 
 ```bash
 tw studios delete [OPTIONS]
@@ -204,3 +285,13 @@ tw studios delete [OPTIONS]
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
 | `-i`, `--id` | Studio session identifier |  |  |
 | `-n`, `--name` | Studio name |  |  |
+
+Run `tw studios delete -h` to view the required and optional fields for listing sessions.
+
+Delete an existing Studio session from a workspace.
+
+```bash
+tw studios delete -i 2aa60bb7
+
+Studio 2aa60bb7 deleted at [community / showcase] workspace.
+```

@@ -26,8 +26,7 @@ def generate_subcommand_section(command_data, overlays_dir, level=2):
     md = f"\n{heading} `{full_path}`\n\n"
     md += f"{description}\n\n"
 
-    # Synopsis
-    md += f"### Synopsis\n\n"
+    # Command syntax (no Synopsis heading)
     md += f"```bash\n{full_path} [OPTIONS]\n```\n"
 
     # Add options table
@@ -43,10 +42,17 @@ def generate_subcommand_section(command_data, overlays_dir, level=2):
             default = f"`{opt.get('default_value', '')}`" if opt.get('default_value') else ''
             md += f"| {names} | {desc} | {required} | {default} |\n"
 
-    # Check for subcommand-specific overlay
-    overlay_file = overlays_dir / f"{full_path.replace(' ', '-')}-examples.md"
-    if overlay_file.exists():
-        md += "\n" + overlay_file.read_text() + "\n"
+    # Check for subcommand-specific overlay (try multiple patterns)
+    overlay_patterns = [
+        f"{full_path.replace(' ', '-')}.md",          # tw-credentials-add.md
+        f"{full_path.replace(' ', '-')}-examples.md", # tw-credentials-add-examples.md
+    ]
+
+    for pattern in overlay_patterns:
+        overlay_file = overlays_dir / pattern
+        if overlay_file.exists():
+            md += "\n" + overlay_file.read_text() + "\n"
+            break  # Only use first matching overlay
 
     return md
 
@@ -100,8 +106,7 @@ description: {description}
                     md += generate_subcommand_section(nested_subcmd, overlays_dir, level=3)
     else:
         # Main command has no subcommands, treat it as standalone
-        md += "\n## Synopsis\n\n"
-        md += f"```bash\n{full_path} [OPTIONS]\n```\n"
+        md += f"\n```bash\n{full_path} [OPTIONS]\n```\n"
 
         if command_data.get('options'):
             md += "\n## Options\n\n"
@@ -115,10 +120,17 @@ description: {description}
                 default = f"`{opt.get('default_value', '')}`" if opt.get('default_value') else ''
                 md += f"| {names} | {desc} | {required} | {default} |\n"
 
-        # Check for command-level overlay for standalone commands
-        standalone_overlay_file = overlays_dir / f"{full_path.replace(' ', '-')}-examples.md"
-        if standalone_overlay_file.exists():
-            md += "\n" + standalone_overlay_file.read_text() + "\n"
+        # Check for command-level overlay for standalone commands (try multiple patterns)
+        standalone_overlay_patterns = [
+            f"{full_path.replace(' ', '-')}.md",
+            f"{full_path.replace(' ', '-')}-examples.md",
+        ]
+
+        for pattern in standalone_overlay_patterns:
+            standalone_overlay_file = overlays_dir / pattern
+            if standalone_overlay_file.exists():
+                md += "\n" + standalone_overlay_file.read_text() + "\n"
+                break
 
     return md
 

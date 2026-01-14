@@ -7,8 +7,6 @@ description: Show system info and health status
 
 Show system info and health status
 
-## Synopsis
-
 ```bash
 tw info [OPTIONS]
 ```
