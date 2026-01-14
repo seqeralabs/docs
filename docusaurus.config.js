@@ -157,7 +157,7 @@ export default async function createConfigAsync() {
     tagline: "Documentation for Seqera products",
     url: "https://docs.seqera.io",
     future: {
-      experimental_faster: true,
+      experimental_faster: process.env.NODE_ENV === 'development',
     },
     presets: [
       [
