@@ -379,16 +379,27 @@ The policy can be scoped down to limit access to the [specific log group](#advan
 
 ### S3 access (optional)
 
-Seqera offers several products to manipulate data on AWS S3 buckets, such as [Studios](../studios/overview) and [Data Explorer](../data/data-explorer); in addition to that, Seqera automatically fetches the list of buckets available in the AWS accounts connected to Platform, to provide them in a dropdown menu to be used as Nextflow working directory. The Studios and Data Explorer features are optional, and users can type the bucket name manually when creating pipelines, so this section of the policy is optional and can be omitted if these features are not used.
+Seqera automatically attempts to fetch a list of S3 buckets available in the AWS account connected to Platform, to provide them in a dropdown menu to be used as Nextflow working directory and make the Compute Environment creation smoother: this feature is optional and users can type the bucket name manually when setting up a Compute Environment. To allow Platform to fetch the list of buckets in the account the `s3:ListAllMyBuckets` action can be added: it must have the `Resource` field set to `*`, as shown in the generic policy at the beginning of this document.
 
-The policy can be scoped down to only allow limited Read/Write permissions in certain S3 buckets used by Studios/Data Explorer, and to allow listing all the buckets in the account to populate the dropdown menu in the UI (the `s3:ListAllMyBuckets` action must have `Resource` set to `*` because it is not possible to restrict it to specific buckets).
+Seqera offers several products to manipulate data on AWS S3 buckets, such as [Studios](../studios/overview) and [Data Explorer](../data/data-explorer); if these features are not used the related permissions can be omitted.
+
+The IAM policy can be scoped down to only allow limited Read/Write permissions in certain S3 buckets used by Studios/Data Explorer. In addition, the policy must include permission to check the region and list the content of the S3 bucket used as Nextflow work directory.
+
+:::note
+If you opted to create a separate S3 bucket only for Nextflow work directories, there is no need for the IAM user to have Read/Write access to it: if Platform is allowed to manage resources (using Batch Forge) the IAM roles automatically created will have the necessary permissions; if you set up the compute environment manually, you can create the required IAM roles with the necessary permissions as detailed in the [manual AWS Batch setup documentation](../enterprise/advanced-topics/manual-aws-batch-setup).
+:::
 
 ```json
 {
-  "Sid": "S3ListBuckets",
+  "Sid": "S3CheckBucketWorkDirectory",
   "Effect": "Allow",
-  "Action": "s3:ListAllMyBuckets",
-  "Resource": "*"
+  "Action": [
+    "s3:GetBucketLocation",
+    "s3:ListBucket"
+  ],
+  "Resource": [
+    "arn:aws:s3:::example-bucket-used-as-work-directory"
+  ]
 },
 {
   "Sid": "S3ReadWriteBucketsForStudiosDataExplorer",
@@ -406,10 +417,6 @@ The policy can be scoped down to only allow limited Read/Write permissions in ce
   ]
 }
 ```
-
-:::note
-If you opted to create a separate S3 bucket only for Nextflow work directories, there is no need for the IAM user to have access to it: if Platform is allowed to manage resources (using Batch Forge) the IAM roles automatically created will have the necessary permissions; if you set up the compute environment manually, you can create the required IAM roles with the necessary permissions as detailed in the [manual AWS Batch setup documentation](../enterprise/advanced-topics/manual-aws-batch-setup).
-:::
 
 ### IAM roles for AWS Batch (optional)
 
