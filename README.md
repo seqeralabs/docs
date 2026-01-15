@@ -143,8 +143,11 @@ uv run .github/scripts/generate-changelog.py --help
 # Generate changelog for a specific release
 uv run .github/scripts/generate-changelog.py --repo seqeralabs/wave --release v1.32.0
 
-# Generate changelogs for the last 10 releases (skipping existing)
-uv run .github/scripts/generate-changelog.py --repo seqeralabs/wave --last 10 --skip-existing
+# Generate changelogs for the last 10 releases
+uv run .github/scripts/generate-changelog.py --repo seqeralabs/wave --last 10
+
+# Generate changelogs for the last 10 releases, overwrite existing markdown
+uv run .github/scripts/generate-changelog.py --repo seqeralabs/wave --last 10 --overwrite
 
 # Generate changelogs for a date range
 uv run .github/scripts/generate-changelog.py --repo MultiQC/MultiQC --from 2024-01-01 --to 2024-12-31

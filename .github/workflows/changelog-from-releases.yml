@@ -80,6 +80,5 @@ jobs:
           CHANGELOG_REPO: ${{ matrix.repo }}
           CHANGELOG_RELEASE: ${{ github.event.inputs.release_tag }}
           CHANGELOG_LAST: ${{ github.event.inputs.release_tag && '' || '10' }}
-          CHANGELOG_SKIP_EXISTING: "true"
           CHANGELOG_CREATE_PR: "true"
         run: uv run .github/scripts/generate-changelog.py

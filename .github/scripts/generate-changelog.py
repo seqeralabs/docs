@@ -397,9 +397,9 @@ click.rich_click.STYLE_ERRORS_SUGGESTION = "yellow italic"
     help="Show what would be generated without writing files",
 )
 @click.option(
-    "--skip-existing",
+    "--overwrite",
     is_flag=True,
-    help="Skip releases where changelog file already exists",
+    help="Overwrite existing changelog files (by default, existing files are skipped)",
 )
 @click.option(
     "--json-output",
@@ -420,7 +420,7 @@ def main(
     output: Optional[str],
     output_dir: Optional[str],
     dry_run: bool,
-    skip_existing: bool,
+    overwrite: bool,
     json_output: Optional[str],
     create_pr: bool,
 ):
@@ -524,8 +524,8 @@ def main(
             reverse=True,
         )
 
-        # Filter out existing files if --skip-existing is set
-        if skip_existing:
+        # Filter out existing files unless --overwrite is set
+        if not overwrite:
             output_base = Path(output_dir) if output_dir else Path(".")
             filtered_releases = []
             for rel in releases_to_process:
