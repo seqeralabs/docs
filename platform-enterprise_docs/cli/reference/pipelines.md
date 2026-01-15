@@ -22,8 +22,8 @@ tw pipelines list [OPTIONS]
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
 | `-f`, `--filter` | Show only pipelines that contain the given word |  |  |
-| `--visibility` | Show pipelines: ${COMPLETION-CANDIDATES} [default: private]. |  | `private` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
+| `--visibility` | Show pipelines: OWNER, MEMBER, COLLABORATOR [default: private]. |  | `private` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `TOWER_WORKSPACE_ID` |
 | `--page` | Page number for paginated results (default: 1) |  |  |
 | `--offset` | Row offset for paginated results (default: 0) |  |  |
 | `--max` | Maximum number of records to display (default: ) |  |  |
@@ -60,7 +60,7 @@ tw pipelines add [OPTIONS]
 |--------|-------------|----------|----------|
 | `-n`, `--name` | Pipeline name. Must be unique within the workspace. | ✓ |  |
 | `-d`, `--description` | Pipeline description. |  |  |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `TOWER_WORKSPACE_ID` |
 | `--labels` | Labels to apply to the resource. Provide comma-separated label values (use key=value format for resource labels). Labels will be created if they don't exist |  |  |
 | `-c`, `--compute-env` | Compute environment identifier where the pipeline will run. Defaults to workspace primary compute environment if omitted. Provide the name or identifier. |  |  |
 | `--work-dir` | Work directory path where workflow intermediate files are stored. Defaults to compute environment work directory if omitted. |  |  |
@@ -113,7 +113,7 @@ tw pipelines view [OPTIONS]
 |--------|-------------|----------|----------|
 | `-i`, `--id` | Pipeline identifier |  |  |
 | `-n`, `--name` | Pipeline name |  |  |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `TOWER_WORKSPACE_ID` |
 
 ### Example
 
@@ -164,7 +164,7 @@ tw pipelines update [OPTIONS]
 | `--pipeline` | Nextflow pipeline URL |  |  |
 | `-i`, `--id` | Pipeline identifier |  |  |
 | `-n`, `--name` | Pipeline name |  |  |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `TOWER_WORKSPACE_ID` |
 | `-c`, `--compute-env` | Compute environment identifier where the pipeline will run. Defaults to workspace primary compute environment if omitted. Provide the name or identifier. |  |  |
 | `--work-dir` | Work directory path where workflow intermediate files are stored. Defaults to compute environment work directory if omitted. |  |  |
 | `-p`, `--profile` | Array of Nextflow configuration profile names to apply. |  |  |
@@ -202,7 +202,7 @@ tw pipelines delete [OPTIONS]
 |--------|-------------|----------|----------|
 | `-i`, `--id` | Pipeline identifier |  |  |
 | `-n`, `--name` | Pipeline name |  |  |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `TOWER_WORKSPACE_ID` |
 
 ### Example
 
@@ -227,7 +227,7 @@ tw pipelines export [OPTIONS]
 |--------|-------------|----------|----------|
 | `-i`, `--id` | Pipeline identifier |  |  |
 | `-n`, `--name` | Pipeline name |  |  |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `TOWER_WORKSPACE_ID` |
 
 ### Example
 
@@ -253,7 +253,7 @@ tw pipelines import [OPTIONS]
 | `-n`, `--name` | Pipeline name | ✓ |  |
 | `-c`, `--compute-env` | Compute environment name (defaults to value defined in JSON environment file) |  |  |
 | `--overwrite` | Overwrite the pipeline if it already exists. |  | `false` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `TOWER_WORKSPACE_ID` |
 
 ### Example
 

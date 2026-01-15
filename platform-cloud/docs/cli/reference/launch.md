@@ -23,7 +23,7 @@ tw launch [OPTIONS]
 | `--work-dir` | Work directory path where workflow intermediate files are stored. Defaults to compute environment work directory if omitted. |  |  |
 | `-p`, `--profile` | Array of Nextflow configuration profile names to apply. |  |  |
 | `-r`, `--revision` | Git revision, branch, or tag to use. |  |  |
-| `--wait` | Wait until workflow reaches specified status: ${COMPLETION-CANDIDATES} |  |  |
+| `--wait` | Wait until workflow reaches specified status: SUBMITTED, RUNNING, SUCCEEDED, FAILED, CANCELLED |  |  |
 | `-l`, `--labels` | Labels to assign to each pipeline run. Provide comma-separated label values (use key=value format for resource labels). Labels will be created if they don't exist |  |  |
 | `--launch-container` | Container image to use for the Nextflow launcher. |  |  |
 | `--config` | Nextflow configuration as text (overrides config files). Provide the path to a file containing the content. |  |  |
@@ -39,7 +39,7 @@ tw launch [OPTIONS]
 | `--disable-optimization` | Turn off the optimization for the pipeline before launching. |  |  |
 | `--head-job-cpus` | Number of CPUs allocated for the Nextflow head job. |  |  |
 | `--head-job-memory` | Memory allocation for the Nextflow head job in megabytes. |  |  |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `TOWER_WORKSPACE_ID` |
 
 ```bash
 tw launch -w 123456789012345 nf-hello-2026
