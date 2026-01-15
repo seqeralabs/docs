@@ -1,0 +1,909 @@
+{
+  "new_endpoints": [
+    {
+      "endpoint": "/compute-envs/{computeEnvId}/disable",
+      "method": "POST",
+      "operation_id": "DisableComputeEnv",
+      "tag": "compute-envs",
+      "summary": "Disable compute environment",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/compute-envs/{computeEnvId}/enable",
+      "method": "POST",
+      "operation_id": "EnableComputeEnv",
+      "tag": "compute-envs",
+      "summary": "Enable compute environment",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/data-links/{dataLinkId}/download/{filePath}",
+      "method": "GET",
+      "operation_id": "DownloadDataLink",
+      "tag": "data-links",
+      "summary": "Download data-link file at path",
+      "target": "$[\"paths\"]"
+    }
+  ],
+  "modified_endpoints": [
+    {
+      "endpoint": "/data-links/{dataLinkId}/browse",
+      "method": "GET",
+      "operation_id": null,
+      "tag": "data-links",
+      "summary": null,
+      "target": "$[\"paths\"][\"/data-links/{dataLinkId}/browse\"][\"get\"][\"summary\"]"
+    },
+    {
+      "endpoint": "/data-links/{dataLinkId}/browse",
+      "method": "GET",
+      "operation_id": null,
+      "tag": "data-links",
+      "summary": null,
+      "target": "$[\"paths\"][\"/data-links/{dataLinkId}/browse\"][\"get\"][\"description\"]"
+    },
+    {
+      "endpoint": "/data-links/{dataLinkId}/browse/{path}",
+      "method": "GET",
+      "operation_id": null,
+      "tag": "data-links",
+      "summary": null,
+      "target": "$[\"paths\"][\"/data-links/{dataLinkId}/browse/{path}\"][\"get\"][\"operationId\"]"
+    },
+    {
+      "endpoint": "/data-links/{dataLinkId}/upload",
+      "method": "POST",
+      "operation_id": null,
+      "tag": "data-links",
+      "summary": null,
+      "target": "$[\"paths\"][\"/data-links/{dataLinkId}/upload\"][\"post\"][\"summary\"]"
+    },
+    {
+      "endpoint": "/data-links/{dataLinkId}/upload",
+      "method": "POST",
+      "operation_id": null,
+      "tag": "data-links",
+      "summary": null,
+      "target": "$[\"paths\"][\"/data-links/{dataLinkId}/upload\"][\"post\"][\"description\"]"
+    },
+    {
+      "endpoint": "/data-links/{dataLinkId}/upload/finish",
+      "method": "POST",
+      "operation_id": null,
+      "tag": "data-links",
+      "summary": null,
+      "target": "$[\"paths\"][\"/data-links/{dataLinkId}/upload/finish\"][\"post\"][\"summary\"]"
+    },
+    {
+      "endpoint": "/data-links/{dataLinkId}/upload/finish",
+      "method": "POST",
+      "operation_id": null,
+      "tag": "data-links",
+      "summary": null,
+      "target": "$[\"paths\"][\"/data-links/{dataLinkId}/upload/finish\"][\"post\"][\"description\"]"
+    },
+    {
+      "endpoint": "/data-links/{dataLinkId}/upload/finish",
+      "method": "POST",
+      "operation_id": null,
+      "tag": "data-links",
+      "summary": null,
+      "target": "$[\"paths\"][\"/data-links/{dataLinkId}/upload/finish\"][\"post\"][\"responses\"][\"404\"][\"description\"]"
+    },
+    {
+      "endpoint": "/data-links/{dataLinkId}/upload/finish/{dirPath}",
+      "method": "POST",
+      "operation_id": null,
+      "tag": "data-links",
+      "summary": null,
+      "target": "$[\"paths\"][\"/data-links/{dataLinkId}/upload/finish/{dirPath}\"][\"post\"][\"operationId\"]"
+    },
+    {
+      "endpoint": "/data-links/{dataLinkId}/upload/finish/{dirPath}",
+      "method": "POST",
+      "operation_id": null,
+      "tag": "data-links",
+      "summary": null,
+      "target": "$[\"paths\"][\"/data-links/{dataLinkId}/upload/finish/{dirPath}\"][\"post\"][\"responses\"][\"200\"][\"description\"]"
+    },
+    {
+      "endpoint": "/data-links/{dataLinkId}/upload/{dirPath}",
+      "method": "POST",
+      "operation_id": null,
+      "tag": "data-links",
+      "summary": null,
+      "target": "$[\"paths\"][\"/data-links/{dataLinkId}/upload/{dirPath}\"][\"post\"][\"operationId\"]"
+    }
+  ],
+  "new_schemas": [
+    {
+      "schema": "GitKeys",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    }
+  ],
+  "modified_schemas": [
+    {
+      "schema": "AbstractGridConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AbstractGridConfig\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AbstractGridConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AbstractGridConfig\"][\"allOf\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "Action",
+      "target": "$[\"components\"][\"schemas\"][\"Action.ConfigType\"][\"properties\"][\"discriminator\"][\"readOnly\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "Action",
+      "target": "$[\"components\"][\"schemas\"][\"Action.EventType\"][\"properties\"][\"discriminator\"][\"readOnly\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "Action",
+      "target": "$[\"components\"][\"schemas\"][\"Action.TowerActionConfig\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "Action",
+      "target": "$[\"components\"][\"schemas\"][\"Action.TowerActionEvent\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AgentSecurityKeys",
+      "target": "$[\"components\"][\"schemas\"][\"AgentSecurityKeys\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AltairPbsComputeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AltairPbsComputeConfig\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AltairPbsComputeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AltairPbsComputeConfig\"][\"allOf\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AwsBatchConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AwsBatchConfig\"][\"properties\"][\"workDir\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AwsBatchConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AwsBatchConfig\"][\"properties\"][\"preRunScript\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AwsBatchConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AwsBatchConfig\"][\"properties\"][\"postRunScript\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AwsBatchConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AwsBatchConfig\"][\"properties\"][\"discriminator\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AwsBatchPlatformMetainfo",
+      "target": "$[\"components\"][\"schemas\"][\"AwsBatchPlatformMetainfo\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AwsBatchPlatformMetainfo",
+      "target": "$[\"components\"][\"schemas\"][\"AwsBatchPlatformMetainfo\"][\"properties\"][\"discriminator\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AwsCloudConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AwsCloudConfig\"][\"properties\"][\"workDir\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AwsCloudConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AwsCloudConfig\"][\"properties\"][\"preRunScript\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AwsCloudConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AwsCloudConfig\"][\"properties\"][\"postRunScript\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AwsCloudConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AwsCloudConfig\"][\"properties\"][\"discriminator\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AwsCloudPlatformMetainfo",
+      "target": "$[\"components\"][\"schemas\"][\"AwsCloudPlatformMetainfo\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AwsCloudPlatformMetainfo",
+      "target": "$[\"components\"][\"schemas\"][\"AwsCloudPlatformMetainfo\"][\"properties\"][\"discriminator\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AwsSecurityKeys",
+      "target": "$[\"components\"][\"schemas\"][\"AwsSecurityKeys\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AzBatchConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AzBatchConfig\"][\"properties\"][\"workDir\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzBatchConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AzBatchConfig\"][\"properties\"][\"preRunScript\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzBatchConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AzBatchConfig\"][\"properties\"][\"postRunScript\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzBatchConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AzBatchConfig\"][\"properties\"][\"discriminator\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzBatchPlatformMetainfo",
+      "target": "$[\"components\"][\"schemas\"][\"AzBatchPlatformMetainfo\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AzBatchPlatformMetainfo",
+      "target": "$[\"components\"][\"schemas\"][\"AzBatchPlatformMetainfo\"][\"properties\"][\"discriminator\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzCloudConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AzCloudConfig\"][\"properties\"][\"workDir\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzCloudConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AzCloudConfig\"][\"properties\"][\"preRunScript\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzCloudConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AzCloudConfig\"][\"properties\"][\"postRunScript\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzCloudConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AzCloudConfig\"][\"properties\"][\"discriminator\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzCloudPlatformMetaInfo",
+      "target": "$[\"components\"][\"schemas\"][\"AzCloudPlatformMetaInfo\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AzCloudPlatformMetaInfo",
+      "target": "$[\"components\"][\"schemas\"][\"AzCloudPlatformMetaInfo\"][\"properties\"][\"discriminator\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzureCloudKeys",
+      "target": "$[\"components\"][\"schemas\"][\"AzureCloudKeys\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AzureCloudKeys",
+      "target": "$[\"components\"][\"schemas\"][\"AzureCloudKeys\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AzureCloudKeys",
+      "target": "$[\"components\"][\"schemas\"][\"AzureCloudKeys\"][\"allOf\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AzureEntraKeys",
+      "target": "$[\"components\"][\"schemas\"][\"AzureEntraKeys\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AzureEntraKeys",
+      "target": "$[\"components\"][\"schemas\"][\"AzureEntraKeys\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AzureEntraKeys",
+      "target": "$[\"components\"][\"schemas\"][\"AzureEntraKeys\"][\"allOf\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AzureReposSecurityKeys",
+      "target": "$[\"components\"][\"schemas\"][\"AzureReposSecurityKeys\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AzureSecurityKeys",
+      "target": "$[\"components\"][\"schemas\"][\"AzureSecurityKeys\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "BitBucketSecurityKeys",
+      "target": "$[\"components\"][\"schemas\"][\"BitBucketSecurityKeys\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "CodeCommitSecurityKeys",
+      "target": "$[\"components\"][\"schemas\"][\"CodeCommitSecurityKeys\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "ComputeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"ComputeConfig\"][\"properties\"][\"discriminator\"][\"readOnly\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "ComputeEnv",
+      "target": "$[\"components\"][\"schemas\"][\"ComputeEnv.Status\"][\"enum\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "ContainerRegistryKeys",
+      "target": "$[\"components\"][\"schemas\"][\"ContainerRegistryKeys\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "EksComputeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"EksComputeConfig\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "EksComputeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"EksComputeConfig\"][\"allOf\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "EksPlatformMetaInfo",
+      "target": "$[\"components\"][\"schemas\"][\"EksPlatformMetaInfo\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "EksPlatformMetaInfo",
+      "target": "$[\"components\"][\"schemas\"][\"EksPlatformMetaInfo\"][\"properties\"][\"discriminator\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "GitHubSecurityKeys",
+      "target": "$[\"components\"][\"schemas\"][\"GitHubSecurityKeys\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "GitLabSecurityKeys",
+      "target": "$[\"components\"][\"schemas\"][\"GitLabSecurityKeys\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "GiteaSecurityKeys",
+      "target": "$[\"components\"][\"schemas\"][\"GiteaSecurityKeys\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "GithubActionConfig",
+      "target": "$[\"components\"][\"schemas\"][\"GithubActionConfig\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "GithubActionEvent",
+      "target": "$[\"components\"][\"schemas\"][\"GithubActionEvent\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "GkeComputeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"GkeComputeConfig\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "GkeComputeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"GkeComputeConfig\"][\"allOf\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "GkePlatformMetaInfo",
+      "target": "$[\"components\"][\"schemas\"][\"GkePlatformMetaInfo\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "GkePlatformMetaInfo",
+      "target": "$[\"components\"][\"schemas\"][\"GkePlatformMetaInfo\"][\"properties\"][\"discriminator\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "GoogleBatchConfig",
+      "target": "$[\"components\"][\"schemas\"][\"GoogleBatchConfig\"][\"properties\"][\"workDir\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "GoogleBatchConfig",
+      "target": "$[\"components\"][\"schemas\"][\"GoogleBatchConfig\"][\"properties\"][\"preRunScript\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "GoogleBatchConfig",
+      "target": "$[\"components\"][\"schemas\"][\"GoogleBatchConfig\"][\"properties\"][\"postRunScript\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "GoogleBatchConfig",
+      "target": "$[\"components\"][\"schemas\"][\"GoogleBatchConfig\"][\"properties\"][\"discriminator\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "GoogleCloudConfig",
+      "target": "$[\"components\"][\"schemas\"][\"GoogleCloudConfig\"][\"properties\"][\"workDir\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "GoogleCloudConfig",
+      "target": "$[\"components\"][\"schemas\"][\"GoogleCloudConfig\"][\"properties\"][\"preRunScript\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "GoogleCloudConfig",
+      "target": "$[\"components\"][\"schemas\"][\"GoogleCloudConfig\"][\"properties\"][\"postRunScript\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "GoogleCloudConfig",
+      "target": "$[\"components\"][\"schemas\"][\"GoogleCloudConfig\"][\"properties\"][\"discriminator\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "GoogleCloudPlatformMetaInfo",
+      "target": "$[\"components\"][\"schemas\"][\"GoogleCloudPlatformMetaInfo\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "GoogleCloudPlatformMetaInfo",
+      "target": "$[\"components\"][\"schemas\"][\"GoogleCloudPlatformMetaInfo\"][\"properties\"][\"discriminator\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "GoogleLifeSciencesConfig",
+      "target": "$[\"components\"][\"schemas\"][\"GoogleLifeSciencesConfig\"][\"properties\"][\"workDir\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "GoogleLifeSciencesConfig",
+      "target": "$[\"components\"][\"schemas\"][\"GoogleLifeSciencesConfig\"][\"properties\"][\"preRunScript\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "GoogleLifeSciencesConfig",
+      "target": "$[\"components\"][\"schemas\"][\"GoogleLifeSciencesConfig\"][\"properties\"][\"postRunScript\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "GoogleLifeSciencesConfig",
+      "target": "$[\"components\"][\"schemas\"][\"GoogleLifeSciencesConfig\"][\"properties\"][\"discriminator\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "GooglePlatformMetainfo",
+      "target": "$[\"components\"][\"schemas\"][\"GooglePlatformMetainfo\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "GooglePlatformMetainfo",
+      "target": "$[\"components\"][\"schemas\"][\"GooglePlatformMetainfo\"][\"properties\"][\"discriminator\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "GoogleSecurityKeys",
+      "target": "$[\"components\"][\"schemas\"][\"GoogleSecurityKeys\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "GridPlatformMetainfo",
+      "target": "$[\"components\"][\"schemas\"][\"GridPlatformMetainfo\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "GridPlatformMetainfo",
+      "target": "$[\"components\"][\"schemas\"][\"GridPlatformMetainfo\"][\"properties\"][\"discriminator\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "K8sComputeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"K8sComputeConfig\"][\"properties\"][\"workDir\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "K8sComputeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"K8sComputeConfig\"][\"properties\"][\"preRunScript\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "K8sComputeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"K8sComputeConfig\"][\"properties\"][\"postRunScript\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "K8sComputeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"K8sComputeConfig\"][\"properties\"][\"discriminator\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "K8sPlatformMetaInfo",
+      "target": "$[\"components\"][\"schemas\"][\"K8sPlatformMetaInfo\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "K8sPlatformMetaInfo",
+      "target": "$[\"components\"][\"schemas\"][\"K8sPlatformMetaInfo\"][\"properties\"][\"discriminator\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "K8sSecurityKeys",
+      "target": "$[\"components\"][\"schemas\"][\"K8sSecurityKeys\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "LocalComputeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"LocalComputeConfig\"][\"properties\"][\"workDir\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "LocalComputeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"LocalComputeConfig\"][\"properties\"][\"preRunScript\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "LocalComputeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"LocalComputeConfig\"][\"properties\"][\"postRunScript\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "LocalComputeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"LocalComputeConfig\"][\"properties\"][\"discriminator\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "LocalPlatformMetainfo",
+      "target": "$[\"components\"][\"schemas\"][\"LocalPlatformMetainfo\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "LocalPlatformMetainfo",
+      "target": "$[\"components\"][\"schemas\"][\"LocalPlatformMetainfo\"][\"properties\"][\"discriminator\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "LsfComputeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"LsfComputeConfig\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "LsfComputeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"LsfComputeConfig\"][\"allOf\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "MoabComputeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"MoabComputeConfig\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "MoabComputeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"MoabComputeConfig\"][\"allOf\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "OrganizationQuotas",
+      "target": "$[\"components\"][\"schemas\"][\"OrganizationQuotas\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "PlatformMetainfo",
+      "target": "$[\"components\"][\"schemas\"][\"PlatformMetainfo\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "S3SecurityKeys",
+      "target": "$[\"components\"][\"schemas\"][\"S3SecurityKeys\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "SSHSecurityKeys",
+      "target": "$[\"components\"][\"schemas\"][\"SSHSecurityKeys\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "SecurityKeys",
+      "target": "$[\"components\"][\"schemas\"][\"SecurityKeys\"][\"properties\"][\"discriminator\"][\"readOnly\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "SeqeraComputeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"SeqeraComputeConfig\"][\"properties\"][\"workDir\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "SeqeraComputeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"SeqeraComputeConfig\"][\"properties\"][\"preRunScript\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "SeqeraComputeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"SeqeraComputeConfig\"][\"properties\"][\"postRunScript\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "SeqeraComputeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"SeqeraComputeConfig\"][\"properties\"][\"discriminator\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "SeqeraComputePlatformMetainfo",
+      "target": "$[\"components\"][\"schemas\"][\"SeqeraComputePlatformMetainfo\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "SeqeraComputePlatformMetainfo",
+      "target": "$[\"components\"][\"schemas\"][\"SeqeraComputePlatformMetainfo\"][\"properties\"][\"discriminator\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "SeqeraComputeSecurityKeys",
+      "target": "$[\"components\"][\"schemas\"][\"SeqeraComputeSecurityKeys\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "SeqeraComputeSecurityKeys",
+      "target": "$[\"components\"][\"schemas\"][\"SeqeraComputeSecurityKeys\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "SeqeraComputeSecurityKeys",
+      "target": "$[\"components\"][\"schemas\"][\"SeqeraComputeSecurityKeys\"][\"allOf\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "SlurmComputeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"SlurmComputeConfig\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "SlurmComputeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"SlurmComputeConfig\"][\"allOf\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "Task",
+      "target": "$[\"components\"][\"schemas\"][\"Task\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "TraceProgressData",
+      "target": "$[\"components\"][\"schemas\"][\"TraceProgressData\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "UnivaComputeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"UnivaComputeConfig\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "UnivaComputeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"UnivaComputeConfig\"][\"allOf\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "WorkflowLoad",
+      "target": "$[\"components\"][\"schemas\"][\"WorkflowLoad\"][\"properties\"]",
+      "is_property_change": true
+    }
+  ],
+  "new_parameters": [
+    {
+      "target": "$[\"paths\"][\"/data-links/{dataLinkId}/browse\"][\"get\"][\"parameters\"][*]",
+      "update": null
+    },
+    {
+      "target": "$[\"paths\"][\"/data-links/{dataLinkId}/browse\"][\"get\"][\"parameters\"]",
+      "update": [
+        {
+          "name": "dataLinkId",
+          "in": "path",
+          "description": "Data-link string identifier",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "workspaceId",
+          "in": "query",
+          "description": "Workspace numeric identifier",
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "credentialsId",
+          "in": "query",
+          "description": "Credentials string identifier",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "search",
+          "in": "query",
+          "description": "Prefix search of data-link content",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "nextPageToken",
+          "in": "query",
+          "description": "Token used to fetch the next page of items",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "pageSize",
+          "in": "query",
+          "description": "Number of items to return per page. If ommitted, a default maximum value is returned.",
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ]
+    },
+    {
+      "target": "$[\"paths\"][\"/data-links/{dataLinkId}/upload\"][\"post\"][\"parameters\"][*]",
+      "update": null
+    },
+    {
+      "target": "$[\"paths\"][\"/data-links/{dataLinkId}/upload\"][\"post\"][\"parameters\"]",
+      "update": [
+        {
+          "name": "dataLinkId",
+          "in": "path",
+          "description": "Data-link string identifier",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "credentialsId",
+          "in": "query",
+          "description": "Credentials string identifier",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "workspaceId",
+          "in": "query",
+          "description": "Workspace numeric identifier",
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "Origin",
+          "in": "header",
+          "schema": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      ]
+    },
+    {
+      "target": "$[\"paths\"][\"/data-links/{dataLinkId}/upload/finish\"][\"post\"][\"parameters\"][*]",
+      "update": null
+    },
+    {
+      "target": "$[\"paths\"][\"/data-links/{dataLinkId}/upload/finish\"][\"post\"][\"parameters\"]",
+      "update": [
+        {
+          "name": "dataLinkId",
+          "in": "path",
+          "description": "Data-link string identifier",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "credentialsId",
+          "in": "query",
+          "description": "Credentials string identifier",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "workspaceId",
+          "in": "query",
+          "description": "Workspace numeric identifier",
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ]
+    }
+  ],
+  "deprecated_endpoints": [
+    {
+      "endpoint": "/data-links/{dataLinkId}/download",
+      "method": "UNKNOWN",
+      "operation_id": null,
+      "tag": "data-links",
+      "summary": null,
+      "target": "$[\"paths\"][\"/data-links/{dataLinkId}/download\"]"
+    }
+  ],
+  "by_tag": {
+    "compute-envs": {
+      "endpoints": [
+        {
+          "endpoint": "/compute-envs/{computeEnvId}/disable",
+          "method": "POST",
+          "operation_id": "DisableComputeEnv",
+          "tag": "compute-envs",
+          "summary": "Disable compute environment",
+          "target": "$[\"paths\"]"
+        },
+        {
+          "endpoint": "/compute-envs/{computeEnvId}/enable",
+          "method": "POST",
+          "operation_id": "EnableComputeEnv",
+          "tag": "compute-envs",
+          "summary": "Enable compute environment",
+          "target": "$[\"paths\"]"
+        }
+      ],
+      "schemas": []
+    },
+    "data-links": {
+      "endpoints": [
+        {
+          "endpoint": "/data-links/{dataLinkId}/download/{filePath}",
+          "method": "GET",
+          "operation_id": "DownloadDataLink",
+          "tag": "data-links",
+          "summary": "Download data-link file at path",
+          "target": "$[\"paths\"]"
+        }
+      ],
+      "schemas": []
+    }
+  },
+  "summary": {
+    "total_new_endpoints": 3,
+    "total_modified_endpoints": 11,
+    "total_new_schemas": 1,
+    "total_modified_schemas": 117,
+    "affected_tags": [
+      "compute-envs",
+      "data-links"
+    ],
+    "requires_new_category": true
+  }
+}
