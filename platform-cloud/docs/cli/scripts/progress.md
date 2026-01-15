@@ -2152,3 +2152,175 @@ CLI docs will follow similar patterns but adapted for picocli/Java instead of Op
 3. Do mixin options appear in commands correctly?
 4. Any parsing errors or warnings?
 5. Does the hierarchy structure make sense for doc generation?
+
+---
+
+## Phase 5: Sanitize & Inject Examples (COMPLETED)
+
+**Session Date:** 2026-01-15
+
+### Objective
+Sanitize all sensitive data from output-collection.md and inject real command examples with output into the CLI reference documentation.
+
+### Steps Completed
+
+#### 1. Data Sanitization (output-collection.md)
+Replaced all real sensitive values with realistic-looking but fake examples:
+
+**Workspace & Organization IDs:**
+- `235786397748080` → `123456789012345`
+- Multiple org IDs → `111222333444555-562` range
+- Multiple workspace IDs → `222333444555666-668` range
+
+**Organization Names:**
+- `seqeratest_kitorg1` → `my-organization`
+- `SeqeraLabs-ManagedCompute` → `organization1`
+- All test org names → `organization1-8` and `example-organization`
+
+**Workspace Names:**
+- `seqeratest_kitspace1` → `my-workspace`
+- `TestWorkspace1` → `test-workspace`
+
+**User Information:**
+- `sai-user` → `user-name`
+- `llewellyndaniel` → `user2-name`
+- `andrea-tortorella` → `user1-name`
+- `evanfloden` → `user3-name`
+- `andrea.tortorella@seqera.io` → `user1@example.com`
+- `llewellyndaniel@duck.com` → `user2@example.com`
+
+**Resource IDs (Actions, Compute Envs, Pipelines, Runs, etc.):**
+- All 22-character IDs → Consistent alphanumeric patterns (e.g., `1a2b3c4d5e6f7g8h9i0j1k`)
+- All numeric IDs → Sequential patterns for easy tracking
+
+**AWS Credentials & Resources:**
+- Access key → `AKIAIOSFODNN7EXAMPLE`
+- ARN account ID: `128997144437` → `123456789012`
+- S3 buckets: `s3://llew-*` → `s3://my-bucket`
+
+**Domains:**
+- `https://mydomain.com/` → `https://example.com/`
+
+#### 2. Reference Documentation Updates (15 files)
+
+**Files with examples added:**
+
+1. **actions.md** (6 examples)
+   - list, view, add, update, delete, labels
+   - Removed provider-specific subheadings (github, tower)
+
+2. **compute-envs.md** (7 examples)
+   - update, view, list, export, import, primary get, primary set
+   - Removed 13 provider-specific add subheadings (k8s, aws-batch, eks, etc.)
+
+3. **credentials.md** (1 example + cleanup)
+   - Added: update
+   - Removed 23 provider subheadings from add/update sections (aws, codecommit, google, github, gitlab, etc.)
+
+4. **datasets.md** (1 example)
+   - url
+
+5. **labels.md** (1 example)
+   - update
+
+6. **launch.md** (1 example, sanitized)
+   - launch with workflow submission output
+
+7. **members.md** (1 example)
+   - leave
+
+8. **organizations.md** (4 examples)
+   - list, view, update, delete
+
+9. **participants.md** (2 examples)
+   - delete, leave
+
+10. **pipelines.md** (6 examples)
+    - list, view, delete, export, import, labels
+
+11. **runs.md** (4 examples)
+    - relaunch, cancel, labels, delete
+
+12. **secrets.md** (5 examples)
+    - list, add, view, update, delete
+
+13. **studios.md** (3 examples)
+    - checkpoints, templates, add-as-new
+
+14. **teams.md** (1 example)
+    - members
+
+15. **workspaces.md** (4 examples)
+    - view, update, delete, leave
+
+**Files unchanged (no examples available):**
+- collaborators.md
+- data-links.md
+- info.md
+
+**Total Examples Added:** 47 commands with real input + sanitized output
+
+#### 3. Documentation Improvements
+
+**Noise Reduction:**
+- Removed 36 provider-specific subheadings that cluttered docs
+- All "add" and "update" commands now direct users to `-h` flag for provider lists
+- Cleaner, more scannable documentation
+
+**Example Quality:**
+- Every example shows both command input AND actual output
+- Output formatted exactly as CLI returns it (tables, JSON, etc.)
+- Consistent workspace/org naming across all examples
+- Real-world usage patterns demonstrated
+
+**Pattern Established:**
+```markdown
+### Example
+
+```bash
+tw command -flags values
+
+# Output:
+  [Actual CLI output here]
+```
+```
+
+### Files Modified Summary
+
+**Reference docs:** 15 .md files updated
+**Scripts:** 1 file (output-collection.md) sanitized
+**Total lines changed:** ~2,000+ lines across all files
+
+### Next Steps (For Future Sessions)
+
+1. **Sidebar Integration**
+   - Update navigation to include all CLI reference pages
+   - Organize hierarchically (grouped by resource type)
+
+2. **Single Source of Truth**
+   - Establish CLI docs as single docset
+   - Don't duplicate across platform-cloud and enterprise versions
+   - Use versioning or linking strategy
+
+3. **Maintenance Strategy**
+   - Document how to regenerate docs when CLI changes
+   - Automate example extraction/updates if possible
+   - Consider CI/CD integration
+
+4. **Additional Documentation**
+   - Getting started guide
+   - Common workflows/recipes
+   - Troubleshooting section
+   - Migration guides between versions
+
+### Success Metrics
+
+✅ All real IDs, emails, credentials sanitized
+✅ 47 commands now have working examples
+✅ 36 redundant subheadings removed
+✅ Consistent formatting across all reference docs
+✅ Ready for production deployment
+
+---
+
+**End of Phase 5**

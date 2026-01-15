@@ -52,22 +52,67 @@ jobs:
         id: compare
         run: |
           if [ -f "platform-cloud/docs/cli/metadata/cli-metadata-latest.json" ]; then
-            python platform-cloud/docs/cli/scripts/compare-metadata.py \
-              platform-cloud/docs/cli/metadata/cli-metadata-latest.json \
-              platform-cloud/docs/cli/metadata/cli-metadata-v${{ steps.version.outputs.cli_version }}.json \
-              > comparison-report.md
+            if [ -f "platform-cloud/docs/cli/scripts/compare-metadata.py" ]; then
+              python platform-cloud/docs/cli/scripts/compare-metadata.py \
+                platform-cloud/docs/cli/metadata/cli-metadata-latest.json \
+                platform-cloud/docs/cli/metadata/cli-metadata-v${{ steps.version.outputs.cli_version }}.json \
+                > comparison-report.md
+            else
+              echo "## CLI Documentation Changes" > comparison-report.md
+              echo "" >> comparison-report.md
+              echo "Updated CLI documentation for v${{ steps.version.outputs.cli_version }}" >> comparison-report.md
+            fi
           else
             echo "## CLI Documentation Changes" > comparison-report.md
             echo "" >> comparison-report.md
             echo "Initial CLI documentation generation for v${{ steps.version.outputs.cli_version }}" >> comparison-report.md
           fi
 
-      - name: Generate documentation
+      - name: Generate reference documentation
         run: |
           python platform-cloud/docs/cli/scripts/generate-cli-docs.py \
             --metadata platform-cloud/docs/cli/metadata/cli-metadata-v${{ steps.version.outputs.cli_version }}.json \
             --overlays platform-cloud/docs/cli/overlays \
             --output platform-cloud/docs/cli/reference
+
+      - name: Add version information to docs
+        run: |
+          VERSION="${{ steps.version.outputs.cli_version }}"
+
+          # Version notice to add
+          VERSION_NOTICE=":::info CLI Version
+          This documentation is for Seqera Platform CLI version **${VERSION}**. If you're using an older version, some commands or options described here may not be available. Update your CLI to access all documented features.
+          :::"
+
+          # Add to overview.md (after frontmatter)
+          if [ -f "platform-cloud/docs/cli/overview.md" ]; then
+            # Insert after frontmatter (after first ---...--- block)
+            awk -v notice="$VERSION_NOTICE" '
+              /^---$/ { count++ }
+              { print }
+              count == 2 && !inserted { print "\n" notice; inserted=1 }
+            ' platform-cloud/docs/cli/overview.md > temp_overview.md
+            mv temp_overview.md platform-cloud/docs/cli/overview.md
+          fi
+
+          # Add to commands-reference.md (after frontmatter)
+          if [ -f "platform-cloud/docs/cli/commands-reference.md" ]; then
+            awk -v notice="$VERSION_NOTICE" '
+              /^---$/ { count++ }
+              { print }
+              count == 2 && !inserted { print "\n" notice; inserted=1 }
+            ' platform-cloud/docs/cli/commands-reference.md > temp_commands.md
+            mv temp_commands.md platform-cloud/docs/cli/commands-reference.md
+          fi
+
+      - name: Copy to enterprise docs
+        run: |
+          cp -r platform-cloud/docs/cli/reference platform-enterprise_docs/cli/
+          cp platform-cloud/docs/cli/commands-reference.md platform-enterprise_docs/cli/
+          # Copy overview.md if it exists
+          if [ -f "platform-cloud/docs/cli/overview.md" ]; then
+            cp platform-cloud/docs/cli/overview.md platform-enterprise_docs/cli/
+          fi
 
       - name: Update latest symlink
         run: |

@@ -142,9 +142,9 @@
             "studios/add-studio-custom-container",
             "studios/add-studio-git-repo"
           ]
-          },         
+          },
           "studios/managing",
-          "studios/connect"        
+          "studios/connect"
         ]
       },
       {
@@ -170,7 +170,7 @@
         "seqera-ai/command-approval",
         "seqera-ai/use-cases"
       ]
-    },    
+    },
       {
         "type": "category",
         "label": "Developer tools",
@@ -188,7 +188,32 @@
             "items": [
               "cli/overview",
               "cli/installation",
-              "cli/commands"
+              {
+                "type": "category",
+                "label": "Command Reference",
+                "link": {"type": "doc", "id": "cli/commands-reference"},
+                "collapsed": true,
+                "items": [
+                  "cli/reference/info",
+                  "cli/reference/credentials",
+                  "cli/reference/compute-envs",
+                  "cli/reference/datasets",
+                  "cli/reference/data-links",
+                  "cli/reference/labels",
+                  "cli/reference/secrets",
+                  "cli/reference/pipelines",
+                  "cli/reference/launch",
+                  "cli/reference/runs",
+                  "cli/reference/actions",
+                  "cli/reference/organizations",
+                  "cli/reference/workspaces",
+                  "cli/reference/teams",
+                  "cli/reference/members",
+                  "cli/reference/participants",
+                  "cli/reference/collaborators",
+                  "cli/reference/studios"
+                ]
+              }
             ]
             },
             {
