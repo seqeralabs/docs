@@ -154,6 +154,9 @@ uv run .github/scripts/generate-changelog.py --repo MultiQC/MultiQC --from 2024-
 
 # Dry run to preview what would be generated
 uv run .github/scripts/generate-changelog.py --repo seqeralabs/fusion --last 5 --dry-run
+
+# Generate changelog and create a PR for it
+uv run .github/scripts/generate-changelog.py --repo seqeralabs/wave --release v1.32.0 --create-pr
 ```
 
 The script uses [uv](https://docs.astral.sh/uv/) for dependency management - dependencies are installed automatically on first run.
