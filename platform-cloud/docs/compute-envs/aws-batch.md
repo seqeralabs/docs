@@ -102,6 +102,7 @@ A permissive and broad policy with all the required permissions is provided here
       "Sid": "BatchEnvironmentListing",
       "Effect": "Allow",
       "Action": [
+        "batch:DescribeComputeEnvironments",
         "batch:DescribeJobDefinitions",
         "batch:DescribeJobQueues"
       ],
@@ -276,7 +277,7 @@ If you are required to use manually created CEs and JQs or prefer to manage thei
 - `batch:RegisterJobDefinition` to create new job definitions,
 - `batch:CancelJob`, `batch:SubmitJob`, `batch:TagResource`, `batch:TerminateJob` to manage jobs.
 
-`batch:DescribeJobQueues` is useful to allow Seqera to list the existing Job Queues in a dropdown menu but it's not required and the Job Queues where the jobs will be submitted can be specified manually when creating a compute environment in Platform.
+`batch:DescribeJobQueues` is useful to allow Seqera to list the existing Job Queues in a dropdown menu but it's not required if specifying manually created Job Queues. It is required when letting Seqera create and manage Job Queues automatically (using the Forge tool): in this case the `batch:DescribeComputeEnvironments` permission is also required.
 You can also restrict permissions based on Resource tag, which need to be defined by users when [setting up a pipeline in Platform](https://docs.seqera.io/platform-enterprise/resource-labels/overview).
 
 ```json
