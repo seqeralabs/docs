@@ -447,6 +447,19 @@ def main(
     token = get_github_token()
     config = PRODUCT_CONFIG[repo]
 
+    # Check for GitHub token and warn if missing for private repos
+    if not token and repo == "seqeralabs/fusion":
+        console.print(
+            Panel(
+                "[yellow]No GitHub token found.[/yellow]\n\n"
+                "Private repository access may fail.\n"
+                "Set GH_TOKEN or GITHUB_TOKEN environment variable.\n\n"
+                "For example: [dim]export GH_TOKEN=$(gh auth token)[/dim]",
+                title="[bold yellow]Warning[/bold yellow]",
+                border_style="yellow",
+            )
+        )
+
     # Validate mutually exclusive options
     options_count = sum([release is not None, from_ is not None, last is not None])
     if options_count == 0:

@@ -158,6 +158,12 @@ uv run .github/scripts/generate-changelog.py --repo seqeralabs/fusion --last 5 -
 
 The script uses [uv](https://docs.astral.sh/uv/) for dependency management - dependencies are installed automatically on first run.
 
+For private repositories (`seqeralabs/fusion`), you need a GitHub token with repository access:
+
+```bash
+export GH_TOKEN=$(gh auth token)
+```
+
 ### Changelog file locations
 
 | Product  | Directory            | Extension |
