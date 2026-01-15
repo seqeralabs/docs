@@ -384,7 +384,7 @@ Seqera automatically attempts to fetch a list of S3 buckets available in the AWS
 
 Seqera offers several products to manipulate data on AWS S3 buckets, such as [Studios](../studios/overview) and [Data Explorer](../data/data-explorer); if these features are not used the related permissions can be omitted.
 
-The IAM policy can be scoped down to only allow limited Read/Write permissions in certain S3 buckets used by Studios/Data Explorer. In addition, the policy must include permission to check the region and list the content of the S3 bucket used as Nextflow work directory.
+The IAM policy can be scoped down to only allow limited Read/Write permissions in certain S3 buckets used by Studios/Data Explorer. In addition, the policy must include permission to check the region and list the content of the S3 bucket used as Nextflow work directory. We also recommend allowing `s3:GetObject` permission on the work directory path to allow fetching Nextflow log files.
 
 :::note
 If you opted to create a separate S3 bucket only for Nextflow work directories, there is no need for the IAM user to have Read/Write access to it: if Platform is allowed to manage resources (using Batch Forge) the IAM roles automatically created will have the necessary permissions; if you set up the compute environment manually, you can create the required IAM roles with the necessary permissions as detailed in the [manual AWS Batch setup documentation](../enterprise/advanced-topics/manual-aws-batch-setup).
@@ -400,6 +400,16 @@ If you opted to create a separate S3 bucket only for Nextflow work directories, 
   ],
   "Resource": [
     "arn:aws:s3:::example-bucket-used-as-work-directory"
+  ]
+},
+{
+  "Sid": "S3ReadOnlyNextflowLogFiles",
+  "Effect": "Allow",
+  "Action": [
+    "s3:GetObject"
+  ],
+  "Resource": [
+    "arn:aws:s3:::example-bucket-used-as-work-directory/path/to/work/directory/*"
   ]
 },
 {
