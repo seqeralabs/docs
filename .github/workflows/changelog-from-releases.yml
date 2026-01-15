@@ -1,0 +1,85 @@
+# .github/workflows/changelog-from-releases.yml
+#
+# Automated changelog generation from GitHub releases.
+# Runs twice daily to check for new releases from external repositories
+# and creates PRs with changelog entries.
+
+name: Generate Changelogs from Releases
+
+on:
+  schedule:
+    # Run twice daily at 03:17 and 15:17 UTC
+    - cron: "17 3,15 * * *"
+  workflow_dispatch:
+    inputs:
+      repository:
+        description: "Specific repository to check (leave empty for all)"
+        required: false
+        type: choice
+        options:
+          - ""
+          - "seqeralabs/fusion"
+          - "seqeralabs/wave"
+          - "nextflow-io/nextflow"
+          - "MultiQC/MultiQC"
+      release_tag:
+        description: "Specific release tag to generate (leave empty for latest 10)"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  generate-changelogs:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        repo:
+          - seqeralabs/fusion
+          - seqeralabs/wave
+          - nextflow-io/nextflow
+          - MultiQC/MultiQC
+
+    steps:
+      - name: Check if repo should be processed
+        id: should-process
+        run: |
+          INPUT_REPO="${{ github.event.inputs.repository }}"
+          MATRIX_REPO="${{ matrix.repo }}"
+
+          if [ -z "$INPUT_REPO" ] || [ "$INPUT_REPO" = "$MATRIX_REPO" ]; then
+            echo "process=true" >> $GITHUB_OUTPUT
+          else
+            echo "process=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Checkout docs repo
+        if: steps.should-process.outputs.process == 'true'
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        if: steps.should-process.outputs.process == 'true'
+        uses: astral-sh/setup-uv@v4
+
+      - name: Configure git
+        if: steps.should-process.outputs.process == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Generate changelogs and create PRs
+        if: steps.should-process.outputs.process == 'true'
+        env:
+          # GitHub tokens for API access
+          GH_TOKEN: ${{ matrix.repo == 'seqeralabs/fusion' && secrets.SEQERA_REPOS_PAT || secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ matrix.repo == 'seqeralabs/fusion' && secrets.SEQERA_REPOS_PAT || secrets.GITHUB_TOKEN }}
+          # Script configuration via environment variables
+          CHANGELOG_REPO: ${{ matrix.repo }}
+          CHANGELOG_RELEASE: ${{ github.event.inputs.release_tag }}
+          CHANGELOG_LAST: ${{ github.event.inputs.release_tag && '' || '10' }}
+          CHANGELOG_SKIP_EXISTING: "true"
+          CHANGELOG_CREATE_PR: "true"
+        run: uv run .github/scripts/generate-changelog.py
