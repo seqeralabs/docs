@@ -18,7 +18,6 @@ on:
         type: choice
         options:
           - ""
-          - "seqeralabs/fusion"
           - "seqeralabs/wave"
           - "nextflow-io/nextflow"
           - "MultiQC/MultiQC"
@@ -38,7 +37,7 @@ jobs:
       fail-fast: false
       matrix:
         repo:
-          - seqeralabs/fusion
+          # Note: seqeralabs/fusion excluded from CI - run locally with private repo PAT
           - seqeralabs/wave
           - nextflow-io/nextflow
           - MultiQC/MultiQC
@@ -73,9 +72,9 @@ jobs:
       - name: Generate changelogs and create PRs
         if: steps.should-process.outputs.process == 'true'
         env:
-          # GitHub tokens for API access
-          GH_TOKEN: ${{ matrix.repo == 'seqeralabs/fusion' && secrets.SEQERA_REPOS_PAT || secrets.GITHUB_TOKEN }}
-          GITHUB_TOKEN: ${{ matrix.repo == 'seqeralabs/fusion' && secrets.SEQERA_REPOS_PAT || secrets.GITHUB_TOKEN }}
+          # GitHub token for API access
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # Script configuration via environment variables
           CHANGELOG_REPO: ${{ matrix.repo }}
           CHANGELOG_RELEASE: ${{ github.event.inputs.release_tag }}
