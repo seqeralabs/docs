@@ -580,7 +580,7 @@ The policy above must be created in the AWS account where the AWS Batch resource
 
 ## IAM user creation
 
-Seqera requires an Identity and Access Management (IAM) User to create and manage AWS Batch resources in your AWS account.
+Seqera requires an Identity and Access Management (IAM) User to create and manage AWS Batch resources in your AWS account. We recommend creating a separate IAM policy rather an IAM User inline policy, as the latter only allows 2048 characters, which may not be sufficient for all the required permissions.
 
 In certain scenarios, for example when multiple users need to access the same AWS account and provision AWS Batch resources, an IAM role with the required permissions can be created instead, and the IAM user can assume that role when accessing AWS resources, as detailed in the [IAM role creation (optional)](#iam-role-creation-optional) section.
 
