@@ -530,8 +530,15 @@ def main(
             filtered_releases = []
             for rel in releases_to_process:
                 output_path = output_base / get_output_path(repo, rel["tag_name"])
+                # Check for both .md and .mdx extensions regardless of configured extension
+                md_path = output_path.with_suffix(".md")
+                mdx_path = output_path.with_suffix(".mdx")
                 if output_path.exists():
                     console.print(f"[dim]Skipping {rel['tag_name']} - file exists: {output_path}[/dim]")
+                elif md_path.exists():
+                    console.print(f"[dim]Skipping {rel['tag_name']} - file exists: {md_path}[/dim]")
+                elif mdx_path.exists():
+                    console.print(f"[dim]Skipping {rel['tag_name']} - file exists: {mdx_path}[/dim]")
                 else:
                     filtered_releases.append(rel)
             releases_to_process = filtered_releases
