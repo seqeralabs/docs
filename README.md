@@ -137,3 +137,35 @@ This means that whenever you push to `master`, both deploy and both sites update
 The site's `netlify.toml` includes some redirects with `200` statuses that take links to missing content on the primary deployment to fetch data from the secondary deployment, without affecting the browser bar URL.
 
 That should be it!
+
+## Changelog generation
+
+As of 15 January 2026 the following automation was introduced:
+
+- Adds a Python script (.github/scripts/generate-changelog.py) to generate changelog files from GitHub releases
+- Adds a GitHub Actions workflow that runs twice daily to check for new releases and create PRs
+- Supports Fusion, Wave, Nextflow, and MultiQC repositories
+-   Fusion doesn't run automatically in GitHub actions, but does for running locally
+- Existing files are skipped by default (use --overwrite to regenerate)
+- Checks for both .md and .mdx extensions when determining if a changelog already exists
+
+**Features**
+- Fetches releases from GitHub API
+- Generates properly formatted markdown with frontmatter for Docusaurus
+- Product-specific formatting (e.g., Fusion includes version pinning instructions)
+- Can generate changelogs for specific releases, date ranges, or last N releases
+- Dry-run mode for previewing changes
+- Optional PR creation via gh CLI
+
+### To generate a Fusion changelog
+
+Fusion changelogs need to be generated locally and reviewed before they're published. Please remove commits related to security fixes, as well as anything not customer-facing. 
+
+To do this:
+1. Open your local Terminal and `cd` into the folder where your docs repo lives.
+2. Create a branch off master and call it something like `fusion-changelog-VERSION`.
+3. Run `GH_TOKEN=$(gh auth token) uv run .github/scripts/generate-changelog.py --repo seqeralabs/fusion --last 10`
+4. Review the generated file and make any changes.
+5. Commit the change and push it.
+6. Navigate to GitHub, and create the PR.
+7. Add a reviewer, get it approved, and merge.
