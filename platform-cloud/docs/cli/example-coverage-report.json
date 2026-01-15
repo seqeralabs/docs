@@ -1,0 +1,222 @@
+{
+  "summary": {
+    "total_reference_commands": 109,
+    "commands_with_examples": 46,
+    "commands_without_examples": 63,
+    "coverage_percentage": 42.2
+  },
+  "commands_with_examples": [
+    "tw collaborators list",
+    "tw compute-envs add",
+    "tw compute-envs delete",
+    "tw credentials add",
+    "tw credentials delete",
+    "tw credentials list",
+    "tw data-links add",
+    "tw data-links browse",
+    "tw data-links delete",
+    "tw data-links download",
+    "tw data-links list",
+    "tw data-links update",
+    "tw data-links upload",
+    "tw datasets add",
+    "tw datasets delete",
+    "tw datasets download",
+    "tw datasets list",
+    "tw datasets update",
+    "tw datasets view",
+    "tw labels add",
+    "tw labels delete",
+    "tw labels list",
+    "tw members add",
+    "tw members delete",
+    "tw members list",
+    "tw members update",
+    "tw organizations add",
+    "tw participants add",
+    "tw participants list",
+    "tw participants update",
+    "tw pipelines add",
+    "tw pipelines update",
+    "tw runs dump",
+    "tw runs list",
+    "tw runs view",
+    "tw studios add",
+    "tw studios delete",
+    "tw studios list",
+    "tw studios start",
+    "tw studios stop",
+    "tw studios view",
+    "tw teams add",
+    "tw teams delete",
+    "tw teams list",
+    "tw workspaces add",
+    "tw workspaces list"
+  ],
+  "commands_without_examples": [
+    "tw actions",
+    "tw actions add",
+    "tw actions delete",
+    "tw actions labels",
+    "tw actions list",
+    "tw actions update",
+    "tw actions view",
+    "tw collaborators",
+    "tw compute-envs",
+    "tw compute-envs export",
+    "tw compute-envs import",
+    "tw compute-envs list",
+    "tw compute-envs primary",
+    "tw compute-envs update",
+    "tw compute-envs view",
+    "tw credentials",
+    "tw credentials update",
+    "tw data-links",
+    "tw datasets",
+    "tw datasets url",
+    "tw info",
+    "tw labels",
+    "tw labels update",
+    "tw launch",
+    "tw members",
+    "tw members leave",
+    "tw organizations",
+    "tw organizations delete",
+    "tw organizations list",
+    "tw organizations update",
+    "tw organizations view",
+    "tw participants",
+    "tw participants delete",
+    "tw participants leave",
+    "tw pipelines",
+    "tw pipelines delete",
+    "tw pipelines export",
+    "tw pipelines import",
+    "tw pipelines labels",
+    "tw pipelines list",
+    "tw pipelines view",
+    "tw runs",
+    "tw runs cancel",
+    "tw runs delete",
+    "tw runs labels",
+    "tw runs relaunch",
+    "tw secrets",
+    "tw secrets add",
+    "tw secrets delete",
+    "tw secrets list",
+    "tw secrets update",
+    "tw secrets view",
+    "tw studios",
+    "tw studios add-as-new",
+    "tw studios checkpoints",
+    "tw studios templates",
+    "tw teams",
+    "tw teams members",
+    "tw workspaces",
+    "tw workspaces delete",
+    "tw workspaces leave",
+    "tw workspaces update",
+    "tw workspaces view"
+  ],
+  "by_command_family": {
+    "organizations": [
+      "tw organizations",
+      "tw organizations list",
+      "tw organizations delete",
+      "tw organizations update",
+      "tw organizations view"
+    ],
+    "participants": [
+      "tw participants",
+      "tw participants delete",
+      "tw participants leave"
+    ],
+    "secrets": [
+      "tw secrets",
+      "tw secrets list",
+      "tw secrets add",
+      "tw secrets delete",
+      "tw secrets view",
+      "tw secrets update"
+    ],
+    "launch": [
+      "tw launch"
+    ],
+    "pipelines": [
+      "tw pipelines",
+      "tw pipelines list",
+      "tw pipelines delete",
+      "tw pipelines view",
+      "tw pipelines export",
+      "tw pipelines import",
+      "tw pipelines labels"
+    ],
+    "workspaces": [
+      "tw workspaces",
+      "tw workspaces delete",
+      "tw workspaces update",
+      "tw workspaces view",
+      "tw workspaces leave"
+    ],
+    "data-links": [
+      "tw data-links"
+    ],
+    "runs": [
+      "tw runs",
+      "tw runs relaunch",
+      "tw runs cancel",
+      "tw runs labels",
+      "tw runs delete"
+    ],
+    "info": [
+      "tw info"
+    ],
+    "studios": [
+      "tw studios",
+      "tw studios templates",
+      "tw studios checkpoints",
+      "tw studios add-as-new"
+    ],
+    "credentials": [
+      "tw credentials",
+      "tw credentials update"
+    ],
+    "members": [
+      "tw members",
+      "tw members leave"
+    ],
+    "compute-envs": [
+      "tw compute-envs",
+      "tw compute-envs update",
+      "tw compute-envs view",
+      "tw compute-envs list",
+      "tw compute-envs export",
+      "tw compute-envs import",
+      "tw compute-envs primary"
+    ],
+    "collaborators": [
+      "tw collaborators"
+    ],
+    "labels": [
+      "tw labels",
+      "tw labels update"
+    ],
+    "actions": [
+      "tw actions",
+      "tw actions list",
+      "tw actions view",
+      "tw actions delete",
+      "tw actions add",
+      "tw actions update",
+      "tw actions labels"
+    ],
+    "datasets": [
+      "tw datasets",
+      "tw datasets url"
+    ],
+    "teams": [
+      "tw teams",
+      "tw teams members"
+    ]
+  }
+}

@@ -9,7 +9,6 @@ Launch a pipeline
 
 Run `tw launch -h` to view supported launch options.
 
-
 ```bash
 tw launch [OPTIONS]
 ```
