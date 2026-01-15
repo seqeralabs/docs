@@ -14,7 +14,7 @@ The improved performance offered by DRAGEN is possible due to the use of Illumin
 
 We have extended the [Batch Forge](../../compute-envs/aws-batch#automatic-configuration-of-batch-resources) feature for AWS Batch to support DRAGEN. Batch Forge ensures that all of the appropriate components and settings are automatically provisioned when creating an AWS Batch compute environment.
 
-When deploying data analysis workflows, some tasks will need to use normal instance types (e.g., for non-DRAGEN processing of samples) and others will need to be executed on F1 instances. If the DRAGEN feature is enabled, Batch Forge will create an additional AWS Batch compute queue which only uses F1 instances, to which DRAGEN tasks will be dispatched.
+When deploying data analysis workflows, some tasks will need to use normal instance types (e.g., for non-DRAGEN processing of samples) and others will need to be executed on F2 instances. If the DRAGEN feature is enabled, Batch Forge will create an additional AWS Batch compute queue which only uses F2 instances, to which DRAGEN tasks will be dispatched.
 
 ## Get started
 
@@ -39,7 +39,7 @@ In order to enable support for DRAGEN acceleration, simply toggle the **Enable D
 In the **DRAGEN AMI ID** field, enter the AWS AMI ID provided by Illumina. Then select the instance type from the drop-down menu.
 
 :::note
-The Region you select must contain DRAGEN F1 instances.
+The Region you select must contain DRAGEN F2 instances. Please note F1 instances are [now deprecated](https://github.com/aws/aws-fpga/pull/767).
 :::
 
 ## Using DRAGEN v4.4.4 AMI with F2 instances
