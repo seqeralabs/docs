@@ -120,7 +120,7 @@ A permissive and broad policy with all the required permissions is provided here
       ],
       "Resource": [
         "arn:aws:batch:*:*:job-definition/*",
-        "arn:aws:batch:*:*:job-queue/*",
+        "arn:aws:batch:*:*:job-queue/TowerForge-*",
         "arn:aws:batch:*:*:job/*"
       ]
     },
