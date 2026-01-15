@@ -8,7 +8,7 @@ tags: [dragen, integration]
 
 DRAGEN is a platform provided by Illumina that offers accurate, comprehensive, and efficient secondary analysis of next-generation sequencing (NGS) data with a significant speed increase over tools that are commonly used for such tasks.
 
-The improved performance offered by DRAGEN is possible due to the use of Illumina proprietary algorithms in conjunction with a special type of hardware accelerator called field programmable gate arrays (FPGAs). For example, when using AWS, FPGAs are available via the [F1 instance type](https://aws.amazon.com/ec2/instance-types/f1/).
+The improved performance offered by DRAGEN is possible due to the use of Illumina proprietary algorithms in conjunction with a special type of hardware accelerator called field programmable gate arrays (FPGAs). For example, when using AWS, FPGAs are available via the [F2 instance type](https://aws.amazon.com/ec2/instance-types/f2/).
 
 ## Run DRAGEN on Seqera Platform
 
