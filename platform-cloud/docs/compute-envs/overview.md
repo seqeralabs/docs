@@ -36,7 +36,8 @@ If you have more than one compute environment, you can select a workspace primar
 Users with **Admin** or **Owner** [workspace permissions](../orgs-and-teams/roles#workspace-participant-roles) can disable and enable compute environments.
 
 When you disable a compute environment:
-- New pipelines and Studio sessions will not run on the disabled compute environment.
+- Actions that use this compute environment will fail to run. **Update actions to use a new compute environment**.
+- New pipelines and Studio sessions will not run on the disabled compute environment. **Update pipelines and Studios to use a new compute environment**.
 - **Running pipelines and Studio sessions are not terminated**. Ongoing runs and Studio sessions will finish gracefully.
 - If the compute environment was set as primary, it will be unset. Until you select a new primary compute environment, new runs will default to the next available compute environment.
 
