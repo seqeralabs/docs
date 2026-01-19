@@ -273,14 +273,16 @@ A permissive and broad policy with all the required permissions is provided here
 
 The first section of the policy allows Seqera to create, update and delete Batch compute environments ("CE"), job queues ("JQ") and jobs.
 
-If you are required to use manually created CEs and JQs or prefer to manage their lifecycle yourself, you can remove the permissions to manipulate CEs and JQs from the policy: the bare minimum permissions required are:
+If you are required to use manually created CEs and JQs or prefer to manage their lifecycle yourself, you can remove the permissions to manipulate CEs and JQs from the policy. The minimum permissions required are:
 - `batch:DescribeJobs` to report job status,
 - `batch:DescribeJobDefinitions` to list existing job definitions,
 - `batch:RegisterJobDefinition` to create new job definitions,
 - `batch:CancelJob`, `batch:SubmitJob`, `batch:TagResource`, `batch:TerminateJob` to manage jobs.
 
-`batch:DescribeJobQueues` is useful to allow Seqera to list the existing Job Queues in a dropdown menu but it's not required if specifying manually created Job Queues. It is required when letting Seqera create and manage Job Queues automatically (using the Forge tool): in this case the `batch:DescribeComputeEnvironments` permission is also required.
-You can also restrict permissions based on Resource tag, which need to be defined by users when [setting up a pipeline in Platform](https://docs.seqera.io/platform-enterprise/resource-labels/overview).
+You can use `batch:DescribeJobQueues` to list the existing job queues in a drop-down menu but it's not required if you're specifying manually created job queues. 
+
+However, it is required when you let Seqera create and manage job queues automatically (using the Forge tool). In this case, the `batch:DescribeComputeEnvironments` permission must also be added.
+You can also restrict permissions based on resource tags. These are defined by users when they [set up a pipeline in Platform](https://docs.seqera.io/platform-enterprise/resource-labels/overview).
 
 ```json
 {
@@ -319,7 +321,7 @@ You can also restrict permissions based on Resource tag, which need to be define
 Restricting the `batch` actions using resource tags requires that you set the appropriate tags on each Seqera pipeline when configuring it in Platform. Forgetting to set the tag will cause the pipeline to fail to run.
 :::
 
-The job definition and job name resources cannot be restricted to specific names, as Seqera creates job definitions and jobs with dynamic names. Therefore, the wildcard `*` must be used in the name of these resources. `batch:SubmitJob` requires permission on both job definitions and job queues, so make sure to include both ARNs in the `Resource` array.
+The job definition and job name resources cannot be restricted to specific names, as Seqera creates job definitions and jobs with dynamic names. Therefore, the wildcard `*` must be used in the name of these resources. In addition, `batch:SubmitJob` requires permission on both job definitions and job queues, so make sure to include both ARNs in the `Resource` array.
 
 If you prefer to let Seqera manage Batch resources for you, you can still restrict the permissions to specific resources in your account ID and region; you can also restrict permissions based on Resource tag, as shown with the `Condition`s in the example above.
 
@@ -383,14 +385,16 @@ The policy can be scoped down to limit access to the [specific log group](#advan
 
 ### S3 access (optional)
 
-Seqera automatically attempts to fetch a list of S3 buckets available in the AWS account connected to Platform, to provide them in a dropdown menu to be used as Nextflow working directory and make the Compute Environment creation smoother: this feature is optional and users can type the bucket name manually when setting up a Compute Environment. To allow Platform to fetch the list of buckets in the account the `s3:ListAllMyBuckets` action can be added: it must have the `Resource` field set to `*`, as shown in the generic policy at the beginning of this document.
+Seqera automatically attempts to fetch a list of S3 buckets available in the AWS account connected to Platform, to provide them in a drop-down menu to be used as Nextflow working directory, and make the compute environment creation smoother. This feature is optional, and users can type the bucket name manually when setting up a compute environment. To allow Seqera to fetch the list of buckets in the account, the `s3:ListAllMyBuckets` action can be added, and it must have the `Resource` field set to `*`, as shown in the generic policy at the beginning of this document.
 
 Seqera offers several products to manipulate data on AWS S3 buckets, such as [Studios](../studios/overview) and [Data Explorer](../data/data-explorer); if these features are not used the related permissions can be omitted.
 
-The IAM policy can be scoped down to only allow limited Read/Write permissions in certain S3 buckets used by Studios/Data Explorer. In addition, the policy must include permission to check the region and list the content of the S3 bucket used as Nextflow work directory. We also recommend allowing `s3:GetObject` permission on the work directory path to allow fetching Nextflow log files.
+The IAM policy can be scoped down to only allow limited read/write permissions in certain S3 buckets used by Studios/Data Explorer. In addition, the policy must include permission to check the region and list the content of the S3 bucket used as Nextflow work directory. We also recommend granting the `s3:GetObject` permission on the work directory path to fetch Nextflow log files.
 
 :::note
-If you opted to create a separate S3 bucket only for Nextflow work directories, there is no need for the IAM user to have Read/Write access to it: if Platform is allowed to manage resources (using Batch Forge) the IAM roles automatically created will have the necessary permissions; if you set up the compute environment manually, you can create the required IAM roles with the necessary permissions as detailed in the [manual AWS Batch setup documentation](../enterprise/advanced-topics/manual-aws-batch-setup).
+If you opted to create a separate S3 bucket only for Nextflow work directories, there is no need for the IAM user to have read/write access to it. If Seqera is allowed to manage resources (using Batch Forge) the IAM roles automatically created will have the necessary permissions. 
+
+If you set up the compute environment manually, you can create the required IAM roles with the necessary permissions as detailed in the [manual AWS Batch setup documentation](../enterprise/advanced-topics/manual-aws-batch-setup).
 :::
 
 ```json
