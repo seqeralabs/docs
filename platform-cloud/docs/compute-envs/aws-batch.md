@@ -284,8 +284,8 @@ If you are required to use manually created CEs and JQs or prefer to manage thei
 - `batch:TerminateJob` to terminate jobs
 
 You can use `batch:DescribeJobQueues` to list the existing job queues in a drop-down menu but it's not required if you're specifying manually created job queues.
-
 However, it is required when you let Seqera create and manage job queues automatically (using the Forge tool). In this case, the `batch:DescribeComputeEnvironments` permission must also be added.
+
 You can also restrict permissions based on resource tags. These are defined by users when they [set up a pipeline in Platform](https://docs.seqera.io/platform-enterprise/resource-labels/overview).
 
 ```json
@@ -299,7 +299,7 @@ You can also restrict permissions based on resource tags. These are defined by u
   "Resource": "*"
 },
 {
-  "Sid": "BatchJobsManagementCanBeRestricted",
+  "Sid": "BatchJobsManagement",
   "Effect": "Allow",
   "Action": [
     "batch:CancelJob",
@@ -309,8 +309,8 @@ You can also restrict permissions based on resource tags. These are defined by u
     "batch:TerminateJob"
   ],
   "Resource": [
-    "arn:aws:batch:<REGION>:<ACCOUNT_ID>:job-definition/*",
     "arn:aws:batch:<REGION>:<ACCOUNT_ID>:job-queue/MyCustomJQ",
+    "arn:aws:batch:<REGION>:<ACCOUNT_ID>:job-definition/*",
     "arn:aws:batch:<REGION>:<ACCOUNT_ID>:job/*"
   ],
   "Condition": {

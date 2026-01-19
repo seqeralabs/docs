@@ -21,9 +21,9 @@ Both options require specific IAM permissions to function correctly, as well as 
 
 ## S3 bucket creation
 
-AWS S3 (Simple Storage Service) is a type of **object storage**. To access input and output files using Seqera products like [Studios](../data_studios/overview) and [Data Explorer](../data/data-explorer) create one or more **S3 buckets**. An S3 bucket can also be used to store intermediate results of your Nextflow pipelines, as an alternative to using EFS or FSx file systems.
+AWS S3 (Simple Storage Service) is a type of **object storage**. To access input and output files using Seqera products like [Data Studios](../data_studios/overview) and [Data Explorer](../data/data-explorer) create one or more **S3 buckets**. An S3 bucket can also be used to store intermediate results of your Nextflow pipelines, as an alternative to using EFS or FSx file systems.
 :::note
-Using EFS or FSx as work directory is incompatible with Studios.
+Using EFS or FSx as work directory is incompatible with Data Studios.
 :::
 
 1. Navigate to the [AWS S3 console](https://console.aws.amazon.com/s3/home).
@@ -41,7 +41,7 @@ S3 can be used by Nextflow for the storage of intermediate files. In production 
 [AWS Elastic File System (EFS)](https://aws.amazon.com/efs/) and [AWS FSx for Lustre](https://aws.amazon.com/fsx/lustre/) are types of **file storage** that can be used as a Nextflow work directory to store intermediate files, as an alternative to using S3 buckets.
 
 :::note
-Using EFS or FSx as work directory is incompatible with Studios.
+Using EFS or FSx as work directory is incompatible with Data Studios.
 :::
 
 To use EFS or FSx as your Nextflow work directory, create an EFS or FSx file system in the same region where you plan to create your AWS Batch compute environment.
@@ -99,21 +99,31 @@ A permissive and broad policy with all the required permissions is provided here
       ]
     },
     {
+      "Sid": "BatchEnvironmentListing",
+      "Effect": "Allow",
+      "Action": [
+        "batch:DescribeComputeEnvironments",
+        "batch:DescribeJobDefinitions",
+        "batch:DescribeJobQueues",
+        "batch:DescribeJobs"
+      ],
+      "Resource": "*"
+    },
+    {
       "Sid": "BatchJobsManagementCanBeRestricted",
       "Effect": "Allow",
       "Action": [
         "batch:CancelJob",
-        "batch:DescribeJobDefinitions",
-        "batch:DescribeJobs",
-        "batch:DescribeComputeEnvironments",
-        "batch:DescribeJobQueues",
-        "batch:ListJobs",
         "batch:RegisterJobDefinition",
         "batch:SubmitJob",
         "batch:TagResource",
         "batch:TerminateJob"
       ],
-      "Resource": "*"
+      "Resource": [
+        "arn:aws:batch:*:*:job-definition/*",
+        "arn:aws:batch:*:*:job-queue/TowerForge-*",
+        "arn:aws:batch:*:*:job/*"
+      ]
     },
     {
       "Sid": "LaunchTemplateManagement",
@@ -263,40 +273,43 @@ A permissive and broad policy with all the required permissions is provided here
 
 The first section of the policy allows Seqera to create, update and delete Batch compute environments ("CE"), job queues ("JQ") and jobs.
 
-If you are required to use manually created CEs and JQs or prefer not to let Seqera manage their lifecycle for you, you can restrict the permissions to the specific Batch resources you created in your account and region; you can also restrict permissions based on Resource tag, which need to be defined by users when [setting up a pipeline in Platform](https://docs.seqera.io/platform-enterprise/resource-labels/overview).
+If you are required to use manually created CEs and JQs or prefer to manage their lifecycle yourself, you can remove the permissions to manipulate CEs and JQs from the policy. The minimum permissions required are:
+
+- `batch:DescribeJobs` to report job status
+- `batch:DescribeJobDefinitions` to list existing job definitions
+- `batch:RegisterJobDefinition` to create new job definitions
+- `batch:CancelJob` to cancel jobs
+- `batch:SubmitJob` to submit jobs
+- `batch:TagResource` to tag jobs
+- `batch:TerminateJob` to terminate jobs
+
+You can use `batch:DescribeJobQueues` to list the existing job queues in a drop-down menu but it's not required if you're specifying manually created job queues.
+However, it is required when you let Seqera create and manage job queues automatically (using the Forge tool). In this case, the `batch:DescribeComputeEnvironments` permission must also be added.
+
+You can also restrict permissions based on resource tags. These are defined by users when they [set up a pipeline in Platform](https://docs.seqera.io/platform-enterprise/resource-labels/overview).
 
 ```json
 {
-  "Sid": "BatchEnvironmentManagement",
+  "Sid": "BatchEnvironmentListing",
   "Effect": "Allow",
   "Action": [
-    "batch:DescribeComputeEnvironments",
-    "batch:DescribeJobQueues"
+    "batch:DescribeJobDefinitions",
+    "batch:DescribeJobs"
   ],
-  "Resource": [
-    "arn:aws:batch:<REGION>:<ACCOUNT_ID>:compute-environment/MyManualCE",
-    "arn:aws:batch:<REGION>:<ACCOUNT_ID>:job-queue/MyManualJQ"
-  ],
-  "Condition": {
-    "StringEqualsIfExists": {
-      "aws:ResourceTag/MyCustomTag": "MyCustomValue"
-    }
-  }
+  "Resource": "*"
 },
 {
   "Sid": "BatchJobsManagement",
   "Effect": "Allow",
   "Action": [
     "batch:CancelJob",
-    "batch:DescribeJobDefinitions",
-    "batch:DescribeJobs",
-    "batch:ListJobs",
     "batch:RegisterJobDefinition",
     "batch:SubmitJob",
     "batch:TagResource",
     "batch:TerminateJob"
   ],
   "Resource": [
+    "arn:aws:batch:<REGION>:<ACCOUNT_ID>:job-queue/MyCustomJQ",
     "arn:aws:batch:<REGION>:<ACCOUNT_ID>:job-definition/*",
     "arn:aws:batch:<REGION>:<ACCOUNT_ID>:job/*"
   ],
@@ -312,7 +325,7 @@ If you are required to use manually created CEs and JQs or prefer not to let Seq
 Restricting the `batch` actions using resource tags requires that you set the appropriate tags on each Seqera pipeline when configuring it in Platform. Forgetting to set the tag will cause the pipeline to fail to run.
 :::
 
-The job definition and job name resources cannot be restricted to specific names, as Seqera creates job definitions and jobs with dynamic names. Therefore, the wildcard `*` must be used for these resources.
+The job definition and job name resources cannot be restricted to specific names, as Seqera creates job definitions and jobs with dynamic names. Therefore, the wildcard `*` must be used in the name of these resources. In addition, `batch:SubmitJob` requires permission on both job definitions and job queues, so make sure to include both ARNs in the `Resource` array.
 
 If you prefer to let Seqera manage Batch resources for you, you can still restrict the permissions to specific resources in your account ID and region; you can also restrict permissions based on Resource tag, as shown with the `Condition`s in the example above.
 
@@ -376,16 +389,39 @@ The policy can be scoped down to limit access to the [specific log group](#advan
 
 ### S3 access (optional)
 
-Seqera offers several products to manipulate data on AWS S3 buckets, such as [Studios](../data_studios/overview) and [Data Explorer](../data/data-explorer); in addition to that, Seqera automatically fetches the list of buckets available in the AWS accounts connected to Platform, to provide them in a dropdown menu to be used as Nextflow working directory. The Studios and Data Explorer features are optional, and users can type the bucket name manually when creating pipelines, so this section of the policy is optional and can be omitted if these features are not used.
+Seqera automatically attempts to fetch a list of S3 buckets available in the AWS account connected to Platform, to provide them in a drop-down menu to be used as Nextflow working directory, and make the compute environment creation smoother. This feature is optional, and users can type the bucket name manually when setting up a compute environment. To allow Seqera to fetch the list of buckets in the account, the `s3:ListAllMyBuckets` action can be added, and it must have the `Resource` field set to `*`, as shown in the generic policy at the beginning of this document.
 
-The policy can be scoped down to only allow limited Read/Write permissions in certain S3 buckets used by Studios/Data Explorer, and to allow listing all the buckets in the account to populate the dropdown menu in the UI (the `s3:ListAllMyBuckets` action must have `Resource` set to `*` because it is not possible to restrict it to specific buckets).
+Seqera offers several products to manipulate data on AWS S3 buckets, such as [Data Studios](../data_studios/overview) and [Data Explorer](../data/data-explorer); if these features are not used the related permissions can be omitted.
+
+The IAM policy can be scoped down to only allow limited read/write permissions in certain S3 buckets used by Data Studios/Data Explorer. In addition, the policy must include permission to check the region and list the content of the S3 bucket used as Nextflow work directory. We also recommend granting the `s3:GetObject` permission on the work directory path to fetch Nextflow log files.
+
+:::note
+If you opted to create a separate S3 bucket only for Nextflow work directories, there is no need for the IAM user to have read/write access to it. If Seqera is allowed to manage resources (using Batch Forge) the IAM roles automatically created will have the necessary permissions.
+
+If you set up the compute environment manually, you can create the required IAM roles with the necessary permissions as detailed in the [manual AWS Batch setup documentation](../enterprise/advanced-topics/manual-aws-batch-setup).
+:::
 
 ```json
 {
-  "Sid": "S3ListBuckets",
+  "Sid": "S3CheckBucketWorkDirectory",
   "Effect": "Allow",
-  "Action": "s3:ListAllMyBuckets",
-  "Resource": "*"
+  "Action": [
+    "s3:GetBucketLocation",
+    "s3:ListBucket"
+  ],
+  "Resource": [
+    "arn:aws:s3:::example-bucket-used-as-work-directory"
+  ]
+},
+{
+  "Sid": "S3ReadOnlyNextflowLogFiles",
+  "Effect": "Allow",
+  "Action": [
+    "s3:GetObject"
+  ],
+  "Resource": [
+    "arn:aws:s3:::example-bucket-used-as-work-directory/path/to/work/directory/*"
+  ]
 },
 {
   "Sid": "S3ReadWriteBucketsForStudiosDataExplorer",
@@ -403,10 +439,6 @@ The policy can be scoped down to only allow limited Read/Write permissions in ce
   ]
 }
 ```
-
-:::note
-If you opted to create a separate S3 bucket only for Nextflow work directories, there is no need for the IAM user to have access to it: if Platform is allowed to manage resources (using Batch Forge) the IAM roles automatically created will have the necessary permissions; if you set up the compute environment manually, you can create the required IAM roles with the necessary permissions as detailed in the [manual AWS Batch setup documentation](../enterprise/advanced-topics/manual-aws-batch-setup).
-:::
 
 ### IAM roles for AWS Batch (optional)
 
@@ -559,7 +591,7 @@ The policy above must be created in the AWS account where the AWS Batch resource
 
 ## IAM user creation
 
-Seqera requires an Identity and Access Management (IAM) User to create and manage AWS Batch resources in your AWS account.
+Seqera requires an Identity and Access Management (IAM) User to create and manage AWS Batch resources in your AWS account. We recommend creating a separate IAM policy rather an IAM User inline policy, as the latter only allows 2048 characters, which may not be sufficient for all the required permissions.
 
 In certain scenarios, for example when multiple users need to access the same AWS account and provision AWS Batch resources, an IAM role with the required permissions can be created instead, and the IAM user can assume that role when accessing AWS resources, as detailed in the [IAM role creation (optional)](#iam-role-creation-optional) section.
 
@@ -662,7 +694,7 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
    Similarly you can specify a path in an EFS or FSx file system as your work directory. When using EFS or FSx, you'll need to scroll down to "EFS file system" or "FSx for Lustre" sections to specify either an existing file system ID or let Seqera create a new one for you automatically. Read the notes in steps 23 and 24 below on how to setup EFS or FSx.
 
     :::warning
-    Using an EFS or FSx file system as your work directory is currently incompatible with [Studios](../data_studios/overview), and will result in errors with checkpoints and mounted data. Use an S3 bucket as your work directory when using Studios.
+    Using an EFS or FSx file system as your work directory is currently incompatible with [Data Studios](../data_studios/overview), and will result in errors with checkpoints and mounted data. Use an S3 bucket as your work directory when using Data Studios.
     :::
 
 1. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers](https://www.nextflow.io/docs/latest/wave.html) for more information.
@@ -709,7 +741,7 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
     :::note
     You can create a compute environment that launches either Spot or On-Demand instances. Spot instances can cost as little as 20% of On-Demand instances, and with Nextflow's ability to automatically relaunch failed tasks, Spot is almost always the recommended provisioning model. Note, however, that when choosing Spot instances, Seqera will also create a dedicated queue for running the main Nextflow job using a single On-Demand instance to prevent any execution interruptions.
 
-    From Nextflow version 24.10, the default Spot reclamation retry setting changed to `0` on AWS and Google. By default, no internal retries are attempted on these platforms. Spot reclamations now lead to an immediate failure, exposed to Nextflow in the same way as other generic failures (returning for example, `exit code 1` on AWS). Nextflow will treat these failures like any other job failure unless you actively configure a retry strategy.
+    From Nextflow version 24.10, the default Spot reclamation retry setting changed to `0` on AWS and Google. By default, no internal retries are attempted on these platforms. Spot reclamations now lead to an immediate failure, exposed to Nextflow in the same way as other generic failures (returning for example, `exit code 1` on AWS). Nextflow will treat these failures like any other job failure unless you actively configure a retry strategy. For more information, see [Spot instance failures and retries](../troubleshooting_and_faqs/nextflow#spot-instance-failures-and-retries-in-nextflow).
     :::
 1. Enter the **Max CPUs**, e.g., `64`. This is the maximum number of combined CPUs (the sum of all instances' CPUs) AWS Batch will provision at any time.
 1. Select **EBS Auto scale (deprecated)** to allow the EC2 virtual machines to dynamically expand the amount of available disk space during task execution. This feature is deprecated, and is not compatible with Fusion v2.
@@ -754,7 +786,7 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
       * See the [AWS documentation about EFS security groups](https://docs.aws.amazon.com/efs/latest/ug/network-access.html) for more information.
       * The Security group then needs to be defined in the **Advanced options** below to allow the compute environment to access the EFS file system.
     :::warning
-    EFS file systems cannot be used as work directory for [Studios](../data_studios/overview), but can be mounted and used by applications running in Studios.
+    EFS file systems cannot be used as work directory for [Data Studios](../data_studios/overview), but can be mounted and used by applications running in Data Studios.
     :::
 
 1. To use a **FSx for Lustre** file system in your pipeline, you can either select **Use existing FSx file system** and specify an existing FSx instance, or select **Create new FSx file system** to create one.
@@ -784,7 +816,7 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
       * The Security group then needs to be defined in the **Advanced options** below to allow the compute environment to access the FSx file system.
    - You may need to install the `lustre` client in the AMI used by your compute environment to access FSx file systems. See [Installing the Lustre client](https://docs.aws.amazon.com/fsx/latest/LustreGuide/install-lustre-client.html) for more information.
     :::warning
-    FSx file systems cannot be used as work directory for [Studios](../data_studios/overview), but can be mounted and used by applications running in Studios.
+    FSx file systems cannot be used as work directory for [Data Studios](../data_studios/overview), but can be mounted and used by applications running in Data Studios.
     :::
 
 1. Select **Dispose resources** to automatically delete all AWS resources created by Seqera Platform when you delete the compute environment, including EFS/FSx file systems.
@@ -894,7 +926,7 @@ AWS Batch creates resources that you may be charged for in your AWS account. See
    Similarly you can specify a path in an EFS or FSx file system as your work directory. When using EFS or FSx, you'll need to scroll down to "EFS file system" or "FSx for Lustre" sections to specify either an existing file system ID or let Seqera create a new one for you automatically. Read the notes in steps 23 and 24 below on how to setup EFS or FSx.
 
     :::warning
-    Using an EFS or FSx file system as your work directory is currently incompatible with [Studios](../data_studios/overview), and will result in errors with checkpoints and mounted data. Use an S3 bucket as your work directory when using Studios.
+    Using an EFS or FSx file system as your work directory is currently incompatible with [Data Studios](../data_studios/overview), and will result in errors with checkpoints and mounted data. Use an S3 bucket as your work directory when using Data Studios.
     :::
 
 1. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers](https://www.nextflow.io/docs/latest/wave.html) for more information.
