@@ -2,6 +2,9 @@
   "name": "seqera-docs",
   "version": "0.0.0",
   "private": true,
+  "overrides": {
+    "glob": "^11.1.0"
+  },
   "scripts": {
     "docusaurus": "docusaurus",
     "prestart": "npm run fetch-docs-oss",

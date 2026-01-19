@@ -8,11 +8,12 @@
         "link": {
           "type": "doc",
           "id": "enterprise/overview"
-        },      
+        },
         "items": [
           {
             "type": "category",
             "label": "Prerequisites",
+            "link": {"type": "doc", "id": "enterprise/prerequisites/common"},
             "collapsed": true,
             "items": [
               "enterprise/prerequisites/aws",
@@ -42,8 +43,9 @@
             "label": "Deployment",
             "collapsed": true,
             "items": [
-              "enterprise/docker-compose",
+              "enterprise/helm",
               "enterprise/kubernetes",
+              "enterprise/docker-compose",
               "enterprise/testing",
               "enterprise/upgrade"
             ]
@@ -57,12 +59,13 @@
               "enterprise/advanced-topics/use-iam-role",
               "enterprise/advanced-topics/custom-launch-container",
               "enterprise/advanced-topics/firewall-configuration",
-              "enterprise/advanced-topics/seqera-container-images"
+              "enterprise/advanced-topics/seqera-container-images",
+              "enterprise/advanced-topics/content-security-policy"
             ]
           },
           "enterprise/general_troubleshooting"
         ]
-      },      
+      },
       {
         "type": "category",
         "label": "Tutorials",
@@ -88,7 +91,7 @@
           "getting-started/quickstart-demo/automation",
           "getting-started/production-checklist"
         ]
-      },    
+      },
       {
         "type": "category",
         "label": "Credentials",
@@ -129,8 +132,9 @@
               "compute-envs/aws-batch",
               "compute-envs/aws-cloud",
               "compute-envs/azure-batch",
+              "compute-envs/azure-cloud",
               "compute-envs/google-cloud-batch",
-              "compute-envs/google-cloud",             
+              "compute-envs/google-cloud",
               "compute-envs/eks",
               "compute-envs/gke",
               "monitoring/cloud-costs"
@@ -171,7 +175,7 @@
           "type": "category",
           "label": "Monitor runs",
           "items": [
-            "monitoring/overview",            
+            "monitoring/overview",
             "monitoring/run-details"
           ]
           },
@@ -187,6 +191,8 @@
         "label": "Studios",
         "items": [
           "studios/overview",
+          "studios/add-studio",
+          "studios/container-images",
           "studios/custom-envs",
           "studios/managing",
           "studios/connect"
@@ -252,7 +258,7 @@
         "type": "link",
         "label": "Enterprise changelog",
         "href": "/changelog/tags/seqera-enterprise"
-      },     
+      },
       {
         "type": "category",
         "label": "Troubleshooting",

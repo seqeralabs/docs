@@ -63,6 +63,13 @@ All new content originates in the docs repo. This is the source of truth.
 
 To publish new content:
 
+1. Run the following commands to set up [pre-commit](https://github.com/pre-commit/pre-commit) hooks:
+
+   ```console
+   $ pre-commit install
+   $ pre-commit install-hooks
+   ```
+
 1. Create a new branch in the docs repo, such as `gh-issue-number`.
 2. Complete the necessary work.
 3. Raise a PR to merge your updates to master
