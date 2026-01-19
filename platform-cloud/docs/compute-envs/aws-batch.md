@@ -274,10 +274,14 @@ A permissive and broad policy with all the required permissions is provided here
 The first section of the policy allows Seqera to create, update and delete Batch compute environments ("CE"), job queues ("JQ") and jobs.
 
 If you are required to use manually created CEs and JQs or prefer to manage their lifecycle yourself, you can remove the permissions to manipulate CEs and JQs from the policy. The minimum permissions required are:
-- `batch:DescribeJobs` to report job status,
-- `batch:DescribeJobDefinitions` to list existing job definitions,
-- `batch:RegisterJobDefinition` to create new job definitions,
-- `batch:CancelJob`, `batch:SubmitJob`, `batch:TagResource`, `batch:TerminateJob` to manage jobs.
+
+- `batch:DescribeJobs` to report job status
+- `batch:DescribeJobDefinitions` to list existing job definitions
+- `batch:RegisterJobDefinition` to create new job definitions
+- `batch:CancelJob` to cancel jobs
+- `batch:SubmitJob` to submit jobs
+- `batch:TagResource` to tag jobs
+- `batch:TerminateJob` to terminate jobs
 
 You can use `batch:DescribeJobQueues` to list the existing job queues in a drop-down menu but it's not required if you're specifying manually created job queues.
 
