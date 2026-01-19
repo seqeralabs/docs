@@ -279,7 +279,7 @@ If you are required to use manually created CEs and JQs or prefer to manage thei
 - `batch:RegisterJobDefinition` to create new job definitions,
 - `batch:CancelJob`, `batch:SubmitJob`, `batch:TagResource`, `batch:TerminateJob` to manage jobs.
 
-You can use `batch:DescribeJobQueues` to list the existing job queues in a drop-down menu but it's not required if you're specifying manually created job queues. 
+You can use `batch:DescribeJobQueues` to list the existing job queues in a drop-down menu but it's not required if you're specifying manually created job queues.
 
 However, it is required when you let Seqera create and manage job queues automatically (using the Forge tool). In this case, the `batch:DescribeComputeEnvironments` permission must also be added.
 You can also restrict permissions based on resource tags. These are defined by users when they [set up a pipeline in Platform](https://docs.seqera.io/platform-enterprise/resource-labels/overview).
@@ -392,7 +392,7 @@ Seqera offers several products to manipulate data on AWS S3 buckets, such as [St
 The IAM policy can be scoped down to only allow limited read/write permissions in certain S3 buckets used by Studios/Data Explorer. In addition, the policy must include permission to check the region and list the content of the S3 bucket used as Nextflow work directory. We also recommend granting the `s3:GetObject` permission on the work directory path to fetch Nextflow log files.
 
 :::note
-If you opted to create a separate S3 bucket only for Nextflow work directories, there is no need for the IAM user to have read/write access to it. If Seqera is allowed to manage resources (using Batch Forge) the IAM roles automatically created will have the necessary permissions. 
+If you opted to create a separate S3 bucket only for Nextflow work directories, there is no need for the IAM user to have read/write access to it. If Seqera is allowed to manage resources (using Batch Forge) the IAM roles automatically created will have the necessary permissions.
 
 If you set up the compute environment manually, you can create the required IAM roles with the necessary permissions as detailed in the [manual AWS Batch setup documentation](../enterprise/advanced-topics/manual-aws-batch-setup).
 :::
