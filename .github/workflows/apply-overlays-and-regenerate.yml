@@ -157,14 +157,26 @@ jobs:
         run: |
           cd platform-api-docs/scripts/specs
 
+          # Detect decorated spec extension
+          if [ -f "seqera-api-latest-decorated.yaml" ]; then
+            DECORATED_SPEC="seqera-api-latest-decorated.yaml"
+            NEW_SPEC="seqera-api-latest-decorated-new.yaml"
+          elif [ -f "seqera-api-latest-decorated.yml" ]; then
+            DECORATED_SPEC="seqera-api-latest-decorated.yml"
+            NEW_SPEC="seqera-api-latest-decorated-new.yml"
+          else
+            echo "❌ Error: seqera-api-latest-decorated.yaml/yml not found"
+            exit 1
+          fi
+
           # Apply consolidated overlay
           speakeasy overlay apply \
-            -s seqera-api-latest-decorated.yaml \
+            -s "$DECORATED_SPEC" \
             -o all-changes-overlay-${{ steps.version.outputs.api_version }}.yaml \
-            > seqera-api-latest-decorated-new.yaml
+            > "$NEW_SPEC"
 
           # Replace old decorated spec
-          mv seqera-api-latest-decorated-new.yaml seqera-api-latest-decorated.yaml
+          mv "$NEW_SPEC" "$DECORATED_SPEC"
 
           echo "✅ Applied overlays to decorated spec"
 
@@ -172,7 +184,17 @@ jobs:
         run: |
           cd platform-api-docs/scripts/specs
 
-          speakeasy validate openapi -s seqera-api-latest-decorated.yaml
+          # Detect decorated spec extension
+          if [ -f "seqera-api-latest-decorated.yaml" ]; then
+            DECORATED_SPEC="seqera-api-latest-decorated.yaml"
+          elif [ -f "seqera-api-latest-decorated.yml" ]; then
+            DECORATED_SPEC="seqera-api-latest-decorated.yml"
+          else
+            echo "❌ Error: seqera-api-latest-decorated.yaml/yml not found"
+            exit 1
+          fi
+
+          speakeasy validate openapi -s "$DECORATED_SPEC"
 
           echo "✅ Decorated spec is valid"
 
