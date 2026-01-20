@@ -4,7 +4,7 @@
 # Runs twice daily to check for new releases from external repositories
 # and creates PRs with changelog entries.
 
-name: Generate Changelogs from Releases
+name: Changelogs
 
 on:
   schedule:
