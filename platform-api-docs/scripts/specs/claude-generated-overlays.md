@@ -8,6 +8,60 @@ This file contains all the overlay files generated from the base-1.95-to-1.102.0
 
 ---
 
+# Missing Schemas (Must Apply First)
+
+## add-missing-schema-overlay-1.102.0.yaml
+
+**CRITICAL**: This schema exists in v1.95 base spec but was accidentally excluded from v1.95 decorated spec. Must be added BEFORE other overlays can reference it in ComputeConfig.oneOf array.
+
+```yaml
+overlay: 1.0.0
+info:
+  title: Add missing LocalComputeConfig schema
+  version: 1.102.0
+actions:
+  # ===== ADD MISSING LocalComputeConfig SCHEMA =====
+
+  # This schema exists in v1.95 base spec but was accidentally excluded from v1.95 decorated spec
+  # We need to add it before other overlays can reference it
+
+  - target: "$.components.schemas"
+    update:
+      LocalComputeConfig:
+        type: object
+        title: Local execution configuration
+        properties:
+          workDir:
+            type: string
+            description: "Compute environment working directory."
+          preRunScript:
+            type: string
+            description: "Script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+          postRunScript:
+            type: string
+            description: "Script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+          environment:
+            type: array
+            description: "Array of environment variables for the compute environment."
+            items:
+              $ref: "#/components/schemas/ConfigEnvVariable"
+          nextflowConfig:
+            type: string
+            description: "Additional Nextflow configuration content."
+          discriminator:
+            type: string
+            description: "Property to select the compute config platform."
+            readOnly: true
+          waveEnabled:
+            type: boolean
+            description: "Enable Wave containers support. See [Wave containers](https://docs.seqera.io/platform-cloud/supported_software/wave)."
+          fusion2Enabled:
+            type: boolean
+            description: "Enable Fusion v2 virtual distributed file system. See [Fusion file system](https://docs.seqera.io/platform-cloud/supported_software/fusion)."
+```
+
+---
+
 # Compute Environments Overlays
 
 ## compute-envs-operations-overlay-1.102.0.yaml
@@ -1069,26 +1123,103 @@ actions:
 
   # ---- Replace ComputeConfig oneOf array without GoogleLifeSciencesConfig ----
 
+  # CRITICAL: Remove entire oneOf array first to prevent duplicates
   - target: "$.components.schemas.ComputeConfig.oneOf"
+    remove: true
+
+  # Replace with correct array (no GoogleLifeSciencesConfig, no duplicates)
+  - target: "$.components.schemas.ComputeConfig"
     update:
-      - $ref: "#/components/schemas/AwsBatchConfig"
-      - $ref: "#/components/schemas/AwsCloudConfig"
-      - $ref: "#/components/schemas/SeqeraComputeConfig"
-      - $ref: "#/components/schemas/GoogleBatchConfig"
-      - $ref: "#/components/schemas/AzBatchConfig"
-      - $ref: "#/components/schemas/LsfComputeConfig"
-      - $ref: "#/components/schemas/SlurmComputeConfig"
-      - $ref: "#/components/schemas/K8sComputeConfig"
-      - $ref: "#/components/schemas/EksComputeConfig"
-      - $ref: "#/components/schemas/GkeComputeConfig"
-      - $ref: "#/components/schemas/UnivaComputeConfig"
-      - $ref: "#/components/schemas/AltairPbsComputeConfig"
-      - $ref: "#/components/schemas/MoabComputeConfig"
+      oneOf:
+        - $ref: "#/components/schemas/AwsBatchConfig"
+        - $ref: "#/components/schemas/AwsCloudConfig"
+        - $ref: "#/components/schemas/SeqeraComputeConfig"
+        - $ref: "#/components/schemas/GoogleBatchConfig"
+        - $ref: "#/components/schemas/GoogleCloudConfig"
+        - $ref: "#/components/schemas/AzBatchConfig"
+        - $ref: "#/components/schemas/AzCloudConfig"
+        - $ref: "#/components/schemas/LsfComputeConfig"
+        - $ref: "#/components/schemas/SlurmComputeConfig"
+        - $ref: "#/components/schemas/K8sComputeConfig"
+        - $ref: "#/components/schemas/EksComputeConfig"
+        - $ref: "#/components/schemas/GkeComputeConfig"
+        - $ref: "#/components/schemas/UnivaComputeConfig"
+        - $ref: "#/components/schemas/AltairPbsComputeConfig"
+        - $ref: "#/components/schemas/MoabComputeConfig"
+        - $ref: "#/components/schemas/LocalComputeConfig"
 
   # ---- Remove GoogleLifeSciencesConfig schema definition (line 11229+) ----
 
   - target: "$.components.schemas.GoogleLifeSciencesConfig"
     remove: true
+```
+
+---
+
+# Add Identities Tag Overlay
+
+## add-identities-tag-overlay-1.102.0.yaml
+
+```yaml
+overlay: 1.0.0
+info:
+  title: Add identities tag to global tags
+  version: 1.102.0
+actions:
+  # ===== ADD MISSING IDENTITIES TAG =====
+
+  # CRITICAL: Remove entire tags array first to prevent duplicates
+  - target: "$.tags"
+    remove: true
+
+  # Replace with complete array including identities tag
+  - target: "$"
+    update:
+      tags:
+        - name: actions
+          description: Pipeline actions
+        - name: avatars
+          description: Avatars
+        - name: compute-envs
+          description: Compute environments
+        - name: credentials
+          description: Credentials
+        - name: data-links
+          description: Cloud storage directory paths in Data Explorer
+        - name: datasets
+          description: Pipeline input datasets (samplesheets) in CSV or TSV format
+        - name: ga4gh
+          description: GA4GH workflow execution service runs
+        - name: identities
+          description: Managed identities for centralized credential management
+        - name: labels
+          description: Labels and resource labels
+        - name: launch
+          description: Workflow launch events
+        - name: orgs
+          description: Organizations
+        - name: pipelines
+          description: Pipelines
+        - name: pipeline-secrets
+          description: Pipeline secrets in a user or workspace context
+        - name: platforms
+          description: Computing platforms
+        - name: service-info
+          description: Seqera Platform API service information
+        - name: studios
+          description: Studios and Studio sessions
+        - name: teams
+          description: Teams in an organization context
+        - name: tokens
+          description: API access tokens
+        - name: trace
+          description: Workflow execution traces
+        - name: users
+          description: Users
+        - name: workflows
+          description: Workflow executions
+        - name: workspaces
+          description: Workspaces in an organization context
 ```
 
 ---
