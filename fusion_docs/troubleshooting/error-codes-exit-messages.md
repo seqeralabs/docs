@@ -12,7 +12,7 @@ This page describes Fusion's error reporting system, including exit codes, FUSE 
 
 Fusion is a FUSE filesystem that bridges applications and cloud object stores. Errors originate from multiple layers and propagate through the filesystem components in three main paths:
 
-1. **Cloud → Storage Backend → FUSE Layer → Kernel → Application**
+1. **Cloud > Storage Backend > FUSE Layer > Kernel > Application**
 
    - Storage backends catch and normalize cloud errors (network timeouts, auth failures, rate limits) using the `clouderr` package
    - Storage backends return normalized cloud errors (with provider-agnostic categories) or internal errors (`ErrNotFound`, `ErrReadOnly`, etc.)
