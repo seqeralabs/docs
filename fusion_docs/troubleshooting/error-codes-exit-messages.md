@@ -14,7 +14,7 @@ Fusion is a FUSE filesystem that bridges applications and cloud object stores. E
 
 1. **Cloud > Storage Backend > FUSE Layer > Kernel > Application**
 
-   - Storage backends catch and normalize cloud errors (network timeouts, auth failures, rate limits) using the `clouderr` package
+   - Errors from the cloud provider (e.g. network timeouts, auth failures, rate limits) are captured by the Storage backend, which normalizes them into provider-agnostic categories (see #cloud-provider-error-categories).
    - Storage backends return normalized cloud errors (with provider-agnostic categories) or internal errors (`ErrNotFound`, `ErrReadOnly`, etc.)
    - The FUSE layer maps both cloud errors and internal errors to FUSE status codes (`ENOENT`, `EACCES`, `EREMOTEIO`, `EIO`)
    - The kernel translates FUSE status to errno values for the application
