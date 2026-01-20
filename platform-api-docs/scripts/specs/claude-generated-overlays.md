@@ -348,7 +348,7 @@ actions:
     update: |
       Submits a workflow execution.
 
-      **To resume a workflow**: First, [retrieve the launch configuration](https://docs.seqera.io/platform-api/describe-workflow-launch) using `GET /workflow/{workflowId}/launch`. Then modify the response by setting `workDir` to the value from `resumeDir`, `revision` to the value from `resumeCommitId`, and `resume` to `true`. Submit the modified payload to this endpoint to resume the workflow.
+      **To [resume](https://docs.seqera.io/platform-cloud/launch/cache-resume#resume-a-workflow-run) a workflow**: First, retrieve the launch configuration using [`GET /workflow/{workflowId}/launch`](https://docs.seqera.io/platform-api/describe-workflow-launch). Then modify the response by setting `workDir` to the value from `resumeDir`, `revision` to the value from `resumeCommitId`, and `resume` to `true`. Submit the modified payload to this endpoint to resume the workflow.
 ```
 
 ---
