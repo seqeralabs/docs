@@ -56,12 +56,27 @@ jobs:
         run: |
           cd platform-api-docs/scripts/specs
 
-          # Find the latest base spec (highest version number) - support both .yaml and .yml
-          LATEST_SPEC=$(ls -t seqera-api-*.yaml seqera-api-*.yml 2>/dev/null | head -n 1)
+          # Find the latest base spec (highest version number) - exclude decorated specs
+          # Only match files like seqera-api-1.102.0.yaml (version numbers starting with digit)
+          # Support both .yaml and .yml extensions
+          # Sort by version number (not modification time)
+          LATEST_SPEC=$(ls seqera-api-[0-9]*.yaml seqera-api-[0-9]*.yml 2>/dev/null | \
+            sed -E 's/seqera-api-([0-9.]+)\.ya?ml/\1 &/' | \
+            sort -t. -k1,1n -k2,2n -k3,3n | \
+            tail -n 1 | \
+            cut -d' ' -f2)
+
+          if [ -z "$LATEST_SPEC" ]; then
+            echo "❌ Error: No base spec file found (pattern: seqera-api-[0-9]*.{yaml,yml})"
+            echo "Files in directory:"
+            ls -la
+            exit 1
+          fi
+
           VERSION=$(echo "$LATEST_SPEC" | sed -E 's/seqera-api-(.*)\.ya?ml/\1/')
 
           echo "api_version=$VERSION" >> $GITHUB_OUTPUT
-          echo "Detected API version: $VERSION"
+          echo "Detected API version: $VERSION from file: $LATEST_SPEC"
 
       - name: Extract overlay files from markdown
         run: |
@@ -308,8 +323,25 @@ jobs:
         run: |
           cd platform-api-docs/scripts/specs
 
-          # Keep only the latest 2 base specs - support both .yaml and .yml
-          ls -t seqera-api-*.yaml seqera-api-*.yml 2>/dev/null | tail -n +3 | xargs -r rm
+          # Keep only the latest 2 base specs (by version number) - support both .yaml and .yml
+          # Exclude decorated specs, sort by semantic version, delete all but newest 2
+          BASE_SPECS=$(ls seqera-api-[0-9]*.yaml seqera-api-[0-9]*.yml 2>/dev/null | \
+            sed -E 's/seqera-api-([0-9.]+)\.ya?ml/\1 &/' | \
+            sort -t. -k1,1n -k2,2n -k3,3n | \
+            cut -d' ' -f2)
+
+          if [ -n "$BASE_SPECS" ]; then
+            SPECS_TO_DELETE=$(echo "$BASE_SPECS" | head -n -2)
+            if [ -n "$SPECS_TO_DELETE" ]; then
+              echo "Deleting old base specs:"
+              echo "$SPECS_TO_DELETE"
+              echo "$SPECS_TO_DELETE" | xargs rm
+            else
+              echo "No old base specs to delete (keeping latest 2)"
+            fi
+          else
+            echo "No base specs found"
+          fi
 
           echo "✅ Cleaned up old base specs"
 
