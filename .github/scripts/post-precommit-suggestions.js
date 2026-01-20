@@ -137,7 +137,7 @@ module.exports = async ({ github, context, diff }) => {
       repo: context.repo.repo,
       commit_id: commitSha,
       event: "COMMENT",
-      body: "**Pre-commit formatting suggestions**\n\nPre-commit hooks found some formatting changes. You can apply each suggestion directly by clicking the \"Commit suggestion\" button, or run `pre-commit` locally and commit again.",
+      body: "🪄 **Pre-commit formatting suggestions**\n\nYou can apply each suggestion via the GitHub UI, add a comment containing the keyword `fix formatting` or [set up pre-commit](https://github.com/seqeralabs/docs/blob/master/README.md#install-pre-commit) locally and commit again.",
       comments: comments
     });
   }
