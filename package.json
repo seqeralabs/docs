@@ -12,7 +12,7 @@
     "start": "docusaurus start",
     "dev": "npm run start",
     "prebuild": "npm run fetch-docs-oss",
-    "build": "docusaurus build",
+    "build": "docusaurus build --no-minify",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
