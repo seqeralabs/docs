@@ -63,7 +63,7 @@ Use bold for UI elements:
 - Tabs: **Overview**, **Parameters**
 
 #### Product names
-- ✅ "Studios" (ALWAYS capitalized, even when generic: "the Studios", "a Studios session")
+- ✅ "Studios" (ALWAYS capitalized, even when generic: "the Studios", "a Studio session")
 - ✅ "Seqera Platform" (never "Tower" or "the platform")
 - ✅ "Fusion", "Wave", "Nextflow" (capitalized)
 - ✅ "compute environment" (lowercase when not a proper noun)
@@ -79,8 +79,6 @@ Use bold for UI elements:
 ### 4. Apply Platform-specific component organization
 
 Platform changelogs MUST use component-based organization:
-
-**CRITICAL: Component headers MUST be level 3 headers (`###`), NOT bold (`**Component**`)**
 
 **Required structure:**
 ```markdown
@@ -172,7 +170,7 @@ Before outputting, verify:
 - [ ] Studios capitalized
 - [ ] Code elements in backticks
 - [ ] UI elements in bold
-- [ ] Component headers are level 3 (`###`), NOT bold (`**Component**`)
+- [ ] Component headers are level 3 (`###`)
 - [ ] Items grouped by component
 - [ ] No "Upgrade notes" for Cloud
 - [ ] No author attribution
