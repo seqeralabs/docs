@@ -1062,15 +1062,28 @@ actions:
         - "lsf-platform"
         - "altair-platform"
 
-  # ---- Remove from ComputeEnv_ComputeConfig_ discriminator mapping (line 9140) ----
+  # ---- Remove from ComputeConfig discriminator mapping (line 9140) ----
 
-  - target: "$.components.schemas.ComputeEnv_ComputeConfig_.discriminator.mapping.google-lifesciences"
+  - target: "$.components.schemas.ComputeConfig.discriminator.mapping.google-lifesciences"
     remove: true
 
-  # ---- Remove from ComputeEnv_ComputeConfig_ oneOf array ----
+  # ---- Replace ComputeConfig oneOf array without GoogleLifeSciencesConfig ----
 
-  - target: "$.components.schemas.ComputeEnv_ComputeConfig_.oneOf[?(@.$ref=='#/components/schemas/GoogleLifeSciencesConfig')]"
-    remove: true
+  - target: "$.components.schemas.ComputeConfig.oneOf"
+    update:
+      - $ref: "#/components/schemas/AwsBatchConfig"
+      - $ref: "#/components/schemas/AwsCloudConfig"
+      - $ref: "#/components/schemas/SeqeraComputeConfig"
+      - $ref: "#/components/schemas/GoogleBatchConfig"
+      - $ref: "#/components/schemas/AzBatchConfig"
+      - $ref: "#/components/schemas/LsfComputeConfig"
+      - $ref: "#/components/schemas/SlurmComputeConfig"
+      - $ref: "#/components/schemas/K8sComputeConfig"
+      - $ref: "#/components/schemas/EksComputeConfig"
+      - $ref: "#/components/schemas/GkeComputeConfig"
+      - $ref: "#/components/schemas/UnivaComputeConfig"
+      - $ref: "#/components/schemas/AltairPbsComputeConfig"
+      - $ref: "#/components/schemas/MoabComputeConfig"
 
   # ---- Remove GoogleLifeSciencesConfig schema definition (line 11229+) ----
 

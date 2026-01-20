@@ -372,10 +372,12 @@ Now have **12 total overlays** for v1.102.0:
 ### Deprecated Platform Removal
 Added overlay to completely remove the deprecated `google-lifesciences` platform option:
 - Removed from `ComputeEnvResponseDto.platform` enum (line 9198)
-- Removed from `ComputeEnv_ComputeConfig_.platform` enum (line 9286)
-- Removed from `ComputeEnv_ComputeConfig_` discriminator mapping (line 9140)
-- Removed from `ComputeEnv_ComputeConfig_` oneOf array (line 9146)
+- Removed from `ComputeEnv_ComputeConfig_.platform` enum (line 9286) - handled by fix-duplicate-enums-overlay
+- Removed from `ComputeConfig` discriminator mapping (line 9140)
+- Replaced `ComputeConfig` oneOf array without GoogleLifeSciencesConfig ref (line 9146)
 - Removed entire `GoogleLifeSciencesConfig` schema definition (line 11229+)
+
+**Update**: Fixed references - the discriminator and oneOf are in the `ComputeConfig` schema (line 9099), not `ComputeEnv_ComputeConfig_` (which just references ComputeConfig via $ref)
 
 ### Next Workflow Run
 Expected total actions: ~200+ (was 177, now adding enum fixes + google-lifesciences removal)
