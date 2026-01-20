@@ -80,6 +80,8 @@ Use bold for UI elements:
 
 Platform changelogs MUST use component-based organization:
 
+**CRITICAL: Component headers MUST be level 3 headers (`###`), NOT bold (`**Component**`)**
+
 **Required structure:**
 ```markdown
 ### Feature updates and improvements
@@ -170,7 +172,7 @@ Before outputting, verify:
 - [ ] Studios capitalized
 - [ ] Code elements in backticks
 - [ ] UI elements in bold
-- [ ] Component headers are level 3 (`###`)
+- [ ] Component headers are level 3 (`###`), NOT bold (`**Component**`)
 - [ ] Items grouped by component
 - [ ] No "Upgrade notes" for Cloud
 - [ ] No author attribution
