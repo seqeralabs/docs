@@ -83,7 +83,73 @@ actions:
 - `offset`: "Number of results to skip for pagination. Default: `0`."
 - `max`: "Maximum number of results to return. Default: `{value}`."
 
-**Example**:
+**CRITICAL - Parameter Array Replacement Pattern**:
+
+When the comparison overlay contains a `remove: true` action followed by a parameter array `update`, you MUST preserve BOTH actions in your generated overlay:
+
+1. First action: Remove the entire existing parameters array with `remove: true`
+2. Second action: Replace with the complete new array including enriched descriptions
+
+**Why**: Simply updating individual parameter descriptions will cause duplicates and validation errors. The entire parameters array must be removed before replacement.
+
+**Example - Comparison overlay shows**:
+```yaml
+- target: $["paths"]["/data-links/{dataLinkId}/browse"]["get"]["parameters"][*]
+  remove: true
+- target: $["paths"]["/data-links/{dataLinkId}/browse"]["get"]["parameters"]
+  update:
+    - name: dataLinkId
+      in: path
+      description: Data-link string identifier
+      required: true
+      schema:
+        type: string
+    - name: path
+      in: query
+      description: Resource path to browse
+      # ... more params
+```
+
+**Your generated overlay MUST include BOTH actions**:
+```yaml
+overlay: 1.0.0
+info:
+  title: Data-links parameters overlay
+  version: 1.102.0
+actions:
+  # ===== DATA-LINKS PARAMETERS =====
+
+  # Remove entire parameters array to prevent duplicates
+  - target: "$.paths./data-links/{dataLinkId}/browse.get.parameters[*]"
+    remove: true
+
+  # Replace with complete array with enriched descriptions
+  - target: "$.paths./data-links/{dataLinkId}/browse.get.parameters"
+    update:
+      - name: dataLinkId
+        in: path
+        description: "Data-link string identifier."
+        required: true
+        schema:
+          type: string
+      - name: path
+        in: query
+        description: "Resource path to browse. Default: `/` (root directory)."
+        required: false
+        schema:
+          type: string
+      # ... include ALL parameters from comparison with enriched descriptions
+```
+
+**DO NOT do this** (updating descriptions without removal):
+```yaml
+# ❌ WRONG - This will create duplicate parameters and validation errors
+- target: "$.paths./data-links/{dataLinkId}/browse.get.parameters[?(@.name=='dataLinkId')].description"
+  update: "Data-link string identifier."
+# Missing the removal action = duplicates!
+```
+
+**Standard example** (when comparison shows simple description updates, not array replacement):
 ```yaml
 overlay: 1.0.0
 info:
@@ -271,13 +337,41 @@ $.paths./datasets.get.responses['200'].description
 
 ## Generating Overlays from Comparison
 
+**CRITICAL - Preserve ALL Actions from Comparison Overlay**:
+
+Every single action defined in the comparison overlay MUST be preserved in your generated overlay files. No orphaned actions are allowed.
+
+**Requirements**:
+1. **One-to-one mapping**: For each action in the comparison overlay, there must be AT LEAST one corresponding action in the generated overlays
+2. **One-to-many mapping**: Some comparison actions will map to TWO generated actions:
+   - Comparison has `remove: true` followed by `update` → Generate BOTH removal and update actions
+   - Example: Parameter array replacement requires both remove and update
+3. **Verification**: Before finalizing, check that every action in the comparison overlay has a corresponding action in your generated overlays
+
+**Example**:
+```yaml
+# Comparison overlay has 2 actions:
+- target: $["paths"]["/endpoint"]["get"]["parameters"][*]
+  remove: true  # ← Action 1
+- target: $["paths"]["/endpoint"]["get"]["parameters"]
+  update: [...]  # ← Action 2
+
+# Your generated overlay MUST have both:
+- target: "$.paths./endpoint.get.parameters[*]"
+  remove: true  # ← Corresponds to Action 1
+- target: "$.paths./endpoint.get.parameters"
+  update: [...]  # ← Corresponds to Action 2
+```
+
 When analyzing a comparison overlay:
 
-1. **Identify new endpoints**: These need ALL three overlay types (operations, parameters, schemas)
-2. **Group by tag/controller**: Create one set of overlay files per resource (datasets, credentials, etc.)
-3. **Check for standard parameters**: Use exact standard descriptions
-4. **Follow patterns**: Use templates from overlay-patterns.md
-5. **Maintain consistency**: Same entities use same phrasing throughout
+1. **Count all actions**: Note the total number of actions in the comparison overlay
+2. **Identify new endpoints**: These need ALL three overlay types (operations, parameters, schemas)
+3. **Group by tag/controller**: Create one set of overlay files per resource (datasets, credentials, etc.)
+4. **Check for standard parameters**: Use exact standard descriptions
+5. **Follow patterns**: Use templates from overlay-patterns.md
+6. **Maintain consistency**: Same entities use same phrasing throughout
+7. **Verify completeness**: Ensure every comparison action is represented in your generated overlays
 
 ## Quality Checklist
 
@@ -323,13 +417,15 @@ Before finalizing overlay files:
 ## Common Mistakes to Avoid
 
 1. **Empty overlay files**: NEVER create overlay files with no action items (only comments). Empty overlays break the workflow automation.
-2. **Inconsistent parameter descriptions**: Always use standards.md exact wording
-3. **Missing periods in descriptions**: Descriptions are sentences
-4. **Title case summaries**: Use sentence case only
-5. **Invented terminology**: Use established terms only
-6. **Missing defaults**: Always specify default values in backticks
-7. **Incomplete enum listings**: List all accepted values
-8. **Vague descriptions**: Include specifics (max length, format, constraints)
+2. **Orphaned comparison actions**: EVERY action in the comparison overlay MUST have a corresponding action in your generated overlays. Check that nothing is missing.
+3. **Missing parameter array removal**: When comparison shows `remove: true` + array update, you MUST include BOTH actions. Updating descriptions without removal causes duplicate parameters and validation errors.
+4. **Inconsistent parameter descriptions**: Always use standards.md exact wording
+5. **Missing periods in descriptions**: Descriptions are sentences
+6. **Title case summaries**: Use sentence case only
+7. **Invented terminology**: Use established terms only
+8. **Missing defaults**: Always specify default values in backticks
+9. **Incomplete enum listings**: List all accepted values
+10. **Vague descriptions**: Include specifics (max length, format, constraints)
 
 ## Working with Permanent Overlays
 

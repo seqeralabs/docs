@@ -78,11 +78,10 @@ Working on PR for API docs v1.102.0 updates. The workflow `apply-overlays-and-re
 - Upload all overlay files as artifacts on failure (7 day retention)
 **Commits**: `c0516714`, `a3f5828f`
 
-## Current Issue ⚠️ IN PROGRESS
+## Issue #7: Validation errors on applied spec ✅ FIXED
 
-### Validation errors on applied spec
-
-**Status**: After applying overlays, validation shows 4 ERROR-level issues:
+### Problem
+After applying overlays, validation showed 4 ERROR-level issues:
 
 ```
 ERROR: [line 1456] path-params - parameter path must be used in path /data-links/{dataLinkId}/browse
@@ -91,53 +90,52 @@ ERROR: [line 1884] path-params - parameter dirPath must be used in path /data-li
 ERROR: [line 1950] path-params - parameter dirPath must be used in path /data-links/{dataLinkId}/upload/finish
 ```
 
-**Root Cause Discovery**:
-- The `base-1.95-to-1.102.0-changes.yaml` file contains `remove: true` actions that delete the entire parameters array before replacing it
-- The `claude-generated-overlays.md` file (generated from the comparison overlay by the skill) only contains description updates
-- It does NOT include the parameter removal/replacement actions
-- Therefore: overlays are ADDING descriptions to existing (bad) parameters, not REPLACING the parameter array
+### Root Cause
+The `base-1.95-to-1.102.0-changes.yaml` file contains `remove: true` actions that delete the entire parameters array before replacing it, but the `claude-generated-overlays.md` file only contained description updates - NOT the parameter removal/replacement actions. This caused duplicate parameters with validation errors.
 
-**Example from base-1.95-to-1.102.0-changes.yaml**:
+### Fix
+1. **Updated both SKILL.md files** (in repo and ~/.claude/skills) with critical instructions:
+   - Added "Preserve ALL Actions from Comparison Overlay" section
+   - Added "Parameter Array Replacement Pattern" section with examples
+   - Added to "Common Mistakes to Avoid" list
+   - Emphasized that EVERY action in comparison overlay must have AT LEAST one corresponding action in generated overlays
+
+2. **Regenerated all overlay files** with proper removal actions:
+   - `compute-envs-operations-overlay-1.102.0.yaml` - New enable/disable endpoints
+   - `data-links-operations-overlay-1.102.0.yaml` - Operations updates
+   - `data-links-parameters-overlay-1.102.0.yaml` - **WITH 3 critical parameter array removals**
+   - `workflow-parameters-overlay-1.102.0.yaml` - New parameter
+   - `compute-config-schemas-overlay-1.102.0.yaml` - Compute config schemas
+   - `misc-schemas-overlay-1.102.0.yaml` - Misc schemas
+
+3. **Updated claude-generated-overlays.md** with corrected overlays
+
+4. **Verified locally**:
+   - Extracted overlays from markdown
+   - Consolidated into `all-changes-overlay-1.102.0.yaml` (158 actions)
+   - Applied to `seqera-api-latest-decorated.yaml`
+   - Validated result: **0 ERROR-level issues** ✅
+
+### Key Learning
+When the comparison overlay shows a `remove: true` followed by a parameter array `update`, BOTH actions must be preserved in the generated overlay:
+
 ```yaml
-- target: $["paths"]["/data-links/{dataLinkId}/browse"]["get"]["parameters"][*]
+# Remove entire array first
+- target: "$.paths./data-links/{dataLinkId}/browse.get.parameters[*]"
   remove: true
-- target: $["paths"]["/data-links/{dataLinkId}/browse"]["get"]["parameters"]
+
+# Then replace with new array
+- target: "$.paths./data-links/{dataLinkId}/browse.get.parameters"
   update:
     - name: dataLinkId
-      in: path
-      description: Data-link string identifier
-      required: true
-      schema:
-        type: string
-    # ... more params
+      # ... complete parameter definitions
 ```
-
-**Example from data-links-parameters-overlay-1.102.0.yaml** (extracted from claude-generated-overlays.md):
-```yaml
-- target: "$.paths./data-links/{dataLinkId}/browse.get.parameters[?(@.name=='dataLinkId')].description"
-  update: "Data-link string identifier."
-# Only description updates, NO removal action
-```
-
-**What's Wrong**:
-The openapi-overlay-generator skill is not including the parameter array removal/replacement actions when generating overlays from the comparison file. It's only extracting description changes.
-
-**What Should Happen**:
-When the skill sees a `remove: true` + full parameter array replacement in the comparison overlay, it should:
-1. First remove the entire parameters array
-2. Then add the new array with enriched descriptions
-
-**Note from User**:
-> "If memory serves, we even added lines to the SKILL.md telling Claude that it's crucial to remove an array of params before updating it, so as not to duplicate additively"
 
 ## Next Steps
 
-1. Check if the openapi-overlay-generator SKILL.md has instructions about parameter array removal
-2. If not, add explicit instructions about handling `remove: true` + array replacement patterns
-3. Regenerate `claude-generated-overlays.md` using the skill to include removal actions
-4. Test locally with consolidated overlay including removals
-5. Commit updated overlays
-6. Re-run workflow
+1. Commit all changes (overlay files, claude-generated-overlays.md, both SKILL.md files)
+2. Push to branch
+3. Re-run workflow with `overlays-approved` label
 
 ## Workflow Invocation
 
@@ -226,6 +224,9 @@ fi
 - `a3f5828f` - Support both .yaml and .yml extensions throughout entire workflow
 - `72febe35` - Make validation less verbose and more lenient
 - `c0516714` - Add debugging output and artifact upload on failure
+- `9893a0d2` - Add troubleshooting progress document (this file)
+- (pending) - Add parameter array removal instructions to SKILL.md files
+- (pending) - Regenerate all v1.102.0 overlays with proper removal actions
 
 ## Skills Updated
 
@@ -236,3 +237,67 @@ Both copies of the openapi-overlay-generator skill were updated:
 Added critical rules:
 - NEVER create overlay files with empty actions lists
 - Empty overlays break workflow automation
+
+## Final Validation - All Errors Fixed! ✅
+
+**Date**: 2026-01-20
+**Status**: SUCCESS - 0 validation errors
+
+### Process Summary
+
+1. **Extracted 10 overlays** from claude-generated-overlays.md
+2. **Consolidated** into single overlay (177 actions)
+3. **Applied** to decorated spec
+4. **Validated**: 0 ERROR-level issues ✅
+
+### All Fixes Applied
+
+#### Fix #1: Parameter Duplicate Errors (4 → 0) ✅
+- **File**: `data-links-parameters-overlay-1.102.0.yaml`
+- **Pattern**: Remove entire parameters array, then replace with enriched descriptions
+- **Actions**: 3 removal + 3 replacement pairs
+
+#### Fix #2: Deprecated Endpoint Removal (1 → 0) ✅
+- **File**: `data-links-operations-overlay-1.102.0.yaml`
+- **Action**: `remove: true` on `/data-links/{dataLinkId}/download`
+
+#### Fix #3: Duplicate Required Fields (12 → 0) ✅
+- **File**: `fix-duplicate-required-fields-overlay-1.102.0.yaml`
+- **Pattern**: Remove existing "required" field, then add correct values
+- **Schemas fixed**: AwsBatchConfig, AwsCloudConfig, AzBatchConfig, AzCloudConfig, ConfigEnvVariable, CreateComputeEnvRequest, EksComputeConfig, GkeComputeConfig, GoogleBatchConfig, GoogleCloudConfig, K8sComputeConfig, SeqeraComputeConfig
+
+### Key Pattern Learned
+
+**"Remove First, Then Update"** applies to:
+- Parameter arrays (to prevent duplicates)
+- Required field arrays (to fix duplicates)
+- Deprecated endpoints (to remove completely)
+
+### Files Ready for Workflow
+
+- ✅ `claude-generated-overlays.md` (10 overlays, all fixes included)
+- ✅ `seqera-api-latest-decorated.yaml` (base decorated spec)
+- ✅ `seqera-api-1.102.0.yaml` (base spec)
+- ✅ `.claude/skills/openapi-overlay-generator/SKILL.md` (updated)
+- ✅ `~/.claude/skills/openapi-overlay-generator/SKILL.md` (updated)
+
+All intermediate files cleaned up. Folder is ready for workflow execution.
+
+### Next Steps
+
+1. **Commit changes**:
+   - `claude-generated-overlays.md`
+   - Both `SKILL.md` files
+   - `progress.md`
+
+2. **Push to `api-docs-v1.102.0` branch**
+
+3. **Add `overlays-approved` label** to trigger workflow
+
+4. **Workflow will**:
+   - Extract 10 overlays from MD
+   - Consolidate into single file (177 actions)
+   - Apply to decorated spec
+   - Validate (should pass with 0 errors!)
+   - Regenerate docs
+   - Create PR

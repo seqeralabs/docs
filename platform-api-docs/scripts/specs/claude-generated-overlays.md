@@ -1,4 +1,12 @@
-I'll generate the overlay files for version 1.102.0, organized by controller/feature.
+# Generated Overlays for v1.102.0
+
+This file contains all the overlay files generated from the base-1.95-to-1.102.0-changes.yaml comparison overlay, plus manual enrichments for field descriptions.
+
+**CRITICAL FIXES**:
+- `data-links-operations-overlay-1.102.0.yaml` now correctly REMOVES the deprecated `/data-links/{dataLinkId}/download` endpoint
+- `data-links-parameters-overlay-1.102.0.yaml` includes parameter array removal actions to prevent duplicate parameters
+
+---
 
 # Compute Environments Overlays
 
@@ -88,14 +96,10 @@ actions:
 ## data-links-operations-overlay-1.102.0.yaml
 
 ```yaml
-overlay: 1.0.0
-info:
-  title: Data-links operations overlay
-  version: 0.0.0
 actions:
   # ===== DATA-LINKS - OPERATIONS =====
 
-  # ---- EXPLORE DATA-LINK ----
+  # Update existing operations
 
   - target: "$.paths./data-links/{dataLinkId}/browse.get.summary"
     update: "Explore data-link"
@@ -103,199 +107,212 @@ actions:
   - target: "$.paths./data-links/{dataLinkId}/browse.get.description"
     update: "Retrieves the content of the data-link associated with the given `dataLinkId`."
 
-  # ---- EXPLORE DATA-LINK WITH PATH ----
-
-  - target: "$.paths./data-links/{dataLinkId}/browse/{path}.get.summary"
-    update: "Explore data-link with path"
-
-  - target: "$.paths./data-links/{dataLinkId}/browse/{path}.get.description"
-    update: "Retrieves the content at the specified path within the data-link associated with the given `dataLinkId`."
-
-  # ---- DOWNLOAD DATA-LINK FILE ----
-
-  - target: "$.paths./data-links/{dataLinkId}/download/{filePath}.get.summary"
-    update: "Download data-link file at path"
-
-  - target: "$.paths./data-links/{dataLinkId}/download/{filePath}.get.description"
-    update: "Downloads the content at the given `filePath` in the data-link associated with the given `dataLinkId`."
-
-  # ---- GENERATE DATA-LINK FILE UPLOAD URL ----
+  - target: "$.paths./data-links/{dataLinkId}/browse/{path}.get.operationId"
+    update: "ExploreDataLinkWithPath"
 
   - target: "$.paths./data-links/{dataLinkId}/upload.post.summary"
     update: "Generate data-link file upload URL"
 
   - target: "$.paths./data-links/{dataLinkId}/upload.post.description"
-    update: "Creates a URL to upload files to the data-link associated with the given `dataLinkId`. For AWS S3 data-links, an additional follow-up request must be sent after your file upload has completed (or encountered an error) to finalize the upload. See the `/upload/finish` endpoint."
+    update: "Creates a URL to upload files to the data-link associated with the given `dataLinkId`. For AWS S3 data-links, an additional follow-up request must be sent after your file upload has completed (or encountered an error) to finalize the upload - see the `/upload/finish` endpoint."
 
-  # ---- GENERATE DATA-LINK FILE UPLOAD URL WITH PATH ----
-
-  - target: "$.paths./data-links/{dataLinkId}/upload/{dirPath}.post.summary"
-    update: "Generate data-link file upload URL with path"
-
-  - target: "$.paths./data-links/{dataLinkId}/upload/{dirPath}.post.description"
-    update: "Creates a URL to upload files to the specified directory path within the data-link associated with the given `dataLinkId`. For AWS S3 data-links, an additional follow-up request must be sent after your file upload has completed (or encountered an error) to finalize the upload. See the `/upload/finish` endpoint."
-
-  # ---- FINISH DATA-LINK FILE UPLOAD ----
+  - target: "$.paths./data-links/{dataLinkId}/upload/{dirPath}.post.operationId"
+    update: "GenerateDataLinkUploadUrlWithPath"
 
   - target: "$.paths./data-links/{dataLinkId}/upload/finish.post.summary"
     update: "Finish data-link file upload"
 
   - target: "$.paths./data-links/{dataLinkId}/upload/finish.post.description"
-    update: "Finishes upload of a data-link file. This is necessary for AWS S3 data-links (`DataLinkProvider=aws`) to finalize a successful file upload, or abort an upload if an error was encountered while uploading a file using an upload URL from the `/upload` endpoint."
+    update: "Finish upload of a data-link file. This is necessary for AWS S3 data-links (`DataLinkProvider=aws`) to finalize a successful file upload, or abort an upload if an error was encountered while uploading a file using an upload URL from the `/upload` endpoint."
 
-  # ---- FINISH DATA-LINK FILE UPLOAD WITH PATH ----
+  - target: "$.paths./data-links/{dataLinkId}/upload/finish.post.responses['404'].description"
+    update: "NotFound — workspace or credentials not found, API disabled for the workspace, or data-link not found."
 
-  - target: "$.paths./data-links/{dataLinkId}/upload/finish/{dirPath}.post.summary"
-    update: "Finish data-link file upload with path"
+  - target: "$.paths./data-links/{dataLinkId}/upload/finish/{dirPath}.post.operationId"
+    update: "FinishDataLinkUploadWithPath"
 
-  - target: "$.paths./data-links/{dataLinkId}/upload/finish/{dirPath}.post.description"
-    update: "Finishes upload of a data-link file to the specified directory path. This is necessary for AWS S3 data-links (`DataLinkProvider=aws`) to finalize a successful file upload, or abort an upload if an error was encountered while uploading a file using an upload URL from the `/upload` endpoint."
+  - target: "$.paths./data-links/{dataLinkId}/upload/finish/{dirPath}.post.responses['200'].description"
+    update: "FinishDataLinkUploadWithPath 200 response."
 
-  # ---- DEPRECATED DOWNLOAD ENDPOINT ----
+  # New endpoint in v1.102.0
 
-  - target: "$.paths./data-links/{dataLinkId}/download.get.summary"
-    update: "(Deprecated) Download data-link file"
+  - target: "$.paths"
+    update:
+      /data-links/{dataLinkId}/download/{filePath}:
+        get:
+          tags:
+            - data-links
+          summary: "Download data-link file at path"
+          description: "Downloads the content at the given `filePath` in the data-link associated with the given `dataLinkId`."
+          operationId: DownloadDataLink
+          parameters:
+            - name: dataLinkId
+              in: path
+              description: "Data-link string identifier."
+              required: true
+              schema:
+                type: string
+            - name: filePath
+              in: path
+              description: "Resource path of the file to download."
+              required: true
+              schema:
+                type: string
+            - name: credentialsId
+              in: query
+              description: "Credentials string identifier."
+              schema:
+                type: string
+            - name: workspaceId
+              in: query
+              description: "Workspace numeric identifier."
+              schema:
+                type: integer
+                format: int64
+          responses:
+            "200":
+              description: "OK."
+              content:
+                application/json:
+                  schema:
+                    type: string
+                    format: binary
+            "400":
+              description: "Bad request."
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "404":
+              description: "NotFound — workspace or credentials not found, API disabled for the workspace, or data-link or path not found."
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: "Operation not allowed."
+          security:
+            - BearerAuth: []
 
-  - target: "$.paths./data-links/{dataLinkId}/download.get.description"
-    update: "**This endpoint is deprecated. See [Download data-link file at path](https://docs.seqera.io/platform-api/download-data-link-file) for the current endpoint.**\n\nDownloads the content of the data-link associated with the given `dataLinkId`."
+  # Remove deprecated endpoint
+
+  - target: "$.paths./data-links/{dataLinkId}/download"
+    remove: true
 ```
 
 ## data-links-parameters-overlay-1.102.0.yaml
+
+**CRITICAL**: This overlay includes parameter array removal actions to prevent duplicate parameters.
 
 ```yaml
 overlay: 1.0.0
 info:
   title: Data-links parameters overlay
-  version: 0.0.0
+  version: 1.102.0
 actions:
-  # ===== DATA-LINKS PARAMETERS - PATH, QUERY, AND REQUEST BODY =====
+  # ===== DATA-LINKS PARAMETERS =====
 
-  # ---- EXPLORE DATA-LINK PARAMETERS ----
+  # ---- /data-links/{dataLinkId}/browse GET ----
 
-  - target: "$.paths./data-links/{dataLinkId}/browse.get.parameters[?(@.name=='dataLinkId')].description"
-    update: "Data-link string identifier."
+  # CRITICAL: Remove entire parameters array to prevent duplicates
+  - target: "$.paths./data-links/{dataLinkId}/browse.get.parameters[*]"
+    remove: true
 
-  - target: "$.paths./data-links/{dataLinkId}/browse.get.parameters[?(@.name=='workspaceId')].description"
-    update: "Workspace numeric identifier."
+  # Replace with complete array with enriched descriptions
+  - target: "$.paths./data-links/{dataLinkId}/browse.get.parameters"
+    update:
+      - name: dataLinkId
+        in: path
+        description: "Data-link string identifier."
+        required: true
+        schema:
+          type: string
+      - name: workspaceId
+        in: query
+        description: "Workspace numeric identifier."
+        schema:
+          type: integer
+          format: int64
+      - name: credentialsId
+        in: query
+        description: "Credentials string identifier."
+        schema:
+          type: string
+      - name: search
+        in: query
+        description: "Prefix search of data-link content."
+        schema:
+          type: string
+      - name: nextPageToken
+        in: query
+        description: "Token used to fetch the next page of items."
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: "Number of items to return per page. If omitted, a default maximum value is returned."
+        schema:
+          type: integer
+          format: int32
 
-  - target: "$.paths./data-links/{dataLinkId}/browse.get.parameters[?(@.name=='credentialsId')].description"
-    update: "Credentials string identifier."
+  # ---- /data-links/{dataLinkId}/upload POST ----
 
-  - target: "$.paths./data-links/{dataLinkId}/browse.get.parameters[?(@.name=='search')].description"
-    update: "Prefix search filter for data-link content."
+  # CRITICAL: Remove entire parameters array to prevent duplicates
+  - target: "$.paths./data-links/{dataLinkId}/upload.post.parameters[*]"
+    remove: true
 
-  - target: "$.paths./data-links/{dataLinkId}/browse.get.parameters[?(@.name=='nextPageToken')].description"
-    update: "Token used to fetch the next page of items."
+  # Replace with complete array with enriched descriptions
+  - target: "$.paths./data-links/{dataLinkId}/upload.post.parameters"
+    update:
+      - name: dataLinkId
+        in: path
+        description: "Data-link string identifier."
+        required: true
+        schema:
+          type: string
+      - name: credentialsId
+        in: query
+        description: "Credentials string identifier."
+        schema:
+          type: string
+      - name: workspaceId
+        in: query
+        description: "Workspace numeric identifier."
+        schema:
+          type: integer
+          format: int64
+      - name: Origin
+        in: header
+        schema:
+          type: string
+          nullable: true
 
-  - target: "$.paths./data-links/{dataLinkId}/browse.get.parameters[?(@.name=='pageSize')].description"
-    update: "Number of items to return per page. If omitted, a default maximum value is returned."
+  # ---- /data-links/{dataLinkId}/upload/finish POST ----
 
-  # ---- EXPLORE DATA-LINK WITH PATH PARAMETERS ----
+  # CRITICAL: Remove entire parameters array to prevent duplicates
+  - target: "$.paths./data-links/{dataLinkId}/upload/finish.post.parameters[*]"
+    remove: true
 
-  - target: "$.paths./data-links/{dataLinkId}/browse/{path}.get.parameters[?(@.name=='dataLinkId')].description"
-    update: "Data-link string identifier."
-
-  - target: "$.paths./data-links/{dataLinkId}/browse/{path}.get.parameters[?(@.name=='path')].description"
-    update: "Resource path within the data-link to browse."
-
-  - target: "$.paths./data-links/{dataLinkId}/browse/{path}.get.parameters[?(@.name=='workspaceId')].description"
-    update: "Workspace numeric identifier."
-
-  - target: "$.paths./data-links/{dataLinkId}/browse/{path}.get.parameters[?(@.name=='credentialsId')].description"
-    update: "Credentials string identifier."
-
-  - target: "$.paths./data-links/{dataLinkId}/browse/{path}.get.parameters[?(@.name=='search')].description"
-    update: "Prefix search filter for data-link content."
-
-  - target: "$.paths./data-links/{dataLinkId}/browse/{path}.get.parameters[?(@.name=='nextPageToken')].description"
-    update: "Token used to fetch the next page of items."
-
-  - target: "$.paths./data-links/{dataLinkId}/browse/{path}.get.parameters[?(@.name=='pageSize')].description"
-    update: "Number of items to return per page. If omitted, a default maximum value is returned."
-
-  # ---- DOWNLOAD DATA-LINK FILE PARAMETERS ----
-
-  - target: "$.paths./data-links/{dataLinkId}/download/{filePath}.get.parameters[?(@.name=='dataLinkId')].description"
-    update: "Data-link string identifier."
-
-  - target: "$.paths./data-links/{dataLinkId}/download/{filePath}.get.parameters[?(@.name=='filePath')].description"
-    update: "Resource path to the file to download."
-
-  - target: "$.paths./data-links/{dataLinkId}/download/{filePath}.get.parameters[?(@.name=='credentialsId')].description"
-    update: "Credentials string identifier."
-
-  - target: "$.paths./data-links/{dataLinkId}/download/{filePath}.get.parameters[?(@.name=='workspaceId')].description"
-    update: "Workspace numeric identifier."
-
-  # ---- GENERATE UPLOAD URL PARAMETERS ----
-
-  - target: "$.paths./data-links/{dataLinkId}/upload.post.parameters[?(@.name=='dataLinkId')].description"
-    update: "Data-link string identifier."
-
-  - target: "$.paths./data-links/{dataLinkId}/upload.post.parameters[?(@.name=='credentialsId')].description"
-    update: "Credentials string identifier."
-
-  - target: "$.paths./data-links/{dataLinkId}/upload.post.parameters[?(@.name=='workspaceId')].description"
-    update: "Workspace numeric identifier."
-
-  - target: "$.paths./data-links/{dataLinkId}/upload.post.parameters[?(@.name=='Origin')].description"
-    update: "Request origin header."
-
-  # ---- GENERATE UPLOAD URL WITH PATH PARAMETERS ----
-
-  - target: "$.paths./data-links/{dataLinkId}/upload/{dirPath}.post.parameters[?(@.name=='dataLinkId')].description"
-    update: "Data-link string identifier."
-
-  - target: "$.paths./data-links/{dataLinkId}/upload/{dirPath}.post.parameters[?(@.name=='dirPath')].description"
-    update: "Directory path within the data-link for upload."
-
-  - target: "$.paths./data-links/{dataLinkId}/upload/{dirPath}.post.parameters[?(@.name=='credentialsId')].description"
-    update: "Credentials string identifier."
-
-  - target: "$.paths./data-links/{dataLinkId}/upload/{dirPath}.post.parameters[?(@.name=='workspaceId')].description"
-    update: "Workspace numeric identifier."
-
-  - target: "$.paths./data-links/{dataLinkId}/upload/{dirPath}.post.parameters[?(@.name=='Origin')].description"
-    update: "Request origin header."
-
-  # ---- FINISH UPLOAD PARAMETERS ----
-
-  - target: "$.paths./data-links/{dataLinkId}/upload/finish.post.parameters[?(@.name=='dataLinkId')].description"
-    update: "Data-link string identifier."
-
-  - target: "$.paths./data-links/{dataLinkId}/upload/finish.post.parameters[?(@.name=='credentialsId')].description"
-    update: "Credentials string identifier."
-
-  - target: "$.paths./data-links/{dataLinkId}/upload/finish.post.parameters[?(@.name=='workspaceId')].description"
-    update: "Workspace numeric identifier."
-
-  # ---- FINISH UPLOAD WITH PATH PARAMETERS ----
-
-  - target: "$.paths./data-links/{dataLinkId}/upload/finish/{dirPath}.post.parameters[?(@.name=='dataLinkId')].description"
-    update: "Data-link string identifier."
-
-  - target: "$.paths./data-links/{dataLinkId}/upload/finish/{dirPath}.post.parameters[?(@.name=='dirPath')].description"
-    update: "Directory path within the data-link where upload was performed."
-
-  - target: "$.paths./data-links/{dataLinkId}/upload/finish/{dirPath}.post.parameters[?(@.name=='credentialsId')].description"
-    update: "Credentials string identifier."
-
-  - target: "$.paths./data-links/{dataLinkId}/upload/finish/{dirPath}.post.parameters[?(@.name=='workspaceId')].description"
-    update: "Workspace numeric identifier."
-
-  # ---- REQUEST BODY DESCRIPTIONS ----
-
-  - target: "$.paths./data-links/{dataLinkId}/upload.post.requestBody.description"
-    update: "Data-link upload URL generation request"
-
-  - target: "$.paths./data-links/{dataLinkId}/upload/{dirPath}.post.requestBody.description"
-    update: "Data-link upload URL generation request with path"
-
-  - target: "$.paths./data-links/{dataLinkId}/upload/finish.post.requestBody.description"
-    update: "Data-link upload finish request"
-
-  - target: "$.paths./data-links/{dataLinkId}/upload/finish/{dirPath}.post.requestBody.description"
-    update: "Data-link upload finish request with path"
+  # Replace with complete array with enriched descriptions
+  - target: "$.paths./data-links/{dataLinkId}/upload/finish.post.parameters"
+    update:
+      - name: dataLinkId
+        in: path
+        description: "Data-link string identifier."
+        required: true
+        schema:
+          type: string
+      - name: credentialsId
+        in: query
+        description: "Credentials string identifier."
+        schema:
+          type: string
+      - name: workspaceId
+        in: query
+        description: "Workspace numeric identifier."
+        schema:
+          type: integer
+          format: int64
 ```
 
 ---
@@ -776,6 +793,134 @@ actions:
 
   - target: "$.components.schemas.UpdateActionRequest.properties.name.description"
     update: "New name for the pipeline action. Must be unique within the workspace."
+```
+
+---
+
+# Fix Duplicate Required Fields Overlay
+
+## fix-duplicate-required-fields-overlay-1.102.0.yaml
+
+**CRITICAL**: This overlay fixes duplicate required fields in compute config schemas using the "remove first, then update" pattern.
+
+```yaml
+overlay: 1.0.0
+info:
+  title: Fix duplicate required fields overlay
+  version: 1.102.0
+actions:
+  # ===== FIX DUPLICATE REQUIRED FIELDS =====
+
+  # These duplicate required fields exist in the base spec
+  # We use the "remove first, then update" pattern to fix them
+
+  # ---- AwsBatchConfig ----
+
+  - target: "$.components.schemas.AwsBatchConfig.required"
+    remove: true
+
+  - target: "$.components.schemas.AwsBatchConfig"
+    update:
+      required: ["region", "workDir"]
+
+  # ---- AwsCloudConfig ----
+
+  - target: "$.components.schemas.AwsCloudConfig.required"
+    remove: true
+
+  - target: "$.components.schemas.AwsCloudConfig"
+    update:
+      required: ["region", "workDir"]
+
+  # ---- AzBatchConfig ----
+
+  - target: "$.components.schemas.AzBatchConfig.required"
+    remove: true
+
+  - target: "$.components.schemas.AzBatchConfig"
+    update:
+      required: ["region", "workDir"]
+
+  # ---- AzCloudConfig ----
+
+  - target: "$.components.schemas.AzCloudConfig.required"
+    remove: true
+
+  - target: "$.components.schemas.AzCloudConfig"
+    update:
+      required: ["location", "workDir"]
+
+  # ---- ConfigEnvVariable ----
+
+  - target: "$.components.schemas.ConfigEnvVariable.required"
+    remove: true
+
+  - target: "$.components.schemas.ConfigEnvVariable"
+    update:
+      required: ["name", "value"]
+
+  # ---- CreateComputeEnvRequest ----
+
+  - target: "$.components.schemas.CreateComputeEnvRequest.required"
+    remove: true
+
+  - target: "$.components.schemas.CreateComputeEnvRequest"
+    update:
+      required: ["computeEnv"]
+
+  # ---- GkeComputeConfig ----
+
+  - target: "$.components.schemas.GkeComputeConfig.required"
+    remove: true
+
+  - target: "$.components.schemas.GkeComputeConfig"
+    update:
+      required: ["region", "clusterName", "workDir"]
+
+  # ---- GoogleBatchConfig ----
+
+  - target: "$.components.schemas.GoogleBatchConfig.required"
+    remove: true
+
+  - target: "$.components.schemas.GoogleBatchConfig"
+    update:
+      required: ["location", "workDir"]
+
+  # ---- GoogleCloudConfig ----
+
+  - target: "$.components.schemas.GoogleCloudConfig.required"
+    remove: true
+
+  - target: "$.components.schemas.GoogleCloudConfig"
+    update:
+      required: ["region", "workDir"]
+
+  # ---- K8sComputeConfig ----
+
+  - target: "$.components.schemas.K8sComputeConfig.required"
+    remove: true
+
+  - target: "$.components.schemas.K8sComputeConfig"
+    update:
+      required: ["server", "sslCert", "workDir"]
+
+  # ---- SeqeraComputeConfig ----
+
+  - target: "$.components.schemas.SeqeraComputeConfig.required"
+    remove: true
+
+  - target: "$.components.schemas.SeqeraComputeConfig"
+    update:
+      required: ["region", "workDir"]
+
+  # ---- EksComputeConfig ----
+
+  - target: "$.components.schemas.EksComputeConfig.required"
+    remove: true
+
+  - target: "$.components.schemas.EksComputeConfig"
+    update:
+      required: ["region", "clusterName", "workDir"]
 ```
 
 ---
