@@ -16,6 +16,7 @@ For more information, see:
   - [Fixing legacy content](#fixing-legacy-content)
   - [Check with Vale style guide](#check-with-vale-style-guide)
   - [Creating internal links](#creating-internal-links)
+  - [Changelog automation](#changelog-automation)
 
 ## Architecture
 
@@ -115,6 +116,65 @@ You can link between Markdown files with relative links within the same document
 ```
 For more information, see [Fusion](https://docs.seqera.io/fusion).
 ```
+
+## Changelog automation
+
+Release notes for Fusion, Wave, Nextflow, and MultiQC are automatically generated from GitHub releases. A scheduled workflow runs twice daily to check for new releases and creates PRs with changelog entries.
+
+### How it works
+
+1. The workflow ([.github/workflows/changelog-from-releases.yml](.github/workflows/changelog-from-releases.yml)) polls GitHub for releases from:
+   - `seqeralabs/fusion`
+   - `seqeralabs/wave`
+   - `nextflow-io/nextflow`
+   - `MultiQC/MultiQC`
+
+2. For each new release, it generates a formatted changelog file and creates a PR
+3. PRs are ready for review (not drafts) and require manual merge
+
+### Manual usage
+
+You can also run the changelog generator locally to backfill missing releases:
+
+```bash
+# Show help
+uv run .github/scripts/generate-changelog.py --help
+
+# Generate changelog for a specific release
+uv run .github/scripts/generate-changelog.py --repo seqeralabs/wave --release v1.32.0
+
+# Generate changelogs for the last 10 releases
+uv run .github/scripts/generate-changelog.py --repo seqeralabs/wave --last 10
+
+# Generate changelogs for the last 10 releases, overwrite existing markdown
+uv run .github/scripts/generate-changelog.py --repo seqeralabs/wave --last 10 --overwrite
+
+# Generate changelogs for a date range
+uv run .github/scripts/generate-changelog.py --repo MultiQC/MultiQC --from 2024-01-01 --to 2024-12-31
+
+# Dry run to preview what would be generated
+uv run .github/scripts/generate-changelog.py --repo seqeralabs/fusion --last 5 --dry-run
+
+# Generate changelog and create a PR for it
+uv run .github/scripts/generate-changelog.py --repo seqeralabs/wave --release v1.32.0 --create-pr
+```
+
+The script uses [uv](https://docs.astral.sh/uv/) for dependency management - dependencies are installed automatically on first run.
+
+For private repositories (`seqeralabs/fusion`), you need a GitHub token with repository access:
+
+```bash
+export GH_TOKEN=$(gh auth token)
+```
+
+### Changelog file locations
+
+| Product  | Directory            | Extension |
+|----------|----------------------|-----------|
+| Fusion   | `changelog/fusion/`  | `.md`     |
+| Wave     | `changelog/wave/`    | `.md`     |
+| Nextflow | `changelog/nextflow/`| `.md`     |
+| MultiQC  | `changelog/multiqc/` | `.mdx`    |
 
 ## Workaround for Netlify memory problems (May 2025)
 
