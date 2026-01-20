@@ -133,6 +133,11 @@ jobs:
         run: |
           cd platform-api-docs/scripts/specs
 
+          # List extracted overlay files for debugging
+          echo "=== Extracted overlay files ==="
+          ls -la *-overlay-${{ steps.version.outputs.api_version }}.yaml 2>/dev/null || echo "No .yaml overlays found"
+          ls -la *-overlay-${{ steps.version.outputs.api_version }}.yml 2>/dev/null || echo "No .yml overlays found"
+
           # Create consolidated overlay
           cat > all-changes-overlay-${{ steps.version.outputs.api_version }}.yaml <<'EOF'
           overlay: 1.0.0
@@ -145,15 +150,38 @@ jobs:
           # Append version-specific overlays
           echo "  # ===== VERSION ${{ steps.version.outputs.api_version }} OVERLAYS =====" >> all-changes-overlay-${{ steps.version.outputs.api_version }}.yaml
 
+          # Track how many files we process
+          OVERLAY_COUNT=0
+
           # Find and append all version-specific overlay files - support both .yaml and .yml
           for overlay in *-overlay-${{ steps.version.outputs.api_version }}.yaml *-overlay-${{ steps.version.outputs.api_version }}.yml; do
             if [ -f "$overlay" ] && [ "$overlay" != "all-changes-overlay-${{ steps.version.outputs.api_version }}.yaml" ]; then
               echo "Adding $overlay to consolidated file"
               sed -n '/^actions:/,$ p' "$overlay" | tail -n +2 >> all-changes-overlay-${{ steps.version.outputs.api_version }}.yaml
+              OVERLAY_COUNT=$((OVERLAY_COUNT + 1))
             fi
           done
 
-          echo "✅ Created consolidated overlay"
+          echo "✅ Consolidated $OVERLAY_COUNT overlay files"
+
+          # Show first 30 lines of consolidated file for debugging
+          echo "=== First 30 lines of consolidated overlay ==="
+          head -n 30 all-changes-overlay-${{ steps.version.outputs.api_version }}.yaml
+
+          # Count action items
+          ACTION_COUNT=$(grep -c '  - target:' all-changes-overlay-${{ steps.version.outputs.api_version }}.yaml || echo "0")
+          echo "✅ Total action items: $ACTION_COUNT"
+
+      - name: Upload overlay artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: overlay-files-${{ steps.version.outputs.api_version }}
+          path: |
+            platform-api-docs/scripts/specs/*-overlay-${{ steps.version.outputs.api_version }}.yaml
+            platform-api-docs/scripts/specs/*-overlay-${{ steps.version.outputs.api_version }}.yml
+          retention-days: 7
+          if-no-files-found: warn
 
       - name: Apply overlays to decorated spec
         run: |
