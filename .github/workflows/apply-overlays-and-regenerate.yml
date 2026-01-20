@@ -283,31 +283,15 @@ jobs:
 
       - name: Clean existing API docs
         run: |
-          npx docusaurus clean-api-docs all
+          npx docusaurus clean-api-docs platform
 
           echo "✅ Cleaned existing API docs"
-        env:
-          EXCLUDE_CHANGELOG: true
-          EXCLUDE_PLATFORM_ENTERPRISE: true
-          EXCLUDE_PLATFORM_CLOUD: true
-          EXCLUDE_PLATFORM_API: true
-          EXCLUDE_MULTIQC: true
-          EXCLUDE_FUSION: true
-          EXCLUDE_WAVE: true
 
       - name: Generate new API docs
         run: |
-          npx docusaurus gen-api-docs all
+          npx docusaurus gen-api-docs platform
 
           echo "✅ Generated new API documentation"
-        env:
-          EXCLUDE_CHANGELOG: true
-          EXCLUDE_PLATFORM_ENTERPRISE: true
-          EXCLUDE_PLATFORM_CLOUD: true
-          EXCLUDE_PLATFORM_API: true
-          EXCLUDE_MULTIQC: true
-          EXCLUDE_FUSION: true
-          EXCLUDE_WAVE: true
 
       - name: Update sidebar with new operations
         run: |
