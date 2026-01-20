@@ -298,20 +298,6 @@ actions:
     update: "Data-link upload finish request with path"
 ```
 
-## data-links-schemas-overlay-1.102.0.yaml
-
-```yaml
-overlay: 1.0.0
-info:
-  title: Data-links schemas overlay
-  version: 0.0.0
-actions:
-  # ===== DATA-LINKS SCHEMAS - REQUEST/RESPONSE OBJECTS =====
-
-  # Note: No new schemas were introduced for data-links in this version.
-  # All schema changes are handled in the global schemas overlay.
-```
-
 ---
 
 # Workflows Overlays

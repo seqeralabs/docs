@@ -60,10 +60,10 @@ info:
   version: 1.89
 actions:
   # ===== DATASETS - OPERATIONS =====
-  
+
   - target: "$.paths./datasets.get.summary"
     update: "List datasets"
-  
+
   - target: "$.paths./datasets.get.description"
     update: "Lists all datasets in a user context, enriched by `attributes`. Append `?workspaceId` to list datasets in a workspace context."
 ```
@@ -91,17 +91,17 @@ info:
   version: 1.89
 actions:
   # ===== DATASETS PARAMETERS =====
-  
+
   # ---- PATH PARAMETERS ----
-  
+
   - target: "$.paths./datasets/{datasetId}.get.parameters[?(@.name=='datasetId')].description"
     update: "Dataset numeric identifier."
-  
+
   # ---- QUERY PARAMETERS ----
-  
+
   - target: "$.paths./datasets.get.parameters[?(@.name=='workspaceId')].description"
     update: "Workspace numeric identifier."
-  
+
   - target: "$.paths./datasets.get.parameters[?(@.name=='max')].description"
     update: "Maximum number of results to return. Default: `20`."
 ```
@@ -125,13 +125,13 @@ info:
   version: 1.89
 actions:
   # ===== DATASETS SCHEMAS =====
-  
+
   - target: "$.components.schemas.DatasetRequest.properties.name"
     update:
       type: string
       required: true
       description: "Dataset name. Maximum 255 characters."
-  
+
   - target: "$.components.schemas.DatasetRequest.properties.description"
     update:
       type: string
@@ -169,6 +169,12 @@ Fix any errors or warnings before proceeding.
 - Complete examples of all property types
 
 ## Critical Rules
+
+### Overlay Files
+- ✅ NEVER create overlay files with empty actions lists
+- ❌ Do not create overlays with only comments and no actual update actions
+- ✅ If a feature area has no changes, omit the overlay file entirely
+- ❌ Empty overlays will break the workflow automation
 
 ### Summaries
 - ✅ Sentence case: "List datasets"
@@ -218,14 +224,14 @@ info:
   version: {version}
 actions:
   # ===== {FEATURE} - {TYPE} =====
-  
+
   # ---- {SECTION NAME} ----
-  
+
   - target: "$.paths.{endpoint}.{method}.{property}"
     update: "{value}"
-  
+
   # ---- {NEXT SECTION} ----
-  
+
   - target: "$.paths.{endpoint}.{method}.{property}"
     update: "{value}"
 ```
@@ -316,13 +322,14 @@ Before finalizing overlay files:
 
 ## Common Mistakes to Avoid
 
-1. **Inconsistent parameter descriptions**: Always use standards.md exact wording
-2. **Missing periods in descriptions**: Descriptions are sentences
-3. **Title case summaries**: Use sentence case only
-4. **Invented terminology**: Use established terms only
-5. **Missing defaults**: Always specify default values in backticks
-6. **Incomplete enum listings**: List all accepted values
-7. **Vague descriptions**: Include specifics (max length, format, constraints)
+1. **Empty overlay files**: NEVER create overlay files with no action items (only comments). Empty overlays break the workflow automation.
+2. **Inconsistent parameter descriptions**: Always use standards.md exact wording
+3. **Missing periods in descriptions**: Descriptions are sentences
+4. **Title case summaries**: Use sentence case only
+5. **Invented terminology**: Use established terms only
+6. **Missing defaults**: Always specify default values in backticks
+7. **Incomplete enum listings**: List all accepted values
+8. **Vague descriptions**: Include specifics (max length, format, constraints)
 
 ## Working with Permanent Overlays
 
@@ -353,4 +360,4 @@ After generating overlay files:
 6. **Regenerate**: Update MDX documentation files
 7. **Update sidebar**: Add new operation entries
 8. **Archive**: Move version-specific consolidated overlay file to overlay_archives/
-9. **Clean up**: Remove the old base spec, individual overlays, and other ephemeral files, leaving only the decorated spec, latest base spec, and `servers-overlay.yaml` in the specs folder. 
+9. **Clean up**: Remove the old base spec, individual overlays, and other ephemeral files, leaving only the decorated spec, latest base spec, and `servers-overlay.yaml` in the specs folder.
