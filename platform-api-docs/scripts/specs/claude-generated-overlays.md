@@ -18,7 +18,7 @@ actions:
     update: "Disable compute environment"
   
   - target: "$.paths./compute-envs/{computeEnvId}/disable.post.description"
-    update: "Disables the compute environment identified by the given `computeEnvId`. A disabled compute environment cannot be used to launch workflows. If the compute environment is primary, it will be automatically unset as primary."
+    update: "Disables the compute environment identified by the given `computeEnvId`. A disabled compute environment cannot be used to launch new workflows or Studio sessions. If the compute environment is primary, it will be automatically unset as primary. See [Disable compute environment](https://docs.seqera.io/platform-cloud/compute-envs/overview#disable-compute-environment)"
   
   # ---- ENABLE COMPUTE ENVIRONMENT ----
   
