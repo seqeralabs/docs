@@ -7,10 +7,10 @@ version: 1
 defaults:
   # Maximum files per review batch (prevents timeout on large PRs)
   max_files_per_batch: 20
-  
+
   # Output format for PR comments
   output_format: github-pr-comment
-  
+
   # Include severity ratings
   include_severity: true
 
@@ -21,17 +21,17 @@ agents:
     triggers:
       - new_file        # Always run on new pages
       - major_change    # Run when >50% of file changed
-    
+
     # File patterns (glob)
     patterns:
       - "docs/**/*.md"
       - "*.md"
-    
+
     # Exclude patterns
     exclude:
       - "docs/changelog/**"
       - "docs/api/generated/**"
-    
+
     # Priority (1 = highest, runs first)
     priority: 1
 
@@ -84,6 +84,15 @@ agents:
       - "**/release-notes/**"
     priority: 1  # Run first - structural issues affect other checks
 
+  platform-changelog-style:
+    # Platform Cloud and Enterprise changelog style enforcement
+    triggers:
+      - always          # Run on every changelog change
+    patterns:
+      - "changelog/seqera-cloud/*.md"
+      - "changelog/seqera-enterprise/*.md"
+    priority: 1  # High priority - enforce style consistency
+
 # Severity thresholds for CI pass/fail
 severity:
   # Fail the check if any of these are found
@@ -93,7 +102,7 @@ severity:
     - missing_h1              # No page title
     - mega_task               # More than 20 steps in single task
     - mixed_topic_type        # Task content under concept title (critical)
-  
+
   # Warn but don't fail
   warn_on:
     - passive_voice
@@ -104,7 +113,7 @@ severity:
     - missing_step_intro      # Numbered steps without "To [verb]:" intro
     - missing_troubleshooting # Feature page without troubleshooting section
     - concept_title_overview  # Using "Overview" or "Introduction" as title
-  
+
   # Info only (in comments, doesn't affect status)
   info_only:
     - sentence_could_be_shorter
@@ -122,7 +131,7 @@ terminology:
       - "Wave"
       - "MultiQC"
       - "Fusion"
-    
+
     replacements:
       "Tower": "Seqera Platform"
       "NextFlow": "Nextflow"
@@ -131,7 +140,7 @@ terminology:
       "multi-qc": "MultiQC"
       "multiQC": "MultiQC"
       "the platform": "Seqera Platform"
-  
+
   features:
     correct:
       - "compute environment"
@@ -140,7 +149,7 @@ terminology:
       - "credentials"
       - "access token"
       - "personal access token"
-    
+
     replacements:
       "compute env": "compute environment"
       "CE": "compute environment"
@@ -153,7 +162,7 @@ formatting:
     examples:
       - "**Save**"
       - "**Settings** > **Credentials**"
-  
+
   code_elements:
     style: backticks
     examples:
