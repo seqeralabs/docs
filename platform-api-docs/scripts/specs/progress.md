@@ -836,10 +836,10 @@ Hints: 1371 (informational - missing examples)
 
 ---
 
-## Issue #12: Workflow failures after overlay fixes ✅ FIXED
+## Issue #12: Workflow failures after overlay fixes ⚠️ BLOCKED
 
 ### Date
-2026-01-20 17:15 - 19:30
+2026-01-20 17:15 - 20:30
 
 ### Problem
 After successfully fixing the overlay validation issues (Issue #11), the workflow failed at various stages with multiple different errors:
@@ -960,7 +960,36 @@ Now the "classic" docs plugin exists for OpenAPI plugin to reference.
 8. `88f6ed10` - Fix OpenAPI plugin by enabling classic docs plugin (FINAL)
 
 ### Status
-✅ **RESOLVED** - All workflow issues fixed. Ready to trigger workflow with `overlays-approved` label.
+⚠️ **BLOCKED** - Still failing with OpenAPI plugin null pointer error despite multiple fixes attempted.
+
+**Current Error** (as of commit `ac507709`):
+```
+TypeError: Cannot read properties of null (reading '0')
+    at /home/runner/work/docs/docs/node_modules/docusaurus-plugin-openapi-docs/lib/index.js:67:39
+    at Array.filter (<anonymous>)
+    at getPluginInstances (/home/runner/work/docs/docs/node_modules/docusaurus-plugin-openapi-docs/lib/index.js:67:18
+```
+
+**What We've Tried**:
+1. ✅ Removed broken `platform-repo` submodule
+2. ✅ Added EXCLUDE flags for OSS repos (multiqc, fusion, wave)
+3. ✅ Enabled classic docs plugin in preset-classic config
+4. ❌ Still getting null pointer in OpenAPI plugin
+
+**What We Know**:
+- The error happens in `docusaurus-plugin-openapi-docs/lib/index.js:67:39`
+- It's trying to filter plugin instances and getting null
+- The OpenAPI plugin is configured with `docsPluginId: "classic"`
+- We enabled the classic docs plugin but it's still not being found
+
+**Next Steps for Tomorrow**:
+1. Debug locally: Run `npx docusaurus clean-api-docs platform` with EXCLUDE flags to reproduce
+2. Check if classic docs plugin is actually being registered with correct ID
+3. Consider alternative approaches:
+   - Change OpenAPI plugin to use a different docsPluginId
+   - Set up proper submodules for OSS repos instead of excluding
+   - Skip docusaurus commands entirely and copy files directly
+4. Review docusaurus-plugin-openapi-docs source code to understand what it's looking for
 
 ### Files Modified
 - ✅ `claude-generated-overlays.md` - Added missing schema and identities tag overlays
