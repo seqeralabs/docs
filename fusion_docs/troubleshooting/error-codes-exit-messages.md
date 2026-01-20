@@ -2,29 +2,11 @@
 title: Error codes and exit messages
 description: "Reference for Fusion error codes, exit codes, and error messages"
 date created: "2025-01-12"
-last updated: "2025-01-12"
+last updated: "2025-01-20"
 tags: [errors, error-codes, exit-codes, fuse, logging, fusion]
 ---
 
 This page describes Fusion's error reporting system, including exit codes, FUSE status codes (errno values), cloud provider error categories, and internal error types.
-
-## Architectural limitations
-
-Fusion plays two critical roles in the execution of a Nextflow task. Each impacts error reporting differently:
-
-- **As a filesystem**: Fusion operates as a FUSE filesystem to provide transparent access to cloud storage. When processes execute I/O operations (e.g., `open()`, `read()`, `write()`, `unlink()`), they interact with Fusion through the standard POSIX filesystem interface.
-
-- **As a container entrypoint**: Fusion acts as the container's entrypoint, wrapping the execution of the Nextflow task. When a container starts, Fusion initializes first, mounts the filesystem, and then launches the actual task command. Upon task completion, both Fusion and the task must communicate their status through a single exit code, which is constrained to 256 possible values (`0`-`255`). This creates an ambiguity as Fusion reports its own failures using specific codes (e.g. `174`), but the task process can return any value in this range. Consequently, when a container exits with a specific code, determining whether the failure originated from Fusion or the task is impossible without examining the logs.
-
-These architectural roles impose constraints on how Fusion can communicate operation errors as well as its own failures:
-
-- **Limitations in POSIX error codes**: As a filesystem, Fusion communicates I/O operation failures only through standard POSIX error codes (`ENOENT`, `EACCES`, `EIO`, etc.). The filesystem interface provides no mechanism to return rich error context—it cannot explain why an operation failed beyond a generic error code. As a result, Fusion cannot provide detailed error information to the user process through the filesystem interface and returns only a generic I/O error (`EIO`).
-
-- **User process controls output**: When Fusion returns a POSIX error code, the process (not Fusion) determines what to display to the user. Fusion cannot control this output.
-
-- **Ambiguity of exit codes**: As the container entrypoint, the container's final exit code can originate from either Fusion itself (e.g., exit code `174`) or from the task's actual command. When a container exits with a failure code, there's no immediate way to determine the source of the failure without examining logs.
-
-- **Mixed log outputs**: Fusion also emits errors to stdout, where they typically mix with the task output. They are indistinguishable from a task's own errors when you review the task's logs.
 
 ## Error paths
 
