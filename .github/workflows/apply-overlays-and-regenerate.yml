@@ -283,7 +283,7 @@ jobs:
 
       - name: Clean existing API docs
         run: |
-          npx docusaurus clean-api-docs platform
+          npx docusaurus clean-api-docs all
 
           echo "✅ Cleaned existing API docs"
         env:
@@ -293,7 +293,7 @@ jobs:
 
       - name: Generate new API docs
         run: |
-          npx docusaurus gen-api-docs platform
+          npx docusaurus gen-api-docs all
 
           echo "✅ Generated new API documentation"
         env:
