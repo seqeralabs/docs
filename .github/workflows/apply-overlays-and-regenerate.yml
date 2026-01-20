@@ -86,8 +86,9 @@ jobs:
           content = md_file.read_text()
 
           # Pattern to match yaml/yml code blocks with optional filename labels
-          # Looks for: ```yaml or ```yml, optionally preceded by filename comment
-          pattern = r'(?:```(?:yaml|yml)\s*\n)([^`]+)(?:```)'
+          # Looks for: ```yaml or ```yml, then content until closing ```
+          # Uses non-greedy match and looks for ``` at start of line
+          pattern = r'```(?:yaml|yml)\s*\n(.*?)\n```'
 
           # Also try to find filenames mentioned before code blocks
           # Pattern: "filename.yaml" or **filename.yaml** or <!-- filename.yaml -->
@@ -101,12 +102,13 @@ jobs:
           for block in blocks:
               yaml_content = block.group(1).strip()
 
-              # Look backwards from this block to find a filename
+              # Look backwards from this block to find a filename (use the LAST/closest match)
               text_before = content[current_pos:block.start()]
-              filename_match = re.search(filename_pattern, text_before, re.MULTILINE | re.IGNORECASE)
+              filename_matches = re.findall(filename_pattern, text_before, re.MULTILINE | re.IGNORECASE)
 
-              if filename_match:
-                  filename = filename_match.group(1)
+              if filename_matches:
+                  # Take the last (closest) filename match
+                  filename = filename_matches[-1]
                   # Normalize to .yaml extension
                   filename = re.sub(r'\.yml$', '.yaml', filename)
 
