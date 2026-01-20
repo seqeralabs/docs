@@ -10,7 +10,7 @@ This page describes Fusion's error reporting system, including exit codes, FUSE 
 
 ## Error paths
 
-Fusion is a FUSE filesystem that bridges applications and cloud object stores. Errors originate from multiple layers and propagate through the filesystem components in three main paths:
+Fusion is a FUSE filesystem that bridges applications and cloud object stores. As such, errors may originate from multiple layers, but will propagate through the filesystem components following three major paths:
 
 1. **Cloud > Storage Backend > FUSE Layer > Kernel > Application**
 
