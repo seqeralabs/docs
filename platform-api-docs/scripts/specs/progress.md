@@ -833,3 +833,142 @@ Hints: 1371 (informational - missing examples)
 2. **Push** to `api-docs-v1.102.0` branch
 3. **Trigger workflow** with `overlays-approved` label or workflow_dispatch
 4. **Expect success** - Local validation passed with 0 errors!
+
+---
+
+## Issue #12: Workflow failures after overlay fixes ✅ FIXED
+
+### Date
+2026-01-20 17:15 - 19:30
+
+### Problem
+After successfully fixing the overlay validation issues (Issue #11), the workflow failed at various stages with multiple different errors:
+
+1. **Submodule checkout error**: `fatal: No url found for submodule path 'platform-repo' in .gitmodules`
+2. **Missing multiqc directory**: `The docs folder does not exist for version "current" at multiqc_docs/multiqc_repo/docs/markdown`
+3. **OpenAPI plugin null pointer**: `TypeError: Cannot read properties of null (reading '0')` in docusaurus-plugin-openapi-docs
+
+### Root Causes
+
+#### 1. Broken `platform-repo` Submodule
+- `platform-repo` was registered as a submodule (mode 160000) in git index
+- But had NO URL in `.gitmodules` file
+- The `generate-openapi-overlays.yml` workflow checks it out as a fresh clone, NOT a submodule
+- When `submodules: recursive` was added to fix multiqc, it failed on this broken entry
+
+#### 2. Missing OSS Repos
+- `multiqc_docs/multiqc_repo`, `fusion_docs/fusion_repo`, `wave_docs/wave_repo` are in `.gitignore` (line 37: "OSS repo clones")
+- They are NOT tracked by git, NOT submodules
+- Don't exist when GitHub Actions checks out the repo
+- Docusaurus plugin initialization tried to load them and failed
+
+#### 3. Disabled Classic Docs Plugin
+- OpenAPI plugin configured with `docsPluginId: "classic"` (docusaurus.config.js:62)
+- But preset-classic had `docs: false` (docusaurus.config.js:234)
+- No "classic" docs plugin existed for OpenAPI plugin to reference
+- This caused null pointer error when OpenAPI plugin tried to find it
+
+### Solutions Applied
+
+#### Fix 1: Remove Broken Submodule ✅
+**Commit**: `4a7c4644` - "Remove broken platform-repo submodule and fix docusaurus plugin issue"
+
+```bash
+git rm --cached platform-repo
+```
+
+- Removed broken `platform-repo` submodule entry from git index
+- The `generate-openapi-overlays.yml` workflow already checks it out as a fresh clone, doesn't need submodule
+
+#### Fix 2: Exclude OSS Repo Plugins ✅
+**Commits**: `4a7c4644`, `03496225`, `d5218983`
+
+Added EXCLUDE flags to docusaurus steps to skip plugins that need gitignored repos:
+
+```yaml
+env:
+  EXCLUDE_MULTIQC: true
+  EXCLUDE_FUSION: true
+  EXCLUDE_WAVE: true
+```
+
+This prevents docusaurus from trying to load plugins that depend on directories not available in CI.
+
+#### Fix 3: Enable Classic Docs Plugin ✅
+**Commit**: `88f6ed10` - "Fix OpenAPI plugin by enabling classic docs plugin it depends on"
+
+Changed `docusaurus.config.js` preset-classic config:
+
+```js
+// Before (broken):
+docs: false,
+
+// After (working):
+docs: {
+  path: "platform-api-docs/docs",
+  routeBasePath: "/",
+},
+```
+
+Now the "classic" docs plugin exists for OpenAPI plugin to reference.
+
+### Workflow Configuration Final State
+
+**File**: `.github/workflows/apply-overlays-and-regenerate.yml`
+
+```yaml
+- name: Checkout PR branch
+  uses: actions/checkout@v4
+  with:
+    ref: ${{ github.head_ref || format('refs/pull/{0}/head', github.event.inputs.pr_number) }}
+  # No submodules: recursive (not needed, was causing issues)
+
+- name: Clean existing API docs
+  run: npx docusaurus clean-api-docs platform
+  env:
+    EXCLUDE_MULTIQC: true
+    EXCLUDE_FUSION: true
+    EXCLUDE_WAVE: true
+
+- name: Generate new API docs
+  run: npx docusaurus gen-api-docs platform
+  env:
+    EXCLUDE_MULTIQC: true
+    EXCLUDE_FUSION: true
+    EXCLUDE_WAVE: true
+```
+
+### Key Learnings
+
+1. **Git submodules vs checkout actions**: If a workflow checks out a repo as a fresh clone (`uses: actions/checkout@v4` with `path`), don't also register it as a submodule in `.gitmodules`. Choose one approach.
+
+2. **Docusaurus plugin dependencies**: The `docusaurus-plugin-openapi-docs` requires a docs plugin with matching `docsPluginId` to exist. Even if you're only generating OpenAPI docs, the underlying docs plugin must be enabled.
+
+3. **EXCLUDE flags vs targeting specific IDs**: Using `npx docusaurus gen-api-docs platform` with EXCLUDE flags is cleaner than `all` with many exclusions.
+
+4. **Gitignored dependencies in CI**: If docusaurus plugins depend on directories that are gitignored (OSS repo clones), use EXCLUDE flags to skip those plugins in CI workflows.
+
+### Commits in This Session
+
+1. `038135de` - Add missing LocalComputeConfig schema overlay and fix identities tag filename
+2. `2cb6b8ed` - Fix submodule checkout in apply-overlays workflow (later reverted)
+3. `4a7c4644` - Remove broken platform-repo submodule and fix docusaurus plugin issue
+4. `79f6d3f8` - Exclude all docsets except Platform OpenAPI (later revised)
+5. `c0f1c139` - Fix docusaurus commands to target specific platform spec
+6. `03496225` - Add EXCLUDE flags for gitignored OSS repos
+7. `d5218983` - Use 'all' instead of 'platform' (later revised)
+8. `88f6ed10` - Fix OpenAPI plugin by enabling classic docs plugin (FINAL)
+
+### Status
+✅ **RESOLVED** - All workflow issues fixed. Ready to trigger workflow with `overlays-approved` label.
+
+### Files Modified
+- ✅ `claude-generated-overlays.md` - Added missing schema and identities tag overlays
+- ✅ `progress.md` - This document
+- ✅ `.github/workflows/apply-overlays-and-regenerate.yml` - Fixed checkout and docusaurus commands
+- ✅ `docusaurus.config.js` - Enabled classic docs plugin
+- ✅ `.git/index` - Removed broken platform-repo submodule entry
+
+### Research Document
+Full root cause analysis documented at:
+`/Users/llewelyn-van-der-berg/Documents/GitHub/research/API docs automation troubleshooting/2026-01-20-overlay-validation-failure-root-cause.md`
