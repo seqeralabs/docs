@@ -26,7 +26,7 @@ actions:
     update: "Enable compute environment"
   
   - target: "$.paths./compute-envs/{computeEnvId}/enable.post.description"
-    update: "Enables the compute environment identified by the given `computeEnvId`. An enabled compute environment can be used to launch workflows."
+    update: "Enables the compute environment identified by the given `computeEnvId`. An enabled compute environment can be used to launch new workflows and Studio sessions."
 ```
 
 ## compute-envs-parameters-overlay-1.102.0.yaml
