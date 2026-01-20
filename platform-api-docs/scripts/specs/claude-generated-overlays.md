@@ -913,6 +913,15 @@ actions:
     update:
       required: ["region", "workDir"]
 
+  # ---- ComputeEnv_ComputeConfig_ ----
+
+  - target: "$.components.schemas.ComputeEnv_ComputeConfig_.required"
+    remove: true
+
+  - target: "$.components.schemas.ComputeEnv_ComputeConfig_"
+    update:
+      required: ["config", "name", "platform"]
+
   # ---- EksComputeConfig ----
 
   - target: "$.components.schemas.EksComputeConfig.required"
@@ -921,6 +930,152 @@ actions:
   - target: "$.components.schemas.EksComputeConfig"
     update:
       required: ["region", "clusterName", "workDir"]
+```
+
+---
+
+# Fix Duplicate Enum Values Overlay
+
+## fix-duplicate-enums-overlay-1.102.0.yaml
+
+**CRITICAL**: This overlay fixes duplicate enum values in query parameters and schemas using the "remove first, then update" pattern.
+
+```yaml
+overlay: 1.0.0
+info:
+  title: Fix duplicate enum values overlay
+  version: 1.102.0
+actions:
+  # ===== FIX DUPLICATE ENUM VALUES =====
+
+  # These duplicate enum values exist in the base decorated spec
+  # We use the "remove first, then update" pattern to fix them
+
+  # ---- Query Parameter: Status (line 563) ----
+
+  - target: "$.paths./compute-envs.get.parameters[?(@.name=='status')].schema.enum"
+    remove: true
+
+  - target: "$.paths./compute-envs.get.parameters[?(@.name=='status')].schema"
+    update:
+      enum: ["CREATING", "AVAILABLE", "ERRORED", "INVALID"]
+
+  # ---- Query Parameter: Attributes (line 809) ----
+
+  - target: "$.paths./compute-envs/{computeEnvId}.get.parameters[?(@.name=='attributes')].schema.items.enum"
+    remove: true
+
+  - target: "$.paths./compute-envs/{computeEnvId}.get.parameters[?(@.name=='attributes')].schema.items"
+    update:
+      enum: ["labels"]
+
+  # ---- AzBatchConfig.deleteJobsOnCompletion (line 8891) ----
+
+  - target: "$.components.schemas.AzBatchConfig.properties.deleteJobsOnCompletion.enum"
+    remove: true
+
+  - target: "$.components.schemas.AzBatchConfig.properties.deleteJobsOnCompletion"
+    update:
+      enum: ["on_success", "always", "never"]
+
+  # ---- ComputeEnv_ComputeConfig_.platform (lines 9283-9331) ----
+  # This has extensive triplication of values
+
+  - target: "$.components.schemas.ComputeEnv_ComputeConfig_.properties.platform.enum"
+    remove: true
+
+  - target: "$.components.schemas.ComputeEnv_ComputeConfig_.properties.platform"
+    update:
+      enum:
+        - "aws-batch"
+        - "aws-cloud"
+        - "google-batch"
+        - "google-cloud"
+        - "azure-batch"
+        - "azure-cloud"
+        - "k8s-platform"
+        - "eks-platform"
+        - "gke-platform"
+        - "uge-platform"
+        - "slurm-platform"
+        - "lsf-platform"
+        - "altair-platform"
+        - "moab-platform"
+        - "local-platform"
+        - "seqeracompute-platform"
+
+  # ---- ComputeEnv_ComputeConfig_.status (line 9361) ----
+
+  - target: "$.components.schemas.ComputeEnv_ComputeConfig_.properties.status.enum"
+    remove: true
+
+  - target: "$.components.schemas.ComputeEnv_ComputeConfig_.properties.status"
+    update:
+      enum: ["CREATING", "AVAILABLE", "ERRORED", "INVALID"]
+
+  # ---- K8sComputeConfig.podCleanup (line 11444) ----
+
+  - target: "$.components.schemas.K8sComputeConfig.properties.podCleanup.enum"
+    remove: true
+
+  - target: "$.components.schemas.K8sComputeConfig.properties.podCleanup"
+    update:
+      enum: ["on_success", "always", "never"]
+```
+
+---
+
+# Remove Google Life Sciences Platform
+
+## remove-google-lifesciences-overlay-1.102.0.yaml
+
+**CRITICAL**: This overlay removes the deprecated google-lifesciences platform option from the API spec entirely.
+
+```yaml
+overlay: 1.0.0
+info:
+  title: Remove Google Life Sciences platform overlay
+  version: 1.102.0
+actions:
+  # ===== REMOVE GOOGLE LIFE SCIENCES PLATFORM =====
+
+  # This platform option is deprecated and should be removed from the API spec
+
+  # ---- Remove from ComputeEnvResponseDto.platform enum (line 9198) ----
+
+  - target: "$.components.schemas.ComputeEnvResponseDto.properties.platform.enum"
+    remove: true
+
+  - target: "$.components.schemas.ComputeEnvResponseDto.properties.platform"
+    update:
+      enum:
+        - "aws-batch"
+        - "aws-cloud"
+        - "seqeracompute-platform"
+        - "google-batch"
+        - "azure-batch"
+        - "k8s-platform"
+        - "eks-platform"
+        - "gke-platform"
+        - "uge-platform"
+        - "slurm-platform"
+        - "lsf-platform"
+        - "altair-platform"
+
+  # ---- Remove from ComputeEnv_ComputeConfig_ discriminator mapping (line 9140) ----
+
+  - target: "$.components.schemas.ComputeEnv_ComputeConfig_.discriminator.mapping.google-lifesciences"
+    remove: true
+
+  # ---- Remove from ComputeEnv_ComputeConfig_ oneOf array ----
+
+  - target: "$.components.schemas.ComputeEnv_ComputeConfig_.oneOf[?(@.$ref=='#/components/schemas/GoogleLifeSciencesConfig')]"
+    remove: true
+
+  # ---- Remove GoogleLifeSciencesConfig schema definition (line 11229+) ----
+
+  - target: "$.components.schemas.GoogleLifeSciencesConfig"
+    remove: true
 ```
 
 ---

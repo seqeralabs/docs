@@ -301,3 +301,83 @@ All intermediate files cleaned up. Folder is ready for workflow execution.
    - Validate (should pass with 0 errors!)
    - Regenerate docs
    - Create PR
+
+## Issue #8: Additional duplicate enums and required fields ✅ FIXED
+
+### Problem
+Workflow validation on 2026-01-20 15:46:40 revealed additional duplicates in the decorated spec that were not covered by previous overlays:
+- WARN: enum value 'ERRORED' duplicated at line 563 and 9345
+- ERROR: duplicate required field items at line 9227
+
+### Root Cause
+The decorated spec (`seqera-api-latest-decorated.yaml`) contains duplicates that were not in the base spec or came from the decoration process:
+1. **6 duplicate enum arrays** with values appearing 2-3 times each
+2. **12 duplicate required field arrays** - most were already fixed, but ComputeEnv_ComputeConfig_ was missing
+
+### Comprehensive Scan Results
+Used codebase-analyzer agent to scan the ENTIRE OpenAPI spec file. Found **18 total instances**:
+
+**Duplicate Enums (6 instances)**:
+1. Line 563 - Query parameter `status` enum (CREATING, AVAILABLE, ERRORED, INVALID - each 2x)
+2. Line 809 - Query parameter `attributes` enum (labels - 2x)
+3. Line 8891 - `AzBatchConfig.deleteJobsOnCompletion` (on_success, always, never - each 2x)
+4. Lines 9283-9331 - `ComputeEnv_ComputeConfig_.platform` (16+ values - each 3x)
+5. Line 9361 - `ComputeEnv_ComputeConfig_.status` (CREATING, AVAILABLE, ERRORED, INVALID - each 2x)
+6. Line 11444 - `K8sComputeConfig.podCleanup` (on_success, always, never - each 2x)
+
+**Duplicate Required Fields (12 instances)**:
+- AwsBatchConfig (line 8676) - already fixed
+- AwsCloudConfig (line 8806) - already fixed
+- AzBatchConfig (line 8912) - already fixed
+- AzCloudConfig (line 9018) - already fixed
+- **ComputeEnv_ComputeConfig_ (lines 9242-9251) - MISSING! ✅ Added**
+- ConfigEnvVariable (line 9408) - already fixed
+- CreateComputeEnvRequest (line 9491) - already fixed
+- GkeComputeConfig (line 11004) - already fixed
+- GoogleBatchConfig (line 11116) - already fixed
+- GoogleCloudConfig (line 11185) - already fixed
+- K8sComputeConfig (line 11466) - already fixed
+- SeqeraComputeConfig (line 12836) - already fixed
+- EksComputeConfig - already fixed
+
+### Fix Applied
+
+1. **Updated `fix-duplicate-required-fields-overlay-1.102.0.yaml`**:
+   - Added ComputeEnv_ComputeConfig_ with required: ["config", "name", "platform"]
+
+2. **Created NEW `fix-duplicate-enums-overlay-1.102.0.yaml`**:
+   - Fixes all 6 duplicate enum arrays
+   - Uses "remove first, then update" pattern
+   - Includes detailed comments with line numbers
+
+3. **Updated `claude-generated-overlays.md`**:
+   - Added new enum fixes overlay section
+   - Updated required fields overlay with missing schema
+
+### Overlay Count Update
+Now have **12 total overlays** for v1.102.0:
+1. compute-envs-operations-overlay-1.102.0.yaml
+2. compute-envs-parameters-overlay-1.102.0.yaml
+3. compute-envs-schemas-overlay-1.102.0.yaml
+4. data-links-operations-overlay-1.102.0.yaml
+5. data-links-parameters-overlay-1.102.0.yaml
+6. workflows-parameters-overlay-1.102.0.yaml
+7. workflows-operations-overlay-1.102.0.yaml
+8. global-schemas-overlay-1.102.0.yaml
+9. manual-field-descriptions-overlay-1.102.0.yaml
+10. fix-duplicate-required-fields-overlay-1.102.0.yaml (updated)
+11. fix-duplicate-enums-overlay-1.102.0.yaml (NEW - updated to exclude google-lifesciences)
+12. remove-google-lifesciences-overlay-1.102.0.yaml (NEW)
+
+### Deprecated Platform Removal
+Added overlay to completely remove the deprecated `google-lifesciences` platform option:
+- Removed from `ComputeEnvResponseDto.platform` enum (line 9198)
+- Removed from `ComputeEnv_ComputeConfig_.platform` enum (line 9286)
+- Removed from `ComputeEnv_ComputeConfig_` discriminator mapping (line 9140)
+- Removed from `ComputeEnv_ComputeConfig_` oneOf array (line 9146)
+- Removed entire `GoogleLifeSciencesConfig` schema definition (line 11229+)
+
+### Next Workflow Run
+Expected total actions: ~200+ (was 177, now adding enum fixes + google-lifesciences removal)
+
+Ready to commit and re-run workflow!
