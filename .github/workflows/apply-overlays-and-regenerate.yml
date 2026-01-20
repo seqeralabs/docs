@@ -27,7 +27,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ github.head_ref || format('refs/pull/{0}/head', github.event.inputs.pr_number) }}
-          submodules: recursive
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -287,12 +286,16 @@ jobs:
           npx docusaurus clean-api-docs all
 
           echo "✅ Cleaned existing API docs"
+        env:
+          EXCLUDE_MULTIQC: true
 
       - name: Generate new API docs
         run: |
           npx docusaurus gen-api-docs all
 
           echo "✅ Generated new API documentation"
+        env:
+          EXCLUDE_MULTIQC: true
 
       - name: Update sidebar with new operations
         run: |
