@@ -59,7 +59,7 @@ export default async function createConfigAsync() {
     "docusaurus-plugin-openapi-docs",
     {
       id: "api", // plugin id
-      docsPluginId: "default", // preset-classic docs plugin uses "default" as its ID
+      docsPluginId: "classic", // configured for preset-classic
       config: {
         platform: {
           specPath: "platform-api-docs/scripts/specs/seqera-api-latest-decorated.yaml",
