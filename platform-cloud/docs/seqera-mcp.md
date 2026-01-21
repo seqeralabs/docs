@@ -2,6 +2,7 @@
 title: "Seqera MCP"
 description: "Connect AI assistants to Seqera Platform using the Model Context Protocol"
 date created: "2025-12-12"
+last updated: "2026-01-21"
 tags: [mcp, integration, mcp-server, ai]
 ---
 
@@ -12,6 +13,13 @@ Seqera MCP is a [Model Context Protocol](https://modelcontextprotocol.io/) serve
 - **Seqera Platform integration**: Launch, monitor, and manage Nextflow pipelines.
 - **Wave container service**: Create containerized environments with conda/pip packages.
 - **nf-core modules**: Search and execute 1000+ standardized bioinformatics modules.
+- **SRA/ENA/GEO access**: Search and retrieve public sequencing data
+
+## Tool documentation
+
+- [Seqera Platform tools](seqera-tools.md) - Workflow management, compute environments, and containers.
+- [SRA Tools](sra-tools.md) - Search and retrieve sequencing data from NCBI SRA, EBI ENA, and GEO.
+- [nf-core Tools](nfcore-tools.md) - Search modules and get analysis recommendations.
 
 ## Remote server
 
