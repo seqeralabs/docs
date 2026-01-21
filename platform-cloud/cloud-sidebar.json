@@ -205,15 +205,15 @@
             {
               "type": "category",
               "label": "Seqera MCP",
+              "link": {"type": "doc", "id": "seqera-mcp/overview"},
               "collapsed": true,
-              "items": [
-                "seqera-mcp/overview",
+              "items": [                  
                 "seqera-mcp/seqera-tools",
                 "seqera-mcp/sra-tools",
                 "seqera-mcp/nfcore-tools"
               ]
               },
-            "pipeline-actions/overview",
+            "pipeline-actions/overview"
           ]
       },
       {
