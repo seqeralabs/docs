@@ -202,8 +202,18 @@
                 "seqerakit/templates"
               ]
               },
+            {
+              "type": "category",
+              "label": "Seqera MCP",
+              "collapsed": true,
+              "items": [
+                "seqera-mcp/overview",
+                "seqera-mcp/seqera-tools",
+                "seqera-mcp/sra-tools",
+                "seqera-mcp/nfcore-tools"
+              ]
+              },
             "pipeline-actions/overview",
-            "seqera-mcp"
           ]
       },
       {
