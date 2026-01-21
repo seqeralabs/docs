@@ -231,10 +231,7 @@ export default async function createConfigAsync() {
         "classic",
         {
           blog: process.env.EXCLUDE_CHANGELOG ? false : changelog,
-          docs: {
-            path: "platform-api-docs/docs",
-            routeBasePath: "/",
-          },
+          docs: false,
           theme: {
             customCss: [
               require.resolve("./src/css/main.css"),
