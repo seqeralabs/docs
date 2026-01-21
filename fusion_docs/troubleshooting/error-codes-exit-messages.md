@@ -104,7 +104,7 @@ The `sysexits.h` standard uses exit code 74 for "input/output error" and reserve
 
 ## FUSE status codes
 
-Fusion maps internal errors to standard FUSE status codes returned to the operating system. These are the [errno](https://man7.org/linux/man-pages/man3/errno.3.html) values applications receive when filesystem operations fail.
+Fusion maps internal errors to standard FUSE status codes returned to the operating system. These are the [errno](https://man7.org/linux/man-pages/man3/errno.3.html) values that applications receive when filesystem operations fail.
 
 :::note
 For a complete list of errno values and their meanings, see the [Linux errno man page](https://man7.org/linux/man-pages/man3/errno.3.html) or run `errno -l` on a Linux system.
