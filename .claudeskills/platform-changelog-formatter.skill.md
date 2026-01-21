@@ -104,7 +104,7 @@ Platform changelogs MUST use component-based organization:
 
 - [Miscellaneous items...]
 
-### Bug fixes
+## Bug fixes
 
 ### Studios
 
