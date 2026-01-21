@@ -23,10 +23,30 @@ jobs:
       github.event_name == 'workflow_dispatch'
 
     steps:
+      - name: Get PR branch name
+        id: pr_branch
+        uses: actions/github-script@v7
+        with:
+          script: |
+            let branchName;
+            if (context.eventName === 'pull_request') {
+              branchName = context.payload.pull_request.head.ref;
+            } else {
+              // workflow_dispatch - get branch from PR number
+              const pr = await github.rest.pulls.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: ${{ github.event.inputs.pr_number }}
+              });
+              branchName = pr.data.head.ref;
+            }
+            core.setOutput('branch', branchName);
+            return branchName;
+
       - name: Checkout PR branch
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref || format('refs/pull/{0}/head', github.event.inputs.pr_number) }}
+          ref: ${{ steps.pr_branch.outputs.branch }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
