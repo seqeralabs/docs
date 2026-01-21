@@ -1,0 +1,108 @@
+overlay: 1.0.0
+info:
+  title: Data-links parameters overlay
+  version: 1.102.0
+actions:
+  # ===== DATA-LINKS PARAMETERS =====
+
+  # ---- /data-links/{dataLinkId}/browse GET ----
+
+  # CRITICAL: Remove entire parameters array to prevent duplicates
+  - target: "$.paths./data-links/{dataLinkId}/browse.get.parameters[*]"
+    remove: true
+
+  # Replace with complete array with enriched descriptions
+  - target: "$.paths./data-links/{dataLinkId}/browse.get.parameters"
+    update:
+      - name: dataLinkId
+        in: path
+        description: "Data-link string identifier."
+        required: true
+        schema:
+          type: string
+      - name: workspaceId
+        in: query
+        description: "Workspace numeric identifier."
+        schema:
+          type: integer
+          format: int64
+      - name: credentialsId
+        in: query
+        description: "Credentials string identifier."
+        schema:
+          type: string
+      - name: search
+        in: query
+        description: "Prefix search of data-link content."
+        schema:
+          type: string
+      - name: nextPageToken
+        in: query
+        description: "Token used to fetch the next page of items."
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: "Number of items to return per page. If omitted, a default maximum value is returned."
+        schema:
+          type: integer
+          format: int32
+
+  # ---- /data-links/{dataLinkId}/upload POST ----
+
+  # CRITICAL: Remove entire parameters array to prevent duplicates
+  - target: "$.paths./data-links/{dataLinkId}/upload.post.parameters[*]"
+    remove: true
+
+  # Replace with complete array with enriched descriptions
+  - target: "$.paths./data-links/{dataLinkId}/upload.post.parameters"
+    update:
+      - name: dataLinkId
+        in: path
+        description: "Data-link string identifier."
+        required: true
+        schema:
+          type: string
+      - name: credentialsId
+        in: query
+        description: "Credentials string identifier."
+        schema:
+          type: string
+      - name: workspaceId
+        in: query
+        description: "Workspace numeric identifier."
+        schema:
+          type: integer
+          format: int64
+      - name: Origin
+        in: header
+        schema:
+          type: string
+          nullable: true
+
+  # ---- /data-links/{dataLinkId}/upload/finish POST ----
+
+  # CRITICAL: Remove entire parameters array to prevent duplicates
+  - target: "$.paths./data-links/{dataLinkId}/upload/finish.post.parameters[*]"
+    remove: true
+
+  # Replace with complete array with enriched descriptions
+  - target: "$.paths./data-links/{dataLinkId}/upload/finish.post.parameters"
+    update:
+      - name: dataLinkId
+        in: path
+        description: "Data-link string identifier."
+        required: true
+        schema:
+          type: string
+      - name: credentialsId
+        in: query
+        description: "Credentials string identifier."
+        schema:
+          type: string
+      - name: workspaceId
+        in: query
+        description: "Workspace numeric identifier."
+        schema:
+          type: integer
+          format: int64
