@@ -960,9 +960,24 @@ Now the "classic" docs plugin exists for OpenAPI plugin to reference.
 8. `88f6ed10` - Fix OpenAPI plugin by enabling classic docs plugin (FINAL)
 
 ### Status
-⚠️ **BLOCKED** - Still failing with OpenAPI plugin null pointer error despite multiple fixes attempted.
+✅ **FIXED** - OpenAPI plugin configuration issue resolved (commit `4c5c7905`)
 
-**Current Error** (as of commit `ac507709`):
+**Root Causes Identified**:
+1. **Incorrect docsPluginId**: OpenAPI plugin referenced `docsPluginId: "classic"` but preset-classic's docs plugin uses ID `"default"`, not `"classic"`
+2. **Null plugin entries**: When `EXCLUDE_MULTIQC`, `EXCLUDE_FUSION`, `EXCLUDE_WAVE` env vars are set, the plugins array contains null entries, causing the OpenAPI plugin's filter code to crash when accessing `data[0]`
+
+**Fixes Applied** (commit `4c5c7905`):
+1. ✅ Changed `docsPluginId` from `"classic"` to `"default"` (docusaurus.config.js:62)
+2. ✅ Added `.filter(Boolean)` to plugins array to remove null entries (docusaurus.config.js:296)
+
+**Local Testing Passed**:
+```bash
+# Both commands now work with EXCLUDE flags
+✅ npx docusaurus clean-api-docs platform
+✅ npx docusaurus gen-api-docs platform
+```
+
+**Error Details** (before fix):
 ```
 TypeError: Cannot read properties of null (reading '0')
     at /home/runner/work/docs/docs/node_modules/docusaurus-plugin-openapi-docs/lib/index.js:67:39
@@ -970,34 +985,34 @@ TypeError: Cannot read properties of null (reading '0')
     at getPluginInstances (/home/runner/work/docs/docs/node_modules/docusaurus-plugin-openapi-docs/lib/index.js:67:18
 ```
 
-**What We've Tried**:
-1. ✅ Removed broken `platform-repo` submodule
-2. ✅ Added EXCLUDE flags for OSS repos (multiqc, fusion, wave)
-3. ✅ Enabled classic docs plugin in preset-classic config
-4. ❌ Still getting null pointer in OpenAPI plugin
+The error occurred because:
+- Line 67 does: `plugins.filter((data) => data[0] === "docusaurus-plugin-openapi-docs")`
+- When EXCLUDE env vars are set, some entries in `plugins` are `null`
+- Accessing `null[0]` throws "Cannot read properties of null"
+- The plugin code doesn't filter out nulls before accessing array indices
 
-**What We Know**:
-- The error happens in `docusaurus-plugin-openapi-docs/lib/index.js:67:39`
-- It's trying to filter plugin instances and getting null
-- The OpenAPI plugin is configured with `docsPluginId: "classic"`
-- We enabled the classic docs plugin but it's still not being found
-
-**Next Steps for Tomorrow**:
-1. Debug locally: Run `npx docusaurus clean-api-docs platform` with EXCLUDE flags to reproduce
-2. Check if classic docs plugin is actually being registered with correct ID
-3. Consider alternative approaches:
-   - Change OpenAPI plugin to use a different docsPluginId
-   - Set up proper submodules for OSS repos instead of excluding
-   - Skip docusaurus commands entirely and copy files directly
-4. Review docusaurus-plugin-openapi-docs source code to understand what it's looking for
+### Previous Attempts (All Superseded)
+1. ✅ Removed broken `platform-repo` submodule - helped but wasn't the root cause
+2. ✅ Added EXCLUDE flags for OSS repos (multiqc, fusion, wave) - correct approach but incomplete
+3. ✅ Enabled classic docs plugin in preset-classic config - wrong fix, "classic" isn't the right ID
 
 ### Files Modified
 - ✅ `claude-generated-overlays.md` - Added missing schema and identities tag overlays
 - ✅ `progress.md` - This document
 - ✅ `.github/workflows/apply-overlays-and-regenerate.yml` - Fixed checkout and docusaurus commands
-- ✅ `docusaurus.config.js` - Enabled classic docs plugin
+- ✅ `docusaurus.config.js` - Fixed docsPluginId and null plugin filtering (commit `4c5c7905`)
 - ✅ `.git/index` - Removed broken platform-repo submodule entry
 
 ### Research Document
 Full root cause analysis documented at:
 `/Users/llewelyn-van-der-berg/Documents/GitHub/research/API docs automation troubleshooting/2026-01-20-overlay-validation-failure-root-cause.md`
+
+### Next Steps
+The workflow should now succeed:
+1. Extract overlays from `claude-generated-overlays.md` (14 overlays)
+2. Consolidate into single file (~200 actions)
+3. Apply to decorated spec
+4. Validate (expect 0 errors - tested locally in Issue #11)
+5. **Clean and regenerate API docs** ✅ (now unblocked)
+6. Archive overlays
+7. Commit and push changes
