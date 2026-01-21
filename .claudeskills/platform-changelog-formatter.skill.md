@@ -82,7 +82,7 @@ Platform changelogs MUST use component-based organization:
 
 **Required structure:**
 ```markdown
-### Feature updates and improvements
+## Feature updates and improvements
 
 ### Studios
 
