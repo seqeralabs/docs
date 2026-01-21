@@ -957,18 +957,25 @@ Now the "classic" docs plugin exists for OpenAPI plugin to reference.
 5. `c0f1c139` - Fix docusaurus commands to target specific platform spec
 6. `03496225` - Add EXCLUDE flags for gitignored OSS repos
 7. `d5218983` - Use 'all' instead of 'platform' (later revised)
-8. `88f6ed10` - Fix OpenAPI plugin by enabling classic docs plugin (FINAL)
+8. `88f6ed10` - Fix OpenAPI plugin by enabling classic docs plugin (later superseded)
+9. `ac507709` - Document workflow fixes in progress.md (Issue #12 still blocked)
+10. `1bcf0775` - Update progress.md - Issue #12 still blocked despite fixes
+11. `4c5c7905` - Fix OpenAPI plugin configuration to work with EXCLUDE env vars (Issue #12 RESOLVED)
+12. `1eecb749` - Update progress.md - Issue #12 resolved with OpenAPI plugin fix
+13. `12b9dde3` - Fix update_sidebar.py script path in workflow (Issue #12 fully resolved)
 
 ### Status
-✅ **FIXED** - OpenAPI plugin configuration issue resolved (commit `4c5c7905`)
+✅ **FIXED** - All workflow issues resolved (commits `4c5c7905`, `12b9dde3`)
 
 **Root Causes Identified**:
 1. **Incorrect docsPluginId**: OpenAPI plugin referenced `docsPluginId: "classic"` but preset-classic's docs plugin uses ID `"default"`, not `"classic"`
 2. **Null plugin entries**: When `EXCLUDE_MULTIQC`, `EXCLUDE_FUSION`, `EXCLUDE_WAVE` env vars are set, the plugins array contains null entries, causing the OpenAPI plugin's filter code to crash when accessing `data[0]`
+3. **Wrong script path**: Workflow referenced `openapi-overlay-generator/scripts/update_sidebar.py` but script is at `.claude/skills/openapi-overlay-generator/scripts/update_sidebar.py`
 
-**Fixes Applied** (commit `4c5c7905`):
-1. ✅ Changed `docsPluginId` from `"classic"` to `"default"` (docusaurus.config.js:62)
-2. ✅ Added `.filter(Boolean)` to plugins array to remove null entries (docusaurus.config.js:296)
+**Fixes Applied**:
+1. ✅ Changed `docsPluginId` from `"classic"` to `"default"` (docusaurus.config.js:62) - commit `4c5c7905`
+2. ✅ Added `.filter(Boolean)` to plugins array to remove null entries (docusaurus.config.js:296) - commit `4c5c7905`
+3. ✅ Fixed update_sidebar.py script path in workflow (apply-overlays-and-regenerate.yml:312) - commit `12b9dde3`
 
 **Local Testing Passed**:
 ```bash
@@ -999,7 +1006,7 @@ The error occurred because:
 ### Files Modified
 - ✅ `claude-generated-overlays.md` - Added missing schema and identities tag overlays
 - ✅ `progress.md` - This document
-- ✅ `.github/workflows/apply-overlays-and-regenerate.yml` - Fixed checkout and docusaurus commands
+- ✅ `.github/workflows/apply-overlays-and-regenerate.yml` - Fixed checkout, docusaurus commands, and update_sidebar.py path (commits `88f6ed10`, `12b9dde3`)
 - ✅ `docusaurus.config.js` - Fixed docsPluginId and null plugin filtering (commit `4c5c7905`)
 - ✅ `.git/index` - Removed broken platform-repo submodule entry
 
