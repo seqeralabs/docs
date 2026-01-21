@@ -9,6 +9,49 @@ info:
 servers:
   - url: https://api.cloud.seqera.io
     description: Seqera Platform Cloud API
+tags:
+  - name: actions
+    description: Pipeline actions
+  - name: avatars
+    description: Avatars
+  - name: compute-envs
+    description: Compute environments
+  - name: credentials
+    description: Credentials
+  - name: data-links
+    description: Cloud storage directory paths in Data Explorer
+  - name: datasets
+    description: Pipeline input datasets (samplesheets) in CSV or TSV format
+  - name: ga4gh
+    description: GA4GH workflow execution service runs
+  - name: labels
+    description: Labels and resource labels
+  - name: launch
+    description: Workflow launch events
+  - name: orgs
+    description: Organizations
+  - name: pipelines
+    description: Pipelines
+  - name: pipeline-secrets
+    description: Pipeline secrets in a user or workspace context
+  - name: platforms
+    description: Computing platforms
+  - name: service-info
+    description: Seqera Platform API service information
+  - name: studios
+    description: Studios and Studio sessions
+  - name: teams
+    description: Teams in an organization context
+  - name: tokens
+    description: API access tokens
+  - name: trace
+    description: Workflow execution traces
+  - name: users
+    description: Users
+  - name: workflows
+    description: Workflow executions
+  - name: workspaces
+    description: Workspaces in an organization context
 paths:
   /actions:
     get:
@@ -517,7 +560,7 @@ paths:
           description: Filter by compute environment status.
           schema:
             type: string
-            enum: ["CREATING", "AVAILABLE", "ERRORED", "INVALID"]
+            enum: ["CREATING", "AVAILABLE", "ERRORED", "INVALID", "CREATING", "AVAILABLE", "ERRORED", "INVALID"]
         - name: workspaceId
           in: query
           description: Workspace numeric identifier. If omitted, lists compute environments in a user context.
@@ -763,7 +806,7 @@ paths:
             items:
               $ref: "#/components/schemas/ComputeEnvQueryAttribute"
               type: string
-              enum: ["labels"]
+              enum: ["labels", "labels"]
       responses:
         "200":
           description: OK
@@ -1413,35 +1456,41 @@ paths:
     get:
       tags:
         - data-links
-      summary: Explore data-link
-      description: "Retrieves the content of the data-link associated with the given `dataLinkId`."
+      summary: Explore data-link path
+      description: "Retrieves the content of the data-link associated with the given `dataLinkId`, at the given `path`."
       operationId: ExploreDataLink
       parameters:
         - name: dataLinkId
           in: path
-          description: "Data-link string identifier."
+          description: Data-link string identifier
+          required: true
+          schema:
+            type: string
+        - name: path
+          in: path
+          description: Content path
           required: true
           schema:
             type: string
         - name: workspaceId
           in: query
-          description: "Workspace numeric identifier."
+          description: Workspace numeric identifier
           schema:
             type: integer
             format: int64
         - name: credentialsId
           in: query
-          description: "Credentials string identifier."
+          description: Credentials string identifier
           schema:
             type: string
         - name: search
           in: query
-          description: "Prefix search of data-link content."
+          description: Prefix search of data-link content
           schema:
             type: string
         - name: nextPageToken
           in: query
-          description: "Token used to fetch the next page of items."
+          description: Token used to fetch the next page of items
           schema:
             type: string
         - name: pageSize
@@ -1534,7 +1583,7 @@ paths:
         - data-links
       summary: Explore data-link path
       description: "Retrieves the content of the data-link associated with the given `dataLinkId`, at the given `path`."
-      operationId: ExploreDataLinkWithPath
+      operationId: ExploreDataLink_1
       parameters:
         - name: dataLinkId
           in: path
@@ -1637,6 +1686,61 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/DataLinkDeleteItemResponse"
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: "NotFound — workspace or credentials not found, API disabled for the workspace, or data-link or path not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Operation not allowed
+      security:
+        - BearerAuth: []
+  /data-links/{dataLinkId}/download:
+    get:
+      tags:
+        - data-links
+      summary: Download data-link file at path
+      description: Downloads the content at the given `filePath` in the data-link associated with the given `dataLinkId`.
+      operationId: DownloadDataLink
+      parameters:
+        - name: dataLinkId
+          in: path
+          description: Data-link string identifier
+          required: true
+          schema:
+            type: string
+        - name: filePath
+          in: path
+          description: File path to download
+          required: true
+          schema:
+            type: string
+        - name: credentialsId
+          in: query
+          description: Credentials string identifier
+          schema:
+            type: string
+        - name: workspaceId
+          in: query
+          description: Workspace numeric identifier
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+                format: binary
         "400":
           description: BadRequest
           content:
@@ -1777,25 +1881,32 @@ paths:
     post:
       tags:
         - data-links
-      summary: Generate data-link file upload URL
+      summary: Generate data-link file upload URL (to given path)
       description: |-
-        Creates a URL to upload files to the data-link associated with the given `dataLinkId`. For AWS S3 data-links, an additional follow-up request must be sent after your file upload has completed (or encountered an error) to finalize the upload - see the `/upload/finish` endpoint.
+        Creates a URL to upload files to the data-link associated with the given `dataLinkId`, specifying a file path (`dirPath`).
+        For AWS S3 data-links, an additional follow-up request must be sent after your file upload has completed (or encountered an error) to finalize the upload - see the `/upload/finish` endpoint.
       operationId: GenerateDataLinkUploadUrl
       parameters:
         - name: dataLinkId
           in: path
-          description: "Data-link string identifier."
+          description: Data-link string identifier
+          required: true
+          schema:
+            type: string
+        - name: dirPath
+          in: path
+          description: Path to the destination directory
           required: true
           schema:
             type: string
         - name: credentialsId
           in: query
-          description: "Credentials string identifier."
+          description: Credentials string identifier
           schema:
             type: string
         - name: workspaceId
           in: query
-          description: "Workspace numeric identifier."
+          description: Workspace numeric identifier
           schema:
             type: integer
             format: int64
@@ -1837,65 +1948,9 @@ paths:
     post:
       tags:
         - data-links
-      summary: Finish data-link file upload
-      description: "Finish upload of a data-link file. This is necessary for AWS S3 data-links (`DataLinkProvider=aws`) to finalize a successful file upload, or abort an upload if an error was encountered while uploading a file using an upload URL from the `/upload` endpoint."
-      operationId: FinishDataLinkUpload
-      parameters:
-        - name: dataLinkId
-          in: path
-          description: "Data-link string identifier."
-          required: true
-          schema:
-            type: string
-        - name: credentialsId
-          in: query
-          description: "Credentials string identifier."
-          schema:
-            type: string
-        - name: workspaceId
-          in: query
-          description: "Workspace numeric identifier."
-          schema:
-            type: integer
-            format: int64
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/DataLinkFinishMultiPartUploadRequest"
-        required: true
-      responses:
-        "202":
-          description: No content
-        "400":
-          description: BadRequest
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "404":
-          description: "NotFound — workspace or credentials not found, API disabled for the workspace, or data-link not found."
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "403":
-          description: Operation not allowed
-        "200":
-          description: FinishDataLinkUpload 200 response
-          content:
-            application/json:
-              schema:
-                type: object
-      security:
-        - BearerAuth: []
-  /data-links/{dataLinkId}/upload/finish/{dirPath}:
-    post:
-      tags:
-        - data-links
       summary: Finish data-link file upload to given path
       description: "Finish upload of a data-link file, specifying a file path (`dirPath`). This is necessary for AWS S3 data-links (`DataLinkProvider=aws`) to finalize a successful file upload, or abort an upload if an error was encountered while uploading a file using an upload URL from the `/upload` endpoint."
-      operationId: FinishDataLinkUploadWithPath
+      operationId: FinishDataLinkUpload
       parameters:
         - name: dataLinkId
           in: path
@@ -1944,7 +1999,69 @@ paths:
         "403":
           description: Operation not allowed
         "200":
-          description: FinishDataLinkUploadWithPath 200 response.
+          description: FinishDataLinkUpload 200 response
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - BearerAuth: []
+  /data-links/{dataLinkId}/upload/finish/{dirPath}:
+    post:
+      tags:
+        - data-links
+      summary: Finish data-link file upload to given path
+      description: "Finish upload of a data-link file, specifying a file path (`dirPath`). This is necessary for AWS S3 data-links (`DataLinkProvider=aws`) to finalize a successful file upload, or abort an upload if an error was encountered while uploading a file using an upload URL from the `/upload` endpoint."
+      operationId: FinishDataLinkUpload_1
+      parameters:
+        - name: dataLinkId
+          in: path
+          description: Data-link string identifier
+          required: true
+          schema:
+            type: string
+        - name: dirPath
+          in: path
+          description: Path to the destination directory
+          required: true
+          schema:
+            type: string
+        - name: credentialsId
+          in: query
+          description: Credentials string identifier
+          schema:
+            type: string
+        - name: workspaceId
+          in: query
+          description: Workspace numeric identifier
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DataLinkFinishMultiPartUploadRequest"
+        required: true
+      responses:
+        "202":
+          description: No content
+        "400":
+          description: BadRequest
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: "NotFound — workspace or credentials not found, API disabled for the workspace, or data-link or path not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Operation not allowed
+        "200":
+          description: FinishDataLinkUpload_1 200 response
           content:
             application/json:
               schema:
@@ -1959,7 +2076,7 @@ paths:
       description: |-
         Creates a URL to upload files to the data-link associated with the given `dataLinkId`, specifying a file path (`dirPath`).
         For AWS S3 data-links, an additional follow-up request must be sent after your file upload has completed (or encountered an error) to finalize the upload - see the `/upload/finish` endpoint.
-      operationId: GenerateDataLinkUploadUrlWithPath
+      operationId: GenerateDataLinkUploadUrl_1
       parameters:
         - name: dataLinkId
           in: path
@@ -6993,10 +7110,7 @@ paths:
       tags:
         - workflows
       summary: Launch workflow
-      description: |
-        Submits a workflow execution.
-
-        **To [resume](https://docs.seqera.io/platform-cloud/launch/cache-resume#resume-a-workflow-run) a workflow**: First, retrieve the launch configuration using [`GET /workflow/{workflowId}/launch`](https://docs.seqera.io/platform-api/describe-workflow-launch). Then modify the response by setting `workDir` to the value from `resumeDir`, `revision` to the value from `resumeCommitId`, and `resume` to `true`. Submit the modified payload to this endpoint to resume the workflow.
+      description: Submits a workflow execution.
       operationId: CreateWorkflowLaunch
       parameters:
         - name: workspaceId
@@ -8154,61 +8268,6 @@ paths:
       deprecated: true
       security:
         - BearerAuth: []
-  /data-links/{dataLinkId}/download/{filePath}:
-    get:
-      tags:
-        - data-links
-      summary: "Download data-link file at path"
-      description: "Downloads the content at the given `filePath` in the data-link associated with the given `dataLinkId`."
-      operationId: DownloadDataLink
-      parameters:
-        - name: dataLinkId
-          in: path
-          description: "Data-link string identifier."
-          required: true
-          schema:
-            type: string
-        - name: filePath
-          in: path
-          description: "Resource path of the file to download."
-          required: true
-          schema:
-            type: string
-        - name: credentialsId
-          in: query
-          description: "Credentials string identifier."
-          schema:
-            type: string
-        - name: workspaceId
-          in: query
-          description: "Workspace numeric identifier."
-          schema:
-            type: integer
-            format: int64
-      responses:
-        "200":
-          description: "OK."
-          content:
-            application/json:
-              schema:
-                type: string
-                format: binary
-        "400":
-          description: "Bad request."
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "404":
-          description: "NotFound — workspace or credentials not found, API disabled for the workspace, or data-link or path not found."
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "403":
-          description: "Operation not allowed."
-      security:
-        - BearerAuth: []
 components:
   schemas:
     AbstractGridConfig:
@@ -8216,45 +8275,45 @@ components:
       properties:
         workDir:
           type: string
-          description: Compute environment working directory.
+          description: Nextflow work directory on the cluster's shared file system. Must be an absolute path and credentials must have read-write access.
         preRunScript:
           type: string
-          description: "Script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+          description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
         postRunScript:
           type: string
-          description: "Script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+          description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
         nextflowConfig:
           type: string
-          description: "Additional Nextflow configuration content."
+          description: "Additional Nextflow configuration to apply. See [Nextflow config file](https://docs.seqera.io/platform-cloud/launch/advanced#nextflow-config-file)."
         launchDir:
           type: string
-          description: "Launch directory for Nextflow execution."
+          description: "Directory where Nextflow runs. Must be an absolute path and credentials must have read-write access. If omitted, defaults to `workDir`."
         userName:
           type: string
-          description: "Username for SSH authentication to the HPC cluster."
+          description: "Username for SSH connection to HPC head node."
         hostName:
           type: string
-          description: "Hostname or IP address of the HPC cluster head node."
+          description: "Hostname or IP address of HPC head node."
         port:
           type: integer
           format: int32
-          description: "SSH port for connecting to the HPC cluster. Default: `22`."
+          description: "SSH port. Default: `22`."
         headQueue:
           type: string
-          description: "Queue name for submitting the Nextflow head job."
+          description: "The name of the queue on the cluster used to launch the Nextflow execution."
         computeQueue:
           type: string
-          description: "Queue name for submitting Nextflow compute jobs."
+          description: "The name of queue on the cluster to which pipeline jobs are submitted. Can be overridden by the pipeline configuration."
         maxQueueSize:
           type: integer
           format: int32
-          description: "Maximum number of jobs that can be queued at one time."
+          description: "The maximum number of jobs Nextflow can submit to the queue simultaneously. Default: `100`."
         headJobOptions:
           type: string
-          description: "Additional options for the head job submission."
+          description: "Additional submit options for the Nextflow head job."
         propagateHeadJobOptions:
           type: boolean
-          description: "If true, head job options are propagated to compute jobs. Default: `false`."
+          description: "If true, `headJobOptions` are also applied to the Nextflow-submitted compute jobs."
     AccessToken:
       required:
         - name
@@ -8614,7 +8673,7 @@ components:
             type: object
             additionalProperties: true
           description: "Resources created by Batch Forge (read-only)."
-      required: ["region", "workDir"]
+      required: ["region", "workDir", "region", "workDir"]
     AwsBatchPlatformMetainfo:
       type: object
       properties:
@@ -8744,7 +8803,7 @@ components:
             type: object
             additionalProperties: true
           description: "Resources created by Cloud Forge (read-only)."
-      required: ["region", "workDir"]
+      required: ["region", "workDir", "region", "workDir"]
     AwsCloudPlatformMetainfo:
       type: object
       properties:
@@ -8829,7 +8888,7 @@ components:
         deleteJobsOnCompletion:
           $ref: "#/components/schemas/JobCleanupPolicy"
           description: "Automatically delete Batch jobs after completion."
-          enum: ["on_success", "always", "never"]
+          enum: ["on_success", "always", "never", "on_success", "always", "never"]
         deletePoolsOnCompletion:
           type: boolean
           description: "Automatically delete Batch pools after completion. Default: `false`."
@@ -8850,7 +8909,7 @@ components:
           type: string
           nullable: true
           description: "The ID of a [managed identity client](https://docs.seqera.io/platform-cloud/compute-envs/azure-batch#managed-identity) attached to the Azure Batch Pool, used by Nextflow to authenticate to Azure Batch and Storage."
-      required: ["region", "workDir"]
+      required: ["region", "workDir", "region", "workDir"]
     AzBatchForgeConfig:
       type: object
       properties:
@@ -8956,7 +9015,7 @@ components:
           items:
             $ref: "#/components/schemas/Map.Entry_String.String_"
           description: "Resources created by Cloud Forge (read-only)."
-      required: ["location", "workDir"]
+      required: ["location", "workDir", "location", "workDir"]
     AzureEntraKeys:
       type: object
       allOf:
@@ -9078,15 +9137,15 @@ components:
           azure-batch: "#/components/schemas/AzBatchConfig"
           seqeracompute-platform: "#/components/schemas/SeqeraComputeConfig"
           eks-platform: "#/components/schemas/EksComputeConfig"
+          google-lifesciences: "#/components/schemas/GoogleLifeSciencesConfig"
           uge-platform: "#/components/schemas/UnivaComputeConfig"
       oneOf:
         - $ref: "#/components/schemas/AwsBatchConfig"
         - $ref: "#/components/schemas/AwsCloudConfig"
         - $ref: "#/components/schemas/SeqeraComputeConfig"
+        - $ref: "#/components/schemas/GoogleLifeSciencesConfig"
         - $ref: "#/components/schemas/GoogleBatchConfig"
-        - $ref: "#/components/schemas/GoogleCloudConfig"
         - $ref: "#/components/schemas/AzBatchConfig"
-        - $ref: "#/components/schemas/AzCloudConfig"
         - $ref: "#/components/schemas/LsfComputeConfig"
         - $ref: "#/components/schemas/SlurmComputeConfig"
         - $ref: "#/components/schemas/K8sComputeConfig"
@@ -9095,7 +9154,6 @@ components:
         - $ref: "#/components/schemas/UnivaComputeConfig"
         - $ref: "#/components/schemas/AltairPbsComputeConfig"
         - $ref: "#/components/schemas/MoabComputeConfig"
-        - $ref: "#/components/schemas/LocalComputeConfig"
     ComputeEnv.Status:
       type: string
       readOnly: true
@@ -9134,18 +9192,19 @@ components:
         platform:
           type: string
           enum:
-            - "aws-batch"
-            - "aws-cloud"
-            - "seqeracompute-platform"
-            - "google-batch"
-            - "azure-batch"
-            - "k8s-platform"
-            - "eks-platform"
-            - "gke-platform"
-            - "uge-platform"
-            - "slurm-platform"
-            - "lsf-platform"
-            - "altair-platform"
+            - aws-batch
+            - aws-cloud
+            - seqeracompute-platform
+            - google-lifesciences
+            - google-batch
+            - azure-batch
+            - k8s-platform
+            - eks-platform
+            - gke-platform
+            - uge-platform
+            - slurm-platform
+            - lsf-platform
+            - altair-platform
         config:
           $ref: "#/components/schemas/ComputeConfig"
         dateCreated:
@@ -9180,6 +9239,16 @@ components:
           items:
             $ref: "#/components/schemas/LabelDbDto"
     ComputeEnv_ComputeConfig_:
+      required:
+        - config
+        - name
+        - platform
+        - "name"
+        - "platform"
+        - "config"
+        - "name"
+        - "platform"
+        - "config"
       type: object
       properties:
         credentialsId:
@@ -9211,8 +9280,39 @@ components:
         platform:
           maxLength: 25
           type: string
-          description: "Compute platform provider."
           enum:
+            - aws-batch
+            - aws-cloud
+            - google-lifesciences
+            - google-batch
+            - google-cloud
+            - azure-batch
+            - azure-cloud
+            - k8s-platform
+            - eks-platform
+            - gke-platform
+            - uge-platform
+            - slurm-platform
+            - lsf-platform
+            - altair-platform
+            - moab-platform
+            - local-platform
+            - seqeracompute-platform
+            - "aws-batch"
+            - "aws-cloud"
+            - "google-batch"
+            - "google-cloud"
+            - "azure-batch"
+            - "k8s-platform"
+            - "eks-platform"
+            - "gke-platform"
+            - "slurm-platform"
+            - "lsf-platform"
+            - "uge-platform"
+            - "moab-platform"
+            - "altair-platform"
+            - "local-platform"
+            - "seqeracompute-platform"
             - "aws-batch"
             - "aws-cloud"
             - "google-batch"
@@ -9222,13 +9322,14 @@ components:
             - "k8s-platform"
             - "eks-platform"
             - "gke-platform"
-            - "uge-platform"
             - "slurm-platform"
             - "lsf-platform"
-            - "altair-platform"
+            - "uge-platform"
             - "moab-platform"
+            - "altair-platform"
             - "local-platform"
             - "seqeracompute-platform"
+          description: "Compute platform provider."
         config:
           $ref: "#/components/schemas/ComputeConfig"
           description: "Platform-specific configuration. Structure depends on the selected platform."
@@ -9257,14 +9358,13 @@ components:
           allOf:
             - $ref: "#/components/schemas/ComputeEnv.Status"
           description: "Current status of the compute environment (read-only)."
-          enum: ["CREATING", "AVAILABLE", "ERRORED", "INVALID"]
+          enum: ["CREATING", "AVAILABLE", "ERRORED", "INVALID", "CREATING", "AVAILABLE", "ERRORED", "INVALID"]
         message:
           maxLength: 4096
           type: string
         primary:
           type: boolean
           readOnly: true
-      required: ["config", "name", "platform"]
     ComputePlatform:
       type: object
       properties:
@@ -9305,7 +9405,7 @@ components:
         compute:
           type: boolean
           description: "Apply this variable to the Nextflow compute jobs."
-      required: ["name", "value"]
+      required: ["name", "value", "name", "value"]
     ContainerData:
       required:
         - targetImage
@@ -9388,7 +9488,7 @@ components:
             type: integer
             format: int64
           description: "Array of label IDs to assign to the compute environment."
-      required: ["computeEnv"]
+      required: ["computeEnv", "computeEnv"]
     CreateComputeEnvResponse:
       type: object
       properties:
@@ -10901,7 +11001,7 @@ components:
               type: boolean
             waveEnabled:
               type: boolean
-      required: ["region", "clusterName", "workDir"]
+      required: ["region", "clusterName", "workDir", "region", "clusterName", "workDir"]
     GkePlatformMetaInfo:
       type: object
       properties:
@@ -11013,7 +11113,7 @@ components:
         computeJobsInstanceTemplate:
           type: string
           description: "Specify the name or fully-qualified reference of a [VM instance template](https://cloud.google.com/compute/docs/instance-templates), without the `template://` prefix, to use for Nextflow compute jobs."
-      required: ["location", "workDir"]
+      required: ["location", "workDir", "location", "workDir"]
     GoogleBucket:
       type: object
       properties:
@@ -11082,7 +11182,7 @@ components:
             type: object
             additionalProperties: true
           description: "Resources created by Cloud Forge (read-only)."
-      required: ["region", "workDir"]
+      required: ["region", "workDir", "region", "workDir"]
     GoogleCloudPlatformMetaInfo:
       type: object
       properties:
@@ -11126,6 +11226,66 @@ components:
           type: string
         arch:
           type: string
+    GoogleLifeSciencesConfig:
+      title: Google life sciences configuration
+      type: object
+      properties:
+        discriminator:
+          type: string
+          description: property to select the compute config platform
+          readOnly: true
+        region:
+          type: string
+        zones:
+          type: array
+          items:
+            type: string
+        location:
+          type: string
+        workDir:
+          type: string
+        preemptible:
+          type: boolean
+        bootDiskSizeGb:
+          type: integer
+          format: int32
+        projectId:
+          type: string
+        sshDaemon:
+          type: boolean
+        sshImage:
+          type: string
+        debugMode:
+          type: integer
+          format: int32
+        copyImage:
+          type: string
+        usePrivateAddress:
+          type: boolean
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+        preRunScript:
+          type: string
+        postRunScript:
+          type: string
+        headJobCpus:
+          type: integer
+          format: int32
+        headJobMemoryMb:
+          type: integer
+          format: int32
+        nextflowConfig:
+          type: string
+        nfsTarget:
+          type: string
+        nfsMount:
+          type: string
+        environment:
+          type: array
+          items:
+            $ref: "#/components/schemas/ConfigEnvVariable"
     GooglePlatformMetainfo:
       type: object
       properties:
@@ -11281,7 +11441,7 @@ components:
         podCleanup:
           $ref: "#/components/schemas/PodCleanupPolicy"
           description: "Pod cleanup policy after job completion."
-          enum: ["on_success", "always", "never"]
+          enum: ["on_success", "always", "never", "on_success", "always", "never"]
         headPodSpec:
           type: string
           description: "Custom configuration for the pod running the Nextflow head job, e.g., `nodeSelector` and `affinity` constraints. Must be a valid PodSpec YAML structure starting with `spec:`."
@@ -11303,7 +11463,7 @@ components:
         nextflowConfig:
           type: string
           description: "Additional Nextflow configuration to apply. See [Nextflow config file](https://docs.seqera.io/platform-cloud/launch/advanced#nextflow-config-file)."
-      required: ["server", "sslCert", "workDir"]
+      required: ["server", "sslCert", "workDir", "server", "sslCert", "workDir"]
     K8sPlatformMetaInfo:
       type: object
       properties:
@@ -12673,7 +12833,7 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ConfigEnvVariable"
-      required: ["region", "workDir"]
+      required: ["region", "workDir", "region", "workDir"]
     SeqeraComputePlatformDescriber:
       type: object
     SeqeraComputePlatformMetainfo:
@@ -14454,84 +14614,8 @@ components:
         participantRole:
           type: string
           description: "Participant role within the workspace."
-    LocalComputeConfig:
-      type: object
-      title: Local execution configuration
-      properties:
-        workDir:
-          type: string
-          description: "Compute environment working directory."
-        preRunScript:
-          type: string
-          description: "Script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
-        postRunScript:
-          type: string
-          description: "Script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
-        environment:
-          type: array
-          description: "Array of environment variables for the compute environment."
-          items:
-            $ref: "#/components/schemas/ConfigEnvVariable"
-        nextflowConfig:
-          type: string
-          description: "Additional Nextflow configuration content."
-        discriminator:
-          type: string
-          description: "Property to select the compute config platform."
-          readOnly: true
-        waveEnabled:
-          type: boolean
-          description: "Enable Wave containers support. See [Wave containers](https://docs.seqera.io/platform-cloud/supported_software/wave)."
-        fusion2Enabled:
-          type: boolean
-          description: "Enable Fusion v2 virtual distributed file system. See [Fusion file system](https://docs.seqera.io/platform-cloud/supported_software/fusion)."
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
       bearerFormat: jwt
-tags:
-  - name: actions
-    description: Pipeline actions
-  - name: avatars
-    description: Avatars
-  - name: compute-envs
-    description: Compute environments
-  - name: credentials
-    description: Credentials
-  - name: data-links
-    description: Cloud storage directory paths in Data Explorer
-  - name: datasets
-    description: Pipeline input datasets (samplesheets) in CSV or TSV format
-  - name: ga4gh
-    description: GA4GH workflow execution service runs
-  - name: identities
-    description: Managed identities for centralized credential management
-  - name: labels
-    description: Labels and resource labels
-  - name: launch
-    description: Workflow launch events
-  - name: orgs
-    description: Organizations
-  - name: pipelines
-    description: Pipelines
-  - name: pipeline-secrets
-    description: Pipeline secrets in a user or workspace context
-  - name: platforms
-    description: Computing platforms
-  - name: service-info
-    description: Seqera Platform API service information
-  - name: studios
-    description: Studios and Studio sessions
-  - name: teams
-    description: Teams in an organization context
-  - name: tokens
-    description: API access tokens
-  - name: trace
-    description: Workflow execution traces
-  - name: users
-    description: Users
-  - name: workflows
-    description: Workflow executions
-  - name: workspaces
-    description: Workspaces in an organization context
