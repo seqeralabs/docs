@@ -8,7 +8,7 @@
   Description: ""
 - Name: computeEnv.credentialsId
   Type: string
-  Req/Opt: Optional
+  Req/Opt: Required
   Description: ""
 - Name: computeEnv.orgId
   Type: integer
@@ -45,11 +45,15 @@
 - Name: computeEnv.config.preRunScript
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Add a script that executes in the nf-launch script prior to
+    invoking Nextflow processes. See [Pre and post-run
+    scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts).
 - Name: computeEnv.config.postRunScript
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Add a script that executes after all Nextflow processes have
+    completed. See [Pre and post-run
+    scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts).
 - Name: computeEnv.config.environment
   Type: array
   Req/Opt: Optional

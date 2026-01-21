@@ -126,6 +126,19 @@ To share a link to a running session with collaborators inside your workspace, s
 Collaborators need valid workspace permissions to connect to the running Studio.
 :::
 
+Seqera-managed container templates offer varying levels of multi-user collaboration:
+
+- **JupyterLab:** Supports multi-user collaboration via the `jupyter-collaboration` package. Each connected user has a randomly assigned colour-coded avatar and the user cursor inherits the same color for easily differentiating multiple connected users.
+- **VS Code:** Supports multi-user collaboration by default, but each connected user is not readily distinguishable. For a more fully-featured collaborative experience, install the [Microsoft Live Share extension][liveshare] or [P2P Live Share][p2p-liveshare].
+- **R-IDE:** By default, multi-user collaboration is not supported. When an additional user connects to the running session, the previously connected user is notified and forcibly disconnected.
+- **Xpra:** Supports multi-user collaboration by default and is similar to a remote desktop experience. Connected users are not readily distinguishable.
+
+:::note
+RStudio Professional Server supports multi-user collaboration. Add your own custom container and include your Posit Workbench license code as a environment variable to take advantage of this.
+:::
+
+Multi-user collaboration in custom containers is dependent on the container configuration.
+
 ## Stop a Studio session
 
 This functionality is available to users with the **Maintain** role and above.
@@ -170,7 +183,7 @@ When defining a new Studio, you can configure the **Mounted data** by selecting 
 
 ## Migrate a Studio from an earlier container image template
 
-As Studios matures and new versions of JupyterLab, RStudio Server, Visual Studio Code, and Xpra are released, new Seqera-provided image templates will be periodically released including updated versions of Seqera Connect. The most recent container template images will be tagged `latest` and earlier template images will be tagged `deprecated`.
+As Studios matures and new versions of JupyterLab, R-IDE, Visual Studio Code, and Xpra are released, new Seqera-provided image templates will be periodically released including updated versions of Seqera Connect. The most recent container template images will be tagged `recommended` and earlier template images will be tagged `deprecated`.
 
 :::info
 Temporary container templates tagged with `experimental` are not supported and should not be used in production environments.
@@ -179,7 +192,7 @@ Temporary container templates tagged with `experimental` are not supported and s
 To migrate a Studio to a more recent container version and Seqera Connect:
 
 :::tip
-Always use the `latest` tagged template image for new Studios. Only two earlier minor versions of [Seqera Connect][connect] are supported by Seqera.
+Always use the `recommended` tagged template image for new Studios. Only two earlier minor versions of [Seqera Connect][connect] are supported by Seqera.
 :::
 
 1. Select the Studio that you wish to migrate from the list of Studios.
@@ -195,7 +208,7 @@ Always use the `latest` tagged template image for new Studios. Only two earlier 
    1. **Connect** to the session.
    1. Uninstall any packages related to the errors:
       1. JupyterLab: Execute `!pip uninstall <packagename>` or `apt remove <packagename>` to uninstall system-level packages.
-      1. RStudio Server: Execute `uninstall.packages("<packagename>")` to uninstall R packages or `apt remove <packagename>` to uninstall system-level packages.
+      1. R-IDE: Execute `uninstall.packages("<packagename>")` to uninstall R packages or `apt remove <packagename>` to uninstall system-level packages.
       1. Visual Studio Code: Select the **Manage** gear button at the right of an extension entry and then choose **Uninstall** from the dropdown menu.
       1. Xpra: Use `apt remove <packagename>` to uninstall system-level packages.
    1. **Stop** the running Studio session. A new checkpoint is created.
@@ -210,3 +223,5 @@ Due to the nature of fully customizable, containerized applications, users can m
 [conda-syntax]: ./custom-envs#conda-package-syntax
 [custom-image]: ./custom-envs#custom-containers
 [connect]: ./overview#container-image-templates
+[liveshare]: https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare
+[p2p-liveshare]: https://open-vsx.org/extension/kermanx/p2p-live-share

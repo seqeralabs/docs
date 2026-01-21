@@ -196,7 +196,7 @@ To fix the problem, try the following:
 1. Set a JDK environment variable to force Nextflow and Seqera containers to use TLSv1.2 by default:
 
     ```
-    export JAVA_OPTIONS="-Dmail.smtp.ssl.protocols=TLSv1.2"
+    export JAVA_OPTS="-Dmail.smtp.ssl.protocols=TLSv1.2"
     ```
 
 2. Add this parameter to your [nextflow.config file](./launch/advanced#nextflow-config-file):
@@ -802,6 +802,10 @@ If you need to save files to an S3 bucket with a policy that [enforces AES256 se
 
 **Use separate Batch pools for head and compute nodes**
 
+:::warning
+After September 30, 2025 low-priority VMs are only available in user subscription pool allocation mode Batch accounts. See the [Microsoft migration guide](https://learn.microsoft.com/en-us/azure/batch/low-priority-vms-retirement-migration-guide) for more information.
+:::
+
 The default Azure Batch implementation in Seqera Platform uses a single pool for head and compute nodes. This means that all jobs spawn dedicated/on-demand VMs by default. To save cloud costs by using low priority VMs for compute jobs, specify separate pools for head and compute jobs:
 
 1. Create two Batch pools in Azure:
@@ -833,7 +837,7 @@ EOT
 
 This can occur if a tool/library in your task container requires SSL certificates to validate the identity of an external data source.
 
-Mount SSL certificates into the container to resolve this issue. See [SSL/TLS](./enterprise/configuration/ssl_tls#configure-tower-to-trust-your-private-certificate) for more information.
+Mount SSL certificates into the container to resolve this issue. See [SSL/TLS](./enterprise/configuration/ssl_tls#configure-seqera-to-trust-your-private-certificate) for more information.
 
 **Azure SQL database error: _Connections using insecure transport are prohibited while --require_secure_transport=ON_**
 

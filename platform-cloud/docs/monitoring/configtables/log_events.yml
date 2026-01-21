@@ -12,6 +12,10 @@
   Events logged:       'Add, edit, delete, access'
   Note:                'Log entry includes the credential ID. A log entry is also created each time the credentials are accessed by the application.'
 - 
+  Resource:            'Datasets'
+  Events logged:       'Add, edit, delete, upload, download'
+  Note:                'Log entry includes the dataset version'
+-
   Resource:            'Data Explorer cloud buckets'
   Events logged:       'Add, edit, remove, hide, show'
   Note:                'Events for public and private buckets are logged.'
@@ -82,7 +86,7 @@
 - 
   Resource:            'Users'
   Events logged:       'Add, edit, delete'
-  Note:                'Log entry includes the user ID. See [user deletion](https://docs.seqera.io/platform/24.1/data-privacy/overview#user-deletion).'
+  Note:                'Log entry includes the user ID. See [user deletion](../../data-privacy/overview#user-deletion).'
 - 
   Resource:            'User sessions'
   Events logged:       'Login'

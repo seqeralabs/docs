@@ -5,12 +5,12 @@ date: "6 February 2025"
 tags: [studios]
 ---
 
-Studios is a unified platform where you can host a combination of container images and compute environments for interactive analysis using your preferred tools, like JupyterLab and RStudio Notebooks, Visual Studio Code IDEs, or Xpra remote desktops. Each Studio session is an individual interactive environment that encapsulates the live environment for dynamic data analysis.
+Studios is a unified platform where you can host a combination of container images and compute environments for interactive analysis using your preferred tools, like JupyterLab, an R-IDE, Visual Studio Code IDEs, or Xpra remote desktops. Each Studio session is an individual interactive environment that encapsulates the live environment for dynamic data analysis.
 
 On Seqera Cloud, the free tier permits only one running Studio session at a time. To run simultaneous sessions, [contact Seqera][contact] for a Seqera Cloud Pro license.
 
 :::note
-Studios in Enterprise is not enabled by default. You can enable Studios in the [environment variables configuration](../../version-25.1/enterprise/studios).
+Studios in Enterprise is not enabled by default. You can enable Studios in the [environment variables configuration](../enterprise/studios.md).
 :::
 
 ## Requirements
@@ -34,7 +34,7 @@ For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
 
 ## Container image templates
 
-There are four container image templates provided: JupyterLab, RStudio Server, Visual Studio Code, and Xpra. The image templates install a very limited number of packages when the Studio session container is built. You can install additional packages as needed during a Studio session.
+There are four container image templates provided: JupyterLab, R-IDE, Visual Studio Code, and Xpra. The image templates install a very limited number of packages when the Studio session container is built. You can install additional packages as needed during a Studio session.
 
 The image template tag includes the version of the analysis application, an optional incompatibility flag, and the Seqera Connect version. Connect is the proprietary Seqera web server client that manages communication with the container. The tag string looks like this:
 
@@ -63,7 +63,7 @@ When pushed to the container registry, an image template is tagged with the foll
 
 To view the latest versions of the images, see [public.cr.seqera.io](https://public.cr.seqera.io/). You can also augment the Seqera-provided image templates or use your own custom container image templates. This approach is recommended for managing reproducible analysis environments. For more information, see [Custom environments][custom-envs].
 
-**JupyterLab 4.2.5**
+### JupyterLab 4.2.5
 
 The default user is the `root` account. The following [conda-forge](https://conda-forge.org/) packages are available by default:
 
@@ -91,19 +91,47 @@ To install additional Python packages during a running Studio session, execute `
 
 To see the list of all JupyterLab image templates available, including security scan results or to inspect the container specification, see [public.cr.seqera.io/repo/platform/data-studio-jupyter][ds-jupyter].
 
-**RStudio Server 4.4.1**
+### R-IDE 4.4.1
 
 The default user is the `root` account. To install R packages during a running Studio session, execute `install.packages("<packagename>")` commands in your notebook environment. Additional system-level packages can be installed in a terminal window using `apt install <packagename>`.
 
-To see the list of all RStudio Server image templates available, including security scan results or to inspect the container specification, see [public.cr.seqera.io/repo/platform/data-studio-rstudio][ds-rstudio].
+To see the list of all R-IDE image templates available, including security scan results or to inspect the container specification, see [https://public.cr.seqera.io/repo/platform/data-studio-ride][ds-ride].
 
-**Visual Studio Code 1.93.1**
+### Visual Studio Code 1.93.1
 
 [Visual Studio Code][def-vsc] is an integrated development environment (IDE) that supports many programming languages. The default user is the `root` account. The container template image ships with the latest stable version of [Nextflow] and the [VS Code extension for Nextflow][nf-lang-server] to make troubleshooting Nextflow workflows easier. To install additional extensions during a running Studio session, select **Extensions**. Additional system-level packages can be installed in a terminal window using `apt install <packagename>`.
 
 To see the list of all Visual Studio Code image templates available, including security scan results or to inspect the container specification, see [public.cr.seqera.io/platform/data-studio-vscode][ds-vscode].
 
-**Xpra 6.2.0**
+#### Docker-in-docker
+
+A primary use case for VS Code in Studios is to develop new, and troubleshoot existing, Nextflow pipelines. This commonly requires running Docker in the Dockerized container. The recommended method is to:
+
+**1. Create an [AWS Cloud][aws-cloud] compute environment:** By default, this type of compute environment is optimized for running Nextflow pipelines.
+
+:::tip
+Many standard nf-core pipelines such as [*nf-core/rnaseq*](https://nf-co.re/rnaseq) require at least 4 CPUs and 16 GB memory. In **Advanced options**, specify an instance type with at least this amount of resources (e.g., `m5d.xlarge`).
+:::
+
+**2. Only have one running Studio session per compute environment:** This allows the Studio session, and Nextflow, to maximize the available CPU and memory.
+
+:::tip
+The template for nf-core pipelines has recently been updated, and many existing pipelines don't yet use the new multi-line shell command defined in `nextflow.config`. To ensure maximum compatibility with the latest version of Nextflow (that ships with the VS Code container template image), include the following in your pipeline `nextflow.config` file.
+
+```bash
+// Set bash options
+process.shell = [
+    "bash",
+    "-C",         // No clobber - prevent output redirection from overwriting files.
+    "-e",         // Exit if a tool returns a non-zero status/exit code
+    "-u",         // Treat unset variables and parameters as an error
+    "-o",         // Returns the status of the last command to exit..
+    "pipefail"    //   ..with a non-zero status or zero if all successfully execute
+]
+```
+:::
+
+### Xpra 6.2.0
 
 [Xpra][def-xpra], known as _screen for X_, allows you to run X11 programs by giving you remote access to individual graphical applications. The container template image also installs NVIDIA Linux x64 (AMD64/EM64T) drivers for Ubuntu 22.04 for running GPU-enabled applications. To use these GPU drivers, your compute environment must specify GPU instance families.
 
@@ -121,7 +149,7 @@ Sessions have the following possible statuses:
 - **running**: When a session is **running**, you can connect to it, copy the URL, or stop it. In addition, the session can continue to process requests/run computations in the absence of an ongoing connection.
 - **stopping**: The recently-running session is in the process of being stopped.
 - **stopped**: When a session is stopped, the associated compute resources are deallocated. You can start or delete the session when it's in this state.
-- **errored**: This state most often indicates that there has been an error starting the session but it is in a **stopped** state. 
+- **errored**: This state most often indicates that there has been an error starting the session but it is in a **stopped** state.
 
 :::note
 There might be errors reported by the session itself but these will be overwritten with a **running** status if the session is still running.
@@ -150,9 +178,7 @@ When starting a Studio session, a *checkpoint* is automatically created. A check
 Checkpoints vary in size depending on libraries installed in your session environment. This can potentially result in many large files stored in the compute environment's pipeline work directory and saved to cloud storage. This storage will incur costs based on the cloud provider. Due to the architecture of Studios, you cannot delete any checkpoint files to save on storage costs. Deleting a Studio session's checkpoints will result in a corrupted Studio session that cannot be started nor recovered.
 :::
 
-When you stop and start a session, or start a new session from a previously created checkpoint, changes such as installed software packages and configuration files are restored and made available. Changes made to mounted data are not included in a checkpoint.
-
-Checkpoints can be renamed and the name has to be unique per Studio. Spaces in checkpoint names are converted to underscores automatically.
+When you stop and start a session, or start a new session from a previously created checkpoint, changes such as installed software packages and configuration files are restored and made available. Changes made to mounted data are not included in a checkpoint. Checkpoints can be renamed and the name has to be unique per Studio. Spaces in checkpoint names are converted to underscores automatically.
 
 Checkpoint files in the compute environment work directory may be shared by multiple Studios. Each checkpoint file is cleaned up asynchronously after the last Studio referencing the checkpoint is deleted.
 
@@ -162,24 +188,21 @@ The cleanup process is a best effort and not guaranteed. Seqera attempts to remo
 
 ## Session volume automatic resizing
 
-By default, a session allocates an initial 2 GB of storage. Available disk space is continually monitored and if the available space drops below a 1 GB threshold, the file system is dynamically-resized to include an additional 2 GB of available disk space.
+By default, a session allocates an initial 2 GB of storage. Available disk space is continually monitored and if the available space drops below a 1 GB threshold, the file system is dynamically resized to include an additional 2 GB of available disk space. This approach ensures that a session doesn't initially include unnecessary free disk space, while providing the flexibility to accommodate installation of large software packages required for data analysis.
 
-This approach ensures that a session doesn't initially include unnecessary free disk space, while providing the flexibility to accommodate installation of large software packages required for data analysis.
-
-The maximum storage allocation for a session is limited by the compute environment disk boot size. By default, this is 30 GB. This limit is shared by all sessions running in the same compute environment.
-
-If the maximum allocation size is reached, it is possible to reclaim storage space using a snapshot. 
+The maximum storage allocation for a session is limited by the compute environment disk boot size. By default, this is 30 GB. This limit is shared by all sessions running in the same compute environment. If the maximum allocation size is reached, it is possible to reclaim storage space using a snapshot.
 
 Stop the active session to trigger a snapshot from the active volume. The snapshot is uploaded to cloud storage with Fusion. When you start from the newly saved snapshot, all previous data is loaded, and the newly started session will have 2 GB of available space.
 
 {/* links */}
 [contact]: https://support.seqera.io/
 [aws-batch]: ../compute-envs/aws-batch
+[aws-cloud]: ../compute-envs/aws-batch
 [custom-envs]: ./custom-envs
 [build-status]: ./custom-envs#build-status
 [cloud-bucket-subdirectory]: ./managing#cloud-bucket-subdirectory
 [ds-jupyter]: https://public.cr.seqera.io/repo/platform/data-studio-jupyter
-[ds-rstudio]: https://public.cr.seqera.io/repo/platform/data-studio-rstudio
+[ds-ride]: https://public.cr.seqera.io/repo/platform/data-studio-ride
 [def-vsc]: https://code.visualstudio.com/
 [Nextflow]: https://nextflow.io/
 [nf-lang-server]: https://marketplace.visualstudio.com/items?itemName=nextflow.nextflow

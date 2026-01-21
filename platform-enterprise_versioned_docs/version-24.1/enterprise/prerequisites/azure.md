@@ -1,17 +1,19 @@
 ---
 title: "Azure"
 description: Prerequisites for Azure deployments
-date: "12 Apr 2023"
+date created: "2023-04-12"
+last updated: "2025-08-18"
 tags: [azure, prerequisites, configuration]
 ---
 
 This page describes the infrastructure and other prerequisites for deploying Seqera Platform Enterprise on Microsoft Azure.
 
-Run the Seqera container with [Docker](../docker-compose) on an Azure VM instance or with [Kubernetes](../kubernetes) on an Azure AKS cluster. You must satisfy the requirements for your installation target:
+Run the Seqera container images with [Docker](../docker-compose) on an Azure VM instance or with [Kubernetes](../kubernetes) on an Azure AKS cluster. You must satisfy the requirements for your installation target:
 
 - A resource group and a storage account are required to use Azure. See [Azure setup](#azure-setup) below to provision these resources.
 - **SMTP server**: If you don't have an email server, see [Azure's recommended method of sending email][azure-sendmail]. Microsoft recommends [Microsoft 365][msft-365] or the third party service [SendGrid][sendgrid].
 - **MySQL database**: An external database such as [Azure Database for MySQL][azure-db-create-portal] is highly recommended for production deployments.
+- **Redis-compatible cache**: An external Redis-compatible cache, such as [Azure Cache for Redis](https://azure.microsoft.com/en-gb/products/cache/), is highly recommended for production deployments.
 - **SSL certificate**: An SSL certificate is required for your Seqera instance to handle HTTPS traffic.
 
   :::caution
@@ -99,15 +101,15 @@ Create a storage account:
 
 </details>
 
-### Azure MySQL DB instance 
+### Azure MySQL DB instance
 
 External databases for Seqera Enterprise deployments require:
 - A **MySQL8 Community** DB instance.
 - At least **2 vCPUs**, **8 GB memory**, and **30 GB** SSD storage.
 - Manual MySQL user and database schema creation. See [Database configuration](../configuration/overview#seqera-and-redis-databases) for more details.
 
-:::caution 
-Recommended instance performance and storage requirements depend on the number of parallel pipelines you expect to run. 
+:::caution
+Recommended instance performance and storage requirements depend on the number of parallel pipelines you expect to run.
 :::
 
 Create an Azure MySQL DB instance:
@@ -121,19 +123,19 @@ Create an Azure MySQL DB instance:
   1. Select **Create**.
   1. On the **Select Azure Database for MySQL deployment option** pane, select **Flexible server** as the deployment option.
   1. On the **Basics** tab, enter or select the following:
-      - Your **Subscription** name 
-      - Your **Resource group** name 
+      - Your **Subscription** name
+      - Your **Resource group** name
       - A **Server name** such as `towerdbserver`
       - Your **Region**
       - The **Workload type**, based on your required `max_connections`
-      - **High availability** — high availability is recommended for production deployments 
+      - **High availability** — high availability is recommended for production deployments
       - **Standby availability zone** — standby server zone location
-      - **MySQL version** — 8.0 
-      - An **Admin username** to access the server 
-      - A **Password** to access the server 
-      - Your **Compute + storage** requirements, considering the minimum performance requirements outlined above 
-  1. Configure networking options. 
-  1. Select **Review + create**, then **Create**. 
+      - **MySQL version** — 8.0
+      - An **Admin username** to access the server
+      - A **Password** to access the server
+      - Your **Compute + storage** requirements, considering the minimum performance requirements outlined above
+  1. Configure networking options.
+  1. Select **Review + create**, then **Create**.
 
 </details>
 <details>
@@ -149,11 +151,12 @@ Create an Azure MySQL DB instance:
 
   1. Run `az mysql flexible-server db create` to create a database on your server:
 
-      ```bash 
+      ```bash
       az mysql flexible-server db create --resource-group towerrg
                                       --server-name towerdbserver
                                       --database-name towerdb
-      ```                                
+      ```
+  1. Disable invisible primary keys, which can interfere with upgrades to newer releases of Seqera Platform Enterprise. Azure Database for MySQL creates invisible primary keys automatically by default. For more information, see [Steps to disable a GIPK][azure-gipk].
 
 </details>
 
@@ -197,7 +200,7 @@ Create an Azure Linux VM:
   1. Select **Review + create** at the bottom of the page.
   1. Review your VM details, then select **Create**.
   1. When the **Generate new key pair** window opens, select **Download private key and create resource**. Your key file will be download as `myKey.pem`. Note the path to which it was downloaded.
-  1. On the page for your new VM, copy the **Public IP address**. 
+  1. On the page for your new VM, copy the **Public IP address**.
 
   To make the VM's IP address static:
 
@@ -242,7 +245,7 @@ Create an Azure Linux VM:
 
   Run `az vm create`:
 
-  ```bash 
+  ```bash
   az vm create \
     --resource-group towerrg \
     --name towervm \
@@ -257,33 +260,18 @@ Create an Azure Linux VM:
 
 ## Seqera container images
 
-Seqera Platform Enterprise is distributed as a collection of Docker containers available through the Seqera
-container registry ([cr.seqera.io](https://cr.seqera.io)). Contact [support](https://support.seqera.io) to get your container access credentials. After you've received your credentials, retrieve the Seqera container images on your Azure VM:
+Seqera Enterprise is distributed as a collection of container images available through the Seqera container registry [`cr.seqera.io`](https://cr.seqera.io). Refer to the instructions in the [Common prerequisites](./common.md#vendoring-seqera-container-images-to-your-own-registry) page to replicate the required images to your internal container registry for High Availability or for air-gapped environments.
 
-1. Retrieve the **username** and **password** you received from Seqera support.
-1. Run the following Docker command to authenticate to the registry (using the `username` and `password` values copied in step 1):
+## Next steps
 
-    ```bash
-    docker login -u '/\<USERNAME\>/' -p '/\PASSWORD\>/' cr.seqera.io
-    ```
-
-1. Pull the Seqera container images with the following commands:
-
-    ```bash
-    docker pull cr.seqera.io/private/nf-tower-enterprise/backend:v24.1.7
-
-    docker pull cr.seqera.io/private/nf-tower-enterprise/frontend:v24.1.7
-    ```
-
-## Next steps 
-
-See [Configuration](../configuration/overview). 
+See [Configuration](../configuration/overview).
 
 [docker]: https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
 [aks-walkthrough]: https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough-portal
 [azure-db-create-cli]: https://learn.microsoft.com/en-us/azure/mysql/flexible-server/quickstart-create-server-cli
 [azure-db-create-portal]: https://learn.microsoft.com/en-us/azure/mysql/flexible-server/quickstart-create-server-portal
 [azure-db-config]: https://docs.microsoft.com/en-us/azure/mysql/connect-java#prepare-a-configuration-file-to-connect-to-azure-database-for-mysql
+[azure-gipk]: https://learn.microsoft.com/en-us/azure/mysql/flexible-server/concepts-limitations#steps-to-disable-a-gipk
 [azure-dns]: https://docs.microsoft.com/en-us/azure/dns/dns-overview
 [azure-linux-vm-cli]: https://learn.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-cli#create-the-virtual-machine
 [azure-linux-vm-portal]: https://learn.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal?tabs=ubuntu

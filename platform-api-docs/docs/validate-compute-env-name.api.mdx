@@ -5,7 +5,7 @@ description: "Confirms the validity of the given compute environment name in a u
 sidebar_label: "Validate compute environment name"
 hide_title: true
 hide_table_of_contents: true
-api: eJzNVF1PGzEQ/CuWn0OSFlSJqF+B0gpVoqjQ9qFC4NztJYY726x9odEp/7279h0kJNA+VX1KfB7vzuzsbiNz8BlqF7Q1ciQPrSk0Vl6EGYi5KnWuw0LYIp6neg5GZLZydQABZq7RmgpMEEZVILQRStQekCAmwK/QF2PnwOTi6h0D3rxe2BovM7jk09urvuzJoKZejn7KNugOBfXyoietA1TM6TgnVt+ZiApwmFBHZn5CEei5U0h/AiAHaSTHJfidxRvvVAb0uCc167qtARd0WFf7owMKU1eAOhM6Jzm60IAE9tkMKiVHjQwLx4E1yZrGq8JipUL69GpPLpe9++wmUXsm7eFTFQw21ZykbkvvA2ozpWRUIATvrPHg+f7lcI9/1rN8+Sx2xIlNZpgglz25Nxxu4g5ULhCIqQ+UtEMTTDlX6iy6MLj2jG1WOPETjZCzexV4r6bAxrVU7eQaMo7nkK0MOhHtgFs00VMdSv50hGjxa6uPbpaR+e4WhV2TCGODUGVp74hPRO9voj/USQ7VvQSu+f+qli49ZDXS5MWuPgCFgOM6zOh4weZTy88sD8YUYlbFV3KwOkSD1UZqo52xnERtNeY9u1kIrus7Pk8iiL6kPx+7nr++C1GCNoWNz1spZ3BLhojx6fFGy7dXp6UKPDqCtsRcZ+BbMPugsuhDjWVLxY8GAx/f9bUlEFmhyzhyhX3/cEFE5rQAUp4X/d39/pC/OetDpaKN7WB2W+TJDfaYdfPQH/9+MSZLGD1wpaJtQppibZrW70dLk6rQOU4dMiP1DGmaifLwDcvlkj+nfcRNlWuvJiU3dKFKD88o/8OS3Er0BhYbe5jo1YyUvCv/Pv1fLstnaLTWPuS/4ANqJhAnisoFKic1XJj0Zpxl4MLKq431sDaHn47OCavWx+nR+MTo7ZUyi5XYZFJEnNsbMGRURzzwmRLRSvgN8jOopA==
+api: eJzNVW1v0zAQ/iuWP3dpgYG0ibeuDDQhwcQGfEDT5iaX1ltie/alo4r637lzkq1vGyAE4lNr32Pf8/ieu9QS1STI/W8ytaWrEHbAzII868kMQuq1Q22N3Jcja3LtyyBwCmKmCp1pnAubx/VEz8CI9gJBF2hvTQkGhVElCG2EElUATxCD8B0TMXQOTCYuXjHgxfO5rfx5Cue8enmRyJ60Drzi3EcZZf/CCRXCqElxaGYfCEkwpzz9QfAsoZZ8nuA31l8Fp1Kgwz2pmf91BX4u11V97YDCVCV4nQqdEW2da/CJOMqFLTUiZL1GMjEIvyOT8oV0CqWS+7XEuWNumkIT8BTKrS8VNlvPduVi0bsVYBp1DzAf3ccC7S1XQRlEZTTdYCAEoejFm6RbmQX02kyIBxXfQ3DWBAgcfzzY5Z9VAh/fix3xwTZaDcpFT+4OBpu4A5UJD0QhICXt0ARTzhU6jTXuXwbG1kuc+Ij2kLEzSyKvJsCmbKna8SWkfJ/zbBTUDdEOuEUTHdVY8Nah99Z/avVRZBGZP9misLOgMBaFKgp7Q3wiem8T/aZq5FBJCuBy/K9qKRggrTz1b+yZA1Ae/LDCKS3PuPjUUFPLbTeBmFVxSPaXB0S/8xgbCfysa8DKFwSdIrqw3+8rp5O0sFWWBLimx0y03TDySYyI40Ihe1OMGC+Gx0eSqXRMT/ipGtnLfG+Vc8bO07weRxDtNH/edq12eYPxebTJbTzePlPLgtP+jCDL1SkNggbMNVZprPGq+GXJVGZdxE7P7eu7ABHhl2vyPEr2niYD3nM2YKmiRdp50M2/e4fPOuv6znv/fHS3JWF03xWKhhhpim9Tt15a+9jQK3RuopJPST1D6nqsAnz2xWLB280YZI9lOqhxwc2SqyLAA8r//njfqvUK5hsfIUpQMVLylP91BX8+5h9g2BrnjtoZL7xmbnEWUDFAZdRH/OzNmWGagsOlUxuDbWWCvDs8Jaxabda15oy3tyFl5kt3kwUi4tRegSEbdMSR15SIhtkPaHkNig==
 sidebar_class_name: "get api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -47,7 +47,7 @@ Confirms the validity of the given compute environment name in a user context. A
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"name","in":"query","description":"Compute environment name to validate","schema":{"type":"string"}}]}
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier. If omitted, validates compute environment name in a user context.","schema":{"type":"integer","format":"int64"}},{"name":"name","in":"query","description":"Compute environment name to validate for uniqueness and format.","schema":{"type":"string"}}]}
 >
   
 </ParamsDetails>

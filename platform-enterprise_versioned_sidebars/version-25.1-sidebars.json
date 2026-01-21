@@ -13,6 +13,7 @@
           {
             "type": "category",
             "label": "Prerequisites",
+            "link": {"type": "doc", "id": "enterprise/prerequisites/common"},
             "collapsed": true,
             "items": [
               "enterprise/prerequisites/aws",
@@ -203,7 +204,11 @@
         "label": "Developer tools",
         "collapsed": true,
         "items": [
-          "api/overview",
+          {
+            "type": "link",
+            "label": "API",
+            "href": "https://docs.seqera.io/platform-api"
+          },
           {
             "type": "category",
             "label": "CLI",

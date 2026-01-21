@@ -1,0 +1,102 @@
+- Name: "**CreateOrganization**"
+  Type: ""
+  Req/Opt: ""
+  Description: Create organization
+- Name: organization
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: organization.id
+  Type: integer
+  Req/Opt: Optional
+  Description: Organization numeric identifier.
+- Name: organization.name
+  Type: string
+  Req/Opt: Required
+  Description: Unique organization name. Must be 2-40 characters, start and end
+    with alphanumeric characters, and can contain hyphens or underscores between
+    characters.
+- Name: organization.fullName
+  Type: string
+  Req/Opt: Required
+  Description: Full display name for the organization. Maximum 100 characters.
+- Name: organization.description
+  Type: string
+  Req/Opt: Optional
+  Description: Optional description of the organization. Maximum 1000 characters.
+- Name: organization.location
+  Type: string
+  Req/Opt: Optional
+  Description: Optional location or address for the organization. Maximum 100 characters.
+- Name: organization.website
+  Type: string
+  Req/Opt: Optional
+  Description: Optional website URL for the organization.
+- Name: organization.dateCreated
+  Type: string
+  Req/Opt: Optional
+  Description: Timestamp when the organization was created.
+- Name: organization.lastUpdated
+  Type: string
+  Req/Opt: Optional
+  Description: Timestamp when the organization was last updated.
+- Name: logoId
+  Type: string
+  Req/Opt: Optional
+  Description: Logo image identifier for the organization. See [Create
+    avatar](https://docs.seqera.io/platform-api/create-avatar) to upload images
+    and obtain a logo ID.
+- Name: "**UpdateOrganization**"
+  Type: ""
+  Req/Opt: ""
+  Description: Update organization
+- Name: fullName
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: name
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: description
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: location
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: website
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: logoId
+  Type: string
+  Req/Opt: Optional
+  Description: Updated logo image identifier for the organization. See [Create
+    avatar](https://docs.seqera.io/platform-api/create-avatar) to upload images
+    and obtain a logo ID.
+- Name: paying
+  Type: boolean
+  Req/Opt: Optional
+  Description: ""
+- Name: type
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: "**CreateOrganizationMember**"
+  Type: ""
+  Req/Opt: ""
+  Description: Create organization member
+- Name: user
+  Type: string
+  Req/Opt: Optional
+  Description: Username or email address of the user to add as an organization member.
+- Name: "**UpdateOrganizationMemberRole**"
+  Type: ""
+  Req/Opt: ""
+  Description: Update organization member role
+- Name: role
+  Type: string
+  Req/Opt: Optional
+  Description: ""

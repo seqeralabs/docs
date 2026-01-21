@@ -1,0 +1,301 @@
+- Name: "**CreateManagedIdentity**"
+  Type: ""
+  Req/Opt: ""
+  Description: Create managed identity
+- Name: name
+  Type: string
+  Req/Opt: Optional
+  Description: Unique name for the managed identity. Must consist of alphanumeric,
+    dash, or underscore characters.
+- Name: platform
+  Type: string
+  Req/Opt: Optional
+  Description: HPC platform type for this managed identity.
+- Name: config
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: config.workDir
+  Type: string
+  Req/Opt: Optional
+  Description: Nextflow work directory on the cluster's shared file system. Must
+    be an absolute path and credentials must have read-write access.
+- Name: config.preRunScript
+  Type: string
+  Req/Opt: Optional
+  Description: Add a script that executes in the nf-launch script prior to
+    invoking Nextflow processes. See [Pre and post-run
+    scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts).
+- Name: config.postRunScript
+  Type: string
+  Req/Opt: Optional
+  Description: Add a script that executes after all Nextflow processes have
+    completed. See [Pre and post-run
+    scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts).
+- Name: config.nextflowConfig
+  Type: string
+  Req/Opt: Optional
+  Description: Additional Nextflow configuration to apply. See [Nextflow config
+    file](https://docs.seqera.io/platform-cloud/launch/advanced#nextflow-config-file).
+- Name: config.launchDir
+  Type: string
+  Req/Opt: Optional
+  Description: Directory where Nextflow runs. Must be an absolute path and
+    credentials must have read-write access. If omitted, defaults to `workDir`.
+- Name: config.userName
+  Type: string
+  Req/Opt: Optional
+  Description: Username for SSH connection to HPC head node.
+- Name: config.hostName
+  Type: string
+  Req/Opt: Optional
+  Description: Hostname or IP address of HPC head node.
+- Name: config.port
+  Type: integer
+  Req/Opt: Optional
+  Description: "SSH port. Default: `22`."
+- Name: config.headQueue
+  Type: string
+  Req/Opt: Optional
+  Description: The name of the queue on the cluster used to launch the Nextflow execution.
+- Name: config.computeQueue
+  Type: string
+  Req/Opt: Optional
+  Description: The name of queue on the cluster to which pipeline jobs are
+    submitted. Can be overridden by the pipeline configuration.
+- Name: config.maxQueueSize
+  Type: integer
+  Req/Opt: Optional
+  Description: "The maximum number of jobs Nextflow can submit to the queue
+    simultaneously. Default: `100`."
+- Name: config.headJobOptions
+  Type: string
+  Req/Opt: Optional
+  Description: Additional submit options for the Nextflow head job.
+- Name: config.propagateHeadJobOptions
+  Type: boolean
+  Req/Opt: Optional
+  Description: If true, `headJobOptions` are also applied to the
+    Nextflow-submitted compute jobs.
+- Name: "**UpdateManagedIdentity**"
+  Type: ""
+  Req/Opt: ""
+  Description: Update managed identity
+- Name: managedIdentity
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: managedIdentity.id
+  Type: integer
+  Req/Opt: Optional
+  Description: Managed identity numeric identifier.
+- Name: managedIdentity.name
+  Type: string
+  Req/Opt: Optional
+  Description: Name of the managed identity.
+- Name: managedIdentity.platform
+  Type: string
+  Req/Opt: Optional
+  Description: HPC platform type.
+- Name: managedIdentity.config
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: managedIdentity.config.workDir
+  Type: string
+  Req/Opt: Optional
+  Description: Nextflow work directory on the cluster's shared file system. Must
+    be an absolute path and credentials must have read-write access.
+- Name: managedIdentity.config.preRunScript
+  Type: string
+  Req/Opt: Optional
+  Description: Add a script that executes in the nf-launch script prior to
+    invoking Nextflow processes. See [Pre and post-run
+    scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts).
+- Name: managedIdentity.config.postRunScript
+  Type: string
+  Req/Opt: Optional
+  Description: Add a script that executes after all Nextflow processes have
+    completed. See [Pre and post-run
+    scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts).
+- Name: managedIdentity.config.nextflowConfig
+  Type: string
+  Req/Opt: Optional
+  Description: Additional Nextflow configuration to apply. See [Nextflow config
+    file](https://docs.seqera.io/platform-cloud/launch/advanced#nextflow-config-file).
+- Name: managedIdentity.config.launchDir
+  Type: string
+  Req/Opt: Optional
+  Description: Directory where Nextflow runs. Must be an absolute path and
+    credentials must have read-write access. If omitted, defaults to `workDir`.
+- Name: managedIdentity.config.userName
+  Type: string
+  Req/Opt: Optional
+  Description: Username for SSH connection to HPC head node.
+- Name: managedIdentity.config.hostName
+  Type: string
+  Req/Opt: Optional
+  Description: Hostname or IP address of HPC head node.
+- Name: managedIdentity.config.port
+  Type: integer
+  Req/Opt: Optional
+  Description: "SSH port. Default: `22`."
+- Name: managedIdentity.config.headQueue
+  Type: string
+  Req/Opt: Optional
+  Description: The name of the queue on the cluster used to launch the Nextflow execution.
+- Name: managedIdentity.config.computeQueue
+  Type: string
+  Req/Opt: Optional
+  Description: The name of queue on the cluster to which pipeline jobs are
+    submitted. Can be overridden by the pipeline configuration.
+- Name: managedIdentity.config.maxQueueSize
+  Type: integer
+  Req/Opt: Optional
+  Description: "The maximum number of jobs Nextflow can submit to the queue
+    simultaneously. Default: `100`."
+- Name: managedIdentity.config.headJobOptions
+  Type: string
+  Req/Opt: Optional
+  Description: Additional submit options for the Nextflow head job.
+- Name: managedIdentity.config.propagateHeadJobOptions
+  Type: boolean
+  Req/Opt: Optional
+  Description: If true, `headJobOptions` are also applied to the
+    Nextflow-submitted compute jobs.
+- Name: "**CreateManagedCredentials**"
+  Type: ""
+  Req/Opt: ""
+  Description: Create managed credentials
+- Name: provider
+  Type: string
+  Req/Opt: Optional
+  Description: Authentication provider type. Currently supports `ssh`.
+- Name: credentials
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: credentials.id
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: credentials.name
+  Type: string
+  Req/Opt: Required
+  Description: ""
+- Name: credentials.description
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: credentials.provider
+  Type: string
+  Req/Opt: Required
+  Description: ""
+- Name: credentials.baseUrl
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: credentials.category
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: credentials.deleted
+  Type: boolean
+  Req/Opt: Optional
+  Description: ""
+- Name: credentials.lastUsed
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: credentials.dateCreated
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: credentials.lastUpdated
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: credentials.keys
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: credentials.keys.discriminator
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: metadata
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: metadata.discriminator
+  Type: string
+  Req/Opt: Optional
+  Description: Type discriminator for metadata structure (read-only).
+- Name: "**UpdateManagedCredentials**"
+  Type: ""
+  Req/Opt: ""
+  Description: Update managed credentials
+- Name: provider
+  Type: string
+  Req/Opt: Optional
+  Description: Authentication provider type. Currently supports `ssh`.
+- Name: credentials
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: credentials.id
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: credentials.name
+  Type: string
+  Req/Opt: Required
+  Description: ""
+- Name: credentials.description
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: credentials.provider
+  Type: string
+  Req/Opt: Required
+  Description: ""
+- Name: credentials.baseUrl
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: credentials.category
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: credentials.deleted
+  Type: boolean
+  Req/Opt: Optional
+  Description: ""
+- Name: credentials.lastUsed
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: credentials.dateCreated
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: credentials.lastUpdated
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: credentials.keys
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: credentials.keys.discriminator
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: metadata
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: metadata.discriminator
+  Type: string
+  Req/Opt: Optional
+  Description: Type discriminator for metadata structure (read-only).

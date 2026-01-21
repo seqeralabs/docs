@@ -7,7 +7,7 @@
   Type: integer
   Location: query
   Req/Opt: Optional
-  Description: Pagination result max result
+  Description: Pagination max results
 - Name: "`offset`"
   Type: integer
   Location: query
@@ -22,7 +22,7 @@
   Type: string
   Location: query
   Req/Opt: Optional
-  Description: Organization name to validate
+  Description: Team name to validate
 - Name: "`teamId`"
   Type: integer
   Location: path

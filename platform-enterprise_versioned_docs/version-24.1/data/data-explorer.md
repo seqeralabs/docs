@@ -1,7 +1,8 @@
 ---
 title: "Data Explorer"
 description: "Using Seqera Data Explorer."
-date: "21 Apr 2023"
+date created: "2023-04-21"
+last updated: "2025-07-29"
 tags: [data, explorer]
 ---
 
@@ -36,7 +37,7 @@ Data Explorer lists public and private cloud storage buckets. Buckets accessible
 
 - **Retrieve cloud buckets with workspace credentials**
 
-  Private cloud storage buckets accessible to the credentials defined in your workspace are listed in Data Explorer automatically. The cloud storage permissions required for your [AWS](../compute-envs/aws-batch#iam), [Google Cloud](../compute-envs/google-cloud-batch#iam), and [Azure Batch](../compute-envs/azure-batch#create-a-storage-account) compute environment credentials allow full Data Explorer functionality.
+  Private cloud storage buckets accessible to the credentials defined in your workspace are listed in Data Explorer automatically. The cloud storage permissions required for your [AWS](../compute-envs/aws-batch#iam-user-creation), [Google Cloud](../compute-envs/google-cloud-batch#iam), and [Azure Batch](../compute-envs/azure-batch#create-a-storage-account) compute environment credentials allow full Data Explorer functionality.
 
 - **Configure individual buckets manually**
 
@@ -44,8 +45,6 @@ Data Explorer lists public and private cloud storage buckets. Buckets accessible
 
 
 ## Browse cloud storage buckets
-
-![](./_images/data_explorer.png)
 
 - **View bucket details**
 

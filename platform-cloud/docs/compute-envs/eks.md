@@ -85,9 +85,9 @@ After you have prepared your Kubernetes cluster and assigned a service account r
 1. Apply [**Resource labels**](../resource-labels/overview) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
 1. Expand **Staging options** to include:
     - Optional [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
-    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch. 
+    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch.
     :::info
-    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority. 
+    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
     :::
 1. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
 1. Configure any advanced options described in the next section, as needed.
@@ -122,7 +122,7 @@ See [Launch pipelines](../launch/launchpad) to start executing workflows in your
 
 To use [Fusion v2](https://docs.seqera.io/fusion) in your Seqera EKS compute environment:
 1. Use Seqera Platform version 23.1 or later.
-1. Use an S3 bucket as the pipeline work directory. 
+1. Use an S3 bucket as the work directory.
 1. Both the head service and compute service accounts must have access to the S3 bucket specified as the work directory.
 
 <details>
@@ -191,4 +191,3 @@ To use [Fusion v2](https://docs.seqera.io/fusion) in your Seqera EKS compute env
     See the [AWS documentation](https://docs.aws.amazon.com/eks/latest/userguide/associate-service-account-role.html) for further details.
 
 </details>
-

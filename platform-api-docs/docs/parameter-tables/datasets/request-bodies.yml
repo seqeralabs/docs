@@ -4,7 +4,7 @@
   Description: Create dataset
 - Name: name
   Type: string
-  Req/Opt: Optional
+  Req/Opt: Required
   Description: ""
 - Name: description
   Type: string
@@ -28,7 +28,7 @@
   Description: Create dataset
 - Name: name
   Type: string
-  Req/Opt: Optional
+  Req/Opt: Required
   Description: ""
 - Name: description
   Type: string

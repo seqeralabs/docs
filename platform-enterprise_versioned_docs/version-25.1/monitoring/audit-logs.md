@@ -8,7 +8,7 @@ tags: [logging, audit logs, admin panel]
 Root users can view application event audit logs from the [Admin panel](../administration/overview) **Audit logs** tab.
 
 :::info
-Application event audit logs are retained for 365 days by default. In Platform Enterprise, this retention period can be [customized](../../version-24.2/enterprise/configuration/overview#logging).
+Application event audit logs are retained for 365 days by default. In Platform Enterprise, this retention period can be [customized](../enterprise/configuration/overview.mdx#logging).
 :::
 
 ### Audit log event format
@@ -24,7 +24,7 @@ Audit log entries record the following event details:
 - **Workspace ID**
 - **Workspace name**
 - **Client IP**: IP address of user/client initiating the event. Empty for Seqera-initiated events.
-- **Creation date**: Event timestamp in `YYYY-MM-DD-HH-MM-SS` format.
+- **Creation date**: Event timestamp in ISO 8601 format `YYYY-MM-DDTHH:MM:SSZ` (e.g., `2025-06-28T22:07:40Z`).
 
 ### Audit log events
 

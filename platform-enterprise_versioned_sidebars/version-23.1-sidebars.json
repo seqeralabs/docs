@@ -6,7 +6,6 @@
       "label": "Getting started",
       "collapsed": true,
       "items": [
-        "getting-started/community-showcase",
         "getting-started/definitions",
         "getting-started/deployment-options",
         "getting-started/workspace"
