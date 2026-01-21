@@ -18,7 +18,7 @@ Fusion is a FUSE filesystem that bridges applications and cloud object stores. A
    - Storage backends return normalized cloud errors (with provider-agnostic categories) or internal errors (`ErrNotFound`, `ErrReadOnly`, etc.)
    - The FUSE layer maps both cloud errors and internal errors to FUSE status codes (e.g., `ENOENT`, `EACCES`, `EREMOTEIO`, `EIO`)
    - The kernel translates FUSE status to errno values for the application
-   - Fusion logs cloud errors with structured details (provider, error code, HTTP status, request ID)
+   - Fusion logs cloud errors with structured details (i.e., provider, error code, HTTP status, request ID)
 
 1. **Failures during startup/shutdown → Exit Code**
 
