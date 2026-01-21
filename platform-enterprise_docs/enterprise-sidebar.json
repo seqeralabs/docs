@@ -83,7 +83,7 @@
           },
           "enterprise/general_troubleshooting"
         ]
-      },      
+      },
       {
       "type": "category",
       "label": "Tutorials",
@@ -198,7 +198,7 @@
         "pipeline-optimization/overview",
         "launch/advanced"
       ]
-    },       
+    },
        {
         "type": "category",
         "label": "Studios",
@@ -216,7 +216,7 @@
             "studios/add-studio-custom-container",
             "studios/add-studio-git-repo"
           ]
-          },         
+          },
           "studios/managing",
           "studios/connect"
         ]

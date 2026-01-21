@@ -244,11 +244,7 @@ See [Test deployment](./testing).
 
 ### Pipeline optimization
 
-Seqera Platform offers a service that optimizes pipeline resource requests. Install the resource optimization service in your Kubernetes cluster with [this manifest](_templates/k8s/groundswell.yml).
-
-Define a set of credentials for the resource optimization database in the `tower-groundswell-cfg` ConfigMap. This can be the same database used for Seqera, but in a different schema.
-
-The initContainers will wait until both the Seqera and pipeline optimization service databases are ready before starting the migration in the Seqera database and finally starting the resource optimization container.
+Seqera Platform offers a service that optimizes pipeline resource requests. Refer to [Pipeline optimization](./configuration/pipeline_optimization.md) for more information.
 
 ### Studios
 
