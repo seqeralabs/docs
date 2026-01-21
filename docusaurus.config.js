@@ -59,7 +59,7 @@ export default async function createConfigAsync() {
     "docusaurus-plugin-openapi-docs",
     {
       id: "api", // plugin id
-      docsPluginId: "classic", // configured for preset-classic
+      docsPluginId: "default", // preset-classic docs plugin uses "default" as its ID
       config: {
         platform: {
           specPath: "platform-api-docs/scripts/specs/seqera-api-latest-decorated.yaml",
@@ -293,7 +293,7 @@ export default async function createConfigAsync() {
           },
         };
       },
-    ],
+    ].filter(Boolean), // Filter out null plugins when EXCLUDE_* env vars are set
 
     themeConfig: {
       image: "img/share.jpg",
