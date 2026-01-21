@@ -962,20 +962,24 @@ Now the "classic" docs plugin exists for OpenAPI plugin to reference.
 10. `1bcf0775` - Update progress.md - Issue #12 still blocked despite fixes
 11. `4c5c7905` - Fix OpenAPI plugin configuration to work with EXCLUDE env vars (Issue #12 RESOLVED)
 12. `1eecb749` - Update progress.md - Issue #12 resolved with OpenAPI plugin fix
-13. `12b9dde3` - Fix update_sidebar.py script path in workflow (Issue #12 fully resolved)
+13. `12b9dde3` - Fix update_sidebar.py script path in workflow
+14. `5517a113` - Update progress.md - Document update_sidebar.py path fix
+15. `c09a89c0` - Fix detached HEAD issue in workflow by fetching PR branch name (Issue #12 fully resolved)
 
 ### Status
-✅ **FIXED** - All workflow issues resolved (commits `4c5c7905`, `12b9dde3`)
+✅ **FIXED** - All workflow issues resolved (commits `4c5c7905`, `12b9dde3`, `c09a89c0`)
 
 **Root Causes Identified**:
 1. **Incorrect docsPluginId**: OpenAPI plugin referenced `docsPluginId: "classic"` but preset-classic's docs plugin uses ID `"default"`, not `"classic"`
 2. **Null plugin entries**: When `EXCLUDE_MULTIQC`, `EXCLUDE_FUSION`, `EXCLUDE_WAVE` env vars are set, the plugins array contains null entries, causing the OpenAPI plugin's filter code to crash when accessing `data[0]`
 3. **Wrong script path**: Workflow referenced `openapi-overlay-generator/scripts/update_sidebar.py` but script is at `.claude/skills/openapi-overlay-generator/scripts/update_sidebar.py`
+4. **Detached HEAD state**: When using workflow_dispatch with a PR number, checking out `refs/pull/{pr_number}/head` results in detached HEAD, causing "fatal: You are not currently on a branch" when pushing
 
 **Fixes Applied**:
 1. ✅ Changed `docsPluginId` from `"classic"` to `"default"` (docusaurus.config.js:62) - commit `4c5c7905`
 2. ✅ Added `.filter(Boolean)` to plugins array to remove null entries (docusaurus.config.js:296) - commit `4c5c7905`
 3. ✅ Fixed update_sidebar.py script path in workflow (apply-overlays-and-regenerate.yml:312) - commit `12b9dde3`
+4. ✅ Added step to fetch PR branch name before checkout to avoid detached HEAD (apply-overlays-and-regenerate.yml:26-44) - commit `c09a89c0`
 
 **Local Testing Passed**:
 ```bash
