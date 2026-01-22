@@ -184,7 +184,7 @@ When troubleshooting Fusion errors:
     :::
 
 1. Identify the mapped internal error (if any):
-    - The `errno` codes map back to either a cloud error category or a specific internal error (e.g., `EACCES` indicates an authentication problem, `EREMOTEIO` indicates a cloud backend issue). Check the Fusion logs for more details on the error that triggered a specific `errno` code (see [Understanding Fusion logs](#understanding-fusion-logs)).
+    - The `errno` codes map back to either a cloud error category or a specific internal error (e.g., `EACCES` indicates an authentication problem, `EREMOTEIO` indicates a cloud backend issue). Check the Fusion logs for more details on the error that triggered a specific `errno` code (see [Fusion logs](#fusion-logs)).
 
 :::tip
 Add the following to the `nextflow.config` to enable `debug` logging for the full log:
