@@ -7,13 +7,14 @@ tags: [seqera, platform, nextflow, workflows, containers]
 
 The Seqera tools provide comprehensive access to Seqera Platform for workflow management, compute environments, datasets, and Wave container provisioning. With 74+ tools available, this page highlights the most commonly used operations.
 
-## RAG Search Tools
+## RAG search tools
 
 ### search_seqera_api
 
 Natural language search across all Seqera Platform, Wave, and SeqeraHub APIs. Use this to discover available operations.
 
 **Example prompts:**
+
 - "How do I launch a workflow?"
 - "What APIs are available for managing compute environments?"
 - "Find tools for creating containers"
@@ -24,17 +25,19 @@ Natural language search across all Seqera Platform, Wave, and SeqeraHub APIs. Us
 Execute discovered APIs with validated parameters. Use after `search_seqera_api` to perform operations.
 
 **Example prompts:**
+
 - "Call the API to list my workflows"
 - "Execute the container creation API"
 - "Run the workflow launch operation"
 
-## Workflow Management
+## Workflow management
 
 ### platform_list_workflows
 
 List all workflow runs in a workspace with status, duration, and metadata.
 
 **Example prompts:**
+
 - "List all my workflow runs"
 - "Show me the recent workflows in my workspace"
 - "What workflows have I run this week?"
@@ -44,6 +47,7 @@ List all workflow runs in a workspace with status, duration, and metadata.
 Get detailed information about a specific workflow run including status, logs, and outputs.
 
 **Example prompts:**
+
 - "Get details for workflow run 5abc123"
 - "Show me the status of my latest workflow"
 - "What's the output of workflow 12345?"
@@ -53,6 +57,7 @@ Get detailed information about a specific workflow run including status, logs, a
 Launch a new workflow run with specified parameters, compute environment, and configuration.
 
 **Example prompts:**
+
 - "Launch nf-core/rnaseq with my sample sheet"
 - "Run the variant calling pipeline on AWS Batch"
 - "Start a new workflow with these parameters"
@@ -62,16 +67,18 @@ Launch a new workflow run with specified parameters, compute environment, and co
 Cancel a running workflow.
 
 **Example prompts:**
+
 - "Cancel workflow run 5abc123"
 - "Stop my currently running pipeline"
 
-## Compute Environments
+## Compute environments
 
 ### platform_list_compute_envs
 
 List available compute environments in a workspace.
 
 **Example prompts:**
+
 - "List my compute environments"
 - "What compute resources do I have available?"
 - "Show me the AWS Batch environments"
@@ -81,6 +88,7 @@ List available compute environments in a workspace.
 Get detailed configuration for a compute environment.
 
 **Example prompts:**
+
 - "Show details for compute environment aws-batch-prod"
 - "What's the configuration of my Kubernetes environment?"
 
@@ -89,6 +97,7 @@ Get detailed configuration for a compute environment.
 Create a new compute environment (AWS Batch, Google Cloud, Azure, Kubernetes, etc.).
 
 **Example prompts:**
+
 - "Create an AWS Batch compute environment"
 - "Set up a new Kubernetes executor"
 - "Configure a Google Cloud environment for my pipelines"
@@ -100,6 +109,7 @@ Create a new compute environment (AWS Batch, Google Cloud, Azure, Kubernetes, et
 List datasets available in a workspace.
 
 **Example prompts:**
+
 - "List all datasets in my workspace"
 - "What datasets do I have available?"
 
@@ -108,6 +118,7 @@ List datasets available in a workspace.
 Create a new dataset from a CSV/TSV file.
 
 **Example prompts:**
+
 - "Create a dataset from my sample sheet"
 - "Upload this CSV as a new dataset"
 
@@ -118,6 +129,7 @@ Create a new dataset from a CSV/TSV file.
 List configured pipelines in a workspace.
 
 **Example prompts:**
+
 - "List all pipelines in my workspace"
 - "What pipelines are available to run?"
 
@@ -126,16 +138,18 @@ List configured pipelines in a workspace.
 Add a new pipeline to the workspace.
 
 **Example prompts:**
+
 - "Add nf-core/rnaseq to my workspace"
 - "Configure a new pipeline from GitHub"
 
-## Wave Container Service
+## Wave container service
 
 ### wave_get_container
 
 Create a container with specified packages (conda, pip) or from a Dockerfile.
 
 **Example prompts:**
+
 - "Create a container with samtools and bwa"
 - "Build a container with Python 3.11 and pandas"
 - "Get a container with bioconda packages: salmon, kallisto"
@@ -145,6 +159,7 @@ Create a container with specified packages (conda, pip) or from a Dockerfile.
 Inspect a container image to see its layers, packages, and metadata.
 
 **Example prompts:**
+
 - "Inspect the container image biocontainers/samtools"
 - "What packages are in this container?"
 
@@ -155,6 +170,7 @@ Inspect a container image to see its layers, packages, and metadata.
 Search for conda packages across bioconda, conda-forge, and other channels.
 
 **Example prompts:**
+
 - "Search for samtools in conda"
 - "Find bioinformatics packages for alignment"
 - "What versions of bwa are available?"
@@ -164,6 +180,7 @@ Search for conda packages across bioconda, conda-forge, and other channels.
 Search for Python packages on PyPI.
 
 **Example prompts:**
+
 - "Search for pandas on PyPI"
 - "Find Python packages for data visualization"
 
@@ -174,6 +191,7 @@ Search for Python packages on PyPI.
 List organizations you belong to.
 
 **Example prompts:**
+
 - "List my organizations"
 - "What organizations do I have access to?"
 
@@ -182,6 +200,7 @@ List organizations you belong to.
 List workspaces in an organization.
 
 **Example prompts:**
+
 - "List workspaces in my organization"
 - "Show me all available workspaces"
 
@@ -190,6 +209,7 @@ List workspaces in an organization.
 List members of a workspace or organization.
 
 **Example prompts:**
+
 - "Who are the members of this workspace?"
 - "List team members in my organization"
 
@@ -233,6 +253,7 @@ AI: [Uses platform_get_workflow]
 Most Platform operations require a workspace context. The AI assistant automatically uses your current workspace, or you can specify one:
 
 **Example prompts:**
+
 - "List workflows in workspace 'production'"
 - "Switch to the 'development' workspace"
 - "Use organization 'my-lab' and workspace 'rnaseq-project'"

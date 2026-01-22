@@ -14,6 +14,7 @@ The SRA tools provide access to public sequencing data repositories including NC
 Search NCBI Sequence Read Archive using the E-utilities API.
 
 **Example prompts:**
+
 - "Search NCBI SRA for human RNA-seq studies on liver cancer"
 - "Find all single-cell RNA-seq datasets for mouse brain"
 - "Search for COVID-19 sequencing studies from 2023"
@@ -23,6 +24,7 @@ Search NCBI Sequence Read Archive using the E-utilities API.
 Search EBI European Nucleotide Archive with advanced query syntax.
 
 **Example prompts:**
+
 - "Search EBI ENA for ATAC-seq data from Homo sapiens"
 - "Find paired-end Illumina WGS studies for Arabidopsis thaliana"
 - "Search ENA for ChIP-seq experiments targeting H3K27ac"
@@ -32,6 +34,7 @@ Search EBI European Nucleotide Archive with advanced query syntax.
 Fetch GEO study metadata and find linked SRA projects. Given a GSE accession, retrieves study title, summary, organism, sample count, and linked SRA/BioProject accessions.
 
 **Example prompts:**
+
 - "Get metadata for GEO study GSE147507"
 - "What is the GSE110004 study about and how many samples does it have?"
 - "Find the SRA project linked to GSE164073"
@@ -41,6 +44,7 @@ Fetch GEO study metadata and find linked SRA projects. Given a GSE accession, re
 Get detailed metadata for all runs in a study, including library strategy, layout, size, and organism. Accepts both GEO (GSE) and SRA (SRP) accessions.
 
 **Example prompts:**
+
 - "List all runs in GSE147507 with their library strategies"
 - "Show me the detailed run information for SRP253951"
 - "What sequencing platforms were used in GSE110004?"
@@ -50,6 +54,7 @@ Get detailed metadata for all runs in a study, including library strategy, layou
 Group runs by assay type (library strategy + layout) for multi-assay studies. Useful for selecting specific data types from complex studies.
 
 **Example prompts:**
+
 - "Group the runs in GSE147507 by assay type"
 - "Show me how many RNA-seq vs ATAC-seq runs are in this study"
 - "Organize the runs in SRP253951 by library strategy and layout"
@@ -59,6 +64,7 @@ Group runs by assay type (library strategy + layout) for multi-assay studies. Us
 Get download URLs for SRA and FASTQ files with MD5 checksums. Supports FTP, HTTP, and HTTPS protocols.
 
 **Example prompts:**
+
 - "Get FASTQ download URLs for SRR10971381"
 - "Fetch download links for runs SRR001, SRR002, SRR003"
 - "Get the FTP URLs for all runs in my search results"
@@ -68,6 +74,7 @@ Get download URLs for SRA and FASTQ files with MD5 checksums. Supports FTP, HTTP
 Generate downloadable sample sheets in CSV, TSV, or JSON format with metadata and download URLs. Ideal for preparing pipeline inputs.
 
 **Example prompts:**
+
 - "Create a CSV sample sheet for the RNA-seq runs in GSE147507"
 - "Generate a TSV file with download URLs for these SRR accessions"
 - "Make a sample sheet I can use with nf-core/rnaseq"

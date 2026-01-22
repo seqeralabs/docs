@@ -13,7 +13,7 @@ Seqera MCP is a [Model Context Protocol](https://modelcontextprotocol.io/) serve
 - **Seqera Platform integration**: Launch, monitor, and manage Nextflow pipelines.
 - **Wave container service**: Create containerized environments with conda/pip packages.
 - **nf-core modules**: Search and execute 1000+ standardized bioinformatics modules.
-- **SRA/ENA/GEO access**: Search and retrieve public sequencing data
+- **SRA/ENA/GEO access**: Search and retrieve public sequencing data.
 
 ## Tool documentation
 
@@ -137,5 +137,3 @@ For clients that don't support OAuth, add your access token as a header:
 ## Resources
 
 - [Model Context Protocol specification](https://modelcontextprotocol.io/)
-
-
