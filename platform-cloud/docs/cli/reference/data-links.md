@@ -298,7 +298,7 @@ tw data-links upload [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-c`, `--credentials` | Credentials identifier | ✓ |  |
+| `-c`, `--credentials` | Credentials identifier. **Required for private cloud storage buckets** | ✓ |  |
 | `-o`, `--output-dir` | Destination directory in the data link |  |  |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
 | `-i`, `--id` | Data link identifier |  |  |
