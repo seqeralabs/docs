@@ -254,7 +254,7 @@ To fix the problem, you can either:
 1. Set a JDK environment variable to force Nextflow and/or the Tower containers to use TLSv1.2 by default:
 
 ```
-export JAVA_OPTIONS="-Dmail.smtp.ssl.protocols=TLSv1.2"
+export JAVA_OPTS="-Dmail.smtp.ssl.protocols=TLSv1.2"
 ```
 
 2. Add the following parameter to your nextflow.config file:

@@ -33,7 +33,12 @@
   Type: string
   Location: path
   Req/Opt: Required
-  Description: Data-link string identifier
+  Description: Data-link string identifier.
+- Name: "`path`"
+  Type: string
+  Location: path
+  Req/Opt: Required
+  Description: Content path
 - Name: "`nextPageToken`"
   Type: string
   Location: query
@@ -43,18 +48,14 @@
   Type: integer
   Location: query
   Req/Opt: Optional
-  Description: Number of items to return per page. If ommitted, a default maximum
+  Description: Number of items to return per page. If omitted, a default maximum
     value is returned.
 - Name: "`paths`"
   Type: array
   Location: query
   Req/Opt: Optional
-  Description: List of paths
-- Name: "`path`"
-  Type: string
-  Location: path
-  Req/Opt: Required
-  Description: Content path
+  Description: List of paths to explore. Returns all files within the specified
+    paths, including sub-paths.
 - Name: "`filePath`"
   Type: string
   Location: path
@@ -64,30 +65,30 @@
   Type: string
   Location: query
   Req/Opt: Optional
-  Description: File path to download
+  Description: File path to download within the data-link (e.g., `folder/subfolder/object`).
 - Name: "`preview`"
   Type: boolean
   Location: query
   Req/Opt: Optional
-  Description: "Whether to generate the URL for preview purposes or direct
-    download (default: false)"
+  Description: "If `true`, generates a URL for preview purposes. If `false`,
+    generates a URL for direct download. Default: `false`."
 - Name: "`dirs`"
   Type: array
   Location: query
   Req/Opt: Optional
-  Description: List of paths to directories to download
+  Description: List of directory paths to include in the download script.
 - Name: "`files`"
   Type: array
   Location: query
   Req/Opt: Optional
-  Description: List of paths to files to download
-- Name: "`Origin`"
-  Type: string
-  Location: header
-  Req/Opt: Optional
-  Description: ""
+  Description: List of file paths to include in the download script.
 - Name: "`dirPath`"
   Type: string
   Location: path
   Req/Opt: Required
   Description: Path to the destination directory
+- Name: "`Origin`"
+  Type: string
+  Location: header
+  Req/Opt: Optional
+  Description: ""

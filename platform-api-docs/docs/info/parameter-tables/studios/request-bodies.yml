@@ -5,19 +5,20 @@
 - Name: name
   Type: string
   Req/Opt: Required
-  Description: ""
+  Description: "Studio name. Must be unique within the user or workspace context.
+    Minimum length: 1 character, Maximum length: 100 characters."
 - Name: description
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: "Optional Studio description. Maximum length: 500 characters."
 - Name: dataStudioToolUrl
   Type: string
-  Req/Opt: Required
+  Req/Opt: Optional
   Description: ""
 - Name: computeEnvId
   Type: string
   Req/Opt: Required
-  Description: ""
+  Description: Compute environment ID where the Studio session will run.
 - Name: initialCheckpointId
   Type: integer
   Req/Opt: Optional
@@ -29,31 +30,39 @@
 - Name: configuration.gpu
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of GPUs allocated to the Studio session.
 - Name: configuration.cpu
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of CPUs allocated to the Studio session.
 - Name: configuration.memory
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Amount of memory in MiB allocated to the Studio session.
 - Name: configuration.mountData
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of data-link IDs mounted in the Studio session.
+- Name: configuration.environment
+  Type: object
+  Req/Opt: Optional
+  Description: Array of environment variable key-value pairs set in the Studio session.
 - Name: configuration.condaEnvironment
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Conda package specification for custom packages installed in the
+    Studio environment.
 - Name: configuration.lifespanHours
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of hours the Studio session will run before automatically
+    stopping. A value of `0` indicates unlimited lifespan.
 - Name: isPrivate
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: "If true, only the Studio creator can connect to the session.
+    Workspace administrators can still start, stop, and delete the Studio but
+    cannot connect to it. Default: `false`."
 - Name: labelIds
   Type: array
   Req/Opt: Optional
@@ -69,7 +78,8 @@
 - Name: name
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: New checkpoint name. Must be unique per Studio. Spaces are
+    automatically converted to underscores.
 - Name: "**StartDataStudio**"
   Type: ""
   Req/Opt: ""

@@ -14,7 +14,7 @@ You can group **members** and **collaborators** into **teams** and apply a role 
 
 ### Organization user roles
 
-- **Owner**: After an organization is created, the user who created the organization is the default owner of that organization. Additional users can be assigned as organization owners. Owners have full read/write access to modify members, teams, collaborators, and settings within an organization.
+- **Owner**: After an organization is created, the user who created the organization is the default owner of that organization. Additional users can be assigned as organization owners. Owners have full read/write access to modify members, teams, collaborators, and settings within an organization. Organization owners always have full owner access to organization workspaces, regardless of their participant roles at the workspace level.
 - **Member**: A member is a user who is internal to the organization. Members have an organization role and can operate in one or more organization workspaces. In each workspace, members have a participant role that defines the permissions granted to them within that workspace.
 
 ### Role inheritance
@@ -29,59 +29,80 @@ Example:
 
 As a best practice, use teams as the primary vehicle for assigning rights within a workspace and only add named participants when one-off privilege escalations are necessary.
 
-### Workspace participant roles
+## Workspace participant roles
+
+- **Owner**: The user who created the workspace is its first owner. Owners have full administrative privileges over a workspace and its resources, including permission to delete the workspace. Regular participants can also be promoted to workspace owners. 
+- **Admin**: Workspace admins share most of the administrative privileges of workspace owners, but admins cannot delete a workspace.
+- **Maintain**: Workspace maintainers can use and manage all workspace resources, but cannot create workspace credentials or compute environments.
+- **Launch**: Launch users can use existing workspace resources and launch pipelines, but they cannot modify workspace resources.
+- **Connect**: Connect users can connect to running workspace Studios.
+- **View**: View users can view workspace resources, but cannot modify or execute them.
 
 :::note
-Workspace participants with any role can leave the workspace, i.e., remove themselves as a workspace participant. However, only workspace owners and admins can add or remove workspace participants other than themselves. 
+Workspace participants with any role can leave the workspace, i.e., remove themselves as a workspace participant. However, only workspace owners and admins can add or remove workspace participants other than themselves.
 :::
 
-| Permission / Role                                                                 | Owner | Admin | Maintain | Launch | Connect | View |
-|-----------------------------------------------------------------------------------|:-----:|:-----:|:--------:|:------:|:-------:|:----:|
-| **Organization: Settings:** Add, edit, delete                                     | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| **Organization: Workspaces:** Add, delete                                         | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| **Organization: Workspaces:** Edit, change visibility                             | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
-| **Organization: Members:** Add, delete, change role                               | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| **Organization: Teams:** Add, edit, delete                                        | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| **Organization: Teams: Members:** Add, remove                                     | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| **Organization: Teams: Workspaces:** Add, remove, change role                     | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| **Organization: Collaborators:** Add, edit, delete                                | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
-| **Organization: Managed identities:** Add, delete                                 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| **Organization: Managed identities:** Edit                                        | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
-| **Organization: Managed identities: Users:** Manage credentials                   | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| **Workspace: Settings: Studios:** Edit session lifespan                           | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
-| **Workspace: Settings: Labels & Resource Labels:** Add, edit, delete              | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| **Workspace: Compute environments:** Add, rename, make primary, duplicate, delete | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
-| **Workspace: Actions:** Add, edit, delete                                         | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| **Workspace: Credentials:** Add, edit, delete                                     | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| **Workspace: Secrets:** Add, edit, delete                                         | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| **Workspace: Participants:** Add, remove, change role                             | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| **Workspace: Pipelines:** Launch                                                  | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
-| **Workspace: Pipelines:** View                                                    | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| **Workspace: Pipelines:** Define input/output parameters                          | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
-| **Workspace: Pipelines:** Modify execution configurations                         | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| **Workspace: Pipelines:** Add, edit, duplicate, delete                            | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
-| **Workspace: Pipelines:** Modify resource labels                                  | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| **Workspace: Pipelines:** Create, modify, delete                                  | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
-| **Workspace: Pipelines: Run:** Apply labels, relaunch, save as new pipeline       | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| **Workspace: Pipelines: Run:** Resume, delete, star (favourite)                   | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
-| **Workspace: Pipelines:** Modify resource labels                                  | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| **Workspace: Datasets:** Add, edit                                                | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
-| **Workspace: Datasets:** Delete                                                   | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| **Workspace: Data Explorer:** Upload, download, preview data                      | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| **Workspace: Data Explorer:** Attach, edit, remove buckets                        | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| **Workspace: Data Explorer:** Hide/unhide buckets                                 | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| **Workspace: Data Explorer:** Edit bucket metadata                                | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| **Workspace: Studios:** Add, edit, delete a studio                                | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| **Workspace: Studios:** List/search/view studios                                  | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| **Workspace: Studios:** Connect to a running session (collaborative mode)         | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
-| **Workspace: Studios:** Connect to a running session (private mode, creator)      | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| **Workspace: Studios:** Connect to a running session (private mode, non-creator)  | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| **Workspace: Studios:** Add, edit, delete studio                                  | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| **Workspace: Studios:** Edit studio resource labels                               | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| **Workspace: Studios:** Start, stop studio session                                | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| **Workspace: Studios:** Extend studio session lifespan (collaborative mode)       | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
-| **Workspace: Studios:** Extend studio session lifespan (private mode, creator)    | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| **Workspace: Studios:** Extend studio session lifespan (private mode, non-creator)| ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
-| **Workspace: Studios:** Add as new (duplicate studio)                             | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| **Workspace: Studios: Checkpoints:** Edit studio checkpoint name                  | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| **Workspace:** View (read-only) resources                                         | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+### Role permissions
+
+The following table shows which operations are available to the default workspace participant roles:
+
+| Permission                     | Owner | Admin | Maintain | Launch | Connect | Viewer |
+|--------------------------------|-------|-------|----------|--------|---------|--------|
+| **action:read**                | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
+| **action:execute**             | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
+| **action:write**               | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **action:delete**              | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **action_label:write**         | ✅     | ✅     | ❌        | ❌      | ❌       | ❌      |
+| **compute_environment:read**   | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **compute_environment:write**  | ✅     | ✅     | ❌        | ❌      | ❌       | ❌      |
+| **compute_environment:delete** | ✅     | ✅     | ❌        | ❌      | ❌       | ❌      |
+| **container:read**             | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **credentials:read**           | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **credentials:write**          | ✅     | ✅     | ❌        | ❌      | ❌       | ❌      |
+| **credentials:delete**         | ✅     | ✅     | ❌        | ❌      | ❌       | ❌      |
+| **credentials_encrypted:read** | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
+| **data_link:read**             | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **data_link:write**            | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **data_link:delete**           | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **data_link:admin**            | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **dataset:read**               | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **dataset:write**              | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
+| **dataset:delete**             | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **dataset:admin**              | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **dataset_label:write**        | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **label:read**                 | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **label:write**                | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **label:delete**               | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **launch:read**                | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
+| **pipeline:read**              | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **pipeline:write**             | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **pipeline:delete**            | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **pipeline_label:write**       | ✅     | ✅     | ❌        | ❌      | ❌       | ❌      |
+| **pipeline_secrets:read**      | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **pipeline_secrets:write**     | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **pipeline_secrets:delete**    | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **platform:read**              | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **studio:read**                | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **studio:execute**             | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
+| **studio:write**               | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **studio:delete**              | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **studio:admin**               | ✅     | ✅     | ❌        | ❌      | ❌       | ❌      |
+| **studio_label:write**         | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **studio_session:read**        | ✅     | ✅     | ✅        | ✅      | ✅       | ❌      |
+| **studio_session:execute**     | ✅     | ✅     | ✅        | ✅      | ✅       | ❌      |
+| **workflow:read**              | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **workflow:execute**           | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
+| **workflow:write**             | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
+| **workflow:delete**            | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
+| **workflow_label:write**       | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **workflow_quick:execute**     | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **workflow_star:read**         | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **workflow_star:write**        | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **workflow_star:delete**       | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **workspace:read**             | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **workspace:write**            | ✅     | ✅     | ❌        | ❌      | ❌       | ❌      |
+| **workspace:delete**           | ✅     | ❌     | ❌        | ❌      | ❌       | ❌      |
+| **workspace:admin**            | ✅     | ❌     | ❌        | ❌      | ❌       | ❌      |
+| **workspace_self:delete**      | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **workspace_studio:read**      | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
+| **workspace_studio:write**     | ✅     | ✅     | ❌        | ❌      | ❌       | ❌      |

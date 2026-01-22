@@ -217,13 +217,13 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "docs/explore-data-link",
-          label: "Explore data-link",
+          label: "Explore data-link path",
           className: "api-method get",
         },
         {
           type: "doc",
           id: "docs/explore-data-link-tree",
-          label: "Explore a data-link tree",
+          label: "Explore data-link tree",
           className: "api-method get",
         },
         {
@@ -247,7 +247,7 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "docs/generate-download-url-data-link",
-          label: "Generate data-link file download URL",
+          label: "Generate download URL",
           className: "api-method get",
         },
         {
@@ -259,13 +259,13 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "docs/generate-data-link-upload-url",
-          label: "Generate file upload URL",
+          label: "Generate data-link file upload URL (to given path)",
           className: "api-method post",
         },
         {
           type: "doc",
           id: "docs/finish-data-link-upload",
-          label: "Finish data-link file upload",
+          label: "Finish data-link file upload to given path",
           className: "api-method post",
         },
         {
@@ -349,43 +349,43 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "docs/list-datasets",
-          label: "List available datasets",
+          label: "(Deprecated) List available datasets",
           className: "menu__list-item--deprecated api-method get",
         },
         {
           type: "doc",
           id: "docs/create-dataset",
-          label: "Create dataset",
+          label: "(Deprecated) Create dataset",
           className: "menu__list-item--deprecated api-method post",
         },
         {
           type: "doc",
           id: "docs/list-workspace-dataset-versions",
-          label: "List latest dataset versions",
+          label: "(Deprecated) List latest dataset versions",
           className: "menu__list-item--deprecated api-method get",
         },
         {
           type: "doc",
           id: "docs/update-dataset",
-          label: "Update dataset",
+          label: "(Deprecated) Update dataset",
           className: "menu__list-item--deprecated api-method put",
         },
         {
           type: "doc",
           id: "docs/delete-dataset",
-          label: "Delete dataset",
+          label: "(Deprecated) Delete dataset",
           className: "menu__list-item--deprecated api-method delete",
         },
         {
           type: "doc",
           id: "docs/describe-dataset",
-          label: "Describe dataset",
+          label: "(Deprecated) Describe dataset",
           className: "menu__list-item--deprecated api-method get",
         },
         {
           type: "doc",
           id: "docs/upload-dataset",
-          label: "Upload new dataset version",
+          label: "(Deprecated) Upload new dataset version",
           className: "menu__list-item--deprecated api-method post",
         },
         {
@@ -397,7 +397,7 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "docs/list-dataset-versions",
-          label: "List all dataset versions",
+          label: "(Deprecated) List all dataset versions",
           className: "menu__list-item--deprecated api-method get",
         },
       ],
@@ -477,6 +477,12 @@ const sidebar: SidebarsConfig = {
           id: "docs/create-label",
           label: "Create label",
           className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "docs/get-allowed-dynamic-labels",
+          label: "GetAllowedDynamicLabels",
+          className: "api-method get",
         },
         {
           type: "doc",
@@ -595,7 +601,7 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "docs/create-organization-member",
-          label: "Add organization member",
+          label: "Create organization member",
           className: "api-method put",
         },
         {
@@ -607,13 +613,13 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "docs/delete-organization-member",
-          label: "Delete member",
+          label: "Delete organization member",
           className: "api-method delete",
         },
         {
           type: "doc",
           id: "docs/update-organization-member-role",
-          label: "Update member role",
+          label: "Update organization member role",
           className: "api-method put",
         },
         {
@@ -793,7 +799,7 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "docs/list-data-studio-templates",
-          label: "List available Studio templates",
+          label: "List Studio container templates",
           className: "api-method get",
         },
         {
@@ -865,37 +871,37 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "docs/create-organization-team",
-          label: "Create team",
+          label: "Create organization team",
           className: "api-method post",
         },
         {
           type: "doc",
           id: "docs/validate-team-name",
-          label: "Validate team name",
+          label: "Validate organization team name",
           className: "api-method get",
         },
         {
           type: "doc",
           id: "docs/describe-organization-team",
-          label: "Describe team",
+          label: "Describe organization team",
           className: "api-method get",
         },
         {
           type: "doc",
           id: "docs/update-organization-team",
-          label: "Update team",
+          label: "Update organization team",
           className: "api-method put",
         },
         {
           type: "doc",
           id: "docs/delete-organization-team",
-          label: "Delete team",
+          label: "Delete organization team",
           className: "api-method delete",
         },
         {
           type: "doc",
           id: "docs/list-organization-team-members",
-          label: "List team members",
+          label: "List organization team members",
           className: "api-method get",
         },
         {
@@ -907,13 +913,13 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "docs/delete-organization-team-member",
-          label: "Delete team member",
+          label: "Delete organization team member",
           className: "api-method delete",
         },
         {
           type: "doc",
           id: "docs/list-workspaces-by-team",
-          label: "List team workspaces",
+          label: "List workspaces by team",
           className: "api-method get",
         },
       ],
@@ -1092,8 +1098,8 @@ const sidebar: SidebarsConfig = {
         },
         {
           type: "doc",
-          id: "docs/workflow-logs",
-          label: "Get workflow logs",
+          id: "docs/get-workflow-log",
+          label: "Get workflow log",
           className: "api-method get",
         },
         {
@@ -1153,7 +1159,7 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "docs/list-workspaces",
-          label: "List organization workspaces",
+          label: "List workspaces",
           className: "api-method get",
         },
         {
@@ -1164,7 +1170,7 @@ const sidebar: SidebarsConfig = {
         },
         {
           type: "doc",
-          id: "docs/workspace-validate",
+          id: "docs/validate-workspace-name",
           label: "Validate workspace name",
           className: "api-method get",
         },
@@ -1213,13 +1219,13 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "docs/update-workspace-participant-role",
-          label: "Update participant role",
+          label: "Update workspace participant role",
           className: "api-method put",
         },
         {
           type: "doc",
           id: "docs/find-data-studios-workspace-settings",
-          label: "List workspace Studios settings",
+          label: "Describe workspace Studios settings",
           className: "api-method get",
         },
         {
@@ -1231,8 +1237,68 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "docs/list-workspaces-user",
-          label: "List user workspaces and organizations",
+          label: "List user workspaces",
           className: "api-method get",
+        },
+      ],
+    },
+    {
+      type: "category",
+      label: "identities",
+      items: [
+        {
+          type: "doc",
+          id: "docs/list-managed-identities",
+          label: "List managed identities",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "docs/create-managed-identity",
+          label: "Create managed identity",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "docs/describe-managed-identity",
+          label: "Describe managed identity",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "docs/update-managed-identity",
+          label: "Update managed identity",
+          className: "api-method put",
+        },
+        {
+          type: "doc",
+          id: "docs/delete-managed-identity",
+          label: "Delete managed identity",
+          className: "api-method delete",
+        },
+        {
+          type: "doc",
+          id: "docs/list-managed-credentials",
+          label: "List managed credentials",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "docs/create-managed-credentials",
+          label: "Create managed credentials",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "docs/update-managed-credentials",
+          label: "Update managed credentials",
+          className: "api-method put",
+        },
+        {
+          type: "doc",
+          id: "docs/delete-managed-credentials",
+          label: "Delete managed credentials",
+          className: "api-method delete",
         },
       ],
     },
