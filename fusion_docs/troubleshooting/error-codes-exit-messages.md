@@ -16,7 +16,7 @@ Fusion is a FUSE filesystem that bridges applications and cloud object stores. A
 
    - Errors from the cloud provider (e.g. network timeouts, auth failures, rate limits) are captured by the Storage backend, which normalizes them into provider-agnostic categories (see #cloud-provider-error-categories).
    - The storage backend returns normalized cloud errors (with provider-agnostic categories). It may also return other internal errors when other logic errors are encountered.
-   - The FUSE layer maps both cloud errors and internal errors to FUSE status codes (e.g., `ENOENT`, `EACCES`, `EREMOTEIO`, `EIO`).
+   - The FUSE layer maps both cloud errors and internal errors to `errno` status codes (e.g., `ENOENT`, `EACCES`, `EREMOTEIO`, `EIO` etc.).
    - The kernel communicates the errno values to the application.
    - Fusion logs cloud errors with structured details (i.e., provider, error code, HTTP status, request ID).
 
@@ -135,7 +135,7 @@ This example shows a cloud provider error with structured fields:
 }
 ```
 
-### Search logs
+### Searching logs
 
 **Console logs** (grep-based searching):
 ```bash
@@ -168,7 +168,7 @@ jq 'select(.provider_request_id != null) | {provider, provider_request_id, provi
 
 When troubleshooting Fusion errors:
 
-1. Check the [exit code](#exit-codes):
+1. Check the[exit code](#exit-codes):
     - Check the task exit status in Platform to understand if Fusion terminated normally (`0`), encountered an I/O error (`174`), or had a command issue (`127`).
 1. Look for an `errno` code in the logs:
     - If a filesystem operation failed, use the logs to identify the `errno`  status code (e.g., `ENOENT`, `EREMOTEIO`, `EIO`) returned to the application.
@@ -184,7 +184,7 @@ When troubleshooting Fusion errors:
     :::
 
 1. Identify the mapped internal error (if any):
-    - The `errno` codes map back to either a cloud error category or a specific internal error (e.g., `EACCES` indicates an authentication problem, `EREMOTEIO` indicates a cloud backend issue). Check the Fusion logs for more details on the error that triggered a specific `errno` code (see [Fusion logs](#fusion-logs)).
+    - The `errno` codes map back to either a cloud error category or a specific internal error (e.g., `EACCES` indicates an authentication problem, `EREMOTEIO` indicates a cloud backend issue). Check the Fusion logs for more details on the error that triggered a specific `errno` code (see [Understanding Fusion logs](#understanding-fusion-logs)).
 
 :::tip
 Add the following to the `nextflow.config` to enable `debug` logging for the full log:
@@ -223,7 +223,7 @@ The `sysexits.h` standard uses exit code 74 for "input/output error" and reserve
 | Failed to start FUSE process in background | `on FUSE process` | Check FUSE/kernel support. Verify `/dev/fuse` exists. |
 | Failed to send SIGTERM to FUSE process | `on FUSE sigterm send` | Check kernel logs (`dmesg`) for crashed processes. |
 | Failed to wait for FUSE process termination | `on FUSE stop wait` | Check for zombie processes. Review kernel signal handling. |
-| Error during filesystem shutdown | `on file system shutdown` | Check Fusion logs for pending upload errors. See [Fusion logs](#fusion-logs). |
+| Error during filesystem shutdown | `on file system shutdown` | Check Fusion logs for pending upload errors. See [Understanding Fusion logs](#understanding-fusion-logs). |
 | Error during filesystem unmount | `on file system unmount` | Run `fusermount -u /fusion` or `umount -l /fusion` manually. |
 | Failed read/write path validation | `check-rw` or `check-ro` | Verify cloud credentials and bucket permissions. |
 
@@ -237,7 +237,7 @@ The `sysexits.h` standard uses exit code 74 for "input/output error" and reserve
 
 ## `errno` status codes
 
-Fusion maps internal errors to standard FUSE status codes returned to the operating system. These are the [errno](https://man7.org/linux/man-pages/man3/errno.3.html) values that applications receive when filesystem operations fail.
+Fusion maps internal errors to standard POSIX status codes returned to the operating system. These are the [errno](https://man7.org/linux/man-pages/man3/errno.3.html) values that applications receive when filesystem operations fail.
 
 :::note
 For a complete list of errno values and their meanings, see the [Linux errno man page](https://man7.org/linux/man-pages/man3/errno.3.html) or run `errno -l` on a Linux system.
@@ -265,7 +265,7 @@ Fusion's filesystem operations actively returns these status codes:
 | `ETIMEDOUT` | 110   | Connection timed out      | Context deadline exceeded |
 | `EREMOTEIO` | 121   | Remote I/O error          | Cloud provider errors (QuotaExceeded, unknown cloud errors) |
 
-### Troubleshooting FUSE status codes
+### Troubleshoot FUSE status codes
 
 When you encounter a FUSE status code, use the following table to identify likely causes and next steps:
 
@@ -316,7 +316,7 @@ Using `EREMOTEIO` for cloud errors provides more accurate error context, making 
 :::
 
 :::tip
-When you see `EREMOTEIO`, check the Fusion logs for cloud error fields: `provider`, `error_code`, `provider_code`, `provider_http_status`, and `provider_request_id`. See [Fusion logs](#fusion-logs).
+When you see `EREMOTEIO`, check the Fusion logs for cloud error fields: `provider`, `error_code`, `provider_code`, `provider_http_status`, and `provider_request_id`. See [Understanding Fusion logs](#understanding-fusion-logs).
 :::
 
 ### Error mapping
