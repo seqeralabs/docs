@@ -168,7 +168,7 @@ jq 'select(.provider_request_id != null) | {provider, provider_request_id, provi
 
 When troubleshooting Fusion errors:
 
-1. Check the[exit code](#exit-codes):
+1. Check the [exit code](#exit-codes):
     - Check the task exit status in Platform to understand if Fusion terminated normally (`0`), encountered an I/O error (`174`), or had a command issue (`127`).
 1. Look for an `errno` code in the logs:
     - If a filesystem operation failed, use the logs to identify the `errno`  status code (e.g., `ENOENT`, `EREMOTEIO`, `EIO`) returned to the application.
