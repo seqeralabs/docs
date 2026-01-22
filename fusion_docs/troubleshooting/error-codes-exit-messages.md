@@ -223,7 +223,7 @@ The `sysexits.h` standard uses exit code 74 for "input/output error" and reserve
 | Failed to start FUSE process in background | `on FUSE process` | Check FUSE/kernel support. Verify `/dev/fuse` exists. |
 | Failed to send SIGTERM to FUSE process | `on FUSE sigterm send` | Check kernel logs (`dmesg`) for crashed processes. |
 | Failed to wait for FUSE process termination | `on FUSE stop wait` | Check for zombie processes. Review kernel signal handling. |
-| Error during filesystem shutdown | `on file system shutdown` | Check Fusion logs for pending upload errors. See [Understanding Fusion logs](#understanding-fusion-logs). |
+| Error during filesystem shutdown | `on file system shutdown` | Check Fusion logs for pending upload errors. See [Fusion logs](#fusion-logs). |
 | Error during filesystem unmount | `on file system unmount` | Run `fusermount -u /fusion` or `umount -l /fusion` manually. |
 | Failed read/write path validation | `check-rw` or `check-ro` | Verify cloud credentials and bucket permissions. |
 
