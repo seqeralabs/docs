@@ -135,7 +135,7 @@ This example shows a cloud provider error with structured fields:
 }
 ```
 
-### Searching logs
+### Search logs
 
 **Console logs** (grep-based searching):
 ```bash
