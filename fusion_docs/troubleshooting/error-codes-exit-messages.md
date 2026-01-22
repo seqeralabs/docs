@@ -275,7 +275,7 @@ When you encounter a FUSE status code, use the following table to identify likel
 | `EACCES` | Mount configured as read-only, object ACL blocking writes, or authentication/permission issues. Check cloud IAM permissions and credentials. |
 | `EEXIST` | Resource already exists in cloud storage. Check if the operation was retried or if there's a naming conflict. |
 | `EIO` | General I/O error or unknown internal failure. Check Fusion logs for the underlying cause. See [Fusion logs](#fusion-logs). |
-| `EREMOTEIO` | Cloud provider error. Check Fusion logs for detailed cloud error information (provider, error code, HTTP status, request ID). May indicate quota exceeded, rate limiting, or other cloud-specific issues. See [Understanding Fusion logs](#understanding-fusion-logs). |
+| `EREMOTEIO` | Cloud provider error. Check Fusion logs for detailed cloud error information (provider, error code, HTTP status, request ID). May indicate quota exceeded, rate limiting, or other cloud-specific issues. See [Fusion logs](#fusion-logs). |
 | `EBUSY` | Cloud provider rate limiting requests or temporarily busy. Retry with backoff. Check cloud provider dashboard for service status. |
 | `ETIMEDOUT` | Operation timed out due to network connectivity issues or slow cloud response. Check network connection and cloud service status. |
 | `EINTR` | Caller cancelled the operation. Usually safe to retry. |
