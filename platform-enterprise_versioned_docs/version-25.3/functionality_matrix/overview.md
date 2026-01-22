@@ -12,7 +12,7 @@ Each version makes use of `nf-launcher` to determine the Nextflow version used a
 
 If no Nextflow version is specified in your configuration, Seqera defaults to the baseline version outlined below:
 
-| Platform version | nf-launcher version | Nextflow version | Fusion version |Connect version|
+| Platform version | nf-launcher version | Nextflow version | Fusion version | Connect client version|
 | ---------------- | ------------------- | ---------------- | -------------- |-------------- |
 | 25.3.1           | j21-25.10.2         | 25.10.2          | 2.4            |               |
 | 25.3.0           | j21-25.04.8         | 25.04.8          | 2.4            |               |
