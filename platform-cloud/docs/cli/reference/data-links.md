@@ -27,7 +27,7 @@ tw data-links list [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-c`, `--credentials` | Credentials identifier |  |  |
+| `-c`, `--credentials` | Credentials identifier. **Required for private cloud storage buckets** |  |  |
 | `--wait` | Wait for all data links to be fetched to cache |  |  |
 | `--visibility` | Filter by visibility: hidden, visible, or all |  |  |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
@@ -80,7 +80,7 @@ tw data-links add [OPTIONS]
 | `-d`, `--description` | Data link description |  |  |
 | `-u`, `--uri` | Data link URI | ✓ |  |
 | `-p`, `--provider` | Cloud provider: aws, azure, or google | ✓ |  |
-| `-c`, `--credentials` | Credentials identifier |  |  |
+| `-c`, `--credentials` | Credentials identifier. **Required for private cloud storage buckets** |  |  |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
 
 Run `tw data-links add -h` to view all the required and optional fields for adding a custom data-link to a workspace.
@@ -140,7 +140,7 @@ tw data-links update [OPTIONS]
 | `-i`, `--id` | Data link identifier | ✓ |  |
 | `-n`, `--name` | Data link name | ✓ |  |
 | `-d`, `--description` | Data link description |  |  |
-| `-c`, `--credentials` | Credentials identifier |  |  |
+| `-c`, `--credentials` | Credentials identifier. **Required for private cloud storage buckets** |  |  |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
 
 Run `tw data-links update -h` to view all the required and optional fields for updating a custom data-link in a workspace. Users with the `MAINTAIN` role and above for a workspace can update custom data-links.
@@ -243,7 +243,7 @@ tw data-links download [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-c`, `--credentials` | Credentials identifier | ✓ |  |
+| `-c`, `--credentials` | Credentials identifier. **Required for private cloud storage buckets** | ✓ |  |
 | `-o`, `--output-dir` | Output directory for downloaded files |  |  |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
 | `-i`, `--id` | Data link identifier |  |  |
