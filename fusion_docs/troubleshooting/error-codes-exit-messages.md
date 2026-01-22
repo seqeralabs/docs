@@ -316,7 +316,7 @@ Using `EREMOTEIO` for cloud errors provides more accurate error context, making 
 :::
 
 :::tip
-When you see `EREMOTEIO`, check the Fusion logs for cloud error fields: `provider`, `error_code`, `provider_code`, `provider_http_status`, and `provider_request_id`. See [Understanding Fusion logs](#understanding-fusion-logs).
+When you see `EREMOTEIO`, check the Fusion logs for cloud error fields: `provider`, `error_code`, `provider_code`, `provider_http_status`, and `provider_request_id`. See [Fusion logs](#fusion-logs).
 :::
 
 ### Error mapping
