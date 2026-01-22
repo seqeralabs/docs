@@ -167,7 +167,7 @@ tw data-links browse [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-c`, `--credentials` | Credentials identifier |  |  |
+| `-c`, `--credentials` | Credentials identifier. **Required for private cloud storage buckets** |  |  |
 | `-p`, `--path` | Path to browse within the data link |  |  |
 | `-f`, `--filter` | Filter results by prefix |  |  |
 | `-t`, `--token` | Next page token for pagination |  |  |
