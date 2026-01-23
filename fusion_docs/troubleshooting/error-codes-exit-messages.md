@@ -184,7 +184,7 @@ When troubleshooting Fusion errors:
     :::
 
 1. Identify the mapped internal error (if any):
-    - The `errno` codes map back to either a cloud error category or a specific internal error (e.g., `EACCES` indicates an authentication problem, `EREMOTEIO` indicates a cloud backend issue). Check the Fusion logs for more details on the error that triggered a specific `errno` code (see [Understanding Fusion logs](#understanding-fusion-logs)).
+    - The `errno` codes map back to either a cloud error category or a specific internal error (e.g., `EACCES` indicates an authentication problem, `EREMOTEIO` indicates a cloud backend issue). Check the Fusion logs for more details on the error that triggered a specific `errno` code (see [Fusion logs](#fusion-logs)).
 
 :::tip
 Add the following to the `nextflow.config` to enable `debug` logging for the full log:
@@ -200,7 +200,7 @@ process.containerOptions = { '-e FUSION_LOG_LEVEL=debug' }
 Fusion binaries return specific exit codes to indicate the outcome of execution.
 
 :::tip
-For exit codes `175` and `176`, see [Fusion Snapshots](./fusion-snapshots.md).
+For exit codes `175` and `176`, see [Fusion Snapshots](./fusion-snapshots).
 :::
 
 ### Fusion binary
@@ -316,7 +316,7 @@ Using `EREMOTEIO` for cloud errors provides more accurate error context, making 
 :::
 
 :::tip
-When you see `EREMOTEIO`, check the Fusion logs for cloud error fields: `provider`, `error_code`, `provider_code`, `provider_http_status`, and `provider_request_id`. See [Understanding Fusion logs](#understanding-fusion-logs).
+When you see `EREMOTEIO`, check the Fusion logs for cloud error fields: `provider`, `error_code`, `provider_code`, `provider_http_status`, and `provider_request_id`. See [Fusion logs](#fusion-logs).
 :::
 
 ### Error mapping
