@@ -39,7 +39,7 @@ Fusion emits logs in two formats:
 - **File logs** (`${workdir}/.fusion.log`): Structured logs in JSON format for detailed analysis and troubleshooting.
 
 :::note
-The `[seqera-fusion]` prefix for console logs was introduced in Fusion v2.6, v2.5.9, and v2.4.20.
+The `[seqera-fusion]` prefix for console logs was introduced in Fusion v2.5.9, and v2.4.20.
 :::
 
 ### Log fields reference
