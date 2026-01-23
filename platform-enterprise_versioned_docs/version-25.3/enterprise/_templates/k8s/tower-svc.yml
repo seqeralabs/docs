@@ -111,19 +111,6 @@ spec:
   selector:
     app: backend
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: backend-api
-spec:
-  ports:
-    - port: 8080
-      targetPort: 8080
-      protocol: TCP
-  type: NodePort
-  selector:
-    app: backend
----
 #
 # Backend API Service (Optional)
 #
@@ -143,6 +130,19 @@ spec:
 # If not needed, you can remove this service to simplify your deployment and
 # avoid potential routing conflicts with the frontend's wildcard setup.
 #
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-api
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  type: NodePort
+  selector:
+    app: backend
 ---
 apiVersion: v1
 kind: Service
