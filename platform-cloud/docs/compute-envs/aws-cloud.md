@@ -207,8 +207,8 @@ The following permissions are required to remove resources created by Seqera whe
                 "iam:DeleteRolePolicy"
             ],
             "Resource": [
-                "arn:aws:iam::*:role/TowerForge*",
-                "arn:aws:iam::*:instance-profile/TowerForge*"
+                "arn:aws:iam::*:role/TowerForge-*",
+                "arn:aws:iam::*:instance-profile/TowerForge-*"
             ]
         }
     ]
