@@ -265,7 +265,7 @@ Fusion's filesystem operations actively returns these status codes:
 | `ETIMEDOUT` | 110   | Connection timed out      | Context deadline exceeded |
 | `EREMOTEIO` | 121   | Remote I/O error          | Cloud provider errors (QuotaExceeded, unknown cloud errors) |
 
-### Troubleshoot FUSE status codes
+### Troubleshoot `errno` status codes
 
 When you encounter a FUSE status code, use the following table to identify likely causes and next steps:
 
