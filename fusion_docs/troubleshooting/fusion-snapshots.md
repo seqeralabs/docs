@@ -28,14 +28,13 @@ To resolve this issue:
    - Lower memory requested by tasks
    - Process smaller data chunks
    - Set `process.resourceLimits` to enforce limits:
-
-     ```groovy
+```groovy
      // AWS Batch example
      process.resourceLimits = [cpus: 32, memory: '60.GB']
 
      // Google Batch example (more conservative for 30s window)
      process.resourceLimits = [cpus: 16, memory: '20.GB']
-     ```
+```
 
 1. Increase network bandwidth:
 
@@ -48,8 +47,7 @@ To resolve this issue:
    - Avoid ARM64 instances if checkpoints are failing.
 
 1. Configure retry strategy:
-
-   ```groovy
+```groovy
    process {
        maxRetries = 2
        errorStrategy = {
@@ -60,12 +58,12 @@ To resolve this issue:
            }
        }
    }
-   ```
+```
 
-See [AWS Batch instance selection](./guide/snapshots/aws#selecting-an-ec2-instance) or [Google Batch best practices](./guide/snapshots/gcp) for recommended configurations.
+See [AWS Batch instance selection](../guide/snapshots/aws#selecting-an-ec2-instance) or [Google Batch best practices](../guide/snapshots/gcp) for recommended configurations.
 
 :::tip
-For a comprehensive explanation of exit code `175`, see [Exit Codes](./error-reference#exit-codes).
+For a comprehensive explanation of exit code `175`, see [Exit Codes](./error-codes-exit-messages#exit-codes).
 :::
 
 ## Exit code `176`: Checkpoint restore failed
@@ -91,10 +89,10 @@ To resolve this issue:
    - If the bucket is missing, open a support ticket. See [Getting help](#getting-help) for more information.
 
 1. Configure retry for dump failures first:
-   - Handle exit code `175` with retry. See [Retry handling](./guide/snapshots/configuration#retry-handling) for more information.
+   - Handle exit code `175` with retry. See [Retry handling](../guide/snapshots/configuration#retry-handling) for more information.
 
 :::tip
-For a comprehensive explanation of exit code `176`, see [Exit Codes](./error-reference#exit-codes).
+For a comprehensive explanation of exit code `176`, see [Exit Codes](./error-codes-exit-messages#exit-codes).
 :::
 
 ## Long checkpoint times
@@ -124,7 +122,7 @@ To resolve this issue:
    - Verify guaranteed network bandwidth (not "up to" values).
    - Prefer NVMe storage instances on AWS (instances with `d` suffix).
 
-See [Selecting an EC2 instance](./guide/snapshots/aws#selecting-an-ec2-instance) for detailed recommendations.
+See [Selecting an EC2 instance](../guide/snapshots/aws#selecting-an-ec2-instance) for detailed recommendations.
 
 ## Frequent checkpoint failures
 
@@ -147,14 +145,13 @@ To resolve this issue:
    - Recommended for AWS Batch tasks > 40 GiB.
 
 1. Adjust memory limits:
-
-   ```groovy
+```groovy
    // For AWS Batch
    process.resourceLimits = [cpus: 32, memory: '60.GB']
 
    // For Google Batch (more conservative)
    process.resourceLimits = [cpus: 16, memory: '20.GB']
-   ```
+```
 
 ## SSL/TLS connection errors after restore
 
@@ -163,12 +160,11 @@ Applications fail after restore with connection errors, especially HTTPS connect
 This issue occurs when applications use HTTPS connections, as CRIU cannot preserve encrypted TCP connections (SSL/TLS).
 
 To resolve this issue, configure TCP close mode to drop connections during checkpoint:
-
 ```groovy
 process.containerOptions = '-e FUSION_SNAPSHOTS_TCP_MODE=close'
 ```
 
-Applications will need to re-establish connections after restore. See [TCP connection handling](./guide/snapshots/configuration#tcp-connection-handling) for more information.
+Applications will need to re-establish connections after restore. See [TCP connection handling](../guide/snapshots/configuration#tcp-connection-handling) for more information.
 
 ## Debugging workflow
 
@@ -186,17 +182,15 @@ To diagnose checkpoint problems:
 
         :::tip
         Enable `debug` logging for more details.
-
-         ```groovy
+```groovy
         process.containerOptions = '-e FUSION_SNAPSHOT_LOG_LEVEL=debug'
-        ```
+```
         :::
 
 1. Inspect your checkpoint data:
 
     1. Open the `.fusion/dump/` folder:
-
-        ```console
+```console
         .fusion/dump/
         ├── 1/                   # First dump
         │   ├── pre_*.log        # Pre-dump log (if incremental)
@@ -209,32 +203,29 @@ To diagnose checkpoint problems:
         │   ├── restore_*.log    # Restore log (if restored)
         │   └── <CRIU files>
         └── dump_metadata        # Metadata tracking all dumps
-        ```
+```
 
     1. For incremental dumps (PRE type), check for success markers at the end of the `pre_*.log` file:
-
-        ```console
+```console
         (66.525687) page-pipe: Killing page pipe
         (66.563939) irmap: Running irmap pre-dump
         (66.610871) Writing stats
         (66.658902) Pre-dumping finished successfully
-        ```
+```
 
     1. For full dumps (FULL type), check for success markers at the end of the `dump_*.log` file:
-
-        ```console
+```console
         (25.867099) Unseizing 90 into 2
         (27.160829) Writing stats
         (27.197458) Dumping finished successfully
-        ```
+```
 
     1. If the log ends abruptly without success message, check the last timestamp:
-
-        ```console
+```console
         (121.37535) Dumping path for 329 fd via self 353 [/path/to/file.tmp]
         (121.65146) 90 fdinfo 330: pos: 0x4380000 flags: 100000/0
         # Log truncated - instance was reclaimed before dump completed
-        ```
+```
 
         - AWS Batch: Timestamps near 120 seconds indicate instance terminated during dump.
         - Google Batch: Timestamps near 30 seconds indicate instance terminated during dump.
@@ -242,12 +233,11 @@ To diagnose checkpoint problems:
         Cause: Task memory too large or bandwidth too low for reclamation window.
 
     1. For restore operations, check for a success marker at the end of the `restore_*.log` file:
-
-        ```console
+```console
         (145.81974) Running pre-resume scripts
         (145.81994) Restore finished successfully. Tasks resumed.
         (145.82001) Writing stats
-        ```
+```
 
 1. Verify your configuration:
 
@@ -264,7 +254,7 @@ To diagnose checkpoint problems:
     - Decrease memory usage to a manageable amount.
 
 :::tip
-For detailed information about error codes and logging, see [Error reference](./error-reference).
+For detailed information about error codes and logging, see [Error reference](./error-codes-exit-messages).
 :::
 
 ## Getting help
