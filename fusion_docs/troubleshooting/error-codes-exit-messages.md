@@ -267,7 +267,7 @@ Fusion's filesystem operations actively returns these status codes:
 
 ### Troubleshoot `errno` status codes
 
-When you encounter a FUSE status code, use the following table to identify likely causes and next steps:
+When you encounter an errno status code, use the following table to identify likely causes and next steps:
 
 | Status | Likely causes and troubleshooting steps |
 |--------|----------------------------------------|
