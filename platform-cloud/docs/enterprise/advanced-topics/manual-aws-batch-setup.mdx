@@ -127,18 +127,22 @@ Create a launch template to configure the EC2 instances deployed by Batch jobs:
           owner: root
           content: |
             #!/usr/bin/env bash
+            exec > >(tee /var/log/tower-forge.log|logger -t TowerForge -s 2>/dev/console) 2>&1
+            ##
             yum install -q -y jq sed wget unzip nvme-cli lvm2
-            wget -q https://amazoncloudwatch-agent.s3.amazonaws.com/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm
+            ## install CloudWatch agent
+            curl -s https://s3.amazonaws.com/amazoncloudwatch-agent/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm -o amazon-cloudwatch-agent.rpm
             rpm -U ./amazon-cloudwatch-agent.rpm
             rm -f ./amazon-cloudwatch-agent.rpm
-            curl -s https://nf-xpack.seqera.io/amazon-cloudwatch-agent/custom-v0.1.json \
-            #  | sed 's/custom-id/<your custom ID>/g' \
+            curl -s https://nf-xpack.seqera.io/amazon-cloudwatch-agent/config-v0.4.json \
+            #  | sed 's/$FORGE_ID/<your custom ID>/g' \
               > /opt/aws/amazon-cloudwatch-agent/bin/config.json
             /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl \
               -a fetch-config \
               -m ec2 \
               -s \
               -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json
+            ## format NVMe storage for Fusion
             mkdir -p /scratch/fusion
             NVME_DISKS=($(nvme list | grep 'Amazon EC2 NVMe Instance Storage' | awk '{ print $1 }'))
             NUM_DISKS=${#NVME_DISKS[@]}
@@ -155,18 +159,26 @@ Create a launch template to configure the EC2 instances deployed by Batch jobs:
               fi
             fi
             chmod a+w /scratch/fusion
+            ## ECS configuration
             mkdir -p /etc/ecs
             echo ECS_IMAGE_PULL_BEHAVIOR=once >> /etc/ecs/ecs.config
             echo ECS_ENABLE_AWSLOGS_EXECUTIONROLE_OVERRIDE=true >> /etc/ecs/ecs.config
+            echo ECS_ENABLE_SPOT_INSTANCE_DRAINING=true >> /etc/ecs/ecs.config
+            echo ECS_CONTAINER_CREATE_TIMEOUT=10m >> /etc/ecs/ecs.config
+            echo ECS_CONTAINER_START_TIMEOUT=10m >> /etc/ecs/ecs.config
+            echo ECS_CONTAINER_STOP_TIMEOUT=10m >> /etc/ecs/ecs.config
+            echo ECS_MANIFEST_PULL_TIMEOUT=10m >> /etc/ecs/ecs.config
+            ## stop docker
             systemctl stop docker
             ## install AWS CLI
-            mkdir -p /home/ec2-user
-            curl -s https://nf-xpack.seqera.io/miniconda-awscli/miniconda-awscli.tar.gz \
-            | tar xz -C /home/ec2-user
+            curl -s https://nf-xpack.seqera.io/miniconda-awscli/miniconda-25.3.1-awscli-1.40.12.tar.gz \
+            | tar xz -C /
             export PATH=$PATH:/home/ec2-user/miniconda/bin
             ln -s /home/ec2-user/miniconda/bin/aws /usr/bin/aws
+            ## restart docker
             systemctl start docker
             systemctl enable --now --no-block ecs
+            ## kernel settings to prevent OOM
             echo "1258291200" > /proc/sys/vm/dirty_bytes
             echo "629145600" > /proc/sys/vm/dirty_background_bytes
 
@@ -176,7 +188,7 @@ Create a launch template to configure the EC2 instances deployed by Batch jobs:
       --//--
       ```
 
-  1. To prepend a custom identifier to the CloudWatch log streams for AWS resources created by your manual compute environment, uncomment the `| sed 's/custom-id/<your custom ID>/g' \` line and replace `<your custom ID>` with your custom ID. If ommitted, this defaults to `custom-id`.
+  1. To prepend a custom identifier to the CloudWatch log streams for AWS resources created by your manual compute environment, uncomment the `| sed 's/$FORGE_ID/<your custom ID>/g' \` line and replace `<your custom ID>` with your custom identifier. If omitted, `$FORGE_ID` remains as-is in the config.
   1. Save the template with the name `seqera-launchtemplate`.
 
 </TabItem>
@@ -199,30 +211,41 @@ Create a launch template to configure the EC2 instances deployed by Batch jobs:
           owner: root
           content: |
             #!/usr/bin/env bash
+            exec > >(tee /var/log/tower-forge.log|logger -t TowerForge -s 2>/dev/console) 2>&1
+            ##
             yum install -q -y jq sed wget unzip nvme-cli lvm2
-            wget -q https://amazoncloudwatch-agent.s3.amazonaws.com/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm
+            ## install CloudWatch agent
+            curl -s https://s3.amazonaws.com/amazoncloudwatch-agent/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm -o amazon-cloudwatch-agent.rpm
             rpm -U ./amazon-cloudwatch-agent.rpm
             rm -f ./amazon-cloudwatch-agent.rpm
-            curl -s https://nf-xpack.seqera.io/amazon-cloudwatch-agent/custom-v0.1.json \
-            #  | sed 's/custom-id/<your custom ID>/g' \
+            curl -s https://nf-xpack.seqera.io/amazon-cloudwatch-agent/config-v0.4.json \
+            #  | sed 's/$FORGE_ID/<your custom ID>/g' \
               > /opt/aws/amazon-cloudwatch-agent/bin/config.json
             /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl \
               -a fetch-config \
               -m ec2 \
               -s \
               -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json
+            ## ECS configuration
             mkdir -p /etc/ecs
             echo ECS_IMAGE_PULL_BEHAVIOR=once >> /etc/ecs/ecs.config
             echo ECS_ENABLE_AWSLOGS_EXECUTIONROLE_OVERRIDE=true >> /etc/ecs/ecs.config
+            echo ECS_ENABLE_SPOT_INSTANCE_DRAINING=true >> /etc/ecs/ecs.config
+            echo ECS_CONTAINER_CREATE_TIMEOUT=10m >> /etc/ecs/ecs.config
+            echo ECS_CONTAINER_START_TIMEOUT=10m >> /etc/ecs/ecs.config
+            echo ECS_CONTAINER_STOP_TIMEOUT=10m >> /etc/ecs/ecs.config
+            echo ECS_MANIFEST_PULL_TIMEOUT=10m >> /etc/ecs/ecs.config
+            ## stop docker
             systemctl stop docker
-            ## install AWS CLI v2
-            mkdir -p /home/ec2-user
-            curl -s https://nf-xpack.seqera.io/miniconda-awscli/miniconda-awscli.tar.gz \
-            | tar xz -C /home/ec2-user
+            ## install AWS CLI
+            curl -s https://nf-xpack.seqera.io/miniconda-awscli/miniconda-25.3.1-awscli-1.40.12.tar.gz \
+            | tar xz -C /
             export PATH=$PATH:/home/ec2-user/miniconda/bin
             ln -s /home/ec2-user/miniconda/bin/aws /usr/bin/aws
+            ## restart docker
             systemctl start docker
             systemctl enable --now --no-block ecs
+            ## kernel settings to prevent OOM
             echo "1258291200" > /proc/sys/vm/dirty_bytes
             echo "629145600" > /proc/sys/vm/dirty_background_bytes
 
@@ -232,7 +255,7 @@ Create a launch template to configure the EC2 instances deployed by Batch jobs:
       --//--
       ```
 
-  1. To prepend a custom identifier to the CloudWatch log streams for AWS resources created by your manual compute environment, uncomment the `| sed 's/custom-id/<your custom ID>/g' \` line and replace `<your custom ID>` with your custom ID. If ommitted, this defaults to `custom-id`.
+  1. To prepend a custom identifier to the CloudWatch log streams for AWS resources created by your manual compute environment, uncomment the `| sed 's/$FORGE_ID/<your custom ID>/g' \` line and replace `<your custom ID>` with your custom identifier. If omitted, `$FORGE_ID` remains as-is in the config.
   1. Save the template with the name `seqera-launchtemplate`.
 
 </TabItem>
