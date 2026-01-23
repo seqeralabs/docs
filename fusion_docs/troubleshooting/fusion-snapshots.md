@@ -62,7 +62,7 @@ To resolve this issue:
    }
    ```
 
-See [AWS Batch instance selection](./guide/snapshots/aws.md#selecting-an-ec2-instance) or [Google Batch best practices](./guide/snapshots/gcp.md) for recommended configurations.
+See [AWS Batch instance selection](./guide/snapshots/aws.md#selecting-an-ec2-instance) or [Google Batch best practices](./guide/snapshots/gcp) for recommended configurations.
 
 :::tip
 For a comprehensive explanation of exit code `175`, see [Exit Codes](./error-reference.md#exit-codes).
