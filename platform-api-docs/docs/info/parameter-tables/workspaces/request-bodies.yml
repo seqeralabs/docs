@@ -82,7 +82,7 @@
 - Name: role
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Workspace participant role to assign.
 - Name: "**FindDataStudiosWorkspaceSettings**"
   Type: ""
   Req/Opt: ""

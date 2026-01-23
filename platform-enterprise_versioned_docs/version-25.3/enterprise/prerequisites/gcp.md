@@ -143,7 +143,7 @@ Seqera Enterprise is distributed as a collection of container images available t
 
 ## Next steps
 
-See [Configuration](../configuration/overview).
+See [Configuration](../configuration/overview.mdx).
 
 [gce]: https://cloud.google.com/compute
 [gcloudsql]: https://cloud.google.com/sql/docs/mysql/quickstart

@@ -158,6 +158,19 @@
           "administration/credit-management"
           ]
       },
+     {
+      "type": "category",
+      "label": "Seqera AI CLI",
+      "link": {"type": "doc", "id": "seqera-ai/index"},
+      "collapsed": true,
+      "items": [
+        "seqera-ai/get-started",
+        "seqera-ai/installation",
+        "seqera-ai/authentication",
+        "seqera-ai/command-approval",
+        "seqera-ai/use-cases"
+      ]
+    },    
       {
         "type": "category",
         "label": "Developer tools",
@@ -187,6 +200,17 @@
                 "seqerakit/commands",
                 "seqerakit/yaml-configuration",
                 "seqerakit/templates"
+              ]
+              },
+            {
+              "type": "category",
+              "label": "Seqera MCP",
+              "link": {"type": "doc", "id": "seqera-mcp/overview"},
+              "collapsed": true,
+              "items": [                  
+                "seqera-mcp/seqera-tools",
+                "seqera-mcp/sra-tools",
+                "seqera-mcp/nfcore-tools"
               ]
               },
             "pipeline-actions/overview"
@@ -220,7 +244,8 @@
           "troubleshooting_and_faqs/azure_troubleshooting",
           "troubleshooting_and_faqs/workspaces_troubleshooting",
           "troubleshooting_and_faqs/resource-labels",
-          "troubleshooting_and_faqs/datasets_troubleshooting"
+          "troubleshooting_and_faqs/datasets_troubleshooting",
+          "troubleshooting_and_faqs/seqera-ai"
         ]
       }
     ]
