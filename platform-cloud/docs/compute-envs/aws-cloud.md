@@ -87,8 +87,8 @@ The following permissions are required to provision resources in the AWS account
                 "iam:TagInstanceProfile"
             ],
             "Resource": [
-                "arn:aws:iam::*:role/TowerForge*",
-                "arn:aws:iam::*:instance-profile/TowerForge*"
+                "arn:aws:iam::*:role/TowerForge-*",
+                "arn:aws:iam::*:instance-profile/TowerForge-*"
             ]
         },
         {
@@ -97,7 +97,7 @@ The following permissions are required to provision resources in the AWS account
             "Action": [
                 "iam:PassRole"
             ],
-            "Resource": "arn:aws:iam::*:role/TowerForge*"
+            "Resource": "arn:aws:iam::*:role/TowerForge-*"
         }
     ]
 }
