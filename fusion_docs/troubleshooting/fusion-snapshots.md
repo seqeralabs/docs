@@ -62,10 +62,10 @@ To resolve this issue:
    }
    ```
 
-See [AWS Batch instance selection](./guide/snapshots/aws.md#selecting-an-ec2-instance) or [Google Batch best practices](./guide/snapshots/gcp) for recommended configurations.
+See [AWS Batch instance selection](./guide/snapshots/aws#selecting-an-ec2-instance) or [Google Batch best practices](./guide/snapshots/gcp) for recommended configurations.
 
 :::tip
-For a comprehensive explanation of exit code `175`, see [Exit Codes](./error-reference.md#exit-codes).
+For a comprehensive explanation of exit code `175`, see [Exit Codes](./error-reference#exit-codes).
 :::
 
 ## Exit code `176`: Checkpoint restore failed
@@ -91,10 +91,10 @@ To resolve this issue:
    - If the bucket is missing, open a support ticket. See [Getting help](#getting-help) for more information.
 
 1. Configure retry for dump failures first:
-   - Handle exit code `175` with retry. See [Retry handling](./guide/snapshots/configuration.md#retry-handling) for more information.
+   - Handle exit code `175` with retry. See [Retry handling](./guide/snapshots/configuration#retry-handling) for more information.
 
 :::tip
-For a comprehensive explanation of exit code `176`, see [Exit Codes](./error-reference.md#exit-codes).
+For a comprehensive explanation of exit code `176`, see [Exit Codes](./error-reference#exit-codes).
 :::
 
 ## Long checkpoint times
@@ -124,7 +124,7 @@ To resolve this issue:
    - Verify guaranteed network bandwidth (not "up to" values).
    - Prefer NVMe storage instances on AWS (instances with `d` suffix).
 
-See [Selecting an EC2 instance](./guide/snapshots/aws.md#selecting-an-ec2-instance) for detailed recommendations.
+See [Selecting an EC2 instance](./guide/snapshots/aws#selecting-an-ec2-instance) for detailed recommendations.
 
 ## Frequent checkpoint failures
 
@@ -168,7 +168,7 @@ To resolve this issue, configure TCP close mode to drop connections during check
 process.containerOptions = '-e FUSION_SNAPSHOTS_TCP_MODE=close'
 ```
 
-Applications will need to re-establish connections after restore. See [TCP connection handling](./guide/snapshots/configuration.md#tcp-connection-handling) for more information.
+Applications will need to re-establish connections after restore. See [TCP connection handling](./guide/snapshots/configuration#tcp-connection-handling) for more information.
 
 ## Debugging workflow
 
@@ -264,7 +264,7 @@ To diagnose checkpoint problems:
     - Decrease memory usage to a manageable amount.
 
 :::tip
-For detailed information about error codes and logging, see [Error reference](./error-reference.md).
+For detailed information about error codes and logging, see [Error reference](./error-reference).
 :::
 
 ## Getting help
