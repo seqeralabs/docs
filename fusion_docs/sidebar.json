@@ -39,7 +39,16 @@
     },
     "licensing",
     "reference",
-    "troubleshooting",
+    {
+      "type": "category",
+      "label": "Troubleshooting",
+      "collapsed": true,
+      "items": [
+        "troubleshooting/general",
+        "troubleshooting/fusion-snapshots",
+        "troubleshooting/error-codes-exit-messages"
+      ]
+    },
     "faq",
     {
       "type": "link",
