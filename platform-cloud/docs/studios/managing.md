@@ -8,7 +8,7 @@ tags: [data, session, studios]
 
 Select the **Studios** tab in Platform to:
 
-- Start, stop, or connect to an existing session. 
+- Start, stop, or connect to an existing session.
 - Dynamically filter the list of Studios using the search bar.
 - Open a detailed view that displays configuration information.
 
@@ -83,6 +83,19 @@ Collaborators need valid workspace permissions to connect to the running Studio.
 
 To share a link to a running session with collaborators inside your workspace, select the three dots next to the status message for the session you want to share, then select **Copy Studio URL**. Using this link, other authenticated users can access the session directly.
 
+Seqera-managed container templates offer varying levels of multi-user collaboration:
+
+- **JupyterLab:** Supports multi-user collaboration via the `jupyter-collaboration` package. Each connected user has a randomly assigned colour-coded avatar and the user cursor inherits the same color for easily differentiating multiple connected users.
+- **VS Code:** Supports multi-user collaboration by default, but each connected user is not readily distinguishable. For a more fully-featured collaborative experience, install the [Microsoft Live Share extension][liveshare] or [P2P Live Share][p2p-liveshare].
+- **R-IDE:** By default, multi-user collaboration is not supported. When an additional user connects to the running session, the previously connected user is notified and forcibly disconnected.
+- **Xpra:** Supports multi-user collaboration by default and is similar to a remote desktop experience. Connected users are not readily distinguishable.
+
+:::note
+RStudio Professional Server supports multi-user collaboration. Add your own custom container and include your Posit Workbench license code as a environment variable to take advantage of this.
+:::
+
+Multi-user collaboration in custom containers is dependent on the container configuration.
+
 ## Limit Studio access to a specific cloud bucket subdirectory {#cloud-bucket-subdirectory}
 
 For a cloud bucket that is writeable, as enabled by including the bucket in a compute environment's **Allowed S3 bucket** list, you can limit write access to that bucket from within a Studio session.
@@ -144,7 +157,7 @@ Sessions have the following possible statuses:
 - **running**: When a session is **running**, you can connect to it, copy the URL, or stop it. In addition, the session can continue to process requests/run computations in the absence of an ongoing connection.
 - **stopping**: The recently-running session is in the process of being stopped.
 - **stopped**: When a session is stopped, the associated compute resources are deallocated. You can start or delete the session when it's in this state.
-- **errored**: This state most often indicates that there has been an error starting the session but it is in a **stopped** state.
+- **errored**: This state most often indicates that there has been an error starting the session but it is in a **stopped** state. 
 
 :::note
 There might be errors reported by the session itself but these will be overwritten with a **running** status if the session is still running.
@@ -161,16 +174,16 @@ You can limit write access to just a subdirectory of a bucket by creating a cust
 - `s3://biopharmaXs`: Entire bucket
 - `s3://biopharmaX/experiments/project-A/experiment-1/data`: Subdirectory to mount in a Studio session
 
-Mounted data-links are exposed at the `/workspace/data/` directory path inside a Studio session. For example, the bucket subdirectory `s3://biopharmaX/experiments/project-A/experiment-1/data`, when mounted as a data-link, is exposed at `/workspace/data/biopharmaxs-project-a-experiment-1-data`.
+Mounted data links are exposed at the `/workspace/data/` directory path inside a Studio session. For example, the bucket subdirectory `s3://biopharmaX/experiments/project-A/experiment-1/data`, when mounted as a data-link, is exposed at `/workspace/data/biopharmaxs-project-a-experiment-1-data`.
 
 For more information, see [Limit Studio access to a specific cloud bucket subdirectory][cloud-bucket-subdirectory].
 
 ## Studio session checkpoints
 
-When starting a Studio session, a *checkpoint* is automatically created. A checkpoint saves all changes made to the root filesystem and stores it in the attached compute environment's work directory in the `.studios/checkpoints` folder with a unique name. The current checkpoint is updated every five minutes during a session.
+When starting a Studio session, a *checkpoint* is automatically created. A checkpoint saves all changes made to the root filesystem and stores it in the attached compute environment's pipeline work directory in the `.studios/checkpoints` folder with a unique name. The current checkpoint is updated every five minutes during a session.
 
 :::warning
-Checkpoints vary in size depending on libraries installed in your session environment. This can potentially result in many large files stored in the compute environment's work directory and saved to cloud storage. This storage will incur costs based on the cloud provider. Due to the architecture of Studios, you cannot delete any checkpoint files to save on storage costs. Deleting a Studio session's checkpoints will result in a corrupted Studio session that cannot be started nor recovered.
+Checkpoints vary in size depending on libraries installed in your session environment. This can potentially result in many large files stored in the compute environment's pipeline work directory and saved to cloud storage. This storage will incur costs based on the cloud provider. Due to the architecture of Studios, you cannot delete any checkpoint files to save on storage costs. Deleting a Studio session's checkpoints will result in a corrupted Studio session that cannot be started nor recovered.
 :::
 
 When you stop and start a session, or start a new session from a previously created checkpoint, changes such as installed software packages and configuration files are restored and made available. Changes made to mounted data are not included in a checkpoint.
@@ -185,31 +198,24 @@ The cleanup process is a best effort and not guaranteed. Seqera attempts to remo
 
 ## Session volume automatic resizing
 
-By default, a session allocates an initial 2 GB of storage. Available disk space is continually monitored and if the available space drops below a 1 GB threshold, the file system is dynamically-resized to include an additional 2 GB of available disk space.
+By default, a session allocates an initial 2 GB of storage. Available disk space is continually monitored and if the available space drops below a 1 GB threshold, the file system is dynamically resized to include an additional 2 GB of available disk space.
 
-This approach ensures that a session doesn't initially include unnecessary free disk space, while providing the flexibility to accommodate installation of large software packages required for data analysis. The maximum storage allocation for a session is limited by the compute environment disk boot size. By default, this is 30 GB. This limit is shared by all sessions running in the same compute environment.
+This approach ensures that a session doesn't initially include unnecessary free disk space, while providing the flexibility to accommodate installation of large software packages required for data analysis.
 
-If the maximum allocation size is reached, it is possible to reclaim storage space using a snapshot.
+The maximum storage allocation for a session is limited by the compute environment disk boot size. By default, this is 30 GB. This limit is shared by all sessions running in the same compute environment. If the maximum allocation size is reached, it is possible to reclaim storage space using a snapshot. 
 
 Stop the active session to trigger a snapshot from the active volume. The snapshot is uploaded to cloud storage with Fusion. When you start from the newly saved snapshot, all previous data is loaded, and the newly started session will have 2 GB of available space.
-
-## EFS file systems
-
-If you configured your compute environment to include an EFS file system with **EFS file system > EFS mount path**, the mount path must be explicitly specified. The mount path cannot be the same as your compute environment work directory. If the EFS file system is mounted as your compute environment work directory, snapshots cannot be saved and sessions fail.
-
-To mount an EFS volume in a Studio session (for example, if your organization has a custom, managed, and standardized software stack in an EFS volume), add the EFS volume to the compute environment (system ID and mount path). The volume will be available at the specified mount path in the session.
-
-For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
 
 {/* links */}
 [contact]: https://support.seqera.io/
 [aws-cloud]: ../compute-envs/aws-cloud
 [aws-batch]: ../compute-envs/aws-batch
+[google-cloud]: ../compute-envs/google-cloud
 [custom-envs]: ./custom-envs
 [build-status]: ./custom-envs#build-status
 [cloud-bucket-subdirectory]: ./managing#cloud-bucket-subdirectory
 [ds-jupyter]: https://public.cr.seqera.io/repo/platform/data-studio-jupyter
-[ds-rstudio]: https://public.cr.seqera.io/repo/platform/data-studio-rstudio
+[ds-ride]: https://public.cr.seqera.io/repo/platform/data-studio-ride
 [def-vsc]: https://code.visualstudio.com/
 [Nextflow]: https://nextflow.io/
 [nf-lang-server]: https://marketplace.visualstudio.com/items?itemName=nextflow.nextflow
@@ -219,7 +225,8 @@ For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
 [Wave]: https://seqera.io/wave/
 [build-status]: ./custom-envs#build-status
 [add-s]: ./add-studio
-[aws-gpu]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-gpu.html
 [conda-syntax]: ./custom-envs#conda-package-syntax
 [custom-image]: ./custom-envs#custom-containers
 [connect]: ./connect
+[liveshare]: https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare
+[p2p-liveshare]: https://open-vsx.org/extension/kermanx/p2p-live-share

@@ -11,14 +11,11 @@ import TabItem from '@theme/TabItem';
 This page describes how to set up AWS roles and Batch queues manually for the deployment of Nextflow workloads with Seqera Platform.
 
 :::tip
-Manual AWS Batch configuration is only necessary if you don't use Batch Forge.
-
-Batch Forge _automatically creates_ the AWS Batch queues required for your workflow executions.
+Manual AWS Batch configuration is only necessary if you don't want to let Seqera Platform create the required AWS Batch resources in your AWS account automatically, done using the internal tool called Batch Forge.
 :::
 
-Complete the following procedures to configure AWS Batch manually:
+Complete the following steps to configure the AWS Batch resources needed by Seqera Platform:
 
-1. Create a user policy.
 2. Create the instance role policy.
 3. Create the AWS Batch service role.
 4. Create an EC2 Instance role.
@@ -26,39 +23,6 @@ Complete the following procedures to configure AWS Batch manually:
 6. Create a launch template.
 7. Create the AWS Batch compute environments.
 8. Create the AWS Batch queue.
-
-### Create a user policy
-
-Create the policy for the user launching Nextflow jobs:
-
-1. In the [IAM Console](https://console.aws.amazon.com/iam/home), select **Create policy** from the Policies page.
-1. Create a new policy with the following content:
-
-   ```json
-   {
-     "Version": "2012-10-17",
-     "Statement": [
-       {
-         "Sid": "Stmt1530313170000",
-         "Effect": "Allow",
-         "Action": [
-           "batch:CancelJob",
-           "batch:RegisterJobDefinition",
-           "batch:DescribeComputeEnvironments",
-           "batch:DescribeJobDefinitions",
-           "batch:DescribeJobQueues",
-           "batch:DescribeJobs",
-           "batch:ListJobs",
-           "batch:SubmitJob",
-           "batch:TerminateJob"
-         ],
-         "Resource": ["*"]
-       }
-     ]
-   }
-   ```
-
-1. Save with it the name `seqera-user`.
 
 ### Create the instance role policy
 
@@ -163,18 +127,22 @@ Create a launch template to configure the EC2 instances deployed by Batch jobs:
           owner: root
           content: |
             #!/usr/bin/env bash
+            exec > >(tee /var/log/tower-forge.log|logger -t TowerForge -s 2>/dev/console) 2>&1
+            ##
             yum install -q -y jq sed wget unzip nvme-cli lvm2
-            wget -q https://amazoncloudwatch-agent.s3.amazonaws.com/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm
+            ## install CloudWatch agent
+            curl -s https://s3.amazonaws.com/amazoncloudwatch-agent/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm -o amazon-cloudwatch-agent.rpm
             rpm -U ./amazon-cloudwatch-agent.rpm
             rm -f ./amazon-cloudwatch-agent.rpm
-            curl -s https://nf-xpack.seqera.io/amazon-cloudwatch-agent/custom-v0.1.json \
-            #  | sed 's/custom-id/<your custom ID>/g' \
+            curl -s https://nf-xpack.seqera.io/amazon-cloudwatch-agent/config-v0.4.json \
+            #  | sed 's/$FORGE_ID/<your custom ID>/g' \
               > /opt/aws/amazon-cloudwatch-agent/bin/config.json
             /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl \
               -a fetch-config \
               -m ec2 \
               -s \
-              -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json          
+              -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json
+            ## format NVMe storage for Fusion
             mkdir -p /scratch/fusion
             NVME_DISKS=($(nvme list | grep 'Amazon EC2 NVMe Instance Storage' | awk '{ print $1 }'))
             NUM_DISKS=${#NVME_DISKS[@]}
@@ -191,18 +159,26 @@ Create a launch template to configure the EC2 instances deployed by Batch jobs:
               fi
             fi
             chmod a+w /scratch/fusion
+            ## ECS configuration
             mkdir -p /etc/ecs
             echo ECS_IMAGE_PULL_BEHAVIOR=once >> /etc/ecs/ecs.config
             echo ECS_ENABLE_AWSLOGS_EXECUTIONROLE_OVERRIDE=true >> /etc/ecs/ecs.config
+            echo ECS_ENABLE_SPOT_INSTANCE_DRAINING=true >> /etc/ecs/ecs.config
+            echo ECS_CONTAINER_CREATE_TIMEOUT=10m >> /etc/ecs/ecs.config
+            echo ECS_CONTAINER_START_TIMEOUT=10m >> /etc/ecs/ecs.config
+            echo ECS_CONTAINER_STOP_TIMEOUT=10m >> /etc/ecs/ecs.config
+            echo ECS_MANIFEST_PULL_TIMEOUT=10m >> /etc/ecs/ecs.config
+            ## stop docker
             systemctl stop docker
             ## install AWS CLI
-            mkdir -p /home/ec2-user
-            curl -s https://nf-xpack.seqera.io/miniconda-awscli/miniconda-awscli.tar.gz \
-            | tar xz -C /home/ec2-user
+            curl -s https://nf-xpack.seqera.io/miniconda-awscli/miniconda-25.3.1-awscli-1.40.12.tar.gz \
+            | tar xz -C /
             export PATH=$PATH:/home/ec2-user/miniconda/bin
             ln -s /home/ec2-user/miniconda/bin/aws /usr/bin/aws
+            ## restart docker
             systemctl start docker
             systemctl enable --now --no-block ecs
+            ## kernel settings to prevent OOM
             echo "1258291200" > /proc/sys/vm/dirty_bytes
             echo "629145600" > /proc/sys/vm/dirty_background_bytes
 
@@ -212,7 +188,7 @@ Create a launch template to configure the EC2 instances deployed by Batch jobs:
       --//--
       ```
 
-  1. To prepend a custom identifier to the CloudWatch log streams for AWS resources created by your manual compute environment, uncomment the `| sed 's/custom-id/<your custom ID>/g' \` line and replace `<your custom ID>` with your custom ID. If ommitted, this defaults to `custom-id`.
+  1. To prepend a custom identifier to the CloudWatch log streams for AWS resources created by your manual compute environment, uncomment the `| sed 's/$FORGE_ID/<your custom ID>/g' \` line and replace `<your custom ID>` with your custom identifier. If omitted, `$FORGE_ID` remains as-is in the config.
   1. Save the template with the name `seqera-launchtemplate`.
 
 </TabItem>
@@ -235,30 +211,41 @@ Create a launch template to configure the EC2 instances deployed by Batch jobs:
           owner: root
           content: |
             #!/usr/bin/env bash
+            exec > >(tee /var/log/tower-forge.log|logger -t TowerForge -s 2>/dev/console) 2>&1
+            ##
             yum install -q -y jq sed wget unzip nvme-cli lvm2
-            wget -q https://amazoncloudwatch-agent.s3.amazonaws.com/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm
+            ## install CloudWatch agent
+            curl -s https://s3.amazonaws.com/amazoncloudwatch-agent/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm -o amazon-cloudwatch-agent.rpm
             rpm -U ./amazon-cloudwatch-agent.rpm
             rm -f ./amazon-cloudwatch-agent.rpm
-            curl -s https://nf-xpack.seqera.io/amazon-cloudwatch-agent/custom-v0.1.json \
-            #  | sed 's/custom-id/<your custom ID>/g' \
+            curl -s https://nf-xpack.seqera.io/amazon-cloudwatch-agent/config-v0.4.json \
+            #  | sed 's/$FORGE_ID/<your custom ID>/g' \
               > /opt/aws/amazon-cloudwatch-agent/bin/config.json
             /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl \
               -a fetch-config \
               -m ec2 \
               -s \
               -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json
+            ## ECS configuration
             mkdir -p /etc/ecs
             echo ECS_IMAGE_PULL_BEHAVIOR=once >> /etc/ecs/ecs.config
             echo ECS_ENABLE_AWSLOGS_EXECUTIONROLE_OVERRIDE=true >> /etc/ecs/ecs.config
+            echo ECS_ENABLE_SPOT_INSTANCE_DRAINING=true >> /etc/ecs/ecs.config
+            echo ECS_CONTAINER_CREATE_TIMEOUT=10m >> /etc/ecs/ecs.config
+            echo ECS_CONTAINER_START_TIMEOUT=10m >> /etc/ecs/ecs.config
+            echo ECS_CONTAINER_STOP_TIMEOUT=10m >> /etc/ecs/ecs.config
+            echo ECS_MANIFEST_PULL_TIMEOUT=10m >> /etc/ecs/ecs.config
+            ## stop docker
             systemctl stop docker
-            ## install AWS CLI v2
-            mkdir -p /home/ec2-user
-            curl -s https://nf-xpack.seqera.io/miniconda-awscli/miniconda-awscli.tar.gz \
-            | tar xz -C /home/ec2-user
+            ## install AWS CLI
+            curl -s https://nf-xpack.seqera.io/miniconda-awscli/miniconda-25.3.1-awscli-1.40.12.tar.gz \
+            | tar xz -C /
             export PATH=$PATH:/home/ec2-user/miniconda/bin
             ln -s /home/ec2-user/miniconda/bin/aws /usr/bin/aws
+            ## restart docker
             systemctl start docker
             systemctl enable --now --no-block ecs
+            ## kernel settings to prevent OOM
             echo "1258291200" > /proc/sys/vm/dirty_bytes
             echo "629145600" > /proc/sys/vm/dirty_background_bytes
 
@@ -268,7 +255,7 @@ Create a launch template to configure the EC2 instances deployed by Batch jobs:
       --//--
       ```
 
-  1. To prepend a custom identifier to the CloudWatch log streams for AWS resources created by your manual compute environment, uncomment the `| sed 's/custom-id/<your custom ID>/g' \` line and replace `<your custom ID>` with your custom ID. If ommitted, this defaults to `custom-id`.
+  1. To prepend a custom identifier to the CloudWatch log streams for AWS resources created by your manual compute environment, uncomment the `| sed 's/$FORGE_ID/<your custom ID>/g' \` line and replace `<your custom ID>` with your custom identifier. If omitted, `$FORGE_ID` remains as-is in the config.
   1. Save the template with the name `seqera-launchtemplate`.
 
 </TabItem>
@@ -276,8 +263,8 @@ Create a launch template to configure the EC2 instances deployed by Batch jobs:
 
 ### Create the Batch compute environments
 
-:::caution 
-AWS Graviton instances (ARM64 CPU architecture) are not supported in manual compute environments. To use Graviton instances, create your AWS Batch compute environment with [Batch Forge](../../compute-envs/aws-batch#batch-forge-compute-environment).
+:::caution
+AWS Graviton instances (ARM64 CPU architecture) are not supported in manual compute environments. To use Graviton instances, create your AWS Batch compute environment with [Batch Forge](../../compute-envs/aws-batch#create-a-seqera-aws-batch-compute-environment).
 :::
 
 Nextflow makes use of two job queues during workflow execution:
@@ -301,7 +288,7 @@ The head queue requires an on-demand compute environment. Do not select **Use Sp
 1. In the [Batch Console](https://eu-west-1.console.aws.amazon.com/batch/home), select **Create** on the Compute environments page.
 1. Select **Amazon EC2** as the compute environment configuration.
     :::note
-    Seqera AWS Batch compute environments created with [Batch Forge](../../compute-envs/aws-batch#batch-forge-compute-environment) support using Fargate for the head job, but manual compute environments must use EC2.
+    Seqera AWS Batch compute environments created with [Batch Forge](../../compute-envs/aws-batch#create-a-seqera-aws-batch-compute-environment) support using Fargate for the head job, but manual compute environments must use EC2.
     :::
 1. Enter a name of your choice, and apply the `seqera-servicerole` and `seqera-instancerole`.
 1. Enter vCPU limits and instance types, if needed.
@@ -310,7 +297,7 @@ The head queue requires an on-demand compute environment. Do not select **Use Sp
     :::
 1. Expand **Additional configuration** and select the `seqera-launchtemplate` from the Launch template dropdown.
 1. Configure VPCs, subnets, and security groups on the next page as needed.
-1. Review your configuration and select **Create compute environment**.  
+1. Review your configuration and select **Create compute environment**.
 
 </TabItem>
 <TabItem value="Compute queue with Spot instances" label="Compute queue with Spot instances" default>
@@ -320,11 +307,11 @@ Create this compute environment to use Spot instances for your workflow compute 
 1. In the [Batch Console](https://eu-west-1.console.aws.amazon.com/batch/home), select **Create** on the Compute environments page.
 1. Select **Amazon EC2** as the compute environment configuration.
 1. Enter a name of your choice, and apply the `seqera-servicerole` and `seqera-instancerole`.
-1. Select **Enable using Spot instances** to use Spot instances and save computing costs.  
+1. Select **Enable using Spot instances** to use Spot instances and save computing costs.
 1. Select the `seqera-fleetrole` and enter vCPU limits and instance types, if needed.
 1. Expand **Additional configuration** and select the `seqera-launchtemplate` from the Launch template dropdown.
 1. Configure VPCs, subnets, and security groups on the next page as needed.
-1. Review your configuration and select **Create compute environment**.  
+1. Review your configuration and select **Create compute environment**.
 
 </TabItem>
 </Tabs>
@@ -356,4 +343,4 @@ You only need to create one queue if you intend to use on-demand instances for y
 </TabItem>
 </Tabs>
 
-Use the AWS resources created on this page to create your [manual AWS Batch compute environment](../../compute-envs/aws-batch#manual).
+Use the AWS resources created on this page to create your [manual AWS Batch compute environment](../../compute-envs/aws-batch#manual-configuration-of-batch-resources).
