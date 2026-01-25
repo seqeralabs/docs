@@ -2,6 +2,7 @@
 title: "Google Cloud"
 description: Prerequisites for GCP deployments
 date: "12 Apr 2023"
+last updated: "2025-10-22"
 tags: [gcp, prerequisites, configuration]
 ---
 
@@ -14,6 +15,7 @@ Run the Seqera container with [Docker](../docker-compose) on a GCP VM instance o
 
 - **SMTP server**: If you don't have an email server, Google Cloud provides several ways to send emails, such as [SendGrid][sendgrid], [Mailgun][mailgun], and [Mailjet][mailjet]. Work with your IT team to select the best solution for your organization.
 - **MySQL database**: An external database such as [Google CloudSQL][gcloudsql] is highly recommended for production environments.
+- **Redis-compatible cache**: An external Redis-compatible cache, such as [Google Memorystore] (https://cloud.google.com/memorystore/docs/redis/), is highly recommended for production deployments.
 - **SSL certificate**: An SSL certificate is required for your Seqera instance to handle HTTPS traffic.
 
   :::caution
@@ -53,10 +55,10 @@ This section provides step-by-step instructions for some commonly used GCP servi
 Create a Google CloudSQL instance with the following attributes:
 - MySQL 8.0
 - At least **2 vCPUs**, **8 GB** memory, and **30 GB SSD** storage
-- Private IP 
+- Private IP
 
-:::caution 
-The recommended machine type and storage requirements depend on the number of parallel pipelines you expect to run. 
+:::caution
+The recommended machine type and storage requirements depend on the number of parallel pipelines you expect to run.
 :::
 
 <Tabs>
@@ -72,7 +74,7 @@ The recommended machine type and storage requirements depend on the number of pa
 See [Create a MySQL instance][gcloudsql-create] for gcloud CLI instructions.
 
 1. Create your MySQL instance with the following command:
-    ```bash 
+    ```bash
     gcloud sql instances create INSTANCE_NAME \
     --database-version=MYSQL_8_0 \
     --cpu=2 \
@@ -80,7 +82,7 @@ See [Create a MySQL instance][gcloudsql-create] for gcloud CLI instructions.
     --storage-size=30GB \
     --region=us-central1
     ```
-1. Note the private IP address as it must be supplied to the `TOWER_DB_URL` environment variable during Seqera configuration. 
+1. Note the private IP address as it must be supplied to the `TOWER_DB_URL` environment variable during Seqera configuration.
 1. Set the password for the root MySQL user:
     ```bash
     gcloud sql users set-password root \
@@ -88,8 +90,8 @@ See [Create a MySQL instance][gcloudsql-create] for gcloud CLI instructions.
     --instance INSTANCE_NAME \
     --password PASSWORD
     ```
-1. Create a database named `tower` on the instance: 
-    ```bash 
+1. Create a database named `tower` on the instance:
+    ```bash
     gcloud sql databases create tower \
     --instance=INSTANCE_NAME \
     ```
@@ -107,7 +109,7 @@ Create a VM instance with these attributes:
 <Tabs>
 <TabItem value="GCP console" label="GCP console" default>
 
-See [Create a VM instance from a public image][gcp-vm-public] for Cloud console instructions. 
+See [Create a VM instance from a public image][gcp-vm-public] for Cloud console instructions.
 
 </TabItem>
 <TabItem value="gcloud CLI" label="gcloud CLI" default>
@@ -121,7 +123,7 @@ See [Create a VM instance from a public image][gcp-vm-public] for Cloud console 
       --machine-type=MACHINE_TYPE
     ```
     Replace `VM_NAME`, `IMAGE`, `IMAGE_FAMILY`, `IMAGE_PROJECT`, and `MACHINE_TYPE` with your VM details.
-1. Run `gcloud compute instances describe VM_NAME` to verify that Compute Engine created the VM. 
+1. Run `gcloud compute instances describe VM_NAME` to verify that Compute Engine created the VM.
 
 </TabItem>
 </Tabs>
@@ -138,22 +140,9 @@ After you have created your VM instance:
 
 ## Seqera container images
 
-Seqera Platform Enterprise is distributed as a collection of Docker containers available through the Seqera
-container registry [`cr.seqera.io`](https://cr.seqera.io). Contact [support](https://support.seqera.io) to get your container access credentials. After you receive your credentials, retrieve the Seqera container images on your VM instance:
+Seqera Enterprise is distributed as a collection of container images available through the Seqera container registry [`cr.seqera.io`](https://cr.seqera.io). Refer to the instructions in the [Common prerequisites](./common.md#vendoring-seqera-container-images-to-your-own-registry) page to replicate the required images to your internal container registry for High Availability or for air-gapped environments.
 
-1. Retrieve the **username** and **password** you received from Seqera support.
-1. Authenticate to the registry:
-   ```bash
-   docker login -u '/\<USERNAME\>/' -p '/\PASSWORD\>/' cr.seqera.io
-   ```
-1. Pull the Seqera container images:
-   ```bash
-   docker pull cr.seqera.io/private/nf-tower-enterprise/backend:v25.2.3
-
-   docker pull cr.seqera.io/private/nf-tower-enterprise/frontend:v25.2.3
-   ```
-
-## Next steps 
+## Next steps
 
 See [Configuration](../configuration/overview).
 

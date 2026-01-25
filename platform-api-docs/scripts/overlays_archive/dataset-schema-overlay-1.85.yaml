@@ -1,0 +1,219 @@
+# ===== DATASETS SCHEMAS - REQUEST/RESPONSE OBJECTS =====
+
+# ---- REQUEST SCHEMAS ----
+
+# CreateDatasetRequest
+- target: "$.components.schemas.CreateDatasetRequest"
+  update:
+    required: ["name"]
+
+- target: "$.components.schemas.CreateDatasetRequest.properties.name"
+  update:
+    description: "Unique name for the dataset. Must consist of alphanumeric, dash, or underscore characters."
+
+- target: "$.components.schemas.CreateDatasetRequest.properties.description"
+  update:
+    description: "Description of the dataset. Maximum length: 5000 characters."
+
+# UpdateDatasetRequest
+- target: "$.components.schemas.UpdateDatasetRequest.properties.name"
+  update:
+    description: "New name for the dataset. Must be unique within the workspace or user context."
+
+- target: "$.components.schemas.UpdateDatasetRequest.properties.description"
+  update:
+    description: "Updated description of the dataset. Maximum length: 5000 characters."
+
+# DeleteDatasetsRequest
+- target: "$.components.schemas.DeleteDatasetsRequest.properties.datasetIds"
+  update:
+    description: "Array of dataset IDs to delete."
+
+# ChangeDatasetVisibilityRequest
+- target: "$.components.schemas.ChangeDatasetVisibilityRequest.properties.datasetIds"
+  update:
+    description: "Array of dataset IDs to hide or show."
+
+# AssociateDatasetsLabelsRequest
+- target: "$.components.schemas.AssociateDatasetsLabelsRequest.properties.datasetIds"
+  update:
+    description: "Array of dataset IDs to which labels will be added, applied, or removed."
+
+- target: "$.components.schemas.AssociateDatasetsLabelsRequest.properties.labelIds"
+  update:
+    description: "Array of label IDs to add, apply, or remove."
+
+# ---- RESPONSE SCHEMAS ----
+
+# CreateDatasetResponse
+- target: "$.components.schemas.CreateDatasetResponse.properties.dataset"
+  update:
+    description: "Created dataset object containing metadata."
+
+# DescribeDatasetResponse
+- target: "$.components.schemas.DescribeDatasetResponse.properties.dataset"
+  update:
+    description: "Dataset object containing metadata and optional attributes."
+
+# ListDatasetsResponse
+- target: "$.components.schemas.ListDatasetsResponse.properties.datasets"
+  update:
+    description: "Array of dataset objects."
+
+- target: "$.components.schemas.ListDatasetsResponse.properties.totalSize"
+  update:
+    description: "Total number of datasets matching the query."
+
+# DeleteDatasetsResponse
+- target: "$.components.schemas.DeleteDatasetsResponse.properties.success"
+  update:
+    description: "Array of dataset IDs that were successfully deleted."
+
+- target: "$.components.schemas.DeleteDatasetsResponse.properties.failed"
+  update:
+    description: "Array of dataset IDs that failed to delete."
+
+# ListDatasetVersionsResponse
+- target: "$.components.schemas.ListDatasetVersionsResponse.properties.versions"
+  update:
+    description: "Array of dataset version objects."
+
+- target: "$.components.schemas.ListDatasetVersionsResponse.properties.totalSize"
+  update:
+    description: "Total number of dataset versions matching the query."
+
+# UploadDatasetVersionResponse
+- target: "$.components.schemas.UploadDatasetVersionResponse.properties.version"
+  update:
+    description: "Created dataset version object containing metadata and download URL."
+
+# ---- DTO SCHEMAS ----
+
+# DatasetDto
+- target: "$.components.schemas.DatasetDto.properties.id"
+  update:
+    description: "Dataset string identifier."
+
+- target: "$.components.schemas.DatasetDto.properties.user"
+  update:
+    description: "User who created the dataset."
+
+- target: "$.components.schemas.DatasetDto.properties.workspaceId"
+  update:
+    description: "Workspace numeric identifier. Null if dataset is in user context."
+
+- target: "$.components.schemas.DatasetDto.properties.organizationId"
+  update:
+    description: "Organization numeric identifier."
+
+- target: "$.components.schemas.DatasetDto.properties.name"
+  update:
+    description: "Dataset name."
+
+- target: "$.components.schemas.DatasetDto.properties.lastUpdatedBy"
+  update:
+    description: "User who last updated the dataset."
+
+- target: "$.components.schemas.DatasetDto.properties.description"
+  update:
+    description: "Dataset description."
+
+- target: "$.components.schemas.DatasetDto.properties.mediaType"
+  update:
+    description: "MIME type of the dataset content (e.g., `text/csv`, `text/tab-separated-values`)."
+
+- target: "$.components.schemas.DatasetDto.properties.dateCreated"
+  update:
+    description: "Creation timestamp."
+
+- target: "$.components.schemas.DatasetDto.properties.lastUpdated"
+  update:
+    description: "Last update timestamp."
+
+- target: "$.components.schemas.DatasetDto.properties.deleted"
+  update:
+    description: "Deletion status flag."
+
+- target: "$.components.schemas.DatasetDto.properties.hidden"
+  update:
+    description: "Visibility status flag. If `true`, dataset is hidden from default list views."
+
+- target: "$.components.schemas.DatasetDto.properties.labels"
+  update:
+    description: "Array of labels attached to the dataset. Only returned when `?attributes=labels` is specified."
+
+- target: "$.components.schemas.DatasetDto.properties.version"
+  update:
+    description: "Version number (deprecated, no replacement)."
+
+- target: "$.components.schemas.DatasetDto.properties.runsInfo"
+  update:
+    description: "Usage statistics for the dataset, including run count and last usage timestamp."
+
+# DatasetVersionDto
+- target: "$.components.schemas.DatasetVersionDto.properties.datasetId"
+  update:
+    description: "Dataset string identifier."
+
+- target: "$.components.schemas.DatasetVersionDto.properties.datasetName"
+  update:
+    description: "Dataset name."
+
+- target: "$.components.schemas.DatasetVersionDto.properties.datasetDescription"
+  update:
+    description: "Dataset description."
+
+- target: "$.components.schemas.DatasetVersionDto.properties.hasHeader"
+  update:
+    description: "Indicates whether the dataset file contains a header row."
+
+- target: "$.components.schemas.DatasetVersionDto.properties.version"
+  update:
+    description: "Version number."
+
+- target: "$.components.schemas.DatasetVersionDto.properties.createdBy"
+  update:
+    description: "User who created this version."
+
+- target: "$.components.schemas.DatasetVersionDto.properties.dateCreated"
+  update:
+    description: "Version creation timestamp."
+
+- target: "$.components.schemas.DatasetVersionDto.properties.lastUpdated"
+  update:
+    description: "Version last update timestamp."
+
+- target: "$.components.schemas.DatasetVersionDto.properties.fileName"
+  update:
+    description: "Original filename of the uploaded dataset file."
+
+- target: "$.components.schemas.DatasetVersionDto.properties.mediaType"
+  update:
+    description: "MIME type of the dataset content (e.g., `text/csv`, `text/tab-separated-values`)."
+
+- target: "$.components.schemas.DatasetVersionDto.properties.workspaceId"
+  update:
+    description: "Workspace numeric identifier. Null if dataset is in user context."
+
+- target: "$.components.schemas.DatasetVersionDto.properties.url"
+  update:
+    description: "Download URL for the dataset version content."
+
+- target: "$.components.schemas.DatasetVersionDto.properties.disabled"
+  update:
+    description: "Indicates whether this version is disabled. Disabled versions cannot be used in workflow runs."
+
+# DatasetRunsInfo
+- target: "$.components.schemas.DatasetRunsInfo.properties.runsCount"
+  update:
+    description: "Number of workflow runs that have used this dataset."
+
+- target: "$.components.schemas.DatasetRunsInfo.properties.lastUsed"
+  update:
+    description: "Timestamp of the most recent workflow run that used this dataset."
+
+# DatasetQueryAttribute enum
+- target: "$.components.schemas.DatasetQueryAttribute"
+  update:
+    description: "Query attribute options for including additional dataset information in API responses."
+    enum: ["labels"]
