@@ -1,6 +1,7 @@
 ---
 title: "JVM memory tuning"
 description: Configure JVM memory parameters for Seqera Platform Enterprise deployments
+date created: "2025-12-17"
 tags: [configuration, jvm, memory, tuning]
 ---
 
