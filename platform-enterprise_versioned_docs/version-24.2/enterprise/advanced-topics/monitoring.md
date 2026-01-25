@@ -5,7 +5,7 @@ date created: "2025-12-17"
 tags: [platform, monitoring]
 ---
 
-Seqera Platform has built-in observability metrics which can be enabled by adding `prometheus` to the `MICRONAUT_ENVIRONMENTS` environment variable. This exposes a Prometheus endpoint at `/prometheus` on the default listen port (e.g., `http://localhost:8080/prometheus`).
+You can enable Seqera Platform's built-in observability metrics by adding `prometheus` to the `MICRONAUT_ENVIRONMENTS` environment variable. This exposes a Prometheus endpoint at `/prometheus` on the default listen port (e.g., `http://localhost:8080/prometheus`).
 
 Combined with infrastructure monitoring tools such as Node Exporter, you can monitor relevant metrics across your deployment.
 
