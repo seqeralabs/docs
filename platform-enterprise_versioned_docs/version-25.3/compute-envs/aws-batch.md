@@ -655,10 +655,6 @@ Multiple users can be specified in the trust policy by adding more ARNs to the `
 
 ## Automatic configuration of Batch resources
 
-Seqera automates the configuration of an [AWS Batch](https://aws.amazon.com/batch/) compute environment and the queues required for deploying Nextflow pipelines.
-
-#### Created resources
-
 :::caution
 AWS Batch creates resources that you may be charged for in your AWS account. See [Cloud costs](../monitoring/cloud-costs) for guidelines to manage cloud resources effectively and prevent unexpected costs.
 :::
