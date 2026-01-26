@@ -118,11 +118,12 @@ module.exports = async ({ github, context, diff }) => {
       }
       body += "```";
 
-      // Calculate the correct line numbers
-      // newStart is where the hunk begins in the new file
-      // We need to account for context lines before the actual changes
-      const startLine = hunk.newStart + hunk.contextBefore.length;
-      const endLine = startLine + hunk.newLines.length - 1;
+      // Calculate the correct line numbers in the CURRENT PR (the "old" side of the diff)
+      // oldStart is where the hunk begins in the current file
+      // We need to skip context lines before the actual changes
+      const startLine = hunk.oldStart + hunk.contextBefore.length;
+      // The suggestion should replace oldLines.length lines
+      const endLine = startLine + hunk.oldLines.length - 1;
 
       const comment = {
         path: file,
@@ -132,7 +133,7 @@ module.exports = async ({ github, context, diff }) => {
       };
 
       // For multi-line suggestions, add start_line
-      if (hunk.newLines.length > 1) {
+      if (hunk.oldLines.length > 1) {
         comment.start_line = startLine;
         comment.start_side = "RIGHT";
       }
