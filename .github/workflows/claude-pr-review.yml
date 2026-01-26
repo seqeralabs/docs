@@ -3,8 +3,12 @@ name: Claude Editorial Review
 on:
   pull_request:
     paths:
-      - '**/*.md'
-      - '**/*.mdx'
+      - 'platform-enterprise_docs/**/*.md'
+      - 'platform-enterprise_docs/**/*.mdx'
+      - 'platform-cloud/docs/**/*.md'
+      - 'platform-cloud/docs/**/*.mdx'
+      - 'platform-enterprise_versioned_docs/**/*.md'
+      - 'platform-enterprise_versioned_docs/**/*.mdx'
     types: [opened, synchronize, reopened]
 
   issue_comment:

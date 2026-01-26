@@ -24,13 +24,16 @@ agents:
 
     # File patterns (glob)
     patterns:
-      - "docs/**/*.md"
-      - "*.md"
+      - "platform-enterprise_docs/**/*.md"
+      - "platform-enterprise_docs/**/*.mdx"
+      - "platform-cloud/docs/**/*.md"
+      - "platform-cloud/docs/**/*.mdx"
+      - "platform-enterprise_versioned_docs/**/*.md"
+      - "platform-enterprise_versioned_docs/**/*.mdx"
 
     # Exclude patterns
     exclude:
-      - "docs/changelog/**"
-      - "docs/api/generated/**"
+      - "changelog/**"
 
     # Priority (1 = highest, runs first)
     priority: 1
@@ -39,17 +42,26 @@ agents:
     triggers:
       - always          # Run on every docs change
     patterns:
-      - "docs/**/*.md"
+      - "platform-enterprise_docs/**/*.md"
+      - "platform-enterprise_docs/**/*.mdx"
+      - "platform-cloud/docs/**/*.md"
+      - "platform-cloud/docs/**/*.mdx"
+      - "platform-enterprise_versioned_docs/**/*.md"
+      - "platform-enterprise_versioned_docs/**/*.mdx"
     exclude:
-      - "docs/changelog/**"
+      - "changelog/**"
     priority: 2
 
   terminology:
     triggers:
       - always
     patterns:
-      - "docs/**/*.md"
-      - "*.md"
+      - "platform-enterprise_docs/**/*.md"
+      - "platform-enterprise_docs/**/*.mdx"
+      - "platform-cloud/docs/**/*.md"
+      - "platform-cloud/docs/**/*.mdx"
+      - "platform-enterprise_versioned_docs/**/*.md"
+      - "platform-enterprise_versioned_docs/**/*.mdx"
     priority: 3
 
   clarity:
@@ -57,9 +69,14 @@ agents:
       - new_file
       - major_change
     patterns:
-      - "docs/**/*.md"
+      - "platform-enterprise_docs/**/*.md"
+      - "platform-enterprise_docs/**/*.mdx"
+      - "platform-cloud/docs/**/*.md"
+      - "platform-cloud/docs/**/*.mdx"
+      - "platform-enterprise_versioned_docs/**/*.md"
+      - "platform-enterprise_versioned_docs/**/*.mdx"
     exclude:
-      - "docs/api/**"   # API docs may have intentional jargon
+      - "platform-api-docs/**"   # API docs may have intentional jargon
     priority: 4
 
 # Severity thresholds for CI pass/fail
