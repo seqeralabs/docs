@@ -95,17 +95,22 @@ gh workflow run update-cli-docs.yml -f cli_version=0.9.3
 ### 2. Metadata Extraction
 
 ```bash
-python tower-cli/docs/scripts/extract-cli-metadata.py \
-  tower-cli/src/main/java > \
+cd tower-cli
+./gradlew extractCliMetadata
+cd ..
+cp tower-cli/docs/cli-metadata.json \
   platform-cloud/docs/cli/metadata/cli-metadata-v0.9.3.json
 ```
 
-The extraction script (located in the tower-cli repo) analyzes picocli annotations in the Java source code to produce structured JSON containing:
+The extraction is performed by a Java class (`CliMetadataExtractor.java`) in the tower-cli repo that uses reflection to analyze picocli annotations. It produces structured JSON containing:
 - Command names and hierarchies
 - Option names, descriptions, defaults, and requirements
 - Command families and categorization
+- Metadata version and extraction timestamp
 
-**Note:** The extraction script lives in the tower-cli repo, not the docs repo.
+**Method:** The tower-cli Gradle task `extractCliMetadata` compiles the project and runs the extractor, outputting to `docs/cli-metadata.json`.
+
+**Note:** The extractor lives in the tower-cli repo at `src/main/java/io/seqera/tower/cli/utils/metadata/CliMetadataExtractor.java`.
 
 ### 3. Version Comparison (Optional)
 
@@ -267,7 +272,9 @@ See [MAINTENANCE.md](MAINTENANCE.md) for:
 ### Workflow fails during metadata extraction
 
 - Ensure the tower-cli repository structure hasn't changed
-- Verify the extraction script path: `tower-cli/docs/scripts/extract-cli-metadata.py`
+- Verify Java 17+ is available in the workflow environment
+- Check that the Gradle task `extractCliMetadata` exists in tower-cli's `build.gradle`
+- Verify the output path: `tower-cli/docs/cli-metadata.json`
 - Check that the tower-cli release tag exists
 
 ### Generated docs are missing information
@@ -308,4 +315,5 @@ CLI docs are only versioned when:
 - **final-phase-plan.md** - Architecture decisions and strategies
 - **progress.md** - Implementation history and phase documentation
 - Tower CLI repository: https://github.com/seqeralabs/tower-cli
-- Metadata extraction script: `tower-cli/docs/scripts/extract-cli-metadata.py`
+- Metadata extractor: `tower-cli/src/main/java/io/seqera/tower/cli/utils/metadata/CliMetadataExtractor.java`
+- Gradle task: `./gradlew extractCliMetadata` (in tower-cli repo)

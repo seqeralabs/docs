@@ -17,6 +17,12 @@ jobs:
       - name: Checkout docs repo
         uses: actions/checkout@v4
 
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -44,9 +50,12 @@ jobs:
 
       - name: Extract CLI metadata
         run: |
-          python tower-cli/docs/scripts/extract-cli-metadata.py \
-            tower-cli/src/main/java > \
+          cd tower-cli
+          ./gradlew extractCliMetadata
+          cd ..
+          cp tower-cli/docs/cli-metadata.json \
             platform-cloud/docs/cli/metadata/cli-metadata-v${{ steps.version.outputs.cli_version }}.json
+          echo "Extracted CLI metadata for v${{ steps.version.outputs.cli_version }}"
 
       - name: Compare with previous version
         id: compare

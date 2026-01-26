@@ -85,9 +85,10 @@ If you need to manually update the docs:
 cd platform-cloud/docs/cli
 
 # 1. Extract metadata from tower-cli repo
-python /path/to/tower-cli/docs/scripts/extract-cli-metadata.py \
-  /path/to/tower-cli/src/main/java \
-  > metadata/cli-metadata-v0.9.x.json
+cd /path/to/tower-cli
+./gradlew extractCliMetadata
+cd -
+cp /path/to/tower-cli/docs/cli-metadata.json metadata/cli-metadata-v0.9.x.json
 
 # 2. Generate reference documentation (includes overlay merging)
 python scripts/generate-cli-docs.py \
@@ -295,18 +296,28 @@ Check:
 
 ## Scripts Reference
 
-### extract-cli-metadata.py
+### CLI Metadata Extractor (Java)
 
-**Location:** `tower-cli/docs/scripts/extract-cli-metadata.py` (in tower-cli repo)
+**Location:** `tower-cli/src/main/java/io/seqera/tower/cli/utils/metadata/CliMetadataExtractor.java` (in tower-cli repo)
 
-Extracts CLI command metadata from Java source files.
+Extracts CLI command metadata from picocli annotations using Java reflection.
 
 **Usage:**
 ```bash
-python tower-cli/docs/scripts/extract-cli-metadata.py <java-source-dir> > output.json
+cd tower-cli
+./gradlew extractCliMetadata
 ```
 
-**Output:** JSON with full command hierarchy, options, and descriptions
+**Output:**
+- Writes to `tower-cli/docs/cli-metadata.json`
+- JSON with full command hierarchy, options, descriptions, and metadata
+- Includes metadata version and extraction timestamp
+
+**Features:**
+- Deterministic extraction using reflection
+- Captures complete command hierarchy with resolved mixins
+- All options with descriptions, defaults, arity, required status
+- Hidden commands and options are included
 
 ### generate-cli-docs.py
 
