@@ -75,19 +75,6 @@ jobs:
             Format output for GitHub PR comments.
           allowed_tools: "read,grep,glob"
 
-      - name: Post Structure Results
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const fs = require('fs');
-            const results = fs.readFileSync('structure-results.md', 'utf8');
-
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-              body: `## 📐 Page Structure Review\n\n${results}`
-            });
 
   # Voice and Tone Review
   voice-tone-review:
