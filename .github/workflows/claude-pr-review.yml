@@ -61,7 +61,7 @@ jobs:
         uses: anthropics/claude-code-action@beta
         with:
           anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
-          prompt: |
+          direct_prompt: |
             Use the editorial-review skill to review these documentation files that changed in the PR:
 
             ${{ steps.changed-files.outputs.files }}
@@ -120,7 +120,7 @@ jobs:
         uses: anthropics/claude-code-action@beta
         with:
           anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
-          prompt: |
+          direct_prompt: |
             Use the docs-fix agent to apply editorial corrections to documentation files in this PR.
 
             Focus on:

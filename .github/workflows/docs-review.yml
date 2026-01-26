@@ -67,7 +67,7 @@ jobs:
         uses: anthropics/claude-code-action@beta
         with:
           anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
-          prompt: |
+          direct_prompt: |
             Use the page-structure agent to review these changed documentation files:
             ${{ needs.changes.outputs.docs_files }}
 
@@ -103,7 +103,7 @@ jobs:
         uses: anthropics/claude-code-action@beta
         with:
           anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
-          prompt: |
+          direct_prompt: |
             Use the voice-tone agent to review these changed documentation files:
             ${{ needs.changes.outputs.docs_files }}
 
@@ -130,7 +130,7 @@ jobs:
         uses: anthropics/claude-code-action@beta
         with:
           anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
-          prompt: |
+          direct_prompt: |
             Use the terminology agent to review these changed documentation files:
             ${{ needs.changes.outputs.docs_files }}
 
@@ -157,7 +157,7 @@ jobs:
         uses: anthropics/claude-code-action@beta
         with:
           anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
-          prompt: |
+          direct_prompt: |
             Use the clarity agent to review these changed documentation files:
             ${{ needs.changes.outputs.docs_files }}
 
@@ -227,7 +227,7 @@ jobs:
         uses: anthropics/claude-code-action@beta
         with:
           anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
-          prompt: |
+          direct_prompt: |
             Use the docs-fix agent to apply fixes to all changed documentation files in this PR.
 
             Apply fixes for:
