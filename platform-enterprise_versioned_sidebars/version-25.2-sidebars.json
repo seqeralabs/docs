@@ -12,14 +12,44 @@
         "items": [
           {
             "type": "category",
-            "label": "Prerequisites",
-            "link": {"type": "doc", "id": "enterprise/prerequisites/common"},
+            "label": "Platform",
             "collapsed": true,
+            "link": {
+              "type": "doc",
+              "id": "enterprise/install-platform"
+            },
             "items": [
-              "enterprise/prerequisites/aws",
-              "enterprise/prerequisites/azure",
-              "enterprise/prerequisites/gcp",
-              "enterprise/prerequisites/on-prem"
+              "enterprise/kubernetes",
+              "enterprise/docker-compose",
+              "enterprise/helm"
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Studios",
+            "collapsed": true,
+            "link": {
+              "type": "doc",
+              "id": "enterprise/install-studios"
+            },
+            "items": [
+              "enterprise/studios-kubernetes",
+              "enterprise/studios-docker-compose",
+              "enterprise/studios"
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Pipeline optimization",
+            "collapsed": true,
+            "link": {
+              "type": "doc",
+              "id": "enterprise/install-groundswell"
+            },
+            "items": [
+              "enterprise/groundswell-kubernetes",
+              "enterprise/groundswell-docker-compose",
+              "enterprise/configuration/pipeline_optimization"
             ]
           },
           {
@@ -28,28 +58,16 @@
             "collapsed": true,
             "items": [
               "enterprise/configuration/overview",
-              "enterprise/configuration/authentication",
-              "enterprise/configuration/aws_parameter_store",
               "enterprise/configuration/networking",
-              "enterprise/configuration/reverse_proxy",
               "enterprise/configuration/ssl_tls",
-              "enterprise/configuration/pipeline_optimization",
+              "enterprise/configuration/reverse_proxy",
+              "enterprise/configuration/aws_parameter_store",
               "enterprise/configuration/wave",
-              "enterprise/studios"
+              "enterprise/configuration/mirroring"
             ]
           },
-          {
-            "type": "category",
-            "label": "Deployment",
-            "collapsed": true,
-            "items": [
-              "enterprise/helm",
-              "enterprise/kubernetes",
-              "enterprise/docker-compose",
-              "enterprise/testing",
-              "enterprise/upgrade"
-            ]
-          },
+          "enterprise/testing",
+          "enterprise/upgrade",
           {
             "type": "category",
             "label": "Advanced",
@@ -67,54 +85,50 @@
         ]
       },
       {
-        "type": "category",
-        "label": "Tutorials",
-        "collapsed": true,
-        "items": [
-          "getting-started/rnaseq",
-          "getting-started/proteinfold",
-          "getting-started/studios",
-          "tutorials/retry-strategy"
-          ]
-      },
-      {
-        "type": "category",
-        "label": "Get started",
-        "collapsed": true,
-        "items": [
-          "getting-started/deployment-options",
-          "getting-started/workspace-setup",
-          "getting-started/quickstart-demo/add-pipelines",
-          "getting-started/quickstart-demo/add-data",
-          "getting-started/quickstart-demo/launch-pipelines",
-          "getting-started/quickstart-demo/monitor-runs",
-          "getting-started/quickstart-demo/automation",
-          "getting-started/production-checklist"
-        ]
-      },
-      {
-        "type": "category",
-        "label": "Credentials",
-                "items": [
+      "type": "category",
+      "label": "Tutorials",
+      "collapsed": true,
+      "items": [
+        "getting-started/rnaseq",
+        "getting-started/proteinfold",
+        "getting-started/studios",
+        "tutorials/retry-strategy"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Get started",
+      "collapsed": true,
+      "items": [
+        "getting-started/deployment-options",
+        "getting-started/workspace-setup",
+        "getting-started/quickstart-demo/add-pipelines",
+        "getting-started/quickstart-demo/add-data",
+        "getting-started/quickstart-demo/launch-pipelines",
+        "getting-started/quickstart-demo/monitor-runs",
+        "getting-started/quickstart-demo/automation"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Credentials",
+              "items": [
           "credentials/overview",
           "git/overview",
           {
             "type": "category",
             "label": "Container registry credentials",
-            "link": {"type": "doc", "id": "credentials/container_registry_credentials"},
-            "collapsed": true,
             "items": [
+              "credentials/docker_hub_registry_credentials",
               "credentials/aws_registry_credentials",
               "credentials/azure_registry_credentials",
-              "credentials/docker_hub_registry_credentials",
-              "credentials/gitea_registry_credentials",
-              "credentials/github_registry_credentials",
-              "credentials/gitlab_registry_credentials",
               "credentials/google_registry_credentials",
-              "credentials/quay_registry_credentials"
+              "credentials/quay_registry_credentials",
+              "credentials/gitlab_registry_credentials",
+              "credentials/github_registry_credentials",
+              "credentials/gitea_registry_credentials"
             ]
           },
-          "credentials/data_repositories",
           "credentials/managed_identities",
           "credentials/ssh_credentials",
           "credentials/agent_credentials"
@@ -132,7 +146,6 @@
               "compute-envs/aws-batch",
               "compute-envs/aws-cloud",
               "compute-envs/azure-batch",
-              "compute-envs/azure-cloud",
               "compute-envs/google-cloud-batch",
               "compute-envs/google-cloud",
               "compute-envs/eks",
@@ -168,32 +181,42 @@
         "type": "category",
         "label": "Pipelines",
         "items": [
+          "pipelines/overview",
           "pipeline-schema/overview",
+          "pipelines/versioning",
+          "pipelines/revision",
           "launch/launchpad",
           "labels/overview",
           {
           "type": "category",
           "label": "Monitor runs",
-          "items": [
-            "monitoring/overview",
-            "monitoring/run-details"
-          ]
-          },
-          "reports/overview",
-          "launch/cache-resume",
-          "secrets/overview",
-          "pipeline-optimization/overview",
-          "launch/advanced"
-        ]
-      },
-      {
+          "items": ["monitoring/overview", "monitoring/run-details"]
+        },
+        "reports/overview",
+        "launch/cache-resume",
+        "secrets/overview",
+        "pipeline-optimization/overview",
+        "launch/advanced"
+      ]
+    },
+       {
         "type": "category",
         "label": "Studios",
         "items": [
           "studios/overview",
-          "studios/add-studio",
           "studios/container-images",
           "studios/custom-envs",
+          {
+          "type": "category",
+          "label": "Add Studios",
+          "link": {"type": "doc", "id": "studios/add-studio"},
+          "collapsed": true,
+          "items": [
+            "studios/add-studio-provided-template",
+            "studios/add-studio-custom-container",
+            "studios/add-studio-git-repo"
+          ]
+          },
           "studios/managing",
           "studios/connect"
         ]
@@ -206,6 +229,7 @@
           "orgs-and-teams/organizations",
           "orgs-and-teams/workspace-management",
           "orgs-and-teams/roles",
+          "orgs-and-teams/custom-roles",
           "monitoring/dashboard",
           "monitoring/audit-logs"
           ]
