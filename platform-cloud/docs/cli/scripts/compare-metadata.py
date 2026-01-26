@@ -2,6 +2,10 @@
 """
 Compare two CLI metadata versions to identify changes.
 Outputs markdown report for PR description.
+
+Supports both metadata formats:
+- Old: { "tw": {...} }
+- New: { "metadata": {...}, "hierarchy": {...} }
 """
 
 import json
@@ -9,18 +13,49 @@ import sys
 from pathlib import Path
 
 
+def get_hierarchy(data):
+    """
+    Extract hierarchy from metadata, supporting both old and new formats.
+
+    Old format: { "tw": {...} }
+    New format: { "metadata": {...}, "hierarchy": {...} }
+    """
+    if 'hierarchy' in data:
+        return data['hierarchy']
+    elif 'tw' in data:
+        return data['tw']
+    else:
+        return {}
+
+
 def count_commands(data, path='tw'):
-    """Count total number of commands recursively."""
+    """
+    Count total number of commands recursively.
+    Supports both 'subcommands' (old) and 'children' (new) fields.
+    """
     count = 1
-    for subcmd in data.get('subcommands', []):
+    # Support both 'children' (new format) and 'subcommands' (old format)
+    subcommands = data.get('children', []) or data.get('subcommands', [])
+    # Filter out string entries (class names) if any
+    subcommands = [s for s in subcommands if isinstance(s, dict)]
+
+    for subcmd in subcommands:
         count += count_commands(subcmd, f"{path} {subcmd['name']}")
     return count
 
 
 def get_all_commands(data, path='tw'):
-    """Extract all commands with their full paths."""
+    """
+    Extract all commands with their full paths.
+    Supports both 'subcommands' (old) and 'children' (new) fields.
+    """
     commands = {path: data}
-    for subcmd in data.get('subcommands', []):
+    # Support both 'children' (new format) and 'subcommands' (old format)
+    subcommands = data.get('children', []) or data.get('subcommands', [])
+    # Filter out string entries (class names) if any
+    subcommands = [s for s in subcommands if isinstance(s, dict)]
+
+    for subcmd in subcommands:
         commands.update(get_all_commands(subcmd, f"{path} {subcmd['name']}"))
     return commands
 
@@ -36,15 +71,28 @@ def compare_metadata(old_path, new_path):
     report = []
     report.append("## CLI Documentation Changes\n\n")
 
+    # Extract hierarchy from both formats
+    old_hierarchy = get_hierarchy(old)
+    new_hierarchy = get_hierarchy(new)
+
+    # Add metadata version info if present
+    if 'metadata' in new:
+        metadata = new['metadata']
+        if metadata.get('extractor_version'):
+            report.append(f"**Metadata Version:** {metadata['extractor_version']}\n")
+        if metadata.get('extracted_at'):
+            report.append(f"**Extracted:** {metadata['extracted_at']}\n")
+        report.append("\n")
+
     # Count changes
-    old_count = count_commands(old.get('tw', {}))
-    new_count = count_commands(new.get('tw', {}))
+    old_count = count_commands(old_hierarchy)
+    new_count = count_commands(new_hierarchy)
 
     report.append(f"**Commands:** {old_count} → {new_count} ({new_count - old_count:+d})\n\n")
 
     # Find new/removed commands
-    old_cmds = get_all_commands(old.get('tw', {}))
-    new_cmds = get_all_commands(new.get('tw', {}))
+    old_cmds = get_all_commands(old_hierarchy)
+    new_cmds = get_all_commands(new_hierarchy)
 
     new_command_paths = set(new_cmds.keys()) - set(old_cmds.keys())
     removed_command_paths = set(old_cmds.keys()) - set(new_cmds.keys())
