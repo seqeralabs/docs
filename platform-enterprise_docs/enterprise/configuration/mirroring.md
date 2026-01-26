@@ -32,7 +32,7 @@ cr.seqera.io:
     images-by-semver:
         private/nf-tower-enterprise/backend: ">= v25.2.0"
         private/nf-tower-enterprise/frontend: ">= v25.2.0"
-        private/nf-tower-enterprise/migrate-db: ">= v25.2.0"
+        private/nf-tower-enterprise/migrate-db: ">= v25.3.1"
 ```
 
 Run the sync:
