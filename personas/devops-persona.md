@@ -1,8 +1,4 @@
-
-
-
 ## Background
-
 
 Seqera documentation related to platform operations currently accommodates multiple skill levels and includes extensive supporting information about third-party systems. This approach results in documentation that contains more foundational content than is typically found in other enterprise products.
 
@@ -56,7 +52,7 @@ Our documentation assumes readers have:
 
 ---
 
-## Scope Definition
+## Scope definition
 
 ### In Scope
 
@@ -69,7 +65,7 @@ Our documentation assumes readers have:
 | **Platform-specific tuning**       | Resource allocations, metrics, and optimization for Seqera  | "Recommended JVM heap size for your workload profile"                                                |
 | **Links to authoritative sources** | References to official third-party documentation            | "See [Kubernetes RBAC documentation](https://kubernetes.io/docs/reference/access-authn-authz/rbac/)" |
 
-### Out of Scope
+### Out of scope
 
 | Category                        | Description                                       | Example                                           |
 | :------------------------------ | :------------------------------------------------ | :------------------------------------------------ |
@@ -81,9 +77,9 @@ Our documentation assumes readers have:
 
 ---
 
-## Explicit Examples
+## Explicit examples
 
-### In Scope vs Out of Scope
+### In scope vs out of scope
 
 | In Scope                                                                | Out of Scope                                         |
 | :---------------------------------------------------------------------- | :--------------------------------------------------- |
@@ -110,7 +106,7 @@ Our documentation assumes readers have:
 - **In scope**: Schema requirements, connection string format, supported versions
 - **Out of scope**: Database installation, backup strategies, query optimization
 
-#### Authentication Providers
+#### Authentication providers
 
 - **In scope**: Callback URL format, required claims/scopes, Seqera environment variables
 - **Out of scope**: How to set up Keycloak/Okta/Entra ID from scratch
@@ -141,7 +137,7 @@ Users requiring foundational knowledge in prerequisite technologies can access t
 
 ---
 
-## Writing Guidelines
+## Writing guidelines
 
 ### When documenting integrations
 
@@ -152,7 +148,7 @@ Users requiring foundational knowledge in prerequisite technologies can access t
 ### Template
 
 ```
-## [Service Name] Integration
+## [Service Name] integration
 
 ### Requirements
 
@@ -165,7 +161,7 @@ Seqera Platform requires [service] version X.X or later.
 | `TOWER_SERVICE_URL`      | Connection URL for [service] |
 | `TOWER_SERVICE_PASSWORD` | Authentication credential    |
 
-### Additional Resources
+### Additional resources
 
 See [Official Service Documentation](https://example.com) for installation and configuration guidance.
 ```
@@ -179,7 +175,7 @@ See [Official Service Documentation](https://example.com) for installation and c
 
 ---
 
-## Exemplary Sections
+## Exemplary sections
 
 These existing documentation sections demonstrate the proposed approach:
 
