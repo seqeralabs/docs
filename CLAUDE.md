@@ -68,11 +68,20 @@ When you open a PR with documentation changes, GitHub Actions automatically runs
 
 ## Documentation directory structure
 
-Key directories in the docs repository:
+### Directories with automated PR reviews
 
-- `platform-enterprise_docs/` - Main enterprise documentation
-- `platform-cloud/` - Cloud platform docs
-- `fusion_docs/` - Fusion documentation
-- `multiqc_docs/` - MultiQC documentation
-- `wave_docs/` - Wave documentation
-- `changelog/` - Release notes
+These directories trigger automated agent reviews on pull requests:
+
+- `platform-enterprise_docs/` - Main enterprise documentation (129 files)
+- `platform-cloud/docs/` - Cloud platform docs (114 files)
+- `platform-enterprise_versioned_docs/` - Versioned enterprise docs
+
+### Other documentation directories
+
+These directories exist but do not trigger automated PR reviews (use `/review` command manually):
+
+- `platform-api-docs/docs/` - API documentation (218 files)
+- `fusion_docs/` - Fusion documentation (24 files)
+- `multiqc_docs/` - MultiQC documentation (212 files)
+- `wave_docs/` - Wave documentation (43 files)
+- `changelog/` - Release notes (232 files)
