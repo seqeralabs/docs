@@ -18,7 +18,7 @@ Before you begin, you need:
 
 | Component | CPU | Memory |
 | :-------- | :-- | :----- |
-| Backend pod | 1 core | 1200 Mi request, 4200 Mi limit |
+| Backend pod | 1 core | 4200 Mi limit |
 
 ## Container images
 
