@@ -50,12 +50,12 @@ This command uses the `editorial-review` skill to:
 - **Use case:** Pre-commit checks, minor content changes
 
 ### comprehensive (default)
-- **Agents:** voice-tone, terminology, punctuation, clarity, inclusive-language
+- **Agents:** voice-tone, terminology, punctuation, clarity
 - **Focus:** All issue severities
 - **Use case:** Major content changes, thorough review
 
 ### new-content
-- **Agents:** page-structure, topic-structure, voice-tone, terminology, punctuation
+- **Agents:** page-structure, voice-tone, terminology, punctuation
 - **Focus:** Structural and editorial issues
 - **Use case:** New pages, major content restructuring
 

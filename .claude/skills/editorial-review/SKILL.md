@@ -21,11 +21,9 @@ This skill coordinates multiple specialized agents to provide comprehensive edit
 
 ### Structural Agents (Run for major changes)
 - **page-structure**: Heading hierarchy, content patterns, prerequisites
-- **topic-structure**: CTRT compliance, task patterns, troubleshooting
 - **clarity**: Sentence length, jargon, complexity, prerequisites
 
 ### Specialized Agents (Run as final pass)
-- **inclusive-language**: Gender-neutral, ableist terms, global audience
 - **docs-fix**: Apply corrections (only when explicitly requested)
 
 ## Usage Patterns
@@ -67,7 +65,7 @@ Determine files to review:
 ### Step 2: Agent Selection
 ```
 Based on review type and file changes:
-- New files: all agents including page-structure, topic-structure
+- New files: all agents including page-structure
 - Content changes: voice-tone, terminology, punctuation, clarity
 - Minor edits: voice-tone, terminology
 - Force comprehensive: all agents except docs-fix
@@ -225,10 +223,10 @@ profiles:
     agents: [voice-tone, terminology]
     focus: ["critical", "important"]
   comprehensive:
-    agents: [voice-tone, terminology, punctuation, clarity, inclusive-language]
+    agents: [voice-tone, terminology, punctuation, clarity]
     focus: ["critical", "important", "minor"]
   new-content:
-    agents: [page-structure, topic-structure, voice-tone, terminology, punctuation]
+    agents: [page-structure, voice-tone, terminology, punctuation]
     focus: ["critical", "important"]
 ```
 

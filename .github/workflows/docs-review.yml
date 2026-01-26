@@ -17,12 +17,10 @@ on:
         type: choice
         options:
           - all
-          - topic-structure
           - structure
           - voice-tone
           - terminology
           - clarity
-          - inclusive
 
 permissions:
   contents: read
@@ -46,54 +44,6 @@ jobs:
               - 'docs/**/*.md'
               - '*.md'
 
-  # CTRT Topic Structure Review (runs first)
-  topic-structure-review:
-    needs: changes
-    if: needs.changes.outputs.docs == 'true'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Run CTRT Topic Structure Review
-        uses: anthropics/claude-code-action@beta
-        with:
-          anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
-          prompt: |
-            Use the topic-structure agent to audit these changed documentation files for CTRT compliance:
-            ${{ needs.changes.outputs.docs_files }}
-            
-            Check for:
-            - Each section identifiable as exactly one topic type (Concept, Task, Reference, Troubleshooting)
-            - Task titles with active verb + noun pattern
-            - Task sections with "To [verb]:" step introductions
-            - No mixed topic types within sections
-            - Troubleshooting sections present on feature pages
-            - No mega-tasks (>20 steps)
-            
-            Provide:
-            - Page structure table (heading, detected type, expected type, status)
-            - Compliance score (X/10)
-            - Critical/Warning/Info issues with line numbers
-            - Suggested title changes
-            - Quick wins that can be fixed immediately
-          allowed_tools: "read,grep,glob"
-          
-      - name: Post Topic Structure Results
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const fs = require('fs');
-            const results = fs.readFileSync('topic-structure-results.md', 'utf8');
-            
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-              body: `## 🏗️ CTRT Topic Structure Audit\n\n${results}`
-            });
-
   # Page Structure Review
   structure-review:
     needs: changes
@@ -111,18 +61,18 @@ jobs:
           prompt: |
             Use the page-structure agent to review these changed documentation files:
             ${{ needs.changes.outputs.docs_files }}
-            
+
             Provide inline comments on specific issues and a summary comment.
             Format output for GitHub PR comments.
           allowed_tools: "read,grep,glob"
-          
+
       - name: Post Structure Results
         uses: actions/github-script@v7
         with:
           script: |
             const fs = require('fs');
             const results = fs.readFileSync('structure-results.md', 'utf8');
-            
+
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -147,13 +97,13 @@ jobs:
           prompt: |
             Use the voice-tone agent to review these changed documentation files:
             ${{ needs.changes.outputs.docs_files }}
-            
+
             Check for:
             - Second person usage (you vs the user)
             - Active vs passive voice
             - Present vs future tense
             - Hedging language
-            
+
             Provide inline comments and a summary.
           allowed_tools: "read,grep,glob"
 
@@ -174,13 +124,13 @@ jobs:
           prompt: |
             Use the terminology agent to review these changed documentation files:
             ${{ needs.changes.outputs.docs_files }}
-            
+
             Check for:
             - Product name consistency (Seqera Platform, Nextflow, etc.)
             - Feature name consistency
             - Formatting conventions (bold for UI, backticks for code)
             - Abbreviation handling
-            
+
             Provide inline comments and a summary.
           allowed_tools: "read,grep,glob"
 
@@ -201,47 +151,19 @@ jobs:
           prompt: |
             Use the clarity agent to review these changed documentation files:
             ${{ needs.changes.outputs.docs_files }}
-            
+
             Check for:
             - Sentence length (flag over 30 words)
             - Undefined jargon
             - Complex constructions
             - Missing prerequisites
-            
-            Provide inline comments and a summary.
-          allowed_tools: "read,grep,glob"
 
-  # Inclusive Language Review
-  inclusive-review:
-    needs: changes
-    if: needs.changes.outputs.docs == 'true'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Run Inclusive Language Review
-        uses: anthropics/claude-code-action@beta
-        with:
-          anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
-          prompt: |
-            Use the inclusive-language agent to review these changed documentation files:
-            ${{ needs.changes.outputs.docs_files }}
-            
-            Check for:
-            - Gendered language
-            - Ableist terms
-            - Assumptive language (simply, just, easily)
-            - Non-translatable idioms
-            - Link text accessibility
-            
             Provide inline comments and a summary.
           allowed_tools: "read,grep,glob"
 
   # Summary Report
   summary:
-    needs: [topic-structure-review, structure-review, voice-tone-review, terminology-review, clarity-review, inclusive-review]
+    needs: [structure-review, voice-tone-review, terminology-review, clarity-review]
     if: always() && needs.changes.outputs.docs == 'true'
     runs-on: ubuntu-latest
     steps:
@@ -250,33 +172,31 @@ jobs:
         with:
           script: |
             const jobs = [
-              { name: 'CTRT Topic Structure', status: '${{ needs.topic-structure-review.result }}' },
               { name: 'Page Structure', status: '${{ needs.structure-review.result }}' },
               { name: 'Voice/Tone', status: '${{ needs.voice-tone-review.result }}' },
               { name: 'Terminology', status: '${{ needs.terminology-review.result }}' },
-              { name: 'Clarity', status: '${{ needs.clarity-review.result }}' },
-              { name: 'Inclusive Language', status: '${{ needs.inclusive-review.result }}' }
+              { name: 'Clarity', status: '${{ needs.clarity-review.result }}' }
             ];
-            
+
             const statusEmoji = {
               'success': '✅',
               'failure': '❌',
               'skipped': '⏭️',
               'cancelled': '🚫'
             };
-            
+
             let summary = '## 📝 Documentation Review Summary\n\n';
             summary += '| Check | Status |\n|-------|--------|\n';
-            
+
             for (const job of jobs) {
               const emoji = statusEmoji[job.status] || '❓';
               summary += `| ${job.name} | ${emoji} ${job.status} |\n`;
             }
-            
+
             summary += '\n---\n';
             summary += '*Review powered by Claude Code SME agents*\n';
             summary += '\n**To apply fixes:** Comment `/fix-docs` on this PR';
-            
+
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -300,13 +220,13 @@ jobs:
           anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
           prompt: |
             Use the docs-fix agent to apply fixes to all changed documentation files in this PR.
-            
+
             Apply fixes for:
             - Terminology standardization
             - Voice and tone consistency
             - Formatting corrections
             - Inclusive language updates
-            
+
             Do NOT change code blocks or alter technical meaning.
           allowed_tools: "read,write,grep,glob,diff"
 

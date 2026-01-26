@@ -62,28 +62,6 @@ agents:
       - "docs/api/**"   # API docs may have intentional jargon
     priority: 4
 
-  inclusive-language:
-    triggers:
-      - always
-    patterns:
-      - "docs/**/*.md"
-      - "*.md"
-    priority: 5
-
-  topic-structure:
-    # CTRT (Concept, Task, Reference, Troubleshooting) compliance
-    triggers:
-      - new_file        # Always audit new pages
-      - major_change    # Audit when >50% of file changed
-    patterns:
-      - "docs/**/*.md"
-      - "*.md"
-    exclude:
-      - "docs/changelog/**"
-      - "docs/api/generated/**"
-      - "**/release-notes/**"
-    priority: 1  # Run first - structural issues affect other checks
-
 # Severity thresholds for CI pass/fail
 severity:
   # Fail the check if any of these are found
@@ -91,8 +69,6 @@ severity:
     - product_name_wrong      # "Tower" instead of "Seqera Platform"
     - heading_skip            # H2 → H4 without H3
     - missing_h1              # No page title
-    - mega_task               # More than 20 steps in single task
-    - mixed_topic_type        # Task content under concept title (critical)
 
   # Warn but don't fail
   warn_on:
@@ -100,10 +76,6 @@ severity:
     - long_sentence
     - hedging_language
     - missing_prerequisites
-    - task_title_no_verb      # Task section without active verb in title
-    - missing_step_intro      # Numbered steps without "To [verb]:" intro
-    - missing_troubleshooting # Feature page without troubleshooting section
-    - concept_title_overview  # Using "Overview" or "Introduction" as title
 
   # Info only (in comments, doesn't affect status)
   info_only:

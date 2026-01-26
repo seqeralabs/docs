@@ -31,10 +31,8 @@ The editorial review system uses specialized agents:
 - **voice-tone**: Second person, active voice, present tense, no hedging
 - **terminology**: Product names, feature names, formatting conventions
 - **clarity**: Sentence length, jargon, readability, prerequisites
-- **inclusive-language**: Gender-neutral language, accessibility, idioms
 - **punctuation**: Oxford commas, list punctuation, quotation marks
 - **page-structure**: Heading hierarchy, H1 usage, content flow
-- **topic-structure**: CTRT compliance (Concept/Task/Reference/Troubleshooting)
 
 ### Automated PR reviews
 
