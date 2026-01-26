@@ -30,7 +30,7 @@ Create a YAML file (`seqera-images.yaml`) to specify which images to sync:
 ```yaml
 cr.seqera.io:
     images-by-semver:
-        private/nf-tower-enterprise/backend: ">= v25.2.0"
+        private/nf-tower-enterprise/backend: ">= v25.3.1"
         private/nf-tower-enterprise/frontend: ">= v25.2.0"
         private/nf-tower-enterprise/migrate-db: ">= v25.3.1"
 ```
