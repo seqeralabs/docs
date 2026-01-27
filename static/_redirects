@@ -70,7 +70,8 @@
 #Wave page renaming and moving
 /wave/install/configure-wave               /wave/configure-wave             301
 
-# CLI commands page redirect to new commands-reference page
-/platform-cloud/cli/commands                        /platform-cloud/cli/commands-reference              301
-/platform-enterprise/cli/commands                   /platform-enterprise/cli/commands-reference         301
-/platform-enterprise/:version/cli/commands          /platform-enterprise/:version/cli/commands-reference 301
+# Redirect old CLI docs to new platform-cli docset
+/platform-cloud/cli/*                        /platform-cli               301
+/platform-enterprise/cli/*                   /platform-cli               301
+/platform-enterprise/*/cli/*                 /platform-cli               301
+/platform-enterprise/:version/cli/*          /platform-cli               301

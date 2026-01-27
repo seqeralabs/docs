@@ -115,7 +115,7 @@
         {
           "type": "category",
           "label": "Advanced options",
-          "items":[
+          "items": [
             "enterprise/advanced-topics/manual-aws-batch-setup"
           ]
         }

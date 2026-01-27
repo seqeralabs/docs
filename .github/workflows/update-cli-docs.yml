@@ -54,17 +54,17 @@ jobs:
           ./gradlew extractCliMetadata
           cd ..
           cp tower-cli/docs/cli-metadata.json \
-            platform-cloud/docs/cli/metadata/cli-metadata-v${{ steps.version.outputs.cli_version }}.json
+            platform-cli-docs/metadata/cli-metadata-v${{ steps.version.outputs.cli_version }}.json
           echo "Extracted CLI metadata for v${{ steps.version.outputs.cli_version }}"
 
       - name: Compare with previous version
         id: compare
         run: |
-          if [ -f "platform-cloud/docs/cli/metadata/cli-metadata-latest.json" ]; then
-            if [ -f "platform-cloud/docs/cli/scripts/compare-metadata.py" ]; then
-              python platform-cloud/docs/cli/scripts/compare-metadata.py \
-                platform-cloud/docs/cli/metadata/cli-metadata-latest.json \
-                platform-cloud/docs/cli/metadata/cli-metadata-v${{ steps.version.outputs.cli_version }}.json \
+          if [ -f "platform-cli-docs/metadata/cli-metadata-latest.json" ]; then
+            if [ -f "platform-cli-docs/scripts/compare-metadata.py" ]; then
+              python platform-cli-docs/scripts/compare-metadata.py \
+                platform-cli-docs/metadata/cli-metadata-latest.json \
+                platform-cli-docs/metadata/cli-metadata-v${{ steps.version.outputs.cli_version }}.json \
                 > comparison-report.md
             else
               echo "## CLI Documentation Changes" > comparison-report.md
@@ -79,10 +79,10 @@ jobs:
 
       - name: Generate reference documentation
         run: |
-          python platform-cloud/docs/cli/scripts/generate-cli-docs.py \
-            --metadata platform-cloud/docs/cli/metadata/cli-metadata-v${{ steps.version.outputs.cli_version }}.json \
-            --overlays platform-cloud/docs/cli/overlays \
-            --output platform-cloud/docs/cli/reference
+          python platform-cli-docs/scripts/generate-cli-docs.py \
+            --metadata platform-cli-docs/metadata/cli-metadata-v${{ steps.version.outputs.cli_version }}.json \
+            --overlays platform-cli-docs/overlays \
+            --output platform-cli-docs/docs/reference
 
       - name: Add version information to docs
         run: |
@@ -94,38 +94,29 @@ jobs:
           :::"
 
           # Add to overview.md (after frontmatter)
-          if [ -f "platform-cloud/docs/cli/overview.md" ]; then
+          if [ -f "platform-cli-docs/docs/overview.md" ]; then
             # Insert after frontmatter (after first ---...--- block)
             awk -v notice="$VERSION_NOTICE" '
               /^---$/ { count++ }
               { print }
               count == 2 && !inserted { print "\n" notice; inserted=1 }
-            ' platform-cloud/docs/cli/overview.md > temp_overview.md
-            mv temp_overview.md platform-cloud/docs/cli/overview.md
+            ' platform-cli-docs/docs/overview.md > temp_overview.md
+            mv temp_overview.md platform-cli-docs/docs/overview.md
           fi
 
           # Add to commands-reference.md (after frontmatter)
-          if [ -f "platform-cloud/docs/cli/commands-reference.md" ]; then
+          if [ -f "platform-cli-docs/docs/commands-reference.md" ]; then
             awk -v notice="$VERSION_NOTICE" '
               /^---$/ { count++ }
               { print }
               count == 2 && !inserted { print "\n" notice; inserted=1 }
-            ' platform-cloud/docs/cli/commands-reference.md > temp_commands.md
-            mv temp_commands.md platform-cloud/docs/cli/commands-reference.md
-          fi
-
-      - name: Copy to enterprise docs
-        run: |
-          cp -r platform-cloud/docs/cli/reference platform-enterprise_docs/cli/
-          cp platform-cloud/docs/cli/commands-reference.md platform-enterprise_docs/cli/
-          # Copy overview.md if it exists
-          if [ -f "platform-cloud/docs/cli/overview.md" ]; then
-            cp platform-cloud/docs/cli/overview.md platform-enterprise_docs/cli/
+            ' platform-cli-docs/docs/commands-reference.md > temp_commands.md
+            mv temp_commands.md platform-cli-docs/docs/commands-reference.md
           fi
 
       - name: Update latest symlink
         run: |
-          cd platform-cloud/docs/cli/metadata
+          cd platform-cli-docs/metadata
           rm -f cli-metadata-latest.json
           ln -s cli-metadata-v${{ steps.version.outputs.cli_version }}.json cli-metadata-latest.json
 
