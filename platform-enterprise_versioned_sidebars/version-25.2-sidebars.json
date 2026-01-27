@@ -67,6 +67,7 @@
                   "id": "enterprise/configuration/authentication/overview"
                 },
                 "items": [
+                  "enterprise/configuration/authentication/email",
                   "enterprise/configuration/authentication/github",
                   "enterprise/configuration/authentication/google",
                   "enterprise/configuration/authentication/keycloak",
