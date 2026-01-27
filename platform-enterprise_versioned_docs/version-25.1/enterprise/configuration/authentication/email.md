@@ -13,7 +13,7 @@ Email authentication provides a passwordless login experience where users:
 
 1. Enter their email address on the login page
 2. Receive an email containing a temporary access link
-3. Click the link to authenticate and access the platform
+3. Select the link to authenticate and access Platform
 
 New users are automatically registered on their first login if their email address matches the trusted email patterns. The access link contains a time-limited token that expires after use.
 
