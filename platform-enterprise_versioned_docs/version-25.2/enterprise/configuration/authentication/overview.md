@@ -10,15 +10,16 @@ Seqera Platform supports email and various OAuth providers for login authenticat
 
 ## Identity providers
 
-Configure single sign-on (SSO) login with any of the following identity providers:
+Configure login authentication with any of the following identity providers:
 
-| Provider               | Protocol | Configuration    |
-| :--------------------- | :------- | :--------------- |
-| [GitHub](./github)     | OAuth    | `TOWER_GITHUB_*` |
-| [Google](./google)     | OAuth    | `TOWER_GOOGLE_*` |
-| [Keycloak](./keycloak) | OIDC     | `TOWER_OIDC_*`   |
-| [Entra ID](./entra)    | OIDC     | `TOWER_OIDC_*`   |
-| [Okta](./okta)         | OIDC     | `TOWER_OIDC_*`   |
+| Provider               | Protocol   | Configuration    |
+| :--------------------- | :--------- | :--------------- |
+| [Email](./email)       | Magic link | `TOWER_SMTP_*`   |
+| [GitHub](./github)     | OAuth      | `TOWER_GITHUB_*` |
+| [Google](./google)     | OAuth      | `TOWER_GOOGLE_*` |
+| [Keycloak](./keycloak) | OIDC       | `TOWER_OIDC_*`   |
+| [Entra ID](./entra)    | OIDC       | `TOWER_OIDC_*`   |
+| [Okta](./okta)         | OIDC       | `TOWER_OIDC_*`   |
 
 ## OpenID Connect configuration
 
@@ -59,6 +60,33 @@ tower:
   admin:
     root-users: "1,admin@your-company.example.com"
 ```
+
+## JWT secret
+
+Configure the secret key used to sign JWT tokens for user authentication sessions. This is a required security setting for all Platform deployments.
+
+:::warning
+The JWT secret must remain consistent across all backend instances and restarts. Changing this value will invalidate all active user sessions and log out all users.
+:::
+
+**Environment variable**
+
+```env
+TOWER_JWT_SECRET=<your-secure-random-string-minimum-35-characters>
+```
+
+**Requirements:**
+- Minimum 35 characters recommended
+- Use a cryptographically secure random string
+- Keep this value secret and do not commit to version control
+
+**Generate a secure value:**
+
+```bash
+openssl rand -base64 48
+```
+
+This secret is used to sign both access tokens and refresh tokens for user sessions.
 
 ## Disable email login
 
