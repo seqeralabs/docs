@@ -19,11 +19,11 @@ Before you begin, you need:
 
     To use a custom URL, set `GROUNDSWELL_SERVER_URL` instead.
 
-2. In your [docker-compose.yml](../_templates/docker/docker-compose.yml) file, uncomment the `groundswell` section.
+2. In your [docker-compose.yml](./_templates/docker/docker-compose.yml) file, uncomment the `groundswell` section.
 
 3. To create a schema on the local MySQL container, uncomment the `init.sql` script in the `volumes` section.
 
-4. Download the [init.sql](../_templates/docker/init.sql) file and store it in the mount path of your `docker-compose.yml`.
+4. Download the [init.sql](./_templates/docker/init.sql) file and store it in the mount path of your `docker-compose.yml`.
 
 5. Start your Platform instance:
 
@@ -37,7 +37,7 @@ Before you begin, you need:
 
     To use a custom URL, set `GROUNDSWELL_SERVER_URL` instead.
 
-2. In your [docker-compose.yml](../_templates/docker/docker-compose.yml) file, uncomment the `groundswell` section.
+2. In your [docker-compose.yml](./_templates/docker/docker-compose.yml) file, uncomment the `groundswell` section.
 
 3. Create the Groundswell database schema:
 
@@ -57,7 +57,7 @@ Before you begin, you need:
     FLUSH PRIVILEGES;
     ```
 
-4. Download the [groundswell.env](../_templates/docker/groundswell.env) file and update the database URLs:
+4. Download the [groundswell.env](./_templates/docker/groundswell.env) file and update the database URLs:
 
     ```env
     TOWER_DB_URL=mysql://db:3306/tower
