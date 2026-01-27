@@ -1,7 +1,7 @@
 ---
 title: "Google"
 description: Configure Google as an identity provider for Seqera Platform
-date: "2023-04-21"
+date: "2026-01-27"
 tags: [authentication, google, oauth]
 ---
 
@@ -22,7 +22,7 @@ Ensure you know how to create Google OAuth credentials. See Google's documentati
 2. Go to **APIs & Services > Credentials**.
 3. Select **Create credentials > OAuth client ID**.
 4. Select **Web Application** as the application type.
-5. Add your redirect URI: `https://<DEPLOYMENT_DOMAIN_NAME>/oauth/callback/google`.
+5. Add your redirect URI: `https://<HOST>/oauth/callback/google` (must be HTTPS) - replace `<HOST>` with your enterprise installation hostname.
 6. Note your **Client ID** and **Client secret**.
 
 ## Configure Seqera
@@ -43,8 +43,8 @@ tower:
   auth:
     google:
       allow-list:
-        - "*@your-company.com"
-        - "specific-user@example.com"
+        - "*@your-company.example.com"
+        - "specific-user@another-company.example.net"
 ```
 
 See [User access allow list](./overview#user-access-allow-list) for more information.

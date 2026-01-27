@@ -1,7 +1,7 @@
 ---
 title: "Keycloak"
 description: Configure Keycloak as an identity provider for Seqera Platform
-date: "2023-04-21"
+date: "2026-01-27"
 tags: [authentication, keycloak, oidc]
 ---
 
@@ -20,7 +20,7 @@ Ensure you know how to configure Keycloak clients. See the [Keycloak documentati
 
 1. In **Realm settings**, verify the **Endpoints** field includes _OpenID Endpoint Configuration_.
 2. Go to **Clients** and select **Create**.
-3. Configure the client with protocol `openid-connect`, access type `confidential`, and redirect URI `https://<HOST>/oauth/callback/oidc`.
+3. Configure the client with protocol `openid-connect`, access type `confidential`, and redirect URI `https://<HOST>/oauth/callback/oidc` (must be HTTPS) - replace `<HOST>` with your enterprise installation hostname.
 4. In the **Credentials** tab, note the **Secret**.
 5. In the **Keys** tab, set **Use JWKS URL** to `OFF`.
 6. Note the issuer URL from **Realm Settings > Endpoints > OpenID Configuration** (the `issuer` value in the JSON).
@@ -44,8 +44,8 @@ tower:
   auth:
     oidc:
       allow-list:
-        - "*@your-company.com"
-        - "specific-user@example.com"
+        - "*@your-company.example.com"
+        - "specific-user@another-company.example.net"
 ```
 
 See [User access allow list](./overview#user-access-allow-list) for more information.

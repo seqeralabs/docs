@@ -1,7 +1,7 @@
 ---
 title: "Okta"
 description: Configure Okta as an identity provider for Seqera Platform
-date: "2023-04-21"
+date: "2026-01-27"
 tags: [authentication, okta, oidc]
 ---
 
@@ -22,7 +22,7 @@ Ensure you know how to create Okta app integrations. See Okta's documentation on
 2. Select **Create App Integration**.
 3. Select **OIDC - OpenID Connect** as the sign-in method and **Web Application** as the application type.
 4. Enter a name for the app, e.g., `Seqera`.
-5. Set the sign-in redirect URI to `https://<HOST>/oauth/callback/oidc`.
+5. Set the sign-in redirect URI to `https://<HOST>/oauth/callback/oidc` (must be HTTPS) - replace `<HOST>` with your enterprise installation hostname.
 6. Set the sign-out redirect URI to `https://<HOST>/logout`.
 7. Note the **Client ID** and **Client secret** from the application settings.
 8. Note the **Issuer** URL from **Sign On > OpenID Connect ID Token**.
@@ -50,8 +50,8 @@ tower:
   auth:
     oidc:
       allow-list:
-        - "*@your-company.com"
-        - "specific-user@example.com"
+        - "*@your-company.example.com"
+        - "specific-user@another-company.example.net"
 ```
 
 See [User access allow list](./overview#user-access-allow-list) for more information.

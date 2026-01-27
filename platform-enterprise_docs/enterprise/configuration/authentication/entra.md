@@ -1,7 +1,7 @@
 ---
 title: "Entra ID"
 description: Configure Microsoft Entra ID as an identity provider for Seqera Platform
-date: "2023-04-21"
+date: "2026-01-27"
 tags: [authentication, entra, azure, oidc]
 ---
 
@@ -20,7 +20,7 @@ Ensure you know how to register applications in Entra ID. See Microsoft's docume
 
 1. In the [Azure portal](https://portal.azure.com/), go to **Entra ID > App Registrations**.
 2. Select **New Registration** and specify a name and supported account types.
-3. Set the redirect URI to `https://<HOST>/oauth/callback/oidc` (must be HTTPS).
+3. Set the redirect URI to `https://<HOST>/oauth/callback/oidc` (must be HTTPS) - replace `<HOST>` with your enterprise installation hostname.
 4. Note the **Application (client) ID** from the app overview.
 5. Go to **Certificates & secrets** and create a new client secret. Note the secret value.
 6. Go to **Endpoints** and note the OpenID Connect metadata document URI (up to `v2.0`).
@@ -43,7 +43,7 @@ Configure user consent settings to **Allow user consent for apps** to ensure adm
 
 ### Compatibility note
 
-Users on Seqera Platform version 25.2.3 and below may need to add the following to resolve authentication method incompatibility:
+Users on Seqera Platform version 25.2.3 and below may need to set the following environment variable to resolve an authentication method incompatibility:
 
 ```env
 MICRONAUT_SECURITY_OAUTH2_CLIENTS_OIDC_OPENID_TOKEN_AUTH_METHOD=client_secret_post
@@ -58,8 +58,8 @@ tower:
   auth:
     oidc:
       allow-list:
-        - "*@your-company.com"
-        - "specific-user@example.com"
+        - "*@your-company.example.com"
+        - "specific-user@another-company.example.net"
 ```
 
 See [User access allow list](./overview#user-access-allow-list) for more information.

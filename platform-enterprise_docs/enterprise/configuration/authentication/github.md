@@ -1,7 +1,7 @@
 ---
 title: "GitHub"
 description: Configure GitHub as an identity provider for Seqera Platform
-date: "2023-04-21"
+date: "2026-01-27"
 tags: [authentication, github, oauth]
 ---
 
@@ -20,7 +20,7 @@ Ensure you know how to create a GitHub OAuth app. See GitHub's documentation on 
 
 1. In **Profile > Settings > Developer settings**, select **OAuth Apps**.
 2. Select **New OAuth App**.
-3. Complete the required fields. In the **Authorization callback URL** field, enter `https://<DEPLOYMENT_DOMAIN_NAME>/oauth/callback/github`.
+3. Complete the required fields. In the **Authorization callback URL** field, enter `https://<HOST>/oauth/callback/github` (must be HTTPS) - replace `<HOST>` with your enterprise installation hostname.
 4. Note your **Client ID**.
 5. Generate a client secret, then note your **Client secret**.
 
@@ -42,8 +42,8 @@ tower:
   auth:
     github:
       allow-list:
-        - "*@your-company.com"
-        - "specific-user@example.com"
+        - "*@your-company.example.com"
+        - "specific-user@another-company.example.net"
 ```
 
 See [User access allow list](./overview#user-access-allow-list) for more information.
