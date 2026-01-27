@@ -147,7 +147,6 @@
               "compute-envs/aws-cloud",
               "compute-envs/azure-batch",
               "compute-envs/google-cloud-batch",
-              "compute-envs/google-cloud",
               "compute-envs/eks",
               "compute-envs/gke",
               "monitoring/cloud-costs"
@@ -229,7 +228,6 @@
           "orgs-and-teams/organizations",
           "orgs-and-teams/workspace-management",
           "orgs-and-teams/roles",
-          "orgs-and-teams/custom-roles",
           "monitoring/dashboard",
           "monitoring/audit-logs"
           ]

@@ -15,7 +15,7 @@ Before you begin, you need:
 
 ## Procedure
 
-1. Download the [groundswell manifest](../_templates/k8s/groundswell.yml).
+1. Download the [groundswell manifest](./_templates/k8s/groundswell.yml).
 
 2. Set `TOWER_ENABLE_GROUNDSWELL=true` in your `configmap.yml`.
 
