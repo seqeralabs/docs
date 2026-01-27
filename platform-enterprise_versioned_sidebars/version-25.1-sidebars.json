@@ -1,6 +1,6 @@
 {
-    "platformSidebar": [
-      "platform-enterprise",
+  "platformSidebar": [
+    "platform-enterprise",
       {
         "type": "category",
         "label": "Installation",
@@ -8,18 +8,48 @@
         "link": {
           "type": "doc",
           "id": "enterprise/overview"
-        },      
+        },
         "items": [
           {
             "type": "category",
-            "label": "Prerequisites",
-            "link": {"type": "doc", "id": "enterprise/prerequisites/common"},
+            "label": "Platform",
             "collapsed": true,
+            "link": {
+              "type": "doc",
+              "id": "enterprise/install-platform"
+            },
             "items": [
-              "enterprise/prerequisites/aws",
-              "enterprise/prerequisites/azure",
-              "enterprise/prerequisites/gcp",
-              "enterprise/prerequisites/on-prem"
+              "enterprise/helm",
+              "enterprise/kubernetes",
+              "enterprise/docker-compose"
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Studios",
+            "collapsed": true,
+            "link": {
+              "type": "doc",
+              "id": "enterprise/install-studios"
+            },
+            "items": [
+              "enterprise/studios-kubernetes",
+              "enterprise/studios-docker-compose",
+              "enterprise/studios"
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Pipeline optimization",
+            "collapsed": true,
+            "link": {
+              "type": "doc",
+              "id": "enterprise/install-groundswell"
+            },
+            "items": [
+              "enterprise/groundswell-kubernetes",
+              "enterprise/groundswell-docker-compose",
+              "enterprise/configuration/pipeline_optimization"
             ]
           },
           {
@@ -28,27 +58,16 @@
             "collapsed": true,
             "items": [
               "enterprise/configuration/overview",
-              "enterprise/configuration/authentication",
-              "enterprise/configuration/aws_parameter_store",
               "enterprise/configuration/networking",
-              "enterprise/configuration/reverse_proxy",
               "enterprise/configuration/ssl_tls",
-              "enterprise/configuration/pipeline_optimization",
+              "enterprise/configuration/reverse_proxy",
+              "enterprise/configuration/aws_parameter_store",
               "enterprise/configuration/wave",
-              "enterprise/studios"
+              "enterprise/configuration/mirroring"
             ]
           },
-          {
-            "type": "category",
-            "label": "Deployment",
-            "collapsed": true,
-            "items": [
-              "enterprise/docker-compose",
-              "enterprise/kubernetes",
-              "enterprise/testing",
-              "enterprise/upgrade"
-            ]
-          },
+          "enterprise/testing",
+          "enterprise/upgrade",
           {
             "type": "category",
             "label": "Advanced",
@@ -63,36 +82,36 @@
           },
           "enterprise/general_troubleshooting"
         ]
-      },      
-      {
-        "type": "category",
-        "label": "Tutorials",
-        "collapsed": true,
-        "items": [
-          "getting-started/rnaseq",
-          "getting-started/proteinfold",
-          "getting-started/studios",
-          "tutorials/retry-strategy"
-          ]
       },
       {
-        "type": "category",
-        "label": "Get started",
-        "collapsed": true,
-        "items": [
-          "getting-started/deployment-options",
-          "getting-started/workspace-setup",
-          "getting-started/quickstart-demo/add-pipelines",
-          "getting-started/quickstart-demo/add-data",
-          "getting-started/quickstart-demo/launch-pipelines",
-          "getting-started/quickstart-demo/monitor-runs",
-          "getting-started/quickstart-demo/automation"
-        ]
-      },    
-      {
-        "type": "category",
-        "label": "Credentials",
-        "items": [
+      "type": "category",
+      "label": "Tutorials",
+      "collapsed": true,
+      "items": [
+        "getting-started/rnaseq",
+        "getting-started/proteinfold",
+        "getting-started/studios",
+        "tutorials/retry-strategy"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Get started",
+      "collapsed": true,
+      "items": [
+        "getting-started/deployment-options",
+        "getting-started/workspace-setup",
+        "getting-started/quickstart-demo/add-pipelines",
+        "getting-started/quickstart-demo/add-data",
+        "getting-started/quickstart-demo/launch-pipelines",
+        "getting-started/quickstart-demo/monitor-runs",
+        "getting-started/quickstart-demo/automation"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Credentials",
+              "items": [
           "credentials/overview",
           "git/overview",
           {
@@ -126,7 +145,6 @@
               "compute-envs/aws-batch",
               "compute-envs/azure-batch",
               "compute-envs/google-cloud-batch",
-              "compute-envs/google-cloud-lifesciences",
               "compute-envs/eks",
               "compute-envs/gke",
               "monitoring/cloud-costs"
@@ -166,20 +184,16 @@
           {
           "type": "category",
           "label": "Monitor runs",
-          "items": [
-            "monitoring/overview",
-            "monitoring/dashboard",
-            "monitoring/run-details"
-          ]
-          },
-          "reports/overview",
-          "launch/cache-resume",
-          "secrets/overview",
-          "pipeline-optimization/overview",
-          "launch/advanced"
-        ]
-      },
-      {
+          "items": ["monitoring/overview", "monitoring/run-details"]
+        },
+        "reports/overview",
+        "launch/cache-resume",
+        "secrets/overview",
+        "pipeline-optimization/overview",
+        "launch/advanced"
+      ]
+    },
+       {
         "type": "category",
         "label": "Studios",
         "items": [
@@ -196,6 +210,7 @@
           "orgs-and-teams/organizations",
           "orgs-and-teams/workspace-management",
           "orgs-and-teams/roles",
+          "monitoring/dashboard",
           "monitoring/audit-logs"
           ]
       },
@@ -247,7 +262,7 @@
         "type": "link",
         "label": "Enterprise changelog",
         "href": "/changelog/tags/seqera-enterprise"
-      },     
+      },
       {
         "type": "category",
         "label": "Troubleshooting",
