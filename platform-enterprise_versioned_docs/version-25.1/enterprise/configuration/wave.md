@@ -30,23 +30,14 @@ Container registry credentials must be configured in the Seqera UI to authentica
 
 ## Configuration
 
-### Connect to Seqera Wave service
+### Connect to Wave service
 
-Configure Seqera Platform to use the hosted Wave service:
+Configure Seqera Platform to use the Seqera-hosted Wave service or your self-hosted Wave deployment:
 
 | Variable | Description |
 | :------- | :---------- |
 | `TOWER_ENABLE_WAVE` | Set to `true` to enable Wave integration |
 | `WAVE_SERVER_URL` | Wave server endpoint (default: `https://wave.seqera.io`) |
-
-### Connect to self-hosted Wave
-
-For self-hosted Wave deployments, set `WAVE_SERVER_URL` to your Wave server endpoint:
-
-| Variable | Description |
-| :------- | :---------- |
-| `TOWER_ENABLE_WAVE` | Set to `true` to enable Wave integration |
-| `WAVE_SERVER_URL` | Your self-hosted Wave server URL (e.g., `https://wave.your-domain.com`) |
 
 ### Verify connectivity
 
