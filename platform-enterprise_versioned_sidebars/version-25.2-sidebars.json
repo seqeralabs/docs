@@ -181,10 +181,7 @@
         "type": "category",
         "label": "Pipelines",
         "items": [
-          "pipelines/overview",
           "pipeline-schema/overview",
-          "pipelines/versioning",
-          "pipelines/revision",
           "launch/launchpad",
           "labels/overview",
           {
@@ -219,7 +216,6 @@
           "orgs-and-teams/organizations",
           "orgs-and-teams/workspace-management",
           "orgs-and-teams/roles",
-          "orgs-and-teams/custom-roles",
           "monitoring/dashboard",
           "monitoring/audit-logs"
           ]
