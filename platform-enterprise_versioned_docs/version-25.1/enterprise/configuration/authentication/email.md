@@ -75,13 +75,3 @@ To disable email authentication when other authentication providers (OAuth, OIDC
 :::warning
 Email authentication can only be disabled when at least one other authentication provider is configured. Users will not be able to log in if email authentication is disabled without an alternative authentication method.
 :::
-
-## Additional options
-
-### Welcome email
-
-Send a welcome email to newly registered users:
-
-| Variable                   | Description                                                          |
-| :------------------------- | :------------------------------------------------------------------- |
-| `TOWER_USER_WELCOME_EMAIL` | Set to `true` to send welcome emails to new users (default: `false`) |
