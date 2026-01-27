@@ -32,6 +32,20 @@ GRANT ALL PRIVILEGES ON tower.* TO 'tower'@'%';
 
 See [Database configuration](./configuration/overview#seqera-and-redis-databases) for details.
 
+## Redis configuration
+
+Configure the Redis connection URL in your Seqera environment:
+
+```bash
+TOWER_REDIS_URL=redis://<redis-host>:6379
+```
+
+Use a managed Redis service for production:
+- [Amazon ElastiCache](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/WhatIs.html) (`cache.m4.large` or larger)
+- [Azure Cache for Redis](https://learn.microsoft.com/en-gb/azure/azure-cache-for-redis/cache-overview) (C3 tier or larger)
+- [Google Memorystore](https://cloud.google.com/memorystore/docs/redis) (M2 tier or larger)
+
+
 ## Deploy Seqera Enterprise
 
 1. Download and configure [tower.env](_templates/docker/tower.env). See [Configuration](./configuration/overview.mdx#basic-configuration) for detailed instructions.
