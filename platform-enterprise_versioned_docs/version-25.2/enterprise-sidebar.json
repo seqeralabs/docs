@@ -58,6 +58,23 @@
             "collapsed": true,
             "items": [
               "enterprise/configuration/overview",
+              {
+                "type": "category",
+                "label": "Authentication",
+                "collapsed": true,
+                "link": {
+                  "type": "doc",
+                  "id": "enterprise/configuration/authentication/overview"
+                },
+                "items": [
+                  "enterprise/configuration/authentication/email",
+                  "enterprise/configuration/authentication/github",
+                  "enterprise/configuration/authentication/google",
+                  "enterprise/configuration/authentication/keycloak",
+                  "enterprise/configuration/authentication/entra",
+                  "enterprise/configuration/authentication/okta"
+                ]
+              },
               "enterprise/configuration/networking",
               "enterprise/configuration/ssl_tls",
               "enterprise/configuration/reverse_proxy",
