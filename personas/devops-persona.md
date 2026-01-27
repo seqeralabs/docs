@@ -4,7 +4,7 @@ Seqera documentation related to platform operations currently accommodates multi
 
 When writing documentation for enterprise customers, focused content is more valuable than comprehensive coverage of tangential topics. By minimizing supporting documentation for third-party systems we don't control and assuming baseline reader knowledge, we can write more focused, relevant documentation about Seqera's products and platforms.
 
-This approach enables us to maintain documentation that serves our intended audience experienced infrastructure professionals while reducing the maintenance burden of keeping third-party system guidance current.
+This approach enables us to maintain documentation that serves our intended audience of experienced infrastructure professionals, while reducing the maintenance burden of keeping third-party system guidance current.
 
 **For customers who lack the requisite knowledge and skills**, several support options are available:
 
