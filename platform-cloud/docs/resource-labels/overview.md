@@ -108,6 +108,7 @@ Standard resource labels use static key-value pairs, such as `project=research` 
 |-----------------|---------------------|
 | `${workflowId}` | Platform run ID     |
 | `${sessionId}`  | Nextflow session ID |
+| `${username}`   | Platform username (run launch user)   |
 
 For example, a dynamic resource label `platformRun=${workflowId}` becomes `platformRun=12345abcde` when applied to the cloud resources consumed by run `12345abcde`.
 
