@@ -38,7 +38,7 @@ spec:
               value: "prod,redis,ha"
             # Configuration to optimize JVM memory settings. See https://docs.seqera.io/platform-enterprise/25.3/enterprise/configuration/overview#backend-memory-requirements
             - name: JAVA_OPTS
-              value: "-Xms1000M -Xmx2000M -XX:MaxDirectMemorySize=800m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144"            
+              value: "-Xms1000M -Xmx2000M -XX:MaxDirectMemorySize=800m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144"
             # TLS certificate for Studios
             #- name: TOWER_OIDC_PEM_PATH
             #  value: '/data/certs/oidc.pem'
@@ -110,6 +110,26 @@ spec:
       targetPort: 8080
   selector:
     app: backend
+---
+#
+# Backend API Service (Optional)
+#
+# This service exposes the backend API directly if you wish to have a separate
+# API endpoint (e.g., api.cloud.seqera.io) distinct from the main frontend.
+#
+# When to use this:
+# - You want a dedicated subdomain for API/CLI access (e.g., api.yourcompany.com)
+# - You need to separate API traffic from web UI traffic
+#
+# Required configuration when enabled:
+# - Configure appropriate ingress rules for the API subdomain
+# - Ensure your DNS points the API subdomain to this service
+#
+# Note: This service is optional. Most deployments do not need this unless
+# you intentionally want to expose the backend API via a dedicated subdomain.
+# If not needed, you can remove this service to simplify your deployment and
+# avoid potential routing conflicts with the frontend's wildcard setup.
+#
 ---
 apiVersion: v1
 kind: Service

@@ -63,7 +63,7 @@ The launch form consists of **General config**, **Run parameters**, and **Advanc
 There are three ways to enter **Run parameters** prior to launch:
 
 - The **Input form view** displays form fields to enter text or select attributes from lists, and browse input and output locations with [Data Explorer](../../data/data-explorer).
-- The **Config view** displays raw configuration text that you can edit directly. Select JSON or YAML format from the **View as** list.
+- The **Params file view** displays a raw schema that you can edit directly. Select JSON or YAML format from the **View as** list.
 - **Upload params file** allows you to upload a JSON or YAML file with run parameters.
 
 Specify your pipeline input and output and modify other pipeline parameters as needed:
