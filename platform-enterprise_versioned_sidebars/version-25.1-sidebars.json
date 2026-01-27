@@ -77,8 +77,7 @@
               "enterprise/advanced-topics/use-iam-role",
               "enterprise/advanced-topics/custom-launch-container",
               "enterprise/advanced-topics/firewall-configuration",
-              "enterprise/advanced-topics/seqera-container-images",
-              "enterprise/advanced-topics/content-security-policy"
+              "enterprise/advanced-topics/seqera-container-images"
             ]
           },
           "enterprise/general_troubleshooting"
@@ -144,10 +143,8 @@
             "label": "Cloud",
             "items": [
               "compute-envs/aws-batch",
-              "compute-envs/aws-cloud",
               "compute-envs/azure-batch",
               "compute-envs/google-cloud-batch",
-              "compute-envs/google-cloud",
               "compute-envs/eks",
               "compute-envs/gke",
               "monitoring/cloud-costs"
@@ -181,10 +178,7 @@
         "type": "category",
         "label": "Pipelines",
         "items": [
-          "pipelines/overview",
           "pipeline-schema/overview",
-          "pipelines/versioning",
-          "pipelines/revision",
           "launch/launchpad",
           "labels/overview",
           {
@@ -204,21 +198,8 @@
         "label": "Studios",
         "items": [
           "studios/overview",
-          "studios/container-images",
           "studios/custom-envs",
-          {
-          "type": "category",
-          "label": "Add Studios",
-          "link": {"type": "doc", "id": "studios/add-studio"},
-          "collapsed": true,
-          "items": [
-            "studios/add-studio-provided-template",
-            "studios/add-studio-custom-container",
-            "studios/add-studio-git-repo"
-          ]
-          },
-          "studios/managing",
-          "studios/connect"
+          "studios/managing"
         ]
       },
       {
@@ -229,7 +210,6 @@
           "orgs-and-teams/organizations",
           "orgs-and-teams/workspace-management",
           "orgs-and-teams/roles",
-          "orgs-and-teams/custom-roles",
           "monitoring/dashboard",
           "monitoring/audit-logs"
           ]

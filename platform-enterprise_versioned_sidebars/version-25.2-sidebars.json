@@ -181,10 +181,7 @@
         "type": "category",
         "label": "Pipelines",
         "items": [
-          "pipelines/overview",
           "pipeline-schema/overview",
-          "pipelines/versioning",
-          "pipelines/revision",
           "launch/launchpad",
           "labels/overview",
           {
@@ -206,17 +203,7 @@
           "studios/overview",
           "studios/container-images",
           "studios/custom-envs",
-          {
-          "type": "category",
-          "label": "Add Studios",
-          "link": {"type": "doc", "id": "studios/add-studio"},
-          "collapsed": true,
-          "items": [
-            "studios/add-studio-provided-template",
-            "studios/add-studio-custom-container",
-            "studios/add-studio-git-repo"
-          ]
-          },
+          "studios/add-studio",
           "studios/managing",
           "studios/connect"
         ]
@@ -229,7 +216,6 @@
           "orgs-and-teams/organizations",
           "orgs-and-teams/workspace-management",
           "orgs-and-teams/roles",
-          "orgs-and-teams/custom-roles",
           "monitoring/dashboard",
           "monitoring/audit-logs"
           ]
