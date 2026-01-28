@@ -1,4 +1,4 @@
-# Platform Changelog Formatter Skill
+# Platform changelog formatter skill
 
 ## Description
 Format and style-check **Seqera Platform** changelogs (Cloud and Enterprise only) to ensure consistency in voice, tone, formatting, and component-based organization.

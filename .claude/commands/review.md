@@ -1,4 +1,4 @@
-# Review Command
+# Review command
 
 ## Command
 `/review [path] [--profile=<profile>] [--format=<format>]`
@@ -42,7 +42,7 @@ This command uses the `editorial-review` skill to:
 3. **Execute review** using specialized SME agents in parallel
 4. **Generate structured report** in the specified format
 
-## Review Profiles
+## Review profiles
 
 ### quick
 - **Agents:** voice-tone, terminology
@@ -59,7 +59,7 @@ This command uses the `editorial-review` skill to:
 - **Focus:** Structural and editorial issues
 - **Use case:** New pages, major content restructuring
 
-## Output Formats
+## Output formats
 
 ### dev (default)
 Detailed report optimized for development workflow with file-by-file breakdown and priority actions.

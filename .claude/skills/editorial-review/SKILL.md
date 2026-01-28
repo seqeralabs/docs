@@ -1,4 +1,4 @@
-# Editorial Review Orchestrator
+# Editorial review orchestrator
 
 ## Purpose
 Orchestrate a comprehensive editorial review of documentation using specialized SME agents. Provides structured, actionable feedback on editorial quality across multiple dimensions.
@@ -12,22 +12,22 @@ This skill coordinates multiple specialized agents to provide comprehensive edit
 3. **Collate findings** into structured report
 4. **Provide actionable summary** with priorities
 
-## Available Review Agents
+## Available review agents
 
-### Core Editorial Agents (Always Run)
+### Core editorial agents (always run)
 - **voice-tone**: Second person, active voice, present tense, confidence
 - **terminology**: Product names, feature names, formatting conventions
 - **punctuation**: List punctuation, Oxford commas, quotation marks, dashes
 
-### Structural Agents (Run for major changes)
+### Structural agents (run for major changes)
 - **clarity**: Sentence length, jargon, complexity, prerequisites
 
-### Specialized Agents (Run as final pass)
+### Specialized agents (run as final pass)
 - **docs-fix**: Apply corrections (only when explicitly requested)
 
-## Usage Patterns
+## Usage patterns
 
-### PR Review (Automated)
+### PR review (automated)
 ```
 Use editorial-review skill on changed files: [file list]
 Focus: voice-tone, terminology, punctuation
@@ -35,7 +35,7 @@ Scope: comprehensive
 Output: GitHub PR comment format
 ```about:blank#blocked
 
-### Local Review (Manual)
+### Local review (manual)
 ```
 Use editorial-review skill on: [directory or file]
 Focus: all agents
@@ -43,7 +43,7 @@ Scope: thorough
 Output: development report format
 ```
 
-### Targeted Review (Specific Issues)
+### Targeted review (specific issues)
 ```
 Use editorial-review skill on: [files]
 Focus: [specific agents]
@@ -51,9 +51,9 @@ Scope: focused
 Output: issue-specific report
 ```
 
-## Orchestration Logic
+## Orchestration logic
 
-### Step 1: Scope Analysis
+### Step 1: Scope analysis
 ```
 Determine files to review:
 - PR mode: Use git diff to find changed .md/.mdx files
@@ -61,7 +61,7 @@ Determine files to review:
 - Exclude: code files, changelog files (unless specifically requested)
 ```
 
-### Step 2: Agent Selection
+### Step 2: Agent selection
 ```
 Based on review type and file changes:
 - New files: all agents
@@ -70,7 +70,7 @@ Based on review type and file changes:
 - Force comprehensive: all agents except docs-fix
 ```
 
-### Step 3: Parallel Execution
+### Step 3: Parallel execution
 ```
 Launch selected agents concurrently:
 - Each agent reviews all files in scope
@@ -78,7 +78,7 @@ Launch selected agents concurrently:
 - Wait for all agents to complete before proceeding
 ```
 
-### Step 4: Report Generation
+### Step 4: Report generation
 ```
 Structure findings by priority:
 - Critical: Issues that affect user comprehension
@@ -87,9 +87,9 @@ Structure findings by priority:
 - Info: Style preferences and suggestions
 ```
 
-## Output Format
+## Output format
 
-### GitHub PR Comment Format
+### GitHub PR comment format
 ```markdown
 ## 📝 Editorial Review Summary
 
@@ -119,7 +119,7 @@ Structure findings by priority:
 *Review powered by Claude Code SME agents*
 ```
 
-### Development Report Format
+### Development report format
 ```markdown
 # Editorial Review Report
 
@@ -154,7 +154,7 @@ Structure findings by priority:
 
 ## Implementation
 
-### Core Orchestration Script
+### Core orchestration script
 ```typescript
 async function runEditorialReview(scope, options) {
   // 1. Determine files to review
@@ -175,7 +175,7 @@ async function runEditorialReview(scope, options) {
 }
 ```
 
-### Agent Communication Protocol
+### Agent communication protocol
 Each agent returns standardized findings:
 ```json
 {
@@ -198,22 +198,22 @@ Each agent returns standardized findings:
 }
 ```
 
-## Quality Gates
+## Quality gates
 
-### Before Publishing Report
+### Before publishing report
 - Validate all line references exist
 - Remove duplicate findings between agents
 - Sort findings by file, then line number
 - Apply severity scoring consistently
 - Verify suggestions don't conflict
 
-### Agent Coordination
+### Agent coordination
 - Prevent multiple agents from flagging same issue
 - Ensure terminology agent has priority over punctuation for product names
 
 ## Customization
 
-### Review Profiles
+### Review profiles
 ```yaml
 # .claude/agents/review-config.yaml
 profiles:
@@ -228,7 +228,7 @@ profiles:
     focus: ["critical", "important"]
 ```
 
-### File Filters
+### File filters
 ```yaml
 include_patterns:
   - "**/*.md"
