@@ -12,6 +12,8 @@ Enable Studios as part of your Seqera Platform Enterprise instance. You must hav
 You must upgrade your Seqera Enterprise installation to version 25.1 to enable and configure Studios.
 :::
 
+Studios requires a Redis 7 instance separate from the one used by Seqera Platform.
+
 ## DNS configuration
 
 Each Studio is reachable at a unique URL that includes a randomly generated subdomain name. For example: `https://abcd.example.com/`, where `example.com` is your Seqera base domain name.
