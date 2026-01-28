@@ -63,6 +63,7 @@ Upon termination, the container's main process must handle the `SIGTERM` signal 
 The minimal Dockerfile includes directives to accomplish the following:
 
 - Pull a Seqera-provided base image with prerequisite binaries.
+- Set an image label indicating the version used.
 - Copy the `connect` binary into the build.
 - Set the container entry point.
 
@@ -77,13 +78,17 @@ ARG CONNECT_CLIENT_VERSION="0.8"
 FROM public.cr.seqera.io/platform/connect-client:${CONNECT_CLIENT_VERSION} AS connect
 
 # highlight-start
-# 1. Add connect binary
+# 1. Add connect version label to image metadata
+ARG CONNECT_CLIENT_VERSION
+LABEL io.seqera.connect.version="${CONNECT_CLIENT_VERSION}"
+
+# 2. Add connect binary
 COPY --from=connect /usr/bin/connect-client /usr/bin/connect-client
 
-# 2. Install connect dependencies
+# 3. Install connect dependencies
 RUN /usr/bin/connect-client --install
 
-# 3. Configure connect as the entrypoint
+# 4. Configure connect as the entrypoint
 ENTRYPOINT ["/usr/bin/connect-client", "--entrypoint"]
 # highlight-end
 ```
@@ -102,6 +107,8 @@ FROM ubuntu:20.04
 RUN apt-get update --yes && apt-get install --yes --no-install-recommends python3
 
 # highlight-start
+ARG CONNECT_CLIENT_VERSION
+LABEL io.seqera.connect.version="${CONNECT_CLIENT_VERSION}"
 COPY --from=connect /usr/bin/connect-client /usr/bin/connect-client
 RUN /usr/bin/connect-client --install
 ENTRYPOINT ["/usr/bin/connect-client", "--entrypoint"]
