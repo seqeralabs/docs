@@ -55,7 +55,7 @@ This command uses the `editorial-review` skill to:
 - **Use case:** Major content changes, thorough review
 
 ### new-content
-- **Agents:** page-structure, voice-tone, terminology, punctuation
+- **Agents:** voice-tone, terminology, punctuation, clarity
 - **Focus:** Structural and editorial issues
 - **Use case:** New pages, major content restructuring
 

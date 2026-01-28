@@ -32,7 +32,6 @@ The editorial review system uses specialized agents:
 - **terminology**: Product names, feature names, formatting conventions
 - **clarity**: Sentence length, jargon, readability, prerequisites
 - **punctuation**: Oxford commas, list punctuation, quotation marks
-- **page-structure**: Heading hierarchy, H1 usage, content flow
 
 ### Automated PR reviews
 

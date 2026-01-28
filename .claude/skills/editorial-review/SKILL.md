@@ -20,7 +20,6 @@ This skill coordinates multiple specialized agents to provide comprehensive edit
 - **punctuation**: List punctuation, Oxford commas, quotation marks, dashes
 
 ### Structural Agents (Run for major changes)
-- **page-structure**: Heading hierarchy, content patterns, prerequisites
 - **clarity**: Sentence length, jargon, complexity, prerequisites
 
 ### Specialized Agents (Run as final pass)
@@ -65,7 +64,7 @@ Determine files to review:
 ### Step 2: Agent Selection
 ```
 Based on review type and file changes:
-- New files: all agents including page-structure
+- New files: all agents
 - Content changes: voice-tone, terminology, punctuation, clarity
 - Minor edits: voice-tone, terminology
 - Force comprehensive: all agents except docs-fix
@@ -211,7 +210,6 @@ Each agent returns standardized findings:
 ### Agent Coordination
 - Prevent multiple agents from flagging same issue
 - Ensure terminology agent has priority over punctuation for product names
-- Let page-structure override other structural suggestions
 
 ## Customization
 
@@ -226,7 +224,7 @@ profiles:
     agents: [voice-tone, terminology, punctuation, clarity]
     focus: ["critical", "important", "minor"]
   new-content:
-    agents: [page-structure, voice-tone, terminology, punctuation]
+    agents: [voice-tone, terminology, punctuation, clarity]
     focus: ["critical", "important"]
 ```
 
