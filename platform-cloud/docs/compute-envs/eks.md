@@ -107,7 +107,7 @@ Seqera Platform compute environments for EKS include advanced options for storag
 
 ```yaml
 spec:
-    nodeSelector:
+  nodeSelector:
     disktype: ssd
 ```
 
