@@ -18,7 +18,8 @@ Studios provides interactive analysis environments within Seqera Platform. Deplo
 
 Before you begin, you need:
 - A running Seqera Platform Enterprise deployment
-- A wildcard TLS certificate for your domain
+- A Redis 7 instance separate from the one used by Seqera Platform
+- TLS certificates for the Studios service and Studios subdomains (you can use a single certificate covering both or separate certificates)
 - A wildcard DNS record
 
 ## Configuration
