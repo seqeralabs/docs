@@ -14,6 +14,7 @@ Skills are AI-powered workflows that help automate documentation tasks. Skills i
 Generates OpenAPI overlay files for Seqera Platform API documentation updates.
 
 **Use when**:
+
 - Analyzing Speakeasy comparison overlays
 - Generating operations, parameters, or schemas overlay files
 - Documenting new API endpoints or Platform version updates
@@ -21,7 +22,7 @@ Generates OpenAPI overlay files for Seqera Platform API documentation updates.
 
 See `skills/openapi-overlay-generator/SKILL.md` for complete documentation.
 
-## For Contributors
+## For contributors
 
 When working on API documentation:
 1. Claude Code will automatically detect and offer to use relevant skills
