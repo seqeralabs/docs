@@ -57,6 +57,7 @@ jobs:
           fi
 
       - name: Run Editorial Review
+        id: review
         if: steps.changed-files.outputs.has_changes == 'true'
         uses: anthropics/claude-code-action@beta
         with:
@@ -68,7 +69,7 @@ jobs:
 
             Instructions:
             - Use profile "comprehensive" for thorough review
-            - Format output for GitHub PR comments
+            - Format output for GitHub PR comments with markdown tables
             - Focus on voice-tone, terminology, punctuation, and clarity
             - Flag critical issues that affect user comprehension
             - Provide specific line-by-line suggestions
@@ -76,6 +77,21 @@ jobs:
 
             Do NOT make any edits - just provide review feedback.
           allowed_tools: "read,grep,glob"
+
+      - name: Post Editorial Review
+        if: always() && steps.changed-files.outputs.has_changes == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const output = `${{ steps.review.outputs.response }}`;
+            if (output && output.trim()) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: output
+              });
+            }
 
 
   apply-fixes:

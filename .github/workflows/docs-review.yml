@@ -63,6 +63,7 @@ jobs:
           fetch-depth: 0
 
       - name: Run Voice/Tone Review
+        id: review
         uses: anthropics/claude-code-action@beta
         with:
           anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
@@ -76,8 +77,23 @@ jobs:
             - Present vs future tense
             - Hedging language
 
-            Provide inline comments and a summary.
+            Provide detailed inline comments and a summary in markdown format.
           allowed_tools: "read,grep,glob"
+
+      - name: Post Review Comment
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const output = `${{ steps.review.outputs.response }}`;
+            if (output && output.trim()) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: `## 🎭 Voice & Tone Review\n\n${output}`
+              });
+            }
 
   # Terminology Review
   terminology-review:
@@ -90,6 +106,7 @@ jobs:
           fetch-depth: 0
 
       - name: Run Terminology Review
+        id: review
         uses: anthropics/claude-code-action@beta
         with:
           anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
@@ -103,8 +120,23 @@ jobs:
             - Formatting conventions (bold for UI, backticks for code)
             - Abbreviation handling
 
-            Provide inline comments and a summary.
+            Provide detailed inline comments and a summary in markdown format.
           allowed_tools: "read,grep,glob"
+
+      - name: Post Review Comment
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const output = `${{ steps.review.outputs.response }}`;
+            if (output && output.trim()) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: `## 📚 Terminology Review\n\n${output}`
+              });
+            }
 
   # Clarity Review
   clarity-review:
@@ -117,6 +149,7 @@ jobs:
           fetch-depth: 0
 
       - name: Run Clarity Review
+        id: review
         uses: anthropics/claude-code-action@beta
         with:
           anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
@@ -130,8 +163,23 @@ jobs:
             - Complex constructions
             - Missing prerequisites
 
-            Provide inline comments and a summary.
+            Provide detailed inline comments and a summary in markdown format.
           allowed_tools: "read,grep,glob"
+
+      - name: Post Review Comment
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const output = `${{ steps.review.outputs.response }}`;
+            if (output && output.trim()) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: `## 🔍 Clarity Review\n\n${output}`
+              });
+            }
 
   # Summary Report
   summary:
