@@ -29,13 +29,13 @@ To resolve this issue:
    - Process smaller data chunks
    - Set `process.resourceLimits` to enforce limits:
 
-      ```groovy
-      // AWS Batch example
-      process.resourceLimits = [cpus: 32, memory: '60.GB']
+     ```groovy
+     // AWS Batch example
+     process.resourceLimits = [cpus: 32, memory: '60.GB']
 
-      // Google Batch example (more conservative for 30s window)
-      process.resourceLimits = [cpus: 16, memory: '20.GB']
-      ```
+     // Google Batch example (more conservative for 30s window)
+     process.resourceLimits = [cpus: 16, memory: '20.GB']
+     ```
 
 1. Increase network bandwidth:
 
@@ -82,10 +82,12 @@ This issue can occur due to:
 To resolve this issue:
 
 1. Check if previous checkpoint completed:
+
    - Review logs for "Dumping finished successfully".
    - If the "Dumping finished successfully" message is missing, it means the previous checkpoint timed out with a `175` exit error.
 
 1. Verify checkpoint data exists:
+
    - Check that the `.fusion/dump/` work directory contains checkpoint files.
    - Ensure that the S3/GCS bucket is accessible.
    - If the bucket is missing, open a support ticket. See [Getting help](#getting-help) for more information.
@@ -111,11 +113,13 @@ This issue can occur due to:
 To resolve this issue:
 
 1. For AWS Batch (120-second window):
+
    - Use instances with 5:1 or better memory:bandwidth ratio.
    - Use `x86_64` instances for incremental snapshot support (`c6id`, `m6id`, `r6id` families).
    - Check architecture: `uname -m`
 
 1. For Google Batch (30-second window):
+
    - Use `x86_64` instances (mandatory for larger workloads).
    - Use more conservative memory limits.
    - Consider smaller instance types with better ratios.
@@ -139,10 +143,12 @@ This issue can occur due to:
 To resolve this issue:
 
 1. Split large tasks:
+
    - Break into smaller, checkpointable units.
    - Process data in chunks.
 
 1. Switch to `x86_64` instances:
+
    - Essential for Google Batch.
    - Recommended for AWS Batch tasks > 40 GiB.
 
@@ -163,6 +169,7 @@ Applications fail after restore with connection errors, especially HTTPS connect
 This issue occurs when applications use HTTPS connections, as CRIU cannot preserve encrypted TCP connections (SSL/TLS).
 
 To resolve this issue, configure TCP close mode to drop connections during checkpoint:
+
 ```groovy
 process.containerOptions = '-e FUSION_SNAPSHOTS_TCP_MODE=close'
 ```
@@ -189,6 +196,7 @@ To diagnose checkpoint problems:
      ```groovy
      process.containerOptions = '-e FUSION_SNAPSHOT_LOG_LEVEL=debug'
      ```
+
      :::
 
 1. Inspect your checkpoint data:
@@ -240,13 +248,13 @@ To diagnose checkpoint problems:
 
       Cause: Task memory too large or bandwidth too low for reclamation window.
 
-    1. For restore operations, check for a success marker at the end of the `restore_*.log` file:
+   1. For restore operations, check for a success marker at the end of the `restore_*.log` file:
 
-         ```console
-               (145.81974) Running pre-resume scripts
-               (145.81994) Restore finished successfully. Tasks resumed.
-               (145.82001) Writing stats
-         ```
+      ```console
+      (145.81974) Running pre-resume scripts
+      (145.81994) Restore finished successfully. Tasks resumed.
+      (145.82001) Writing stats
+      ```
 
 1. Verify your configuration:
 
@@ -259,8 +267,8 @@ To diagnose checkpoint problems:
 
 1. Test with different instance types. If uncertain:
 
-    - Run the same task with different instance types that have better disk iops and bandwidth guarantees and verify if Fusions Snapshots work there.
-    - Decrease memory usage to a manageable amount.
+   - Run the same task with different instance types that have better disk iops and bandwidth guarantees and verify if Fusions Snapshots work there.
+   - Decrease memory usage to a manageable amount.
 
 :::tip
 For detailed information about error codes and logging, see [Error reference](./error-codes-exit-messages).
