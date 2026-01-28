@@ -8,7 +8,7 @@
       "link": {
         "type": "doc",
         "id": "enterprise/overview"
-      },      
+      },
       "items": [
         {
           "type": "category",
@@ -237,7 +237,7 @@
       "type": "link",
       "label": "Enterprise changelog",
       "href": "/changelog/tags/seqera-enterprise"
-    },  
+    },
     "faqs"
   ]
 }
