@@ -1,14 +1,15 @@
 ---
-title: "Studios deployment"
+title: "Studios"
 description: Deploy Seqera Platform with Studios
-date: "17 Mar 2025"
+date created: "2025-03-17"
+last updated: "2025-12-05"
 tags: [docker, compose, kubernetes, studios, deployment]
 ---
 
-Enable Studios as part of your Seqera Platform Enterprise instance. You must have Data Explorer enabled to use Studios. Only the AWS public cloud is currently supported.
+Enable Studios as part of your Seqera Platform Enterprise instance. You must have Data Explorer enabled to use Studios. AWS, Azure, and GCP public clouds are currently supported.
 
-:::caution 
-You must upgrade your Seqera Enterprise installation to version 25.1 before you enable and configure Studios.
+:::caution
+You must upgrade your Seqera Enterprise installation to version 25.1 to enable and configure Studios.
 :::
 
 ## DNS configuration
@@ -17,11 +18,25 @@ Each Studio is reachable at a unique URL that includes a randomly generated subd
 
 Provide a wildcard TLS certificate to allow for uniquely generated subdomains. A wildcard certificate common name includes `*.` in the domain name, such as `*.example.com`, thereby securing any subdomain name at this level.
 
+:::info
+If your Enterprise deployment requires non-wildcard SSL certificates, enable path-based routing for Studios. This changes the dynamic subdomain used for each Studio session to a fixed subdomain with path-based routing.
+
+- When `TOWER_DATA_STUDIO_ENABLE_PATH_ROUTING` is omitted, empty, or `false`:
+    - https://a1234abc.connect.cloud.seqera.io/
+    - https://a5678abcd.connect.cloud.seqera.io/
+
+- When `TOWER_DATA_STUDIO_ENABLE_PATH_ROUTING=true`:
+    - https://connect.connect.cloud.seqera.io/_studio/a1234abc
+    - https://connect.connect.cloud.seqera.io/_studio/a5678abcd
+
+Path-based routing is only available from Seqera Platform version 25.2 and the latest Connect server and clients. It is supported for Visual Studio Code, JupyterLab, and R-IDE container template images. It is not supported for the Xpra container template image.
+:::
+
 Studios uses the following set of domains and subdomains:
 
 - The domain that you set for `TOWER_SERVER_URL`, such as `example.com`.
 - A wildcard subdomain that you must configure specifically for Studios. This wildcard subdomain is the parent for each unique session URL, such as `abcd.example.com`.
-- The connection proxy, defined by `CONNECT_PROXY_URL`. This URL is a first-level subdomain of your `TOWER_SERVER_URL`. For example, `https://connect.example.com`. 
+- The connection proxy, defined by `CONNECT_PROXY_URL`. This URL is a first-level subdomain of your `TOWER_SERVER_URL`. For example, `https://connect.example.com`.
 
 ## Studios workspace availability
 
@@ -35,24 +50,18 @@ You can configure which organizational workspaces have access to Studios. This c
 
 Each of the provided environments includes a particular version of the underlying software package and the version of Seqera Connect, an integrated web- and file-server.
 
-To quickly identify which version of the software an image includes, the version string for each container is in the form of `<software_version>-<seqera_connect_version>`. For example, if the version string for the R-IDE is `2025.04.1-0.8`, version `2025.04.01` is the R-IDE version and `0.8` is the Connect version of this Seqera-built container image. Learn more about Studios [environment versioning](../studios/overview#container-image-templates).
+To quickly identify which version of the software an image includes, the version string for each container is in the form of `<software_version>-<seqera_connect_version>`. For example, if the version string for the R-IDE is `2025.04.1-0.9`, version `2025.04.01` is the R-IDE version and `0.9` is the Connect version of this Seqera-built container image.
 
-The latest environment versions are listed below:
-
-- JupyterLab: `public.cr.seqera.io/platform/data-studio-jupyter:4.2.5-0.8`
-- R-IDE: `public.cr.seqera.io/platform/data-studio-ride:2025.04.1-0.8`
-- Visual Studio Code: `public.cr.seqera.io/platform/data-studio-vscode:1.93.1-0.8`
-- Xpra: `public.cr.seqera.io/platform/data-studio-xpra:6.2.0-r2-1-0.8`
-
-When adding a new Studio, the latest environment versions are tagged `recommended`, and earlier compatible versions are tagged `deprecated`.
-
-Security scans and container inspection reports (including container specifications, configuration, and manifest) are available on-demand at public.cr.seqera.io/platform for each environment images by selecting the `Scan` and `Inspect` icons respectively.
+- To see the list of all JupyterLab image templates available, including security scan results or to inspect the container specification (including container specifications, configuration, and manifest), see [public.cr.seqera.io/repo/platform/data-studio-jupyter][ds-jupyter].
+- To see the list of all R-IDE image templates available, including security scan results or to inspect the container specification (including container specifications, configuration, and manifest), see [https://public.cr.seqera.io/repo/platform/data-studio-ride][ds-ride].
+- To see the list of all Visual Studio Code image templates available, including security scan results or to inspect the container specification (including container specifications, configuration, and manifest), see [public.cr.seqera.io/platform/data-studio-vscode][ds-vscode].
+- To see the list of all Xpra image templates available, including security scan results or to inspect the container specification (including container specifications, configuration, and manifest), see [public.cr.seqera.io/repo/platform/data-studio-xpra][ds-xpra].
 
 ## Docker Compose
 
 This guide assumes that all services will be run in the same container as the rest of your Seqera Platform services.
 
-If you were using Studios prior to GA (v25.1) please review the `tower.env` file and make sure you are using the latest version which includes a new variable `TOWER_DATA_STUDIO_TEMPLATES_<TEMPLATE_KEY>_TOOL`. This variable needs to be added to the default/Seqera provided Studio templates:
+If you were using Studios prior to GA (v25.1) please review the `tower.env` file and make sure you are using the latest version which includes a new variable `TOWER_DATA_STUDIO_TEMPLATES_<TEMPLATE_KEY>_TOOL`. This variable needs to be added to the default/Seqera-provided Studio templates:
 
 `TOWER_DATA_STUDIO_TEMPLATES_<TEMPLATE_KEY>_TOOL: '<TOOL_NAME>'`
 
@@ -65,11 +74,11 @@ You can also check the current template configuration using `https://towerurl/ap
 - Allow inbound traffic to port 9090 on the EC2 instance
 - Allow traffic on port 9090 through the AWS LB (Load Balancer)
 - An AWS Route53 wildcard DNS record, such as `*.<seqera_platform_domain>`
+- Execute `mkdir 777 $HOME/.tower/connect` to create a folder that will be mounted to `connect-proxy` and used to store metadata.
 
 ### Procedure
 
 1. Download the Studios [environment configuration file](./_templates/docker/data-studios.env).
-
 1. Create an initial OIDC registration token, which can be any secure random string. For example, using openssl:
 
     ```
@@ -82,9 +91,7 @@ You can also check the current template configuration using `https://towerurl/ap
     openssl genrsa -out private.pem 2048
     openssl rsa -pubout -in private.pem -out public.pem
     ```
-
-1. Download the [data-studios-rsa.pem](./_templates/docker/data-studios-rsa.pem) file and replace its contents with the content of your private and public key files, in the same order (private key on top, public key directly beneath it). Save the file as `data-studios-rsa.pem`, in the same directory as your `docker-compose.yml` file. 
-
+1. Download the [data-studios-rsa.pem](./_templates/docker/data-studios-rsa.pem) file and replace its contents with the content of your private and public key files, in the same order (private key on top, public key directly beneath it). Save the file as `data-studios-rsa.pem`, in the same directory as your `docker-compose.yml` file.
 1. Open the `docker-compose.yml` and uncomment the volume mount for the PEM key file for the `backend` and `cron` services in the `volumes` list. Your PEM file must be named `data-studios-rsa.pem`.
 
     ```yaml
@@ -118,7 +125,6 @@ You can also check the current template configuration using `https://towerurl/ap
     ```
 
 1. Start your Platform instance: `docker compose -d up`.
-
 1. Confirm that the Platform containers are running:
 
     ```
@@ -129,9 +135,7 @@ You can also check the current template configuration using `https://towerurl/ap
 
 ## Kubernetes
 
-This procedure describes how to configure Studios for Seqera Enterprise deployments in Kubernetes.
-
-If you were using Studios prior to GA (v25.1) please review the `configmap.yaml` file and make sure you are using the latest version which includes a new variable `TOWER_DATA_STUDIO_TEMPLATES_<TEMPLATE_NAME>_TOOL` which needs to be added to the default/Seqera provided Studio templates:
+This procedure describes how to configure Studios for Seqera Enterprise deployments in Kubernetes. If you were using Studios prior to GA (v25.1) please review the `configmap.yaml` file and make sure you are using the latest version which includes a new variable `TOWER_DATA_STUDIO_TEMPLATES_<TEMPLATE_NAME>_TOOL`. This variable needs to be added to the default/Seqera-provided Studio templates:
 
 `TOWER_DATA_STUDIO_TEMPLATES_<TEMPLATE_KEY>_TOOL: '<TOOL_NAME>'`
 
@@ -153,7 +157,6 @@ You can also check the current template configuration using `https://towerurl/ap
     ```
 
 1. Edit the `server.yml` file and set the `CONNECT_REDIS_ADDRESS` environment variable to the hostname or IP address of the Redis server configured for Platform.
-
 1. Create an initial OIDC registration token, which can be any secure random string. For example, using openssl:
 
     ```
@@ -162,21 +165,21 @@ You can also check the current template configuration using `https://towerurl/ap
 
 1. Edit the `proxy.yml` file and set the following variables:
 
-    - `CONNECT_REDIS_ADDRESS`: The hostname or IP address of the Redis server configured for Platform.
-    - `CONNECT_PROXY_URL`: A URL for the connect proxy subdomain. We recommend you set a first-level subdomain of your Platform installation domain (`PLATFORM_URL` below) for your connect proxy, to be able to use the same wildcard TLS certificate for all session URLs and avoid additional domain nesting. For example, `https://connect.example.com`.
-    - `PLATFORM_URL`: The base URL for your Platform installation, such as `https://example.com/`.
+    - `CONNECT_REDIS_ADDRESS`: The hostname or IP address of the Redis server configured for Seqera.
+    - `CONNECT_PROXY_URL`: A URL for the connect proxy subdomain. We recommend you set a first-level subdomain of your installation's domain (`PLATFORM_URL` below) for your connect proxy, to be able to use the same wildcard TLS certificate for all session URLs and avoid additional domain nesting. For example, `https://connect.example.com`.
+    - `PLATFORM_URL`: The base URL for your installation, such as `https://example.com/`.
     - `CONNECT_OIDC_CLIENT_REGISTRATION_TOKEN`: The same value as the `oidc_registration_token` value created previously.
 
-1. Edit your Platform installation's `ingress.eks.yml` file:
+1. Edit your `ingress.eks.yml` file:
 
     - Uncomment the `host` section at the bottom of the file.
-    - Replace `<YOUR-TOWER-HOST-NAME>` with the base domain of your Platform installation. For example, `example.com`.
+    - Replace `<YOUR-TOWER-HOST-NAME>` with the base domain of your installation. For example, `example.com`.
 
     :::note
-    This assumes that you have an existing Platform installation Ingress already configured with the following fields:
+    This assumes that you have an existing Seqera ingress already configured with the following fields:
 
-    - `alb.ingress.kubernetes.io/certificate-arn`: The ARN of a wildcard TLS certificate that secures your Platform URL and connect proxy URL. For example, if `TOWER_SERVER_URL=https://example.com` and `CONNECT_PROXY_URL=https://connect.example.com`, the certificate must secure both `example.com` and `*.example.com`.
-    - `alb.ingress.kubernetes.io/load-balancer-attributes`: The attributes of the ALB Load Balancer used in your Platform installation.
+    - `alb.ingress.kubernetes.io/certificate-arn`: The ARN of a wildcard TLS certificate that secures your URL and connect proxy URL. For example, if `TOWER_SERVER_URL=https://example.com` and `CONNECT_PROXY_URL=https://connect.example.com`, the certificate must secure both `example.com` and `*.example.com`.
+    - `alb.ingress.kubernetes.io/load-balancer-attributes`: The attributes of the ALB Load Balancer used in your installation.
     :::
 
 1. Generate an RSA public/private key pair. A key size of at least 2048 bits is recommended. In the following example, the `openssl` command is used to generate the key pair:
@@ -213,8 +216,7 @@ You can also check the current template configuration using `https://towerurl/ap
     ```
 
 1. Edit the `tower-svc.yml` file and uncomment the `volumes.cert-volume`, `volumeMounts.cert-volume`, and `env.TOWER_OIDC_PEM_PATH` fields so that the public/private key pair is available to Platform.
-
-1. Edit the ConfigMap named `platform-backend-cfg` in the `configmap.yml` for Platform by editing the following environment variables:
+1. Edit the ConfigMap named `platform-backend-cfg` in the `configmap.yml` by changing the following environment variables:
 
    - `TOWER_DATA_STUDIO_CONNECT_URL`: The URL of the Studios connect proxy, such as `https://connect.example.com/`.
    - `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`: The same value as the `oidc_registration_token` value created previously.
@@ -241,7 +243,7 @@ You can also check the current template configuration using `https://towerurl/ap
     kubectl apply -f tower-svc.yml
     ```
 
-1. Restart the cron service of your Platform deployment to load the updated configuration. For example:
+1. Restart the cron service of your deployment to load the updated configuration. For example:
 
     ```
     kubectl delete -f tower-cron.yml
@@ -249,7 +251,7 @@ You can also check the current template configuration using `https://towerurl/ap
     ```
 
 
-1. Restart the backend service of your Platform deployment to load the updated configuration. For example:
+1. Restart the backend service of your deployment to load the updated configuration. For example:
 
     ```
     kubectl scale --replicas=0 deployment/backend
@@ -264,4 +266,10 @@ You can also check the current template configuration using `https://towerurl/ap
 
     It can take several minutes for Kubernetes to apply your changes, during which new pods are rolled out.
 
-1. To confirm that Studios is available, log in to your Platform instance and navigate to an organizational workspace that has Studios enabled. The **Studios** tab is included with the available tabs.
+1. To confirm that Studios is available, log into Seqera and navigate to an organizational workspace that has Studios enabled. The **Studios** tab should be displayed in the sidebar.
+
+{/* links */}
+[ds-jupyter]: https://public.cr.seqera.io/repo/platform/data-studio-jupyter
+[ds-ride]: https://public.cr.seqera.io/repo/platform/data-studio-ride
+[ds-vscode]: https://public.cr.seqera.io/repo/platform/data-studio-vscode
+[ds-xpra]: https://public.cr.seqera.io/repo/platform/data-studio-xpra
