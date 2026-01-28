@@ -1,0 +1,57 @@
+overlay: 1.0.0
+info:
+  title: Manual field descriptions overlay
+  version: 0.0.0
+actions:
+  # ===== PIPELINE SECRETS SCHEMAS =====
+
+  # ---- CREATE PIPELINE SECRET REQUEST ----
+
+  - target: "$.components.schemas.CreatePipelineSecretRequest.properties.name.description"
+    update: "Unique name for the pipeline secret within the workspace. Used to reference the secret in workflow configurations."
+
+  - target: "$.components.schemas.CreatePipelineSecretRequest.properties.value.description"
+    update: "The secret value to be securely stored. This value will be made available to pipeline executions as an environment variable or configuration value."
+
+  # ---- UPDATE PIPELINE SECRET REQUEST ----
+
+  - target: "$.components.schemas.UpdatePipelineSecretRequest.properties.value.description"
+    update: "New secret value to replace the existing value. The secret value is securely stored and made available to pipeline executions."
+
+  # ===== DATASETS SCHEMAS =====
+
+  # ---- CREATE DATASET REQUEST ----
+
+  - target: "$.components.schemas.CreateDatasetRequest.properties.name.description"
+    update: "Unique dataset name within the workspace. Must be a valid identifier that can be referenced in workflow configurations."
+
+  - target: "$.components.schemas.CreateDatasetRequest.properties.description.description"
+    update: "Optional description of the dataset. Provides context about the dataset contents, source, or intended use."
+
+  # ---- UPDATE DATASET REQUEST ----
+
+  - target: "$.components.schemas.UpdateDatasetRequest.properties.name.description"
+    update: "New name for the dataset. Must be unique within the workspace and can be used to reference the dataset in workflow configurations."
+
+  - target: "$.components.schemas.UpdateDatasetRequest.properties.description.description"
+    update: "Updated description for the dataset. Provides context about the dataset contents, source, or intended use."
+
+  # ===== WORKSPACES SCHEMAS =====
+
+  # ---- UPDATE WORKSPACE REQUEST ----
+
+  - target: "$.components.schemas.UpdateWorkspaceRequest.properties.name.description"
+    update: "New short name for the workspace. Must be 2-40 characters, start and end with alphanumeric characters, and can contain hyphens or underscores between characters. Must be unique within the organization."
+
+  - target: "$.components.schemas.UpdateWorkspaceRequest.properties.fullName.description"
+    update: "Updated full display name for the workspace. Maximum 100 characters."
+
+  - target: "$.components.schemas.UpdateWorkspaceRequest.properties.description.description"
+    update: "Updated description of the workspace. Maximum 1000 characters."
+
+  # ===== ACTIONS SCHEMAS =====
+
+  # ---- UPDATE ACTION REQUEST ----
+
+  - target: "$.components.schemas.UpdateActionRequest.properties.name.description"
+    update: "New name for the pipeline action. Must be unique within the workspace."
