@@ -133,8 +133,13 @@ Replace `{prefix}` in each configuration path with `/config/<application_name>`,
 Configuration values that control Seqera's interaction with databases and Redis instances. `TOWER_DB_USER`, `TOWER_DB_PASSWORD`, and `TOWER_DB_URL` must be specified using environment variables during initial Seqera Enterprise deployment in a new environment. A new installation will fail if DB values are only defined in `tower.yml` or the AWS Parameter Store. Once the database has been created, these values can be added to `tower.yml` or [AWS Parameter Store](./aws_parameter_store) entries and removed from your environment variables.
 
 :::note
-From Seqera Enterprise version 24.2:
+**Database version requirements:**
 
+From Seqera Enterprise version 23.4:
+- MySQL 8.0 is the officially supported and tested database version.
+- MySQL versions 5.6 and 5.7 are no longer supported.
+
+From Seqera Enterprise version 24.2:
 - Redis version 6.2 or greater is required.
 - Redis version 7 is officially supported.
 
@@ -336,7 +341,7 @@ Replace `{prefix}` in each configuration path with `/config/<application_name>`,
 
 ### Secret key rotation
 
-Rotate the key used to encrypt the credentials and secrets stored in your Platform database. Encryption key rotation is a security best practice and should be performed at an interval specified by your organization's security requirements, or in the event of a suspected compromise of your secret key. 
+Rotate the key used to encrypt the credentials and secrets stored in your Platform database. Encryption key rotation is a security best practice and should be performed at an interval specified by your organization's security requirements, or in the event of a suspected compromise of your secret key.
 
 Enable rotation by setting the following configuration values:
 
@@ -366,7 +371,7 @@ Enable rotation by setting the following configuration values:
 
 With rotation enabled and the previous and new key values set, secret key rotation will run as part of the Platform cron service during application startup. Normal application startup is not affected by this process, and Platform is fully operational while the credentials and secrets in your database are being encrypted using your new secret key.
 
-:::warning 
+:::warning
 - To prevent data loss, perform a backup of your Platform database and securely back up your current crypto secret key before enabling and performing key rotation.
 - All backend pods or containers for your Enterprise deployment must contain the same previous and new secret key values in their Platform config and must be in a ready/running state before starting the Platform cron service.
 :::
@@ -534,11 +539,11 @@ Do not replace the [Seqera-provided default image](../../functionality_matrix/ov
 
 ## Seqera API
 
-Enable the API endpoints to host the Seqera Enterprise OpenAPI specification and use the [tw CLI](https://github.com/seqeralabs/tower-cli). Set custom API rate limits and timeouts. 
+Enable the API endpoints to host the Seqera Enterprise OpenAPI specification and use the [tw CLI](https://github.com/seqeralabs/tower-cli). Set custom API rate limits and timeouts.
 
 :::note
 To configure API rate limit environment variables, you must add `ratelim` to the `MICRONAUT_ENVIRONMENTS`. Without `ratelim` being set, the rate limit configuration variables below are ignored.
-::: 
+:::
 
 <Tabs>
 <TabItem value="Environment variables" label="Environment variables" default>

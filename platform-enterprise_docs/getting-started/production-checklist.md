@@ -26,7 +26,7 @@ Organization members have specific roles and permissions that define their acces
 - In each workspace, members have a participant role that defines the permissions granted to them within that workspace.
 - Members can create their own workspaces within an organization and be part of a team.
 
-All users can be assigned roles that grant the type of access and permissions they have to resources within Platform. 
+All users can be assigned roles that grant the type of access and permissions they have to resources within Platform.
 
 It’s a good idea to map out the expected users and their roles to ensure your plans are scalable. See [User roles](https://docs.seqera.io/platform-enterprise/25.1/orgs-and-teams/roles) for more information.
 
@@ -38,16 +38,16 @@ To begin, build out a proof of concept using the below recommendations and creat
 
 ### Kubernetes
 
-When deploying Seqera Platform in a generic Kubernetes cluster we recommend starting with: 
+When deploying Seqera Platform in a generic Kubernetes cluster we recommend starting with:
 
 - 4 vCPU
-- 7 GB nodes 
+- 7 GB nodes
 
 This sizing recommendation is a basic starting point. Your requirements may vary significantly based on the number of pipelines and concurrent processes you anticipate. See [Configure Pods and Containers](https://kubernetes.io/docs/tasks/configure-pod-container/) for information about increasing your resources.
 
 ### Docker
 
-When deploying Seqera Platform using Docker compose we recommend starting with: 
+When deploying Seqera Platform using Docker compose we recommend starting with:
 
 - Instance size - `c5.2xlarge`
 - External DB Aurora V3 provisioned - `db.t3.medium`
@@ -57,22 +57,22 @@ This sizing recommendation is a basic starting point. Your requirements may vary
 
 ### AWS
 
-When deploying Seqera Platform using AWS we recommend starting with: 
+When deploying Seqera Platform using AWS we recommend starting with:
 
 - Amazon Machine Image (AMI): Amazon Linux 2023 Optimized
 - Instance type: `c5a.2xlarge` with 8 CPUs and 16 GB RAM
-- A MySQL8 Community DB instance with minimum 2 vCPUs, 8 GB memory, and 30 GB SSD storage
+- A MySQL 8.0 Community DB instance with minimum 2 vCPUs, 8 GB memory, and 30 GB SSD storage
 
 This sizing recommendation is a basic starting point. Your requirements may vary significantly based on the number of pipelines and concurrent processes you anticipate. See [AWS Autoscaling documentation](https://aws.amazon.com/autoscaling/) for information about resource management in AWS.
 
 ### Azure
 
-When deploying Seqera Platform using Azure we recommend starting with: 
+When deploying Seqera Platform using Azure we recommend starting with:
 
 - Azure Linux VM with default values
 - At least 2 CPUS and 8 GB RAM
 - Ubuntu Server 22.04 LTS - Gen2 image
-- A MySQL8 Community DB instance with minimum 2 vCPUs, 8 GB memory, and 30 GB SSD storage
+- A MySQL 8.0 Community DB instance with minimum 2 vCPUs, 8 GB memory, and 30 GB SSD storage
 
 These autoscale for pipeline runs, but the sizing recommendation will be based on the workload and can vary significantly based on the number of pipelines and concurrent processes you anticipate. See [Azure autoscaling documentation](https://learn.microsoft.com/en-us/azure/azure-monitor/autoscale/autoscale-get-started) for information about scaling in Azure.
 
