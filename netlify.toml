@@ -34,8 +34,9 @@
 
 
 [[plugins]]
-package = "netlify-plugin-cache"
+  package = "netlify-plugin-cache"
   [plugins.inputs]
-  paths = [
-    "node_modules/.cache",
-  ]
+    paths = [
+      "node_modules/.cache",
+      ".docusaurus"
+    ]
