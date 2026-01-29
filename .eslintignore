@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+
+# Production build
+build/
+
+# Generated files
+.docusaurus/
+.cache-loader/
+.cache/
+
+# Docusaurus versioned docs (if auto-generated)
+.docusaurus/
+
+# Internal temporary files
+internal/tmp/
+
+# OSS repo clones
+multiqc_docs/multiqc_repo/
+wave_docs/wave_repo/
+
+# Build artifacts
+*.min.js
+*.bundle.js
+
+# Local Netlify folder
+.netlify/
+
+# Netlify edge functions
+netlify/edge-functions/
+
+# Config files
+*.config.js
+!docusaurus.config.js
+
+# Logs
+*.log
+
+# Environment files
+.env*
+
+# OS files
+.DS_Store
