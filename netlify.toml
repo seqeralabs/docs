@@ -4,15 +4,25 @@
 
 [build.environment]
   NODE_VERSION = "22"
-  # Limit Node.js memory to 1GB (guaranteed allocation on Netlify)
+  # Limit Node.js memory to 2GB (guaranteed allocation on Netlify)
   NODE_OPTIONS = "--max-old-space-size=2048"
+
+  # === Docusaurus Concurrency Limits ===
   # Limit SSG worker threads to prevent OOM errors in Netlify builds
   # Docusaurus defaults to 32 threads with 1GB memory each, but Netlify's
   # memory limits aren't properly enforced, causing out-of-memory 137 errors.
   # Limiting thread processing avoids this issue with some build time impact however,
-  # build are still significantly faster than without SSG in-use.
+  # builds are still significantly faster than without SSG in-use.
   # Reference: https://github.com/facebook/docusaurus/discussions/11199
   DOCUSAURUS_SSG_WORKER_THREAD_COUNT = "1"
+
+  # Limit rspack/webpack build concurrency to reduce memory spikes
+  # Default is CPU cores - 1, setting to 1 minimizes parallel processing
+  RSPACK_PARALLELISM = "1"
+
+  # Disable Docusaurus minify workers (use single-threaded minification)
+  # Parallel minification can spike memory usage significantly
+  DOCUSAURUS_MINIFY_WORKERS = "1"
 
 [context.deploy-preview.build.environment]
   INCLUDE_NEXT="true"
@@ -37,4 +47,5 @@ package = "netlify-plugin-cache"
   [plugins.inputs]
   paths = [
     "node_modules/.cache",
+    ".docusaurus",  # Docusaurus build cache - huge time saver for versioned docs
   ]

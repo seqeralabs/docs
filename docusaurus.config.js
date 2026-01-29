@@ -252,7 +252,7 @@ export default async function createConfigAsync() {
       docs_fusion,
       docs_wave,
 
-      // Disable expensive bundler options.
+      // Disable expensive bundler options and limit concurrency
       // https://github.com/facebook/docusaurus/pull/11176
       function disableExpensiveBundlerOptimizations() {
         return {
@@ -273,6 +273,8 @@ export default async function createConfigAsync() {
                   },
                 },
               },
+              // Limit parallel processing to reduce memory spikes
+              parallelism: 1,
             };
           },
         };

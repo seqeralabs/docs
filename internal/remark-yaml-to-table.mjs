@@ -1,19 +1,26 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { createHash } from 'node:crypto';
 import { visit } from 'unist-util-visit';
 import { fromMarkdown } from 'mdast-util-from-markdown'
 import YAML from 'yaml';
 
-// Memory-optimized version focused on limiting peak memory usage
+// Memory-optimized version with content-hash-based caching for versioned docs
 // Uses small LRU caches with aggressive eviction to keep memory footprint minimal
+// Caches based on content hash, not file path - perfect for deduplicated versioned docs
 // Original: https://github.com/seqeralabs/remark-yaml-to-table/blob/master/src/index.js
 
 // Small LRU caches - prioritize memory over speed
-const MAX_YAML_CACHE = 20;  // Only cache 20 most recent YAML files
+const MAX_YAML_CACHE = 20;  // Only cache 20 most recent unique YAML contents
 const MAX_MARKDOWN_CACHE = 200;  // Only cache 200 most recent markdown parses
-const globalYamlCache = new Map();
+const globalYamlCache = new Map();  // hash -> parsed YAML
 const globalMarkdownCache = new Map();
 let filesProcessed = 0;
+
+// Generate content hash for deduplication across versions
+function hashContent(content) {
+  return createHash('sha256').update(content).digest('hex').substring(0, 16);
+}
 
 function generateTableMdast(parsedData = [], markdownCache, maxSize) {
   // Extract headers (assuming all rows have the same columns)
@@ -75,20 +82,10 @@ function parseMarkdownCached(text, cache, maxSize) {
   return result;
 }
 
-// Cache YAML file loading with strict memory limits and LRU eviction
+// Cache YAML file loading with content-hash-based deduplication
+// This allows identical YAML files across different version directories to share cache
 function loadYamlCached(fileAbsPath, cache, maxSize) {
-  // Check cache first - move to end (LRU)
-  if (cache.has(fileAbsPath)) {
-    const result = cache.get(fileAbsPath);
-    cache.delete(fileAbsPath);
-    cache.set(fileAbsPath, result);
-    return result;
-  }
-
-  // Evict oldest entry if cache is full
-  evictOldestIfFull(cache, maxSize);
-
-  // Load and parse YAML
+  // Load file content first
   let yamlContent;
   try {
     yamlContent = fs.readFileSync(fileAbsPath, 'utf8');
@@ -96,6 +93,22 @@ function loadYamlCached(fileAbsPath, cache, maxSize) {
     throw new Error(`Cannot open '${fileAbsPath}'`);
   }
 
+  // Generate content hash for cache key (deduplicates across versions)
+  const contentHash = hashContent(yamlContent);
+
+  // Check cache by content hash - move to end (LRU)
+  if (cache.has(contentHash)) {
+    const result = cache.get(contentHash);
+    cache.delete(contentHash);
+    cache.set(contentHash, result);
+    yamlContent = null;  // Help GC
+    return result;
+  }
+
+  // Evict oldest entry if cache is full
+  evictOldestIfFull(cache, maxSize);
+
+  // Parse YAML
   let parsedData;
   try {
     parsedData = YAML.parse(yamlContent);
@@ -103,8 +116,8 @@ function loadYamlCached(fileAbsPath, cache, maxSize) {
     throw new Error(`Cannot parse YAML: ${err.message}`);
   }
 
-  // Cache the parsed result
-  cache.set(fileAbsPath, parsedData);
+  // Cache by content hash, not file path
+  cache.set(contentHash, parsedData);
 
   // Clear temporary variables to help GC
   yamlContent = null;
