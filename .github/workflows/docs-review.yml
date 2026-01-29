@@ -63,11 +63,10 @@ jobs:
           fetch-depth: 0
 
       - name: Run Voice/Tone Review
-        id: review
-        uses: anthropics/claude-code-action@beta
+        uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
-          direct_prompt: |
+          prompt: |
             Use the voice-tone agent to review these changed documentation files:
             ${{ needs.changes.outputs.docs_files }}
 
@@ -77,28 +76,11 @@ jobs:
             - Present vs future tense
             - Hedging language
 
-            Provide detailed inline comments and a summary in markdown format.
-          allowed_tools: "read,grep,glob"
-
-      - name: Post Review Comment
-        if: always() && steps.review.outputs.execution_file
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const fs = require('fs');
-            const executionFile = '${{ steps.review.outputs.execution_file }}';
-
-            if (fs.existsSync(executionFile)) {
-              const output = fs.readFileSync(executionFile, 'utf8');
-              if (output && output.trim()) {
-                await github.rest.issues.createComment({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: context.issue.number,
-                  body: `## 🎭 Voice & Tone Review\n\n${output}`
-                });
-              }
-            }
+            Post your findings as a comment with header "## 🎭 Voice & Tone Review"
+            Use: gh pr comment ${{ github.event.pull_request.number }}
+          use_sticky_comment: true
+          claude_args: |
+            --allowedTools "Read,Grep,Glob,Bash(gh pr comment:*),Task(voice-tone)"
 
   # Terminology Review
   terminology-review:
@@ -111,11 +93,10 @@ jobs:
           fetch-depth: 0
 
       - name: Run Terminology Review
-        id: review
-        uses: anthropics/claude-code-action@beta
+        uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
-          direct_prompt: |
+          prompt: |
             Use the terminology agent to review these changed documentation files:
             ${{ needs.changes.outputs.docs_files }}
 
@@ -125,28 +106,11 @@ jobs:
             - Formatting conventions (bold for UI, backticks for code)
             - Abbreviation handling
 
-            Provide detailed inline comments and a summary in markdown format.
-          allowed_tools: "read,grep,glob"
-
-      - name: Post Review Comment
-        if: always() && steps.review.outputs.execution_file
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const fs = require('fs');
-            const executionFile = '${{ steps.review.outputs.execution_file }}';
-
-            if (fs.existsSync(executionFile)) {
-              const output = fs.readFileSync(executionFile, 'utf8');
-              if (output && output.trim()) {
-                await github.rest.issues.createComment({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: context.issue.number,
-                  body: `## 📚 Terminology Review\n\n${output}`
-                });
-              }
-            }
+            Post your findings as a comment with header "## 📚 Terminology Review"
+            Use: gh pr comment ${{ github.event.pull_request.number }}
+          use_sticky_comment: true
+          claude_args: |
+            --allowedTools "Read,Grep,Glob,Bash(gh pr comment:*),Task(terminology)"
 
   # Clarity Review
   clarity-review:
@@ -159,11 +123,10 @@ jobs:
           fetch-depth: 0
 
       - name: Run Clarity Review
-        id: review
-        uses: anthropics/claude-code-action@beta
+        uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
-          direct_prompt: |
+          prompt: |
             Use the clarity agent to review these changed documentation files:
             ${{ needs.changes.outputs.docs_files }}
 
@@ -173,28 +136,11 @@ jobs:
             - Complex constructions
             - Missing prerequisites
 
-            Provide detailed inline comments and a summary in markdown format.
-          allowed_tools: "read,grep,glob"
-
-      - name: Post Review Comment
-        if: always() && steps.review.outputs.execution_file
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const fs = require('fs');
-            const executionFile = '${{ steps.review.outputs.execution_file }}';
-
-            if (fs.existsSync(executionFile)) {
-              const output = fs.readFileSync(executionFile, 'utf8');
-              if (output && output.trim()) {
-                await github.rest.issues.createComment({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: context.issue.number,
-                  body: `## 🔍 Clarity Review\n\n${output}`
-                });
-              }
-            }
+            Post your findings as a comment with header "## 🔍 Clarity Review"
+            Use: gh pr comment ${{ github.event.pull_request.number }}
+          use_sticky_comment: true
+          claude_args: |
+            --allowedTools "Read,Grep,Glob,Bash(gh pr comment:*),Task(clarity)"
 
   # Summary Report
   summary:
@@ -249,10 +195,10 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Apply Fixes
-        uses: anthropics/claude-code-action@beta
+        uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
-          direct_prompt: |
+          prompt: |
             Use the docs-fix agent to apply fixes to all changed documentation files in this PR.
 
             Apply fixes for:
@@ -262,7 +208,8 @@ jobs:
             - Inclusive language updates
 
             Do NOT change code blocks or alter technical meaning.
-          allowed_tools: "read,write,grep,glob,diff"
+          claude_args: |
+            --allowedTools "Read,Write,Edit,Grep,Glob,Task(docs-fix)"
 
       - name: Commit Fixes
         run: |
