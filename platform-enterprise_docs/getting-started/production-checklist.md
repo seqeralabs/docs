@@ -28,7 +28,7 @@ Organization members have specific roles and permissions that define their acces
 
 All users can be assigned roles that grant the type of access and permissions they have to resources within Platform.
 
-It's a good idea to map out the expected users and their roles to ensure your plans are scalable. See [User roles](../orgs-and-teams/custom-roles) for more information.
+It's a good idea to map out the expected users and their roles to ensure your plans are scalable. See [User roles](../orgs-and-teams/roles) for more information.
 
 ## Infrastructure
 
