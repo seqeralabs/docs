@@ -99,4 +99,4 @@ You can configure which organizational workspaces have access to Studios. This c
 
 - `allowed-workspaces: []`: Disables Studios. This is the default if the `allowed-workspaces` field is not specified.
 - `allowed-workspaces: [ <WORKSPACE_ID>,<WORKSPACE_ID> ]`: Enables Studios for the comma-separated list of organizational workspace IDs.
-- `allowed-workspaces: null`: Enables Studios for all organizational workspaces.
+- `allowed-workspaces: null`: Enables Studios for all organizational workspaces (default).
