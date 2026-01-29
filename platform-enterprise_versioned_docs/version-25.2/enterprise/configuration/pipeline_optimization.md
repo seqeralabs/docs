@@ -1,5 +1,5 @@
 ---
-title: "Pipeline resource optimization"
+title: "Pipeline optimization"
 description: "Configure pipeline resource optimization in your Seqera Enterprise deployment."
 date: "12 Feb 2024"
 tags: [compute, resource, optimization, configuration]
@@ -75,10 +75,7 @@ To use the pipeline resource optimization service in an existing Docker Compose 
 
 Kubernetes deployments use an [initContainer](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/) that runs during pod initialization to set up the pipeline resource optimization service. To use the service in new or existing Kubernetes installations of Seqera Enterprise, do the following:
 
-1. Download the [groundswell manifest](../_templates/k8s/groundswell.yml):
-
-    ```yaml file=../_templates/k8s/groundswell.yml
-    ```
+1. Download the [groundswell manifest](../_templates/k8s/groundswell.yml).
 
 1. To run the service from a custom URL, declare the URL with the `GROUNDSWELL_SERVER_URL` environment variable in the `configmap.yml` file that you downloaded for your [Platform installation][platform-k8s]. A non-zero value for this environment variable activates the optimization service automatically, so `TOWER_ENABLE_GROUNDSWELL` does not need to be set when you declare a custom URL.
 

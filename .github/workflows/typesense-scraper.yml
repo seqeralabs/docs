@@ -1,0 +1,22 @@
+name: Index docs in Typesense
+
+on:
+  schedule:
+    - cron: '0 1 * * *'  # 1am UTC = 3am SAST
+  workflow_dispatch:  # Optional: allows manual triggering
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v3
+      
+      - name: Run Typesense DocSearch Scraper
+        uses: celsiusnarhwal/typesense-scraper@15f9049f1e4a868fc94e45948f86bd0ceed2f4b3 #v2.0.1
+        with:
+          api-key: ${{ secrets.TYPESENSE_API_KEY }}
+          host: 9scwdgbn4v8r1lyfp.a1.typesense.net
+          port: 443
+          protocol: https
+          config: typesense-scraper.config.json

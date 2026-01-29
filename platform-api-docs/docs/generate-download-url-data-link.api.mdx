@@ -1,11 +1,11 @@
 ---
 id: generate-download-url-data-link
-title: "Generate data-link file download URL"
-description: "Returns a URL to download files from the data-link associated with the given `dataLinkId`."
-sidebar_label: "Generate data-link file download URL"
+title: "Generate download URL"
+description: "Returns a pre-signed URL to download files from the data-link associated with the given `dataLinkId`. The URL can be used for direct downloads or preview purposes."
+sidebar_label: "Generate download URL"
 hide_title: true
 hide_table_of_contents: true
-api: eJzNVttu2zgQ/RWCTy3g2Nk2uw96ato0RbDFbuC22IfAQBlpZDGRSYUcxWsYBvoR/cJ+yc5Q91h10gIF9imRdMhzhjxzxluJaulldCUTheoo1+bWy8VEJuBjpwvU1shIzgFLZ7xQ4tP8vUArErs2uVWJSHUOXqTOrgRmINpNhPLexlohJGKtMQtfl/oejPjMoPeEuUg+T+VE2gKcYqKLhKjegeFHOKsZPrn8rMYTtlBOrQDBseStNPRAa7oNCaJZcKEwkw+rOGvFeXTaLIVOwKBONTjCOrgrtQPSgK6EifRxBislo63ETcEs1SK5201aYq7+sqIKtHcluM0e7zmhBCvqn5x8GkNMilikyn1X3TjNmw46rOwpPGvrbn2hYniM5Z8GKEy5AqfjR7i0QViGT6l1K4XVqz9OBuyFg3sN60eYMyATOT7EZW2S4Cq2JO0t6k1EUbrCenIlvUvoRmPs7PosgVSVOUYipWOC52OKr63NQRkSuGBX+MIa2o0BL46P+c9Q1t9/0iaxpTIN8ldVFLmOg6FnN54h230Oe31DutjQju2PuiIoXT56TRI15lBbmJ3e6455rZBwjDwZ0/haJXOyN3j8Ea1dR1zJFXivlsDRcLiEBniwjLfOWbcn/OXI4TbZIIxFofLcrklPQJ/so/+yeG5Lk4hvX76K1tHsg14bhZ1Shk3E6eUFWcSr65xiij3EfmoXToKD2tBgi3ETt+v/r2dJHz3EpdO4CSn5GpQDd1pSTkVXC3Y1RWhmOW2XEFg5wiI560bAbNtl6m7WtNtR00dHbFRmcfdNFAfrygyx8NFspgo9jXNbJlMPd7R2qq1k4kbXBz6Yqsi+urZO3qfpzdCTAURvqn/Omyi5WWM4DG1SG5bXh/IhsPL97sVI/ekyV8iJJLgIHVNcVGC+URVj241tSV0hE0mXqvOQZKl91atwIvk8Kp7fpie/T4/5HaURrlQwRJ13zZDruYtHSZdTlGkPhW87s/3aeVxfAcK/OCtyRYlMNdTJVDll8GNhIqPB/B03C919RsfAa7fba+WBkmu349dV2LOFmk6UUQjnA/V/b6KOSr+FzXBU36u8ZJjkCfR00u/O1wOsD8f3T1I/MnQPCBjO9Z+l/zWT94Ds7gdBJ3nBD06z5h+0y7N5nb7PxeHfgKOK6pfKbPpyGqU97+8WhM5AJbQXC6wAp3EMBfaW7g2KQSK/e/uRsGoYhw/iL+w+Kot6KyA+2lsw1F+NSuRnFrjb/QeyPSWK
+api: eJzVVttuGzcQ/RWCTwkgr9zWLdB9qhPHgdGgMRQHeTAEiNqdlWhT5JrkShUEAf2IfGG+JDPcm1bayE7QIumTtOQZzpnhzBluuBczx+NbngovTpTU946PBzwFl1iZe2k0j/kIfGG1Y4LlFk6cnGlI2fvRG+YNS81KKyNSlkkFjmXWLJifA2vOY8I5k0jh0WYl/TzszuQSNJsQ6A1irtJJxG5wnQ5NhGZTYIVDg8xYlkoLiW8cOYZryGMpYcXywubGgYv4gJscrCDGVylyfg2aPuGiMntv1UXlDbG5sGIBHizFvuEaP9CmpYMQSZHnws/5fjoumtCct1LPmExBe5lJsMTDwkOBlJGEtwUMuEvmsBA83nC/zslNacW320HjmZJ3XfoKfh8KsOsDx5eIYkSpk3hKqtR7SX8G0SwasElmVAp26Ipp9c9M7zCbk+fE9CnMEoyEohPKtWnpp/eyhfZkho2qvIRLnZXXQ5gmELx8FzZzK5d4dW047qlsV8beu1wk8BjXDzWQ6WIBViYdqm8DTKhet1J7mIHFLeS6EL5c+u2sQ6Qq0OMkrjI2oRqZDOp8ADUZNUHWV+SMDDJM75cs9lolYheQiUL5uDbrDWhqjAKhkf+YqtflRqM3Avx8eko/XdZv/8RDEoNZ0J52RZ4rmYTOG945gmwOfZRlR51nqU+9LB0UVh1e6H6arr8sOlT01G/gSF6oiyK6Bu6lV1C1KnX0jgqMqgARR8izvhBfiHRUnvo1obaNf8sX4JyYAWnp8QzUwL6ybsJ4Za2xB8R/6bmbWgOZNp4JpcwK+QT02SH6L+MvTaFT9umfj6xpHdLXna4PJ2UEG7Dz6yusMSemqmpjyn9jOCDLVoKogkmrGvsfNZe46SAprPTrMA1egLBgzwuU4/h2TE2Bo2JuaKrMIHglpY75sNWn4aadHdth3ZondZ2eUJ2TF7usR06ofD73PnfxcChyGSXKFGnk4AFtI2kO2uBd2GHXSngSHvaS8HQlnCjWEbyjFJbp2I2jyQh5rEUgNH8A4Ur557KWtLuVD2mTOjPBvEpfxYLcPkaQwpUJClQJprsXiW/avgl+N2S8fqmCombmj3YDiVDmSj8/Rb//Gp3SGsqiX4hQOpXu1mO/M1X2mW7aOvyfvG2qy/Pwtx/mSuBMwegr8SyrsfOCG/C485bpL0ismjkmkGw3m6lwgOq43dJyOa6oTOtu53EYIEcS+W8/TnpDvod197W0FKogGKfZ+3Sy//FT5Qj3/ffUNwbw9PfLES7d19I3Mvk+j5gjUbVPrzaiMX1YSSF9ZVk/q2vhOXvk3d9LqVoUer3Lp6a606TbMaLnILANAsMScJ4kkPsd04Op2RlPr1/dIFZ0FX9P4cPpvbRQBALixtyDRiGoWXr6JoLb7WdSYe9S
 sidebar_class_name: "get api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -22,7 +22,7 @@ import Heading from "@theme/Heading";
 <Heading
   as={"h1"}
   className={"openapi__heading"}
-  children={"Generate data-link file download URL"}
+  children={"Generate download URL"}
 >
 </Heading>
 
@@ -36,7 +36,7 @@ import Heading from "@theme/Heading";
 
 
 
-Returns a URL to download files from the data-link associated with the given `dataLinkId`.
+Returns a pre-signed URL to download files from the data-link associated with the given `dataLinkId`. The URL can be used for direct downloads or preview purposes.
 
 <Heading
   id={"request"}
@@ -47,7 +47,7 @@ Returns a URL to download files from the data-link associated with the given `da
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"dataLinkId","in":"path","description":"Data-link string identifier","required":true,"schema":{"type":"string"}},{"name":"filePath","in":"query","description":"File path to download","schema":{"type":"string"}},{"name":"credentialsId","in":"query","description":"Credentials identifier","schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"preview","in":"query","description":"Whether to generate the URL for preview purposes or direct download (default: false)","schema":{"type":"boolean"}}]}
+  parameters={[{"name":"dataLinkId","in":"path","description":"Data-link string identifier.","required":true,"schema":{"type":"string"}},{"name":"filePath","in":"query","description":"File path to download within the data-link (e.g., `folder/subfolder/object`).","schema":{"type":"string"}},{"name":"credentialsId","in":"query","description":"Credentials string identifier. Required for generating download URLs for private data-links.","schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier. Optional.","schema":{"type":"integer","format":"int64"}},{"name":"preview","in":"query","description":"If `true`, generates a URL for preview purposes. If `false`, generates a URL for direct download. Default: `false`.","schema":{"type":"boolean"}}]}
 >
   
 </ParamsDetails>
@@ -62,7 +62,7 @@ Returns a URL to download files from the data-link associated with the given `da
 <StatusCodes
   id={undefined}
   label={undefined}
-  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"url":{"type":"string"}},"title":"DataLinkDownloadUrlResponse"}}}},"400":{"description":"BadRequest","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"NotFound — workspace or credentials not found, API disabled for the workspace, or data-link or path not found","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"url":{"type":"string","description":"Pre-signed URL to download the requested file."}},"title":"DataLinkDownloadUrlResponse"}}}},"400":{"description":"BadRequest","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"NotFound — workspace or credentials not found, API disabled for the workspace, or data-link or path not found","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
 >
   
 </StatusCodes>

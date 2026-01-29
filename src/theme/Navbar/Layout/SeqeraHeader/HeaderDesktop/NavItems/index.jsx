@@ -4,13 +4,13 @@ import NavItem from "./NavItem";
 import Logo from "./images/Logo.svg";
 import LogoWhite from "./images/LogoWhite.svg";
 import LoginButton from "./LoginButton";
-import Search from "@site/src/components/Search/Search";
 import styles from "./styles.module.css";
 import Hamburger from "./Hamburger";
 import { useHeaderContext } from "../../context";
 import ActiveLink from "./ActiveLink";
 import NavbarLogo from '@theme/Navbar/Logo';
-import NavbarColorModeToggle from '@theme/Navbar/ColorModeToggle';
+import NavbarColorModeToggle from '@theme/Navbar/ColorModeToggle'; 
+import SearchBar from "@theme/SearchBar";
 
 
 const NavItems = ({ isDark = false, hideMenu }) => {
@@ -30,12 +30,12 @@ const NavItems = ({ isDark = false, hideMenu }) => {
         <div className={styles.logoContainer}>
             <NavbarLogo/>
         </div>
-        <div className={styles.searchContainer}>
-          <Search />
-        </div>
-
+   
         {!hideMenu && (
           <nav className={clsx(styles.nav, { [styles.dark]: isDark })}>
+            <div className={styles.navItemContainer}>
+              <SearchBar />
+            </div>
             <div className={styles.navItemContainer}>
               <NavbarColorModeToggle />
             </div>

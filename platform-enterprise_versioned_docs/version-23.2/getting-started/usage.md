@@ -21,7 +21,7 @@ See [API](../api/overview).
 
 ### Tower CLI
 
-See [CLI](../cli/overview).
+See [CLI](https://docs.seqera.io/platform-cli).
 
 ### Nextflow `-with-tower`
 

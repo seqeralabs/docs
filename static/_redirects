@@ -3,7 +3,7 @@
 # Add redirects for version non-existent 25.2 to current docs
 /platform-enterprise/25.2/*    /platform-enterprise/:splat    301
 
-# These redirects reverse the existing 301's 
+# These redirects reverse the existing 301's
 # See https://moz.com/blog/can-you-reverse-a-301-redirect
 /platform-cloud/platform-cloud /platform-cloud 301
 /platform-enterprise/:version/platform-enterprise /platform-enterprise/:version 301
@@ -64,5 +64,14 @@
 /platform-enterprise/:version/api/overview  /platform-api   301
 /platform-cloud/api/overview                /platform-api   301
 
-#Redirect get started to tutorials
+#Wave redirects
 /wave/get-started/*                         /wave/tutorials/:splat          301
+
+#Wave page renaming and moving
+/wave/install/configure-wave               /wave/configure-wave             301
+
+# Redirect old CLI docs to new platform-cli docset
+/platform-cloud/cli/*                        /platform-cli               301
+/platform-enterprise/cli/*                   /platform-cli               301
+/platform-enterprise/*/cli/*                 /platform-cli               301
+/platform-enterprise/:version/cli/*          /platform-cli               301

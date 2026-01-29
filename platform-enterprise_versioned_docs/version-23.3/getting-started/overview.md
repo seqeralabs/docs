@@ -5,11 +5,11 @@ date: "15 September 2023"
 tags: [overview]
 ---
 
-Seqera Platform is available in two [deployment editions](../getting-started/deployment-options) and can be accessed via web user interface (UI), [API](../api/overview), [CLI](../cli/overview), or directly in your Nextflow command using a flag.
+Seqera Platform is available in two [deployment editions](../getting-started/deployment-options) and can be accessed via web user interface (UI), [API](../api/overview), [CLI](https://docs.seqera.io/platform-cli), or directly in your Nextflow command using a flag.
 
 ## Community Showcase
 
-When you first log in to Seqera Platform, you land on the [Community Showcase](https://docs.seqera.io/platform-cloud/getting-started/quickstart-demo/comm-showcase) Launchpad. This is an example workspace provided by Seqera. It's pre-configured with pipelines, compute environments, and credentials to get you running Nextflow pipelines immediately. The pre-built community AWS Batch environments include 100 free hours of compute.
+When you first log in to Seqera Platform, you land on the [Community Showcase](https://docs.seqera.io/platform-cloud/quickstart) Launchpad. This is an example workspace provided by Seqera. It's pre-configured with pipelines, compute environments, and credentials to get you running Nextflow pipelines immediately. The pre-built community AWS Batch environments include 100 free hours of compute.
 
 The Community Showcase consists of:
 

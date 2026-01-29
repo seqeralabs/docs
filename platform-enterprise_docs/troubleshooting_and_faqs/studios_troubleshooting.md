@@ -54,7 +54,7 @@ If you have access to the AWS Console for your organization, check the jobs asso
 
 ## Memory allocation of the session is exceeded
 
-The running container in the AWS Batch compute environment inherits the memory limits specified by the session configuration when adding or starting the session. The kernel then handles the memory as if running natively on Linux. Linux can overcommit memory, leading to possible out-of-memory errors in a container environment. The kernel has protections in place to prevent this, but it can happen, and in this case, the process is killed. This can manifest as a performance lag, killed subprocesses, or at worst, a killed session. 
+The running container in the AWS Batch compute environment inherits the memory limits specified by the session configuration when adding or starting the session. The kernel then handles the memory as if running natively on Linux. Linux can overcommit memory, leading to possible out-of-memory errors in a container environment. The kernel has protections in place to prevent this, but it can happen, and in this case, the process is killed. This can manifest as a performance lag, killed subprocesses, or at worst, a killed session.
 
 Running sessions have automated snapshots created every five minutes, so if the running container is killed only those changes made after the prior snapshot creation will be lost.
 
@@ -62,7 +62,7 @@ Running sessions have automated snapshots created every five minutes, so if the 
 
 By default, AWS Batch compute environments that are created with Batch Forge restrict access to S3 to the working directory only, unless additional **Allowed S3 Buckets** are specified. If the compute environment does not have write access to the mounted dataset, it will be mounted as read-only.
 
-## My session with GPU isn't starting 
+## My session with GPU isn't starting
 
 Check whether the instance type you selected [supports GPU](https://aws.amazon.com/ec2/instance-types/). If you specify multiple GPUs make sure that multi-GPU instances can be launched by your compute environment and are not limited by the maximum CPU config that you've set.
 
@@ -76,6 +76,22 @@ ERROR system error 2 (No such file or directory) [path:/sys/fs/cgroup/memory/mem
 ```
 
 This is displayed because logging is set to `stderr` by default to ensure all logs are shown during the session, and can safely be ignored.
+
+## Running session does not show new data in object storage
+
+By default, Fusion does not resync objects from remotely mounted data-link(s) after initial mounting.
+
+If you have a running session with data mounted and the underlying storage is updated, the data will not be resynced to the Studio session.
+
+You can change this behavior when you are [adding a Studio session](../studios/add-studio) by defining the `FUSION_REFRESH_TIMEOUT` environment variable to a specified number of seconds (e.g., `30`). This will force Fusion to refresh the view of the mounted data-link(s) at the specified interval.
+
+:::note
+Setting the environment variable _inside_ an already running Studio session by executing the command `export FUSION_REFRESH_TIMEOUT=30` won't change the behavior of the outer Fusion session. The environment variable should be set in the "General config" section durion Studio creation.
+:::
+
+:::warning
+This is an experimental feature and may cause consistency issues in the Fusion namespace, resulting in data loss.
+:::
 
 ## Container template image security scan false positives
 

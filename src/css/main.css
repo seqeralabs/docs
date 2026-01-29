@@ -102,23 +102,6 @@
   }
 }
 
-/* Custom styling for the Algolia search box */
-[data-theme="light"] .DocSearch {
-  --docsearch-searchbox-background: var(--ifm-color-white);
-}
-[data-theme="dark"] .DocSearch {
-  --docsearch-searchbox-background: var(--ifm-color-black);
-}
-.DocSearch-Button {
-  width: 100%;
-}
-[data-theme="light"] .DocSearch-Button {
-  box-shadow: inset 0 0 0 1px #d0cfd4;
-}
-[data-theme="dark"] .DocSearch-Button {
-  box-shadow: inset 0 0 0 1px var(--color-brand-800);
-}
-
 /* Custom styling for sidebar nav links */
 .theme-doc-sidebar-container > div {
   top: 74px;

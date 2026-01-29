@@ -1,6 +1,6 @@
 ---
-title: "Explore Platform Cloud"
-description: "Seqera Platform Cloud demonstration walkthrough"
+title: "Community Showcase"
+description: "Seqera Cloud Community showcase workspace walkthrough"
 date created: "8 Jul 2024"
 last updated: "14 June 2025"
 tags: [platform, launch, pipelines, launchpad, showcase tutorial]
@@ -8,7 +8,7 @@ toc_max_heading_level: 3
 ---
 
 :::info
-This demo tutorial provides an introduction to Seqera Platform, including instructions to:
+This demo tutorial provides an introduction to the Seqera Cloud Community Showcase workspace, including instructions to:
 - Launch, monitor, and optimize the [*nf-core/rnaseq*](https://github.com/nf-core/rnaseq) pipeline.
 - Select pipeline input data with [Data Explorer](../../data/data-explorer) and Platform [datasets](../../data/datasets).
 - Perform interactive analysis of pipeline results with [Studios](../../studios/overview).
@@ -145,24 +145,16 @@ Most Nextflow pipelines generate reports or output files which are useful to ins
     multiqc_report.html:
       display: "MultiQC HTML report"
   ```
-
 </details>
-
 :::note
 See [Reports](../../reports/overview) to configure reports for pipeline runs in your own workspace. 
 :::
-
 ### View general information
-
 The **Run details** page includes general information about who executed the run and when, the Git hash and tag used, and additional details about the compute environment and Nextflow version used.
-
 <details>
   <summary>View general run information</summary>
-
   ![General run information](assets/general-run-details.gif)
-
   The **General** panel displays top-level information about a pipeline run:
-
   - Unique workflow run ID
   - Workflow run name
   - Timestamp of pipeline start (timezones are based on system settings)
@@ -170,29 +162,19 @@ The **Run details** page includes general information about who executed the run
   - Nextflow session ID
   - Username of the launcher
   - Work directory path
-
 </details>
-
 ### View process and task details
-
 Scroll down the page to view:
-
 - The progress of individual pipeline **Processes**
 - **Aggregated stats** for the run (total walltime, CPU hours)
 - **Workflow metrics** (CPU efficiency, memory efficiency)
 - A **Task details** table for every task in the workflow
-
 The task details table provides further information on every step in the pipeline, including task statuses and metrics:
-
 <details>
   <summary>View task details</summary>
-
   Select a task in the task table to open the **Task details** dialog. The dialog has three tabs: **About**, **Execution log**, and **Data Explorer**.
-
   #### About
-
   The **About** tab includes:
-
   1. **Name**: Process name and tag
   2. **Command**: Task script, defined in the pipeline process
   3. **Status**: Exit code, task status, and number of attempts
@@ -201,90 +183,52 @@ The task details table provides further information on every step in the pipelin
   6. **Execution time**: Metrics for task submission, start, and completion time (timezones are based on system settings)
   7. **Resources requested**: Metrics for the resources requested by the task
   8. **Resources used**: Metrics for the resources used by the task
-
   ![Task details window](assets/task-details.gif)
-
   #### Execution log
-
   The **Execution log** tab provides a real-time log of the selected task's execution. Task execution and other logs (such as stdout and stderr) are available for download from here, if still available in your compute environment.
-
 </details>
-
 ### Task work directory in Data Explorer
-
 If a task fails, a good place to begin troubleshooting is the task's work directory. Nextflow hash-addresses each task of the pipeline and creates unique directories based on these hashes. 
-
 <details>
   <summary>View task log and output files</summary>
-
   Instead of navigating through a bucket on the cloud console or filesystem, use the **Data Explorer** tab in the Task window to view the work directory.
-
   Data Explorer allows you to view the log files and output files generated for each task, directly within Platform. You can view, download, and retrieve the link for these intermediate files to simplify troubleshooting.
-
   ![Task Data Explorer](assets/sp-cloud-task-data-explorer.gif)
-
 </details>
-
 ## Interactive analysis
-
 Interactive analysis of pipeline results is often performed in platforms like Jupyter Notebooks or using the [R-IDE](https://github.com/seqeralabs/r-ide). Setting up the infrastructure for these platforms, including accessing pipeline data and the necessary bioinformatics packages, can be complex and time-consuming.
-
 **Studios** streamlines the process of creating interactive analysis environments for Platform users. With built-in templates, creating a Studio is as simple as adding and sharing pipelines or datasets.
-
 ### Analyze RNAseq data in Studios
-
 In the **Studios** tab, you can monitor and see the details of the Studios in the Community Showcase workspace.
-
 Studios is used to perform bespoke analysis on the results of upstream workflows. For example, in the Community Showcase workspace we have run the *nf-core/rnaseq* pipeline to quantify gene expression, followed by *nf-core/differentialabundance* to derive differential expression statistics. The workspace contains a Studio with these results from cloud storage mounted into the Studio to perform further analysis. One of these outputs is an RShiny application, which can be deployed for interactive analysis.
-
 #### Connect to the RNAseq analysis Studio 
-
 Select the *rnaseq_to_differentialabundance* Studio. This Studio consists of an R-IDE that uses an existing compute environment available in the Community Showcase workspace. The Studio also contains mounted data generated from the *nf-core/rnaseq* and subsequent *nf-core/differentialabundance* pipeline runs, directly from AWS S3. 
-
 ![RNAseq Studio details](assets/rnaseq-diffab-studio-details.gif)
-
 Select **Connect** to view the running R-IDE session. The *rnaseq_to_differentialabundance* Studio includes the necessary R packages for deploying a web app to visualize the RNAseq data.
-
 Deploy the RShiny app in the Studio by selecting the play button on the last chunk of the R script:
-
 ![Run RShiny app](./assets/rnaseq-diffab-run-rshiny-app.png)
-
 :::note
 You can specify the resources each Studio will use. When [you create your own Studios](../../studios/overview) with shared compute environment resources, you must allocate sufficient resources to the compute environment to prevent Studio or pipeline run interruptions. 
 :::
-
 ### Explore results
-
 The RShiny app will deploy in a separate browser window, providing a data interface. Here you can view information about your sample data, perform QC or exploratory analysis, and view the results of differential expression analyses.
-
 ![RShiny app exploration](assets/rnaseq-diffab-rshiny-app-explore.gif)
-
 <details>
   <summary>Sample clustering with PCA plots</summary>
-
   In the **QC/Exploratory** tab, select the PCA (Principal Component Analysis) plot to visualize how the samples group together based on their gene expression profiles.
-
   In this example, we used RNA sequencing data from the publicly-available ENCODE project, which includes samples from four different cell lines: 
-
   - **GM12878**: a lymphoblastoid cell line
   - **K562**: a chronic myelogenous leukemia cell line
   - **MCF-7**: a breast cancer cell line
   - **H1-hESC**: human embryonic stem cells
-
   What to look for in the PCA plot:
-
   - **Replicate clustering**: Ideally, biological replicates of the same cell type should cluster closely together. For example, replicates of MCF-7 (breast cancer cell line) group together. This indicates consistent gene expression profiles among biological replicates.
   - **Cell type separation**: Different cell types should form distinct clusters. For instance, GM12878, K562, MCF-7, and H1-hESC samples should each form their own separate clusters, reflecting their unique gene expression patterns.
-
   From this PCA plot, you can gain insights into the consistency and quality of your sequencing data, identify any potential issues, and understand the major sources of variation among your samples - all directly in Platform.
-
   ![RShiny PCA plot](assets/rnaseq-diffab-rshiny-pca-plot.gif)
-
 </details>
-
 <details>
   <summary>Gene expression changes with Volcano plots</summary>
-
   In the **Differential** tab, select **Volcano plots** to compare genes with significant changes in expression between two samples. For example, filter for `Type: H1 vs MCF-7` to view the differences in expression between these two cell lines.
 
   1. **Identify upregulated and downregulated genes**: The x-axis of the volcano plot represents the log2 fold change in gene expression between the H1 and MCF-7 samples, while the y-axis represents the statistical significance of the changes.
@@ -347,4 +291,3 @@ Pipeline optimization analyzes resource usage data from previous runs to optimiz
   | Runtime      | `start` and `complete` |
 
 </details>
-

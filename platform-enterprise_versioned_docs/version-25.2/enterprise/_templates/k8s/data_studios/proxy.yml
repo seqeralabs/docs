@@ -19,7 +19,7 @@ spec:
         kubernetes.io/arch: amd64
       containers:
         - name: proxy
-          image: cr.seqera.io/private/nf-tower-enterprise/data-studio/connect-proxy:0.8.0
+          image: cr.seqera.io/private/nf-tower-enterprise/data-studio/connect-proxy:0.8.3
           env:
             - name: CONNECT_HTTP_PORT
               value: "8081"
@@ -54,6 +54,13 @@ spec:
             runAsNonRoot: true
             runAsUser: 65532
             runAsGroup: 65532
+          volumeMounts:
+            - mountPath: /data
+              name: caddy-temp-data-volume
+      volumes:
+        - name: caddy-temp-data-volume
+          emptyDir:
+            sizeLimit: 100Mi
       securityContext:
         fsGroup: 65532
 ---

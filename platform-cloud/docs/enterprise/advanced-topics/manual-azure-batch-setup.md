@@ -428,7 +428,7 @@ In Azure, you can delete the Batch account, which will delete all pools, jobs, a
 If you wish to keep the Azure resources, you can remove each pool within a Batch account and mark any active jobs as terminated to free up any quotas on your Azure Batch account.
 
 [install-azure-cli]: https://learn.microsoft.com/en-us/cli/azure/install-azure-cli
-[install-seqera-cli]: ../../cli/installation
+[install-seqera-cli]: /platform-cli/installation
 [nextflow-working-directory]: https://www.nextflow.io/docs/latest/cache-and-resume.html#work-directory
 [create-org-workspace]: ../../getting-started/workspace-setup
 [add-pipeline]: ../../getting-started/quickstart-demo/add-pipelines#add-from-the-launchpad

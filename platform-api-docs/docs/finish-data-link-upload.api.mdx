@@ -1,11 +1,11 @@
 ---
 id: finish-data-link-upload
-title: "Finish data-link file upload"
-description: "Finish upload of a data-link file. This is necessary for AWS S3 data-links (`DataLinkProvider=aws`) to finalize a successful file upload, or abort an upload if an error was encountered while uploading a file using an upload URL from the `/upload` endpoint."
-sidebar_label: "Finish data-link file upload"
+title: "Finish data-link file upload to given path"
+description: "Finish upload of a data-link file, specifying a file path (`dirPath`). This is necessary for AWS S3 data-links (`DataLinkProvider=aws`) to finalize a successful file upload, or abort an upload if an error was encountered while uploading a file using an upload URL from the `/upload` endpoint."
+sidebar_label: "Finish data-link file upload to given path"
 hide_title: true
 hide_table_of_contents: true
-api: eJztVs1uGzcQfhWCpwRQJNVWexAQIHZiAwZSR5Bk5GAIMLXL1dLmkmuSa0URFuhD9An7JJ0h90drqVLSUw8FDHlJzu83w4+zpY6tLB3f05g59k4K9WTpokdjbiMjcie0omN6LZSwKSlyqVlMdEIYacRJIiTvk3kqLIE/xSNuLTMbkmhDLr7OyOy8FbbkzcMnWHyG74nRLyLm5j1b24e3xGmwpJgU3zmYt0WEdpJCevuV6x4Bm2ypjSNM1eGIBBfcGDhbM0u4inShHDc8Juu0VRZqBYaDNesXjYm76WeSGJ0Rl3LyMAi7D2ApzrVQrk97VOfcMITjJm4AqTO58/IglDPDMg6uEdEtVbAA4bgSu0ERgXjmzKX0NcifGkStMxgfgKOcSAQ3IGv4cyEgJTp2puA9aqOUZ4yOt9RtcvQSlGhZ9hrHEcijCSZt6/u54Gaz5/xjK9r1+yN+1to82ZxF/JSXr7UgUUXGjYhO+ALs+cofQTNlzIWt30bgfREg4dZd6niDOpEGaeXwk+W5FJEv1+DRouvtvnG9fOSRw6oZLK4T3OJpKD5WeS9lCAO659YnfeAw3KTmgBnDEALheGZP+4XecbdFtoR0TwFwfobu+JytDtaFOuEkboW+vIK4/PZauPQKr8mO1lJryZnqqNVtHZr890I6MYHggrVpAB0UytdN6TdsrpUNGZ0Nh/jvEJV0bw4BSVKrQq7/spKlj+lseLbv9VaT2iiIjA4Fdtnm9hMRtAjc0wyJb8WRPo+XuhY8WjxfqWkNSshtNDzfD/xLzUxEaeBFKfUa4vHSo0NIuGugx5j89cefpLm4yKs7bOEtJSjWIxeTGxILy5YS+BQ5HTmyUfSM3L4FsEBua/X/q1jCoeVRYYTbeKq+5Mxwc1EAL4/vF8guwOOpRq7PtW8Jz9ljOmjfssG2ZfayejQGie9vJDNuXuqHoDASVFPncjseDFgu+pHURdy3/Blq1xeaosc6oBkiErLbDatJEO3UbOnvsBeCnfBxXTPF49p5FBDpacuVV99Ylkve5boatV2Ka/eqGaFLUsOaghrEFx2OqShBqET74KtazHzO2FZ7z0N1NJHMId0RhFDAGFAJYyOxyDdSF9AWRggpY0J6mkz0hx18exSrEfz80h/92h/iHtY2Y74Pq7esGnW64001J7wOeOfN+X9Eai6q49/cIJcM5gBA2FdqW92ezpTZo+POZNRgXF0h6KYUrx5obbdLZvmdkWWJ22G4wH6siYmOE6AtfqQ+/zjgHIz6iW8OzE8vTBYoS3H2+XHXJ6aeIwF0B6vW/QIXRqD/n4ThzbQi2bfk+Lx5MKp6slGb3XDqaHeqWS5AOuUsRqKAAIPAxxDGuzmaaQ3svQoIb9C4gBbP3VHZXaqefJnNkQeriTDTMeoYtsYBGn59sNrD4unV722pZGpV+EeEBpvImqxLuq9I1md1EA7oVS8x109cQb/W6DhcIzBl+TeCtq0N
+api: eJztV1trKzcQ/itCTyfg2G6SFmooNFcInCYhF85DMFje1XqVaKWNpI2PjzH0R/QX9pd0Rtpr7NpJnvpQOOR4pU9z+WY0M1pSx2aWjh5pzBzbl0I9Wzru0ZjbyIjcCa3oiF4IJWxKilxqFhOdEEZqOEmE5D1icx6JZCHUDDZxieTMpeTLJBbmBn5N9vrkPhWWwD/FI24tMwuSaEOOv92Ru8NGoIVDZ/DxFX7fGP0qYm5+Y3M72SNOg2jFpPjBQYstIpSTFDIoDOb1CMhkU20cYaoyWST4wY2BvTmzhKtIF8pxw2MyT5vDLfML6z9qEQ+3X0lidEZcyslkEFYnICnOtVCuT3tU59wwpOwyrkmrPHnweADlzLCMg2pkfUkVfAA4LmGXCBHIOdJH3wbirGbdOoP2ATnKiURwA1jDXwoBLtGRMwXvURulPGN0tKRukaOWcIiuVr1GcQjPVq0IQO7Rc9hxEALcIXCWR06bxSd1R4BH85m0jd8vBfcCuyacNtCNrr9H3VybZ5uziO9S9q0CElVk3Ihohy4IP5/5LcjnjLmw9MsRaB8HZoC0Ex0v8EykAa0c/mR5LkXkuRw8WVS9XBeup09AMiaOwfxyglvcDfmHifbW5bfehMwjl2eEWStmyqc8VwTSE/h0SGVWSCf2ITNdle3NxeyT66ljAo9tSX9iuM21srxPV0ADXKArT/ou4xCFBQWlBpmoB457OaE21TKYMQyjJRzP7G6K0J+rIptCZHbF6vAA1fF7NtuYQtQJJ3nN5TnYhfiuK8doHfpyDmJsQzZSyVmUEs/vdFEXvMKnceM5AfOxoPXJOcJRDFZLw11hUJBQHlwxTVIObBkbotmuX15ReV9zw/dLQ6CC2e0lDHyaC5eeY51sETHVWnKm1oJ3IdFCFfscBs1gCEg2bZfahbaqwH1ymZAJlolJr42dCynJlIfizeMAS+DG/wsu0lkuOSI7Maoqbqi/f2Bq3wAhIXS34TLCgdXbmuUXArU+fQ6GQ/xvUyfsFnUCyDoqQNInb/jK23QwPFjXeqVJJRQgR5sMO2l8+4AFDQOPNMOePOPY/bffqwq49ab4HLqtSAm+HQ0P1w2/rpomURpatpR6DvZ49NEmJtwFJFRM/v7zL1IXdGz5rWbiJSUI65Hjm0voU5ZNZXkVMZHqg35YaEYZ+PBTS33+v8olbFoeQQFxCz9FnHBmuDkuoHmPHsfYdWDESDWOIbn2KeEb+4gOmjFrsGyGjlVZDAaJz29scty8VjNKYSQcTZ3L7WgwYLnoR1IXcd/yF4hdX+i1ynDnd8iNZA7LLDlFPMaCom2V6XfIXeCh7UBNBWqs+q2vQx4EK+HHRVXAn+bO84UxuW267fl3hgWi2y2bRtQ0qWatHIa7vWNYdYY6NuNOnSyLh1CJ9saXUSs5QKd30YNkCyj9JRhTjkU+5brUtwmHrBPSd69E/95sgCEYt6Dnp/6vP/eHuIZZkDGfseU0VM703Tm+KrHQPGbiFdrKpnmwNcP8/zJ438ugTGjHv7tBLmGawpj42C7Lm9l5gPXoqPMgKKrHQ3k9If9SvNZwarmcMssfjFytcDkMtJjBVdGjI99Ct8Rw12y90fhnvtgwwb8yWSCW4tj9fgt2DNxbDOjO9I36MX4Ygfo/yMaX27KO75Htr62NVlWTqlq0zamsbQX1YwS1jHrPY+wzppXvwNUYoGGy9MSF3dNgyf49ymhOrzVE9CqcOIYbmLut2HaXurm+u8fCXj6SMh3jGcPm+LSEv95S7Znx/cKvLalkalb4/kmDTGwDrNtF3nQN79VGLuAqecS9fuYKrlNFjcNvJGa1+gcs8vuq
 sidebar_class_name: "post api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -22,7 +22,7 @@ import Heading from "@theme/Heading";
 <Heading
   as={"h1"}
   className={"openapi__heading"}
-  children={"Finish data-link file upload"}
+  children={"Finish data-link file upload to given path"}
 >
 </Heading>
 
@@ -36,7 +36,7 @@ import Heading from "@theme/Heading";
 
 
 
-Finish upload of a data-link file. This is necessary for AWS S3 data-links (`DataLinkProvider=aws`) to finalize a successful file upload, or abort an upload if an error was encountered while uploading a file using an upload URL from the `/upload` endpoint.
+Finish upload of a data-link file, specifying a file path (`dirPath`). This is necessary for AWS S3 data-links (`DataLinkProvider=aws`) to finalize a successful file upload, or abort an upload if an error was encountered while uploading a file using an upload URL from the `/upload` endpoint.
 
 <Heading
   id={"request"}
@@ -47,14 +47,14 @@ Finish upload of a data-link file. This is necessary for AWS S3 data-links (`Dat
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"dataLinkId","in":"path","description":"Data-link string identifier","required":true,"schema":{"type":"string"}},{"name":"credentialsId","in":"query","description":"Credentials identifier","schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+  parameters={[{"name":"dataLinkId","in":"path","description":"Data-link string identifier","required":true,"schema":{"type":"string"}},{"name":"dirPath","in":"path","description":"Path to the destination directory","required":true,"schema":{"type":"string"}},{"name":"credentialsId","in":"query","description":"Credentials string identifier","schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
 >
   
 </ParamsDetails>
 
 <RequestSchema
   title={"Body"}
-  body={{"content":{"application/json":{"schema":{"type":"object","properties":{"uploadId":{"type":"string"},"fileName":{"type":"string"},"tags":{"type":"array","items":{"type":"object","properties":{"partNumber":{"type":"integer","format":"int32"},"eTag":{"type":"string"}},"title":"UploadEtag"}},"withError":{"type":"boolean"}},"title":"DataLinkFinishMultiPartUploadRequest"}}},"required":true}}
+  body={{"content":{"application/json":{"schema":{"type":"object","properties":{"uploadId":{"type":"string","description":"Upload ID assigned when initiating multi-part upload for AWS S3. Obtained from the `/upload` endpoint response."},"fileName":{"type":"string","description":"Name of the uploaded file."},"tags":{"type":"array","items":{"type":"object","properties":{"partNumber":{"type":"integer","format":"int32"},"eTag":{"type":"string"}},"title":"UploadEtag"},"description":"Array of ETags assigned for each part by AWS S3 during the upload process. Each ETag is returned in the response headers when uploading a part to the pre-signed URLs from the `/upload` endpoint."},"withError":{"type":"boolean","description":"Flag indicating whether the upload encountered an error. If `true`, the upload will be aborted. If `false`, the upload will be completed."}},"title":"DataLinkFinishMultiPartUploadRequest"}}},"required":true}}
 >
   
 </RequestSchema>

@@ -4,6 +4,7 @@ import "dotenv/config";
 import platform_enterprise_latest_version from "./platform-enterprise_latest_version.js";
 
 export default async function createConfigAsync() {
+
   const changelog = {
     blogTitle: "Seqera Changelog",
     blogDescription: "Blog",
@@ -55,6 +56,25 @@ export default async function createConfigAsync() {
       docItemComponent: "@theme/ApiItem",
     },
   ];
+
+  const docs_platform_cli = [
+    "@docusaurus/plugin-content-docs",
+    {
+      id: "platform-cli",
+      routeBasePath: "/platform-cli",
+      path: "platform-cli-docs/docs",
+      remarkPlugins: [
+        (await import("remark-code-import")).default,
+        (await require("remark-math")).default,
+        (await import("docusaurus-remark-plugin-tab-blocks")).default,
+        (await require("remark-yaml-to-table")).default,
+      ],
+      rehypePlugins: [(await require("rehype-katex")).default],
+      sidebarPath: "platform-cli-docs/docs/sidebar/sidebar.js",
+      editUrl: "https://github.com/seqeralabs/docs/tree/master/",
+    },
+  ];
+
   const docs_platform_openapi = [
     "docusaurus-plugin-openapi-docs",
     {
@@ -62,7 +82,7 @@ export default async function createConfigAsync() {
       docsPluginId: "classic", // configured for preset-classic
       config: {
         platform: {
-          specPath: "platform-api-docs/scripts/seqera-ce-examples-spec-final.yaml",
+          specPath: "platform-api-docs/scripts/specs/seqera-api-latest-decorated.yml",
           outputDir: "platform-api-docs/docs",
           sidebarOptions: {
             groupPathsBy: "tag",
@@ -138,6 +158,7 @@ export default async function createConfigAsync() {
         (await require("remark-math")).default,
         (await import("docusaurus-remark-plugin-tab-blocks")).default,
         (await require("remark-yaml-to-table")).default,
+        (await require("remark-deflist")).default,
       ],
       rehypePlugins: [(await require("rehype-katex")).default],
       editUrl: ({ docPath }) => {
@@ -155,6 +176,8 @@ export default async function createConfigAsync() {
       (process.env.EXCLUDE_PLATFORM_CLOUD ? true : false),
     "\n  EXCLUDE_PLATFORM_API: " +
       (process.env.EXCLUDE_PLATFORM_API ? true : false),
+    "\n  EXCLUDE_PLATFORM_CLI: " +
+      (process.env.EXCLUDE_PLATFORM_CLI ? true : false),
     "\n  EXCLUDE_PLATFORM_OPENAPI: " +
       (process.env.EXCLUDE_PLATFORM_OPENAPI ? true : false),
     "\n  EXCLUDE_MULTIQC: " + (process.env.EXCLUDE_MULTIQC ? true : false),
@@ -186,14 +209,15 @@ export default async function createConfigAsync() {
      *
      * These optimizations may require additional configuration when memory issues are resolved.
      */
+
     future: {
-      v4: true,
       experimental_faster: {
         swcJsLoader: false,
         swcJsMinimizer: false,
         swcHtmlMinimizer: false,
         lightningCssMinimizer: false,
         rspackBundler: true,
+        rspackPersistentCache: false,
         mdxCrossCompilerCache: false,
       },
     },
@@ -205,18 +229,18 @@ export default async function createConfigAsync() {
 
     onBrokenLinks:
       process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
-    onBrokenMarkdownLinks:
-      process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
     onBrokenAnchors:
       process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
 
+    markdown: {
+      hooks: {
+        onBrokenMarkdownLinks:
+          process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
+      },
+    },
+
     customFields: {
       // Put your custom environment here
-      algolia: {
-        appId: process.env.PUBLIC_DOCUSAURUS_ALGOLIA_APP_ID,
-        apiKey: process.env.PUBLIC_DOCUSAURUS_ALGOLIA_API_KEY,
-        indexName: process.env.PUBLIC_DOCUSAURUS_ALGOLIA_INDEX_NAME,
-      },
     },
 
     // Even if you don't use internalization, you can use this field to set useful
@@ -226,7 +250,10 @@ export default async function createConfigAsync() {
       defaultLocale: "en",
       locales: ["en"],
     },
-    themes: ["docusaurus-theme-openapi-docs"],
+    themes: [
+      "docusaurus-theme-openapi-docs",
+      "docusaurus-theme-search-typesense",
+    ],
     presets: [
       [
         "classic",
@@ -237,7 +264,9 @@ export default async function createConfigAsync() {
             customCss: [
               require.resolve("./src/css/main.css"),
               require.resolve("./src/css/typography.css"),
+              require.resolve("./src/css/def-list.css"),
               require.resolve("./src/css/misc.css"),
+              require.resolve("./src/css/def-list.css"),
               require.resolve("./src/css/components/checklist.css"),
               require.resolve("./src/css/components/box.css"),
               require.resolve("./src/css/theme-colors.css"),
@@ -260,6 +289,7 @@ export default async function createConfigAsync() {
       process.env.EXCLUDE_PLATFORM_ENTERPRISE ? null : docs_platform_enterprise,
       process.env.EXCLUDE_PLATFORM_CLOUD ? null : docs_platform_cloud,
       process.env.EXCLUDE_PLATFORM_API ? null : docs_platform_api,
+      process.env.EXCLUDE_PLATFORM_CLI ? null : docs_platform_cli,
       process.env.EXCLUDE_PLATFORM_OPENAPI ? null : docs_platform_openapi,
       process.env.EXCLUDE_MULTIQC ? null : docs_multiqc,
       process.env.EXCLUDE_FUSION ? null : docs_fusion,
@@ -267,13 +297,13 @@ export default async function createConfigAsync() {
 
       // Disable expensive bundler options.
       // https://github.com/facebook/docusaurus/pull/11176
-      function disableExpensiveBundlerOptimizations() {
+      function disableExpensiveBundlerOptimizationPlugin() {
         return {
-          name: "disable-expensive-bundler-optimizations",
-          configureWebpack(_config, isServer) {
+          name: 'disable-expensive-bundler-optimizations',
+          configureWebpack(_config) {
             return {
               optimization: {
-                concatenateModules: false,
+                concatenateModules:  false,
               },
             };
           },
@@ -293,6 +323,30 @@ export default async function createConfigAsync() {
 
     themeConfig: {
       image: "img/share.jpg",
+
+      // Typesense search configuration
+      typesense: {
+        typesenseCollectionName: 'seqera_docs',
+        searchPagePath: '/search',
+
+        typesenseServerConfig: {
+          nodes: [{
+            host: '9scwdgbn4v8r1lyfp.a1.typesense.net',
+            port: 443,
+            protocol: 'https',
+          }],
+          apiKey: 'UUIEzlGORRp9lV5GndPR1zYBVBCPIJOl',
+          connectionTimeoutSeconds: 2,
+        },
+
+        typesenseSearchParameters: {
+          query_by: 'content,hierarchy.lvl0,hierarchy.lvl1,hierarchy.lvl2,hierarchy.lvl3',
+        },
+
+        contextualSearch: true,
+        placeholder: 'Search Seqera docs...',
+      },
+
       navbar: {
         logo: {
           alt: "Seqera",
@@ -351,6 +405,11 @@ export default async function createConfigAsync() {
           {
             to: "/platform-api",
             label: "Platform API",
+            position: "left",
+          },
+          {
+            to: "/platform-cli",
+            label: "Platform CLI",
             position: "left",
           },
         ],
