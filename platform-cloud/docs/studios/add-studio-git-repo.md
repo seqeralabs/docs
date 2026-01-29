@@ -24,7 +24,7 @@ You will need the following to get started:
 
 ### Create the required configuration files
 
-Create a `studio-config.yaml` file in the the `.seqera` directory in your repository. Your `studio-config.yaml` should contain at least `schemaVersion `, `kind` and `session.template.kind`. All other fields are optional.
+Create a `studio-config.yaml` file in the `.seqera` directory in your repository. Your `studio-config.yaml` should contain at least `schemaVersion `, `kind` and `session.template.kind`. All other fields are optional.
 
 ```yaml
 schemaVersion: "0.0.1"
@@ -59,7 +59,7 @@ session:
 The schema can define a custom `Dockerfile` or an `environment.yaml` file, which must be in the `.seqera` folder. The following limitations apply:
 
 - The workspace Admin needs to set a target repository per workspace, in **Settings > Studios > Container repository**. If no repository configuration is specified, the build will fail.
-- Each workspace needs to have credentials available in the workspace to push to the repository you've specified.
+- Each workspace needs to have valid credentials to push to the repository you've specified.
 - The only supported repository and compute environment combination for a fully private Dockerfile-based Studio is ECR and AWS.
 - The files pulled for Dockerbuild context have individual and total file size limits:
   - Individual files cannot be larger than 5 MB.
