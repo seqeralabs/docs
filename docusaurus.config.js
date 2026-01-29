@@ -5,6 +5,11 @@ import platform_enterprise_latest_version from "./platform-enterprise_latest_ver
 import remarkYamlToTable from "./internal/remark-yaml-to-table.mjs";
 
 export default async function createConfigAsync() {
+  // Import remark/rehype plugins dynamically within the async function
+  const remarkMath = (await import("remark-math")).default;
+  const remarkTabBlocks = (await import("docusaurus-remark-plugin-tab-blocks")).default;
+  const remarkDeflist = (await import("remark-deflist")).default;
+  const rehypeKatex = (await import("rehype-katex")).default;
   const changelog = {
     blogTitle: "Seqera Changelog",
     blogDescription: "Blog",
@@ -24,7 +29,7 @@ export default async function createConfigAsync() {
     onUntruncatedBlogPosts: "ignore",
   };
 
-  const docs_platform_enterprise = [
+  const docs_platform_enterprise = process.env.EXCLUDE_PLATFORM_ENTERPRISE ? null : [
     "@docusaurus/plugin-content-docs",
     {
       id: "platform-enterprise",
@@ -38,18 +43,19 @@ export default async function createConfigAsync() {
         onlyIncludeVersions: ["25.3"],
       }),
       remarkPlugins: [
-        (await import("remark-code-import")).default,
-        (await require("remark-math")).default,
-        (await import("docusaurus-remark-plugin-tab-blocks")).default,
+        remarkMath,
+        remarkTabBlocks,
         remarkYamlToTable,
       ],
-      rehypePlugins: [(await require("rehype-katex")).default],
+      rehypePlugins: [rehypeKatex],
       editUrl: "https://github.com/seqeralabs/docs/tree/master/",
       sidebarPath: "platform-enterprise_docs/enterprise-sidebar.json",
     },
   ];
 
-  const docs_platform_api = [
+  // Only define OpenAPI plugins if they're not excluded
+  // This prevents loading postman-code-generators and other heavy dependencies
+  const docs_platform_api = process.env.EXCLUDE_PLATFORM_API ? null : [
     "@docusaurus/plugin-content-docs",
     {
       id: "platform-api",
@@ -60,7 +66,7 @@ export default async function createConfigAsync() {
       docItemComponent: "@theme/ApiItem",
     },
   ];
-  const docs_platform_openapi = [
+  const docs_platform_openapi = process.env.EXCLUDE_PLATFORM_OPENAPI ? null : [
     "docusaurus-plugin-openapi-docs",
     {
       id: "api", // plugin id
@@ -78,75 +84,55 @@ export default async function createConfigAsync() {
     },
   ];
 
-  const docs_platform_cloud = [
+  const docs_platform_cloud = process.env.EXCLUDE_PLATFORM_CLOUD ? null : [
     "@docusaurus/plugin-content-docs",
     {
       id: "platform-cloud",
       routeBasePath: "/platform-cloud",
       path: "platform-cloud/docs",
       remarkPlugins: [
-        (await import("remark-code-import")).default,
-        (await require("remark-math")).default,
-        (await import("docusaurus-remark-plugin-tab-blocks")).default,
-        remarkYamlToTable,
+        remarkMath,
+        remarkTabBlocks,
       ],
-      rehypePlugins: [(await require("rehype-katex")).default],
+      rehypePlugins: [rehypeKatex],
       editUrl: "https://github.com/seqeralabs/docs/tree/master/",
       sidebarPath: "./platform-cloud/cloud-sidebar.json",
     },
   ];
 
-  const docs_multiqc = [
+  const docs_multiqc = process.env.EXCLUDE_MULTIQC ? null : [
     "@docusaurus/plugin-content-docs",
     {
       id: "multiqc",
       routeBasePath: "/multiqc",
       path: "multiqc_docs/multiqc_repo/docs/markdown",
-      remarkPlugins: [
-        (await import("remark-code-import")).default,
-        (await require("remark-math")).default,
-        (await import("docusaurus-remark-plugin-tab-blocks")).default,
-        remarkYamlToTable,
-      ],
-      rehypePlugins: [(await require("rehype-katex")).default],
       editUrl: ({ docPath }) => {
         return `https://github.com/MultiQC/MultiQC/blob/main/docs/markdown/${docPath.replace("multiqc_docs/multiqc_repo/docs", "")}`;
       },
       sidebarPath: "./multiqc_docs/sidebar.js",
     },
   ];
-  const docs_fusion = [
+
+  const docs_fusion = process.env.EXCLUDE_FUSION ? null : [
     "@docusaurus/plugin-content-docs",
     {
       id: "fusion",
       routeBasePath: "/fusion",
       path: "fusion_docs",
-      remarkPlugins: [
-        (await import("remark-code-import")).default,
-        (await require("remark-math")).default,
-        (await import("docusaurus-remark-plugin-tab-blocks")).default,
-        remarkYamlToTable,
-      ],
-      rehypePlugins: [(await require("rehype-katex")).default],
       editUrl: "https://github.com/seqeralabs/docs/tree/master/",
       sidebarPath: "./fusion_docs/sidebar.json",
     },
   ];
 
-  const docs_wave = [
+  const docs_wave = process.env.EXCLUDE_WAVE ? null : [
     "@docusaurus/plugin-content-docs",
     {
       id: "wave",
       routeBasePath: "/wave",
       path: "wave_docs/wave_repo/docs",
       remarkPlugins: [
-        (await import("remark-code-import")).default,
-        (await require("remark-math")).default,
-        (await import("docusaurus-remark-plugin-tab-blocks")).default,
-        remarkYamlToTable,
-        (await require("remark-deflist")).default,
+        remarkDeflist,
       ],
-      rehypePlugins: [(await require("rehype-katex")).default],
       editUrl: ({ docPath }) => {
         return `https://github.com/seqeralabs/wave/blob/master/docs/${docPath.replace("wave_docs/wave_repo/docs", "")}`;
       },
@@ -259,13 +245,13 @@ export default async function createConfigAsync() {
       ],
     ],
     plugins: [
-      process.env.EXCLUDE_PLATFORM_ENTERPRISE ? null : docs_platform_enterprise,
-      process.env.EXCLUDE_PLATFORM_CLOUD ? null : docs_platform_cloud,
-      process.env.EXCLUDE_PLATFORM_API ? null : docs_platform_api,
-      process.env.EXCLUDE_PLATFORM_OPENAPI ? null : docs_platform_openapi,
-      process.env.EXCLUDE_MULTIQC ? null : docs_multiqc,
-      process.env.EXCLUDE_FUSION ? null : docs_fusion,
-      process.env.EXCLUDE_WAVE ? null : docs_wave,
+      docs_platform_enterprise,
+      docs_platform_cloud,
+      docs_platform_api,
+      docs_platform_openapi,
+      docs_multiqc,
+      docs_fusion,
+      docs_wave,
 
       // Disable expensive bundler options.
       // https://github.com/facebook/docusaurus/pull/11176
@@ -276,6 +262,17 @@ export default async function createConfigAsync() {
             return {
               optimization: {
                 concatenateModules: false,
+                // Deduplicate common dependencies like lodash
+                splitChunks: {
+                  cacheGroups: {
+                    lodash: {
+                      test: /[\\/]node_modules[\\/]lodash/,
+                      name: 'lodash',
+                      chunks: 'all',
+                      priority: 20,
+                    },
+                  },
+                },
               },
             };
           },
@@ -291,7 +288,7 @@ export default async function createConfigAsync() {
           },
         };
       },
-    ],
+    ].filter(Boolean),
 
     themeConfig: {
       image: "img/share.jpg",
