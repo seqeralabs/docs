@@ -217,7 +217,7 @@ export default async function createConfigAsync() {
         swcHtmlMinimizer: false,
         lightningCssMinimizer: false,
         rspackBundler: true,
-        rspackPersistentCache: true,
+        rspackPersistentCache: false,
         mdxCrossCompilerCache: false,
       },
     },
