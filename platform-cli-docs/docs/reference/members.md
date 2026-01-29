@@ -13,8 +13,6 @@ Manage organization members. Organization membership management requires organiz
 
 List organization members.
 
-Command:
-
 ```bash
 tw members list [OPTIONS]
 ```
@@ -30,6 +28,8 @@ tw members list [OPTIONS]
 | `--max` | Maximum number of records to display (default: ) | No | `null` |
 
 Run `tw members list -h` view all the optional fields for listing organization members.
+
+### Example
 
 Command:
 
@@ -66,6 +66,8 @@ tw members add [OPTIONS]
 
 Run `tw members add -h` view all the required and optional fields for adding organization members.
 
+### Example
+
 Command:
 
 ```bash
@@ -94,6 +96,8 @@ tw members delete [OPTIONS]
 | `-o`, `--organization` | Organization name or numeric ID. Specify either the unique organization name or the numeric organization ID returned by 'tw organizations list'. | Yes | `null` |
 
 Run `tw members delete -h` view all the required and optional fields for deleting organization members.
+
+### Example
 
 Command:
 
@@ -124,6 +128,8 @@ tw members update [OPTIONS]
 | `-o`, `--organization` | Organization name or numeric ID. Specify either the unique organization name or the numeric organization ID returned by 'tw organizations list'. | Yes | `null` |
 
 Run `tw members update -h` view all the required and optional fields for updating organization members.
+
+### Example
 
 Command:
 

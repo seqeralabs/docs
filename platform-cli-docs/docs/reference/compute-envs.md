@@ -15,8 +15,6 @@ Run `tw compute-envs -h` to view the list of supported compute environment opera
 
 Add a new compute environment.
 
-Command:
-
 ```bash
 tw compute-envs add [OPTIONS]
 ```
@@ -26,6 +24,8 @@ Run `tw compute-envs add -h` to view the list of supported providers.
 Run `tw compute-envs add <platform> -h` to view the required and optional fields for your provider.
 
 You must add the credentials for your provider before creating your compute environment.
+
+### Example
 
 Command:
 
@@ -55,8 +55,6 @@ See the [compute environment](/platform-cloud/compute-envs/overview) page for yo
 ## tw compute-envs update
 
 Update a compute environment.
-
-Command:
 
 ```bash
 tw compute-envs update [OPTIONS]
@@ -103,7 +101,6 @@ tw compute-envs delete [OPTIONS]
 
 ### Example
 
-
 Command:
 
 ```bash
@@ -119,8 +116,6 @@ Compute environment '1sxCxvxfx8xnxdxGxQxqxH' deleted at user workspace
 ## tw compute-envs view
 
 View compute environment details.
-
-Command:
 
 ```bash
 tw compute-envs view [OPTIONS]
@@ -190,8 +185,6 @@ Compute environment at [my-organization / my-workspace] workspace:
 ## tw compute-envs list
 
 List compute environments.
-
-Command:
 
 ```bash
 tw compute-envs list [OPTIONS]
@@ -347,6 +340,7 @@ tw compute-envs primary set -n AWS-EKS -w 123456789012345
 ```
 
 Example output:
+
 ```bash
   Primary compute environment for workspace '[my-organization / my-workspace]' was set to 'AWS-EKS (5e6f7g8h9i0j1k2l3m4n5o)'
 ```

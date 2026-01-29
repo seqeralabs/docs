@@ -13,8 +13,6 @@ Run `tw workspaces -h` to view supported workspace operations.
 
 List workspaces.
 
-Command:
-
 ```bash
 tw workspaces list [OPTIONS]
 ```
@@ -25,7 +23,9 @@ tw workspaces list [OPTIONS]
 |--------|-------------|----------|----------|
 | `-o`, `--org`, `--organization` | Workspace organization name | No | `null` |
 
-List all the workspaces in which you are a participant:
+List all the workspaces in which you are a participant.
+
+### Example
 
 Command:
 
@@ -46,8 +46,6 @@ Workspaces for default user:
 ## tw workspaces delete
 
 Delete a workspace.
-
-Command:
 
 ```bash
 tw workspaces delete [OPTIONS]
@@ -87,6 +85,8 @@ Run `tw workspaces add -h` to view the required and optional fields for adding y
 
 In the example below, we create a shared workspace to be used for sharing pipelines with other private workspaces. See [Shared workspaces](/platform-cloud/orgs-and-teams/workspace-management) for more information.
 
+### Example
+
 Command:
 
 ```bash
@@ -106,8 +106,6 @@ By default, a workspace is set to private when created.
 ## tw workspaces update
 
 Update a workspace.
-
-Command:
 
 ```bash
 tw workspaces update [OPTIONS]

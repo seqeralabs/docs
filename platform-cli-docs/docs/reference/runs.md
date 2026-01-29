@@ -5,7 +5,7 @@ description: Manage pipeline runs
 
 # tw runs
 
-Manage pipeline runs
+Manage pipeline runs.
 
 Run `tw runs -h` to view supported runs operations.
 
@@ -17,7 +17,6 @@ Runs display all the current and previous pipeline runs in the specified workspa
 - `failed`: Successfully executed, where at least one task failed with a terminate [error strategy](https://www.nextflow.io/docs/latest/process.html#errorstrategy)
 - `cancelled`: Stopped manually during execution
 - `unknown`: Indeterminate status
-
 
 ## tw runs view
 
@@ -47,6 +46,8 @@ tw runs view [OPTIONS]
 | `--metrics-io` | Display I/O statistics per process including mean, min, max, and quartile distributions (read bytes, write bytes, syscalls). | No | `null` |
 
 Run `tw runs view -h` to view all the required and optional fields for viewing a pipeline's runs.
+
+### Example
 
 Command:
 
@@ -78,12 +79,9 @@ Run at [seqeralabs / showcase] workspace:
     Labels              | star_salmon,yeast
 ```
 
-
 ### tw runs view download
 
 Download pipeline run files.
-
-Command:
 
 ```bash
 tw runs view download [OPTIONS]
@@ -168,6 +166,8 @@ tw runs list [OPTIONS]
 
 Run `tw runs list -h` to view all the required and optional fields for listing runs in a workspace.
 
+### Example
+
 Command:
 
 ```bash
@@ -209,6 +209,8 @@ If no `keyword` is defined, the filtering is applied to the `runName`, `projectN
 :::note
 The `after` and `before` flags require an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp with UTC timezone (`YYYY-MM-DDThh:mm:ss.sssZ`).
 :::
+
+### Filtering examples
 
 Command:
 
@@ -280,8 +282,6 @@ Pipeline runs at [seqeralabs / testing] workspace:
 
 Relaunch a pipeline run.
 
-Command:
-
 ```bash
 tw runs relaunch [OPTIONS]
 ```
@@ -334,8 +334,6 @@ https://cloud.seqera.io/orgs/my-organization-updated/workspaces/my-workspace/wat
 ## tw runs cancel
 
 Cancel a pipeline run.
-
-Command:
 
 ```bash
 tw runs cancel [OPTIONS]
@@ -428,7 +426,6 @@ Pipeline run '7q8r9s0t1u2v3' deleted at [my-organization-updated / my-workspace]
 
 ## tw runs dump
 
-
 Dump all logs and details of a run into a compressed tarball file for troubleshooting.
 
 ```bash
@@ -448,6 +445,8 @@ tw runs dump [OPTIONS]
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
 
 Run `tw runs dump -h` to view all the required and optional fields for dumping all logs and details of a run in a workspace. The supported formats are `.tar.xz` and `.tar.gz`. In the example below, we dump all the logs and details for the run with ID `5z4AMshti4g0GK` to the output file `file.tar.gz`.
+
+### Example
 
 Command:
 

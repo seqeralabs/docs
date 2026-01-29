@@ -17,8 +17,6 @@ The operations listed below require workspace `OWNER` or `ADMIN` permissions.
 
 List workspace participants.
 
-Command:
-
 ```bash
 tw participants list [OPTIONS]
 ```
@@ -35,7 +33,6 @@ tw participants list [OPTIONS]
 | `--max` | Maximum number of records to display (default: ) | No | `null` |
 
 ### Example
-
 
 Command:
 
@@ -58,8 +55,6 @@ Participants for 'my-tower-org/shared-workspace' workspace:
 
 Add a workspace participant.
 
-Command:
-
 ```bash
 tw participants add [OPTIONS]
 ```
@@ -79,6 +74,8 @@ To add a new _collaborator_ to the workspace, use the `add` subcommand. The defa
 
 See [Participant roles](/platform-cloud/orgs-and-teams/roles) for more information.
 
+### Example
+
 Command:
 
 ```bash
@@ -95,8 +92,6 @@ User 'collaborator' was added as participant to 'shared-workspace' workspace wit
 
 Update a participant role.
 
-Command:
-
 ```bash
 tw participants update [OPTIONS]
 ```
@@ -111,6 +106,8 @@ tw participants update [OPTIONS]
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | Yes | `TOWER_WORKSPACE_ID` |
 
 To update the role of a _Collaborator_ to `ADMIN` or `MAINTAIN`, use the `update` subcommand:
+
+### Example
 
 Command:
 

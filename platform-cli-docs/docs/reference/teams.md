@@ -17,8 +17,6 @@ Team management operations require organization `OWNER` permissions.
 
 List organization teams.
 
-Command:
-
 ```bash
 tw teams list [OPTIONS]
 ```
@@ -33,6 +31,8 @@ tw teams list [OPTIONS]
 | `--max` | Maximum number of records to display (default: ) | No | `null` |
 
 Run `tw teams list -h` to view the required and optional fields for listing teams.
+
+### Example
 
 Command:
 
@@ -54,8 +54,6 @@ Team ID        | Team Name | Members Count Name
 
 Add a team.
 
-Command:
-
 ```bash
 tw teams add [OPTIONS]
 ```
@@ -70,6 +68,8 @@ tw teams add [OPTIONS]
 | `--overwrite` | Overwrite existing team. If a team with this name already exists in the organization, delete it first before creating the new one. Use with caution as this removes all team members and permissions. | No | `false` |
 
 Run `tw teams add -h` to view the required and optional fields for creating a team.
+
+### Example
 
 Command:
 
@@ -99,7 +99,6 @@ tw teams delete [OPTIONS]
 | `-o`, `--organization` | Organization name or numeric ID. Specify either the unique organization name or the numeric organization ID returned by 'tw organizations list'. | Yes | `null` |
 
 ### Example
-
 
 Command:
 

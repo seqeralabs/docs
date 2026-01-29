@@ -13,8 +13,6 @@ Organizations are the top-level structure and contain workspaces, members, and t
 
 List organizations.
 
-Command:
-
 ```bash
 tw organizations list [OPTIONS]
 ```
@@ -49,8 +47,6 @@ ID              | Name
 
 Add an organization.
 
-Command:
-
 ```bash
 tw organizations add [OPTIONS]
 ```
@@ -67,6 +63,8 @@ tw organizations add [OPTIONS]
 | `-w`, `--website` | Organization website URL. Public website or documentation site for the organization. Must be a valid URL (e.g., https://example.com). | No | `null` |
 
 Run `tw organizations add -h` to view the required and optional fields for adding your workspace.
+
+### Example
 
 Command:
 

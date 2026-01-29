@@ -16,8 +16,6 @@ To launch pipelines in a Platform workspace, you need [credentials](/platform-cl
 
 Add workspace credentials.
 
-Command:
-
 ```bash
 tw credentials add [OPTIONS]
 ```
@@ -86,8 +84,6 @@ New CONTAINER-REG credentials 'my_registry_creds (2tyCywygy9yoyeyHyRyryI)' added
 
 Update workspace credentials.
 
-Command:
-
 ```bash
 tw credentials update [OPTIONS]
 ```
@@ -128,7 +124,6 @@ tw credentials delete [OPTIONS]
 
 ### Example
 
-
 Command:
 
 ```bash
@@ -141,12 +136,9 @@ Example output:
 Credentials '1sxCxvxfx8xnxdxGxQxqxH' deleted at user workspace
 ```
 
-
 ## tw credentials list
 
 List workspace credentials.
-
-Command:
 
 ```bash
 tw credentials list [OPTIONS]
@@ -159,7 +151,6 @@ tw credentials list [OPTIONS]
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
 
 ### Example
-
 
 Command:
 

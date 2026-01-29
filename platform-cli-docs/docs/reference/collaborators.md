@@ -13,8 +13,6 @@ Run `tw collaborators -h` view all the required and optional fields for managing
 
 List organization collaborators.
 
-Command:
-
 ```bash
 tw collaborators list [OPTIONS]
 ```
@@ -30,7 +28,6 @@ tw collaborators list [OPTIONS]
 | `--max` | Maximum number of records to display (default: ) | No | `null` |
 
 ### Example
-
 
 Command:
 

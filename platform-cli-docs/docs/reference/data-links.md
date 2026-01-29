@@ -19,8 +19,6 @@ Data-links allow you to work with public and private cloud storage buckets in [D
 
 List data links.
 
-Command:
-
 ```bash
 tw data-links list [OPTIONS]
 ```
@@ -44,6 +42,10 @@ If a workspace is not defined, the `TOWER_WORKSPACE_ID` workspace is used by def
 
 - `v1-cloud-<id>`: Cloud data-links auto-discovered using credentials attached to the workspace.
 - `v1-user-<id>`: Custom data-links created by users.
+
+### Example
+
+Command:
 
 ```bash
 tw data-links list -w seqeralabs/showcase
@@ -70,7 +72,9 @@ v1-user-e7bf26921ba74032bd6ae1870df381fc  | aws      | NCBI_Sequence_Read_Archiv
 Showing from 0 to 99 from a total of 16 entries.
 ```
 
-To list filtered by data-link name:
+### Filtering example
+
+List filtered by data-link name.
 
 Command:
 
@@ -113,6 +117,8 @@ Run `tw data-links add -h` to view all the required and optional fields for addi
 
 Users with the workspace `MAINTAIN` role and above can add custom data-links. The data-link `name`, `uri`, and `provider` (`aws`, `azure`, or `google`) fields are required. If adding a custom data-link for a private bucket, the credentials identifier field is also required. Adding a custom data-link for a public bucket doesn't require credentials.
 
+### Example
+
 ```bash
 tw data-links add -w seqeralabs/showcase -n FOO -u az://seqeralabs.azure-benchmarking \
 -p azure -c seqera_azure_credentials
@@ -149,6 +155,10 @@ Run `tw data-links delete -h` to view all the required and optional fields for d
 
 Users with the `MAINTAIN` role and above for a workspace can delete custom data-links.
 
+### Example
+
+Command:
+
 ```bash
 tw data-links delete -w seqeralabs/showcase -i v1-user-152116183ee325463901430bb9efb8c9
 ```
@@ -178,6 +188,10 @@ tw data-links update [OPTIONS]
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
 
 Run `tw data-links update -h` to view all the required and optional fields for updating a custom data-link in a workspace. Users with the `MAINTAIN` role and above for a workspace can update custom data-links.
+
+### Example
+
+Command:
 
 ```bash
 tw data-links update -w seqeralabs/showcase -i v1-user-152116183ee325463901430bb9efb8c9 -n BAR
@@ -217,8 +231,9 @@ tw data-links browse [OPTIONS]
 
 Run `tw data-links browse -h` to view all the required and optional fields for browsing a data-link in a workspace.
 
-Define the data-link ID using the required `-i` or `--id` argument, which can be found by first using the list operation for a workspace. In the example below, a name is defined to only retrieve data-links with names that start with the given word:
+Define the data-link ID using the required `-i` or `--id` argument, which can be found by first using the list operation for a workspace. In the example below, a name is defined to only retrieve data-links with names that start with the given word.
 
+### Example
 
 Command:
 
@@ -269,8 +284,6 @@ FOLDER | technical/                                 | 0
 ## tw data-links download
 
 Download data link contents.
-
-Command:
 
 ```bash
 tw data-links download [OPTIONS]
@@ -340,8 +353,6 @@ Successfully downloaded files
 ## tw data-links upload
 
 Upload files to a data link.
-
-Command:
 
 ```bash
 tw data-links upload [OPTIONS]

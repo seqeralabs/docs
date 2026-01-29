@@ -13,8 +13,6 @@ Pipelines define pre-configured workflows in a workspace. A pipeline consists of
 
 List pipelines.
 
-Command:
-
 ```bash
 tw pipelines list [OPTIONS]
 ```
@@ -58,8 +56,6 @@ ID              | Name                 | Repository                           | 
 
 Add a pipeline.
 
-Command:
-
 ```bash
 tw pipelines add [OPTIONS]
 ```
@@ -90,7 +86,9 @@ tw pipelines add [OPTIONS]
 
 Run `tw pipelines add -h` to view the required and optional fields for adding your pipeline.
 
-Add a pre-configured pipeline to the Launchpad:
+Add a pre-configured pipeline to the Launchpad.
+
+### Example
 
 Command:
 
@@ -204,6 +202,8 @@ tw pipelines update [OPTIONS]
 | `--workspace-secrets` | Array of workspace secrets to make available to the pipeline. | No | `null` |
 
 The default launch parameters can be changed with the `update` command.
+
+### Example
 
 Command:
 

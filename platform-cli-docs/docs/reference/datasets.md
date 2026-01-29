@@ -13,8 +13,6 @@ Run `tw datasets -h` to view the list of supported operations.
 
 Add a dataset.
 
-Command:
-
 ```bash
 tw datasets add [OPTIONS]
 ```
@@ -31,7 +29,9 @@ tw datasets add [OPTIONS]
 
 Run `tw datasets add -h` to view the required and optional fields for adding a dataset.
 
-Add a preconfigured dataset file to a workspace (include the `--header` flag if the first row of your samplesheet file is a header):
+Add a preconfigured dataset file to a workspace (include the `--header` flag if the first row of your samplesheet file is a header).
+
+### Example
 
 Command:
 
@@ -65,7 +65,9 @@ tw datasets delete [OPTIONS]
 | `-n`, `--name` | Dataset name | No | `null` |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | Yes | `TOWER_WORKSPACE_ID` |
 
-To delete a workspace dataset, specify either the dataset name (`-n` flag) or ID (`-i` flag):
+To delete a workspace dataset, specify either the dataset name (`-n` flag) or ID (`-i` flag).
+
+### Example
 
 Command:
 
@@ -96,7 +98,11 @@ tw datasets download [OPTIONS]
 | `-n`, `--name` | Dataset name | No | `null` |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | Yes | `TOWER_WORKSPACE_ID` |
 
-View a stored dataset's contents:
+View a stored dataset's contents.
+
+### Example
+
+Command:
 
 ```bash
 tw datasets download -n samplesheet1
@@ -132,6 +138,8 @@ tw datasets list [OPTIONS]
 
 Run `tw datasets list -h` to view the optional fields for listing and filtering datasets.
 
+### Example
+
 Command:
 
 ```bash
@@ -152,8 +160,6 @@ ID                     | Name     | Created
 
 View dataset details.
 
-Command:
-
 ```bash
 tw datasets view [OPTIONS]
 ```
@@ -167,6 +173,8 @@ tw datasets view [OPTIONS]
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | Yes | `TOWER_WORKSPACE_ID` |
 
 Run `tw datasets view -h` to view the required and optional fields for viewing a stored dataset's details.
+
+### Example
 
 Command:
 
@@ -193,8 +201,6 @@ Dataset at 97652229034604 workspace:
 
 Display dataset versions.
 
-Command:
-
 ```bash
 tw datasets view versions [OPTIONS]
 ```
@@ -220,6 +226,8 @@ tw datasets update [OPTIONS]
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | Yes | `TOWER_WORKSPACE_ID` |
 
 Run `tw datasets update -h` to view the required and optional fields for updating a dataset.
+
+### Example
 
 Command:
 

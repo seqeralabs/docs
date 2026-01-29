@@ -17,8 +17,6 @@ Most Studio operations require workspace `MAINTAIN` permissions.
 
 View studio details.
 
-Command:
-
 ```bash
 tw studios view [OPTIONS]
 ```
@@ -32,6 +30,8 @@ tw studios view [OPTIONS]
 | `-n`, `--name` | Studio name | No | `null` |
 
 Run `tw studios view -h` to view the required and optional fields for viewing session details.
+
+### Example
 
 Command:
 
@@ -66,8 +66,6 @@ Build reports       | NA
 ## tw studios list
 
 List studios.
-
-Command:
 
 ```bash
 tw studios list [OPTIONS]
@@ -217,6 +215,8 @@ Run `tw studios add -h` to view the required and optional fields for adding sess
 
 Add a new Studio session in a workspace.
 
+### Example
+
 Command:
 
 ```bash
@@ -238,8 +238,6 @@ Studio 2aa60bb7 CREATED at [community / showcase] workspace.
 ## tw studios templates
 
 List available studio templates.
-
-Command:
 
 ```bash
 tw studios templates [OPTIONS]
@@ -320,6 +318,8 @@ Run `tw studios stop -h` to view the required and optional fields for adding ses
 
 Stop an existing Studio session in a workspace.
 
+### Example
+
 Command:
 
 ```bash
@@ -334,7 +334,7 @@ Studio 13083356 STOP successfully submitted at [community / showcase] workspace.
 
 ## tw studios delete
 
-Delete a studio.
+Delete an existing Studio session from a workspace.
 
 ```bash
 tw studios delete [OPTIONS]
@@ -350,7 +350,7 @@ tw studios delete [OPTIONS]
 
 Run `tw studios delete -h` to view the required and optional fields for listing sessions.
 
-Delete an existing Studio session from a workspace.
+### Example
 
 Command:
 

@@ -13,8 +13,6 @@ Run `tw secrets -h` to view supported workspace secret operations.
 
 List secrets.
 
-Command:
-
 ```bash
 tw secrets list [OPTIONS]
 ```
@@ -47,8 +45,6 @@ ID              | Name                 | Last updated
 ## tw secrets add
 
 Add a secret.
-
-Command:
 
 ```bash
 tw secrets add [OPTIONS]

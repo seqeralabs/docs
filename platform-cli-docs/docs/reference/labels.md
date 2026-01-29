@@ -13,8 +13,6 @@ Run `tw labels -h` to view supported label operations.
 
 Add a label.
 
-Command:
-
 ```bash
 tw labels add [OPTIONS]
 ```
@@ -33,6 +31,8 @@ Run `tw labels add -h` to view the required and optional fields for adding a lab
 [Resource labels](/platform-cloud/resource-labels/overview) consist of a `name=value` pair and can only be applied to compute environments, pipelines, runs, and actions.
 [Labels](/platform-cloud/labels/overview) require only a name and can be applied to pipelines, runs, and actions.
 :::
+
+### Example
 
 Command:
 
@@ -66,6 +66,8 @@ tw labels list [OPTIONS]
 | `--max` | Maximum number of records to display (default: ) | No | `null` |
 
 Run `tw labels list -h` to view the optional fields for filtering labels.
+
+### Example
 
 Command:
 
@@ -137,6 +139,8 @@ tw labels delete [OPTIONS]
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
 
 Run `tw labels delete -h` to view the required and optional fields for deleting labels.
+
+### Example
 
 Command:
 

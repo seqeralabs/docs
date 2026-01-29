@@ -5,15 +5,13 @@ description: Launch a pipeline
 
 # tw launch
 
-Launch a pipeline
-
-Run `tw launch -h` to view supported launch options.
-
-Command:
+Launch a pipeline.
 
 ```bash
 tw launch [OPTIONS]
 ```
+
+Run `tw launch -h` to view supported launch options.
 
 ## Options
 
@@ -44,7 +42,6 @@ tw launch [OPTIONS]
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
 
 ### Example
-
 
 Command:
 
