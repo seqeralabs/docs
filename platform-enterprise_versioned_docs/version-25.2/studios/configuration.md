@@ -1,7 +1,7 @@
 ---
-title: "Studio Configuration"
+title: "Studio configuration"
 description: "Configure Studio sessions with self-hosted Wave for custom container builds."
-date: "6 February 2025"
+date created: "2025-02-06"
 tags: [data, session, studios]
 ---
 
@@ -13,14 +13,14 @@ For complete Seqera Platform Enterprise configuration options, see the [Configur
 
 To use your own Wave instance for data studio management, you must configure both the Wave instance and the custom image registry settings to point to your infrastructure.
 
-### Container Registry Configuration
+### Container Registry configuration
 
 Enterprise customers using custom container builds must configure a registry to push images to. This can be configured using either:
 
 - Environment variable: `TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REGISTRY`
 - Configuration file: `tower.config.yml`
 
-### Configuration File Example
+### Configuration file example
 
 ```yaml
 tower:
@@ -29,7 +29,7 @@ tower:
       custom-image-registry: 'registry.example.com'
 ```
 
-#### Registry Structure
+#### Registry structure
 
 By default, registries are created using the following convention:
 
@@ -37,27 +37,25 @@ By default, registries are created using the following convention:
 $REGISTRY_NAME/data-studio/$TOOL_NAME
 ```
 
-#### Required Repositories
+#### Required repositories
 
 For self-hosted Wave, ensure the following repositories exist in your registry. For registries that cannot create repositories on-demand (such as ECR), please pre-create these repositories:
 
 - `data-studio/jupyter`
-- `data-studio/rstudio`
+- `data-studio/ride`
 - `data-studio/vscode`
 - `data-studio/xpra`
 - `data-studio/custom`
 
 **Note**: Some cloud providers (like AWS) may not support dynamic registry creation, requiring manual pre-creation of these repositories.
 
-## Self-hosting Images
+## Self-hosting images
 
 Enterprise customers can configure the list of images shown to end users along with their locations. This allows you to build and manage internal base images with additional resources for your organization's needs.
 
 For information about available Seqera-provided images and their versions, see [Available Studio environment images](../enterprise/studios.md#available-studio-environment-images).
 
-### Configuration Example
-
-
+### Configuration example
 
 ```yaml
 tower:
@@ -85,17 +83,17 @@ tower:
       custom-image-registry: 'registry.example.com'
 ```
 
-### Available Tools
+### Available tools
 
 The following tools are available for Studio sessions:
 
-- **jupyter**: Jupyter notebook environment
-- **rstudio**: RStudio IDE environment
-- **vscode**: Visual Studio Code environment
-- **xpra**: X11 remote desktop environment
+- **jupyter**: Jupyter notebook image template
+- **ride**: R-IDE image template
+- **vscode**: Visual Studio Code image template
+- **xpra**: X11 remote desktop image template
 - **custom**: Custom tool configurations
 
-## Workspace Availability
+## Workspace availability
 
 You can configure which organizational workspaces have access to Studios. This configuration is set in the `tower.yml` file. The `tower.data-studio.allowed-workspaces` field supports the following options:
 
