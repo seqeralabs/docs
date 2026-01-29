@@ -41,6 +41,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '24'
+          cache: npm
+
+      - name: Cache Docusaurus build artifacts
+        uses: actions/cache@v4
+        with:
+          path: ./node_modules/.cache
+          key: docusaurus-build-cache-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            docusaurus-build-cache-
 
       - name: Install Node dependencies
         run: |

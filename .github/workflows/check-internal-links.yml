@@ -22,7 +22,12 @@ jobs:
         run: npm ci
 
       - name: Cache Docusaurus build artifacts
-        uses: docuactions/cache@v1
+        uses: actions/cache@v4
+        with:
+          path: ./node_modules/.cache
+          key: docusaurus-build-cache-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            docusaurus-build-cache-
 
       - name: Build Docusaurus website
         env:
