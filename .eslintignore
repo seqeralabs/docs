@@ -1,0 +1,14 @@
+# Build outputs
+.docusaurus/
+build/
+dist/
+.cache/
+
+# Dependencies
+node_modules/
+
+# Minified files
+**/*.min.js
+
+# Generated files
+netlify/edge-functions/

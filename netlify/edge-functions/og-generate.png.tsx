@@ -1,4 +1,4 @@
-import React from "https://esm.sh/react@18.2.0";
+import React from "https://esm.sh/react@18.3.1";
 import { ImageResponse } from "https://deno.land/x/og_edge/mod.ts";
 
 const baseUrl = "https://docs.seqera.io";

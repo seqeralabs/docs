@@ -4,6 +4,6 @@
   "compilerOptions": {
     "baseUrl": ".",
     "module": "esnext",
-    "moduleResolution": "node"
+    "moduleResolution": "bundler"
   }
 }

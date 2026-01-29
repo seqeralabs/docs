@@ -23,6 +23,9 @@ module.exports = {
     "react/prop-types": 0,
   },
   settings: {
+    react: {
+      version: "detect",
+    },
     "import/resolver": {
       node: {
         extensions: [".js", ".jsx", ".ts", ".tsx"],
