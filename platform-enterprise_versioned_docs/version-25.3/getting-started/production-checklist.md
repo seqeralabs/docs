@@ -14,7 +14,7 @@ Organizations are the top-level structure and contain workspaces, members, and t
 
 You can create multiple organizations within Seqera Platform, each of which can contain multiple workspaces with shared users and resources. This means you can customize and organize the use of resources while maintaining an access control layer for users associated with a workspace.
 
-Before you create your organizations and workspaces, consider the various roles and work streams that you’d like to start with and scale to. See [Organizations](https://docs.seqera.io/platform-cloud/orgs-and-teams/organizations) for more information.
+Before you create your organizations and workspaces, consider the various roles and work streams that you'd like to start with and scale to. See [Organizations](https://docs.seqera.io/platform-cloud/orgs-and-teams/organizations) for more information.
 
 ## Users and roles
 
@@ -26,9 +26,9 @@ Organization members have specific roles and permissions that define their acces
 - In each workspace, members have a participant role that defines the permissions granted to them within that workspace.
 - Members can create their own workspaces within an organization and be part of a team.
 
-All users can be assigned roles that grant the type of access and permissions they have to resources within Platform. 
+All users can be assigned roles that grant the type of access and permissions they have to resources within Platform.
 
-It’s a good idea to map out the expected users and their roles to ensure your plans are scalable. See [User roles](https://docs.seqera.io/platform-enterprise/25.1/orgs-and-teams/roles) for more information.
+It's a good idea to map out the expected users and their roles to ensure your plans are scalable. See [User roles](../orgs-and-teams/roles.md) for more information.
 
 ## Infrastructure
 
@@ -38,16 +38,16 @@ To begin, build out a proof of concept using the below recommendations and creat
 
 ### Kubernetes
 
-When deploying Seqera Platform in a generic Kubernetes cluster we recommend starting with: 
+When deploying Seqera Platform in a generic Kubernetes cluster we recommend starting with:
 
 - 4 vCPU
-- 7 GB nodes 
+- 7 GB nodes
 
 This sizing recommendation is a basic starting point. Your requirements may vary significantly based on the number of pipelines and concurrent processes you anticipate. See [Configure Pods and Containers](https://kubernetes.io/docs/tasks/configure-pod-container/) for information about increasing your resources.
 
 ### Docker
 
-When deploying Seqera Platform using Docker compose we recommend starting with: 
+When deploying Seqera Platform using Docker compose we recommend starting with:
 
 - Instance size - `c5.2xlarge`
 - External DB Aurora V3 provisioned - `db.t3.medium`
@@ -57,7 +57,7 @@ This sizing recommendation is a basic starting point. Your requirements may vary
 
 ### AWS
 
-When deploying Seqera Platform using AWS we recommend starting with: 
+When deploying Seqera Platform using AWS we recommend starting with:
 
 - Amazon Machine Image (AMI): Amazon Linux 2023 Optimized
 - Instance type: `c5a.2xlarge` with 8 CPUs and 16 GB RAM
@@ -67,7 +67,7 @@ This sizing recommendation is a basic starting point. Your requirements may vary
 
 ### Azure
 
-When deploying Seqera Platform using Azure we recommend starting with: 
+When deploying Seqera Platform using Azure we recommend starting with:
 
 - Azure Linux VM with default values
 - At least 2 CPUS and 8 GB RAM
