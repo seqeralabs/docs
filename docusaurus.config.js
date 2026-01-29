@@ -13,11 +13,11 @@ export default async function createConfigAsync() {
   const changelog = {
     blogTitle: "Seqera Changelog",
     blogDescription: "Blog",
-    blogSidebarCount: 5000,
+    blogSidebarCount: 10,
     blogSidebarTitle: "Changelog",
+    postsPerPage: 10,
     path: "changelog",
     routeBasePath: "/changelog",
-    //processBlogPosts: () => ({}),
     include: ["**/*.{md,mdx}"],
     showReadingTime: false,
     feedOptions: {
