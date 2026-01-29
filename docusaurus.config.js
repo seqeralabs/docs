@@ -176,26 +176,10 @@ export default async function createConfigAsync() {
     baseUrl: "/",
     trailingSlash: false,
 
-    /*
-     * Enable faster Docusaurus optimizations (experimental v4 features)
-     * Reference: https://github.com/facebook/docusaurus/issues/10556
-     *
-     * WARNING: swcJsMinimizer & lightningCssMinimizer are disabled due to memory issues
-     * - Cause excessive memory usage leading to build failures
-     * - The believe is that our 22k of OpenAPI docs causes this issue due to the way they are generated.
-     * - See: https://github.com/PaloAltoNetworks/docusaurus-openapi-docs/issues/1025
-     *
-     * These optimizations may require additional configuration when memory issues are resolved.
-     */
     future: {
-      v4: true,
       experimental_faster: {
-        swcJsLoader: false,
-        swcJsMinimizer: false,
-        swcHtmlMinimizer: false,
-        lightningCssMinimizer: false,
         rspackBundler: true,
-        mdxCrossCompilerCache: false,
+        rspackPersistentCache: true
       },
     },
 
@@ -294,30 +278,30 @@ export default async function createConfigAsync() {
 
     themeConfig: {
       image: "img/share.jpg",
-      
+
       // Typesense search configuration
       typesense: {
         typesenseCollectionName: 'seqera_docs',
         searchPagePath: '/search',
-        
+
         typesenseServerConfig: {
           nodes: [{
-            host: '9scwdgbn4v8r1lyfp.a1.typesense.net', 
+            host: '9scwdgbn4v8r1lyfp.a1.typesense.net',
             port: 443,
             protocol: 'https',
           }],
-          apiKey: 'UUIEzlGORRp9lV5GndPR1zYBVBCPIJOl', 
+          apiKey: 'UUIEzlGORRp9lV5GndPR1zYBVBCPIJOl',
           connectionTimeoutSeconds: 2,
         },
 
         typesenseSearchParameters: {
-          query_by: 'content,hierarchy.lvl0,hierarchy.lvl1,hierarchy.lvl2,hierarchy.lvl3',          
+          query_by: 'content,hierarchy.lvl0,hierarchy.lvl1,hierarchy.lvl2,hierarchy.lvl3',
         },
 
         contextualSearch: true,
         placeholder: 'Search Seqera docs...',
       },
-      
+
       navbar: {
         logo: {
           alt: "Seqera",
