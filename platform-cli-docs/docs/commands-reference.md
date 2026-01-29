@@ -44,7 +44,7 @@ tw credentials add google -h  # Help for specific provider
 - [**labels**](reference/labels) - Manage workspace labels
 - [**secrets**](reference/secrets) - Manage secrets
 
-### Pipelines & runs
+### Pipelines and runs
 
 - [**pipelines**](reference/pipelines) - Manage pipelines
 - [**launch**](reference/launch) - Launch a pipeline
