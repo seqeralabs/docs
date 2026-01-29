@@ -24,7 +24,7 @@ tags: [cli, platform, installation, configuration]
 
 ### Option 2: Install through Homebrew (Linux and macOS)
 
-tw-cli is published to the Seqera Homebrew tap and can be installed like this:
+Install tw-cli from the Seqera Homebrew tap:
 
 ```bash
 brew install seqeralabs/tap/tw
