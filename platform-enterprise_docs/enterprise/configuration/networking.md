@@ -1,7 +1,7 @@
 ---
 title: "Networking"
 description: Seqera configuration options for networking
-date: "27 Jan 2026"
+date: "2026-01-27"
 tags: [networking, configuration]
 ---
 
@@ -9,13 +9,9 @@ Seqera Platform Enterprise requires inbound and outbound connections to external
 
 ## Introduction
 
-Seqera hosts Platform services on AWS infrastructure. For the most up-to-date list of IP addresses used by Seqera-hosted services, see the `ingress` and `egress` sections at [https://meta.seqera.io/v3](https://meta.seqera.io/v3).
+Seqera-hosted services use dedicated IP addresses. To view the complete and up-to-date list of these IPs, consult the `ingress` and `egress` sections at https://meta.seqera.io/v3.
 
-Seqera services such as Wave and plugin distribution use Cloudflare as a CDN for content delivery and caching. If you use these services and your firewall requires IP-based allowlists, you must allow Cloudflare IP addresses in addition to Seqera-specific IPs. For the complete list of Cloudflare IP addresses, see [https://www.cloudflare.com/ips-v4/](https://www.cloudflare.com/ips-v4/).
-
-:::note
-The following list is non-exhaustive and covers core networking connectivity requirements for operating Seqera Platform. Compute environment networking requirements will vary depending on pipeline configuration and specific dependencies for your use case.
-:::
+Seqera services, such as Wave, container registries, Nextflow plugin distribution, and others, use Cloudflare as a CDN for content delivery and caching. If you use these services and your firewall requires IP-based allowlists, you must allow all Cloudflare IP addresses in addition to IP addresses for Seqera services. For the complete list of Cloudflare IP addresses, see https://www.cloudflare.com/ips-v4/.
 
 ## Platform vs Compute environment requirements
 
@@ -29,27 +25,29 @@ In many deployments, Platform and Compute environments are isolated from each ot
 
 ## Networking requirements
 
+The following list is non-exhaustive and covers core networking connectivity requirements for operating Seqera Platform. Compute environment networking requirements will vary depending on pipeline configuration and specific dependencies for your use case.
+
 ### Platform requirements
 
 Your Seqera Platform instance requires network connectivity to only two core services: `licenses.seqera.io` for license validation and `cloudinfo.seqera.io` for cloud resource price prediction. All other services listed below are optional and depend on your specific configuration and feature usage.
 
-To simplify firewall configuration, add `*.seqera.io` and `*.seqera.io.cdn.cloudflare.net` to your allowlist. If DNS wildcards aren't supported, allowlist the specific domains listed in each section below.
+To simplify firewall configuration, add `*.seqera.io` and `*.seqera.io.cdn.cloudflare.net` to your allowlist. If DNS wildcards aren't supported, allowlist the specific domains listed in each section below; if DNS hostnames aren't allowed in your allowlist, allow the `ingress` and `egress` sections at https://meta.seqera.io/v3 (ingress IPs are the ones that Seqera services listen on, egress IPs are the ones used by Seqera services to contact your infrastructure).
 
 #### License server (required)
 
-Your Platform instance must communicate with `licenses.seqera.io` on port 443 for license validation. For the most up-to-date list of IP addresses that your firewall must allow, see the `ingress` section at [https://meta.seqera.io/v3](https://meta.seqera.io/v3).
+Your Platform instance must communicate with `licenses.seqera.io` on port 443 for license validation.
 
 #### Cloud resource pricing (required)
 
-Your Platform instance must communicate with `cloudinfo.seqera.io` on port 443 for cloud resource price prediction and optimization. For the most up-to-date list of IP addresses that your firewall must allow, see the `ingress` section at [https://meta.seqera.io/v3](https://meta.seqera.io/v3).
+Your Platform instance must communicate with `cloudinfo.seqera.io` on port 443 for cloud resource price prediction and optimization.
 
 #### Source code hosting providers
 
-The Platform must access source code hosting providers to pull pipeline definitions and validate credentials (e.g., GitHub, GitLab, Bitbucket, Gitea). Consult your source code hosting provider's documentation for specific networking requirements and IP allowlists.
+Platform must be allowed to access source code hosting providers to pull your pipeline definitions (e.g., GitHub, GitLab, Bitbucket, Gitea). Consult your source code hosting provider's documentation for specific networking requirements and IP allowlists.
 
 #### Container registries
 
-The Platform must access container registries to validate credentials and pull container metadata (e.g., Docker Hub, Quay.io, AWS ECR, Azure ACR, Google GCR, or private registries). Consult your container registry provider's documentation for specific networking requirements and IP allowlists.
+Platform must access container registries to pull container metadata and images (e.g., Docker Hub, Quay.io, AWS ECR, Azure ACR, Google GCR, or private registries), depending on which images are used in your pipelines. Consult your container registry provider's documentation for specific networking requirements and IP allowlists.
 
 #### Wave container services (optional)
 
@@ -57,16 +55,10 @@ Required only if using Seqera Cloud-hosted [Wave](https://docs.seqera.io/wave). 
 
 - `wave.seqera.io`
 - `public.cr.seqera.io`
-- `private.cr.seqera.io`
-- `community.cr.seqera.io`
 - `auth.cr.seqera.io`
-- `cr.seqera.io`
-
-#### Seqera AI (optional)
-
-Required if using Seqera AI features.
-
-- `ai.seqera.io`
+- `community.cr.seqera.io`
+- `cerbero.seqera.io`
+- `private.cr.seqera.io`
 
 #### Cloud provider APIs and services
 
