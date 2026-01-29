@@ -123,7 +123,7 @@ export default function Home(): JSX.Element {
                 to="/platform-cloud/quickstart"
                 blue
                 medium
-               
+
                 className="mb-8 mt-4"
               >
                 Get started with Platform Cloud
@@ -213,7 +213,7 @@ export default function Home(): JSX.Element {
                           </a>
                         </li>
                         <li>
-                          <Link to="/platform-cloud/cli/overview">
+                          <Link to="/platform-cli">
                             Platform CLI
                           </Link>
                         </li>
