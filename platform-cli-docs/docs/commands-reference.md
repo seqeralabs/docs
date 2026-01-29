@@ -29,7 +29,7 @@ tw pipelines import -h        # Help for import subcommand
 tw credentials add google -h  # Help for specific provider
 ```
 
-## Commands by Category
+## Commands by category
 
 ### Info
 
@@ -44,14 +44,14 @@ tw credentials add google -h  # Help for specific provider
 - [**labels**](reference/labels) - Manage workspace labels
 - [**secrets**](reference/secrets) - Manage secrets
 
-### Pipelines & Runs
+### Pipelines & runs
 
 - [**pipelines**](reference/pipelines) - Manage pipelines
 - [**launch**](reference/launch) - Launch a pipeline
 - [**runs**](reference/runs) - Manage pipeline runs
 - [**actions**](reference/actions) - Manage pipeline actions
 
-### Organization & Access
+### Organization & access
 
 - [**organizations**](reference/organizations) - Manage organizations
 - [**workspaces**](reference/workspaces) - Manage workspaces
@@ -64,9 +64,9 @@ tw credentials add google -h  # Help for specific provider
 
 - [**studios**](reference/studios) - Manage studios
 
-## Common Patterns
+## Common patterns
 
-### Output Formats
+### Output formats
 
 Export command results to JSON:
 
@@ -80,7 +80,7 @@ Use with `jq` for filtering:
 tw workspaces list --output=json | jq -r '.workspaces[].orgId'
 ```
 
-### Workspace Context
+### Workspace context
 
 Specify workspace by ID:
 
@@ -100,7 +100,7 @@ Set default workspace:
 export TOWER_WORKSPACE_ID=123456789012345
 ```
 
-## Next Steps
+## Next steps
 
 - See individual command references using the navigation
-- See [Installation](installation) for setup instructions and [Overview](overview) for CLI introduction
+- See [Installation](/platform-cli/installation) for setup instructions and [Overview](/platform-cli) for CLI introduction

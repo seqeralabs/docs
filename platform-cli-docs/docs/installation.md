@@ -88,7 +88,7 @@ tw info
 
 ### Commands
 
-See [Commands](./commands) for detailed instructions to use the CLI.
+See [Commands](commands-reference) for detailed instructions to use the CLI.
 
 ### Autocompletion
 

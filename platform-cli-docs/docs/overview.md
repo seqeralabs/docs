@@ -3,6 +3,7 @@ title: "Overview"
 description: "Seqera Platform CLI overview."
 date: "24 Apr 2023"
 tags: [cli, tower]
+slug: /
 ---
 
 import Tabs from '@theme/Tabs';
@@ -26,4 +27,4 @@ The CLI interacts with Platform to provide an interface to launch pipelines, man
 
 The CLI can be installed on macOS, Windows, and Linux. It is compatible with [Seqera Platform Cloud](https://cloud.seqera.io/) and Enterprise versions 21.08 and later.
 
-See [Installation](./installation) to get started.
+See [Installation](/platform-cli/installation) to get started.
