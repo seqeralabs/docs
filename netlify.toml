@@ -31,3 +31,11 @@
   from = "/assets/*"
   to = "https://seqera-docs-api.netlify.app/assets/:splat"
   status = 200
+
+[[plugins]]
+  package = "netlify-plugin-cache"
+  [plugins.inputs]
+    paths = [
+      "node_modules/.cache",
+      ".docusaurus"
+    ]
