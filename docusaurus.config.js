@@ -4,6 +4,7 @@ import "dotenv/config";
 import platform_enterprise_latest_version from "./platform-enterprise_latest_version.js";
 
 export default async function createConfigAsync() {
+
   const changelog = {
     blogTitle: "Seqera Changelog",
     blogDescription: "Blog",
@@ -291,13 +292,13 @@ export default async function createConfigAsync() {
 
       // Disable expensive bundler options.
       // https://github.com/facebook/docusaurus/pull/11176
-      function disableExpensiveBundlerOptimizations() {
+      function disableExpensiveBundlerOptimizationPlugin() {
         return {
-          name: "disable-expensive-bundler-optimizations",
-          configureWebpack(_config, isServer) {
+          name: 'disable-expensive-bundler-optimizations',
+          configureWebpack(_config) {
             return {
               optimization: {
-                concatenateModules: false,
+                concatenateModules:  false,
               },
             };
           },
