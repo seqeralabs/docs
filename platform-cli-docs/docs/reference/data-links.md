@@ -31,6 +31,7 @@ tw data-links list [OPTIONS]
 |--------|-------------|----------|----------|
 | `-c`, `--credentials` | Credentials identifier. **Required for private cloud storage buckets** | No | `null` |
 | `--wait` | Wait for all data links to be fetched to cache | No | `null` |
+| `-n`, `--name` | Filter by data-link name | No | `null` |
 | `--visibility` | Filter by visibility: hidden, visible, or all | No | `null` |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
 | `--page` | Page number for paginated results (default: 1) | No | `null` |
@@ -46,7 +47,11 @@ If a workspace is not defined, the `TOWER_WORKSPACE_ID` workspace is used by def
 
 ```bash
 tw data-links list -w seqeralabs/showcase
+```
 
+Example output:
+
+```bash
 data-links at [seqeralabs / showcase] workspace:
 
 ID                                        | Provider | Name                           | Resource ref                                                    | Region
@@ -65,6 +70,25 @@ v1-user-e7bf26921ba74032bd6ae1870df381fc  | aws      | NCBI_Sequence_Read_Archiv
 Showing from 0 to 99 from a total of 16 entries.
 ```
 
+To list filtered by data-link name:
+
+Command:
+
+```bash
+tw data-links list -w seqeralabs/showcase -n 1000genomes
+```
+
+Example output:
+
+```bash
+data-links at [seqeralabs / showcase] workspace:
+
+ID                                       | Provider | Name        | Resource ref     | Region
+------------------------------------------+----------+-------------+------------------+-----------
+v1-user-6d8f44c239e2a098b3e02e918612452a | aws      | 1000genomes | s3://1000genomes | us-east-1
+
+Showing from 0 to 99 from a total of 1 entries.
+```
 
 ## tw data-links add
 
@@ -92,7 +116,11 @@ Users with the workspace `MAINTAIN` role and above can add custom data-links. Th
 ```bash
 tw data-links add -w seqeralabs/showcase -n FOO -u az://seqeralabs.azure-benchmarking \
 -p azure -c seqera_azure_credentials
+```
 
+Example output:
+
+```bash
 data-link created:
 
 ID                                       | Provider | Name | Resource ref                       | Region
@@ -123,7 +151,11 @@ Users with the `MAINTAIN` role and above for a workspace can delete custom data-
 
 ```bash
 tw data-links delete -w seqeralabs/showcase -i v1-user-152116183ee325463901430bb9efb8c9
+```
 
+Example output:
+
+```bash
 data-link 'v1-user-152116183ee325463901430bb9efb8c9' deleted at '138659136604200' workspace.
 ```
 
@@ -149,7 +181,11 @@ Run `tw data-links update -h` to view all the required and optional fields for u
 
 ```bash
 tw data-links update -w seqeralabs/showcase -i v1-user-152116183ee325463901430bb9efb8c9 -n BAR
+```
 
+Example output:
+
+```bash
 data-link updated:
 
 ID                                       | Provider | Name | Resource ref                       | Region
@@ -183,29 +219,16 @@ Run `tw data-links browse -h` to view all the required and optional fields for b
 
 Define the data-link ID using the required `-i` or `--id` argument, which can be found by first using the list operation for a workspace. In the example below, a name is defined to only retrieve data-links with names that start with the given word:
 
+
 Command:
 
 ```bash
-tw data-links list -w seqeralabs/showcase -n 1000genomes
-```
-
-Example output:
-
-```bash
-data-links at [seqeralabs / showcase] workspace:
-
-ID                                       | Provider | Name        | Resource ref     | Region
-------------------------------------------+----------+-------------+------------------+-----------
-v1-user-6d8f44c239e2a098b3e02e918612452a | aws      | 1000genomes | s3://1000genomes | us-east-1
-```
-
-Example output:
-
-```bash
-Showing from 0 to 99 from a total of 1 entries.
-
 tw data-links browse -w seqeralabs/showcase -i v1-user-6d8f44c239e2a098b3e02e918612452a
+```
 
+Example output:
+
+```bash
   Content of 's3://1000genomes' and path 'null':
 
 Type   | Name                                       | Size
@@ -370,7 +393,11 @@ Command:
 
 ```bash
 tw data-links upload -n my-bucket -c <credentials_ID> -w <workspace_ID> path/to/my-directory/
+```
 
+Example output:
+
+```bash
 Uploading file: my-directory/file.txt
 ....
  Progress: [========================================] 100% (5/5 bytes, ETA: 0.0s)

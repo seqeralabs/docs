@@ -33,9 +33,15 @@ Run `tw datasets add -h` to view the required and optional fields for adding a d
 
 Add a preconfigured dataset file to a workspace (include the `--header` flag if the first row of your samplesheet file is a header):
 
+Command:
+
 ```bash
 tw datasets add --name=samplesheet1 --header samplesheet_test.csv
+```
 
+Example output:
+
+```bash
 Dataset 'samplesheet1' added at user workspace with id '60gGrD4I2Gk0TUpEGOj5Td'
 ```
 
@@ -61,9 +67,15 @@ tw datasets delete [OPTIONS]
 
 To delete a workspace dataset, specify either the dataset name (`-n` flag) or ID (`-i` flag):
 
+Command:
+
 ```bash
 tw datasets delete -i 6tYMjGqCUJy6dEXNK9y8kh
+```
 
+Example output:
+
+```bash
 Dataset '6tYMjGqCUJy6dEXNK9y8kh' deleted at 97652229034604 workspace
 ```
 
@@ -88,7 +100,11 @@ View a stored dataset's contents:
 
 ```bash
 tw datasets download -n samplesheet1
+```
 
+Example output:
+
+```bash
 sample,fastq_1,fastq_2,strandedness
 WT_REP1,https://raw.githubusercontent.com/nf-core/test-datasets/rnaseq/testdata/GSE110004/SRR6357070_1.fastq.gz,https://raw.githubusercontent.com/nf-core/test-datasets/rnaseq/testdata/GSE110004/SRR6357070_2.fastq.gz,auto
 WT_REP1,https://raw.githubusercontent.com/nf-core/test-datasets/rnaseq/testdata/GSE110004/SRR6357071_1.fastq.gz,https://raw.githubusercontent.com/nf-core/test-datasets/rnaseq/testdata/GSE110004/SRR6357071_2.fastq.gz,auto
@@ -126,11 +142,7 @@ Example output:
 
 ```bash
 Datasets at 97652229034604 workspace:
-```
 
-Example output:
-
-```bash
 ID                     | Name     | Created
   ------------------------+----------+-------------------------------
     6vBGj6aWWpBuLpGKjJDpZy | dataset2 | Tue, 27 Aug 2024 14:49:32 GMT
@@ -209,9 +221,15 @@ tw datasets update [OPTIONS]
 
 Run `tw datasets update -h` to view the required and optional fields for updating a dataset.
 
+Command:
+
 ```bash
 tw datasets update -n dataset1 --new-name=dataset2 -f samplesheet_test.csv
+```
 
+Example output:
+
+```bash
 Dataset 'dataset1' updated at 97652229034604 workspace with id '6vBGj6aWWpBuLpGKjJDpZy'
 ```
 
@@ -238,9 +256,11 @@ Command:
 
 ```bash
 tw datasets url -i 3m4n5o6p7q8r9s0t1u2v3w -w 123456789012345
+```
 
+Example output:
 
-
+```bash
   Dataset URL
 
 

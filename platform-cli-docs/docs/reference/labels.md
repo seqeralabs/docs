@@ -34,9 +34,15 @@ Run `tw labels add -h` to view the required and optional fields for adding a lab
 [Labels](/platform-cloud/labels/overview) require only a name and can be applied to pipelines, runs, and actions.
 :::
 
+Command:
+
 ```bash
 tw labels add -n Label1 -w DocTestOrg2/Testing -v Value1
+```
 
+Example output:
+
+```bash
 Label 'Label1=Value1' added at 'DocTestOrg2/Testing' workspace with id '268741348267491'
 ```
 
@@ -71,11 +77,7 @@ Example output:
 
 ```bash
 Labels at 97652229034604 workspace:
-```
 
-Example output:
-
-```bash
 ID            | Name                   | Value     | Type
   -----------------+------------------------+-----------+----------
     116734717739444 | manual-fusion-amd64    |           | Normal
@@ -136,8 +138,14 @@ tw labels delete [OPTIONS]
 
 Run `tw labels delete -h` to view the required and optional fields for deleting labels.
 
+Command:
+
 ```bash
 tw labels delete -i 203879852150462
+```
 
+Example output:
+
+```bash
 Label '203879852150462' deleted at '97652229034604' workspace
 ```

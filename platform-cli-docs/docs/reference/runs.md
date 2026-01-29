@@ -23,8 +23,6 @@ Runs display all the current and previous pipeline runs in the specified workspa
 
 View pipeline run details.
 
-Command:
-
 ```bash
 tw runs view [OPTIONS]
 ```
@@ -458,7 +456,11 @@ tw runs dump -i 5z4AMshti4g0GK -o file.tar.gz
 - Tower info
 - Workflow details
 - Task details
+```
 
+Example output:
+
+```bash
 
 Pipeline run '5z4AMshti4g0GK' at [seqeralabs / testing] workspace details dump at 'file.tar.gz'
 ```

@@ -341,8 +341,9 @@ Command:
 
 ```bash
 tw compute-envs primary set -n AWS-EKS -w 123456789012345
+```
 
-
-
+Example output:
+```bash
   Primary compute environment for workspace '[my-organization / my-workspace]' was set to 'AWS-EKS (5e6f7g8h9i0j1k2l3m4n5o)'
 ```

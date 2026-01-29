@@ -175,7 +175,11 @@ Command:
 
 ```bash
 tw participants leave -w organization5/test-workspace
+```
 
+Example output:
+
+```bash
 
 
   You have been removed as a participant from 'test-workspace' workspace

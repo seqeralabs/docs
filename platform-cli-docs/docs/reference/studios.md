@@ -111,8 +111,6 @@ ID   | Name                 | Author     | Date Created                  | Date 
 
 List available Studio templates.
 
-Command:
-
 ```bash
 tw studios templates [OPTIONS]
 ```
@@ -149,8 +147,6 @@ Templates
 
 
 Start a studio.
-
-Command:
 
 ```bash
 tw studios start [OPTIONS]
@@ -230,7 +226,11 @@ tw studios add -n new-analysis -w community/showcase \
 --compute-env=48bB2PDk83AxskE40lealy \
 --cpu=2 \
 --memory=8192
+```
 
+Example output:
+
+```bash
 
 Studio 2aa60bb7 CREATED at [community / showcase] workspace.
 ```
@@ -352,8 +352,14 @@ Run `tw studios delete -h` to view the required and optional fields for listing 
 
 Delete an existing Studio session from a workspace.
 
+Command:
+
 ```bash
 tw studios delete -i 2aa60bb7
+```
 
+Example output:
+
+```bash
 Studio 2aa60bb7 deleted at [community / showcase] workspace.
 ```

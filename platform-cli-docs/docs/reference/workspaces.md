@@ -240,7 +240,11 @@ Command:
 
 ```bash
 tw workspaces leave -i 222333444555668
+```
 
+Example output:
+
+```bash
 
 
   You have been removed as a participant from 'new-workspace' workspace

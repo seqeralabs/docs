@@ -170,7 +170,11 @@ Command:
 
 ```bash
 tw secrets delete -n secret2 -w 123456789012345
+```
 
+Example output:
+
+```bash
 
 
   Secret 'secret2' deleted at [my-organization-updated / my-workspace] workspace

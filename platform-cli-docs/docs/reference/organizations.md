@@ -68,9 +68,15 @@ tw organizations add [OPTIONS]
 
 Run `tw organizations add -h` to view the required and optional fields for adding your workspace.
 
+Command:
+
 ```bash
 tw organizations add -n TestOrg2 -f 2nd\ Test\ Organization\ LLC -l RSA
+```
 
+Example output:
+
+```bash
 Organization 'TestOrg2' with ID '204336622618177' was added
 ```
 
@@ -166,7 +172,11 @@ Command:
 
 ```bash
 tw organizations delete -n organization4
+```
 
+Example output:
+
+```bash
 
 
   Organization 'organization4' deleted

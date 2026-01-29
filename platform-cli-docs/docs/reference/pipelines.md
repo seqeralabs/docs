@@ -92,12 +92,18 @@ Run `tw pipelines add -h` to view the required and optional fields for adding yo
 
 Add a pre-configured pipeline to the Launchpad:
 
+Command:
+
 ```bash
 tw pipelines add --name=my_rnaseq_nf_pipeline \
 --params-file=my_rnaseq_nf_pipeline_params.yaml \
 --config=<path/to/nextflow/conf/file> \
 https://github.com/nextflow-io/rnaseq-nf
+```
 
+Example output:
+
+```bash
 New pipeline 'my_rnaseq_nf_pipeline' added at user workspace
 ```
 
@@ -197,11 +203,19 @@ tw pipelines update [OPTIONS]
 | `--user-secrets` | Array of user secrets to make available to the pipeline. | No | `null` |
 | `--workspace-secrets` | Array of workspace secrets to make available to the pipeline. | No | `null` |
 
-The default launch parameters can be changed with the `update` command:
+The default launch parameters can be changed with the `update` command.
+
+Command:
 
 ```bash
 tw pipelines update --name=my_rnaseq_nf_pipeline \
 --params-file=my_rnaseq_nf_pipeline_params_2.yaml
+```
+
+Example output:
+
+```bash
+Pipeline 'my_rnaseq_nf_pipeline' updated at [my-organization / my-workspace] workspace
 ```
 
 ## tw pipelines delete
@@ -318,7 +332,11 @@ Command:
 
 ```bash
 tw pipelines labels -n nf-hello-2026 -w 123456789012345 newlabel
+```
 
+Example output:
+
+```bash
 
 
  'set' labels on 'pipeline' with id '666777888999000' at 123456789012345 workspace

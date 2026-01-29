@@ -159,8 +159,11 @@ Command:
 
 ```bash
 tw credentials list
+```
 
+Example output:
 
+```bash
 Credentials at user workspace:
 
     ID                     | Provider  | Name                               | Last activity

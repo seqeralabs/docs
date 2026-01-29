@@ -44,11 +44,7 @@ Example output:
 
 ```bash
 Teams for TestOrg2 organization:
-```
 
-Example output:
-
-```bash
 Team ID        | Team Name | Members Count Name
   ----------------+-----------+--------------------
     84866234211969 | Testing   | 1
@@ -75,9 +71,15 @@ tw teams add [OPTIONS]
 
 Run `tw teams add -h` to view the required and optional fields for creating a team.
 
+Command:
+
 ```bash
 tw teams add -n team1 -o TestOrg2 -d testing
+```
 
+Example output:
+
+```bash
 A 'team1' team added for 'TestOrg2' organization
 ```
 
@@ -96,9 +98,15 @@ tw teams delete [OPTIONS]
 | `-i`, `--id` | Team numeric identifier. The unique ID assigned when the team was created. Find team IDs using 'tw teams list'. | Yes | `null` |
 | `-o`, `--organization` | Organization name or numeric ID. Specify either the unique organization name or the numeric organization ID returned by 'tw organizations list'. | Yes | `null` |
 
+Command:
+
 ```bash
 tw teams delete -i 169283393825479 -o TestOrg2
+```
 
+Example output:
+
+```bash
 Team '169283393825479' deleted for TestOrg2 organization
 ```
 
@@ -129,7 +137,6 @@ Example output:
 
 ```bash
 Members for team 'Team1':
-
 
 Member ID       | Username          | Email                       | Role
     -----------------+-------------------+-----------------------------+--------

@@ -41,11 +41,7 @@ Example output:
 
 ```bash
 Members for TestOrg2 organization:
-```
 
-Example output:
-
-```bash
 ID              | Username             | Email                           | Role
   -----------------+----------------------+---------------------------------+--------
     200954501314303 | user1                | user1@domain.com                | MEMBER
@@ -70,9 +66,15 @@ tw members add [OPTIONS]
 
 Run `tw members add -h` view all the required and optional fields for adding organization members.
 
+Command:
+
 ```bash
 tw members add -u user1@domain.com -o DocTestOrg2
+```
 
+Example output:
+
+```bash
 Member 'user1' with ID '134534064600266' was added in organization 'TestOrg2'
 ```
 
@@ -93,9 +95,15 @@ tw members delete [OPTIONS]
 
 Run `tw members delete -h` view all the required and optional fields for deleting organization members.
 
+Command:
+
 ```bash
 tw members delete -u user1 -o TestOrg2
+```
 
+Example output:
+
+```bash
 Member 'user1' deleted from organization 'TestOrg2'
 ```
 
@@ -117,9 +125,15 @@ tw members update [OPTIONS]
 
 Run `tw members update -h` view all the required and optional fields for updating organization members.
 
+Command:
+
 ```bash
 tw members update -u user1 -r OWNER -o TestOrg2
+```
 
+Example output:
+
+```bash
 Member 'user1' updated to role 'owner' in organization 'TestOrg2'
 ```
 
@@ -145,7 +159,11 @@ Command:
 
 ```bash
 tw members leave -o example-organization
+```
 
+Example output:
+
+```bash
 
 
   You have been removed from organization 'example-organization'
