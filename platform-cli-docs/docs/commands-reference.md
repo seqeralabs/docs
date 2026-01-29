@@ -51,7 +51,7 @@ tw credentials add google -h  # Help for specific provider
 - [**runs**](reference/runs) - Manage pipeline runs
 - [**actions**](reference/actions) - Manage pipeline actions
 
-### Organization & access
+### Organization and access
 
 - [**organizations**](reference/organizations) - Manage organizations
 - [**workspaces**](reference/workspaces) - Manage workspaces
