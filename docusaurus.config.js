@@ -8,6 +8,7 @@ import {
 } from "@seqera/docusaurus-preset-seqera";
 
 export default async function createConfigAsync() {
+
   const changelog = {
     blogTitle: "Seqera Changelog",
     blogDescription: "Blog",
@@ -57,6 +58,24 @@ export default async function createConfigAsync() {
       remarkPlugins: [(await require("remark-yaml-to-table")).default],
       sidebarPath: "platform-api-docs/docs/sidebar/sidebar.js",
       docItemComponent: "@theme/ApiItem",
+    },
+  ];
+
+  const docs_platform_cli = [
+    "@docusaurus/plugin-content-docs",
+    {
+      id: "platform-cli",
+      routeBasePath: "/platform-cli",
+      path: "platform-cli-docs/docs",
+      remarkPlugins: [
+        (await import("remark-code-import")).default,
+        (await require("remark-math")).default,
+        (await import("docusaurus-remark-plugin-tab-blocks")).default,
+        (await require("remark-yaml-to-table")).default,
+      ],
+      rehypePlugins: [require("rehype-katex")],
+      sidebarPath: "platform-cli-docs/docs/sidebar/sidebar.js",
+      editUrl: "https://github.com/seqeralabs/docs/tree/master/",
     },
   ];
 
@@ -144,6 +163,8 @@ export default async function createConfigAsync() {
       (process.env.EXCLUDE_PLATFORM_CLOUD ? true : false),
     "\n  EXCLUDE_PLATFORM_API: " +
       (process.env.EXCLUDE_PLATFORM_API ? true : false),
+    "\n  EXCLUDE_PLATFORM_CLI: " +
+      (process.env.EXCLUDE_PLATFORM_CLI ? true : false),
     "\n  EXCLUDE_PLATFORM_OPENAPI: " +
       (process.env.EXCLUDE_PLATFORM_OPENAPI ? true : false),
     "\n  EXCLUDE_MULTIQC: " + (process.env.EXCLUDE_MULTIQC ? true : false),
@@ -156,9 +177,50 @@ export default async function createConfigAsync() {
     title: "Seqera Docs",
     tagline: "Documentation for Seqera products",
     url: "https://docs.seqera.io",
+    /*
+     * Enable faster Docusaurus optimizations (experimental v4 features)
+     * Reference: https://github.com/facebook/docusaurus/issues/10556
+     *
+     * WARNING: swcJsMinimizer & lightningCssMinimizer are disabled due to memory issues
+     * - Cause excessive memory usage leading to build failures
+     * - The believe is that our 22k of OpenAPI docs causes this issue due to the way they are generated.
+     * - See: https://github.com/PaloAltoNetworks/docusaurus-openapi-docs/issues/1025
+     *
+     * These optimizations may require additional configuration when memory issues are resolved.
+     */
+
     future: {
-      experimental_faster: process.env.NODE_ENV === 'development',
+      experimental_faster: {
+        swcJsLoader: false,
+        swcJsMinimizer: false,
+        swcHtmlMinimizer: false,
+        lightningCssMinimizer: false,
+        rspackBundler: true,
+        rspackPersistentCache: false,
+        mdxCrossCompilerCache: false,
+      },
     },
+
+    // If you aren't using GitHub pages, you don't need these.
+    organizationName: "seqeralabs", // Usually your GitHub org/user name.
+    projectName: "docs", // Usually your repo name.
+
+    onBrokenLinks:
+      process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
+    onBrokenAnchors:
+      process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
+
+    markdown: {
+      hooks: {
+        onBrokenMarkdownLinks:
+          process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
+      },
+    },
+
+    customFields: {
+      // Put your custom environment here
+    },
+
     presets: [
       [
         "@seqera/docusaurus-preset-seqera",
@@ -194,19 +256,20 @@ export default async function createConfigAsync() {
       process.env.EXCLUDE_PLATFORM_ENTERPRISE ? null : docs_platform_enterprise,
       process.env.EXCLUDE_PLATFORM_CLOUD ? null : docs_platform_cloud,
       process.env.EXCLUDE_PLATFORM_API ? null : docs_platform_api,
+      process.env.EXCLUDE_PLATFORM_CLI ? null : docs_platform_cli,
       process.env.EXCLUDE_MULTIQC ? null : docs_multiqc,
       process.env.EXCLUDE_FUSION ? null : docs_fusion,
       process.env.EXCLUDE_WAVE ? null : docs_wave,
 
       // Disable expensive bundler options.
       // https://github.com/facebook/docusaurus/pull/11176
-      function disableExpensiveBundlerOptimizations() {
+      function disableExpensiveBundlerOptimizationPlugin() {
         return {
-          name: "disable-expensive-bundler-optimizations",
-          configureWebpack(_config, isServer) {
+          name: 'disable-expensive-bundler-optimizations',
+          configureWebpack(_config) {
             return {
               optimization: {
-                concatenateModules: false,
+                concatenateModules:  false,
               },
             };
           },

@@ -39,7 +39,7 @@ seqerakit file.yaml --dryrun
 
 ### Specify targets
 
-When using a YAML file as an input that defines multiple resources, use the `--targets` option to specify which resources to create. This option accepts a comma-separated list of resource names. 
+When using a YAML file as an input that defines multiple resources, use the `--targets` option to specify which resources to create. This option accepts a comma-separated list of resource names.
 
 Supported resource names include:
 
@@ -109,7 +109,7 @@ Specify `tw`-specific CLI options with the `--cli=` option:
 seqerakit file.yaml --cli="--arg1 --arg2"
 ```
 
-See [CLI commands](../cli/commands) or run `tw -h` for the full list of options.
+See [CLI commands](https://docs.seqera.io/platform-cli/commands-reference) or run `tw -h` for the full list of options.
 
 :::note
 The `--verbose` option for `tw` CLI is currently not supported in `seqerakit` commands.

@@ -1,5 +1,5 @@
 ---
-title: "Helm"
+title: "Platform: Helm"
 description: Deploy Seqera Platform Enterprise on Kubernetes with Helm
 date created: "2025-11-21"
 tags: [helm, deployment, installation, kubernetes]
@@ -9,10 +9,11 @@ tags: [helm, deployment, installation, kubernetes]
 
 ## Prerequisites
 
-This guide assumes that all [Seqera prerequisites](./prerequisites/common) have been met. On top of the general requirements, ensure you have the following:
-
-- A Kubernetes cluster running a supported version.
-- [Helm v3](https://helm.sh/docs/intro/install) and [kubectl](https://kubernetes.io/docs/tasks/tools/) installed on your local machine.
+Before you begin, you need:
+- A Kubernetes cluster
+- A MySQL 8 database
+- A Redis 7 instance
+- [Helm v3](https://helm.sh/docs/intro/install) and [kubectl](https://kubernetes.io/docs/tasks/tools/) installed locally
 
 ## Installing the Helm chart
 

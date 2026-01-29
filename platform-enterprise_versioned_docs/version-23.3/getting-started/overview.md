@@ -5,7 +5,7 @@ date: "15 September 2023"
 tags: [overview]
 ---
 
-Seqera Platform is available in two [deployment editions](../getting-started/deployment-options) and can be accessed via web user interface (UI), [API](../api/overview), [CLI](../cli/overview), or directly in your Nextflow command using a flag.
+Seqera Platform is available in two [deployment editions](../getting-started/deployment-options) and can be accessed via web user interface (UI), [API](../api/overview), [CLI](https://docs.seqera.io/platform-cli), or directly in your Nextflow command using a flag.
 
 ## Community Showcase
 

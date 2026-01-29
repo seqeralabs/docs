@@ -1,5 +1,5 @@
 ---
-title: "Studios deployment"
+title: "Studios"
 description: Deploy Seqera Platform with Studios
 date created: "2025-03-17"
 last updated: "2025-12-05"
@@ -8,9 +8,11 @@ tags: [docker, compose, kubernetes, studios, deployment]
 
 Enable Studios as part of your Seqera Platform Enterprise instance. You must have Data Explorer enabled to use Studios. AWS, Azure, and GCP public clouds are currently supported.
 
-:::caution 
+:::caution
 You must upgrade your Seqera Enterprise installation to version 25.1 to enable and configure Studios.
 :::
+
+Studios requires a Redis 7 instance separate from the one used by Seqera Platform.
 
 ## DNS configuration
 
@@ -74,7 +76,7 @@ You can also check the current template configuration using `https://towerurl/ap
 - Allow inbound traffic to port 9090 on the EC2 instance
 - Allow traffic on port 9090 through the AWS LB (Load Balancer)
 - An AWS Route53 wildcard DNS record, such as `*.<seqera_platform_domain>`
-- Execute `mkdir 777 $HOME/.tower/connect` to create a folder that will be mounted to `connect-proxy` and used to store metadata. 
+- Execute `mkdir 777 $HOME/.tower/connect` to create a folder that will be mounted to `connect-proxy` and used to store metadata.
 
 ### Procedure
 
@@ -91,7 +93,7 @@ You can also check the current template configuration using `https://towerurl/ap
     openssl genrsa -out private.pem 2048
     openssl rsa -pubout -in private.pem -out public.pem
     ```
-1. Download the [data-studios-rsa.pem](./_templates/docker/data-studios-rsa.pem) file and replace its contents with the content of your private and public key files, in the same order (private key on top, public key directly beneath it). Save the file as `data-studios-rsa.pem`, in the same directory as your `docker-compose.yml` file. 
+1. Download the [data-studios-rsa.pem](./_templates/docker/data-studios-rsa.pem) file and replace its contents with the content of your private and public key files, in the same order (private key on top, public key directly beneath it). Save the file as `data-studios-rsa.pem`, in the same directory as your `docker-compose.yml` file.
 1. Open the `docker-compose.yml` and uncomment the volume mount for the PEM key file for the `backend` and `cron` services in the `volumes` list. Your PEM file must be named `data-studios-rsa.pem`.
 
     ```yaml

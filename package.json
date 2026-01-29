@@ -4,7 +4,17 @@
   "private": true,
   "overrides": {
     "glob": "^11.1.0",
-    "rehype-katex": "5.0.0"
+    "rehype-katex": "5.0.0",
+    "gray-matter": {
+      "js-yaml": "3.14.2"
+    },
+    "openapi-to-postmanv2": {
+      "js-yaml": ">=4.1.1"
+    },
+    "lodash": "^4.17.23",
+    "docusaurus-theme-search-typesense": {
+      "webpack-dev-server": ">=5.2.1"
+    }
   },
   "scripts": {
     "docusaurus": "docusaurus",
@@ -31,21 +41,24 @@
     "@docusaurus/mdx-loader": "^3.9.2",
     "@docusaurus/plugin-google-gtag": "^3.9.2",
     "@docusaurus/plugin-google-tag-manager": "^3.9.2",
+    "@docusaurus/preset-classic": "^3.9.2",
     "@mdx-js/react": "^3.0.0",
     "@rspack/core": "^1.4.11",
     "@seqera/docusaurus-preset-seqera": "^1.0.4",
     "@tailwindcss/postcss": "^4.1.12",
-    "clsx": "^2.0.0",
+    "clsx": "^1.2.1",
     "daisyui": "^5.5.14",
     "docusaurus-plugin-openapi-docs": "^4.7.1",
     "docusaurus-remark-plugin-tab-blocks": "^3.1.0",
+    "docusaurus-theme-openapi-docs": "^4.7.1",
+    "docusaurus-theme-search-typesense": "^0.25.0",
     "framer-motion": "^11.0.0",
     "image-size": "^2.0.2",
     "mdi-react": "^9.4.0",
     "postcss-import": "^16.1.1",
-    "postcss-loader": "^8.2.0",
+    "postcss-loader": "^8.1.1",
     "postcss-nesting": "^14.0.0",
-    "prism-react-renderer": "^2.3.0",
+    "prism-react-renderer": "^2.4.1",
     "raw-loader": "^4.0.2",
     "react": "^18.2.0",
     "react-cookie": "^7.2.2",
@@ -72,7 +85,6 @@
     "gray-matter": "^4.0.3",
     "markdownlint-cli2": "^0.20.0",
     "netlify-plugin-cache": "^1.0.3",
-    "path": "^0.12.7",
     "postcss": "^8.4.32",
     "prettier": "^3.6.2",
     "simple-git": "^3.19.1",
