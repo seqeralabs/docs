@@ -22,7 +22,7 @@ You will need the following to get started:
 - Data-links currently cannot be referenced in Git repositories. Mount data manually when adding a Studio.
 - Git repositories with multiple Studio configurations are not supported. However, it is possible to use a Git repository with multiple branches and a single configuration per branch.
 
-### Create configuration files 
+### Create configuration files
 
 **`.seqera/studio-config.yaml` configuration file**
 
@@ -128,10 +128,10 @@ You can disable cloning, which allows you to share a public/private template. Yo
 
    1. Review the configuration to ensure all settings are correct.
    1. Save your configuration:
-      - To save and immediately start your Studio, select **Add and start**. 
+      - To save and immediately start your Studio, select **Add and start**.
       - To save but not immediately start your Studio, select **Add only**.
 
-Studios you create will be listed on the Studios landing page with a status of either **stopped** or **starting**. Select a Studio to inspect its configuration details. 
+Studios you create will be listed on the Studios landing page with a status of either **stopped** or **starting**. Select a Studio to inspect its configuration details.
 
 {/* links */}
 [github-examples]: https://github.com/seqeralabs/studio-schema-examples

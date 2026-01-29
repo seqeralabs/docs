@@ -13,10 +13,10 @@ module.exports = async ({ github, context, diff }) => {
     repo: context.repo.repo,
   });
 
-  // Parse the diff into file chunks
+  // Parse the diff into individual change blocks
   const diffLines = diff.split('\n');
   let currentFile = null;
-  let currentHunk = null;
+  let currentLineInOldFile = 0;
   let fileChanges = [];
 
   for (let i = 0; i < diffLines.length; i++) {
@@ -24,11 +24,8 @@ module.exports = async ({ github, context, diff }) => {
 
     // New file in diff
     if (line.startsWith('diff --git')) {
-      if (currentFile && currentHunk) {
-        fileChanges.push({ file: currentFile, hunk: currentHunk });
-      }
       currentFile = null;
-      currentHunk = null;
+      currentLineInOldFile = 0;
     } else if (line.startsWith('--- a/')) {
       currentFile = line.substring(6);
     } else if (line.startsWith('+++ b/')) {
@@ -36,43 +33,51 @@ module.exports = async ({ github, context, diff }) => {
         currentFile = line.substring(6);
       }
     } else if (line.startsWith('@@')) {
-      // Save previous hunk if exists
-      if (currentFile && currentHunk) {
-        fileChanges.push({ file: currentFile, hunk: currentHunk });
-      }
-
       // Parse hunk header: @@ -start,count +start,count @@
       const match = line.match(/@@ -(\d+),?\d* \+(\d+),?\d* @@/);
       if (match) {
-        currentHunk = {
-          oldStart: parseInt(match[1]),
-          newStart: parseInt(match[2]),
-          oldLines: [],
-          newLines: [],
-          contextBefore: [],
-          contextAfter: []
-        };
+        currentLineInOldFile = parseInt(match[1]);
       }
-    } else if (currentHunk) {
-      // Collect the changes
+    } else if (currentFile && currentLineInOldFile > 0) {
+      // Process the actual diff content
       if (line.startsWith('-')) {
-        currentHunk.oldLines.push(line.substring(1));
+        // Start of a change block - collect all consecutive -/+ lines
+        const changeBlock = {
+          file: currentFile,
+          startLine: currentLineInOldFile,
+          oldLines: [],
+          newLines: []
+        };
+
+        // Collect all - lines
+        let j = i;
+        while (j < diffLines.length && diffLines[j].startsWith('-')) {
+          changeBlock.oldLines.push(diffLines[j].substring(1));
+          j++;
+        }
+
+        // Collect all + lines that follow
+        while (j < diffLines.length && diffLines[j].startsWith('+')) {
+          changeBlock.newLines.push(diffLines[j].substring(1));
+          j++;
+        }
+
+        // Only add if we have both old and new lines (actual change, not just deletion)
+        if (changeBlock.oldLines.length > 0 && changeBlock.newLines.length > 0) {
+          fileChanges.push(changeBlock);
+        }
+
+        // Move index forward and update line counter
+        i = j - 1; // -1 because the loop will increment
+        currentLineInOldFile += changeBlock.oldLines.length;
       } else if (line.startsWith('+')) {
-        currentHunk.newLines.push(line.substring(1));
+        // Addition without deletion - skip for now as we can't suggest these
+        currentLineInOldFile += 0; // + lines don't affect old file line numbering
       } else if (line.startsWith(' ')) {
         // Context line
-        if (currentHunk.oldLines.length === 0 && currentHunk.newLines.length === 0) {
-          currentHunk.contextBefore.push(line.substring(1));
-        } else {
-          currentHunk.contextAfter.push(line.substring(1));
-        }
+        currentLineInOldFile++;
       }
     }
-  }
-
-  // Save last hunk
-  if (currentFile && currentHunk) {
-    fileChanges.push({ file: currentFile, hunk: currentHunk });
   }
 
   // Get the PR head commit SHA
@@ -86,11 +91,10 @@ module.exports = async ({ github, context, diff }) => {
   // Filter out changes that already have suggestions posted
   const newChanges = [];
   for (const change of fileChanges) {
-    const { file, hunk } = change;
-    const suggestionContent = hunk.newLines.join('\n');
+    const suggestionContent = change.newLines.join('\n');
 
     // Create a unique marker for this specific suggestion
-    const hash = crypto.createHash('md5').update(file + suggestionContent).digest('hex').substring(0, 8);
+    const hash = crypto.createHash('md5').update(change.file + suggestionContent).digest('hex').substring(0, 8);
     const marker = `<!-- pre-commit-suggestion-${hash} -->`;
 
     // Check if this exact suggestion already exists in review comments
@@ -107,27 +111,34 @@ module.exports = async ({ github, context, diff }) => {
     const comments = [];
 
     for (const change of newChanges) {
-      const { file, hunk, marker } = change;
+      const { file, startLine, oldLines, newLines, marker } = change;
 
       // Build the suggestion body with marker
       let body = marker + "\n";
       body += "```suggestion\n";
-      body += hunk.newLines.join('\n');
-      if (hunk.newLines.length > 0 && !hunk.newLines[hunk.newLines.length - 1].endsWith('\n')) {
+      body += newLines.join('\n');
+      if (newLines.length > 0 && !newLines[newLines.length - 1].endsWith('\n')) {
         body += '\n';
       }
       body += "```";
 
-      // Calculate the correct line number
-      // newStart is where the hunk begins, then add context lines before changes, then the new lines
-      const lineNumber = hunk.newStart + hunk.contextBefore.length + hunk.newLines.length - 1;
+      // Calculate the line range for the suggestion
+      const endLine = startLine + oldLines.length - 1;
 
-      comments.push({
+      const comment = {
         path: file,
-        line: lineNumber,
+        line: endLine,
         side: "RIGHT",
         body: body
-      });
+      };
+
+      // For multi-line suggestions, add start_line
+      if (oldLines.length > 1) {
+        comment.start_line = startLine;
+        comment.start_side = "RIGHT";
+      }
+
+      comments.push(comment);
     }
 
     // Create a review with all inline comments
@@ -137,7 +148,7 @@ module.exports = async ({ github, context, diff }) => {
       repo: context.repo.repo,
       commit_id: commitSha,
       event: "COMMENT",
-      body: "**Pre-commit formatting suggestions**\n\nPre-commit hooks found some formatting changes. You can apply each suggestion directly by clicking the \"Commit suggestion\" button, or run `pre-commit` locally and commit again.",
+      body: "🪄 **Pre-commit formatting suggestions**\n\nYou can apply each suggestion via the GitHub UI, add a comment containing the keyword `fix formatting` or [set up pre-commit](https://github.com/seqeralabs/docs/blob/master/README.md#install-pre-commit) locally and commit again.",
       comments: comments
     });
   }
