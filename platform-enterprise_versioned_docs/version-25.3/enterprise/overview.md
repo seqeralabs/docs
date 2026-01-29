@@ -62,7 +62,7 @@ _Reference architecture diagram of Seqera Platform Enterprise on AWS using Elast
 
 ## Application container images
 
-Seqera Enterprise is distributed as a collection of Docker containers available through the Seqera container registry [`cr.seqera.io`](https://cr.seqera.io). Contact [support](https://support.seqera.io) to get your container access credentials. Follow [these instructions](./prerequisites/common.md) to learn how to authenticate and pull the Seqera container images, and replicate them to your own registry.
+Seqera Enterprise is distributed as a collection of Docker containers available through the Seqera container registry [`cr.seqera.io`](https://cr.seqera.io). Contact [support](https://support.seqera.io) to get your container access credentials.
 
 ## Support
 

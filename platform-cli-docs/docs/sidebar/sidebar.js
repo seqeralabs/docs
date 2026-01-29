@@ -1,0 +1,32 @@
+module.exports = {
+  clisidebar: [
+    { type: "doc", id: "overview" },
+    { type: "doc", id: "installation" },
+    {
+      type: "category",
+      label: "Command Reference",
+      link: { type: "doc", id: "commands-reference" },
+      collapsed: false,
+      items: [
+        { type: "doc", id: "reference/info" },
+        { type: "doc", id: "reference/credentials" },
+        { type: "doc", id: "reference/compute-envs" },
+        { type: "doc", id: "reference/datasets" },
+        { type: "doc", id: "reference/data-links" },
+        { type: "doc", id: "reference/labels" },
+        { type: "doc", id: "reference/secrets" },
+        { type: "doc", id: "reference/pipelines" },
+        { type: "doc", id: "reference/launch" },
+        { type: "doc", id: "reference/runs" },
+        { type: "doc", id: "reference/actions" },
+        { type: "doc", id: "reference/organizations" },
+        { type: "doc", id: "reference/workspaces" },
+        { type: "doc", id: "reference/teams" },
+        { type: "doc", id: "reference/members" },
+        { type: "doc", id: "reference/participants" },
+        { type: "doc", id: "reference/collaborators" },
+        { type: "doc", id: "reference/studios" },
+      ],
+    },
+  ],
+};
