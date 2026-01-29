@@ -108,7 +108,7 @@ Files uploaded to a mounted bucket during an active session may not be immediate
 
 ### Repository cloning
 
-When a Studio session starts from a Git repository, the repository contents are cloned into the session, using the same commit that was selected, or resolved, when the Studio was first created. For example, repository `https://github.com/seqeralabs/studio-templates.git` clones to `/workspace/studio-templates/` with `README.md` at `/workspace/studio-templates/README.md`.
+When a Studio session starts from a Git repository, the repository contents are cloned into the session, using the same commit that was selected, or resolved, when the Studio was first created. For example, repository `https://github.com/seqeralabs/studio-templates.git` clones to `/workspace/` with `README.md` at `/workspace/README.md`.
 
 You can disable cloning, which allows you to share a public/private template. You can define the clone path configuration in the schema without the need to build a different Docker image.
 
