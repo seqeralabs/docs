@@ -90,7 +90,6 @@
             "label": "Advanced",
             "collapsed": true,
             "items": [
-              "enterprise/advanced-topics/db-docker-to-RDS",
               "enterprise/advanced-topics/use-iam-role",
               "enterprise/advanced-topics/custom-launch-container",
               "enterprise/advanced-topics/firewall-configuration",
@@ -262,15 +261,10 @@
             "href": "https://docs.seqera.io/platform-api"
           },
           {
-            "type": "category",
+            "type": "link",
             "label": "CLI",
-            "collapsed": true,
-            "items": [
-              "cli/overview",
-              "cli/installation",
-              "cli/commands"
-            ]
-            },
+            "href": "https://docs.seqera.io/platform-cli"
+          },
             {
               "type": "category",
               "label": "Seqerakit",
