@@ -12,7 +12,7 @@
   # Limiting thread processing avoids this issue with some build time impact however,
   # build are still significantly faster than without SSG in-use.
   # Reference: https://github.com/facebook/docusaurus/discussions/11199
-  DOCUSAURUS_SSG_WORKER_THREAD_COUNT = "1"
+  # DOCUSAURUS_SSG_WORKER_THREAD_COUNT = "1"
 
 [context.deploy-preview.build.environment]
   INCLUDE_NEXT="true"
