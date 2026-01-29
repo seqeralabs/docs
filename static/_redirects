@@ -45,6 +45,13 @@
 # Redirect to fix temporarily broken URL in UI
 /platform/:version/data/data_studios   /platform-cloud/studios/  301
 
+# Redirect old CLI docs to new platform-cli docset
+# (Must come before general version-removal rule to prevent /cli/ being treated as a version)
+/platform-cloud/cli/*                        /platform-cli               301
+/platform-enterprise/cli/*                   /platform-cli               301
+/platform-enterprise/*/cli/*                 /platform-cli               301
+/platform-enterprise/:version/cli/*          /platform-cli               301
+
 # Remove version from /platform-cloud paths
 /platform-cloud/:version/*    /platform-cloud/:splat
 
@@ -69,9 +76,3 @@
 
 #Wave page renaming and moving
 /wave/install/configure-wave               /wave/configure-wave             301
-
-# Redirect old CLI docs to new platform-cli docset
-/platform-cloud/cli/*                        /platform-cli               301
-/platform-enterprise/cli/*                   /platform-cli               301
-/platform-enterprise/*/cli/*                 /platform-cli               301
-/platform-enterprise/:version/cli/*          /platform-cli               301
