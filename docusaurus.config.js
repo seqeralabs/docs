@@ -81,7 +81,7 @@ export default async function createConfigAsync() {
       docsPluginId: "classic", // configured for preset-classic
       config: {
         platform: {
-          specPath: "platform-api-docs/scripts/specs/seqera-api-latest-decorated.yml",
+          specPath: "platform-api-docs/scripts/specs/seqera-api-latest-decorated.yaml",
           outputDir: "platform-api-docs/docs",
           sidebarOptions: {
             groupPathsBy: "tag",
@@ -312,7 +312,7 @@ export default async function createConfigAsync() {
           },
         };
       },
-    ],
+    ].filter(Boolean), // Filter out null plugins when EXCLUDE_* env vars are set
 
     themeConfig: {
       image: "img/share.jpg",
