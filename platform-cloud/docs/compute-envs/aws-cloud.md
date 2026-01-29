@@ -150,7 +150,7 @@ The following permissions are required to launch pipelines, run Studio sessions,
                 "ec2:DescribeInstances",
                 "ec2:TerminateInstances"
             ],
-            "Resource": "*",
+            "Resource": "*"
         },
         {
             "Sid": "AwsCloudLaunchLogs",
