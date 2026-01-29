@@ -212,10 +212,10 @@ export default async function createConfigAsync() {
 
     future: {
       experimental_faster: {
-        swcJsLoader: true,
-        swcJsMinimizer: true,
-        swcHtmlMinimizer: true,
-        lightningCssMinimizer: true,
+        swcJsLoader: false,
+        swcJsMinimizer: false,
+        swcHtmlMinimizer: false,
+        lightningCssMinimizer: false,
         rspackBundler: true,
         rspackPersistentCache: true,
         mdxCrossCompilerCache: true,
