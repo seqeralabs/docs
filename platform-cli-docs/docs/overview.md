@@ -15,7 +15,7 @@ The CLI interacts with Platform to provide an interface to launch pipelines, man
 
 ![tw](./_images/tw-screenshot.png)
 
-## Key features
+### Key features
 
 - **A Nextflow-like experience**: tw CLI provides a developer-friendly environment. Pipelines can be launched with the CLI similarly to Nextflow but with the Platform benefits of monitoring, logging, resource provisioning, dataset management, and collaborative sharing.
 
@@ -23,7 +23,7 @@ The CLI interacts with Platform to provide an interface to launch pipelines, man
 
 - **Built on OpenAPI**: tw CLI interacts with Platform via the [Seqera Platform API](https://cloud.seqera.io/openapi/index.html) which uses the OpenAPI 3.0 specification. The CLI provides full control of the Platform application, allowing users to get maximum insights into pipeline submissions and execution environments.
 
-## Availability
+### Availability
 
 The CLI can be installed on macOS, Windows, and Linux. It is compatible with [Seqera Platform Cloud](https://cloud.seqera.io/) and Enterprise versions 21.08 and later.
 
