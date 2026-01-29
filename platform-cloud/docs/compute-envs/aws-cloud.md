@@ -141,9 +141,7 @@ The following permissions are required to launch pipelines, run Studio sessions,
                 "ec2:CreateTags",
                 "ec2:DeleteTags"
             ],
-            "Resource": [
-                "Resource": "arn:aws:ec2:*:*:*"
-               ]
+            "Resource": "arn:aws:ec2:*:*:*"
         },
         {
             "Sid": "AwsCloudLaunchInstances",
