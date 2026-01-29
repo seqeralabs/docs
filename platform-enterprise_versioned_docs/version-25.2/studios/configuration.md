@@ -11,7 +11,7 @@ For complete Seqera Platform Enterprise configuration options, see the [Configur
 
 ## Self-hosted Wave
 
-To use your own Wave instance for data studio management, you must configure both the Wave instance and the custom image registry settings to point to your infrastructure.
+To use your own Wave instance for Studios management, you must configure both the Wave instance and the custom image registry settings to point to your infrastructure.
 
 ### Container Registry configuration
 
