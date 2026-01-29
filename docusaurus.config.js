@@ -2,6 +2,7 @@ import { themes } from "prism-react-renderer";
 const path = require("path");
 import "dotenv/config";
 import platform_enterprise_latest_version from "./platform-enterprise_latest_version.js";
+import remarkYamlToTable from "./internal/remark-yaml-to-table.mjs";
 
 export default async function createConfigAsync() {
   const changelog = {
@@ -40,7 +41,7 @@ export default async function createConfigAsync() {
         (await import("remark-code-import")).default,
         (await require("remark-math")).default,
         (await import("docusaurus-remark-plugin-tab-blocks")).default,
-        (await require("remark-yaml-to-table")).default,
+        remarkYamlToTable,
       ],
       rehypePlugins: [(await require("rehype-katex")).default],
       editUrl: "https://github.com/seqeralabs/docs/tree/master/",
@@ -54,7 +55,7 @@ export default async function createConfigAsync() {
       id: "platform-api",
       routeBasePath: "/platform-api",
       path: "platform-api-docs/docs",
-      remarkPlugins: [(await require("remark-yaml-to-table")).default],
+      remarkPlugins: [remarkYamlToTable],
       sidebarPath: "platform-api-docs/docs/sidebar/sidebar.js",
       docItemComponent: "@theme/ApiItem",
     },
@@ -87,7 +88,7 @@ export default async function createConfigAsync() {
         (await import("remark-code-import")).default,
         (await require("remark-math")).default,
         (await import("docusaurus-remark-plugin-tab-blocks")).default,
-        (await require("remark-yaml-to-table")).default,
+        remarkYamlToTable,
       ],
       rehypePlugins: [(await require("rehype-katex")).default],
       editUrl: "https://github.com/seqeralabs/docs/tree/master/",
@@ -105,7 +106,7 @@ export default async function createConfigAsync() {
         (await import("remark-code-import")).default,
         (await require("remark-math")).default,
         (await import("docusaurus-remark-plugin-tab-blocks")).default,
-        (await require("remark-yaml-to-table")).default,
+        remarkYamlToTable,
       ],
       rehypePlugins: [(await require("rehype-katex")).default],
       editUrl: ({ docPath }) => {
@@ -124,7 +125,7 @@ export default async function createConfigAsync() {
         (await import("remark-code-import")).default,
         (await require("remark-math")).default,
         (await import("docusaurus-remark-plugin-tab-blocks")).default,
-        (await require("remark-yaml-to-table")).default,
+        remarkYamlToTable,
       ],
       rehypePlugins: [(await require("rehype-katex")).default],
       editUrl: "https://github.com/seqeralabs/docs/tree/master/",
@@ -142,7 +143,7 @@ export default async function createConfigAsync() {
         (await import("remark-code-import")).default,
         (await require("remark-math")).default,
         (await import("docusaurus-remark-plugin-tab-blocks")).default,
-        (await require("remark-yaml-to-table")).default,
+        remarkYamlToTable,
         (await require("remark-deflist")).default,
       ],
       rehypePlugins: [(await require("rehype-katex")).default],
