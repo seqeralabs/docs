@@ -8,7 +8,7 @@
       "link": {
         "type": "doc",
         "id": "enterprise/overview"
-      },      
+      },
       "items": [
         {
           "type": "category",
@@ -52,7 +52,6 @@
           "label": "Advanced",
           "collapsed": true,
           "items": [
-            "enterprise/advanced-topics/db-docker-to-RDS",
             "enterprise/advanced-topics/use-iam-role",
             "enterprise/advanced-topics/custom-launch-container",
             "enterprise/advanced-topics/firewall-configuration"
@@ -66,7 +65,7 @@
       "label": "Tutorials",
       "collapsed": true,
       "items": [
-        "getting-started/rnaseq"         
+        "getting-started/rnaseq"
       ]
     },
     {
@@ -191,7 +190,7 @@
             "type": "link",
             "label": "API",
             "href": "https://docs.seqera.io/platform-api"
-          },        
+          },
           {
           "type": "category",
           "label": "CLI",
@@ -229,7 +228,7 @@
       "type": "link",
       "label": "Enterprise changelog",
       "href": "/changelog/tags/seqera-enterprise"
-    },  
+    },
     "faqs"
   ]
 }

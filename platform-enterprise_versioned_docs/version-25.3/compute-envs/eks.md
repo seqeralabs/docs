@@ -57,9 +57,9 @@ Your Seqera compute environment uses resources that you may be charged for in yo
 
 After you have prepared your Kubernetes cluster and assigned a service account role to your Seqera IAM user, create a Seqera EKS compute environment:
 
-1. In a workspace, select **Compute environments > New environment**.
+1. After logging in to your Seqera installation and selecting a workspace from the dropdown menu at the top of the page, select **Compute environments** from the navigation menu. Then select **Add compute environment**.
 1. Enter a descriptive name for this environment, e.g., _Amazon EKS (eu-west-1)_.
-1. From the **Provider** drop-down menu, select **Amazon EKS**.
+1. From the **Platform** drop-down menu, select **Amazon EKS**.
 1. Under **Storage**, select either **Fusion storage** (recommended) or **Legacy storage**. The [Fusion v2](https://docs.seqera.io/fusion) virtual distributed file system allows access to your AWS S3-hosted data (`s3://` URLs). This eliminates the need to configure a shared file system in your Kubernetes cluster. See [Fusion v2](#fusion-v2) below.
 1. From the **Credentials** drop-down menu, select existing AWS credentials, or select **+** to add new credentials. If you choose to use existing credentials, skip to step 9.
     :::note
@@ -85,9 +85,9 @@ After you have prepared your Kubernetes cluster and assigned a service account r
 1. Apply [**Resource labels**](../resource-labels/overview) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
 1. Expand **Staging options** to include:
     - Optional [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
-    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch. 
+    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch.
     :::info
-    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority. 
+    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
     :::
 1. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
 1. Configure any advanced options described in the next section, as needed.
@@ -107,7 +107,7 @@ Seqera Platform compute environments for EKS include advanced options for storag
 
 ```yaml
 spec:
-    nodeSelector:
+  nodeSelector:
     disktype: ssd
 ```
 
@@ -122,7 +122,7 @@ See [Launch pipelines](../launch/launchpad) to start executing workflows in your
 
 To use [Fusion v2](https://docs.seqera.io/fusion) in your Seqera EKS compute environment:
 1. Use Seqera Platform version 23.1 or later.
-1. Use an S3 bucket as the pipeline work directory. 
+1. Use an S3 bucket as the pipeline work directory.
 1. Both the head service and compute service accounts must have access to the S3 bucket specified as the work directory.
 
 <details>
@@ -191,4 +191,3 @@ To use [Fusion v2](https://docs.seqera.io/fusion) in your Seqera EKS compute env
     See the [AWS documentation](https://docs.aws.amazon.com/eks/latest/userguide/associate-service-account-role.html) for further details.
 
 </details>
-
