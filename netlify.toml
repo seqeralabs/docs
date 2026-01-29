@@ -13,7 +13,7 @@
   command = "npm run fetch-docs-oss && npm run build"
 
 [context.deploy-preview]
-  command = "npm run fetch-docs-oss && sleep 5 && npm run build"
+  command = "echo '=== System Resources ===' && echo 'CPUs:' && nproc && echo 'Memory:' && free -h && echo '======================' && npm run fetch-docs-oss && sleep 5 && npm run build"
 
 [context.deploy-preview.build.environment]
   INCLUDE_NEXT="true"
