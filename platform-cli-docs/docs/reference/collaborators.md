@@ -29,6 +29,9 @@ tw collaborators list [OPTIONS]
 | `--offset` | Row offset for paginated results (default: 0) | No | `null` |
 | `--max` | Maximum number of records to display (default: ) | No | `null` |
 
+### Example
+
+
 Command:
 
 ```bash

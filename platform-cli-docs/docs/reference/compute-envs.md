@@ -101,6 +101,9 @@ tw compute-envs delete [OPTIONS]
 | `-n`, `--name` | Compute environment name. | No | `null` |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
 
+### Example
+
+
 Command:
 
 ```bash

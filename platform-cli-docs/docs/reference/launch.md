@@ -43,6 +43,9 @@ tw launch [OPTIONS]
 | `--head-job-memory` | Memory allocation for the Nextflow head job in megabytes. | No | `null` |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
 
+### Example
+
+
 Command:
 
 ```bash

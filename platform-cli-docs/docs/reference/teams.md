@@ -98,6 +98,9 @@ tw teams delete [OPTIONS]
 | `-i`, `--id` | Team numeric identifier. The unique ID assigned when the team was created. Find team IDs using 'tw teams list'. | Yes | `null` |
 | `-o`, `--organization` | Organization name or numeric ID. Specify either the unique organization name or the numeric organization ID returned by 'tw organizations list'. | Yes | `null` |
 
+### Example
+
+
 Command:
 
 ```bash
