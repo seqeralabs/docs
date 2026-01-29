@@ -8,7 +8,7 @@
       "link": {
         "type": "doc",
         "id": "enterprise/overview"
-      },      
+      },
       "items": [
         {
           "type": "category",
@@ -51,7 +51,6 @@
           "label": "Advanced topics",
           "collapsed": true,
           "items": [
-            "enterprise/advanced-topics/db-docker-to-RDS",
             "enterprise/advanced-topics/use-iam-role",
             "enterprise/advanced-topics/custom-launch-container",
             "enterprise/advanced-topics/firewall-configuration"
@@ -238,7 +237,7 @@
       "type": "link",
       "label": "Enterprise changelog",
       "href": "/changelog/tags/seqera-enterprise"
-    },  
+    },
     "faqs"
   ]
 }

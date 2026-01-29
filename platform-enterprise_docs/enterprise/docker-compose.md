@@ -1,17 +1,50 @@
 ---
-title: "Docker Compose"
+title: "Platform: Docker Compose"
 description: Deploy Seqera Platform Enterprise with Docker Compose
 date: "12 Feb 2024"
 tags: [docker, compose, deployment]
 ---
 
-This guide assumes that all prerequisites have been met. Visit the corresponding **Prerequisites** page for your infrastructure provider.
+Docker Compose deployments are suitable for evaluation, development, and small production workloads.
 
-Seqera recommends configuring your database or Redis details in either `tower.yml` or `docker-compose.yml`, but not both.
+## Prerequisites
 
-:::note
-The DB or Redis volume is persistent after a Docker restart by default. Use the `volumes` key in the `db` or `redis` section of your `docker-compose.yml` file to specify a local path to the DB or Redis instance. For your database or Redis volume to be ephemeral, remove the `volumes` key altogether.
-:::
+Before you begin, you need:
+- Docker Engine and Docker Compose
+- A MySQL 8 database
+- A Redis 7 instance
+
+## Container images
+
+Seqera Enterprise container images are hosted on a private registry (`cr.seqera.io`). Access is provided as part of your purchase. Contact [support](https://support.seqera.io) if you require access.
+
+We recommend mirroring these images to your own private container registry for production use. See [Mirroring container images](./configuration/mirroring) for details.
+
+## Database configuration
+
+Create a MySQL database and user for Seqera:
+
+```sql
+CREATE DATABASE tower;
+CREATE USER 'tower'@'%' IDENTIFIED BY 'your_secure_password';
+GRANT ALL PRIVILEGES ON tower.* TO 'tower'@'%';
+```
+
+See [Database configuration](./configuration/overview#seqera-and-redis-databases) for details.
+
+## Redis configuration
+
+Configure the Redis connection URL in your Seqera environment:
+
+```bash
+TOWER_REDIS_URL=redis://<redis-host>:6379
+```
+
+Use a managed Redis service for production:
+- [Amazon ElastiCache](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/WhatIs.html) (`cache.m4.large` or larger)
+- [Azure Cache for Redis](https://learn.microsoft.com/en-gb/azure/azure-cache-for-redis/cache-overview) (C3 tier or larger)
+- [Google Memorystore](https://cloud.google.com/memorystore/docs/redis) (M2 tier or larger)
+
 
 ## Deploy Seqera Enterprise
 
