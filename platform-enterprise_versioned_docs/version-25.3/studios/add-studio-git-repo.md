@@ -58,7 +58,7 @@ session:
 
 The schema can define a custom `Dockerfile` or an `environment.yaml` file, which must be in the `.seqera` folder. The following limitations apply:
 
-- Define the target repository where your custom Studios images will be pushed by setting the `TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REGISTRY` and `TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REPOSITORY` environment variables on the Platform backend containers. If no repository configuration is specified, the build will fail.
+- Define the target repository where your custom Studio images will be pushed by setting the `TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REGISTRY` and `TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REPOSITORY` environment variables on the Platform backend containers. If no repository configuration is specified, the build will fail.
 - Each workspace needs to have valid credentials to push to the repository you've specified.
 - The only supported repository and compute environment combination for a fully private Dockerfile-based Studio is ECR and AWS.
 - The files pulled for Dockerbuild context have individual and total file size limits:
