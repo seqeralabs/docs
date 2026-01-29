@@ -229,10 +229,15 @@ export default async function createConfigAsync() {
 
     onBrokenLinks:
       process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
-    onBrokenMarkdownLinks:
-      process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
     onBrokenAnchors:
       process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
+
+    markdown: {
+      hooks: {
+        onBrokenMarkdownLinks:
+          process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
+      },
+    },
 
     customFields: {
       // Put your custom environment here
