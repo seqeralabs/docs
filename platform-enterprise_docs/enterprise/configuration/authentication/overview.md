@@ -172,16 +172,6 @@ tower:
   ephemeral:
     duration: 12h
 
-micronaut:
-  security:
-    token:
-      jwt:
-        signatures:
-          refresh-token:
-            expiration: 12h
-      refresh:
-        cookie:
-          cookie-max-age: 14h
 ```
 
 ## User access allow list
