@@ -12,17 +12,44 @@
       "items": [
         {
           "type": "category",
-          "label": "Prerequisites",
+          "label": "Platform",
+          "collapsed": true,
           "link": {
             "type": "doc",
-            "id": "enterprise/prerequisites/common"
+            "id": "enterprise/install-platform"
           },
-          "collapsed": true,
           "items": [
-            "enterprise/prerequisites/aws",
-            "enterprise/prerequisites/azure",
-            "enterprise/prerequisites/gcp",
-            "enterprise/prerequisites/on-prem"
+            "enterprise/helm",
+            "enterprise/kubernetes",
+            "enterprise/docker-compose"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Studios",
+          "collapsed": true,
+          "link": {
+            "type": "doc",
+            "id": "enterprise/install-studios"
+          },
+          "items": [
+            "enterprise/studios-kubernetes",
+            "enterprise/studios-docker-compose",
+            "enterprise/studios"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Pipeline optimization",
+          "collapsed": true,
+          "link": {
+            "type": "doc",
+            "id": "enterprise/install-groundswell"
+          },
+          "items": [
+            "enterprise/groundswell-kubernetes",
+            "enterprise/groundswell-docker-compose",
+            "enterprise/configuration/pipeline_optimization"
           ]
         },
         {
@@ -31,34 +58,38 @@
           "collapsed": true,
           "items": [
             "enterprise/configuration/overview",
-            "enterprise/configuration/authentication",
-            "enterprise/configuration/aws_parameter_store",
+            {
+              "type": "category",
+              "label": "Authentication",
+              "collapsed": true,
+              "link": {
+                "type": "doc",
+                "id": "enterprise/configuration/authentication/overview"
+              },
+              "items": [
+                "enterprise/configuration/authentication/email",
+                "enterprise/configuration/authentication/github",
+                "enterprise/configuration/authentication/google",
+                "enterprise/configuration/authentication/keycloak",
+                "enterprise/configuration/authentication/entra",
+                "enterprise/configuration/authentication/okta"
+              ]
+            },
             "enterprise/configuration/networking",
-            "enterprise/configuration/reverse_proxy",
             "enterprise/configuration/ssl_tls",
-            "enterprise/configuration/pipeline_optimization",
+            "enterprise/configuration/reverse_proxy",
+            "enterprise/configuration/aws_parameter_store",
             "enterprise/configuration/wave",
-            "enterprise/studios"
+            "enterprise/configuration/mirroring"
           ]
         },
-        {
-          "type": "category",
-          "label": "Deployment",
-          "collapsed": true,
-          "items": [
-            "enterprise/helm",
-            "enterprise/kubernetes",
-            "enterprise/docker-compose",
-            "enterprise/testing",
-            "enterprise/upgrade"
-          ]
-        },
+        "enterprise/testing",
+        "enterprise/upgrade",
         {
           "type": "category",
           "label": "Advanced",
           "collapsed": true,
           "items": [
-            "enterprise/advanced-topics/db-docker-to-RDS",
             "enterprise/advanced-topics/use-iam-role",
             "enterprise/advanced-topics/custom-launch-container",
             "enterprise/advanced-topics/firewall-configuration",
@@ -91,8 +122,7 @@
         "getting-started/quickstart-demo/add-data",
         "getting-started/quickstart-demo/launch-pipelines",
         "getting-started/quickstart-demo/monitor-runs",
-        "getting-started/quickstart-demo/automation",
-        "getting-started/production-checklist"
+        "getting-started/quickstart-demo/automation"
       ]
     },
     {
@@ -104,23 +134,17 @@
         {
           "type": "category",
           "label": "Container registry credentials",
-          "link": {
-            "type": "doc",
-            "id": "credentials/container_registry_credentials"
-          },
-          "collapsed": true,
           "items": [
+            "credentials/docker_hub_registry_credentials",
             "credentials/aws_registry_credentials",
             "credentials/azure_registry_credentials",
-            "credentials/docker_hub_registry_credentials",
-            "credentials/gitea_registry_credentials",
-            "credentials/github_registry_credentials",
-            "credentials/gitlab_registry_credentials",
             "credentials/google_registry_credentials",
-            "credentials/quay_registry_credentials"
+            "credentials/quay_registry_credentials",
+            "credentials/gitlab_registry_credentials",
+            "credentials/github_registry_credentials",
+            "credentials/gitea_registry_credentials"
           ]
         },
-        "credentials/data_repositories",
         "credentials/managed_identities",
         "credentials/ssh_credentials",
         "credentials/agent_credentials"
@@ -138,7 +162,6 @@
             "compute-envs/aws-batch",
             "compute-envs/aws-cloud",
             "compute-envs/azure-batch",
-            "compute-envs/azure-cloud",
             "compute-envs/google-cloud-batch",
             "compute-envs/google-cloud",
             "compute-envs/eks",
@@ -197,9 +220,9 @@
       "label": "Studios",
       "items": [
         "studios/overview",
-        "studios/add-studio",
         "studios/container-images",
         "studios/custom-envs",
+        "studios/add-studio",
         "studios/managing",
         "studios/connect"
       ]

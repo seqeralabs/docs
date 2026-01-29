@@ -164,7 +164,6 @@
           "collapsed": true,
           "items": [
             "enterprise/advanced-topics/cloudformation",
-            "enterprise/advanced-topics/db-docker-to-RDS",
             "enterprise/advanced-topics/custom-launch-container",
             "enterprise/advanced-topics/seqera-container-images",
             "enterprise/advanced-topics/use-iam-role"
