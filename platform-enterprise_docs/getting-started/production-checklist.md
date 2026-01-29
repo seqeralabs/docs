@@ -14,7 +14,7 @@ Organizations are the top-level structure and contain workspaces, members, and t
 
 You can create multiple organizations within Seqera Platform, each of which can contain multiple workspaces with shared users and resources. This means you can customize and organize the use of resources while maintaining an access control layer for users associated with a workspace.
 
-Before you create your organizations and workspaces, consider the various roles and work streams that you'd like to start with and scale to. See [Organizations](https://docs.seqera.io/platform-cloud/orgs-and-teams/organizations) for more information.
+Before you create your organizations and workspaces, consider the various roles and work streams that you'd like to start with and scale to. See [Organizations](../orgs-and-teams/organizations) for more information.
 
 ## Users and roles
 
@@ -28,11 +28,11 @@ Organization members have specific roles and permissions that define their acces
 
 All users can be assigned roles that grant the type of access and permissions they have to resources within Platform.
 
-It's a good idea to map out the expected users and their roles to ensure your plans are scalable. See [User roles](../orgs-and-teams/custom-roles.md) for more information.
+It's a good idea to map out the expected users and their roles to ensure your plans are scalable. See [User roles](../orgs-and-teams/custom-roles) for more information.
 
 ## Infrastructure
 
-Infrastructural requirements vary widely depending on the workload you expect. See [Enterprise installation](https://docs.seqera.io/platform-enterprise/latest/enterprise/overview) for an outline of Platform components.
+Infrastructura requirements vary widely depending on the workload you expect. See [Enterprise installation](../enterprise/overview) for an outline of Platform components.
 
 To begin, build out a proof of concept using the below recommendations and create a baseline of your capacity requirements. When you are ready to move to production, consider the increased workload.
 
@@ -80,11 +80,11 @@ These autoscale for pipeline runs, but the sizing recommendation will be based o
 
 One way to mitigate issues with Spot reclamation and the resulting interruptions is by having a robust retry and resume strategy. The are multiple options available to you:
 
-- [Handle retries in Nextflow by setting `errorStrategy` and `maxRetries`](https://docs.seqera.io/platform-cloud/tutorials/retry-strategy#handle-retries-in-nextflow-by-setting-errorstrategy-and-maxretries)
-- [Handle retries in AWS by setting `aws.batch.maxSpotAttempts`](https://docs.seqera.io/platform-cloud/tutorials/retry-strategy#handle-retries-in-aws-by-setting-awsbatchmaxspotattempts)
-- [Implement Spot to On-Demand fallback logic](https://docs.seqera.io/platform-cloud/tutorials/retry-strategy#implement-spot-to-on-demand-fallback-logic)
+- [Handle retries in Nextflow by setting `errorStrategy` and `maxRetries`](../tutorials/retry-strategy#handle-retries-in-nextflow-by-setting-errorstrategy-and-maxretries)
+- [Handle retries in AWS by setting `aws.batch.maxSpotAttempts`](../tutorials/retry-strategy#handle-retries-in-aws-by-setting-awsbatchmaxspotattempts)
+- [Implement Spot to On-Demand fallback logic](../tutorials/retry-strategy#implement-spot-to-on-demand-fallback-logic)
 
-Refer to [our retry strategy tutorial](https://docs.seqera.io/platform-cloud/tutorials/retry-strategy) for more information.
+Refer to [our retry strategy tutorial](../tutorials/retry-strategy) for more information.
 
 ## Cost management and alerts
 
