@@ -55,6 +55,25 @@ export default async function createConfigAsync() {
       docItemComponent: "@theme/ApiItem",
     },
   ];
+
+  const docs_platform_cli = [
+    "@docusaurus/plugin-content-docs",
+    {
+      id: "platform-cli",
+      routeBasePath: "/platform-cli",
+      path: "platform-cli-docs/docs",
+      remarkPlugins: [
+        (await import("remark-code-import")).default,
+        (await require("remark-math")).default,
+        (await import("docusaurus-remark-plugin-tab-blocks")).default,
+        (await require("remark-yaml-to-table")).default,
+      ],
+      rehypePlugins: [(await require("rehype-katex")).default],
+      sidebarPath: "platform-cli-docs/docs/sidebar/sidebar.js",
+      editUrl: "https://github.com/seqeralabs/docs/tree/master/",
+    },
+  ];
+
   const docs_platform_openapi = [
     "docusaurus-plugin-openapi-docs",
     {
@@ -156,6 +175,8 @@ export default async function createConfigAsync() {
       (process.env.EXCLUDE_PLATFORM_CLOUD ? true : false),
     "\n  EXCLUDE_PLATFORM_API: " +
       (process.env.EXCLUDE_PLATFORM_API ? true : false),
+    "\n  EXCLUDE_PLATFORM_CLI: " +
+      (process.env.EXCLUDE_PLATFORM_CLI ? true : false),
     "\n  EXCLUDE_PLATFORM_OPENAPI: " +
       (process.env.EXCLUDE_PLATFORM_OPENAPI ? true : false),
     "\n  EXCLUDE_MULTIQC: " + (process.env.EXCLUDE_MULTIQC ? true : false),
@@ -261,6 +282,7 @@ export default async function createConfigAsync() {
       process.env.EXCLUDE_PLATFORM_ENTERPRISE ? null : docs_platform_enterprise,
       process.env.EXCLUDE_PLATFORM_CLOUD ? null : docs_platform_cloud,
       process.env.EXCLUDE_PLATFORM_API ? null : docs_platform_api,
+      process.env.EXCLUDE_PLATFORM_CLI ? null : docs_platform_cli,
       process.env.EXCLUDE_PLATFORM_OPENAPI ? null : docs_platform_openapi,
       process.env.EXCLUDE_MULTIQC ? null : docs_multiqc,
       process.env.EXCLUDE_FUSION ? null : docs_fusion,
@@ -294,30 +316,30 @@ export default async function createConfigAsync() {
 
     themeConfig: {
       image: "img/share.jpg",
-      
+
       // Typesense search configuration
       typesense: {
         typesenseCollectionName: 'seqera_docs',
         searchPagePath: '/search',
-        
+
         typesenseServerConfig: {
           nodes: [{
-            host: '9scwdgbn4v8r1lyfp.a1.typesense.net', 
+            host: '9scwdgbn4v8r1lyfp.a1.typesense.net',
             port: 443,
             protocol: 'https',
           }],
-          apiKey: 'UUIEzlGORRp9lV5GndPR1zYBVBCPIJOl', 
+          apiKey: 'UUIEzlGORRp9lV5GndPR1zYBVBCPIJOl',
           connectionTimeoutSeconds: 2,
         },
 
         typesenseSearchParameters: {
-          query_by: 'content,hierarchy.lvl0,hierarchy.lvl1,hierarchy.lvl2,hierarchy.lvl3',          
+          query_by: 'content,hierarchy.lvl0,hierarchy.lvl1,hierarchy.lvl2,hierarchy.lvl3',
         },
 
         contextualSearch: true,
         placeholder: 'Search Seqera docs...',
       },
-      
+
       navbar: {
         logo: {
           alt: "Seqera",
@@ -376,6 +398,11 @@ export default async function createConfigAsync() {
           {
             to: "/platform-api",
             label: "Platform API",
+            position: "left",
+          },
+          {
+            to: "/platform-cli",
+            label: "Platform CLI",
             position: "left",
           },
         ],
