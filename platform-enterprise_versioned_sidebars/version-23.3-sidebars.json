@@ -142,13 +142,13 @@
           "label": "Monitoring",
           "items": [
             {
-            "type": "category",
-            "label": "Runs",
-            "items": [
-              "monitoring/overview",
-              "monitoring/dashboard",
-              "monitoring/run-details"
-            ]
+              "type": "category",
+              "label": "Runs",
+              "items": [
+                "monitoring/overview",
+                "monitoring/dashboard",
+                "monitoring/run-details"
+              ]
             },
             "monitoring/audit-logs",
             "monitoring/cloud-costs"
@@ -188,7 +188,7 @@
         {
           "type": "category",
           "label": "Advanced options",
-          "items":[
+          "items": [
             "enterprise/advanced-topics/manual-aws-batch-setup"
           ]
         }
@@ -201,15 +201,10 @@
       "items": [
         "api/overview",
         {
-          "type": "category",
+          "type": "link",
           "label": "CLI",
-          "collapsed": true,
-          "items": [
-            "cli/overview",
-            "cli/installation",
-            "cli/commands"
-          ]
-          },
+          "href": "https://docs.seqera.io/platform-cli"
+        },
         {
           "type": "category",
           "label": "Seqerakit",
@@ -220,8 +215,8 @@
             "seqerakit/yaml-configuration",
             "seqerakit/templates"
           ]
-          }
-    ]
+        }
+      ]
     },
     {
       "type": "category",
