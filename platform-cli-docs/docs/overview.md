@@ -6,9 +6,6 @@ tags: [cli, tower]
 slug: /
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 Seqera Platform CLI brings concepts like pipelines and compute environments to the terminal.
 
 The CLI interacts with Platform to provide an interface to launch pipelines, manage cloud resources, and administer your analysis.
@@ -21,7 +18,7 @@ The CLI interacts with Platform to provide an interface to launch pipelines, man
 
 - **Infrastructure as Code**: All Platform resources, including pipelines and compute environments, can be described in a declarative manner. This enables a complete definition of an analysis environment that can be versioned and treated as code. It greatly simplifies configuration sharing and routine administration.
 
-- **Built on OpenAPI**: tw CLI interacts with Platform via the [Seqera Platform API](https://cloud.seqera.io/openapi/index.html) which uses the OpenAPI 3.0 specification. The CLI provides full control of the Platform application, allowing users to get maximum insights into pipeline submissions and execution environments.
+- **Built on OpenAPI**: tw CLI interacts with Platform via the [Seqera Platform API](https://docs.seqera.io/platform-api) which uses the OpenAPI 3.0 specification. The CLI provides full control of the Platform application, allowing users to get maximum insights into pipeline submissions and execution environments.
 
 ### Availability
 
