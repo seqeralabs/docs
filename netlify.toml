@@ -7,13 +7,13 @@
   NODE_OPTIONS = "--max_old_space_size=8192"
 
 [context.production]
-  command = "(echo 'Git backfill start' && git backfill && echo 'Git backfill end') & (echo 'Build start' && npm run fetch-docs-oss && npm run build && echo 'Build end') & wait"
+  command = "npm run fetch-docs-oss && npm run build"
 
 [context.branch-deploy]
-  command = "(echo 'Git backfill start' && git backfill && echo 'Git backfill end') & (echo 'Build start' && npm run fetch-docs-oss && npm run build && echo 'Build end') & wait"
+  command = "npm run fetch-docs-oss && npm run build"
 
 [context.deploy-preview]
-  command = "(echo 'Git backfill start' && git backfill && echo 'Git backfill end') & (echo 'Build start' && npm run fetch-docs-oss && npm run build && echo 'Build end') & wait"
+  command = "npm run fetch-docs-oss && sleep 5 && npm run build"
 
 [context.deploy-preview.build.environment]
   INCLUDE_NEXT="true"
