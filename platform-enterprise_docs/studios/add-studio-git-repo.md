@@ -1,15 +1,15 @@
 ---
 title: "Import from Git repository"
-description: "Add a Studio from a Git repository in Platform."
+description: "Add a Studio in Platform."
 date created: "2025-09-04"
 last updated: "2025-12-12"
-tags: [studio-git, git-repository, session, studios]
+tags: [studio-git, git-repository, session, studios, git, version-control]
 ---
 
 :::info[**Prerequisites**]
 You will need the following to get started:
 
-- **Maintain** role permissions (minimum)
+- **Maintain** role permissions or above
 - A compute environment with sufficient resources (scale based on data volume)
 - [Data Explorer](../data/data-explorer) enabled
 - Git credentials configured in your workspace
@@ -22,47 +22,44 @@ You will need the following to get started:
 - Data-links currently cannot be referenced in Git repositories. Mount data manually when adding a Studio.
 - Git repositories with multiple Studio configurations are not supported. However, it is possible to use a Git repository with multiple branches and a single configuration per branch.
 
-### Create configuration files 
+### Create the required configuration files
 
-**`.seqera/studio-config.yaml` configuration file**
-
-Create a `studio-config.yaml` file in the the `.seqera` directory in your repository. Your `studio-config.yaml` should contain at least `schemaVersion `, `kind` and `session.template.kind`. All other fields are optional.
-
+Create a `studio-config.yaml` file in the `.seqera` directory in your repository. Your `studio-config.yaml` should contain at least `schemaVersion `, `kind` and `session.template.kind`. All other fields are optional.
 
 ```yaml
 schemaVersion: "0.0.1"
 kind: "studio-config"
 session:
-    name: "studio-name"                          # Must be unique to a workspace. If undefined, an auto-generated name is used
-    description: "desc"                          # Short description of what the Studio is for
-    template:
-        kind: "registry"|"dockerfile"|"none"     # Required
-        registry: "cr.seqera.io/image:latest"    # Ignored for `dockerfile` and `none`
-        dockerfile: "Dockerfile"                 # Ignored for `registry` and `none`
-    clone:
-        enabled: true                            # Clone the contents of the repository to the Studio. Defaults to `true`
-        path: "/workspace"                       # Defaults to `/workspace`. If you want to clone to `/workspace/repository` then you need to specify this
-    dependencies:
-        condaEnvironmentFile: "environment.yaml" # Define additional libraries (and versions). Ignored for `dockerfile`
-    computeRequirements:
-        awsBatch:                                # Ignored for non-AWS batch CE
-            cpu: 2                               # Number of CPUs to use. Defaults to 2
-            gpu: 0                               # Number of GPUs to use (if the CE supports GPUs). Defaults to 0
-            memory: 8192                         # Memory allocated in MiB. Defaults to 8192.
-    environmentVariables:                        # Ordered sequence of elements that are objects (or mappings) of key-value pairs
-        -   name: "var1"
-            value: "value1"
-        -   name: "var2"
-            value: "value2"
-    management:                                  # Session management settings
-        lifespanHours: 1                         # Ignored if workspace lifespan is set
-        isPrivate: false                         # Defaults to `false`
+  name: "studio-name"                          # Must be unique to a workspace. If undefined, an auto-generated name is used
+  description: "desc"                          # Short description of what the Studio is for
+  template:
+    kind: "registry"|"dockerfile"|"none"       # Required
+    registry: "cr.seqera.io/image:latest"      # Ignored for `dockerfile` and `none`
+    dockerfile: "Dockerfile"                   # Ignored for `registry` and `none`
+  clone:
+    enabled: true                              # Clone the contents of the repository to the Studio. Defaults to `true`
+    path: "/workspace"                         # Defaults to `/workspace`. If you want to clone to `/workspace/repository` then you need to specify this
+  dependencies:
+    condaEnvironmentFile: "environment.yaml"   # Define additional libraries (and versions). Ignored for `dockerfile`
+  computeRequirements:
+    awsBatch:                                  # Ignored for non-AWS batch CE
+      cpu: 2                                   # Number of CPUs to use. Defaults to 2
+      gpu: 0                                   # Number of GPUs to use (if the CE supports GPUs). Defaults to 0
+      memory: 8192                             # Memory allocated in MiB. Defaults to 8192
+  environmentVariables:                        # Ordered sequence of elements that are objects (or mappings) of key-value pairs
+    - name: "var1"
+      value: "value1"
+    - name: "var2"
+      value: "value2"
+  management:                                  # Session management settings
+    lifespanHours: 1                           # Ignored if workspace lifespan is set
+    isPrivate: false                           # Defaults to `false`
 ```
 
 The schema can define a custom `Dockerfile` or an `environment.yaml` file, which must be in the `.seqera` folder. The following limitations apply:
 
-- You must configure a target repository using the `TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REGISTRY` and `TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REPOSITORY` environment variables. If no repository configuration is specified, the build will fail.
-- Each workspace must contain credentials with permissions to push to the repository you've specified.
+- Define the target repository where your custom images will be pushed by setting the `TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REGISTRY` and `TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REPOSITORY` environment variables on the Platform backend containers. If no repository configuration is specified, the build will fail.
+- Each workspace needs to have valid credentials to push to the repository you've specified.
 - The only supported repository and compute environment combination for a fully private Dockerfile-based Studio is ECR and AWS.
 - The files pulled for Dockerbuild context have individual and total file size limits:
   - Individual files cannot be larger than 5 MB.
@@ -79,10 +76,7 @@ You can add a Studio by referencing a Git repository containing Studio configura
 - **Git repository**: Enter the full URL to your Git repository (e.g., `https://github.com/your-org/your-repo`).
 - **Revision**: Select a branch, tag, or commit from the dropdown. The dropdown is dynamically populated based on the repository URL. If no revision is selected, the default branch is used.
 - **Install Conda packages**: A list of conda packages to include with the Studio. For more information on package syntax, see [conda package syntax][conda-syntax].
- :::note
-  You need to configure a target repository using the `TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REGISTRY` and `TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REPOSITORY` environment variables. If no repository configuration is specified, the build will fail.
- :::
-- **Resource labels**: Any [resource label](../labels/overview) already defined for the compute environment is added by default. Additional custom resource labels can be added or removed as needed.
+- **Resource labels**: Any [resource label](../labels/overview) already defined for the compute environment is added by default, but can be removed. Additional custom resource labels can be added or removed as needed.
 - **Environment variables**: Environment variables for the session. All variables from the selected compute environment are automatically inherited and displayed. Additional session-specific variables can be added. Session-level variables take precedence. To override an inherited variable, define the same key with a different value.
 - **Studio name**: The name for the Studio.
 - **Description** (optional): A description for the Studio.
@@ -92,7 +86,7 @@ You can add a Studio by referencing a Git repository containing Studio configura
     :::
 - **Session lifespan**: The duration the session remains active. Available options depend on your workspace settings:
     - **Stop the session automatically after a predefined period of time**: An automatic timeout for the session (minimum: 1 hour; maximum: 120 hours; default: 8 hours). If a workspace-level session lifespan is configured, this field cannot be edited. Changes apply only to the current session and revert to default values after the session stops.
-    - **Keep the session running:** Continuous session operation until manually stopped or an error terminates it. The session continues consuming compute resources until stopped.
+    - **Keep the session running**: Continuous session operation until manually stopped or an error terminates it. The session continues consuming compute resources until stopped.
 
  :::note
  When the **Git URL** or **Revision** fields are changed, form field values dynamically update.
@@ -110,11 +104,11 @@ Once the Studio session is running, mounted data are accessible at `/workspace/d
 
 Sessions have read-only access to mounted data by default. Enable write permissions by adding AWS S3 buckets as **Allowed S3 Buckets** in your compute environment configuration.
 
-Files uploaded to a mounted bucket during an active session may not be immediately available within that session. [More information](../troubleshooting_and_faqs/studios_troubleshooting#running-session-does-not-show-new-data-in-object-storage).
+Files uploaded to a mounted bucket during an active session may not be immediately available within that session. See [Running session does not show new data in object storage](../troubleshooting_and_faqs/studios_troubleshooting#running-session-does-not-show-new-data-in-object-storage) for more information.
 
 ### Repository cloning
 
-When a Studio session starts from a Git repository, the repository contents are cloned into the session, using the same commit that was selected, or resolved, when the Studio was first created. For example, repository `https://github.com/seqeralabs/studio-templates.git` clones to `/workspace/studio-templates/` with `README.md` at `/workspace/studio-templates/README.md`.
+When a Studio session starts from a Git repository, the repository contents are cloned into the session, using the same commit that was selected, or resolved, when the Studio was first created. For example, repository `https://github.com/seqeralabs/studio-templates.git` clones to `/workspace/` with `README.md` at `/workspace/README.md`.
 
 You can disable cloning, which allows you to share a public/private template. You can define the clone path configuration in the schema without the need to build a different Docker image.
 
@@ -128,10 +122,10 @@ You can disable cloning, which allows you to share a public/private template. Yo
 
    1. Review the configuration to ensure all settings are correct.
    1. Save your configuration:
-      - To save and immediately start your Studio, select **Add and start**. 
+      - To save and immediately start your Studio, select **Add and start**.
       - To save but not immediately start your Studio, select **Add only**.
 
-Studios you create will be listed on the Studios landing page with a status of either **stopped** or **starting**. Select a Studio to inspect its configuration details. 
+Studios you create will be listed on the Studios landing page with a status of either **stopped** or **starting**. Select a Studio to inspect its configuration details.
 
 {/* links */}
 [github-examples]: https://github.com/seqeralabs/studio-schema-examples
