@@ -247,7 +247,6 @@ export default async function createConfigAsync() {
     plugins: [
       docs_platform_enterprise,
       docs_platform_cloud,
-      docs_platform_api,
       docs_platform_openapi,
       docs_multiqc,
       docs_fusion,

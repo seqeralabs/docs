@@ -4,8 +4,12 @@ import { visit } from 'unist-util-visit';
 import { fromMarkdown } from 'mdast-util-from-markdown'
 import YAML from 'yaml';
 
-// Memory-optimized version with caching to reduce repeated markdown parsing
+// Memory-optimized version with global caching to reduce repeated markdown parsing and YAML loading
 // Original: https://github.com/seqeralabs/remark-yaml-to-table/blob/master/src/index.js
+
+// Global caches persist across all files in a build
+const globalMarkdownCache = new Map();
+const globalYamlCache = new Map();
 
 function generateTableMdast(parsedData = [], markdownCache) {
   // Extract headers (assuming all rows have the same columns)
@@ -48,11 +52,41 @@ function parseMarkdownCached(text, cache) {
 
   // Parse and cache (limit cache size to prevent unbounded growth)
   const result = fromMarkdown(text).children;
-  if (cache.size < 2000) {
+  if (cache.size < 5000) {
     cache.set(text, result);
   }
 
   return result;
+}
+
+// Cache YAML file loading and parsing
+function loadYamlCached(fileAbsPath, cache) {
+  // Check cache first
+  if (cache.has(fileAbsPath)) {
+    return cache.get(fileAbsPath);
+  }
+
+  // Load and parse YAML
+  let yamlContent;
+  try {
+    yamlContent = fs.readFileSync(fileAbsPath, 'utf8');
+  } catch(err) {
+    throw new Error(`Cannot open '${fileAbsPath}'`);
+  }
+
+  let parsedData;
+  try {
+    parsedData = YAML.parse(yamlContent);
+  } catch(err) {
+    throw new Error(`Cannot parse YAML: ${err.message}`);
+  }
+
+  // Cache the result (limit cache size)
+  if (cache.size < 500) {
+    cache.set(fileAbsPath, parsedData);
+  }
+
+  return parsedData;
 }
 
 // Based on code from:
@@ -65,8 +99,7 @@ function yamlToGfmTable(options = {}) {
   }
 
   return function transformer(tree, file) {
-    // Create a cache per file transformation to avoid memory leaks
-    const markdownCache = new Map();
+    // Use global caches that persist across all files in the build
     const nodes = [];
 
     // directives remark plugin includes an `attributes` key
@@ -75,9 +108,6 @@ function yamlToGfmTable(options = {}) {
     });
 
     for(const node of nodes) {
-      let parsedData = [];
-      let yamlContent = `---`;
-
       // directive name, for example:
       // ::table{file=my.yaml}
       if(node.name !== 'table') continue;
@@ -106,32 +136,15 @@ function yamlToGfmTable(options = {}) {
         }
       }
 
-      try {
-        yamlContent = fs.readFileSync(fileAbsPath, 'utf8');
-      }
-      catch(err) {
-        throw new Error(`Cannot open '${fileAbsPath}'`);
-      }
+      // Load and parse YAML using global cache
+      const parsedData = loadYamlCached(fileAbsPath, globalYamlCache);
 
-      try {
-        parsedData = YAML.parse(yamlContent);
-       }
-      catch(err) {
-        throw new Error(`Cannot parse YAML: ${err.message}`);
-      }
-
-      const tableHast = generateTableMdast(parsedData, markdownCache);
+      // Generate table using global markdown cache
+      const tableHast = generateTableMdast(parsedData, globalMarkdownCache);
 
       // Replace the directive node with our table hast node
       Object.assign(node, tableHast);
-
-      // Clear parsed data to help GC
-      parsedData = null;
-      yamlContent = null;
     }
-
-    // Clear the cache after processing all nodes in this file
-    markdownCache.clear();
   }
 }
 
