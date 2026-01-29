@@ -32,7 +32,7 @@ It's a good idea to map out the expected users and their roles to ensure your pl
 
 ## Infrastructure
 
-Infrastructura requirements vary widely depending on the workload you expect. See [Enterprise installation](../enterprise/overview) for an outline of Platform components.
+Infrastructure requirements vary widely depending on the workload you expect. See [Enterprise installation](../enterprise/overview) for an outline of Platform components.
 
 To begin, build out a proof of concept using the below recommendations and create a baseline of your capacity requirements. When you are ready to move to production, consider the increased workload.
 
