@@ -71,6 +71,7 @@
     "fs-extra": "^11.1.1",
     "gray-matter": "^4.0.3",
     "markdownlint-cli2": "^0.17.1",
+    "netlify-plugin-cache": "^1.0.3",
     "path": "^0.12.7",
     "postcss": "^8.4.32",
     "prettier": "^3.6.2",
