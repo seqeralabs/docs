@@ -1,7 +1,7 @@
 ---
 title: "Studio configuration"
 description: "Configure Studio sessions with self-hosted Wave for custom container builds."
-date created: "2026-01-17"
+date created: "2026-01-29"
 tags: [data, session, studios]
 ---
 
