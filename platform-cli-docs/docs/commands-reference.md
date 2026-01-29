@@ -103,4 +103,4 @@ export TOWER_WORKSPACE_ID=123456789012345
 ## Next steps
 
 - See individual command references using the navigation
-- See [Installation](installation) for setup instructions and [Overview](overview) for CLI introduction
+- See [Installation](./installation) for setup instructions and [Overview](./overview) for CLI introduction
