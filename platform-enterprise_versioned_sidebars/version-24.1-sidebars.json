@@ -13,7 +13,10 @@
         {
           "type": "category",
           "label": "Prerequisites",
-          "link": {"type": "doc", "id": "enterprise/prerequisites/common"},
+          "link": {
+            "type": "doc",
+            "id": "enterprise/prerequisites/common"
+          },
           "collapsed": true,
           "items": [
             "enterprise/prerequisites/aws",
@@ -69,7 +72,7 @@
       "items": [
         "getting-started/rnaseq",
         "getting-started/proteinfold"
-        ]
+      ]
     },
     {
       "type": "category",
@@ -137,11 +140,11 @@
         {
           "type": "category",
           "label": "Advanced options",
-          "items":[
+          "items": [
             "enterprise/advanced-topics/manual-aws-batch-setup"
           ]
         }
-        ]
+      ]
     },
     {
       "type": "category",
@@ -159,13 +162,13 @@
         "launch/launchpad",
         "labels/overview",
         {
-        "type": "category",
-        "label": "Monitor runs",
-        "items": [
-          "monitoring/overview",
-          "monitoring/dashboard",
-          "monitoring/run-details"
-        ]
+          "type": "category",
+          "label": "Monitor runs",
+          "items": [
+            "monitoring/overview",
+            "monitoring/dashboard",
+            "monitoring/run-details"
+          ]
         },
         "reports/overview",
         "launch/cache-resume",
@@ -192,40 +195,36 @@
         "orgs-and-teams/workspace-management",
         "orgs-and-teams/roles",
         "monitoring/audit-logs"
-        ]
+      ]
     },
     {
       "type": "category",
       "label": "Developer tools",
       "collapsed": true,
       "items": [
-          {
-            "type": "link",
-            "label": "API",
-            "href": "https://docs.seqera.io/platform-api"
-          },        {
-          "type": "category",
+        {
+          "type": "link",
+          "label": "API",
+          "href": "https://docs.seqera.io/platform-api"
+        },
+        {
+          "type": "link",
           "label": "CLI",
+          "href": "https://docs.seqera.io/platform-cli"
+        },
+        {
+          "type": "category",
+          "label": "Seqerakit",
           "collapsed": true,
           "items": [
-            "cli/overview",
-            "cli/installation",
-            "cli/commands"
+            "seqerakit/installation",
+            "seqerakit/commands",
+            "seqerakit/yaml-configuration",
+            "seqerakit/templates"
           ]
-          },
-          {
-            "type": "category",
-            "label": "Seqerakit",
-            "collapsed": true,
-            "items": [
-              "seqerakit/installation",
-              "seqerakit/commands",
-              "seqerakit/yaml-configuration",
-              "seqerakit/templates"
-            ]
-            },
+        },
         "pipeline-actions/overview"
-        ]
+      ]
     },
     {
       "type": "category",
