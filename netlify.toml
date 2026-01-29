@@ -6,8 +6,12 @@
   NODE_VERSION = "24"
   NODE_OPTIONS = "--max_old_space_size=8192"
 
+[context.deploy-preview]
+  command = "npm run fetch-docs-oss && npm run build"
+
 [context.deploy-preview.build.environment]
   INCLUDE_NEXT="true"
+  DOCUSAURUS_SSG_WORKER_THREAD_COUNT="1"
 
 # Seqera API docs are too large to host / build on netlify on their own.
 # The appropriate ENVVAR is set to disable the API Builds on Netlify for the main docs site.

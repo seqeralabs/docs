@@ -32,6 +32,10 @@ export default async function createConfigAsync() {
       // For PR Previews we want to see the latest doc-set with expected changes.
       includeCurrentVersion: process.env.INCLUDE_NEXT ? true : false,
       lastVersion: platform_enterprise_latest_version,
+      // For previews, only build 25.X versions to save memory
+      ...(process.env.LIMIT_VERSIONS === "true" && {
+        onlyIncludeVersions: ["25.3"],
+      }),
       remarkPlugins: [
         (await import("remark-code-import")).default,
         (await require("remark-math")).default,
@@ -180,23 +184,17 @@ export default async function createConfigAsync() {
     /*
      * Enable faster Docusaurus optimizations (experimental v4 features)
      * Reference: https://github.com/facebook/docusaurus/issues/10556
-     *
-     * WARNING: swcJsMinimizer & lightningCssMinimizer are disabled due to memory issues
-     * - Cause excessive memory usage leading to build failures
-     * - The believe is that our 22k of OpenAPI docs causes this issue due to the way they are generated.
-     * - See: https://github.com/PaloAltoNetworks/docusaurus-openapi-docs/issues/1025
-     *
-     * These optimizations may require additional configuration when memory issues are resolved.
+     * Matching Facebook Docusaurus configuration for optimal build performance
      */
     future: {
       v4: true,
       experimental_faster: {
-        swcJsLoader: false,
-        swcJsMinimizer: false,
-        swcHtmlMinimizer: false,
-        lightningCssMinimizer: false,
+        swcJsLoader: true,
+        swcJsMinimizer: true,
+        swcHtmlMinimizer: true,
+        lightningCssMinimizer: true,
         rspackBundler: true,
-        mdxCrossCompilerCache: false,
+        mdxCrossCompilerCache: true,
         rspackPersistentCache: true,
       },
     },
