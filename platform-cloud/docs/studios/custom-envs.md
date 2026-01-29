@@ -2,7 +2,7 @@
 title: "Custom environments"
 description: "Custom environments for Studios"
 date created: "2024-10-01"
-last updated: "2025-09-30"
+last updated: "2026-01-29"
 tags: [environments, custom, studio, studio]
 ---
 
@@ -48,7 +48,11 @@ Public container registries are supported by default. Amazon Elastic Container R
 
 ### Dockerfile configuration {#dockerfile}
 
-For your custom container image, you must use a Seqera-provided base image and include several additional build steps for compatibility with Studios. To create a Studio with a custom image, see [Add a Studio][add-s].
+For your custom container image, you must use a Seqera-provided base image and include several additional build steps for compatibility with Studios. To create a Studio with a custom image, see [Add a Studio][add-s]. Custom images must include an `io.seqera.connect.version` label specifying the `connect-client` version used. Platform uses this label to determine available functionality when configuring and launching the Studio.
+
+:::note
+Studios will start without this label, but certain features (such as SSH connectivity) will be unavailable.
+:::
 
 #### Ports
 
