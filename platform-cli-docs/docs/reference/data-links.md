@@ -5,7 +5,7 @@ description: Manage data links
 
 # tw data-links
 
-Data-links allow you to work with public and private cloud storage buckets in [Data Explorer](/platform-cloud/data/data-explorer) in the specified workspace. AWS S3, Azure Blob Storage, and Google Cloud Storage are supported. The full list of operations are:
+Data-links allow you to work with public and private cloud storage buckets in [Data Explorer](https://docs.seqera.io/platform-cloud/data/data-explorer) in the specified workspace. AWS S3, Azure Blob Storage, and Google Cloud Storage are supported. The full list of operations are:
 
 - `list`: List data-links in a workspace
 - `add`: Add a custom data-link to a workspace

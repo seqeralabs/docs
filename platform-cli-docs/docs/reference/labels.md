@@ -5,7 +5,7 @@ description: Manage workspace labels
 
 # tw labels
 
-Manage workspace [labels](/platform-cloud/labels/overview) and [resource labels](/platform-cloud/resource-labels/overview).
+Manage workspace [labels](https://docs.seqera.io/platform-cloud/labels/overview) and [resource labels](https://docs.seqera.io/platform-cloud/resource-labels/overview).
 
 Run `tw labels -h` to view supported label operations.
 
@@ -28,8 +28,8 @@ tw labels add [OPTIONS]
 Run `tw labels add -h` to view the required and optional fields for adding a label.
 
 :::note
-[Resource labels](/platform-cloud/resource-labels/overview) consist of a `name=value` pair and can only be applied to compute environments, pipelines, runs, and actions.
-[Labels](/platform-cloud/labels/overview) require only a name and can be applied to pipelines, runs, and actions.
+[Resource labels](https://docs.seqera.io/platform-cloud/resource-labels/overview) consist of a `name=value` pair and can only be applied to compute environments, pipelines, runs, and actions.
+[Labels](https://docs.seqera.io/platform-cloud/labels/overview) require only a name and can be applied to pipelines, runs, and actions.
 :::
 
 ### Example

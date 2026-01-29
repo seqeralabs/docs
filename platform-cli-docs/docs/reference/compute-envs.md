@@ -7,7 +7,7 @@ description: Manage compute environments.
 
 Manage compute environments.
 
-Compute environments define the execution platform where a pipeline runs. A compute environment is composed of the credentials, configuration, and storage options related to a particular computing platform.  See [Compute environments](/platform-cloud/compute-envs/overview) for more information on supported providers.
+Compute environments define the execution platform where a pipeline runs. A compute environment is composed of the credentials, configuration, and storage options related to a particular computing platform.  See [Compute environments](https://docs.seqera.io/platform-cloud/compute-envs/overview) for more information on supported providers.
 
 Run `tw compute-envs -h` to view the list of supported compute environment operations.
 
@@ -50,7 +50,7 @@ This command will:
 - Use an existing S3 bucket to store the Nextflow work directory (`--work-dir`)
 - Wait until the compute environment has been successfully created and is ready to use (`--wait`)
 
-See the [compute environment](/platform-cloud/compute-envs/overview) page for your provider for detailed information on Batch Forge and manual compute environment creation.
+See the [compute environment](https://docs.seqera.io/platform-cloud/compute-envs/overview) page for your provider for detailed information on Batch Forge and manual compute environment creation.
 
 ## tw compute-envs update
 

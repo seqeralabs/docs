@@ -9,7 +9,7 @@ Manage pipeline runs.
 
 Run `tw runs -h` to view supported runs operations.
 
-Runs display all the current and previous pipeline runs in the specified workspace. Each new or resumed run is given a random name such as _grave_williams_ by default, which can be overridden with a custom value at launch. See [Run details](/platform-cloud/monitoring/run-details) for more information. As a run executes, it can transition through the following states:
+Runs display all the current and previous pipeline runs in the specified workspace. Each new or resumed run is given a random name such as _grave_williams_ by default, which can be overridden with a custom value at launch. See [Run details](https://docs.seqera.io/platform-cloud/monitoring/run-details) for more information. As a run executes, it can transition through the following states:
 
 - `submitted`: Pending execution
 - `running`: Running

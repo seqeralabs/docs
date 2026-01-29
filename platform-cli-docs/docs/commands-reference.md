@@ -11,7 +11,7 @@ This reference documents all `tw` CLI commands for managing Seqera Platform reso
 The CLI performs operations in the user workspace context by default. Use the `TOWER_WORKSPACE_ID` environment variable or the `--workspace` parameter to specify an organization workspace ID.
 :::
 
-## `--help` flag
+## --help flag
 
 Use `-h` or `--help` with any command to view available options:
 
@@ -103,4 +103,4 @@ export TOWER_WORKSPACE_ID=123456789012345
 ## Next steps
 
 - See individual command references using the navigation
-- See [Installation](/platform-cli/installation) for setup instructions and [Overview](/platform-cli) for CLI introduction
+- See [Installation](installation) for setup instructions and [Overview](overview) for CLI introduction

@@ -5,11 +5,11 @@ description: Manage workspace credentials
 
 # tw credentials
 
-To launch pipelines in a Platform workspace, you need [credentials](/platform-cloud/credentials/overview) for:
+To launch pipelines in a Platform workspace, you need [credentials](https://docs.seqera.io/platform-cloud/credentials/overview) for:
 
 1. Compute environments
 2. Pipeline repository Git providers
-3. (Optional) [Tower agent](/platform-cloud/supported_software/agent/overview) — used with HPC clusters
+3. (Optional) [Tower agent](https://docs.seqera.io/platform-cloud/supported_software/agent/overview) — used with HPC clusters
 4. (Optional) Container registries, such as docker.io
 
 ## tw credentials add
@@ -30,7 +30,7 @@ You can add multiple credentials from the same provider in the same workspace.
 
 ### Compute environment credentials
 
-Platform requires credentials to access your cloud compute environments. See the [compute environment page](/platform-cloud/compute-envs/overview) for your cloud provider for more information.
+Platform requires credentials to access your cloud compute environments. See the [compute environment page](https://docs.seqera.io/platform-cloud/compute-envs/overview) for your cloud provider for more information.
 
 Command:
 
@@ -46,7 +46,7 @@ New AWS credentials 'my_aws_creds (1sxCxvxfx8xnxdxGxQxqxH)' added at user worksp
 
 ### Git credentials
 
-Platform requires access credentials to interact with pipeline Git repositories. See [Git integration](/platform-cloud/git/overview) for more information.
+Platform requires access credentials to interact with pipeline Git repositories. See [Git integration](https://docs.seqera.io/platform-cloud/git/overview) for more information.
 
 Command:
 
@@ -62,7 +62,7 @@ New GITHUB credentials 'my_GH_creds (xxxxx3prfGlpxxxvR2xxxxo7ow)' added at user 
 
 ### Container registry credentials
 
-Configure credentials for the Nextflow Wave container service to authenticate to private and public container registries. See [Container registry credentials](/platform-cloud/credentials/container_registry_credentials) for more information.
+Configure credentials for the Nextflow Wave container service to authenticate to private and public container registries. See [Container registry credentials](https://docs.seqera.io/platform-cloud/credentials/container_registry_credentials) for more information.
 
 :::note
 Container registry credentials are only used by the Wave container service. See [Wave containers](https://docs.seqera.io/wave) for more information.

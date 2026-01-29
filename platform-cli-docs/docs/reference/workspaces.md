@@ -7,7 +7,7 @@ description: Manage workspaces
 
 Run `tw workspaces -h` to view supported workspace operations.
 
-[Workspaces](/platform-cloud/orgs-and-teams/workspace-management) provide the context in which a user launches workflow executions, defines the available resources, and manages who can access those resources. Workspaces contain pipelines, runs, actions, datasets, compute environments, credentials, and secrets. Access permissions are controlled with participants, collaborators, and teams.
+[Workspaces](https://docs.seqera.io/platform-cloud/orgs-and-teams/workspace-management) provide the context in which a user launches workflow executions, defines the available resources, and manages who can access those resources. Workspaces contain pipelines, runs, actions, datasets, compute environments, credentials, and secrets. Access permissions are controlled with participants, collaborators, and teams.
 
 ## tw workspaces list
 
@@ -83,7 +83,7 @@ Workspace management operations require organization `OWNER` permissions.
 
 Run `tw workspaces add -h` to view the required and optional fields for adding your workspace.
 
-In the example below, we create a shared workspace to be used for sharing pipelines with other private workspaces. See [Shared workspaces](/platform-cloud/orgs-and-teams/workspace-management) for more information.
+In the example below, we create a shared workspace to be used for sharing pipelines with other private workspaces. See [Shared workspaces](https://docs.seqera.io/platform-cloud/orgs-and-teams/workspace-management) for more information.
 
 ### Example
 

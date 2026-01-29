@@ -7,7 +7,7 @@ description: Manage teams
 
 Run `tw teams -h` to view supported team operations.
 
-Manage [organization teams](/platform-cloud/orgs-and-teams/organizations#teams).
+Manage [organization teams](https://docs.seqera.io/platform-cloud/orgs-and-teams/organizations#teams).
 
 :::note
 Team management operations require organization `OWNER` permissions.

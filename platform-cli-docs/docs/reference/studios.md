@@ -7,7 +7,7 @@ description: Manage studios
 
 Run `tw studios -h` to view the list of supported operations.
 
-Manage [Studio sessions](/platform-cloud/studios/overview) hosted in Seqera Platform. Studio sessions allow interactive analysis using Jupyter, RStudio, VS Code, and Xpra. Additional custom analysis environments can be defined as needed.
+Manage [Studio sessions](https://docs.seqera.io/platform-cloud/studios/overview) hosted in Seqera Platform. Studio sessions allow interactive analysis using Jupyter, RStudio, VS Code, and Xpra. Additional custom analysis environments can be defined as needed.
 
 :::note
 Most Studio operations require workspace `MAINTAIN` permissions.
@@ -83,7 +83,7 @@ tw studios list [OPTIONS]
 
 Run `tw studios checkpoints -h` to view the required and optional fields for viewing checkpoints for a session.
 
-List all checkpoints for an existing Studio session in a workspace. See [Session checkpoints](/platform-cloud/studios/managing#studio-session-checkpoints) for more information.
+List all checkpoints for an existing Studio session in a workspace. See [Session checkpoints](https://docs.seqera.io/platform-cloud/studios/managing#studio-session-checkpoints) for more information.
 
 ### Example
 
