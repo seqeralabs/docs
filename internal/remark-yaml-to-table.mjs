@@ -4,14 +4,18 @@ import { visit } from 'unist-util-visit';
 import { fromMarkdown } from 'mdast-util-from-markdown'
 import YAML from 'yaml';
 
-// Memory-optimized version with global caching to reduce repeated markdown parsing and YAML loading
+// Memory-optimized version focused on limiting peak memory usage
+// Uses small LRU caches with aggressive eviction to keep memory footprint minimal
 // Original: https://github.com/seqeralabs/remark-yaml-to-table/blob/master/src/index.js
 
-// Global caches persist across all files in a build
-const globalMarkdownCache = new Map();
+// Small LRU caches - prioritize memory over speed
+const MAX_YAML_CACHE = 20;  // Only cache 20 most recent YAML files
+const MAX_MARKDOWN_CACHE = 200;  // Only cache 200 most recent markdown parses
 const globalYamlCache = new Map();
+const globalMarkdownCache = new Map();
+let filesProcessed = 0;
 
-function generateTableMdast(parsedData = [], markdownCache) {
+function generateTableMdast(parsedData = [], markdownCache, maxSize) {
   // Extract headers (assuming all rows have the same columns)
   const headers = Object.keys(parsedData[0] || {});
 
@@ -19,7 +23,7 @@ function generateTableMdast(parsedData = [], markdownCache) {
   const thead = headers.map(header => ({
       type: 'tableCell',
       // Handle possible null - use cache to avoid repeated parsing
-      children: parseMarkdownCached(header, markdownCache)
+      children: parseMarkdownCached(header, markdownCache, maxSize)
   }));
 
   // Create mdast nodes for table rows
@@ -28,7 +32,7 @@ function generateTableMdast(parsedData = [], markdownCache) {
       children: headers.map(header => ({
           type: 'tableCell',
           // Handle possible null - use cache to avoid repeated parsing
-          children: parseMarkdownCached(row[header], markdownCache)
+          children: parseMarkdownCached(row[header], markdownCache, maxSize)
       }))
   }));
 
@@ -41,30 +45,48 @@ function generateTableMdast(parsedData = [], markdownCache) {
   return table;
 }
 
-// Cache markdown parsing results to reduce memory usage
-function parseMarkdownCached(text, cache) {
+// LRU cache eviction - removes oldest entry when cache is full
+function evictOldestIfFull(cache, maxSize) {
+  if (cache.size >= maxSize) {
+    const firstKey = cache.keys().next().value;
+    cache.delete(firstKey);
+  }
+}
+
+// Cache markdown parsing with strict memory limits and LRU eviction
+function parseMarkdownCached(text, cache, maxSize) {
   if (!text) return [];
 
-  // Check cache first
+  // Check cache first - move to end (LRU)
   if (cache.has(text)) {
-    return cache.get(text);
+    const result = cache.get(text);
+    cache.delete(text);
+    cache.set(text, result);
+    return result;
   }
 
-  // Parse and cache (limit cache size to prevent unbounded growth)
+  // Evict oldest entry if cache is full
+  evictOldestIfFull(cache, maxSize);
+
+  // Parse and cache
   const result = fromMarkdown(text).children;
-  if (cache.size < 5000) {
-    cache.set(text, result);
-  }
+  cache.set(text, result);
 
   return result;
 }
 
-// Cache YAML file loading and parsing
-function loadYamlCached(fileAbsPath, cache) {
-  // Check cache first
+// Cache YAML file loading with strict memory limits and LRU eviction
+function loadYamlCached(fileAbsPath, cache, maxSize) {
+  // Check cache first - move to end (LRU)
   if (cache.has(fileAbsPath)) {
-    return cache.get(fileAbsPath);
+    const result = cache.get(fileAbsPath);
+    cache.delete(fileAbsPath);
+    cache.set(fileAbsPath, result);
+    return result;
   }
+
+  // Evict oldest entry if cache is full
+  evictOldestIfFull(cache, maxSize);
 
   // Load and parse YAML
   let yamlContent;
@@ -81,10 +103,11 @@ function loadYamlCached(fileAbsPath, cache) {
     throw new Error(`Cannot parse YAML: ${err.message}`);
   }
 
-  // Cache the result (limit cache size)
-  if (cache.size < 500) {
-    cache.set(fileAbsPath, parsedData);
-  }
+  // Cache the parsed result
+  cache.set(fileAbsPath, parsedData);
+
+  // Clear temporary variables to help GC
+  yamlContent = null;
 
   return parsedData;
 }
@@ -99,7 +122,7 @@ function yamlToGfmTable(options = {}) {
   }
 
   return function transformer(tree, file) {
-    // Use global caches that persist across all files in the build
+    // Use small LRU caches to minimize memory footprint
     const nodes = [];
 
     // directives remark plugin includes an `attributes` key
@@ -136,14 +159,28 @@ function yamlToGfmTable(options = {}) {
         }
       }
 
-      // Load and parse YAML using global cache
-      const parsedData = loadYamlCached(fileAbsPath, globalYamlCache);
+      // Load and parse YAML using LRU cache with strict size limit
+      const parsedData = loadYamlCached(fileAbsPath, globalYamlCache, MAX_YAML_CACHE);
 
-      // Generate table using global markdown cache
-      const tableHast = generateTableMdast(parsedData, globalMarkdownCache);
+      // Generate table using LRU markdown cache with strict size limit
+      const tableHast = generateTableMdast(parsedData, globalMarkdownCache, MAX_MARKDOWN_CACHE);
 
       // Replace the directive node with our table hast node
       Object.assign(node, tableHast);
+    }
+
+    // Periodic aggressive cache cleanup to limit peak memory
+    filesProcessed++;
+    if (filesProcessed % 10 === 0) {
+      // Every 10 files, trim caches to half their max size to reduce memory spikes
+      while (globalYamlCache.size > MAX_YAML_CACHE / 2) {
+        const firstKey = globalYamlCache.keys().next().value;
+        globalYamlCache.delete(firstKey);
+      }
+      while (globalMarkdownCache.size > MAX_MARKDOWN_CACHE / 2) {
+        const firstKey = globalMarkdownCache.keys().next().value;
+        globalMarkdownCache.delete(firstKey);
+      }
     }
   }
 }
