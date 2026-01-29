@@ -4,6 +4,7 @@ import "dotenv/config";
 import platform_enterprise_latest_version from "./platform-enterprise_latest_version.js";
 
 export default async function createConfigAsync() {
+
   const changelog = {
     blogTitle: "Seqera Changelog",
     blogDescription: "Blog",
@@ -208,14 +209,15 @@ export default async function createConfigAsync() {
      *
      * These optimizations may require additional configuration when memory issues are resolved.
      */
+
     future: {
-      v4: true,
       experimental_faster: {
         swcJsLoader: false,
         swcJsMinimizer: false,
         swcHtmlMinimizer: false,
         lightningCssMinimizer: false,
         rspackBundler: true,
+        rspackPersistentCache: false,
         mdxCrossCompilerCache: false,
       },
     },
@@ -227,10 +229,15 @@ export default async function createConfigAsync() {
 
     onBrokenLinks:
       process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
-    onBrokenMarkdownLinks:
-      process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
     onBrokenAnchors:
       process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
+
+    markdown: {
+      hooks: {
+        onBrokenMarkdownLinks:
+          process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
+      },
+    },
 
     customFields: {
       // Put your custom environment here
@@ -290,13 +297,13 @@ export default async function createConfigAsync() {
 
       // Disable expensive bundler options.
       // https://github.com/facebook/docusaurus/pull/11176
-      function disableExpensiveBundlerOptimizations() {
+      function disableExpensiveBundlerOptimizationPlugin() {
         return {
-          name: "disable-expensive-bundler-optimizations",
-          configureWebpack(_config, isServer) {
+          name: 'disable-expensive-bundler-optimizations',
+          configureWebpack(_config) {
             return {
               optimization: {
-                concatenateModules: false,
+                concatenateModules:  false,
               },
             };
           },
