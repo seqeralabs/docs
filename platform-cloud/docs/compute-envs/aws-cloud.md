@@ -153,11 +153,6 @@ The following permissions are required to launch pipelines, run Studio sessions,
                 "ec2:TerminateInstances"
             ],
             "Resource": "*",
-            "Condition": {
-                "StringLike": {
-                    "ec2:ResourceTag/Name": "TowerForge-*"
-                }
-            }
         },
         {
             "Sid": "AwsCloudLaunchLogs",
