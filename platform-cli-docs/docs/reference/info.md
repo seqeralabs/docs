@@ -7,10 +7,16 @@ description: Show system info and health status
 
 Show system info and health status.
 
+Command:
+
 ```bash
 tw info
+```
 
-    Details
+Example output:
+
+```bash
+Details
     -------------------------+-----------------------------
      Tower API endpoint      | https://api.cloud.seqera.io
      Tower API version       | 1.97.0

@@ -2,6 +2,8 @@ Run `tw studios add -h` to view the required and optional fields for adding sess
 
 Add a new Studio session in a workspace.
 
+Command:
+
 ```bash
 tw studios add -n new-analysis -w community/showcase \
 --description="New Python analysis for RNA experiment ABC" \
@@ -9,6 +11,10 @@ tw studios add -n new-analysis -w community/showcase \
 --compute-env=48bB2PDk83AxskE40lealy \
 --cpu=2 \
 --memory=8192
+```
 
-  Studio 2aa60bb7 CREATED at [community / showcase] workspace.
+Example output:
+
+```bash
+Studio 2aa60bb7 CREATED at [community / showcase] workspace.
 ```

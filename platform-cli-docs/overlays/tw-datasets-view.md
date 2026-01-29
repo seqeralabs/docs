@@ -1,11 +1,17 @@
 Run `tw datasets view -h` to view the required and optional fields for viewing a stored dataset's details.
 
+Command:
+
 ```bash
 tw datasets view -n samplesheet1
 
 Dataset at 97652229034604 workspace:
+```
 
-  -------------+-------------------------------
+Example output:
+
+```bash
+-------------+-------------------------------
     ID          | 60gGrD4I2Gk0TUpEGOj5Td
     Name        | samplesheet1
     Description |

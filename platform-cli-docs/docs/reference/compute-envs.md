@@ -15,6 +15,8 @@ Run `tw compute-envs -h` to view the list of supported compute environment opera
 
 Add a new compute environment.
 
+Command:
+
 ```bash
 tw compute-envs add [OPTIONS]
 ```
@@ -25,12 +27,18 @@ Run `tw compute-envs add <platform> -h` to view the required and optional fields
 
 You must add the credentials for your provider before creating your compute environment.
 
+Command:
+
 ```bash
 tw compute-envs add aws-batch forge --name=my_aws_ce \
 --credentials=<my_aws_creds_1> --region=eu-west-1 --max-cpus=256 \
 --work-dir=s3://<bucket name> --wait=AVAILABLE
+```
 
-  New AWS-BATCH compute environment 'my_aws_ce' added at user workspace
+Example output:
+
+```bash
+New AWS-BATCH compute environment 'my_aws_ce' added at user workspace
 ```
 
 This command will:
@@ -48,6 +56,8 @@ See the [compute environment](/platform-cloud/compute-envs/overview) page for yo
 
 Update a compute environment.
 
+Command:
+
 ```bash
 tw compute-envs update [OPTIONS]
 ```
@@ -56,18 +66,23 @@ tw compute-envs update [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
-| `--new-name` | New compute environment name. |  |  |
-| `-i`, `--id` | Compute environment unique identifier. |  |  |
-| `-n`, `--name` | Compute environment name. |  |  |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
+| `--new-name` | New compute environment name. | No | `null` |
+| `-i`, `--id` | Compute environment unique identifier. | No | `null` |
+| `-n`, `--name` | Compute environment name. | No | `null` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
 
 ### Example
 
+Command:
+
 ```bash
 tw compute-envs update -n AWSCloudCE2 --new-name AWSCloud-primary -w 123456789012345
+```
 
-# Output:
-  Compute environment 'AWSCloudCE2' updated at [my-organization / my-workspace] workspace
+Example output:
+
+```bash
+Compute environment 'AWSCloudCE2' updated at [my-organization / my-workspace] workspace
 ```
 
 ## tw compute-envs delete
@@ -82,19 +97,27 @@ tw compute-envs delete [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
-| `-i`, `--id` | Compute environment unique identifier. |  |  |
-| `-n`, `--name` | Compute environment name. |  |  |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
+| `-i`, `--id` | Compute environment unique identifier. | No | `null` |
+| `-n`, `--name` | Compute environment name. | No | `null` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+
+Command:
 
 ```bash
 tw compute-envs delete --name=my_aws_ce
+```
 
-  Compute environment '1sxCxvxfx8xnxdxGxQxqxH' deleted at user workspace
+Example output:
+
+```bash
+Compute environment '1sxCxvxfx8xnxdxGxQxqxH' deleted at user workspace
 ```
 
 ## tw compute-envs view
 
 View compute environment details.
+
+Command:
 
 ```bash
 tw compute-envs view [OPTIONS]
@@ -104,19 +127,25 @@ tw compute-envs view [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
-| `-i`, `--id` | Compute environment unique identifier. |  |  |
-| `-n`, `--name` | Compute environment name. |  |  |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
+| `-i`, `--id` | Compute environment unique identifier. | No | `null` |
+| `-n`, `--name` | Compute environment name. | No | `null` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
 
 ### Example
 
+Command:
+
 ```bash
 tw compute-envs view -n AWSBatchCE -w 123456789012345
+```
 
-# Output:
-  Compute environment at [my-organization / my-workspace] workspace:
+Example output:
 
-    ---------------+-------------------------------
+```bash
+Compute environment at [my-organization / my-workspace] workspace:
+
+
+---------------+-------------------------------
      ID            | 7g8h9i0j1k2l3m4n5o6p7q
      Name          | AWSBatchCE
      Platform      | aws-batch
@@ -159,6 +188,8 @@ tw compute-envs view -n AWSBatchCE -w 123456789012345
 
 List compute environments.
 
+Command:
+
 ```bash
 tw compute-envs list [OPTIONS]
 ```
@@ -167,17 +198,23 @@ tw compute-envs list [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
 
 ### Example
 
+Command:
+
 ```bash
 tw compute-envs list -w 123456789012345
+```
 
-# Output:
-  Compute environments at [my-organization / my-workspace] workspace:
+Example output:
 
-       ID                     | Status    | Platform     | Name        | Last activity
+```bash
+Compute environments at [my-organization / my-workspace] workspace:
+
+
+ID                     | Status    | Platform     | Name        | Last activity
     --------------------------+-----------+--------------+-------------+-------------------------------
        5e6f7g8h9i0j1k2l3m4n5o | AVAILABLE | eks-platform | AWS-EKS     | never
        6f7g8h9i0j1k2l3m4n5o6p | AVAILABLE | gke-platform | gke-ce      | never
@@ -200,16 +237,21 @@ tw compute-envs export [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
-| `-i`, `--id` | Compute environment unique identifier. |  |  |
-| `-n`, `--name` | Compute environment name. |  |  |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
+| `-i`, `--id` | Compute environment unique identifier. | No | `null` |
+| `-n`, `--name` | Compute environment name. | No | `null` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
 
 ### Example
 
+Command:
+
 ```bash
 tw compute-envs export -n AWSCloud-primary -w 123456789012345 > /tmp/cloudce-export.json
+```
 
-# Output:
+Example output:
+
+```bash
 (empty)
 ```
 
@@ -225,15 +267,20 @@ tw compute-envs import [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
-| `--overwrite` | Overwrite the compute environment if it already exists. |  | `false` |
+| `--overwrite` | Overwrite the compute environment if it already exists. | No | `false` |
 
 ### Example
 
+Command:
+
 ```bash
 tw compute-envs import -n example-imported-ce -c 2l3m4n5o6p7q8r9s0t1u2v /tmp/cloudce-export.json -w 123456789012345
+```
 
-# Output:
-  New AWS-CLOUD compute environment 'example-imported-ce' added at [my-organization / my-workspace] workspace
+Example output:
+
+```bash
+New AWS-CLOUD compute environment 'example-imported-ce' added at [my-organization / my-workspace] workspace
 ```
 
 ## tw compute-envs primary
@@ -256,15 +303,20 @@ tw compute-envs primary get [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
 
 ### Example
 
+Command:
+
 ```bash
 tw compute-envs primary get -w 123456789012345
+```
 
-# Output:
-  Primary compute environment for workspace '[my-organization / my-workspace]' is 'AWSCloud-primary (1k2l3m4n5o6p7q8r9s0t1)'
+Example output:
+
+```bash
+Primary compute environment for workspace '[my-organization / my-workspace]' is 'AWSCloud-primary (1k2l3m4n5o6p7q8r9s0t1)'
 ```
 
 ### tw compute-envs primary set
@@ -279,15 +331,18 @@ tw compute-envs primary set [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
-| `-i`, `--id` | Compute environment unique identifier. |  |  |
-| `-n`, `--name` | Compute environment name. |  |  |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
+| `-i`, `--id` | Compute environment unique identifier. | No | `null` |
+| `-n`, `--name` | Compute environment name. | No | `null` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
 
 ### Example
+
+Command:
 
 ```bash
 tw compute-envs primary set -n AWS-EKS -w 123456789012345
 
-# Output:
+
+
   Primary compute environment for workspace '[my-organization / my-workspace]' was set to 'AWS-EKS (5e6f7g8h9i0j1k2l3m4n5o)'
 ```

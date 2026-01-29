@@ -1,9 +1,15 @@
 List all the workspaces in which you are a participant:
 
+Command:
+
 ```bash
 tw workspaces list
+```
 
-  Workspaces for default user:
+Example output:
+
+```bash
+Workspaces for default user:
 
     Workspace ID    | Workspace Name   | Organization Name | Organization ID
     -----------------+------------------+-------------------+-----------------

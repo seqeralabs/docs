@@ -2,6 +2,8 @@ Run `tw data-links browse -h` to view all the required and optional fields for b
 
 Define the data-link ID using the required `-i` or `--id` argument, which can be found by first using the list operation for a workspace. In the example below, a name is defined to only retrieve data-links with names that start with the given word:
 
+Command:
+
 ```bash
 tw data-links list -w seqeralabs/showcase -n 1000genomes
 
@@ -10,8 +12,12 @@ data-links at [seqeralabs / showcase] workspace:
 ID                                       | Provider | Name        | Resource ref     | Region
 ------------------------------------------+----------+-------------+------------------+-----------
 v1-user-6d8f44c239e2a098b3e02e918612452a | aws      | 1000genomes | s3://1000genomes | us-east-1
+```
 
-  Showing from 0 to 99 from a total of 1 entries.
+Example output:
+
+```bash
+Showing from 0 to 99 from a total of 1 entries.
 
 tw data-links browse -w seqeralabs/showcase -i v1-user-6d8f44c239e2a098b3e02e918612452a
 

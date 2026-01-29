@@ -23,6 +23,8 @@ Runs display all the current and previous pipeline runs in the specified workspa
 
 View pipeline run details.
 
+Command:
+
 ```bash
 tw runs view [OPTIONS]
 ```
@@ -31,27 +33,33 @@ tw runs view [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-i`, `--id` | Pipeline run identifier. The unique workflow ID to display details for. Use additional flags to control which sections are shown. | ✓ |  |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
-| `--config` | Display Nextflow configuration used for this workflow execution. |  |  |
-| `--params` | Display pipeline parameters provided at launch time in JSON or YAML format. |  |  |
-| `--command` | Display the Nextflow run command used to execute this workflow. |  |  |
-| `--status` | Display current workflow execution status (SUBMITTED, RUNNING, SUCCEEDED, FAILED, CANCELLED). |  |  |
-| `--processes` | Display per-process execution progress showing pending, running, succeeded, failed, and cached task counts. |  |  |
-| `--stats` | Display workflow execution statistics including compute time, task counts, success/failure percentages, and cached task efficiency. |  |  |
-| `--load` | Display real-time resource usage including active tasks, CPU cores, memory consumption, and I/O metrics. |  |  |
-| `--utilization` | Display resource efficiency metrics showing CPU and memory utilization percentages across workflow execution. |  |  |
-| `--metrics-memory` | Display memory usage statistics per process including mean, min, max, and quartile distributions (RSS, virtual memory). |  |  |
-| `--metrics-cpu` | Display CPU usage statistics per process including mean, min, max, and quartile distributions (CPU time, CPU percentage). |  |  |
-| `--metrics-time` | Display task execution time statistics per process including mean, min, max, and quartile distributions (duration, realtime). |  |  |
-| `--metrics-io` | Display I/O statistics per process including mean, min, max, and quartile distributions (read bytes, write bytes, syscalls). |  |  |
+| `-i`, `--id` | Pipeline run identifier. The unique workflow ID to display details for. Use additional flags to control which sections are shown. | Yes | `null` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `--config` | Display Nextflow configuration used for this workflow execution. | No | `null` |
+| `--params` | Display pipeline parameters provided at launch time in JSON or YAML format. | No | `null` |
+| `--command` | Display the Nextflow run command used to execute this workflow. | No | `null` |
+| `--status` | Display current workflow execution status (SUBMITTED, RUNNING, SUCCEEDED, FAILED, CANCELLED). | No | `null` |
+| `--processes` | Display per-process execution progress showing pending, running, succeeded, failed, and cached task counts. | No | `null` |
+| `--stats` | Display workflow execution statistics including compute time, task counts, success/failure percentages, and cached task efficiency. | No | `null` |
+| `--load` | Display real-time resource usage including active tasks, CPU cores, memory consumption, and I/O metrics. | No | `null` |
+| `--utilization` | Display resource efficiency metrics showing CPU and memory utilization percentages across workflow execution. | No | `null` |
+| `--metrics-memory` | Display memory usage statistics per process including mean, min, max, and quartile distributions (RSS, virtual memory). | No | `null` |
+| `--metrics-cpu` | Display CPU usage statistics per process including mean, min, max, and quartile distributions (CPU time, CPU percentage). | No | `null` |
+| `--metrics-time` | Display task execution time statistics per process including mean, min, max, and quartile distributions (duration, realtime). | No | `null` |
+| `--metrics-io` | Display I/O statistics per process including mean, min, max, and quartile distributions (read bytes, write bytes, syscalls). | No | `null` |
 
 Run `tw runs view -h` to view all the required and optional fields for viewing a pipeline's runs.
 
+Command:
+
 ```bash
 tw runs view -i 2vFUbBx63cfsBY -w seqeralabs/showcase
+```
 
-  Run at [seqeralabs / showcase] workspace:
+Example output:
+
+```bash
+Run at [seqeralabs / showcase] workspace:
 
 
     General
@@ -77,6 +85,8 @@ tw runs view -i 2vFUbBx63cfsBY -w seqeralabs/showcase
 
 Download pipeline run files.
 
+Command:
+
 ```bash
 tw runs view download [OPTIONS]
 ```
@@ -85,8 +95,8 @@ tw runs view download [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `--type` | Type of file to download. Options: 'stdout' (standard output), 'log' (Nextflow log), 'stderr' (standard error, tasks only), 'timeline' (execution timeline HTML, workflow only). Default: stdout. |  | `stdout` |
-| `-t` | Task numeric identifier. When specified, downloads task-specific files (.command.out, .command.err, .command.log). When omitted, downloads workflow-level files (nextflow.log, timeline.html). |  |  |
+| `--type` | Type of file to download. Options: 'stdout' (standard output), 'log' (Nextflow log), 'stderr' (standard error, tasks only), 'timeline' (execution timeline HTML, workflow only). Default: stdout. | No | `stdout` |
+| `-t` | Task numeric identifier. When specified, downloads task-specific files (.command.out, .command.err, .command.log). When omitted, downloads workflow-level files (nextflow.log, timeline.html). | No | `null` |
 
 ### tw runs view metrics
 
@@ -100,10 +110,10 @@ tw runs view metrics [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-f`, `--filter` | Filter metrics by process name. Shows statistics only for processes matching the specified name. |  |  |
-| `-t`, `--type` | Metric types to display: cpu, mem, time, io. Comma-separated list. Default: all types. |  |  |
-| `-c`, `--columns` | Statistical columns to display: min, q1, q2, q3, max, mean. Shows quartile distribution of resource usage. Default: all columns. |  |  |
-| `-v`, `--view` | Table view format. Options: condensed (compact), extended (detailed). Default: condensed. |  |  |
+| `-f`, `--filter` | Filter metrics by process name. Shows statistics only for processes matching the specified name. | No | `null` |
+| `-t`, `--type` | Metric types to display: cpu, mem, time, io. Comma-separated list. Default: all types. | No | `null` |
+| `-c`, `--columns` | Statistical columns to display: min, q1, q2, q3, max, mean. Shows quartile distribution of resource usage. Default: all columns. | No | `null` |
+| `-v`, `--view` | Table view format. Options: condensed (compact), extended (detailed). Default: condensed. | No | `null` |
 
 ### tw runs view tasks
 
@@ -117,11 +127,11 @@ tw runs view tasks [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-c`, `--columns` | Additional task columns to display beyond the default set. Available columns: taskId, process, tag, status, hash, exit, container, nativeId, submit, duration, realtime, pcpu, pmem, peakRss, peakVmem, rchar, wchar, volCtxt, invCtxt. Comma-separated list. |  |  |
-| `-f`, `--filter` | Filter tasks by name prefix. Shows only tasks with names starting with the specified string. |  |  |
-| `--page` | Page number for paginated results (default: 1) |  |  |
-| `--offset` | Row offset for paginated results (default: 0) |  |  |
-| `--max` | Maximum number of records to display (default: ) |  |  |
+| `-c`, `--columns` | Additional task columns to display beyond the default set. Available columns: taskId, process, tag, status, hash, exit, container, nativeId, submit, duration, realtime, pcpu, pmem, peakRss, peakVmem, rchar, wchar, volCtxt, invCtxt. Comma-separated list. | No | `null` |
+| `-f`, `--filter` | Filter tasks by name prefix. Shows only tasks with names starting with the specified string. | No | `null` |
+| `--page` | Page number for paginated results (default: 1) | No | `null` |
+| `--offset` | Row offset for paginated results (default: 0) | No | `null` |
+| `--max` | Maximum number of records to display (default: ) | No | `null` |
 
 ### tw runs view task
 
@@ -135,10 +145,10 @@ tw runs view task [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-t` | Task numeric identifier. Unique identifier for the specific task execution within the workflow run. | ✓ |  |
-| `--execution-time` | Display task execution timing details including submit time, start time, completion time, duration, and realtime. |  |  |
-| `--resources-requested` | Display resources requested by the task including CPUs, memory, disk space, and time allocation. |  |  |
-| `--resources-usage` | Display actual resource consumption including CPU percentage, memory usage (RSS, peak RSS, virtual memory), and I/O statistics. |  |  |
+| `-t` | Task numeric identifier. Unique identifier for the specific task execution within the workflow run. | Yes | `null` |
+| `--execution-time` | Display task execution timing details including submit time, start time, completion time, duration, and realtime. | No | `null` |
+| `--resources-requested` | Display resources requested by the task including CPUs, memory, disk space, and time allocation. | No | `null` |
+| `--resources-usage` | Display actual resource consumption including CPU percentage, memory usage (RSS, peak RSS, virtual memory), and I/O statistics. | No | `null` |
 
 ## tw runs list
 
@@ -152,18 +162,24 @@ tw runs list [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-f`, `--filter` | Filter pipeline runs by run name. Performs case-insensitive substring matching on the runName field. |  |  |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
-| `--page` | Page number for paginated results (default: 1) |  |  |
-| `--offset` | Row offset for paginated results (default: 0) |  |  |
-| `--max` | Maximum number of records to display (default: ) |  |  |
+| `-f`, `--filter` | Filter pipeline runs by run name. Performs case-insensitive substring matching on the runName field. | No | `null` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `--page` | Page number for paginated results (default: 1) | No | `null` |
+| `--offset` | Row offset for paginated results (default: 0) | No | `null` |
+| `--max` | Maximum number of records to display (default: ) | No | `null` |
 
 Run `tw runs list -h` to view all the required and optional fields for listing runs in a workspace.
 
+Command:
+
 ```bash
 tw runs list
+```
 
-  Pipeline runs at [seqeralabs / testing] workspace:
+Example output:
+
+```bash
+Pipeline runs at [seqeralabs / testing] workspace:
 
     ID             | Status    | Project Name               | Run Name                        | Username              | Submit Date
     ----------------+-----------+----------------------------+---------------------------------+-----------------------+-------------------------------
@@ -196,10 +212,16 @@ If no `keyword` is defined, the filtering is applied to the `runName`, `projectN
 The `after` and `before` flags require an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp with UTC timezone (`YYYY-MM-DDThh:mm:ss.sssZ`).
 :::
 
+Command:
+
 ```bash
 tw runs list --filter hello_slurm_20240530
+```
 
-  Pipeline runs at [seqeralabs / showcase] workspace:
+Example output:
+
+```bash
+Pipeline runs at [seqeralabs / showcase] workspace:
 
     ID            | Status    | Project Name      | Run Name                             | Username   | Submit Date
     ---------------+-----------+-------------------+--------------------------------------+------------+-------------------------------
@@ -208,10 +230,16 @@ tw runs list --filter hello_slurm_20240530
 
 Multiple filter criteria can be defined:
 
+Command:
+
 ```bash
 tw runs list --filter="after:2024-05-29T00:00:00.000Z before:2024-05-30T00:00:00.000Z username:user1"
+```
 
-  Pipeline runs at [seqeralabs / testing] workspace:
+Example output:
+
+```bash
+Pipeline runs at [seqeralabs / testing] workspace:
 
     ID             | Status    | Project Name          | Run Name           | Username    | Submit Date
     ----------------+-----------+-----------------------+--------------------+-------------+-------------------------------
@@ -227,10 +255,16 @@ tw runs list --filter="after:2024-05-29T00:00:00.000Z before:2024-05-30T00:00:00
 
 A leading and trailing `*` wildcard character is supported:
 
+Command:
+
 ```bash
 tw runs list --filter="*man/rnaseq-*"
+```
 
-  Pipeline runs at [seqeralabs / testing] workspace:
+Example output:
+
+```bash
+Pipeline runs at [seqeralabs / testing] workspace:
 
     ID             | Status    | Project Name        | Run Name            | Username       | Submit Date
     ----------------+-----------+---------------------+---------------------+----------------+-------------------------------
@@ -248,6 +282,8 @@ tw runs list --filter="*man/rnaseq-*"
 
 Relaunch a pipeline run.
 
+Command:
+
 ```bash
 tw runs relaunch [OPTIONS]
 ```
@@ -256,44 +292,52 @@ tw runs relaunch [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-i`, `--id` | Pipeline run identifier to relaunch | ✓ |  |
-| `--pipeline` | Override the pipeline to launch. Allows relaunching with a different pipeline repository URL while keeping other launch configuration settings. |  |  |
-| `--no-resume` | Start workflow execution from scratch instead of resuming from the last successful process. Use this to rerun the entire workflow without using cached results. |  |  |
-| `-n`, `--name` | Custom workflow run name. Overrides the automatically generated run name with a user-defined identifier. |  |  |
-| `--launch-container` | Container image for the Nextflow head job. Overrides the default launcher container. (BETA) |  |  |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
-| `-c`, `--compute-env` | Compute environment identifier where the pipeline will run. Defaults to workspace primary compute environment if omitted. Provide the name or identifier. |  |  |
-| `--work-dir` | Work directory path where workflow intermediate files are stored. Defaults to compute environment work directory if omitted. |  |  |
-| `-p`, `--profile` | Array of Nextflow configuration profile names to apply. |  |  |
-| `--params-file` | Pipeline parameters in JSON or YAML format. Provide the path to a file containing the content. |  |  |
-| `--revision` | Git revision, branch, or tag to use. |  |  |
-| `--config` | Nextflow configuration as text (overrides config files). Provide the path to a file containing the content. |  |  |
-| `--pre-run` | Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See: https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts. Provide the path to a file containing the content. |  |  |
-| `--post-run` | Add a script that executes after all Nextflow processes have completed. See: https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts. Provide the path to a file containing the content. |  |  |
-| `--pull-latest` | Pull the latest version of the pipeline from the repository. |  |  |
-| `--stub-run` | Execute a stub run for testing (processes return dummy results). |  |  |
-| `--main-script` | Alternative main script filename. Default: `main.nf`. |  |  |
-| `--entry-name` | Workflow entry point name when using Nextflow DSL2. |  |  |
-| `--schema-name` | Name of the pipeline schema to use. |  |  |
-| `--user-secrets` | Array of user secrets to make available to the pipeline. |  |  |
-| `--workspace-secrets` | Array of workspace secrets to make available to the pipeline. |  |  |
+| `-i`, `--id` | Pipeline run identifier to relaunch | Yes | `null` |
+| `--pipeline` | Override the pipeline to launch. Allows relaunching with a different pipeline repository URL while keeping other launch configuration settings. | No | `null` |
+| `--no-resume` | Start workflow execution from scratch instead of resuming from the last successful process. Use this to rerun the entire workflow without using cached results. | No | `null` |
+| `-n`, `--name` | Custom workflow run name. Overrides the automatically generated run name with a user-defined identifier. | No | `null` |
+| `--launch-container` | Container image for the Nextflow head job. Overrides the default launcher container. (BETA) | No | `null` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-c`, `--compute-env` | Compute environment identifier where the pipeline will run. Defaults to workspace primary compute environment if omitted. Provide the name or identifier. | No | `null` |
+| `--work-dir` | Work directory path where workflow intermediate files are stored. Defaults to compute environment work directory if omitted. | No | `null` |
+| `-p`, `--profile` | Array of Nextflow configuration profile names to apply. | No | `null` |
+| `--params-file` | Pipeline parameters in JSON or YAML format. Provide the path to a file containing the content. | No | `null` |
+| `--revision` | Git revision, branch, or tag to use. | No | `null` |
+| `--config` | Nextflow configuration as text (overrides config files). Provide the path to a file containing the content. | No | `null` |
+| `--pre-run` | Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See: https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts. Provide the path to a file containing the content. | No | `null` |
+| `--post-run` | Add a script that executes after all Nextflow processes have completed. See: https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts. Provide the path to a file containing the content. | No | `null` |
+| `--pull-latest` | Pull the latest version of the pipeline from the repository. | No | `null` |
+| `--stub-run` | Execute a stub run for testing (processes return dummy results). | No | `null` |
+| `--main-script` | Alternative main script filename. Default: `main.nf`. | No | `null` |
+| `--entry-name` | Workflow entry point name when using Nextflow DSL2. | No | `null` |
+| `--schema-name` | Name of the pipeline schema to use. | No | `null` |
+| `--user-secrets` | Array of user secrets to make available to the pipeline. | No | `null` |
+| `--workspace-secrets` | Array of workspace secrets to make available to the pipeline. | No | `null` |
 
 Run `tw runs relaunch -h` to view all the required and optional fields for relaunching a run in a workspace.
 
 ### Example
 
+Command:
+
 ```bash
 tw runs relaunch -i 6p7q8r9s0t1u2
+```
 
-# Output:
-  Workflow 8r9s0t1u2v3w4 submitted at [my-organization-updated / my-workspace] workspace.
+Example output:
 
-    https://cloud.seqera.io/orgs/my-organization-updated/workspaces/my-workspace/watch/8r9s0t1u2v3w4/watch/8r9s0t1u2v3w4
+```bash
+Workflow 8r9s0t1u2v3w4 submitted at [my-organization-updated / my-workspace] workspace.
+
+
+https://cloud.seqera.io/orgs/my-organization-updated/workspaces/my-workspace/watch/8r9s0t1u2v3w4/watch/8r9s0t1u2v3w4
 ```
 
 ## tw runs cancel
 
 Cancel a pipeline run.
+
+Command:
 
 ```bash
 tw runs cancel [OPTIONS]
@@ -303,18 +347,23 @@ tw runs cancel [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-i`, `--id` | Pipeline run identifier. The unique workflow ID to cancel. Running tasks will be terminated. | ✓ |  |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
+| `-i`, `--id` | Pipeline run identifier. The unique workflow ID to cancel. Running tasks will be terminated. | Yes | `null` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
 
 Run `tw runs cancel -h` to view all the required and optional fields for canceling a run in a workspace.
 
 ### Example
 
+Command:
+
 ```bash
 tw runs cancel -i 6p7q8r9s0t1u2 -w 123456789012345
+```
 
-# Output:
-  Pipeline run '6p7q8r9s0t1u2' canceled at [my-organization-updated / my-workspace] workspace
+Example output:
+
+```bash
+Pipeline run '6p7q8r9s0t1u2' canceled at [my-organization-updated / my-workspace] workspace
 ```
 
 ## tw runs labels
@@ -329,17 +378,22 @@ tw runs labels [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-i`, `-id` | Pipeline run identifier. The unique workflow ID to manage labels for. Labels help organize and filter pipeline runs. | ✓ |  |
-| `--no-create` | Assign labels without creating the ones which were not found. |  |  |
-| `--operations`, `-o` | Type of operation (set, append, delete) [default: set]. |  | `set` |
+| `-i`, `-id` | Pipeline run identifier. The unique workflow ID to manage labels for. Labels help organize and filter pipeline runs. | Yes | `null` |
+| `--no-create` | Assign labels without creating the ones which were not found. | No | `null` |
+| `--operations`, `-o` | Type of operation (set, append, delete) [default: set]. | No | `set` |
 
 ### Example
 
+Command:
+
 ```bash
 tw runs labels -i 6p7q8r9s0t1u2 newlabel
+```
 
-# Output:
- 'set' labels on 'run' with id '6p7q8r9s0t1u2' at 123456789012345 workspace
+Example output:
+
+```bash
+'set' labels on 'run' with id '6p7q8r9s0t1u2' at 123456789012345 workspace
 ```
 
 ## tw runs delete
@@ -354,19 +408,24 @@ tw runs delete [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-i`, `-id` | Pipeline run identifier. The unique workflow ID to delete. Deletes the run record and associated metadata from Seqera Platform. | ✓ |  |
-| `--force` | Force deletion of active workflows. By default, only completed workflows can be deleted. Use this flag to delete running or pending workflows. |  |  |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
+| `-i`, `-id` | Pipeline run identifier. The unique workflow ID to delete. Deletes the run record and associated metadata from Seqera Platform. | Yes | `null` |
+| `--force` | Force deletion of active workflows. By default, only completed workflows can be deleted. Use this flag to delete running or pending workflows. | No | `null` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
 
 Run `tw runs delete -h` to view all the required and optional fields for deleting a run in a workspace.
 
 ### Example
 
+Command:
+
 ```bash
 tw runs delete -i 7q8r9s0t1u2v3 -w 123456789012345
+```
 
-# Output:
-  Pipeline run '7q8r9s0t1u2v3' deleted at [my-organization-updated / my-workspace] workspace
+Example output:
+
+```bash
+Pipeline run '7q8r9s0t1u2v3' deleted at [my-organization-updated / my-workspace] workspace
 ```
 
 ## tw runs dump
@@ -382,15 +441,17 @@ tw runs dump [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-i`, `-id` | Pipeline run identifier | ✓ |  |
-| `-o`, `--output` | Output file path for the compressed archive. Supported formats: .tar.xz (smaller, slower) and .tar.gz (faster, larger). | ✓ |  |
-| `--add-task-logs` | Include individual task log files (stdout, stderr, .command.log) in the archive. Useful for detailed task-level troubleshooting. |  |  |
-| `--add-fusion-logs` | Include Fusion file system logs for tasks. Only applicable when workflow uses Fusion for cloud storage access. |  |  |
-| `--only-failed` | Include only failed tasks in the dump. Reduces archive size by excluding successful task logs. |  |  |
-| `--silent` | Suppress download progress indicators. Useful for scripting or logging to files. |  |  |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
+| `-i`, `-id` | Pipeline run identifier | Yes | `null` |
+| `-o`, `--output` | Output file path for the compressed archive. Supported formats: .tar.xz (smaller, slower) and .tar.gz (faster, larger). | Yes | `null` |
+| `--add-task-logs` | Include individual task log files (stdout, stderr, .command.log) in the archive. Useful for detailed task-level troubleshooting. | No | `null` |
+| `--add-fusion-logs` | Include Fusion file system logs for tasks. Only applicable when workflow uses Fusion for cloud storage access. | No | `null` |
+| `--only-failed` | Include only failed tasks in the dump. Reduces archive size by excluding successful task logs. | No | `null` |
+| `--silent` | Suppress download progress indicators. Useful for scripting or logging to files. | No | `null` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
 
 Run `tw runs dump -h` to view all the required and optional fields for dumping all logs and details of a run in a workspace. The supported formats are `.tar.xz` and `.tar.gz`. In the example below, we dump all the logs and details for the run with ID `5z4AMshti4g0GK` to the output file `file.tar.gz`.
+
+Command:
 
 ```bash
 tw runs dump -i 5z4AMshti4g0GK -o file.tar.gz
@@ -398,5 +459,6 @@ tw runs dump -i 5z4AMshti4g0GK -o file.tar.gz
 - Workflow details
 - Task details
 
-  Pipeline run '5z4AMshti4g0GK' at [seqeralabs / testing] workspace details dump at 'file.tar.gz'
+
+Pipeline run '5z4AMshti4g0GK' at [seqeralabs / testing] workspace details dump at 'file.tar.gz'
 ```

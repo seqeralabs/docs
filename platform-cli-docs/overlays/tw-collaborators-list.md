@@ -1,9 +1,17 @@
+Command:
+
+Command:
+
 ```bash
 tw collaborators list -o seqeralabs
 
 Collaborators for 88848180287xxx organization:
+```
 
-    ID              | Username             | Email
+Example output:
+
+```bash
+ID              | Username             | Email
   -----------------+----------------------+--------------------
     13136942731xxx  | external_user1       | user1@domain.com
     127726720173xxx | external_user2       | user2@domain.com

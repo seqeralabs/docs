@@ -13,6 +13,8 @@ Run `tw datasets -h` to view the list of supported operations.
 
 Add a dataset.
 
+Command:
+
 ```bash
 tw datasets add [OPTIONS]
 ```
@@ -21,11 +23,11 @@ tw datasets add [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-n`, `--name` | Dataset name. Must be unique per workspace. Names consist of alphanumeric, hyphen, and underscore characters. | ✓ |  |
-| `-d`, `--description` | Optional dataset description. |  |  |
-| `--header` | Treat first row as header |  |  |
-| `--overwrite` | Overwrite the dataset if it already exists |  | `false` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | ✓ | `${TOWER_WORKSPACE_ID}` |
+| `-n`, `--name` | Dataset name. Must be unique per workspace. Names consist of alphanumeric, hyphen, and underscore characters. | Yes | `null` |
+| `-d`, `--description` | Optional dataset description. | No | `null` |
+| `--header` | Treat first row as header | No | `null` |
+| `--overwrite` | Overwrite the dataset if it already exists | No | `false` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | Yes | `TOWER_WORKSPACE_ID` |
 
 Run `tw datasets add -h` to view the required and optional fields for adding a dataset.
 
@@ -53,9 +55,9 @@ tw datasets delete [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-i`, `--id` | Dataset unique identifier |  |  |
-| `-n`, `--name` | Dataset name |  |  |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | ✓ | `${TOWER_WORKSPACE_ID}` |
+| `-i`, `--id` | Dataset unique identifier | No | `null` |
+| `-n`, `--name` | Dataset name | No | `null` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | Yes | `TOWER_WORKSPACE_ID` |
 
 To delete a workspace dataset, specify either the dataset name (`-n` flag) or ID (`-i` flag):
 
@@ -77,10 +79,10 @@ tw datasets download [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `--dataset-version` | Dataset version to download |  |  |
-| `-i`, `--id` | Dataset unique identifier |  |  |
-| `-n`, `--name` | Dataset name |  |  |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | ✓ | `${TOWER_WORKSPACE_ID}` |
+| `--dataset-version` | Dataset version to download | No | `null` |
+| `-i`, `--id` | Dataset unique identifier | No | `null` |
+| `-n`, `--name` | Dataset name | No | `null` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | Yes | `TOWER_WORKSPACE_ID` |
 
 View a stored dataset's contents:
 
@@ -109,17 +111,27 @@ tw datasets list [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-f`, `--filter` | Filter datasets by name substring |  |  |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | ✓ | `${TOWER_WORKSPACE_ID}` |
+| `-f`, `--filter` | Filter datasets by name substring | No | `null` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | Yes | `TOWER_WORKSPACE_ID` |
 
 Run `tw datasets list -h` to view the optional fields for listing and filtering datasets.
 
+Command:
+
 ```bash
 tw datasets list -f data
+```
 
+Example output:
+
+```bash
 Datasets at 97652229034604 workspace:
+```
 
-    ID                     | Name     | Created
+Example output:
+
+```bash
+ID                     | Name     | Created
   ------------------------+----------+-------------------------------
     6vBGj6aWWpBuLpGKjJDpZy | dataset2 | Tue, 27 Aug 2024 14:49:32 GMT
 ```
@@ -127,6 +139,8 @@ Datasets at 97652229034604 workspace:
 ## tw datasets view
 
 View dataset details.
+
+Command:
 
 ```bash
 tw datasets view [OPTIONS]
@@ -136,18 +150,25 @@ tw datasets view [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-i`, `--id` | Dataset unique identifier |  |  |
-| `-n`, `--name` | Dataset name |  |  |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | ✓ | `${TOWER_WORKSPACE_ID}` |
+| `-i`, `--id` | Dataset unique identifier | No | `null` |
+| `-n`, `--name` | Dataset name | No | `null` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | Yes | `TOWER_WORKSPACE_ID` |
 
 Run `tw datasets view -h` to view the required and optional fields for viewing a stored dataset's details.
 
+Command:
+
 ```bash
 tw datasets view -n samplesheet1
+```
 
+Example output:
+
+```bash
 Dataset at 97652229034604 workspace:
 
-  -------------+-------------------------------
+
+-------------+-------------------------------
     ID          | 60gGrD4I2Gk0TUpEGOj5Td
     Name        | samplesheet1
     Description |
@@ -159,6 +180,8 @@ Dataset at 97652229034604 workspace:
 ### tw datasets view versions
 
 Display dataset versions.
+
+Command:
 
 ```bash
 tw datasets view versions [OPTIONS]
@@ -176,13 +199,13 @@ tw datasets update [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `--new-name` | Updated dataset name. Must be unique per workspace. Names consist of alphanumeric, hyphen, and underscore characters. |  |  |
-| `-d`, `--description` | Updated dataset description. |  |  |
-| `--header` | Treat first row as header |  |  |
-| `-f`, `--file` | Data file to upload |  |  |
-| `-i`, `--id` | Dataset unique identifier |  |  |
-| `-n`, `--name` | Dataset name |  |  |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | ✓ | `${TOWER_WORKSPACE_ID}` |
+| `--new-name` | Updated dataset name. Must be unique per workspace. Names consist of alphanumeric, hyphen, and underscore characters. | No | `null` |
+| `-d`, `--description` | Updated dataset description. | No | `null` |
+| `--header` | Treat first row as header | No | `null` |
+| `-f`, `--file` | Data file to upload | No | `null` |
+| `-i`, `--id` | Dataset unique identifier | No | `null` |
+| `-n`, `--name` | Dataset name | No | `null` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | Yes | `TOWER_WORKSPACE_ID` |
 
 Run `tw datasets update -h` to view the required and optional fields for updating a dataset.
 
@@ -204,20 +227,24 @@ tw datasets url [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `--dataset-version` | Dataset version for URL |  |  |
-| `-i`, `--id` | Dataset unique identifier |  |  |
-| `-n`, `--name` | Dataset name |  |  |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | ✓ | `${TOWER_WORKSPACE_ID}` |
+| `--dataset-version` | Dataset version for URL | No | `null` |
+| `-i`, `--id` | Dataset unique identifier | No | `null` |
+| `-n`, `--name` | Dataset name | No | `null` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | Yes | `TOWER_WORKSPACE_ID` |
 
 ### Example
+
+Command:
 
 ```bash
 tw datasets url -i 3m4n5o6p7q8r9s0t1u2v3w -w 123456789012345
 
-# Output:
+
+
   Dataset URL
 
-  -----------
+
+-----------
 
   https://api.cloud.seqera.io/workspaces/123456789012345/datasets/3m4n5o6p7q8r9s0t1u2v3w/v/1/n/samplesheet.csv
 ```

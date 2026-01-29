@@ -2,6 +2,8 @@ Run `tw studios start-as-new -h` to view the required and optional fields for ad
 
 Add a new session from an existing parent Studio session and checkpoint. Useful for experimentation without impacting the parent Studio session state.
 
+Command:
+
 ```bash
 tw studios start-as-new -pid=657ddbca \
 -n=analysis-env-from-parent \
@@ -10,6 +12,10 @@ tw studios start-as-new -pid=657ddbca \
 --cpu=2 \
 --memory=8192 \
 -a
+```
 
-  Studio 19a3abbd CREATED at [community / showcase] workspace and auto-started.
+Example output:
+
+```bash
+Studio 19a3abbd CREATED at [community / showcase] workspace and auto-started.
 ```

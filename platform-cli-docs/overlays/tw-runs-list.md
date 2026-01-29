@@ -1,9 +1,15 @@
 Run `tw runs list -h` to view all the required and optional fields for listing runs in a workspace.
 
+Command:
+
 ```bash
 tw runs list
+```
 
-  Pipeline runs at [seqeralabs / testing] workspace:
+Example output:
+
+```bash
+Pipeline runs at [seqeralabs / testing] workspace:
 
     ID             | Status    | Project Name               | Run Name                        | Username              | Submit Date
     ----------------+-----------+----------------------------+---------------------------------+-----------------------+-------------------------------
@@ -36,10 +42,16 @@ If no `keyword` is defined, the filtering is applied to the `runName`, `projectN
 The `after` and `before` flags require an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp with UTC timezone (`YYYY-MM-DDThh:mm:ss.sssZ`).
 :::
 
+Command:
+
 ```bash
 tw runs list --filter hello_slurm_20240530
+```
 
-  Pipeline runs at [seqeralabs / showcase] workspace:
+Example output:
+
+```bash
+Pipeline runs at [seqeralabs / showcase] workspace:
 
     ID            | Status    | Project Name      | Run Name                             | Username   | Submit Date
     ---------------+-----------+-------------------+--------------------------------------+------------+-------------------------------
@@ -48,10 +60,16 @@ tw runs list --filter hello_slurm_20240530
 
 Multiple filter criteria can be defined:
 
+Command:
+
 ```bash
 tw runs list --filter="after:2024-05-29T00:00:00.000Z before:2024-05-30T00:00:00.000Z username:user1"
+```
 
-  Pipeline runs at [seqeralabs / testing] workspace:
+Example output:
+
+```bash
+Pipeline runs at [seqeralabs / testing] workspace:
 
     ID             | Status    | Project Name          | Run Name           | Username    | Submit Date
     ----------------+-----------+-----------------------+--------------------+-------------+-------------------------------
@@ -67,10 +85,13 @@ tw runs list --filter="after:2024-05-29T00:00:00.000Z before:2024-05-30T00:00:00
 
 A leading and trailing `*` wildcard character is supported:
 
+Command:
+
 ```bash
 tw runs list --filter="*man/rnaseq-*"
 
-  Pipeline runs at [seqeralabs / testing] workspace:
+
+Pipeline runs at [seqeralabs / testing] workspace:
 
     ID             | Status    | Project Name        | Run Name            | Username       | Submit Date
     ----------------+-----------+---------------------+---------------------+----------------+-------------------------------

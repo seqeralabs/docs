@@ -1,9 +1,15 @@
 Run `tw studios view -h` to view the required and optional fields for viewing session details.
 
+Command:
+
 ```bash
 tw studios view -i 23ce7967 -w community/showcase
+```
 
-  Studio at workspace '[community / showcase]'
+Example output:
+
+```bash
+Studio at workspace '[community / showcase]'
 
 ---------------------+------------------------------------------------------------
 SessionID           | 23ce7967

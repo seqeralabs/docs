@@ -13,6 +13,8 @@ Manage organization members. Organization membership management requires organiz
 
 List organization members.
 
+Command:
+
 ```bash
 tw members list [OPTIONS]
 ```
@@ -21,25 +23,34 @@ tw members list [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-o`, `--organization` | Organization name or numeric ID. Specify either the unique organization name or the numeric organization ID returned by 'tw organizations list'. | ✓ |  |
-| `-f`, `--filter` | Filter members by username prefix. Case-insensitive prefix matching on the username field (e.g., 'john' matches 'john.doe'). |  |  |
-| `--page` | Page number for paginated results (default: 1) |  |  |
-| `--offset` | Row offset for paginated results (default: 0) |  |  |
-| `--max` | Maximum number of records to display (default: ) |  |  |
+| `-o`, `--organization` | Organization name or numeric ID. Specify either the unique organization name or the numeric organization ID returned by 'tw organizations list'. | Yes | `null` |
+| `-f`, `--filter` | Filter members by username prefix. Case-insensitive prefix matching on the username field (e.g., 'john' matches 'john.doe'). | No | `null` |
+| `--page` | Page number for paginated results (default: 1) | No | `null` |
+| `--offset` | Row offset for paginated results (default: 0) | No | `null` |
+| `--max` | Maximum number of records to display (default: ) | No | `null` |
 
 Run `tw members list -h` view all the optional fields for listing organization members.
 
+Command:
+
 ```bash
 tw members list -o TestOrg2
+```
 
+Example output:
+
+```bash
 Members for TestOrg2 organization:
+```
 
-    ID              | Username             | Email                           | Role
+Example output:
+
+```bash
+ID              | Username             | Email                           | Role
   -----------------+----------------------+---------------------------------+--------
     200954501314303 | user1                | user1@domain.com                | MEMBER
     277776534946151 | user2                | user2@domain.com                | MEMBER
     243277166855716 | user3                | user3@domain.com                | OWNER
-
 ```
 
 ## tw members add
@@ -54,8 +65,8 @@ tw members add [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-u`, `--user` | User email address to invite. If the user doesn't have a Seqera Platform account, they will receive an invitation email to join the organization. | ✓ |  |
-| `-o`, `--organization` | Organization name or numeric ID. Specify either the unique organization name or the numeric organization ID returned by 'tw organizations list'. | ✓ |  |
+| `-u`, `--user` | User email address to invite. If the user doesn't have a Seqera Platform account, they will receive an invitation email to join the organization. | Yes | `null` |
+| `-o`, `--organization` | Organization name or numeric ID. Specify either the unique organization name or the numeric organization ID returned by 'tw organizations list'. | Yes | `null` |
 
 Run `tw members add -h` view all the required and optional fields for adding organization members.
 
@@ -77,8 +88,8 @@ tw members delete [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-u`, `--user` | Username or email address of the member to remove. Removes the user from the organization and all associated teams and workspaces. Use 'tw members leave' to remove yourself. | ✓ |  |
-| `-o`, `--organization` | Organization name or numeric ID. Specify either the unique organization name or the numeric organization ID returned by 'tw organizations list'. | ✓ |  |
+| `-u`, `--user` | Username or email address of the member to remove. Removes the user from the organization and all associated teams and workspaces. Use 'tw members leave' to remove yourself. | Yes | `null` |
+| `-o`, `--organization` | Organization name or numeric ID. Specify either the unique organization name or the numeric organization ID returned by 'tw organizations list'. | Yes | `null` |
 
 Run `tw members delete -h` view all the required and optional fields for deleting organization members.
 
@@ -100,9 +111,9 @@ tw members update [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-u`, `--user` | Username or email address of the member to update. Specify either their platform username or email address. | ✓ |  |
-| `-r`, `--role` | Organization role to assign. OWNER: full administrative access including member management and billing. MEMBER: standard access with ability to create workspaces and teams. COLLABORATOR: limited access, cannot create resources but can participate in shared workspaces. | ✓ |  |
-| `-o`, `--organization` | Organization name or numeric ID. Specify either the unique organization name or the numeric organization ID returned by 'tw organizations list'. | ✓ |  |
+| `-u`, `--user` | Username or email address of the member to update. Specify either their platform username or email address. | Yes | `null` |
+| `-r`, `--role` | Organization role to assign. OWNER: full administrative access including member management and billing. MEMBER: standard access with ability to create workspaces and teams. COLLABORATOR: limited access, cannot create resources but can participate in shared workspaces. | Yes | `null` |
+| `-o`, `--organization` | Organization name or numeric ID. Specify either the unique organization name or the numeric organization ID returned by 'tw organizations list'. | Yes | `null` |
 
 Run `tw members update -h` view all the required and optional fields for updating organization members.
 
@@ -124,15 +135,18 @@ tw members leave [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-o`, `--organization` | Organization name or numeric ID to leave. Removes yourself from the organization and all associated teams and workspaces. Cannot be undone except by another member re-inviting you. | ✓ |  |
+| `-o`, `--organization` | Organization name or numeric ID to leave. Removes yourself from the organization and all associated teams and workspaces. Cannot be undone except by another member re-inviting you. | Yes | `null` |
 
 Run `tw members leave -o <organization_name>` to be removed from the given organization's members.
 
 ### Example
 
+Command:
+
 ```bash
 tw members leave -o example-organization
 
-# Output:
+
+
   You have been removed from organization 'example-organization'
 ```

@@ -1,9 +1,15 @@
 Run `tw runs view -h` to view all the required and optional fields for viewing a pipeline's runs.
 
+Command:
+
 ```bash
 tw runs view -i 2vFUbBx63cfsBY -w seqeralabs/showcase
+```
 
-  Run at [seqeralabs / showcase] workspace:
+Example output:
+
+```bash
+Run at [seqeralabs / showcase] workspace:
 
 
     General

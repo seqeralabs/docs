@@ -13,6 +13,8 @@ Run `tw labels -h` to view supported label operations.
 
 Add a label.
 
+Command:
+
 ```bash
 tw labels add [OPTIONS]
 ```
@@ -21,9 +23,9 @@ tw labels add [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-n`, `--name` | Label name | ✓ |  |
-| `-v`, `--value` | Label value |  |  |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
+| `-n`, `--name` | Label name | Yes | `null` |
+| `-v`, `--value` | Label value | No | `null` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
 
 Run `tw labels add -h` to view the required and optional fields for adding a label.
 
@@ -50,21 +52,31 @@ tw labels list [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-t`, `--type` | Label type: normal, resource, or all (default: all) |  | `all` |
-| `-f`, `--filter` | Filter labels by substring |  |  |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
-| `--page` | Page number for paginated results (default: 1) |  |  |
-| `--offset` | Row offset for paginated results (default: 0) |  |  |
-| `--max` | Maximum number of records to display (default: ) |  |  |
+| `-t`, `--type` | Label type: normal, resource, or all (default: all) | No | `all` |
+| `-f`, `--filter` | Filter labels by substring | No | `null` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `--page` | Page number for paginated results (default: 1) | No | `null` |
+| `--offset` | Row offset for paginated results (default: 0) | No | `null` |
+| `--max` | Maximum number of records to display (default: ) | No | `null` |
 
 Run `tw labels list -h` to view the optional fields for filtering labels.
 
+Command:
+
 ```bash
 tw labels list
+```
 
+Example output:
+
+```bash
 Labels at 97652229034604 workspace:
+```
 
-      ID            | Name                   | Value     | Type
+Example output:
+
+```bash
+ID            | Name                   | Value     | Type
   -----------------+------------------------+-----------+----------
     116734717739444 | manual-fusion-amd64    |           | Normal
     120599302764779 | test-with-prefix       |           | Normal
@@ -86,20 +98,25 @@ tw labels update [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-i`, `--id` | Label identifier | ✓ |  |
-| `-n`, `--name` | Label name |  |  |
-| `-v`, `--value` | Label value |  |  |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
+| `-i`, `--id` | Label identifier | Yes | `null` |
+| `-n`, `--name` | Label name | No | `null` |
+| `-v`, `--value` | Label value | No | `null` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
 
 Run `tw labels update -h` to view the required and optional fields for updating labels.
 
 ### Example
 
+Command:
+
 ```bash
 tw labels update -i 444555666777888 -n label3 -w 123456789012345
+```
 
-# Output:
- Label with id '444555666777888' at '123456789012345' workspace updated to 'label3'
+Example output:
+
+```bash
+Label with id '444555666777888' at '123456789012345' workspace updated to 'label3'
 ```
 
 ## tw labels delete
@@ -114,8 +131,8 @@ tw labels delete [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-i`, `--id` | Label ID | ✓ |  |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
+| `-i`, `--id` | Label ID | Yes | `null` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
 
 Run `tw labels delete -h` to view the required and optional fields for deleting labels.
 

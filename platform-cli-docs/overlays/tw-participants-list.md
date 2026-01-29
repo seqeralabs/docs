@@ -1,7 +1,15 @@
+Command:
+
+Command:
+
 ```bash
 tw participants list
+```
 
-  Participants for 'my-tower-org/shared-workspace' workspace:
+Example output:
+
+```bash
+Participants for 'my-tower-org/shared-workspace' workspace:
 
     ID             | Participant Type | Name                        | Workspace Role
     ----------------+------------------+-----------------------------+----------------

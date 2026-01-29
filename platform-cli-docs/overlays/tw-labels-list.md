@@ -1,11 +1,17 @@
 Run `tw labels list -h` to view the optional fields for filtering labels.
 
+Command:
+
 ```bash
 tw labels list
 
 Labels at 97652229034604 workspace:
+```
 
-      ID            | Name                   | Value     | Type
+Example output:
+
+```bash
+ID            | Name                   | Value     | Type
   -----------------+------------------------+-----------+----------
     116734717739444 | manual-fusion-amd64    |           | Normal
     120599302764779 | test-with-prefix       |           | Normal

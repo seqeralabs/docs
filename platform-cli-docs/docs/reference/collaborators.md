@@ -13,6 +13,8 @@ Run `tw collaborators -h` view all the required and optional fields for managing
 
 List organization collaborators.
 
+Command:
+
 ```bash
 tw collaborators list [OPTIONS]
 ```
@@ -21,18 +23,24 @@ tw collaborators list [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-o`, `--organization` | Organization name or identifier | ✓ |  |
-| `-f`, `--filter` | Filter members by username prefix |  |  |
-| `--page` | Page number for paginated results (default: 1) |  |  |
-| `--offset` | Row offset for paginated results (default: 0) |  |  |
-| `--max` | Maximum number of records to display (default: ) |  |  |
+| `-o`, `--organization` | Organization name or identifier | Yes | `null` |
+| `-f`, `--filter` | Filter members by username prefix | No | `null` |
+| `--page` | Page number for paginated results (default: 1) | No | `null` |
+| `--offset` | Row offset for paginated results (default: 0) | No | `null` |
+| `--max` | Maximum number of records to display (default: ) | No | `null` |
+
+Command:
 
 ```bash
 tw collaborators list -o seqeralabs
 
 Collaborators for 88848180287xxx organization:
+```
 
-    ID              | Username             | Email
+Example output:
+
+```bash
+ID              | Username             | Email
   -----------------+----------------------+--------------------
     13136942731xxx  | external_user1       | user1@domain.com
     127726720173xxx | external_user2       | user2@domain.com

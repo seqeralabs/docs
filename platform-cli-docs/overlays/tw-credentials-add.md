@@ -10,20 +10,32 @@ You can add multiple credentials from the same provider in the same workspace.
 
 Platform requires credentials to access your cloud compute environments. See the [compute environment page][compute-envs] for your cloud provider for more information.
 
+Command:
+
 ```bash
 tw credentials add aws --name=my_aws_creds --access-key=<aws access key> --secret-key=<aws secret key>
+```
 
-  New AWS credentials 'my_aws_creds (1sxCxvxfx8xnxdxGxQxqxH)' added at user workspace
+Example output:
+
+```bash
+New AWS credentials 'my_aws_creds (1sxCxvxfx8xnxdxGxQxqxH)' added at user workspace
 ```
 
 ### Git credentials
 
 Platform requires access credentials to interact with pipeline Git repositories. See [Git integration][git-integration] for more information.
 
+Command:
+
 ```bash
 tw credentials add github -n=my_GH_creds -u=<GitHub username> -p=<GitHub access token>
+```
 
-  New GITHUB credentials 'my_GH_creds (xxxxx3prfGlpxxxvR2xxxxo7ow)' added at user workspace
+Example output:
+
+```bash
+New GITHUB credentials 'my_GH_creds (xxxxx3prfGlpxxxvR2xxxxo7ow)' added at user workspace
 ```
 
 ### Container registry credentials

@@ -4,12 +4,18 @@ Run `tw compute-envs add <platform> -h` to view the required and optional fields
 
 You must add the credentials for your provider before creating your compute environment.
 
+Command:
+
 ```bash
 tw compute-envs add aws-batch forge --name=my_aws_ce \
 --credentials=<my_aws_creds_1> --region=eu-west-1 --max-cpus=256 \
 --work-dir=s3://<bucket name> --wait=AVAILABLE
+```
 
-  New AWS-BATCH compute environment 'my_aws_ce' added at user workspace
+Example output:
+
+```bash
+New AWS-BATCH compute environment 'my_aws_ce' added at user workspace
 ```
 
 This command will:

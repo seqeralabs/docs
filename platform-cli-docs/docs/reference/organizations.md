@@ -13,19 +13,27 @@ Organizations are the top-level structure and contain workspaces, members, and t
 
 List organizations.
 
+Command:
+
 ```bash
 tw organizations list [OPTIONS]
 ```
 
 ### Example
 
+Command:
+
 ```bash
 tw organizations list
+```
 
-# Output:
+Example output:
+
+```bash
   Organizations for user-name user:
 
-     ID              | Name
+
+ID              | Name
     -----------------+------------------------------
      111222333444556  | organization1
      111222333444557 | organization7
@@ -41,6 +49,8 @@ tw organizations list
 
 Add an organization.
 
+Command:
+
 ```bash
 tw organizations add [OPTIONS]
 ```
@@ -49,12 +59,12 @@ tw organizations add [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-n`, `--name` | Organization unique name. Must be unique across Seqera Platform. Used as the organization identifier in URLs and API calls. Cannot be changed after creation without --new-name. | ✓ |  |
-| `-f`, `--full-name` | Organization display name. The full, human-readable name for the organization shown in the UI. Can contain spaces and special characters. | ✓ |  |
-| `--overwrite` | Overwrite existing organization. If an organization with this name already exists, delete it first before creating the new one. Use with caution as this permanently deletes the existing organization and all associated data. |  | `false` |
-| `-d`, `--description` | Organization description. Free-text description providing context about the organization's purpose, team, or projects. |  |  |
-| `-l`, `--location` | Organization location. Geographic location or region where the organization is based (e.g., 'San Francisco, CA' or 'EU'). |  |  |
-| `-w`, `--website` | Organization website URL. Public website or documentation site for the organization. Must be a valid URL (e.g., https://example.com). |  |  |
+| `-n`, `--name` | Organization unique name. Must be unique across Seqera Platform. Used as the organization identifier in URLs and API calls. Cannot be changed after creation without --new-name. | Yes | `null` |
+| `-f`, `--full-name` | Organization display name. The full, human-readable name for the organization shown in the UI. Can contain spaces and special characters. | Yes | `null` |
+| `--overwrite` | Overwrite existing organization. If an organization with this name already exists, delete it first before creating the new one. Use with caution as this permanently deletes the existing organization and all associated data. | No | `false` |
+| `-d`, `--description` | Organization description. Free-text description providing context about the organization's purpose, team, or projects. | No | `null` |
+| `-l`, `--location` | Organization location. Geographic location or region where the organization is based (e.g., 'San Francisco, CA' or 'EU'). | No | `null` |
+| `-w`, `--website` | Organization website URL. Public website or documentation site for the organization. Must be a valid URL (e.g., https://example.com). | No | `null` |
 
 Run `tw organizations add -h` to view the required and optional fields for adding your workspace.
 
@@ -76,18 +86,24 @@ tw organizations view [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-i`, `--id` | Organization numeric identifier. The unique ID assigned when the organization was created. |  |  |
-| `-n`, `--name` | Organization name. The unique organization name used as a human-readable identifier. |  |  |
+| `-i`, `--id` | Organization numeric identifier. The unique ID assigned when the organization was created. | No | `null` |
+| `-n`, `--name` | Organization name. The unique organization name used as a human-readable identifier. | No | `null` |
 
 ### Example
 
+Command:
+
 ```bash
 tw organizations view -n my-organization
+```
 
-# Output:
-  Details for organization 'My organization LLC'
+Example output:
 
-   -------------+---------------------------------------------------
+```bash
+Details for organization 'My organization LLC'
+
+
+-------------+---------------------------------------------------
     ID          | 111222333444555
     Name        | my-organization
     Full Name   | My organization LLC
@@ -107,21 +123,26 @@ tw organizations update [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `--new-name` | New unique name for the organization. Changes the organization's identifier. Must be unique across Seqera Platform. Updates URLs and API references. |  |  |
-| `-f`, `--full-name` | New display name for the organization. The full, human-readable name shown in the UI. Can contain spaces and special characters. |  |  |
-| `-i`, `--id` | Organization numeric identifier. The unique ID assigned when the organization was created. |  |  |
-| `-n`, `--name` | Organization name. The unique organization name used as a human-readable identifier. |  |  |
-| `-d`, `--description` | Organization description. Free-text description providing context about the organization's purpose, team, or projects. |  |  |
-| `-l`, `--location` | Organization location. Geographic location or region where the organization is based (e.g., 'San Francisco, CA' or 'EU'). |  |  |
-| `-w`, `--website` | Organization website URL. Public website or documentation site for the organization. Must be a valid URL (e.g., https://example.com). |  |  |
+| `--new-name` | New unique name for the organization. Changes the organization's identifier. Must be unique across Seqera Platform. Updates URLs and API references. | No | `null` |
+| `-f`, `--full-name` | New display name for the organization. The full, human-readable name shown in the UI. Can contain spaces and special characters. | No | `null` |
+| `-i`, `--id` | Organization numeric identifier. The unique ID assigned when the organization was created. | No | `null` |
+| `-n`, `--name` | Organization name. The unique organization name used as a human-readable identifier. | No | `null` |
+| `-d`, `--description` | Organization description. Free-text description providing context about the organization's purpose, team, or projects. | No | `null` |
+| `-l`, `--location` | Organization location. Geographic location or region where the organization is based (e.g., 'San Francisco, CA' or 'EU'). | No | `null` |
+| `-w`, `--website` | Organization website URL. Public website or documentation site for the organization. Must be a valid URL (e.g., https://example.com). | No | `null` |
 
 ### Example
 
+Command:
+
 ```bash
 tw organizations update -n my-organization --new-name=my-organization-updated
+```
 
-# Output:
-  Organization 'my-organization' was updated
+Example output:
+
+```bash
+Organization 'my-organization' was updated
 ```
 
 ## tw organizations delete
@@ -136,14 +157,17 @@ tw organizations delete [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-i`, `--id` | Organization numeric identifier. The unique ID assigned when the organization was created. |  |  |
-| `-n`, `--name` | Organization name. The unique organization name used as a human-readable identifier. |  |  |
+| `-i`, `--id` | Organization numeric identifier. The unique ID assigned when the organization was created. | No | `null` |
+| `-n`, `--name` | Organization name. The unique organization name used as a human-readable identifier. | No | `null` |
 
 ### Example
+
+Command:
 
 ```bash
 tw organizations delete -n organization4
 
-# Output:
+
+
   Organization 'organization4' deleted
 ```

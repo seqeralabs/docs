@@ -1,13 +1,19 @@
 The CLI can directly launch pipelines that have not been added to the Launchpad in a Platform workspace by using the full pipeline repository URL:
 
+Command:
+
 ```bash
 tw launch https://github.com/nf-core/rnaseq \
 --params-file=./custom_rnaseq_params.yaml \
 --config=<path/to/nextflow/conf/file> \
 --compute-env=my_aws_ce --revision 3.8.1 \
 --profile=test,docker
+```
 
-  Workflow 2XDXxX0vCX8xhx submitted at user workspace.
+Example output:
+
+```bash
+Workflow 2XDXxX0vCX8xhx submitted at user workspace.
 
     https://cloud.seqera.io/user/user1/watch/2XDXxX0vCX8xhx
 ```

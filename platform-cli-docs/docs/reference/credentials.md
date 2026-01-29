@@ -16,6 +16,8 @@ To launch pipelines in a Platform workspace, you need [credentials](/platform-cl
 
 Add workspace credentials.
 
+Command:
+
 ```bash
 tw credentials add [OPTIONS]
 ```
@@ -32,20 +34,32 @@ You can add multiple credentials from the same provider in the same workspace.
 
 Platform requires credentials to access your cloud compute environments. See the [compute environment page](/platform-cloud/compute-envs/overview) for your cloud provider for more information.
 
+Command:
+
 ```bash
 tw credentials add aws --name=my_aws_creds --access-key=<aws access key> --secret-key=<aws secret key>
+```
 
-  New AWS credentials 'my_aws_creds (1sxCxvxfx8xnxdxGxQxqxH)' added at user workspace
+Example output:
+
+```bash
+New AWS credentials 'my_aws_creds (1sxCxvxfx8xnxdxGxQxqxH)' added at user workspace
 ```
 
 ### Git credentials
 
 Platform requires access credentials to interact with pipeline Git repositories. See [Git integration](/platform-cloud/git/overview) for more information.
 
+Command:
+
 ```bash
 tw credentials add github -n=my_GH_creds -u=<GitHub username> -p=<GitHub access token>
+```
 
-  New GITHUB credentials 'my_GH_creds (xxxxx3prfGlpxxxvR2xxxxo7ow)' added at user workspace
+Example output:
+
+```bash
+New GITHUB credentials 'my_GH_creds (xxxxx3prfGlpxxxvR2xxxxo7ow)' added at user workspace
 ```
 
 ### Container registry credentials
@@ -56,15 +70,23 @@ Configure credentials for the Nextflow Wave container service to authenticate to
 Container registry credentials are only used by the Wave container service. See [Wave containers](https://docs.seqera.io/wave) for more information.
 :::
 
+Command:
+
 ```bash
 tw credentials add container-reg --name=my_registry_creds --username=<registry username> --password=<registry password> --registry=docker.io
+```
 
-  New CONTAINER-REG credentials 'my_registry_creds (2tyCywygy9yoyeyHyRyryI)' added at user workspace
+Example output:
+
+```bash
+New CONTAINER-REG credentials 'my_registry_creds (2tyCywygy9yoyeyHyRyryI)' added at user workspace
 ```
 
 ## tw credentials update
 
 Update workspace credentials.
+
+Command:
 
 ```bash
 tw credentials update [OPTIONS]
@@ -76,11 +98,16 @@ Run `tw credentials update <provider> -h` to view the required fields for your p
 
 ### Example
 
+Command:
+
 ```bash
 tw credentials update aws -n aws-credentials -a AKIAIOSFODNN7EXAMPLE -w 123456789012345
+```
 
-# Output:
-  AWS credentials 'aws-credentials' updated at [my-organization / my-workspace] workspace
+Example output:
+
+```bash
+AWS credentials 'aws-credentials' updated at [my-organization / my-workspace] workspace
 ```
 
 ## tw credentials delete
@@ -95,20 +122,28 @@ tw credentials delete [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
-| `-i`, `--id` | Credentials unique identifier |  |  |
-| `-n`, `--name` | Credentials name |  |  |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
+| `-i`, `--id` | Credentials unique identifier | No | `null` |
+| `-n`, `--name` | Credentials name | No | `null` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+
+Command:
 
 ```bash
 tw credentials delete --name=my_aws_creds
+```
 
-  Credentials '1sxCxvxfx8xnxdxGxQxqxH' deleted at user workspace
+Example output:
+
+```bash
+Credentials '1sxCxvxfx8xnxdxGxQxqxH' deleted at user workspace
 ```
 
 
 ## tw credentials list
 
 List workspace credentials.
+
+Command:
 
 ```bash
 tw credentials list [OPTIONS]
@@ -118,12 +153,15 @@ tw credentials list [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+
+Command:
 
 ```bash
 tw credentials list
 
-  Credentials at user workspace:
+
+Credentials at user workspace:
 
     ID                     | Provider  | Name                               | Last activity
     ------------------------+-----------+------------------------------------+-------------------------------

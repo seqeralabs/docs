@@ -13,6 +13,8 @@ Run `tw secrets -h` to view supported workspace secret operations.
 
 List secrets.
 
+Command:
+
 ```bash
 tw secrets list [OPTIONS]
 ```
@@ -21,17 +23,23 @@ tw secrets list [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
 
 ### Example
 
+Command:
+
 ```bash
 tw secrets list -w 123456789012345
+```
 
-# Output:
+Example output:
+
+```bash
   Secrets at [my-organization-updated / my-workspace] workspace:
 
-    ID              | Name                 | Last updated
+
+ID              | Name                 | Last updated
     -----------------+----------------------+-------------------------------
     333444555666777 | secret2              | Thu, 15 Jan 2026 13:33:55 GMT
 ```
@@ -39,6 +47,8 @@ tw secrets list -w 123456789012345
 ## tw secrets add
 
 Add a secret.
+
+Command:
 
 ```bash
 tw secrets add [OPTIONS]
@@ -48,20 +58,25 @@ tw secrets add [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-n`, `--name` | Secret name. Must be unique per workspace. Names consist of alphanumeric, hyphen, and underscore characters. | ✓ |  |
-| `-v`, `--value` | Secret value, to be stored securely. The secret is made available to pipeline executions at runtime. |  |  |
-| `--overwrite` | Overwrite the secret if it already exists |  | `false` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
+| `-n`, `--name` | Secret name. Must be unique per workspace. Names consist of alphanumeric, hyphen, and underscore characters. | Yes | `null` |
+| `-v`, `--value` | Secret value, to be stored securely. The secret is made available to pipeline executions at runtime. | No | `null` |
+| `--overwrite` | Overwrite the secret if it already exists | No | `false` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
 
 Run `tw secrets add -h` to view the required and optional fields for adding a secret.
 
 ### Example
 
+Command:
+
 ```bash
 tw secrets add -n secret2 -v secret-value -w 123456789012345
+```
 
-# Output:
-  New secret 'secret2' (333444555666777) added at [my-organization-updated / my-workspace] workspace
+Example output:
+
+```bash
+New secret 'secret2' (333444555666777) added at [my-organization-updated / my-workspace] workspace
 ```
 
 ## tw secrets view
@@ -76,19 +91,25 @@ tw secrets view [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
-| `-i`, `--id` | Secret identifier |  |  |
-| `-n`, `--name` | Secret name |  |  |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-i`, `--id` | Secret identifier | No | `null` |
+| `-n`, `--name` | Secret name | No | `null` |
 
 ### Example
 
+Command:
+
 ```bash
 tw secrets view -n secret2 -w 123456789012345
+```
 
-# Output:
-  Secret at [my-organization-updated / my-workspace] workspace:
+Example output:
 
-    ---------+-------------------------------
+```bash
+Secret at [my-organization-updated / my-workspace] workspace:
+
+
+---------+-------------------------------
      ID      | 333444555666777
      Name    | secret2
      Created | Thu, 15 Jan 2026 13:33:55 GMT
@@ -108,18 +129,23 @@ tw secrets update [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-v`, `--value` | New secret value, to be stored securely. The secret is made available to pipeline executions at runtime. |  |  |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
-| `-i`, `--id` | Secret identifier |  |  |
-| `-n`, `--name` | Secret name |  |  |
+| `-v`, `--value` | New secret value, to be stored securely. The secret is made available to pipeline executions at runtime. | No | `null` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-i`, `--id` | Secret identifier | No | `null` |
+| `-n`, `--name` | Secret name | No | `null` |
 
 ### Example
 
+Command:
+
 ```bash
 tw secrets update -n secret2 -v new-value -w 123456789012345
+```
 
-# Output:
-  Secret 'secret2' updated at [my-organization-updated / my-workspace] workspace
+Example output:
+
+```bash
+Secret 'secret2' updated at [my-organization-updated / my-workspace] workspace
 ```
 
 ## tw secrets delete
@@ -134,15 +160,18 @@ tw secrets delete [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) |  | `${TOWER_WORKSPACE_ID}` |
-| `-i`, `--id` | Secret identifier |  |  |
-| `-n`, `--name` | Secret name |  |  |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-i`, `--id` | Secret identifier | No | `null` |
+| `-n`, `--name` | Secret name | No | `null` |
 
 ### Example
+
+Command:
 
 ```bash
 tw secrets delete -n secret2 -w 123456789012345
 
-# Output:
+
+
   Secret 'secret2' deleted at [my-organization-updated / my-workspace] workspace
 ```

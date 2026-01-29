@@ -1,7 +1,15 @@
+Command:
+
+Command:
+
 ```bash
 tw credentials list
+```
 
-  Credentials at user workspace:
+Example output:
+
+```bash
+Credentials at user workspace:
 
     ID                     | Provider  | Name                               | Last activity
     ------------------------+-----------+------------------------------------+-------------------------------
