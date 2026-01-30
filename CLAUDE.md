@@ -1,20 +1,108 @@
-# Instructions for documentation maintenance
+# Documentation Maintenance with Claude
 
-## Overview
+This guide covers documentation standards, editorial workflows, and Claude-powered automation for the Seqera Platform documentation repository.
 
-This is the master instruction file for working with the documentation repository. It covers documentation quality standards, review processes, and workflows for maintaining high-quality documentation.
+## Quick start
 
-## Documentation review with Claude agents
+- **New PR created** → Agents automatically review changed docs → Inline suggestions appear
+- **Local review** → Use `/review <file-or-directory>` → See issues before committing
+- **Apply fixes** → Click "Commit suggestion" or batch-apply multiple → Done
 
-### Review a file or directory
+## Workflows and architecture
 
-Use the `/review` command to run editorial reviews:
+This repository uses two main Claude-powered workflows:
+
+### Editorial workflow
+
+**Purpose:** Automated quality checks for documentation content
+
+**Components:**
+- **Agents**: voice-tone, terminology, clarity (disabled), punctuation (planned)
+- **Workflow**: `.github/workflows/docs-review.yml`
+- **Scripts**: `classify-pr-type.sh` (PR classification), `post-inline-suggestions.sh` (GitHub API integration)
+- **Triggers**: Pull requests to `platform-*` directories, manual workflow dispatch
+
+### API workflow
+
+**Purpose:** Generate OpenAPI overlay files for API documentation updates
+
+**Components:**
+- **Skill**: `/openapi-overlay-generator`
+- **Workflow**: `.github/workflows/generate-openapi-overlays.yml`
+- **Scripts**: `analyze_comparison.py` (change analysis), `validate_overlay.py` (structure validation), `check_consistency.py` (standards compliance), `update_sidebar.py` (sidebar updates)
+- **Output**: YAML overlay files following OpenAPI overlay specification
+- **Triggers**: Repository dispatch from Platform repo, manual workflow dispatch
+
+## Automated PR reviews
+
+### How it works
+
+When you open a PR that modifies documentation files, GitHub Actions automatically:
+
+1. **Classifies the PR** (rename vs content change)
+2. **Runs specialized agents** (voice-tone, terminology)
+3. **Posts inline suggestions** (up to 60 per PR)
+4. **Saves full report** (downloadable artifact)
+
+### PR classification
+
+**Rename PRs** (>70% file renames, <5 significant content changes):
+- Skips voice-tone and terminology checks
+- Minimal suggestions posted
+- Marked as 🏷️ "rename" type
+
+**Content PRs** (everything else):
+- All agents run (voice-tone, terminology)
+- Up to 60 inline suggestions
+- Full list available as artifact
+- Marked as 📝 "content" type
+
+### Applying suggestions
+
+**Individual fixes:**
+1. Click "Commit suggestion" on any inline comment
+2. Suggestion applies immediately to PR
+
+**Batch apply:**
+1. Select multiple suggestions using checkboxes
+2. Click "Commit suggestions"
+3. All selected fixes apply in one commit
+
+### Handling 60+ suggestions
+
+If agents find more than 60 issues, a comment explains how to access the full list:
+
+1. Go to the workflow run (link provided in comment)
+2. Download the `all-editorial-suggestions` artifact
+3. Open `all-suggestions-full.txt` to see all issues
+4. Apply remaining suggestions manually or in bulk
+
+**Note:** After applying 60 suggestions, the workflow re-runs automatically and may surface more issues.
+
+### Manual re-run
+
+To re-run editorial review without making changes:
+
+1. Go to **Actions** → **Documentation Review**
+2. Click **Run workflow**
+3. Select your PR branch
+4. Click **Run workflow**
+
+Or use the manual trigger with specific review type:
+- `all` - Run all checks
+- `voice-tone` - Only voice/tone
+- `terminology` - Only terminology
+- `clarity` - Only clarity (currently disabled)
+
+## Local Review with `/review`
+
+Run editorial reviews locally before opening a PR:
 
 ```bash
-# Review a specific file
+# Review specific file
 /review platform-enterprise_docs/getting-started/quickstart.md
 
-# Review a directory (comprehensive check)
+# Review entire directory
 /review platform-cloud/docs/pipelines/
 
 # Quick pre-commit check (voice-tone and terminology only)
@@ -24,65 +112,84 @@ Use the `/review` command to run editorial reviews:
 /review new-page.md --profile=new-content
 ```
 
-### What the agents check
+## Editorial agents
 
-The editorial review system uses specialized agents:
+### voice-tone
+Checks for:
+- Second person usage ("you" vs "the user")
+- Active voice (not passive)
+- Present tense (not future)
+- No hedging language ("may", "might", "could")
 
-- **voice-tone**: Second person, active voice, present tense, no hedging
-- **terminology**: Product names, feature names, formatting conventions
-- **clarity**: Sentence length, jargon, readability, prerequisites
-- **punctuation**: Oxford commas, list punctuation, quotation marks
+### terminology
+Checks for consistent product names, feature terminology, and formatting conventions.
 
-### Automated PR reviews
+**For detailed terminology rules, see:** `.claude/agents/terminology.md`
 
-When you open a PR with documentation changes, GitHub Actions automatically runs agents and posts **inline suggestions** directly on the affected lines.
+### clarity (disabled)
+Checks for:
+- Sentence length (flag >30 words)
+- Undefined jargon
+- Complex constructions
+- Missing prerequisites
 
-**To apply suggestions:**
-1. **Individual fixes**: Click the "Commit suggestion" button on any inline comment
-2. **Batch commit**: Select multiple suggestions using checkboxes and commit them together
-
-The agents format their findings as GitHub inline suggestions, making it easy to review and apply changes with a single click. Each suggestion shows the original text and the corrected version side-by-side.
-
-## Terminology standards
-
-### RNA-Seq context rules
-
-**Use "RNA-Seq" (capitalized) when:**
-- In headings: `# RNA-Seq Analysis Guide`
-- Pipeline names: `nf-core-RNA-Seq pipeline`
-- Tutorial titles: `RNA-Seq Tutorial`
-- Scientific contexts: `RNA-Seq experiment design`
-- Data descriptions: `RNA-Seq samples`
-
-**Allow "rna-seq" (lowercase) when:**
-- Command parameters: `--input rna-seq-data`
-- File paths: `/data/rna-seq/results`
-- Configuration: `rna-seq.config`
-- Variable names: `rna_seq_samples`
-- Technical identifiers: `tag: rna-seq`
-
-### Product names
-- ✅ "Seqera Platform" (never "Tower" or "the platform")
-- ✅ "Studios" (ALWAYS capitalized, even when generic)
-- ✅ "Fusion", "Wave", "Nextflow", "MultiQC" (capitalized)
-- ✅ "compute environment" (lowercase when not a proper noun)
+### punctuation
+Checks for:
+- Oxford commas
+- List punctuation consistency
+- Quotation marks
+- Dash usage
 
 ## Documentation directory structure
 
-### Directories with automated PR reviews
+### Automated PR reviews
 
-These directories trigger automated agent reviews on pull requests:
+These directories trigger automated agent reviews:
 
-- `platform-enterprise_docs/` - Main enterprise documentation (129 files)
-- `platform-cloud/docs/` - Cloud platform docs (114 files)
-- `platform-enterprise_versioned_docs/` - Versioned enterprise docs
+| Directory | Description | File count |
+|-----------|-------------|------------|
+| `platform-enterprise_docs/` | Main enterprise docs | ~129 files |
+| `platform-cloud/docs/` | Cloud platform docs | ~114 files |
+| `platform-enterprise_versioned_docs/` | Versioned docs | Variable |
 
-### Other documentation directories
+### Manual review only
 
-These directories exist but do not trigger automated PR reviews (use `/review` command manually):
+Use `/review` command for these directories:
 
-- `platform-api-docs/docs/` - API documentation (218 files)
-- `fusion_docs/` - Fusion documentation (24 files)
-- `multiqc_docs/` - MultiQC documentation (212 files)
-- `wave_docs/` - Wave documentation (43 files)
-- `changelog/` - Release notes (232 files)
+| Directory | Description | File count |
+|-----------|-------------|------------|
+| `platform-api-docs/docs/` | API documentation | ~218 files |
+| `fusion_docs/` | Fusion docs | ~24 files |
+| `multiqc_docs/` | MultiQC docs | ~212 files |
+| `wave_docs/` | Wave docs | ~43 files |
+| `changelog/` | Release notes | ~232 files |
+
+## Troubleshooting
+
+**Q: Too many suggestions (100+)?**
+- Download the artifact for the full list
+- Apply high-priority fixes first
+- Re-run review to get next batch
+- Consider a cleanup PR after main PR merges
+
+**Q: Agents flagged Tower incorrectly?**
+- Context matters - Tower is acceptable in legacy docs
+- Agents should ask, not flag as critical
+- Report false positives to improve agent rules
+
+**Q: Workflow not running on my PR?**
+- Check if PR modifies files in `platform-*` directories
+- Workflow files must exist on master branch first
+- Check Actions tab for errors
+
+**Q: Want to adjust suggestion limit?**
+- Current limit: 60 inline suggestions
+- Full list always available via artifact
+- To change: modify the suggestion limit logic in `.github/workflows/docs-review.yml` (around lines 268–284)
+
+## Related documentation
+
+- **Agent Implementation**: See `.claude/README.md` for technical details
+- **Agent Definitions**: See `.claude/agents/*.md` for agent prompts
+- **Scripts**: See `.github/scripts/` for workflow scripts
+- **Skills**: See `.claude/skills/` for available skills

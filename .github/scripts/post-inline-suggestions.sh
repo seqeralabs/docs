@@ -68,7 +68,7 @@ create_review() {
         local comment_body="**${current_issue}**"$'\n\n'
         comment_body+='```suggestion'$'\n'
         comment_body+="${current_suggestion}"$'\n'
-        comment_body+'```'
+        comment_body+='```'
 
         # Add to comments JSON array
         comments=$(jq -n \
