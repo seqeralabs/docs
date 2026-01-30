@@ -11,7 +11,7 @@ SUMMARY=$(git diff --summary "$BASE_REF...$HEAD_REF")
 DIFF=$(git diff --numstat "$BASE_REF...$HEAD_REF")
 
 # Count rename operations
-RENAME_COUNT=$(echo "$SUMMARY" | grep -c "rename" || echo 0)
+RENAME_COUNT=$(echo "$SUMMARY" | grep -c "rename" || true)
 
 # Count total changed files
 TOTAL_FILES=$(echo "$DIFF" | wc -l | tr -d ' ')
