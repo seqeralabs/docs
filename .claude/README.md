@@ -201,7 +201,7 @@ When working on documentation content:
 
 Current limit: 60 inline suggestions per PR
 
-To change: Edit `.github/workflows/docs-review.yml` lines 247-254 and 292
+To change: Edit `.github/workflows/docs-review.yml` lines 259-268
 
 ### Adding new agents
 
