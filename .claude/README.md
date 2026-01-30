@@ -121,6 +121,7 @@ Ensures consistent punctuation across documentation.
 - Manual workflow dispatch
 
 **How it works:**
+0. Validates bash script syntax (fails fast if scripts have errors)
 1. Classifies PR as "rename" or "content" type
 2. Runs agents based on PR type (rename PRs skip voice-tone & terminology)
 3. Posts up to 60 inline suggestions per PR

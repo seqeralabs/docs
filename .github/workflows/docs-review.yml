@@ -31,8 +31,24 @@ permissions:
   id-token: write
 
 jobs:
+  # Check bash script syntax before running any reviews
+  syntax-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check bash script syntax
+        run: |
+          echo "🔍 Checking bash script syntax..."
+          for script in .github/scripts/*.sh; do
+            echo "Checking $script..."
+            bash -n "$script"
+          done
+          echo "✅ All bash scripts passed syntax check"
+
   # Get list of changed files and classify PR type
   changes:
+    needs: syntax-check
     runs-on: ubuntu-latest
     outputs:
       docs: ${{ steps.filter.outputs.docs }}
