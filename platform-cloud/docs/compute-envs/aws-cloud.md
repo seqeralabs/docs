@@ -2,7 +2,7 @@
 title: "AWS Cloud"
 description: "Instructions to set up an AWS Cloud CE in Seqera Platform"
 date created: "2025-05-15"
-last updated: "2025-09-25"
+last updated: "2026-01-30"
 tags: [cloud, vm, amazon, compute environment]
 ---
 
@@ -64,10 +64,10 @@ To create and launch pipelines, explore buckets with Data Explorer or run Studio
 
 Permissions can be attached directly to an [IAM user](#iam-user-creation), or to an [IAM role](#iam-role-creation-optional) that the IAM user can assume when accessing AWS resources.
 
-A permissive and broad policy with all the required permissions is provided here for a quick start. However, we recommend following the principle of least privilege and only granting the necessary permissions for your use case, as shown in the following sections.
+A permissive and broad policy with all the required permissions is provided here for a quick start. However, follow the principle of least privilege and only grant the necessary permissions for your use case, as shown in the following sections.
 
 <details>
-<summary>Full permissive policy (for reference)</summary>
+<summary>Full permissive policy (For reference)</summary>
 
 ```json
 {
@@ -213,6 +213,7 @@ The following permissions are required to validate the compute environment at cr
   "Resource": "*"
 }
 ```
+
 ### Pipeline and Studio session management
 
 The following permissions are required to launch pipelines, run Studio sessions, fetch live execution logs from CloudWatch, download logs from S3, and stop the execution:
@@ -307,7 +308,7 @@ The policy above must be created in the AWS account where the AWS Batch resource
 
 ## IAM user creation
 
-Seqera requires an Identity and Access Management (IAM) User to create and manage AWS Batch resources in your AWS account. We recommend creating a separate IAM policy rather an IAM User inline policy, as the latter only allows 2048 characters, which may not be sufficient for all the required permissions.
+Seqera requires an Identity and Access Management (IAM) User to create and manage AWS Batch resources in your AWS account. We recommend creating a separate IAM policy rather than an IAM User inline policy, as the latter only allows 2048 characters, which may not be sufficient for all the required permissions.
 
 In certain scenarios, for example when multiple users need to access the same AWS account and provision AWS Batch resources, an IAM role with the required permissions can be created instead, and the IAM user can assume that role when accessing AWS resources, as detailed in the [IAM role creation (optional)](#iam-role-creation-optional) section.
 
@@ -377,7 +378,7 @@ The AWS Cloud compute environment uses a public AMI maintained by Seqera, and th
 - CloudWatch agent.
 - The ability to shut down with the `shutdown` command. If this is missing, EC2 instances will keep running and accumulate additional costs.
 
-### Release cadence and sofware updates
+### Release cadence and software updates
 
 The AMI is based on the [Amazon Linux 2023 image](https://docs.aws.amazon.com/linux/al2023/ug/what-is-amazon-linux.html). System package versions are pinned for each specific Amazon Linux 2023 version. Seqera subscribes to the [AWS SNS topic](https://docs.aws.amazon.com/linux/al2023/ug/receive-update-notification.html) to receive Amazon Linux 2023 update notifications. When updates are available, this triggers a new Seqera AMI release built on the latest image, which includes system package updates and security patches.
 
