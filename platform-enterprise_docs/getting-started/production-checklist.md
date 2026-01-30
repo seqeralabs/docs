@@ -2,7 +2,7 @@
 title: "Production checklist"
 description: "A pre-production checklist for Seqera Platform."
 date created: "2025-07-03"
-last updated: "2025-07-21"
+last updated: "2026-01-30"
 tags: [production, checklist, deployment, limitations, retry]
 ---
 
@@ -61,7 +61,7 @@ When deploying Seqera Platform using AWS we recommend starting with:
 
 - Amazon Machine Image (AMI): Amazon Linux 2023 Optimized
 - Instance type: `c5a.2xlarge` with 8 CPUs and 16 GB RAM
-- A MySQL8 Community DB instance with minimum 2 vCPUs, 8 GB memory, and 30 GB SSD storage
+- A MySQL 8 Community DB instance with minimum 2 vCPUs, 8 GB memory, and 30 GB SSD storage
 
 This sizing recommendation is a basic starting point. Your requirements may vary significantly based on the number of pipelines and concurrent processes you anticipate. See [AWS Autoscaling documentation](https://aws.amazon.com/autoscaling/) for information about resource management in AWS.
 
@@ -72,7 +72,7 @@ When deploying Seqera Platform using Azure we recommend starting with:
 - Azure Linux VM with default values
 - At least 2 CPUS and 8 GB RAM
 - Ubuntu Server 22.04 LTS - Gen2 image
-- A MySQL8 Community DB instance with minimum 2 vCPUs, 8 GB memory, and 30 GB SSD storage
+- A MySQL 8 Community DB instance with minimum 2 vCPUs, 8 GB memory, and 30 GB SSD storage
 
 These autoscale for pipeline runs, but the sizing recommendation will be based on the workload and can vary significantly based on the number of pipelines and concurrent processes you anticipate. See [Azure autoscaling documentation](https://learn.microsoft.com/en-us/azure/azure-monitor/autoscale/autoscale-get-started) for information about scaling in Azure.
 
