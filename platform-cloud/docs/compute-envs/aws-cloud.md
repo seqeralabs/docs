@@ -166,7 +166,7 @@ The following permissions are required to launch pipelines, run Studio sessions,
             "Action": [
                 "s3:GetObject"
             ],
-            "Resource": "*"
+            "Resource": "arn:aws:s3:::<BUCKET_NAME>/WORKDIR/*"
         }
     ]
 }
