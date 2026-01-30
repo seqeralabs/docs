@@ -110,9 +110,9 @@ Ensures consistent punctuation across documentation.
 - Quotation marks
 - Dash usage
 
-## GitHub Actions Integration
+## GitHub Actions integration
 
-### Documentation Review Workflow
+### Documentation review workflow
 
 **File:** `.github/workflows/docs-review.yml`
 
@@ -141,7 +141,7 @@ Ensures consistent punctuation across documentation.
 - Analyzes git diff to determine PR type
 - Outputs "rename" or "content" for workflow decisions
 
-## Agent Output Format
+## Agent output format
 
 Agents output structured suggestions:
 
@@ -158,16 +158,16 @@ corrected text
 
 This format is parsed by `post-inline-suggestions.sh` and converted to GitHub's inline suggestion syntax.
 
-## For Contributors
+## For contributors
 
-### Working with API Documentation
+### Working with API documentation
 
 When working on API documentation:
 1. Claude Code automatically detects and offers relevant skills
 2. Skills provide specialized knowledge about documentation standards
 3. Skills include scripts ensuring consistency across API docs
 
-### Working with Editorial Content
+### Working with editorial content
 
 When working on documentation content:
 1. Open PR → Agents automatically review changes
@@ -175,7 +175,7 @@ When working on documentation content:
 3. Apply fixes individually or batch-apply multiple
 4. Re-run workflow manually from Actions tab if needed
 
-### Testing Changes Locally
+### Testing changes locally
 
 ```bash
 # Test specific agent
@@ -190,20 +190,20 @@ When working on documentation content:
 
 ## Development
 
-### Modifying Agents
+### Modifying agents
 
 1. Edit agent definition in `.claude/agents/<agent-name>.md`
 2. Test locally with `/review`
 3. Create PR (agents will review their own changes)
 4. Merge after approval
 
-### Adjusting Suggestion Limits
+### Adjusting suggestion limits
 
 Current limit: 60 inline suggestions per PR
 
 To change: Edit `.github/workflows/docs-review.yml` lines 247-254 and 292
 
-### Adding New Agents
+### Adding new agents
 
 1. Create `.claude/agents/<new-agent>.md`
 2. Add to `.github/workflows/docs-review.yml`

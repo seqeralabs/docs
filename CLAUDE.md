@@ -2,13 +2,13 @@
 
 This guide covers documentation standards, editorial workflows, and Claude-powered automation for the Seqera Platform documentation repository.
 
-## Quick Start
+## Quick start
 
 - **New PR created** → Agents automatically review changed docs → Inline suggestions appear
 - **Local review** → Use `/review <file-or-directory>` → See issues before committing
 - **Apply fixes** → Click "Commit suggestion" or batch-apply multiple → Done
 
-## Automated PR Reviews
+## Automated PR reviews
 
 ### How it works
 
@@ -19,7 +19,7 @@ When you open a PR that modifies documentation files, GitHub Actions automatical
 3. **Posts inline suggestions** (up to 60 per PR)
 4. **Saves full report** (downloadable artifact)
 
-### PR Classification
+### PR classification
 
 **Rename PRs** (>70% file renames, <5 significant content changes):
 - Skips voice-tone and terminology checks
@@ -32,7 +32,7 @@ When you open a PR that modifies documentation files, GitHub Actions automatical
 - Full list available as artifact
 - Marked as 📝 "content" type
 
-### Applying Suggestions
+### Applying suggestions
 
 **Individual fixes:**
 1. Click "Commit suggestion" on any inline comment
@@ -43,7 +43,7 @@ When you open a PR that modifies documentation files, GitHub Actions automatical
 2. Click "Commit suggestions"
 3. All selected fixes apply in one commit
 
-### Handling 60+ Suggestions
+### Handling 60+ suggestions
 
 If agents find more than 60 issues, a comment explains how to access the full list:
 
@@ -54,7 +54,7 @@ If agents find more than 60 issues, a comment explains how to access the full li
 
 **Note:** After applying 60 suggestions, the workflow re-runs automatically and may surface more issues.
 
-### Manual Re-run
+### Manual re-run
 
 To re-run editorial review without making changes:
 
@@ -87,7 +87,7 @@ Run editorial reviews locally before opening a PR:
 /review new-page.md --profile=new-content
 ```
 
-## Editorial Agents
+## Editorial agents
 
 ### voice-tone
 Checks for:
@@ -119,9 +119,9 @@ Checks for:
 - Quotation marks
 - Dash usage
 
-## Terminology Standards
+## Terminology standards
 
-### Product Names
+### Product names
 
 | Correct | Incorrect | Notes |
 |---------|-----------|-------|
@@ -134,7 +134,7 @@ Checks for:
 | TowerForge | N/A | Always acceptable |
 | drop-down | dropdown, drop down | Always hyphenated |
 
-### Tower Usage
+### Tower usage
 
 **"Tower" is acceptable in:**
 - Legacy documentation (older versions)
@@ -149,7 +149,7 @@ Checks for:
 
 **Important:** If unsure about Tower usage, agents will ask but won't flag as critical.
 
-### RNA-Seq Capitalization
+### RNA-Seq capitalization
 
 **Capitalized "RNA-Seq":**
 - Headings: `# RNA-Seq Analysis`
@@ -162,16 +162,16 @@ Checks for:
 - Config: `rna-seq.config`
 - Variables: `rna_seq_samples`
 
-### UI Elements
+### UI elements
 
 Always match exact UI text and capitalization:
 - **Launchpad** (not "Launch Pad")
 - **Data Explorer** (not "data explorer")
 - **Runs** (not "Executions")
 
-## Documentation Directory Structure
+## Documentation directory structure
 
-### Automated PR Reviews
+### Automated PR reviews
 
 These directories trigger automated agent reviews:
 
@@ -181,7 +181,7 @@ These directories trigger automated agent reviews:
 | `platform-cloud/docs/` | Cloud platform docs | ~114 files |
 | `platform-enterprise_versioned_docs/` | Versioned docs | Variable |
 
-### Manual Review Only
+### Manual review only
 
 Use `/review` command for these directories:
 
@@ -216,7 +216,7 @@ Use `/review` command for these directories:
 - Full list always available via artifact
 - To change: modify `.github/workflows/docs-review.yml` line 247
 
-## Related Documentation
+### Related documentation
 
 - **Agent Implementation**: See `.claude/README.md` for technical details
 - **Agent Definitions**: See `.claude/agents/*.md` for agent prompts
