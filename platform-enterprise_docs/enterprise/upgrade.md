@@ -2,6 +2,7 @@
 title: "Upgrade deployment"
 description: "Guidance for upgrading to Platform Enterprise version 25.3"
 date created: "2025-11-11"
+last updated: "2026-01-30"
 tags: [enterprise, update, install]
 ---
 
@@ -17,9 +18,9 @@ This page outlines the steps to upgrade your database instance and Platform Ente
 
 - If you are upgrading from a version older than 23.4.1, update your installation to version 23.4.4 **first**, before updating to version 25.3 with the steps on this page.
 
-- **MySQL 8.0 required**
+- **MySQL 8 required**
 
-  From Seqera Enterprise version 23.4, MySQL 8.0 is the only supported database version. If you are running MySQL 5.6 or 5.7, you must upgrade your database to MySQL 8.0 before upgrading to version 23.4 or later. See [General upgrade steps](#general-upgrade-steps) for database upgrade instructions.
+  From Seqera Enterprise version 23.4, MySQL 8 is the only supported database version. If you are running MySQL 5.6 or 5.7, you must upgrade your database to MySQL 8 before upgrading to version 23.4 or later. See [General upgrade steps](#general-upgrade-steps) for database upgrade instructions.
 
 ### Considerations for versions 24.1 - 25.1
 
