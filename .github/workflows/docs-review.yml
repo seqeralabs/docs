@@ -253,6 +253,9 @@ jobs:
           TOTAL_SUGGESTIONS=$(grep -c "^FILE:" /tmp/all-suggestions.txt || echo 0)
           echo "Total suggestions: $TOTAL_SUGGESTIONS"
 
+          # Save full list before limiting
+          cp /tmp/all-suggestions.txt /tmp/all-suggestions-full.txt
+
           # Limit to 50 suggestions to prevent overwhelming output
           # GitHub API also has limits on review comment size
           if [[ $TOTAL_SUGGESTIONS -gt 50 ]]; then
@@ -270,11 +273,22 @@ jobs:
             touch /tmp/no-suggestions.txt
           fi
 
+      - name: Upload Full Suggestions List
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: all-editorial-suggestions
+          path: /tmp/all-suggestions-full.txt
+          if-no-files-found: ignore
+          retention-days: 30
+
       - name: Post Consolidated Review
         run: |
           chmod +x .github/scripts/post-inline-suggestions.sh
 
           PR_TYPE="${{ needs.changes.outputs.pr_type }}"
+          RUN_ID="${{ github.run_id }}"
+          REPO="${{ github.repository }}"
 
           if [[ -f /tmp/no-suggestions.txt ]]; then
             gh pr comment ${{ github.event.pull_request.number }} --body "✅ **Editorial Review Complete** (PR type: $PR_TYPE) - No issues found! Documentation looks good. *Review by Claude Code editorial agents*"
@@ -284,7 +298,20 @@ jobs:
             # Add note if suggestions were limited
             if [[ -f /tmp/total-count.txt ]]; then
               TOTAL=$(cat /tmp/total-count.txt)
-              gh pr comment ${{ github.event.pull_request.number }} --body "⚠️ **Note:** Found $TOTAL total suggestions, showing first 50. Review focuses on most impactful changes. (PR type: $PR_TYPE)"
+              ARTIFACT_URL="https://github.com/${REPO}/actions/runs/${RUN_ID}"
+
+              cat > /tmp/limit-message.txt << EOF
+          ⚠️ **Note:** Found $TOTAL total suggestions, showing first 50 inline.
+
+          **To see all $TOTAL suggestions:**
+          1. Go to the [workflow run]($ARTIFACT_URL)
+          2. Download the \`all-editorial-suggestions\` artifact
+          3. Review the full list in \`all-suggestions-full.txt\`
+
+          The inline suggestions focus on the most impactful changes. (PR type: $PR_TYPE)
+          EOF
+
+              gh pr comment ${{ github.event.pull_request.number }} --body-file /tmp/limit-message.txt
             fi
           else
             echo "No review output to post"
