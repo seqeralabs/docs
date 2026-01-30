@@ -1,7 +1,8 @@
 ---
 title: "Enterprise installation"
 description: Platform Enterprise installation overview
-date: "9 April 2025"
+date created: "2025-04-09"
+last updated: "2026-01-30"
 tags: [installation, deployment]
 ---
 
@@ -35,11 +36,11 @@ Seqera Enterprise requires a Redis database for caching purposes.
 
 ### SQL database
 
-Seqera requires a SQL database to persist user activities and state. The application has been tested against MySQL 8.0. [Contact Seqera support](https://support.seqera.io) if you need to use a different JDBC-compliant SQL database.
+Seqera requires a SQL database to persist user activities and state. The application has been tested against MySQL 8. [Contact Seqera support](https://support.seqera.io) if you need to use a different JDBC-compliant SQL database.
 
 :::note
 From Seqera Enterprise version 23.4:
-- MySQL 8.0 is the officially supported and tested database version.
+- MySQL 8 is the officially supported and tested database version.
 - MySQL versions 5.6 and 5.7 are no longer supported.
 :::
 
