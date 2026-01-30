@@ -185,7 +185,7 @@ Use `/review` command for these directories:
 **Q: Want to adjust suggestion limit?**
 - Current limit: 60 inline suggestions
 - Full list always available via artifact
-- To change: modify `.github/workflows/docs-review.yml` line 247
+- To change: modify the suggestion limit logic in `.github/workflows/docs-review.yml` (around lines 259–268)
 
 ## Related documentation
 
