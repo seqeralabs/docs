@@ -1,18 +1,22 @@
 name: Claude Editorial Review
 
 on:
-  pull_request:
-    paths:
-      - 'platform-enterprise_docs/**/*.md'
-      - 'platform-enterprise_docs/**/*.mdx'
-      - 'platform-cloud/docs/**/*.md'
-      - 'platform-cloud/docs/**/*.mdx'
-      - 'platform-enterprise_versioned_docs/**/*.md'
-      - 'platform-enterprise_versioned_docs/**/*.mdx'
-    types: [opened, synchronize, reopened]
+  # DISABLED: This workflow is replaced by docs-review.yml with consolidated output
+  # To re-enable: remove the "workflow_dispatch" line and uncomment the triggers below
+  workflow_dispatch:
 
-  issue_comment:
-    types: [created]
+  # pull_request:
+  #   paths:
+  #     - 'platform-enterprise_docs/**/*.md'
+  #     - 'platform-enterprise_docs/**/*.mdx'
+  #     - 'platform-cloud/docs/**/*.md'
+  #     - 'platform-cloud/docs/**/*.mdx'
+  #     - 'platform-enterprise_versioned_docs/**/*.md'
+  #     - 'platform-enterprise_versioned_docs/**/*.mdx'
+  #   types: [opened, synchronize, reopened]
+  #
+  # issue_comment:
+  #   types: [created]
 
 permissions:
   contents: read
