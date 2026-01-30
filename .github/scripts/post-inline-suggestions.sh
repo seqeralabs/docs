@@ -128,8 +128,10 @@ create_review() {
 
   # Filter comments to only include lines that are in the PR diff
   local filtered_comments='[]'
+  local filtered_out_comments='[]'
   local total_suggestions=$(echo "$comments" | jq 'length')
   local filtered_count=0
+  local filtered_out_count=0
 
   for ((i=0; i<total_suggestions; i++)); do
     local path=$(echo "$comments" | jq -r ".[$i].path")
@@ -137,16 +139,25 @@ create_review() {
     local key="${path}:${line}"
 
     if [[ -n "${changed_lines[$key]}" ]]; then
+      # This line is in the PR diff - can post inline
       local comment=$(echo "$comments" | jq ".[$i]")
       filtered_comments=$(jq -n \
         --argjson filtered "$filtered_comments" \
         --argjson comment "$comment" \
         '$filtered + [$comment]')
       ((filtered_count++)) || true
+    else
+      # This line is NOT in the PR diff - save for summary comment
+      local comment=$(echo "$comments" | jq ".[$i]")
+      filtered_out_comments=$(jq -n \
+        --argjson filtered "$filtered_out_comments" \
+        --argjson comment "$comment" \
+        '$filtered + [$comment]')
+      ((filtered_out_count++)) || true
     fi
   done
 
-  echo "Filtered suggestions: $filtered_count of $total_suggestions are on changed lines"
+  echo "Filtered suggestions: $filtered_count postable inline, $filtered_out_count on unchanged lines"
 
   if [[ "$filtered_comments" == "[]" ]]; then
     echo "⚠️ No suggestions apply to changed lines in this PR"
@@ -183,6 +194,46 @@ create_review() {
     --input - <<< "$review_json"
 
   echo "✅ Posted review with $(echo "$comments" | jq 'length') inline suggestions"
+
+  # Post additional issues found on unchanged lines as a separate comment
+  if [[ "$filtered_out_comments" != "[]" ]]; then
+    local filtered_out_count=$(echo "$filtered_out_comments" | jq 'length')
+    echo "📋 Posting $filtered_out_count additional issues found on unchanged lines"
+
+    # Build summary comment
+    local summary_body="## 📋 Additional Issues Found in Unchanged Lines"$'\n\n'
+    summary_body+="I found **$filtered_out_count additional issues** in unchanged lines of the files you modified. "
+    summary_body+="While these aren't part of your PR changes, consider fixing them in a follow-up:"$'\n\n'
+
+    # Group by file
+    local current_file=""
+    for ((i=0; i<filtered_out_count; i++)); do
+      local path=$(echo "$filtered_out_comments" | jq -r ".[$i].path")
+      local line=$(echo "$filtered_out_comments" | jq -r ".[$i].line")
+      local body=$(echo "$filtered_out_comments" | jq -r ".[$i].body")
+
+      # Extract issue description from body (remove markdown formatting)
+      local issue=$(echo "$body" | sed -n '1p' | sed 's/\*\*//g')
+
+      if [[ "$path" != "$current_file" ]]; then
+        if [[ -n "$current_file" ]]; then
+          summary_body+=$'\n'
+        fi
+        summary_body+="### \`$path\`"$'\n\n'
+        current_file="$path"
+      fi
+
+      summary_body+="- **Line $line:** $issue"$'\n'
+    done
+
+    summary_body+=$'\n'"---"$'\n'
+    summary_body+="*💡 Tip: These issues are in code outside the PR diff. GitHub doesn't allow inline suggestions on unchanged lines.*"$'\n'
+    summary_body+="*Review powered by Claude Code editorial agents*"
+
+    # Post the summary comment
+    gh pr comment "$pr_number" --body "$summary_body"
+    echo "✅ Posted additional issues summary"
+  fi
 }
 
 create_review "$PR_NUMBER" "$REVIEW_FILE"
