@@ -1,0 +1,147 @@
+name: Claude Editorial Review
+
+on:
+  pull_request:
+    paths:
+      - 'platform-enterprise_docs/**/*.md'
+      - 'platform-enterprise_docs/**/*.mdx'
+      - 'platform-cloud/docs/**/*.md'
+      - 'platform-cloud/docs/**/*.mdx'
+      - 'platform-enterprise_versioned_docs/**/*.md'
+      - 'platform-enterprise_versioned_docs/**/*.mdx'
+    types: [opened, synchronize, reopened]
+
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  pull-requests: write
+  id-token: write
+
+jobs:
+  editorial-review:
+    # Run on PR changes or when someone comments @claude
+    if: |
+      github.event_name == 'pull_request' ||
+      (github.event_name == 'issue_comment' &&
+       github.event.issue.pull_request &&
+       contains(github.event.comment.body, '@claude'))
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.event.pull_request.head.ref }}
+
+      - name: Get changed files
+        id: changed-files
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            # Get files changed in this PR
+            git diff --name-only origin/${{ github.base_ref }}...HEAD | grep -E '\.(md|mdx)$' > changed_files.txt || true
+          else
+            # For comment triggers, review all markdown files (or could be made smarter)
+            find . -name "*.md" -o -name "*.mdx" | grep -v node_modules | head -20 > changed_files.txt || true
+          fi
+
+          if [[ -s changed_files.txt ]]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "files<<EOF" >> $GITHUB_OUTPUT
+            cat changed_files.txt >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run Editorial Review
+        if: steps.changed-files.outputs.has_changes == 'true'
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
+          prompt: |
+            REPO: ${{ github.repository }}
+            PR NUMBER: ${{ github.event.pull_request.number }}
+
+            Use the editorial-review skill to review these documentation files that changed in the PR:
+
+            ${{ steps.changed-files.outputs.files }}
+
+            Instructions:
+            - Use profile "comprehensive" for thorough review
+            - Format output for GitHub PR comments with markdown tables
+            - Focus on voice-tone, terminology, punctuation, and clarity
+            - Flag critical issues that affect user comprehension
+            - Provide specific line-by-line suggestions
+            - Include summary with total issues found
+
+            Post your review as a PR comment using: gh pr comment ${{ github.event.pull_request.number }}
+
+            Do NOT make any edits - just provide review feedback.
+          use_sticky_comment: true
+          claude_args: |
+            --allowedTools "Read,Grep,Glob,Bash(gh pr comment:*),Bash(gh pr view:*),Skill(editorial-review)"
+
+
+  apply-fixes:
+    # Triggered when someone comments asking Claude to fix issues
+    if: |
+      github.event_name == 'issue_comment' &&
+      github.event.issue.pull_request &&
+      contains(github.event.comment.body, '@claude fix')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Apply Editorial Fixes
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
+          prompt: |
+            Use the docs-fix agent to apply editorial corrections to documentation files in this PR.
+
+            Focus on:
+            - Terminology standardization (product names, UI formatting)
+            - Voice and tone consistency (second person, active voice)
+            - Punctuation corrections (Oxford commas, list consistency)
+            - Inclusive language improvements
+
+            Apply fixes conservatively:
+            - DO NOT change technical content or code examples
+            - DO NOT alter meaning or instructions
+            - DO make formatting and language consistency improvements
+            - DO standardize product terminology
+
+            Commit changes with a clear message describing the fixes applied.
+          claude_args: |
+            --allowedTools "Read,Write,Edit,Grep,Glob,Bash"
+
+      - name: Push changes
+        run: |
+          git config user.name "Claude Editorial Bot"
+          git config user.email "claude-bot@seqera.io"
+
+          # Check if there are changes to commit
+          if [[ -n $(git status --porcelain) ]]; then
+            git add -A
+            git commit -m "docs: apply Claude editorial review fixes
+
+            🤖 Applied automated editorial improvements:
+            - Standardized terminology and product names
+            - Improved voice and tone consistency
+            - Fixed punctuation and formatting issues
+            - Enhanced inclusive language usage
+
+            Generated by Claude Code editorial agents"
+            git push
+          else
+            echo "No changes to commit"
+          fi

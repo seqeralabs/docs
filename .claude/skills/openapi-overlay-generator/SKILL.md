@@ -3,11 +3,11 @@ name: openapi-overlay-generator
 description: Generate OpenAPI overlay files for Seqera Platform API documentation. Use when working with API documentation updates, analyzing comparison overlays from Speakeasy, creating operations/parameters/schemas overlay files, or updating API documentation for new Platform versions. Triggers include requests to generate overlays, document new API endpoints, analyze API changes, or work with Seqera Platform OpenAPI specifications.
 ---
 
-# OpenAPI Overlay Generator for Seqera Platform API
+# OpenAPI overlay generator for Seqera Platform API
 
 This skill generates high-quality OpenAPI overlay files for documenting the Seqera Platform API according to established standards and conventions.
 
-## When to Use This Skill
+## When to use this skill
 
 Use this skill when:
 - Analyzing Speakeasy comparison overlays to identify API changes
@@ -17,7 +17,7 @@ Use this skill when:
 - Validating overlay files against documentation standards
 - Working with Seqera Platform OpenAPI specifications
 
-## Core Workflow
+## Core workflow
 
 ### Phase 1: Analysis
 
@@ -38,11 +38,11 @@ The analysis categorizes changes by:
 - New schemas (requiring property descriptions)
 - Tag/controller grouping
 
-### Phase 2: Generate Overlay Files
+### Phase 2: Generate overlay files
 
 Based on the analysis, generate three overlay files for each affected feature area:
 
-#### 1. Operations Overlay
+#### 1. Operations overlay
 
 **Purpose**: Document endpoint summaries and descriptions
 
@@ -60,15 +60,15 @@ info:
   version: 1.89
 actions:
   # ===== DATASETS - OPERATIONS =====
-  
+
   - target: "$.paths./datasets.get.summary"
     update: "List datasets"
-  
+
   - target: "$.paths./datasets.get.description"
     update: "Lists all datasets in a user context, enriched by `attributes`. Append `?workspaceId` to list datasets in a workspace context."
 ```
 
-#### 2. Parameters Overlay
+#### 2. Parameters overlay
 
 **Purpose**: Document path, query, and request body parameters
 
@@ -91,22 +91,22 @@ info:
   version: 1.89
 actions:
   # ===== DATASETS PARAMETERS =====
-  
+
   # ---- PATH PARAMETERS ----
-  
+
   - target: "$.paths./datasets/{datasetId}.get.parameters[?(@.name=='datasetId')].description"
     update: "Dataset numeric identifier."
-  
+
   # ---- QUERY PARAMETERS ----
-  
+
   - target: "$.paths./datasets.get.parameters[?(@.name=='workspaceId')].description"
     update: "Workspace numeric identifier."
-  
+
   - target: "$.paths./datasets.get.parameters[?(@.name=='max')].description"
     update: "Maximum number of results to return. Default: `20`."
 ```
 
-#### 3. Schemas Overlay
+#### 3. Schemas overlay
 
 **Purpose**: Document request/response object properties
 
@@ -125,13 +125,13 @@ info:
   version: 1.89
 actions:
   # ===== DATASETS SCHEMAS =====
-  
+
   - target: "$.components.schemas.DatasetRequest.properties.name"
     update:
       type: string
       required: true
       description: "Dataset name. Maximum 255 characters."
-  
+
   - target: "$.components.schemas.DatasetRequest.properties.description"
     update:
       type: string
@@ -153,7 +153,7 @@ python scripts/check_consistency.py path/to/overlay.yaml
 
 Fix any errors or warnings before proceeding.
 
-## Documentation Standards
+## Documentation standards
 
 **MUST READ**: See `references/standards.md` for complete style guide including:
 - Terminology standards (data-links, resource path, Array of)
@@ -168,7 +168,7 @@ Fix any errors or warnings before proceeding.
 - JSONPath targeting examples
 - Complete examples of all property types
 
-## Critical Rules
+## Critical rules
 
 ### Summaries
 - ✅ Sentence case: "List datasets"
@@ -183,7 +183,7 @@ Fix any errors or warnings before proceeding.
 - ✅ Full sentences with context
 - ✅ Include scope info where applicable
 
-### Standard Parameters
+### Standard parameters
 - ✅ Use EXACT descriptions from standards.md
 - ❌ Never invent new wording for workspaceId, max, offset, etc.
 - ✅ Include defaults in backticks: "Default: `0`."
@@ -194,9 +194,9 @@ Fix any errors or warnings before proceeding.
 - ✅ "Array of" (not "List of")
 - ✅ "Workspace numeric identifier" (not "Workspace ID")
 
-## Overlay File Structure
+## Overlay file structure
 
-### Naming Convention
+### Naming convention
 
 ```
 {resource}-{type}-overlay-{version}.yaml
@@ -207,7 +207,7 @@ Examples:
 - datasets-schemas-overlay-1.89.yaml
 ```
 
-### File Organization
+### File organization
 
 Within each overlay file:
 
@@ -218,14 +218,14 @@ info:
   version: {version}
 actions:
   # ===== {FEATURE} - {TYPE} =====
-  
+
   # ---- {SECTION NAME} ----
-  
+
   - target: "$.paths.{endpoint}.{method}.{property}"
     update: "{value}"
-  
+
   # ---- {NEXT SECTION} ----
-  
+
   - target: "$.paths.{endpoint}.{method}.{property}"
     update: "{value}"
 ```
@@ -236,9 +236,9 @@ actions:
 - Follow logical order (List → Get → Create → Update → Delete)
 - Keep related targets together
 
-## JSONPath Patterns
+## JSONPath patterns
 
-### Common Patterns
+### Common patterns
 
 ```yaml
 # Operation summary
@@ -263,7 +263,7 @@ $.components.schemas.DatasetRequest.properties.name
 $.paths./datasets.get.responses['200'].description
 ```
 
-## Generating Overlays from Comparison
+## Generating overlays from comparison
 
 When analyzing a comparison overlay:
 
@@ -273,7 +273,7 @@ When analyzing a comparison overlay:
 4. **Follow patterns**: Use templates from overlay-patterns.md
 5. **Maintain consistency**: Same entities use same phrasing throughout
 
-## Quality Checklist
+## Quality checklist
 
 Before finalizing overlay files:
 
@@ -289,7 +289,7 @@ Before finalizing overlay files:
 - [ ] JSONPath syntax is valid
 - [ ] Validation scripts pass
 
-## Scripts Reference
+## Scripts reference
 
 ### Analysis
 - `scripts/analyze_comparison.py`: Parse comparison overlay and categorize changes
@@ -314,7 +314,7 @@ Before finalizing overlay files:
   - Input: Decorated spec (seqera-api-latest-decorated.yaml)
   - Output: YAML tables in docs/info/parameter-tables/
 
-## Common Mistakes to Avoid
+## Common mistakes to avoid
 
 1. **Inconsistent parameter descriptions**: Always use standards.md exact wording
 2. **Missing periods in descriptions**: Descriptions are sentences
@@ -324,7 +324,7 @@ Before finalizing overlay files:
 6. **Incomplete enum listings**: List all accepted values
 7. **Vague descriptions**: Include specifics (max length, format, constraints)
 
-## Working with Permanent Overlays
+## Working with permanent overlays
 
 One overlay is applied to EVERY version:
 
@@ -332,7 +332,7 @@ One overlay is applied to EVERY version:
 
 This lives in `scripts/specs/` and should not be moved to archives.
 
-## Integration Points
+## Integration points
 
 This skill integrates with:
 - **Speakeasy CLI**: For overlay comparison and application
@@ -341,7 +341,7 @@ This skill integrates with:
 - **Docusaurus**: Documentation regeneration
 - **Platform repo**: Source of truth for base specs
 
-## Next Steps After Generation
+## Next steps after generation
 
 After generating overlay files:
 
@@ -353,4 +353,4 @@ After generating overlay files:
 6. **Regenerate**: Update MDX documentation files
 7. **Update sidebar**: Add new operation entries
 8. **Archive**: Move version-specific consolidated overlay file to overlay_archives/
-9. **Clean up**: Remove the old base spec, individual overlays, and other ephemeral files, leaving only the decorated spec, latest base spec, and `servers-overlay.yaml` in the specs folder. 
+9. **Clean up**: Remove the old base spec, individual overlays, and other ephemeral files, leaving only the decorated spec, latest base spec, and `servers-overlay.yaml` in the specs folder.
