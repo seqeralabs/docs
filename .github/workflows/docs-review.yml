@@ -253,13 +253,13 @@ jobs:
           TOTAL_SUGGESTIONS=$(grep -c "^FILE:" /tmp/all-suggestions.txt || echo 0)
           echo "Total suggestions: $TOTAL_SUGGESTIONS"
 
-          # Limit to 100 suggestions to prevent overwhelming output
+          # Limit to 50 suggestions to prevent overwhelming output
           # GitHub API also has limits on review comment size
-          if [[ $TOTAL_SUGGESTIONS -gt 100 ]]; then
-            echo "⚠️ Limiting to first 100 suggestions (found $TOTAL_SUGGESTIONS total)"
+          if [[ $TOTAL_SUGGESTIONS -gt 50 ]]; then
+            echo "⚠️ Limiting to first 50 suggestions (found $TOTAL_SUGGESTIONS total)"
 
-            # Extract first 100 suggestion blocks (each block ends with ---)
-            awk '/^FILE:/{c++} c<=100' /tmp/all-suggestions.txt > /tmp/all-suggestions-limited.txt
+            # Extract first 50 suggestion blocks (each block ends with ---)
+            awk '/^FILE:/{c++} c<=50' /tmp/all-suggestions.txt > /tmp/all-suggestions-limited.txt
             mv /tmp/all-suggestions-limited.txt /tmp/all-suggestions.txt
             echo "$TOTAL_SUGGESTIONS" > /tmp/total-count.txt
           fi
@@ -284,7 +284,7 @@ jobs:
             # Add note if suggestions were limited
             if [[ -f /tmp/total-count.txt ]]; then
               TOTAL=$(cat /tmp/total-count.txt)
-              gh pr comment ${{ github.event.pull_request.number }} --body "⚠️ **Note:** Found $TOTAL total suggestions, showing first 100. Review focuses on most impactful changes. (PR type: $PR_TYPE)"
+              gh pr comment ${{ github.event.pull_request.number }} --body "⚠️ **Note:** Found $TOTAL total suggestions, showing first 50. Review focuses on most impactful changes. (PR type: $PR_TYPE)"
             fi
           else
             echo "No review output to post"
