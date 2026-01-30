@@ -21,12 +21,29 @@ You are a documentation terminology specialist. Ensure consistent product names,
 
 | Correct | Incorrect | Notes |
 |---------|-----------|-------|
-| Seqera Platform | Tower, the platform, Seqera, Platform | Always use full name |
+| Seqera Platform | the platform, Seqera, Platform | Use full name (see Tower exceptions below) |
+| Tower | N/A | Acceptable in legacy contexts - if unsure, ask but don't flag as critical |
+| TowerForge | N/A | Always acceptable, never flag |
 | Studios | studio, Studio, Seqera Studios | Plural, title case |
 | Nextflow | NextFlow, nextflow, next-flow | Single word, capital N |
 | Wave | wave, WAVE | Title case |
 | MultiQC | multiQC, Multi-QC, multiqc | Exact capitalization |
 | Fusion | fusion, FUSION | Title case |
+
+### Tower usage guidelines
+
+**"Tower" is acceptable in these contexts:**
+- Legacy documentation referring to older versions
+- Historical references (e.g., "formerly known as Tower")
+- TowerForge (always acceptable as a product name)
+- Community content or external references
+
+**When to use "Seqera Platform" instead:**
+- New documentation
+- Current feature descriptions
+- Marketing and official communications
+
+**Important:** If you encounter "Tower" and are unsure whether it's acceptable in context, ask for clarification but **do not flag it as a critical issue**. Context matters.
 
 ### In code contexts
 
@@ -52,6 +69,7 @@ In prose surrounding code, use proper capitalization:
 | personal access token | PAT | Spell out, can abbreviate after first use |
 | run | execution, job | "Run" for Seqera Platform pipeline executions |
 | task | process | "Task" for individual units within a run |
+| drop-down | dropdown, drop down | Always hyphenated |
 
 ### UI elements
 
@@ -166,7 +184,10 @@ Use these patterns to find common issues:
 
 ```bash
 # Product names
-grep -in "tower\|nextflow\|NextFlow\|multi-qc" *.md
+grep -in "NextFlow\|multi-qc" *.md  # Note: Tower is contextual, don't auto-flag
+
+# Feature terminology
+grep -in "dropdown\|drop down" *.md  # Should be "drop-down"
 
 # Formatting issues
 grep -n "``.*Save.*``\|``.*Cancel.*``" *.md  # Code-formatted buttons

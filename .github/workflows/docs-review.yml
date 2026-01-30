@@ -52,7 +52,7 @@ jobs:
               - 'platform-enterprise_versioned_docs/**/*.md'
               - 'platform-enterprise_versioned_docs/**/*.mdx'
 
-  # Voice and Tone Review
+  # Voice and tone review
   voice-tone-review:
     needs: changes
     if: needs.changes.outputs.docs == 'true'
@@ -70,19 +70,37 @@ jobs:
             Use the voice-tone agent to review these changed documentation files:
             ${{ needs.changes.outputs.docs_files }}
 
+            For each issue found, output in this EXACT format:
+
+            FILE: path/to/file.md
+            LINE: 42
+            ISSUE: Brief description (e.g., "Passive voice", "Third person usage")
+            ORIGINAL: |
+            exact original text
+            SUGGESTION: |
+            corrected text
+            ---
+
             Check for:
             - Second person usage (you vs the user)
             - Active vs passive voice
             - Present vs future tense
             - Hedging language
 
-            Post your findings as a comment with header "## 🎭 Voice & Tone Review"
-            Use: gh pr comment ${{ github.event.pull_request.number }}
+            Write all suggestions to /tmp/voice-tone-suggestions.txt
           use_sticky_comment: true
           claude_args: |
-            --allowedTools "Read,Grep,Glob,Bash(gh pr comment:*),Task(voice-tone)"
+            --allowedTools "Read,Grep,Glob,Write,Task(voice-tone)"
 
-  # Terminology Review
+      - name: Upload Voice/Tone Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: voice-tone-suggestions
+          path: /tmp/voice-tone-suggestions.txt
+          if-no-files-found: ignore
+
+  # Terminology review
   terminology-review:
     needs: changes
     if: needs.changes.outputs.docs == 'true'
@@ -100,22 +118,41 @@ jobs:
             Use the terminology agent to review these changed documentation files:
             ${{ needs.changes.outputs.docs_files }}
 
+            For each issue found, output in this EXACT format:
+
+            FILE: path/to/file.md
+            LINE: 42
+            ISSUE: Brief description (e.g., "Use 'Seqera Platform' not 'Tower'")
+            ORIGINAL: |
+            exact original text
+            SUGGESTION: |
+            corrected text
+            ---
+
             Check for:
             - Product name consistency (Seqera Platform, Nextflow, etc.)
-            - Feature name consistency
+            - Feature name consistency (Studios capitalized)
             - Formatting conventions (bold for UI, backticks for code)
-            - Abbreviation handling
+            - RNA-Seq capitalization rules
 
-            Post your findings as a comment with header "## 📚 Terminology Review"
-            Use: gh pr comment ${{ github.event.pull_request.number }}
+            Write all suggestions to /tmp/terminology-suggestions.txt
           use_sticky_comment: true
           claude_args: |
-            --allowedTools "Read,Grep,Glob,Bash(gh pr comment:*),Task(terminology)"
+            --allowedTools "Read,Grep,Glob,Write,Task(terminology)"
 
-  # Clarity Review
+      - name: Upload Terminology Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: terminology-suggestions
+          path: /tmp/terminology-suggestions.txt
+          if-no-files-found: ignore
+
+  # Clarity review
   clarity-review:
     needs: changes
-    if: needs.changes.outputs.docs == 'true'
+    if: false  # Disabled for now - can be re-enabled later
+    # if: needs.changes.outputs.docs == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -130,21 +167,100 @@ jobs:
             Use the clarity agent to review these changed documentation files:
             ${{ needs.changes.outputs.docs_files }}
 
+            For each issue found, output in this EXACT format:
+
+            FILE: path/to/file.md
+            LINE: 42
+            ISSUE: Brief description (e.g., "Sentence too long (45 words)", "Undefined jargon")
+            ORIGINAL: |
+            exact original text
+            SUGGESTION: |
+            corrected text
+            ---
+
             Check for:
             - Sentence length (flag over 30 words)
             - Undefined jargon
             - Complex constructions
             - Missing prerequisites
 
-            Post your findings as a comment with header "## 🔍 Clarity Review"
-            Use: gh pr comment ${{ github.event.pull_request.number }}
+            Write all suggestions to /tmp/clarity-suggestions.txt
           use_sticky_comment: true
           claude_args: |
-            --allowedTools "Read,Grep,Glob,Bash(gh pr comment:*),Task(clarity)"
+            --allowedTools "Read,Grep,Glob,Write,Task(clarity)"
 
-  # Summary Report
+      - name: Post Clarity Suggestions
+        run: |
+          chmod +x .github/scripts/post-inline-suggestions.sh
+          if [[ -f /tmp/clarity-suggestions.txt ]]; then
+            .github/scripts/post-inline-suggestions.sh /tmp/clarity-suggestions.txt ${{ github.event.pull_request.number }}
+          else
+            echo "✅ No clarity issues found"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Consolidated Review - Posts ONE review with all suggestions
+  consolidated-review:
+    needs: [voice-tone-review, terminology-review]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download Voice/Tone Results
+        uses: actions/download-artifact@v4
+        with:
+          name: voice-tone-suggestions
+          path: ./artifacts
+        continue-on-error: true
+
+      - name: Download Terminology Results
+        uses: actions/download-artifact@v4
+        with:
+          name: terminology-suggestions
+          path: ./artifacts
+        continue-on-error: true
+
+      - name: Merge All Suggestions
+        run: |
+          mkdir -p ./artifacts
+          touch /tmp/all-suggestions.txt
+
+          # Add voice/tone suggestions if they exist
+          if [[ -f ./artifacts/voice-tone-suggestions.txt ]]; then
+            cat ./artifacts/voice-tone-suggestions.txt >> /tmp/all-suggestions.txt
+          fi
+
+          # Add terminology suggestions if they exist
+          if [[ -f ./artifacts/terminology-suggestions.txt ]]; then
+            cat ./artifacts/terminology-suggestions.txt >> /tmp/all-suggestions.txt
+          fi
+
+          # Check if we have any suggestions
+          if [[ ! -s /tmp/all-suggestions.txt ]]; then
+            echo "No suggestions found"
+            touch /tmp/no-suggestions.txt
+          fi
+
+      - name: Post Consolidated Review
+        run: |
+          chmod +x .github/scripts/post-inline-suggestions.sh
+
+          if [[ -f /tmp/no-suggestions.txt ]]; then
+            gh pr comment ${{ github.event.pull_request.number }} --body "✅ **Editorial Review Complete** - No issues found! Documentation looks good. *Review by Claude Code editorial agents*"
+          elif [[ -f /tmp/all-suggestions.txt ]] && [[ -s /tmp/all-suggestions.txt ]]; then
+            .github/scripts/post-inline-suggestions.sh /tmp/all-suggestions.txt ${{ github.event.pull_request.number }}
+          else
+            echo "No review output to post"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Summary report
   summary:
-    needs: [voice-tone-review, terminology-review, clarity-review]
+    needs: [voice-tone-review, terminology-review, consolidated-review]
+    # Removed clarity-review from dependencies since it's currently disabled
     if: always() && needs.changes.outputs.docs == 'true'
     runs-on: ubuntu-latest
     steps:
@@ -154,8 +270,8 @@ jobs:
           script: |
             const jobs = [
               { name: 'Voice/Tone', status: '${{ needs.voice-tone-review.result }}' },
-              { name: 'Terminology', status: '${{ needs.terminology-review.result }}' },
-              { name: 'Clarity', status: '${{ needs.clarity-review.result }}' }
+              { name: 'Terminology', status: '${{ needs.terminology-review.result }}' }
+              // Clarity review temporarily disabled
             ];
 
             const statusEmoji = {
@@ -174,8 +290,10 @@ jobs:
             }
 
             summary += '\n---\n';
-            summary += '*Review powered by Claude Code SME agents*\n';
-            summary += '\n**To apply fixes:** Comment `/fix-docs` on this PR';
+            summary += '*Review powered by Claude Code editorial agents*\n';
+            summary += '\n**To apply suggestions:**\n';
+            summary += '- Click "Commit suggestion" on individual inline comments\n';
+            summary += '- Select multiple suggestions and batch commit them together';
 
             await github.rest.issues.createComment({
               owner: context.repo.owner,
@@ -186,7 +304,11 @@ jobs:
 
   # Auto-fix workflow (triggered by /fix-docs comment)
   auto-fix:
-    if: github.event_name == 'issue_comment' && contains(github.event.comment.body, '/fix-docs')
+    # DISABLED: Auto-fix not needed with inline suggestions
+    # Users can apply suggestions individually or batch-commit multiple
+    # To re-enable: remove the "if: false" condition below
+    if: false
+    # if: github.event_name == 'issue_comment' && contains(github.event.comment.body, '/fix-docs')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
