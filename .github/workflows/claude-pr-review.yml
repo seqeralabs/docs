@@ -62,27 +62,50 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
           prompt: |
-            REPO: ${{ github.repository }}
-            PR NUMBER: ${{ github.event.pull_request.number }}
-
-            Use the editorial-review skill to review these documentation files that changed in the PR:
+            Review these documentation files that changed in the PR:
 
             ${{ steps.changed-files.outputs.files }}
 
+            For each issue found, output in this EXACT format for inline GitHub suggestions:
+
+            FILE: path/to/file.md
+            LINE: 42
+            ISSUE: Brief description of the problem
+            ORIGINAL: |
+            exact original text from the file
+            SUGGESTION: |
+            corrected text here
+            ---
+
             Instructions:
-            - Use profile "comprehensive" for thorough review
-            - Format output for GitHub PR comments with markdown tables
-            - Focus on voice-tone, terminology, punctuation, and clarity
-            - Flag critical issues that affect user comprehension
-            - Provide specific line-by-line suggestions
-            - Include summary with total issues found
+            - Read each changed file carefully
+            - For EVERY issue (voice/tone, terminology, punctuation, clarity), create one suggestion block
+            - LINE must be the exact line number where the issue starts
+            - ORIGINAL must be the exact text from the file (can be multiple lines)
+            - SUGGESTION must be the corrected version with the same structure
+            - Focus on: voice-tone (second person, active voice), terminology (Seqera Platform, Studios, etc.), punctuation (Oxford commas), clarity
+            - Write output to a file: /tmp/review-suggestions.txt
 
-            Post your review as a PR comment using: gh pr comment ${{ github.event.pull_request.number }}
+            After generating all suggestions, write them to /tmp/review-suggestions.txt
 
-            Do NOT make any edits - just provide review feedback.
+            Do NOT post comments directly - the workflow will handle posting.
           use_sticky_comment: true
           claude_args: |
-            --allowedTools "Read,Grep,Glob,Bash(gh pr comment:*),Bash(gh pr view:*),Skill(editorial-review)"
+            --allowedTools "Read,Grep,Glob,Write,Bash(cat *),Bash(echo *)"
+
+      - name: Post Inline Suggestions
+        if: steps.changed-files.outputs.has_changes == 'true'
+        run: |
+          chmod +x .github/scripts/post-inline-suggestions.sh
+
+          if [[ -f /tmp/review-suggestions.txt ]]; then
+            .github/scripts/post-inline-suggestions.sh /tmp/review-suggestions.txt ${{ github.event.pull_request.number }}
+          else
+            echo "No suggestions file found - review may not have found any issues"
+            gh pr comment ${{ github.event.pull_request.number }} --body "✅ Editorial review complete - no issues found!"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
   apply-fixes:

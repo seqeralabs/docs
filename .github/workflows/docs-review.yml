@@ -70,17 +70,38 @@ jobs:
             Use the voice-tone agent to review these changed documentation files:
             ${{ needs.changes.outputs.docs_files }}
 
+            For each issue found, output in this EXACT format:
+
+            FILE: path/to/file.md
+            LINE: 42
+            ISSUE: Brief description (e.g., "Passive voice", "Third person usage")
+            ORIGINAL: |
+            exact original text
+            SUGGESTION: |
+            corrected text
+            ---
+
             Check for:
             - Second person usage (you vs the user)
             - Active vs passive voice
             - Present vs future tense
             - Hedging language
 
-            Post your findings as a comment with header "## 🎭 Voice & Tone Review"
-            Use: gh pr comment ${{ github.event.pull_request.number }}
+            Write all suggestions to /tmp/voice-tone-suggestions.txt
           use_sticky_comment: true
           claude_args: |
-            --allowedTools "Read,Grep,Glob,Bash(gh pr comment:*),Task(voice-tone)"
+            --allowedTools "Read,Grep,Glob,Write,Task(voice-tone)"
+
+      - name: Post Voice/Tone Suggestions
+        run: |
+          chmod +x .github/scripts/post-inline-suggestions.sh
+          if [[ -f /tmp/voice-tone-suggestions.txt ]]; then
+            .github/scripts/post-inline-suggestions.sh /tmp/voice-tone-suggestions.txt ${{ github.event.pull_request.number }}
+          else
+            echo "✅ No voice/tone issues found"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # Terminology Review
   terminology-review:
@@ -100,17 +121,38 @@ jobs:
             Use the terminology agent to review these changed documentation files:
             ${{ needs.changes.outputs.docs_files }}
 
+            For each issue found, output in this EXACT format:
+
+            FILE: path/to/file.md
+            LINE: 42
+            ISSUE: Brief description (e.g., "Use 'Seqera Platform' not 'Tower'")
+            ORIGINAL: |
+            exact original text
+            SUGGESTION: |
+            corrected text
+            ---
+
             Check for:
             - Product name consistency (Seqera Platform, Nextflow, etc.)
-            - Feature name consistency
+            - Feature name consistency (Studios capitalized)
             - Formatting conventions (bold for UI, backticks for code)
-            - Abbreviation handling
+            - RNA-Seq capitalization rules
 
-            Post your findings as a comment with header "## 📚 Terminology Review"
-            Use: gh pr comment ${{ github.event.pull_request.number }}
+            Write all suggestions to /tmp/terminology-suggestions.txt
           use_sticky_comment: true
           claude_args: |
-            --allowedTools "Read,Grep,Glob,Bash(gh pr comment:*),Task(terminology)"
+            --allowedTools "Read,Grep,Glob,Write,Task(terminology)"
+
+      - name: Post Terminology Suggestions
+        run: |
+          chmod +x .github/scripts/post-inline-suggestions.sh
+          if [[ -f /tmp/terminology-suggestions.txt ]]; then
+            .github/scripts/post-inline-suggestions.sh /tmp/terminology-suggestions.txt ${{ github.event.pull_request.number }}
+          else
+            echo "✅ No terminology issues found"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # Clarity Review
   clarity-review:
@@ -130,17 +172,38 @@ jobs:
             Use the clarity agent to review these changed documentation files:
             ${{ needs.changes.outputs.docs_files }}
 
+            For each issue found, output in this EXACT format:
+
+            FILE: path/to/file.md
+            LINE: 42
+            ISSUE: Brief description (e.g., "Sentence too long (45 words)", "Undefined jargon")
+            ORIGINAL: |
+            exact original text
+            SUGGESTION: |
+            corrected text
+            ---
+
             Check for:
             - Sentence length (flag over 30 words)
             - Undefined jargon
             - Complex constructions
             - Missing prerequisites
 
-            Post your findings as a comment with header "## 🔍 Clarity Review"
-            Use: gh pr comment ${{ github.event.pull_request.number }}
+            Write all suggestions to /tmp/clarity-suggestions.txt
           use_sticky_comment: true
           claude_args: |
-            --allowedTools "Read,Grep,Glob,Bash(gh pr comment:*),Task(clarity)"
+            --allowedTools "Read,Grep,Glob,Write,Task(clarity)"
+
+      - name: Post Clarity Suggestions
+        run: |
+          chmod +x .github/scripts/post-inline-suggestions.sh
+          if [[ -f /tmp/clarity-suggestions.txt ]]; then
+            .github/scripts/post-inline-suggestions.sh /tmp/clarity-suggestions.txt ${{ github.event.pull_request.number }}
+          else
+            echo "✅ No clarity issues found"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # Summary Report
   summary:
@@ -174,8 +237,9 @@ jobs:
             }
 
             summary += '\n---\n';
-            summary += '*Review powered by Claude Code SME agents*\n';
-            summary += '\n**To apply fixes:** Comment `/fix-docs` on this PR';
+            summary += '*Review powered by Claude Code editorial agents*\n';
+            summary += '\n**To apply suggestions:** Click "Commit suggestion" on each inline comment\n';
+            summary += '**To auto-fix all:** Comment `/fix-docs` on this PR';
 
             await github.rest.issues.createComment({
               owner: context.repo.owner,
