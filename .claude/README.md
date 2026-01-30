@@ -1,6 +1,6 @@
 # Claude Code Configuration
 
-This directory contains Claude Code configuration for the Seqera Platform documentation repository.
+This directory contains Claude Code agents, skills, and configuration for the Seqera Platform documentation repository.
 
 ## Overview
 
@@ -212,10 +212,10 @@ To change: Edit `.github/workflows/docs-review.yml` lines 247-254 and 292
 
 ## Maintenance
 
-- Skills and agents are version-controlled
-- Changes reviewed like any code
+- Skills and agents are version-controlled with the repository
+- Updates to skills should be reviewed like any other code change
 - Test changes locally before committing
-- Monitor Actions tab for workflow issues
+- Monitor the **Actions** tab in GitHub for workflow issues
 - Artifacts auto-delete after 30 days
 
 ## Architecture
