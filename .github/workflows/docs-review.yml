@@ -215,7 +215,7 @@ jobs:
   # Consolidated Review - Posts ONE review with all suggestions
   consolidated-review:
     needs: [changes, voice-tone-review, terminology-review]
-    if: always() && needs.changes.outputs.docs == 'true'
+    if: always() && needs.changes.outputs.docs == 'true' && (needs.voice-tone-review.result != 'skipped' || needs.terminology-review.result != 'skipped')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -283,6 +283,7 @@ jobs:
           retention-days: 30
 
       - name: Post Consolidated Review
+        if: github.event_name == 'pull_request'
         run: |
           chmod +x .github/scripts/post-inline-suggestions.sh
 
@@ -323,7 +324,7 @@ jobs:
   summary:
     needs: [changes, voice-tone-review, terminology-review, consolidated-review]
     # Removed clarity-review from dependencies since it's currently disabled
-    if: always() && needs.changes.outputs.docs == 'true'
+    if: always() && needs.changes.outputs.docs == 'true' && github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - name: Post Summary

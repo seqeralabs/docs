@@ -17,8 +17,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: fix-bash-syntax-error
 
       - name: Create test suggestions file
         run: |
@@ -52,6 +50,6 @@ jobs:
 
       - name: Post test result
         run: |
-          gh pr comment ${{ inputs.pr_number }} --body "✅ Inline suggestions script test completed successfully on \`fix-bash-syntax-error\` branch"
+          gh pr comment ${{ inputs.pr_number }} --body "✅ Inline suggestions script test completed successfully"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
