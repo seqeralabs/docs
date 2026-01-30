@@ -259,7 +259,7 @@ jobs:
 
   # Summary report
   summary:
-    needs: [voice-tone-review, terminology-review, consolidated-review]
+    needs: [changes, voice-tone-review, terminology-review, consolidated-review]
     # Removed clarity-review from dependencies since it's currently disabled
     if: always() && needs.changes.outputs.docs == 'true'
     runs-on: ubuntu-latest
