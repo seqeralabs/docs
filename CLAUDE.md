@@ -8,6 +8,53 @@ This guide covers documentation standards, editorial workflows, and Claude-power
 - **Local review** → Use `/review <file-or-directory>` → See issues before committing
 - **Apply fixes** → Click "Commit suggestion" or batch-apply multiple → Done
 
+## Workflows and architecture
+
+This repository uses two main Claude-powered workflows:
+
+### Editorial workflow
+
+**Purpose:** Automated quality checks for documentation content
+
+**How it works:**
+1. You open a PR with documentation changes
+2. GitHub Actions triggers the docs-review workflow
+3. Script analyzes git diff to classify PR type (rename vs content)
+4. Agents run based on classification:
+   - Content PRs: voice-tone + terminology agents
+   - Rename PRs: minimal checks only
+5. Agents analyze changed files and identify issues
+6. Script converts findings to GitHub inline suggestions
+7. You see suggestions directly on changed lines in your PR
+8. Apply fixes with one click or batch-apply multiple
+
+**Components:**
+- **Agents**: voice-tone, terminology, clarity (disabled), punctuation (planned)
+- **Workflow**: `.github/workflows/docs-review.yml`
+- **Scripts**: `classify-pr-type.sh` (PR classification), `post-inline-suggestions.sh` (GitHub API integration)
+- **Triggers**: Pull requests to `platform-*` directories, manual workflow dispatch
+
+### API workflow
+
+**Purpose:** Generate OpenAPI overlay files for API documentation updates
+
+**How it works:**
+1. You receive API changes from Speakeasy (comparison overlay)
+2. You invoke `/openapi-overlay-generator` skill
+3. Skill analyzes comparison overlay and API documentation standards
+4. Skill generates structured overlay files:
+   - Operations overlay (endpoint descriptions, summaries)
+   - Parameters overlay (parameter descriptions)
+   - Schemas overlay (model descriptions)
+5. You review and commit generated overlays
+6. Overlays merge with base OpenAPI spec during documentation build
+
+**Components:**
+- **Skill**: `/openapi-overlay-generator`
+- **Documentation**: `.claude/skills/openapi-overlay-generator/SKILL.md`
+- **Output**: YAML overlay files following OpenAPI overlay specification
+- **Triggers**: Manual invocation when API documentation needs updating
+
 ## Automated PR reviews
 
 ### How it works
