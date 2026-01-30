@@ -7,12 +7,7 @@ tags: [kubernetes, studios, deployment]
 
 This guide describes how to deploy Studios for Seqera Platform Enterprise on Kubernetes.
 
-## Prerequisites
-
-Before you begin, you need:
-- A running Seqera Platform Enterprise Kubernetes deployment
-- A wildcard TLS certificate for your domain (e.g., `*.example.com`)
-- A wildcard DNS record (e.g., `*.example.com`)
+Refer to the [Studios installation overview](./install-studios) for prerequisites and configuration options.
 
 ## Procedure
 

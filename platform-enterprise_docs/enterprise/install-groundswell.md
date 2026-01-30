@@ -11,8 +11,9 @@ Pipeline resource optimization (Groundswell) uses resource usage data from previ
 
 | Method | Guide |
 | :----- | :---- |
-| Docker Compose | [Pipeline optimization: Docker Compose](./groundswell-docker-compose) |
+| Helm | [Pipeline optimization: Helm](./groundswell-helm) |
 | Kubernetes | [Pipeline optimization: Kubernetes](./groundswell-kubernetes) |
+| Docker Compose | [Pipeline optimization: Docker Compose](./groundswell-docker-compose) |
 
 ## Prerequisites
 

@@ -12,9 +12,9 @@ Seqera Platform Enterprise can be deployed using Docker Compose, Kubernetes, or 
 
 | Method | Use case |
 | :----- | :------- |
-| [Docker Compose](./platform-docker-compose) | Evaluation, development, small production workloads |
-| [Kubernetes](./platform-kubernetes) | Production workloads requiring high availability |
 | [Helm](./platform-helm) | Kubernetes deployments using Helm charts |
+| [Kubernetes](./platform-kubernetes) | Production workloads requiring high availability |
+| [Docker Compose](./platform-docker-compose) | Evaluation, development, small production workloads |
 
 ## Prerequisites
 

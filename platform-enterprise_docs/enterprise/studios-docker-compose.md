@@ -7,14 +7,7 @@ tags: [docker, compose, studios, deployment]
 
 This guide describes how to deploy Studios for Seqera Platform Enterprise with Docker Compose.
 
-## Prerequisites
-
-Before you begin, you need:
-- A running Seqera Platform Enterprise Docker Compose deployment
-- A wildcard TLS certificate for your domain (e.g., `*.example.com`)
-- A wildcard DNS record (e.g., `*.example.com`)
-- Inbound traffic allowed on port 9090
-- Traffic on port 9090 through your load balancer
+Refer to the [Studios installation overview](./install-studios) for prerequisites and configuration options.
 
 ## Procedure
 

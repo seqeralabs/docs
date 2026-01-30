@@ -8,11 +8,13 @@ tags: [docker, compose, kubernetes, studios, deployment]
 
 Enable Studios as part of your Seqera Platform Enterprise instance. You must have Data Explorer enabled to use Studios. AWS, Azure, and GCP public clouds are currently supported.
 
-:::caution
-You must upgrade your Seqera Enterprise installation to version 25.1 to enable and configure Studios.
-:::
+## Prerequisites
 
-Studios requires a Redis 7 instance separate from the one used by Seqera Platform.
+Before you begin, you need:
+- A running Seqera Platform Enterprise Docker Compose deployment
+- A wildcard TLS certificate for your domain (e.g., `*.example.com`)
+- A wildcard DNS record (e.g., `*.example.com`)
+- A Redis 7 instance separate from the one used by Seqera Platform
 
 ## DNS configuration
 
