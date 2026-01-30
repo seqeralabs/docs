@@ -1,0 +1,220 @@
+name: Documentation Review
+
+on:
+  pull_request:
+    paths:
+      - 'platform-enterprise_docs/**/*.md'
+      - 'platform-enterprise_docs/**/*.mdx'
+      - 'platform-cloud/docs/**/*.md'
+      - 'platform-cloud/docs/**/*.mdx'
+      - 'platform-enterprise_versioned_docs/**/*.md'
+      - 'platform-enterprise_versioned_docs/**/*.mdx'
+    types: [opened, synchronize, reopened]
+
+  # Manual trigger for full review
+  workflow_dispatch:
+    inputs:
+      review_type:
+        description: 'Review type'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - voice-tone
+          - terminology
+          - clarity
+
+permissions:
+  contents: read
+  pull-requests: write
+  id-token: write
+
+jobs:
+  # Get list of changed files
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      docs: ${{ steps.filter.outputs.docs }}
+      docs_files: ${{ steps.filter.outputs.docs_files }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          list-files: json
+          filters: |
+            docs:
+              - 'platform-enterprise_docs/**/*.md'
+              - 'platform-enterprise_docs/**/*.mdx'
+              - 'platform-cloud/docs/**/*.md'
+              - 'platform-cloud/docs/**/*.mdx'
+              - 'platform-enterprise_versioned_docs/**/*.md'
+              - 'platform-enterprise_versioned_docs/**/*.mdx'
+
+  # Voice and Tone Review
+  voice-tone-review:
+    needs: changes
+    if: needs.changes.outputs.docs == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Voice/Tone Review
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
+          prompt: |
+            Use the voice-tone agent to review these changed documentation files:
+            ${{ needs.changes.outputs.docs_files }}
+
+            Check for:
+            - Second person usage (you vs the user)
+            - Active vs passive voice
+            - Present vs future tense
+            - Hedging language
+
+            Post your findings as a comment with header "## 🎭 Voice & Tone Review"
+            Use: gh pr comment ${{ github.event.pull_request.number }}
+          use_sticky_comment: true
+          claude_args: |
+            --allowedTools "Read,Grep,Glob,Bash(gh pr comment:*),Task(voice-tone)"
+
+  # Terminology Review
+  terminology-review:
+    needs: changes
+    if: needs.changes.outputs.docs == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Terminology Review
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
+          prompt: |
+            Use the terminology agent to review these changed documentation files:
+            ${{ needs.changes.outputs.docs_files }}
+
+            Check for:
+            - Product name consistency (Seqera Platform, Nextflow, etc.)
+            - Feature name consistency
+            - Formatting conventions (bold for UI, backticks for code)
+            - Abbreviation handling
+
+            Post your findings as a comment with header "## 📚 Terminology Review"
+            Use: gh pr comment ${{ github.event.pull_request.number }}
+          use_sticky_comment: true
+          claude_args: |
+            --allowedTools "Read,Grep,Glob,Bash(gh pr comment:*),Task(terminology)"
+
+  # Clarity Review
+  clarity-review:
+    needs: changes
+    if: needs.changes.outputs.docs == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Clarity Review
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
+          prompt: |
+            Use the clarity agent to review these changed documentation files:
+            ${{ needs.changes.outputs.docs_files }}
+
+            Check for:
+            - Sentence length (flag over 30 words)
+            - Undefined jargon
+            - Complex constructions
+            - Missing prerequisites
+
+            Post your findings as a comment with header "## 🔍 Clarity Review"
+            Use: gh pr comment ${{ github.event.pull_request.number }}
+          use_sticky_comment: true
+          claude_args: |
+            --allowedTools "Read,Grep,Glob,Bash(gh pr comment:*),Task(clarity)"
+
+  # Summary Report
+  summary:
+    needs: [voice-tone-review, terminology-review, clarity-review]
+    if: always() && needs.changes.outputs.docs == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post Summary
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const jobs = [
+              { name: 'Voice/Tone', status: '${{ needs.voice-tone-review.result }}' },
+              { name: 'Terminology', status: '${{ needs.terminology-review.result }}' },
+              { name: 'Clarity', status: '${{ needs.clarity-review.result }}' }
+            ];
+
+            const statusEmoji = {
+              'success': '✅',
+              'failure': '❌',
+              'skipped': '⏭️',
+              'cancelled': '🚫'
+            };
+
+            let summary = '## 📝 Documentation Review Summary\n\n';
+            summary += '| Check | Status |\n|-------|--------|\n';
+
+            for (const job of jobs) {
+              const emoji = statusEmoji[job.status] || '❓';
+              summary += `| ${job.name} | ${emoji} ${job.status} |\n`;
+            }
+
+            summary += '\n---\n';
+            summary += '*Review powered by Claude Code SME agents*\n';
+            summary += '\n**To apply fixes:** Comment `/fix-docs` on this PR';
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: summary
+            });
+
+  # Auto-fix workflow (triggered by /fix-docs comment)
+  auto-fix:
+    if: github.event_name == 'issue_comment' && contains(github.event.comment.body, '/fix-docs')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Apply Fixes
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
+          prompt: |
+            Use the docs-fix agent to apply fixes to all changed documentation files in this PR.
+
+            Apply fixes for:
+            - Terminology standardization
+            - Voice and tone consistency
+            - Formatting corrections
+            - Inclusive language updates
+
+            Do NOT change code blocks or alter technical meaning.
+          claude_args: |
+            --allowedTools "Read,Write,Edit,Grep,Glob,Task(docs-fix)"
+
+      - name: Commit Fixes
+        run: |
+          git config user.name "Claude Code Bot"
+          git config user.email "claude-bot@seqera.io"
+          git add -A
+          git diff --staged --quiet || git commit -m "docs: apply automated style fixes"
+          git push
