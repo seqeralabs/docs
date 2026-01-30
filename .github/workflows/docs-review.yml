@@ -157,7 +157,8 @@ jobs:
   # Clarity Review
   clarity-review:
     needs: changes
-    if: needs.changes.outputs.docs == 'true'
+    if: false  # Disabled for now - can be re-enabled later
+    # if: needs.changes.outputs.docs == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -207,7 +208,8 @@ jobs:
 
   # Summary Report
   summary:
-    needs: [voice-tone-review, terminology-review, clarity-review]
+    needs: [voice-tone-review, terminology-review]
+    # Removed clarity-review from dependencies since it's currently disabled
     if: always() && needs.changes.outputs.docs == 'true'
     runs-on: ubuntu-latest
     steps:
@@ -217,8 +219,8 @@ jobs:
           script: |
             const jobs = [
               { name: 'Voice/Tone', status: '${{ needs.voice-tone-review.result }}' },
-              { name: 'Terminology', status: '${{ needs.terminology-review.result }}' },
-              { name: 'Clarity', status: '${{ needs.clarity-review.result }}' }
+              { name: 'Terminology', status: '${{ needs.terminology-review.result }}' }
+              // Clarity review temporarily disabled
             ];
 
             const statusEmoji = {
@@ -238,8 +240,9 @@ jobs:
 
             summary += '\n---\n';
             summary += '*Review powered by Claude Code editorial agents*\n';
-            summary += '\n**To apply suggestions:** Click "Commit suggestion" on each inline comment\n';
-            summary += '**To auto-fix all:** Comment `/fix-docs` on this PR';
+            summary += '\n**To apply suggestions:**\n';
+            summary += '- Click "Commit suggestion" on individual inline comments\n';
+            summary += '- Select multiple suggestions and batch commit them together';
 
             await github.rest.issues.createComment({
               owner: context.repo.owner,
@@ -250,7 +253,11 @@ jobs:
 
   # Auto-fix workflow (triggered by /fix-docs comment)
   auto-fix:
-    if: github.event_name == 'issue_comment' && contains(github.event.comment.body, '/fix-docs')
+    # DISABLED: Auto-fix not needed with inline suggestions
+    # Users can apply suggestions individually or batch-commit multiple
+    # To re-enable: remove the "if: false" condition below
+    if: false
+    # if: github.event_name == 'issue_comment' && contains(github.event.comment.body, '/fix-docs')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

@@ -40,7 +40,6 @@ When you open a PR with documentation changes, GitHub Actions automatically runs
 **To apply suggestions:**
 1. **Individual fixes**: Click the "Commit suggestion" button on any inline comment
 2. **Batch commit**: Select multiple suggestions using checkboxes and commit them together
-3. **Auto-fix all**: Comment `/fix-docs` (for docs-review.yml) or `@claude fix` (for claude-pr-review.yml) on the PR
 
 The agents format their findings as GitHub inline suggestions, making it easy to review and apply changes with a single click. Each suggestion shows the original text and the corrected version side-by-side.
 

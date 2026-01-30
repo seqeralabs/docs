@@ -109,11 +109,14 @@ jobs:
 
 
   apply-fixes:
-    # Triggered when someone comments asking Claude to fix issues
-    if: |
-      github.event_name == 'issue_comment' &&
-      github.event.issue.pull_request &&
-      contains(github.event.comment.body, '@claude fix')
+    # DISABLED: Auto-fix not needed with inline suggestions
+    # Users can apply suggestions individually or batch-commit multiple
+    # To re-enable: remove the "if: false" condition below
+    if: false
+    # if: |
+    #   github.event_name == 'issue_comment' &&
+    #   github.event.issue.pull_request &&
+    #   contains(github.event.comment.body, '@claude fix')
     runs-on: ubuntu-latest
 
     steps:
