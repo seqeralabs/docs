@@ -96,8 +96,66 @@ create_review() {
     fi
   done < "$review_file"
 
-  # Get the PR head SHA
+  # Get the PR head SHA and diff to identify changed lines
   local head_sha=$(gh pr view "$pr_number" --json headRefOid -q '.headRefOid')
+
+  # Get the PR diff to identify which lines are actually in the diff
+  local diff_output=$(gh pr diff "$pr_number")
+
+  # Build a map of file:line -> is_in_diff
+  declare -A changed_lines
+  local current_diff_file=""
+  local line_num=0
+
+  while IFS= read -r diff_line; do
+    if [[ "$diff_line" =~ ^\+\+\+\ b/(.+)$ ]]; then
+      current_diff_file="${BASH_REMATCH[1]}"
+      line_num=0
+    elif [[ "$diff_line" =~ ^@@\ -[0-9]+(,[0-9]+)?\ \+([0-9]+)(,[0-9]+)?\ @@.*$ ]]; then
+      # New hunk - extract starting line number
+      line_num="${BASH_REMATCH[2]}"
+    elif [[ -n "$current_diff_file" && "$line_num" -gt 0 ]]; then
+      # Track lines in the diff (both additions and context)
+      if [[ "$diff_line" =~ ^[\ +].* ]]; then
+        changed_lines["${current_diff_file}:${line_num}"]=1
+        ((line_num++)) || true
+      elif [[ "$diff_line" =~ ^-.* ]]; then
+        # Deletion - don't increment line_num
+        :
+      fi
+    fi
+  done <<< "$diff_output"
+
+  # Filter comments to only include lines that are in the PR diff
+  local filtered_comments='[]'
+  local total_suggestions=$(echo "$comments" | jq 'length')
+  local filtered_count=0
+
+  for ((i=0; i<total_suggestions; i++)); do
+    local path=$(echo "$comments" | jq -r ".[$i].path")
+    local line=$(echo "$comments" | jq -r ".[$i].line")
+    local key="${path}:${line}"
+
+    if [[ -n "${changed_lines[$key]}" ]]; then
+      local comment=$(echo "$comments" | jq ".[$i]")
+      filtered_comments=$(jq -n \
+        --argjson filtered "$filtered_comments" \
+        --argjson comment "$comment" \
+        '$filtered + [$comment]')
+      ((filtered_count++)) || true
+    fi
+  done
+
+  echo "Filtered suggestions: $filtered_count of $total_suggestions are on changed lines"
+
+  if [[ "$filtered_comments" == "[]" ]]; then
+    echo "⚠️ No suggestions apply to changed lines in this PR"
+    # Post a comment explaining this
+    gh pr comment "$pr_number" --body "✅ **Editorial Review Complete** - Reviewed changed files. The editorial agents found some potential improvements, but they're all on lines outside the PR diff. The changed lines look good! *Review by Claude Code editorial agents*"
+    return 0
+  fi
+
+  comments="$filtered_comments"
 
   if [[ "$comments" == "[]" ]]; then
     echo "No suggestions to post"
