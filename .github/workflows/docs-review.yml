@@ -31,14 +31,18 @@ permissions:
   id-token: write
 
 jobs:
-  # Get list of changed files
+  # Get list of changed files and classify PR type
   changes:
     runs-on: ubuntu-latest
     outputs:
       docs: ${{ steps.filter.outputs.docs }}
       docs_files: ${{ steps.filter.outputs.docs_files }}
+      pr_type: ${{ steps.classify.outputs.pr_type }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - uses: dorny/paths-filter@v3
         id: filter
         with:
@@ -52,10 +56,18 @@ jobs:
               - 'platform-enterprise_versioned_docs/**/*.md'
               - 'platform-enterprise_versioned_docs/**/*.mdx'
 
-  # Voice and tone review
+      - name: Classify PR type
+        id: classify
+        run: |
+          chmod +x .github/scripts/classify-pr-type.sh
+          PR_TYPE=$(.github/scripts/classify-pr-type.sh origin/${{ github.base_ref }} HEAD)
+          echo "pr_type=$PR_TYPE" >> $GITHUB_OUTPUT
+          echo "📋 PR Type: $PR_TYPE"
+
+  # Voice and tone review (content PRs only)
   voice-tone-review:
     needs: changes
-    if: needs.changes.outputs.docs == 'true'
+    if: needs.changes.outputs.docs == 'true' && needs.changes.outputs.pr_type == 'content'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -100,10 +112,10 @@ jobs:
           path: /tmp/voice-tone-suggestions.txt
           if-no-files-found: ignore
 
-  # Terminology review
+  # Terminology review (content PRs only)
   terminology-review:
     needs: changes
-    if: needs.changes.outputs.docs == 'true'
+    if: needs.changes.outputs.docs == 'true' && needs.changes.outputs.pr_type == 'content'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -202,8 +214,8 @@ jobs:
 
   # Consolidated Review - Posts ONE review with all suggestions
   consolidated-review:
-    needs: [voice-tone-review, terminology-review]
-    if: always()
+    needs: [changes, voice-tone-review, terminology-review]
+    if: always() && needs.changes.outputs.docs == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -237,6 +249,21 @@ jobs:
             cat ./artifacts/terminology-suggestions.txt >> /tmp/all-suggestions.txt
           fi
 
+          # Count total suggestions
+          TOTAL_SUGGESTIONS=$(grep -c "^FILE:" /tmp/all-suggestions.txt || echo 0)
+          echo "Total suggestions: $TOTAL_SUGGESTIONS"
+
+          # Limit to 100 suggestions to prevent overwhelming output
+          # GitHub API also has limits on review comment size
+          if [[ $TOTAL_SUGGESTIONS -gt 100 ]]; then
+            echo "⚠️ Limiting to first 100 suggestions (found $TOTAL_SUGGESTIONS total)"
+
+            # Extract first 100 suggestion blocks (each block ends with ---)
+            awk '/^FILE:/{c++} c<=100' /tmp/all-suggestions.txt > /tmp/all-suggestions-limited.txt
+            mv /tmp/all-suggestions-limited.txt /tmp/all-suggestions.txt
+            echo "$TOTAL_SUGGESTIONS" > /tmp/total-count.txt
+          fi
+
           # Check if we have any suggestions
           if [[ ! -s /tmp/all-suggestions.txt ]]; then
             echo "No suggestions found"
@@ -247,10 +274,18 @@ jobs:
         run: |
           chmod +x .github/scripts/post-inline-suggestions.sh
 
+          PR_TYPE="${{ needs.changes.outputs.pr_type }}"
+
           if [[ -f /tmp/no-suggestions.txt ]]; then
-            gh pr comment ${{ github.event.pull_request.number }} --body "✅ **Editorial Review Complete** - No issues found! Documentation looks good. *Review by Claude Code editorial agents*"
+            gh pr comment ${{ github.event.pull_request.number }} --body "✅ **Editorial Review Complete** (PR type: $PR_TYPE) - No issues found! Documentation looks good. *Review by Claude Code editorial agents*"
           elif [[ -f /tmp/all-suggestions.txt ]] && [[ -s /tmp/all-suggestions.txt ]]; then
             .github/scripts/post-inline-suggestions.sh /tmp/all-suggestions.txt ${{ github.event.pull_request.number }}
+
+            # Add note if suggestions were limited
+            if [[ -f /tmp/total-count.txt ]]; then
+              TOTAL=$(cat /tmp/total-count.txt)
+              gh pr comment ${{ github.event.pull_request.number }} --body "⚠️ **Note:** Found $TOTAL total suggestions, showing first 100. Review focuses on most impactful changes. (PR type: $PR_TYPE)"
+            fi
           else
             echo "No review output to post"
           fi
@@ -281,7 +316,15 @@ jobs:
               'cancelled': '🚫'
             };
 
-            let summary = '## 📝 Documentation Review Summary\n\n';
+            const prType = '${{ needs.changes.outputs.pr_type }}';
+            const prTypeEmoji = prType === 'rename' ? '🏷️' : '📝';
+
+            let summary = `## ${prTypeEmoji} Documentation Review Summary (PR type: ${prType})\n\n`;
+
+            if (prType === 'rename') {
+              summary += '> This PR is primarily file renames/moves. Only critical checks were run.\n\n';
+            }
+
             summary += '| Check | Status |\n|-------|--------|\n';
 
             for (const job of jobs) {
