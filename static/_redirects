@@ -3,7 +3,7 @@
 # Add redirects for version non-existent 25.2 to current docs
 /platform-enterprise/25.2/*    /platform-enterprise/:splat    301
 
-# These redirects reverse the existing 301's 
+# These redirects reverse the existing 301's
 # See https://moz.com/blog/can-you-reverse-a-301-redirect
 /platform-cloud/platform-cloud /platform-cloud 301
 /platform-enterprise/:version/platform-enterprise /platform-enterprise/:version 301
@@ -44,6 +44,13 @@
 
 # Redirect to fix temporarily broken URL in UI
 /platform/:version/data/data_studios   /platform-cloud/studios/  301
+
+# Redirect old CLI docs to new platform-cli docset
+# (Must come before general version-removal rule to prevent /cli/ being treated as a version)
+/platform-cloud/cli/*                        /platform-cli               301
+/platform-enterprise/cli/*                   /platform-cli               301
+/platform-enterprise/*/cli/*                 /platform-cli               301
+/platform-enterprise/:version/cli/*          /platform-cli               301
 
 # Remove version from /platform-cloud paths
 /platform-cloud/:version/*    /platform-cloud/:splat
