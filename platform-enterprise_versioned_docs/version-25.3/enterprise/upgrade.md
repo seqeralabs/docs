@@ -67,7 +67,7 @@ The database volume is persistent on the local machine by default if you use the
 :::
 
 :::info
-Starting from version 26.1, the frontend image running as root user will be deprecated. We recommend starting to switch to the [root-less image (also known as "unprivileged" image)](./kubernetes#seqera-frontend-unprivileged) during this upgrade.
+Starting from version 26.1, the frontend image running as root user will be deprecated. We recommend starting to switch to the [root-less image (also known as "unprivileged" image)](./platform-kubernetes#seqera-frontend-unprivileged) during this upgrade.
 :::
 
 1. Make a backup of the Seqera database. If you use the pipeline optimization service and your `groundswell` database resides in a database instance separate from your Seqera database, make a backup of your `groundswell` database as well.
