@@ -256,13 +256,13 @@ jobs:
           # Save full list before limiting
           cp /tmp/all-suggestions.txt /tmp/all-suggestions-full.txt
 
-          # Limit to 50 suggestions to prevent overwhelming output
+          # Limit to 60 suggestions to prevent overwhelming output
           # GitHub API also has limits on review comment size
-          if [[ $TOTAL_SUGGESTIONS -gt 50 ]]; then
-            echo "⚠️ Limiting to first 50 suggestions (found $TOTAL_SUGGESTIONS total)"
+          if [[ $TOTAL_SUGGESTIONS -gt 60 ]]; then
+            echo "⚠️ Limiting to first 60 suggestions (found $TOTAL_SUGGESTIONS total)"
 
-            # Extract first 50 suggestion blocks (each block ends with ---)
-            awk '/^FILE:/{c++} c<=50' /tmp/all-suggestions.txt > /tmp/all-suggestions-limited.txt
+            # Extract first 60 suggestion blocks (each block ends with ---)
+            awk '/^FILE:/{c++} c<=60' /tmp/all-suggestions.txt > /tmp/all-suggestions-limited.txt
             mv /tmp/all-suggestions-limited.txt /tmp/all-suggestions.txt
             echo "$TOTAL_SUGGESTIONS" > /tmp/total-count.txt
           fi
@@ -301,7 +301,7 @@ jobs:
               ARTIFACT_URL="https://github.com/${REPO}/actions/runs/${RUN_ID}"
 
               cat > /tmp/limit-message.txt << EOF
-          ⚠️ **Note:** Found $TOTAL total suggestions, showing first 50 inline.
+          ⚠️ **Note:** Found $TOTAL total suggestions, showing first 60 inline.
 
           **To see all $TOTAL suggestions:**
           1. Go to the [workflow run]($ARTIFACT_URL)
