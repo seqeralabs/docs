@@ -35,11 +35,13 @@ The editorial review system uses specialized agents:
 
 ### Automated PR reviews
 
-When you open a PR with documentation changes, GitHub Actions automatically runs agents and posts review comments.
+When you open a PR with documentation changes, GitHub Actions automatically runs agents and posts **inline suggestions** directly on the affected lines.
 
-**To apply fixes:**
-- For `docs-review.yml` workflow: Comment `/fix-docs` on the PR
-- For `claude-pr-review.yml` workflow: Comment `@claude fix` on the PR
+**To apply suggestions:**
+1. **Individual fixes**: Click the "Commit suggestion" button on any inline comment
+2. **Batch commit**: Select multiple suggestions using checkboxes and commit them together
+
+The agents format their findings as GitHub inline suggestions, making it easy to review and apply changes with a single click. Each suggestion shows the original text and the corrected version side-by-side.
 
 ## Terminology standards
 
