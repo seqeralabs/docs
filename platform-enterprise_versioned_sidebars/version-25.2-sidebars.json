@@ -220,6 +220,7 @@
       "label": "Studios",
       "items": [
         "studios/overview",
+        "studios/configuration",
         "studios/container-images",
         "studios/custom-envs",
         "studios/add-studio",
