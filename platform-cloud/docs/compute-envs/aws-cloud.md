@@ -223,7 +223,7 @@ The following permissions are required to launch pipelines, run Studio sessions,
   "Effect": "Allow",
   "Action": [
     "ec2:CreateTags",
-    "ec2:DeleteTags"
+    "ec2:DeleteTags",
     "ec2:DescribeInstances",
     "ec2:RunInstances",
     "ec2:TerminateInstances"
