@@ -8,7 +8,6 @@ HEAD_REF=${2:-HEAD}
 
 # Get diff stats
 SUMMARY=$(git diff --summary "$BASE_REF...$HEAD_REF")
-STAT=$(git diff --stat "$BASE_REF...$HEAD_REF")
 DIFF=$(git diff --numstat "$BASE_REF...$HEAD_REF")
 
 # Count rename operations

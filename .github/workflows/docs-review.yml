@@ -76,7 +76,12 @@ jobs:
         id: classify
         run: |
           chmod +x .github/scripts/classify-pr-type.sh
-          PR_TYPE=$(.github/scripts/classify-pr-type.sh origin/${{ github.base_ref }} HEAD)
+          BASE_REF="${{ github.base_ref }}"
+          if [ -z "$BASE_REF" ]; then
+            # Fallback for events without a PR context (e.g., workflow_dispatch)
+            BASE_REF="master"
+          fi
+          PR_TYPE=$(.github/scripts/classify-pr-type.sh "origin/$BASE_REF" HEAD)
           echo "pr_type=$PR_TYPE" >> $GITHUB_OUTPUT
           echo "📋 PR Type: $PR_TYPE"
 
