@@ -28,9 +28,10 @@ This repository uses two main Claude-powered workflows:
 
 **Components:**
 - **Skill**: `/openapi-overlay-generator`
-- **Documentation**: `.claude/skills/openapi-overlay-generator/SKILL.md`
+- **Workflow**: `.github/workflows/generate-openapi-overlays.yml`
+- **Scripts**: `analyze_comparison.py` (change analysis), `validate_overlay.py` (structure validation), `check_consistency.py` (standards compliance), `update_sidebar.py` (sidebar updates)
 - **Output**: YAML overlay files following OpenAPI overlay specification
-- **Triggers**: Manual invocation when API documentation needs updating
+- **Triggers**: Repository dispatch from Platform repo, manual workflow dispatch
 
 ## Automated PR reviews
 
