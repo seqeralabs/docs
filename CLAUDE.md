@@ -97,13 +97,9 @@ Checks for:
 - No hedging language ("may", "might", "could")
 
 ### terminology
-Checks for:
-- Product names (Seqera Platform, not Tower*)
-- Feature names (Studios capitalized)
-- Formatting (bold for UI, backticks for code)
-- RNA-Seq capitalization rules
+Checks for consistent product names, feature terminology, and formatting conventions.
 
-*Tower is acceptable in legacy contexts - see [Terminology Standards](#terminology-standards)
+**For detailed terminology rules, see:** `.claude/agents/terminology.md`
 
 ### clarity (disabled)
 Checks for:
@@ -119,63 +115,13 @@ Checks for:
 - Quotation marks
 - Dash usage
 
-## Terminology standards
-
-### Product names
-
-| Correct | Incorrect | Notes |
-|---------|-----------|-------|
-| Seqera Platform | the platform, Tower | Use full name (see Tower exceptions) |
-| Studios | studio, Studio | Always capitalized |
-| Nextflow | NextFlow, nextflow | Capital N, one word |
-| Wave | wave, WAVE | Title case |
-| MultiQC | multiQC, multiqc | Exact capitalization |
-| Fusion | fusion, FUSION | Title case |
-| TowerForge | N/A | Always acceptable |
-| drop-down | dropdown, drop down | Always hyphenated |
-
-### Tower usage
-
-**"Tower" is acceptable in:**
-- Legacy documentation (older versions)
-- Historical references ("formerly known as Tower")
-- TowerForge (product name)
-- Community/external content
-
-**Use "Seqera Platform" for:**
-- New documentation
-- Current features
-- Marketing/official communications
-
-**Important:** If unsure about Tower usage, agents will ask but won't flag as critical.
-
-### RNA-Seq capitalization
-
-**Capitalized "RNA-Seq":**
-- Headings: `# RNA-Seq Analysis`
-- Pipeline names: `nf-core-RNA-Seq`
-- Scientific contexts: `RNA-Seq experiment`
-
-**Lowercase "rna-seq":**
-- Commands: `--input rna-seq-data`
-- File paths: `/data/rna-seq/`
-- Config: `rna-seq.config`
-- Variables: `rna_seq_samples`
-
-### UI elements
-
-Always match exact UI text and capitalization:
-- **Launchpad** (not "Launch Pad")
-- **Data Explorer** (not "data explorer")
-- **Runs** (not "Executions")
-
 ## Documentation directory structure
 
 ### Automated PR reviews
 
 These directories trigger automated agent reviews:
 
-| Directory | Description | File Count |
+| Directory | Description | File count |
 |-----------|-------------|------------|
 | `platform-enterprise_docs/` | Main enterprise docs | ~129 files |
 | `platform-cloud/docs/` | Cloud platform docs | ~114 files |
@@ -185,7 +131,7 @@ These directories trigger automated agent reviews:
 
 Use `/review` command for these directories:
 
-| Directory | Description | File Count |
+| Directory | Description | File count |
 |-----------|-------------|------------|
 | `platform-api-docs/docs/` | API documentation | ~218 files |
 | `fusion_docs/` | Fusion docs | ~24 files |
