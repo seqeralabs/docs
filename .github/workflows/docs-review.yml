@@ -1,0 +1,434 @@
+name: Documentation Review
+
+on:
+  pull_request:
+    paths:
+      - 'platform-enterprise_docs/**/*.md'
+      - 'platform-enterprise_docs/**/*.mdx'
+      - 'platform-cloud/docs/**/*.md'
+      - 'platform-cloud/docs/**/*.mdx'
+      - 'platform-enterprise_versioned_docs/**/*.md'
+      - 'platform-enterprise_versioned_docs/**/*.mdx'
+    types: [opened, synchronize, reopened]
+
+  # Manual trigger for full review
+  workflow_dispatch:
+    inputs:
+      review_type:
+        description: 'Review type'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - voice-tone
+          - terminology
+          - clarity
+
+permissions:
+  contents: read
+  pull-requests: write
+  id-token: write
+
+jobs:
+  # Check bash script syntax before running any reviews
+  syntax-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check bash script syntax
+        run: |
+          echo "🔍 Checking bash script syntax..."
+          for script in .github/scripts/*.sh; do
+            echo "Checking $script..."
+            bash -n "$script"
+          done
+          echo "✅ All bash scripts passed syntax check"
+
+  # Get list of changed files and classify PR type
+  changes:
+    needs: syntax-check
+    runs-on: ubuntu-latest
+    outputs:
+      docs: ${{ steps.filter.outputs.docs }}
+      docs_files: ${{ steps.filter.outputs.docs_files }}
+      pr_type: ${{ steps.classify.outputs.pr_type }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          list-files: json
+          filters: |
+            docs:
+              - 'platform-enterprise_docs/**/*.md'
+              - 'platform-enterprise_docs/**/*.mdx'
+              - 'platform-cloud/docs/**/*.md'
+              - 'platform-cloud/docs/**/*.mdx'
+              - 'platform-enterprise_versioned_docs/**/*.md'
+              - 'platform-enterprise_versioned_docs/**/*.mdx'
+
+      - name: Classify PR type
+        id: classify
+        run: |
+          chmod +x .github/scripts/classify-pr-type.sh
+          BASE_REF="${{ github.base_ref }}"
+          if [ -z "$BASE_REF" ]; then
+            # Fallback for events without a PR context (e.g., workflow_dispatch)
+            BASE_REF="master"
+          fi
+          PR_TYPE=$(.github/scripts/classify-pr-type.sh "origin/$BASE_REF" HEAD)
+          echo "pr_type=$PR_TYPE" >> $GITHUB_OUTPUT
+          echo "📋 PR Type: $PR_TYPE"
+
+  # Voice and tone review (content PRs only)
+  voice-tone-review:
+    needs: changes
+    if: needs.changes.outputs.docs == 'true' && needs.changes.outputs.pr_type == 'content'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Voice/Tone Review
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
+          prompt: |
+            Use the voice-tone agent to review these changed documentation files:
+            ${{ needs.changes.outputs.docs_files }}
+
+            For each issue found, output in this EXACT format:
+
+            FILE: path/to/file.md
+            LINE: 42
+            ISSUE: Brief description (e.g., "Passive voice", "Third person usage")
+            ORIGINAL: |
+            exact original text
+            SUGGESTION: |
+            corrected text
+            ---
+
+            Check for:
+            - Second person usage (you vs the user)
+            - Active vs passive voice
+            - Present vs future tense
+            - Hedging language
+
+            Write all suggestions to /tmp/voice-tone-suggestions.txt
+          use_sticky_comment: true
+          claude_args: |
+            --allowedTools "Read,Grep,Glob,Write,Task(voice-tone)"
+
+      - name: Upload Voice/Tone Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: voice-tone-suggestions
+          path: /tmp/voice-tone-suggestions.txt
+          if-no-files-found: ignore
+
+  # Terminology review (content PRs only)
+  terminology-review:
+    needs: changes
+    if: needs.changes.outputs.docs == 'true' && needs.changes.outputs.pr_type == 'content'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Terminology Review
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
+          prompt: |
+            Use the terminology agent to review these changed documentation files:
+            ${{ needs.changes.outputs.docs_files }}
+
+            For each issue found, output in this EXACT format:
+
+            FILE: path/to/file.md
+            LINE: 42
+            ISSUE: Brief description (e.g., "Use 'Seqera Platform' not 'Tower'")
+            ORIGINAL: |
+            exact original text
+            SUGGESTION: |
+            corrected text
+            ---
+
+            Check for:
+            - Product name consistency (Seqera Platform, Nextflow, etc.)
+            - Feature name consistency (Studios capitalized)
+            - Formatting conventions (bold for UI, backticks for code)
+            - RNA-Seq capitalization rules
+
+            Write all suggestions to /tmp/terminology-suggestions.txt
+          use_sticky_comment: true
+          claude_args: |
+            --allowedTools "Read,Grep,Glob,Write,Task(terminology)"
+
+      - name: Upload Terminology Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: terminology-suggestions
+          path: /tmp/terminology-suggestions.txt
+          if-no-files-found: ignore
+
+  # Clarity review
+  clarity-review:
+    needs: changes
+    if: false  # Disabled for now - can be re-enabled later
+    # if: needs.changes.outputs.docs == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Clarity Review
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
+          prompt: |
+            Use the clarity agent to review these changed documentation files:
+            ${{ needs.changes.outputs.docs_files }}
+
+            For each issue found, output in this EXACT format:
+
+            FILE: path/to/file.md
+            LINE: 42
+            ISSUE: Brief description (e.g., "Sentence too long (45 words)", "Undefined jargon")
+            ORIGINAL: |
+            exact original text
+            SUGGESTION: |
+            corrected text
+            ---
+
+            Check for:
+            - Sentence length (flag over 30 words)
+            - Undefined jargon
+            - Complex constructions
+            - Missing prerequisites
+
+            Write all suggestions to /tmp/clarity-suggestions.txt
+          use_sticky_comment: true
+          claude_args: |
+            --allowedTools "Read,Grep,Glob,Write,Task(clarity)"
+
+      - name: Post Clarity Suggestions
+        run: |
+          chmod +x .github/scripts/post-inline-suggestions.sh
+          if [[ -f /tmp/clarity-suggestions.txt ]]; then
+            .github/scripts/post-inline-suggestions.sh /tmp/clarity-suggestions.txt ${{ github.event.pull_request.number }}
+          else
+            echo "✅ No clarity issues found"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Consolidated Review - Posts ONE review with all suggestions
+  consolidated-review:
+    needs: [changes, voice-tone-review, terminology-review]
+    if: always() && needs.changes.outputs.docs == 'true' && (needs.voice-tone-review.result != 'skipped' || needs.terminology-review.result != 'skipped')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download Voice/Tone Results
+        uses: actions/download-artifact@v4
+        with:
+          name: voice-tone-suggestions
+          path: ./artifacts
+        continue-on-error: true
+
+      - name: Download Terminology Results
+        uses: actions/download-artifact@v4
+        with:
+          name: terminology-suggestions
+          path: ./artifacts
+        continue-on-error: true
+
+      - name: Merge All Suggestions
+        run: |
+          mkdir -p ./artifacts
+          touch /tmp/all-suggestions.txt
+
+          # Add voice/tone suggestions if they exist
+          if [[ -f ./artifacts/voice-tone-suggestions.txt ]]; then
+            cat ./artifacts/voice-tone-suggestions.txt >> /tmp/all-suggestions.txt
+          fi
+
+          # Add terminology suggestions if they exist
+          if [[ -f ./artifacts/terminology-suggestions.txt ]]; then
+            cat ./artifacts/terminology-suggestions.txt >> /tmp/all-suggestions.txt
+          fi
+
+          # Count total suggestions
+          TOTAL_SUGGESTIONS=$(grep -c "^FILE:" /tmp/all-suggestions.txt || echo 0)
+          echo "Total suggestions: $TOTAL_SUGGESTIONS"
+
+          # Save full list before limiting
+          cp /tmp/all-suggestions.txt /tmp/all-suggestions-full.txt
+
+          # Limit to 60 suggestions to prevent overwhelming output
+          # GitHub API also has limits on review comment size
+          if [[ $TOTAL_SUGGESTIONS -gt 60 ]]; then
+            echo "⚠️ Limiting to first 60 suggestions (found $TOTAL_SUGGESTIONS total)"
+
+            # Extract first 60 suggestion blocks (each block ends with ---)
+            awk '/^FILE:/{c++} c<=60' /tmp/all-suggestions.txt > /tmp/all-suggestions-limited.txt
+            mv /tmp/all-suggestions-limited.txt /tmp/all-suggestions.txt
+            echo "$TOTAL_SUGGESTIONS" > /tmp/total-count.txt
+          fi
+
+          # Check if we have any suggestions
+          if [[ ! -s /tmp/all-suggestions.txt ]]; then
+            echo "No suggestions found"
+            touch /tmp/no-suggestions.txt
+          fi
+
+      - name: Upload Full Suggestions List
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: all-editorial-suggestions
+          path: /tmp/all-suggestions-full.txt
+          if-no-files-found: ignore
+          retention-days: 30
+
+      - name: Post Consolidated Review
+        if: github.event_name == 'pull_request'
+        run: |
+          chmod +x .github/scripts/post-inline-suggestions.sh
+
+          PR_TYPE="${{ needs.changes.outputs.pr_type }}"
+          RUN_ID="${{ github.run_id }}"
+          REPO="${{ github.repository }}"
+
+          if [[ -f /tmp/no-suggestions.txt ]]; then
+            gh pr comment ${{ github.event.pull_request.number }} --body "✅ **Editorial Review Complete** (PR type: $PR_TYPE) - No issues found! Documentation looks good. *Review by Claude Code editorial agents*"
+          elif [[ -f /tmp/all-suggestions.txt ]] && [[ -s /tmp/all-suggestions.txt ]]; then
+            .github/scripts/post-inline-suggestions.sh /tmp/all-suggestions.txt ${{ github.event.pull_request.number }}
+
+            # Add note if suggestions were limited
+            if [[ -f /tmp/total-count.txt ]]; then
+              TOTAL=$(cat /tmp/total-count.txt)
+              ARTIFACT_URL="https://github.com/${REPO}/actions/runs/${RUN_ID}"
+
+              cat > /tmp/limit-message.txt << EOF
+          ⚠️ **Note:** Found $TOTAL total suggestions, showing first 60 inline.
+
+          **To see all $TOTAL suggestions:**
+          1. Go to the [workflow run]($ARTIFACT_URL)
+          2. Download the \`all-editorial-suggestions\` artifact
+          3. Review the full list in \`all-suggestions-full.txt\`
+
+          The inline suggestions focus on the most impactful changes. (PR type: $PR_TYPE)
+          EOF
+
+              gh pr comment ${{ github.event.pull_request.number }} --body-file /tmp/limit-message.txt
+            fi
+          else
+            echo "No review output to post"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Summary report
+  summary:
+    needs: [changes, voice-tone-review, terminology-review, consolidated-review]
+    # Removed clarity-review from dependencies since it's currently disabled
+    if: always() && needs.changes.outputs.docs == 'true' && github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post Summary
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const jobs = [
+              { name: 'Voice/Tone', status: '${{ needs.voice-tone-review.result }}' },
+              { name: 'Terminology', status: '${{ needs.terminology-review.result }}' }
+              // Clarity review temporarily disabled
+            ];
+
+            const statusEmoji = {
+              'success': '✅',
+              'failure': '❌',
+              'skipped': '⏭️',
+              'cancelled': '🚫'
+            };
+
+            const prType = '${{ needs.changes.outputs.pr_type }}';
+            const prTypeEmoji = prType === 'rename' ? '🏷️' : '📝';
+
+            let summary = `## ${prTypeEmoji} Documentation Review Summary (PR type: ${prType})\n\n`;
+
+            if (prType === 'rename') {
+              summary += '> This PR is primarily file renames/moves. Only critical checks were run.\n\n';
+            }
+
+            summary += '| Check | Status |\n|-------|--------|\n';
+
+            for (const job of jobs) {
+              const emoji = statusEmoji[job.status] || '❓';
+              summary += `| ${job.name} | ${emoji} ${job.status} |\n`;
+            }
+
+            summary += '\n---\n';
+            summary += '*Review powered by Claude Code editorial agents*\n';
+            summary += '\n**To apply suggestions:**\n';
+            summary += '- Click "Commit suggestion" on individual inline comments\n';
+            summary += '- Select multiple suggestions and batch commit them together';
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: summary
+            });
+
+  # Auto-fix workflow (triggered by /fix-docs comment)
+  auto-fix:
+    # DISABLED: Auto-fix not needed with inline suggestions
+    # Users can apply suggestions individually or batch-commit multiple
+    # To re-enable: remove the "if: false" condition below
+    if: false
+    # if: github.event_name == 'issue_comment' && contains(github.event.comment.body, '/fix-docs')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Apply Fixes
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
+          prompt: |
+            Use the docs-fix agent to apply fixes to all changed documentation files in this PR.
+
+            Apply fixes for:
+            - Terminology standardization
+            - Voice and tone consistency
+            - Formatting corrections
+            - Inclusive language updates
+
+            Do NOT change code blocks or alter technical meaning.
+          claude_args: |
+            --allowedTools "Read,Write,Edit,Grep,Glob,Task(docs-fix)"
+
+      - name: Commit Fixes
+        run: |
+          git config user.name "Claude Code Bot"
+          git config user.email "claude-bot@seqera.io"
+          git add -A
+          git diff --staged --quiet || git commit -m "docs: apply automated style fixes"
+          git push

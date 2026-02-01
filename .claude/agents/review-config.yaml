@@ -1,0 +1,130 @@
+# Documentation Review Configuration
+# Controls which SME agents run on which file patterns
+
+version: 1
+
+# Default settings for all reviews
+defaults:
+  # Maximum files per review batch (prevents timeout on large PRs)
+  max_files_per_batch: 20
+
+  # Output format for PR comments
+  output_format: github-pr-comment
+
+  # Include severity ratings
+  include_severity: true
+
+# SME agent configuration
+agents:
+  voice-tone:
+    triggers:
+      - always          # Run on every docs change
+    patterns:
+      - "platform-enterprise_docs/**/*.md"
+      - "platform-enterprise_docs/**/*.mdx"
+      - "platform-cloud/docs/**/*.md"
+      - "platform-cloud/docs/**/*.mdx"
+      - "platform-enterprise_versioned_docs/**/*.md"
+      - "platform-enterprise_versioned_docs/**/*.mdx"
+    exclude:
+      - "changelog/**"
+    priority: 1
+
+  terminology:
+    triggers:
+      - always
+    patterns:
+      - "platform-enterprise_docs/**/*.md"
+      - "platform-enterprise_docs/**/*.mdx"
+      - "platform-cloud/docs/**/*.md"
+      - "platform-cloud/docs/**/*.mdx"
+      - "platform-enterprise_versioned_docs/**/*.md"
+      - "platform-enterprise_versioned_docs/**/*.mdx"
+    priority: 2
+
+  clarity:
+    triggers:
+      - new_file
+      - major_change
+    patterns:
+      - "platform-enterprise_docs/**/*.md"
+      - "platform-enterprise_docs/**/*.mdx"
+      - "platform-cloud/docs/**/*.md"
+      - "platform-cloud/docs/**/*.mdx"
+      - "platform-enterprise_versioned_docs/**/*.md"
+      - "platform-enterprise_versioned_docs/**/*.mdx"
+    exclude:
+      - "platform-api-docs/**"   # API docs may have intentional jargon
+    priority: 3
+
+# Severity thresholds for CI pass/fail
+severity:
+  # Fail the check if any of these are found
+  fail_on:
+    - product_name_wrong      # "Tower" instead of "Seqera Platform"
+    - heading_skip            # H2 → H4 without H3
+    - missing_h1              # No page title
+
+  # Warn but don't fail
+  warn_on:
+    - passive_voice
+    - long_sentence
+    - hedging_language
+    - missing_prerequisites
+
+  # Info only (in comments, doesn't affect status)
+  info_only:
+    - sentence_could_be_shorter
+    - optional_style_suggestion
+    - could_split_task        # Long task that could be split
+    - reference_not_table     # Reference content as prose, not table
+
+# Custom terminology for this repo
+terminology:
+  products:
+    correct:
+      - "Seqera Platform"
+      - "Studios"
+      - "Nextflow"
+      - "Wave"
+      - "MultiQC"
+      - "Fusion"
+
+    replacements:
+      "Tower": "Seqera Platform"
+      "NextFlow": "Nextflow"
+      "next-flow": "Nextflow"
+      "nextFlow": "Nextflow"
+      "multi-qc": "MultiQC"
+      "multiQC": "MultiQC"
+      "the platform": "Seqera Platform"
+
+  features:
+    correct:
+      - "compute environment"
+      - "pipeline"
+      - "workspace"
+      - "credentials"
+      - "access token"
+      - "personal access token"
+
+    replacements:
+      "compute env": "compute environment"
+      "CE": "compute environment"
+      "creds": "credentials"
+
+# Formatting rules
+formatting:
+  ui_elements:
+    style: bold
+    examples:
+      - "**Save**"
+      - "**Settings** > **Credentials**"
+
+  code_elements:
+    style: backticks
+    examples:
+      - "`nextflow run`"
+      - "`--profile`"
+      - "`nextflow.config`"
+      - "`NXF_HOME`"
