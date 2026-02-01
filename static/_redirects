@@ -52,6 +52,9 @@
 /platform-enterprise/*/cli/*                 /platform-cli               301
 /platform-enterprise/:version/cli/*          /platform-cli               301
 
+# Redirect mcp to overview page not platform-cloud
+/platform-cloud/seqera-mcp                   /platform-cloud/seqera-mcp/overview               301
+
 # Remove version from /platform-cloud paths
 /platform-cloud/:version/*    /platform-cloud/:splat
 
