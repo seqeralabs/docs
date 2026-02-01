@@ -145,7 +145,7 @@ export default async function createConfigAsync() {
         (await require("remark-math")).default,
         (await import("docusaurus-remark-plugin-tab-blocks")).default,
         (await require("remark-yaml-to-table")).default,
-        (await require("remark-deflist")).default,
+        (await import("remark-deflist")).default,
       ],
       rehypePlugins: [require("rehype-katex")],
       editUrl: ({ docPath }) => {
@@ -227,6 +227,9 @@ export default async function createConfigAsync() {
         await getSeqeraPresetOptions({
           blog: process.env.EXCLUDE_CHANGELOG ? false : changelog,
           docs: false,
+          theme: {
+            customCss: require.resolve("./src/custom.css"),
+          },
           openapi: process.env.EXCLUDE_PLATFORM_OPENAPI
             ? false
             : {
