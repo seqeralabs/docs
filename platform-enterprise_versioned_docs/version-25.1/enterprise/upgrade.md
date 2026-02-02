@@ -21,7 +21,7 @@ The database volume is persistent on the local machine by default if you use the
     JAVA_OPTS: -Xms1000M -Xmx2000M -XX:MaxDirectMemorySize=800m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144
     ```
 
-    These baseline values are suitable for most deployments running moderate concurrent workflow loads. 
+    These baseline values are suitable for most deployments running moderate concurrent workflow loads.
 
     :::tip
     These are starting recommendations that may require tuning based on your deployment's workload. See [Backend memory requirements](./configuration/overview.mdx#backend-memory-requirements) for detailed guidance on when and how to adjust these values for your environment.
@@ -44,7 +44,7 @@ The database volume is persistent on the local machine by default if you use the
 
 ### Nextflow launcher image
 
-If you must host your nf-launcher container image on a private image registry, copy the [nf-launcher image](https://quay.io/seqeralabs/nf-launcher:j17-24.04.4) to your private registry. Then update your `tower.env` with the launch container environment variable:
+If you host your nf-launcher container image on a private image registry, copy the [nf-launcher image](https://quay.io/seqeralabs/nf-launcher:j17-24.04.4) to your private registry. Then update your `tower.env` with the launch container environment variable:
 
     `TOWER_LAUNCH_CONTAINER=<FULL_PATH_TO_YOUR_PRIVATE_IMAGE>`
 

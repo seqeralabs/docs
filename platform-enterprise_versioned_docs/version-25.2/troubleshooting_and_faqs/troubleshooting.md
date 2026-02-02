@@ -57,10 +57,10 @@ Platform normally looks for an existing job definition that matches your workflo
 ```bash
 jobs=$(aws --region eu-west-1 batch describe-job-definitions | jq -r .jobDefinitions[].jobDefinitionArn)
 
-for x in $jobs; do 
-  echo "Deregister $x"; 
-  sleep 0.01;  
-  aws --region eu-west-1 batch deregister-job-definition --job-definition $x; 
+for x in $jobs; do
+  echo "Deregister $x";
+  sleep 0.01;
+  aws --region eu-west-1 batch deregister-job-definition --job-definition $x;
 done
 ```
 
@@ -177,7 +177,7 @@ Users with email addresses other than the `trustedEmails` list will undergo an a
 
 :::note
 
-1. You must rebuild your containers (`docker compose down`) to force Seqera to implement this change. Ensure your database is persistent before issuing the teardown command. See [here](../enterprise/docker-compose) for more information.
+1. You must rebuild your containers (`docker compose down`) to force Seqera to implement this change. Ensure your database is persistent before issuing the teardown command. See [here](../enterprise/platform-docker-compose) for more information.
 2. All login attempts are visible to the root user at **Profile > Admin panel > Users**.
 3. Any user logged in prior to the restriction will not be subject to the new restriction. An admin of the organization should remove users that have previously logged in via (untrusted) email from the Admin panel users list. This will restart the approval process before they can log in via email.
 
