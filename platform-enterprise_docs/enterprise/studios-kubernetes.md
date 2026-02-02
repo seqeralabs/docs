@@ -47,16 +47,15 @@ You can also check the current template configuration using `https://towerurl/ap
     - `PLATFORM_URL`: The base URL for your installation (e.g., `https://platform.example.com/` or `https://example.com/`).
     - `CONNECT_OIDC_CLIENT_REGISTRATION_TOKEN`: The same value as the `oidc_registration_token` value created previously.
 
-1. Edit your `ingress.eks.yml` file:
+1. Edit the `ingress.<YOUR-INGRESS-FILE>.yml` file appropriate for your Kubernetes environment:
 
     - Uncomment the `host` section at the bottom of the file.
     - Replace `<YOUR-TOWER-HOST-NAME>` with the base domain of your installation.
 
     :::note
-    This assumes that you have an existing Seqera ingress already configured with the following fields:
+    In the case you're using AWS EKS, this assumes that you have an existing Seqera ingress already configured with the following fields:
 
-    - `alb.ingress.kubernetes.io/certificate-arn`: The ARN of a wildcard TLS certificate that secures your URL and connect proxy URL. For example, if `TOWER_SERVER_URL=https://example.com` and `CONNECT_PROXY_URL=https://connect.example.com`, the certificate must secure both `example.com` and `*.example.com`.
-    - `alb.ingress.kubernetes.io/load-balancer-attributes`: The attributes of the ALB Load Balancer used in your installation.
+    - `alb.ingress.kubernetes.io/certificate-arn`: The ARN of a wildcard TLS certificate that secures the Platform URL and connect proxy URL. For example, if `TOWER_SERVER_URL=https://example.com` and `CONNECT_PROXY_URL=https://connect.example.com`, the certificate must secure `example.com`, and `*.example.com` at the same time; otherwise, you may need to create a second ingress resource specifically for Studios.
     :::
 
 1. Generate an RSA public/private key pair. A key size of at least 2048 bits is recommended. In the following example, the `openssl` command is used to generate the key pair:
@@ -141,12 +140,10 @@ You can also check the current template configuration using `https://towerurl/ap
     kubectl rollout restart deployment/backend
     ```
 
-1. Apply the Studios manifests:
+1. Apply the updated ingress file and the Studios manifests:
 
     ```bash
-    kubectl apply -f ingress.eks.yml proxy.yml server.yml
+    kubectl apply -f ingress.<YOUR-INGRESS-FILE>.yml proxy.yml server.yml
     ```
-
-    It can take several minutes for Kubernetes to apply your changes, during which new pods are rolled out.
 
 1. To confirm that Studios is available, log into Seqera and navigate to an organizational workspace that has Studios enabled. The **Studios** tab should be displayed in the sidebar.

@@ -20,8 +20,8 @@ Studios provides interactive analysis environments within Seqera Platform. Deplo
 Before you begin, you need:
 - A running Seqera Platform Enterprise deployment at hostname `example.com` or `platform.example.com`
 - A Redis 7 instance separate from the one used by Seqera Platform
-- TLS certificates for the Studios service `connect.example.com` and its wildcard Studios subdomains `*.connect.example.com`
-  * A single certificate covering both entries can be used, or separate certificates
+- TLS certificates for the Studios subdomains `*.connect.example.com`
+  * A single certificate covering both Platform and Studios subdomains can be used; if preferring to use separate certificates, you may need to configure a separate ingress when working with plain Kubernetes manifests (the Studios Helm chart already uses separate ingresses)
   * The studios subdomain must share the same "root domain" with the Platform installation, for example with platform installed at `example.com` or `platform.example.com`, Studios can be installed at:
     - `connect.example.com` or using another name such as `studios.example.com`
     - `connect.platform.example.com`
