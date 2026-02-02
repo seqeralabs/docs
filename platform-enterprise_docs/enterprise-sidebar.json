@@ -306,7 +306,8 @@
           "troubleshooting_and_faqs/aws_troubleshooting",
           "troubleshooting_and_faqs/azure_troubleshooting",
           "troubleshooting_and_faqs/workspaces_troubleshooting",
-          "troubleshooting_and_faqs/datasets_troubleshooting"
+          "troubleshooting_and_faqs/datasets_troubleshooting",
+          "troubleshooting_and_faqs/support_log"
         ]
       }
     ]
