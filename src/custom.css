@@ -1,0 +1,32 @@
+/* Definition List Styles for remark-deflist */
+
+/* Definition list container */
+dl {
+  margin: 1rem 0;
+  padding: 0;
+}
+
+/* Definition term (the word being defined) */
+dt {
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.25rem;
+  color: var(--ifm-heading-color);
+}
+
+/* First term doesn't need top margin */
+dt:first-child {
+  margin-top: 0;
+}
+
+/* Definition description */
+dd {
+  margin-left: 2rem;
+  margin-bottom: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+/* Multiple definitions for the same term */
+dd + dd {
+  margin-top: 0.5rem;
+}
