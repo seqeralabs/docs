@@ -9,10 +9,8 @@ Docker Compose deployments are suitable for evaluation, development, and small p
 
 ## Prerequisites
 
-Before you begin, you need:
+Other than the basic requirements [already listed in the Platform installation overview](./install-platform#prerequisites), you will need:
 - Docker Engine and Docker Compose
-- A MySQL 8 database
-- A Redis 7 instance
 
 ## Container images
 

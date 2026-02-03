@@ -15,6 +15,8 @@ Studios provides interactive analysis environments within Seqera Platform. Deplo
 | Kubernetes | [Studios: Kubernetes](./studios-kubernetes) |
 | Docker Compose | [Studios: Docker Compose](./studios-docker-compose) |
 
+See each deployment guide for detailed requirements.
+
 ## Prerequisites
 
 Before you begin, you need:

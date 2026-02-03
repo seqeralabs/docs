@@ -16,6 +16,8 @@ Seqera Platform Enterprise can be deployed using Docker Compose, Kubernetes, or 
 | [Kubernetes](./platform-kubernetes) | Production workloads requiring high availability |
 | [Docker Compose](./platform-docker-compose) | Evaluation, development, small production workloads |
 
+See each deployment guide for detailed requirements.
+
 ## Prerequisites
 
 Before you begin, you need:
@@ -25,5 +27,3 @@ Before you begin, you need:
 :::note
 MySQL 8 is the only supported database version from Seqera Enterprise version 23.4 onwards. MySQL 5.6 and 5.7 are not supported.
 :::
-
-See each deployment guide for detailed requirements.

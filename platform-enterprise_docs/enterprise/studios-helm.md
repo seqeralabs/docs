@@ -7,9 +7,11 @@ tags: [helm, deployment, installation, kubernetes, studios]
 
 [Helm](https://helm.sh) is an open-source command line tool used for managing Kubernetes applications. Seqera offers a [Helm chart](https://github.com/seqeralabs/helm-charts/tree/studios-1.1.3/platform/charts/studios) to deploy Studios Enterprise on a Kubernetes cluster.
 
-Refer to the [Studios installation overview](./install-studios) for prerequisites and configuration options.
+## Prerequisites
 
-For generic instructions on how to install Seqera Helm charts, refer to the Seqera Platform Enterprise installation guide [using Helm](./platform-helm).
+Other than the basic requirements [already listed in the Studios installation overview](./install-studios#prerequisites), you will need:
+- A Kubernetes cluster
+- [Helm v3](https://helm.sh/docs/intro/install) and [kubectl](https://kubernetes.io/docs/tasks/tools/) installed locally
 
 ## Installation as part of Seqera Platform Enterprise
 
