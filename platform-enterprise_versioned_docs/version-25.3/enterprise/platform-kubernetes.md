@@ -9,10 +9,9 @@ Kubernetes deployments are recommended for production workloads requiring high a
 
 ## Prerequisites
 
-Before you begin, you need:
+Other than the basic requirements [already listed in the Platform installation overview](./install-platform#prerequisites), you will need:
 - A Kubernetes cluster
-- A MySQL 8 database
-- A Redis 7 instance
+- [kubectl](https://kubernetes.io/docs/tasks/tools/) installed locally
 
 ### Recommended resources
 
