@@ -232,12 +232,13 @@ export default async function createConfigAsync() {
     onBrokenAnchors:
       process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
 
-    markdown: {
-      hooks: {
-        onBrokenMarkdownLinks:
-          process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
-      },
-    },
+    // TODO: markdown.hooks not supported in Docusaurus 3.8.1 - upgrade Docusaurus or remove
+    // markdown: {
+    //   hooks: {
+    //     onBrokenMarkdownLinks:
+    //       process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
+    //   },
+    // },
 
     customFields: {
       // Put your custom environment here
