@@ -138,7 +138,7 @@ After the initial review, re-run the workflow manually:
    - `all` - Run all checks
    - `voice-tone` - Only voice/tone
    - `terminology` - Only terminology
-   - `clarity` - Only clarity
+   - `clarity` - Only clarity _(currently disabled in CI)_
 5. Click **Run workflow**
 
 The workflow does NOT re-run automatically on subsequent commits (to conserve tokens).
