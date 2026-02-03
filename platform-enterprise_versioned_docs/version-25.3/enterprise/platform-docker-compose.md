@@ -56,7 +56,7 @@ Use a managed Redis service for production:
 
       - To configure the Seqera pipeline resource optimization service (`groundswell`), see [Pipeline resource optimization](./configuration/pipeline_optimization).
 
-      - To deploy with Studios, see [Studios deployment](./studios).
+      - To deploy with Studios, see [Studios deployment](./install-studios).
 
 4. Deploy the application and wait for it to initialize (this process takes a few minutes):
 
@@ -110,7 +110,7 @@ Seqera Platform offers a service that optimizes pipeline resource requests. Refe
 
 ### Studios
 
-[Studios](../studios/overview) is an interactive analysis environment available in organizational workspaces. To enable Studios, see [Studios deployment](./studios).
+[Studios](../studios/overview) is an interactive analysis environment available in organizational workspaces. To enable Studios, see [Studios deployment](./install-studios).
 
 :::note
 Studios is available from Seqera Platform v24.1. If you experience any problems during the deployment process please contact your account executive. Studios in Enterprise is not installed by default.
