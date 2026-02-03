@@ -134,12 +134,13 @@ After the initial review, re-run the workflow manually:
 1. Go to **Actions** → **Documentation Review**
 2. Click **Run workflow**
 3. Select your PR branch
-4. Choose review type:
+4. Enter the **PR number** (required for posting results)
+5. Choose review type:
    - `all` - Run all checks
    - `voice-tone` - Only voice/tone
    - `terminology` - Only terminology
    - `clarity` - Only clarity _(currently disabled in CI)_
-5. Click **Run workflow**
+6. Click **Run workflow**
 
 The workflow does NOT re-run automatically on subsequent commits (to conserve tokens).
 
