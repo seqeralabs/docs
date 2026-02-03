@@ -68,7 +68,7 @@ pre-commit --version
 ### 3. Install Vale packages
 
 ```bash
-cd /Users/justine.geffen/work/docs
+cd <repo-root>  # Navigate to your docs repository
 
 # Download write-good package and sync Vale styles
 vale sync
@@ -81,7 +81,7 @@ vale sync
 ### 4. Set up git hooks
 
 ```bash
-cd /Users/justine.geffen/work/docs
+cd <repo-root>  # Navigate to your docs repository
 
 # Install pre-commit hooks
 pre-commit install
@@ -111,7 +111,7 @@ pre-commit install
 ```json
 {
   "vale.valeCLI.path": "/opt/homebrew/bin/vale",
-  "vale.valeCLI.config": "/Users/justine.geffen/work/docs/.vale.ini"
+  "vale.valeCLI.config": "/absolute/path/to/your/docs/.vale.ini"
 }
 ```
 
@@ -428,7 +428,7 @@ PR Workflow (Automated)
 ### Vale packages not found
 
 ```bash
-cd /Users/justine.geffen/work/docs
+cd <repo-root>  # Navigate to your docs repository
 vale sync
 ```
 
