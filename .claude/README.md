@@ -117,8 +117,8 @@ Ensures consistent punctuation across documentation.
 **File:** `.github/workflows/docs-review.yml`
 
 **Triggers:**
-- Pull requests modifying `platform-*` directories
-- Manual workflow dispatch
+- **Automatic:** PR creation or reopen for `platform-*` directories
+- **Manual:** Workflow dispatch (see below)
 
 **How it works:**
 0. Validates bash script syntax (fails fast if scripts have errors)
@@ -126,6 +126,22 @@ Ensures consistent punctuation across documentation.
 2. Runs agents based on PR type (rename PRs skip voice-tone & terminology)
 3. Posts up to 60 inline suggestions per PR
 4. Saves full report as downloadable artifact (30-day retention)
+
+**Manual re-runs:**
+
+After the initial review, re-run the workflow manually:
+
+1. Go to **Actions** → **Documentation Review**
+2. Click **Run workflow**
+3. Select your PR branch
+4. Choose review type:
+   - `all` - Run all checks
+   - `voice-tone` - Only voice/tone
+   - `terminology` - Only terminology
+   - `clarity` - Only clarity
+5. Click **Run workflow**
+
+The workflow does NOT re-run automatically on subsequent commits (to conserve tokens).
 
 **Outputs:**
 - Inline suggestions on specific lines (click to apply)

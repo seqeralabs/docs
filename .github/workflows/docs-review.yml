@@ -9,7 +9,7 @@ on:
       - 'platform-cloud/docs/**/*.mdx'
       - 'platform-enterprise_versioned_docs/**/*.md'
       - 'platform-enterprise_versioned_docs/**/*.mdx'
-    types: [opened, synchronize, reopened]
+    types: [opened, reopened]  # Runs on PR creation/reopen only; use workflow_dispatch for manual re-runs
 
   # Manual trigger for full review
   workflow_dispatch:
