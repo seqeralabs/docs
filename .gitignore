@@ -29,6 +29,10 @@ internal/tmp
 # Include our own configuration
 !.github/styles/config
 !.github/styles/Google
+!.github/styles/Seqera
+
+# VSCode workspace settings (user-specific paths)
+.vscode/
 
 # Local Netlify folder
 .netlify

@@ -85,6 +85,28 @@ jobs:
           echo "pr_type=$PR_TYPE" >> $GITHUB_OUTPUT
           echo "📋 PR Type: $PR_TYPE"
 
+  # ───────────────────────────────────────────────────────────────
+  # Fast terminology check - catches obvious issues before AI review
+  # ───────────────────────────────────────────────────────────────
+  vale-lint:
+    needs: changes
+    if: needs.changes.outputs.docs == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Vale Terminology Check
+        uses: errata-ai/vale-action@v2
+        with:
+          files: |
+            platform-enterprise_docs
+            platform-cloud/docs
+            platform-enterprise_versioned_docs
+          reporter: github-pr-review
+          fail_on_error: false  # Post suggestions without blocking
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   # Voice and tone review (content PRs only)
   voice-tone-review:
     needs: changes
@@ -116,9 +138,11 @@ jobs:
 
             Check for:
             - Second person usage (you vs the user)
-            - Active vs passive voice
+            - Active vs passive voice (Note: write-good also checks this, focus on context)
             - Present vs future tense
-            - Hedging language
+            - Hedging language (Note: write-good also checks this)
+
+            Focus on context-dependent issues that automated tools can't catch.
 
             Write all suggestions to /tmp/voice-tone-suggestions.txt
           use_sticky_comment: true
@@ -155,18 +179,23 @@ jobs:
 
             FILE: path/to/file.md
             LINE: 42
-            ISSUE: Brief description (e.g., "Use 'Seqera Platform' not 'Tower'")
+            ISSUE: Brief description (e.g., "Use bold for UI button names")
             ORIGINAL: |
             exact original text
             SUGGESTION: |
             corrected text
             ---
 
-            Check for:
-            - Product name consistency (Seqera Platform, Nextflow, etc.)
-            - Feature name consistency (Studios capitalized)
-            - Formatting conventions (bold for UI, backticks for code)
-            - RNA-Seq capitalization rules
+            IMPORTANT: Vale already checks these (SKIP THEM):
+            - Product names (Tower→Seqera Platform, NextFlow→Nextflow, Wave, Fusion, Studios variants)
+            - Feature abbreviations (compute env, creds, repo, config, dropdown)
+            - Lowercase product names (wave, fusion, studio, studios)
+
+            Check ONLY for:
+            - Formatting conventions (bold for UI elements, backticks for code/commands/paths)
+            - RNA-Seq capitalization rules (context-dependent)
+            - Context-dependent terminology issues Vale can't catch
+            - UI navigation paths (use bold with >)
 
             Write all suggestions to /tmp/terminology-suggestions.txt
           use_sticky_comment: true
@@ -235,7 +264,7 @@ jobs:
 
   # Consolidated Review - Posts ONE review with all suggestions
   consolidated-review:
-    needs: [changes, voice-tone-review, terminology-review]
+    needs: [vale-lint, changes, voice-tone-review, terminology-review]
     if: always() && needs.changes.outputs.docs == 'true' && (needs.voice-tone-review.result != 'skipped' || needs.terminology-review.result != 'skipped')
     runs-on: ubuntu-latest
     steps:
@@ -343,7 +372,7 @@ jobs:
 
   # Summary report
   summary:
-    needs: [changes, voice-tone-review, terminology-review, consolidated-review]
+    needs: [vale-lint, changes, voice-tone-review, terminology-review, consolidated-review]
     # Removed clarity-review from dependencies since it's currently disabled
     if: always() && needs.changes.outputs.docs == 'true' && github.event_name == 'pull_request'
     runs-on: ubuntu-latest
@@ -353,8 +382,9 @@ jobs:
         with:
           script: |
             const jobs = [
-              { name: 'Voice/Tone', status: '${{ needs.voice-tone-review.result }}' },
-              { name: 'Terminology', status: '${{ needs.terminology-review.result }}' }
+              { name: 'Terminology (Vale)', status: '${{ needs.vale-lint.result }}' },
+              { name: 'Voice/Tone (AI)', status: '${{ needs.voice-tone-review.result }}' },
+              { name: 'Terminology (AI)', status: '${{ needs.terminology-review.result }}' }
               // Clarity review temporarily disabled
             ];
 
