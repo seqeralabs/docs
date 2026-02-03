@@ -7,6 +7,10 @@ tags: [enterprise, update, install]
 
 Follow these steps to upgrade your database instance and Platform Enterprise installation:
 
+:::note
+From Seqera Enterprise version 23.4, MySQL 8 is the only supported database version. If you are upgrading from a version prior to 23.4 and running MySQL 5.6 or 5.7, you must upgrade your database to MySQL 8 before upgrading to version 24.2. See [General upgrade steps](#general-upgrade-steps) for database upgrade instructions.
+:::
+
 :::caution
 The database volume is persistent on the local machine by default if you use the `volumes` key in the `db` or `redis` section of your `docker-compose.yml` file to specify a local path to the DB or Redis instance. If your database is not persistent, you must back up your database before performing any application or database upgrades.
 :::
@@ -21,7 +25,7 @@ The database volume is persistent on the local machine by default if you use the
     JAVA_OPTS: -Xms1000M -Xmx2000M -XX:MaxDirectMemorySize=800m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144
     ```
 
-    These baseline values are suitable for most deployments running moderate concurrent workflow loads. 
+    These baseline values are suitable for most deployments running moderate concurrent workflow loads.
 
     :::tip
     These are starting recommendations that may require tuning based on your deployment's workload. See [Backend memory requirements](./configuration/overview.mdx#backend-memory-requirements) for detailed guidance on when and how to adjust these values for your environment.

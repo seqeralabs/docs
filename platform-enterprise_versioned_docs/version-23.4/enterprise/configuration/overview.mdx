@@ -136,7 +136,7 @@ Configuration values that control Seqera's interaction with databases and Redis 
 From Seqera Enterprise version 23.3, Redis version 7 is officially supported. Follow your cloud provider specifications to upgrade your instance.
 :::
 
-### Database requirements 
+### Database requirements
 
 :::warning Aurora Serverless is not supported
 AWS Aurora Serverless is **not supported** for production Seqera Enterprise deployments. We have observed critical stability and performance issues with Aurora Serverless under typical production workloads, including:
@@ -151,6 +151,10 @@ AWS Aurora Serverless is **not supported** for production Seqera Enterprise depl
 - Self-managed MySQL 8.0
 
 If you are currently using Aurora Serverless and experiencing performance issues, we strongly recommend migrating to one of the supported database configurations above.
+:::
+
+:::warning
+**Breaking change in version 23.4**: MySQL 8 is now required. If you are currently using MySQL 5.6 or 5.7, you must upgrade your database to MySQL 8.0 before upgrading to version 23.4 or later.
 :::
 
 External databases for Seqera Enterprise deployments require:
@@ -545,11 +549,11 @@ Do not replace the [Seqera-provided default image](../../functionality_matrix/ov
 
 ## Seqera API
 
-Enable the API endpoints to host the Seqera Enterprise OpenAPI specification and use the [tw CLI](https://github.com/seqeralabs/tower-cli). Set custom API rate limits and timeouts. 
+Enable the API endpoints to host the Seqera Enterprise OpenAPI specification and use the [tw CLI](https://github.com/seqeralabs/tower-cli). Set custom API rate limits and timeouts.
 
 :::note
 To configure API rate limit environment variables, you must add `ratelim` to the `MICRONAUT_ENVIRONMENTS`. Without `ratelim` being set, the rate limit configuration variables below are ignored.
-::: 
+:::
 
 <Tabs>
 <TabItem value="Environment variables" label="Environment variables" default>
