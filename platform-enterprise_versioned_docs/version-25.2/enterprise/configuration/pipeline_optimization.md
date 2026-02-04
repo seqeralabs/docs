@@ -106,4 +106,4 @@ The initContainers process will wait until both the Seqera and pipeline resource
 When the pipeline resource optimization service is active, pipelines that can be optimized display a lightbulb icon in your Launchpad. Any pipeline with at least one successful run can be optimized.
 
 
-[platform-k8s]: ../kubernetes
+[platform-k8s]: ../platform-kubernetes

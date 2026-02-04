@@ -5,7 +5,7 @@ date: "12 Feb 2024"
 tags: [testing, deployment]
 ---
 
-After your [Docker Compose](./docker-compose) or [Kubernetes](./kubernetes) installation is complete, follow these steps to test whether the application is running as expected:
+After your [Docker Compose](./platform-docker-compose) or [Kubernetes](./platform-kubernetes) installation is complete, follow these steps to test whether the application is running as expected:
 
 1. Log in to the application.
 
