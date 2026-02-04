@@ -113,7 +113,7 @@ services:
     depends_on:
       - backend
 
-# Uncomment the following section to enable Studios functionality. See [Studios configuration](../studios/overview) for more information.
+# Uncomment the following section to enable Studios functionality. See [Studios configuration](../../../studios/overview) for more information.
 #  connect-proxy:
 #    image: cr.seqera.io/private/nf-tower-enterprise/data-studio/connect-proxy:0.8.3
 #    platform: linux/amd64
@@ -141,7 +141,7 @@ services:
 #      - 7070:7070
 #    restart: always
 
-  # Uncomment the following section to enable the pipeline resource optimization service. Add TOWER_ENABLE_GROUNDSWELL 
+  # Uncomment the following section to enable the pipeline resource optimization service. Add TOWER_ENABLE_GROUNDSWELL
   # or GROUNDSWELL_SERVER_URL to tower.env environment variables
   # groundswell:
   #   image: cr.seqera.io/private/nf-tower-enterprise/groundswell:0.3.3
