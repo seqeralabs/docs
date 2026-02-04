@@ -19,9 +19,9 @@
             "id": "enterprise/install-platform"
           },
           "items": [
-            "enterprise/helm",
-            "enterprise/kubernetes",
-            "enterprise/docker-compose"
+            "enterprise/platform-helm",
+            "enterprise/platform-kubernetes",
+            "enterprise/platform-docker-compose"
           ]
         },
         {
