@@ -9,11 +9,15 @@ on:
       - 'platform-cloud/docs/**/*.mdx'
       - 'platform-enterprise_versioned_docs/**/*.md'
       - 'platform-enterprise_versioned_docs/**/*.mdx'
-    types: [opened, synchronize, reopened]
+    types: [opened, reopened]  # Runs on PR creation/reopen only; use workflow_dispatch for manual re-runs
 
   # Manual trigger for full review
   workflow_dispatch:
     inputs:
+      pr_number:
+        description: 'PR number (required for posting results)'
+        required: true
+        type: string
       review_type:
         description: 'Review type'
         required: true
@@ -31,8 +35,41 @@ permissions:
   id-token: write
 
 jobs:
+  # Determine PR number for both automatic and manual runs
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      pr_number: ${{ steps.get-pr.outputs.pr_number }}
+      review_type: ${{ steps.get-review-type.outputs.review_type }}
+    steps:
+      - name: Get PR number
+        id: get-pr
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "pr_number=${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
+            echo "📋 PR number from event: ${{ github.event.pull_request.number }}"
+          elif [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "pr_number=${{ inputs.pr_number }}" >> $GITHUB_OUTPUT
+            echo "📋 PR number from input: ${{ inputs.pr_number }}"
+          else
+            echo "❌ Unable to determine PR number"
+            exit 1
+          fi
+
+      - name: Get review type
+        id: get-review-type
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "review_type=${{ inputs.review_type }}" >> $GITHUB_OUTPUT
+            echo "📋 Review type: ${{ inputs.review_type }}"
+          else
+            echo "review_type=all" >> $GITHUB_OUTPUT
+            echo "📋 Review type: all (automatic PR review)"
+          fi
+
   # Check bash script syntax before running any reviews
   syntax-check:
+    needs: setup
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -85,10 +122,32 @@ jobs:
           echo "pr_type=$PR_TYPE" >> $GITHUB_OUTPUT
           echo "📋 PR Type: $PR_TYPE"
 
+  # ───────────────────────────────────────────────────────────────
+  # Fast terminology check - catches obvious issues before AI review
+  # ───────────────────────────────────────────────────────────────
+  vale-lint:
+    needs: changes
+    if: needs.changes.outputs.docs == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Vale Terminology Check
+        uses: errata-ai/vale-action@v2
+        with:
+          files: |
+            platform-enterprise_docs
+            platform-cloud/docs
+            platform-enterprise_versioned_docs
+          reporter: github-pr-review
+          fail_on_error: false  # Post suggestions without blocking
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   # Voice and tone review (content PRs only)
   voice-tone-review:
-    needs: changes
-    if: needs.changes.outputs.docs == 'true' && needs.changes.outputs.pr_type == 'content'
+    needs: [setup, changes]
+    if: needs.changes.outputs.docs == 'true' && needs.changes.outputs.pr_type == 'content' && (needs.setup.outputs.review_type == 'all' || needs.setup.outputs.review_type == 'voice-tone')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -116,9 +175,11 @@ jobs:
 
             Check for:
             - Second person usage (you vs the user)
-            - Active vs passive voice
+            - Active vs passive voice (Note: write-good also checks this, focus on context)
             - Present vs future tense
-            - Hedging language
+            - Hedging language (Note: write-good also checks this)
+
+            Focus on context-dependent issues that automated tools can't catch.
 
             Write all suggestions to /tmp/voice-tone-suggestions.txt
           use_sticky_comment: true
@@ -135,8 +196,8 @@ jobs:
 
   # Terminology review (content PRs only)
   terminology-review:
-    needs: changes
-    if: needs.changes.outputs.docs == 'true' && needs.changes.outputs.pr_type == 'content'
+    needs: [setup, changes]
+    if: needs.changes.outputs.docs == 'true' && needs.changes.outputs.pr_type == 'content' && (needs.setup.outputs.review_type == 'all' || needs.setup.outputs.review_type == 'terminology')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -155,18 +216,23 @@ jobs:
 
             FILE: path/to/file.md
             LINE: 42
-            ISSUE: Brief description (e.g., "Use 'Seqera Platform' not 'Tower'")
+            ISSUE: Brief description (e.g., "Use bold for UI button names")
             ORIGINAL: |
             exact original text
             SUGGESTION: |
             corrected text
             ---
 
-            Check for:
-            - Product name consistency (Seqera Platform, Nextflow, etc.)
-            - Feature name consistency (Studios capitalized)
-            - Formatting conventions (bold for UI, backticks for code)
-            - RNA-Seq capitalization rules
+            IMPORTANT: Vale already checks these (SKIP THEM):
+            - Product names (Tower→Seqera Platform, NextFlow→Nextflow, Wave, Fusion, Studios variants)
+            - Feature abbreviations (compute env, creds, repo, config, dropdown)
+            - Lowercase product names (wave, fusion, studio, studios)
+
+            Check ONLY for:
+            - Formatting conventions (bold for UI elements, backticks for code/commands/paths)
+            - RNA-Seq capitalization rules (context-dependent)
+            - Context-dependent terminology issues Vale can't catch
+            - UI navigation paths (use bold with >)
 
             Write all suggestions to /tmp/terminology-suggestions.txt
           use_sticky_comment: true
@@ -183,9 +249,9 @@ jobs:
 
   # Clarity review
   clarity-review:
-    needs: changes
+    needs: [setup, changes]
     if: false  # Disabled for now - can be re-enabled later
-    # if: needs.changes.outputs.docs == 'true'
+    # if: needs.changes.outputs.docs == 'true' && (needs.setup.outputs.review_type == 'all' || needs.setup.outputs.review_type == 'clarity')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -225,8 +291,9 @@ jobs:
       - name: Post Clarity Suggestions
         run: |
           chmod +x .github/scripts/post-inline-suggestions.sh
+          PR_NUMBER="${{ needs.setup.outputs.pr_number }}"
           if [[ -f /tmp/clarity-suggestions.txt ]]; then
-            .github/scripts/post-inline-suggestions.sh /tmp/clarity-suggestions.txt ${{ github.event.pull_request.number }}
+            .github/scripts/post-inline-suggestions.sh /tmp/clarity-suggestions.txt ${PR_NUMBER}
           else
             echo "✅ No clarity issues found"
           fi
@@ -235,7 +302,7 @@ jobs:
 
   # Consolidated Review - Posts ONE review with all suggestions
   consolidated-review:
-    needs: [changes, voice-tone-review, terminology-review]
+    needs: [setup, changes, voice-tone-review, terminology-review]
     if: always() && needs.changes.outputs.docs == 'true' && (needs.voice-tone-review.result != 'skipped' || needs.terminology-review.result != 'skipped')
     runs-on: ubuntu-latest
     steps:
@@ -304,18 +371,18 @@ jobs:
           retention-days: 30
 
       - name: Post Consolidated Review
-        if: github.event_name == 'pull_request'
         run: |
           chmod +x .github/scripts/post-inline-suggestions.sh
 
+          PR_NUMBER="${{ needs.setup.outputs.pr_number }}"
           PR_TYPE="${{ needs.changes.outputs.pr_type }}"
           RUN_ID="${{ github.run_id }}"
           REPO="${{ github.repository }}"
 
           if [[ -f /tmp/no-suggestions.txt ]]; then
-            gh pr comment ${{ github.event.pull_request.number }} --body "✅ **Editorial Review Complete** (PR type: $PR_TYPE) - No issues found! Documentation looks good. *Review by Claude Code editorial agents*"
+            gh pr comment ${PR_NUMBER} --body "✅ **Editorial Review Complete** (PR type: $PR_TYPE) - No issues found! Documentation looks good. *Review by Claude Code editorial agents*"
           elif [[ -f /tmp/all-suggestions.txt ]] && [[ -s /tmp/all-suggestions.txt ]]; then
-            .github/scripts/post-inline-suggestions.sh /tmp/all-suggestions.txt ${{ github.event.pull_request.number }}
+            .github/scripts/post-inline-suggestions.sh /tmp/all-suggestions.txt ${PR_NUMBER}
 
             # Add note if suggestions were limited
             if [[ -f /tmp/total-count.txt ]]; then
@@ -333,7 +400,7 @@ jobs:
           The inline suggestions focus on the most impactful changes. (PR type: $PR_TYPE)
           EOF
 
-              gh pr comment ${{ github.event.pull_request.number }} --body-file /tmp/limit-message.txt
+              gh pr comment ${PR_NUMBER} --body-file /tmp/limit-message.txt
             fi
           else
             echo "No review output to post"
@@ -343,9 +410,9 @@ jobs:
 
   # Summary report
   summary:
-    needs: [changes, voice-tone-review, terminology-review, consolidated-review]
+    needs: [setup, changes, voice-tone-review, terminology-review, consolidated-review]
     # Removed clarity-review from dependencies since it's currently disabled
-    if: always() && needs.changes.outputs.docs == 'true' && github.event_name == 'pull_request'
+    if: always() && needs.changes.outputs.docs == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Post Summary
@@ -353,8 +420,9 @@ jobs:
         with:
           script: |
             const jobs = [
-              { name: 'Voice/Tone', status: '${{ needs.voice-tone-review.result }}' },
-              { name: 'Terminology', status: '${{ needs.terminology-review.result }}' }
+              { name: 'Terminology (Vale)', status: '${{ needs.vale-lint.result }}' },
+              { name: 'Voice/Tone (AI)', status: '${{ needs.voice-tone-review.result }}' },
+              { name: 'Terminology (AI)', status: '${{ needs.terminology-review.result }}' }
               // Clarity review temporarily disabled
             ];
 
@@ -390,7 +458,7 @@ jobs:
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: context.issue.number,
+              issue_number: ${{ needs.setup.outputs.pr_number }},
               body: summary
             });
 
