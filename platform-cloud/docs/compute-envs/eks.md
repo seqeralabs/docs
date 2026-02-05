@@ -23,7 +23,8 @@ Once you meet all the prerequisites, configure an [Amazon EKS Compute Environmen
 
 Seqera Platform requires an IAM user with specific permissions to launch pipelines, explore buckets with Data Explorer, and run Studio sessions on the AWS EKS compute environment. Some permissions are mandatory for the compute environment to function correctly, while others are optional and enable features like populating dropdown lists in the Platform UI.
 
-Permissions can be attached directly to an [IAM user](#iam-user-creation), or to an [IAM role](#iam-role-creation-optional) that the IAM user can assume.
+Attach permissions directly to an [IAM user](#iam-user-creation), or to an [IAM role](#iam-role-creation-optional) that the IAM user can assume.
+
 
 A permissive and broad policy with all the required permissions is provided here for a quick start. However, we recommend following the principle of least privilege and only granting the necessary permissions for your use case, as shown in the following sections.
 
