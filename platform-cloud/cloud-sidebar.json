@@ -1,15 +1,17 @@
 {
     "platformCloudSidebar": [
-      "index",
+      "platform-cloud",
       {
         "type": "category",
         "label": "Tutorials",
         "collapsed": true,
         "items": [
-          "getting-started/quickstart-demo/comm-showcase",
+          "quickstart",
           "getting-started/rnaseq",
           "getting-started/proteinfold",
-          "getting-started/studios"
+          "getting-started/studios",
+          "getting-started/quickstart-demo/comm-showcase",
+          "tutorials/retry-strategy"
           ]
       },
       {
@@ -35,17 +37,20 @@
           {
             "type": "category",
             "label": "Container registry credentials",
+            "link": {"type": "doc", "id": "credentials/container_registry_credentials"},
+            "collapsed": true,
             "items": [
-              "credentials/docker_hub_registry_credentials",
               "credentials/aws_registry_credentials",
               "credentials/azure_registry_credentials",
-              "credentials/google_registry_credentials",
-              "credentials/quay_registry_credentials",
-              "credentials/gitlab_registry_credentials",
+              "credentials/docker_hub_registry_credentials",
+              "credentials/gitea_registry_credentials",
               "credentials/github_registry_credentials",
-              "credentials/gitea_registry_credentials"
+              "credentials/gitlab_registry_credentials",
+              "credentials/google_registry_credentials",
+              "credentials/quay_registry_credentials"
             ]
           },
+          "credentials/data_repositories",
           "credentials/managed_identities",
           "credentials/ssh_credentials",
           "credentials/agent_credentials"
@@ -60,10 +65,13 @@
             "type": "category",
             "label": "Cloud",
             "items": [
+              "compute-envs/seqera-compute",
               "compute-envs/aws-batch",
+              "compute-envs/aws-cloud",
               "compute-envs/azure-batch",
+              "compute-envs/azure-cloud",
               "compute-envs/google-cloud-batch",
-              "compute-envs/google-cloud-lifesciences",
+              "compute-envs/google-cloud",
               "compute-envs/eks",
               "compute-envs/gke",
               "monitoring/cloud-costs"
@@ -72,8 +80,8 @@
           "compute-envs/k8s",
           "compute-envs/hpc",
           "resource-labels/overview",
-          "supported_software/fusion/fusion",
-          "supported_software/agent/agent",
+          "supported_software/fusion/overview",
+          "supported_software/agent/overview",
           "supported_software/dragen/overview",
           {
             "type": "category",
@@ -97,7 +105,9 @@
         "type": "category",
         "label": "Pipelines",
         "items": [
+          "pipelines/overview",
           "pipeline-schema/overview",
+          "pipelines/revision",
           "launch/launchpad",
           "labels/overview",
           {
@@ -105,7 +115,6 @@
           "label": "Monitor runs",
           "items": [
             "monitoring/overview",
-            "monitoring/dashboard",
             "monitoring/run-details"
           ]
           },
@@ -116,42 +125,67 @@
           "launch/advanced"
         ]
       },
-      {
+     {
         "type": "category",
         "label": "Studios",
         "items": [
-          "studios/index",
+          "studios/overview",
+          "studios/container-images",
           "studios/custom-envs",
-          "studios/managing"
+          {
+          "type": "category",
+          "label": "Add a Studio",
+          "link": {"type": "doc", "id": "studios/add-studio"},
+          "collapsed": true,
+          "items": [
+            "studios/add-studio-provided-template",
+            "studios/add-studio-custom-container",
+            "studios/add-studio-git-repo"
+          ]
+          },
+          "studios/managing",
+          "studios/connect"
         ]
       },
       {
         "type": "category",
         "label": "Administration",
         "items": [
-          "administration/overview",
           "orgs-and-teams/organizations",
           "orgs-and-teams/workspace-management",
           "orgs-and-teams/roles",
-          "monitoring/audit-logs"
+          "monitoring/dashboard",
+          "administration/credit-management"
           ]
       },
+     {
+      "type": "category",
+      "label": "Seqera AI CLI",
+      "link": {"type": "doc", "id": "seqera-ai/index"},
+      "collapsed": true,
+      "items": [
+        "seqera-ai/get-started",
+        "seqera-ai/installation",
+        "seqera-ai/authentication",
+        "seqera-ai/command-approval",
+        "seqera-ai/use-cases"
+      ]
+    },
       {
         "type": "category",
         "label": "Developer tools",
         "collapsed": true,
         "items": [
-          "api/overview",
           {
-            "type": "category",
+            "type": "link",
+            "label": "API",
+            "href": "https://docs.seqera.io/platform-api"
+          },
+          {
+            "type": "link",
             "label": "CLI",
-            "collapsed": true,
-            "items": [
-              "cli/overview",
-              "cli/installation",
-              "cli/commands"
-            ]
-            },
+            "href": "https://docs.seqera.io/platform-cli"
+          },
             {
               "type": "category",
               "label": "Seqerakit",
@@ -163,6 +197,17 @@
                 "seqerakit/templates"
               ]
               },
+            {
+              "type": "category",
+              "label": "Seqera MCP",
+              "link": {"type": "doc", "id": "seqera-mcp/overview"},
+              "collapsed": true,
+              "items": [
+                "seqera-mcp/seqera-tools",
+                "seqera-mcp/sra-tools",
+                "seqera-mcp/nfcore-tools"
+              ]
+              },
             "pipeline-actions/overview"
           ]
       },
@@ -171,16 +216,16 @@
         "label": "Reference",
         "collapsed": true,
         "items": [
-          "functionality_matrix/functionality_matrix",
+          "functionality_matrix/overview",
           "data-privacy/overview",
-          "limits/limits"
+          "limits/overview"
         ]
       },
       {
         "type": "link",
         "label": "Cloud changelog",
         "href": "/changelog/tags/seqera-cloud"
-      },        
+      },
       {
         "type": "category",
         "label": "Troubleshooting",
@@ -193,7 +238,9 @@
           "troubleshooting_and_faqs/aws_troubleshooting",
           "troubleshooting_and_faqs/azure_troubleshooting",
           "troubleshooting_and_faqs/workspaces_troubleshooting",
-          "troubleshooting_and_faqs/datasets_troubleshooting"
+          "troubleshooting_and_faqs/resource-labels",
+          "troubleshooting_and_faqs/datasets_troubleshooting",
+          "troubleshooting_and_faqs/seqera-ai"
         ]
       }
     ]

@@ -14,7 +14,7 @@ module.exports = {
   theme: {
     screens: {
       sm: "640px",
-      md: "768px",
+      md: "996px", // set to match docusaurus default breakpoint
       lg: "1024px",
       xl: "1280px",
     },
@@ -221,7 +221,7 @@ module.exports = {
     },
   },
   plugins: [
-    function ({ addUtilities, theme }) {
+    function ({ addBase, theme }) {
       function extractColorVars(colorObj, colorGroup = "") {
         return Object.keys(colorObj).reduce((vars, colorKey) => {
           const value = colorObj[colorKey];
@@ -235,7 +235,7 @@ module.exports = {
         }, {});
       }
 
-      addUtilities({
+      addBase({
         html: extractColorVars(theme("colors")),
       });
     },

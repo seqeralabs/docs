@@ -38,28 +38,35 @@ const VersionSwitcher = ({ isOpen, setIsOpen }) => {
 
   if (typeof window === "undefined") return null;
   if (!versions) return null;
-  if (!location.pathname.startsWith("/platform-enterprise/")) return null;
+  if (!location.pathname.startsWith("/platform-enterprise")) return null;
 
   const items = versions.filter(
-    (version) => version.label !== currentVersion.label,
+    (version) => version.label !== currentVersion?.label,
   );
 
-  // Extract the part of the URL after the current version
-  const currentVersionPrefix = `/platform-enterprise/${currentVersion.label}`;
-  const urlSuffix = location.pathname.replace(currentVersionPrefix, "");
+  let urlSuffix = "";
+
+  if (
+    currentVersion &&
+    location.pathname.startsWith(`/platform-enterprise/${currentVersion.label}`)
+  ) {
+    const currentVersionPrefix = `/platform-enterprise/${currentVersion.label}`;
+    urlSuffix = location.pathname.replace(currentVersionPrefix, "");
+  }
 
   return (
-    <>
+    <div ref={dropdownRef}>
       <button
         onClick={toggleDropdown}
         className={clsx(styles.item, styles.button, {
           [styles.active]: isOpen,
         })}
-        ref={dropdownRef}
       >
         <span>
-          v{currentVersion.label}{" "}
-          {currentVersion.label == versions[0].label ? " (current)" : ""}
+          {currentVersion ? `v${currentVersion.label}` : "Version"}{" "}
+          {currentVersion && currentVersion.label === versions[0].label
+            ? " (current)"
+            : ""}
         </span>
       </button>
       {isOpen && (
@@ -71,11 +78,12 @@ const VersionSwitcher = ({ isOpen, setIsOpen }) => {
           {items?.map((version) => (
             <div
               key={version.name}
+              className="w-full"
               onClick={() => handleSelectVersion(version.name)}
             >
               <Link
                 to={`${version.path}${urlSuffix}`} // Append the suffix to the version path
-                className={styles.item}
+                className={`${styles.item} `}
               >
                 v{version.label}{" "}
                 {version.label === versions[0].label ? " (current)" : ""}
@@ -84,7 +92,7 @@ const VersionSwitcher = ({ isOpen, setIsOpen }) => {
           ))}
         </div>
       )}
-    </>
+    </div>
   );
 };
 

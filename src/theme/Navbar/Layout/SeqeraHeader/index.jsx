@@ -41,7 +41,7 @@ const Header = ({ theme }) => {
     return activeMenu === path;
   };
 
-  const isSmallScreen = useMediaQuery("(max-width: 996px)");
+  const isSmallScreen = useMediaQuery("(max-width: 995px)");
 
   useOutsideClick(headerRef, closeMenu, true);
 

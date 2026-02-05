@@ -1,0 +1,71 @@
+---
+id: cancel-workflow
+title: "Cancel workflow"
+description: "Cancels the workflow execution identified by the given `workflowId`."
+sidebar_label: "Cancel workflow"
+hide_title: true
+hide_table_of_contents: true
+api: eJy1VVFP2zAQ/iuWnzaptN3WTVqfBhWT0KSBCtMeUCXc5NoanNjYTksV5b/vznFIQ6vCpO0FGue7u+8+f3cpuRdLx8e3fKPtw0LpjeOzHk/BJVYaL3XOx3wi8gSUY34FrIExeIKkIACTKeReLiSkbL4NoKVcQ87uGuxFetfnPa4NWEERF+lz0t8Rgq+NsCIDD5bolDzHB4S1ORAiiY0RfsVfUmzyMOetzJctJ4tQC4+FtIBVvS2gx12ygkzwccn91lCROohXVa9T1xmRQFv4sQC7PVg5AFleZGBl0q29V0vmHpbh1ULbTPj66MuoUx1fJXC8bq0fQ/1J8SslPOVjDqszIPnlgknPEpHn2rM50C8MUHhLMWZyzozVawywIewQ27nWCkSO5Ga1juD8mU63BEk0tpJ7+imMUTIJlzu4d8Sv3M+l5/eQeKzipVd0cJ4Zv6Vs0zoxVkERsIwzOnfgKPbjcET/ur1f/mAn7KdmDQMMGg2H+7gzkbJIGsu+mW/rl1uegXNiCTQUL9tA8dDRXtZEG+AhV7UdW6vtNPYX2x0NPx3osJkVRrcnFFob+RDc4dhZ6bdhSM5AWLCnBU7E+HZGd4QTtNI0X0aHpsO0jPmgmaNB2U5UNag9QRcPdt1MXmEVRqy8N248GAgj+4nSRdp38Iik+lLvefE6vGlNOCE8O7264ESpYXxNAtdi7fJ+1osqNh4M3gsgPKl/fG/G5X7jgxJ0cdPWkudPIjOkclnR4Cx0SB2FjwyJ0mvkSQqZgItgco1Igmu6wuzKgcaRKkzyQn9rXyARUrWu86H/9XN/SGd0NZkIpovzHod5027DDsedWftXyzhq7uHJD4wSuGiQWGiwjJ5pPwkIH3f2cLQN3u2KXIbQspwLB7+sqio6rlcWmSmVTswVzdJCKAdHGntlkR4k/ADbvV29FqogJKd9+vby/2WfHiHdrPiW7owerCS+fyndu2ncWO/Z0Q/hQTrxUOTbXTa72sZ7r2aIXoHA/gK/GjCpWZzcUJo2wd6GpduoI06TBIw/it1dZFeX1ze0BOJXJ9MpxVhBtqS/gawOqoTdEs5KrkS+LMJC5nVOWhmiu3FebJjQ1UE50N4BcaMfIEeLN+p4eiZhquoPfA03lA==
+sidebar_class_name: "post api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Cancel workflow"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/workflow/{workflowId}/cancel"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Cancels the workflow execution identified by the given `workflowId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workflowId","in":"path","description":"Workflow string identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"force","in":"query","description":"Cancel on the Platform side even if it cannot be cancelled on the CE provider side","schema":{"type":"boolean"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"content":{"application/json":{"schema":{"type":"object","title":"EmptyBodyRequest"}}}}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

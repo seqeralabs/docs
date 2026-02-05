@@ -1,0 +1,71 @@
+---
+id: delete-data-studio
+title: "Delete Studio"
+description: "Deletes the Studio associated with the given Studio session ID. Append `?workspaceId=` to delete a Studio in a workspace context."
+sidebar_label: "Delete Studio"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVdtu00AQ/ZXVPoFknAIFiUgIAkmlCARVW9SHKlI39iTe1vG6u+OEyPK/M7O+xLkIxAMST7FnZj3nnDk7KSWqpZPDO+mwiLVxchbIGFxkdY7aZHIox5ACghOYgLj2RUI5ZyKtEGKx0Zj41FKvIWsLHDhHp8V0HIpRnkMWi/sPG2MfXa4imMbv7wUaEfsvC9We0hk9d1UiMhnCTwxlIE0OVjGeadwhGitU9UEqyJVVKwpa5lLKjF6osIFBhwKpmUuuMJGHBA8wO7Q6WwodQ4Z6ocEyAAtPhbZA3dEWEEgXJbBSclhK3Oa+lT8lqyrouvf4tv2fCrDbIwC3HeWsWIHVUb+5uE1IV7PSSHIH/Slo1ygYs3KcKBzYvmxHKDWllmAptTB2pbAOvT0n3DMm6XKTkQ584tXZOf/sI/3+RbwQ30zdI0NZBfL87PWJunZeIjMoVJqaDcRhXX7is98MXpgiI3obJrvPkb+w4KwwdpcfXU69ANqpeUoKEB8f70Rn/i1MaqjyPNWRxzR4cNy17MmzG++dXJEP1BL4IjSqmfkDRMgus2xE1LVCbeEpE0jUmHJoYq2xV42wlKk46SAqrMat9+onUBbsqCBnDu9mPAcycmLY6PV4vb05KwfNJR2UnbMrHjPYdev8wqZUmCDmbjgYqFyHUWqKOHTwRCMJ/WU5sL/PiMtUIZtCfOZ61lcylhbqNWtV8+4D7qhzx9Zx/D73RRSpHy5auz1s0Oujs4XxxxudGhTc9k8Ama6OaCPVxTxkFfkh75PvU6Y569S7fWE+7hIEhJWr+7wM370JzziWG4cr5T3S3OV65Yhu3+whLHdG+y+2ZTMSfh3kqaLNQ5y8NmXjpN26D+RwtyVp3glR53xZzpWDHzatKg7Xi4sN1t44OVyo1MFvpPhna+0kv0fYHu3ctUoLrvROXiurGflfsnh21eyG54fjOvlHcRJbE1TZtg+qxbzTv5pRcQIqppvDKOv8KIogx97Jo122tzTGk6+TmwmVq/0benAjfYOTwGj0vuLGPEJWVR1O5HfGWFW/AFzL2HI=
+sidebar_class_name: "delete api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Delete Studio"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/studios/{sessionId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Deletes the Studio associated with the given Studio session ID. Append `?workspaceId=` to delete a Studio in a workspace context.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"sessionId","in":"path","description":"Studio session string identifier.","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier. When omitted, the Studio is deleted in the user context.","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"403":{"description":"Operation not allowed."},"404":{"description":"NotFound, when the Studio is not found or when the API is disabled for the workspace.","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

@@ -1,0 +1,71 @@
+---
+id: list-organization-members
+title: "List organization members"
+description: "Lists all members of the organization identified by the given `orgId`."
+sidebar_label: "List organization members"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVttu2zgQ/RWCT13AsbO9AeunTZtkETS9IJenwEDG0shmIpEKSTlxDf/7zlCSLduCraZ9siUezZy58MwspIeJk8M7aSz9jnoyRhdZlXtltBzKS+W8E5CmIsNsjNYJkwg/RUFw0OonME6oGLVXicJYjOfheKJmqMU9oS7i+77sSZOjDeCLuDL7vWHha2mccDlYyNDzw/BuITU9ED7YoVPFnHLwU7lNtGlN6CJDq6I1L8sULD4VyiL597bAnnTRFDOQw4X085y9KO1xgpagibEZ+PLVx/dyueytqGTwUhN5KtDOd5h8hReVFRmToJg4XxZdkVIavaG/vrC6L04xAXo3FPcfjkN+OpJ593aDjEkSh34/n29tPNyjygUZFjlMlA5Za5L6HU4OwUbT/ZzOLeKRxxcvSrRIVEo1Z2Zklp5hAko7X3WdYNPUhjoWREilAuKYgnHoWmk6b5WeEKkRF93lRhOSz98eH/PPVud8IRuRodC051PI81RFISWDB8eQxa4LM37AiBOfW+5sr0oH1SVpAMFa4PiVx8x1NcB35HBX7jRelauW5l/2ZOG62q3A30I5t5O67fSWkFydVl0oownuQ90OmztrlveQzURZ57vRPGeo6EI0ha42L6GjSZiBB3vY4EnACZXBBMXt1WW4oPsMW5O28kTqgaDpzzoUuPwktHmawtiQEhvLYv9yxNCjGYQauk7feOXZKyvuFfunu796V7bg6fjUG+a3FR5fBc5VSziuvPdEPwQcVEPQtyQKCkKs3nhIr9VP7KJH265v+OOGItdOld7Jb38jIB5U1XC6qpSEzhnxvk1LPkEseMyg878iKuvJdEd5d47qHzJ9QCpKYIvurfmfWWvsDvN3LSpYz2ehjeeBb56JD8MdRgUVYh7m8SeSa7QnBU3g4d2IBZaG9dTwTJ+EQRSG81AOeJ0YLMLcXg6y1XgntZjVs72wJAhy6n3uhoMB5KofpaaI+w6fiEtfmZ0yXocT8SMFzwUXnxkvTn5cSGZSE73mvJY5atJdpYk91mODn8cBRG/KP+d1Kz08+5AApRMTPq9yWrFgt4cIcrgqotFVgrkhIAoNsRl8M+RKKYPbf9cHRIQzV/r5u//Ph/4xv8uN8xmEfqrmL7ds6xXbZrtYN+if2/OqHPNsH+QpDfEwTmyQ/rI3qlWzJ4f1VlfzoxpOKRyGLBZjcHhr0+WSX5dbBDdNrByMU74qCaQO94T0uj2slf8jzleb3wzSghGSV57ubF6/he1htFr/Xknqj65he3iuVsI1zxE/kLaP+Ur9Ul3fXFVq+ZfosPS3sqp3Mz1vclplNbTlckTAKUJM0sAEy7OTKMK8mfEdYd/QxP/ObggLm/qzpTfBeisjugQBcWMeUdNFqAl6fmaCy+X/A3e/+g==
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List organization members"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/orgs/{orgId}/members"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Lists all members of the organization identified by the given `orgId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier.","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"max","in":"query","description":"Maximum number of results to return. Default: `50`.","schema":{"type":"integer","format":"int32"}},{"name":"offset","in":"query","description":"Number of results to skip for pagination. Default: `0`.","schema":{"type":"integer","format":"int32"}},{"name":"search","in":"query","description":"Free-text search filter to match against member names and email addresses.","schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"members":{"type":"array","items":{"type":"object","properties":{"memberId":{"type":"integer","format":"int64","description":"Member numeric identifier."},"userId":{"type":"integer","format":"int64"},"userName":{"type":"string","description":"Username of the organization member."},"email":{"type":"string","description":"Email address of the organization member."},"firstName":{"type":"string","description":"First name of the organization member."},"lastName":{"type":"string","description":"Last name of the organization member."},"avatar":{"type":"string","description":"Avatar image URL for the organization member."},"role":{"type":"string","enum":["owner","member","collaborator"],"x-enum-varnames":["owner","member","collaborator"],"title":"OrgRole"}},"title":"MemberDbDto"},"description":"Array of organization members matching the query criteria."},"totalSize":{"type":"integer","format":"int32","description":"Total number of members in the organization."}},"title":"ListMembersResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

@@ -12,23 +12,24 @@ import VersionSwitcher from "./VersionSwitcher";
 const products = [
   {
     name: "Platform Cloud",
-    url: "/platform-cloud/",
+    url: "/platform-cloud",
   },
   {
     name: "Platform Enterprise",
-    url: "/platform-enterprise/",
+    url: "/platform-enterprise",
   },
   {
     name: "Nextflow",
     url: "https://www.nextflow.io/docs/latest/",
   },
-  { name: "MultiQC", url: "/multiqc/" },
-  { name: "Wave", url: "/wave/" },
-  { name: "Fusion", url: "/fusion/" },
+  { name: "MultiQC", url: "/multiqc" },
+  { name: "Wave", url: "/wave" },
+  { name: "Fusion", url: "/fusion" },
 ];
 
 const ProductSwitcher = ({ isDropdown }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isEnterprisePage, setEnterprisePage] = useState(false);
   const [isSecondaryOpen, setIsSecondaryOpen] = useState(false);
   const dropdownRef = useRef(null);
   const location = useLocation();
@@ -61,30 +62,43 @@ const ProductSwitcher = ({ isDropdown }) => {
     return null;
   };
 
+  useEffect(() => {
+    if (location.pathname.startsWith('/platform-enterprise')) {
+      setEnterprisePage(true);
+    } else {
+      setEnterprisePage(false);
+    }
+  }, [location.pathname]);
+
   const currentProduct = getCurrentProduct();
 
   let items = products.filter((product) => product.name !== currentProduct);
   if (!isDropdown) items = products;
 
   return (
-    <div className={clsx(styles.switcher)}>
+    <div className={clsx(styles.switcher, {
+      [styles.switcherPadding]: isEnterprisePage,
+      [styles.hidden]: !isEnterprisePage
+    })}>
       {isDropdown && (
+        <div className={clsx({ [styles.hidden]: !isEnterprisePage })}>
         <div
           className={clsx(styles.items, {
-            [styles.active]: isOpen || isSecondaryOpen,
+            [styles.active]: isOpen || isSecondaryOpen
           })}
         >
-          <button
+          {/* <button
             onClick={toggleDropdown}
             className={clsx(styles.item, styles.button)}
             ref={dropdownRef}
           >
             <ProductLogo />
-          </button>
+          </button> */}
           <VersionSwitcher
             isOpen={isSecondaryOpen}
             setIsOpen={setIsSecondaryOpen}
           />
+          </div>
         </div>
       )}
       <div

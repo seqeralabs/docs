@@ -1,0 +1,75 @@
+---
+id: describe-user
+title: "Describe a user entity"
+description: "Describe a user entity"
+sidebar_label: "Describe a user entity"
+hide_title: true
+hide_table_of_contents: true
+api: eJy1Vktv4zYQ/isEL20B107bbYH6tNlkWxgtuotsgj0EOYzFscVEIhWSSpoa+u+dGT0sx87WadGLLZEz37y+0cxGJ1hHPb/WdcQQ9c1E+woDJOvdwui5PseYBbvEK7rWE11BgBITi86vN9rRCwmxLklPtHX0VkHK6dmIZsVIdMj6ytUlBpspa9Alu7ICGfC+tgHJWAo1TnTMcixBzzc6PVWMbl3CtYiufCghtUc/vdFNc8PqsfIuYmSN709O+G/X9IffSDXzhOIS30JVFTaTEGe3kUU2+0b98hazxBEHTkiyrQGOdN+CBGcwgS2isi4ramPdWi3OJ4oVOEsTRfi2mKiVDTGp9qiA4REeIEGgf2eUD2tw9i/xUJVYLindua2m5M2XvbPmmLQdWZqpbiYS7x9S5AE3pkDB7aM4e1/jEK9oS8hHqLIDIqvAGCpoFG3J1JHGGWGbWVHn5L5Ce6iFKI9LcCTATtUGoB3Bo3BGR4SpltYLUEuQIzFaYXV18ftId2Fep/2MCs7zS/Y8JUvvCwS3h7RYKelnlfKWFSqHqMYgUaGDZYFG4OmbUsYPK3LgjNu5bdV/ZQOyDKuERk4FVvkVX4udEsIdJor9v5rJWn2249WASsdlWbs+xIGJp+RUjIcKMHSngYTfJkuMfe7AJR3GBGXFgfROfBVbzoIgt2QjhLOA9Huw1K+y9Jij2wb8yAG3yENIV5X5nyxJXHUL33VRgbumXlerJZKJDoQAmW42FdgR/qIbIefJC9ERzcvkEG9WUBfpsw93sYIMF0d9dsdWx1O1t04CLPLm0Ah7B0bxnKSMvWaWbUfrtaZsR1gjT/gvD5FecK+s4wDeh+D3Pf/hwPDttwlufQVF4R/Jn0ayWAXMWgZ1kx+zOtj0JKvFO4SA4bSmXWJ+fcOTfhe4T6GCtsz8rSJVanBMuefVZY0SHG8jcz2T/Wa2aVeVRrO18NDvMXWgMaXzlKo4n82gstOs8LWZRrwn96fW7/Hsk9yojwUkrrM6Y3l1+nGh2dU+kk9cijat43iGzLJF3a08QjIRopP24ZeeQbePSXJm3cqLeleGzgs2+08OcriWvhSdMHMIMuHQbvDjkLv5LWbfbi/IEc5ca+e76c8/Tk/4rPIxlSAU7PbCF2t0eCom/DPNqgKsdJm4tenq1++nEz3vlk3Kck4G+WqzWULEq1A0DR9TmwTmED0+QLA8YqTIxkYZN3q+giLinhdDW+mvL7rG+Ua9vLcedLo7BMdRPkBR8xs93uHTdk9ubkgyRzC8S5Jj7eWpjK2R2l5vM7MGdv/6/pJkYZdPz/gj6AddopSJxKW/Q9c0g4eJ39nBpvkbT/8xeA==
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Describe a user entity"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/users/{userId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+:::caution deprecated
+
+This endpoint has been deprecated and may be replaced or removed in future versions of the API.
+
+:::
+
+Describe a user entity
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"userId","in":"path","description":"User numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"user":{"description":"User details including ID, username, email, first name, last name, avatar, and organization membership.","type":"object","properties":{"id":{"type":"integer","format":"int64","description":"User numeric identifier."},"userName":{"type":"string","description":"Unique username."},"email":{"type":"string","description":"User email address."},"firstName":{"type":"string","description":"User first name."},"lastName":{"type":"string","description":"User last name."},"organization":{"type":"string","description":"User organization name."},"description":{"type":"string","description":"User description or bio."},"avatar":{"type":"string","description":"User avatar URL."},"avatarId":{"type":"string","description":"User avatar identifier."},"notification":{"type":"boolean","description":"If true, the user has notifications enabled."},"termsOfUseConsent":{"type":"boolean","description":"If true, the user has accepted the terms of use."},"marketingConsent":{"type":"boolean","description":"If true, the user has consented to marketing communications."},"lastAccess":{"type":"string","format":"date-time","description":"Timestamp of the user's last access."},"dateCreated":{"type":"string","format":"date-time","description":"Timestamp when the user was created."},"lastUpdated":{"type":"string","format":"date-time","description":"Timestamp when the user was last updated."},"deleted":{"type":"boolean","description":"If true, the user has been deleted."}},"title":"UserResponseDto"},"needConsent":{"type":"boolean"},"defaultWorkspaceId":{"type":"integer","format":"int64"}},"title":"DescribeUserResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

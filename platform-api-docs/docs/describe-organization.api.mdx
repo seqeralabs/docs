@@ -1,0 +1,71 @@
+---
+id: describe-organization
+title: "Describe organization"
+description: "Retrieves the details of the organization identified by the given `orgId`."
+sidebar_label: "Describe organization"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVt9v2zYQ/lcI7qUFZDvbugHz09KlHYJ1W+EkT4EBU9LZZiqRCknZ9Qz977s7SbZkq4077EkUeffxu+P92sugVl5OH6V1+J1HMgWfOF0EbY2cyhkEp2EDXoQ1iBSC0pkXdsm/qKKM/keRrNApmKCXGlIR7/h4pTdgxAKlbtPFWEbSFuBY+DZF6Bu+KIa/OygoVCincgjgiNVeGvxBYQbBU02kChXW8pRpF0aYMgenkyMpR/c7eC61A7w8uBIi6ZM15EpO9zLsCrpFmwArcCi6tC5Xod76+Y2sqjmp+8IaD540fri6os8Jhz9QNbGIYgKdqqLIdMKUJk+eRPbnl9r4CZJAljtyUND1BV3nvixdqJ02q45cbG0GyrCbCgdIorW7ihpvXmD3NzsZwesXO2B7DCBkdor0YPRzeRJCpMkQyzLL/roI5j1KilT7IlM71hdowVlwMmhP8SXcnqGdI0bKbHL6LJfAtGpITag0xXDyDLeF2OtwgbE9tEZLPMw+NKRWtveoXwD5gHJC52oFnYf7stcI9sFlF74EkhHBnheH7HApg+aQx+D+Wwj+yboDwXewgdIcfECSovS4v9VhrQ0eaX9uX01lhskykM5dExyKtIXv5IaxuE4SKILHYrc14BaRWKg014YWuUI7FK+R32KjYbsYizsA8djDZ6p0iZ+/WodQ+OlkktrEjz08Y9kcazvBIA/knVGS2TKdUMUeKZOOAqjcT1j3u66BI8Ic8f5r9k5uHb66qT3MHojOXhXQs9wPyBLZOojrWpap2GIFt44axecRiY42ylHe+Yt0gg7kaPIsu7xq798f7sW6hoqx8jrBr0pUCjkvYaOyUpHTz9tUz5OE2HkSBKR3YER+mQayeZAj7GLIHQNWDnOKTphTQKNOdmL2PeFXVW/vQP0mvgn2pVpUt2BtkqxMKQJvbyKufJGgstksOwjRofBEbdGIOCEjUb8TR10kMJL6Sct+7HEdatmzpiuiIIm+GeqLb1Xa5sy3NMhjv37EkPIeywd786udsBU8K1hdQ945Z90Z8x8HSkA7sghjg1BZZrfIh8Q9JKXTYcdTyltQDtx1iXPJ9HFOwwKOMGtLY84KmCONLFPJOTvZc/+tJIG4TTvplFRlZZv6qtBjTvNj/p8Fxh2fiI9NWRC/kby4/ngriUFL8I78WfumS/PgHrpRNsMQTw4sRJHMi/dtOX7aBjac6gerN75sWNC1LxEkc3WCw2QtTIGgEg6EvvFdkzEWdMbdYGl/PR4gEfJcfc/3419+Gl/RXmF9yBXHUTM5tjHbi+1TpvtjUP6/I2/j4wCfA5VvHF+RZFn30zommsk7ktN6KsOXW6MRdLDfYzEB7L5VRduYP47CDZdYjrSKyf0YODj+0BqDbakyD18x7dWsyajX4oJxeZB7s6nMThKNrKQ/XH6C3WFMr+YouAasko4J1md1Qe5onSV/L29+f3dP9b8fqyexyeiDjNB1LHFvP4GpqgPBQP9EsKr+BVQYiek=
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Describe organization"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/orgs/{orgId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Retrieves the details of the organization identified by the given `orgId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier.","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"organization":{"type":"object","properties":{"paying":{"type":"boolean","deprecated":true},"orgId":{"type":"integer","format":"int64","description":"Organization numeric identifier."},"name":{"type":"string","description":"Unique organization name."},"fullName":{"type":"string","description":"Full display name for the organization."},"description":{"type":"string","description":"Organization description."},"location":{"type":"string","description":"Organization location or address."},"website":{"type":"string","description":"Organization website URL."},"logoId":{"type":"string","description":"Logo image identifier for the organization."},"logoUrl":{"type":"string","description":"Full URL to the organization logo image."},"memberId":{"type":"integer","format":"int64","description":"Member numeric identifier for the requesting user within this organization."},"memberRole":{"description":"Organization role of the requesting user. Accepts `owner`, `admin`, `maintain`, or `view`. See [Organization user roles](https://docs.seqera.io/platform-cloud/orgs-and-teams/roles#organization-user-roles) for more information.","type":"string","enum":["owner","member","collaborator"],"x-enum-varnames":["owner","member","collaborator"],"title":"OrgRole"},"type":{"enum":["pro","basic","academic","evaluating"],"description":"Organization type. Accepts `pro`, `basic`, `academic`, or `evaluating`.","type":"string","x-enum-varnames":["academic","evaluating","pro","basic","internal"],"title":"OrgType"}},"title":"OrganizationDbDto","description":"Organization details including ID, name, full name, description, location, website, logo, member role, and organization type."}},"title":"DescribeOrganizationResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

@@ -1,0 +1,71 @@
+---
+id: list-labels
+title: "List labels"
+description: "Lists all available labels in a user context. Append `?workspaceId` to list labels in a workspace context."
+sidebar_label: "List labels"
+hide_title: true
+hide_table_of_contents: true
+api: eJy9Vttu2zgQ/RWCz46d7WWB5mU3bdoi2AANNlnsQxGgY2lsM6FElqSSeIX8+85QF0u2rLgp0CdbnEOemeGZ4ZQywNLLk69Swxy1lzcTmaJPnLJBmVyeyAvlgxegtYB7UITSKCqsULkAUXh0IjF5wMcwFafWYp6Kb388GHfnLSR4nn4TwQhNx/T2tYB2s5xIY9EBE5+nNfVF5dZEWnCQYUDH3pYypw+CdGgIo9jh7wW6tdwO49+WLi8ydCoRKsU8qIVCR2CfrDADeVLKsLZ8sCKfltG0MC6DUC39/kY+PU1a9gwex1kvYanyGJAgrHDoCx384XyvX/X4zGLhMRxM2cJfxuYRXLIaZ/ukNF2JqKCivaMhTh+cypc9hmgZPT9ev6hx+46cSKRLZRF7lVnNUMq0KVzCf0m6rOrHIwYd3YNjcv8MOqigseG/Zrau38qf4QLoKg9xPq2gYqFhORTE3BiNkBPBTfTEmtyzf6V8dXzMP/1Dv/xFh8SSyQNbwVqtknjhs1vPkHKXw8xvMWFvreMSC6oiqGt+gwPngONQATP//H6VHlQxkzpvO1KYyHvQxbClvZOBTE06N7DPvCZOlewzn5OzzhoNAdNhTEqmDw63AK3i2hgZdxRUFhXS183Z/CyYatkE0FfqPzyww2zOaVvg37UyyMyAN0PaeA8p9RgSow8/IhLeohzH+VVSaXhYYqyB0btvgEMF3rr/0Tnjdjx/PaDqpvGL3AR+bcwD+cNwj0nhVFjHrv+e+gy60yKs6POGC4bazcrwY7GMnc4Cm+RMN88GvU73zZtROE22VQjWn8xmYNU00aZIpx6/E/tUmZ0KvooWcUk64UsSHxgvTi/PJXM3rl1xJqusdB1sE8OMTeVHlUUQrVR/PjXXf/sQYsgqX5i4vc5i7QXTPucgh6sS9DWYJQBJlEA/+G7IpAKlo/oW5s+NgauTMlfx/DZ993Z6zGvW+JBBVFDdDS82T/u2f+VGhL92kKgzz58zq0HFko4pKGuNdCeeFcXEK2U5B4//OP30xMtVV2flpMqzv6SzBWiPI1E+M2cM+nWH651Rpm6MUvKzczj93oFjhLiaYn6esB03RrhazAvp9s8bI6TtIPNC0t4QMsJTI36KZWtaGGHrDiEbyhv+cIo5Y4skcSOklCGWcbXxNEnQdnftvA69xvr54zXPRf2WttXC4unNDJGvO2dTSUXEtbnDnMqqzRV/ExE9Cf8DWk1I/w==
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List labels"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/labels"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Lists all available labels in a user context. Append `?workspaceId` to list labels in a workspace context.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"max","in":"query","description":"Pagination max results","schema":{"type":"integer","format":"int32"}},{"name":"offset","in":"query","description":"Pagination offset","schema":{"type":"integer","format":"int32"}},{"name":"search","in":"query","description":"Filter search parameter","schema":{"type":"string"}},{"name":"type","in":"query","description":"Label type","schema":{"type":"string","enum":["simple","resource","all"],"x-enum-varnames":["simple","resource","all"],"title":"LabelType"}},{"name":"isDefault","in":"query","description":"Label default flag","schema":{"type":"boolean"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"labels":{"type":"array","items":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"},"value":{"type":"string"},"resource":{"type":"boolean"},"isDefault":{"type":"boolean"},"isDynamic":{"type":"boolean"},"isInterpolated":{"type":"boolean"},"dateCreated":{"type":"string","format":"date-time"}},"title":"LabelDbDto"}},"totalSize":{"type":"integer","format":"int64"}},"title":"ListLabelsResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

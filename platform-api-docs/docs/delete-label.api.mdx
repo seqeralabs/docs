@@ -1,0 +1,71 @@
+---
+id: delete-label
+title: "Delete label"
+description: "Deletes the label identified by the given `labelId`."
+sidebar_label: "Delete label"
+hide_title: true
+hide_table_of_contents: true
+api: eJydlN1uEzEQhV/F8hVIIQlQkMgVLQ1SRQVVW8RFFamOd5J166xdezYlWu27M+PdzU8TtSpXyXqOPd+Mz7iSqOZRjm6kVVOwUU56MoOog/FoXCFH8hQsIESBOYikESaDAs3MQCamq7Q+N0soxG0Kn2W3fdmTzkNQfMRZtj7knOMU8yqoBX0HTlzJgj5I0+6muOG8XmEun8KkE0RRLiAYvQEJJAzwUJoAlA1DCT0ZdQ4LJUeVxJXn802BME/SmQsLhc3S5yNZ1701xKML99ErDRuQhxLCao/kTyc8TPOa7BOGj94VESLv+DA84p/dfL9+iHfipxPa0UEFyronj4bDfd2JygS3AiJSrk5NMuW9NTpdyeAusrbaotx070YuIEY1B7ZCC++md6D5PB/4XtE0oJ1wU2XEYIo5d1SiQctL4xBcuGzro0idyD8eqLBzjCgcCmWteyQelkfQZTC4Sm45ARUgHJfkjtHNhJtHVsoduyxLLksG46gcNJ4eVK21ar4YCMvOeGWwpMoRfRwNBsqbvrauzPoRHgilb9zerV+liLiwCvkaxTfWi+OLM8kgHecVt7Vp0TbtukucsfMIf0+TiFaaP987g9w9YqrfFDOXtrctbSk47UuAXK7RNL6NmP2gdPLDbvHbJZMljE3+nLmvmwCBcOeaPO/7Xz71h7zmXcSFSnZqZ6gZ9uaxeApYbSz5vy9L20SEvzjwVtGMEkWqpmovfv2Y9eSoe1XoenIi5WBVTVWE38HWNS83881+yExUU8tDMFM2wjPoL0z/QcR7WO09MEtlS1Ym+yxVMJz/lSxvLtvZfSueeR4PIrWLqlhts3SoXevqCUlzUBkdxGhN9Fhr8Li1b++B2ZnN0/H5+HpMcrU7C0+8nxIcxKJbS4prdw9FXa8pkb+Zsa7/AUBMUx8=
+sidebar_class_name: "delete api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Delete label"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/labels/{labelId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Deletes the label identified by the given `labelId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"labelId","in":"path","description":"Label numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

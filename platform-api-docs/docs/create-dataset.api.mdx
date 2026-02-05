@@ -1,0 +1,77 @@
+---
+id: create-dataset
+title: "(Deprecated) Create dataset"
+description: "**This endpoint is deprecated. See [Create dataset](https://docs.seqera.io/platform-api/create-dataset-v-2) for the current endpoint.**"
+sidebar_label: "(Deprecated) Create dataset"
+hide_title: true
+hide_table_of_contents: true
+api: eJzlV0tv4zYQ/isET0ngR7rdFlifNom3gNGiG+SBHrw+0NLYZiKRWpKy1xX03ztDSZZky0422EPRXgyZ8/7mwWHGnVhaPpryUDhhwVk+6/EQbGBk4qRWfMQvLh5W0jJQYaKlcgy/Q0gMBMJBOGD3AGx6YwD/sVLJ7GzlXGJHw2GoAzuw8BWMGEg9TCLhFtrEfZHIYeBl+qVMf91/d86QyNwKWJAaA2irMjq4uPiivqjCjGWCKdhU1phUXmYp16DYRptnm4gAdWjl4JsbsIkKojQEz1TJLGQETKgQQ3FCRpaUbHVqmIGvKVjH5jrcDniP6wR9JyQmIWJRODAulCA1EUbE4MAQhhlX+Ae5dj6gTI9LAjERbsX3kf1r56tKYzAyYDLEqOVCgkFmckUaQLvOpNDjNlhBLPgo426bkB0EBpaelUAVrjj69T3P81khjpFcYyAk0zZdhsCKJFRRoyaPmnIkIZIkkoEPfvhkSSw79EHPnyDwUBiCykmwRC2Q2HFZZ6Ra8nwPgQM6MjjpItiH+q70LyeONi7+wCZa2cLyu8vLw3A///7jQitL6GVGGXYikFpMGRLqMKZcrFEpJRI9kBEVDVUOcf5JQGI2v8PU8bJoqOzyrDDeRSn9O5mwR1Q9UQtN/M0OeJ1j2iyFkn/vWu1VQkerLBLWPSYhTajr7X8d7NMt1eMxhFI8+NOuhkSQil7rKNdGVMTXdxKjaeP7eqEQImgLzLWOQKhC4xwi26AJY8SWkuMgtt/ZbG+qmbWI0m4Kzhe8GgLo9lzaMSxEGrmj5C3alMEx8gSdNYmOxFFs3pCiRqn8QciO52On/fEaL6t2pZy4Rmot5SCutByZ0sUcpjGNPO+7JvG1CN9y2zT7NwZrxfIVjVoxnuykT8Zoc+D5zx13SLUJMKUdE1GkN+iP5/7QccGmRTjAsOpjivFfGq1vzGqd260agBuYdFu/1VyDMGCuUtxgRtMZrRa48qw07UOJtsUaRDQ+3I19O8waV0A+3G2XpNqsq30pNTgBebUs4lI4CCKdhvXGeLAy3XsKuy0XSXZD/OzqdsLJr8rte0KyQKXp/A4YssjLhcr3mmfCk+Ljt6oNnjbOo0cZuqvXqU/fRJxEUO85dS+2va1HiKRZTQ6UeSjjIMdfCpEAkwhpyUxFJAJfRG34mqCVl4s3+7EmNNuf/zT48Mvgks4oi7FQjXjOxruSOGft5X7f36wu6//5U6EsLtJE7ks/u32OsrJDpvViRK0waj8Umk+wFTUW8mfZHM8eTZTndIwGDTXljK4rI8WcigkbKZSWvrElFyKycCJFZ3flbDlnLzw/OsOpLmdFV3N5Y3L8fIbt3sMnnyH7CkRI2y66WHDcFI70/TpSazgYh3mvkrgKAkjcSd7mRLr9fP9AjVy+emIdkowRG3pQ4a/3Vntg/HzwZxmuH2qZ+unJC53U9qI9NfamhI+qEw9Mmud40M+gMHEVPI7+EzB5/g+JGVpp
+sidebar_class_name: "post api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"(Deprecated) Create dataset"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/workspaces/{workspaceId}/datasets"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+:::caution deprecated
+
+This endpoint has been deprecated and may be replaced or removed in future versions of the API.
+
+:::
+
+**This endpoint is deprecated. See [Create dataset](https://docs.seqera.io/platform-api/create-dataset-v-2) for the current endpoint.**
+
+Creates a new dataset in the given workspace context. Include the dataset file and details in your request body.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"path","description":"Workspace numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Dataset create request","content":{"application/json":{"schema":{"type":"object","properties":{"name":{"type":"string"},"description":{"type":"string"}},"title":"CreateDatasetRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"dataset":{"type":"object","properties":{"id":{"type":"string"},"user":{"required":["avatar","email","id","userName"],"type":"object","properties":{"id":{"type":"integer","format":"int64"},"userName":{"type":"string"},"email":{"type":"string"},"avatar":{"type":"string"}},"title":"UserInfo"},"workspaceId":{"type":"integer","format":"int64"},"organizationId":{"type":"integer","format":"int64"},"name":{"type":"string"},"lastUpdatedBy":{"required":["avatar","email","id","userName"],"type":"object","properties":{"id":{"type":"integer","format":"int64"},"userName":{"type":"string"},"email":{"type":"string"},"avatar":{"type":"string"}},"title":"UserInfo"},"description":{"type":"string"},"mediaType":{"type":"string"},"dateCreated":{"type":"string","format":"date-time"},"lastUpdated":{"type":"string","format":"date-time"},"deleted":{"type":"boolean"},"labels":{"type":"array","items":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"},"value":{"type":"string"},"resource":{"type":"boolean"},"isDefault":{"type":"boolean"},"isDynamic":{"type":"boolean"},"isInterpolated":{"type":"boolean"},"dateCreated":{"type":"string","format":"date-time"}},"title":"LabelDbDto"}},"version":{"type":"integer","format":"int64"}},"title":"DatasetDto"}},"title":"CreateDatasetResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"409":{"description":"Duplicate element","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

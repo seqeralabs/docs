@@ -1,0 +1,94 @@
+- Name: "`workspaceId`"
+  Type: integer
+  Location: query
+  Req/Opt: Optional
+  Description: Workspace numeric identifier
+- Name: "`credentialsId`"
+  Type: string
+  Location: query
+  Req/Opt: Optional
+  Description: Credentials identifier
+- Name: "`search`"
+  Type: string
+  Location: query
+  Req/Opt: Optional
+  Description: "Free text search criteria — data-link name and keywords: `region`,
+    `provider`."
+- Name: "`max`"
+  Type: integer
+  Location: query
+  Req/Opt: Optional
+  Description: Pagination max results
+- Name: "`offset`"
+  Type: integer
+  Location: query
+  Req/Opt: Optional
+  Description: Pagination offset
+- Name: "`visibility`"
+  Type: string
+  Location: query
+  Req/Opt: Optional
+  Description: Filter results by visibility
+- Name: "`dataLinkId`"
+  Type: string
+  Location: path
+  Req/Opt: Required
+  Description: Data-link string identifier.
+- Name: "`path`"
+  Type: string
+  Location: path
+  Req/Opt: Required
+  Description: Content path
+- Name: "`nextPageToken`"
+  Type: string
+  Location: query
+  Req/Opt: Optional
+  Description: Token used to fetch the next page of items
+- Name: "`pageSize`"
+  Type: integer
+  Location: query
+  Req/Opt: Optional
+  Description: Number of items to return per page. If omitted, a default maximum
+    value is returned.
+- Name: "`paths`"
+  Type: array
+  Location: query
+  Req/Opt: Optional
+  Description: List of paths to explore. Returns all files within the specified
+    paths, including sub-paths.
+- Name: "`filePath`"
+  Type: string
+  Location: path
+  Req/Opt: Required
+  Description: File path to download
+- Name: "`filePath`"
+  Type: string
+  Location: query
+  Req/Opt: Optional
+  Description: File path to download within the data-link (e.g., `folder/subfolder/object`).
+- Name: "`preview`"
+  Type: boolean
+  Location: query
+  Req/Opt: Optional
+  Description: "If `true`, generates a URL for preview purposes. If `false`,
+    generates a URL for direct download. Default: `false`."
+- Name: "`dirs`"
+  Type: array
+  Location: query
+  Req/Opt: Optional
+  Description: List of directory paths to include in the download script.
+- Name: "`files`"
+  Type: array
+  Location: query
+  Req/Opt: Optional
+  Description: List of file paths to include in the download script.
+- Name: "`dirPath`"
+  Type: string
+  Location: path
+  Req/Opt: Required
+  Description: Path to the destination directory
+- Name: "`Origin`"
+  Type: string
+  Location: header
+  Req/Opt: Optional
+  Description: ""

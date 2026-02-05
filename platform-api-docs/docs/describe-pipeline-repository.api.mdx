@@ -1,0 +1,71 @@
+---
+id: describe-pipeline-repository
+title: "Describe remote pipeline repository"
+description: "Retrieves the details of a remote Nextflow pipeline Git repository. Append the repository name or full URL with `?name`."
+sidebar_label: "Describe remote pipeline repository"
+hide_title: true
+hide_table_of_contents: true
+api: eJzFVm1v2zYQ/isEP22AJ6dZMmD+siVLWwTr2iBp1w9BANPSyb6EIlWSchoY+e+7o6RYjlTHCQLsky3eC587PveykkHNvZxcyhJL0GjAy6uRzMCnDsuA1siJPIfgEJbgRViAyCAo1F7YXCjhoLABxEf4HnJtb0XrRbzHQMLSegzW3SXiqCzBZNHB+lgYVYCwTuSV1uLL+Qdxi2Ehpn/w+TSRI2lLcIphnGYE5CTCmsFZc8v5gydSLZUjqwCOw1lJdkEm8WckkeP4VkHU3IyuddbD9RMk82QkpqYJ7he04wVobac/dzEzTJ8uoFByspLhruRrPWXMzOX9/egBiYMler5yK5o6b7XmSMycMulixNfRO4lgRdakIBEnkKtKh0kXd1afNXa7Iru17saXKgVK8lZwX1tFYaoCHKYCMzABcwSXiNNc2AJDgGz0ANOvGYGG+FJ5cCK1JlBOB+EhiebgSJRbV6hQH/12sAG4UGguIq7teI800cEQf5Yg2EbUQpGjBnbVSeKU5YnJp9uTRrXhwJfWeCoUku/v7fHP5rWf/iYfMUgTWKrKUmMaaTy+9qyy6l9hZ9eQcjylY9IHrC9o03dqcruDtrN8/jGmqYeeAsOi1PBD8ZpJX5we1Ei1NfAjId2+JEK4YUtrcpy/o8z7jlw5p/jdMEDhB1ka2XmC7plWbQ0904xCyJ8PsVAGc/Dh6Qdqe8m/1KawZkKhvn8AMw8LOdnfG/UT19T0cSzpXQyWu/te2ALO1Bx6ukPKcwyFzaomOx31N4fDuDs1sam/t38wYGAaWj7puVP+jx0PqasqLKzbyTOm/bwdHvYUSTNg0Hz0Nf+nfXzmqnKGNJ5Fn46zs26xdwWPBx8rnDd9iF2Q6sFQJzpWGY0Hao4+PKclsQk6yHgvKMB7ZsjV6Alqt4qDFdIG8tY563rIfx3ooe3gF8YGoWjq3hIeVveQVg7DXZzyx6AcuKOKX+ryitszrQALy8vCHCJGxSI5flhvxsjJZTdu2e4KFTc0uQih9JPxWJWYUJ+rssTDN0KRoO1NlosoEWdaBZ5T4i/WF0dnp5IxtBAvOKN1drpAHxLEN7bjhr9nUYlO6j/v2gl4fRti6NgOgSabDQq+9imAHC6mNI9rZaaCSiMVNoPvhkxsQB0HcG7/XAu6LUa+SX4/TPZi97c+UCOMXa4e0y1r2y2x7G9aj3Gv1iT9P9fO5n14SxmXmtoNB1jVY69mVHdhbh7mivspD4FLuVrNlOc5eX/Px/V2wkzL0KuZ5srKlfawJfrXWEsHw7iBu/VevFS6YhXJ29Xu4F57S90CtLM2vxDs62+tW+Bu7tIvRPzSvXULro2VeQ3rij8cMq7YQInCoOIKR2StLY/SFDaserNjo+2+f/tZ1jO30+geNbbovZ2P5q7jmwonany2N2CoeFr4gb/pIhoY/wEV5RWV
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Describe remote pipeline repository"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/pipelines/info"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Retrieves the details of a remote Nextflow pipeline Git repository. Append the repository name or full URL with `?name`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"name","in":"query","description":"Pipeline repository name (e.g., `nextflow-io/hello`) or full URL.","schema":{"type":"string"}},{"name":"revision","in":"query","description":"Git revision, branch, or tag to describe. Default: repository default branch.","schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier. If omitted, describes pipeline in a user context.","schema":{"type":"integer","format":"int64"}},{"name":"mainScript","in":"query","description":"Alternative main script filename. Default: `main.nf`.","schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"pipelineInfo":{"type":"object","properties":{"projectName":{"type":"string"},"simpleName":{"type":"string"},"repositoryUrl":{"type":"string"},"cloneUrl":{"type":"string"},"provider":{"type":"string"},"configFiles":{"type":"array","items":{"type":"string"}},"workDirs":{"type":"array","items":{"type":"string"}},"revisions":{"type":"array","items":{"type":"string"}},"profiles":{"type":"array","items":{"type":"string"}},"manifest":{"type":"object","properties":{"nextflowVersion":{"maxLength":20,"type":"string"},"defaultBranch":{"maxLength":20,"type":"string"},"version":{"maxLength":20,"type":"string"},"homePage":{"maxLength":200,"type":"string"},"gitmodules":{"maxLength":150,"type":"string"},"description":{"maxLength":1024,"type":"string"},"name":{"maxLength":150,"type":"string"},"mainScript":{"maxLength":100,"type":"string"},"author":{"maxLength":150,"type":"string"},"icon":{"maxLength":255,"type":"string"}},"title":"WfManifest"},"warnings":{"type":"array","items":{"type":"string"}}},"title":"PipelineInfo"}},"title":"DescribePipelineInfoResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

@@ -1,0 +1,60 @@
+- Name: "**CreateOrganizationTeam**"
+  Type: ""
+  Req/Opt: ""
+  Description: Create organization team
+- Name: team
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: team.id
+  Type: integer
+  Req/Opt: Optional
+  Description: Team numeric identifier.
+- Name: team.name
+  Type: string
+  Req/Opt: Required
+  Description: Unique team name within the organization.
+- Name: team.description
+  Type: string
+  Req/Opt: Optional
+  Description: Optional description of the team.
+- Name: team.dateCreated
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: team.lastUpdated
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: avatarId
+  Type: string
+  Req/Opt: Optional
+  Description: Avatar image identifier for the team. See [Create
+    avatar](https://docs.seqera.io/platform-api/create-avatar) to upload images
+    and obtain an avatar ID.
+- Name: "**UpdateOrganizationTeam**"
+  Type: ""
+  Req/Opt: ""
+  Description: Update organization team
+- Name: name
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: description
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: avatarId
+  Type: string
+  Req/Opt: Optional
+  Description: Updated avatar image identifier for the team. See [Create
+    avatar](https://docs.seqera.io/platform-api/create-avatar) to upload images
+    and obtain an avatar ID.
+- Name: "**CreateOrganizationTeamMember**"
+  Type: ""
+  Req/Opt: ""
+  Description: Create team member
+- Name: userNameOrEmail
+  Type: string
+  Req/Opt: Optional
+  Description: Username or email address of the organization member to add to the team.

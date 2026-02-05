@@ -1,0 +1,71 @@
+---
+id: delete-workspace-participant
+title: "Delete workspace participant"
+description: "Removes the participant identified by the given `participantId` from the given workspace."
+sidebar_label: "Delete workspace participant"
+hide_title: true
+hide_table_of_contents: true
+api: eJy1Ve9v0zAQ/VcsfwKpNAUGEv1Ex4o0gWDahvhQVZqbXBNvSezZTkeJ8r9z5+ZnN62o0j7VsZ997+7evZbcidjy6YI/KHNntQjB8uWIR2BDI7WTKudTfgmZ2oBlLgGmhXEylFrkjskIcifXEiK22vrTWG4gZzc90Hl0w9ZGZb3jNtSYj7jSYATFOY8w0hmk4OB3A7jo3kEovioyPDZEuOQ5fuAVZWK8OuKSmGrhEr5P/6eJRS7/+igsLzIwMuy4G2Jh4L6QBpCCMwWMuA0TyASfltxtNUWRuYMYDELXymTC7bY+nvCqGrVU2sQOEGrze1E2gyY8y6dX5hdgtKTrVqvcorbwxrvJCf3s9egbe8N+KBYqfAi7XY34yWTyGHcqIkZkwJIiGjTChNapDH2Pg1tL2LLHsuO/4BlYK2Igmdfk1eoWQq8wQ3J0cke0AXZZWmdkHlOVuZMupa25Mcpc1vnhSeWZv38iw0boLFeOiTRVD8iH4BbCwki39ao+BWHAzAps03SxpOKh5BNFwxH54fCDQKc8QOnboPQDUAXdAAdlT4hV0NMBHg1UUXGKbjbNSBUmxXcT57SdBoHQchymqojGFu6R/FiqR9K58ifsIhWOGs++EJ7NLs45UW8yu6JG7Iraz6+tK0Xktaroe+VBuLNbfG0kdfvgfMVkvlb+et2EmgWFPUSQ0pVYpBpMChKhV9Aw+X7KKCKZekWv1efuAIlQ5XZx3o4/fRhPaE8r6zLhBVhP4s7VOt/rm+g+4bIT9Yv6bl15B39coFOB5oDUfQnKWl8LslaL0Gljsb3/CNwdul1fZXQ6dB/UQoJloUfLciUs/DJpVdE2jrIh5eNyI4wUK2ooSjGSltao+7VILTxTpVeX9XC/Zv/h9E/mXW+KfMuJRlrQFy7vYNv+w5CzHkXqkNsfwahf+qN5HXb9I5gN214t8UICIsJhpqbuMLMwBO16tx9598D2zubf59dzhIuhaeyZhA/wJDlUnEdcqzvIq6rl6uibOFbVP1nqIjg=
+sidebar_class_name: "delete api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Delete workspace participant"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/orgs/{orgId}/workspaces/{workspaceId}/participants/{participantId}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Removes the participant identified by the given `participantId` from the given workspace.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier.","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"path","description":"Workspace numeric identifier.","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"participantId","in":"path","description":"Participant numeric identifier.","required":true,"schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

@@ -1,0 +1,40 @@
+- Name: "**UpdateUser**"
+  Type: ""
+  Req/Opt: ""
+  Description: Update an user entity
+- Name: userName
+  Type: string
+  Req/Opt: Required
+  Description: Unique username. Maximum 40 characters.
+- Name: email
+  Type: string
+  Req/Opt: Required
+  Description: User email address in valid email format. Maximum 255 characters.
+- Name: firstName
+  Type: string
+  Req/Opt: Optional
+  Description: User first name. Maximum 100 characters.
+- Name: lastName
+  Type: string
+  Req/Opt: Optional
+  Description: User last name. Maximum 100 characters.
+- Name: organization
+  Type: string
+  Req/Opt: Optional
+  Description: User organization name. Maximum 100 characters.
+- Name: description
+  Type: string
+  Req/Opt: Optional
+  Description: User description or bio. Maximum 1000 characters.
+- Name: avatar
+  Type: string
+  Req/Opt: Optional
+  Description: User avatar URL.
+- Name: avatarId
+  Type: string
+  Req/Opt: Optional
+  Description: User avatar identifier.
+- Name: notification
+  Type: boolean
+  Req/Opt: Optional
+  Description: If true, the user has notifications enabled.

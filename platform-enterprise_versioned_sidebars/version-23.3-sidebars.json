@@ -1,14 +1,14 @@
 {
   "platformSidebar": [
-    "index",
+    "platform-enterprise",
     {
       "type": "category",
       "label": "Installation",
       "collapsed": true,
       "link": {
         "type": "doc",
-        "id": "enterprise/index"
-      },      
+        "id": "enterprise/overview"
+      },
       "items": [
         {
           "type": "category",
@@ -51,7 +51,6 @@
           "label": "Advanced topics",
           "collapsed": true,
           "items": [
-            "enterprise/advanced-topics/db-docker-to-RDS",
             "enterprise/advanced-topics/use-iam-role",
             "enterprise/advanced-topics/custom-launch-container",
             "enterprise/advanced-topics/firewall-configuration"
@@ -66,8 +65,7 @@
       "items": [
         "getting-started/overview",
         "getting-started/definitions",
-        "getting-started/deployment-options",
-        "getting-started/community-showcase"
+        "getting-started/deployment-options"
       ]
     },
     {
@@ -144,13 +142,13 @@
           "label": "Monitoring",
           "items": [
             {
-            "type": "category",
-            "label": "Runs",
-            "items": [
-              "monitoring/overview",
-              "monitoring/dashboard",
-              "monitoring/run-details"
-            ]
+              "type": "category",
+              "label": "Runs",
+              "items": [
+                "monitoring/overview",
+                "monitoring/dashboard",
+                "monitoring/run-details"
+              ]
             },
             "monitoring/audit-logs",
             "monitoring/cloud-costs"
@@ -171,8 +169,8 @@
           "type": "category",
           "label": "Software integration",
           "items": [
-            "supported_software/agent/agent",
-            "supported_software/fusion/fusion",
+            "supported_software/agent/overview",
+            "supported_software/fusion/overview",
             "supported_software/dragen/overview"
           ]
         },
@@ -190,7 +188,7 @@
         {
           "type": "category",
           "label": "Advanced options",
-          "items":[
+          "items": [
             "enterprise/advanced-topics/manual-aws-batch-setup"
           ]
         }
@@ -203,15 +201,10 @@
       "items": [
         "api/overview",
         {
-          "type": "category",
+          "type": "link",
           "label": "CLI",
-          "collapsed": true,
-          "items": [
-            "cli/overview",
-            "cli/installation",
-            "cli/commands"
-          ]
-          },
+          "href": "https://docs.seqera.io/platform-cli"
+        },
         {
           "type": "category",
           "label": "Seqerakit",
@@ -222,24 +215,24 @@
             "seqerakit/yaml-configuration",
             "seqerakit/templates"
           ]
-          }
-    ]
+        }
+      ]
     },
     {
       "type": "category",
       "label": "Reference",
       "collapsed": true,
       "items": [
-        "functionality_matrix/functionality_matrix",
+        "functionality_matrix/overview",
         "data-privacy/overview",
-        "limits/limits"
+        "limits/overview"
       ]
     },
     {
       "type": "link",
       "label": "Enterprise changelog",
       "href": "/changelog/tags/seqera-enterprise"
-    },  
+    },
     "faqs"
   ]
 }

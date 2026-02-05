@@ -1,0 +1,125 @@
+- Name: "**CreateWorkspace**"
+  Type: ""
+  Req/Opt: ""
+  Description: Create workspace
+- Name: workspace
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: workspace.id
+  Type: integer
+  Req/Opt: Optional
+  Description: Workspace numeric identifier.
+- Name: workspace.name
+  Type: string
+  Req/Opt: Required
+  Description: Unique workspace name within the organization. Must be 2-40
+    characters, start and end with alphanumeric characters, and can contain
+    hyphens or underscores between characters.
+- Name: workspace.fullName
+  Type: string
+  Req/Opt: Required
+  Description: Full display name for the workspace. Maximum 100 characters.
+- Name: workspace.description
+  Type: string
+  Req/Opt: Optional
+  Description: Optional description of the workspace. Maximum 1000 characters.
+- Name: workspace.visibility
+  Type: string
+  Req/Opt: Required
+  Description: ""
+- Name: workspace.dateCreated
+  Type: string
+  Req/Opt: Optional
+  Description: Timestamp when the workspace was created.
+- Name: workspace.lastUpdated
+  Type: string
+  Req/Opt: Optional
+  Description: Timestamp when the workspace was last updated.
+- Name: "**UpdateWorkspace**"
+  Type: ""
+  Req/Opt: ""
+  Description: Update workspace
+- Name: name
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: fullName
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: description
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: visibility
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "**CreateWorkspaceParticipant**"
+  Type: ""
+  Req/Opt: ""
+  Description: Create workspace participant
+- Name: memberId
+  Type: integer
+  Req/Opt: Optional
+  Description: Organization member numeric identifier to add as a workspace
+    participant. Provide either `memberId` or `teamId`.
+- Name: teamId
+  Type: integer
+  Req/Opt: Optional
+  Description: Team numeric identifier to add as a workspace participant. Provide
+    either `memberId` or `teamId`.
+- Name: userNameOrEmail
+  Type: string
+  Req/Opt: Optional
+  Description: Username or email address of the user to add as a workspace
+    participant. Alternative to providing `memberId`.
+- Name: "**UpdateWorkspaceParticipantRole**"
+  Type: ""
+  Req/Opt: ""
+  Description: Update workspace participant role
+- Name: role
+  Type: string
+  Req/Opt: Optional
+  Description: Workspace participant role to assign.
+- Name: "**FindDataStudiosWorkspaceSettings**"
+  Type: ""
+  Req/Opt: ""
+  Description: Describe workspace Studios settings
+- Name: name
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: fullName
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: description
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: visibility
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: "**UpdateDataStudiosWorkspaceSettings**"
+  Type: ""
+  Req/Opt: ""
+  Description: Update workspace Studios settings
+- Name: name
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: fullName
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: description
+  Type: string
+  Req/Opt: Optional
+  Description: ""
+- Name: visibility
+  Type: string
+  Req/Opt: Optional
+  Description: ""

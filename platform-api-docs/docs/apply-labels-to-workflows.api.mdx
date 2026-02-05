@@ -1,0 +1,71 @@
+---
+id: apply-labels-to-workflows
+title: "Replace workflow labels"
+description: "Applies the given list of labels to the given workflows. Existing labels are replaced — include labels to be preserved in `labelIds`."
+sidebar_label: "Replace workflow labels"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVcFOGzEQ/RXL55CkLa3UnBoQlVBRQZCKQxQJZ3eSGLxrY3sD0SpSP4Iv7Jd0xl4nmwRBj70g1n7jefPmzaTmXswdH4y5ElNQjk86PAeXWWm81CUf8KExSoJjfgFsLpdQMiWdZ3rGYgTzunX3pO3DTOkn12Vnz4iT5TzhhAVmwSiRQc7+/H5hssxUlUPrnSkwY8GBXSJEluwuXJ3n7q7LO1wbsIJYnecNr9VFCB3p25QWYUZYUYAHS2XVvMQPhBMxZzA3Bne4pMoeK7Arvl/vbQKysirAyozJHEovZxIsgl22gELwQc39ytDDsvQwD1czbQvh49GXY75eo5YWMIvzJzpfUcxuqotGGKqENUh8J9P4ZOkJT1cyC0X37h0F1YcM9PQeMgo0liTy2C26Ta1A+VpgYa2goqWHon3uvMVeIekOT6L/Q9QbxeNDXnpFqKFzOpPCQ2pTLPy6qThgqXxpATvrbQXhwBlduljLx/7xoXyXP9gR+6lZ0guDjvufXsEl37BSeyYUEsA8lNRBVlnpV8EoJ4AOtcPKL/BzQs1DFy00ec3o0Bgj6I73krK96NxeaCB5g4zb2K6yCqEL740b9BAhu5nSVd518IhsulIfGO8m3LArJTyJyU4Jz4ZX55y4JKo31P0oSpvwpiOUMdmUvqcBhCfxn++pTfdPPkhArrremvTsWRSGmrbnn3EyyKTtj3F/sqZhmunAoGl3Uwgxf69GUkxmuF0imDopsuD8Xf3aqqH5pQpGm+lv2wskQuLHPB+6Xz93+3RGrStEGJxmE1zHHbRZVc3+2edab+fwP9qBTZc9PPsePoN7DGsMWtWNPcebxvEO35QWLYrNW5CVEVTXU+Hgl1XrNR3HXUjGzaUTU0WDOBPKwRuqvLMpX6X6AKuDZbwUqiJk8PlSWEn5wwwiXRA5vkbEYuhpTH80ote3sQeLcmd+ry5vRjQCzRYudE4xVpBE9Bdz088LRYfJCmc1qlfOKzEnbHyTBkbsztvefAWmaWmWqxZDFDwgRvoBShQ9aeHpG+ni438Bl1qgwQ==
+sidebar_class_name: "post api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Replace workflow labels"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/workflow/labels/apply"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Applies the given list of labels to the given workflows. Existing labels are replaced — include labels to be preserved in `labelIds`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Labels apply request","content":{"application/json":{"schema":{"type":"object","properties":{"workflowIds":{"type":"array","items":{"type":"string"}},"labelIds":{"type":"array","items":{"type":"integer","format":"int64"}}},"title":"AssociateWorkflowLabelsRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"OK - No content"},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

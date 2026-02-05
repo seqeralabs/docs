@@ -1,0 +1,71 @@
+---
+id: create-dataset-v-2
+title: "Create dataset"
+description: "Creates a new dataset in the user context. Include the dataset name and description in your request body. Append `?workspaceId` to create the dataset in a workspace context."
+sidebar_label: "Create dataset"
+hide_title: true
+hide_table_of_contents: true
+api: eJzdV0tvGzcQ/isEz4rkpmmB+NL6kQJCi8aI7fYQBMhodyTR3iUZkitFEfTfO0PuSrvSSrGDHNpeDIvz4DffPDi7lgFmXp6/lzkE8Bi8/DCQOfrMKRuU0fJcXjmEgF6A0LgUtZ5QWoQ5isqjE5nRAT+HoRjrrKhyjJJGUUOJAnQuWl7ZemUqJxx+qtAHMTH5aigurEVS/PjL0rhHbyHDcf5RBCOyCKHjljyA2OptIciBNBYd8C3jfIv+Oln99ZLkFhxBCug47rVkfKTXupJ0FAdO0NxK7tPx9/ZOXZXoVCZUjjqoqUJHDEyFKVUImA9q1L4LuUMYOffZHEuQ52sZVpaBKBLN0JFoalwJIR39/EpuNpSamrBL4ottutDqKBu6al2+JV6oA5uAtYXKIkGjB89260MQZvKAWWCyHNMZFHqWJq62Wj44pWdys0fRgZwUggoF7qfjXQJICpsUmXJIOQuuwnjgrdE+3fzy7Oww3re/f7/Q6iR9XVHlvQxwXlmwC+O9hAU55UwSAlVwWXFtseafTCSl8xlXHa+Llss+ZOnyPkmN72TC7sn1WE8N67d75GnAjJuBVl+27fgko6NVVoAP95Yyhfnl6v9O9umWGsgScwV38bSvIYmk1Gs95dqKivVeBEXRdPl9ulGOBXYNJsYUCDp5nGDhWzJwDnimqoClf2azfVPNLKCo+iU0X+gJyrAfufLXOIWqCEfFK7pTZcfEYwLrrCngKDffkKJWqfzBzF5ProOJxwt6zrqVcuId2XmpB3Hj5ciUTnOYxzTpvOqbxJeQN8/Nc0Zyu39L9B5mT2jURvFkJ71xzrgD5D/2vCHNtiC0CQKKwiwJT9R+3fPCVikcFFT1Jcf4L42WhB6zyqmwilvOJYJDd1GFOf38wJsErUBzwxuSNTFpFlgmR9tFkD24RbMmVY7GmpyHYP35aARWDbPCVPnQ4ycicKjMwaJ0GyXihlqAK1Bcsb64uBlLvr5Bd8v0pFDbGLfR8o3NmhQbKCrRSfrnt6a2H5YhUsK0v9stSW8+Q2kL3C0vuwbrot3NBcUDmAHU5NZxMPCvhciEqYxWvqTMlQFZrIwufW3S6hcjXvvrTtDuafnD8PVPwzM+42SVoFvxpF5tlsx9iOtdef7nFvm6AvjnyBag4tSMRK7rau1+tsy5kOlsvZ7Q2b0rNhs+Tms813CuPEwKbsApFB5PUPWdl/zeSB5xdfDdUb9WMrbIApxivLFjKTyEnHdMCiSZXiW4L+ISsLM9GEKbQWNxkWVow0nd9mS4eXt7x51Wf2yUJmcbB0s65L+Ekz+32Do2cDxb06OvZ1WcWTL55L6EblvvtXGMqlkR9KqFkJIZNe7MI2pKaMNb4N8El5z/A66fGgw=
+sidebar_class_name: "post api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Create dataset"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/datasets"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Creates a new dataset in the user context. Include the dataset name and description in your request body. Append `?workspaceId` to create the dataset in a workspace context.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier. If omitted, creates dataset in a user context.","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"description":"Dataset create request.","content":{"application/json":{"schema":{"type":"object","properties":{"name":{"type":"string"},"description":{"type":"string"}},"title":"CreateDatasetRequest"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"dataset":{"type":"object","properties":{"id":{"type":"string"},"user":{"required":["avatar","email","id","userName"],"type":"object","properties":{"id":{"type":"integer","format":"int64"},"userName":{"type":"string"},"email":{"type":"string"},"avatar":{"type":"string"}},"title":"UserInfo"},"workspaceId":{"type":"integer","format":"int64"},"organizationId":{"type":"integer","format":"int64"},"name":{"type":"string"},"lastUpdatedBy":{"required":["avatar","email","id","userName"],"type":"object","properties":{"id":{"type":"integer","format":"int64"},"userName":{"type":"string"},"email":{"type":"string"},"avatar":{"type":"string"}},"title":"UserInfo"},"description":{"type":"string"},"mediaType":{"type":"string"},"dateCreated":{"type":"string","format":"date-time"},"lastUpdated":{"type":"string","format":"date-time"},"deleted":{"type":"boolean"},"labels":{"type":"array","items":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"},"value":{"type":"string"},"resource":{"type":"boolean"},"isDefault":{"type":"boolean"},"isDynamic":{"type":"boolean"},"isInterpolated":{"type":"boolean"},"dateCreated":{"type":"string","format":"date-time"}},"title":"LabelDbDto"}},"version":{"type":"integer","format":"int64"}},"title":"DatasetDto"}},"title":"CreateDatasetResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"409":{"description":"Duplicate element","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

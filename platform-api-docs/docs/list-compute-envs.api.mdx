@@ -1,0 +1,71 @@
+---
+id: list-compute-envs
+title: "List compute environments"
+description: "Lists all available compute environments in a user context. Append `?workspaceId` to list compute environments in a workspace context, and `?status` to filter by compute environment status."
+sidebar_label: "List compute environments"
+hide_title: true
+hide_table_of_contents: true
+api: eJzVVk1v2zgQ/SsEz145/Vpgfdk6iVoYaySFk7aHIkBpaWxPQpEqSTlrGP7vO0PJ34rjPexhT5I4w+GbN2+GWsqgpl72fsjMFmUV4Dcwcy8fOjIHnzksA1oje3KIPnihtBZqrlCrsQbR7BC0A501BRhyQSOUqDw4MpsAf4dE9MsSTC5+/vls3ZMvVQaD/KcIVmgKeiLKxn0dqiNUjOODCpWPISaoA501XrTFEbVjIjvSluAU5zLIm2yuav+U0+3IUjlVAIViLpbS0Af51fvJjMzBrwrcQh4y8+lMBD6bQaFkbynDoqyDOzRTsoCpCq7A1Sjt3w9uPtNS/1t/MOxfDlN6T0ej21F6TW+Dm2/94YDfznZ9WK06m3R2+D+d0/cN8wQNHGYCc8oGJwguEYOJsAWGAHknltCfq4Q2FpBMU3BkmlhXqFAv/f5erlYkQge+tMaD5x1vLy74sQ/19i/aGg8wga2qLDVmsdTdR88uy+ND7fgRssBldyyMgPUB2Y4kts7KOcUUYYDCvx4E8+MarzpNCVoMpVaBU281NgJsEY0Dld8avZC94Cp4VUTX6TBtlltE0pEBg+b4265I7uqzCUUB3qtpO3ytfPjqoSXpnYrmigZLQGKAE3ZYKBLddsPYWg3KsHEj0ZuX+JqjxzFqDItWMwe4RtdqyxxEGSvtB+1VcjDFWjMHptWWooPhMWokmqQmUFarM1zZibzet+n5UuXCAbWlD/9G2LwFHZfhx6ZcXNaTUn25rjs5pM5Zd4T8XUsnrkesMDbwVWGfCQ+7e8gqFwtGo/USlAPXr8KMPh+4yWnuziyP5SlEjIpNsrt3IXEQN1+P58pp8piFUPpet6tKTDJtqzzx8IswJGiPJtpdtIgvTbOJK/YX/S8DyQjWAO+Yz5qbXZgbevjE9RCLwo1OtFK/fFrr/fE5xMTRTGzc3nDZoOBjXwPI6WIGvnFmIagsCmE/+d2USQuo4wCd2I9bAzcNMVef8yb540NyEfvQ+lCoqKPmfhi+dB8fol1uhfm//zNoSstRujSLMY6hyPGykeLxv9GMqOP15XKsPHx1erXi5foyZYHm6JkIEvWEhg2coO/c34dWmE+w2P1LmStdsZPkO/98CP/dbX8C9P6/yBb5A384ZOhxPhDZdNNRkzGt9dZ+lkEZdnYdjca9qfI5vSdftd/JB50bo6/ve7PYiU0ljh739gkMlXmNP/A3HUTz8B9kz+Vd
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List compute environments"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/compute-envs"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Lists all available compute environments in a user context. Append `?workspaceId` to list compute environments in a workspace context, and `?status` to filter by compute environment status.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"status","in":"query","description":"Filter by compute environment status.","schema":{"type":"string","enum":["CREATING","AVAILABLE","ERRORED","INVALID","CREATING","AVAILABLE","ERRORED","INVALID"]}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier. If omitted, lists compute environments in a user context.","schema":{"type":"integer","format":"int64"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"computeEnvs":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"platform":{"type":"string"},"status":{"type":"string","readOnly":true,"enum":["CREATING","AVAILABLE","DELETING","ERRORED","INVALID"],"title":"ComputeEnv.Status"},"message":{"type":"string"},"lastUsed":{"type":"string","format":"date-time"},"primary":{"type":"boolean"},"workspaceName":{"type":"string"},"visibility":{"type":"string"},"workDir":{"type":"string"},"credentialsId":{"type":"string"},"region":{"type":"string"}},"title":"ListComputeEnvsResponse.Entry"}}},"title":"ListComputeEnvsResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

@@ -7,7 +7,7 @@
   background: rgb(249, 249, 249);
 }
 [data-theme="dark"] :global(.theme-doc-sidebar-container) {
-  background: rgb(27, 24, 35);
+  background: #2A2A2A;
 }
 
 .sidebar {
@@ -27,7 +27,8 @@
 .sidebarHeader {
   position: relative;
   z-index: 10;
-  padding: 0 30px;
+  margin-top: 1rem;
+  /* padding: 2rem 1rem 1rem 1rem; */
 }
 .sidebarHeaderFade {
   height: 15px;
@@ -46,8 +47,8 @@
 }
 .sidebarNav {
   margin-top: -15px;
-  padding: 30px;
-  height: calc(100% - 180px);
+  padding: 1rem;
+  height: calc(100% - 80px);
   overflow-y: auto;
   & > div {
     margin-top: 15px;

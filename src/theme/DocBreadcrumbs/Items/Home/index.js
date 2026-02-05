@@ -12,6 +12,7 @@ export default function HomeWrapper(props) {
     if (location.pathname.startsWith("/multiqc")) return "MultiQC";
     if (location.pathname.startsWith("/platform-enterprise")) return "Platform Enterprise";
     if (location.pathname.startsWith("/platform-cloud")) return "Platform Cloud";
+    if (location.pathname.startsWith("/platform-api")) return "Platform API";
     if (location.pathname.startsWith("/wave")) return "Wave";
     return null;
   };
@@ -21,8 +22,8 @@ export default function HomeWrapper(props) {
   return (
     <>
       <Home {...props} />
-      <li className="breadcrumbs__item">
-        <span className="breadcrumbs__link">
+      <li className="breadcrumbs__item break-all">
+        <span className="breadcrumbs__link break-all">
           {currentProduct}
         </span>
       </li>

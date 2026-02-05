@@ -1,0 +1,63 @@
+---
+id: token-list
+title: "List tokens"
+description: "Retrieves the list of all available API access tokens."
+sidebar_label: "List tokens"
+hide_title: true
+hide_table_of_contents: true
+api: eJydVE1PG0EM/SurOadJaKFSORUQrVCRivg4oRycXScZmJ1ZPN5AtMp/rz27CZuAWtRTNvaz/Ww/T2MY5tEc3xsOj+ijmQxMgTEnW7EN3hyba2SyuMSY8QIzZyNnYZaBcxkswTqYOsxOri4yyHOMAkpphmZgQoUEmuSikDS3ar+UaPEQxir4iFK3MZ/HY/3ZLfr7l8Dy4Bk9qxeqytk8ZRs9RIU0JuYLLEG/eFWhBIXpA+aavyKtzbYt0DX2igMiWAnMMpbJTvhUW8JCx+ChRB3C33NOIdr8pOZFL22UOfm50flVhEJWEzLVuJZSRQ9opa05kiBngUrg1vT1UAy+dmmi28BER0JLeLlEP9eCR+OBKa3f/D0Y7BGQKAeR7yIW77Hb1iyE4Se2kl8i9M8ZYUv6Y0ESxZaVqzlJu08rFnvPoQvvOeN1t3lFCezwvd2fQpHpRjBp5cMi6C+xlIIw/8AeN8A3LfebOCcK9Ib5l3dUu1F85gPriYRn4aPwiHlNlldCrjGnCITUqud+shaSJfIi6JXMMXEEdZlRp1wNpyVSTNE1OfEtmKt4PBpBZYe5C3UxjPgk1Yc2mP0Lvkme7MoB6x6zM8XrzRqtvaF2o5Nsp9InuB2MVlQqCSb/pwkklvbjx0YhD8+cWrZ+FlJ4N8WOhZb9F0Ft14poOrBKAPIkgd3m+y2LCqxLlzQL318dQkQn19Y5GH47Go7VVoXIJSQFtReWlJptB77Dr3kV4f+/ht0UGV94VDmwXmmkdppu3/0neCH81NI08tLgHbn1Ws1yFKQaks8lkG1fCpGQBCAUsg0VyCOuupOsVExLcHV69favZ0d4P89vBQu7K99bccq+eUP9qpdbaCZEOnKhOuhIcPsiTORk/gBErTIE
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List tokens"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/tokens"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Retrieves the list of all available API access tokens.
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"tokens":{"type":"array","items":{"required":["name"],"type":"object","properties":{"basicAuth":{"type":"string","deprecated":true},"id":{"type":"integer","format":"int64","nullable":true},"name":{"maxLength":50,"minLength":1,"type":"string"},"lastUsed":{"type":"string","format":"date-time"},"dateCreated":{"type":"string","format":"date-time"}},"title":"AccessToken"}}},"title":"ListAccessTokensResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      

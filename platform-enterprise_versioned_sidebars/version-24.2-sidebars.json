@@ -1,18 +1,22 @@
 {
   "platformSidebar": [
-    "index",
+    "platform-enterprise",
     {
       "type": "category",
       "label": "Installation",
       "collapsed": true,
       "link": {
         "type": "doc",
-        "id": "enterprise/index"
-      },      
+        "id": "enterprise/overview"
+      },
       "items": [
         {
           "type": "category",
           "label": "Prerequisites",
+          "link": {
+            "type": "doc",
+            "id": "enterprise/prerequisites/common"
+          },
           "collapsed": true,
           "items": [
             "enterprise/prerequisites/aws",
@@ -53,7 +57,6 @@
           "label": "Advanced",
           "collapsed": true,
           "items": [
-            "enterprise/advanced-topics/db-docker-to-RDS",
             "enterprise/advanced-topics/use-iam-role",
             "enterprise/advanced-topics/custom-launch-container",
             "enterprise/advanced-topics/firewall-configuration",
@@ -70,7 +73,7 @@
       "items": [
         "getting-started/rnaseq",
         "getting-started/proteinfold"
-        ]
+      ]
     },
     {
       "type": "category",
@@ -132,18 +135,18 @@
         "compute-envs/k8s",
         "compute-envs/hpc",
         "resource-labels/overview",
-        "supported_software/fusion/fusion",
-        "supported_software/agent/agent",
+        "supported_software/fusion/overview",
+        "supported_software/agent/overview",
         "supported_software/dragen/overview",
         {
           "type": "category",
           "label": "Advanced options",
-          "items":[
+          "items": [
             "enterprise/advanced-topics/manual-aws-batch-setup",
             "enterprise/advanced-topics/manual-azure-batch-setup"
           ]
         }
-        ]
+      ]
     },
     {
       "type": "category",
@@ -161,13 +164,13 @@
         "launch/launchpad",
         "labels/overview",
         {
-        "type": "category",
-        "label": "Monitor runs",
-        "items": [
-          "monitoring/overview",
-          "monitoring/dashboard",
-          "monitoring/run-details"
-        ]
+          "type": "category",
+          "label": "Monitor runs",
+          "items": [
+            "monitoring/overview",
+            "monitoring/dashboard",
+            "monitoring/run-details"
+          ]
         },
         "reports/overview",
         "launch/cache-resume",
@@ -180,7 +183,7 @@
       "type": "category",
       "label": "Data Studios",
       "items": [
-        "data_studios/index",
+        "data_studios/overview",
         "data_studios/custom-envs",
         "data_studios/managing"
       ]
@@ -194,46 +197,45 @@
         "orgs-and-teams/workspace-management",
         "orgs-and-teams/roles",
         "monitoring/audit-logs"
-        ]
+      ]
     },
     {
       "type": "category",
       "label": "Developer tools",
       "collapsed": true,
       "items": [
-        "api/overview",
+        {
+          "type": "link",
+          "label": "API",
+          "href": "https://docs.seqera.io/platform-api"
+        },
+        {
+          "type": "link",
+          "label": "CLI",
+          "href": "https://docs.seqera.io/platform-cli"
+        },
         {
           "type": "category",
-          "label": "CLI",
+          "label": "Seqerakit",
           "collapsed": true,
           "items": [
-            "cli/overview",
-            "cli/installation",
-            "cli/commands"
+            "seqerakit/installation",
+            "seqerakit/commands",
+            "seqerakit/yaml-configuration",
+            "seqerakit/templates"
           ]
-          },
-          {
-            "type": "category",
-            "label": "Seqerakit",
-            "collapsed": true,
-            "items": [
-              "seqerakit/installation",
-              "seqerakit/commands",
-              "seqerakit/yaml-configuration",
-              "seqerakit/templates"
-            ]
-            },
-          "pipeline-actions/overview"
-        ]
+        },
+        "pipeline-actions/overview"
+      ]
     },
     {
       "type": "category",
       "label": "Reference",
       "collapsed": true,
       "items": [
-        "functionality_matrix/functionality_matrix",
+        "functionality_matrix/overview",
         "data-privacy/overview",
-        "limits/limits"
+        "limits/overview"
       ]
     },
     {

@@ -81,7 +81,7 @@ const MultiqcModules = ({ modules }: { modules: Module[] }) => {
                                 className=" hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer hover:no-underline"
                             >
                                 <div className="flex items-start border-gray-200 px-4 pb-0 pt-2 dark:border-gray-700 lg:border-b lg:pb-2 hover:underline">
-                                    <span className="typo-body text-blue-600 dark:text-blue-400 ">
+                                    <span className="typo-body text-blu-600 dark:text-blu-400 ">
                                         {module.data.name}
                                     </span>
                                 </div>

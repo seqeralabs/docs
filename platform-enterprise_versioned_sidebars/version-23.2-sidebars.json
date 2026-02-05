@@ -1,12 +1,11 @@
 {
   "platformSidebar": [
-    "index",
+    "platform-enterprise",
     {
       "type": "category",
       "label": "Getting started",
       "collapsed": true,
       "items": [
-        "getting-started/community-showcase",
         "getting-started/definitions",
         "getting-started/deployment-options",
         "getting-started/workspace"
@@ -97,8 +96,8 @@
           "type": "category",
           "label": "Software integration",
           "items": [
-            "supported_software/agent/agent",
-            "supported_software/fusion/fusion",
+            "supported_software/agent/overview",
+            "supported_software/fusion/overview",
             "supported_software/dragen/overview"
           ]
         },
@@ -116,7 +115,7 @@
         {
           "type": "category",
           "label": "Advanced options",
-          "items":[
+          "items": [
             "enterprise/advanced-topics/manual-aws-batch-setup"
           ]
         }
@@ -127,7 +126,7 @@
       "label": "Installation guide",
       "collapsed": true,
       "items": [
-        "enterprise/index",
+        "enterprise/overview",
         {
           "type": "category",
           "label": "Prerequisites",
@@ -165,7 +164,6 @@
           "collapsed": true,
           "items": [
             "enterprise/advanced-topics/cloudformation",
-            "enterprise/advanced-topics/db-docker-to-RDS",
             "enterprise/advanced-topics/custom-launch-container",
             "enterprise/advanced-topics/seqera-container-images",
             "enterprise/advanced-topics/use-iam-role"
@@ -179,7 +177,7 @@
       "collapsed": true,
       "items": [
         "api/overview",
-        "cli/cli"
+        "cli/overview"
       ]
     },
     {
@@ -188,7 +186,7 @@
       "collapsed": true,
       "items": [
         "data-privacy/overview",
-        "limits/limits"
+        "limits/overview"
       ]
     },
     "faqs"

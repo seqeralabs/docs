@@ -1,0 +1,71 @@
+---
+id: ga-4-gh-run-cancel
+title: "GA4GH: Cancel run"
+description: "Uses the GA4GH workflow execution service API to cancel the run associated with the given `run_id`."
+sidebar_label: "GA4GH: Cancel run"
+hide_title: true
+hide_table_of_contents: true
+api: eJy9VMtu2zAQ/BWCpxZwrbx6qE91gjQNekjgJOghMJK1tJaYSCJDUnYMQf/eXVKO83BToCiqg0SRy93h7HBa6SF3cnQtczjICzkdyAxdapXxStdyJK8cOuELFCfjg5PvYqnt/bzUS4GPmDYcIxzahUpRjM9PhdcihTrFMmyxTS3AOZ0q8JiJpfJFmM/VAmtxS8s3KrsdyoHUBi1wttOMap4wlElTH4VUtGzAQoUeLSNtZU0/FBb307JioAZ8IV+jpyTCeavqXKgMa6/mCi1FWXxolEUq5m2DA+nSAiuQo1b6leHccZPsumkMRucPdbbiiFTXnlLxEIwpVRqAJ3eOK7ZvU+nZHaaeinrlS544roxfcbZJTExVuo7LOKNropv37u3s8Oflac5+UJa/Lm8ss+xVLNCTt+XEG6DEHvUjojvYBugQMtGz8++QVS7fAot65ME37ibVGT5bV1QzDz2da1uBj1P7ey8O8hPdsbXaTnqKn860v4XktRRFrb2AksSOWchGCiw069PocN6guJFMws1JluiSxW5CvLqkjex2SbpWMF+StXwbW9K2wnvjRkkCRg3TUjfZ0OEDlR4q/UbGF2FFnJfg+ZTiiOP5wknWp6ObaJVfXTDBkcNDBIt23DDAJ6q4ouy1zv+zEEQzcfBtzd/d0ofzcuMmG+0fP0JlmM624ys31yF1z3CPkCH9CXzvF64PZtVAGlTzkpjndJBwVBlaO9dfNwsEhFmNdXaHXz4Pd3iO+1NBEF1vFcG8RiIaCvvSa5TPrvV/sry+KR4ffWJKIA8j5IGBtlfW2pMHkrRF78UuOxfpiz6jJ/PrJUY6KFiWtKttZ+DwypZdx9PUQEvGdU3DBVgFM24YyTBTjsck6DmUDt8h5MOkt8uP4neGuvU0/STUK0YPZcN/NLzH1ca+uylFFggZ5WFYcfEoFv90ySk2m9/4SjdY7xinKRr/buz02R0+P7u4ZOn3pl4FV5EWlswxvQNQHciIfslzrSyhzhvIOTbm5OcX5G1+NQ==
+sidebar_class_name: "post api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"GA4GH: Cancel run"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/ga4gh/wes/v1/runs/{run_id}/cancel"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Uses the GA4GH workflow execution service API to cancel the run associated with the given `run_id`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"run_id","in":"path","description":"Run string identifier","required":true,"schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"content":{"application/json":{"schema":{"type":"object","title":"EmptyBodyRequest"}}}}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"run_id":{"type":"string"}},"title":"RunId"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"type":"object","properties":{"msg":{"type":"string"},"status_code":{"type":"integer","format":"int32"}},"title":"WesErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+>
+  
+</StatusCodes>
+
+
+      
