@@ -5,7 +5,7 @@ date: "12 Apr 2023"
 tags: [groundswell, pipeline, optimization, installation, deployment]
 ---
 
-Pipeline optimization (Groundswell) uses resource usage data from previous workflow runs to optimize subsequent runs. Deploy after your Platform installation is complete.
+Pipeline optimization can be deployed after your Platform installation is complete. It uses resource usage data from previous workflow runs to optimize subsequent runs.
 
 ## Deployment options
 
