@@ -19,9 +19,9 @@
             "id": "enterprise/install-platform"
           },
           "items": [
-            "enterprise/helm",
-            "enterprise/kubernetes",
-            "enterprise/docker-compose"
+            "enterprise/platform-helm",
+            "enterprise/platform-kubernetes",
+            "enterprise/platform-docker-compose"
           ]
         },
         {
@@ -90,7 +90,6 @@
           "label": "Advanced",
           "collapsed": true,
           "items": [
-            "enterprise/advanced-topics/use-iam-role",
             "enterprise/advanced-topics/custom-launch-container",
             "enterprise/advanced-topics/firewall-configuration",
             "enterprise/advanced-topics/seqera-container-images"
