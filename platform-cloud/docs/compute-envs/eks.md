@@ -11,7 +11,7 @@ tags: [eks, amazon, compute environment, ce]
 
 - Seqera Platform needs an IAM User to obtain details about the EKS cluster, and to fetch log files from the S3 bucket, if one is used as work directory. This user must have the permissions detailed in the [Required Platform IAM permissions](#required-platform-iam-permissions) section. Optionally, permissions can instead be granted to an IAM role that the IAM user can assume when accessing AWS resources.
 
-- To use Fusion (recommended) to access data hosted on S3, including writing files to the Nextflow work directory, you need an IAM role that allows the EKS Service Account used by Seqera pods to interact with AWS resources. Refer to section [Configure EKS Service Account IAM role for Fusion v2](#configure-eks-service-account-iam-role-for-fusion-v2) for details.
+- To use Fusion (recommended) to access data hosted on S3, including writing files to the Nextflow work directory, you need an IAM role that allows the EKS Service Account that Seqera pods use to interact with AWS resources. Refer to section [Configure EKS Service Account IAM role for Fusion v2](#configure-eks-service-account-iam-role-for-fusion-v2) for details.
 Create a separate IAM role from the optional one assumed by the IAM user to separate the permissions needed by the EKS Service Account from those needed by the IAM user. If you plan to use legacy storage instead of Fusion, you can skip this step.
 
 - Seqera Platform assumes an EKS cluster already exists. Follow the [cluster preparation](./k8s) instructions to create the resources required by Platform. Some administrative privileges are also needed to allow the IAM User to access the cluster, as detailed in the [Kubernetes Service Account setup](#allow-iam-user-or-role-to-access-eks) section.
@@ -83,13 +83,14 @@ Seqera needs permissions to list EKS clusters in the selected region and to desc
 }
 ```
 
-No other permissions are required for the IAM user to launch pipelines on the EKS compute environment, as the actual management of pods and resources is performed with the Service Account created in the [cluster preparation](./k8s) phase, which the IAM user can access via EKS authentication, detailed [in the section below](#allow-iam-user-or-role-to-access-eks).
+No other permissions are required for the IAM user to launch pipelines on the EKS compute environment, as the Service Account created in the [cluster preparation](./k8s) phase performs the actual management of pods and resources, which the IAM user can access via EKS authentication, detailed [in the section below](#allow-iam-user-or-role-to-access-eks).
+
 
 ### S3 access (optional)
 
 Seqera automatically attempts to fetch a list of S3 buckets available in the AWS account connected to Platform, to provide them in a drop-down menu to be used as Nextflow working directory, and make the compute environment creation smoother. This feature is optional, and users can type the bucket name manually when setting up a compute environment. To allow Seqera to fetch the list of buckets in the account, the `s3:ListAllMyBuckets` action can be added, and it must have the `Resource` field set to `*`.
 
-Seqera offers several products to manipulate data on AWS S3 buckets, such as [Studios](../studios/overview) and [Data Explorer](../data/data-explorer); if these features are not used the related permissions can be omitted.
+Seqera offers several products to manipulate data on AWS S3 buckets, such as [Studios](../studios/overview) and [Data Explorer](../data/data-explorer); if these features are not needed the related permissions can be omitted.
 
 The IAM policy can be scoped down to only allow limited read/write permissions in certain S3 buckets used by Studios/Data Explorer. In addition, the policy must include permission to check the region and list the content of the S3 bucket used as Nextflow work directory. We also recommend granting the `s3:GetObject` permission on the work directory path to fetch Nextflow log files.
 
@@ -179,7 +180,7 @@ To get the credentials needed to connect Seqera to your AWS account, follow thes
 1. Select the **Security credentials** tab, then select **Create access key** under the **Access keys** section.
 1. In the **Use case** dialog that appears, select **Command line interface (CLI)**, then tick the confirmation checkbox at the bottom to acknowledge that you want to proceed creating an access key, and select **Next**.
 1. Optionally provide a description for the access key, like the reason for creating it, then select **Create access key**.
-1. Save the **Access key** and **Secret access key** in a secure location as you will need to provide them when creating credentials in Seqera.
+1. Save the **Access key** and **Secret access key** in a secure location as they are needed when configuring credentials in Seqera.
 
 ## IAM role creation (optional)
 
@@ -249,7 +250,8 @@ An IAM role with the following permissions must be created:
 
 Replace `<YOUR-BUCKET>` with the bucket name used as work directory.
 
-The IAM role must also have a trust relationship with the Kubernetes service account (or accounts) used by Seqera to manage the EKS cluster, which is `tower-launcher-sa` in the default configuration.:
+The IAM role must also have a trust relationship with the Kubernetes service account (or accounts) that Seqera uses to manage the EKS cluster, which is `tower-launcher-sa` in the default configuration.:
+
 
 ```json
 {
@@ -394,9 +396,10 @@ Once all prerequisites are met, create a Seqera EKS compute environment:
 
 Amazon EKS compute environments include advanced options for storage and work directory paths, resource allocation, and pod customization.
 
-- The **Storage mount path** is the file system path where the Storage claim is mounted (default: `/scratch`).
-- The **Work directory** is the file system path used as a working directory by Nextflow pipelines. This must be the storage mount path (default) or a subdirectory of it.
-- The **Compute service account** is the service account used by Nextflow to submit tasks (default: the `default` account in the given namespace).
+- The **Storage mount path** is the file system path where Seqera mounts the Storage claim (default: `/scratch`).
+
+- The **Work directory** is the file system path that Nextflow pipelines use as a working directory. This must be the storage mount path (default) or a subdirectory of it.
+- The **Compute service account** is the service account that Nextflow uses to submit tasks (default: the `default` account in the given namespace).
 
     :::note
     If you enable Fusion v2 (**Fusion storage** in step 4 above), the compute service account must have access to the S3 storage bucket specified as your work directory.
