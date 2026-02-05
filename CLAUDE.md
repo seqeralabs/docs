@@ -4,9 +4,9 @@ This guide covers documentation standards, editorial workflows, and Claude-power
 
 ## Quick start
 
-- **New PR created** → Agents automatically review changed docs → Inline suggestions appear
+- **Editorial review** → Use `/editorial-review` command → Agents review docs and provide feedback
 - **Local review** → Use `/review <file-or-directory>` → See issues before committing
-- **Apply fixes** → Click "Commit suggestion" or batch-apply multiple → Done
+- **Apply fixes** → Address issues directly in files based on agent feedback
 
 ## Workflows and architecture
 
@@ -14,13 +14,14 @@ This repository uses two main Claude-powered workflows:
 
 ### Editorial workflow
 
-**Purpose:** Automated quality checks for documentation content
+**Purpose:** On-demand quality checks for documentation content
 
 **Components:**
+- **Skill**: `/editorial-review`
 - **Agents**: voice-tone, terminology, clarity (disabled), punctuation (planned)
 - **Workflow**: `.github/workflows/docs-review.yml`
 - **Scripts**: `classify-pr-type.sh` (PR classification), `post-inline-suggestions.sh` (GitHub API integration)
-- **Triggers**: PR creation/reopen for `platform-*` directories, manual workflow dispatch (does not auto-run on subsequent commits)
+- **Triggers**: `/editorial-review` command (Claude Code or PR comment), manual workflow dispatch
 
 ### API workflow
 
@@ -31,70 +32,91 @@ This repository uses two main Claude-powered workflows:
 - **Workflow**: `.github/workflows/generate-openapi-overlays.yml`
 - **Scripts**: `analyze_comparison.py` (change analysis), `validate_overlay.py` (structure validation), `check_consistency.py` (standards compliance), `update_sidebar.py` (sidebar updates)
 - **Output**: YAML overlay files following OpenAPI overlay specification
-- **Triggers**: Repository dispatch from Platform repo, manual workflow dispatch
+- **Triggers**: Repository dispatch from Platform repository, manual workflow dispatch
 
-## Automated PR reviews
+## Editorial reviews with `/editorial-review`
 
 ### How it works
 
-When you open a PR that modifies documentation files, GitHub Actions automatically runs once:
+Use the `/editorial-review` command to run specialized agents on your documentation. This command works in two contexts:
 
-1. **Classifies the PR** (rename vs content change)
-2. **Runs specialized agents** (voice-tone, terminology)
-3. **Posts inline suggestions** (up to 60 per PR)
-4. **Saves full report** (downloadable artifact)
+**In Claude Code (local):**
+1. Run the command in your terminal
+2. Agents analyze files directly
+3. Review findings in the conversation
+4. Apply fixes to files manually
 
-The workflow does NOT re-run on subsequent commits. Use manual re-run (see below) to check fixes.
+**In GitHub PR (CI):**
+1. Comment `/editorial-review` on any PR
+2. Workflow triggers automatically
+3. Agents analyze changed files
+4. Results posted as inline PR suggestions
 
-### PR classification
+### Usage
 
-**Rename PRs** (>70% file renames, <5 significant content changes):
-- Skips voice-tone and terminology checks
-- Minimal suggestions posted
-- Marked as 🏷️ "rename" type
+**Local review (Claude Code):**
+```bash
+# Review all changed files in current branch
+/editorial-review
 
-**Content PRs** (everything else):
-- All agents run (voice-tone, terminology)
-- Up to 60 inline suggestions
-- Full list available as artifact
-- Marked as 📝 "content" type
+# Review specific file
+/editorial-review platform-enterprise_docs/getting-started/quickstart.md
 
-### Applying suggestions
+# Review entire directory
+/editorial-review platform-cloud/docs/pipelines/
 
-**Individual fixes:**
-1. Click "Commit suggestion" on any inline comment
-2. Suggestion applies immediately to PR
+# Specify which agents to run
+/editorial-review --agents voice-tone,terminology
+```
 
-**Batch apply:**
-1. Select multiple suggestions using checkboxes
-2. Click "Commit suggestions"
-3. All selected fixes apply in one commit
+**PR review (GitHub):**
+```
+# Comment this on any PR to trigger review
+/editorial-review
+```
 
-### Handling 60+ suggestions
+The workflow will:
+- Acknowledge the command immediately
+- Run all agents (voice-tone, terminology, punctuation)
+- Post up to 60 inline suggestions
+- Provide downloadable artifact with full list
 
-If agents find more than 60 issues, a comment explains how to access the full list:
+### What gets reviewed
 
-1. Go to the workflow run (link provided in comment)
+The editorial review runs multiple specialized agents:
+
+- **voice-tone**: Second person, active voice, present tense, confidence
+- **terminology**: Product names, feature names, formatting conventions
+- **punctuation**: List punctuation, Oxford commas, quotation marks, dashes
+- **clarity**: Sentence length, jargon, complexity (currently disabled)
+
+### Review output
+
+The agents provide a structured report with:
+
+- **Priority categorization**: Critical, important, minor issues
+- **File and line references**: Easy navigation to issues
+- **Specific suggestions**: Clear guidance on fixes
+- **Context**: Why each issue matters
+
+### Applying fixes
+
+**From Claude Code:**
+1. Open the files with issues
+2. Navigate to the specific line numbers
+3. Apply the suggested changes
+4. Re-run `/editorial-review` to verify fixes
+
+**From PR suggestions:**
+1. Click "Commit suggestion" on individual inline comments
+2. Or select multiple suggestions and click "Commit suggestions"
+3. Comment `/editorial-review` again to verify fixes
+
+**If 60+ suggestions found:**
+1. Go to the workflow run (link in PR comment)
 2. Download the `all-editorial-suggestions` artifact
-3. Open `all-suggestions-full.txt` to see all issues
-4. Apply remaining suggestions manually or in bulk
-
-**Note:** The workflow does NOT re-run automatically after applying suggestions (to conserve tokens). Use the manual re-run option below to check your fixes.
-
-### Manual re-run
-
-To re-run editorial review (e.g., after applying fixes):
-
-1. Go to **Actions** → **Documentation Review**
-2. Click **Run workflow**
-3. Select your PR branch
-4. Enter the **PR number** (required for posting results back to PR)
-5. Choose review type:
-   - `all` - Run all checks
-   - `voice-tone` - Only voice/tone
-   - `terminology` - Only terminology
-   - `clarity` - Only clarity (currently disabled)
-6. Click **Run workflow**
+3. Review full list in `all-suggestions-full.txt`
+4. Apply remaining suggestions manually
 
 ## Local Review with `/review`
 
@@ -144,22 +166,13 @@ Checks for:
 
 ## Documentation directory structure
 
-### Automated PR reviews
-
-These directories trigger automated agent reviews:
+All directories support editorial review via `/editorial-review` command:
 
 | Directory | Description | File count |
 |-----------|-------------|------------|
 | `platform-enterprise_docs/` | Main enterprise docs | ~129 files |
 | `platform-cloud/docs/` | Cloud platform docs | ~114 files |
 | `platform-enterprise_versioned_docs/` | Versioned docs | Variable |
-
-### Manual review only
-
-Use `/review` command for these directories:
-
-| Directory | Description | File count |
-|-----------|-------------|------------|
 | `platform-api-docs/docs/` | API documentation | ~218 files |
 | `fusion_docs/` | Fusion docs | ~24 files |
 | `multiqc_docs/` | MultiQC docs | ~212 files |
@@ -168,26 +181,25 @@ Use `/review` command for these directories:
 
 ## Troubleshooting
 
-**Q: Too many suggestions (100+)?**
-- Download the artifact for the full list
-- Apply high-priority fixes first
-- Re-run review to get next batch
-- Consider a cleanup PR after main PR merges
+**Q: Too many suggestions?**
+- Focus on critical and important issues first
+- Apply fixes incrementally
+- Re-run `/editorial-review` to verify changes
+- Consider splitting large reviews into smaller batches
 
-**Q: Agents flagged Tower incorrectly?**
-- Context matters - Tower is acceptable in legacy docs
-- Agents should ask, not flag as critical
+**Q: Agents flagged something incorrectly?**
+- Context matters - some terminology is acceptable in legacy docs
+- Agents provide suggestions, not requirements
 - Report false positives to improve agent rules
 
-**Q: Workflow not running on my PR?**
-- Check if PR modifies files in `platform-*` directories
-- Workflow files must exist on master branch first
-- Check Actions tab for errors
+**Q: How do I review just specific files?**
+- In Claude Code: `/editorial-review <file-path>` or `/editorial-review <directory-path>`
+- In PR comments: `/editorial-review` reviews all changed files (cannot specify subset)
 
-**Q: Want to adjust suggestion limit?**
-- Current limit: 60 inline suggestions
-- Full list always available via artifact
-- To change: modify the suggestion limit logic in `.github/workflows/docs-review.yml` (around lines 268–284)
+**Q: Does `/editorial-review` in PR comments run on every comment?**
+- No, it only runs when you explicitly comment `/editorial-review`
+- No automatic triggers on PR creation or updates
+- Completely manual and on-demand
 
 ## Related documentation
 
