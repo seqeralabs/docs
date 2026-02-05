@@ -101,7 +101,7 @@ Kubernetes deployments use an [initContainer](https://kubernetes.io/docs/concept
       FLUSH PRIVILEGES;
       ```
 
-The initContainers process waits until both the Seqera and pipeline optimization service databases are ready before starting the migration in the Seqera database and finally starting the optimization container.
+The `initContainers` process waits until both the Seqera and pipeline optimization service databases are ready before starting the migration in the Seqera database, and finally starting the optimization container.
 
 
 When the pipeline optimization service is active, pipelines that can be optimized display a lightbulb icon in your Launchpad. Any pipeline with at least one successful run can be optimized.
