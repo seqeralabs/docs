@@ -19,6 +19,7 @@ To use the pipeline optimization service in a new Docker Compose installation of
 
 1. To run the service from a custom URL, declare the URL with the `GROUNDSWELL_SERVER_URL` environment variable in `tower.env`. A non-zero value for this environment variable activates the optimization service automatically, so `TOWER_ENABLE_GROUNDSWELL` does not need to be set when you declare a custom URL.
 
+
 2. Set the `TOWER_ENABLE_GROUNDSWELL` environment variable in `tower.env` to `true`. This enables the service at the default service URL `http://groundswell:8090`.
 
 3. In your [docker-compose.yml](../_templates/docker/docker-compose.yml) file, uncomment the `groundswell` section at the bottom.
