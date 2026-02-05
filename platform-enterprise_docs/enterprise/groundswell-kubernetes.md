@@ -5,7 +5,7 @@ date: "12 Apr 2023"
 tags: [kubernetes, groundswell, pipeline optimization, deployment]
 ---
 
-This guide describes how to deploy the pipeline optimization service (internally referred to as Groundswell) for Seqera Platform Enterprise on Kubernetes.
+This guide describes how to deploy the pipeline optimization service (referenced as `Groundswell` in the configuration file) for Seqera Platform Enterprise on Kubernetes.
 
 ## Prerequisites
 
