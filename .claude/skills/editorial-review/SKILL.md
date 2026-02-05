@@ -1,3 +1,8 @@
+---
+name: editorial-review
+description: Run editorial review on documentation files using specialized agents (voice-tone, terminology, punctuation, clarity). Use when you need to review documentation for style, consistency, tone, or formatting issues. Triggers include requests to review docs, check editorial quality, or run style checks on markdown files.
+---
+
 # Editorial review orchestrator
 
 ## Purpose
