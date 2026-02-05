@@ -16,7 +16,8 @@ Create a separate IAM role from the optional one assumed by the IAM user to sepa
 
 - Seqera Platform assumes an EKS cluster already exists. Follow the [cluster preparation](./k8s) instructions to create the resources required by Platform. Some administrative privileges are also needed to allow the IAM User to access the cluster, as detailed in the [Kubernetes Service Account setup](#allow-iam-user-or-role-to-access-eks) section.
 
-Once all the prerequisites are met, an [Amazon EKS Compute Environment](#amazon-eks-compute-environment) can be configured in Seqera Platform.
+Once you meet all the prerequisites, configure an [Amazon EKS Compute Environment](#amazon-eks-compute-environment) in Seqera Platform.
+
 
 ## Required Platform IAM permissions
 
