@@ -7,15 +7,15 @@ tags: [enterprise, update, install]
 
 # Breaking changes in Seqera Platform
 
-Seqera attempts to limit the number of breaking changes we introduce between releases however changes to underlying libraries used as part of our application development may lead to changes being required between upgrades.
+Seqera limits breaking changes between releases. However, changes to underlying libraries used in application development may require configuration changes during upgrades.
 
-While we prioritize backward compatibility with MySQL and Redis, **compatibility with end-of-life (EOL) versions is not guaranteed**. Any guidance for EOL components is offered on a best-effort basis, and we strongly recommend upgrading to officially supported versions for long-term stability.
+Seqera prioritizes backward compatibility with MySQL and Redis. However, **compatibility with end-of-life (EOL) versions is not guaranteed**. Seqera provides guidance for EOL components on a best-effort basis. Upgrade to officially supported versions for long-term stability.
 
 Seqera Platform Enterprise is tested and validated against MySQL 8 and Redis versions 6.2 and greater.
 
 :::note
 - MySQL version 5.6 reached EOL in **February 2021**
-- MySQL version 5.7 reached EOL in **October 2023** 
+- MySQL version 5.7 reached EOL in **October 2023**
 :::
 
 ## v25.1
@@ -24,11 +24,11 @@ Seqera Platform Enterprise is tested and validated against MySQL 8 and Redis ver
 ## v24.2
 - **Seqera AWS ECR repository customer access ends June 1, 2025**: Customers will no longer be able to pull Seqera Enterprise container images from the legacy Seqera AWS ECR repository after June 1, 2025. All Seqera Enterprise images must be retrieved via the `cr.seqera.io` container registry after this cutoff date.
 
-- **Redis version change**: 
+- **Redis version change**:
   - Redis version 6.2 or greater is required
   - Redis version 7 is officially supported
 
-- **Redisson properties deprecated**: 
+- **Redisson properties deprecated**:
   - `/redisson/*` references in AWS Parameter Store entries should be replaced with `TOWER_REDIS_*`
   - `redisson.*` references in `tower.yml` should be replaced with `TOWER_REDIS_*`
 

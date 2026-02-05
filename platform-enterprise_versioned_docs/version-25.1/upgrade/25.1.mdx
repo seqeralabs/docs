@@ -7,7 +7,7 @@ tags: [enterprise, update, install]
 
 # Upgrade to Seqera Enterprise 25.1
 
-To benefit from the latest fixes and enhancements, we recommend upgrading Seqera regularly.
+Upgrade Seqera regularly to benefit from the latest fixes and enhancements.
 
 Seqera supports the latest patch versions of the current and previous major releases (e.g., 25.x and 24.x). Upgrades must proceed one major version at a time.
 
@@ -33,7 +33,7 @@ The following external services are required for a deployment of Seqera Platform
 Seqera is distributed as a collection of containers available through the [Seqera container registry](https://cr.seqera.io).
 To obtain access credentials, please contact [Seqera Support](https://support.seqera.io).
 
-For production deployments, we recommend mirroring these containers to your own registry to enhance stability and reliability.
+For production deployments, mirror these containers to your own registry to enhance stability and reliability.
 
 Seqera images published as part of this release are available at:
 
@@ -48,11 +48,11 @@ Seqera version upgrades may include database schema and data modifications. Befo
 To create a backup of your MySQL database:
 
 ```shell
-backup:
-> mysqldump -u root -p[root_password] [seqera_db_identifier] > seqera_backup.sql
+# backup:
+mysqldump -u root -p[root_password] [seqera_db_identifier] > seqera_backup.sql
 
-restore:
-> mysql -u root -p [seqera_db_identifier] < seqera_backup.sql
+# restore:
+mysql -u root -p [seqera_db_identifier] < seqera_backup.sql
 ```
 
 :::tip

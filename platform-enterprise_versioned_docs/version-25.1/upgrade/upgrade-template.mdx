@@ -6,12 +6,13 @@ tags: [enterprise, update, install]
 ---
 
 
-We recommend that you upgrade Seqera often to stay current with the latest fixes and enhancements.
+Upgrade Seqera regularly to stay current with the latest fixes and enhancements.
 
-In addition to common tasks you should complete for all versions of Seqera, there might be additional upgrade tasks to complete for a version.
+In addition to common tasks you should complete for all versions of Seqera, some versions include additional upgrade tasks.
 
-!!!note
-There might be breaking changes in some releases we document these in the following section. 
+:::note
+Some releases include breaking changes documented in the following section.
+:::
 
 # External Services
 
@@ -22,24 +23,24 @@ The following external services are required for a deployment of Seqera Platform
 
 # Back up Seqera
 
-MySQL
+To create a backup of your MySQL database:
 
 ```shell
-backup:
-> mysqldump -u root -p[root_password] [seqera_db_identifier] > seqera_backup.sql
+# backup:
+mysqldump -u root -p[root_password] [seqera_db_identifier] > seqera_backup.sql
 
-restore:
-> mysql -u root -p [seqera_db_identifier] < seqera_backup.sql
+# restore:
+mysql -u root -p [seqera_db_identifier] < seqera_backup.sql
+```
 
 # Upgrade Seqera
 
-## Upgrade Steps. 
+## Upgrade Steps
 
-1 - Stop all running services and pipelines.
-
-2 - Perform database migrations. 
-3 - Start the backend
-4 - Start the frontend
+1. Stop all running services and pipelines.
+2. Perform database migrations.
+3. Start the backend.
+4. Start the frontend.
 
 ## Docker Compose
 

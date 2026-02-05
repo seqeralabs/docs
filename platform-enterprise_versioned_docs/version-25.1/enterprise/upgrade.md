@@ -49,5 +49,5 @@ If you host your nf-launcher container image on a private image registry, copy t
     `TOWER_LAUNCH_CONTAINER=<FULL_PATH_TO_YOUR_PRIVATE_IMAGE>`
 
 :::caution
-If you're using AWS Batch, you will need to [configure a custom job definition](./advanced-topics/custom-launch-container) and populate the `TOWER_LAUNCH_CONTAINER` with the job definition name instead.
+If you use AWS Batch, [configure a custom job definition](./advanced-topics/custom-launch-container) and populate the `TOWER_LAUNCH_CONTAINER` with the job definition name instead.
 :::
