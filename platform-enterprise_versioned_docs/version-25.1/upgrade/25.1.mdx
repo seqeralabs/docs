@@ -21,19 +21,16 @@ However, default values for components (such as Nextflow) may change between ver
 Please refer to the [functionality matrix](../functionality_matrix) for detailed information regarding default component versions.
 :::
 
-## Pre-upgrade Planning
+## Pre-upgrade planning
 
 The following external services are required for a deployment of Seqera Platform Enterprise:
 
 - **Redis**: Version 7 is officially supported (minimum required version is 6.2).
 - **MySQL**: Version 8 is officially supported (minimum required version is 5.7).
 
-## Container Images
+## Container images
 
-Seqera is distributed as a collection of containers available through the [Seqera container registry](https://cr.seqera.io).
-To obtain access credentials, please contact [Seqera Support](https://support.seqera.io).
-
-For production deployments, mirror these containers to your own registry to enhance stability and reliability.
+Seqera is distributed as a collection of containers available through the [Seqera container registry](https://cr.seqera.io). To obtain access credentials, please contact [Seqera Support](https://support.seqera.io). For production deployments, mirror these containers to your own registry to enhance stability and reliability.
 
 Seqera images published as part of this release are available at:
 
@@ -41,7 +38,7 @@ Seqera images published as part of this release are available at:
 - cr.seqera.io/private/nf-tower-enterprise/backend:v25.1.1
 - cr.seqera.io/private/nf-tower-enterprise/migrate-db:v25.1.1
 
-## Database Backup
+## Database backup
 
 Seqera version upgrades may include database schema and data modifications. Before proceeding with any upgrade, create a complete backup of your Seqera Platform database and any associated database instances.
 
@@ -56,17 +53,17 @@ mysql -u root -p [seqera_db_identifier] < seqera_backup.sql
 ```
 
 :::tip
-- Store your backup in a secure location separate from your production environment
-- Verify the backup file size and contents before proceeding with the upgrade
+- Store your backup in a secure location separate from your production environment.
+- Verify the backup file size and contents before proceeding with the upgrade.
 :::
 
 If you're using a managed database service (such as Amazon RDS), follow your provider's recommended backup procedures. For containerized databases, ensure your volume mounts are properly configured to persist data.
 
-## Docker Compose Configuration
+## Docker Compose configuration
 
 For Docker Compose deployments, the upgrade process requires updating configuration files and container versions. Refer to the [Docker Compose deployment guide](../enterprise/docker-compose) for detailed instructions.
 
-### Configuration Files
+### Configuration files
 
 Key configuration files to review and update:
 
@@ -81,11 +78,11 @@ For detailed configuration options and deployment instructions, refer to:
 - [Configuration overview](../enterprise/configuration/overview)
 - [Environment variables](../enterprise/configuration/overview#environment-variables)
 
-## Kubernetes Configuration
+## Kubernetes configuration
 
 For Kubernetes deployments, the upgrade process requires updating manifests and container versions. Refer to the [Kubernetes deployment guide](../enterprise/kubernetes) for detailed instructions.
 
-### Configuration Files
+### Configuration files
 
 Key configuration files to review and update:
 
@@ -101,9 +98,9 @@ For detailed configuration options and deployment instructions, refer to:
 - [Configuration overview](../enterprise/configuration/overview)
 - [Environment variables](../enterprise/configuration/overview#environment-variables)
 
-## Breaking Changes
+## Breaking changes
 
-Seqera Platform contains no breaking changes for the 25.1 release.
+Seqera Platform Enterprise contains no breaking changes for the 25.1 release.
 
 ## Support
 
