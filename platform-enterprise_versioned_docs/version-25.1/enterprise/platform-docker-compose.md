@@ -56,7 +56,7 @@ Use a managed Redis service for production:
 
       - The `db` container should be used only for local testing. If you have configured this service elsewhere, you can remove this container.
 
-      - To configure the Seqera pipeline resource optimization service (`groundswell`), see [Pipeline resource optimization](./configuration/pipeline_optimization).
+      - To configure the Seqera pipeline optimization service (`groundswell`), see [Pipeline optimization](./configuration/pipeline_optimization).
 
       - To deploy with Studios, see [Studios deployment](./studios).
 
