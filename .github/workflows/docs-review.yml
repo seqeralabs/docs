@@ -1,17 +1,11 @@
 name: Documentation Review
 
 on:
-  pull_request:
-    paths:
-      - 'platform-enterprise_docs/**/*.md'
-      - 'platform-enterprise_docs/**/*.mdx'
-      - 'platform-cloud/docs/**/*.md'
-      - 'platform-cloud/docs/**/*.mdx'
-      - 'platform-enterprise_versioned_docs/**/*.md'
-      - 'platform-enterprise_versioned_docs/**/*.mdx'
-    types: [opened, reopened]  # Runs on PR creation/reopen only; use workflow_dispatch for manual re-runs
+  # PR comment trigger - comment /editorial-review on any PR
+  issue_comment:
+    types: [created]
 
-  # Manual trigger for full review
+  # Manual trigger via Actions UI
   workflow_dispatch:
     inputs:
       pr_number:
@@ -35,8 +29,49 @@ permissions:
   id-token: write
 
 jobs:
-  # Determine PR number for both automatic and manual runs
+  # Check if comment contains /editorial-review command
+  check-trigger:
+    if: github.event_name == 'issue_comment'
+    runs-on: ubuntu-latest
+    outputs:
+      should_run: ${{ steps.check.outputs.should_run }}
+    steps:
+      - name: Check for /editorial-review command
+        id: check
+        run: |
+          COMMENT="${{ github.event.comment.body }}"
+          if [[ "$COMMENT" =~ ^/editorial-review ]]; then
+            echo "should_run=true" >> $GITHUB_OUTPUT
+            echo "✅ Command detected: /editorial-review"
+          else
+            echo "should_run=false" >> $GITHUB_OUTPUT
+            echo "⏭️ Skipping - comment does not contain /editorial-review"
+          fi
+
+      - name: Check if comment is on a PR
+        if: steps.check.outputs.should_run == 'true'
+        run: |
+          if [[ "${{ github.event.issue.pull_request }}" == "" ]]; then
+            echo "❌ Comment is not on a pull request"
+            exit 1
+          fi
+          echo "✅ Comment is on PR #${{ github.event.issue.number }}"
+
+      - name: Acknowledge command
+        if: steps.check.outputs.should_run == 'true'
+        run: |
+          gh pr comment ${{ github.event.issue.number }} --body "🔍 Editorial review started! [View workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Determine PR number and review type
   setup:
+    needs: [check-trigger]
+    if: |
+      always() && (
+        github.event_name == 'workflow_dispatch' ||
+        (github.event_name == 'issue_comment' && needs.check-trigger.outputs.should_run == 'true')
+      )
     runs-on: ubuntu-latest
     outputs:
       pr_number: ${{ steps.get-pr.outputs.pr_number }}
@@ -45,9 +80,9 @@ jobs:
       - name: Get PR number
         id: get-pr
         run: |
-          if [ "${{ github.event_name }}" = "pull_request" ]; then
-            echo "pr_number=${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
-            echo "📋 PR number from event: ${{ github.event.pull_request.number }}"
+          if [ "${{ github.event_name }}" = "issue_comment" ]; then
+            echo "pr_number=${{ github.event.issue.number }}" >> $GITHUB_OUTPUT
+            echo "📋 PR number from comment: ${{ github.event.issue.number }}"
           elif [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "pr_number=${{ inputs.pr_number }}" >> $GITHUB_OUTPUT
             echo "📋 PR number from input: ${{ inputs.pr_number }}"
@@ -63,8 +98,9 @@ jobs:
             echo "review_type=${{ inputs.review_type }}" >> $GITHUB_OUTPUT
             echo "📋 Review type: ${{ inputs.review_type }}"
           else
+            # Default to 'all' for comment triggers
             echo "review_type=all" >> $GITHUB_OUTPUT
-            echo "📋 Review type: all (automatic PR review)"
+            echo "📋 Review type: all (comment trigger)"
           fi
 
   # Check bash script syntax before running any reviews
@@ -92,8 +128,21 @@ jobs:
       docs_files: ${{ steps.filter.outputs.docs_files }}
       pr_type: ${{ steps.classify.outputs.pr_type }}
     steps:
+      - name: Get PR details
+        if: github.event_name == 'issue_comment'
+        id: pr-details
+        run: |
+          PR_NUMBER="${{ github.event.issue.number }}"
+          PR_DATA=$(gh pr view ${PR_NUMBER} --json headRefName,headRepository)
+          HEAD_REF=$(echo "$PR_DATA" | jq -r '.headRefName')
+          echo "head_ref=${HEAD_REF}" >> $GITHUB_OUTPUT
+          echo "📋 PR head ref: ${HEAD_REF}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - uses: actions/checkout@v4
         with:
+          ref: ${{ github.event_name == 'issue_comment' && steps.pr-details.outputs.head_ref || '' }}
           fetch-depth: 0
 
       - uses: dorny/paths-filter@v3
@@ -114,13 +163,24 @@ jobs:
         run: |
           chmod +x .github/scripts/classify-pr-type.sh
           BASE_REF="${{ github.base_ref }}"
+
+          # For issue_comment events, fetch base ref from PR
+          if [ "${{ github.event_name }}" = "issue_comment" ]; then
+            PR_NUMBER="${{ github.event.issue.number }}"
+            BASE_REF=$(gh pr view ${PR_NUMBER} --json baseRefName --jq '.baseRefName')
+            echo "📋 Base ref from PR: ${BASE_REF}"
+          fi
+
           if [ -z "$BASE_REF" ]; then
-            # Fallback for events without a PR context (e.g., workflow_dispatch)
+            # Fallback for events without a PR context
             BASE_REF="master"
           fi
+
           PR_TYPE=$(.github/scripts/classify-pr-type.sh "origin/$BASE_REF" HEAD)
           echo "pr_type=$PR_TYPE" >> $GITHUB_OUTPUT
           echo "📋 PR Type: $PR_TYPE"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # ───────────────────────────────────────────────────────────────
   # Fast terminology check - catches obvious issues before AI review
@@ -130,7 +190,19 @@ jobs:
     if: needs.changes.outputs.docs == 'true'
     runs-on: ubuntu-latest
     steps:
+      - name: Get PR head ref
+        if: github.event_name == 'issue_comment'
+        id: pr-ref
+        run: |
+          PR_NUMBER="${{ github.event.issue.number }}"
+          HEAD_REF=$(gh pr view ${PR_NUMBER} --json headRefName --jq '.headRefName')
+          echo "head_ref=${HEAD_REF}" >> $GITHUB_OUTPUT
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'issue_comment' && steps.pr-ref.outputs.head_ref || '' }}
 
       - name: Vale Terminology Check
         uses: errata-ai/vale-action@v2
@@ -150,8 +222,19 @@ jobs:
     if: needs.changes.outputs.docs == 'true' && needs.changes.outputs.pr_type == 'content' && (needs.setup.outputs.review_type == 'all' || needs.setup.outputs.review_type == 'voice-tone')
     runs-on: ubuntu-latest
     steps:
+      - name: Get PR head ref
+        if: github.event_name == 'issue_comment'
+        id: pr-ref
+        run: |
+          PR_NUMBER="${{ github.event.issue.number }}"
+          HEAD_REF=$(gh pr view ${PR_NUMBER} --json headRefName --jq '.headRefName')
+          echo "head_ref=${HEAD_REF}" >> $GITHUB_OUTPUT
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - uses: actions/checkout@v4
         with:
+          ref: ${{ github.event_name == 'issue_comment' && steps.pr-ref.outputs.head_ref || '' }}
           fetch-depth: 0
 
       - name: Run Voice/Tone Review
@@ -200,8 +283,19 @@ jobs:
     if: needs.changes.outputs.docs == 'true' && needs.changes.outputs.pr_type == 'content' && (needs.setup.outputs.review_type == 'all' || needs.setup.outputs.review_type == 'terminology')
     runs-on: ubuntu-latest
     steps:
+      - name: Get PR head ref
+        if: github.event_name == 'issue_comment'
+        id: pr-ref
+        run: |
+          PR_NUMBER="${{ github.event.issue.number }}"
+          HEAD_REF=$(gh pr view ${PR_NUMBER} --json headRefName --jq '.headRefName')
+          echo "head_ref=${HEAD_REF}" >> $GITHUB_OUTPUT
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - uses: actions/checkout@v4
         with:
+          ref: ${{ github.event_name == 'issue_comment' && steps.pr-ref.outputs.head_ref || '' }}
           fetch-depth: 0
 
       - name: Run Terminology Review
@@ -254,8 +348,19 @@ jobs:
     # if: needs.changes.outputs.docs == 'true' && (needs.setup.outputs.review_type == 'all' || needs.setup.outputs.review_type == 'clarity')
     runs-on: ubuntu-latest
     steps:
+      - name: Get PR head ref
+        if: github.event_name == 'issue_comment'
+        id: pr-ref
+        run: |
+          PR_NUMBER="${{ github.event.issue.number }}"
+          HEAD_REF=$(gh pr view ${PR_NUMBER} --json headRefName --jq '.headRefName')
+          echo "head_ref=${HEAD_REF}" >> $GITHUB_OUTPUT
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - uses: actions/checkout@v4
         with:
+          ref: ${{ github.event_name == 'issue_comment' && steps.pr-ref.outputs.head_ref || '' }}
           fetch-depth: 0
 
       - name: Run Clarity Review
