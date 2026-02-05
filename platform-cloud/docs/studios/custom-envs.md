@@ -2,7 +2,7 @@
 title: "Custom environments"
 description: "Custom environments for Studios"
 date created: "2024-10-01"
-last updated: "2025-09-30"
+last updated: "2026-01-29"
 tags: [environments, custom, studio, studio]
 ---
 
@@ -48,7 +48,11 @@ Public container registries are supported by default. Amazon Elastic Container R
 
 ### Dockerfile configuration {#dockerfile}
 
-For your custom container image, you must use a Seqera-provided base image and include several additional build steps for compatibility with Studios. To create a Studio with a custom image, see [Add a Studio][add-s].
+For your custom container image, you must use a Seqera-provided base image and include several additional build steps for compatibility with Studios. To create a Studio with a custom image, see [Add a Studio][add-s]. Custom images must include an `io.seqera.connect.version` label specifying the `connect-client` version used. Platform uses this label to determine available functionality when configuring and launching the Studio.
+
+:::note
+Studios will start without this label, but certain features (such as SSH connectivity) will be unavailable.
+:::
 
 #### Ports
 
@@ -63,6 +67,7 @@ Upon termination, the container's main process must handle the `SIGTERM` signal 
 The minimal Dockerfile includes directives to accomplish the following:
 
 - Pull a Seqera-provided base image with prerequisite binaries.
+- Set an image label indicating the version used.
 - Copy the `connect` binary into the build.
 - Set the container entry point.
 
@@ -77,13 +82,17 @@ ARG CONNECT_CLIENT_VERSION="0.8"
 FROM public.cr.seqera.io/platform/connect-client:${CONNECT_CLIENT_VERSION} AS connect
 
 # highlight-start
-# 1. Add connect binary
+# 1. Add connect version label to image metadata
+ARG CONNECT_CLIENT_VERSION
+LABEL io.seqera.connect.version="${CONNECT_CLIENT_VERSION}"
+
+# 2. Add connect binary
 COPY --from=connect /usr/bin/connect-client /usr/bin/connect-client
 
-# 2. Install connect dependencies
+# 3. Install connect dependencies
 RUN /usr/bin/connect-client --install
 
-# 3. Configure connect as the entrypoint
+# 4. Configure connect as the entrypoint
 ENTRYPOINT ["/usr/bin/connect-client", "--entrypoint"]
 # highlight-end
 ```
@@ -102,6 +111,8 @@ FROM ubuntu:20.04
 RUN apt-get update --yes && apt-get install --yes --no-install-recommends python3
 
 # highlight-start
+ARG CONNECT_CLIENT_VERSION
+LABEL io.seqera.connect.version="${CONNECT_CLIENT_VERSION}"
 COPY --from=connect /usr/bin/connect-client /usr/bin/connect-client
 RUN /usr/bin/connect-client --install
 ENTRYPOINT ["/usr/bin/connect-client", "--entrypoint"]
