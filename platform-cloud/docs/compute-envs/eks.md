@@ -403,6 +403,7 @@ Amazon EKS compute environments include advanced options for storage and work di
 
     :::note
     If you enable Fusion v2 (**Fusion storage** in step 4 above), the compute service account must have access to the S3 storage bucket specified as your work directory.
+    This can be the same Service Account used by the Head jobs (`tower-launcher-sa`, created in the [cluster preparation](./k8s) guide), or a separate Service Account with more granular permissions.
     :::
 
 - The **Pod cleanup policy** determines when to delete terminated pods.
