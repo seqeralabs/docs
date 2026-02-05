@@ -53,22 +53,6 @@ A permissive and broad policy with all the required permissions is provided here
         "s3:DeleteObject"
       ],
       "Resource": "*"
-    },
-    {
-      "Sid": "OptionalPipelineSecretsListing",
-      "Effect": "Allow",
-      "Action": "secretsmanager:ListSecrets",
-      "Resource": "*"
-    },
-    {
-      "Sid": "OptionalPipelineSecretsManagementCanBeRestricted",
-      "Effect": "Allow",
-      "Action": [
-        "secretsmanager:DescribeSecret",
-        "secretsmanager:DeleteSecret",
-        "secretsmanager:CreateSecret"
-      ],
-      "Resource": "arn:aws:secretsmanager:*:*:secret:tower-*"
     }
   ]
 }
@@ -150,35 +134,6 @@ If you opted to create a separate S3 bucket only for Nextflow work directories, 
   ]
 }
 ```
-
-### Pipeline secrets (optional)
-
-Seqera can synchronize [pipeline secrets](../secrets/overview) defined on the Platform workspace with AWS Secrets Manager, which requires additional permissions on the IAM user. If you do not plan to use pipeline secrets, you can omit this section of the policy.
-
-The listing of secrets cannot be restricted, but the management actions can be restricted to only allow managing secrets in a specific account and region, which must be the same region where the pipeline runs. Note that Seqera only creates secrets with the `tower-` prefix.
-
-```json
-{
-  "Sid": "PipelineSecretsListing",
-  "Effect": "Allow",
-  "Action": "secretsmanager:ListSecrets",
-  "Resource": "*"
-},
-{
-  "Sid": "PipelineSecretsManagementCanBeRestricted",
-  "Effect": "Allow",
-  "Action": [
-    "secretsmanager:DescribeSecret",
-    "secretsmanager:DeleteSecret",
-    "secretsmanager:CreateSecret"
-  ],
-  "Resource": "arn:aws:secretsmanager:<REGION>:<ACCOUNT_ID>:secret:tower-*"
-}
-```
-
-#### Additional steps required to use secrets in a pipeline
-
-To successfully use pipeline secrets, the IAM roles manually created must follow the steps detailed in the [documentation](../secrets/overview#aws-secrets-manager-integration).
 
 ## Create the IAM policy
 
