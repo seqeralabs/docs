@@ -217,7 +217,8 @@ To use [Fusion v2](https://docs.seqera.io/fusion) in your Amazon EKS compute env
 
 If you do not plan to use Fusion in favor of legacy storage, you can skip this section.
 
-An IAM role with the following permissions must be created:
+Create an IAM role with the following permissions:
+
 
 ```json
 {
