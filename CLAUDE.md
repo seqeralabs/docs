@@ -20,7 +20,7 @@ This repository uses two main Claude-powered workflows:
 - **Agents**: voice-tone, terminology, clarity (disabled), punctuation (planned)
 - **Workflow**: `.github/workflows/docs-review.yml`
 - **Scripts**: `classify-pr-type.sh` (PR classification), `post-inline-suggestions.sh` (GitHub API integration)
-- **Triggers**: Pull requests to `platform-*` directories, manual workflow dispatch
+- **Triggers**: PR creation/reopen for `platform-*` directories, manual workflow dispatch (does not auto-run on subsequent commits)
 
 ### API workflow
 
@@ -37,12 +37,14 @@ This repository uses two main Claude-powered workflows:
 
 ### How it works
 
-When you open a PR that modifies documentation files, GitHub Actions automatically:
+When you open a PR that modifies documentation files, GitHub Actions automatically runs once:
 
 1. **Classifies the PR** (rename vs content change)
 2. **Runs specialized agents** (voice-tone, terminology)
 3. **Posts inline suggestions** (up to 60 per PR)
 4. **Saves full report** (downloadable artifact)
+
+The workflow does NOT re-run on subsequent commits. Use manual re-run (see below) to check fixes.
 
 ### PR classification
 
@@ -77,22 +79,22 @@ If agents find more than 60 issues, a comment explains how to access the full li
 3. Open `all-suggestions-full.txt` to see all issues
 4. Apply remaining suggestions manually or in bulk
 
-**Note:** After applying 60 suggestions, the workflow re-runs automatically and may surface more issues.
+**Note:** The workflow does NOT re-run automatically after applying suggestions (to conserve tokens). Use the manual re-run option below to check your fixes.
 
 ### Manual re-run
 
-To re-run editorial review without making changes:
+To re-run editorial review (e.g., after applying fixes):
 
 1. Go to **Actions** → **Documentation Review**
 2. Click **Run workflow**
 3. Select your PR branch
-4. Click **Run workflow**
-
-Or use the manual trigger with specific review type:
-- `all` - Run all checks
-- `voice-tone` - Only voice/tone
-- `terminology` - Only terminology
-- `clarity` - Only clarity (currently disabled)
+4. Enter the **PR number** (required for posting results back to PR)
+5. Choose review type:
+   - `all` - Run all checks
+   - `voice-tone` - Only voice/tone
+   - `terminology` - Only terminology
+   - `clarity` - Only clarity (currently disabled)
+6. Click **Run workflow**
 
 ## Local Review with `/review`
 
