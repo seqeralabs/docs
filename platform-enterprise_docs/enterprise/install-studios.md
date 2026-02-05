@@ -47,9 +47,9 @@ Studios uses the following set of domains and subdomains:
 
 You can configure which organizational workspaces have access to Studios. This configuration is set in the `tower.yml` file. The `tower.data-studio.allowed-workspaces` field supports the following options:
 
-- `allowed-workspaces: []`: Disables Studios. This is the default if the `allowed-workspaces` field is not specified.
+- `allowed-workspaces: []`: Disables Studios. This was the default in versions of Platform prior to v26.1, but from v26.1 the default is `null`, which enables Studios for all organizational workspaces.
 - `allowed-workspaces: [ <WORKSPACE_ID>,<WORKSPACE_ID> ]`: Enables Studios for the comma-separated list of organizational workspace IDs.
-- `allowed-workspaces: null`: Enables Studios for all organizational workspaces.
+- `allowed-workspaces: null`: Enables Studios for all organizational workspaces. From Platform v26.1 this is the default if the `allowed-workspaces` field is not specified.
 
 In the Platform Helm chart, set the desired configuration in the `platform.YAMLConfigFileContent` field. For example, to enable Studios for workspaces 12345 and 67890:
 

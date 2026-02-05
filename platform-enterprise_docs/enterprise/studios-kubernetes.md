@@ -102,17 +102,7 @@ You can also check the current template configuration using `https://towerurl/ap
    - `TOWER_DATA_STUDIO_CONNECT_URL`: The URL of the Studios connect proxy, such as `https://connect.example.com/`.
    - `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`: The same value as the `oidc_registration_token` value created previously.
 
-1. Edit the ConfigMap named `tower-yml` in the `configmap.yml` and include the following snippet:
-
-    ```yaml
-    data:
-      tower.yml: |-
-        tower:
-          data-studio:
-            allowed-workspaces: null
-    ```
-
-    Alternatively, you can specify a comma-separated list of workspace IDs to enable Studios only on those workspaces.
+1. From Platform v26.1, Studios is enabled by default on all workspaces. To enable Studios on specific workspaces only, set the `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES` environment variable (e.g., `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES="12345,67890"`) on the backend deployment or edit the `tower-yml` ConfigMap in the `configmap.yml` file with a comma-separated list of workspace IDs.
 
     ```yaml
     tower:
