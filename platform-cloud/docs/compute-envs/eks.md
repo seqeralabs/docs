@@ -14,17 +14,17 @@ tags: [eks, amazon, compute environment, ce]
 - To use Fusion (recommended) to access data hosted on S3, including writing files to the Nextflow work directory, you need an IAM role that allows the EKS Service Account that Seqera pods use to interact with AWS resources. Refer to section [Configure EKS Service Account IAM role for Fusion v2](#configure-eks-service-account-iam-role-for-fusion-v2) for details.
 Create a separate IAM role from the optional one assumed by the IAM user to separate the permissions needed by the EKS Service Account from those needed by the IAM user. If you plan to use legacy storage instead of Fusion, you can skip this step.
 
-- Seqera Platform assumes an EKS cluster already exists. Follow the [cluster preparation](./k8s) instructions to create the resources required by Platform. Some administrative privileges are also needed to allow the IAM User to access the cluster, as detailed in the [Kubernetes Service Account setup](#allow-iam-user-or-role-to-access-eks) section.
+:::tip
+Seqera Platform assumes an EKS cluster already exists. Follow the [cluster preparation](./k8s) instructions to create the resources required by Seqera. Some administrative privileges are also needed to allow the IAM User to access the cluster, as detailed in the [Kubernetes Service Account setup](#allow-iam-user-or-role-to-access-eks) section.
+:::
 
-Once you meet all the prerequisites, configure an [Amazon EKS Compute Environment](#amazon-eks-compute-environment) in Seqera Platform.
+Once you meet all the prerequisites, configure an [Amazon EKS Compute Environment](#amazon-eks-compute-environment) in Seqera.
 
-
-## Required Platform IAM permissions
+## Required IAM permissions
 
 Seqera Platform requires an IAM user with specific permissions to launch pipelines, explore buckets with Data Explorer, and run Studio sessions on the AWS EKS compute environment. Some permissions are mandatory for the compute environment to function correctly, while others are optional and enable features like populating dropdown lists in the Platform UI.
 
 Attach permissions directly to an [IAM user](#iam-user-creation), or to an [IAM role](#iam-role-creation-optional) that the IAM user can assume.
-
 
 A permissive and broad policy with all the required permissions is provided here for a quick start. However, we recommend following the principle of least privilege and only granting the necessary permissions for your use case, as shown in the following sections.
 
@@ -86,7 +86,6 @@ Seqera needs permissions to list EKS clusters in the selected region and to desc
 ```
 
 No other permissions are required for the IAM user to launch pipelines on the EKS compute environment, as the Service Account created in the [cluster preparation](./k8s) phase performs the actual management of pods and resources, which the IAM user can access via EKS authentication, detailed [in the section below](#allow-iam-user-or-role-to-access-eks).
-
 
 ### S3 access (optional)
 
