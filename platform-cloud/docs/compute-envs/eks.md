@@ -20,7 +20,7 @@ Seqera Platform assumes an EKS cluster already exists. Follow the [cluster prepa
 
 Once you meet all the prerequisites, configure an [Amazon EKS Compute Environment](#amazon-eks-compute-environment) in Seqera.
 
-## Required IAM permissions
+## Required Platform IAM permissions
 
 Seqera Platform requires an IAM user with specific permissions to launch pipelines, explore buckets with Data Explorer, and run Studio sessions on the AWS EKS compute environment. Some permissions are mandatory for the compute environment to function correctly, while others are optional and enable features like populating dropdown lists in the Platform UI.
 
