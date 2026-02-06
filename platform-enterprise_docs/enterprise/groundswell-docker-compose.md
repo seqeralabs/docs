@@ -9,9 +9,8 @@ This guide describes how to deploy the pipeline optimization service (referred t
 
 ## Prerequisites
 
-Before you begin, you need:
-- A running Seqera Platform Enterprise Docker Compose deployment
-- Access to your MySQL database
+Other than the basic requirements [already listed in the Pipeline Optimization installation overview](./install-groundswell#prerequisites), you will need:
+- Docker Engine and Docker Compose
 
 ## New installation
 
