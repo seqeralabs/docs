@@ -9,10 +9,10 @@ tags: [studios, container, image, session, interactive, analysis]
 Studios is a unified platform where you can host a combination of container images and compute environments for interactive analysis using your preferred tools, like JupyterLab, an R-IDE, Visual Studio Code IDEs, or Xpra remote desktops. Each Studio session is an individual interactive environment that encapsulates the live environment for dynamic data analysis.
 
 :::note
-Studios in Enterprise is not enabled by default. You can enable Studios in the [environment variables configuration](../enterprise/studios).
+Studios in Enterprise is not enabled by default. You can enable Studios in the [environment variables configuration](../enterprise/install-studios).
 :::
 
-- [Deploy Studios in Seqera Platform](../enterprise/studios): Enable Studios as part of your Seqera Platform Enterprise instance.
+- [Deploy Studios in Seqera Platform](../enterprise/install-studios): Enable Studios as part of your Seqera Platform Enterprise instance.
 - [Add a Studio](./add-studio): Understand the configuration options for creating, running, and customizing Studio sessions.
 - [Container image templates](./container-images): Learn about the container image templates provided: JupyterLab, R-IDE, Visual Studio Code, and Xpra.
 - [Custom environments](./custom-envs): Augument the Seqera-provided images with a list of Conda packages or by providing your own base container template image.

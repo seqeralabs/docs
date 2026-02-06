@@ -1,31 +1,36 @@
 ---
-- 
+-
   Environment variable:            '`TOWER_ENABLE_WAVE`'
-  Description: > 
-    Enable Seqera integration with [Wave containers](https://wave.seqera.io). 
+  Description: >
+    Enable Seqera integration with [Wave containers](https://wave.seqera.io).
   Value:                'Default: `false`'
-- 
+-
   Environment variable:            '`WAVE_SERVER_URL`'
-  Description: > 
-    Define the Wave containers service endpoint URL. 
+  Description: >
+    Define the Wave containers service endpoint URL.
   Value:                'Example: `https://wave.seqera.io`'
-- 
+-
   Environment variable:            '`TOWER_ENABLE_AWS_SSM`'
-  Description: > 
-    Enable Seqera configuration value retrieval from [AWS Parameter Store](https://docs.seqera.io/platform-enterprise/enterprise/configuration/aws_parameter_store). 
+  Description: >
+    Enable Seqera configuration value retrieval from [AWS Parameter Store](https://docs.seqera.io/platform-enterprise/enterprise/configuration/aws_parameter_store).
   Value:                'Default: `false`'
-- 
+-
   Environment variable:            '`TOWER_ENABLE_AWS_SES`'
-  Description: > 
+  Description: >
     Use AWS Simple Email Service (SES) to send Seqera emails instead of SMTP.
   Value:                'Default: `false`'
-- 
+-
   Environment variable:            '`TOWER_ALLOW_NEXTFLOW_LOGS`'
-  Description: > 
+  Description: >
     Allow log and report files from Nextflow CLI runs (`-with-tower`) to be accessible in the Seqera UI. Run output files must be accessible to your Seqera workspace primary compute environment.
   Value:                'Default: `false`'
-- 
+-
   Environment variable:            '`TOWER_STEPPED_LAUNCH_FORM_ALLOWED_WORKSPACES`'
-  Description: > 
-    Disable the [stepped launch form](https://docs.seqera.io/platform-cloud/launch/launchpad#launch-form) in the workspaces specified. Omit or set empty (`TOWER_STEPPED_LAUNCH_FORM_ALLOWED_WORKSPACES=`) to enable the new launch form in all workspaces, or provide a comma-separated list of workspace IDs to enable the form per workspace. 
+  Description: >
+    Disable the [stepped launch form](https://docs.seqera.io/platform-cloud/launch/launchpad#launch-form) in the workspaces specified. Omit or set empty (`TOWER_STEPPED_LAUNCH_FORM_ALLOWED_WORKSPACES=`) to enable the new launch form in all workspaces, or provide a comma-separated list of workspace IDs to enable the form per workspace.
   Value:                'Default: Enabled for all workspaces'
+-
+  Environment variable:            '`TOWER_PIPELINE_VERSIONING_ALLOWED_WORKSPACES`'
+  Description: >
+    Enable [pipeline versioning](https://docs.seqera.io/platform-enterprise/pipelines/versioning) in the workspaces specified. Accepts a comma-separated list of workspace IDs.
+  Value:                'Default: Disabled for all workspaces'

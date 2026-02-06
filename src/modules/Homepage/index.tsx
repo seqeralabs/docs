@@ -191,7 +191,7 @@ export default function Home(): JSX.Element {
                           </Link>
                         </li>
                         <li>
-                          <Link to="/platform-enterprise/enterprise/studios">
+                          <Link to="/platform-enterprise/enterprise/install-studios">
                             Enterprise deployment
                           </Link>
                         </li>
