@@ -33,9 +33,9 @@
             "id": "enterprise/install-studios"
           },
           "items": [
+            "enterprise/studios-helm",
             "enterprise/studios-kubernetes",
-            "enterprise/studios-docker-compose",
-            "enterprise/studios"
+            "enterprise/studios-docker-compose"
           ]
         },
         {
@@ -47,6 +47,7 @@
             "id": "enterprise/install-groundswell"
           },
           "items": [
+            "enterprise/groundswell-helm",
             "enterprise/groundswell-kubernetes",
             "enterprise/groundswell-docker-compose",
             "enterprise/configuration/pipeline_optimization"
