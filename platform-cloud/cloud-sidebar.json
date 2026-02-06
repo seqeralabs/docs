@@ -142,9 +142,9 @@
             "studios/add-studio-custom-container",
             "studios/add-studio-git-repo"
           ]
-          },         
+          },
           "studios/managing",
-          "studios/connect"        
+          "studios/connect"
         ]
       },
       {
@@ -170,7 +170,7 @@
         "seqera-ai/command-approval",
         "seqera-ai/use-cases"
       ]
-    },    
+    },
       {
         "type": "category",
         "label": "Developer tools",
@@ -182,15 +182,10 @@
             "href": "https://docs.seqera.io/platform-api"
           },
           {
-            "type": "category",
+            "type": "link",
             "label": "CLI",
-            "collapsed": true,
-            "items": [
-              "cli/overview",
-              "cli/installation",
-              "cli/commands"
-            ]
-            },
+            "href": "https://docs.seqera.io/platform-cli"
+          },
             {
               "type": "category",
               "label": "Seqerakit",
@@ -202,8 +197,18 @@
                 "seqerakit/templates"
               ]
               },
-            "pipeline-actions/overview",
-            "seqera-mcp"
+            {
+              "type": "category",
+              "label": "Seqera MCP",
+              "link": {"type": "doc", "id": "seqera-mcp/overview"},
+              "collapsed": true,
+              "items": [
+                "seqera-mcp/seqera-tools",
+                "seqera-mcp/sra-tools",
+                "seqera-mcp/nfcore-tools"
+              ]
+              },
+            "pipeline-actions/overview"
           ]
       },
       {

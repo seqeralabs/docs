@@ -15,7 +15,7 @@ This page outlines the steps to upgrade your database instance and Platform Ente
 
 ### Considerations for versions prior to 24.1
 
-- If you are upgrading from a version older than 23.4.1, update your installation to [version 23.4.4](../../version-23.4/enterprise/overview.md) **first**, before updating to version 25.2 with the steps on this page.
+- If you are upgrading from a version older than 23.4.1, update your installation to version 23.4.4 **first**, before updating to version 25.3 with the steps on this page.
 
 ### Considerations for versions 24.1 - 25.1
 
@@ -67,7 +67,7 @@ The database volume is persistent on the local machine by default if you use the
 :::
 
 :::info
-Starting from version 26.1, the frontend image running as root user will be deprecated. We recommend starting to switch to the [root-less image (also known as "unprivileged" image)](./kubernetes#seqera-frontend-unprivileged) during this upgrade.
+Starting from version 26.1, the frontend image running as root user will be deprecated. We recommend starting to switch to the [root-less image (also known as "unprivileged" image)](./platform-kubernetes#seqera-frontend-unprivileged) during this upgrade.
 :::
 
 1. Make a backup of the Seqera database. If you use the pipeline optimization service and your `groundswell` database resides in a database instance separate from your Seqera database, make a backup of your `groundswell` database as well.
@@ -80,7 +80,7 @@ Starting from version 26.1, the frontend image running as root user will be depr
     JAVA_OPTS: -Xms1000M -Xmx2000M -XX:MaxDirectMemorySize=800m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144
     ```
 
-    These baseline values are suitable for most deployments running moderate concurrent workflow loads. 
+    These baseline values are suitable for most deployments running moderate concurrent workflow loads.
 
     :::tip
     These are starting recommendations that may require tuning based on your deployment's workload. See [Backend memory requirements](./configuration/overview.mdx#backend-memory-requirements) for detailed guidance on when and how to adjust these values for your environment.

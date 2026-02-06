@@ -1,0 +1,37 @@
+# Seqera Feature Terminology
+# Catches informal abbreviations and suggests full terms
+
+extends: substitution
+message: "Use '%s' instead of '%s'"
+level: error
+ignorecase: true
+swap:
+  # Feature abbreviations - compute environment
+  "compute env": compute environment
+  "Compute Env": compute environment
+  "compute-env": compute environment
+  CE: compute environment
+
+  # Credentials
+  creds: credentials
+
+  # Repository
+  repo: repository
+  repos: repositories
+
+  # Configuration
+  config: configuration
+  configs: configurations
+
+  # UI elements
+  "drop down": drop-down
+  dropdown: drop-down
+  "drop-down menu": drop-down
+
+  # Workspace
+  "work space": workspace
+  Workspace: workspace
+
+  # Access tokens
+  "API token": access token
+  PAT: personal access token
