@@ -7,6 +7,10 @@ tags: [enterprise, update, install]
 
 Follow these steps to upgrade your database instance and Platform Enterprise installation:
 
+:::note
+From Seqera Enterprise version 23.4, MySQL 8 is the only supported database version. If you are upgrading from a version prior to 23.4 and running MySQL 5.6 or 5.7, you must upgrade your database to MySQL 8 before upgrading to version 25.1. See [General upgrade steps](#general-upgrade-steps) for database upgrade instructions.
+:::
+
 :::caution
 The database volume is persistent on the local machine by default if you use the `volumes` key in the `db` or `redis` section of your `docker-compose.yml` file to specify a local path to the DB or Redis instance. If your database is not persistent, you must back up your database before performing any application or database upgrades.
 :::
