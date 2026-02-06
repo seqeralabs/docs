@@ -116,9 +116,13 @@ Ensures consistent punctuation across documentation.
 
 **File:** `.github/workflows/docs-review.yml`
 
-**Triggers:**
-- **Automatic:** PR creation or reopen for `platform-*` directories
-- **Manual:** Workflow dispatch (see below)
+**Triggers (on-demand only):**
+- **PR comment:** Comment `/editorial-review` on any PR
+- **Manual workflow dispatch:** Via GitHub Actions UI (see below)
+- **Local:** Use `/editorial-review` command in Claude Code CLI
+
+**NOT triggered by:**
+- PR creation, updates, or commits (to conserve tokens)
 
 **How it works:**
 0. Validates bash script syntax (fails fast if scripts have errors)
@@ -187,11 +191,18 @@ When working on API documentation:
 
 ### Working with editorial content
 
-When working on documentation content:
-1. Open PR → Agents automatically review changes
-2. Review inline suggestions on affected lines
-3. Apply fixes individually or batch-apply multiple
-4. Re-run workflow manually from Actions tab if needed
+**Local development (before PR):**
+1. Make doc changes locally
+2. Run `/editorial-review <file>` in Claude Code
+3. Review findings and apply fixes
+4. Commit and push
+
+**PR review (on-demand):**
+1. Open PR with documentation changes
+2. Comment `/editorial-review` to trigger review
+3. Review inline suggestions on affected lines
+4. Apply fixes individually or batch-apply multiple
+5. Comment `/editorial-review` again to verify fixes
 
 ### Testing changes locally
 
