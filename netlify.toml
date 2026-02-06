@@ -15,6 +15,8 @@
 
 [context.deploy-preview.build.environment]
   INCLUDE_NEXT="true"
+  EXCLUDE_PLATFORM_API="true"
+  EXCLUDE_OPENAPI="true"
 
 # Seqera API docs are too large to host / build on netlify on their own.
 # The appropriate ENVVAR is set to disable the API Builds on Netlify for the main docs site.
