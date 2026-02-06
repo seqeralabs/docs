@@ -8,6 +8,10 @@ This guide covers documentation standards, editorial workflows, and Claude-power
 - **Local review** → Use `/review <file-or-directory>` → See issues before committing
 - **Apply fixes** → Address issues directly in files based on agent feedback
 
+> **Important:** Editorial reviews are **on-demand only**. They do NOT run automatically on PR creation or commits. You must explicitly trigger them by:
+> - Running `/editorial-review` locally in Claude Code, OR
+> - Commenting `/editorial-review` on a PR
+
 ## Workflows and architecture
 
 This repository uses two main Claude-powered workflows:
@@ -118,7 +122,7 @@ The agents provide a structured report with:
 3. Review full list in `all-suggestions-full.txt`
 4. Apply remaining suggestions manually
 
-## Local Review with `/review`
+## Local review with `/review`
 
 Run editorial reviews locally before opening a PR:
 
