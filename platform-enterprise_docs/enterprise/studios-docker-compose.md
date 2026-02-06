@@ -60,21 +60,7 @@ Other than the basic requirements [already listed in the Studios installation ov
     - `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`: The same value as `oidc_registration_token`.
     - `TOWER_OIDC_PEM_PATH`: The file path to the PEM certificate (e.g., `/data-studios-rsa.pem`).
 
-1. Edit the `tower.yml` file and include the following snippet to enable Studios in all workspaces in your Platform instance:
-
-    ```yaml
-    tower:
-      data-studio:
-        allowed-workspaces: null
-    ```
-
-    Alternatively, you can specify a comma-separated list of workspace IDs to enable Studios only on those workspaces.
-
-    ```yaml
-    tower:
-      data-studio:
-        allowed-workspaces: [12345,67890]
-    ```
+1. From Platform v26.1, Studios is enabled by default on all workspaces. To enable Studios on specific workspaces only, set the `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES` environment variable (e.g., `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES="12345,67890"`) on the Platform backend containers. To disable Studios for all workspaces, set `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES=""` (an empty string).
 
 1. Start your Platform instance:
 

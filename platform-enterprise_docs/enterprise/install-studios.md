@@ -45,21 +45,7 @@ Studios uses the following set of domains and subdomains:
 
 ## Studios workspace availability
 
-You can configure which organizational workspaces have access to Studios. This configuration is set in the `tower.yml` file. The `tower.data-studio.allowed-workspaces` field supports the following options:
-
-- `allowed-workspaces: []`: Disables Studios. This is the default if the `allowed-workspaces` field is not specified.
-- `allowed-workspaces: [ <WORKSPACE_ID>,<WORKSPACE_ID> ]`: Enables Studios for the comma-separated list of organizational workspace IDs.
-- `allowed-workspaces: null`: Enables Studios for all organizational workspaces.
-
-In the Platform Helm chart, set the desired configuration in the `platform.YAMLConfigFileContent` field. For example, to enable Studios for workspaces 12345 and 67890:
-
-```yaml
-platform:
-  YAMLConfigFileContent: |-
-    tower:
-      data-studio:
-        allowed-workspaces: [12345,67890]
-```
+You can configure which organizational workspaces have access to Studios by setting the `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES` environment variable on the backend containers. By default, all workspaces have access to Studios. To restrict access to specific workspaces, set `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES` to a comma-separated list of workspace names. For example, `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES="12345,67890"` allows only the workspaces named `12345` and `67890` to access Studios. To disable access to Studios for all workspaces, set `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES=""` (an empty string).
 
 ## Available Studios environment images
 
