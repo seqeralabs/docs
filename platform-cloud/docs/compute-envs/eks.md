@@ -15,7 +15,7 @@ tags: [eks, amazon, compute environment, ce]
 Create a separate IAM role from the optional one assumed by the IAM user to separate the permissions needed by the EKS Service Account from those needed by the IAM user. If you plan to use legacy storage instead of Fusion, you can skip this step.
 
 :::tip
-Seqera Platform assumes an EKS cluster already exists. Follow the [cluster preparation](./k8s) instructions to create the resources required by Seqera. Some administrative privileges are also needed to allow the IAM User to access the cluster, as detailed in the [Kubernetes Service Account setup](#allow-iam-user-or-role-to-access-eks) section.
+Seqera Platform assumes an EKS cluster already exists. Follow the [cluster preparation](./k8s) instructions to create the resources required by Seqera. Some administrative privileges are also needed to allow the IAM User to access the cluster, as detailed in the [EKS access](#allow-an-iam-user-or-role-access-to-eks) section.
 :::
 
 Once you meet all the prerequisites, configure an [Amazon EKS Compute Environment](#amazon-eks-compute-environment) in Seqera.
@@ -85,7 +85,7 @@ Seqera needs permissions to list EKS clusters in the selected region and to desc
 }
 ```
 
-No other permissions are required for the IAM user to launch pipelines on the EKS compute environment, as the Service Account created in the [cluster preparation](./k8s) phase performs the actual management of pods and resources, which the IAM user can access via EKS authentication, detailed [in the section below](#allow-iam-user-or-role-to-access-eks).
+No other permissions are required for the IAM user to launch pipelines on the EKS compute environment, as the Service Account created in the [cluster preparation](./k8s) phase performs the actual management of pods and resources, which the IAM user can access via EKS authentication, detailed [in the EKS access section below](#allow-an-iam-user-or-role-access-to-eks).
 
 ### S3 access (optional)
 
@@ -218,78 +218,76 @@ To use [Fusion v2](https://docs.seqera.io/fusion) in your Amazon EKS compute env
 
 If you do not plan to use Fusion in favor of legacy storage, you can skip this section.
 
-Create an IAM role with the following permissions:
+1. Create an IAM role with the following permissions:
 
+   ```json
+   {
+     "Version": "2012-10-17",
+     "Statement": [
+       {
+         "Effect": "Allow",
+         "Action": [
+           "s3:ListBucket"
+         ],
+         "Resource": [
+           "arn:aws:s3:::<YOUR-BUCKET>"
+         ]
+       },
+       {
+         "Action": [
+           "s3:GetObject",
+           "s3:PutObject",
+           "s3:PutObjectTagging",
+           "s3:DeleteObject"
+         ],
+         "Resource": [
+           "arn:aws:s3:::<YOUR-BUCKET>/*"
+         ],
+         "Effect": "Allow"
+       }
+     ]
+   }
+   ```
 
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "s3:ListBucket"
-      ],
-      "Resource": [
-        "arn:aws:s3:::<YOUR-BUCKET>"
-      ]
-    },
-    {
-      "Action": [
-        "s3:GetObject",
-        "s3:PutObject",
-        "s3:PutObjectTagging",
-        "s3:DeleteObject"
-      ],
-      "Resource": [
-        "arn:aws:s3:::<YOUR-BUCKET>/*"
-      ],
-      "Effect": "Allow"
-    }
-  ]
-}
-```
+   Replace `<YOUR-BUCKET>` with the bucket name used as work directory.
 
-Replace `<YOUR-BUCKET>` with the bucket name used as work directory.
+1. The IAM role must also have a trust relationship with the Kubernetes service account (or accounts) that Seqera uses to manage the EKS cluster, which is `tower-launcher-sa` in the default configuration.:
 
-The IAM role must also have a trust relationship with the Kubernetes service account (or accounts) that Seqera uses to manage the EKS cluster, which is `tower-launcher-sa` in the default configuration.:
+   ```json
+   {
+     "Version": "2012-10-17",
+     "Statement": [
+       {
+         "Effect": "Allow",
+         "Principal": {
+           "Federated": "arn:aws:iam::<YOUR-ACCOUNT-ID>:oidc-provider/oidc.eks.<YOUR-REGION>.amazonaws.com/id/<YOUR-CLUSTER-ID>"
+         },
+         "Action": "sts:AssumeRoleWithWebIdentity",
+         "Condition": {
+           "StringEquals": {
+             "oidc.eks.<YOUR-REGION>.amazonaws.com/id/<YOUR-CLUSTER-ID>:aud": "sts.amazonaws.com",
+             "oidc.eks.<YOUR-REGION>.amazonaws.com/id/<YOUR-CLUSTER-ID>:sub": "system:serviceaccount:<YOUR-EKS-NAMESPACE>:<YOUR-EKS-SERVICE-ACCOUNT>"
+           }
+         }
+       }
+     ]
+   }
+   ```
 
+   Replace `<YOUR-ACCOUNT-ID>`, `<YOUR-REGION>`, `<YOUR-CLUSTER-ID>`, `<YOUR-EKS-NAMESPACE>`, `<YOUR-EKS-SERVICE-ACCOUNT>` with the corresponding values.
 
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Federated": "arn:aws:iam::<YOUR-ACCOUNT-ID>:oidc-provider/oidc.eks.<YOUR-REGION>.amazonaws.com/id/<YOUR-CLUSTER-ID>"
-      },
-      "Action": "sts:AssumeRoleWithWebIdentity",
-      "Condition": {
-        "StringEquals": {
-          "oidc.eks.<YOUR-REGION>.amazonaws.com/id/<YOUR-CLUSTER-ID>:aud": "sts.amazonaws.com",
-          "oidc.eks.<YOUR-REGION>.amazonaws.com/id/<YOUR-CLUSTER-ID>:sub": "system:serviceaccount:<YOUR-EKS-NAMESPACE>:<YOUR-EKS-SERVICE-ACCOUNT>"
-        }
-      }
-    }
-  ]
-}
-```
+1. Annotate the Kubernetes Service Account with the IAM role:
 
-Replace `<YOUR-ACCOUNT-ID>`, `<YOUR-REGION>`, `<YOUR-CLUSTER-ID>`, `<YOUR-EKS-NAMESPACE>`, `<YOUR-EKS-SERVICE-ACCOUNT>` with the corresponding values.
+   ```shell
+   kubectl annotate serviceaccount <YOUR-EKS-SERVICE-ACCOUNT> --namespace <YOUR-EKS-NAMESPACE> eks.amazonaws.com/role-arn=arn:aws:iam::<YOUR-ACCOUNT-ID>:role/<YOUR-IAM-ROLE>
+   ```
 
-Annotate the Kubernetes Service Account with the IAM role:
-
-```shell
-kubectl annotate serviceaccount <YOUR-EKS-SERVICE-ACCOUNT> --namespace <YOUR-EKS-NAMESPACE> eks.amazonaws.com/role-arn=arn:aws:iam::<YOUR-ACCOUNT-ID>:role/<YOUR-IAM-ROLE>
-```
-
-Replace `<YOUR-EKS-SERVICE-ACCOUNT>` (by default `tower-launcher-sa`, as created in the [cluster preparation guide](./k8s)), `<YOUR-EKS-NAMESPACE>`, and `<YOUR-IAM-ROLE>` with the corresponding values previously defined.
+   Replace `<YOUR-EKS-SERVICE-ACCOUNT>` (by default `tower-launcher-sa`, as created in the [cluster preparation guide](./k8s)), `<YOUR-EKS-NAMESPACE>`, and `<YOUR-IAM-ROLE>` with the corresponding values previously defined.
 
 This will allow pods using that service account to assume the IAM role and access the S3 bucket specified as work directory.
 See the [AWS documentation](https://docs.aws.amazon.com/eks/latest/userguide/associate-service-account-role.html) for further details.
 
-## Allow IAM User or Role to access EKS
+## Allow an IAM User or Role access to EKS
 
 Configure the EKS cluster to allow the IAM user (or the IAM role it assumes) to access the cluster and manage pods.
 
