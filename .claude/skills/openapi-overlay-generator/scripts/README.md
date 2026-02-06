@@ -67,26 +67,43 @@ python scripts/check_consistency.py <overlay-file.yaml>
 
 ---
 
-### update_sidebar.py
+### update_sidebar_v2.py
 
-**Purpose**: Automatically adds new operation entries to the custom sidebar.js file.
+**Purpose**: Automatically adds new operation entries to the custom sidebar.js file with rename detection.
 
 **Usage**:
 ```bash
-python scripts/update_sidebar.py <sidebar.js> <analysis.json>
+# Basic usage - add new entries only
+python scripts/update_sidebar_v2.py <sidebar.js> <analysis.json>
+
+# Validate existing entries and detect renames
+python scripts/update_sidebar_v2.py <sidebar.js> <analysis.json> --validate
+
+# Auto-fix high-confidence renames (≥80% similarity)
+python scripts/update_sidebar_v2.py <sidebar.js> <analysis.json> --auto-fix-renames
 ```
 
 **What it does**:
 - Parses existing sidebar structure
 - Maps new endpoints to sidebar categories by tag
 - Generates properly formatted sidebar entries
+- **Validates existing doc IDs against generated .api.mdx files**
+- **Detects renamed files using fuzzy matching and pattern recognition**
+- **Recognizes common patterns** (e.g., `-1` → `-with-path` suffix changes)
 - Creates backup before modifying
 - Reports entries requiring manual intervention
 
 **Output**:
-- Updated sidebar.js with new operations
+- Updated sidebar.js with new operations and fixed renames
 - Backup file: sidebar.js.backup
-- Console report of changes made
+- Console report with validation results and suggestions
+
+**Rename Detection Features**:
+- Uses `difflib.SequenceMatcher` for similarity scoring
+- Pattern detection for common rename conventions
+- Shows top 3 suggestions with confidence scores
+- Auto-fix mode for high-confidence matches (≥80%)
+- Helps prevent broken sidebar links when doc IDs change
 
 ---
 
@@ -118,8 +135,10 @@ These scripts integrate into the automation workflow as follows:
 9. Docusaurus gen-api-docs
    → Generate MDX files
    ↓
-10. update_sidebar.py
+10. update_sidebar_v2.py
     → Add new entries to sidebar
+    → Validate existing entries
+    → Auto-fix renamed doc IDs
 ```
 
 ---
@@ -162,7 +181,7 @@ To add new validation rules to `check_consistency.py`:
 
 ### Extending Sidebar Mapping
 
-To add new tag-to-category mappings in `update_sidebar.py`:
+To add new tag-to-category mappings in `update_sidebar_v2.py`:
 
 Edit the `tag_to_category` dictionary in `map_tag_to_category()`:
 ```python
@@ -191,13 +210,23 @@ tag_to_category = {
 
 **Solution**: Copy the exact standard description from `references/standards.md`
 
-### update_sidebar.py can't find category
+### update_sidebar_v2.py can't find category
 
 **Cause**: New controller/tag not mapped to existing sidebar category
 
 **Solution**: Either:
 1. Add mapping in `map_tag_to_category()` function
 2. Manually create new category in sidebar.js
+
+### update_sidebar_v2.py reports missing doc IDs
+
+**Cause**: Doc IDs were renamed during API docs regeneration
+
+**Solution**:
+1. Run with `--validate` to see suggestions
+2. Review suggested renames and confidence scores
+3. Use `--auto-fix-renames` to apply high-confidence fixes (≥80%)
+4. Manually update sidebar for low-confidence matches
 
 ### extract-api-tables.mjs can't find spec
 

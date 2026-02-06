@@ -1,0 +1,80 @@
+overlay: 1.0.0
+info:
+  title: Fix duplicate enum values overlay
+  version: 1.102.0
+actions:
+  # ===== FIX DUPLICATE ENUM VALUES =====
+
+  # These duplicate enum values exist in the base decorated spec
+  # We use the "remove first, then update" pattern to fix them
+
+  # ---- Query Parameter: Status (line 563) ----
+
+  - target: "$.paths./compute-envs.get.parameters[?(@.name=='status')].schema.enum"
+    remove: true
+
+  - target: "$.paths./compute-envs.get.parameters[?(@.name=='status')].schema"
+    update:
+      enum: ["CREATING", "AVAILABLE", "ERRORED", "INVALID"]
+
+  # ---- Query Parameter: Attributes (line 809) ----
+
+  - target: "$.paths./compute-envs/{computeEnvId}.get.parameters[?(@.name=='attributes')].schema.items.enum"
+    remove: true
+
+  - target: "$.paths./compute-envs/{computeEnvId}.get.parameters[?(@.name=='attributes')].schema.items"
+    update:
+      enum: ["labels"]
+
+  # ---- AzBatchConfig.deleteJobsOnCompletion (line 8891) ----
+
+  - target: "$.components.schemas.AzBatchConfig.properties.deleteJobsOnCompletion.enum"
+    remove: true
+
+  - target: "$.components.schemas.AzBatchConfig.properties.deleteJobsOnCompletion"
+    update:
+      enum: ["on_success", "always", "never"]
+
+  # ---- ComputeEnv_ComputeConfig_.platform (lines 9283-9331) ----
+  # This has extensive triplication of values
+
+  - target: "$.components.schemas.ComputeEnv_ComputeConfig_.properties.platform.enum"
+    remove: true
+
+  - target: "$.components.schemas.ComputeEnv_ComputeConfig_.properties.platform"
+    update:
+      enum:
+        - "aws-batch"
+        - "aws-cloud"
+        - "google-batch"
+        - "google-cloud"
+        - "azure-batch"
+        - "azure-cloud"
+        - "k8s-platform"
+        - "eks-platform"
+        - "gke-platform"
+        - "uge-platform"
+        - "slurm-platform"
+        - "lsf-platform"
+        - "altair-platform"
+        - "moab-platform"
+        - "local-platform"
+        - "seqeracompute-platform"
+
+  # ---- ComputeEnv_ComputeConfig_.status (line 9361) ----
+
+  - target: "$.components.schemas.ComputeEnv_ComputeConfig_.properties.status.enum"
+    remove: true
+
+  - target: "$.components.schemas.ComputeEnv_ComputeConfig_.properties.status"
+    update:
+      enum: ["CREATING", "AVAILABLE", "ERRORED", "INVALID"]
+
+  # ---- K8sComputeConfig.podCleanup (line 11444) ----
+
+  - target: "$.components.schemas.K8sComputeConfig.properties.podCleanup.enum"
+    remove: true
+
+  - target: "$.components.schemas.K8sComputeConfig.properties.podCleanup"
+    update:
+      enum: ["on_success", "always", "never"]
