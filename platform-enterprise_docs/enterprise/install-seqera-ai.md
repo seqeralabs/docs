@@ -9,13 +9,13 @@ tags: [seqera-ai, installation, deployment, aws, helm]
 Seqera AI requires Seqera Platform Enterprise 25.3 or later.
 :::
 
-Seqera AI is an intelligent command-line assistant that helps you build, run, and manage bioinformatics workflows. This guide describes how to deploy Seqera AI for Seqera Platform Enterprise on AWS.
+Seqera AI is an intelligent command-line assistant that helps you build, run, and manage bioinformatics workflows. This guide describes how to deploy Seqera AI in Seqera Enterprise deployments on AWS.
 
 ## Prerequisites
 
 Before you begin, you need:
 
-- **Seqera Platform Enterprise 25.3+** deployed via Helm
+- **Seqera Enterprise 25.3+** deployed via [Helm](./platform-helm.md)
 - **MySQL 8.0+ database**
 - **API key** from a supported inference provider (see below)
 - **MCP server** deployed and accessible from your cluster
@@ -31,12 +31,12 @@ Before you begin, you need:
 
 ## Supported inference providers
 
-Seqera AI supports the following AI model providers:
+Seqera AI uses Claude models from Anthropic. The following inference providers are supported for Enterprise deployments:
 
-| Provider | Description |
-|----------|-------------|
-| **Anthropic** | Direct API access to Claude models via [console.anthropic.com](https://console.anthropic.com/) |
-| **AWS Bedrock** | Access Claude models through AWS Bedrock in your AWS account |
+| Inference provider | Description |
+|--------------------|-------------|
+| **Anthropic API** | Direct access to Claude models via Anthropic's API ([console.anthropic.com](https://console.anthropic.com/)) |
+| **AWS Bedrock** | Access Claude models through [AWS Bedrock](https://aws.amazon.com/bedrock/) in your AWS account |
 
 ## Architecture
 
