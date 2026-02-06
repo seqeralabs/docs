@@ -1,3 +1,0 @@
-[submodule "platform-repo"]
-    path = platform-repo
-    url = https://github.com/seqeralabs/platform.git
