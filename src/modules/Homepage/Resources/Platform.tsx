@@ -23,13 +23,6 @@ const Platform: React.FC<Props> = () => {
           brings it to the terminal
         </li>
         <li>
-          Repository containing{" "}
-          <Link to="https://github.com/seqeralabs/nf-tower-aws">
-            AWS IAM policies
-          </Link>{" "}
-          to create roles with appropriate Batch Forge and launch permissions
-        </li>
-        <li>
           For installation and configuration, the Seqera Platform{" "}
           <Link
             to="/platform-enterprise/enterprise/overview"
