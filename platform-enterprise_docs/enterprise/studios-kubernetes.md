@@ -110,6 +110,14 @@ You can also check the current template configuration using `https://towerurl/ap
         allowed-workspaces: [12345,67890]
     ```
 
+    Alternatively, you can specify a comma-separated list of workspace IDs to enable Studios only on those workspaces.
+
+    ```yaml
+    tower:
+      data-studio:
+        allowed-workspaces: [12345,67890]
+    ```
+
 1. Apply the updated configuration:
 
     ```bash

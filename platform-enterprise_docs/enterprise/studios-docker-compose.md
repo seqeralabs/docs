@@ -68,6 +68,14 @@ Other than the basic requirements [already listed in the Studios installation ov
         allowed-workspaces: [12345,67890]
     ```
 
+    Alternatively, you can specify a comma-separated list of workspace IDs to enable Studios only on those workspaces.
+
+    ```yaml
+    tower:
+      data-studio:
+        allowed-workspaces: [12345,67890]
+    ```
+
 1. Start your Platform instance:
 
     ```bash
