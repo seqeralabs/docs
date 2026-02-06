@@ -60,7 +60,7 @@ jobs:
       - name: Acknowledge command
         if: steps.check.outputs.should_run == 'true'
         run: |
-          gh pr comment ${{ github.event.issue.number }} --body "🔍 Editorial review started! [View workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"
+          gh pr comment ${{ github.event.issue.number }} --repo ${{ github.repository }} --body "🔍 Editorial review started! [View workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
