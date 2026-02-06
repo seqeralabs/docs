@@ -1,0 +1,151 @@
+---
+title: "Installation"
+description: "Install and configure Seqera AI CLI"
+date: "15 Dec 2025"
+tags: [seqera-ai, cli, installation]
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+:::caution Seqera AI CLI is in beta
+Seqera AI CLI is currently in beta. Features and commands may change as we continue to improve the product.
+:::
+
+:::note
+Seqera Cloud users receive $20 in free credits to get started with Seqera AI. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
+:::
+
+## Requirements
+
+- Python 3.13 or later
+- macOS, Linux, or Windows with WSL
+- A Seqera Platform account ([sign up for free](https://cloud.seqera.io))
+- An internet connection
+
+## Python Package Index
+
+The Seqera AI CLI is distributed as a Python package through PyPI, making installation simple and straightforward using standard Python tools.
+
+### Install
+
+<Tabs>
+<TabItem value="pip" label="pip" default>
+
+To install Seqera AI CLI with pip:
+
+1. Check your Python version:
+
+    ```bash
+    python --version
+    # or
+    python3 --version
+    ```
+
+    If you need to install or upgrade Python, see [python.org](https://www.python.org/downloads/) or use your system's package manager.
+
+1. Install Seqera AI CLI:
+
+    ```bash
+    pip install seqera
+    ```
+
+    :::tip
+    Consider using a virtual environment to avoid conflicts with other Python packages:
+
+    ```bash
+    python -m venv seqera-env
+    source seqera-env/bin/activate  # On Windows: seqera-env\Scripts\activate
+    pip install seqera
+    ```
+    :::
+
+1. Verify your installation:
+
+    ```bash
+    seqera --version
+    ```
+
+    You will see output similar to:
+
+    ```console
+    seqera, version 0.1.0
+    ```
+
+</TabItem>
+<TabItem value="uv" label="uv">
+
+To install Seqera AI CLI with [uv](https://docs.astral.sh/uv/):
+
+1. Install Seqera AI CLI as a tool:
+
+    ```bash
+    uv tool install seqera
+    ```
+
+    Alternatively, run Seqera AI CLI directly without installing:
+
+    ```bash
+    uvx seqera
+    ```
+
+1. Verify your installation:
+
+    ```bash
+    seqera --version
+    ```
+
+    You will see output similar to:
+
+    ```console
+    seqera, version 0.1.0
+    ```
+
+</TabItem>
+</Tabs>
+
+### Upgrade
+
+<Tabs>
+<TabItem value="pip" label="pip" default>
+
+    ```bash
+    pip install --upgrade seqera
+    ```
+
+</TabItem>
+<TabItem value="uv" label="uv">
+
+    ```bash
+    uv tool upgrade seqera
+    ```
+
+</TabItem>
+</Tabs>
+
+### Uninstall
+
+<Tabs>
+<TabItem value="pip" label="pip" default>
+
+    ```bash
+    pip uninstall seqera
+    ```
+
+</TabItem>
+<TabItem value="uv" label="uv">
+
+    ```bash
+    uv tool uninstall seqera
+    ```
+
+</TabItem>
+</Tabs>
+
+## Learn more
+
+- [Seqera AI CLI](index.md): Seqera AI CLI overview
+- [Authentication](./authentication.md): Login, logout, and session management
+- [Command approval](./command-approval.md): Control which commands run automatically
+- [Use cases](./use-cases.md): Seqera AI CLI use cases
+- [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors

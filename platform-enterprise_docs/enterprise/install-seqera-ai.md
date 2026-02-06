@@ -42,41 +42,24 @@ Seqera AI uses Claude models from Anthropic. The following inference providers a
 
 Seqera AI connects your local CLI environment to your Platform resources through a secure backend service:
 
-```
-┌────────────────────┐         ┌─────────────────────┐         ┌──────────────────┐
-│                    │  HTTPS  │                     │         │                  │
-│   Seqera CLI       │────────►│   Agent Backend     │────────►│  Inference       │
-│   (local machine)  │◄────────│   (your cluster)    │◄────────│  Provider        │
-│                    │   SSE   │                     │         │                  │
-└────────────────────┘         └──────────┬──────────┘         └──────────────────┘
-                                          │
-                               ┌──────────┴──────────┐
-                               │                     │
-                               ▼                     ▼
-                    ┌──────────────────┐  ┌──────────────────┐
-                    │                  │  │                  │
-                    │  Seqera Platform │  │    MCP Server    │
-                    │  (auth, context) │  │  (Platform tools)│
-                    │                  │  │                  │
-                    └──────────────────┘  └──────────────────┘
-```
+![Seqera AI infrastructure architecture](./_images/seqera-ai-infrastructure.png)
 
 **Components:**
 
 | Component | Description |
 |-----------|-------------|
-| **Agent Backend** | FastAPI service that orchestrates AI interactions. Deployed as a Helm subchart alongside Platform. |
-| **MCP Server** | Model Context Protocol server providing Platform-aware tools (workflows, datasets, compute environments). |
-| **MySQL Database** | Dedicated database for session state and conversation history. Separate from Platform database. |
+| **Agent backend** | FastAPI service that orchestrates AI interactions. Deployed as a Helm subchart alongside Platform. |
+| **MCP server** | Model Context Protocol server providing Platform-aware tools (workflows, datasets, compute environments). |
+| **MySQL database** | Dedicated database for session state and conversation history. **Separate from Platform database**. |
 
 **Flow:**
 
-1. Users authenticate via `seqera login`, which initiates OIDC authentication with Platform
-2. The CLI creates a session with the agent backend, passing the Platform access token
-3. The agent backend validates tokens against Platform's `/user-info` endpoint
-4. User prompts are processed by the inference provider, which can invoke Platform tools via MCP
-5. MCP tools execute Platform operations using the user's credentials
-6. Results stream back to the CLI via Server-Sent Events (SSE)
+1. Users authenticate via `seqera login`, which initiates OIDC authentication with Platform.
+1. The CLI creates a session with the agent backend, passing the Platform access token.
+1. The agent backend validates tokens against Platform's `/user-info` endpoint.
+1. User prompts are processed by the inference provider, which can invoke Platform tools via MCP.
+1. MCP tools execute Platform operations using the user's credentials.
+1. Results stream back to the CLI via Server-Sent Events (SSE).
 
 ## Provision the database
 
@@ -100,7 +83,7 @@ Seqera AI requires a dedicated MySQL database separate from the Platform databas
 
 ## Create Kubernetes secrets
 
-1. Create a Secret for the inference provider API key:
+1. Create a secret for the inference provider API key:
 
     ```bash
     kubectl create secret generic anthropic-secret \
@@ -108,7 +91,7 @@ Seqera AI requires a dedicated MySQL database separate from the Platform databas
         --from-literal=ANTHROPIC_API_KEY=<your-api-key>
     ```
 
-1. Create a Secret for the database credentials:
+1. Create a secret for the database credentials:
 
     ```bash
     kubectl create secret generic seqera-ai-db-credentials \
@@ -256,8 +239,8 @@ For the full list of configuration options, see the [agent-backend chart documen
 | `agentBackend.replicaCount` | Number of replicas | `1` |
 | `agentBackend.image.registry` | Image registry | `cr.seqera.io` |
 | `agentBackend.image.repository` | Image repository | `private/nf-tower-enterprise/agent-backend` |
-| `agentBackend.anthropicApiKey.existingSecretName` | Existing Secret with API key | `""` |
-| `agentBackend.anthropicApiKey.existingSecretKey` | Key in the Secret | `ANTHROPIC_API_KEY` |
+| `agentBackend.anthropicApiKey.existingSecretName` | Existing secret with API key | `""` |
+| `agentBackend.anthropicApiKey.existingSecretKey` | Key in the secret | `ANTHROPIC_API_KEY` |
 
 ### Database
 
@@ -267,8 +250,8 @@ For the full list of configuration options, see the [agent-backend chart documen
 | `database.port` | MySQL port | `3306` |
 | `database.name` | MySQL database name | `""` |
 | `database.username` | MySQL username | `""` |
-| `database.existingSecretName` | Existing Secret with DB password | `""` |
-| `database.existingSecretKey` | Key in the Secret | `DB_PASSWORD` |
+| `database.existingSecretName` | Existing secret with DB password | `""` |
+| `database.existingSecretKey` | Key in the secret | `DB_PASSWORD` |
 
 ### Ingress
 
@@ -290,4 +273,4 @@ For the full list of configuration options, see the [agent-backend chart documen
 
 ## Next steps
 
-- See [Get started with Seqera AI](../seqera-ai/get-started) for CLI usage
+- See [Use cases](../seqera-ai/use-cases.md) for CLI usage.
