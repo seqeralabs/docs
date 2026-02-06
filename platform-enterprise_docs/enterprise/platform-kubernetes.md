@@ -9,10 +9,9 @@ Kubernetes deployments are recommended for production workloads requiring high a
 
 ## Prerequisites
 
-Before you begin, you need:
+Other than the basic requirements [already listed in the Platform installation overview](./install-platform#prerequisites), you will need:
 - A Kubernetes cluster
-- A MySQL 8 database
-- A Redis 7 instance
+- [kubectl](https://kubernetes.io/docs/tasks/tools/) installed locally
 
 ### Recommended resources
 
@@ -190,7 +189,7 @@ Seqera Platform offers a service that optimizes pipeline resource requests. Refe
 
 ### Studios
 
-[Studios](../studios/overview) is an interactive analysis environment available in organizational workspaces. To enable Studios, see [Studios deployment](./studios).
+[Studios](../studios/overview) is an interactive analysis environment available in organizational workspaces. To enable Studios, see [Studios deployment](./install-studios).
 
 :::note
 Studios is available from Seqera Platform v24.1. If you experience any problems during the deployment process [contact Seqera support](https://support.seqera.io). Studios in Enterprise is not installed by default.

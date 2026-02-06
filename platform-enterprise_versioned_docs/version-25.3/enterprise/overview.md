@@ -1,7 +1,8 @@
 ---
 title: "Enterprise installation"
 description: Platform Enterprise installation overview
-date: "9 April 2025"
+date created: "2025-04-09"
+last updated: "2026-01-30"
 tags: [installation, deployment]
 ---
 
