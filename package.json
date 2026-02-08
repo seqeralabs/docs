@@ -38,7 +38,7 @@
   "dependencies": {
     "@docusaurus/faster": "^3.9.2",
     "@rspack/core": "^1.4.11",
-    "@seqera/docusaurus-preset-seqera": "^1.0.4",
+    "@seqera/docusaurus-preset-seqera": "^1.0.8",
     "daisyui": "^5.5.14",
     "framer-motion": "^11.0.0",
     "image-size": "^2.0.2",
