@@ -23,13 +23,21 @@
   to = "https://seqera-docs-api.netlify.app/platform-api/:splat"
   status = 200
 
-
-# Redirect missing assets (so that we don't lose CSS on the API docs)
-# NB: Force is not true, so will use local if available
+# Nextflow docs - hosted on docs-migration.netlify.app
 [[redirects]]
-  from = "/assets/*"
-  to = "https://seqera-docs-api.netlify.app/assets/:splat"
+  from = "/nextflow/*"
+  to = "https://docs-migration.netlify.app/nextflow/:splat"
   status = 200
+
+# Asset and image routing handled by Edge Function
+# See .netlify/edge-functions/asset-proxy.js
+[[edge_functions]]
+  function = "asset-proxy"
+  path = "/assets/*"
+
+[[edge_functions]]
+  function = "asset-proxy"
+  path = "/img/*"
 
 [[plugins]]
   package = "netlify-plugin-cache"

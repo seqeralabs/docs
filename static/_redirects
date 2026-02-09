@@ -1,5 +1,3 @@
-/nextflow           https://www.nextflow.io/docs/latest/ 301!
-
 # Add redirects for version non-existent 25.2 to current docs
 /platform-enterprise/25.2/*    /platform-enterprise/:splat    301
 
