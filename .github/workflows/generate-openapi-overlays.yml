@@ -21,30 +21,52 @@ jobs:
     steps:
       - name: Get API version
         id: version
+        env:
+          RAW_VERSION: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.api_version || github.event.inputs.api_version }}
         run: |
-          if [ "${{ github.event_name }}" == "repository_dispatch" ]; then
-            VERSION="${{ github.event.client_payload.api_version }}"
-          else
-            VERSION="${{ github.event.inputs.api_version }}"
+          VERSION="$RAW_VERSION"
+
+          # Ensure the version is provided
+          if [ -z "$VERSION" ]; then
+            echo "Error: API version is required but was not provided."
+            exit 1
           fi
-          echo "api_version=$VERSION" >> $GITHUB_OUTPUT
-          echo "branch_name=api-docs-v${VERSION}" >> $GITHUB_OUTPUT
+
+          # Validate that the version only contains safe characters
+          if ! printf '%s' "$VERSION" | grep -Eq '^[0-9A-Za-z._-]+$'; then
+            echo "Error: Invalid API version format: '$VERSION'. Allowed characters are letters, digits, '.', '_', and '-'."
+            exit 1
+          fi
+
+          echo "api_version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "branch_name=api-docs-v${VERSION}" >> "$GITHUB_OUTPUT"
 
       - name: Check for existing PR
         id: check-pr
         run: |
           BRANCH_NAME="${{ steps.version.outputs.branch_name }}"
 
-          # Check if a PR already exists for this branch
-          EXISTING_PR=$(gh pr list --repo ${{ github.repository }} --head "$BRANCH_NAME" --json number,url --jq '.[0]')
+          # Check if a PR already exists for this branch with error handling
+          if ! EXISTING_PR=$(gh pr list --repo ${{ github.repository }} --head "$BRANCH_NAME" --json number,url --jq '.[0]' 2>/dev/null); then
+            echo "Failed to check for existing PRs, proceeding with workflow"
+            echo "pr_exists=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
 
-          if [ -n "$EXISTING_PR" ]; then
-            PR_NUMBER=$(echo "$EXISTING_PR" | jq -r '.number')
-            PR_URL=$(echo "$EXISTING_PR" | jq -r '.url')
-            echo "ℹ️  PR #$PR_NUMBER already exists for branch $BRANCH_NAME: $PR_URL"
-            echo "pr_exists=true" >> $GITHUB_OUTPUT
-            echo "pr_number=$PR_NUMBER" >> $GITHUB_OUTPUT
-            echo "pr_url=$PR_URL" >> $GITHUB_OUTPUT
+          # Validate JSON output before parsing
+          if [ -n "$EXISTING_PR" ] && [ "$EXISTING_PR" != "null" ]; then
+            # Validate that we can extract number and url
+            if PR_NUMBER=$(echo "$EXISTING_PR" | jq -r '.number' 2>/dev/null) && \
+               PR_URL=$(echo "$EXISTING_PR" | jq -r '.url' 2>/dev/null) && \
+               [ -n "$PR_NUMBER" ] && [ "$PR_NUMBER" != "null" ]; then
+              echo "PR #$PR_NUMBER already exists for branch $BRANCH_NAME: $PR_URL"
+              echo "pr_exists=true" >> $GITHUB_OUTPUT
+              echo "pr_number=$PR_NUMBER" >> $GITHUB_OUTPUT
+              echo "pr_url=$PR_URL" >> $GITHUB_OUTPUT
+            else
+              echo "Failed to parse PR data, proceeding with workflow"
+              echo "pr_exists=false" >> $GITHUB_OUTPUT
+            fi
           else
             echo "No existing PR found for branch $BRANCH_NAME"
             echo "pr_exists=false" >> $GITHUB_OUTPUT
@@ -278,3 +300,20 @@ jobs:
 
             **Triggered by**: ${{ github.event.client_payload.triggered_by || github.actor }}
             **Platform commit**: ${{ github.event.client_payload.platform_commit || 'manual trigger' }}
+
+      - name: Workflow Summary
+        if: always()
+        run: |
+          echo "=== Workflow Summary ==="
+          if [ "${{ steps.check-pr.outputs.pr_exists }}" == "true" ]; then
+            echo "Status: Skipped - PR already exists"
+            echo "PR: #${{ steps.check-pr.outputs.pr_number }}"
+            echo "URL: ${{ steps.check-pr.outputs.pr_url }}"
+          elif [ "${{ steps.version-check.outputs.should_skip }}" == "true" ]; then
+            echo "Status: Skipped - Version already exists in docs repo"
+            echo "Version: ${{ steps.version.outputs.api_version }}"
+          else
+            echo "Status: Completed - New API version processed"
+            echo "Version: ${{ steps.version.outputs.api_version }}"
+            echo "Branch: ${{ steps.version.outputs.branch_name }}"
+          fi
