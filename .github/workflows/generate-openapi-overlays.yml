@@ -75,6 +75,7 @@ jobs:
           if [ -z "$PREV_SPEC" ]; then
             echo "No previous spec found - this might be initial setup"
             echo "has_previous=false" >> $GITHUB_OUTPUT
+            echo "should_skip=false" >> $GITHUB_OUTPUT
           else
             # Extract version - handle both .yml and .yaml extensions
             PREV_VERSION=$(echo "$PREV_SPEC" | sed -E 's/seqera-api-(.*)\.ya?ml/\1/')
@@ -82,10 +83,19 @@ jobs:
             echo "previous_spec=$PREV_SPEC" >> $GITHUB_OUTPUT
             echo "has_previous=true" >> $GITHUB_OUTPUT
             echo "✅ Found previous version: $PREV_VERSION (file: $PREV_SPEC)"
+
+            # Check if versions are the same
+            CURRENT_VERSION="${{ steps.version.outputs.api_version }}"
+            if [ "$CURRENT_VERSION" == "$PREV_VERSION" ]; then
+              echo "ℹ️  Version $CURRENT_VERSION already exists - skipping overlay generation"
+              echo "should_skip=true" >> $GITHUB_OUTPUT
+            else
+              echo "should_skip=false" >> $GITHUB_OUTPUT
+            fi
           fi
 
       - name: Generate comparison overlay
-        if: steps.prev-version.outputs.has_previous == 'true'
+        if: steps.prev-version.outputs.has_previous == 'true' && steps.prev-version.outputs.should_skip != 'true'
         run: |
           cd platform-api-docs/scripts/specs
 
@@ -97,7 +107,7 @@ jobs:
           echo "✅ Generated comparison overlay"
 
       - name: Analyze changes
-        if: steps.prev-version.outputs.has_previous == 'true'
+        if: steps.prev-version.outputs.has_previous == 'true' && steps.prev-version.outputs.should_skip != 'true'
         run: |
           cd platform-api-docs/scripts/specs
 
@@ -108,7 +118,7 @@ jobs:
           echo "✅ Analyzed changes"
 
       - name: Generate overlay files with Claude
-        if: steps.prev-version.outputs.has_previous == 'true'
+        if: steps.prev-version.outputs.has_previous == 'true' && steps.prev-version.outputs.should_skip != 'true'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
         run: |
@@ -190,6 +200,7 @@ jobs:
           PYTHON_SCRIPT
 
       - name: Create draft PR
+        if: steps.prev-version.outputs.should_skip != 'true'
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -203,7 +214,7 @@ jobs:
           branch: ${{ steps.version.outputs.branch_name }}
           delete-branch: true
           draft: true
-          title: '[Draft] API Documentation Updates for v${{ steps.version.outputs.api_version }}'
+          title: 'API Documentation Updates for v${{ steps.version.outputs.api_version }}'
           body: |
             ## API Version: ${{ steps.version.outputs.api_version }}
 
