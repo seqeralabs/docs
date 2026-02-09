@@ -42,6 +42,7 @@ New draft versions are automatically generated when you modify the following:
   - **Image**
   - **Description**
   - **Labels**
+- Custom Nextflow schema file (see [Custom schema](#custom-schema))
 
 Published versions provide a stable reference for team-wide pipeline launches. Users with Maintain or higher permissions can publish a draft version, giving it a name and optionally setting it as the default version. This makes important configurations easy to identify, share, and promote across your team.
 
@@ -50,6 +51,24 @@ A pipeline's default version is shown in the Launchpad and automatically selecte
 :::
 
 Seqera maintains a history of all draft and published versions, providing an audit trail of pipeline evolution.
+
+#### Custom schema
+
+Users with Maintain or higher permissions can upload a custom `nextflow_schema.json` file to control which pipeline parameters are exposed in the launch form. This allows you to restrict the parameters visible to launch users, simplifying the launch experience and preventing modification of parameters that should remain fixed.
+
+The custom schema field is available when adding or editing a pipeline. When you upload a custom schema:
+
+- The schema content is validated to ensure it's a valid Nextflow schema
+- The custom schema controls which parameters appear in the pipeline launch form
+- Changes to the custom schema trigger a new draft version of the pipeline
+- The custom schema is applied to all launches using that pipeline version
+
+To add or update a custom schema:
+
+1. Navigate to **Add pipeline** or select **Edit** for an existing pipeline
+2. In the **Custom Schema JSON** field, paste your custom Nextflow schema JSON
+3. The schema is validated automatically as you enter it
+4. Select **Add** or **Save** to create a new draft version with the custom schema
 
 #### Manage pipeline versions
 
@@ -74,7 +93,7 @@ Select a pipeline from the workspace Launchpad to open the pipeline's details pa
 Individual draft versions cannot be deleted - the pipeline configuration audit trail is immutable. However, published versions can be unpublished or have their names reassigned to different draft versions.
 
 :::note
-A shared pipeline's versions can only be edited and published from its original workspace. Draft versions created from shared pipeline runs in other workspaces cannot be published.
+Changes made at launch time in a target workspace cannot be saved. Changes to versions can only be saved and published from the pipeline's original workspace.
 :::
 
 #### Pipeline optimization
@@ -85,7 +104,7 @@ A shared pipeline's versions can only be edited and published from its original 
 - **Toggle optimization**: Enable or disable optimization for a pipeline that has already been optimized.
 - **Customize profile**: Modify the optimization profile settings when optimization is enabled.
 
-Pipeline optimization settings apply to the default version and remain configured when you set a different version as the default.
+To optimize specific non-default versions, use the **Edit** page for that version. Pipeline optimization settings apply per version and remain configured when you set a different version as the default.
 
 #### Version hash
 
