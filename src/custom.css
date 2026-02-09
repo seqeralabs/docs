@@ -35,3 +35,9 @@ dd + dd {
 .theme-doc-sidebar-item-category-level-2.menu__list-item {
   margin-left: 1rem !important;
 }
+
+/* Table overflow - allow horizontal scrolling for wide tables */
+table {
+  display: block;
+  overflow-x: auto;
+}
