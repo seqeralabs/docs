@@ -80,3 +80,4 @@ spec:
       targetPort: proxy
   selector:
     app.kubernetes.io/component: tower-connect-proxy
+
