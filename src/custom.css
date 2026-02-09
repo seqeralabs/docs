@@ -39,5 +39,19 @@ dd + dd {
 /* Table overflow - allow horizontal scrolling for wide tables */
 table {
   display: block;
+  max-width: 100%;
   overflow-x: auto;
+}
+
+/* Wrap code blocks in tables to prevent overflow */
+table code,
+table pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Wrap long text in table cells */
+table td,
+table th {
+  overflow-wrap: break-word;
 }
