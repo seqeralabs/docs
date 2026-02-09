@@ -30,3 +30,8 @@ dd {
 dd + dd {
   margin-top: 0.5rem;
 }
+
+/* Sidebar alignment - match category items with link items indentation */
+.theme-doc-sidebar-item-category-level-2.menu__list-item {
+  margin-left: 1rem !important;
+}
