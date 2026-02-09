@@ -17,7 +17,7 @@ Other than the basic requirements [already listed in the Platform installation o
 
 | Component | CPU | Memory |
 | :-------- | :-- | :----- |
-| Backend pod | 1 core | 1200 Mi request, 4200 Mi limit |
+| Backend pod | 1 core | 4000 Mi request and limit |
 
 ## Container images
 
