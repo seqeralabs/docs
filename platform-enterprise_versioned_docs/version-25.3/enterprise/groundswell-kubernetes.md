@@ -17,38 +17,20 @@ Other than the basic requirements [already listed in the Pipeline Optimization i
 
 1. Download the [groundswell manifest](./_templates/k8s/groundswell.yml).
 
-2. Set `TOWER_ENABLE_GROUNDSWELL=true` in your `configmap.yml`.
+1. Set `TOWER_ENABLE_GROUNDSWELL=true` in your `configmap.yml`.
 
     To use a custom URL, set `GROUNDSWELL_SERVER_URL` instead.
 
-3. Create the Groundswell database schema:
+1. Update the Groundswell ConfigMap (`tower-groundswell-cfg`) with your database credentials.
 
-    ```sql
-    CREATE DATABASE IF NOT EXISTS `swell`;
-    CREATE USER 'swell'@'%' IDENTIFIED BY 'swell';
-    GRANT ALL PRIVILEGES ON *.* TO 'swell'@'%';
-    FLUSH PRIVILEGES;
-    ```
-
-    For managed database services (RDS, Cloud SQL, etc.):
-
-    ```sql
-    CREATE DATABASE IF NOT EXISTS `swell`;
-    CREATE USER 'swell'@'%' IDENTIFIED BY 'swell';
-    GRANT ALL PRIVILEGES ON `%`.* TO 'swell'@'%';
-    FLUSH PRIVILEGES;
-    ```
-
-4. Update the Groundswell ConfigMap (`tower-groundswell-cfg`) with your database credentials.
-
-5. Apply the manifests:
+1. Apply the manifests:
 
     ```bash
     kubectl apply -f configmap.yml
     kubectl apply -f groundswell.yml
     ```
 
-6. Restart the backend:
+1. Restart the backend:
 
     ```bash
     kubectl rollout restart deployment/backend

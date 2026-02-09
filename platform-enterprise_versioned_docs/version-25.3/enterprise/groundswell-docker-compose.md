@@ -36,34 +36,16 @@ Other than the basic requirements [already listed in the Pipeline Optimization i
 
     To use a custom URL, set `GROUNDSWELL_SERVER_URL` instead.
 
-2. In your [docker-compose.yml](./_templates/docker/docker-compose.yml) file, uncomment the `groundswell` section.
+1. In your [docker-compose.yml](./_templates/docker/docker-compose.yml) file, uncomment the `groundswell` section.
 
-3. Create the Groundswell database schema:
-
-    ```sql
-    CREATE DATABASE IF NOT EXISTS `swell`;
-    CREATE USER 'swell'@'%' IDENTIFIED BY 'swell';
-    GRANT ALL PRIVILEGES ON *.* TO 'swell'@'%';
-    FLUSH PRIVILEGES;
-    ```
-
-    For managed database services (RDS, Cloud SQL, etc.):
-
-    ```sql
-    CREATE DATABASE IF NOT EXISTS `swell`;
-    CREATE USER 'swell'@'%' IDENTIFIED BY 'swell';
-    GRANT ALL PRIVILEGES ON `%`.* TO 'swell'@'%';
-    FLUSH PRIVILEGES;
-    ```
-
-4. Download the [groundswell.env](./_templates/docker/groundswell.env) file and update the database URLs:
+1. Download the [groundswell.env](./_templates/docker/groundswell.env) file and update the database URLs:
 
     ```env
     TOWER_DB_URL=mysql://db:3306/tower
     SWELL_DB_URL=mysql://db:3306/swell
     ```
 
-5. Restart your Platform instance:
+1. Restart your Platform instance:
 
     ```bash
     docker compose up -d
