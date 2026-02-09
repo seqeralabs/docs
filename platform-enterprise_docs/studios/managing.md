@@ -163,6 +163,25 @@ Sessions have the following possible statuses:
 There might be errors reported by the session itself but these will be overwritten with a **running** status if the session is still running.
 :::
 
+## Connect to a Studio via SSH
+
+For each of the various container template images (JupyterLab, R-IDE, VSCode, Xpra), once a Studio session is in running state, you can connect to the remote Studio session via a SSH tunnel.
+
+:::note
+You need to enable SSH in the environment variables so that you can enable when you add your Studio. It's not possible to enable SSH after a Studio is running. You need to then create a new Studio.
+
+### Add your SSH key
+
+To add your SSH key to your workspace, go here.
+
+### Connect using the link
+
+When you've added your SSH key, you'll get a link. Copy and paste that link into your terminal, or VS Code terminal.
+
+### Stop a Studio to enable SSH
+
+If you didn't enable SSH and want to, you can stop the Studio and then select **Start as New** where you can enable **SSH Connection**.
+
 ## Studio session data-links
 
 You can configure a Studio session to mount one or more data-links, where cloud buckets that you have configured in your compute environment are read-only, or read-write available to the session.

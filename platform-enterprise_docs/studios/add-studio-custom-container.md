@@ -28,6 +28,10 @@ Configure the following fields:
     :::note
     When private, workspace administrators can still start, stop, and delete sessions, but cannot connect to them.
     :::
+- **SSH Connection**: From Enterprise v25.3.3, you can enable direct connections to running Studios using standard SSH clients, VS Code Remote SSH, or via a terminal. You will need an SSH key.
+   :::note
+   If you do not see this option, ensure that SSH is enabled.
+   :::
 - **Session lifespan**: The duration the session remains active. Available options depend on your workspace settings:
     - **Stop the session automatically after a predefined period of time**: An automatic timeout for the session (minimum: 1 hour; maximum: 120 hours; default: 8 hours). If a workspace-level session lifespan is configured, this field cannot be edited. Changes apply only to the current session and revert to default values after the session stops.
     - **Keep the session running:** Continuous session operation until manually stopped or an error terminates it. The session continues consuming compute resources until stopped.
@@ -50,10 +54,10 @@ Files uploaded to a mounted bucket during an active session may not be immediate
 
    1. Review the configuration to ensure all settings are correct.
    1. Save your configuration:
-      - To save and immediately start your Studio, select **Add and start**. 
+      - To save and immediately start your Studio, select **Add and start**.
       - To save but not immediately start your Studio, select **Add only**.
 
-Studios you create will be listed on the Studios landing page with a status of either **stopped** or **starting**. Select a Studio to inspect its configuration details. 
+Studios you create will be listed on the Studios landing page with a status of either **stopped** or **starting**. Select a Studio to inspect its configuration details.
 
 {/* links */}
 [contact]: https://support.seqera.io/

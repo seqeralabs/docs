@@ -28,6 +28,11 @@ To mount an EFS volume in a Studio session (for example, if your organization ha
 
 For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
 
+### SSH connection
+
+If you want to use SSH to connect to a Studio, you need to first enable it using the environment variables. You can do this here: env vars.
+
+
 {/* links */}
 [contact]: https://support.seqera.io/
 [aws-cloud]: ../compute-envs/aws-cloud
@@ -38,4 +43,3 @@ For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
 [conda-syntax]: ./custom-envs#conda-package-syntax
 [custom-image]: ./custom-envs#custom-containers
 [containers]: ./add-studio-custom-container
-
