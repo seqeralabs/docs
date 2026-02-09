@@ -36,7 +36,7 @@ Seqera Enterprise requires a Redis database for caching purposes.
 
 ### SQL database
 
-Seqera requires a SQL database to persist user activities and state. The application has been tested against MySQL 8. [Contact Seqera support](https://support.seqera.io) if you need to use a different JDBC-compliant SQL database.
+Seqera requires a SQL database to persist user activities and state. The application has been tested against MySQL 8.0. [Contact Seqera support](https://support.seqera.io) if you need to use a different JDBC-compliant SQL database.
 
 :::note
 From Seqera Enterprise version 23.4:
@@ -55,7 +55,7 @@ Seqera supports enterprise authentication mechanisms such as OAuth and OpenID. T
 
 ## Deployment options
 
-Seqera can be deployed to a single node, either with [Docker Compose](./docker-compose) or natively, or to a [Kubernetes](./kubernetes) cluster. This documentation includes instructions for both options across multiple platforms, including Amazon AWS, Microsoft Azure, Google Cloud, and on-prem infrastructure.
+Seqera can be deployed to a single node, either with [Docker Compose](./platform-docker-compose) or natively, or to a [Kubernetes](./platform-kubernetes) cluster. This documentation includes instructions for both options across multiple platforms, including Amazon AWS, Microsoft Azure, Google Cloud, and on-prem infrastructure.
 
 ### Single-node
 
