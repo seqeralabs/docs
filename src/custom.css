@@ -40,7 +40,45 @@ dd + dd {
 table {
   display: block;
   max-width: 100%;
+  overflow: auto;
+}
+
+/* Admonition content has padding but no overflow */
+.theme-admonition .admonitionContent_pDMz,
+.theme-admonition > div:last-child {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Table fits within the admonition - override the global display:block */
+.theme-admonition table {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  overflow: visible;
+}
+
+/* Table cells must not overflow */
+.theme-admonition table td,
+.theme-admonition table th {
+  overflow: hidden;
+}
+
+/* Code blocks (pre elements) in table cells are scrollable */
+.theme-admonition table td pre,
+.theme-admonition table th pre,
+.theme-admonition table td .theme-code-block,
+.theme-admonition table th .theme-code-block {
+  margin: 0;
+  max-width: 100%;
   overflow-x: auto;
+}
+
+/* Code elements inside have correct white-space */
+.theme-admonition table td pre code,
+.theme-admonition table th pre code {
+  white-space: pre;
+  overflow-wrap: normal;
 }
 
 /* Make all code blocks scrollable instead of wrapping */
@@ -55,3 +93,4 @@ table td,
 table th {
   overflow-wrap: break-word;
 }
+
