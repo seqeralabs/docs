@@ -43,11 +43,11 @@ table {
   overflow-x: auto;
 }
 
-/* Wrap code blocks in tables to prevent overflow */
-table code,
-table pre {
-  white-space: pre-wrap;
-  word-break: break-word;
+/* Make all code blocks scrollable instead of wrapping */
+pre,
+code {
+  white-space: pre;
+  overflow-x: auto;
 }
 
 /* Wrap long text in table cells */
