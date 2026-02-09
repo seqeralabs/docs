@@ -74,3 +74,28 @@
   Description: >
     The file path to a PEM certificate used to sign the OIDC tokens for the OpenID connect provider. See [Studios deployment](../install-studios).
   Value:                'Example: `/data-studios-rsa.pem`'
+-
+  Environment variable:            '`TOWER_DATA_STUDIO_SSH_ALLOWED_WORKSPACES`'
+  Description: >
+    Add this variable and set it to `true` to enable the Studios SSH connection functionality per workspace or for all workspaces.
+  Value:                'Default: null'
+-
+  Environment variable:            '`TOWER_SSH_KEYS_MANAGEMENT_ENABLED`'
+  Description: >
+    Enable SSH key management for Studios SSH connection functionality.
+  Value:                'Default: false'
+-
+  Environment variable:            '`TOWER_DATA_STUDIO_CONNECT_SSH_KEY_FINGERPRINT`'
+  Description: >
+    SSH key fingerprint. This is used for security and is recommended.
+  Value:                'Example: `SHA256:uNiVztksCsDhcc0u9e8BujQXVUpKZIDTMczCvj3tD2s`'
+-
+  Environment variable:            '`TOWER_DATA_STUDIO_CONNECT_SSH_PORT`'
+  Description: >
+    	Connection string display purposes.
+  Value:                'Default: `22`'
+-
+  Environment variable:            '`TOWER_DATA_STUDIO_CONNECT_SSH_ADDRESS`'
+  Description: >
+    	This is set only if the SSH server runs on a different domain.
+  Value:                'Example: `ssh.example.com`'

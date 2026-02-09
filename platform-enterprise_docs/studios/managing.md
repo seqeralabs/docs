@@ -165,22 +165,11 @@ There might be errors reported by the session itself but these will be overwritt
 
 ## Connect to a Studio via SSH
 
-For each of the various container template images (JupyterLab, R-IDE, VSCode, Xpra), once a Studio session is in running state, you can connect to the remote Studio session via a SSH tunnel.
+You can connect to a remote, running, Studio session via an SSH tunnel. This is supported for the JupyterLab, R-IDE, VSCode, and Xpra container templates.
 
-:::note
-You need to enable SSH in the environment variables so that you can enable when you add your Studio. It's not possible to enable SSH after a Studio is running. You need to then create a new Studio.
+Add your SSH key to your workspace. Then, copy and paste the link provided into your terminal, or VS Code terminal.
 
-### Add your SSH key
-
-To add your SSH key to your workspace, go here.
-
-### Connect using the link
-
-When you've added your SSH key, you'll get a link. Copy and paste that link into your terminal, or VS Code terminal.
-
-### Stop a Studio to enable SSH
-
-If you didn't enable SSH and want to, you can stop the Studio and then select **Start as New** where you can enable **SSH Connection**.
+If you didn't enable SSH when you added your Studio, stop the Studio and then select **Start as New** where you can enable **SSH Connection**.
 
 ## Studio session data-links
 

@@ -32,7 +32,7 @@ Configure the following fields:
     :::
 - **SSH Connection**: From Enterprise v25.3.3, you can enable direct connections to running Studios using standard SSH clients, VS Code Remote SSH, or via a terminal. You will need an SSH key.
    :::note
-   If you do not see this option, ensure that SSH is enabled.
+   To activate this feature, set the`TOWER_DATA_STUDIO_SSH_ALLOWED_WORKSPACES` [environment variable](https://docs.seqera.io/platform-enterprise/25.2/enterprise/configuration/overview#data-features) to `true`.
    :::
 - **Session lifespan**: The duration the session remains active. Available options depend on your workspace settings:
     - **Stop the session automatically after a predefined period of time**: An automatic timeout for the session (minimum: 1 hour; maximum: 120 hours; default: 8 hours). If a workspace-level session lifespan is configured, this field cannot be edited. Changes apply only to the current session and revert to default values after the session stops.

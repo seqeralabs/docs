@@ -70,7 +70,7 @@ Other than the basic requirements [already listed in the Studios installation ov
 
 1. To confirm that Studios is available, log in to your Platform instance and navigate to an organizational workspace that has Studios enabled. The **Studios** tab is included with the available tabs.
 
-## Tool Configuration
+## Tool configuration
 
 This guide assumes that all services will be run in the same container as the rest of your Seqera Platform services.
 
