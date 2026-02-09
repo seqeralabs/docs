@@ -2,7 +2,7 @@
 title: "Version compatibility"
 description: "Platform / nf-launcher / Nextflow / Fusion version compatibility"
 date created: "2025-12-05"
-last updated: "2026-01-22"
+last updated: "2026-02-09"
 tags: [compatibility, nextflow, nf-launcher]
 ---
 
@@ -14,7 +14,8 @@ If no Nextflow version is specified in your configuration, Seqera defaults to th
 
 | Platform version | nf-launcher version | Nextflow version | Fusion version | Connect client version|
 | ---------------- | ------------------- | ---------------- | -------------- |-------------- |
-| 25.3.1           | j21-25.10.2         | 25.10.2          | 2.4            |               |
+| 25.3.3           | j21-25.10.2         | 25.10.2          | 2.4            | 0.9.0         |
+| 25.3.1           | j21-25.10.2         | 25.10.2          | 2.4            | 0.9.0         |
 | 25.3.0           | j21-25.04.8         | 25.04.8          | 2.4            |               |
 | 25.2.4           | j21-25.04.3         | 25.04.3          | 2.4            |               |
 | 25.2.3           | j21-25.04.3         | 25.04.3          | 2.4            |               |
