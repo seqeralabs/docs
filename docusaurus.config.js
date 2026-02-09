@@ -280,6 +280,10 @@ export default async function createConfigAsync() {
       },
     ],
 
-    themeConfig: getSeqeraThemeConfig({}),
+    themeConfig: getSeqeraThemeConfig({
+      prism: {
+        additionalLanguages: ['nextflow', 'groovy', 'java', 'bash', 'yaml', 'json'],
+      },
+    }),
   });
 }
