@@ -284,6 +284,34 @@ export default async function createConfigAsync() {
       prism: {
         additionalLanguages: ['nextflow', 'groovy', 'java', 'bash', 'yaml', 'json'],
       },
+      navbar: {
+        items: [
+          {
+            label: 'Cloud',
+            href: '/platform-cloud/',
+          },
+          {
+            label: 'Enterprise',
+            href: '/platform-enterprise/',
+          },
+          {
+            label: 'Nextflow',
+            href: '/nextflow/',  // Changed from 'to' to 'href' for external proxy
+          },
+          {
+            label: 'MultiQC',
+            href: '/multiqc/',
+          },
+          {
+            label: 'Wave',
+            href: '/wave/',
+          },
+          {
+            label: 'Fusion',
+            href: '/fusion/',
+          },
+        ],
+      },
     }),
   });
 }
