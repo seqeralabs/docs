@@ -79,12 +79,6 @@
 /wave/install/configure-wave               /wave/configure-wave             301
 
 # Proxy rewrites - status 200 serves content from external URLs
+# Only proxy routes that are NOT already served by this Docusaurus site
 /platform-api/* https://seqera-docs-api.netlify.app/platform-api/:splat 200!
 /nextflow/* https://docs-migration.netlify.app/nextflow/:splat 200!
-/platform-enterprise/* https://deploy-preview-1011--seqera-docs.netlify.app//platform-enterprise/:splat 200!
-/platform-cloud/* https://deploy-preview-1011--seqera-docs.netlify.app//platform-cloud/:splat 200!
-/platform-cli/* https://deploy-preview-1011--seqera-docs.netlify.app//platform-cli/:splat 200!
-/fusion/* https://deploy-preview-1011--seqera-docs.netlify.app//fusion/:splat 200!
-/wave/* https://deploy-preview-1011--seqera-docs.netlify.app//wave/:splat 200!
-/multiqc/* https://deploy-preview-1011--seqera-docs.netlify.app//multiqc/:splat 200!
-/changelog/* https://deploy-preview-1011--seqera-docs.netlify.app//changelog/:splat 200!
