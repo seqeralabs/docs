@@ -195,7 +195,7 @@ export default async function createConfigAsync() {
         swcJsMinimizer: false,
         swcHtmlMinimizer: false,
         lightningCssMinimizer: false,
-        rspackBundler: true,
+        rspackBundler: false,  // Disabled to avoid @docusaurus/faster issues
         rspackPersistentCache: false,
         mdxCrossCompilerCache: false,
       },
@@ -296,7 +296,7 @@ export default async function createConfigAsync() {
           },
           {
             label: 'Nextflow',
-            href: '/nextflow/',  // Changed from 'to' to 'href' for external proxy
+            href: '/nextflow/',
           },
           {
             label: 'MultiQC',
