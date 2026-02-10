@@ -23,4 +23,33 @@ function addScripts() {
 
 }
 
+// Track search queries to PostHog
+function trackSearch() {
+  if(!canProceed()) return;
+
+  const observer = new MutationObserver(() => {
+    const searchInput = document.querySelector('.DocSearch-Input, input[type="search"]');
+    if (searchInput && !searchInput.dataset.searchTracked) {
+      searchInput.dataset.searchTracked = 'true';
+
+      let searchTimeout;
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+          const query = e.target.value.trim();
+          if (query.length > 2 && window.posthog) {
+            window.posthog.capture('docs_search', {
+              search_query: query,
+              page: window.location.pathname
+            });
+          }
+        }, 1000);
+      });
+    }
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+}
+
 addScripts();
+trackSearch();
