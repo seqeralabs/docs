@@ -37,6 +37,7 @@
     "markdownlint": "markdownlint-cli2 'platform-enterprise_versioned_docs/**/*.mdx' 'platform-cloud/docs/*.mdx' 'wave_docs/**/*.mdx' 'fusion_docs/**/*.mdx' --config .markdownlint-cli2.cjs"
   },
   "dependencies": {
+    "@docusaurus/faster": "^3.9.2",
     "@rspack/core": "^1.4.11",
     "@seqera/docusaurus-preset-seqera": "^1.0.13",
     "daisyui": "^5.5.14",
@@ -56,7 +57,6 @@
   },
   "devDependencies": {
     "@docusaurus/eslint-plugin": "^3.9.2",
-    "@docusaurus/faster": "^3.9.2",
     "@tsconfig/docusaurus": "^2.0.3",
     "dotenv": "^17.2.3",
     "eslint": "^8.56.0",
