@@ -668,7 +668,7 @@ Seqera automates the configuration of an [AWS Batch](https://aws.amazon.com/batc
 Seqera will create the head and compute [job queues](https://docs.aws.amazon.com/batch/latest/userguide/job_queues.html) and their respective [compute environments](https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html) where jobs will be executed. The job queues are configured with [job state limit actions](https://docs.aws.amazon.com/batch/latest/APIReference/API_JobStateTimeLimitAction.html) to automatically purge jobs that cannot be scheduled on any node type available for the compute environment.
 Depending on the provided configuration in the UI, Seqera might also create IAM roles for Nextflow head job execution, CloudWatch log groups, EFS or FSx filesystems, etc.
 
-1. After logging in to your Platform Enterprise installation and selecting a workspace from the dropdown menu at the top of the page, select **Compute environments** from the navigation menu.
+1. Select **Compute environments** from the navigation menu of the Seqera Workspace where you want to setup the CE.
 1. Select **Add compute environment**.
 1. Enter a descriptive name for this environment, e.g., _AWS Batch Spot (eu-west-1)_.
 1. Select **AWS Batch** as the target platform.
