@@ -287,33 +287,28 @@ export default async function createConfigAsync() {
       navbar: {
         items: [
           {
-            type: 'html',
-            value: '<a class="navbar__item navbar__link" href="/platform-cloud/">Cloud</a>',
-            position: 'left',
+            label: 'Cloud',
+            href: '/platform-cloud/',
           },
           {
-            type: 'html',
-            value: '<a class="navbar__item navbar__link" href="/platform-enterprise/">Enterprise</a>',
-            position: 'left',
+            label: 'Enterprise',
+            href: '/platform-enterprise/',
           },
           {
-            type: 'html',
-            value: '<a class="navbar__item navbar__link" href="/nextflow/">Nextflow</a>',
-            position: 'left',
+            label: 'Nextflow',
+            href: '/nextflow/',
           },
           {
-            type: 'html',
-            value: '<a class="navbar__item navbar__link" href="/multiqc/">MultiQC</a>',
-            position: 'left',
+            label: 'MultiQC',
+            href: '/multiqc/',
           },
           {
-            type: 'html',
-            value: '<a class="navbar__item navbar__link" href="/wave/">Wave</a>',
-            position: 'left',
+            label: 'Wave',
+            href: '/wave/',
           },
           {
-            type: 'html',
-            value: '<a class="navbar__item navbar__link" href="/fusion/">Fusion</a>',
+            label: 'Fusion',
+            href: '/fusion/',
           },
         ],
       },
