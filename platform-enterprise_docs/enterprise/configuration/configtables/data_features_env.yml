@@ -77,7 +77,7 @@
 -
   Environment variable:            '`TOWER_DATA_STUDIO_SSH_ALLOWED_WORKSPACES`'
   Description: >
-    This variable is required to enable SSH connection functionality in Studios. See [Studios deployment](../install-studios). To enable SSH for specific workspaces add their comma-separated workspace IDs, use an empty string ("") to enable for all workspaces, or use `null` to disable for all workspaces.
+    Add this variable to enable SSH connection functionality in Studios. Set to comma-separated workspace IDs to enable for specific workspaces, an empty string ("") to enable for all workspaces, or `null` to disable for all workspaces. See [Studios deployment](../install-studios) for configuration details.
   Value:                'Default: null'
 -
   Environment variable:            '`TOWER_SSH_KEYS_MANAGEMENT_ENABLED`'
