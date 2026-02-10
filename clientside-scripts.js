@@ -31,7 +31,7 @@ function sanitizeQuery(query) {
     // Redact IPv4 addresses (0-255 per octet)
     .replace(/\b(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\b/g, '[IP]')
     // Redact AWS keys
-    .replace(/\b(AKIA|ASIA)[A-Z0-9]{16}\b/gi, '[AWS_KEY]')
+    .replace(/\b(AKIA|ASIA)[A-Z0-9]{16}\b/g, '[AWS_KEY]')
     .replace(/aws_[a-z_]+/gi, '[AWS_KEY]')
     // Redact common secret patterns
     .replace(/\b(secret|token|password|key)[=:]\S+/gi, '[REDACTED]')
