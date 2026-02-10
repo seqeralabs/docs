@@ -29,3 +29,7 @@ studios:
 At the same time, configure the desired Studios options as described in the [Studios Helm chart documentation](https://github.com/seqeralabs/helm-charts/tree/studios-1.1.3/platform/charts/studios), in particular the Studios service domain and the subdomains that it will use for incoming connections. Also refer to the [example](https://github.com/seqeralabs/helm-charts/tree/studios-1.1.3/platform/examples/studios) provided in the Helm charts repository.
 
 Then, follow the instructions in the Seqera Platform Enterprise installation guide [using Helm](./platform-helm) to install or upgrade your Platform deployment with Studios.
+
+## Next steps
+
+To enable SSH access for Studios, see [Studios: SSH configuration](./studios-ssh).

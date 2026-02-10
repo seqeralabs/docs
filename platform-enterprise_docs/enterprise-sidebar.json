@@ -234,7 +234,15 @@
           ]
           },
           "studios/managing",
-          "studios/connect"
+          "studios/connect",
+          {
+            "type": "category",
+            "label": "Configuration",
+            "collapsed": true,
+            "items": [
+              "enterprise/studios-ssh"
+            ]
+          }
         ]
       },
       {
