@@ -35,7 +35,8 @@
             "items": [
               "enterprise/studios-helm",
               "enterprise/studios-kubernetes",
-              "enterprise/studios-docker-compose"
+              "enterprise/studios-docker-compose",
+              "enterprise/studios-ssh"
             ]
           },
           {
@@ -234,15 +235,7 @@
           ]
           },
           "studios/managing",
-          "studios/connect",
-          {
-            "type": "category",
-            "label": "Configuration",
-            "collapsed": true,
-            "items": [
-              "enterprise/studios-ssh"
-            ]
-          }
+          "studios/connect"
         ]
       },
       {
