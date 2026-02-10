@@ -77,3 +77,14 @@
 
 #Wave page renaming and moving
 /wave/install/configure-wave               /wave/configure-wave             301
+
+# Proxy rewrites - status 200 serves content from external URLs
+/platform-api/* https://seqera-docs-api.netlify.app/platform-api/:splat 200!
+/nextflow/* https://docs-migration.netlify.app/nextflow/:splat 200!
+/platform-enterprise/* https://seqera-docs.netlify.app/platform-enterprise/:splat 200!
+/platform-cloud/* https://seqera-docs.netlify.app/platform-cloud/:splat 200!
+/platform-cli/* https://seqera-docs.netlify.app/platform-cli/:splat 200!
+/fusion/* https://seqera-docs.netlify.app/fusion/:splat 200!
+/wave/* https://seqera-docs.netlify.app/wave/:splat 200!
+/multiqc/* https://seqera-docs.netlify.app/multiqc/:splat 200!
+/changelog/* https://seqera-docs.netlify.app/changelog/:splat 200!
