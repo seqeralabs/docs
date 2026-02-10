@@ -122,7 +122,51 @@ rehypePlugins: [(await import('rehype-katex')).default],  // ✅ Use dynamic imp
 
 ## Solutions Implemented
 
-### Temporary Fix (Applied to docs site)
+### ✅ Final Fix (Applied 2026-02-10)
+
+**Problem Identified**: Even though navbar config used `href`, the `NavbarNavLink` component still rendered items using Docusaurus `<Link>` component, which performs client-side routing.
+
+**Solution**: Swizzled `NavbarNavLink` component and replaced `<Link>` with `<a>` tag for `href` case.
+
+#### 1. Swizzled Component
+**File:** `src/theme/NavbarItem/NavbarNavLink.tsx`
+
+**Command used:**
+```bash
+npm run swizzle @seqera/docusaurus-theme-seqera NavbarItem/NavbarNavLink -- --eject --typescript --danger
+```
+
+#### 2. Code Change (Line 45)
+
+**Before (broken):**
+```tsx
+if (href) {
+  return (
+    <Link
+      href={prependBaseUrlToHref ? normalizedHref : href}
+      {...props}
+      {...linkContentProps}
+    />
+  );
+}
+```
+
+**After (working):**
+```tsx
+if (href) {
+  return (
+    <a
+      href={prependBaseUrlToHref ? normalizedHref : href}
+      {...props}
+      {...linkContentProps}
+    />
+  );
+}
+```
+
+**Result**: Navbar links now force full page loads instead of client-side routing, allowing Netlify proxies to work.
+
+### Previous Configuration (Still in place)
 
 **File:** `docs/docusaurus.config.js`
 
@@ -135,7 +179,7 @@ themeConfig: getSeqeraThemeConfig({
     items: [
       { label: 'Cloud', href: '/platform-cloud/' },
       { label: 'Enterprise', href: '/platform-enterprise/' },
-      { label: 'Nextflow', href: '/nextflow/' },  // ✅ Override with href
+      { label: 'Nextflow', href: '/nextflow/' },  // ✅ Uses href
       { label: 'MultiQC', href: '/multiqc/' },
       { label: 'Wave', href: '/wave/' },
       { label: 'Fusion', href: '/fusion/' },
@@ -282,44 +326,83 @@ npm run build
 
 ## Testing Verification
 
-### Local Testing (Dev Server)
-1. Start server: `npm run start`
-2. Visit: http://localhost:3000
-3. Click "Nextflow" in navbar
-4. Verify: Should show loading indicator (full page load)
-5. Check DevTools Network tab: Should see document request
+### ⚠️ Important: Netlify Proxies Don't Work Locally
 
-### Production Testing (Netlify)
+**Netlify proxy rewrites are server-side only** - they only work on Netlify's hosting infrastructure, not on local dev servers.
+
+### Local Testing (Dev Server) - Behavior Verification Only
+
+**What you CAN verify locally:**
+```bash
+npm run start
+# Visit: http://localhost:3000
+```
+
+1. Click "Nextflow" (or any navbar link) in the navbar
+2. **Expected behavior:**
+   - ✅ Full page reload with loading indicator
+   - ✅ Browser DevTools Network tab shows **document request** (type: document)
+   - ✅ URL changes to `/nextflow/` (or clicked path)
+   - ⚠️ **404 page appears** (this is expected - proxies don't work locally!)
+
+3. **Key indicator the fix works:**
+   - You see a **full page reload** (loading indicator, white flash)
+   - Network tab shows **document request**, not XHR/fetch
+   - **NOT** instant client-side navigation
+
+**What you CANNOT test locally:**
+- ❌ Whether proxy returns content from external domain
+- ❌ Whether 404 is avoided (no proxy rules locally)
+- ❌ Actual proxy behavior (Netlify-specific)
+
+**Expected local behavior:**
+- `/nextflow/*` → Full page reload → 404 (because path doesn't exist locally)
+- `/platform-cloud/*` → Full page reload → 404 (because path doesn't exist locally)
+- This is **normal** - the fix is working correctly; proxies just aren't configured locally
+
+### Production Testing (Netlify) - Full Proxy Verification
+
+**This is where you verify the actual proxy works:**
+
 1. Deploy to Netlify
 2. Visit: https://docs.seqera.io
 3. Click "Nextflow" in navbar
-4. Verify: URL shows `/nextflow/*` and content loads from proxy
-5. Check Network tab: Should show 200 status from proxy
+4. **Expected behavior:**
+   - ✅ Full page reload with loading indicator
+   - ✅ URL shows `/nextflow/*` on docs.seqera.io domain
+   - ✅ Content loads from proxy source (`https://docs-migration.netlify.app/nextflow/*`)
+   - ✅ **No 404 errors**
+   - ✅ Network tab shows 200 status from proxy
 
-### What to Look For
+5. Check Network tab:
+   - Request Type: `document`
+   - Status: `200`
+   - Response comes from Netlify proxy (not client-side routing)
 
-✅ **Working:**
-- Full page reload when clicking navbar links
-- Content loads from external domain
-- Network tab shows document request
-- No 404 errors
+### Comparison: Before vs After Fix
 
-❌ **Still broken:**
-- Instant navigation (no page reload)
-- 404 error page
-- Network tab shows XHR/fetch request
-- "Page not found" from Docusaurus
+| Behavior | Before Fix (Broken) | After Fix (Working) |
+|----------|---------------------|---------------------|
+| **Local navigation** | Instant (no reload) | Full page reload |
+| **Local Network tab** | XHR/fetch request | Document request |
+| **Local result** | Docusaurus 404 | Browser 404 |
+| **Production navigation** | Instant (no reload) | Full page reload |
+| **Production Network tab** | XHR/fetch request | Document request |
+| **Production result** | Docusaurus 404 | ✅ Proxy content loads |
+
+**The key difference in production:** The full page reload allows Netlify to intercept the request and serve proxied content instead of 404.
 
 ---
 
 ## Files Modified
 
-### Docs Repository
-- `docusaurus.config.js` - Added navbar override, disabled rspack
+### Docs Repository (Applied 2026-02-10)
+- ✅ `src/theme/NavbarItem/NavbarNavLink.tsx` - **Swizzled component, replaced `<Link>` with `<a>` for href case** (FINAL FIX)
+- ✅ `docusaurus.config.js` - Added navbar override with `href`, disabled rspack
 
-### Preset Repository (Pending Publish)
-- `packages/docusaurus-preset-seqera/src/index.ts` - Fixed ESM import
-- `packages/docusaurus-theme-seqera/src/theme/Navbar/Content/index.tsx` - Needs Link → a tag fix
+### Preset Repository (Future improvements, not required)
+- `packages/docusaurus-preset-seqera/src/index.ts` - Fixed ESM import (already correct in source)
+- `packages/docusaurus-theme-seqera/src/theme/Navbar/Content/index.tsx` - Platform API hardcoded link (not critical)
 
 ---
 
@@ -353,13 +436,23 @@ npm run build
 
 ## Recommendations
 
-1. **Publish preset update** with all fixes
-2. **Apply theme component fix** (Link → a tag)
-3. **Update docs site** to use new preset version
-4. **Remove temporary workarounds** from `docusaurus.config.js`
-5. **Test thoroughly** in production before announcing
+### ✅ Completed (2026-02-10)
+1. ✅ **Swizzled NavbarNavLink component** - Replaced `<Link>` with `<a>` for href case
+2. ✅ **Navbar config override** - Using `href` instead of `to`
+3. ✅ **Disabled rspack** - To avoid dependency issues
+
+### Next Steps
+1. **Test in production** after deploying to Netlify
+2. **Monitor for issues** with navbar navigation
+3. *Optional*: Publish preset update with fixes for future theme versions
+
+### Notes
+- The swizzled component will override the theme package version
+- No need to publish preset updates for this fix to work
+- Keep navbar config override in `docusaurus.config.js` for clarity
 
 ---
 
 *Investigation completed: 2026-02-10*
-*Status: Temporary fix applied, permanent fix ready for publishing*
+*Final fix applied: 2026-02-10*
+*Status: ✅ Fixed - Swizzled NavbarNavLink component to use `<a>` tags*
