@@ -1,9 +1,10 @@
 ---
-title: "Studios: SSH configuration"
+title: "Studios SSH configuration"
 description: Configure SSH access for Studios
-date: "10 Feb 2025"
+date created: "2026-02-10"
 tags: [studios, ssh, kubernetes, advanced]
 ---
+
 :::warning[Advanced configuration]
 SSH configuration requires careful consideration of security and networking. This feature requires network-level changes to your infrastructure that may need coordination with your infrastructure or networking team. Improperly configured SSH access may introduce security vulnerabilities.
 :::
