@@ -71,11 +71,11 @@ function trackSearch() {
 
             // Only track if query isn't entirely redacted
             if (sanitizedQuery && sanitizedQuery !== '[REDACTED_KEY]') {
+              lastSearchTime = now;
               window.posthog.capture('docs_search', {
                 search_query: sanitizedQuery,
                 page: window.location.pathname
               });
-              lastSearchTime = now;
             }
           }
         }, 1000);
