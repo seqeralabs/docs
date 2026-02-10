@@ -27,7 +27,7 @@ function addScripts() {
 function sanitizeQuery(query) {
   return query
     // Redact potential API keys (20+ char alphanumeric strings)
-    .replace(/\b[A-Za-z0-9_-]{20,}\b/g, '[REDACTED_KEY]')
+    .replace(/(^|[^A-Za-z0-9_-])([A-Za-z0-9_-]{20,})(?=[^A-Za-z0-9_-]|$)/g, '$1[REDACTED_KEY]')
     // Redact IPv4 addresses (0-255 per octet)
     .replace(/\b(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\b/g, '[IP]')
     // Redact AWS keys
