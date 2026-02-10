@@ -1,26 +1,9 @@
 var allowedHost = 'docs.seqera.io';
-var hotjarAppID = 3836890;
 
 function canProceed() {
   if (typeof window === 'undefined') return false;
   if (window.location.hostname !== allowedHost) return false;
   return true;
-}
-
-function addScripts() {
-
-  if(!canProceed()) return;
-
-  // HotJar
-  (function(h,o,t,j,a,r){
-    h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-    h._hjSettings={hjid:hotjarAppID,hjsv:6};
-    a=o.getElementsByTagName('head')[0];
-    r=o.createElement('script');r.async=1;
-    r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-    a.appendChild(r);
-  })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-
 }
 
 // Sanitize search queries to prevent PII leakage
@@ -41,13 +24,34 @@ function sanitizeQuery(query) {
     .substring(0, 200);
 }
 
+// Helper to get the current search query from the DocSearch input
+function getCurrentQuery() {
+  const input = document.querySelector('.DocSearch-Input, input[type="search"]');
+  return input ? input.value.trim() : '';
+}
+
+// Safe PostHog event tracking with error handling
+function trackEvent(eventName, properties) {
+  try {
+    if (window.posthog && typeof window.posthog.capture === 'function') {
+      window.posthog.capture(eventName, properties);
+      return true;
+    }
+  } catch (e) {
+    console.warn('PostHog tracking failed:', e);
+  }
+  return false;
+}
+
 // Track search queries to PostHog
 function trackSearch() {
   if(!canProceed()) return;
 
-  // Rate limiting: track last search time
   let lastSearchTime = 0;
-  const RATE_LIMIT_MS = 500; // Minimum 500ms between tracked searches
+  let lastNoResultsTime = 0;
+  let lastClickTime = 0;
+  const RATE_LIMIT_MS = 500;
+  const REDACTED_TOKENS = ['[REDACTED_KEY]', '[IP]', '[AWS_KEY]', '[REDACTED]', '[EMAIL]'];
 
   const observer = new MutationObserver(() => {
     const searchInput = document.querySelector('.DocSearch-Input, input[type="search"]');
@@ -60,27 +64,74 @@ function trackSearch() {
         searchTimeout = setTimeout(() => {
           const now = Date.now();
 
-          // Rate limiting check
           if (now - lastSearchTime < RATE_LIMIT_MS) {
             return;
           }
 
           const query = e.target.value.trim();
-          if (query.length > 2 && window.posthog) {
+          if (query.length > 2) {
             const sanitizedQuery = sanitizeQuery(query);
 
-            // Only track if query isn't entirely redacted
-            if (sanitizedQuery && sanitizedQuery !== '[REDACTED_KEY]') {
-              window.posthog.capture('docs_search', {
+            if (sanitizedQuery && !REDACTED_TOKENS.some(token => sanitizedQuery === token)) {
+              if (trackEvent('docs_search', {
                 search_query: sanitizedQuery,
                 page: window.location.pathname
-              });
-              lastSearchTime = now;
+              })) {
+                lastSearchTime = now;
+              }
             }
           }
         }, 1000);
       });
     }
+
+    // Track "no results" state
+    const noResults = document.querySelector('.DocSearch-NoResults');
+    if (noResults && !noResults.dataset.noResultsTracked) {
+      noResults.dataset.noResultsTracked = 'true';
+
+      const now = Date.now();
+      if (now - lastNoResultsTime < RATE_LIMIT_MS) return;
+
+      const query = getCurrentQuery();
+      if (query.length > 2) {
+        const sanitizedQuery = sanitizeQuery(query);
+        if (sanitizedQuery && !REDACTED_TOKENS.some(token => sanitizedQuery === token)) {
+          if (trackEvent('docs_search_no_results', {
+            search_query: sanitizedQuery,
+            page: window.location.pathname
+          })) {
+            lastNoResultsTime = now;
+          }
+        }
+      }
+    }
+
+    // Track result clicks
+    const hits = document.querySelectorAll('.DocSearch-Hit a');
+    hits.forEach((hit) => {
+      if (!hit.dataset.clickTracked) {
+        hit.dataset.clickTracked = 'true';
+        hit.addEventListener('click', () => {
+          const now = Date.now();
+          if (now - lastClickTime < RATE_LIMIT_MS) return;
+
+          const query = getCurrentQuery();
+          if (query.length > 2) {
+            const sanitizedQuery = sanitizeQuery(query);
+            if (sanitizedQuery && !REDACTED_TOKENS.some(token => sanitizedQuery === token)) {
+              if (trackEvent('docs_search_click', {
+                search_query: sanitizedQuery,
+                result_url: hit.getAttribute('href'),
+                page: window.location.pathname
+              })) {
+                lastClickTime = now;
+              }
+            }
+          }
+        });
+      }
+    });
   });
 
   // Optimize: observe only header/nav instead of entire body
@@ -88,5 +139,4 @@ function trackSearch() {
   observer.observe(searchContainer, { childList: true, subtree: true });
 }
 
-addScripts();
 trackSearch();
