@@ -10,11 +10,11 @@ function canProceed() {
 function sanitizeQuery(query) {
   return query
     // Redact potential API keys (20+ char alphanumeric strings)
-    .replace(/\b[A-Za-z0-9_-]{20,}\b/g, '[REDACTED_KEY]')
-    // Redact IP addresses
-    .replace(/\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/g, '[IP]')
+    .replace(/(^|[^A-Za-z0-9_-])([A-Za-z0-9_-]{20,})(?=[^A-Za-z0-9_-]|$)/g, '$1[REDACTED_KEY]')
+    // Redact IPv4 addresses (0-255 per octet)
+    .replace(/\b(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\b/g, '[IP]')
     // Redact AWS keys
-    .replace(/\b(AKIA|ASIA)[A-Z0-9]{16}\b/gi, '[AWS_KEY]')
+    .replace(/\b(AKIA|ASIA)[A-Z0-9]{16}\b/g, '[AWS_KEY]')
     .replace(/aws_[a-z_]+/gi, '[AWS_KEY]')
     // Redact common secret patterns
     .replace(/\b(secret|token|password|key)[=:]\S+/gi, '[REDACTED]')
@@ -72,13 +72,13 @@ function trackSearch() {
           if (query.length > 2) {
             const sanitizedQuery = sanitizeQuery(query);
 
-            if (sanitizedQuery && !REDACTED_TOKENS.some(token => sanitizedQuery === token)) {
-              if (trackEvent('docs_search', {
+            // Only track if query isn't entirely redacted
+            if (sanitizedQuery && sanitizedQuery !== '[REDACTED_KEY]') {
+              window.posthog.capture('docs_search', {
                 search_query: sanitizedQuery,
                 page: window.location.pathname
-              })) {
-                lastSearchTime = now;
-              }
+              });
+              lastSearchTime = now;
             }
           }
         }, 1000);
