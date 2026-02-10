@@ -23,6 +23,8 @@ export default async function handler(request, context) {
   const origins = [
     'https://docs-migration.netlify.app',
     'https://seqera-docs-api.netlify.app',
+    'https://deploy-preview-1011--seqera-docs.netlify.app',
+    'https://seqera-docs.netlify.app',
     // Add more origins as needed
   ];
 
