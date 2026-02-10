@@ -23,6 +23,7 @@
     "dev": "npm run start",
     "prebuild": "npm run fetch-docs-oss",
     "build": "docusaurus build --no-minify",
+    "postbuild": "node add-proxy-redirects.js",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
