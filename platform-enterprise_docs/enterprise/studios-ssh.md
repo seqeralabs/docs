@@ -27,7 +27,7 @@ If you have pinned Studio container images to specific versions, you may need to
 - Access to Platform configuration
 - Administrative access to modify your deployment infrastructure
 - Ability to configure network routing and firewall rules
-- 
+-
 ## Requirements overview
 
 To enable SSH access for Studios you need:
