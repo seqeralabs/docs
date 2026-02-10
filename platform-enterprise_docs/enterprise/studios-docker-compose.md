@@ -81,3 +81,7 @@ If you were using Studios prior to GA (v25.1) please review the `tower.env` file
 The `TEMPLATE_KEY` can be any string, but the `TOOL_NAME` has to be the template name (`jupyter`/`vscode`/`rstudio`/`xpra`).
 
 You can also check the current template configuration using `https://towerurl/api/studios/templates?workspaceId=<WORKSPACE_ID>`. The response should include the `TOOL` configuration and template name (`jupyter`/`vscode`/`rstudio`/`xpra`) - not `custom`.
+
+## Next steps
+
+To enable SSH access for Studios, see [Studios: SSH configuration](./studios-ssh).

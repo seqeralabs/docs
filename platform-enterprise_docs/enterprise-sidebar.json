@@ -35,7 +35,8 @@
             "items": [
               "enterprise/studios-helm",
               "enterprise/studios-kubernetes",
-              "enterprise/studios-docker-compose"
+              "enterprise/studios-docker-compose",
+              "enterprise/studios-ssh"
             ]
           },
           {
