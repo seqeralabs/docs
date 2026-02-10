@@ -12,28 +12,28 @@ SSH access enables direct terminal connections to running Studio containers usin
 
 ## Version requirements
 
-To use SSH access for Studios, you require:
+To use SSH access for Studios, you need:
 
 - **Seqera Platform**: Version 25.3.3 or later
 - **Connect server and proxy**: Version 0.10.0 or later
 - **Connect client**: Version 0.10.0 or later
 
-If you have pinned Studio container images to specific versions, you may need to update them to include the required connect-client version.
+If you have pinned Studio container images to specific versions, you may need to update them to include the required Connect client version.
 
 ## Prerequisites
 
 - Studios deployed (see [Studios installation](./install-studios))
 - Access to Platform configuration
 - Administrative access to modify your deployment infrastructure
-- Ability to configure network routing and firewall rules (may require infrastructure team involvement)
-
+- Ability to configure network routing and firewall rules
+- 
 ## Requirements overview
 
-Enabling SSH access for Studios requires:
+To enable SSH access for Studios you need:
 
 1. **SSH key pair**: A key pair for the connect-proxy to authenticate to Studio containers
-2. **Platform configuration**: Environment variables to enable and configure SSH (variables prefixed with `TOWER_`)
-3. **Proxy configuration**: Environment variables to enable SSH on the connect-proxy (variables prefixed with `CONNECT_`)
+2. **Platform configuration**: Environment variables to enable and configure SSH
+3. **Proxy configuration**: Environment variables to enable SSH on the connect-proxy
 4. **Network configuration**: Layer 4 (TCP) access to the SSH port on the connect-proxy, typically via a dedicated service that separates SSH traffic from HTTPS traffic
 
 :::note
@@ -47,20 +47,20 @@ SSH access to Studios requires a dedicated SSH key pair that establishes trust b
 1. **Authentication**: The connect-proxy uses the private key to authenticate to SSH servers running in Studio containers
 2. **Security validation**: Platform can verify that SSH connections originate from your authorized connect-proxy rather than external sources
 
-Generate an SSH key pair for the connect-proxy:
+Generate an SSH key pair for the connect-proxy.
 
 ```bash
 # Generate key
 ssh-keygen -t ed25519 -C "connect-proxy" -f /path/to/connect-proxy-key
 
-# Generate fingerprint (this will be used in Step 2 to configure the Platform backend)
+# Generate fingerprint
 ssh-keygen -lf /path/to/connect-proxy-key
 ```
 
 Platform uses the fingerprint output (SHA256 hash) in configuration to enable an additional security layer. After you configure this fingerprint, Studio SSH servers only accept connections from clients presenting this specific key, preventing unauthorized SSH access.
 
 :::warning[Key consistency]
-All proxy instances must use a **shared SSH key** to prevent host key verification errors. In high-availability deployments, ensure all replicas access the shared key.
+All proxy instances must use a **shared SSH key** to prevent host key verification errors. In high availability deployments, ensure all replicas access the shared key.
 :::
 
 ### Key distribution
