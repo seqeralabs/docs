@@ -23,9 +23,31 @@ function addScripts() {
 
 }
 
+// Sanitize search queries to prevent PII leakage
+function sanitizeQuery(query) {
+  return query
+    // Redact potential API keys (20+ char alphanumeric strings)
+    .replace(/\b[A-Za-z0-9_-]{20,}\b/g, '[REDACTED_KEY]')
+    // Redact IP addresses
+    .replace(/\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/g, '[IP]')
+    // Redact AWS keys
+    .replace(/\b(AKIA|ASIA)[A-Z0-9]{16}\b/gi, '[AWS_KEY]')
+    .replace(/aws_[a-z_]+/gi, '[AWS_KEY]')
+    // Redact common secret patterns
+    .replace(/\b(secret|token|password|key)[=:]\S+/gi, '[REDACTED]')
+    // Redact email addresses
+    .replace(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g, '[EMAIL]')
+    // Limit length
+    .substring(0, 200);
+}
+
 // Track search queries to PostHog
 function trackSearch() {
   if(!canProceed()) return;
+
+  // Rate limiting: track last search time
+  let lastSearchTime = 0;
+  const RATE_LIMIT_MS = 500; // Minimum 500ms between tracked searches
 
   const observer = new MutationObserver(() => {
     const searchInput = document.querySelector('.DocSearch-Input, input[type="search"]');
@@ -36,19 +58,34 @@ function trackSearch() {
       searchInput.addEventListener('input', (e) => {
         clearTimeout(searchTimeout);
         searchTimeout = setTimeout(() => {
+          const now = Date.now();
+
+          // Rate limiting check
+          if (now - lastSearchTime < RATE_LIMIT_MS) {
+            return;
+          }
+
           const query = e.target.value.trim();
           if (query.length > 2 && window.posthog) {
-            window.posthog.capture('docs_search', {
-              search_query: query,
-              page: window.location.pathname
-            });
+            const sanitizedQuery = sanitizeQuery(query);
+
+            // Only track if query isn't entirely redacted
+            if (sanitizedQuery && sanitizedQuery !== '[REDACTED_KEY]') {
+              window.posthog.capture('docs_search', {
+                search_query: sanitizedQuery,
+                page: window.location.pathname
+              });
+              lastSearchTime = now;
+            }
           }
         }, 1000);
       });
     }
   });
 
-  observer.observe(document.body, { childList: true, subtree: true });
+  // Optimize: observe only header/nav instead of entire body
+  const searchContainer = document.querySelector('header, nav, .navbar') || document.body;
+  observer.observe(searchContainer, { childList: true, subtree: true });
 }
 
 addScripts();
