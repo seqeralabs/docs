@@ -333,7 +333,7 @@ Your compute environment uses resources that you may be charged for in your AWS 
 
 Once all prerequisites are met, create a Seqera EKS compute environment:
 
-1. After logging in to your Platform Enterprise installation and selecting a workspace from the dropdown menu at the top of the page, select **Compute environments** from the navigation menu, then select **Add compute environment**.
+1. Select **Compute environments** from the navigation menu of the Seqera Workspace where you want to setup the CE.
 1. Enter a descriptive name for this environment, e.g., `Amazon EKS (eu-west-1)`.
 1. Select **Amazon EKS** as the target platform.
 1. Under **Storage**, select either **Fusion storage** (recommended) or **Legacy storage**. The [Fusion v2](https://docs.seqera.io/fusion) virtual distributed file system allows access to your AWS S3-hosted data (`s3://` URLs). This eliminates the need to configure a shared file system in your Kubernetes cluster. See [Configure EKS Service Account IAM role for Fusion v2](#configure-eks-service-account-iam-role-for-fusion-v2) below.
