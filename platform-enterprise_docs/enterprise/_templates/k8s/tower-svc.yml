@@ -51,9 +51,9 @@ spec:
           resources:
             requests:
               cpu: "1"
-              memory: "1200Mi"
+              memory: "4000Mi"
             limits:
-              memory: "4200Mi"
+              memory: "4000Mi"
           readinessProbe:
             httpGet:
               path: /health
