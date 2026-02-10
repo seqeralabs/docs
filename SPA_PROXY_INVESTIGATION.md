@@ -65,7 +65,7 @@ From [Netlify Support Forums](https://answers.netlify.com/t/rewrite-with-proxy-g
 ```typescript
 {
   label: 'Nextflow',
-  href: '/nextflow/',  // ✅ Forces full page load
+  href: '/nextflow/',  // ✅ Forces full page loads
 }
 ```
 
