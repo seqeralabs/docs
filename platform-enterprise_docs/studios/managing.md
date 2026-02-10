@@ -233,20 +233,7 @@ Connect to a Studio using VS Code Remote SSH:
    VS Code's local server mode (SSH multiplexing over SOCKS) is not supported. Connections will fail if this setting is enabled.
    :::
 
-3. Optional: Add an SSH config entry for convenience.
-
-   Create or edit `~/.ssh/config`:
-
-   ```ssh-config
-   Host my-studio
-       HostName connect.example.com
-       Port 2222
-       User alice@01ac8894
-   ```
-
-   Replace `alice` with your username and `01ac8894` with your Studio session ID.
-
-4. Connect to the Studio:
+3. Connect to the Studio:
 
    - Open the Command Palette (Cmd+Shift+P or Ctrl+Shift+P)
    - Run **Remote-SSH: Connect to Host**
@@ -254,6 +241,7 @@ Connect to a Studio using VS Code Remote SSH:
    - VS Code opens a new window connected to your Studio
 
 Once connected, you can:
+
 - Access the Studio filesystem
 - Open folders and files
 - Use the integrated terminal

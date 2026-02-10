@@ -38,7 +38,6 @@ From Enterprise v25.3.3, direct SSH connections to running Studios are available
 
 For connection instructions and VS Code setup, see [Connect to a Studio via SSH](./managing#connect-to-a-studio-via-ssh).
 
-
 {/* links */}
 [contact]: https://support.seqera.io/
 [aws-cloud]: ../compute-envs/aws-cloud

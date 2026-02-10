@@ -134,15 +134,9 @@ These are the false positive confirmed findings:
 
 ## SSH connections
 
-Troubleshooting SSH connections to Studios.
-
 ### SSH Connection toggle not available
 
-**Symptom:** The **SSH Connection** toggle doesn't appear when adding a Studio, or SSH-related options are missing.
-
-**Cause:** Your Platform version doesn't support SSH access to Studios.
-
-**Solution:** Contact your administrator to verify the Platform version. SSH access requires:
+If the **SSH Connection** toggle doesn't appear when adding a Studio, or SSH-related options are missing, your Platform version doesn't support SSH access to Studios. Contact your administrator to verify the Platform version. SSH access requires:
 
 - **Seqera Platform Enterprise v25.3.3 or later**
 - **connect-server/proxy v0.10.0 or later**
@@ -159,9 +153,7 @@ If your Platform meets these requirements but SSH is still unavailable, verify y
 Host key verification failed.
 ```
 
-**Cause:** Multiple proxy pods using different SSH keys.
-
-**Solution:** Ensure all proxy pods share the same SSH key. See [Studios Kubernetes deployment - SSH connection](../enterprise/studios-kubernetes#ssh-connection) for configuration details. If the issue persists, edit your `~/.ssh/known_hosts` file and remove the line that contains the connect-proxy address.
+This error occurs when multiple proxy pods are using different SSH keys. Ensure all proxy pods share the same SSH key. See [Studios Kubernetes deployment - SSH connection](../enterprise/studios-kubernetes#ssh-connection) for configuration details. If the issue persists, edit your `~/.ssh/known_hosts` file and remove the line that contains the connect-proxy address.
 
 ### Permission denied (publickey)
 
@@ -170,18 +162,11 @@ ssh user@sessionId@connect.example.com
 # user@sessionId@connect.example.com: Permission denied (publickey).
 ```
 
-**Possible causes:**
+If you receive a permission denied error, there are several possible causes. First, verify the user has the correct role and permissions in the workspace, and check that the user's SSH public key is configured in their Seqera Platform user profile.
 
-1. **Platform authorization failed**
-    - Verify the user has correct role and permissions in the workspace.
-    - Check that the user's SSH public key is configured in their Seqera Platform user profile.
+Additionally, ensure SSH was enabled when adding the Studio using the **SSH Connection** toggle. The SSH setting persists across stop/start but defaults to disabled for new Studios.
 
-2. **SSH not enabled on Studio**
-    - Ensure SSH was enabled when adding the Studio using the **SSH Connection** toggle.
-    - The SSH setting persists across stop/start but defaults to disabled for new Studios.
-
-3. **SSH access not configured during deployment**
-    - Verify your administrator configured the SSH environment variables during Studios deployment. See [Studios Kubernetes deployment - SSH connection](../enterprise/studios-kubernetes#ssh-connection).
+If the issue persists, verify your administrator configured the SSH environment variables during Studios deployment. See [Studios Kubernetes deployment - SSH connection](../enterprise/studios-kubernetes#ssh-connection).
 
 ### Connection closed by remote host
 
@@ -190,15 +175,13 @@ ssh user@sessionId@connect.example.com
 # Connection to connect.example.com closed by remote host.
 ```
 
-**Cause:** SSH fingerprint mismatch when `TOWER_DATA_STUDIO_CONNECT_SSH_KEY_FINGERPRINT` is configured.
-
-**Solution:** Verify the fingerprint matches the proxy's SSH key:
+This error indicates an SSH fingerprint mismatch when `TOWER_DATA_STUDIO_CONNECT_SSH_KEY_FINGERPRINT` is configured. Verify the fingerprint matches the proxy's SSH key:
 
 ```bash
 ssh-keygen -lf /path/to/connect-proxy-key
 ```
 
-**Check Studio logs for:**
+Check Studio logs for:
 
 ```json
 {
@@ -213,9 +196,7 @@ The `authorized` field should be `true` and `expected` should equal `incoming`. 
 
 ### VS Code Remote SSH not working
 
-**Symptom:** VS Code fails to connect or shows errors when using Remote SSH extension.
-
-**Solution:** Disable local server mode in VS Code settings:
+If VS Code fails to connect or shows errors when using the Remote SSH extension, disable local server mode in VS Code settings:
 
 ```json
 {
