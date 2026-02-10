@@ -135,3 +135,169 @@ You can also check the current template configuration using `https://towerurl/ap
     ```
 
 1. To confirm that Studios is available, log into Seqera and navigate to an organizational workspace that has Studios enabled. The **Studios** tab should be displayed in the sidebar.
+
+### SSH connection
+
+SSH access enables direct terminal connections to running Studio containers using standard SSH clients, supporting VS Code Remote SSH and terminal access.
+
+:::info[**Version Requirements**]
+| Seqera Platform | connect-server/proxy | connect-client |
+|-----------------|----------------------|----------------|
+| 25.3.3+         | 0.10.0+              | 0.10.0+        |
+:::
+
+#### Step 1: Generate SSH key pair
+
+Generate an SSH key pair for the proxy:
+
+```bash
+# Generate key
+ssh-keygen -t ed25519 -C "connect-proxy" -f /path/to/connect-proxy-key
+
+# Generate fingerprint
+ssh-keygen -lf /path/to/connect-proxy-key
+```
+
+:::warning
+All proxy pods must use the **same SSH key** to prevent host key verification errors.
+:::
+
+**Deployment options:**
+
+- Create Kubernetes secret and mount as file
+- Mount key files directly as volumes
+
+**Example Kubernetes secret:**
+
+```bash
+kubectl create secret generic connect-ssh-key \
+  --from-file=ssh-key=/path/to/connect-proxy-key \
+  --namespace=<namespace>
+```
+
+#### Step 2: Configure Platform
+
+Set the SSH key fingerprint in Platform (recommended for enhanced security):
+
+```bash
+TOWER_DATA_STUDIO_CONNECT_SSH_KEY_FINGERPRINT=SHA256:NEu6MAPGJpImFJ3raQzv6+NubCPy/92hqR+CVyMjKvM
+```
+
+Add to the `configmap.yml` under `platform-backend-cfg`:
+
+```yaml
+TOWER_DATA_STUDIO_CONNECT_SSH_KEY_FINGERPRINT: "SHA256:NEu6MAPGJpImFJ3raQzv6+NubCPy/92hqR+CVyMjKvM"
+TOWER_DATA_STUDIO_SSH_ALLOWED_WORKSPACES: "12345,67890"  # Comma-separated workspace IDs, or leave empty to disable
+TOWER_SSH_KEYS_MANAGEMENT_ENABLED: "true"
+TOWER_DATA_STUDIO_CONNECT_SSH_PORT: "2222"  # Default: 22, set to match your SSH service port
+TOWER_DATA_STUDIO_CONNECT_SSH_ADDRESS: ""  # Optional: Set only if SSH runs on different domain
+```
+
+:::tip[Enhanced security]
+When `TOWER_DATA_STUDIO_CONNECT_SSH_KEY_FINGERPRINT` is configured, studio SSH servers only accept connections from clients using this key, effectively rejecting any connection not originating from your connect-proxy.
+:::
+
+#### Step 3: Configure proxy
+
+Edit the `proxy.yml` file and add SSH configuration:
+
+```yaml
+env:
+  - name: CONNECT_SSH_ENABLED
+    value: "true"
+  - name: CONNECT_SSH_ADDR
+    value: ":2222"
+  - name: CONNECT_SSH_KEY_PATH
+    value: "/secrets/ssh-key"
+volumeMounts:
+  - name: ssh-key
+    mountPath: /secrets
+    readOnly: true
+volumes:
+  - name: ssh-key
+    secret:
+      secretName: connect-ssh-key
+```
+
+#### Step 4: Expose SSH service
+
+Your infrastructure setup depends on whether you want SSH on the same domain as connect-proxy or a separate domain.
+
+**Option A: Same domain as proxy** (requires infrastructure setup)
+
+Create a dedicated NodePort service for SSH traffic on port 2222. Configure your load balancer or ingress to route SSH traffic to this NodePort.
+
+Example NodePort service (`proxy-ssh-nodeport.yml`):
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: proxy-ssh
+  namespace: <namespace>
+spec:
+  type: NodePort
+  selector:
+    app: proxy
+  ports:
+    - port: 2222
+      targetPort: 2222
+      nodePort: 30222  # Choose an available NodePort
+      protocol: TCP
+```
+
+**Option B: Separate SSH domain**
+
+Define a separate LoadBalancer service for SSH:
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: proxy-ssh
+  namespace: <namespace>
+spec:
+  type: LoadBalancer
+  selector:
+    app: proxy
+  ports:
+    - port: 2222
+      targetPort: 2222
+      protocol: TCP
+```
+
+Point DNS to the SSH service load balancer.
+
+#### Step 5: Apply configuration
+
+```bash
+# Apply updated configmap
+kubectl apply -f configmap.yml
+
+# Restart Platform services
+kubectl rollout restart deployment/backend
+kubectl rollout restart deployment/cron
+
+# Apply proxy configuration
+kubectl apply -f proxy.yml
+
+# Apply SSH service
+kubectl apply -f proxy-ssh-nodeport.yml  # or proxy-ssh-loadbalancer.yml
+```
+
+#### Verify SSH access
+
+1. Ensure Studios is enabled for your workspace.
+2. Add a Studio with **SSH Connection** enabled.
+3. Start the Studio.
+4. Test SSH connection:
+
+```bash
+ssh <username>@<sessionId>@<connect-domain> -p 2222
+```
+
+For detailed usage instructions and VS Code setup, see [Connect to a Studio via SSH](../studios/managing#connect-to-a-studio-via-ssh).
+
+#### Troubleshooting
+
+For SSH connection issues, see [Studios troubleshooting](../troubleshooting_and_faqs/studios_troubleshooting#ssh-connections).

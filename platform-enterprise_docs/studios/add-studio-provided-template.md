@@ -30,10 +30,10 @@ Configure the following fields:
     :::note
     When private, workspace administrators can still start, stop, and delete sessions, but cannot connect to them.
     :::
-- **SSH Connection**: From Enterprise v25.3.3, you can enable direct connections to running Studios using standard SSH clients, VS Code Remote SSH, or via a terminal. You will need an SSH key.
-   :::note
-   To activate this feature, set the`TOWER_DATA_STUDIO_SSH_ALLOWED_WORKSPACES` [environment variable](https://docs.seqera.io/platform-enterprise/25.2/enterprise/configuration/overview#data-features) to `true`.
-   :::
+- **SSH Connection**: From Enterprise v25.3.3, you can enable direct connections to running Studios using standard SSH clients, VS Code Remote SSH, or terminal access. Enable the toggle to allow SSH connections to this Studio. Requirements:
+    - SSH access must be enabled for your workspace during deployment. Your administrator needs to set the `TOWER_DATA_STUDIO_SSH_ALLOWED_WORKSPACES` [environment variable](../enterprise/configuration/overview#data-features). See [Studios Kubernetes deployment](../enterprise/studios-kubernetes#ssh-connection) for deployment configuration.
+    - Add your SSH public key to your Seqera Platform user profile.
+    - For connection instructions and VS Code setup, see [Connect to a Studio via SSH](./managing#connect-to-a-studio-via-ssh).
 - **Session lifespan**: The duration the session remains active. Available options depend on your workspace settings:
     - **Stop the session automatically after a predefined period of time**: An automatic timeout for the session (minimum: 1 hour; maximum: 120 hours; default: 8 hours). If a workspace-level session lifespan is configured, this field cannot be edited. Changes apply only to the current session and revert to default values after the session stops.
     - **Keep the session running:** Continuous session operation until manually stopped or an error terminates it. The session continues consuming compute resources until stopped.

@@ -132,6 +132,137 @@ These are the false positive confirmed findings:
 | ini:1.0.0        | CVE-2020-7788⁠       |
 | diff:1.0.0       | GHSA-h6ch-v84p-w6p9⁠ |
 
+## SSH connections
+
+Troubleshooting SSH connections to Studios.
+
+### SSH Connection toggle not available
+
+**Symptom:** The **SSH Connection** toggle doesn't appear when adding a Studio, or SSH-related options are missing.
+
+**Cause:** Your Platform version doesn't support SSH access to Studios.
+
+**Solution:** Contact your administrator to verify the Platform version. SSH access requires:
+
+- **Seqera Platform Enterprise v25.3.3 or later**
+- **connect-server/proxy v0.10.0 or later**
+- **connect-client v0.10.0 or later**
+
+If your Platform meets these requirements but SSH is still unavailable, verify your administrator configured the required environment variables during deployment. See [Studios Kubernetes deployment - SSH connection](../enterprise/studios-kubernetes#ssh-connection).
+
+### Host key verification failed
+
+```
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+Host key verification failed.
+```
+
+**Cause:** Multiple proxy pods using different SSH keys.
+
+**Solution:** Ensure all proxy pods share the same SSH key. See [Studios Kubernetes deployment - SSH connection](../enterprise/studios-kubernetes#ssh-connection) for configuration details. If the issue persists, edit your `~/.ssh/known_hosts` file and remove the line that contains the connect-proxy address.
+
+### Permission denied (publickey)
+
+```bash
+ssh user@sessionId@connect.example.com
+# user@sessionId@connect.example.com: Permission denied (publickey).
+```
+
+**Possible causes:**
+
+1. **Platform authorization failed**
+    - Verify the user has correct role and permissions in the workspace.
+    - Check that the user's SSH public key is configured in their Seqera Platform user profile.
+
+2. **SSH not enabled on Studio**
+    - Ensure SSH was enabled when adding the Studio using the **SSH Connection** toggle.
+    - The SSH setting persists across stop/start but defaults to disabled for new Studios.
+
+3. **SSH access not configured during deployment**
+    - Verify your administrator configured the SSH environment variables during Studios deployment. See [Studios Kubernetes deployment - SSH connection](../enterprise/studios-kubernetes#ssh-connection).
+
+### Connection closed by remote host
+
+```bash
+ssh user@sessionId@connect.example.com
+# Connection to connect.example.com closed by remote host.
+```
+
+**Cause:** SSH fingerprint mismatch when `TOWER_DATA_STUDIO_CONNECT_SSH_KEY_FINGERPRINT` is configured.
+
+**Solution:** Verify the fingerprint matches the proxy's SSH key:
+
+```bash
+ssh-keygen -lf /path/to/connect-proxy-key
+```
+
+**Check Studio logs for:**
+
+```json
+{
+  "msg": "SSH fingerprint auth result",
+  "authorized": false,
+  "expected": "SHA256:NEu6MAPGJpImFJ3raQzv6+NubCPy/92hqR+CVyMjKvM",
+  "incoming": "SHA256:NYu6MAPUJpImFQ3raQzv6+NubCPy/97hqR+CVyMjKvM"
+}
+```
+
+The `authorized` field should be `true` and `expected` should equal `incoming`. If they differ, the proxy SSH key configuration is incorrect.
+
+### VS Code Remote SSH not working
+
+**Symptom:** VS Code fails to connect or shows errors when using Remote SSH extension.
+
+**Solution:** Disable local server mode in VS Code settings:
+
+```json
+{
+  "remote.SSH.useLocalServer": false
+}
+```
+
+VS Code's local server mode uses SSH multiplexing over SOCKS proxy, which is not supported. See [Connect to a Studio via SSH - VS Code Remote SSH](../studios/managing#vs-code-remote-ssh) for detailed setup instructions.
+
+### SSH connection string format
+
+**Correct format:**
+
+```bash
+ssh <username>@<sessionId>@<connect-domain> -p 2222
+```
+
+**Example:**
+
+```bash
+ssh alice@01ac8894@connect.example.com -p 2222
+```
+
+Where:
+- `<username>`: Your Seqera Platform username
+- `<sessionId>`: The Studio session ID (8-character hex string visible in the Studios list)
+- `<connect-domain>`: Your connect proxy domain
+- Port: `2222` (default SSH proxy port)
+
+### Debugging SSH connections
+
+Enable debug logging for detailed SSH connection traces:
+
+**Proxy logs:**
+
+```bash
+CONNECT_LOG_LEVEL=debug
+```
+
+**Client logs (in Studio):**
+
+```bash
+CONNECT_CLIENT_LOG_LEVEL=debug
+```
+
+Debug logs include SSH handshake details, authentication attempts, channel lifecycle, and data transfer errors.
+
 {/* links */}
 
 [gh-copilot]: https://github.com/features/copilot
