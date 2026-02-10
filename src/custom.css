@@ -50,35 +50,35 @@ table {
   padding-right: 1rem;
 }
 
-/* Table in admonition uses block display with scrolling, constrained to container */
+/* Table fits within the admonition - override the global display:block */
 .theme-admonition table {
-  display: block;
-  width: 100%;
-  overflow-x: auto;
-  margin: 0;
-}
-
-/* Table structure for proper rendering */
-.theme-admonition table thead,
-.theme-admonition table tbody {
   display: table;
-  width: max-content;
+  width: 100%;
+  table-layout: fixed;
+  overflow: visible;
 }
 
-.theme-admonition table tr {
-  display: table-row;
+/* Table cells must not overflow */
+.theme-admonition table td,
+.theme-admonition table th {
+  overflow: hidden;
 }
 
-.theme-admonition table th,
-.theme-admonition table td {
-  display: table-cell;
+/* Code blocks (pre elements) in table cells are scrollable */
+.theme-admonition table td pre,
+.theme-admonition table th pre,
+.theme-admonition table td .theme-code-block,
+.theme-admonition table th .theme-code-block {
+  margin: 0;
+  max-width: 100%;
+  overflow-x: auto;
 }
 
-/* Code blocks don't wrap and fill remaining space */
-.theme-admonition table pre,
-.theme-admonition table code {
+/* Code elements inside have correct white-space */
+.theme-admonition table td pre code,
+.theme-admonition table th pre code {
   white-space: pre;
-  display: block;
+  overflow-wrap: normal;
 }
 
 /* Make all code blocks scrollable instead of wrapping */
