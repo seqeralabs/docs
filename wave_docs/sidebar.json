@@ -33,6 +33,7 @@
           "label": "Guides",
           "collapsed": true,
           "items": [
+            "nextflow/bundle-scripts",
             "nextflow/reduce-api-calls"
           ]
         }

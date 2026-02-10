@@ -1,13 +1,14 @@
 ---
 title: "Firewall configuration"
 description: Configure your firewall to allow Seqera Cloud access
-date: "12 Apr 2023"
-tags: [firewall, configuration]
+date created: "2023-04-12"
+last updated: "2026-01-05"
+tags: [firewall, configuration, dns, allowlist, meta-seqera.io]
 ---
 
 Seqera Platform Cloud ([cloud.seqera.io](https://cloud.seqera.io)) may need to connect to resources within your network, e.g., your storage server. To do so, your firewall must be configured to allow certain IPs to reach your resources.
 
-A dynamic list of IPs is kept up-to-date at https://meta.seqera.io.
+A dynamic list of IPs is kept up-to-date at [https://meta.seqera.io](https://meta.seqera.io).
 
 This endpoint returns a JSON object that can be parsed to dynamically adapt your firewall, e.g., in Python with the `requests` package:
 
@@ -61,6 +62,7 @@ In order for you to access resources such as Fusion tarballs, `nf-xpack` files, 
 - `nf-xpack.seqera.io.cdn.cloudflare.net`
 - `public-cr-prod.seqera.io.cdn.cloudflare.net`
 - `wave-cache-prod-cloudflare.seqera.io.cdn.cloudflare.net`
+- `registry.nextflow.io` (required from Nextflow 25.10)
 
 If you chose to filter by specific DNS records, please note that new services may be added in the future.
 

@@ -12,7 +12,7 @@ data:
   TOWER_DB_DRIVER: "org.mariadb.jdbc.Driver"
   TOWER_DB_USER: "tower"
   TOWER_DB_PASSWORD: "<YOUR DB PASSWORD>"
-  TOWER_DB_DIALECT: "io.seqera.util.MySQL55DialectCollateBin"
+  TOWER_DB_DIALECT: "io.seqera.util.MySQL8DialectCollateBin"
   TOWER_DB_MIN_POOL_SIZE: "2"
   TOWER_DB_MAX_POOL_SIZE: "10"
   TOWER_DB_MAX_LIFETIME: "180000"
@@ -21,19 +21,18 @@ data:
   TOWER_SMTP_PASSWORD: "<YOUR SMTP USER PASSWORD>"
   TOWER_CRYPTO_SECRETKEY: "<YOUR CRYPTO SECRET>"
   TOWER_LICENSE: "<YOUR TOWER LICENSE KEY>"
-  TOWER_ENABLE_PLATFORMS: "awsbatch-platform,gls-platform,googlebatch-platform,azbatch-platform,uge-platform,slurm-platform"
-  FLYWAY_LOCATIONS: "classpath:db-schema/mysql"
+  TOWER_ENABLE_PLATFORMS: "altair-platform,awsbatch-platform,awscloud-platform,azbatch-platform,azcloud-platform,eks-platform,gke-platform,googlebatch-platform,googlecloud-platform,k8s-platform,lsf-platform,moab-platform,slurm-platform,uge-platform"
   TOWER_REDIS_URL: "redis://<YOUR REDIS IP>:6379" # For a managed Redis service, specify the IP address or DNS name of the service endpoint. If you use the containerized Redis service, specify "redis" instead of an IP address.
 
-  # Pipeline resource optimization service. Set TOWER_ENABLE_GROUNDSWELL true to use default service URL (http://groundswell:8090)
+  # Pipeline optimization service. Set TOWER_ENABLE_GROUNDSWELL true to use default service URL (http://groundswell:8090)
   # Use GROUNDSWELL_SERVER_URL to specify a custom service URL (enables the service by default)
-  TOWER_ENABLE_GROUNDSWELL: false
+  TOWER_ENABLE_GROUNDSWELL: "false"
   GROUNDSWELL_SERVER_URL: http://groundswell:8090
 
   # Studios configuration variables
   TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN: '<YOUR_RANDOMLY_GENERATED_STRING>' # This must match the value of CONNECT_OIDC_CLIENT_REGISTRATION_TOKEN in your proxy.yml file.
   TOWER_DATA_STUDIO_CONNECT_URL: 'https://connect.<YOUR PUBLIC TOWER HOST NAME>' #
-  
+
   TOWER_DATA_STUDIO_TEMPLATES_JUPYTERGA_STATUS: 'recommended'
   TOWER_DATA_STUDIO_TEMPLATES_JUPYTERGA_REPOSITORY: 'public.cr.seqera.io/platform/data-studio-jupyter:4.2.5-0.8'
   TOWER_DATA_STUDIO_TEMPLATES_JUPYTERGA_ICON: 'jupyter'
@@ -69,7 +68,7 @@ data:
   TOWER_DATA_STUDIO_TEMPLATES_XPRAGA_ICON: 'xpra'
   TOWER_DATA_STUDIO_TEMPLATES_XPRAGA_TOOL: 'xpra'
   TOWER_DATA_STUDIO_TEMPLATES_XPRAGA_PORT: '14500'
-  
+
 ---
 kind: ConfigMap
 apiVersion: v1
@@ -94,7 +93,7 @@ data:
         duration: 30m
 
     # Set a custom application name for the Micronaut environment to deploy multiple instances from the same Enterprise account
-    # Required for AWS Parameter Store configuration. For more information, see https://docs.seqera.io/platform-enterprise/enterprise/configuration/aws_parameter_store 
+    # Required for AWS Parameter Store configuration. For more information, see https://docs.seqera.io/platform-enterprise/enterprise/configuration/aws_parameter_store
     micronaut:
       application:
         name: tower-app

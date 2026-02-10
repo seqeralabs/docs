@@ -4,8 +4,7 @@
 
 [build.environment]
   NODE_VERSION = "22"
-  # Limit Node.js memory to 1GB (guaranteed allocation on Netlify)
-  NODE_OPTIONS = "--max-old-space-size=2048"
+  NODE_OPTIONS = "--max-old-space-size=4096"
   # Limit SSG worker threads to prevent OOM errors in Netlify builds
   # Docusaurus defaults to 32 threads with 1GB memory each, but Netlify's
   # memory limits aren't properly enforced, causing out-of-memory 137 errors.
@@ -33,3 +32,12 @@
   from = "/assets/*"
   to = "https://seqera-docs-api.netlify.app/assets/:splat"
   status = 200
+
+
+[[plugins]]
+  package = "netlify-plugin-cache"
+  [plugins.inputs]
+    paths = [
+      "node_modules/.cache",
+      ".docusaurus"
+    ]
