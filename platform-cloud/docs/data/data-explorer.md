@@ -6,7 +6,7 @@ last updated: "2025-07-29"
 tags: [data, explorer]
 ---
 
-With Data Explorer, you can browse and interact with remote data repositories from organization workspaces in Seqera Platform. It supports AWS S3, Azure Blob Storage, Google Cloud Storage, and Amazon S3-compatible API storage (for example, but not limited to, Cloudflare R2, MinIO, and Oracle Cloud).
+With Data Explorer, you can browse and interact with remote data repositories from organization workspaces in Seqera Platform. It supports AWS S3, Azure Blob Storage, Google Cloud Storage, and Amazon S3-compatible API storage (for example, but not limited to, Cloudflare R2, MinIO, Nebius, and Oracle Cloud).
 
 Access the **Data Explorer** tab from any workspace to view and manage all available data repositories. It is also integrated with the pipeline launch form and run detail pages and Studios, which allow you to select input data files and output directories or quickly view the output files of a run and directly use files in object storage for interactive analysis.
 
@@ -22,7 +22,7 @@ Data Explorer lists public and private data repositories. Repositories accessibl
 
 - **Retrieve data repositories with workspace credentials**
 
-  Private data repositories accessible to the credentials defined in your workspace are listed in Data Explorer automatically. The permissions required for your [AWS](../compute-envs/aws-batch#iam), [Google Cloud](../compute-envs/google-cloud-batch#iam), [Azure Batch](../compute-envs/azure-batch#storage-account), or Amazon S3-compatible API storage: credentials allow full Data Explorer functionality.
+  Private data repositories accessible to the credentials defined in your workspace are listed in Data Explorer automatically. The permissions required for your [AWS](../compute-envs/aws-batch#required-platform-iam-permissions), [Google Cloud](../compute-envs/google-cloud-batch#iam), [Azure Batch](../compute-envs/azure-batch#storage-account), or Amazon S3-compatible API storage: credentials allow full Data Explorer functionality.
 
 - **Configure individual data repositories manually**
 
@@ -139,11 +139,11 @@ If you use a non-Chromium based browser, such as Safari or Firefox, file paths a
 
 Open the data repository and navigate to the folder that you'd like to download files and folders from. By default, you can download the contents of the current directory by choosing **Download current directory**. Alternatively, use checkboxes to select specific files and folders, and select the **Download** button. You can **Download files** via the browser or **Download using code**.
 
-The code snippet provided is specific to the data repository provider you've configured. You may be prompted to authenticate during the download process. Refer to your data repository provider's documentation for troubleshooting credential-related issues:
+The code snippet provided is specific to the data repository provider you've configured and currently only the three major cloud providers are supported. You may be prompted to authenticate during the download process. Refer to your data repository provider's documentation for troubleshooting credential-related issues:
 
-- [GCP](https://cloud.google.com/sdk/gcloud/reference/storage)
 - [AWS](https://docs.aws.amazon.com/cli/latest/reference/s3/)
 - [Azure](https://learn.microsoft.com/en-us/cli/azure/storage?view=azure-cli-latest)
+- [GCP](https://cloud.google.com/sdk/gcloud/reference/storage)
 
 ## CORS configurations for cloud providers
 
@@ -244,5 +244,13 @@ Google Cloud Storage only supports CORS configuration via gcloud CLI.
   "maxAgeSeconds": 3600
 }
 ```
+
+## Limitations
+
+Using remote data repositories as inputs for pipelines or Studios currently requires the same credentials as the underlying Seqera Platform compute environment. This means that you currently **cannot** use data from S3-compatible object storage providers as inputs for pipelines or Studios because they don't offer configurable compute environments (eg. MinIO, Nebius).
+
+:::note
+Compute environment and Fusion multi-credential support will resolve this existing limitation, and is under active development.
+:::
 
 [roles]: ../orgs-and-teams/roles

@@ -35,39 +35,13 @@ When you launch a new workflow, all secrets are sent to the corresponding secret
 
 Secrets are automatically deleted from the secret manager when the pipeline completes, successfully or unsuccessfully.
 
-:::note 
-In AWS Batch compute environments, Seqera passes stored secrets to jobs as part of the Seqera-created job definition. Seqera secrets cannot be used in Nextflow processes that use a [custom job definition](https://www.nextflow.io/docs/latest/aws.html#custom-job-definition). 
+:::note
+In AWS Batch compute environments, Seqera passes stored secrets to jobs as part of the Seqera-created job definition. Seqera secrets cannot be used in Nextflow processes that use a [custom job definition](https://www.nextflow.io/docs/latest/aws.html#custom-job-definition).
 :::
 
 ## AWS Secrets Manager integration
 
-Seqera and associated AWS Batch IAM Roles require additional permissions to interact with AWS Secrets Manager.
-
-### Seqera instance permissions
-
-Augment the existing instance [permissions](https://github.com/seqeralabs/nf-tower-aws) with this policy:
-
-**IAM Permissions**
-
-Augment the permissions given to Seqera with the following Sid:
-
-```json
-    {
-        "Version": "2012-10-17",
-        "Statement": [
-            {
-                "Sid": "AllowTowerEnterpriseSecrets",
-                "Effect": "Allow",
-                "Action": [
-                    "secretsmanager:DeleteSecret",
-                    "secretsmanager:ListSecrets",
-                    "secretsmanager:CreateSecret"
-                ],
-                "Resource": "*"
-            }
-        ]
-    }
-```
+Seqera and associated AWS Batch IAM Roles require additional permissions to interact with AWS Secrets Manager, as detailed in the [Pipeline secrets section](../compute-envs/aws-batch#pipeline-secrets-optional) of the AWS Batch documentation.
 
 ### ECS Agent permissions
 

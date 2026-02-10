@@ -15,6 +15,17 @@ The database volume is persistent on the local machine by default if you use the
 1. Download the latest versions of your deployment templates and update your Seqera container versions:
     - [docker-compose.yml](./_templates/docker/docker-compose.yml) for Docker Compose deployments
     - [tower-cron.yml](./_templates/k8s/tower-cron.yml) and [tower-svc.yml](./_templates/k8s/tower-svc.yml) for Kubernetes deployments
+1. **JVM memory configuration defaults (recommended)**: The following `JAVA_OPTS` environment variable is included in the deployment templates downloaded in the preceding step, to optimize JVM memory settings:
+
+    ```bash
+    JAVA_OPTS: -Xms1000M -Xmx2000M -XX:MaxDirectMemorySize=800m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144
+    ```
+
+    These baseline values are suitable for most deployments running moderate concurrent workflow loads.
+
+    :::tip
+    These are starting recommendations that may require tuning based on your deployment's workload. See [Backend memory requirements](./configuration/overview.mdx#backend-memory-requirements) for detailed guidance on when and how to adjust these values for your environment.
+    :::
 1. Restart the application.
 1. If you're using a containerized database as part of your implementation:
     1. Stop the application.
@@ -33,7 +44,7 @@ The database volume is persistent on the local machine by default if you use the
 
 ### Nextflow launcher image
 
-If you must host your nf-launcher container image on a private image registry, copy the [nf-launcher image](https://quay.io/seqeralabs/nf-launcher:j17-24.04.4) to your private registry. Then update your `tower.env` with the launch container environment variable:
+If you host your nf-launcher container image on a private image registry, copy the [nf-launcher image](https://quay.io/seqeralabs/nf-launcher:j17-24.04.4) to your private registry. Then update your `tower.env` with the launch container environment variable:
 
     `TOWER_LAUNCH_CONTAINER=<FULL_PATH_TO_YOUR_PRIVATE_IMAGE>`
 

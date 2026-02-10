@@ -1,11 +1,11 @@
 ---
 id: validate-organization-name
 title: "Validate organization name"
-description: "Confirms the validity of the given organization name. Append `?name=<your_org_name>`."
+description: "Confirms that the given organization name is valid and available for use. Append `?name=<your_org_name>` to specify the name to validate."
 sidebar_label: "Validate organization name"
 hide_title: true
 hide_table_of_contents: true
-api: eJzNVN9vEzEM/leiPJe2wDSJil8dDDQhbRMbvKBpc+/cNt1dkiW+buXU/x07d8e6toInJJ7uEn+2P9tfXGuCWdSjH9oF/l71dI4xC8aTcVaP9AdnpyaUUdEc1RIKkxtaKTdN55lZolXsCNb8BPFQFkrsq7H3aHN1806Ob16vXBWuGXYtx7c3fd3TzmNIHic5Z/kugYHwbCPUKWMZ6CHwD2EQkrWWCOxgG6MRincVhpXeJn62zUqRawrgPIyO2RxL0KNa08pLyEjB2Jler7kHAaN3NmIU+4vhgXy2wn9Rz9SpU5mzhJb0uqcPhsNd3BHkKiBTjMRJOzTDwPvCZIneYBEFW29wEhcTMJfBlBgjzFBm01J1kwVmEs8H6SOZhmgH3FMTuxoq5Oo4BBe+tvWxZZ2Yv9xTYTchZR0pKAp3z3wS+tUu+mPVlIO5wgJLKfI/LZeNEbMqsI6Too4QAoZxRXM+Xsn0WW5zJ7KcYcoKYtIDeSCDTQW1US6kjIbSZqzfrOZEvhOcnCcJxDfNzycXSuAe6cU9JerGTl1yb0u4wDuehBqfn+yIvDWdF0BTDqMihqXJMLZg6T9kqf9VKFoqcTQYxOTXN45BPAIjNkn7/tHARJb86Jo8z/uHh/2h3HkXqYQ0vvYpdm93dw9s060fBfHP9krbc8IHGvgCeEEw6VR83Q6y3XRcXjdKHvmcyxJTXU8g4rdQrNdy3awWUUluIkwKUegUioh/qOxvi2cvw1tcPW41BlcC0SLGJQQjmZM4mShCzuIRSo3POMvQ04bXzkt7IunPx5eMhacK3VJkit6awK42YnN7EuLS3aLlFnXESc6ciF/XL0h0LyQ=
+api: eJzNVE1T2zAQ/SsanamTtvRApl+B0g7TGWAK7aXDwMbeJAJZEpIccD35792V7eIQpr30wCGxrX3afW/1tI2MsAhy8lNaT8+LHVlgyL1yUVkjJ/LAmrnyZRBxCZH+UCzUCo0gNBj1CxgmDJQoVBAr0KoQYOi3AqVhplHMrRdVwExMnUOKXH1g9Lu3ta38JWW55M/3VyJaERzmal6nKiklraWUEDGTO9I69KngUUHMfnSRkwGTY9pFQAeeXiJ6FtZIzkUbTBtULOu2Ql/Lx2LPqfC2sAGLpKbTprSKdRJLiyU1J7el0wpMnsiGfIklyEkjY+24fIhemYVcr6nHHoOzJmDg+KvxLj82qZx8FS/EsaWkJqKJcr0jd8fjbdw+FMIjyQmRivZogoEjMnmSMboOjG0GnHiL8ljwwZcYAiyQz76jamfXmHM+57nnUbVEe+ATmmiripqXDr23/lunjyLrxPz1Ewr70xTGRgFa2zvik9B72+hPVSsHC4EaSxb5TOVSMGBeeXJHct8+gkc/reKSPi/49MmaS8sWXmCqChySI76Ao95p7CD0q97CldcEWcbowmQ0AqeyXNuqyALeUhczZbe8fJYi4lRDZH+KA8aL6emRZAo9wzNuUSt3yPOPYq7Ym5m/ZwlEK+3L5+R8Wr++i6ktysxt2t61p2PBZf9FkOWqHEMH5rOFPJ3tpvihZDpexTEu+/EhQES4c22dl9nem2zMa86GWEKyRjcS+hmyfesf020ezPasZmJ3ThHv48hpoOFGQlPDms5Y3WSnlvTWovNfUis41DQzCPjd6/Wal9uxyIYrVGCq5NI56IB/6cb/HJpPqrnB+mF6U9KKIcnFK/CKWaaLRaIQCjIn02/3TPMcXRzs2poSG9fxy+E5YWHzBjxyfMrehcDUg9zUyoQ4tzdoqJ098cjfVIgmw28NN5Tz
 sidebar_class_name: "get api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -36,7 +36,7 @@ import Heading from "@theme/Heading";
 
 
 
-Confirms the validity of the given organization name. Append `?name=<your_org_name>`.
+Confirms that the given organization name is valid and available for use. Append `?name=<your_org_name>` to specify the name to validate.
 
 <Heading
   id={"request"}
@@ -47,7 +47,7 @@ Confirms the validity of the given organization name. Append `?name=<your_org_na
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"name","in":"query","description":"Organization name to validate","schema":{"type":"string"}}]}
+  parameters={[{"name":"name","in":"query","description":"The organization name to validate for availability and format compliance.","schema":{"type":"string"}}]}
 >
   
 </ParamsDetails>

@@ -1,0 +1,349 @@
+# ===== HPC COMPUTE CONFIGS - GRID SCHEDULER PROPERTY DESCRIPTIONS =====
+
+# These properties were previously inherited from AbstractGridConfig and now need
+# explicit descriptions on each scheduler type (LSF, Slurm, Altair PBS, Moab, Univa)
+
+# ---- LSF COMPUTE CONFIG ----
+
+- target: "$.components.schemas.LsfComputeConfig.allOf[1].properties.workDir"
+  update:
+    type: string
+    description: "Nextflow work directory on the cluster's shared file system. Must be an absolute path and credentials must have read-write access."
+
+- target: "$.components.schemas.LsfComputeConfig.allOf[1].properties.launchDir"
+  update:
+    type: string
+    description: "Directory where Nextflow runs. Must be an absolute path and credentials must have read-write access. If omitted, defaults to `workDir`."
+
+- target: "$.components.schemas.LsfComputeConfig.allOf[1].properties.userName"
+  update:
+    type: string
+    description: "Username for SSH connection to HPC head node."
+
+- target: "$.components.schemas.LsfComputeConfig.allOf[1].properties.hostName"
+  update:
+    type: string
+    description: "Hostname or IP address of HPC head node."
+
+- target: "$.components.schemas.LsfComputeConfig.allOf[1].properties.port"
+  update:
+    type: integer
+    format: int32
+    description: "SSH port. Default: `22`."
+
+- target: "$.components.schemas.LsfComputeConfig.allOf[1].properties.headQueue"
+  update:
+    type: string
+    description: "The name of the queue on the cluster used to launch the Nextflow execution."
+
+- target: "$.components.schemas.LsfComputeConfig.allOf[1].properties.computeQueue"
+  update:
+    type: string
+    description: "The name of queue on the cluster to which pipeline jobs are submitted. Can be overridden by the pipeline configuration."
+
+- target: "$.components.schemas.LsfComputeConfig.allOf[1].properties.maxQueueSize"
+  update:
+    type: integer
+    format: int32
+    description: "The maximum number of jobs Nextflow can submit to the queue simultaneously. Default: `100`."
+
+- target: "$.components.schemas.LsfComputeConfig.allOf[1].properties.headJobOptions"
+  update:
+    type: string
+    description: "Additional submit options for the Nextflow head job."
+
+- target: "$.components.schemas.LsfComputeConfig.allOf[1].properties.propagateHeadJobOptions"
+  update:
+    type: boolean
+    description: "If true, `headJobOptions` are also applied to the Nextflow-submitted compute jobs."
+
+- target: "$.components.schemas.LsfComputeConfig.allOf[1].properties.preRunScript"
+  update:
+    type: string
+    description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+- target: "$.components.schemas.LsfComputeConfig.allOf[1].properties.postRunScript"
+  update:
+    type: string
+    description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+- target: "$.components.schemas.LsfComputeConfig.allOf[1].properties.nextflowConfig"
+  update:
+    type: string
+    description: "Additional Nextflow configuration to apply. See [Nextflow config file](https://docs.seqera.io/platform-cloud/launch/advanced#nextflow-config-file)."
+
+# ---- SLURM COMPUTE CONFIG ----
+
+- target: "$.components.schemas.SlurmComputeConfig.allOf[1].properties.workDir"
+  update:
+    type: string
+    description: "Nextflow work directory on the cluster's shared file system. Must be an absolute path and credentials must have read-write access."
+
+- target: "$.components.schemas.SlurmComputeConfig.allOf[1].properties.launchDir"
+  update:
+    type: string
+    description: "Directory where Nextflow runs. Must be an absolute path and credentials must have read-write access. If omitted, defaults to `workDir`."
+
+- target: "$.components.schemas.SlurmComputeConfig.allOf[1].properties.userName"
+  update:
+    type: string
+    description: "Username for SSH connection to HPC head node."
+
+- target: "$.components.schemas.SlurmComputeConfig.allOf[1].properties.hostName"
+  update:
+    type: string
+    description: "Hostname or IP address of HPC head node."
+
+- target: "$.components.schemas.SlurmComputeConfig.allOf[1].properties.port"
+  update:
+    type: integer
+    format: int32
+    description: "SSH port. Default: `22`."
+
+- target: "$.components.schemas.SlurmComputeConfig.allOf[1].properties.headQueue"
+  update:
+    type: string
+    description: "The name of the queue on the cluster used to launch the Nextflow execution."
+
+- target: "$.components.schemas.SlurmComputeConfig.allOf[1].properties.computeQueue"
+  update:
+    type: string
+    description: "The name of queue on the cluster to which pipeline jobs are submitted. Can be overridden by the pipeline configuration."
+
+- target: "$.components.schemas.SlurmComputeConfig.allOf[1].properties.maxQueueSize"
+  update:
+    type: integer
+    format: int32
+    description: "The maximum number of jobs Nextflow can submit to the queue simultaneously. Default: `100`."
+
+- target: "$.components.schemas.SlurmComputeConfig.allOf[1].properties.headJobOptions"
+  update:
+    type: string
+    description: "Additional submit options for the Nextflow head job."
+
+- target: "$.components.schemas.SlurmComputeConfig.allOf[1].properties.propagateHeadJobOptions"
+  update:
+    type: boolean
+    description: "If true, `headJobOptions` are also applied to the Nextflow-submitted compute jobs."
+
+- target: "$.components.schemas.SlurmComputeConfig.allOf[1].properties.preRunScript"
+  update:
+    type: string
+    description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+- target: "$.components.schemas.SlurmComputeConfig.allOf[1].properties.postRunScript"
+  update:
+    type: string
+    description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+- target: "$.components.schemas.SlurmComputeConfig.allOf[1].properties.nextflowConfig"
+  update:
+    type: string
+    description: "Additional Nextflow configuration to apply. See [Nextflow config file](https://docs.seqera.io/platform-cloud/launch/advanced#nextflow-config-file)."
+
+# ---- ALTAIR PBS COMPUTE CONFIG ----
+
+- target: "$.components.schemas.AltairPbsComputeConfig.allOf[1].properties.workDir"
+  update:
+    type: string
+    description: "Nextflow work directory on the cluster's shared file system. Must be an absolute path and credentials must have read-write access."
+
+- target: "$.components.schemas.AltairPbsComputeConfig.allOf[1].properties.launchDir"
+  update:
+    type: string
+    description: "Directory where Nextflow runs. Must be an absolute path and credentials must have read-write access. If omitted, defaults to `workDir`."
+
+- target: "$.components.schemas.AltairPbsComputeConfig.allOf[1].properties.userName"
+  update:
+    type: string
+    description: "Username for SSH connection to HPC head node."
+
+- target: "$.components.schemas.AltairPbsComputeConfig.allOf[1].properties.hostName"
+  update:
+    type: string
+    description: "Hostname or IP address of HPC head node."
+
+- target: "$.components.schemas.AltairPbsComputeConfig.allOf[1].properties.port"
+  update:
+    type: integer
+    format: int32
+    description: "SSH port. Default: `22`."
+
+- target: "$.components.schemas.AltairPbsComputeConfig.allOf[1].properties.headQueue"
+  update:
+    type: string
+    description: "The name of the queue on the cluster used to launch the Nextflow execution."
+
+- target: "$.components.schemas.AltairPbsComputeConfig.allOf[1].properties.computeQueue"
+  update:
+    type: string
+    description: "The name of queue on the cluster to which pipeline jobs are submitted. Can be overridden by the pipeline configuration."
+
+- target: "$.components.schemas.AltairPbsComputeConfig.allOf[1].properties.maxQueueSize"
+  update:
+    type: integer
+    format: int32
+    description: "The maximum number of jobs Nextflow can submit to the queue simultaneously. Default: `100`."
+
+- target: "$.components.schemas.AltairPbsComputeConfig.allOf[1].properties.headJobOptions"
+  update:
+    type: string
+    description: "Additional submit options for the Nextflow head job."
+
+- target: "$.components.schemas.AltairPbsComputeConfig.allOf[1].properties.propagateHeadJobOptions"
+  update:
+    type: boolean
+    description: "If true, `headJobOptions` are also applied to the Nextflow-submitted compute jobs."
+
+- target: "$.components.schemas.AltairPbsComputeConfig.allOf[1].properties.preRunScript"
+  update:
+    type: string
+    description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+- target: "$.components.schemas.AltairPbsComputeConfig.allOf[1].properties.postRunScript"
+  update:
+    type: string
+    description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+- target: "$.components.schemas.AltairPbsComputeConfig.allOf[1].properties.nextflowConfig"
+  update:
+    type: string
+    description: "Additional Nextflow configuration to apply. See [Nextflow config file](https://docs.seqera.io/platform-cloud/launch/advanced#nextflow-config-file)."
+
+# ---- MOAB COMPUTE CONFIG ----
+
+- target: "$.components.schemas.MoabComputeConfig.allOf[1].properties.workDir"
+  update:
+    type: string
+    description: "Nextflow work directory on the cluster's shared file system. Must be an absolute path and credentials must have read-write access."
+
+- target: "$.components.schemas.MoabComputeConfig.allOf[1].properties.launchDir"
+  update:
+    type: string
+    description: "Directory where Nextflow runs. Must be an absolute path and credentials must have read-write access. If omitted, defaults to `workDir`."
+
+- target: "$.components.schemas.MoabComputeConfig.allOf[1].properties.userName"
+  update:
+    type: string
+    description: "Username for SSH connection to HPC head node."
+
+- target: "$.components.schemas.MoabComputeConfig.allOf[1].properties.hostName"
+  update:
+    type: string
+    description: "Hostname or IP address of HPC head node."
+
+- target: "$.components.schemas.MoabComputeConfig.allOf[1].properties.port"
+  update:
+    type: integer
+    format: int32
+    description: "SSH port. Default: `22`."
+
+- target: "$.components.schemas.MoabComputeConfig.allOf[1].properties.headQueue"
+  update:
+    type: string
+    description: "The name of the queue on the cluster used to launch the Nextflow execution."
+
+- target: "$.components.schemas.MoabComputeConfig.allOf[1].properties.computeQueue"
+  update:
+    type: string
+    description: "The name of queue on the cluster to which pipeline jobs are submitted. Can be overridden by the pipeline configuration."
+
+- target: "$.components.schemas.MoabComputeConfig.allOf[1].properties.maxQueueSize"
+  update:
+    type: integer
+    format: int32
+    description: "The maximum number of jobs Nextflow can submit to the queue simultaneously. Default: `100`."
+
+- target: "$.components.schemas.MoabComputeConfig.allOf[1].properties.headJobOptions"
+  update:
+    type: string
+    description: "Additional submit options for the Nextflow head job."
+
+- target: "$.components.schemas.MoabComputeConfig.allOf[1].properties.propagateHeadJobOptions"
+  update:
+    type: boolean
+    description: "If true, `headJobOptions` are also applied to the Nextflow-submitted compute jobs."
+
+- target: "$.components.schemas.MoabComputeConfig.allOf[1].properties.preRunScript"
+  update:
+    type: string
+    description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+- target: "$.components.schemas.MoabComputeConfig.allOf[1].properties.postRunScript"
+  update:
+    type: string
+    description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+- target: "$.components.schemas.MoabComputeConfig.allOf[1].properties.nextflowConfig"
+  update:
+    type: string
+    description: "Additional Nextflow configuration to apply. See [Nextflow config file](https://docs.seqera.io/platform-cloud/launch/advanced#nextflow-config-file)."
+
+# ---- UNIVA COMPUTE CONFIG ----
+
+- target: "$.components.schemas.UnivaComputeConfig.allOf[1].properties.workDir"
+  update:
+    type: string
+    description: "Nextflow work directory on the cluster's shared file system. Must be an absolute path and credentials must have read-write access."
+
+- target: "$.components.schemas.UnivaComputeConfig.allOf[1].properties.launchDir"
+  update:
+    type: string
+    description: "Directory where Nextflow runs. Must be an absolute path and credentials must have read-write access. If omitted, defaults to `workDir`."
+
+- target: "$.components.schemas.UnivaComputeConfig.allOf[1].properties.userName"
+  update:
+    type: string
+    description: "Username for SSH connection to HPC head node."
+
+- target: "$.components.schemas.UnivaComputeConfig.allOf[1].properties.hostName"
+  update:
+    type: string
+    description: "Hostname or IP address of HPC head node."
+
+- target: "$.components.schemas.UnivaComputeConfig.allOf[1].properties.port"
+  update:
+    type: integer
+    format: int32
+    description: "SSH port. Default: `22`."
+
+- target: "$.components.schemas.UnivaComputeConfig.allOf[1].properties.headQueue"
+  update:
+    type: string
+    description: "The name of the queue on the cluster used to launch the Nextflow execution."
+
+- target: "$.components.schemas.UnivaComputeConfig.allOf[1].properties.computeQueue"
+  update:
+    type: string
+    description: "The name of queue on the cluster to which pipeline jobs are submitted. Can be overridden by the pipeline configuration."
+
+- target: "$.components.schemas.UnivaComputeConfig.allOf[1].properties.maxQueueSize"
+  update:
+    type: integer
+    format: int32
+    description: "The maximum number of jobs Nextflow can submit to the queue simultaneously. Default: `100`."
+
+- target: "$.components.schemas.UnivaComputeConfig.allOf[1].properties.headJobOptions"
+  update:
+    type: string
+    description: "Additional submit options for the Nextflow head job."
+
+- target: "$.components.schemas.UnivaComputeConfig.allOf[1].properties.propagateHeadJobOptions"
+  update:
+    type: boolean
+    description: "If true, `headJobOptions` are also applied to the Nextflow-submitted compute jobs."
+
+- target: "$.components.schemas.UnivaComputeConfig.allOf[1].properties.preRunScript"
+  update:
+    type: string
+    description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+- target: "$.components.schemas.UnivaComputeConfig.allOf[1].properties.postRunScript"
+  update:
+    type: string
+    description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+- target: "$.components.schemas.UnivaComputeConfig.allOf[1].properties.nextflowConfig"
+  update:
+    type: string
+    description: "Additional Nextflow configuration to apply. See [Nextflow config file](https://docs.seqera.io/platform-cloud/launch/advanced#nextflow-config-file)."
