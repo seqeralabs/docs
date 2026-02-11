@@ -224,7 +224,7 @@ ssh alice@a01ac8894@connect.example.com -p 2222
 
 Where:
 - `<username>`: Your Seqera Platform username
-- `<sessionId>`: The Studio session ID (8-character hex string visible in the Studios list)
+- `<studio-session-id>`: The Studio session ID (8-character hex string visible in the Studios list)
 - `<connect-domain>`: Your connect proxy domain
 - Port: `2222` (default SSH proxy port)
 

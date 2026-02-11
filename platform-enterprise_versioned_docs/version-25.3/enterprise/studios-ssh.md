@@ -6,7 +6,7 @@ tags: [studios, ssh, kubernetes, advanced]
 ---
 
 :::warning[Advanced configuration]
-SSH configuration requires careful consideration of security and networking. This feature requires network-level changes to your infrastructure that may need coordination with your infrastructure or networking team. Improperly configured SSH access may introduce security vulnerabilities.
+Enabling SSH for running Studio sessions requires changes to platform configuration and therefore careful consideration of security and networking. This feature requires network-level changes to your infrastructure that may need coordination with your infrastructure or networking team. Improperly configured SSH access may introduce security vulnerabilities.
 :::
 
 SSH access enables direct terminal connections to running Studio containers using standard SSH clients, supporting VS Code Remote SSH and terminal access.
