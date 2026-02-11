@@ -163,7 +163,7 @@ Sessions have the following possible statuses:
 There might be errors reported by the session itself but these will be overwritten with a **running** status if the session is still running.
 :::
 
-## Connect to a Studio via SSH
+## Connect to a Studio via SSH (public preview)
 
 :::info[**Prerequisites**]
 - Enterprise v25.3.3 or later
