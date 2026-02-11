@@ -167,7 +167,7 @@ There might be errors reported by the session itself but these will be overwritt
 
 :::info[**Prerequisites**]
 - Enterprise v25.3.3 or later
-- SSH access enabled for your workspace during deployment (your administrator must configure the [SSH environment variables](../enterprise/studios-kubernetes#ssh-connection))
+- SSH access enabled for your workspace during deployment.
 - Your SSH public key added to your Seqera Platform user profile
 - **SSH Connection** toggle enabled when adding the Studio
 :::
