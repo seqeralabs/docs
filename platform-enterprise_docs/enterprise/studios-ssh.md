@@ -61,7 +61,7 @@ ssh-keygen -lf /path/to/connect-proxy-key
 Platform uses the fingerprint output (SHA256 hash) in configuration to enable an additional security layer. After you configure this fingerprint, Studio SSH servers only accept connections from clients presenting this specific key, preventing unauthorized SSH access.
 
 :::warning[Key consistency]
-All proxy instances must use a **shared SSH key** to prevent host key verification errors. In high availability deployments, ensure all replicas access the shared key.
+All Connect proxy instances must use a **shared SSH key** to prevent host key verification errors. In high availability deployments, ensure all replicas access the shared key.
 :::
 
 ### Key distribution
@@ -122,10 +122,10 @@ Network configuration is specific to your infrastructure and deployment environm
 
 ## Step 5: Apply configuration
 
-After configuring all required settings:
+After configuring all the required settings:
 
 1. Apply the updated Platform configuration and restart the Platform backend and cron services to load the new settings
-2. Apply the updated connect-proxy configuration and restart the proxy service
+2. Apply the updated connect-proxy configuration and restart the connect-proxy service
 3. Implement the network access requirements from Step 4
 
 Verify that all services restart successfully and the configuration changes are active.
@@ -138,7 +138,7 @@ Verify that all services restart successfully and the configuration changes are 
 4. Test SSH connection:
 
 ```bash
-ssh <username>@<sessionId>@<connect-domain> -p 2222
+ssh <username>@<studio-session-id>@<connect-domain> -p 2222
 ```
 
 For detailed usage instructions and VS Code setup, see [Connect to a Studio via SSH](../studios/managing#connect-to-a-studio-via-ssh).
