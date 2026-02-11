@@ -142,7 +142,7 @@ If the **SSH Connection** toggle doesn't appear when adding a Studio, or SSH-rel
 - **connect-server/proxy v0.10.0 or later**
 - **connect-client v0.10.0 or later**
 
-If your Platform meets these requirements but SSH is still unavailable, verify your administrator configured the required environment variables during deployment. See [Studios Kubernetes deployment - SSH connection](../enterprise/studios-kubernetes#ssh-connection).
+If your Platform meets these requirements but SSH is still unavailable, verify your administrator configured the required environment variables during deployment.
 
 ### Host key verification failed
 
@@ -153,7 +153,7 @@ If your Platform meets these requirements but SSH is still unavailable, verify y
 Host key verification failed.
 ```
 
-This error occurs when multiple proxy pods are using different SSH keys. Ensure all proxy pods share the same SSH key. See [Studios Kubernetes deployment - SSH connection](../enterprise/studios-kubernetes#ssh-connection) for configuration details. If the issue persists, edit your `~/.ssh/known_hosts` file and remove the line that contains the connect-proxy address.
+This error occurs when multiple proxy pods are using different SSH keys. Ensure all proxy pods share the same SSH key. If the issue persists, edit your `~/.ssh/known_hosts` file and remove the line that contains the connect-proxy address.
 
 ### Permission denied (publickey)
 
@@ -166,7 +166,7 @@ If you receive a permission denied error, there are several possible causes. Fir
 
 Additionally, ensure SSH was enabled when adding the Studio using the **SSH Connection** toggle. The SSH setting persists across stop/start but defaults to disabled for new Studios.
 
-If the issue persists, verify your administrator configured the SSH environment variables during Studios deployment. See [Studios Kubernetes deployment - SSH connection](../enterprise/studios-kubernetes#ssh-connection).
+If the issue persists, verify your administrator configured the SSH environment variables during Studios deployment.
 
 ### Connection closed by remote host
 
