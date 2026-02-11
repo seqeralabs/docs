@@ -36,7 +36,7 @@ From Enterprise v25.3.3, direct SSH connections to running Studios are available
 2. Add your SSH public key to your Seqera Platform user profile.
 3. Enable the **SSH Connection** toggle when adding a Studio.
 
-For connection instructions and VS Code setup, see [Connect to a Studio via SSH](./managing#connect-to-a-studio-via-ssh).
+For connection instructions and VS Code setup, see [Connect to a Studio via SSH](./managing#connect-to-a-studio-via-ssh-public-preview).
 
 {/* links */}
 [contact]: https://support.seqera.io/
