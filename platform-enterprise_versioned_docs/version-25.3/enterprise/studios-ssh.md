@@ -1,6 +1,6 @@
 ---
 title: "Studios SSH configuration"
-description: Configure SSH access for Studios
+description: Configure SSH access for Studios (public preview)
 date created: "2026-02-10"
 tags: [studios, ssh, kubernetes, advanced]
 ---
