@@ -192,7 +192,7 @@ If you didn't enable SSH when you added your Studio, stop the Studio and select 
 Connect to a Studio using standard SSH:
 
 ```bash
-ssh <username>@<sessionId>@<connect-domain> -p 2222
+ssh <username>@<studio-session-id>@<connect-domain> -p 2222
 ```
 
 **Example:**
@@ -203,7 +203,7 @@ ssh alice@a01ac8894@connect.example.com -p 2222
 
 Where:
 - `<username>`: Your Seqera Platform username
-- `<sessionId>`: The Studio session ID (visible in the Studios list)
+- `<studio-session-id>`: The Studio session ID (visible in the Studios list)
 - `<connect-domain>`: Your connect proxy domain
 - Port: `2222` (default SSH proxy port)
 

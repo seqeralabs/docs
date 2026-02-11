@@ -122,10 +122,10 @@ Network configuration is specific to your infrastructure and deployment environm
 
 ## Step 5: Apply configuration
 
-After configuring all required settings:
+After configuring all the required settings:
 
 1. Apply the updated Platform configuration and restart the Platform backend and cron services to load the new settings
-2. Apply the updated connect-proxy configuration and restart the proxy service
+2. Apply the updated connect-proxy configuration and restart the connect-proxy service
 3. Implement the network access requirements from Step 4
 
 Verify that all services restart successfully and the configuration changes are active.
@@ -138,7 +138,7 @@ Verify that all services restart successfully and the configuration changes are 
 4. Test SSH connection:
 
 ```bash
-ssh <username>@<sessionId>@<connect-domain> -p 2222
+ssh <username>@<studio-session-id>@<connect-domain> -p 2222
 ```
 
 For detailed usage instructions and VS Code setup, see [Connect to a Studio via SSH](../studios/managing#connect-to-a-studio-via-ssh).
