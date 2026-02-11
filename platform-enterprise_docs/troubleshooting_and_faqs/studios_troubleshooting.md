@@ -162,16 +162,18 @@ ssh user@studio-session-id@connect.example.com
 # user@studio-session-id@connect.example.com: Permission denied (publickey).
 ```
 
-If you receive a permission denied error, there are several possible causes. First, verify the user has the correct role and permissions in the workspace, and check that the user's SSH public key is configured in their Seqera Platform user profile.
+If you receive a permission denied error, there are several possible causes:
 
-Additionally, ensure SSH was enabled when adding the Studio using the **SSH Connection** toggle. The SSH setting persists across stop/start but defaults to disabled for new Studios.
+1. Verify the user has the correct role and permissions in the workspace.
+2. Check that the user's SSH public key is configured in their Seqera Platform user profile.
+3. Ensure SSH was enabled when adding the Studio using the **SSH Connection** toggle. The SSH setting persists across stop/start but defaults to disabled for new Studios.
 
 If the issue persists, verify your administrator configured the SSH environment variables during Studios deployment.
 
 ### Connection closed by remote host
 
 ```bash
-ssh user@sessionId@connect.example.com
+ssh user@studio-session-id@connect.example.com
 # Connection to connect.example.com closed by remote host.
 ```
 
@@ -211,7 +213,7 @@ VS Code's local server mode uses SSH multiplexing over SOCKS proxy, which is not
 **Correct format:**
 
 ```bash
-ssh <username>@<sessionId>@<connect-domain> -p 2222
+ssh <username>@<studio-session-id>@<connect-domain> -p 2222
 ```
 
 **Example:**

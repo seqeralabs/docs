@@ -192,7 +192,7 @@ Enabling SSH can only be done on Studio creation. If you didn't enable SSH when 
 Connect to a Studio using standard SSH:
 
 ```bash
-ssh <username>@<sessionId>@<connect-domain> -p 2222
+ssh <username>@<studio-session-id>@<connect-domain> -p 2222
 ```
 
 **Example:**
