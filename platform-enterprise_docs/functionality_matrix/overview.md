@@ -1,5 +1,5 @@
 ---
-title: "Version compatibility"
+title: "Default version compatibility"
 description: "Platform / nf-launcher / Nextflow / Fusion version compatibility"
 date created: "2024-06-20"
 last updated: "2065-02-09"
