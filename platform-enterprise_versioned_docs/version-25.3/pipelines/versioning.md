@@ -18,11 +18,10 @@ When you add a new pipeline to Seqera, the first default version of that pipelin
 New draft versions are automatically generated during pipeline edit or launch when you modify the following:
 - All pipeline schema parameters, unless the `track_changes` schema configuration for a given property is set to `false`.
     :::info
-    Changes to all pipeline schema parameters trigger a new version by default (`"track_changes": true`). To alter this behavior for specific parameters, add `"track_changes": false` to the parameter definition:
+    Changes to all pipeline schema parameters during pipeline edit or launch trigger a new version by default i.e. the default for parameters is assumed as `"track_changes": true`. The
+  intent with pipeline versioning is to allow the common variable inputs (e.g. fastq files) and outputs (e.g. outputDir) to be omitted for consideration during  versioning. To enable this
+  behavior for specific parameters, add `"track_changes": false` to the parameter property definition in the schema:
     ```json
-    "my_parameter": {
-      "type": "string",
-      "description": "Changes to this parameter will not trigger a new pipeline version to be created",
       "track_changes": false
     }
     ```
@@ -40,6 +39,7 @@ New draft versions are automatically generated during pipeline edit or launch wh
     }
     ```
     :::
+
 - Fields in the pipeline **Edit** form, excluding:
   - **Name**
   - **Image**
