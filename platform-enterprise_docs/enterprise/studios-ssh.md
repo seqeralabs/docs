@@ -82,7 +82,7 @@ TOWER_DATA_STUDIO_CONNECT_SSH_ADDRESS: ""
 **Configuration details:**
 
 - `TOWER_DATA_STUDIO_CONNECT_SSH_KEY_FINGERPRINT`: SSH key fingerprint from Step 1. After you configure this fingerprint, Studio SSH servers only accept connections using this key. This rejects connections not originating from your connect-proxy (recommended for security).
-- `TOWER_DATA_STUDIO_SSH_ALLOWED_WORKSPACES`: Comma-separated workspace IDs allowed to use SSH. Leave empty to disable SSH entirely.
+- `TOWER_DATA_STUDIO_SSH_ALLOWED_WORKSPACES`: Comma-separated workspace IDs allowed to use SSH. Set to an empty string to enable for all Platform Workspaces. Don't set the environment variable to disable the feature entirely.
 - `TOWER_SSH_KEYS_MANAGEMENT_ENABLED`: Set to `true` to enable SSH key management in Platform.
 - `TOWER_DATA_STUDIO_CONNECT_SSH_PORT`: SSH port (must match proxy configuration).
 - `TOWER_DATA_STUDIO_CONNECT_SSH_ADDRESS`: Set this when SSH traffic uses a different DNS address than the regular connect URL. Use this when SSH traffic needs to bypass Layer 7 load balancers used for HTTPS traffic. If not set, the regular connect URL is used for SSH.
