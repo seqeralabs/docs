@@ -31,7 +31,7 @@ Before you begin, you need:
 - A wildcard DNS record covering the Studios subdomains, e.g., `*.connect.example.com`
 - Data Explorer enabled in your Seqera Platform instance (automatic with Helm deployments)
 
-## DNS Configuration
+## DNS configuration
 
 Each Studio is reachable at a unique URL that includes a randomly generated subdomain name. For example: `https://abcd.connect.example.com/`, where `connect.example.com` is the Studios service domain.
 
