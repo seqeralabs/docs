@@ -141,8 +141,8 @@ Verify that all services restart successfully and the configuration changes are 
 ssh <username>@<studio-session-id>@<connect-domain> -p 2222
 ```
 
-For detailed usage instructions and VS Code setup, see [Connect to a Studio via SSH](../studios/managing#connect-to-a-studio-via-ssh).
+For detailed usage instructions and VS Code setup, see [Connect to a Studio via SSH](../studios/managing#connect-to-a-studio-via-ssh-public-preview).
 
 ## Troubleshooting
 
-For SSH connection issues, see [Studios troubleshooting](../troubleshooting_and_faqs/studios_troubleshooting#ssh-connections).
+For SSH connection issues, see [Studios troubleshooting](../troubleshooting_and_faqs/studios_troubleshooting#ssh-connections-public-preview).

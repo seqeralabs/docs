@@ -252,7 +252,7 @@ SSH connections use public key authentication:
 2. Your SSH client uses your private key for authentication.
 3. The connection is encrypted end-to-end.
 
-For troubleshooting SSH connection issues, see [Studios troubleshooting](../troubleshooting_and_faqs/studios_troubleshooting#ssh-connections).
+For troubleshooting SSH connection issues, see [Studios troubleshooting](../troubleshooting_and_faqs/studios_troubleshooting#ssh-connections-public-preview).
 
 ## Studio session data-links
 
