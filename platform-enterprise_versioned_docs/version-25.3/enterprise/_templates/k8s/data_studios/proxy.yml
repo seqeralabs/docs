@@ -62,9 +62,7 @@ spec:
       volumes:
         - name: caddy-temp-data-volume
           emptyDir:
-            sizeLimit: 100Mi  
-      securityContext:
-        fsGroup: 65532
+            sizeLimit: 100Mi
 ---
 apiVersion: v1
 kind: Service

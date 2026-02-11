@@ -8,7 +8,7 @@ tags: [data, session, studios]
 
 Select the **Studios** tab, and then select **Add Studio**. The options available are:
 
-- [Provided container template][provided-template]
+- [Provided container template][containers]
 - [Custom container template][custom-container]
 - [Import from a Git repository][github]
 
@@ -28,14 +28,23 @@ To mount an EFS volume in a Studio session (for example, if your organization ha
 
 For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
 
+### SSH connection
+
+From Enterprise v25.3.3, direct SSH connections to running Studios are available using standard SSH clients, VS Code Remote SSH, or terminal access. To use this feature:
+
+1. Enable SSH access for your workspace by setting the `TOWER_DATA_STUDIO_SSH_ALLOWED_WORKSPACES` [environment variable](../enterprise/configuration/overview#data-features) during deployment. See [Studios Kubernetes deployment](../enterprise/studios-kubernetes#ssh-connection) for configuration details.
+2. Add your SSH public key to your Seqera Platform user profile.
+3. Enable the **SSH Connection** toggle when adding a Studio.
+
+For connection instructions and VS Code setup, see [Connect to a Studio via SSH](./managing#connect-to-a-studio-via-ssh).
+
 {/* links */}
 [contact]: https://support.seqera.io/
 [aws-cloud]: ../compute-envs/aws-cloud
 [aws-gpu]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-gpu.html
 [aws-batch]: ../compute-envs/aws-batch
 [github]: ./add-studio-git-repo
+[custom-container]: ./add-studio-custom-container
 [conda-syntax]: ./custom-envs#conda-package-syntax
 [custom-image]: ./custom-envs#custom-containers
-[custom-container]: ./add-studio-custom-container
-[provided-template]: ./add-studio-provided-template
-
+[containers]: ./add-studio-custom-container
