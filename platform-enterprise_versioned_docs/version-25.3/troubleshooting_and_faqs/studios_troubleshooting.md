@@ -171,7 +171,7 @@ If the issue persists, verify your administrator configured the SSH environment 
 ### Connection closed by remote host
 
 ```bash
-ssh user@sessionId@connect.example.com
+ssh user@studio-session-id@connect.example.com
 # Connection to connect.example.com closed by remote host.
 ```
 
