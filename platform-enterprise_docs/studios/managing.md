@@ -172,7 +172,7 @@ There might be errors reported by the session itself but these will be overwritt
 - **SSH Connection** toggle enabled when adding the Studio
 :::
 
-Direct SSH connections to running Studio containers support standard SSH clients, terminal access, and VS Code Remote SSH. JupyterLab, R-IDE, VS Code, and Xpra container templates are supported.
+Direct SSH connections to running Studio containers support standard SSH clients, terminal access, and [VS Code Remote SSH](https://code.visualstudio.com/docs/remote/ssh). JupyterLab, R-IDE, VS Code, and Xpra container templates are supported.
 
 ### Prerequisites
 
