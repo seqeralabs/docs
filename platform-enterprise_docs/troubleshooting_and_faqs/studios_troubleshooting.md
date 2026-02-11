@@ -136,7 +136,9 @@ These are the false positive confirmed findings:
 
 ### SSH Connection toggle not available
 
-If the **SSH Connection** toggle doesn't appear when adding a Studio, or SSH-related options are missing, your Platform version doesn't support SSH access to running Studios. Contact your administrator to verify the Platform version. SSH access requires:
+If the **SSH Connection** toggle doesn't appear when adding a Studio, or SSH-related options are missing, your Platform version doesn't support SSH access to running Studios.
+
+SSH access requires:
 
 - **Seqera Platform Enterprise v25.3.3 or later**
 - **connect-server/proxy v0.10.0 or later**
@@ -165,7 +167,7 @@ ssh user@studio-session-id@connect.example.com
 If you receive a permission denied error, there are several possible causes:
 
 1. Verify the user has the correct role and permissions in the workspace.
-2. Check that the user's SSH public key is configured in their Seqera Platform user profile.
+2. Check that the user's SSH public key is configured in their Seqera user profile.
 3. Ensure SSH was enabled when adding the Studio using the **SSH Connection** toggle. The SSH setting persists across stop/start but defaults to disabled for new Studios.
 
 If the issue persists, verify your administrator configured the SSH environment variables during Studios deployment.

@@ -167,24 +167,16 @@ There might be errors reported by the session itself but these will be overwritt
 
 :::info[**Prerequisites**]
 - Enterprise v25.3.3 or later
-- SSH access enabled for your workspace during deployment (your administrator must configure the [SSH environment variables](../enterprise/studios-kubernetes#ssh-connection))
+- [Studios SSH configuration](../enterprise/studios-ssh) enabled for your workspace during deployment.
 - Your SSH public key added to your Seqera Platform user profile
 - **SSH Connection** toggle enabled when adding the Studio
+- The Studio is in a **running** state.
 :::
 
 Direct SSH connections to running Studio containers support standard SSH clients, terminal access, and VS Code Remote SSH. JupyterLab, R-IDE, VS Code, and Xpra container templates are supported.
 
-### Prerequisites
-
-Before connecting, ensure:
-
-1. Your administrator configured SSH access during [Studios deployment](../enterprise/studios-kubernetes#ssh-connection).
-2. You added your SSH public key to your Seqera Platform user profile.
-3. You enabled the **SSH Connection** toggle when adding the Studio.
-4. The Studio is in a **running** state.
-
 :::note
-If you didn't enable SSH when you added your Studio, stop the Studio and select **Start as New** where you can enable **SSH Connection**.
+Enabling SSH can only be done on Studio creation. If you didn't enable SSH when you initially added your Studio, you will need to duplicate and modify it. Stop the Studio, select **Start as New**, and enable **SSH Connection** for the new Studio.
 :::
 
 ### Terminal access

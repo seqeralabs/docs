@@ -136,13 +136,15 @@ These are the false positive confirmed findings:
 
 ### SSH Connection toggle not available
 
-If the **SSH Connection** toggle doesn't appear when adding a Studio, or SSH-related options are missing, your Platform version doesn't support SSH access to Studios. Contact your administrator to verify the Platform version. SSH access requires:
+If the **SSH Connection** toggle doesn't appear when adding a Studio, or SSH-related options are missing, your Platform version doesn't support SSH access to Studios. Contact your administrator.
+
+SSH access requires:
 
 - **Seqera Platform Enterprise v25.3.3 or later**
 - **connect-server/proxy v0.10.0 or later**
 - **connect-client v0.10.0 or later**
 
-If your Platform meets these requirements but SSH is still unavailable, verify your administrator configured the required environment variables during deployment. See [Studios Kubernetes deployment - SSH connection](../enterprise/studios-kubernetes#ssh-connection).
+If your Platform deployment meets these requirements but SSH is still unavailable, verify your administrator configured the required environment variables during deployment. See [Studios SSH configuration](../enterprise/studios-ssh).
 
 ### Host key verification failed
 

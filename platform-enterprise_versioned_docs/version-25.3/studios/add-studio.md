@@ -28,11 +28,11 @@ To mount an EFS volume in a Studio session (for example, if your organization ha
 
 For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
 
-### SSH connection
+### SSH connection (public preview)
 
 From Enterprise v25.3.3, direct SSH connections to running Studios are available using standard SSH clients, VS Code Remote SSH, or terminal access. To use this feature:
 
-1. Enable SSH access for your workspace by setting the `TOWER_DATA_STUDIO_SSH_ALLOWED_WORKSPACES` [environment variable](../enterprise/configuration/overview#data-features) during deployment. See [Studios Kubernetes deployment](../enterprise/studios-kubernetes#ssh-connection) for configuration details.
+1. Enable SSH access for your workspace by setting the `TOWER_DATA_STUDIO_SSH_ALLOWED_WORKSPACES` [environment variable](../enterprise/configuration/overview#data-features) during deployment. See [Studios SSH configuration](../enterprise/studios-ssh) for configuration details.
 2. Add your SSH public key to your Seqera Platform user profile.
 3. Enable the **SSH Connection** toggle when adding a Studio.
 
