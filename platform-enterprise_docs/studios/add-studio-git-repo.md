@@ -24,7 +24,11 @@ You will need the following to get started:
 
 ### Create the required configuration files
 
-Create a `studio-config.yaml` file in the `.seqera` directory in your repository. Your `studio-config.yaml` should contain at least `schemaVersion `, `kind` and `session.template.kind`. All other fields are optional. Note that `ssh` is only available from v25.3.3 and will be ignored in earlier versions.
+Create a `studio-config.yaml` file in the `.seqera` directory in your repository. Your `studio-config.yaml` should contain at least `schemaVersion `, `kind` and `session.template.kind`. All other fields are optional. 
+
+:::note 
+`ssh.enabled` is only available from v25.3.3 and will be ignored in earlier versions.
+:::
 
 ```yaml
 schemaVersion: "0.0.1"
