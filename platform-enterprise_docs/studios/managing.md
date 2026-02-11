@@ -198,7 +198,7 @@ ssh <username>@<sessionId>@<connect-domain> -p 2222
 **Example:**
 
 ```bash
-ssh alice@01ac8894@connect.example.com -p 2222
+ssh alice@a01ac8894@connect.example.com -p 2222
 ```
 
 Where:
