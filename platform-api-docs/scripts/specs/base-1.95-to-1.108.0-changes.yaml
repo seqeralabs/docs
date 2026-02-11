@@ -1,0 +1,1942 @@
+overlay: 1.0.0
+x-speakeasy-jsonpath: rfc9535
+info:
+  title: Overlay seqera-api-1.95.yml => seqera-api-1.108.0.yaml
+  version: 0.0.0
+actions:
+  - target: $["info"]["version"]
+    update: 1.108.0
+  - target: $["paths"]
+    update:
+      /compute-envs/{computeEnvId}/disable:
+        post:
+          tags:
+            - compute-envs
+          summary: Disable compute environment
+          description: "Disables the compute environment identified by the given `computeEnvId`. A disabled compute environment cannot be used to launch workflows. If the compute environment is primary, it will be automatically unset as primary."
+          operationId: DisableComputeEnv
+          parameters:
+            - name: computeEnvId
+              in: path
+              description: Compute environment string identifier
+              required: true
+              schema:
+                type: string
+            - name: workspaceId
+              in: query
+              description: Workspace numeric identifier
+              schema:
+                type: integer
+                format: int64
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/EmptyBodyRequest"
+          responses:
+            "204":
+              description: OK - No content
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+          security:
+            - BearerAuth: []
+  - target: $["paths"]
+    update:
+      /compute-envs/{computeEnvId}/enable:
+        post:
+          tags:
+            - compute-envs
+          summary: Enable compute environment
+          description: Enables the compute environment identified by the given `computeEnvId`. An enabled compute environment can be used to launch workflows.
+          operationId: EnableComputeEnv
+          parameters:
+            - name: computeEnvId
+              in: path
+              description: Compute environment string identifier
+              required: true
+              schema:
+                type: string
+            - name: workspaceId
+              in: query
+              description: Workspace numeric identifier
+              schema:
+                type: integer
+                format: int64
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/EmptyBodyRequest"
+          responses:
+            "204":
+              description: OK - No content
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+          security:
+            - BearerAuth: []
+  - target: $["paths"]
+    update:
+      /credentials/{credentialsId}/keys:
+        get:
+          tags:
+            - credentials
+          summary: Get encrypted credentials
+          description: Retrieves the encrypted keys for the credentials identified by the given `credentialsId`.
+          operationId: GetEncryptedCredentials
+          parameters:
+            - name: credentialsId
+              in: path
+              description: Credentials string identifier
+              required: true
+              schema:
+                type: string
+            - name: workspaceId
+              in: query
+              description: Workspace numeric identifier
+              schema:
+                type: integer
+                format: int64
+            - name: pairingId
+              in: query
+              description: Encryption key string identifier
+              schema:
+                type: string
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/GetCredentialsKeysResponse"
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+          security:
+            - BearerAuth: []
+  - target: $["paths"]["/data-links/{dataLinkId}/browse"]["get"]["summary"]
+    update: Explore data-link
+  - target: $["paths"]["/data-links/{dataLinkId}/browse"]["get"]["description"]
+    update: Retrieves the content of the data-link associated with the given `dataLinkId`
+  - target: $["paths"]["/data-links/{dataLinkId}/browse"]["get"]["parameters"][*]
+    remove: true
+  - target: $["paths"]["/data-links/{dataLinkId}/browse"]["get"]["parameters"]
+    update:
+      - name: dataLinkId
+        in: path
+        description: Data-link string identifier
+        required: true
+        schema:
+          type: string
+      - name: workspaceId
+        in: query
+        description: Workspace numeric identifier
+        schema:
+          type: integer
+          format: int64
+      - name: credentialsId
+        in: query
+        description: Credentials string identifier
+        schema:
+          type: string
+      - name: search
+        in: query
+        description: Prefix search of data-link content
+        schema:
+          type: string
+      - name: nextPageToken
+        in: query
+        description: Token used to fetch the next page of items
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: "Number of items to return per page. If ommitted, a default maximum value is returned."
+        schema:
+          type: integer
+          format: int32
+  - target: $["paths"]["/data-links/{dataLinkId}/browse/{path}"]["get"]["operationId"]
+    update: ExploreDataLinkWithPath
+  - target: $["paths"]
+    update:
+      /data-links/{dataLinkId}/download/{filePath}:
+        get:
+          tags:
+            - data-links
+          summary: Download data-link file at path
+          description: Downloads the content at the given `filePath` in the data-link associated with the given `dataLinkId`.
+          operationId: DownloadDataLink
+          parameters:
+            - name: dataLinkId
+              in: path
+              description: Data-link string identifier
+              required: true
+              schema:
+                type: string
+            - name: filePath
+              in: path
+              description: File path to download
+              required: true
+              schema:
+                type: string
+            - name: credentialsId
+              in: query
+              description: Credentials string identifier
+              schema:
+                type: string
+            - name: workspaceId
+              in: query
+              description: Workspace numeric identifier
+              schema:
+                type: integer
+                format: int64
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    type: string
+                    format: binary
+            "400":
+              description: BadRequest
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "404":
+              description: "NotFound — workspace or credentials not found, API disabled for the workspace, or data-link or path not found"
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+          security:
+            - BearerAuth: []
+  - target: $["paths"]["/data-links/{dataLinkId}/upload"]["post"]["summary"]
+    update: Generate data-link file upload URL
+  - target: $["paths"]["/data-links/{dataLinkId}/upload"]["post"]["description"]
+    update: |-
+      Creates a URL to upload files to the data-link associated with the given `dataLinkId`.
+      For AWS S3 data-links, an additional follow-up request must be sent after your file upload has completed (or encountered an error) to finalize the upload - see the `/upload/finish` endpoint.
+  - target: $["paths"]["/data-links/{dataLinkId}/upload"]["post"]["parameters"][*]
+    remove: true
+  - target: $["paths"]["/data-links/{dataLinkId}/upload"]["post"]["parameters"]
+    update:
+      - name: dataLinkId
+        in: path
+        description: Data-link string identifier
+        required: true
+        schema:
+          type: string
+      - name: credentialsId
+        in: query
+        description: Credentials string identifier
+        schema:
+          type: string
+      - name: workspaceId
+        in: query
+        description: Workspace numeric identifier
+        schema:
+          type: integer
+          format: int64
+      - name: Origin
+        in: header
+        schema:
+          type: string
+          nullable: true
+  - target: $["paths"]["/data-links/{dataLinkId}/upload/finish"]["post"]["summary"]
+    update: Finish data-link file upload
+  - target: $["paths"]["/data-links/{dataLinkId}/upload/finish"]["post"]["description"]
+    update: "Finish upload of a data-link file. This is necessary for AWS S3 data-links (`DataLinkProvider=aws`) to finalize a successful file upload, or abort an upload if an error was encountered while uploading a file using an upload URL from the `/upload` endpoint."
+  - target: $["paths"]["/data-links/{dataLinkId}/upload/finish"]["post"]["parameters"][*]
+    remove: true
+  - target: $["paths"]["/data-links/{dataLinkId}/upload/finish"]["post"]["parameters"]
+    update:
+      - name: dataLinkId
+        in: path
+        description: Data-link string identifier
+        required: true
+        schema:
+          type: string
+      - name: credentialsId
+        in: query
+        description: Credentials string identifier
+        schema:
+          type: string
+      - name: workspaceId
+        in: query
+        description: Workspace numeric identifier
+        schema:
+          type: integer
+          format: int64
+  - target: $["paths"]["/data-links/{dataLinkId}/upload/finish"]["post"]["responses"]["404"]["description"]
+    update: "NotFound — workspace or credentials not found, API disabled for the workspace, or data-link not found"
+  - target: $["paths"]["/data-links/{dataLinkId}/upload/finish/{dirPath}"]["post"]["operationId"]
+    update: FinishDataLinkUploadWithPath
+  - target: $["paths"]["/data-links/{dataLinkId}/upload/finish/{dirPath}"]["post"]["responses"]["200"]["description"]
+    update: FinishDataLinkUploadWithPath 200 response
+  - target: $["paths"]["/data-links/{dataLinkId}/upload/{dirPath}"]["post"]["operationId"]
+    update: GenerateDataLinkUploadUrlWithPath
+  - target: $["paths"]["/launch/{launchId}/datasets"]["get"]["responses"]["200"]["content"]["application/json"]["schema"]["$ref"]
+    update: "#/components/schemas/ListDatasetVersionsResponse"
+  - target: $["paths"]
+    update:
+      /orgs/{orgId}/workspaces/{workspaceId}/users/{userId}:
+        delete:
+          tags:
+            - workspaces
+          summary: Delete workspace user
+          description: Deletes the given user (member or collaborator) from the given workspace.
+          operationId: DeleteWorkspaceUser
+          parameters:
+            - name: orgId
+              in: path
+              description: Organization numeric identifier
+              required: true
+              schema:
+                type: integer
+                format: int64
+            - name: workspaceId
+              in: path
+              description: Workspace numeric identifier
+              required: true
+              schema:
+                type: integer
+                format: int64
+            - name: userId
+              in: path
+              description: User numeric identifier
+              required: true
+              schema:
+                type: integer
+                format: int64
+          responses:
+            "204":
+              description: OK - No content
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+          security:
+            - BearerAuth: []
+  - target: $["paths"]
+    update:
+      /pipeline-schemas:
+        post:
+          tags:
+            - pipeline-schemas
+          summary: Create pipeline schema
+          description: Creates a new pipeline schema in a user context. Append `?workspaceId` to create the schema in a workspace context.
+          operationId: CreatePipelineSchema
+          parameters:
+            - name: workspaceId
+              in: query
+              description: Workspace numeric identifier
+              schema:
+                type: integer
+                format: int64
+          requestBody:
+            description: Pipeline schema creation request
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/CreatePipelineSchemaRequest"
+            required: true
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/CreatePipelineSchemaResponse"
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+          security:
+            - BearerAuth: []
+  - target: $["paths"]["/pipelines/{pipelineId}"]["put"]["summary"]
+    update: Update pipeline (default version)
+  - target: $["paths"]["/pipelines/{pipelineId}/launch"]["get"]["parameters"]
+    update:
+      - name: versionId
+        in: query
+        description: Pipeline version identifier
+        required: false
+        schema:
+          type: string
+  - target: $["paths"]["/pipelines/{pipelineId}/schema"]["get"]["parameters"]
+    update:
+      - name: versionId
+        in: query
+        description: Pipeline version identifier
+        required: false
+        schema:
+          type: string
+  - target: $["paths"]
+    update:
+      /pipelines/{pipelineId}/versions:
+        get:
+          tags:
+            - pipeline-versions
+          summary: List pipeline versions
+          description: Lists all available pipeline versions in a user context. Append `workspaceId` to list pipeline versions in a workspace context.
+          operationId: ListPipelineVersions
+          parameters:
+            - name: pipelineId
+              in: path
+              description: Pipeline numeric identifier
+              required: true
+              schema:
+                type: integer
+                format: int64
+            - name: workspaceId
+              in: query
+              description: Workspace numeric identifier
+              schema:
+                type: integer
+                format: int64
+            - name: max
+              in: query
+              description: Pagination max results
+              schema:
+                type: integer
+                format: int32
+            - name: offset
+              in: query
+              description: Pagination offset
+              schema:
+                type: integer
+                format: int32
+            - name: search
+              in: query
+              description: Filter search parameter
+              schema:
+                type: string
+            - name: isPublished
+              in: query
+              description: "Set to true to retrieve published versions, false to fetch draft versions"
+              schema:
+                type: boolean
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ListPipelineVersionsResponse"
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+          security:
+            - BearerAuth: []
+  - target: $["paths"]
+    update:
+      /pipelines/{pipelineId}/versions/validate:
+        get:
+          tags:
+            - pipeline-versions
+          summary: Validate pipeline version name
+          description: Confirms the validity of the given pipeline version `name` in a user context.
+          operationId: ValidatePipelineVersionName
+          parameters:
+            - name: pipelineId
+              in: path
+              description: Pipeline numeric identifier
+              required: true
+              schema:
+                type: integer
+                format: int64
+            - name: name
+              in: query
+              description: Pipeline name to validate
+              schema:
+                type: string
+            - name: workspaceId
+              in: query
+              description: Workspace Identifier
+              schema:
+                type: integer
+                format: int64
+          responses:
+            "204":
+              description: OK - No content
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+            "409":
+              description: Duplicate element
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+          security:
+            - BearerAuth: []
+  - target: $["paths"]
+    update:
+      /pipelines/{pipelineId}/versions/{versionId}:
+        post:
+          tags:
+            - pipeline-versions
+          summary: Update pipeline version
+          description: "Updates the details of the pipeline version identified by the given `pipelineId` and `versionId`. \n            **Note**: If `labelIds` is `null`, empty, or omitted, existing pipeline labels are removed.\n            Include `labelIds: [<label-id-1>,<label-id-2>]` to override existing labels. Labels to be preserved must be included.\n            To append a list of labels to multiple pipelines, use `/pipelines/labels/add`."
+          operationId: UpdatePipelineVersion
+          parameters:
+            - name: pipelineId
+              in: path
+              description: Pipeline numeric identifier
+              required: true
+              schema:
+                type: integer
+                format: int64
+            - name: versionId
+              in: path
+              description: Pipeline version string identifier
+              required: true
+              schema:
+                type: string
+            - name: workspaceId
+              in: query
+              description: Workspace numeric identifier
+              schema:
+                type: integer
+                format: int64
+          requestBody:
+            description: Pipeline version update request
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/UpdatePipelineRequest"
+            required: true
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/UpdatePipelineResponse"
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+            "409":
+              description: Duplicate element
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+          security:
+            - BearerAuth: []
+  - target: $["paths"]
+    update:
+      /pipelines/{pipelineId}/versions/{versionId}/manage:
+        put:
+          tags:
+            - pipeline-versions
+          summary: Update pipeline version name and default flag
+          description: |-
+            Updates a pipeline version's name and/or marks it as the default version.
+                                         When setting a version as default, any previously default version is automatically unset.
+                                         Version names cannot be changed if the version is already referenced by workflow runs.
+          operationId: ManagePipelineVersion
+          parameters:
+            - name: pipelineId
+              in: path
+              description: Pipeline numeric identifier
+              required: true
+              schema:
+                type: integer
+                format: int64
+            - name: versionId
+              in: path
+              description: Pipeline Version identifier (Launch ID)
+              required: true
+              schema:
+                type: string
+            - name: workspaceId
+              in: query
+              description: Workspace Identifier
+              schema:
+                type: integer
+                format: int64
+          requestBody:
+            description: Pipeline Version Manage Request
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/PipelineVersionManageRequest"
+            required: true
+          responses:
+            "204":
+              description: OK - No content
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+            "404":
+              description: Version not found
+            "409":
+              description: Conflict - unsetting a default pipeline version
+          security:
+            - BearerAuth: []
+  - target: $["paths"]
+    update:
+      /ssh-keys:
+        get:
+          tags:
+            - ssh-keys
+          summary: List SSH keys
+          description: Retrieves the list of all SSH public keys for the authenticated user.
+          operationId: ListSshKeys
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ListSshKeysResponse"
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+          security:
+            - BearerAuth: []
+        post:
+          tags:
+            - ssh-keys
+          summary: Create SSH key
+          description: Creates a new SSH public key with the details in the given request body.
+          operationId: CreateSshKey
+          requestBody:
+            description: SSH key create request
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/CreateSshKeyRequest"
+            required: true
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/CreateSshKeyResponse"
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+            "409":
+              description: Duplicated element
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+          security:
+            - BearerAuth: []
+  - target: $["paths"]
+    update:
+      /ssh-keys/validate/key:
+        get:
+          tags:
+            - ssh-keys
+          summary: Validate SSH key
+          description: Confirms the availability of the given key for a SSH key in the user context.
+          operationId: ValidateSshKey
+          parameters:
+            - name: key
+              in: query
+              description: SSH key to validate
+              schema:
+                type: string
+          responses:
+            "204":
+              description: "Ok - No content, if the key is valid."
+            "400":
+              description: "Bad request, if the key is not valid."
+            "409":
+              description: "Conflict, key duplicated in the given context."
+            "403":
+              description: Operation not allowed.
+          security:
+            - BearerAuth: []
+  - target: $["paths"]
+    update:
+      /ssh-keys/validate/name:
+        get:
+          tags:
+            - ssh-keys
+          summary: Validate SSH key name
+          description: Confirms the availability of the given name for a SSH key in the user context.
+          operationId: ValidateSshKeyName
+          parameters:
+            - name: name
+              in: query
+              description: SSH key name to validate
+              schema:
+                type: string
+          responses:
+            "204":
+              description: "Ok - No content, if the name is valid and available."
+            "400":
+              description: "Bad request, if the name is not valid."
+            "409":
+              description: "Conflict, name duplicated in the given context."
+            "403":
+              description: Operation not allowed.
+          security:
+            - BearerAuth: []
+  - target: $["paths"]
+    update:
+      /ssh-keys/{keyId}:
+        get:
+          tags:
+            - ssh-keys
+          summary: Describe SSH key
+          description: Retrieves the details of an SSH public key by its ID.
+          operationId: DescribeSshKey
+          parameters:
+            - name: keyId
+              in: path
+              description: SSH key numeric identifier
+              required: true
+              schema:
+                type: integer
+                format: int64
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/DescribeSshKeyResponse"
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+            "404":
+              description: SSH key not found
+          security:
+            - BearerAuth: []
+        delete:
+          tags:
+            - ssh-keys
+          summary: Delete SSH key
+          description: Deletes the given SSH public key by its ID.
+          operationId: DeleteSshKey
+          parameters:
+            - name: keyId
+              in: path
+              description: SSH key numeric identifier
+              required: true
+              schema:
+                type: integer
+                format: int64
+          responses:
+            "204":
+              description: OK - No content
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+          security:
+            - BearerAuth: []
+  - target: $["paths"]["/workflow"]["get"]["parameters"]
+    update:
+      - name: includeTotalSize
+        in: query
+        description: Include total size in the response
+        schema:
+          type: boolean
+  - target: $["paths"]["/data-links/{dataLinkId}/download"]
+    remove: true
+  - target: $["components"]["schemas"]["AbstractGridConfig"]
+    update:
+      properties:
+        workDir:
+          type: string
+          description: Compute environment working directory
+        preRunScript:
+          type: string
+          description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+        postRunScript:
+          type: string
+          description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+        environment:
+          type: array
+          items:
+            $ref: "#/components/schemas/ConfigEnvVariable"
+        nextflowConfig:
+          type: string
+        discriminator:
+          type: string
+          description: property to select the compute config platform
+        launchDir:
+          type: string
+        userName:
+          type: string
+        hostName:
+          type: string
+        port:
+          type: integer
+          format: int32
+        headQueue:
+          type: string
+        computeQueue:
+          type: string
+        maxQueueSize:
+          type: integer
+          format: int32
+        headJobOptions:
+          type: string
+        propagateHeadJobOptions:
+          type: boolean
+  - target: $["components"]["schemas"]["AbstractGridConfig"]["allOf"]
+    remove: true
+  - target: $["components"]["schemas"]["AccessToken"]["properties"]["id"]["nullable"]
+    remove: true
+  - target: $["components"]["schemas"]["Action.ConfigType"]["properties"]["discriminator"]["readOnly"]
+    remove: true
+  - target: $["components"]["schemas"]["Action.EventType"]["properties"]["discriminator"]["readOnly"]
+    remove: true
+  - target: $["components"]["schemas"]["Action.TowerActionConfig"]
+    update:
+      title: Tower Action Config
+  - target: $["components"]["schemas"]["Action.TowerActionEvent"]
+    update:
+      title: Tower action event
+  - target: $["components"]["schemas"]["ActionResponseDto"]["properties"]["launch"]["$ref"]
+    update: "#/components/schemas/LaunchDbDto"
+  - target: $["components"]["schemas"]["AgentSecurityKeys"]
+    update:
+      title: Tower Agent credentials
+  - target: $["components"]["schemas"]["AltairPbsComputeConfig"]
+    update:
+      properties:
+        workDir:
+          type: string
+          description: Compute environment working directory
+        preRunScript:
+          type: string
+          description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+        postRunScript:
+          type: string
+          description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+        environment:
+          type: array
+          items:
+            $ref: "#/components/schemas/ConfigEnvVariable"
+        nextflowConfig:
+          type: string
+        discriminator:
+          type: string
+          description: property to select the compute config platform
+        launchDir:
+          type: string
+        userName:
+          type: string
+        hostName:
+          type: string
+        port:
+          type: integer
+          format: int32
+        headQueue:
+          type: string
+        computeQueue:
+          type: string
+        maxQueueSize:
+          type: integer
+          format: int32
+        headJobOptions:
+          type: string
+        propagateHeadJobOptions:
+          type: boolean
+  - target: $["components"]["schemas"]["AltairPbsComputeConfig"]["allOf"]
+    remove: true
+  - target: $["components"]["schemas"]["AwsBatchConfig"]["properties"]["workDir"]
+    update:
+      description: Compute environment working directory
+  - target: $["components"]["schemas"]["AwsBatchConfig"]["properties"]["preRunScript"]
+    update:
+      description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+  - target: $["components"]["schemas"]["AwsBatchConfig"]["properties"]["postRunScript"]
+    update:
+      description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+  - target: $["components"]["schemas"]["AwsBatchConfig"]["properties"]["discriminator"]
+    update:
+      description: property to select the compute config platform
+  - target: $["components"]["schemas"]["AwsBatchPlatformMetainfo"]
+    update:
+      title: AWS Batch platform metainfo
+  - target: $["components"]["schemas"]["AwsBatchPlatformMetainfo"]["properties"]["discriminator"]
+    update:
+      description: property to select the platform metainfo type
+  - target: $["components"]["schemas"]["AwsCloudConfig"]["properties"]["workDir"]
+    update:
+      description: Compute environment working directory
+  - target: $["components"]["schemas"]["AwsCloudConfig"]["properties"]["preRunScript"]
+    update:
+      description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+  - target: $["components"]["schemas"]["AwsCloudConfig"]["properties"]["postRunScript"]
+    update:
+      description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+  - target: $["components"]["schemas"]["AwsCloudConfig"]["properties"]["discriminator"]
+    update:
+      description: property to select the compute config platform
+  - target: $["components"]["schemas"]["AwsCloudPlatformMetainfo"]
+    update:
+      title: AWS Cloud platform metainfo
+  - target: $["components"]["schemas"]["AwsCloudPlatformMetainfo"]["properties"]["discriminator"]
+    update:
+      description: property to select the platform metainfo type
+  - target: $["components"]["schemas"]["AwsSecurityKeys"]
+    update:
+      title: AWS credentials
+  - target: $["components"]["schemas"]["AzBatchConfig"]["properties"]["workDir"]
+    update:
+      description: Compute environment working directory
+  - target: $["components"]["schemas"]["AzBatchConfig"]["properties"]["preRunScript"]
+    update:
+      description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+  - target: $["components"]["schemas"]["AzBatchConfig"]["properties"]["postRunScript"]
+    update:
+      description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+  - target: $["components"]["schemas"]["AzBatchConfig"]["properties"]["discriminator"]
+    update:
+      description: property to select the compute config platform
+  - target: $["components"]["schemas"]["AzBatchPlatformMetainfo"]
+    update:
+      title: Azure Batch platform metainfo
+  - target: $["components"]["schemas"]["AzBatchPlatformMetainfo"]["properties"]["discriminator"]
+    update:
+      description: property to select the platform metainfo type
+  - target: $["components"]["schemas"]["AzCloudConfig"]["properties"]["workDir"]
+    update:
+      description: Compute environment working directory
+  - target: $["components"]["schemas"]["AzCloudConfig"]["properties"]["preRunScript"]
+    update:
+      description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+  - target: $["components"]["schemas"]["AzCloudConfig"]["properties"]["postRunScript"]
+    update:
+      description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+  - target: $["components"]["schemas"]["AzCloudConfig"]["properties"]["discriminator"]
+    update:
+      description: property to select the compute config platform
+  - target: $["components"]["schemas"]["AzCloudPlatformMetaInfo"]
+    update:
+      title: Azure Cloud platform metainfo
+  - target: $["components"]["schemas"]["AzCloudPlatformMetaInfo"]["properties"]["discriminator"]
+    update:
+      description: property to select the platform metainfo type
+  - target: $["components"]["schemas"]["AzureCloudKeys"]
+    update:
+      title: Azure Cloud credentials
+  - target: $["components"]["schemas"]["AzureCloudKeys"]
+    update:
+      properties:
+        discriminator:
+          type: string
+        batchName:
+          type: string
+        storageName:
+          type: string
+        batchKey:
+          type: string
+          writeOnly: true
+        storageKey:
+          type: string
+          writeOnly: true
+        subscriptionId:
+          type: string
+        tenantId:
+          type: string
+        clientId:
+          type: string
+        clientSecret:
+          type: string
+          writeOnly: true
+  - target: $["components"]["schemas"]["AzureCloudKeys"]["allOf"]
+    remove: true
+  - target: $["components"]["schemas"]["AzureEntraKeys"]
+    update:
+      title: Azure Entra credentials
+  - target: $["components"]["schemas"]["AzureEntraKeys"]
+    update:
+      properties:
+        discriminator:
+          type: string
+        batchName:
+          type: string
+        storageName:
+          type: string
+        batchKey:
+          type: string
+          writeOnly: true
+        storageKey:
+          type: string
+          writeOnly: true
+        tenantId:
+          type: string
+        clientId:
+          type: string
+        clientSecret:
+          type: string
+          writeOnly: true
+  - target: $["components"]["schemas"]["AzureEntraKeys"]["allOf"]
+    remove: true
+  - target: $["components"]["schemas"]["AzureReposSecurityKeys"]
+    update:
+      title: Azure Repos credentials
+  - target: $["components"]["schemas"]["AzureSecurityKeys"]
+    update:
+      title: Azure credentials
+  - target: $["components"]["schemas"]["BitBucketSecurityKeys"]
+    update:
+      title: BitBucket credentials
+  - target: $["components"]["schemas"]["CodeCommitSecurityKeys"]
+    update:
+      title: AWS CodeCommit credentials
+  - target: $["components"]["schemas"]["ComputeConfig"]["properties"]["discriminator"]["readOnly"]
+    remove: true
+  - target: $["components"]["schemas"]["ComputeEnv.Status"]["enum"]
+    update:
+      - DISABLED
+  - target: $["components"]["schemas"]["ContainerRegistryKeys"]
+    update:
+      title: Container registry credentials
+  - target: $["components"]["schemas"]["CreatePipelineRequest"]["properties"]
+    update:
+      version:
+        $ref: "#/components/schemas/CreatePipelineVersionRequest"
+  - target: $["components"]["schemas"]
+    update:
+      CreatePipelineSchemaRequest:
+        type: object
+        properties:
+          content:
+            type: string
+  - target: $["components"]["schemas"]
+    update:
+      CreatePipelineSchemaResponse:
+        type: object
+        properties:
+          pipelineSchema:
+            $ref: "#/components/schemas/PipelineSchemaDbDto"
+  - target: $["components"]["schemas"]
+    update:
+      CreatePipelineVersionRequest:
+        type: object
+        properties:
+          name:
+            type: string
+  - target: $["components"]["schemas"]
+    update:
+      CreateSshKeyRequest:
+        required:
+          - name
+          - publicKey
+        type: object
+        properties:
+          name:
+            type: string
+          publicKey:
+            type: string
+  - target: $["components"]["schemas"]
+    update:
+      CreateSshKeyResponse:
+        type: object
+        properties:
+          sshKey:
+            $ref: "#/components/schemas/UserSshPublicKeyDto"
+  - target: $["components"]["schemas"]["DataStudioConfiguration"]["properties"]
+    update:
+      sshEnabled:
+        type: boolean
+        nullable: true
+  - target: $["components"]["schemas"]["DataStudioDto"]["properties"]
+    update:
+      sshDetails:
+        nullable: true
+        allOf:
+          - $ref: "#/components/schemas/StudioSshDetailsDto"
+  - target: $["components"]["schemas"]["DataStudioStopReason"]["enum"]
+    update:
+      - NO_STATS_AVAIL
+  - target: $["components"]["schemas"]["DescribeLaunchResponse"]["properties"]["launch"]["$ref"]
+    update: "#/components/schemas/LaunchDbDto"
+  - target: $["components"]["schemas"]
+    update:
+      DescribeSshKeyResponse:
+        type: object
+        properties:
+          sshKey:
+            $ref: "#/components/schemas/UserSshPublicKeyDto"
+  - target: $["components"]["schemas"]["DescribeWorkflowResponse"]["properties"]["workflow"]["$ref"]
+    update: "#/components/schemas/WorkflowMaxDbDto"
+  - target: $["components"]["schemas"]["DescribeWorkflowResponse"]["properties"]
+    update:
+      pipelineInfo:
+        $ref: "#/components/schemas/PipelineMinInfoResponse"
+  - target: $["components"]["schemas"]["EksComputeConfig"]
+    update:
+      properties:
+        workDir:
+          type: string
+          description: Compute environment working directory
+        preRunScript:
+          type: string
+          description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+        postRunScript:
+          type: string
+          description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+        environment:
+          type: array
+          items:
+            $ref: "#/components/schemas/ConfigEnvVariable"
+        nextflowConfig:
+          type: string
+        discriminator:
+          type: string
+          description: property to select the compute config platform
+        server:
+          type: string
+        sslCert:
+          type: string
+        namespace:
+          type: string
+        computeServiceAccount:
+          type: string
+        headServiceAccount:
+          type: string
+        storageClaimName:
+          type: string
+        storageMountPath:
+          type: string
+        podCleanup:
+          $ref: "#/components/schemas/PodCleanupPolicy"
+        headPodSpec:
+          type: string
+        servicePodSpec:
+          type: string
+        headJobCpus:
+          type: integer
+          format: int32
+        headJobMemoryMb:
+          type: integer
+          format: int32
+        region:
+          type: string
+          description: AWS region
+        clusterName:
+          type: string
+          description: The AWS EKS cluster name
+        waveEnabled:
+          type: boolean
+        fusion2Enabled:
+          type: boolean
+  - target: $["components"]["schemas"]["EksComputeConfig"]["allOf"]
+    remove: true
+  - target: $["components"]["schemas"]["EksPlatformMetaInfo"]
+    update:
+      title: Amazon EKS platform metainfo
+  - target: $["components"]["schemas"]["EksPlatformMetaInfo"]["properties"]["discriminator"]
+    update:
+      description: property to select the platform metainfo type
+  - target: $["components"]["schemas"]
+    update:
+      GetCredentialsKeysResponse:
+        type: object
+        properties:
+          keys:
+            type: string
+  - target: $["components"]["schemas"]["GitHubSecurityKeys"]
+    update:
+      title: GitHub credentials
+  - target: $["components"]["schemas"]
+    update:
+      GitKeys:
+        type: object
+        properties:
+          discriminator:
+            type: string
+          username:
+            type: string
+          password:
+            type: string
+          token:
+            type: string
+  - target: $["components"]["schemas"]["GitLabSecurityKeys"]
+    update:
+      title: GitLab credentials
+  - target: $["components"]["schemas"]["GiteaSecurityKeys"]
+    update:
+      title: Gitea credentials
+  - target: $["components"]["schemas"]["GithubActionConfig"]
+    update:
+      title: GitHub action config
+  - target: $["components"]["schemas"]["GithubActionEvent"]
+    update:
+      title: GitHub action event
+  - target: $["components"]["schemas"]["GkeComputeConfig"]
+    update:
+      properties:
+        workDir:
+          type: string
+          description: Compute environment working directory
+        preRunScript:
+          type: string
+          description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+        postRunScript:
+          type: string
+          description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+        environment:
+          type: array
+          items:
+            $ref: "#/components/schemas/ConfigEnvVariable"
+        nextflowConfig:
+          type: string
+        discriminator:
+          type: string
+          description: property to select the compute config platform
+        server:
+          type: string
+        sslCert:
+          type: string
+        namespace:
+          type: string
+        computeServiceAccount:
+          type: string
+        headServiceAccount:
+          type: string
+        storageClaimName:
+          type: string
+        storageMountPath:
+          type: string
+        podCleanup:
+          $ref: "#/components/schemas/PodCleanupPolicy"
+        headPodSpec:
+          type: string
+        servicePodSpec:
+          type: string
+        headJobCpus:
+          type: integer
+          format: int32
+        headJobMemoryMb:
+          type: integer
+          format: int32
+        region:
+          type: string
+          description: The GKE cluster region - or - zone
+        clusterName:
+          type: string
+          description: The GKE cluster name
+        fusion2Enabled:
+          type: boolean
+        waveEnabled:
+          type: boolean
+  - target: $["components"]["schemas"]["GkeComputeConfig"]["allOf"]
+    remove: true
+  - target: $["components"]["schemas"]["GkePlatformMetaInfo"]
+    update:
+      title: Google GKE platform metainfo
+  - target: $["components"]["schemas"]["GkePlatformMetaInfo"]["properties"]["discriminator"]
+    update:
+      description: property to select the platform metainfo type
+  - target: $["components"]["schemas"]["GoogleBatchConfig"]["properties"]["workDir"]
+    update:
+      description: Compute environment working directory
+  - target: $["components"]["schemas"]["GoogleBatchConfig"]["properties"]["preRunScript"]
+    update:
+      description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+  - target: $["components"]["schemas"]["GoogleBatchConfig"]["properties"]["postRunScript"]
+    update:
+      description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+  - target: $["components"]["schemas"]["GoogleBatchConfig"]["properties"]["discriminator"]
+    update:
+      description: property to select the compute config platform
+  - target: $["components"]["schemas"]["GoogleCloudConfig"]["properties"]["workDir"]
+    update:
+      description: Compute environment working directory
+  - target: $["components"]["schemas"]["GoogleCloudConfig"]["properties"]["preRunScript"]
+    update:
+      description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+  - target: $["components"]["schemas"]["GoogleCloudConfig"]["properties"]["postRunScript"]
+    update:
+      description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+  - target: $["components"]["schemas"]["GoogleCloudConfig"]["properties"]["discriminator"]
+    update:
+      description: property to select the compute config platform
+  - target: $["components"]["schemas"]["GoogleCloudPlatformMetaInfo"]
+    update:
+      title: Google Cloud platform metainfo
+  - target: $["components"]["schemas"]["GoogleCloudPlatformMetaInfo"]["properties"]["discriminator"]
+    update:
+      description: property to select the platform metainfo type
+  - target: $["components"]["schemas"]["GoogleLifeSciencesConfig"]["properties"]["workDir"]
+    update:
+      description: Compute environment working directory
+  - target: $["components"]["schemas"]["GoogleLifeSciencesConfig"]["properties"]["preRunScript"]
+    update:
+      description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+  - target: $["components"]["schemas"]["GoogleLifeSciencesConfig"]["properties"]["postRunScript"]
+    update:
+      description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+  - target: $["components"]["schemas"]["GoogleLifeSciencesConfig"]["properties"]["discriminator"]
+    update:
+      description: property to select the compute config platform
+  - target: $["components"]["schemas"]["GooglePlatformMetainfo"]
+    update:
+      title: Google Batch platform metainfo
+  - target: $["components"]["schemas"]["GooglePlatformMetainfo"]["properties"]["discriminator"]
+    update:
+      description: property to select the platform metainfo type
+  - target: $["components"]["schemas"]["GoogleSecurityKeys"]
+    update:
+      title: Google credentials
+  - target: $["components"]["schemas"]["GridPlatformMetainfo"]
+    update:
+      title: Grid platform metainfo
+  - target: $["components"]["schemas"]["GridPlatformMetainfo"]["properties"]["discriminator"]
+    update:
+      description: property to select the platform metainfo type
+  - target: $["components"]["schemas"]["K8sComputeConfig"]["properties"]["workDir"]
+    update:
+      description: Compute environment working directory
+  - target: $["components"]["schemas"]["K8sComputeConfig"]["properties"]["preRunScript"]
+    update:
+      description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+  - target: $["components"]["schemas"]["K8sComputeConfig"]["properties"]["postRunScript"]
+    update:
+      description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+  - target: $["components"]["schemas"]["K8sComputeConfig"]["properties"]["discriminator"]
+    update:
+      description: property to select the compute config platform
+  - target: $["components"]["schemas"]["K8sPlatformMetaInfo"]
+    update:
+      title: Kubernetes platform metainfo
+  - target: $["components"]["schemas"]["K8sPlatformMetaInfo"]["properties"]["discriminator"]
+    update:
+      description: property to select the platform metainfo type
+  - target: $["components"]["schemas"]["K8sSecurityKeys"]
+    update:
+      title: Kubernetes credentials
+  - target: $["components"]["schemas"]
+    update:
+      LaunchDbDto:
+        type: object
+        properties:
+          id:
+            type: string
+          workspaceId:
+            type: integer
+            format: int64
+          computeEnv:
+            $ref: "#/components/schemas/ComputeEnv_ComputeConfig_"
+          pipeline:
+            type: string
+          workDir:
+            type: string
+          revision:
+            type: string
+          commitId:
+            type: string
+          configText:
+            type: string
+          towerConfig:
+            type: string
+          paramsText:
+            type: string
+          preRunScript:
+            type: string
+          postRunScript:
+            type: string
+          mainScript:
+            type: string
+          entryName:
+            type: string
+          schemaName:
+            type: string
+          resume:
+            type: boolean
+          resumeLaunchId:
+            type: string
+          pullLatest:
+            type: boolean
+          stubRun:
+            type: boolean
+          sessionId:
+            type: string
+          runName:
+            type: string
+          configProfiles:
+            type: array
+            items:
+              type: string
+          userSecrets:
+            type: array
+            items:
+              type: string
+          workspaceSecrets:
+            type: array
+            items:
+              type: string
+          optimizationId:
+            type: string
+          optimizationTargets:
+            type: string
+          headJobCpus:
+            type: integer
+            format: int32
+          headJobMemoryMb:
+            type: integer
+            format: int32
+          launchContainer:
+            type: string
+          dateCreated:
+            type: string
+            format: date-time
+          lastUpdated:
+            type: string
+            format: date-time
+          pipelineSchemaId:
+            type: integer
+            format: int64
+  - target: $["components"]["schemas"]
+    update:
+      ListPipelineVersionsResponse:
+        type: object
+        properties:
+          versions:
+            type: array
+            items:
+              $ref: "#/components/schemas/PipelineDbDto"
+          totalSize:
+            type: integer
+            format: int64
+  - target: $["components"]["schemas"]
+    update:
+      ListSshKeysResponse:
+        type: object
+        properties:
+          sshKeys:
+            type: array
+            items:
+              $ref: "#/components/schemas/UserSshPublicKeyDto"
+  - target: $["components"]["schemas"]["ListWorkflowsResponse"]["properties"]
+    update:
+      hasMore:
+        type: boolean
+  - target: $["components"]["schemas"]["ListWorkflowsResponse.ListWorkflowsElement"]["properties"]
+    update:
+      pipelineInfo:
+        $ref: "#/components/schemas/PipelineMinInfoResponse"
+  - target: $["components"]["schemas"]["LocalComputeConfig"]["properties"]["workDir"]
+    update:
+      description: Compute environment working directory
+  - target: $["components"]["schemas"]["LocalComputeConfig"]["properties"]["preRunScript"]
+    update:
+      description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+  - target: $["components"]["schemas"]["LocalComputeConfig"]["properties"]["postRunScript"]
+    update:
+      description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+  - target: $["components"]["schemas"]["LocalComputeConfig"]["properties"]["discriminator"]
+    update:
+      description: property to select the compute config platform
+  - target: $["components"]["schemas"]["LocalPlatformMetainfo"]
+    update:
+      title: Local platform metainfo
+  - target: $["components"]["schemas"]["LocalPlatformMetainfo"]["properties"]["discriminator"]
+    update:
+      description: property to select the platform metainfo type
+  - target: $["components"]["schemas"]["LsfComputeConfig"]
+    update:
+      properties:
+        workDir:
+          type: string
+          description: Compute environment working directory
+        preRunScript:
+          type: string
+          description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+        postRunScript:
+          type: string
+          description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+        environment:
+          type: array
+          items:
+            $ref: "#/components/schemas/ConfigEnvVariable"
+        nextflowConfig:
+          type: string
+        discriminator:
+          type: string
+          description: property to select the compute config platform
+        launchDir:
+          type: string
+        userName:
+          type: string
+        hostName:
+          type: string
+        port:
+          type: integer
+          format: int32
+        headQueue:
+          type: string
+        computeQueue:
+          type: string
+        maxQueueSize:
+          type: integer
+          format: int32
+        headJobOptions:
+          type: string
+        propagateHeadJobOptions:
+          type: boolean
+        unitForLimits:
+          type: string
+        perJobMemLimit:
+          type: boolean
+        perTaskReserve:
+          type: boolean
+  - target: $["components"]["schemas"]["LsfComputeConfig"]["allOf"]
+    remove: true
+  - target: $["components"]["schemas"]["MoabComputeConfig"]
+    update:
+      properties:
+        workDir:
+          type: string
+          description: Compute environment working directory
+        preRunScript:
+          type: string
+          description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+        postRunScript:
+          type: string
+          description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+        environment:
+          type: array
+          items:
+            $ref: "#/components/schemas/ConfigEnvVariable"
+        nextflowConfig:
+          type: string
+        discriminator:
+          type: string
+          description: property to select the compute config platform
+        launchDir:
+          type: string
+        userName:
+          type: string
+        hostName:
+          type: string
+        port:
+          type: integer
+          format: int32
+        headQueue:
+          type: string
+        computeQueue:
+          type: string
+        maxQueueSize:
+          type: integer
+          format: int32
+        headJobOptions:
+          type: string
+        propagateHeadJobOptions:
+          type: boolean
+  - target: $["components"]["schemas"]["MoabComputeConfig"]["allOf"]
+    remove: true
+  - target: $["components"]["schemas"]["OrganizationQuotas"]["properties"]
+    update:
+      maxCustomRolesPerOrg:
+        type: integer
+        format: int64
+  - target: $["components"]["schemas"]["PipelineDbDto"]["properties"]
+    update:
+      version:
+        $ref: "#/components/schemas/PipelineVersionFullInfoDto"
+  - target: $["components"]["schemas"]
+    update:
+      PipelineMinInfoResponse:
+        type: object
+        properties:
+          id:
+            type: integer
+            format: int64
+          workspaceId:
+            type: integer
+            format: int64
+          version:
+            $ref: "#/components/schemas/PipelineMinInfoResponse.PipelineVersionMinInfoResponse"
+  - target: $["components"]["schemas"]
+    update:
+      PipelineMinInfoResponse.PipelineVersionMinInfoResponse:
+        type: object
+        properties:
+          id:
+            type: string
+          name:
+            type: string
+          dateCreated:
+            type: string
+            format: date-time
+          lastUpdated:
+            type: string
+            format: date-time
+          hash:
+            type: string
+          isDefault:
+            type: boolean
+          isDraftVersion:
+            type: boolean
+  - target: $["components"]["schemas"]
+    update:
+      PipelineSchemaDbDto:
+        type: object
+        properties:
+          id:
+            type: integer
+            format: int64
+          content:
+            type: string
+  - target: $["components"]["schemas"]
+    update:
+      PipelineVersionFullInfoDto:
+        type: object
+        properties:
+          id:
+            type: string
+          creatorUserId:
+            type: integer
+            format: int64
+          creatorUserName:
+            type: string
+          creatorFirstName:
+            type: string
+          creatorLastName:
+            type: string
+          creatorAvatarUrl:
+            type: string
+          name:
+            type: string
+          dateCreated:
+            type: string
+            format: date-time
+          lastUpdated:
+            type: string
+            format: date-time
+          hash:
+            type: string
+          isDefault:
+            type: boolean
+  - target: $["components"]["schemas"]
+    update:
+      PipelineVersionManageRequest:
+        type: object
+        properties:
+          name:
+            type: string
+          isDefault:
+            type: boolean
+  - target: $["components"]["schemas"]["PlatformMetainfo"]
+    update:
+      properties:
+        discriminator:
+          type: string
+          description: property to select the platform metainfo type
+  - target: $["components"]["schemas"]["S3SecurityKeys"]
+    update:
+      title: S3-compatible credentials
+  - target: $["components"]["schemas"]["SSHSecurityKeys"]
+    update:
+      title: SSH credentials
+  - target: $["components"]["schemas"]["SecurityKeys"]["properties"]["discriminator"]["readOnly"]
+    remove: true
+  - target: $["components"]["schemas"]
+    update:
+      SeqeraComputeCloudInstanceTypeSize:
+        type: string
+        enum:
+          - SMALL
+          - MEDIUM
+          - LARGE
+  - target: $["components"]["schemas"]["SeqeraComputeConfig"]["properties"]["workDir"]
+    update:
+      description: Compute environment working directory
+  - target: $["components"]["schemas"]["SeqeraComputeConfig"]["properties"]["preRunScript"]
+    update:
+      description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+  - target: $["components"]["schemas"]["SeqeraComputeConfig"]["properties"]["postRunScript"]
+    update:
+      description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+  - target: $["components"]["schemas"]["SeqeraComputeConfig"]["properties"]["discriminator"]
+    update:
+      description: property to select the compute config platform
+  - target: $["components"]["schemas"]["SeqeraComputeConfig"]["properties"]
+    update:
+      instanceTypeSize:
+        description: "Size of the Data Studios instance (SMALL, MEDIUM, LARGE)"
+        allOf:
+          - $ref: "#/components/schemas/SeqeraComputeCloudInstanceTypeSize"
+  - target: $["components"]["schemas"]["SeqeraComputePlatformMetainfo"]
+    update:
+      title: Seqera Compute platform metainfo
+  - target: $["components"]["schemas"]["SeqeraComputePlatformMetainfo"]["properties"]["discriminator"]
+    update:
+      description: property to select the platform metainfo type
+  - target: $["components"]["schemas"]["SeqeraComputeSecurityKeys"]
+    update:
+      title: Seqera Compute credentials
+  - target: $["components"]["schemas"]["SeqeraComputeSecurityKeys"]
+    update:
+      properties:
+        discriminator:
+          type: string
+        accessKey:
+          type: string
+        secretKey:
+          type: string
+          writeOnly: true
+        assumeRoleArn:
+          type: string
+  - target: $["components"]["schemas"]["SeqeraComputeSecurityKeys"]["allOf"]
+    remove: true
+  - target: $["components"]["schemas"]["ServiceInfo"]["properties"]["navbar"]
+    update:
+      $ref: "#/components/schemas/NavbarConfig"
+  - target: $["components"]["schemas"]["ServiceInfo"]["properties"]["navbar"]["deprecated"]
+    remove: true
+  - target: $["components"]["schemas"]["ServiceInfo"]["properties"]["navbar"]["allOf"]
+    remove: true
+  - target: $["components"]["schemas"]["SlurmComputeConfig"]
+    update:
+      properties:
+        workDir:
+          type: string
+          description: Compute environment working directory
+        preRunScript:
+          type: string
+          description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+        postRunScript:
+          type: string
+          description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+        environment:
+          type: array
+          items:
+            $ref: "#/components/schemas/ConfigEnvVariable"
+        nextflowConfig:
+          type: string
+        discriminator:
+          type: string
+          description: property to select the compute config platform
+        launchDir:
+          type: string
+        userName:
+          type: string
+        hostName:
+          type: string
+        port:
+          type: integer
+          format: int32
+        headQueue:
+          type: string
+        computeQueue:
+          type: string
+        maxQueueSize:
+          type: integer
+          format: int32
+        headJobOptions:
+          type: string
+        propagateHeadJobOptions:
+          type: boolean
+  - target: $["components"]["schemas"]["SlurmComputeConfig"]["allOf"]
+    remove: true
+  - target: $["components"]["schemas"]
+    update:
+      StudioSshDetailsDto:
+        required:
+          - command
+          - host
+          - port
+          - user
+        type: object
+        properties:
+          host:
+            type: string
+            description: The hostname to connect to
+          port:
+            type: integer
+            description: The SSH port number
+            format: int32
+          user:
+            type: string
+            description: The user in the format 'username@sessionId'
+          command:
+            type: string
+            description: The full SSH command to execute
+            example: ssh username@sessionId@host -p port
+        description: SSH connection details for a Studio session
+  - target: $["components"]["schemas"]["Task"]["properties"]
+    update:
+      numSpotInterruptions:
+        type: integer
+        format: int32
+  - target: $["components"]["schemas"]["TraceProgressData"]["properties"]
+    update:
+      numSpotInterruptions:
+        type: integer
+        format: int32
+  - target: $["components"]["schemas"]["UnivaComputeConfig"]
+    update:
+      properties:
+        workDir:
+          type: string
+          description: Compute environment working directory
+        preRunScript:
+          type: string
+          description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+        postRunScript:
+          type: string
+          description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+        environment:
+          type: array
+          items:
+            $ref: "#/components/schemas/ConfigEnvVariable"
+        nextflowConfig:
+          type: string
+        discriminator:
+          type: string
+          description: property to select the compute config platform
+        launchDir:
+          type: string
+        userName:
+          type: string
+        hostName:
+          type: string
+        port:
+          type: integer
+          format: int32
+        headQueue:
+          type: string
+        computeQueue:
+          type: string
+        maxQueueSize:
+          type: integer
+          format: int32
+        headJobOptions:
+          type: string
+        propagateHeadJobOptions:
+          type: boolean
+  - target: $["components"]["schemas"]["UnivaComputeConfig"]["allOf"]
+    remove: true
+  - target: $["components"]["schemas"]
+    update:
+      UserSshPublicKeyDto:
+        type: object
+        properties:
+          id:
+            type: integer
+            format: int64
+          name:
+            type: string
+          publicKey:
+            type: string
+          dateCreated:
+            type: string
+            format: date-time
+          lastUsed:
+            type: string
+            format: date-time
+  - target: $["components"]["schemas"]["WorkflowDbDto"]["properties"]["messages"]
+    remove: true
+  - target: $["components"]["schemas"]["WorkflowLaunchRequest"]["properties"]
+    update:
+      pipelineSchemaId:
+        type: integer
+        format: int64
+  - target: $["components"]["schemas"]["WorkflowLaunchResponse"]["properties"]
+    update:
+      pipelineSchemaId:
+        type: integer
+        format: int64
+  - target: $["components"]["schemas"]["WorkflowLoad"]["properties"]
+    update:
+      numSpotInterruptions:
+        type: integer
+        format: int32
+  - target: $["components"]["schemas"]
+    update:
+      WorkflowMaxDbDto:
+        type: object
+        allOf:
+          - $ref: "#/components/schemas/WorkflowDbDto"
+          - properties:
+              fusion:
+                $ref: "#/components/schemas/WfFusionMeta"
+              wave:
+                $ref: "#/components/schemas/WfWaveMeta"
+              logFile:
+                type: string
+              outFile:
+                type: string
+              operationId:
+                type: string
+  - target: $["components"]["schemas"]["WorkflowQueryAttribute"]["enum"][4]
+    update: pipelineInfo
+  - target: $["components"]["schemas"]["WorkflowQueryAttribute"]["x-enum-varnames"][4]
+    update: pipelineInfo
+  - target: $["components"]["schemas"]["Launch"]
+    remove: true
