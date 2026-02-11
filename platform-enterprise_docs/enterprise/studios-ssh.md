@@ -1,32 +1,33 @@
 ---
 title: "Studios SSH configuration (public preview)"
-description: Configure SSH access for Studios
+description: Configure SSH access for Studios (public preview)
 date created: "2026-02-10"
 tags: [studios, ssh, kubernetes, advanced]
 ---
 
 :::warning[Advanced configuration]
-SSH configuration requires careful consideration of security and networking. This feature requires network-level changes to your infrastructure that may need coordination with your infrastructure or networking team. Improperly configured SSH access may introduce security vulnerabilities.
+Enabling SSH for running Studio sessions requires changes to platform configuration and therefore careful consideration of security and networking. This feature requires network-level changes to your infrastructure that may need coordination with your infrastructure or networking team. Improperly configured SSH access may introduce security vulnerabilities.
 :::
 
-SSH access enables direct terminal connections to running Studio containers using standard SSH clients, supporting VS Code Remote SSH and terminal access.
+SSH access enables direct terminal connections to running Studio sessions using standard SSH clients, supporting [VS Code Remote SSH](https://code.visualstudio.com/docs/remote/ssh) and terminal access.
 
 ## Version requirements
 
-To use SSH access for Studios, you need:
+To enable SSH access to running Studio sessions, you need:
 
 - **Seqera Platform**: Version 25.3.3 or later
 - **Connect server and proxy**: Version 0.10.0 or later
 - **Connect client**: Version 0.10.0 or later
 
-If you have pinned Studio container images to specific versions, you may need to update them to include the required Connect client version.
+If you have pinned Studio container images to specific versions, you will need to [migrate](../studios/managing#migrate-a-studio-from-an-earlier-container-image-template) them to the required Connect client version.
 
 ## Prerequisites
 
-- Studios deployed (see [Studios installation](./install-studios))
+- Studios enabled (see [Studios installation](./install-studios))
 - Access to Platform configuration
 - Administrative access to modify your deployment infrastructure
 - Ability to configure network routing and firewall rules
+
 ## Requirements overview
 
 To enable SSH access for Studios you need:
