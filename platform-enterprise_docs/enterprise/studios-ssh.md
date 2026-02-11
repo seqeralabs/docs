@@ -45,7 +45,7 @@ Configuration variables are prefixed by service: `TOWER_` for Platform backend, 
 SSH access to Studios requires a dedicated SSH key pair that establishes trust between the connect-proxy and Studio containers. This key pair serves two purposes:
 
 1. **Authentication**: The connect-proxy uses the private key to authenticate to SSH servers running in Studio containers
-2. **Security validation**: Platform can verify that SSH connections originate from your authorized connect-proxy rather than external sources
+2. **Security validation**: Studio SSH Server can verify that SSH connections originate from your authorized connect-proxy rather than external sources
 
 Generate an SSH key pair for the connect-proxy.
 
