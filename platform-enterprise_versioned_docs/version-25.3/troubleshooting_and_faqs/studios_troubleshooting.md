@@ -132,7 +132,7 @@ These are the false positive confirmed findings:
 | ini:1.0.0        | CVE-2020-7788⁠       |
 | diff:1.0.0       | GHSA-h6ch-v84p-w6p9⁠ |
 
-## SSH connections
+## SSH connections (public preview)
 
 ### SSH Connection toggle not available
 
