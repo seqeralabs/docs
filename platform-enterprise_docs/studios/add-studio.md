@@ -45,6 +45,7 @@ For connection instructions and VS Code setup, see [Connect to a Studio via SSH]
 [aws-batch]: ../compute-envs/aws-batch
 [github]: ./add-studio-git-repo
 [custom-container]: ./add-studio-custom-container
+[custom-container]: ./add-studio-custom-container
 [conda-syntax]: ./custom-envs#conda-package-syntax
 [custom-image]: ./custom-envs#custom-containers
 [containers]: ./add-studio-custom-container
