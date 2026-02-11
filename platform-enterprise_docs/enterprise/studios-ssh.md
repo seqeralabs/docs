@@ -31,7 +31,7 @@ If you have pinned Studio container images to specific versions, you may need to
 
 To enable SSH access for Studios you need:
 
-1. **SSH key pair**: A key pair for the connect-proxy to authenticate to Studio containers
+1. **SSH key pair**: A key pair for the connect-proxy to authenticate to a Studio
 2. **Platform configuration**: Environment variables to enable and configure SSH on the Platform backend pods
 3. **Proxy configuration**: Environment variables to enable SSH on the connect-proxy
 4. **Network configuration**: Layer 4 (TCP) access to the SSH port on the connect-proxy, typically via a dedicated service that separates SSH traffic from HTTPS traffic
