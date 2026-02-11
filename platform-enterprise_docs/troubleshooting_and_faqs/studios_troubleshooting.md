@@ -132,11 +132,11 @@ These are the false positive confirmed findings:
 | ini:1.0.0        | CVE-2020-7788⁠       |
 | diff:1.0.0       | GHSA-h6ch-v84p-w6p9⁠ |
 
-## SSH connections
+## SSH connections (public preview)
 
 ### SSH Connection toggle not available
 
-If the **SSH Connection** toggle doesn't appear when adding a Studio, or SSH-related options are missing, your Platform version doesn't support SSH access to Studios. Contact your administrator to verify the Platform version. SSH access requires:
+If the **SSH Connection** toggle doesn't appear when adding a Studio, or SSH-related options are missing, your Platform version doesn't support SSH access to running Studios. Contact your administrator to verify the Platform version. SSH access requires:
 
 - **Seqera Platform Enterprise v25.3.3 or later**
 - **connect-server/proxy v0.10.0 or later**
@@ -158,8 +158,8 @@ This error occurs when multiple proxy pods are using different SSH keys. Ensure 
 ### Permission denied (publickey)
 
 ```bash
-ssh user@sessionId@connect.example.com
-# user@sessionId@connect.example.com: Permission denied (publickey).
+ssh user@studio-session-id@connect.example.com
+# user@studio-session-id@connect.example.com: Permission denied (publickey).
 ```
 
 If you receive a permission denied error, there are several possible causes. First, verify the user has the correct role and permissions in the workspace, and check that the user's SSH public key is configured in their Seqera Platform user profile.

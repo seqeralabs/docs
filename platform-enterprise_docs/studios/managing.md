@@ -184,7 +184,7 @@ Before connecting, ensure:
 4. The Studio is in a **running** state.
 
 :::note
-If you didn't enable SSH when you added your Studio, stop the Studio and select **Start as New** where you can enable **SSH Connection**.
+Enabling SSH can only be done on Studio creation. If you didn't enable SSH when you initially added your Studio, you will need to duplicate and modify it. Stop the Studio, select **Start as New**, and enable **SSH Connection** for the new Studio.
 :::
 
 ### Terminal access
@@ -203,7 +203,7 @@ ssh alice@a01ac8894@connect.example.com -p 2222
 
 Where:
 - `<username>`: Your Seqera Platform username
-- `<sessionId>`: The Studio session ID (visible in the Studios list)
+- `<studio-session-id>`: The Studio session ID (visible in the Studios list)
 - `<connect-domain>`: Your connect proxy domain
 - Port: `2222` (default SSH proxy port)
 
@@ -225,7 +225,10 @@ Connect to a Studio using VS Code Remote SSH:
 
    ```json
    {
-     "remote.SSH.useLocalServer": false
+     "remote.SSH.useLocalServer": false,
+     "remote.SSH.enableRemoteCommand": true,
+     "remote.SSH.useLocalServer": false,
+     "remote.SSH.preconnect": ""
    }
    ```
 
@@ -247,6 +250,7 @@ Once connected, you can:
 - Use the integrated terminal
 - Install VS Code extensions in the remote environment
 - Debug code running in the Studio
+- Install packages
 
 ### SSH authentication
 
