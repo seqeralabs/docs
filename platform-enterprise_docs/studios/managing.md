@@ -215,7 +215,7 @@ Connect to a Studio using VS Code Remote SSH:
 
 1. Install the [Remote - SSH extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) in VS Code.
 
-2. **Required:** Disable local server mode in VS Code settings:
+2. **Required:** Disable local server mode in your VS Code settings:
 
    - Open VS Code Settings (Code > Preferences > Settings or Cmd+,)
    - Search for `remote.SSH.useLocalServer`
