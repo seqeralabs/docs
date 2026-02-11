@@ -158,8 +158,8 @@ This error occurs when multiple proxy pods are using different SSH keys. Ensure 
 ### Permission denied (publickey)
 
 ```bash
-ssh user@sessionId@connect.example.com
-# user@sessionId@connect.example.com: Permission denied (publickey).
+ssh user@studio-session-id@connect.example.com
+# user@studio-session-id@connect.example.com: Permission denied (publickey).
 ```
 
 If you receive a permission denied error, there are several possible causes. First, verify the user has the correct role and permissions in the workspace, and check that the user's SSH public key is configured in their Seqera Platform user profile.
@@ -211,7 +211,7 @@ VS Code's local server mode uses SSH multiplexing over SOCKS proxy, which is not
 **Correct format:**
 
 ```bash
-ssh <username>@<sessionId>@<connect-domain> -p 2222
+ssh <username>@<studio-session-id>@<connect-domain> -p 2222
 ```
 
 **Example:**
@@ -222,7 +222,7 @@ ssh alice@a01ac8894@connect.example.com -p 2222
 
 Where:
 - `<username>`: Your Seqera Platform username
-- `<sessionId>`: The Studio session ID (8-character hex string visible in the Studios list)
+- `<studio-session-id>`: The Studio session ID (8-character hex string visible in the Studios list)
 - `<connect-domain>`: Your connect proxy domain
 - Port: `2222` (default SSH proxy port)
 
