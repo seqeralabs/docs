@@ -18,126 +18,102 @@ Seqera Cloud users receive $20 in free credits to get started with Seqera AI. [C
 
 ## Requirements
 
-- Python 3.13 or later
-- macOS, Linux, or Windows with WSL
+- macOS (Apple Silicon or Intel) or Linux x64
 - A Seqera Platform account ([sign up for free](https://cloud.seqera.io))
 - An internet connection
 
-## Python Package Index
-
-The Seqera AI CLI is distributed as a Python package through PyPI, making installation simple and straightforward using standard Python tools.
-
-### Install
+## Install
 
 <Tabs>
-<TabItem value="pip" label="pip" default>
+<TabItem value="npm" label="npm (recommended)" default>
 
-To install Seqera AI CLI with pip:
+Install globally with npm:
 
-1. Check your Python version:
+```bash
+npm install -g seqera
+```
 
-    ```bash
-    python --version
-    # or
-    python3 --version
-    ```
+Verify your installation:
 
-    If you need to install or upgrade Python, see [python.org](https://www.python.org/downloads/) or use your system's package manager.
+```bash
+seqera --help
+```
 
-1. Install Seqera AI CLI:
+:::tip
+You can also install with yarn, pnpm, or bun:
 
-    ```bash
-    pip install seqera
-    ```
-
-    :::tip
-    Consider using a virtual environment to avoid conflicts with other Python packages:
-
-    ```bash
-    python -m venv seqera-env
-    source seqera-env/bin/activate  # On Windows: seqera-env\Scripts\activate
-    pip install seqera
-    ```
-    :::
-
-1. Verify your installation:
-
-    ```bash
-    seqera --version
-    ```
-
-    You will see output similar to:
-
-    ```console
-    seqera, version 0.1.0
-    ```
+```bash
+yarn global add seqera
+# or
+pnpm add -g seqera
+# or
+bun add -g seqera
+```
+:::
 
 </TabItem>
-<TabItem value="uv" label="uv">
+<TabItem value="binary" label="Standalone binary">
 
-To install Seqera AI CLI with [uv](https://docs.astral.sh/uv/):
+Download the binary for your platform:
 
-1. Install Seqera AI CLI as a tool:
+| Platform | Binary |
+|----------|--------|
+| macOS Apple Silicon | `seqera-darwin-arm64.tar.gz` |
+| macOS Intel | `seqera-darwin-x64.tar.gz` |
+| Linux x64 | `seqera-linux-x64.tar.gz` |
 
-    ```bash
-    uv tool install seqera
-    ```
+Extract and add to your PATH:
 
-    Alternatively, run Seqera AI CLI directly without installing:
+```bash
+# Example: macOS Apple Silicon
+tar -xzf seqera-darwin-arm64.tar.gz
+chmod +x seqera
+sudo mv seqera /usr/local/bin/
+```
 
-    ```bash
-    uvx seqera
-    ```
+Verify your installation:
 
-1. Verify your installation:
-
-    ```bash
-    seqera --version
-    ```
-
-    You will see output similar to:
-
-    ```console
-    seqera, version 0.1.0
-    ```
+```bash
+seqera --help
+```
 
 </TabItem>
 </Tabs>
 
-### Upgrade
+## Upgrade
 
 <Tabs>
-<TabItem value="pip" label="pip" default>
+<TabItem value="npm" label="npm" default>
 
-    ```bash
-    pip install --upgrade seqera
-    ```
+```bash
+npm update -g seqera
+```
 
 </TabItem>
-<TabItem value="uv" label="uv">
+<TabItem value="binary" label="Standalone binary">
 
-    ```bash
-    uv tool upgrade seqera
-    ```
+Download the latest binary for your platform and replace the existing binary.
 
 </TabItem>
 </Tabs>
 
-### Uninstall
+## Uninstall
 
 <Tabs>
-<TabItem value="pip" label="pip" default>
+<TabItem value="npm" label="npm" default>
 
-    ```bash
-    pip uninstall seqera
-    ```
+```bash
+npm uninstall -g seqera
+```
 
 </TabItem>
-<TabItem value="uv" label="uv">
+<TabItem value="binary" label="Standalone binary">
 
-    ```bash
-    uv tool uninstall seqera
-    ```
+Remove the `seqera` binary from your PATH:
+
+```bash
+sudo rm /usr/local/bin/seqera
+```
 
 </TabItem>
 </Tabs>
