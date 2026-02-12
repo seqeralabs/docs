@@ -179,16 +179,28 @@ Customize your session with command-line options.
 <details open>
 <summary>**Customize your session**</summary>
 
-**Start in a specific directory**:
+**Start with an initial query**:
 
 ```bash
-seqera ai -w /path/to/project
+seqera ai "list my pipelines"
+```
+
+**Continue your last session**:
+
+```bash
+seqera ai -c
+```
+
+**Resume a specific session**:
+
+```bash
+seqera ai -s <session-id>
 ```
 
 **Set approval mode for local commands**:
 
 ```bash
-seqera ai -a full
+seqera ai --approval-mode full
 ```
 
 **Switch between build mode and plan mode**:
@@ -276,11 +288,11 @@ End your Seqera AI session when done.
 
 **To end your session**:
 
-- Type `exit` or `quit`
+- Type `/exit`, `/quit`, or `/q`
 - Press `Ctrl+C`
 
 :::note
-Your conversation history is preserved for the session but not stored permanently.
+Your conversation history is preserved. You can resume a session later with `seqera ai -c` to continue your most recent session.
 :::
 
 </details>
@@ -290,9 +302,32 @@ Your conversation history is preserved for the session but not stored permanentl
 Seqera AI includes built-in slash commands for common workflows.
 
 <details open>
-<summary>**Use slash commands**</summary>
+<summary>**TUI commands**</summary>
 
-**Type `/` to see all available commands**:
+These commands are handled locally by the CLI:
+
+| Command | Description |
+|---------|-------------|
+| `/help` | Show available commands |
+| `/exit` (`/quit`, `/q`) | Exit the application |
+| `/clear` | Clear conversation history |
+| `/thinking` | Toggle thinking display |
+| `/scroll` | Toggle auto-scroll |
+| `/org` | Show current organization |
+| `/lsp` | Show LSP server status |
+| `/status` | Show system status |
+| `/credits` | Show credit balance and usage |
+| `/approval` | Show or set approval mode |
+| `/feedback` | Open feedback form |
+| `/help-community` | Open community help |
+| `/stickers` | Get Seqera stickers |
+
+</details>
+
+<details open>
+<summary>**AI commands**</summary>
+
+These commands are sent to the AI backend for processing:
 
 | Command | Description |
 |---------|-------------|
@@ -456,6 +491,101 @@ The assistant can generate the exact Nextflow command with proper parameters for
 
 </details>
 
+<<<<<<< HEAD
+=======
+## Work with Seqera Platform
+
+Use Seqera Platform capabilities to run and manage workflows at scale with AI assistance.
+
+<!-- TODO: Replace with OpenTUI screenshots -->
+![Use Seqera AI CLI to debug Platform run errors](./_images/sp-run-debug.gif)
+
+<details open>
+<summary>**Working with Seqera Platform**</summary>
+
+**List your workflows**:
+
+```
+> List my recent workflows
+```
+
+**Launch a pipeline**:
+
+```
+> Launch the nf-core/rnaseq pipeline with the test profile
+```
+
+**Debug failed runs**:
+
+```
+> Why did my last workflow fail?
+```
+
+```
+> Get the logs for the failed task in my last run
+```
+
+</details>
+
+## Headless mode
+
+Run Seqera AI in headless mode for scripting and automation. Output is sent to stdout instead of the interactive TUI.
+
+<details open>
+<summary>**Headless mode**</summary>
+
+**Run a query and pipe the output**:
+
+```bash
+seqera ai --headless "list my pipelines"
+```
+
+**Include thinking messages in the output**:
+
+```bash
+seqera ai --headless --show-thinking "debug my pipeline"
+```
+
+**Include tool calls in the output**:
+
+```bash
+seqera ai --headless --show-tools "list my workflows"
+```
+
+:::note
+Headless mode is also auto-detected when stdout is piped (e.g., `seqera ai "query" | grep "result"`).
+:::
+
+</details>
+
+## Session management
+
+Seqera AI preserves your conversation history across sessions. You can resume previous sessions to continue your work.
+
+<details open>
+<summary>**Session management**</summary>
+
+**Continue your most recent session**:
+
+```bash
+seqera ai -c
+```
+
+**Continue with a follow-up question**:
+
+```bash
+seqera ai -c "now run the pipeline with the test profile"
+```
+
+**Resume a specific session by ID**:
+
+```bash
+seqera ai -s <session-id>
+```
+
+</details>
+
+>>>>>>> f7f424c5 (Update Seqera AI CLI docs: Python CLI to OpenTUI CLI)
 <h2>Learn more</h2>
 
 - [Seqera AI CLI](index.md): Seqera AI CLI overview

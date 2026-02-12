@@ -51,6 +51,14 @@ Build containerized environments on-the-fly with conda packages, pip packages, o
 
 Edit files, run commands, and manage your local development environment with AI assistance and configurable approval modes.
 
+### LSP code intelligence
+
+Real-time error detection and AI-powered code navigation for Nextflow, Python, and R files in your workspace.
+
+### Session management
+
+Resume previous sessions to continue your work. Use `seqera ai -c` to continue your most recent session or `seqera ai -s <id>` to resume a specific session.
+
 ### Seqera Platform integration
 
 Full access to Platform capabilities including compute environments, datasets, data links, and workspace management.
