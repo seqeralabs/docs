@@ -310,6 +310,10 @@ export default async function createConfigAsync() {
             label: 'Fusion',
             href: '/fusion/',
           },
+          {
+            label: 'Platform API',
+            href: '/platform-api/',
+          },
         ],
       },
     }),
