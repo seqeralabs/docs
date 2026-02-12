@@ -135,3 +135,7 @@ You can also check the current template configuration using `https://towerurl/ap
     ```
 
 1. To confirm that Studios is available, log into Seqera and navigate to an organizational workspace that has Studios enabled. The **Studios** tab should be displayed in the sidebar.
+
+## Next steps
+
+To enable SSH access for Studios, see [Studios: SSH configuration](./studios-ssh).
