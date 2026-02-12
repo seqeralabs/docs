@@ -36,9 +36,10 @@
 /platform/24.1/faqs/*  /platform-cloud/troubleshooting_and_faqs/troubleshooting/:splat   301
 /platform/24.2/faqs/*  /platform-cloud/troubleshooting_and_faqs/troubleshooting/:splat   301
 
-# Data Studios redirect
+# Studios redirect
 /platform/:version/data_studios/*    /platform-cloud/studios/:splat  301
 /platform-cloud/data_studios/*   /platform-cloud/studios/:splat 301
+/platform-cloud/studios/managing  /platform-enterprise/studios/managing 301
 
 # Redirect to fix temporarily broken URL in UI
 /platform/:version/data/data_studios   /platform-cloud/studios/  301
