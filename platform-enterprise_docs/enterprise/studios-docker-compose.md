@@ -70,7 +70,7 @@ Other than the basic requirements [already listed in the Studios installation ov
 
 1. To confirm that Studios is available, log in to your Platform instance and navigate to an organizational workspace that has Studios enabled. The **Studios** tab is included with the available tabs.
 
-## Tool Configuration
+## Tool configuration
 
 This guide assumes that all services will be run in the same container as the rest of your Seqera Platform services.
 
@@ -81,3 +81,7 @@ If you were using Studios prior to GA (v25.1) please review the `tower.env` file
 The `TEMPLATE_KEY` can be any string, but the `TOOL_NAME` has to be the template name (`jupyter`/`vscode`/`rstudio`/`xpra`).
 
 You can also check the current template configuration using `https://towerurl/api/studios/templates?workspaceId=<WORKSPACE_ID>`. The response should include the `TOOL` configuration and template name (`jupyter`/`vscode`/`rstudio`/`xpra`) - not `custom`.
+
+## Next steps
+
+To enable SSH access for Studios, see [Studios: SSH configuration](./studios-ssh).
