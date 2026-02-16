@@ -1,7 +1,11 @@
-import { themes } from "prism-react-renderer";
 const path = require("path");
 import "dotenv/config";
 import platform_enterprise_latest_version from "./platform-enterprise_latest_version.js";
+import {
+  createSeqeraConfig,
+  getSeqeraThemeConfig,
+  getSeqeraPresetOptions
+} from "@seqera/docusaurus-preset-seqera";
 
 export default async function createConfigAsync() {
 
@@ -39,7 +43,7 @@ export default async function createConfigAsync() {
         (await import("docusaurus-remark-plugin-tab-blocks")).default,
         (await require("remark-yaml-to-table")).default,
       ],
-      rehypePlugins: [(await require("rehype-katex")).default],
+      rehypePlugins: [require("rehype-katex")],
       editUrl: "https://github.com/seqeralabs/docs/tree/master/",
       sidebarPath: "platform-enterprise_docs/enterprise-sidebar.json",
     },
@@ -69,26 +73,9 @@ export default async function createConfigAsync() {
         (await import("docusaurus-remark-plugin-tab-blocks")).default,
         (await require("remark-yaml-to-table")).default,
       ],
-      rehypePlugins: [(await require("rehype-katex")).default],
+      rehypePlugins: [require("rehype-katex")],
       sidebarPath: "platform-cli-docs/docs/sidebar/sidebar.js",
       editUrl: "https://github.com/seqeralabs/docs/tree/master/",
-    },
-  ];
-
-  const docs_platform_openapi = [
-    "docusaurus-plugin-openapi-docs",
-    {
-      id: "api", // plugin id
-      docsPluginId: "classic", // configured for preset-classic
-      config: {
-        platform: {
-          specPath: "platform-api-docs/scripts/specs/seqera-api-latest-decorated.yml",
-          outputDir: "platform-api-docs/docs",
-          sidebarOptions: {
-            groupPathsBy: "tag",
-          },
-        },
-      },
     },
   ];
 
@@ -104,7 +91,7 @@ export default async function createConfigAsync() {
         (await import("docusaurus-remark-plugin-tab-blocks")).default,
         (await require("remark-yaml-to-table")).default,
       ],
-      rehypePlugins: [(await require("rehype-katex")).default],
+      rehypePlugins: [require("rehype-katex")],
       editUrl: "https://github.com/seqeralabs/docs/tree/master/",
       sidebarPath: "./platform-cloud/cloud-sidebar.json",
     },
@@ -122,7 +109,7 @@ export default async function createConfigAsync() {
         (await import("docusaurus-remark-plugin-tab-blocks")).default,
         (await require("remark-yaml-to-table")).default,
       ],
-      rehypePlugins: [(await require("rehype-katex")).default],
+      rehypePlugins: [require("rehype-katex")],
       editUrl: ({ docPath }) => {
         return `https://github.com/MultiQC/MultiQC/blob/main/docs/markdown/${docPath.replace("multiqc_docs/multiqc_repo/docs", "")}`;
       },
@@ -141,7 +128,7 @@ export default async function createConfigAsync() {
         (await import("docusaurus-remark-plugin-tab-blocks")).default,
         (await require("remark-yaml-to-table")).default,
       ],
-      rehypePlugins: [(await require("rehype-katex")).default],
+      rehypePlugins: [require("rehype-katex")],
       editUrl: "https://github.com/seqeralabs/docs/tree/master/",
       sidebarPath: "./fusion_docs/sidebar.json",
     },
@@ -158,9 +145,9 @@ export default async function createConfigAsync() {
         (await require("remark-math")).default,
         (await import("docusaurus-remark-plugin-tab-blocks")).default,
         (await require("remark-yaml-to-table")).default,
-        (await require("remark-deflist")).default,
+        (await import("remark-deflist")).default,
       ],
-      rehypePlugins: [(await require("rehype-katex")).default],
+      rehypePlugins: [require("rehype-katex")],
       editUrl: ({ docPath }) => {
         return `https://github.com/seqeralabs/wave/blob/master/docs/${docPath.replace("wave_docs/wave_repo/docs", "")}`;
       },
@@ -186,18 +173,10 @@ export default async function createConfigAsync() {
     "\n  INCLUDE_NEXT: " + (process.env.INCLUDE_NEXT ? true : false),
   );
 
-  return {
+  return createSeqeraConfig({
     title: "Seqera Docs",
     tagline: "Documentation for Seqera products",
-    favicon: "img/favicon--dynamic.svg",
-
-    // Set the production url of your site here
     url: "https://docs.seqera.io",
-    // Set the /<baseUrl>/ pathname under which your site is served
-    // For GitHub pages deployment, it is often '/<projectName>/'
-    baseUrl: "/",
-    trailingSlash: false,
-
     /*
      * Enable faster Docusaurus optimizations (experimental v4 features)
      * Reference: https://github.com/facebook/docusaurus/issues/10556
@@ -222,7 +201,6 @@ export default async function createConfigAsync() {
       },
     },
 
-    // GitHub pages deployment config.
     // If you aren't using GitHub pages, you don't need these.
     organizationName: "seqeralabs", // Usually your GitHub org/user name.
     projectName: "docs", // Usually your repo name.
@@ -243,38 +221,30 @@ export default async function createConfigAsync() {
       // Put your custom environment here
     },
 
-    // Even if you don't use internalization, you can use this field to set useful
-    // metadata like html lang. For example, if your site is Chinese, you may want
-    // to replace "en" with "zh-Hans".
-    i18n: {
-      defaultLocale: "en",
-      locales: ["en"],
-    },
-    themes: [
-      "docusaurus-theme-openapi-docs",
-      "docusaurus-theme-search-typesense",
-    ],
     presets: [
       [
-        "classic",
-        {
+        "@seqera/docusaurus-preset-seqera",
+        await getSeqeraPresetOptions({
           blog: process.env.EXCLUDE_CHANGELOG ? false : changelog,
           docs: false,
           theme: {
-            customCss: [
-              require.resolve("./src/css/main.css"),
-              require.resolve("./src/css/typography.css"),
-              require.resolve("./src/css/def-list.css"),
-              require.resolve("./src/css/misc.css"),
-              require.resolve("./src/css/def-list.css"),
-              require.resolve("./src/css/components/checklist.css"),
-              require.resolve("./src/css/components/box.css"),
-              require.resolve("./src/css/theme-colors.css"),
-              require.resolve("./src/css/api.css"),
-              require.resolve("./src/css/fonts/inter.css"),
-              require.resolve("./src/css/fonts/degular.css"),
-            ],
+            customCss: require.resolve("./src/custom.css"),
           },
+          openapi: process.env.EXCLUDE_PLATFORM_OPENAPI
+            ? false
+            : {
+                id: "api",
+                docsPluginId: "platform-api",
+                config: {
+                  platform: {
+                    specPath: "platform-api-docs/scripts/specs/seqera-api-latest-decorated.yml",
+                    outputDir: "platform-api-docs/docs",
+                    sidebarOptions: {
+                      groupPathsBy: "tag",
+                    },
+                  },
+                },
+              },
           gtag: {
             trackingID: "G-NR1CNM213G",
             anonymizeIP: true,
@@ -282,7 +252,7 @@ export default async function createConfigAsync() {
           googleTagManager: {
             containerId: "GTM-MBCJKK4",
           },
-        },
+        }),
       ],
     ],
     plugins: [
@@ -290,7 +260,6 @@ export default async function createConfigAsync() {
       process.env.EXCLUDE_PLATFORM_CLOUD ? null : docs_platform_cloud,
       process.env.EXCLUDE_PLATFORM_API ? null : docs_platform_api,
       process.env.EXCLUDE_PLATFORM_CLI ? null : docs_platform_cli,
-      process.env.EXCLUDE_PLATFORM_OPENAPI ? null : docs_platform_openapi,
       process.env.EXCLUDE_MULTIQC ? null : docs_multiqc,
       process.env.EXCLUDE_FUSION ? null : docs_fusion,
       process.env.EXCLUDE_WAVE ? null : docs_wave,
@@ -309,232 +278,40 @@ export default async function createConfigAsync() {
           },
         };
       },
-
-      async function tailwind() {
-        return {
-          name: "docusaurus-tailwindcss",
-          configurePostCss(postcssOptions) {
-            postcssOptions.plugins = [require("@tailwindcss/postcss")];
-            return postcssOptions;
-          },
-        };
-      },
     ],
 
-    themeConfig: {
-      image: "img/share.jpg",
-
-      // Typesense search configuration
-      typesense: {
-        typesenseCollectionName: 'seqera_docs',
-        searchPagePath: '/search',
-
-        typesenseServerConfig: {
-          nodes: [{
-            host: '9scwdgbn4v8r1lyfp.a1.typesense.net',
-            port: 443,
-            protocol: 'https',
-          }],
-          apiKey: 'UUIEzlGORRp9lV5GndPR1zYBVBCPIJOl',
-          connectionTimeoutSeconds: 2,
-        },
-
-        typesenseSearchParameters: {
-          query_by: 'content,hierarchy.lvl0,hierarchy.lvl1,hierarchy.lvl2,hierarchy.lvl3',
-        },
-
-        contextualSearch: true,
-        placeholder: 'Search Seqera docs...',
+    themeConfig: getSeqeraThemeConfig({
+      prism: {
+        additionalLanguages: ['nextflow', 'groovy', 'java', 'bash', 'yaml', 'json'],
       },
-
       navbar: {
-        logo: {
-          alt: "Seqera",
-          src: "img/Logo.svg",
-          srcDark: "img/LogoWhite.svg",
-          width: "180px",
-          height: "40px",
-          style: {
-            width: "180px",
-            height: "40px"
-          }
-        },
         items: [
           {
-            to: "/platform-cloud",
-            position: "left",
-            label: "Platform Cloud",
+            label: 'Cloud',
+            href: '/platform-cloud/',
           },
           {
-            to: "/platform-enterprise",
-            position: "left",
-            label: "Platform Enterprise",
+            label: 'Enterprise',
+            href: '/platform-enterprise/',
           },
           {
-            type: "docsVersionDropdown",
-            position: "right",
-            docsPluginId: "platform-enterprise",
+            label: 'Nextflow',
+            href: '/nextflow/',
           },
           {
-            to: "https://www.nextflow.io/docs/latest/",
-            html: 'Nextflow <svg width="12" height="12" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU" style="margin-left:6px;opacity:0.6;"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg>',
-            position: "left",
-            target: "_blank",
+            label: 'MultiQC',
+            href: '/multiqc/',
           },
           {
-            to: "/multiqc",
-            label: "MultiQC",
-            position: "left",
+            label: 'Wave',
+            href: '/wave/',
           },
           {
-            to: "/wave",
-            label: "Wave",
-            position: "left",
-          },
-          {
-            to: "/fusion",
-            label: "Fusion",
-            position: "left",
-          },
-          {
-            to: "https://training.nextflow.io/latest/",
-            html: 'Nextflow Training <svg width="12" height="12" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU" style="margin-left:6px;opacity:0.6;"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg>',
-            position: "left",
-            target: "_blank",
-          },
-          {
-            to: "/platform-api",
-            label: "Platform API",
-            position: "left",
-          },
-          {
-            to: "/platform-cli",
-            label: "Platform CLI",
-            position: "left",
+            label: 'Fusion',
+            href: '/fusion/',
           },
         ],
       },
-      footer: {
-        style: "dark",
-        logo: {
-          alt: "Seqera Docs logo",
-          src: "img/icon.svg",
-          srcDark: "img/iconLight.svg",
-          href: "https://docs.seqera.io",
-          width: 25,
-          height: 25,
-        },
-        links: [
-          {
-            title: "Docs",
-            items: [
-              {
-                label: "Platform Enterprise",
-                to: "/platform-enterprise",
-              },
-              {
-                label: "Platform Cloud",
-                to: "/platform-cloud",
-              },
-            ],
-          },
-          {
-            title: "Community",
-            items: [
-              {
-                label: "Github",
-                href: "https://github.com/seqeralabs",
-              },
-              {
-                label: "LinkedIn",
-                href: "https://www.linkedin.com/company/14065390/",
-              },
-              {
-                label: "Twitter",
-                href: "https://twitter.com/seqeralabs",
-              },
-            ],
-          },
-          {
-            title: "More",
-            items: [
-              {
-                label: "About Seqera",
-                href: "https://seqera.io/",
-              },
-            ],
-          },
-        ],
-        copyright: `© ${new Date().getFullYear()} Seqera`,
-      },
-      languageTabs: [
-        {
-          highlight: "python",
-          language: "python",
-          logoClass: "python",
-        },
-        {
-          highlight: "bash",
-          language: "curl",
-          logoClass: "curl",
-        },
-        {
-          highlight: "java",
-          language: "java",
-          logoClass: "java",
-          variant: "unirest",
-        },
-        {
-          highlight: "r",
-          language: "r",
-          logoClass: "r",
-        },
-        {
-          highlight: "javascript",
-          language: "javascript",
-          logoClass: "javascript",
-        },
-        {
-          highlight: "go",
-          language: "go",
-          logoClass: "go",
-        },
-        {
-          highlight: "powershell",
-          language: "powershell",
-          logoClass: "powershell",
-        },
-      ],
-      prism: {
-        theme: themes.oneLight,
-        darkTheme: themes.oneDark,
-        additionalLanguages: [
-          "bash",
-          "docker",
-          "groovy",
-          "ini",
-          "java",
-          "javascript",
-          "json",
-          "nginx",
-          "python",
-          "r",
-          "shell-session",
-          "sql",
-          "typescript",
-          "yaml",
-        ],
-      },
-    },
-    clientModules: [require.resolve("./clientside-scripts.js")],
-    stylesheets: [
-      {
-        href: "https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css",
-        type: "text/css",
-        integrity:
-          "sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X",
-        crossorigin: "anonymous",
-      },
-    ],
-  };
+    }),
+  });
 }
