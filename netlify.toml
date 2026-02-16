@@ -2,6 +2,9 @@
   function = "og-generate.png"
   path = "/og-generate.png"
 
+[build]
+  trailingSlash = true
+
 [build.environment]
   NODE_VERSION = "22"
   NODE_OPTIONS = "--max-old-space-size=4096"
@@ -35,3 +38,13 @@
       "node_modules/.cache",
       ".docusaurus"
     ]
+
+[[redirects]]
+  from = "/platform-api/*"
+  to = "https://seqera-docs-api.netlify.app/platform-api/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/nextflow/*"
+  to = "https://docs-migration.netlify.app/nextflow/:splat"
+  status = 200

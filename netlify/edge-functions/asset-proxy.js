@@ -21,8 +21,8 @@ export default async function handler(request, context) {
 
   // If not found locally, try remote origins
   const origins = [
-    'https://docs-migration.netlify.app',
     'https://seqera-docs-api.netlify.app',
+    'https://docs-migration.netlify.app',
     // Add more origins as needed
   ];
 
