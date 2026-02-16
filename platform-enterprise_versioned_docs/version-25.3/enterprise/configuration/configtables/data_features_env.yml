@@ -74,3 +74,28 @@
   Description: >
     The file path to a PEM certificate used to sign the OIDC tokens for the OpenID connect provider. See [Studios deployment](../install-studios).
   Value:                'Example: `/data-studios-rsa.pem`'
+-
+  Environment variable:            '`TOWER_DATA_STUDIO_SSH_ALLOWED_WORKSPACES`'
+  Description: >
+    Add this variable to enable SSH connection functionality in Studios. Set to comma-separated workspace IDs to enable for specific workspaces, an empty string ("") to enable for all workspaces, or `null` to disable for all workspaces. See [Studios deployment](../install-studios) for configuration details.
+  Value:                'Default: null'
+-
+  Environment variable:            '`TOWER_SSH_KEYS_MANAGEMENT_ENABLED`'
+  Description: >
+    Enable SSH key management for Studios SSH connection functionality.
+  Value:                'Default: false'
+-
+  Environment variable:            '`TOWER_DATA_STUDIO_CONNECT_SSH_KEY_FINGERPRINT`'
+  Description: >
+    SSH key fingerprint. This allows only SSH connections that have been authenticated with Seqera to connect to the server and is recommended for production environments. To generate the fingerprint, use `ssh-keygen -lf <path-to-ssh-key>`. See [Studios deployment](../install-studios).
+  Value:                'Example: `SHA256:uNiVztksCsDhcc0u9e8BujQXVUpKZIDTMczCvj3tD2s`'
+-
+  Environment variable:            '`TOWER_DATA_STUDIO_CONNECT_SSH_PORT`'
+  Description: >
+    	Connection string display purposes.
+  Value:                'Default: `22`'
+-
+  Environment variable:            '`TOWER_DATA_STUDIO_CONNECT_SSH_ADDRESS`'
+  Description: >
+    	This is set only if the SSH server runs on a different domain to the Connect proxy.
+  Value:                'Example: `ssh.example.com`'
