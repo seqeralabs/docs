@@ -68,9 +68,9 @@ Approximate costs per review (using Sonnet 4.5):
 - Medium PR (5-10 files, ~1000 lines): ~40K tokens (~$0.90-1.50)
 - Large PR (15+ files, 2000+ lines): ~80K tokens (~$1.80-3.00)
 
-**Time savings:** ~30-40 minutes per PR (agents identify issues in 2-4 minutes vs 15-30 minute human review)
+**Time savings:** Estimated 30-40 minutes per PR (agents identify issues in 2-4 minutes vs manual review)
 
-**Estimated annual cost for this repo:** ~$100-200 (based on 100-200 reviews/year at ~$1/review average)
+**Estimated annual cost for this repo:** $380-760/year (based on ~1,520 PRs/year at current rate, using agents on 25-50% of PRs at ~$1/review average)
 
 ## Workflows and architecture
 
