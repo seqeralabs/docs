@@ -216,10 +216,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  # Voice and tone review (content PRs only)
-  voice-tone-review:
+  # Editorial review using /editorial-review skill
+  editorial-review-skill:
     needs: [setup, changes]
-    if: needs.changes.outputs.docs == 'true' && needs.changes.outputs.pr_type == 'content' && (needs.setup.outputs.review_type == 'all' || needs.setup.outputs.review_type == 'voice-tone')
+    if: needs.changes.outputs.docs == 'true' && needs.changes.outputs.pr_type == 'content'
     runs-on: ubuntu-latest
     steps:
       - name: Get PR head ref
@@ -237,209 +237,66 @@ jobs:
           ref: ${{ github.event_name == 'issue_comment' && steps.pr-ref.outputs.head_ref || '' }}
           fetch-depth: 0
 
-      - name: Run Voice/Tone Review
+      - name: Run Editorial Review Skill
         uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
           prompt: |
-            Use the voice-tone agent to review these changed documentation files:
+            Run /editorial-review on the changed documentation files in this PR.
+
+            Changed files:
             ${{ needs.changes.outputs.docs_files }}
 
-            For each issue found, output in this EXACT format:
+            Review type: ${{ needs.setup.outputs.review_type }}
+
+            Output all findings to /tmp/editorial-review-suggestions.txt in this format:
 
             FILE: path/to/file.md
             LINE: 42
-            ISSUE: Brief description (e.g., "Passive voice", "Third person usage")
+            ISSUE: Brief description
             ORIGINAL: |
             exact original text
             SUGGESTION: |
             corrected text
             ---
 
-            Check for:
-            - Second person usage (you vs the user)
-            - Active vs passive voice (Note: write-good also checks this, focus on context)
-            - Present vs future tense
-            - Hedging language (Note: write-good also checks this)
-
-            Focus on context-dependent issues that automated tools can't catch.
-
-            Write all suggestions to /tmp/voice-tone-suggestions.txt
+            The /editorial-review skill will orchestrate the appropriate agents
+            (voice-tone, terminology) based on the review type.
           use_sticky_comment: true
           claude_args: |
-            --allowedTools "Read,Grep,Glob,Write,Task(voice-tone)"
+            --allowedTools "Read,Grep,Glob,Write,Skill(editorial-review),Task"
 
-      - name: Upload Voice/Tone Results
+      - name: Upload Editorial Review Results
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: voice-tone-suggestions
-          path: /tmp/voice-tone-suggestions.txt
+          name: editorial-review-suggestions
+          path: /tmp/editorial-review-suggestions.txt
           if-no-files-found: ignore
-
-  # Terminology review (content PRs only)
-  terminology-review:
-    needs: [setup, changes]
-    if: needs.changes.outputs.docs == 'true' && needs.changes.outputs.pr_type == 'content' && (needs.setup.outputs.review_type == 'all' || needs.setup.outputs.review_type == 'terminology')
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get PR head ref
-        if: github.event_name == 'issue_comment'
-        id: pr-ref
-        run: |
-          PR_NUMBER="${{ github.event.issue.number }}"
-          HEAD_REF=$(gh pr view ${PR_NUMBER} --json headRefName --jq '.headRefName')
-          echo "head_ref=${HEAD_REF}" >> $GITHUB_OUTPUT
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event_name == 'issue_comment' && steps.pr-ref.outputs.head_ref || '' }}
-          fetch-depth: 0
-
-      - name: Run Terminology Review
-        uses: anthropics/claude-code-action@v1
-        with:
-          anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
-          prompt: |
-            Use the terminology agent to review these changed documentation files:
-            ${{ needs.changes.outputs.docs_files }}
-
-            For each issue found, output in this EXACT format:
-
-            FILE: path/to/file.md
-            LINE: 42
-            ISSUE: Brief description (e.g., "Use bold for UI button names")
-            ORIGINAL: |
-            exact original text
-            SUGGESTION: |
-            corrected text
-            ---
-
-            IMPORTANT: Vale already checks these (SKIP THEM):
-            - Product names (Tower→Seqera Platform, NextFlow→Nextflow, Wave, Fusion, Studios variants)
-            - Feature abbreviations (compute env, creds, repo, config, dropdown)
-            - Lowercase product names (wave, fusion, studio, studios)
-
-            Check ONLY for:
-            - Formatting conventions (bold for UI elements, backticks for code/commands/paths)
-            - RNA-Seq capitalization rules (context-dependent)
-            - Context-dependent terminology issues Vale can't catch
-            - UI navigation paths (use bold with >)
-
-            Write all suggestions to /tmp/terminology-suggestions.txt
-          use_sticky_comment: true
-          claude_args: |
-            --allowedTools "Read,Grep,Glob,Write,Task(terminology)"
-
-      - name: Upload Terminology Results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: terminology-suggestions
-          path: /tmp/terminology-suggestions.txt
-          if-no-files-found: ignore
-
-  # Clarity review
-  clarity-review:
-    needs: [setup, changes]
-    if: false  # Disabled for now - can be re-enabled later
-    # if: needs.changes.outputs.docs == 'true' && (needs.setup.outputs.review_type == 'all' || needs.setup.outputs.review_type == 'clarity')
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get PR head ref
-        if: github.event_name == 'issue_comment'
-        id: pr-ref
-        run: |
-          PR_NUMBER="${{ github.event.issue.number }}"
-          HEAD_REF=$(gh pr view ${PR_NUMBER} --json headRefName --jq '.headRefName')
-          echo "head_ref=${HEAD_REF}" >> $GITHUB_OUTPUT
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event_name == 'issue_comment' && steps.pr-ref.outputs.head_ref || '' }}
-          fetch-depth: 0
-
-      - name: Run Clarity Review
-        uses: anthropics/claude-code-action@v1
-        with:
-          anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
-          prompt: |
-            Use the clarity agent to review these changed documentation files:
-            ${{ needs.changes.outputs.docs_files }}
-
-            For each issue found, output in this EXACT format:
-
-            FILE: path/to/file.md
-            LINE: 42
-            ISSUE: Brief description (e.g., "Sentence too long (45 words)", "Undefined jargon")
-            ORIGINAL: |
-            exact original text
-            SUGGESTION: |
-            corrected text
-            ---
-
-            Check for:
-            - Sentence length (flag over 30 words)
-            - Undefined jargon
-            - Complex constructions
-            - Missing prerequisites
-
-            Write all suggestions to /tmp/clarity-suggestions.txt
-          use_sticky_comment: true
-          claude_args: |
-            --allowedTools "Read,Grep,Glob,Write,Task(clarity)"
-
-      - name: Post Clarity Suggestions
-        run: |
-          chmod +x .github/scripts/post-inline-suggestions.sh
-          PR_NUMBER="${{ needs.setup.outputs.pr_number }}"
-          if [[ -f /tmp/clarity-suggestions.txt ]]; then
-            .github/scripts/post-inline-suggestions.sh /tmp/clarity-suggestions.txt ${PR_NUMBER}
-          else
-            echo "✅ No clarity issues found"
-          fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # Consolidated Review - Posts ONE review with all suggestions
   consolidated-review:
-    needs: [setup, changes, voice-tone-review, terminology-review]
-    if: always() && needs.changes.outputs.docs == 'true' && (needs.voice-tone-review.result != 'skipped' || needs.terminology-review.result != 'skipped')
+    needs: [setup, changes, editorial-review-skill]
+    if: always() && needs.changes.outputs.docs == 'true' && needs.editorial-review-skill.result != 'skipped'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download Voice/Tone Results
+      - name: Download Editorial Review Results
         uses: actions/download-artifact@v4
         with:
-          name: voice-tone-suggestions
+          name: editorial-review-suggestions
           path: ./artifacts
         continue-on-error: true
 
-      - name: Download Terminology Results
-        uses: actions/download-artifact@v4
-        with:
-          name: terminology-suggestions
-          path: ./artifacts
-        continue-on-error: true
-
-      - name: Merge All Suggestions
+      - name: Prepare Suggestions
         run: |
           mkdir -p ./artifacts
           touch /tmp/all-suggestions.txt
 
-          # Add voice/tone suggestions if they exist
-          if [[ -f ./artifacts/voice-tone-suggestions.txt ]]; then
-            cat ./artifacts/voice-tone-suggestions.txt >> /tmp/all-suggestions.txt
-          fi
-
-          # Add terminology suggestions if they exist
-          if [[ -f ./artifacts/terminology-suggestions.txt ]]; then
-            cat ./artifacts/terminology-suggestions.txt >> /tmp/all-suggestions.txt
+          # Use editorial review results from the skill
+          if [[ -f ./artifacts/editorial-review-suggestions.txt ]]; then
+            cat ./artifacts/editorial-review-suggestions.txt >> /tmp/all-suggestions.txt
           fi
 
           # Count total suggestions
