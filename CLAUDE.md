@@ -26,7 +26,7 @@ Run `/editorial-review` in Claude Code when:
 
 **Environment:** Your local machine
 **Cost:** Your Claude API subscription
-**Agents available:** All agents (voice-tone, terminology, clarity, punctuation)
+**Agents available:** voice-tone, terminology (clarity disabled, punctuation not yet implemented)
 
 **Example:**
 ```bash
@@ -44,7 +44,7 @@ Comment `/editorial-review` on a PR when:
 
 **Environment:** GitHub Actions CI
 **Cost:** Repository API budget
-**Agents available:** voice-tone, terminology only (clarity and punctuation not run in CI)
+**Agents:** Skill orchestrates voice-tone and terminology agents
 
 **Example:**
 ```
@@ -52,30 +52,22 @@ Comment `/editorial-review` on a PR when:
 /editorial-review
 ```
 
-### Skip review when
+### When to skip review
 
-Don't run editorial review for:
-- ❌ Single typo fixes (not worth the tokens)
-- ❌ PRs with only code changes (no documentation)
-- ❌ Urgent hotfixes (speed over style)
+**Automatic (smart-gate blocks these):**
+- ✅ Reviewed <60 minutes ago
+- ✅ <10 meaningful lines changed
+- ✅ >5 formatting issues (fix with markdownlint first)
+
+**Use judgment (don't trigger manually):**
+- ❌ Single typo fixes
+- ❌ PRs with only code changes (no docs)
+- ❌ Urgent hotfixes
 - ❌ File renames or moves only
-- ❌ Automated dependency updates
+- ❌ Dependency updates
+- ❌ Whitespace-only changes
 
-### Automatic waste prevention
-
-The workflow has **built-in smart-gate automation** that automatically blocks wasteful runs:
-
-✅ **Automatically blocked:**
-- Reviewed <60 minutes ago
-- <10 meaningful lines changed
-- >5 formatting issues found (fix with markdownlint first)
-
-❌ **Still avoid manually:**
-- Re-running while waiting for feedback
-- Running on PRs with only whitespace changes
-- Running on dependency updates or file renames
-
-**The system protects you from accidental waste** - just comment `/editorial-review` and smart-gate decides if it's worth running.
+**How it works:** Comment `/editorial-review` and smart-gate automatically decides if it's worth running. You don't need to manually check timing or size.
 
 ### Token usage and costs
 
