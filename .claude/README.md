@@ -116,11 +116,11 @@ Ensures consistent punctuation across documentation.
 
 **File:** `.github/workflows/docs-review.yml`
 
-**Triggers (on-demand only):**
+**Triggers (GitHub Actions, on-demand only):**
 - **PR comment:** Comment `/editorial-review` on any PR
 - **Manual workflow dispatch:** Via GitHub Actions UI (see below)
-- **Local:** Use `/editorial-review` command in Claude Code CLI
 
+Editorial review can also be run locally via Claude Code CLI using the `/editorial-review` command; this runs outside the `.github/workflows/docs-review.yml` workflow.
 **NOT triggered by:**
 - PR creation, updates, or commits (to conserve tokens)
 
