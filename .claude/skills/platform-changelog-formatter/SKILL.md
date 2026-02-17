@@ -6,6 +6,12 @@ Format and style-check **Seqera Platform** changelogs (Cloud and Enterprise only
 **Scope**: ONLY Seqera Platform Cloud and Enterprise changelogs.
 **Does NOT apply to**: Wave, Nextflow, or Fusion changelogs.
 
+## Deployment
+- **Usage:** Local Claude Code only
+- **CI/CD:** Not used in workflows
+- **Invocation:** Manual, when formatting Platform changelogs
+- **Scope:** Platform Cloud and Enterprise changelogs only
+
 ## When to use
 Use this skill when:
 - User asks to "format a Platform changelog"

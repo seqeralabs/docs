@@ -8,6 +8,12 @@ description: Run editorial review on documentation files using specialized agent
 ## Purpose
 Orchestrate a comprehensive editorial review of documentation using specialized SME agents. Provides structured, actionable feedback on editorial quality across multiple dimensions.
 
+## Deployment
+- **Usage:** Local Claude Code AND CI/CD
+- **CI/CD:** Used by `.github/workflows/docs-review.yml`
+- **Invocation:** `/editorial-review` command (PR comment or CLI)
+- **Agents:** Coordinates voice-tone, terminology, punctuation, clarity
+
 ## Workflow
 
 This skill coordinates multiple specialized agents to provide comprehensive editorial feedback:

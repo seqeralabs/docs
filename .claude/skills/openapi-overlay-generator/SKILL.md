@@ -7,6 +7,12 @@ description: Generate OpenAPI overlay files for Seqera Platform API documentatio
 
 This skill generates high-quality OpenAPI overlay files for documenting the Seqera Platform API according to established standards and conventions.
 
+## Deployment
+- **Usage:** Local Claude Code AND CI/CD
+- **CI/CD:** Used by `.github/workflows/generate-openapi-overlays.yml`
+- **Invocation:** Repository dispatch from Platform repo, or manual workflow dispatch
+- **Purpose:** Generate OpenAPI overlays for API documentation
+
 ## When to use this skill
 
 Use this skill when:
