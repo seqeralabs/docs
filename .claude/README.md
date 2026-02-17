@@ -163,6 +163,16 @@ The workflow does NOT re-run automatically on subsequent commits (to conserve to
 - Analyzes git diff to determine PR type
 - Outputs "rename" or "content" for workflow decisions
 
+### Agent status
+
+| Agent | Status | Used in CI |
+|-------|--------|------------|
+| voice-tone | ✅ Active | Yes |
+| terminology | ✅ Active | Yes |
+| punctuation | ✅ Active | Yes |
+| clarity | ⚠️ Disabled | No |
+| docs-fix | 📝 Local only | No |
+
 ## Agent output format
 
 Agents output structured suggestions:
