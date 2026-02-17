@@ -12,43 +12,42 @@ tags: [faq, help, seqera ai, troubleshooting]
 
 If you see `seqera: command not found` after installation:
 
-1. Ensure the Python scripts directory is in your PATH:
+1. Verify the installation location:
 
    ```bash
+   which seqera
+   ```
+
+1. Ensure the npm global bin directory is in your PATH:
+
+   ```bash
+   # Check npm global bin directory
+   npm bin -g
+
    # Restart your terminal or run
    source ~/.bashrc  # or ~/.zshrc
    ```
 
-1. Verify your installation location:
+1. If you installed the standalone binary, verify it is in a directory on your PATH:
 
    ```bash
-   pip show seqera-ai
+   echo $PATH
    ```
 
-##### Python version errors
-
-If you see errors about Python version:
-
-1. Check you have Python 3.13+ installed:
-
-   ```bash
-   python3 --version
-   ```
-
-1. If using multiple Python versions, specify the correct one:
-
-   ```bash
-   python3.13 -m pip install seqera-ai
-   ```
-
-##### Permission errors
+##### npm permission errors
 
 If you encounter permission errors during installation:
 
-1. Use the `--user` flag with pip
+1. Use the npm prefix option to install to a user-writable directory:
 
    ```bash
-   pip install --user seqera-ai
+   npm install -g seqera --prefix ~/.npm-global
+   ```
+
+1. Add the directory to your PATH:
+
+   ```bash
+   export PATH="$HOME/.npm-global/bin:$PATH"
    ```
 
 ## Authentication
@@ -71,14 +70,19 @@ If authentication times out:
 
 ##### Token storage errors
 
-If you see keychain-related errors:
+If you see errors related to credential storage:
 
-1. Ensure your system keychain service is running
-1. Check that you have permission to access the keychain
+1. Check that you have write permissions to `~/.config/seqera-ai/`
 
-:::note
-The CLI will automatically fall back to file-based storage.
-:::
+   ```bash
+   ls -la ~/.config/seqera-ai/
+   ```
+
+1. If the directory doesn't exist, create it:
+
+   ```bash
+   mkdir -p ~/.config/seqera-ai
+   ```
 
 ##### Session expired
 

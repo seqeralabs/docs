@@ -1,0 +1,127 @@
+---
+title: "Installation"
+description: "Install and configure Seqera AI CLI"
+date: "15 Dec 2025"
+tags: [seqera-ai, cli, installation]
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+:::caution Seqera AI CLI is in beta
+Seqera AI CLI is currently in beta. Features and commands may change as we continue to improve the product.
+:::
+
+:::note
+Seqera Cloud users receive $20 in free credits to get started with Seqera AI. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
+:::
+
+## Requirements
+
+- macOS (Apple Silicon or Intel) or Linux x64
+- A Seqera Platform account ([sign up for free](https://cloud.seqera.io))
+- An internet connection
+
+## Install
+
+<Tabs>
+<TabItem value="npm" label="npm (recommended)" default>
+
+Install globally with npm:
+
+```bash
+npm install -g seqera
+```
+
+Verify your installation:
+
+```bash
+seqera --help
+```
+
+:::tip
+You can also install with yarn, pnpm, or bun:
+
+```bash
+yarn global add seqera
+# or
+pnpm add -g seqera
+# or
+bun add -g seqera
+```
+:::
+
+</TabItem>
+<TabItem value="binary" label="Standalone binary">
+
+Download the binary for your platform:
+
+| Platform | Binary |
+|----------|--------|
+| macOS Apple Silicon | `seqera-darwin-arm64.tar.gz` |
+| macOS Intel | `seqera-darwin-x64.tar.gz` |
+| Linux x64 | `seqera-linux-x64.tar.gz` |
+
+Extract and add to your PATH:
+
+```bash
+# Example: macOS Apple Silicon
+tar -xzf seqera-darwin-arm64.tar.gz
+chmod +x seqera
+sudo mv seqera /usr/local/bin/
+```
+
+Verify your installation:
+
+```bash
+seqera --help
+```
+
+</TabItem>
+</Tabs>
+
+## Upgrade
+
+<Tabs>
+<TabItem value="npm" label="npm" default>
+
+```bash
+npm update -g seqera
+```
+
+</TabItem>
+<TabItem value="binary" label="Standalone binary">
+
+Download the latest binary for your platform and replace the existing binary.
+
+</TabItem>
+</Tabs>
+
+## Uninstall
+
+<Tabs>
+<TabItem value="npm" label="npm" default>
+
+```bash
+npm uninstall -g seqera
+```
+
+</TabItem>
+<TabItem value="binary" label="Standalone binary">
+
+Remove the `seqera` binary from your PATH:
+
+```bash
+sudo rm /usr/local/bin/seqera
+```
+
+</TabItem>
+</Tabs>
+
+## Learn more
+
+- [Seqera AI CLI](index.md): Seqera AI CLI overview
+- [Authentication](./authentication.md): Login, logout, and session management
+- [Command approval](./command-approval.md): Control which commands run automatically
+- [Use cases](./use-cases.md): Seqera AI CLI use cases
+- [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors

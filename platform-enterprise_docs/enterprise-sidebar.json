@@ -54,6 +54,7 @@
               "enterprise/configuration/pipeline_optimization"
             ]
           },
+          "enterprise/install-seqera-ai",
           {
             "type": "category",
             "label": "Configuration",
@@ -214,6 +215,19 @@
         "secrets/overview",
         "pipeline-optimization/overview",
         "launch/advanced"
+      ]
+    },
+     {
+      "type": "category",
+      "label": "Seqera AI CLI",
+      "link": {"type": "doc", "id": "seqera-ai/index"},
+      "collapsed": true,
+      "items": [
+        "seqera-ai/get-started",
+        "seqera-ai/installation",
+        "seqera-ai/authentication",
+        "seqera-ai/command-approval",
+        "seqera-ai/use-cases"
       ]
     },
        {
