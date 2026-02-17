@@ -13,6 +13,65 @@ This guide covers documentation standards, editorial workflows, and Claude-power
 > - Commenting `/editorial-review` on a PR
 > - Manually dispatching the docs editorial review GitHub Actions workflow
 
+## When to use editorial review
+
+### Use local review (Claude Code)
+
+Run `/editorial-review` in Claude Code when:
+- ✅ Writing new content (catch issues before PR)
+- ✅ Iterating on drafts (immediate feedback)
+- ✅ Learning the style guidelines
+- ✅ Working on single files or small changes
+- ✅ You want faster feedback (no CI wait time)
+
+**Environment:** Your local machine
+**Cost:** Your Claude API subscription
+**Agents available:** All agents (voice-tone, terminology, clarity, punctuation)
+
+**Example:**
+```bash
+/editorial-review platform-enterprise_docs/getting-started/quickstart.md
+```
+
+### Use PR review (GitHub Actions)
+
+Comment `/editorial-review` on a PR when:
+- ✅ Reviewing multi-file PRs (inline suggestions help)
+- ✅ Reviewing contributor PRs (official documented review)
+- ✅ You want to batch-apply fixes via GitHub UI
+- ✅ Contributors don't have Claude Code installed
+- ✅ Final check before merge on substantial changes
+
+**Environment:** GitHub Actions CI
+**Cost:** Repository API budget
+**Agents available:** voice-tone, terminology only (clarity and punctuation not run in CI)
+
+**Example:**
+```
+# Comment this on any PR
+/editorial-review
+```
+
+### Skip review when
+
+Don't run editorial review for:
+- ❌ Single typo fixes (not worth the tokens)
+- ❌ PRs with only code changes (no documentation)
+- ❌ Urgent hotfixes (speed over style)
+- ❌ File renames or moves only
+- ❌ Automated dependency updates
+
+### Token usage and costs
+
+Approximate costs per review (using Sonnet 4.5):
+- Small PR (1-3 files, <500 lines): ~15K tokens (~$0.30-0.60)
+- Medium PR (5-10 files, ~1000 lines): ~40K tokens (~$0.90-1.50)
+- Large PR (15+ files, 2000+ lines): ~80K tokens (~$1.80-3.00)
+
+**Time savings:** ~30-40 minutes per PR (agents identify issues in 2-4 minutes vs 15-30 minute human review)
+
+**Estimated annual cost for this repo:** ~$100-200 (based on 100-200 reviews/year at ~$1/review average)
+
 ## Workflows and architecture
 
 This repository uses two main Claude-powered workflows:
@@ -82,18 +141,18 @@ Use the `/editorial-review` command to run specialized agents on your documentat
 
 The workflow will:
 - Acknowledge the command immediately
-- Run all agents (voice-tone, terminology, punctuation)
+- Run agents: voice-tone and terminology (clarity and punctuation not run in CI)
 - Post up to 60 inline suggestions
 - Provide downloadable artifact with full list
 
 ### What gets reviewed
 
-The editorial review runs multiple specialized agents:
+Available agents:
 
-- **voice-tone**: Second person, active voice, present tense, confidence
-- **terminology**: Product names, feature names, formatting conventions
-- **punctuation**: List punctuation, Oxford commas, quotation marks, dashes
-- **clarity**: Sentence length, jargon, complexity (currently disabled)
+- **voice-tone**: Second person, active voice, present tense, confidence *(runs in CI)*
+- **terminology**: Product names, feature names, formatting conventions *(runs in CI)*
+- **punctuation**: List punctuation, Oxford commas, quotation marks, dashes *(planned, not yet implemented)*
+- **clarity**: Sentence length, jargon, complexity *(local only, disabled in CI)*
 
 ### Review output
 
