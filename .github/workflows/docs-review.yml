@@ -216,10 +216,119 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  # Editorial review using /editorial-review skill
-  editorial-review-skill:
+
+  # Smart gate - prevents wasteful LLM runs
+  smart-gate:
     needs: [setup, changes]
     if: needs.changes.outputs.docs == 'true' && needs.changes.outputs.pr_type == 'content'
+    runs-on: ubuntu-latest
+    outputs:
+      should_run: ${{ steps.decide.outputs.should_run }}
+      skip_reason: ${{ steps.decide.outputs.skip_reason }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check last review time
+        id: last-review
+        run: |
+          # Get timestamp of last /editorial-review comment
+          LAST_REVIEW=$(gh api repos/${{ github.repository }}/issues/${{ needs.setup.outputs.pr_number }}/comments             --jq '[.[] | select(.body | startswith("/editorial-review")) | .created_at] | last' || echo "")
+
+          if [ -n "$LAST_REVIEW" ]; then
+            MINUTES_AGO=$(( ($(date +%s) - $(date -d "$LAST_REVIEW" +%s 2>/dev/null || date -j -f "%Y-%m-%dT%H:%M:%SZ" "$LAST_REVIEW" +%s)) / 60 ))
+            echo "minutes_since_last=$MINUTES_AGO" >> $GITHUB_OUTPUT
+          else
+            echo "minutes_since_last=999" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
+
+      - name: Calculate meaningful changes
+        id: changes-size
+        run: |
+          # Count lines changed (excluding whitespace)
+          LINES_CHANGED=$(git diff --ignore-all-space --ignore-blank-lines origin/${{ github.base_ref }}...HEAD -- '*.md' '*.mdx' | wc -l | tr -d ' ')
+          echo "lines_changed=$LINES_CHANGED" >> $GITHUB_OUTPUT
+          echo "📊 Lines changed: $LINES_CHANGED"
+
+      - name: Run static analysis
+        id: static-check
+        continue-on-error: true
+        run: |
+          # Check if npx is available
+          if command -v npx &> /dev/null; then
+            echo "Running markdownlint..."
+            npx --yes markdownlint-cli2 ${{ needs.changes.outputs.docs_files }} 2>&1 | tee /tmp/static-results.txt || true
+            ISSUES=$(grep -c ":" /tmp/static-results.txt 2>/dev/null || echo "0")
+            echo "static_issues=$ISSUES" >> $GITHUB_OUTPUT
+            echo "📋 Static issues found: $ISSUES"
+          else
+            echo "static_issues=0" >> $GITHUB_OUTPUT
+            echo "⚠️ npx not available, skipping static check"
+          fi
+
+      - name: Decide if LLM review needed
+        id: decide
+        run: |
+          MINUTES=${{ steps.last-review.outputs.minutes_since_last || '999' }}
+          LINES=${{ steps.changes-size.outputs.lines_changed || '0' }}
+          STATIC_ISSUES=${{ steps.static-check.outputs.static_issues || '0' }}
+
+          echo "⏱️  Minutes since last review: $MINUTES"
+          echo "📏 Lines changed: $LINES"
+          echo "🔍 Static issues: $STATIC_ISSUES"
+
+          # Skip if reviewed <60 minutes ago
+          if [ "$MINUTES" -lt 60 ]; then
+            echo "should_run=false" >> $GITHUB_OUTPUT
+            echo "skip_reason=⏭️ Reviewed $MINUTES minutes ago. Wait at least 60 minutes between reviews." >> $GITHUB_OUTPUT
+            echo "⏭️ SKIPPING: Too soon since last review"
+            exit 0
+          fi
+
+          # Skip if <10 meaningful lines changed
+          if [ "$LINES" -lt 10 ]; then
+            echo "should_run=false" >> $GITHUB_OUTPUT
+            echo "skip_reason=⏭️ Only $LINES lines changed (minimum: 10). Changes too small for LLM review." >> $GITHUB_OUTPUT
+            echo "⏭️ SKIPPING: Changes too small"
+            exit 0
+          fi
+
+          # Skip if static analysis found issues (fix those first)
+          if [ "$STATIC_ISSUES" -gt 5 ]; then
+            echo "should_run=false" >> $GITHUB_OUTPUT
+            echo "skip_reason=⏭️ Found $STATIC_ISSUES formatting issues. Run \`npx markdownlint-cli2\` locally and fix those first." >> $GITHUB_OUTPUT
+            echo "⏭️ SKIPPING: Fix formatting issues first"
+            exit 0
+          fi
+
+          # Passed all gates
+          echo "should_run=true" >> $GITHUB_OUTPUT
+          echo "skip_reason=✅ Passed all pre-checks. Running LLM review." >> $GITHUB_OUTPUT
+          echo "✅ PROCEEDING: All gates passed"
+
+      - name: Post skip message
+        if: steps.decide.outputs.should_run == 'false'
+        run: |
+          gh pr comment ${{ needs.setup.outputs.pr_number }} --body "${{ steps.decide.outputs.skip_reason }}
+
+          **Why skip LLM review:**
+          - Saves ~50K tokens (~\$1.50)
+          - Saves ~0.15 kWh energy
+          - Avoids redundant processing
+
+          **To proceed anyway:** Wait for cooldown period or accumulate more changes."
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+  # Editorial review using /editorial-review skill
+  editorial-review-skill:
+    needs: [setup, changes, smart-gate]
+    if: needs.smart-gate.outputs.should_run == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Get PR head ref

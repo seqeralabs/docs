@@ -125,28 +125,24 @@ Editorial review can also be run locally via Claude Code CLI using the `/editori
 - PR creation, updates, or commits (to conserve tokens)
 
 **How it works:**
-0. Validates bash script syntax (fails fast if scripts have errors)
-1. Classifies PR as "rename" or "content" type
-2. Runs agents based on PR type (rename PRs skip voice-tone & terminology)
-3. Posts up to 60 inline suggestions per PR
-4. Saves full report as downloadable artifact (30-day retention)
+1. User comments `/editorial-review` on PR
+2. Workflow validates bash scripts (fails fast if errors)
+3. Classifies PR type ("rename" or "content")
+4. **Smart-gate checks** (automatic waste prevention):
+   - Blocks if reviewed <60 min ago
+   - Blocks if <10 lines changed
+   - Blocks if >5 formatting issues (run markdownlint first)
+5. If gates pass: Invokes `/editorial-review` skill
+6. Skill orchestrates agents (voice-tone, terminology)
+7. Posts up to 60 inline suggestions
+8. Saves full report as artifact (30-day retention)
 
-**Manual re-runs:**
+**Key architecture:** Workflow invokes the `/editorial-review` skill rather than calling agents directly. This ensures local and CI behavior is identical.
 
-After the initial review, re-run the workflow manually:
-
-1. Go to **Actions** → **Documentation Review**
-2. Click **Run workflow**
-3. Select your PR branch
-4. Enter the **PR number** (required for posting results)
-5. Choose review type:
-   - `all` - Run all checks
-   - `voice-tone` - Only voice/tone
-   - `terminology` - Only terminology
-   - `clarity` - Only clarity _(currently disabled in CI)_
-6. Click **Run workflow**
-
-The workflow does NOT re-run automatically on subsequent commits (to conserve tokens).
+**Manual workflow dispatch:**
+1. Go to **Actions** → **Documentation Review** → **Run workflow**
+2. Enter PR number and select review type (`all`, `voice-tone`, `terminology`)
+3. Smart-gate still applies - manual trigger doesn't bypass automation
 
 **Outputs:**
 - Inline suggestions on specific lines (click to apply)

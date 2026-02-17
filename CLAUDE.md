@@ -61,16 +61,21 @@ Don't run editorial review for:
 - ❌ File renames or moves only
 - ❌ Automated dependency updates
 
-### When NOT to re-run review
+### Automatic waste prevention
 
-Don't trigger `/editorial-review` again if:
-- ❌ You already ran it less than 1 hour ago (check PR timeline)
-- ❌ You only fixed a single typo since the last review
-- ❌ Only whitespace or formatting changed
-- ❌ The same files were already reviewed in this PR with no content changes
-- ❌ You're waiting for reviewer feedback (don't re-run speculatively)
+The workflow has **built-in smart-gate automation** that automatically blocks wasteful runs:
 
-**Tip:** Check the PR conversation timeline to see when the last review ran. Re-running unnecessarily wastes tokens and energy.
+✅ **Automatically blocked:**
+- Reviewed <60 minutes ago
+- <10 meaningful lines changed
+- >5 formatting issues found (fix with markdownlint first)
+
+❌ **Still avoid manually:**
+- Re-running while waiting for feedback
+- Running on PRs with only whitespace changes
+- Running on dependency updates or file renames
+
+**The system protects you from accidental waste** - just comment `/editorial-review` and smart-gate decides if it's worth running.
 
 ### Token usage and costs
 
@@ -93,12 +98,12 @@ This repository uses two main Claude-powered workflows:
 
 **Purpose:** On-demand quality checks for documentation content
 
-**Components:**
-- **Skill**: `/editorial-review`
-- **Agents**: voice-tone, terminology, clarity (disabled), punctuation (planned)
-- **Workflow**: `.github/workflows/docs-review.yml`
-- **Scripts**: `classify-pr-type.sh` (PR classification), `post-inline-suggestions.sh` (GitHub API integration)
-- **Triggers**: `/editorial-review` command (Claude Code or PR comment), manual workflow dispatch
+**Architecture:**
+- **Skill**: `/editorial-review` (orchestrates all agents)
+- **Workflow**: `.github/workflows/docs-review.yml` (invokes skill)
+- **Smart-gate**: Automatic filtering prevents wasteful runs
+- **Scripts**: `classify-pr-type.sh`, `post-inline-suggestions.sh`
+- **Triggers**: Manual only - `/editorial-review` comment or workflow dispatch
 
 ### API workflow
 
@@ -115,19 +120,22 @@ This repository uses two main Claude-powered workflows:
 
 ### How it works
 
-Use the `/editorial-review` command to run specialized agents on your documentation. This command works in two contexts:
+The `/editorial-review` skill orchestrates specialized agents to review your documentation. The skill ensures consistent behavior whether run locally or in CI.
 
 **In Claude Code (local):**
-1. Run the command in your terminal
-2. Agents analyze files directly
+1. Run `/editorial-review` in your terminal
+2. Skill invokes appropriate agents (voice-tone, terminology, clarity)
 3. Review findings in the conversation
 4. Apply fixes to files manually
 
 **In GitHub PR (CI):**
 1. Comment `/editorial-review` on any PR
-2. Workflow triggers automatically
-3. Agents analyze changed files
-4. Results posted as inline PR suggestions
+2. Workflow runs smart-gate checks (prevents waste):
+   - Skips if reviewed <60 min ago
+   - Skips if <10 lines changed
+   - Skips if formatting issues found (fix those first)
+3. If gates pass: Invokes `/editorial-review` skill
+4. Skill orchestrates agents and posts inline suggestions
 
 ### Usage
 
@@ -152,11 +160,13 @@ Use the `/editorial-review` command to run specialized agents on your documentat
 /editorial-review
 ```
 
-The workflow will:
-- Acknowledge the command immediately
-- Run agents: voice-tone and terminology (clarity and punctuation not run in CI)
+When gates pass, the workflow will:
+- Invoke `/editorial-review` skill
+- Skill runs agents: voice-tone, terminology (clarity disabled, punctuation not yet implemented)
 - Post up to 60 inline suggestions
-- Provide downloadable artifact with full list
+- Provide downloadable artifact if >60 suggestions found
+
+**Smart-gate blocks wasteful runs automatically** - you don't need to manually check timing/size.
 
 ### What gets reviewed
 
