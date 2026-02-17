@@ -169,7 +169,7 @@ The workflow does NOT re-run automatically on subsequent commits (to conserve to
 |-------|--------|------------|
 | voice-tone | ✅ Active | Yes |
 | terminology | ✅ Active | Yes |
-| punctuation | ✅ Active | Yes |
+| punctuation | ✅ Active | No |
 | clarity | ⚠️ Disabled | No |
 | docs-fix | 📝 Local only | No |
 
