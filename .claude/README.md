@@ -117,32 +117,35 @@ Ensures consistent punctuation across documentation.
 **File:** `.github/workflows/docs-review.yml`
 
 **Triggers:**
-- **Automatic:** PR creation or reopen for `platform-*` directories
-- **Manual:** Workflow dispatch (see below)
+- **Manual:** Comment `/editorial-review` on any PR
+- **Manual:** Workflow dispatch from Actions tab
 
 **How it works:**
-0. Validates bash script syntax (fails fast if scripts have errors)
-1. Classifies PR as "rename" or "content" type
-2. Runs agents based on PR type (rename PRs skip voice-tone & terminology)
-3. Posts up to 60 inline suggestions per PR
-4. Saves full report as downloadable artifact (30-day retention)
+1. User comments `/editorial-review` on a PR (or manually triggers from Actions)
+2. Workflow acknowledges the command
+3. Runs specialized agents (voice-tone, terminology, punctuation)
+4. Posts up to 60 inline suggestions per PR
+5. Saves full report as downloadable artifact (30-day retention)
 
-**Manual re-runs:**
+**To trigger review:**
 
-After the initial review, re-run the workflow manually:
+**Option 1: PR comment (recommended)**
+1. Comment `/editorial-review` on any PR
+2. Wait for workflow to complete
+3. Review inline suggestions
 
+**Option 2: Workflow dispatch**
 1. Go to **Actions** → **Documentation Review**
 2. Click **Run workflow**
-3. Select your PR branch
-4. Enter the **PR number** (required for posting results)
-5. Choose review type:
-   - `all` - Run all checks
+3. Enter the **PR number** (required for posting results)
+4. Choose review type:
+   - `all` - Run all agents (default)
    - `voice-tone` - Only voice/tone
    - `terminology` - Only terminology
-   - `clarity` - Only clarity _(currently disabled in CI)_
-6. Click **Run workflow**
+   - `clarity` - Only clarity _(currently disabled)_
+5. Click **Run workflow**
 
-The workflow does NOT re-run automatically on subsequent commits (to conserve tokens).
+**Important:** This workflow is entirely manual. It does NOT run automatically on PR creation or updates.
 
 **Outputs:**
 - Inline suggestions on specific lines (click to apply)
@@ -158,6 +161,20 @@ The workflow does NOT re-run automatically on subsequent commits (to conserve to
 **`.github/scripts/classify-pr-type.sh`**
 - Analyzes git diff to determine PR type
 - Outputs "rename" or "content" for workflow decisions
+
+### Agent status
+
+Current production agents:
+
+| Agent | File | Status | Used in CI | Notes |
+|-------|------|--------|------------|-------|
+| **voice-tone** | `agents/voice-tone.md` | ✅ Active | Yes | Second person, active voice, present tense |
+| **terminology** | `agents/terminology.md` | ✅ Active | Yes | Product names, formatting conventions |
+| **punctuation** | `agents/punctuation.md` | ✅ Active | Yes | List punctuation, Oxford commas |
+| **clarity** | `agents/clarity.md` | ⚠️ Disabled | No | Sentence length, jargon (commented out in workflow) |
+| **docs-fix** | `agents/docs-fix.md` | 📝 Local only | No | Apply corrections (manual invocation only) |
+
+To re-enable clarity agent: Uncomment the `clarity-review` job condition in `.github/workflows/docs-review.yml` (line 345).
 
 ## Agent output format
 
