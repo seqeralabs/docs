@@ -9,7 +9,11 @@ description: Run editorial review on documentation files using specialized agent
 Orchestrate a comprehensive editorial review of documentation using specialized SME agents. Provides structured, actionable feedback on editorial quality across multiple dimensions.
 
 ## Deployment
-**CI/CD:** `.github/workflows/docs-review.yml` | **Invocation:** `/editorial-review` command
+**CI/CD:** `.github/workflows/docs-review.yml`
+**Invocation paths:**
+- GitHub PR comment `/editorial-review` (triggers the CI workflow)
+- Manual run from the GitHub Actions tab via `workflow_dispatch`
+- Local `/editorial-review` skill invocation (runs outside GitHub Actions)
 
 ## Workflow
 
