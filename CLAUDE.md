@@ -9,8 +9,9 @@ This guide covers documentation standards, editorial workflows, and Claude-power
 - **Apply fixes** → Address issues directly in files based on agent feedback
 
 > **Important:** Editorial reviews are **on-demand only**. They do NOT run automatically on PR creation or commits. You must explicitly trigger them by:
-> - Running `/editorial-review` locally in Claude Code, OR
+> - Running `/editorial-review` locally in Claude Code
 > - Commenting `/editorial-review` on a PR
+> - Manually dispatching the docs editorial review GitHub Actions workflow
 
 ## Workflows and architecture
 
