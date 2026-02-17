@@ -21,7 +21,7 @@ spec:
         kubernetes.io/arch: amd64
       containers:
         - name: server
-          image: cr.seqera.io/private/nf-tower-enterprise/data-studio/connect-server:0.9.0
+          image: cr.seqera.io/private/nf-tower-enterprise/data-studio/connect-server:0.10.0
           ports:
             - containerPort: 7070
               name: server
@@ -42,8 +42,8 @@ spec:
               value: "false"
             - name: CONNECT_REDIS_DB
               value: "1"
-            - name: CONNECT_SERVER_LOG_LEVEL
-              value: info
+            - name: CONNECT_LOG_LEVEL
+              value: info  # one of: trace, debug, info, warn, error, fatal
           securityContext:
             capabilities:
               add:

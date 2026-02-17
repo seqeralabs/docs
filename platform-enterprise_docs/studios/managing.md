@@ -83,6 +83,19 @@ Collaborators need valid workspace permissions to connect to the running Studio.
 
 To share a link to a running session with collaborators inside your workspace, select the three dots next to the status message for the session you want to share, then select **Copy Studio URL**. Using this link, other authenticated users can access the session directly.
 
+Seqera-managed container templates offer varying levels of multi-user collaboration:
+
+- **JupyterLab:** Supports multi-user collaboration via the `jupyter-collaboration` package. Each connected user has a randomly assigned colour-coded avatar and the user cursor inherits the same color for easily differentiating multiple connected users.
+- **VS Code:** Supports multi-user collaboration by default, but each connected user is not readily distinguishable. For a more fully-featured collaborative experience, install the [Microsoft Live Share extension][liveshare] or [P2P Live Share][p2p-liveshare].
+- **R-IDE:** By default, multi-user collaboration is not supported. When an additional user connects to the running session, the previously connected user is notified and forcibly disconnected.
+- **Xpra:** Supports multi-user collaboration by default and is similar to a remote desktop experience. Connected users are not readily distinguishable.
+
+:::note
+RStudio Professional Server supports multi-user collaboration. Add your own custom container and include your Posit Workbench license code as a environment variable to take advantage of this.
+:::
+
+Multi-user collaboration in custom containers is dependent on the container configuration.
+
 ## Limit Studio access to a specific cloud bucket subdirectory {#cloud-bucket-subdirectory}
 
 For a cloud bucket that is writeable, as enabled by including the bucket in a compute environment's **Allowed S3 bucket** list, you can limit write access to that bucket from within a Studio session.
@@ -150,6 +163,97 @@ Sessions have the following possible statuses:
 There might be errors reported by the session itself but these will be overwritten with a **running** status if the session is still running.
 :::
 
+## Connect to a Studio via SSH (public preview)
+
+:::info[**Prerequisites**]
+- Enterprise v25.3.3 or later
+- [Studios SSH configuration](../enterprise/studios-ssh) enabled for your workspace during deployment.
+- Your SSH public key added to your Seqera Platform user profile
+- **SSH Connection** toggle enabled when adding the Studio
+- The Studio is in a **running** state.
+:::
+
+Direct SSH connections to running Studio containers support standard SSH clients, terminal access, and [VS Code Remote SSH](https://code.visualstudio.com/docs/remote/ssh). JupyterLab, R-IDE, VS Code, and Xpra container templates are supported.
+
+:::note
+Enabling SSH can only be done on Studio creation. If you didn't enable SSH when you initially added your Studio, you will need to duplicate and modify it. Stop the Studio, select **Start as New**, and enable **SSH Connection** for the new Studio.
+:::
+
+### Terminal access
+
+Connect to a Studio using standard SSH:
+
+```bash
+ssh <username>@<studio-session-id>@<connect-domain> -p 2222
+```
+
+**Example:**
+
+```bash
+ssh alice@a01ac8894@connect.example.com -p 2222
+```
+
+Where:
+- `<username>`: Your Seqera Platform username
+- `<studio-session-id>`: The Studio session ID (visible in the Studios list)
+- `<connect-domain>`: Your connect proxy domain
+- Port: `2222` (default SSH proxy port)
+
+The session ID is displayed in the Studio details page and the Studios list.
+
+### VS Code Remote SSH
+
+Connect to a Studio using VS Code Remote SSH:
+
+1. Install the [Remote - SSH extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) in VS Code.
+
+2. **Required:** Disable local server mode in your VS Code settings:
+
+   - Open VS Code Settings (Code > Preferences > Settings or Cmd+,)
+   - Search for `remote.SSH.useLocalServer`
+   - Set to `false`
+
+   Alternatively, add this to your `settings.json`:
+
+   ```json
+   {
+     "remote.SSH.useLocalServer": false,
+     "remote.SSH.enableRemoteCommand": true,
+     "remote.SSH.useLocalServer": false,
+     "remote.SSH.preconnect": ""
+   }
+   ```
+
+   :::warning
+   VS Code's local server mode (SSH multiplexing over SOCKS) is not supported. Connections will fail if this setting is enabled.
+   :::
+
+3. Connect to the Studio:
+
+   - Open the Command Palette (Cmd+Shift+P or Ctrl+Shift+P)
+   - Run **Remote-SSH: Connect to Host**
+   - Select your configured host or enter the SSH connection string directly
+   - VS Code opens a new window connected to your Studio
+
+Once connected, you can:
+
+- Access the Studio filesystem
+- Open folders and files
+- Use the integrated terminal
+- Install VS Code extensions in the remote environment
+- Debug code running in the Studio
+- Install packages
+
+### SSH authentication
+
+SSH connections use public key authentication:
+
+1. Platform validates your credentials and workspace permissions.
+2. Your SSH client uses your private key for authentication.
+3. The connection is encrypted end-to-end.
+
+For troubleshooting SSH connection issues, see [Studios troubleshooting](../troubleshooting_and_faqs/studios_troubleshooting#ssh-connections-public-preview).
+
 ## Studio session data-links
 
 You can configure a Studio session to mount one or more data-links, where cloud buckets that you have configured in your compute environment are read-only, or read-write available to the session.
@@ -215,3 +319,5 @@ Stop the active session to trigger a snapshot from the active volume. The snapsh
 [conda-syntax]: ./custom-envs#conda-package-syntax
 [custom-image]: ./custom-envs#custom-containers
 [connect]: ./connect
+[liveshare]: https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare
+[p2p-liveshare]: https://open-vsx.org/extension/kermanx/p2p-live-share

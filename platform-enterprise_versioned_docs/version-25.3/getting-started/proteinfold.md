@@ -23,7 +23,7 @@ You will need the following to get started:
 
 - [Admin](../orgs-and-teams/roles) permissions in an existing organization workspace. See [Set up your workspace](./workspace-setup) to create an organization and workspace from scratch.
 - An existing AWS cloud account with access to the AWS Batch service.
-- Existing access credentials with permissions to create and manage resources in your AWS account. See [IAM](../compute-envs/aws-batch#iam) for guidance to set up IAM permissions for Platform.
+- Existing access credentials with permissions to create and manage resources in your AWS account. See [IAM](../compute-envs/aws-batch#iam-user-creation) for guidance to set up IAM permissions for Platform.
 :::
 
 ## Compute environment
@@ -46,7 +46,7 @@ The [Fusion](../supported_software/fusion/overview) file system enables seamless
 
 Fusion works best with AWS NVMe instances (fast instance storage) as this delivers the fastest performance when compared to environments using only AWS EBS (Elastic Block Store). Batch Forge selects instances automatically based on your compute environment configuration, but you can optionally specify instance types. To enable fast instance storage, you must select EC2 instances with NVMe SSD storage (`g4dn`, `g5`, or `P3` families or greater).
 
-:::note 
+:::note
 Fusion requires a license for use in Seqera Platform compute environments or directly in Nextflow. See [Fusion licensing](https://docs.seqera.io/fusion/licensing) for more information.
 :::
 
@@ -78,7 +78,7 @@ From the **Compute Environments** tab in your organization workspace, select **A
 | **Enable Fargate for head job**       | Run the Nextflow head job using the Fargate container service to speed up pipeline launch. Requires Fusion v2. Do not enable for Studios compute environments. |
 | **Use Amazon-recommended GPU-optimized ECS AMI**  | When enabled, Batch Forge specifies the most current AWS-recommended GPU-optimized ECS AMI as the EC2 fleet AMI when creating the compute environment. |
 | **Allowed S3 buckets**                | Additional S3 buckets or paths to be granted read-write permission for this compute environment. For the purposes of this guide, add `s3://proteinfold-dataset` to grant compute environment access to the DB and params used for prediction by AlphaFold2 and ColabFold. |
-| **Instance types**                    | Specify the instance types to be used for computation. You must include GPU-enabled instance types (`g4dn`, `g5`) when the Amazon-recommended GPU-optimized ECS AMI is in use. Include CPU-based instance families for Studios compute environments. | 
+| **Instance types**                    | Specify the instance types to be used for computation. You must include GPU-enabled instance types (`g4dn`, `g5`) when the Amazon-recommended GPU-optimized ECS AMI is in use. Include CPU-based instance families for Studios compute environments. |
 | **Resource labels**                   | `name=value` pairs to tag the AWS resources created by this compute environment.|
 
 ## Add pipeline to Platform
@@ -115,7 +115,7 @@ The [*nf-core/proteinfold*](https://github.com/nf-core/proteinfold) pipeline wor
 
 <details>
   <summary>**nf-core/proteinfold example samplesheet**</summary>
-    
+
   | sequence | fasta |
   | -------- | ----- |
   | T1024 | https://raw.githubusercontent.com/nf-core/test-datasets/proteinfold/testdata/sequences/T1024.fasta |
@@ -128,7 +128,7 @@ In Platform, samplesheets and other data can be made easily accessible in one of
 - Use **Datasets** to upload structured data to your workspace in CSV (Comma-Separated Values) or TSV (Tab-Separated Values) format.
 
 <details>
-  <summary>**Add a cloud bucket via Data Explorer**</summary> 
+  <summary>**Add a cloud bucket via Data Explorer**</summary>
 
   Private cloud storage buckets accessible with the credentials in your workspace are added to Data Explorer automatically by default. However, you can also add custom directory paths within buckets to your workspace to simplify direct access.
 
@@ -181,14 +181,14 @@ With your compute environment created, *nf-core/proteinfold* added to your works
 
 The launch form consists of **General config**, **Run parameters**, and **Advanced options** sections to specify your run parameters before execution, and an execution summary. Use section headings or select the **Previous** and **Next** buttons at the bottom of the page to navigate between sections.
 
-### General config 
+### General config
 
 - **Pipeline to launch**: The pipeline Git repository name or URL: `https://github.com/nf-core/proteinfold`. For saved pipelines, this is prefilled and cannot be edited.
 - **Revision number**: A valid repository commit ID, tag, or branch name: `1.1.1`. For saved pipelines, this is prefilled and cannot be edited.
 - **Config profiles**: One or more [configuration profile](https://www.nextflow.io/docs/latest/config.html#config-profiles) names to use for the execution. Config profiles must be defined in the `nextflow.config` file in the pipeline repository. Benchmarking runs for this guide used nf-core profiles with included test datasets — `test_full_alphafold2_multimer` for Alphafold2 and `test_full_alphafold2_multimer` for Colabfold.
 - **Workflow run name**: An identifier for the run, pre-filled with a random name. This can be customized.
 - **Labels**: Assign new or existing [labels](../labels/overview) to the run.
-- **Compute environment**: Your AWS Batch compute environment. 
+- **Compute environment**: Your AWS Batch compute environment.
 - **Work directory**: The cloud storage path where pipeline scratch data is stored. Platform will create a scratch sub-folder if only a cloud bucket location is specified.
     :::note
     The credentials associated with the compute environment must have access to the work directory.
@@ -196,7 +196,7 @@ The launch form consists of **General config**, **Run parameters**, and **Advanc
 
 ![General config tab](./_images/proteinfold-lf1.gif)
 
-### Run parameters 
+### Run parameters
 
 There are three ways to enter **Run parameters** prior to launch:
 
@@ -235,9 +235,9 @@ Specify your pipeline input and output and modify other pipeline parameters as n
 
 :::info
 For the purposes of this guide, run the pipeline in both `alphafold2` and `colabfold` modes. Specify unique directory paths for the `outdir` parameter (such as "Alphafold2" and "ColabFold") to ensure output data is kept separate and not overwritten. Predicted protein structures for each model will be visualized side-by-side in the [Interactive analysis](#interactive-analysis-with-studios) section.
-::: 
+:::
 
-### Advanced settings 
+### Advanced settings
 
 - Use [resource labels](../resource-labels/overview) to tag the computing resources created during the workflow execution. While resource labels for the run are inherited from the compute environment and pipeline, workspace admins can override them from the launch form. Applied resource label names must be unique.
 - [Pipeline secrets](../secrets/overview) store keys and tokens used by workflow tasks to interact with external systems. Enter the names of any stored user or workspace secrets required for the workflow execution.
@@ -330,7 +330,7 @@ From the **Studios** tab, select **Add a Studio** and complete the following:
     - Optional: Enter a unique name and description for the Studio.
     - Check **Install Conda packages** and paste the following Conda environment YAML snippet:
 
-    ```yaml 
+    ```yaml
     channels:
       - bioconda
       - conda-forge
@@ -351,7 +351,7 @@ The Jupyter environment can be configured with the packages and scripts you need
 
 1. Import libraries and check versions:
 
-    ```python 
+    ```python
     import sys
     import jupyter_core
     import nglview
@@ -369,7 +369,7 @@ The Jupyter environment can be configured with the packages and scripts you need
 
 1. Define visualization functions:
 
-    ```python 
+    ```python
     import os
     import ipywidgets as widgets
     from IPython.display import display, HTML
@@ -379,14 +379,14 @@ The Jupyter environment can be configured with the packages and scripts you need
         view.add_representation('cartoon', selection='protein', color='residueindex')
         view.add_representation('ball+stick', selection='hetero')
         view._remote_call('setSize', target='Widget', args=[width, height])
-        
+
         # Set initial view
         view._remote_call('autoView')
         view._remote_call('centerView')
-        
+
         # Adjust zoom level (you may need to adjust this value)
         view._remote_call('zoom', target='stage', args=[0.8])
-        
+
         return view
 
     def compare_proteins(pdb_files):
@@ -403,7 +403,7 @@ The Jupyter environment can be configured with the packages and scripts you need
 
 1. Set up file paths and create file dictionary:
 
-    ```python 
+    ```python
     # Replace with the actual paths to your AlphaFold2 and ColabFold PDB files
     alphafold_pdb = "data/path/to/your/alphafold/output.pdb"
     colabfold_pdb = "data/path/to/your/colabfold/output.pdb"
@@ -450,9 +450,9 @@ The Jupyter environment can be configured with the packages and scripts you need
             description='Select method:',
             disabled=False,
         )
-        
+
         info_output = widgets.Output()
-        
+
         def on_change(change):
             with info_output:
                 info_output.clear_output()
@@ -461,9 +461,9 @@ The Jupyter environment can be configured with the packages and scripts you need
                 print(f"Selected method: {selected_method}")
                 print(f"File path: {selected_file}")
                 print(f"File size: {os.path.getsize(selected_file) / 1024:.2f} KB")
-        
+
         method_dropdown.observe(on_change, names='value')
-        
+
         display(HTML("<h3>Structure Information:</h3>"))
         display(widgets.VBox([method_dropdown, info_output]))
     ```
@@ -487,4 +487,3 @@ The Jupyter environment can be configured with the packages and scripts you need
     ```
 
 ![Protein structure visualization](./_images/protein-structure-visualization.gif)
-

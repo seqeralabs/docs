@@ -16,11 +16,10 @@ When you add a new pipeline to Seqera, the first default version of that pipelin
 New draft versions are automatically generated during pipeline edit or launch when you modify the following:
 - All pipeline schema parameters, unless the `track_changes` schema configuration for a given property is set to `false`.
     :::info
-    Changes to all pipeline schema parameters trigger a new version by default (`"track_changes": true`). To alter this behavior for specific parameters, add `"track_changes": false` to the parameter definition:
+    Changes to all pipeline schema parameters during pipeline edit or launch trigger a new version by default i.e. the default for parameters is assumed as `"track_changes": true`. The
+  intent with pipeline versioning is to allow the common variable inputs (e.g. fastq files) and outputs (e.g. outputDir) to be omitted for consideration during  versioning. To enable this
+  behavior for specific parameters, add `"track_changes": false` to the parameter property definition in the schema:
     ```json
-    "my_parameter": {
-      "type": "string",
-      "description": "Changes to this parameter will not trigger a new pipeline version to be created",
       "track_changes": false
     }
     ```
@@ -38,6 +37,7 @@ New draft versions are automatically generated during pipeline edit or launch wh
     }
     ```
     :::
+
 - Fields in the pipeline **Edit** form, excluding:
   - **Name**
   - **Image**
@@ -52,6 +52,24 @@ A pipeline's default version is shown in the Launchpad and automatically selecte
 :::
 
 Seqera maintains a history of all draft and published versions, providing an audit trail of pipeline evolution.
+
+#### Custom schema
+
+Users with [Maintain or higher](../orgs-and-teams/roles.md) permissions can upload a custom `nextflow_schema.json` file to control which pipeline parameters are exposed in the launch form. This allows you to restrict the parameters visible to launch users, simplifying the launch experience and preventing modification of parameters that should remain fixed.
+
+The custom schema field is available when adding or editing a pipeline. When you upload a custom schema:
+
+- The schema content is validated to ensure it's a valid Nextflow schema
+- The custom schema controls which parameters appear in the pipeline launch form
+- Changes to the custom schema trigger a new draft version of the pipeline
+- The custom schema is applied to all launches using that pipeline version
+
+To add or update a custom schema:
+
+1. Navigate to **Add pipeline** or select **Edit** for an existing pipeline
+2. In the **Custom Schema JSON** field, paste your custom Nextflow schema JSON
+3. The schema is validated automatically as you enter it
+4. Select **Add** or **Save** to create a new draft version with the custom schema
 
 ### Manage pipeline versions
 

@@ -1,0 +1,43 @@
+name: Check for CLI Updates
+
+on:
+  schedule:
+    - cron: '0 10 * * *'  # Daily at 10 AM UTC
+  workflow_dispatch:
+
+jobs:
+  check-updates:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout docs repo
+        uses: actions/checkout@v4
+
+      - name: Get latest tower-cli release
+        id: cli-release
+        run: |
+          LATEST=$(curl -s https://api.github.com/repos/seqeralabs/tower-cli/releases/latest | jq -r .tag_name)
+          # Remove 'v' prefix if present
+          LATEST="${LATEST#v}"
+          echo "version=$LATEST" >> $GITHUB_OUTPUT
+
+      - name: Check if already documented
+        id: check
+        run: |
+          if [ -f "platform-cloud/docs/cli/metadata/cli-metadata-v${{ steps.cli-release.outputs.version }}.json" ]; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+            echo "CLI v${{ steps.cli-release.outputs.version }} is already documented"
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+            echo "CLI v${{ steps.cli-release.outputs.version }} needs documentation"
+          fi
+
+      - name: Trigger update workflow
+        if: steps.check.outputs.exists == 'false'
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          event-type: cli-release
+          client-payload: |
+            {
+              "version": "${{ steps.cli-release.outputs.version }}"
+            }

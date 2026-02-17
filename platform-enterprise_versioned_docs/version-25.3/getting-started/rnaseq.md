@@ -10,10 +10,10 @@ toc_max_heading_level: 2
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-This guide details how to run bulk RNA sequencing (RNA-Seq) data analysis, from quality control to differential expression analysis, on an AWS Batch compute environment in Platform. It includes: 
+This guide details how to run bulk RNA sequencing (RNA-Seq) data analysis, from quality control to differential expression analysis, on an AWS Batch compute environment in Platform. It includes:
 
 - Creating an AWS Batch compute environment to run your pipeline and analysis environment
-- Adding pipelines to your workspace 
+- Adding pipelines to your workspace
 - Importing your pipeline input data
 - Launching the pipeline and monitoring execution from your workspace
 - Setting up a custom analysis environment with Studios
@@ -24,7 +24,7 @@ You will need the following to get started:
 
 - [Admin](../orgs-and-teams/roles) permissions in an existing organization workspace. See [Set up your workspace](./workspace-setup) to create an organization and workspace from scratch.
 - An existing AWS cloud account with access to the AWS Batch service.
-- Existing access credentials with permissions to create and manage resources in your AWS account. See [IAM](../compute-envs/aws-batch#iam) for guidance to set up IAM permissions for Platform.
+- Existing access credentials with permissions to create and manage resources in your AWS account. See [IAM](../compute-envs/aws-batch#iam-user-creation) for guidance to set up IAM permissions for Platform.
 :::
 
 ## Compute environment
@@ -34,7 +34,7 @@ Compute and storage requirements for RNA-Seq analysis are dependent on the numbe
 In this guide, you will create an AWS Batch compute environment with sufficient resources allocated to run the [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline with a large dataset. This compute environment will also be used to run a Studios R-IDE session for interactive analysis of the resulting pipeline data.
 
 :::note
-The compute recommendations below are based on internal benchmarking performed by Seqera. See [RNA-Seq data and requirements](#rna-seq-data-and-requirements) for more information. 
+The compute recommendations below are based on internal benchmarking performed by Seqera. See [RNA-Seq data and requirements](#rna-seq-data-and-requirements) for more information.
 :::
 
 ### Recommended compute environment resources
@@ -49,7 +49,7 @@ The following compute resources are recommended for production RNA-Seq pipelines
 | **Max CPUs**                   | >500                                  |
 | **Min CPUs**                   | 0                                     |
 
-#### Fusion file system 
+#### Fusion file system
 
 The [Fusion](../supported_software/fusion/overview) file system enables seamless read and write operations to cloud object stores, leading to
 simpler pipeline logic and faster, more efficient execution. While Fusion is not required to run *nf-core/rnaseq*, it is recommended for optimal performance. See [nf-core/rnaseq performance in Platform](#nf-corernaseq-performance-in-platform) at the end of this guide.
@@ -120,7 +120,7 @@ This dataset represents RNA-Seq samples from various human cell lines (GM12878, 
 
 <details>
   <summary>**nf-core/rnaseq test_full profile dataset**</summary>
-    
+
   | sample | fastq_1 | fastq_2 | strandedness |
   |--------|---------|---------|--------------|
   | GM12878_REP1 | s3://ngi-igenomes/test-data/rnaseq/SRX1603629_T1_1.fastq.gz | s3://ngi-igenomes/test-data/rnaseq/SRX1603629_T1_2.fastq.gz | reverse |
@@ -139,7 +139,7 @@ In Platform, samplesheets and other data can be made easily accessible in one of
 - Use **Datasets** to upload structured data to your workspace in CSV (Comma-Separated Values) or TSV (Tab-Separated Values) format.
 
 <details>
-  <summary>**Add a cloud bucket via Data Explorer**</summary> 
+  <summary>**Add a cloud bucket via Data Explorer**</summary>
 
   Private cloud storage buckets accessible with the credentials in your workspace are added to Data Explorer automatically by default. However, you can also add custom directory paths within buckets to your workspace to simplify direct access.
 
@@ -147,7 +147,7 @@ In Platform, samplesheets and other data can be made easily accessible in one of
 
   ![Add public bucket](./quickstart-demo/assets/data-explorer-add-bucket.gif)
 
-  1. From the **Data Explorer** tab, select **Add cloud bucket**. 
+  1. From the **Data Explorer** tab, select **Add cloud bucket**.
   1. Specify the bucket details:
       - The cloud **Provider**.
       - An existing cloud **Bucket path**.
@@ -156,7 +156,7 @@ In Platform, samplesheets and other data can be made easily accessible in one of
       - An optional bucket **Description**.
   1. Select **Add**.
 
-  You can now select data directly from this bucket as input when launching your pipeline, without the need to interact with cloud consoles or CLI tools. 
+  You can now select data directly from this bucket as input when launching your pipeline, without the need to interact with cloud consoles or CLI tools.
 
 </details>
 
@@ -174,7 +174,7 @@ In Platform, samplesheets and other data can be made easily accessible in one of
   - Select the **First row as header** option to prevent Platform from parsing the header row of the samplesheet as sample data.
   - Select **Upload file** and browse to your CSV or TSV samplesheet file in local storage, or simply drag and drop it into the box.
 
-  The dataset is now listed in your organization workspace datasets and can be selected as input when launching your pipeline. 
+  The dataset is now listed in your organization workspace datasets and can be selected as input when launching your pipeline.
 
   :::info
   Platform does not store the data used for analysis in pipelines. The dataset must specify the locations of data stored on your own infrastructure.
@@ -192,7 +192,7 @@ With your compute environment created, *nf-core/rnaseq* added to your workspace 
 
 The launch form consists of **General config**, **Run parameters**, and **Advanced options** sections to specify your run parameters before execution, and an execution summary. Use section headings or select the **Previous** and **Next** buttons at the bottom of the page to navigate between sections.
 
-### General config 
+### General config
 
 - **Pipeline to launch**: The pipeline Git repository name or URL. For saved pipelines, this is prefilled and cannot be edited.
 - **Revision number**: A valid repository commit ID, tag, or branch name. For saved pipelines, this is prefilled and cannot be edited.
@@ -317,9 +317,9 @@ For the purposes of this guide, an R-IDE will be used to normalize the pipeline 
 
 ### Prepare your data
 
-#### Gene counts 
+#### Gene counts
 
-Salmon is the default tool used during the `pseudo-aligner` step of the *nf-core/rnaseq* pipeline. In the pipeline output data, the `/salmon` directory contains the tool's output, including a `salmon.merged.gene_counts_length_scaled.tsv` file. 
+Salmon is the default tool used during the `pseudo-aligner` step of the *nf-core/rnaseq* pipeline. In the pipeline output data, the `/salmon` directory contains the tool's output, including a `salmon.merged.gene_counts_length_scaled.tsv` file.
 
 #### Sample info
 
@@ -361,7 +361,7 @@ From the **Studios** tab, select **Add a studio** and complete the following:
 - Select the latest **R-IDE** container image template from the list.
 - Select your AWS Batch compute environment.
 :::note
-Studio sessions compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and sessions. The default CPU and memory allocation for a Studio is 2 CPUs and 8192 MB RAM. 
+Studio sessions compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and sessions. The default CPU and memory allocation for a Studio is 2 CPUs and 8192 MB RAM.
 :::
 - Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the pipeline work directory of your RNA-Seq run.
 - Optional: Enter CPU and memory allocations. The default values are 2 CPUs and 8192 MB memory (RAM).
@@ -455,7 +455,7 @@ The R-IDE can be configured with the packages you wish to install and the R scri
     :::info
     MDS plots are used to visualize the overall similarity between RNA-Seq samples based on their gene expression profiles, helping to identify sample clusters and potential batch effects.
     :::
-    
+
     ```r
     # Create MDS plot
     # a. Display in RStudio
@@ -511,7 +511,7 @@ The R-IDE can be configured with the packages you wish to install and the R scri
     names(results) <- colnames(my.contrasts)
     ```
 
-    :::info 
+    :::info
     This script is written for the analysis of human data, based on *nf-core/rnaseq*'s `test_full` dataset. To adapt the script for your data, modify the contrasts based on the comparisons you want to make between your sample groups:
 
     ```r
@@ -524,7 +524,7 @@ The R-IDE can be configured with the packages you wish to install and the R scri
     ```
     :::
 
-1. Print the number of differentially expressed genes for each comparison and save the results to CSV files:    
+1. Print the number of differentially expressed genes for each comparison and save the results to CSV files:
 
     ```r
     # Print the number of differentially expressed genes for each comparison
@@ -674,7 +674,7 @@ The Fusion file system used with NVMe instance storage contributed to a 34% impr
 
 #### Process run time
 
-The Fusion file system demonstrates significant performance improvements for most processes in the *nf-core/rnaseq* pipeline, particularly for I/O-intensive tasks: 
+The Fusion file system demonstrates significant performance improvements for most processes in the *nf-core/rnaseq* pipeline, particularly for I/O-intensive tasks:
 
 - The most time-consuming processes see improvements of 36.07% to 70.15%, saving hours of runtime in a full pipeline execution.
 - Most processes show significant performance improvements with Fusion, with time savings ranging from 35.57% to 99.14%.
@@ -682,7 +682,7 @@ The Fusion file system demonstrates significant performance improvements for mos
 - `SALMON_INDEX` shows a notable 70.15% improvement, reducing runtime from 102.18 minutes to 30.50 minutes.
 - `STAR_ALIGN_IGENOMES`, one of the most time-consuming processes, is 53.82% faster with Fusion, saving nearly an hour of runtime.
 
-![Average runtime of *nf-core/rnaseq* processes for eight samples using the Fusion file system and plain S3 storage. Error bars = standard deviation of the mean.](./_images/process-runtime-2.png) 
+![Average runtime of *nf-core/rnaseq* processes for eight samples using the Fusion file system and plain S3 storage. Error bars = standard deviation of the mean.](./_images/process-runtime-2.png)
 
 | Process | S3 Runtime (min) | Fusion Runtime (min) | Time Saved (min) | Improvement (%) |
 |---------|------------------|----------------------|------------------|-----------------|
@@ -723,7 +723,7 @@ The Fusion file system demonstrates significant performance improvements for mos
 
   Once optimization is selected, subsequent runs of that pipeline will inherit the optimized configuration profile, indicated by the black lightbulb icon with a checkmark.
 
-  :::info 
+  :::info
   Optimization profiles are generated from one run at a time, defaulting to the most recent run, and _not_ an aggregation of previous runs.
   :::
 
