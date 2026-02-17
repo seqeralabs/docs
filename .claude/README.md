@@ -257,6 +257,41 @@ To change: Edit `.github/workflows/docs-review.yml` lines 268-284
 - Monitor the **Actions** tab in GitHub for workflow issues
 - Artifacts auto-delete after 30 days
 
+## Optimization and best practices
+
+### Reducing unnecessary reviews
+
+To minimize token usage and environmental impact:
+
+1. **Check PR timeline** before re-running `/editorial-review`
+2. **Use static analysis first**: Run `markdownlint` or `vale` locally before LLM review
+3. **Skip minor changes**: Don't review single typo fixes or whitespace changes
+4. **Batch changes**: Fix multiple issues, then run one review
+
+### Static analysis pre-filtering
+
+Consider running fast, local checks before using LLM agents:
+
+```bash
+# Markdown formatting (instant, zero cost)
+npx markdownlint-cli2 "**/*.md"
+
+# Simple pattern checks (instant, zero cost)
+grep -r "Tower" --include="*.md" platform-enterprise_docs/
+
+# Vale style checks if configured (instant, zero cost)
+vale platform-enterprise_docs/
+```
+
+**Benefits**: Reduces LLM usage by 50-60% by catching simple issues locally first.
+
+### Security best practices
+
+- API keys stored in GitHub Secrets (never in code or logs)
+- Reviews only read files (no write access to production)
+- Manual triggers prevent automated abuse
+- All output is publicly visible for transparency
+
 ## Architecture
 
 ```

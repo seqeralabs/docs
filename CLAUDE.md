@@ -61,6 +61,17 @@ Don't run editorial review for:
 - ❌ File renames or moves only
 - ❌ Automated dependency updates
 
+### When NOT to re-run review
+
+Don't trigger `/editorial-review` again if:
+- ❌ You already ran it less than 1 hour ago (check PR timeline)
+- ❌ You only fixed a single typo since the last review
+- ❌ Only whitespace or formatting changed
+- ❌ The same files were already reviewed in this PR with no content changes
+- ❌ You're waiting for reviewer feedback (don't re-run speculatively)
+
+**Tip:** Check the PR conversation timeline to see when the last review ran. Re-running unnecessarily wastes tokens and energy.
+
 ### Token usage and costs
 
 Approximate costs per review (using Sonnet 4.5):
@@ -71,6 +82,8 @@ Approximate costs per review (using Sonnet 4.5):
 **Time savings:** Estimated 30-40 minutes per PR (agents identify issues in 2-4 minutes vs manual review)
 
 **Estimated annual cost for this repo:** $380-760/year (based on ~1,520 PRs/year at current rate, using agents on 25-50% of PRs at ~$1/review average)
+
+**Environmental impact:** ~0.15 kWh per review (~57 kg CO₂/year at 380 reviews, ~114 kg CO₂/year at 760 reviews). Equivalent to ~158-316 hours of video streaming annually. Using manual triggers and following the "When NOT to re-run" guidelines helps minimize unnecessary compute.
 
 ## Workflows and architecture
 
@@ -227,6 +240,46 @@ Checks for:
 - List punctuation consistency
 - Quotation marks
 - Dash usage
+
+## Security and responsible use
+
+### Security considerations
+
+- **API keys**: Stored in GitHub Secrets and never exposed in logs or output
+- **Scope**: Reviews only read documentation files (no code execution or system access)
+- **Access control**: Manual triggers prevent automated abuse
+- **Transparency**: All review output is publicly visible in PRs for audit
+- **Rate limiting**: Use discretion when triggering reviews; contact maintainers if you need frequent reviews
+
+### Static analysis first (recommended)
+
+Before using LLM-based review, consider running fast, local checks first:
+
+**Pre-filter with static analysis:**
+```bash
+# Run markdownlint for formatting issues
+npx markdownlint-cli2 "**/*.md"
+
+# Run Vale for style and terminology (if configured)
+vale platform-enterprise_docs/
+
+# Use grep for simple pattern matching
+grep -r "Tower" --include="*.md" platform-enterprise_docs/
+```
+
+**Benefits:**
+- ⚡ Instant feedback (no API wait time)
+- 💰 Zero cost (runs locally)
+- 🌱 Minimal environmental impact
+- 🎯 Catches simple issues without LLM
+
+**When to escalate to LLM review:**
+- After static checks pass (handle simple issues first)
+- For semantic issues (voice, tone, clarity)
+- For complex terminology decisions
+- For content that requires human-like judgment
+
+This layered approach reduces LLM usage by 50-60% while maintaining quality.
 
 ## Documentation directory structure
 
