@@ -6,6 +6,10 @@ last updated: "2025-11-17"
 tags: [roles, user-roles, custom roles, rbac, permissions]
 ---
 
+:::info
+Custom roles are only available to Seqera Platform Cloud Pro accounts.
+:::
+
 Seqera Platform supports custom roles to define permissions-based access control at a more granular level than the six default [workspace participant roles](./roles.md#workspace-participant-roles).
 
 ### Create custom roles
@@ -239,4 +243,3 @@ Individual permissions grant read, write, execute, admin, or delete access for e
 | **studio_session:read** | Open a studio | _(Used by Platform)_ |
 | **studio_session:execute** | Extend studio session lifespan (iframe) | _(Used by Platform)_ |
 |  | Extend studio session lifespan | `POST /studios/{sessionId}/lifespan` |
-| | Extend studio session lifespan | `POST /studios/{sessionId}/lifespan` |
