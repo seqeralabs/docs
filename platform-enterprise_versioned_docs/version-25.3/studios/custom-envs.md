@@ -8,6 +8,8 @@ tags: [environments, custom, studio, studio]
 
 In addition to the Seqera-provided container images, you can provide your own custom container environments by augmenting the Seqera-provided images with a list of Conda packages or by providing your own base container image. Studios uses the [Wave][wave-home] service to build custom container images.
 
+For ready-to-use examples, see [Example custom Studios](/example-studios).
+
 ## Conda packages
 
 :::info[**Prerequisites**]
