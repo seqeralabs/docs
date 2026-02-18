@@ -1,0 +1,1 @@
+{"parameters":[{"name":"orgId","in":"path","description":"Organization numeric identifier.","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"include","in":"query","description":"Optional array of specific quota names to include in the response. Omit to retrieve all quotas.","schema":{"type":"array","items":{"type":"object"}}}]}

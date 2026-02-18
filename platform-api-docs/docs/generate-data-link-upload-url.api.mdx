@@ -1,13 +1,13 @@
 ---
 id: generate-data-link-upload-url
-title: "Generate data-link file upload URL (to given path)"
-description: "Creates a URL to upload files to the data-link associated with the given `dataLinkId`, specifying a file path (`dirPath`)."
-sidebar_label: "Generate data-link file upload URL (to given path)"
+title: "Generate data-link file upload URL"
+description: "Creates a URL to upload files to the data-link associated with the given `dataLinkId`. For AWS S3 data-links, an additional follow-up request must be sent after your file upload has completed (or encountered an error) to finalize the upload - see the `/upload/finish` endpoint."
+sidebar_label: "Generate data-link file upload URL"
 hide_title: true
 hide_table_of_contents: true
-api: eJztV9tu4zYQ/RWCTwkg22k3LVA/ba5F0GQT5IJ9SAOYlkY2E5nUklQSryGgH9Ev7JfsDClZ8qV2su1DH/qSmORwZnjmckYz7sTI8v49T4QTnUyqJ8sfIp6AjY3MndSK9/mRAeHAMsHurs+Z06zIMy0SlsoMd3HtxsDmCpiwVscSbyTsRbqxPx3JZ1BsQELnKHOWDCJmc4hlOpVqhJpJF8sFiu8MEmmu8Ndgt/u7OtWGHXy+YTcfGgs2YkIxkSSSHBQZS3WW6ZdOkTMDXwqwjk0K/DMEZkE5JlIHhk11YYKZyv2xsCzWkzwDcnUHDYGKdaFQGNdoAYzRZpcemEo0I7+Cf0t1vYPKw8agF7Z6KCbteIB6klxL5bo84joHI8jPswSh/BUULeG4AuLOX7wzGUrmwogJ+mIoIDOucIE3GshQRFI4CCW+HKPjOfzWGYJUJvh0mUowKEuwSHwV7ztTQMRtPIaJ4P0Zd9OcrIRLvCyjxnCIwkarJDBPAMQdYaIThnchdtpMv9N2jPLkvshs826MrFe4kpy16Nqnv8XcizZPNhcxbDP2uRZkqpiAkfEWW5gDMPJHqTYT4cLWz/sL1i+NHKHNyvAYRLLR8YirIsvEMIOAaFk+BJAR/0OdTOlGrNGwcvRT5HkmYx+W3qOlV8xWVevhI8aLctBQvjoJlk6pWj55J1edWASGpJhOfSL4Gpt3iS4vo9qfc1AjzKI34LOs/4aKb61+JhUbTrE9tQ3devXbnL44uzhhJPI3mnegO+pGbNCGUMcOXAcVgphgDxs4eHW9PBNSYbuisHInHYWG1yV+UWROXgnjQq1fh0ihaLlcG37D5lrZAP+Pe3v0b9Hpy9949G/FN7yTGtM2qILv7OyYjaoOliDqVWfusuvqHdiJzfqWWCWoD1JRNz3bMiyMEVRw0sHErinXZY8OSJ4ClxvoWDlSaB3pyfMRvEJcOEAWQOg72FddnYzsUoFnMUSB0cEbYxaiQkFD6f11cTlsQvuO+DQJcM8nYK0YAfHv5rDVgut62vwpJ0ReK45/WJNQNUExpZEriUnRHy+9vyr9SbtT5MiE/fXHn2zeNxmGvdWzvaaUxCJ2cHWGdGCpXzXpMb8Y0c1mdNAmzADz+/9VLPHQYo4Z6aaerA9BGDAHBXW3+wfqyMjkY02Un2ufEp4/+7zXTDG9WcPtZVUv1PfBPNczQIGDAVKCc7nt93oil90400XStfAFg9aVerVR+hN2lQlHLZUdkTwFgZNTtc83BFoAoO35HAOyWFMQrYdeCHfCj9O6WT++OA8UBeO6oaCTV0Fj1SKFNK1liQ32ltp2q+SlSrV3qwpE9Tp6zraHE4wyxvk0CJMFEfssWgS1DSUmksw8B6X6Y3OAjlBEgp0fur/81N2jPQrsRPgkrJi8nu5aGd0eOKnv7GB7CsMwJcTu8jNa1P3/2P1Pxu4qkRt69sRDkZ9VpbjwzRPx/sKgXVUjlsyYyheFZ7OhsICkVZa0HeZDqtG6ufF+iq0PNgd046i61ucnmK4ZiJ9FVpAspzny7R5smV83OLA4IjfmH2hhZBhH34XGTj007LLNHy9rvaqnBjVtu1N724rl+wBqOfWWb5vvca36rCofULQa9t8H3OZAzb8mFlIknB0FHR3fZxuJFVptbhzEMeRuo2yb664ub26JJarPkIlO6I4RL/QdiH+989q/yZOP35vxTKhR4VmYB53EKWKRkpYoyGO2FmksVC9xq59AYbHWwDhaE+xl+Q0SHOWg
+api: eJztV8lu40YQ/ZVCnzwAJXkW5KBTPF4CI56xYY8xB8OASmRR6jHZzeku2qMIBPIR+cJ8SVBNUqSWsWwghxxyktis7nr9annFpWKceTW+UwkyDjJtHry6j1RCPna6YG2NGqtjR8jkAeH2+gLYQllkFhNIdUZennlOsDoA0Hsba2RK4EnzPLyd6UcyMBGjC20ezpPJEM6sg6OvN3DzvtvsI0ADmCRafGMGqc0y+zQoC3D0vSTPkJeeYUrgyTBgyuRgYUsX0LTI5ughtnmRkaA4sA7IxLY0TI4S8UDOWfdGsKfaYKb/oACz2T4AT/XCZFQvjVJttJ9PgExSWG14qCJlC3IoOM8TNVa/kZFHOmnueBs23rpMRapAhzkxOeF6qQzmpMaqY0NFSgvTBfJcbdJ/smLWs9NmBjohwzrV5ASF8KIdJWrMrqRI+XhOOarxUvGiEDf1LlVV0cpz7CicgZnvnH8vyS22vB93prv9v8Tfk3UPvsCY9nn72hqCKXNyOt7nTBumGTkVqdS6HLle+uXDmvtLp2fatJ7nhEnY8TPkkTJlluE0o5rTqrqvaSbPH22ykB2xNUyG5S8WRabjkAijb16usdw+2k6/UcySCk7ShjV5eStJ+zmA3AaxzoxYgU1DVoZUX9XhUFVRi+eCzIznL+Fn8/wbqYGd54M2MF0w+b6jL+H4faA/nX86BTH5yckHNJwNI5j0KbQxEw88O8J8EsGE6QePigy1mbwZSlgVa5bQqLbSPpUZ6yt0XJfcdR0pVYntenWEBV9Y42v63x0eys866MvfVfRvxbe+p/SHfVTV2OH8BGZNI0lgumga5BCum3tAat3uztQkaAhS2fYe33OMzqFUnGbK/Y563UR0JPYSuMLRwOuZoUQEIHR8+kFxyQS5UD8o0HGbjHBpKOhEQQ7kxQtjVkdFglZF6sOuuHzsQvuK+HQJcKdy8h5nJAr3fNhaw11NbXWVU9GQLeDvdyRUqxNgLAOKoFGigvWHbevPls9saRL4+8+/YNU4wTrode1wUipmERxdnUOivfSrLj1WGyPZ2YmzlaDwvNv/X+WyipSnuHSaF0EzPxI6ckeldLe7e+nIOfHcivIWNqREEM+xGnXDxGjZSWzV1Iv0fXKPrRSXLhNJYC78eDTCQg/jzJbJ0NN3cjjUdrtRhjdwlSFLS4VjsZcgKAHVYr4R0moC+shXHIjHVoLkeRqMVNT8OWub9bcnDkRJMK47CTr9gTLdrEtI11o21OBwo233Sl6b1AZYTSCa28l19l1caNQx+cZYPGAcsmid1D6VlKPOggal9tfuRRUpiUjt5+3w7eG74aEsSmRzDFnYSHk7ZfVSuj/43V5fbOLuafX/k+xPJtkmKTupDSIiUVw2ZbX2hRCp8drs2lTWfaTmUorjO7VcTtHTrcuqSpbrYU/qrW1Uapxi5un5WD0/eO4E/UCLHfPtI2al2CoZCl8OYd80+gyC9Ym3838vD07Xw+Wr+DhoR4A3sOeLYCesdggwiz6eFm4vnNV9FbUz8usQPs/IaghfC0b97rg+YxDaU2expUbdjqM4poKfte1LxNXlzRdprs30nttE9jh8kg8ofKrB23Cn0LPD2lJlaGZlEC9VnymtGNc7+UbnDpztJHu5rC2+2AcyVbXinuVZaK+qfwABo2gj
 sidebar_class_name: "post api-method"
-info_path: platform-api-docs/docs/seqera-api
+info_path: platform-api//seqera-api
 custom_edit_url: null
 ---
 
@@ -18,11 +18,12 @@ import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
   className={"openapi__heading"}
-  children={"Generate data-link file upload URL (to given path)"}
+  children={"Generate data-link file upload URL"}
 >
 </Heading>
 
@@ -31,42 +32,35 @@ import Heading from "@theme/Heading";
   path={"/data-links/{dataLinkId}/upload"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
 
-Creates a URL to upload files to the data-link associated with the given `dataLinkId`, specifying a file path (`dirPath`).
-For AWS S3 data-links, an additional follow-up request must be sent after your file upload has completed (or encountered an error) to finalize the upload - see the `/upload/finish` endpoint.
+Creates a URL to upload files to the data-link associated with the given `dataLinkId`. For AWS S3 data-links, an additional follow-up request must be sent after your file upload has completed (or encountered an error) to finalize the upload - see the `/upload/finish` endpoint.
 
 <Heading
   id={"request"}
   as={"h2"}
   className={"openapi-tabs__heading"}
-  children={"Request"}
 >
+  <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"dataLinkId","in":"path","description":"Data-link string identifier","required":true,"schema":{"type":"string"}},{"name":"dirPath","in":"path","description":"Path to the destination directory","required":true,"schema":{"type":"string"}},{"name":"credentialsId","in":"query","description":"Credentials string identifier","schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"Origin","in":"header","schema":{"type":"string","nullable":true}}]}
+  {...require("./generate-data-link-upload-url.ParamsDetails.json")}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
-  title={"Body"}
-  body={{"content":{"application/json":{"schema":{"type":"object","properties":{"fileName":{"type":"string","description":"Name of the file to upload."},"contentLength":{"type":"integer","format":"int64","description":"Size of the file to upload in bytes."},"contentType":{"type":"string","description":"MIME type of the file to upload (e.g., `application/octet-stream`, `text/plain`)."}},"title":"DataLinkMultiPartUploadRequest"}}},"required":true}}
+  {...require("./generate-data-link-upload-url.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
-  id={undefined}
-  label={undefined}
-  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"uploadId":{"type":"string","description":"Upload ID generated by AWS S3. Required for the `/upload/finish` request."},"uploadUrls":{"type":"array","items":{"type":"string"},"description":"Array of pre-signed URLs to execute multi-part upload. One URL per part."}},"title":"DataLinkMultiPartUploadResponse"}}}},"400":{"description":"BadRequest","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"NotFound — workspace or credentials not found, API disabled for the workspace, or data-link or path not found","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+  {...require("./generate-data-link-upload-url.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      

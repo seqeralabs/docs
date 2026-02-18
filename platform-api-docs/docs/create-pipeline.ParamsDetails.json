@@ -1,0 +1,1 @@
+{"parameters":[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier. If omitted, creates pipeline in a user context.","schema":{"type":"integer","format":"int64"}}]}
