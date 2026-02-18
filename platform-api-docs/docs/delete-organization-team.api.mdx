@@ -5,9 +5,9 @@ description: "Deletes the team identified by the given `teamId`. This operation 
 sidebar_label: "Delete organization team"
 hide_title: true
 hide_table_of_contents: true
-api: eJzNVN9v0zAQ/lcsP4FUmgIDiT6xsSJNIJi28lRVmptcG2+J7dmXlhLlf+fOSX9uGmgSEk9x7r47f3f+7mqJahHkcCIRVBnktCczCKnXDrU1cijPoQCEIDAHwRChMzCo5xoyMVtH80IvwYgb9l5kN30xznUQ1oFXnEN4KO1yP8Pc21KoohAr6++CUyk5Vzl4EBoFhSrhlEedaqcM9mVPbnNdZFtG3/1CGf0rmseUlWAUpUpyea6nloZ+CG79gsJ6UnM1TmEuj0vcTyVMVYLX6a5Mzww83FfaA12PvoKeDGkOpZLDWuLa8S3aICzAE3RufamwNb0/kU3T21JpO/QkFy7lH3CYcnhw1gQIHPFmcMKfoz58Ea/ENytSS4kMyqYnTwaDh7gzlQkmAwHprg2aYMq5Qqexj8ltYGy9x3LHfyJLCEEtgOXWkbezW0g5n/P83KhbohvgrsqAXpsF91WixoJNI++tv+rqI08Tmb99pMKtKI1FlqBdER+GB0grr3EdlXMGyoM/reh9hpMpN49klVsWXxbFF8XGXpmQvEJSR5E1SZyhpG7fuZGc1i83eqx8QQE5ogvDJFFO99PCVlk/wD2x6mv7QAzX0SMuC4X8ouIT48Xp5YVkThvK19zhtlv7xLcN4xtlJxf+n0UQWdrD541WblcYW6HN3MbwrrsdC772TwS5XM3j3IJZGiqN0jgsfr9kUocuolTn9uPOQUS4c+09r/sf3vUHbHM2YKmisrqhateBsPtDjO1COCBb75T6Xyy17nUQfmLiCkUrgcqLbao7cU14dwWCDjc7rN3RZOg2Cakgp4YwtK5nKsAPXzQNm2k6PYuZjkvltZrxU5IIMx34TFKeqyLAEz16cdXN60vxFwvy0Wo6ozJryTSKiv/oeAfr7WLm9fgsUk9symeQ6RraTAmZg8poQLhdrfM0TcHhXtiDRXewI85HX0fjEcHV4SAeDV684FFW9JYRMbZ3YJpmR5L/mWPT/AYjsKd2
+api: eJzNVE1v3DYQ/SvEnFqA3d2kRg86xUlcwEjQBol7WiyQWWl2RVsS6eHI7lbgfy+G0n74A04QoEBPEofD4XuPb2YAwW2EYglC2EZYWagoluyCON9BAe+pIaFopCajKcZV1InbOKrMepfDW3dHnfmqu5fV15m5ql00PhCj1jBMrb87rbBh3xpsGnPv+SYGLCma+5qYjBPjokETkMWVLmAnM7BwqHVZHRD9yVvs3D85fEXYgoWAjC0JsfIZoMOWoADP28sKLDhlE1BqeEzxtJTp+pbYlUearAiYbnvHVEEh3JOFWNbUIhQDyC7oLa4T2hKDhY3nFmUM/XYGKdkDlFGhF7Eolf8Aw0qPx+C7SFFPvF6c6eeRDh/ML+YPb0rfCXUCycLZYvE07y1WRsFQFLCwzy4GwBAaV2Yd59dRc4cTlEf8S2gpRtyS2m0C79fXVGq9wPrc4kag+8Qjyyjsuq3qCuKk0dAFs+fPEz9IKWXkvz7D8GDKzota0N9TlUtFKnt2ssvOeUvIxOe91FAsVypeS1J7NV+VzZfNprsw97yN8yGbLM1zD82H8Z0TaFm+2/ux5wYKqEVCLOZzDG5WNr6vZpFuiXHm/BMzfMk75lODoi9q3mm+Of90CYppD/mLKjyqdQr8IJjeCJNddL3OSWCnn9/3Xrm+lyyF6zY+H5/UnVDotd8CqHSdtvOYrNbAMlvjIflTytSia7JVN/7NcSNZUOXGe17NXi1ezxYaDD5Ki9laU1eN88D40y6WcSI8QDscrfq/mGrT8wj9LfPQoOuUXtZpmNy11OEVwUKxH2LjkLZQTKNkZaH2UTR1GNYY6S9uUtLwbU+sbl5ZuEN2uNa3XA5Quaj/FRQbbCK9oNFPn6eG/dl8x4R8ls0UxG4HCqPpdQUWbmh3mMw6H38I1Auj8gfATIKmVbJQE1bEWa5x87wsKcjJsSeT7sGQeH/x8eLqAizgw0581Hn5gmdRDcOYceVvqEvpCFLXijGlfwEw7qeb
 sidebar_class_name: "delete api-method"
-info_path: platform-api-docs/docs/seqera-api
+info_path: platform-api//seqera-api
 custom_edit_url: null
 ---
 
@@ -18,6 +18,7 @@ import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -31,7 +32,7 @@ import Heading from "@theme/Heading";
   path={"/orgs/{orgId}/teams/{teamId}"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -42,30 +43,24 @@ Deletes the team identified by the given `teamId`. This operation removes the te
   id={"request"}
   as={"h2"}
   className={"openapi-tabs__heading"}
-  children={"Request"}
 >
+  <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier.","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"teamId","in":"path","description":"Team numeric identifier.","required":true,"schema":{"type":"integer","format":"int64"}}]}
+  {...require("./delete-organization-team.ParamsDetails.json")}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
-  title={"Body"}
-  body={undefined}
+  {...require("./delete-organization-team.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
-  id={undefined}
-  label={undefined}
-  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+  {...require("./delete-organization-team.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      
