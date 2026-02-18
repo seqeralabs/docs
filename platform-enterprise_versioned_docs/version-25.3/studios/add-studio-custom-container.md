@@ -15,7 +15,7 @@ You will need the following to get started:
 - [Data Explorer](../data/data-explorer) enabled
 :::
 
-Select **Custom container template** and provide your own template (see [Custom container template image][custom-image]). When you select this option, you cannot **Install Conda packages**.
+For ready-to-use examples, see [Example custom Studios](/example-studios). Select **Custom container template** and provide your own template (see [Custom container template image][custom-image]). When you select this option, you cannot **Install Conda packages**.
 
 Configure the following fields:
 
