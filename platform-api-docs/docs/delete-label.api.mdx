@@ -5,9 +5,9 @@ description: "Deletes the label identified by the given `labelId`."
 sidebar_label: "Delete label"
 hide_title: true
 hide_table_of_contents: true
-api: eJydlN1uEzEQhV/F8hVIIQlQkMgVLQ1SRQVVW8RFFamOd5J166xdezYlWu27M+PdzU8TtSpXyXqOPd+Mz7iSqOZRjm6kVVOwUU56MoOog/FoXCFH8hQsIESBOYikESaDAs3MQCamq7Q+N0soxG0Kn2W3fdmTzkNQfMRZtj7knOMU8yqoBX0HTlzJgj5I0+6muOG8XmEun8KkE0RRLiAYvQEJJAzwUJoAlA1DCT0ZdQ4LJUeVxJXn802BME/SmQsLhc3S5yNZ1701xKML99ErDRuQhxLCao/kTyc8TPOa7BOGj94VESLv+DA84p/dfL9+iHfipxPa0UEFyronj4bDfd2JygS3AiJSrk5NMuW9NTpdyeAusrbaotx070YuIEY1B7ZCC++md6D5PB/4XtE0oJ1wU2XEYIo5d1SiQctL4xBcuGzro0idyD8eqLBzjCgcCmWteyQelkfQZTC4Sm45ARUgHJfkjtHNhJtHVsoduyxLLksG46gcNJ4eVK21ar4YCMvOeGWwpMoRfRwNBsqbvrauzPoRHgilb9zerV+liLiwCvkaxTfWi+OLM8kgHecVt7Vp0TbtukucsfMIf0+TiFaaP987g9w9YqrfFDOXtrctbSk47UuAXK7RNL6NmP2gdPLDbvHbJZMljE3+nLmvmwCBcOeaPO/7Xz71h7zmXcSFSnZqZ6gZ9uaxeApYbSz5vy9L20SEvzjwVtGMEkWqpmovfv2Y9eSoe1XoenIi5WBVTVWE38HWNS83881+yExUU8tDMFM2wjPoL0z/QcR7WO09MEtlS1Ym+yxVMJz/lSxvLtvZfSueeR4PIrWLqlhts3SoXevqCUlzUBkdxGhN9Fhr8Li1b++B2ZnN0/H5+HpMcrU7C0+8nxIcxKJbS4prdw9FXa8pkb+Zsa7/AUBMUx8=
+api: eJydlN9PGzEMx/+VyE+bdGsLQ3u4p8HoJDS0IWDaA6pEeue2gVwSEl9Zdcr/Pjl31x+0ArGn9mLH/tj52g2QnAfI70DLKeoAkwxKDIVXjpQ1kMM5aiQMghYoko9QJRpSM4WlmK7S+Vwt0Yj7ZL4o7weQgXXoJYe4KNdBLtkOGTjpZYWEnhM3YGSFkEN3GzJQnNdJWsBLmBRBmLpCr4oNiIcMPD7VymMJOfkaMwjFAisJeQO0chxfGcJ5cp1ZX0lqj76cQIzZGuLZ+sfgZIEbkKca/WqP5E/veJjmPdknDB+cNQED3zgenfDPbr5fP8Qn8dOKwhpCQxAzOBmN9v3OZCm4FRgIMui98wakc1oV6UmGD4F9my3KTffuoMIQ5BxZCh28nT5gwfGc53cl1YL2jpsqA3ll5txRIEWaj8beW3/d1QcxxkT++UCFvWKEsSSk1vYZyxQqYFF7RaukljOUHv1pTQvI7ybcvAppYVllZVJZEhhbYdhqeth00or8MOiXvfBqryGHBZEL+XAonRoU2tblIOATejlQdu/Vb5JFXGlJ/IziG/uL06sLYJCe84bb2rZom3bdJc7Ya4S/p8kJsu7P914gD8+U6ldmZtP1rqUdBad9C5DLVQWGzpn1IIukh93it0vGSiqd9DmzXzeGmAF3rs1zNDgaHQ9GfOhsoEomPXVD1E57uy1eEjYbTf7vaum6SPiXhk5LZZgildN0L7/eZhnk/VqZZLCwgdjYNFMZ8LfXMfJxO+AsiFIFOdU8BTOpA76C/sb4H0R8xNXehllKXbNn0s9SesX538ny4bob3o/ilf14EKk7lGa1zdKj9q2Lk5jBAmWJPqG11tOiQEdb9/Y2zM5wno8vx7djyEDuDsML8acEB7GapvW4tY9oYlxTEn8zY4z/ABLGU0Q=
 sidebar_class_name: "delete api-method"
-info_path: platform-api-docs/docs/seqera-api
+info_path: platform-api//seqera-api
 custom_edit_url: null
 ---
 
@@ -18,6 +18,7 @@ import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -31,7 +32,7 @@ import Heading from "@theme/Heading";
   path={"/labels/{labelId}"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -42,30 +43,24 @@ Deletes the label identified by the given `labelId`.
   id={"request"}
   as={"h2"}
   className={"openapi-tabs__heading"}
-  children={"Request"}
 >
+  <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"labelId","in":"path","description":"Label numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+  {...require("./delete-label.ParamsDetails.json")}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
-  title={"Body"}
-  body={undefined}
+  {...require("./delete-label.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
-  id={undefined}
-  label={undefined}
-  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+  {...require("./delete-label.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      

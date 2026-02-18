@@ -1,0 +1,66 @@
+overlay: 1.0.0
+info:
+  title: Remove Google Life Sciences platform overlay
+  version: 1.102.0
+actions:
+  # ===== REMOVE GOOGLE LIFE SCIENCES PLATFORM =====
+
+  # This platform option is deprecated and should be removed from the API spec
+
+  # ---- Remove from ComputeEnvResponseDto.platform enum (line 9198) ----
+
+  - target: "$.components.schemas.ComputeEnvResponseDto.properties.platform.enum"
+    remove: true
+
+  - target: "$.components.schemas.ComputeEnvResponseDto.properties.platform"
+    update:
+      enum:
+        - "aws-batch"
+        - "aws-cloud"
+        - "seqeracompute-platform"
+        - "google-batch"
+        - "azure-batch"
+        - "k8s-platform"
+        - "eks-platform"
+        - "gke-platform"
+        - "uge-platform"
+        - "slurm-platform"
+        - "lsf-platform"
+        - "altair-platform"
+
+  # ---- Remove from ComputeConfig discriminator mapping (line 9140) ----
+
+  - target: "$.components.schemas.ComputeConfig.discriminator.mapping.google-lifesciences"
+    remove: true
+
+  # ---- Replace ComputeConfig oneOf array without GoogleLifeSciencesConfig ----
+
+  # CRITICAL: Remove entire oneOf array first to prevent duplicates
+  - target: "$.components.schemas.ComputeConfig.oneOf"
+    remove: true
+
+  # Replace with correct array (no GoogleLifeSciencesConfig, no duplicates)
+  - target: "$.components.schemas.ComputeConfig"
+    update:
+      oneOf:
+        - $ref: "#/components/schemas/AwsBatchConfig"
+        - $ref: "#/components/schemas/AwsCloudConfig"
+        - $ref: "#/components/schemas/SeqeraComputeConfig"
+        - $ref: "#/components/schemas/GoogleBatchConfig"
+        - $ref: "#/components/schemas/GoogleCloudConfig"
+        - $ref: "#/components/schemas/AzBatchConfig"
+        - $ref: "#/components/schemas/AzCloudConfig"
+        - $ref: "#/components/schemas/LsfComputeConfig"
+        - $ref: "#/components/schemas/SlurmComputeConfig"
+        - $ref: "#/components/schemas/K8sComputeConfig"
+        - $ref: "#/components/schemas/EksComputeConfig"
+        - $ref: "#/components/schemas/GkeComputeConfig"
+        - $ref: "#/components/schemas/UnivaComputeConfig"
+        - $ref: "#/components/schemas/AltairPbsComputeConfig"
+        - $ref: "#/components/schemas/MoabComputeConfig"
+        - $ref: "#/components/schemas/LocalComputeConfig"
+
+  # ---- Remove GoogleLifeSciencesConfig schema definition (line 11229+) ----
+
+  - target: "$.components.schemas.GoogleLifeSciencesConfig"
+    remove: true

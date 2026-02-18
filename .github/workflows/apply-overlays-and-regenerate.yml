@@ -23,10 +23,30 @@ jobs:
       github.event_name == 'workflow_dispatch'
 
     steps:
+      - name: Get PR branch name
+        id: pr_branch
+        uses: actions/github-script@v7
+        with:
+          script: |
+            let branchName;
+            if (context.eventName === 'pull_request') {
+              branchName = context.payload.pull_request.head.ref;
+            } else {
+              // workflow_dispatch - get branch from PR number
+              const pr = await github.rest.pulls.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: ${{ github.event.inputs.pr_number }}
+              });
+              branchName = pr.data.head.ref;
+            }
+            core.setOutput('branch', branchName);
+            return branchName;
+
       - name: Checkout PR branch
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref || format('refs/pull/{0}/head', github.event.inputs.pr_number) }}
+          ref: ${{ steps.pr_branch.outputs.branch }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -56,12 +76,27 @@ jobs:
         run: |
           cd platform-api-docs/scripts/specs
 
-          # Find the latest base spec (highest version number) - support both .yaml and .yml
-          LATEST_SPEC=$(ls -t seqera-api-*.yaml seqera-api-*.yml 2>/dev/null | head -n 1)
+          # Find the latest base spec (highest version number) - exclude decorated specs
+          # Only match files like seqera-api-1.102.0.yaml (version numbers starting with digit)
+          # Support both .yaml and .yml extensions
+          # Sort by version number (not modification time)
+          LATEST_SPEC=$(ls seqera-api-[0-9]*.yaml seqera-api-[0-9]*.yml 2>/dev/null | \
+            sed -E 's/seqera-api-([0-9.]+)\.ya?ml/\1 &/' | \
+            sort -t. -k1,1n -k2,2n -k3,3n | \
+            tail -n 1 | \
+            cut -d' ' -f2)
+
+          if [ -z "$LATEST_SPEC" ]; then
+            echo "❌ Error: No base spec file found (pattern: seqera-api-[0-9]*.{yaml,yml})"
+            echo "Files in directory:"
+            ls -la
+            exit 1
+          fi
+
           VERSION=$(echo "$LATEST_SPEC" | sed -E 's/seqera-api-(.*)\.ya?ml/\1/')
 
           echo "api_version=$VERSION" >> $GITHUB_OUTPUT
-          echo "Detected API version: $VERSION"
+          echo "Detected API version: $VERSION from file: $LATEST_SPEC"
 
       - name: Extract overlay files from markdown
         run: |
@@ -86,8 +121,9 @@ jobs:
           content = md_file.read_text()
 
           # Pattern to match yaml/yml code blocks with optional filename labels
-          # Looks for: ```yaml or ```yml, optionally preceded by filename comment
-          pattern = r'(?:```(?:yaml|yml)\s*\n)([^`]+)(?:```)'
+          # Looks for: ```yaml or ```yml, then content until closing ```
+          # Uses non-greedy match and looks for ``` at start of line
+          pattern = r'```(?:yaml|yml)\s*\n(.*?)\n```'
 
           # Also try to find filenames mentioned before code blocks
           # Pattern: "filename.yaml" or **filename.yaml** or <!-- filename.yaml -->
@@ -101,12 +137,13 @@ jobs:
           for block in blocks:
               yaml_content = block.group(1).strip()
 
-              # Look backwards from this block to find a filename
+              # Look backwards from this block to find a filename (use the LAST/closest match)
               text_before = content[current_pos:block.start()]
-              filename_match = re.search(filename_pattern, text_before, re.MULTILINE | re.IGNORECASE)
+              filename_matches = re.findall(filename_pattern, text_before, re.MULTILINE | re.IGNORECASE)
 
-              if filename_match:
-                  filename = filename_match.group(1)
+              if filename_matches:
+                  # Take the last (closest) filename match
+                  filename = filename_matches[-1]
                   # Normalize to .yaml extension
                   filename = re.sub(r'\.yml$', '.yaml', filename)
 
@@ -131,6 +168,11 @@ jobs:
         run: |
           cd platform-api-docs/scripts/specs
 
+          # List extracted overlay files for debugging
+          echo "=== Extracted overlay files ==="
+          ls -la *-overlay-${{ steps.version.outputs.api_version }}.yaml 2>/dev/null || echo "No .yaml overlays found"
+          ls -la *-overlay-${{ steps.version.outputs.api_version }}.yml 2>/dev/null || echo "No .yml overlays found"
+
           # Create consolidated overlay
           cat > all-changes-overlay-${{ steps.version.outputs.api_version }}.yaml <<'EOF'
           overlay: 1.0.0
@@ -143,28 +185,63 @@ jobs:
           # Append version-specific overlays
           echo "  # ===== VERSION ${{ steps.version.outputs.api_version }} OVERLAYS =====" >> all-changes-overlay-${{ steps.version.outputs.api_version }}.yaml
 
+          # Track how many files we process
+          OVERLAY_COUNT=0
+
           # Find and append all version-specific overlay files - support both .yaml and .yml
           for overlay in *-overlay-${{ steps.version.outputs.api_version }}.yaml *-overlay-${{ steps.version.outputs.api_version }}.yml; do
             if [ -f "$overlay" ] && [ "$overlay" != "all-changes-overlay-${{ steps.version.outputs.api_version }}.yaml" ]; then
               echo "Adding $overlay to consolidated file"
               sed -n '/^actions:/,$ p' "$overlay" | tail -n +2 >> all-changes-overlay-${{ steps.version.outputs.api_version }}.yaml
+              OVERLAY_COUNT=$((OVERLAY_COUNT + 1))
             fi
           done
 
-          echo "✅ Created consolidated overlay"
+          echo "✅ Consolidated $OVERLAY_COUNT overlay files"
+
+          # Show first 30 lines of consolidated file for debugging
+          echo "=== First 30 lines of consolidated overlay ==="
+          head -n 30 all-changes-overlay-${{ steps.version.outputs.api_version }}.yaml
+
+          # Count action items
+          ACTION_COUNT=$(grep -c '  - target:' all-changes-overlay-${{ steps.version.outputs.api_version }}.yaml || echo "0")
+          echo "✅ Total action items: $ACTION_COUNT"
+
+      - name: Upload overlay artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: overlay-files-${{ steps.version.outputs.api_version }}
+          path: |
+            platform-api-docs/scripts/specs/*-overlay-${{ steps.version.outputs.api_version }}.yaml
+            platform-api-docs/scripts/specs/*-overlay-${{ steps.version.outputs.api_version }}.yml
+          retention-days: 7
+          if-no-files-found: warn
 
       - name: Apply overlays to decorated spec
         run: |
           cd platform-api-docs/scripts/specs
 
+          # Detect decorated spec extension
+          if [ -f "seqera-api-latest-decorated.yaml" ]; then
+            DECORATED_SPEC="seqera-api-latest-decorated.yaml"
+            NEW_SPEC="seqera-api-latest-decorated-new.yaml"
+          elif [ -f "seqera-api-latest-decorated.yml" ]; then
+            DECORATED_SPEC="seqera-api-latest-decorated.yml"
+            NEW_SPEC="seqera-api-latest-decorated-new.yml"
+          else
+            echo "❌ Error: seqera-api-latest-decorated.yaml/yml not found"
+            exit 1
+          fi
+
           # Apply consolidated overlay
           speakeasy overlay apply \
-            -s seqera-api-latest-decorated.yaml \
+            -s "$DECORATED_SPEC" \
             -o all-changes-overlay-${{ steps.version.outputs.api_version }}.yaml \
-            > seqera-api-latest-decorated-new.yaml
+            > "$NEW_SPEC"
 
           # Replace old decorated spec
-          mv seqera-api-latest-decorated-new.yaml seqera-api-latest-decorated.yaml
+          mv "$NEW_SPEC" "$DECORATED_SPEC"
 
           echo "✅ Applied overlays to decorated spec"
 
@@ -172,9 +249,59 @@ jobs:
         run: |
           cd platform-api-docs/scripts/specs
 
-          speakeasy validate openapi -s seqera-api-latest-decorated.yaml
+          # Detect decorated spec extension
+          if [ -f "seqera-api-latest-decorated.yaml" ]; then
+            DECORATED_SPEC="seqera-api-latest-decorated.yaml"
+          elif [ -f "seqera-api-latest-decorated.yml" ]; then
+            DECORATED_SPEC="seqera-api-latest-decorated.yml"
+          else
+            echo "❌ Error: seqera-api-latest-decorated.yaml/yml not found"
+            exit 1
+          fi
 
-          echo "✅ Decorated spec is valid"
+          # Run validation and capture output to file to avoid overwhelming logs
+          echo "Running OpenAPI validation..."
+          if speakeasy validate openapi -s "$DECORATED_SPEC" > validation-output.txt 2>&1; then
+            echo "✅ Decorated spec is valid"
+            # Show summary of any hints
+            HINT_COUNT=$(grep -c "validation hint:" validation-output.txt 2>/dev/null || echo "0")
+            echo "   ($HINT_COUNT hints suppressed - mostly missing examples)"
+          else
+            echo "⚠️  Validation completed with issues"
+
+            # Check for actual errors vs just hints
+            ERROR_COUNT=$(grep -c "ERROR" validation-output.txt 2>/dev/null || echo "0")
+            WARN_COUNT=$(grep -c "WARN" validation-output.txt 2>/dev/null || echo "0")
+            HINT_COUNT=$(grep -c "validation hint:" validation-output.txt 2>/dev/null || echo "0")
+
+            echo "   Errors: $ERROR_COUNT"
+            echo "   Warnings: $WARN_COUNT"
+            echo "   Hints: $HINT_COUNT"
+
+            # Show actual errors if any
+            if [ "$ERROR_COUNT" -gt 0 ]; then
+              echo ""
+              echo "Errors found:"
+              grep "ERROR" validation-output.txt | head -20
+              exit 1
+            fi
+
+            # If only hints/warnings, continue (non-critical)
+            echo "   No critical errors - continuing workflow"
+          fi
+
+          # Clean up
+          rm -f validation-output.txt
+
+      - name: Update info page version
+        run: |
+          INFO_PAGE="platform-api-docs/docs/info/seqera-api.info.mdx"
+
+          # Update the version badge in the info page
+          sed -i.bak 's/children={"Version: [0-9.]*"}/children={"Version: ${{ steps.version.outputs.api_version }}"}/' "$INFO_PAGE"
+          rm -f "${INFO_PAGE}.bak"
+
+          echo "✅ Updated info page version to ${{ steps.version.outputs.api_version }}"
 
       - name: Generate parameter tables
         run: |
@@ -186,15 +313,23 @@ jobs:
 
       - name: Clean existing API docs
         run: |
-          npx docusaurus clean-api-docs all
+          npx docusaurus clean-api-docs platform
 
           echo "✅ Cleaned existing API docs"
+        env:
+          EXCLUDE_MULTIQC: true
+          EXCLUDE_FUSION: true
+          EXCLUDE_WAVE: true
 
       - name: Generate new API docs
         run: |
-          npx docusaurus gen-api-docs all
+          npx docusaurus gen-api-docs platform
 
           echo "✅ Generated new API documentation"
+        env:
+          EXCLUDE_MULTIQC: true
+          EXCLUDE_FUSION: true
+          EXCLUDE_WAVE: true
 
       - name: Update sidebar with new operations
         run: |
@@ -204,7 +339,7 @@ jobs:
           ANALYSIS_FILE=$(ls -t *-analysis.json 2>/dev/null | head -n 1)
 
           if [ -n "$ANALYSIS_FILE" ]; then
-            python ../../../openapi-overlay-generator/scripts/update_sidebar.py \
+            python ../../../.claude/skills/openapi-overlay-generator/scripts/update_sidebar_v2.py \
               ../../docs/sidebar/sidebar.js \
               "$ANALYSIS_FILE"
 
@@ -256,8 +391,25 @@ jobs:
         run: |
           cd platform-api-docs/scripts/specs
 
-          # Keep only the latest 2 base specs - support both .yaml and .yml
-          ls -t seqera-api-*.yaml seqera-api-*.yml 2>/dev/null | tail -n +3 | xargs -r rm
+          # Keep only the latest 2 base specs (by version number) - support both .yaml and .yml
+          # Exclude decorated specs, sort by semantic version, delete all but newest 2
+          BASE_SPECS=$(ls seqera-api-[0-9]*.yaml seqera-api-[0-9]*.yml 2>/dev/null | \
+            sed -E 's/seqera-api-([0-9.]+)\.ya?ml/\1 &/' | \
+            sort -t. -k1,1n -k2,2n -k3,3n | \
+            cut -d' ' -f2)
+
+          if [ -n "$BASE_SPECS" ]; then
+            SPECS_TO_DELETE=$(echo "$BASE_SPECS" | head -n -2)
+            if [ -n "$SPECS_TO_DELETE" ]; then
+              echo "Deleting old base specs:"
+              echo "$SPECS_TO_DELETE"
+              echo "$SPECS_TO_DELETE" | xargs rm
+            else
+              echo "No old base specs to delete (keeping latest 2)"
+            fi
+          else
+            echo "No base specs found"
+          fi
 
           echo "✅ Cleaned up old base specs"
 

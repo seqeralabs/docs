@@ -5,9 +5,9 @@ description: "Removes the requesting user from the organization identified by th
 sidebar_label: "Leave organization"
 hide_title: true
 hide_table_of_contents: true
-api: eJzNVE1v1DAQ/SuWTyAtyQIFiT3RwiJVVFC15VStVCeZbNw6tms7W5Yo/50ZJ+l+Cjhy8sc8e97Me3bLg1h6PrvlxuG4mPACfO6kDdJoPuNXUJsVeBYqYA4eG/BB6iVrPDhWOlPHAB4VWv4SdIbJAnSQpYSCZesYXsoVaHaHqPPiLmE3R66qGx+YNoFl0N+o1ZqZJ40hUx7kSPiEGwsuLs4LpHkBYgXftyCIsMKJGgI4Kq/lGheIjCwwKqk6K0LF90vevobppgYn801VjpITfekAMwfXwIT7vIJa8FnLw9pSFqkDLMEhtDSuFqHfen/Cu25Bx7012oOnE2+mJzTscfjKXrFvhuUGL9KBdxN+Mp0e4s5EMfYSc41ohAlrlcxjDem9J2y7xXLD/5bX4L1YAkk/kDfZPeR0n3XU5SB7oiNwU6UPDhXEmvCoDIq25s4ZdzXUh5EuMn97pMJRvyi7UMo8IR+Ce8gbJ8M6qnYGwoE7bVCn2e2CmoeSVoY0L0ChulFoivKUHJy2UeAuraHOUPpUkTM43epWoxUapxBfhWD9LE2FlUmuTFMkHh6RVCLNgSeuY4RdKhFIUPaJ8Oz08pwTpZHxNTW4b9Y27+d+UUY+uIXWWQThTj/5Mlrl/inETkhdmnh8aO7AgtL+jSCVK3N8uD2YnCHy6Izd4rdLRnNIFZ1amo+bABKhzvV5Xicf3iVT2rPGh1pEYw1PKz7CnYe6T7PdWPT//VkGsQL8DKlVAj8KrDZ2rR2sNnyWEz4bf5PBbTjr/YamqLA/BG3bTHj44VTX0Tayc2RtnK6EkyIjZdGThfQ0R2OXQnn4Q+NeXA2v9yX7h6/qaDXDptBrTjRUQyucPsD6+YvsFgisQBToUCLYx07zHGzYOnXw0ey80c/zi/nNHOFi9yXsOT8mOEoKuxcRN+YBNHZw5BhoTRy77jdBm1ew
+api: eJzNVE1v2zAM/SsCTxugJWlX7ODT2q0DihVb0XanIEAVm3HU2pJL0ekyQ/99oOI0n9h23MmWSJHvkY/sgE0ZIBuDpzLAREOBISfbsPUOMrjF2i8wKJ6jInxuMbB1pWoDkpqRr5PBU2mc/WXkjbIFOrYzi4WaLpO5tAt06sFTeVU8DNT9kVB1G1g5z2qKq4iuWir/4pCUnx3kGIAG3yClw1UBGVyjWeD3LRfQ0BgyNTKS0OvAmRohg4QCNFhh1xiewz7l7TDKtTWSzTesSJILfEtYQMbUooaQz7E2kHXAy0ayWMdYIoGGmafa8OrqwxnEOJHnofEuYJAXp6Mz+exh+KreqW9e5d4xOoao4Ww0OvS7MMW6lqBh7Z11YJqmsnniMHwM4tttodzgH0ONIZgSpfU9eD99xFziNSRVZrsCunbcsAxM1pUQowa2XMnVJZGn254fxBgT8vdHGK77l9puqsq/YJFCBcxbsrxMXbtAQ0jnLc8hG0+keDXy3EvPC6yQMTVarDAUBQ+71OA4rLGeIoVhJcoAiUqLtRRaqiCDOXMTsuHQNHaQV74tBgGfkczA+gNN3CWLuqkMS0PVJ/FX5zdXIJDWiO+kwKtibeN+rZdkhF4tcp4mJ9D9z5e1VB5fOFXCuplPz/vi9igk7d8ACl2bY+idRRkmT8rYJb9NGWtjq6TUmf+4MUQNUrlVnpPByeh0MJLLxgeuTVJWP1tpCncmdR9nt9Ho/7ta+m4x/uRhUxnrhG0qW9drrd+WGrL1OunlBhpWgptomPvA4tp1UxPwB1UxyvVziyTanmhYGLJmKq0dd1DYIP8FZDNTBfxD4d7c9uP7Vv3DrjrKpr80bgkCo2rlBBqecPm6I+MkapijKZASwJXtPM+x4a1XB5tmZ0g/X15f3l+CBrM7CnvSTwmOguq6lce9f0IX4ytGlrNgjPE3Fe9X1Q==
 sidebar_class_name: "delete api-method"
-info_path: platform-api-docs/docs/seqera-api
+info_path: platform-api//seqera-api
 custom_edit_url: null
 ---
 
@@ -18,6 +18,7 @@ import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -31,7 +32,7 @@ import Heading from "@theme/Heading";
   path={"/orgs/{orgId}/members/leave"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -42,30 +43,24 @@ Removes the requesting user from the organization identified by the given `orgId
   id={"request"}
   as={"h2"}
   className={"openapi-tabs__heading"}
-  children={"Request"}
 >
+  <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier.","required":true,"schema":{"type":"integer","format":"int64"}}]}
+  {...require("./leave-organization.ParamsDetails.json")}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
-  title={"Body"}
-  body={undefined}
+  {...require("./leave-organization.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
-  id={undefined}
-  label={undefined}
-  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+  {...require("./leave-organization.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      
