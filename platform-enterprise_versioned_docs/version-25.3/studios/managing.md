@@ -2,7 +2,7 @@
 title: "Manage Studios"
 description: "Manage Studio sessions."
 date created: "2025-02-06"
-last updated: "2026-01-08"
+last updated: "2025-09-04"
 tags: [data, session, studios]
 ---
 
@@ -162,6 +162,93 @@ Sessions have the following possible statuses:
 :::note
 There might be errors reported by the session itself but these will be overwritten with a **running** status if the session is still running.
 :::
+
+## Connect to a Studio via SSH (public preview)
+
+:::info[**Prerequisites**]
+- Enterprise v25.3.3 or later
+- [Studios SSH configuration](../enterprise/studios-ssh) enabled for your workspace during deployment.
+- Your SSH public key added to your Seqera Platform user profile
+- **SSH Connection** toggle enabled when adding the Studio
+- The Studio is in a **running** state.
+:::
+
+Direct SSH connections to running Studio containers support standard SSH clients, terminal access, and VS Code Remote SSH. JupyterLab, R-IDE, VS Code, and Xpra container templates are supported.
+
+:::note
+Enabling SSH can only be done on Studio creation. If you didn't enable SSH when you initially added your Studio, you will need to duplicate and modify it. Stop the Studio, select **Start as New**, and enable **SSH Connection** for the new Studio.
+:::
+
+### Terminal access
+
+Connect to a Studio using standard SSH:
+
+```bash
+ssh <username>@<studio-session-id>@<connect-domain> -p 2222
+```
+
+**Example:**
+
+```bash
+ssh alice@a01ac8894@connect.example.com -p 2222
+```
+
+Where:
+- `<username>`: Your Seqera Platform username
+- `<studio-session-id>`: The Studio session ID (visible in the Studios list)
+- `<connect-domain>`: Your connect proxy domain
+- Port: `2222` (default SSH proxy port)
+
+The session ID is displayed in the Studio details page and the Studios list.
+
+### VS Code Remote SSH
+
+Connect to a Studio using VS Code Remote SSH:
+
+1. Install the [Remote - SSH extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) in VS Code.
+
+2. **Required:** Disable local server mode in VS Code settings:
+
+   - Open VS Code Settings (Code > Preferences > Settings or Cmd+,)
+   - Search for `remote.SSH.useLocalServer`
+   - Set to `false`
+
+   Alternatively, add this to your `settings.json`:
+
+   ```json
+   {
+     "remote.SSH.useLocalServer": false
+   }
+   ```
+
+   :::warning
+   VS Code's local server mode (SSH multiplexing over SOCKS) is not supported. Connections will fail if this setting is enabled.
+   :::
+
+3. Connect to the Studio:
+
+   - Open the Command Palette (Cmd+Shift+P or Ctrl+Shift+P)
+   - Run **Remote-SSH: Connect to Host**
+   - Select your configured host or enter the SSH connection string directly
+   - VS Code opens a new window connected to your Studio
+
+Once connected, you can:
+
+- Access the Studio filesystem
+- Open folders and files
+- Use the integrated terminal
+- Install VS Code extensions in the remote environment
+- Debug code running in the Studio
+
+### SSH authentication
+
+SSH connections use public key authentication:
+
+1. Platform validates your credentials and workspace permissions.
+2. Your SSH client uses your private key for authentication.
+3. The connection is encrypted end-to-end.
+
+For troubleshooting SSH connection issues, see [Studios troubleshooting](../troubleshooting_and_faqs/studios_troubleshooting#ssh-connections-public-preview).
 
 ## Studio session data-links
 

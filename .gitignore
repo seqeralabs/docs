@@ -29,6 +29,10 @@ internal/tmp
 # Include our own configuration
 !.github/styles/config
 !.github/styles/Google
+!.github/styles/Seqera
+
+# VSCode workspace settings (user-specific paths)
+.vscode/
 
 # Local Netlify folder
 .netlify
@@ -36,6 +40,7 @@ internal/tmp
 # OSS repo clones
 multiqc_docs/multiqc_repo
 wave_docs/wave_repo
+platform-repo/*
 
 # Python
 __pycache__/
