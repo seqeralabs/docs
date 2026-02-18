@@ -5,9 +5,9 @@ description: "Check that the user name is valid"
 sidebar_label: "Check that the user name is valid"
 hide_title: true
 hide_table_of_contents: true
-api: eJzNVMFu2zAM/RVB5yzJtu5Qn5Z23VAM6Iq13aXogbGZWIliqRKdLjDy7yNlO02WDNtxF9sSn8jHx2c1mmAedfao64gh6qeBdh4DkHHVdaEz/QOsKYDwgcM3sEI90B4Cf5DAs8dGV7Kbta+BNhV/P9cYNrwoMObBeEnGu5JCCUyRU+suL6NiXuIKdNZo2nhJFSmYaq63W2YTMHpXRYwSfzc+k9dh2m9f1Rt141TuKsKK9Hagz8bjY9wFFCogU4vERXs0w8B7a/LU8mgRBdvscZIjJmAhGq0wRpijqNRRddMF5pLPB9GNTEu0B57oiY8asrJ1FYIL37v+OLJNzN+f6LCfiKocKbDWvTCfhD4/Rn+q23awUGhxJU3+p+1yMGJeB0Ob5KQLhIBhUlPJyyeZ/mFnlyXmS0UlED9Q1Ts/mdj6iYmxMUsnxp1j4gmSTI+Su0f7psOw7h1cB8uYksjHbDQCb4a5dXUxjPjMwg+NO7LyXYqoWws0c2GlLgWvJrfXWlj3Td2Jqq1C+63tRJKKvf9lPU0g3mk/PnNm4JHpxQslJU01c+l4p2jHQsr+jaC0a3KMHVjsAHmyw2Hz+y2zI4zEpOzH1wATEeXaOm+H5x+GY9nzLtIKkpu6G+FfxnXAeicM4U8aeQt8mXDmxLDpRtlfVEyiHyYrXnJxiTXNFCI+BLvdynZ7D8mICxNhasXWM7ARjwrv/o8/3lInqS1x83r1MbgWSPLAGoKRisnJTBCh4NEKlfbMJM/R096po99Ssuzc/OXqnrFw6J/f/JKydyGoNnu5WZaEuHdLrFianjjJmgvxr/gLKcQRPQ==
+api: eJzNVMFu2zAM/RWBZy1Ju17m09quG4oBXbG2uxQ5MDYbq5EtR6LTBYb+faBsp8nSYTvuZFt8It8jn9kB4zJA9ghtIB9grsE15JGNq68LyOAHWlMg00Mgf4MVgYYGPVbEAs8eO6jlNOsfGkwNGaxb8lvQUFDIvWkkGWQgKZTAFDu1GfKChpCXVCFkHfC2kVSBvamXEONcg6fQuDpQkPjp7Eweh2m/fVXv1I1TuauZaoao4Ww2O8ZdYKE8rVsKDBpGdNYBNo01eZI8fQ6C7fY4yRXjqZAeVRQCLkm6NFB1i2fKJV/jpW9seqIj8A1NGtiwlaMr753/PuiDGGNi/v4NheNEVO1YobXuhYpe54dj9Ke2l0OFIkuViPxP5UYNgfLWG94mJ10QevLnLZeQPc5l+ofKLkvKV4pLZMUlqXbnJxN6P4GGirh0YtwlJZ4oyWCa3D3dNx35zejg1lvIoGRuQjadYmMmuXVtMQm0Jo8T446sfJci6tYiPzlfqUvBq/PbaxDWo6g76WrfoX1puyZJxdH/8r1IINDDy2fnK2TI4PmFUydN/eTS9aGjAwsp+zeCItfkFAaw2AHzZIdD8fuSqUIjMSn78TUQNUjn+jonk5PZ6WQmh40LXGGy07AS/mVeB7R3nWH6ydPGoqklc6LYDbMcN5WG3TTnGkoXWGJdt8BAD97GKMf9IpIZFybgwoqvn9AGOiq8+0H+uKbepLai7evu26BtBZJMsEFvpGKysoaSsCCfqPR3zvOcGt67dfRfSpadnb9c3YMGPDTQb4ZJ2YcQ1tu93F3XI+7diuoYYSTO8g1xHmP8BeMkEWI=
 sidebar_class_name: "get api-method"
-info_path: platform-api-docs/docs/seqera-api
+info_path: platform-api//seqera-api
 custom_edit_url: null
 ---
 
@@ -18,6 +18,7 @@ import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -31,7 +32,7 @@ import Heading from "@theme/Heading";
   path={"/users/validate"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -42,30 +43,24 @@ Check that the user name is valid
   id={"request"}
   as={"h2"}
   className={"openapi-tabs__heading"}
-  children={"Request"}
 >
+  <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"name","in":"query","description":"User name to validate","schema":{"type":"string"}}]}
+  {...require("./validate-user-name.ParamsDetails.json")}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
-  title={"Body"}
-  body={undefined}
+  {...require("./validate-user-name.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
-  id={undefined}
-  label={undefined}
-  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"409":{"description":"Duplicated element","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+  {...require("./validate-user-name.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      

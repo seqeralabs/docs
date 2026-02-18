@@ -1,0 +1,1 @@
+{"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"dataLinkIds":{"type":"array","items":{"type":"string"},"description":"Array of data-link IDs currently mounted in Studios within the specified context."}},"title":"DataStudioMountedLinksResponse"}}}},"403":{"description":"Operation not allowed."}}}

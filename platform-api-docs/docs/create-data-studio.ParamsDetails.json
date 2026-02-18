@@ -1,0 +1,1 @@
+{"parameters":[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier. When omitted, the Studio is created in the user context.","schema":{"type":"integer","format":"int64"}},{"name":"autoStart","in":"query","description":"If true, automatically starts the Studio after creation. Default: `true`.","schema":{"type":"boolean"}}]}
