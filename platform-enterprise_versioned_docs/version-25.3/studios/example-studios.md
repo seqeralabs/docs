@@ -32,7 +32,7 @@ All examples in the repository share the following characteristics:
 
 To deploy any of the example custom Studios:
 
-1. Select **Studios** in the sidebar of you workspace.
+1. Select **Studios** in the sidebar of your workspace.
 2. Select **Add Studio**.
 3. Select **Custom container image** as the container template and enter the container image URI from the example (listed in the [Available examples](#available-examples) table).
 4. Select your compute environment.
