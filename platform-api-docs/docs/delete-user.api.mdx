@@ -5,9 +5,9 @@ description: "Delete a user entity"
 sidebar_label: "Delete a user entity"
 hide_title: true
 hide_table_of_contents: true
-api: eJyFVNtu2zAM/RWBTxugJdnWDZif1q4ZUGzYil6egjwwNpOotSVXotsFhv59oGznsqTYky2Kl8PDQ7XAuAqQzaAJ5APMNbiaPLJx9qqADC6pJKb7QB401OixIhbHbNaCxYogS5FXBWgwFjKokdegoaCQe1NLHshA4pVtKvImV6Ygy2ZpUkpPT43xVEDGviENIV9ThZC1wJtashvLtEquS+cr5M70+QxinEt4qJ0NFCTiw+RMPoelf/9Q79Qvp3JnmSxD1HA2mRz7XWChBAwFBg2Dd9YC1nVp8sTI+CGIb7uHcod/BhWFgCsSEnvwbvFAueSrvdDKpgM6OO66DOyNXUGMGthwKaap987f9P1BjDEh/3iiw2FgyjpWWJbuhYqUKlDeeMObNK0LQk/+vOE1ZLO5kHeYppu0QiXzVDIi3oCGinjtRAlFuk8qkBQwTooZt934I0g5/zxoo/ElZLBmrkM2HmNtRnnpmmIU6Ik8jow70shtulHXJbJMWn0Tf3V+fQWCdWjlVpjvWNxvaEukVIReRnJeJCfQ/c/3QUMPL5woMnbpUnjPeo9Cyv4PoLRrcgq9s0gG8ySZw+b3W6YKTZkkvHRfdxdRgzDX1Xk/+vJpNBFb7QJXmBTX79orQzoAuuWC6Q+P6xKNlWQJVNtPb9h3DVm/vnMNaxdYrtp2gYHufRmjmJ8a8iKhuYZn9AYXQtSshcIE+S8gW2IZ6AjFdofgzU2/JW/V6y/BSdC9Ea10+YxlIyfQ8Eib3csT51HDmrAgn4B1l+d5TjXvhR0tsuhqK+/L6c/p3RQ04KGg/hFQKnASVdt2HnfukWyMW5AsZ8EY418Zotn1
+api: eJyFVEtv2zAM/isCTxugJWlX7ODT0jUDig1b0ccpyIGxmUStLbkS3S4w9N8HynYeS4udbFF8fPz4US0wrgNkc2gC+QALDa4mj2ycvS4ggysqiekhkAcNNXqsiMUxm7dgsSLIUuR1ARqMhQxq5A1oKCjk3tSSBzKQeGWbirzJlSnIslmZlNLTc2M8FZCxb0hDyDdUIWQt8LaW7MYyrZPryvkKuTN9uYAYFxIeamcDBYk4n1zI57j07x/qk/rlVO4sk2WIGi4mk1O/SyyUgKHAoGHwzlrAui5NnhgZPwbxbQ9Q7vHPoaIQcE1CYg/eLR8pl3y1F1rZdEAHx32Xgb2xa4hRAxsuxTTz3vnbvj+IMSbkn9/ocBiYso4VlqV7pSKlCpQ33vA2TeuS0JOfNryBbL4Q8o7TdJNWqGSeSkbEW9BQEW+cKKFI90kFkgLGSTHjtht/BCnnXwZtNL6EDDbMdcjGY6zNKC9dU4wCPZPHkXEnGrlLN+qmRJZJq2/ir6Y31yBYh1buhPmOxcOGdkRKRehlJOdlcgLd/3wfNPT4yokiY1cuhfes9yik7P8ASrsmp9A7i2QwT5I5bv6wZarQlEnCK/d1fxE1CHNdnbPR2eR8NBFj7QJXmCTXL9s7UzpCuiOD6Q+P6xKNlWQJVduPb1h4DVm/vwsNGxdYrtp2iYEefBmjmJ8b8qKhhYYX9AaXwtS8hcIE+S8gW2EZ6ATFbongw22/Jh/V+0/Bm6B7I1rp8gXLRk6g4Ym2+6cnLqKGDWFBPgHrLqd5TjUfhJ1ssghrp++r2c/Z/Qw04LGi/lFQKvAmqrbtPO7dE9kYdyBZzoIxxr+Y3toa
 sidebar_class_name: "delete api-method"
-info_path: platform-api-docs/docs/seqera-api
+info_path: platform-api//seqera-api
 custom_edit_url: null
 ---
 
@@ -18,6 +18,7 @@ import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -31,7 +32,7 @@ import Heading from "@theme/Heading";
   path={"/users/{userId}"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -42,30 +43,24 @@ Delete a user entity
   id={"request"}
   as={"h2"}
   className={"openapi-tabs__heading"}
-  children={"Request"}
 >
+  <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"userId","in":"path","description":"User numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+  {...require("./delete-user.ParamsDetails.json")}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
-  title={"Body"}
-  body={undefined}
+  {...require("./delete-user.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
-  id={undefined}
-  label={undefined}
-  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+  {...require("./delete-user.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      

@@ -5,9 +5,9 @@ description: "Deletes the pipeline action identified by the given `actionId`."
 sidebar_label: "Delete action"
 hide_title: true
 hide_table_of_contents: true
-api: eJytVO9v0zAQ/Ves+wSSaQsMJPKJjhVpAsG0DfFhqjQ3ubbeEtuzLx1V5P8dnZP0x1ptQuJTYt+z37vzu2uA1CJAdgMqJ21NgKmEAkPuteM1ZHCGJRIGQUsUTjsstUHRooUu0JCeayzEbJ0QC71CI27b+HlxOwAJ1qFX7Xpz3zgBQIJTXlVI6FlFA0ZVCBn050GCZhFO0RKeKmvvEIG8NoutFg8SPD7U2mMBGfkaJYR8iZWCrAFaOyZoD0GMcsP5aP19cCrHLe1DjX59wPu7BwpTV+h1vs99wKUN4SKF5tZXitqtjycQ45SlBmdNwMAn3o1O+LPP9/ObeCN+WJFbQ2gIooST0egQd6oKwYljIJDQo7MGlHOlztMTDO8CY5sdldta3UCFIagFsgs68XZ2hznf5zy/I+lWaA88VlEgTSVvTby3/rLLD2KMSfn7Ixn2DhHGklBlaR+xSFcFzGuvaZ3McYrKox/XtITsZsrFq5CWll1VJFclP3EUhp2fh01vpchPg37VO632JWSwJHIhGw6V04O8tHUxCPiAXg20PXj3qxQRF6UifkjxhfFifHEOLKVXesWFbYu0q3dTJ2bsXcLrWQKB7H6+9ha5e6RUAW3mNh3vitqpYNqXBHK6OsfQgdkRKk+O2E9+N2WslC6TQ+f28zYQJXDlWp63g08fBiPeczZQpZKhui5q27sbEE8VNltX/oe50hWU8A8NXam0YUUps6azwXasScg2M2UqYWkDcbhpZirgL1/GyNttv7M7Ch3UrOSmmKsy4DN5vDANjoq8x/XBwFmpsmZkMtNKec38/6jl1WXXy6/FM8PxqKRuU5n1rpZe6qZ2cRolLFEV6JO2NjzOc3S0c/Bg4uw169nk++R6AhLUfms8aYVEcFRX07SIa3uPJsaNTOI1a4zxL5JHWzI=
+api: eJytVE1v2zAM/SsCTxvgJWlX7ODT0jUDig1b0XbYoQhQxWYStbKkSnS6wNB/Hyjb+WiCFgN2siU+6T1Sj2yA5CJAfgeyIGVNgGkGJYbCK8dryOECNRIGQUsUTjnUyqBo0UKVaEjNFZZitk6IhVqhEfdt/LK8H0AG1qGX7Xpz3zgBIAMnvayQ0LOKBoysEHLoz0MGikU4SUt4qay9QwTyyiy2Wjxk4PGpVh5LyMnXmEEollhJyBugtWOC9hDEmG04n61/DE4WuKV9qtGvD3h/90Bh6gq9Kva5D7iUIVyk0Nz6SlK79ekMYpyy1OCsCRj4xOnojD/7fD+/iQ/ihxWFNYSGIGZwNhod4s5lKThxDAQZ9Oi8AemcVkV6guFDYGyzo3JbqzuoMAS5QHZBJ97OHrDg+5zndyTVCu2BxyoKpEjz1sR766+7/CDGmJR/PJJh7xBhLAmptX3GMl0VsKi9onUyxzlKj35c0xLyuykXr0JaWnZVmVyV/MRRGHZ+Hja9lSI/DfpV77Taa8hhSeRCPhxKpwaFtnU5CPiEXg6UPXj3mxQRV1oSP6T4wngxvroEltIrveHCtkXa1bupEzP2LuH1LIEg636+9hZ5eKZUAWXmNh3vitqpYNq3BHK6qsDQgdkRskiO2E9+N2WspNLJoXP7eRuIGXDlWp6TwcnodDDiTWcDVTI5qmujtr+7CfFSYrO15X8YLF1FCf/Q0GmpDCtKqTWdD7ZzLYN8M1SmGSxtIA43zUwG/OV1jLzdNjzbo1RBzjR3xVzqgK/k8cY4OCryEdcHE2cldc3I5KaV9Ir5/1HLu+uumd+LV6bjUUndpjTrXS291E3t4jRmsERZok/a2vC4KNDRzsGDkbPXrReT75PbCWQg93vjRS8kgqO6mqZF3NpHNDFuZBKvWWOMfwFoc1tX
 sidebar_class_name: "delete api-method"
-info_path: platform-api-docs/docs/seqera-api
+info_path: platform-api//seqera-api
 custom_edit_url: null
 ---
 
@@ -18,6 +18,7 @@ import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -31,7 +32,7 @@ import Heading from "@theme/Heading";
   path={"/actions/{actionId}"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -42,30 +43,24 @@ Deletes the pipeline action identified by the given `actionId`.
   id={"request"}
   as={"h2"}
   className={"openapi-tabs__heading"}
-  children={"Request"}
 >
+  <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"actionId","in":"path","description":"Action string identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+  {...require("./delete-action.ParamsDetails.json")}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
-  title={"Body"}
-  body={undefined}
+  {...require("./delete-action.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
-  id={undefined}
-  label={undefined}
-  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+  {...require("./delete-action.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      

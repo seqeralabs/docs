@@ -5,9 +5,9 @@ description: "Confirms the validity of the given action name. Append `?name=<you
 sidebar_label: "Validate action name"
 hide_title: true
 hide_table_of_contents: true
-api: eJzNVNtu2zAM/RWBz1qSbd2AGrtlVxQDumHXhyFoGZtJ1NqSK9HpAkP/PlC2m7Tpur0M2JMt8Ug8hzpkC4zLANkPwJyNswFmGgoKuTe1rCGDV84ujK+C4hWpNZamMLxRbpHWS7Mmq7qzymJFIzWta7KFOn0uy6dPNq7xJx3gRHaenY5Ag6vJo+wdFZDBN7kVmaYJdowVgYYaPVbE5IVeC3IWMrh0/jzUmNNRARqMELxoyG/gJu3vA1DZpiJvcmUKsmwWhjxoCPmKKoSsBd7UcrGxTMsUWjhfIXdbjw8gRn2V3XbU7kg73ZZCsevqhUy3ZQzsjV1CjDMNnkLtbKAg8QeTA/lcv/jDe3VPHTuVO8tkGaKGg8lkH/cSC+XpoqHAoGFAZy1gXZcmT0UfnwXBtjuc5IjxVIgVKgoBlyRW6Km6+Rnlcl/t5eXYdEQH4C2aNLDhUrbeeO/8p14fxBgT84e3KBw8oaxjhWXpLqnodB7uo183nRxSVFIlGv9TtVFDoLzxhjfJyC8JPflpwyvIfszk8SvilZM+WFLKihKCcd+R410PkV8PDdH4EjJYMdchG4+xNqO8dE0xCnRBHkfG7Xnzc4qojyWyeFy9EryafjwCYTGQ/CxV6hTvUr0SLRkHO8t6nkCg+5+3Q/ecXXKqjLELl473FepZSNo/ERS5JqfQg+V5MU/Pe138rmSq0JSpeRfuxTYQNUjlujz3R4ePRhPZq13gCpM7+hYfZtHuULtJtN067d+Mx77UTD95XJdorHBNmtveHtuBreHKIDMNKxdYom07x0BffRmjbHfDSmxTmIDzUqy/wDLQHcr+MEFv5XhOm70hvcayESTIIP379L+fpHdk7l9rm3ImC28kZ2o3DSvCgnyqRXdmmudU886pvdlxrUnfvfkCGvB6U9xognR7H0K72bm7bTvEF3dONkYYiLOsIc5ijL8ADIGc0A==
+api: eJzNVNtu2zAM/RWBz1qSdcWAGbtlVxQDtmHd5aEIWsZmErW25Ep0usDQvw+U7SZtum4vA/ZkSzwSz6EO2QLjMkB2ApizcTbATENBIfemljVk8NrZhfFVULwitcbSFIY3yi3SemnWZFV3VlmsaKSmdU22UGcvZPns6cY1/rQDnMrO87MRaHA1eZS9owIy+C63ItM0wT5iRaChRo8VMXmh14KchQyunL8INeZ0VIAGIwQvG/IbuE37xwBUtqnIm1yZgiybhSEPGkK+ogoha4E3tVxsLNMyhRbOV8jd1uNDiFFfZ7cdtXvSTrelUOy6eiHTXRkDe2OXEONMg6dQOxsoSPxgciifmxd/+qAeqI9O5c4yWYao4XAy2ce9wkJ5umwoMGgY0FkLWNelyVPRx+dBsO0OJzliPBVihYpCwCWJFXqqbn5OudxXe3k5Nh3RAXiHJg1suJStt947/6XXBzHGxPzRHQoHTyjrWGFZuisqOp1P9tFvmk4OKSqpEo3/qdqoIVDeeMObZORXhJ78tOEVZCczefyKeOWkD5aUsqKEYNx35HjXQ+TXQ0M0voQMVsx1yMZjrM0oL11TjAJdkseRcXvePE4R9blEFo+r14JX089HICwGksdSpU7xLtVr0ZJxsLOs5wkEuv95N3TP+RWnyhi7cOl4X6GehaT9E0GRa3IKPVieF/P0vDfF70qmCk2ZmnfhXm4DUYNUrsvzcPRwcjCayGbtAleY7NH3+DCMdqfababt1mr/Zj72tWb6yeO6RGOFaxLd9v7YTmwN1w6ZaVi5wBJt2zkG+ubLGGW7m1bim8IEnJfi/QWWge5R9ocReifHC9rsTek1lo0gQSbp36f//Si9J3P/WtuUM1l4IzlTv2lYERbkUy26M9M8p5p3Tu0Njxtd+v7tV9CAN7viVhek2/sQ2s3O3W3bIb66C7IxwkCcZQ1xFmP8BSTInPU=
 sidebar_class_name: "get api-method"
-info_path: platform-api-docs/docs/seqera-api
+info_path: platform-api//seqera-api
 custom_edit_url: null
 ---
 
@@ -18,6 +18,7 @@ import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -31,7 +32,7 @@ import Heading from "@theme/Heading";
   path={"/actions/validate"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -42,30 +43,24 @@ Confirms the validity of the given action name. Append `?name=<your_action_name>
   id={"request"}
   as={"h2"}
   className={"openapi-tabs__heading"}
-  children={"Request"}
 >
+  <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"name","in":"query","description":"Action name to validate","schema":{"type":"string"}}]}
+  {...require("./validate-action-name.ParamsDetails.json")}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
-  title={"Body"}
-  body={undefined}
+  {...require("./validate-action-name.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
-  id={undefined}
-  label={undefined}
-  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"409":{"description":"Duplicate element","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+  {...require("./validate-action-name.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      

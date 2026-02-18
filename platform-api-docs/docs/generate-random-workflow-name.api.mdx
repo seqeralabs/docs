@@ -5,9 +5,9 @@ description: "Generates a random name"
 sidebar_label: "Generates a random name"
 hide_title: true
 hide_table_of_contents: true
-api: eJyFU0tv2zAM/isGz1qcvQ7zaemwFb1sRdthh8AHxmZiJbakSnSzwNB/H6g4rwbbTpalT+T3oAZgXAUo5rC1frNs7TZAqcA68sjamrsaCrglI7/0gKa23a8R+B07AgWegrMmUIBigHfTqXxqCpXXTgqcXa8zs79SWcNkWJDoXKur1CpfB4EPEKqGOpQV7xxBAXaxpopBgfNCjPW+Wap2QgX22qwgRgWsuZWta8IPI1uIUYAfpu+v+f44iM+M5Qzb1m6pTnUDVb3XvINiPsANoSc/67mBYl7GUv1Fdsgw84nIQX9H3FgxdkVJFUoJyA8J5Hv0mxEdyL+QD6ln71sooGF2ochzdHpStbavJ4GeyeNEW3jN4jGdZPct8tL6Lvsi+Gx2fwfC+CDoUSzfu3ou6+itdBQqCQYFLBII1Lj4Zn2HDAWst5yM0mZp0/UxiJGFtP0fQZGrKwojWGYFqzQrl+LPJVOHWs6k7efTQVQgzu37vJ18+jiZyp6zgTs0pxH6R1QXXI92MP3m3LWojdRLvIYxxtNDkrdxFmSpoLGBBTEMCwz007cxyvZzT15GqlTwgl7jQiybl1FBQ1iTT8lvaAcFzKqKnMzMC7a9MLl6P5Lqcb5uvz6BArzM8lV2qfp4hGZ3VnsY9ognuyETI6iRBMs/xDLG+AeTlnZ6
+api: eJyFU0tv2zAM/isGz1qcdjv5tKzYil62ou2wQ+ADY7OxEltSJTpZYOi/D1ScV4NtJ8vSJ/J7UAMwLgMUc9hav35t7TZAqcA68sjamocaCrgnI7/0hKa23a8R+B07AgWegrMmUIBigNvpVD41hcprJwXOrteZ2V+prGEyLEh0rtVVapWvgsAHCFVDHcqKd46gALtYUcWgwHkhxnrfLFU7oQJ7bZYQowLW3MrWNeGnkS3EKMBP04/XfH8cxGfGcoZta7dUp7qBqt5r3kExH+ALoSc/67mBYl7GUv1Fdsgw84nIQX9H3FgxdklJFUoJyA8J5Hv0hxEdyG/Ih9Sz9y0U0DC7UOQ5Oj2pWtvXk0Bv5HGiLbxn8ZxOsscW+dX6LrsTfDZ7fABhfBD0LJbvXT2XdfRWOgqVBIMCFgkEalx8s75DhgJWW05GafNq0/UxiJGFtP0fQZGrKwojWGYFqzQrl+LPJVOHWs6k7efTQVQgzu373ExupreTqWw6G7hDc5qhf2R1QfboB9Nvzl2L2ki9RGwYczy9JHkcZ0mWChobWBDDsMBAP30bo2y/9eRlpkoFG/QaF+LZvIwKGsKafIp+TTsoYFZV5GRoNtj2wuTqAUmsxwG7//oCCvAyzHfhperjEZrdWe1h2CNe7JpMjKBGEiz/EMsY4x/Ir3af
 sidebar_class_name: "get api-method"
-info_path: platform-api-docs/docs/seqera-api
+info_path: platform-api//seqera-api
 custom_edit_url: null
 ---
 
@@ -18,6 +18,7 @@ import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -31,7 +32,7 @@ import Heading from "@theme/Heading";
   path={"/workflow/random-name"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -41,23 +42,17 @@ Generates a random name
 <ParamsDetails
   parameters={undefined}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
-  title={"Body"}
-  body={undefined}
+  {...require("./generate-random-workflow-name.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
-  id={undefined}
-  label={undefined}
-  responses={{"200":{"description":"Generated name","content":{"application/json":{"schema":{"type":"object","properties":{"name":{"type":"string"}},"title":"RandomWorkflowNameResponse"}}}},"403":{"description":"Operation not allowed"}}}
+  {...require("./generate-random-workflow-name.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      

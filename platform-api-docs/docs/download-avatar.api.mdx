@@ -5,9 +5,9 @@ description: "Download the avatar image"
 sidebar_label: "Download the avatar image"
 hide_title: true
 hide_table_of_contents: true
-api: eJyVVMFu2zAM/RWBpw0QkmzrDtNp6dYNxYCtaLtTkANjM7FaW3Ilul1g6N8H2o6bLFmHnWyJFN975JNaYNxEMAvAR2QMEZYafE0B2Xp3mYOBz/7JlR7zeZcAGmoMWBFTkHMtOKwIzHD+MgcN1oGBGrkADTnFLNhaqoGBvoaKHKzbKJuTY7u2JFUDPTQ2UA6GQ0MaYlZQhWBa4G0tAP0hSGkpybH2LlKU+NvZTD6HSD++gYbMOybHEsW6Lm3WqZreRUlp/wqhYe1DhQwGVtZh2EJKKWk4OwV0jrkS7hT5fxCf5S6gohhxQ9L6gYhf3VEm9eogw2DbK90lnmiKBrZcytZFCD5cDw0amb870aLdmJXzrLAs/RPl0GWfHWd/96zWvnG5opIq0SiFI2VNsLztnHBOGCjMGy7ALJYyp8MSOycpLkj1flG2EkEaKuLCi9021OkW9xiYDq6ctjt7JRDQ8LhzXxNKMFAw19FMp1jbSVb6Jp9EeqCAE+uPPHjTRdRViSxjVp8kX82vLkEY7wTdyKT6ru/LGhsviDC4VNarLgn08PNlZ6C7p75R1q19d3yY0sBCYP9FUOTajOKQLBbDrLPYofh9yVShlZjAfnwOJA3SuR7nzeTD+8lM9mofucLOocNtfmlUB2zHhjD94mldonVSsWPWDmN8flw0mPGdWGoofGQJt+0KI/0MZUqy/dBQEEctNTxisLiSji1ayG2U/xzMGstIR0zGywevrofr9Vq98OScZD5sotuCwJeNrEDDPW33X7m0TBoKwpxCx60Pz7OMat47ePQIiMdGr3+9uAUNeOisP5zUVT9Jqm37jFt/Ty6lkSPLWgim9BuzEANa
+api: eJyVVMFu2zAM/RWBpw0QkrTryaelWzcUA7ai7U5BDozNxGptSZXodoGhfx9oO26yZB12siVSfO+RT2qBcRMhWwA+I2OIsNTgPAVk4+x1ARl8di+2cljMuwTQ4DFgTUxBzrVgsSbIhvPXBWgwFjLwyCVoKCjmwXipBhn0NVTkYOxGmYIsm7UhqRroqTGBCsg4NKQh5iXVCFkLvPUC0B+ClJaSHL2zkaLEz2cz+Rwi/fgGGnJnmSxLFL2vTN6pmj5ESWn/CqFh7UKNDBmsjMWwhZRS0nBxCugSCyXcKfL/IL7KXUBNMeKGpPUDEbd6oFzq+SDDYNMr3SWeaIoGNlzJ1lUILtwODRqZfzjRot2YlXWssKrcCxXQZV8cZ393rNausYWiimrRKIUj5U0wvO2ccEkYKMwbLiFbLGVOhyV2TlJckur9okwtgjTUxKUTu22o0y3uyWA6uHLa7uyVQEDD8859Taggg5LZx2w6RW8meeWaYhLpiQJOjDvy4F0XUTcVsoxZfZJ8Nb+5BmG8E3Qnk+q7vi9rbLwgwuBSWa+6JNDDz5edgR5e+kYZu3bd8WFKAwuB/RdBkWtyikOyWAzzzmKH4vclU41GYgL78TWQNEjnepyzydnsfDKTTe8i19hZdLjOb83qgO7YEaZfPPUVGisVO2rtMMfX10VDNj4USw2liyzhtl1hpJ+hSkm2nxoKYqmlhmcMBlfSskULhYnyX0C2xirSEZPx9sG72+F+vVdvvDknmQ+baLcg8FUjK9DwSNv9Zy4tk4aSsKDQcevD8zwnz3sHj14BMdlo9q9X96ABD631h5W66idJtW2fce8eyaY0cmRZC8GUfgNZQgN/
 sidebar_class_name: "get api-method"
-info_path: platform-api-docs/docs/seqera-api
+info_path: platform-api//seqera-api
 custom_edit_url: null
 ---
 
@@ -18,6 +18,7 @@ import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -31,7 +32,7 @@ import Heading from "@theme/Heading";
   path={"/avatars/{avatarId}"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -42,30 +43,24 @@ Download the avatar image
   id={"request"}
   as={"h2"}
   className={"openapi-tabs__heading"}
-  children={"Request"}
 >
+  <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"avatarId","in":"path","description":"Avatar string identifier","required":true,"schema":{"type":"string"}}]}
+  {...require("./download-avatar.ParamsDetails.json")}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
-  title={"Body"}
-  body={undefined}
+  {...require("./download-avatar.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
-  id={undefined}
-  label={undefined}
-  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"string","format":"binary"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"Not found element"}}}
+  {...require("./download-avatar.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      

@@ -5,9 +5,9 @@ description: "Lists the available regions for the computing platform identified 
 sidebar_label: "List platform regions"
 hide_title: true
 hide_table_of_contents: true
-api: eJy1VdFq2zAU/RVxnzYQSbd1g/lpbelG2WCl7dhDCVSxb2K1tuRK1+mC0b+XK9ux04SUPuwpsXSsc+7RPdcNkFp6SG6hKhQtrCs9zCRk6FOnK9LWQAK/tCcvKEehVkoXal6gcLjU1nixsC7upLasatJmKfqDhM7QkF5ozMR8HUFLvUIj7nrERXY3AQm2QqeY6iLryC47wFVLAhIq5VSJhI61NmBUiZDAcBBI0Cy1UpTDS/39ccKTY4UbYQ4kOHystcMMEnI1SvBpjqWCpAFaV0zSvgQhyA3vk3UPvlIpDsSPNbr1DvPfHihMXaLT6Tb3Dpc2hMu4xXoVtUtfjiGEGUv1lTUePb/x8eiIf7b5fv8ECak1hIZ4V1VVodNo7vTeM6TZJbXze0yJTXZ8FaRbgu6GR0DlnOIaNWHpXz9AZ3tclJ2He+wF0lTw0lnsJWxvH8J4i7uj64qrzg0GBAnH+/w4VZngC0ZPbzFm6IlbKNF7tUROxeFye+DB0s6ds25H+ac9N9mHQhhLQhWFfcIsHuUxrZ2mdQzCKSqH7qSmHJLbGTdJiZRbDtISo0YORALTTbynzZCaMHWbhHl0qz5etSsggZyo8sl0qio9SQtbZxOPj+jURNudRr+OO2KTtDPGi5PLC2BNveRrdrh1ayx8Yxgz9rHg53kEgez+fO8zcf9E0QptFja+3rnbqWDa1wRyuTpF34G5NVQaW2O7+HHJWCpdxEgu7LdhI0hg51qeD5OvnydHvFZZT6WKndWNDW7eYTwO1m8pbYY2/d+Dt3Od8B9xf2jDsmP5Tdc348+ChGRr3vb6ZxJy64nBTTNXHv+4IgRebmciN1SmPYvPIFmowuOBkl+ZmHslP+B6ZyivVFEzMvbfSjnN/G/U8u6qmwPvxcFPyF5R/cw067GaXuzIyTALEnJUGbqorwWcpClWNHp1Z2Jthf3H+Q1IUNtxehGfePpeWU3TIm7sA5oQNiqJn1lgCM9d39ZJ
+api: eJy1VUFu2zAQ/AqxpxYgbCcNetCpSZAWQQs0SFr0EBgILa0tJhKpkCunhsC/F0tJlhwbDnLoyRY54swOd1YNkFp5SO6hKhQtrSs9zCVk6FOnK9LWQAI/tCcvKEeh1koXalGgcLjS1nixtC7upLasatJmJfqDhM7QkF5qzMRiE0ErvUYjHnrEdfYwAQm2QqeY6jrryG46wG1LAhIq5VSJhI61NmBUiZDAcBBI0Cy1UpTDa/39ccKTY4VbYQ4kOHyutcMMEnI1SvBpjqWCpAHaVEzSvgQhyC3vi3VPvlIpDsTPNbrNHvOfHihMXaLT6S73Hpc2hKu4xXoVtUufzyCEOUv1lTUePb9xOpvxzy7fz+8gIbWG0BDvqqoqdBrNnT56hjT7pHbxiCmxyY6vgnRL0N3wCKicU1yjJiz92wfo7ICLsvPwgL1Amgpeuoy9hO3tQxhvcXd0XXHbucGAIOHskB8XKhN8wejpPcYMPXEPJXqvVsipOF5uDzxa2pVz1u0p/3TgJvtQCGNJqKKwL5jFozymtdO0iUG4QOXQndeUQ3I/5yYpkXLLQVph1MiBSGC6jfe0GVITpm6bMI9u3cerdgUkkBNVPplOVaUnaWHrbOLxGZ2aaLvX6HdxR2yTdsl4cX5zDaypl3zHDrdujYVvDWPGPhb8vIggkN2fr30mHl8oWqHN0sbXO3c7FUz7lkAuV6foOzC3hkpja+wWPy4ZS6WLGMml/TJsBAnsXMtzMjmZnU5mvFhZT6WKrdXNDe7eYT4O3u9IbYY+/d+Tt7Od8C9xg2jDsmP9Tdc44++ChGRn4Pb65xJy64nBTbNQHn+7IgRebocid1SmPYvPIFmqwuORkt8YmQclP+FmbyqvVVEzMjbgWjnN/O/U8uG2GwQfxdFvyEFR/dA0m7GaXuzIyTAPEnJUGbqorwWcpylWNHp1b2TtpP3b1S+QoHbz9Co/8fSDspqmRfyyT2hC2KokfmaBIfwDofjWbg==
 sidebar_class_name: "get api-method"
-info_path: platform-api-docs/docs/seqera-api
+info_path: platform-api//seqera-api
 custom_edit_url: null
 ---
 
@@ -18,6 +18,7 @@ import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -31,7 +32,7 @@ import Heading from "@theme/Heading";
   path={"/platforms/{platformId}/regions"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -42,30 +43,24 @@ Lists the available regions for the computing platform identified by the given `
   id={"request"}
   as={"h2"}
   className={"openapi-tabs__heading"}
-  children={"Request"}
 >
+  <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"platformId","in":"path","description":"Platform string identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+  {...require("./list-platform-regions.ParamsDetails.json")}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
-  title={"Body"}
-  body={undefined}
+  {...require("./list-platform-regions.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
-  id={undefined}
-  label={undefined}
-  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"regions":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"}},"title":"ComputeRegion"}}},"title":"ListRegionsResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+  {...require("./list-platform-regions.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      

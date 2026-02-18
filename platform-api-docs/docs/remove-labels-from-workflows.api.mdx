@@ -5,9 +5,9 @@ description: "Removes the given list of labels from the given workflows."
 sidebar_label: "Remove labels from workflows"
 hide_title: true
 hide_table_of_contents: true
-api: eJylVcFu2zAM/RWBZzfJtm7AfFpbrECwYS3aDj0EPjA2naiVLVeSkwWG/n2gZDdOU7QDdgkSipQe33tkOnC4spAuQOGSlIUsgYJsbmTjpK4hhRuq9IascGsSK7mhWihpndCliBWiNLoanW61eSyV3toJJKAbMsgXzYvnq36Gskujq/shFRJo0GBFjgyD6aDGiiAFvsw2mNO8gAQk43lqyezgJcr7IVHUbUVG5kIWVDtZSjKQgM3XVCGkHbhdwxfL2tEqHJXaVOhi6MspeJ8lYOipJevOdbHjmsOnIn5hQjOiT4UEcl07qh0XYNMomYfGpw+Wq7pjCHr5QDkXNoZpcpIsnw78zQs7SkZjkLuWjqpx3Doj6xV4n0QB/63qje59Ak46xVln1upcoqNBp9j5Td9xyOX2paECUmdaCgHb6NrGXj7OTo/5u/ohTsQvLQa+fAKns0+v5A3eEbV2ApXSWypCp5by1ki3C045JzRkzlq3hnSRsXoVubVmvzU6CNMgn8F0YHYajTuNCrI7yGwG47VGQQpr5xqbTqfYyEmudFtMLD2RwYnUR9a7DSfiWqFjNsUF54uz6zkwmAHrLcsfWRkjfpaEXxyMyr+XIQmS/svloNPD1gUO2FY3e5t+/4NVw6q9MNBicEg2Nshilnkep1IHBL3efSOM/L0emTGZk+2TWUrMg/UP+RuzRhVKFZxW6m/7A58Akx/f+TD5+nky4xhrV2GYnH4XxO1xsHW2owVyALjbT+P/LbBeHUd/3LRRKGvGFnrsel8tngmHZFiiPAbBW1kCazZhuoCuW6Kl30Z5z+G4xthxhbS4VDxCJSpLb3TyzpJ7Fesj7Y726AZVy5nBoBs0kt8P05PAmrAgE4DF0ov4/Mkd376vPVpxB5N3fXV7x97tF2ilC64xyBzxZwrhz4Grw0iEWAcK61WLK86Nd7LT8XBQXgxGQDqsu3o3Qth1MeNOP1LtPQxcOP4NPvPe/wX2x2wv
+api: eJylVcFu2zAM/RWBZzdJu2IHn9YWKxBsWIu2ww6BD4xNJ2ply5XkpIGhfx8o2Y3TFO2AXYKEIqXH9x6ZDhyuLKQLULgkZSFLoCCbG9k4qWtI4Y4qvSEr3JrESm6oFkpaJ3QpYoUoja5Gp1ttnkqlt3YCCeiGDPJF8+L1qp+h7Nro6s+QCgk0aLAiR4bBdFBjRZACX2YbzGleQAKS8Ty3ZHbwFuWfIVHUbUVG5kIWVDtZSjKQgM3XVCGkHbhdwxfL2tEqHJXaVOhi6Os5eJ8lYOi5JesudbHjmsOnIn5hQjOiT4UEcl07qh0XYNMomYfGp4+Wq7pjCHr5SDkXNoZpcpIsnw78zQs7SkZjkLuWjqpx3Doj6xV4n0QB/63qg+59Ak46xVkX1upcoqNBp9j5Xd9xyOX2paECUmdaCgHb6NrGXs5m58f83fwQJ+KXFgNfPoHz2Zd38gbviFo7gUrpLRWhU0t5a6TbBadcEhoyF61bQ7rIWL2K3Fqz3xodhGmQz2A6MDuNxp1GBdkdZDaD8VqjIIW1c41Np1Ns5CRXui0mlp7J4ETqI+vdhxNxq9Axm+KK88XF7RwYzID1nuWPrIwRv0rCLw5G5d/LkARJ/+V60Olx6wIHbKu7vU2/v2DVsGpvDLQYHJKNDbKYZZ7HqdQBQa933wgj/6xHZkzmZPtklhLzYP1D/sasUYVSBaeV+tv+wCfA5Md3Tiens7PJjIMsXoVhdPplENfHwdrZjjbIAeJuP47/t8F6eRy9uGmjUNaMLTTZ9cZavDIOybBFeQ6CubIE1uzCdAFdt0RLv43ynsNxj7HlCmlxqXiGSlSWPujkky33LtYn2h0t0g2qljODQzdoJL8fxieBNWFBJgCLpVfx+ZMHvn1fe7TjDkbv9ub+gc3bb9BKF1xjkDnizxTCvwNXh5kIsQ4U1qsWV5wb72Sr4+GkvJmMgHTYd/VuhLDrYsaDfqLaexi4cPwbfOa9/wvoA2xU
 sidebar_class_name: "post api-method"
-info_path: platform-api-docs/docs/seqera-api
+info_path: platform-api//seqera-api
 custom_edit_url: null
 ---
 
@@ -18,6 +18,7 @@ import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -31,7 +32,7 @@ import Heading from "@theme/Heading";
   path={"/workflow/labels/remove"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -42,30 +43,24 @@ Removes the given list of labels from the given workflows.
   id={"request"}
   as={"h2"}
   className={"openapi-tabs__heading"}
-  children={"Request"}
 >
+  <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+  {...require("./remove-labels-from-workflows.ParamsDetails.json")}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
-  title={"Body"}
-  body={{"description":"Labels remove request","content":{"application/json":{"schema":{"type":"object","properties":{"workflowIds":{"type":"array","items":{"type":"string"}},"labelIds":{"type":"array","items":{"type":"integer","format":"int64"}}},"title":"AssociateWorkflowLabelsRequest"}}},"required":true}}
+  {...require("./remove-labels-from-workflows.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
-  id={undefined}
-  label={undefined}
-  responses={{"204":{"description":"OK - No content"},"403":{"description":"Operation not allowed"}}}
+  {...require("./remove-labels-from-workflows.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      

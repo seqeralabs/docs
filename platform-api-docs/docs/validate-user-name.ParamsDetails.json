@@ -1,0 +1,1 @@
+{"parameters":[{"name":"name","in":"query","description":"User name to validate","schema":{"type":"string"}}]}

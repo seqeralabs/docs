@@ -5,9 +5,9 @@ description: "Removes the participant identified by the given `participantId` fr
 sidebar_label: "Delete workspace participant"
 hide_title: true
 hide_table_of_contents: true
-api: eJy1lVFv0zAQx7+KdU8gmabAQCJPbKxIFQimbYiHqtLc5Np6S+zMvnSUyN8dnZu2aTetqNKe2tjn3O/u/v6nAVIzD+kIHqy785XK0MNYQo4+c7oibQ2kcImlXaAXNEdRKUc605UyJHSOhvRUYy4my7g70ws04qYTNMxvxNTZsrO9SdUDCbZCpzjPMIcUzrFAwt/rgIvte0BCpZwqkdAxcANGlQgpWDcb5iBBM2mlaA77+D/dTBn9N2YRpi7R6WzL7pjC4X2tHeaQkqtRgs/mWCpIG6BlxVm0IZyhAwlT60pFq6WPJxCC3KBsCjsAtKnvRWl2hvAsT6fNL0A05uO+ssaj5xPv+if8szejb+KN+GFFZg2hIQgSTvr9x3FnKhcMg54VsY5OG1BVVegszji59RzbdCi3/CMo0Xs1Q5Z5C28nt5hFhTmWI+kV6DpwW6Unp82MuwykqeClgXPWXbb1QQghkr9/osK10IWxJFRR2AfM46s8ZrXTtIyqPkPl0J3WNId0NObmlUhzy5cjj5cjXgTehcS6mU+aeAFCsr3ASdMRYkg6OvBJs6OKAJzdLdZXqnYFpDAnqnyaJKrSvaywdd7zeI9O9bR9JJ2ruCMuCkU8ePGF48XpxRAYfV3ZFQ9i1dRufZu+ckZoVcXPkxgEsv3zdS2p2weKHdNmauPxdggtBac9BMjl6gx9G8wKUllU0G7x3ZKxVLqIip7az9uNIIE7t8rztvfpQ6/Pa5X1VKoowPYmrlxt63tdE90HbraiflHfbTtP+IeSqlDaMHpsQdPqa8TW6kFCurbYzjdCQrrrdl2V8e6u+4wlzK0nfmnTTJTHX64IgZfva3Ss/LGEhXJaTXigowZy7fl/DulUFR6f6dKry/Zyvxb/4fRP1t0uKrMExihqfgIJd7jcfGHYWY+COuT2RxB1W38012HXP4Jsd+xhHCTMUeXo4lBXMadZhhV1Tj/y7h3bOx98H1wPQILaNY09k4gJnoRrmlXEtb1DE8KGlfiZGUP4B1nqIjg=
+api: eJy1lVFv2jAQx7+KdU+b5BHaVXvI09qVSWjTVrWd9oCQapID3CZ2al/oWOTvPp0JEGhVJqQ+Qexz7nd3f//TAKmZh3QET9Y9+Epl6GEsIUefOV2RtgZSuMbSLtALmqOolCOd6UoZEjpHQ3qqMReTZdyd6QUacdcJGuZ3Yups2dnepOqBBFuhU5xnmEMKl1gg4e91wNX2PSChUk6VSOgYuAGjSoQUrJsNc5CgmbRSNId9/J9upoz+G7MIU5fodLZld0zh8LHWDnNIydUowWdzLBWkDdCy4izaEM7QgYSpdaWi1dKnMwhBblA2hR0A2tT3pjQ7Q3iVp9PmNyAa83FfWePR84nT/hn/7M3om/ggfliRWUNoCIKEs37/edyFygXDoGdFrKPTBlRVFTqLM07uPcc2Hcot/whK9F7NkGXewtvJPWZRYY7lSHoFug7cVunJaTPjLgNpKnhp4Jx11219EEKI5B9fqHAtdGEsCVUU9gnz+CqPWe00LaOqL1A5dOc1zSEdjbl5JdLc8uXI4+WIF4F3IbFu5pMmXoCQbC9w0nSEGJKODnzS7KgiAGd3i/WVql0BKcyJKp8miap0Lytsnfc8PqJTPW2fSecm7oirQhEPXnzheHF+NQRGX1d2w4NYNbVb36avnBFaVfHzJAaBbP98XUvq/olix7SZ2ni8HUJLwWkPAXK5OkPfBrOCVBYVtFt8t2QslS6ioqf283YjSODOrfKc9E76p70+L1bWU6miAturuLK1rfF1XXSfuNmq+k2Nt2094R9KqkJpw+ixB00rsBF7qwcJ6dpjOx8JCemu3XVlxru79jOWMLee+KVNM1Eef7kiBF5+rNGx9McSFsppNeGJjhrItef/OaRTVXh8pUvvrtvb/V78h9W/WHe7qMwSGKOo+QkkPOBy84lhaz0K6pDdH0HUbf3RXIdt/wiy3bGHcZAwR5Wji0NdxZxnGVbUOf3MvHd873LwfXA7AAlq1zX2XCImeBGuaVYRt/YBTQgbVuJnZgzhH7zNIl0=
 sidebar_class_name: "delete api-method"
-info_path: platform-api-docs/docs/seqera-api
+info_path: platform-api//seqera-api
 custom_edit_url: null
 ---
 
@@ -18,6 +18,7 @@ import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -31,7 +32,7 @@ import Heading from "@theme/Heading";
   path={"/orgs/{orgId}/workspaces/{workspaceId}/participants/{participantId}"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -42,30 +43,24 @@ Removes the participant identified by the given `participantId` from the given w
   id={"request"}
   as={"h2"}
   className={"openapi-tabs__heading"}
-  children={"Request"}
 >
+  <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier.","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"path","description":"Workspace numeric identifier.","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"participantId","in":"path","description":"Participant numeric identifier.","required":true,"schema":{"type":"integer","format":"int64"}}]}
+  {...require("./delete-workspace-participant.ParamsDetails.json")}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
-  title={"Body"}
-  body={undefined}
+  {...require("./delete-workspace-participant.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
-  id={undefined}
-  label={undefined}
-  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+  {...require("./delete-workspace-participant.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      

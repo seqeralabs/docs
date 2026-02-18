@@ -5,7 +5,7 @@ info:
   contact:
     url: https://seqera.io
     email: info@seqera.io
-  version: 1.95.0
+  version: 1.102.0
 servers:
   - url: https://api.cloud.seqera.io
     description: Seqera Platform Cloud API

@@ -5,9 +5,9 @@ description: "Deletes the given API access token ID."
 sidebar_label: "Delete token"
 hide_title: true
 hide_table_of_contents: true
-api: eJyNVFFv0zAQ/ivWPYFk2gIDiTyxsSJVIJjYeKr64DrXxltie/Zlo4r839E5ydpu0+Apie/O33fffZcOSG0jFEsgd4M2wkpCiVEH48k4CwWcY42EUVCFYmvu0IrTi4VQWmOMIheJxfkEJDiPQXHRonwou+I4SPAqqAYJA0N1YFWDUPSQixIkGEbyiip4DJ9vELZtMBgtTImWzMZgAAkBb1sTsISCQosSoq6wUVB0QDvP9xtLuM2pGxcaRf3RxxNIacXl0TsbMXLFu9kJP46xf34Tb8QPJ7SzhJYgSTiZzZ7mnalSMBmMBBLG7KID5X1tdBZleh05tztguee/hAZjVFtk+Qfybn2Nmu/zgZUl0xMdE/ddRgrGbiElCWSo5qN5CC78GvqDlFJm/v6ZDseZCetIqLp291jmqyLqNhja5XmdoQoYTluqoFiuWLwGqXI85zLPOY+YozDtfTTthuEm4LvC3Tj6NtRQQEXkYzGdKm8munZtOYl4i0FNjHvigMscERe1Ih6j+ML5bEJgIiPPS5a1l+iQ7YNKjAiDR/h7nZNADi9fR4Nc31Pu39iNy+WDpAMLhv0XQW7XaIxDMvtB6eyH4+YPW8ZGmTr7c+M+7wNJAivX47ydfPowmfGZd5Eale00rFK/bv0+PibY7S35/9s8yEb4h6a+VsYybubfDaN++GVIKMZNXkmoXCQOdt1aRfwd6pT4+LbFwGZaSbhTwag1q7rsoDSR30soNqqO+AL1V7+GfXktXvgpPMt7OFR2Bwxft/wFEm5wd/AbSqskoUJVYsjU+uip1ujpoO7JUh/tw/n8+/xqDhLUsf8e+S0DPEur6/qM3GNKxyyZY0p/AUed8XY=
+api: eJyNVMFu2zAM/RWBpw3QkrQrdvBp7ZoBwYataLdTkIMiM7FaW1Ilul1g6N8HynaTtEW3k22R1Ht8fHQHpLYRiiWQu0MbYSWhxKiD8WSchQIusUbCKKhCsTUPaMX51UIorTFGkYvE4nICEpzHoLhoUT6V/eI4SPAqqAYJA0N1YFWDUPSQixIkGEbyiip4Dp9vELZtMBgtTImWzMZgAAkB71sTsISCQosSoq6wUVB0QDvP9xtLuM2pGxcaRf3RpzNIacXl0TsbMXLF6eyMH8fYP7+JD+KHE9pZQkuQJJzNZi/zLlQpmAxGAgljdtGB8r42OosyvY2c2x2w3PNfQoMxqi2y/AN5t75Fzff5wMqS6YmOifsuIwVjt5CSBDJU89E8BBeuh/4gpZSZf3ylw3FmwjoSqq7dI5b5qoi6DYZ2eV4XqAKG85YqKJYrFq9BqhzPucxzziPmKEx7H027YbgJ+K7wMI6+DTUUUBH5WEynypuJrl1bTiLeY1AT41444CZHxFWtiMcovnA+mxCYyMjzhmXtJTpk+6QSI8LgEf5e5ySQw8vX0SC3j5T7N3bjcvkg6cCCYf9FkNs1GuOQzH5QOvvhuPnDlrFRps7+3LjP+0CSwMr1OCeTk9npZMaH3kVqVPbTsEv9vvUL+Zxht/fk/6/zoBvhH5r6WhnLuLmBbpj10z9DQjGu8kpC5SJxsOvWKuLvUKfEx/ctBnbTSsKDCkatWdZlB6WJ/F5CsVF1xDeov7seFua9eOOv8Crv4VDZHTB83fIXSLjD3cF/KK2ShApViSFT66PnWqOng7oXW320EJfz7/Nfc5Cgjg34zHAZ4FVaXddn5B5TOmbJHFP6C9WI8Zs=
 sidebar_class_name: "delete api-method"
-info_path: platform-api-docs/docs/seqera-api
+info_path: platform-api//seqera-api
 custom_edit_url: null
 ---
 
@@ -18,6 +18,7 @@ import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -31,7 +32,7 @@ import Heading from "@theme/Heading";
   path={"/tokens/{tokenId}"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -42,30 +43,24 @@ Deletes the given API access token ID.
   id={"request"}
   as={"h2"}
   className={"openapi-tabs__heading"}
-  children={"Request"}
 >
+  <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"tokenId","in":"path","description":"Token numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+  {...require("./delete-token.ParamsDetails.json")}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
-  title={"Body"}
-  body={undefined}
+  {...require("./delete-token.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
-  id={undefined}
-  label={undefined}
-  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+  {...require("./delete-token.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      

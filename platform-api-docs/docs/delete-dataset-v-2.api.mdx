@@ -5,9 +5,9 @@ description: "Deletes the dataset identified by the given `datasetId`, including
 sidebar_label: "Delete dataset"
 hide_title: true
 hide_table_of_contents: true
-api: eJy1lN9v0zAQx/8V655ACm0ZA4k8sbEiTSCYtgEPU6Vdk2vrLbEz+9JRRf7f0TlJf6zVJh54amN/7fvc+XvXAOPcQ3oDOTJ6Yg+TBHLymdMVa2sghTMqiMkrXpDqVErnZFjPNOVquoo7c70ko247wXl+myhtsqLOtZkrLAqF3ttMI1OuluS8tsYPIAFbkUOJdJ6vY521l/w6ggQqdFgSkxPKBgyWBCk8WnfvK8zoPIcEtGA+1ORW8BT+dy9Upi7J6WyD7iS8zxZUIqQN8KqSm7VhmpODBGbWlcjt0odjCCFZh19n2QevkBd7sbs0lGcnRdgN7Oih1o5ySNnVdACkPQUhTETsK2s8edk/Gh3Lz26sH1/VG/XdqswaJsMQEjgejfZ1p5grCU2eIYFenTaAVVXoLL7E8M6Lttli2tDeQEne45zEKB2qnd5RJvdVTp6TdQvaCw/klABrLmRp7Jx1l11+EEKI5O8OZNgbRRnL4ij7SHm8ylNWO82raJBTQkfupOYFpDcTKV5JvLBirjyaK3pKdmHYe37YrB80iCfILXu/1a6AFBbMlU+HQ6z0ICtsnQ88PZDDgbZ7r34Vd9RFgSwOUp9Fr04uzkFgetYrKW1bpm3idaUkYm9P+Z5GESTdny+9N+8eOdZAm5mNx7uydhQS9iVASVdn5DuxeAKz6Ind5LdTphJ1EVtjZj9tNkICXW9DCm8HH98PRrJWWc8lRkt1DdT2eT9OniI2G2P+5+nTVZvpDw+rArUR3Jh207lkazImkG4af5LAwnoWQdNM0dNPV4Qgy+0gEvPk2uO0kK6ZYeHpmSxfGlMHOe9ptTcKl1jUooxmW6LTAvCPMK8uu25/rZ4dYQehukU0q22aHnZTvzAJCSwIc3IRr90/yTKqeOvk3lja6eiz8bfx9RgSwN3uedItMcBBsKZpFdf2nkwIa06Wb2EM4S9KjnYU
+api: eJy1lE1v2zAMhv+KwNMGeEnaFTv4tHbNgGDDVrT7OBQBythMotaWXIlOFxj67wNlOx9N0GKHnRJLr8SH1Es2wLjwkN5Cjoye2MM0gZx85nTF2hpI4ZIKYvKKl6Q6ldI5GdZzTbmarePOQq/IqLtOMMnvEqVNVtS5NguFRaHQe5tpZMrVipzX1vgBJGArciiRJvkm1mV7ya9TSKBChyUxOaFswGBJkMKTdQ++wowmOSSgBfOxJreG5/C/e6EydUlOZ1t0J+F9tqQSIW2A15XcrA3TghwkMLeuRG6XPpxBCMkm/CbLPniFvDyI3aWhPDspwn5gR4+1dpRDyq6mIyDtKQhhKmJfWePJy/7p6Ex+9mN9/6LeqW9WZdYwGYaQwNlodKi7wFxJaPIMCfTqtAGsqkJn8SWG9160zQ7TlvYWSvIeFyRG6VDt7J4yua9y8pysW9BeeCSnBFhzIUtj56y77vKDEEIkf38kw94oylgWR9knyuNVnrLaaV5Hg1wQOnLnNS8hvZ1K8UripRVz5dFc0VOyC8Pe88Nm86BBPEFu1futdgWksGSufDocYqUHWWHrfODpkRwOtD149Zu4o64KZHGQ+iR6dX41AYHpWW+ktG2Zdok3lZKIvT3lexZFkHR/PvfevH/iWANt5jYe78raUUjY1wAlXZ2R78TiCcyiJ/aT302ZStRFbI25/bjdCAl0vQ0pnAxORqeDkSxW1nOJ0VNdB7WN3s+T54zN1pn/efx05Wb6w8OqQG0EN+bddDbZGY0JpNvOnyawtJ5F0DQz9PTTFSHIcjuJxD259jgrpG3mWHh6IcvX5tRRzgdaH8zCFRa1KKPbVui0APwjzJvrrt3fqhdn2FGobhHNepemh93WL0xDAkvCnFzEa/fPs4wq3jl5MJf2Wvpy/HX8YwwJ4H77PGuXGOAoWNO0ih/2gUwIG06Wb2EM4S8zsnY5
 sidebar_class_name: "delete api-method"
-info_path: platform-api-docs/docs/seqera-api
+info_path: platform-api//seqera-api
 custom_edit_url: null
 ---
 
@@ -18,6 +18,7 @@ import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -31,7 +32,7 @@ import Heading from "@theme/Heading";
   path={"/datasets/{datasetId}"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -42,30 +43,24 @@ Deletes the dataset identified by the given `datasetId`, including all associate
   id={"request"}
   as={"h2"}
   className={"openapi-tabs__heading"}
-  children={"Request"}
 >
+  <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier.","schema":{"type":"integer","format":"int64"}},{"name":"datasetId","in":"path","description":"Dataset string identifier.","required":true,"schema":{"type":"string"}}]}
+  {...require("./delete-dataset-v-2.ParamsDetails.json")}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
-  title={"Body"}
-  body={undefined}
+  {...require("./delete-dataset-v-2.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
-  id={undefined}
-  label={undefined}
-  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+  {...require("./delete-dataset-v-2.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      

@@ -5,9 +5,9 @@ description: "Refreshes the data-link cache for the given `workspaceId` or `cred
 sidebar_label: "Refresh data-link cache"
 hide_title: true
 hide_table_of_contents: true
-api: eJzNVE1v00AQ/SurObtOgIKET5RCUQQSFQVxqCJlao/jJfauuztOiCz/dzRrO1+tCgeEOCW7M955782baYFx6SG5hQwZz0ptVh7mEWTkU6dr1tZAAl8od+QL8ooLUrtMlWJakMqtC/dLvSajFhvrVr7GlGbZQlmnFqmjjAxrLP0sW8TqyrqUvNJVRZlGJuXoLNM+tWtyW2VzhWvUJd6VpNLSNpnybB0uJc/bRr6NIQJbk0PBN8v2CN8h4ydtVpcCDCKo0WFFTE4otmCwIkjgACFEoIXhfUNuC6e8v4+JyjQVOZ0qHZjkmlysZrmylWamLFJup1CviTYKVePJqdQapp8skH1aUIWQtMDbWoBow7QkBxHk1lXI/dWrc+i6aIf2SL6n8V7uU5Vnp83yCPCVLkWKAeIAWbHdd9QrTFPyXov4G81FaKyvKZUnMnWA5VFCfVHounkEjnxtjScv8efTqfwcw/38EboIzqcvHgmN3VXGssKytBvKRBbwlDZO8zY09C2hI3fRcAHJ7VyqVsSFFUcsiYMBJASTPcNJYD8Z2AsJcuvRII0rIYGCufbJZIK1joMDY0/35DDW9oHkNyGirktk6aG6DI69uJ6BoBnB3ohQvRKHkHe6ScVRTznfhSSIhj9Xozt+bDiIoE1uw+eaS9qjkLK/Ayh0tcxfnyz2xJTlsWPyh5SpQl0Gc+b2zT7QRSDK9XWexa9fxlO5q63nCo08OVh4mM7TzXGKtQ1oyPB/unKGZsk4T+oStRG2QbV2MNrRGo1gZDmabR5BYT1LXtveoadvruw6ue7nWSyYaS84MkhyLD09IdFf3k6PslvR9sHCXGPZSCbIkvpzuP96OT3B53Sl7hnN5eC0UAob5WChfHj/FSLA48E9GdTQwSGEZnvwdNv2GV/tikzXwQiF5QzdvOu6XyeXosQ=
+api: eJzNVE1v00AQ/SurObtOWioOPgGFoggkKlrEoYqUqT2Ol9i77u44IbL839Gs7Xy1KhwQ4pTsznjnvTdvpgXGpYfkHjJkPCu1WXmYR5CRT52uWVsDCXyl3JEvyCsuSO0yVYppQSq3Ltwv9ZqMWmysW/kaU5plC2WdWqSOMjKssfSzbBGra+tS8kpXFWUamZSjs0z71K7JbZXNFa5Rl/hQkkpL22TKs3W4lDxvG/k2hghsTQ4F3yzbI3yPjJ+1WV0JMIigRocVMTmh2ILBiiCBA4QQgRaGjw25LZzy/j4mKtNU5HSqdGCSa3KxmuXKVpqZski5nUK9JtooVI0np1JrmH6yQPZpQRVC0gJvawGiDdOSHESQW1ch91evL6Hroh3aI/lexnu1T1WenTbLI8DXuhQpBogDZMV231GvME3Jey3ibzQXobG+plSeyNQBlmcJ9UWh6+YROPK1NZ68xC+mU/k5hvvlE3QRXE5fPRMau6uMZYVlaTeUiSzgKW2c5m1o6DtCR+5twwUk93OpWhEXVhyxJA4GkBBM9gwngf1kYC8kyK1HgzSuhAQK5tonkwnWOg4OjD09ksNY2yeS34aIuimRpYfqKjj27c0MBM0I9laE6pU4hLzTTSqOesr5ISRBNPy5Ht3xY8NBBG1yGz7XXNIehZT9HUChq2X++mSxJ6Ysjx2TP6RMFeoymDO3b/aBLgJRrq9zHp9PL+KpXNbWc4VG3hw8PIzn6eo4BdsGOGT4P905Q7dknid1idoI2yBbOzjtaI9GMLIc3TaPoLCeJa9tH9DTN1d2nVz3Ay0ezLQXHBkkOZaeXpDoL6+nZ9mtaPtkY66xbCQTZEv9Odx/vZ1e4HO6U/eM5nJwWiiFlXKwUT5+uIMI8HhyTyY1dHAIodkePN22fcadXZHpOhihsJyhm3dd9wsfuKLp
 sidebar_class_name: "get api-method"
-info_path: platform-api-docs/docs/seqera-api
+info_path: platform-api//seqera-api
 custom_edit_url: null
 ---
 
@@ -18,6 +18,7 @@ import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -31,7 +32,7 @@ import Heading from "@theme/Heading";
   path={"/data-links/cache/refresh"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -42,30 +43,24 @@ Refreshes the data-link cache for the given `workspaceId` or `credentialsId`. Fo
   id={"request"}
   as={"h2"}
   className={"openapi-tabs__heading"}
-  children={"Request"}
 >
+  <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier. If omitted, refreshes cache in a user context.","schema":{"type":"integer","format":"int64"}},{"name":"credentialsId","in":"query","description":"Credentials string identifier. Filters cache refresh to data-links accessible with the specified credentials.","schema":{"type":"string"}}]}
+  {...require("./refresh-data-link-cache.ParamsDetails.json")}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
-  title={"Body"}
-  body={undefined}
+  {...require("./refresh-data-link-cache.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
-  id={undefined}
-  label={undefined}
-  responses={{"200":{"description":"OK"},"403":{"description":"Operation not allowed"}}}
+  {...require("./refresh-data-link-cache.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      

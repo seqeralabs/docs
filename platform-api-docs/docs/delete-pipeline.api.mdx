@@ -5,9 +5,9 @@ description: "Deletes the pipeline identified by the given `pipelineId`."
 sidebar_label: "Delete pipeline"
 hide_title: true
 hide_table_of_contents: true
-api: eJyllFFv0zAQx7+KdU8ghbbAQCJPbKxIEwimbYiHqdLc5Np4S2zPvnRUkb/7dE7SpmthmnhqY//t+935f9cAyaWH9BqsslgqjR5mCeToM6csKaMhhVMskdALKlD0MqFy1KQWCnMxX8etpVqhFje94iy/GUECxqKTfNFZvrnqvJNAAlY6WSGhY4gGtKwQUtjeAQkoZrCSCngK1t8jdF2hU9kWynFoh/e1cphDSq7GBHxWYCUhbYDWlsMoTbhEBwksjKsktUsfjyCEZMPyYNydtzIbwNzX6NZ7NL974V9wXhJ+xvTeGu3R84l3kyP+2Q3485t4I34YkRlNqAlCAkeTyb7uROaCa4GeIIFenTYgrS1VFl9nfOtZ2wwot+W7hgq9l0tkb3TwZn6LGd9nHT8xqRa0F26z9OSUXnJJgRSVvDR1zriLLj8IIUTy9wcy7M0jtCEhy9I8YB6v8pjVTtE6uuYEpUN3XFMB6fWMi1chFYYNl0fDRaPxLow3Ph83W5cFfh50q96GtSshhYLI+nQ8llaNstLU+cjjPTo5Umbv8S/jjjgvJfFjii+sF8fnZ8A4Pe0lF7ct1JB5UyuO2DuFv+dRBEn352tvk9sHilVQemHi8a6wHQWHfQ6Q01UZ+k7MrpBZdMVu8sOUsZKqjC5dmM/bjZAAV66N83b06cNowmvWeKpkNFXXSm33b2bIU8Zm683/mzldNQn/0NiWUmnGiWk1nQ+G8y6BdDBvZgkUxhNLmmYuPf5yZQi83HY92yNXXs5L7oyFLD3+I43nZsJB0jtc782dlSxrVkY7raRTDPBCmFcXXUe/Fs9MzoNY3aLU6yFPjzsoYZiFBAqUObpI2AqOswwtDY7uTZ+dxj2dfp9eTSEBudsiT1oiBjhI1jSt4srcoQ5hA0r8zYwhPAJmp2fh
+api: eJyllFFP2zAQx7+KdU+blLWFoT3kaTA6CW3aEDDtAVXCTa6NIbGNfSmrIn93dE7SprQbQntqY//t+935f9cAyaWH9BasslgqjR5mCeToM6csKaMhhXMskdALKlD0MqFy1KQWCnMxX8etpVqhFne94iK/G0ECxqKTfNFFvrnqspNAAlY6WSGhY4gGtKwQUtjeAQkoZrCSCngJ1t8jdF2hU9kWynFoh4+1cphDSq7GBHxWYCUhbYDWlsMoTbhEBwksjKsktUufTiCEZMPyZNyDtzIbwDzW6NZ7NL974V9w3hJ+xvTeGu3R84njyQn/7Ab8+U18ED+MyIwm1AQhgZPJZF93JnPBtUBPkECvThuQ1pYqi68zvvesbQaU2/LdQoXeyyWyNzp4M7/HjO+zjp+YVAvaC7dZenJKL7mkQIpKXpo6Z9xVlx+EECL5xwMZ9uYR2pCQZWmeMI9Xecxqp2gdXXOG0qE7ramA9HbGxauQCsOGy6PhotF4F8Ybn4+brcsCPw+6VW/D2pWQQkFkfToeS6tGWWnqfOTxEZ0cKbP3+NdxR1yWkvgxxRfWi9PLC2Ccnvaai9sWasi8qRVH7J3C3/MogqT787W3yf0TxSoovTDxeFfYjoLDvgbI6aoMfSdmV8gsumI3+WHKWElVRpcuzOftRkiAK9fGORodTY5HE160xlMlo6u6XmrbfzNEXkI2W3P+39Dpykn4h8a2lEozTsyr6YwwHHgJpIOBM0ugMJ5Y0jRz6fGXK0Pg5bbt2R+58nJecmssZOnxH2m8NhQOkj7gem/wrGRZszL6aSWdYoA3wry76lr6vXhldB7E6halXg95etxBCcMsJFCgzNFFwlZwmmVoaXB0b/zsdO759Pv0ZgoJyN0eedETMcBBsqZpFTfmAXUIG1Dib2YM4RlHgGgG
 sidebar_class_name: "delete api-method"
-info_path: platform-api-docs/docs/seqera-api
+info_path: platform-api//seqera-api
 custom_edit_url: null
 ---
 
@@ -18,6 +18,7 @@ import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -31,7 +32,7 @@ import Heading from "@theme/Heading";
   path={"/pipelines/{pipelineId}"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -42,30 +43,24 @@ Deletes the pipeline identified by the given `pipelineId`.
   id={"request"}
   as={"h2"}
   className={"openapi-tabs__heading"}
-  children={"Request"}
 >
+  <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"pipelineId","in":"path","description":"Pipeline numeric identifier.","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier.","schema":{"type":"integer","format":"int64"}}]}
+  {...require("./delete-pipeline.ParamsDetails.json")}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
-  title={"Body"}
-  body={undefined}
+  {...require("./delete-pipeline.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
-  id={undefined}
-  label={undefined}
-  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+  {...require("./delete-pipeline.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      

@@ -5,9 +5,9 @@ description: "Removes the requesting user from the given workspace."
 sidebar_label: "Leave workspace"
 hide_title: true
 hide_table_of_contents: true
-api: eJytVF1vEzEQ/CvWPoFkcgEKEvdEC0GqQFC1RTxEeXDuNhe3d7Zr76WUk/87WucuX62IVPGUnL32zsyOpwNSVYB8CvfW3wanCgwwk1BiKLx2pK2BHC6xsSsMgpYoPN61GEibSrQBvVh426SNSq/QiM01I5BgHXrFd5yXkMM3VCv8NexfKE+60E4ZAglOedUgoWcsHRjVIORgfXVeggTNIJyiJRwi++ErZfSf1ESYtkGvC6FLNKQXGj1IYLzaYwk5+RYlhGKJjYK8A3pw3EQbwiqVLqxvFK2X3p9AjHKDZEPrCJ4Nvf8PZsbHg7MmYOATb8Yn/HOgx1fxSny3orCG0BBECSfj8eO6M1UOkwQJQ3XegXKu1kXSM7sJXNvtoNzin0KDIagK2S09eDu/wSJN0/PkSa+BDoVbloG8NhULDKSp5qWJ99Zf9vwgxpiQv32C4eApYSwJVdf2Hst0VcCi9ZoekoPOUHn0py0tIZ/OWLwGaWnZhyXWSJhMx7uQWV+FrEtmi9n2HWTdztRj5raGDcDd/Gqwa+tryGFJ5EKeZcrpUVHbthwFvEOvRto+8slV2hEXtSIetPjE9eL04hwY6sDkioVfi7jLZ6Mjd4TeRfw9T0Ug+z9fBgvd3FNSSJuFTcd70XsU3PYYQKarCwx9MTtGFckx++R3KWOjdJ0cvLAftxtRAiu37vN69OHdaMxrzgZqVDJc/+hSYGwT5RBjt/XtsxOqF5LwN2WuVtowksSo6+0x5RTigedDGu0kpYR8Pxn2TDKTsLSB+I6um6uAP30dIy/ftejZpzMJK+W1mvM4ph2UOvD/EvKFqgP+g/CLy/4pvhTHM/BJlv2iMg/AKOqWv0DCLT5sopcT8FmYjuTgMwDt6hxnUcISVYk+ybauOC0KdLRz9lGW7cXA58m3yfUEJKj9R3XwiFKDJ6F13bri2t6iiXGDlPibMcb4F9KUjG4=
+api: eJytVMtu2zAQ/BViTy3AWk4a9KBTk9YFggZtkLTowfCBltYyE4lkyJXTVOC/F0tLfiWogaAnW+SSOzM7nA5IVQHyKTxafx+cKjDATEKJofDakbYGcrjBxq4wCFqi8PjQYiBtKtEG9GLhbZM2Kr1CIzbXjECCdegV33FZQg5XqFb4a9i/Vp50oZ0yBBKc8qpBQs9YOjCqQcjB+uqyBAmaQThFSzhE9t1Xyug/qYkwbYNeF0KXaEgvNHqQwHi1xxJy8i1KCMUSGwV5B/TkuIk2hFUqXVjfKFovfTiDGOUGyYbWETwbev8fzIyPB2dNwMAnTsdn/HOgx1fxTnyzorCG0BBECWfj8fO6C1UOkwQJQ3XegXKu1kXSM7sLXNvtoNzin0KDIagK2S09eDu/wyJN0/PkSa+BDoVbloG8NhULDKSp5qWJ99bf9PwgxpiQv3+B4eApYSwJVdf2Ect0VcCi9ZqekoMuUHn05y0tIZ/OWLwGaWnZhyXWSJhMx7uQWV+FrEtmi9n2HWTdztRj5raGDcDd/Gqwa+tryGFJ5EKeZcrpUVHbthwFfECvRto+88lt2hHXtSIetPjE9eL8+hIY6sDkloVfi7jLZ6Mjd4TeRfw9T0Ug+z9fBgvdPVJSSJuFTcd70XsU3PYYQKarCwx9MTtGFckx++R3KWOjdJ0cvLAftxtRAiu37nMyOhmfjsa86GygRiXH9a8uJcY2Ug5BdlvjvjqieiUJf1PmaqUNI0mUut4fU44hnng+xNFOVErI96NhzyUzCUsbiO/ourkK+NPXMfLyQ4uejTqTsFJeqznPY9pBqQP/LyFfqDrgPwi/uenf4ltxPARfZNkvKvMEjKJu+Qsk3OPTJns5Al+F6UgQvgLQrs5xFiUsUZXok2zrivOiQEc7Z5+F2V4OfJ5cTX5MQILaf1UHryg1eBFa160rfth7NDFukBJ/M8YY/wLOHYyT
 sidebar_class_name: "delete api-method"
-info_path: platform-api-docs/docs/seqera-api
+info_path: platform-api//seqera-api
 custom_edit_url: null
 ---
 
@@ -18,6 +18,7 @@ import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -31,7 +32,7 @@ import Heading from "@theme/Heading";
   path={"/orgs/{orgId}/workspaces/{workspaceId}/participants"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -42,30 +43,24 @@ Removes the requesting user from the given workspace.
   id={"request"}
   as={"h2"}
   className={"openapi-tabs__heading"}
-  children={"Request"}
 >
+  <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"path","description":"Workspace numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}
+  {...require("./leave-workspace-participant.ParamsDetails.json")}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
-  title={"Body"}
-  body={undefined}
+  {...require("./leave-workspace-participant.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
-  id={undefined}
-  label={undefined}
-  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+  {...require("./leave-workspace-participant.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      

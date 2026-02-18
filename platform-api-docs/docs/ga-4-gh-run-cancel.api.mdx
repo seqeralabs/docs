@@ -5,9 +5,9 @@ description: "Uses the GA4GH workflow execution service API to cancel the run as
 sidebar_label: "GA4GH: Cancel run"
 hide_title: true
 hide_table_of_contents: true
-api: eJy9VMFu2zgQ/RViTluAayVt9rA6bRKkadFDA6fFHgKjnUhjialEKuTQiiHo3xdDyXHSeFtgsagvpobDmTePj28AxipAfgMVnlQ1rDSUFApvOjbOQg6fAwXFNanL05PLd6p3/tu6cb2iByqi5KhAfmMKUqdX7xU7VaAtqElHfLQKQ3CFQaZS9YbrFK/Mhqz66qP9YsqvC9DgOvIo1d6XkMOlQFlGe55KgYYOPbbE5AXpABZbghym86DBCNAOuYbv0S+jVYG9sZUyJVk2a0MeNHi6j8ZTCTn7SBpCUVOLkA/A205qT4dgHFdTMgU+c+VWMgpnmSzLEruuMUUCnt0F6Ti8LOVu76hg0MCGGwlctB1vpdpyKgzjOI7SJnTOBgpy9vXRkfw9n+bjB9D/vX3nhWU2U4OZvAMT74Euo9zHhO7kEKAzLNXMzv+HrA3VAVgaAiPH8KVwJT3ZN5apSne6dr5FnkJvXj8b5G8KF947v5wpfpzpzQGSd1JU1rHCpnE9lalaS1w70Wfn0rxJcTlk6eVkPYVsc5z5aEM2TOyOWbFTsDySnXyjbyCHmrkLeZZhZxZF42K5CHRPHhfGvZDxddpRVw2yTKnOJV8eHIg+AxXRG95eC8ETh2eEnvxpFICPVElHmLUu37cpCfS8eLvj767nNK9c3HKv/YsHbDuhcxjlya1dKj0zPCMUSD8DP/tFmJNFNVgk1Twn5ikd1KJp0tWu3V/7jVGDsDr1OV78+cfiSGJyPy0m0c1WkcwrV5OhiC99j/LJs/5FljdfCtMDZ12DxgryxMAwK2vnyRp6CqBhcyzOFa2s80fzmyW20lCLLPMbGIZbDPTZN+Mo4ftIfgv5zUrDBr3BW7mwmwFKE2RdQr7GJtAPCPltOdvlK/VvhnpwmjmIdivosYnyBRq+0XZv3+Nq1FATluQTrGnzfGr++ycpsT/8wldGvTtxWhTU8Q9zV0/e8NXH608i/dnU2+Qq4LEXjrGfgLpExuSXEhugQVtFrCR3qim/fwDkbX41
+api: eJy9VMFu2zgQ/RViTluAayVpTjptEqRpsYcGToseAqOdSGOJqUQq5NCKIejfi6HkOGm8XaBYrC+mhsOZN4+PbwDGKkB+CxWeVjWsNJQUCm86Ns5CDp8DBcU1qauz06v3qnf++7pxvaJHKqLkqEB+YwpSZ9cfFDtVoC2oSUd8tApDcIVBplL1husUr8yGrPrmo/1qym8L0OA68ijVPpSQw5VAWUZ7kUqBhg49tsTkBekAFluCHKbzoMEI0A65hp/RL6NVgb2xlTIlWTZrQx40eHqIxlMJOftIGkJRU4uQD8DbTmpPh2AcV1MyBT535VYyCmeZLMsSu64xRQKe3QfpOLwu5e7uqWDQwIYbCVy2HW+l2nIqDOM4jtImdM4GCnL25OhI/l5O8/Fv0L/fvvPCMpupwUzegYn3QJdR7mNCd3oI0DmWambnv0PWhuoALA2BkWP4WriSnu0by1SlO1073yJPobcnLwb5QuHSe+eXM8VPM709QPJOiso6Vtg0rqcyVWuJayf67FyaNykuhyy9nKynkG2OMx9tyIaJ3TErdgqWR7KTb/QN5FAzdyHPMuzMomhcLBeBHsjjwrhXMr5JO+q6QZYp1YXky4MD0WegInrD2xsheOLwnNCTP4sC8Ikq6Qiz1uX7LiWBnhfvdvzd95zmlYtb7rV/+YhtJ3QOozy5tUulZ4ZnhALp38DPfhHmZFENFkk1L4l5Tge1aJp0tWv3135j1CCsTn2OF8dHJ4sjCcoFtZhUN3tFcq9cTY4ixvQzzGfv+n/yvPlWmB456xo0VpAnCoZZWjtT1tBTAA2bY7GuaGWdP7nfrLGVhlp0md/CMNxhoM++GUcJP0TyW8hvVxo26A3eyY3dDlCaIOsS8jU2gX5ByB/L2S/fqH9y1IPTzEG0W0GPTZQv0PCdtnv/HlejhpqwJJ9gTZsXU/M/P0mJ/eFXxjLq3YmzoqCOf5m7evaIrz/efBLtz67eJlsBj71wjP0E1CUyJsOU2AAN2ipiJblTTfn9AOnvflo=
 sidebar_class_name: "post api-method"
-info_path: platform-api-docs/docs/seqera-api
+info_path: platform-api//seqera-api
 custom_edit_url: null
 ---
 
@@ -18,6 +18,7 @@ import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -31,7 +32,7 @@ import Heading from "@theme/Heading";
   path={"/ga4gh/wes/v1/runs/{run_id}/cancel"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -42,30 +43,24 @@ Uses the GA4GH workflow execution service API to cancel the run associated with 
   id={"request"}
   as={"h2"}
   className={"openapi-tabs__heading"}
-  children={"Request"}
 >
+  <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"run_id","in":"path","description":"Run string identifier","required":true,"schema":{"type":"string"}}]}
+  {...require("./ga-4-gh-run-cancel.ParamsDetails.json")}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
-  title={"Body"}
-  body={{"content":{"application/json":{"schema":{"type":"object","title":"EmptyBodyRequest"}}}}}
+  {...require("./ga-4-gh-run-cancel.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
-  id={undefined}
-  label={undefined}
-  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"run_id":{"type":"string"}},"title":"RunId"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"type":"object","properties":{"msg":{"type":"string"},"status_code":{"type":"integer","format":"int32"}},"title":"WesErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+  {...require("./ga-4-gh-run-cancel.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      

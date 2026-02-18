@@ -5,9 +5,9 @@ description: "Lists the supported event types that trigger a pipeline action. Ap
 sidebar_label: "List action event types"
 hide_title: true
 hide_table_of_contents: true
-api: eJzNVcFu2zAM/RWBZyPptm7AfNnSoRuKDVixddihCFDGZhK1sqRKdLvA8L8PlO3EaYIWu+2UWKTI954f6QYYVxHya8CCtbMR5hmUFIugvTxDDt905Kh4TSrW3rvAVCp6IMuKN54kgqw46NWKgkLltSejLamu4ETNvCdbqpsPjy7cRY8FXZQ3ip0yOvJeJW0Vqm2WKpxl+sMTyMB5CijlLsoe0SxVv5J7kIHHgBUxBaHSgMWKIIdRQ8hAC5n7msIGnlL8ve1p64qCLpQuybJeagqQQSzWVCHkDQhOyEFbplUKLV2okLujd6fQtvMMAkXvbKQoN16fnMjPfr/vXyGDRM+yRNF7o4tEcHobJaU5bOoWt1SwkA0iB+uuQRKw02GXiyGg0NRMVXy5RnR1KGiUFzlou4I2g1JHb3BzPDYmdSROFheGylFs4ZwhtNC2GbBmI2fnAwFox8fykreh+KPXVHLaDE6PqXqGpQp0X1Pkf5FXruggMK+hohhxRTIEzys2JB7SHjMLwYUD5G+O+GGwt7KOFRrjHqlMpSIVddC8SbY+IwwUZjWvIb+ei9Uq4rWTkVhRwogSgmk/y1PuxyNSeBhmow4Gclgz+5hPp+j1pDCuLieR7ingRLuD6fiZIurSIIvd1SfJV7PLCxAIA8KfImgnzhjnVh/pOMxSskJKgqz/83kYpNtHTsy1Xbp0vRezRyFtXwIodHVBsU8WJ2CRnLBPfkyZKtQmzfHSfdwF2gxEua7Pq8n7t5MTOfMucoXJSP2uEbv2K2+8055ibXa+/C8Wa/9y5HHqDWor7JJKTe+m3Zehy05fiLWLLKGmWWCkX8G0rRx321VcVurYz/4STaRnVHhh9x4FeEebg/X+gKaWzGTKBwxa+qc5yWBNWFJIwLqrs6Igz6NbBytib7q+nF9BBrhv6CcGTtWH9Ws3o9pN02VcuTuybQsDfpZnaOdt2/4FqxKeuQ==
+api: eJzNVcFu2zAM/RWBZyPJumKHXLZ06IZiA1asHXYoApSxmUStLKkSnS4w/O8DZTtxmqDFbjslFinyvedHugbGVYTpHWDO2tkI8wwKinnQXp5hCt915Kh4TSpW3rvAVCjakGXFW08SQVYc9GpFQaHy2pPRllRbcKRm3pMt1P3HZxceo8ecrop7xU4ZHfmgkrYK1S5L5c4y/eERZOA8BZRyV0WHaJaq38o9yMBjwJKYglCpwWJJMIVBQ8hAC5mnisIWXlL8vetpq5KCzpUuyLJeagqQQczXVCJMaxCcMAVtmVYptHShRG6PPpxD08wzCBS9s5Gi3DibTOTnsN+Pb5BBomdZoui90XkiOH6IklIfN3WLB8pZyAaRg3XbIAnY6rDPxRBQaGqmMr5dI7oq5DTIixy0XUGTQaGjN7g9HRuSOhEniwtDxSC2cM4QWmiaDFizkbPLngA0w2N5ybtQ/NlpKjlNBuenVL3AQgV6qijyv8grV3QQmHdQUoy4IhmC1xXrE49pD5mF4MIR8vcn/NDbW1nHCo1xz1SkUpHyKmjeJltfEAYKs4rXML2bi9VK4rWTkVhRwogSgnE3y2PuxiNS2PSzUQUDU1gz+zgdj9HrUW5cVYwiPVHAkXZH03GTIuraIIvd1WfJV7PrKxAIPcIbEbQVZ4hzp4907GcpWSElQdb9+dIP0sMzJ+baLl263onZoZC2bwEUujqn2CWLEzBPTjgkP6RMJWqT5njpPu0DTQaiXNvn3ejd5Gw0kUPvIpeYnNQtG/Frt/OGS+0l2HpvzP9is3ZvRx7H3qC2wi7JVHd22n8a2uz0iVi7yBKq6wVG+hVM08hxu17FZoWO3fAv0UR6RYU3lu9JgI+0PdrvGzSVZCZXbjBo6Z8GJYM1YUEhAWuvzvKcPA9uHe2Ig/H6enkLGeCho184OFXv96/dDmrXdZtx6x7JNg30+FmeoZk3TfMX0F+e3g==
 sidebar_class_name: "get api-method"
-info_path: platform-api-docs/docs/seqera-api
+info_path: platform-api//seqera-api
 custom_edit_url: null
 ---
 
@@ -18,6 +18,7 @@ import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -31,7 +32,7 @@ import Heading from "@theme/Heading";
   path={"/actions/types"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -42,30 +43,24 @@ Lists the supported event types that trigger a pipeline action. Append `?workspa
   id={"request"}
   as={"h2"}
   className={"openapi-tabs__heading"}
-  children={"Request"}
 >
+  <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+  {...require("./list-action-types.ParamsDetails.json")}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
-  title={"Body"}
-  body={undefined}
+  {...require("./list-action-types.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
-  id={undefined}
-  label={undefined}
-  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"eventTypes":{"type":"array","items":{"type":"object","properties":{"source":{"type":"string"},"display":{"type":"string"},"description":{"type":"string"},"enabled":{"type":"boolean"}},"title":"EventType"}}},"title":"ListEventTypesResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+  {...require("./list-action-types.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      
