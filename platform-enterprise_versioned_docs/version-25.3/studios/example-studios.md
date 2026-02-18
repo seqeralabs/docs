@@ -9,7 +9,7 @@ tags: [environments, custom, studio, examples]
 
 Seqera provides a collection of example custom Studio environments for common bioinformatics and data science applications. Each example includes a Dockerfile and a pre-built container image you can deploy immediately or use as the basis for your own custom Studio.
 
-Any application that serves its interface over HTTP can run in Studios. All example Dockerfiles and pre-built images are available in the [custom-studios-examples](https://github.com/seqeralabs/custom-studios-examples) GitHub repository. For instructions on building your own custom container image from scratch, see [Custom environments](/platform-enterprise/studios/custom-envs).
+Any application that serves its interface over HTTP can run in Studios. All example Dockerfiles and pre-built images are available in the [custom-studios-examples](https://github.com/seqeralabs/custom-studios-examples) GitHub repository. For instructions on building your own custom container image from scratch, see [Custom environments][custom-envs].
 
 ## Available examples
 
@@ -27,9 +27,9 @@ Pre-built images may not reflect the latest version. See the [GitHub repository 
 
 ## Deploy an example Studio {#deploy}
 
-To deploy any example, follow the [Add a Studio](./add-studio) workflow, select **Custom container template**, and enter the image URI from the table above. For environment variables and detailed setup instructions, see the `README.md` in each example's directory.
+To deploy any example, follow the [Add a Studio][add-s] workflow, select **Custom container template**, and enter the image URI from the table above. For environment variables and detailed setup instructions, see the `README.md` in each example's directory.
 
-For more information about managing Studios, see [Manage Studios](./managing).
+For more information about managing Studios, see [Manage Studios][manage].
 
 ### Provide files to Studios {#provide-files}
 
@@ -101,3 +101,15 @@ Replace `<example-directory>` with the example folder name (such as `marimo` or 
 You can use these examples as a starting point for your own custom Studios. Any application that serves its graphical interface over an HTTP port can run in Studios. For detailed instructions on building custom container images, see [Custom environments](./custom-envs.md).
 
 To contribute new examples to the repository, see the [contributing guidelines](https://github.com/seqeralabs/custom-studios-examples#contributing) in the GitHub repository.
+
+{/* links */}
+[contribute]: https://github.com/seqeralabs/custom-studios-examples#contributing
+[fusion]: https://docs.seqera.io/fusion/
+[custom-container]: ./add-studio-custom-container
+[custom-container]: ./add-studio-custom-container
+[conda-syntax]: ./custom-envs#conda-package-syntax
+[custom-image]: ./custom-envs#custom-containers
+[containers]: ./add-studio-custom-container
+[manage]: ./managing
+[add-s]: ./add-studio
+[custom-envs]: ./custom-envs
