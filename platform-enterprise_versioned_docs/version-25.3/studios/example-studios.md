@@ -7,13 +7,11 @@ tags: [environments, custom, studio, examples]
 
 # Example custom Studios
 
-Seqera provides a collection of example custom Studio environments for common bioinformatics and data science applications. Each example includes a Dockerfile and a pre-built container image you can deploy immediately or use as the basis for your own custom Studio.
+Seqera provides a collection of example custom Studio environments for common bioinformatics and data science applications. Each example includes a Dockerfile and a pre-built container image you can deploy immediately or use as a template for your own custom Studio.
 
-Any application that serves its interface over HTTP can run in Studios. All example Dockerfiles and pre-built images are available in the [custom-studios-examples](https://github.com/seqeralabs/custom-studios-examples) GitHub repository. For instructions on building your own custom container image from scratch, see [Custom environments][custom-envs].
+Any application that serves its interface over HTTP can run in a Studio session. All example Dockerfiles and pre-built images are available in the [custom-studios-examples](https://github.com/seqeralabs/custom-studios-examples) GitHub repository. For instructions on building your own custom container image from scratch, see [Custom environments][custom-envs].
 
-## Available examples
-
-| Example | Description | Pre-built image |
+| GitHub repository | Description | Pre-built image URL |
 |---|---|---|
 | [Marimo](https://github.com/seqeralabs/custom-studios-examples/tree/master/marimo) | Reactive Python notebook | `ghcr.io/seqeralabs/custom-studios-examples/marimo` |
 | [Streamlit](https://github.com/seqeralabs/custom-studios-examples/tree/master/streamlit) | Interactive web apps (MultiQC demo) | `ghcr.io/seqeralabs/custom-studios-examples/streamlit` |
@@ -22,18 +20,18 @@ Any application that serves its interface over HTTP can run in Studios. All exam
 | [TTYD](https://github.com/seqeralabs/custom-studios-examples/tree/master/ttyd) | Web-based terminal with Samtools | `ghcr.io/seqeralabs/custom-studios-examples/ttyd` |
 
 :::note
-Pre-built images may not reflect the latest version. See the [GitHub repository releases](https://github.com/seqeralabs/custom-studios-examples/releases) for current image tags.
+Pre-built images may not reflect the latest version of the Seqera Connect client, system libraries, nor packages. See the [GitHub repository releases](https://github.com/seqeralabs/custom-studios-examples/releases) for current image tags.
 :::
 
 ## Deploy an example Studio {#deploy}
 
-To deploy any example, follow the [Add a Studio][add-s] workflow, select **Custom container template**, and enter the image URI from the table above. For environment variables and detailed setup instructions, see the `README.md` in each example's directory.
+To deploy any example, follow the [Add a Studio][add-s] workflow, select **Custom container template**, and enter the image URL from the table above. For environment variables and detailed setup instructions, see the `README.md` in each example's directory.
 
 For more information about managing Studios, see [Manage Studios][manage].
 
 ### Provide files to Studios {#provide-files}
 
-Studios uses [Fusion](https://docs.seqera.io/fusion/) to mount cloud storage as a local filesystem inside the Studio container. When you mount a cloud bucket, its contents are available at `/workspace/data/<bucket_name>/`.
+Studios uses [Fusion][fusion] to mount cloud storage as a local filesystem inside the Studio container. When you mount a cloud bucket, its contents are available at `/workspace/data/<bucket_name>/`.
 
 There are two approaches to make files available to your custom Studio:
 
@@ -43,42 +41,35 @@ Some examples define environment variables that accept cloud storage paths (such
 
 #### Data-links {#data-links}
 
-Data-links point to specific cloud storage paths. When you create a data-link, the linked directory appears in the running Studio at `/workspace/data/<data_link_name>/`. To create a data-link:
+Data-links point to specific cloud storage paths. When you create a data-link, the linked directory appears in the running Studio at `/workspace/data/<data_link_name>/`. Once you [Add data-links](../data/data-explorer#add-data-repository-links), applications that support a file browser or path input can then access data at `/workspace/data/<data_link_name>/`.
 
-1. Go to the **Data Explorer** tab.
-2. Select **Add data repository**.
-3. Select a provider.
-4. In **Data repository path**, enter the path to the directory you want to use in your Studio.
-5. Add a name in the **Name** field.
-6. Select **Add**.
+## Overview of example Studios
 
-Applications that support a file browser or path input can then access data at `/workspace/data/<data_link_name>/`.
-
-## Marimo
+### Marimo
 
 [Marimo](https://marimo.io/) is an open-source reactive Python notebook. Unlike traditional notebooks, Marimo automatically re-executes cells when their dependencies change, which makes it well-suited to iterative analysis where inputs change frequently. It also supports SQL natively and can publish notebooks as standalone shareable apps.
 
 The Marimo Studio uses the [uv](https://github.com/astral-sh/uv) package manager and comes pre-installed with common data science packages including scikit-learn, pandas, and altair. Access your pipeline outputs by mounting the relevant S3 buckets when you create the Studio, located at `/workspace/data/` inside the session.
 
-## Streamlit
+### Streamlit
 
 [Streamlit](https://streamlit.io/) is an open-source Python framework for building interactive web applications. Hosting a Streamlit app in Studios gives it direct access to your S3 data through Fusion. This means no credentials to configure, no data to move or copy.
 
 The example Studio ships with a [MultiQC](https://multiqc.info/) demo app that illustrates a typical bioinformatics use case: interactive quality control reports served directly from pipeline output stored in S3. The same pattern applies to any Streamlit app you want to host within your Seqera workspace.
 
-## CELLxGENE
+### CELLxGENE
 
 [CELLxGENE](https://chanzuckerberg.github.io/cellxgene/) is an interactive visualization tool for single-cell and spatial omics data. It supports exploration, analysis, and annotation of single-cell datasets in `.h5ad` format.
 
 The CELLxGENE Studio loads a dataset directly from S3 on startup using environment variables you set when creating the Studio. A default public dataset (PBMCs 3k) is pre-configured so you can verify the Studio is working before connecting your own data.
 
-## Shiny
+### Shiny
 
-[Shiny](https://shiny.posit.co/) is a popular framework for building interactive web applications from R or Python. The example Studio runs a demonstration R Shiny app that generates plots and output tables from CSV input data stored in S3.
+[Shiny](https://shiny.posit.co/) is a popular framework for building interactive web applications in R or Python. The example Studio runs a demonstration R Shiny app that generates plots and output tables from CSV input data stored in S3.
 
 Running Shiny in Studios means your app runs inside your own cloud infrastructure, with access to pipeline outputs through Fusion. Each user who connects to the Studio gets their own private session, making it suitable for sharing results with colleagues who need to interact with the data directly rather than view a static report.
 
-## TTYD
+### TTYD
 
 [TTYD](https://tsl0922.github.io/ttyd/) is a web-based terminal emulator. The example Studio provides browser-based terminal access to a container with [Samtools](http://www.htslib.org/) pre-installed — useful when you need command-line access to a specific bioinformatics tool without the overhead of a full IDE.
 
@@ -100,12 +91,11 @@ Replace `<example-directory>` with the example folder name (such as `marimo` or 
 
 You can use these examples as a starting point for your own custom Studios. Any application that serves its graphical interface over an HTTP port can run in Studios. For detailed instructions on building custom container images, see [Custom environments](./custom-envs.md).
 
-To contribute new examples to the repository, see the [contributing guidelines](https://github.com/seqeralabs/custom-studios-examples#contributing) in the GitHub repository.
+To contribute new examples to the repository, see the [contributing guidelines][contribute] in the GitHub repository.
 
 {/* links */}
 [contribute]: https://github.com/seqeralabs/custom-studios-examples#contributing
 [fusion]: https://docs.seqera.io/fusion/
-[custom-container]: ./add-studio-custom-container
 [custom-container]: ./add-studio-custom-container
 [conda-syntax]: ./custom-envs#conda-package-syntax
 [custom-image]: ./custom-envs#custom-containers
