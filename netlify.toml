@@ -2,6 +2,9 @@
   function = "og-generate.png"
   path = "/og-generate.png"
 
+[build]
+  trailingSlash = true
+
 [build.environment]
   NODE_VERSION = "22"
   NODE_OPTIONS = "--max-old-space-size=4096"
@@ -15,22 +18,25 @@
 
 [context.deploy-preview.build.environment]
   INCLUDE_NEXT="true"
+  EXCLUDE_CHANGELOG="true"
+  EXCLUDE_PLATFORM_ENTERPRISE="true"
+  EXCLUDE_PLATFORM_CLOUD="true"
+  EXCLUDE_PLATFORM_API="false"
+  EXCLUDE_PLATFORM_CLI="true"
+  EXCLUDE_PLATFORM_OPENAPI="false"
+  EXCLUDE_MULTIQC="true"
+  EXCLUDE_FUSION="true"
+  EXCLUDE_WAVE="true"
 
-# Seqera API docs are too large to host / build on netlify on their own.
-# The appropriate ENVVAR is set to disable the API Builds on Netlify for the main docs site.
-[[redirects]]
-  from = "/platform-api/*"
-  to = "https://seqera-docs-api.netlify.app/platform-api/:splat"
-  status = 200
+# Asset and image routing handled by Edge Function
+# See .netlify/edge-functions/asset-proxy.js
+[[edge_functions]]
+  function = "asset-proxy"
+  path = "/assets/*"
 
-
-# Redirect missing assets (so that we don't lose CSS on the API docs)
-# NB: Force is not true, so will use local if available
-[[redirects]]
-  from = "/assets/*"
-  to = "https://seqera-docs-api.netlify.app/assets/:splat"
-  status = 200
-
+[[edge_functions]]
+  function = "asset-proxy"
+  path = "/img/*"
 
 [[plugins]]
   package = "netlify-plugin-cache"
@@ -39,3 +45,13 @@
       "node_modules/.cache",
       ".docusaurus"
     ]
+
+[[redirects]]
+  from = "/platform-api/*"
+  to = "https://seqera-docs-api.netlify.app/platform-api/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/nextflow/*"
+  to = "https://docs-migration.netlify.app/nextflow/:splat"
+  status = 200

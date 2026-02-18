@@ -29,7 +29,7 @@ spec:
         #    secretName: platform-oidc-certs
       containers:
         - name: backend
-          image: cr.seqera.io/private/nf-tower-enterprise/backend:v25.3.1
+          image: cr.seqera.io/private/nf-tower-enterprise/backend:v25.3.3
           envFrom:
             - configMapRef:
                 name: tower-backend-cfg
@@ -51,9 +51,9 @@ spec:
           resources:
             requests:
               cpu: "1"
-              memory: "1200Mi"
+              memory: "4000Mi"
             limits:
-              memory: "4200Mi"
+              memory: "4000Mi"
           readinessProbe:
             httpGet:
               path: /health
@@ -88,7 +88,7 @@ spec:
         - name: "cr.seqera.io"
       containers:
         - name: frontend
-          image: cr.seqera.io/private/nf-tower-enterprise/frontend:v25.3.1
+          image: cr.seqera.io/private/nf-tower-enterprise/frontend:v25.3.3
           ports:
             - containerPort: 80
       restartPolicy: Always

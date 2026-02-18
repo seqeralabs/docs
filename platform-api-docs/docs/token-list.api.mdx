@@ -5,9 +5,9 @@ description: "Retrieves the list of all available API access tokens."
 sidebar_label: "List tokens"
 hide_title: true
 hide_table_of_contents: true
-api: eJydVE1PG0EM/SurOadJaKFSORUQrVCRivg4oRycXScZmJ1ZPN5AtMp/rz27CZuAWtRTNvaz/Ww/T2MY5tEc3xsOj+ijmQxMgTEnW7EN3hyba2SyuMSY8QIzZyNnYZaBcxkswTqYOsxOri4yyHOMAkpphmZgQoUEmuSikDS3ar+UaPEQxir4iFK3MZ/HY/3ZLfr7l8Dy4Bk9qxeqytk8ZRs9RIU0JuYLLEG/eFWhBIXpA+aavyKtzbYt0DX2igMiWAnMMpbJTvhUW8JCx+ChRB3C33NOIdr8pOZFL22UOfm50flVhEJWEzLVuJZSRQ9opa05kiBngUrg1vT1UAy+dmmi28BER0JLeLlEP9eCR+OBKa3f/D0Y7BGQKAeR7yIW77Hb1iyE4Se2kl8i9M8ZYUv6Y0ESxZaVqzlJu08rFnvPoQvvOeN1t3lFCezwvd2fQpHpRjBp5cMi6C+xlIIw/8AeN8A3LfebOCcK9Ib5l3dUu1F85gPriYRn4aPwiHlNlldCrjGnCITUqud+shaSJfIi6JXMMXEEdZlRp1wNpyVSTNE1OfEtmKt4PBpBZYe5C3UxjPgk1Yc2mP0Lvkme7MoB6x6zM8XrzRqtvaF2o5Nsp9InuB2MVlQqCSb/pwkklvbjx0YhD8+cWrZ+FlJ4N8WOhZb9F0Ft14poOrBKAPIkgd3m+y2LCqxLlzQL318dQkQn19Y5GH47Go7VVoXIJSQFtReWlJptB77Dr3kV4f+/ht0UGV94VDmwXmmkdppu3/0neCH81NI08tLgHbn1Ws1yFKQaks8lkG1fCpGQBCAUsg0VyCOuupOsVExLcHV69favZ0d4P89vBQu7K99bccq+eUP9qpdbaCZEOnKhOuhIcPsiTORk/gBErTIE
+api: eJydVE1v2zAM/SsGz1qSdt0OPq0tuqFYgRX9OAU5MDaTqJUlV6LTBob++0DZSZ206Iqd4pAU+cj3yBYYlwHyKbB7JBtgpqCkUHhds3YWcrgh9prWFDJeUWZ04MwtMjQmwzVqg3ND2en1ZYZFQSFkXZoRKHA1eZQklyXkcCf2Kx0YFHgKtbOBAuQtHE8m8rNf9M9vUFA4y2RZvFjXRhcp2/ghSEgLoVhRhfLFm5ogBzd/oELy115qs+4K9I29xqH3uAEFmqlKdk9PjfZUyhgsViRD+DjnHIMuThteDdIG9touQeZXeyqQJSH7hqICXQ4CtWVakgcFC+cr5M70/QQU2Makie4eJjh5CxW+XJFdSsFvEwWVttu/R+oAQFRgMPB9oPI9dLuaJTJ9YV2RvJA/55460J97FBWwZsEKp4n7RDHEoUMIHzjDTc+8REUFJ+9xf4ZlJoxQ0sqnRTAksaIQcPkJHreBb1oeNnHhvfNvkH99R7VbxWfWsayIe6YypQpUNF7zBvJpC2eEnnynnukszhRUxCsnW7KkhBHFBeNeufLcr8mH9LrxBnJYMdchH4+x1qPCuKYcBXoijyPt4HCDb5MnuzbIwmN2LvGysyC1t9BuZZLdVIYAd4ORigIlhUEO8xQEqv/4uVXIwzOnlrVduPS8n2KPQsr+C6C0qwsKfbBIAIskgf3mhy1ThdqkTVq4H6+OqEAm19U5Gh1NjkcTMdYucIVJQt2KJalmu4nvAWxfVfj/57AfI9MLj2uD2gqM1E/bEz68wSsXWCxtO8dA997EKOanhryIaKZgjV53p2I6iwpWhCX5pJBH2vQ7WYua1miadPYO12dPeb8u7kAB7nN+wHHKvj2idjPI3bZdRNryGEH1ILg7CbMY418tbjIp
 sidebar_class_name: "get api-method"
-info_path: platform-api-docs/docs/seqera-api
+info_path: platform-api//seqera-api
 custom_edit_url: null
 ---
 
@@ -18,6 +18,7 @@ import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -31,7 +32,7 @@ import Heading from "@theme/Heading";
   path={"/tokens"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -41,23 +42,17 @@ Retrieves the list of all available API access tokens.
 <ParamsDetails
   parameters={undefined}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
-  title={"Body"}
-  body={undefined}
+  {...require("./token-list.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
-  id={undefined}
-  label={undefined}
-  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"tokens":{"type":"array","items":{"required":["name"],"type":"object","properties":{"basicAuth":{"type":"string","deprecated":true},"id":{"type":"integer","format":"int64","nullable":true},"name":{"maxLength":50,"minLength":1,"type":"string"},"lastUsed":{"type":"string","format":"date-time"},"dateCreated":{"type":"string","format":"date-time"}},"title":"AccessToken"}}},"title":"ListAccessTokensResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+  {...require("./token-list.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      

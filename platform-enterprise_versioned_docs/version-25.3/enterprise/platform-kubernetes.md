@@ -17,7 +17,7 @@ Other than the basic requirements [already listed in the Platform installation o
 
 | Component | CPU | Memory |
 | :-------- | :-- | :----- |
-| Backend pod | 1 core | 1200 Mi request, 4200 Mi limit |
+| Backend pod | 1 core | 4000 Mi request and limit |
 
 ## Container images
 
@@ -119,7 +119,7 @@ spec:
   ...
       containers:
         - name: frontend
-          image: cr.seqera.io/private/nf-tower-enterprise/frontend:v25.3.0-unprivileged
+          image: cr.seqera.io/private/nf-tower-enterprise/frontend:v25.3.3-unprivileged
           env:
             - name: NGINX_LISTEN_PORT  # If not defined, defaults to 8000.
               value: 8000

@@ -1,0 +1,1 @@
+{"title":"Body","body":{"content":{"application/json":{"schema":{"type":"object","properties":{"name":{"type":"string","description":"New checkpoint name. Must be unique per Studio. Spaces are automatically converted to underscores."}},"title":"DataStudioCheckpointUpdateRequest"}}},"required":true,"description":"Checkpoint update request for modifying the checkpoint name."}}

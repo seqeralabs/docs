@@ -1,0 +1,1 @@
+{"parameters":[{"name":"page_size","in":"query","description":"Page size","schema":{"type":"integer","format":"int32"}},{"name":"page_token","in":"query","description":"Page token","schema":{"type":"string"}}]}

@@ -1,0 +1,1 @@
+{"parameters":[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier. If omitted, validates compute environment name in a user context.","schema":{"type":"integer","format":"int64"}},{"name":"name","in":"query","description":"Compute environment name to validate for uniqueness and format.","schema":{"type":"string"}}]}

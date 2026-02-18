@@ -1,0 +1,1 @@
+{"title":"Body","body":{"description":"Trace create request","content":{"application/json":{"schema":{"type":"object","properties":{"launchId":{"type":"string","deprecated":true},"sessionId":{"type":"string"},"runName":{"type":"string"},"projectName":{"type":"string"},"repository":{"type":"string"},"workflowId":{"type":"string"}},"title":"TraceCreateRequest"}}},"required":true}}
