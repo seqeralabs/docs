@@ -293,6 +293,16 @@ jobs:
           # Clean up
           rm -f validation-output.txt
 
+      - name: Update info page version
+        run: |
+          INFO_PAGE="platform-api-docs/docs/info/seqera-api.info.mdx"
+
+          # Update the version badge in the info page
+          sed -i.bak 's/children={"Version: [0-9.]*"}/children={"Version: ${{ steps.version.outputs.api_version }}"}/' "$INFO_PAGE"
+          rm -f "${INFO_PAGE}.bak"
+
+          echo "✅ Updated info page version to ${{ steps.version.outputs.api_version }}"
+
       - name: Generate parameter tables
         run: |
           cd platform-api-docs/scripts
