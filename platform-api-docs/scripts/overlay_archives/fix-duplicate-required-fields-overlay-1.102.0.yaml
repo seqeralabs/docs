@@ -1,0 +1,126 @@
+overlay: 1.0.0
+info:
+  title: Fix duplicate required fields overlay
+  version: 1.102.0
+actions:
+  # ===== FIX DUPLICATE REQUIRED FIELDS =====
+
+  # These duplicate required fields exist in the base spec
+  # We use the "remove first, then update" pattern to fix them
+
+  # ---- AwsBatchConfig ----
+
+  - target: "$.components.schemas.AwsBatchConfig.required"
+    remove: true
+
+  - target: "$.components.schemas.AwsBatchConfig"
+    update:
+      required: ["region", "workDir"]
+
+  # ---- AwsCloudConfig ----
+
+  - target: "$.components.schemas.AwsCloudConfig.required"
+    remove: true
+
+  - target: "$.components.schemas.AwsCloudConfig"
+    update:
+      required: ["region", "workDir"]
+
+  # ---- AzBatchConfig ----
+
+  - target: "$.components.schemas.AzBatchConfig.required"
+    remove: true
+
+  - target: "$.components.schemas.AzBatchConfig"
+    update:
+      required: ["region", "workDir"]
+
+  # ---- AzCloudConfig ----
+
+  - target: "$.components.schemas.AzCloudConfig.required"
+    remove: true
+
+  - target: "$.components.schemas.AzCloudConfig"
+    update:
+      required: ["location", "workDir"]
+
+  # ---- ConfigEnvVariable ----
+
+  - target: "$.components.schemas.ConfigEnvVariable.required"
+    remove: true
+
+  - target: "$.components.schemas.ConfigEnvVariable"
+    update:
+      required: ["name", "value"]
+
+  # ---- CreateComputeEnvRequest ----
+
+  - target: "$.components.schemas.CreateComputeEnvRequest.required"
+    remove: true
+
+  - target: "$.components.schemas.CreateComputeEnvRequest"
+    update:
+      required: ["computeEnv"]
+
+  # ---- GkeComputeConfig ----
+
+  - target: "$.components.schemas.GkeComputeConfig.required"
+    remove: true
+
+  - target: "$.components.schemas.GkeComputeConfig"
+    update:
+      required: ["region", "clusterName", "workDir"]
+
+  # ---- GoogleBatchConfig ----
+
+  - target: "$.components.schemas.GoogleBatchConfig.required"
+    remove: true
+
+  - target: "$.components.schemas.GoogleBatchConfig"
+    update:
+      required: ["location", "workDir"]
+
+  # ---- GoogleCloudConfig ----
+
+  - target: "$.components.schemas.GoogleCloudConfig.required"
+    remove: true
+
+  - target: "$.components.schemas.GoogleCloudConfig"
+    update:
+      required: ["region", "workDir"]
+
+  # ---- K8sComputeConfig ----
+
+  - target: "$.components.schemas.K8sComputeConfig.required"
+    remove: true
+
+  - target: "$.components.schemas.K8sComputeConfig"
+    update:
+      required: ["server", "sslCert", "workDir"]
+
+  # ---- SeqeraComputeConfig ----
+
+  - target: "$.components.schemas.SeqeraComputeConfig.required"
+    remove: true
+
+  - target: "$.components.schemas.SeqeraComputeConfig"
+    update:
+      required: ["region", "workDir"]
+
+  # ---- ComputeEnv_ComputeConfig_ ----
+
+  - target: "$.components.schemas.ComputeEnv_ComputeConfig_.required"
+    remove: true
+
+  - target: "$.components.schemas.ComputeEnv_ComputeConfig_"
+    update:
+      required: ["config", "name", "platform"]
+
+  # ---- EksComputeConfig ----
+
+  - target: "$.components.schemas.EksComputeConfig.required"
+    remove: true
+
+  - target: "$.components.schemas.EksComputeConfig"
+    update:
+      required: ["region", "clusterName", "workDir"]
