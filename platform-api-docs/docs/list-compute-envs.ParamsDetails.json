@@ -1,0 +1,1 @@
+{"parameters":[{"name":"status","in":"query","description":"Filter by compute environment status.","schema":{"type":"string","enum":["CREATING","AVAILABLE","ERRORED","INVALID"]}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier. If omitted, lists compute environments in a user context.","schema":{"type":"integer","format":"int64"}}]}

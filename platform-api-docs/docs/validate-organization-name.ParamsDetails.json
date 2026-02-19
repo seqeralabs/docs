@@ -1,0 +1,1 @@
+{"parameters":[{"name":"name","in":"query","description":"The organization name to validate for availability and format compliance.","schema":{"type":"string"}}]}

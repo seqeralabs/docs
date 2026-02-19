@@ -208,6 +208,15 @@ If VS Code fails to connect or shows errors when using the Remote SSH extension,
 
 VS Code's local server mode uses SSH multiplexing over SOCKS proxy, which is not supported. See [Connect to a Studio via SSH - VS Code Remote SSH](../studios/managing#vs-code-remote-ssh) for detailed setup instructions.
 
+Additionally, you may need to update your `~/.ssh/config` file to directly connect to the Studio session:
+
+```bash
+Host <connect-domain>
+  HostName <connect-domain>
+  User <username>@<studio-session-id>
+  Port <port>
+```
+
 ### SSH connection string format
 
 **Correct format:**

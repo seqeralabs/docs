@@ -3,7 +3,8 @@
   "use_collection_alias": true,
   "clean_old_collections": true,
   "start_urls": [
-    "https://docs.seqera.io/"
+    "https://docs.seqera.io/",
+    "https://docs.seqera.io/nextflow/"
   ],
   "sitemap_urls": [
     "https://docs.seqera.io/sitemap.xml"
