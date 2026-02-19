@@ -1,0 +1,158 @@
+overlay: 1.0.0
+info:
+  title: Pipeline versions schemas overlay
+  version: 1.109.0
+actions:
+  # ===== PIPELINE VERSIONS SCHEMAS =====
+
+  # ---- CreatePipelineVersionRequest ----
+
+  - target: "$.components.schemas.CreatePipelineVersionRequest.properties.name"
+    update:
+      type: string
+      description: "Pipeline version name. Maximum 255 characters."
+
+  # ---- ListPipelineVersionsResponse ----
+
+  - target: "$.components.schemas.ListPipelineVersionsResponse.properties.versions"
+    update:
+      type: array
+      items:
+        $ref: "#/components/schemas/PipelineDbDto"
+      description: "Array of pipeline versions."
+
+  - target: "$.components.schemas.ListPipelineVersionsResponse.properties.totalSize"
+    update:
+      type: integer
+      format: int64
+      description: "Total number of pipeline versions available."
+
+  # ---- PipelineVersionFullInfoDto ----
+
+  - target: "$.components.schemas.PipelineVersionFullInfoDto.properties.id"
+    update:
+      type: string
+      description: "Pipeline version string identifier (launch ID)."
+
+  - target: "$.components.schemas.PipelineVersionFullInfoDto.properties.creatorUserId"
+    update:
+      type: integer
+      format: int64
+      description: "User numeric identifier of the user who created this version."
+
+  - target: "$.components.schemas.PipelineVersionFullInfoDto.properties.creatorUserName"
+    update:
+      type: string
+      description: "Username of the user who created this version."
+
+  - target: "$.components.schemas.PipelineVersionFullInfoDto.properties.creatorFirstName"
+    update:
+      type: string
+      description: "First name of the user who created this version."
+
+  - target: "$.components.schemas.PipelineVersionFullInfoDto.properties.creatorLastName"
+    update:
+      type: string
+      description: "Last name of the user who created this version."
+
+  - target: "$.components.schemas.PipelineVersionFullInfoDto.properties.creatorAvatarUrl"
+    update:
+      type: string
+      description: "Avatar URL of the user who created this version."
+
+  - target: "$.components.schemas.PipelineVersionFullInfoDto.properties.name"
+    update:
+      type: string
+      description: "Pipeline version name."
+
+  - target: "$.components.schemas.PipelineVersionFullInfoDto.properties.dateCreated"
+    update:
+      type: string
+      format: date-time
+      description: "Date and time the version was created, in ISO 8601 format."
+
+  - target: "$.components.schemas.PipelineVersionFullInfoDto.properties.lastUpdated"
+    update:
+      type: string
+      format: date-time
+      description: "Date and time the version was last updated, in ISO 8601 format."
+
+  - target: "$.components.schemas.PipelineVersionFullInfoDto.properties.hash"
+    update:
+      type: string
+      description: "Git commit hash for this pipeline version."
+
+  - target: "$.components.schemas.PipelineVersionFullInfoDto.properties.isDefault"
+    update:
+      type: boolean
+      description: "Whether this version is set as the default version for the pipeline."
+
+  # ---- PipelineVersionManageRequest ----
+
+  - target: "$.components.schemas.PipelineVersionManageRequest.properties.name"
+    update:
+      type: string
+      description: "New name for the pipeline version. Maximum 255 characters. Cannot be changed if the version is referenced by workflow runs."
+
+  - target: "$.components.schemas.PipelineVersionManageRequest.properties.isDefault"
+    update:
+      type: boolean
+      description: "Whether to set this version as the default. Setting to `true` automatically unsets any previously default version."
+
+  # ---- PipelineMinInfoResponse ----
+
+  - target: "$.components.schemas.PipelineMinInfoResponse.properties.id"
+    update:
+      type: integer
+      format: int64
+      description: "Pipeline numeric identifier."
+
+  - target: "$.components.schemas.PipelineMinInfoResponse.properties.workspaceId"
+    update:
+      type: integer
+      format: int64
+      description: "Workspace numeric identifier where the pipeline is located."
+
+  - target: "$.components.schemas.PipelineMinInfoResponse.properties.version"
+    update:
+      $ref: "#/components/schemas/PipelineMinInfoResponse.PipelineVersionMinInfoResponse"
+      description: "Pipeline version information."
+
+  # ---- PipelineMinInfoResponse.PipelineVersionMinInfoResponse ----
+
+  - target: "$.components.schemas['PipelineMinInfoResponse.PipelineVersionMinInfoResponse'].properties.id"
+    update:
+      type: string
+      description: "Pipeline version string identifier."
+
+  - target: "$.components.schemas['PipelineMinInfoResponse.PipelineVersionMinInfoResponse'].properties.name"
+    update:
+      type: string
+      description: "Pipeline version name."
+
+  - target: "$.components.schemas['PipelineMinInfoResponse.PipelineVersionMinInfoResponse'].properties.dateCreated"
+    update:
+      type: string
+      format: date-time
+      description: "Date and time the version was created, in ISO 8601 format."
+
+  - target: "$.components.schemas['PipelineMinInfoResponse.PipelineVersionMinInfoResponse'].properties.lastUpdated"
+    update:
+      type: string
+      format: date-time
+      description: "Date and time the version was last updated, in ISO 8601 format."
+
+  - target: "$.components.schemas['PipelineMinInfoResponse.PipelineVersionMinInfoResponse'].properties.hash"
+    update:
+      type: string
+      description: "Git commit hash for this version."
+
+  - target: "$.components.schemas['PipelineMinInfoResponse.PipelineVersionMinInfoResponse'].properties.isDefault"
+    update:
+      type: boolean
+      description: "Whether this version is the default version."
+
+  - target: "$.components.schemas['PipelineMinInfoResponse.PipelineVersionMinInfoResponse'].properties.isDraftVersion"
+    update:
+      type: boolean
+      description: "Whether this version is a draft (unpublished) version."

@@ -1,0 +1,101 @@
+overlay: 1.0.0
+info:
+  title: SSH keys schemas overlay
+  version: 1.109.0
+actions:
+  # ===== SSH KEYS SCHEMAS =====
+
+  # ---- CreateSshKeyRequest ----
+
+  - target: "$.components.schemas.CreateSshKeyRequest.properties.name"
+    update:
+      type: string
+      required: true
+      description: "SSH key name. Maximum 255 characters."
+
+  - target: "$.components.schemas.CreateSshKeyRequest.properties.publicKey"
+    update:
+      type: string
+      required: true
+      description: "SSH public key content in OpenSSH format (e.g., `ssh-rsa`, `ssh-ed25519`)."
+
+  # ---- CreateSshKeyResponse ----
+
+  - target: "$.components.schemas.CreateSshKeyResponse.properties.sshKey"
+    update:
+      $ref: "#/components/schemas/UserSshPublicKeyDto"
+      description: "The created SSH key details."
+
+  # ---- DescribeSshKeyResponse ----
+
+  - target: "$.components.schemas.DescribeSshKeyResponse.properties.sshKey"
+    update:
+      $ref: "#/components/schemas/UserSshPublicKeyDto"
+      description: "SSH key details."
+
+  # ---- ListSshKeysResponse ----
+
+  - target: "$.components.schemas.ListSshKeysResponse.properties.sshKeys"
+    update:
+      type: array
+      items:
+        $ref: "#/components/schemas/UserSshPublicKeyDto"
+      description: "Array of SSH keys configured for the authenticated user."
+
+  # ---- UserSshPublicKeyDto ----
+
+  - target: "$.components.schemas.UserSshPublicKeyDto.properties.id"
+    update:
+      type: integer
+      format: int64
+      description: "SSH key numeric identifier."
+
+  - target: "$.components.schemas.UserSshPublicKeyDto.properties.name"
+    update:
+      type: string
+      description: "SSH key name."
+
+  - target: "$.components.schemas.UserSshPublicKeyDto.properties.publicKey"
+    update:
+      type: string
+      description: "SSH public key content in OpenSSH format."
+
+  - target: "$.components.schemas.UserSshPublicKeyDto.properties.dateCreated"
+    update:
+      type: string
+      format: date-time
+      description: "Date and time the SSH key was created, in ISO 8601 format."
+
+  - target: "$.components.schemas.UserSshPublicKeyDto.properties.lastUsed"
+    update:
+      type: string
+      format: date-time
+      description: "Date and time the SSH key was last used for authentication, in ISO 8601 format. Can be `null` if never used."
+
+  # ---- StudioSshDetailsDto ----
+
+  - target: "$.components.schemas.StudioSshDetailsDto.properties.host"
+    update:
+      type: string
+      required: true
+      description: "Hostname or IP address to connect to the Studio via SSH."
+
+  - target: "$.components.schemas.StudioSshDetailsDto.properties.port"
+    update:
+      type: integer
+      format: int32
+      required: true
+      description: "SSH port number for the connection."
+
+  - target: "$.components.schemas.StudioSshDetailsDto.properties.user"
+    update:
+      type: string
+      required: true
+      description: "SSH username in the format `username@sessionId`."
+
+  - target: "$.components.schemas.StudioSshDetailsDto.properties.command"
+    update:
+      type: string
+      required: true
+      description: "Complete SSH command to connect to the Data Studio session."
+      example: "ssh username@sessionId@host -p port"

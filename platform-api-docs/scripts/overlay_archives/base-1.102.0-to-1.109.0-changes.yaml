@@ -1,0 +1,914 @@
+overlay: 1.0.0
+x-speakeasy-jsonpath: rfc9535
+info:
+  title: Overlay seqera-api-1.102.0.yaml => seqera-api-1.109.0.yaml
+  version: 0.0.0
+actions:
+  - target: $["info"]["version"]
+    update: 1.109.0
+  - target: $["paths"]
+    update:
+      /credentials/{credentialsId}/keys:
+        get:
+          tags:
+            - credentials
+          summary: Get encrypted credentials
+          description: Retrieves the encrypted keys for the credentials identified by the given `credentialsId`.
+          operationId: GetEncryptedCredentials
+          parameters:
+            - name: credentialsId
+              in: path
+              description: Credentials string identifier
+              required: true
+              schema:
+                type: string
+            - name: workspaceId
+              in: query
+              description: Workspace numeric identifier
+              schema:
+                type: integer
+                format: int64
+            - name: pairingId
+              in: query
+              description: Encryption key string identifier
+              schema:
+                type: string
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/GetCredentialsKeysResponse"
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+          security:
+            - BearerAuth: []
+  - target: $["paths"]["/launch/{launchId}/datasets"]["get"]["responses"]["200"]["content"]["application/json"]["schema"]["$ref"]
+    update: "#/components/schemas/ListDatasetVersionsResponse"
+  - target: $["paths"]
+    update:
+      /orgs/{orgId}/workspaces/{workspaceId}/users/{userId}:
+        delete:
+          tags:
+            - workspaces
+          summary: Delete workspace user
+          description: Deletes the given user (member or collaborator) from the given workspace.
+          operationId: DeleteWorkspaceUser
+          parameters:
+            - name: orgId
+              in: path
+              description: Organization numeric identifier
+              required: true
+              schema:
+                type: integer
+                format: int64
+            - name: workspaceId
+              in: path
+              description: Workspace numeric identifier
+              required: true
+              schema:
+                type: integer
+                format: int64
+            - name: userId
+              in: path
+              description: User numeric identifier
+              required: true
+              schema:
+                type: integer
+                format: int64
+          responses:
+            "204":
+              description: OK - No content
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+          security:
+            - BearerAuth: []
+  - target: $["paths"]
+    update:
+      /pipeline-schemas:
+        post:
+          tags:
+            - pipeline-schemas
+          summary: Create pipeline schema
+          description: Creates a new pipeline schema in a user context. Append `?workspaceId` to create the schema in a workspace context.
+          operationId: CreatePipelineSchema
+          parameters:
+            - name: workspaceId
+              in: query
+              description: Workspace numeric identifier
+              schema:
+                type: integer
+                format: int64
+          requestBody:
+            description: Pipeline schema creation request
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/CreatePipelineSchemaRequest"
+            required: true
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/CreatePipelineSchemaResponse"
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+          security:
+            - BearerAuth: []
+  - target: $["paths"]["/pipelines/{pipelineId}"]["put"]["summary"]
+    update: Update pipeline (default version)
+  - target: $["paths"]["/pipelines/{pipelineId}/launch"]["get"]["parameters"]
+    update:
+      - name: versionId
+        in: query
+        description: Pipeline version identifier
+        required: false
+        schema:
+          type: string
+  - target: $["paths"]["/pipelines/{pipelineId}/schema"]["get"]["parameters"]
+    update:
+      - name: versionId
+        in: query
+        description: Pipeline version identifier
+        required: false
+        schema:
+          type: string
+  - target: $["paths"]
+    update:
+      /pipelines/{pipelineId}/versions:
+        get:
+          tags:
+            - pipeline-versions
+          summary: List pipeline versions
+          description: Lists all available pipeline versions in a user context. Append `workspaceId` to list pipeline versions in a workspace context.
+          operationId: ListPipelineVersions
+          parameters:
+            - name: pipelineId
+              in: path
+              description: Pipeline numeric identifier
+              required: true
+              schema:
+                type: integer
+                format: int64
+            - name: workspaceId
+              in: query
+              description: Workspace numeric identifier
+              schema:
+                type: integer
+                format: int64
+            - name: max
+              in: query
+              description: Pagination max results
+              schema:
+                type: integer
+                format: int32
+            - name: offset
+              in: query
+              description: Pagination offset
+              schema:
+                type: integer
+                format: int32
+            - name: search
+              in: query
+              description: Filter search parameter
+              schema:
+                type: string
+            - name: isPublished
+              in: query
+              description: "Set to true to retrieve published versions, false to fetch draft versions"
+              schema:
+                type: boolean
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ListPipelineVersionsResponse"
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+          security:
+            - BearerAuth: []
+  - target: $["paths"]
+    update:
+      /pipelines/{pipelineId}/versions/validate:
+        get:
+          tags:
+            - pipeline-versions
+          summary: Validate pipeline version name
+          description: Confirms the validity of the given pipeline version `name` in a user context.
+          operationId: ValidatePipelineVersionName
+          parameters:
+            - name: pipelineId
+              in: path
+              description: Pipeline numeric identifier
+              required: true
+              schema:
+                type: integer
+                format: int64
+            - name: name
+              in: query
+              description: Pipeline name to validate
+              schema:
+                type: string
+            - name: workspaceId
+              in: query
+              description: Workspace Identifier
+              schema:
+                type: integer
+                format: int64
+          responses:
+            "204":
+              description: OK - No content
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+            "409":
+              description: Duplicate element
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+          security:
+            - BearerAuth: []
+  - target: $["paths"]
+    update:
+      /pipelines/{pipelineId}/versions/{versionId}:
+        post:
+          tags:
+            - pipeline-versions
+          summary: Update pipeline version
+          description: "Updates the details of the pipeline version identified by the given `pipelineId` and `versionId`. \n            **Note**: If `labelIds` is `null`, empty, or omitted, existing pipeline labels are removed.\n            Include `labelIds: [<label-id-1>,<label-id-2>]` to override existing labels. Labels to be preserved must be included.\n            To append a list of labels to multiple pipelines, use `/pipelines/labels/add`."
+          operationId: UpdatePipelineVersion
+          parameters:
+            - name: pipelineId
+              in: path
+              description: Pipeline numeric identifier
+              required: true
+              schema:
+                type: integer
+                format: int64
+            - name: versionId
+              in: path
+              description: Pipeline version string identifier
+              required: true
+              schema:
+                type: string
+            - name: workspaceId
+              in: query
+              description: Workspace numeric identifier
+              schema:
+                type: integer
+                format: int64
+          requestBody:
+            description: Pipeline version update request
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/UpdatePipelineRequest"
+            required: true
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/UpdatePipelineResponse"
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+            "409":
+              description: Duplicate element
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+          security:
+            - BearerAuth: []
+  - target: $["paths"]
+    update:
+      /pipelines/{pipelineId}/versions/{versionId}/manage:
+        put:
+          tags:
+            - pipeline-versions
+          summary: Update pipeline version name and default flag
+          description: |-
+            Updates a pipeline version's name and/or marks it as the default version.
+                                         When setting a version as default, any previously default version is automatically unset.
+                                         Version names cannot be changed if the version is already referenced by workflow runs.
+          operationId: ManagePipelineVersion
+          parameters:
+            - name: pipelineId
+              in: path
+              description: Pipeline numeric identifier
+              required: true
+              schema:
+                type: integer
+                format: int64
+            - name: versionId
+              in: path
+              description: Pipeline Version identifier (Launch ID)
+              required: true
+              schema:
+                type: string
+            - name: workspaceId
+              in: query
+              description: Workspace Identifier
+              schema:
+                type: integer
+                format: int64
+          requestBody:
+            description: Pipeline Version Manage Request
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/PipelineVersionManageRequest"
+            required: true
+          responses:
+            "204":
+              description: OK - No content
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+            "404":
+              description: Version not found
+            "409":
+              description: Conflict - unsetting a default pipeline version
+          security:
+            - BearerAuth: []
+  - target: $["paths"]
+    update:
+      /ssh-keys:
+        get:
+          tags:
+            - ssh-keys
+          summary: List SSH keys
+          description: Retrieves the list of all SSH public keys for the authenticated user.
+          operationId: ListSshKeys
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ListSshKeysResponse"
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+          security:
+            - BearerAuth: []
+        post:
+          tags:
+            - ssh-keys
+          summary: Create SSH key
+          description: Creates a new SSH public key with the details in the given request body.
+          operationId: CreateSshKey
+          requestBody:
+            description: SSH key create request
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/CreateSshKeyRequest"
+            required: true
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/CreateSshKeyResponse"
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+            "409":
+              description: Duplicated element
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+          security:
+            - BearerAuth: []
+  - target: $["paths"]
+    update:
+      /ssh-keys/validate/key:
+        get:
+          tags:
+            - ssh-keys
+          summary: Validate SSH key
+          description: Confirms the availability of the given key for a SSH key in the user context.
+          operationId: ValidateSshKey
+          parameters:
+            - name: key
+              in: query
+              description: SSH key to validate
+              schema:
+                type: string
+          responses:
+            "204":
+              description: "Ok - No content, if the key is valid."
+            "400":
+              description: "Bad request, if the key is not valid."
+            "409":
+              description: "Conflict, key duplicated in the given context."
+            "403":
+              description: Operation not allowed.
+          security:
+            - BearerAuth: []
+  - target: $["paths"]
+    update:
+      /ssh-keys/validate/name:
+        get:
+          tags:
+            - ssh-keys
+          summary: Validate SSH key name
+          description: Confirms the availability of the given name for a SSH key in the user context.
+          operationId: ValidateSshKeyName
+          parameters:
+            - name: name
+              in: query
+              description: SSH key name to validate
+              schema:
+                type: string
+          responses:
+            "204":
+              description: "Ok - No content, if the name is valid and available."
+            "400":
+              description: "Bad request, if the name is not valid."
+            "409":
+              description: "Conflict, name duplicated in the given context."
+            "403":
+              description: Operation not allowed.
+          security:
+            - BearerAuth: []
+  - target: $["paths"]
+    update:
+      /ssh-keys/{keyId}:
+        get:
+          tags:
+            - ssh-keys
+          summary: Describe SSH key
+          description: Retrieves the details of an SSH public key by its ID.
+          operationId: DescribeSshKey
+          parameters:
+            - name: keyId
+              in: path
+              description: SSH key numeric identifier
+              required: true
+              schema:
+                type: integer
+                format: int64
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/DescribeSshKeyResponse"
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+            "404":
+              description: SSH key not found
+          security:
+            - BearerAuth: []
+        delete:
+          tags:
+            - ssh-keys
+          summary: Delete SSH key
+          description: Deletes the given SSH public key by its ID.
+          operationId: DeleteSshKey
+          parameters:
+            - name: keyId
+              in: path
+              description: SSH key numeric identifier
+              required: true
+              schema:
+                type: integer
+                format: int64
+          responses:
+            "204":
+              description: OK - No content
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+          security:
+            - BearerAuth: []
+  - target: $["components"]["schemas"]["AccessToken"]["properties"]["id"]["nullable"]
+    remove: true
+  - target: $["components"]["schemas"]["ActionResponseDto"]["properties"]["launch"]["$ref"]
+    update: "#/components/schemas/LaunchDbDto"
+  - target: $["components"]["schemas"]["ComputeEnvResponseDto"]["properties"]
+    update:
+      awsAccountId:
+        type: string
+        nullable: true
+  - target: $["components"]["schemas"]["CreatePipelineRequest"]["properties"]
+    update:
+      version:
+        $ref: "#/components/schemas/CreatePipelineVersionRequest"
+  - target: $["components"]["schemas"]
+    update:
+      CreatePipelineSchemaRequest:
+        type: object
+        properties:
+          content:
+            type: string
+  - target: $["components"]["schemas"]
+    update:
+      CreatePipelineSchemaResponse:
+        type: object
+        properties:
+          pipelineSchema:
+            $ref: "#/components/schemas/PipelineSchemaDbDto"
+  - target: $["components"]["schemas"]
+    update:
+      CreatePipelineVersionRequest:
+        type: object
+        properties:
+          name:
+            type: string
+  - target: $["components"]["schemas"]
+    update:
+      CreateSshKeyRequest:
+        required:
+          - name
+          - publicKey
+        type: object
+        properties:
+          name:
+            type: string
+          publicKey:
+            type: string
+  - target: $["components"]["schemas"]
+    update:
+      CreateSshKeyResponse:
+        type: object
+        properties:
+          sshKey:
+            $ref: "#/components/schemas/UserSshPublicKeyDto"
+  - target: $["components"]["schemas"]["DataStudioConfiguration"]["properties"]
+    update:
+      sshEnabled:
+        type: boolean
+        nullable: true
+  - target: $["components"]["schemas"]["DataStudioDto"]["properties"]
+    update:
+      sshDetails:
+        nullable: true
+        allOf:
+          - $ref: "#/components/schemas/StudioSshDetailsDto"
+  - target: $["components"]["schemas"]["DescribeLaunchResponse"]["properties"]["launch"]["$ref"]
+    update: "#/components/schemas/LaunchDbDto"
+  - target: $["components"]["schemas"]
+    update:
+      DescribeSshKeyResponse:
+        type: object
+        properties:
+          sshKey:
+            $ref: "#/components/schemas/UserSshPublicKeyDto"
+  - target: $["components"]["schemas"]["DescribeWorkflowResponse"]["properties"]["workflow"]["$ref"]
+    update: "#/components/schemas/WorkflowMaxDbDto"
+  - target: $["components"]["schemas"]["DescribeWorkflowResponse"]["properties"]
+    update:
+      pipelineInfo:
+        $ref: "#/components/schemas/PipelineMinInfoResponse"
+  - target: $["components"]["schemas"]
+    update:
+      GetCredentialsKeysResponse:
+        type: object
+        properties:
+          keys:
+            type: string
+  - target: $["components"]["schemas"]
+    update:
+      LaunchDbDto:
+        type: object
+        properties:
+          id:
+            type: string
+          workspaceId:
+            type: integer
+            format: int64
+          computeEnv:
+            $ref: "#/components/schemas/ComputeEnv_ComputeConfig_"
+          pipeline:
+            type: string
+          workDir:
+            type: string
+          revision:
+            type: string
+          commitId:
+            type: string
+          configText:
+            type: string
+          towerConfig:
+            type: string
+          paramsText:
+            type: string
+          preRunScript:
+            type: string
+          postRunScript:
+            type: string
+          mainScript:
+            type: string
+          entryName:
+            type: string
+          schemaName:
+            type: string
+          resume:
+            type: boolean
+          resumeLaunchId:
+            type: string
+          pullLatest:
+            type: boolean
+          stubRun:
+            type: boolean
+          sessionId:
+            type: string
+          runName:
+            type: string
+          configProfiles:
+            type: array
+            items:
+              type: string
+          userSecrets:
+            type: array
+            items:
+              type: string
+          workspaceSecrets:
+            type: array
+            items:
+              type: string
+          optimizationId:
+            type: string
+          optimizationTargets:
+            type: string
+          headJobCpus:
+            type: integer
+            format: int32
+          headJobMemoryMb:
+            type: integer
+            format: int32
+          launchContainer:
+            type: string
+          dateCreated:
+            type: string
+            format: date-time
+          lastUpdated:
+            type: string
+            format: date-time
+          pipelineSchemaId:
+            type: integer
+            format: int64
+  - target: $["components"]["schemas"]
+    update:
+      ListPipelineVersionsResponse:
+        type: object
+        properties:
+          versions:
+            type: array
+            items:
+              $ref: "#/components/schemas/PipelineDbDto"
+          totalSize:
+            type: integer
+            format: int64
+  - target: $["components"]["schemas"]
+    update:
+      ListSshKeysResponse:
+        type: object
+        properties:
+          sshKeys:
+            type: array
+            items:
+              $ref: "#/components/schemas/UserSshPublicKeyDto"
+  - target: $["components"]["schemas"]["ListWorkflowsResponse.ListWorkflowsElement"]["properties"]
+    update:
+      pipelineInfo:
+        $ref: "#/components/schemas/PipelineMinInfoResponse"
+  - target: $["components"]["schemas"]["PipelineDbDto"]["properties"]
+    update:
+      version:
+        $ref: "#/components/schemas/PipelineVersionFullInfoDto"
+  - target: $["components"]["schemas"]
+    update:
+      PipelineMinInfoResponse:
+        type: object
+        properties:
+          id:
+            type: integer
+            format: int64
+          workspaceId:
+            type: integer
+            format: int64
+          version:
+            $ref: "#/components/schemas/PipelineMinInfoResponse.PipelineVersionMinInfoResponse"
+  - target: $["components"]["schemas"]
+    update:
+      PipelineMinInfoResponse.PipelineVersionMinInfoResponse:
+        type: object
+        properties:
+          id:
+            type: string
+          name:
+            type: string
+          dateCreated:
+            type: string
+            format: date-time
+          lastUpdated:
+            type: string
+            format: date-time
+          hash:
+            type: string
+          isDefault:
+            type: boolean
+          isDraftVersion:
+            type: boolean
+  - target: $["components"]["schemas"]
+    update:
+      PipelineSchemaDbDto:
+        type: object
+        properties:
+          id:
+            type: integer
+            format: int64
+          content:
+            type: string
+  - target: $["components"]["schemas"]
+    update:
+      PipelineVersionFullInfoDto:
+        type: object
+        properties:
+          id:
+            type: string
+          creatorUserId:
+            type: integer
+            format: int64
+          creatorUserName:
+            type: string
+          creatorFirstName:
+            type: string
+          creatorLastName:
+            type: string
+          creatorAvatarUrl:
+            type: string
+          name:
+            type: string
+          dateCreated:
+            type: string
+            format: date-time
+          lastUpdated:
+            type: string
+            format: date-time
+          hash:
+            type: string
+          isDefault:
+            type: boolean
+  - target: $["components"]["schemas"]
+    update:
+      PipelineVersionManageRequest:
+        type: object
+        properties:
+          name:
+            type: string
+          isDefault:
+            type: boolean
+  - target: $["components"]["schemas"]
+    update:
+      StudioSshDetailsDto:
+        required:
+          - command
+          - host
+          - port
+          - user
+        type: object
+        properties:
+          host:
+            type: string
+            description: The hostname to connect to
+          port:
+            type: integer
+            description: The SSH port number
+            format: int32
+          user:
+            type: string
+            description: The user in the format 'username@sessionId'
+          command:
+            type: string
+            description: The full SSH command to execute
+            example: ssh username@sessionId@host -p port
+        description: SSH connection details for a Studio session
+  - target: $["components"]["schemas"]
+    update:
+      UserSshPublicKeyDto:
+        type: object
+        properties:
+          id:
+            type: integer
+            format: int64
+          name:
+            type: string
+          publicKey:
+            type: string
+          dateCreated:
+            type: string
+            format: date-time
+          lastUsed:
+            type: string
+            format: date-time
+  - target: $["components"]["schemas"]["WorkflowDbDto"]["properties"]["messages"]
+    remove: true
+  - target: $["components"]["schemas"]["WorkflowLaunchRequest"]["properties"]
+    update:
+      pipelineSchemaId:
+        type: integer
+        format: int64
+  - target: $["components"]["schemas"]["WorkflowLaunchResponse"]["properties"]
+    update:
+      pipelineSchemaId:
+        type: integer
+        format: int64
+  - target: $["components"]["schemas"]
+    update:
+      WorkflowMaxDbDto:
+        type: object
+        allOf:
+          - $ref: "#/components/schemas/WorkflowDbDto"
+          - properties:
+              fusion:
+                $ref: "#/components/schemas/WfFusionMeta"
+              wave:
+                $ref: "#/components/schemas/WfWaveMeta"
+              logFile:
+                type: string
+              outFile:
+                type: string
+              operationId:
+                type: string
+  - target: $["components"]["schemas"]["WorkflowQueryAttribute"]["enum"][4]
+    update: pipelineInfo
+  - target: $["components"]["schemas"]["WorkflowQueryAttribute"]["x-enum-varnames"][4]
+    update: pipelineInfo
+  - target: $["components"]["schemas"]["Launch"]
+    remove: true
