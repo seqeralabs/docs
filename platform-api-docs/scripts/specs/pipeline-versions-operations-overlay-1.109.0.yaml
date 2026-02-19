@@ -1,0 +1,30 @@
+overlay: 1.0.0
+info:
+  title: Pipeline versions operations overlay
+  version: 1.109.0
+actions:
+  # ===== PIPELINE VERSIONS - OPERATIONS =====
+
+  - target: "$.paths./pipelines/{pipelineId}/versions.get.summary"
+    update: "List pipeline versions"
+
+  - target: "$.paths./pipelines/{pipelineId}/versions.get.description"
+    update: "Lists all available pipeline versions in a user context. Append `?workspaceId` to list pipeline versions in a workspace context."
+
+  - target: "$.paths./pipelines/{pipelineId}/versions/validate.get.summary"
+    update: "Validate pipeline version name"
+
+  - target: "$.paths./pipelines/{pipelineId}/versions/validate.get.description"
+    update: "Validates that the provided pipeline version name is available and meets naming requirements."
+
+  - target: "$.paths./pipelines/{pipelineId}/versions/{versionId}.post.summary"
+    update: "Update pipeline version"
+
+  - target: "$.paths./pipelines/{pipelineId}/versions/{versionId}.post.description"
+    update: "Updates the details of the pipeline version specified by `pipelineId` and `versionId`. If `labelIds` is `null`, empty, or omitted, existing pipeline labels are removed. Include `labelIds: [<label-id-1>,<label-id-2>]` to override existing labels. To append labels to multiple pipelines, use `/pipelines/labels/add`."
+
+  - target: "$.paths./pipelines/{pipelineId}/versions/{versionId}/manage.put.summary"
+    update: "Manage pipeline version"
+
+  - target: "$.paths./pipelines/{pipelineId}/versions/{versionId}/manage.put.description"
+    update: "Updates a pipeline version's name and/or marks it as the default version. When setting a version as default, any previously default version is automatically unset. Version names cannot be changed if the version is already referenced by workflow runs."

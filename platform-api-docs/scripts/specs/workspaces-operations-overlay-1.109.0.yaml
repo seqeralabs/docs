@@ -1,0 +1,12 @@
+overlay: 1.0.0
+info:
+  title: Workspaces operations overlay
+  version: 1.109.0
+actions:
+  # ===== WORKSPACES - OPERATIONS =====
+
+  - target: "$.paths./orgs/{orgId}/workspaces/{workspaceId}/users/{userId}.delete.summary"
+    update: "Delete workspace user"
+
+  - target: "$.paths./orgs/{orgId}/workspaces/{workspaceId}/users/{userId}.delete.description"
+    update: "Deletes the specified user (member or collaborator) from the workspace."

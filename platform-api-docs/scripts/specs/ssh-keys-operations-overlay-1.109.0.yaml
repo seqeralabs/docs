@@ -1,0 +1,42 @@
+overlay: 1.0.0
+info:
+  title: SSH keys operations overlay
+  version: 1.109.0
+actions:
+  # ===== SSH KEYS - OPERATIONS =====
+
+  - target: "$.paths./ssh-keys.get.summary"
+    update: "List SSH keys"
+
+  - target: "$.paths./ssh-keys.get.description"
+    update: "Lists all available SSH keys in a user context, enriched by `attributes`. Append `?workspaceId` to list SSH keys in a workspace context."
+
+  - target: "$.paths./ssh-keys.post.summary"
+    update: "Create SSH key"
+
+  - target: "$.paths./ssh-keys.post.description"
+    update: "Creates a new SSH key in a user context. Append `?workspaceId` to create the SSH key in a workspace context."
+
+  - target: "$.paths./ssh-keys/validate/key.get.summary"
+    update: "Validate SSH key"
+
+  - target: "$.paths./ssh-keys/validate/key.get.description"
+    update: "Validates that the provided SSH public key is correctly formatted and can be used for SSH authentication."
+
+  - target: "$.paths./ssh-keys/validate/name.get.summary"
+    update: "Validate SSH key name"
+
+  - target: "$.paths./ssh-keys/validate/name.get.description"
+    update: "Validates that the provided SSH key name is available and meets naming requirements."
+
+  - target: "$.paths./ssh-keys/{keyId}.get.summary"
+    update: "Describe SSH key"
+
+  - target: "$.paths./ssh-keys/{keyId}.get.description"
+    update: "Retrieves the details of an SSH key specified by the given `keyId`."
+
+  - target: "$.paths./ssh-keys/{keyId}.delete.summary"
+    update: "Delete SSH key"
+
+  - target: "$.paths./ssh-keys/{keyId}.delete.description"
+    update: "Deletes the SSH key specified by the given `keyId`."

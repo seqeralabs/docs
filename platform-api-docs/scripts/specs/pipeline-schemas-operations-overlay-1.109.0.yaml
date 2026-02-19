@@ -1,0 +1,12 @@
+overlay: 1.0.0
+info:
+  title: Pipeline schemas operations overlay
+  version: 1.109.0
+actions:
+  # ===== PIPELINE SCHEMAS - OPERATIONS =====
+
+  - target: "$.paths./pipeline-schemas.post.summary"
+    update: "Create pipeline schema"
+
+  - target: "$.paths./pipeline-schemas.post.description"
+    update: "Creates a new pipeline schema in a user context. Append `?workspaceId` to create the schema in a workspace context."

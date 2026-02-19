@@ -1,0 +1,31 @@
+overlay: 1.0.0
+info:
+  title: Pipelines modifications overlay
+  version: 1.109.0
+actions:
+  # ===== PIPELINES - MODIFICATIONS =====
+
+  # ---- OPERATIONS ----
+
+  - target: "$.paths./pipelines/{pipelineId}.put.summary"
+    update: "Update pipeline (default version)"
+
+  # ---- NEW PARAMETERS ----
+
+  - target: "$.paths./pipelines/{pipelineId}/launch.get.parameters"
+    update:
+      - name: versionId
+        in: query
+        description: "Pipeline version string identifier. If omitted, uses the default version."
+        required: false
+        schema:
+          type: string
+
+  - target: "$.paths./pipelines/{pipelineId}/schema.get.parameters"
+    update:
+      - name: versionId
+        in: query
+        description: "Pipeline version string identifier. If omitted, uses the default version."
+        required: false
+        schema:
+          type: string

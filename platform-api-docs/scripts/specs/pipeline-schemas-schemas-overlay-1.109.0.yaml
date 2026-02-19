@@ -1,0 +1,27 @@
+overlay: 1.0.0
+info:
+  title: Pipeline schemas schemas overlay
+  version: 1.109.0
+actions:
+  # ===== PIPELINE SCHEMAS SCHEMAS =====
+
+  # ---- CreatePipelineSchemaRequest ----
+
+  - target: "$.components.schemas.CreatePipelineSchemaRequest.properties.content"
+    update:
+      type: string
+      description: "Pipeline schema content in JSON or YAML format defining the pipeline configuration structure."
+
+  # ---- CreatePipelineSchemaResponse ----
+
+  - target: "$.components.schemas.CreatePipelineSchemaResponse.properties.pipelineSchema"
+    update:
+      $ref: "#/components/schemas/PipelineSchemaDbDto"
+      description: "The created pipeline schema details."
+
+  # ---- PipelineSchemaDbDto ----
+
+  - target: "$.components.schemas.PipelineSchemaDbDto"
+    update:
+      type: object
+      description: "Pipeline schema database representation containing schema metadata and content."
