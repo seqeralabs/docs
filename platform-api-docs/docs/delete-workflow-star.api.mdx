@@ -5,7 +5,7 @@ description: "Removes the workflow identified by the given `workflowId` from you
 sidebar_label: "Unstar workflow"
 hide_title: true
 hide_table_of_contents: true
-api: eJy1VMFu2zAM/RVBpw0I4mzrBsyndW0GFBu2ol2xQxGgik3HamXJleR0hpF/HynbcdwEKXrYKTH1qPdIPrHhXqwcj2/5k7EPmTJPji8mPAWXWFl6aTSP+RUUZg2O+RxYD2MyBe1lJiFlyzocreQaNLvrERfpHcusKVhtKsuUdJ6ZjDkvrMWcLd2UT7gpwQoiu0iR7hwUePjTAa4xASGlsKLAsCWxDdf4gdCBCyGStJbC5/x5Af1dyG6lXg3a6WYLj5VESTz2toIJd0kOheBxw31dEkmbxDebyYjXlSKBgfixAlsfZA5ApqsCrEzG3HtcUntYhaPM2EL4NvTpBNkXJNWVRjtwlPF+NqOfMd+v75iaGLxFezoVZalkEnob3TuCNPukZnkPiacmW5qEly3BTnMPNYN76RWFziyI8byuOp0II+DJ7MMBpf3MmTaeCYWpOIOAPtlH/0RMZiqdvqa8YbK3vADnxArI3Mer7oFHS55ba8ZV4iHaMzdk4DQYOJgWzRjzqO9k1Aw93USudbYDu+5tXVmF+Nz70sVRJEo5TZSp0qmDR+zWVJo9g12HE3aphCfHsDPCs9PLC06GcZBUVvr6mnrS1vcVhAV7WpGybYnE2NuRvpcBhJH2z7fei/dPPvRB6syE9K4fnQqifUkglSsT3CYtmIYpkjDMcfG7JeM8pQpPITNfhgMUQp1red5NP3+czihWGucLEbzQPdcbTb3e7pznGpvBUv9/13Ud9/DXR6USuDtQcii96fwy7GKEx6MVFyyDc82xRAI2zVI4uLFqs6Fwu4PISKl0YqnI+plQDo4U/MKGOij3Aeq9JbgWqiJk8N1aWEn8r9Ty5qp7sW/Z0ZV9UFQXFLreVbMrtmvjZoHoHESKd5G+FnCaJFD6ndS93UKFbd/4+fzH/PccH8M/JqeI2A==
+api: eJy1VF1r2zAU/SviPm1gknQrg/lpWZtB2dhKu7KHEqhiX8dqZcmVrpMF4/8+rmzHSRNS+rCnptKRz4eObg0klx7ie1hb95Rpu/YwjyBFnzhVkrIGYrjBwq7QC8pR9DChUjSkMoWpWGzC1lKt0IiHHnGVPojM2UJsbOWEVp6EzYQn6Rym2+/4EURgS3SSya5SiOESNRL+6QC3JB1EUEonCyR0LLYGIwuEGAYuiECx1lJSDi8N9N8Snpwyy0E7f9nhc6UcphCTqzACn+RYSIhroE3JJO0haJpoj9eXMsGB+LlCtznKHIDCVAU6lexzH3ApQ7gMW5l1haR26dM5NM2cpfrSGo+eT3yYTPjPPt+v7xBBYg2hId6VZalVErIdP3qG1IekdvGICXHIjm+CVEuwE+6xMIAUaV66cCj37+um0wlNw8DzyccjSvs7F8aSkFrbNaYQ0OeH6J+WRGYrk77F3nCz91Cg93KJXO7TrnvgScsz5+y+yyaCAim3XOA0FDiUlnKIYdwnOa6HTJuxb5vt0a36WldOQww5Uenj8ViWapRoW6Ujj8/o5EjZg4Ldhh1xrSVxY8QF48X0+gq4MB6Tyina3HImrb+vKB26acXKthaZsa8j/78IIIi6H9/6Lj6uKeSgTGbD8S6PTgXTviaQ7aoEfQfmy5RJuMx987uWsZBKh6eQ2S/DRhMBJ9fynI3OJp9HE14sradChjJ07/XOcNjbofNSZD106v8Puy5ywr80LrVUhiUH73VXmGEYQwTx3owLnZlHkFtPDKzrhfR453TT8HI7hLhJqfJyobn7mdQeTxh+ZUQdlfuEm4MpuJK6YmQo3ko6xfxv1PLupnuy78XJmX1UVLcozWZXza7YLsZm3kSQo0zRBX0tYJokWNLO0YPhwsa2j/xy9mP2ewZN8w9AzYkE
 sidebar_class_name: "delete api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -18,6 +18,7 @@ import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -31,7 +32,7 @@ import Heading from "@theme/Heading";
   path={"/workflow/{workflowId}/star"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -42,30 +43,24 @@ Removes the workflow identified by the given `workflowId` from your list of star
   id={"request"}
   as={"h2"}
   className={"openapi-tabs__heading"}
-  children={"Request"}
 >
+  <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"workflowId","in":"path","description":"Workflow string identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+  {...require("./delete-workflow-star.ParamsDetails.json")}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
-  title={"Body"}
-  body={undefined}
+  {...require("./delete-workflow-star.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
-  id={undefined}
-  label={undefined}
-  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"workflowId":{"type":"string"}},"title":"CreateWorkflowStarResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"Not found","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+  {...require("./delete-workflow-star.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      

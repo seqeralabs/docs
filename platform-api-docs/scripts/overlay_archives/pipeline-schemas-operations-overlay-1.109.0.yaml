@@ -1,0 +1,47 @@
+overlay: 1.0.0
+info:
+  title: Pipeline schemas operations overlay for v1.109.0
+  version: 0.0.0
+actions:
+  # ===== ADD NEW OPERATION =====
+
+  - target: "$.paths"
+    update:
+      /pipeline-schemas:
+        post:
+          tags:
+          - pipeline-schemas
+          summary: Create pipeline schema
+          description: Creates a new pipeline schema in a user context. Append `?workspaceId` to create the schema in a workspace context.
+          operationId: CreatePipelineSchema
+          parameters:
+          - name: workspaceId
+            in: query
+            description: Workspace numeric identifier.
+            schema:
+              type: integer
+              format: int64
+          requestBody:
+            description: Pipeline schema creation request containing the schema content.
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/CreatePipelineSchemaRequest"
+            required: true
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/CreatePipelineSchemaResponse"
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+          security:
+          - BearerAuth: []

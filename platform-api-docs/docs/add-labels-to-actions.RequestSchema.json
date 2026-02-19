@@ -1,0 +1,1 @@
+{"title":"Body","body":{"description":"Labels add request","content":{"application/json":{"schema":{"type":"object","properties":{"actionIds":{"type":"array","items":{"type":"string"}},"labelIds":{"type":"array","items":{"type":"integer","format":"int64"}}},"title":"AssociateActionLabelsRequest"}}},"required":true}}

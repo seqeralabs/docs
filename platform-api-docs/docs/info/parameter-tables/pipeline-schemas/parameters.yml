@@ -1,0 +1,5 @@
+- Name: "`workspaceId`"
+  Type: integer
+  Location: query
+  Req/Opt: Optional
+  Description: Workspace numeric identifier.

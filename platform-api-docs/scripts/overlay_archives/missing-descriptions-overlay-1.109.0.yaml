@@ -1,0 +1,808 @@
+overlay: 1.0.0
+info:
+  title: Add missing descriptions for v1.109.0
+  version: 0.0.0
+actions:
+  # ===== CREDENTIALS SCHEMAS =====
+
+  - target: "$.components.schemas.Credentials"
+    update:
+      type: object
+      description: "Cloud provider or service credentials for authentication. Used to connect compute environments, access storage, and integrate with external services."
+
+  - target: "$.components.schemas.Credentials.properties.id"
+    update:
+      type: string
+      description: "Credentials string identifier."
+
+  - target: "$.components.schemas.Credentials.properties.name"
+    update:
+      type: string
+      minLength: 1
+      maxLength: 100
+      description: "Unique name for the credentials. Must be 1-100 alphanumeric, dash, or underscore characters."
+
+  - target: "$.components.schemas.Credentials.properties.description"
+    update:
+      type: string
+      description: "Optional description of the credentials and their intended use."
+
+  - target: "$.components.schemas.Credentials.properties.baseUrl"
+    update:
+      type: string
+      maxLength: 200
+      description: "Base URL for the container registry server. Required for container registry credentials — defaults to docker.io)."
+
+  - target: "$.components.schemas.Credentials.properties.keys"
+    update:
+      description: "Authentication keys and secrets for the credential provider. Structure varies by provider type."
+
+  # ---- AwsSecurityKeys ----
+
+  - target: "$.components.schemas.AwsSecurityKeys"
+    update:
+      type: object
+      description: "AWS credentials for authenticating with Amazon Web Services. Supports IAM access keys, session tokens, and assume role configuration."
+
+  - target: "$.components.schemas.AwsSecurityKeys.properties.accessKey"
+    update:
+      type: string
+      description: "AWS IAM access key ID."
+
+  - target: "$.components.schemas.AwsSecurityKeys.properties.secretKey"
+    update:
+      type: string
+      writeOnly: true
+      description: "AWS IAM secret access key."
+
+  - target: "$.components.schemas.AwsSecurityKeys.properties.sessionToken"
+    update:
+      type: string
+      description: "AWS session token for temporary credentials (optional)."
+
+  - target: "$.components.schemas.AwsSecurityKeys.properties.assumeRoleArn"
+    update:
+      type: string
+      description: "IAM role ARN to assume when using these credentials (optional)."
+
+  # ---- AzureSecurityKeys ----
+
+  - target: "$.components.schemas.AzureSecurityKeys"
+    update:
+      type: object
+      description: "Azure Storage credentials for authenticating with Azure Blob Storage or Azure Files."
+
+  - target: "$.components.schemas.AzureSecurityKeys.properties.accountName"
+    update:
+      type: string
+      description: "Azure Storage account name."
+
+  - target: "$.components.schemas.AzureSecurityKeys.properties.accountKey"
+    update:
+      type: string
+      writeOnly: true
+      description: "Azure Storage account access key."
+
+  - target: "$.components.schemas.AzureSecurityKeys.properties.sasToken"
+    update:
+      type: string
+      description: "Shared Access Signature (SAS) token for delegated access (alternative to account key)."
+
+  # ---- AzureEntraKeys ----
+
+  - target: "$.components.schemas.AzureEntraKeys"
+    update:
+      type: object
+      description: "Azure Entra ID (formerly Azure Active Directory) credentials for service principal authentication."
+
+  - target: "$.components.schemas.AzureEntraKeys.properties.clientId"
+    update:
+      type: string
+      description: "Azure service principal application (client) ID."
+
+  - target: "$.components.schemas.AzureEntraKeys.properties.clientSecret"
+    update:
+      type: string
+      writeOnly: true
+      description: "Azure service principal client secret."
+
+  - target: "$.components.schemas.AzureEntraKeys.properties.tenantId"
+    update:
+      type: string
+      description: "Azure AD tenant (directory) ID."
+
+  # ---- AzureReposSecurityKeys ----
+
+  - target: "$.components.schemas.AzureReposSecurityKeys"
+    update:
+      type: object
+      description: "Credentials for authenticating with Azure DevOps repositories."
+
+  - target: "$.components.schemas.AzureReposSecurityKeys.properties.username"
+    update:
+      type: string
+      description: "Azure DevOps username or organization name."
+
+  - target: "$.components.schemas.AzureReposSecurityKeys.properties.password"
+    update:
+      type: string
+      writeOnly: true
+      description: "Azure DevOps personal access token (PAT)."
+
+  # ---- BitBucketSecurityKeys ----
+
+  - target: "$.components.schemas.BitBucketSecurityKeys"
+    update:
+      type: object
+      description: "Bitbucket credentials for authenticating with Bitbucket Cloud or Bitbucket Server repositories."
+
+  - target: "$.components.schemas.BitBucketSecurityKeys.properties.username"
+    update:
+      type: string
+      description: "Bitbucket username."
+
+  - target: "$.components.schemas.BitBucketSecurityKeys.properties.password"
+    update:
+      type: string
+      writeOnly: true
+      description: "Bitbucket app password or personal access token."
+
+  # ---- CodeCommitSecurityKeys ----
+
+  - target: "$.components.schemas.CodeCommitSecurityKeys"
+    update:
+      type: object
+      description: "AWS CodeCommit credentials for authenticating with AWS CodeCommit repositories."
+
+  - target: "$.components.schemas.CodeCommitSecurityKeys.properties.username"
+    update:
+      type: string
+      description: "CodeCommit HTTPS Git credentials username."
+
+  - target: "$.components.schemas.CodeCommitSecurityKeys.properties.password"
+    update:
+      type: string
+      writeOnly: true
+      description: "CodeCommit HTTPS Git credentials password."
+
+  # ---- ContainerRegistryKeys ----
+
+  - target: "$.components.schemas.ContainerRegistryKeys"
+    update:
+      type: object
+      description: "Container registry credentials for authenticating with container registries including AWS ECR, Docker Hub, and Google Artifact Registry."
+
+  - target: "$.components.schemas.ContainerRegistryKeys.properties.userName"
+    update:
+      type: string
+      description: "Container registry username."
+
+  - target: "$.components.schemas.ContainerRegistryKeys.properties.password"
+    update:
+      type: string
+      writeOnly: true
+      description: "Container registry password or access token."
+
+  - target: "$.components.schemas.ContainerRegistryKeys.properties.registry"
+    update:
+      type: string
+      description: "Container registry server URL (e.g., docker.io, quay.io, or custom registry domain)."
+
+  # ---- GitHubSecurityKeys ----
+
+  - target: "$.components.schemas.GitHubSecurityKeys"
+    update:
+      type: object
+      description: "GitHub credentials for authenticating with GitHub repositories and API."
+
+  - target: "$.components.schemas.GitHubSecurityKeys.properties.username"
+    update:
+      type: string
+      description: "GitHub username."
+
+  - target: "$.components.schemas.GitHubSecurityKeys.properties.password"
+    update:
+      type: string
+      writeOnly: true
+      description: "GitHub personal access token (classic or fine-grained)."
+
+  # ---- GitLabSecurityKeys ----
+
+  - target: "$.components.schemas.GitLabSecurityKeys"
+    update:
+      type: object
+      description: "GitLab credentials for authenticating with GitLab repositories and API (GitLab.com or self-hosted)."
+
+  - target: "$.components.schemas.GitLabSecurityKeys.properties.username"
+    update:
+      type: string
+      description: "GitLab username."
+
+  - target: "$.components.schemas.GitLabSecurityKeys.properties.password"
+    update:
+      type: string
+      writeOnly: true
+      description: "GitLab personal access token or password."
+
+  - target: "$.components.schemas.GitLabSecurityKeys.properties.token"
+    update:
+      type: string
+      description: "GitLab personal access token (alternative to username/password)."
+
+  # ---- GiteaSecurityKeys ----
+
+  - target: "$.components.schemas.GiteaSecurityKeys"
+    update:
+      type: object
+      description: "Gitea credentials for authenticating with self-hosted Gitea repositories."
+
+  - target: "$.components.schemas.GiteaSecurityKeys.properties.username"
+    update:
+      type: string
+      description: "Gitea username."
+
+  - target: "$.components.schemas.GiteaSecurityKeys.properties.password"
+    update:
+      type: string
+      writeOnly: true
+      description: "Gitea password or access token."
+
+  # ---- GoogleSecurityKeys ----
+
+  - target: "$.components.schemas.GoogleSecurityKeys"
+    update:
+      type: object
+      description: "Google Cloud credentials for authenticating with Google Cloud Platform services."
+
+  - target: "$.components.schemas.GoogleSecurityKeys.properties.key"
+    update:
+      type: string
+      description: "Google Cloud service account key (JSON format)."
+
+  # ---- K8sSecurityKeys ----
+
+  - target: "$.components.schemas.K8sSecurityKeys"
+    update:
+      type: object
+      description: "Kubernetes credentials for authenticating with Kubernetes clusters."
+
+  - target: "$.components.schemas.K8sSecurityKeys.properties.certificate"
+    update:
+      type: string
+      description: "Base64-encoded client certificate for Kubernetes authentication."
+
+  - target: "$.components.schemas.K8sSecurityKeys.properties.privateKey"
+    update:
+      type: string
+      description: "Base64-encoded private key for Kubernetes authentication."
+
+  - target: "$.components.schemas.K8sSecurityKeys.properties.clusterCaCertificate"
+    update:
+      type: string
+      description: "Base64-encoded cluster CA certificate for TLS verification."
+
+  # ---- AgentSecurityKeys ----
+
+  - target: "$.components.schemas.AgentSecurityKeys"
+    update:
+      type: object
+      description: "Tower Agent credentials for connecting to HPC compute environments without an SSH client."
+
+  - target: "$.components.schemas.AgentSecurityKeys.properties.connectionId"
+    update:
+      type: string
+      description: "Tower Agent connection identifier."
+
+  - target: "$.components.schemas.AgentSecurityKeys.properties.workDir"
+    update:
+      type: string
+      description: "Working directory path for the Tower Agent."
+
+  - target: "$.components.schemas.AgentSecurityKeys.properties.shared"
+    update:
+      type: boolean
+      description: "Whether the agent connection is shared across multiple workspaces."
+
+  # ===== DATASETS SCHEMAS =====
+
+  - target: "$.components.schemas.DatasetDto"
+    update:
+      type: object
+      description: "Dataset metadata object containing information about a dataset in a workspace or user context. Datasets store tabular data and file references for workflow inputs."
+
+  - target: "$.components.schemas.DatasetDto.properties.id"
+    update:
+      type: string
+      description: "Dataset string identifier."
+
+  - target: "$.components.schemas.DatasetDto.properties.user"
+    update:
+      description: "User who created the dataset."
+
+  - target: "$.components.schemas.DatasetDto.properties.workspaceId"
+    update:
+      type: integer
+      format: int64
+      description: "Workspace numeric identifier where the dataset is stored."
+
+  - target: "$.components.schemas.DatasetDto.properties.organizationId"
+    update:
+      type: integer
+      format: int64
+      description: "Organization numeric identifier that owns the dataset."
+
+  - target: "$.components.schemas.DatasetDto.properties.name"
+    update:
+      type: string
+      description: "Dataset name."
+
+  - target: "$.components.schemas.DatasetDto.properties.lastUpdatedBy"
+    update:
+      description: "User who last updated the dataset."
+
+  - target: "$.components.schemas.DatasetDto.properties.description"
+    update:
+      type: string
+      description: "Optional description of the dataset contents and purpose."
+
+  - target: "$.components.schemas.DatasetDto.properties.mediaType"
+    update:
+      type: string
+      description: "MIME type of the dataset file. Accepts text/csv or text/tsv."
+
+  - target: "$.components.schemas.DatasetDto.properties.dateCreated"
+    update:
+      type: string
+      format: date-time
+      description: "Timestamp when the dataset was created."
+
+  - target: "$.components.schemas.DatasetDto.properties.lastUpdated"
+    update:
+      type: string
+      format: date-time
+      description: "Timestamp when the dataset was last modified."
+
+  - target: "$.components.schemas.DatasetDto.properties.deleted"
+    update:
+      type: boolean
+      description: "Whether the dataset has been deleted (soft delete)."
+
+  - target: "$.components.schemas.DatasetDto.properties.labels"
+    update:
+      type: array
+      description: "Labels associated with the dataset for organization and filtering."
+
+  - target: "$.components.schemas.DatasetDto.properties.version"
+    update:
+      type: integer
+      format: int64
+      description: "Current version number of the dataset (increments with each update)."
+
+  # ---- DatasetVersionDto ----
+
+  - target: "$.components.schemas.DatasetVersionDto"
+    update:
+      type: object
+      description: "Dataset version metadata containing information about a specific version of a dataset. Each dataset upload creates a new version."
+
+  - target: "$.components.schemas.DatasetVersionDto.properties.datasetId"
+    update:
+      type: string
+      description: "Parent dataset string identifier."
+
+  - target: "$.components.schemas.DatasetVersionDto.properties.datasetName"
+    update:
+      type: string
+      description: "Name of the parent dataset."
+
+  - target: "$.components.schemas.DatasetVersionDto.properties.datasetDescription"
+    update:
+      type: string
+      description: "Description of the parent dataset."
+
+  - target: "$.components.schemas.DatasetVersionDto.properties.hasHeader"
+    update:
+      type: boolean
+      description: "Whether the CSV dataset file contains a header row."
+
+  - target: "$.components.schemas.DatasetVersionDto.properties.version"
+    update:
+      type: integer
+      format: int64
+      description: "Version number of this dataset version."
+
+  - target: "$.components.schemas.DatasetVersionDto.properties.createdBy"
+    update:
+      description: "User who created this dataset version."
+
+  - target: "$.components.schemas.DatasetVersionDto.properties.lastUpdated"
+    update:
+      type: string
+      format: date-time
+      description: "Timestamp when this version was created."
+
+  - target: "$.components.schemas.DatasetVersionDto.properties.fileName"
+    update:
+      type: string
+      description: "Original filename of the uploaded dataset file."
+
+  - target: "$.components.schemas.DatasetVersionDto.properties.mediaType"
+    update:
+      type: string
+      description: "MIME type of the dataset file. Accepts text/csv or text/tsv."
+
+  - target: "$.components.schemas.DatasetVersionDto.properties.workspaceId"
+    update:
+      type: integer
+      format: int64
+      description: "Workspace numeric identifier where the dataset version is stored."
+
+  - target: "$.components.schemas.DatasetVersionDto.properties.url"
+    update:
+      type: string
+      description: "Pre-signed URL for downloading the dataset version file."
+
+  # ===== ORGANIZATIONS SCHEMAS =====
+
+  - target: "$.components.schemas.OrganizationDbDto"
+    update:
+      type: object
+      description: "Organization database object containing full organization details including metadata, subscription status, and member role information."
+
+  - target: "$.components.schemas.OrgAndWorkspaceDto"
+    update:
+      type: object
+      description: "Combined organization and workspace reference object used for navigation and context switching."
+
+  - target: "$.components.schemas.OrgAndWorkspaceDto.properties.orgId"
+    update:
+      type: integer
+      format: int64
+      description: "Organization numeric identifier."
+
+  - target: "$.components.schemas.OrgAndWorkspaceDto.properties.orgName"
+    update:
+      type: string
+      description: "Organization name."
+
+  - target: "$.components.schemas.OrgAndWorkspaceDto.properties.orgLogoUrl"
+    update:
+      type: string
+      description: "URL to the organization's logo image."
+
+  - target: "$.components.schemas.OrgAndWorkspaceDto.properties.orgType"
+    update:
+      description: "Organization subscription type."
+
+  - target: "$.components.schemas.OrgAndWorkspaceDto.properties.workspaceId"
+    update:
+      type: integer
+      format: int64
+      description: "Workspace numeric identifier."
+
+  - target: "$.components.schemas.OrgAndWorkspaceDto.properties.workspaceName"
+    update:
+      type: string
+      description: "Workspace name (unique within the organization)."
+
+  - target: "$.components.schemas.OrgAndWorkspaceDto.properties.workspaceFullName"
+    update:
+      type: string
+      description: "Full workspace name including organization prefix (e.g., org-name/workspace-name)."
+
+  - target: "$.components.schemas.OrgAndWorkspaceDto.properties.visibility"
+    update:
+      type: string
+      description: "Workspace visibility level (PRIVATE or SHARED)."
+
+  - target: "$.components.schemas.OrgAndWorkspaceDto.properties.roles"
+    update:
+      type: array
+      description: "User's roles in this organization (owner, member, collaborator)."
+
+  # ---- OrgRole ----
+
+  - target: "$.components.schemas.OrgRole.description"
+    update: "Organization member role determining access permissions and capabilities."
+
+  # ---- OrgType ----
+
+  - target: "$.components.schemas.OrgType.description"
+    update: "Organization subscription type determining feature availability and usage limits."
+
+  # ===== RESPONSE WRAPPER SCHEMAS =====
+
+  # ---- Create Responses ----
+
+  - target: "$.components.schemas.CreateCredentialsRequest"
+    update:
+      type: object
+      description: "Request to create new cloud provider or service credentials."
+
+  - target: "$.components.schemas.CreateCredentialsRequest.properties.credentials"
+    update:
+      description: "Credentials object containing provider type, name, and authentication keys."
+
+  - target: "$.components.schemas.CreateCredentialsResponse"
+    update:
+      type: object
+      description: "Response containing the ID of the newly created credentials."
+
+  - target: "$.components.schemas.CreateCredentialsResponse.properties.credentialsId"
+    update:
+      type: string
+      description: "String identifier of the created credentials."
+
+  - target: "$.components.schemas.CreateDatasetRequest"
+    update:
+      type: object
+      description: "Request to create a new dataset in a workspace or user context."
+
+  - target: "$.components.schemas.CreateDatasetRequest.properties.name"
+    update:
+      type: string
+      description: "Name for the new dataset."
+
+  - target: "$.components.schemas.CreateDatasetRequest.properties.description"
+    update:
+      type: string
+      description: "Optional description of the dataset purpose and contents."
+
+  - target: "$.components.schemas.CreateDatasetResponse"
+    update:
+      type: object
+      description: "Response containing the created dataset metadata."
+
+  - target: "$.components.schemas.CreateDatasetResponse.properties.dataset"
+    update:
+      description: "Created dataset object with ID and metadata."
+
+  # ---- Describe Responses ----
+
+  - target: "$.components.schemas.DescribeCredentialsResponse"
+    update:
+      type: object
+      description: "Response containing full details of a credentials object."
+
+  - target: "$.components.schemas.DescribeCredentialsResponse.properties.credentials"
+    update:
+      description: "Credentials object with provider type, name, and metadata (keys are not returned)."
+
+  - target: "$.components.schemas.DescribeDatasetResponse"
+    update:
+      type: object
+      description: "Response containing full details of a dataset."
+
+  - target: "$.components.schemas.DescribeDatasetResponse.properties.dataset"
+    update:
+      description: "Dataset object with ID, name, description, and version information."
+
+  # ---- List Responses ----
+
+  - target: "$.components.schemas.ListCredentialsResponse"
+    update:
+      type: object
+      description: "Response containing a list of credentials accessible to the user in the specified context."
+
+  - target: "$.components.schemas.ListCredentialsResponse.properties.credentials"
+    update:
+      type: array
+      description: "Array of credentials objects (keys are not returned in list operations)."
+
+  - target: "$.components.schemas.ListDatasetsResponse"
+    update:
+      type: object
+      description: "Response containing a list of datasets in a workspace or user context."
+
+  - target: "$.components.schemas.ListDatasetsResponse.properties.datasets"
+    update:
+      type: array
+      description: "Array of dataset objects with metadata."
+
+  - target: "$.components.schemas.ListDatasetVersionsResponse"
+    update:
+      type: object
+      description: "Response containing all versions of a specific dataset."
+
+  - target: "$.components.schemas.ListDatasetVersionsResponse.properties.versions"
+    update:
+      type: array
+      description: "Array of dataset version objects ordered by version number."
+
+  - target: "$.components.schemas.ListOrganizationsResponse"
+    update:
+      type: object
+      description: "Response containing organizations accessible to the authenticated user."
+
+  - target: "$.components.schemas.ListOrganizationsResponse.properties.totalSize"
+    update:
+      type: integer
+      format: int32
+      description: "Total number of organizations (for pagination)."
+
+  # ===== ACCESS TOKENS =====
+
+  - target: "$.components.schemas.AccessToken"
+    update:
+      type: object
+      description: "Personal access token for API authentication. Tokens provide programmatic access to the Seqera Platform API."
+
+  - target: "$.components.schemas.AccessToken.properties.id"
+    update:
+      type: integer
+      format: int64
+      nullable: true
+      description: "Token numeric identifier."
+
+  - target: "$.components.schemas.AccessToken.properties.name"
+    update:
+      type: string
+      maxLength: 100
+      description: "Token name for identification (1-100 characters)."
+
+  - target: "$.components.schemas.AccessToken.properties.lastUsed"
+    update:
+      type: string
+      format: date-time
+      description: "Timestamp when the token was last used for authentication."
+
+  - target: "$.components.schemas.AccessToken.properties.dateCreated"
+    update:
+      type: string
+      format: date-time
+      description: "Timestamp when the token was created."
+
+  - target: "$.components.schemas.CreateAccessTokenRequest"
+    update:
+      type: object
+      description: "Request to create a new personal access token."
+
+  - target: "$.components.schemas.CreateAccessTokenRequest.properties.name"
+    update:
+      type: string
+      description: "Name for the new token (used for identification in token list)."
+
+  - target: "$.components.schemas.CreateAccessTokenResponse"
+    update:
+      type: object
+      description: "Response containing the newly created access token. The token value is only returned once during creation."
+
+  - target: "$.components.schemas.CreateAccessTokenResponse.properties.accessKey"
+    update:
+      type: string
+      description: "The token secret value (only returned during creation, store securely)."
+
+  - target: "$.components.schemas.CreateAccessTokenResponse.properties.token"
+    update:
+      description: "Token metadata object with ID and creation timestamp."
+
+  - target: "$.components.schemas.ListAccessTokensResponse"
+    update:
+      type: object
+      description: "Response containing all personal access tokens for the authenticated user."
+
+  - target: "$.components.schemas.ListAccessTokensResponse.properties.tokens"
+    update:
+      type: array
+      description: "Array of token metadata objects (token secrets are not returned in list operations)."
+
+  # ===== LABELS =====
+
+  - target: "$.components.schemas.LabelDbDto"
+    update:
+      type: object
+      description: "Label object for categorizing and organizing resources (workflows, pipelines, compute environments, actions, datasets)."
+
+  - target: "$.components.schemas.LabelDbDto.properties.id"
+    update:
+      type: integer
+      format: int64
+      description: "Label numeric identifier."
+
+  - target: "$.components.schemas.LabelDbDto.properties.name"
+    update:
+      type: string
+      description: "Label key name."
+
+  - target: "$.components.schemas.LabelDbDto.properties.value"
+    update:
+      type: string
+      description: "Label value."
+
+  - target: "$.components.schemas.LabelDbDto.properties.resource"
+    update:
+      type: boolean
+      description: "Whether this is a resource label (applied to workflow tasks for compute resource allocation)."
+
+  - target: "$.components.schemas.LabelDbDto.properties.isDefault"
+    update:
+      type: boolean
+      description: "Whether this label is automatically applied to new resources by default."
+
+  - target: "$.components.schemas.LabelDbDto.properties.isDynamic"
+    update:
+      type: boolean
+      description: "Whether this label's value can be dynamically computed from workflow metadata."
+
+  - target: "$.components.schemas.LabelDbDto.properties.isInterpolated"
+    update:
+      type: boolean
+      description: "Whether this label contains interpolated variables resolved at runtime."
+
+  - target: "$.components.schemas.LabelDbDto.properties.dateCreated"
+    update:
+      type: string
+      format: date-time
+      description: "Timestamp when the label was created."
+
+  - target: "$.components.schemas.CreateLabelRequest"
+    update:
+      type: object
+      description: "Request to create a new label in a workspace context."
+
+  - target: "$.components.schemas.CreateLabelRequest.properties.name"
+    update:
+      type: string
+      description: "Label key name."
+
+  - target: "$.components.schemas.CreateLabelRequest.properties.value"
+    update:
+      type: string
+      description: "Label value."
+
+  - target: "$.components.schemas.CreateLabelRequest.properties.resource"
+    update:
+      type: boolean
+      description: "Set to true to create a resource label."
+
+  - target: "$.components.schemas.CreateLabelRequest.properties.isDefault"
+    update:
+      type: boolean
+      description: "Set to true to automatically apply this label to new resources."
+
+  - target: "$.components.schemas.CreateLabelResponse"
+    update:
+      type: object
+      description: "Response containing the created label metadata."
+
+  - target: "$.components.schemas.CreateLabelResponse.properties.id"
+    update:
+      type: integer
+      format: int64
+      description: "Numeric identifier of the created label."
+
+  - target: "$.components.schemas.CreateLabelResponse.properties.name"
+    update:
+      type: string
+      description: "Label name."
+
+  - target: "$.components.schemas.CreateLabelResponse.properties.value"
+    update:
+      type: string
+      description: "Label value."
+
+  - target: "$.components.schemas.CreateLabelResponse.properties.resource"
+    update:
+      type: boolean
+      description: "Whether this is a resource label."
+
+  - target: "$.components.schemas.CreateLabelResponse.properties.isDefault"
+    update:
+      type: boolean
+      description: "Whether this label is applied to new resources by default."
+
+  - target: "$.components.schemas.ListLabelsResponse"
+    update:
+      type: object
+      description: "Response containing labels in a workspace context with pagination support."
+
+  - target: "$.components.schemas.ListLabelsResponse.properties.labels"
+    update:
+      type: array
+      description: "Array of label objects."
+
+  - target: "$.components.schemas.ListLabelsResponse.properties.totalSize"
+    update:
+      type: integer
+      format: int64
+      description: "Total number of labels (for pagination)."

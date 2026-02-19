@@ -5,7 +5,7 @@ description: "Create the avatar image"
 sidebar_label: "Create the avatar image"
 hide_title: true
 hide_table_of_contents: true
-api: eJyVVcFu2zAM/RVDZydpu+2wnJYWGxBsQIu1PQU9MDabKLUlVaLbBoH/faTktE4TpN1NkR7Jx8dHZ6MIFkGNZwqegMAHdZcr69ADaWumpRqrC49AOInPKlceHxsMdG7LtRpvVImh8NoJmrHTGhaY3esKsw7HEYU1hIYEXTcVaQeeRvfW14OSc8p1KJZYxxOtHXIeO19hIbHOCxnSGORVS/oeLJDXZsEwyQZcQc21Ab9WbdvmCk1hS3nvR3ZkblICcK7SRex1ZAtCGnBKhFoSSAqPwVkTUvWzk5P9ji9/73bYz7gKAvl8e2kEn5ChjFrCyx80C1qq8dlZ/k4S5s7iYppdeVQywQ1I1yhBFQS6deX/BHEUaaoE15mEbxpf7cf3oX1X/e1UVkn0r4d0PofysKWOCy4h2kszM1VjCOKCu/wDfbfAow389N7uM/9ywCHbbcqMpQyqyj4zH4EHLBqvifdotlHnCB79pJF5zu5aJrmbJgmW0RKz5JMseTpnurS0sqnORnEcSA412m60FPJP6EOsEyejlkQujEcjcHpYVLYphwEfmedQW/W+8nV8ya4qIJl/diH4bHI1VcJy28S1aJ7067fyKqFUFCoRJpsaQXyTDr+2zlo9UxRHm3sbwzu9OxZS9iOC0q4uMHRgMQsU0Sy7zfdbZr9oeZOyP94emIgol+qcDr9/G57InShdQ/SagRqPjmeH66schC80chVo01uXNLmdb/FSZspXm80cAt76qm3lmhfBi2/4+ARew1w0YttwAELJusqoH3AtzNKuDOInT+BVIwQOfYrbfBs0KQp01IPvrZnM/tV5V5fXNzLK7k+htqXESOKYN387JpKw6413Xojkuycw6x4LViEibuwDGlYi7+iS/GZKvIX/AMxiWXI=
+api: eJyVVU1P3EAM/SuRz7Mf0F6aUxfUSqiVQIWeVjl4E7MZSDLDjAOsovnvlSdZyH5oobds/Gw/Pz9nO2Bce0iXgM/I6DxkCowlh6xNc1VACpeOkGkRw6DA0VNLni9MsYG0g4J87rQVNKRwVeOakntdUTLgQEFuGqaGBV23FWuLjmf3xtWTAhnltc9LquMTbyxBCmb1QLnkWidkWJOXqJbyI5hnp5s1KJBqyJDCSjfoNhBCUEBNbgqJjzMHMnd9AbS20nmcdWZyJp54doS1FJASjrw1je+7n8/nhxNf/9qdcFzxwQvk8+P1K/iEDEXUEl9/U7PmEtLzc7UnSVBQIFO/u+KkZIKbsK5Jkir0/NcW/5MUFLDmSnCDSYKC1lWH+WPo2FV/BpWhF/3rMZ0vsDhuqdOCS4p2MswSavJeXJCpD/TdAk8O8MM5c8j8yxGHbK8paQwnWFXmhYpYylPeOs0bSJcdXBA6cotW9rnMQqb2yvSCJVxS0vsk6T2toCYujVyqNVEci1IDZtuLlkbumZyPfeJmoGS2Pp3N0OppXpm2mHp6IodTbWC/822MJDcVsuw/uRR8sri5AmG5HeJWNO/1G4/yJqF0FCoRJpcaQaCGh59bZz28cBRHN/cmpg96Dyyk7UcEZVydkx/AYhbMo1l2hx+PTDVqiUnb7++BoECU6/ucTc/m36ZzeSlS1xjN1mBNJ/ezQ/ZND6ZXntkKdTO6l351Ox/jUpaaLqHrVujpr6tCkNdPLTkxTqbgGZ3GlYi0zIKCkrAgF3f9SBth1h/LJH7zBF61QuDYtziobdIiz8nyCH5wZ7L8N+vdXN/eyS6Hf4XaFJIjhWNd9f7Yk8Rdc+yZIZIfQthsRiy6rkfcmUdqQgA10GX5DSELIfwD4DhZng==
 sidebar_class_name: "post api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -18,6 +18,7 @@ import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -31,7 +32,7 @@ import Heading from "@theme/Heading";
   path={"/avatars"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -42,30 +43,24 @@ Create the avatar image
   id={"request"}
   as={"h2"}
   className={"openapi-tabs__heading"}
-  children={"Request"}
 >
+  <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
 <ParamsDetails
   parameters={undefined}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
-  title={"Body"}
-  body={{"description":"Image file request","content":{"multipart/form-data":{"schema":{"type":"object","properties":{"image":{"type":"string","format":"binary"}}},"encoding":{"image":{"contentType":"application/octet-stream"}}}}}}
+  {...require("./create-avatar.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
-  id={undefined}
-  label={undefined}
-  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"avatar":{"type":"object","properties":{"id":{"maxLength":22,"type":"string"},"dateCreated":{"type":"string","format":"date-time"},"lastUpdated":{"type":"string","format":"date-time"}},"title":"Avatar"},"url":{"type":"string"}},"title":"CreateAvatarResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+  {...require("./create-avatar.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      

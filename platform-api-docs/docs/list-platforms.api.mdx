@@ -5,7 +5,7 @@ description: "Lists all available computing platforms in a user context. Append 
 sidebar_label: "List platforms"
 hide_title: true
 hide_table_of_contents: true
-api: eJzFVW1v0zAQ/iuWP1ftgIFEv0A3DTQxiYmB+DBVmptcW2+J7dmXjhL1v3PnJE3Sdi9ISHxq7XvO99xzLyklqkWQ42vpMoVz6/MgpwOZQki8dqitkWN5oQMGobJMqJXSmZplIBKbuwK1WYito9BGKFEE8GQ1CL9wKCbOgUnFzYcH6++CUwmcpzcCrcjozV3XLWbrLwfSOvCKiZynNZXLLdOBdMqrHBA851BKQwdCWb8g9EBqZn9fgF/L3Zy++oUy+nd8WZgiB68ToVMwqOcaPOE93BfaA0WdqyzAQIZkCbmS41Li2nEYTSQXEct0FFZX747lZjPYcukk/jSjn9vs/z2dKfsHZ02AwB6vj474Z0eSL+QalTfIVuVcppOo0Og2MKTcD2pnt5AgV8JzpVBXAdpuaqHKe8Vpa4Te/SNP6LSDCeip1+RmUMt6wJCQOKwXqXPp7YrE8y+J3jxANZOoMeO709jc0DRa39hrwW+1qgwhzPEhXU9UKrh6EPBvBG4Lfi1zCEEtgEfzadEa4IH82gzOvLd+j/mbAx3RzJ4wFnkB2Afiw/AASeE1ruPUnYDy4CcFLuk45WajkVxantcFRI6KTXLkOpNLa2LVjG3hMzIvEV0Yj0bK6WGS2SIdBrgnAkNt94blKlpEUwdxyngxuTyXHL5hd8ViVsJ0OW614YiyniQ+zyKIbqo/n5oxun3AmLU2cxvdayFrFhz2OYKcrk4g1GDuApXELugn302ZGkFncYrn9mNrICKsXBXn1fD92+ER3zkbMFexierVc9HbsbsUy7YV/++Gr4vBR+4QWpGUTVSlrDtn5+u0pEz5sixnKsAPn202fF2tVe6nVAdOod2Vjyb+/GfgILs7WHc+MyuVFYyRvPZfHvuZhf9E4P43pQ0/5YPXHD9OIkkFivZgFKVynSQJOOx47S2h3vx+PvtOWNUfm50xia83W9asO29TgSLiu70DQ0Vq+COfKRBtnj+4ZvV/
+api: eJzFVV1v2zAM/CsCn40k3YoBy8uWFt0QrMCKtcMeigBlbCZRa0uqRLfLDP/3gYqdOB9tNmDAnhJLpHh3OlIVMM4DDG/B5cgz64sAkwQyCqnXjrU1MIRLHTgozHOFT6hznOakUlu4krWZq3Wi0kahKgN5lVrD9JN7auQcmUzdfXi2/iE4TGmc3Sm2KteBd1PXMet8SMA68ihAxlkD5WqNNAGHHgti8sKhAoMFwRCsn48zSEAL+seS/BJ2OX31czT6VzxZmbIgr1OlMzKsZ5o8JODpsdSeMhjOMA+UQEgXVCAMK+ClkzLaMM1jrMBBXi29O4W6TtZYOsRfR/Rjzf7fw5lIfnDWBAqS8WYwkJ8dSb5AAlF5w7KLzuU6jQr174OEVPtF7fSeUpab8HJTrFcFNm7ahKL3KLQ109b6C0forBMT2GszhzppZD2wkXqKemEerrx90lk0xdHq7QF1nQBrzmXtPJqbWqNtb25Z8FujqoTUCZwe0vUMMyW3R4H/RuDNhd9CQSHgnKQ1XxetDTzAb8Pgwnvr95C/PeCItveUsSwDwD5TFo8KlJZe8zJ23RmhJz8qeQHD24mYrSBeWOnXOUWMKFvQd53ODeSf2rYtfQ5DWDC7MOz30elemtsy6wV6JI89bfea5TruqPYe1LnEq9HVGKR8i+5axFwJ08W41kYqQtNJ8j2NQZA0fz61bXT/zJG1NjMb0xshGxRS9hhAoatTCk2wuADT6IJt8l3KVKDOYxfP7MfNRp2AKLeqc9I7GbzvDWTR2cAFRhc1s+dya8juYqw2Xvy/I765DfkUi2gjbKIsVWOdnedpYQPLYlVNMdB3n9e1LK/mqhgq00EobIbli8SPvwMH0T3QsvPOPGFeSgzI3P/z2kcm/iuFtx+VTfmJfHgt9WMrJrAgzMhHUVapozQlx52svSm01cCfL24gAdzum50+iae3Y9YsO2dX1Srixj6QqWto8bN8Qz2p6/o3Mt31qw==
 sidebar_class_name: "get api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -18,6 +18,7 @@ import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -31,7 +32,7 @@ import Heading from "@theme/Heading";
   path={"/platforms"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -42,30 +43,24 @@ Lists all available computing platforms in a user context. Append `?workspaceId`
   id={"request"}
   as={"h2"}
   className={"openapi-tabs__heading"}
-  children={"Request"}
 >
+  <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"orgId","in":"query","description":"Organization numeric identifier","required":false,"schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","required":false,"schema":{"type":"integer","format":"int64"}}]}
+  {...require("./list-platforms.ParamsDetails.json")}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
-  title={"Body"}
-  body={undefined}
+  {...require("./list-platforms.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
-  id={undefined}
-  label={undefined}
-  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"platforms":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"credentialsProviders":{"type":"array","items":{"type":"string"}}},"title":"ComputePlatform"}}},"title":"ListPlatformsResponse"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+  {...require("./list-platforms.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      
