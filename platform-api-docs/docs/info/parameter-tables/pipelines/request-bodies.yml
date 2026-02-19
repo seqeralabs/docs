@@ -148,7 +148,7 @@
 - Name: "**UpdatePipeline**"
   Type: ""
   Req/Opt: ""
-  Description: Update pipeline
+  Description: Update pipeline (default version)
 - Name: name
   Type: string
   Req/Opt: Optional

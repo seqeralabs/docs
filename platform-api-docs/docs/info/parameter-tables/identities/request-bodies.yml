@@ -162,19 +162,22 @@
 - Name: credentials
   Type: object
   Req/Opt: Optional
-  Description: ""
+  Description: Cloud provider or service credentials for authentication. Used to
+    connect compute environments, access storage, and integrate with external
+    services.
 - Name: credentials.id
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Credentials string identifier.
 - Name: credentials.name
   Type: string
   Req/Opt: Required
-  Description: ""
+  Description: Unique name for the credentials. Must be 1-100 alphanumeric, dash,
+    or underscore characters.
 - Name: credentials.description
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Optional description of the credentials and their intended use.
 - Name: credentials.provider
   Type: string
   Req/Opt: Required
@@ -182,7 +185,8 @@
 - Name: credentials.baseUrl
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Base URL for the container registry server. Required for container
+    registry credentials — defaults to docker.io).
 - Name: credentials.category
   Type: string
   Req/Opt: Optional
@@ -230,19 +234,22 @@
 - Name: credentials
   Type: object
   Req/Opt: Optional
-  Description: ""
+  Description: Cloud provider or service credentials for authentication. Used to
+    connect compute environments, access storage, and integrate with external
+    services.
 - Name: credentials.id
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Credentials string identifier.
 - Name: credentials.name
   Type: string
   Req/Opt: Required
-  Description: ""
+  Description: Unique name for the credentials. Must be 1-100 alphanumeric, dash,
+    or underscore characters.
 - Name: credentials.description
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Optional description of the credentials and their intended use.
 - Name: credentials.provider
   Type: string
   Req/Opt: Required
@@ -250,7 +257,8 @@
 - Name: credentials.baseUrl
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Base URL for the container registry server. Required for container
+    registry credentials — defaults to docker.io).
 - Name: credentials.category
   Type: string
   Req/Opt: Optional

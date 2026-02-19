@@ -1,0 +1,66 @@
+---
+id: update-pipeline-version
+title: "Update pipeline version"
+description: "Updates the details of the pipeline version specified by `pipelineId` and `versionId`. If `labelIds` is `null`, empty, or omitted, existing pipeline labels are removed. Include `labelIds: [<label-id-1>,<label-id-2>]` to override existing labels. To append labels to multiple pipelines, use `/pipelines/labels/add`."
+sidebar_label: "Update pipeline version"
+hide_title: true
+hide_table_of_contents: true
+api: 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
+sidebar_class_name: "post api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Update pipeline version"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/pipelines/{pipelineId}/versions/{versionId}"}
+  context={"endpoint"}
+>
+
+</MethodEndpoint>
+
+
+
+Updates the details of the pipeline version specified by `pipelineId` and `versionId`. If `labelIds` is `null`, empty, or omitted, existing pipeline labels are removed. Include `labelIds: [<label-id-1>,<label-id-2>]` to override existing labels. To append labels to multiple pipelines, use `/pipelines/labels/add`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  {...require("./update-pipeline-version.ParamsDetails.json")}
+>
+
+</ParamsDetails>
+
+<RequestSchema
+  {...require("./update-pipeline-version.RequestSchema.json")}
+>
+
+</RequestSchema>
+
+<StatusCodes
+  {...require("./update-pipeline-version.StatusCodes.json")}
+>
+
+</StatusCodes>
