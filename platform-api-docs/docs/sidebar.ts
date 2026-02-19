@@ -172,12 +172,6 @@ const sidebar: SidebarsConfig = {
           label: "Delete credentials",
           className: "api-method delete",
         },
-        {
-          type: "doc",
-          id: "docs/get-encrypted-credentials",
-          label: "Get encrypted credentials",
-          className: "api-method get",
-        },
       ],
     },
     {
@@ -222,11 +216,7 @@ const sidebar: SidebarsConfig = {
         },
         {
           type: "doc",
-<<<<<<< HEAD
-          id: "docs/explore-data-link",
-=======
           id: "explore-data-link",
->>>>>>> origin/master
           label: "Explore data-link",
           className: "api-method get",
         },
@@ -238,11 +228,7 @@ const sidebar: SidebarsConfig = {
         },
         {
           type: "doc",
-<<<<<<< HEAD
-          id: "docs/explore-data-link-with-path",
-=======
           id: "explore-data-link-with-path",
->>>>>>> origin/master
           label: "Explore data-link path",
           className: "api-method get",
         },
@@ -254,11 +240,7 @@ const sidebar: SidebarsConfig = {
         },
         {
           type: "doc",
-<<<<<<< HEAD
-          id: "docs/generate-download-url-data-link",
-=======
           id: "generate-download-url-data-link",
->>>>>>> origin/master
           label: "Generate download URL",
           className: "api-method get",
         },
@@ -270,41 +252,24 @@ const sidebar: SidebarsConfig = {
         },
         {
           type: "doc",
-<<<<<<< HEAD
-          id: "docs/generate-data-link-upload-url",
-=======
           id: "generate-data-link-upload-url",
->>>>>>> origin/master
           label: "Generate data-link file upload URL",
           className: "api-method post",
         },
         {
           type: "doc",
-<<<<<<< HEAD
-          id: "docs/finish-data-link-upload",
-=======
           id: "finish-data-link-upload",
->>>>>>> origin/master
           label: "Finish data-link file upload",
           className: "api-method post",
         },
         {
           type: "doc",
-<<<<<<< HEAD
-          id: "docs/finish-data-link-upload-with-path",
-=======
           id: "finish-data-link-upload-with-path",
->>>>>>> origin/master
           label: "Finish data-link file upload to given path",
           className: "api-method post",
         },
         {
           type: "doc",
-<<<<<<< HEAD
-          id: "docs/generate-data-link-upload-url-with-path",
-          label: "Generate data-link file upload URL (to given path)",
-          className: "api-method post",
-=======
           id: "generate-data-link-upload-url-with-path",
           label: "Generate data-link file upload URL (to given path)",
           className: "api-method post",
@@ -312,13 +277,6 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "download-data-link",
-          label: "Download data-link file at path",
-          className: "api-method get",
->>>>>>> origin/master
-        },
-        {
-          type: "doc",
-          id: "docs/download-data-link",
           label: "Download data-link file at path",
           className: "api-method get",
         },
@@ -492,91 +450,55 @@ const sidebar: SidebarsConfig = {
       items: [
         {
           type: "doc",
-<<<<<<< HEAD
-          id: "docs/list-managed-identities",
-=======
           id: "list-managed-identities",
->>>>>>> origin/master
           label: "List managed identities",
           className: "api-method get",
         },
         {
           type: "doc",
-<<<<<<< HEAD
-          id: "docs/create-managed-identity",
-=======
           id: "create-managed-identity",
->>>>>>> origin/master
           label: "Create managed identity",
           className: "api-method post",
         },
         {
           type: "doc",
-<<<<<<< HEAD
-          id: "docs/describe-managed-identity",
-=======
           id: "describe-managed-identity",
->>>>>>> origin/master
           label: "Describe managed identity",
           className: "api-method get",
         },
         {
           type: "doc",
-<<<<<<< HEAD
-          id: "docs/update-managed-identity",
-=======
           id: "update-managed-identity",
->>>>>>> origin/master
           label: "Update managed identity",
           className: "api-method put",
         },
         {
           type: "doc",
-<<<<<<< HEAD
-          id: "docs/delete-managed-identity",
-=======
           id: "delete-managed-identity",
->>>>>>> origin/master
           label: "Delete managed identity",
           className: "api-method delete",
         },
         {
           type: "doc",
-<<<<<<< HEAD
-          id: "docs/list-managed-credentials",
-=======
           id: "list-managed-credentials",
->>>>>>> origin/master
           label: "List managed credentials",
           className: "api-method get",
         },
         {
           type: "doc",
-<<<<<<< HEAD
-          id: "docs/create-managed-credentials",
-=======
           id: "create-managed-credentials",
->>>>>>> origin/master
           label: "Create managed credentials",
           className: "api-method post",
         },
         {
           type: "doc",
-<<<<<<< HEAD
-          id: "docs/update-managed-credentials",
-=======
           id: "update-managed-credentials",
->>>>>>> origin/master
           label: "Update managed credentials",
           className: "api-method put",
         },
         {
           type: "doc",
-<<<<<<< HEAD
-          id: "docs/delete-managed-credentials",
-=======
           id: "delete-managed-credentials",
->>>>>>> origin/master
           label: "Delete managed credentials",
           className: "api-method delete",
         },
@@ -810,13 +732,8 @@ const sidebar: SidebarsConfig = {
         },
         {
           type: "doc",
-<<<<<<< HEAD
-          id: "docs/update-pipeline",
-          label: "Update pipeline (default version)",
-=======
           id: "update-pipeline",
           label: "Update pipeline",
->>>>>>> origin/master
           className: "api-method put",
         },
         {
@@ -1383,101 +1300,8 @@ const sidebar: SidebarsConfig = {
           label: "List user workspaces",
           className: "api-method get",
         },
-        {
-          type: "doc",
-          id: "docs/delete-workspace-user",
-          label: "Delete workspace user",
-          className: "api-method delete",
-        },
       ],
     },
-<<<<<<< HEAD
-    {
-      type: "category",
-      label: "pipeline-schemas",
-      items: [
-        {
-          type: "doc",
-          id: "docs/create-pipeline-schema",
-          label: "Create pipeline schema",
-          className: "api-method post",
-        },
-      ],
-    },
-    {
-      type: "category",
-      label: "pipeline-versions",
-      items: [
-        {
-          type: "doc",
-          id: "docs/list-pipeline-versions",
-          label: "List pipeline versions",
-          className: "api-method get",
-        },
-        {
-          type: "doc",
-          id: "docs/validate-pipeline-version-name",
-          label: "Validate pipeline version name",
-          className: "api-method get",
-        },
-        {
-          type: "doc",
-          id: "docs/update-pipeline-version",
-          label: "Update pipeline version",
-          className: "api-method post",
-        },
-        {
-          type: "doc",
-          id: "docs/manage-pipeline-version",
-          label: "Manage pipeline version",
-          className: "api-method put",
-        },
-      ],
-    },
-    {
-      type: "category",
-      label: "ssh-keys",
-      items: [
-        {
-          type: "doc",
-          id: "docs/list-ssh-keys",
-          label: "List SSH keys",
-          className: "api-method get",
-        },
-        {
-          type: "doc",
-          id: "docs/create-ssh-key",
-          label: "Create SSH key",
-          className: "api-method post",
-        },
-        {
-          type: "doc",
-          id: "docs/validate-ssh-key",
-          label: "Validate SSH key",
-          className: "api-method get",
-        },
-        {
-          type: "doc",
-          id: "docs/validate-ssh-key-name",
-          label: "Validate SSH key name",
-          className: "api-method get",
-        },
-        {
-          type: "doc",
-          id: "docs/describe-ssh-key",
-          label: "Describe SSH key",
-          className: "api-method get",
-        },
-        {
-          type: "doc",
-          id: "docs/delete-ssh-key",
-          label: "Delete SSH key",
-          className: "api-method delete",
-        },
-      ],
-    },
-=======
->>>>>>> origin/master
   ],
 };
 
