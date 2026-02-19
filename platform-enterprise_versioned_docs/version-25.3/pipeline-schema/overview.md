@@ -11,6 +11,37 @@ You can populate the parameters in the pipeline by uploading a YAML or JSON file
 
 See [nf-core/rnaseq](https://github.com/nf-core/rnaseq/blob/e049f51f0214b2aef7624b9dd496a404a7c34d14/nextflow_schema.json) as an example of the pipeline parameters that can be represented by a JSON schema file.
 
+### Define pipeline schema
+
+When adding or editing a pipeline, you can select one of three schema options to control parameter validation and the launch form:
+
+1. **Repository default**: Use the default schema provided by the Pipeline git repository.
+2. **Repository path**: Use a schema at a specific path in the repository.
+3. **Seqera Platform schema**: Use a Nextflow JSON schema stored in Seqera Platform (overrides repository).
+
+The selected schema controls which pipeline parameters are exposed in the launch form. This allows you to restrict the parameters visible to launch users, simplifying the launch experience and preventing modification of parameters that should remain fixed.
+
+#### Seqera Platform schema
+
+Users with [Maintain or higher](../orgs-and-teams/roles.md) permissions can upload a custom `nextflow_schema.json` file directly to Seqera Platform. When you upload a Platform schema:
+
+- The schema content is validated to ensure it's a valid JSON schema
+- The Platform schema controls which parameters appear in the pipeline launch form
+- Changes to the Platform schema trigger a new draft version of the pipeline
+- The Platform schema is applied to all launches using that pipeline version
+
+To add or update a Seqera Platform schema:
+
+1. Navigate to **Add pipeline** or select **Edit** for an existing pipeline
+2. Select **Seqera Platform schema** from the schema options
+3. In the **Seqera Platform schema** field, paste your custom Nextflow schema JSON
+4. The schema is validated automatically as you enter it
+5. Select **Add** or **Save** to create a new draft version with the Platform schema
+
+:::note
+The schema `id` field must be unique. If you're pasting pipeline schema contents from an existing pipeline schema file, ensure you update the `id` field to a unique value.
+:::
+
 ### Building pipeline schema files
 
 The pipeline schema is based on [json-schema.org](https://json-schema.org/) syntax, with some additional conventions. While you can create your pipeline schema manually, we highly recommend using [nf-core tools](https://nf-co.re/tools/#pipeline-schema), a toolset for developing Nextflow pipelines built by the nf-core community.

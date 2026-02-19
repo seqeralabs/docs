@@ -7,8 +7,6 @@ tags: [pipelines, versioning, nextflow, parameters]
 
 Seqera's pipeline versioning system captures configuration changes as new draft versions of the pipeline, ensuring configuration traceability and execution reproducibility. Users with [Maintain or higher](../orgs-and-teams/roles.md) permissions can edit and publish draft versions, creating published versions that teams can reference and launch consistently.
 
-To ensure fully reproducible behavior for pipelines configured with a branch or tag revision, it is essential to pin the commit ID of the workflow repository. This is because the 'HEAD' state of the repository can change over time. For more details see [Git revision management](https://docs.seqera.io/platform-enterprise/pipelines/revision).
-
 :::tip
 For deterministic and reproducible pipeline execution, use [commit ID pinning](revision.md) for published pipeline versions. This ensures the same workflow code is used across all launches of that version.
 :::
@@ -45,7 +43,8 @@ New draft versions are automatically generated during pipeline edit or launch wh
   - **Image**
   - **Description**
   - **Labels**
-- Custom Nextflow schema file (see [Custom schema](#custom-schema))
+  - **Resource labels**
+- Pipeline schema selection (see [Define pipeline schema](../pipeline-schema/overview.md#define-pipeline-schema))
 
 Published versions provide a stable reference for team-wide pipeline launches. Users with Maintain or higher permissions can publish a draft version, giving it a name and optionally setting it as the default version. This makes important configurations easy to identify, share, and promote across your team.
 

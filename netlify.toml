@@ -21,6 +21,9 @@
   EXCLUDE_PLATFORM_API="true"
   EXCLUDE_PLATFORM_OPENAPI="true"
 
+# Seqera API docs are too large to host / build on netlify on their own.
+# The appropriate ENVVAR is set to disable the API Builds on Netlify for the main docs site.
+
 # Asset and image routing handled by Edge Function
 # See .netlify/edge-functions/asset-proxy.js
 [[edge_functions]]

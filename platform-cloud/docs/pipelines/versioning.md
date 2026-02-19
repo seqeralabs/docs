@@ -42,7 +42,8 @@ New draft versions are automatically generated when you modify the following:
   - **Image**
   - **Description**
   - **Labels**
-- Custom Nextflow schema file (see [Custom schema](#custom-schema))
+  - **Resource labels**
+- Pipeline schema selection (see [Define pipeline schema](../pipeline-schema/overview.md#define-pipeline-schema))
 
 Published versions provide a stable reference for team-wide pipeline launches. Users with Maintain or higher permissions can publish a draft version, giving it a name and optionally setting it as the default version. This makes important configurations easy to identify, share, and promote across your team.
 

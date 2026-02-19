@@ -26,6 +26,7 @@ New draft versions are automatically generated during pipeline edit or launch wh
   - **Image**
   - **Description**
   - **Labels**
+  - **Resource labels**
 
 Published versions provide a stable reference for team-wide pipeline launches. Users with Maintain or higher permissions can publish a draft version, giving it a name and optionally setting it as the default version. This makes important configurations easy to identify, share, and promote across your team.
 
