@@ -5,7 +5,7 @@ description: "GetAllowedDynamicLabels"
 sidebar_label: "GetAllowedDynamicLabels"
 hide_title: true
 hide_table_of_contents: true
-api: eJyVU8Fu2zAM/RVD5yDOiu2wnJZ2XVFgwIq2Ow09MDKbKJEtVWLSGYb/faTkpEmQrdjJsvTI9/hIdopgEdX0l7IwRxvV00g5jwHIuOa2UlN1gzSz1r1i9bVtoDb6ewaOVMDoXRORwzt1MZnIp8Kog/ESzbE/1gzTriFsSF7Be2t0yl2uokA6FfUSa5ATtR45yM1XqIkDfRAlZDLBFuwmnwYchAAtwwxhfXgfKZhmofq+HykyZOXuXAX3g3xBMvTjuQIuoSru8YWJ6X8qCRxiAlbia40xwgLF2H8XuAOeqeStkOsQXDhSzo8R9SYYapmuU5cIAcNsQ0v+feqZ9rikv/ezRlo6afkCkzqQFKrMg1FWGV1CDlZCG7YYYmLdBMvYJZGP07IEb8bauk01jvjCwzQ2Tp3qeEgvxZ0FenahLq4EX8zubpVo3pX0IJ5mfw4L21skjCIlwfh/nkB8kw/fODNww9TqlZKPpnl2KXzwc1AhtO8JlHKNxjiAZRhAp2E4Lv6wZJ4HI29C++XtgYWIc5nnw/jzp/FE7ryLVEOaJfYac7OKoVvF0K5i368juXtHCH9T6S2YRlImad3Qy/2Sc2xOxqddP9n0JfMLquvmEPFnsH0v1zz+QWaLj1sIBubiHI8WByBU7LYMwBpb2TOt0cvwpG2VJT3dE2nuftBurh9FwXFLT1qYsu9WvmkPcrPMhHh0a2xY6mgQQfLPRLwbfwDzwKzy
+api: eJyVU01v2zAM/SsGz0KcDrvMp7VbFxQYsKLtToEPjM0mSmzLoeh0gaH/PlB20iTINuxkWXoS3wfZg+DSQzaHChdUecgNuJYYxbrmoYQMZiS3VeXeqPy6b7C2xfcBaIDJt67x5CHr4cN0qp+SfMG21duQwY8NGChcI9SInmLbVraIb6drr5AefLGiGnUl+5YgA7dYUyFgoGVlInYosMOqG1YjDplxDwasUH2674Vts4QQggGxUuneNQVPI31FBgMfrwm4wzJ5om1HXv5HCdO2s0yl+lqT97gkNfbvAg/AK0rehdwzOz5jHgx4Kjq2sods3sMdIRPfdrKCbJ6H3FxI+nOeNcnKaeRLiuxQn4B0aIy0HNApDpdBy/KO2MeqHVeQwUqk9VmaYmsnReW6cuJpS4wT6+CSx3M8SR4rlFfHdfJF8cnt4wMo54OkZ/V08OdU2NEirahUIgwyWEQQmHHxzXGNAhms3yT6aJtXF6+Pfo4stOy/CKpcW5AfwdoMWMRmOBd/KplqtHqmZT+/HwQD6txQ52ZyM/00mepm67zUGJupwahnRpKMcSVjXskxsDO+R0uEfknaVmgbfTJy68cwj1NuYIwTDBwCzQ2snBdF9f0CPf3kKgTd3nbE2ly5gR2yxYVaN8+DgRVhSRw7YEN7HbSioFa7J46rTunloGi6x06b3b8og/NMLzKMrx9mvtmfvN33A+LFbagJAcxIQvQfQh5C+A1oDa0e
 sidebar_class_name: "get api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -18,6 +18,7 @@ import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -31,7 +32,7 @@ import Heading from "@theme/Heading";
   path={"/labels/dynamic/allowed"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -41,23 +42,17 @@ GetAllowedDynamicLabels
 <ParamsDetails
   parameters={undefined}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
-  title={"Body"}
-  body={undefined}
+  {...require("./get-allowed-dynamic-labels.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
-  id={undefined}
-  label={undefined}
-  responses={{"200":{"description":"Ok","content":{"application/json":{"schema":{"type":"object","properties":{"values":{"type":"array","items":{"type":"string"}}},"title":"AllowedDynamicLabelsResponse"}}}},"400":{"description":"Bad Request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+  {...require("./get-allowed-dynamic-labels.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      

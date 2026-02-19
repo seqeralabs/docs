@@ -1,0 +1,1 @@
+{"parameters":[{"name":"orgId","in":"query","description":"Organization numeric identifier","required":false,"schema":{"type":"integer","format":"int64"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","required":false,"schema":{"type":"integer","format":"int64"}}]}

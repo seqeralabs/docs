@@ -1,0 +1,1 @@
+{"parameters":[{"name":"runName","in":"query","description":"Workflow run name to validate","schema":{"type":"string"}},{"name":"sessionId","in":"query","description":"Workflow session ID to validate","schema":{"type":"string"}}]}

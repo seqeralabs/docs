@@ -5,7 +5,7 @@ description: "Adds the given list of labels to the given workflows. Existing lab
 sidebar_label: "Add labels to workflows"
 hide_title: true
 hide_table_of_contents: true
-api: eJy1VcFOGzEQ/RXL55CkLa3UnBoQlVBRQZCKQ5TDZHeSGLxrY3sTolX+vTPeNdkQBL30glj7zcybN8+TWgZYejmaSg1z1F7OejJHnzllgzKlHMlxnnsRViiWao2l0MoHYRaigYtgOncb4x4X2mx8X1w8E06Vy4QDh8I69OjWmPdlTxqLDrjEZd4UuYrAiblPSQhkwUGBAR0zrGVJHwTmMt5ChhTak4pJPlXotvI19fsEFGVVoFOZUDmWQS0UOgL7bIUFyFEtw9ZyYlUGXMarhXEFhObo26nc7UgWh1TFhzOTbznmsNRV22aeixZHWTJDCcvAaLBWqyw2PHjwHFIf1zfzB8w40DqWJyj0fJtkvcx9BwzOAbesAhbdcx8c6U6Ue81I/y3qndYpUVBBM2rsvckUBExDatq+bTuOWG5fOaSpBldhPPDWlL7p5fPw9Fi861/iRPw2IulFQafDL2/gkmdEaYIATQSoDhf1mFVOhW20yRmS29y4Civ6nPHoyEMrwz6zJg7GAt/JQVJ20Lh0QONjX7BJW8tVThNwFYL1o8EArOpn2lR53+MTcekrc2S6u3gjbjQEllKcM16Mby4lM0lE73j2jSRdui/z4IrJovw9jyA6af75mYb0sAlRAPbU7d6gF89QWB7ZK/dMkz1mXXdMh7MdP6SFiQzaYbeNMPOPemTFVIa+BfMcIYu+P9SvqxpZX+los4X5sb8gIix+U+dT//vX/pDPeHAFxGfTbgFaGZ0ltOlsjQOu9f4V/q9V1o4s4HMYWA20kIhwbLxunTZ9mYLspUXbk+w2msOKPUmQup6Dxz9O73Z83Kw09mCuPMw1v6gFaI/vNPjBwnuT6CNuj3bqGnTFyGjZNTjF9eNjIroIOWVjYk3oeVP+ZMLZ97FHG+/gId5c303Yze0yLUzOMQ5YIP5Ltfk3gqPjI4lnNWlXLitYMrbJyd6Hw6fz6qlEpmn7ldsOQxI8IibmEUsSPWkR+JvoUvK/d4h2EA==
+api: eJy1VcFOGzEQ/RVrzksSWlSpe2pAVEJFBQEVhyiHyXqSGLxrY3sJ0cr/Xo13l2wIgl56iRL7jefNmzeTBgKuPOQz0Lgg7WGegSRfOGWDMhXkMJXSi7AmsVLPVAmtfBBmKVq4CGZwtzHucanNxo/E+YvyQVWrHoeOhHXkyT2THEEGxpJDTnEh2ySXCXhn7vtHIAOLDksK5JhhAxWWBDlwGm+xoAsJGSgm+VST28Jb6vc9UFR1SU4VQkmqgloqcpCBL9ZUIuQNhK3lh1UVaJWulsaVGNqjbycQ4zwDR081+XBq5JZj9lNddmVKKTocZFCYKlAVGI3WalWkgscPnkOaw/xm8UAFB1rH8gRFnm97WS+kH4DROeSSVaByeO6DU9UKYszalv5b1AelxwyCCppRU+9NoTBQ36S27Juu4oTl8pUjCXlwNaUDb03l21q+TE4Oxbv6JY7EbyN6vWIGJ5Ov7+B6z4jKBIFamw3JVKmnonYqbJNNTgkduWkd1pDP5ty6ksLasM+sSY2xyHcw7pUdty4do2RHJZN2lqudhhzWIVifj8do1ajQppYjT0/kcKTMgelu04241hhYSnHGeDG9vgBm0hO95d63kgzpvvaDM/YW5d+LBIKs+/Kzb9LDJiQB2FM3O4Oev2BpuWVv3DPr7TEfumM2mUcepKVJDLpmd4Uw889qZMVUQb4Dcx+xSL7f12+oGpWodLLZ0vzYXcQMWPw2z/HoePJ9NOFD7lyJaW66NTCVcrCFNoO1sUe22Y3h/9plXc8CvYSx1agqJpwqbzqrzV7bAFm/aTNgu80zWLMp8xk0zQI9/XE6Rj5udxqbUCqPC80jtUTt6YMCP9l47xJ9pO3BUn1GXTMyefYZneL8aZoyWBNKcolYG3rWpj+649d3sQcrb28Sr69u79jO3TYtjeQYhywQf+aQ/iQ4Ok1JOmtAY7WqccXY9k02P+7PzptZSUz79VdtBwybpkXcmUeqYoRei8C/Ic5jjH8BgQ52PA==
 sidebar_class_name: "post api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -18,6 +18,7 @@ import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -31,7 +32,7 @@ import Heading from "@theme/Heading";
   path={"/workflow/labels/add"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -42,30 +43,24 @@ Adds the given list of labels to the given workflows. Existing labels are preser
   id={"request"}
   as={"h2"}
   className={"openapi-tabs__heading"}
-  children={"Request"}
 >
+  <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+  {...require("./add-labels-to-workflows.ParamsDetails.json")}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
-  title={"Body"}
-  body={{"description":"Labels add request","content":{"application/json":{"schema":{"type":"object","properties":{"workflowIds":{"type":"array","items":{"type":"string"}},"labelIds":{"type":"array","items":{"type":"integer","format":"int64"}}},"title":"AssociateWorkflowLabelsRequest"}}},"required":true}}
+  {...require("./add-labels-to-workflows.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
-  id={undefined}
-  label={undefined}
-  responses={{"204":{"description":"OK - No content"},"403":{"description":"Operation not allowed"}}}
+  {...require("./add-labels-to-workflows.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      

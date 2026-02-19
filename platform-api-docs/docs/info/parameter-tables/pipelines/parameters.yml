@@ -62,3 +62,8 @@
   Req/Opt: Optional
   Description: Source workspace numeric identifier. Used when accessing a shared
     pipeline from another workspace.
+- Name: "`versionId`"
+  Type: string
+  Location: query
+  Req/Opt: Optional
+  Description: Pipeline version string identifier. If omitted, uses the default version.
