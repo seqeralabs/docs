@@ -19,11 +19,91 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout docs repo
+      - name: Get API version
+        id: version
+        env:
+          RAW_VERSION: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.api_version || github.event.inputs.api_version }}
+        run: |
+          VERSION="$RAW_VERSION"
+
+          # Ensure the version is provided
+          if [ -z "$VERSION" ]; then
+            echo "Error: API version is required but was not provided."
+            exit 1
+          fi
+
+          # Validate that the version only contains safe characters
+          if ! printf '%s' "$VERSION" | grep -Eq '^[0-9A-Za-z._-]+$'; then
+            echo "Error: Invalid API version format: '$VERSION'. Allowed characters are letters, digits, '.', '_', and '-'."
+            exit 1
+          fi
+
+          echo "api_version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "branch_name=api-docs-v${VERSION}" >> "$GITHUB_OUTPUT"
+
+      - name: Check for existing PR
+        id: check-pr
+        run: |
+          BRANCH_NAME="${{ steps.version.outputs.branch_name }}"
+
+          # Check if an open PR already exists for this branch with error handling
+          if ! EXISTING_PR=$(gh pr list --state open --repo ${{ github.repository }} --head "$BRANCH_NAME" --json number,url --jq '.[0]' 2>/dev/null); then
+            echo "Failed to check for existing PRs, proceeding with workflow"
+            echo "pr_exists=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # Validate JSON output before parsing
+          if [ -n "$EXISTING_PR" ] && [ "$EXISTING_PR" != "null" ]; then
+            # Validate that we can extract number and url
+            if PR_NUMBER=$(echo "$EXISTING_PR" | jq -r '.number' 2>/dev/null) && \
+               PR_URL=$(echo "$EXISTING_PR" | jq -r '.url' 2>/dev/null) && \
+               [ -n "$PR_NUMBER" ] && [ "$PR_NUMBER" != "null" ]; then
+              echo "PR #$PR_NUMBER already exists for branch $BRANCH_NAME: $PR_URL"
+              echo "pr_exists=true" >> $GITHUB_OUTPUT
+              echo "pr_number=$PR_NUMBER" >> $GITHUB_OUTPUT
+              echo "pr_url=$PR_URL" >> $GITHUB_OUTPUT
+            else
+              echo "Failed to parse PR data, proceeding with workflow"
+              echo "pr_exists=false" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "No existing PR found for branch $BRANCH_NAME"
+            echo "pr_exists=false" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Checkout docs repo (for version check)
+        if: steps.check-pr.outputs.pr_exists != 'true'
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            platform-api-docs/scripts/specs
+          sparse-checkout-cone-mode: false
+
+      - name: Check for duplicate version
+        if: steps.check-pr.outputs.pr_exists != 'true'
+        id: version-check
+        run: |
+          VERSION="${{ steps.version.outputs.api_version }}"
+
+          # Check if a spec file already exists for this version
+          if [ -f "platform-api-docs/scripts/specs/seqera-api-${VERSION}.yaml" ] || [ -f "platform-api-docs/scripts/specs/seqera-api-${VERSION}.yml" ]; then
+            echo "ℹ️  Version $VERSION already exists in docs repo - skipping workflow"
+            echo "should_skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "✅ Version $VERSION is new - proceeding with overlay generation"
+            echo "should_skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Checkout docs repo (full)
+        if: steps.check-pr.outputs.pr_exists != 'true' && steps.version-check.outputs.should_skip != 'true'
         uses: actions/checkout@v4
         # Don't specify ref - use the branch that triggered the workflow
 
       - name: Checkout Platform repo
+        if: steps.check-pr.outputs.pr_exists != 'true' && steps.version-check.outputs.should_skip != 'true'
         uses: actions/checkout@v4
         with:
           repository: seqeralabs/platform
@@ -31,31 +111,24 @@ jobs:
           token: ${{ secrets.PLATFORM_REPO_PAT }}
 
       - name: Set up Python
+        if: steps.check-pr.outputs.pr_exists != 'true' && steps.version-check.outputs.should_skip != 'true'
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
       - name: Install Python dependencies
+        if: steps.check-pr.outputs.pr_exists != 'true' && steps.version-check.outputs.should_skip != 'true'
         run: |
           pip install pyyaml anthropic
 
       - name: Install Speakeasy CLI
+        if: steps.check-pr.outputs.pr_exists != 'true' && steps.version-check.outputs.should_skip != 'true'
         run: |
           curl -fsSL https://raw.githubusercontent.com/speakeasy-api/speakeasy/main/install.sh | sh
           echo "$HOME/.speakeasy/bin" >> $GITHUB_PATH
 
-      - name: Get API version
-        id: version
-        run: |
-          if [ "${{ github.event_name }}" == "repository_dispatch" ]; then
-            VERSION="${{ github.event.client_payload.api_version }}"
-          else
-            VERSION="${{ github.event.inputs.api_version }}"
-          fi
-          echo "api_version=$VERSION" >> $GITHUB_OUTPUT
-          echo "branch_name=api-docs-v${VERSION}" >> $GITHUB_OUTPUT
-
       - name: Copy new base spec from Platform repo
+        if: steps.check-pr.outputs.pr_exists != 'true' && steps.version-check.outputs.should_skip != 'true'
         run: |
           # Copy the flattened base spec
           cp platform-repo/tower-backend/src/main/resources/META-INF/openapi/seqera-api-latest-flattened.yml \
@@ -64,6 +137,7 @@ jobs:
           echo "✅ Copied flattened base spec for version ${{ steps.version.outputs.api_version }}"
 
       - name: Find previous version
+        if: steps.check-pr.outputs.pr_exists != 'true' && steps.version-check.outputs.should_skip != 'true'
         id: prev-version
         run: |
           cd platform-api-docs/scripts/specs
@@ -190,6 +264,7 @@ jobs:
           PYTHON_SCRIPT
 
       - name: Create draft PR
+        if: steps.check-pr.outputs.pr_exists != 'true' && steps.version-check.outputs.should_skip != 'true'
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -233,3 +308,20 @@ jobs:
 
             **Triggered by**: ${{ github.event.client_payload.triggered_by || github.actor }}
             **Platform commit**: ${{ github.event.client_payload.platform_commit || 'manual trigger' }}
+
+      - name: Workflow Summary
+        if: always()
+        run: |
+          echo "=== Workflow Summary ==="
+          if [ "${{ steps.check-pr.outputs.pr_exists }}" == "true" ]; then
+            echo "Status: Skipped - PR already exists"
+            echo "PR: #${{ steps.check-pr.outputs.pr_number }}"
+            echo "URL: ${{ steps.check-pr.outputs.pr_url }}"
+          elif [ "${{ steps.version-check.outputs.should_skip }}" == "true" ]; then
+            echo "Status: Skipped - Version already exists in docs repo"
+            echo "Version: ${{ steps.version.outputs.api_version }}"
+          else
+            echo "Status: Completed - New API version processed"
+            echo "Version: ${{ steps.version.outputs.api_version }}"
+            echo "Branch: ${{ steps.version.outputs.branch_name }}"
+          fi
