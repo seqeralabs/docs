@@ -27,4 +27,5 @@ jobs:
       - name: Build Docusaurus website
         env:
           FAIL_ON_BROKEN_LINKS: true
+          TYPESENSE_SEARCH_API_KEY: ${{ secrets.TYPESENSE_SEARCH_API_KEY }}
         run: npm run build
