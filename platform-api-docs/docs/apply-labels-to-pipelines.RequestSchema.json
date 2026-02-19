@@ -1,0 +1,1 @@
+{"title":"Body","body":{"description":"Labels apply request","content":{"application/json":{"schema":{"type":"object","properties":{"pipelineIds":{"type":"array","items":{"type":"integer","format":"int64"}},"labelIds":{"type":"array","items":{"type":"integer","format":"int64"}}},"title":"AssociatePipelineLabelsRequest"}}},"required":true}}

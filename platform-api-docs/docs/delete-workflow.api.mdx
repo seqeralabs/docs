@@ -5,9 +5,9 @@ description: "Delete the Workflow entity with the given ID"
 sidebar_label: "Delete the Workflow entity with the given ID"
 hide_title: true
 hide_table_of_contents: true
-api: eJydVVFv0zAQ/iuWn0AqbYGBRJ/YWCdNIJi2IR6mPrjJtfHmxp59aami/HfunKRNaLUxntacP/v77u67WylRLYOc3MmN9Q8LYzdBzgbSOvAKtc0vUzmR52AA4VcDkAPplFcrCnm+WcqcPgjWvkB3BlLnFHEKM/qdQki8dvweBdt3RECv86XQKeSoFxo8QT08FtoDsaIvYCBDksFKyUkpceuYpL4kq2rQ4w1OJbAnfizAb48yR6DIixV4nfS5D7h0jrCMRwvrVwrr0MeTHjsdJfA07wVDBGYgUq4kBQWsIRd6EYNt3YQOQiWo13BMzNxaAyon7hmXKTibBwgMeDc+4T99zh9fxRvx3aJILGWRo6wG8mQ8PgSeqVRw1SEg0bZoginnjE6iC0b3gbFlR9W+UXdyBSGoJbBxGrF2fg8Jv+c8Wwl1rbQFHmunRI2GQ1Pvrb9uEqSTKip/fyTF1qQipzyVoRKSHoYHSAqvcRvdeQbKgz8tyIqTuxlXr/9M7e7YiZ012RW4FRuNWTxYau7X5TllRL7PLE9F7CXEaeCn5ajt46jcT0LFrQS/bkel8IagGaILk9FIOT1MjC3SYYBHSmao7YF5buKJuDIK2YXiC+PF6dWl5FTaTG+4MXWRu/nu6syMrauimyKIIvWPi9bf9xuMFdT5wsbrTVMaFUz7nEBOVycQGjA7ilzNj/WT76ZMptImjtfCft4fkBCuXM3zdvjpw3DMMWcDrlQ0ZDOEL+xhL4FdjRB+48gZRZNMJFFs2TR3vx7p9qSz6KgFGalhRFnOVYCf3lQVh+tVwD1PdVBzw6OyUCbAAf1u5p5bUEd1PsD2YAeulSkYKXlP/Tv9/+ypJzS1m3GvZsYfXrOcF1bm1XWzb16LJ/9/HJXTBFW+7arplq7pZjUjdAYqpbdYXw04TRJw2Ll6sBk5sd1eOJ9+m95OCa76I/jXyEWCo8rISBFxax8gr6qdUORv1lhVfwBHnakf
+api: eJydVU1v2zAM/SsCTxvgJWlX7ODT2jUFgg1b0XbYochBselYrSy5Et0sMPTfB8p2PpagXXdKIj3xPZKPTAsklx7Se1hZ91hou/IwT8DW6CQpa2Y5pHCJGgl/9QBIoJZOVkjo+GULRlYI6SbCLIcElIEUakklJJCjz5yqOR6kMMQRnpwyS6FyNKQKhQ4ScPjUKIc5pOQaTMBnJVYS0hZoXTNJ9whCSPZ4fS0z3BI/NejWR5kjUJimQqeyfe4DLmUIl/GqsK6S1B19OttjL6zL8GXeK4YIKlHkXElljcBnNEIV8XCom1BeyIzUMx4Ts7BWozQQwpzL5GtrPHoGnE7O+GOf88dX8UF8tyQyawgNQUjgbDI5BF7IXHDV0RMkMKDTFmRda5VFF4wfPGPbHVXbRt1Dhd7LJbJxerF28YAZx6sdW4lUp3QAHmsnkCLNR1PnrLvpE4QQQlT+8UiKg0mFsSSk1naFeQzlMWuconV05wVKh+68oRLS+zlXbz9M5+7YiY012RW0FitFZbxYKu7X7BISqJBKy1MRe4lxGjg0jIc+jtvtJARuJbrnYVQapyGFkqj26XgsazXKtG3ykccndHKk7IF5buONuNaS2IXiC+PF+fUMOJUh01tuTFfk3Xw3dWbGwVXRTREESf/lavD3w4piBZUpbHzeN6VXwbSvCeR0VYa+B7OjZBYdtZ/8bspYSaXjeBX28/YiJMCV63hORieT09GED2vrqZLRkf0UvrGJexlsikT4m8a1lsowSVTb9t3d7kdIIN3ZdPMESuuJEW27kB5/Oh0CH3e7gJueKy8XmmelkNrjAf1m6F7bUEd1PuL6YAk+S90wEnhR/Tv9/yyqFzQNq3GrZs4/nGI5b6zMu5t+4bwXL/6BHJXTH0qz3lWzW7q+m2EeEihR5uiivg5wnmVY087Tg9XIiW0Ww+X02/RuCgnI/Rn8a+YiwVFlbdsh7uwjmhA2Qol/s8YQ/gBWQKlE
 sidebar_class_name: "delete api-method"
-info_path: platform-api-docs/docs/seqera-api
+info_path: platform-api//seqera-api
 custom_edit_url: null
 ---
 
@@ -18,6 +18,7 @@ import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -31,7 +32,7 @@ import Heading from "@theme/Heading";
   path={"/workflow/{workflowId}"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -42,30 +43,24 @@ Delete the Workflow entity with the given ID
   id={"request"}
   as={"h2"}
   className={"openapi-tabs__heading"}
-  children={"Request"}
 >
+  <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"workflowId","in":"path","description":"Workflow string identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"force","in":"query","description":"Force the deletion even if the workflow is active","schema":{"type":"boolean"}}]}
+  {...require("./delete-workflow.ParamsDetails.json")}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
-  title={"Body"}
-  body={undefined}
+  {...require("./delete-workflow.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
-  id={undefined}
-  label={undefined}
-  responses={{"204":{"description":"OK - Not content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+  {...require("./delete-workflow.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      

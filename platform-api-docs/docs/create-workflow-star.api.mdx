@@ -5,9 +5,9 @@ description: "Adds the workflow identified by the given `workflowId` to your lis
 sidebar_label: "Star workflow"
 hide_title: true
 hide_table_of_contents: true
-api: eJzNVVFr2zAQ/itCTxuEONu6Qf20rNugDNbSbOyhFKrY51itbKmSnM6Y/PfeyXac1CGlD4M9JZG+0/fd3XeXhnuxcjy+5o/a3mdKPzp+M+EpuMRK46UuecznaeqYz4H1GCZTKL3MJKRsWYerlVxDyW57xHl6y7xmta4sU9J5pjPmvLAWI7ZMUz7h2oAVxHOeItOZBeHhTwdYYABCjLCiAA+WdDa8xB8IHZgQIkmmET7nz7X3byG7leVqUE4vW3ioJErisbcVTLhLcigEjxvua0MkbRDfbCZ7vM6IBAbihwpsfZA5AFlZFWBlss894pKlh1W4yrQthG+PPp0g+w1JdUaXDhxFvJ/N6GOf7+IHhiYaXyk93QpjlExCbaM7R5BmTKqXd5B4KrKlTnjZEuwU91AxuJdewcF+XXU6EUbAk9mHA0r7nrNSeyYUhmIPAvpkjP6JmExXZfqa9IbOXvMCnBMrIF8fz7oHHk35m7V6nOXpWPfXqhWIjgcFBcn+TxPAS5yvXNMEGu3CuzRLMY96I0TNYIlN5NrBdGDX/VRWViE+9964OIqEkdNE6SqdOnjAZk+lHs3HItywSyU8GZ6dEZ7NL885+d1BUlnp6wVVpM3uCwgLdl6Rsm2CxNhPE/1eBhCetF++96N09+hDFWSZ6RDeVaNTQbQvCaR0ZQKuA1MrRRJauZ/8bsrYTanCJGf683CBQqhyLc+76enH6YzOqPiFCE7otg2N1HZhPlfYDHb6pzu6K7WHvz4ySuDOQ60h56YzyvD3gfB4bzUHr2BDczIWAptmKRz8tmqzoeN2d5KDUunEUpHjM6EcHMn1hc16UO491KPlvRaqImQw3FpYSfyv1PLmqhvUt+zoX81BUd2hKOtdNbtiuzJubhCdg0jxLdLXAuZJAsbvhI5WCiW2He3Li8UvnIEnWQfGSg==
+api: eJzNVdFq2zAU/RVxnzYwSdqVwfy0rNugDNbSbPShBKpY14la2XKl62TB+N/Hle04qUNKHwZ7SiId6Zxzde5NBSSXHuJ72Fj3lBq78TCPQKFPnC5I2xximCrlBa1QdBihFeakU41KLLZha6nXmIuHDnGlHgRZsbWlE0Z7EjYVnqRzqHa3+BFEYAt0knmuFMRw6VAS3rWAGUkHERTSyQwJHeusIJcZQgw9E0SgWWYhaQUvtXd3CU9O58teOd/s8LnUDhXE5EqMwCcrzCTEFdC2YJLmENR1dMDrC5lgT/xcotseZQ5AkZcZOp0ccg+4dE64DFupdZmkZunjBdT1nKX6wuYePZ84n0z445Dv+gdEkNicMCfelUVhdBJqO370DKmGpHbxiAlxkR2/BOmGYK+4x4oBpMng0fe6bXVCXTPwYvLhiNLuzUVuSUhj7AYVBPTFEP3Tkkhtmau32Otf9h4y9F4ukXN92nUHPGn5m3N26PLTUPfXshGISqDBjGX/pwbqCDKkleUOLKwP93IvxTDugjCu+kjUY980pke37rqydAZiWBEVPh6PZaFHibGlGnl8RidH2g76YxZ2xI2RxIEXl4wX05sr4Lx7TEqnaTvjijTuvqB06KYlK9sZZMaum/j3IoAgar9871rpcUOhCjpPbTjeVqNVwbSvCWS7OkHfgvkpZRKe8tD8vmXMpDahk1P7ud+oI+DKNTxno7PJ+WjCi1z9TIYotOOGe2o3MV9KrPo8/dMh3daa8A+NCyN1zlqD6apNSv//ARHEB7M5hGUewYqTFd9DVS2kx9/O1DUvN8OTI6S0lwvDkU+l8XjC6yuj9ajcJ9wOpvdampKRIXFr6TTzv1HLu9u2U9+Lk/81R0W1izLf7qvZF9uWsZ7XEaxQKnRBXwOYJgkWtHd0MFPY2K63b65nv6Cu/wKhpcZv
 sidebar_class_name: "post api-method"
-info_path: platform-api-docs/docs/seqera-api
+info_path: platform-api//seqera-api
 custom_edit_url: null
 ---
 
@@ -18,6 +18,7 @@ import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -31,7 +32,7 @@ import Heading from "@theme/Heading";
   path={"/workflow/{workflowId}/star"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -42,30 +43,24 @@ Adds the workflow identified by the given `workflowId` to your list of starred w
   id={"request"}
   as={"h2"}
   className={"openapi-tabs__heading"}
-  children={"Request"}
 >
+  <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"workflowId","in":"path","description":"Workflow string identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+  {...require("./create-workflow-star.ParamsDetails.json")}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
-  title={"Body"}
-  body={undefined}
+  {...require("./create-workflow-star.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
-  id={undefined}
-  label={undefined}
-  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"object","properties":{"workflowId":{"type":"string"}},"title":"CreateWorkflowStarResponse"}}}},"403":{"description":"Operation not allowed"},"404":{"description":"Not found","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"409":{"description":"Duplicated element","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+  {...require("./create-workflow-star.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      
