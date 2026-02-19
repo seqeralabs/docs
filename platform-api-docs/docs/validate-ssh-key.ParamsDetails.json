@@ -1,0 +1,1 @@
+{"parameters":[{"name":"key","in":"query","description":"SSH public key content to validate. Must be in valid SSH public key format.","schema":{"type":"string"}}]}

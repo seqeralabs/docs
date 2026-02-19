@@ -41,19 +41,19 @@
 - Name: name
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Label key name.
 - Name: value
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Label value.
 - Name: resource
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: Set to true to create a resource label.
 - Name: isDefault
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: Set to true to automatically apply this label to new resources.
 - Name: "**UpdateLabel**"
   Type: ""
   Req/Opt: ""

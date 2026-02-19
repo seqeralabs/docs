@@ -1,0 +1,16 @@
+overlay: 1.0.0
+info:
+  title: Pipeline schemas parameters overlay
+  version: 1.109.0
+actions:
+  # ===== PIPELINE SCHEMAS PARAMETERS =====
+
+  # ---- QUERY PARAMETERS ----
+
+  - target: "$.paths./pipeline-schemas.post.parameters[?(@.name=='workspaceId')].description"
+    update: "Workspace numeric identifier."
+
+  # ---- REQUEST BODY ----
+
+  - target: "$.paths./pipeline-schemas.post.requestBody.description"
+    update: "Pipeline schema creation request containing the schema content."
