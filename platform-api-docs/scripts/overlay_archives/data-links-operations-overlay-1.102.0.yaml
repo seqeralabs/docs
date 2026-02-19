@@ -1,0 +1,102 @@
+actions:
+  # ===== DATA-LINKS - OPERATIONS =====
+
+  # Update existing operations
+
+  - target: "$.paths./data-links/{dataLinkId}/browse.get.summary"
+    update: "Explore data-link"
+
+  - target: "$.paths./data-links/{dataLinkId}/browse.get.description"
+    update: "Retrieves the content of the data-link associated with the given `dataLinkId`."
+
+  - target: "$.paths./data-links/{dataLinkId}/browse/{path}.get.operationId"
+    update: "ExploreDataLinkWithPath"
+
+  - target: "$.paths./data-links/{dataLinkId}/upload.post.summary"
+    update: "Generate data-link file upload URL"
+
+  - target: "$.paths./data-links/{dataLinkId}/upload.post.description"
+    update: "Creates a URL to upload files to the data-link associated with the given `dataLinkId`. For AWS S3 data-links, an additional follow-up request must be sent after your file upload has completed (or encountered an error) to finalize the upload - see the `/upload/finish` endpoint."
+
+  - target: "$.paths./data-links/{dataLinkId}/upload/{dirPath}.post.operationId"
+    update: "GenerateDataLinkUploadUrlWithPath"
+
+  - target: "$.paths./data-links/{dataLinkId}/upload/finish.post.summary"
+    update: "Finish data-link file upload"
+
+  - target: "$.paths./data-links/{dataLinkId}/upload/finish.post.description"
+    update: "Finish upload of a data-link file. This is necessary for AWS S3 data-links (`DataLinkProvider=aws`) to finalize a successful file upload, or abort an upload if an error was encountered while uploading a file using an upload URL from the `/upload` endpoint."
+
+  - target: "$.paths./data-links/{dataLinkId}/upload/finish.post.responses['404'].description"
+    update: "NotFound — workspace or credentials not found, API disabled for the workspace, or data-link not found."
+
+  - target: "$.paths./data-links/{dataLinkId}/upload/finish/{dirPath}.post.operationId"
+    update: "FinishDataLinkUploadWithPath"
+
+  - target: "$.paths./data-links/{dataLinkId}/upload/finish/{dirPath}.post.responses['200'].description"
+    update: "FinishDataLinkUploadWithPath 200 response."
+
+  # New endpoint in v1.102.0
+
+  - target: "$.paths"
+    update:
+      /data-links/{dataLinkId}/download/{filePath}:
+        get:
+          tags:
+            - data-links
+          summary: "Download data-link file at path"
+          description: "Downloads the content at the given `filePath` in the data-link associated with the given `dataLinkId`."
+          operationId: DownloadDataLink
+          parameters:
+            - name: dataLinkId
+              in: path
+              description: "Data-link string identifier."
+              required: true
+              schema:
+                type: string
+            - name: filePath
+              in: path
+              description: "Resource path of the file to download."
+              required: true
+              schema:
+                type: string
+            - name: credentialsId
+              in: query
+              description: "Credentials string identifier."
+              schema:
+                type: string
+            - name: workspaceId
+              in: query
+              description: "Workspace numeric identifier."
+              schema:
+                type: integer
+                format: int64
+          responses:
+            "200":
+              description: "OK."
+              content:
+                application/json:
+                  schema:
+                    type: string
+                    format: binary
+            "400":
+              description: "Bad request."
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "404":
+              description: "NotFound — workspace or credentials not found, API disabled for the workspace, or data-link or path not found."
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: "Operation not allowed."
+          security:
+            - BearerAuth: []
+
+  # Remove deprecated endpoint
+
+  - target: "$.paths./data-links/{dataLinkId}/download"
+    remove: true

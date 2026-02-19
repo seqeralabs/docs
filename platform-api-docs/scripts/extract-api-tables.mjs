@@ -7,7 +7,16 @@ import { parse } from 'yaml';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const SPEC_PATH = path.resolve(__dirname, './specs/seqera-api-latest-decorated.yml');
+// Support both .yaml and .yml extensions for decorated spec
+const SPEC_YAML = path.resolve(__dirname, './specs/seqera-api-latest-decorated.yaml');
+const SPEC_YML = path.resolve(__dirname, './specs/seqera-api-latest-decorated.yml');
+const SPEC_PATH = fs.existsSync(SPEC_YAML) ? SPEC_YAML : SPEC_YML;
+
+if (!fs.existsSync(SPEC_PATH)) {
+  console.error('❌ Error: seqera-api-latest-decorated.{yaml,yml} not found');
+  process.exit(1);
+}
+
 const OUTPUT_DIR = path.resolve(__dirname, '../docs/info/parameter-tables');
 
 // Utility to safely dereference $ref fields
@@ -138,10 +147,10 @@ for (const [tag, operations] of Object.entries(taggedOps)) {
     operations.forEach((op) => {
       const response = op.responses?.['200']?.content?.['application/json']?.schema;
       if (!response) return;
-    
+
       const resolved = response.$ref ? resolveRef(response.$ref, spec) : response;
       const reqList = resolved.required || [];
-    
+
       const sectionLabel = {
         Name: `**${op.operationId}**`,
         Type: '',
@@ -149,7 +158,7 @@ for (const [tag, operations] of Object.entries(taggedOps)) {
         Description: op.summary || '',
       };
       responseRows.push(sectionLabel);
-    
+
       if (resolved.properties) {
         responseRows.push(...formatResponseBody(resolved, spec, reqList));
       } else {
@@ -164,8 +173,8 @@ for (const [tag, operations] of Object.entries(taggedOps)) {
   });
 
   const safeTag = tag.replace(/\s+/g, '-').toLowerCase();
-  const tagDir = path.join(OUTPUT_DIR, safeTag); 
-  
+  const tagDir = path.join(OUTPUT_DIR, safeTag);
+
   // Deduplicate parameters by name and location
   const seenParams = new Set();
   const uniqueParams = paramRows.filter((param) => {
@@ -176,12 +185,12 @@ for (const [tag, operations] of Object.entries(taggedOps)) {
   });
 
   if (paramRows.length > 0) {
-    writeYaml(path.join(tagDir, `parameters.yml`), uniqueParams); 
+    writeYaml(path.join(tagDir, `parameters.yml`), uniqueParams);
   }
   if (bodyRows.length > 0) {
-    writeYaml(path.join(tagDir, `request-bodies.yml`), bodyRows); 
-  }  
+    writeYaml(path.join(tagDir, `request-bodies.yml`), bodyRows);
+  }
   if (responseRows.length > 0) {
     writeYaml(path.join(tagDir, `responses.yml`), responseRows);
-  }  
+  }
 }

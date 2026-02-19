@@ -1,0 +1,14 @@
+overlay: 1.0.0
+info:
+  title: Workflows operations overlay
+  version: 0.0.0
+actions:
+  # ===== WORKFLOWS - OPERATIONS =====
+
+  # ---- LAUNCH WORKFLOW ----
+
+  - target: "$.paths./workflow/launch.post.description"
+    update: |
+      Submits a workflow execution.
+
+      **To [resume](https://docs.seqera.io/platform-cloud/launch/cache-resume#resume-a-workflow-run) a workflow**: First, retrieve the launch configuration using [`GET /workflow/{workflowId}/launch`](https://docs.seqera.io/platform-api/describe-workflow-launch). Then modify the response by setting `workDir` to the value from `resumeDir`, `revision` to the value from `resumeCommitId`, and `resume` to `true`. Submit the modified payload to this endpoint to resume the workflow.
