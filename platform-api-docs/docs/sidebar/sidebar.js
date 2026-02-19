@@ -86,25 +86,16 @@ module.exports = {
         { type: "doc", id: "update-custom-data-link", label: "Update data link in a user or workspace context", className: "api-method put" },
         { type: "doc", id: "delete-custom-data-link", label: "Delete data link in a user or workspace context", className: "api-method delete" },
         { type: "doc", id: "explore-data-link", label: "Explore data-link content", className: "api-method get" },
-<<<<<<< HEAD
-=======
         { type: "doc", id: "explore-data-link-with-path", label: "Explore data-link content at path", className: "api-method get" },
->>>>>>> origin/master
         { type: "doc", id: "explore-data-link-tree", label: "Explore data-link tree", className: "api-method get" },
         { type: "doc", id: "delete-data-link-item", label: "Delete data-link content", className: "api-method delete" },
         { type: "doc", id: "download-data-link", label: "Download data-link file at path", className: "api-method get" },
         { type: "doc", id: "generate-data-link-upload-url", label: "Generate file upload URL", className: "api-method get" },
-<<<<<<< HEAD
-        { type: "doc", id: "generate-download-url-data-link", label: "Generate data-link file download URL", className: "api-method get" },
-        { type: "doc", id: "generate-download-script", label: "Generate download script", className: "api-method get" },
-        { type: "doc", id: "finish-data-link-upload", label: "Finish data-link file upload", className: "api-method post" },
-=======
         { type: "doc", id: "generate-data-link-upload-url-with-path", label: "Generate file upload URL to given path", className: "api-method get" },
         { type: "doc", id: "generate-download-url-data-link", label: "Generate data-link file download URL", className: "api-method get" },
         { type: "doc", id: "generate-download-script", label: "Generate download script", className: "api-method get" },
         { type: "doc", id: "finish-data-link-upload", label: "Finish data-link file upload", className: "api-method post" },
         { type: "doc", id: "finish-data-link-upload-with-path", label: "Finish data-link file upload to given path", className: "api-method post" },
->>>>>>> origin/master
       ],
     },
     {
