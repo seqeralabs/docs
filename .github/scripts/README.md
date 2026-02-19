@@ -93,7 +93,7 @@ Converts Claude agent review findings into GitHub inline suggestions that can be
 ./post-inline-suggestions.sh <review-file> <pr-number>
 ```
 
-### Input Format
+### Input format
 
 The script expects a review file with this format:
 
@@ -131,7 +131,7 @@ corrected text here
 
 Users can then click "Commit suggestion" to apply the fix directly from the PR interface.
 
-### How It Works
+### How it works
 
 1. Parses the structured review file
 2. Groups suggestions by file and line

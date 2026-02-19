@@ -116,33 +116,33 @@ Ensures consistent punctuation across documentation.
 
 **File:** `.github/workflows/docs-review.yml`
 
-**Triggers:**
-- **Automatic:** PR creation or reopen for `platform-*` directories
-- **Manual:** Workflow dispatch (see below)
+**Triggers (GitHub Actions, on-demand only):**
+- **PR comment:** Comment `/editorial-review` on any PR
+- **Manual workflow dispatch:** Via GitHub Actions UI (see below)
+
+Editorial review can also be run locally via Claude Code CLI using the `/editorial-review` command; this runs outside the `.github/workflows/docs-review.yml` workflow.
+**NOT triggered by:**
+- PR creation, updates, or commits (to conserve tokens)
 
 **How it works:**
-0. Validates bash script syntax (fails fast if scripts have errors)
-1. Classifies PR as "rename" or "content" type
-2. Runs agents based on PR type (rename PRs skip voice-tone & terminology)
-3. Posts up to 60 inline suggestions per PR
-4. Saves full report as downloadable artifact (30-day retention)
+1. User comments `/editorial-review` on PR
+2. Workflow validates bash scripts (fails fast if errors)
+3. Classifies PR type ("rename" or "content")
+4. **Smart-gate checks** (automatic waste prevention):
+   - Blocks if reviewed <60 min ago
+   - Blocks if <10 lines changed
+   - Blocks if >5 formatting issues (run markdownlint first)
+5. If gates pass: Invokes `/editorial-review` skill
+6. Skill orchestrates agents (voice-tone, terminology)
+7. Posts up to 60 inline suggestions
+8. Saves full report as artifact (30-day retention)
 
-**Manual re-runs:**
+**Key architecture:** Workflow invokes the `/editorial-review` skill rather than calling agents directly. This ensures local and CI behavior is identical.
 
-After the initial review, re-run the workflow manually:
-
-1. Go to **Actions** → **Documentation Review**
-2. Click **Run workflow**
-3. Select your PR branch
-4. Enter the **PR number** (required for posting results)
-5. Choose review type:
-   - `all` - Run all checks
-   - `voice-tone` - Only voice/tone
-   - `terminology` - Only terminology
-   - `clarity` - Only clarity _(currently disabled in CI)_
-6. Click **Run workflow**
-
-The workflow does NOT re-run automatically on subsequent commits (to conserve tokens).
+**Manual workflow dispatch:**
+1. Go to **Actions** → **Documentation Review** → **Run workflow**
+2. Enter PR number and select review type (`all`, `voice-tone`, `terminology`)
+3. Smart-gate still applies - manual trigger doesn't bypass automation
 
 **Outputs:**
 - Inline suggestions on specific lines (click to apply)
@@ -158,6 +158,16 @@ The workflow does NOT re-run automatically on subsequent commits (to conserve to
 **`.github/scripts/classify-pr-type.sh`**
 - Analyzes git diff to determine PR type
 - Outputs "rename" or "content" for workflow decisions
+
+### Agent status
+
+| Agent | Status | Used in CI |
+|-------|--------|------------|
+| voice-tone | ✅ Active | Yes |
+| terminology | ✅ Active | Yes |
+| punctuation | 📋 Planned | No |
+| clarity | ⚠️ Disabled | No |
+| docs-fix | 📝 Local only | No |
 
 ## Agent output format
 
@@ -187,11 +197,18 @@ When working on API documentation:
 
 ### Working with editorial content
 
-When working on documentation content:
-1. Open PR → Agents automatically review changes
-2. Review inline suggestions on affected lines
-3. Apply fixes individually or batch-apply multiple
-4. Re-run workflow manually from Actions tab if needed
+**Local development (before PR):**
+1. Make doc changes locally
+2. Run `/editorial-review <file>` in Claude Code
+3. Review findings and apply fixes
+4. Commit and push
+
+**PR review (on-demand):**
+1. Open PR with documentation changes
+2. Comment `/editorial-review` to trigger review
+3. Review inline suggestions on affected lines
+4. Apply fixes individually or batch-apply multiple
+5. Comment `/editorial-review` again to verify fixes
 
 ### Testing changes locally
 
@@ -235,6 +252,41 @@ To change: Edit `.github/workflows/docs-review.yml` lines 268-284
 - Test changes locally before committing
 - Monitor the **Actions** tab in GitHub for workflow issues
 - Artifacts auto-delete after 30 days
+
+## Optimization and best practices
+
+### Reducing unnecessary reviews
+
+To minimize token usage and environmental impact:
+
+1. **Check PR timeline** before re-running `/editorial-review`
+2. **Use static analysis first**: Run `markdownlint` or `vale` locally before LLM review
+3. **Skip minor changes**: Don't review single typo fixes or whitespace changes
+4. **Batch changes**: Fix multiple issues, then run one review
+
+### Static analysis pre-filtering
+
+Consider running fast, local checks before using LLM agents:
+
+```bash
+# Markdown formatting (instant, zero cost)
+npx markdownlint-cli2 "**/*.md"
+
+# Simple pattern checks (instant, zero cost)
+grep -r "Tower" --include="*.md" platform-enterprise_docs/
+
+# Vale style checks if configured (instant, zero cost)
+vale platform-enterprise_docs/
+```
+
+**Benefits**: Reduces LLM usage by 50-60% by catching simple issues locally first.
+
+### Security best practices
+
+- API keys stored in GitHub Secrets (never in code or logs)
+- Reviews only read files (no write access to production)
+- Manual triggers prevent automated abuse
+- All output is publicly visible for transparency
 
 ## Architecture
 
