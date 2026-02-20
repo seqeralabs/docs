@@ -8,10 +8,16 @@ description: Launch a pipeline
 Launch a pipeline.
 
 ```bash
-tw launch [OPTIONS]
+tw launch [OPTIONS] <pipeline>
 ```
 
 Run `tw launch -h` to view supported launch options.
+
+The `<pipeline>` parameter can be:
+- **Saved pipeline name**: Launch a pre-configured pipeline from your workspace Launchpad (e.g., `nf-hello-2026`)
+- **Git repository URL**: Launch directly from a pipeline repository (e.g., `https://github.com/nextflow-io/hello`)
+
+Use saved pipeline names for pre-configured workflows with specific parameters and compute environments. Use Git URLs for ad-hoc pipeline execution or when launching pipelines not yet saved to the workspace.
 
 ## Options
 
@@ -39,7 +45,7 @@ Run `tw launch -h` to view supported launch options.
 | `--disable-optimization` | Turn off the optimization for the pipeline before launching. | No | `null` |
 | `--head-job-cpus` | Number of CPUs allocated for the Nextflow head job. | No | `null` |
 | `--head-job-memory` | Memory allocation for the Nextflow head job in megabytes. | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
 ### Example
 

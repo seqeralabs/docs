@@ -21,7 +21,7 @@ tw secrets list [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
 ### Example
 
@@ -57,7 +57,7 @@ tw secrets add [OPTIONS]
 | `-n`, `--name` | Secret name. Must be unique per workspace. Names consist of alphanumeric, hyphen, and underscore characters. | Yes | `null` |
 | `-v`, `--value` | Secret value, to be stored securely. The secret is made available to pipeline executions at runtime. | No | `null` |
 | `--overwrite` | Overwrite the secret if it already exists | No | `false` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
 Run `tw secrets add -h` to view the required and optional fields for adding a secret.
 
@@ -87,7 +87,7 @@ tw secrets view [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 | `-i`, `--id` | Secret identifier | No | `null` |
 | `-n`, `--name` | Secret name | No | `null` |
 
@@ -126,7 +126,7 @@ tw secrets update [OPTIONS]
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
 | `-v`, `--value` | New secret value, to be stored securely. The secret is made available to pipeline executions at runtime. | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 | `-i`, `--id` | Secret identifier | No | `null` |
 | `-n`, `--name` | Secret name | No | `null` |
 
@@ -156,7 +156,7 @@ tw secrets delete [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 | `-i`, `--id` | Secret identifier | No | `null` |
 | `-n`, `--name` | Secret name | No | `null` |
 
