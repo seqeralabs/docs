@@ -136,7 +136,7 @@ Configuration values that control Seqera's interaction with databases and Redis 
 From Seqera Enterprise version 23.3, Redis version 7 is officially supported. Follow your cloud provider specifications to upgrade your instance.
 :::
 
-### Database requirements 
+### Database requirements
 
 :::warning Aurora Serverless is not supported
 AWS Aurora Serverless is **not supported** for production Seqera Enterprise deployments. We have observed critical stability and performance issues with Aurora Serverless under typical production workloads, including:
@@ -151,6 +151,12 @@ AWS Aurora Serverless is **not supported** for production Seqera Enterprise depl
 - Self-managed MySQL 8.0
 
 If you are currently using Aurora Serverless and experiencing performance issues, we strongly recommend migrating to one of the supported database configurations above.
+:::
+
+:::note
+From Seqera Enterprise version 23.4:
+- MySQL 8 is the officially supported and tested database version.
+- MySQL versions 5.6 and 5.7 are no longer supported.
 :::
 
 External databases for Seqera Enterprise deployments require:
@@ -420,7 +426,7 @@ JAVA_OPTS: -Xms1000M -Xmx2000M -XX:MaxDirectMemorySize=800m -Dio.netty.maxDirect
 ```
 
 :::note
-These default JVM memory settings are included in the configuration templates provided in these docs: 
+These default JVM memory settings are included in the configuration templates provided in these docs:
 - Kubernetes: [tower-svc.yml](../_templates/k8s/tower-svc.yml) and [tower-cron.yml](../_templates/k8s/tower-cron.yml)
 - Docker Compose: [tower.env](../_templates/docker/tower.env)
 :::
@@ -616,11 +622,11 @@ Do not replace the [Seqera-provided default image](../../functionality_matrix/ov
 
 ## Seqera API
 
-Enable the API endpoints to host the Seqera Enterprise OpenAPI specification and use the [tw CLI](https://github.com/seqeralabs/tower-cli). Set custom API rate limits and timeouts. 
+Enable the API endpoints to host the Seqera Enterprise OpenAPI specification and use the [tw CLI](https://github.com/seqeralabs/tower-cli). Set custom API rate limits and timeouts.
 
 :::note
 To configure API rate limit environment variables, you must add `ratelim` to the `MICRONAUT_ENVIRONMENTS`. Without `ratelim` being set, the rate limit configuration variables below are ignored.
-::: 
+:::
 
 <Tabs>
 <TabItem value="Environment variables" label="Environment variables" default>

@@ -21,7 +21,7 @@ See each deployment guide for detailed requirements.
 ## Prerequisites
 
 Before you begin, you need:
-- A MySQL 8 database
+- A MySQL 8 database. MySQL v5.x is not supported.
 - A Redis 7 instance
 
 :::note
