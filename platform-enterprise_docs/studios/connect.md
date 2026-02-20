@@ -1,7 +1,7 @@
 ---
 title: Connect changelog
 date created: "2025-07-30"
-last updated: "2025-12-03"
+last updated: "2026-02-12"
 tags: [connect, changelog, connect-changelog]
 ---
 
@@ -11,11 +11,21 @@ Always use the `recommended` tagged template image for new Studios. Only two ear
 
 ## Connect server
 
-### server/v0.9.0 `latest` - 2025-12-05
+### server/v0.10.0 `latest` - 2026-02-11
 
-- Add: missing env when testing with platform livedev
-- Fix: security vulnerabilities for crypto ssh library and slack nebula
-- Upgrade go (from v1.24.3 to 1.25.3) and caddyserver (from 2.10.0 to 2.10.2)
+* Add: SSH Connectivity:
+  * Server implementation (initialize ssh server when enabled)
+  * Fingerprint verification
+  * Set `authSecret` on SSH proxy requests to Platform
+  * Add SSH connection activity tracking and notifications
+* Change the logger timestamp format to ISO8601
+* Detect network load balancer health checks
+
+### server/v0.9.0 - 2025-12-05
+
+* Add: missing env when testing with platform livedev
+* Fix: security vulnerabilities for crypto ssh library and slack nebula
+* Upgrade go (from v1.24.3 to 1.25.3) and caddyserver (from 2.10.0 to 2.10.2)
 
 ### server/v0.8.4 - 2025-10-31
 
@@ -103,7 +113,11 @@ Connect version 0.8.3 introduced a change which required the creation of a `/dat
 
 ## Connect client
 
-### client/v0.9.0 `latest` - 2025-12-05
+### client/v0.10.0 `latest` - 2026-02-11
+
+* Moved Docker service management to the Connect-client.
+
+### client/v0.9.0 - 2025-12-05
 
 - Add: disk size and auto resizing based on compute env
 - Add: version module and add support for client version
