@@ -43,21 +43,6 @@ Workspaces for default user:
     26002603030407  | shared-workspace | my-tower-org      | 04303000612070
 ```
 
-## tw workspaces delete
-
-Delete a workspace.
-
-```bash
-tw workspaces delete [OPTIONS]
-```
-
-### Options
-
-| Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `-i`, `--id` | Workspace identifier | No | `null` |
-| `-n`, `--name` | Workspace namespace in OrganizationName/WorkspaceName format | No | `null` |
-
 ## tw workspaces add
 
 Add a workspace.
@@ -102,23 +87,6 @@ A 'SHARED' workspace 'shared-workspace' added for 'my-tower-org' organization
 :::note
 By default, a workspace is set to private when created.
 :::
-
-## tw workspaces update
-
-Update a workspace.
-
-```bash
-tw workspaces update [OPTIONS]
-```
-
-### Options
-
-| Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `-i`, `--id` | Workspace identifier | Yes | `null` |
-| `--new-name` | Updated workspace name. Must be unique per workspace. Names consist of alphanumeric, hyphen, and underscore characters. Must be 2-40 characters. | No | `null` |
-| `-f`, `--fullName` | Updated full display name for the workspace. Maximum 100 characters. | No | `null` |
-| `-d`, `--description` | Updated workspace description. Maximum 1000 characters. | No | `null` |
 
 ## tw workspaces view
 

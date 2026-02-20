@@ -159,6 +159,22 @@ tw teams members add [OPTIONS]
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
 | `-m`, `--member` | Member username or email address. The user must already be a member of the organization before being added to the team. Use either their platform username or email address. | Yes | `null` |
+| `-t`, `--team` | Team name or identifier to add the member to. | Yes | `null` |
+| `-o`, `--organization` | Organization name or identifier where the team exists. | Yes | `null` |
+
+### Example
+
+Command:
+
+```bash
+tw teams members add -m user1@example.com -t my-team -o my-organization
+```
+
+Example output:
+
+```bash
+Member 'user1@example.com' added to team 'my-team' in organization 'my-organization'
+```
 
 ### tw teams members delete
 
@@ -173,3 +189,19 @@ tw teams members delete [OPTIONS]
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
 | `-m`, `--member` | Member username to remove from team. Removes the user from this team but does not remove them from the organization. They will lose access to workspaces shared with this team. | Yes | `null` |
+| `-t`, `--team` | Team name or identifier to remove the member from. | Yes | `null` |
+| `-o`, `--organization` | Organization name or identifier where the team exists. | Yes | `null` |
+
+### Example
+
+Command:
+
+```bash
+tw teams members delete -m user1@example.com -t my-team -o my-organization
+```
+
+Example output:
+
+```bash
+Member 'user1@example.com' removed from team 'my-team' in organization 'my-organization'
+```

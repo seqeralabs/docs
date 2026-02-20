@@ -23,7 +23,7 @@ tw labels add [OPTIONS]
 |--------|-------------|----------|----------|
 | `-n`, `--name` | Label name | Yes | `null` |
 | `-v`, `--value` | Label value | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
 Run `tw labels add -h` to view the required and optional fields for adding a label.
 
@@ -32,19 +32,39 @@ Run `tw labels add -h` to view the required and optional fields for adding a lab
 [Labels](https://docs.seqera.io/platform-cloud/labels/overview) require only a name and can be applied to pipelines, runs, and actions.
 :::
 
-### Example
+### Examples
+
+**Example 1: Add a resource label (with value)**
 
 Command:
 
 ```bash
-tw labels add -n Label1 -w DocTestOrg2/Testing -v Value1
+tw labels add -n environment -v production -w 123456789012345
 ```
 
 Example output:
 
 ```bash
-Label 'Label1=Value1' added at 'DocTestOrg2/Testing' workspace with id '268741348267491'
+Label 'environment=production' added at [my-organization / my-workspace] workspace with id '268741348267491'
 ```
+
+**Example 2: Add a regular label (name only)**
+
+Command:
+
+```bash
+tw labels add -n high-priority -w 123456789012345
+```
+
+Example output:
+
+```bash
+Label 'high-priority' added at [my-organization / my-workspace] workspace with id '268741348267492'
+```
+
+:::tip
+Resource labels (with values) are useful for cost tracking and filtering cloud resources. Regular labels are useful for categorizing and organizing pipelines, runs, and actions within Platform.
+:::
 
 ## tw labels list
 
@@ -60,7 +80,7 @@ tw labels list [OPTIONS]
 |--------|-------------|----------|----------|
 | `-t`, `--type` | Label type: normal, resource, or all (default: all) | No | `all` |
 | `-f`, `--filter` | Filter labels by substring | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 | `--page` | Page number for paginated results (default: 1) | No | `null` |
 | `--offset` | Row offset for paginated results (default: 0) | No | `null` |
 | `--max` | Maximum number of records to display (default: ) | No | `null` |
@@ -105,7 +125,7 @@ tw labels update [OPTIONS]
 | `-i`, `--id` | Label identifier | Yes | `null` |
 | `-n`, `--name` | Label name | No | `null` |
 | `-v`, `--value` | Label value | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
 Run `tw labels update -h` to view the required and optional fields for updating labels.
 
@@ -136,7 +156,7 @@ tw labels delete [OPTIONS]
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
 | `-i`, `--id` | Label ID | Yes | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
 Run `tw labels delete -h` to view the required and optional fields for deleting labels.
 

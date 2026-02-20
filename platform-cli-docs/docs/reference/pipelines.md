@@ -57,7 +57,7 @@ ID              | Name                 | Repository                           | 
 Add a pipeline.
 
 ```bash
-tw pipelines add [OPTIONS]
+tw pipelines add [OPTIONS] <repository-url>
 ```
 
 ### Options
@@ -65,6 +65,7 @@ tw pipelines add [OPTIONS]
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
 | `-n`, `--name` | Pipeline name. Must be unique within the workspace. | Yes | `null` |
+| `<repository-url>` | Pipeline repository URL. Must be a full Git repository URL (e.g., https://github.com/nextflow-io/rnaseq-nf). | Yes | `null` |
 | `-d`, `--description` | Pipeline description. | No | `null` |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
 | `--labels` | Labels to apply to the resource. Provide comma-separated label values (use key=value format for resource labels). Labels will be created if they don't exist | No | `null` |
@@ -96,13 +97,14 @@ Command:
 tw pipelines add --name=my_rnaseq_nf_pipeline \
 --params-file=my_rnaseq_nf_pipeline_params.yaml \
 --config=<path/to/nextflow/conf/file> \
+-w 123456789012345 \
 https://github.com/nextflow-io/rnaseq-nf
 ```
 
 Example output:
 
 ```bash
-New pipeline 'my_rnaseq_nf_pipeline' added at user workspace
+New pipeline 'my_rnaseq_nf_pipeline' added at [my-organization / my-workspace] workspace
 ```
 
 The optional `--params-file` flag is used to pass a set of default parameters that will be associated with the pipeline in the Launchpad.

@@ -70,7 +70,7 @@ tw participants add [OPTIONS]
 
 Run `tw participants add -h` to view the required and optional fields for adding a participant.
 
-To add a new _collaborator_ to the workspace, use the `add` subcommand. The default role assigned to a _collaborator_ is `Launch`.
+To add a new participant to the workspace, use the `add` subcommand. When adding a COLLABORATOR type participant, the default role assigned is `Launch`. For MEMBER type participants, you can specify organization members who will have access to the workspace.
 
 See [Participant roles](https://docs.seqera.io/platform-cloud/orgs-and-teams/roles) for more information.
 
@@ -79,13 +79,13 @@ See [Participant roles](https://docs.seqera.io/platform-cloud/orgs-and-teams/rol
 Command:
 
 ```bash
-tw participants add --name=collaborator@mydomain.com --type=MEMBER
+tw participants add --name=collaborator@mydomain.com --type=COLLABORATOR -w 123456789012345
 ```
 
 Example output:
 
 ```bash
-User 'collaborator' was added as participant to 'shared-workspace' workspace with role 'launch'
+User 'collaborator@mydomain.com' was added as participant to [my-organization / my-workspace] workspace with role 'launch'
 ```
 
 ## tw participants update

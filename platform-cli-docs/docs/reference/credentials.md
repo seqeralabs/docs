@@ -17,15 +17,22 @@ To launch pipelines in a Platform workspace, you need [credentials](https://docs
 Add workspace credentials.
 
 ```bash
-tw credentials add [OPTIONS]
+tw credentials add <provider> [OPTIONS]
 ```
 
 Run `tw credentials add -h` to view a list of providers.
 
 Run `tw credentials add <provider> -h` to view the required fields for your provider.
 
+### Common Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|---------|
+| `-n`, `--name` | Credentials name. Must be unique per workspace. | Yes | `null` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | Personal workspace |
+
 :::note
-You can add multiple credentials from the same provider in the same workspace.
+Additional provider-specific options are required depending on the provider type. Use `tw credentials add <provider> -h` to see all available options for your provider. You can add multiple credentials from the same provider in the same workspace.
 :::
 
 ### Compute environment credentials
@@ -35,7 +42,7 @@ Platform requires credentials to access your cloud compute environments. See the
 Command:
 
 ```bash
-tw credentials add aws --name=my_aws_creds --access-key=<aws access key> --secret-key=<aws secret key>
+tw credentials add aws --name=my_aws_creds --access-key=AKIAIOSFODNN7EXAMPLE --secret-key=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
 ```
 
 Example output:
@@ -51,7 +58,7 @@ Platform requires access credentials to interact with pipeline Git repositories.
 Command:
 
 ```bash
-tw credentials add github -n=my_GH_creds -u=<GitHub username> -p=<GitHub access token>
+tw credentials add github -n=my_GH_creds -u=my-github-user -p=ghp_exampletoken1234567890abcdefghij
 ```
 
 Example output:
@@ -71,7 +78,7 @@ Container registry credentials are only used by the Wave container service. See 
 Command:
 
 ```bash
-tw credentials add container-reg --name=my_registry_creds --username=<registry username> --password=<registry password> --registry=docker.io
+tw credentials add container-reg --name=my_registry_creds --username=my-registry-user --password=my-secure-password-123 --registry=docker.io
 ```
 
 Example output:
@@ -85,12 +92,24 @@ New CONTAINER-REG credentials 'my_registry_creds (2tyCywygy9yoyeyHyRyryI)' added
 Update workspace credentials.
 
 ```bash
-tw credentials update [OPTIONS]
+tw credentials update <provider> [OPTIONS]
 ```
 
 Run `tw credentials update -h` to view a list of providers.
 
 Run `tw credentials update <provider> -h` to view the required fields for your provider.
+
+### Common Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|---------|
+| `-i`, `--id` | Credentials unique identifier | No | `null` |
+| `-n`, `--name` | Credentials name | No | `null` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | Personal workspace |
+
+:::note
+Additional provider-specific options vary depending on the provider type. Use `tw credentials update <provider> -h` to see all available options for your provider. Either credentials ID (`-i`) or name (`-n`) is required to identify which credentials to update.
+:::
 
 ### Example
 
@@ -120,7 +139,7 @@ tw credentials delete [OPTIONS]
 |--------|-------------|----------|---------|
 | `-i`, `--id` | Credentials unique identifier | No | `null` |
 | `-n`, `--name` | Credentials name | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
 ### Example
 
@@ -148,7 +167,7 @@ tw credentials list [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
 ### Example
 
