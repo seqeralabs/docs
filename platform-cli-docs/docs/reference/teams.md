@@ -21,7 +21,7 @@ List organization teams.
 tw teams list [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -32,7 +32,7 @@ tw teams list [OPTIONS]
 
 Run `tw teams list -h` to view the required and optional fields for listing teams.
 
-### Example
+#### Example
 
 Command:
 
@@ -58,7 +58,7 @@ Add a team.
 tw teams add [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -69,7 +69,7 @@ tw teams add [OPTIONS]
 
 Run `tw teams add -h` to view the required and optional fields for creating a team.
 
-### Example
+#### Example
 
 Command:
 
@@ -91,14 +91,14 @@ Delete a team.
 tw teams delete [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
 | `-i`, `--id` | Team numeric identifier. The unique ID assigned when the team was created. Find team IDs using 'tw teams list'. | Yes | `null` |
 | `-o`, `--organization` | Organization name or numeric ID. Specify either the unique organization name or the numeric organization ID returned by 'tw organizations list'. | Yes | `null` |
 
-### Example
+#### Example
 
 Command:
 
@@ -120,14 +120,14 @@ List team members.
 tw teams members [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
 | `-t`, `--team` | Team name. The unique team identifier within the organization. Lists all members who belong to this team. | Yes | `null` |
 | `-o`, `--organization` | Organization name or numeric ID. Specify either the unique organization name or the numeric organization ID returned by 'tw organizations list'. | Yes | `null` |
 
-### Example
+#### Example
 
 Command:
 
@@ -154,7 +154,7 @@ Add a team member.
 tw teams members add [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -162,7 +162,7 @@ tw teams members add [OPTIONS]
 | `-t`, `--team` | Team name or identifier to add the member to. | Yes | `null` |
 | `-o`, `--organization` | Organization name or identifier where the team exists. | Yes | `null` |
 
-### Example
+#### Example
 
 Command:
 
@@ -184,7 +184,7 @@ Remove a team member.
 tw teams members delete [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -192,7 +192,7 @@ tw teams members delete [OPTIONS]
 | `-t`, `--team` | Team name or identifier to remove the member from. | Yes | `null` |
 | `-o`, `--organization` | Organization name or identifier where the team exists. | Yes | `null` |
 
-### Example
+#### Example
 
 Command:
 

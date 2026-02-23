@@ -21,7 +21,7 @@ View studio details.
 tw studios view [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -31,7 +31,7 @@ tw studios view [OPTIONS]
 
 Run `tw studios view -h` to view the required and optional fields for viewing session details.
 
-### Example
+#### Example
 
 Command:
 
@@ -71,7 +71,7 @@ List studios.
 tw studios list [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -85,7 +85,7 @@ Run `tw studios list -h` to view the required and optional fields for listing st
 
 List all studios in a workspace.
 
-### Example
+#### Example
 
 Command:
 
@@ -113,14 +113,14 @@ List available Studio templates.
 tw studios templates [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
 | `--max` | Maximum number of templates to return. | No | `20` |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable). Studios are not available in personal workspaces. | No | `TOWER_WORKSPACE_ID` |
 
-### Example
+#### Example
 
 Command:
 
@@ -151,7 +151,7 @@ Start a studio.
 tw studios start [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -166,24 +166,6 @@ tw studios start [OPTIONS]
 | `--memory` | Optional configuration override for 'memory' setting (integer representing memory in MBs). | No | `null` |
 | `--lifespan` | Optional configuration override for 'lifespan' setting (integer representing hours). Defaults to workspace lifespan setting. | No | `null` |
 
-Run `tw studios add-as-new -h` to view the required and optional fields for adding and starting a new session from an existing session checkpoint.
-
-Add a new session from an existing parent Studio session and checkpoint. Useful for experimentation without impacting the parent Studio session state.
-
-### Example
-
-Command:
-
-```bash
-tw studios add-as-new -pid 0t1u2v3w -n cloned-studio-example -w 123456789012345
-```
-
-Example output:
-
-```bash
-Studio 1u2v3w4x CREATED at [my-organization-updated / my-workspace] workspace.
-```
-
 ## tw studios add
 
 Add a studio.
@@ -192,7 +174,7 @@ Add a studio.
 tw studios add [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -216,7 +198,7 @@ Run `tw studios add -h` to view the required and optional fields for adding sess
 
 Add a new Studio session in a workspace.
 
-### Example
+#### Example
 
 Command:
 
@@ -244,7 +226,7 @@ List studio checkpoints.
 tw studios checkpoints [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -260,7 +242,7 @@ Run `tw studios checkpoints -h` to view the required and optional fields for vie
 
 List all checkpoints for an existing Studio session in a workspace. See [Session checkpoints](https://docs.seqera.io/platform-cloud/studios/managing#studio-session-checkpoints) for more information.
 
-### Example
+#### Example
 
 Command:
 
@@ -281,13 +263,13 @@ ID             | Name                | Created
 
 ## tw studios add-as-new
 
-Add a studio from an existing one.
+Add a new Studio session from an existing parent session and checkpoint. Useful for experimentation without impacting the parent session state.
 
 ```bash
 tw studios add-as-new [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -306,6 +288,22 @@ tw studios add-as-new [OPTIONS]
 | `--memory` | Optional configuration override for 'memory' setting (integer representing memory in MBs). | No | `null` |
 | `--lifespan` | Optional configuration override for 'lifespan' setting (integer representing hours). Defaults to workspace lifespan setting. | No | `null` |
 
+Run `tw studios add-as-new -h` to view the required and optional fields for adding a new studio session from an existing one.
+
+#### Example
+
+Command:
+
+```bash
+tw studios add-as-new -pid 0t1u2v3w -n cloned-studio-example -w 123456789012345
+```
+
+Example output:
+
+```bash
+Studio 1u2v3w4x CREATED at [my-organization / my-workspace] workspace.
+```
+
 ## tw studios stop
 
 Stop a studio.
@@ -314,7 +312,7 @@ Stop a studio.
 tw studios stop [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -327,7 +325,7 @@ Run `tw studios stop -h` to view the required and optional fields for adding ses
 
 Stop an existing Studio session in a workspace.
 
-### Example
+#### Example
 
 Command:
 
@@ -349,7 +347,7 @@ Delete an existing Studio session from a workspace.
 tw studios delete [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -359,7 +357,7 @@ tw studios delete [OPTIONS]
 
 Run `tw studios delete -h` to view the required and optional fields for listing sessions.
 
-### Example
+#### Example
 
 Command:
 

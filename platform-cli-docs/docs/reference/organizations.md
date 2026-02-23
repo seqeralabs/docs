@@ -17,7 +17,7 @@ List organizations.
 tw organizations list [OPTIONS]
 ```
 
-### Example
+#### Example
 
 Command:
 
@@ -51,7 +51,7 @@ Add an organization.
 tw organizations add [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -64,7 +64,7 @@ tw organizations add [OPTIONS]
 
 Run `tw organizations add -h` to view the required and optional fields for adding your workspace.
 
-### Example
+#### Example
 
 Command:
 
@@ -86,14 +86,14 @@ View organization details.
 tw organizations view [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
 | `-i`, `--id` | Organization numeric identifier. The unique ID assigned when the organization was created. | No | `null` |
 | `-n`, `--name` | Organization name. The unique organization name used as a human-readable identifier. | No | `null` |
 
-### Example
+#### Example
 
 Command:
 
@@ -123,7 +123,7 @@ Update an organization.
 tw organizations update [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -135,7 +135,7 @@ tw organizations update [OPTIONS]
 | `-l`, `--location` | Organization location. Geographic location or region where the organization is based (e.g., 'San Francisco, CA' or 'EU'). | No | `null` |
 | `-w`, `--website` | Organization website URL. Public website or documentation site for the organization. Must be a valid URL (e.g., https://example.com). | No | `null` |
 
-### Example
+#### Example
 
 Command:
 
@@ -157,14 +157,14 @@ Delete an organization.
 tw organizations delete [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
 | `-i`, `--id` | Organization numeric identifier. The unique ID assigned when the organization was created. | No | `null` |
 | `-n`, `--name` | Organization name. The unique organization name used as a human-readable identifier. | No | `null` |
 
-### Example
+#### Example
 
 Command:
 
