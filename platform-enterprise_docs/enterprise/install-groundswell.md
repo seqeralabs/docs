@@ -17,8 +17,7 @@ Pipeline optimization (Groundswell) uses resource usage data from previous workf
 
 See each deployment guide for detailed requirements.
 
-## Prerequisites
-
+:::info[**Prerequisites**]
 Before you begin, you need:
 - A running Seqera Platform Enterprise deployment
 - A MySQL 8 database separate from the one used by Seqera Platform
@@ -40,6 +39,7 @@ Before you begin, you need:
     GRANT SELECT ON `seqera_enterprise`.* TO 'pipeline_optimization_ro'@'%';
     FLUSH PRIVILEGES;
     ```
+:::
 
 ## Configuration
 

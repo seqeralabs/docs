@@ -7,14 +7,14 @@ tags: [authentication, github, oauth]
 
 Configure GitHub as a single sign-on (SSO) provider for Seqera Platform.
 
-## Prerequisites
-
+:::info[**Prerequisites**]
 Before you begin, you need:
 
 - A GitHub organization
 - Permission to create OAuth Apps in your organization
 
 Ensure you know how to create a GitHub OAuth app. See GitHub's documentation on [creating an OAuth app](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app) for more information.
+:::
 
 ## Create a GitHub OAuth App
 
