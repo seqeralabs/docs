@@ -5,7 +5,7 @@ description: "Confirms that the given organization name is valid and available f
 sidebar_label: "Validate organization name"
 hide_title: true
 hide_table_of_contents: true
-api: eJzNVE1T2zAQ/SsanamTtvRApl+B0g7TGWAK7aXDwMbeJAJZEpIccD35792V7eIQpr30wCGxrX3afW/1tI2MsAhy8lNaT8+LHVlgyL1yUVkjJ/LAmrnyZRBxCZH+UCzUCo0gNBj1CxgmDJQoVBAr0KoQYOi3AqVhplHMrRdVwExMnUOKXH1g9Lu3ta38JWW55M/3VyJaERzmal6nKiklraWUEDGTO9I69KngUUHMfnSRkwGTY9pFQAeeXiJ6FtZIzkUbTBtULOu2Ql/Lx2LPqfC2sAGLpKbTprSKdRJLiyU1J7el0wpMnsiGfIklyEkjY+24fIhemYVcr6nHHoOzJmDg+KvxLj82qZx8FS/EsaWkJqKJcr0jd8fjbdw+FMIjyQmRivZogoEjMnmSMboOjG0GnHiL8ljwwZcYAiyQz76jamfXmHM+57nnUbVEe+ATmmiripqXDr23/lunjyLrxPz1Ewr70xTGRgFa2zvik9B72+hPVSsHC4EaSxb5TOVSMGBeeXJHct8+gkc/reKSPi/49MmaS8sWXmCqChySI76Ao95p7CD0q97CldcEWcbowmQ0AqeyXNuqyALeUhczZbe8fJYi4lRDZH+KA8aL6emRZAo9wzNuUSt3yPOPYq7Ym5m/ZwlEK+3L5+R8Wr++i6ktysxt2t61p2PBZf9FkOWqHEMH5rOFPJ3tpvihZDpexTEu+/EhQES4c22dl9nem2zMa86GWEKyRjcS+hmyfesf020ezPasZmJ3ThHv48hpoOFGQlPDms5Y3WSnlvTWovNfUis41DQzCPjd6/Wal9uxyIYrVGCq5NI56IB/6cb/HJpPqrnB+mF6U9KKIcnFK/CKWaaLRaIQCjIn02/3TPMcXRzs2poSG9fxy+E5YWHzBjxyfMrehcDUg9zUyoQ4tzdoqJ098cjfVIgmw28NN5Tz
+api: eJzNVE1P3DAQ/SvWnNPdpeVC1C+gtEKVaFVoL2gFQzK7MTi2sSfbbqP892qcBBYWtZceOCX2PHvem3meFhiXEfJzcGEZYZ5BSbEI2rN2FnI4dHahQx0VV8iKK1JLvSKrXFii1b9RYMpiTUpHtUKjS4W2VLhCbfDKkFq4oJpIE7XvPdlSXb4T9JvXa9eECxeWF7J8e6nYqeip0It1ypKuZNdfiUwTyMB5CinhcQk5/BgiXzaYnGBNkIHHgDUxBRHWgtwFef/JQIus24bCGh6LPavoCWEbLJKaQZs2mtdJ7MKFGlkVrvZGoy0S2VhUVCPkLfDaS/rIQdsldN08g0DROxspSvzlbFc+D6l8+axeqBOnCmeZLEOXwe5sto07wFIFum0oMmQwovMW0HujiyRjeh0F225wkiM6UCmNrylGXJL0fqDqrq6pkPt8kJqz7omOwCc0ZcCajWwdheDCt0EfdF2XmL96QuHYTWUdKzTG/aSy17m3jf7Q9HKoVGSoFpHPVG6XQaSiCZrXyX0HhIHCfsMV5Odz6X5NXDmx8JJSVpQQTOUBTkeniYMorEYLN8FADhWzj/l0il5PCuOachLplgJOtNvy8mmKqK8GWfypDgWv9r8eg1AYGZ5KiXq5mzzvFEvG0cyyvkogyIafj8n5kMP1T05l0Xbh0vGhPAMLSfsvgiJXFxQHsPQWi9Tbh+I3JVONWmKS9v19oMtAKtfn2ZnszPYmM9n0LnKNyRvDTBiHyPazf8y3vXfbsxqKQ6OYfvHUG9RWhKaKtYOzhtGewZ235hlULrKE2vYKI30Pputku5+L4rhSR6FaQr5AE+kv1fifU/NJNTe0vh/fKzSNQJKNVxi0sEwvK4OKsKSQ6Pdn9ouCPG+c2hoTD97jp6MzyAAfPoFHlk+3DyG0642727ZHnLkbsl0HI3GWNXTzruv+ADCulR8=
 sidebar_class_name: "get api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -18,6 +18,7 @@ import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -31,7 +32,7 @@ import Heading from "@theme/Heading";
   path={"/orgs/validate"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -42,30 +43,24 @@ Confirms that the given organization name is valid and available for use. Append
   id={"request"}
   as={"h2"}
   className={"openapi-tabs__heading"}
-  children={"Request"}
 >
+  <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"name","in":"query","description":"The organization name to validate for availability and format compliance.","schema":{"type":"string"}}]}
+  {...require("./validate-organization-name.ParamsDetails.json")}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
-  title={"Body"}
-  body={undefined}
+  {...require("./validate-organization-name.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
-  id={undefined}
-  label={undefined}
-  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"},"409":{"description":"Duplicated element","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+  {...require("./validate-organization-name.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      

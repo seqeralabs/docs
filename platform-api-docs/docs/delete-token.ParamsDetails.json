@@ -1,0 +1,1 @@
+{"parameters":[{"name":"tokenId","in":"path","description":"Token numeric identifier","required":true,"schema":{"type":"integer","format":"int64"}}]}

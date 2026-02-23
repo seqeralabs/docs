@@ -1,0 +1,1 @@
+{"title":"Body","body":{"description":"Member details, including user identifier and organization role.","content":{"application/json":{"schema":{"type":"object","properties":{"user":{"type":"string","description":"Username or email address of the user to add as an organization member."}},"title":"AddMemberRequest"}}},"required":true}}

@@ -1,0 +1,66 @@
+---
+id: finish-data-link-upload-with-path
+title: "Finish data-link file upload to given path"
+description: "Finish upload of a data-link file, specifying a file path (`dirPath`). This is necessary for AWS S3 data-links (`DataLinkProvider=aws`) to finalize a successful file upload, or abort an upload if an error was encountered while uploading a file using an upload URL from the `/upload` endpoint."
+sidebar_label: "Finish data-link file upload to given path"
+hide_title: true
+hide_table_of_contents: true
+api: eJztV81u2zgQfpUBTw2g2G4aLLAGFti0TYAA3TbID3IIDHgsjSw2EqmSVFzXELAPsU+4T7IYUrKkxmunPe1hT7bI4fx8M/xmuBEOl1ZMH0SCDo9zqR6tmEUiIRsbWTqplZiKC6mkzaAqc40J6BQQtuKQypwisCXFMl1LtQT0S1Ciy+DVPJHmCl02PxrBbSYtSAuKYrIWzRpSbeDs/gZu3nQKLbyav0eHH6R6vDL6SSZkfsOVnR+B05BKhbn8RoBgq5j1pFUeDAb3ItAGcKGNA1StyzLlDzJGG1ihBVKxrpQjQwmssu5wz/3K+o+tirvrD5AaXYDLCObjsDoHUkmppXIjEQldkkGG7DLZgtZGcufl76XLGA0RiRINFuTIMPobobAgMfVZYPHLRERCMvZlEB8m5P0WfesM+ykTUk6mkoyIhKEvlTSUiKkzFUXCxhkVKKYb4dYlWwmHRF1HneGQpr1WWYBzwAgkZJ1UPlpIpKHYabP+SduxIe8+5raL+0tFXuHQhXed6M7QX2Jupc2jLTGmQ8buW0FQVUFGxgdsSeVo6bdSbQp0YemXU1HXs4AMWfdWJ2s+E2vlSDn+i2WZy9hjOf5s2fTmuXK9+Eyx48IxXGdOkuXdUIdccN+H/H00oQLh8j2gtXKpfOmTAqmkk+gYyqLKnTwu0bi26rsLOoJPC4eSj+25BmDIllpZGok6EnyRPnrQDznHUkwsrDXoZDsyD3oCR211oDHI2ZKOCnsYIo7nY1UsyBzM1ZsTNke3uNxZQsJJl9MWy3OHS5YfhnLG3nEs57e4tB3YDCVhnIHHd7HeEl/ly7iLHEqjmdhGcM7irIZZ05CrDCuSygu3SENGmJCxIZt9HvOGmvtaGjpuHLm7/mD3U1kdiZV02TnzZQ+IhdY5oXqWvIucPVSJr2G1ZEdcRqYfUp9wWyYewWUKc6aJedSXXck8hwUFEqckiKWY23+Ri3VR5sSSgxy1zBt4+A8u7Ss0LqTuOlxGUfOJIWf5hQCtL5+TyYR/dnXE3eQOJ5NJ7x5EP3vVa+/cyeTkufmPGlqldSROd3n4tgvyBzzooHgQBTfpJfE4sP+CtYJ7r4wvpusGlSa208mb545/arsoKO0A81yvKAlhnu5Cwl3oSiXw959/wZbZeQbodRWvKWWxCM6uLiGRFhd5cye5orYH/fTQzTbahDFme/6/imUdCUtxZaRb+3HiLaEhc1a5TEwfZtx+CnKZ5rmk1L4kfIefinE3d4033fRRN6wwTn2hjzfNfFBz3yPz1I4tlcnFVGTOlXY6HmMpR3Guq2Rk6QsZHEn9jCxu/A5c5eiYeeEdy3NWBHvZBnHDKAZE+qFsQWGLbQv21OSFRNT8uWg5/fPKeeQ4O9ddAz7/iswZwwba9aaub3VrzZw8bCeTtllsszQbUGfDJ1Kl2jvf5K/BgIM+BA+DLWOyjTAXH8a++IbQ9wGnAmXuG1qqf+826khw3oKd16PXk19HE17kgijQF28zITXz/nDGb2nXaVjKJ1Kwa0bszTX/vxpe9mpoKtrRVzcuc5SKc+KTu2ku6eBxFonp4JEQVPqiZbj9fjPLzyKR8WWfPojNZoGW7kxe17wc5l2u5pYKxdR32D3pPDR674zjkdY7BvwnzCuWFTyVv9yDA/P4HgeGI39nfsYfRrL9H0Tj1XXD7kew/zG206t2kFXrvjutt738/hhAPade8lb7Gdea0qpndSTC4OmBC7vvgifHt6yjO/2sTXJU4cRZHFPp9sr2e9fVp5tbJvnmDVXohM8YXPHLE1fBU+2R8b3Dr21EjmpZ+a4qgk5uCTjsKN91EB/VTiw2myBxqx9J1fUWGsffDExd/wOQnAnO
+sidebar_class_name: "post api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Finish data-link file upload to given path"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/data-links/{dataLinkId}/upload/finish/{dirPath}"}
+  context={"endpoint"}
+>
+
+</MethodEndpoint>
+
+
+
+Finish upload of a data-link file, specifying a file path (`dirPath`). This is necessary for AWS S3 data-links (`DataLinkProvider=aws`) to finalize a successful file upload, or abort an upload if an error was encountered while uploading a file using an upload URL from the `/upload` endpoint.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  {...require("./finish-data-link-upload-with-path.ParamsDetails.json")}
+>
+
+</ParamsDetails>
+
+<RequestSchema
+  {...require("./finish-data-link-upload-with-path.RequestSchema.json")}
+>
+
+</RequestSchema>
+
+<StatusCodes
+  {...require("./finish-data-link-upload-with-path.StatusCodes.json")}
+>
+
+</StatusCodes>

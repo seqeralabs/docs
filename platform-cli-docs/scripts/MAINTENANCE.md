@@ -42,7 +42,6 @@ cli/
 │   ├── pipelines.md
 │   ├── runs.md
 │   ├── secrets.md
-│   ├── studios.md
 │   ├── teams.md
 │   └── workspaces.md
 ├── metadata/                # CLI metadata JSON files

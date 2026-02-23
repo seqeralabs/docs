@@ -1,8 +1,8 @@
 ---
-title: "Version compatibility"
+title: "Default version compatibility"
 description: "Platform / nf-launcher / Nextflow / Fusion version compatibility"
 date created: "2025-12-05"
-last updated: "2026-01-22"
+last updated: "2026-02-09"
 tags: [compatibility, nextflow, nf-launcher]
 ---
 
@@ -14,7 +14,8 @@ If no Nextflow version is specified in your configuration, Seqera defaults to th
 
 | Platform version | nf-launcher version | Nextflow version | Fusion version | Connect client version|
 | ---------------- | ------------------- | ---------------- | -------------- |-------------- |
-| 25.3.1           | j21-25.10.2         | 25.10.2          | 2.4            |               |
+| 25.3.3           | j21-25.10.2         | 25.10.2          | 2.4            | 0.9.0         |
+| 25.3.1           | j21-25.10.2         | 25.10.2          | 2.4            | 0.9.0         |
 | 25.3.0           | j21-25.04.8         | 25.04.8          | 2.4            |               |
 | 25.2.4           | j21-25.04.3         | 25.04.3          | 2.4            |               |
 | 25.2.3           | j21-25.04.3         | 25.04.3          | 2.4            |               |
@@ -47,4 +48,4 @@ If no Nextflow version is specified in your configuration, Seqera defaults to th
 | 24.2.1           | j17-24.10.2         | 24.10.2          | 2.4            |               |
 | 24.2.0           | j17-24.10.0         | 24.10.0          | 2.4            |               |
 
-nf-launcher versions prefixed with j21 refer to Java version 21; j17 refers to Java version 17.
+nf-launcher versions prefixed with j21 refer to Java version 21; j17 refers to Java version 17; j11 refers to Java 11.

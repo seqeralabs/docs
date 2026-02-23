@@ -14,10 +14,10 @@ Add settings to the Nextflow configuration file. This must follow the same synta
 For example, modify the **manifest** section to give the pipeline a name and description that will show up in the Seqera monitoring section:
 
 ```ini
-    manifest {
-        name = 'My_RNASeq_Pipeline'
-        description = 'Generates RNASeq results using a test profile'
-    }
+manifest {
+    name = 'My_RNASeq_Pipeline'
+    description = 'Generates RNASeq results using a test profile'
+}
 ```
 
 #### Nextflow configuration order of priority

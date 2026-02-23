@@ -1,0 +1,1 @@
+{"title":"Body","body":{"description":"Team create request","content":{"application/json":{"schema":{"type":"object","properties":{"userNameOrEmail":{"type":"string","description":"Username or email address of the organization member to add to the team."}},"title":"CreateTeamMemberRequest"}}},"required":true}}

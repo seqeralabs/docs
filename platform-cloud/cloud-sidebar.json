@@ -140,7 +140,8 @@
           "items": [
             "studios/add-studio-provided-template",
             "studios/add-studio-custom-container",
-            "studios/add-studio-git-repo"
+            "studios/add-studio-git-repo",
+            "studios/example-studios"
           ]
           },
           "studios/managing",
@@ -154,6 +155,7 @@
           "orgs-and-teams/organizations",
           "orgs-and-teams/workspace-management",
           "orgs-and-teams/roles",
+          "orgs-and-teams/custom-roles",
           "monitoring/dashboard",
           "administration/credit-management"
           ]

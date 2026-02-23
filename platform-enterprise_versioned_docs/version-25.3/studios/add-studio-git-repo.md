@@ -24,7 +24,7 @@ You will need the following to get started:
 
 ### Create the required configuration files
 
-Create a `studio-config.yaml` file in the `.seqera` directory in your repository. Your `studio-config.yaml` should contain at least `schemaVersion `, `kind` and `session.template.kind`. All other fields are optional.
+Create a `studio-config.yaml` file in the `.seqera` directory in your repository. Your `studio-config.yaml` should contain at least `schemaVersion `, `kind` and `session.template.kind`. All other fields are optional. Note that `ssh` is only available from v25.3.3 and will be ignored in earlier versions.
 
 ```yaml
 schemaVersion: "0.0.1"
@@ -42,10 +42,10 @@ session:
   dependencies:
     condaEnvironmentFile: "environment.yaml"   # Define additional libraries (and versions). Ignored for `dockerfile`
   computeRequirements:
-    awsBatch:                                  # Ignored for non-AWS batch CE
-      cpu: 2                                   # Number of CPUs to use. Defaults to 2
-      gpu: 0                                   # Number of GPUs to use (if the CE supports GPUs). Defaults to 0
-      memory: 8192                             # Memory allocated in MiB. Defaults to 8192
+    awsBatch:                                  # Ignored for non-AWS batch compute environment
+      cpu: 2                                   # Number of CPUs to use. Defaults to `2`
+      gpu: 0                                   # Number of GPUs to use (if the CE supports GPUs). Defaults to `0`
+      memory: 8192                             # Memory allocated in MiB. Defaults to `8192`
   environmentVariables:                        # Ordered sequence of elements that are objects (or mappings) of key-value pairs
     - name: "var1"
       value: "value1"
@@ -54,11 +54,13 @@ session:
   management:                                  # Session management settings
     lifespanHours: 1                           # Ignored if workspace lifespan is set
     isPrivate: false                           # Defaults to `false`
+  ssh:
+    enabled: true                              # Defaults to `false`
 ```
 
 The schema can define a custom `Dockerfile` or an `environment.yaml` file, which must be in the `.seqera` folder. The following limitations apply:
 
-- Define the target repository where your custom Studio images will be pushed by setting the `TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REGISTRY` and `TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REPOSITORY` environment variables on the Platform backend containers. If no repository configuration is specified, the build will fail.
+- Define the target repository where your custom images will be pushed by setting the `TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REGISTRY` and `TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REPOSITORY` environment variables on the Platform backend containers. If no repository configuration is specified, the build will fail.
 - Each workspace needs to have valid credentials to push to the repository you've specified.
 - The only supported repository and compute environment combination for a fully private Dockerfile-based Studio is ECR and AWS.
 - The files pulled for Dockerbuild context have individual and total file size limits:
@@ -84,9 +86,10 @@ You can add a Studio by referencing a Git repository containing Studio configura
     :::note
     When private, workspace administrators can still start, stop, and delete sessions, but cannot connect to them.
     :::
+- **SSH Connection**: From Enterprise v25.3.3, you can enable direct connections to running Studios using standard SSH clients, VS Code Remote SSH, or terminal access. Enable the toggle to allow SSH connections to this Studio. See [Studios SSH configuration](../enterprise/studios-ssh) for configuration details.
 - **Session lifespan**: The duration the session remains active. Available options depend on your workspace settings:
-    - **Stop the session automatically after a predefined period of time**: An automatic timeout for the session (minimum: 1 hour; maximum: 120 hours; default: 8 hours). If a workspace-level session lifespan is configured, this field cannot be edited. Changes apply only to the current session and revert to default values after the session stops.
-    - **Keep the session running**: Continuous session operation until manually stopped or an error terminates it. The session continues consuming compute resources until stopped.
+  - **Stop the session automatically after a predefined period of time**: An automatic timeout for the session (minimum: 1 hour; maximum: 120 hours; default: 8 hours). If a workspace-level session lifespan is configured, this field cannot be edited. Changes apply only to the current session and revert to default values after the session stops.
+  - **Keep the session running**: Continuous session operation until manually stopped or an error terminates it. The session continues consuming compute resources until stopped.
 
  :::note
  When the **Git URL** or **Revision** fields are changed, form field values dynamically update.

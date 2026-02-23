@@ -1,0 +1,1 @@
+{"parameters":[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier. When omitted, the name is validated in the user context.","schema":{"type":"integer","format":"int64"}},{"name":"name","in":"query","description":"Studio name to validate for availability.","schema":{"type":"string"}}]}

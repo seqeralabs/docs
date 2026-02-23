@@ -9,10 +9,8 @@ tags: [helm, deployment, installation, kubernetes]
 
 ## Prerequisites
 
-Before you begin, you need:
+Other than the basic requirements [already listed in the Platform installation overview](./install-platform#prerequisites), you will need:
 - A Kubernetes cluster
-- A MySQL 8 database
-- A Redis 7 instance
 - [Helm v3](https://helm.sh/docs/intro/install) and [kubectl](https://kubernetes.io/docs/tasks/tools/) installed locally
 
 ## Installing the Helm chart

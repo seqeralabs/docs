@@ -1,0 +1,59 @@
+overlay: 1.0.0
+info:
+  title: Add identities tag to global tags
+  version: 1.102.0
+actions:
+  # ===== ADD MISSING IDENTITIES TAG =====
+
+  # CRITICAL: Remove entire tags array first to prevent duplicates
+  - target: "$.tags"
+    remove: true
+
+  # Replace with complete array including identities tag
+  - target: "$"
+    update:
+      tags:
+        - name: actions
+          description: Pipeline actions
+        - name: avatars
+          description: Avatars
+        - name: compute-envs
+          description: Compute environments
+        - name: credentials
+          description: Credentials
+        - name: data-links
+          description: Cloud storage directory paths in Data Explorer
+        - name: datasets
+          description: Pipeline input datasets (samplesheets) in CSV or TSV format
+        - name: ga4gh
+          description: GA4GH workflow execution service runs
+        - name: identities
+          description: Managed identities for centralized credential management
+        - name: labels
+          description: Labels and resource labels
+        - name: launch
+          description: Workflow launch events
+        - name: orgs
+          description: Organizations
+        - name: pipelines
+          description: Pipelines
+        - name: pipeline-secrets
+          description: Pipeline secrets in a user or workspace context
+        - name: platforms
+          description: Computing platforms
+        - name: service-info
+          description: Seqera Platform API service information
+        - name: studios
+          description: Studios and Studio sessions
+        - name: teams
+          description: Teams in an organization context
+        - name: tokens
+          description: API access tokens
+        - name: trace
+          description: Workflow execution traces
+        - name: users
+          description: Users
+        - name: workflows
+          description: Workflow executions
+        - name: workspaces
+          description: Workspaces in an organization context

@@ -1,0 +1,1 @@
+{"title":"Body","body":{"description":"Updated role for the workspace participant. Accepts `owner`, `admin`, `maintain`, `launch`, `connect`, `view`.","content":{"application/json":{"schema":{"type":"object","properties":{"role":{"description":"Workspace participant role to assign.","type":"string"}},"title":"UpdateParticipantRoleRequest"}}},"required":true}}

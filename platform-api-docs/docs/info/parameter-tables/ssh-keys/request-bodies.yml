@@ -1,0 +1,12 @@
+- Name: "**CreateSshKey**"
+  Type: ""
+  Req/Opt: ""
+  Description: Create SSH key
+- Name: name
+  Type: string
+  Req/Opt: Required
+  Description: SSH key name. Maximum 255 characters.
+- Name: publicKey
+  Type: string
+  Req/Opt: Required
+  Description: SSH public key content in OpenSSH format (e.g., `ssh-rsa`, `ssh-ed25519`).

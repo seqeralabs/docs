@@ -67,7 +67,7 @@
 - Name: "**GenerateDataLinkUploadUrl**"
   Type: ""
   Req/Opt: ""
-  Description: Generate data-link file upload URL (to given path)
+  Description: Generate data-link file upload URL
 - Name: fileName
   Type: string
   Req/Opt: Optional
@@ -84,7 +84,7 @@
 - Name: "**FinishDataLinkUpload**"
   Type: ""
   Req/Opt: ""
-  Description: Finish data-link file upload to given path
+  Description: Finish data-link file upload
 - Name: uploadId
   Type: string
   Req/Opt: Optional
@@ -113,7 +113,7 @@
   Req/Opt: Optional
   Description: Flag indicating whether the upload encountered an error. If `true`,
     the upload will be aborted. If `false`, the upload will be completed.
-- Name: "**FinishDataLinkUpload_1**"
+- Name: "**FinishDataLinkUploadWithPath**"
   Type: ""
   Req/Opt: ""
   Description: Finish data-link file upload to given path
@@ -145,7 +145,7 @@
   Req/Opt: Optional
   Description: Flag indicating whether the upload encountered an error. If `true`,
     the upload will be aborted. If `false`, the upload will be completed.
-- Name: "**GenerateDataLinkUploadUrl_1**"
+- Name: "**GenerateDataLinkUploadUrlWithPath**"
   Type: ""
   Req/Opt: ""
   Description: Generate data-link file upload URL (to given path)

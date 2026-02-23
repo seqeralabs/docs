@@ -37,7 +37,7 @@ If a compute environment is created with Batch Forge, it propagates resource lab
 
 ### Resource labels applied to a pipeline run
 
-A run inherits resource labels applied at the compute environment, pipeline, and action level. Resource labels can also be added or overridden during pipeline launch. 
+A run inherits resource labels applied at the compute environment, pipeline, and action level. Resource labels can also be added or overridden during pipeline launch.
 
 When a run is executed with resource labels attached:
 
@@ -46,7 +46,7 @@ When a run is executed with resource labels attached:
 
 ### Resource labels applied to a Studio
 
-A Studio inherits resource labels applied at the compute environment level. Resource labels can also be added or overridden when you add a Studio. 
+A Studio inherits resource labels applied at the compute environment level. Resource labels can also be added or overridden when you add a Studio.
 
 When a Studio starts with resource labels attached:
 
@@ -66,7 +66,7 @@ When a Studio starts with resource labels attached:
 1. Select **Add label**.
 1. Under **Type**, select **Resource label**.
 1. Enter a **Name** such as `owner`, `team`, or `platform-run`.
-1. Enter a **Value**: 
+1. Enter a **Value**:
     - **Standard resource labels**: `<USERNAME>`, `TEAM_NAME`
     - **[Dynamic resource labels](#dynamic-resource-labels)**: Use variable syntax — `${workflowId}` or `${sessionId}`
 1. Optionally, enable **Use as default in compute environment form** to automatically apply this label to all new compute environments in this workspace.
@@ -85,10 +85,10 @@ The deletion of a resource label from a workspace has no influence on the cloud 
 Once created at the workspace level, resource labels can be applied to:
 
 - **Compute environments**: In the **Resource labels** field when creating a new compute environment. Once the compute environment has been created, its resource labels cannot be edited.
-- **Pipelines**: In the **Resource labels** field when adding or editing a pipeline.  
+- **Pipelines**: In the **Resource labels** field when adding or editing a pipeline.
 - **Actions**: In the **Resource labels** field when creating or editing an action.
-- **Pipeline runs**: In the **Resource labels** field when launching a pipeline. 
-- **Studios**: In the **Resource labels** field when adding a Studio. 
+- **Pipeline runs**: In the **Resource labels** field when launching a pipeline.
+- **Studios**: In the **Resource labels** field when adding a Studio.
 
 Resource labels from the compute environment or pipeline are prefilled in the pipeline launch form, and compute environment resource labels are prefilled in the Studio add form. You can apply or override these labels when you launch a pipeline or add a Studio. Workspace maintainers can override default resource labels inherited from the compute environment when they create or edit pipelines, actions, runs, and Studios. Custom resource labels associated with each element propagate to resources in your cloud provider account. They don't alter the default resource labels on the compute environment.
 
@@ -98,7 +98,7 @@ For example, the resource label `name=ce1` is set during AWS Batch compute envir
 
 If a maintainer changes the compute environment associated with a pipeline, the **Resource labels** field is updated with the resource labels from the new compute environment.
 
-## Dynamic resource labels 
+## Dynamic resource labels
 
 Dynamic resource labels extend the standard resource labels functionality by allowing variable values that are populated with unique workflow identifiers at runtime. This enables precise cost tracking and resource attribution for individual pipeline runs across cloud compute environments.
 
@@ -164,11 +164,11 @@ The following resources are tagged using the labels associated with the compute 
 
 At execution time, when jobs are submitted to Batch, the requests are set up to propagate tags to all the instances and volumes created by the head job.
 
-The [`forge-policy.json` file](https://github.com/seqeralabs/nf-tower-aws/blob/master/forge/forge-policy.json) contains the roles needed for Batch Forge-created AWS Batch compute environments to tag AWS resources. Specifically, the required roles are `iam:TagRole`, `iam:TagInstanceProfile`, and `batch:TagResource`.
+The [AWS Batch documentation guide](../compute-envs/aws-batch) details the permissions needed by Seqera to tag AWS resources with labels requested by users. Specifically, the required actions are `iam:TagRole`, `iam:TagInstanceProfile`, and `batch:TagResource`.
 
 To view and manage the resource labels applied to AWS resources by Seqera and Nextflow, go to the [AWS Tag Editor](https://docs.aws.amazon.com/tag-editor/latest/userguide/find-resources-to-tag.html) (as an administrative user) and follow these steps:
 
-1. Under **Find resources to tag**, search for the resource label key and value in the relevant search fields under **Tags**. Your search can be further refined by AWS region and resource type. 
+1. Under **Find resources to tag**, search for the resource label key and value in the relevant search fields under **Tags**. Your search can be further refined by AWS region and resource type.
 1. Select **Search resources**. **Resource search results** display all the resources tagged with your given resource label key and/or value.
 
 ### Include Seqera resource labels in AWS billing reports
@@ -189,12 +189,12 @@ To include the cost information associated with your resource labels in your AWS
    - Choose **Activate**
    - Allow up to 24 hours for tags to activate
 
-3. **For static resource labels - View in Cost Explorer or Data Exports**: 
+3. **For static resource labels - View in Cost Explorer or Data Exports**:
    - Navigate to AWS Cost Explorer and use **Group by** filters to organize costs by your activated tag keys
    - Create [cost allocation reports](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/configurecostallocreport.html#allocation-viewing) including your resource label tags
    - Alternatively, view in Data Exports and QuickSight dashboards for more detailed analysis
 
-4. **For dynamic resource labels - Enable split cost allocation and view in Data Exports**: 
+4. **For dynamic resource labels - Enable split cost allocation and view in Data Exports**:
    - [Enable split cost allocation data](https://docs.aws.amazon.com/cur/latest/userguide/enabling-split-cost-allocation-data.html) in your Cost and Usage Reports preferences
    - View costs in your [Data Exports](https://docs.aws.amazon.com/cur/latest/userguide/what-is-data-exports.html) and Cost and Usage Reports (CUR)
    - Query reports using Amazon Athena or visualize in Amazon QuickSight dashboards (requires a QuickSight subscription)
@@ -246,7 +246,7 @@ See [here](https://cloud.google.com/resource-manager/docs/creating-managing-labe
 
 ### Azure
 
-The system used for labeling resources in Azure differs depending on your compute environment type: 
+The system used for labeling resources in Azure differs depending on your compute environment type:
 - In an **Azure Batch** compute environment created with Batch Forge, resource labels are added to the Pool parameters — this adds set of `key=value` **metadata** pairs to the Azure Batch Pool.
 - In an **Azure Cloud** (single instance) compute environment, resource labels are propagated to VMs and related resources as **tags**.
 
@@ -324,4 +324,4 @@ See [Syntax and character set](https://kubernetes.io/docs/concepts/overview/work
 
 ## Troubleshooting
 
-See [Resource labels](../troubleshooting_and_faqs/resource-labels.md) for troubleshooting common resource label propagation errors. 
+See [Resource labels](../troubleshooting_and_faqs/resource-labels.md) for troubleshooting common resource label propagation errors.
