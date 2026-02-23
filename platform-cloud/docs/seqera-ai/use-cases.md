@@ -19,7 +19,7 @@ Seqera AI is an intelligent command-line assistant that helps you build, run, an
 
 Seqera AI helps you develop, debug, and understand Nextflow pipelines with AI-powered analysis and code generation.
 
-![Use Seqera AI CLI to debug Nextflow pipeline scripts](./_images/pipeline-debug.gif)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ejsRDS2czPg" title="Use Seqera AI CLI to debug Nextflow pipeline scripts" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 <details open>
 <summary>**Working with Nextflow**</summary>
@@ -65,11 +65,44 @@ Seqera AI helps you develop, debug, and understand Nextflow pipelines with AI-po
 
 </details>
 
+## Work with Seqera Platform
+
+Use Seqera Platform capabilities to run and manage workflows at scale with AI assistance.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/KPb1mAkuQaw" title="Use Seqera AI CLI to debug Platform run errors" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+<details open>
+<summary>**Working with Seqera Platform**</summary>
+
+**List your workflows**:
+
+```
+> List my recent workflows
+```
+
+**Launch a pipeline**:
+
+```
+> Launch the nf-core/rnaseq pipeline with the test profile
+```
+
+**Debug failed runs**:
+
+```
+> Why did my last workflow fail?
+```
+
+```
+> Get the logs for the failed task in my last run
+```
+
+</details>
+
 ## Build containers with Wave
 
-Seqera AI can create containerized environments using Wave, without requiring you to write Dockerfiles.
+Seqera AI can create containerized environments using Wave, without the need to write Dockerfiles.
 
-![Use Seqera AI CLI to build containers with Wave](./_images/building-wave-container.gif)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/lihF6g9C3RY" title="Use Seqera AI CLI to build containers with Wave" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 <details open>
 <summary>**Building containers with Wave**</summary>
@@ -263,39 +296,6 @@ Seqera AI provides access to over 1,000 nf-core modules for common bioinformatic
 :::note
 The assistant can generate the exact Nextflow command with proper parameters for your data.
 :::
-
-</details>
-
-## Work with Seqera Platform
-
-Use Seqera Platform capabilities to run and manage workflows at scale with AI assistance.
-
-![Use Seqera AI CLI to debug Platform run errors](./_images/sp-run-debug.gif)
-
-<details open>
-<summary>**Working with Seqera Platform**</summary>
-
-**List your workflows**:
-
-```
-> List my recent workflows
-```
-
-**Launch a pipeline**:
-
-```
-> Launch the nf-core/rnaseq pipeline with the test profile
-```
-
-**Debug failed runs**:
-
-```
-> Why did my last workflow fail?
-```
-
-```
-> Get the logs for the failed task in my last run
-```
 
 </details>
 
